@@ -447,6 +447,10 @@
             "2": {
               "value": "160%",
               "type": "lineHeights"
+            },
+            "3": {
+              "value": "170%",
+              "type": "lineHeights"
             }
           }
         },
@@ -598,7 +602,7 @@
             "value": {
               "fontFamily": "{click.type.font.families.mono}",
               "fontWeight": "{click.type.font.weights.2}",
-              "lineHeight": "{click.type.font.lineHeights.1}",
+              "lineHeight": "{click.type.font.lineHeights.2}",
               "fontSize": "{click.type.font.sizes.1}"
             },
             "type": "typography"
@@ -607,7 +611,7 @@
             "value": {
               "fontFamily": "{click.type.font.families.mono}",
               "fontWeight": "{click.type.font.weights.2}",
-              "lineHeight": "{click.type.font.lineHeights.1}",
+              "lineHeight": "{click.type.font.lineHeights.3}",
               "fontSize": "{click.type.font.sizes.2}"
             },
             "type": "typography"
@@ -616,7 +620,7 @@
             "value": {
               "fontFamily": "{click.type.font.families.mono}",
               "fontWeight": "{click.type.font.weights.2}",
-              "lineHeight": "{click.type.font.lineHeights.1}",
+              "lineHeight": "{click.type.font.lineHeights.2}",
               "fontSize": "{click.type.font.sizes.3}"
             },
             "type": "typography"
