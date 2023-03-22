@@ -1201,11 +1201,19 @@
             "default": {
               "value": "{color.palette.slate.800}",
               "type": "color"
+            },
+            "inline": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
             }
           },
           "text": {
             "default": {
               "value": "{color.palette.neutral.0}",
+              "type": "color"
+            },
+            "inline": {
+              "value": "{click.global.color.text.default}",
               "type": "color"
             }
           },
@@ -1217,6 +1225,25 @@
             "hover": {
               "value": "{color.palette.neutral.0}",
               "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{color.palette.neutral.725}",
+              "type": "color"
+            },
+            "inline": {
+              "value": "{color.palette.neutral.300}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.4",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           }
         }
@@ -1561,6 +1588,10 @@
             "default": {
               "value": "{color.palette.neutral.725}",
               "type": "color"
+            },
+            "inline": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
             }
           },
           "text": {
@@ -1576,6 +1607,25 @@
             },
             "hover": {
               "value": "{color.palette.neutral.0}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{color.palette.neutral.700}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.5",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "inline": {
+              "value": "{click.feedback.color.neutral.stroke}",
               "type": "color"
             }
           }
