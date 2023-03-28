@@ -395,7 +395,7 @@
               "type": "fontFamilies"
             },
             "display": {
-              "value": "'Basier Square', monotype",
+              "value": "'Basier Square', \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
               "type": "fontFamilies"
             }
           },
@@ -626,22 +626,31 @@
             "type": "typography"
           }
         },
-        "display": {
+        "brand-titles": {
+          "xs": {
+            "value": {
+              "fontFamily": "{click.type.font.families.display}",
+              "fontWeight": "{click.type.font.weights.3}",
+              "lineHeight": "{click.type.font.lineHeights.1}",
+              "fontSize": "20px"
+            },
+            "type": "typography"
+          },
           "sm": {
             "value": {
               "fontFamily": "{click.type.font.families.display}",
-              "fontWeight": "{click.type.font.weights.2}",
+              "fontWeight": "{click.type.font.weights.3}",
               "lineHeight": "{click.type.font.lineHeights.1}",
-              "fontSize": "28px"
+              "fontSize": "24px"
             },
             "type": "typography"
           },
           "md": {
             "value": {
               "fontFamily": "{click.type.font.families.display}",
-              "fontWeight": "{click.type.font.weights.4}",
+              "fontWeight": "{click.type.font.weights.3}",
               "lineHeight": "{click.type.font.lineHeights.1}",
-              "fontSize": "54px"
+              "fontSize": "36px"
             },
             "type": "typography"
           },
@@ -650,7 +659,16 @@
               "fontFamily": "{click.type.font.families.display}",
               "fontWeight": "{click.type.font.weights.3}",
               "lineHeight": "{click.type.font.lineHeights.1}",
-              "fontSize": "72px"
+              "fontSize": "56px"
+            },
+            "type": "typography"
+          },
+          "xl": {
+            "value": {
+              "fontFamily": "{click.type.font.families.display}",
+              "fontWeight": "{click.type.font.weights.3}",
+              "lineHeight": "{click.type.font.lineHeights.1}",
+              "fontSize": "64px"
             },
             "type": "typography"
           }
