@@ -626,7 +626,7 @@
             "type": "typography"
           }
         },
-        "brand-titles": {
+        "titles-brand": {
           "xs": {
             "value": {
               "fontFamily": "{click.type.font.families.display}",
