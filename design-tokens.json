@@ -451,6 +451,10 @@
             "3": {
               "value": "170%",
               "type": "lineHeights"
+            },
+            "4": {
+              "value": "130%",
+              "type": "lineHeights"
             }
           }
         },
@@ -666,8 +670,8 @@
           "xl": {
             "value": {
               "fontFamily": "{click.type.font.families.display}",
-              "fontWeight": "{click.type.font.weights.3}",
-              "lineHeight": "{click.type.font.lineHeights.1}",
+              "fontWeight": "{click.type.font.weights.4}",
+              "lineHeight": "{click.type.font.lineHeights.4}",
               "fontSize": "64px"
             },
             "type": "typography"
