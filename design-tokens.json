@@ -964,7 +964,7 @@
           "value": "{click.type.text-sbold.md}",
           "type": "typography"
         },
-        "value": {
+        "title": {
           "value": "{click.type.titles.2xl}",
           "type": "typography"
         },
