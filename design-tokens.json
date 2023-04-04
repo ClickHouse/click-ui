@@ -1,5 +1,5 @@
 {
-  "global": {
+  "primitives": {
     "color": {
       "palette": {
         "brand": {
@@ -653,7 +653,7 @@
             "value": {
               "fontFamily": "{click.type.font.families.display}",
               "fontWeight": "{click.type.font.weights.3}",
-              "lineHeight": "{click.type.font.lineHeights.1}",
+              "lineHeight": "{click.type.font.lineHeights.4}",
               "fontSize": "36px"
             },
             "type": "typography"
@@ -662,7 +662,7 @@
             "value": {
               "fontFamily": "{click.type.font.families.display}",
               "fontWeight": "{click.type.font.weights.3}",
-              "lineHeight": "{click.type.font.lineHeights.1}",
+              "lineHeight": "{click.type.font.lineHeights.4}",
               "fontSize": "56px"
             },
             "type": "typography"
@@ -845,6 +845,206 @@
             }
           ],
           "type": "boxShadow"
+        }
+      }
+    }
+  },
+  "component": {
+    "click": {
+      "button": {
+        "radius": {
+          "value": "{click.border.radii.1}",
+          "type": "borderRadius"
+        },
+        "space": {
+          "x": {
+            "value": "{click.spaces.4}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "{click.spaces.1}+1.5px",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{click.spaces.2}",
+            "type": "spacing"
+          },
+          "iconButton": {
+            "all": {
+              "value": "{click.spaces.2}",
+              "type": "spacing"
+            }
+          },
+          "icon": {
+            "size": {
+              "value": "{click.sizes.4}+3.5px",
+              "type": "spacing"
+            }
+          },
+          "group": {
+            "value": "{click.button.space.gap}",
+            "type": "spacing"
+          }
+        },
+        "stroke": {
+          "value": "{click.border.width.1}",
+          "type": "borderWidth"
+        },
+        "label": {
+          "value": "{click.type.text-sbold.md}",
+          "type": "typography"
+        }
+      },
+      "product": {
+        "title": {
+          "h1": {
+            "value": "{click.type.titles.xl}",
+            "type": "typography"
+          },
+          "h2": {
+            "value": "{click.type.titles.md}",
+            "type": "typography"
+          },
+          "h3": {
+            "value": "{click.type.titles.sm}",
+            "type": "typography"
+          },
+          "h4": {
+            "value": "{click.type.titles.xs}",
+            "type": "typography"
+          }
+        },
+        "brand": {
+          "h1": {
+            "value": "{click.type.titles-brand.lg}",
+            "type": "typography"
+          },
+          "h2": {
+            "value": "{click.type.titles-brand.md}",
+            "type": "typography"
+          }
+        }
+      },
+      "badge": {
+        "space": {
+          "x": {
+            "value": "{click.spaces.3}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "{click.spaces.1}-1px",
+            "type": "spacing"
+          }
+        },
+        "label": {
+          "value": "{click.type.text-bold.sm}",
+          "type": "typography"
+        },
+        "radius": {
+          "value": "{click.border.radii.full}",
+          "type": "borderRadius"
+        },
+        "stroke": {
+          "value": "{click.border.width.1}",
+          "type": "borderWidth"
+        }
+      },
+      "bigStat": {
+        "space": {
+          "all": {
+            "value": "{click.spaces.3}",
+            "type": "spacing"
+          }
+        },
+        "radius": {
+          "value": "{click.border.radii.1}",
+          "type": "borderRadius"
+        },
+        "label": {
+          "value": "{click.type.text-sbold.md}",
+          "type": "typography"
+        },
+        "value": {
+          "value": "{click.type.titles.2xl}",
+          "type": "typography"
+        },
+        "stroke": {
+          "value": "{click.border.width.1}",
+          "type": "borderWidth"
+        }
+      },
+      "codeBlock": {
+        "space": {
+          "all": {
+            "value": "{click.spaces.4}",
+            "type": "spacing"
+          }
+        },
+        "radius": {
+          "value": "{click.border.radii.2}",
+          "type": "borderRadius"
+        },
+        "stroke": {
+          "value": "{click.border.width.1}",
+          "type": "borderWidth"
+        },
+        "text": {
+          "value": "{click.type.text-mono.md}",
+          "type": "typography"
+        }
+      },
+      "code": {
+        "x": {
+          "value": "{click.spaces.1}",
+          "type": "spacing"
+        },
+        "stroke": {
+          "value": "{click.border.width.1}",
+          "type": "borderWidth"
+        },
+        "text": {
+          "value": "{click.type.text-mono.md}",
+          "type": "typography"
+        },
+        "radius": {
+          "value": "{click.border.radii.1}",
+          "type": "borderRadius"
+        }
+      },
+      "tab": {
+        "space": {
+          "y": {
+            "value": "{click.spaces.2}",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{click.spaces.3}",
+            "type": "spacing"
+          }
+        },
+        "radius": {
+          "value": "{click.border.radii.1}",
+          "type": "borderRadius"
+        },
+        "label": {
+          "default": {
+            "value": "{click.type.text.md}",
+            "type": "typography"
+          },
+          "hover": {
+            "value": "{click.tab.label.default}",
+            "type": "typography"
+          },
+          "selected": {
+            "value": "{click.type.text-bold.md}",
+            "type": "typography"
+          }
+        }
+      },
+      "field": {
+        "label": {
+          "value": "{click.type.text-sbold.sm}",
+          "type": "typography"
         }
       }
     }
@@ -1757,7 +1957,8 @@
   "$themes": [],
   "$metadata": {
     "tokenSetOrder": [
-      "global",
+      "primitives",
+      "component",
       "light",
       "dark",
       "classic"
