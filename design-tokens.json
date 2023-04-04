@@ -1045,6 +1045,42 @@
         "label": {
           "value": "{click.type.text-sbold.sm}",
           "type": "typography"
+        },
+        "value": {
+          "value": "{click.type.text.md}",
+          "type": "typography"
+        },
+        "space": {
+          "x": {
+            "value": "{click.spaces.3}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "{click.spaces.1}+1px",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{click.spaces.2}",
+            "type": "spacing"
+          }
+        },
+        "size": {
+          "icon": {
+            "value": "{click.sizes.5}",
+            "type": "sizing"
+          }
+        }
+      },
+      "switch": {
+        "space": {
+          "gap": {
+            "value": "{click.spaces.2}",
+            "type": "spacing"
+          }
+        },
+        "radius": {
+          "value": "{click.border.radii.full}",
+          "type": "borderRadius"
         }
       }
     }
@@ -1513,6 +1549,64 @@
               "value": "{click.global.color.accent}",
               "type": "color"
             }
+          }
+        }
+      },
+      "switch": {
+        "background": {
+          "default": {
+            "value": "{click.button.color.primary.background.default}",
+            "type": "color"
+          },
+          "off": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.button.color.disabled.text.default}",
+            "type": "color"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "off": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.field.color.text.disabled}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.switch.background.default}",
+            "type": "color"
+          },
+          "off": {
+            "value": "{color.palette.neutral.300}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.switch.background.disabled}",
+            "type": "color"
+          }
+        },
+        "indicator": {
+          "default": {
+            "value": "{click.field.color.background.default}",
+            "type": "color"
+          },
+          "off": {
+            "value": "{color.palette.neutral.600}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{color.palette.neutral.200}",
+            "type": "color"
           }
         }
       }
