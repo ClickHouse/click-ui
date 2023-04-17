@@ -870,7 +870,11 @@
             "type": "spacing"
           },
           "iconButton": {
-            "all": {
+            "1": {
+              "value": "{click.spaces.1}",
+              "type": "spacing"
+            },
+            "2": {
               "value": "{click.spaces.2}",
               "type": "spacing"
             }
@@ -1081,6 +1085,22 @@
         "radius": {
           "value": "{click.border.radii.full}",
           "type": "borderRadius"
+        }
+      },
+      "iconButton": {
+        "size": {
+          "1": {
+            "value": "{click.sizes.4}",
+            "type": "sizing"
+          },
+          "2": {
+            "value": "{click.sizes.5}",
+            "type": "sizing"
+          },
+          "3": {
+            "value": "{click.sizes.6}",
+            "type": "sizing"
+          }
         }
       }
     }
