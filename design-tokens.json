@@ -1060,7 +1060,7 @@
             "type": "spacing"
           },
           "y": {
-            "value": "{click.spaces.1}+1px",
+            "value": "{click.spaces.1}+1.5px",
             "type": "spacing"
           },
           "gap": {
@@ -1072,6 +1072,12 @@
           "icon": {
             "value": "{click.sizes.5}",
             "type": "sizing"
+          }
+        },
+        "borderRadius": {
+          "1": {
+            "value": "{click.border.radii.1}",
+            "type": "borderRadius"
           }
         }
       },
