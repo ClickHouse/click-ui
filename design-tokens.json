@@ -1108,6 +1108,18 @@
             "type": "sizing"
           }
         }
+      },
+      "checkbox": {
+        "radius": {
+          "value": "{click.border.radii.1}/2",
+          "type": "borderRadius"
+        },
+        "space": {
+          "all": {
+            "value": "{click.sizes.1}",
+            "type": "spacing"
+          }
+        }
       }
     }
   },
@@ -1285,6 +1297,23 @@
             "disabled": {
               "value": "{color.palette.neutral.200}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.15",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "danger": {
+              "value": "{click.feedback.color.danger.text}",
+              "type": "color"
             }
           },
           "label": {
@@ -1298,6 +1327,10 @@
             },
             "disabled": {
               "value": "{color.palette.neutral.400}",
+              "type": "color"
+            },
+            "error": {
+              "value": "{click.feedback.color.danger.text}",
               "type": "color"
             }
           }
@@ -1635,6 +1668,60 @@
             "type": "color"
           }
         }
+      },
+      "checkbox": {
+        "background": {
+          "default": {
+            "value": "{click.field.color.background.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.button.color.primary.background.active}",
+            "type": "color"
+          },
+          "disabled-checked": {
+            "value": "{click.field.color.background.disabled}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.field.color.stroke.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.checkbox.background.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.check.disabled}",
+            "type": "color"
+          }
+        },
+        "check": {
+          "default": {
+            "value": "{click.button.color.primary.text.default}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.button.color.disabled.text.default}",
+            "type": "color"
+          }
+        },
+        "label": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "off": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.field.color.text.disabled}",
+            "type": "color"
+          }
+        }
       }
     }
   },
@@ -1803,7 +1890,16 @@
           "stroke": {
             "default": {
               "value": "{click.global.color.stroke}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "active": {
               "value": "{click.global.color.accent}",
@@ -1812,6 +1908,19 @@
             "disabled": {
               "value": "{color.palette.neutral.700}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.field.color.stroke.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           },
           "label": {
