@@ -1118,6 +1118,10 @@
           "all": {
             "value": "{click.sizes.1}",
             "type": "spacing"
+          },
+          "gap": {
+            "value": "{click.spaces.2}",
+            "type": "spacing"
           }
         }
       }
@@ -1622,7 +1626,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.button.color.disabled.text.default}",
+            "value": "{click.field.color.background.disabled}",
             "type": "color"
           }
         },
@@ -1650,7 +1654,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.switch.background.disabled}",
+            "value": "{click.checkbox.check.disabled}",
             "type": "color"
           }
         },
@@ -1660,11 +1664,11 @@
             "type": "color"
           },
           "off": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.400}",
             "type": "color"
           },
           "disabled": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.400}",
             "type": "color"
           }
         }
@@ -1704,7 +1708,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.button.color.disabled.text.default}",
+            "value": "{color.palette.neutral.300}",
             "type": "color"
           }
         },
