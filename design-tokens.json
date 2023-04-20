@@ -1130,11 +1130,53 @@
           "radius": {
             "value": "{click.border.radii.1}",
             "type": "borderRadius"
+          },
+          "space": {
+            "x": {
+              "value": "{click.spaces.3}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{click.button.space.y}",
+              "type": "spacing"
+            },
+            "gap": {
+              "value": "{click.spaces.3}",
+              "type": "spacing"
+            },
+            "left": {
+              "value": "{click.spaces.1}",
+              "type": "spacing"
+            }
+          },
+          "default": {
+            "value": "{click.type.text.md}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{click.type.text-sbold.md}",
+            "type": "typography"
           }
         },
         "title": {
           "value": "{click.type.text-sbold.sm}",
           "type": "typography"
+        },
+        "item-collapsible": {
+          "space": {
+            "x": {
+              "value": "{click.spaces.3}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{click.button.space.y}",
+              "type": "spacing"
+            },
+            "gap": {
+              "value": "{click.spaces.3}",
+              "type": "spacing"
+            }
+          }
         }
       }
     }
@@ -1178,18 +1220,9 @@
               "value": "{color.palette.slate.100}",
               "type": "color"
             },
-            "increased": {
-              "value": "{color.palette.slate.100}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.1",
-                    "space": "lch"
-                  }
-                }
-              }
+            "muted": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
             }
           },
           "accent": {
@@ -1804,7 +1837,7 @@
               "value": "{color.palette.neutral.725}",
               "type": "color"
             },
-            "increased": {
+            "muted": {
               "value": "{color.palette.neutral.725}",
               "type": "color",
               "$extensions": {
