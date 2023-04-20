@@ -1131,6 +1131,10 @@
             "value": "{click.border.radii.1}",
             "type": "borderRadius"
           }
+        },
+        "title": {
+          "value": "{click.type.text-sbold.sm}",
+          "type": "typography"
         }
       }
     }
