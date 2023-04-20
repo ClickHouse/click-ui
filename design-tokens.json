@@ -1124,6 +1124,14 @@
             "type": "spacing"
           }
         }
+      },
+      "sidebar": {
+        "item": {
+          "radius": {
+            "value": "{click.border.radii.1}",
+            "type": "borderRadius"
+          }
+        }
       }
     }
   },
@@ -1521,7 +1529,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "darken",
-                    "value": "0.15",
+                    "value": "0.05",
                     "space": "lch"
                   }
                 }
@@ -2159,7 +2167,16 @@
             },
             "active": {
               "value": "{color.palette.neutral.700}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.2",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           },
           "text": {
