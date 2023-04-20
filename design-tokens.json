@@ -1162,8 +1162,23 @@
             }
           },
           "stroke": {
-            "value": "{color.palette.slate.100}",
-            "type": "color"
+            "default": {
+              "value": "{color.palette.slate.100}",
+              "type": "color"
+            },
+            "increased": {
+              "value": "{color.palette.slate.100}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.1",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
           },
           "accent": {
             "value": "{color.palette.warning.400}",
@@ -1223,7 +1238,7 @@
               "type": "color"
             },
             "stroke": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
           }
@@ -1253,7 +1268,7 @@
           },
           "cell": {
             "stroke": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
           }
@@ -1291,7 +1306,7 @@
           },
           "stroke": {
             "default": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color"
             },
             "active": {
@@ -1303,7 +1318,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
@@ -1381,7 +1396,7 @@
             },
             "stroke": {
               "default": {
-                "value": "{click.global.color.stroke}",
+                "value": "{click.global.color.stroke.default}",
                 "type": "color"
               },
               "hover": {
@@ -1469,7 +1484,7 @@
             },
             "stroke": {
               "panel": {
-                "value": "{click.global.color.stroke}",
+                "value": "{click.global.color.stroke.default}",
                 "type": "color"
               }
             }
@@ -1500,8 +1515,17 @@
               "type": "color"
             },
             "active": {
-              "value": "{color.palette.slate.100}",
-              "type": "color"
+              "value": "{click.global.color.background.muted}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.15",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           },
           "text": {
@@ -1764,8 +1788,23 @@
             }
           },
           "stroke": {
-            "value": "{color.palette.neutral.725}",
-            "type": "color"
+            "default": {
+              "value": "{color.palette.neutral.725}",
+              "type": "color"
+            },
+            "increased": {
+              "value": "{color.palette.neutral.725}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.1",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
           },
           "accent": {
             "value": "{color.palette.brand.300}",
@@ -1825,7 +1864,7 @@
               "type": "color"
             },
             "stroke": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
           }
@@ -1855,7 +1894,7 @@
           },
           "cell": {
             "stroke": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
           }
@@ -1893,7 +1932,7 @@
           },
           "stroke": {
             "default": {
-              "value": "{click.global.color.stroke}",
+              "value": "{click.global.color.stroke.default}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
