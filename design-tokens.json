@@ -1682,6 +1682,28 @@
               "type": "color"
             }
           }
+        },
+        "file-tabs": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.tabs.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          }
         }
       },
       "switch": {
