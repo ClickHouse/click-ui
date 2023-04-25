@@ -1178,6 +1178,30 @@
             }
           }
         }
+      },
+      "popover": {
+        "radius": {
+          "value": "{click.border.radii.1}",
+          "type": "borderRadius"
+        },
+        "shadow": {
+          "default": {
+            "value": "{click.shadow.1}",
+            "type": "boxShadow"
+          }
+        }
+      },
+      "menu": {
+        "space": {
+          "x": {
+            "value": "{click.spaces.4}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "{click.spaces.2}",
+            "type": "spacing"
+          }
+        }
       }
     }
   },
@@ -1682,28 +1706,6 @@
               "type": "color"
             }
           }
-        },
-        "file-tabs": {
-          "background": {
-            "default": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.background.default}",
-              "type": "color"
-            }
-          },
-          "text": {
-            "default": {
-              "value": "{click.tabs.color.text.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          }
         }
       },
       "switch": {
@@ -1818,33 +1820,17 @@
           }
         }
       },
-      "grid": {
-        "color": {
-          "header": {
-            "background": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color"
-            },
-            "text": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          },
-          "row": {
-            "background": {
-              "value": "{click.global.color.background.default}",
-              "type": "color"
-            },
-            "text": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          },
-          "cell": {
-            "stroke": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
-            }
+      "popover": {
+        "background": {
+          "default": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
           }
         }
       }
