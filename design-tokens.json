@@ -1833,6 +1833,36 @@
             "type": "color"
           }
         }
+      },
+      "grid": {
+        "color": {
+          "header": {
+            "background": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "text": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          },
+          "row": {
+            "background": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "text": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "cell": {
+            "stroke": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     }
   },
