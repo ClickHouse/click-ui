@@ -1863,6 +1863,50 @@
             }
           }
         }
+      },
+      "badge": {
+        "background": {
+          "default": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "success": {
+            "value": "{click.feedback.color.success.background}",
+            "type": "color"
+          },
+          "neutral": {
+            "value": "{click.feedback.color.neutral.background}",
+            "type": "color"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "{click.feedback.color.neutral.text}",
+            "type": "color"
+          },
+          "success": {
+            "value": "{click.feedback.color.success.text}",
+            "type": "color"
+          },
+          "neutral": {
+            "value": "{click.feedback.color.neutral.text}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.feedback.color.neutral.stroke}",
+            "type": "color"
+          },
+          "success": {
+            "value": "{click.badge.background.success}",
+            "type": "color"
+          },
+          "neutral": {
+            "value": "{click.badge.background.neutral}",
+            "type": "color"
+          }
+        }
       }
     }
   },
