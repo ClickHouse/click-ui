@@ -1706,6 +1706,28 @@
               "type": "color"
             }
           }
+        },
+        "file-tabs": {
+          "text": {
+            "hover": {
+              "value": "#161517",
+              "type": "color"
+            },
+            "default": {
+              "value": "#696e79",
+              "type": "color"
+            }
+          },
+          "background": {
+            "hover": {
+              "value": "#ffffff",
+              "type": "color"
+            },
+            "default": {
+              "value": "#f6f7fa",
+              "type": "color"
+            }
+          }
         }
       },
       "switch": {
@@ -1904,6 +1926,88 @@
           },
           "neutral": {
             "value": "{click.badge.background.neutral}",
+            "type": "color"
+          }
+        }
+      },
+      "context-menu": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "#ffffff",
+              "type": "color"
+            },
+            "hover": {
+              "value": "#f6f7fa",
+              "type": "color"
+            },
+            "active": {
+              "value": "#f6f7fa",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "#161517",
+              "type": "color"
+            },
+            "muted": {
+              "value": "#696e79",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "#a0a0a0",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "file-tabs": {
+        "color": {
+          "accent": {
+            "selected": {
+              "value": "#ff9416",
+              "type": "color"
+            },
+            "hover": {
+              "value": "#00000000",
+              "type": "color"
+            },
+            "default": {
+              "value": "#00000000",
+              "type": "color"
+            }
+          },
+          "text": {
+            "selected": {
+              "value": "#161517",
+              "type": "color"
+            },
+            "hover": {
+              "value": "#161517",
+              "type": "color"
+            },
+            "default": {
+              "value": "#696e79",
+              "type": "color"
+            }
+          },
+          "background": {
+            "selected": {
+              "value": "#ffffff",
+              "type": "color"
+            },
+            "hover": {
+              "value": "#ffffff",
+              "type": "color"
+            },
+            "default": {
+              "value": "#f6f7fa",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "value": "#e6e7e9",
             "type": "color"
           }
         }
