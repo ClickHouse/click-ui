@@ -1005,6 +1005,16 @@
         "stroke": {
           "value": "{click.border.width.1}",
           "type": "borderWidth"
+        },
+        "split": {
+          "icon": {
+            "space": {
+              "y": {
+                "value": "{click.spaces.2}+.25px",
+                "type": "spacing"
+              }
+            }
+          }
         }
       },
       "checkbox": {
@@ -1606,6 +1616,40 @@
               }
             }
           }
+        },
+        "split": {
+          "primary": {
+            "stroke": {
+              "default": {
+                "value": "{click.button.basic.color.primary.background.default}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.15",
+                      "space": "lch"
+                    }
+                  }
+                }
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{click.button.basic.color.primary.background.default}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.085",
+                      "space": "lch"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "checkbox": {
@@ -1953,6 +1997,10 @@
                 },
                 "active": {
                   "value": "{color.palette.slate.100}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.global.color.background.muted}",
                   "type": "color"
                 }
               },
@@ -2750,6 +2798,19 @@
                 "active": {
                   "value": "{color.palette.neutral.700}",
                   "type": "color"
+                },
+                "hover": {
+                  "value": "{click.global.color.background.muted}",
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "lighten",
+                        "value": "0.035",
+                        "space": "lch"
+                      }
+                    }
+                  }
                 }
               },
               "text": {
