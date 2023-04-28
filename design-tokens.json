@@ -2061,6 +2061,12 @@
                 "value": "{click.global.color.text.default}",
                 "type": "color"
               }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke}",
+                "type": "color"
+              }
             }
           }
         }
