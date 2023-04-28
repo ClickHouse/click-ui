@@ -2155,7 +2155,16 @@
           },
           "stroke": {
             "value": "{color.palette.neutral.700}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.5",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "accent": {
             "value": "{color.palette.brand.300}",
