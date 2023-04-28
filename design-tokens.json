@@ -2354,26 +2354,26 @@
           },
           "stroke": {
             "default": {
-              "value": "{color.palette.neutral.700}",
+              "value": "{color.palette.neutral.725}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
                   "modify": {
                     "type": "lighten",
-                    "value": "0.5",
+                    "value": "0.2",
                     "space": "lch"
                   }
                 }
               }
             },
             "inline": {
-              "value": "{color.palette.neutral.700}",
+              "value": "{color.palette.neutral.725}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
                   "modify": {
                     "type": "lighten",
-                    "value": "0.5",
+                    "value": "0.2",
                     "space": "lch"
                   }
                 }
