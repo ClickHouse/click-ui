@@ -1793,7 +1793,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{color.palette.slate.800}",
+              "value": "{click.field.color.text.default}",
               "type": "color"
             },
             "active": {
@@ -2073,7 +2073,7 @@
               "type": "color"
             },
             "active": {
-              "value": "{color.palette.slate.900}",
+              "value": "{color.palette.neutral.900}",
               "type": "color"
             },
             "disabled-checked": {
@@ -2507,53 +2507,170 @@
           }
         }
       },
-      "sidebar": {
-        "background": {
-          "default": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          }
-        },
-        "text": {
-          "default": {
-            "value": "{click.field.color.text.default}",
-            "type": "color"
-          },
-          "muted": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          }
-        },
-        "item": {
+      "checkbox": {
+        "color": {
           "background": {
             "default": {
-              "value": "rgba(0,0,0,0)",
+              "value": "{click.field.color.background.default}",
               "type": "color"
             },
             "active": {
+              "value": "{color.palette.slate.900}",
+              "type": "color"
+            },
+            "disabled-checked": {
               "value": "{color.palette.neutral.700}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.2",
-                    "space": "lch"
-                  }
-                }
-              }
+              "type": "color"
             }
           },
-          "text": {
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.checkbox.color.background.active}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{color.palette.neutral.600}",
+              "type": "color"
+            }
+          },
+          "check": {
+            "default": {
+              "value": "{color.palette.neutral.0}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "#c0c0c0",
+              "type": "color"
+            }
+          },
+          "label": {
             "default": {
               "value": "{click.global.color.text.default}",
               "type": "color"
+            },
+            "off": {
+              "value": "#696e79",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "#a0a0a0",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "switch": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{color.palette.slate.800}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{color.palette.brand.300}",
+              "type": "color"
+            },
+            "disabled-checked": {
+              "value": "{color.palette.neutral.500}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.checkbox.color.background.active}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{color.palette.neutral.400}",
+              "type": "color"
+            }
+          },
+          "indicator": {
+            "default": {
+              "value": "{color.palette.neutral.400}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{color.palette.slate.900}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{color.palette.neutral.600}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "sidebar": {
+        "main": {
+          "color": {
+            "background": {
+              "default": {
+                "value": "{click.global.color.background.default}",
+                "type": "color"
+              }
+            },
+            "item": {
+              "background": {
+                "default": {
+                  "value": "{color.palette.utility.transparent}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{color.palette.neutral.700}",
+                  "type": "color"
+                }
+              },
+              "text": {
+                "default": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "muted": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                }
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke}",
+                "type": "color"
+              }
             }
           }
         },
-        "stroke": {
-          "value": "{click.field.color.stroke.default}",
-          "type": "color"
+        "sql-sidebar": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke}",
+              "type": "color"
+            }
+          }
         }
       },
       "table": {
@@ -2580,8 +2697,48 @@
           },
           "cell": {
             "stroke": {
-              "value": "{click.global.color.stroke.default}",
+              "value": "{click.global.color.stroke}",
               "type": "color"
+            }
+          }
+        }
+      },
+      "grid": {
+        "color": {
+          "background": {
+            "header": {
+              "default": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color"
+              }
+            },
+            "row": {
+              "default": {
+                "value": "{click.global.color.background.default}",
+                "type": "color"
+              }
+            }
+          },
+          "text": {
+            "header": {
+              "default": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
+            },
+            "row": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          },
+          "stroke": {
+            "cell": {
+              "stroke": {
+                "value": "{click.global.color.stroke}",
+                "type": "color"
+              }
             }
           }
         }
