@@ -3156,43 +3156,57 @@
   "classic": {
     "click": {
       "sidebar": {
-        "background": {
-          "default": {
-            "value": "{color.palette.indigo.base}",
-            "type": "color"
-          }
-        },
-        "text": {
-          "default": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          },
-          "muted": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          }
-        },
-        "item": {
-          "background": {
-            "default": {
-              "value": "{color.palette.indigo.base}",
-              "type": "color"
+        "main": {
+          "color": {
+            "background": {
+              "default": {
+                "value": "{color.palette.indigo.base}",
+                "type": "color"
+              }
             },
-            "active": {
-              "value": "{color.palette.indigo.700}",
-              "type": "color"
-            }
-          },
-          "text": {
-            "default": {
-              "value": "{click.global.color.background.default}",
-              "type": "color"
+            "item": {
+              "background": {
+                "default": {
+                  "value": "{color.palette.utility.transparent}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{color.palette.indigo.700}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.global.color.background.muted}",
+                  "type": "color"
+                }
+              },
+              "text": {
+                "default": {
+                  "value": "{color.palette.neutral.0}",
+                  "type": "color"
+                },
+                "muted": {
+                  "value": "{color.palette.indigo.300}",
+                  "type": "color"
+                }
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{color.palette.neutral.0}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{color.palette.indigo.300}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{color.palette.indigo.700}",
+                "type": "color"
+              }
             }
           }
-        },
-        "stroke": {
-          "value": "{color.palette.slate.700}",
-          "type": "color"
         }
       }
     }
