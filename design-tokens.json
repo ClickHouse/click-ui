@@ -2538,10 +2538,19 @@
               },
               "hover": {
                 "value": "{color.palette.neutral.700}",
-                "type": "color"
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.25",
+                      "space": "lch"
+                    }
+                  }
+                }
               },
               "active": {
-                "value": "{color.palette.neutral.500}",
+                "value": "{color.palette.neutral.700}",
                 "type": "color"
               },
               "panel": {
@@ -2559,7 +2568,7 @@
                 "type": "color"
               },
               "active": {
-                "value": "{color.palette.slate.900}",
+                "value": "{color.palette.neutral.0}",
                 "type": "color"
               }
             },
