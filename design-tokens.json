@@ -1333,7 +1333,7 @@
           },
           "accent": {
             "default": {
-              "value": "{color.palette.warning.400}",
+              "value": "{color.palette.neutral.900}",
               "type": "color"
             }
           },
@@ -2038,7 +2038,16 @@
             "header": {
               "default": {
                 "value": "{click.global.color.background.muted}",
-                "type": "color"
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.7",
+                      "space": "lch"
+                    }
+                  }
+                }
               }
             },
             "row": {
