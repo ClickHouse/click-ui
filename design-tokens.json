@@ -2029,6 +2029,10 @@
               "value": "{click.feedback.color.danger.foreground}",
               "type": "color"
             }
+          },
+          "placeholder": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
           }
         }
       },
