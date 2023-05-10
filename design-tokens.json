@@ -965,6 +965,22 @@
                 "value": "{click.type.text-bold.md}",
                 "type": "typography"
               }
+            },
+            "mobile": {
+              "label": {
+                "default": {
+                  "value": "{click.type.text-sbold.lg}",
+                  "type": "typography"
+                },
+                "hover": {
+                  "value": "{click.type.text-sbold.lg}",
+                  "type": "typography"
+                },
+                "active": {
+                  "value": "{click.type.text-bold.lg}",
+                  "type": "typography"
+                }
+              }
             }
           },
           "size": {
@@ -1012,6 +1028,34 @@
               "y": {
                 "value": "{click.spaces.2}+.25px",
                 "type": "spacing"
+              }
+            }
+          }
+        },
+        "mobile": {
+          "button": {
+            "space": {
+              "x": {
+                "value": "{click.spaces.3}",
+                "type": "spacing"
+              },
+              "y": {
+                "value": "{click.spaces.2}",
+                "type": "spacing"
+              },
+              "gap": {
+                "value": "{click.spaces.2}",
+                "type": "spacing"
+              }
+            }
+          },
+          "basic": {
+            "size": {
+              "icon": {
+                "all": {
+                  "value": "{click.sizes.6}",
+                  "type": "sizing"
+                }
               }
             }
           }
@@ -1134,6 +1178,16 @@
           "value": {
             "value": "{click.type.text.md}",
             "type": "typography"
+          },
+          "mobile": {
+            "label": {
+              "value": "{click.type.text-sbold.md}",
+              "type": "typography"
+            },
+            "value": {
+              "value": "{click.type.text.lg}",
+              "type": "typography"
+            }
           }
         },
         "space": {
@@ -1160,6 +1214,22 @@
           "all": {
             "value": "{click.border.radii.1}",
             "type": "borderRadius"
+          }
+        },
+        "mobile": {
+          "space": {
+            "x": {
+              "value": "{click.spaces.3}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{click.spaces.2}",
+              "type": "spacing"
+            },
+            "gap": {
+              "value": "{click.spaces.2}",
+              "type": "spacing"
+            }
           }
         }
       },
@@ -1222,6 +1292,18 @@
           "title": {
             "value": "{click.type.text-sbold.sm}",
             "type": "typography"
+          },
+          "mobile": {
+            "item": {
+              "default": {
+                "value": "{click.type.text.lg}",
+                "type": "typography"
+              },
+              "active": {
+                "value": "{click.type.text-sbold.lg}",
+                "type": "typography"
+              }
+            }
           }
         },
         "item-collapsible": {
@@ -1237,6 +1319,28 @@
             "gap": {
               "value": "{click.spaces.3}",
               "type": "spacing"
+            }
+          }
+        },
+        "mobile": {
+          "item": {
+            "space": {
+              "x": {
+                "value": "{click.spaces.3}",
+                "type": "spacing"
+              },
+              "y": {
+                "value": "{click.spaces.3}",
+                "type": "spacing"
+              },
+              "gap": {
+                "value": "{click.spaces.3}",
+                "type": "spacing"
+              },
+              "left": {
+                "value": "{click.spaces.1}",
+                "type": "spacing"
+              }
             }
           }
         }
