@@ -1974,7 +1974,7 @@
           },
           "background": {
             "default": {
-              "value": "{click.global.color.background.default}",
+              "value": "{click.popover.color.background.default}",
               "type": "color"
             },
             "hover": {
@@ -2414,6 +2414,16 @@
             },
             "disabled": {
               "value": "{color.palette.neutral.400}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "popover": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
               "type": "color"
             }
           }
@@ -3132,7 +3142,16 @@
                 },
                 "active": {
                   "value": "{color.palette.neutral.700}",
-                  "type": "color"
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "alpha",
+                        "value": "0.6",
+                        "space": "lch"
+                      }
+                    }
+                  }
                 },
                 "hover": {
                   "value": "{click.global.color.background.muted}",
@@ -3259,6 +3278,72 @@
                 "type": "color"
               }
             }
+          }
+        }
+      },
+      "popover": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{color.palette.neutral.725}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.02",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "context-menu": {
+        "color": {
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{color.palette.neutral.300}",
+              "type": "color"
+            },
+            "muted": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.popover.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.0875",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "active": {
+              "value": "{click.context-menu.color.background.hover}",
+              "type": "color"
+            }
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
           }
         }
       }
