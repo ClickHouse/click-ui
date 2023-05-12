@@ -2209,8 +2209,17 @@
                   "type": "color"
                 },
                 "hover": {
-                  "value": "{click.global.color.background.muted}",
-                  "type": "color"
+                  "value": "{color.palette.slate.100}",
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "alpha",
+                        "value": "0.6",
+                        "space": "lch"
+                      }
+                    }
+                  }
                 }
               },
               "text": {
