@@ -1175,7 +1175,7 @@
             "value": "{click.type.text-sbold.sm}",
             "type": "typography"
           },
-          "value": {
+          "field-value": {
             "value": "{click.type.text.md}",
             "type": "typography"
           },
@@ -1184,7 +1184,7 @@
               "value": "{click.type.text-sbold.md}",
               "type": "typography"
             },
-            "value": {
+            "field-value": {
               "value": "{click.type.text.lg}",
               "type": "typography"
             }
