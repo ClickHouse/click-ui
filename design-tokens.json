@@ -1750,7 +1750,7 @@
                   }
                 }
               },
-              "": {
+              "hover": {
                 "value": "{click.button.split.primary.background.action.hover}",
                 "type": "color",
                 "$extensions": {
