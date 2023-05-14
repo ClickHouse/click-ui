@@ -1544,7 +1544,7 @@
               "value": "{click.global.color.text.muted}",
               "type": "color"
             },
-            "value": {
+            "big-value": {
               "value": "{click.global.color.text.default}",
               "type": "color"
             }
@@ -2568,7 +2568,7 @@
                   "type": "color"
                 },
                 "active": {
-                  "value": "{click.button.split.color.primary.background.active}",
+                  "value": "{click.button.split.primary.background.main.active}",
                   "type": "color"
                 }
               }
@@ -2745,7 +2745,7 @@
                   }
                 }
               },
-              "": {
+              "hover": {
                 "value": "{click.button.split.primary.background.action.hover}",
                 "type": "color",
                 "$extensions": {
