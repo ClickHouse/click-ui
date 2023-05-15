@@ -389,6 +389,56 @@
       }
     },
     "click": {
+      "sizes": {
+        "0": {
+          "value": "0",
+          "type": "sizing"
+        },
+        "1": {
+          "value": "1px",
+          "type": "sizing"
+        },
+        "2": {
+          "value": "4px",
+          "type": "sizing"
+        },
+        "3": {
+          "value": "8px",
+          "type": "sizing"
+        },
+        "4": {
+          "value": "12px",
+          "type": "sizing"
+        },
+        "5": {
+          "value": "16px",
+          "type": "sizing"
+        },
+        "6": {
+          "value": "20px",
+          "type": "sizing"
+        },
+        "7": {
+          "value": "24px",
+          "type": "sizing"
+        },
+        "8": {
+          "value": "28px",
+          "type": "sizing"
+        },
+        "9": {
+          "value": "32px",
+          "type": "sizing"
+        },
+        "10": {
+          "value": "40px",
+          "type": "sizing"
+        },
+        "11": {
+          "value": "64px",
+          "type": "sizing"
+        }
+      },
       "type": {
         "font": {
           "families": {
@@ -693,56 +743,6 @@
             },
             "type": "typography"
           }
-        }
-      },
-      "sizes": {
-        "0": {
-          "value": "0",
-          "type": "sizing"
-        },
-        "1": {
-          "value": "1px",
-          "type": "sizing"
-        },
-        "2": {
-          "value": "4px",
-          "type": "sizing"
-        },
-        "3": {
-          "value": "8px",
-          "type": "sizing"
-        },
-        "4": {
-          "value": "12px",
-          "type": "sizing"
-        },
-        "5": {
-          "value": "16px",
-          "type": "sizing"
-        },
-        "6": {
-          "value": "20px",
-          "type": "sizing"
-        },
-        "7": {
-          "value": "24px",
-          "type": "sizing"
-        },
-        "8": {
-          "value": "28px",
-          "type": "sizing"
-        },
-        "9": {
-          "value": "32px",
-          "type": "sizing"
-        },
-        "10": {
-          "value": "40px",
-          "type": "sizing"
-        },
-        "11": {
-          "value": "64px",
-          "type": "sizing"
         }
       },
       "border": {
