@@ -440,8 +440,8 @@
               "value": "{click.sizes.6}",
               "type": "fontSizes"
             },
-            "5": {
-              "value": "{click.sizes.8}",
+            "6": {
+              "value": "{click.sizes.9}",
               "type": "fontSizes"
             }
           },
@@ -515,7 +515,7 @@
               "fontFamily": "{click.type.font.families.regular}",
               "fontWeight": "{click.type.font.weights.3}",
               "lineHeight": "{click.type.font.lineHeights.1}",
-              "fontSize": "{click.type.font.sizes.5}"
+              "fontSize": "{click.type.font.sizes.6}"
             },
             "type": "typography"
           }
