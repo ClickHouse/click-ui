@@ -6,10 +6,6 @@
           "default": {
             "value": "{palette.slate.100}",
             "type": "color",
-            "default": {
-              "value": "{color.palette.slate.100}",
-              "type": "color"
-            },
             "increased": {
               "value": "#cccdcf",
               "type": "color"
@@ -22,10 +18,6 @@
           "muted": {
             "value": "{palette.slate.100}",
             "type": "color",
-            "default": {
-              "value": "{color.palette.slate.100}",
-              "type": "color"
-            },
             "increased": {
               "value": "#cccdcf",
               "type": "color"
