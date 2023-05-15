@@ -902,6 +902,10 @@
           "all": {
             "value": "{click.spaces.3}",
             "type": "spacing"
+          },
+          "gap": {
+            "value": "{click.spaces.0}",
+            "type": "spacing"
           }
         },
         "radii": {
@@ -1600,19 +1604,27 @@
       },
       "big-stat": {
         "color": {
-          "text": {
-            "label": {
-              "value": "{click.global.color.text.muted}",
-              "type": "color"
-            },
-            "big-value": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          },
           "stroke": {
             "default": {
               "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
+          },
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          },
+          "large-value": {
+            "default": {
+              "value": "{click.global.color.text.default}",
               "type": "color"
             }
           }
