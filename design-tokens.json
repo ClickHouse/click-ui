@@ -1074,9 +1074,11 @@
         }
       },
       "checkbox": {
-        "radius": {
-          "value": "{border.radii.1}/2",
-          "type": "borderRadius"
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}/2",
+            "type": "borderRadius"
+          }
         },
         "space": {
           "all": {
@@ -1301,18 +1303,6 @@
           }
         }
       },
-      "menu": {
-        "space": {
-          "x": {
-            "value": "{spaces.4}",
-            "type": "spacing"
-          },
-          "y": {
-            "value": "{spaces.2}",
-            "type": "spacing"
-          }
-        }
-      },
       "popover": {
         "radii": {
           "all": {
@@ -1449,7 +1439,7 @@
           }
         }
       },
-      "tab": {
+      "tabs": {
         "space": {
           "y": {
             "value": "{spaces.2}",
@@ -1465,9 +1455,7 @@
             "value": "{border.radii.1}",
             "type": "borderRadius"
           }
-        }
-      },
-      "tabs": {
+        },
         "typography": {
           "label": {
             "default": {
