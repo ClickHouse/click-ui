@@ -1171,6 +1171,14 @@
               "type": "sizing"
             }
           }
+        },
+        "button": {
+          "space": {
+            "gap": {
+              "value": "{click.spaces.1}",
+              "type": "spacing"
+            }
+          }
         }
       },
       "field": {
@@ -2036,6 +2044,14 @@
               "value": "{click.global.color.text.default}",
               "type": "color"
             },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
             "disabled": {
               "value": "{color.palette.neutral.300}",
               "type": "color"
@@ -2064,6 +2080,26 @@
           "default": {
             "value": "{click.global.color.stroke.default}",
             "type": "color"
+          }
+        },
+        "button": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
           }
         }
       },
