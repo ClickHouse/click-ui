@@ -609,6 +609,10 @@
             "value": "{palette.danger.800}",
             "type": "color"
           },
+          "foreground": {
+            "value": "{palette.danger.600}",
+            "type": "color"
+          },
           "text": {
             "value": "{palette.danger.300}",
             "type": "color"
