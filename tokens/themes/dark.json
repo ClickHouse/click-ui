@@ -579,7 +579,7 @@
             "value": "{palette.info.600}",
             "type": "color"
           },
-          "text": {
+          "foreground": {
             "value": "{palette.info.200}",
             "type": "color"
           }
@@ -589,7 +589,7 @@
             "value": "{palette.success.800}",
             "type": "color"
           },
-          "text": {
+          "foreground": {
             "value": "{palette.success.300}",
             "type": "color"
           }
@@ -599,7 +599,7 @@
             "value": "{palette.warning.800}",
             "type": "color"
           },
-          "text": {
+          "foreground": {
             "value": "{palette.warning.400}",
             "type": "color"
           }
@@ -610,10 +610,6 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.danger.600}",
-            "type": "color"
-          },
-          "text": {
             "value": "{palette.danger.300}",
             "type": "color"
           }
@@ -623,7 +619,7 @@
             "value": "{palette.neutral.700}",
             "type": "color"
           },
-          "text": {
+          "foreground": {
             "value": "{palette.neutral.300}",
             "type": "color"
           },
