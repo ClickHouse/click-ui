@@ -309,21 +309,12 @@
               "type": "color"
             },
             "hover": {
-              "value": "{palette.slate.50}",
+              "value": "{click.button.basic.color.secondary.background.hover}",
               "type": "color"
             },
             "active": {
-              "value": "{palette.slate.50}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
+              "value": "{click.button.basic.color.secondary.background.active}",
+              "type": "color"
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",
