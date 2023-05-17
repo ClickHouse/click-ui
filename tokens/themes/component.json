@@ -699,6 +699,62 @@
           }
         }
       }
+    },
+    "docs": {
+      "typography": {
+        "titles": {
+          "lg": {
+            "value": "{typography.styles.titles.2xl}",
+            "type": "typography"
+          },
+          "md": {
+            "value": "{typography.styles.titles.xl}",
+            "type": "typography"
+          },
+          "sm": {
+            "value": "{typography.styles.titles.lg}",
+            "type": "typography"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "{typography.styles.text.md}",
+            "type": "typography"
+          }
+        },
+        "breadcrumbs": {
+          "default": {
+            "value": "{typography.styles.text.md}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{typography.styles.text-bold.md}",
+            "type": "typography"
+          }
+        },
+        "toc": {
+          "title": {
+            "default": {
+              "value": "{typography.styles.text-bold.md}",
+              "type": "typography"
+            }
+          },
+          "item": {
+            "default": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{typography.styles.text-bold.md}",
+              "type": "typography"
+            }
+          }
+        }
+      }
     }
   }
 }
