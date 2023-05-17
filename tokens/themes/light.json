@@ -1014,16 +1014,18 @@
         }
       },
       "sql-sidebar": {
-        "background": {
-          "default": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color"
-          }
-        },
-        "stroke": {
-          "default": {
-            "value": "{click.global.color.stroke.default}",
-            "type": "color"
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
           }
         }
       }
