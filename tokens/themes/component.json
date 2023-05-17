@@ -216,6 +216,18 @@
             }
           }
         }
+      },
+      "button-group": {
+        "radii": {
+          "center": {
+            "value": "{border.radii.0}",
+            "type": "borderRadius"
+          },
+          "end": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
+        }
       }
     },
     "card": {
