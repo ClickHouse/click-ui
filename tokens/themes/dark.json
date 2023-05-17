@@ -256,7 +256,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "darken",
-                    "value": "0.25",
+                    "value": "0.30",
                     "space": "lch"
                   }
                 }
@@ -264,7 +264,16 @@
             },
             "active": {
               "value": "{palette.neutral.700}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.15",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",

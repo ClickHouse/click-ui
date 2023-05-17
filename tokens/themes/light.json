@@ -305,16 +305,25 @@
         "color": {
           "background": {
             "default": {
-              "value": "{palette.slate.50}",
-              "type": "color"
-            },
-            "hover": {
               "value": "{palette.neutral.0}",
               "type": "color"
             },
-            "active": {
-              "value": "{palette.slate.600}",
+            "hover": {
+              "value": "{palette.slate.50}",
               "type": "color"
+            },
+            "active": {
+              "value": "{palette.slate.50}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",
@@ -331,7 +340,7 @@
               "type": "color"
             },
             "active": {
-              "value": "{palette.neutral.0}",
+              "value": "{palette.neutral.900}",
               "type": "color"
             }
           },
