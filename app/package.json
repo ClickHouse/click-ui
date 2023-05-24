@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@types/node": "20.2.3",
@@ -19,5 +21,16 @@
     "react-dom": "18.2.0",
     "styled-components": "^4.4.1",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.17",
+    "@storybook/addon-interactions": "^7.0.17",
+    "@storybook/addon-links": "^7.0.17",
+    "@storybook/blocks": "^7.0.17",
+    "@storybook/nextjs": "^7.0.17",
+    "@storybook/react": "^7.0.17",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "eslint-plugin-storybook": "^0.6.12",
+    "storybook": "^7.0.17"
   }
 }
