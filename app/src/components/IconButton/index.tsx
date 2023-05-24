@@ -22,6 +22,7 @@ IconButton.displayName = "IconButton";
 
 const Button = styled.button<IconButtonProps>`
   border-radius: 4px;
+  border-color: transparent;
 
   ${({ state, disabled, display }: IconButtonProps) => {
     if (disabled) {
@@ -34,13 +35,13 @@ const Button = styled.button<IconButtonProps>`
       return `
         background-color: ${
           display === "filled"
-            ? "var(--click-button-basic-color-primary-text-active)"
-            : "var(--click-button-basic-color-secondary-text-active)"
+            ? "var(--click-button-basic-color-primary-background-active)"
+            : "var(--click-button-basic-color-secondary-background-active)"
         };
         color: ${
           display === "filled"
-            ? "var(--click-button-basic-color-primary-text-active)"
-            : "var(--click-button-basic-color-secondary-text-active)"
+            ? "var(--click-button-basic-color-primary-text-default)"
+            : "var(--click-button-basic-color-secondary-text-default)"
         };
       `;
     }
@@ -48,7 +49,7 @@ const Button = styled.button<IconButtonProps>`
     return `
         background-color: ${
           display === "filled"
-            ? "var(--click-button-basic-color-primary-text-default)"
+            ? "var(--click-button-basic-color-primary-background-default)"
             : "transparent"
         };
         color: ${
@@ -81,8 +82,8 @@ const Button = styled.button<IconButtonProps>`
         return `
           background-color: ${
             display === "filled"
-              ? "var(--click-button-basic-color-primary-text-hover)"
-              : "var(--click-button-basic-color-secondary-text-hover)"
+              ? "var(--click-button-basic-color-primary-background-hover)"
+              : "var(--click-button-basic-color-secondary-background-hover)"
           };
         `;
       }

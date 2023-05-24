@@ -21,9 +21,39 @@ export default function Home() {
         <TextFieldLabel state='disabled' text='my label' />
         <TextFieldLabel state='error' text='my label' />
 
-        <IconButton disabled>
-          <ProfileIcon />
-        </IconButton>
+        <div className={styles.flexWrap}>
+          <IconButton size='small'>
+            <ProfileIcon />
+          </IconButton>
+          <IconButton size='small' state='active'>
+            <ProfileIcon />
+          </IconButton>
+          <IconButton size='small' disabled>
+            <ProfileIcon />
+          </IconButton>
+        </div>
+        <div className={styles.flexWrap}>
+          <IconButton>
+            <ProfileIcon />
+          </IconButton>
+          <IconButton state='active'>
+            <ProfileIcon />
+          </IconButton>
+          <IconButton disabled>
+            <ProfileIcon />
+          </IconButton>
+        </div>
+        <div className={styles.flexWrap}>
+          <IconButton display='empty'>
+            <ProfileIcon />
+          </IconButton>
+          <IconButton display='empty' state='active'>
+            <ProfileIcon />
+          </IconButton>
+          <IconButton display='empty' disabled>
+            <ProfileIcon />
+          </IconButton>
+        </div>
         <Card
           title='Card title'
           description='This is a card description'
