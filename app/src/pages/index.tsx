@@ -1,4 +1,4 @@
-import { useState } from "react";
+import merge from "lodash/merge";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 
@@ -8,10 +8,34 @@ import { ButtonGroup } from "../components/ButtonGroup";
 import IconButton from "@/components/IconButton";
 import ProfileIcon from "@/components/icons/ProfileIcon";
 import {Badge} from "@/components/Badge/badge";
+import Switch from "../components/Switch";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import { useState } from "react";
+
+import classicTheme from "../styles/variables.classic.json"
+import darkTheme from "../styles/variables.dark.json"
+import lightTheme from "../styles/variables.light.json"
+import theme from "../styles/variables.json"
+
+import { Theme } from "../styles/types"
+
+declare module "styled-components" {
+  export interface DefaultTheme extends Theme {}
+}
 import {BigStat} from "@/components/BigStat/bigStat";
 
 export default function Home() {
-  const [selectedButton, setSelectedButton] = useState(0);
+  const [checked, setChecked] = useState(false)
+  const [disabled, setDisabled] = useState(false)
+  const [currentTheme, setCurrentTheme] = useState('dark')
+  const [selectedButton, setSelectedButton] = useState(0)
+
+  const themes: Record<string, DefaultTheme> = {
+    dark: merge({}, theme, darkTheme),
+    light: merge({}, theme, lightTheme),
+    classic: merge({}, theme, classicTheme),
+  }
+
   return (
     <>
       <Head>
@@ -79,6 +103,29 @@ export default function Home() {
           activeIndex={selectedButton}
           onClick={(index: number) => setSelectedButton(index)}
         />
+        <ThemeProvider theme={themes[currentTheme]}>
+          <Switch checked={checked} disabled={disabled} onCheckedChange={setChecked} />
+          <button onClick={() => setDisabled(!disabled)}>Disable</button>
+          <div style={{ color: 'white' }}>disabled: {`${disabled}`}</div>
+          <button onClick={() => {
+            document.body.style.backgroundColor = 'black'
+            setCurrentTheme('dark')
+          }}>
+            Dark
+          </button>
+          <button onClick={() => {
+            document.body.style.backgroundColor = 'white'
+            setCurrentTheme('light')
+          }}>
+            Light
+          </button>
+          <button onClick={() => {
+            document.body.style.backgroundColor = 'white'
+            setCurrentTheme('classic')
+          }}>
+            Classic
+          </button>
+        </ThemeProvider>
           <BigStat label={'Last successful backup'} largeValue={'12 hours ago'}></BigStat>
       </main>
     </>
