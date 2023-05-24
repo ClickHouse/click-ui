@@ -5,6 +5,7 @@ import { Card } from "../components/Card/card";
 import { TextFieldLabel } from "../components/FormField/index";
 import IconButton from "@/components/IconButton";
 import ProfileIcon from "@/components/icons/ProfileIcon";
+import {BigStat} from "@/components/BigStat/bigStat";
 
 export default function Home() {
   return (
@@ -61,6 +62,7 @@ export default function Home() {
           infoText='Read More'
           infoUrl='#'
         ></Card>
+          <BigStat label={'Last successful backup'} largeValue={'12 hours ago'}></BigStat>
       </main>
     </>
   );
