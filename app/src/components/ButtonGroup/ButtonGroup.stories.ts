@@ -1,4 +1,4 @@
-import ButtonGroup from './index';
+import {ButtonGroup} from './index';
 
 export default {
   component: ButtonGroup,
@@ -9,6 +9,7 @@ export default {
 export const Default = {
   args: {
     labels: ['Button 1', 'Button 2', 'Button 3'],
+    activeIndex: 2,
   },
 };
 
