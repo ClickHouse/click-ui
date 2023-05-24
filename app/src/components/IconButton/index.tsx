@@ -21,7 +21,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 const Button = styled.button<IconButtonProps>`
-  border-radius: 4px;
+  border-radius: var(--click-button-radii-all);
   border-color: transparent;
 
   ${({ state, disabled, display }: IconButtonProps) => {
@@ -62,12 +62,12 @@ const Button = styled.button<IconButtonProps>`
   ${({ size }: IconButtonProps) => {
     if (size === "small") {
       return `
-        padding: 4px;
+        padding: var(--click-button-icon-button-space-1);
       `;
     }
 
     return `
-      padding: 8px;
+      padding: var(--click-button-icon-button-space-2);
     `;
   }};
   &:hover {
