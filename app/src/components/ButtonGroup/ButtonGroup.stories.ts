@@ -8,6 +8,7 @@ export default {
 
 export const Default = {
   args: {
+    labels: ['Button 1', 'Button 2', 'Button 3'],
   },
 };
 
