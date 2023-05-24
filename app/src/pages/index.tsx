@@ -7,6 +7,7 @@ import { TextFieldLabel } from "../components/FormField/index";
 import { ButtonGroup } from "../components/ButtonGroup";
 import IconButton from "@/components/IconButton";
 import ProfileIcon from "@/components/icons/ProfileIcon";
+import {Badge} from "@/components/Badge/badge";
 
 export default function Home() {
   const [selectedButton, setSelectedButton] = useState(0);
@@ -56,6 +57,13 @@ export default function Home() {
           <IconButton display='empty' disabled>
             <ProfileIcon />
           </IconButton>
+        </div>
+        <div className={styles.flexWrap}>
+          <Badge text={'default'}></Badge>
+          <Badge text={'success'} state={'success'}></Badge>
+          <Badge text={'neutral'} state={'neutral'}></Badge>
+          <Badge text={'danger'} state={'danger'}></Badge>
+          <Badge text={'disabled'} state={'disabled'}></Badge>
         </div>
         <Card
           title='Card title'
