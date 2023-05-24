@@ -52,8 +52,6 @@ const Wrapper = styled.div<WrapperProps>`
       : "var(--click-card-color-background-disabled)"};
   border-radius: 4px;
   border: 1px solid #e6e7e9;
-  font-family: "Inter";
-  font-style: normal;
   max-width: 420px;
   min-width: 300px;
 
