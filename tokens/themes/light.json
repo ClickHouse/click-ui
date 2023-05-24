@@ -596,6 +596,10 @@
           "disabled-checked": {
             "value": "{palette.neutral.200}",
             "type": "color"
+          },
+          "disabled-unchecked": {
+            "value": "{palette.neutral.200}",
+            "type": "color"
           }
         },
         "stroke": {
@@ -617,8 +621,12 @@
             "value": "{palette.neutral.0}",
             "type": "color"
           },
+          "active": {
+            "value": "{palette.neutral.0}",
+            "type": "color"
+          },
           "disabled": {
-            "value": "#c0c0c0",
+            "value": "{palette.neutral.400}",
             "type": "color"
           }
         },
@@ -1157,7 +1165,7 @@
             "value": "{palette.neutral.900}",
             "type": "color"
           },
-          "disabled-checked": {
+          "disabled": {
             "value": "{palette.neutral.200}",
             "type": "color"
           }

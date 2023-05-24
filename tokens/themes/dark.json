@@ -428,7 +428,7 @@
             "type": "color"
           },
           "active": {
-            "value": "{palette.slate.900}",
+            "value": "{palette.brand.300}",
             "type": "color"
           },
           "disabled-checked": {
@@ -453,6 +453,10 @@
         "check": {
           "default": {
             "value": "{palette.neutral.0}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{palette.neutral.900}",
             "type": "color"
           },
           "disabled": {
@@ -772,7 +776,7 @@
             "value": "{palette.brand.300}",
             "type": "color"
           },
-          "disabled-checked": {
+          "disabled": {
             "value": "{palette.neutral.500}",
             "type": "color"
           }

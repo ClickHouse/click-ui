@@ -1,0 +1,27 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "@babel/plugin-transform-typescript",
+    [
+      "babel-plugin-styled-components",
+      {
+        "fileName": false
+      }
+    ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [["babel-plugin-styled-components", { "displayName": true }]]
+    },
+    "test": {
+      "plugins": [
+        [
+          "babel-plugin-transform-import-ignore",
+          {
+            "patterns": [".css"]
+          }
+        ]
+      ]
+    }
+  }
+}
