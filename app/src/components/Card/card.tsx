@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { S3Logo } from "../../assets/S3Logo/s3-logo";
 import { RightArrow } from "../../assets/RightArrow/right-arrow";
+import {Badge} from "@/components/Badge/badge";
 
 export type CardState = "active" | "disabled";
 export interface CardProps {
@@ -26,9 +27,7 @@ export const Card = ({
         <S3Logo />
         <Title>{title}</Title>
       </HeaderLeft>
-      <HeaderRight>
-        <Badge>{badgeText}</Badge>
-      </HeaderRight>
+        <Badge text={badgeText} state={state === 'disabled' ? 'disabled' : 'default'}></Badge>
     </Header>
 
     <Content>
@@ -76,28 +75,10 @@ const HeaderLeft = styled.div`
   gap: 16px;
 `;
 
-const HeaderRight = styled.div`
-  background: #ffffff;
-  border: 1px solid #e6e7e9;
-  border-radius: 1000px;
-  padding: 3px 12px;
-  height: 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Title = styled.h3`
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-`;
-
-const Badge = styled.p`
-  font-size: 12px;
-  font-weight: 500;
-  font-size: 12px;
 `;
 
 const Content = styled.div`
