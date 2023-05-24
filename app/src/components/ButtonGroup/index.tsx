@@ -4,35 +4,35 @@ import styled from "styled-components";
 export interface ButtonGroupProps {
   labels: string[];
   activeIndex?: number;
+  onClick?: (index: number) => void;
 }
 
-const ButtonGroup = ({ labels, activeIndex }: ButtonGroupProps) => {
+export const ButtonGroup = ({
+  labels,
+  activeIndex,
+  onClick,
+}: ButtonGroupProps) => {
   const btns = labels.map((label, index) => {
-    if (index === 0) {
-      return (
-        <ButtonLeft key={index} active={index === activeIndex}>
-          {label}
-        </ButtonLeft>
-      );
-    } else if (index === labels.length - 1) {
-      return (
-        <ButtonRight key={index} active={index === activeIndex}>
-          {label}
-        </ButtonRight>
-      );
-    } else {
-      return (
-        <ButtonCenter key={index} active={index === activeIndex}>
-          {label}
-        </ButtonCenter>
-      );
-    }
+    let position: ButtonPosition =
+      index === 0 ? "left" : index === labels.length - 1 ? "right" : "center";
+    return (
+      <Button
+        key={index}
+        active={index === activeIndex}
+        position={position}
+        onClick={() => onClick?.(index)}
+      >
+        {label}
+      </Button>
+    );
   });
   return <ButtonGroupWrapper>{btns}</ButtonGroupWrapper>;
 };
 
+type ButtonPosition = "left" | "center" | "right";
 interface ButtonProps {
   active: boolean;
+  position: ButtonPosition;
 }
 
 const ButtonGroupWrapper = styled.div`
@@ -42,18 +42,23 @@ const ButtonGroupWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0px 1px;
-  border: 1px solid rgba(65, 65, 65, 0.3);
-  border-radius: 4px;
-  background: var(--click/button/group/color/stroke/panel);
+  border: var(--click-button-group-color-stroke-panel);
+  background: var(--click-button-group-color-background-panel);
 `;
 
-const ButtonCommon = styled.button<ButtonProps>`
+const endRadii = "var(--click-button-button-group-radii-end)";
+const leftBorderRadius = `${endRadii} 0px 0px ${endRadii}`;
+const rightBorderRadius = `0px ${endRadii} ${endRadii} 0px`;
+const centerBorderRadius = "var(--click-button-button-group-radii-center)";
+
+const Button = styled.button<ButtonProps>`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 5.5px 16px;
+  border: none;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
   gap: 10px;
 
   background: ${({ active }: ButtonProps) =>
@@ -61,21 +66,14 @@ const ButtonCommon = styled.button<ButtonProps>`
       ? "var(--click-button-group-color-background-active)"
       : "var(--click-button-group-color-background-default)"};
 
+  border-radius: ${({ position }: ButtonProps) =>
+    position === "left"
+      ? leftBorderRadius
+      : position === "right"
+      ? rightBorderRadius
+      : centerBorderRadius};
+
   &:hover {
     background: var(--click-button-group-color-background-hover);
   }
 `;
-
-const ButtonLeft = styled(ButtonCommon)`
-  border-radius: 4px 0px 0px 4px;
-`;
-
-const ButtonCenter = styled(ButtonCommon)`
-  /* State=Center - Default */
-`;
-
-const ButtonRight = styled(ButtonCommon)`
-  border-radius: 0px 4px 4px 0px;
-`;
-
-export default ButtonGroup;
