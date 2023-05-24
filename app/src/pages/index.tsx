@@ -1,12 +1,15 @@
+import { useState } from "react";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 
 import { Card } from "../components/Card/card";
 import { TextFieldLabel } from "../components/FormField/index";
+import { ButtonGroup } from "../components/ButtonGroup";
 import IconButton from "@/components/IconButton";
 import ProfileIcon from "@/components/icons/ProfileIcon";
 
 export default function Home() {
+  const [selectedButton, setSelectedButton] = useState(0);
   return (
     <>
       <Head>
@@ -61,6 +64,12 @@ export default function Home() {
           infoText='Read More'
           infoUrl='#'
         ></Card>
+
+        <ButtonGroup
+          labels={["Left center", "Center", "Center", "Center", "Right end"]}
+          activeIndex={selectedButton}
+          onClick={(index: number) => setSelectedButton(index)}
+        />
       </main>
     </>
   );
