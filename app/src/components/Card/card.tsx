@@ -27,11 +27,7 @@ export const Card = ({
         <S3Logo />
         <Title>{title}</Title>
       </HeaderLeft>
-        <Badge text={'default'}></Badge>
-        <Badge text={'success'} state={'success'}></Badge>
-        <Badge text={'neutral'} state={'neutral'}></Badge>
-        <Badge text={'danger'} state={'danger'}></Badge>
-        <Badge text={'disabled'} state={'disabled'}></Badge>
+        <Badge text={badgeText} state={state === 'disabled' ? 'disabled' : 'default'}></Badge>
     </Header>
 
     <Content>
