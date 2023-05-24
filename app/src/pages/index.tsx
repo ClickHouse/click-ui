@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 
 import { Card } from "../components/Card/card";
+import { TextFieldLabel } from '../components/FormField/index';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
+
+        <TextFieldLabel state="default" text="my label" />
+        <TextFieldLabel state="active" text="my label" />
+        <TextFieldLabel state="disabled" text="my label" />
+        <TextFieldLabel state="error" text="my label" />
+
+
         <Card
           title="Card title"
           description="This is a card description"
