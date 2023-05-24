@@ -682,6 +682,16 @@
           "value": "{border.radii.full}",
           "type": "borderRadius"
         }
+      },
+      "size": {
+        "width": {
+          "value": "{sizes.9}",
+          "type": "sizing"
+        },
+        "height": {
+          "value": "{sizes.5}",
+          "type": "sizing"
+        }
       }
     },
     "tabs": {
