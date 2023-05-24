@@ -227,3 +227,9 @@
     transform: rotate(0deg);
   }
 }
+
+.flexWrap {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+}
