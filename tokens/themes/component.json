@@ -328,6 +328,12 @@
           "value": "{spaces.2}",
           "type": "spacing"
         }
+      },
+      "size": {
+        "all": {
+          "value": "{sizes.5}",
+          "type": "sizing"
+        }
       }
     },
     "code-block": {
