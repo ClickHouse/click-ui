@@ -22,6 +22,7 @@ import { Theme } from "../styles/types"
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
 }
+import {BigStat} from "@/components/BigStat/bigStat";
 
 export default function Home() {
   const [checked, setChecked] = useState(false)
@@ -125,6 +126,7 @@ export default function Home() {
             Classic
           </button>
         </ThemeProvider>
+          <BigStat label={'Last successful backup'} largeValue={'12 hours ago'}></BigStat>
       </main>
     </>
   );
