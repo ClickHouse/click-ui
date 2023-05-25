@@ -22,10 +22,14 @@ export default function Switch({ checked, disabled, ...props }: SwitchProps) {
     <SwitchRoot disabled={disabled} checked={checked} {...props}>
       <SwitchThumb checked={checked} />
     </SwitchRoot>
-  )
+  );
 }
 
-function getRootVars (theme: any, disabled: boolean | undefined, checked: boolean) {
+function getRootVars(
+  theme: any,
+  disabled: boolean | undefined,
+  checked: boolean
+) {
   const baseVars = {};
 
   if (disabled) {
@@ -49,7 +53,11 @@ function getRootVars (theme: any, disabled: boolean | undefined, checked: boolea
   }
 }
 
-function getThumbVars (theme: DefaultTheme, disabled: boolean | undefined, checked: boolean) {
+function getThumbVars(
+  theme: DefaultTheme,
+  disabled: boolean | undefined,
+  checked: boolean
+) {
   const baseVars = {};
 
   if (disabled) {
@@ -70,7 +78,7 @@ function getThumbVars (theme: DefaultTheme, disabled: boolean | undefined, check
   }
 }
 
-const SwitchRoot = styled(RadixSwitch.Root)<RootProps>((props) => {
+const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
   const vars = getRootVars(props.theme, props.disabled, props.checked);
 
   return {
@@ -80,10 +88,10 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>((props) => {
     border: vars.border,
     borderRadius: props.theme.click.switch.radii.all,
     position: "relative",
-  }
+  };
 });
 
-const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>((props) => {
+const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>(props => {
   const vars = getThumbVars(props.theme, props.disabled, props.checked);
 
   return {
@@ -95,5 +103,5 @@ const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>((props) => {
     transition: "transform 100ms",
     transform: props.checked ? "translateX(15px)" : "translateX(2px)",
     willChange: "transform",
-  }
+  };
 });
