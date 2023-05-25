@@ -1,0 +1,763 @@
+:root {
+  --shadow-2: 0 4px 4px 0 rgba(88, 92, 98, 0.06),
+    inset 5px 0 10px 0 rgba(104, 105, 111, 0.1);
+  --shadow-1: 0 1px 2px 0 rgba(16, 24, 40, 0.06),
+    0 1px 3px 0 rgba(16, 24, 40, 0.1);
+  --border-radii-full: 9999px;
+  --typography-font-line-height-4: 1.3;
+  --typography-font-line-height-3: 1.7;
+  --typography-font-line-height-2: 1.6;
+  --typography-font-line-height-1: 1.5;
+  --typography-font-weights-4: 700;
+  --typography-font-weights-3: 600;
+  --typography-font-weights-2: 500;
+  --typography-font-weights-1: 400;
+  --typography-font-families-display: "Basier Square", "Inter", "SF Pro Display",
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --typography-font-families-mono: "Inconsolata", "SFMono Regular", monospace;
+  --typography-font-families-regular: "Inter", "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+  --sizes-11: 64px;
+  --sizes-10: 40px;
+  --sizes-9: 32px;
+  --sizes-8: 28px;
+  --sizes-7: 24px;
+  --sizes-6: 20px;
+  --sizes-5: 16px;
+  --sizes-4: 12px;
+  --sizes-3: 8px;
+  --sizes-2: 4px;
+  --sizes-1: 1px;
+  --sizes-0: 0;
+  --palette-utility-transparent: rgba(0, 0, 0, 0);
+  --palette-gradients-base: linear-gradient(
+    229.65deg,
+    #292924 15.78%,
+    #0f0f0f 88.39%
+  );
+  --palette-danger-base: #ff5353;
+  --palette-danger-900: #300000;
+  --palette-danger-800: #610000;
+  --palette-danger-700: #910000;
+  --palette-danger-600: #c10000;
+  --palette-danger-500: #f10000;
+  --palette-danger-400: #ff2323;
+  --palette-danger-300: #ff7575;
+  --palette-danger-200: #ff9898;
+  --palette-danger-100: #ffbaba;
+  --palette-danger-50: #ffdddd;
+  --palette-warning-base: #ffa63d;
+  --palette-warning-900: #271500;
+  --palette-warning-800: #4f2b00;
+  --palette-warning-700: #9e5600;
+  --palette-warning-600: #c66b00;
+  --palette-warning-500: #ed8000;
+  --palette-warning-400: #ff9416;
+  --palette-warning-300: #ffb864;
+  --palette-warning-200: #ffca8b;
+  --palette-warning-100: #ffdbb1;
+  --palette-warning-50: #ffedd8;
+  --palette-success-base: #62de85;
+  --palette-success-900: #07210e;
+  --palette-success-800: #0e421d;
+  --palette-success-700: #15632b;
+  --palette-success-600: #1c8439;
+  --palette-success-500: #2ac656;
+  --palette-success-400: #41d76b;
+  --palette-success-300: #81e59d;
+  --palette-success-200: #a1ebb6;
+  --palette-success-100: #c0f2ce;
+  --palette-success-50: #e0f8e7;
+  --palette-info-base: #4781f0;
+  --palette-info-900: #041330;
+  --palette-info-800: #05173a;
+  --palette-info-700: #061d48;
+  --palette-info-600: #092e73;
+  --palette-info-500: #0e44ad;
+  --palette-info-400: #135be6;
+  --palette-info-300: #6c9af3;
+  --palette-info-200: #91b3f6;
+  --palette-info-100: #b5cdf9;
+  --palette-info-50: #dae6fc;
+  --palette-indigo-base: #2f2c3a;
+  --palette-indigo-900: #18161d;
+  --palette-indigo-800: #23212c;
+  --palette-indigo-700: #474257;
+  --palette-indigo-600: #5e5874;
+  --palette-indigo-500: #766e91;
+  --palette-indigo-400: #918ba7;
+  --palette-indigo-300: #ada8bd;
+  --palette-indigo-200: #c8c5d3;
+  --palette-indigo-100: #e4e2e9;
+  --palette-indigo-50: #f4f1fc;
+  --palette-slate-base: #373439;
+  --palette-slate-900: #161517;
+  --palette-slate-800: #302e32;
+  --palette-slate-700: #53575f;
+  --palette-slate-600: #696e79;
+  --palette-slate-500: #808691;
+  --palette-slate-400: #9a9ea7;
+  --palette-slate-300: #b3b6bd;
+  --palette-slate-200: #cccfd3;
+  --palette-slate-100: #e6e7e9;
+  --palette-slate-50: #f6f7fa;
+  --palette-neutral-base: #212121;
+  --palette-neutral-900: #151515;
+  --palette-neutral-800: #1d1d1d;
+  --palette-neutral-750: #1f1f1c;
+  --palette-neutral-725: #282828;
+  --palette-neutral-700: #414141;
+  --palette-neutral-600: #606060;
+  --palette-neutral-500: #808080;
+  --palette-neutral-400: #a0a0a0;
+  --palette-neutral-300: #c0c0c0;
+  --palette-neutral-200: #dfdfdf;
+  --palette-neutral-100: #f9f9f9;
+  --palette-neutral-0: #ffffff;
+  --palette-brand-base: #fbff46;
+  --palette-brand-800: #161600;
+  --palette-brand-700: #27291b;
+  --palette-brand-600: #4f5100;
+  --palette-brand-500: #9fa300;
+  --palette-brand-400: #eef400;
+  --palette-brand-300: #fcff74;
+  --palette-brand-200: #fdffa3;
+  --palette-brand-100: #feffba;
+  --palette-brand-50: #ffffe8;
+  --click-checkbox-color-label-disabled: #a0a0a0;
+  --click-checkbox-color-label-off: #696e79;
+  --click-checkbox-color-check-disabled: #c0c0c0;
+  --spaces-7: var(--sizes-10);
+  --spaces-6: var(--sizes-9);
+  --spaces-5: var(--sizes-7);
+  --spaces-4: var(--sizes-5);
+  --spaces-3: var(--sizes-4);
+  --spaces-2: var(--sizes-3);
+  --spaces-1: var(--sizes-2);
+  --spaces-0: var(--sizes-0);
+  --border-width-2: 2px;
+  --border-width-1: var(--sizes-1);
+  --border-radii-2: var(--sizes-3);
+  --border-radii-1: var(--sizes-2);
+  --border-radii-0: var(--sizes-0);
+  --typography-styles-field-md: var(--typography-font-weights-1)
+    var(--typography-font-sizes-2) / var(--typography-font-line-height-2)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-brand-xl: var(--typography-font-weights-4) 64px /
+    var(--typography-font-line-height-4) var(--typography-font-families-display);
+  --typography-styles-titles-brand-lg: var(--typography-font-weights-3) 56px /
+    var(--typography-font-line-height-4) var(--typography-font-families-display);
+  --typography-styles-titles-brand-md: var(--typography-font-weights-3) 36px /
+    var(--typography-font-line-height-4) var(--typography-font-families-display);
+  --typography-styles-titles-brand-sm: var(--typography-font-weights-3) 24px /
+    var(--typography-font-line-height-1) var(--typography-font-families-display);
+  --typography-styles-titles-brand-xs: var(--typography-font-weights-3) 20px /
+    var(--typography-font-line-height-1) var(--typography-font-families-display);
+  --typography-styles-text-mono-lg: var(--typography-font-weights-2)
+    var(--typography-font-sizes-3) / var(--typography-font-line-height-2)
+    var(--typography-font-families-mono);
+  --typography-styles-text-mono-md: var(--typography-font-weights-2)
+    var(--typography-font-sizes-2) / var(--typography-font-line-height-3)
+    var(--typography-font-families-mono);
+  --typography-styles-text-mono-sm: var(--typography-font-weights-2)
+    var(--typography-font-sizes-1) / var(--typography-font-line-height-2)
+    var(--typography-font-families-mono);
+  --typography-styles-text-bold-lg: var(--typography-font-weights-3)
+    var(--typography-font-sizes-3) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-bold-md: var(--typography-font-weights-3)
+    var(--typography-font-sizes-2) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-bold-sm: var(--typography-font-weights-3)
+    var(--typography-font-sizes-1) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-sbold-lg: var(--typography-font-weights-2)
+    var(--typography-font-sizes-3) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-sbold-md: var(--typography-font-weights-2)
+    var(--typography-font-sizes-2) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-sbold-sm: var(--typography-font-weights-2)
+    var(--typography-font-sizes-1) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-lg: var(--typography-font-weights-1)
+    var(--typography-font-sizes-3) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-md: var(--typography-font-weights-1)
+    var(--typography-font-sizes-2) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-text-sm: var(--typography-font-weights-1)
+    var(--typography-font-sizes-1) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-2xl: var(--typography-font-weights-3)
+    var(--typography-font-sizes-6) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-xl: var(--typography-font-weights-4)
+    var(--typography-font-sizes-4) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-lg: var(--typography-font-weights-4)
+    var(--typography-font-sizes-3) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-md: var(--typography-font-weights-3)
+    var(--typography-font-sizes-3) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-sm: var(--typography-font-weights-4)
+    var(--typography-font-sizes-2) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-styles-titles-xs: var(--typography-font-weights-4)
+    var(--typography-font-sizes-1) / var(--typography-font-line-height-1)
+    var(--typography-font-families-regular);
+  --typography-font-sizes-6: var(--sizes-9);
+  --typography-font-sizes-4: var(--sizes-6);
+  --typography-font-sizes-3: var(--sizes-5);
+  --typography-font-sizes-2: 14px;
+  --typography-font-sizes-1: var(--sizes-4);
+  --click-feedback-color-neutral-foreground: var(--palette-slate-700);
+  --click-feedback-color-neutral-background: var(--palette-slate-100);
+  --click-feedback-color-danger-foreground: var(--palette-danger-600);
+  --click-feedback-color-danger-background: var(--palette-danger-50);
+  --click-feedback-color-warning-foreground: var(--palette-warning-700);
+  --click-feedback-color-warning-background: var(--palette-warning-50);
+  --click-feedback-color-success-foreground: var(--palette-success-600);
+  --click-feedback-color-success-background: var(--palette-success-50);
+  --click-feedback-color-info-foreground: var(--palette-info-400);
+  --click-feedback-color-info-background: var(--palette-info-50);
+  --click-global-color-outline-default: var(--palette-info-400);
+  --click-global-color-accent-default: var(--palette-neutral-900);
+  --click-global-color-stroke-muted: lch(91.6 1.1 266 / 0.3);
+  --click-global-color-stroke-default: lch(91.6 1.1 266 / 0.3);
+  --click-global-color-text-link-hover: var(--palette-info-600);
+  --click-global-color-text-link-default: var(--palette-info-400);
+  --click-global-color-text-muted: var(--palette-slate-600);
+  --click-global-color-text-default: var(--palette-slate-900);
+  --click-global-color-background-muted: var(--palette-slate-50);
+  --click-global-color-background-default: var(--palette-neutral-0);
+  --click-tabs-basic-color-accent-hover: var(--palette-utility-transparent);
+  --click-tabs-basic-color-background-selected: var(
+    --palette-utility-transparent
+  );
+  --click-tabs-basic-color-background-default: var(
+    --palette-utility-transparent
+  );
+  --click-switch-color-indicator-disabled: var(--palette-neutral-400);
+  --click-switch-color-indicator-active: var(--palette-neutral-0);
+  --click-switch-color-indicator-default: var(--palette-neutral-400);
+  --click-switch-color-stroke-disabled: var(--palette-neutral-300);
+  --click-switch-color-background-disabled-checked: var(--palette-neutral-200);
+  --click-switch-color-background-active: var(--palette-neutral-900);
+  --click-switch-color-background-default: var(--palette-slate-50);
+  --click-switch-radii-all: var(--border-radii-full);
+  --click-sidebar-main-color-item-background-hover: lch(91.6 1.1 266 / 0.6);
+  --click-sidebar-main-color-item-background-active: lch(91.6 1.1 266 / 0.6);
+  --click-sidebar-main-color-item-background-default: var(
+    --palette-utility-transparent
+  );
+  --click-field-color-label-default: var(--palette-slate-600);
+  --click-field-color-stroke-hover: lch(83.8 2.3 258);
+  --click-field-color-stroke-disabled: var(--palette-neutral-200);
+  --click-field-color-text-disabled: var(--palette-neutral-400);
+  --click-field-color-text-default: var(--palette-slate-800);
+  --click-field-color-background-disabled: var(--palette-neutral-200);
+  --click-field-size-icon: var(--sizes-5);
+  --click-context-menu-color-text-disabled: var(--palette-neutral-300);
+  --click-context-menu-size-icon-all: 15.5px;
+  --click-codeblock-color-button-foreground-default: var(--palette-neutral-0);
+  --click-codeblock-color-button-background-hover: var(--palette-slate-700);
+  --click-codeblock-color-button-hover: var(--palette-neutral-0);
+  --click-codeblock-color-button-default: var(--palette-neutral-800);
+  --click-codeblock-color-text-default: var(--palette-neutral-0);
+  --click-codeblock-color-background-default: var(--palette-slate-800);
+  --click-checkbox-color-check-default: var(--palette-neutral-0);
+  --click-checkbox-color-stroke-disabled: var(--palette-neutral-300);
+  --click-checkbox-color-background-disabled-checked: var(
+    --palette-neutral-200
+  );
+  --click-checkbox-color-background-active: var(--palette-slate-900);
+  --click-checkbox-color-background-default: var(--palette-slate-50);
+  --click-checkbox-space-all: var(--sizes-1);
+  --click-card-icon-size-all: var(--sizes-9);
+  --click-button-group-color-text-active: var(--palette-neutral-900);
+  --click-button-group-color-text-default: var(--palette-slate-900);
+  --click-button-group-color-background-default: var(--palette-neutral-0);
+  --click-button-mobile-basic-size-icon-all: var(--sizes-6);
+  --click-button-split-primary-background-action-active: lch(3.47 0.72 305);
+  --click-button-split-primary-background-action-default: lch(6.35 1.32 305);
+  --click-button-icon-button-size-3: var(--sizes-6);
+  --click-button-icon-button-size-2: var(--sizes-5);
+  --click-button-icon-button-size-1: var(--sizes-4);
+  --click-button-basic-color-danger-background-active: var(
+    --palette-danger-100
+  );
+  --click-button-basic-color-danger-background-hover: var(--palette-danger-200);
+  --click-button-basic-color-disabled-text-default: var(--palette-neutral-400);
+  --click-button-basic-color-disabled-background-default: var(
+    --palette-neutral-200
+  );
+  --click-button-basic-color-secondary-stroke-active: lch(83.8 2.3 258);
+  --click-button-basic-color-secondary-stroke-hover: var(--palette-slate-100);
+  --click-button-basic-color-secondary-background-default: var(
+    --palette-utility-transparent
+  );
+  --click-button-basic-color-primary-text-default: var(--palette-neutral-0);
+  --click-button-basic-color-primary-background-active: lch(6.42 1.33 305);
+  --click-button-basic-color-primary-background-hover: lch(55.8 3.66 267);
+  --click-button-basic-color-primary-background-default: var(
+    --palette-slate-800
+  );
+  --click-button-basic-size-icon-all: 15.5px;
+  --click-badge-radii-all: var(--border-radii-full);
+  --click-table-color-cell-stroke: var(--click-global-color-stroke-default);
+  --click-table-color-row-text: var(--click-global-color-text-default);
+  --click-table-color-row-background: var(
+    --click-global-color-background-default
+  );
+  --click-table-color-header-text: var(--click-global-color-text-default);
+  --click-table-color-header-background: var(
+    --click-global-color-background-muted
+  );
+  --click-grid-color-stroke-cell-stroke: var(
+    --click-global-color-stroke-default
+  );
+  --click-grid-color-text-row-default: var(--click-global-color-text-default);
+  --click-grid-color-text-header-default: var(--click-global-color-text-muted);
+  --click-grid-color-background-row-default: var(
+    --click-global-color-background-default
+  );
+  --click-grid-color-background-header-default: lch(97.2 1.57 272 / 0.7);
+  --click-feedback-color-neutral-stroke: var(
+    --click-global-color-stroke-default
+  );
+  --click-docs-typography-toc-item-active: var(
+    --typography-styles-text-bold-md
+  );
+  --click-docs-typography-toc-item-hover: var(--typography-styles-text-md);
+  --click-docs-typography-toc-item-default: var(--typography-styles-text-md);
+  --click-docs-typography-toc-title-default: var(
+    --typography-styles-text-bold-md
+  );
+  --click-docs-typography-breadcrumbs-active: var(
+    --typography-styles-text-bold-md
+  );
+  --click-docs-typography-breadcrumbs-default: var(--typography-styles-text-md);
+  --click-docs-typography-text-default: var(--typography-styles-text-md);
+  --click-docs-typography-titles-sm: var(--typography-styles-titles-lg);
+  --click-docs-typography-titles-md: var(--typography-styles-titles-xl);
+  --click-docs-typography-titles-lg: var(--typography-styles-titles-2xl);
+  --click-tabs-file-tabs-color-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-tabs-file-tabs-color-text-active: var(
+    --click-global-color-text-default
+  );
+  --click-tabs-file-tabs-color-text-hover: var(
+    --click-global-color-text-default
+  );
+  --click-tabs-file-tabs-color-text-default: var(
+    --click-global-color-text-muted
+  );
+  --click-tabs-file-tabs-color-background-hover: var(
+    --click-global-color-background-default
+  );
+  --click-tabs-file-tabs-color-background-default: var(
+    --click-global-color-background-muted
+  );
+  --click-tabs-basic-color-accent-selected: var(
+    --click-global-color-accent-default
+  );
+  --click-tabs-basic-color-accent-default: var(
+    --click-tabs-basic-color-background-default
+  );
+  --click-tabs-basic-color-text-hover: var(--click-global-color-text-default);
+  --click-tabs-basic-color-text-default: var(--click-global-color-text-muted);
+  --click-tabs-basic-color-background-hover: var(
+    --click-global-color-background-muted
+  );
+  --click-tabs-typography-label-active: var(--typography-styles-text-sbold-md);
+  --click-tabs-typography-label-hover: var(--typography-styles-text-md);
+  --click-tabs-typography-label-default: var(--typography-styles-text-md);
+  --click-tabs-radii-all: var(--border-radii-1);
+  --click-tabs-space-x: var(--spaces-3);
+  --click-tabs-space-y: var(--spaces-2);
+  --click-switch-color-stroke-active: var(
+    --click-checkbox-color-background-active
+  );
+  --click-switch-color-stroke-default: var(--click-global-color-stroke-default);
+  --click-switch-space-gap: var(--spaces-2);
+  --click-sidebar-sql-sidebar-color-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-sidebar-sql-sidebar-color-background-default: var(
+    --click-global-color-background-muted
+  );
+  --click-sidebar-main-color-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-sidebar-main-color-text-muted: var(--click-global-color-text-muted);
+  --click-sidebar-main-color-text-default: var(
+    --click-global-color-text-default
+  );
+  --click-sidebar-main-color-item-text-muted: var(
+    --click-global-color-text-muted
+  );
+  --click-sidebar-main-color-item-text-default: var(
+    --click-global-color-text-default
+  );
+  --click-sidebar-main-color-background-default: var(
+    --click-global-color-background-default
+  );
+  --click-sidebar-mobile-item-space-left: var(--spaces-1);
+  --click-sidebar-mobile-item-space-gap: var(--spaces-3);
+  --click-sidebar-mobile-item-space-y: var(--spaces-3);
+  --click-sidebar-mobile-item-space-x: var(--spaces-3);
+  --click-sidebar-item-collapsible-space-gap: var(--spaces-3);
+  --click-sidebar-item-collapsible-space-x: var(--spaces-3);
+  --click-sidebar-typography-mobile-item-active: var(
+    --typography-styles-text-sbold-lg
+  );
+  --click-sidebar-typography-mobile-item-hover: var(
+    --typography-styles-text-lg
+  );
+  --click-sidebar-typography-mobile-item-default: var(
+    --typography-styles-text-lg
+  );
+  --click-sidebar-typography-section-title-disabled: var(
+    --typography-styles-text-sbold-sm
+  );
+  --click-sidebar-typography-section-title-hover: var(
+    --typography-styles-text-sbold-sm
+  );
+  --click-sidebar-typography-section-title-default: var(
+    --typography-styles-text-sbold-sm
+  );
+  --click-sidebar-typography-item-disabled: var(
+    --typography-styles-text-sbold-md
+  );
+  --click-sidebar-typography-item-active: var(
+    --typography-styles-text-sbold-md
+  );
+  --click-sidebar-typography-item-hover: var(--typography-styles-text-md);
+  --click-sidebar-typography-item-default: var(--typography-styles-text-md);
+  --click-sidebar-item-space-left: var(--spaces-1);
+  --click-sidebar-item-space-gap: var(--spaces-3);
+  --click-sidebar-item-space-x: var(--spaces-3);
+  --click-sidebar-item-radius: var(--border-radii-1);
+  --click-popover-color-background-default: lch(100 0 0);
+  --click-popover-radii-all: var(--border-radii-1);
+  --click-field-color-placeholder: var(--click-global-color-text-muted);
+  --click-field-color-label-error: var(
+    --click-feedback-color-danger-foreground
+  );
+  --click-field-color-label-disabled: var(--click-field-color-text-disabled);
+  --click-field-color-stroke-error: var(
+    --click-feedback-color-danger-foreground
+  );
+  --click-field-color-stroke-default: lch(92 1.05 266 / 0.3);
+  --click-field-color-text-error: var(--click-feedback-color-danger-foreground);
+  --click-field-color-text-hover: var(--click-field-color-text-default);
+  --click-field-color-text-active: var(--click-global-color-text-default);
+  --click-field-color-background-hover: var(
+    --click-global-color-background-muted
+  );
+  --click-field-color-background-active: var(
+    --click-global-color-background-default
+  );
+  --click-field-color-background-default: var(
+    --click-global-color-background-muted
+  );
+  --click-field-mobile-space-gap: var(--spaces-2);
+  --click-field-mobile-space-y: var(--spaces-2);
+  --click-field-mobile-space-x: var(--spaces-3);
+  --click-field-radii-all: var(--border-radii-1);
+  --click-field-space-gap: var(--spaces-2);
+  --click-field-space-y: 5.5px;
+  --click-field-space-x: var(--spaces-3);
+  --click-field-type-mobile-field-value: var(--typography-styles-text-lg);
+  --click-field-type-mobile-label: var(--typography-styles-text-sbold-md);
+  --click-field-typography-field-text-error: var(--typography-styles-text-md);
+  --click-field-typography-field-text-disabled: var(
+    --typography-styles-text-md
+  );
+  --click-field-typography-field-text-active: var(--typography-styles-text-md);
+  --click-field-typography-field-text-hover: var(--typography-styles-text-md);
+  --click-field-typography-field-text-default: var(--typography-styles-text-md);
+  --click-field-typography-label-error: var(--typography-styles-text-sbold-sm);
+  --click-field-typography-label-disabled: var(
+    --typography-styles-text-sbold-sm
+  );
+  --click-field-typography-label-active: var(--typography-styles-text-sbold-sm);
+  --click-field-typography-label-hover: var(--typography-styles-text-sbold-sm);
+  --click-field-typography-label-default: var(
+    --typography-styles-text-sbold-sm
+  );
+  --click-context-menu-stroke-default: var(--click-global-color-stroke-default);
+  --click-context-menu-color-background-hover: lch(97.5 1.43 272);
+  --click-context-menu-color-text-active: var(
+    --click-global-color-text-default
+  );
+  --click-context-menu-color-text-hover: var(--click-global-color-text-default);
+  --click-context-menu-color-text-muted: var(--click-global-color-text-muted);
+  --click-context-menu-color-text-default: var(
+    --click-global-color-text-default
+  );
+  --click-context-menu-button-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-context-menu-button-label-default: var(
+    --click-global-color-text-default
+  );
+  --click-context-menu-button-background-default: var(
+    --click-global-color-background-muted
+  );
+  --click-context-menu-button-space-gap: var(--spaces-1);
+  --click-context-menu-radii-all: var(--border-radii-2);
+  --click-context-menu-typography-label-disabled: var(
+    --typography-styles-text-md
+  );
+  --click-context-menu-typography-label-active: var(
+    --typography-styles-text-bold-md
+  );
+  --click-context-menu-typography-label-hover: var(--typography-styles-text-md);
+  --click-context-menu-typography-label-default: var(
+    --typography-styles-text-md
+  );
+  --click-context-menu-space-gap: var(--spaces-2);
+  --click-context-menu-space-y: 5.5px;
+  --click-context-menu-space-x: var(--spaces-4);
+  --click-code-radii-all: var(--border-radii-1);
+  --click-code-typography-text-default: var(--typography-styles-text-mono-md);
+  --click-code-stroke: var(--border-width-1);
+  --click-code-x: var(--spaces-1);
+  --click-codeblock-color-stroke-inline: lch(93.3 0.88 266 / 0.3);
+  --click-codeblock-color-stroke-default: lch(35.4 2.22 306);
+  --click-codeblock-color-button-background-default: var(
+    --click-codeblock-color-background-default
+  );
+  --click-codeblock-color-text-inline: var(--click-global-color-text-default);
+  --click-codeblock-color-background-inline: var(
+    --click-global-color-background-muted
+  );
+  --click-codeblock-typography-text-default: var(
+    --typography-styles-text-mono-md
+  );
+  --click-codeblock-stroke: var(--border-width-1);
+  --click-codeblock-radii-all: var(--border-radii-2);
+  --click-code-block-space-all: var(--spaces-4);
+  --click-checkbox-color-label-default: var(--click-global-color-text-default);
+  --click-checkbox-color-stroke-active: var(
+    --click-checkbox-color-background-active
+  );
+  --click-checkbox-color-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-checkbox-space-gap: var(--spaces-2);
+  --click-checkbox-radii-all: 2px;
+  --click-card-color-stroke-disabled: var(--click-field-color-stroke-disabled);
+  --click-card-color-stroke-active: lch(87 1.05 266 / 0.3);
+  --click-card-color-stroke-hover: var(--click-global-color-stroke-default);
+  --click-card-color-stroke-default: var(--click-global-color-stroke-default);
+  --click-card-color-link-active: var(--click-global-color-text-default);
+  --click-card-color-link-hover: var(--click-global-color-text-link-default);
+  --click-card-color-link-default: var(--click-global-color-text-default);
+  --click-card-color-description-active: var(--click-global-color-text-muted);
+  --click-card-color-description-hover: var(--click-global-color-text-muted);
+  --click-card-color-description-default: var(--click-global-color-text-muted);
+  --click-card-color-title-disabled: var(
+    --click-button-basic-color-disabled-text-default
+  );
+  --click-card-color-title-active: var(--click-global-color-text-default);
+  --click-card-color-title-hover: var(--click-global-color-text-default);
+  --click-card-color-title-default: var(--click-global-color-text-default);
+  --click-card-color-background-disabled: var(
+    --click-button-basic-color-disabled-background-default
+  );
+  --click-card-color-background-active: lch(92.4 1.49 272);
+  --click-card-color-background-hover: var(
+    --click-global-color-background-muted
+  );
+  --click-card-color-background-default: var(
+    --click-global-color-background-default
+  );
+  --click-card-typography-link-disabled: var(--typography-styles-text-sbold-md);
+  --click-card-typography-link-active: var(--typography-styles-text-sbold-md);
+  --click-card-typography-link-hover: var(--typography-styles-text-sbold-md);
+  --click-card-typography-link-default: var(--typography-styles-text-sbold-md);
+  --click-card-typography-description-disabled: var(
+    --typography-styles-text-md
+  );
+  --click-card-typography-description-active: var(--typography-styles-text-md);
+  --click-card-typography-description-hover: var(--typography-styles-text-md);
+  --click-card-typography-description-default: var(--typography-styles-text-md);
+  --click-card-typography-title-disabled: var(--typography-styles-titles-md);
+  --click-card-typography-title-active: var(--typography-styles-titles-md);
+  --click-card-typography-title-hover: var(--typography-styles-titles-md);
+  --click-card-typography-title-default: var(--typography-styles-titles-md);
+  --click-card-radii-all: var(--border-radii-1);
+  --click-card-space-gap: var(--spaces-4);
+  --click-card-space-all: var(--spaces-4);
+  --click-button-group-color-stroke-panel: var(
+    --click-global-color-stroke-default
+  );
+  --click-button-group-color-text-hover: var(
+    --click-button-group-color-text-default
+  );
+  --click-button-group-color-background-panel: var(
+    --click-button-group-color-background-default
+  );
+  --click-button-button-group-radii-end: var(--border-radii-1);
+  --click-button-button-group-radii-center: var(--border-radii-0);
+  --click-button-mobile-button-space-gap: var(--spaces-2);
+  --click-button-mobile-button-space-y: var(--spaces-2);
+  --click-button-mobile-button-space-x: var(--spaces-3);
+  --click-button-split-primary-text-default: var(
+    --click-button-basic-color-primary-text-default
+  );
+  --click-button-split-primary-background-main-active: lch(5.87 1.22 305);
+  --click-button-split-primary-background-main-hover: lch(51.1 3.35 267);
+  --click-button-split-primary-background-main-default: lch(17.6 2.54 306);
+  --click-button-split-primary-stroke-active: lch(16.4 2.36 306);
+  --click-button-split-primary-stroke-default: lch(23.3 2.63 306);
+  --click-button-split-icon-space-y: 8.25px;
+  --click-button-stroke: var(--border-width-1);
+  --click-button-icon-button-space-2: var(--spaces-2);
+  --click-button-icon-button-space-1: var(--spaces-1);
+  --click-button-basic-color-danger-text-default: var(
+    --click-feedback-color-danger-foreground
+  );
+  --click-button-basic-color-danger-background-default: var(
+    --click-feedback-color-danger-background
+  );
+  --click-button-basic-color-secondary-text-default: var(
+    --click-global-color-text-default
+  );
+  --click-button-basic-color-secondary-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-button-basic-color-secondary-background-hover: var(
+    --click-global-color-background-muted
+  );
+  --click-button-basic-color-primary-stroke-active: var(
+    --click-button-basic-color-primary-background-active
+  );
+  --click-button-basic-color-primary-stroke-hover: var(
+    --click-button-basic-color-primary-background-hover
+  );
+  --click-button-basic-color-primary-stroke-default: var(
+    --click-button-basic-color-primary-background-default
+  );
+  --click-button-basic-typography-mobile-label-active: var(
+    --typography-styles-text-bold-lg
+  );
+  --click-button-basic-typography-mobile-label-hover: var(
+    --typography-styles-text-sbold-lg
+  );
+  --click-button-basic-typography-mobile-label-default: var(
+    --typography-styles-text-sbold-lg
+  );
+  --click-button-basic-typography-label-disabled: var(
+    --typography-styles-text-sbold-md
+  );
+  --click-button-basic-typography-label-active: var(
+    --typography-styles-text-bold-md
+  );
+  --click-button-basic-typography-label-hover: var(
+    --typography-styles-text-sbold-md
+  );
+  --click-button-basic-typography-label-default: var(
+    --typography-styles-text-sbold-md
+  );
+  --click-button-basic-space-gap: var(--spaces-2);
+  --click-button-basic-space-y: 5.5px;
+  --click-button-basic-space-x: var(--spaces-4);
+  --click-button-radii-all: var(--border-radii-1);
+  --click-big-stat-color-large-value-default: var(
+    --click-global-color-text-default
+  );
+  --click-big-stat-color-label-default: var(--click-global-color-text-muted);
+  --click-big-stat-color-background-default: var(
+    --click-global-color-background-default
+  );
+  --click-big-stat-color-stroke-default: var(
+    --click-global-color-stroke-default
+  );
+  --click-big-stat-stroke: var(--border-width-1);
+  --click-big-stat-typography-title-default: var(
+    --typography-styles-titles-2xl
+  );
+  --click-big-stat-typography-label-default: var(--typography-styles-text-md);
+  --click-big-stat-radii-all: var(--border-radii-1);
+  --click-big-stat-space-gap: var(--spaces-0);
+  --click-big-stat-space-all: var(--spaces-3);
+  --click-badge-color-stroke-danger: var(
+    --click-feedback-color-danger-background
+  );
+  --click-badge-color-stroke-neutral: var(
+    --click-feedback-color-neutral-background
+  );
+  --click-badge-color-stroke-success: var(
+    --click-feedback-color-success-background
+  );
+  --click-badge-color-stroke-default: var(--click-global-color-stroke-default);
+  --click-badge-color-text-disabled: var(
+    --click-button-basic-color-disabled-text-default
+  );
+  --click-badge-color-text-danger: var(
+    --click-feedback-color-danger-foreground
+  );
+  --click-badge-color-text-neutral: var(
+    --click-feedback-color-neutral-foreground
+  );
+  --click-badge-color-text-success: var(
+    --click-feedback-color-success-foreground
+  );
+  --click-badge-color-text-default: var(--click-global-color-text-muted);
+  --click-badge-color-background-danger: var(
+    --click-feedback-color-danger-background
+  );
+  --click-badge-color-background-neutral: var(
+    --click-feedback-color-neutral-background
+  );
+  --click-badge-color-background-success: var(
+    --click-feedback-color-success-background
+  );
+  --click-badge-color-background-default: var(
+    --click-global-color-background-default
+  );
+  --click-badge-stroke: var(--border-width-1);
+  --click-badge-typography-label-default: var(
+    --typography-styles-text-sbold-sm
+  );
+  --click-badge-space-y: 3px;
+  --click-badge-space-x: var(--spaces-3);
+  --click-tabs-file-tabs-color-background-active: var(
+    --click-tabs-file-tabs-color-background-hover
+  );
+  --click-tabs-basic-color-text-selected: var(
+    --click-tabs-basic-color-text-hover
+  );
+  --click-sidebar-item-collapsible-space-y: var(--click-button-basic-space-y);
+  --click-sidebar-item-space-y: var(--click-button-basic-space-y);
+  --click-field-color-label-active: var(--click-field-color-text-active);
+  --click-field-color-stroke-active: var(--click-field-color-text-active);
+  --click-context-menu-color-background-active: var(
+    --click-context-menu-color-background-hover
+  );
+  --click-context-menu-color-background-default: var(
+    --click-popover-color-background-default
+  );
+  --click-card-color-link-disabled: var(--click-card-color-title-disabled);
+  --click-card-color-description-disabled: var(
+    --click-card-color-title-disabled
+  );
+  --click-button-group-color-background-hover: lch(68.1 1.1 272);
+  --click-button-split-primary-background-action-hover: lch(48.5 3.18 267);
+  --click-button-basic-color-secondary-background-active: lch(92.4 1.49 272);
+  --click-button-basic-space-group: var(--click-button-basic-space-gap);
+  --click-badge-color-stroke-disabled: lch(84.4 0 0);
+  --click-badge-color-background-disabled: var(
+    --click-card-color-background-disabled
+  );
+  --click-button-group-color-background-active: lch(78.5 1.27 272);
+  --click-button-split-primary-stroke-hover: lch(53.6 2.86 267);
+}
