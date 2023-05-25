@@ -1,5 +1,3 @@
-import React from "react";
-
 export const S3Logo = () => (
   <svg
     width="32"

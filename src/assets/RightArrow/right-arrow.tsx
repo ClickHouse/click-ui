@@ -1,5 +1,3 @@
-import React from "react";
-
 export const RightArrow = () => (
   <svg
     width="20"
