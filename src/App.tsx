@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import './App.css'
+
+import "@/styles/globals.css";
+import "./styles/variables.css";
+import "./styles/variables.dark.css";
+
 import styles from './App.module.css'
 
 import { Theme } from './styles/types';
@@ -13,7 +17,6 @@ import { merge } from 'lodash';
 import { Badge, ButtonGroup, Card, TextFieldLabel } from './components';
 import IconButton from './components/IconButton';
 import ProfileIcon from './components/icons/ProfileIcon';
-import './styles/variables.css'
 import Switch from './components/Switch';
 
 declare module "styled-components" {
