@@ -1,4 +1,4 @@
-/* @import "variables.css";
+@import "variables.css";
 
 :root {
   --max-width: 1100px;
@@ -108,4 +108,4 @@ a {
   html {
     color-scheme: dark;
   }
-} */
+}
