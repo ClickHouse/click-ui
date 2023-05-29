@@ -6,39 +6,20 @@ import "./styles/variables.dark.css";
 
 import styles from './App.module.css'
 
-import { Theme } from './styles/types';
-import classicTheme from "./styles/variables.classic.json"
-import darkTheme from "./styles/variables.dark.json"
-import lightTheme from "./styles/variables.light.json"
-import theme from "./styles/variables.json"
+import { ThemeProvider } from 'styled-components';
+import { themes } from './theme'
 
-import { DefaultTheme, ThemeProvider } from "styled-components";
-import { merge } from 'lodash';
 import { Badge, ButtonGroup, Card, TextFieldLabel } from './components';
 import IconButton from './components/IconButton';
 import ProfileIcon from './components/icons/ProfileIcon';
 import Switch from './components/Switch';
 
-declare module "styled-components" {
-  export interface DefaultTheme extends Theme {}
-}
-
-const themes: Record<string, DefaultTheme> = {
-  dark: merge({}, theme, darkTheme),
-  light: merge({}, theme, lightTheme),
-  classic: merge({}, theme, classicTheme),
-}
-
-declare module "styled-components" {
-  export interface DefaultTheme extends Theme {}
-}
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState('dark')
-  const [count, setCount] = useState(0)
   const [selectedButton, setSelectedButton] = useState(0)
   const [checked, setChecked] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [disabled] = useState(false)
 
   return (
     <ThemeProvider theme={themes[currentTheme]}>
@@ -100,6 +81,25 @@ function App() {
         onClick={(index: number) => setSelectedButton(index)}
       />
       <Switch checked={checked} disabled={disabled} onCheckedChange={setChecked} />
+      <div style={{ color: 'white' }}>disabled: {`${disabled}`}</div>
+      <button onClick={() => {
+        document.body.style.backgroundColor = 'black'
+        setCurrentTheme('dark')
+      }}>
+        Dark
+      </button>
+      <button onClick={() => {
+        document.body.style.backgroundColor = 'white'
+        setCurrentTheme('light')
+      }}>
+        Light
+      </button>
+      <button onClick={() => {
+        document.body.style.backgroundColor = 'white'
+        setCurrentTheme('classic')
+      }}>
+        Classic
+      </button>
     </ThemeProvider>
   )
 }
