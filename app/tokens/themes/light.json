@@ -26,6 +26,18 @@
               "value": "#e6e7e9",
               "type": "color"
             }
+          },
+          "intense": {
+            "value": "{palette.slate.300}",
+            "type": "color",
+            "increased": {
+              "value": "#cccdcf",
+              "type": "color"
+            },
+            "muted": {
+              "value": "#e6e7e9",
+              "type": "color"
+            }
           }
         },
         "accent": {
@@ -604,7 +616,7 @@
         },
         "stroke": {
           "default": {
-            "value": "{click.global.color.stroke.default}",
+            "value": "{click.global.color.stroke.intense}",
             "type": "color"
           },
           "active": {
@@ -635,8 +647,8 @@
             "value": "{click.global.color.text.default}",
             "type": "color"
           },
-          "off": {
-            "value": "#696e79",
+          "active": {
+            "value": "{click.global.color.text.default}",
             "type": "color"
           },
           "disabled": {
@@ -1172,7 +1184,7 @@
         },
         "stroke": {
           "default": {
-            "value": "{click.global.color.stroke.default}",
+            "value": "{click.global.color.stroke.intense}",
             "type": "color"
           },
           "active": {
