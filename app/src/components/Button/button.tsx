@@ -3,48 +3,59 @@ import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary";
 
-export interface ButtonProps {
-  className: string;
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  className?: string;
   type?: ButtonType;
 }
 
-const BaseButton = styled.button<ButtonProps>`
+export interface StyledButtonProps {
+  styleType: ButtonType;
+}
+
+const Button = ({ type = "primary", ...delegated }: ButtonProps) => (
+  <StyledButton styleType={type} {...delegated} />
+);
+const BaseButton = styled.button.attrs(props => ({
+  type: props.type || "primary",
+}))<StyledButtonProps>`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 5.5px 16px;
-  gap: 8px;
+
+  padding-left: ${props => props.theme.click.button.basic.space.x};
+  padding-right: ${props => props.theme.click.button.basic.space.x};
+  padding-top: ${props => props.theme.click.button.basic.space.y};
+  padding-bottom: ${props => props.theme.click.button.basic.space.y};
+  border-radius: ${props => props.theme.click.button.radii.all};
+  gap: ${props => props.theme.click.button.basic.space.gap};
   cursor: pointer;
 `;
 
-const StyledButton = styled(BaseButton)<ButtonProps>`
+const StyledButton = styled(BaseButton)`
   border: ${props =>
-    props.theme.click.button.basic.color[props.type || "primary"].stroke
-      .default};
+    props.theme.click.button.basic.color[props.styleType].stroke.default};
   background-color: ${props =>
-    props.theme.click.button.basic.color[props.type || "primary"].background
-      .default};
+    props.theme.click.button.basic.color[props.styleType].background.default};
   color: ${props =>
-    props.theme.click.button.basic.color[props.type || "primary"].text.default};
+    props.theme.click.button.basic.color[props.styleType].text.default};
+  font: ${props => props.theme.click.button.basic.typography.label.default};
 
   &:active {
     border: ${props =>
-      props.theme.click.button.basic.color[props.type || "primary"].stroke
-        .active};
+      props.theme.click.button.basic.color[props.styleType].stroke.active};
     background-color: ${props =>
-      props.theme.click.button.basic.color[props.type || "primary"].background
-        .active};
+      props.theme.click.button.basic.color[props.styleType].background.active};
+    font: ${props => props.theme.click.button.basic.typography.label.active};
   }
 
   &:hover {
     border: ${props =>
-      props.theme.click.button.basic.color[props.type || "primary"].stroke
-        .hover};
+      props.theme.click.button.basic.color[props.styleType].stroke.hover};
     background-color: ${props =>
-      props.theme.click.button.basic.color[props.type || "primary"].background
-        .hover};
+      props.theme.click.button.basic.color[props.styleType].background.hover};
+    font: ${props => props.theme.click.button.basic.typography.label.hover};
   }
 `;
 
-export default StyledButton;
+export default Button;
