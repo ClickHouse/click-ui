@@ -15,9 +15,7 @@ export interface StyledButtonProps {
 const Button = ({ type = "primary", ...delegated }: ButtonProps) => (
   <StyledButton styleType={type} {...delegated} />
 );
-const BaseButton = styled.button.attrs(props => ({
-  type: props.type || "primary",
-}))<StyledButtonProps>`
+const BaseButton = styled.button<StyledButtonProps>`
   display: flex;
   flex-direction: row;
   justify-content: center;
