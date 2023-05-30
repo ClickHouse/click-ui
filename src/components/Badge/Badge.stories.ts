@@ -1,4 +1,4 @@
-import { Badge } from "./Badge.tsx";
+import { Badge } from "@/components/Badge/badge";
 
 export default {
   component: Badge,
