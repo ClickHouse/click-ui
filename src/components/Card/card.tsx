@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { S3Logo } from "../../assets/S3Logo/s3-logo";
-import { RightArrow } from "../../assets/RightArrow/right-arrow";
-import {Badge} from "@/components/Badge/badge";
+import { Badge } from "@/components/Badge/Badge";
+import { S3Logo } from "@/assets/S3Logo/S3Logo";
+import { RightArrow } from "@/assets/RightArrow/RightArrow";
 
 export type CardState = "active" | "disabled";
 export interface CardProps {
@@ -26,7 +26,10 @@ export const Card = ({
         <S3Logo />
         <Title>{title}</Title>
       </HeaderLeft>
-        <Badge text={badgeText} state={state === 'disabled' ? 'disabled' : 'default'}></Badge>
+      <Badge
+        text={badgeText}
+        state={state === "disabled" ? "disabled" : "default"}
+      ></Badge>
     </Header>
 
     <Content>

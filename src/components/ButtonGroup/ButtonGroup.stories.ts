@@ -1,15 +1,14 @@
-import {ButtonGroup} from './index';
+import { ButtonGroup } from "./ButtonGroup";
 
 export default {
   component: ButtonGroup,
-  title: 'ButtonGroup',
-  tags: ['buttons'],
+  title: "ButtonGroup",
+  tags: ["buttons"],
 };
 
 export const Default = {
   args: {
-    labels: ['Button 1', 'Button 2', 'Button 3'],
+    labels: ["Button 1", "Button 2", "Button 3"],
     activeIndex: 2,
   },
 };
-

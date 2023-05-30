@@ -2,13 +2,6 @@ import merge from "lodash/merge";
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 
-import { Card } from "../components/Card/card";
-import { TextFieldLabel } from "../components/FormField/index";
-import { ButtonGroup } from "../components/ButtonGroup";
-import IconButton from "@/components/IconButton";
-import ProfileIcon from "@/components/icons/ProfileIcon";
-import { Badge } from "@/components/Badge/badge";
-import Switch from "../components/Switch";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import { useState } from "react";
 
@@ -16,14 +9,11 @@ import classicTheme from "../styles/variables.classic.json";
 import darkTheme from "../styles/variables.dark.json";
 import lightTheme from "../styles/variables.light.json";
 import theme from "../styles/variables.json";
-
 import { Theme } from "../styles/types";
-
+import { IconButton } from "click-ui";
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
 }
-import { BigStat } from "@/components/BigStat/bigStat";
-import Button from "@/components/Button/Button";
 
 export default function Home() {
   const [checked, setChecked] = useState(false);

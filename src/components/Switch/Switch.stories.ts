@@ -1,4 +1,4 @@
-import Switch from "./index";
+import { Switch } from "./Switch";
 
 export default {
   component: Switch,

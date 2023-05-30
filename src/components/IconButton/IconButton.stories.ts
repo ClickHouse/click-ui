@@ -1,4 +1,4 @@
-import IconButton from "./index";
+import { IconButton } from "./IconButton";
 
 export default {
   component: IconButton,

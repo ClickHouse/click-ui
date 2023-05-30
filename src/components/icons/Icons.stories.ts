@@ -1,4 +1,4 @@
-import ProfileIcon from "./ProfileIcon";
+import { ProfileIcon } from "./ProfileIcon";
 
 export default {
   component: ProfileIcon,

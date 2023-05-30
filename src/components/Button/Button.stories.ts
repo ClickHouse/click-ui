@@ -1,4 +1,4 @@
-import Button from "./Button";
+import { Button } from "./Button";
 
 export default {
   component: Button,
@@ -9,7 +9,7 @@ export default {
 export const Default = {
   args: {
     type: "primary",
-    disabled: true,
+    disabled: false,
     children: "Button",
   },
 };

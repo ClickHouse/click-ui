@@ -10,9 +10,10 @@ export interface StyledButtonProps {
   styleType: ButtonType;
 }
 
-const Button = ({ type = "primary", ...delegated }: ButtonProps) => (
+export const Button = ({ type = "primary", ...delegated }: ButtonProps) => (
   <StyledButton styleType={type} {...delegated} />
 );
+
 const BaseButton = styled.button<StyledButtonProps>`
   display: flex;
   flex-direction: row;
@@ -60,5 +61,3 @@ const StyledButton = styled(BaseButton)`
       props.theme.click.button.basic.color.disabled.text.default};
   }
 `;
-
-export default Button;
