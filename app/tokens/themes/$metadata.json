@@ -1,9 +1,0 @@
-{
-  "tokenSetOrder": [
-    "primitives",
-    "component",
-    "light",
-    "dark",
-    "classic"
-  ]
-}
