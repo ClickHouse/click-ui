@@ -1,4 +1,4 @@
-import { BigStat } from "./BigStat";
+import { BigStat } from "./BigStat.tsx";
 
 export default {
   component: BigStat,
