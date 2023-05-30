@@ -1,4 +1,4 @@
-import { Badge } from "./Badge";
+import { Badge } from "..";
 
 export default {
   component: Badge,
