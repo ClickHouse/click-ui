@@ -9,8 +9,6 @@ import darkTheme from "../src/styles/variables.dark.json";
 import lightTheme from "../src/styles/variables.light.json";
 import theme from "../src/styles/variables.json";
 
-import { Theme } from "../src/styles/types";
-
 const themes: Record<string, DefaultTheme> = {
   dark: merge({}, theme, darkTheme),
   light: merge({}, theme, lightTheme),

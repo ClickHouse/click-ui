@@ -23,7 +23,7 @@ declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
 }
 import { BigStat } from "@/components/BigStat/bigStat";
-import Button from "@/components/Button/button";
+import Button from "@/components/Button/Button";
 
 export default function Home() {
   const [checked, setChecked] = useState(false);

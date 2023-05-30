@@ -1,10 +1,8 @@
-import { CSSProperties, ReactNode } from "react";
 import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  className?: string;
   type?: ButtonType;
 }
 
@@ -53,6 +51,13 @@ const StyledButton = styled(BaseButton)`
     background-color: ${props =>
       props.theme.click.button.basic.color[props.styleType].background.hover};
     font: ${props => props.theme.click.button.basic.typography.label.hover};
+  }
+
+  &[disabled] {
+    background-color: ${props =>
+      props.theme.click.button.basic.color.disabled.background.default};
+    color: ${props =>
+      props.theme.click.button.basic.color.disabled.text.default};
   }
 `;
 

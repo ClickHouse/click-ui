@@ -8,8 +8,8 @@ export default {
 
 export const Default = {
   args: {
-    label: "big stat lablel",
-    largeValue: "Big Stat",
+    label: "last successfull backup",
+    largeValue: "12 hours ago",
     state: "default",
   },
 };
