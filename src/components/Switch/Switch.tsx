@@ -1,4 +1,3 @@
-import React from "react";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import styled, { DefaultTheme } from "styled-components";
 
@@ -17,7 +16,7 @@ interface ThumbProps {
   disabled?: boolean;
 }
 
-export default function Switch({ checked, disabled, ...props }: SwitchProps) {
+export function Switch({ checked, disabled, ...props }: SwitchProps) {
   return (
     <SwitchRoot disabled={disabled} checked={checked} {...props}>
       <SwitchThumb checked={checked} />

@@ -1,4 +1,4 @@
-import { TextFieldLabel } from "./index";
+import { TextFieldLabel } from "./FormField";
 
 export default {
   component: TextFieldLabel,

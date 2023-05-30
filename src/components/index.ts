@@ -1,7 +1,8 @@
-export { Badge } from './Badge/badge'
-export { ButtonGroup } from './ButtonGroup'
-export { Card } from './Card/card'
-export { TextFieldLabel } from './FormField'
-export { default as IconButton } from './IconButton'
-export { default as ProfileIcon } from './icons/ProfileIcon'
-export { default as Switch } from './Switch'
+export { Badge } from "./Badge/Badge";
+export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
+export { Button } from "./Button/Button";
+export { Card } from "./Card/Card";
+export { TextFieldLabel } from "./FormField/FormField";
+export { IconButton } from "./IconButton/IconButton";
+export { ProfileIcon } from "./icons/ProfileIcon";
+export { Switch } from "./Switch/Switch";

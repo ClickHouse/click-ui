@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, forwardRef } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -8,7 +8,7 @@ interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   display?: "empty" | "filled";
 }
 
-const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ children, display = "filled", ...props }, ref) => {
     return (
       <Button {...props} display={display} ref={ref}>
@@ -92,5 +92,3 @@ const Button = styled.button<IconButtonProps>`
     }}
   }
 `;
-
-export default IconButton;
