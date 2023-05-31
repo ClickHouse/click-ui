@@ -173,6 +173,12 @@
             "value": "{sizes.6}",
             "type": "sizing"
           }
+        },
+        "radii": {
+          "all": {
+            "value": "{click.button.radii.all}",
+            "type": "borderRadius"
+          }
         }
       },
       "stroke": {
