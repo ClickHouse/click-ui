@@ -1,0 +1,19 @@
+import { Icon } from "../Icon/Icon";
+import { Meta, IconGallery, IconItem } from "@storybook/blocks";
+import { ProfileIcon } from "./ProfileIcon";
+import { ThemeProvider, themes } from "../../theme";
+
+<Meta title="Icons" />
+
+# Icons
+
+<ThemeProvider theme={themes.light}>
+  <IconGallery>
+    <IconItem name="profile">
+      <Icon name="profile" />
+    </IconItem>
+    <IconItem name="users">
+      <Icon name="users" />
+    </IconItem>
+  </IconGallery>
+</ThemeProvider>

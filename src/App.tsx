@@ -13,6 +13,7 @@ import { Badge, Button, ButtonGroup, Card, TextFieldLabel } from "./components";
 import { IconButton } from "./components/IconButton/IconButton";
 import { ProfileIcon } from "./components/icons/ProfileIcon";
 import { Switch } from "./components/Switch/Switch";
+import { Icon } from "./components/Icon/Icon";
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("dark");
@@ -122,6 +123,7 @@ function App() {
       >
         Secondary
       </Button>
+      <Icon name="users" />
     </ThemeProvider>
   );
 }
