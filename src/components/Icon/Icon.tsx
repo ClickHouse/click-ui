@@ -7,6 +7,7 @@ type IconName = "profile" | "users";
 
 interface IconProps {
   name: IconName;
+  color?: string;
 }
 
 const SVGIcon = ({ name, ...delegated }: IconProps) => {
@@ -22,16 +23,17 @@ const SVGIcon = ({ name, ...delegated }: IconProps) => {
 
 const withStylesWrapper =
   (IconComponent: ElementType) =>
-  (props: IconProps): ReactElement =>
+  ({ color, ...props }: IconProps): ReactElement =>
     (
-      <SvgWrapper>
+      <SvgWrapper color={color}>
         <IconComponent {...props} />
       </SvgWrapper>
     );
 
 const SvgWrapper = styled.div`
   & path {
-    stroke: ${props => props.theme.click.global.color.text.default};
+    stroke: ${props =>
+      props.color || props.theme.click.global.color.text.default};
   }
 `;
 

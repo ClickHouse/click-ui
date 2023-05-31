@@ -9,5 +9,6 @@ export default {
 export const Default = {
   args: {
     name: "users",
+    color: "black",
   },
 };
