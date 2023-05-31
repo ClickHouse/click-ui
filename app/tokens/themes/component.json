@@ -7,7 +7,7 @@
           "type": "spacing"
         },
         "y": {
-          "value": "{spaces.1}-1px",
+          "value": "0.1875rem",
           "type": "spacing"
         }
       },
@@ -92,7 +92,7 @@
             "type": "spacing"
           },
           "y": {
-            "value": "{spaces.1}+1.5px",
+            "value": "0.34375rem",
             "type": "spacing"
           },
           "gap": {
@@ -183,7 +183,7 @@
         "icon": {
           "space": {
             "y": {
-              "value": "{spaces.2}+.25px",
+              "value": "0.515625rem",
               "type": "spacing"
             }
           }
@@ -395,7 +395,7 @@
           "type": "spacing"
         },
         "y": {
-          "value": "{spaces.1}+1.5px",
+          "value": "0.34375rem",
           "type": "spacing"
         },
         "gap": {
@@ -511,7 +511,7 @@
           "type": "spacing"
         },
         "y": {
-          "value": "{spaces.1}+1.5px",
+          "value": "0.34375rem",
           "type": "spacing"
         },
         "gap": {
