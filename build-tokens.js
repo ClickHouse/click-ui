@@ -1,9 +1,6 @@
-const _ = require("lodash")
-const {
-  registerTransforms,
-  transforms,
-} = require("@tokens-studio/sd-transforms");
-const StyleDictionary = require("style-dictionary");
+import _ from "lodash";
+import {registerTransforms,transforms} from"@tokens-studio/sd-transforms";
+import StyleDictionary from "style-dictionary";
 
 registerTransforms(StyleDictionary);
 const themes = ["classic", "dark", "light"];
@@ -21,9 +18,9 @@ StyleDictionary.registerTransform({
   name: "name/cti/dot",
   transformer: (token, options) => {
     if (options.prefix && options.prefix.length) {
-      return [options.prefix].concat(token.path).join('.');
+      return [options.prefix].concat(token.path).join(".");
     } else {
-      return token.path.join('.');
+      return token.path.join(".");
     }
   }
 });
@@ -48,14 +45,14 @@ StyleDictionary.registerFormat({
 });
 
 StyleDictionary.extend({
-  source: [`./tokens/**/!(${themes.join(`|*.`)}).json`],
+  source: [`./tokens/**/!(${themes.join("|*.")}).json`],
   platforms: {
     css: {
       transforms: [...transforms, "name/cti/kebab"],
       buildPath: "build/css/",
       files: [
         {
-          destination: `variables.css`,
+          destination: "variables.css",
           format: "css/variables",
           options: {
             outputReferences: true,
@@ -68,7 +65,7 @@ StyleDictionary.extend({
       buildPath: "src/styles/",
       files: [
         {
-          destination: `variables.json`,
+          destination: "variables.json",
           format: "ThemeFormat",
           options: {
             outputReferences: true,
@@ -81,7 +78,7 @@ StyleDictionary.extend({
       buildPath: "src/styles/",
       files: [
         {
-          destination: `types.ts`,
+          destination: "types.ts",
           format: "TypescriptFormat",
           options: {
             outputReferences: true,
@@ -96,7 +93,7 @@ StyleDictionary.extend({
 
 themes.forEach(theme =>
   StyleDictionary.extend({
-    include: [`./tokens/**/!(${themes.join(`|*.`)}).json`],
+    include: [`./tokens/**/!(${themes.join("|*.")}).json`],
     source: [`./tokens/**/${theme}.json`],
     platforms: {
       css: {
