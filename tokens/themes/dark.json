@@ -58,6 +58,10 @@
                 }
               }
             }
+          },
+          "intense": {
+            "value": "{palette.neutral.700}",
+            "type": "color"
           }
         },
         "accent": {
@@ -438,7 +442,7 @@
         },
         "stroke": {
           "default": {
-            "value": "{click.global.color.stroke.default}",
+            "value": "{click.global.color.stroke.intense}",
             "type": "color"
           },
           "active": {
@@ -783,7 +787,7 @@
         },
         "stroke": {
           "default": {
-            "value": "{click.global.color.stroke.default}",
+            "value": "{click.global.color.stroke.intense}",
             "type": "color"
           },
           "active": {
