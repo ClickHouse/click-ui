@@ -1,0 +1,58 @@
+{
+  "click": {
+    "sidebar": {
+      "main": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{palette.indigo.base}",
+              "type": "color"
+            }
+          },
+          "item": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.indigo.700}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{palette.indigo.300}",
+                "type": "color"
+              }
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{palette.neutral.0}",
+              "type": "color"
+            },
+            "muted": {
+              "value": "{palette.indigo.300}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{palette.indigo.700}",
+              "type": "color"
+            }
+          }
+        }
+      }
+    }
+  }
+}
