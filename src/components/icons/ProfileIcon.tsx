@@ -1,7 +1,9 @@
-export const ProfileIcon = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
+import { IconProps } from "../Icon/Icon";
+
+export const ProfileIcon = (props: React.HTMLAttributes<HTMLOrSVGElement> & Partial<IconProps>) => (
   <svg
-    width={16}
-    height={16}
+    width={props.width}
+    height={props.height}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

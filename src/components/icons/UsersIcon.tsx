@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import { IconProps } from "../Icon/Icon";
 
-export const UsersIcon = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
+export const UsersIcon = (props: React.HTMLAttributes<HTMLOrSVGElement> & Partial<IconProps>) => (
   <svg
     width="24"
     height="25"

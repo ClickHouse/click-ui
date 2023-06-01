@@ -5,7 +5,7 @@ import { ProfileIcon } from "..";
 
 type IconName = "profile" | "users";
 
-interface IconProps {
+export interface IconProps {
   name: IconName;
   color?: string;
   width?: string;
@@ -13,15 +13,14 @@ interface IconProps {
   className?: string;
 }
 
-const SVGIcon = ({ name, ...delegated }: IconProps) => {
-  switch (name) {
-    case "profile":
-      return <ProfileIcon {...delegated} />;
-    case "users":
-      return <UsersIcon {...delegated} />;
-    default:
-      return null;
-  }
+const ICONS_MAP = {
+  "profile": ProfileIcon,
+  "users": UsersIcon,
+}
+
+const SVGIcon = ({ name, width, height, ...delegated }: IconProps) => {
+  const Component = ICONS_MAP[name];
+      return <Component width={width} height={height} {...delegated} />;
 };
 
 const withStylesWrapper =
@@ -34,12 +33,12 @@ const withStylesWrapper =
         height={height}
         className={className}
       >
-        <IconComponent {...props} />
+        <IconComponent width={width} height={height} {...props} />
       </SvgWrapper>
     );
 
 const SvgWrapper = styled.div<Partial<IconProps>>`
-  & path {
+  & path[stroke] {
     stroke: ${props =>
       props.color || props.theme.click.global.color.text.default};
   }
@@ -51,7 +50,17 @@ const SvgWrapper = styled.div<Partial<IconProps>>`
 
   & svg {
     width: ${props => props.width || "24px"};
-    height: ${props => props.height || "24px"};
+    height: ${props => props.width || "24px"};
+  }
+
+  & svg[stroke] {
+    stroke: ${props =>
+      props.color || props.theme.click.global.color.text.default};
+  }
+
+  & svg[fill]:not([fill="none"]) {
+    fill: ${props =>
+      props.color || props.theme.click.global.color.text.default};
   }
 `;
 
