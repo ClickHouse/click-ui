@@ -151,25 +151,25 @@
       },
       "icon-button": {
         "space": {
-          "1": {
+          "x": {
             "value": "{spaces.1}",
             "type": "spacing"
           },
-          "2": {
+          "y": {
             "value": "{spaces.2}",
             "type": "spacing"
           }
         },
         "size": {
-          "1": {
+          "small": {
             "value": "{sizes.4}",
             "type": "sizing"
           },
-          "2": {
+          "medium": {
             "value": "{sizes.5}",
             "type": "sizing"
           },
-          "3": {
+          "large": {
             "value": "{sizes.6}",
             "type": "sizing"
           }
