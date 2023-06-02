@@ -481,7 +481,7 @@
           }
         }
       },
-      "icon-button": {
+      "iconButton": {
         "color": {
           "primary": {
             "background": {
@@ -509,15 +509,15 @@
             },
             "stroke": {
               "default": {
-                "value": "{click.button.icon-button.color.primary.background.default}",
+                "value": "{click.button.iconButton.color.primary.background.default}",
                 "type": "color"
               },
               "hover": {
-                "value": "{click.button.icon-button.color.primary.background.hover}",
+                "value": "{click.button.iconButton.color.primary.background.hover}",
                 "type": "color"
               },
               "active": {
-                "value": "{click.button.icon-button.color.primary.background.active}",
+                "value": "{click.button.iconButton.color.primary.background.active}",
                 "type": "color"
               }
             },
@@ -562,15 +562,15 @@
             },
             "stroke": {
               "default": {
-                "value": "{click.button.icon-button.color.primary.background.default}",
+                "value": "{click.button.iconButton.color.primary.background.default}",
                 "type": "color"
               },
               "hover": {
-                "value": "{click.button.icon-button.color.secondary.background.hover}",
+                "value": "{click.button.iconButton.color.secondary.background.hover}",
                 "type": "color"
               },
               "active": {
-                "value": "{click.button.icon-button.color.secondary.background.active}",
+                "value": "{click.button.iconButton.color.secondary.background.active}",
                 "type": "color"
               }
             },
