@@ -1,3 +1,5 @@
+export { default as Flags } from "./icons/Flags";
+
 export { Badge } from "./Badge/Badge";
 export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
 export { Button } from "./Button/Button";
