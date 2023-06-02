@@ -494,6 +494,10 @@
         "6": {
           "value": "{sizes.9}",
           "type": "fontSizes"
+        },
+        "base": {
+          "value": "16px",
+          "type": "fontSizes"
         }
       },
       "line-height": {
