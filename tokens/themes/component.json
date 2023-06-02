@@ -150,14 +150,16 @@
         }
       },
       "icon-button": {
-        "space": {
-          "x": {
-            "value": "{spaces.1}",
-            "type": "spacing"
-          },
-          "y": {
-            "value": "{spaces.2}",
-            "type": "spacing"
+        "default": {
+          "space": {
+            "x": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
           }
         },
         "size": {
@@ -178,6 +180,18 @@
           "all": {
             "value": "{click.button.radii.all}",
             "type": "borderRadius"
+          }
+        },
+        "small": {
+          "space": {
+            "x": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            }
           }
         }
       },
