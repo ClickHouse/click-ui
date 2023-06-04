@@ -1,5 +1,8 @@
 import React from "react";
-const USA = (props: React.SVGAttributes<SVGElement>): React.ReactNode => (
+
+const UnitedStates = (
+  props: React.SVGAttributes<SVGElement>
+): React.ReactElement => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width={30}
@@ -20,4 +23,4 @@ const USA = (props: React.SVGAttributes<SVGElement>): React.ReactNode => (
     />
   </svg>
 );
-export default USA;
+export default UnitedStates;

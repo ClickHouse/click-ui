@@ -8,16 +8,7 @@ import FilterIcon from "../icons/FilterIcon";
 import HistoryIcon from "../icons/HistoryIcon";
 import InsertRowIcon from "../icons/InsertRowIcon";
 import SortAltIcon from "../icons/SortAltIcon";
-
-type IconName = "profile" | "users";
-
-export interface IconProps {
-  name: IconName;
-  color?: string;
-  width?: string;
-  height?: string;
-  className?: string;
-}
+import { SvgIconProps, IconProps } from "./types";
 
 const ICONS_MAP = {
   profile: ProfileIcon,
@@ -30,14 +21,14 @@ const ICONS_MAP = {
   sort: SortAltIcon,
 };
 
-const SVGIcon = ({ name, width, height, ...delegated }: IconProps) => {
+const SVGIcon = ({ name, ...delegated }: SvgIconProps) => {
   const Component = ICONS_MAP[name];
-  return <Component width={width} height={height} {...delegated} />;
+  return <Component {...delegated} />;
 };
 
 const withStylesWrapper =
   (IconComponent: ElementType) =>
-  ({ color, width, height, className, ...props }: IconProps): ReactElement =>
+  ({ color, width, height, className, ...props }: SvgIconProps): ReactElement =>
     (
       <SvgWrapper
         color={color}

@@ -1,6 +1,8 @@
 import React from "react";
 
-function Netherlands(props: React.SVGAttributes<SVGElement>) {
+function Netherlands(
+  props: React.SVGAttributes<SVGElement>
+): React.ReactElement {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

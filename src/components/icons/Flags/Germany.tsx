@@ -1,5 +1,7 @@
 import * as React from "react";
-const Germany = (props: React.SVGAttributes<SVGElement>) => (
+const Germany = (
+  props: React.SVGAttributes<SVGElement>
+): React.ReactElement => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width={30}

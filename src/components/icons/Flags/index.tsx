@@ -1,5 +1,5 @@
 import React from "react";
-import USA from "./USA";
+import UnitedStates from "./UnitedStates";
 import UnitedKingdom from "./UnitedKingdom";
 import EuropeanUnion from "./EuropeanUnion";
 import Germany from "./Germany";
@@ -15,7 +15,7 @@ interface Props extends React.SVGAttributes<SVGElement> {
 function Flags({ name, ...props }: Props) {
   switch (name) {
     case "usa":
-      return <USA {...props} />;
+      return <UnitedStates {...props} />;
 
     case "de":
       return <Germany {...props} />;

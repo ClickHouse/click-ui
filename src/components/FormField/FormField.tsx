@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import { States } from '../types'
+import styled from "styled-components"
+import { States } from "../types"
 
 export type LabelProps = {
   state: States
   text: string
 }
 
-export const Label = styled.label<Pick<LabelProps, 'state'>>`
+export const Label = styled.label<Pick<LabelProps, "state">>`
   font: ${({state}) => (
     `var(--click-field-typography-label-${state})`
   )};

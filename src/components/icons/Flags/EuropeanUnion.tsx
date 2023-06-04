@@ -1,6 +1,8 @@
 import React from "react";
 
-function EuropeanUnion(props: React.SVGAttributes<SVGElement>) {
+function EuropeanUnion(
+  props: React.SVGAttributes<SVGElement>
+): React.ReactElement {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

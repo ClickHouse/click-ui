@@ -1,7 +1,6 @@
-import React from "react";
-import { IconProps } from "./types";
+import { SVGAttributes } from "react";
 
-function DatabaseIcon(props: IconProps) {
+function DatabaseIcon(props: SVGAttributes<SVGElement>) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

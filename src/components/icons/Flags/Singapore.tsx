@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function Singapore(props: React.SVGAttributes<SVGElement>) {
+export default function Singapore(
+  props: React.SVGAttributes<SVGElement>
+): React.ReactElement {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
