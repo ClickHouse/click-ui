@@ -8,7 +8,7 @@ export interface BigStatProps {
     state?: bigStatState;
 }
 
-const Wrapper = styled.div<Pick<BigStatProps, 'state'>>`
+const Wrapper = styled.div<Pick<BigStatProps, "state">>`
   background-color: ${({state}) => `var(--click-big-stat-color-background-${state})`};
   border-radius: var(--click-big-stat-radii-all);
   border: ${({state}) => `var(--click-big-stat-stroke) solid var(--click-big-stat-color-stroke-${state})`};
@@ -18,17 +18,17 @@ const Wrapper = styled.div<Pick<BigStatProps, 'state'>>`
   flex-direction: column;
 `;
 
-const Label = styled.div<Pick<BigStatProps, 'state'>>`
+const Label = styled.div<Pick<BigStatProps, "state">>`
   color: ${({state}) => `var(--click-big-stat-color-label-${state})`};
   font: ${({state}) => `var(--click-big-stat-typography-label-${state})`};
 `;
 
-const LargeValue = styled.div<Pick<BigStatProps, 'state'>>`
+const LargeValue = styled.div<Pick<BigStatProps, "state">>`
   color: ${({state}) => `var(--click-big-stat-color-large-value-${state})`};
   font: ${({state}) => `var(--click-big-stat-typography-title-${state})`};
 `;
 
-export function BigStat({label, largeValue, state = 'default'}: BigStatProps) {
+export function BigStat({label, largeValue, state = "default"}: BigStatProps) {
   return <Wrapper state={state}>
     <Label state={state}>{label}</Label>
     <LargeValue state={state}>{largeValue}</LargeValue>

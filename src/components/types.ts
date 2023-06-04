@@ -1,1 +1,1 @@
-export type States = 'default' | 'active' | 'disabled' | 'error' | 'hover'
+export type States = "default" | "active" | "disabled" | "error" | "hover"

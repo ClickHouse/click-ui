@@ -12,7 +12,7 @@ export const ButtonGroup = ({
   onClick,
 }: ButtonGroupProps) => {
   const btns = labels.map((label, index) => {
-    let position: ButtonPosition =
+    const position: ButtonPosition =
       index === 0 ? "left" : index === labels.length - 1 ? "right" : "center";
     return (
       <Button

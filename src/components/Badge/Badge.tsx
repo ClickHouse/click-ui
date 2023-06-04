@@ -7,7 +7,7 @@ export interface BadgeProps {
     state?: BadgeState;
 }
 
-const Wrapper = styled.div<Pick<BadgeProps, 'state'>>`
+const Wrapper = styled.div<Pick<BadgeProps, "state">>`
   background-color: ${({state}) => `var(--click-badge-color-background-${state})`};
   color: ${({state}) => `var(--click-badge-color-text-${state})`};
   font: var(--click-badge-typography-label-default);
