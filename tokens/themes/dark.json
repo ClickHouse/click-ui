@@ -932,6 +932,31 @@
           }
         }
       }
+    },
+    "tooltip": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{palette.neutral.0}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.15",
+                  "space": "lch"
+                }
+              }
+            }
+          }
+        },
+        "label": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          }
+        }
+      }
     }
   }
 }

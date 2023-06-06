@@ -984,6 +984,24 @@
           "value": "{border.radii.1}",
           "type": "borderRadius"
         }
+      },
+      "space": {
+        "x": {
+          "value": "{spaces.3}",
+          "type": "spacing"
+        },
+        "y": {
+          "value": "{spaces.2}",
+          "type": "spacing"
+        }
+      },
+      "typography": {
+        "label": {
+          "default": {
+            "value": "{typography.styles.text.sm}",
+            "type": "typography"
+          }
+        }
       }
     }
   }
