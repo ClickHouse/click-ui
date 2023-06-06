@@ -542,7 +542,7 @@
         }
       }
     },
-    "context-menu": {
+    "contextMenu": {
       "color": {
         "text": {
           "default": {
@@ -577,7 +577,7 @@
             }
           },
           "active": {
-            "value": "{click.context-menu.color.background.hover}",
+            "value": "{click.contextMenu.color.background.hover}",
             "type": "color"
           }
         }

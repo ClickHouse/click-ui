@@ -856,7 +856,7 @@
         }
       }
     },
-    "context-menu": {
+    "contextMenu": {
       "color": {
         "text": {
           "default": {
@@ -890,7 +890,7 @@
             "type": "color"
           },
           "active": {
-            "value": "{click.context-menu.color.background.hover}",
+            "value": "{click.contextMenu.color.background.hover}",
             "type": "color"
           }
         }
@@ -1373,6 +1373,38 @@
         "stroke": {
           "value": "{click.global.color.text.default}",
           "type": "color"
+        }
+      }
+    },
+    "accordion": {
+      "color": {
+        "label": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          }
+        },
+        "icon": {
+          "default": {
+            "value": "{click.accordion.color.label.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.accordion.color.label.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.accordion.color.label.default}",
+            "type": "color"
+          }
         }
       }
     }
