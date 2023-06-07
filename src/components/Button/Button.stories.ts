@@ -10,6 +10,6 @@ export const Default = {
   args: {
     type: "primary",
     disabled: false,
-    children: "Button",
+    label: "Button",
   },
 };
