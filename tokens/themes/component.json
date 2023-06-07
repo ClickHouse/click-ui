@@ -98,6 +98,98 @@
         }
       }
     },
+    "alert": {
+      "medium": {
+        "space": {
+          "y": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
+        },
+        "typography": {
+          "title": {
+            "default": {
+              "value": "{typography.styles.titles.sm}",
+              "type": "typography"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            }
+          }
+        },
+        "icon": {
+          "height": {
+            "value": "{click.image.medium.size.height}",
+            "type": "sizing"
+          },
+          "width": {
+            "value": "{click.image.medium.size.width}",
+            "type": "sizing"
+          }
+        }
+      },
+      "small": {
+        "space": {
+          "y": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
+          }
+        },
+        "icon": {
+          "height": {
+            "value": "{click.image.small.size.height}",
+            "type": "sizing"
+          },
+          "width": {
+            "value": "{click.image.small.size.width}",
+            "type": "sizing"
+          }
+        },
+        "typography": {
+          "title": {
+            "default": {
+              "value": "{typography.styles.titles.xs}",
+              "type": "typography"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{typography.styles.text.sm}",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "radii": {
+        "center": {
+          "value": "{border.radii.0}",
+          "type": "borderRadius"
+        },
+        "end": {
+          "value": "{border.radii.1}",
+          "type": "borderRadius"
+        }
+      }
+    },
     "badge": {
       "space": {
         "x": {

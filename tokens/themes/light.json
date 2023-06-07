@@ -1432,6 +1432,39 @@
           }
         }
       }
+    },
+    "alert": {
+      "color": {
+        "neutral": {
+          "background": {
+            "default": {
+              "value": "{click.feedback.color.neutral.background}",
+              "type": "color"
+            }
+          },
+          "iconBackground": {
+            "default": {
+              "value": "{click.alert.color.neutral.background.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.06",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   }
 }
