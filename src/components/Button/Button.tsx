@@ -37,7 +37,6 @@ const StyledButton = styled(BaseButton)`
   color: ${props =>
     props.theme.click.button.basic.color[props.styleType].text.default};
   font: ${props => props.theme.click.button.basic.typography.label.default};
-  background-color: deeppink;
 
   &:active {
     border: ${props =>
