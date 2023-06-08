@@ -10,7 +10,7 @@ export const Default = {
   args: {
     type: "primary",
     disabled: false,
-    children: "Button",
+    label: "Button",
   },
 };
 
@@ -18,7 +18,7 @@ export const Hover = {
   args: {
     type: "primary",
     disabled: false,
-    children: "Button",
+    label: "Button",
   },
   parameters: {
     pseudo: {
@@ -31,7 +31,7 @@ export const Active = {
   args: {
     type: "primary",
     disabled: false,
-    children: "Button",
+    label: "Button",
   },
   parameters: {
     pseudo: {

@@ -4,14 +4,22 @@ type ButtonType = "primary" | "secondary";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
+  label?: string;
 }
 
 export interface StyledButtonProps {
   styleType: ButtonType;
 }
 
-export const Button = ({ type = "primary", ...delegated }: ButtonProps) => (
-  <StyledButton styleType={type} {...delegated} />
+export const Button = ({
+  type = "primary",
+  label,
+  children,
+  ...delegated
+}: ButtonProps) => (
+  <StyledButton styleType={type} {...delegated}>
+    {label ? label : children}
+  </StyledButton>
 );
 
 const BaseButton = styled.button<StyledButtonProps>`
