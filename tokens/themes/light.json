@@ -93,7 +93,16 @@
           },
           "hover": {
             "value": "{click.global.color.text.default}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.075",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "active": {
             "value": "{click.global.color.text.default}",
@@ -107,7 +116,16 @@
           },
           "hover": {
             "value": "{click.accordion.color.label.default}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.075",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "active": {
             "value": "{click.accordion.color.label.default}",
