@@ -13,3 +13,29 @@ export const Default = {
     label: "Button",
   },
 };
+
+export const Hover = {
+  args: {
+    type: "primary",
+    disabled: false,
+    label: "Button",
+  },
+  parameters: {
+    pseudo: {
+      hover: true,
+    },
+  },
+};
+
+export const Active = {
+  args: {
+    type: "primary",
+    disabled: false,
+    label: "Button",
+  },
+  parameters: {
+    pseudo: {
+      active: true,
+    },
+  },
+};
