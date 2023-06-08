@@ -60,7 +60,6 @@ const StyledButton = styled(BaseButton)`
     background-color: ${props =>
       props.theme.click.button.basic.color[props.styleType].background.hover};
     font: ${props => props.theme.click.button.basic.typography.label.hover};
-    background-color: deeppink;
   }
 
   &[disabled] {
