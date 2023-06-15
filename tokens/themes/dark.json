@@ -773,7 +773,7 @@
       "color": {
         "background": {
           "default": {
-            "value": "{palette.slate.800}",
+            "value": "{palette.neutral.600}",
             "type": "color"
           },
           "active": {
@@ -787,7 +787,7 @@
         },
         "stroke": {
           "default": {
-            "value": "{click.global.color.stroke.intense}",
+            "value": "{click.switch.color.background.default}",
             "type": "color"
           },
           "active": {
@@ -795,13 +795,13 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.neutral.400}",
+            "value": "{click.switch.color.background.disabled}",
             "type": "color"
           }
         },
         "indicator": {
           "default": {
-            "value": "{palette.neutral.400}",
+            "value": "{palette.neutral.900}",
             "type": "color"
           },
           "active": {
@@ -953,6 +953,77 @@
         "label": {
           "default": {
             "value": "{click.global.color.text.default}",
+            "type": "color"
+          }
+        }
+      }
+    },
+    "verticalStepper": {
+      "icon": {
+        "background": {
+          "default": {
+            "value": "{palette.neutral.700}",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "{palette.neutral.700}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.25",
+                  "space": "lch"
+                }
+              }
+            }
+          },
+          "complete": {
+            "value": "{click.verticalStepper.connector.background.default}",
+            "type": "color"
+          }
+        },
+        "foreground": {
+          "default": {
+            "value": "{palette.neutral.0}",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "{click.verticalStepper.icon.foreground.default}",
+            "type": "color"
+          },
+          "complete": {
+            "value": "{click.verticalStepper.icon.foreground.default}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.verticalStepper.icon.foreground.default}",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "{palette.utility.transparent}",
+            "type": "color"
+          },
+          "complete": {
+            "value": "{palette.utility.transparent}",
+            "type": "color"
+          }
+        }
+      },
+      "connector": {
+        "background": {
+          "default": {
+            "value": "{click.verticalStepper.icon.background.default}",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "{click.verticalStepper.icon.background.incomplete}",
+            "type": "color"
+          },
+          "complete": {
+            "value": "{click.verticalStepper.icon.background.default}",
             "type": "color"
           }
         }
