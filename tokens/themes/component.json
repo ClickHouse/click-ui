@@ -1095,6 +1095,55 @@
           }
         }
       }
+    },
+    "verticalStepper": {
+      "icon": {
+        "size": {
+          "height": {
+            "value": "{click.image.medium.size.height}",
+            "type": "sizing"
+          },
+          "width": {
+            "value": "{click.image.medium.size.width}",
+            "type": "sizing"
+          }
+        },
+        "space": {
+          "x": {
+            "value": "0.375rem",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "0.375rem",
+            "type": "spacing"
+          }
+        },
+        "radii": {
+          "value": "{border.radii.full}",
+          "type": "borderRadius"
+        }
+      },
+      "connector": {
+        "size": {
+          "width": {
+            "value": "0.1875rem",
+            "type": "sizing"
+          }
+        }
+      },
+      "typography": {
+        "label": {
+          "default": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.3}",
+              "lineHeight": "{typography.font.line-height.3}",
+              "fontSize": "{typography.font.sizes.1}"
+            },
+            "type": "typography"
+          }
+        }
+      }
     }
   }
 }

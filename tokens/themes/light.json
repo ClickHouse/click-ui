@@ -1648,6 +1648,50 @@
           }
         }
       }
+    },
+    "verticalStepper": {
+      "icon": {
+        "background": {
+          "default": {
+            "value": "#161517",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "#e6e7e9",
+            "type": "color"
+          },
+          "complete": {
+            "value": "#161517",
+            "type": "color"
+          }
+        },
+        "foreground": {
+          "default": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "#161517",
+            "type": "color"
+          },
+          "complete": {
+            "value": "#ffffff",
+            "type": "color"
+          }
+        }
+      },
+      "connector": {
+        "background": {
+          "default": {
+            "value": "#161517",
+            "type": "color"
+          },
+          "incomplete": {
+            "value": "#e6e7e9",
+            "type": "color"
+          }
+        }
+      }
     }
   }
 }
