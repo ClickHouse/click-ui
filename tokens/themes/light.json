@@ -1653,29 +1653,29 @@
       "icon": {
         "background": {
           "default": {
-            "value": "#161517",
+            "value": "{palette.slate.900}",
             "type": "color"
           },
           "incomplete": {
-            "value": "#e6e7e9",
+            "value": "{palette.slate.100}",
             "type": "color"
           },
           "complete": {
-            "value": "#161517",
+            "value": "{click.verticalStepper.connector.background.default}",
             "type": "color"
           }
         },
         "foreground": {
           "default": {
-            "value": "#ffffff",
+            "value": "{palette.neutral.0}",
             "type": "color"
           },
           "incomplete": {
-            "value": "#161517",
+            "value": "{click.verticalStepper.connector.background.default}",
             "type": "color"
           },
           "complete": {
-            "value": "#ffffff",
+            "value": "{click.verticalStepper.icon.foreground.default}",
             "type": "color"
           }
         }
@@ -1683,11 +1683,15 @@
       "connector": {
         "background": {
           "default": {
-            "value": "#161517",
+            "value": "{click.verticalStepper.icon.background.default}",
             "type": "color"
           },
           "incomplete": {
-            "value": "#e6e7e9",
+            "value": "{click.verticalStepper.icon.background.incomplete}",
+            "type": "color"
+          },
+          "complete": {
+            "value": "{click.verticalStepper.icon.background.default}",
             "type": "color"
           }
         }
