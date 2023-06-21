@@ -7,7 +7,8 @@ import * as theme from "../styles/variables.json";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 
 declare module "styled-components" {
-  export type DefaultTheme = Theme;
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface DefaultTheme extends Theme {}
 }
 
 const themes: Record<string, DefaultTheme> = {
