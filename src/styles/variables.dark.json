@@ -104,7 +104,7 @@
           "disabled-checked": "#414141"
         },
         "stroke": {
-          "default": "lch(27.5 0 0 / 0.3)",
+          "default": "#414141",
           "active": "#fcff74",
           "disabled": "#606060"
         },
@@ -139,7 +139,7 @@
         }
       }
     },
-    "context-menu": {
+    "contextMenu": {
       "color": {
         "text": {
           "default": "#ffffff",
@@ -228,19 +228,55 @@
     "switch": {
       "color": {
         "background": {
-          "default": "#302e32",
+          "default": "#606060",
           "active": "#fcff74",
           "disabled": "#808080"
         },
         "stroke": {
-          "default": "lch(27.5 0 0 / 0.3)",
+          "default": "#606060",
           "active": "#fcff74",
-          "disabled": "#a0a0a0"
+          "disabled": "#808080"
         },
         "indicator": {
-          "default": "#a0a0a0",
+          "default": "#151515",
           "active": "#161517",
           "disabled": "#606060"
+        }
+      }
+    },
+    "tooltip": {
+      "color": {
+        "background": {
+          "default": "lch(100 0 0 / 0.15)"
+        },
+        "label": {
+          "default": "#ffffff"
+        }
+      }
+    },
+    "verticalStepper": {
+      "icon": {
+        "background": {
+          "default": "#414141",
+          "incomplete": "lch(45.7 0 0)",
+          "complete": "#414141"
+        },
+        "foreground": {
+          "default": "#ffffff",
+          "incomplete": "#ffffff",
+          "complete": "#ffffff"
+        },
+        "stroke": {
+          "default": "#ffffff",
+          "incomplete": "rgba(0,0,0,0)",
+          "complete": "rgba(0,0,0,0)"
+        }
+      },
+      "connector": {
+        "background": {
+          "default": "#414141",
+          "incomplete": "lch(45.7 0 0)",
+          "complete": "#414141"
         }
       }
     },
@@ -260,7 +296,8 @@
         },
         "stroke": {
           "default": "lch(27.5 0 0 / 0.3)",
-          "muted": "lch(27.5 0 0 / 0.3)"
+          "muted": "lch(27.5 0 0 / 0.3)",
+          "intense": "#414141"
         },
         "accent": {
           "default": "#fcff74"
