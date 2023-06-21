@@ -10,5 +10,6 @@ export const Default = {
   args: {
     title: "Accordion title",
     size: "medium",
+    children: <p>I'm a child</p>,
   },
 };

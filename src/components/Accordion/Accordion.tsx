@@ -12,7 +12,11 @@ export interface AccordionProps {
 interface RootProps extends RadixAccordion.AccordionSingleProps {
   size?: Size;
 }
-export const Accordion = ({ title, size, children }: AccordionProps) => (
+export const Accordion = ({
+  title,
+  size = "medium",
+  children,
+}: AccordionProps) => (
   <AccordionRoot type="single" collapsible size={size}>
     <AccordionItem value="item">
       <AccordionTrigger>{title}</AccordionTrigger>
@@ -22,7 +26,7 @@ export const Accordion = ({ title, size, children }: AccordionProps) => (
 );
 
 const AccordionRoot = styled(RadixAccordion.Root)<RootProps>`
-  width: ${props => props.theme.click.accordion};
+  color: ${props => props.theme.click.accordion.color.label.default};
 `;
 
 const AccordionItem = styled(RadixAccordion.Item)``;

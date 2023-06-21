@@ -1,29 +1,33 @@
 import { render, fireEvent } from "@testing-library/react";
-import { Accordion, AccordionProps } from "./Accordion";
+import { Accordion } from "./Accordion";
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
 
+interface RenderAccordionProps {
+  title: string;
+  content?: string;
+}
+
 describe("Accordion", () => {
-  const renderAccordion = ({ title, children }: AccordionProps) =>
+  const renderAccordion = ({ title, content }: RenderAccordionProps) =>
     render(
-      <ThemeProvider theme={themes.dark}>
-        <Accordion title={title}>{children}</Accordion>
+      <ThemeProvider theme={themes.light}>
+        <Accordion title={title}>
+          <div>{content}</div>
+        </Accordion>
       </ThemeProvider>
     );
   it("given no arguments, should render the accordion", () => {
-    const rendered = render(
-      <Accordion title="Test accordion">
-        <div></div>
-      </Accordion>
-    );
+    const title = "Test accordion";
+    const rendered = renderAccordion({ title });
 
-    const accordion = rendered.getByText("Test accordion");
+    const accordion = rendered.getByText(title);
     expect(accordion).toBeTruthy;
   });
 
   it("given a title, should render the accordion's title", () => {
     const title = "Test title";
-    const rendered = renderAccordion({ title, children: <div></div> });
+    const rendered = renderAccordion({ title });
 
     const accordion = rendered.getByText(title);
     expect(accordion.textContent).toEqual(title);
@@ -32,11 +36,7 @@ describe("Accordion", () => {
   it("given some content, should render the content when clicked", () => {
     const content = "Accordion content";
     const title = "Test title";
-    const rendered = render(
-      <Accordion title={title}>
-        <p>{content}</p>
-      </Accordion>
-    );
+    const rendered = renderAccordion({ title, content });
 
     const accordion = rendered.getByText(title);
     fireEvent.click(accordion);
