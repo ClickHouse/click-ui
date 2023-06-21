@@ -1,6 +1,149 @@
 
       export interface Theme {
   "click": {
+    "accordion": {
+      "small": {
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "space": {
+          "gap": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "active": string
+          }
+        }
+      },
+      "medium": {
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "space": {
+          "gap": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "active": string
+          }
+        }
+      },
+      "large": {
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "space": {
+          "gap": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "active": string
+          }
+        }
+      },
+      "color": {
+        "label": {
+          "default": string,
+          "hover": string,
+          "active": string
+        },
+        "icon": {
+          "default": string,
+          "hover": string,
+          "active": string
+        }
+      }
+    },
+    "alert": {
+      "medium": {
+        "space": {
+          "y": string,
+          "x": string,
+          "gap": string
+        },
+        "typography": {
+          "title": {
+            "default": string
+          },
+          "text": {
+            "default": string
+          }
+        },
+        "icon": {
+          "height": string,
+          "width": string
+        }
+      },
+      "small": {
+        "space": {
+          "y": string,
+          "x": string,
+          "gap": string
+        },
+        "icon": {
+          "height": string,
+          "width": string
+        },
+        "typography": {
+          "title": {
+            "default": string
+          },
+          "text": {
+            "default": string
+          }
+        }
+      },
+      "radii": {
+        "center": string,
+        "end": string
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "warning": string,
+          "info": string
+        },
+        "text": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "warning": string,
+          "info": string
+        },
+        "iconBackground": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "warning": string,
+          "info": string
+        },
+        "iconForeground": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "warning": string,
+          "info": string
+        }
+      }
+    },
     "badge": {
       "space": {
         "x": string,
@@ -153,15 +296,80 @@
           }
         }
       },
-      "icon-button": {
-        "space": {
-          "1": string,
-          "2": string
+      "iconButton": {
+        "default": {
+          "space": {
+            "x": string,
+            "y": string
+          }
         },
         "size": {
-          "1": string,
-          "2": string,
-          "3": string
+          "small": string,
+          "medium": string,
+          "large": string
+        },
+        "radii": {
+          "all": string
+        },
+        "small": {
+          "space": {
+            "x": string,
+            "y": string
+          }
+        },
+        "color": {
+          "primary": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          },
+          "secondary": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          },
+          "disabled": {
+            "background": {
+              "default": string
+            },
+            "text": {
+              "default": string
+            }
+          },
+          "danger": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "text": {
+              "default": string
+            }
+          }
         }
       },
       "stroke": string,
@@ -332,16 +540,16 @@
         "label": {
           "default": string,
           "off": string,
-          "disabled": string
+          "disabled": string,
+          "active": string
         }
       }
     },
-    "code-block": {
-      "space": {
-        "all": string
-      }
-    },
     "codeblock": {
+      "space": {
+        "x": string,
+        "y": string
+      },
       "radii": {
         "all": string
       },
@@ -389,11 +597,19 @@
         "all": string
       }
     },
-    "context-menu": {
-      "space": {
-        "x": string,
-        "y": string,
-        "gap": string
+    "contextMenu": {
+      "item": {
+        "space": {
+          "x": string,
+          "y": string,
+          "gap": string
+        },
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        }
       },
       "typography": {
         "label": {
@@ -401,14 +617,6 @@
           "hover": string,
           "active": string,
           "disabled": string
-        }
-      },
-      "radii": {
-        "all": string
-      },
-      "size": {
-        "icon": {
-          "all": string
         }
       },
       "button": {
@@ -441,6 +649,32 @@
       },
       "stroke": {
         "default": string
+      }
+    },
+    "docs": {
+      "typography": {
+        "titles": {
+          "lg": string,
+          "md": string,
+          "sm": string
+        },
+        "text": {
+          "default": string
+        },
+        "breadcrumbs": {
+          "default": string,
+          "active": string
+        },
+        "toc": {
+          "title": {
+            "default": string
+          },
+          "item": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        }
       }
     },
     "field": {
@@ -512,6 +746,47 @@
           "error": string
         },
         "placeholder": string
+      }
+    },
+    "image": {
+      "small": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "x-small": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "medium": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "large": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "x-large": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "xx-large": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "color": {
+        "stroke": string
       }
     },
     "popover": {
@@ -688,29 +963,68 @@
         }
       }
     },
-    "docs": {
+    "tooltip": {
+      "radii": {
+        "all": string
+      },
+      "space": {
+        "x": string,
+        "y": string
+      },
       "typography": {
-        "titles": {
-          "lg": string,
-          "md": string,
-          "sm": string
-        },
-        "text": {
+        "label": {
+          "default": string
+        }
+      },
+      "color": {
+        "background": {
           "default": string
         },
-        "breadcrumbs": {
-          "default": string,
-          "active": string
+        "label": {
+          "default": string
+        }
+      }
+    },
+    "verticalStepper": {
+      "icon": {
+        "size": {
+          "height": string,
+          "width": string
         },
-        "toc": {
-          "title": {
-            "default": string
-          },
-          "item": {
-            "default": string,
-            "hover": string,
-            "active": string
-          }
+        "space": {
+          "x": string,
+          "y": string
+        },
+        "radii": string,
+        "background": {
+          "default": string,
+          "incomplete": string,
+          "complete": string
+        },
+        "foreground": {
+          "default": string,
+          "incomplete": string,
+          "complete": string
+        },
+        "stroke": {
+          "default": string,
+          "incomplete": string,
+          "complete": string
+        }
+      },
+      "connector": {
+        "size": {
+          "width": string
+        },
+        "background": {
+          "default": string,
+          "incomplete": string,
+          "complete": string
+        }
+      },
+      "typography": {
+        "label": {
+          "default": string
         }
       }
     },
@@ -730,7 +1044,8 @@
         },
         "stroke": {
           "default": string,
-          "muted": string
+          "muted": string,
+          "intense": string
         },
         "accent": {
           "default": string
@@ -913,7 +1228,8 @@
       "base": string
     },
     "gradients": {
-      "base": string
+      "base": string,
+      "transparent": string
     },
     "utility": {
       "transparent": string
@@ -951,7 +1267,8 @@
         "2": string,
         "3": string,
         "4": string,
-        "6": string
+        "6": string,
+        "base": string
       },
       "line-height": {
         "1": string,
