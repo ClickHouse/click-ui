@@ -305,7 +305,7 @@
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.text-bold.md}",
+              "value": "{typography.styles.text-sbold.md}",
               "type": "typography"
             },
             "disabled": {
