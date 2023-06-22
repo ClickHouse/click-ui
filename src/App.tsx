@@ -9,13 +9,20 @@ import styles from "./App.module.css";
 import { ThemeProvider } from "styled-components";
 import { themes } from "./theme";
 
-import { Badge, Button, ButtonGroup, Card, TextFieldLabel } from "./components";
+import {
+  Accordion,
+  Badge,
+  Button,
+  ButtonGroup,
+  Card,
+  TextFieldLabel,
+} from "./components";
 import { IconButton } from "./components/IconButton/IconButton";
 import { ProfileIcon } from "./components/icons/ProfileIcon";
 import { Switch } from "./components/Switch/Switch";
 import { Icon } from "./components/Icon/Icon";
 
-function App() {
+const App = () => {
   const [currentTheme, setCurrentTheme] = useState("dark");
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
@@ -124,8 +131,9 @@ function App() {
         Secondary
       </Button>
       <Icon name="users" />
+      <Accordion title="Accordion">I'm some content </Accordion>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

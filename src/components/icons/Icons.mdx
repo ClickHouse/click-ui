@@ -1,6 +1,5 @@
 import { Icon } from "../Icon/Icon";
 import { Meta, IconGallery, IconItem } from "@storybook/blocks";
-import { ProfileIcon } from "./ProfileIcon";
 import { ThemeProvider, themes } from "../../theme";
 
 <Meta title="Icons" />
@@ -9,6 +8,24 @@ import { ThemeProvider, themes } from "../../theme";
 
 <ThemeProvider theme={themes.light}>
   <IconGallery>
+    <IconItem name="chat">
+      <Icon name="chat" />
+    </IconItem>
+    <IconItem name="chevron-right">
+      <Icon name="chevron-right" />
+    </IconItem>
+    <IconItem name="chevron-down">
+      <Icon name="chevron-down" />
+    </IconItem>
+    <IconItem name="database">
+      <Icon name="database" />
+    </IconItem>
+    <IconItem name="filter">
+      <Icon name="filter" />
+    </IconItem>
+    <IconItem name="history">
+      <Icon name="history" />
+    </IconItem>
     <IconItem name="profile">
       <Icon name="profile" />
     </IconItem>

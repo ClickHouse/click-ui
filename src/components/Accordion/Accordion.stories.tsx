@@ -13,3 +13,19 @@ export const Default = {
     children: <p>I'm a child</p>,
   },
 };
+
+export const Large = {
+  args: {
+    title: "Accordion title",
+    size: "large",
+    children: <p>I'm a child</p>,
+  },
+};
+
+export const Small = {
+  args: {
+    title: "Accordion title",
+    size: "small",
+    children: <p>I'm a child</p>,
+  },
+};

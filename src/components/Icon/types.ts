@@ -1,12 +1,16 @@
 import { SVGAttributes } from "react";
 
-export type IconName = "profile" | "users";
-
-export interface SvgIconProps extends IconProps {
-  name: IconName;
-  color: "string";
-}
+export type IconName =
+  | "chat"
+  | "chevron-down"
+  | "chevron-right"
+  | "database"
+  | "filter"
+  | "history"
+  | "profile"
+  | "users";
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
-  color: "string";
+  name: IconName;
+  color?: string;
 }

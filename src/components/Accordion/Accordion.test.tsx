@@ -11,7 +11,7 @@ interface RenderAccordionProps {
 describe("Accordion", () => {
   const renderAccordion = ({ title, content }: RenderAccordionProps) =>
     render(
-      <ThemeProvider theme={themes.light}>
+      <ThemeProvider theme={themes.dark}>
         <Accordion title={title}>
           <div>{content}</div>
         </Accordion>
