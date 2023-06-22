@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import type { Preview } from "@storybook/react";
 import "../src/styles/variables.css";
 import { Decorator } from "@storybook/react";
-import { ThemeProvider, themes } from '../src/theme'
+import { ThemeProvider, themes } from "../src/theme";
 
 const withTheme: Decorator = StoryFn => (
   <ThemeProvider theme={themes.dark}>
