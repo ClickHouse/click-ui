@@ -1,22 +1,11 @@
 import React from "react";
-import merge from "lodash/merge";
 import type { Preview } from "@storybook/react";
 import "../src/styles/variables.css";
-import { DefaultTheme, ThemeProvider } from "styled-components";
 import { Decorator } from "@storybook/react";
-import classicTheme from "../src/styles/variables.classic.json";
-import darkTheme from "../src/styles/variables.dark.json";
-import lightTheme from "../src/styles/variables.light.json";
-import theme from "../src/styles/variables.json";
-
-const themes: Record<string, DefaultTheme> = {
-  dark: merge({}, theme, darkTheme),
-  light: merge({}, theme, lightTheme),
-  classic: merge({}, theme, classicTheme),
-};
+import { ThemeProvider } from "../../src/theme";
 
 const withTheme: Decorator = StoryFn => (
-  <ThemeProvider theme={themes.dark}>
+  <ThemeProvider theme="dark">
     <StoryFn />
   </ThemeProvider>
 );
