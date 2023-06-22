@@ -11,9 +11,6 @@ import lightTheme from "../styles/variables.light.json";
 import theme from "../styles/variables.json";
 import { Theme } from "../styles/types";
 import { IconButton } from "click-ui";
-declare module "styled-components" {
-  export interface DefaultTheme extends Theme {}
-}
 
 export default function Home() {
   const [checked, setChecked] = useState(false);
@@ -94,7 +91,7 @@ export default function Home() {
           activeIndex={selectedButton}
           onClick={(index: number) => setSelectedButton(index)}
         />
-        <ThemeProvider theme={themes[currentTheme]}>
+        <ThemeProvider theme="dark">
           <Switch
             checked={checked}
             disabled={disabled}

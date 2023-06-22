@@ -20,6 +20,8 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@/components": ["./src/components"],
+      "@/storybook": ["./.storybook"]
     }
   },
   "include": ["src"],

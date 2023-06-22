@@ -3,26 +3,28 @@ import { useState } from "react";
 import "@/styles/globals.css";
 import "./styles/variables.css";
 import "./styles/variables.dark.css";
-
 import styles from "./App.module.css";
+import { ThemeName, ThemeProvider } from "./theme";
+import {
+  Badge,
+  Button,
+  ButtonGroup,
+  Card,
+  Icon,
+  IconButton,
+  ProfileIcon,
+  Switch,
+  TextFieldLabel,
+} from "@/components";
 
-import { ThemeProvider } from "styled-components";
-import { themes } from "./theme";
-
-import { Badge, Button, ButtonGroup, Card, TextFieldLabel } from "./components";
-import { IconButton } from "./components/IconButton/IconButton";
-import { ProfileIcon } from "./components/icons/ProfileIcon";
-import { Switch } from "./components/Switch/Switch";
-import { Icon } from "./components/Icon/Icon";
-
-function App() {
-  const [currentTheme, setCurrentTheme] = useState("dark");
+const App = () => {
+  const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
 
   return (
-    <ThemeProvider theme={themes[currentTheme]}>
+    <ThemeProvider theme={currentTheme}>
       <TextFieldLabel state="default" text="my label" />
       <TextFieldLabel state="active" text="my label" />
       <TextFieldLabel state="disabled" text="my label" />
@@ -126,6 +128,6 @@ function App() {
       <Icon name="users" />
     </ThemeProvider>
   );
-}
+};
 
 export default App;
