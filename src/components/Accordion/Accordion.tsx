@@ -38,6 +38,7 @@ const AccordionItem = styled(RadixAccordion.Item)``;
 
 const AccordionTrigger = styled(RadixAccordion.Trigger)<TriggerProps>`
   border: none;
+  padding: 0;
   background-color: transparent;
   display: flex;
   align-items: center;
