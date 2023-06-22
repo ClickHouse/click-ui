@@ -5,7 +5,7 @@ import { Decorator } from "@storybook/react";
 import { ThemeProvider, themes } from "../src/theme";
 
 const withTheme: Decorator = StoryFn => (
-  <ThemeProvider theme={themes.dark}>
+  <ThemeProvider theme={"light"}>
     <StoryFn />
   </ThemeProvider>
 );
