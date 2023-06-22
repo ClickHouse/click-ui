@@ -1,13 +1,13 @@
 import { Icon } from "../Icon/Icon";
 import { Meta, IconGallery, IconItem } from "@storybook/blocks";
 import { ProfileIcon } from "./ProfileIcon";
-import { ThemeProvider, themes } from "../../theme";
+import { ThemeProvider } from "../../theme";
 
 <Meta title="Icons" />
 
 # Icons
 
-<ThemeProvider theme={themes.light}>
+<ThemeProvider theme="light">
   <IconGallery>
     <IconItem name="profile">
       <Icon name="profile" />
