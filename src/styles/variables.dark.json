@@ -1,5 +1,19 @@
 {
   "click": {
+    "accordion": {
+      "color": {
+        "label": {
+          "default": "#ffffff",
+          "hover": "lch(100 0 0)",
+          "active": "#ffffff"
+        },
+        "icon": {
+          "default": "#ffffff",
+          "hover": "lch(100 0 0)",
+          "active": "#ffffff"
+        }
+      }
+    },
     "button": {
       "basic": {
         "color": {

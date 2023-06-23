@@ -228,7 +228,7 @@
           "label": {
             "default": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
             "hover": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
-            "active": "600 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "active": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
             "disabled": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
           },
           "mobile": {
@@ -264,7 +264,7 @@
             "background": {
               "default": "rgba(0,0,0,0)",
               "hover": "#f6f7fa",
-              "active": "lch(92.4 1.49 272)"
+              "active": "lch(95.3 1.54 272)"
             },
             "stroke": {
               "default": "lch(91.6 1.1 266 / 0.3)",
@@ -428,7 +428,7 @@
           "background": {
             "default": "#ffffff",
             "hover": "lch(68.1 1.1 272)",
-            "active": "lch(78.5 1.27 272)",
+            "active": "lch(81 1.31 272)",
             "panel": "#ffffff"
           },
           "text": {
