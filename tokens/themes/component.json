@@ -555,11 +555,15 @@
         "y": {
           "value": "{spaces.4}",
           "type": "spacing"
+        },
+        "gap": {
+          "value": "1.5rem",
+          "type": "spacing"
         }
       },
       "radii": {
         "all": {
-          "value": "{border.radii.2}",
+          "value": "{border.radii.1}",
           "type": "borderRadius"
         }
       },
@@ -574,12 +578,22 @@
             "type": "typography"
           }
         }
+      },
+      "numbers": {
+        "size": {
+          "width": {
+            "value": "{sizes.7}",
+            "type": "sizing"
+          }
+        }
       }
     },
-    "code": {
-      "x": {
-        "value": "{spaces.1}",
-        "type": "spacing"
+    "codeInline": {
+      "space": {
+        "x": {
+          "value": "{spaces.1}",
+          "type": "spacing"
+        }
       },
       "stroke": {
         "value": "{border.width.1}",
