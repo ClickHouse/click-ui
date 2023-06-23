@@ -1456,41 +1456,6 @@
               "type": "color"
             }
           },
-          "item": {
-            "background": {
-              "default": {
-                "value": "{palette.utility.transparent}",
-                "type": "color"
-              },
-              "active": {
-                "value": "{palette.slate.100}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{palette.slate.100}",
-                "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "alpha",
-                      "value": "0.6",
-                      "space": "lch"
-                    }
-                  }
-                }
-              }
-            },
-            "text": {
-              "default": {
-                "value": "{click.global.color.text.default}",
-                "type": "color"
-              },
-              "muted": {
-                "value": "{click.global.color.text.muted}",
-                "type": "color"
-              }
-            }
-          },
           "text": {
             "default": {
               "value": "{click.global.color.text.default}",
@@ -1509,7 +1474,70 @@
           }
         }
       },
-      "sql-sidebar": {
+      "navigation": {
+        "item": {
+          "color": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.slate.100}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.6",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "active": {
+                "value": "{palette.slate.100}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "title": {
+          "color": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "sqlSidebar": {
         "color": {
           "background": {
             "default": {
