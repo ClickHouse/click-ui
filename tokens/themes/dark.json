@@ -932,12 +932,28 @@
               "type": "color"
             }
           },
-          "item": {
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "muted": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "navigation": {
+        "item": {
+          "color": {
             "background": {
-              "default": {
-                "value": "{palette.utility.transparent}",
-                "type": "color"
-              },
               "active": {
                 "value": "{palette.neutral.700}",
                 "type": "color",
@@ -963,10 +979,22 @@
                     }
                   }
                 }
+              },
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
               }
             },
             "text": {
               "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "active": {
                 "value": "{click.global.color.text.default}",
                 "type": "color"
               },
@@ -975,20 +1003,20 @@
                 "type": "color"
               }
             }
-          },
-          "text": {
+          }
+        },
+        "title": {
+          "color": {
             "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            },
-            "muted": {
               "value": "{click.global.color.text.muted}",
               "type": "color"
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
+            },
+            "hover": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.muted}",
               "type": "color"
             }
           }
