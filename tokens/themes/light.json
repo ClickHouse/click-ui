@@ -1713,7 +1713,7 @@
         }
       }
     },
-    "verticalStepper": {
+    "stepperVertical": {
       "icon": {
         "background": {
           "default": {
@@ -1725,7 +1725,7 @@
             "type": "color"
           },
           "complete": {
-            "value": "{click.verticalStepper.connector.background.default}",
+            "value": "{click.stepperVertical.connector.background.default}",
             "type": "color"
           }
         },
@@ -1735,17 +1735,17 @@
             "type": "color"
           },
           "incomplete": {
-            "value": "{click.verticalStepper.connector.background.default}",
+            "value": "{click.stepperVertical.connector.background.default}",
             "type": "color"
           },
           "complete": {
-            "value": "{click.verticalStepper.icon.foreground.default}",
+            "value": "{click.stepperVertical.icon.foreground.default}",
             "type": "color"
           }
         },
         "stroke": {
           "default": {
-            "value": "{click.verticalStepper.icon.foreground.default}",
+            "value": "{click.stepperVertical.icon.foreground.default}",
             "type": "color"
           },
           "incomplete": {
@@ -1761,15 +1761,15 @@
       "connector": {
         "background": {
           "default": {
-            "value": "{click.verticalStepper.icon.background.default}",
+            "value": "{click.stepperVertical.icon.background.default}",
             "type": "color"
           },
           "incomplete": {
-            "value": "{click.verticalStepper.icon.background.incomplete}",
+            "value": "{click.stepperVertical.icon.background.incomplete}",
             "type": "color"
           },
           "complete": {
-            "value": "{click.verticalStepper.icon.background.default}",
+            "value": "{click.stepperVertical.icon.background.default}",
             "type": "color"
           }
         }
