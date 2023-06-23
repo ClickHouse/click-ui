@@ -8,27 +8,31 @@ import FilterIcon from "../icons/FilterIcon";
 import HistoryIcon from "../icons/HistoryIcon";
 import InsertRowIcon from "../icons/InsertRowIcon";
 import SortAltIcon from "../icons/SortAltIcon";
-import { SvgIconProps, IconProps } from "./types";
+import { IconProps } from "./types";
+import { ChevronRight } from "../icons/ChevronRight";
+import { ChevronDown } from "../icons/ChevronDown";
 
 const ICONS_MAP = {
-  profile: ProfileIcon,
-  users: UsersIcon,
   chat: ChatIcon,
-  db: DatabaseIcon,
+  "chevron-right": ChevronRight,
+  "chevron-down": ChevronDown,
+  database: DatabaseIcon,
   filter: FilterIcon,
   history: HistoryIcon,
   insertRow: InsertRowIcon,
   sort: SortAltIcon,
+  profile: ProfileIcon,
+  users: UsersIcon,
 };
 
-const SVGIcon = ({ name, ...delegated }: SvgIconProps) => {
+const SVGIcon = ({ name, ...delegated }: IconProps) => {
   const Component = ICONS_MAP[name];
   return <Component {...delegated} />;
 };
 
 const withStylesWrapper =
   (IconComponent: ElementType) =>
-  ({ color, width, height, className, ...props }: SvgIconProps): ReactElement =>
+  ({ color, width, height, className, ...props }: IconProps): ReactElement =>
     (
       <SvgWrapper
         color={color}
@@ -41,29 +45,28 @@ const withStylesWrapper =
     );
 
 const SvgWrapper = styled.div<Partial<IconProps>>`
+  display: flex;
+  align-items: center;
+
   & path[stroke] {
-    stroke: ${(props) =>
-      props.color || props.theme.click.global.color.text.default};
+    stroke: ${props => props.color || "currentColor"};
   }
 
   & path[fill] {
-    fill: ${(props) =>
-      props.color || props.theme.click.global.color.text.default};
+    fill: ${props => props.color || "currentColor"};
   }
 
   & svg {
-    width: ${(props) => props.width || "24px"};
-    height: ${(props) => props.width || "24px"};
+    width: ${props => props.width || "24px"};
+    height: ${props => props.width || "24px"};
   }
 
   & svg[stroke] {
-    stroke: ${(props) =>
-      props.color || props.theme.click.global.color.text.default};
+    stroke: ${props => props.color || "currentColor"};
   }
 
   & svg[fill]:not([fill="none"]) {
-    fill: ${(props) =>
-      props.color || props.theme.click.global.color.text.default};
+    fill: ${props => props.color || "currentColor"};
   }
 `;
 

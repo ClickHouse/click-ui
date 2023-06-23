@@ -126,6 +126,7 @@ const App = () => {
         Secondary
       </Button>
       <Icon name="users" />
+      <Accordion title="Accordion">I'm some content </Accordion>
     </ThemeProvider>
   );
 };
