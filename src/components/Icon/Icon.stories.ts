@@ -9,7 +9,15 @@ export default {
 export const Default = {
   args: {
     name: "users",
-    color: "black",
+    width: "1rem",
+    height: "16px",
+  },
+};
+
+export const Color = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
     width: "1rem",
     height: "16px",
   },
