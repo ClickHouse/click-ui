@@ -32,15 +32,23 @@ const SVGIcon = ({ name, ...delegated }: IconProps) => {
 
 const withStylesWrapper =
   (IconComponent: ElementType) =>
-  ({ color, width, height, className, ...props }: IconProps): ReactElement =>
+  ({
+    color,
+    width,
+    height,
+    className,
+    size,
+    ...props
+  }: IconProps): ReactElement =>
     (
       <SvgWrapper
         color={color}
         width={width}
         height={height}
+        size={size}
         className={className}
       >
-        <IconComponent width={width} height={height} {...props} />
+        <IconComponent {...props} />
       </SvgWrapper>
     );
 
@@ -57,8 +65,14 @@ const SvgWrapper = styled.div<Partial<IconProps>>`
   }
 
   & svg {
-    width: ${props => props.width || "24px"};
-    height: ${props => props.width || "24px"};
+    width: ${props =>
+      props.width ||
+      props.theme.click.image[props.size || "medium"].size.width ||
+      "24px"};
+    height: ${props =>
+      props.height ||
+      props.theme.click.image[props.size || "medium"].size.height ||
+      "24px"};
   }
 
   & svg[stroke] {

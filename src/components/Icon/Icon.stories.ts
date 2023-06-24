@@ -18,7 +18,29 @@ export const Color = {
   args: {
     name: "users",
     color: "darkturquoise",
-    width: "1rem",
-    height: "16px",
+  },
+};
+
+export const Small = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+    size: "small",
+  },
+};
+
+export const Medium = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+    size: "medium",
+  },
+};
+
+export const Large = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+    size: "large",
   },
 };
