@@ -1,7 +1,7 @@
 import { ElementType, ReactElement } from "react";
 import { UsersIcon } from "../icons/UsersIcon";
 import styled from "styled-components";
-import { ProfileIcon } from "../icons/ProfileIcon";
+import { UserIcon } from "../icons/UserIcon";
 import ChatIcon from "../icons/ChatIcon";
 import DatabaseIcon from "../icons/DatabaseIcon";
 import FilterIcon from "../icons/FilterIcon";
@@ -21,7 +21,7 @@ const ICONS_MAP = {
   history: HistoryIcon,
   insertRow: InsertRowIcon,
   sort: SortAltIcon,
-  profile: ProfileIcon,
+  user: UserIcon,
   users: UsersIcon,
 };
 

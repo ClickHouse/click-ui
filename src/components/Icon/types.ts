@@ -7,7 +7,7 @@ export type IconName =
   | "database"
   | "filter"
   | "history"
-  | "profile"
+  | "user"
   | "users";
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
