@@ -303,27 +303,67 @@
       }
     },
     "codeblock": {
+      "darkMode": {
+        "color": {
+          "background": {
+            "default": "#282828"
+          },
+          "text": {
+            "default": "#ffffff"
+          },
+          "numbers": {
+            "default": "#c0c0c0"
+          },
+          "button": {
+            "background": {
+              "default": "#282828",
+              "hover": "#53575f"
+            },
+            "foreground": {
+              "default": "#ffffff"
+            }
+          },
+          "stroke": {
+            "default": "#282828"
+          }
+        }
+      },
+      "lightMode": {
+        "color": {
+          "background": {
+            "default": "#f6f7fa"
+          },
+          "text": {
+            "default": "#282828"
+          },
+          "numbers": {
+            "default": "#808080"
+          },
+          "button": {
+            "background": {
+              "default": "#f6f7fa",
+              "hover": "#53575f"
+            },
+            "foreground": {
+              "default": "#a0a0a0"
+            }
+          },
+          "stroke": {
+            "default": "#282828"
+          }
+        }
+      }
+    },
+    "codeInline": {
       "color": {
         "background": {
-          "default": "#302e32",
-          "inline": "#f6f7fa"
+          "default": "#f6f7fa"
         },
         "text": {
-          "default": "#ffffff",
-          "inline": "#161517"
-        },
-        "button": {
-          "background": {
-            "default": "#302e32",
-            "hover": "#53575f"
-          },
-          "foreground": {
-            "default": "#ffffff"
-          }
+          "default": "#161517"
         },
         "stroke": {
-          "default": "lch(35.4 2.22 306)",
-          "inline": "lch(93.3 0.88 266 / 0.3)"
+          "default": "lch(91.6 1.1 266 / 0.3)"
         }
       }
     },
@@ -401,21 +441,34 @@
       }
     },
     "sidebar": {
+      "navigation": {
+        "item": {
+          "color": {
+            "background": {
+              "active": "lch(91.6 1.1 266 / 0.6)",
+              "hover": "lch(91.6 1.1 266 / 0.6)",
+              "default": "rgba(0,0,0,0)"
+            },
+            "text": {
+              "default": "#161517",
+              "hover": "#161517",
+              "active": "#161517",
+              "muted": "#696e79"
+            }
+          }
+        },
+        "title": {
+          "color": {
+            "default": "#696e79",
+            "hover": "#696e79",
+            "active": "#696e79"
+          }
+        }
+      },
       "main": {
         "color": {
           "background": {
             "default": "#ffffff"
-          },
-          "item": {
-            "background": {
-              "default": "rgba(0,0,0,0)",
-              "active": "lch(91.6 1.1 266 / 0.6)",
-              "hover": "lch(91.6 1.1 266 / 0.6)"
-            },
-            "text": {
-              "default": "#161517",
-              "muted": "#696e79"
-            }
           },
           "text": {
             "default": "#161517",
@@ -426,7 +479,7 @@
           }
         }
       },
-      "sql-sidebar": {
+      "sqlSidebar": {
         "color": {
           "background": {
             "default": "#f6f7fa"
@@ -504,7 +557,7 @@
         }
       }
     },
-    "verticalStepper": {
+    "stepperVertical": {
       "icon": {
         "background": {
           "default": "#161517",

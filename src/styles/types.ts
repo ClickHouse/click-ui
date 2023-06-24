@@ -548,7 +548,8 @@
     "codeblock": {
       "space": {
         "x": string,
-        "y": string
+        "y": string,
+        "gap": string
       },
       "radii": {
         "all": string
@@ -559,34 +560,66 @@
           "default": string
         }
       },
-      "color": {
-        "background": {
-          "default": string,
-          "inline": string
-        },
-        "text": {
-          "default": string,
-          "inline": string
-        },
-        "button": {
-          "default": string,
-          "hover": string,
+      "numbers": {
+        "size": {
+          "width": string
+        }
+      },
+      "darkMode": {
+        "color": {
           "background": {
-            "default": string,
-            "hover": string
+            "default": string
           },
-          "foreground": {
+          "text": {
+            "default": string
+          },
+          "numbers": {
+            "default": string
+          },
+          "button": {
+            "background": {
+              "default": string,
+              "hover": string
+            },
+            "foreground": {
+              "default": string
+            }
+          },
+          "stroke": {
             "default": string
           }
-        },
-        "stroke": {
-          "default": string,
-          "inline": string
+        }
+      },
+      "lightMode": {
+        "color": {
+          "background": {
+            "default": string
+          },
+          "text": {
+            "default": string
+          },
+          "numbers": {
+            "default": string
+          },
+          "button": {
+            "background": {
+              "default": string,
+              "hover": string
+            },
+            "foreground": {
+              "default": string
+            }
+          },
+          "stroke": {
+            "default": string
+          }
         }
       }
     },
-    "code": {
-      "x": string,
+    "codeInline": {
+      "space": {
+        "x": string
+      },
       "stroke": string,
       "typography": {
         "text": {
@@ -595,6 +628,17 @@
       },
       "radii": {
         "all": string
+      },
+      "color": {
+        "background": {
+          "default": string
+        },
+        "text": {
+          "default": string
+        },
+        "stroke": {
+          "default": string
+        }
       }
     },
     "contextMenu": {
@@ -800,49 +844,72 @@
       }
     },
     "sidebar": {
-      "item": {
-        "radius": string,
-        "space": {
-          "x": string,
-          "y": string,
-          "gap": string,
-          "left": string
-        }
-      },
-      "typography": {
+      "navigation": {
         "item": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+          "radii": {
+            "all": {
+              "radius": string
+            }
+          },
+          "default": {
+            "space": {
+              "x": string,
+              "y": string,
+              "gap": string
+            }
+          },
+          "typography": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "mobile": {
+            "typography": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "space": {
+              "left": string,
+              "right": string,
+              "y": string,
+              "gap": string
+            }
+          },
+          "collapsible": {
+            "space": {
+              "left": string,
+              "right": string,
+              "y": string,
+              "gap": string
+            }
+          },
+          "color": {
+            "background": {
+              "active": string,
+              "hover": string,
+              "default": string
+            },
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "muted": string
+            }
+          }
         },
-        "section-title": {
-          "default": string,
-          "hover": string,
-          "disabled": string
-        },
-        "mobile": {
-          "item": {
+        "title": {
+          "typography": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "color": {
             "default": string,
             "hover": string,
             "active": string
-          }
-        }
-      },
-      "item-collapsible": {
-        "space": {
-          "x": string,
-          "y": string,
-          "gap": string
-        }
-      },
-      "mobile": {
-        "item": {
-          "space": {
-            "x": string,
-            "y": string,
-            "gap": string,
-            "left": string
           }
         }
       },
@@ -850,17 +917,6 @@
         "color": {
           "background": {
             "default": string
-          },
-          "item": {
-            "background": {
-              "default": string,
-              "active": string,
-              "hover": string
-            },
-            "text": {
-              "default": string,
-              "muted": string
-            }
           },
           "text": {
             "default": string,
@@ -872,6 +928,16 @@
         }
       },
       "sql-sidebar": {
+        "color": {
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      },
+      "sqlSidebar": {
         "color": {
           "background": {
             "default": string
@@ -985,7 +1051,7 @@
         }
       }
     },
-    "verticalStepper": {
+    "stepperVertical": {
       "icon": {
         "size": {
           "height": string,
