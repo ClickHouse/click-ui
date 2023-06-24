@@ -9,8 +9,38 @@ export default {
 export const Default = {
   args: {
     name: "users",
-    color: "black",
     width: "1rem",
     height: "16px",
+  },
+};
+
+export const Color = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+  },
+};
+
+export const Small = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+    size: "small",
+  },
+};
+
+export const Medium = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+    size: "medium",
+  },
+};
+
+export const Large = {
+  args: {
+    name: "users",
+    color: "darkturquoise",
+    size: "large",
   },
 };
