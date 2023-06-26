@@ -26,6 +26,15 @@ export const Default = {
   },
 };
 
+export const Icon = {
+  args: {
+    title: "Accordion title",
+    size: "medium",
+    icon: "user",
+    children,
+  },
+};
+
 export const Large = {
   args: {
     title: "Accordion title",

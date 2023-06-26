@@ -82,12 +82,6 @@ const Wrapper = styled.div`
       color: inherit;
     }
   }
-
-  & ${Accordion} {
-    p {
-      margin: 0;
-    }
-  }
 `;
 
 const CollapsibleNavigationItem = ({
