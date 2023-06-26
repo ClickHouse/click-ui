@@ -82,12 +82,6 @@ const Wrapper = styled.div`
       color: inherit;
     }
   }
-
-  & ${Accordion} {
-    p {
-      margin: 0;
-    }
-  }
 `;
 
 const CollapsibleNavigationItem = ({
@@ -98,11 +92,17 @@ const CollapsibleNavigationItem = ({
 }: CollapsibleSidebarNavigationItemProps) => (
   <>
     {label && collapsible && (
-      <Accordion title={label} icon={icon} iconSize="small">
+      <SidebarAccordion title={label} icon={icon} iconSize="small">
         {children}
-      </Accordion>
+      </SidebarAccordion>
     )}
   </>
 );
+
+const SidebarAccordion = styled(Accordion)`
+  p {
+    margin: 0;
+  }
+`;
 
 export { SidebarNavigationItem };
