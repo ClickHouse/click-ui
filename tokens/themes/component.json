@@ -773,6 +773,28 @@
             "value": "{typography.styles.text.md}",
             "type": "typography"
           }
+        },
+        "format": {
+          "default": {
+            "value": "{typography.styles.text.sm}",
+            "type": "typography"
+          },
+          "hover": {
+            "value": "{typography.styles.text.sm}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{typography.styles.text.sm}",
+            "type": "typography"
+          },
+          "disabled": {
+            "value": "{typography.styles.text.sm}",
+            "type": "typography"
+          },
+          "error": {
+            "value": "{typography.styles.text.sm}",
+            "type": "typography"
+          }
         }
       },
       "type": {

@@ -1375,8 +1375,45 @@
           }
         },
         "placeholder": {
-          "value": "{click.global.color.text.muted}",
-          "type": "color"
+          "default": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          }
+        },
+        "format": {
+          "default": {
+            "value": "{click.field.color.placeholder.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.2",
+                  "space": "lch"
+                }
+              }
+            }
+          },
+          "hover": {
+            "value": "{click.field.color.format.default}",
+            "type": "color",
+            "$extensions": {}
+          },
+          "active": {
+            "value": "{click.field.color.format.default}",
+            "type": "color",
+            "$extensions": {}
+          },
+          "disabled": {
+            "value": "{click.field.color.text.disabled}",
+            "type": "color",
+            "$extensions": {}
+          },
+          "error": {
+            "value": "{click.field.color.format.default}",
+            "type": "color",
+            "$extensions": {}
+          }
         }
       }
     },
