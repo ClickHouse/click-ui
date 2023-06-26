@@ -132,6 +132,9 @@ const App = () => {
       <SidebarNavigationItem icon="user">
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
+      <SidebarNavigationItem icon="user" collapsible label="collapsible item">
+        <a href="/color"> link to color</a>
+      </SidebarNavigationItem>
     </ThemeProvider>
   );
 };

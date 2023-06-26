@@ -1,23 +1,50 @@
-import { Icon } from "@/components";
+import { Accordion, Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
+
 import styled from "styled-components";
 
-export interface SidebarNavigationItemProps
+interface DefaultSidebarNavigationItemProps
   extends React.HTMLAttributes<HTMLButtonElement> {
-  icon: IconName;
+  collapsible?: false | undefined | null;
+  label?: undefined;
+  icon?: IconName;
   children: React.ReactNode;
 }
 
+interface CollapsibleSidebarNavigationItemProps
+  extends React.HTMLAttributes<HTMLButtonElement> {
+  collapsible: true;
+  label: string;
+  icon?: IconName;
+  children: React.ReactNode;
+}
+
+export type SidebarNavigationItemProps =
+  | DefaultSidebarNavigationItemProps
+  | CollapsibleSidebarNavigationItemProps;
+
 const SidebarNavigationItem = ({
   icon,
+  collapsible,
   children,
+  label,
 }: SidebarNavigationItemProps) => (
   <Wrapper>
-    <Icon name={icon} size="small" />
-    {children}
+    {collapsible ? (
+      <CollapsibleNavigationItem
+        collapsible={collapsible}
+        label={label}
+        icon={icon}
+        children={children}
+      />
+    ) : (
+      <>
+        {icon && <Icon name={icon || "user"} size="small" />}
+        {children}
+      </>
+    )}
   </Wrapper>
 );
-
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -55,6 +82,27 @@ const Wrapper = styled.div`
       color: inherit;
     }
   }
+
+  & ${Accordion} {
+    p {
+      margin: 0;
+    }
+  }
 `;
+
+const CollapsibleNavigationItem = ({
+  collapsible,
+  icon,
+  label,
+  children,
+}: CollapsibleSidebarNavigationItemProps) => (
+  <>
+    {label && collapsible && (
+      <Accordion title={label} icon={icon} iconSize="small">
+        {children}
+      </Accordion>
+    )}
+  </>
+);
 
 export { SidebarNavigationItem };

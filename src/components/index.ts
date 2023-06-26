@@ -10,3 +10,4 @@ export { IconButton } from "./IconButton/IconButton";
 export { Icon } from "./Icon/Icon";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
 export { Switch } from "./Switch/Switch";
+export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
