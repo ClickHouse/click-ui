@@ -14,10 +14,10 @@ import {
   Icon,
   IconButton,
   ProfileIcon,
+  SidebarNavigationItem,
   Switch,
   TextFieldLabel,
 } from "@/components";
-import { SidebarNavigationItem } from "@/components/SidebarNavigationItem/SidebarNavigationItem";
 
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
