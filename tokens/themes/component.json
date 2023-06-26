@@ -23,11 +23,15 @@
         "typography": {
           "label": {
             "default": {
-              "value": "{typography.styles.text.sm}",
+              "value": "{typography.styles.text-sbold.sm}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.accordion.small.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.text.sm}",
+              "value": "{click.accordion.small.typography.label.default}",
               "type": "typography"
             }
           }
@@ -55,11 +59,15 @@
         "typography": {
           "label": {
             "default": {
-              "value": "{typography.styles.text.md}",
+              "value": "{typography.styles.text-sbold.md}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.accordion.medium.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.text.md}",
+              "value": "{click.accordion.medium.typography.label.default}",
               "type": "typography"
             }
           }
@@ -87,11 +95,15 @@
         "typography": {
           "label": {
             "default": {
-              "value": "{typography.styles.text.lg}",
+              "value": "{typography.styles.text-sbold.lg}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.accordion.large.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.text.lg}",
+              "value": "{click.accordion.large.typography.label.default}",
               "type": "typography"
             }
           }
