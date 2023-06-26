@@ -6,6 +6,7 @@ import "./styles/variables.dark.css";
 import styles from "./App.module.css";
 import { ThemeName, ThemeProvider } from "./theme";
 import {
+  Accordion,
   Badge,
   Button,
   ButtonGroup,
@@ -16,6 +17,7 @@ import {
   Switch,
   TextFieldLabel,
 } from "@/components";
+import { SidebarNavigationItem } from "@/components/SidebarNavigationItem/SidebarNavigationItem";
 
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
@@ -127,6 +129,9 @@ const App = () => {
       </Button>
       <Icon name="users" />
       <Accordion title="Accordion">I'm some content </Accordion>
+      <SidebarNavigationItem icon="user">
+        <a href="/color"> link to color</a>
+      </SidebarNavigationItem>
     </ThemeProvider>
   );
 };
