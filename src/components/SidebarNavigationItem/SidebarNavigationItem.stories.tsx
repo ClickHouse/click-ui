@@ -17,7 +17,7 @@ export const Collapsible = {
   args: {
     icon: "user",
     collapsible: true,
-    label: "details",
+    label: "Profile",
     children: (
       <>
         <h2>Content</h2>
