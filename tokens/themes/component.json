@@ -1223,6 +1223,12 @@
             "type": "typography"
           }
         }
+      },
+      "radii": {
+        "all": {
+          "value": "{border.radii.1}",
+          "type": "borderRadius"
+        }
       }
     }
   }

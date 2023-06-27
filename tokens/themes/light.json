@@ -1715,6 +1715,22 @@
             }
           }
         }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": {
+              "value": "{click.table.row.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "tabs": {
