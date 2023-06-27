@@ -1200,6 +1200,30 @@
           }
         }
       }
+    },
+    "table": {
+      "header": {
+        "title": {
+          "default": {
+            "value": "{typography.styles.text-sbold.sm}",
+            "type": "typography"
+          }
+        }
+      },
+      "cell": {
+        "text": {
+          "default": {
+            "value": "{typography.styles.text.md}",
+            "type": "typography"
+          }
+        },
+        "label": {
+          "default": {
+            "value": "{click.field.typography.label.default}",
+            "type": "typography"
+          }
+        }
+      }
     }
   }
 }
