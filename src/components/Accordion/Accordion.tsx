@@ -88,7 +88,12 @@ const AccordionIconsWrapper = styled.div`
 
 const AccordionContent = styled(RadixAccordion.Content)``;
 
+const SidebarAccordion = styled(Accordion)`
+  p {
+    margin: 0;
+  }
+`;
 // This allows the Accordion to be referenced inside other
 // components css
 const AccordionToExport = styled(Accordion)``;
-export { AccordionToExport as Accordion };
+export { AccordionToExport as Accordion, SidebarAccordion };

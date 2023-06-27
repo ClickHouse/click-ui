@@ -1,4 +1,5 @@
-import { Accordion, Icon } from "@/components";
+import { Icon } from "@/components";
+import { SidebarAccordion } from "@/components/Accordion/Accordion";
 import { IconName } from "@/components/Icon/types";
 
 import styled from "styled-components";
@@ -98,11 +99,5 @@ const CollapsibleNavigationItem = ({
     )}
   </>
 );
-
-const SidebarAccordion = styled(Accordion)`
-  p {
-    margin: 0;
-  }
-`;
 
 export { SidebarNavigationItem };
