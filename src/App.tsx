@@ -6,6 +6,7 @@ import "./styles/variables.dark.css";
 import styles from "./App.module.css";
 import { ThemeName, ThemeProvider } from "./theme";
 import {
+  Accordion,
   Badge,
   Button,
   ButtonGroup,
@@ -13,6 +14,7 @@ import {
   Icon,
   IconButton,
   ProfileIcon,
+  SidebarNavigationItem,
   Switch,
   TextFieldLabel,
 } from "@/components";
@@ -127,6 +129,12 @@ const App = () => {
       </Button>
       <Icon name="users" />
       <Accordion title="Accordion">I'm some content </Accordion>
+      <SidebarNavigationItem icon="user">
+        <a href="/color"> link to color</a>
+      </SidebarNavigationItem>
+      <SidebarNavigationItem icon="user" collapsible label="collapsible item">
+        <a href="/color"> link to color</a>
+      </SidebarNavigationItem>
     </ThemeProvider>
   );
 };

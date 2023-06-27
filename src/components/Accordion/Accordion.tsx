@@ -1,10 +1,13 @@
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import styled from "styled-components";
-import { Icon } from "../Icon/Icon";
+import { IconName } from "@/components/Icon/types";
+import { Icon } from "@/components";
 
 type Size = "small" | "medium" | "large";
 export interface AccordionProps extends SizeProp {
   title: string;
+  icon?: IconName;
+  iconSize?: Size;
   children: React.ReactNode;
 }
 
@@ -13,18 +16,23 @@ interface SizeProp {
   size?: Size;
 }
 
-export const Accordion = ({
+const Accordion = ({
   title,
   size = "medium",
+  icon,
+  iconSize,
   children,
   ...delegated
 }: AccordionProps) => (
   <AccordionRoot type="single" collapsible>
     <AccordionItem value="item">
       <AccordionTrigger size={size} {...delegated}>
-        <AccordionIconWrapper>
-          <Icon name="chevron-right" />
-        </AccordionIconWrapper>
+        <AccordionIconsWrapper>
+          <AccordionIconWrapper>
+            <Icon name="chevron-right" />
+          </AccordionIconWrapper>
+          {icon ? <Icon name={icon} size={iconSize || size} /> : null}
+        </AccordionIconsWrapper>
         <p>{title}</p>
       </AccordionTrigger>
       <AccordionContent>{children}</AccordionContent>
@@ -72,5 +80,20 @@ const AccordionIconWrapper = styled.div`
     transform: rotate(90deg);
   }
 `;
+const AccordionIconsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const AccordionContent = styled(RadixAccordion.Content)``;
+
+const SidebarAccordion = styled(Accordion)`
+  p {
+    margin: 0;
+  }
+`;
+// This allows the Accordion to be referenced inside other
+// components css
+const AccordionToExport = styled(Accordion)``;
+export { AccordionToExport as Accordion, SidebarAccordion };
