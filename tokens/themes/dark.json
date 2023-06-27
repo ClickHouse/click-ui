@@ -1037,6 +1037,12 @@
                 "value": "{click.global.color.text.muted}",
                 "type": "color"
               }
+            },
+            "icon": {
+              "default": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
             }
           }
         },
@@ -1053,6 +1059,38 @@
             "active": {
               "value": "{click.global.color.text.muted}",
               "type": "color"
+            }
+          }
+        },
+        "subItem": {
+          "color": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.sidebar.navigation.subItem.color.text.active}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.sidebar.navigation.item.color.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              }
             }
           }
         }
