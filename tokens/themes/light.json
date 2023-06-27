@@ -874,6 +874,61 @@
             }
           }
         }
+      },
+      "alignedLeft": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.basic.color.secondary.background.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.02",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.slate.100}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.slate.200}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.button.alignedLeft.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.alignedLeft.color.text.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "card": {
