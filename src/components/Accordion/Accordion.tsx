@@ -24,12 +24,12 @@ const Accordion = ({
   children,
   ...delegated
 }: AccordionProps) => (
-  <AccordionRoot type="single" collapsible>
+  <AccordionRoot type="single" collapsible {...delegated}>
     <AccordionItem value="item">
-      <AccordionTrigger size={size} {...delegated}>
+      <AccordionTrigger size={size}>
         <AccordionIconsWrapper>
           <AccordionIconWrapper>
-            <Icon name="chevron-right" />
+            <Icon name="chevron-right" size={iconSize || size} />
           </AccordionIconWrapper>
           {icon ? <Icon name={icon} size={iconSize || size} /> : null}
         </AccordionIconsWrapper>
@@ -89,8 +89,27 @@ const AccordionIconsWrapper = styled.div`
 const AccordionContent = styled(RadixAccordion.Content)``;
 
 const SidebarAccordion = styled(Accordion)`
+  ${AccordionTrigger} {
+    gap: ${props =>
+      props.theme.click.sidebar.navigation.item.default.space.gap};
+  }
   p {
     margin: 0;
+  }
+
+  ${AccordionIconWrapper} {
+    visibility: hidden;
+  }
+
+  &:hover ${AccordionIconWrapper} {
+    visibility: revert;
+  }
+  &:active {
+    visibility: revert;
+  }
+
+  ${AccordionTrigger}[data-state='open'] ${AccordionIconWrapper} {
+    visibility: revert;
   }
 `;
 // This allows the Accordion to be referenced inside other
