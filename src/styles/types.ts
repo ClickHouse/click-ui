@@ -1116,17 +1116,17 @@
           "background": {
             "default": string,
             "hover": string,
-            "selected": string
+            "active": string
           },
           "text": {
             "default": string,
             "hover": string,
-            "selected": string
+            "active": string
           },
-          "accent": {
+          "stroke": {
             "default": string,
             "hover": string,
-            "selected": string
+            "active": string
           }
         }
       },
@@ -1143,7 +1143,9 @@
             "active": string
           },
           "stroke": {
-            "default": string
+            "default": string,
+            "hover": string,
+            "active": string
           }
         }
       }

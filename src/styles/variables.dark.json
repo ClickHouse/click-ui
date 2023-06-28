@@ -347,17 +347,17 @@
           "background": {
             "default": "rgba(0,0,0,0)",
             "hover": "#282828",
-            "selected": "rgba(0,0,0,0)"
+            "active": "rgba(0,0,0,0)"
           },
           "text": {
             "default": "#b3b6bd",
             "hover": "#ffffff",
-            "selected": "#ffffff"
+            "active": "#ffffff"
           },
-          "accent": {
+          "stroke": {
             "default": "rgba(0,0,0,0)",
             "hover": "rgba(0,0,0,0)",
-            "selected": "#fcff74"
+            "active": "#fcff74"
           }
         }
       },
@@ -374,7 +374,9 @@
             "active": "#ffffff"
           },
           "stroke": {
-            "default": "lch(27.5 0 0 / 0.3)"
+            "default": "lch(27.5 0 0 / 0.3)",
+            "hover": "lch(27.5 0 0 / 0.3)",
+            "active": "lch(27.5 0 0 / 0.3)"
           }
         }
       }

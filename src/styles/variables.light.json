@@ -560,17 +560,17 @@
           "background": {
             "default": "rgba(0,0,0,0)",
             "hover": "#f6f7fa",
-            "selected": "rgba(0,0,0,0)"
+            "active": "rgba(0,0,0,0)"
           },
           "text": {
             "default": "#696e79",
             "hover": "#161517",
-            "selected": "#161517"
+            "active": "#161517"
           },
-          "accent": {
+          "stroke": {
             "default": "rgba(0,0,0,0)",
             "hover": "rgba(0,0,0,0)",
-            "selected": "#151515"
+            "active": "#151515"
           }
         }
       },
@@ -587,7 +587,9 @@
             "active": "#161517"
           },
           "stroke": {
-            "default": "lch(91.6 1.1 266 / 0.3)"
+            "default": "lch(91.6 1.1 266 / 0.3)",
+            "hover": "lch(91.6 1.1 266 / 0.3)",
+            "active": "lch(91.6 1.1 266 / 0.3)"
           }
         }
       }
