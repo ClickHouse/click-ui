@@ -1102,6 +1102,16 @@
         }
       },
       "basic": {
+        "strokeWidth": {
+          "default": string,
+          "hover": string,
+          "active": string
+        },
+        "stroke": {
+          "default": string,
+          "hover": string,
+          "active": string
+        },
         "color": {
           "background": {
             "default": string,

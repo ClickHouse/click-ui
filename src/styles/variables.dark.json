@@ -341,6 +341,44 @@
         }
       }
     },
+    "tabs": {
+      "basic": {
+        "color": {
+          "background": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "#282828",
+            "selected": "rgba(0,0,0,0)"
+          },
+          "text": {
+            "default": "#b3b6bd",
+            "hover": "#ffffff",
+            "selected": "#ffffff"
+          },
+          "accent": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "rgba(0,0,0,0)",
+            "selected": "#fcff74"
+          }
+        }
+      },
+      "file-tabs": {
+        "color": {
+          "background": {
+            "default": "#282828",
+            "hover": "#1F1F1C",
+            "active": "#1F1F1C"
+          },
+          "text": {
+            "default": "#b3b6bd",
+            "hover": "#ffffff",
+            "active": "#ffffff"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          }
+        }
+      }
+    },
     "tooltip": {
       "color": {
         "background": {
