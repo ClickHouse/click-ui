@@ -63,6 +63,7 @@ const Tabs = ({
 }: TabsProps) => {
   const newChildren = Array.isArray(children) ? children : [children];
 
+  console.log(children);
   const triggersProps = newChildren
     .filter(item => typeof item.type !== "string" && item.type.name === "Tab")
     .map(item => ({
