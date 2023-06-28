@@ -1,5 +1,5 @@
 # Workflow name
-name: "Push"
+name: "deployment"
 
 # Event for the workflow
 on:
