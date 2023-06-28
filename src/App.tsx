@@ -17,7 +17,6 @@ import {
   ProfileIcon,
   SidebarNavigationItem,
   Switch,
-  Tab,
   Tabs,
   TextFieldLabel,
 } from "@/components";
@@ -139,16 +138,14 @@ const App = () => {
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
-        <p>common content</p>
-        <Tab label="tab1" value="tab1">
-          <p>Tab 1 content</p>
-        </Tab>
-        <Tab label="tab2" value="tab2">
-          <p>Tab 2 content</p>
-        </Tab>
-        <Tab label="tab3" value="tab3">
-          <p>Tab 3 content</p>
-        </Tab>
+        <Tabs.TriggersList>
+          <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
+          <Tabs.Trigger value="tab2">tab2 </Tabs.Trigger>
+          <Tabs.Trigger value="tab3">tab3 </Tabs.Trigger>
+        </Tabs.TriggersList>
+        <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
+        <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
+        <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
       </Tabs>
     </ThemeProvider>
   );
