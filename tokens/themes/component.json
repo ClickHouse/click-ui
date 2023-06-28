@@ -1277,7 +1277,7 @@
         "stroke": {
           "default": {
             "value": {
-              "color": "{click.tabs.basic.color.accent.default}",
+              "color": "{click.tabs.basic.color.stroke.default}",
               "width": "{click.tabs.basic.strokeWidth.default}",
               "style": "solid"
             },
@@ -1285,7 +1285,7 @@
           },
           "hover": {
             "value": {
-              "color": "{click.tabs.basic.color.accent.hover}",
+              "color": "{click.tabs.basic.color.stroke.hover}",
               "width": "{click.tabs.basic.strokeWidth.hover}",
               "style": "solid"
             },
@@ -1293,7 +1293,7 @@
           },
           "active": {
             "value": {
-              "color": "{click.tabs.basic.color.accent.selected}",
+              "color": "{click.tabs.basic.color.stroke.active}",
               "width": "{click.tabs.basic.strokeWidth.active}",
               "style": "solid"
             },
