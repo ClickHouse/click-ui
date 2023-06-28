@@ -1037,6 +1037,12 @@
                 "value": "{click.global.color.text.muted}",
                 "type": "color"
               }
+            },
+            "icon": {
+              "default": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
             }
           }
         },
@@ -1055,6 +1061,38 @@
               "type": "color"
             }
           }
+        },
+        "subItem": {
+          "color": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.sidebar.navigation.subItem.color.text.active}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.sidebar.navigation.item.color.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              }
+            }
+          }
         }
       },
       "sql-sidebar": {
@@ -1070,36 +1108,6 @@
               "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
-          }
-        }
-      }
-    },
-    "table": {
-      "color": {
-        "header": {
-          "background": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color"
-          },
-          "text": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          }
-        },
-        "row": {
-          "background": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          },
-          "text": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          }
-        },
-        "cell": {
-          "stroke": {
-            "value": "{click.global.color.stroke.default}",
-            "type": "color"
           }
         }
       }
@@ -1196,6 +1204,102 @@
           "complete": {
             "value": "{click.stepperVertical.icon.background.default}",
             "type": "color"
+          }
+        }
+      }
+    },
+    "table": {
+      "header": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "title": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "icon": {
+            "default": {
+              "value": "{click.image.color.stroke}",
+              "type": "color"
+            }
+          },
+          "checkbox": {
+            "background": {
+              "default": {
+                "value": "{palette.slate.200}",
+                "type": "color"
+              }
+            },
+            "border": {
+              "default": {
+                "value": "{palette.slate.500}",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.info.50}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.table.row.color.background.hover}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "link": {
+            "default": {
+              "value": "{click.global.color.text.link.default}",
+              "type": "color"
+            }
+          },
+          "label": {
+            "default": {
+              "value": "{click.field.color.label.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": {
+              "value": "{click.table.row.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
           }
         }
       }

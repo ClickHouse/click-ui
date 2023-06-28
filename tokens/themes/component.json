@@ -345,7 +345,7 @@
         "size": {
           "icon": {
             "all": {
-              "value": "{sizes.5}-0.5px",
+              "value": "0.96875rem",
               "type": "sizing"
             }
           }
@@ -448,6 +448,66 @@
           "end": {
             "value": "{border.radii.1}",
             "type": "borderRadius"
+          }
+        }
+      },
+      "alignLeft": {
+        "size": {
+          "icon": {
+            "all": {
+              "value": "{click.button.basic.size.icon.all}",
+              "type": "sizing"
+            }
+          }
+        },
+        "space": {
+          "x": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "0.34375rem",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
+        },
+        "typography": {
+          "label": {
+            "default": {
+              "value": "{typography.styles.text-sbold.md}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{typography.styles.text-sbold.md}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{typography.styles.text-sbold.md}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{typography.styles.text-sbold.md}",
+              "type": "typography"
+            }
+          },
+          "mobile": {
+            "label": {
+              "default": {
+                "value": "{typography.styles.text-sbold.lg}",
+                "type": "typography"
+              },
+              "hover": {
+                "value": "{typography.styles.text-sbold.lg}",
+                "type": "typography"
+              },
+              "active": {
+                "value": "{typography.styles.text-bold.lg}",
+                "type": "typography"
+              }
+            }
           }
         }
       }
@@ -951,10 +1011,8 @@
         "item": {
           "radii": {
             "all": {
-              "radius": {
-                "value": "{border.radii.1}",
-                "type": "borderRadius"
-              }
+              "value": "{border.radii.1}",
+              "type": "borderRadius"
             }
           },
           "default": {
@@ -1062,6 +1120,82 @@
             },
             "disabled": {
               "value": "{typography.styles.text-sbold.sm}",
+              "type": "typography"
+            }
+          }
+        },
+        "subItem": {
+          "default": {
+            "space": {
+              "left": {
+                "value": "2.75rem",
+                "type": "spacing"
+              },
+              "right": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "y": {
+                "value": "{click.button.basic.space.y}",
+                "type": "spacing"
+              }
+            }
+          },
+          "mobile": {
+            "space": {
+              "left": {
+                "value": "2.75rem",
+                "type": "spacing"
+              },
+              "right": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "y": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "gap": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              }
+            },
+            "typography": {
+              "default": {
+                "value": "{typography.styles.text.lg}",
+                "type": "typography"
+              },
+              "hover": {
+                "value": "{typography.styles.text.lg}",
+                "type": "typography"
+              },
+              "active": {
+                "value": "{typography.styles.text-sbold.lg}",
+                "type": "typography"
+              }
+            }
+          },
+          "radii": {
+            "all": {
+              "value": "{border.radii.1}",
+              "type": "borderRadius"
+            }
+          },
+          "typography": {
+            "default": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{typography.styles.text-sbold.md}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{typography.styles.text-sbold.md}",
               "type": "typography"
             }
           }
@@ -1198,6 +1332,36 @@
             },
             "type": "typography"
           }
+        }
+      }
+    },
+    "table": {
+      "header": {
+        "title": {
+          "default": {
+            "value": "{typography.styles.text-sbold.sm}",
+            "type": "typography"
+          }
+        }
+      },
+      "cell": {
+        "text": {
+          "default": {
+            "value": "{typography.styles.text.md}",
+            "type": "typography"
+          }
+        },
+        "label": {
+          "default": {
+            "value": "{click.field.typography.label.default}",
+            "type": "typography"
+          }
+        }
+      },
+      "radii": {
+        "all": {
+          "value": "{border.radii.1}",
+          "type": "borderRadius"
         }
       }
     }
