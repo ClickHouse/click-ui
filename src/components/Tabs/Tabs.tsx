@@ -22,29 +22,26 @@ const Trigger = styled(RadixTabs.Trigger)`
   border-top-left-radius: ${props => props.theme.click.tabs.radii.all};
   border-top-right-radius: ${props => props.theme.click.tabs.radii.all};
 
-  border-bottom: ${props =>
-    `${props.theme.border.width[2]} solid ${props.theme.click.tabs.basic.color.accent.hover}`};
+  border-bottom: ${props => props.theme.click.tabs.basic.stroke.default};
   background-color: ${props =>
     props.theme.click.tabs.basic.color.background.default};
   color: ${props => props.theme.click.tabs.basic.color.text.default};
   font: ${props => props.theme.click.tabs.typography.label.default};
 
   &:hover {
+    border-bottom: ${props => props.theme.click.tabs.basic.stroke.hover};
     background-color: ${props =>
       props.theme.click.tabs.basic.color.background.hover};
     color: ${props => props.theme.click.tabs.basic.color.text.hover};
     font: ${props => props.theme.click.tabs.typography.label.hover};
-    border-bottom: ${props =>
-      `${props.theme.border.width[2]} solid ${props.theme.click.tabs.basic.color.accent.selected}`};
   }
 
   &[data-state="active"] {
+    border-bottom: ${props => props.theme.click.tabs.basic.stroke.active};
     background-color: ${props =>
       props.theme.click.tabs.basic.color.background.selected};
     color: ${props => props.theme.click.tabs.basic.color.text.selected};
     font: ${props => props.theme.click.tabs.typography.label.active};
-    border-bottom: ${props =>
-      `${props.theme.border.width[2]} solid ${props.theme.click.tabs.basic.color.accent.selected}`};
   }
 `;
 
