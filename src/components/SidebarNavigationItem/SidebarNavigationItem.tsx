@@ -55,7 +55,7 @@ const Wrapper = styled.div`
     `${props.theme.click.sidebar.navigation.item.default.space.y} ${props.theme.click.sidebar.navigation.item.default.space.x}`};
 
   border-radius: ${props =>
-    props.theme.click.sidebar.navigation.item.radii.all.radius};
+    props.theme.click.sidebar.navigation.item.radii.all};
   font: ${props =>
     props.theme.click.sidebar.navigation.item.typography.default};
   background-color: ${props =>
