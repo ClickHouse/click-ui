@@ -1111,7 +1111,7 @@
           "default": "1px solid rgba(0,0,0,0)",
           "hover": "1px solid rgba(0,0,0,0)",
           "active": "2px solid #151515",
-          "global": "1px solid rgba(0,0,0,0)"
+          "global": "1px solid lch(91.6 1.1 266 / 0.3)"
         },
         "color": {
           "background": {
