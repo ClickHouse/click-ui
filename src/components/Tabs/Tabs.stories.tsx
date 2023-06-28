@@ -46,14 +46,9 @@ export const Hover = {
 export const Selected = {
   args: {
     children: [
-      <Tab label="tab1" key="tab1" value="tab1">
+      <Tab label="tab1" key="tab1" value="tab1" data-state="active">
         <p>Tab 1 content</p>
       </Tab>,
     ],
-  },
-  parameters: {
-    pseudo: {
-      active: true,
-    },
   },
 };

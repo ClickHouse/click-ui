@@ -59,14 +59,13 @@ const Tabs = ({
   ariaLabel,
   children,
   onValueChange,
-  ...delegated
 }: TabsProps) => {
   const newChildren = Array.isArray(children) ? children : [children];
 
-  console.log(children);
   const triggersProps = newChildren
-    .filter(item => typeof item.type !== "string" && item.type.name === "Tab")
+    .filter(item => item.type === Tab)
     .map(item => ({
+      ...item.props,
       label: item.props.label,
       value: item.props.value,
     }));
@@ -74,8 +73,8 @@ const Tabs = ({
   return (
     <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange}>
       <RadixTabs.List aria-label={ariaLabel}>
-        {triggersProps.map(({ value, label }) => (
-          <Trigger value={value} key={value} {...delegated}>
+        {triggersProps.map(({ value, label, ...delegated }) => (
+          <Trigger {...delegated} value={value} key={value}>
             {label}
           </Trigger>
         ))}
