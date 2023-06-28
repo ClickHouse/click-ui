@@ -425,7 +425,16 @@
           "disabled": "#a0a0a0",
           "error": "#c10000"
         },
-        "placeholder": "#696e79"
+        "format": {
+          "default": "lch(57 5.46 269)",
+          "hover": "lch(57 5.46 269)",
+          "active": "lch(57 5.46 269)",
+          "disabled": "#a0a0a0",
+          "error": "lch(57 5.46 269)"
+        },
+        "placeholder": {
+          "default": "#696e79"
+        }
       }
     },
     "image": {

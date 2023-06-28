@@ -13,8 +13,9 @@
         },
         "typography": {
           "label": {
-            "default": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
-            "active": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
+            "default": "500 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "hover": "500 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "active": "500 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
           }
         }
       },
@@ -30,8 +31,9 @@
         },
         "typography": {
           "label": {
-            "default": "400 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
-            "active": "400 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
+            "default": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "hover": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "active": "500 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
           }
         }
       },
@@ -47,8 +49,9 @@
         },
         "typography": {
           "label": {
-            "default": "400 1rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
-            "active": "400 1rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
+            "default": "500 1rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "hover": "500 1rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+            "active": "500 1rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
           }
         }
       },
@@ -735,6 +738,13 @@
           "active": "400 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
           "disabled": "400 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
           "error": "400 0.875rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
+        },
+        "format": {
+          "default": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+          "hover": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+          "active": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+          "disabled": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;",
+          "error": "400 0.75rem/1.5 \"Inter\",\"SF Pro Display\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen,Ubuntu, Cantarell,\"Open Sans\",\"Helvetica Neue\",sans-serif;"
         }
       },
       "type": {
@@ -788,7 +798,16 @@
           "disabled": "#a0a0a0",
           "error": "#c10000"
         },
-        "placeholder": "#696e79"
+        "format": {
+          "default": "lch(57 5.46 269)",
+          "hover": "lch(57 5.46 269)",
+          "active": "lch(57 5.46 269)",
+          "disabled": "#a0a0a0",
+          "error": "lch(57 5.46 269)"
+        },
+        "placeholder": {
+          "default": "#696e79"
+        }
       }
     },
     "image": {

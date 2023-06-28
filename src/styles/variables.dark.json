@@ -238,6 +238,13 @@
           "default": "#b3b6bd",
           "active": "#ffffff",
           "disabled": "#a0a0a0"
+        },
+        "format": {
+          "default": "lch(79.2 3.16 269)",
+          "hover": "lch(79.2 3.16 269)",
+          "active": "lch(79.2 3.16 269)",
+          "disabled": "#808080",
+          "error": "lch(79.2 3.16 269)"
         }
       }
     },

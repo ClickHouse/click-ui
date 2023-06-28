@@ -138,7 +138,7 @@ const App = () => {
       <SidebarNavigationItem icon="user" collapsible label="collapsible item">
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
-      <Tabs defaultValue="tab1">
+      <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <p>common content</p>
         <Tab label="tab1" value="tab1">
           <p>Tab 1 content</p>

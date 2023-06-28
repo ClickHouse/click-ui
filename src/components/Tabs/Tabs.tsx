@@ -10,20 +10,41 @@ export type TabProps = {
 export type TabsProps = {
   defaultValue?: string;
   ariaLabel?: string;
+  onValueChange?: (s: string) => unknown;
   children: React.ReactElement<TabProps>[] | React.ReactElement<TabProps>;
 };
 
 const Trigger = styled(RadixTabs.Trigger)`
+  border: none;
+  padding: ${props =>
+    `${props.theme.click.tabs.space.y} ${props.theme.click.tabs.space.x}`};
+
+  border-top-left-radius: ${props => props.theme.click.tabs.radii.all};
+  border-top-right-radius: ${props => props.theme.click.tabs.radii.all};
+
+  border-bottom: ${props =>
+    `${props.theme.border.width[2]} solid ${props.theme.click.tabs.basic.color.accent.hover}`};
+  background-color: ${props =>
+    props.theme.click.tabs.basic.color.background.default};
+  color: ${props => props.theme.click.tabs.basic.color.text.default};
+  font: ${props => props.theme.click.tabs.typography.label.default};
+
   &:hover {
-    color: deeppink;
+    background-color: ${props =>
+      props.theme.click.tabs.basic.color.background.hover};
+    color: ${props => props.theme.click.tabs.basic.color.text.hover};
+    font: ${props => props.theme.click.tabs.typography.label.hover};
+    border-bottom: ${props =>
+      `${props.theme.border.width[2]} solid ${props.theme.click.tabs.basic.color.accent.selected}`};
   }
+
   &[data-state="active"] {
-    color: deeppink;
-    box-shadow: inset 0 -1px 0 0 darkmagenta, 0 1px 0 0 darkblue;
-  }
-  &:focus {
-    position: relative;
-    box-shadow: 0 0 0 2px black;
+    background-color: ${props =>
+      props.theme.click.tabs.basic.color.background.selected};
+    color: ${props => props.theme.click.tabs.basic.color.text.selected};
+    font: ${props => props.theme.click.tabs.typography.label.active};
+    border-bottom: ${props =>
+      `${props.theme.border.width[2]} solid ${props.theme.click.tabs.basic.color.accent.selected}`};
   }
 `;
 
@@ -33,7 +54,13 @@ const Tab = ({ value, children }: TabProps) => (
   <Content value={value}>{children}</Content>
 );
 
-const Tabs = ({ defaultValue, ariaLabel, children }: TabsProps) => {
+const Tabs = ({
+  defaultValue,
+  ariaLabel,
+  children,
+  onValueChange,
+  ...delegated
+}: TabsProps) => {
   const newChildren = Array.isArray(children) ? children : [children];
 
   const triggersProps = newChildren
@@ -44,10 +71,10 @@ const Tabs = ({ defaultValue, ariaLabel, children }: TabsProps) => {
     }));
 
   return (
-    <RadixTabs.Root defaultValue={defaultValue}>
+    <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange}>
       <RadixTabs.List aria-label={ariaLabel}>
         {triggersProps.map(({ value, label }) => (
-          <Trigger value={value} key={value}>
+          <Trigger value={value} key={value} {...delegated}>
             {label}
           </Trigger>
         ))}

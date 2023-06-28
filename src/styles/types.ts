@@ -15,6 +15,7 @@
         "typography": {
           "label": {
             "default": string,
+            "hover": string,
             "active": string
           }
         }
@@ -32,6 +33,7 @@
         "typography": {
           "label": {
             "default": string,
+            "hover": string,
             "active": string
           }
         }
@@ -49,6 +51,7 @@
         "typography": {
           "label": {
             "default": string,
+            "hover": string,
             "active": string
           }
         }
@@ -736,6 +739,13 @@
           "active": string,
           "disabled": string,
           "error": string
+        },
+        "format": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string,
+          "error": string
         }
       },
       "type": {
@@ -789,7 +799,16 @@
           "disabled": string,
           "error": string
         },
-        "placeholder": string
+        "format": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string,
+          "error": string
+        },
+        "placeholder": {
+          "default": string
+        }
       }
     },
     "image": {
