@@ -1348,6 +1348,12 @@
               "value": "{click.global.color.accent.default}",
               "type": "color"
             }
+          },
+          "global": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
           }
         }
       },

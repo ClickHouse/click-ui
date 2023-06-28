@@ -1272,6 +1272,10 @@
           "active": {
             "value": "{border.width.2}",
             "type": "borderWidth"
+          },
+          "global": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
           }
         },
         "stroke": {
@@ -1297,6 +1301,10 @@
               "width": "{click.tabs.basic.strokeWidth.active}",
               "style": "solid"
             },
+            "type": "border"
+          },
+          "global": {
+            "value": "{click.tabs.basic.stroke.default}",
             "type": "border"
           }
         }
