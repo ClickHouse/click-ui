@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
   steps:
     - name: unit tests
-    - run: npm run test
+      run: npm run test
 
   chromatic-deployment:
     # Operating System
