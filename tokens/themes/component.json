@@ -1304,7 +1304,11 @@
             "type": "border"
           },
           "global": {
-            "value": "{click.tabs.basic.stroke.default}",
+            "value": {
+              "color": "{click.global.color.stroke.default}",
+              "width": "{border.width.1}",
+              "style": "solid"
+            },
             "type": "border"
           }
         }
