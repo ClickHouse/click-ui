@@ -1303,6 +1303,92 @@
           }
         }
       }
+    },
+    "tabs": {
+      "basic": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.tabs.basic.color.text.hover}",
+              "type": "color"
+            }
+          },
+          "accent": {
+            "default": {
+              "value": "{click.tabs.basic.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "file-tabs": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.tabs.file-tabs.color.background.hover}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   }
 }
