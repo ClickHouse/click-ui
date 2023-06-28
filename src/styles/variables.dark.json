@@ -238,6 +238,13 @@
           "default": "#b3b6bd",
           "active": "#ffffff",
           "disabled": "#a0a0a0"
+        },
+        "format": {
+          "default": "lch(79.2 3.16 269)",
+          "hover": "lch(79.2 3.16 269)",
+          "active": "lch(79.2 3.16 269)",
+          "disabled": "#808080",
+          "error": "lch(79.2 3.16 269)"
         }
       }
     },
@@ -262,6 +269,9 @@
               "hover": "#ffffff",
               "active": "#ffffff",
               "muted": "#b3b6bd"
+            },
+            "icon": {
+              "default": "#b3b6bd"
             }
           }
         },
@@ -270,6 +280,20 @@
             "default": "#b3b6bd",
             "hover": "#b3b6bd",
             "active": "#b3b6bd"
+          }
+        },
+        "subItem": {
+          "color": {
+            "text": {
+              "default": "#b3b6bd",
+              "hover": "#ffffff",
+              "active": "#ffffff"
+            },
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "lch(19.1 0 0)",
+              "active": "rgba(0,0,0,0)"
+            }
           }
         }
       },
@@ -353,6 +377,60 @@
         }
       }
     },
+    "table": {
+      "header": {
+        "color": {
+          "background": {
+            "default": "#282828"
+          },
+          "title": {
+            "default": "#ffffff"
+          },
+          "icon": {
+            "default": "#ffffff"
+          },
+          "checkbox": {
+            "background": {
+              "default": "#cccfd3"
+            },
+            "border": {
+              "default": "#808691"
+            }
+          }
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C",
+            "hover": "#dae6fc",
+            "active": "#dae6fc"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          },
+          "text": {
+            "default": "#ffffff"
+          },
+          "link": {
+            "default": "#fcff74"
+          },
+          "label": {
+            "default": "#b3b6bd"
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          },
+          "background": {
+            "default": "#1F1F1C"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -427,21 +505,6 @@
           "cell": {
             "stroke": "lch(27.5 0 0 / 0.3)"
           }
-        }
-      }
-    },
-    "table": {
-      "color": {
-        "header": {
-          "background": "#282828",
-          "text": "#ffffff"
-        },
-        "row": {
-          "background": "#1F1F1C",
-          "text": "#ffffff"
-        },
-        "cell": {
-          "stroke": "lch(27.5 0 0 / 0.3)"
         }
       }
     }

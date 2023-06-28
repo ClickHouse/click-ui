@@ -241,6 +241,25 @@
             "panel": "lch(91.6 1.1 266 / 0.3)"
           }
         }
+      },
+      "alignedLeft": {
+        "color": {
+          "background": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "#f6f7fa",
+            "active": "lch(95.3 1.54 272)"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)",
+            "hover": "#e6e7e9",
+            "active": "#cccfd3"
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517"
+          }
+        }
       }
     },
     "card": {
@@ -425,7 +444,16 @@
           "disabled": "#a0a0a0",
           "error": "#c10000"
         },
-        "placeholder": "#696e79"
+        "format": {
+          "default": "lch(57 5.46 269)",
+          "hover": "lch(57 5.46 269)",
+          "active": "lch(57 5.46 269)",
+          "disabled": "#a0a0a0",
+          "error": "lch(57 5.46 269)"
+        },
+        "placeholder": {
+          "default": "#696e79"
+        }
       }
     },
     "image": {
@@ -454,6 +482,9 @@
               "hover": "#161517",
               "active": "#161517",
               "muted": "#696e79"
+            },
+            "icon": {
+              "default": "#696e79"
             }
           }
         },
@@ -462,6 +493,20 @@
             "default": "#696e79",
             "hover": "#696e79",
             "active": "#696e79"
+          }
+        },
+        "subItem": {
+          "color": {
+            "text": {
+              "default": "#696e79",
+              "hover": "#161517",
+              "active": "#161517"
+            },
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "lch(91.6 1.1 266 / 0.6)",
+              "active": "rgba(0,0,0,0)"
+            }
           }
         }
       },
@@ -583,6 +628,60 @@
         }
       }
     },
+    "table": {
+      "header": {
+        "color": {
+          "background": {
+            "default": "#f6f7fa"
+          },
+          "title": {
+            "default": "#161517"
+          },
+          "icon": {
+            "default": "#161517"
+          },
+          "checkbox": {
+            "background": {
+              "default": "#cccfd3"
+            },
+            "border": {
+              "default": "#808691"
+            }
+          }
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "#dae6fc",
+            "active": "#dae6fc"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)"
+          },
+          "text": {
+            "default": "#161517"
+          },
+          "link": {
+            "default": "#135be6"
+          },
+          "label": {
+            "default": "#696e79"
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)"
+          },
+          "background": {
+            "default": "#ffffff"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -657,21 +756,6 @@
           "cell": {
             "stroke": "lch(91.6 1.1 266 / 0.3)"
           }
-        }
-      }
-    },
-    "table": {
-      "color": {
-        "header": {
-          "background": "#f6f7fa",
-          "text": "#161517"
-        },
-        "row": {
-          "background": "#ffffff",
-          "text": "#161517"
-        },
-        "cell": {
-          "stroke": "lch(91.6 1.1 266 / 0.3)"
         }
       }
     }
