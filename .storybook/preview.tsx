@@ -5,8 +5,8 @@ import { Decorator } from "@storybook/react";
 import { ThemeProvider } from "../src/theme";
 import styled from "styled-components";
 
-const ThemeBlock = styled.div<{ left?: boolean; fill?: boolean }>(
-  ({ left, fill, theme }) => `
+const ThemeBlock = styled.div<{ left?: boolean; bfill?: boolean }>(
+  ({ left, bfill: fill, theme }) => `
       position: absolute;
       top: 0;
       left: ${left || fill ? 0 : "50vw"};
@@ -44,7 +44,7 @@ const withTheme: Decorator = (StoryFn, context) => {
   const theme = parameters?.theme || context.globals.theme;
   return (
     <ThemeProvider theme={theme}>
-      <ThemeBlock fill>
+      <ThemeBlock bfill>
         <StoryFn />
       </ThemeBlock>
     </ThemeProvider>

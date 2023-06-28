@@ -12,6 +12,7 @@ type Story = StoryObj<typeof Tabs>;
 export const Default: Story = {
   args: {
     defaultValue: "tab2",
+    onValueChange: s => console.log(s),
     ariaLabel: "a simple tab component",
     children: [
       <Tab label="tab1" key="tab1" value="tab1">
