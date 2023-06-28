@@ -47,6 +47,10 @@ const Trigger = styled(RadixTabs.Trigger)`
 
 const Content = styled(RadixTabs.Content)``;
 
+const TriggersList = styled(RadixTabs.List)`
+  border: ${props => props.theme.click.tabs.basic.stroke.default};
+`;
+
 const Tab = ({ value, children }: TabProps) => (
   <Content value={value}>{children}</Content>
 );
@@ -69,13 +73,13 @@ const Tabs = ({
 
   return (
     <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange}>
-      <RadixTabs.List aria-label={ariaLabel}>
+      <TriggersList aria-label={ariaLabel}>
         {triggersProps.map(({ value, label, ...delegated }) => (
           <Trigger {...delegated} value={value} key={value}>
             {label}
           </Trigger>
         ))}
-      </RadixTabs.List>
+      </TriggersList>
       {children}
     </RadixTabs.Root>
   );
