@@ -39,8 +39,8 @@ const Trigger = styled(RadixTabs.Trigger)`
   &[data-state="active"] {
     border-bottom: ${props => props.theme.click.tabs.basic.stroke.active};
     background-color: ${props =>
-      props.theme.click.tabs.basic.color.background.selected};
-    color: ${props => props.theme.click.tabs.basic.color.text.selected};
+      props.theme.click.tabs.basic.color.background.active};
+    color: ${props => props.theme.click.tabs.basic.color.text.active};
     font: ${props => props.theme.click.tabs.typography.label.active};
   }
 `;
