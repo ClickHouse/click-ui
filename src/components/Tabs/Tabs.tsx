@@ -48,7 +48,7 @@ const Trigger = styled(RadixTabs.Trigger)`
 const Content = styled(RadixTabs.Content)``;
 
 const TriggersList = styled(RadixTabs.List)`
-  border: ${props => props.theme.click.tabs.basic.stroke.default};
+  border-bottom: ${props => props.theme.click.tabs.basic.stroke.global};
 `;
 
 const Tab = ({ value, children }: TabProps) => (
