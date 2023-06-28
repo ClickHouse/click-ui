@@ -571,6 +571,9 @@
             "default": "rgba(0,0,0,0)",
             "hover": "rgba(0,0,0,0)",
             "active": "#151515"
+          },
+          "global": {
+            "default": "lch(91.6 1.1 266 / 0.3)"
           }
         }
       },
