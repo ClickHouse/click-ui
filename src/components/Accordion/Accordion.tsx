@@ -104,7 +104,7 @@ const SidebarAccordion = styled(Accordion)`
   &:hover ${AccordionIconWrapper} {
     visibility: revert;
   }
-  &:active {
+  &:active ${AccordionIconWrapper} {
     visibility: revert;
   }
 
