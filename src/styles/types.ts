@@ -427,6 +427,33 @@
           "end": string
         }
       },
+      "alignLeft": {
+        "size": {
+          "icon": {
+            "all": string
+          }
+        },
+        "space": {
+          "x": string,
+          "y": string,
+          "gap": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "mobile": {
+            "label": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          }
+        }
+      },
       "group": {
         "color": {
           "background": {
@@ -442,6 +469,25 @@
           },
           "stroke": {
             "panel": string
+          }
+        }
+      },
+      "alignedLeft": {
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
           }
         }
       }
@@ -866,9 +912,7 @@
       "navigation": {
         "item": {
           "radii": {
-            "all": {
-              "radius": string
-            }
+            "all": string
           },
           "default": {
             "space": {
@@ -915,6 +959,9 @@
               "hover": string,
               "active": string,
               "muted": string
+            },
+            "icon": {
+              "default": string
             }
           }
         },
@@ -929,6 +976,49 @@
             "default": string,
             "hover": string,
             "active": string
+          }
+        },
+        "subItem": {
+          "default": {
+            "space": {
+              "left": string,
+              "right": string,
+              "y": string
+            }
+          },
+          "mobile": {
+            "space": {
+              "left": string,
+              "right": string,
+              "y": string,
+              "gap": string
+            },
+            "typography": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          },
+          "radii": {
+            "all": string
+          },
+          "typography": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "color": {
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
           }
         }
       },
@@ -1113,6 +1203,74 @@
         }
       }
     },
+    "table": {
+      "header": {
+        "title": {
+          "default": string
+        },
+        "color": {
+          "background": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          },
+          "icon": {
+            "default": string
+          },
+          "checkbox": {
+            "background": {
+              "default": string
+            },
+            "border": {
+              "default": string
+            }
+          }
+        }
+      },
+      "cell": {
+        "text": {
+          "default": string
+        },
+        "label": {
+          "default": string
+        }
+      },
+      "radii": {
+        "all": string
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string
+          },
+          "text": {
+            "default": string
+          },
+          "link": {
+            "default": string
+          },
+          "label": {
+            "default": string
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": string
+          },
+          "background": {
+            "default": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1187,21 +1345,6 @@
           "cell": {
             "stroke": string
           }
-        }
-      }
-    },
-    "table": {
-      "color": {
-        "header": {
-          "background": string,
-          "text": string
-        },
-        "row": {
-          "background": string,
-          "text": string
-        },
-        "cell": {
-          "stroke": string
         }
       }
     }
