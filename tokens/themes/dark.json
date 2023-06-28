@@ -1316,7 +1316,7 @@
               "value": "{click.global.color.background.muted}",
               "type": "color"
             },
-            "selected": {
+            "active": {
               "value": "{palette.utility.transparent}",
               "type": "color"
             }
@@ -1330,12 +1330,12 @@
               "value": "{click.global.color.text.default}",
               "type": "color"
             },
-            "selected": {
+            "active": {
               "value": "{click.tabs.basic.color.text.hover}",
               "type": "color"
             }
           },
-          "accent": {
+          "stroke": {
             "default": {
               "value": "{click.tabs.basic.color.background.default}",
               "type": "color"
@@ -1344,7 +1344,7 @@
               "value": "{palette.utility.transparent}",
               "type": "color"
             },
-            "selected": {
+            "active": {
               "value": "{click.global.color.accent.default}",
               "type": "color"
             }
@@ -1383,6 +1383,14 @@
           },
           "stroke": {
             "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "active": {
               "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
