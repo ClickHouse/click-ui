@@ -2,7 +2,7 @@ import * as RadixTabs from "@radix-ui/react-tabs";
 import styled from "styled-components";
 
 export type TabProps = {
-  label: string;
+  label: React.ReactNode;
   value: string;
   children?: React.ReactNode;
 };
@@ -52,38 +52,16 @@ const TriggersList = styled(RadixTabs.List)`
   border-bottom: ${props => props.theme.click.tabs.basic.stroke.global};
 `;
 
-const Tab = ({ value, children }: TabProps) => (
-  <Content value={value}>{children}</Content>
-);
-
-const Tabs = ({
-  defaultValue,
-  ariaLabel,
-  children,
-  onValueChange,
-}: TabsProps) => {
-  const newChildren = Array.isArray(children) ? children : [children];
-
-  const triggersProps = newChildren
-    .filter(item => item.type === Tab)
-    .map(item => ({
-      ...item.props,
-      label: item.props.label,
-      value: item.props.value,
-    }));
-
+const Tabs = ({ defaultValue, children, onValueChange }: TabsProps) => {
   return (
     <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange}>
-      <TriggersList aria-label={ariaLabel}>
-        {triggersProps.map(({ value, label, ...delegated }) => (
-          <Trigger {...delegated} value={value} key={value}>
-            {label}
-          </Trigger>
-        ))}
-      </TriggersList>
       {children}
     </RadixTabs.Root>
   );
 };
 
-export { Tabs, Tab };
+Tabs.TriggersList = TriggersList;
+Tabs.Trigger = Trigger;
+Tabs.Content = Content;
+
+export { Tabs };

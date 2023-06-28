@@ -1,7 +1,7 @@
 import { ThemeProvider } from "../../theme";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Tab, Tabs } from "./Tabs";
+import { Tabs } from "./Tabs";
 import { TabsProps } from "@/components/Tabs/Tabs";
 
 describe("Tabs", () => {
@@ -24,17 +24,18 @@ describe("Tabs", () => {
     const { getByText } = renderTabs({
       defaultValue: "tab1",
       ariaLabel: "Tabs",
-      children: [
-        <Tab label="tab1" key="tab1" value="tab1">
-          <p>Tab 1 content</p>
-        </Tab>,
-        <Tab label="tab2" key="tab2" value="tab2">
-          <p>Tab 2 content</p>
-        </Tab>,
-        <Tab label="tab3" key="tab3" value="tab3">
-          <p>Tab 3 content</p>
-        </Tab>,
-      ],
+      children: (
+        <>
+          <Tabs.TriggersList>
+            <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
+            <Tabs.Trigger value="tab2">tab2 </Tabs.Trigger>
+            <Tabs.Trigger value="tab3">tab3 </Tabs.Trigger>
+          </Tabs.TriggersList>
+          <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
+          <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
+          <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
+        </>
+      ),
     });
     [1, 2, 3].forEach(async n => {
       const tab = getByText(`tab${n}`);
@@ -50,14 +51,18 @@ describe("Tabs", () => {
     let counter = 0;
     const { getByText } = renderTabs({
       onValueChange: () => counter++,
-      children: [
-        <Tab label="tab1" key="tab1" value="tab1">
-          <p>Tab 1 content</p>
-        </Tab>,
-        <Tab label="tab2" key="tab2" value="tab2">
-          <p>Tab 2 content</p>
-        </Tab>,
-      ],
+      children: (
+        <>
+          <Tabs.TriggersList>
+            <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
+            <Tabs.Trigger value="tab2">tab2 </Tabs.Trigger>
+            <Tabs.Trigger value="tab3">tab3 </Tabs.Trigger>
+          </Tabs.TriggersList>
+          <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
+          <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
+          <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
+        </>
+      ),
       defaultValue: "tab1",
     });
     const tab = getByText("tab2");
