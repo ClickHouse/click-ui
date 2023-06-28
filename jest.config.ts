@@ -4,4 +4,8 @@ export default {
     "^.+\\.js$": "babel-jest",
   },
   testEnvironment: "jsdom",
+
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+  },
 };

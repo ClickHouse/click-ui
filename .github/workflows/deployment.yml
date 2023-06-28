@@ -1,5 +1,5 @@
 # Workflow name
-name: "Chromatic"
+name: "deployment"
 
 # Event for the workflow
 on:
@@ -8,6 +8,15 @@ on:
 
 # List of jobs
 jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: unit tests
+        run: npm run test
+
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
