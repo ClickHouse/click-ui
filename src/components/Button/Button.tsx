@@ -1,3 +1,5 @@
+import { Icon } from "@/components";
+import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary";
@@ -5,6 +7,8 @@ type ButtonType = "primary" | "secondary";
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
   label?: string;
+  iconLeft?: IconName;
+  iconRight?: IconName;
 }
 
 export interface StyledButtonProps {
@@ -13,16 +17,20 @@ export interface StyledButtonProps {
 
 export const Button = ({
   type = "primary",
+  iconLeft,
+  iconRight,
   label,
   children,
   ...delegated
 }: ButtonProps) => (
   <StyledButton styleType={type} {...delegated}>
+    {iconLeft && <Icon name={iconLeft} size="small" />}
     {label ? label : children}
+    {iconRight && <Icon name={iconRight} size="small" />}
   </StyledButton>
 );
 
-const BaseButton = styled.button<StyledButtonProps>`
+const BaseButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -37,7 +45,7 @@ const BaseButton = styled.button<StyledButtonProps>`
   cursor: pointer;
 `;
 
-const StyledButton = styled(BaseButton)`
+const StyledButton = styled(BaseButton)<StyledButtonProps>`
   border: ${props =>
     props.theme.click.button.basic.color[props.styleType].stroke.default};
   background-color: ${props =>

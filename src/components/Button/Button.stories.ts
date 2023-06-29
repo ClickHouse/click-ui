@@ -39,3 +39,27 @@ export const Active = {
     },
   },
 };
+
+export const IconLeft = {
+  args: {
+    type: "primary",
+    label: "Button",
+    iconLeft: "user",
+  },
+};
+
+export const IconRight = {
+  args: {
+    type: "primary",
+    label: "Button",
+    iconRight: "user",
+  },
+};
+export const IconLeftRight = {
+  args: {
+    type: "primary",
+    label: "Button",
+    iconRight: "user",
+    iconLeft: "database",
+  },
+};
