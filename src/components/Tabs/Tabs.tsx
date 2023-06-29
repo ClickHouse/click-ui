@@ -59,11 +59,13 @@ const TriggersList = styled(RadixTabs.List)`
 const Tabs = ({
   defaultValue,
   children,
+  ariaLabel,
   onValueChange,
   ...delegated
 }: TabsProps) => {
   return (
     <RadixTabs.Root
+      aria-label={ariaLabel}
       defaultValue={defaultValue}
       onValueChange={onValueChange}
       {...delegated}
