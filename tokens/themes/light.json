@@ -2012,6 +2012,48 @@
           }
         }
       }
+    },
+    "avatar": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{palette.slate.600}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{palette.slate.400}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.avatar.color.background.hover}",
+            "type": "color"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "{palette.neutral.0}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.avatar.color.text.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.avatar.color.text.default}",
+            "type": "color"
+          }
+        }
+      }
+    },
+    "separator": {
+      "color": {
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
+          }
+        }
+      }
     }
   }
 }

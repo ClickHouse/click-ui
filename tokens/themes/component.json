@@ -1472,6 +1472,94 @@
             "value": "{sizes.7}",
             "type": "sizing"
           }
+        },
+        "width": {
+          "value": "{sizes.7}",
+          "type": "sizing"
+        },
+        "height": {
+          "value": "{sizes.7}",
+          "type": "sizing"
+        }
+      },
+      "radii": {
+        "all": {
+          "value": "{border.radii.full}",
+          "type": "borderRadius"
+        }
+      }
+    },
+    "separator": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            },
+            "sm": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            },
+            "md": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            },
+            "lg": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            },
+            "xl": {
+              "value": "{spaces.5}",
+              "type": "spacing"
+            },
+            "xxl": {
+              "value": "{spaces.6}",
+              "type": "spacing"
+            }
+          },
+          "x": {
+            "all": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            }
+          }
+        }
+      },
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            },
+            "sm": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            },
+            "md": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            },
+            "lg": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            },
+            "xl": {
+              "value": "{spaces.5}",
+              "type": "spacing"
+            },
+            "xxl": {
+              "value": "{spaces.6}",
+              "type": "spacing"
+            }
+          },
+          "y": {
+            "all": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            }
+          }
         }
       }
     }

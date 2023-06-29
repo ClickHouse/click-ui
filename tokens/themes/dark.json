@@ -1403,6 +1403,16 @@
           }
         }
       }
+    },
+    "separator": {
+      "color": {
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
+          }
+        }
+      }
     }
   }
 }
