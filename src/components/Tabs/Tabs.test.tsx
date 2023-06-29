@@ -27,9 +27,15 @@ describe("Tabs", () => {
       children: (
         <>
           <Tabs.TriggersList>
-            <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
-            <Tabs.Trigger value="tab2">tab2 </Tabs.Trigger>
-            <Tabs.Trigger value="tab3">tab3 </Tabs.Trigger>
+            <Tabs.Trigger value="tab1" key="tab1">
+              tab1
+            </Tabs.Trigger>
+            <Tabs.Trigger value="tab2" key="tab2">
+              tab2
+            </Tabs.Trigger>
+            <Tabs.Trigger value="tab3" key="tab3">
+              tab3
+            </Tabs.Trigger>
           </Tabs.TriggersList>
           <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
           <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
@@ -54,9 +60,15 @@ describe("Tabs", () => {
       children: (
         <>
           <Tabs.TriggersList>
-            <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
-            <Tabs.Trigger value="tab2">tab2 </Tabs.Trigger>
-            <Tabs.Trigger value="tab3">tab3 </Tabs.Trigger>
+            <Tabs.Trigger value="tab1" key="tab1">
+              tab1
+            </Tabs.Trigger>
+            <Tabs.Trigger value="tab2" key="tab2">
+              tab2
+            </Tabs.Trigger>
+            <Tabs.Trigger value="tab3" key="tab3">
+              tab3
+            </Tabs.Trigger>
           </Tabs.TriggersList>
           <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
           <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>

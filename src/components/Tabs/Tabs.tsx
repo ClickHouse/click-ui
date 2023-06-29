@@ -29,6 +29,14 @@ const Trigger = styled(RadixTabs.Trigger)`
   font: ${props => props.theme.click.tabs.typography.label.default};
   cursor: pointer;
 
+  &[data-state="active"] {
+    border-bottom: ${props => props.theme.click.tabs.basic.stroke.active};
+    background-color: ${props =>
+      props.theme.click.tabs.basic.color.background.active};
+    color: ${props => props.theme.click.tabs.basic.color.text.active};
+    font: ${props => props.theme.click.tabs.typography.label.active};
+  }
+
   &:hover {
     border-bottom: ${props => props.theme.click.tabs.basic.stroke.hover};
     background-color: ${props =>
@@ -37,12 +45,8 @@ const Trigger = styled(RadixTabs.Trigger)`
     font: ${props => props.theme.click.tabs.typography.label.hover};
   }
 
-  &[data-state="active"] {
+  &:hover[data-state="active"] {
     border-bottom: ${props => props.theme.click.tabs.basic.stroke.active};
-    background-color: ${props =>
-      props.theme.click.tabs.basic.color.background.active};
-    color: ${props => props.theme.click.tabs.basic.color.text.active};
-    font: ${props => props.theme.click.tabs.typography.label.active};
   }
 `;
 
@@ -52,9 +56,18 @@ const TriggersList = styled(RadixTabs.List)`
   border-bottom: ${props => props.theme.click.tabs.basic.stroke.global};
 `;
 
-const Tabs = ({ defaultValue, children, onValueChange }: TabsProps) => {
+const Tabs = ({
+  defaultValue,
+  children,
+  onValueChange,
+  ...delegated
+}: TabsProps) => {
   return (
-    <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange}>
+    <RadixTabs.Root
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+      {...delegated}
+    >
       {children}
     </RadixTabs.Root>
   );
