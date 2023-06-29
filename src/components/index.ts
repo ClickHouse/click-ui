@@ -11,3 +11,4 @@ export { UserIcon as ProfileIcon } from "./icons/UserIcon";
 export { Switch } from "./Switch/Switch";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { TextFieldLabel } from "./FormField/FormField";
+export { Tabs } from "./Tabs/Tabs";

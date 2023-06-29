@@ -3,6 +3,7 @@ import { useState } from "react";
 import "@/styles/globals.css";
 import "./styles/variables.css";
 import "./styles/variables.dark.css";
+
 import styles from "./App.module.css";
 import { ThemeName, ThemeProvider } from "./theme";
 import {
@@ -16,6 +17,7 @@ import {
   ProfileIcon,
   SidebarNavigationItem,
   Switch,
+  Tabs,
   TextFieldLabel,
 } from "@/components";
 
@@ -135,6 +137,16 @@ const App = () => {
       <SidebarNavigationItem icon="user" collapsible label="collapsible item">
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
+      <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
+        <Tabs.TriggersList>
+          <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
+          <Tabs.Trigger value="tab2">tab2 </Tabs.Trigger>
+          <Tabs.Trigger value="tab3">tab3 </Tabs.Trigger>
+        </Tabs.TriggersList>
+        <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
+        <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
+        <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
+      </Tabs>
     </ThemeProvider>
   );
 };
