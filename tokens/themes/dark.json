@@ -1413,6 +1413,38 @@
           }
         }
       }
+    },
+    "avatar": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{palette.slate.700}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{palette.slate.600}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.avatar.color.background.hover}",
+            "type": "color"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "{click.sidebar.main.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.avatar.color.text.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.avatar.color.text.default}",
+            "type": "color"
+          }
+        }
+      }
     }
   }
 }
