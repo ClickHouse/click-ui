@@ -48,14 +48,6 @@ const BaseButton = styled.button<StyledButtonProps>`
   cursor: pointer;
 `;
 
-// const ContentWrapper = styled.div<{ align?: Align }>`
-//   gap: ${props => props.theme.click.button.basic.space.gap};
-//   width: 100%;
-
-//   display: flex;
-//   justify-content: ${props => (props.align === "left" ? "start" : "center")};
-// `;
-
 const StyledButton = styled(BaseButton)`
   border: ${props =>
     props.theme.click.button.basic.color[props.styleType].stroke.default};
