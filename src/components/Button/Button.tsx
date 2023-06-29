@@ -4,18 +4,15 @@ import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary";
 
-type Align = "left";
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
   label?: string;
-  align?: Align;
   iconLeft?: IconName;
   iconRight?: IconName;
 }
 
 export interface StyledButtonProps {
   styleType: ButtonType;
-  align?: Align;
 }
 
 export const Button = ({
@@ -33,7 +30,7 @@ export const Button = ({
   </StyledButton>
 );
 
-const BaseButton = styled.button<StyledButtonProps>`
+const BaseButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -48,7 +45,7 @@ const BaseButton = styled.button<StyledButtonProps>`
   cursor: pointer;
 `;
 
-const StyledButton = styled(BaseButton)`
+const StyledButton = styled(BaseButton)<StyledButtonProps>`
   border: ${props =>
     props.theme.click.button.basic.color[props.styleType].stroke.default};
   background-color: ${props =>
