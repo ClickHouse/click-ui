@@ -1017,7 +1017,11 @@
           },
           "default": {
             "space": {
-              "x": {
+              "left": {
+                "value": "{spaces.0}",
+                "type": "spacing"
+              },
+              "right": {
                 "value": "{spaces.3}",
                 "type": "spacing"
               },
@@ -1416,6 +1420,58 @@
         "all": {
           "value": "{border.radii.1}",
           "type": "borderRadius"
+        }
+      }
+    },
+    "avatar": {
+      "typography": {
+        "label": {
+          "sm": {
+            "default": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.3}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "0.6875rem"
+              },
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.avatar.typography.label.sm.default}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{click.avatar.typography.label.sm.default}",
+              "type": "typography"
+            }
+          },
+          "md": {
+            "default": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.3}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.1}"
+              },
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.avatar.typography.label.md.default}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{click.avatar.typography.label.md.default}",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "size": {
+        "label": {
+          "width": {
+            "value": "{sizes.7}",
+            "type": "sizing"
+          }
         }
       }
     }

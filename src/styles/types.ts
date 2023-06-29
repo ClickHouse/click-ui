@@ -916,7 +916,8 @@
           },
           "default": {
             "space": {
-              "x": string,
+              "left": string,
+              "right": string,
               "y": string,
               "gap": string
             }
@@ -1285,6 +1286,27 @@
           "background": {
             "default": string
           }
+        }
+      }
+    },
+    "avatar": {
+      "typography": {
+        "label": {
+          "sm": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "md": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        }
+      },
+      "size": {
+        "label": {
+          "width": string
         }
       }
     },
