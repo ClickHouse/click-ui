@@ -30,7 +30,7 @@ const SidebarNavigationItem = ({
   children,
   label,
 }: SidebarNavigationItemProps) => (
-  <Wrapper>
+  <>
     {collapsible ? (
       <CollapsibleNavigationItem
         collapsible={collapsible}
@@ -39,12 +39,16 @@ const SidebarNavigationItem = ({
         children={children}
       />
     ) : (
-      <>
-        {icon && <Icon name={icon || "user"} size="small" />}
+      <Wrapper>
+        <IconsWrapper>
+          {/* This icon is only used as a place holder */}
+          <Icon name="chevron-right" size="small" visibility="hidden" />
+          {icon && <Icon name={icon || "user"} size="small" />}
+        </IconsWrapper>
         {children}
-      </>
+      </Wrapper>
     )}
-  </Wrapper>
+  </>
 );
 const Wrapper = styled.div`
   display: flex;
@@ -52,7 +56,7 @@ const Wrapper = styled.div`
   gap: ${props => props.theme.click.sidebar.navigation.item.default.space.gap};
 
   padding: ${props =>
-    `${props.theme.click.sidebar.navigation.item.default.space.y} ${props.theme.click.sidebar.navigation.item.default.space.x}`};
+    `${props.theme.click.sidebar.navigation.item.default.space.y} 0`};
 
   border-radius: ${props =>
     props.theme.click.sidebar.navigation.item.radii.all};
@@ -84,20 +88,25 @@ const Wrapper = styled.div`
     }
   }
 `;
-
+const IconsWrapper = styled.div`
+  display: flex;
+`;
 const CollapsibleNavigationItem = ({
   collapsible,
   icon,
   label,
   children,
 }: CollapsibleSidebarNavigationItemProps) => (
-  <>
+  <CollapsibleWrapper>
     {label && collapsible && (
       <SidebarAccordion title={label} icon={icon} iconSize="small">
         {children}
       </SidebarAccordion>
     )}
-  </>
+  </CollapsibleWrapper>
 );
 
+const CollapsibleWrapper = styled(Wrapper)`
+  padding-left: 0;
+`;
 export { SidebarNavigationItem };
