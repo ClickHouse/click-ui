@@ -474,6 +474,27 @@
         }
       }
     },
+    "avatar": {
+      "color": {
+        "background": {
+          "default": "#53575f",
+          "hover": "#696e79",
+          "active": "#696e79"
+        },
+        "text": {
+          "default": "#1F1F1C",
+          "hover": "#1F1F1C",
+          "active": "#1F1F1C"
+        }
+      }
+    },
+    "separator": {
+      "color": {
+        "stroke": {
+          "default": "lch(27.5 0 0 / 0.3)"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

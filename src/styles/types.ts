@@ -1307,6 +1307,60 @@
       "size": {
         "label": {
           "width": string
+        },
+        "width": string,
+        "height": string
+      },
+      "radii": {
+        "all": string
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "hover": string,
+          "active": string
+        },
+        "text": {
+          "default": string,
+          "hover": string,
+          "active": string
+        }
+      }
+    },
+    "separator": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
+          },
+          "x": {
+            "all": string
+          }
+        }
+      },
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
+          },
+          "y": {
+            "all": string
+          }
+        }
+      },
+      "color": {
+        "stroke": {
+          "default": string
         }
       }
     },

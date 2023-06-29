@@ -1306,6 +1306,60 @@
       "size": {
         "label": {
           "width": "1.5rem"
+        },
+        "width": "1.5rem",
+        "height": "1.5rem"
+      },
+      "radii": {
+        "all": "9999px"
+      },
+      "color": {
+        "background": {
+          "default": "#696e79",
+          "hover": "#9a9ea7",
+          "active": "#9a9ea7"
+        },
+        "text": {
+          "default": "#ffffff",
+          "hover": "#ffffff",
+          "active": "#ffffff"
+        }
+      }
+    },
+    "separator": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": "0",
+            "sm": "0.25rem",
+            "md": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "xxl": "2rem"
+          },
+          "x": {
+            "all": "0"
+          }
+        }
+      },
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": "0",
+            "sm": "0.25rem",
+            "md": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "xxl": "2rem"
+          },
+          "y": {
+            "all": "0"
+          }
+        }
+      },
+      "color": {
+        "stroke": {
+          "default": "lch(91.6 1.1 266 / 0.3)"
         }
       }
     },
