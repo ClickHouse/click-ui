@@ -1,24 +1,35 @@
+import { Icon } from "@/components";
+import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary";
 
+type Align = "left";
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
   label?: string;
+  align?: Align;
+  iconLeft?: IconName;
+  iconRight?: IconName;
 }
 
 export interface StyledButtonProps {
   styleType: ButtonType;
+  align?: Align;
 }
 
 export const Button = ({
   type = "primary",
+  iconLeft,
+  iconRight,
   label,
   children,
   ...delegated
 }: ButtonProps) => (
   <StyledButton styleType={type} {...delegated}>
+    {iconLeft && <Icon name={iconLeft} size="small" />}
     {label ? label : children}
+    {iconRight && <Icon name={iconRight} size="small" />}
   </StyledButton>
 );
 
@@ -36,6 +47,14 @@ const BaseButton = styled.button<StyledButtonProps>`
   gap: ${props => props.theme.click.button.basic.space.gap};
   cursor: pointer;
 `;
+
+// const ContentWrapper = styled.div<{ align?: Align }>`
+//   gap: ${props => props.theme.click.button.basic.space.gap};
+//   width: 100%;
+
+//   display: flex;
+//   justify-content: ${props => (props.align === "left" ? "start" : "center")};
+// `;
 
 const StyledButton = styled(BaseButton)`
   border: ${props =>
