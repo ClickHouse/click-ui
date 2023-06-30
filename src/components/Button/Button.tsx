@@ -3,16 +3,22 @@ import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary";
-
+type Alignment = "left";
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
   label?: string;
   iconLeft?: IconName;
   iconRight?: IconName;
+  align?: Alignment;
+  width?: string;
+  height?: string;
 }
 
 export interface StyledButtonProps {
   styleType: ButtonType;
+  align?: Alignment;
+  width?: string;
+  height?: string;
 }
 
 export const Button = ({
@@ -20,10 +26,11 @@ export const Button = ({
   iconLeft,
   iconRight,
   label,
+  align,
   children,
   ...delegated
 }: ButtonProps) => (
-  <StyledButton styleType={type} {...delegated}>
+  <StyledButton styleType={type} align={align} {...delegated}>
     {iconLeft && <Icon name={iconLeft} size="small" />}
     {label ? label : children}
     {iconRight && <Icon name={iconRight} size="small" />}
@@ -46,8 +53,17 @@ const BaseButton = styled.button`
 `;
 
 const StyledButton = styled(BaseButton)<StyledButtonProps>`
-  border: ${props =>
-    props.theme.click.button.basic.color[props.styleType].stroke.default};
+  width: ${props => props.width};
+  height: ${props => props.height};
+
+  display: flex;
+  align-items: center;
+  justify-content: ${props =>
+    props.align === "left" ? "flex-start" : "center"};
+
+  border: 1px solid
+    ${props =>
+      props.theme.click.button.basic.color[props.styleType].stroke.default};
   background-color: ${props =>
     props.theme.click.button.basic.color[props.styleType].background.default};
   color: ${props =>
@@ -55,16 +71,18 @@ const StyledButton = styled(BaseButton)<StyledButtonProps>`
   font: ${props => props.theme.click.button.basic.typography.label.default};
 
   &:active {
-    border: ${props =>
-      props.theme.click.button.basic.color[props.styleType].stroke.active};
+    border: 1px solid
+      ${props =>
+        props.theme.click.button.basic.color[props.styleType].stroke.active};
     background-color: ${props =>
       props.theme.click.button.basic.color[props.styleType].background.active};
     font: ${props => props.theme.click.button.basic.typography.label.active};
   }
 
   &:hover {
-    border: ${props =>
-      props.theme.click.button.basic.color[props.styleType].stroke.hover};
+    border: 1px solid
+      ${props =>
+        props.theme.click.button.basic.color[props.styleType].stroke.hover};
     background-color: ${props =>
       props.theme.click.button.basic.color[props.styleType].background.hover};
     font: ${props => props.theme.click.button.basic.typography.label.hover};

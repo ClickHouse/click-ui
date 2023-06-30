@@ -6,9 +6,17 @@ export default {
   tags: ["button"],
 };
 
-export const Default = {
+export const Primary = {
   args: {
     type: "primary",
+    disabled: false,
+    label: "Button",
+  },
+};
+
+export const Secondary = {
+  args: {
+    type: "secondary",
     disabled: false,
     label: "Button",
   },
@@ -61,5 +69,14 @@ export const IconLeftRight = {
     label: "Button",
     iconRight: "user",
     iconLeft: "database",
+  },
+};
+export const AlignLeft = {
+  args: {
+    type: "secondary",
+    label: "Button",
+    iconLeft: "database",
+    align: "left",
+    width: "270px",
   },
 };
