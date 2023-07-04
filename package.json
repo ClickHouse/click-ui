@@ -1,7 +1,17 @@
 {
-  "name": "click-ui",
+  "name": "@clickhouse/click-ui",
   "version": "0.0.0",
+  "description": "Official ClickHouse design system react library",
   "type": "module",
+  "keywords": [
+    "clickhouse",
+    "design system"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ClickHouse/click-ui.git"
+  },
+  "homepage": "https://clickhouse.com",
   "scripts": {
     "watch": "jest --watch",
     "test": "jest",
@@ -17,10 +27,7 @@
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-tabs": "^1.0.4",
-    "lodash": "^4.17.21",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^5.3.10"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@radix-ui/react-switch": "^1.0.2",
@@ -61,5 +68,10 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
+  },
+  "peerDependencies": {
+    "styled-components": "^5.3.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
