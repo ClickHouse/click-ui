@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "Official ClickHouse design system react library",
   "type": "module",
+  "license": "Apache-2.0",
   "keywords": [
+    "click-ui",
     "clickhouse",
     "design system"
   ],
