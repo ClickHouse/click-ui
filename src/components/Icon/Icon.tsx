@@ -11,14 +11,18 @@ import SortAltIcon from "../icons/SortAltIcon";
 import { IconProps } from "./types";
 import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronDown } from "../icons/ChevronDown";
+import ArrowDown from "@/components/icons/ArrowDown";
+import InfoIcon from "@/components/icons/InfoIcon";
 
 const ICONS_MAP = {
+  "arrow-down": ArrowDown,
   chat: ChatIcon,
   "chevron-right": ChevronRight,
   "chevron-down": ChevronDown,
   database: DatabaseIcon,
   filter: FilterIcon,
   history: HistoryIcon,
+  info: InfoIcon,
   insertRow: InsertRowIcon,
   sort: SortAltIcon,
   user: UserIcon,
