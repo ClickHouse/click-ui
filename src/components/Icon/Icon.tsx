@@ -13,10 +13,12 @@ import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronDown } from "../icons/ChevronDown";
 import ArrowDown from "@/components/icons/ArrowDown";
 import InfoIcon from "@/components/icons/InfoIcon";
+import CheckIcon from "@/components/icons/CheckIcon";
 
 const ICONS_MAP = {
   "arrow-down": ArrowDown,
   chat: ChatIcon,
+  check: CheckIcon,
   "chevron-right": ChevronRight,
   "chevron-down": ChevronDown,
   database: DatabaseIcon,

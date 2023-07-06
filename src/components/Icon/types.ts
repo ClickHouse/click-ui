@@ -4,6 +4,7 @@ export type IconSize = "small" | "medium" | "large";
 export type IconName =
   | "arrow-down"
   | "chat"
+  | "check"
   | "chevron-down"
   | "chevron-right"
   | "database"
