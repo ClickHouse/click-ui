@@ -6,6 +6,7 @@ export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
 export { Button } from "./Button/Button";
 export { Card } from "./Card/Card";
 export { Icon } from "./Icon/Icon";
+export { Checkbox } from "./Checkbox/Checkbox";
 export { IconButton } from "./IconButton/IconButton";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
 export { Switch } from "./Switch/Switch";

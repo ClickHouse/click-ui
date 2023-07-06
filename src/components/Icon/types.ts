@@ -3,6 +3,7 @@ import { SVGAttributes } from "react";
 export type IconSize = "small" | "medium" | "large";
 export type IconName =
   | "chat"
+  | "check"
   | "chevron-down"
   | "chevron-right"
   | "database"
