@@ -6,20 +6,20 @@ export type CheckboxProps = {
   label?: string;
   isDisabled?: boolean;
   isChecked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
+  onChange?: (checked: boolean) => void;
 };
 export const Checkbox = ({
   label = "",
   isDisabled = false,
   isChecked = false,
-  onCheckedChange,
+  onChange,
   ...delegated
 }: CheckboxProps) => (
   <Wrapper isDisabled={isDisabled} isChecked={isChecked}>
     <CheckInput
       disabled={isDisabled}
       checked={isChecked}
-      onCheckedChange={onCheckedChange}
+      onCheckedChange={onChange}
       data-testid="checkbox"
       {...delegated}
     >
