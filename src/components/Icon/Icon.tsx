@@ -11,9 +11,11 @@ import SortAltIcon from "../icons/SortAltIcon";
 import { IconProps } from "./types";
 import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronDown } from "../icons/ChevronDown";
+import CheckIcon from "@/components/icons/CheckIcon";
 
 const ICONS_MAP = {
   chat: ChatIcon,
+  check: CheckIcon,
   "chevron-right": ChevronRight,
   "chevron-down": ChevronDown,
   database: DatabaseIcon,

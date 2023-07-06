@@ -12,6 +12,7 @@ import {
   Button,
   ButtonGroup,
   Card,
+  Checkbox,
   Icon,
   IconButton,
   ProfileIcon,
@@ -26,6 +27,7 @@ const App = () => {
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
+  const [isCheckboxChecked, setCheckboxChecked] = useState(true);
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -137,6 +139,11 @@ const App = () => {
       <SidebarNavigationItem icon="user" collapsible label="collapsible item">
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
+      <Checkbox
+        label="accept terms and conditions of this page"
+        isChecked={isCheckboxChecked}
+        onCheckedChange={v => setCheckboxChecked(v)}
+      />
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <Tabs.TriggersList>
           <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
