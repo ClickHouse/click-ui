@@ -14,9 +14,9 @@ describe("Checkbox", () => {
 
   it("should execute action on click", () => {
     let counter = 0;
-    const hanldeClick = () => counter++;
+    const handleClick = () => counter++;
     const { getByTestId } = renderCheckbox({
-      onChange: hanldeClick,
+      onChange: handleClick,
       label: "Accept terms and conditions",
     });
     const checkbox = getByTestId("checkbox");
@@ -27,9 +27,9 @@ describe("Checkbox", () => {
 
   it("should not execute action on click if the checkbox is disabled", () => {
     let counter = 0;
-    const hanldeClick = () => counter++;
+    const handleClick = () => counter++;
     const { getByTestId } = renderCheckbox({
-      onChange: hanldeClick,
+      onChange: handleClick,
       label: "Accept terms and conditions",
       isDisabled: true,
     });
