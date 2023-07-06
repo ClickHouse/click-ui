@@ -15,6 +15,13 @@ const StyledHeader = styled.th`
   color: ${props => props.theme.click.table.header.color.title.default};
   gap: 4px;
   text-align: left;
+
+  &:first-of-type {
+    border-top-left-radius: ${props => props.theme.click.table.radii.all};
+  }
+  &:last-of-type {
+    border-top-right-radius: ${props => props.theme.click.table.radii.all};
+  }
 `;
 
 const HeaderContentWrapper = styled.div`
@@ -39,11 +46,6 @@ const TableHeader = ({
   </StyledHeader>
 );
 
-const TableData = styled.td`
-  font: ${props => props.theme.click.table.cell.label.default};
-  padding: 16px;
-`;
-
 const TableRow = styled.tr`
   background-color: ${props =>
     props.theme.click.table.row.color.background.default};
@@ -65,12 +67,34 @@ const TableRow = styled.tr`
   }
 `;
 
+const TableData = styled.td`
+  font: ${props => props.theme.click.table.cell.label.default};
+  padding: 16px;
+  border: 1px solid
+    ${props => props.theme.click.table.global.color.stroke.default};
+  border-top: none;
+
+  :not(:last-of-type) {
+    border-right: none;
+  }
+  :not(:first-of-type) {
+    border-left: none;
+  }
+
+  ${TableRow}:last-of-type &:first-of-type {
+    border-bottom-left-radius: ${props => props.theme.click.table.radii.all};
+  }
+  ${TableRow}:last-of-type &:last-of-type {
+    border-bottom-right-radius: ${props => props.theme.click.table.radii.all};
+  }
+`;
+
 const Table = (props: React.HTMLAttributes<HTMLTableElement>) => (
   <StyledTable {...props} />
 );
 
 const StyledTable = styled.table`
-  border-collapse: collapse;
+  border-spacing: 0;
 `;
 
 Table.Th = TableHeader;
