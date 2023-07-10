@@ -97,8 +97,13 @@ const StyledTable = styled.table`
   border-spacing: 0;
 `;
 
+TableHeader.displayName = "Table.Th";
 Table.Th = TableHeader;
+
+TableData.displayName = "Table.Td";
 Table.Td = TableData;
+
+TableRow.displayName = "Table.Tr";
 Table.Tr = TableRow;
 
 export { Table };
