@@ -6,6 +6,7 @@ export type IconName =
   | "chat"
   | "check"
   | "chevron-down"
+  | "chevron-up"
   | "chevron-right"
   | "cross"
   | "database"
@@ -14,6 +15,7 @@ export type IconName =
   | "info-in-circle"
   | "information"
   | "user"
+  | "sort"
   | "users"
   | "warning";
 
