@@ -2,6 +2,7 @@ import { SVGAttributes } from "react";
 
 export type IconSize = "small" | "medium" | "large";
 export type IconName =
+  | "arrow-down"
   | "chat"
   | "check"
   | "chevron-down"
@@ -9,6 +10,7 @@ export type IconName =
   | "database"
   | "filter"
   | "history"
+  | "info"
   | "user"
   | "users";
 

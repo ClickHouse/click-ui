@@ -11,9 +11,12 @@ import SortAltIcon from "../icons/SortAltIcon";
 import { IconProps } from "./types";
 import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronDown } from "../icons/ChevronDown";
+import ArrowDown from "@/components/icons/ArrowDown";
+import InfoIcon from "@/components/icons/InfoIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
 
 const ICONS_MAP = {
+  "arrow-down": ArrowDown,
   chat: ChatIcon,
   check: CheckIcon,
   "chevron-right": ChevronRight,
@@ -21,6 +24,7 @@ const ICONS_MAP = {
   database: DatabaseIcon,
   filter: FilterIcon,
   history: HistoryIcon,
+  info: InfoIcon,
   insertRow: InsertRowIcon,
   sort: SortAltIcon,
   user: UserIcon,
