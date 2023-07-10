@@ -14,12 +14,11 @@ export interface BadgeProps {
 
 const Wrapper = styled.div<Pick<BadgeProps, "state">>`
   background-color: ${({ state = "default", theme }) =>
-    theme.click.badge.color.background[state || "default"]};
-  color: ${({ state, theme }) =>
-    theme.click.badge.color.text[state || "default"]};
+    theme.click.badge.color.background[state]};
+  color: ${({ state = "default", theme }) =>
+    theme.click.badge.color.text[state]};
   font: ${props => props.theme.click.badge.typography.label.default};
   border-radius: ${props => props.theme.click.badge.radii.all};
-
   border: ${({ state = "default", theme }) =>
     `${theme.click.badge.stroke} solid ${theme.click.badge.color.stroke[state]}`};
   padding: ${props =>
