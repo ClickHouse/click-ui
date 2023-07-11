@@ -24,8 +24,8 @@ const WarningIcon = (props: SVGAttributes<SVGElement>) => (
       strokeLinejoin="round"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M14.0288 4.13919L21.6878 17.5432C22.5778 19.1012 21.4528 21.0402 19.6588 21.0402H4.34076C2.54576 21.0402 1.42076 19.1012 2.31176 17.5432L9.97076 4.13919C10.8678 2.56819 13.1318 2.56819 14.0288 4.13919Z"
       stroke="#161517"
       strokeWidth="1.5"
