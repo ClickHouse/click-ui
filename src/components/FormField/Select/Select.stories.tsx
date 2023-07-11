@@ -21,14 +21,14 @@ export default {
 
 export const Default = {
   args: {
-    label: "Accordion title",
+    label: "Label",
     children,
   },
 };
 
 export const Disabled = {
   args: {
-    label: "Accordion title",
+    label: "Label",
     disabled: true,
     children,
   },
@@ -36,7 +36,7 @@ export const Disabled = {
 
 export const Error = {
   args: {
-    label: "Accordion title",
+    label: "Label",
     error: "TestValue",
     children,
   },
