@@ -6,7 +6,7 @@ export default {
   tags: ["alert"],
 };
 
-export const Danger = {
+export const TextOnly = {
   args: {
     state: "danger",
     text: "An alert example",
@@ -49,6 +49,16 @@ export const Medium = {
   },
 };
 
+export const Danger = {
+  args: {
+    state: "danger",
+    text: "An alert example",
+    title: "Title",
+    showIcon: true,
+    dismissable: true,
+  },
+};
+
 export const Neutral = {
   args: {
     state: "neutral",
@@ -65,6 +75,7 @@ export const Warning = {
     text: "An alert example",
     title: "Title",
     showIcon: true,
+    dismissable: true,
   },
 };
 
@@ -74,6 +85,7 @@ export const Success = {
     text: "An alert example",
     title: "Title",
     showIcon: true,
+    dismissable: true,
   },
 };
 
@@ -83,5 +95,6 @@ export const Info = {
     text: "An alert example",
     title: "Title",
     showIcon: true,
+    dismissable: true,
   },
 };
