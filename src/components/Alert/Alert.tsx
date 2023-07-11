@@ -32,14 +32,8 @@ const Alert = ({
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  return (
-    <Wrapper
-      isVisible={isVisible}
-      size={size}
-      state={state}
-      data-testid="click-alert"
-      {...delegated}
-    >
+  return isVisible ? (
+    <Wrapper size={size} state={state} data-testid="click-alert" {...delegated}>
       {showIcon && (
         <IconWrapper state={state} size={size}>
           <StyledIcon size={size} name={stateIconMap[state]} />
@@ -59,15 +53,14 @@ const Alert = ({
         </DismissWrapper>
       )}
     </Wrapper>
-  );
+  ) : null;
 };
 
 const Wrapper = styled.div<{
-  isVisible: boolean;
   state: AlertState;
   size: AlertSize;
 }>`
-  display: ${props => (props.isVisible ? "flex" : "none")};
+  display: flex;
   border-radius: ${props => props.theme.click.alert.radii.end};
   background-color: ${({ state = "neutral", theme }) =>
     theme.click.alert.color.background[state]};

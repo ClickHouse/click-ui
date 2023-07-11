@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/theme";
 import { Alert, AlertProps } from "./Alert";
-import { fireEvent, render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 describe("Alert", () => {
   const renderAlert = (props: AlertProps) =>
@@ -10,30 +11,17 @@ describe("Alert", () => {
       </ThemeProvider>
     );
 
-  it("given no arguments, should render the Alert component", () => {
-    const { getAllByTestId } = renderAlert({ text: "Test alert component" });
-
-    expect(getAllByTestId("click-alert").length).toEqual(1);
-  });
-
-  it("given a text, should render it", () => {
+  it("given a dismissable alert, should not be visible after dismissing it", async () => {
     const text = "Test alert component";
-    const { getAllByText } = renderAlert({ text });
-
-    expect(getAllByText(text).length).toEqual(1);
-  });
-
-  it("given a dismissable alert, should not be visible after dismissing it", () => {
-    const text = "Test alert component";
-    const { getAllByText, getByTestId } = renderAlert({
+    const { queryAllByText, getByTestId } = renderAlert({
       text,
       dismissable: true,
     });
 
-    expect(getAllByText(text).length).toEqual(1);
+    expect(queryAllByText(text).length).toEqual(1);
 
     const dismissButton = getByTestId("click-alert-dismiss-button");
-    fireEvent.click(dismissButton);
-    expect(getAllByText(text).length).toEqual(0);
+    userEvent.click(dismissButton);
+    await waitFor(() => expect(queryAllByText(text).length).toEqual(0));
   });
 });

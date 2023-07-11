@@ -6,16 +6,16 @@ export default {
   tags: ["alert"],
 };
 
-export const Neutral = {
+export const Danger = {
   args: {
-    state: "neutral",
+    state: "danger",
     text: "An alert example",
   },
 };
 
 export const Title = {
   args: {
-    state: "neutral",
+    state: "danger",
     text: "An alert example",
     title: "Title",
   },
@@ -23,21 +23,39 @@ export const Title = {
 
 export const Icon = {
   args: {
-    state: "neutral",
+    state: "danger",
     text: "An alert example",
     title: "Title",
     showIcon: true,
   },
 };
 
-export const Danger = {
+export const Dismissable = {
+  args: {
+    state: "danger",
+    text: "An alert example",
+    dismissable: true,
+  },
+};
+
+export const Medium = {
   args: {
     state: "danger",
     text: "An alert example",
     title: "Title",
+    size: "medium",
     showIcon: true,
     dismissable: true,
-    style: { width: "200px" },
+  },
+};
+
+export const Neutral = {
+  args: {
+    state: "neutral",
+    text: "An alert example",
+    title: "Title",
+    showIcon: true,
+    dismissable: true,
   },
 };
 
