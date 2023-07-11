@@ -1,4 +1,4 @@
-import Select from "./Select";
+import Select from ".";
 
 const children = (
   <>
@@ -16,7 +16,22 @@ export default {
 export const Default = {
   args: {
     label: "Accordion title",
-    size: "medium",
+    children,
+  },
+};
+
+export const Disabled = {
+  args: {
+    label: "Accordion title",
+    disabled: true,
+    children,
+  },
+};
+
+export const Error = {
+  args: {
+    label: "Accordion title",
+    error: "TestValue",
     children,
   },
 };

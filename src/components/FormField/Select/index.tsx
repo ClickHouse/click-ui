@@ -1,7 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { HTMLAttributes, ReactNode } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../../Icon/Icon";
 import {
+  Error,
   FormElement,
   FormRoot,
   Label,
@@ -10,19 +11,34 @@ import {
 import { uniqueId } from "lodash";
 import styled from "styled-components";
 
-interface Props {
+interface Props
+  extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "placeholder"> {
   placeholder?: ReactNode;
   label: ReactNode;
   children: ReactNode;
+  error?: ReactNode;
   id?: string;
+  disabled?: boolean;
 }
 
 const SelectRoot = styled(RadixSelect.Root)`
   width: 100%;
 `;
-const SelectTrigger = styled(RadixSelect.Trigger)`
+const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   width: 100%;
   ${FormElement};
+  ${(props) =>
+    props.error
+      ? `
+      border: 1px solid var(--click-field-color-stroke-error, #C10000) !important;
+background: var(--click-field-color-background-active, #FFF) !important;
+ & > :not(.SelectIcon) {
+
+  color: var(--click-field-color-text-error, #C10000) !important;
+
+}
+  `
+      : ""}
 `;
 const SelectContent = styled(RadixSelect.Content)`
   width: var(--radix-select-trigger-width);
@@ -59,19 +75,30 @@ const Select = ({
   placeholder = "Select an option",
   label,
   children,
+  disabled,
   id,
+  error,
   ...props
 }: Props) => {
   id = id ?? uniqueId("select");
   return (
     <FormRoot {...props}>
       {label && (
-        <Label className='label' htmlFor={id}>
+        <Label
+          className='cui-label'
+          htmlFor={id}
+          disabled={disabled}
+          error={typeof error !== "undefined"}
+        >
           {label}
         </Label>
       )}
-      <SelectRoot>
-        <SelectTrigger className='cui-select-trigger' id={id}>
+      <SelectRoot disabled={disabled}>
+        <SelectTrigger
+          className='cui-select-trigger'
+          id={id}
+          error={typeof error !== "undefined"}
+        >
           <RadixSelect.Value placeholder={placeholder} />
           <RadixSelect.Icon className='SelectIcon'>
             <Icon name='sort' />
@@ -95,6 +122,7 @@ const Select = ({
           </SelectContent>
         </RadixSelect.Portal>
       </SelectRoot>
+      {error && <Error>{error}</Error>}
     </FormRoot>
   );
 };
