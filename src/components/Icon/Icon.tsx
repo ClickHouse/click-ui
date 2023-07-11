@@ -8,17 +8,20 @@ import FilterIcon from "../icons/FilterIcon";
 import HistoryIcon from "../icons/HistoryIcon";
 import InsertRowIcon from "../icons/InsertRowIcon";
 import SortAltIcon from "../icons/SortAltIcon";
+import SortIcon from "../icons/SortIcon";
 import { IconProps } from "./types";
 import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronDown } from "../icons/ChevronDown";
 import ArrowDown from "@/components/icons/ArrowDown";
 import InfoIcon from "@/components/icons/InfoIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
+import ChevronUp from "../icons/ChevronUp";
 
 const ICONS_MAP = {
   "arrow-down": ArrowDown,
   chat: ChatIcon,
   check: CheckIcon,
+  "chevron-up": ChevronUp,
   "chevron-right": ChevronRight,
   "chevron-down": ChevronDown,
   database: DatabaseIcon,
@@ -26,7 +29,8 @@ const ICONS_MAP = {
   history: HistoryIcon,
   info: InfoIcon,
   insertRow: InsertRowIcon,
-  sort: SortAltIcon,
+  "sort-alt": SortAltIcon,
+  sort: SortIcon,
   user: UserIcon,
   users: UsersIcon,
 };
@@ -63,30 +67,30 @@ const SvgWrapper = styled.div<Partial<IconProps>>`
   align-items: center;
 
   & path[stroke] {
-    stroke: ${props => props.color || "currentColor"};
+    stroke: ${(props) => props.color || "currentColor"};
   }
 
   & path[fill] {
-    fill: ${props => props.color || "currentColor"};
+    fill: ${(props) => props.color || "currentColor"};
   }
 
   & svg {
-    width: ${props =>
+    width: ${(props) =>
       props.width ||
       props.theme.click.image[props.size || "medium"].size.width ||
       "24px"};
-    height: ${props =>
+    height: ${(props) =>
       props.height ||
       props.theme.click.image[props.size || "medium"].size.height ||
       "24px"};
   }
 
   & svg[stroke] {
-    stroke: ${props => props.color || "currentColor"};
+    stroke: ${(props) => props.color || "currentColor"};
   }
 
   & svg[fill]:not([fill="none"]) {
-    fill: ${props => props.color || "currentColor"};
+    fill: ${(props) => props.color || "currentColor"};
   }
 `;
 
