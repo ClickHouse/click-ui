@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-function SortIcon(props: SVGAttributes<SVGElement>) {
+const SortIcon = (props: SVGAttributes<SVGElement>) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -13,19 +13,19 @@ function SortIcon(props: SVGAttributes<SVGElement>) {
       <path
         d='M16 9L12 5L8 9'
         stroke='#161517'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
       <path
         d='M8 15L12 19L16 15'
         stroke='#161517'
-        stroke-width='1.5'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   );
-}
+};
 
 export default SortIcon;
