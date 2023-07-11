@@ -8,6 +8,7 @@ import styles from "./App.module.css";
 import { ThemeName, ThemeProvider } from "./theme";
 import {
   Accordion,
+  Avatar,
   Badge,
   Button,
   ButtonGroup,
@@ -142,7 +143,7 @@ const App = () => {
       <Checkbox
         label="accept terms and conditions of this page"
         isChecked={isCheckboxChecked}
-        onCheckedChange={v => setCheckboxChecked(v)}
+        onChange={v => setCheckboxChecked(v)}
       />
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <Tabs.TriggersList>
@@ -154,6 +155,7 @@ const App = () => {
         <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
         <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
       </Tabs>
+      <Avatar text="CH" />
     </ThemeProvider>
   );
 };
