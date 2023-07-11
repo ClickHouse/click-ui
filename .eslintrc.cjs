@@ -19,6 +19,7 @@ module.exports = {
     "react-refresh/only-export-components": "warn",
     "no-multiple-empty-lines": "error",
     quotes: ["error", "double"],
+    "arrow-parens": ["error", "as-needed"],
     "prefer-arrow-functions/prefer-arrow-functions": [
       "warn",
       {
