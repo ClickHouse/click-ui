@@ -29,8 +29,13 @@ export const FormElement = css`
   }
 `;
 
-export const Label = styled.label`
-  color: var(--click-field-color-label-default, #696e79);
+export const Label = styled.label<{ disabled?: boolean; error?: boolean }>`
+  color: ${(props) =>
+    props.disabled
+      ? "var(--click-field-color-label-disabled, #A0A0A0)"
+      : props.error
+      ? "var(--click-field-color-label-error, #C10000)"
+      : "var(--click-field-color-label-default, #696E79)"};
 
   /* click/field/typography/label/default */
   font-size: 0.75rem;
@@ -44,11 +49,15 @@ export const FormRoot = styled.div`
   display: flex;
   flex-direction: column;
   width: fill-available;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
   * {
     box-shadow: none;
     outline: none;
+  }
+  &:focus-within,
+  &:focus .cui-label {
+    color: var(--click-field-color-label-active, #161517);
   }
 `;
 
@@ -84,4 +93,14 @@ export const OptionContainer = css`
     color: var(--click-context-menu-color-text-active, #161517);
     font-weight: 600;
   }
+`;
+
+export const Error = styled.div`
+  color: var(--click-field-color-label-error, #c10000);
+  /* click/field/typography/label/error */
+  font-family: Inter;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
 `;
