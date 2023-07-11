@@ -12,8 +12,11 @@ import { IconProps } from "./types";
 import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronDown } from "../icons/ChevronDown";
 import ArrowDown from "@/components/icons/ArrowDown";
-import InfoIcon from "@/components/icons/InfoIcon";
+import InfoInCircleIcon from "@/components/icons/InfoInCircleIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
+import InformationIcon from "@/components/icons/InformationIcon";
+import WarningIcon from "@/components/icons/WarningIcon";
+import CrossIcon from "@/components/icons/CrossIcon";
 
 const ICONS_MAP = {
   "arrow-down": ArrowDown,
@@ -21,14 +24,17 @@ const ICONS_MAP = {
   check: CheckIcon,
   "chevron-right": ChevronRight,
   "chevron-down": ChevronDown,
+  cross: CrossIcon,
   database: DatabaseIcon,
   filter: FilterIcon,
   history: HistoryIcon,
-  info: InfoIcon,
+  information: InformationIcon,
+  "info-in-circle": InfoInCircleIcon,
   insertRow: InsertRowIcon,
   sort: SortAltIcon,
   user: UserIcon,
   users: UsersIcon,
+  warning: WarningIcon,
 };
 
 const SVGIcon = ({ name, ...delegated }: IconProps) => {
