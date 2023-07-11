@@ -104,3 +104,8 @@ export const Error = styled.div`
   font-weight: 500;
   line-height: 150%;
 `;
+
+export const ItemSeparator = css`
+  height: 1px;
+  background-color: var(--click-context-menu-stroke-default, #e6e7e9);
+`;

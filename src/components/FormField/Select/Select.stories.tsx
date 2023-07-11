@@ -2,8 +2,14 @@ import Select from ".";
 
 const children = (
   <>
+    <Select.Group label='Group label'>
+      <Select.Item value='content1'>Content0</Select.Item>
+    </Select.Group>
+    <Select.Separator />
     <Select.Item value='content1'>Content1</Select.Item>
+    <Select.Separator />
     <Select.Item value='content2'>Content2</Select.Item>
+    <Select.Item value='content3'>Content3</Select.Item>
   </>
 );
 
