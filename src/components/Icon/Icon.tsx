@@ -39,6 +39,11 @@ const ICONS_MAP = {
 
 const SVGIcon = ({ name, ...delegated }: IconProps) => {
   const Component = ICONS_MAP[name];
+
+  if (!Component) {
+    return null;
+  }
+
   return <Component {...delegated} />;
 };
 
