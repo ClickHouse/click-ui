@@ -1,18 +1,20 @@
+import { Icon } from "@/components";
+import { IconName } from "@/components/Icon/types";
 import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
-interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  state?: "default" | "active";
-  size?: "small" | "default";
+export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  size?: "small" | "medium" | "large";
   disabled?: boolean;
   display?: "empty" | "filled";
+  icon: IconName;
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ children, display = "filled", ...props }, ref) => {
+  ({ display = "filled", icon, size = "medium", ...props }, ref) => {
     return (
       <Button {...props} display={display} ref={ref}>
-        {children}
+        <Icon name={icon} size={size} />
       </Button>
     );
   }
@@ -20,75 +22,49 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 IconButton.displayName = "IconButton";
 
-const Button = styled.button<IconButtonProps>`
-  border-radius: var(--click-button-radii-all);
-  border-color: transparent;
+const Button = styled.button<Partial<IconButtonProps>>`
+  border-radius: ${props => props.theme.click.button.iconButton.radii.all};
+  border-color: ${props =>
+    props.theme.click.button.iconButton.color.primary.stroke.default};
+  padding: ${props =>
+    `${props.theme.click.button.iconButton.default.space.y} ${props.theme.click.button.iconButton.default.space.x}`};
 
-  ${({ state, disabled, display }: IconButtonProps) => {
-    if (disabled) {
-      return `
-        background-color: var(--click-button-basic-color-disabled-background-default);
-        color: var(--click-button-basic-color-disabled-text-default);
-      `;
-    }
-    if (state === "active") {
-      return `
-        background-color: ${
-          display === "filled"
-            ? "var(--click-button-basic-color-primary-background-active)"
-            : "var(--click-button-basic-color-secondary-background-active)"
-        };
-        color: ${
-          display === "filled"
-            ? "var(--click-button-basic-color-primary-text-default)"
-            : "var(--click-button-basic-color-secondary-text-default)"
-        };
-      `;
-    }
+  background-color: ${props =>
+    props.display === "filled"
+      ? props.theme.click.button.iconButton.color.secondary.background.default
+      : props.theme.click.button.iconButton.color.primary.background.default};
 
-    return `
-        background-color: ${
-          display === "filled"
-            ? "var(--click-button-basic-color-primary-background-default)"
-            : "transparent"
-        };
-        color: ${
-          display === "filled"
-            ? "var(--click-button-basic-color-primary-text-default)"
-            : "var(--click-button-basic-color-secondary-text-default)"
-        };
-      `;
-  }};
-  ${({ size }: IconButtonProps) => {
-    if (size === "small") {
-      return `
-        padding: var(--click-button-icon-button-space-1);
-      `;
-    }
+  color: ${props =>
+    props.display === "filled"
+      ? props.theme.click.button.iconButton.color.secondary.text.default
+      : props.theme.click.button.iconButton.color.primary.text.default};
 
-    return `
-      padding: var(--click-button-icon-button-space-2);
-    `;
-  }};
   &:hover {
-    ${({ disabled, state, display }: IconButtonProps) => {
-      if (disabled) {
-        return `
-          cursor-pointer: not-allowed;
-      `;
-      }
+    background-color: ${props =>
+      props.display === "filled"
+        ? props.theme.click.button.iconButton.color.secondary.background.hover
+        : props.theme.click.button.iconButton.color.primary.background.hover};
+    color: ${props =>
+      props.display === "filled"
+        ? props.theme.click.button.iconButton.color.secondary.text.hover
+        : props.theme.click.button.iconButton.color.primary.text.hover};
+  }
 
-      if (state !== "active") {
-        return `
-          background-color: ${
-            display === "filled"
-              ? "var(--click-button-basic-color-primary-background-hover)"
-              : "var(--click-button-basic-color-secondary-background-hover)"
-          };
-        `;
-      }
+  &:active {
+    background-color: ${props =>
+      props.display === "filled"
+        ? props.theme.click.button.iconButton.color.secondary.background.active
+        : props.theme.click.button.iconButton.color.primary.background.active};
+    color: ${props =>
+      props.display === "filled"
+        ? props.theme.click.button.iconButton.color.secondary.text.default
+        : props.theme.click.button.iconButton.color.primary.text.default};
+  }
 
-      return "";
-    }}
+  &[disabled] {
+    background-color: ${props =>
+      props.theme.click.button.iconButton.color.disabled.background.default};
+    color: ${props =>
+      props.theme.click.button.iconButton.color.disabled.text.default};
   }
 `;
