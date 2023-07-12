@@ -7,12 +7,15 @@ export type IconName =
   | "check"
   | "chevron-down"
   | "chevron-right"
+  | "cross"
   | "database"
   | "filter"
   | "history"
-  | "info"
+  | "info-in-circle"
+  | "information"
   | "user"
-  | "users";
+  | "users"
+  | "warning";
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   name: IconName;

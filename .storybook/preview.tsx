@@ -44,7 +44,7 @@ const withTheme: Decorator = (StoryFn, context) => {
   const theme = parameters?.theme || context.globals.theme;
   return (
     <ThemeProvider theme={theme}>
-      <ThemeBlock bfill>
+      <ThemeBlock left>
         <StoryFn />
       </ThemeBlock>
     </ThemeProvider>
