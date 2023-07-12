@@ -8,9 +8,27 @@ export default {
 
 export const Default = {
   args: {
-    size: "default",
-    state: "active",
-    disabled: "false",
-    display: "fileld",
+    icon: "user",
+  },
+};
+
+export const Disabled = {
+  args: {
+    disabled: true,
+    icon: "user",
+  },
+};
+
+export const Empty = {
+  args: {
+    display: "empty",
+    icon: "user",
+  },
+};
+
+export const Small = {
+  args: {
+    size: "small",
+    icon: "user",
   },
 };
