@@ -9,6 +9,7 @@ import { ThemeName, ThemeProvider } from "./theme";
 import {
   Accordion,
   Alert,
+  Avatar,
   Badge,
   Button,
   ButtonGroup,
@@ -164,6 +165,7 @@ const App = () => {
       <WarningAlert text="An example of alert" title="Title" />
       <InfoAlert text="An example of alert" title="Title" />
       <SuccessAlert text="An example of alert" title="Title" />
+      <Avatar text="CH" />
     </ThemeProvider>
   );
 };
