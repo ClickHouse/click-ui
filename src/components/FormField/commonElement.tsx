@@ -133,3 +133,20 @@ export const MenuContent = css`
   align-items: flex-start;
   gap: 0.625rem;
 `;
+
+export const ScrollButton = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  height: 25px;
+  ${({ theme }) => `
+      background-color: inherit;
+      color: ${theme.click.contextMenu.color.text.default};
+      &:hover {
+        color: ${theme.click.contextMenu.color.text.hover};
+        background: ${theme.click.contextMenu.color.background.hover};
+      }
+    `}
+  cursor: default;
+`;

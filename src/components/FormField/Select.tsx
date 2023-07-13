@@ -9,13 +9,13 @@ import {
   Label,
   MenuContent,
   OptionContainer,
+  ScrollButton,
 } from "./commonElement";
 import { uniqueId } from "lodash";
 import styled from "styled-components";
-import { CustomMatcher } from "@radix-ui/react-form";
 
 interface SelectProps {
-  placeholder?: ReactNode;
+  placeholder?: string;
   label: ReactNode;
   children: ReactNode;
   error?: ReactNode;
@@ -36,37 +36,20 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
       ? `
       border: 1px solid ${theme.click.field.color.stroke.error} !important;
       background: ${theme.click.field.color.background.active} !important;
-      & > :not(.cui-select-icon) {
-        color:${theme.click.field.color.text.error} !important;
-      }`
+       color:${theme.click.field.color.text.error} !important;`
       : ""}
 `;
 const SelectContent = styled(RadixSelect.Content)`
   ${MenuContent};
-  .cui-select-scroll-button {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-    height: 25px;
-    ${({ theme }) => `
-      background-color: inherit;
-      color: ${theme.click.contextMenu.color.text.default};
-      &:hover {
-        color: ${theme.click.contextMenu.color.text.hover};
-        background: ${theme.click.contextMenu.color.background.hover};
-      }
-    `}
-    cursor: default;
-  }
-  &[data-state="open"] ~ .cui-label,
-  &:focus ~ .cui-label {
+  &[data-state="open"] ~ label,
+  &:focus ~ label {
     ${({ theme }) => `
       color: ${theme.click.field.color.label.active};
       font: ${theme.click.field.typography.label.active};
     `};
   }
 `;
+
 const SelectViewport = styled(RadixSelect.Viewport)`
   width: 100%;
 `;
@@ -105,37 +88,30 @@ const Select = ({
         required={required}
         disabled={disabled}
       >
-        <SelectTrigger
-          className='cui-select-trigger'
-          id={id}
-          error={typeof error !== "undefined"}
-        >
+        <SelectTrigger id={id} error={typeof error !== "undefined"}>
           <RadixSelect.Value placeholder={placeholder} />
-          <RadixSelect.Icon className='cui-select-right-icon'>
+          <RadixSelect.Icon>
             <Icon name='sort' />
           </RadixSelect.Icon>
         </SelectTrigger>
         <RadixSelect.Portal>
-          <SelectContent
-            className='cui-select-content'
-            position='popper'
-            sideOffset={5}
-          >
-            <RadixSelect.ScrollUpButton className='cui-select-scroll-up cui-select-scroll-button'>
-              <Icon name='chevron-up' />
+          <SelectContent position='popper' sideOffset={5}>
+            <RadixSelect.ScrollUpButton>
+              <ScrollButton>
+                <Icon name='chevron-up' />
+              </ScrollButton>
             </RadixSelect.ScrollUpButton>
-            <SelectViewport className='cui-select-viewport'>
-              {children}
-            </SelectViewport>
-            <RadixSelect.ScrollDownButton className='cui-select-scroll-down cui-select-scroll-button'>
-              <Icon name='chevron-down' />
+            <SelectViewport>{children}</SelectViewport>
+            <RadixSelect.ScrollDownButton>
+              <ScrollButton>
+                <Icon name='chevron-down' />
+              </ScrollButton>
             </RadixSelect.ScrollDownButton>
           </SelectContent>
         </RadixSelect.Portal>
       </SelectRoot>
       {label && (
         <Label
-          className='cui-label'
           htmlFor={id}
           disabled={disabled}
           error={typeof error !== "undefined"}
@@ -169,47 +145,39 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
 `;
 
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
-  ({ children, label, className, ...props }, forwardedRef) => {
+  ({ children, label, ...props }, forwardedRef) => {
     return (
-      <SelectGroup
-        className={`cui-select-group ${className}`}
-        {...props}
-        ref={forwardedRef}
-      >
-        <SelectGroupLabel className='cui-select-group-label'>
-          {label}
-        </SelectGroupLabel>
+      <SelectGroup {...props} ref={forwardedRef}>
+        <SelectGroupLabel>{label}</SelectGroupLabel>
         {children}
       </SelectGroup>
     );
   }
 );
-Group.displayName = "Group";
+Group.displayName = "Select.Group";
 
 const SelectSeparator = styled(RadixSelect.Separator)`
   ${ItemSeparator};
 `;
-const Separator = () => <SelectSeparator className='cui-select-separator' />;
-Separator.displayName = "Separator";
+const Separator = (props: RadixSelect.SelectSeparatorProps) => (
+  <SelectSeparator {...props} />
+);
+Separator.displayName = "Select.Separator";
 
 const SelectItem = styled(RadixSelect.Item)`
   ${OptionContainer};
 `;
 
 const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
-  ({ children, className, ...props }, forwardedRef) => {
+  ({ children, ...props }, forwardedRef) => {
     return (
-      <SelectItem
-        className={`cui-select-item ${className}`}
-        {...props}
-        ref={forwardedRef}
-      >
+      <SelectItem {...props} ref={forwardedRef}>
         <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
       </SelectItem>
     );
   }
 );
-Item.displayName = "Item";
+Item.displayName = "Select.Item";
 
 Select.Group = Group;
 Select.Separator = Separator;
