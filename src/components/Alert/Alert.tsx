@@ -26,7 +26,7 @@ const Alert = ({
   title = "",
   size = "small",
   state = "neutral",
-  showIcon,
+  showIcon = true,
   dismissable,
   ...delegated
 }: AlertProps) => {
@@ -115,4 +115,16 @@ const DismissWrapper = styled.button<{ state: AlertState }>`
   color: inherit;
 `;
 
-export { Alert };
+const DangerAlert = (props: AlertProps) => <Alert {...props} state="danger" />;
+
+const InfoAlert = (props: AlertProps) => <Alert {...props} state="info" />;
+
+const SuccessAlert = (props: AlertProps) => (
+  <Alert {...props} state="success" />
+);
+
+const WarningAlert = (props: AlertProps) => (
+  <Alert {...props} state="warning" />
+);
+
+export { Alert, DangerAlert, InfoAlert, SuccessAlert, WarningAlert };

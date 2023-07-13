@@ -8,18 +8,23 @@ import styles from "./App.module.css";
 import { ThemeName, ThemeProvider } from "./theme";
 import {
   Accordion,
+  Alert,
   Badge,
   Button,
   ButtonGroup,
   Card,
   Checkbox,
+  DangerAlert,
   Icon,
   IconButton,
+  InfoAlert,
   ProfileIcon,
   SidebarNavigationItem,
+  SuccessAlert,
   Switch,
   Tabs,
   TextFieldLabel,
+  WarningAlert,
 } from "@/components";
 
 const App = () => {
@@ -142,7 +147,7 @@ const App = () => {
       <Checkbox
         label="accept terms and conditions of this page"
         isChecked={isCheckboxChecked}
-        onCheckedChange={v => setCheckboxChecked(v)}
+        onChange={v => setCheckboxChecked(v)}
       />
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <Tabs.TriggersList>
@@ -154,6 +159,11 @@ const App = () => {
         <Tabs.Content value="tab2">Tab 2 content</Tabs.Content>
         <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
       </Tabs>
+      <Alert text="An example of alert" title="Title" />
+      <DangerAlert text="An example of alert" title="Title" />
+      <WarningAlert text="An example of alert" title="Title" />
+      <InfoAlert text="An example of alert" title="Title" />
+      <SuccessAlert text="An example of alert" title="Title" />
     </ThemeProvider>
   );
 };
