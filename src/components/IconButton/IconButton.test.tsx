@@ -18,9 +18,9 @@ describe("Button", () => {
 
   it("should execute action on click", () => {
     let counter = 0;
-    const hanldeClick = () => (counter = 1);
+    const handleClick = () => (counter = 1);
     const { getByRole } = renderButton({
-      onClick: hanldeClick,
+      onClick: handleClick,
       icon: "user",
     });
     const button = getByRole("button");
