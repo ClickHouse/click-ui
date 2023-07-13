@@ -17,7 +17,7 @@ const ThemeBlock = styled.div<{ left?: boolean; bfill?: boolean }>(
       bottom: 0;
       overflow: auto;
       padding: 1rem;
-      background: var(--click-global-color-background-default, #FFF);
+      background: ${theme.click.global.color.background.default};
     `
 );
 

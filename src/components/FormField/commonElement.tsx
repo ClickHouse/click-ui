@@ -8,56 +8,65 @@ export const FormElement = css`
   justify-content: space-between;
   align-items: center;
   border-radius: 0.25rem;
-  border: 1px solid var(--click-field-color-stroke-default, #e6e7e9);
-  background: var(--click-field-color-background-default, #f6f7fa);
-  &:hover {
-    border: 1px solid var(--click-field-color-stroke-hover, #cccfd3);
-  }
-  &:focus,
-  &[data-state="open"] {
-    border: 1px solid var(--click-field-color-stroke-active, #161517);
-    background: var(--click-field-color-background-active, #fff);
-  }
-  &.error {
-    border: 1px solid var(--click-field-color-stroke-error, #c10000);
-    background: var(--click-field-color-background-active, #fff);
-  }
-  &:disabled,
-  &.disabled {
-    border: 1px solid var(--click-field-color-stroke-disabled, #dfdfdf);
-    background: var(--click-field-color-background-disabled, #dfdfdf);
-  }
+
+  ${({ theme }) => `
+    font: ${theme.click.field.typography["field-text"].default};
+    border: 1px solid ${theme.click.field.color.stroke.default};
+    background: ${theme.click.field.color.background.default};
+    &:hover {
+      border: 1px solid ${theme.click.field.color.stroke.hover};
+    background: ${theme.click.field.color.background.hover};
+    }
+    &:focus,
+    &[data-state="open"] {
+      font: ${theme.click.field.typography["field-text"].active};
+      border: 1px solid ${theme.click.field.color.stroke.active};
+      background: ${theme.click.field.color.background.active};
+    }
+    &.error {
+      font: ${theme.click.field.typography["field-text"].error};
+      border: 1px solid ${theme.click.field.color.stroke.error};
+      background: ${theme.click.field.color.background.active};
+    }
+    &:disabled,
+    &.disabled {
+      font: ${theme.click.field.typography["field-text"].disabled};
+      border: 1px solid ${theme.click.field.color.stroke.disabled};
+      background: ${theme.click.field.color.background.disabled};
+    }
+  `}
 `;
 
 export const Label = styled.label<{ disabled?: boolean; error?: boolean }>`
-  color: ${(props) =>
-    props.disabled
-      ? "var(--click-field-color-label-disabled, #A0A0A0)"
-      : props.error
-      ? "var(--click-field-color-label-error, #C10000)"
-      : "var(--click-field-color-label-default, #696E79)"};
-
-  /* click/field/typography/label/default */
-  font-size: 0.75rem;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
+  ${({ theme, disabled, error }) => `
+    ${
+      disabled
+        ? `
+    color: ${theme.click.field.color.label.disabled};
+    font: ${theme.click.field.typography.label.disabled};
+    `
+        : error
+        ? `
+    color: ${theme.click.field.color.label.error};
+    font: ${theme.click.field.typography.label.error};
+    `
+        : `
+    color: ${theme.click.field.color.label.default};
+    font: ${theme.click.field.typography.label.default};
+    `
+    };
+  `}
 `;
 
 export const FormRoot = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   width: fill-available;
   align-items: flex-start;
   gap: 0.5rem;
   * {
     box-shadow: none;
     outline: none;
-  }
-  &:focus-within,
-  &:focus .cui-label {
-    color: var(--click-field-color-label-active, #161517);
   }
 `;
 
@@ -67,45 +76,60 @@ export const OptionContainer = css`
   padding: 0.34375rem 0.75rem;
   align-items: center;
   gap: 0.5rem;
-  background: var(--click-context-menu-color-background-default, #fff);
-  color: var(--click-context-menu-color-text-default, #161517);
-
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-
   &[aria-selected] {
     outline: none;
   }
-  &[data-highlighted] {
-    background: var(--click-context-menu-color-background-hover, #f6f7fa);
-    color: var(--click-context-menu-color-text-hover, #161517);
-  }
-  &[data-disabled] {
-    color: var(--click-context-menu-color-text-disabled, #c0c0c0);
-    background: var(--click-context-menu-color-background-default, #fff);
-    pointer-events: none;
-  }
-  &[data-state="checked"] {
-    background: var(--click-context-menu-color-background-active, #f6f7fa);
-    color: var(--click-context-menu-color-text-active, #161517);
-    font-weight: 600;
-  }
+
+  ${({ theme }) => `
+    font: ${theme.click.contextMenu.typography.label.default};
+    background: ${theme.click.contextMenu.color.background.default};
+    color: ${theme.click.contextMenu.color.text.default};
+    &[data-highlighted] {
+      font: ${theme.click.field.typography.label.hover};
+      background: ${theme.click.contextMenu.color.background.hover};
+      color:${theme.click.contextMenu.color.text.hover};
+    }
+    &[data-state="checked"] {
+      background:${theme.click.contextMenu.color.background.active};
+      color:${theme.click.contextMenu.color.text.active};
+      font: ${theme.click.field.typography.label.active};
+    }
+    &[data-disabled] {
+      background:${theme.click.contextMenu.color.background.default};
+      color:${theme.click.contextMenu.color.text.disabled};
+      font: ${theme.click.field.typography.label.disabled};
+      pointer-events: none;
+    }
+  `};
 `;
 
 export const Error = styled.div`
-  color: var(--click-field-color-label-error, #c10000);
-  /* click/field/typography/label/error */
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
+  ${({ theme }) => `
+  font: ${theme.click.field.typography.label.error};
+  color: ${theme.click.field.color.label.error};
+`};
 `;
 
 export const ItemSeparator = css`
   height: 1px;
-  background-color: var(--click-context-menu-stroke-default, #e6e7e9);
+  background-color: ${({ theme }) => theme.click.contextMenu.stroke.default};
+`;
+
+export const MenuContent = css`
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+  border-radius: 0.25rem;
+  ${({ theme }) => `
+  border: 1px solid ${theme.click.contextMenu.stroke.default};
+  background: ${theme.click.contextMenu.color.background.default};
+  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  border-radius: 0.25rem;
+
+  `}
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
 `;

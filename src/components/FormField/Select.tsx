@@ -1,16 +1,18 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
-import { Icon } from "../../Icon/Icon";
+import { Icon } from "../Icon/Icon";
 import {
   Error,
   FormElement,
   FormRoot,
   ItemSeparator,
   Label,
+  MenuContent,
   OptionContainer,
-} from "../commonElement";
+} from "./commonElement";
 import { uniqueId } from "lodash";
 import styled from "styled-components";
+import { CustomMatcher } from "@radix-ui/react-form";
 
 interface SelectProps {
   placeholder?: ReactNode;
@@ -18,6 +20,7 @@ interface SelectProps {
   children: ReactNode;
   error?: ReactNode;
 }
+
 type Props = RadixSelect.SelectProps &
   Omit<HTMLAttributes<HTMLDivElement>, "children" | "placeholder"> &
   SelectProps;
@@ -28,41 +31,40 @@ const SelectRoot = styled(RadixSelect.Root)`
 const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   width: 100%;
   ${FormElement};
-  ${(props) =>
-    props.error
+  ${({ error, theme }) =>
+    error
       ? `
-      border: 1px solid var(--click-field-color-stroke-error, #C10000) !important;
-      background: var(--click-field-color-background-active, #FFF) !important;
+      border: 1px solid ${theme.click.field.color.stroke.error} !important;
+      background: ${theme.click.field.color.background.active} !important;
       & > :not(.cui-select-icon) {
-        color: var(--click-field-color-text-error, #C10000) !important;
+        color:${theme.click.field.color.text.error} !important;
       }`
       : ""}
 `;
 const SelectContent = styled(RadixSelect.Content)`
-  width: var(--radix-select-trigger-width);
-  max-height: var(--radix-select-content-available-height);
-  border-radius: 0.25rem;
-  border: 1px solid var(--click-context-menu-stroke-default, #e6e7e9);
-  background: var(--click-context-menu-color-background-default, #fff);
-  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
-  overflow: hidden;
-  display: flex;
-  padding: 0.5rem 0rem;
-  align-items: flex-start;
-  gap: 0.625rem;
+  ${MenuContent};
   .cui-select-scroll-button {
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: center;
     height: 25px;
-    background-color: white;
-    color: var(--click-context-menu-color-text-default, #161517);
-    &:hover {
-      color: var(--click-context-menu-color-text-active, #161517);
-    }
+    ${({ theme }) => `
+      background-color: inherit;
+      color: ${theme.click.contextMenu.color.text.default};
+      &:hover {
+        color: ${theme.click.contextMenu.color.text.hover};
+        background: ${theme.click.contextMenu.color.background.hover};
+      }
+    `}
     cursor: default;
+  }
+  &[data-state="open"] ~ .cui-label,
+  &:focus ~ .cui-label {
+    ${({ theme }) => `
+      color: ${theme.click.field.color.label.active};
+      font: ${theme.click.field.typography.label.active};
+    `};
   }
 `;
 const SelectViewport = styled(RadixSelect.Viewport)`
@@ -90,16 +92,7 @@ const Select = ({
   id = id ?? uniqueId("select");
   return (
     <FormRoot {...props}>
-      {label && (
-        <Label
-          className='cui-label'
-          htmlFor={id}
-          disabled={disabled}
-          error={typeof error !== "undefined"}
-        >
-          {label}
-        </Label>
-      )}
+      {error && <Error>{error}</Error>}
       <SelectRoot
         value={value}
         defaultValue={defaultValue}
@@ -140,7 +133,16 @@ const Select = ({
           </SelectContent>
         </RadixSelect.Portal>
       </SelectRoot>
-      {error && <Error>{error}</Error>}
+      {label && (
+        <Label
+          className='cui-label'
+          htmlFor={id}
+          disabled={disabled}
+          error={typeof error !== "undefined"}
+        >
+          {label}
+        </Label>
+      )}
     </FormRoot>
   );
 };
@@ -162,7 +164,7 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
-  color: var(--click-context-menu-color-text-muted, #696e79);
+  color: ${({ theme }) => theme.click.contextMenu.color.text.muted};
   padding: 0 0.75rem;
 `;
 

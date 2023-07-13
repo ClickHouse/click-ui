@@ -1,9 +1,9 @@
-import Select from ".";
+import Select from "./Select";
 
 const children = (
   <>
     <Select.Group label='Group label'>
-      <Select.Item value='content1'>Content0</Select.Item>
+      <Select.Item value='content0'>Content0</Select.Item>
     </Select.Group>
     <Select.Separator />
     <Select.Item value='content1'>Content1</Select.Item>
