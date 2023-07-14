@@ -28,7 +28,7 @@ const CUISeparator = styled(RadixSeparator.Root)<Props>`
 `;
 
 const Separator = ({ orientation = "horizontal", ...props }: Props) => (
-  <CUISeparator {...props} />
+  <CUISeparator orientation={orientation} {...props} />
 );
 
 export default Separator;
