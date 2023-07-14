@@ -14,8 +14,10 @@ export type IconName =
   | "history"
   | "info-in-circle"
   | "information"
-  | "user"
+  | "insert-row"
+  | "sort-alt"
   | "sort"
+  | "user"
   | "users"
   | "warning";
 
