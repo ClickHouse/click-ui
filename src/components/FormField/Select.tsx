@@ -1,18 +1,15 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../Icon/Icon";
-import {
-  Error,
-  FormElement,
-  FormRoot,
-  ItemSeparator,
-  Label,
-  MenuContent,
-  OptionContainer,
-  ScrollButton,
-} from "./commonElement";
+import { Error, FormRoot, ItemSeparator, Label } from "./commonElement";
 import { uniqueId } from "lodash";
 import styled from "styled-components";
+import {
+  ScrollArea,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from "@radix-ui/react-scroll-area";
 
 interface SelectProps {
   placeholder?: string;
@@ -30,30 +27,99 @@ const SelectRoot = styled(RadixSelect.Root)`
 `;
 const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   width: 100%;
-  ${FormElement};
-  ${({ error, theme }) =>
-    error
-      ? `
-      border: 1px solid ${theme.click.field.color.stroke.error} !important;
-      background: ${theme.click.field.color.background.active} !important;
-       color:${theme.click.field.color.text.error} !important;`
-      : ""}
+  display: flex;
+  align-items: center;
+
+  padding: 0.34375rem 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.25rem;
+
+  ${({ theme, error }) => `
+    font: ${theme.click.field.typography["field-text"].default};
+    color: ${theme.click.field.color.text.default};
+    border: 1px solid ${theme.click.field.color.stroke.default};
+    background: ${theme.click.field.color.background.default};
+    &:hover {
+      border: 1px solid ${theme.click.field.color.stroke.hover};
+      background: ${theme.click.field.color.background.hover};
+      color: ${theme.click.field.color.text.hover};
+    }
+    ${
+      error
+        ? `
+      font: ${theme.click.field.typography["field-text"].error};
+      border: 1px solid ${theme.click.field.color.stroke.error};
+      background: ${theme.click.field.color.background.active};
+      color: ${theme.click.field.color.text.error};
+      &:hover {
+      border: 1px solid ${theme.click.field.color.stroke.error};
+      color: ${theme.click.field.color.text.error};
+      }
+    `
+        : `
+    &:focus,
+    &[data-state="open"] {
+      font: ${theme.click.field.typography["field-text"].active};
+      border: 1px solid ${theme.click.field.color.stroke.active};
+      background: ${theme.click.field.color.background.active};
+      color: ${theme.click.field.color.text.active};
+      &~ label {
+      color: ${theme.click.field.color.label.active};
+      font: ${theme.click.field.typography.label.active};;
+  }
+    }
+    `
+    };
+    &:disabled {
+      font: ${theme.click.field.typography["field-text"].disabled};
+      border: 1px solid ${theme.click.field.color.stroke.disabled};
+      background: ${theme.click.field.color.background.disabled};
+      color: ${theme.click.field.color.text.disabled};
+    }
+  `}
 `;
 const SelectContent = styled(RadixSelect.Content)`
-  ${MenuContent};
-  &[data-state="open"] ~ label,
-  &:focus ~ label {
-    ${({ theme }) => `
-      color: ${theme.click.field.color.label.active};
-      font: ${theme.click.field.typography.label.active};
-    `};
-  }
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+  border-radius: 0.25rem;
+  ${({ theme }) => `
+  border: 1px solid ${theme.click.contextMenu.stroke.default};
+  background: ${theme.click.contextMenu.color.background.default};
+  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  border-radius: 0.25rem;
+
+  `}
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
 `;
 
 const SelectViewport = styled(RadixSelect.Viewport)`
   width: 100%;
 `;
+const ScrollbarRoot = styled(ScrollArea)`
+  width: 100%;
+  height: 100%;
+`;
 
+const ScrollbarViewport = styled(ScrollAreaViewport)`
+  width: 100%;
+  max-height: var(--radix-popper-available-height);
+`;
+
+const Scrollbar = styled(ScrollAreaScrollbar)`
+  width: 4px;
+  padding: 5px 2px;
+`;
+
+const ScrollbarThumb = styled(ScrollAreaThumb)`
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+`;
 const Select = ({
   placeholder = "Select an option",
   label,
@@ -96,17 +162,14 @@ const Select = ({
         </SelectTrigger>
         <RadixSelect.Portal>
           <SelectContent position='popper' sideOffset={5}>
-            <RadixSelect.ScrollUpButton>
-              <ScrollButton>
-                <Icon name='chevron-up' />
-              </ScrollButton>
-            </RadixSelect.ScrollUpButton>
-            <SelectViewport>{children}</SelectViewport>
-            <RadixSelect.ScrollDownButton>
-              <ScrollButton>
-                <Icon name='chevron-down' />
-              </ScrollButton>
-            </RadixSelect.ScrollDownButton>
+            <ScrollbarRoot type='auto'>
+              <SelectViewport>
+                <ScrollbarViewport>{children}</ScrollbarViewport>
+              </SelectViewport>
+              <Scrollbar orientation='vertical'>
+                <ScrollbarThumb />
+              </Scrollbar>
+            </ScrollbarRoot>
           </SelectContent>
         </RadixSelect.Portal>
       </SelectRoot>
@@ -127,11 +190,38 @@ interface GroupProps extends RadixSelect.SelectGroupProps {
 }
 
 const SelectGroup = styled(RadixSelect.Group)`
-  ${OptionContainer};
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0;
   justify-content: center;
+  width: 100%;
+  padding: 0;
+  gap: 0.5rem;
+  &[aria-selected] {
+    outline: none;
+  }
+
+  ${({ theme }) => `
+    font: ${theme.click.contextMenu.typography.label.default};
+    background: ${theme.click.contextMenu.color.background.default};
+    color: ${theme.click.contextMenu.color.text.default};
+    &[data-highlighted] {
+      font: ${theme.click.field.typography.label.hover};
+      background: ${theme.click.contextMenu.color.background.hover};
+      color:${theme.click.contextMenu.color.text.hover};
+    }
+    &[data-state="checked"] {
+      background:${theme.click.contextMenu.color.background.active};
+      color:${theme.click.contextMenu.color.text.active};
+      font: ${theme.click.field.typography.label.active};
+    }
+    &[data-disabled] {
+      background:${theme.click.contextMenu.color.background.default};
+      color:${theme.click.contextMenu.color.text.disabled};
+      font: ${theme.click.field.typography.label.disabled};
+      pointer-events: none;
+    }
+  `};
 `;
 
 const SelectGroupLabel = styled(RadixSelect.Label)`
@@ -165,7 +255,36 @@ const Separator = (props: RadixSelect.SelectSeparatorProps) => (
 Separator.displayName = "Select.Separator";
 
 const SelectItem = styled(RadixSelect.Item)`
-  ${OptionContainer};
+  display: flex;
+  width: 100%;
+  padding: 0.34375rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  &[aria-selected] {
+    outline: none;
+  }
+
+  ${({ theme }) => `
+    font: ${theme.click.contextMenu.typography.label.default};
+    background: ${theme.click.contextMenu.color.background.default};
+    color: ${theme.click.contextMenu.color.text.default};
+    &[data-highlighted] {
+      font: ${theme.click.field.typography.label.hover};
+      background: ${theme.click.contextMenu.color.background.hover};
+      color:${theme.click.contextMenu.color.text.hover};
+    }
+    &[data-state="checked"] {
+      background:${theme.click.contextMenu.color.background.active};
+      color:${theme.click.contextMenu.color.text.active};
+      font: ${theme.click.field.typography.label.active};
+    }
+    &[data-disabled] {
+      background:${theme.click.contextMenu.color.background.default};
+      color:${theme.click.contextMenu.color.text.disabled};
+      font: ${theme.click.field.typography.label.disabled};
+      pointer-events: none;
+    }
+  `};
 `;
 
 const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
