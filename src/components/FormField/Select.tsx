@@ -35,6 +35,13 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   align-items: center;
   border-radius: 0.25rem;
 
+  span:first-of-type {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
   ${({ theme, error }) => `
     font: ${theme.click.field.typography["field-text"].default};
     color: ${theme.click.field.color.text.default};
@@ -163,8 +170,8 @@ const Select = ({
         <RadixSelect.Portal>
           <SelectContent position='popper' sideOffset={5}>
             <ScrollbarRoot type='auto'>
-              <SelectViewport>
-                <ScrollbarViewport>{children}</ScrollbarViewport>
+              <SelectViewport asChild>
+                <ScrollbarViewport asChild>{children}</ScrollbarViewport>
               </SelectViewport>
               <Scrollbar orientation='vertical'>
                 <ScrollbarThumb />
@@ -194,11 +201,17 @@ const SelectGroup = styled(RadixSelect.Group)`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 100%;
+  width: var(--radix-select-trigger-width);
   padding: 0;
   gap: 0.5rem;
   &[aria-selected] {
     outline: none;
+  }
+  & > span {
+    max-width: calc(var(--radix-select-trigger-width) - 24px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   ${({ theme }) => `
@@ -262,6 +275,12 @@ const SelectItem = styled(RadixSelect.Item)`
   gap: 0.5rem;
   &[aria-selected] {
     outline: none;
+  }
+  & > span {
+    max-width: calc(var(--radix-select-trigger-width) - 24px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   ${({ theme }) => `

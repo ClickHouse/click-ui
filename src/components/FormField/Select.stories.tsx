@@ -6,7 +6,11 @@ const children = (
       <Select.Item value='content0'>Content0</Select.Item>
     </Select.Group>
     <Select.Separator />
-    <Select.Item value='content1'>Content1</Select.Item>
+    <Select.Item value='content1'>
+      Content1Content1Content1Content1Content1 Content1 Content1 Content1
+      Content1 Content1 Content1 Content1 Content1 Content1 Content1 Content1
+      Content1 Content1 Content1
+    </Select.Item>
     <Select.Separator />
     <Select.Item value='content2'>Content2</Select.Item>
     <Select.Item value='content3'>Content3</Select.Item>
