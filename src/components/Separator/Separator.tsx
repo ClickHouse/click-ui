@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import * as RadixSeparator from "@radix-ui/react-separator";
 interface Props extends RadixSeparator.SeparatorProps {
