@@ -157,7 +157,7 @@ const Select = ({
         <SelectTrigger id={id} error={typeof error !== "undefined"}>
           <RadixSelect.Value placeholder={placeholder} />
           <RadixSelect.Icon>
-            <Icon name='sort' />
+            <Icon name='sort' size='small' />
           </RadixSelect.Icon>
         </SelectTrigger>
         <RadixSelect.Portal>
