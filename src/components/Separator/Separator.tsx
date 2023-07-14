@@ -16,13 +16,9 @@ const CUISeparator = styled(RadixSeparator.Root)<Props>`
     background: ${theme.click.separator.color.stroke.default};
     margin: ${
       orientation === "horizontal"
-        ? theme.click.separator.horizontal.space.y[size]
-        : theme.click.separator.vertical.space.y.all
-    } ${
-    orientation === "horizontal"
-      ? theme.click.separator.horizontal.space.x.all
-      : theme.click.separator.vertical.space.x[size]
-  }
+        ? `${theme.click.separator.horizontal.space.y[size]} ${theme.click.separator.horizontal.space.x.all}`
+        : `${theme.click.separator.vertical.space.y.all} ${theme.click.separator.vertical.space.x[size]}`
+    }
   `}
 `;
 
