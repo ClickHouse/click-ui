@@ -237,11 +237,9 @@ const SelectGroup = styled(RadixSelect.Group)`
 `;
 
 const SelectGroupLabel = styled(RadixSelect.Label)`
-  font-family: Inter;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
+  display: flex;
+  flex-direction: column;
+  font: ${({ theme }) => theme.click.contextMenu.typography.label};
   color: ${({ theme }) => theme.click.contextMenu.color.text.muted};
   ${({ theme }) => `
     padding: ${theme.click.contextMenu.item.space.y} ${theme.click.contextMenu.item.space.x};
