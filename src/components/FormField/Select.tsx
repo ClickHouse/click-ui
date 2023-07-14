@@ -29,11 +29,8 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
-
-  padding: 0.34375rem 0.75rem;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0.25rem;
 
   span:first-of-type {
     max-width: 100%;
@@ -43,6 +40,9 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   }
 
   ${({ theme, error }) => `
+    border-radius: ${theme.click.field.radii.all};
+    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
+    gap: ${theme.click.field.space.gap};
     font: ${theme.click.field.typography["field-text"].default};
     color: ${theme.click.field.color.text.default};
     border: 1px solid ${theme.click.field.color.stroke.default};
@@ -96,7 +96,6 @@ const SelectContent = styled(RadixSelect.Content)`
   box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
     0px 1px 2px 0px rgba(16, 24, 40, 0.06);
   border-radius: 0.25rem;
-
   `}
   overflow: hidden;
   display: flex;
@@ -170,8 +169,8 @@ const Select = ({
         <RadixSelect.Portal>
           <SelectContent position='popper' sideOffset={5}>
             <ScrollbarRoot type='auto'>
-              <SelectViewport asChild>
-                <ScrollbarViewport asChild>{children}</ScrollbarViewport>
+              <SelectViewport>
+                <ScrollbarViewport>{children}</ScrollbarViewport>
               </SelectViewport>
               <Scrollbar orientation='vertical'>
                 <ScrollbarThumb />
@@ -244,7 +243,10 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
   font-weight: 500;
   line-height: 150%;
   color: ${({ theme }) => theme.click.contextMenu.color.text.muted};
-  padding: 0 0.75rem;
+  ${({ theme }) => `
+    padding: ${theme.click.contextMenu.item.space.y} ${theme.click.contextMenu.item.space.x};
+    gap: ${theme.click.contextMenu.item.space.gap};
+  `}
 `;
 
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
@@ -270,9 +272,7 @@ Separator.displayName = "Select.Separator";
 const SelectItem = styled(RadixSelect.Item)`
   display: flex;
   width: 100%;
-  padding: 0.34375rem 0.75rem;
   align-items: center;
-  gap: 0.5rem;
   &[aria-selected] {
     outline: none;
   }
@@ -284,6 +284,8 @@ const SelectItem = styled(RadixSelect.Item)`
   }
 
   ${({ theme }) => `
+    padding: ${theme.click.contextMenu.item.space.y} ${theme.click.contextMenu.item.space.x};
+    gap: ${theme.click.contextMenu.item.space.gap};
     font: ${theme.click.contextMenu.typography.label.default};
     background: ${theme.click.contextMenu.color.background.default};
     color: ${theme.click.contextMenu.color.text.default};
