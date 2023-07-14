@@ -77,7 +77,7 @@ function getThumbVars(
   }
 }
 
-const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
+const SwitchRoot = styled(RadixSwitch.Root)<RootProps>((props) => {
   const vars = getRootVars(props.theme, props.disabled, props.checked);
 
   return {
@@ -87,10 +87,11 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
     border: vars.border,
     borderRadius: props.theme.click.switch.radii.all,
     position: "relative",
+    padding: 0,
   };
 });
 
-const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>(props => {
+const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>((props) => {
   const vars = getThumbVars(props.theme, props.disabled, props.checked);
 
   return {

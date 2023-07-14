@@ -12,7 +12,7 @@ const ThemeBlock = styled.div<{ left?: boolean; bfill?: boolean }>(
       left: ${left || fill ? 0 : "50vw"};
       border-right: ${left ? "1px solid #202020" : "none"};
       right: ${left ? "50vw" : 0};
-      width: ${fill ? "100vw" : "50vw"};
+      width: ${fill ? "fill-available" : "50vw"};
       height: 100vh;
       bottom: 0;
       overflow: auto;
@@ -44,7 +44,7 @@ const withTheme: Decorator = (StoryFn, context) => {
   const theme = parameters?.theme || context.globals.theme;
   return (
     <ThemeProvider theme={theme}>
-      <ThemeBlock bfill>
+      <ThemeBlock left>
         <StoryFn />
       </ThemeBlock>
     </ThemeProvider>

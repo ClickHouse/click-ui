@@ -32,7 +32,7 @@ export const Icons = {
   args: {
     children: [
       <Table.Tr>
-        <Table.Th leftIcon="arrow-down" rightIcon="info">
+        <Table.Th leftIcon="arrow-down" rightIcon="info-in-circle">
           Company
         </Table.Th>
         <Table.Th>Contact</Table.Th>
