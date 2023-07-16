@@ -732,6 +732,18 @@
           "disabled": {
             "value": "{typography.styles.text.md}",
             "type": "typography"
+          },
+          "custom": {
+            "label": {
+              "sm": {
+                "value": "{typography.styles.text-sbold.sm}",
+                "type": "typography"
+              },
+              "lg": {
+                "value": "{typography.styles.text.md}",
+                "type": "typography"
+              }
+            }
           }
         }
       },
