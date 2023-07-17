@@ -67,6 +67,7 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<TriggerProps>`
 
   &:hover {
     color: ${props => props.theme.click.accordion.color.label.hover};
+    cursor: pointer;
   }
 `;
 

@@ -220,24 +220,31 @@
       "color": {
         "background": {
           "default": "#282828",
+          "hover": "#282828",
           "active": "#1F1F1C",
-          "disabled": "#414141"
+          "disabled": "#414141",
+          "error": "#1F1F1C"
         },
         "text": {
           "default": "#e6e7e9",
+          "hover": "#e6e7e9",
           "active": "#ffffff",
-          "disabled": "#808080"
+          "disabled": "#808080",
+          "error": "#ff7575"
         },
         "stroke": {
           "default": "lch(31.1 0 0 / 0.3)",
+          "hover": "lch(34.5 0 0 / 0.3)",
           "active": "#fcff74",
           "disabled": "#414141",
-          "hover": "lch(34.5 0 0 / 0.3)"
+          "error": "#ff7575"
         },
         "label": {
           "default": "#b3b6bd",
+          "hover": "#b3b6bd",
           "active": "#ffffff",
-          "disabled": "#a0a0a0"
+          "disabled": "#a0a0a0",
+          "error": "#ff7575"
         },
         "format": {
           "default": "lch(79.2 3.16 269)",
