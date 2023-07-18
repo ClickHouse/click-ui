@@ -978,6 +978,12 @@
               "value": "{typography.styles.text.md}",
               "type": "typography"
             }
+          },
+          "sectionHeader": {
+            "default": {
+              "value": "{typography.styles.text-sbold.sm}",
+              "type": "typography"
+            }
           }
         }
       },
