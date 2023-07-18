@@ -42,5 +42,5 @@ export const Error = styled.div`
 
 export const ItemSeparator = css`
   height: 1px;
-  background-color: ${({ theme }) => theme.click.contextMenu.stroke.default};
+  background-color: ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
 `;
