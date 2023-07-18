@@ -709,7 +709,13 @@
           "default": string,
           "hover": string,
           "active": string,
-          "disabled": string
+          "disabled": string,
+          "custom": {
+            "label": {
+              "sm": string,
+              "lg": string
+            }
+          }
         }
       },
       "button": {
@@ -821,26 +827,28 @@
       "color": {
         "background": {
           "default": string,
+          "hover": string,
           "active": string,
           "disabled": string,
-          "hover": string
+          "error": string
         },
         "text": {
           "default": string,
+          "hover": string,
           "active": string,
           "disabled": string,
-          "hover": string,
           "error": string
         },
         "stroke": {
           "default": string,
+          "hover": string,
           "active": string,
           "disabled": string,
-          "hover": string,
           "error": string
         },
         "label": {
           "default": string,
+          "hover": string,
           "active": string,
           "disabled": string,
           "error": string
