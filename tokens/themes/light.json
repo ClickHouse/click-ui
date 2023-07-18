@@ -1473,7 +1473,7 @@
           },
           "background": {
             "default": {
-              "value": "{click.popover.color.background.default}",
+              "value": "{click.genericMenu.panel.color.background.default}",
               "type": "color"
             },
             "hover": {
@@ -1548,6 +1548,50 @@
             }
           }
         }
+      },
+      "panel": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "autocomplete": {
+        "color": {
+          "placeholder": {
+            "default": {
+              "value": "{click.field.color.placeholder.default}",
+              "type": "color"
+            }
+          },
+          "searchTerm": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.genericMenu.item.color.background.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "grid": {
@@ -1604,16 +1648,6 @@
         "stroke": {
           "value": "{click.global.color.text.default}",
           "type": "color"
-        }
-      }
-    },
-    "popover": {
-      "color": {
-        "background": {
-          "default": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          }
         }
       }
     },

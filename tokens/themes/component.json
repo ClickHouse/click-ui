@@ -1006,6 +1006,10 @@
           "gap": {
             "value": "{spaces.1}",
             "type": "spacing"
+          },
+          "y": {
+            "value": "{spaces.2}",
+            "type": "spacing"
           }
         },
         "typography": {
@@ -1021,6 +1025,58 @@
             "active": {
               "value": "{typography.styles.text-sbold.md}",
               "type": "typography"
+            }
+          }
+        }
+      },
+      "panel": {
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
+        },
+        "shadow": {
+          "default": {
+            "value": "{shadow.1}",
+            "type": "boxShadow"
+          }
+        }
+      },
+      "autocomplete": {
+        "typography": {
+          "results": {
+            "label": {
+              "default": {
+                "value": "{typography.styles.text-sbold.md}",
+                "type": "typography"
+              }
+            }
+          },
+          "search": {
+            "placeholder": {
+              "default": {
+                "value": "{typography.styles.text.md}",
+                "type": "typography"
+              }
+            },
+            "term": {
+              "default": {
+                "value": "{typography.styles.text.md}",
+                "type": "typography"
+              }
+            }
+          }
+        },
+        "search": {
+          "stroke": {
+            "default": {
+              "value": {
+                "color": "{click.genericMenu.autocomplete.color.stroke.default}",
+                "width": "{border.width.2}",
+                "style": "solid"
+              },
+              "type": "border"
             }
           }
         }
@@ -1097,14 +1153,6 @@
             "value": "{sizes.11}",
             "type": "sizing"
           }
-        }
-      }
-    },
-    "popover": {
-      "radii": {
-        "all": {
-          "value": "{border.radii.1}",
-          "type": "borderRadius"
         }
       }
     },
