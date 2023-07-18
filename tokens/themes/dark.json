@@ -971,13 +971,13 @@
               "type": "color",
               "$extensions": {}
             }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
           }
-        }
-      },
-      "stroke": {
-        "default": {
-          "value": "{click.global.color.stroke.default}",
-          "type": "color"
         }
       }
     },
