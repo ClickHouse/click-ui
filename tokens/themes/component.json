@@ -1646,6 +1646,14 @@
           }
         }
       }
+    },
+    "radio": {
+      "radii": {
+        "all": {
+          "value": "{border.radii.full}",
+          "type": "borderRadius"
+        }
+      }
     }
   }
 }
