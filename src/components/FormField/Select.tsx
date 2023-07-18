@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { ChangeEvent, HTMLAttributes, ReactNode } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../Icon/Icon";
 import { Error, FormRoot, ItemSeparator } from "./commonElement";
@@ -11,6 +11,7 @@ import {
   ScrollAreaViewport,
 } from "@radix-ui/react-scroll-area";
 import { Label } from "./Label";
+import { SelectContextProvider, useOptionVisible, useSelect } from "./SelectContext";
 
 interface SelectProps {
   placeholder?: string;
@@ -118,7 +119,8 @@ const ScrollbarRoot = styled(ScrollArea)`
 
 const ScrollbarViewport = styled(ScrollAreaViewport)`
   width: 100%;
-  max-height: var(--radix-popper-available-height);
+  $a: var(--radix-popper-available-height);
+  max-height: calc(var(--radix-popper-available-height, 0) - 20px);
 `;
 
 const Scrollbar = styled(ScrollAreaScrollbar)`
@@ -130,6 +132,35 @@ const ScrollbarThumb = styled(ScrollAreaThumb)`
   background: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 `;
+
+const SearchBar = styled.input`
+  background: transparent;
+  border: none;
+  width: 100%;
+  outline: none;
+  ${({ theme }) => `
+    border-bottom: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+    margin: 0 ${theme.click.genericMenu.item.space.x};
+    padding: ${theme.click.genericMenu.item.space.y} 0;
+    font: ${theme.click.genericMenu.item.typography.label};
+  `}
+`;
+
+const Search = () => {
+  const { onSearchTextChange } = useSelect();
+  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onSearchTextChange(e.target.value);
+  };
+
+  return (
+    <SearchBar
+      type="text"
+      onChange={onSearchChange}
+      autoFocus
+    />
+  );
+};
+
 const Select = ({
   placeholder = "Select an option",
   label,
@@ -181,14 +212,17 @@ const Select = ({
             position="popper"
             sideOffset={5}
           >
-            <ScrollbarRoot type="auto">
-              <SelectViewport>
-                <ScrollbarViewport>{children}</ScrollbarViewport>
-              </SelectViewport>
-              <Scrollbar orientation="vertical">
-                <ScrollbarThumb />
-              </Scrollbar>
-            </ScrollbarRoot>
+            <SelectContextProvider>
+              <ScrollbarRoot type="auto">
+                <SelectViewport>
+                  <Search />
+                  <ScrollbarViewport>{children}</ScrollbarViewport>
+                </SelectViewport>
+                <Scrollbar orientation="vertical">
+                  <ScrollbarThumb />
+                </Scrollbar>
+              </ScrollbarRoot>
+            </SelectContextProvider>
           </SelectContent>
         </RadixSelect.Portal>
       </SelectRoot>
@@ -262,6 +296,11 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
 
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
   ({ children, label, ...props }, forwardedRef) => {
+    const show = useOptionVisible(children);
+
+    if (!show) {
+      return null;
+    }
     return (
       <SelectGroup
         {...props}
@@ -325,6 +364,10 @@ const SelectItem = styled(RadixSelect.Item)`
 
 const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
   ({ children, ...props }, forwardedRef) => {
+    const show = useOptionVisible(children);
+    if (!show) {
+      return null;
+    }
     return (
       <SelectItem
         {...props}
