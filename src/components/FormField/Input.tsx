@@ -3,7 +3,7 @@ import { Error, FormRoot, Label } from "./commonElement";
 import styled from "styled-components";
 import { Icon } from "..";
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ error: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -28,6 +28,11 @@ const InputContainer = styled.div`
       background: ${theme.click.field.color.background.hover};
       color: ${theme.click.field.color.text.hover};
     }
+    & > input {
+      padding-top: ${theme.click.field.space.y};
+      padding-bottom: ${theme.click.field.space.y};
+      padding-left: ${theme.click.field.space.x};
+    }
     ${
       error
         ? `
@@ -50,13 +55,6 @@ const InputContainer = styled.div`
       &~ label {
       color: ${theme.click.field.color.label.active};
       font: ${theme.click.field.typography.label.active};;
-    }
-    }
-    & > input {
-      padding-top: ${theme.click.field.space.y};
-      padding-bottom: ${theme.click.field.space.y};
-    &:first-child {
-      padding-left: ${theme.click.field.space.x};
     }
     }
     `
@@ -101,6 +99,7 @@ const Input = ({
   disabled,
   clear,
   value: valueProp,
+  onChange: onChangeProp,
   ...props
 }) => {
   const [value, setValue] = useState(valueProp ?? "");
@@ -112,6 +111,7 @@ const Input = ({
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setValue(e.target.value);
+    onChangeProp && onChangeProp(e);
   };
 
   const clearInput = () => {
@@ -121,7 +121,7 @@ const Input = ({
   return (
     <FormRoot {...props}>
       {error && <Error>{error}</Error>}
-      <InputContainer>
+      <InputContainer error={typeof error !== "undefined"}>
         <InputElement
           type={type === "password" && viewPassword ? "text" : type}
           id={id}
