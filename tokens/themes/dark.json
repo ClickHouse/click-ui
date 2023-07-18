@@ -886,77 +886,79 @@
       }
     },
     "genericMenu": {
-      "color": {
-        "text": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{palette.neutral.300}",
-            "type": "color"
-          },
-          "muted": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          }
-        },
-        "background": {
-          "default": {
-            "value": "{click.popover.color.background.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.0875",
-                  "space": "lch"
-                }
-              }
+      "item": {
+        "color": {
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.300}",
+              "type": "color"
+            },
+            "muted": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
             }
           },
-          "active": {
-            "value": "{click.genericMenu.item.color.background.hover}",
-            "type": "color"
-          }
-        },
-        "format": {
-          "default": {
-            "value": "{click.field.color.placeholder.default}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.2",
-                  "space": "lch"
+          "background": {
+            "default": {
+              "value": "{click.popover.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.0875",
+                    "space": "lch"
+                  }
                 }
               }
+            },
+            "active": {
+              "value": "{click.genericMenu.item.color.background.hover}",
+              "type": "color"
             }
           },
-          "hover": {
-            "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
-          },
-          "active": {
-            "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
-          },
-          "disabled": {
-            "value": "{click.field.color.text.disabled}",
-            "type": "color",
-            "$extensions": {}
-          },
-          "error": {
-            "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+          "format": {
+            "default": {
+              "value": "{click.field.color.placeholder.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.2",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "hover": {
+              "value": "{click.field.color.format.default}",
+              "type": "color",
+              "$extensions": {}
+            },
+            "active": {
+              "value": "{click.field.color.format.default}",
+              "type": "color",
+              "$extensions": {}
+            },
+            "disabled": {
+              "value": "{click.field.color.text.disabled}",
+              "type": "color",
+              "$extensions": {}
+            },
+            "error": {
+              "value": "{click.field.color.format.default}",
+              "type": "color",
+              "$extensions": {}
+            }
           }
         }
       },
