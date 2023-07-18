@@ -147,6 +147,44 @@
         }
       }
     },
+    "avatar": {
+      "typography": {
+        "label": {
+          "sm": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "md": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        }
+      },
+      "size": {
+        "label": {
+          "width": string
+        },
+        "width": string,
+        "height": string
+      },
+      "radii": {
+        "all": string
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "hover": string,
+          "active": string
+        },
+        "text": {
+          "default": string,
+          "hover": string,
+          "active": string
+        }
+      }
+    },
     "badge": {
       "space": {
         "x": string,
@@ -690,66 +728,6 @@
         }
       }
     },
-    "contextMenu": {
-      "item": {
-        "space": {
-          "x": string,
-          "y": string,
-          "gap": string
-        },
-        "icon": {
-          "size": {
-            "height": string,
-            "width": string
-          }
-        }
-      },
-      "typography": {
-        "label": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string,
-          "custom": {
-            "label": {
-              "sm": string,
-              "lg": string
-            }
-          }
-        }
-      },
-      "button": {
-        "space": {
-          "gap": string
-        },
-        "background": {
-          "default": string
-        },
-        "label": {
-          "default": string
-        },
-        "stroke": {
-          "default": string
-        }
-      },
-      "color": {
-        "text": {
-          "default": string,
-          "disabled": string,
-          "muted": string,
-          "hover": string,
-          "active": string
-        },
-        "background": {
-          "default": string,
-          "hover": string,
-          "active": string
-        }
-      },
-      "stroke": {
-        "default": string
-      }
-    },
     "docs": {
       "typography": {
         "titles": {
@@ -862,6 +840,88 @@
         },
         "placeholder": {
           "default": string
+        }
+      }
+    },
+    "genericMenu": {
+      "item": {
+        "space": {
+          "x": string,
+          "y": string,
+          "gap": string
+        },
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "sectionHeader": {
+            "default": string
+          }
+        },
+        "color": {
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "muted": string
+          },
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "format": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "error": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      },
+      "itemCustom": {
+        "typography": {
+          "label": {
+            "sm": string,
+            "lg": string
+          }
+        }
+      },
+      "button": {
+        "space": {
+          "gap": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        },
+        "color": {
+          "background": {
+            "default": string
+          },
+          "label": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
         }
       }
     },
@@ -1095,93 +1155,39 @@
         }
       }
     },
-    "tabs": {
-      "space": {
-        "y": string,
-        "x": string
-      },
-      "radii": {
-        "all": string
-      },
-      "typography": {
-        "label": {
-          "default": string,
-          "hover": string,
-          "active": string
-        }
-      },
-      "basic": {
-        "strokeWidth": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "global": string
-        },
-        "stroke": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "global": string
-        },
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string
+    "separator": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
           },
-          "text": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "stroke": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "global": {
-            "default": string
+          "x": {
+            "all": string
           }
         }
       },
-      "file-tabs": {
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
           },
-          "text": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "stroke": {
-            "default": string,
-            "hover": string,
-            "active": string
+          "y": {
+            "all": string
           }
-        }
-      }
-    },
-    "tooltip": {
-      "radii": {
-        "all": string
-      },
-      "space": {
-        "x": string,
-        "y": string
-      },
-      "typography": {
-        "label": {
-          "default": string
         }
       },
       "color": {
-        "background": {
-          "default": string
-        },
-        "label": {
+        "stroke": {
           "default": string
         }
       }
@@ -1297,77 +1303,93 @@
         }
       }
     },
-    "avatar": {
-      "typography": {
-        "label": {
-          "sm": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "md": {
-            "default": string,
-            "hover": string,
-            "active": string
-          }
-        }
-      },
-      "size": {
-        "label": {
-          "width": string
-        },
-        "width": string,
-        "height": string
+    "tabs": {
+      "space": {
+        "y": string,
+        "x": string
       },
       "radii": {
         "all": string
       },
-      "color": {
-        "background": {
+      "typography": {
+        "label": {
           "default": string,
           "hover": string,
           "active": string
+        }
+      },
+      "basic": {
+        "strokeWidth": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "global": string
         },
-        "text": {
+        "stroke": {
           "default": string,
           "hover": string,
-          "active": string
+          "active": string,
+          "global": string
+        },
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "global": {
+            "default": string
+          }
+        }
+      },
+      "file-tabs": {
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
         }
       }
     },
-    "separator": {
-      "horizontal": {
-        "space": {
-          "y": {
-            "xs": string,
-            "sm": string,
-            "md": string,
-            "lg": string,
-            "xl": string,
-            "xxl": string
-          },
-          "x": {
-            "all": string
-          }
-        }
+    "tooltip": {
+      "radii": {
+        "all": string
       },
-      "vertical": {
-        "space": {
-          "x": {
-            "xs": string,
-            "sm": string,
-            "md": string,
-            "lg": string,
-            "xl": string,
-            "xxl": string
-          },
-          "y": {
-            "all": string
-          }
+      "space": {
+        "x": string,
+        "y": string
+      },
+      "typography": {
+        "label": {
+          "default": string
         }
       },
       "color": {
-        "stroke": {
+        "background": {
+          "default": string
+        },
+        "label": {
           "default": string
         }
       }
@@ -1600,10 +1622,10 @@
         "base": string
       },
       "line-height": {
-        "1": string,
-        "2": string,
-        "3": string,
-        "4": string
+        "1": number,
+        "2": number,
+        "3": number,
+        "4": number
       }
     },
     "styles": {

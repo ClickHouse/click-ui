@@ -31,6 +31,7 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
   align-items: center;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 
   span:first-of-type {
     max-width: 100%;
@@ -90,13 +91,15 @@ const SelectContent = styled(RadixSelect.Content)`
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
   border-radius: 0.25rem;
+
   ${({ theme }) => `
-  border: 1px solid ${theme.click.contextMenu.stroke.default};
-  background: ${theme.click.contextMenu.color.background.default};
-  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
-  border-radius: 0.25rem;
+    border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    border-radius: 0.25rem;
   `}
+
   overflow: hidden;
   display: flex;
   padding: 0.5rem 0rem;
@@ -214,23 +217,23 @@ const SelectGroup = styled(RadixSelect.Group)`
   }
 
   ${({ theme }) => `
-    font: ${theme.click.contextMenu.typography.label.default};
-    background: ${theme.click.contextMenu.color.background.default};
-    color: ${theme.click.contextMenu.color.text.default};
+    font: ${theme.click.genericMenu.item.typography.label.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    color: ${theme.click.genericMenu.item.color.text.default};
     &[data-highlighted] {
-      font: ${theme.click.field.typography.label.hover};
-      background: ${theme.click.contextMenu.color.background.hover};
-      color:${theme.click.contextMenu.color.text.hover};
+      font: ${theme.click.genericMenu.item.typography.label.hover};
+      background: ${theme.click.genericMenu.item.color.background.hover};
+      color:${theme.click.genericMenu.item.color.text.hover};
     }
     &[data-state="checked"] {
-      background:${theme.click.contextMenu.color.background.active};
-      color:${theme.click.contextMenu.color.text.active};
-      font: ${theme.click.field.typography.label.active};
+      background:${theme.click.genericMenu.item.color.background.active};
+      color:${theme.click.genericMenu.item.color.text.active};
+      font: ${theme.click.genericMenu.item.typography.label.active};
     }
     &[data-disabled] {
-      background:${theme.click.contextMenu.color.background.default};
-      color:${theme.click.contextMenu.color.text.disabled};
-      font: ${theme.click.field.typography.label.disabled};
+      background:${theme.click.genericMenu.item.color.background.disabled};
+      color:${theme.click.genericMenu.item.color.text.disabled};
+      font: ${theme.click.genericMenu.item.typography.label.disabled};
       pointer-events: none;
     }
   `};
@@ -239,11 +242,11 @@ const SelectGroup = styled(RadixSelect.Group)`
 const SelectGroupLabel = styled(RadixSelect.Label)`
   display: flex;
   flex-direction: column;
-  font: ${({ theme }) => theme.click.contextMenu.typography.label};
-  color: ${({ theme }) => theme.click.contextMenu.color.text.muted};
+  font: ${({ theme }) => theme.click.genericMenu.item.typography.sectionHeader.default};
+  color: ${({ theme }) => theme.click.genericMenu.item.color.text.muted};
   ${({ theme }) => `
-    padding: ${theme.click.contextMenu.item.space.y} ${theme.click.contextMenu.item.space.x};
-    gap: ${theme.click.contextMenu.item.space.gap};
+    padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
+    gap: ${theme.click.genericMenu.item.space.gap};
   `}
 `;
 
@@ -282,25 +285,26 @@ const SelectItem = styled(RadixSelect.Item)`
   }
 
   ${({ theme }) => `
-    padding: ${theme.click.contextMenu.item.space.y} ${theme.click.contextMenu.item.space.x};
-    gap: ${theme.click.contextMenu.item.space.gap};
-    font: ${theme.click.contextMenu.typography.label.default};
-    background: ${theme.click.contextMenu.color.background.default};
-    color: ${theme.click.contextMenu.color.text.default};
+    padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
+    gap: ${theme.click.genericMenu.item.space.gap};
+    font: ${theme.click.genericMenu.item.typography.label.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    color: ${theme.click.genericMenu.item.color.text.default};
     &[data-highlighted] {
-      font: ${theme.click.field.typography.label.hover};
-      background: ${theme.click.contextMenu.color.background.hover};
-      color:${theme.click.contextMenu.color.text.hover};
+      font: ${theme.click.genericMenu.item.typography.label.hover};
+      background: ${theme.click.genericMenu.item.color.background.hover};
+      color:${theme.click.genericMenu.item.color.text.hover};
+      cursor: pointer;
     }
     &[data-state="checked"] {
-      background:${theme.click.contextMenu.color.background.active};
-      color:${theme.click.contextMenu.color.text.active};
-      font: ${theme.click.field.typography.label.active};
+      background:${theme.click.genericMenu.item.color.background.active};
+      color:${theme.click.genericMenu.item.color.text.active};
+      font: ${theme.click.genericMenu.item.typography.label.active};
     }
     &[data-disabled] {
-      background:${theme.click.contextMenu.color.background.default};
-      color:${theme.click.contextMenu.color.text.disabled};
-      font: ${theme.click.field.typography.label.disabled};
+      background:${theme.click.genericMenu.item.color.background.default};
+      color:${theme.click.genericMenu.item.color.text.disabled};
+      font: ${theme.click.genericMenu.item.typography.label.disabled};
       pointer-events: none;
     }
   `};
