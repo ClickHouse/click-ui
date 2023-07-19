@@ -161,21 +161,20 @@ const Select = ({
         dir={dir}
         name={name}
         required={required}
-        disabled={disabled}
-      >
+        disabled={disabled}>
         <SelectTrigger id={id} error={typeof error !== "undefined"}>
           <RadixSelect.Value placeholder={placeholder} />
           <RadixSelect.Icon>
-            <Icon name='sort' size='small' />
+            <Icon name="sort" size="small" />
           </RadixSelect.Icon>
         </SelectTrigger>
         <RadixSelect.Portal>
-          <SelectContent position='popper' sideOffset={5}>
-            <ScrollbarRoot type='auto'>
+          <SelectContent position="popper" sideOffset={5}>
+            <ScrollbarRoot type="auto">
               <SelectViewport>
                 <ScrollbarViewport>{children}</ScrollbarViewport>
               </SelectViewport>
-              <Scrollbar orientation='vertical'>
+              <Scrollbar orientation="vertical">
                 <ScrollbarThumb />
               </Scrollbar>
             </ScrollbarRoot>
@@ -183,11 +182,7 @@ const Select = ({
         </RadixSelect.Portal>
       </SelectRoot>
       {label && (
-        <Label
-          htmlFor={id}
-          disabled={disabled}
-          error={typeof error !== "undefined"}
-        >
+        <Label htmlFor={id} disabled={disabled} error={typeof error !== "undefined"}>
           {label}
         </Label>
       )}
