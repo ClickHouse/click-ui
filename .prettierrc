@@ -1,9 +1,13 @@
 {
-  "jsxBracketSameLine": true,
+  "jsxBracketSameLine": false,
+  "bracketSameLine": false,
   "jsxSingleQuote": false,
   "parser": "typescript",
   "printWidth": 90,
   "semi": true,
   "singleQuote": false,
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "singleAttributePerLine": true
 }
