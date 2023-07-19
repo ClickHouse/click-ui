@@ -225,15 +225,24 @@ const Input = ({
         />
         {clear && value.length > 0 && (
           <IconButton onClick={clearInput}>
-            <Icon name='cross' size='small' />
+            <Icon
+              name="cross"
+              size="small"
+            />
           </IconButton>
         )}
         {type === "password" ? (
           <IconButton onClick={togglePasswordViewer}>
             {viewPassword ? (
-              <Icon name='eye-closed' size='medium' />
+              <Icon
+                name="eye-closed"
+                size="medium"
+              />
             ) : (
-              <Icon name='eye' size='medium' />
+              <Icon
+                name="eye"
+                size="medium"
+              />
             )}
           </IconButton>
         ) : null}
