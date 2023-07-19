@@ -163,19 +163,28 @@ const Select = ({
         required={required}
         disabled={disabled}
       >
-        <SelectTrigger id={id} error={typeof error !== "undefined"}>
+        <SelectTrigger
+          id={id}
+          error={typeof error !== "undefined"}
+        >
           <RadixSelect.Value placeholder={placeholder} />
           <RadixSelect.Icon>
-            <Icon name='sort' size='small' />
+            <Icon
+              name="sort"
+              size="small"
+            />
           </RadixSelect.Icon>
         </SelectTrigger>
         <RadixSelect.Portal>
-          <SelectContent position='popper' sideOffset={5}>
-            <ScrollbarRoot type='auto'>
+          <SelectContent
+            position="popper"
+            sideOffset={5}
+          >
+            <ScrollbarRoot type="auto">
               <SelectViewport>
                 <ScrollbarViewport>{children}</ScrollbarViewport>
               </SelectViewport>
-              <Scrollbar orientation='vertical'>
+              <Scrollbar orientation="vertical">
                 <ScrollbarThumb />
               </Scrollbar>
             </ScrollbarRoot>
@@ -253,7 +262,10 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
   ({ children, label, ...props }, forwardedRef) => {
     return (
-      <SelectGroup {...props} ref={forwardedRef}>
+      <SelectGroup
+        {...props}
+        ref={forwardedRef}
+      >
         <SelectGroupLabel>{label}</SelectGroupLabel>
         {children}
       </SelectGroup>
@@ -313,7 +325,10 @@ const SelectItem = styled(RadixSelect.Item)`
 const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
   ({ children, ...props }, forwardedRef) => {
     return (
-      <SelectItem {...props} ref={forwardedRef}>
+      <SelectItem
+        {...props}
+        ref={forwardedRef}
+      >
         <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
       </SelectItem>
     );
