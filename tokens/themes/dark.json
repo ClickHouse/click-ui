@@ -912,7 +912,7 @@
           },
           "background": {
             "default": {
-              "value": "{click.popover.color.background.default}",
+              "value": "{click.genericMenu.panel.color.background.default}",
               "type": "color"
             },
             "hover": {
@@ -970,6 +970,72 @@
               "value": "{click.field.color.format.default}",
               "type": "color",
               "$extensions": {}
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "panel": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "autocomplete": {
+        "color": {
+          "placeholder": {
+            "default": {
+              "value": "{click.field.color.placeholder.default}",
+              "type": "color"
+            }
+          },
+          "searchTerm": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.genericMenu.item.color.background.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "button": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
             }
           },
           "stroke": {
@@ -1518,6 +1584,64 @@
         "label": {
           "default": {
             "value": "{click.global.color.text.default}",
+            "type": "color"
+          }
+        }
+      }
+    },
+    "radio": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{click.checkbox.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.radio.color.background.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.checkbox.color.background.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.color.background.disabled-checked}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.checkbox.color.stroke.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.radio.color.stroke.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{palette.neutral.900}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.color.stroke.disabled}",
+            "type": "color"
+          }
+        },
+        "indicator": {
+          "default": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.radio.color.background.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.checkbox.color.check.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.color.check.disabled}",
             "type": "color"
           }
         }
