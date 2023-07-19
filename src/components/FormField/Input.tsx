@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, HTMLAttributes, ReactNode, useState } from "react";
 import { Error, FormRoot, Label } from "./commonElement";
 import styled from "styled-components";
 import { Icon } from "..";
@@ -91,6 +91,47 @@ const IconButton = styled.button`
   `}
 `;
 
+interface CommonProps extends HTMLAttributes<HTMLDivElement> {
+  value: string;
+  clear?: boolean;
+  label: ReactNode;
+  error?: ReactNode;
+  disabled?: boolean;
+  placeholder?: string;
+  form?: string;
+  alt?: string;
+  autoComplete?: string;
+  autoFocus?: boolean;
+  dir?: string;
+  name?: string;
+  readOnly?: boolean;
+  required?: boolean;
+}
+
+interface TextInput extends CommonProps {
+  type: "text" | "password" | "email" | "tel" | "url";
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  size: number;
+  min: never;
+  max: never;
+  step: never;
+}
+
+interface NumberInput extends CommonProps {
+  type: "number";
+  min?: string;
+  max?: string;
+  step?: string;
+  minLength: never;
+  maxLength?: never;
+  pattern: never;
+  size: never;
+}
+
+type Props = TextInput | NumberInput;
+
 const Input = ({
   id,
   label,
@@ -99,9 +140,35 @@ const Input = ({
   disabled,
   clear,
   value: valueProp,
+  placeholder,
   onChange: onChangeProp,
+  onFocus,
+  onBlur,
+  onContextMenu,
+  onInput,
+  onInvalid,
+  onKeyDown,
+  onKeyUp,
+  onCut,
+  onCopy,
+  onPaste,
+  form,
+  alt,
+  autoComplete,
+  autoFocus,
+  dir,
+  min,
+  minLength,
+  maxLength,
+  max,
+  size,
+  name,
+  pattern,
+  readOnly,
+  required,
+  step,
   ...props
-}) => {
+}: Props) => {
   const [value, setValue] = useState(valueProp ?? "");
   const [viewPassword, setViewPassword] = useState<boolean>(false);
   const togglePasswordViewer = () => {
@@ -129,6 +196,32 @@ const Input = ({
           disabled={disabled}
           error={typeof error !== "undefined"}
           onChange={onChange}
+          placeholder={placeholder}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onContextMenu={onContextMenu}
+          onInput={onInput}
+          onInvalid={onInvalid}
+          onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
+          onCopy={onCopy}
+          onCut={onCut}
+          onPaste={onPaste}
+          form={form}
+          alt={alt}
+          autoComplete={autoComplete}
+          autoFocus={autoFocus}
+          dir={dir}
+          min={min}
+          minLength={minLength}
+          maxLength={maxLength}
+          max={max}
+          size={size}
+          name={name}
+          pattern={pattern}
+          readOnly={readOnly}
+          required={required}
+          step={step}
         />
         {clear && value.length > 0 && (
           <IconButton onClick={clearInput}>
