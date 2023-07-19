@@ -73,6 +73,11 @@ const InputElement = styled.input<{ error: boolean }>`
   border: none;
   outline: none;
   width: fill-available;
+  &::placeholder {
+    ${({ theme }) => `
+      color: ${theme.click.field.color.placeholder.default};
+    `}
+  }
 `;
 
 const IconButton = styled.button`
