@@ -50,6 +50,20 @@
         }
       }
     },
+    "avatar": {
+      "color": {
+        "background": {
+          "default": "#696e79",
+          "hover": "#9a9ea7",
+          "active": "#9a9ea7"
+        },
+        "text": {
+          "default": "#ffffff",
+          "hover": "#ffffff",
+          "active": "#ffffff"
+        }
+      }
+    },
     "badge": {
       "color": {
         "background": {
@@ -386,60 +400,32 @@
         }
       }
     },
-    "contextMenu": {
-      "button": {
-        "background": {
-          "default": "#f6f7fa"
-        },
-        "label": {
-          "default": "#161517"
-        },
-        "stroke": {
-          "default": "lch(91.6 1.1 266 / 0.3)"
-        }
-      },
-      "color": {
-        "text": {
-          "default": "#161517",
-          "disabled": "#c0c0c0",
-          "muted": "#696e79",
-          "hover": "#161517",
-          "active": "#161517"
-        },
-        "background": {
-          "default": "lch(100 0 0)",
-          "hover": "lch(97.5 1.43 272)",
-          "active": "lch(97.5 1.43 272)"
-        }
-      },
-      "stroke": {
-        "default": "lch(91.6 1.1 266 / 0.3)"
-      }
-    },
     "field": {
       "color": {
         "background": {
           "default": "#f6f7fa",
+          "hover": "#f6f7fa",
           "active": "#ffffff",
           "disabled": "#dfdfdf",
-          "hover": "#f6f7fa"
+          "error": "#ffffff"
         },
         "text": {
           "default": "#302e32",
+          "hover": "#302e32",
           "active": "#161517",
           "disabled": "#a0a0a0",
-          "hover": "#302e32",
           "error": "#c10000"
         },
         "stroke": {
           "default": "lch(92 1.05 266 / 0.3)",
+          "hover": "lch(83.8 2.3 258)",
           "active": "#161517",
           "disabled": "#dfdfdf",
-          "hover": "lch(83.8 2.3 258)",
           "error": "#c10000"
         },
         "label": {
           "default": "#696e79",
+          "hover": "#696e79",
           "active": "#161517",
           "disabled": "#a0a0a0",
           "error": "#c10000"
@@ -453,6 +439,47 @@
         },
         "placeholder": {
           "default": "#696e79"
+        }
+      }
+    },
+    "genericMenu": {
+      "item": {
+        "color": {
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517",
+            "disabled": "#c0c0c0",
+            "muted": "#696e79"
+          },
+          "background": {
+            "default": "lch(100 0 0)",
+            "hover": "lch(97.5 1.43 272)",
+            "active": "lch(97.5 1.43 272)",
+            "disabled": "lch(100 0 0)"
+          },
+          "format": {
+            "default": "lch(57 5.46 269)",
+            "hover": "lch(57 5.46 269)",
+            "active": "lch(57 5.46 269)",
+            "disabled": "#a0a0a0"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)"
+          }
+        }
+      },
+      "button": {
+        "color": {
+          "background": {
+            "default": "#f6f7fa"
+          },
+          "label": {
+            "default": "#696e79"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)"
+          }
         }
       }
     },
@@ -554,56 +581,10 @@
         }
       }
     },
-    "tabs": {
-      "basic": {
-        "color": {
-          "background": {
-            "default": "rgba(0,0,0,0)",
-            "hover": "#f6f7fa",
-            "active": "rgba(0,0,0,0)"
-          },
-          "text": {
-            "default": "#696e79",
-            "hover": "#161517",
-            "active": "#161517"
-          },
-          "stroke": {
-            "default": "rgba(0,0,0,0)",
-            "hover": "rgba(0,0,0,0)",
-            "active": "#151515"
-          },
-          "global": {
-            "default": "lch(91.6 1.1 266 / 0.3)"
-          }
-        }
-      },
-      "file-tabs": {
-        "color": {
-          "background": {
-            "default": "#f6f7fa",
-            "hover": "#ffffff",
-            "active": "#ffffff"
-          },
-          "text": {
-            "default": "#696e79",
-            "hover": "#161517",
-            "active": "#161517"
-          },
-          "stroke": {
-            "default": "lch(91.6 1.1 266 / 0.3)",
-            "hover": "lch(91.6 1.1 266 / 0.3)",
-            "active": "lch(91.6 1.1 266 / 0.3)"
-          }
-        }
-      }
-    },
-    "tooltip": {
+    "separator": {
       "color": {
-        "background": {
-          "default": "lch(10.8 0 0 / 0.8)"
-        },
-        "label": {
-          "default": "#ffffff"
+        "stroke": {
+          "default": "lch(91.6 1.1 266 / 0.3)"
         }
       }
     },
@@ -687,24 +668,56 @@
         }
       }
     },
-    "avatar": {
-      "color": {
-        "background": {
-          "default": "#696e79",
-          "hover": "#9a9ea7",
-          "active": "#9a9ea7"
-        },
-        "text": {
-          "default": "#ffffff",
-          "hover": "#ffffff",
-          "active": "#ffffff"
+    "tabs": {
+      "basic": {
+        "color": {
+          "background": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "#f6f7fa",
+            "active": "rgba(0,0,0,0)"
+          },
+          "text": {
+            "default": "#696e79",
+            "hover": "#161517",
+            "active": "#161517"
+          },
+          "stroke": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "rgba(0,0,0,0)",
+            "active": "#151515"
+          },
+          "global": {
+            "default": "lch(91.6 1.1 266 / 0.3)"
+          }
+        }
+      },
+      "file-tabs": {
+        "color": {
+          "background": {
+            "default": "#f6f7fa",
+            "hover": "#ffffff",
+            "active": "#ffffff"
+          },
+          "text": {
+            "default": "#696e79",
+            "hover": "#161517",
+            "active": "#161517"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)",
+            "hover": "lch(91.6 1.1 266 / 0.3)",
+            "active": "lch(91.6 1.1 266 / 0.3)"
+          }
         }
       }
     },
-    "separator": {
+    "tooltip": {
       "color": {
-        "stroke": {
-          "default": "lch(91.6 1.1 266 / 0.3)"
+        "background": {
+          "default": "lch(10.8 0 0 / 0.8)"
+        },
+        "label": {
+          "default": "#ffffff"
         }
       }
     },

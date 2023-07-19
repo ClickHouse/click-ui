@@ -16,7 +16,5 @@ export const Label = styled.label<Pick<LabelProps, "state">>`
   color: var(--click-field-color-label-default);
 `
 
-export function TextFieldLabel({ state, text }: LabelProps) {
-  return <Label state={state}>{text}</Label>
-}
+export const TextFieldLabel = ({ state, text }: LabelProps) => <Label state={state}>{text}</Label>;
 
