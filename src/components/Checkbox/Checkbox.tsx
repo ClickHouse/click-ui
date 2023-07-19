@@ -76,7 +76,7 @@ const Label = styled.label<Partial<CheckboxProps>>`
 
 const CheckIconWrapper = styled(RadixCheckbox.Indicator)`
   ${({ theme }) => `
-    color: ${theme.click.checkbox.color.check.default};
+    color: ${theme.click.checkbox.color.check.active};
     &[data-disabled] {
       color: ${theme.click.checkbox.color.check.disabled};
     }
