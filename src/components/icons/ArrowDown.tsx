@@ -10,18 +10,11 @@ const ArrowDown = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      d="M12.0195 4.47998L12.0195 19.47"
       stroke="#161517"
-      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-    />
-    <path
-      d="M18.0117 13.4829L11.9997 19.5199L5.98772 13.4829"
-      stroke="#161517"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M12.02 4.48v14.99M18.012 13.483 12 19.52l-6.012-6.037"
     />
   </svg>
 );
