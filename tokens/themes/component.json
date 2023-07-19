@@ -854,6 +854,12 @@
             "type": "typography"
           }
         },
+        "placeholder": {
+          "default": {
+            "value": "{click.field.typography.field-text.default}",
+            "type": "typography"
+          }
+        },
         "format": {
           "default": {
             "value": "{typography.styles.text.sm}",
