@@ -35,11 +35,7 @@ export const SelectContextProvider = ({ children, value = "" }: Props) => {
     setSearchText(value);
   }, [value]);
 
-  return (
-    <SelectContext.Provider value={selectValue}>
-      {children}
-    </SelectContext.Provider>
-  );
+  return <SelectContext.Provider value={selectValue}>{children}</SelectContext.Provider>;
 };
 
 export const useSelect = () => {
@@ -67,7 +63,5 @@ export const useOptionVisible = (node: ReactNode): boolean => {
     return true;
   }
 
-  return (getNodeText(node) ?? "")
-    .toLowerCase()
-    .includes(searchText.toLowerCase());
+  return (getNodeText(node) ?? "").toLowerCase().includes(searchText.toLowerCase());
 };

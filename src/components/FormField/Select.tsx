@@ -1,4 +1,4 @@
-import React, { ChangeEvent, HTMLAttributes, ReactNode } from "react";
+import React, { ChangeEvent, HTMLAttributes, ReactNode, useState } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../Icon/Icon";
 import { Error, FormRoot, ItemSeparator } from "./commonElement";
@@ -18,6 +18,7 @@ interface SelectProps {
   label: ReactNode;
   children: ReactNode;
   error?: ReactNode;
+  search?: boolean;
 }
 
 type Props = RadixSelect.SelectProps &
@@ -117,10 +118,13 @@ const ScrollbarRoot = styled(ScrollArea)`
   height: 100%;
 `;
 
-const ScrollbarViewport = styled(ScrollAreaViewport)`
+const ScrollbarViewport = styled(ScrollAreaViewport)<{ search: boolean }>`
   width: 100%;
   $a: var(--radix-popper-available-height);
-  max-height: calc(var(--radix-popper-available-height, 0) - 20px);
+  max-height: ${({ search }) =>
+    search
+      ? "calc(var(--radix-popper-available-height, 0) - 20px)"
+      : "var(--radix-popper-available-height, 0)"};
 `;
 
 const Scrollbar = styled(ScrollAreaScrollbar)`
@@ -132,32 +136,62 @@ const ScrollbarThumb = styled(ScrollAreaThumb)`
   background: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 `;
-
+const SearchBarContainer = styled.div`
+  width: fill-available;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  ${({ theme }) => `
+    border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
+    padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
+  `}
+`;
 const SearchBar = styled.input`
   background: transparent;
   border: none;
   width: 100%;
   outline: none;
   ${({ theme }) => `
-    border-bottom: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
-    margin: 0 ${theme.click.genericMenu.item.space.x};
-    padding: ${theme.click.genericMenu.item.space.y} 0;
+    gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.item.typography.label};
+    border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
+    &::placeholder {
+      color: ${theme.click.genericMenu.autocomplete.color.placeholder.default};
+      font: ${theme.click.genericMenu.autocomplete.typography.search.placeholder.default};
+    }
   `}
 `;
 
 const Search = () => {
+  const [search, setSearch] = useState("");
   const { onSearchTextChange } = useSelect();
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onSearchTextChange(e.target.value);
+    const value = e.target.value;
+    onSearchTextChange(value);
+    setSearch(value);
+  };
+
+  const clearSearch = () => {
+    setSearch("");
+    onSearchTextChange("");
   };
 
   return (
-    <SearchBar
-      type="text"
-      onChange={onSearchChange}
-      autoFocus
-    />
+    <SearchBarContainer>
+      <SearchBar
+        value={search}
+        type="text"
+        onChange={onSearchChange}
+        autoFocus
+      />
+      {search.length > 0 && (
+        <button onClick={clearSearch}>
+          <Icon
+            name="cross"
+            size="small"
+          />
+        </button>
+      )}
+    </SearchBarContainer>
   );
 };
 
@@ -177,6 +211,7 @@ const Select = ({
   dir,
   name,
   required,
+  search,
   ...props
 }: Props) => {
   id = id ?? uniqueId("select");
@@ -215,8 +250,8 @@ const Select = ({
             <SelectContextProvider>
               <ScrollbarRoot type="auto">
                 <SelectViewport>
-                  <Search />
-                  <ScrollbarViewport>{children}</ScrollbarViewport>
+                  {search && <Search />}
+                  <ScrollbarViewport search>{children}</ScrollbarViewport>
                 </SelectViewport>
                 <Scrollbar orientation="vertical">
                   <ScrollbarThumb />
@@ -240,6 +275,7 @@ const Select = ({
 };
 interface GroupProps extends RadixSelect.SelectGroupProps {
   label?: ReactNode;
+  separator?: boolean;
 }
 
 const SelectGroup = styled(RadixSelect.Group)`
@@ -286,16 +322,18 @@ const SelectGroup = styled(RadixSelect.Group)`
 const SelectGroupLabel = styled(RadixSelect.Label)`
   display: flex;
   flex-direction: column;
-  font: ${({ theme }) => theme.click.genericMenu.item.typography.sectionHeader.default};
-  color: ${({ theme }) => theme.click.genericMenu.item.color.text.muted};
   ${({ theme }) => `
+    font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
+    color: ${theme.click.genericMenu.item.color.text.muted};
     padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
     gap: ${theme.click.genericMenu.item.space.gap};
+    border-bottom: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+
   `}
 `;
 
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
-  ({ children, label, ...props }, forwardedRef) => {
+  ({ children, label, separator, ...props }, forwardedRef) => {
     const show = useOptionVisible(children);
 
     if (!show) {
@@ -313,14 +351,6 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
   }
 );
 Group.displayName = "Select.Group";
-
-const SelectSeparator = styled(RadixSelect.Separator)`
-  ${ItemSeparator};
-`;
-const Separator = (props: RadixSelect.SelectSeparatorProps) => (
-  <SelectSeparator {...props} />
-);
-Separator.displayName = "Select.Separator";
 
 const SelectItem = styled(RadixSelect.Item)`
   display: flex;
@@ -381,7 +411,6 @@ const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
 Item.displayName = "Select.Item";
 
 Select.Group = Group;
-Select.Separator = Separator;
 Select.Item = Item;
 
 export default Select;
