@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../Icon/Icon";
-import { Error, FormRoot, ItemSeparator, Label } from "./commonElement";
+import { Error, FormRoot, ItemSeparator } from "./commonElement";
 import { uniqueId } from "lodash";
 import styled from "styled-components";
 import {
@@ -10,6 +10,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from "@radix-ui/react-scroll-area";
+import FormFieldLabel from "./FormFieldLabel";
 
 interface SelectProps {
   placeholder?: string;
@@ -192,13 +193,13 @@ const Select = ({
         </RadixSelect.Portal>
       </SelectRoot>
       {label && (
-        <Label
+        <FormFieldLabel
           htmlFor={id}
           disabled={disabled}
           error={typeof error !== "undefined"}
         >
           {label}
-        </Label>
+        </FormFieldLabel>
       )}
     </FormRoot>
   );
