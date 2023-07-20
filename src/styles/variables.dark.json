@@ -263,7 +263,7 @@
             "muted": "#b3b6bd"
           },
           "background": {
-            "default": "lch(17.8 0 0)",
+            "default": "#1F1F1C",
             "hover": "lch(23.5 0 0)",
             "active": "lch(23.5 0 0)",
             "disabled": "#414141"
@@ -279,12 +279,44 @@
             "default": "lch(27.5 0 0 / 0.3)"
           }
         }
-      }
-    },
-    "popover": {
-      "color": {
-        "background": {
-          "default": "lch(17.8 0 0)"
+      },
+      "button": {
+        "color": {
+          "background": {
+            "default": "#282828"
+          },
+          "label": {
+            "default": "#b3b6bd"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          }
+        }
+      },
+      "panel": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          }
+        }
+      },
+      "autocomplete": {
+        "color": {
+          "placeholder": {
+            "default": "#b3b6bd"
+          },
+          "searchTerm": {
+            "default": "#ffffff"
+          },
+          "background": {
+            "default": "#1F1F1C"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          }
         }
       }
     },
@@ -514,6 +546,28 @@
         }
       }
     },
+    "radio": {
+      "color": {
+        "background": {
+          "default": "#282828",
+          "hover": "#282828",
+          "active": "#fcff74",
+          "disabled": "#414141"
+        },
+        "stroke": {
+          "default": "#414141",
+          "hover": "#414141",
+          "active": "#151515",
+          "disabled": "#606060"
+        },
+        "indicator": {
+          "default": "#1F1F1C",
+          "hover": "#282828",
+          "active": "#151515",
+          "disabled": "#c0c0c0"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -538,6 +592,13 @@
         },
         "outline": {
           "default": "#fcff74"
+        }
+      }
+    },
+    "popover": {
+      "color": {
+        "background": {
+          "default": "lch(17.8 0 0)"
         }
       }
     },

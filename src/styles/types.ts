@@ -187,18 +187,45 @@
     },
     "badge": {
       "space": {
-        "x": string,
-        "y": string
+        "md": {
+          "x": string,
+          "y": string,
+          "gap": string
+        },
+        "sm": {
+          "x": string,
+          "y": string,
+          "gap": string
+        }
       },
       "typography": {
         "label": {
-          "default": string
+          "md": {
+            "default": string
+          },
+          "sm": {
+            "default": string
+          }
         }
       },
       "radii": {
         "all": string
       },
       "stroke": string,
+      "icon": {
+        "md": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "sm": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        }
+      },
       "color": {
         "background": {
           "default": string,
@@ -612,17 +639,19 @@
           "default": string,
           "active": string,
           "disabled-checked": string,
-          "disabled-unchecked": string
+          "hover": string
         },
         "stroke": {
           "default": string,
           "active": string,
-          "disabled": string
+          "disabled": string,
+          "hover": string
         },
         "check": {
           "default": string,
           "active": string,
-          "disabled": string
+          "disabled": string,
+          "hover": string
         },
         "label": {
           "default": string,
@@ -770,6 +799,9 @@
           "disabled": string,
           "error": string
         },
+        "placeholder": {
+          "default": string
+        },
         "format": {
           "default": string,
           "hover": string,
@@ -903,7 +935,8 @@
       },
       "button": {
         "space": {
-          "gap": string
+          "gap": string,
+          "y": string
         },
         "typography": {
           "label": {
@@ -922,6 +955,69 @@
           "stroke": {
             "default": string
           }
+        }
+      },
+      "panel": {
+        "radii": {
+          "all": string
+        },
+        "shadow": {
+          "default": string
+        },
+        "color": {
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      },
+      "autocomplete": {
+        "typography": {
+          "results": {
+            "label": {
+              "default": string
+            }
+          },
+          "search": {
+            "placeholder": {
+              "default": string
+            },
+            "term": {
+              "default": string
+            }
+          }
+        },
+        "search": {
+          "stroke": {
+            "default": string
+          }
+        },
+        "color": {
+          "placeholder": {
+            "default": string
+          },
+          "searchTerm": {
+            "default": string
+          },
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      },
+      "sectionHeader": {
+        "space": {
+          "bottom": string,
+          "top": string
+        }
+      },
+      "placeholder": {
+        "space": {
+          "gap": string
         }
       }
     },
@@ -964,16 +1060,6 @@
       },
       "color": {
         "stroke": string
-      }
-    },
-    "popover": {
-      "radii": {
-        "all": string
-      },
-      "color": {
-        "background": {
-          "default": string
-        }
       }
     },
     "sidebar": {
@@ -1394,6 +1480,31 @@
         }
       }
     },
+    "radio": {
+      "radii": {
+        "all": string
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "stroke": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "indicator": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1417,6 +1528,13 @@
           "default": string
         },
         "outline": {
+          "default": string
+        }
+      }
+    },
+    "popover": {
+      "color": {
+        "background": {
           "default": string
         }
       }
@@ -1614,6 +1732,7 @@
         "4": string
       },
       "sizes": {
+        "0": string,
         "1": string,
         "2": string,
         "3": string,
@@ -1622,10 +1741,10 @@
         "base": string
       },
       "line-height": {
-        "1": number,
-        "2": number,
-        "3": number,
-        "4": number
+        "1": "number",
+        "2": "number",
+        "3": "number",
+        "4": "number"
       }
     },
     "styles": {
@@ -1638,16 +1757,19 @@
         "2xl": string
       },
       "text": {
+        "xs": string,
         "sm": string,
         "md": string,
         "lg": string
       },
       "text-sbold": {
+        "xs": string,
         "sm": string,
         "md": string,
         "lg": string
       },
       "text-bold": {
+        "xs": string,
         "sm": string,
         "md": string,
         "lg": string
