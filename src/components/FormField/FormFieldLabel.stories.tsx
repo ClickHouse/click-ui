@@ -2,16 +2,14 @@ import React from "react";
 import FormFieldLabel from "./FormFieldLabel";
 
 const FieldExample = ({ disabled, error, text }) => (
-  <>
-    <FormFieldLabel
-      disabled={disabled}
-      error={error}
-      htmlFor="test"
-    >
-      {text}
-    </FormFieldLabel>
+  <FormFieldLabel
+    disabled={disabled}
+    error={error}
+    htmlFor="test"
+  >
+    {text}
     <input id="test" />
-  </>
+  </FormFieldLabel>
 );
 
 export default {
