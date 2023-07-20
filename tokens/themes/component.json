@@ -644,6 +644,12 @@
             "type": "spacing"
           }
         },
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
+        },
         "icon": {
           "size": {
             "all": {
@@ -651,12 +657,18 @@
               "type": "sizing"
             }
           }
-        }
-      },
-      "radii": {
-        "all": {
-          "value": "{border.radii.1}",
-          "type": "borderRadius"
+        },
+        "stroke": {
+          "value": "{border.width.1}",
+          "type": "borderWidth",
+          "default": {
+            "value": {
+              "color": "{click.global.color.stroke.default}",
+              "width": "{click.card.primary.stroke}",
+              "style": "solid"
+            },
+            "type": "border"
+          }
         }
       },
       "typography": {
