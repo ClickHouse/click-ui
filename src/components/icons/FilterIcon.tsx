@@ -1,24 +1,37 @@
 import { SVGAttributes } from "react";
 
-function FilterIcon(props: SVGAttributes<SVGElement>) {
-  return (
+const FilterIcon = (props: SVGAttributes<SVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
     <svg
-      xmlns='http://www.w3.org/2000/svg'
-      width='24'
-      height='24'
-      fill='none'
-      viewBox='0 0 24 24'
-      {...props}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        stroke='#fff'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='1.5'
-        d='M14.5 13.5l5.207-5.207A1 1 0 0020 7.586V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2.586c0 .265.105.52.293.707L9.5 13.5M9.5 13.5v6.249c0 .813.764 1.41 1.553 1.213l2.5-.625a1.25 1.25 0 00.947-1.213V13.5'
-      ></path>
+        d="M14.5 13.5L19.707 8.293C19.895 8.105 20 7.851 20 7.586V5C20 4.448 19.552 4 19 4H5C4.448 4 4 4.448 4 5V7.586C4 7.851 4.105 8.106 4.293 8.293L9.5 13.5"
+        stroke="#161517"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9.5 13.5V19.749C9.5 20.562 10.264 21.159 11.053 20.962L13.553 20.337C14.109 20.198 14.5 19.698 14.5 19.124V13.5"
+        stroke="#161517"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
-  );
-}
+  </svg>
+);
 
 export default FilterIcon;

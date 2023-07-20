@@ -10,11 +10,11 @@ export const ChevronRight = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      d="M10 16L14 12L10 8"
-      stroke="#242325"
-      strokeWidth="1.25"
+      stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="m10 16 4-4-4-4"
     />
   </svg>
 );
