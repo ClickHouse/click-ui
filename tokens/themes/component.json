@@ -270,20 +270,48 @@
     },
     "badge": {
       "space": {
-        "x": {
-          "value": "{spaces.3}",
-          "type": "spacing"
+        "md": {
+          "x": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "0.1875rem",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
+          }
         },
-        "y": {
-          "value": "0.1875rem",
-          "type": "spacing"
+        "sm": {
+          "x": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "0.15625rem",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "0.125rem",
+            "type": "spacing"
+          }
         }
       },
       "typography": {
         "label": {
-          "default": {
-            "value": "{typography.styles.text-sbold.sm}",
-            "type": "typography"
+          "md": {
+            "default": {
+              "value": "{typography.styles.text-sbold.sm}",
+              "type": "typography"
+            }
+          },
+          "sm": {
+            "default": {
+              "value": "{typography.styles.text-sbold.xs}",
+              "type": "typography"
+            }
           }
         }
       },
@@ -307,6 +335,32 @@
         "neutral": {
           "value": "#dfdfdf",
           "type": "color"
+        }
+      },
+      "icon": {
+        "md": {
+          "size": {
+            "height": {
+              "value": "{click.image.x-small.size.height}",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "{click.image.x-small.size.width}",
+              "type": "sizing"
+            }
+          }
+        },
+        "sm": {
+          "size": {
+            "height": {
+              "value": "0.625rem",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "0.625rem",
+              "type": "sizing"
+            }
+          }
         }
       }
     },
