@@ -10,29 +10,23 @@ const InformationIcon = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      d="M10.8535 11.877H12.004V16.1287"
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
+      d="M10.854 11.877h1.15v4.252M10.845 16.128h2.31"
     />
     <path
-      d="M10.8447 16.1281H13.155"
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M11.946 7.872a.25.25 0 1 1-.25-.25"
     />
     <path
-      d="M11.9456 7.87228C11.9456 8.01041 11.8336 8.12238 11.6955 8.12238C11.5574 8.12238 11.4454 8.01041 11.4454 7.87228C11.4454 7.73415 11.5574 7.62217 11.6955 7.62217"
-      stroke="#161517"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M11.6953 8.62305C11.8334 8.62305 11.9454 8.73502 11.9454 8.87315"
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
+      d="M11.695 8.623a.25.25 0 0 1 .25.25"
     />
   </svg>
 );
