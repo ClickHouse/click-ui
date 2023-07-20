@@ -384,7 +384,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.card.color.background.disabled}",
+            "value": "{click.card.primary.color.background.disabled}",
             "type": "color"
           }
         },
@@ -428,7 +428,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.card.color.stroke.disabled}",
+            "value": "{click.card.primary.color.stroke.disabled}",
             "type": "color",
             "$extensions": {
               "studio.tokens": {
@@ -964,113 +964,209 @@
       }
     },
     "card": {
-      "color": {
-        "background": {
-          "default": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.05",
-                  "space": "lch"
+      "primary": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
                 }
               }
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.disabled.background.default}",
+              "type": "color"
             }
           },
-          "disabled": {
-            "value": "{click.button.basic.color.disabled.background.default}",
-            "type": "color"
-          }
-        },
-        "title": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
+          "title": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.disabled.text.default}",
+              "type": "color"
+            }
           },
-          "hover": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
+          "description": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.card.primary.color.title.disabled}",
+              "type": "color"
+            }
           },
-          "active": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.button.basic.color.disabled.text.default}",
-            "type": "color"
-          }
-        },
-        "description": {
-          "default": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.card.color.title.disabled}",
-            "type": "color"
-          }
-        },
-        "link": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.text.link.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.card.color.title.disabled}",
-            "type": "color"
-          }
-        },
-        "stroke": {
-          "default": {
-            "value": "{click.global.color.stroke.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.stroke.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.stroke.default}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.05",
-                  "space": "lch"
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
                 }
               }
+            },
+            "disabled": {
+              "value": "{click.field.color.stroke.disabled}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "secondary": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.disabled.background.default}",
+              "type": "color"
             }
           },
-          "disabled": {
-            "value": "{click.field.color.stroke.disabled}",
-            "type": "color"
+          "title": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.disabled.text.default}",
+              "type": "color"
+            }
+          },
+          "description": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.card.primary.color.title.disabled}",
+              "type": "color"
+            }
+          },
+          "link": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.link.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.card.primary.color.title.disabled}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.05",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "disabled": {
+              "value": "{click.field.color.stroke.disabled}",
+              "type": "color"
+            }
           }
         }
       }
