@@ -1,11 +1,12 @@
 import { Icon, ICONS_MAP } from "../Icon/Icon";
 import Flags from "./Flags";
+import Payments from './Payments'
 import { Meta, IconGallery, IconItem } from "@storybook/blocks";
 import { ThemeProvider } from "../../theme";
 
 <Meta title='Icons' />
 
-# Icons
+# Glyphs
 
 <ThemeProvider theme='light'>
   <IconGallery>
@@ -23,6 +24,16 @@ import { ThemeProvider } from "../../theme";
   {["usa", "de", "sg", "uk", "ie", "eu", "in", "nl"].map((iconName) => (
     <IconItem name={iconName}>
       <Flags name={iconName} />
+    </IconItem>
+  ))}
+</IconGallery>
+
+# Payments
+
+<IconGallery>
+  {["visa", "mastercard", "amex", "paypal"].map((iconName) => (
+    <IconItem name={iconName}>
+      <Payments name={iconName} />
     </IconItem>
   ))}
 </IconGallery>
