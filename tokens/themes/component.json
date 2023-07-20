@@ -1140,6 +1140,26 @@
             }
           }
         }
+      },
+      "sectionHeader": {
+        "space": {
+          "bottom": {
+            "value": "{click.genericMenu.item.space.y}",
+            "type": "spacing"
+          },
+          "top": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
+        }
+      },
+      "placeholder": {
+        "space": {
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
+        }
       }
     },
     "image": {
