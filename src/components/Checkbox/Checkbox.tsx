@@ -34,11 +34,11 @@ export const Checkbox = ({
 );
 
 const Wrapper = styled.div<Partial<CheckboxProps>>`
-  padding: ${(props) => props.theme.click.checkbox.space.all};
+  padding: ${props => props.theme.click.checkbox.space.all};
 
   display: flex;
   align-items: center;
-  gap: ${(props) => props.theme.click.checkbox.space.gap};
+  gap: ${props => props.theme.click.checkbox.space.gap};
 `;
 
 const CheckInput = styled(RadixCheckbox.Root)`
@@ -57,7 +57,7 @@ const CheckInput = styled(RadixCheckbox.Root)`
       background: ${theme.click.checkbox.color.background.active};
     }
     &[data-disabled] {
-      background: ${theme.click.checkbox.color.background["disabled-unchecked"]};
+      background: ${theme.click.checkbox.color.background["disabled-checked"]};
       border-color: ${theme.click.checkbox.color.stroke.disabled};
       &[data-state="checked"] {
         background: ${theme.click.checkbox.color.background["disabled-checked"]};
@@ -68,7 +68,7 @@ const CheckInput = styled(RadixCheckbox.Root)`
 `;
 
 const Label = styled.label<Partial<CheckboxProps>>`
-  color: ${(props) =>
+  color: ${props =>
     props.isDisabled
       ? props.theme.click.checkbox.color.label.disabled
       : props.theme.click.checkbox.color.label.default};
