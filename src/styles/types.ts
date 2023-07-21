@@ -692,6 +692,14 @@
       "size": {
         "all": string
       },
+      "typography": {
+        "label": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
+      },
       "color": {
         "background": {
           "default": string,
@@ -850,7 +858,7 @@
           "disabled": string,
           "error": string
         },
-        "field-text": {
+        "fieldText": {
           "default": string,
           "hover": string,
           "active": string,
@@ -1542,6 +1550,14 @@
       "radii": {
         "all": string
       },
+      "typography": {
+        "label": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
+      },
       "color": {
         "background": {
           "default": string,
@@ -1831,10 +1847,10 @@
         "base": string
       },
       "line-height": {
-        "1": "number",
-        "2": "number",
-        "3": "number",
-        "4": "number"
+        "1": number,
+        "2": number,
+        "3": number,
+        "4": number
       }
     },
     "styles": {
