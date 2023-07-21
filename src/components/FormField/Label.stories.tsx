@@ -1,21 +1,21 @@
 import React from "react";
-import FormFieldLabel from "./FormFieldLabel";
+import Label from "./Label";
 
 const FieldExample = ({ disabled, error, text }) => (
-  <FormFieldLabel
+  <Label
     disabled={disabled}
     error={error}
     htmlFor="test"
   >
     {text}
     <input id="test" />
-  </FormFieldLabel>
+  </Label>
 );
 
 export default {
   component: FieldExample,
-  title: "FormFieldLabel",
-  tags: ["form-field", "form-field-label"],
+  title: "Label",
+  tags: ["form-field", "label"],
   argTypes: {
     disabled: { control: "boolean" },
     error: { control: "boolean" },

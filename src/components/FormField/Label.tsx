@@ -7,7 +7,7 @@ export interface LabelProps extends HTMLAttributes<HTMLLabelElement> {
   htmlFor?: string;
 }
 
-const Label = styled.label<LabelProps>`
+const FormFieldLabel = styled.label<LabelProps>`
   ${({ theme, disabled, error }) => `
     ${
       disabled
@@ -36,14 +36,12 @@ const Label = styled.label<LabelProps>`
   `}
 `;
 
-const FormFieldLabel = ({ disabled, error, children, ...props }: LabelProps) => (
-  <Label
+export const Label = ({ disabled, error, children, ...props }: LabelProps) => (
+  <FormFieldLabel
     disabled={disabled}
     error={error}
     {...props}
   >
     {children}
-  </Label>
+  </FormFieldLabel>
 );
-
-export default FormFieldLabel;

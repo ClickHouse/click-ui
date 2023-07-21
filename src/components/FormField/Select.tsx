@@ -10,7 +10,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from "@radix-ui/react-scroll-area";
-import FormFieldLabel from "./FormFieldLabel";
+import Label from "./Label";
 
 interface SelectProps {
   placeholder?: string;
@@ -193,13 +193,13 @@ const Select = ({
         </RadixSelect.Portal>
       </SelectRoot>
       {label && (
-        <FormFieldLabel
+        <Label
           htmlFor={id}
           disabled={disabled}
           error={typeof error !== "undefined"}
         >
           {label}
-        </FormFieldLabel>
+        </Label>
       )}
     </FormRoot>
   );
