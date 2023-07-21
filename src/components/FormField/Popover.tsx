@@ -1,7 +1,9 @@
 import * as RadixPopover from "@radix-ui/react-popover";
-import { GenericMenuPanel } from "./GenericMenu";
+import { Arrow, GenericMenuPanel } from "./GenericMenu";
 import styled from "styled-components";
 import { ReactNode } from "react";
+import { Icon } from "..";
+import { EmptyButton } from "./commonElement";
 
 const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
@@ -37,15 +39,28 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
   forceMount?: true;
   container?: HTMLElement | null;
 }
-const Arrow = styled(RadixPopover.Arrow)`
-  ${({ theme }) => `
-    fill: ${theme.click.genericMenu.panel.color.background.default};
-    stroke: ${theme.click.genericMenu.panel.color.stroke.default};
-  `}
+
+const MenuPanel = styled(GenericMenuPanel)<{ showClose?: boolean; showArrow?: boolean }>`
+  padding: 0.5rem 1rem;
+
+  ${({ showClose }) =>
+    showClose
+      ? `
+    padding-top: 1rem;
+  `
+      : ""};
+  ${({ showArrow }) =>
+    showArrow
+      ? `
+    margin: -1px 0;
+  `
+      : ""};
 `;
 
-const MenuPanel = styled(GenericMenuPanel)`
-  padding: 0.5rem 1rem;
+const CloseButton = styled(EmptyButton)`
+  position: absolute;
+  top: 0px;
+  right: 0px;
 `;
 
 const PopoverContent = ({
@@ -64,15 +79,36 @@ const PopoverContent = ({
       <MenuPanel
         as={RadixPopover.Content}
         type="popover"
+        showClose={showClose}
+        showArrow={showArrow}
         {...props}
       >
-        {showClose && <RadixPopover.Close />}
+        {showClose && (
+          <CloseButton
+            as={RadixPopover.Close}
+            asChild
+          >
+            <Icon name="cross" />
+          </CloseButton>
+        )}
         {showArrow && (
-          <Arrow asChild>
-            <Icon
-              name="arrow"
-              size="md"
-            />
+          <Arrow
+            asChild
+            as={RadixPopover.Arrow}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="10"
+              viewBox="0 0 30 10"
+              fill="none"
+            >
+              <path
+                d="M0 -1L15 9L30 -1"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+            </svg>
           </Arrow>
         )}
         {children}

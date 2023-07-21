@@ -7,14 +7,14 @@ const PopoverComponent = ({
   showClose,
   forceMount,
 }: {
-  open?: boolean;
+  open: "default" | "open" | "closed";
   modal: boolean;
   showArrow: boolean;
   showClose: boolean;
   forceMount?: boolean;
 }) => (
   <Popover
-    open={open}
+    open={open === "default" ? undefined : open === "open"}
     modal={modal}
   >
     <Popover.Trigger>
@@ -35,7 +35,7 @@ export default {
   title: "Popover",
   tags: ["form-field", "popover"],
   argTypes: {
-    open: { control: "boolean" },
+    open: { control: "radio", options: ["default", "open", "closed"] },
     modal: { control: "boolean" },
     showArrow: { control: "boolean" },
     showClose: { control: "boolean" },
@@ -44,5 +44,7 @@ export default {
 };
 
 export const Default = {
-  args: {},
+  args: {
+    open: "default",
+  },
 };

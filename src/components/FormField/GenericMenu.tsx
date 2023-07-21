@@ -17,3 +17,10 @@ export const GenericMenuPanel = styled.div<{
     border-radius: ${theme.click.genericMenu.panel.radii.all};
   `}
 `;
+
+export const Arrow = styled.svg`
+  ${({ theme }) => `
+    fill: ${theme.click.genericMenu.panel.color.background.default};
+    stroke: ${theme.click.genericMenu.panel.color.stroke.default};
+  `}
+`;
