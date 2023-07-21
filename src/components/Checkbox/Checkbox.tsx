@@ -1,43 +1,37 @@
 import { Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
+import { useId } from "react";
 import styled from "styled-components";
 
-export type CheckboxProps = {
+export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
   label?: string;
-  isDisabled?: boolean;
-  isChecked?: boolean;
-  onChange?: (checked: boolean) => void;
+}
+export const Checkbox = ({ id, label = "", ...delegated }: CheckboxProps) => {
+  const defaultId = useId();
+  return (
+    <Wrapper>
+      <CheckInput
+        id={id ?? defaultId}
+        data-testid="checkbox"
+        {...delegated}
+      >
+        <CheckIconWrapper>
+          <Icon
+            name="check"
+            size="small"
+          />
+        </CheckIconWrapper>
+      </CheckInput>
+      {label && <label htmlFor={id ?? defaultId}>{label}</label>}
+    </Wrapper>
+  );
 };
-export const Checkbox = ({
-  label = "",
-  isDisabled = false,
-  isChecked = false,
-  onChange,
-  ...delegated
-}: CheckboxProps) => (
-  <Wrapper>
-    <CheckInput
-      disabled={isDisabled}
-      checked={isChecked}
-      onCheckedChange={onChange}
-      data-testid='checkbox'
-      {...delegated}
-    >
-      <CheckIconWrapper>
-        <Icon name='check' size='small' />
-      </CheckIconWrapper>
-    </CheckInput>
-    <Label isDisabled={isDisabled} isChecked={isChecked}>
-      {label}
-    </Label>
-  </Wrapper>
-);
 
-const Wrapper = styled.div<Partial<CheckboxProps>>`
-  padding: ${props => props.theme.click.checkbox.space.all};
+const Wrapper = styled.div`
+  padding: ${({ theme }) => theme.click.checkbox.space.all};
   display: flex;
   align-items: center;
-  gap: ${props => props.theme.click.checkbox.space.gap};
+  gap: ${({ theme }) => theme.click.checkbox.space.gap};
 `;
 
 const CheckInput = styled(RadixCheckbox.Root)`
@@ -51,9 +45,22 @@ const CheckInput = styled(RadixCheckbox.Root)`
     background: ${theme.click.checkbox.color.background.default};
     border: 1px solid ${theme.click.checkbox.color.stroke.default};
 
+    & ~ label {
+      color: ${theme.click.checkbox.color.label.default};
+      font: ${theme.click.field.typography.fieldText.default}
+    }
+    &:hover {
+      background: ${theme.click.checkbox.color.background.hover};
+      &~ label {
+        color: ${theme.click.checkbox.color.label.hover};
+      }
+    }
     &[data-state="checked"] {
       border-color: ${theme.click.checkbox.color.stroke.active};
       background: ${theme.click.checkbox.color.background.active};
+      & ~ label {
+        color: ${theme.click.checkbox.color.label.active};
+      }
     }
     &[data-disabled] {
       background: ${theme.click.checkbox.color.background.disabled};
@@ -62,28 +69,11 @@ const CheckInput = styled(RadixCheckbox.Root)`
         background: ${theme.click.checkbox.color.background.disabled};
         border-color: ${theme.click.checkbox.color.stroke.disabled};
       }
+      & ~ label {
+        color: ${theme.click.checkbox.color.label.disabled};
+      }
     }
   `};
-`;
-
-const Label = styled.label<Partial<CheckboxProps>>`
-${({ theme }) => `
-  font: ${theme.click.checkbox.typography.label.default};
-  color: ${theme.click.checkbox.color.label.default};
-  &:hover {
-    font: ${theme.click.checkbox.typography.label.hover};
-    color: ${theme.click.checkbox.color.label.hover};
-  }
-  &:active {
-    font: ${theme.click.checkbox.typography.label.active};
-    color: ${theme.click.checkbox.color.label.active};
-  }  
-  `}
-  
-  color: ${props =>
-    props.isDisabled
-      ? props.theme.click.checkbox.color.label.disabled
-      : props.theme.click.checkbox.color.label.default};
 `;
 
 const CheckIconWrapper = styled(RadixCheckbox.Indicator)`

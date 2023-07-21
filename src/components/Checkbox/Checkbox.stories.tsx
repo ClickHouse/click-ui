@@ -1,65 +1,35 @@
 import { Checkbox } from "./Checkbox";
 
+const CheckboxComponent = ({
+  checked,
+  ...props
+}: {
+  checked: "default" | "checked" | "unchecked";
+  disabled: boolean;
+  label?: string;
+}) => {
+  return (
+    <Checkbox
+      checked={checked === "default" ? undefined : checked === "checked"}
+      {...props}
+    />
+  );
+};
 export default {
-  component: Checkbox,
+  component: CheckboxComponent,
   title: "Checkbox",
   tags: ["checkbox"],
+  argTypes: {
+    checked: { control: "radio", options: ["default", "checked", "unchecked"] },
+    disabled: { control: "boolean" },
+    label: { control: "text" },
+  },
 };
 
 export const Default = {
   args: {
     label: "Accept terms and conditions",
-    isDisabled: false,
-    isChecked: false,
-  },
-};
-
-export const Hover = {
-  args: {
-    label: "Accept terms and conditions",
-    isDisabled: false,
-    isChecked: false,
-  },
-  parameters: {
-    pseudo: {
-      hover: true,
-    },
-  },
-};
-
-export const Checked = {
-  args: {
-    label: "Accept terms and conditions",
-    isDisabled: false,
-    isChecked: true,
-  },
-};
-
-export const DisabledDefault = {
-  args: {
-    label: "Accept terms and conditions",
-    isDisabled: true,
-    isChecked: false,
-  },
-};
-
-export const DisabledHover = {
-  args: {
-    label: "Accept terms and conditions",
-    isDisabled: true,
-    isChecked: false,
-  },
-  parameters: {
-    pseudo: {
-      hover: true,
-    },
-  },
-};
-
-export const DisabledChecked = {
-  args: {
-    label: "Accept terms and conditions",
-    isDisabled: true,
-    isChecked: true,
+    disabled: false,
+    checked: "default",
   },
 };

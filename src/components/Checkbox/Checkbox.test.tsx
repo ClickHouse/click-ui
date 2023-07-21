@@ -16,7 +16,7 @@ describe("Checkbox", () => {
     let counter = 0;
     const handleClick = () => counter++;
     const { getByTestId } = renderCheckbox({
-      onChange: handleClick,
+      onCheckedChange: handleClick,
       label: "Accept terms and conditions",
     });
     const checkbox = getByTestId("checkbox");
@@ -29,9 +29,9 @@ describe("Checkbox", () => {
     let counter = 0;
     const handleClick = () => counter++;
     const { getByTestId } = renderCheckbox({
-      onChange: handleClick,
+      onCheckedChange: handleClick,
       label: "Accept terms and conditions",
-      isDisabled: true,
+      disabled: true,
     });
     const checkbox = getByTestId("checkbox");
     fireEvent.click(checkbox);
