@@ -10,27 +10,19 @@ const WarningIcon = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      d="M12 13.1199V9.37988"
       stroke="#161517"
-      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M12 13.12V9.38M11.999 16.125a.25.25 0 1 0 .002.5.25.25 0 0 0-.002-.5"
     />
     <path
-      d="M11.999 16.125C11.861 16.125 11.749 16.237 11.75 16.375C11.75 16.513 11.862 16.625 12 16.625C12.138 16.625 12.25 16.513 12.25 16.375C12.25 16.237 12.138 16.125 11.999 16.125"
       stroke="#161517"
-      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-    />
-    <path
-      fillRule="evenodd"
+      strokeWidth={1.5}
+      d="m14.029 4.14 7.659 13.403c.89 1.558-.235 3.497-2.03 3.497H4.342c-1.795 0-2.92-1.939-2.03-3.497L9.972 4.14c.897-1.57 3.16-1.57 4.058 0Z"
       clipRule="evenodd"
-      d="M14.0288 4.13919L21.6878 17.5432C22.5778 19.1012 21.4528 21.0402 19.6588 21.0402H4.34076C2.54576 21.0402 1.42076 19.1012 2.31176 17.5432L9.97076 4.13919C10.8678 2.56819 13.1318 2.56819 14.0288 4.13919Z"
-      stroke="#161517"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
   </svg>
 );
