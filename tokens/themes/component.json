@@ -796,6 +796,14 @@
       "shadow": {
         "value": "{shadow.1}",
         "type": "boxShadow"
+      },
+      "horizontal": {
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
+        }
       }
     },
     "checkbox": {
