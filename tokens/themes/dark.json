@@ -568,17 +568,25 @@
             "value": "{click.field.color.background.default}",
             "type": "color"
           },
+          "hover": {
+            "value": "{click.field.color.background.default}",
+            "type": "color"
+          },
           "active": {
             "value": "{palette.brand.300}",
             "type": "color"
           },
-          "disabled-checked": {
+          "disabled": {
             "value": "{palette.neutral.700}",
             "type": "color"
           }
         },
         "stroke": {
           "default": {
+            "value": "{click.global.color.stroke.intense}",
+            "type": "color"
+          },
+          "hover": {
             "value": "{click.global.color.stroke.intense}",
             "type": "color"
           },
@@ -596,12 +604,16 @@
             "value": "{palette.neutral.0}",
             "type": "color"
           },
+          "hover": {
+            "value": "{palette.neutral.0}",
+            "type": "color"
+          },
           "active": {
             "value": "{palette.neutral.900}",
             "type": "color"
           },
           "disabled": {
-            "value": "#c0c0c0",
+            "value": "{click.button.iconButton.color.disabled.text.default}",
             "type": "color"
           }
         },
@@ -610,12 +622,16 @@
             "value": "{click.global.color.text.default}",
             "type": "color"
           },
-          "off": {
-            "value": "#696e79",
+          "hover": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.text.default}",
             "type": "color"
           },
           "disabled": {
-            "value": "#a0a0a0",
+            "value": "{click.field.color.label.disabled}",
             "type": "color"
           }
         }
@@ -1660,7 +1676,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.checkbox.color.background.disabled-checked}",
+            "value": "{click.checkbox.color.background.disabled}",
             "type": "color"
           }
         },

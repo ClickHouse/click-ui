@@ -1186,7 +1186,7 @@
             "value": "{palette.slate.900}",
             "type": "color"
           },
-          "disabled-checked": {
+          "disabled": {
             "value": "{palette.neutral.200}",
             "type": "color"
           }
@@ -1230,6 +1230,10 @@
         "label": {
           "default": {
             "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.checkbox.color.label.default}",
             "type": "color"
           },
           "active": {
@@ -1755,6 +1759,64 @@
         }
       }
     },
+    "radio": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{click.checkbox.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.radio.color.background.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.checkbox.color.background.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.color.background.disabled}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.checkbox.color.stroke.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.radio.color.stroke.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{palette.neutral.900}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.color.stroke.disabled}",
+            "type": "color"
+          }
+        },
+        "indicator": {
+          "default": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.radio.color.background.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.checkbox.color.check.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.checkbox.color.check.disabled}",
+            "type": "color"
+          }
+        }
+      }
+    },
     "separator": {
       "color": {
         "stroke": {
@@ -2234,64 +2296,6 @@
         "label": {
           "default": {
             "value": "{palette.neutral.0}",
-            "type": "color"
-          }
-        }
-      }
-    },
-    "radio": {
-      "color": {
-        "background": {
-          "default": {
-            "value": "{click.checkbox.color.background.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.radio.color.background.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.checkbox.color.background.active}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.checkbox.color.background.disabled-checked}",
-            "type": "color"
-          }
-        },
-        "stroke": {
-          "default": {
-            "value": "{click.checkbox.color.stroke.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.radio.color.stroke.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{palette.neutral.900}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.checkbox.color.stroke.disabled}",
-            "type": "color"
-          }
-        },
-        "indicator": {
-          "default": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.radio.color.background.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.checkbox.color.check.active}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.checkbox.color.check.disabled}",
             "type": "color"
           }
         }
