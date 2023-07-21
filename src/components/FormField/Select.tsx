@@ -10,7 +10,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from "@radix-ui/react-scroll-area";
-import Label from "./Label";
+import { Label } from "./Label";
 
 interface SelectProps {
   placeholder?: string;
