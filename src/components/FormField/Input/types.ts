@@ -23,25 +23,32 @@ export interface TextInput extends CommonProps {
   minLength?: number;
   maxLength?: number;
   pattern?: string;
-  size: number;
-  min: never;
-  max: never;
-  step: never;
+  size?: number;
+  min?: never;
+  max?: never;
+  step?: never;
 }
 
 export interface PasswordInputProps extends Omit<TextInput, "type"> {
   type?: "password";
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  size?: number;
+  min?: never;
+  max?: never;
+  step?: never;
 }
 
 export interface NumberInput extends CommonProps {
-  type: "number";
+  type?: "number";
   min?: string;
   max?: string;
   step?: string;
-  minLength: never;
+  minLength?: never;
   maxLength?: never;
-  pattern: never;
-  size: never;
+  pattern?: never;
+  size?: never;
 }
 
 export type InputProps = TextInput | NumberInput;
