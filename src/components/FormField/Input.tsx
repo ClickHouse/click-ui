@@ -84,10 +84,13 @@ const InputElement = styled.input<{ error: boolean }>`
 
 const IconButton = styled.button`
   background: transparent;
+  color: inherit;
   border: none;
   padding: 0;
   outline: none;
-  cursor: pointer;
+  &:not(:disabled) {
+    cursor: pointer;
+  }
   ${({ theme }) => `
     &:first-of-type {
       padding-left: ${theme.click.field.space.gap};
@@ -231,7 +234,10 @@ const Input = ({
           step={step}
         />
         {clear && value.length > 0 && (
-          <IconButton onClick={clearInput}>
+          <IconButton
+            disabled={disabled}
+            onClick={clearInput}
+          >
             <Icon
               name="cross"
               size="small"
@@ -239,7 +245,10 @@ const Input = ({
           </IconButton>
         )}
         {type === "password" ? (
-          <IconButton onClick={togglePasswordViewer}>
+          <IconButton
+            disabled={disabled}
+            onClick={togglePasswordViewer}
+          >
             {viewPassword ? (
               <Icon
                 name="eye-closed"
