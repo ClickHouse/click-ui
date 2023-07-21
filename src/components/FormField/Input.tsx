@@ -1,4 +1,4 @@
-import { ChangeEvent, HTMLAttributes, ReactNode, useState } from "react";
+import { ChangeEvent, HTMLAttributes, ReactNode, useId, useState } from "react";
 import { Error, FormRoot, Label } from "./commonElement";
 import styled from "styled-components";
 import { Icon } from "..";
@@ -179,6 +179,7 @@ const Input = ({
   step,
   ...props
 }: Props) => {
+  const defaultId = useId();
   const [value, setValue] = useState(valueProp ?? "");
   const [viewPassword, setViewPassword] = useState<boolean>(false);
   const togglePasswordViewer = () => {
@@ -201,7 +202,7 @@ const Input = ({
       <InputContainer error={typeof error !== "undefined"}>
         <InputElement
           type={type === "password" && viewPassword ? "text" : type}
-          id={id}
+          id={id ?? defaultId}
           value={value}
           disabled={disabled}
           error={typeof error !== "undefined"}
@@ -265,7 +266,7 @@ const Input = ({
       </InputContainer>
       {label && (
         <Label
-          htmlFor={id}
+          htmlFor={id ?? defaultId}
           disabled={disabled}
           error={typeof error !== "undefined"}
         >
