@@ -35,7 +35,7 @@ export default {
   title: "Popover",
   tags: ["form-field", "popover"],
   argTypes: {
-    open: { control: "radio", options: ["default", "open", "closed"] },
+    open: { control: "inline-radio", options: ["default", "open", "closed"] },
     modal: { control: "boolean" },
     showArrow: { control: "boolean" },
     showClose: { control: "boolean" },
