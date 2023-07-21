@@ -1,4 +1,4 @@
-import Popover from "./Popover";
+import { Popover } from "./Popover";
 
 const PopoverComponent = ({
   open,

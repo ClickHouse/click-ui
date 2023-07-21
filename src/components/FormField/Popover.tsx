@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { Icon } from "..";
 import { EmptyButton } from "./commonElement";
 
-const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
+export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
 };
 
@@ -119,4 +119,3 @@ const PopoverContent = ({
 PopoverContent.displayName = "PopoverContent";
 Popover.Content = PopoverContent;
 
-export default Popover;
