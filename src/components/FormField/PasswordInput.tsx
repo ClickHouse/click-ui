@@ -116,7 +116,6 @@ interface CommonProps extends HTMLAttributes<HTMLDivElement> {
   name?: string;
   readOnly?: boolean;
   required?: boolean;
-  loading?: boolean;
 }
 
 interface TextInput extends CommonProps {
@@ -143,7 +142,7 @@ interface NumberInput extends CommonProps {
 
 type Props = TextInput | NumberInput;
 
-export const Input = ({
+const Input = ({
   id,
   label,
   error,
@@ -178,7 +177,6 @@ export const Input = ({
   readOnly,
   required,
   step,
-  loading,
   ...props
 }: Props) => {
   const defaultId = useId();
@@ -264,17 +262,6 @@ export const Input = ({
             )}
           </IconButton>
         ) : null}
-        {loading && (
-          <IconButton
-            disabled={disabled}
-            onClick={clearInput}
-          >
-            <Icon
-              name="loading"
-              size="small"
-            />
-          </IconButton>
-        )}
       </InputContainer>
       {label && (
         <Label
@@ -288,3 +275,5 @@ export const Input = ({
     </FormRoot>
   );
 };
+
+export default Input;

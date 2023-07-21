@@ -9,6 +9,7 @@ export { Card } from "./Card/Card";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { HoverCard } from "./HoverCard/HoverCard";
 export { Icon } from "./Icon/Icon";
+export { Input } from "./FormField/Input";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { IconButton } from "./IconButton/IconButton";

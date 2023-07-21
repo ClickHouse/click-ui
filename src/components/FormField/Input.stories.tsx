@@ -1,4 +1,4 @@
-import Input from "./Input";
+import { Input } from "./Input";
 
 export default {
   component: Input,
@@ -23,6 +23,7 @@ export default {
     name: { control: "string" },
     readOnly: { control: "boolean" },
     required: { control: "boolean" },
+    loading: { control: "boolean" },
     minLength: { control: "number", if: { type: "number", truthy: false } },
     maxLength: { control: "number", if: { type: "number", truthy: false } },
     pattern: { control: "string", if: { type: "number", truthy: false } },
