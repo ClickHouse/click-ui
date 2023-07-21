@@ -558,16 +558,51 @@
       }
     },
     "card": {
-      "space": {
-        "all": string,
-        "gap": string
-      },
-      "radii": {
-        "all": string
-      },
-      "icon": {
-        "size": {
+      "secondary": {
+        "space": {
+          "all": string,
+          "gap": string
+        },
+        "radii": {
           "all": string
+        },
+        "icon": {
+          "size": {
+            "all": string
+          }
+        },
+        "stroke": string,
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "title": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "description": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "link": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
         }
       },
       "typography": {
@@ -590,38 +625,61 @@
           "disabled": string
         }
       },
-      "color": {
-        "background": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+      "primary": {
+        "size": {
+          "icon": {
+            "sm": {
+              "all": string
+            },
+            "md": {
+              "all": string
+            }
+          }
         },
-        "title": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+        "space": {
+          "md": {
+            "y": string,
+            "x": string,
+            "gap": string
+          },
+          "sm": {
+            "y": string,
+            "x": string,
+            "gap": string
+          }
         },
-        "description": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+        "radii": {
+          "all": string
         },
-        "link": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
-        },
-        "stroke": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+        "stroke": string,
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "title": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "description": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
         }
-      }
+      },
+      "shadow": string
     },
     "checkbox": {
       "radii": {
@@ -637,27 +695,27 @@
       "color": {
         "background": {
           "default": string,
+          "hover": string,
           "active": string,
-          "disabled-checked": string,
-          "hover": string
+          "disabled": string
         },
         "stroke": {
           "default": string,
+          "hover": string,
           "active": string,
-          "disabled": string,
-          "hover": string
+          "disabled": string
         },
         "check": {
           "default": string,
+          "hover": string,
           "active": string,
-          "disabled": string,
-          "hover": string
+          "disabled": string
         },
         "label": {
           "default": string,
-          "off": string,
-          "disabled": string,
-          "active": string
+          "hover": string,
+          "active": string,
+          "disabled": string
         }
       }
     },
@@ -1505,6 +1563,38 @@
         }
       }
     },
+    "spacer": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
+          },
+          "x": {
+            "all": string
+          }
+        }
+      },
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
+          },
+          "y": {
+            "all": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1741,10 +1831,10 @@
         "base": string
       },
       "line-height": {
-        "1": number,
-        "2": number,
-        "3": number,
-        "4": number
+        "1": "number",
+        "2": "number",
+        "3": "number",
+        "4": "number"
       }
     },
     "styles": {

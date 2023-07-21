@@ -557,16 +557,51 @@
       }
     },
     "card": {
-      "space": {
-        "all": "1rem",
-        "gap": "1rem"
-      },
-      "radii": {
-        "all": "0.25rem"
-      },
-      "icon": {
-        "size": {
-          "all": "2rem"
+      "secondary": {
+        "space": {
+          "all": "1rem",
+          "gap": "1rem"
+        },
+        "radii": {
+          "all": "0.25rem"
+        },
+        "icon": {
+          "size": {
+            "all": "2rem"
+          }
+        },
+        "stroke": "1px",
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "#f6f7fa",
+            "active": "lch(92.4 1.49 272)",
+            "disabled": "#dfdfdf"
+          },
+          "title": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          },
+          "description": {
+            "default": "#696e79",
+            "hover": "#696e79",
+            "active": "#696e79",
+            "disabled": "#a0a0a0"
+          },
+          "link": {
+            "default": "#161517",
+            "hover": "#135be6",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)",
+            "hover": "lch(91.6 1.1 266 / 0.3)",
+            "active": "lch(87 1.05 266 / 0.3)",
+            "disabled": "#dfdfdf"
+          }
         }
       },
       "typography": {
@@ -589,38 +624,61 @@
           "disabled": "500 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
         }
       },
-      "color": {
-        "background": {
-          "default": "#ffffff",
-          "hover": "#f6f7fa",
-          "active": "lch(92.4 1.49 272)",
-          "disabled": "#dfdfdf"
+      "primary": {
+        "size": {
+          "icon": {
+            "sm": {
+              "all": "2rem"
+            },
+            "md": {
+              "all": "4rem"
+            }
+          }
         },
-        "title": {
-          "default": "#161517",
-          "hover": "#161517",
-          "active": "#161517",
-          "disabled": "#a0a0a0"
+        "space": {
+          "md": {
+            "y": "1.5rem",
+            "x": "1.5rem",
+            "gap": "0.75rem"
+          },
+          "sm": {
+            "y": "1.5rem",
+            "x": "1.5rem",
+            "gap": "0.25rem"
+          }
         },
-        "description": {
-          "default": "#696e79",
-          "hover": "#696e79",
-          "active": "#696e79",
-          "disabled": "#a0a0a0"
+        "radii": {
+          "all": "0.25rem"
         },
-        "link": {
-          "default": "#161517",
-          "hover": "#135be6",
-          "active": "#161517",
-          "disabled": "#a0a0a0"
-        },
-        "stroke": {
-          "default": "lch(91.6 1.1 266 / 0.3)",
-          "hover": "lch(91.6 1.1 266 / 0.3)",
-          "active": "lch(87 1.05 266 / 0.3)",
-          "disabled": "#dfdfdf"
+        "stroke": "1px",
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "#f6f7fa",
+            "active": "lch(92.4 1.49 272)",
+            "disabled": "#dfdfdf"
+          },
+          "title": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          },
+          "description": {
+            "default": "#696e79",
+            "hover": "#696e79",
+            "active": "#696e79",
+            "disabled": "#a0a0a0"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)",
+            "hover": "lch(91.6 1.1 266 / 0.3)",
+            "active": "lch(87 1.05 266 / 0.3)",
+            "disabled": "#dfdfdf"
+          }
         }
-      }
+      },
+      "shadow": "0 1px 2px 0 rgba(16, 24, 40, 0.06), 0 1px 3px 0 rgba(16, 24, 40, 0.1)"
     },
     "checkbox": {
       "radii": {
@@ -636,27 +694,27 @@
       "color": {
         "background": {
           "default": "#f6f7fa",
+          "hover": "#f6f7fa",
           "active": "#161517",
-          "disabled-checked": "#dfdfdf",
-          "hover": "#f6f7fa"
+          "disabled": "#dfdfdf"
         },
         "stroke": {
           "default": "#b3b6bd",
+          "hover": "#b3b6bd",
           "active": "#161517",
-          "disabled": "#c0c0c0",
-          "hover": "#b3b6bd"
+          "disabled": "#c0c0c0"
         },
         "check": {
           "default": "#ffffff",
+          "hover": "#ffffff",
           "active": "#ffffff",
-          "disabled": "#a0a0a0",
-          "hover": "#ffffff"
+          "disabled": "#a0a0a0"
         },
         "label": {
           "default": "#161517",
-          "off": "#696e79",
-          "disabled": "#a0a0a0",
-          "active": "#161517"
+          "hover": "#161517",
+          "active": "#161517",
+          "disabled": "#a0a0a0"
         }
       }
     },
@@ -1504,6 +1562,38 @@
         }
       }
     },
+    "spacer": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": "0",
+            "sm": "0.25rem",
+            "md": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "xxl": "2rem"
+          },
+          "x": {
+            "all": "0"
+          }
+        }
+      },
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": "0",
+            "sm": "0.25rem",
+            "md": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "xxl": "2rem"
+          },
+          "y": {
+            "all": "0"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1594,7 +1684,7 @@
       "50": "#ffffe8",
       "100": "#feffba",
       "200": "#fdffa3",
-      "300": "#fcff74",
+      "300": "#FAFF69",
       "400": "#eef400",
       "500": "#9fa300",
       "600": "#4f5100",
