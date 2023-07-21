@@ -744,6 +744,13 @@
         }
       }
     },
+    "popover": {
+      "color": {
+        "background": {
+          "default": "lch(17.8 0 0)"
+        }
+      }
+    },
     "feedback": {
       "color": {
         "info": {

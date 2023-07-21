@@ -386,12 +386,19 @@
           "default": "#b3b6bd",
           "hover": "#b3b6bd",
           "active": "#161517",
-          "disabled": "#c0c0c0"
+          "disabled": "#c0c0c0",
+          "hover": "#b3b6bd"
         },
         "check": {
           "default": "#ffffff",
           "hover": "#ffffff",
           "active": "#ffffff",
+          "disabled": "#a0a0a0"
+        },
+        "label": {
+          "default": "#161517",
+          "hover": "#161517",
+          "active": "#161517",
           "disabled": "#a0a0a0"
         }
       }
