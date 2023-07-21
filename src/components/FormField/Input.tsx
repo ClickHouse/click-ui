@@ -73,11 +73,13 @@ const InputElement = styled.input<{ error: boolean }>`
   border: none;
   outline: none;
   width: fill-available;
-  &::placeholder {
-    ${({ theme }) => `
+  color: inherit;
+  font: inherit;
+  ${({ theme }) => `
+    &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
-    `}
-  }
+    }
+  `}
 `;
 
 const IconButton = styled.button`
