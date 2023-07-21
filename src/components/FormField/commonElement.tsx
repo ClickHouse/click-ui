@@ -1,26 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const Label = styled.label<{ disabled?: boolean; error?: boolean }>`
-  ${({ theme, disabled, error }) => `
-    ${
-      disabled
-        ? `
-    color: ${theme.click.field.color.label.disabled};
-    font: ${theme.click.field.typography.label.disabled};
-    `
-        : error
-        ? `
-    color: ${theme.click.field.color.label.error};
-    font: ${theme.click.field.typography.label.error};
-    `
-        : `
-    color: ${theme.click.field.color.label.default};
-    font: ${theme.click.field.typography.label.default};
-    `
-    };
-  `}
-`;
-
 export const FormRoot = styled.div`
   display: flex;
   flex-direction: column-reverse;
