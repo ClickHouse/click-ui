@@ -1,9 +1,9 @@
 import * as RadixPopover from "@radix-ui/react-popover";
-import { Arrow, GenericMenuPanel } from "./GenericMenu";
+import { Arrow, GenericMenuPanel } from "../GenericMenu";
 import styled from "styled-components";
 import { ReactNode } from "react";
 import { Icon } from "..";
-import { EmptyButton } from "./commonElement";
+import { EmptyButton } from "../FormField/commonElement";
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
@@ -118,4 +118,3 @@ const PopoverContent = ({
 };
 PopoverContent.displayName = "PopoverContent";
 Popover.Content = PopoverContent;
-
