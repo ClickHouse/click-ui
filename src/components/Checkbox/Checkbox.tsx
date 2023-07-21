@@ -34,11 +34,10 @@ export const Checkbox = ({
 );
 
 const Wrapper = styled.div<Partial<CheckboxProps>>`
-  padding: ${(props) => props.theme.click.checkbox.space.all};
-
+  padding: ${props => props.theme.click.checkbox.space.all};
   display: flex;
   align-items: center;
-  gap: ${(props) => props.theme.click.checkbox.space.gap};
+  gap: ${props => props.theme.click.checkbox.space.gap};
 `;
 
 const CheckInput = styled(RadixCheckbox.Root)`
@@ -57,10 +56,10 @@ const CheckInput = styled(RadixCheckbox.Root)`
       background: ${theme.click.checkbox.color.background.active};
     }
     &[data-disabled] {
-      background: ${theme.click.checkbox.color.background["disabled-unchecked"]};
+      background: ${theme.click.checkbox.color.background.disabled};
       border-color: ${theme.click.checkbox.color.stroke.disabled};
       &[data-state="checked"] {
-        background: ${theme.click.checkbox.color.background["disabled-checked"]};
+        background: ${theme.click.checkbox.color.background.disabled};
         border-color: ${theme.click.checkbox.color.stroke.disabled};
       }
     }
@@ -68,7 +67,20 @@ const CheckInput = styled(RadixCheckbox.Root)`
 `;
 
 const Label = styled.label<Partial<CheckboxProps>>`
-  color: ${(props) =>
+${({ theme }) => `
+  font: ${theme.click.checkbox.typography.label.default};
+  color: ${theme.click.checkbox.color.label.default};
+  &:hover {
+    font: ${theme.click.checkbox.typography.label.hover};
+    color: ${theme.click.checkbox.color.label.hover};
+  }
+  &:active {
+    font: ${theme.click.checkbox.typography.label.active};
+    color: ${theme.click.checkbox.color.label.active};
+  }  
+  `}
+  
+  color: ${props =>
     props.isDisabled
       ? props.theme.click.checkbox.color.label.disabled
       : props.theme.click.checkbox.color.label.default};

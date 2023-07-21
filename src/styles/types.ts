@@ -187,18 +187,45 @@
     },
     "badge": {
       "space": {
-        "x": string,
-        "y": string
+        "md": {
+          "x": string,
+          "y": string,
+          "gap": string
+        },
+        "sm": {
+          "x": string,
+          "y": string,
+          "gap": string
+        }
       },
       "typography": {
         "label": {
-          "default": string
+          "md": {
+            "default": string
+          },
+          "sm": {
+            "default": string
+          }
         }
       },
       "radii": {
         "all": string
       },
       "stroke": string,
+      "icon": {
+        "md": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "sm": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        }
+      },
       "color": {
         "background": {
           "default": string,
@@ -531,16 +558,51 @@
       }
     },
     "card": {
-      "space": {
-        "all": string,
-        "gap": string
-      },
-      "radii": {
-        "all": string
-      },
-      "icon": {
-        "size": {
+      "secondary": {
+        "space": {
+          "all": string,
+          "gap": string
+        },
+        "radii": {
           "all": string
+        },
+        "icon": {
+          "size": {
+            "all": string
+          }
+        },
+        "stroke": string,
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "title": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "description": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "link": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
         }
       },
       "typography": {
@@ -563,38 +625,61 @@
           "disabled": string
         }
       },
-      "color": {
-        "background": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+      "primary": {
+        "size": {
+          "icon": {
+            "sm": {
+              "all": string
+            },
+            "md": {
+              "all": string
+            }
+          }
         },
-        "title": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+        "space": {
+          "md": {
+            "y": string,
+            "x": string,
+            "gap": string
+          },
+          "sm": {
+            "y": string,
+            "x": string,
+            "gap": string
+          }
         },
-        "description": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+        "radii": {
+          "all": string
         },
-        "link": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
-        },
-        "stroke": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
+        "stroke": string,
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "title": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "description": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
         }
-      }
+      },
+      "shadow": string
     },
     "checkbox": {
       "radii": {
@@ -607,28 +692,38 @@
       "size": {
         "all": string
       },
+      "typography": {
+        "label": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
+      },
       "color": {
         "background": {
           "default": string,
+          "hover": string,
           "active": string,
-          "disabled-checked": string,
-          "disabled-unchecked": string
+          "disabled": string
         },
         "stroke": {
           "default": string,
+          "hover": string,
           "active": string,
           "disabled": string
         },
         "check": {
           "default": string,
+          "hover": string,
           "active": string,
           "disabled": string
         },
         "label": {
           "default": string,
-          "off": string,
-          "disabled": string,
-          "active": string
+          "hover": string,
+          "active": string,
+          "disabled": string
         }
       }
     },
@@ -763,12 +858,15 @@
           "disabled": string,
           "error": string
         },
-        "field-text": {
+        "fieldText": {
           "default": string,
           "hover": string,
           "active": string,
           "disabled": string,
           "error": string
+        },
+        "placeholder": {
+          "default": string
         },
         "format": {
           "default": string,
@@ -903,7 +1001,8 @@
       },
       "button": {
         "space": {
-          "gap": string
+          "gap": string,
+          "y": string
         },
         "typography": {
           "label": {
@@ -922,6 +1021,69 @@
           "stroke": {
             "default": string
           }
+        }
+      },
+      "panel": {
+        "radii": {
+          "all": string
+        },
+        "shadow": {
+          "default": string
+        },
+        "color": {
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      },
+      "autocomplete": {
+        "typography": {
+          "results": {
+            "label": {
+              "default": string
+            }
+          },
+          "search": {
+            "placeholder": {
+              "default": string
+            },
+            "term": {
+              "default": string
+            }
+          }
+        },
+        "search": {
+          "stroke": {
+            "default": string
+          }
+        },
+        "color": {
+          "placeholder": {
+            "default": string
+          },
+          "searchTerm": {
+            "default": string
+          },
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      },
+      "sectionHeader": {
+        "space": {
+          "bottom": string,
+          "top": string
+        }
+      },
+      "placeholder": {
+        "space": {
+          "gap": string
         }
       }
     },
@@ -964,16 +1126,6 @@
       },
       "color": {
         "stroke": string
-      }
-    },
-    "popover": {
-      "radii": {
-        "all": string
-      },
-      "color": {
-        "background": {
-          "default": string
-        }
       }
     },
     "sidebar": {
@@ -1394,6 +1546,71 @@
         }
       }
     },
+    "radio": {
+      "radii": {
+        "all": string
+      },
+      "typography": {
+        "label": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "stroke": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "indicator": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
+      }
+    },
+    "spacer": {
+      "horizontal": {
+        "space": {
+          "y": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
+          },
+          "x": {
+            "all": string
+          }
+        }
+      },
+      "vertical": {
+        "space": {
+          "x": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string,
+            "xl": string,
+            "xxl": string
+          },
+          "y": {
+            "all": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1417,6 +1634,13 @@
           "default": string
         },
         "outline": {
+          "default": string
+        }
+      }
+    },
+    "popover": {
+      "color": {
+        "background": {
           "default": string
         }
       }
@@ -1614,6 +1838,7 @@
         "4": string
       },
       "sizes": {
+        "0": string,
         "1": string,
         "2": string,
         "3": string,
@@ -1638,16 +1863,19 @@
         "2xl": string
       },
       "text": {
+        "xs": string,
         "sm": string,
         "md": string,
         "lg": string
       },
       "text-sbold": {
+        "xs": string,
         "sm": string,
         "md": string,
         "lg": string
       },
       "text-bold": {
+        "xs": string,
         "sm": string,
         "md": string,
         "lg": string
