@@ -1,7 +1,15 @@
 import React from "react";
-import Label from "./Label";
+import { Label } from "./Label";
 
-const FieldExample = ({ disabled, error, text }) => (
+const FieldExample = ({
+  disabled,
+  error,
+  text,
+}: {
+  disabled: boolean;
+  error: boolean;
+  text: string;
+}) => (
   <Label
     disabled={disabled}
     error={error}
