@@ -1,36 +1,38 @@
 import { Input } from "./Input";
+import { PasswordInput } from "./PasswordInput";
+import { PasswordInputProps } from "./types";
 
 export default {
   component: Input,
   title: "Input",
-  tags: ["form-field", "select"],
+  tags: ["form-field", "input"],
   argTypes: {
     type: {
       control: "radio",
-      options: ["number", "text", "password", "email", "tel", "url"],
+      options: ["number", "text", "email", "tel", "url"],
     },
-    value: { control: "string" },
+    value: { control: "text" },
     clear: { control: "boolean" },
-    label: { control: "string" },
-    error: { control: "string" },
+    label: { control: "text" },
+    error: { control: "text" },
     disabled: { control: "boolean" },
-    placeholder: { control: "string" },
-    form: { control: "string" },
-    alt: { control: "string" },
-    autoComplete: { control: "string" },
+    placeholder: { control: "text" },
+    form: { control: "text" },
+    alt: { control: "text" },
+    autoComplete: { control: "text" },
     autoFocus: { control: "boolean" },
-    dir: { control: "string" },
-    name: { control: "string" },
+    dir: { control: "text" },
+    name: { control: "text" },
     readOnly: { control: "boolean" },
     required: { control: "boolean" },
     loading: { control: "boolean" },
     minLength: { control: "number", if: { type: "number", truthy: false } },
     maxLength: { control: "number", if: { type: "number", truthy: false } },
-    pattern: { control: "string", if: { type: "number", truthy: false } },
+    pattern: { control: "text", if: { type: "number", truthy: false } },
     size: { control: "number", if: { type: "number", truthy: false } },
-    min: { control: "string", if: { type: "number" } },
-    max: { control: "string", if: { type: "number" } },
-    step: { control: "string", if: { type: "number" } },
+    min: { control: "text", if: { type: "number" } },
+    max: { control: "text", if: { type: "number" } },
+    step: { control: "text", if: { type: "number" } },
   },
 };
 
@@ -47,6 +49,10 @@ export const Default = {
 };
 
 export const Password = {
+  render: (props: PasswordInputProps) => <PasswordInput {...props} />,
+  argTypes: {
+    type: { control: "radio", options: ["password"] },
+  },
   args: {
     ...commonProps,
     clear: true,
