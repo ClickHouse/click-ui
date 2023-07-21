@@ -15,7 +15,7 @@ export const InputContainer = styled.div<{ error: boolean }>`
 
   ${({ theme, error }) => `
     border-radius: ${theme.click.field.radii.all};
-    font: ${theme.click.field.typography["field-text"].default};
+    font: ${theme.click.field.typography.fieldText.default};
     color: ${theme.click.field.color.text.default};
     border: 1px solid ${theme.click.field.color.stroke.default};
     background: ${theme.click.field.color.background.default};
@@ -32,7 +32,7 @@ export const InputContainer = styled.div<{ error: boolean }>`
     ${
       error
         ? `
-      font: ${theme.click.field.typography["field-text"].error};
+      font: ${theme.click.field.typography.fieldText.error};
       border: 1px solid ${theme.click.field.color.stroke.error};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.error};
@@ -44,7 +44,7 @@ export const InputContainer = styled.div<{ error: boolean }>`
         : `
     &:focus-within,
     &[data-state="open"] {
-      font: ${theme.click.field.typography["field-text"].active};
+      font: ${theme.click.field.typography.fieldText.active};
       border: 1px solid ${theme.click.field.color.stroke.active};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.active};
@@ -56,7 +56,7 @@ export const InputContainer = styled.div<{ error: boolean }>`
     `
     };
     &:disabled {
-      font: ${theme.click.field.typography["field-text"].disabled};
+      font: ${theme.click.field.typography.fieldText.disabled};
       border: 1px solid ${theme.click.field.color.stroke.disabled};
       background: ${theme.click.field.color.background.disabled};
       color: ${theme.click.field.color.text.disabled};
