@@ -27,7 +27,7 @@ export const Checkbox = ({ id, label = "", ...delegated }: CheckboxProps) => {
   );
 };
 
-const Wrapper = styled.div<Partial<CheckboxProps>>`
+const Wrapper = styled.div`
   padding: ${({ theme }) => theme.click.checkbox.space.all};
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@ const CheckInput = styled(RadixCheckbox.Root)`
 
     & ~ label {
       color: ${theme.click.checkbox.color.label.default};
-      font: ${theme.click.field.typography["field-text"].default}
+      font: ${theme.click.field.typography.fieldText.default}
     }
     &:hover {
       background: ${theme.click.checkbox.color.background.hover};
