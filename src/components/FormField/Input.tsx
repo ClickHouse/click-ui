@@ -1,7 +1,7 @@
 import { ChangeEvent, HTMLAttributes, ReactNode, useId, useState } from "react";
-import { Error, FormRoot, Label } from "./commonElement";
+import { Error, FormRoot } from "./commonElement";
 import styled from "styled-components";
-import { Icon } from "..";
+import { Icon, Label } from "..";
 
 const InputContainer = styled.div<{ error: boolean }>`
   width: 100%;
