@@ -820,6 +820,26 @@
           "value": "{sizes.5}",
           "type": "sizing"
         }
+      },
+      "typography": {
+        "label": {
+          "default": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          },
+          "hover": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          },
+          "disabled": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          }
+        }
       }
     },
     "codeblock": {
@@ -970,7 +990,7 @@
             "type": "typography"
           }
         },
-        "field-text": {
+        "fieldText": {
           "default": {
             "value": "{typography.styles.text.md}",
             "type": "typography"
@@ -994,7 +1014,7 @@
         },
         "placeholder": {
           "default": {
-            "value": "{click.field.typography.field-text.default}",
+            "value": "{click.field.typography.fieldText.default}",
             "type": "typography"
           }
         },
@@ -1816,6 +1836,26 @@
         "all": {
           "value": "{border.radii.full}",
           "type": "borderRadius"
+        }
+      },
+      "typography": {
+        "label": {
+          "default": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          },
+          "hover": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          },
+          "disabled": {
+            "value": "{click.field.typography.fieldText.default}",
+            "type": "typography"
+          }
         }
       }
     },
