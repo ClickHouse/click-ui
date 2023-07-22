@@ -390,7 +390,12 @@
         },
         "title": {
           "default": {
-            "value": "{typography.styles.titles.2xl}",
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.4}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.6}"
+            },
             "type": "typography"
           }
         }
@@ -802,6 +807,44 @@
           "all": {
             "value": "{border.radii.1}",
             "type": "borderRadius"
+          }
+        },
+        "typography": {
+          "title": {
+            "default": {
+              "value": "{typography.styles.titles.sm}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.card.horizontal.typography.title.default}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{click.card.horizontal.typography.title.default}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{click.card.horizontal.typography.title.default}",
+              "type": "typography"
+            }
+          },
+          "description": {
+            "default": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            }
           }
         }
       }
