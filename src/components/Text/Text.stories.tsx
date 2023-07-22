@@ -16,7 +16,7 @@ export const Default = {
   args: {
     text: "Query billions of rows in milliseconds",
     size: "md",
-		weight: "text",
+		weight: "normal",
 		color: "default"
   },
 };

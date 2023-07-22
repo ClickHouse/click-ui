@@ -143,6 +143,36 @@
         }
       }
     },
+    "card": {
+      "horizontal": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C",
+            "hover": "#282828",
+            "active": "lch(15.3 0 0)",
+            "disabled": "#414141"
+          },
+          "title": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#ffffff",
+            "disabled": "#808080"
+          },
+          "description": {
+            "default": "#b3b6bd",
+            "hover": "#b3b6bd",
+            "active": "#b3b6bd",
+            "disabled": "#808080"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)",
+            "hover": "lch(27.5 0 0 / 0.3)",
+            "active": "lch(26.1 0 0 / 0.3)",
+            "disabled": "#414141"
+          }
+        }
+      }
+    },
     "checkbox": {
       "color": {
         "background": {
