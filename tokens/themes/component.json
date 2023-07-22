@@ -367,7 +367,7 @@
     "big-stat": {
       "space": {
         "all": {
-          "value": "{spaces.3}",
+          "value": "{spaces.4}",
           "type": "spacing"
         },
         "gap": {
@@ -381,28 +381,52 @@
           "type": "borderRadius"
         }
       },
-      "typography": {
-        "label": {
-          "default": {
-            "value": "{typography.styles.text.md}",
-            "type": "typography"
-          }
-        },
-        "title": {
-          "default": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.6}"
-            },
-            "type": "typography"
-          }
-        }
-      },
       "stroke": {
         "value": "{border.width.1}",
         "type": "borderWidth"
+      }
+    },
+    "bigStat": {
+      "typography": {
+        "lg": {
+          "label": {
+            "default": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            }
+          },
+          "title": {
+            "default": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.4}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.6}"
+              },
+              "type": "typography"
+            }
+          }
+        },
+        "sm": {
+          "label": {
+            "default": {
+              "value": "{typography.styles.text.md}",
+              "type": "typography"
+            }
+          },
+          "title": {
+            "default": {
+              "value": "{typography.styles.titles.lg}",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "size": {
+        "height": {
+          "value": "6rem",
+          "type": "sizing"
+        }
       }
     },
     "button": {
