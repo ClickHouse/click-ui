@@ -524,290 +524,303 @@
       }
     },
     "styles": {
-      "titles": {
-        "xs": {
-          "value": {
-            "fontFamily": "{typography.font.families.regular}",
-            "fontWeight": "{typography.font.weights.4}",
-            "fontSize": "{typography.font.sizes.1}",
-            "lineHeight": "{typography.font.line-height.1}"
+      "product": {
+        "titles": {
+          "xs": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.4}",
+              "fontSize": "{typography.font.sizes.1}",
+              "lineHeight": "{typography.font.line-height.1}"
+            },
+            "type": "typography"
           },
-          "type": "typography"
+          "sm": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.4}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.2}"
+            },
+            "type": "typography"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.3}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.3}"
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.4}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.3}"
+            },
+            "type": "typography"
+          },
+          "xl": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.4}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.4}"
+            },
+            "type": "typography"
+          },
+          "2xl": {
+            "value": {
+              "fontFamily": "{typography.font.families.regular}",
+              "fontWeight": "{typography.font.weights.3}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.6}"
+            },
+            "type": "typography"
+          }
         },
-        "sm": {
-          "value": {
-            "fontFamily": "{typography.font.families.regular}",
-            "fontWeight": "{typography.font.weights.4}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "{typography.font.sizes.2}"
+        "text": {
+          "normal": {
+            "xs": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.1}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.0}"
+              },
+              "type": "typography"
+            },
+            "sm": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.1}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.1}"
+              },
+              "type": "typography"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.1}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.2}"
+              },
+              "type": "typography"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.1}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.3}"
+              },
+              "type": "typography"
+            }
           },
-          "type": "typography"
-        },
-        "md": {
-          "value": {
-            "fontFamily": "{typography.font.families.regular}",
-            "fontWeight": "{typography.font.weights.3}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "{typography.font.sizes.3}"
+          "medium": {
+            "xs": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.0}"
+              },
+              "type": "typography"
+            },
+            "sm": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.1}"
+              },
+              "type": "typography"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.2}"
+              },
+              "type": "typography"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.3}"
+              },
+              "type": "typography"
+            }
           },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{typography.font.families.regular}",
-            "fontWeight": "{typography.font.weights.4}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "{typography.font.sizes.3}"
+          "semibold": {
+            "xs": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.3}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.0}"
+              },
+              "type": "typography"
+            },
+            "sm": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.3}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.1}"
+              },
+              "type": "typography"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.3}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.2}"
+              },
+              "type": "typography"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.3}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.3}"
+              },
+              "type": "typography"
+            }
           },
-          "type": "typography"
-        },
-        "xl": {
-          "value": {
-            "fontFamily": "{typography.font.families.regular}",
-            "fontWeight": "{typography.font.weights.4}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "{typography.font.sizes.4}"
+          "mono": {
+            "sm": {
+              "value": {
+                "fontFamily": "{typography.font.families.mono}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.2}",
+                "fontSize": "{typography.font.sizes.1}"
+              },
+              "type": "typography"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{typography.font.families.mono}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.3}",
+                "fontSize": "{typography.font.sizes.2}"
+              },
+              "type": "typography"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{typography.font.families.mono}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.2}",
+                "fontSize": "{typography.font.sizes.3}"
+              },
+              "type": "typography"
+            }
           },
-          "type": "typography"
-        },
-        "2xl": {
-          "value": {
-            "fontFamily": "{typography.font.families.regular}",
-            "fontWeight": "{typography.font.weights.3}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "{typography.font.sizes.6}"
-          },
-          "type": "typography"
+          "bold": {
+            "xs": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.4}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.0}"
+              },
+              "type": "typography"
+            },
+            "sm": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.4}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.1}"
+              },
+              "type": "typography"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.4}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.2}"
+              },
+              "type": "typography"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{typography.font.families.regular}",
+                "fontWeight": "{typography.font.weights.4}",
+                "lineHeight": "{typography.font.line-height.1}",
+                "fontSize": "{typography.font.sizes.3}"
+              },
+              "type": "typography"
+            }
+          }
         }
       },
-      "text": {
-        "normal": {
+      "brand": {
+        "titles": {
           "xs": {
             "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.1}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.0}"
-            },
-            "type": "typography"
-          },
-          "sm": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.1}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.1}"
-            },
-            "type": "typography"
-          },
-          "md": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.1}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.2}"
-            },
-            "type": "typography"
-          },
-          "lg": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.1}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.3}"
-            },
-            "type": "typography"
-          }
-        },
-        "medium": {
-          "xs": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.0}"
-            },
-            "type": "typography"
-          },
-          "sm": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.1}"
-            },
-            "type": "typography"
-          },
-          "md": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.2}"
-            },
-            "type": "typography"
-          },
-          "lg": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.3}"
-            },
-            "type": "typography"
-          }
-        },
-        "semibold": {
-          "xs": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
+              "fontFamily": "{typography.font.families.display}",
               "fontWeight": "{typography.font.weights.3}",
               "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.0}"
+              "fontSize": "20px"
             },
             "type": "typography"
           },
           "sm": {
             "value": {
-              "fontFamily": "{typography.font.families.regular}",
+              "fontFamily": "{typography.font.families.display}",
               "fontWeight": "{typography.font.weights.3}",
               "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.1}"
+              "fontSize": "24px"
             },
             "type": "typography"
           },
           "md": {
             "value": {
-              "fontFamily": "{typography.font.families.regular}",
+              "fontFamily": "{typography.font.families.display}",
               "fontWeight": "{typography.font.weights.3}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.2}"
+              "lineHeight": "{typography.font.line-height.4}",
+              "fontSize": "36px"
             },
             "type": "typography"
           },
           "lg": {
             "value": {
-              "fontFamily": "{typography.font.families.regular}",
+              "fontFamily": "{typography.font.families.display}",
               "fontWeight": "{typography.font.weights.3}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.3}"
+              "lineHeight": "{typography.font.line-height.4}",
+              "fontSize": "56px"
+            },
+            "type": "typography"
+          },
+          "xl": {
+            "value": {
+              "fontFamily": "{typography.font.families.display}",
+              "fontWeight": "{typography.font.weights.4}",
+              "lineHeight": "{typography.font.line-height.4}",
+              "fontSize": "64px"
+            },
+            "type": "typography"
+          },
+          "2xl": {
+            "value": {
+              "fontFamily": "{typography.font.families.display}",
+              "fontWeight": "{typography.font.weights.4}",
+              "lineHeight": "{typography.font.line-height.4}",
+              "fontSize": "80px"
             },
             "type": "typography"
           }
-        },
-        "mono": {
-          "sm": {
-            "value": {
-              "fontFamily": "{typography.font.families.mono}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.2}",
-              "fontSize": "{typography.font.sizes.1}"
-            },
-            "type": "typography"
-          },
-          "md": {
-            "value": {
-              "fontFamily": "{typography.font.families.mono}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.3}",
-              "fontSize": "{typography.font.sizes.2}"
-            },
-            "type": "typography"
-          },
-          "lg": {
-            "value": {
-              "fontFamily": "{typography.font.families.mono}",
-              "fontWeight": "{typography.font.weights.2}",
-              "lineHeight": "{typography.font.line-height.2}",
-              "fontSize": "{typography.font.sizes.3}"
-            },
-            "type": "typography"
-          }
-        },
-        "bold": {
-          "xs": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.0}"
-            },
-            "type": "typography"
-          },
-          "sm": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.1}"
-            },
-            "type": "typography"
-          },
-          "md": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.2}"
-            },
-            "type": "typography"
-          },
-          "lg": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.3}"
-            },
-            "type": "typography"
-          }
-        }
-      },
-      "titles-brand": {
-        "xs": {
-          "value": {
-            "fontFamily": "{typography.font.families.display}",
-            "fontWeight": "{typography.font.weights.3}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "20px"
-          },
-          "type": "typography"
-        },
-        "sm": {
-          "value": {
-            "fontFamily": "{typography.font.families.display}",
-            "fontWeight": "{typography.font.weights.3}",
-            "lineHeight": "{typography.font.line-height.1}",
-            "fontSize": "24px"
-          },
-          "type": "typography"
-        },
-        "md": {
-          "value": {
-            "fontFamily": "{typography.font.families.display}",
-            "fontWeight": "{typography.font.weights.3}",
-            "lineHeight": "{typography.font.line-height.4}",
-            "fontSize": "36px"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{typography.font.families.display}",
-            "fontWeight": "{typography.font.weights.3}",
-            "lineHeight": "{typography.font.line-height.4}",
-            "fontSize": "56px"
-          },
-          "type": "typography"
-        },
-        "xl": {
-          "value": {
-            "fontFamily": "{typography.font.families.display}",
-            "fontWeight": "{typography.font.weights.4}",
-            "lineHeight": "{typography.font.line-height.4}",
-            "fontSize": "64px"
-          },
-          "type": "typography"
         }
       },
       "field": {
