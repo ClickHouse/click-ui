@@ -8,7 +8,7 @@ export interface TextProps {
   color?: TextColor;
   size?: TextSize;
   weight?: TextWeight;
-  text?: string;
+  children?: React.ReactNode;
 }
 
 /** Component for writing blocks of body copy */
@@ -16,14 +16,14 @@ export const Text = ({
   color = "default",
   size = "md",
   weight = "normal",
-  text,
+  children,
 }: TextProps) => (
   <CuiText
     color={color}
     size={size}
     weight={weight}
   >
-    {text}
+    {children}
   </CuiText>
 );
 

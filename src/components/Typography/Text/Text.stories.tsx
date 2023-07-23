@@ -14,9 +14,9 @@ export default {
 
 export const Playground = {
   args: {
-    text: "Query billions of rows in milliseconds",
     size: "md",
     weight: "normal",
     color: "default",
+    children: "Query billions of rows in milliseconds",
   },
 };

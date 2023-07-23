@@ -7,7 +7,7 @@ describe("Text", () => {
     const text = "text to render";
     const rendered = render(
       <ThemeProvider theme="light">
-        <Text color="default" text={text} />
+        <Text color="default">{text}</Text>
       </ThemeProvider>
     );
 
