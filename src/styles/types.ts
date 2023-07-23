@@ -1907,58 +1907,63 @@
         "base": string
       },
       "line-height": {
-        "1": number,
-        "2": number,
-        "3": number,
-        "4": number
+        "1": "number",
+        "2": "number",
+        "3": "number",
+        "4": "number"
       }
     },
     "styles": {
-      "titles": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string,
-        "2xl": string
-      },
-      "text": {
-        "normal": {
+      "product": {
+        "titles": {
           "xs": string,
           "sm": string,
           "md": string,
-          "lg": string
+          "lg": string,
+          "xl": string,
+          "2xl": string
         },
-        "medium": {
-          "xs": string,
-          "sm": string,
-          "md": string,
-          "lg": string
-        },
-        "semibold": {
-          "xs": string,
-          "sm": string,
-          "md": string,
-          "lg": string
-        },
-        "mono": {
-          "sm": string,
-          "md": string,
-          "lg": string
-        },
-        "bold": {
-          "xs": string,
-          "sm": string,
-          "md": string,
-          "lg": string
+        "text": {
+          "normal": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "medium": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "semibold": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "mono": {
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "bold": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          }
         }
       },
-      "titles-brand": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string
+      "brand": {
+        "titles": {
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string,
+          "2xl": string
+        }
       },
       "field": {
         "md": string
