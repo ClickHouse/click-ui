@@ -1,3 +1,4 @@
+import { Button, Checkbox } from "..";
 import { Popover } from "./Popover";
 
 const PopoverComponent = ({
@@ -18,14 +19,19 @@ const PopoverComponent = ({
     modal={modal}
   >
     <Popover.Trigger>
-      <div>Click here</div>
+      <Button>Click Here</Button>
     </Popover.Trigger>
     <Popover.Content
       showArrow={showArrow}
       showClose={showClose}
       forceMount={forceMount ? true : undefined}
     >
-      Content popover
+      <h2>Content popover</h2>
+      <div>
+        Click on the input element below
+        <Checkbox />
+        <div>This is a sample data to experiment the popover</div>
+      </div>
     </Popover.Content>
   </Popover>
 );

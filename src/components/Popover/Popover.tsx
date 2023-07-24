@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ReactNode } from "react";
 import { Icon } from "..";
 import { EmptyButton } from "../FormField/commonElement";
+import PopoverArrow from "../icons/PopoverArrow";
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
@@ -11,6 +12,8 @@ export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
 
 const Trigger = styled(RadixPopover.Trigger)`
   width: fit-content;
+  background: transparent;
+  border: none;
 `;
 
 interface TriggerProps extends RadixPopover.PopoverTriggerProps {
@@ -20,12 +23,7 @@ interface TriggerProps extends RadixPopover.PopoverTriggerProps {
 const PopoverTrigger = ({ children, anchor, ...props }: TriggerProps) => {
   return (
     <>
-      <Trigger
-        asChild
-        {...props}
-      >
-        {children}
-      </Trigger>
+      <Trigger {...props}>{children}</Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>
   );
@@ -41,6 +39,7 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
 }
 
 const MenuPanel = styled(GenericMenuPanel)<{ showClose?: boolean; showArrow?: boolean }>`
+  display: block;
   padding: 0.5rem 1rem;
 
   ${({ showClose }) =>
@@ -95,20 +94,10 @@ const PopoverContent = ({
           <Arrow
             asChild
             as={RadixPopover.Arrow}
+            width={20}
+            height={10}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="10"
-              viewBox="0 0 30 10"
-              fill="none"
-            >
-              <path
-                d="M0 -1L15 9L30 -1"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <PopoverArrow />
           </Arrow>
         )}
         {children}
