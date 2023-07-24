@@ -258,14 +258,6 @@
       "radii": {
         "all": string
       },
-      "typography": {
-        "label": {
-          "default": string
-        },
-        "title": {
-          "default": string
-        }
-      },
       "stroke": string,
       "color": {
         "stroke": {
@@ -280,6 +272,29 @@
         "large-value": {
           "default": string
         }
+      }
+    },
+    "bigStat": {
+      "typography": {
+        "lg": {
+          "label": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          }
+        },
+        "sm": {
+          "label": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          }
+        }
+      },
+      "size": {
+        "height": string
       }
     },
     "button": {
@@ -679,7 +694,52 @@
           }
         }
       },
-      "shadow": string
+      "shadow": string,
+      "horizontal": {
+        "radii": {
+          "all": string
+        },
+        "typography": {
+          "title": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "description": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
+        },
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "title": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "description": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
+        }
+      }
     },
     "checkbox": {
       "radii": {
@@ -1854,43 +1914,56 @@
       }
     },
     "styles": {
-      "titles": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string,
-        "2xl": string
+      "product": {
+        "titles": {
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string,
+          "2xl": string
+        },
+        "text": {
+          "normal": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "medium": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "semibold": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "mono": {
+            "sm": string,
+            "md": string,
+            "lg": string
+          },
+          "bold": {
+            "xs": string,
+            "sm": string,
+            "md": string,
+            "lg": string
+          }
+        }
       },
-      "text": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string
-      },
-      "text-sbold": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string
-      },
-      "text-bold": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string
-      },
-      "text-mono": {
-        "sm": string,
-        "md": string,
-        "lg": string
-      },
-      "titles-brand": {
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string
+      "brand": {
+        "titles": {
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string,
+          "2xl": string
+        }
       },
       "field": {
         "md": string

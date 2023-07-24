@@ -4,15 +4,15 @@ import "../src/styles/variables.css";
 import { Decorator } from "@storybook/react";
 import { ThemeProvider } from "../src/theme";
 import styled from "styled-components";
+import { themes } from "@storybook/theming";
 
 const ThemeBlock = styled.div<{ left?: boolean; bfill?: boolean }>(
   ({ left, bfill: fill, theme }) => `
       position: absolute;
-      top: 0;
+      top: 0.5rem;
       left: ${left || fill ? 0 : "50vw"};
-      border-right: ${left ? "1px solid #202020" : "none"};
       right: ${left ? "50vw" : 0};
-      width: ${fill ? "fill-available" : "50vw"};
+      width: 100vw;
       height: 100vh;
       bottom: 0;
       overflow: auto;
@@ -53,12 +53,21 @@ const withTheme: Decorator = (StoryFn, context) => {
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        method: "alphabetical",
+        order: [],
+      },
+    },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    docs: {
+      theme: themes.light,
     },
   },
 };

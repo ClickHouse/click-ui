@@ -25,14 +25,14 @@ const Label = styled.div<Pick<BigStatProps, "state">>`
   color: ${({ state = "default", theme }) =>
     theme.click["big-stat"].color.label[state]};
   font: ${({ state = "default", theme }) =>
-    theme.click["big-stat"].typography.label[state]};
+    theme.click.bigStat.typography.lg.label[state]};
 `;
 
 const LargeValue = styled.div<Pick<BigStatProps, "state">>`
   color: ${({ state = "default", theme }) =>
     theme.click["big-stat"].color["large-value"][state]};
   font: ${({ state = "default", theme }) =>
-    theme.click["big-stat"].typography.title[state]};
+    theme.click.bigStat.typography.lg.title[state]};
 `;
 
 export const BigStat = ({

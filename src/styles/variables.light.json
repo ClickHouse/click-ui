@@ -338,6 +338,34 @@
             "disabled": "#dfdfdf"
           }
         }
+      },
+      "horizontal": {
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "#f6f7fa",
+            "active": "lch(92.4 1.49 272)",
+            "disabled": "#dfdfdf"
+          },
+          "title": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          },
+          "description": {
+            "default": "#696e79",
+            "hover": "#696e79",
+            "active": "#696e79",
+            "disabled": "#a0a0a0"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266 / 0.3)",
+            "hover": "lch(91.6 1.1 266 / 0.3)",
+            "active": "lch(87 1.05 266 / 0.3)",
+            "disabled": "#dfdfdf"
+          }
+        }
       }
     },
     "checkbox": {
