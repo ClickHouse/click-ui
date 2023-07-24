@@ -13,8 +13,7 @@ export interface TitleProps {
   children?: React.ReactNode;
 }
 
-/** The `title` component doesn't include an HTML H1 value by default to allow for maximum flexibility.
- * Please remember to wrap your title text in an H tag to ensure correct HTML is being observed. */
+/** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
 export const Title = ({ size, family, type, color, children }: TitleProps) => (
   <CuiTitle
     color={color}
