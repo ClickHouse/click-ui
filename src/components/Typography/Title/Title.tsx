@@ -13,12 +13,7 @@ export interface TitleProps {
 
 /** The `title` component doesn't include an HTML H1 value by default to allow for maximum flexibility.
  * Please remember to wrap your title text in an H tag to ensure correct HTML is being observed. */
-export const Title = ({
-  size = "md",
-  type = "product",
-  color = "default",
-  children,
-}: TitleProps) => (
+export const Title = ({ size, type, color, children }: TitleProps) => (
   <CuiTitle
     color={color}
     size={size}
