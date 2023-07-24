@@ -300,6 +300,29 @@
         }
       }
     },
+    "bigStat": {
+      "typography": {
+        "lg": {
+          "label": {
+            "default": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+          },
+          "title": {
+            "default": "700 2rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+          }
+        },
+        "sm": {
+          "label": {
+            "default": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+          },
+          "title": {
+            "default": "700 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+          }
+        }
+      },
+      "size": {
+        "height": "6rem"
+      }
+    },
     "button": {
       "radii": {
         "all": "0.25rem"
@@ -786,15 +809,13 @@
           "default": "#b3b6bd",
           "hover": "#b3b6bd",
           "active": "#161517",
-          "disabled": "#c0c0c0",
-          "hover": "#b3b6bd"
+          "disabled": "#c0c0c0"
         },
         "check": {
           "default": "#ffffff",
           "hover": "#ffffff",
           "active": "#ffffff",
-          "disabled": "#a0a0a0",
-          "hover": "#ffffff"
+          "disabled": "#a0a0a0"
         },
         "label": {
           "default": "#161517",
