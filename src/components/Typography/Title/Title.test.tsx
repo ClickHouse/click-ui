@@ -7,12 +7,10 @@ describe("Title", () => {
     const text = "text to render";
     const rendered = render(
       <ThemeProvider theme="light">
-        <Title>
-          <h1>{text}</h1>
-        </Title>
+        <Title type="h1">{text}</Title>
       </ThemeProvider>
     );
 
-    expect(rendered.getByText(text).textContent).toEqual(text);
+    expect(rendered.getByRole("heading", { level: 1 }).textContent).toEqual(text);
   });
 });
