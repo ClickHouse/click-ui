@@ -14,6 +14,42 @@
         }
       }
     },
+    "alert": {
+      "color": {
+        "background": {
+          "default": "#1F1F1C",
+          "success": "#0e421d",
+          "neutral": "#414141",
+          "danger": "#610000",
+          "warning": "#4f2b00",
+          "info": "#092e73"
+        },
+        "text": {
+          "default": "#b3b6bd",
+          "success": "#81e59d",
+          "neutral": "#c0c0c0",
+          "danger": "#ff7575",
+          "warning": "#ff9416",
+          "info": "#91b3f6"
+        },
+        "iconBackground": {
+          "default": "#1F1F1C",
+          "success": "lch(23.2 29.3 145)",
+          "neutral": "lch(26.7 0 0)",
+          "danger": "lch(18.1 47.8 36)",
+          "warning": "lch(21.2 33.5 64.7)",
+          "info": "lch(19.7 44.1 284)"
+        },
+        "iconForeground": {
+          "default": "#b3b6bd",
+          "success": "lch(83.5 49.5 149 / 0.75)",
+          "neutral": "lch(77.7 0 0 / 0.75)",
+          "danger": "lch(66.6 60.1 26.8 / 0.75)",
+          "warning": "lch(71.9 82.2 64 / 0.75)",
+          "info": "lch(72.4 37.5 271 / 0.75)"
+        }
+      }
+    },
     "avatar": {
       "color": {
         "background": {
@@ -25,6 +61,47 @@
           "default": "#1F1F1C",
           "hover": "#1F1F1C",
           "active": "#1F1F1C"
+        }
+      }
+    },
+    "badge": {
+      "color": {
+        "background": {
+          "default": "#1F1F1C",
+          "success": "#0e421d",
+          "neutral": "#414141",
+          "danger": "#610000",
+          "disabled": "#414141"
+        },
+        "text": {
+          "default": "#b3b6bd",
+          "success": "#81e59d",
+          "neutral": "#c0c0c0",
+          "danger": "#ff7575",
+          "disabled": "#808080"
+        },
+        "stroke": {
+          "default": "lch(27.5 0 0 / 0.3)",
+          "success": "#0e421d",
+          "neutral": "#414141",
+          "danger": "#610000",
+          "disabled": "lch(26.2 0 0)"
+        }
+      }
+    },
+    "bigStat": {
+      "color": {
+        "stroke": {
+          "default": "lch(27.5 0 0 / 0.3)"
+        },
+        "background": {
+          "default": "#1F1F1C"
+        },
+        "label": {
+          "default": "#b3b6bd"
+        },
+        "title": {
+          "default": "#ffffff"
         }
       }
     },
@@ -302,6 +379,12 @@
           "active": "lch(79.2 3.16 269)",
           "disabled": "#808080",
           "error": "lch(79.2 3.16 269)"
+        },
+        "genericLabel": {
+          "default": "#ffffff",
+          "hover": "#ffffff",
+          "active": "#ffffff",
+          "disabled": "#a0a0a0"
         }
       }
     },

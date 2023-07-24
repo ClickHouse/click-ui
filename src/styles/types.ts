@@ -250,7 +250,7 @@
         }
       }
     },
-    "big-stat": {
+    "bigStat": {
       "space": {
         "all": string,
         "gap": string
@@ -259,22 +259,6 @@
         "all": string
       },
       "stroke": string,
-      "color": {
-        "stroke": {
-          "default": string
-        },
-        "background": {
-          "default": string
-        },
-        "label": {
-          "default": string
-        },
-        "large-value": {
-          "default": string
-        }
-      }
-    },
-    "bigStat": {
       "typography": {
         "lg": {
           "label": {
@@ -295,6 +279,20 @@
       },
       "size": {
         "height": string
+      },
+      "color": {
+        "stroke": {
+          "default": string
+        },
+        "background": {
+          "default": string
+        },
+        "label": {
+          "default": string
+        },
+        "title": {
+          "default": string
+        }
       }
     },
     "button": {
@@ -934,6 +932,13 @@
           "active": string,
           "disabled": string,
           "error": string
+        },
+        "genericLabel": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string,
+          "error": string
         }
       },
       "type": {
@@ -995,6 +1000,12 @@
           "active": string,
           "disabled": string,
           "error": string
+        },
+        "genericLabel": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
         },
         "placeholder": {
           "default": string
@@ -1348,6 +1359,14 @@
       "size": {
         "width": string,
         "height": string
+      },
+      "typography": {
+        "label": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        }
       },
       "color": {
         "background": {
@@ -1907,10 +1926,10 @@
         "base": string
       },
       "line-height": {
-        "1": number,
-        "2": number,
-        "3": number,
-        "4": number
+        "1": "number",
+        "2": "number",
+        "3": "number",
+        "4": "number"
       }
     },
     "styles": {

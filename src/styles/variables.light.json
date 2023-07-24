@@ -89,7 +89,7 @@
         }
       }
     },
-    "big-stat": {
+    "bigStat": {
       "color": {
         "stroke": {
           "default": "lch(91.6 1.1 266 / 0.3)"
@@ -100,7 +100,7 @@
         "label": {
           "default": "#696e79"
         },
-        "large-value": {
+        "title": {
           "default": "#161517"
         }
       }
@@ -387,12 +387,6 @@
           "hover": "#ffffff",
           "active": "#ffffff",
           "disabled": "#a0a0a0"
-        },
-        "label": {
-          "default": "#161517",
-          "hover": "#161517",
-          "active": "#161517",
-          "disabled": "#a0a0a0"
         }
       }
     },
@@ -497,6 +491,12 @@
           "active": "lch(57 5.46 269)",
           "disabled": "#a0a0a0",
           "error": "lch(57 5.46 269)"
+        },
+        "genericLabel": {
+          "default": "#161517",
+          "hover": "#161517",
+          "active": "#161517",
+          "disabled": "#a0a0a0"
         },
         "placeholder": {
           "default": "#696e79"
