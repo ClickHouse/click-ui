@@ -443,7 +443,7 @@
         }
       }
     },
-    "big-stat": {
+    "bigStat": {
       "color": {
         "stroke": {
           "default": {
@@ -1323,157 +1323,6 @@
         }
       }
     },
-    "field": {
-      "color": {
-        "genericLabel": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.field.color.genericLabel.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "#a0a0a0",
-            "type": "color"
-          }
-        },
-        "background": {
-          "default": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{palette.neutral.200}",
-            "type": "color"
-          },
-          "error": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
-          }
-        },
-        "text": {
-          "default": {
-            "value": "{palette.slate.800}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.field.color.text.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{palette.neutral.400}",
-            "type": "color"
-          },
-          "error": {
-            "value": "{click.feedback.color.danger.foreground}",
-            "type": "color"
-          }
-        },
-        "stroke": {
-          "default": {
-            "value": "{click.global.color.stroke.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{palette.slate.200}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.field.color.text.active}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{palette.neutral.200}",
-            "type": "color"
-          },
-          "error": {
-            "value": "{click.feedback.color.danger.foreground}",
-            "type": "color"
-          }
-        },
-        "label": {
-          "default": {
-            "value": "{palette.slate.600}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{palette.slate.600}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.field.color.text.active}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.field.color.text.disabled}",
-            "type": "color"
-          },
-          "error": {
-            "value": "{click.feedback.color.danger.foreground}",
-            "type": "color"
-          }
-        },
-        "placeholder": {
-          "default": {
-            "value": "{click.global.color.text.muted}",
-            "type": "color"
-          }
-        },
-        "format": {
-          "default": {
-            "value": "{click.field.color.placeholder.default}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.2",
-                  "space": "lch"
-                }
-              }
-            }
-          },
-          "hover": {
-            "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
-          },
-          "active": {
-            "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
-          },
-          "disabled": {
-            "value": "{click.field.color.text.disabled}",
-            "type": "color",
-            "$extensions": {}
-          },
-          "error": {
-            "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
-          }
-        }
-      }
-    },
     "codeblock": {
       "darkMode": {
         "color": {
@@ -1644,6 +1493,157 @@
           "stroke": {
             "value": "{click.global.color.stroke.default}",
             "type": "color"
+          }
+        }
+      }
+    },
+    "field": {
+      "color": {
+        "genericLabel": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.field.color.genericLabel.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "#a0a0a0",
+            "type": "color"
+          }
+        },
+        "background": {
+          "default": {
+            "value": "{click.global.color.background.muted}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.global.color.background.muted}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{palette.neutral.200}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          }
+        },
+        "text": {
+          "default": {
+            "value": "{palette.slate.800}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.field.color.text.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{palette.neutral.400}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.feedback.color.danger.foreground}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{palette.slate.200}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.field.color.text.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{palette.neutral.200}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.feedback.color.danger.foreground}",
+            "type": "color"
+          }
+        },
+        "label": {
+          "default": {
+            "value": "{palette.slate.600}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{palette.slate.600}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.field.color.text.active}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{click.field.color.text.disabled}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.feedback.color.danger.foreground}",
+            "type": "color"
+          }
+        },
+        "placeholder": {
+          "default": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          }
+        },
+        "format": {
+          "default": {
+            "value": "{click.field.color.placeholder.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.2",
+                  "space": "lch"
+                }
+              }
+            }
+          },
+          "hover": {
+            "value": "{click.field.color.format.default}",
+            "type": "color",
+            "$extensions": {}
+          },
+          "active": {
+            "value": "{click.field.color.format.default}",
+            "type": "color",
+            "$extensions": {}
+          },
+          "disabled": {
+            "value": "{click.field.color.text.disabled}",
+            "type": "color",
+            "$extensions": {}
+          },
+          "error": {
+            "value": "{click.field.color.format.default}",
+            "type": "color",
+            "$extensions": {}
           }
         }
       }
