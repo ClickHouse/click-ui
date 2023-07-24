@@ -3,7 +3,7 @@ import type { StoryObj } from "@storybook/react";
 
 export default {
   component: Tabs,
-  title: "Tabs",
+  title: "Display/Tabs",
   tags: ["tabs", "autodocs"],
 };
 
@@ -32,40 +32,5 @@ export const Default: Story = {
         <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
       </>
     ),
-  },
-};
-
-export const Hover = {
-  args: {
-    children: [
-      <>
-        <Tabs.TriggersList>
-          <Tabs.Trigger value="tab1" key="tab1">
-            tab1
-          </Tabs.Trigger>
-        </Tabs.TriggersList>
-        <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
-      </>,
-    ],
-  },
-  parameters: {
-    pseudo: {
-      hover: true,
-    },
-  },
-};
-
-export const Selected = {
-  args: {
-    children: [
-      <>
-        <Tabs.TriggersList>
-          <Tabs.Trigger value="tab1" data-state="active" key="tab1">
-            tab1
-          </Tabs.Trigger>
-        </Tabs.TriggersList>
-        <Tabs.Content value="tab1">Tab 1 content</Tabs.Content>
-      </>,
-    ],
   },
 };

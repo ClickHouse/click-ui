@@ -2,8 +2,8 @@ import { SidebarNavigationItem } from "@/components";
 
 export default {
   component: SidebarNavigationItem,
-  title: "SidebarNavigationItem",
-  tags: ["sidebar", "navigation-item"],
+  title: "Display/SidebarNavigationItem",
+  tags: ["sidebar", "navigation-item", "autodocs"],
 };
 
 export const Default = {

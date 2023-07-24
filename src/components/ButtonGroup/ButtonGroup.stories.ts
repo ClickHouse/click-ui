@@ -2,11 +2,11 @@ import { ButtonGroup } from "./ButtonGroup";
 
 export default {
   component: ButtonGroup,
-  title: "ButtonGroup",
-  tags: ["buttons"],
+  title: "Buttons/ButtonGroup",
+  tags: ["autodocs"],
 };
 
-export const Default = {
+export const Playground = {
   args: {
     labels: ["Button 1", "Button 2", "Button 3"],
     activeIndex: 2,

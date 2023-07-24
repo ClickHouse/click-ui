@@ -22,8 +22,8 @@ const FieldExample = ({
 
 export default {
   component: FieldExample,
-  title: "Label",
-  tags: ["form-field", "label"],
+  title: "Forms/Label",
+  tags: ["form-field", "label", "autodocs"],
   argTypes: {
     disabled: { control: "boolean" },
     error: { control: "boolean" },

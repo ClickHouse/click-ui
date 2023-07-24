@@ -15,29 +15,13 @@ const children = (
 
 export default {
   component: Select,
-  title: "Select",
-  tags: ["form-field", "select"],
+  title: "Forms/Select",
+  tags: ["form-field", "select", "autodocs"],
 };
 
-export const Default = {
+export const Playground = {
   args: {
     label: "Label",
-    children,
-  },
-};
-
-export const Disabled = {
-  args: {
-    label: "Label",
-    disabled: true,
-    children,
-  },
-};
-
-export const Error = {
-  args: {
-    label: "Label",
-    error: "TestValue",
     children,
   },
 };

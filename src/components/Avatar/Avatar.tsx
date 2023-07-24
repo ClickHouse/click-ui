@@ -39,6 +39,7 @@ const StyledRoot = styled(Root)`
     background-color: ${props =>
       props.theme.click.avatar.color.background.hover};
     color: ${props => props.theme.click.avatar.color.text.hover};
+    cursor: pointer;
   }
 `;
 
