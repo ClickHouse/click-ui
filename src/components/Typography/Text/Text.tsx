@@ -12,12 +12,7 @@ export interface TextProps {
 }
 
 /** Component for writing blocks of body copy */
-export const Text = ({
-  color = "default",
-  size = "md",
-  weight = "normal",
-  children,
-}: TextProps) => (
+export const Text = ({ color, size, weight, children }: TextProps) => (
   <CuiText
     color={color}
     size={size}
