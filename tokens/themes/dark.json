@@ -476,7 +476,7 @@
             "type": "color"
           }
         },
-        "large-value": {
+        "title": {
           "default": {
             "value": "{click.global.color.text.default}",
             "type": "color"
