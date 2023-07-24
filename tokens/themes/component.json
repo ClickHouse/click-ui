@@ -899,19 +899,19 @@
       "typography": {
         "label": {
           "default": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.default}",
             "type": "typography"
           },
           "hover": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.hover}",
             "type": "typography"
           },
           "active": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.active}",
             "type": "typography"
           },
           "disabled": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.disabled}",
             "type": "typography"
           }
         }
@@ -1112,6 +1112,28 @@
           },
           "error": {
             "value": "{typography.styles.product.text.normal.sm}",
+            "type": "typography"
+          }
+        },
+        "genericLabel": {
+          "default": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
+          },
+          "hover": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
+          },
+          "disabled": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
+          },
+          "error": {
+            "value": "{typography.styles.product.text.normal.md}",
             "type": "typography"
           }
         }
@@ -1637,6 +1659,26 @@
           "value": "{sizes.5}",
           "type": "sizing"
         }
+      },
+      "typography": {
+        "label": {
+          "default": {
+            "value": "{click.field.typography.genericLabel.default}",
+            "type": "typography"
+          },
+          "hover": {
+            "value": "{click.field.typography.genericLabel.hover}",
+            "type": "typography"
+          },
+          "active": {
+            "value": "{click.field.typography.genericLabel.active}",
+            "type": "typography"
+          },
+          "disabled": {
+            "value": "{click.field.typography.genericLabel.disabled}",
+            "type": "typography"
+          }
+        }
       }
     },
     "separator": {
@@ -1916,19 +1958,19 @@
       "typography": {
         "label": {
           "default": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.default}",
             "type": "typography"
           },
           "hover": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.hover}",
             "type": "typography"
           },
           "active": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.active}",
             "type": "typography"
           },
           "disabled": {
-            "value": "{click.field.typography.fieldText.default}",
+            "value": "{click.field.typography.genericLabel.disabled}",
             "type": "typography"
           }
         }

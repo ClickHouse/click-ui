@@ -953,6 +953,24 @@
             "type": "color",
             "$extensions": {}
           }
+        },
+        "genericLabel": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.field.color.genericLabel.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "#a0a0a0",
+            "type": "color"
+          }
         }
       }
     },
