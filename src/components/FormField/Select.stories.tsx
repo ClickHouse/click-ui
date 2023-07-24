@@ -15,12 +15,25 @@ export default {
   component: Select,
   title: "Forms/Select",
   tags: ["form-field", "select", "autodocs"],
+  argTypes: {
+    label: { control: "string" },
+    disabled: { control: "boolean" },
+    error: { control: "string" },
+    value: { control: "string" },
+    defaultValue: { control: "string" },
+    open: { control: "inline-radio", options: [undefined, true, false] },
+    defaultOpen: { control: "boolean" },
+    dir: { control: "inline-radio", options: ["ltr", "rtl"] },
+    name: { control: "string" },
+    autoComplete: { control: "string" },
+    required: { control: "boolean" },
+    search: { control: "boolean" },
+  },
 };
 
 export const Playground = {
   args: {
     label: "Label",
     children,
-    open,
   },
 };

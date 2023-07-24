@@ -1,7 +1,7 @@
-import React, { ChangeEvent, HTMLAttributes, ReactNode, useState } from "react";
+import React, { ChangeEvent, HTMLAttributes, ReactNode, useRef, useState } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../Icon/Icon";
-import { Error, FormRoot, ItemSeparator } from "./commonElement";
+import { Error, FormRoot } from "./commonElement";
 import { uniqueId } from "lodash";
 import styled from "styled-components";
 import {
@@ -11,7 +11,13 @@ import {
   ScrollAreaViewport,
 } from "@radix-ui/react-scroll-area";
 import { Label } from "./Label";
-import { SelectContextProvider, useOptionVisible, useSelect } from "./SelectContext";
+import {
+  SelectContextProvider,
+  SelectProvider,
+  useOptionVisible,
+  useSelect,
+} from "./SelectContext";
+import Separator from "../Separator/Separator";
 
 interface SelectProps {
   placeholder?: string;
@@ -19,6 +25,7 @@ interface SelectProps {
   children: ReactNode;
   error?: ReactNode;
   search?: boolean;
+  noOptionsRenderer?: ReactNode;
 }
 
 type Props = RadixSelect.SelectProps &
@@ -161,7 +168,37 @@ const SearchBar = styled.input`
   `}
 `;
 
-const Search = () => {
+const SearchClose = styled.button`
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+`;
+
+const NoDataContainer = styled.div`
+  ${({ theme }) => `
+    font: ${theme.click.genericMenu.button.typography.label.default}
+    padding: ${theme.click.genericMenu.button.space.y} ${theme.click.genericMenu.item.space.x};
+    background: ${theme.click.genericMenu.button.color.background.default};
+    &:hover {
+      font: ${theme.click.genericMenu.button.typography.label.hover};
+    }
+  `}
+`;
+
+const Viewport = ({
+  search: showSearch,
+  children,
+  noOptionsRenderer,
+}: {
+  search: boolean;
+  children: ReactNode;
+  noOptionsRenderer?: ReactNode;
+}) => {
+  const show = useOptionVisible(children);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [search, setSearch] = useState("");
   const { onSearchTextChange } = useSelect();
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -173,25 +210,41 @@ const Search = () => {
   const clearSearch = () => {
     setSearch("");
     onSearchTextChange("");
+    inputRef.current?.focus();
+  };
+
+  const NoData = (): ReactNode => {
+    if (noOptionsRenderer) {
+      return noOptionsRenderer;
+    }
+    return <NoDataContainer>No Options found{` for "${search}"`}</NoDataContainer>;
   };
 
   return (
-    <SearchBarContainer>
-      <SearchBar
-        value={search}
-        type="text"
-        onChange={onSearchChange}
-        autoFocus
-      />
-      {search.length > 0 && (
-        <button onClick={clearSearch}>
-          <Icon
-            name="cross"
-            size="small"
+    <SelectViewport>
+      {showSearch && (
+        <SearchBarContainer>
+          <SearchBar
+            ref={inputRef}
+            value={search}
+            type="text"
+            onChange={onSearchChange}
+            autoFocus
           />
-        </button>
+          {search.length > 0 && (
+            <SearchClose onClick={clearSearch}>
+              <Icon
+                name="cross"
+                size="small"
+              />
+            </SearchClose>
+          )}
+        </SearchBarContainer>
       )}
-    </SearchBarContainer>
+      <ScrollbarViewport search={showSearch}>
+        {show ? children : <NoData />}
+      </ScrollbarViewport>
+    </SelectViewport>
   );
 };
 
@@ -211,7 +264,8 @@ const Select = ({
   dir,
   name,
   required,
-  search,
+  search = false,
+  noOptionsRenderer,
   ...props
 }: Props) => {
   id = id ?? uniqueId("select");
@@ -249,10 +303,12 @@ const Select = ({
           >
             <SelectContextProvider>
               <ScrollbarRoot type="auto">
-                <SelectViewport>
-                  {search && <Search />}
-                  <ScrollbarViewport search>{children}</ScrollbarViewport>
-                </SelectViewport>
+                <Viewport
+                  search={search}
+                  noOptionsRenderer={noOptionsRenderer}
+                >
+                  {children}
+                </Viewport>
                 <Scrollbar orientation="vertical">
                   <ScrollbarThumb />
                 </Scrollbar>
@@ -275,7 +331,6 @@ const Select = ({
 };
 interface GroupProps extends RadixSelect.SelectGroupProps {
   label?: ReactNode;
-  separator?: boolean;
 }
 
 const SelectGroup = styled(RadixSelect.Group)`
@@ -333,8 +388,9 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
 `;
 
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
-  ({ children, label, separator, ...props }, forwardedRef) => {
-    const show = useOptionVisible(children);
+  ({ children, label, ...props }, forwardedRef) => {
+    const selectValue = useSelect();
+    const show = useOptionVisible(children, label);
 
     if (!show) {
       return null;
@@ -344,8 +400,10 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
         {...props}
         ref={forwardedRef}
       >
-        <SelectGroupLabel>{label}</SelectGroupLabel>
-        {children}
+        <SelectProvider value={{ ...selectValue, groupLabel: label }}>
+          <SelectGroupLabel>{label}</SelectGroupLabel>
+          {children}
+        </SelectProvider>
       </SelectGroup>
     );
   }
@@ -356,6 +414,7 @@ const SelectItem = styled(RadixSelect.Item)`
   display: flex;
   width: 100%;
   align-items: center;
+  cursor: default;
   &[aria-selected] {
     outline: none;
   }
@@ -392,19 +451,27 @@ const SelectItem = styled(RadixSelect.Item)`
   `};
 `;
 
-const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
-  ({ children, ...props }, forwardedRef) => {
-    const show = useOptionVisible(children);
+interface ItemProps extends RadixSelect.SelectItemProps {
+  separator?: boolean;
+}
+
+const Item = React.forwardRef<HTMLDivElement, ItemProps>(
+  ({ children, separator, ...props }, forwardedRef) => {
+    const selectValue = useSelect();
+    const show = useOptionVisible(children, selectValue?.groupLabel);
     if (!show) {
       return null;
     }
     return (
-      <SelectItem
-        {...props}
-        ref={forwardedRef}
-      >
-        <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
-      </SelectItem>
+      <>
+        <SelectItem
+          {...props}
+          ref={forwardedRef}
+        >
+          <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
+        </SelectItem>
+        {separator && <Separator size="sm" />}
+      </>
     );
   }
 );
