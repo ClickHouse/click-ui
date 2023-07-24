@@ -157,6 +157,7 @@ const SearchBar = styled.input`
   border: none;
   width: 100%;
   outline: none;
+  min-height: 21px;
   ${({ theme }) => `
     gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.item.typography.label};
