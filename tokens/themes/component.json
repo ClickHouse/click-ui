@@ -364,7 +364,7 @@
         }
       }
     },
-    "big-stat": {
+    "bigStat": {
       "space": {
         "all": {
           "value": "{spaces.4}",
@@ -384,9 +384,7 @@
       "stroke": {
         "value": "{border.width.1}",
         "type": "borderWidth"
-      }
-    },
-    "bigStat": {
+      },
       "typography": {
         "lg": {
           "label": {
