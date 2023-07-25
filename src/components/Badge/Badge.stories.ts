@@ -9,6 +9,11 @@ export default {
       options: ["sm", "md"],
       control: { type: "radio" },
     },
+    state: {
+      options: ["default","success","neutral", "info", "warning", "danger", "disabled"],
+      control: { type: "radio" },
+    }
+    
   }
 };
 
