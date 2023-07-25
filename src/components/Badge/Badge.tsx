@@ -57,6 +57,7 @@ export const Badge = ({
   state = "default",
   size = "md",
   dismissable,
+  onClose,
 }: NonDismissableBadge | DismissableBadge) => (
   <Wrapper
     state={state}
@@ -69,6 +70,7 @@ export const Badge = ({
           name="cross"
           state={state}
           as={Icon}
+          onClick={onClose}
         />
       )}
     </Content>
