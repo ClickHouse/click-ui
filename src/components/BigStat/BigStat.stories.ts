@@ -2,11 +2,11 @@ import { BigStat } from "./BigStat";
 
 export default {
   component: BigStat,
-  title: "Big Stat",
-  tags: ["big-stat"],
+  title: "Display/Big Stat",
+  tags: ["big-stat", "autodocs"],
 };
 
-export const Default = {
+export const Playground = {
   args: {
     label: "big stat label",
     largeValue: "Big Stat",

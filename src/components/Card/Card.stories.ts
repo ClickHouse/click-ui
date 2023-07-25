@@ -2,11 +2,11 @@ import { Card } from "./Card";
 
 export default {
   component: Card,
-  title: "Card",
-  tags: ["card"],
+  title: "Display/Card",
+  tags: ["card","autodocs"],
 };
 
-export const Default = {
+export const Playground = {
   args: {
     title: "Card title",
     badgeText: "experiment",

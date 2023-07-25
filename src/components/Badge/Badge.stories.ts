@@ -2,8 +2,8 @@ import { Badge } from "./Badge";
 
 export default {
   component: Badge,
-  title: "Badge",
-  tags: ["badge"],
+  title: "Display/Badge",
+  tags: ["badge","autodocs"],
   argTypes: {
     size: {
       options: ["sm", "md"],
@@ -17,7 +17,7 @@ export default {
   }
 };
 
-export const Default = {
+export const Playground = {
   args: {
     text: "experiment",
     state: "success",

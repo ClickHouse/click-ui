@@ -17,8 +17,8 @@ const CheckboxComponent = ({
 };
 export default {
   component: CheckboxComponent,
-  title: "Checkbox",
-  tags: ["checkbox"],
+  title: "Forms/Checkbox",
+  tags: ["checkbox","autodocs"],
   argTypes: {
     checked: { control: "radio", options: ["default", "checked", "unchecked"] },
     disabled: { control: "boolean" },
@@ -26,7 +26,7 @@ export default {
   },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     label: "Accept terms and conditions",
     disabled: false,
