@@ -17,5 +17,6 @@ export const Default = {
     text: "experiment",
     state: "success",
     size: "md",
+    dismissable: false,
   },
 };
