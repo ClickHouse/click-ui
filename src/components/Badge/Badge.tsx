@@ -15,7 +15,16 @@ export interface BadgeProps {
   text: string;
   state?: BadgeState;
   size?: BadgeSize;
-  dismissable?: boolean;
+}
+
+export interface DismissableBadge extends BadgeProps {
+  dismissable: true;
+  onClose: () => void;
+}
+
+export interface NonDismissableBadge extends BadgeProps {
+  dismissable?: never;
+  onClose?: never;
 }
 
 const Wrapper = styled.div<Pick<BadgeProps, "state" | "size">>`
@@ -47,8 +56,9 @@ export const Badge = ({
   text,
   state = "default",
   size = "md",
-  dismissable = true,
-}: BadgeProps) => (
+  dismissable,
+  onClose,
+}: NonDismissableBadge | DismissableBadge) => (
   <Wrapper
     state={state}
     size={size}
@@ -60,6 +70,7 @@ export const Badge = ({
           name="cross"
           state={state}
           as={Icon}
+          onClick={onClose}
         />
       )}
     </Content>
