@@ -23,8 +23,8 @@ export interface DismissableBadge extends BadgeProps {
 }
 
 export interface NonDismissableBadge extends BadgeProps {
-  dismissable: never;
-  onClose: never;
+  dismissable?: never;
+  onClose?: never;
 }
 
 const Wrapper = styled.div<Pick<BadgeProps, "state" | "size">>`
