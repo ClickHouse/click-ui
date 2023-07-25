@@ -33,7 +33,6 @@ const Wrapper = styled.div<Pick<BadgeProps, "state"|"size">>`
   padding: ${({ size = "md", theme }) => 
     theme.click.badge.space[size].y} ${({ size = "md", theme }) => theme.click.badge.space[size].x};
   display: inline-block;
-  align-items: center;
 `;
 
 const Content = styled.div<Pick<BadgeProps, "state"|"size">>`
