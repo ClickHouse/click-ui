@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import CrossIcon from "../icons/CrossIcon";
-
+import { Icon } from "..";
 export type BadgeState =
   | "default"
   | "success"
@@ -20,7 +19,6 @@ export interface BadgeProps {
 }
 
 const Wrapper = styled.div<Pick<BadgeProps, "state"|"size">>`
-
   background-color: ${({ state = "default", theme }) =>
     theme.click.badge.color.background[state]};
   color: ${({ state = "default", theme }) =>
@@ -36,21 +34,15 @@ const Wrapper = styled.div<Pick<BadgeProps, "state"|"size">>`
 `;
 
 const Content = styled.div<Pick<BadgeProps, "state"|"size">>`
-display: inline-flex;
-align-items: center;
-gap: ${({ size = "md", theme }) => 
-    theme.click.badge.space[size].gap};
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ size = "md", theme }) => theme.click.badge.space[size].gap};
+`;
 
-.dismiss-icon {
-  height: ${({ size = "md", theme }) => 
-  theme.click.badge.icon[size].size.height};
-  width: ${({ size = "md", theme }) => 
-  theme.click.badge.icon[size].size.width};
-  path {
-    stroke: ${({ state = "default", theme }) =>
-    theme.click.badge.color.text[state]};
-  }
-}
+const CrossContainer = styled(Icon)<Pick<BadgeProps, "state"|"size">>`
+  color: ${({ state = "default", theme }) => theme.click.badge.color.text[state]};
+  height: ${({ size = "md", theme }) => theme.click.badge.icon.md.size.height};
+  width: ${({ size = "md", theme }) => theme.click.badge.icon[size].size.width};
 `;
 
 export const Badge = ({ text, state = "default", size = "md", dismissable = true }: BadgeProps) => (
@@ -58,7 +50,7 @@ export const Badge = ({ text, state = "default", size = "md", dismissable = true
     <Content>
       {text}
       {dismissable && (
-        <CrossIcon className="dismiss-icon" />
+        <CrossContainer name='cross' state={state} />
       )}
     </Content>
   </Wrapper>
