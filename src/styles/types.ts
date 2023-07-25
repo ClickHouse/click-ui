@@ -232,21 +232,27 @@
           "success": string,
           "neutral": string,
           "danger": string,
-          "disabled": string
+          "disabled": string,
+          "info": string,
+          "warning": string
         },
         "text": {
           "default": string,
           "success": string,
           "neutral": string,
           "danger": string,
-          "disabled": string
+          "disabled": string,
+          "info": string,
+          "warning": string
         },
         "stroke": {
           "default": string,
           "success": string,
           "neutral": string,
           "danger": string,
-          "disabled": string
+          "disabled": string,
+          "info": string,
+          "warning": string
         }
       }
     },

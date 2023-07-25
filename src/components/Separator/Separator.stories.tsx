@@ -2,8 +2,8 @@ import Separator from "./Separator";
 
 export default {
   component: Separator,
-  title: "Separator",
-  tags: ["separator"],
+  title: "Display/Separator",
+  tags: ["separator","autodocs"],
   argTypes: {
     size: {
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],
@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     size: "xs",
     orientation: "horizontal",

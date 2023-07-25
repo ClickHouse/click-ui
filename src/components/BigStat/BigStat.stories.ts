@@ -2,21 +2,14 @@ import { BigStat } from "./BigStat";
 
 export default {
   component: BigStat,
-  title: "Big Stat",
-  tags: ["autodocs"],
-  argTypes: {
-    size: {
-      options: ["lg", "sm"],
-      control: { type: "radio" },
-    },
-  }
+  title: "Display/Big Stat",
+  tags: ["big-stat", "autodocs"],
 };
 
 export const Playground = {
   args: {
-    label: "Percentage complete",
-    title: "100%",
+    label: "big stat label",
+    largeValue: "Big Stat",
     state: "default",
-    size: "lg"
   },
 };

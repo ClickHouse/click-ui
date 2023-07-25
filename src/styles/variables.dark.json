@@ -71,21 +71,27 @@
           "success": "#0e421d",
           "neutral": "#414141",
           "danger": "#610000",
-          "disabled": "#414141"
+          "disabled": "#414141",
+          "info": "#092e73",
+          "warning": "#4f2b00"
         },
         "text": {
           "default": "#b3b6bd",
           "success": "#81e59d",
           "neutral": "#c0c0c0",
           "danger": "#ff7575",
-          "disabled": "#808080"
+          "disabled": "#808080",
+          "info": "#91b3f6",
+          "warning": "#ff9416"
         },
         "stroke": {
           "default": "lch(27.5 0 0 / 0.3)",
           "success": "#0e421d",
           "neutral": "#414141",
           "danger": "#610000",
-          "disabled": "lch(26.2 0 0)"
+          "disabled": "lch(26.2 0 0)",
+          "info": "#092e73",
+          "warning": "#4f2b00"
         }
       }
     },

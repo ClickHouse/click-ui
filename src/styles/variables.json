@@ -231,21 +231,27 @@
           "success": "#e0f8e7",
           "neutral": "#e6e7e9",
           "danger": "#ffdddd",
-          "disabled": "#dfdfdf"
+          "disabled": "#dfdfdf",
+          "info": "#dae6fc",
+          "warning": "#ffedd8"
         },
         "text": {
           "default": "#696e79",
           "success": "#1c8439",
           "neutral": "#53575f",
           "danger": "#c10000",
-          "disabled": "#a0a0a0"
+          "disabled": "#a0a0a0",
+          "info": "#135be6",
+          "warning": "#9e5600"
         },
         "stroke": {
           "default": "lch(91.6 1.1 266 / 0.3)",
           "success": "#e0f8e7",
           "neutral": "#e6e7e9",
           "danger": "#ffdddd",
-          "disabled": "lch(84.4 0 0)"
+          "disabled": "lch(84.4 0 0)",
+          "info": "#dae6fc",
+          "warning": "#ffedd8"
         }
       }
     },
