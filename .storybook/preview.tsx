@@ -12,7 +12,7 @@ const ThemeBlock = styled.div<{ left?: boolean; bfill?: boolean }>(
       top: 0.5rem;
       left: ${left || fill ? 0 : "50vw"};
       right: ${left ? "50vw" : 0};
-      width: 100vw;
+      width: 96vw;
       height: 100vh;
       bottom: 0;
       overflow: auto;
