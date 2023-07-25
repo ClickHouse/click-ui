@@ -393,12 +393,6 @@
           "hover": "#ffffff",
           "active": "#ffffff",
           "disabled": "#a0a0a0"
-        },
-        "label": {
-          "default": "#161517",
-          "hover": "#161517",
-          "active": "#161517",
-          "disabled": "#a0a0a0"
         }
       }
     },
