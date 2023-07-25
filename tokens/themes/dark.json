@@ -399,6 +399,14 @@
           "disabled": {
             "value": "{click.card.primary.color.background.disabled}",
             "type": "color"
+          },
+          "info": {
+            "value": "{click.feedback.color.info.background}",
+            "type": "color"
+          },
+          "warning": {
+            "value": "{click.feedback.color.warning.background}",
+            "type": "color"
           }
         },
         "text": {
@@ -420,6 +428,14 @@
           },
           "disabled": {
             "value": "{click.button.basic.color.disabled.text.default}",
+            "type": "color"
+          },
+          "info": {
+            "value": "{click.feedback.color.info.foreground}",
+            "type": "color"
+          },
+          "warning": {
+            "value": "{click.feedback.color.warning.foreground}",
             "type": "color"
           }
         },
@@ -452,6 +468,14 @@
                 }
               }
             }
+          },
+          "info": {
+            "value": "{click.badge.color.background.info}",
+            "type": "color"
+          },
+          "warning": {
+            "value": "{click.badge.color.background.warning}",
+            "type": "color"
           }
         }
       }
