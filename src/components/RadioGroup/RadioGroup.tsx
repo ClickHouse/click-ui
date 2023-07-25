@@ -77,6 +77,7 @@ const RadioInput = styled(RadixRadioGroup.Item)`
   align-items: center;
   justify-content: center;
   outline: none;
+  cursor: pointer;
   ${({ theme }) => `
     border-radius: ${theme.click.radio.radii.all};
     width: 1rem;
@@ -87,6 +88,7 @@ const RadioInput = styled(RadixRadioGroup.Item)`
     & ~ label {
       color: ${theme.click.field.color.genericLabel.default};
       font: ${theme.click.radio.typography.label.default};
+      cursor: pointer;
     }
     &:hover {
       background: ${theme.click.radio.color.background.hover};
