@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Icon } from "..";
 import CrossIcon from "../icons/CrossIcon";
 
 export type BadgeState =
@@ -48,8 +47,10 @@ gap: ${({ size = "md", theme }) =>
   theme.click.badge.icon[size].size.height};
   width: ${({ size = "md", theme }) => 
   theme.click.badge.icon[size].size.width};
-  color: ${({ state = "default", theme }) =>
-  theme.click.badge.color.text[state]};
+  path {
+    stroke: ${({ state = "default", theme }) =>
+    theme.click.badge.color.text[state]};
+  }
 }
 `;
 
@@ -57,7 +58,7 @@ export const Badge = ({ text, state = "default", size = "md", dismissable = true
   <Wrapper state={state} size={size}>
     <Content>
       {text}
-      {dismissable == true && (
+      {dismissable && (
         <CrossIcon className="dismiss-icon" />
       )}
     </Content>
