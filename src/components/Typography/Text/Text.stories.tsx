@@ -3,7 +3,7 @@ import { Text } from "./Text";
 export default {
   component: Text,
   title: "Typography/Text",
-  tags: ["autodocs"],
+  tags: ["text", "autodocs"],
   argTypes: {
     size: {
       options: ["lg", "md", "sm", "xs"],

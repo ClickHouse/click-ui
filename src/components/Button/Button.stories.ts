@@ -3,7 +3,7 @@ import { Button } from "./Button";
 export default {
   title: "Buttons/Button",
   component: Button,
-  tags: ["autodocs"],
+  tags: ["button","autodocs"],
 };
 
 export const Primary = {

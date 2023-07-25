@@ -3,7 +3,7 @@ import { ButtonGroup } from "./ButtonGroup";
 export default {
   component: ButtonGroup,
   title: "Buttons/ButtonGroup",
-  tags: ["autodocs"],
+  tags: ["button-group", "autodocs"],
 };
 
 export const Playground = {

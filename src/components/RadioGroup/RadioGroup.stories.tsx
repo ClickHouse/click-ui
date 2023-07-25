@@ -20,8 +20,8 @@ const RadioGroupComponent = (props: RadioGroupProps) => {
 };
 export default {
   component: RadioGroupComponent,
-  title: "RadioGroup",
-  tags: ["radio"],
+  title: "Forms/RadioGroup",
+  tags: ["radio", "autodocs"],
   argTypes: {
     disabled: { control: "boolean" },
     required: { control: "boolean" },
