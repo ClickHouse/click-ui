@@ -23,7 +23,7 @@ const Wrapper = styled.div<Pick<BadgeProps, "state" | "size">>`
     theme.click.badge.color.background[state]};
   color: ${({ state = "default", theme }) => theme.click.badge.color.text[state]};
   font: ${({ size = "md", theme }) => theme.click.badge.typography.label[size].default};
-  border-radius: ${(props) => props.theme.click.badge.radii.all};
+  border-radius: ${({ theme }) => theme.click.badge.radii.all};
   border: ${({ state = "default", theme }) =>
     `${theme.click.badge.stroke} solid ${theme.click.badge.color.stroke[state]}`};
   padding: ${({ size = "md", theme }) => theme.click.badge.space[size].y}
@@ -37,9 +37,9 @@ const Content = styled.div<Pick<BadgeProps, "state" | "size">>`
   gap: ${({ size = "md", theme }) => theme.click.badge.space[size].gap};
 `;
 
-const CrossContainer = styled(Icon)<Pick<BadgeProps, "state" | "size">>`
+const CrossContainer = styled.svg<Pick<BadgeProps, "state" | "size">>`
   color: ${({ state = "default", theme }) => theme.click.badge.color.text[state]};
-  height: ${({ size = "md", theme }) => theme.click.badge.icon.md.size.height};
+  height: ${({ size = "md", theme }) => theme.click.badge.icon[size].size.height};
   width: ${({ size = "md", theme }) => theme.click.badge.icon[size].size.width};
 `;
 
@@ -59,6 +59,7 @@ export const Badge = ({
         <CrossContainer
           name="cross"
           state={state}
+          as={Icon}
         />
       )}
     </Content>
