@@ -2,8 +2,26 @@ import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import { HTMLAttributes, ReactNode, useId } from "react";
 import styled from "styled-components";
 
-export const RadioGroup = ({ children, ...props }: RadixRadioGroup.RadioGroupProps) => {
-  return <RadixRadioGroup.Root {...props}>{children}</RadixRadioGroup.Root>;
+export interface RadioGroupProps extends RadixRadioGroup.RadioGroupProps {
+  inline?: boolean;
+}
+
+const RadioGroupRoot = styled(RadixRadioGroup.Root)<{ inline: boolean }>`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.click.checkbox.space.gap};
+  flex-direction: ${({ inline }) => (inline ? "row" : "column")};
+`;
+
+export const RadioGroup = ({ children, inline = false, ...props }: RadioGroupProps) => {
+  return (
+    <RadioGroupRoot
+      inline={inline}
+      {...props}
+    >
+      {children}
+    </RadioGroupRoot>
+  );
 };
 
 interface RadioGroupInputProps extends RadixRadioGroup.RadioGroupItemProps {

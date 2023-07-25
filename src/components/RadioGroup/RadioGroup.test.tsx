@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
 import { render, fireEvent } from "@testing-library/react";
 import { RadioGroup } from "@/components";
-import { RadioGroupProps } from "@radix-ui/react-radio-group";
+import { RadioGroupProps } from "./RadioGroup";
 
 describe("RadioGroup", () => {
   const renderRadioGroup = (props: RadioGroupProps) =>
