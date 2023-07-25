@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { RadioGroup } from "@/components";
 import { RadioGroupProps } from "./RadioGroup";
 
@@ -10,43 +10,45 @@ describe("RadioGroup", () => {
       <ThemeProvider theme={themes.dark}>
         <RadioGroup {...props}>
           <RadioGroup.Item
+            id="RadioButton1"
             label="Radio Button1"
             value="RadioButton1"
           />
           <RadioGroup.Item
             label="Radio Button2"
             value="RadioButton2"
+            id="RadioButton2"
           />
           <RadioGroup.Item
             label="Radio Button3"
             value="RadioButton3"
+            id="RadioButton3"
           />
         </RadioGroup>
       </ThemeProvider>
     );
 
   it("should execute action on click", () => {
-    let counter = 0;
-    const handleClick = () => counter++;
-    const { getByText } = renderRadioGroup({
+    const handleClick = jest.fn(() => null);
+    const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
     });
-    const radio = getByText("Radio Button2");
+    const radio = getByLabelText("Radio Button1");
+    screen.debug(radio);
     fireEvent.click(radio);
-
-    expect(counter).toEqual(1);
+    screen.debug(getByLabelText("Radio Button1"));
+    expect(handleClick).toBeCalledTimes(1);
   });
 
   it("should not execute action on click if the radio is disabled", () => {
-    let counter = 0;
-    const handleClick = () => counter++;
-    const { getByTestId } = renderRadioGroup({
+    const handleClick = jest.fn(() => null);
+    const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
       disabled: true,
     });
-    const radio = getByTestId("radio");
+    const radio = getByLabelText("Radio Button2");
+    expect(radio).not.toBeNull();
     fireEvent.click(radio);
-
-    expect(counter).toEqual(0);
+    expect(handleClick).toBeCalledTimes(0);
   });
 });
