@@ -84,24 +84,24 @@ const RadioInput = styled(RadixRadioGroup.Item)`
     &:hover {
       background: ${theme.click.radio.color.background.hover};
       & ~ label {
-      color: ${theme.click.field.color.genericLabel.hover};
-      font: ${theme.click.radio.typography.label.hover};
+        color: ${theme.click.field.color.genericLabel.hover};
+        font: ${theme.click.radio.typography.label.hover};
       }
     }
     &[data-state="checked"] {
       border-color: ${theme.click.radio.color.stroke.active};
       background: ${theme.click.radio.color.background.active};
       & ~ label {
-      color: ${theme.click.field.color.genericLabel.active};
-      font: ${theme.click.radio.typography.label.active};
+        color: ${theme.click.field.color.genericLabel.active};
+        font: ${theme.click.radio.typography.label.active};
       }
     }
     &[data-disabled] {
       background: ${theme.click.radio.color.background.disabled};
       border-color: ${theme.click.radio.color.stroke.disabled};
       & ~ label {
-      color: ${theme.click.field.color.genericLabel.disabled};
-      font: ${theme.click.radio.typography.label.disabled};
+        color: ${theme.click.field.color.genericLabel.disabled};
+        font: ${theme.click.radio.typography.label.disabled};
       }
     }
   `};
