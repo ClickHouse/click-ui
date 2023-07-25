@@ -11,6 +11,7 @@ export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Ale
 export { Checkbox } from "./Checkbox/Checkbox";
 export { IconButton } from "./IconButton/IconButton";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
+export { RadioGroup } from "./RadioGroup/RadioGroup";
 export { Switch } from "./Switch/Switch";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { Label } from "./FormField/Label";
