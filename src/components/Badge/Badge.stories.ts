@@ -12,8 +12,11 @@ export default {
     state: {
       options: ["default","success","neutral", "info", "warning", "danger", "disabled"],
       control: { type: "radio" },
+    },
+    dismissible: {
+      options: [true, false],
+      control: { type: "boolean" },
     }
-    
   }
 };
 
@@ -22,6 +25,6 @@ export const Playground = {
     text: "experiment",
     state: "success",
     size: "md",
-    dismissable: false,
+    dismissible: false,
   },
 };

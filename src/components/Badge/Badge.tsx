@@ -17,13 +17,13 @@ export interface BadgeProps {
   size?: BadgeSize;
 }
 
-export interface DismissableBadge extends BadgeProps {
-  dismissable: true;
+export interface DismissibleBadge extends BadgeProps {
+  dismissible: true;
   onClose: () => void;
 }
 
-export interface NonDismissableBadge extends BadgeProps {
-  dismissable?: never;
+export interface NonDismissibleBadge extends BadgeProps {
+  dismissible?: never;
   onClose?: never;
 }
 
@@ -56,16 +56,16 @@ export const Badge = ({
   text,
   state = "default",
   size = "md",
-  dismissable,
+  dismissible,
   onClose,
-}: NonDismissableBadge | DismissableBadge) => (
+}: NonDismissibleBadge | DismissibleBadge) => (
   <Wrapper
     state={state}
     size={size}
   >
     <Content>
       {text}
-      {dismissable && (
+      {dismissible && (
         <CrossContainer
           name="cross"
           state={state}
