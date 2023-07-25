@@ -2,11 +2,11 @@ import { Switch } from "./Switch";
 
 export default {
   component: Switch,
-  title: "Switch",
-  tags: ["switch"],
+  title: "Forms/Switch",
+  tags: ["switch", "autodocs"],
 };
 
-export const Default = {
+export const Playground = {
   args: {
     checked: true,
     disabled: false,

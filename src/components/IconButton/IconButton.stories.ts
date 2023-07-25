@@ -2,11 +2,11 @@ import { IconButton } from "./IconButton";
 
 export default {
   component: IconButton,
-  title: "IconButton",
-  tags: ["icon-button"],
+  title: "Buttons/IconButton",
+  tags: ["icon-button","autodocs"],
 };
 
-export const Default = {
+export const Playground = {
   args: {
     size: "default",
     state: "active",
