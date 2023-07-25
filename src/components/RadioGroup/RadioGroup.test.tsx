@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { RadioGroup } from "@/components";
 import { RadioGroupProps } from "./RadioGroup";
 
@@ -8,7 +8,10 @@ describe("RadioGroup", () => {
   const renderRadioGroup = (props: RadioGroupProps) =>
     render(
       <ThemeProvider theme={themes.dark}>
-        <RadioGroup {...props}>
+        <RadioGroup
+          inline
+          {...props}
+        >
           <RadioGroup.Item
             id="RadioButton1"
             label="Radio Button1"
@@ -29,14 +32,17 @@ describe("RadioGroup", () => {
     );
 
   it("should execute action on click", () => {
-    const handleClick = jest.fn(() => null);
+    const handleClick = jest.fn(() => console.log("xasas"));
     const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
     });
     const radio = getByLabelText("Radio Button1");
+    expect(radio.dataset.state).toBe("unchecked");
     screen.debug(radio);
-    fireEvent.click(radio);
-    screen.debug(getByLabelText("Radio Button1"));
+    waitFor(() => {
+      fireEvent.click(radio, {});
+      expect(radio.dataset.state).toBe("checked");
+    });
     expect(handleClick).toBeCalledTimes(1);
   });
 

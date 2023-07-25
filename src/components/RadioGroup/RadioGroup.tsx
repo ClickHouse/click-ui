@@ -6,15 +6,22 @@ export interface RadioGroupProps extends RadixRadioGroup.RadioGroupProps {
   inline?: boolean;
 }
 
-const RadioGroupRoot = styled(RadixRadioGroup.Root)<{ inline?: boolean }>`
+const RadioGroupRoot = styled(RadixRadioGroup.Root)<{ inline: "true" | "false" }>`
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.click.checkbox.space.gap};
-  flex-direction: ${({ inline }) => (inline ? "row" : "column")};
+  flex-direction: ${({ inline }) => (inline === "true" ? "row" : "column")};
 `;
 
-export const RadioGroup = ({ children, ...props }: RadioGroupProps) => {
-  return <RadioGroupRoot {...props}>{children}</RadioGroupRoot>;
+export const RadioGroup = ({ children, inline, ...props }: RadioGroupProps) => {
+  return (
+    <RadioGroupRoot
+      inline={inline === true ? "true" : "false"}
+      {...props}
+    >
+      {children}
+    </RadioGroupRoot>
+  );
 };
 
 interface RadioGroupInputProps extends RadixRadioGroup.RadioGroupItemProps {
