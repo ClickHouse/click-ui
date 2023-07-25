@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { RadioGroup } from "@/components";
 import { RadioGroupProps } from "./RadioGroup";
 
@@ -32,22 +32,21 @@ describe("RadioGroup", () => {
     );
 
   it("should execute action on click", () => {
-    const handleClick = jest.fn(() => console.log("xasas"));
+    const handleClick = jest.fn();
     const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
     });
     const radio = getByLabelText("Radio Button1");
     expect(radio.dataset.state).toBe("unchecked");
-    screen.debug(radio);
     waitFor(() => {
-      fireEvent.click(radio, {});
+      fireEvent.click(radio);
       expect(radio.dataset.state).toBe("checked");
     });
     expect(handleClick).toBeCalledTimes(1);
   });
 
   it("should not execute action on click if the radio is disabled", () => {
-    const handleClick = jest.fn(() => null);
+    const handleClick = jest.fn();
     const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
       disabled: true,
