@@ -2062,6 +2062,12 @@
           "value": "{spaces.3}",
           "type": "spacing"
         }
+      },
+      "radii": {
+        "all": {
+          "value": "{border.radii.1}",
+          "type": "borderRadius"
+        }
       }
     }
   }
