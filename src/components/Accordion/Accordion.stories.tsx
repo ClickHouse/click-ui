@@ -2,8 +2,8 @@ import { Accordion } from "./Accordion";
 
 export default {
   component: Accordion,
-  title: "Accordion",
-  tags: ["accordion"],
+  title: "Display/Accordion",
+  tags: ["accordion", "autodocs"],
 };
 
 const children = (
@@ -18,61 +18,11 @@ const children = (
     </p>
   </div>
 );
-export const Default = {
+export const Playground = {
   args: {
     title: "Accordion title",
+    theme: "light",
     size: "medium",
     children,
-  },
-};
-
-export const Icon = {
-  args: {
-    title: "Accordion title",
-    size: "medium",
-    icon: "user",
-    children,
-  },
-};
-
-export const Large = {
-  args: {
-    title: "Accordion title",
-    size: "large",
-    children,
-  },
-};
-
-export const Small = {
-  args: {
-    title: "Accordion title",
-    size: "small",
-    children,
-  },
-};
-
-export const Hover = {
-  args: {
-    title: "Accordion title",
-    size: "large",
-    children,
-  },
-  parameters: {
-    pseudo: {
-      hover: true,
-    },
-  },
-};
-
-export const Active = {
-  args: {
-    title: "Accordion title",
-    size: "large",
-    children,
-  },
-  parameters: {
-    pseudo: {
-      active: true,
-    },
   },
 };

@@ -3,7 +3,7 @@ import { Title } from "./Title";
 export default {
   component: Title,
   title: "Typography/Title",
-  tags: ["autodocs"],
+  tags: ["title", "autodocs"],
   argTypes: {
     size: {
       options: ["2xl", "xl", "lg", "md", "sm", "xs"],
