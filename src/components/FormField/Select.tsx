@@ -82,10 +82,10 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
       border: 1px solid ${theme.click.field.color.stroke.active};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.active};
-      &~ label {
-      color: ${theme.click.field.color.label.active};
-      font: ${theme.click.field.typography.label.active};;
-  }
+      & ~ label {
+        color: ${theme.click.field.color.label.active};
+        font: ${theme.click.field.typography.label.active};;
+      }
     }
     `
     };
@@ -150,8 +150,11 @@ const SearchBarContainer = styled.div`
   ${({ theme }) => `
     border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
     padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
+    color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
+    font: ${theme.click.genericMenu.autocomplete.typography.searchTerm.default};
   `}
 `;
+
 const SearchBar = styled.input`
   background: transparent;
   border: none;
@@ -162,6 +165,8 @@ const SearchBar = styled.input`
     gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.item.typography.label};
     border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
+    color: inherit;
+    font: inherit;
     &::placeholder {
       color: ${theme.click.genericMenu.autocomplete.color.placeholder.default};
       font: ${theme.click.genericMenu.autocomplete.typography.search.placeholder.default};
@@ -175,6 +180,7 @@ const SearchClose = styled.button`
   padding: 0;
   outline: none;
   cursor: pointer;
+  color: inherit;
 `;
 
 const NoDataContainer = styled.div`
@@ -203,15 +209,17 @@ const Viewport = ({
   const [search, setSearch] = useState("");
   const { onSearchTextChange } = useSelect();
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    onSearchTextChange(value);
-    setSearch(value);
+    if (showSearch) {
+      e.preventDefault();
+      const value = e.target.value;
+      onSearchTextChange(value);
+      setSearch(value);
+    }
   };
 
   const clearSearch = () => {
     setSearch("");
     onSearchTextChange("");
-    inputRef.current?.focus();
   };
 
   const NoData = (): ReactNode => {
@@ -230,6 +238,7 @@ const Viewport = ({
             value={search}
             type="text"
             onChange={onSearchChange}
+            placeholder="Type here to filter"
             autoFocus
           />
           {search.length > 0 && (
@@ -243,7 +252,8 @@ const Viewport = ({
         </SearchBarContainer>
       )}
       <ScrollbarViewport search={showSearch}>
-        {show ? children : <NoData />}
+        {children}
+        {!show && <NoData />}
       </ScrollbarViewport>
     </SelectViewport>
   );
@@ -334,8 +344,8 @@ interface GroupProps extends RadixSelect.SelectGroupProps {
   label?: ReactNode;
 }
 
-const SelectGroup = styled(RadixSelect.Group)`
-  display: flex;
+const SelectGroup = styled(RadixSelect.Group)<{ show: boolean }>`
+  display: ${({ show }) => (show ? "flex" : "none")};
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -393,11 +403,9 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
     const selectValue = useSelect();
     const show = useOptionVisible(children, label);
 
-    if (!show) {
-      return null;
-    }
     return (
       <SelectGroup
+        show={show}
         {...props}
         ref={forwardedRef}
       >
@@ -411,8 +419,8 @@ const Group = React.forwardRef<HTMLDivElement, GroupProps>(
 );
 Group.displayName = "Select.Group";
 
-const SelectItem = styled(RadixSelect.Item)`
-  display: flex;
+const SelectItem = styled(RadixSelect.Item)<{ show: boolean }>`
+  display: ${({ show }) => (show ? "flex" : "none")};
   width: 100%;
   align-items: center;
   cursor: default;
@@ -460,12 +468,10 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
   ({ children, separator, ...props }, forwardedRef) => {
     const selectValue = useSelect();
     const show = useOptionVisible(children, selectValue?.groupLabel);
-    if (!show) {
-      return null;
-    }
     return (
       <>
         <SelectItem
+          show={show}
           {...props}
           ref={forwardedRef}
         >
