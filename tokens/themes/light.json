@@ -2418,6 +2418,24 @@
           }
         }
       }
+    },
+    "popover": {
+      "color": {
+        "panel": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   }
 }

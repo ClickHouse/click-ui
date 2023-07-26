@@ -2047,6 +2047,22 @@
           }
         }
       }
+    },
+    "popover": {
+      "space": {
+        "y": {
+          "value": "{spaces.4}",
+          "type": "spacing"
+        },
+        "x": {
+          "value": "{spaces.5}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{spaces.3}",
+          "type": "spacing"
+        }
+      }
     }
   }
 }
