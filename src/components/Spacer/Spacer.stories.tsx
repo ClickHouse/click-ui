@@ -9,16 +9,12 @@ export default {
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],
       control: { type: "radio" },
     },
-    orientation: {
-      options: ["horizontal", "vertical"],
-      control: { type: "radio" },
-    },
   },
 };
 
 export const Playground = {
   args: {
-    size: "xs",
-    orientation: "horizontal",
+    size: "xxl",
   },
 };
+
