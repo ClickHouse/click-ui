@@ -2068,6 +2068,12 @@
           "value": "{border.radii.1}",
           "type": "borderRadius"
         }
+      },
+      "shadow": {
+        "default": {
+          "value": "{shadow.1}",
+          "type": "boxShadow"
+        }
       }
     }
   }
