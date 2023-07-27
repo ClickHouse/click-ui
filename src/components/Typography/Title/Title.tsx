@@ -31,8 +31,6 @@ const CuiTitle = styled.div<Omit<TitleProps, "type">>`
   color: ${({ color = "default", theme }) => theme.click.global.color.text[color]};
   margin: 0;
   padding: 0;
-  font-weight: inherit;
   font-style: inherit;
-  font-size: 100%;
   line-height: 1;
 `;
