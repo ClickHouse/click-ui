@@ -40,7 +40,10 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
 
 const MenuPanel = styled(GenericMenuPanel)<{ showClose?: boolean; showArrow?: boolean }>`
   display: block;
-  padding: 0.5rem 1rem;
+  padding: ${({ theme }) => theme.click.popover.space.y} ${({ theme }) => theme.click.popover.space.y};
+  background-color: ${({ theme }) => theme.click.popover.color.panel.background}
+  border: 1px solid ${({ theme }) => theme.click.popover.color.panel.stroke}
+  border-radius: ${({ theme }) => theme.click.popover.radii.all}
 
   ${({ showClose }) =>
     showClose

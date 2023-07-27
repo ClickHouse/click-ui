@@ -38,16 +38,19 @@ const CheckInput = styled(RadixCheckbox.Root)`
   display: flex;
   align-items: center;
   justify-content: center;
+
   ${({ theme }) => `
     border-radius: ${theme.click.checkbox.radii.all};
     width: ${theme.click.checkbox.size.all};
     height: ${theme.click.checkbox.size.all};
     background: ${theme.click.checkbox.color.background.default};
     border: 1px solid ${theme.click.checkbox.color.stroke.default};
-
+    cursor: pointer;
+    
     & ~ label {
       color: ${theme.click.checkbox.color.label.default};
       font: ${theme.click.field.typography.fieldText.default}
+      cursor: pointer;
     }
     &:hover {
       background: ${theme.click.checkbox.color.background.hover};
