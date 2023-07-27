@@ -77,6 +77,7 @@ const RadioInput = styled(RadixRadioGroup.Item)`
   align-items: center;
   justify-content: center;
   outline: none;
+  cursor: pointer;
   ${({ theme }) => `
     border-radius: ${theme.click.radio.radii.all};
     width: 1rem;
@@ -87,6 +88,7 @@ const RadioInput = styled(RadixRadioGroup.Item)`
     & ~ label {
       color: ${theme.click.field.color.genericLabel.default};
       font: ${theme.click.radio.typography.label.default};
+      cursor: pointer;
     }
     &:hover {
       background: ${theme.click.radio.color.background.hover};
@@ -117,15 +119,6 @@ const RadioInput = styled(RadixRadioGroup.Item)`
 const RadioGroupIndicator = styled(RadixRadioGroup.Indicator)`
   ${({ theme }) => `
     background: ${theme.click.radio.color.background.default};
-    &[data-state="checked"] {
-      background: ${theme.click.radio.color.background.active};
-    }
-    &:hover {
-      background: ${theme.click.radio.color.background.hover};
-    }
-    &[data-disabled] {
-      background: ${theme.click.radio.color.background.disabled};
-    }
     &::after {
       content: '';
       display: block;
@@ -136,10 +129,19 @@ const RadioGroupIndicator = styled(RadixRadioGroup.Indicator)`
       &:hover {
         background: ${theme.click.radio.color.indicator.hover};
       }
-      &[data-state="checked"] {
+    }
+    &[data-state="checked"] {
+      background: ${theme.click.radio.color.background.active};
+      &::after {
         background: ${theme.click.radio.color.indicator.active};
       }
-      &[data-disabled] {
+    }
+    &:hover {
+      background: ${theme.click.radio.color.background.hover};
+    }
+    &[data-disabled] {
+      background: ${theme.click.radio.color.background.disabled};
+      &::after {
         background: ${theme.click.radio.color.indicator.disabled};
       }
     }
