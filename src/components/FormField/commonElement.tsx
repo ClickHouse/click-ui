@@ -23,3 +23,9 @@ export const ItemSeparator = css`
   height: 1px;
   background-color: ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
 `;
+
+export const EmptyButton = styled.button`
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+`;
