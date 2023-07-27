@@ -83,7 +83,7 @@
           }
         },
         "shadow": {
-          "1": {
+          "default": {
             "value": "{palette.neutral.900}",
             "type": "color",
             "$extensions": {

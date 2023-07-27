@@ -391,7 +391,6 @@
       "click.tooltip.color.label.default": "S:8bee6bae4da32e7c0c2af5506bca34442131b314,",
       "click.popover.color.panel.background.default": "S:872bd2a6a68a6de8016d9bb7fb6ab45a77da97fd,",
       "click.popover.color.panel.stroke.default": "S:dba7aa98e87dabfe7d3301d479177f6ca572450a,",
-      "click.global.color.shadow.1": "S:1c3b168be21831b2b2456ea91e26e7b4c65e1895,",
       "palette.brand.50": "S:2e53a5af64bac23e4221ed12018c423b553e69d8,",
       "palette.brand.100": "S:00c445d9ba5d7ffa226fa0b78835f75f2f8af245,",
       "palette.brand.200": "S:657e57a94a5269f59664a3b5d26ff9c69252b322,",
@@ -664,7 +663,8 @@
       "click.card.shadow": "S:0bd4a9af73f277607032035635852a23df136108,",
       "click.genericMenu.panel.shadow.default": "S:23d5943ae752ec10e86eede2816e5c7b7ae33cf8,",
       "shadow.1": "S:19370fd0a88adbb2640b3e9e27737d55db916d9b,",
-      "shadow.2": "S:338ae22c381917d950c742bb0299e52fcd0ce627,"
+      "shadow.2": "S:338ae22c381917d950c742bb0299e52fcd0ce627,",
+      "click.global.color.shadow.default": "S:1c3b168be21831b2b2456ea91e26e7b4c65e1895,"
     },
     "selectedTokenSets": {
       "primitives": "enabled",
@@ -1062,7 +1062,6 @@
       "click.tooltip.color.label.default": "ea7201c742c4d052605fa481b7637509010ccfcb",
       "click.popover.color.panel.background.default": "ed79a69e56b0ec35d688844c3da7c85d590cadeb",
       "click.popover.color.panel.stroke.default": "b786c0333c4560a394ea6b57d5868390eb012715",
-      "click.global.color.shadow.1": "b34d8b8cb7326b456148dfb411781bd994111794",
       "palette.brand.50": "68aea9da44d1c09c8aa9a215cb57566db73a333a",
       "palette.brand.100": "b8a0fded76e72ac242f1cfccec71ec0ffd6068cc",
       "palette.brand.200": "7ef695961b055a82d60f5eac2c8ddcc30ed90ec7",
@@ -1382,7 +1381,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.global.color.shadow.default": "b34d8b8cb7326b456148dfb411781bd994111794"
     },
     "group": "Default"
   },
@@ -2407,7 +2407,6 @@
       "click.image.color.stroke": "3acd11482f0baec2af20b2e7dbe34dfa93822d19",
       "click.popover.color.panel.background.default": "ed79a69e56b0ec35d688844c3da7c85d590cadeb",
       "click.popover.color.panel.stroke.default": "b786c0333c4560a394ea6b57d5868390eb012715",
-      "click.global.color.shadow.1": "b34d8b8cb7326b456148dfb411781bd994111794",
       "palette.brand.50": "68aea9da44d1c09c8aa9a215cb57566db73a333a",
       "palette.brand.100": "b8a0fded76e72ac242f1cfccec71ec0ffd6068cc",
       "palette.brand.200": "7ef695961b055a82d60f5eac2c8ddcc30ed90ec7",
@@ -2727,7 +2726,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.global.color.shadow.default": "b34d8b8cb7326b456148dfb411781bd994111794"
     },
     "group": "Default"
   }
