@@ -1398,13 +1398,13 @@
         "color": {
           "background": {
             "default": {
-              "value": "{click.global.color.background.default}",
+              "value": "{click.popover.color.panel.background.default}",
               "type": "color"
             }
           },
           "stroke": {
             "default": {
-              "value": "{click.global.color.stroke.default}",
+              "value": "{click.popover.color.panel.stroke.default}",
               "type": "color"
             }
           }
