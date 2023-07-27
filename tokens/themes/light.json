@@ -81,6 +81,21 @@
             "value": "{palette.info.400}",
             "type": "color"
           }
+        },
+        "shadow": {
+          "1": {
+            "value": "{palette.neutral.900}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.15",
+                  "space": "lch"
+                }
+              }
+            }
+          }
         }
       }
     },

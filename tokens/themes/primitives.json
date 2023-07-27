@@ -905,18 +905,18 @@
       "value": [
         {
           "x": "0",
-          "y": "1",
-          "blur": "2",
-          "spread": "0",
-          "color": "rgba(16, 24, 40, 0.06)",
+          "y": "4",
+          "blur": "6",
+          "spread": "-1",
+          "color": "{click.global.color.shadow.1}",
           "type": "dropShadow"
         },
         {
           "x": "0",
-          "y": "1",
-          "blur": "3",
-          "spread": "0",
-          "color": "rgba(16, 24, 40, 0.1)",
+          "y": "2",
+          "blur": "4",
+          "spread": "-1",
+          "color": "{click.global.color.shadow.1}",
           "type": "dropShadow"
         }
       ],

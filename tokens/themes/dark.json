@@ -75,20 +75,16 @@
             "value": "{palette.brand.300}",
             "type": "color"
           }
-        }
-      }
-    },
-    "popover": {
-      "color": {
-        "background": {
-          "default": {
-            "value": "{palette.neutral.725}",
+        },
+        "shadow": {
+          "1": {
+            "value": "{palette.neutral.900}",
             "type": "color",
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "lighten",
-                  "value": "0.02",
+                  "type": "alpha",
+                  "value": "0.5",
                   "space": "lch"
                 }
               }
@@ -2361,6 +2357,32 @@
             },
             "disabled": {
               "value": "{click.field.color.stroke.disabled}",
+              "type": "color"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "color": {
+        "stroke": {
+          "value": "{click.global.color.text.default}",
+          "type": "color"
+        }
+      }
+    },
+    "popover": {
+      "color": {
+        "panel": {
+          "background": {
+            "default": {
+              "value": "{palette.neutral.700}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{palette.neutral.600}",
               "type": "color"
             }
           }
