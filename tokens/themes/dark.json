@@ -2376,13 +2376,13 @@
         "panel": {
           "background": {
             "default": {
-              "value": "{palette.neutral.700}",
+              "value": "{palette.neutral.725}",
               "type": "color"
             }
           },
           "stroke": {
             "default": {
-              "value": "{palette.neutral.600}",
+              "value": "{palette.neutral.700}",
               "type": "color"
             }
           }

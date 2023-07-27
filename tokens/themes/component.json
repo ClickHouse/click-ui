@@ -2078,11 +2078,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.small.size.height}",
+            "value": "{click.image.medium.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.small.size.width}",
+            "value": "{click.image.medium.size.width}",
             "type": "sizing"
           }
         }
