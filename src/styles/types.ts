@@ -1696,6 +1696,26 @@
         }
       }
     },
+    "popover": {
+      "space": {
+        "y": string,
+        "x": string,
+        "gap": string
+      },
+      "radii": {
+        "all": string
+      },
+      "color": {
+        "panel": {
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1720,13 +1740,9 @@
         },
         "outline": {
           "default": string
-        }
-      }
-    },
-    "popover": {
-      "color": {
-        "background": {
-          "default": string
+        },
+        "shadow": {
+          "1": string
         }
       }
     },

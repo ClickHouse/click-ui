@@ -227,6 +227,68 @@
       }
     },
     "card": {
+      "secondary": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C",
+            "hover": "#282828",
+            "active": "lch(15.3 0 0)",
+            "disabled": "#414141"
+          },
+          "title": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#ffffff",
+            "disabled": "#808080"
+          },
+          "description": {
+            "default": "#b3b6bd",
+            "hover": "#b3b6bd",
+            "active": "#b3b6bd",
+            "disabled": "#808080"
+          },
+          "link": {
+            "default": "#ffffff",
+            "hover": "#FAFF69",
+            "active": "#ffffff",
+            "disabled": "#808080"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)",
+            "hover": "lch(27.5 0 0 / 0.3)",
+            "active": "lch(26.1 0 0 / 0.3)",
+            "disabled": "#414141"
+          }
+        }
+      },
+      "primary": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C",
+            "hover": "#282828",
+            "active": "lch(15.3 0 0)",
+            "disabled": "#414141"
+          },
+          "title": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#ffffff",
+            "disabled": "#808080"
+          },
+          "description": {
+            "default": "#b3b6bd",
+            "hover": "#b3b6bd",
+            "active": "#b3b6bd",
+            "disabled": "#808080"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)",
+            "hover": "lch(27.5 0 0 / 0.3)",
+            "active": "lch(26.1 0 0 / 0.3)",
+            "disabled": "#414141"
+          }
+        }
+      },
       "horizontal": {
         "color": {
           "background": {
@@ -462,6 +524,11 @@
         }
       }
     },
+    "image": {
+      "color": {
+        "stroke": "#ffffff"
+      }
+    },
     "sidebar": {
       "navigation": {
         "item": {
@@ -607,8 +674,8 @@
         "color": {
           "background": {
             "default": "#1F1F1C",
-            "hover": "#dae6fc",
-            "active": "#dae6fc"
+            "hover": "#1d1d1d",
+            "active": "#1d1d1d"
           },
           "stroke": {
             "default": "lch(27.5 0 0 / 0.3)"
@@ -710,6 +777,18 @@
         }
       }
     },
+    "popover": {
+      "color": {
+        "panel": {
+          "background": {
+            "default": "#414141"
+          },
+          "stroke": {
+            "default": "#606060"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -734,13 +813,9 @@
         },
         "outline": {
           "default": "#FAFF69"
-        }
-      }
-    },
-    "popover": {
-      "color": {
-        "background": {
-          "default": "lch(17.8 0 0)"
+        },
+        "shadow": {
+          "1": "lch(6.77 0 0 / 0.5)"
         }
       }
     },
