@@ -77,14 +77,14 @@
           }
         },
         "shadow": {
-          "1": {
+          "default": {
             "value": "{palette.neutral.900}",
             "type": "color",
             "$extensions": {
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.5",
+                  "value": "0.6",
                   "space": "lch"
                 }
               }
@@ -1398,13 +1398,13 @@
         "color": {
           "background": {
             "default": {
-              "value": "{click.global.color.background.default}",
+              "value": "{click.popover.color.panel.background.default}",
               "type": "color"
             }
           },
           "stroke": {
             "default": {
-              "value": "{click.global.color.stroke.default}",
+              "value": "{click.popover.color.panel.stroke.default}",
               "type": "color"
             }
           }
@@ -2376,13 +2376,13 @@
         "panel": {
           "background": {
             "default": {
-              "value": "{palette.neutral.700}",
+              "value": "{palette.neutral.725}",
               "type": "color"
             }
           },
           "stroke": {
             "default": {
-              "value": "{palette.neutral.600}",
+              "value": "{palette.neutral.700}",
               "type": "color"
             }
           }
