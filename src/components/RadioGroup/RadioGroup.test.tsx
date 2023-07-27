@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { RadioGroup } from "@/components";
 import { RadioGroupProps } from "./RadioGroup";
 
@@ -38,10 +38,8 @@ describe("RadioGroup", () => {
     });
     const radio = getByLabelText("Radio Button1");
     expect(radio.dataset.state).toBe("unchecked");
-    waitFor(() => {
-      fireEvent.click(radio);
-      expect(radio.dataset.state).toBe("checked");
-    });
+    fireEvent.click(radio);
+    expect(radio.dataset.state).toBe("checked");
     expect(handleClick).toBeCalledTimes(1);
   });
 
@@ -52,8 +50,10 @@ describe("RadioGroup", () => {
       disabled: true,
     });
     const radio = getByLabelText("Radio Button2");
+    expect(radio.dataset.state).toBe("unchecked");
     expect(radio).not.toBeNull();
     fireEvent.click(radio);
+    expect(radio.dataset.state).toBe("unchecked");
     expect(handleClick).toBeCalledTimes(0);
   });
 });
