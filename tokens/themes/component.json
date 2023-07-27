@@ -276,7 +276,7 @@
             "type": "spacing"
           },
           "y": {
-            "value": "0.1875rem",
+            "value": "0.125rem",
             "type": "spacing"
           },
           "gap": {
