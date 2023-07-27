@@ -7,7 +7,7 @@ export interface SpacerProps {
 const CUISpacer = styled.div<SpacerProps>` 
   background: transparent;
   display: flex;
-  padding: ${({ theme, size = "md" }) => `${theme.click.spacer.horizontal.space.y[size]} 0`};
+  padding: ${({ theme, size = "md" }) => `${theme.click.spacer.horizontal.space.y[size]} ${theme.click.spacer.horizontal.space.x.all}`};
 `
 
 export const Spacer = ({ size }: SpacerProps) => (
