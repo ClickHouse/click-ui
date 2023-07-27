@@ -20,6 +20,7 @@ export const Playground = {
       "A description very interesting that presumably relates to the card",
     infoUrl: "https://clickhouse.com",
     infoText: "Read More",
+    state: "default",
     hasShadow: false,
     hasBadge: true,
     badgeText: "experiment",

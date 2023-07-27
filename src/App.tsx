@@ -13,7 +13,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  Card,
+  CardSecondary,
   Checkbox,
   DangerAlert,
   Icon,
@@ -24,7 +24,6 @@ import {
   SuccessAlert,
   Switch,
   Tabs,
-  TextFieldLabel,
   WarningAlert,
 } from "@/components";
 
@@ -33,14 +32,9 @@ const App = () => {
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
-  const [isCheckboxChecked, setCheckboxChecked] = useState(true);
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <TextFieldLabel state="default" text="my label" />
-      <TextFieldLabel state="active" text="my label" />
-      <TextFieldLabel state="disabled" text="my label" />
-      <TextFieldLabel state="error" text="my label" />
       <div className={styles.flexWrap}>
         <IconButton size="small">
           <ProfileIcon />
@@ -81,8 +75,9 @@ const App = () => {
         <Badge text={"danger"} state={"danger"}></Badge>
         <Badge text={"disabled"} state={"disabled"}></Badge>
       </div>
-      <Card
+      <CardSecondary
         title="Card title"
+        logo="backups"
         description="This is a card description"
         badgeText="experiment"
         infoText="Read More"
@@ -146,10 +141,7 @@ const App = () => {
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
       <Checkbox
-        label="accept terms and conditions of this page"
-        isChecked={isCheckboxChecked}
-        onChange={v => setCheckboxChecked(v)}
-      />
+        label="accept terms and conditions of this page" />
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <Tabs.TriggersList>
           <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
