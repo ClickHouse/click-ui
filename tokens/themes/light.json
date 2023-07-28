@@ -13,6 +13,15 @@
             "muted": {
               "value": "#e6e7e9",
               "type": "color"
+            },
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "1",
+                  "space": "lch"
+                }
+              }
             }
           },
           "muted": {
@@ -25,6 +34,15 @@
             "muted": {
               "value": "#e6e7e9",
               "type": "color"
+            },
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "1",
+                  "space": "lch"
+                }
+              }
             }
           },
           "intense": {
@@ -2448,6 +2466,30 @@
               "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
+          }
+        }
+      }
+    },
+    "panel": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "muted": {
+            "value": "{click.global.color.background.muted}",
+            "type": "color"
+          },
+          "transparent": {
+            "value": "{palette.utility.transparent}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
           }
         }
       }

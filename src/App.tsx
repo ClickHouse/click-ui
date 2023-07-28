@@ -13,7 +13,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  CardSecondary,
+  Card,
   Checkbox,
   DangerAlert,
   Icon,
@@ -21,6 +21,7 @@ import {
   InfoAlert,
   ProfileIcon,
   SidebarNavigationItem,
+  Spacer,
   SuccessAlert,
   Switch,
   Tabs,
@@ -32,6 +33,7 @@ const App = () => {
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
+  const [isCheckboxChecked, setCheckboxChecked] = useState(true);
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -75,9 +77,8 @@ const App = () => {
         <Badge text={"danger"} state={"danger"}></Badge>
         <Badge text={"disabled"} state={"disabled"}></Badge>
       </div>
-      <CardSecondary
+      <Card
         title="Card title"
-        logo="backups"
         description="This is a card description"
         badgeText="experiment"
         infoText="Read More"
@@ -141,7 +142,8 @@ const App = () => {
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
       <Checkbox
-        label="accept terms and conditions of this page" />
+        label="accept terms and conditions of this page"
+      />
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <Tabs.TriggersList>
           <Tabs.Trigger value="tab1">tab1 </Tabs.Trigger>
@@ -155,6 +157,8 @@ const App = () => {
       <Alert text="An example of alert" title="Title" />
       <DangerAlert text="An example of alert" title="Title" />
       <WarningAlert text="An example of alert" title="Title" />
+      
+      <Spacer />
       <InfoAlert text="An example of alert" title="Title" />
       <SuccessAlert text="An example of alert" title="Title" />
       <Avatar text="CH" />
