@@ -17,7 +17,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "lighten",
+                  "type": "alpha",
                   "value": "1",
                   "space": "lch"
                 }
@@ -38,7 +38,7 @@
             "$extensions": {
               "studio.tokens": {
                 "modify": {
-                  "type": "lighten",
+                  "type": "alpha",
                   "value": "1",
                   "space": "lch"
                 }
