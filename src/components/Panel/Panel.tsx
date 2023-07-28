@@ -27,7 +27,7 @@ const Wrapper = styled.div<panelProps>`
   background-color: ${({ color = "default", theme }) => theme.click.panel.color.background[color]};
   border-radius: ${({ theme }) => theme.click.panel.radii.all};
   padding: ${({ padding = "md", theme }) => theme.click.panel.space.y[padding]};
-	border: ${({ hasBorder, theme }) => hasBorder === true ? theme.click.panel.stroke.default : "none"};
+	border: ${({ hasBorder, theme }) => hasBorder === true ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
 	box-shadow: ${({ hasShadow, theme }) => hasShadow === true ? theme.shadow[1] : "none"};
   display: flex;
 `;
