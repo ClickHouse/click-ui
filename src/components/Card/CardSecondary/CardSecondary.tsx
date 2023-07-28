@@ -45,7 +45,7 @@ export const CardSecondary = ({
   infoText,
   state = "default",
 }: CardProps) => (
-  <Wrapper state={state} hasShadow={hasShadow}>
+  <Wrapper state={state} hasShadow={hasShadow} onClick={() => alert(`We need to implement a routing system so I can go to ${infoUrl}`)}>
     <Header>
       <HeaderLeft>
         <Icon name={logo} size="large" />
@@ -64,7 +64,7 @@ export const CardSecondary = ({
     </Content>
 
     <InfoLink state={state}>
-      <Text><a href={infoUrl}>{infoText}</a></Text>
+      <Text className="link">{infoText}</Text>
       <ArrowContainer 
         state={state}
         as={Icon} 
@@ -78,6 +78,7 @@ interface WrapperProps {
   state: CardState;
   hasShadow: boolean;
 }
+
 const Wrapper = styled.div<WrapperProps>`
   background-color: ${({ state = "default", theme }) => theme.click.card.secondary.color.background[state]};
   border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
@@ -88,12 +89,12 @@ const Wrapper = styled.div<WrapperProps>`
   flex-direction: column;
   padding: ${({ theme }) => theme.click.card.secondary.space.all};
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
-  box-shadow: ${({ hasShadow, theme }) => hasShadow === true ? theme.shadow[1] : "none"};
+  box-shadow: ${({ hasShadow, theme }) => hasShadow ? theme.shadow[1] : "none"};
 
   &:hover {
     background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
-    cursor: hover;
-    a, .link-arrow {
+    cursor: pointer;
+    .link, .link-arrow {
         color: ${({ theme }) => theme.click.card.secondary.color.link.hover};
       }
     }

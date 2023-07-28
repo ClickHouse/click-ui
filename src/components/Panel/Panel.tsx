@@ -3,11 +3,18 @@ import styled from "styled-components";
 export type panelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 export type panelColor = "default" | "muted" | "transparent";
 
+export type panelState = 
+  | "default" 
+  | "hover" 
+  | "active" 
+  | "disabled";
+
 export interface panelProps {
   hasBorder?: boolean;
 	hasShadow?: boolean;
 	color?: panelColor;
   padding?: panelPadding;
+	state?: string;
 	children?: React.ReactNode;
 }
 
@@ -16,11 +23,14 @@ export const Panel = ({
 	hasShadow,
 	color,
 	padding,
+	state,
 	children
 }: panelProps) => (
-  <Wrapper hasBorder={hasBorder} hasShadow={hasShadow} color={color} padding={padding}>
+	<FlexContainer>
+  <Wrapper state={state} hasBorder={hasBorder} hasShadow={hasShadow} color={color} padding={padding}>
 		{children}
 	</Wrapper>
+	</FlexContainer>
 );
 
 const Wrapper = styled.div<panelProps>`
@@ -31,3 +41,7 @@ const Wrapper = styled.div<panelProps>`
 	box-shadow: ${({ hasShadow, theme }) => hasShadow ? theme.shadow[1] : "none"};
   display: flex;
 `;
+
+const FlexContainer = styled.div`
+	display: flex;
+`

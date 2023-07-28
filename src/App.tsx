@@ -13,7 +13,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  Card,
+  CardSecondary,
   Checkbox,
   DangerAlert,
   Icon,
@@ -33,7 +33,6 @@ const App = () => {
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
-  const [isCheckboxChecked, setCheckboxChecked] = useState(true);
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -77,8 +76,9 @@ const App = () => {
         <Badge text={"danger"} state={"danger"}></Badge>
         <Badge text={"disabled"} state={"disabled"}></Badge>
       </div>
-      <Card
+      <CardSecondary
         title="Card title"
+        logo="building"
         description="This is a card description"
         badgeText="experiment"
         infoText="Read More"
