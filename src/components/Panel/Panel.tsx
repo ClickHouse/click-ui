@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export type panelPadding = "none" | "sm" | "md" | "lg" | "xl";
+export type panelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 export type panelColor = "default" | "muted" | "transparent";
 
 export interface panelProps {
@@ -27,7 +27,7 @@ const Wrapper = styled.div<panelProps>`
   background-color: ${({ color = "default", theme }) => theme.click.panel.color.background[color]};
   border-radius: ${({ theme }) => theme.click.panel.radii.all};
   padding: ${({ padding = "md", theme }) => theme.click.panel.space.y[padding]};
-	border: ${({ hasBorder, theme }) => hasBorder === true ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
-	box-shadow: ${({ hasShadow, theme }) => hasShadow === true ? theme.shadow[1] : "none"};
+	border: ${({ hasBorder, theme }) => hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
+	box-shadow: ${({ hasShadow, theme }) => hasShadow ? theme.shadow[1] : "none"};
   display: flex;
 `;

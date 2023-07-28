@@ -8,7 +8,7 @@ export default {
   tags: ["panel","autodocs"],
   argTypes: {
     padding: {
-      options: ["none", "sm", "md", "lg", "xl"],
+      options: ["none", "xs", "sm", "md", "lg", "xl"],
       control: { type: "select" },
     },
 	},

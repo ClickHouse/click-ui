@@ -1746,6 +1746,9 @@
           "default": string,
           "muted": string,
           "transparent": string
+        },
+        "stroke": {
+          "default": string
         }
       }
     },

@@ -1,5 +1,176 @@
 {
   "click": {
+    "button": {
+      "basic": {
+        "color": {
+          "primary": {
+            "background": {
+              "default": "#ed8000",
+              "hover": "lch(55.8 3.66 267)",
+              "active": "lch(6.42 1.33 305)"
+            },
+            "text": {
+              "default": "#151515"
+            },
+            "stroke": {
+              "default": "#ed8000",
+              "hover": "lch(55.8 3.66 267)",
+              "active": "lch(6.42 1.33 305)"
+            }
+          },
+          "secondary": {
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "lch(95.3 1.54 272)"
+            },
+            "stroke": {
+              "default": "lch(91.6 1.1 266)",
+              "hover": "#e6e7e9",
+              "active": "lch(83.8 2.3 258)"
+            },
+            "text": {
+              "default": "#161517"
+            }
+          },
+          "disabled": {
+            "background": {
+              "default": "#dfdfdf"
+            },
+            "text": {
+              "default": "#a0a0a0"
+            }
+          },
+          "danger": {
+            "background": {
+              "default": "#ffdddd",
+              "hover": "#ff9898",
+              "active": "#ffbaba"
+            },
+            "text": {
+              "default": "#c10000"
+            }
+          }
+        }
+      },
+      "iconButton": {
+        "color": {
+          "primary": {
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "rgb(86.8% 87.2% 88.2%)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "rgb(86.8% 87.2% 88.2%)"
+            },
+            "text": {
+              "default": "#161517",
+              "hover": "#161517",
+              "active": "#161517"
+            }
+          },
+          "secondary": {
+            "background": {
+              "default": "#ed8000",
+              "hover": "lch(55.8 3.66 267)",
+              "active": "lch(6.1 1.26 305)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "lch(55.8 3.66 267)",
+              "active": "lch(6.1 1.26 305)"
+            },
+            "text": {
+              "default": "#151515",
+              "hover": "#151515",
+              "active": "#151515"
+            }
+          },
+          "disabled": {
+            "background": {
+              "default": "#dfdfdf"
+            },
+            "text": {
+              "default": "#a0a0a0"
+            }
+          },
+          "danger": {
+            "background": {
+              "default": "#ffdddd",
+              "hover": "#ff9898",
+              "active": "#ffbaba"
+            },
+            "text": {
+              "default": "#c10000"
+            }
+          }
+        }
+      },
+      "split": {
+        "primary": {
+          "stroke": {
+            "default": "lch(67 77.4 61.8)",
+            "active": "lch(55.4 69.2 61.8)",
+            "hover": "lch(53.6 2.86 267)"
+          },
+          "background": {
+            "main": {
+              "default": "lch(59.7 74.5 61.8)",
+              "hover": "lch(51.1 3.35 267)",
+              "active": "lch(5.87 1.22 305)"
+            },
+            "action": {
+              "default": "lch(6.35 1.32 305)",
+              "hover": "lch(48.5 3.18 267)",
+              "active": "lch(3.47 0.72 305)"
+            }
+          },
+          "text": {
+            "default": "#151515"
+          }
+        }
+      },
+      "group": {
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "lch(68.1 1.1 272)",
+            "active": "lch(81 1.31 272)",
+            "panel": "#ffffff"
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#151515"
+          },
+          "stroke": {
+            "panel": "lch(91.6 1.1 266)"
+          }
+        }
+      },
+      "alignedLeft": {
+        "color": {
+          "background": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "#f6f7fa",
+            "active": "lch(95.3 1.54 272)"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266)",
+            "hover": "#e6e7e9",
+            "active": "#cccfd3"
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517"
+          }
+        }
+      }
+    },
     "sidebar": {
       "main": {
         "color": {
