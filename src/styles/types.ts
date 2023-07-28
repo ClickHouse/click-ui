@@ -1725,6 +1725,7 @@
       },
       "space": {
         "y": {
+          "none": string,
           "xs": string,
           "sm": string,
           "md": string,
@@ -1733,6 +1734,7 @@
         },
         "x": {
           "xs": string,
+          "none": string,
           "sm": string,
           "md": string,
           "lg": string,
@@ -1742,7 +1744,8 @@
       "color": {
         "background": {
           "default": string,
-          "muted": string
+          "muted": string,
+          "transparent": string
         }
       }
     },

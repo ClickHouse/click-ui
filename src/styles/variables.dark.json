@@ -793,7 +793,8 @@
       "color": {
         "background": {
           "default": "#1F1F1C",
-          "muted": "#282828"
+          "muted": "#282828",
+          "transparent": "rgba(0,0,0,0)"
         }
       }
     },

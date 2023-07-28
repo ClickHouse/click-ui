@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export type panelPadding = "sm" | "md" | "lg" | "xl";
+export type panelPadding = "none" | "sm" | "md" | "lg" | "xl";
 export type panelColor = "default" | "muted" | "transparent";
 
 export interface panelProps {
