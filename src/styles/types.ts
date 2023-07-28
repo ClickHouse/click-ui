@@ -1705,6 +1705,15 @@
       "radii": {
         "all": string
       },
+      "shadow": {
+        "default": string
+      },
+      "icon": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
       "color": {
         "panel": {
           "background": {
@@ -1742,7 +1751,7 @@
           "default": string
         },
         "shadow": {
-          "1": string
+          "default": string
         }
       }
     },
