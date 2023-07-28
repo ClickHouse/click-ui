@@ -2399,6 +2399,10 @@
           "muted": {
             "value": "{click.global.color.background.muted}",
             "type": "color"
+          },
+          "transparent": {
+            "value": "{palette.utility.transparent}",
+            "type": "color"
           }
         }
       }
