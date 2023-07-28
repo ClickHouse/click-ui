@@ -1,5 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { render, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import { themes } from "../../theme";
 import { Select, SelectProps } from "./Select";
 import { ReactNode } from "react";
@@ -7,7 +8,15 @@ interface Props extends Omit<SelectProps, "children" | "label"> {
   nodata?: ReactNode;
 }
 describe("Select", () => {
-  const renderPopover = ({ nodata, ...props }: Props) =>
+  beforeAll(() => {
+    window.HTMLElement.prototype.scrollIntoView = jest.fn();
+    global.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    }));
+  });
+  const renderSelect = ({ nodata, ...props }: Props) =>
     render(
       <ThemeProvider theme={themes.dark}>
         <Select
@@ -32,154 +41,154 @@ describe("Select", () => {
     );
 
   it("should open select on click", () => {
-    const { getByText } = renderPopover({});
-    const popoverTrigger = getByText("Select an option");
-    expect(popoverTrigger).not.toBeNull();
-    fireEvent.click(popoverTrigger);
+    const { queryByText } = renderSelect({});
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
 
-    expect(getByText("Content0")).not.toBeNull();
+    expect(queryByText("Content0")).not.toBeNull();
   });
 
   it("should show error", () => {
-    const { getByText } = renderPopover({
+    const { queryByText } = renderSelect({
       error: "Select Error",
     });
-    expect(getByText("Select an option")).not.toBeNull();
-    expect(getByText("Select Error")).not.toBeNull();
+    expect(queryByText("Select an option")).not.toBeNull();
+    expect(queryByText("Select Error")).not.toBeNull();
   });
 
   it("should not open disabled select on click", () => {
-    const { getByText } = renderPopover({
+    const { queryByText } = renderSelect({
       disabled: true,
     });
-    const popoverTrigger = getByText("Select an option");
-    expect(popoverTrigger).not.toBeNull();
-    fireEvent.click(popoverTrigger);
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
 
-    expect(getByText("Content0")).toBeNull();
+    expect(queryByText("Content0")).toBeNull();
   });
 
   it("should close select on clicking outside content", () => {
-    const { getByText } = renderPopover({});
-    const popoverTrigger = getByText("Select an option");
-    expect(popoverTrigger).not.toBeNull();
-    fireEvent.click(popoverTrigger);
+    const { queryByText } = renderSelect({});
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
 
-    expect(getByText("Content0")).not.toBeNull();
-    fireEvent.click(popoverTrigger);
-    expect(getByText("Content0")).toBeNull();
+    expect(queryByText("Content0")).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
+    expect(queryByText("Content0")).toBeNull();
   });
 
   it("should close select on selecting item", () => {
-    const { getByText } = renderPopover({});
-    const popoverTrigger = getByText("Select an option");
-    expect(popoverTrigger).not.toBeNull();
-    fireEvent.click(popoverTrigger);
+    const { queryByText } = renderSelect({});
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
 
-    const item = getByText("Content0");
+    const item = queryByText("Content0");
     expect(item).not.toBeNull();
-    fireEvent.click(item);
+    item && fireEvent.click(item);
     expect(item).not.toBeNull();
-    expect(getByText("Content1")).toBeNull();
+    expect(queryByText("Content1")).toBeNull();
   });
 
   it("should close select on selecting diabled item", () => {
-    const { getByText } = renderPopover({});
-    const popoverTrigger = getByText("Select an option");
-    expect(popoverTrigger).not.toBeNull();
-    fireEvent.click(popoverTrigger);
+    const { queryByText } = renderSelect({});
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
 
-    const item = getByText("Content4");
+    const item = queryByText("Content4");
     expect(item).not.toBeNull();
-    fireEvent.click(item);
+    item && fireEvent.click(item);
     expect(item).not.toBeNull();
-    expect(getByText("Content1")).not.toBeNull();
+    expect(queryByText("Content1")).not.toBeNull();
   });
 
   describe("onSearch enabled", () => {
     it("on open show all options", () => {
-      const { getByText } = renderPopover({
+      const { queryByText } = renderSelect({
         showSearch: true,
       });
-      const popoverTrigger = getByText("Select an option");
-      expect(popoverTrigger).not.toBeNull();
-      fireEvent.click(popoverTrigger);
+      const selectTrigger = queryByText("Select an option");
+      expect(selectTrigger).not.toBeNull();
+      selectTrigger && fireEvent.click(selectTrigger);
 
-      expect(getByText("Content0")).not.toBeNull();
-      expect(getByText("Content1")).not.toBeNull();
-      expect(getByText("Content2")).not.toBeNull();
-      expect(getByText("Content3")).not.toBeNull();
-      expect(getByText("Content4")).not.toBeNull();
+      expect(queryByText("Content0")).not.toBeNull();
+      expect(queryByText("Content1")).not.toBeNull();
+      expect(queryByText("Content2")).not.toBeNull();
+      expect(queryByText("Content3")).not.toBeNull();
+      expect(queryByText("Content4")).not.toBeNull();
     });
 
     it("filter by text", () => {
-      const { getByText, getByTestId } = renderPopover({
+      const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
       });
-      const popoverTrigger = getByText("Select an option");
-      expect(popoverTrigger).not.toBeNull();
-      fireEvent.click(popoverTrigger);
+      const selectTrigger = queryByText("Select an option");
+      expect(selectTrigger).not.toBeNull();
+      selectTrigger && fireEvent.click(selectTrigger);
 
-      expect(getByText("Group label")).not.toBeNull();
-      expect(getByText("Content0")).not.toBeNull();
-      expect(getByText("Content1")).not.toBeNull();
-      expect(getByText("Content2")).not.toBeNull();
-      expect(getByText("Content3")).not.toBeNull();
-      expect(getByText("Content4")).not.toBeNull();
+      expect(queryByText("Group label")).toBeVisible();
+      expect(queryByText("Content0")).not.toBeNull();
+      expect(queryByText("Content1")).not.toBeNull();
+      expect(queryByText("Content2")).not.toBeNull();
+      expect(queryByText("Content3")).not.toBeNull();
+      expect(queryByText("Content4")).not.toBeNull();
       fireEvent.change(getByTestId("select-search-input"), {
         target: { value: "content2" },
       });
-      expect(getByText("Content2")).not.toBeNull();
-      expect(getByText("Content1")).toBeNull();
-      expect(getByText("Group label")).toBeNull();
+      expect(queryByText("Content2")).not.toBeNull();
+      expect(queryByText("Content1")).toBeNull();
+      expect(queryByText("Group label")).not.toBeVisible();
     });
 
     it("on clear show all data", () => {
-      const { getByText, getByTestId } = renderPopover({
+      const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
       });
-      const popoverTrigger = getByText("Select an option");
-      expect(popoverTrigger).not.toBeNull();
-      fireEvent.click(popoverTrigger);
+      const selectTrigger = queryByText("Select an option");
+      expect(selectTrigger).not.toBeNull();
+      selectTrigger && fireEvent.click(selectTrigger);
 
       const selectInput = getByTestId("select-search-input");
       fireEvent.change(selectInput, {
         target: { value: "content2" },
       });
-      expect(getByText("Content2")).not.toBeNull();
-      expect(getByText("Content1")).toBeNull();
-      expect(getByText("Group label")).toBeNull();
-      fireEvent.click(getByTestId("search-select-close"));
-      expect(getByText("Group label")).not.toBeNull();
-      expect(getByText("Content0")).not.toBeNull();
-      expect(getByText("Content1")).not.toBeNull();
-      expect(getByText("Content2")).not.toBeNull();
-      expect(getByText("Content3")).not.toBeNull();
-      expect(getByText("Content4")).not.toBeNull();
+      expect(queryByText("Content2")).not.toBeNull();
+      expect(queryByText("Content1")).toBeNull();
+      expect(queryByText("Group label")).not.toBeVisible();
+      fireEvent.click(getByTestId("select-search-close"));
+      expect(queryByText("Group label")).toBeVisible();
+      expect(queryByText("Content0")).not.toBeNull();
+      expect(queryByText("Content1")).not.toBeNull();
+      expect(queryByText("Content2")).not.toBeNull();
+      expect(queryByText("Content3")).not.toBeNull();
+      expect(queryByText("Content4")).not.toBeNull();
       expect(document.activeElement).toBe(selectInput);
     });
     it("on no options available show no data", () => {
-      const { getByText, getByTestId } = renderPopover({
+      const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
       });
-      const popoverTrigger = getByText("Select an option");
-      expect(popoverTrigger).not.toBeNull();
-      fireEvent.click(popoverTrigger);
+      const selectTrigger = queryByText("Select an option");
+      expect(selectTrigger).not.toBeNull();
+      selectTrigger && fireEvent.click(selectTrigger);
 
       fireEvent.change(getByTestId("select-search-input"), {
         target: { value: "nodata" },
       });
-      expect(getByText("Content2")).toBeNull();
-      expect(getByText("Content1")).toBeNull();
-      expect(getByText("Group label")).toBeNull();
-      const btn = getByText(/No Options found/i);
+      expect(queryByText("Content2")).toBeNull();
+      expect(queryByText("Content1")).toBeNull();
+      expect(queryByText("Group label")).not.toBeVisible();
+      const btn = queryByText(/No Options found/i);
       expect(btn).not.toBeNull();
-      fireEvent.click(btn);
+      btn && fireEvent.click(btn);
       expect(btn).not.toBeNull();
     });
     it("on no options available show no custom data", () => {
       const onClick = jest.fn();
-      const { getByText, getByTestId } = renderPopover({
+      const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
         nodata: (
           <Select.NoData onClick={onClick}>
@@ -187,21 +196,21 @@ describe("Select", () => {
           </Select.NoData>
         ),
       });
-      const popoverTrigger = getByText("Select an option");
-      expect(popoverTrigger).not.toBeNull();
-      fireEvent.click(popoverTrigger);
+      const selectTrigger = queryByText("Select an option");
+      expect(selectTrigger).not.toBeNull();
+      selectTrigger && fireEvent.click(selectTrigger);
 
       fireEvent.change(getByTestId("select-search-input"), {
         target: { value: "nodata" },
       });
-      expect(getByText("Content2")).toBeNull();
-      expect(getByText("Content1")).toBeNull();
-      expect(getByText("Group label")).toBeNull();
-      const btn = getByText(/No Field found/i);
+      expect(queryByText("Content2")).toBeNull();
+      expect(queryByText("Content1")).toBeNull();
+      expect(queryByText("Group label")).not.toBeVisible();
+      const btn = queryByText(/No Field found/i);
       expect(btn).not.toBeNull();
-      fireEvent.click(btn);
+      btn && fireEvent.click(btn);
       expect(onClick).toBeCalledTimes(1);
-      expect(btn).toBeNull();
+      expect(btn).not.toBeVisible();
     });
   });
 });

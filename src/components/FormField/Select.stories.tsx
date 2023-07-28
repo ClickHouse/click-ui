@@ -35,7 +35,7 @@ export default {
     defaultOpen: { control: "boolean" },
     name: { control: "string" },
     required: { control: "boolean" },
-    search: { control: "boolean" },
+    showSearch: { control: "boolean" },
     isFormCotrol: { control: "boolean" },
     clickableNoData: { control: "boolean" },
   },

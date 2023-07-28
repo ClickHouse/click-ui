@@ -40,7 +40,7 @@ const SelectPopoverRoot = styled(RadixPopover.Root)`
   width: 100%;
 `;
 
-const SelectTrigger = styled(RadixPopover.Trigger)<{ error: boolean }>`
+const SelectTrigger = styled(RadixPopover.Trigger)<{ $error: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -55,7 +55,7 @@ const SelectTrigger = styled(RadixPopover.Trigger)<{ error: boolean }>`
     text-overflow: ellipsis;
   }
 
-  ${({ theme, error }) => `
+  ${({ theme, $error }) => `
     border-radius: ${theme.click.field.radii.all};
     padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
     gap: ${theme.click.field.space.gap};
@@ -69,7 +69,7 @@ const SelectTrigger = styled(RadixPopover.Trigger)<{ error: boolean }>`
       color: ${theme.click.field.color.text.hover};
     }
     ${
-      error
+      $error
         ? `
       font: ${theme.click.field.typography.fieldText.error};
       border: 1px solid ${theme.click.field.color.stroke.error};
@@ -125,7 +125,7 @@ const SelectContent = styled(RadixPopover.Content)`
   }
 `;
 
-const SearchBarContainer = styled.div<{ showSearch: boolean }>`
+const SearchBarContainer = styled.div<{ $showSearch: boolean }>`
   width: fill-available;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -135,8 +135,8 @@ const SearchBarContainer = styled.div<{ showSearch: boolean }>`
     color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
     font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
   `}
-  ${({ showSearch }) =>
-    showSearch
+  ${({ $showSearch }) =>
+    $showSearch
       ? undefined
       : `
     border: none;
@@ -145,13 +145,13 @@ const SearchBarContainer = styled.div<{ showSearch: boolean }>`
   `}
 `;
 
-const SearchBar = styled(Command.Input)<{ showSearch: boolean }>`
+const SearchBar = styled(Command.Input)<{ $showSearch: boolean }>`
   background: transparent;
   border: none;
   width: 100%;
   outline: none;
-  ${({ theme, showSearch }) => `
-    min-height: ${showSearch ? "21px" : "0"};
+  ${({ theme, $showSearch }) => `
+    min-height: ${$showSearch ? "21px" : "0"};
     gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.item.typography.label};
     border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
@@ -162,7 +162,7 @@ const SearchBar = styled(Command.Input)<{ showSearch: boolean }>`
       font: ${theme.click.genericMenu.autocomplete.typography.search.placeholder.default};
     }
     ${
-      showSearch
+      $showSearch
         ? undefined
         : `
     height: 0;
@@ -182,6 +182,10 @@ const SearchClose = styled.button`
 `;
 
 const NoDataContainer = styled.button<{ clickable: boolean }>`
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
   ${({ theme, clickable }) => `
     font: ${theme.click.genericMenu.button.typography.label.default}
     padding: ${theme.click.genericMenu.button.space.y} ${
@@ -241,7 +245,7 @@ const SelectRoot = ({
     >
       <SelectTrigger
         id={id}
-        error={hasError}
+        $error={hasError}
         disabled={disabled}
       >
         {valueNode ?? placeholder}
@@ -259,12 +263,12 @@ const SelectRoot = ({
             onValueChange={setSearch}
             loop
           >
-            <SearchBarContainer showSearch={showSearch}>
+            <SearchBarContainer $showSearch={showSearch}>
               <SearchBar
                 ref={inputRef}
                 value={search}
                 onValueChange={setSearch}
-                showSearch={showSearch}
+                $showSearch={showSearch}
                 data-testid="select-search-input"
               />
               {search.length > 0 && (
@@ -415,9 +419,6 @@ const SelectGroup = styled(Command.Group)`
       pointer-events: none;
     }
   `};
-  &[hidden] {
-    display: none;
-  }
   [cmdk-group-heading] {
     display: flex;
     width: 100%;
@@ -436,6 +437,12 @@ const SelectGroup = styled(Command.Group)`
   }
   [cmdk-group-items] {
     width: 100%;
+  }
+  &[hidden] {
+    display: none;
+    [cmdk-group-heading] {
+      display: none;
+    }
   }
 `;
 
