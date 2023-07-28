@@ -6,7 +6,7 @@ export default {
   component: Panel,
   title: "Display/Panel",
   tags: ["panel","autodocs"],
-	argTypes: {
+  argTypes: {
     padding: {
       options: ["none", "sm", "md", "lg", "xl"],
       control: { type: "select" },
@@ -17,9 +17,9 @@ export default {
 export const Playground = {
   args: {
     color: "default",
-		padding: "md",
-		hasBorder: true,
-		hasShadow: true,
-		children: <div><Title type='h3'>Example panel title</Title><br /><Text size="md" color="default">Panel content</Text></div>
+    padding: "md",
+    hasBorder: true,
+    hasShadow: true,
+    children: <div><Title type='h3'>Example panel title</Title><br /><Text size="md" color="default">Panel content</Text></div>
 	},
 };
