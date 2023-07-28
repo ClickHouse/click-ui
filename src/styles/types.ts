@@ -1679,21 +1679,6 @@
             "all": string
           }
         }
-      },
-      "vertical": {
-        "space": {
-          "x": {
-            "xs": string,
-            "sm": string,
-            "md": string,
-            "lg": string,
-            "xl": string,
-            "xxl": string
-          },
-          "y": {
-            "all": string
-          }
-        }
       }
     },
     "popover": {
@@ -1737,6 +1722,22 @@
       },
       "shadow": {
         "default": string
+      },
+      "space": {
+        "y": {
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string
+        },
+        "x": {
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string
+        }
       },
       "color": {
         "background": {

@@ -24,7 +24,7 @@ export const Panel = ({
 );
 
 const Wrapper = styled.div<panelProps>`
-  background-color: ${({ theme }) => theme.click.panel.color.background.default};
+  background-color: red;
 	border: ${({ theme }) => theme.click.panel.stroke.default};
   border-radius: ${({ theme }) => theme.click.panel.radii.all};
   padding: ${({ padding = "md", theme }) => theme.click.panel.space.y[padding]};
