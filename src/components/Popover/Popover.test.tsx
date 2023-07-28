@@ -33,14 +33,14 @@ describe("Popover", () => {
   });
 
   it("should not close popover on clicking the checkbox", () => {
-    renderPopover({});
-    const popoverTrigger = screen.getByText("Click Here");
+    const { getByText, getByTestId } = renderPopover({});
+    const popoverTrigger = getByText("Click Here");
     expect(popoverTrigger).not.toBeNull();
     fireEvent.click(popoverTrigger);
 
-    expect(screen.getByText("Click on the input element below")).not.toBeNull();
-    const checkbox = screen.getByTestId("checkbox");
+    expect(getByText("Click on the input element below")).not.toBeNull();
+    const checkbox = getByTestId("checkbox");
     fireEvent.click(checkbox);
-    expect(screen.getByText("Click on the input element below")).not.toBeNull();
+    expect(getByText("Click on the input element below")).not.toBeNull();
   });
 });

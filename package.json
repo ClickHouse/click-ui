@@ -41,6 +41,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.6",
     "@tokens-studio/sd-transforms": "^0.10.3",
+    "cmdk": "^0.2.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
