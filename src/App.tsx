@@ -21,6 +21,7 @@ import {
   InfoAlert,
   ProfileIcon,
   SidebarNavigationItem,
+  Spacer,
   SuccessAlert,
   Switch,
   Tabs,
@@ -156,6 +157,8 @@ const App = () => {
       <Alert text="An example of alert" title="Title" />
       <DangerAlert text="An example of alert" title="Title" />
       <WarningAlert text="An example of alert" title="Title" />
+      
+      <Spacer />
       <InfoAlert text="An example of alert" title="Title" />
       <SuccessAlert text="An example of alert" title="Title" />
       <Avatar text="CH" />
