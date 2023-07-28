@@ -2083,6 +2083,10 @@
       },
       "space": {
         "y": {
+          "none": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          },
           "xs": {
             "value": "{spaces.2}",
             "type": "spacing"
@@ -2107,6 +2111,10 @@
         "x": {
           "xs": {
             "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "none": {
+            "value": "{spaces.0}",
             "type": "spacing"
           },
           "sm": {
