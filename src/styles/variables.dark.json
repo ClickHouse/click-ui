@@ -467,7 +467,7 @@
             "muted": "#b3b6bd"
           },
           "background": {
-            "default": "#1F1F1C",
+            "default": "#282828",
             "hover": "lch(23.5 0 0)",
             "active": "lch(23.5 0 0)",
             "disabled": "#414141"
@@ -500,10 +500,10 @@
       "panel": {
         "color": {
           "background": {
-            "default": "#1F1F1C"
+            "default": "#282828"
           },
           "stroke": {
-            "default": "lch(27.5 0 0 / 0.3)"
+            "default": "#414141"
           }
         }
       },
@@ -516,7 +516,7 @@
             "default": "#ffffff"
           },
           "background": {
-            "default": "#1F1F1C"
+            "default": "#282828"
           },
           "stroke": {
             "default": "lch(27.5 0 0 / 0.3)"
@@ -781,11 +781,19 @@
       "color": {
         "panel": {
           "background": {
-            "default": "#414141"
+            "default": "#282828"
           },
           "stroke": {
-            "default": "#606060"
+            "default": "#414141"
           }
+        }
+      }
+    },
+    "panel": {
+      "color": {
+        "background": {
+          "default": "#1F1F1C",
+          "muted": "#282828"
         }
       }
     },
@@ -815,7 +823,7 @@
           "default": "#FAFF69"
         },
         "shadow": {
-          "1": "lch(6.77 0 0 / 0.5)"
+          "default": "lch(6.77 0 0 / 0.6)"
         }
       }
     },

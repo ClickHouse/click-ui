@@ -24,7 +24,6 @@ import {
   SuccessAlert,
   Switch,
   Tabs,
-  TextFieldLabel,
   WarningAlert,
 } from "@/components";
 
@@ -37,10 +36,6 @@ const App = () => {
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <TextFieldLabel state="default" text="my label" />
-      <TextFieldLabel state="active" text="my label" />
-      <TextFieldLabel state="disabled" text="my label" />
-      <TextFieldLabel state="error" text="my label" />
       <div className={styles.flexWrap}>
         <IconButton size="small">
           <ProfileIcon />
@@ -147,8 +142,6 @@ const App = () => {
       </SidebarNavigationItem>
       <Checkbox
         label="accept terms and conditions of this page"
-        isChecked={isCheckboxChecked}
-        onChange={v => setCheckboxChecked(v)}
       />
       <Tabs defaultValue="tab1" onValueChange={e => console.log(e)}>
         <Tabs.TriggersList>

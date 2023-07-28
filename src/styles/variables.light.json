@@ -841,6 +841,14 @@
         }
       }
     },
+    "panel": {
+      "color": {
+        "background": {
+          "default": "#ffffff",
+          "muted": "#f6f7fa"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -867,7 +875,7 @@
           "default": "#135be6"
         },
         "shadow": {
-          "1": "lch(6.77 0 0 / 0.15)"
+          "default": "lch(6.77 0 0 / 0.15)"
         }
       }
     },

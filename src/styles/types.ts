@@ -1705,6 +1705,15 @@
       "radii": {
         "all": string
       },
+      "shadow": {
+        "default": string
+      },
+      "icon": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
       "color": {
         "panel": {
           "background": {
@@ -1713,6 +1722,26 @@
           "stroke": {
             "default": string
           }
+        }
+      }
+    },
+    "panel": {
+      "strokeWidth": {
+        "default": string
+      },
+      "radii": {
+        "all": string
+      },
+      "stroke": {
+        "default": string
+      },
+      "shadow": {
+        "default": string
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "muted": string
         }
       }
     },
@@ -1742,7 +1771,7 @@
           "default": string
         },
         "shadow": {
-          "1": string
+          "default": string
         }
       }
     },
