@@ -2010,42 +2010,6 @@
             }
           }
         }
-      },
-      "vertical": {
-        "space": {
-          "x": {
-            "xs": {
-              "value": "{spaces.0}",
-              "type": "spacing"
-            },
-            "sm": {
-              "value": "{spaces.1}",
-              "type": "spacing"
-            },
-            "md": {
-              "value": "{spaces.2}",
-              "type": "spacing"
-            },
-            "lg": {
-              "value": "{spaces.4}",
-              "type": "spacing"
-            },
-            "xl": {
-              "value": "{spaces.5}",
-              "type": "spacing"
-            },
-            "xxl": {
-              "value": "{spaces.6}",
-              "type": "spacing"
-            }
-          },
-          "y": {
-            "all": {
-              "value": "{spaces.0}",
-              "type": "spacing"
-            }
-          }
-        }
       }
     },
     "popover": {
@@ -2115,6 +2079,52 @@
         "default": {
           "value": "{shadow.1}",
           "type": "boxShadow"
+        }
+      },
+      "space": {
+        "y": {
+          "xs": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "sm": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{spaces.6}",
+            "type": "spacing"
+          }
+        },
+        "x": {
+          "xs": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "sm": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{spaces.6}",
+            "type": "spacing"
+          }
         }
       }
     }
