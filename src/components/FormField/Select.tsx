@@ -1,9 +1,10 @@
-import React, {
+import {
   Children,
   HTMLAttributes,
   MouseEvent,
   ReactElement,
   ReactNode,
+  forwardRef,
   useId,
   useRef,
   useState,
@@ -32,7 +33,7 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   value?: string;
 }
 
-declare type DivProps = React.HTMLAttributes<HTMLDivElement>;
+declare type DivProps = HTMLAttributes<HTMLDivElement>;
 export type SelectProps = RadixPopover.PopoverProps & Props;
 
 const SelectPopoverRoot = styled(RadixPopover.Root)`
@@ -377,7 +378,7 @@ export const Select = ({
   );
 };
 interface GroupProps extends Omit<DivProps, "value" | "heading"> {
-  heading?: React.ReactNode;
+  heading?: ReactNode;
   value?: string;
 }
 
@@ -438,7 +439,7 @@ const SelectGroup = styled(Command.Group)`
   }
 `;
 
-const Group = React.forwardRef<HTMLDivElement, GroupProps>(
+const Group = forwardRef<HTMLDivElement, GroupProps>(
   ({ children, ...props }, forwardedRef) => {
     return (
       <SelectGroup
@@ -498,7 +499,7 @@ interface ItemProps extends Omit<DivProps, "disabled" | "onSelect" | "value"> {
   value?: string;
 }
 
-const Item = React.forwardRef<HTMLDivElement, ItemProps>(
+const Item = forwardRef<HTMLDivElement, ItemProps>(
   ({ children, separator, onSelect: onSelectProp, value, ...props }, forwardedRef) => {
     const { selectedValue, onSelect } = useSelect();
     const onSelectValue = (value: string) => {
