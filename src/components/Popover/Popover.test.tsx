@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
 import { PopoverProps } from "@radix-ui/react-popover";
 import { Checkbox, Popover } from "@/components";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 describe("Popover", () => {
   const renderPopover = (props: PopoverProps) =>
