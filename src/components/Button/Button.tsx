@@ -72,4 +72,13 @@ const StyledButton = styled(BaseButton)<Pick<StyledButtonProps, "state" | "width
     background-color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background.active};
     border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.active};
   }
+
+  &:disabled, ,
+  button[disabled] {
+    &:hover {
+      background-color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background.disabled};
+      border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.disabled};
+      cursor: not-allowed;
+    }
+  }
 `;
