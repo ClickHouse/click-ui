@@ -335,49 +335,61 @@
           "primary": {
             "background": {
               "default": "#302e32",
-              "hover": "lch(55.8 3.66 267)",
-              "active": "lch(6.42 1.33 305)"
+              "hover": "lch(29.5 4.18 267)",
+              "active": "lch(6.42 1.33 305)",
+              "disabled": "#dfdfdf"
             },
             "text": {
-              "default": "#ffffff"
+              "default": "#ffffff",
+              "hover": "#ffffff",
+              "active": "#ffffff",
+              "disabled": "#a0a0a0"
             },
             "stroke": {
               "default": "#302e32",
-              "hover": "lch(55.8 3.66 267)",
-              "active": "lch(6.42 1.33 305)"
+              "hover": "lch(29.5 4.18 267)",
+              "active": "lch(6.42 1.33 305)",
+              "disabled": "#dfdfdf"
             }
           },
           "secondary": {
             "background": {
               "default": "rgba(0,0,0,0)",
               "hover": "#f6f7fa",
-              "active": "lch(95.3 1.54 272)"
+              "active": "lch(95.3 1.54 272)",
+              "disabled": "#dfdfdf"
             },
             "stroke": {
               "default": "lch(91.6 1.1 266)",
               "hover": "#e6e7e9",
-              "active": "lch(83.8 2.3 258)"
+              "active": "lch(83.8 2.3 258)",
+              "disabled": "#dfdfdf"
             },
             "text": {
-              "default": "#161517"
-            }
-          },
-          "disabled": {
-            "background": {
-              "default": "#dfdfdf"
-            },
-            "text": {
-              "default": "#a0a0a0"
+              "default": "#161517",
+              "hover": "#161517",
+              "active": "#161517",
+              "disabled": "#a0a0a0"
             }
           },
           "danger": {
             "background": {
               "default": "#ffdddd",
               "hover": "#ff9898",
-              "active": "#ffbaba"
+              "active": "lch(78 26.3 22)",
+              "disabled": "#dfdfdf"
             },
             "text": {
-              "default": "#c10000"
+              "default": "#c10000",
+              "hover": "#c10000",
+              "active": "#c10000",
+              "disabled": "#a0a0a0"
+            },
+            "stroke": {
+              "default": "#ffdddd",
+              "hover": "#910000",
+              "active": "#ff9898",
+              "disabled": "#dfdfdf"
             }
           }
         }
@@ -424,12 +436,12 @@
           "secondary": {
             "background": {
               "default": "#302e32",
-              "hover": "lch(55.8 3.66 267)",
+              "hover": "lch(29.5 4.18 267)",
               "active": "lch(6.1 1.26 305)"
             },
             "stroke": {
               "default": "rgba(0,0,0,0)",
-              "hover": "lch(55.8 3.66 267)",
+              "hover": "lch(29.5 4.18 267)",
               "active": "lch(6.1 1.26 305)"
             },
             "text": {
@@ -469,17 +481,17 @@
           "stroke": {
             "default": "lch(23.3 2.63 306)",
             "active": "lch(16.4 2.36 306)",
-            "hover": "lch(53.6 2.86 267)"
+            "hover": "lch(33 3.27 267)"
           },
           "background": {
             "main": {
               "default": "lch(17.6 2.54 306)",
-              "hover": "lch(51.1 3.35 267)",
+              "hover": "lch(27 3.82 267)",
               "active": "lch(5.87 1.22 305)"
             },
             "action": {
               "default": "lch(6.35 1.32 305)",
-              "hover": "lch(48.5 3.18 267)",
+              "hover": "lch(25.6 3.63 267)",
               "active": "lch(3.47 0.72 305)"
             }
           },

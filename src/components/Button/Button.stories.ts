@@ -4,20 +4,27 @@ export default {
   title: "Buttons/Button",
   component: Button,
   tags: ["button","autodocs"],
+  argTypes: {
+    type: {
+      options: ["primary","secondary","danger"],
+      control: { type: "radio" },
+    },
+    align: {
+      options: ["default","left"],
+      control: { type: "radio" },
+    },
+    state: {
+      options: ["default","hover","active", "disabled"],
+      control: { type: "radio" },
+    },
+  }
 };
 
-export const Primary = {
+export const Playground = {
   args: {
     type: "primary",
-    disabled: false,
+    state: "default",
     label: "Button",
-  },
-};
-
-export const Secondary = {
-  args: {
-    type: "secondary",
-    disabled: false,
-    label: "Button",
+    align: "default",
   },
 };
