@@ -375,8 +375,8 @@
           "danger": {
             "background": {
               "default": "#ffdddd",
-              "hover": "#ff9898",
-              "active": "lch(78 26.3 22)",
+              "hover": "#ffbaba",
+              "active": "lch(70.3 41.1 23.9)",
               "disabled": "#dfdfdf"
             },
             "text": {
@@ -387,8 +387,8 @@
             },
             "stroke": {
               "default": "#ffdddd",
-              "hover": "#910000",
-              "active": "#ff9898",
+              "hover": "#ffbaba",
+              "active": "lch(70.3 41.1 23.9)",
               "disabled": "#dfdfdf"
             }
           }
