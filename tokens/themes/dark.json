@@ -615,7 +615,7 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.slate.500}",
+                "value": "{palette.slate.700}",
                 "type": "color"
               },
               "active": {
