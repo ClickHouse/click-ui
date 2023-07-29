@@ -3,12 +3,13 @@ import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary" | "danger";
-type ButtonState = "default" | "hover" | "active" | "disabled";
+type ButtonState = "default" | "hover" | "active";
 type Alignment = "default" | "left";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
   state?: ButtonState;
+  isDisabled?: boolean;
   label?: string;
   iconLeft?: IconName;
   iconRight?: IconName;
@@ -19,6 +20,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 
 export interface StyledButtonProps {
   styleType: ButtonType;
+  isDisabled?: boolean;
   align?: Alignment;
   width?: string;
   height?: string;
@@ -28,6 +30,7 @@ export interface StyledButtonProps {
 export const Button = ({
   type = "primary",
   state = "default",
+  isDisabled = false,
   iconLeft,
   iconRight,
   label,
@@ -35,7 +38,7 @@ export const Button = ({
   children,
   ...delegated
 }: ButtonProps) => (
-  <StyledButton styleType={type} state={state} align={align} {...delegated}>
+  <StyledButton styleType={type} state={state} align={align} {...delegated} disabled={isDisabled}>
     {iconLeft && <Icon name={iconLeft} size="small" />}
     {label ? label : children}
     {iconRight && <Icon name={iconRight} size="small" />}
@@ -73,12 +76,10 @@ const StyledButton = styled(BaseButton)<Pick<StyledButtonProps, "state" | "width
     border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.active};
   }
 
-  &:disabled, ,
-  button[disabled] {
-    &:hover {
-      background-color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background.disabled};
-      border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.disabled};
-      cursor: not-allowed;
-    }
+  &:disabled, &:disabled:hover, &:disabled:active {
+    background-color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background.disabled};
+    color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].text.disabled};
+    border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.disabled};
+    cursor: not-allowed;
   }
 `;
