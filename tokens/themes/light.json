@@ -690,17 +690,9 @@
                 "type": "color"
               },
               "active": {
-                "value": "{palette.danger.100}",
+                "value": "{palette.danger.200}",
                 "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "darken",
-                      "value": "0.1",
-                      "space": "lch"
-                    }
-                  }
-                }
+                "$extensions": {}
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
