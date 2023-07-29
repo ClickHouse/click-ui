@@ -704,11 +704,11 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.danger.700}",
+                "value": "{click.button.basic.color.danger.background.hover}",
                 "type": "color"
               },
               "active": {
-                "value": "{click.button.basic.color.danger.background.hover}",
+                "value": "{click.button.basic.color.danger.background.active}",
                 "type": "color"
               },
               "disabled": {
