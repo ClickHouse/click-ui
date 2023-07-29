@@ -691,6 +691,24 @@
                 "value": "{click.field.color.text.disabled}",
                 "type": "color"
               }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.danger.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.danger.700}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              }
             }
           }
         }
