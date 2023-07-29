@@ -84,7 +84,7 @@ const Wrapper = styled.div<WrapperProps>`
   border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
   border: ${({ state, theme }) => `1px solid ${theme.click.card.secondary.color.stroke[state]}`};
   max-width: 420px;
-  min-width: 300px;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
   padding: ${({ theme }) => theme.click.card.secondary.space.all};
