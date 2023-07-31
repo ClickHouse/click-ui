@@ -118,48 +118,60 @@
             "background": {
               "default": "#FAFF69",
               "hover": "lch(98.3 49.3 103)",
-              "active": "lch(90.2 65.2 103)"
+              "active": "lch(90.2 65.2 103)",
+              "disabled": "#414141"
             },
             "text": {
-              "default": "#1F1F1C"
+              "default": "#1F1F1C",
+              "hover": "#1F1F1C",
+              "active": "#1F1F1C",
+              "disabled": "#808080"
             },
             "stroke": {
               "default": "#FAFF69",
               "hover": "#FAFF69",
-              "active": "lch(82.5 59.7 103)"
+              "active": "lch(82.5 59.7 103)",
+              "disabled": "#414141"
             }
           },
           "secondary": {
             "background": {
               "default": "#1F1F1C",
               "hover": "#282828",
-              "active": "lch(20.3 0 0)"
+              "active": "lch(20.3 0 0)",
+              "disabled": "#414141"
             },
             "stroke": {
               "default": "#414141",
-              "hover": "#808691",
-              "active": "lch(23.3 2.63 306)"
+              "hover": "#53575f",
+              "active": "lch(23.3 2.63 306)",
+              "disabled": "#414141"
             },
             "text": {
-              "default": "#ffffff"
-            }
-          },
-          "disabled": {
-            "background": {
-              "default": "#414141"
-            },
-            "text": {
-              "default": "#808080"
+              "default": "#ffffff",
+              "hover": "#ffffff",
+              "active": "#ffffff",
+              "disabled": "#808080"
             }
           },
           "danger": {
             "background": {
               "default": "#610000",
               "hover": "#910000",
-              "active": "#910000"
+              "active": "lch(28.6 65.8 40)",
+              "disabled": "#414141"
             },
             "text": {
-              "default": "#ff7575"
+              "default": "#ff7575",
+              "hover": "#ff7575",
+              "active": "#ff7575",
+              "disabled": "#808080"
+            },
+            "stroke": {
+              "default": "#610000",
+              "hover": "#910000",
+              "active": "lch(28.6 65.8 40)",
+              "disabled": "#414141"
             }
           }
         }
@@ -215,7 +227,7 @@
           },
           "stroke": {
             "default": "lch(27.5 0 0 / 0.3)",
-            "hover": "#808691",
+            "hover": "#53575f",
             "active": "lch(23.3 2.63 306)"
           },
           "text": {

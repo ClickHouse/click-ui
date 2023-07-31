@@ -6,7 +6,7 @@
           "primary": {
             "background": {
               "default": "#ed8000",
-              "hover": "lch(55.8 3.66 267)",
+              "hover": "lch(29.5 4.18 267)",
               "active": "lch(6.42 1.33 305)"
             },
             "text": {
@@ -14,7 +14,7 @@
             },
             "stroke": {
               "default": "#ed8000",
-              "hover": "lch(55.8 3.66 267)",
+              "hover": "lch(29.5 4.18 267)",
               "active": "lch(6.42 1.33 305)"
             }
           },
@@ -33,22 +33,22 @@
               "default": "#161517"
             }
           },
+          "danger": {
+            "background": {
+              "default": "#ffdddd",
+              "hover": "#ff9898",
+              "active": "lch(78 26.3 22)"
+            },
+            "text": {
+              "default": "#c10000"
+            }
+          },
           "disabled": {
             "background": {
               "default": "#dfdfdf"
             },
             "text": {
               "default": "#a0a0a0"
-            }
-          },
-          "danger": {
-            "background": {
-              "default": "#ffdddd",
-              "hover": "#ff9898",
-              "active": "#ffbaba"
-            },
-            "text": {
-              "default": "#c10000"
             }
           }
         }
@@ -75,12 +75,12 @@
           "secondary": {
             "background": {
               "default": "#ed8000",
-              "hover": "lch(55.8 3.66 267)",
+              "hover": "lch(29.5 4.18 267)",
               "active": "lch(6.1 1.26 305)"
             },
             "stroke": {
               "default": "rgba(0,0,0,0)",
-              "hover": "lch(55.8 3.66 267)",
+              "hover": "lch(29.5 4.18 267)",
               "active": "lch(6.1 1.26 305)"
             },
             "text": {
@@ -114,17 +114,17 @@
           "stroke": {
             "default": "lch(67 77.4 61.8)",
             "active": "lch(55.4 69.2 61.8)",
-            "hover": "lch(53.6 2.86 267)"
+            "hover": "lch(33 3.27 267)"
           },
           "background": {
             "main": {
               "default": "lch(59.7 74.5 61.8)",
-              "hover": "lch(51.1 3.35 267)",
+              "hover": "lch(27 3.82 267)",
               "active": "lch(5.87 1.22 305)"
             },
             "action": {
               "default": "lch(6.35 1.32 305)",
-              "hover": "lch(48.5 3.18 267)",
+              "hover": "lch(25.6 3.63 267)",
               "active": "lch(3.47 0.72 305)"
             }
           },
