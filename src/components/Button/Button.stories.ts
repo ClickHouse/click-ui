@@ -19,7 +19,6 @@ export default {
 export const Playground = {
   args: {
     type: "primary",
-    state: "default",
     disabled: false,
     label: "Button",
     align: "default",
