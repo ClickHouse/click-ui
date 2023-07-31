@@ -112,7 +112,7 @@ const DropdownMenuGroup = styled(DropdownMenu.Group)`
     ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
 `;
 
-const DropdownGroup = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
+const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
   return <DropdownMenuGroup {...props} />;
 };
 
