@@ -3,13 +3,11 @@ import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 
 type ButtonType = "primary" | "secondary" | "danger";
-type ButtonState = "default" | "hover" | "active";
 type Alignment = "default" | "left";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
-  state?: ButtonState;
-  isDisabled?: boolean;
+  disabled?: boolean;
   label?: string;
   iconLeft?: IconName;
   iconRight?: IconName;
@@ -20,17 +18,15 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 
 export interface StyledButtonProps {
   styleType: ButtonType;
-  isDisabled?: boolean;
+  disabled?: boolean;
   align?: Alignment;
   width?: string;
   height?: string;
-  state?: ButtonState;
 }
 
 export const Button = ({
   type = "primary",
-  state = "default",
-  isDisabled = false,
+  disabled = false,
   iconLeft,
   iconRight,
   label,
@@ -38,7 +34,7 @@ export const Button = ({
   children,
   ...delegated
 }: ButtonProps) => (
-  <StyledButton styleType={type} state={state} align={align} {...delegated} disabled={isDisabled}>
+  <StyledButton styleType={type} align={align} {...delegated} disabled={disabled}>
     {iconLeft && <Icon name={iconLeft} size="small" />}
     {label ? label : children}
     {iconRight && <Icon name={iconRight} size="small" />}
@@ -55,13 +51,13 @@ const BaseButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledButton = styled(BaseButton)<Pick<StyledButtonProps, "state" | "width" | "height" | "align" | "styleType" >>`
+const StyledButton = styled(BaseButton)<Pick<StyledButtonProps, "width" | "height" | "align" | "styleType" >>`
   width: ${props => props.width};
   height: ${props => props.height};
   font: ${props => props.theme.click.button.basic.typography.label.default};
-  color: ${({ state = "default", styleType = "primary", theme }) => theme.click.button.basic.color[styleType].text[state]};
-  background-color: ${({ state = "default", styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background[state]};
-  border: 1px solid ${({ state = "default", styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke[state]};
+  color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].text.default};
+  background-color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background.default};
+  border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.default};
   display: flex;
   align-items: ${({ align }) => align === "left" ? "left" : "center"};
   justify-content: ${props => props.align === "left" ? "flex-start" : "center"};
@@ -71,7 +67,7 @@ const StyledButton = styled(BaseButton)<Pick<StyledButtonProps, "state" | "width
     border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.hover};
   }
 
-  &:active {
+  &:active, &:focus {
     background-color: ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].background.active};
     border: 1px solid ${({ styleType = "primary", theme }) => theme.click.button.basic.color[styleType].stroke.active};
   }

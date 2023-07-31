@@ -13,14 +13,6 @@ export default {
       options: ["default","left"],
       control: { type: "radio" },
     },
-    state: {
-      options: ["default","hover","active"],
-      control: { type: "radio" },
-    },
-    isDisabled: {
-      options: [true, false],
-      control: { type: "boolean" },
-    },
   }
 };
 
@@ -28,7 +20,7 @@ export const Playground = {
   args: {
     type: "primary",
     state: "default",
-    isDisabled: false,
+    disabled: false,
     label: "Button",
     align: "default",
   },
