@@ -8,7 +8,9 @@ interface Props extends ContextMenuProps {
 const ContextMenuExample = ({ showArrow, disabled, ...props }: Props) => {
   return (
     <ContextMenu {...props}>
-      <ContextMenu.Trigger disabled={disabled}>ContextMenu Trigger</ContextMenu.Trigger>
+      <ContextMenu.Trigger disabled={disabled}>
+        <div>ContextMenu Trigger</div>
+      </ContextMenu.Trigger>
       <ContextMenu.Content showArrow={showArrow}>
         <ContextMenu.Group>
           <ContextMenu.Item>Content0</ContextMenu.Item>

@@ -17,7 +17,12 @@ const RightMenuItem = styled(GenericMenuItem)`
 `;
 
 const ContextMenuTrigger = (props: RightMenu.ContextMenuTriggerProps) => {
-  return <RightMenu.Trigger {...props} />;
+  return (
+    <RightMenu.Trigger
+      asChild
+      {...props}
+    />
+  );
 };
 
 ContextMenuTrigger.displayName = "ContextMenuTrigger";
