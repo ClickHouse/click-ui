@@ -26,6 +26,10 @@ export const ItemSeparator = css`
 
 export const EmptyButton = styled.button`
   background: transparent;
+  border: none;
   cursor: pointer;
   outline: none;
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
