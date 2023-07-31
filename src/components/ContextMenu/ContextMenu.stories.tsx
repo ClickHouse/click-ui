@@ -4,37 +4,50 @@ import { ContextMenu } from "./ContextMenu";
 interface Props extends ContextMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
+  side: "top" | "right" | "left" | "bottom";
 }
-const ContextMenuExample = ({ showArrow, disabled, ...props }: Props) => {
+const ContextMenuExample = ({ showArrow, disabled, side, ...props }: Props) => {
   return (
-    <ContextMenu {...props}>
-      <ContextMenu.Trigger disabled={disabled}>
-        <div>ContextMenu Trigger</div>
-      </ContextMenu.Trigger>
-      <ContextMenu.Content showArrow={showArrow}>
-        <ContextMenu.Group>
-          <ContextMenu.Item>Content0</ContextMenu.Item>
-        </ContextMenu.Group>
-        <ContextMenu.Item>Content1 long text content</ContextMenu.Item>
-        <ContextMenu.Sub>
-          <ContextMenu.SubTrigger>Hover over</ContextMenu.SubTrigger>
-          <ContextMenu.Content sub>
-            <ContextMenu.Item>SubContent0</ContextMenu.Item>
-            <ContextMenu.Item>SubContent1</ContextMenu.Item>
-            <ContextMenu.Item>SubContent0</ContextMenu.Item>
-            <ContextMenu.Item>SubContent1</ContextMenu.Item>
-            <ContextMenu.Item>SubContent0</ContextMenu.Item>
-            <ContextMenu.Item>SubContent1</ContextMenu.Item>
-            <ContextMenu.Item>SubContent0</ContextMenu.Item>
-            <ContextMenu.Item>SubContent1</ContextMenu.Item>
-            <ContextMenu.Item>SubContent0</ContextMenu.Item>
-            <ContextMenu.Item>SubContent1</ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu.Sub>
-        <ContextMenu.Item>Content2</ContextMenu.Item>
-        <ContextMenu.Item disabled>Content3</ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu>
+    <div
+      style={{
+        display: "grid",
+        placeItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <ContextMenu {...props}>
+        <ContextMenu.Trigger disabled={disabled}>
+          <div>ContextMenu Trigger</div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content
+          showArrow={showArrow}
+          side={side}
+        >
+          <ContextMenu.Group>
+            <ContextMenu.Item>Content0</ContextMenu.Item>
+          </ContextMenu.Group>
+          <ContextMenu.Item>Content1 long text content</ContextMenu.Item>
+          <ContextMenu.Sub>
+            <ContextMenu.SubTrigger>Hover over</ContextMenu.SubTrigger>
+            <ContextMenu.Content sub>
+              <ContextMenu.Item>SubContent0</ContextMenu.Item>
+              <ContextMenu.Item>SubContent1</ContextMenu.Item>
+              <ContextMenu.Item>SubContent0</ContextMenu.Item>
+              <ContextMenu.Item>SubContent1</ContextMenu.Item>
+              <ContextMenu.Item>SubContent0</ContextMenu.Item>
+              <ContextMenu.Item>SubContent1</ContextMenu.Item>
+              <ContextMenu.Item>SubContent0</ContextMenu.Item>
+              <ContextMenu.Item>SubContent1</ContextMenu.Item>
+              <ContextMenu.Item>SubContent0</ContextMenu.Item>
+              <ContextMenu.Item>SubContent1</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu.Sub>
+          <ContextMenu.Item>Content2</ContextMenu.Item>
+          <ContextMenu.Item disabled>Content3</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
+    </div>
   );
 };
 export default {
@@ -44,9 +57,13 @@ export default {
   argTypes: {
     disabled: { control: "boolean" },
     showArrow: { control: "boolean" },
+    side: { control: "select", options: ["top", "right", "left", "bottom"] },
   },
 };
 
 export const Playground = {
-  args: {},
+  args: {
+    showArrow: true,
+    side: "left",
+  },
 };

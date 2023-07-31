@@ -16,11 +16,23 @@ export const GenericMenuPanel = styled.div<{
     background: ${theme.click.genericMenu.panel.color.background.default};
     box-shadow: ${theme.click.genericMenu.panel.shadow.default};
     border-radius: ${theme.click.genericMenu.panel.radii.all};
-  `}
+  `};
   ${({ $showArrow }) =>
     $showArrow
       ? `
-    margin: -1px 0;
+      &[data-side="bottom"] {
+        margin-top: -1px;
+      }
+      &[data-side="top"] {
+        margin-bottom: 1px;
+      }
+      &[data-side="left"] {
+        margin-right: -1px;
+      }
+      }
+      &[data-side="right"] {
+        margin-left: -1px;
+      }
   `
       : ""};
 `;
@@ -94,4 +106,9 @@ export const GenericMenuItem = styled.div`
       pointer-events: none;
     }
   `};
+  position: relative;
+  &:hover .dropdown-arrow,
+  &[data-state="open"] .dropdown-arrow {
+    left: 0.5rem;
+  }
 `;

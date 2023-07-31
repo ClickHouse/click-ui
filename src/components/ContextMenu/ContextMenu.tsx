@@ -8,14 +8,6 @@ export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
 
-const RightMenuItem = styled(GenericMenuItem)`
-  position: relative;
-  &:hover .dropdown-arrow,
-  &[data-state="open"] .dropdown-arrow {
-    left: 0.5rem;
-  }
-`;
-
 const ContextMenuTrigger = (props: RightMenu.ContextMenuTriggerProps) => {
   return (
     <RightMenu.Trigger
@@ -33,7 +25,7 @@ const ContextMenuSubTrigger = ({
   ...props
 }: RightMenu.ContextMenuSubTriggerProps) => {
   return (
-    <RightMenuItem
+    <GenericMenuItem
       as={RightMenu.SubTrigger}
       {...props}
     >
@@ -41,7 +33,7 @@ const ContextMenuSubTrigger = ({
       <div className="dropdown-arrow">
         <Icon name="chevron-right" />
       </div>
-    </RightMenuItem>
+    </GenericMenuItem>
   );
 };
 
@@ -60,9 +52,33 @@ type ContextMenuSubContentProps = RightMenu.MenuSubContentProps & {
   sub?: never;
 } & ArrowProps;
 
-const RightMenuContent = styled(GenericMenuPanel)`
+const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
   flex-direction: column;
   z-index: 1;
+  ${({ $showArrow }) =>
+    $showArrow
+      ? `
+      &[data-side="bottom"] {
+        margin-top: -1px;
+      }
+      &[data-side="top"] {
+        margin-bottom: -1px;
+      }
+      &[data-side="left"] {
+        margin-right: -1px;
+        .popover-arrow {
+          margin-right: 1rem;
+        }
+      }
+      }
+      &[data-side="right"] {
+        margin-left: -1px;
+        .popover-arrow {
+          margin-left: 1rem;
+        }
+      }
+  `
+      : ""};
 `;
 
 const ContextMenuContent = ({
@@ -76,6 +92,7 @@ const ContextMenuContent = ({
     <RightMenu.Portal>
       <RightMenuContent
         type="context-menu"
+        $showArrow={showArrow}
         as={ContentElement}
         {...props}
       >
@@ -86,7 +103,7 @@ const ContextMenuContent = ({
             width={20}
             height={10}
           >
-            <PopoverArrow />
+            <PopoverArrow className="popover-arrow" />
           </Arrow>
         )}
         {children}
@@ -125,7 +142,7 @@ ContextMenu.Sub = ContextMenuSub;
 
 const ContextMenuItem = ({ ...props }: RightMenu.ContextMenuItemProps) => {
   return (
-    <RightMenuItem
+    <GenericMenuItem
       as={RightMenu.Item}
       {...props}
     />
