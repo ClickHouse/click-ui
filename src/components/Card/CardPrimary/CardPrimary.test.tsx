@@ -1,12 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "@/theme";
-import { CardSecondary, CardProps } from "./CardSecondary";
+import { CardPrimary, CardProps } from "././CardPrimary";
 
-describe("CardSecondary Component", () => {
-  const renderCard = (props: CardProps) =>
+describe("CardPrimary Component", () => {
+  
+	describe("Primary card", () => {
+		const renderCard = (props: CardProps) =>
     render(
       <ThemeProvider theme="light">
-        <CardSecondary {...props} />
+        <CardPrimary {...props} />
       </ThemeProvider>
     );
 
@@ -35,21 +37,5 @@ describe("CardSecondary Component", () => {
 	
 			expect(screen.getByText(description)).toBeDefined();
 		});	
-
-		it("should render the badge when hasBadge prop is present", () => {
-			const badgeText = "I should eat more bananas";
-			renderCard({
-				image: "warning",
-				title: "",
-				description: "",
-				infoUrl: "",
-				infoText: "",
-				hasBadge: true,
-				badgeText,
-			});
-	
-			expect(screen.getByText(badgeText)).toBeDefined();
-			// expect(screen.getByText(badgeText)).toBe("I should eat more bananas")
-		});	
-
+	});
 });

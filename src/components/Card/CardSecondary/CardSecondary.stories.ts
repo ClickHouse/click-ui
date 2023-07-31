@@ -15,13 +15,13 @@ export default {
 export const Playground = {
   args: {
     title: "Card title",
-    logo: "building",
+    image: "building",
     description:
       "A description very interesting that presumably relates to the card",
     infoUrl: "https://clickhouse.com",
     infoText: "Read More",
-    state: "default",
     hasShadow: false,
+    disabled: false,
     hasBadge: true,
     badgeText: "experiment",
     badgeState: "success",

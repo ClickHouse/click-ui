@@ -5,12 +5,6 @@ import { Text } from "../../Typography/Text/Text";
 import { IconName } from "@/components/Icon/types";
 import { Icon } from "../..";
 
-export type CardState = 
-  | "default" 
-  | "hover" 
-  | "active" 
-  | "disabled";
-
 export type BadgeState =
   | "default"
   | "success"
@@ -22,67 +16,21 @@ export type BadgeState =
 
 export interface CardProps {
   title: string;
-  logo: IconName;
+  image: IconName;
   hasBadge?: boolean;
-  hasShadow?: boolean;
   badgeState?: BadgeState;
+  hasShadow?: boolean;
+  disabled?: boolean;
   badgeText?: string;
   description: string;
   infoUrl: string;
   infoText: string;
-  state?: CardState;
 }
 
-export const CardSecondary = ({
-  title,
-  logo,
-  hasBadge = true,
-  badgeText = "",
-  badgeState,
-  hasShadow = false,
-  description,
-  infoUrl,
-  infoText,
-  state = "default",
-}: CardProps) => (
-  <Wrapper state={state} hasShadow={hasShadow} onClick={() => alert(`We need to implement a routing system so I can go to ${infoUrl}`)}>
-    <Header>
-      <HeaderLeft>
-        <Icon name={logo} size="large" />
-        <Title type='h3'>{title}</Title>
-      </HeaderLeft>
-      { hasBadge && (
-        <Badge
-          text={badgeText}
-          state={state == "disabled" ? "disabled" : badgeState }
-        />)
-      }
-    </Header>
-
-    <Content>
-      <Text color="muted">{description}</Text>
-    </Content>
-
-    <InfoLink state={state}>
-      <Text className="link">{infoText}</Text>
-      <ArrowContainer 
-        state={state}
-        as={Icon} 
-        name="chevron-right"
-        className="link-arrow" />
-    </InfoLink>
-  </Wrapper>
-);
-
-interface WrapperProps {
-  state: CardState;
-  hasShadow: boolean;
-}
-
-const Wrapper = styled.div<WrapperProps>`
-  background-color: ${({ state = "default", theme }) => theme.click.card.secondary.color.background[state]};
+const Wrapper = styled.div<Pick<CardProps, "hasShadow" | "disabled">>`
+  background-color: ${({ theme }) => theme.click.card.secondary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
-  border: ${({ state, theme }) => `1px solid ${theme.click.card.secondary.color.stroke[state]}`};
+  border: ${({ theme }) => `1px solid ${theme.click.card.secondary.color.stroke.default}`};
   max-width: 420px;
   min-width: 320px;
   display: flex;
@@ -91,7 +39,7 @@ const Wrapper = styled.div<WrapperProps>`
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
   box-shadow: ${({ hasShadow, theme }) => hasShadow ? theme.shadow[1] : "none"};
 
-  &:hover {
+  &:hover, :focus {
     background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
     cursor: pointer;
     .link, .link-arrow {
@@ -99,6 +47,22 @@ const Wrapper = styled.div<WrapperProps>`
       }
     }
   }
+
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:active {
+    background-color: ${({ theme }) => theme.click.card.secondary.color.background.disabled};
+    color: ${({ theme }) => theme.click.card.secondary.color.title.disabled};
+    border: 1px solid ${({ theme }) => theme.click.card.secondary.color.stroke.disabled};
+    cursor: not-allowed;
+
+    .link, .link-arrow {
+      color: ${({ theme }) => theme.click.card.secondary.color.link.disabled};
+    }
+  }
+    
+  }  
+
 `;
 
 const Header = styled.div`
@@ -108,27 +72,72 @@ const Header = styled.div`
   z-index: 1;
 `;
 
-const HeaderLeft = styled.div`
+const HeaderLeft = styled.div<Pick<CardProps, "disabled">>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
+  
+  h3 {
+    color: ${({ disabled, theme }) => disabled == true ? theme.click.global.color.text.muted : theme.click.global.color.text.default};
+  }
 `;
 
 const Content = styled.div`
-  /* width: 330px; */
+  display: flex;
+  flex-direction: column;
 `;
 
-const InfoLink = styled.div<Pick<CardProps, "state">>`
+const InfoLink = styled.div`
   display: flex;
   align-items: center;
   a {
-    color: ${({ state = "default", theme }) => theme.click.card.secondary.color.link[state]};
+    color: ${({ theme }) => theme.click.card.secondary.color.link.default};
     text-decoration: none;
   }
 `;
 
-const ArrowContainer = styled.svg<Pick<CardProps, "state">>`
-  color: ${({ state = "default", theme }) => theme.click.card.secondary.color.link[state]};
+const ArrowContainer = styled.svg`
+  color: ${({ theme }) => theme.click.card.secondary.color.link.default};
   height: ${({ theme }) => theme.click.image.medium.size.height};
   width: ${({ theme }) => theme.click.image.medium.size.width};
 `
+
+export const CardSecondary = ({
+  title,
+  image,
+  hasBadge = true,
+  badgeState,
+  badgeText = "",
+  hasShadow = false,
+  disabled = false,
+  description,
+  infoUrl,
+  infoText,
+}: CardProps) => (
+  <Wrapper disabled={disabled} hasShadow={hasShadow} onClick={() => alert(`We need to implement a routing system so I can go to ${infoUrl}`)}>
+    <Header>
+      <HeaderLeft disabled={disabled}>
+        <Icon name={image} size="large" />
+        <Title type='h3'>{title}</Title>
+      </HeaderLeft>
+      { hasBadge && (
+        <Badge
+          text={badgeText}
+          state={disabled == true ? "disabled" : badgeState }
+        />)
+      }
+    </Header>
+
+    <Content>
+      <Text color="muted">{description}</Text>
+    </Content>
+
+    <InfoLink>
+      <Text className="link">{infoText}</Text>
+      <ArrowContainer
+        as={Icon} 
+        name="chevron-right"
+        className="link-arrow" />
+    </InfoLink>
+  </Wrapper>
+);
