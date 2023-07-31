@@ -192,6 +192,7 @@ const NoDataContainer = styled.button<{ clickable: boolean }>`
     theme.click.genericMenu.item.space.x
   };
     background: ${theme.click.genericMenu.button.color.background.default};
+    color: ${theme.click.genericMenu.button.color.label.default};
     &:hover {
       font: ${theme.click.genericMenu.button.typography.label.hover};
     }
