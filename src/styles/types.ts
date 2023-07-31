@@ -337,48 +337,60 @@
             "background": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
             },
             "stroke": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             }
           },
           "secondary": {
             "background": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "stroke": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "text": {
-              "default": string
-            }
-          },
-          "disabled": {
-            "background": {
-              "default": string
-            },
-            "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
             }
           },
           "danger": {
             "background": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
             }
           }
         }
@@ -1984,10 +1996,10 @@
         "base": string
       },
       "line-height": {
-        "1": number,
-        "2": number,
-        "3": number,
-        "4": number
+        "1": string,
+        "2": string,
+        "3": string,
+        "4": string
       }
     },
     "styles": {
