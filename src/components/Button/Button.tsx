@@ -78,8 +78,9 @@ const StyledButton = styled(BaseButton)<
   border: 1px solid
     ${({ styleType = "primary", theme }) =>
       theme.click.button.basic.color[styleType].stroke.default};
+
   display: flex;
-  align-items: ${({ align }) => (align === "left" ? "left" : "center")};
+  align-items: center;
   justify-content: ${props => (props.align === "left" ? "flex-start" : "center")};
 
   &:hover {
