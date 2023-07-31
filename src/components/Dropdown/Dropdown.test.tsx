@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 import { themes } from "../../theme";
 import { Dropdown } from "./Dropdown";
 
@@ -33,14 +33,6 @@ describe("Dropdown", () => {
               <Dropdown.Content sub>
                 <Dropdown.Item>SubContent0</Dropdown.Item>
                 <Dropdown.Item>SubContent1</Dropdown.Item>
-                <Dropdown.Item>SubContent0</Dropdown.Item>
-                <Dropdown.Item>SubContent1</Dropdown.Item>
-                <Dropdown.Item>SubContent0</Dropdown.Item>
-                <Dropdown.Item>SubContent1</Dropdown.Item>
-                <Dropdown.Item>SubContent0</Dropdown.Item>
-                <Dropdown.Item>SubContent1</Dropdown.Item>
-                <Dropdown.Item>SubContent0</Dropdown.Item>
-                <Dropdown.Item>SubContent1</Dropdown.Item>
               </Dropdown.Content>
             </Dropdown.Sub>
             <Dropdown.Item>Content2</Dropdown.Item>
@@ -50,121 +42,98 @@ describe("Dropdown", () => {
       </ThemeProvider>
     );
 
-  it("should open dropdown on click", () => {
-    const { queryByText } = renderDropdown({});
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+  it("should open dropdown on pointer", async () => {
+    const { getByText } = renderDropdown({});
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
-    waitFor(() => {
-      expect(queryByText("Content0")).not.toBeNull();
-    });
+    await userEvent.click(dropdownTrigger);
+    expect(getByText("Content0")).not.toBeNull();
   });
 
-  it("should not open disabled dropdown on click", () => {
-    const { queryByText } = renderDropdown({
+  it("should not open disabled dropdown on pointer", async () => {
+    const { getByText, queryByText } = renderDropdown({
       disabled: true,
     });
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
-
-    waitFor(() => {
-      expect(queryByText("Content0")).toBeNull();
-    });
+    await userEvent.click(dropdownTrigger);
+    expect(queryByText("Content0")).toBeNull();
   });
 
-  it("should close dropdown on clicking outside content", () => {
-    const { queryByText } = renderDropdown({});
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+  it("should close dropdown on pointering outside content", async () => {
+    const { getByText, queryByText } = renderDropdown({});
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
-
-    waitFor(() => {
-      expect(queryByText("Content0")).not.toBeNull();
+    await userEvent.click(dropdownTrigger);
+    expect(queryByText("Content0")).not.toBeNull();
+    fireEvent.pointerDown(dropdownTrigger, {
+      ctrlKey: false,
+      button: 0,
     });
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
-    waitFor(() => {
-      expect(queryByText("Content0")).toBeNull();
-    });
+    expect(queryByText("Content0")).toBeNull();
   });
 
-  it("should close dropdown on selecting item", () => {
-    const { queryByText } = renderDropdown({});
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+  it("should close dropdown on selecting item", async () => {
+    const { getByText, queryByText } = renderDropdown({});
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
-
-    waitFor(() => {
-      expect(queryByText("Content0")).not.toBeNull();
-    });
-    screen.debug();
+    await userEvent.click(dropdownTrigger);
+    expect(getByText("Content0")).not.toBeNull();
     const item = queryByText("Content0");
     expect(item).not.toBeNull();
     item && fireEvent.click(item);
-    waitFor(() => {
-      expect(item).not.toBeNull();
-    });
     expect(item).not.toBeNull();
     expect(queryByText("Content1")).toBeNull();
   });
 
-  it("should open submenu dropdown on selecting item with subcontent", () => {
-    const { queryByText } = renderDropdown({});
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+  it("should open submenu dropdown on selecting item with subcontent", async () => {
+    const { getByText, queryByText } = renderDropdown({});
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
+    await userEvent.click(dropdownTrigger);
 
-    waitFor(() => {
-      expect(queryByText("Content0")).not.toBeNull();
-    });
-    const item = queryByText("Content0");
+    expect(queryByText("Content0")).not.toBeNull();
+    const item = getByText("Hover over");
     expect(item).not.toBeNull();
-    item && fireEvent.mouseOver(item);
-    waitFor(() => {
+    await userEvent.hover(item);
+    await waitFor(() => {
       expect(queryByText("SubContent0")).not.toBeNull();
     });
     expect(item).not.toBeNull();
   });
 
-  it("should close dropdown on selecting sub item", () => {
-    const { queryByText } = renderDropdown({});
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+  it("should close dropdown on selecting sub item", async () => {
+    const { getByText, queryByText } = renderDropdown({});
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
+    await userEvent.click(dropdownTrigger);
 
-    waitFor(() => {
-      expect(queryByText("Content0")).not.toBeNull();
-    });
-    const item = queryByText("Content0");
-    expect(item).not.toBeNull();
-    item && fireEvent.mouseOver(item);
-    expect(item).not.toBeNull();
-    waitFor(() => {
+    expect(queryByText("Content0")).not.toBeNull();
+    const item = queryByText("Hover over");
+    item && (await userEvent.hover(item));
+    await waitFor(() => {
       expect(queryByText("SubContent0")).not.toBeNull();
     });
+    expect(item).not.toBeNull();
     const subItem = queryByText("SubContent0");
-    expect(subItem).not.toBeNull();
     subItem && fireEvent.click(subItem);
-    waitFor(() => {
-      expect(subItem).not.toBeNull();
+    await waitFor(() => {
+      expect(queryByText("SubContent1")).toBeNull();
     });
-    expect(subItem).toBeNull();
-    expect(item).toBeNull();
+    expect(queryByText("Content0")).toBeNull();
   });
 
-  it("should not close dropdown on selecting disabled item", () => {
-    const { queryByText } = renderDropdown({});
-    const dropdownTrigger = queryByText("Dropdown Trigger");
+  it("should not close dropdown on selecting disabled item", async () => {
+    const { getByText, queryByText } = renderDropdown({});
+    const dropdownTrigger = getByText("Dropdown Trigger");
     expect(dropdownTrigger).not.toBeNull();
-    dropdownTrigger && fireEvent.click(dropdownTrigger);
+    await userEvent.click(dropdownTrigger);
 
-    waitFor(() => {
-      expect(queryByText("Content3")).not.toBeNull();
-    });
+    expect(queryByText("Content3")).not.toBeNull();
     const item = queryByText("Content3");
     expect(item).not.toBeNull();
-    item && fireEvent.click(item);
+    item && fireEvent.pointerDown(item);
     expect(item).not.toBeNull();
-    expect(queryByText("Content1")).not.toBeNull();
+    expect(queryByText("Content2")).not.toBeNull();
   });
 });
