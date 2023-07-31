@@ -36,7 +36,7 @@ describe("ContextMenu", () => {
       <ThemeProvider theme={themes.dark}>
         <ContextMenu {...props}>
           <ContextMenu.Trigger disabled={disabled}>
-            ContextMenu Trigger
+            <div>ContextMenu Trigger</div>
           </ContextMenu.Trigger>
           <ContextMenu.Content>
             <ContextMenu.Group>
