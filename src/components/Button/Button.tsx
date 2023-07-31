@@ -58,19 +58,19 @@ const BaseButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: ${(props) => props.theme.click.button.basic.space.y}
-    ${(props) => props.theme.click.button.basic.space.x};
-  border-radius: ${(props) => props.theme.click.button.radii.all};
-  gap: ${(props) => props.theme.click.button.basic.space.gap};
+  padding: ${props =>
+    `${props.theme.click.button.basic.space.y} ${props.theme.click.button.basic.space.x}`};
+  border-radius: ${props => props.theme.click.button.radii.all};
+  gap: ${props => props.theme.click.button.basic.space.gap};
   cursor: pointer;
 `;
 
 const StyledButton = styled(BaseButton)<
   Pick<StyledButtonProps, "width" | "height" | "align" | "styleType">
 >`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  font: ${(props) => props.theme.click.button.basic.typography.label.default};
+  width: ${props => props.width};
+  height: ${props => props.height};
+  font: ${props => props.theme.click.button.basic.typography.label.default};
   color: ${({ styleType = "primary", theme }) =>
     theme.click.button.basic.color[styleType].text.default};
   background-color: ${({ styleType = "primary", theme }) =>
@@ -80,7 +80,7 @@ const StyledButton = styled(BaseButton)<
       theme.click.button.basic.color[styleType].stroke.default};
   display: flex;
   align-items: ${({ align }) => (align === "left" ? "left" : "center")};
-  justify-content: ${(props) => (props.align === "left" ? "flex-start" : "center")};
+  justify-content: ${props => (props.align === "left" ? "flex-start" : "center")};
 
   &:hover {
     background-color: ${({ styleType = "primary", theme }) =>
