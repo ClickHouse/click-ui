@@ -423,7 +423,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.button.basic.color.disabled.text.default}",
+            "value": "{click.button.basic.color.primary.text.disabled}",
             "type": "color"
           },
           "info": {
@@ -538,11 +538,27 @@
                     }
                   }
                 }
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
               }
             },
             "text": {
               "default": {
                 "value": "{click.global.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.primary.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.primary.text.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.text.disabled}",
                 "type": "color"
               }
             },
@@ -557,6 +573,10 @@
               },
               "active": {
                 "value": "{click.button.split.primary.background.main.active}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
                 "type": "color"
               }
             }
@@ -583,6 +603,10 @@
                     }
                   }
                 }
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
               }
             },
             "stroke": {
@@ -591,7 +615,7 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.slate.500}",
+                "value": "{palette.slate.700}",
                 "type": "color"
               },
               "active": {
@@ -606,24 +630,26 @@
                     }
                   }
                 }
-              }
-            },
-            "text": {
-              "default": {
-                "value": "{click.global.color.text.default}",
-                "type": "color"
-              }
-            }
-          },
-          "disabled": {
-            "background": {
-              "default": {
+              },
+              "disabled": {
                 "value": "{click.field.color.background.disabled}",
                 "type": "color"
               }
             },
             "text": {
               "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.secondary.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.secondary.text.default}",
+                "type": "color"
+              },
+              "disabled": {
                 "value": "{click.field.color.text.disabled}",
                 "type": "color"
               }
@@ -641,12 +667,55 @@
               },
               "active": {
                 "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.05",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
                 "type": "color"
               }
             },
             "text": {
               "default": {
                 "value": "{click.feedback.color.danger.foreground}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.text.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.text.disabled}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.danger.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.danger.700}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
                 "type": "color"
               }
             }
@@ -2087,7 +2156,7 @@
               }
             },
             "disabled": {
-              "value": "{click.button.basic.color.disabled.background.default}",
+              "value": "{click.button.basic.color.primary.background.disabled}",
               "type": "color"
             }
           },
@@ -2105,7 +2174,7 @@
               "type": "color"
             },
             "disabled": {
-              "value": "{click.button.basic.color.disabled.text.default}",
+              "value": "{click.button.basic.color.primary.text.disabled}",
               "type": "color"
             }
           },
@@ -2181,7 +2250,7 @@
               }
             },
             "disabled": {
-              "value": "{click.button.basic.color.disabled.background.default}",
+              "value": "{click.button.basic.color.primary.background.disabled}",
               "type": "color"
             }
           },
@@ -2199,7 +2268,7 @@
               "type": "color"
             },
             "disabled": {
-              "value": "{click.button.basic.color.disabled.text.default}",
+              "value": "{click.button.basic.color.primary.text.disabled}",
               "type": "color"
             }
           },
@@ -2293,7 +2362,7 @@
               }
             },
             "disabled": {
-              "value": "{click.button.basic.color.disabled.background.default}",
+              "value": "{click.button.basic.color.primary.background.disabled}",
               "type": "color"
             }
           },
@@ -2311,7 +2380,7 @@
               "type": "color"
             },
             "disabled": {
-              "value": "{click.button.basic.color.disabled.text.default}",
+              "value": "{click.button.basic.color.primary.text.disabled}",
               "type": "color"
             }
           },
