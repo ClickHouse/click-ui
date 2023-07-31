@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Icon } from "..";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
+import { EmptyButton } from "../FormField/commonElement";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -29,9 +30,12 @@ type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
 
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
-const DropdownTrigger = (props: DropdownSubTriggerProps | DropdownTriggerProps) => {
-  if ("sub" in props) {
-    const { sub, children, ...menuProps } = props as DropdownSubTriggerProps;
+const DropdownTrigger = ({
+  sub,
+  ...props
+}: DropdownSubTriggerProps | DropdownTriggerProps) => {
+  if (sub) {
+    const { children, ...menuProps } = props as DropdownSubTriggerProps;
     return (
       <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
@@ -44,7 +48,12 @@ const DropdownTrigger = (props: DropdownSubTriggerProps | DropdownTriggerProps) 
       </DropdownMenuItem>
     );
   }
-  return <DropdownMenu.Trigger {...(props as DropdownTriggerProps)} />;
+  return (
+    <EmptyButton
+      as={DropdownMenu.Trigger}
+      {...(props as DropdownTriggerProps)}
+    />
+  );
 };
 
 DropdownTrigger.displayName = "DropdownTrigger";
