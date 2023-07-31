@@ -1,26 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const Label = styled.label<{ disabled?: boolean; error?: boolean }>`
-  ${({ theme, disabled, error }) => `
-    ${
-      disabled
-        ? `
-    color: ${theme.click.field.color.label.disabled};
-    font: ${theme.click.field.typography.label.disabled};
-    `
-        : error
-        ? `
-    color: ${theme.click.field.color.label.error};
-    font: ${theme.click.field.typography.label.error};
-    `
-        : `
-    color: ${theme.click.field.color.label.default};
-    font: ${theme.click.field.typography.label.default};
-    `
-    };
-  `}
-`;
-
 export const FormRoot = styled.div`
   display: flex;
   flex-direction: column-reverse;
@@ -43,4 +22,10 @@ export const Error = styled.div`
 export const ItemSeparator = css`
   height: 1px;
   background-color: ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
+`;
+
+export const EmptyButton = styled.button`
+  background: transparent;
+  cursor: pointer;
+  outline: none;
 `;

@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import * as RadixSelect from "@radix-ui/react-select";
 import { Icon } from "../Icon/Icon";
-import { Error, FormRoot, ItemSeparator, Label } from "./commonElement";
+import { Error, FormRoot, ItemSeparator } from "./commonElement";
 import { uniqueId } from "lodash";
 import styled from "styled-components";
 import {
@@ -10,6 +10,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from "@radix-ui/react-scroll-area";
+import { Label } from "./Label";
 
 interface SelectProps {
   placeholder?: string;
@@ -44,7 +45,7 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
     border-radius: ${theme.click.field.radii.all};
     padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
     gap: ${theme.click.field.space.gap};
-    font: ${theme.click.field.typography["field-text"].default};
+    font: ${theme.click.field.typography.fieldText.default};
     color: ${theme.click.field.color.text.default};
     border: 1px solid ${theme.click.field.color.stroke.default};
     background: ${theme.click.field.color.background.default};
@@ -56,7 +57,7 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
     ${
       error
         ? `
-      font: ${theme.click.field.typography["field-text"].error};
+      font: ${theme.click.field.typography.fieldText.error};
       border: 1px solid ${theme.click.field.color.stroke.error};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.error};
@@ -68,7 +69,7 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
         : `
     &:focus,
     &[data-state="open"] {
-      font: ${theme.click.field.typography["field-text"].active};
+      font: ${theme.click.field.typography.fieldText.active};
       border: 1px solid ${theme.click.field.color.stroke.active};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.active};
@@ -80,7 +81,7 @@ const SelectTrigger = styled(RadixSelect.Trigger)<{ error: boolean }>`
     `
     };
     &:disabled {
-      font: ${theme.click.field.typography["field-text"].disabled};
+      font: ${theme.click.field.typography.fieldText.disabled};
       border: 1px solid ${theme.click.field.color.stroke.disabled};
       background: ${theme.click.field.color.background.disabled};
       color: ${theme.click.field.color.text.disabled};
@@ -163,19 +164,28 @@ const Select = ({
         required={required}
         disabled={disabled}
       >
-        <SelectTrigger id={id} error={typeof error !== "undefined"}>
+        <SelectTrigger
+          id={id}
+          error={typeof error !== "undefined"}
+        >
           <RadixSelect.Value placeholder={placeholder} />
           <RadixSelect.Icon>
-            <Icon name='sort' size='small' />
+            <Icon
+              name="sort"
+              size="small"
+            />
           </RadixSelect.Icon>
         </SelectTrigger>
         <RadixSelect.Portal>
-          <SelectContent position='popper' sideOffset={5}>
-            <ScrollbarRoot type='auto'>
+          <SelectContent
+            position="popper"
+            sideOffset={5}
+          >
+            <ScrollbarRoot type="auto">
               <SelectViewport>
                 <ScrollbarViewport>{children}</ScrollbarViewport>
               </SelectViewport>
-              <Scrollbar orientation='vertical'>
+              <Scrollbar orientation="vertical">
                 <ScrollbarThumb />
               </Scrollbar>
             </ScrollbarRoot>
@@ -253,7 +263,10 @@ const SelectGroupLabel = styled(RadixSelect.Label)`
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
   ({ children, label, ...props }, forwardedRef) => {
     return (
-      <SelectGroup {...props} ref={forwardedRef}>
+      <SelectGroup
+        {...props}
+        ref={forwardedRef}
+      >
         <SelectGroupLabel>{label}</SelectGroupLabel>
         {children}
       </SelectGroup>
@@ -313,7 +326,10 @@ const SelectItem = styled(RadixSelect.Item)`
 const Item = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
   ({ children, ...props }, forwardedRef) => {
     return (
-      <SelectItem {...props} ref={forwardedRef}>
+      <SelectItem
+        {...props}
+        ref={forwardedRef}
+      >
         <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
       </SelectItem>
     );

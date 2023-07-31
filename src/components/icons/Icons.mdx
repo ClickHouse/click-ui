@@ -1,66 +1,39 @@
-import { Icon } from "../Icon/Icon";
+import { Icon, ICONS_MAP } from "../Icon/Icon";
+import Flags from "./Flags";
+import Payments from './Payments'
 import { Meta, IconGallery, IconItem } from "@storybook/blocks";
 import { ThemeProvider } from "../../theme";
 
-<Meta title='Icons' />
+<Meta title='Display/Icon/Icons' />
 
-# Icons
+# Glyphs
 
 <ThemeProvider theme='light'>
   <IconGallery>
-    <IconItem name='arrow-down'>
-      <Icon name='arrow-down' />
-    </IconItem>
-    <IconItem name='chat'>
-      <Icon name='chat' />
-    </IconItem>
-    <IconItem name='check'>
-      <Icon name='check' />
-    </IconItem>
-    <IconItem name='chevron-down'>
-      <Icon name='chevron-down' />
-    </IconItem>
-    <IconItem name='chevron-right'>
-      <Icon name='chevron-right' />
-    </IconItem>
-    <IconItem name='chevron-up'>
-      <Icon name='chevron-up' />
-    </IconItem>
-    <IconItem name='cross'>
-      <Icon name='cross' />
-    </IconItem>
-    <IconItem name='database'>
-      <Icon name='database' />
-    </IconItem>
-    <IconItem name='filter'>
-      <Icon name='filter' />
-    </IconItem>
-    <IconItem name='history'>
-      <Icon name='history' />
-    </IconItem>
-    <IconItem name='info-in-circle'>
-      <Icon name='info-in-circle' />
-    </IconItem>
-    <IconItem name='information'>
-      <Icon name='information' />
-    </IconItem>
-    <IconItem name='insert-row'>
-      <Icon name='insert-row' />
-    </IconItem>
-    <IconItem name='sort-alt'>
-      <Icon name='sort-alt' />
-    </IconItem>
-    <IconItem name='sort'>
-      <Icon name='sort' />
-    </IconItem>
-    <IconItem name='user'>
-      <Icon name='user' />
-    </IconItem>
-    <IconItem name='users'>
-      <Icon name='users' />
-    </IconItem>
-    <IconItem name='warning'>
-      <Icon name='warning' />
-    </IconItem>
+    {Object.keys(ICONS_MAP).map((iconName) => (
+      <IconItem name={iconName}>
+        <Icon name={iconName} />
+      </IconItem>
+    ))}
   </IconGallery>
 </ThemeProvider>
+
+# Flags
+
+<IconGallery>
+  {["usa", "de", "sg", "uk", "ie", "eu", "in", "nl"].map((iconName) => (
+    <IconItem name={iconName}>
+      <Flags name={iconName} />
+    </IconItem>
+  ))}
+</IconGallery>
+
+# Payments
+
+<IconGallery>
+  {["visa", "mastercard", "amex", "paypal"].map((iconName) => (
+    <IconItem name={iconName}>
+      <Payments name={iconName} />
+    </IconItem>
+  ))}
+</IconGallery>

@@ -11,7 +11,7 @@ export type AlertProps = {
   text: string;
   size?: AlertSize;
   showIcon?: boolean;
-  dismissable?: boolean;
+  dismissible?: boolean;
 };
 
 const stateIconMap: Record<AlertState, IconName> = {
@@ -27,7 +27,7 @@ const Alert = ({
   size = "small",
   state = "neutral",
   showIcon = true,
-  dismissable,
+  dismissible,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -43,7 +43,7 @@ const Alert = ({
         {title && <Title size={size}>{title}</Title>}
         <Text size={size}>{text}</Text>
       </TextWrapper>
-      {dismissable && (
+      {dismissible && (
         <DismissWrapper
           data-testid="click-alert-dismiss-button"
           state={state}
