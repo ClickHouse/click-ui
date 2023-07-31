@@ -1,5 +1,5 @@
 import * as RadixHoverCard from "@radix-ui/react-hover-card";
-import { Arrow, GenericContentPanel, GenericPopoverMenuPanel } from "../GenericMenu";
+import { Arrow, GenericPopoverMenuPanel } from "../GenericMenu";
 import styled from "styled-components";
 import { ReactNode } from "react";
 import PopoverArrow from "../icons/PopoverArrow";
@@ -26,7 +26,6 @@ interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
   forceMount?: true;
   container?: HTMLElement | null;
   children: ReactNode;
-  header?: ReactNode;
 }
 
 const HoverCardContent = ({
@@ -34,7 +33,6 @@ const HoverCardContent = ({
   showArrow,
   forceMount,
   container,
-  header,
   ...props
 }: HoverCardContentProps) => {
   return (
@@ -58,7 +56,7 @@ const HoverCardContent = ({
             <PopoverArrow />
           </Arrow>
         )}
-        <GenericContentPanel>{children}</GenericContentPanel>
+        {children}
       </GenericPopoverMenuPanel>
     </RadixHoverCard.Portal>
   );
