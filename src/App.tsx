@@ -38,37 +38,45 @@ const App = () => {
   return (
     <ThemeProvider theme={currentTheme}>
       <div className={styles.flexWrap}>
-        <IconButton size="small">
-          <ProfileIcon />
-        </IconButton>
-        <IconButton size="small" state="active">
-          <ProfileIcon />
-        </IconButton>
-        <IconButton size="small" disabled>
-          <ProfileIcon />
-        </IconButton>
+        <IconButton
+          icon="user"
+          size="small"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          size="small"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          size="small"
+          disabled
+          onClick={() => console.log("click")}
+        />
       </div>
       <div className={styles.flexWrap}>
-        <IconButton>
-          <ProfileIcon />
-        </IconButton>
-        <IconButton state="active">
-          <ProfileIcon />
-        </IconButton>
-        <IconButton disabled>
-          <ProfileIcon />
-        </IconButton>
+        <IconButton icon="user" onClick={() => console.log("click")} />
+        <IconButton icon="user" onClick={() => console.log("click")} />
+        <IconButton disabled icon="user" onClick={() => console.log("click")} />
       </div>
       <div className={styles.flexWrap}>
-        <IconButton display="empty">
-          <ProfileIcon />
-        </IconButton>
-        <IconButton display="empty" state="active">
-          <ProfileIcon />
-        </IconButton>
-        <IconButton display="empty" disabled>
-          <ProfileIcon />
-        </IconButton>
+        <IconButton
+          display="empty"
+          icon="user"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          display="empty"
+          icon="user"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          display="empty"
+          disabled
+          icon="user"
+          onClick={() => console.log("click")}
+        />
       </div>
       <div className={styles.flexWrap}>
         <Badge text={"default"}></Badge>
