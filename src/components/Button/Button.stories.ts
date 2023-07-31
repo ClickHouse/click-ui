@@ -3,21 +3,24 @@ import { Button } from "./Button";
 export default {
   title: "Buttons/Button",
   component: Button,
-  tags: ["button","autodocs"],
+  tags: ["button", "autodocs"],
+  argTypes: {
+    type: {
+      options: ["primary", "secondary", "danger"],
+      control: { type: "radio" },
+    },
+    align: {
+      options: ["center", "left"],
+      control: { type: "radio" },
+    },
+  },
 };
 
-export const Primary = {
+export const Playground = {
   args: {
     type: "primary",
     disabled: false,
     label: "Button",
-  },
-};
-
-export const Secondary = {
-  args: {
-    type: "secondary",
-    disabled: false,
-    label: "Button",
+    align: "center",
   },
 };
