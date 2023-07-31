@@ -30,10 +30,24 @@ export const Button = ({
   children,
   ...delegated
 }: ButtonProps) => (
-  <StyledButton styleType={type} align={align} {...delegated}>
-    {iconLeft && <Icon name={iconLeft} size="small" />}
+  <StyledButton
+    styleType={type}
+    align={align}
+    {...delegated}
+  >
+    {iconLeft && (
+      <Icon
+        name={iconLeft}
+        size="small"
+      />
+    )}
     {label ? label : children}
-    {iconRight && <Icon name={iconRight} size="small" />}
+    {iconRight && (
+      <Icon
+        name={iconRight}
+        size="small"
+      />
+    )}
   </StyledButton>
 );
 
@@ -58,22 +72,18 @@ const StyledButton = styled(BaseButton)<StyledButtonProps>`
 
   display: flex;
   align-items: center;
-  justify-content: ${props =>
-    props.align === "left" ? "flex-start" : "center"};
+  justify-content: ${props => (props.align === "left" ? "flex-start" : "center")};
 
   border: 1px solid
-    ${props =>
-      props.theme.click.button.basic.color[props.styleType].stroke.default};
+    ${props => props.theme.click.button.basic.color[props.styleType].stroke.default};
   background-color: ${props =>
     props.theme.click.button.basic.color[props.styleType].background.default};
-  color: ${props =>
-    props.theme.click.button.basic.color[props.styleType].text.default};
+  color: ${props => props.theme.click.button.basic.color[props.styleType].text.default};
   font: ${props => props.theme.click.button.basic.typography.label.default};
 
   &:active {
     border: 1px solid
-      ${props =>
-        props.theme.click.button.basic.color[props.styleType].stroke.active};
+      ${props => props.theme.click.button.basic.color[props.styleType].stroke.active};
     background-color: ${props =>
       props.theme.click.button.basic.color[props.styleType].background.active};
     font: ${props => props.theme.click.button.basic.typography.label.active};
@@ -81,8 +91,7 @@ const StyledButton = styled(BaseButton)<StyledButtonProps>`
 
   &:hover {
     border: 1px solid
-      ${props =>
-        props.theme.click.button.basic.color[props.styleType].stroke.hover};
+      ${props => props.theme.click.button.basic.color[props.styleType].stroke.hover};
     background-color: ${props =>
       props.theme.click.button.basic.color[props.styleType].background.hover};
     font: ${props => props.theme.click.button.basic.typography.label.hover};
@@ -90,8 +99,8 @@ const StyledButton = styled(BaseButton)<StyledButtonProps>`
 
   &[disabled] {
     background-color: ${props =>
-      props.theme.click.button.basic.color.disabled.background.default};
+      props.theme.click.button.basic.color[props.styleType].background.disabled};
     color: ${props =>
-      props.theme.click.button.basic.color.disabled.text.default};
+      props.theme.click.button.basic.color[props.styleType].text.disabled};
   }
 `;
