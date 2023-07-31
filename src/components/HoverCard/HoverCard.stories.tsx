@@ -57,7 +57,7 @@ export default {
   },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     open: "default",
   },
