@@ -11,11 +11,11 @@ describe("Alert", () => {
       </ThemeProvider>
     );
 
-  it("given a dismissable alert, should not be visible after dismissing it", async () => {
+  it("given a dismissible alert, should not be visible after dismissing it", async () => {
     const text = "Test alert component";
     const { queryAllByText, getByTestId } = renderAlert({
       text,
-      dismissable: true,
+      dismissible: true,
     });
 
     expect(queryAllByText(text).length).toEqual(1);

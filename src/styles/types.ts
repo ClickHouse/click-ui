@@ -337,48 +337,60 @@
             "background": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
             },
             "stroke": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             }
           },
           "secondary": {
             "background": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "stroke": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "text": {
-              "default": string
-            }
-          },
-          "disabled": {
-            "background": {
-              "default": string
-            },
-            "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
             }
           },
           "danger": {
             "background": {
               "default": string,
               "hover": string,
-              "active": string
+              "active": string,
+              "disabled": string
             },
             "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
             }
           }
         }
@@ -1679,20 +1691,76 @@
             "all": string
           }
         }
+      }
+    },
+    "popover": {
+      "space": {
+        "y": string,
+        "x": string,
+        "gap": string
       },
-      "vertical": {
-        "space": {
-          "x": {
-            "xs": string,
-            "sm": string,
-            "md": string,
-            "lg": string,
-            "xl": string,
-            "xxl": string
+      "radii": {
+        "all": string
+      },
+      "shadow": {
+        "default": string
+      },
+      "icon": {
+        "size": {
+          "height": string,
+          "width": string
+        }
+      },
+      "color": {
+        "panel": {
+          "background": {
+            "default": string
           },
-          "y": {
-            "all": string
+          "stroke": {
+            "default": string
           }
+        }
+      }
+    },
+    "panel": {
+      "strokeWidth": {
+        "default": string
+      },
+      "radii": {
+        "all": string
+      },
+      "stroke": {
+        "default": string
+      },
+      "shadow": {
+        "default": string
+      },
+      "space": {
+        "y": {
+          "none": string,
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string
+        },
+        "x": {
+          "xs": string,
+          "none": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "muted": string,
+          "transparent": string
+        },
+        "stroke": {
+          "default": string
         }
       }
     },
@@ -1720,12 +1788,8 @@
         },
         "outline": {
           "default": string
-        }
-      }
-    },
-    "popover": {
-      "color": {
-        "background": {
+        },
+        "shadow": {
           "default": string
         }
       }
@@ -1932,10 +1996,10 @@
         "base": string
       },
       "line-height": {
-        "1": number,
-        "2": number,
-        "3": number,
-        "4": number
+        "1": string,
+        "2": string,
+        "3": string,
+        "4": string
       }
     },
     "styles": {

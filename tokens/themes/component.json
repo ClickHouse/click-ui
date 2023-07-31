@@ -276,7 +276,7 @@
             "type": "spacing"
           },
           "y": {
-            "value": "0.1875rem",
+            "value": "0.125rem",
             "type": "spacing"
           },
           "gap": {
@@ -2010,42 +2010,6 @@
             }
           }
         }
-      },
-      "vertical": {
-        "space": {
-          "x": {
-            "xs": {
-              "value": "{spaces.0}",
-              "type": "spacing"
-            },
-            "sm": {
-              "value": "{spaces.1}",
-              "type": "spacing"
-            },
-            "md": {
-              "value": "{spaces.2}",
-              "type": "spacing"
-            },
-            "lg": {
-              "value": "{spaces.4}",
-              "type": "spacing"
-            },
-            "xl": {
-              "value": "{spaces.5}",
-              "type": "spacing"
-            },
-            "xxl": {
-              "value": "{spaces.6}",
-              "type": "spacing"
-            }
-          },
-          "y": {
-            "all": {
-              "value": "{spaces.0}",
-              "type": "spacing"
-            }
-          }
-        }
       }
     },
     "popover": {
@@ -2067,6 +2031,108 @@
         "all": {
           "value": "{border.radii.1}",
           "type": "borderRadius"
+        }
+      },
+      "shadow": {
+        "default": {
+          "value": "{shadow.1}",
+          "type": "boxShadow"
+        }
+      },
+      "icon": {
+        "size": {
+          "height": {
+            "value": "{click.image.medium.size.height}",
+            "type": "sizing"
+          },
+          "width": {
+            "value": "{click.image.medium.size.width}",
+            "type": "sizing"
+          }
+        }
+      }
+    },
+    "panel": {
+      "strokeWidth": {
+        "default": {
+          "value": "1px",
+          "type": "borderWidth"
+        }
+      },
+      "radii": {
+        "all": {
+          "value": "{border.radii.1}",
+          "type": "borderRadius"
+        }
+      },
+      "stroke": {
+        "default": {
+          "value": {
+            "color": "{click.global.color.stroke.default}",
+            "width": "{border.width.1}",
+            "style": "solid"
+          },
+          "type": "border"
+        }
+      },
+      "shadow": {
+        "default": {
+          "value": "{shadow.1}",
+          "type": "boxShadow"
+        }
+      },
+      "space": {
+        "y": {
+          "none": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "sm": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{spaces.6}",
+            "type": "spacing"
+          }
+        },
+        "x": {
+          "xs": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          },
+          "none": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          },
+          "sm": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{spaces.6}",
+            "type": "spacing"
+          }
         }
       }
     }

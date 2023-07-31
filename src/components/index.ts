@@ -13,6 +13,7 @@ export { IconButton } from "./IconButton/IconButton";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
 export { RadioGroup } from "./RadioGroup/RadioGroup";
 export { Popover } from "./Popover/Popover";
+export { Spacer } from "./Spacer/Spacer";
 export { Switch } from "./Switch/Switch";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { Label } from "./FormField/Label";
