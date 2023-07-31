@@ -29,4 +29,7 @@ export const EmptyButton = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
