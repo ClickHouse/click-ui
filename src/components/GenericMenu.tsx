@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const GenericMenuPanel = styled.div<{
-  type: "popover" | "dropdown-menu" | "context-menu" | "hover-card";
+  type: "popover" | "dropdown-menu" | "context-menu";
+  $showArrow?: boolean;
 }>`
   outline: none;
   max-width: var(--radix-${({ type }) => type}-content-available-width);
@@ -16,6 +17,12 @@ export const GenericMenuPanel = styled.div<{
     box-shadow: ${theme.click.genericMenu.panel.shadow.default};
     border-radius: ${theme.click.genericMenu.panel.radii.all};
   `}
+  ${({ $showArrow }) =>
+    $showArrow
+      ? `
+    margin: -1px 0;
+  `
+      : ""};
 `;
 
 export const GenericPopoverMenuPanel = styled.div<{
@@ -46,5 +53,45 @@ export const Arrow = styled.svg`
   ${({ theme }) => `
     fill: ${theme.click.genericMenu.panel.color.background.default};
     stroke: ${theme.click.genericMenu.panel.color.stroke.default};
+  `};
+`;
+
+export const GenericMenuItem = styled.div`
+  display: flex;
+  width: -webkit-fill-available;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  outline: none;
+  &[aria-selected] {
+    outline: none;
+  }
+
+  ${({ theme }) => `
+    padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
+    gap: ${theme.click.genericMenu.item.space.gap};
+    font: ${theme.click.genericMenu.item.typography.label.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    color: ${theme.click.genericMenu.item.color.text.default};
+    &[data-highlighted] {
+      font: ${theme.click.genericMenu.item.typography.label.hover};
+      background: ${theme.click.genericMenu.item.color.background.hover};
+      color:${theme.click.genericMenu.item.color.text.hover};
+      cursor: pointer;
+    }
+    &[data-state="open"] {
+      background:${theme.click.genericMenu.item.color.background.active};
+      color:${theme.click.genericMenu.item.color.text.active};
+      font: ${theme.click.genericMenu.item.typography.label.active};
+    }
+    &[data-disabled] {
+      background:${theme.click.genericMenu.item.color.background.disabled};
+      color:${theme.click.genericMenu.item.color.text.disabled};
+      font: ${theme.click.genericMenu.item.typography.label.disabled};
+      pointer-events: none;
+    }
   `};
 `;
