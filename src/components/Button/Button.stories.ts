@@ -3,17 +3,17 @@ import { Button } from "./Button";
 export default {
   title: "Buttons/Button",
   component: Button,
-  tags: ["button","autodocs"],
+  tags: ["button", "autodocs"],
   argTypes: {
     type: {
-      options: ["primary","secondary","danger"],
+      options: ["primary", "secondary", "danger"],
       control: { type: "radio" },
     },
     align: {
-      options: ["default","left"],
+      options: ["center", "left"],
       control: { type: "radio" },
     },
-  }
+  },
 };
 
 export const Playground = {
@@ -21,6 +21,6 @@ export const Playground = {
     type: "primary",
     disabled: false,
     label: "Button",
-    align: "default",
+    align: "center",
   },
 };
