@@ -2,7 +2,7 @@ import { CardSecondary } from "./CardSecondary";
 
 export default {
   component: CardSecondary,
-  title: "Display/Cards/Secondary Card",
+  title: "Cards/Secondary Card",
   tags: ["cardSecondary","autodocs"],
   argTypes: {
     badgeState: {

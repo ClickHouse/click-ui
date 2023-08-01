@@ -24,7 +24,7 @@ const Wrapper = styled.div<Pick<CardProps, "size" | "hasShadow" | "size" | "disa
   text-align: center;
   flex-direction: column;
   padding: ${({ size = "md", theme }) =>
-    `${theme.click.card.primary.space[size].x} ${theme.click.card.primary.space[size].y}`}
+    `${theme.click.card.primary.space[size].x} ${theme.click.card.primary.space[size].y}`};
   gap: ${({ size = "md", theme }) => theme.click.card.primary.space[size].gap};
   box-shadow: ${({ hasShadow, theme }) => hasShadow ? theme.shadow[1] : "none"};
 

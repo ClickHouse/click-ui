@@ -2,7 +2,7 @@ import { CardPrimary } from "./CardPrimary";
 
 export default {
   component: CardPrimary,
-  title: "Display/Cards/Primary Card",
+  title: "Cards/Primary Card",
   tags: ["cardPrimary","autodocs"],
 };
 
