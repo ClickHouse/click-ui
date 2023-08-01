@@ -5,7 +5,7 @@ export { Accordion } from "./Accordion/Accordion";
 export { Badge } from "./Badge/Badge";
 export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
 export { Button } from "./Button/Button";
-export { Card } from "./Card/Card";
+export { CardSecondary } from "./Card/CardSecondary/CardSecondary";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { HoverCard } from "./HoverCard/HoverCard";
 export { Icon } from "./Icon/Icon";
