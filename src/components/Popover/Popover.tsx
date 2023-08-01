@@ -23,7 +23,12 @@ interface TriggerProps extends RadixPopover.PopoverTriggerProps {
 const PopoverTrigger = ({ children, anchor, ...props }: TriggerProps) => {
   return (
     <>
-      <Trigger {...props}>{children}</Trigger>
+      <Trigger
+        asChild
+        {...props}
+      >
+        {children}
+      </Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>
   );
