@@ -3,7 +3,7 @@ import { Badge } from "@/components/Badge/Badge";
 import { Title } from "../../Typography/Title/Title";
 import { Text } from "../../Typography/Text/Text";
 import { IconName } from "@/components/Icon/types";
-import { Icon } from "../..";
+import { Icon } from "../../Icon/Icon";
 
 export type BadgeState =
   | "default"
