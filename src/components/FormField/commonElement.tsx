@@ -33,3 +33,10 @@ export const EmptyButton = styled.button`
     cursor: not-allowed;
   }
 `;
+
+export const GridCenter = styled.div`
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+`;

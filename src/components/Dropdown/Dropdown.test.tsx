@@ -22,7 +22,9 @@ describe("Dropdown", () => {
     render(
       <ThemeProvider theme={themes.dark}>
         <Dropdown {...props}>
-          <Dropdown.Trigger disabled={disabled}>Dropdown Trigger</Dropdown.Trigger>
+          <Dropdown.Trigger disabled={disabled}>
+            <div>Dropdown Trigger</div>
+          </Dropdown.Trigger>
           <Dropdown.Content>
             <Dropdown.Group>
               <Dropdown.Item>Content0</Dropdown.Item>

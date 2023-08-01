@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
 import { PopoverProps } from "@radix-ui/react-popover";
-import { Checkbox, Popover, Button } from "@/components";
+import { Checkbox, Popover } from "@/components";
 import { render, fireEvent, screen } from "@testing-library/react";
 
 describe("Popover", () => {
@@ -10,7 +10,7 @@ describe("Popover", () => {
       <ThemeProvider theme={themes.dark}>
         <Popover {...props}>
           <Popover.Trigger>
-            <Button>Click Here</Button>
+            <div>Click Here</div>
           </Popover.Trigger>
           <Popover.Content>
             <div>
