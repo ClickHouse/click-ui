@@ -508,9 +508,12 @@ interface ItemProps extends Omit<DivProps, "disabled" | "onSelect" | "value"> {
 }
 
 const Item = forwardRef<HTMLDivElement, ItemProps>(
-  ({ children, separator, onSelect: onSelectProp, value, ...props }, forwardedRef) => {
+  (
+    { children, separator, onSelect: onSelectProp, value = "", ...props },
+    forwardedRef
+  ) => {
     const { selectedValue, onSelect } = useSelect();
-    const onSelectValue = (value: string) => {
+    const onSelectValue = () => {
       onSelect(value);
       if (typeof onSelectProp == "function") {
         onSelectProp(value);
@@ -522,7 +525,6 @@ const Item = forwardRef<HTMLDivElement, ItemProps>(
           {...props}
           onSelect={onSelectValue}
           ref={forwardedRef}
-          value={value}
           data-state={selectedValue == value ? "checked" : "unchecked"}
         >
           {children}
