@@ -19,3 +19,4 @@ export { Switch } from "./Switch/Switch";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { Label } from "./FormField/Label";
 export { Tabs } from "./Tabs/Tabs";
+export { Tooltip, TooltipProvider } from "./Tooltip/Tooltip";
