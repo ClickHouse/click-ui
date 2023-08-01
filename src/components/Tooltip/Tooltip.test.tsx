@@ -23,10 +23,10 @@ describe("Tooltip", () => {
     );
 
   it("should open tooltip on hover", async () => {
-    const { getByText, getAllByText } = renderTooltip({});
-    const TooltipTrigger = getByText("Hover Here");
-    expect(TooltipTrigger).not.toBeNull();
-    await userEvent.hover(TooltipTrigger);
+    const { getAllByText } = renderTooltip({});
+    const TooltipTrigger = getAllByText("Hover Here");
+    expect(TooltipTrigger.length).toEqual(1);
+    await userEvent.hover(TooltipTrigger[0]);
     expect(getAllByText("Tooltip content")).not.toBeNull();
   });
 

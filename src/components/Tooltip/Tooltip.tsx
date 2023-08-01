@@ -41,7 +41,7 @@ const RadixTooltipContent = styled(RadixTooltip.Content)`
   `}
 `;
 
-export const Arrow = styled.svg`
+const Arrow = styled.svg`
   ${({ theme }) => `
     fill: ${theme.click.tooltip.color.background.default};
   `};
