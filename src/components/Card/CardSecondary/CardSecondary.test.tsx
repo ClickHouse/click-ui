@@ -20,7 +20,7 @@ describe("CardSecondary Component", () => {
 				infoText: ""
 			});
 
-      expect(screen.getByText(title)).toBeDefined();
+			expect(screen.getAllByText(title).length).toEqual(1);
     });
 
 		it("should render the description when provided", () => {
@@ -33,7 +33,7 @@ describe("CardSecondary Component", () => {
 				infoText: ""
 			});
 	
-			expect(screen.getByText(description)).toBeDefined();
+			expect(screen.getAllByText(description).length).toEqual(1);
 		});	
 
 		it("should render the badge when hasBadge prop is present", () => {
@@ -47,7 +47,7 @@ describe("CardSecondary Component", () => {
 				badgeText,
 			});
 	
-			expect(screen.getByText(badgeText)).toBeDefined();
+			expect(screen.getAllByText(badgeText).length).toEqual(1);
 		});	
 
 });
