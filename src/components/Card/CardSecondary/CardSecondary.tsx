@@ -17,7 +17,6 @@ export type BadgeState =
 export interface CardProps {
   title: string;
   image: IconName;
-  hasBadge?: boolean;
   badgeState?: BadgeState;
   hasShadow?: boolean;
   disabled?: boolean;
@@ -96,7 +95,7 @@ const InfoLink = styled.div`
   }
 `;
 
-const ArrowContainer = styled.svg`
+const ArrowContainer = styled(Icon)`
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
   height: ${({ theme }) => theme.click.image.medium.size.height};
   width: ${({ theme }) => theme.click.image.medium.size.width};
@@ -105,7 +104,6 @@ const ArrowContainer = styled.svg`
 export const CardSecondary = ({
   title,
   image,
-  hasBadge = true,
   badgeState,
   badgeText = "",
   hasShadow = false,
@@ -120,7 +118,7 @@ export const CardSecondary = ({
         <Icon name={image} size="large" />
         <Title type='h3'>{title}</Title>
       </HeaderLeft>
-      { hasBadge && (
+      { badgeText && (
         <Badge
           text={badgeText}
           state={disabled == true ? "disabled" : badgeState }
@@ -135,7 +133,6 @@ export const CardSecondary = ({
     <InfoLink>
       <Text className="link">{infoText}</Text>
       <ArrowContainer
-        as={Icon} 
         name="chevron-right"
         className="link-arrow" />
     </InfoLink>

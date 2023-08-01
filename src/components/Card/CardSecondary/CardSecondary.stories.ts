@@ -22,7 +22,6 @@ export const Playground = {
     infoText: "Read More",
     hasShadow: false,
     disabled: false,
-    hasBadge: true,
     badgeText: "experiment",
     badgeState: "success",
   },

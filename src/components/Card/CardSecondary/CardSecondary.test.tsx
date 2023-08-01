@@ -44,12 +44,10 @@ describe("CardSecondary Component", () => {
 				description: "",
 				infoUrl: "",
 				infoText: "",
-				hasBadge: true,
 				badgeText,
 			});
 	
 			expect(screen.getByText(badgeText)).toBeDefined();
-			// expect(screen.getByText(badgeText)).toBe("I should eat more bananas")
 		});	
 
 });
