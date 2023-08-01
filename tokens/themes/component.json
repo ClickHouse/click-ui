@@ -494,6 +494,14 @@
             "all": {
               "value": "0.96875rem",
               "type": "sizing"
+            },
+            "height": {
+              "value": "0.96875rem",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "0.96875rem",
+              "type": "sizing"
             }
           }
         }
