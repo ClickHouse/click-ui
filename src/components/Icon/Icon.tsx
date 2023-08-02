@@ -63,4 +63,6 @@ const SvgWrapper = styled.div<Partial<IconProps>>`
 const Icon = withStylesWrapper(SVGIcon);
 const IconToExport = styled(Icon)``;
 
+IconToExport.displayName = "Icon";
+
 export { IconToExport as Icon };
