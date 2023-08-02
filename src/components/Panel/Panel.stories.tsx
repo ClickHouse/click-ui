@@ -5,13 +5,13 @@ import { Title } from "../Typography/Title/Title";
 export default {
   component: Panel,
   title: "Display/Panel",
-  tags: ["panel","autodocs"],
+  tags: ["panel", "autodocs"],
   argTypes: {
     padding: {
       options: ["none", "xs", "sm", "md", "lg", "xl"],
       control: { type: "select" },
     },
-	},
+  },
 };
 
 export const Playground = {
@@ -20,6 +20,17 @@ export const Playground = {
     padding: "md",
     hasBorder: true,
     hasShadow: true,
-    children: <div><Title type='h3'>Example panel title</Title><br /><Text size="md" color="default">Panel content</Text></div>
-	},
+    children: (
+      <div>
+        <Title type="h3">Example panel title</Title>
+        <br />
+        <Text
+          size="md"
+          color="default"
+        >
+          Panel content
+        </Text>
+      </div>
+    ),
+  },
 };
