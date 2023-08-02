@@ -2563,6 +2563,46 @@
           }
         }
       }
+    },
+    "toast": {
+      "color": {
+        "title": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.popover.color.panel.stroke.default}",
+            "type": "color"
+          }
+        },
+        "icon": {
+          "default": {
+            "value": "{click.toast.color.title.default}",
+            "type": "color"
+          },
+          "success": {
+            "value": "{click.feedback.color.success.foreground}",
+            "type": "color"
+          },
+          "warning": {
+            "value": "{click.feedback.color.warning.foreground}",
+            "type": "color"
+          },
+          "danger": {
+            "value": "{click.feedback.color.danger.foreground}",
+            "type": "color"
+          }
+        }
+      }
     }
   }
 }
