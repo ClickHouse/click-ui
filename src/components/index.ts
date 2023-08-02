@@ -31,3 +31,6 @@ export { TextField } from "./Input/TextField";
 export { Title } from "./Typography/Title/Title";
 export { Tooltip, TooltipProvider } from "./Tooltip/Tooltip";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
+
+export { CUIFlexContainer } from "./Container/FlexContainer";
+export { CUIGridContainer, CUIGridItem } from "./Container/GridContainer";
