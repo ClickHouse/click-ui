@@ -1,3 +1,4 @@
+import { Theme } from "@/styles/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import styled, { DefaultTheme } from "styled-components";
 
@@ -16,19 +17,17 @@ interface ThumbProps {
   disabled?: boolean;
 }
 
-export function Switch({ checked, disabled, ...props }: SwitchProps) {
-  return (
-    <SwitchRoot disabled={disabled} checked={checked} {...props}>
-      <SwitchThumb checked={checked} />
-    </SwitchRoot>
-  );
-}
+export const Switch = ({ checked, disabled, ...props }: SwitchProps) => (
+  <SwitchRoot
+    disabled={disabled}
+    checked={checked}
+    {...props}
+  >
+    <SwitchThumb checked={checked} />
+  </SwitchRoot>
+);
 
-function getRootVars(
-  theme: any,
-  disabled: boolean | undefined,
-  checked: boolean
-) {
+const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {
@@ -50,13 +49,13 @@ function getRootVars(
       border: `1px solid ${theme.click.switch.color.stroke.default}`,
     };
   }
-}
+};
 
-function getThumbVars(
+const getThumbVars = (
   theme: DefaultTheme,
   disabled: boolean | undefined,
   checked: boolean
-) {
+) => {
   const baseVars = {};
 
   if (disabled) {
@@ -75,9 +74,9 @@ function getThumbVars(
       backgroundColor: theme.click.switch.color.indicator.default,
     };
   }
-}
+};
 
-const SwitchRoot = styled(RadixSwitch.Root)<RootProps>((props) => {
+const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
   const vars = getRootVars(props.theme, props.disabled, props.checked);
 
   return {
@@ -91,7 +90,7 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>((props) => {
   };
 });
 
-const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>((props) => {
+const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>(props => {
   const vars = getThumbVars(props.theme, props.disabled, props.checked);
 
   return {

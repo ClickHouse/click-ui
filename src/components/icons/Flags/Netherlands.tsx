@@ -1,10 +1,6 @@
 import React from "react";
 
-function Netherlands(
-  props: React.SVGAttributes<SVGElement>
-): React.ReactElement {
-  return (
-    <svg
+const Netherlands = (props: React.SVGAttributes<SVGElement>): React.ReactElement => <svg
       xmlns='http://www.w3.org/2000/svg'
       width={30}
       height={20}
@@ -22,8 +18,6 @@ function Netherlands(
           <rect width={30} height={20} fill='#fff' rx={1} />
         </clipPath>
       </defs>
-    </svg>
-  );
-}
+    </svg>;
 
 export default Netherlands;
