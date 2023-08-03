@@ -1,5 +1,15 @@
+import { Error, FormRoot } from "../commonElement";
+import { Label } from "../..";
 import styled from "styled-components";
-export const InputContainer = styled.div<{ error: boolean }>`
+import { ReactNode } from "react";
+
+const FormRootWrapper = styled(FormRoot)`
+  label {
+    width: fill-available;
+  }
+`;
+
+const Wrapper = styled.div<{ $error: boolean; $hasLabel: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -13,7 +23,9 @@ export const InputContainer = styled.div<{ error: boolean }>`
     text-overflow: ellipsis;
   }
 
-  ${({ theme, error }) => `
+  ${({ theme, $error, $hasLabel }) => `
+    gap: ${theme.click.field.space.gap};
+    margin-top: ${$hasLabel ? theme.click.field.space.gap : 0};
     border-radius: ${theme.click.field.radii.all};
     font: ${theme.click.field.typography.fieldText.default};
     color: ${theme.click.field.color.text.default};
@@ -25,12 +37,16 @@ export const InputContainer = styled.div<{ error: boolean }>`
       color: ${theme.click.field.color.text.hover};
     }
     & > input {
-      padding-top: ${theme.click.field.space.y};
-      padding-bottom: ${theme.click.field.space.y};
-      padding-left: ${theme.click.field.space.x};
+      padding: ${theme.click.field.space.y} 0;
+    }
+    &:first-child {
+       padding-left: ${theme.click.field.space.x};
+    }
+    &:last-child {
+       padding-left: ${theme.click.field.space.x};
     }
     ${
-      error
+      $error
         ? `
       font: ${theme.click.field.typography.fieldText.error};
       border: 1px solid ${theme.click.field.color.stroke.error};
@@ -64,6 +80,35 @@ export const InputContainer = styled.div<{ error: boolean }>`
   `}
 `;
 
+export interface WrapperProps {
+  id: string;
+  label?: ReactNode;
+  error?: ReactNode;
+  disabled?: boolean;
+  children: ReactNode;
+}
+
+export const InputWrapper = ({ id, label, error, disabled, children }: WrapperProps) => {
+  return (
+    <FormRootWrapper>
+      {error && <Error>{error}</Error>}
+      <Label
+        htmlFor={id}
+        disabled={disabled}
+        error={typeof error !== "undefined"}
+      >
+        {label}
+        <Wrapper
+          $error={typeof error !== "undefined"}
+          $hasLabel={typeof label !== undefined}
+        >
+          {children}
+        </Wrapper>
+      </Label>
+    </FormRootWrapper>
+  );
+};
+
 export const InputElement = styled.input`
   background: transparent;
   border: none;
@@ -87,6 +132,12 @@ export const IconButton = styled.button`
   &:not(:disabled) {
     cursor: pointer;
   }
+  ${({ theme }) => `
+      padding: ${theme.click.field.space.y} 0;
+  `}
+`;
+
+export const IconWrapper = styled.svg`
   ${({ theme }) => `
     &:first-of-type {
       padding-left: ${theme.click.field.space.gap};

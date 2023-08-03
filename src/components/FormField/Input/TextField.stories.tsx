@@ -1,15 +1,32 @@
-import { Input } from "./Input";
-import { PasswordInput } from "./PasswordInput";
-import { PasswordInputProps } from "./types";
+import { useEffect, useState } from "react";
+import { TextField as TextFieldInput } from "./TextField";
+
+const TextField = ({ value: valueProp, ...props }: any) => {
+  const [value, setValue] = useState(props.value);
+  useEffect(() => {
+    setValue(valueProp);
+  }, [valueProp]);
+
+  return (
+    <TextFieldInput
+      value={value}
+      onChange={(e: any) => {
+        e.preventDefault();
+        setValue(e.target.value);
+      }}
+      {...props}
+    />
+  );
+};
 
 export default {
-  component: Input,
-  title: "Input",
-  tags: ["form-field", "input"],
+  component: TextField,
+  title: "Forms/Input/TextField",
+  tags: ["form-field", "input", "autodocs"],
   argTypes: {
     type: {
-      control: "radio",
-      options: ["number", "text", "email", "tel", "url"],
+      control: "inline-radio",
+      options: ["text", "email", "tel", "url"],
     },
     value: { control: "text" },
     clear: { control: "boolean" },
@@ -30,9 +47,6 @@ export default {
     maxLength: { control: "number", if: { type: "number", truthy: false } },
     pattern: { control: "text", if: { type: "number", truthy: false } },
     size: { control: "number", if: { type: "number", truthy: false } },
-    min: { control: "text", if: { type: "number" } },
-    max: { control: "text", if: { type: "number" } },
-    step: { control: "text", if: { type: "number" } },
   },
 };
 
@@ -44,32 +58,12 @@ const commonProps = {
   placeholder: "Placeholder",
 };
 
-export const Default = {
-  args: commonProps,
-};
-
-export const Password = {
-  render: (props: PasswordInputProps) => <PasswordInput {...props} />,
-  argTypes: {
-    type: { control: "radio", options: ["password"] },
-  },
+export const Playground = {
   args: {
-    ...commonProps,
-    clear: true,
-    type: "password",
-  },
-};
-
-export const Disabled = {
-  args: {
-    ...commonProps,
-    disabled: true,
-  },
-};
-
-export const Error = {
-  args: {
-    ...commonProps,
-    error: "TestValue",
+    label: "Label",
+    clear: false,
+    type: "text",
+    disabled: false,
+    placeholder: "Placeholder",
   },
 };
