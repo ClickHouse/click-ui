@@ -1,7 +1,7 @@
 import { ChangeEvent, ChangeEventHandler } from "react";
 
 export const mockInputChangeEvent = (
-  input?: HTMLInputElement | null,
+  input: HTMLInputElement | null,
   onChange?: ChangeEventHandler<HTMLInputElement>
 ) => {
   if (input) {
