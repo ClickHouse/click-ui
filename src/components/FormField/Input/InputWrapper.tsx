@@ -39,12 +39,7 @@ const Wrapper = styled.div<{ $error: boolean; $hasLabel: boolean }>`
     & > input {
       padding: ${theme.click.field.space.y} 0;
     }
-    &:first-child {
-       padding-left: ${theme.click.field.space.x};
-    }
-    &:last-child {
-       padding-left: ${theme.click.field.space.x};
-    }
+    padding: 0 ${theme.click.field.space.x};
     ${
       $error
         ? `

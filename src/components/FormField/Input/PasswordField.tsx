@@ -36,17 +36,10 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
             disabled={disabled}
             onClick={togglePasswordViewer}
           >
-            {viewPassword ? (
-              <Icon
-                name="eye-closed"
-                size="medium"
-              />
-            ) : (
-              <Icon
-                name="eye"
-                size="medium"
-              />
-            )}
+            <Icon
+              name={viewPassword ? "eye-closed" : "eye"}
+              size="medium"
+            />
           </IconButton>
         )}
       </InputWrapper>
