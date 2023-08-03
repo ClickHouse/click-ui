@@ -11,9 +11,7 @@ export default defineConfig({
 
         env: {
           development: {
-            plugins: [
-              ["babel-plugin-styled-components", { displayName: true }],
-            ],
+            plugins: [["babel-plugin-styled-components", { displayName: true }]],
           },
         },
       },
@@ -32,7 +30,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // Add _all_ external dependencies here
-      external: ["react"],
+      external: ["react", "react-dom", "styled-components"],
     },
   },
 });

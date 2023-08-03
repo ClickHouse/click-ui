@@ -2143,6 +2143,64 @@
           }
         }
       }
+    },
+    "toast": {
+      "icon": {
+        "size": {
+          "height": {
+            "value": "{click.image.small.size.height}",
+            "type": "sizing"
+          },
+          "width": {
+            "value": "{click.image.small.size.width}",
+            "type": "sizing"
+          }
+        }
+      },
+      "space": {
+        "title": {
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
+        },
+        "y": {
+          "value": "{spaces.3}",
+          "type": "spacing"
+        },
+        "x": {
+          "value": "{spaces.3}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{spaces.2}",
+          "type": "spacing"
+        }
+      },
+      "radii": {
+        "all": {
+          "value": "{click.popover.radii.all}",
+          "type": "borderRadius"
+        }
+      },
+      "shadow": {
+        "value": "{click.popover.shadow.default}",
+        "type": "boxShadow"
+      },
+      "typography": {
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.titles.sm}",
+            "type": "typography"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{typography.styles.product.text.normal.sm}",
+            "type": "typography"
+          }
+        }
+      }
     }
   }
 }
