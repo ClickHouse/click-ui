@@ -24,7 +24,6 @@ export default {
   tags: ["form-field", "input", "autodocs"],
   argTypes: {
     value: { control: "text" },
-    clear: { control: "boolean" },
     label: { control: "text" },
     error: { control: "text" },
     disabled: { control: "boolean" },
@@ -37,7 +36,6 @@ export default {
     name: { control: "text" },
     readOnly: { control: "boolean" },
     required: { control: "boolean" },
-    loading: { control: "boolean" },
     min: { control: "text", if: { type: "number" } },
     max: { control: "text", if: { type: "number" } },
     step: { control: "text", if: { type: "number" } },
@@ -47,7 +45,6 @@ export default {
 export const Playground = {
   args: {
     label: "Label",
-    clear: false,
     disabled: false,
     placeholder: "Placeholder",
   },

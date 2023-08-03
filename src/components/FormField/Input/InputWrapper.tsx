@@ -88,19 +88,27 @@ export interface WrapperProps {
   children: ReactNode;
 }
 
-export const InputWrapper = ({ id, label, error, disabled, children }: WrapperProps) => {
+export const InputWrapper = ({
+  id,
+  label = "",
+  error = "",
+  disabled,
+  children,
+}: WrapperProps) => {
+  const showError = error ? typeof error === "string" && error.length !== 0 : false;
+  const showLabel = label ? typeof label === "string" && label.length !== 0 : false;
   return (
     <FormRootWrapper>
-      {error && <Error>{error}</Error>}
+      {showError && <Error>{error}</Error>}
       <Label
         htmlFor={id}
         disabled={disabled}
-        error={typeof error !== "undefined"}
+        error={showError}
       >
         {label}
         <Wrapper
-          $error={typeof error !== "undefined"}
-          $hasLabel={typeof label !== undefined}
+          $error={showError}
+          $hasLabel={showLabel}
         >
           {children}
         </Wrapper>
