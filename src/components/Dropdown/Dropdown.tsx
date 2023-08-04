@@ -134,7 +134,7 @@ const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = "DropdownSub";
 Dropdown.Sub = DropdownSub;
 
-const DropdownItem = ({ ...props }: DropdownMenu.DropdownMenuItemProps) => {
+const DropdownItem = (props: DropdownMenu.DropdownMenuItemProps) => {
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
