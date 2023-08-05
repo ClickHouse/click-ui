@@ -1,4 +1,4 @@
-import { Button, Checkbox } from "..";
+import { Checkbox } from "..";
 import { GridCenter } from "../FormField/commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Title } from "../Typography/Title/Title";
