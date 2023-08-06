@@ -1,9 +1,21 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/click-ui.es.js",
+      "require": "./dist/click-ui.umd.js"
+    }
+  },
+  "main": "./dist/click-ui.umd.js",
+  "module": "./dist/click-ui.es.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "click-ui",
     "clickhouse",
