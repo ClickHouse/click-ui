@@ -8,7 +8,7 @@ interface Props extends React.SVGAttributes<SVGElement> {
   name: string;
 }
 
-function Payments({ name, ...props }: Props) {
+const Payments = ({ name, ...props }: Props) => {
   switch (name) {
     case "visa":
       return <Visa {...props} />;
@@ -25,6 +25,6 @@ function Payments({ name, ...props }: Props) {
     default:
       return null;
   }
-}
+};
 
 export default Payments;

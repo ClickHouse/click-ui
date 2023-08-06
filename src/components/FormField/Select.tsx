@@ -15,8 +15,9 @@ import { Icon } from "../Icon/Icon";
 import { Error, FormRoot } from "./commonElement";
 import styled from "styled-components";
 import { Label } from "./Label";
-import { SelectContextProvider, useSelect } from "./SelectContext";
+import { SelectContextProvider } from "./SelectContext";
 import Separator from "../Separator/Separator";
+import { useSelect } from "@/components/FormField/useSelect";
 
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   placeholder?: string;

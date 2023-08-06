@@ -3,7 +3,6 @@ import {
   HTMLAttributes,
   ReactElement,
   ReactNode,
-  useContext,
   useEffect,
   useState,
 } from "react";
@@ -18,7 +17,7 @@ type ContextProps = {
   onOpenChange: (value: boolean) => void;
 };
 
-const SelectContext = createContext<ContextProps>({
+export const SelectContext = createContext<ContextProps>({
   selectedValue: undefined,
   onSelect: () => null,
   popperOpen: false,
@@ -90,12 +89,4 @@ export const SelectContextProvider = ({
   }, [selectedValue, updateValueNode]);
 
   return <SelectProvider value={selectValue}>{children}</SelectProvider>;
-};
-
-export const useSelect = () => {
-  const result = useContext(SelectContext);
-  if (!result) {
-    throw new Error("Context used outside of its Provider!");
-  }
-  return result;
 };
