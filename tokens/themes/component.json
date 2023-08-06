@@ -562,6 +562,10 @@
             "y": {
               "value": "0.515625rem",
               "type": "spacing"
+            },
+            "x": {
+              "value": "0.34375rem",
+              "type": "spacing"
             }
           }
         }

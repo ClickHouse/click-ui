@@ -70,17 +70,17 @@ const App = () => {
       </div>
       <div className={styles.flexWrap}>
         <IconButton
-          display="empty"
+          type="secondary"
           icon="user"
           onClick={() => console.log("click")}
         />
         <IconButton
-          display="empty"
+          type="secondary"
           icon="user"
           onClick={() => console.log("click")}
         />
         <IconButton
-          display="empty"
+          type="secondary"
           disabled
           icon="user"
           onClick={() => console.log("click")}

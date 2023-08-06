@@ -25,8 +25,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      fileName: "index",
-      formats: ["cjs", "es"],
+      name: "clcik-ui",
+      formats: ["es", "umd"],
+      fileName: format => `click-ui.${format}.js`,
     },
     rollupOptions: {
       // Add _all_ external dependencies here
