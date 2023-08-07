@@ -65,7 +65,16 @@
               },
               "hover": {
                 "value": "#FFD26A",
-                "type": "color"
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.2",
+                      "space": "lch"
+                    }
+                  }
+                }
               },
               "active": {
                 "value": "{click.button.basic.color.primary.background.hover}",
