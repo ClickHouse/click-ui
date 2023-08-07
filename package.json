@@ -32,6 +32,7 @@
     "dev": "vite",
     "generate-tokens": "node build-tokens.js",
     "build": "tsc && vite build",
+    "build:watch": "watch 'npm run build' ./src",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -97,7 +98,8 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
-    "vite-plugin-dts": "^3.5.1"
+    "vite-plugin-dts": "^3.5.1",
+    "watch": "^1.0.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",
