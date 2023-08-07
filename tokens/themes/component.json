@@ -2252,5 +2252,11 @@
         }
       }
     }
+  },
+  "transition": {
+    "default": {
+      "value": "all {transition.duration.medium} {transition.function.ease-in} {transition.delay.fast}",
+      "type": "other"
+    }
   }
 }
