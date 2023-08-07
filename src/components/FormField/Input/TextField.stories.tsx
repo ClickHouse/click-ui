@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { TextField as TextFieldInput } from "./TextField";
+import { TextField as TextFieldInput, TextInputProps } from "./TextField";
 
-const TextField = ({ value: valueProp, ...props }: any) => {
-  const [value, setValue] = useState(props.value);
+const TextField = ({ value: valueProp, ...props }: Omit<TextInputProps, "onChange">) => {
+  const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
@@ -10,7 +10,7 @@ const TextField = ({ value: valueProp, ...props }: any) => {
   return (
     <TextFieldInput
       value={value}
-      onChange={(inputValue: string, e: ChangeEvent<HTMLInputElement>) => {
+      onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
         if (e) {
           e.preventDefault();
         }

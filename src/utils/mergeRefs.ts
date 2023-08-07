@@ -1,5 +1,5 @@
 export const mergeRefs =
-  <T = any>(
+  <T = HTMLElement>(
     refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>
   ): React.RefCallback<T> =>
   value => {

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { SearchField as SearchFieldInput } from "./SearchField";
+import { SearchField as SearchFieldInput, SearchInputProps } from "./SearchField";
 
-const SearchField = ({ value: valueProp, ...props }: any) => {
-  const [value, setValue] = useState(props.value);
+const SearchField = ({
+  value: valueProp,
+  ...props
+}: Omit<SearchInputProps, "onChange">) => {
+  const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);

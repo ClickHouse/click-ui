@@ -3,7 +3,7 @@ import { Icon } from "../..";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
-interface TextInputProps
+export interface SearchInputProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
@@ -15,7 +15,7 @@ interface TextInputProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const SearchField = forwardRef<HTMLInputElement, TextInputProps>(
+export const SearchField = forwardRef<HTMLInputElement, SearchInputProps>(
   (
     {
       disabled,
