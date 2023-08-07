@@ -89,6 +89,7 @@ const StyledButton = styled(BaseButton)<
     border: 1px solid
       ${({ styleType = "primary", theme }) =>
         theme.click.button.basic.color[styleType].stroke.hover};
+    transition: ${({ theme }) => theme.transition.default};
   }
 
   &:active,
@@ -111,5 +112,10 @@ const StyledButton = styled(BaseButton)<
       ${({ styleType = "primary", theme }) =>
         theme.click.button.basic.color[styleType].stroke.disabled};
     cursor: not-allowed;
+  }
+
+  svg {
+    height: ${({ theme }) => theme.click.button.basic.size.icon.height};
+    width: ${({ theme }) => theme.click.button.basic.size.icon.height};
   }
 `;

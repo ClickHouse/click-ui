@@ -541,6 +541,59 @@
         "stroke": "#ffffff"
       }
     },
+    "panel": {
+      "color": {
+        "background": {
+          "default": "#1F1F1C",
+          "muted": "#282828",
+          "transparent": "rgba(0,0,0,0)"
+        },
+        "stroke": {
+          "default": "lch(27.5 0 0 / 0.3)"
+        }
+      }
+    },
+    "popover": {
+      "color": {
+        "panel": {
+          "background": {
+            "default": "#282828"
+          },
+          "stroke": {
+            "default": "#414141"
+          }
+        }
+      }
+    },
+    "radio": {
+      "color": {
+        "background": {
+          "default": "#282828",
+          "hover": "#282828",
+          "active": "#FAFF69",
+          "disabled": "#414141"
+        },
+        "stroke": {
+          "default": "#414141",
+          "hover": "#414141",
+          "active": "#151515",
+          "disabled": "#606060"
+        },
+        "indicator": {
+          "default": "#1F1F1C",
+          "hover": "#282828",
+          "active": "#151515",
+          "disabled": "#a0a0a0"
+        }
+      }
+    },
+    "separator": {
+      "color": {
+        "stroke": {
+          "default": "lch(27.5 0 0 / 0.3)"
+        }
+      }
+    },
     "sidebar": {
       "navigation": {
         "item": {
@@ -608,32 +661,6 @@
         }
       }
     },
-    "switch": {
-      "color": {
-        "background": {
-          "default": "#606060",
-          "active": "#FAFF69",
-          "disabled": "#808080"
-        },
-        "stroke": {
-          "default": "#606060",
-          "active": "#FAFF69",
-          "disabled": "#808080"
-        },
-        "indicator": {
-          "default": "#151515",
-          "active": "#161517",
-          "disabled": "#606060"
-        }
-      }
-    },
-    "separator": {
-      "color": {
-        "stroke": {
-          "default": "lch(27.5 0 0 / 0.3)"
-        }
-      }
-    },
     "stepperVertical": {
       "icon": {
         "background": {
@@ -657,6 +684,25 @@
           "default": "#414141",
           "incomplete": "lch(45.7 0 0)",
           "complete": "#414141"
+        }
+      }
+    },
+    "switch": {
+      "color": {
+        "background": {
+          "default": "#606060",
+          "active": "#FAFF69",
+          "disabled": "#808080"
+        },
+        "stroke": {
+          "default": "#606060",
+          "active": "#FAFF69",
+          "disabled": "#808080"
+        },
+        "indicator": {
+          "default": "#151515",
+          "active": "#161517",
+          "disabled": "#606060"
         }
       }
     },
@@ -757,6 +803,25 @@
         }
       }
     },
+    "toast": {
+      "color": {
+        "title": {
+          "default": "#ffffff"
+        },
+        "description": {
+          "default": "#b3b6bd"
+        },
+        "stroke": {
+          "default": "#414141"
+        },
+        "icon": {
+          "default": "#ffffff",
+          "success": "#81e59d",
+          "warning": "#ff9416",
+          "danger": "#ff7575"
+        }
+      }
+    },
     "tooltip": {
       "color": {
         "background": {
@@ -767,46 +832,19 @@
         }
       }
     },
-    "radio": {
+    "dialog": {
       "color": {
         "background": {
-          "default": "#282828",
-          "hover": "#282828",
-          "active": "#FAFF69",
-          "disabled": "#414141"
+          "default": "#1F1F1C"
         },
-        "stroke": {
-          "default": "#414141",
-          "hover": "#414141",
-          "active": "#151515",
-          "disabled": "#606060"
+        "title": {
+          "default": "#ffffff"
         },
-        "indicator": {
-          "default": "#1F1F1C",
-          "hover": "#282828",
-          "active": "#151515",
-          "disabled": "#a0a0a0"
-        }
-      }
-    },
-    "popover": {
-      "color": {
-        "panel": {
-          "background": {
-            "default": "#282828"
-          },
-          "stroke": {
-            "default": "#414141"
-          }
-        }
-      }
-    },
-    "panel": {
-      "color": {
-        "background": {
-          "default": "#1F1F1C",
-          "muted": "#282828",
-          "transparent": "rgba(0,0,0,0)"
+        "description": {
+          "default": "#b3b6bd"
+        },
+        "opaqueBackground": {
+          "default": "lch(97.9 0 0 / 0.45)"
         }
       }
     },
