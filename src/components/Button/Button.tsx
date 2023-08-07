@@ -42,6 +42,7 @@ export const Button = ({
       <Icon
         name={iconLeft}
         size="small"
+        className="icon-left"
       />
     )}
     {label ? label : children}
@@ -49,6 +50,7 @@ export const Button = ({
       <Icon
         name={iconRight}
         size="small"
+        className="icon-right"
       />
     )}
   </StyledButton>
@@ -114,7 +116,8 @@ const StyledButton = styled(BaseButton)<
     cursor: not-allowed;
   }
 
-  svg {
+  .icon-left,
+  .icon-right {
     height: ${({ theme }) => theme.click.button.basic.size.icon.height};
     width: ${({ theme }) => theme.click.button.basic.size.icon.height};
   }
