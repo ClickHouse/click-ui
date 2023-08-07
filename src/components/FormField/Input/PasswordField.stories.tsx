@@ -29,18 +29,7 @@ export default {
     error: { control: "text" },
     disabled: { control: "boolean" },
     placeholder: { control: "text" },
-    form: { control: "text" },
-    alt: { control: "text" },
-    autoComplete: { control: "text" },
-    autoFocus: { control: "boolean" },
-    dir: { control: "text" },
-    name: { control: "text" },
     readOnly: { control: "boolean" },
-    required: { control: "boolean" },
-    minLength: { control: "number", if: { type: "number", truthy: false } },
-    maxLength: { control: "number", if: { type: "number", truthy: false } },
-    pattern: { control: "text", if: { type: "number", truthy: false } },
-    size: { control: "number", if: { type: "number", truthy: false } },
   },
 };
 

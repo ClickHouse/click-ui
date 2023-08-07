@@ -28,17 +28,7 @@ export default {
     error: { control: "text" },
     disabled: { control: "boolean" },
     placeholder: { control: "text" },
-    form: { control: "text" },
-    alt: { control: "text" },
-    autoComplete: { control: "text" },
-    autoFocus: { control: "boolean" },
-    dir: { control: "text" },
-    name: { control: "text" },
     readOnly: { control: "boolean" },
-    required: { control: "boolean" },
-    min: { control: "text", if: { type: "number" } },
-    max: { control: "text", if: { type: "number" } },
-    step: { control: "text", if: { type: "number" } },
   },
 };
 
