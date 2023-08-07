@@ -1,16 +1,21 @@
-import { InputHTMLAttributes, forwardRef, useId } from "react";
+import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
 import { Icon } from "../..";
 import { InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 interface NumberInputProps
   extends Omit<WrapperProps, "id" | "children">,
-    Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+    Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange"> {
   type?: "number";
   loading: boolean;
+  onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const NumberField = forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ disabled, label, error, id, loading, ...props }, ref) => {
+  ({ disabled, label, error, id, loading, onChange: onChangeProp, ...props }, ref) => {
     const defaultId = useId();
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChangeProp(e.target.value, e);
+    };
+
     return (
       <InputWrapper
         disabled={disabled}
@@ -23,6 +28,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberInputProps>(
           type="number"
           id={id ?? defaultId}
           disabled={disabled}
+          onChange={onChange}
           {...props}
         />
         {loading && (

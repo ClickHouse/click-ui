@@ -1,25 +1,42 @@
-import { InputHTMLAttributes, forwardRef, useId, useRef } from "react";
+import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useRef } from "react";
 import { Icon } from "../..";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
-import { mockInputChangeEvent } from "./mockInputChangeEvent";
+
 interface TextInputProps
   extends Omit<WrapperProps, "id" | "children">,
-    Omit<InputHTMLAttributes<HTMLInputElement>, "children" | "type" | "string"> {
+    Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      "children" | "type" | "string" | "onChange"
+    > {
   loading?: boolean;
   value?: string;
   clear?: boolean;
+  onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const SearchField = forwardRef<HTMLInputElement, TextInputProps>(
   (
-    { disabled, label, error, id, loading, clear = true, value = "", onChange, ...props },
+    {
+      disabled,
+      label,
+      error,
+      id,
+      loading,
+      clear = true,
+      value = "",
+      onChange: onChangeProp,
+      ...props
+    },
     ref
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const defaultId = useId();
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChangeProp(e.target.value, e);
+    };
     const clearInput = () => {
-      mockInputChangeEvent(inputRef.current, onChange);
+      onChangeProp("");
     };
 
     return (

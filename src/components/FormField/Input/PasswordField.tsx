@@ -1,19 +1,27 @@
-import { InputHTMLAttributes, forwardRef, useId, useState } from "react";
+import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from "react";
 import { Icon } from "../..";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 interface PasswordFieldProps
   extends Omit<WrapperProps, "id" | "children">,
-    Omit<InputHTMLAttributes<HTMLInputElement>, "children" | "type" | "string"> {
+    Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      "children" | "type" | "string" | "onChange"
+    > {
   type?: "password";
   value?: string;
+  onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
-  ({ disabled, label, error, id, value = "", ...props }, ref) => {
+  ({ disabled, label, error, id, value = "", onChange: onChangeProp, ...props }, ref) => {
     const defaultId = useId();
     const [viewPassword, setViewPassword] = useState<boolean>(false);
     const togglePasswordViewer = () => {
       setViewPassword((viewPassword: boolean) => !viewPassword);
+    };
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChangeProp(e.target.value, e);
     };
 
     return (
@@ -29,6 +37,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           id={id ?? defaultId}
           disabled={disabled}
           value={value}
+          onChange={onChange}
           {...props}
         />
         {value.length > 0 && (
