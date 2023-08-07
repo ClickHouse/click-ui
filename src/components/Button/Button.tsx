@@ -39,18 +39,16 @@ export const Button = ({
     {...delegated}
   >
     {iconLeft && (
-      <Icon
+      <ButtonIcon
         name={iconLeft}
         size="small"
-        className="icon-left"
       />
     )}
     {label ? label : children}
     {iconRight && (
-      <Icon
+      <ButtonIcon
         name={iconRight}
         size="small"
-        className="icon-right"
       />
     )}
   </StyledButton>
@@ -115,10 +113,9 @@ const StyledButton = styled(BaseButton)<
         theme.click.button.basic.color[styleType].stroke.disabled};
     cursor: not-allowed;
   }
+`;
 
-  .icon-left,
-  .icon-right {
-    height: ${({ theme }) => theme.click.button.basic.size.icon.height};
-    width: ${({ theme }) => theme.click.button.basic.size.icon.height};
-  }
+const ButtonIcon = styled(Icon)`
+  height: ${({ theme }) => theme.click.button.basic.size.icon.height};
+  width: ${({ theme }) => theme.click.button.basic.size.icon.height};
 `;
