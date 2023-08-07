@@ -12,7 +12,7 @@ interface Props extends React.SVGAttributes<SVGElement> {
   name: string;
 }
 
-function Flags({ name, ...props }: Props) {
+const Flags = ({ name, ...props }: Props) => {
   switch (name) {
     case "usa":
       return <UnitedStates {...props} />;
@@ -41,6 +41,6 @@ function Flags({ name, ...props }: Props) {
     default:
       return null;
   }
-}
+};
 
 export default Flags;

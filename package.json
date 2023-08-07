@@ -1,9 +1,21 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/click-ui.es.js",
+      "require": "./dist/click-ui.umd.js"
+    }
+  },
+  "main": "./dist/click-ui.umd.js",
+  "module": "./dist/click-ui.es.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "click-ui",
     "clickhouse",
@@ -20,6 +32,7 @@
     "dev": "vite",
     "generate-tokens": "node build-tokens.js",
     "build": "tsc && vite build",
+    "build:watch": "watch 'npm run build' ./src",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -40,7 +53,6 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.6",
-    "@tokens-studio/sd-transforms": "^0.10.3",
     "cmdk": "^0.2.0",
     "lodash": "^4.17.21"
   },
@@ -59,11 +71,11 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
+    "@tokens-studio/sd-transforms": "^0.10.3",
     "@types/jest": "^29.5.2",
     "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.1",
@@ -80,14 +92,18 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.18",
     "storybook-addon-pseudo-states": "^2.0.1",
+    "styled-components": "^6.0.6",
+    "stylis": "^4.3.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^3.5.1",
+    "watch": "^1.0.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.10"
+    "styled-components": ">= 5"
   }
 }

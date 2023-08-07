@@ -1,8 +1,6 @@
 import React from "react";
 
-function Ireland(props: React.SVGAttributes<SVGElement>): React.ReactElement {
-  return (
-    <svg
+const Ireland = (props: React.SVGAttributes<SVGElement>): React.ReactElement => <svg
       xmlns='http://www.w3.org/2000/svg'
       width={30}
       height={20}
@@ -25,8 +23,6 @@ function Ireland(props: React.SVGAttributes<SVGElement>): React.ReactElement {
           <path fill='#fff' d='M0 0h30v20H0z' />
         </clipPath>
       </defs>
-    </svg>
-  );
-}
+    </svg>;
 
 export default Ireland;

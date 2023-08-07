@@ -1,8 +1,6 @@
 import React from "react";
 
-function India(props: React.SVGAttributes<SVGElement>): React.ReactElement {
-  return (
-    <svg
+const India = (props: React.SVGAttributes<SVGElement>): React.ReactElement => <svg
       xmlns='http://www.w3.org/2000/svg'
       width={30}
       height={20}
@@ -41,8 +39,6 @@ function India(props: React.SVGAttributes<SVGElement>): React.ReactElement {
           <path fill='#fff' d='M0 0h30v20H0z' />
         </clipPath>
       </defs>
-    </svg>
-  );
-}
+    </svg>;
 
 export default India;

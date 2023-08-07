@@ -60,15 +60,24 @@
           "primary": {
             "background": {
               "default": {
-                "value": "{palette.warning.500}",
+                "value": "#FFC029",
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.slate.700}",
-                "type": "color"
+                "value": "#FFD26A",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.2",
+                      "space": "lch"
+                    }
+                  }
+                }
               },
               "active": {
-                "value": "{palette.slate.900}",
+                "value": "{click.button.basic.color.primary.background.hover}",
                 "type": "color"
               }
             },
@@ -172,6 +181,18 @@
                 "value": "{click.feedback.color.danger.foreground}",
                 "type": "color"
               }
+            }
+          }
+        },
+        "size": {
+          "icon": {
+            "height": {
+              "value": "{sizes.4}",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "{sizes.4}",
+              "type": "sizing"
             }
           }
         }
@@ -488,6 +509,20 @@
               }
             }
           }
+        },
+        "size": {
+          "small": {
+            "value": "{sizes.4}",
+            "type": "sizing"
+          },
+          "medium": {
+            "value": "{sizes.5}",
+            "type": "sizing"
+          },
+          "large": {
+            "value": "{sizes.6}",
+            "type": "sizing"
+          }
         }
       },
       "alignedLeft": {
@@ -541,6 +576,18 @@
             "active": {
               "value": "{click.button.alignedLeft.color.text.default}",
               "type": "color"
+            }
+          }
+        }
+      },
+      "mobile": {
+        "basic": {
+          "size": {
+            "icon": {
+              "all": {
+                "value": "{sizes.6}",
+                "type": "sizing"
+              }
             }
           }
         }

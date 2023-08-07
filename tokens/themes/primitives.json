@@ -943,5 +943,49 @@
       ],
       "type": "boxShadow"
     }
+  },
+  "transition": {
+    "duration": {
+      "slow": {
+        "value": "300ms",
+        "type": "other"
+      },
+      "medium": {
+        "value": "150ms",
+        "type": "other"
+      },
+      "fast": {
+        "value": "50ms",
+        "type": "other"
+      }
+    },
+    "delay": {
+      "slow": {
+        "value": "100ms",
+        "type": "other"
+      },
+      "fast": {
+        "value": "0ms",
+        "type": "other"
+      }
+    },
+    "function": {
+      "ease": {
+        "value": "ease",
+        "type": "other"
+      },
+      "ease-in": {
+        "value": "ease-in",
+        "type": "other"
+      },
+      "ease-in-out": {
+        "value": "ease-in-out",
+        "type": "other"
+      },
+      "linear": {
+        "value": "linear",
+        "type": "other"
+      }
+    }
   }
 }
