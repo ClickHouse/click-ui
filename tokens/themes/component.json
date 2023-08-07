@@ -2251,6 +2251,22 @@
           "type": "border"
         }
       }
+    },
+    "link": {
+      "space": {
+        "md": {
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
+          }
+        },
+        "sm": {
+          "gap": {
+            "value": "2px",
+            "type": "spacing"
+          }
+        }
+      }
     }
   },
   "transition": {
