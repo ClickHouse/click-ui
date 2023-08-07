@@ -59,10 +59,11 @@ export const SearchField = forwardRef<HTMLInputElement, TextInputProps>(
           onChange={onChange}
           {...props}
         />
-        {clear && value.length > 0 && (
+        {clear && (
           <IconButton
             disabled={disabled}
             onClick={clearInput}
+            $show={value.length > 0}
           >
             <Icon
               name="cross"

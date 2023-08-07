@@ -40,17 +40,16 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           onChange={onChange}
           {...props}
         />
-        {value.length > 0 && (
-          <IconButton
-            disabled={disabled}
-            onClick={togglePasswordViewer}
-          >
-            <Icon
-              name={viewPassword ? "eye-closed" : "eye"}
-              size="medium"
-            />
-          </IconButton>
-        )}
+        <IconButton
+          disabled={disabled}
+          onClick={togglePasswordViewer}
+          $show={value.length > 0}
+        >
+          <Icon
+            name={viewPassword ? "eye-closed" : "eye"}
+            size="medium"
+          />
+        </IconButton>
       </InputWrapper>
     );
   }

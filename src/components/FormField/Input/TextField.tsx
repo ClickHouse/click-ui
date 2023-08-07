@@ -58,10 +58,11 @@ export const TextField = forwardRef<HTMLInputElement, TextInputProps>(
           {...props}
         />
 
-        {clear && value.length > 0 && (
+        {clear && (
           <IconButton
             disabled={disabled}
             onClick={clearInput}
+            $show={value.length > 0}
           >
             <Icon
               name="cross"

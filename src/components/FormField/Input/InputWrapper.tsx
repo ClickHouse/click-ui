@@ -126,7 +126,7 @@ export const InputElement = styled.input`
   `}
 `;
 
-export const IconButton = styled.button`
+export const IconButton = styled.button<{ $show?: boolean }>`
   background: transparent;
   color: inherit;
   border: none;
@@ -135,8 +135,9 @@ export const IconButton = styled.button`
   &:not(:disabled) {
     cursor: pointer;
   }
-  ${({ theme }) => `
+  ${({ theme, $show }) => `
       padding: ${theme.click.field.space.y} 0;
+      visibility: ${$show ? "visible" : "hidden"};
   `}
 `;
 
