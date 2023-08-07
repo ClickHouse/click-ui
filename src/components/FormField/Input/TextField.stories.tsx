@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { TextField as TextFieldInput } from "./TextField";
 
 const TextField = ({ value: valueProp, ...props }: any) => {
@@ -10,9 +10,11 @@ const TextField = ({ value: valueProp, ...props }: any) => {
   return (
     <TextFieldInput
       value={value}
-      onChange={(e: any) => {
-        e.preventDefault();
-        setValue(e.target.value);
+      onChange={(inputValue: string, e: ChangeEvent<HTMLInputElement>) => {
+        if (e) {
+          e.preventDefault();
+        }
+        setValue(inputValue);
       }}
       {...props}
     />
@@ -36,14 +38,6 @@ export default {
     placeholder: { control: "text" },
     readOnly: { control: "boolean" },
   },
-};
-
-const commonProps = {
-  label: "Label",
-  clear: false,
-  type: "text",
-  disabled: false,
-  placeholder: "Placeholder",
 };
 
 export const Playground = {

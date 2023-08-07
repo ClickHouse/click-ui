@@ -10,9 +10,8 @@ const PasswordField = ({ value: valueProp, ...props }: any) => {
   return (
     <PasswordFieldInput
       value={value}
-      onChange={(e: any) => {
-        e.preventDefault();
-        setValue(e.target.value);
+      onChange={(inputValue: string) => {
+        setValue(inputValue);
       }}
       {...props}
     />

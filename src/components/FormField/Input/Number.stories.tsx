@@ -10,8 +10,8 @@ const NumberField = ({ value: valueProp, ...props }: any) => {
   return (
     <NumberFieldInput
       value={value}
-      onChange={(e: any) => {
-        setValue(e.target.value);
+      onChange={(inputValue: string) => {
+        setValue(inputValue);
       }}
       {...props}
     />
