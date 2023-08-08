@@ -14,7 +14,7 @@ describe("CardSecondary Component", () => {
     const title = "Test card component";
     renderCard({
       title,
-      image: "warning",
+      icon: "warning",
       description: "",
       infoUrl: "",
       infoText: "",
@@ -26,7 +26,7 @@ describe("CardSecondary Component", () => {
   it("should render the description when provided", () => {
     const description = "This is the card description";
     renderCard({
-      image: "warning",
+      icon: "warning",
       title: "",
       description,
       infoUrl: "",
@@ -39,7 +39,7 @@ describe("CardSecondary Component", () => {
   it("should render the badge when hasBadge prop is present", () => {
     const badgeText = "I should eat more bananas";
     renderCard({
-      image: "warning",
+      icon: "warning",
       title: "",
       description: "",
       infoUrl: "",
