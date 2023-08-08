@@ -3,7 +3,7 @@ import { Icon } from "../..";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
-interface TextInputProps
+export interface TextInputProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
