@@ -33,6 +33,7 @@ export const globalTypes = {
       items: [
         { value: "light", icon: "circlehollow", title: "light" },
         { value: "dark", icon: "circle", title: "dark" },
+        { value: "classic", icon: "circle", title: "classic" },
       ],
       // Property that specifies if the name of the item will be displayed
       showName: true,

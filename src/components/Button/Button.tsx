@@ -1,4 +1,4 @@
-import { Icon } from "@/components";
+import { Icon } from "@/components/Icon/Icon";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 
@@ -39,14 +39,14 @@ export const Button = ({
     {...delegated}
   >
     {iconLeft && (
-      <Icon
+      <ButtonIcon
         name={iconLeft}
         size="small"
       />
     )}
     {label ? label : children}
     {iconRight && (
-      <Icon
+      <ButtonIcon
         name={iconRight}
         size="small"
       />
@@ -89,6 +89,7 @@ const StyledButton = styled(BaseButton)<
     border: 1px solid
       ${({ styleType = "primary", theme }) =>
         theme.click.button.basic.color[styleType].stroke.hover};
+    transition: ${({ theme }) => theme.transition.default};
   }
 
   &:active,
@@ -112,4 +113,9 @@ const StyledButton = styled(BaseButton)<
         theme.click.button.basic.color[styleType].stroke.disabled};
     cursor: not-allowed;
   }
+`;
+
+const ButtonIcon = styled(Icon)`
+  height: ${({ theme }) => theme.click.button.basic.size.icon.height};
+  width: ${({ theme }) => theme.click.button.basic.size.icon.height};
 `;
