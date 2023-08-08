@@ -24,6 +24,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "styled-components": path.resolve("./node_modules/styled-components"),
     },
   },
   build: {
