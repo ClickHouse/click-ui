@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { Title } from "../../Typography/Title/Title";
-import { Text } from "../../Typography/Text/Text";
 import { IconName } from "@/components/Icon/types";
-import { Button, Icon, Spacer } from "../..";
+import { Button, Icon, Spacer } from "@/components";
+import { Title } from "@/components/Typography/Title/Title";
+import { Text } from "@/components/Typography/Text/Text";
 
 export interface CardProps {
   title: string;
-  image: IconName;
+  icon: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
   description: string;
@@ -98,36 +98,44 @@ const Content = styled.div<Pick<CardProps, "size">>`
 
 export const CardPrimary = ({
   title,
-  image,
+  icon,
   hasShadow = false,
   description,
   infoUrl,
   infoText,
   size,
   disabled = false,
-}: CardProps) => (
-  <Wrapper
-    hasShadow={hasShadow}
-    size={size}
-    disabled={disabled}
-    onClick={() =>
-      alert(`We need to implement a routing system so I can go to ${infoUrl}`)
-    }
-  >
-    <Header
+}: CardProps) => {
+  const handleClick = () => {
+    window.open(infoUrl, "_blank");
+  };
+
+  return (
+    <Wrapper
+      hasShadow={hasShadow}
       size={size}
       disabled={disabled}
     >
-      <Icon name={image} />
-      <Title type="h3">{title}</Title>
-    </Header>
+      <Header
+        size={size}
+        disabled={disabled}
+      >
+        <Icon name={icon} />
+        <Title type="h3">{title}</Title>
+      </Header>
 
-    <Content size={size}>
-      <Text color="muted">{description}</Text>
-    </Content>
+      <Content size={size}>
+        <Text color="muted">{description}</Text>
+      </Content>
 
-    {size == "sm" && <Spacer size="sm" />}
+      {size == "sm" && <Spacer size="sm" />}
 
-    <Button disabled={disabled}>{infoText}</Button>
-  </Wrapper>
-);
+      <Button
+        onClick={handleClick}
+        disabled={disabled}
+      >
+        {infoText}
+      </Button>
+    </Wrapper>
+  );
+};

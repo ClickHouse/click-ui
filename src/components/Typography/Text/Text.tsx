@@ -13,7 +13,7 @@ export interface TextProps {
 }
 
 /** Component for writing blocks of body copy */
-export const Text = ({ color, size, weight, className, children }: TextProps) => (
+const _Text = ({ color, size, weight, className, children }: TextProps) => (
   <CuiText
     color={color}
     size={size}
@@ -30,3 +30,8 @@ const CuiText = styled.p<Pick<TextProps, "color" | "size" | "weight">>`
   color: ${({ color = "default", theme }) => theme.click.global.color.text[color]};
   margin: 0;
 `;
+
+const Text = styled(_Text)``;
+Text.displayName = "Text";
+
+export { Text };

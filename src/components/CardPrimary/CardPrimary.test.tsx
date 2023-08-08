@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "@/theme";
-import { CardPrimary, CardProps } from "././CardPrimary";
+import { CardPrimary, CardProps } from "./CardPrimary";
 
 describe("CardPrimary Component", () => {
   describe("Primary card", () => {
@@ -15,7 +15,7 @@ describe("CardPrimary Component", () => {
       const title = "Test card component";
       renderCard({
         title,
-        image: "warning",
+        icon: "warning",
         description: "",
         infoUrl: "",
         infoText: "",
@@ -27,7 +27,7 @@ describe("CardPrimary Component", () => {
     it("should render the description when provided", () => {
       const description = "This is the card description";
       renderCard({
-        image: "warning",
+        icon: "warning",
         title: "",
         description,
         infoUrl: "",
