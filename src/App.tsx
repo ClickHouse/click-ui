@@ -13,7 +13,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  Card,
+  CardSecondary,
   Checkbox,
   DangerAlert,
   Icon,
@@ -121,8 +121,9 @@ const App = () => {
           state={"disabled"}
         ></Badge>
       </div>
-      <Card
+      <CardSecondary
         title="Card title"
+        image="building"
         description="This is a card description"
         badgeText="experiment"
         infoText="Read More"
