@@ -55,7 +55,7 @@ const CrossContainer = styled.svg<Pick<BadgeProps, "state" | "size">>`
 export const Badge = ({
   text,
   state = "default",
-  size = "md",
+  size,
   dismissible,
   onClose,
 }: NonDismissibleBadge | DismissibleBadge) => (
