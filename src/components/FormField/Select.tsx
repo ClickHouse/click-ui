@@ -182,12 +182,12 @@ const SearchClose = styled.button`
   color: inherit;
 `;
 
-const NoDataContainer = styled.button<{ clickable: boolean }>`
+const NoDataContainer = styled.button<{ $clickable: boolean }>`
   border: none;
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  ${({ theme, clickable }) => `
+  ${({ theme, $clickable }) => `
     font: ${theme.click.genericMenu.button.typography.label.default}
     padding: ${theme.click.genericMenu.button.space.y} ${
     theme.click.genericMenu.item.space.x
@@ -197,7 +197,7 @@ const NoDataContainer = styled.button<{ clickable: boolean }>`
     &:hover {
       font: ${theme.click.genericMenu.button.typography.label.hover};
     }
-    cursor: ${clickable ? "pointer" : "default"}
+    cursor: ${$clickable ? "pointer" : "default"}
   `}
 `;
 declare type State = {
@@ -558,7 +558,7 @@ const SelectNoData = ({ children, onClick, ...props }: SelectNoDataProps): React
     <Command.Empty>
       <NoDataContainer
         onClick={onSelect}
-        clickable={clickable}
+        $clickable={clickable}
         {...props}
       >
         {typeof children === "function"
