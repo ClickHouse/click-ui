@@ -217,6 +217,16 @@
           }
         }
       }
+    },
+    "global": {
+      "color": {
+        "text": {
+          "link": {
+            "default": "#C78F0F",
+            "hover": "#C78F0F"
+          }
+        }
+      }
     }
   }
 }
