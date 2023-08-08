@@ -9,6 +9,10 @@ export default {
       options: ["lg", "md", "sm", "xs"],
       control: { type: "radio" },
     },
+    weight: {
+      options: ["normal", "medium", "semibold", "bold"],
+      control: { type: "radio" },
+    },
   },
 };
 
@@ -17,7 +21,7 @@ export const Playground = {
     size: "md",
     weight: "normal",
     href: "https://www.google.com",
-    children: "Query billions of rows in milliseconds",
-    isExternal: true,
+    children: "Try me!",
+    isExternal: false,
   },
 };

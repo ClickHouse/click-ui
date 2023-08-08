@@ -28,7 +28,7 @@ const withStylesWrapper =
       </SvgWrapper>
     );
 
-const SvgWrapper = styled.div<Partial<IconProps>>`
+const SvgWrapper = styled.span<Partial<IconProps>>`
   display: flex;
   align-items: center;
 

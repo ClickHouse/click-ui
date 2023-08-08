@@ -13,4 +13,14 @@ describe("Text", () => {
 
     expect(rendered.getByText(text).textContent).toEqual(text);
   });
+
+  test("if icon is displayed when isExternal is true", () => {
+    const text = "text to render";
+    const rendered = render(
+      <ThemeProvider theme="light">
+        <Link isExternal={true}>{text}</Link>
+      </ThemeProvider>
+    );
+    expect(rendered.getAllByTestId("external-icon").length).toEqual(1);
+  });
 });

@@ -26,6 +26,7 @@ import {
   Tabs,
   WarningAlert,
   Text,
+  Title,
   Link,
 } from "@/components";
 
@@ -37,14 +38,20 @@ const App = () => {
 
   return (
     <ThemeProvider theme={currentTheme}>
+      <Title type="h1">Testing ground</Title>
+      <Text>
+        Hi there, I'm a paragraph and I'm{" "}
+        <Link
+          size="xs"
+          isExternal
+        >
+          definitely
+        </Link>
+        doing a lot of stuff.
+      </Text>
+
+      <Spacer />
       <div className={styles.flexWrap}>
-        <Text>
-          Hi there, I'm a paragraph and I'm <Link isExternal>definitely</Link>
-          doing a lot of stuff.
-        </Text>
-
-        <Spacer />
-
         <IconButton
           icon="user"
           size="small"

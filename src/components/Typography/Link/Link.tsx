@@ -2,51 +2,52 @@ import { ReactEventHandler } from "react";
 import { Icon } from "@/components/Icon/Icon";
 import styled from "styled-components";
 
-export type TextColor = "default" | "muted";
-export type TextSize = "xs" | "sm" | "md" | "lg";
-export type TextWeight = "normal" | "medium" | "semibold" | "bold";
+type TextSize = "xs" | "sm" | "md" | "lg";
+type TextWeight = "normal" | "medium" | "semibold" | "bold";
 
-export interface LinkProps {
-  color?: TextColor;
+export type LinkProps = {
   size?: TextSize;
   weight?: TextWeight;
+  className?: string;
   href?: string;
   onClick?: ReactEventHandler;
-  className?: string;
-  children?: React.ReactNode;
   isExternal?: boolean;
-}
+  children?: React.ReactNode;
+};
 
 /** Component for linking to other pages or sections from with body text */
 export const Link = ({
-  size,
-  weight,
+  size = "md",
+  weight = "normal",
   className,
   href,
   onClick,
-  isExternal,
+  isExternal = false,
   children,
 }: LinkProps) => (
   <CuiLink
+    size={size}
     weight={weight}
     className={className}
-    onClick={onClick}
-    size={size}
     href={href}
+    onClick={onClick}
     target={isExternal ? "_blank" : undefined}
   >
     {children}
     {isExternal && (
-      <StyledIcon
-        name="popout"
-        size={size}
-      />
+      <IconWrapper size={size}>
+        <Icon
+          name="popout"
+          className="external-icon"
+          data-testid="external-icon"
+        />
+      </IconWrapper>
     )}
   </CuiLink>
 );
 
-const CuiLink = styled.a<Pick<LinkProps, "size" | "weight">>`
-  font: ${({ size = "md", weight = "normal", theme }) =>
+const CuiLink = styled.a<{ size: TextSize; weight: TextWeight }>`
+  font: ${({ size, weight = "normal", theme }) =>
     theme.typography.styles.product.text[weight][size]};
   color: ${({ theme }) => theme.click.global.color.text.link.default};
   margin: 0;
@@ -65,18 +66,21 @@ const CuiLink = styled.a<Pick<LinkProps, "size" | "weight">>`
   &:hover,
   &:focus {
     color: ${({ theme }) => theme.click.global.color.text.link.hover};
+    transition: ${({ theme }) => theme.transition.default};
     text-decoration: underline;
     cursor: pointer;
   }
 `;
 
-const StyledIcon = styled(Icon)<Pick<LinkProps, "size">>`
-  height: ${({ size, theme }) =>
-    size === "xs" || size === "sm"
-      ? theme.click.link.icon.size.sm.height
-      : theme.click.link.icon.size.md.height};
-  width: ${({ size, theme }) =>
-    size === "xs" || size === "sm"
-      ? theme.click.link.icon.size.sm.width
-      : theme.click.link.icon.size.md.width};
+const IconWrapper = styled.span<{ size: TextSize }>`
+  .external-icon {
+    height: ${({ size, theme }) =>
+      size === "xs" || size === "sm"
+        ? theme.click.link.icon.size.sm.height
+        : theme.click.link.icon.size.md.height};
+    width: ${({ size, theme }) =>
+      size === "xs" || size === "sm"
+        ? theme.click.link.icon.size.sm.width
+        : theme.click.link.icon.size.md.width};
+  }
 `;
