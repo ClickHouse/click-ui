@@ -1859,6 +1859,28 @@
         }
       }
     },
+    "link": {
+      "space": {
+        "md": {
+          "gap": string
+        },
+        "sm": {
+          "gap": string
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "height": string,
+            "width": string
+          },
+          "md": {
+            "height": string,
+            "width": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

@@ -33,13 +33,27 @@ const Alert = ({
   const [isVisible, setIsVisible] = useState(true);
 
   return isVisible ? (
-    <Wrapper size={size} state={state} data-testid="click-alert" {...delegated}>
+    <Wrapper
+      size={size}
+      state={state}
+      data-testid="click-alert"
+      {...delegated}
+    >
       {showIcon && (
-        <IconWrapper state={state} size={size}>
-          <StyledIcon size={size} name={stateIconMap[state]} />
+        <IconWrapper
+          state={state}
+          size={size}
+        >
+          <StyledIcon
+            size={size}
+            name={stateIconMap[state]}
+          />
         </IconWrapper>
       )}
-      <TextWrapper state={state} size={size}>
+      <TextWrapper
+        state={state}
+        size={size}
+      >
         {title && <Title size={size}>{title}</Title>}
         <Text size={size}>{text}</Text>
       </TextWrapper>
@@ -64,8 +78,7 @@ const Wrapper = styled.div<{
   border-radius: ${props => props.theme.click.alert.radii.end};
   background-color: ${({ state = "neutral", theme }) =>
     theme.click.alert.color.background[state]};
-  color: ${({ state = "neutral", theme }) =>
-    theme.click.alert.color.text[state]};
+  color: ${({ state = "neutral", theme }) => theme.click.alert.color.text[state]};
 `;
 
 const IconWrapper = styled.div<{ state: AlertState; size: AlertSize }>`
@@ -98,8 +111,7 @@ const TextWrapper = styled.div<{ state: AlertState; size: AlertSize }>`
 `;
 const Title = styled.h6<{ size: AlertSize }>`
   margin: 0;
-  font: ${props =>
-    props.theme.click.alert[props.size].typography.title.default};
+  font: ${props => props.theme.click.alert[props.size].typography.title.default};
 `;
 const Text = styled.p<{ size: AlertSize }>`
   margin: 0;
@@ -115,16 +127,32 @@ const DismissWrapper = styled.button<{ state: AlertState }>`
   color: inherit;
 `;
 
-const DangerAlert = (props: AlertProps) => <Alert {...props} state="danger" />;
+const DangerAlert = (props: AlertProps) => (
+  <Alert
+    {...props}
+    state="danger"
+  />
+);
 
-const InfoAlert = (props: AlertProps) => <Alert {...props} state="info" />;
+const InfoAlert = (props: AlertProps) => (
+  <Alert
+    {...props}
+    state="info"
+  />
+);
 
 const SuccessAlert = (props: AlertProps) => (
-  <Alert {...props} state="success" />
+  <Alert
+    {...props}
+    state="success"
+  />
 );
 
 const WarningAlert = (props: AlertProps) => (
-  <Alert {...props} state="warning" />
+  <Alert
+    {...props}
+    state="warning"
+  />
 );
 
 export { Alert, DangerAlert, InfoAlert, SuccessAlert, WarningAlert };

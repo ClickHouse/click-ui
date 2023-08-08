@@ -1858,6 +1858,28 @@
         }
       }
     },
+    "link": {
+      "space": {
+        "md": {
+          "gap": "0.25rem"
+        },
+        "sm": {
+          "gap": "2px"
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "height": "0.75rem",
+            "width": "0.75rem"
+          },
+          "md": {
+            "height": "1rem",
+            "width": "1rem"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

@@ -1,3 +1,5 @@
+import { from } from "stylis";
+
 export { default as Flags } from "./icons/Flags";
 
 export { Avatar } from "./Avatar/Avatar";
@@ -24,5 +26,8 @@ export { Spacer } from "./Spacer/Spacer";
 export { Switch } from "./Switch/Switch";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { Label } from "./FormField/Label";
+export { Link } from "./Typography/Link/Link";
 export { Tabs } from "./Tabs/Tabs";
+export { Text } from "./Typography/Text/Text";
+export { Title } from "./Typography/Title/Title";
 export { Tooltip, TooltipProvider } from "./Tooltip/Tooltip";
