@@ -41,6 +41,8 @@ export type IconName =
   | "dots-vertical"
   | "email"
   | "empty"
+  | "eye"
+  | "eye-closed"
   | "filter"
   | "fire"
   | "folder"
