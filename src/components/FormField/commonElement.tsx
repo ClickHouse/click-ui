@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const FormRoot = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  width: fill-available;
+  width: 100%;
   align-items: flex-start;
   gap: ${({ theme }) => theme.click.field.space.gap};
   * {

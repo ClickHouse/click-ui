@@ -21,7 +21,7 @@ import { useSelect } from "@/components/FormField/useSelect";
 
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   placeholder?: string;
-  label: ReactNode;
+  label?: ReactNode;
   children: ReactNode;
   error?: ReactNode;
   showSearch?: boolean;
@@ -103,6 +103,7 @@ const SelectTrigger = styled(RadixPopover.Trigger)<{ $error: boolean }>`
     }
   `}
 `;
+
 const SelectContent = styled(RadixPopover.Content)`
   width: var(--radix-popover-trigger-width);
   max-height: var(--radix-popover-content-available-height);
@@ -115,7 +116,6 @@ const SelectContent = styled(RadixPopover.Content)`
       0px 1px 2px 0px rgba(16, 24, 40, 0.06);
     border-radius: 0.25rem;
   `}
-
   overflow: hidden;
   display: flex;
   padding: 0.5rem 0rem;
@@ -127,7 +127,7 @@ const SelectContent = styled(RadixPopover.Content)`
 `;
 
 const SearchBarContainer = styled.div<{ $showSearch: boolean }>`
-  width: fill-available;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
   ${({ theme }) => `

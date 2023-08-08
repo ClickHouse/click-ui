@@ -491,11 +491,11 @@
         },
         "size": {
           "icon": {
-            "all": {
+            "height": {
               "value": "0.96875rem",
               "type": "sizing"
             },
-            "height": {
+            "all": {
               "value": "0.96875rem",
               "type": "sizing"
             },
@@ -2251,6 +2251,52 @@
           "type": "border"
         }
       }
+    },
+    "link": {
+      "space": {
+        "md": {
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
+          }
+        },
+        "sm": {
+          "gap": {
+            "value": "2px",
+            "type": "spacing"
+          }
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "height": {
+              "value": "{click.image.x-small.size.height}",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "{click.image.x-small.size.width}",
+              "type": "sizing"
+            }
+          },
+          "md": {
+            "height": {
+              "value": "{click.image.small.size.height}",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "{click.image.small.size.width}",
+              "type": "sizing"
+            }
+          }
+        }
+      }
+    }
+  },
+  "transition": {
+    "default": {
+      "value": "all {transition.duration.medium} {transition.function.ease-in} {transition.delay.fast}",
+      "type": "other"
     }
   }
 }
