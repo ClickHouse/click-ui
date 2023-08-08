@@ -83,6 +83,8 @@ import Taxi from "../icons/Taxi";
 import Trash from "../icons/Trash";
 import Upload from "../icons/Upload";
 import Url from "../icons/Url";
+import EyeClosed from "../icons/EyeClosed";
+import Eye from "../icons/Eye";
 
 export const ICONS_MAP = {
   activity: Activity,
@@ -124,6 +126,8 @@ export const ICONS_MAP = {
   "dots-vertical": DotsVertical,
   email: Email,
   empty: Empty,
+  eye: Eye,
+  "eye-closed": EyeClosed,
   filter: FilterIcon,
   fire: Fire,
   folder: Folder,

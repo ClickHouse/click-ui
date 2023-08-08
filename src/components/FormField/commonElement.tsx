@@ -5,7 +5,7 @@ export const FormRoot = styled.div`
   flex-direction: column-reverse;
   width: 100%;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: ${({ theme }) => theme.click.field.space.gap};
   * {
     box-shadow: none;
     outline: none;
