@@ -6,6 +6,7 @@ export { Badge } from "./Badge/Badge";
 export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
 export { Button } from "./Button/Button";
 export { CardSecondary } from "./Card/CardSecondary/CardSecondary";
+export { CardPrimary } from "./Card/CardPrimary/CardPrimary";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { HoverCard } from "./HoverCard/HoverCard";
 export { Icon } from "./Icon/Icon";
