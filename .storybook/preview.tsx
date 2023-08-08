@@ -57,7 +57,14 @@ const preview: Preview = {
     options: {
       storySort: {
         method: "alphabetical",
-        order: [],
+        order: [
+          "Typography",
+          ["Title", "Text", "Link"],
+          "Buttons",
+          "Cards",
+          "Forms",
+          "Display",
+        ],
       },
     },
     actions: { argTypesRegex: "^on[A-Z].*" },
