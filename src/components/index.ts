@@ -27,6 +27,7 @@ export { SidebarCollapsibleItem } from "./SidebarCollapsibleItem/SidebarCollapsi
 export { SidebarNavigationTitle } from "./SidebarNavigationTitle/SidebarNavigationTitle";
 export { SidebarCollapsibleTitle } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 export { Spacer } from "./Spacer/Spacer";
+export { SplitButton } from "./SplitButton/SplitButton";
 export { Switch } from "./Switch/Switch";
 export { Tabs } from "./Tabs/Tabs";
 export { Text } from "./Typography/Text/Text";
