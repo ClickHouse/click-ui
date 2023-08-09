@@ -592,6 +592,22 @@
           }
         }
       }
+    },
+    "global": {
+      "color": {
+        "text": {
+          "link": {
+            "default": {
+              "value": "#C78F0F",
+              "type": "color"
+            },
+            "hover": {
+              "value": "#C78F0F",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   }
 }
