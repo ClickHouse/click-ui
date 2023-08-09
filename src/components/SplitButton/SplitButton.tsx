@@ -106,6 +106,7 @@ const Trigger = ({ type = "primary", disabled = false, ...props }: TriggerProps)
       <SecondaryButton
         disabled={disabled}
         $type={type}
+        data-testid="split-button-dropdown"
       >
         <Icon name="chevron-down" />
       </SecondaryButton>
