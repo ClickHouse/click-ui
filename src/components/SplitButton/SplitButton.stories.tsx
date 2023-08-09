@@ -1,53 +1,52 @@
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { SplitButton } from "./SplitButton";
+import { SplitButton as SplitButtonMenu } from "./SplitButton";
 import { GridCenter } from "../FormField/commonElement";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
-  side: "top" | "right" | "left" | "bottom";
+  side: "top" | "bottom";
 }
-const DropdownExample = ({ disabled, side, ...props }: Props) => {
+const SplitButton = ({ disabled, side, ...props }: Props) => {
   return (
     <GridCenter>
-      <SplitButton {...props}>
-        <SplitButton.Trigger disabled={disabled}>
+      <SplitButtonMenu {...props}>
+        <SplitButtonMenu.Trigger disabled={disabled}>
           <div>Dropdown Trigger</div>
-        </SplitButton.Trigger>
-        <SplitButton.Content side={side}>
-          <Dropdown.Group>
-            <Dropdown.Item>Content0</Dropdown.Item>
-          </Dropdown.Group>
-          <Dropdown.Item>Content1 long text content</Dropdown.Item>
-          <Dropdown.Sub>
-            <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>
-            <Dropdown.Content sub>
-              <Dropdown.Item>SubContent0</Dropdown.Item>
-              <Dropdown.Item>SubContent1</Dropdown.Item>
-              <Dropdown.Item>SubContent0</Dropdown.Item>
-              <Dropdown.Item>SubContent1</Dropdown.Item>
-              <Dropdown.Item>SubContent0</Dropdown.Item>
-              <Dropdown.Item>SubContent1</Dropdown.Item>
-              <Dropdown.Item>SubContent0</Dropdown.Item>
-              <Dropdown.Item>SubContent1</Dropdown.Item>
-              <Dropdown.Item>SubContent0</Dropdown.Item>
-              <Dropdown.Item>SubContent1</Dropdown.Item>
-            </Dropdown.Content>
-          </Dropdown.Sub>
-          <Dropdown.Item>Content2</Dropdown.Item>
-          <Dropdown.Item disabled>Content3</Dropdown.Item>
-        </SplitButton.Content>
-      </SplitButton>
+        </SplitButtonMenu.Trigger>
+        <SplitButtonMenu.Content side={side}>
+          <SplitButtonMenu.Group>
+            <SplitButtonMenu.Item>Content0</SplitButtonMenu.Item>
+          </SplitButtonMenu.Group>
+          <SplitButtonMenu.Item>Content1 long text content</SplitButtonMenu.Item>
+          <SplitButtonMenu.Sub>
+            <SplitButtonMenu.ContentTrigger>Hover over</SplitButtonMenu.ContentTrigger>
+            <SplitButtonMenu.Content sub>
+              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
+              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
+            </SplitButtonMenu.Content>
+          </SplitButtonMenu.Sub>
+          <SplitButtonMenu.Item>Content2</SplitButtonMenu.Item>
+          <SplitButtonMenu.Item disabled>Content3</SplitButtonMenu.Item>
+        </SplitButtonMenu.Content>
+      </SplitButtonMenu>
     </GridCenter>
   );
 };
 export default {
-  component: DropdownExample,
-  title: "Display/Dropdown",
-  tags: ["form-field", "dropdown", "autodocs"],
+  component: SplitButton,
+  title: "Buttons/SplitButton",
+  tags: ["split-button", "autodocs"],
   argTypes: {
     disabled: { control: "boolean" },
-    open: { control: "inline-radio", options: [undefined, true, false] },
-    defaultOpen: { control: "boolean" },
+    type: { control: "inline-radio", options: ["primary"] },
     side: { control: "select", options: ["top", "bottom"] },
   },
 };
@@ -55,5 +54,6 @@ export default {
 export const Playground = {
   args: {
     side: "bottom",
+    type: "primary",
   },
 };

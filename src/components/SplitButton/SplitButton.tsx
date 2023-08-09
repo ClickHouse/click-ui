@@ -18,38 +18,51 @@ interface TriggerProps extends HTMLAttributes<HTMLButtonElement> {
 const SplitButtonTrigger = styled.div<{ $disabled: boolean; $type: ButtonType }>`
   display: inline-flex;
   align-items: center;
+  overflow: hidden;
   ${({ theme, $disabled, $type }) => `
     border-radius: ${theme.click.button.radii.all};
     border: 1px solid ${theme.click.button.split[$type].stroke.default};
-    &:hover {
-      border: ${theme.click.button.split[$type].stroke.hover};
+    ${
+      $disabled
+        ? `border-color: ${theme.click.button.split[$type].stroke.disabled};`
+        : `
+          &:hover {
+            border-color: ${theme.click.button.split[$type].stroke.hover};
+          }
+          &:focus-within {
+            border-color: ${theme.click.button.split[$type].stroke.active};
+          }
+        `
     }
-    &:focus {
-      border: ${theme.click.button.split[$type].stroke.active};
-    }
-    ${$disabled ? `border: ${theme.click.button.split[$type].stroke.disabled};` : ""}
   `}
 `;
 
 const PrimaryButton = styled.button<{ $type: ButtonType }>`
   display: flex;
   align-items: center;
-  ${({ theme }) => `
+  border: none;
+  align-self: stretch;
+  ${({ theme, $type }) => `
     padding: ${theme.click.button.basic.space.y} ${theme.click.button.basic.space.x};
     gap: ${theme.click.button.basic.space.gap};
     background: ${theme.click.button.split[$type].background.main.default};
     font: ${theme.click.button.basic.typography.label.default};
+    color: ${theme.click.button.split[$type].text.default};
     &:hover {
       background: ${theme.click.button.split[$type].background.main.hover};
       font: ${theme.click.button.basic.typography.label.hover};
+      color: ${theme.click.button.split[$type].text.hover};
     }
     &:focus {
       background: ${theme.click.button.split[$type].background.main.active};
       font: ${theme.click.button.basic.typography.label.active};
+      color: ${theme.click.button.split[$type].text.active};
+      outline: none;
     }
     &:disabled {
       background: ${theme.click.button.split[$type].background.main.disabled};
       font: ${theme.click.button.basic.typography.label.disabled};
+      color: ${theme.click.button.split[$type].text.disabled};
     }
   `}
 `;
@@ -57,18 +70,25 @@ const PrimaryButton = styled.button<{ $type: ButtonType }>`
 const SecondaryButton = styled(DropdownMenu.Trigger)<{ $type: ButtonType }>`
   display: flex;
   align-items: center;
-  ${({ theme }) => `
+  border: none;
+  align-self: stretch;
+  ${({ theme, $type }) => `
     padding: ${theme.click.button.split.icon.space.y} ${theme.click.button.split.icon.space.x};
     gap: ${theme.click.button.basic.space.gap};
     background: ${theme.click.button.split[$type].background.action.default};
+    color: ${theme.click.button.split[$type].text.default};
     &:hover {
       background: ${theme.click.button.split[$type].background.action.hover};
+      color: ${theme.click.button.split[$type].text.hover};
     }
     &:focus {
       background: ${theme.click.button.split[$type].background.action.active};
+      color: ${theme.click.button.split[$type].text.active};
+      outline: none;
     }
     &[data-disabled] {
       background: ${theme.click.button.split[$type].background.action.disabled};
+      color: ${theme.click.button.split[$type].text.disabled};
     }
   `}
 `;
@@ -117,6 +137,7 @@ const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
   &:hover .dropdown-arrow,
   &[data-state="open"] .dropdown-arrow {
+    position: relative;
     left: 0.5rem;
   }
 `;
@@ -133,12 +154,15 @@ const Item = (props: DropdownMenu.DropdownMenuItemProps) => {
 SplitButton.displayName = "SplitButtonItem";
 SplitButton.Item = Item;
 
-interface DropdownContentProps extends Omit<DropdownMenu.MenuContentProps, "align"> {
+interface DropdownContentProps
+  extends Omit<DropdownMenu.MenuContentProps, "align" | "side"> {
   sub?: true;
+  side?: "top" | "bottom";
 }
 
 interface DropdownSubContentProps extends DropdownMenu.MenuSubContentProps {
   sub?: never;
+  side?: never;
 }
 
 const DropdownMenuContent = styled(GenericMenuPanel)`
@@ -149,6 +173,7 @@ const DropdownMenuContent = styled(GenericMenuPanel)`
 const Content = ({
   sub,
   children,
+  side,
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
@@ -157,6 +182,7 @@ const Content = ({
       <DropdownMenuContent
         type="dropdown-menu"
         align={sub ? undefined : "end"}
+        side={side}
         as={ContentElement}
         {...props}
       >
