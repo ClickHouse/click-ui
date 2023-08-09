@@ -17,7 +17,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export interface StyledButtonProps {
-  styleType: ButtonType;
+  $styleType: ButtonType;
   disabled?: boolean;
   align?: Alignment;
   width?: string;
@@ -34,7 +34,7 @@ export const Button = ({
   ...delegated
 }: ButtonProps) => (
   <StyledButton
-    styleType={type}
+    $styleType={type}
     align={align}
     {...delegated}
   >
@@ -66,51 +66,51 @@ const BaseButton = styled.button`
 `;
 
 const StyledButton = styled(BaseButton)<
-  Pick<StyledButtonProps, "width" | "height" | "align" | "styleType">
+  Pick<StyledButtonProps, "width" | "height" | "align" | "$styleType">
 >`
   width: ${props => props.width};
   height: ${props => props.height};
   font: ${props => props.theme.click.button.basic.typography.label.default};
-  color: ${({ styleType = "primary", theme }) =>
-    theme.click.button.basic.color[styleType].text.default};
-  background-color: ${({ styleType = "primary", theme }) =>
-    theme.click.button.basic.color[styleType].background.default};
+  color: ${({ $styleType = "primary", theme }) =>
+    theme.click.button.basic.color[$styleType].text.default};
+  background-color: ${({ $styleType = "primary", theme }) =>
+    theme.click.button.basic.color[$styleType].background.default};
   border: 1px solid
-    ${({ styleType = "primary", theme }) =>
-      theme.click.button.basic.color[styleType].stroke.default};
+    ${({ $styleType = "primary", theme }) =>
+      theme.click.button.basic.color[$styleType].stroke.default};
 
   display: flex;
   align-items: center;
   justify-content: ${props => (props.align === "left" ? "flex-start" : "center")};
 
   &:hover {
-    background-color: ${({ styleType = "primary", theme }) =>
-      theme.click.button.basic.color[styleType].background.hover};
+    background-color: ${({ $styleType = "primary", theme }) =>
+      theme.click.button.basic.color[$styleType].background.hover};
     border: 1px solid
-      ${({ styleType = "primary", theme }) =>
-        theme.click.button.basic.color[styleType].stroke.hover};
+      ${({ $styleType = "primary", theme }) =>
+        theme.click.button.basic.color[$styleType].stroke.hover};
     transition: ${({ theme }) => theme.transition.default};
   }
 
   &:active,
   &:focus {
-    background-color: ${({ styleType = "primary", theme }) =>
-      theme.click.button.basic.color[styleType].background.active};
+    background-color: ${({ $styleType = "primary", theme }) =>
+      theme.click.button.basic.color[$styleType].background.active};
     border: 1px solid
-      ${({ styleType = "primary", theme }) =>
-        theme.click.button.basic.color[styleType].stroke.active};
+      ${({ $styleType = "primary", theme }) =>
+        theme.click.button.basic.color[$styleType].stroke.active};
   }
 
   &:disabled,
   &:disabled:hover,
   &:disabled:active {
-    background-color: ${({ styleType = "primary", theme }) =>
-      theme.click.button.basic.color[styleType].background.disabled};
-    color: ${({ styleType = "primary", theme }) =>
-      theme.click.button.basic.color[styleType].text.disabled};
+    background-color: ${({ $styleType = "primary", theme }) =>
+      theme.click.button.basic.color[$styleType].background.disabled};
+    color: ${({ $styleType = "primary", theme }) =>
+      theme.click.button.basic.color[$styleType].text.disabled};
     border: 1px solid
-      ${({ styleType = "primary", theme }) =>
-        theme.click.button.basic.color[styleType].stroke.disabled};
+      ${({ $styleType = "primary", theme }) =>
+        theme.click.button.basic.color[$styleType].stroke.disabled};
     cursor: not-allowed;
   }
 `;

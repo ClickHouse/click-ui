@@ -10,5 +10,7 @@
   "bracketSpacing": true,
   "endOfLine": "lf",
   "singleAttributePerLine": true,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "tabWidth": 2,
+  "useTabs": false
 }
