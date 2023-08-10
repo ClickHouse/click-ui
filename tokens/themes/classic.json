@@ -608,6 +608,30 @@
           }
         }
       }
+    },
+    "card": {
+      "secondary": {
+        "color": {
+          "link": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.link.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.card.primary.color.title.disabled}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   }
 }

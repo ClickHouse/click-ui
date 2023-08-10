@@ -724,7 +724,19 @@
       "click.button.split.secondary.text.hover": "S:16d340351e17503bc91004f41302276d0e85d9eb,",
       "click.button.split.secondary.text.active": "S:e0016fd8fafe0817679122b38cb28707ec90d47e,",
       "click.button.split.primary.stroke.disabled": "S:7cf0462519e8293d49397d9ca1a3e63962d302a4,",
-      "click.button.split.secondary.stroke.disabled": "S:800e71bf87b736c67307a81273363cea7ba3299a,"
+      "click.button.split.secondary.stroke.disabled": "S:800e71bf87b736c67307a81273363cea7ba3299a,",
+      "click.tabs.fileTabs.color.background.default": "S:862042aee32284e05f999d277bb590391a65d9ef,",
+      "click.tabs.fileTabs.color.background.hover": "S:9e5e69a3f48a19750e5dbe6665f017f22e859153,",
+      "click.tabs.fileTabs.color.background.active": "S:393942420722bcf5c352c4be79a1ab4fd6de4f16,",
+      "click.tabs.fileTabs.color.text.default": "S:87be06f6f99152e749a5310e40e321f72109cb06,",
+      "click.tabs.fileTabs.color.text.hover": "S:5f5ccfd772721a070acd9381c70f50d1ba16e239,",
+      "click.tabs.fileTabs.color.text.active": "S:f5bd8c82321a18522527214231e72d6d2c6d73f2,",
+      "click.tabs.fileTabs.color.stroke.default": "S:110dd438f7cea6f4c7ca5b9ec2e98aa569c355bc,",
+      "click.tabs.fileTabs.color.stroke.hover": "S:47f127123d0354565676a2c2281934078fdc6eac,",
+      "click.tabs.fileTabs.color.stroke.active": "S:0b7aee98d738dc3dd1612e0b2efb1e10b523deb5,",
+      "click.tabs.fileTabs.typography.label.default": "S:1e45f5e1b33f357ef545baa8ab07e15214882ff1,",
+      "click.tabs.fileTabs.typography.label.hover": "S:9c06f985da4d478c393cbc92247a1d235cbfcdab,",
+      "click.tabs.fileTabs.typography.label.active": "S:3c5e2fdded5e459c9bec2bffa1009ed2a45e1851,"
     },
     "selectedTokenSets": {
       "primitives": "enabled",
