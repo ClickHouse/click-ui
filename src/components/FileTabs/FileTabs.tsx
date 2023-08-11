@@ -17,11 +17,11 @@ import { Icon } from "..";
 const TabsContainer = styled.div`
   display: flex;
   position: relative;
-  overflow: auto hidden;
+  overflow: auto;
   overscroll-behavior: none;
   scrollbar-width: 0;
   &::-webkit-scrollbar {
-    width: 0;
+    height: 0;
   }
 `;
 
@@ -94,7 +94,6 @@ export const FileTabs = ({
   );
 
   const updateOrder = (order: number) => {
-    console.log({ dragElement, order });
     if (dragElement.current) {
       const { value } = dragElement.current;
       setOrderList((list: string[]) => {
@@ -143,10 +142,10 @@ export const FileTabs = ({
 
   const onWheel = (evt: WheelEvent<HTMLDivElement>) => {
     evt.preventDefault();
+    evt.stopPropagation();
     evt.currentTarget.scrollLeft += evt.deltaY;
   };
   const onDragLeave = (e: MouseEvent<HTMLDivElement>) => {
-    console.log("lewav", orderList, Children.count(children) - 1, e);
     updateOrder(Children.count(children));
     if (typeof onMouseLeaveProp === "function") {
       onMouseLeaveProp(e);
@@ -156,15 +155,15 @@ export const FileTabs = ({
   return (
     <TabContext.Provider value={value}>
       <TabsContainer
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
         onWheel={onWheel}
         onScroll={e => {
           e.preventDefault();
           e.stopPropagation();
         }}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
         {...props}
       >
         <DragElementContainer ref={dragElementContainer} />
@@ -252,7 +251,6 @@ const Tab = ({
   };
 
   const onDragEnter = (e: DragEvent) => {
-    console.log("e", { e, order, value });
     updateOrder(order);
     e.currentTarget.scrollIntoView(false);
   };
