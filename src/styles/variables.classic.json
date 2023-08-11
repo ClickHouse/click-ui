@@ -191,6 +191,18 @@
         }
       }
     },
+    "card": {
+      "secondary": {
+        "color": {
+          "link": {
+            "default": "#161517",
+            "hover": "#C78F0F",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          }
+        }
+      }
+    },
     "sidebar": {
       "main": {
         "color": {
@@ -214,6 +226,16 @@
               "default": "#ffffff",
               "muted": "#ada8bd"
             }
+          }
+        }
+      }
+    },
+    "global": {
+      "color": {
+        "text": {
+          "link": {
+            "default": "#C78F0F",
+            "hover": "#C78F0F"
           }
         }
       }

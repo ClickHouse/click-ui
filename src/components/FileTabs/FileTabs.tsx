@@ -183,27 +183,31 @@ const TabElement = styled.button<{
   align-items: center;
   outline: none;
   flex-shrink: 0;
-  padding: 1.0625rem 1rem;
-  gap: 0.75rem;
   border: none;
   ${({ theme, $active, $order, $isDragging }) => `
+    padding: ${theme.click.tabs.fileTabs.space.y} ${theme.click.tabs.fileTabs.space.x};
+    gap: ${theme.click.tabs.fileTabs.space.gap};
+    border-radius: ${theme.click.tabs.fileTabs.radii.all};
     order: ${$order};
     opacity: ${$isDragging ? 0 : 1};
-    background: ${theme.click.tabs["file-tabs"].color.background.default};
-    color: ${theme.click.tabs["file-tabs"].color.text.default};
-    font: ${theme.click.tabs.typography.label.default};
+    border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.default};
+    background: ${theme.click.tabs.fileTabs.color.background.default};
+    color: ${theme.click.tabs.fileTabs.color.text.default};
+    font: ${theme.click.tabs.fileTabs.typography.label.default};
     ${
       $active
         ? `
-          background: ${theme.click.tabs["file-tabs"].color.background.active};
-          color: ${theme.click.tabs["file-tabs"].color.text.active};
-          font: ${theme.click.tabs.typography.label.active};
+          background: ${theme.click.tabs.fileTabs.color.background.active};
+          color: ${theme.click.tabs.fileTabs.color.text.active};
+          font: ${theme.click.tabs.fileTabs.typography.label.active};
+          border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.active};
         `
         : `
           &:hover {
-            background: ${theme.click.tabs["file-tabs"].color.background.default};
-            color: ${theme.click.tabs["file-tabs"].color.text.default};
-            font: ${theme.click.tabs.typography.label.default};
+            background: ${theme.click.tabs.fileTabs.color.background.hover};
+            color: ${theme.click.tabs.fileTabs.color.text.hover};
+            font: ${theme.click.tabs.fileTabs.typography.label.hover};
+            border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.hover};
           }
         `
     }
