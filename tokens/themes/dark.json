@@ -829,7 +829,7 @@
                   "studio.tokens": {
                     "modify": {
                       "type": "darken",
-                      "value": "0.085",
+                      "value": "0.01",
                       "space": "lch"
                     }
                   }
