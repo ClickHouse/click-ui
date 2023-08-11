@@ -847,7 +847,7 @@
           }
         }
       },
-      "file-tabs": {
+      "fileTabs": {
         "color": {
           "background": {
             "default": "#f6f7fa",

@@ -1414,6 +1414,12 @@
               "gap": string
             }
           },
+          "icon": {
+            "size": {
+              "height": string,
+              "width": string
+            }
+          },
           "color": {
             "background": {
               "active": string,
@@ -1737,6 +1743,46 @@
           }
         }
       },
+      "fileTabs": {
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "space": {
+          "y": string,
+          "x": string,
+          "gap": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        },
+        "radii": {
+          "all": string
+        },
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        }
+      },
       "file-tabs": {
         "color": {
           "background": {
@@ -1856,6 +1902,28 @@
         },
         "opaqueBackground": {
           "default": string
+        }
+      }
+    },
+    "link": {
+      "space": {
+        "md": {
+          "gap": string
+        },
+        "sm": {
+          "gap": string
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "height": string,
+            "width": string
+          },
+          "md": {
+            "height": string,
+            "width": string
+          }
         }
       }
     },
