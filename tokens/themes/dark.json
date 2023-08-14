@@ -2127,7 +2127,7 @@
           }
         }
       },
-      "file-tabs": {
+      "fileTabs": {
         "color": {
           "background": {
             "default": {
