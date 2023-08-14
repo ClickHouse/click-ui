@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Icon } from "..";
 import { FileTabs as CUIFileTabs, StatusType } from "./FileTabs";
 
 const options = [
@@ -32,8 +31,8 @@ const FileTabs = ({
 
   return (
     <CUIFileTabs
-      onReorderTab={props => null}
-      onClose={(value: string, index: number) => {
+      onReorderTab={() => null}
+      onClose={(_: string, index: number) => {
         setTabs(tabs => {
           tabs.splice(index, 1);
           return [...tabs];
