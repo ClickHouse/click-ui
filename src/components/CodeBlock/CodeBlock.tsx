@@ -39,7 +39,7 @@ const Highlighter = styled(SyntaxHighlighter)`
   margin: 0;
 `;
 
-export const CodeBlock = ({ style, children, language, theme, ...props }: Props) => {
+export const CodeBlock = ({ children, language, theme, ...props }: Props) => {
   const [copied, setCopied] = useState(false);
   const customStyle = useColorStyle(theme);
   const ref = useRef<HTMLElement>(null);
