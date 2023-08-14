@@ -12,12 +12,7 @@ const useColorStyle = (defaultTheme?: "light" | "dark") => {
         !defaultTheme ? (name !== "classic" ? name ?? "light" : "light") : defaultTheme
       }Mode`
     ].color;
-  console.log({
-    codeTheme,
-    a: defaultTheme && defaultTheme !== "dark" ? "light" : defaultTheme ?? name,
-    defaultTheme,
-    name,
-  });
+
   return {
     hljs: {
       display: "block",
