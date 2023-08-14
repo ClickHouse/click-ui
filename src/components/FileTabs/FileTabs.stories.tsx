@@ -1,18 +1,56 @@
-import { FileTabs as CUIFileTabs } from "./FileTabs";
+import { useEffect, useState } from "react";
+import { Icon } from "..";
+import { FileTabs as CUIFileTabs, StatusType } from "./FileTabs";
 
-const FileTabs = () => {
+const options = [
+  "a1",
+  "a2",
+  "a3",
+  "a4",
+  "a5",
+  "a6",
+  "a7",
+  "a8",
+  "a9",
+  "a10",
+  "a11",
+  "a12",
+];
+
+const FileTabs = ({
+  selected: selectedProp,
+  status,
+}: {
+  selected: string;
+  status: StatusType;
+}) => {
+  const [selected, setSelected] = useState(selectedProp);
+  useEffect(() => {
+    setSelected(selectedProp);
+  }, [selectedProp]);
+  const [tabs, setTabs] = useState(options);
+
   return (
-    <CUIFileTabs onReorderTab={props => console.log(props)}>
-      <CUIFileTabs.Tab value="a1">Tab 1</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a2">Tab 2</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a3">Tab 3</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a4">Tab 4</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a5">Tab 5</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a6">Tab 6</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a7">Tab 7</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a8">Tab 8</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a9">Tab 9</CUIFileTabs.Tab>
-      <CUIFileTabs.Tab value="a10">Tab 10</CUIFileTabs.Tab>
+    <CUIFileTabs
+      onReorderTab={props => null}
+      onClose={(value: string, index: number) => {
+        setTabs(tabs => {
+          tabs.splice(index, 1);
+          return [...tabs];
+        });
+      }}
+      onSelect={(value: string) => setSelected(value)}
+      selected={selected}
+    >
+      {tabs.map((option, index) => (
+        <CUIFileTabs.Tab
+          value={option}
+          key={`${option}-${index}`}
+          icon="code-in-square"
+          status={index === 0 ? status : undefined}
+          text={`Tab ${index} value-${option}`}
+        />
+      ))}
     </CUIFileTabs>
   );
 };
@@ -21,16 +59,14 @@ export default {
   title: "Display/FileTabs",
   tags: ["tabs", "file-tabs", "autodocs"],
   argTypes: {
-    disabled: { control: "boolean" },
-    open: { control: "inline-radio", options: [undefined, true, false] },
-    defaultOpen: { control: "boolean" },
-    showArrow: { control: "boolean" },
-    side: { control: "select", options: ["top", "right", "left", "bottom"] },
+    selected: { control: "select", options },
+    status: {
+      control: "radio",
+      options: ["success", "warning", "danger", "neutral", "info"],
+    },
   },
 };
 
 export const Playground = {
-  args: {
-    side: "bottom",
-  },
+  args: {},
 };
