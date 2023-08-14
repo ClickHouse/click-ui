@@ -58,10 +58,10 @@ interface ContextProps {
 export const TabContext = createContext<ContextProps>({
   selected: undefined,
   list: [],
-  updateOrder: (order: number) => null,
+  updateOrder: () => null,
   dragElementContainer: { current: null },
-  onSelect: (value: string) => null,
-  onClose: (value: string) => null,
+  onSelect: () => null,
+  onClose: () => null,
 });
 
 interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
