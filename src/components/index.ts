@@ -1,3 +1,6 @@
+export { Icon } from "./Icon/Icon";
+export { IconButton } from "./IconButton/IconButton";
+
 export { Accordion } from "./Accordion/Accordion";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
 export { Avatar } from "./Avatar/Avatar";
@@ -10,8 +13,6 @@ export { Checkbox } from "./Checkbox/Checkbox";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
 export { HoverCard } from "./HoverCard/HoverCard";
-export { Icon } from "./Icon/Icon";
-export { IconButton } from "./IconButton/IconButton";
 export { Label } from "./FormField/Label";
 export { Link } from "./Typography/Link/Link";
 export { NumberField } from "./FormField/Input/NumberField";

@@ -1,4 +1,4 @@
-import { Icon } from "@/components/Icon/Icon";
+import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 

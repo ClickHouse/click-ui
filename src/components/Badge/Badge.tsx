@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Icon } from "../Icon/Icon";
+import { Icon } from "@/components";
 export type BadgeState =
   | "default"
   | "success"
