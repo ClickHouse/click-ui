@@ -43,7 +43,7 @@ const App = () => {
         Hi there, I'm a paragraph and I'm{" "}
         <Link
           size="xs"
-          isExternal
+          hasIcon
         >
           definitely
         </Link>
