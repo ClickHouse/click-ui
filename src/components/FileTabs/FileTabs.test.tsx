@@ -17,7 +17,7 @@ describe("FileTabs", () => {
       disconnect: jest.fn(),
     }));
   });
-  beforeEach(function () {
+  beforeEach(() => {
     onReorderTab.mockClear();
     onClose.mockClear();
     onSelect.mockClear();
