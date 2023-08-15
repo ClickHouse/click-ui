@@ -1,5 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useRef } from "react";
-import { Icon } from "../..";
+import { Icon } from "@/components";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 

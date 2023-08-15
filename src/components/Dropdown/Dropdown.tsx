@@ -1,6 +1,6 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styled from "styled-components";
-import { Icon } from "..";
+import { Icon } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 

@@ -1,5 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
-import { Icon } from "../..";
+import { Icon } from "@/components";
 import { InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 export interface NumberInputProps
   extends Omit<WrapperProps, "id" | "children">,
