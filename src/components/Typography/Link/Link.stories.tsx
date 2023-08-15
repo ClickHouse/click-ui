@@ -22,6 +22,6 @@ export const Playground = {
     weight: "normal",
     href: "https://www.google.com",
     children: "Try me!",
-    isExternal: false,
+    hasIcon: false,
   },
 };

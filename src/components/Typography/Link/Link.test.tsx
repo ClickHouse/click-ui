@@ -18,7 +18,7 @@ describe("Text", () => {
     const text = "text to render";
     const rendered = render(
       <ThemeProvider theme="light">
-        <Link isExternal={true}>{text}</Link>
+        <Link hasIcon={true}>{text}</Link>
       </ThemeProvider>
     );
     expect(rendered.getAllByTestId("external-icon").length).toEqual(1);
