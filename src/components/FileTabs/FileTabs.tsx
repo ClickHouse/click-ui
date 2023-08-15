@@ -14,8 +14,7 @@ import {
   ReactNode,
 } from "react";
 import { styled } from "styled-components";
-import { Icon } from "..";
-import { EmptyButton } from "../FormField/commonElement";
+import { Icon, IconButton } from "@/components";
 import { IconName } from "../Icon/types";
 
 export type StatusType =
@@ -70,6 +69,7 @@ interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   status?: StatusType;
   icon?: IconName | ReactNode;
   text: string;
+  testId?: string;
 }
 interface Props
   extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onClose" | "onSelect"> {
@@ -261,7 +261,7 @@ const TabElement = styled.div<{
         `
     }
   `}
-  [data-type= "close"] {
+  [data-type="close"] {
     display: none;
   }
   [data-indicator] {
@@ -311,12 +311,17 @@ const TabContentText = styled.span`
   overflow: hidden;
 `;
 
+const EmptyButton = styled(IconButton)`
+  padding: 0;
+`;
+
 const Tab = ({
   text,
   value,
   icon,
   onMouseDown: onMouseDownProp,
   status = "default",
+  testId,
   ...props
 }: TabProps) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -375,7 +380,8 @@ const Tab = ({
 
   return (
     <TabElement
-      tabIndex={0}
+      tabIndex={order}
+      role="tab"
       $active={selected === value}
       $isDragging={isDragging}
       $order={order}
@@ -390,6 +396,7 @@ const Tab = ({
       onMouseDown={onMouseDown}
       onDragExit={preventDragEvent}
       draggable={list.length > 1}
+      data-testid={testId ? `${testId}-${value}` : undefined}
       {...props}
     >
       <TabContent>
@@ -397,14 +404,15 @@ const Tab = ({
         <TabContentText>{text}</TabContentText>
       </TabContent>
       <EmptyButton
+        icon="cross"
         onClick={onClose}
         data-type="close"
-      >
-        <Icon name="cross" />
-      </EmptyButton>
+        data-testid={testId ? `${testId}-${value}-close` : undefined}
+      />
       <Indicator
         $status={status}
         data-indicator={status}
+        data-testid={testId ? `${testId}-${value}-status` : undefined}
       />
     </TabElement>
   );
