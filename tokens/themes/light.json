@@ -2511,7 +2511,7 @@
           }
         }
       },
-      "file-tabs": {
+      "fileTabs": {
         "color": {
           "background": {
             "default": {
@@ -2523,7 +2523,7 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.tabs.file-tabs.color.background.hover}",
+              "value": "{click.tabs.fileTabs.color.background.hover}",
               "type": "color"
             }
           },

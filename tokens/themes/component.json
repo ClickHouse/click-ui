@@ -1773,6 +1773,18 @@
                 "type": "spacing"
               }
             }
+          },
+          "icon": {
+            "size": {
+              "height": {
+                "value": "{click.image.small.size.height}",
+                "type": "sizing"
+              },
+              "width": {
+                "value": "{click.image.small.size.width}",
+                "type": "sizing"
+              }
+            }
           }
         },
         "title": {
@@ -2118,6 +2130,56 @@
               "style": "solid"
             },
             "type": "border"
+          }
+        }
+      },
+      "fileTabs": {
+        "icon": {
+          "size": {
+            "height": {
+              "value": "{click.image.small.size.height}",
+              "type": "sizing"
+            },
+            "width": {
+              "value": "{click.image.small.size.width}",
+              "type": "sizing"
+            }
+          }
+        },
+        "space": {
+          "y": {
+            "value": "1.0625rem",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          }
+        },
+        "typography": {
+          "label": {
+            "default": {
+              "value": "{typography.styles.product.text.normal.md}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{typography.styles.product.text.normal.md}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{typography.styles.product.text.medium.md}",
+              "type": "typography"
+            }
+          }
+        },
+        "radii": {
+          "all": {
+            "value": "{border.radii.0}",
+            "type": "borderRadius"
           }
         }
       }

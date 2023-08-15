@@ -13,7 +13,7 @@ export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
 export interface StyledButtonProps {
   size?: "small" | "medium" | "large";
   disabled?: boolean;
-  styleType?: "primary" | "secondary";
+  $styleType?: "primary" | "secondary";
   icon: IconName;
 }
 
@@ -22,7 +22,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     return (
       <Button
         {...props}
-        styleType={type}
+        $styleType={type}
         ref={ref}
       >
         <Icon
@@ -44,33 +44,33 @@ const Button = styled.button<Partial<StyledButtonProps>>`
     `${props.theme.click.button.iconButton.default.space.y} ${props.theme.click.button.iconButton.default.space.x}`};
 
   background-color: ${props =>
-    props.styleType === "primary"
+    props.$styleType === "primary"
       ? props.theme.click.button.iconButton.color.primary.background.default
       : props.theme.click.button.iconButton.color.secondary.background.default};
 
   color: ${props =>
-    props.styleType === "primary"
+    props.$styleType === "primary"
       ? props.theme.click.button.iconButton.color.primary.text.default
       : props.theme.click.button.iconButton.color.secondary.text.default};
 
   &:hover {
     background-color: ${props =>
-      props.styleType === "primary"
+      props.$styleType === "primary"
         ? props.theme.click.button.iconButton.color.primary.background.hover
         : props.theme.click.button.iconButton.color.secondary.background.hover};
     color: ${props =>
-      props.styleType === "primary"
+      props.$styleType === "primary"
         ? props.theme.click.button.iconButton.color.primary.text.hover
         : props.theme.click.button.iconButton.color.secondary.text.hover};
   }
 
   &:active {
     background-color: ${props =>
-      props.styleType === "primary"
+      props.$styleType === "primary"
         ? props.theme.click.button.iconButton.color.primary.background.active
         : props.theme.click.button.iconButton.color.secondary.background.active};
     color: ${props =>
-      props.styleType === "primary"
+      props.$styleType === "primary"
         ? props.theme.click.button.iconButton.color.primary.text.default
         : props.theme.click.button.iconButton.color.secondary.text.default};
   }

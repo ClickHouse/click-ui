@@ -241,77 +241,25 @@
       },
       "split": {
         "primary": {
-          "stroke": {
-            "default": {
-              "value": "{click.button.basic.color.primary.background.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "active": {
-              "value": "{click.button.basic.color.primary.background.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.15",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "hover": {
-              "value": "{click.button.split.primary.background.action.hover}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.1",
-                    "space": "lch"
-                  }
-                }
-              }
-            }
-          },
           "background": {
             "main": {
               "default": {
                 "value": "{click.button.basic.color.primary.background.default}",
                 "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "darken",
-                      "value": "0.085",
-                      "space": "lch"
-                    }
-                  }
-                }
+                "$extensions": {}
               },
               "hover": {
                 "value": "{click.button.basic.color.primary.background.hover}",
                 "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "darken",
-                      "value": "0.085",
-                      "space": "lch"
-                    }
-                  }
-                }
+                "$extensions": {}
               },
               "active": {
                 "value": "{click.button.basic.color.primary.background.active}",
+                "type": "color",
+                "$extensions": {}
+              },
+              "disabled": {
+                "value": "{click.button.basic.color.primary.background.disabled}",
                 "type": "color",
                 "$extensions": {
                   "studio.tokens": {
@@ -326,8 +274,17 @@
             },
             "action": {
               "default": {
-                "value": "{palette.slate.900}",
-                "type": "color"
+                "value": "{click.button.split.primary.background.main.default}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.05",
+                      "space": "lch"
+                    }
+                  }
+                }
               },
               "hover": {
                 "value": "{click.button.split.primary.background.main.hover}",
@@ -343,13 +300,26 @@
                 }
               },
               "active": {
-                "value": "{palette.slate.900}",
+                "value": "{click.button.split.primary.background.main.active}",
                 "type": "color",
                 "$extensions": {
                   "studio.tokens": {
                     "modify": {
                       "type": "darken",
-                      "value": "0.5",
+                      "value": "0.085",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "disabled": {
+                "value": "{click.button.split.primary.background.main.disabled}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.085",
                       "space": "lch"
                     }
                   }
@@ -361,6 +331,90 @@
             "default": {
               "value": "{click.button.basic.color.primary.text.default}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.button.basic.color.primary.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.basic.color.primary.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.primary.text.disabled}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            }
+          },
+          "divide": {
+            "default": {
+              "value": "{click.button.split.primary.background.action.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "hover": {
+              "value": "{click.button.split.primary.background.main.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "active": {
+              "value": "{click.button.split.primary.background.main.active}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "disabled": {
+              "value": "{click.button.split.primary.background.main.disabled}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           }
         }
@@ -603,6 +657,30 @@
             },
             "hover": {
               "value": "#C78F0F",
+              "type": "color"
+            }
+          }
+        }
+      }
+    },
+    "card": {
+      "secondary": {
+        "color": {
+          "link": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.link.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.card.primary.color.title.disabled}",
               "type": "color"
             }
           }

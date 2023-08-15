@@ -18,6 +18,8 @@ jobs:
         run: npm run lint
       - name: unit tests
         run: npm run test
+      - name: build
+        run: npm run build
 
   chromatic-deployment:
     # Operating System

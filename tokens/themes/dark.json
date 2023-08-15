@@ -784,47 +784,6 @@
       },
       "split": {
         "primary": {
-          "stroke": {
-            "default": {
-              "value": "{click.button.basic.color.primary.background.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "active": {
-              "value": "{click.button.basic.color.primary.background.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.15",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "hover": {
-              "value": "{click.button.split.primary.background.action.hover}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.1",
-                    "space": "lch"
-                  }
-                }
-              }
-            }
-          },
           "background": {
             "main": {
               "default": {
@@ -847,6 +806,19 @@
                     }
                   }
                 }
+              },
+              "disabled": {
+                "value": "{click.button.basic.color.primary.background.disabled}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.085",
+                      "space": "lch"
+                    }
+                  }
+                }
               }
             },
             "action": {
@@ -857,7 +829,7 @@
                   "studio.tokens": {
                     "modify": {
                       "type": "darken",
-                      "value": "0.085",
+                      "value": "0.1",
                       "space": "lch"
                     }
                   }
@@ -888,6 +860,19 @@
                     }
                   }
                 }
+              },
+              "disabled": {
+                "value": "{click.button.split.primary.background.main.disabled}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.12",
+                      "space": "lch"
+                    }
+                  }
+                }
               }
             }
           },
@@ -895,6 +880,90 @@
             "default": {
               "value": "{click.button.basic.color.primary.text.default}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.button.basic.color.primary.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.basic.color.primary.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.primary.text.disabled}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            }
+          },
+          "divide": {
+            "default": {
+              "value": "{click.button.split.primary.background.main.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "hover": {
+              "value": "{click.button.split.primary.background.main.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "active": {
+              "value": "{click.button.split.primary.background.main.active}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.125",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "disabled": {
+              "value": "{click.button.split.primary.background.main.disabled}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.085",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           }
         }
@@ -2058,7 +2127,7 @@
           }
         }
       },
-      "file-tabs": {
+      "fileTabs": {
         "color": {
           "background": {
             "default": {
@@ -2070,7 +2139,7 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.tabs.file-tabs.color.background.hover}",
+              "value": "{click.tabs.fileTabs.color.background.hover}",
               "type": "color"
             }
           },
