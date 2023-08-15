@@ -482,12 +482,6 @@
           }
         },
         "primary": {
-          "stroke": {
-            "default": string,
-            "active": string,
-            "hover": string,
-            "disabled": string
-          },
           "background": {
             "main": {
               "default": string,
@@ -508,10 +502,16 @@
             "active": string,
             "disabled": string
           },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
           "divide": {
             "default": string,
-            "active": string,
             "hover": string,
+            "active": string,
             "disabled": string
           }
         }
@@ -1765,25 +1765,6 @@
         "radii": {
           "all": string
         },
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "text": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "stroke": {
-            "default": string,
-            "hover": string,
-            "active": string
-          }
-        }
-      },
-      "file-tabs": {
         "color": {
           "background": {
             "default": string,
