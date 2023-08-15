@@ -14,7 +14,7 @@ import {
   ReactNode,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, IconButton } from "@/components";
+import { Icon, IconButton } from "..";
 import { IconName } from "../Icon/types";
 
 export type StatusType =
@@ -335,15 +335,15 @@ const Tab = ({
   } = useSelect();
   const order = list.findIndex(element => element === value) ?? 0;
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
     if (typeof onMouseDownProp === "function") {
-      e.currentTarget.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
       onMouseDownProp(e);
-      onSelect(value);
     }
+    onSelect(value);
   };
   const onDragStart = (event: DragEvent) => {
     if (dragElementContainer.current) {
