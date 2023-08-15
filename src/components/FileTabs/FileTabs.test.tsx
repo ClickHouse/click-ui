@@ -1,6 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { render, fireEvent, waitFor, screen, createEvent } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, fireEvent, screen, createEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { themes } from "../../theme";
 import { FileTabs, StatusType } from "./FileTabs";
