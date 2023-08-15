@@ -14,7 +14,7 @@ import {
   ReactNode,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, IconButton } from "..";
+import { Icon, IconButton } from "@/components";
 import { IconName } from "../Icon/types";
 
 export type StatusType =
