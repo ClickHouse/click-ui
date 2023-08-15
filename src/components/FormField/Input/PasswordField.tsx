@@ -1,5 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from "react";
-import { Icon } from "../..";
+import { Icon } from "@/components";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 export interface PasswordFieldProps
   extends Omit<WrapperProps, "id" | "children">,
