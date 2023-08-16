@@ -11,7 +11,7 @@ import {
 } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
 import { Command, useCommandState } from "cmdk";
-import { Icon } from "../Icon/Icon";
+import { Icon } from "@/components";
 import { Error, FormRoot } from "./commonElement";
 import styled from "styled-components";
 import { Label } from "./Label";

@@ -2702,5 +2702,9 @@
         }
       }
     }
+  },
+  "name": {
+    "value": "light",
+    "type": "other"
   }
 }
