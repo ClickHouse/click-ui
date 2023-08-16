@@ -1,8 +1,9 @@
 import { HTMLAttributes, useRef, useState } from "react";
 import SyntaxHighlighter, { createElement } from "react-syntax-highlighter";
-import { IconButton } from "..";
+import { IconButton } from "@/components";
 import styled from "styled-components";
 import useColorStyle from "./useColorStyle";
+import { EmptyButton } from "../FormField/commonElement";
 
 export type CodeThemeType = "light" | "dark";
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -14,15 +15,15 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   wrapLines?: boolean;
 }
 
-interface rendererNode {
+interface RendererNodeType {
   type: "element" | "text";
   value?: string | number | undefined;
   tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
   properties?: { className: unknown[]; [key: string]: unknown };
-  children?: rendererNode[];
+  children?: RendererNodeType[];
 }
 interface CustomRendererProps {
-  rows: rendererNode[];
+  rows: RendererNodeType[];
   stylesheet: { [key: string]: React.CSSProperties };
   useInlineStyles: boolean;
 }
@@ -44,9 +45,8 @@ const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   }}
 `;
 
-const CopyButton = styled(IconButton)<{ $copied: boolean }>`
-  ${({ theme, $copied }) => `
-    border-radius: ${theme.click.button.iconButton.radii.all};
+const CodeButton = styled(EmptyButton)<{ $copied: boolean }>`
+  ${({ $copied }) => `
     color: ${$copied ? "green" : "inherit"};
     padding: 0;
     border: 0;
@@ -113,13 +113,15 @@ export const CodeBlock = ({
     >
       <ButtonContainer>
         {showWrapButton && (
-          <CopyButton
+          <CodeButton
+            as={IconButton}
             $copied={false}
             icon="document"
             onClick={wrapElement}
           />
         )}
-        <CopyButton
+        <CodeButton
+          as={IconButton}
           $copied={copied}
           icon={copied ? "check" : "copy"}
           onClick={copyCodeToClipboard}
@@ -162,8 +164,8 @@ export const CodeBlock = ({
         }}
         showLineNumbers={showLineNumbers}
         customStyle={style}
-        wrapLines={wrap}
-        wrapLongLines={wrap}
+        wrapLines={wrap || wrapLines}
+        wrapLongLines={wrap || wrapLines}
       >
         {children}
       </Highlighter>
