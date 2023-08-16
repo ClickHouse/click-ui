@@ -2628,5 +2628,9 @@
         }
       }
     }
+  },
+  "name": {
+    "value": "dark",
+    "type": "other"
   }
 }
