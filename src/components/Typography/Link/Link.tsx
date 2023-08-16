@@ -1,4 +1,4 @@
-import { ReactEventHandler } from "react";
+import { ElementType, ReactEventHandler } from "react";
 import { Icon } from "@/components";
 import styled from "styled-components";
 
@@ -15,6 +15,7 @@ export type LinkProps = {
   hasIcon?: boolean;
   rel?: string;
   children?: React.ReactNode;
+  component?: "a" | ElementType;
 };
 
 const CuiLink = styled.a<{ size: TextSize; weight: TextWeight }>`
@@ -67,11 +68,13 @@ export const Link = ({
   rel,
   hasIcon = false,
   children,
+  component = "a",
 }: LinkProps) => (
   <CuiLink
     size={size}
     weight={weight}
     className={className}
+    as={component}
     href={href}
     onClick={onClick}
     rel={rel}
