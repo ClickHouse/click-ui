@@ -178,25 +178,37 @@
       },
       "split": {
         "primary": {
-          "stroke": {
-            "default": "lch(97.7 67 103)",
-            "active": "lch(82.9 59.9 103)",
-            "hover": "lch(84.4 37.4 103)"
-          },
           "background": {
             "main": {
               "default": "lch(89.3 64.5 103)",
               "hover": "lch(89.9 45.1 103)",
-              "active": "lch(82.5 59.7 103)"
+              "active": "lch(82.5 59.7 103)",
+              "disabled": "lch(25.2 0 0)"
             },
             "action": {
-              "default": "lch(89.3 64.5 103)",
+              "default": "lch(87.8 63.4 103)",
               "hover": "lch(82.7 41.5 103)",
-              "active": "lch(72.6 52.5 103)"
+              "active": "lch(72.6 52.5 103)",
+              "disabled": "lch(22.2 0 0)"
             }
           },
           "text": {
-            "default": "#1F1F1C"
+            "default": "#1F1F1C",
+            "hover": "#1F1F1C",
+            "active": "#1F1F1C",
+            "disabled": "#808080"
+          },
+          "stroke": {
+            "default": "rgba(0,0,0,0)",
+            "hover": "rgba(0,0,0,0)",
+            "active": "rgba(0,0,0,0)",
+            "disabled": "rgba(0,0,0,0)"
+          },
+          "divide": {
+            "default": "lch(78.1 56.4 103)",
+            "hover": "lch(78.7 39.5 103)",
+            "active": "lch(72.2 52.2 103)",
+            "disabled": "lch(23.1 0 0)"
           }
         }
       },
@@ -783,7 +795,7 @@
           }
         }
       },
-      "file-tabs": {
+      "fileTabs": {
         "color": {
           "background": {
             "default": "#282828",
