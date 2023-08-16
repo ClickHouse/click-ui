@@ -18,7 +18,7 @@ const ThemeProvider = ({
   theme: ThemeName;
   children: React.ReactNode;
 }) => (
-  <StyledThemeProvider theme={{ name, ...themes[name] }}>
+  <StyledThemeProvider theme={themes[name]}>
     <GlobalStyle />
     {children}
   </StyledThemeProvider>
