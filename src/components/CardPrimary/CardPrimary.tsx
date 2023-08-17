@@ -4,7 +4,7 @@ import { Button, Icon, Spacer } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 
-export interface CardProps {
+export interface CardPrimaryProps {
   title: string;
   icon: IconName;
   hasShadow?: boolean;
@@ -15,7 +15,9 @@ export interface CardProps {
   size?: "sm" | "md";
 }
 
-const Wrapper = styled.div<Pick<CardProps, "size" | "hasShadow" | "size" | "disabled">>`
+const Wrapper = styled.div<
+  Pick<CardPrimaryProps, "size" | "hasShadow" | "size" | "disabled">
+>`
   background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
   border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
@@ -69,7 +71,7 @@ const Wrapper = styled.div<Pick<CardProps, "size" | "hasShadow" | "size" | "disa
   }
 `;
 
-const Header = styled.div<Pick<CardProps, "size" | "disabled">>`
+const Header = styled.div<Pick<CardPrimaryProps, "size" | "disabled">>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,7 +90,7 @@ const Header = styled.div<Pick<CardProps, "size" | "disabled">>`
   }
 `;
 
-const Content = styled.div<Pick<CardProps, "size">>`
+const Content = styled.div<Pick<CardPrimaryProps, "size">>`
   width: 85%;
   display: flex;
   flex-direction: column;
@@ -105,7 +107,7 @@ export const CardPrimary = ({
   infoText,
   size,
   disabled = false,
-}: CardProps) => {
+}: CardPrimaryProps) => {
   const handleClick = () => {
     window.open(infoUrl, "_blank");
   };

@@ -13,7 +13,7 @@ export type BadgeState =
   | "warning"
   | "info";
 
-export interface CardProps {
+export interface CardSecondaryProps {
   title: string;
   icon: IconName;
   badgeState?: BadgeState;
@@ -31,7 +31,7 @@ const Header = styled.div`
   align-items: center;
 `;
 
-const HeaderLeft = styled.div<Pick<CardProps, "disabled">>`
+const HeaderLeft = styled.div<Pick<CardSecondaryProps, "disabled">>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
@@ -64,7 +64,7 @@ const ArrowContainer = styled(Icon)`
 const LinkText = styled(Text)``;
 const LinkArrow = styled(ArrowContainer)``;
 
-const Wrapper = styled.div<Pick<CardProps, "hasShadow" | "disabled">>`
+const Wrapper = styled.div<Pick<CardSecondaryProps, "hasShadow" | "disabled">>`
   background-color: ${({ theme }) => theme.click.card.secondary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
   border: ${({ theme }) =>
@@ -113,7 +113,7 @@ export const CardSecondary = ({
   description,
   infoUrl,
   infoText,
-}: CardProps) => {
+}: CardSecondaryProps) => {
   return (
     <Wrapper
       disabled={disabled}
