@@ -11,13 +11,12 @@ import {
 } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
 import { Command, useCommandState } from "cmdk";
-import { Icon } from "@/components";
-import { Error, FormRoot } from "./commonElement";
+import { Icon, Label } from "@/components";
+import { Error, FormRoot } from "../commonElement";
 import styled from "styled-components";
-import { Label } from "./Label";
 import { SelectContextProvider } from "./SelectContext";
 import Separator from "../Separator/Separator";
-import { useSelect } from "@/components/FormField/useSelect";
+import { useSelect } from "@/components/Select/useSelect";
 
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   placeholder?: string;

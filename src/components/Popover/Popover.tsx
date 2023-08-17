@@ -3,7 +3,7 @@ import { Arrow, GenericMenuPanel } from "../GenericMenu";
 import styled from "styled-components";
 import { ReactNode } from "react";
 import { Icon } from "@/components";
-import { EmptyButton } from "../FormField/commonElement";
+import { EmptyButton } from "../commonElement";
 import PopoverArrow from "../icons/PopoverArrow";
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
