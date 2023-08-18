@@ -3,6 +3,7 @@ import { Badge, Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
+import { ReactNode } from "react";
 
 export type BadgeState =
   | "default"
@@ -20,9 +21,9 @@ export interface CardProps {
   hasShadow?: boolean;
   disabled?: boolean;
   badgeText?: string;
-  description: string;
-  infoUrl: string;
-  infoText: string;
+  description: ReactNode;
+  infoUrl?: string;
+  infoText?: string;
 }
 
 const Header = styled.div`
@@ -138,11 +139,15 @@ export const CardSecondary = ({
       <Content>
         <Text color="muted">{description}</Text>
       </Content>
-
-      <InfoLink href={disabled ? undefined : infoUrl}>
-        <LinkText>{infoText}</LinkText>
-        <LinkArrow name="chevron-right" />
-      </InfoLink>
+      {(infoUrl || infoText) && (
+        <InfoLink
+          href={disabled ? undefined : infoUrl}
+          as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
+        >
+          <LinkText>{infoText}</LinkText>
+          <LinkArrow name="chevron-right" />
+        </InfoLink>
+      )}
     </Wrapper>
   );
 };

@@ -3,15 +3,16 @@ import { IconName } from "@/components/Icon/types";
 import { Button, Icon, Spacer } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
+import { ReactNode } from "react";
 
 export interface CardProps {
   title: string;
   icon: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
-  description: string;
-  infoUrl: string;
-  infoText: string;
+  description: ReactNode;
+  infoUrl?: string;
+  infoText?: string;
   size?: "sm" | "md";
 }
 
@@ -107,9 +108,12 @@ export const CardPrimary = ({
   disabled = false,
 }: CardProps) => {
   const handleClick = () => {
-    window.open(infoUrl, "_blank");
+    if (infoUrl) {
+      window.open(infoUrl, "_blank");
+    }
   };
 
+  const Component = !infoUrl || infoUrl.length === 0 ? "div" : Button;
   return (
     <Wrapper
       hasShadow={hasShadow}
@@ -130,12 +134,14 @@ export const CardPrimary = ({
 
       {size == "sm" && <Spacer size="sm" />}
 
-      <Button
-        onClick={handleClick}
-        disabled={disabled}
-      >
-        {infoText}
-      </Button>
+      {infoText && (
+        <Component
+          onClick={handleClick}
+          disabled={disabled}
+        >
+          {infoText}
+        </Component>
+      )}
     </Wrapper>
   );
 };
