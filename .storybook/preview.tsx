@@ -6,12 +6,12 @@ import { ThemeProvider } from "../src/theme";
 import styled from "styled-components";
 import { themes } from "@storybook/theming";
 
-const ThemeBlock = styled.div<{ left?: boolean; bfill?: boolean }>(
-  ({ left, bfill: fill, theme }) => `
+const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
+  ({ $left, $bfill: fill, theme }) => `
       position: absolute;
       top: 0.5rem;
-      left: ${left || fill ? 0 : "50vw"};
-      right: ${left ? "50vw" : 0};
+      left: ${$left || fill ? 0 : "50vw"};
+      right: ${$left ? "50vw" : 0};
       width: 96vw;
       height: 100vh;
       bottom: 0;
@@ -45,7 +45,7 @@ const withTheme: Decorator = (StoryFn, context) => {
   const theme = parameters?.theme || context.globals.theme;
   return (
     <ThemeProvider theme={theme}>
-      <ThemeBlock left>
+      <ThemeBlock $left>
         <StoryFn />
       </ThemeBlock>
     </ThemeProvider>
