@@ -29,7 +29,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      name: "clcik-ui",
+      name: "click-ui",
       formats: ["es", "umd"],
       fileName: format => `click-ui.${format}.js`,
     },

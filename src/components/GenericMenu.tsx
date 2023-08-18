@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const GenericMenuPanel = styled.div<{
-  type: "popover" | "dropdown-menu" | "context-menu";
+  $type: "popover" | "dropdown-menu" | "context-menu";
   $showArrow?: boolean;
 }>`
   outline: none;
-  max-width: var(--radix-${({ type }) => type}-content-available-width);
-  max-height: var(--radix-${({ type }) => type}-content-available-height);
+  max-width: var(--radix-${({ $type }) => $type}-content-available-width);
+  max-height: var(--radix-${({ $type }) => $type}-content-available-height);
   overflow: hidden;
   display: flex;
   align-items: flex-start;
