@@ -1,6 +1,7 @@
+export * from "./types";
+
 export { Icon } from "./Icon/Icon";
 export { IconButton } from "./IconButton/IconButton";
-
 export { Accordion } from "./Accordion/Accordion";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
 export { Avatar } from "./Avatar/Avatar";
