@@ -4,7 +4,10 @@ import { IconName } from "@/components/Icon/types";
 import { Icon } from "@/components";
 
 type Size = "small" | "medium" | "large";
-export interface AccordionProps extends SizeProp {
+
+export interface AccordionProps
+  extends SizeProp,
+    Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible"> {
   title: string;
   icon?: IconName;
   iconSize?: Size;
@@ -24,14 +27,26 @@ const Accordion = ({
   children,
   ...delegated
 }: AccordionProps) => (
-  <AccordionRoot type="single" collapsible {...delegated}>
+  <AccordionRoot
+    type="single"
+    collapsible
+    {...delegated}
+  >
     <AccordionItem value="item">
       <AccordionTrigger size={size}>
         <AccordionIconsWrapper>
           <AccordionIconWrapper>
-            <Icon name="chevron-right" size={iconSize || size} />
+            <Icon
+              name="chevron-right"
+              size={iconSize || size}
+            />
           </AccordionIconWrapper>
-          {icon ? <Icon name={icon} size={iconSize || size} /> : null}
+          {icon ? (
+            <Icon
+              name={icon}
+              size={iconSize || size}
+            />
+          ) : null}
         </AccordionIconsWrapper>
         <p>{title}</p>
       </AccordionTrigger>
@@ -50,19 +65,16 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<TriggerProps>`
   background-color: transparent;
   display: flex;
   align-items: center;
-  gap: ${props =>
-    props.theme.click.accordion[props.size || "medium"].space.gap};
+  gap: ${props => props.theme.click.accordion[props.size || "medium"].space.gap};
 
   color: ${props => props.theme.click.accordion.color.label.default};
   font: ${props =>
-    props.theme.click.accordion[props.size || "medium"].typography.label
-      .default};
+    props.theme.click.accordion[props.size || "medium"].typography.label.default};
 
   &:active {
     color: ${props => props.theme.click.accordion.color.label.active};
     font: ${props =>
-      props.theme.click.accordion[props.size || "medium"].typography.label
-        .active};
+      props.theme.click.accordion[props.size || "medium"].typography.label.active};
   }
 
   &:hover {
@@ -91,8 +103,7 @@ const AccordionContent = styled(RadixAccordion.Content)``;
 
 const SidebarAccordion = styled(Accordion)`
   ${AccordionTrigger} {
-    gap: ${props =>
-      props.theme.click.sidebar.navigation.item.default.space.gap};
+    gap: ${props => props.theme.click.sidebar.navigation.item.default.space.gap};
   }
   p {
     margin: 0;
