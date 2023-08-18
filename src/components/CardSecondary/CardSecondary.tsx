@@ -139,8 +139,11 @@ export const CardSecondary = ({
       <Content>
         <Text color="muted">{description}</Text>
       </Content>
-      {infoUrl && (
-        <InfoLink href={disabled ? undefined : infoUrl}>
+      {(infoUrl || infoText) && (
+        <InfoLink
+          href={disabled ? undefined : infoUrl}
+          as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
+        >
           <LinkText>{infoText}</LinkText>
           <LinkArrow name="chevron-right" />
         </InfoLink>
