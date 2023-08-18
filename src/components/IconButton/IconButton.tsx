@@ -1,19 +1,12 @@
 import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { IconName, IconSize } from "@/components/Icon/types";
 import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  size?: "small" | "medium" | "large";
+  size?: IconSize;
   disabled?: boolean;
   type?: "primary" | "secondary";
-  icon: IconName;
-}
-
-export interface StyledButtonProps {
-  size?: "small" | "medium" | "large";
-  disabled?: boolean;
-  $styleType?: "primary" | "secondary";
   icon: IconName;
 }
 
@@ -36,7 +29,11 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 IconButton.displayName = "IconButton";
 
-const Button = styled.button<Partial<StyledButtonProps>>`
+const Button = styled.button<
+  Partial<{
+    $styleType?: "primary" | "secondary";
+  }>
+>`
   border-radius: ${props => props.theme.click.button.iconButton.radii.all};
   border-color: ${props =>
     props.theme.click.button.iconButton.color.primary.stroke.default};

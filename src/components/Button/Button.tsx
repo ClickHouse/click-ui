@@ -16,14 +16,6 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   height?: string;
 }
 
-export interface StyledButtonProps {
-  $styleType: ButtonType;
-  disabled?: boolean;
-  align?: Alignment;
-  width?: string;
-  height?: string;
-}
-
 export const Button = ({
   type = "primary",
   iconLeft,
@@ -31,11 +23,15 @@ export const Button = ({
   label,
   align = "center",
   children,
+  width,
+  height,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
     $styleType={type}
-    align={align}
+    $align={align}
+    $width={width}
+    $height={height}
     {...delegated}
   >
     {iconLeft && (
@@ -65,11 +61,14 @@ const BaseButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledButton = styled(BaseButton)<
-  Pick<StyledButtonProps, "width" | "height" | "align" | "$styleType">
->`
-  width: ${props => props.width};
-  height: ${props => props.height};
+const StyledButton = styled(BaseButton)<{
+  $styleType: ButtonType;
+  $align?: Alignment;
+  $width?: string;
+  $height?: string;
+}>`
+  ${({ $width }) => ($width ? `width: ${$width};` : "")}
+  ${({ $height }) => ($height ? `height: ${$height};` : "")}
   font: ${props => props.theme.click.button.basic.typography.label.default};
   color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
@@ -81,7 +80,7 @@ const StyledButton = styled(BaseButton)<
 
   display: flex;
   align-items: center;
-  justify-content: ${props => (props.align === "left" ? "flex-start" : "center")};
+  justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
 
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>
