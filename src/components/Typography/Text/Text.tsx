@@ -15,19 +15,19 @@ export interface TextProps {
 /** Component for writing blocks of body copy */
 const _Text = ({ color, size, weight, className, children }: TextProps) => (
   <CuiText
-    color={color}
-    size={size}
-    weight={weight}
+    $color={color}
+    $size={size}
+    $weight={weight}
     className={className}
   >
     {children}
   </CuiText>
 );
 
-const CuiText = styled.p<Pick<TextProps, "color" | "size" | "weight">>`
-  font: ${({ size = "md", weight = "normal", theme }) =>
-    theme.typography.styles.product.text[weight][size]};
-  color: ${({ color = "default", theme }) => theme.click.global.color.text[color]};
+const CuiText = styled.p<{ $color?: TextColor; $size?: TextSize; $weight?: TextWeight }>`
+  font: ${({ $size = "md", $weight = "normal", theme }) =>
+    theme.typography.styles.product.text[$weight][$size]};
+  color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
   margin: 0;
 `;
 

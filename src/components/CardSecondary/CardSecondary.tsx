@@ -32,14 +32,14 @@ const Header = styled.div`
   align-items: center;
 `;
 
-const HeaderLeft = styled.div<Pick<CardSecondaryProps, "disabled">>`
+const HeaderLeft = styled.div<{ $disabled?: boolean }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
 
   h3 {
-    color: ${({ disabled, theme }) =>
-      disabled == true
+    color: ${({ $disabled, theme }) =>
+      $disabled == true
         ? theme.click.global.color.text.muted
         : theme.click.global.color.text.default};
   }
@@ -65,7 +65,10 @@ const ArrowContainer = styled(Icon)`
 const LinkText = styled(Text)``;
 const LinkArrow = styled(ArrowContainer)``;
 
-const Wrapper = styled.div<Pick<CardSecondaryProps, "hasShadow" | "disabled">>`
+const Wrapper = styled.div<{
+  $hasShadow?: boolean;
+  $disabled?: boolean;
+}>`
   background-color: ${({ theme }) => theme.click.card.secondary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
   border: ${({ theme }) =>
@@ -76,7 +79,7 @@ const Wrapper = styled.div<Pick<CardSecondaryProps, "hasShadow" | "disabled">>`
   flex-direction: column;
   padding: ${({ theme }) => theme.click.card.secondary.space.all};
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
-  box-shadow: ${({ hasShadow, theme }) => (hasShadow ? theme.shadow[1] : "none")};
+  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
 
   &:hover,
   :focus {
@@ -117,11 +120,11 @@ export const CardSecondary = ({
 }: CardSecondaryProps) => {
   return (
     <Wrapper
-      disabled={disabled}
-      hasShadow={hasShadow}
+      $disabled={disabled}
+      $hasShadow={hasShadow}
     >
       <Header>
-        <HeaderLeft disabled={disabled}>
+        <HeaderLeft $disabled={disabled}>
           <Icon
             name={icon}
             size="large"
