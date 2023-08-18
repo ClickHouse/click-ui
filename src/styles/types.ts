@@ -2007,6 +2007,7 @@
       "linear": string
     }
   },
+  "name": string,
   "palette": {
     "brand": {
       "50": string,

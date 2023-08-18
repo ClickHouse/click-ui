@@ -2006,6 +2006,7 @@
       "linear": "linear"
     }
   },
+  "name": "light",
   "palette": {
     "brand": {
       "50": "#ffffe8",
