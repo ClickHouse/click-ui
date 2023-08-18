@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { PasswordField as PasswordFieldInput, PasswordFieldProps } from "./PasswordField";
+import { PasswordField as PasswordFieldInput, PasswordInputProps } from "./PasswordField";
 
 const PasswordField = ({
   value: valueProp,
   ...props
-}: Omit<PasswordFieldProps, "onChange">) => {
+}: Omit<PasswordInputProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
