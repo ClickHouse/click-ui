@@ -91,7 +91,7 @@ const ContextMenuContent = ({
   return (
     <RightMenu.Portal>
       <RightMenuContent
-        type="context-menu"
+        $type="context-menu"
         $showArrow={showArrow}
         as={ContentElement}
         {...props}
