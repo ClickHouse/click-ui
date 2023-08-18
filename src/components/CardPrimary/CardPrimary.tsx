@@ -3,15 +3,16 @@ import { IconName } from "@/components/Icon/types";
 import { Button, Icon, Spacer } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
+import { ReactNode } from "react";
 
 export interface CardProps {
   title: string;
   icon: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
-  description: string;
-  infoUrl: string;
-  infoText: string;
+  description: ReactNode;
+  infoUrl?: string;
+  infoText?: string;
   size?: "sm" | "md";
 }
 
