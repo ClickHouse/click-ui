@@ -43,7 +43,7 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
   container?: HTMLElement | null;
 }
 
-const MenuPanel = styled(GenericMenuPanel)<{ showClose?: boolean }>`
+const MenuPanel = styled(GenericMenuPanel)<{ $showClose?: boolean }>`
   display: block;
   padding: ${({ theme }) => theme.click.popover.space.y}
     ${({ theme }) => theme.click.popover.space.x};
@@ -52,12 +52,7 @@ const MenuPanel = styled(GenericMenuPanel)<{ showClose?: boolean }>`
   border-radius: ${({ theme }) => theme.click.popover.radii.all};
   box-shadow: ${({ theme }) => theme.click.popover.shadow.default};
 
-  ${({ showClose }) =>
-    showClose
-      ? `
-    padding-top: 1rem;
-  `
-      : ""};
+  ${({ $showClose }) => ($showClose ? "padding-top: 1rem;" : "")};
 `;
 
 const CloseButton = styled(EmptyButton)`
@@ -83,8 +78,8 @@ const PopoverContent = ({
     >
       <MenuPanel
         as={RadixPopover.Content}
-        type="popover"
-        showClose={showClose}
+        $type="popover"
+        $showClose={showClose}
         $showArrow={showArrow}
         {...props}
       >

@@ -85,7 +85,7 @@ const DropdownContent = ({
   return (
     <DropdownMenu.Portal>
       <DropdownMenuContent
-        type="dropdown-menu"
+        $type="dropdown-menu"
         $showArrow={showArrow}
         as={ContentElement}
         {...props}
