@@ -33,7 +33,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         />
         {loading && (
           <Icon
-            name="loading"
+            name="loading-animated"
             size="small"
           />
         )}

@@ -56,6 +56,7 @@ import Integrations from "@/components/icons/Integrations";
 import LightBulb from "@/components/icons/LightBulb";
 import Lightening from "@/components/icons/Lightening";
 import Loading from "@/components/icons/Loading";
+import LoadingAnimated from "@/components/icons/LoadingAnimated";
 import Metrics from "@/components/icons/Metrics";
 import MetricsAlt from "@/components/icons/MetricsAlt";
 import Payment from "@/components/icons/Payment";
@@ -142,6 +143,7 @@ export const ICONS_MAP = {
   "light-bulb": LightBulb,
   lightening: Lightening,
   loading: Loading,
+  "loading-animated": LoadingAnimated,
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
   payment: Payment,

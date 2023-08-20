@@ -73,7 +73,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
         )}
         {loading && (
           <Icon
-            name="loading"
+            name="loading-animated"
             size="small"
           />
         )}

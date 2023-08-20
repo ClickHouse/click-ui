@@ -1,7 +1,21 @@
 import { SVGAttributes } from "react";
+import styled, { keyframes } from "styled-components";
 
-const Loading = (props: SVGAttributes<SVGElement>) => (
-  <svg
+const spin = keyframes`
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+`;
+
+const LoadingIcon = styled.svg`
+  animation: ${spin} 1s infinite linear;
+`;
+
+const LoadingAnimated = (props: SVGAttributes<SVGElement>) => (
+  <LoadingIcon
     xmlns="http://www.w3.org/2000/svg"
     width={24}
     height={24}
@@ -37,7 +51,7 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
       strokeWidth={1.5}
       d="M4.5 12a7.495 7.495 0 0 0 14.312 3.125"
     />
-  </svg>
+  </LoadingIcon>
 );
 
-export default Loading;
+export default LoadingAnimated;
