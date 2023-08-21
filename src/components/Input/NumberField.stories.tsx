@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { NumberField as NumberFieldInput, NumberInputProps } from "./NumberField";
+import { NumberField as NumberFieldInput, NumberFieldProps } from "./NumberField";
 
 const NumberField = ({
   value: valueProp,
   ...props
-}: Omit<NumberInputProps, "onChange">) => {
+}: Omit<NumberFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);

@@ -3,7 +3,7 @@ import { Icon } from "@/components";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
-export interface TextInputProps
+export interface TextFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
@@ -16,7 +16,7 @@ export interface TextInputProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const TextField = forwardRef<HTMLInputElement, TextInputProps>(
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
       clear,

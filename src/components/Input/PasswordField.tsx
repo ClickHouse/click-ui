@@ -1,7 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from "react";
 import { Icon } from "@/components";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
-export interface PasswordInputProps
+export interface PasswordFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
@@ -12,7 +12,7 @@ export interface PasswordInputProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const PasswordField = forwardRef<HTMLInputElement, PasswordInputProps>(
+export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
   ({ disabled, label, error, id, value = "", onChange: onChangeProp, ...props }, ref) => {
     const defaultId = useId();
     const [viewPassword, setViewPassword] = useState<boolean>(false);
