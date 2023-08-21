@@ -1,28 +1,21 @@
-import { SidebarNavigationItem } from "@/components";
+import { Icon, SidebarNavigationItem } from "@/components";
 
 export default {
   component: SidebarNavigationItem,
-  title: "Display/SidebarNavigationItem",
+  title: "Display/SidebarNavigation/SidebarNavigationItem",
   tags: ["sidebar", "navigation-item", "autodocs"],
 };
 
 export const Default = {
   args: {
-    icon: "user",
-    children: <a href="/profile">Profile</a>,
-  },
-};
-
-export const Collapsible = {
-  args: {
-    icon: "user",
-    collapsible: true,
-    label: "Profile",
     children: (
-      <>
-        <h2>Content</h2>
-        <p>SomeText</p>
-      </>
+      <a href="#">
+        <Icon
+          name="user"
+          size="small"
+        />{" "}
+        Profile
+      </a>
     ),
   },
 };

@@ -23,6 +23,7 @@ export { RadioGroup } from "./RadioGroup/RadioGroup";
 export { SearchField } from "./Input/SearchField";
 export { Select } from "./Select/Select";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
+export { CollapsibleNavigationItem } from "./SidebarNavigationItem/CollapsibleSidebarNavigationItem";
 export { Spacer } from "./Spacer/Spacer";
 export { Switch } from "./Switch/Switch";
 export { Tabs } from "./Tabs/Tabs";
