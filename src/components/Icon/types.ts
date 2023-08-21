@@ -57,6 +57,7 @@ export type IconName =
   | "light-bulb"
   | "lightening"
   | "loading"
+  | "loading-animated"
   | "metrics"
   | "metrics-alt"
   | "payment"
