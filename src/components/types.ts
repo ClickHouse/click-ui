@@ -1,19 +1,19 @@
 import { TooltipProps } from "@radix-ui/react-tooltip";
 import { TitleProps } from "./Typography/Title/Title";
 import { TextProps } from "./Typography/Text/Text";
-import { TabsProps } from "@/components/Tabs/Tabs";
+import { TabsProps } from "./Tabs/Tabs";
 import { SpacerProps } from "./Spacer/Spacer";
 import { SidebarNavigationItemProps } from "./SidebarNavigationItem/SidebarNavigationItem";
-import { SelectProps } from "./FormField/Select";
-import { SearchInputProps } from "./FormField/Input/SearchField";
+import { SelectProps } from "./Select/Select";
+import { SearchInputProps } from "./Input/SearchField";
 import { RadioGroupProps, RadioGroupItemProps } from "./RadioGroup/RadioGroup";
 import { PopoverProps } from "@radix-ui/react-popover";
-import { PasswordInputProps } from "./FormField/Input/PasswordField";
-import { NumberInputProps } from "./FormField/Input/NumberField";
-import { LabelProps } from "./FormField/Label";
+import { PasswordInputProps } from "./Input/PasswordField";
+import { NumberInputProps } from "./Input/NumberField";
+import { LabelProps } from "./Label/Label";
 import { HoverCardProps } from "@radix-ui/react-hover-card";
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
-import { CheckboxProps } from "@/components/Checkbox/Checkbox";
+import { CheckboxProps } from "./Checkbox/Checkbox";
 import { CardPrimaryProps } from "./CardPrimary/CardPrimary";
 import { CardSecondaryProps, BadgeState } from "./CardSecondary/CardSecondary";
 import { ButtonProps } from "./Button/Button";
@@ -22,7 +22,7 @@ import { BadgeProps } from "./Badge/Badge";
 import { AvatarProps } from "./Avatar/Avatar";
 import { AlertProps } from "./Alert/Alert";
 import { IconButtonProps } from "./IconButton/IconButton";
-import { IconName } from "@/components/Icon/types";
+import { IconName } from "./Icon/types";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 
