@@ -60,9 +60,10 @@ const CollapsipleHeader = (props: SidebarNavigationItemProps) => {
 CollapsipleHeader.displayName = "CollapsibleNavigationItemHeader";
 CollapsibleNavigationItem.Header = CollapsipleHeader;
 
-const CollapsipleTriggerButton = styled(IconButton)`
+const CollapsipleTriggerButton = styled.button`
   padding: 0;
 `;
+
 const CollapsipleTrigger = ({
   icon,
   onClick: onClickProp,
@@ -77,6 +78,7 @@ const CollapsipleTrigger = ({
   };
   return (
     <CollapsipleTriggerButton
+      as={IconButton}
       icon={icon ?? "chevron-right"}
       onClick={onClick}
       data-state={open.toString()}
