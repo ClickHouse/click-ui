@@ -1,6 +1,6 @@
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Dropdown } from "./Dropdown";
-import { GridCenter } from "../FormField/commonElement";
+import { GridCenter } from "../commonElement";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;

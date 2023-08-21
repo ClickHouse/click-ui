@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { PasswordField as PasswordFieldInput, PasswordInputProps } from "./PasswordField";
+import { SearchField as SearchFieldInput, SearchFieldProps } from "./SearchField";
 
-const PasswordField = ({
+const SearchField = ({
   value: valueProp,
   ...props
-}: Omit<PasswordInputProps, "onChange">) => {
+}: Omit<SearchFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
 
   return (
-    <PasswordFieldInput
+    <SearchFieldInput
       value={value}
       onChange={(inputValue: string) => {
         setValue(inputValue);
@@ -22,11 +22,12 @@ const PasswordField = ({
 };
 
 export default {
-  component: PasswordField,
-  title: "Forms/Input/PasswordField",
+  component: SearchField,
+  title: "Forms/Input/SearchField",
   tags: ["form-field", "input", "autodocs"],
   argTypes: {
     value: { control: "text" },
+    clear: { control: "boolean" },
     label: { control: "text" },
     error: { control: "text" },
     disabled: { control: "boolean" },

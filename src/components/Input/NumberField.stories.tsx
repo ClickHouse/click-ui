@@ -1,19 +1,19 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { TextField as TextFieldInput, TextInputProps } from "./TextField";
+import { useEffect, useState } from "react";
+import { NumberField as NumberFieldInput, NumberFieldProps } from "./NumberField";
 
-const TextField = ({ value: valueProp, ...props }: Omit<TextInputProps, "onChange">) => {
+const NumberField = ({
+  value: valueProp,
+  ...props
+}: Omit<NumberFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
 
   return (
-    <TextFieldInput
+    <NumberFieldInput
       value={value}
-      onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
-        if (e) {
-          e.preventDefault();
-        }
+      onChange={(inputValue: string) => {
         setValue(inputValue);
       }}
       {...props}
@@ -22,16 +22,11 @@ const TextField = ({ value: valueProp, ...props }: Omit<TextInputProps, "onChang
 };
 
 export default {
-  component: TextField,
-  title: "Forms/Input/TextField",
+  component: NumberField,
+  title: "Forms/Input/NumberField",
   tags: ["form-field", "input", "autodocs"],
   argTypes: {
-    type: {
-      control: "inline-radio",
-      options: ["text", "email", "tel", "url"],
-    },
     value: { control: "text" },
-    clear: { control: "boolean" },
     label: { control: "text" },
     error: { control: "text" },
     disabled: { control: "boolean" },
@@ -43,8 +38,6 @@ export default {
 export const Playground = {
   args: {
     label: "Label",
-    clear: false,
-    type: "text",
     disabled: false,
     placeholder: "Placeholder",
   },
