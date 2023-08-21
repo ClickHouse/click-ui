@@ -1,8 +1,8 @@
-import { Icon, SidebarNavigationItem } from "@/components";
+import { SidebarNavigationTitle } from "@/components";
 
 export default {
-  component: SidebarNavigationItem,
-  title: "Sidebar/NavigationItem",
+  component: SidebarNavigationTitle,
+  title: "Sidebar/NavigationTitle",
   tags: ["sidebar", "navigation-item", "autodocs"],
 };
 
@@ -17,12 +17,7 @@ export const Collapsible = {
   args: {
     icon: "user",
     collapsible: true,
-    label: (
-      <>
-        <Icon name="user" />
-        <span>Profile</span>
-      </>
-    ),
+    label: "Profile",
     children: (
       <>
         <h2>Content</h2>
