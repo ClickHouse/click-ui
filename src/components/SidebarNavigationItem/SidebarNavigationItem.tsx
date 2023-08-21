@@ -1,14 +1,20 @@
-import { ElementType } from "react";
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import styled from "styled-components";
 
-export interface SidebarNavigationItemProps extends React.HTMLAttributes<HTMLElement> {
-  component?: ElementType;
+export interface SidebarNavigationItemProps<T extends ElementType> {
+  component?: T;
+  children?: ReactNode;
 }
 
-const SidebarNavigationItem = ({
-  children,
-  component = "button",
-}: SidebarNavigationItemProps) => <Wrapper as={component}>{children}</Wrapper>;
+const SidebarNavigationItem = <T extends React.ElementType = "button">({
+  component,
+  ...props
+}: SidebarNavigationItemProps<T> & ComponentPropsWithoutRef<T>) => (
+  <Wrapper
+    as={component ?? "button"}
+    {...props}
+  />
+);
 
 const Wrapper = styled.div`
   display: flex;

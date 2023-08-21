@@ -23,7 +23,7 @@ export const NavContext = createContext<ContextProps>({
   onOpenChange: () => null,
 });
 
-export const CollapsibleNavigationItem = ({
+export const CollapsibleSidebarNavigationItem = ({
   open: openProp,
   onOpenChange: onOpenChangeProp,
   children,
@@ -53,20 +53,26 @@ const CollapsipleHeaderContainer = styled(SidebarNavigationItem)`
   padding-left: 0;
 `;
 
-const CollapsipleHeader = (props: SidebarNavigationItemProps) => {
+const CollapsipleHeader = (props: SidebarNavigationItemProps<"button">) => {
   return <CollapsipleHeaderContainer {...props} />;
 };
 
-CollapsipleHeader.displayName = "CollapsibleNavigationItemHeader";
-CollapsibleNavigationItem.Header = CollapsipleHeader;
+CollapsipleHeader.displayName = "CollapsibleSidebarNavigationItemHeader";
+CollapsibleSidebarNavigationItem.Header = CollapsipleHeader;
 
 const CollapsipleTriggerButton = styled.button`
   padding: 0;
 `;
 
+const CollapsipleTriggerContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const CollapsipleTrigger = ({
-  icon,
+  icon = "chevron-right",
   onClick: onClickProp,
+  children,
   ...props
 }: Partial<IconButtonProps>) => {
   const { open, onOpenChange } = useContext(NavContext);
@@ -77,19 +83,22 @@ const CollapsipleTrigger = ({
     onOpenChange();
   };
   return (
-    <CollapsipleTriggerButton
-      as={IconButton}
-      icon={icon ?? "chevron-right"}
-      onClick={onClick}
-      data-state={open.toString()}
-      size="small"
-      {...props}
-    />
+    <CollapsipleTriggerContainer>
+      <CollapsipleTriggerButton
+        as={IconButton}
+        icon={icon}
+        onClick={onClick}
+        data-state={open.toString()}
+        size="small"
+        {...props}
+      />
+      {children}
+    </CollapsipleTriggerContainer>
   );
 };
 
-CollapsipleTrigger.displayName = "CollapsibleNavigationItemTrigger";
-CollapsibleNavigationItem.Trigger = CollapsipleTrigger;
+CollapsipleTrigger.displayName = "CollapsibleSidebarNavigationItemTrigger";
+CollapsibleSidebarNavigationItem.Trigger = CollapsipleTrigger;
 
 const CollapsipleContent = (props: HTMLAttributes<HTMLDivElement>) => {
   const { open } = useContext(NavContext);
@@ -99,5 +108,5 @@ const CollapsipleContent = (props: HTMLAttributes<HTMLDivElement>) => {
   return <div {...props} />;
 };
 
-CollapsipleContent.displayName = "CollapsibleNavigationItemContent";
-CollapsibleNavigationItem.Content = CollapsipleContent;
+CollapsipleContent.displayName = "CollapsibleSidebarNavigationItemContent";
+CollapsibleSidebarNavigationItem.Content = CollapsipleContent;

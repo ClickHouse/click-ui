@@ -1,6 +1,6 @@
-import { Icon, CollapsibleNavigationItem as NavItem } from "@/components";
+import { Icon, CollapsibleSidebarNavigationItem as NavItem } from "@/components";
 
-const CollapsibleNavigationItem = ({ label }: { label: string }) => (
+const CollapsibleSidebarNavigationItem = ({ label }: { label: string }) => (
   <NavItem>
     <NavItem.Header>
       <NavItem.Trigger />
@@ -15,8 +15,8 @@ const CollapsibleNavigationItem = ({ label }: { label: string }) => (
 );
 
 export default {
-  component: CollapsibleNavigationItem,
-  title: "Display/SidebarNavigation/CollapsibleNavigationItem",
+  component: CollapsibleSidebarNavigationItem,
+  title: "Display/SidebarNavigation/CollapsibleSidebarNavigationItem",
   tags: ["sidebar", "navigation-item", "autodocs"],
 };
 
