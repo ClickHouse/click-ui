@@ -10,6 +10,7 @@ interface DefaultSidebarNavigationTitleProps<T extends ElementType> {
   open?: never;
   component?: T;
   onOpenChange?: never;
+  selected?: boolean;
 }
 
 interface CollapsibleSidebarNavigationTitleProps
@@ -20,6 +21,7 @@ interface CollapsibleSidebarNavigationTitleProps
   onOpenChange?: (value: boolean) => void;
   iconDir?: IconDir;
   icon?: IconName;
+  selected?: boolean;
 }
 
 export type SidebarNavigationTitleProps<T extends ElementType> = (
@@ -38,6 +40,7 @@ export const SidebarNavigationTitle = <T extends React.ElementType = "button">({
   icon,
   open,
   onOpenChange,
+  selected,
   ...props
 }: SidebarNavigationTitleProps<T> & ComponentPropsWithoutRef<T>) => {
   if (collapsible) {
@@ -48,6 +51,7 @@ export const SidebarNavigationTitle = <T extends React.ElementType = "button">({
         icon={icon}
         open={open}
         onOpenChange={onOpenChange}
+        selected={selected}
         {...props}
       />
     );
@@ -57,6 +61,7 @@ export const SidebarNavigationTitle = <T extends React.ElementType = "button">({
     <Wrapper
       as={component}
       $collapsible={false}
+      data-selected={selected}
       {...props}
     >
       {icon && (
@@ -84,7 +89,7 @@ const Wrapper = styled.div<{ $collapsible: boolean }>`
       color: ${theme.click.sidebar.navigation.title.color.hover};
     }
 
-    &:active, &[data-state="open"] {
+    &:active, &[data-state="open"], &[data-selected="true"] {
       font: ${theme.click.sidebar.navigation.title.typography.active};
       color: ${theme.click.sidebar.navigation.title.color.active};
     }
@@ -107,6 +112,7 @@ const CollapsibleNavigationItem = ({
   onOpenChange,
   iconDir,
   icon,
+  selected,
   ...props
 }: CollapsibleSidebarNavigationTitleProps) => {
   if (!label) {
@@ -121,6 +127,7 @@ const CollapsibleNavigationItem = ({
         as={Collapsible.Trigger}
         $collapsible
         iconDir={iconDir}
+        data-selected={selected}
         {...props}
       >
         {icon && (

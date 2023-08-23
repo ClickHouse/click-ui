@@ -9,6 +9,7 @@ export default {
 export const Default = {
   args: {
     icon: "user",
+    selected: false,
     children: <a href="/profile">Profile</a>,
   },
 };
@@ -16,6 +17,7 @@ export const Default = {
 export const Collapsible = {
   args: {
     icon: "user",
+    selected: false,
     collapsible: true,
     label: <span>Profile</span>,
     children: (

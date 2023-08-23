@@ -7,9 +7,9 @@ import { Icon } from "..";
 
 interface DefaultSidebarNavigationItemProps<T extends ElementType> {
   label?: never;
-  icon?: IconName;
   component?: T;
   children: ReactNode;
+  selected?: boolean;
 }
 
 interface CollapsibleSidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -20,6 +20,7 @@ interface CollapsibleSidebarNavigationItemProps extends HTMLAttributes<HTMLDivEl
   onOpenChange?: (value: boolean) => void;
   iconDir?: IconDir;
   icon?: IconName;
+  selected?: boolean;
 }
 
 export type SidebarNavigationItemProps<T extends ElementType> = (
@@ -41,6 +42,7 @@ const SidebarNavigationItem = <T extends React.ElementType = "button">({
   onOpenChange,
   iconDir,
   icon,
+  selected,
   ...props
 }: SidebarNavigationItemProps<T> & ComponentPropsWithoutRef<T>) => {
   if (collapsible) {
@@ -53,6 +55,7 @@ const SidebarNavigationItem = <T extends React.ElementType = "button">({
         onOpenChange={onOpenChange}
         iconDir={iconDir}
         icon={icon}
+        selected={selected}
         {...props}
       />
     );
@@ -63,6 +66,7 @@ const SidebarNavigationItem = <T extends React.ElementType = "button">({
       $collapsible={false}
       $level={level}
       as={component ?? "button"}
+      data-selected={selected}
       {...props}
     >
       {icon && (
@@ -149,6 +153,7 @@ const CollapsibleNavigationItem = ({
   iconDir = "left",
   icon,
   level,
+  selected,
   ...props
 }: CollapsibleSidebarNavigationItemProps & { level: number }) => {
   if (!label) {
@@ -164,6 +169,7 @@ const CollapsibleNavigationItem = ({
         iconDir={iconDir}
         $collapsible
         $level={level}
+        data-selected={selected}
         {...props}
       >
         {iconDir === "left" && <Collapsible.Trigger />}
