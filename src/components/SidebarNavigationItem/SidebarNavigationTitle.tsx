@@ -75,6 +75,7 @@ const Wrapper = styled.div<{ $collapsible: boolean }>`
   ${({ theme, $collapsible }) => `
     padding: 0;
     padding-left: ${$collapsible ? 0 : theme.click.image.small.size.width};
+    gap: ${theme.click.sidebar.navigation.item.default.space.gap};
     font: ${theme.click.sidebar.navigation.title.typography.default};
     color: ${theme.click.sidebar.navigation.title.color.default};
 
