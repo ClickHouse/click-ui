@@ -72,7 +72,7 @@ const SidebarNavigationItem = <T extends React.ElementType = "button">({
       {icon && (
         <Icon
           name={icon}
-          size="small"
+          size="sm"
         />
       )}
       {children}
@@ -93,7 +93,7 @@ const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
     } ${theme.click.sidebar.navigation[itemType].default.space.y} ${
       $collapsible
         ? theme.click.sidebar.navigation[itemType].default.space.left
-        : theme.click.image.small.size.width
+        : theme.click.image.sm.size.width
     };
     border-radius: ${theme.click.sidebar.navigation[itemType].radii.all};
     font: ${theme.click.sidebar.navigation[itemType].typography.default};
@@ -178,7 +178,7 @@ const CollapsibleNavigationItem = ({
             {icon && (
               <Icon
                 name={icon}
-                size="small"
+                size="sm"
               />
             )}
             {label}

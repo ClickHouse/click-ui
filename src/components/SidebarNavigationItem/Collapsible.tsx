@@ -60,7 +60,7 @@ export const Collapsible = ({
 
 const CollapsipleHeaderContainer = styled.div<{ $iconDir: IconDir }>`
   margin-left: ${({ theme, $iconDir }) =>
-    $iconDir === "left" ? 0 : theme.click.image.small.size.width};
+    $iconDir === "left" ? 0 : theme.click.image.sm.size.width};
 `;
 
 interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -136,7 +136,7 @@ const CollapsipleTrigger = ({
           data-trigger-icon
           name="chevron-right"
           data-open={open.toString()}
-          size="small"
+          size="sm"
         />
       )}
       {children && <FlexContainer>{children}</FlexContainer>}
@@ -145,7 +145,7 @@ const CollapsipleTrigger = ({
           data-trigger-icon
           name="chevron-right"
           data-open={open.toString()}
-          size="small"
+          size="sm"
         />
       )}
     </CollapsipleTriggerButton>

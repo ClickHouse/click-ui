@@ -67,7 +67,7 @@ export const SidebarNavigationTitle = <T extends React.ElementType = "button">({
       {icon && (
         <Icon
           name={icon}
-          size="small"
+          size="sm"
         />
       )}
       {children}
@@ -79,7 +79,7 @@ const Wrapper = styled.div<{ $collapsible: boolean }>`
   align-items: center;
   ${({ theme, $collapsible }) => `
     padding: 0;
-    padding-left: ${$collapsible ? 0 : theme.click.image.small.size.width};
+    padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
     gap: ${theme.click.sidebar.navigation.item.default.space.gap};
     font: ${theme.click.sidebar.navigation.title.typography.default};
     color: ${theme.click.sidebar.navigation.title.color.default};
@@ -133,7 +133,7 @@ const CollapsibleNavigationItem = ({
         {icon && (
           <Icon
             name={icon}
-            size="small"
+            size="sm"
           />
         )}
         {label}
