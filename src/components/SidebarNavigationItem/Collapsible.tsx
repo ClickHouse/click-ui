@@ -1,4 +1,11 @@
-import { createContext, useState, HTMLAttributes, MouseEvent, useContext } from "react";
+import {
+  createContext,
+  useState,
+  HTMLAttributes,
+  MouseEvent,
+  useContext,
+  useEffect,
+} from "react";
 import { styled } from "styled-components";
 import { Icon } from "@/components";
 import { EmptyButton } from "../commonElement";
@@ -35,6 +42,10 @@ export const Collapsible = ({
       return !open;
     });
   };
+
+  useEffect(() => {
+    setOpen(open => openProp ?? open);
+  }, [openProp]);
 
   const value = {
     open,
