@@ -2,7 +2,7 @@
       export interface Theme {
   "click": {
     "accordion": {
-      "small": {
+      "sm": {
         "icon": {
           "size": {
             "height": string,
@@ -20,7 +20,7 @@
           }
         }
       },
-      "medium": {
+      "md": {
         "icon": {
           "size": {
             "height": string,
@@ -38,7 +38,7 @@
           }
         }
       },
-      "large": {
+      "lg": {
         "icon": {
           "size": {
             "height": string,
@@ -412,7 +412,13 @@
         "radii": {
           "all": string
         },
-        "small": {
+        "sm": {
+          "space": {
+            "x": string,
+            "y": string
+          }
+        },
+        "xs": {
           "space": {
             "x": string,
             "y": string
@@ -1192,37 +1198,37 @@
       }
     },
     "image": {
-      "small": {
+      "sm": {
         "size": {
           "height": string,
           "width": string
         }
       },
-      "x-small": {
+      "xs": {
         "size": {
           "height": string,
           "width": string
         }
       },
-      "medium": {
+      "md": {
         "size": {
           "height": string,
           "width": string
         }
       },
-      "large": {
+      "lg": {
         "size": {
           "height": string,
           "width": string
         }
       },
-      "x-large": {
+      "xl": {
         "size": {
           "height": string,
           "width": string
         }
       },
-      "xx-large": {
+      "xxl": {
         "size": {
           "height": string,
           "width": string
@@ -1381,10 +1387,10 @@
           },
           "default": {
             "space": {
-              "left": string,
               "right": string,
               "y": string,
-              "gap": string
+              "gap": string,
+              "left": string
             }
           },
           "typography": {
@@ -1490,6 +1496,16 @@
               "default": string,
               "hover": string,
               "active": string
+            }
+          }
+        },
+        "dragControl": {
+          "separator": {
+            "size": {
+              "height": string
+            },
+            "color": {
+              "default": string
             }
           }
         }

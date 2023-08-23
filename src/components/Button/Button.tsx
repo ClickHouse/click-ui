@@ -37,14 +37,14 @@ export const Button = ({
     {iconLeft && (
       <ButtonIcon
         name={iconLeft}
-        size="small"
+        size="sm"
       />
     )}
     {label ? label : children}
     {iconRight && (
       <ButtonIcon
         name={iconRight}
-        size="small"
+        size="sm"
       />
     )}
   </StyledButton>

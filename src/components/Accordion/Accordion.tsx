@@ -1,39 +1,38 @@
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import styled from "styled-components";
-import { IconName } from "@/components/Icon/types";
+import { IconName, IconSize } from "@/components/Icon/types";
 import { Icon } from "@/components";
 
-type Size = "small" | "medium" | "large";
+type Size = "sm" | "md" | "lg";
 
 export interface AccordionProps
   extends SizeProp,
     Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible"> {
   title: string;
   icon?: IconName;
-  iconSize?: Size;
+  iconSize?: IconSize;
   children: React.ReactNode;
 }
 
-interface TriggerProps extends RadixAccordion.AccordionTriggerProps, SizeProp {}
 interface SizeProp {
   size?: Size;
 }
 
 const Accordion = ({
   title,
-  size = "medium",
+  size = "md",
   icon,
   iconSize,
   children,
   ...delegated
 }: AccordionProps) => (
-  <AccordionRoot
+  <RadixAccordion.Root
     type="single"
     collapsible
     {...delegated}
   >
-    <AccordionItem value="item">
-      <AccordionTrigger size={size}>
+    <RadixAccordion.Item value="item">
+      <AccordionTrigger $size={size}>
         <AccordionIconsWrapper>
           <AccordionIconWrapper>
             <Icon
@@ -51,36 +50,34 @@ const Accordion = ({
         <p>{title}</p>
       </AccordionTrigger>
       <AccordionContent>{children}</AccordionContent>
-    </AccordionItem>
-  </AccordionRoot>
+    </RadixAccordion.Item>
+  </RadixAccordion.Root>
 );
 
-const AccordionRoot = styled(RadixAccordion.Root)``;
-
-const AccordionItem = styled(RadixAccordion.Item)``;
-
-const AccordionTrigger = styled(RadixAccordion.Trigger)<TriggerProps>`
+const AccordionTrigger = styled(RadixAccordion.Trigger)<{
+  $size?: Size;
+}>`
   border: none;
   padding: 0;
   background-color: transparent;
   display: flex;
   align-items: center;
-  gap: ${props => props.theme.click.accordion[props.size || "medium"].space.gap};
+  ${({ theme, $size = "md" }) => `
+    gap: ${theme.click.accordion[$size].space.gap};
+    color: ${theme.click.accordion.color.label.default};
+    font: ${theme.click.accordion[$size].typography.label.default};
 
-  color: ${props => props.theme.click.accordion.color.label.default};
-  font: ${props =>
-    props.theme.click.accordion[props.size || "medium"].typography.label.default};
+    &:active {
+      color: ${theme.click.accordion.color.label.active};
+      font: ${theme.click.accordion[$size].typography.label.active};
+    }
 
-  &:active {
-    color: ${props => props.theme.click.accordion.color.label.active};
-    font: ${props =>
-      props.theme.click.accordion[props.size || "medium"].typography.label.active};
-  }
-
-  &:hover {
-    color: ${props => props.theme.click.accordion.color.label.hover};
-    cursor: pointer;
-  }
+    &:hover {
+      color: ${theme.click.accordion.color.label.hover};
+      font: ${theme.click.accordion[$size].typography.label.hover};
+      cursor: pointer;
+    }
+  `}
 `;
 
 const AccordionIconWrapper = styled.div`
@@ -103,7 +100,7 @@ const AccordionContent = styled(RadixAccordion.Content)``;
 
 const SidebarAccordion = styled(Accordion)`
   ${AccordionTrigger} {
-    gap: ${props => props.theme.click.sidebar.navigation.item.default.space.gap};
+    gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
   }
   p {
     margin: 0;

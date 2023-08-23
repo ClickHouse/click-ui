@@ -38,17 +38,35 @@ const App = () => {
       <div className={styles.flexWrap}>
         <IconButton
           icon="user"
-          size="small"
+          size="xs"
           onClick={() => console.log("click")}
         />
         <IconButton
           icon="user"
-          size="small"
+          size="xs"
           onClick={() => console.log("click")}
         />
         <IconButton
           icon="user"
-          size="small"
+          size="xs"
+          disabled
+          onClick={() => console.log("click")}
+        />
+      </div>
+      <div className={styles.flexWrap}>
+        <IconButton
+          icon="user"
+          size="sm"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          size="sm"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          size="sm"
           disabled
           onClick={() => console.log("click")}
         />

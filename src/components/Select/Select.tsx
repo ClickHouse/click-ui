@@ -252,7 +252,7 @@ const SelectRoot = ({
         {valueNode ?? placeholder}
         <Icon
           name="sort"
-          size="small"
+          size="sm"
         />
       </SelectTrigger>
       <RadixPopover.Portal>
@@ -279,7 +279,7 @@ const SelectRoot = ({
                 >
                   <Icon
                     name="cross"
-                    size="small"
+                    size="sm"
                   />
                 </SearchClose>
               )}
