@@ -52,6 +52,18 @@
             }
           }
         }
+      },
+      "navigation": {
+        "dragControl": {
+          "separator": {
+            "color": {
+              "default": {
+                "value": "{click.button.basic.color.primary.background.default}",
+                "type": "color"
+              }
+            }
+          }
+        }
       }
     },
     "button": {

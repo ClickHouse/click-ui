@@ -1842,6 +1842,16 @@
               }
             }
           }
+        },
+        "dragControl": {
+          "separator": {
+            "color": {
+              "default": {
+                "value": "{palette.brand.300}",
+                "type": "color"
+              }
+            }
+          }
         }
       },
       "sql-sidebar": {

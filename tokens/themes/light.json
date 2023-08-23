@@ -2235,6 +2235,16 @@
               }
             }
           }
+        },
+        "dragControl": {
+          "separator": {
+            "color": {
+              "default": {
+                "value": "{palette.slate.900}",
+                "type": "color"
+              }
+            }
+          }
         }
       },
       "sqlSidebar": {

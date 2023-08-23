@@ -1882,6 +1882,16 @@
               "type": "typography"
             }
           }
+        },
+        "dragControl": {
+          "separator": {
+            "size": {
+              "height": {
+                "value": "0.125rem",
+                "type": "sizing"
+              }
+            }
+          }
         }
       }
     },
