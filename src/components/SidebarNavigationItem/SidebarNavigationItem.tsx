@@ -42,8 +42,17 @@ const SidebarNavigationItem = ({
       <Wrapper>
         <IconsWrapper>
           {/* This icon is only used as a place holder */}
-          <Icon name="chevron-right" size="small" visibility="hidden" />
-          {icon && <Icon name={icon || "user"} size="small" />}
+          <Icon
+            name="chevron-right"
+            size="sm"
+            visibility="hidden"
+          />
+          {icon && (
+            <Icon
+              name={icon || "user"}
+              size="sm"
+            />
+          )}
         </IconsWrapper>
         {children}
       </Wrapper>
@@ -55,26 +64,21 @@ const Wrapper = styled.div`
   align-items: center;
   gap: ${props => props.theme.click.sidebar.navigation.item.default.space.gap};
 
-  padding: ${props =>
-    `${props.theme.click.sidebar.navigation.item.default.space.y} 0`};
+  padding: ${props => `${props.theme.click.sidebar.navigation.item.default.space.y} 0`};
 
-  border-radius: ${props =>
-    props.theme.click.sidebar.navigation.item.radii.all};
-  font: ${props =>
-    props.theme.click.sidebar.navigation.item.typography.default};
+  border-radius: ${props => props.theme.click.sidebar.navigation.item.radii.all};
+  font: ${props => props.theme.click.sidebar.navigation.item.typography.default};
   background-color: ${props =>
     props.theme.click.sidebar.navigation.item.color.background.default};
 
   &:hover {
-    font: ${props =>
-      props.theme.click.sidebar.navigation.item.typography.hover};
+    font: ${props => props.theme.click.sidebar.navigation.item.typography.hover};
     background-color: ${props =>
       props.theme.click.sidebar.navigation.item.color.background.hover};
   }
 
   &:active {
-    font: ${props =>
-      props.theme.click.sidebar.navigation.item.typography.active};
+    font: ${props => props.theme.click.sidebar.navigation.item.typography.active};
     background-color: ${props =>
       props.theme.click.sidebar.navigation.item.color.background.active};
   }
@@ -99,7 +103,11 @@ const CollapsibleNavigationItem = ({
 }: CollapsibleSidebarNavigationItemProps) => (
   <CollapsibleWrapper>
     {label && collapsible && (
-      <SidebarAccordion title={label} icon={icon} iconSize="small">
+      <SidebarAccordion
+        title={label}
+        icon={icon}
+        iconSize="sm"
+      >
         {children}
       </SidebarAccordion>
     )}

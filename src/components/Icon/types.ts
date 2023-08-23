@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-export type IconSize = "small" | "medium" | "large";
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type IconName =
   | "activity"
   | "arrow-down"

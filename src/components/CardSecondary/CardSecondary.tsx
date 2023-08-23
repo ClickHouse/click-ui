@@ -58,8 +58,8 @@ const InfoLink = styled.a`
 `;
 const ArrowContainer = styled(Icon)`
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
-  height: ${({ theme }) => theme.click.image.medium.size.height};
-  width: ${({ theme }) => theme.click.image.medium.size.width};
+  height: ${({ theme }) => theme.click.image.md.size.height};
+  width: ${({ theme }) => theme.click.image.md.size.width};
 `;
 
 const LinkText = styled(Text)``;
@@ -127,7 +127,7 @@ export const CardSecondary = ({
         <HeaderLeft $disabled={disabled}>
           <Icon
             name={icon}
-            size="large"
+            size="lg"
           />
           <Title type="h3">{title}</Title>
         </HeaderLeft>

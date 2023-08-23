@@ -18,7 +18,7 @@ export const Checkbox = ({ id, label = "", ...delegated }: CheckboxProps) => {
         <CheckIconWrapper>
           <Icon
             name="check"
-            size="small"
+            size="sm"
           />
         </CheckIconWrapper>
       </CheckInput>
@@ -46,7 +46,7 @@ const CheckInput = styled(RadixCheckbox.Root)`
     background: ${theme.click.checkbox.color.background.default};
     border: 1px solid ${theme.click.checkbox.color.stroke.default};
     cursor: pointer;
-    
+
     & ~ label {
       color: ${theme.click.checkbox.color.label.default};
       font: ${theme.click.field.typography.fieldText.default}

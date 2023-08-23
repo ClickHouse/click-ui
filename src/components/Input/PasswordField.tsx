@@ -47,7 +47,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
         >
           <Icon
             name={viewPassword ? "eye-closed" : "eye"}
-            size="medium"
+            size="md"
           />
         </IconButton>
       </InputWrapper>
