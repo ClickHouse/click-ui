@@ -109,7 +109,7 @@ const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
       color: ${theme.click.sidebar.navigation[itemType].color.text.hover};
     }
 
-    &:active {
+    &:active, &[data-selected="true"]  {
       font: ${theme.click.sidebar.navigation[itemType].typography.active};
       background-color: ${
         theme.click.sidebar.navigation[itemType].color.background.active
@@ -120,14 +120,14 @@ const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
       padding: ${`${theme.click.sidebar.navigation[itemType].mobile.space.y} 0`};
       font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
-    }
 
-    &:hover, &:focus {
-      font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
-    }
+      &:hover, &:focus {
+        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
+      }
 
-    &:active {
-      font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
+      &:active {
+        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
+      }
     }
   `;
   }}
