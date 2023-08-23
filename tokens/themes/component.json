@@ -1,7 +1,7 @@
 {
   "click": {
     "accordion": {
-      "small": {
+      "sm": {
         "icon": {
           "size": {
             "height": {
@@ -13,7 +13,9 @@
               "type": "sizing"
             }
           }
-        },
+        }
+      },
+      "small": {
         "space": {
           "gap": {
             "value": "{spaces.1}",
@@ -37,7 +39,7 @@
           }
         }
       },
-      "medium": {
+      "md": {
         "icon": {
           "size": {
             "height": {
@@ -49,7 +51,9 @@
               "type": "sizing"
             }
           }
-        },
+        }
+      },
+      "medium": {
         "space": {
           "gap": {
             "value": "{spaces.1}",
@@ -73,7 +77,7 @@
           }
         }
       },
-      "large": {
+      "lg": {
         "icon": {
           "size": {
             "height": {
@@ -85,7 +89,9 @@
               "type": "sizing"
             }
           }
-        },
+        }
+      },
+      "large": {
         "space": {
           "gap": {
             "value": "{spaces.1}",
