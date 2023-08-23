@@ -20,7 +20,6 @@ import {
   IconButton,
   InfoAlert,
   SidebarNavigationItem,
-  CollapsibleSidebarNavigationItem,
   Spacer,
   SuccessAlert,
   Switch,
