@@ -2,19 +2,16 @@ import { Theme } from "@/styles/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import styled, { DefaultTheme } from "styled-components";
 
-interface SwitchProps extends RadixSwitch.SwitchProps {
-  checked: boolean;
-  disabled?: boolean;
-}
-
 interface RootProps {
   checked: boolean;
   disabled?: boolean;
 }
 
+type SwitchProps = RootProps & RadixSwitch.SwitchProps;
+
 interface ThumbProps {
-  checked: boolean;
-  disabled?: boolean;
+  $checked: boolean;
+  $disabled?: boolean;
 }
 
 export const Switch = ({ checked, disabled, ...props }: SwitchProps) => (
@@ -23,7 +20,7 @@ export const Switch = ({ checked, disabled, ...props }: SwitchProps) => (
     checked={checked}
     {...props}
   >
-    <SwitchThumb checked={checked} />
+    <SwitchThumb $checked={checked} />
   </SwitchRoot>
 );
 
@@ -91,7 +88,7 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
 });
 
 const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>(props => {
-  const vars = getThumbVars(props.theme, props.disabled, props.checked);
+  const vars = getThumbVars(props.theme, props.$disabled, props.$checked);
 
   return {
     display: "block",
@@ -100,7 +97,7 @@ const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>(props => {
     backgroundColor: vars.backgroundColor,
     borderRadius: props.theme.click.switch.radii.all,
     transition: "transform 100ms",
-    transform: props.checked ? "translateX(15px)" : "translateX(2px)",
+    transform: props.$checked ? "translateX(15px)" : "translateX(2px)",
     willChange: "transform",
   };
 });

@@ -4,30 +4,24 @@ import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  size?: "small" | "medium" | "large";
+  size?: "sm" | "xs";
   disabled?: boolean;
   type?: "primary" | "secondary";
   icon: IconName;
 }
 
-export interface StyledButtonProps {
-  size?: "small" | "medium" | "large";
-  disabled?: boolean;
-  $styleType?: "primary" | "secondary";
-  icon: IconName;
-}
-
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ type = "primary", icon, size = "medium", ...props }, ref) => {
+  ({ type = "primary", icon, size, ...props }, ref) => {
     return (
       <Button
         {...props}
         $styleType={type}
+        $size={size}
         ref={ref}
       >
         <Icon
           name={icon}
-          size={size}
+          size="md"
         />
       </Button>
     );
@@ -36,48 +30,38 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 IconButton.displayName = "IconButton";
 
-const Button = styled.button<Partial<StyledButtonProps>>`
-  border-radius: ${props => props.theme.click.button.iconButton.radii.all};
-  border-color: ${props =>
-    props.theme.click.button.iconButton.color.primary.stroke.default};
-  padding: ${props =>
-    `${props.theme.click.button.iconButton.default.space.y} ${props.theme.click.button.iconButton.default.space.x}`};
+const Button = styled.button<{
+  $styleType?: "primary" | "secondary";
+  $size?: "sm" | "xs";
+}>`
+  ${({ theme, $size, $styleType = "primary" }) => `
+  border-radius: ${theme.click.button.iconButton.radii.all};
+  border-color: ${theme.click.button.iconButton.color.primary.stroke.default};
+  padding: ${
+    $size
+      ? `${theme.click.button.iconButton[$size].space.y} ${theme.click.button.iconButton[$size].space.x}`
+      : `${theme.click.button.iconButton.default.space.y} ${theme.click.button.iconButton.default.space.x}`
+  };
 
-  background-color: ${props =>
-    props.$styleType === "primary"
-      ? props.theme.click.button.iconButton.color.primary.background.default
-      : props.theme.click.button.iconButton.color.secondary.background.default};
+  background-color: ${theme.click.button.iconButton.color[$styleType].background.default};
 
-  color: ${props =>
-    props.$styleType === "primary"
-      ? props.theme.click.button.iconButton.color.primary.text.default
-      : props.theme.click.button.iconButton.color.secondary.text.default};
+  color: ${theme.click.button.iconButton.color[$styleType].text.default};
 
   &:hover {
-    background-color: ${props =>
-      props.$styleType === "primary"
-        ? props.theme.click.button.iconButton.color.primary.background.hover
-        : props.theme.click.button.iconButton.color.secondary.background.hover};
-    color: ${props =>
-      props.$styleType === "primary"
-        ? props.theme.click.button.iconButton.color.primary.text.hover
-        : props.theme.click.button.iconButton.color.secondary.text.hover};
+    background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
+    color: ${theme.click.button.iconButton.color[$styleType].text.hover};
   }
 
   &:active {
-    background-color: ${props =>
-      props.$styleType === "primary"
-        ? props.theme.click.button.iconButton.color.primary.background.active
-        : props.theme.click.button.iconButton.color.secondary.background.active};
-    color: ${props =>
-      props.$styleType === "primary"
-        ? props.theme.click.button.iconButton.color.primary.text.default
-        : props.theme.click.button.iconButton.color.secondary.text.default};
+    background-color: ${
+      theme.click.button.iconButton.color[$styleType].background.active
+    };
+    color: ${theme.click.button.iconButton.color[$styleType].text.active};
   }
 
   &[disabled] {
-    background-color: ${props =>
-      props.theme.click.button.iconButton.color.disabled.background.default};
-    color: ${props => props.theme.click.button.iconButton.color.disabled.text.default};
+    background-color: ${theme.click.button.iconButton.color.disabled.background.default};
+    color: ${theme.click.button.iconButton.color.disabled.text.default};
   }
+  `}
 `;

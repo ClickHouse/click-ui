@@ -216,6 +216,15 @@
       }
     },
     "sidebar": {
+      "navigation": {
+        "dragControl": {
+          "separator": {
+            "color": {
+              "default": "#FFC029"
+            }
+          }
+        }
+      },
       "main": {
         "color": {
           "background": {

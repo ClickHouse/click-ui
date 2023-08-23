@@ -66,14 +66,14 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           >
             <Icon
               name="cross"
-              size="small"
+              size="sm"
             />
           </IconButton>
         )}
         {loading && (
           <Icon
             name="loading-animated"
-            size="small"
+            size="sm"
           />
         )}
       </InputWrapper>
