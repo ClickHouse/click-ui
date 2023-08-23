@@ -545,7 +545,7 @@
             "type": "borderRadius"
           }
         },
-        "small": {
+        "sm": {
           "space": {
             "x": {
               "value": "{spaces.1}",
@@ -553,6 +553,18 @@
             },
             "y": {
               "value": "{spaces.1}",
+              "type": "spacing"
+            }
+          }
+        },
+        "xs": {
+          "space": {
+            "x": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{spaces.0}",
               "type": "spacing"
             }
           }
