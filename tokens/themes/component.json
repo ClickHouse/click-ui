@@ -41,11 +41,11 @@
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.medium.size.height}",
+              "value": "{click.image.md.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.medium.size.width}",
+              "value": "{click.image.md.size.width}",
               "type": "sizing"
             }
           }
@@ -77,11 +77,11 @@
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.large.size.height}",
+              "value": "{click.image.lg.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.large.size.width}",
+              "value": "{click.image.lg.size.width}",
               "type": "sizing"
             }
           }
@@ -142,11 +142,11 @@
         },
         "icon": {
           "height": {
-            "value": "{click.image.medium.size.height}",
+            "value": "{click.image.md.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.medium.size.width}",
+            "value": "{click.image.md.size.width}",
             "type": "sizing"
           }
         }
@@ -341,11 +341,11 @@
         "md": {
           "size": {
             "height": {
-              "value": "{click.image.x-small.size.height}",
+              "value": "{click.image.xs.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.x-small.size.width}",
+              "value": "{click.image.xs.size.width}",
               "type": "sizing"
             }
           }
@@ -1386,7 +1386,7 @@
           }
         }
       },
-      "x-small": {
+      "xs": {
         "size": {
           "height": {
             "value": "{sizes.4}",
@@ -1398,7 +1398,7 @@
           }
         }
       },
-      "medium": {
+      "md": {
         "size": {
           "height": {
             "value": "{sizes.6}",
@@ -1410,7 +1410,7 @@
           }
         }
       },
-      "large": {
+      "lg": {
         "size": {
           "height": {
             "value": "{sizes.7}",
@@ -1422,7 +1422,7 @@
           }
         }
       },
-      "x-large": {
+      "xl": {
         "size": {
           "height": {
             "value": "{sizes.9}",
@@ -1434,7 +1434,7 @@
           }
         }
       },
-      "xx-large": {
+      "xxl": {
         "size": {
           "height": {
             "value": "{sizes.11}",
@@ -1561,11 +1561,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.medium.size.height}",
+            "value": "{click.image.md.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.medium.size.width}",
+            "value": "{click.image.md.size.width}",
             "type": "sizing"
           }
         }
@@ -1684,10 +1684,6 @@
           },
           "default": {
             "space": {
-              "left": {
-                "value": "{spaces.0}",
-                "type": "spacing"
-              },
               "right": {
                 "value": "{spaces.3}",
                 "type": "spacing"
@@ -1698,6 +1694,10 @@
               },
               "gap": {
                 "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "left": {
+                "value": "{spaces.0}",
                 "type": "spacing"
               }
             }
@@ -1927,11 +1927,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.medium.size.height}",
+            "value": "{click.image.md.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.medium.size.width}",
+            "value": "{click.image.md.size.width}",
             "type": "sizing"
           }
         },
@@ -2333,11 +2333,11 @@
         "size": {
           "sm": {
             "height": {
-              "value": "{click.image.x-small.size.height}",
+              "value": "{click.image.xs.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.x-small.size.width}",
+              "value": "{click.image.xs.size.width}",
               "type": "sizing"
             }
           },

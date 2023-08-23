@@ -1434,7 +1434,6 @@
       "click.separator.vertical.space.x.xxl": "7ce6604ec58a6778018d6eff31fc5609ba138505",
       "click.separator.vertical.space.y.all": "ee1635c04ab5c9911c7efe7d58e698cf70985f32",
       "click.sidebar.navigation.item.radii.all": "d931e1b1b8ef3335f2f81e0debf42a9273fc09db",
-      "click.sidebar.navigation.item.default.space.left": "afa9b8e75fd410a37a0d8643d90a9542036e765a",
       "click.sidebar.navigation.item.default.space.right": "053e43ea5eb04b5f13bae4901a1d2ed2b22de17d",
       "click.sidebar.navigation.item.default.space.y": "5b4a1a4ae379bb130097dda435a6b2680b360c02",
       "click.sidebar.navigation.item.default.space.gap": "213972a17d3139287c03e08b798e7964c2fda99f",
@@ -1533,7 +1532,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.sidebar.navigation.item.default.space.left2.level1": "afa9b8e75fd410a37a0d8643d90a9542036e765a"
     },
     "group": "Default"
   },
@@ -2850,7 +2850,6 @@
       "click.separator.vertical.space.x.xxl": "7ce6604ec58a6778018d6eff31fc5609ba138505",
       "click.separator.vertical.space.y.all": "ee1635c04ab5c9911c7efe7d58e698cf70985f32",
       "click.sidebar.navigation.item.radii.all": "d931e1b1b8ef3335f2f81e0debf42a9273fc09db",
-      "click.sidebar.navigation.item.default.space.left": "afa9b8e75fd410a37a0d8643d90a9542036e765a",
       "click.sidebar.navigation.item.default.space.right": "053e43ea5eb04b5f13bae4901a1d2ed2b22de17d",
       "click.sidebar.navigation.item.default.space.y": "5b4a1a4ae379bb130097dda435a6b2680b360c02",
       "click.sidebar.navigation.item.default.space.gap": "213972a17d3139287c03e08b798e7964c2fda99f",
@@ -2949,7 +2948,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.sidebar.navigation.item.default.space.left2.level1": "afa9b8e75fd410a37a0d8643d90a9542036e765a"
     },
     "group": "Default"
   },
@@ -4192,7 +4192,6 @@
       "click.separator.vertical.space.x.xxl": "7ce6604ec58a6778018d6eff31fc5609ba138505",
       "click.separator.vertical.space.y.all": "ee1635c04ab5c9911c7efe7d58e698cf70985f32",
       "click.sidebar.navigation.item.radii.all": "d931e1b1b8ef3335f2f81e0debf42a9273fc09db",
-      "click.sidebar.navigation.item.default.space.left": "afa9b8e75fd410a37a0d8643d90a9542036e765a",
       "click.sidebar.navigation.item.default.space.right": "053e43ea5eb04b5f13bae4901a1d2ed2b22de17d",
       "click.sidebar.navigation.item.default.space.y": "5b4a1a4ae379bb130097dda435a6b2680b360c02",
       "click.sidebar.navigation.item.default.space.gap": "213972a17d3139287c03e08b798e7964c2fda99f",
@@ -4291,7 +4290,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.sidebar.navigation.item.default.space.left2.level1": "afa9b8e75fd410a37a0d8643d90a9542036e765a"
     }
   }
 ]
