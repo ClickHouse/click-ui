@@ -96,11 +96,13 @@ const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
     background-color: ${
       theme.click.sidebar.navigation[itemType].color.background.default
     };
+    color: ${theme.click.sidebar.navigation[itemType].color.text.default};
     &:hover, &:focus {
       font: ${theme.click.sidebar.navigation[itemType].typography.hover};
       background-color: ${
         theme.click.sidebar.navigation[itemType].color.background.hover
       };
+      color: ${theme.click.sidebar.navigation[itemType].color.text.hover};
     }
 
     &:active {
@@ -108,6 +110,7 @@ const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
       background-color: ${
         theme.click.sidebar.navigation[itemType].color.background.active
       };
+      color: ${theme.click.sidebar.navigation[itemType].color.text.active};
     }
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};

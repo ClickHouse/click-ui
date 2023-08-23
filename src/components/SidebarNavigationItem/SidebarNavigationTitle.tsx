@@ -1,14 +1,15 @@
-import { IconName } from "@/components/Icon/types";
-
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import styled from "styled-components";
+import { Icon } from "@/components";
+import { IconName } from "@/components/Icon/types";
 import { Collapsible, IconDir } from "./Collapsible";
-import { ReactNode } from "react";
 
-interface DefaultSidebarNavigationTitleProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
+interface DefaultSidebarNavigationTitleProps<T extends ElementType> {
   label?: undefined;
-  icon?: IconName;
   children: React.ReactNode;
+  open?: never;
+  component?: T;
+  onOpenChange?: never;
 }
 
 interface CollapsibleSidebarNavigationTitleProps
@@ -18,30 +19,55 @@ interface CollapsibleSidebarNavigationTitleProps
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
   iconDir?: IconDir;
+  icon?: IconName;
 }
 
-export type SidebarNavigationTitleProps = (
-  | DefaultSidebarNavigationTitleProps
+export type SidebarNavigationTitleProps<T extends ElementType> = (
+  | DefaultSidebarNavigationTitleProps<T>
   | CollapsibleSidebarNavigationTitleProps
 ) & {
   collapsible?: boolean;
+  icon?: IconName;
 };
 
-export const SidebarNavigationTitle = ({
+export const SidebarNavigationTitle = <T extends React.ElementType = "button">({
   collapsible,
+  component,
   children,
   label,
-}: SidebarNavigationTitleProps) => {
+  icon,
+  open,
+  onOpenChange,
+  ...props
+}: SidebarNavigationTitleProps<T> & ComponentPropsWithoutRef<T>) => {
   if (collapsible) {
     return (
       <CollapsibleNavigationItem
         label={label}
         children={children}
+        icon={icon}
+        open={open}
+        onOpenChange={onOpenChange}
+        {...props}
       />
     );
   }
 
-  return <Wrapper $collapsible={false}>{children}</Wrapper>;
+  return (
+    <Wrapper
+      as={component}
+      $collapsible={false}
+      {...props}
+    >
+      {icon && (
+        <Icon
+          name={icon}
+          size="small"
+        />
+      )}
+      {children}
+    </Wrapper>
+  );
 };
 const Wrapper = styled.div<{ $collapsible: boolean }>`
   display: inline-flex;
@@ -79,6 +105,7 @@ const CollapsibleNavigationItem = ({
   open,
   onOpenChange,
   iconDir,
+  icon,
   ...props
 }: CollapsibleSidebarNavigationTitleProps) => {
   if (!label) {
@@ -95,6 +122,12 @@ const CollapsibleNavigationItem = ({
         iconDir={iconDir}
         {...props}
       >
+        {icon && (
+          <Icon
+            name={icon}
+            size="small"
+          />
+        )}
         {label}
       </Wrapper>
       <Collapsible.Content>{children}</Collapsible.Content>

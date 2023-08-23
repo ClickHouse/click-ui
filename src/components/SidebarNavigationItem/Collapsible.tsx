@@ -91,6 +91,7 @@ export const FlexContainer = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
 `;
 
 interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
