@@ -1,4 +1,4 @@
-import { Icon, SidebarNavigationItem } from "@/components";
+import { SidebarNavigationItem } from "@/components";
 
 export default {
   component: SidebarNavigationItem,
