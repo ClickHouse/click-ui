@@ -5,11 +5,11 @@
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.small.size.height}",
+              "value": "{click.image.sm.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.small.size.width}",
+              "value": "{click.image.sm.size.width}",
               "type": "sizing"
             }
           }
@@ -168,11 +168,11 @@
         },
         "icon": {
           "height": {
-            "value": "{click.image.small.size.height}",
+            "value": "{click.image.sm.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.small.size.width}",
+            "value": "{click.image.sm.size.width}",
             "type": "sizing"
           }
         },
@@ -1374,7 +1374,7 @@
       }
     },
     "image": {
-      "small": {
+      "sm": {
         "size": {
           "height": {
             "value": "{sizes.5}",
@@ -1777,11 +1777,11 @@
           "icon": {
             "size": {
               "height": {
-                "value": "{click.image.small.size.height}",
+                "value": "{click.image.sm.size.height}",
                 "type": "sizing"
               },
               "width": {
-                "value": "{click.image.small.size.width}",
+                "value": "{click.image.sm.size.width}",
                 "type": "sizing"
               }
             }
@@ -2137,11 +2137,11 @@
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.small.size.height}",
+              "value": "{click.image.sm.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.small.size.width}",
+              "value": "{click.image.sm.size.width}",
               "type": "sizing"
             }
           }
@@ -2188,11 +2188,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.small.size.height}",
+            "value": "{click.image.sm.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.small.size.width}",
+            "value": "{click.image.sm.size.width}",
             "type": "sizing"
           }
         }
@@ -2343,11 +2343,11 @@
           },
           "md": {
             "height": {
-              "value": "{click.image.small.size.height}",
+              "value": "{click.image.sm.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.small.size.width}",
+              "value": "{click.image.sm.size.width}",
               "type": "sizing"
             }
           }
