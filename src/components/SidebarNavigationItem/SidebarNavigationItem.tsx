@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { IconName } from "@/components/Icon/types";
 
 import { Collapsible, FlexContainer, IconDir } from "./Collapsible";
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType, HTMLAttributes, ReactNode } from "react";
+import { Icon } from "..";
 
-interface DefaultSidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
+interface DefaultSidebarNavigationItemProps<T extends ElementType> {
   label?: never;
   icon?: IconName;
+  component?: T;
   children: ReactNode;
 }
 
@@ -14,31 +16,43 @@ interface CollapsibleSidebarNavigationItemProps extends HTMLAttributes<HTMLDivEl
   label: ReactNode;
   children: ReactNode;
   open?: boolean;
+  component?: never;
   onOpenChange?: (value: boolean) => void;
   iconDir?: IconDir;
+  icon?: IconName;
 }
 
-export type SidebarNavigationItemProps = (
-  | DefaultSidebarNavigationItemProps
+export type SidebarNavigationItemProps<T extends ElementType> = (
+  | DefaultSidebarNavigationItemProps<T>
   | CollapsibleSidebarNavigationItemProps
 ) & {
   collapsible?: boolean;
   level?: number;
+  icon?: IconName;
 };
 
-const SidebarNavigationItem = ({
+const SidebarNavigationItem = <T extends React.ElementType = "button">({
+  component,
   collapsible = false,
   children,
   label,
   level = 0,
+  open,
+  onOpenChange,
+  iconDir,
+  icon,
   ...props
-}: SidebarNavigationItemProps) => {
+}: SidebarNavigationItemProps<T> & ComponentPropsWithoutRef<T>) => {
   if (collapsible) {
     return (
       <CollapsibleNavigationItem
         label={label}
         children={children}
         level={level}
+        open={open}
+        onOpenChange={onOpenChange}
+        iconDir={iconDir}
+        icon={icon}
         {...props}
       />
     );
@@ -48,8 +62,15 @@ const SidebarNavigationItem = ({
     <Wrapper
       $collapsible={false}
       $level={level}
+      as={component ?? "button"}
       {...props}
     >
+      {icon && (
+        <Icon
+          name={icon}
+          size="small"
+        />
+      )}
       {children}
     </Wrapper>
   );
@@ -123,6 +144,7 @@ const CollapsibleNavigationItem = ({
   open,
   onOpenChange,
   iconDir = "left",
+  icon,
   level,
   ...props
 }: CollapsibleSidebarNavigationItemProps & { level: number }) => {
@@ -142,7 +164,17 @@ const CollapsibleNavigationItem = ({
         {...props}
       >
         {iconDir === "left" && <Collapsible.Trigger />}
-        {children && <FlexContainer>{label}</FlexContainer>}
+        {children && (
+          <FlexContainer>
+            {icon && (
+              <Icon
+                name={icon}
+                size="small"
+              />
+            )}
+            {label}
+          </FlexContainer>
+        )}
         {iconDir === "right" && <Collapsible.Trigger />}
       </Wrapper>
       <Collapsible.Content>{children}</Collapsible.Content>

@@ -183,37 +183,17 @@ const App = () => {
       </Button>
       <Icon name="users" />
       <Accordion title="Accordion">I'm some content </Accordion>
-      <SidebarNavigationItem
-        component="a"
-        href="/color"
-      >
-        <Icon name="user" />
-        <span> link to color</span>
+      <SidebarNavigationItem icon="user">
+        <a href="/color"> link to color</a>
       </SidebarNavigationItem>
-      <CollapsibleSidebarNavigationItem
+      <SidebarNavigationItem
+        icon="user"
+        collapsible
+        label="collapsible item"
         onOpenChange={(open: boolean) => console.log(open)}
       >
-        <CollapsibleSidebarNavigationItem.Header>
-          <CollapsibleSidebarNavigationItem.Trigger />
-          <Icon name="user" />
-          <span> link to color</span>
-        </CollapsibleSidebarNavigationItem.Header>
-        <CollapsibleSidebarNavigationItem.Content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquam id
-          metus quis sollicitudin. Nam velit ante, dapibus non pretium nec, rutrum id
-          velit. Nam in eros ut orci ornare ultrices quis vitae magna. Aliquam nec
-          lobortis nisl, non consectetur purus. Curabitur a purus non diam convallis
-          rhoncus eget nec tortor. Pellentesque habitant morbi tristique senectus et netus
-          et malesuada fames ac turpis egestas. Nulla quis tellus consequat, fermentum
-          nibh quis, rhoncus sem. Sed sit amet erat eget nibh laoreet bibendum et eu urna.
-          Cras et maximus sem, eget rhoncus quam. Nulla condimentum commodo fermentum.
-          Mauris non elit ut lorem rutrum elementum in eget velit. Praesent at semper
-          metus, eu posuere libero. Praesent faucibus justo turpis, ultricies finibus
-          sapien elementum sed. Class aptent taciti sociosqu ad litora torquent per
-          conubia nostra, per inceptos himenaeos. Fusce molestie viverra felis, sed
-          laoreet elit vulputate et. Morbi id purus quis mi pulvinar dictum.
-        </CollapsibleSidebarNavigationItem.Content>
-      </CollapsibleSidebarNavigationItem>
+        <a href="/color"> link to color</a>
+      </SidebarNavigationItem>
       <Checkbox label="accept terms and conditions of this page" />
       <Tabs
         defaultValue="tab1"
