@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "@/theme";
-import { CardPrimary, CardProps } from "./CardPrimary";
+import { CardPrimary, CardPrimaryProps } from "./CardPrimary";
 
 describe("CardPrimary Component", () => {
   describe("Primary card", () => {
-    const renderCard = (props: CardProps) =>
+    const renderCard = (props: CardPrimaryProps) =>
       render(
         <ThemeProvider theme="light">
           <CardPrimary {...props} />

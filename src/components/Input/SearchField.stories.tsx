@@ -1,19 +1,19 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { TextField as TextFieldInput, TextInputProps } from "./TextField";
+import { useEffect, useState } from "react";
+import { SearchField as SearchFieldInput, SearchFieldProps } from "./SearchField";
 
-const TextField = ({ value: valueProp, ...props }: Omit<TextInputProps, "onChange">) => {
+const SearchField = ({
+  value: valueProp,
+  ...props
+}: Omit<SearchFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
 
   return (
-    <TextFieldInput
+    <SearchFieldInput
       value={value}
-      onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
-        if (e) {
-          e.preventDefault();
-        }
+      onChange={(inputValue: string) => {
         setValue(inputValue);
       }}
       {...props}
@@ -22,14 +22,10 @@ const TextField = ({ value: valueProp, ...props }: Omit<TextInputProps, "onChang
 };
 
 export default {
-  component: TextField,
-  title: "Forms/Input/TextField",
+  component: SearchField,
+  title: "Forms/Input/SearchField",
   tags: ["form-field", "input", "autodocs"],
   argTypes: {
-    type: {
-      control: "inline-radio",
-      options: ["text", "email", "tel", "url"],
-    },
     value: { control: "text" },
     clear: { control: "boolean" },
     label: { control: "text" },
@@ -43,8 +39,6 @@ export default {
 export const Playground = {
   args: {
     label: "Label",
-    clear: false,
-    type: "text",
     disabled: false,
     placeholder: "Placeholder",
   },

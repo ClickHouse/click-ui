@@ -3,29 +3,27 @@ import { Icon } from "@/components";
 import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
-export interface TextInputProps
+export interface SearchFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "value" | "onChange"
+      "children" | "type" | "string" | "onChange"
     > {
-  type?: "text" | "email" | "tel" | "url";
   loading?: boolean;
   value?: string;
   clear?: boolean;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const TextField = forwardRef<HTMLInputElement, TextInputProps>(
+export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
   (
     {
-      clear,
-      type,
       disabled,
       label,
       error,
       id,
       loading,
+      clear = true,
       value = "",
       onChange: onChangeProp,
       ...props
@@ -48,16 +46,19 @@ export const TextField = forwardRef<HTMLInputElement, TextInputProps>(
         label={label}
         error={error}
       >
+        <Icon
+          name="search"
+          size="small"
+        />
         <InputElement
           ref={mergeRefs([inputRef, ref])}
-          type={type}
+          type="text"
           id={id ?? defaultId}
           disabled={disabled}
           value={value}
           onChange={onChange}
           {...props}
         />
-
         {clear && (
           <IconButton
             disabled={disabled}
@@ -72,7 +73,7 @@ export const TextField = forwardRef<HTMLInputElement, TextInputProps>(
         )}
         {loading && (
           <Icon
-            name="loading"
+            name="loading-animated"
             size="small"
           />
         )}

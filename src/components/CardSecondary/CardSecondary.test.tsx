@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "@/theme";
-import { CardSecondary, CardProps } from "./CardSecondary";
+import { CardSecondary, CardSecondaryProps } from "./CardSecondary";
 
 describe("CardSecondary Component", () => {
-  const renderCard = (props: CardProps) =>
+  const renderCard = (props: CardSecondaryProps) =>
     render(
       <ThemeProvider theme="light">
         <CardSecondary {...props} />

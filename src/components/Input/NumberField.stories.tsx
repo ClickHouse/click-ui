@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { SearchField as SearchFieldInput, SearchInputProps } from "./SearchField";
+import { NumberField as NumberFieldInput, NumberFieldProps } from "./NumberField";
 
-const SearchField = ({
+const NumberField = ({
   value: valueProp,
   ...props
-}: Omit<SearchInputProps, "onChange">) => {
+}: Omit<NumberFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
 
   return (
-    <SearchFieldInput
+    <NumberFieldInput
       value={value}
       onChange={(inputValue: string) => {
         setValue(inputValue);
@@ -22,12 +22,11 @@ const SearchField = ({
 };
 
 export default {
-  component: SearchField,
-  title: "Forms/Input/SearchField",
+  component: NumberField,
+  title: "Forms/Input/NumberField",
   tags: ["form-field", "input", "autodocs"],
   argTypes: {
     value: { control: "text" },
-    clear: { control: "boolean" },
     label: { control: "text" },
     error: { control: "text" },
     disabled: { control: "boolean" },

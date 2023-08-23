@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { NumberField as NumberFieldInput, NumberInputProps } from "./NumberField";
+import { ChangeEvent, useEffect, useState } from "react";
+import { TextField as TextFieldInput, TextFieldProps } from "./TextField";
 
-const NumberField = ({
-  value: valueProp,
-  ...props
-}: Omit<NumberInputProps, "onChange">) => {
+const TextField = ({ value: valueProp, ...props }: Omit<TextFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
 
   return (
-    <NumberFieldInput
+    <TextFieldInput
       value={value}
-      onChange={(inputValue: string) => {
+      onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
+        if (e) {
+          e.preventDefault();
+        }
         setValue(inputValue);
       }}
       {...props}
@@ -22,11 +22,16 @@ const NumberField = ({
 };
 
 export default {
-  component: NumberField,
-  title: "Forms/Input/NumberField",
+  component: TextField,
+  title: "Forms/Input/TextField",
   tags: ["form-field", "input", "autodocs"],
   argTypes: {
+    type: {
+      control: "inline-radio",
+      options: ["text", "email", "tel", "url"],
+    },
     value: { control: "text" },
+    clear: { control: "boolean" },
     label: { control: "text" },
     error: { control: "text" },
     disabled: { control: "boolean" },
@@ -38,6 +43,8 @@ export default {
 export const Playground = {
   args: {
     label: "Label",
+    clear: false,
+    type: "text",
     disabled: false,
     placeholder: "Placeholder",
   },

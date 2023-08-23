@@ -3,19 +3,24 @@ import { IconName } from "@/components/Icon/types";
 import { Button, Icon, Spacer } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
+import { ReactNode } from "react";
 
-export interface CardProps {
+export interface CardPrimaryProps {
   title: string;
   icon: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
-  description: string;
-  infoUrl: string;
-  infoText: string;
+  description: ReactNode;
+  infoUrl?: string;
+  infoText?: string;
   size?: "sm" | "md";
 }
 
-const Wrapper = styled.div<Pick<CardProps, "size" | "hasShadow" | "size" | "disabled">>`
+const Wrapper = styled.div<{
+  $size?: "sm" | "md";
+  $hasShadow?: boolean;
+  $disabled?: boolean;
+}>`
   background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
   border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
@@ -23,10 +28,10 @@ const Wrapper = styled.div<Pick<CardProps, "size" | "hasShadow" | "size" | "disa
   max-width: 100%;
   text-align: center;
   flex-direction: column;
-  padding: ${({ size = "md", theme }) =>
-    `${theme.click.card.primary.space[size].x} ${theme.click.card.primary.space[size].y}`};
-  gap: ${({ size = "md", theme }) => theme.click.card.primary.space[size].gap};
-  box-shadow: ${({ hasShadow, theme }) => (hasShadow ? theme.shadow[1] : "none")};
+  padding: ${({ $size = "md", theme }) =>
+    `${theme.click.card.primary.space[$size].x} ${theme.click.card.primary.space[$size].y}`};
+  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
+  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
 
   &:hover,
   &:focus {
@@ -69,31 +74,31 @@ const Wrapper = styled.div<Pick<CardProps, "size" | "hasShadow" | "size" | "disa
   }
 `;
 
-const Header = styled.div<Pick<CardProps, "size" | "disabled">>`
+const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ size = "md", theme }) => theme.click.card.primary.space[size].gap};
+  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
 
   h3 {
-    color: ${({ disabled, theme }) =>
-      disabled == true
+    color: ${({ $disabled, theme }) =>
+      $disabled == true
         ? theme.click.global.color.text.muted
         : theme.click.global.color.text.default};
   }
 
   svg {
-    height: ${({ size = "md", theme }) => theme.click.card.primary.size.icon[size].all};
-    width: ${({ size = "md", theme }) => theme.click.card.primary.size.icon[size].all};
+    height: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
+    width: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
   }
 `;
 
-const Content = styled.div<Pick<CardProps, "size">>`
+const Content = styled.div<{ $size?: "sm" | "md" }>`
   width: 85%;
   display: flex;
   flex-direction: column;
   align-self: center;
-  gap: ${({ size = "md", theme }) => theme.click.card.primary.space[size].gap};
+  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
 `;
 
 export const CardPrimary = ({
@@ -105,37 +110,42 @@ export const CardPrimary = ({
   infoText,
   size,
   disabled = false,
-}: CardProps) => {
+}: CardPrimaryProps) => {
   const handleClick = () => {
-    window.open(infoUrl, "_blank");
+    if (infoUrl) {
+      window.open(infoUrl, "_blank");
+    }
   };
 
+  const Component = !infoUrl || infoUrl.length === 0 ? "div" : Button;
   return (
     <Wrapper
-      hasShadow={hasShadow}
-      size={size}
-      disabled={disabled}
+      $hasShadow={hasShadow}
+      $size={size}
+      $disabled={disabled}
     >
       <Header
-        size={size}
-        disabled={disabled}
+        $size={size}
+        $disabled={disabled}
       >
         <Icon name={icon} />
         <Title type="h3">{title}</Title>
       </Header>
 
-      <Content size={size}>
+      <Content $size={size}>
         <Text color="muted">{description}</Text>
       </Content>
 
       {size == "sm" && <Spacer size="sm" />}
 
-      <Button
-        onClick={handleClick}
-        disabled={disabled}
-      >
-        {infoText}
-      </Button>
+      {infoText && (
+        <Component
+          onClick={handleClick}
+          disabled={disabled}
+        >
+          {infoText}
+        </Component>
+      )}
     </Wrapper>
   );
 };

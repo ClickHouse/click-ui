@@ -1,7 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
 import { Icon } from "@/components";
 import { InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
-export interface NumberInputProps
+export interface NumberFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange"> {
   type?: "number";
@@ -9,7 +9,7 @@ export interface NumberInputProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const NumberField = forwardRef<HTMLInputElement, NumberInputProps>(
+export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
   ({ disabled, label, error, id, loading, onChange: onChangeProp, ...props }, ref) => {
     const defaultId = useId();
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberInputProps>(
         />
         {loading && (
           <Icon
-            name="loading"
+            name="loading-animated"
             size="small"
           />
         )}
