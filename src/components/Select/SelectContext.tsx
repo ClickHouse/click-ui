@@ -6,8 +6,43 @@ import {
   useEffect,
   useState,
 } from "react";
+import { styled } from "styled-components";
 
-const SelectValue = (props: HTMLAttributes<HTMLDivElement>) => <div {...props} />;
+const SelectValueContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  &[aria-selected] {
+    outline: none;
+  }
+
+  ${({ theme }) => `
+    gap: ${theme.click.field.space.gap};
+    font: ${theme.click.field.typography.fieldText.default};
+    color: ${theme.click.field.color.text.default};
+    &[data-selected="true"] {
+      font: ${theme.click.field.typography.fieldText.hover};
+      color:${theme.click.field.color.text.hover};
+      cursor: pointer;
+    }
+    &[data-state="checked"] {
+      color:${theme.click.field.color.text.active};
+      font: ${theme.click.field.typography.fieldText.active};
+    }
+    &[data-disabled] {
+      color:${theme.click.field.color.text.disabled};
+      font: ${theme.click.field.typography.fieldText.disabled};
+      pointer-events: none;
+    }
+  `};
+`;
+const SelectValue = (props: HTMLAttributes<HTMLDivElement>) => (
+  <SelectValueContainer {...props} />
+);
 
 type ContextProps = {
   selectedValue?: string | null;
