@@ -13,9 +13,8 @@ describe("SidebarNavigationItem", () => {
           icon="user"
           onClick={onClick}
           data-testid="non-collapsible-side-nav-item"
-        >
-          Non-collapsible side-nav-item
-        </SidebarNavigationItem>
+          label="Non-collapsible side-nav-item"
+        />
       </ThemeProvider>
     );
     const collapsibleTrigger = queryByTestId("non-collapsible-side-nav-item");

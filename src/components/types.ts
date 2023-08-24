@@ -28,6 +28,7 @@ import { SidebarCollapsibleItemProps } from "./SidebarCollapsibleItem/SidebarCol
 import { SidebarCollapsibleTitleProps } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
+export type IconDir = "start" | "end";
 
 export type { IconName };
 export type { IconButtonProps };

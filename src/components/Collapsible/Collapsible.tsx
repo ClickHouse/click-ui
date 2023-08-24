@@ -7,10 +7,9 @@ import {
   useEffect,
 } from "react";
 import { styled } from "styled-components";
-import { Icon } from "@/components";
+import { Icon, IconDir, IconName } from "@/components";
 import { EmptyButton } from "../commonElement";
-
-export type IconDir = "left" | "right";
+import { IconWrapper } from "./IconWrapper";
 
 export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
@@ -58,28 +57,47 @@ export const Collapsible = ({
   );
 };
 
-const CollapsipleHeaderContainer = styled.div<{ $iconDir: IconDir }>`
-  margin-left: ${({ theme, $iconDir }) =>
-    $iconDir === "left" ? 0 : theme.click.image.sm.size.width};
+const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: IconDir }>`
+  margin-left: ${({ theme, $indicatorDir }) =>
+    $indicatorDir === "start" ? 0 : theme.click.image.sm.size.width};
 `;
 
 interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  icon?: IconName;
   iconDir?: IconDir;
+  indicatorDir?: IconDir;
 }
 
-const CollapsipleHeader = ({ iconDir = "left", ...props }: CollapsipleHeaderProps) => {
+const CollapsipleHeader = ({
+  indicatorDir = "start",
+  icon,
+  iconDir,
+  children,
+  ...props
+}: CollapsipleHeaderProps) => {
   return (
     <CollapsipleHeaderContainer
-      $iconDir={iconDir}
+      $indicatorDir={indicatorDir}
       {...props}
-    />
+    >
+      {indicatorDir === "start" && <Collapsible.Trigger />}
+      {children && (
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+        >
+          {children}
+        </IconWrapper>
+      )}
+      {indicatorDir === "end" && <Collapsible.Trigger />}
+    </CollapsipleHeaderContainer>
   );
 };
 
 CollapsipleHeader.displayName = "CollapsibleHeader";
 Collapsible.Header = CollapsipleHeader;
 
-const CollapsipleTriggerButton = styled(EmptyButton)<{ $iconDir: IconDir }>`
+const CollapsipleTriggerButton = styled(EmptyButton)<{ $indicatorDir: IconDir }>`
   display: flex;
   align-items: center;
   font: inherit;
@@ -98,21 +116,18 @@ const CollapsipleTriggerButton = styled(EmptyButton)<{ $iconDir: IconDir }>`
     }
   }
 `;
-export const LabelContainer = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
-`;
-
 interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
+  icon?: IconName;
   iconDir?: IconDir;
+  indicatorDir?: IconDir;
 }
 
 const CollapsipleTrigger = ({
   onClick: onClickProp,
   children,
-  iconDir = "left",
+  indicatorDir = "start",
+  icon,
+  iconDir = "start",
   ...props
 }: CollapsipleTriggerProps) => {
   const { open, onOpenChange } = useContext(NavContext);
@@ -128,10 +143,10 @@ const CollapsipleTrigger = ({
   return (
     <CollapsipleTriggerButton
       onClick={onClick}
-      $iconDir={iconDir}
+      $indicatorDir={indicatorDir}
       {...props}
     >
-      {iconDir === "left" && (
+      {indicatorDir === "start" && (
         <Icon
           data-trigger-icon
           name="chevron-right"
@@ -139,8 +154,15 @@ const CollapsipleTrigger = ({
           size="sm"
         />
       )}
-      {children && <LabelContainer>{children}</LabelContainer>}
-      {iconDir === "right" && (
+      {children && (
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+        >
+          {children}
+        </IconWrapper>
+      )}
+      {indicatorDir === "end" && (
         <Icon
           data-trigger-icon
           name="chevron-right"

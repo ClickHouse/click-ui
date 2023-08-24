@@ -10,6 +10,6 @@ export const Default = {
   args: {
     icon: "table",
     selected: false,
-    children: <a href="/profile">Tables</a>,
+    label: <a href="/profile">Tables</a>,
   },
 };

@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
-import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
-import { Collapsible, IconDir } from "../Collapsible/Collapsible";
+import { Icon, IconDir, IconName } from "@/components";
+import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarTitleWrapper } from "../SidebarNavigationTitle/SidebarNavigationTitle";
 
 export interface SidebarCollapsibleTitleProps

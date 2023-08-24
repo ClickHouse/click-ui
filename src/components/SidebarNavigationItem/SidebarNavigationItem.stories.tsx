@@ -10,6 +10,6 @@ export const Default = {
   args: {
     icon: "code-in-square",
     selected: false,
-    children: <a href="/profile">Untitled Query</a>,
+    label: <a href="/profile">Untitled Query</a>,
   },
 };

@@ -12,13 +12,12 @@ describe("SidebarNavigationTitle", () => {
         <SidebarNavigationTitle
           icon="user"
           onClick={onClick}
-          data-testid="non-collapsible-side-nav-item"
-        >
-          Non-collapsible side-nav-item
-        </SidebarNavigationTitle>
+          data-testid="non-collapsible-side-nav-title"
+          label="Non-collapsible side-nav-title"
+        />
       </ThemeProvider>
     );
-    const collapsibleTrigger = queryByTestId("non-collapsible-side-nav-item");
+    const collapsibleTrigger = queryByTestId("non-collapsible-side-nav-title");
     expect(collapsibleTrigger).not.toBeNull();
     expect(queryByTestId("collapsible-content")).toBeNull();
     collapsibleTrigger && fireEvent.click(collapsibleTrigger);

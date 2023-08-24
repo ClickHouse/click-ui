@@ -1,8 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { IconName } from "@/components/Icon/types";
-import { Icon } from "@/components";
+import { IconDir, IconName } from "@/components";
 
-import { Collapsible, LabelContainer, IconDir } from "../Collapsible/Collapsible";
+import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -12,6 +11,7 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   onOpenChange?: (value: boolean) => void;
   iconDir?: IconDir;
   icon?: IconName;
+  indicatorDir?: IconDir;
   selected?: boolean;
   level?: number;
 }
@@ -21,7 +21,8 @@ const SidebarCollapsibleItem = ({
   children,
   open,
   onOpenChange,
-  iconDir = "left",
+  iconDir = "start",
+  indicatorDir = "start",
   icon,
   level = 0,
   selected,
@@ -37,25 +38,15 @@ const SidebarCollapsibleItem = ({
     >
       <SidebarItemWrapper
         as={Collapsible.Header}
+        icon={icon}
         iconDir={iconDir}
+        indicatorDir={indicatorDir}
         $collapsible
         $level={level}
         data-selected={selected}
         {...props}
       >
-        {iconDir === "left" && <Collapsible.Trigger />}
-        {children && (
-          <LabelContainer>
-            {icon && (
-              <Icon
-                name={icon}
-                size="sm"
-              />
-            )}
-            {label}
-          </LabelContainer>
-        )}
-        {iconDir === "right" && <Collapsible.Trigger />}
+        {label}
       </SidebarItemWrapper>
       <Collapsible.Content>{children}</Collapsible.Content>
     </Collapsible>

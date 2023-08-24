@@ -1,20 +1,22 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import { IconName } from "@/components/Icon/types";
-import { Icon } from "@/components";
+import { IconDir, IconName } from "@/components";
+import { IconWrapper } from "../Collapsible/IconWrapper";
 
 export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
+  label: ReactNode;
   selected?: boolean;
   level?: number;
   icon?: IconName;
+  iconDir?: IconDir;
 }
 
 const SidebarNavigationItem = ({
-  children,
+  label,
   level = 0,
   icon,
   selected,
+  iconDir,
   ...props
 }: SidebarNavigationItemProps) => {
   return (
@@ -23,13 +25,12 @@ const SidebarNavigationItem = ({
       data-selected={selected}
       {...props}
     >
-      {icon && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-      {children}
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+      >
+        {label}
+      </IconWrapper>
     </SidebarItemWrapper>
   );
 };

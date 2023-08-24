@@ -16,15 +16,13 @@ export const Default = {
         <SidebarNavigationItem
           level={1}
           icon="code-in-square"
-        >
-          Untitled Query 1
-        </SidebarNavigationItem>
+          label="Untitled Query 1"
+        />
         <SidebarNavigationItem
-          level={1}
+          level={2}
           icon="code-in-square"
-        >
-          Untitled Query 2
-        </SidebarNavigationItem>
+          label="Untitled Query 2"
+        />
       </>
     ),
   },
