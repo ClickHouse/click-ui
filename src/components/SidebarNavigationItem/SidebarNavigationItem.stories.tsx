@@ -13,18 +13,3 @@ export const Default = {
     children: <a href="/profile">Profile</a>,
   },
 };
-
-export const Collapsible = {
-  args: {
-    icon: "user",
-    selected: false,
-    collapsible: true,
-    label: <span>Profile</span>,
-    children: (
-      <>
-        <h2>Content</h2>
-        <p>SomeText</p>
-      </>
-    ),
-  },
-};

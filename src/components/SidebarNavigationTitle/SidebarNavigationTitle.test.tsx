@@ -1,21 +1,21 @@
 import { ThemeProvider } from "styled-components";
 import { themes } from "../../theme";
 import { render, fireEvent } from "@testing-library/react";
-import { SidebarNavigationItem } from "./SidebarNavigationItem";
+import { SidebarNavigationTitle } from "./SidebarNavigationTitle";
 
-describe("SidebarNavigationItem", () => {
+describe("SidebarNavigationTitle", () => {
   it("should trigger click", () => {
     const onClick = jest.fn();
 
     const { queryByTestId } = render(
       <ThemeProvider theme={themes.dark}>
-        <SidebarNavigationItem
+        <SidebarNavigationTitle
           icon="user"
           onClick={onClick}
           data-testid="non-collapsible-side-nav-item"
         >
           Non-collapsible side-nav-item
-        </SidebarNavigationItem>
+        </SidebarNavigationTitle>
       </ThemeProvider>
     );
     const collapsibleTrigger = queryByTestId("non-collapsible-side-nav-item");

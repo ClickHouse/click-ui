@@ -1,71 +1,25 @@
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import { IconName } from "@/components/Icon/types";
+import { Icon } from "@/components";
 
-import { Collapsible, FlexContainer, IconDir } from "./Collapsible";
-import { ComponentPropsWithoutRef, ElementType, HTMLAttributes, ReactNode } from "react";
-import { Icon } from "..";
-
-interface DefaultSidebarNavigationItemProps<T extends ElementType> {
-  label?: never;
-  component?: T;
+export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   selected?: boolean;
-}
-
-interface CollapsibleSidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
-  label: ReactNode;
-  children: ReactNode;
-  open?: boolean;
-  component?: never;
-  onOpenChange?: (value: boolean) => void;
-  iconDir?: IconDir;
-  icon?: IconName;
-  selected?: boolean;
-}
-
-export type SidebarNavigationItemProps<T extends ElementType> = (
-  | DefaultSidebarNavigationItemProps<T>
-  | CollapsibleSidebarNavigationItemProps
-) & {
-  collapsible?: boolean;
   level?: number;
   icon?: IconName;
-};
+}
 
-const SidebarNavigationItem = <T extends React.ElementType = "button">({
-  component,
-  collapsible = false,
+const SidebarNavigationItem = ({
   children,
-  label,
   level = 0,
-  open,
-  onOpenChange,
-  iconDir,
   icon,
   selected,
   ...props
-}: SidebarNavigationItemProps<T> & ComponentPropsWithoutRef<T>) => {
-  if (collapsible) {
-    return (
-      <CollapsibleNavigationItem
-        label={label}
-        children={children}
-        level={level}
-        open={open}
-        onOpenChange={onOpenChange}
-        iconDir={iconDir}
-        icon={icon}
-        selected={selected}
-        {...props}
-      />
-    );
-  }
-
+}: SidebarNavigationItemProps) => {
   return (
-    <Wrapper
-      $collapsible={false}
+    <SidebarItemWrapper
       $level={level}
-      as={component ?? "button"}
       data-selected={selected}
       {...props}
     >
@@ -76,15 +30,18 @@ const SidebarNavigationItem = <T extends React.ElementType = "button">({
         />
       )}
       {children}
-    </Wrapper>
+    </SidebarItemWrapper>
   );
 };
 
-const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
+export const SidebarItemWrapper = styled.button<{
+  $collapsible?: boolean;
+  $level: number;
+}>`
   display: flex;
   align-items: center;
   border: none;
-  ${({ theme, $collapsible, $level }) => {
+  ${({ theme, $collapsible = false, $level }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `
     gap: ${theme.click.sidebar.navigation.item.default.space.gap};
@@ -144,51 +101,5 @@ const Wrapper = styled.div<{ $collapsible: boolean; $level: number }>`
     visibility: visible;
   }
 `;
-
-const CollapsibleNavigationItem = ({
-  label,
-  children,
-  open,
-  onOpenChange,
-  iconDir = "left",
-  icon,
-  level,
-  selected,
-  ...props
-}: CollapsibleSidebarNavigationItemProps & { level: number }) => {
-  if (!label) {
-    return;
-  }
-  return (
-    <Collapsible
-      open={open}
-      onOpenChange={onOpenChange}
-    >
-      <Wrapper
-        as={Collapsible.Header}
-        iconDir={iconDir}
-        $collapsible
-        $level={level}
-        data-selected={selected}
-        {...props}
-      >
-        {iconDir === "left" && <Collapsible.Trigger />}
-        {children && (
-          <FlexContainer>
-            {icon && (
-              <Icon
-                name={icon}
-                size="sm"
-              />
-            )}
-            {label}
-          </FlexContainer>
-        )}
-        {iconDir === "right" && <Collapsible.Trigger />}
-      </Wrapper>
-      <Collapsible.Content>{children}</Collapsible.Content>
-    </Collapsible>
-  );
-};
 
 export { SidebarNavigationItem };

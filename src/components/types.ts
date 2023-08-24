@@ -23,7 +23,9 @@ import { AvatarProps } from "./Avatar/Avatar";
 import { AlertProps } from "./Alert/Alert";
 import { IconButtonProps } from "./IconButton/IconButton";
 import { IconName } from "./Icon/types";
-import { SidebarNavigationTitleProps } from "./SidebarNavigationItem/SidebarNavigationTitle";
+import { SidebarNavigationTitleProps } from "./SidebarNavigationTitle/SidebarNavigationTitle";
+import { SidebarCollapsibleItemProps } from "./SidebarCollapsibleItem/SidebarCollapsibleItem";
+import { SidebarCollapsibleTitleProps } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 
@@ -48,6 +50,8 @@ export type { SearchFieldProps };
 export type { SelectProps };
 export type { SidebarNavigationItemProps };
 export type { SidebarNavigationTitleProps };
+export type { SidebarCollapsibleItemProps };
+export type { SidebarCollapsibleTitleProps };
 export type { SpacerProps };
 export type { TabsProps };
 export type { TextProps };

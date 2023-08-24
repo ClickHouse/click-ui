@@ -98,7 +98,7 @@ const CollapsipleTriggerButton = styled(EmptyButton)<{ $iconDir: IconDir }>`
     }
   }
 `;
-export const FlexContainer = styled.span`
+export const LabelContainer = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,7 +139,7 @@ const CollapsipleTrigger = ({
           size="sm"
         />
       )}
-      {children && <FlexContainer>{children}</FlexContainer>}
+      {children && <LabelContainer>{children}</LabelContainer>}
       {iconDir === "right" && (
         <Icon
           data-trigger-icon
