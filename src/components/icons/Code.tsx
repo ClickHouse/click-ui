@@ -10,11 +10,25 @@ const Code = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
+      d="M13.7797 4L10.2197 20"
       stroke="#161517"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="m17.445 12.778 2.333-2.333a4.401 4.401 0 0 0 0-6.223v0a4.401 4.401 0 0 0-6.223 0l-2.333 2.333M8.89 15.11l6.22-6.22M6.555 11.222l-2.333 2.333a4.401 4.401 0 0 0 0 6.223v0a4.401 4.401 0 0 0 6.223 0l2.333-2.333"
+    />
+    <path
+      d="M18 8L22 12L18 16"
+      stroke="#161517"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6 16L2 12L6 8"
+      stroke="#161517"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

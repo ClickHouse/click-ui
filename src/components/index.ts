@@ -3,6 +3,7 @@ export * from "./types";
 export { Icon } from "./Icon/Icon";
 export { IconButton } from "./IconButton/IconButton";
 export { Label } from "./Label/Label";
+export { Dropdown } from "./Dropdown/Dropdown";
 
 export { Accordion } from "./Accordion/Accordion";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
@@ -27,6 +28,7 @@ export { SidebarCollapsibleItem } from "./SidebarCollapsibleItem/SidebarCollapsi
 export { SidebarNavigationTitle } from "./SidebarNavigationTitle/SidebarNavigationTitle";
 export { SidebarCollapsibleTitle } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 export { Spacer } from "./Spacer/Spacer";
+export { SplitButton } from "./SplitButton/SplitButton";
 export { Switch } from "./Switch/Switch";
 export { Tabs } from "./Tabs/Tabs";
 export { Text } from "./Typography/Text/Text";

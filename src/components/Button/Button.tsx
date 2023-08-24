@@ -1,6 +1,7 @@
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
+import { BaseButton } from "../commonElement";
 
 type ButtonType = "primary" | "secondary" | "danger";
 type Alignment = "center" | "left";
@@ -50,17 +51,6 @@ export const Button = ({
   </StyledButton>
 );
 
-const BaseButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: ${props =>
-    `${props.theme.click.button.basic.space.y} ${props.theme.click.button.basic.space.x}`};
-  border-radius: ${props => props.theme.click.button.radii.all};
-  gap: ${props => props.theme.click.button.basic.space.gap};
-  cursor: pointer;
-`;
-
 const StyledButton = styled(BaseButton)<{
   $styleType: ButtonType;
   $align?: Alignment;
@@ -69,7 +59,6 @@ const StyledButton = styled(BaseButton)<{
 }>`
   ${({ $width }) => ($width ? `width: ${$width};` : "")}
   ${({ $height }) => ($height ? `height: ${$height};` : "")}
-  font: ${props => props.theme.click.button.basic.typography.label.default};
   color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
   background-color: ${({ $styleType = "primary", theme }) =>
@@ -110,7 +99,6 @@ const StyledButton = styled(BaseButton)<{
     border: 1px solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.disabled};
-    cursor: not-allowed;
   }
 `;
 
