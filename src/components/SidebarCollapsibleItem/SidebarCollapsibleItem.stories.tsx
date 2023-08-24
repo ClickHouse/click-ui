@@ -8,9 +8,9 @@ export default {
 
 export const Default = {
   args: {
-    icon: "user",
+    icon: "table",
     selected: false,
-    label: <span>Profile</span>,
+    label: <span>system-table</span>,
     children: (
       <>
         <h2>Content</h2>

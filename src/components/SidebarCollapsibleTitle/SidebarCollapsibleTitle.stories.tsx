@@ -1,4 +1,4 @@
-import { SidebarCollapsibleTitle } from "@/components";
+import { SidebarCollapsibleTitle, SidebarNavigationItem } from "@/components";
 
 export default {
   component: SidebarCollapsibleTitle,
@@ -8,13 +8,23 @@ export default {
 
 export const Default = {
   args: {
-    icon: "user",
-    label: "Profile",
+    icon: "code",
+    label: "Queries",
     selected: false,
     children: (
       <>
-        <h2>Content</h2>
-        <p>SomeText</p>
+        <SidebarNavigationItem
+          level={1}
+          icon="code-in-square"
+        >
+          Untitled Query 1
+        </SidebarNavigationItem>
+        <SidebarNavigationItem
+          level={1}
+          icon="code-in-square"
+        >
+          Untitled Query 2
+        </SidebarNavigationItem>
       </>
     ),
   },

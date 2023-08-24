@@ -8,8 +8,8 @@ export default {
 
 export const Default = {
   args: {
-    icon: "user",
+    icon: "code-in-square",
     selected: false,
-    children: <a href="/profile">Profile</a>,
+    children: <a href="/profile">Untitled Query</a>,
   },
 };

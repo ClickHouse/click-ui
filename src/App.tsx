@@ -19,6 +19,7 @@ import {
   Icon,
   IconButton,
   InfoAlert,
+  SidebarCollapsibleItem,
   SidebarNavigationItem,
   Spacer,
   SuccessAlert,
@@ -185,14 +186,13 @@ const App = () => {
       <SidebarNavigationItem icon="user">
         <a href="/color"> link to color</a>
       </SidebarNavigationItem>
-      <SidebarNavigationItem
+      <SidebarCollapsibleItem
         icon="user"
-        collapsible
         label="collapsible item"
         onOpenChange={(open: boolean) => console.log(open)}
       >
         <a href="/color"> link to color</a>
-      </SidebarNavigationItem>
+      </SidebarCollapsibleItem>
       <Checkbox label="accept terms and conditions of this page" />
       <Tabs
         defaultValue="tab1"
