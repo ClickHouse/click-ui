@@ -39,7 +39,7 @@ export interface SplitButtonProps
 
 export const SplitButton = ({
   type = "primary",
-  disabled = false,
+  disabled,
   menu,
   dir,
   open,
@@ -67,16 +67,24 @@ export const SplitButton = ({
           {...props}
         />
         <SecondaryButton
+          as={Dropdown.Trigger}
           disabled={disabled}
           $type={type}
+          asChild
           data-testid="split-button-dropdown"
         >
-          <Icon name="chevron-down" />
+          <span>
+            <Icon name="chevron-down" />
+          </span>
         </SecondaryButton>
       </SplitButtonTrigger>
       <Dropdown.Content side={side}>
-        {menu.map(item => (
-          <MenuContentItem {...item} />
+        {menu.map((item: Menu, index: number) => (
+          <MenuContentItem
+            key={`split-menu-option-${index}`}
+            parentKey={`split-menu-option-${index}`}
+            {...item}
+          />
         ))}
       </Dropdown.Content>
     </Dropdown>
@@ -89,14 +97,14 @@ const IconWrapper = ({ label, icon, iconDir }: Omit<MenuItem, "type" | "items">)
       {icon && iconDir === "left" && (
         <Icon
           name={icon}
-          size="lg"
+          size="sm"
         />
       )}
       {label}
       {icon && iconDir === "right" && (
         <Icon
           name={icon}
-          size="lg"
+          size="sm"
         />
       )}
     </>
@@ -109,8 +117,9 @@ const MenuContentItem = ({
   label,
   icon,
   iconDir = "left",
+  parentKey,
   ...props
-}: Menu) => {
+}: Menu & { parentKey: string }) => {
   if (type === "item") {
     return (
       <Dropdown.Item {...props}>
@@ -123,46 +132,58 @@ const MenuContentItem = ({
     );
   }
   if (type === "group") {
-    <Dropdown.Group>
-      {items.map(item => (
-        <MenuContentItem {...item} />
-      ))}
-    </Dropdown.Group>;
+    return (
+      <Dropdown.Group>
+        {items.map((item, index) => (
+          <MenuContentItem
+            key={`${parentKey}-group-${index}`}
+            parentKey={`${parentKey}-group-${index}`}
+            {...item}
+          />
+        ))}
+      </Dropdown.Group>
+    );
   }
   if (type === "sub-menu") {
-    <Dropdown.Sub>
-      <Dropdown.Trigger
-        sub
-        {...props}
-      >
-        <IconWrapper
-          icon={icon}
-          iconDir={iconDir}
-          label={label}
-        />
-        <div className="dropdown-arrow">
-          <Icon name="chevron-right" />
-        </div>
-      </Dropdown.Trigger>
-      <Dropdown.Content sub>
-        {items.map(item => (
-          <MenuContentItem {...item} />
-        ))}
-      </Dropdown.Content>
-    </Dropdown.Sub>;
+    return (
+      <Dropdown.Sub>
+        <Dropdown.Trigger
+          sub
+          {...props}
+        >
+          <IconWrapper
+            icon={icon}
+            iconDir={iconDir}
+            label={label}
+          />
+        </Dropdown.Trigger>
+        <Dropdown.Content sub>
+          {items.map((item, index) => (
+            <MenuContentItem
+              key={`${parentKey}-sub-menu-${index}`}
+              parentKey={`${parentKey}-sub-menu-${index}`}
+              {...item}
+            />
+          ))}
+        </Dropdown.Content>
+      </Dropdown.Sub>
+    );
   }
 };
 
-const SplitButtonTrigger = styled.div<{ $disabled: boolean; $type: ButtonType }>`
+const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }>`
   display: inline-flex;
   align-items: center;
   overflow: hidden;
-  ${({ theme, $disabled, $type }) => `
+  ${({ theme, $disabled = false, $type }) => `
     border-radius: ${theme.click.button.radii.all};
     border: 1px solid ${theme.click.button.split[$type].stroke.default};
     ${
       $disabled
-        ? `border-color: ${theme.click.button.split[$type].stroke.disabled};`
+        ? `
+          cursor: not-allowed;
+          border-color: ${theme.click.button.split[$type].stroke.disabled};
+        `
         : `
           &:hover {
             border-color: ${theme.click.button.split[$type].stroke.hover};
@@ -197,14 +218,12 @@ const PrimaryButton = styled(BaseButton)<{ $type: ButtonType }>`
   `}
 `;
 
-const SecondaryButton = styled(Dropdown.Trigger)<{ $type: ButtonType }>`
-  display: flex;
-  align-items: center;
+const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
   border: none;
   align-self: stretch;
+  border-radius: 0;
   ${({ theme, $type }) => `
     padding: ${theme.click.button.split.icon.space.y} ${theme.click.button.split.icon.space.x};
-    gap: ${theme.click.button.basic.space.gap};
     background: ${theme.click.button.split[$type].background.action.default};
     color: ${theme.click.button.split[$type].text.default};
     &:hover {
@@ -214,7 +233,6 @@ const SecondaryButton = styled(Dropdown.Trigger)<{ $type: ButtonType }>`
     &:focus {
       background: ${theme.click.button.split[$type].background.action.active};
       color: ${theme.click.button.split[$type].text.active};
-      outline: none;
     }
     &[data-disabled] {
       background: ${theme.click.button.split[$type].background.action.disabled};

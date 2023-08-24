@@ -72,7 +72,7 @@ export const GenericMenuItem = styled.div`
   display: flex;
   width: -webkit-fill-available;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   cursor: default;
   overflow: hidden;
   white-space: nowrap;

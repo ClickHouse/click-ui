@@ -26,7 +26,7 @@ const menuItems: Array<Menu> = [
   {
     type: "sub-menu",
     icon: "code",
-    label: "Hover Over Me",
+    label: "Hover over",
     items: [
       {
         type: "group",
@@ -61,11 +61,16 @@ describe("SplitButton", () => {
     }));
   });
   const mainButtonClick = jest.fn();
+  beforeEach(() => {
+    mainButtonClick.mockReset();
+  });
   const renderDropdown = ({ disabled, ...props }: Props) =>
     render(
       <ThemeProvider theme={themes.dark}>
         <SplitButton
           menu={menuItems}
+          disabled={disabled}
+          onClick={mainButtonClick}
           {...props}
         >
           <div>SplitButton Main Trigger</div>
@@ -89,7 +94,7 @@ describe("SplitButton", () => {
     const dropdownTrigger = queryByText("SplitButton Main Trigger");
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
-    expect(mainButtonClick).toBeCalledTimes(1);
+    expect(mainButtonClick).toBeCalledTimes(0);
   });
 
   it("should open dropdown on pointer on secondary btn", async () => {
