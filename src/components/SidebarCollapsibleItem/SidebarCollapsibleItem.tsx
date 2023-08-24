@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { IconDir, IconName } from "@/components";
+import { HorizontalDirection, IconName } from "@/components";
 
 import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
@@ -9,9 +9,9 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   children: ReactNode;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
-  iconDir?: IconDir;
+  iconDir?: HorizontalDirection;
   icon?: IconName;
-  indicatorDir?: IconDir;
+  indicatorDir?: HorizontalDirection;
   selected?: boolean;
   level?: number;
 }

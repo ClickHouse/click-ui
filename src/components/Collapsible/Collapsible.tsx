@@ -7,7 +7,7 @@ import {
   useEffect,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, IconDir, IconName } from "@/components";
+import { Icon, HorizontalDirection, IconName } from "@/components";
 import { EmptyButton } from "../commonElement";
 import { IconWrapper } from "./IconWrapper";
 
@@ -57,15 +57,15 @@ export const Collapsible = ({
   );
 };
 
-const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: IconDir }>`
+const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: HorizontalDirection }>`
   margin-left: ${({ theme, $indicatorDir }) =>
     $indicatorDir === "start" ? 0 : theme.click.image.sm.size.width};
 `;
 
 interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
   icon?: IconName;
-  iconDir?: IconDir;
-  indicatorDir?: IconDir;
+  iconDir?: HorizontalDirection;
+  indicatorDir?: HorizontalDirection;
 }
 
 const CollapsipleHeader = ({
@@ -97,7 +97,9 @@ const CollapsipleHeader = ({
 CollapsipleHeader.displayName = "CollapsibleHeader";
 Collapsible.Header = CollapsipleHeader;
 
-const CollapsipleTriggerButton = styled(EmptyButton)<{ $indicatorDir: IconDir }>`
+const CollapsipleTriggerButton = styled(EmptyButton)<{
+  $indicatorDir: HorizontalDirection;
+}>`
   display: flex;
   align-items: center;
   font: inherit;
@@ -118,8 +120,8 @@ const CollapsipleTriggerButton = styled(EmptyButton)<{ $indicatorDir: IconDir }>
 `;
 interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
   icon?: IconName;
-  iconDir?: IconDir;
-  indicatorDir?: IconDir;
+  iconDir?: HorizontalDirection;
+  indicatorDir?: HorizontalDirection;
 }
 
 const CollapsipleTrigger = ({

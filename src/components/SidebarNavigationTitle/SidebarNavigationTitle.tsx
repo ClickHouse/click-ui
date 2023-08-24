@@ -1,13 +1,13 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import { IconDir, IconName } from "@/components";
+import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 
 export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {
   label: ReactNode;
   selected?: boolean;
   icon?: IconName;
-  iconDir?: IconDir;
+  iconDir?: HorizontalDirection;
 }
 
 export const SidebarNavigationTitle = ({

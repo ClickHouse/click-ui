@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import { IconDir, IconName } from "@/components";
+import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 
 export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonElement> {
@@ -8,7 +8,7 @@ export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonEle
   selected?: boolean;
   level?: number;
   icon?: IconName;
-  iconDir?: IconDir;
+  iconDir?: HorizontalDirection;
 }
 
 const SidebarNavigationItem = ({

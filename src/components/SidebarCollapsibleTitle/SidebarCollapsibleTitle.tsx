@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Icon, IconDir, IconName } from "@/components";
+import { Icon, HorizontalDirection, IconName } from "@/components";
 import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarTitleWrapper } from "../SidebarNavigationTitle/SidebarNavigationTitle";
 
@@ -9,7 +9,7 @@ export interface SidebarCollapsibleTitleProps
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
-  iconDir?: IconDir;
+  iconDir?: HorizontalDirection;
   icon?: IconName;
   selected?: boolean;
 }
