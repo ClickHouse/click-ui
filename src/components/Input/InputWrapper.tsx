@@ -5,7 +5,10 @@ import { ReactNode } from "react";
 
 const FormRootWrapper = styled(FormRoot)`
   label {
+    width: 100%;
+    width: -webkit-fill-available;
     width: fill-available;
+    width: stretch;
   }
 `;
 
@@ -116,7 +119,10 @@ export const InputElement = styled.input`
   background: transparent;
   border: none;
   outline: none;
+  width: 100%;
+  width: -webkit-fill-available;
   width: fill-available;
+  width: stretch;
   color: inherit;
   font: inherit;
   ${({ theme }) => `
