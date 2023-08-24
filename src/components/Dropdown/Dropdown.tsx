@@ -12,6 +12,7 @@ const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
   &:hover .dropdown-arrow,
   &[data-state="open"] .dropdown-arrow {
+    position: relative;
     left: 0.5rem;
   }
 `;
@@ -88,6 +89,7 @@ const DropdownContent = ({
         $type="dropdown-menu"
         $showArrow={showArrow}
         as={ContentElement}
+        loop
         {...props}
       >
         {showArrow && (

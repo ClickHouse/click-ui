@@ -26,6 +26,7 @@ import { IconName } from "./Icon/types";
 import { SidebarNavigationTitleProps } from "./SidebarNavigationTitle/SidebarNavigationTitle";
 import { SidebarCollapsibleItemProps } from "./SidebarCollapsibleItem/SidebarCollapsibleItem";
 import { SidebarCollapsibleTitleProps } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
+export type { Menu, SplitButtonProps } from "./SplitButton/SplitButton";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";

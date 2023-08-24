@@ -3,11 +3,53 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import userEvent from "@testing-library/user-event";
 import { themes } from "../../theme";
-import { SplitButton } from "./SplitButton";
+import { Menu, SplitButton } from "./SplitButton";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
 }
+
+const menuItems: Array<Menu> = [
+  {
+    type: "group",
+    items: [
+      {
+        label: "Content0",
+      },
+    ],
+  },
+  {
+    icon: "code",
+    iconDir: "left",
+    label: "Content1",
+  },
+  {
+    type: "sub-menu",
+    icon: "code",
+    label: "Hover Over Me",
+    items: [
+      {
+        type: "group",
+        items: [
+          {
+            label: "SubContent0",
+          },
+        ],
+      },
+      {
+        label: "SubContent1",
+      },
+    ],
+  },
+  {
+    icon: "code",
+    iconDir: "right",
+    label: "Content2",
+  },
+  {
+    label: "Content3",
+  },
+];
 
 describe("SplitButton", () => {
   beforeAll(() => {
@@ -22,28 +64,11 @@ describe("SplitButton", () => {
   const renderDropdown = ({ disabled, ...props }: Props) =>
     render(
       <ThemeProvider theme={themes.dark}>
-        <SplitButton {...props}>
-          <SplitButton.Trigger
-            disabled={disabled}
-            onClick={mainButtonClick}
-          >
-            <div>SplitButton Main Trigger</div>
-          </SplitButton.Trigger>
-          <SplitButton.Content>
-            <SplitButton.Group>
-              <SplitButton.Item>Content0</SplitButton.Item>
-            </SplitButton.Group>
-            <SplitButton.Item>Content1 long text content</SplitButton.Item>
-            <SplitButton.Sub>
-              <SplitButton.ContentTrigger>Hover over</SplitButton.ContentTrigger>
-              <SplitButton.Content sub>
-                <SplitButton.Item>SubContent0</SplitButton.Item>
-                <SplitButton.Item>SubContent1</SplitButton.Item>
-              </SplitButton.Content>
-            </SplitButton.Sub>
-            <SplitButton.Item>Content2</SplitButton.Item>
-            <SplitButton.Item disabled>Content3</SplitButton.Item>
-          </SplitButton.Content>
+        <SplitButton
+          menu={menuItems}
+          {...props}
+        >
+          <div>SplitButton Main Trigger</div>
         </SplitButton>
       </ThemeProvider>
     );

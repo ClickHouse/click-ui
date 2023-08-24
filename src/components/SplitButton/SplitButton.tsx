@@ -1,19 +1,157 @@
-import { HTMLAttributes } from "react";
-import { Icon } from "..";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import { GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
-
-export const SplitButton = (props: DropdownMenu.DropdownMenuProps) => {
-  return <DropdownMenu.Root {...props} />;
-};
+import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
+import { Icon, IconName, Dropdown } from "@/components";
+import { BaseButton } from "../Button/Button";
 
 type ButtonType = "primary"; //| "secondary";
+type IconDirection = "left" | "right";
+type MenuItem = {
+  icon?: IconName;
+  iconDir?: IconDirection;
+  label: ReactNode;
+  type?: "item";
+  items?: never;
+} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect">;
 
-interface TriggerProps extends HTMLAttributes<HTMLButtonElement> {
+type MenuGroup = {
+  icon?: never;
+  iconDir?: never;
+  label?: never;
+  type: "group";
+  items: Array<MenuItem | SubMenu>;
+};
+
+type SubMenu = Omit<MenuItem, "type" | "items"> & {
+  items: Array<MenuGroup | MenuItem>;
+  type: "sub-menu";
+};
+
+export type Menu = SubMenu | MenuGroup | MenuItem;
+export interface SplitButtonProps
+  extends DropdownMenuProps,
+    Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
   type?: ButtonType;
   disabled?: boolean;
+  menu: Array<Menu>;
+  side?: "top" | "bottom";
 }
+
+export const SplitButton = ({
+  type = "primary",
+  disabled = false,
+  menu,
+  dir,
+  open,
+  defaultOpen,
+  onOpenChange,
+  modal,
+  side,
+  ...props
+}: SplitButtonProps) => {
+  return (
+    <Dropdown
+      dir={dir}
+      open={open}
+      defaultOpen={defaultOpen}
+      onOpenChange={onOpenChange}
+      modal={modal}
+    >
+      <SplitButtonTrigger
+        $disabled={disabled}
+        $type={type}
+      >
+        <PrimaryButton
+          disabled={disabled}
+          $type={type}
+          {...props}
+        />
+        <SecondaryButton
+          disabled={disabled}
+          $type={type}
+          data-testid="split-button-dropdown"
+        >
+          <Icon name="chevron-down" />
+        </SecondaryButton>
+      </SplitButtonTrigger>
+      <Dropdown.Content side={side}>
+        {menu.map(item => (
+          <MenuContentItem {...item} />
+        ))}
+      </Dropdown.Content>
+    </Dropdown>
+  );
+};
+
+const IconWrapper = ({ label, icon, iconDir }: Omit<MenuItem, "type" | "items">) => {
+  return (
+    <>
+      {icon && iconDir === "left" && (
+        <Icon
+          name={icon}
+          size="lg"
+        />
+      )}
+      {label}
+      {icon && iconDir === "right" && (
+        <Icon
+          name={icon}
+          size="lg"
+        />
+      )}
+    </>
+  );
+};
+
+const MenuContentItem = ({
+  items = [],
+  type = "item",
+  label,
+  icon,
+  iconDir = "left",
+  ...props
+}: Menu) => {
+  if (type === "item") {
+    return (
+      <Dropdown.Item {...props}>
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+          label={label}
+        />
+      </Dropdown.Item>
+    );
+  }
+  if (type === "group") {
+    <Dropdown.Group>
+      {items.map(item => (
+        <MenuContentItem {...item} />
+      ))}
+    </Dropdown.Group>;
+  }
+  if (type === "sub-menu") {
+    <Dropdown.Sub>
+      <Dropdown.Trigger
+        sub
+        {...props}
+      >
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+          label={label}
+        />
+        <div className="dropdown-arrow">
+          <Icon name="chevron-right" />
+        </div>
+      </Dropdown.Trigger>
+      <Dropdown.Content sub>
+        {items.map(item => (
+          <MenuContentItem {...item} />
+        ))}
+      </Dropdown.Content>
+    </Dropdown.Sub>;
+  }
+};
 
 const SplitButtonTrigger = styled.div<{ $disabled: boolean; $type: ButtonType }>`
   display: inline-flex;
@@ -37,37 +175,29 @@ const SplitButtonTrigger = styled.div<{ $disabled: boolean; $type: ButtonType }>
   `}
 `;
 
-const PrimaryButton = styled.button<{ $type: ButtonType }>`
-  display: flex;
-  align-items: center;
+const PrimaryButton = styled(BaseButton)<{ $type: ButtonType }>`
   border: none;
   align-self: stretch;
+  border-radius: 0;
   ${({ theme, $type }) => `
-    padding: ${theme.click.button.basic.space.y} ${theme.click.button.basic.space.x};
-    gap: ${theme.click.button.basic.space.gap};
     background: ${theme.click.button.split[$type].background.main.default};
-    font: ${theme.click.button.basic.typography.label.default};
     color: ${theme.click.button.split[$type].text.default};
     &:hover {
       background: ${theme.click.button.split[$type].background.main.hover};
-      font: ${theme.click.button.basic.typography.label.hover};
       color: ${theme.click.button.split[$type].text.hover};
     }
     &:focus {
       background: ${theme.click.button.split[$type].background.main.active};
-      font: ${theme.click.button.basic.typography.label.active};
       color: ${theme.click.button.split[$type].text.active};
-      outline: none;
     }
     &:disabled {
       background: ${theme.click.button.split[$type].background.main.disabled};
-      font: ${theme.click.button.basic.typography.label.disabled};
       color: ${theme.click.button.split[$type].text.disabled};
     }
   `}
 `;
 
-const SecondaryButton = styled(DropdownMenu.Trigger)<{ $type: ButtonType }>`
+const SecondaryButton = styled(Dropdown.Trigger)<{ $type: ButtonType }>`
   display: flex;
   align-items: center;
   border: none;
@@ -92,131 +222,3 @@ const SecondaryButton = styled(DropdownMenu.Trigger)<{ $type: ButtonType }>`
     }
   `}
 `;
-const Trigger = ({ type = "primary", disabled = false, ...props }: TriggerProps) => {
-  return (
-    <SplitButtonTrigger
-      $disabled={disabled}
-      $type={type}
-    >
-      <PrimaryButton
-        disabled={disabled}
-        $type={type}
-        {...props}
-      />
-      <SecondaryButton
-        disabled={disabled}
-        $type={type}
-        data-testid="split-button-dropdown"
-      >
-        <Icon name="chevron-down" />
-      </SecondaryButton>
-    </SplitButtonTrigger>
-  );
-};
-
-SplitButton.displayName = "SplitButtonTrigger";
-SplitButton.Trigger = Trigger;
-
-const SubTrigger = ({ children, ...props }: DropdownMenu.DropdownMenuSubTriggerProps) => {
-  return (
-    <DropdownMenuItem
-      as={DropdownMenu.SubTrigger}
-      {...props}
-    >
-      {children}
-      <div className="dropdown-arrow">
-        <Icon name="chevron-right" />
-      </div>
-    </DropdownMenuItem>
-  );
-};
-
-SubTrigger.displayName = "SplitButtonSubTrigger";
-SplitButton.ContentTrigger = SubTrigger;
-
-const DropdownMenuItem = styled(GenericMenuItem)`
-  position: relative;
-  &:hover .dropdown-arrow,
-  &[data-state="open"] .dropdown-arrow {
-    position: relative;
-    left: 0.5rem;
-  }
-`;
-
-const Item = (props: DropdownMenu.DropdownMenuItemProps) => {
-  return (
-    <DropdownMenuItem
-      as={DropdownMenu.Item}
-      {...props}
-    />
-  );
-};
-
-SplitButton.displayName = "SplitButtonItem";
-SplitButton.Item = Item;
-
-interface DropdownContentProps
-  extends Omit<DropdownMenu.MenuContentProps, "align" | "side"> {
-  sub?: true;
-  side?: "top" | "bottom";
-}
-
-interface DropdownSubContentProps extends DropdownMenu.MenuSubContentProps {
-  sub?: never;
-  side?: never;
-}
-
-const DropdownMenuContent = styled(GenericMenuPanel)`
-  flex-direction: column;
-  z-index: 1;
-`;
-
-const Content = ({
-  sub,
-  children,
-  side,
-  ...props
-}: DropdownContentProps | DropdownSubContentProps) => {
-  const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
-  return (
-    <DropdownMenu.Portal>
-      <DropdownMenuContent
-        type="dropdown-menu"
-        align={sub ? undefined : "end"}
-        side={side}
-        as={ContentElement}
-        {...props}
-      >
-        {children}
-      </DropdownMenuContent>
-    </DropdownMenu.Portal>
-  );
-};
-
-Content.displayName = "SplitButtonContent";
-SplitButton.Content = Content;
-
-const DropdownMenuGroup = styled(DropdownMenu.Group)`
-  width: 100%;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
-`;
-
-const SplitButtonGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuGroup {...props} />;
-};
-
-SplitButtonGroup.displayName = "SplitButtonGroup";
-SplitButton.Group = SplitButtonGroup;
-
-const DropdownMenuSub = styled(DropdownMenu.Sub)`
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
-`;
-
-const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuSub {...props} />;
-};
-
-DropdownSub.displayName = "DropdownSub";
-SplitButton.Sub = DropdownSub;

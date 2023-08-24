@@ -1,45 +1,47 @@
-import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { SplitButton as SplitButtonMenu } from "./SplitButton";
-import { GridCenter } from "../FormField/commonElement";
+import { Menu, SplitButton } from "./SplitButton";
 
-interface Props extends DropdownMenuProps {
-  disabled?: boolean;
-  side: "top" | "bottom";
-}
-const SplitButton = ({ disabled, side, ...props }: Props) => {
-  return (
-    <GridCenter>
-      <SplitButtonMenu {...props}>
-        <SplitButtonMenu.Trigger disabled={disabled}>
-          <div>Dropdown Trigger</div>
-        </SplitButtonMenu.Trigger>
-        <SplitButtonMenu.Content side={side}>
-          <SplitButtonMenu.Group>
-            <SplitButtonMenu.Item>Content0</SplitButtonMenu.Item>
-          </SplitButtonMenu.Group>
-          <SplitButtonMenu.Item>Content1 long text content</SplitButtonMenu.Item>
-          <SplitButtonMenu.Sub>
-            <SplitButtonMenu.ContentTrigger>Hover over</SplitButtonMenu.ContentTrigger>
-            <SplitButtonMenu.Content sub>
-              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent0</SplitButtonMenu.Item>
-              <SplitButtonMenu.Item>SubContent1</SplitButtonMenu.Item>
-            </SplitButtonMenu.Content>
-          </SplitButtonMenu.Sub>
-          <SplitButtonMenu.Item>Content2</SplitButtonMenu.Item>
-          <SplitButtonMenu.Item disabled>Content3</SplitButtonMenu.Item>
-        </SplitButtonMenu.Content>
-      </SplitButtonMenu>
-    </GridCenter>
-  );
-};
+const menuItems: Array<Menu> = [
+  {
+    type: "group",
+    items: [
+      {
+        label: "Content0",
+      },
+    ],
+  },
+  {
+    icon: "code",
+    iconDir: "left",
+    label: "Content1",
+  },
+  {
+    type: "sub-menu",
+    icon: "code",
+    label: "Hover Over Me",
+    items: [
+      {
+        type: "group",
+        items: [
+          {
+            label: "SubContent0",
+          },
+        ],
+      },
+      {
+        label: "SubContent1",
+      },
+    ],
+  },
+  {
+    icon: "code",
+    iconDir: "right",
+    label: "Content2",
+  },
+  {
+    label: "Content3",
+  },
+];
+
 export default {
   component: SplitButton,
   title: "Buttons/SplitButton",
@@ -55,5 +57,7 @@ export const Playground = {
   args: {
     side: "bottom",
     type: "primary",
+    children: "Split button",
+    menu: menuItems,
   },
 };
