@@ -1,88 +1,94 @@
-import { Icon } from "@/components";
-import { SidebarAccordion } from "@/components/Accordion/Accordion";
-import { IconName } from "@/components/Icon/types";
-
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
+import { HorizontalDirection, IconName } from "@/components";
+import { IconWrapper } from "../Collapsible/IconWrapper";
 
-interface DefaultSidebarNavigationItemProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
-  collapsible?: false | undefined | null;
-  label?: undefined;
+export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonElement> {
+  label: ReactNode;
+  selected?: boolean;
+  level?: number;
   icon?: IconName;
-  children: React.ReactNode;
+  iconDir?: HorizontalDirection;
 }
-
-interface CollapsibleSidebarNavigationItemProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
-  collapsible: true;
-  label: string;
-  icon?: IconName;
-  children: React.ReactNode;
-}
-
-export type SidebarNavigationItemProps =
-  | DefaultSidebarNavigationItemProps
-  | CollapsibleSidebarNavigationItemProps;
 
 const SidebarNavigationItem = ({
-  icon,
-  collapsible,
-  children,
   label,
-}: SidebarNavigationItemProps) => (
-  <>
-    {collapsible ? (
-      <CollapsibleNavigationItem
-        collapsible={collapsible}
-        label={label}
+  level = 0,
+  icon,
+  selected,
+  iconDir,
+  ...props
+}: SidebarNavigationItemProps) => {
+  return (
+    <SidebarItemWrapper
+      $level={level}
+      data-selected={selected}
+      {...props}
+    >
+      <IconWrapper
         icon={icon}
-        children={children}
-      />
-    ) : (
-      <Wrapper>
-        <IconsWrapper>
-          {/* This icon is only used as a place holder */}
-          <Icon
-            name="chevron-right"
-            size="sm"
-            visibility="hidden"
-          />
-          {icon && (
-            <Icon
-              name={icon || "user"}
-              size="sm"
-            />
-          )}
-        </IconsWrapper>
-        {children}
-      </Wrapper>
-    )}
-  </>
-);
-const Wrapper = styled.div`
+        iconDir={iconDir}
+      >
+        {label}
+      </IconWrapper>
+    </SidebarItemWrapper>
+  );
+};
+
+export const SidebarItemWrapper = styled.button<{
+  $collapsible?: boolean;
+  $level: number;
+}>`
   display: flex;
   align-items: center;
-  gap: ${props => props.theme.click.sidebar.navigation.item.default.space.gap};
+  border: none;
+  ${({ theme, $collapsible = false, $level }) => {
+    const itemType = $level === 0 ? "item" : "subItem";
+    return `
+    gap: ${theme.click.sidebar.navigation.item.default.space.gap};
+    padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
+      theme.click.sidebar.navigation[itemType].default.space.right
+    } ${theme.click.sidebar.navigation[itemType].default.space.y} ${
+      $collapsible
+        ? theme.click.sidebar.navigation[itemType].default.space.left
+        : theme.click.image.sm.size.width
+    };
+    border-radius: ${theme.click.sidebar.navigation[itemType].radii.all};
+    font: ${theme.click.sidebar.navigation[itemType].typography.default};
+    background-color: ${
+      theme.click.sidebar.navigation[itemType].color.background.default
+    };
+    color: ${theme.click.sidebar.navigation[itemType].color.text.default};
+    &:hover, &:focus {
+      font: ${theme.click.sidebar.navigation[itemType].typography.hover};
+      background-color: ${
+        theme.click.sidebar.navigation[itemType].color.background.hover
+      };
+      color: ${theme.click.sidebar.navigation[itemType].color.text.hover};
+    }
 
-  padding: ${props => `${props.theme.click.sidebar.navigation.item.default.space.y} 0`};
+    &:active, &[data-selected="true"]  {
+      font: ${theme.click.sidebar.navigation[itemType].typography.active};
+      background-color: ${
+        theme.click.sidebar.navigation[itemType].color.background.active
+      };
+      color: ${theme.click.sidebar.navigation[itemType].color.text.active};
+    }
+    @media (max-width: 640px) {
+      gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
+      padding: ${`${theme.click.sidebar.navigation[itemType].mobile.space.y} 0`};
+      font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
 
-  border-radius: ${props => props.theme.click.sidebar.navigation.item.radii.all};
-  font: ${props => props.theme.click.sidebar.navigation.item.typography.default};
-  background-color: ${props =>
-    props.theme.click.sidebar.navigation.item.color.background.default};
+      &:hover, &:focus {
+        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
+      }
 
-  &:hover {
-    font: ${props => props.theme.click.sidebar.navigation.item.typography.hover};
-    background-color: ${props =>
-      props.theme.click.sidebar.navigation.item.color.background.hover};
-  }
-
-  &:active {
-    font: ${props => props.theme.click.sidebar.navigation.item.typography.active};
-    background-color: ${props =>
-      props.theme.click.sidebar.navigation.item.color.background.active};
-  }
-
+      &:active {
+        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
+      }
+    }
+  `;
+  }}
   a {
     color: inherit;
     text-decoration: none;
@@ -91,30 +97,10 @@ const Wrapper = styled.div`
       color: inherit;
     }
   }
+  &:hover [data-trigger-icon],
+  [data-open="true"][data-trigger-icon] {
+    visibility: visible;
+  }
 `;
-const IconsWrapper = styled.div`
-  display: flex;
-`;
-const CollapsibleNavigationItem = ({
-  collapsible,
-  icon,
-  label,
-  children,
-}: CollapsibleSidebarNavigationItemProps) => (
-  <CollapsibleWrapper>
-    {label && collapsible && (
-      <SidebarAccordion
-        title={label}
-        icon={icon}
-        iconSize="sm"
-      >
-        {children}
-      </SidebarAccordion>
-    )}
-  </CollapsibleWrapper>
-);
 
-const CollapsibleWrapper = styled(Wrapper)`
-  padding-left: 0;
-`;
 export { SidebarNavigationItem };

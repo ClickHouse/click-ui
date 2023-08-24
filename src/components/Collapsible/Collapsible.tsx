@@ -1,0 +1,191 @@
+import {
+  createContext,
+  useState,
+  HTMLAttributes,
+  MouseEvent,
+  useContext,
+  useEffect,
+} from "react";
+import { styled } from "styled-components";
+import { Icon, HorizontalDirection, IconName } from "@/components";
+import { EmptyButton } from "../commonElement";
+import { IconWrapper } from "./IconWrapper";
+
+export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
+  open?: boolean;
+  onOpenChange?: (value: boolean) => void;
+}
+
+type ContextProps = {
+  open: boolean;
+  onOpenChange: () => void;
+};
+
+const NavContext = createContext<ContextProps>({
+  open: false,
+  onOpenChange: () => null,
+});
+
+export const Collapsible = ({
+  open: openProp,
+  onOpenChange: onOpenChangeProp,
+  children,
+  ...props
+}: CollapsibleProps) => {
+  const [open, setOpen] = useState(openProp ?? false);
+  const onOpenChange = () => {
+    setOpen(open => {
+      if (typeof onOpenChangeProp === "function") {
+        onOpenChangeProp(!open);
+      }
+      return !open;
+    });
+  };
+
+  useEffect(() => {
+    setOpen(open => openProp ?? open);
+  }, [openProp]);
+
+  const value = {
+    open,
+    onOpenChange,
+  };
+  return (
+    <div {...props}>
+      <NavContext.Provider value={value}>{children}</NavContext.Provider>
+    </div>
+  );
+};
+
+const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: HorizontalDirection }>`
+  margin-left: ${({ theme, $indicatorDir }) =>
+    $indicatorDir === "start" ? 0 : theme.click.image.sm.size.width};
+`;
+
+interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+  indicatorDir?: HorizontalDirection;
+}
+
+const CollapsipleHeader = ({
+  indicatorDir = "start",
+  icon,
+  iconDir,
+  children,
+  ...props
+}: CollapsipleHeaderProps) => {
+  return (
+    <CollapsipleHeaderContainer
+      $indicatorDir={indicatorDir}
+      {...props}
+    >
+      {indicatorDir === "start" && <Collapsible.Trigger />}
+      {children && (
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+        >
+          {children}
+        </IconWrapper>
+      )}
+      {indicatorDir === "end" && <Collapsible.Trigger />}
+    </CollapsipleHeaderContainer>
+  );
+};
+
+CollapsipleHeader.displayName = "CollapsibleHeader";
+Collapsible.Header = CollapsipleHeader;
+
+const CollapsipleTriggerButton = styled(EmptyButton)<{
+  $indicatorDir: HorizontalDirection;
+}>`
+  display: flex;
+  align-items: center;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+  [data-trigger-icon] {
+    visibility: hidden;
+    transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
+    &[data-open="true"] {
+      transform: rotate(90deg);
+    }
+  }
+  &:hover {
+    [data-trigger-icon] {
+      visibility: visible;
+    }
+  }
+`;
+interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+  indicatorDir?: HorizontalDirection;
+}
+
+const CollapsipleTrigger = ({
+  onClick: onClickProp,
+  children,
+  indicatorDir = "start",
+  icon,
+  iconDir = "start",
+  ...props
+}: CollapsipleTriggerProps) => {
+  const { open, onOpenChange } = useContext(NavContext);
+  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onClickProp) {
+      onClickProp(e);
+    }
+    onOpenChange();
+  };
+
+  return (
+    <CollapsipleTriggerButton
+      onClick={onClick}
+      $indicatorDir={indicatorDir}
+      {...props}
+    >
+      {indicatorDir === "start" && (
+        <Icon
+          data-trigger-icon
+          name="chevron-right"
+          data-open={open.toString()}
+          size="sm"
+        />
+      )}
+      {children && (
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+        >
+          {children}
+        </IconWrapper>
+      )}
+      {indicatorDir === "end" && (
+        <Icon
+          data-trigger-icon
+          name="chevron-right"
+          data-open={open.toString()}
+          size="sm"
+        />
+      )}
+    </CollapsipleTriggerButton>
+  );
+};
+
+CollapsipleTrigger.displayName = "CollapsibleTrigger";
+Collapsible.Trigger = CollapsipleTrigger;
+
+const CollapsipleContent = (props: HTMLAttributes<HTMLDivElement>) => {
+  const { open } = useContext(NavContext);
+  if (!open) {
+    return;
+  }
+  return <div {...props} />;
+};
+
+CollapsipleContent.displayName = "CollapsibleContent";
+Collapsible.Content = CollapsipleContent;
