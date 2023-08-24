@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Icon, IconName, Dropdown } from "@/components";
-import { BaseButton } from "../Button/Button";
+import { BaseButton } from "../commonElement";
 
 type ButtonType = "primary"; //| "secondary";
 type IconDirection = "left" | "right";

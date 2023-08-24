@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { render, fireEvent, screen, createEvent } from "@testing-library/react";
+import { render, fireEvent, createEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { themes } from "../../theme";
 import { FileTabs, StatusType } from "./FileTabs";
@@ -78,7 +78,6 @@ describe("FileTabs", () => {
     fireEvent(tabElement, mockDropEvent);
     fireEvent.dragOver(getByTestId("tab-element-tab2"));
     fireEvent.drop(getByTestId("tab-container"));
-    screen.debug(getByTestId("tab-container"));
     expect(onReorderTab).toBeCalledTimes(1);
   });
 
