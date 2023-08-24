@@ -1,5 +1,6 @@
 import { Theme } from "@/styles/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
+import { forwardRef } from "react";
 import styled, { DefaultTheme } from "styled-components";
 
 interface RootProps {
@@ -14,14 +15,17 @@ interface ThumbProps {
   $disabled?: boolean;
 }
 
-export const Switch = ({ checked, disabled, ...props }: SwitchProps) => (
-  <SwitchRoot
-    disabled={disabled}
-    checked={checked}
-    {...props}
-  >
-    <SwitchThumb $checked={checked} />
-  </SwitchRoot>
+export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
+  ({ checked, disabled, ...props }, ref) => (
+    <SwitchRoot
+      ref={ref}
+      disabled={disabled}
+      checked={checked}
+      {...props}
+    >
+      <SwitchThumb $checked={checked} />
+    </SwitchRoot>
+  )
 );
 
 const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
