@@ -42,6 +42,13 @@ export const SidebarItemWrapper = styled.button<{
   display: flex;
   align-items: center;
   border: none;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-wrap: nowrap;
   ${({ theme, $collapsible = false, $level }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `
@@ -75,7 +82,13 @@ export const SidebarItemWrapper = styled.button<{
     }
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
-      padding: ${`${theme.click.sidebar.navigation[itemType].mobile.space.y} 0`};
+      padding: ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
+      theme.click.sidebar.navigation[itemType].mobile.space.right
+    } ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
+      $collapsible
+        ? theme.click.sidebar.navigation[itemType].mobile.space.left
+        : theme.click.image.sm.size.width
+    };
       font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
 
       &:hover, &:focus {

@@ -105,6 +105,7 @@ const CollapsipleTriggerButton = styled(EmptyButton)<{
   font: inherit;
   color: inherit;
   cursor: default;
+  width: inherit;
   [data-trigger-icon] {
     visibility: hidden;
     transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
