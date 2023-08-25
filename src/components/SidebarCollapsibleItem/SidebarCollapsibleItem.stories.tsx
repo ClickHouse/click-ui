@@ -2,8 +2,8 @@ import { SidebarCollapsibleItem } from "@/components";
 
 export default {
   component: SidebarCollapsibleItem,
-  title: "Sidebar/Collapsibletem",
-  tags: ["sidebar", "navigation-item", "autodocs"],
+  title: "Sidebar/CollapsibleItem",
+  tags: ["sidebar", "collapsible-item", "autodocs"],
 };
 
 export const Default = {

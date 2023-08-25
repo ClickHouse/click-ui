@@ -179,12 +179,29 @@ const CollapsipleTrigger = ({
 CollapsipleTrigger.displayName = "CollapsibleTrigger";
 Collapsible.Trigger = CollapsipleTrigger;
 
-const CollapsipleContent = (props: HTMLAttributes<HTMLDivElement>) => {
+const CollapsibleContentWrapper = styled.div<{ $indicatorDir?: HorizontalDirection }>`
+  ${({ theme, $indicatorDir }) =>
+    $indicatorDir
+      ? `${$indicatorDir === "start" ? "margin-left" : "margin-right"}: ${
+          theme.click.image.sm.size.width
+        }`
+      : ""}
+`;
+
+const CollapsipleContent = ({
+  indicatorDir,
+  ...props
+}: HTMLAttributes<HTMLDivElement> & { indicatorDir?: HorizontalDirection }) => {
   const { open } = useContext(NavContext);
   if (!open) {
     return;
   }
-  return <div {...props} />;
+  return (
+    <CollapsibleContentWrapper
+      $indicatorDir={indicatorDir}
+      {...props}
+    />
+  );
 };
 
 CollapsipleContent.displayName = "CollapsibleContent";

@@ -103,6 +103,10 @@ const StyledButton = styled(BaseButton)<{
 `;
 
 const ButtonIcon = styled(Icon)`
-  height: ${({ theme }) => theme.click.button.basic.size.icon.height};
-  width: ${({ theme }) => theme.click.button.basic.size.icon.height};
+  height: ${({ theme }) => theme.click.button.basic.size.icon.all};
+  width: ${({ theme }) => theme.click.button.basic.size.icon.all};
+  svg {
+    height: ${({ theme }) => theme.click.button.basic.size.icon.all};
+    width: ${({ theme }) => theme.click.button.basic.size.icon.all};
+  }
 `;

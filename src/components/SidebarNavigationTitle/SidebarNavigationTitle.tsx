@@ -36,6 +36,12 @@ export const SidebarTitleWrapper = styled.button<{ $collapsible?: boolean }>`
   align-items: center;
   background: transparent;
   border: none;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  white-space: nowrap;
+  overflow: hidden;
   ${({ theme, $collapsible = false }) => `
     padding: 0;
     padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
