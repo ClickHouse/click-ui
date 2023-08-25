@@ -45,7 +45,6 @@ export const SidebarItemWrapper = styled.button<{
   ${({ theme, $collapsible = false, $level }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `
-    gap: ${theme.click.sidebar.navigation.item.default.space.gap};
     padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
       theme.click.sidebar.navigation[itemType].default.space.right
     } ${theme.click.sidebar.navigation[itemType].default.space.y} ${

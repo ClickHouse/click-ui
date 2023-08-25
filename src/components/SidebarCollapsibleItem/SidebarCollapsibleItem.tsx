@@ -48,7 +48,7 @@ const SidebarCollapsibleItem = ({
       >
         {label}
       </SidebarItemWrapper>
-      <Collapsible.Content>{children}</Collapsible.Content>
+      <Collapsible.Content indicatorDir={indicatorDir}>{children}</Collapsible.Content>
     </Collapsible>
   );
 };

@@ -11,7 +11,7 @@ const LabelContainer = styled.span`
 
 export const IconWrapper = ({
   icon,
-  iconDir,
+  iconDir = "start",
   children,
 }: {
   icon?: IconName;

@@ -3,7 +3,7 @@ import { SidebarNavigationTitle } from "@/components";
 export default {
   component: SidebarNavigationTitle,
   title: "Sidebar/NavigationTitle",
-  tags: ["sidebar", "navigation-item", "autodocs"],
+  tags: ["sidebar", "navigation-title", "autodocs"],
 };
 
 export const Default = {

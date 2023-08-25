@@ -3,7 +3,7 @@ import { SidebarCollapsibleTitle, SidebarNavigationItem } from "@/components";
 export default {
   component: SidebarCollapsibleTitle,
   title: "Sidebar/CollapsibleTitle",
-  tags: ["sidebar", "navigation-item", "autodocs"],
+  tags: ["sidebar", "collapsible-title", "autodocs"],
 };
 
 export const Default = {
