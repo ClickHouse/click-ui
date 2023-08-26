@@ -58,12 +58,12 @@ const preview: Preview = {
       storySort: {
         method: "alphabetical",
         order: [
-          "Typography",
-          ["Title", "Text", "Link"],
           "Buttons",
           "Cards",
           "Forms",
           "Display",
+          "Typography",
+          ["Title", "Text", "Link"],
         ],
       },
     },
