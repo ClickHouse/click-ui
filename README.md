@@ -20,12 +20,12 @@ function App() {
   }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Switch checked={theme === 'dark'} onClick={() => toggleTheme() } />
 
       <Title type='h1'>Click UI Example</Title>
       <Text>Welcome to Click UI. Get started here.</Text>
-    </>
+    </ThemeProvider>
   )
 }
 
