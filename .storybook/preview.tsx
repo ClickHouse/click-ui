@@ -62,6 +62,7 @@ const preview: Preview = {
           "Cards",
           "Forms",
           "Display",
+          "Sidebar",
           "Typography",
           ["Title", "Text", "Link"],
         ],
