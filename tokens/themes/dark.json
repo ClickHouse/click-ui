@@ -1022,6 +1022,152 @@
             }
           }
         }
+      },
+      "iconButton": {
+        "color": {
+          "primary": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.1",
+                      "space": "srgb"
+                    }
+                  }
+                }
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.button.iconButton.color.primary.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.primary.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.primary.background.active}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          },
+          "secondary": {
+            "background": {
+              "default": {
+                "value": "{click.button.basic.color.primary.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.primary.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.primary.background.active}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.05",
+                      "space": "lch"
+                    }
+                  }
+                }
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.button.iconButton.color.primary.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.secondary.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.secondary.background.active}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.button.basic.color.primary.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.primary.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.primary.text.default}",
+                "type": "color"
+              }
+            }
+          },
+          "disabled": {
+            "background": {
+              "default": {
+                "value": "{palette.neutral.200}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{palette.neutral.400}",
+                "type": "color"
+              }
+            }
+          },
+          "danger": {
+            "background": {
+              "default": {
+                "value": "{click.feedback.color.danger.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.danger.200}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.danger.100}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.feedback.color.danger.foreground}",
+                "type": "color"
+              }
+            }
+          }
+        }
       }
     },
     "checkbox": {
@@ -1854,7 +2000,7 @@
           }
         }
       },
-      "sql-sidebar": {
+      "sqlSidebar": {
         "color": {
           "background": {
             "default": {
