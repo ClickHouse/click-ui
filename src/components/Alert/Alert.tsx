@@ -34,33 +34,32 @@ const Alert = ({
 
   return isVisible ? (
     <Wrapper
-      size={size}
-      state={state}
+      $size={size}
+      $state={state}
       data-testid="click-alert"
       {...delegated}
     >
       {showIcon && (
         <IconWrapper
-          state={state}
-          size={size}
+          $state={state}
+          $size={size}
         >
           <StyledIcon
-            size={size}
+            $size={size}
             name={stateIconMap[state]}
           />
         </IconWrapper>
       )}
       <TextWrapper
-        state={state}
-        size={size}
+        $state={state}
+        $size={size}
       >
-        {title && <Title size={size}>{title}</Title>}
-        <Text size={size}>{text}</Text>
+        {title && <Title $size={size}>{title}</Title>}
+        <Text $size={size}>{text}</Text>
       </TextWrapper>
       {dismissible && (
         <DismissWrapper
           data-testid="click-alert-dismiss-button"
-          state={state}
           onClick={() => setIsVisible(false)}
         >
           <Icon name="cross" />
@@ -71,54 +70,52 @@ const Alert = ({
 };
 
 const Wrapper = styled.div<{
-  state: AlertState;
-  size: AlertSize;
+  $state: AlertState;
+  $size: AlertSize;
 }>`
   display: flex;
   border-radius: ${props => props.theme.click.alert.radii.end};
-  background-color: ${({ state = "neutral", theme }) =>
-    theme.click.alert.color.background[state]};
-  color: ${({ state = "neutral", theme }) => theme.click.alert.color.text[state]};
+  background-color: ${({ $state = "neutral", theme }) =>
+    theme.click.alert.color.background[$state]};
+  color: ${({ $state = "neutral", theme }) => theme.click.alert.color.text[$state]};
 `;
 
-const IconWrapper = styled.div<{ state: AlertState; size: AlertSize }>`
+const IconWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
   display: flex;
   align-items: center;
-  background-color: ${({ state = "neutral", theme }) =>
-    theme.click.alert.color.iconBackground[state]};
-  color: ${({ state = "neutral", theme }) =>
-    theme.click.alert.color.iconForeground[state]};
-  border-top-left-radius: ${props => props.theme.click.alert.radii.end};
-  border-bottom-left-radius: ${props => props.theme.click.alert.radii.end};
-  padding: ${props =>
-    `${props.theme.click.alert[props.size].space.y} ${
-      props.theme.click.alert[props.size].space.x
-    }`};
+  ${({ $state = "neutral", $size, theme }) => `
+    background-color: ${theme.click.alert.color.iconBackground[$state]}};
+    color: ${theme.click.alert.color.iconForeground[$state]};
+    border-top-left-radius: ${theme.click.alert.radii.end};
+    border-bottom-left-radius: ${theme.click.alert.radii.end};
+    padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
+  `}
 `;
 
-const StyledIcon = styled(Icon)<{ size: AlertSize }>`
-  height: ${props => props.theme.click.alert[props.size].icon.height};
-  width: ${props => props.theme.click.alert[props.size].icon.width};
+const StyledIcon = styled(Icon)<{ $size: AlertSize }>`
+  ${({ $size, theme }) => `
+    height: ${theme.click.alert[$size].icon.height};
+    width: ${theme.click.alert[$size].icon.width};
+  `}
 `;
-const TextWrapper = styled.div<{ state: AlertState; size: AlertSize }>`
+const TextWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
   display: flex;
   flex-flow: column;
-  gap: ${props => props.theme.click.alert[props.size].space.gap};
-  padding: ${props =>
-    `${props.theme.click.alert[props.size].space.y} ${
-      props.theme.click.alert[props.size].space.x
-    }`};
+  ${({ $size, theme }) => `
+    gap: ${theme.click.alert[$size].space.gap};
+    padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
+  `}
 `;
-const Title = styled.h6<{ size: AlertSize }>`
+const Title = styled.h6<{ $size: AlertSize }>`
   margin: 0;
-  font: ${props => props.theme.click.alert[props.size].typography.title.default};
+  font: ${({ theme, $size }) => theme.click.alert[$size].typography.title.default};
 `;
-const Text = styled.p<{ size: AlertSize }>`
+const Text = styled.p<{ $size: AlertSize }>`
   margin: 0;
-  font: ${props => props.theme.click.alert[props.size].typography.text.default};
+  font: ${({ theme, $size }) => theme.click.alert[$size].typography.text.default};
 `;
 
-const DismissWrapper = styled.button<{ state: AlertState }>`
+const DismissWrapper = styled.button`
   display: flex;
   align-items: center;
   margin-left: auto;
