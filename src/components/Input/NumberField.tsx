@@ -34,7 +34,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         {loading && (
           <Icon
             name="loading-animated"
-            size="small"
+            size="sm"
           />
         )}
       </InputWrapper>

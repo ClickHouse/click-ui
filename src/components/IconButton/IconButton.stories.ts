@@ -3,7 +3,7 @@ import { IconButton } from "./IconButton";
 export default {
   component: IconButton,
   title: "Buttons/IconButton",
-  tags: ["icon-button","autodocs"],
+  tags: ["icon-button", "autodocs"],
 };
 
 export const Playground = {
@@ -28,7 +28,7 @@ export const Empty = {
 
 export const Small = {
   args: {
-    size: "small",
+    size: "sm",
     icon: "user",
   },
 };

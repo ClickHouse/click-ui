@@ -1,0 +1,53 @@
+import { ReactNode } from "react";
+import { styled } from "styled-components";
+import { Icon, HorizontalDirection, IconName } from "@/components";
+
+const LabelContainer = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
+`;
+
+const EllipsisContainer = styled.span`
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: flex-end;
+  & > *:not(button) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
+export const IconWrapper = ({
+  icon,
+  iconDir = "start",
+  children,
+}: {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+  children: ReactNode;
+}) => {
+  return (
+    <LabelContainer>
+      {icon && iconDir === "start" && (
+        <Icon
+          name={icon}
+          size="sm"
+        />
+      )}
+      <EllipsisContainer>{children}</EllipsisContainer>
+      {icon && iconDir === "end" && (
+        <Icon
+          name={icon}
+          size="sm"
+        />
+      )}
+    </LabelContainer>
+  );
+};

@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
+type SizeType = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export interface SpacerProps {
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+  size?: SizeType;
 }
 
-const CUISpacer = styled.div<SpacerProps>` 
+const CUISpacer = styled.div<{
+  $size?: SizeType;
+}>`
   background: transparent;
   display: flex;
-  padding: ${({ theme, size = "md" }) => `${theme.click.spacer.horizontal.space.y[size]} ${theme.click.spacer.horizontal.space.x.all}`};
-`
+  padding: ${({ theme, $size = "md" }) =>
+    `${theme.click.spacer.horizontal.space.y[$size]} ${theme.click.spacer.horizontal.space.x.all}`};
+`;
 
-export const Spacer = ({ size }: SpacerProps) => (
-  <CUISpacer size={size} />
-);
+export const Spacer = ({ size }: SpacerProps) => <CUISpacer $size={size} />;

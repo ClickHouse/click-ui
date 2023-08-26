@@ -19,6 +19,7 @@ export default defineConfig({
     }),
     dts({
       include: ["src/"],
+      exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     }),
   ],
   resolve: {
@@ -35,7 +36,22 @@ export default defineConfig({
     },
     rollupOptions: {
       // Add _all_ external dependencies here
-      external: ["react", "react-dom", "styled-components"],
+      external: [
+        "react",
+        "react-dom",
+        "styled-components",
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+      ],
+      output: {
+        globals: {
+          react: "React",
+          "styled-components": "styled",
+          "react-dom": "ReactDOM",
+        },
+      },
     },
   },
 });

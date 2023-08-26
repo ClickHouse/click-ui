@@ -1,6 +1,6 @@
 import { ElementType, ReactElement } from "react";
 import styled from "styled-components";
-import { IconProps } from "./types";
+import { IconProps, IconSize } from "./types";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
 
 const SVGIcon = ({ name, ...delegated }: IconProps) => {
@@ -18,46 +18,39 @@ const withStylesWrapper =
   ({ color, width, height, className, size, ...props }: IconProps): ReactElement =>
     (
       <SvgWrapper
-        color={color}
-        width={width}
-        height={height}
-        size={size}
+        $color={color}
+        $width={width}
+        $height={height}
+        $size={size}
         className={className}
       >
         <IconComponent {...props} />
       </SvgWrapper>
     );
 
-const SvgWrapper = styled.span<Partial<IconProps>>`
+const SvgWrapper = styled.div<{
+  $color?: string;
+  $width?: number | string;
+  $height?: number | string;
+  $size?: IconSize;
+}>`
   display: flex;
   align-items: center;
 
-  & path[stroke] {
-    stroke: ${props => props.color || "currentColor"};
-  }
+  ${({ theme, $color = "currentColor", $width, $height, $size }) => `
+    & path[stroke], & svg[stroke]:not([stroke="none"]) {
+      stroke: ${$color};
+    }
 
-  & path[fill] {
-    fill: ${props => props.color || "currentColor"};
-  }
+    & path[fill], & svg[fill]:not([fill="none"]) {
+      fill: ${$color};
+    }
 
-  & svg {
-    width: ${props =>
-      props.width ||
-      props.theme.click.image[props.size || "medium"].size.width ||
-      "24px"};
-    height: ${props =>
-      props.height ||
-      props.theme.click.image[props.size || "medium"].size.height ||
-      "24px"};
-  }
-
-  & svg[stroke] {
-    stroke: ${props => props.color || "currentColor"};
-  }
-
-  & svg[fill]:not([fill="none"]) {
-    fill: ${props => props.color || "currentColor"};
-  }
+    & svg {
+      width: ${$width || theme.click.image[$size || "md"].size.width || "24px"};
+      height: ${$height || theme.click.image[$size || "md"].size.height || "24px"};
+    }
+  `}
 `;
 
 const Icon = withStylesWrapper(SVGIcon);

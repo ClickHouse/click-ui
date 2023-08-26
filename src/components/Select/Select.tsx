@@ -252,7 +252,7 @@ const SelectRoot = ({
         {valueNode ?? placeholder}
         <Icon
           name="sort"
-          size="small"
+          size="sm"
         />
       </SelectTrigger>
       <RadixPopover.Portal>
@@ -279,7 +279,7 @@ const SelectRoot = ({
                 >
                   <Icon
                     name="cross"
-                    size="small"
+                    size="sm"
                   />
                 </SearchClose>
               )}
@@ -360,7 +360,7 @@ export const Select = ({
         onChange={onChange}
       >
         <SelectRoot
-          hasError={typeof error !== "undefined"}
+          hasError={!!error && typeof error !== "undefined"}
           open={open}
           id={id ?? defaultId}
           placeholder={placeholder}
@@ -374,7 +374,7 @@ export const Select = ({
         <Label
           htmlFor={id ?? defaultId}
           disabled={disabled}
-          error={typeof error !== "undefined"}
+          error={!!error && typeof error !== "undefined"}
         >
           {label}
         </Label>

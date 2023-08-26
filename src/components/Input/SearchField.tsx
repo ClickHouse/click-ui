@@ -48,7 +48,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
       >
         <Icon
           name="search"
-          size="small"
+          size="sm"
         />
         <InputElement
           ref={mergeRefs([inputRef, ref])}
@@ -67,14 +67,14 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
           >
             <Icon
               name="cross"
-              size="small"
+              size="sm"
             />
           </IconButton>
         )}
         {loading && (
           <Icon
             name="loading-animated"
-            size="small"
+            size="sm"
           />
         )}
       </InputWrapper>

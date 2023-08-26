@@ -10,12 +10,13 @@ const Star = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 2.896L14.935 8.889L21.5 9.856L16.75 14.518L17.871 21.104L12 17.993L6.129 21.104L7.25 14.518L2.5 9.856L9.064 8.889L12 2.896Z"
       stroke="#161517"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="m7.75 1.87 1.895 3.87 4.24.625-3.068 3.011.724 4.254-3.791-2.01-3.792 2.01.724-4.254-3.068-3.01 4.24-.625L7.75 1.87Z"
-      clipRule="evenodd"
     />
   </svg>
 );

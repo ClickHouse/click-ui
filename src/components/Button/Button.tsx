@@ -1,6 +1,7 @@
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
+import { BaseButton } from "../commonElement";
 
 type ButtonType = "primary" | "secondary" | "danger";
 type Alignment = "center" | "left";
@@ -16,14 +17,6 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   height?: string;
 }
 
-export interface StyledButtonProps {
-  $styleType: ButtonType;
-  disabled?: boolean;
-  align?: Alignment;
-  width?: string;
-  height?: string;
-}
-
 export const Button = ({
   type = "primary",
   iconLeft,
@@ -31,46 +24,41 @@ export const Button = ({
   label,
   align = "center",
   children,
+  width,
+  height,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
     $styleType={type}
-    align={align}
+    $align={align}
+    $width={width}
+    $height={height}
     {...delegated}
   >
     {iconLeft && (
       <ButtonIcon
         name={iconLeft}
-        size="small"
+        size="sm"
       />
     )}
     {label ? label : children}
     {iconRight && (
       <ButtonIcon
         name={iconRight}
-        size="small"
+        size="sm"
       />
     )}
   </StyledButton>
 );
 
-const BaseButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: ${props =>
-    `${props.theme.click.button.basic.space.y} ${props.theme.click.button.basic.space.x}`};
-  border-radius: ${props => props.theme.click.button.radii.all};
-  gap: ${props => props.theme.click.button.basic.space.gap};
-  cursor: pointer;
-`;
-
-const StyledButton = styled(BaseButton)<
-  Pick<StyledButtonProps, "width" | "height" | "align" | "$styleType">
->`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  font: ${props => props.theme.click.button.basic.typography.label.default};
+const StyledButton = styled(BaseButton)<{
+  $styleType: ButtonType;
+  $align?: Alignment;
+  $width?: string;
+  $height?: string;
+}>`
+  ${({ $width }) => ($width ? `width: ${$width};` : "")}
+  ${({ $height }) => ($height ? `height: ${$height};` : "")}
   color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
   background-color: ${({ $styleType = "primary", theme }) =>
@@ -81,7 +69,7 @@ const StyledButton = styled(BaseButton)<
 
   display: flex;
   align-items: center;
-  justify-content: ${props => (props.align === "left" ? "flex-start" : "center")};
+  justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
 
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>
@@ -111,11 +99,14 @@ const StyledButton = styled(BaseButton)<
     border: 1px solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.disabled};
-    cursor: not-allowed;
   }
 `;
 
 const ButtonIcon = styled(Icon)`
-  height: ${({ theme }) => theme.click.button.basic.size.icon.height};
-  width: ${({ theme }) => theme.click.button.basic.size.icon.height};
+  height: ${({ theme }) => theme.click.button.basic.size.icon.all};
+  width: ${({ theme }) => theme.click.button.basic.size.icon.all};
+  svg {
+    height: ${({ theme }) => theme.click.button.basic.size.icon.all};
+    width: ${({ theme }) => theme.click.button.basic.size.icon.all};
+  }
 `;

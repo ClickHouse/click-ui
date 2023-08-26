@@ -52,6 +52,18 @@
             }
           }
         }
+      },
+      "navigation": {
+        "dragControl": {
+          "separator": {
+            "color": {
+              "default": {
+                "value": "{click.button.basic.color.primary.background.default}",
+                "type": "color"
+              }
+            }
+          }
+        }
       }
     },
     "button": {
@@ -447,11 +459,11 @@
             },
             "stroke": {
               "default": {
-                "value": "{click.button.iconButton.color.primary.background.default}",
+                "value": "{click.global.color.stroke.default}",
                 "type": "color"
               },
               "hover": {
-                "value": "{click.button.iconButton.color.primary.background.hover}",
+                "value": "{click.button.iconButton.color.primary.stroke.default}",
                 "type": "color"
               },
               "active": {

@@ -1,15 +1,15 @@
 {
   "click": {
     "accordion": {
-      "small": {
+      "sm": {
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.small.size.height}",
+              "value": "{click.image.sm.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.small.size.width}",
+              "value": "{click.image.sm.size.width}",
               "type": "sizing"
             }
           }
@@ -27,25 +27,25 @@
               "type": "typography"
             },
             "hover": {
-              "value": "{click.accordion.small.typography.label.default}",
+              "value": "{click.accordion.sm.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{click.accordion.small.typography.label.default}",
+              "value": "{click.accordion.sm.typography.label.default}",
               "type": "typography"
             }
           }
         }
       },
-      "medium": {
+      "md": {
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.medium.size.height}",
+              "value": "{click.image.md.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.medium.size.width}",
+              "value": "{click.image.md.size.width}",
               "type": "sizing"
             }
           }
@@ -63,25 +63,25 @@
               "type": "typography"
             },
             "hover": {
-              "value": "{click.accordion.medium.typography.label.default}",
+              "value": "{click.accordion.md.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{click.accordion.medium.typography.label.default}",
+              "value": "{click.accordion.md.typography.label.default}",
               "type": "typography"
             }
           }
         }
       },
-      "large": {
+      "lg": {
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.large.size.height}",
+              "value": "{click.image.lg.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.large.size.width}",
+              "value": "{click.image.lg.size.width}",
               "type": "sizing"
             }
           }
@@ -99,11 +99,11 @@
               "type": "typography"
             },
             "hover": {
-              "value": "{click.accordion.large.typography.label.default}",
+              "value": "{click.accordion.lg.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{click.accordion.large.typography.label.default}",
+              "value": "{click.accordion.lg.typography.label.default}",
               "type": "typography"
             }
           }
@@ -142,11 +142,11 @@
         },
         "icon": {
           "height": {
-            "value": "{click.image.medium.size.height}",
+            "value": "{click.image.md.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.medium.size.width}",
+            "value": "{click.image.md.size.width}",
             "type": "sizing"
           }
         }
@@ -168,11 +168,11 @@
         },
         "icon": {
           "height": {
-            "value": "{click.image.small.size.height}",
+            "value": "{click.image.sm.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.small.size.width}",
+            "value": "{click.image.sm.size.width}",
             "type": "sizing"
           }
         },
@@ -341,11 +341,11 @@
         "md": {
           "size": {
             "height": {
-              "value": "{click.image.x-small.size.height}",
+              "value": "{click.image.xs.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.x-small.size.width}",
+              "value": "{click.image.xs.size.width}",
               "type": "sizing"
             }
           }
@@ -539,7 +539,7 @@
             "type": "borderRadius"
           }
         },
-        "small": {
+        "sm": {
           "space": {
             "x": {
               "value": "{spaces.1}",
@@ -547,6 +547,18 @@
             },
             "y": {
               "value": "{spaces.1}",
+              "type": "spacing"
+            }
+          }
+        },
+        "xs": {
+          "space": {
+            "x": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "{spaces.0}",
               "type": "spacing"
             }
           }
@@ -1374,7 +1386,7 @@
       }
     },
     "image": {
-      "small": {
+      "sm": {
         "size": {
           "height": {
             "value": "{sizes.5}",
@@ -1386,7 +1398,7 @@
           }
         }
       },
-      "x-small": {
+      "xs": {
         "size": {
           "height": {
             "value": "{sizes.4}",
@@ -1398,7 +1410,7 @@
           }
         }
       },
-      "medium": {
+      "md": {
         "size": {
           "height": {
             "value": "{sizes.6}",
@@ -1410,7 +1422,7 @@
           }
         }
       },
-      "large": {
+      "lg": {
         "size": {
           "height": {
             "value": "{sizes.7}",
@@ -1422,7 +1434,7 @@
           }
         }
       },
-      "x-large": {
+      "xl": {
         "size": {
           "height": {
             "value": "{sizes.9}",
@@ -1434,7 +1446,7 @@
           }
         }
       },
-      "xx-large": {
+      "xxl": {
         "size": {
           "height": {
             "value": "{sizes.11}",
@@ -1561,11 +1573,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.medium.size.height}",
+            "value": "{click.image.md.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.medium.size.width}",
+            "value": "{click.image.md.size.width}",
             "type": "sizing"
           }
         }
@@ -1684,10 +1696,6 @@
           },
           "default": {
             "space": {
-              "left": {
-                "value": "{spaces.0}",
-                "type": "spacing"
-              },
               "right": {
                 "value": "{spaces.3}",
                 "type": "spacing"
@@ -1698,6 +1706,10 @@
               },
               "gap": {
                 "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "left": {
+                "value": "{spaces.0}",
                 "type": "spacing"
               }
             }
@@ -1777,11 +1789,11 @@
           "icon": {
             "size": {
               "height": {
-                "value": "{click.image.small.size.height}",
+                "value": "{click.image.sm.size.height}",
                 "type": "sizing"
               },
               "width": {
-                "value": "{click.image.small.size.width}",
+                "value": "{click.image.sm.size.width}",
                 "type": "sizing"
               }
             }
@@ -1882,6 +1894,16 @@
               "type": "typography"
             }
           }
+        },
+        "dragControl": {
+          "separator": {
+            "size": {
+              "height": {
+                "value": "0.125rem",
+                "type": "sizing"
+              }
+            }
+          }
         }
       }
     },
@@ -1927,11 +1949,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.medium.size.height}",
+            "value": "{click.image.md.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.medium.size.width}",
+            "value": "{click.image.md.size.width}",
             "type": "sizing"
           }
         },
@@ -2137,11 +2159,11 @@
         "icon": {
           "size": {
             "height": {
-              "value": "{click.image.small.size.height}",
+              "value": "{click.image.sm.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.small.size.width}",
+              "value": "{click.image.sm.size.width}",
               "type": "sizing"
             }
           }
@@ -2188,11 +2210,11 @@
       "icon": {
         "size": {
           "height": {
-            "value": "{click.image.small.size.height}",
+            "value": "{click.image.sm.size.height}",
             "type": "sizing"
           },
           "width": {
-            "value": "{click.image.small.size.width}",
+            "value": "{click.image.sm.size.width}",
             "type": "sizing"
           }
         }
@@ -2333,21 +2355,21 @@
         "size": {
           "sm": {
             "height": {
-              "value": "{click.image.x-small.size.height}",
+              "value": "{click.image.xs.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.x-small.size.width}",
+              "value": "{click.image.xs.size.width}",
               "type": "sizing"
             }
           },
           "md": {
             "height": {
-              "value": "{click.image.small.size.height}",
+              "value": "{click.image.sm.size.height}",
               "type": "sizing"
             },
             "width": {
-              "value": "{click.image.small.size.width}",
+              "value": "{click.image.sm.size.width}",
               "type": "sizing"
             }
           }

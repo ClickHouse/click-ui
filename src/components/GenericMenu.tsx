@@ -70,9 +70,12 @@ export const Arrow = styled.svg`
 
 export const GenericMenuItem = styled.div`
   display: flex;
+  width: 100%;
   width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   cursor: default;
   overflow: hidden;
   white-space: nowrap;

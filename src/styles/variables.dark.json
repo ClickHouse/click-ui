@@ -646,6 +646,13 @@
               "active": "rgba(0,0,0,0)"
             }
           }
+        },
+        "dragControl": {
+          "separator": {
+            "color": {
+              "default": "#FAFF69"
+            }
+          }
         }
       },
       "main": {
