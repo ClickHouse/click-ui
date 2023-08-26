@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "@radix-ui/react-switch": "^1.0.2",
+    "@storybook/addon-a11y": "^7.3.2",
     "@storybook/addon-essentials": "^7.0.18",
     "@storybook/addon-interactions": "^7.0.18",
     "@storybook/addon-links": "^7.0.18",
@@ -99,7 +100,7 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^3.5.1",
-    "watch": "^1.0.2"
+    "watch": "^0.13.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
