@@ -120,9 +120,7 @@ export const InputElement = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  width: inherit;
   color: inherit;
   font: inherit;
   ${({ theme }) => `
