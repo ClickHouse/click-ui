@@ -18,19 +18,19 @@ export interface LinkProps<T extends ElementType> {
   component?: T;
 }
 
-const CuiLink = styled.a<{ size: TextSize; weight: TextWeight }>`
-  font: ${({ size, weight = "normal", theme }) =>
-    theme.typography.styles.product.text[weight][size]};
+const CuiLink = styled.a<{ $size: TextSize; $weight: TextWeight }>`
+  font: ${({ $size, $weight = "normal", theme }) =>
+    theme.typography.styles.product.text[$weight][$size]};
   color: ${({ theme }) => theme.click.global.color.text.link.default};
   margin: 0;
   text-decoration: none;
   display: inline-flex;
-  gap: ${({ size, theme }) =>
-    size === "xs" || size === "sm"
+  gap: ${({ $size, theme }) =>
+    $size === "xs" || $size === "sm"
       ? theme.click.link.space.sm.gap
       : theme.click.link.space.md.gap};
-  margin-right: ${({ size, theme }) =>
-    size === "xs" || size === "sm"
+  margin-right: ${({ $size, theme }) =>
+    $size === "xs" || $size === "sm"
       ? theme.click.link.space.sm.gap
       : theme.click.link.space.md.gap};
   align-items: center;
@@ -44,14 +44,14 @@ const CuiLink = styled.a<{ size: TextSize; weight: TextWeight }>`
   }
 `;
 
-const IconWrapper = styled.span<{ size: TextSize }>`
+const IconWrapper = styled.span<{ $size: TextSize }>`
   .external-icon {
-    height: ${({ size, theme }) =>
-      size === "xs" || size === "sm"
+    height: ${({ $size, theme }) =>
+      $size === "xs" || $size === "sm"
         ? theme.click.link.icon.size.sm.height
         : theme.click.link.icon.size.md.height};
-    width: ${({ size, theme }) =>
-      size === "xs" || size === "sm"
+    width: ${({ $size, theme }) =>
+      $size === "xs" || $size === "sm"
         ? theme.click.link.icon.size.sm.width
         : theme.click.link.icon.size.md.width};
   }
@@ -72,8 +72,8 @@ export const Link = <T extends React.ElementType = "a">({
   ...props
 }: LinkProps<T> & ComponentPropsWithoutRef<T>) => (
   <CuiLink
-    size={size}
-    weight={weight}
+    $size={size}
+    $weight={weight}
     className={className}
     as={component ?? "a"}
     href={href}
@@ -84,7 +84,7 @@ export const Link = <T extends React.ElementType = "a">({
   >
     {children}
     {hasIcon && (
-      <IconWrapper size={size}>
+      <IconWrapper $size={size}>
         <Icon
           name="popout"
           className="external-icon"
