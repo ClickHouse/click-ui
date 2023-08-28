@@ -12,7 +12,7 @@ import { ThemeProvider } from "../../theme";
 <ThemeProvider theme='light'>
   <IconGallery>
     {Object.keys(ICONS_MAP).map((iconName) => (
-      <IconItem name={iconName}>
+      <IconItem name={iconName} key={iconName}>
         <Icon name={iconName} />
       </IconItem>
     ))}
@@ -22,8 +22,8 @@ import { ThemeProvider } from "../../theme";
 # Flags
 
 <IconGallery>
-  {["usa", "de", "sg", "uk", "ie", "eu", "in", "nl"].map((iconName) => (
-    <IconItem name={iconName}>
+  {["usa", "de", "sg", "uk", "ie", "eu", "in", "nl", "au", "br", "ca", "za"].map((iconName) => (
+    <IconItem name={iconName} key={iconName}>
       <Flags name={iconName} />
     </IconItem>
   ))}
@@ -33,7 +33,7 @@ import { ThemeProvider } from "../../theme";
 
 <IconGallery>
   {["visa", "mastercard", "amex", "paypal"].map((iconName) => (
-    <IconItem name={iconName}>
+    <IconItem name={iconName} key={iconName}>
       <Payments name={iconName} />
     </IconItem>
   ))}
