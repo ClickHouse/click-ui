@@ -2,25 +2,28 @@ import { render } from "@testing-library/react";
 import { Link } from "./Link";
 import { ThemeProvider } from "@/theme";
 
-describe("Text", () => {
-  test("given a text, should render it", () => {
-    const text = "text to render";
-    const rendered = render(
+interface LinkProps {
+  hasIcon?: boolean;
+}
+
+describe("Link Component", () => {
+  const text = "text to render";
+
+  const renderLink = (props: LinkProps) => {
+    return render(
       <ThemeProvider theme="light">
-        <Link>{text}</Link>
+        <Link {...props}>{text}</Link>
       </ThemeProvider>
     );
+  };
 
+  test("renders the text", () => {
+    const rendered = renderLink({ hasIcon: false});
     expect(rendered.getByText(text).textContent).toEqual(text);
   });
 
-  test("if icon is displayed when isExternal is true", () => {
-    const text = "text to render";
-    const rendered = render(
-      <ThemeProvider theme="light">
-        <Link hasIcon={true}>{text}</Link>
-      </ThemeProvider>
-    );
+  test("displays icon when isExternal is true", () => {
+    const rendered = renderLink({ hasIcon: true });
     expect(rendered.getAllByTestId("external-icon").length).toEqual(1);
   });
 });
