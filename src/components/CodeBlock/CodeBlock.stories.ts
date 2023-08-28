@@ -8,8 +8,7 @@ export default {
 
 export const Playground = {
   args: {
-    children: `
-    SELECT
+    children: `SELECT
     customer_id,
     COUNT(DISTINCT order_id) AS total_orders,
     SUM(quantity) AS total_quantity,

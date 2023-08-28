@@ -1,5 +1,5 @@
 import { HTMLAttributes, useRef, useState } from "react";
-import SyntaxHighlighter, { createElement } from "react-syntax-highlighter";
+import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
 import { IconButton } from "@/components";
 import styled from "styled-components";
 import useColorStyle from "./useColorStyle";
@@ -79,7 +79,6 @@ export const CodeBlock = ({
   language,
   theme,
   showLineNumbers,
-  style,
   showWrapButton = false,
   wrapLines = false,
   ...props
@@ -163,7 +162,6 @@ export const CodeBlock = ({
           });
         }}
         showLineNumbers={showLineNumbers}
-        customStyle={style}
         wrapLines={wrap || wrapLines}
         wrapLongLines={wrap || wrapLines}
       >
