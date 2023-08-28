@@ -2,6 +2,8 @@ import { UsersIcon } from "@/components/icons/UsersIcon";
 import { UserIcon } from "@/components/icons/UserIcon";
 import ChatIcon from "@/components/icons/ChatIcon";
 import DatabaseIcon from "@/components/icons/DatabaseIcon";
+import AuthApp from "@/components/icons/AuthApp";
+import AuthSms from "@/components/icons/AuthSms";
 import FilterIcon from "@/components/icons/FilterIcon";
 import HistoryIcon from "@/components/icons/HistoryIcon";
 import InsertRowIcon from "@/components/icons/InsertRowIcon";
@@ -93,6 +95,8 @@ export const ICONS_MAP = {
   "arrow-right": ArrowRight,
   "arrow-triangle": ArrowTriangle,
   "arrow-up": ArrowUp,
+  "auth-app": AuthApp,
+  "auth-sms": AuthSms,
   backups: BackUps,
   blog: Blog,
   book: Book,

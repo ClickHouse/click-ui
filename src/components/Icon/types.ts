@@ -7,6 +7,8 @@ export type IconName =
   | "arrow-right"
   | "arrow-triangle"
   | "arrow-up"
+  | "auth-app"
+  | "auth-sms"
   | "backups"
   | "blog"
   | "book"
