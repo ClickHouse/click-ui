@@ -7,6 +7,10 @@ import Singapore from "./Singapore";
 import Ireland from "./Ireland";
 import India from "./India";
 import Netherlands from "./Netherlands";
+import Australia from "./Australia";
+import SouthAfrica from "./SouthAfrica";
+import Brazil from "./Brazil";
+import Canada from "./Canada";
 
 interface Props extends React.SVGAttributes<SVGElement> {
   name: string;
@@ -37,6 +41,18 @@ const Flags = ({ name, ...props }: Props) => {
 
     case "nl":
       return <Netherlands {...props} />;
+
+    case "au":
+      return <Australia {...props} />;
+
+    case "br":
+      return <Brazil {...props} />;
+
+    case "ca":
+      return <Canada {...props} />;
+
+    case "za":
+      return <SouthAfrica {...props} />;
 
     default:
       return null;
