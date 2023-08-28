@@ -9,7 +9,7 @@ const AWSRedshift = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_472_6151)">
+    <g clipPath="url(#clip0_472_6151)">
       <path
         d="M31.8115 47.9702L55.1727 53.5324V9.77539L31.8115 15.3376V47.9702Z"
         fill="#205B97"

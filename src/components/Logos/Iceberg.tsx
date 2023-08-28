@@ -9,7 +9,7 @@ const Iceberg = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_3281_13766)">
+    <g clipPath="url(#clip0_3281_13766)">
       <circle
         cx="32.2592"
         cy="32.2583"
@@ -17,8 +17,8 @@ const Iceberg = (props: SVGAttributes<SVGElement>) => (
         fill="#277ABE"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M6.30371 15.7766H58.213C52.7579 7.20395 43.1723 1.5166 32.2584 1.5166C21.3444 1.5166 11.7589 7.20395 6.30371 15.7766Z"
         fill="#B8E1F3"
       />

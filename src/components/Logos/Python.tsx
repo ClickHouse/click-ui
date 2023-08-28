@@ -9,7 +9,7 @@ const Python = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_472_6293)">
+    <g clipPath="url(#clip0_472_6293)">
       <path
         d="M17.5612 8.83096C17.5612 4.52367 18.7425 2.18048 25.2652 1.06469C29.6935 0.305858 35.3714 0.211005 40.6677 1.06469C44.8509 1.73973 48.3718 4.7861 48.3718 8.83096V23.0416C48.3718 27.2094 44.9534 30.6235 40.6677 30.6235H25.2652C20.0378 30.6235 15.6321 34.9811 15.6321 39.9075V46.7255H10.3361C5.85633 46.7255 3.24812 43.5675 2.15244 39.1486C0.674498 33.2121 0.737238 29.675 2.15244 23.9895C3.37942 19.0296 7.3 16.4126 11.7801 16.4126H32.9692V14.5155H17.5608V8.83065L17.5612 8.83096Z"
         fill="url(#paint0_linear_472_6293)"
@@ -32,10 +32,10 @@ const Python = (props: SVGAttributes<SVGElement>) => (
         y2="18.0606"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#366A96" />
+        <stop stopColor="#366A96" />
         <stop
           offset="1"
-          stop-color="#3679B0"
+          stopColor="#3679B0"
         />
       </linearGradient>
       <linearGradient
@@ -46,10 +46,10 @@ const Python = (props: SVGAttributes<SVGElement>) => (
         y2="39.7179"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#FFC836" />
+        <stop stopColor="#FFC836" />
         <stop
           offset="1"
-          stop-color="#FFE873"
+          stopColor="#FFE873"
         />
       </linearGradient>
       <clipPath id="clip0_472_6293">

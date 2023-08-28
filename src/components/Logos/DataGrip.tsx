@@ -9,7 +9,7 @@ const DataGrip = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_472_6308)">
+    <g clipPath="url(#clip0_472_6308)">
       <path
         d="M59.8855 9.96582L63.9998 36.1144L48.457 45.1658L45.5312 30.3544L59.8855 9.96582Z"
         fill="#9775F8"
@@ -56,10 +56,10 @@ const DataGrip = (props: SVGAttributes<SVGElement>) => (
         y2="3.70807"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#9775F8" />
+        <stop stopColor="#9775F8" />
         <stop
           offset="0.9516"
-          stop-color="#22D88F"
+          stopColor="#22D88F"
         />
       </linearGradient>
       <linearGradient
@@ -70,22 +70,22 @@ const DataGrip = (props: SVGAttributes<SVGElement>) => (
         y2="61.353"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#9775F8" />
+        <stop stopColor="#9775F8" />
         <stop
           offset="0.2142"
-          stop-color="#689CCE"
+          stopColor="#689CCE"
         />
         <stop
           offset="0.423"
-          stop-color="#42BDAC"
+          stopColor="#42BDAC"
         />
         <stop
           offset="0.5897"
-          stop-color="#2BD197"
+          stopColor="#2BD197"
         />
         <stop
           offset="0.6935"
-          stop-color="#22D88F"
+          stopColor="#22D88F"
         />
       </linearGradient>
       <linearGradient
@@ -98,11 +98,11 @@ const DataGrip = (props: SVGAttributes<SVGElement>) => (
       >
         <stop
           offset="0.0752688"
-          stop-color="#22D88F"
+          stopColor="#22D88F"
         />
         <stop
           offset="0.7204"
-          stop-color="#9775F8"
+          stopColor="#9775F8"
         />
       </linearGradient>
       <linearGradient
@@ -115,19 +115,19 @@ const DataGrip = (props: SVGAttributes<SVGElement>) => (
       >
         <stop
           offset="0.0752688"
-          stop-color="#22D88F"
+          stopColor="#22D88F"
         />
         <stop
           offset="0.2658"
-          stop-color="#5AB0B4"
+          stopColor="#5AB0B4"
         />
         <stop
           offset="0.5645"
-          stop-color="#B86CF2"
+          stopColor="#B86CF2"
         />
         <stop
           offset="1"
-          stop-color="#FF59E6"
+          stopColor="#FF59E6"
         />
       </linearGradient>
       <clipPath id="clip0_472_6308">

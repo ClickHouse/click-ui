@@ -34,10 +34,10 @@ const Azure = (props: SVGAttributes<SVGElement>) => (
         y2="53.1846"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#114A8B" />
+        <stop stopColor="#114A8B" />
         <stop
           offset="1"
-          stop-color="#0669BC"
+          stopColor="#0669BC"
         />
       </linearGradient>
       <linearGradient
@@ -48,22 +48,22 @@ const Azure = (props: SVGAttributes<SVGElement>) => (
         y2="34.6552"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-opacity="0.3" />
+        <stop stopOpacity="0.3" />
         <stop
           offset="0.071"
-          stop-opacity="0.2"
+          stopOpacity="0.2"
         />
         <stop
           offset="0.321"
-          stop-opacity="0.1"
+          stopOpacity="0.1"
         />
         <stop
           offset="0.623"
-          stop-opacity="0.05"
+          stopOpacity="0.05"
         />
         <stop
           offset="1"
-          stop-opacity="0"
+          stopOpacity="0"
         />
       </linearGradient>
       <linearGradient
@@ -74,10 +74,10 @@ const Azure = (props: SVGAttributes<SVGElement>) => (
         y2="51.7513"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#3CCBF4" />
+        <stop stopColor="#3CCBF4" />
         <stop
           offset="1"
-          stop-color="#2892DF"
+          stopColor="#2892DF"
         />
       </linearGradient>
     </defs>
