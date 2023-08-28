@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const ConfluentLight = (props: SVGAttributes<SVGElement>) => (
+const Confluent = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -35,4 +35,4 @@ const ConfluentLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default ConfluentLight;
+export default Confluent;

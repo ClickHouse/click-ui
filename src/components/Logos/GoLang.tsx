@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const GoLangLight = (props: SVGAttributes<SVGElement>) => (
+const GoLang = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -32,4 +32,4 @@ const GoLangLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default GoLangLight;
+export default GoLang;

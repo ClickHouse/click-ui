@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const HudiLight = (props: SVGAttributes<SVGElement>) => (
+const Hudi = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -71,4 +71,4 @@ const HudiLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default HudiLight;
+export default Hudi;

@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const GoogleLight = (props: SVGAttributes<SVGElement>) => (
+const Google = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -28,4 +28,4 @@ const GoogleLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default GoogleLight;
+export default Google;

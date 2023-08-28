@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const MySQLLight = (props: SVGAttributes<SVGElement>) => (
+const MySQL = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const MySQLLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default MySQLLight;
+export default MySQL;

@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const GCPLight = (props: SVGAttributes<SVGElement>) => (
+const Gcp = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const GCPLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default GCPLight;
+export default Gcp;

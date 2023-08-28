@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const NodeJsLight = (props: SVGAttributes<SVGElement>) => (
+const NodeJs = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -16,4 +16,4 @@ const NodeJsLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default NodeJsLight;
+export default NodeJs;

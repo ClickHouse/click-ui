@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const DbtLight = (props: SVGAttributes<SVGElement>) => (
+const Dbt = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -28,4 +28,4 @@ const DbtLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default DbtLight;
+export default Dbt;

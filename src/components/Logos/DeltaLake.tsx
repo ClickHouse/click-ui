@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const DeltaLakeLight = (props: SVGAttributes<SVGElement>) => (
+const DeltaLake = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -18,4 +18,4 @@ const DeltaLakeLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default DeltaLakeLight;
+export default DeltaLake;

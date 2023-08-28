@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const FivetranLight = (props: SVGAttributes<SVGElement>) => (
+const Fivetran = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -32,4 +32,4 @@ const FivetranLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default FivetranLight;
+export default Fivetran;

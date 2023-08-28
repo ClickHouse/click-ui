@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const MongoDbLight = (props: SVGAttributes<SVGElement>) => (
+const MongoDb = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -28,4 +28,4 @@ const MongoDbLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default MongoDbLight;
+export default MongoDb;

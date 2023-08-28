@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const DeepNoteLight = (props: SVGAttributes<SVGElement>) => (
+const DeepNote = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -48,4 +48,4 @@ const DeepNoteLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default DeepNoteLight;
+export default DeepNote;

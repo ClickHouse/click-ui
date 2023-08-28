@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const PostgresLight = (props: SVGAttributes<SVGElement>) => (
+const Postgres = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -72,4 +72,4 @@ const PostgresLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default PostgresLight;
+export default Postgres;

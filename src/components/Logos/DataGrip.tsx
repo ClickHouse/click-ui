@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const DataGripLight = (props: SVGAttributes<SVGElement>) => (
+const DataGrip = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -141,4 +141,4 @@ const DataGripLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default DataGripLight;
+export default DataGrip;

@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const DecodeableLight = (props: SVGAttributes<SVGElement>) => (
+const Decodeable = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -20,4 +20,4 @@ const DecodeableLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default DecodeableLight;
+export default Decodeable;

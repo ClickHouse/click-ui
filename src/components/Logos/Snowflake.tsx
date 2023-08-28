@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const SnowflakeLight = (props: SVGAttributes<SVGElement>) => (
+const Snowflake = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -45,4 +45,4 @@ const SnowflakeLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default SnowflakeLight;
+export default Snowflake;

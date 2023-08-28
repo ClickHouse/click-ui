@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const PythonLight = (props: SVGAttributes<SVGElement>) => (
+const Python = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="65"
     height="64"
@@ -64,4 +64,4 @@ const PythonLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default PythonLight;
+export default Python;

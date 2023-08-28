@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const JdbcLight = (props: SVGAttributes<SVGElement>) => (
+const Jdbc = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -44,4 +44,4 @@ const JdbcLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default JdbcLight;
+export default Jdbc;

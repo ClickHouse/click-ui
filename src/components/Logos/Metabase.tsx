@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const MetabaseLight = (props: SVGAttributes<SVGElement>) => (
+const Metabase = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -111,4 +111,4 @@ const MetabaseLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default MetabaseLight;
+export default Metabase;

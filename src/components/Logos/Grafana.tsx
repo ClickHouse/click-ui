@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const GrafanaLight = (props: SVGAttributes<SVGElement>) => (
+const Grafana = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -32,4 +32,4 @@ const GrafanaLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default GrafanaLight;
+export default Grafana;

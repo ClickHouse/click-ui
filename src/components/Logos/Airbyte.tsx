@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const AirbyteLight = (props: SVGAttributes<SVGElement>) => (
+const Airbyte = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -34,4 +34,4 @@ const AirbyteLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AirbyteLight;
+export default Airbyte;

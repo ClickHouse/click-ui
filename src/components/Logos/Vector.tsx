@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const VectorLight = (props: SVGAttributes<SVGElement>) => (
+const Vector = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -108,4 +108,4 @@ const VectorLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default VectorLight;
+export default Vector;

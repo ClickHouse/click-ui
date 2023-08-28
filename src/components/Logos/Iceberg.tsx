@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const IcebergLight = (props: SVGAttributes<SVGElement>) => (
+const Iceberg = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -108,4 +108,4 @@ const IcebergLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default IcebergLight;
+export default Iceberg;

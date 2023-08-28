@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const SupersetLight = (props: SVGAttributes<SVGElement>) => (
+const Superset = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -24,4 +24,4 @@ const SupersetLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default SupersetLight;
+export default Superset;

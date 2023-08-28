@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const KubenetesLight = (props: SVGAttributes<SVGElement>) => (
+const Kubenetes = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -20,4 +20,4 @@ const KubenetesLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default KubenetesLight;
+export default Kubenetes;

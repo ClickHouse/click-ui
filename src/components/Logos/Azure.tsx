@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const AzureLight = (props: SVGAttributes<SVGElement>) => (
+const Azure = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -84,4 +84,4 @@ const AzureLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AzureLight;
+export default Azure;
