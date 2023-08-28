@@ -3,7 +3,7 @@ import SyntaxHighlighter, { createElement } from "react-syntax-highlighter";
 import { IconButton } from "@/components";
 import styled from "styled-components";
 import useColorStyle from "./useColorStyle";
-import { EmptyButton } from "../FormField/commonElement";
+import { EmptyButton } from "../commonElement";
 
 export type CodeThemeType = "light" | "dark";
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
