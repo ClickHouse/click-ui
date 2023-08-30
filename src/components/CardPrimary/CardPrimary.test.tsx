@@ -1,15 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import { ThemeProvider } from "@/theme";
+import { screen } from "@testing-library/react";
 import { CardPrimary, CardPrimaryProps } from "./CardPrimary";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("CardPrimary Component", () => {
   describe("Primary card", () => {
-    const renderCard = (props: CardPrimaryProps) =>
-      render(
-        <ThemeProvider theme="light">
-          <CardPrimary {...props} />
-        </ThemeProvider>
-      );
+    const renderCard = (props: CardPrimaryProps) => renderCUI(<CardPrimary {...props} />);
 
     it("should render the title", () => {
       const title = "Test card component";

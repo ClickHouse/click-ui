@@ -1,7 +1,6 @@
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { Accordion } from "./Accordion";
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
+import { renderCUI } from "@/utils/test-utils";
 
 interface RenderAccordionProps {
   title: string;
@@ -10,12 +9,10 @@ interface RenderAccordionProps {
 
 describe("Accordion", () => {
   const renderAccordion = ({ title, content }: RenderAccordionProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Accordion title={title}>
-          <div>{content}</div>
-        </Accordion>
-      </ThemeProvider>
+    renderCUI(
+      <Accordion title={title}>
+        <div>{content}</div>
+      </Accordion>
     );
   it("given no arguments, should render the accordion", () => {
     const title = "Test accordion";

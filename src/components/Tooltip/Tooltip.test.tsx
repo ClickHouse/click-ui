@@ -1,25 +1,20 @@
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
 import { TooltipProps } from "@radix-ui/react-tooltip";
 import { Tooltip, TooltipProvider } from "..";
-import { render, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Tooltip", () => {
   const renderTooltip = (props: TooltipProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <TooltipProvider delayDuration={0}>
-          <Tooltip {...props}>
-            <Tooltip.Trigger>
-              <div>Hover Here</div>
-            </Tooltip.Trigger>
-            <Tooltip.Content data-testid="tooltip-content">
-              Tooltip content
-            </Tooltip.Content>
-          </Tooltip>
-        </TooltipProvider>
-      </ThemeProvider>
+    renderCUI(
+      <TooltipProvider delayDuration={0}>
+        <Tooltip {...props}>
+          <Tooltip.Trigger>
+            <div>Hover Here</div>
+          </Tooltip.Trigger>
+          <Tooltip.Content data-testid="tooltip-content">Tooltip content</Tooltip.Content>
+        </Tooltip>
+      </TooltipProvider>
     );
 
   it("should open tooltip on hover", async () => {

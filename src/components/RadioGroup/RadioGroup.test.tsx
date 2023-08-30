@@ -1,34 +1,31 @@
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { RadioGroup } from "@/components";
 import { RadioGroupProps } from "./RadioGroup";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("RadioGroup", () => {
   const renderRadioGroup = (props: RadioGroupProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <RadioGroup
-          inline
-          {...props}
-        >
-          <RadioGroup.Item
-            id="RadioButton1"
-            label="Radio Button1"
-            value="RadioButton1"
-          />
-          <RadioGroup.Item
-            label="Radio Button2"
-            value="RadioButton2"
-            id="RadioButton2"
-          />
-          <RadioGroup.Item
-            label="Radio Button3"
-            value="RadioButton3"
-            id="RadioButton3"
-          />
-        </RadioGroup>
-      </ThemeProvider>
+    renderCUI(
+      <RadioGroup
+        inline
+        {...props}
+      >
+        <RadioGroup.Item
+          id="RadioButton1"
+          label="Radio Button1"
+          value="RadioButton1"
+        />
+        <RadioGroup.Item
+          label="Radio Button2"
+          value="RadioButton2"
+          id="RadioButton2"
+        />
+        <RadioGroup.Item
+          label="Radio Button3"
+          value="RadioButton3"
+          id="RadioButton3"
+        />
+      </RadioGroup>
     );
 
   it("should execute action on click", () => {

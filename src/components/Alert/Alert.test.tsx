@@ -1,15 +1,10 @@
-import { ThemeProvider } from "@/theme";
 import { Alert, AlertProps } from "./Alert";
-import { render, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Alert", () => {
-  const renderAlert = (props: AlertProps) =>
-    render(
-      <ThemeProvider theme="light">
-        <Alert {...props} />
-      </ThemeProvider>
-    );
+  const renderAlert = (props: AlertProps) => renderCUI(<Alert {...props} />);
 
   it("given a dismissible alert, should not be visible after dismissing it", async () => {
     const text = "Test alert component";
