@@ -38,7 +38,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic"
+    "chromatic": "npx chromatic",
+    "publish": "npm run test && npm run build && npm publish"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
