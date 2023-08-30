@@ -13,7 +13,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 import { Icon, IconButton } from "@/components";
 import { IconName } from "../Icon/types";
 
