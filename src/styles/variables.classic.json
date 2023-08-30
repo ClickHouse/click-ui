@@ -73,8 +73,8 @@
               "active": "rgb(86.8% 87.2% 88.2%)"
             },
             "stroke": {
-              "default": "rgba(0,0,0,0)",
-              "hover": "#f6f7fa",
+              "default": "lch(91.6 1.1 266)",
+              "hover": "lch(91.6 1.1 266)",
               "active": "rgb(86.8% 87.2% 88.2%)"
             },
             "text": {
@@ -217,6 +217,45 @@
     },
     "sidebar": {
       "navigation": {
+        "item": {
+          "color": {
+            "background": {
+              "active": "lch(38.8 16.8 296 / 0.6)",
+              "hover": "lch(40.9 16.2 296)",
+              "default": "rgba(0,0,0,0)"
+            },
+            "text": {
+              "default": "#f6f7fa",
+              "hover": "#ffffff",
+              "active": "#ffffff",
+              "muted": "#696e79"
+            },
+            "icon": {
+              "default": "#e4e2e9"
+            }
+          }
+        },
+        "title": {
+          "color": {
+            "default": "#ada8bd",
+            "hover": "#ada8bd",
+            "active": "#ada8bd"
+          }
+        },
+        "subItem": {
+          "color": {
+            "text": {
+              "default": "#f6f7fa",
+              "hover": "#ffffff",
+              "active": "#ffffff"
+            },
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "lch(40.9 16.2 296)",
+              "active": "rgba(0,0,0,0)"
+            }
+          }
+        },
         "dragControl": {
           "separator": {
             "color": {
@@ -236,7 +275,9 @@
           },
           "stroke": {
             "default": "#474257"
-          },
+          }
+        },
+        "navigation": {
           "item": {
             "background": {
               "default": "rgba(0,0,0,0)",

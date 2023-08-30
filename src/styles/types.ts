@@ -1524,16 +1524,6 @@
           }
         }
       },
-      "sql-sidebar": {
-        "color": {
-          "background": {
-            "default": string
-          },
-          "stroke": {
-            "default": string
-          }
-        }
-      },
       "sqlSidebar": {
         "color": {
           "background": {
