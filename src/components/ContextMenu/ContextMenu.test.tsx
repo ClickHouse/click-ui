@@ -1,9 +1,8 @@
-import { ThemeProvider } from "styled-components";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
 import userEvent from "@testing-library/user-event";
-import { themes } from "../../theme";
 import { ContextMenu } from "./ContextMenu";
+import { renderCUI } from "@/utils/test-utils";
 
 interface Props extends ContextMenuProps {
   disabled?: boolean;
@@ -32,29 +31,27 @@ describe("ContextMenu", () => {
     };
   });
   const renderContextMenu = ({ disabled, ...props }: Props) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <ContextMenu {...props}>
-          <ContextMenu.Trigger disabled={disabled}>
-            <div>ContextMenu Trigger</div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Group>
-              <ContextMenu.Item>Content0</ContextMenu.Item>
-            </ContextMenu.Group>
-            <ContextMenu.Item>Content1 long text content</ContextMenu.Item>
-            <ContextMenu.Sub>
-              <ContextMenu.SubTrigger>Hover over</ContextMenu.SubTrigger>
-              <ContextMenu.Content sub>
-                <ContextMenu.Item>SubContent0</ContextMenu.Item>
-                <ContextMenu.Item>SubContent1</ContextMenu.Item>
-              </ContextMenu.Content>
-            </ContextMenu.Sub>
-            <ContextMenu.Item>Content2</ContextMenu.Item>
-            <ContextMenu.Item disabled>Content3</ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu>
-      </ThemeProvider>
+    renderCUI(
+      <ContextMenu {...props}>
+        <ContextMenu.Trigger disabled={disabled}>
+          <div>ContextMenu Trigger</div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Group>
+            <ContextMenu.Item>Content0</ContextMenu.Item>
+          </ContextMenu.Group>
+          <ContextMenu.Item>Content1 long text content</ContextMenu.Item>
+          <ContextMenu.Sub>
+            <ContextMenu.SubTrigger>Hover over</ContextMenu.SubTrigger>
+            <ContextMenu.Content sub>
+              <ContextMenu.Item>SubContent0</ContextMenu.Item>
+              <ContextMenu.Item>SubContent1</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu.Sub>
+          <ContextMenu.Item>Content2</ContextMenu.Item>
+          <ContextMenu.Item disabled>Content3</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
     );
 
   it("should open menu on rightclick", () => {

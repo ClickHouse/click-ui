@@ -1,26 +1,23 @@
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
 import { PopoverProps } from "@radix-ui/react-popover";
 import { Checkbox, Popover } from "@/components";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Popover", () => {
   const renderPopover = (props: PopoverProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Popover {...props}>
-          <Popover.Trigger>
-            <div>Click Here</div>
-          </Popover.Trigger>
-          <Popover.Content>
-            <div>
-              Click on the input element below
-              <Checkbox />
-              <div>This is a sample data to experiment the popover</div>
-            </div>
-          </Popover.Content>
-        </Popover>
-      </ThemeProvider>
+    renderCUI(
+      <Popover {...props}>
+        <Popover.Trigger>
+          <div>Click Here</div>
+        </Popover.Trigger>
+        <Popover.Content>
+          <div>
+            Click on the input element below
+            <Checkbox />
+            <div>This is a sample data to experiment the popover</div>
+          </div>
+        </Popover.Content>
+      </Popover>
     );
 
   it("should open popover on click", () => {

@@ -1,22 +1,19 @@
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { SidebarCollapsibleItem } from "./SidebarCollapsibleItem";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("SidebarCollapsibleItem", () => {
   it("should trigger toggle on clicking trigger", () => {
     const onOpenChange = jest.fn();
-    const { queryByTestId } = render(
-      <ThemeProvider theme={themes.dark}>
-        <SidebarCollapsibleItem
-          icon="user"
-          label="collapsible item"
-          onOpenChange={onOpenChange}
-          data-testid="collapsible-header"
-        >
-          <div data-testid="collapsible-content">Sidebar nav content</div>
-        </SidebarCollapsibleItem>
-      </ThemeProvider>
+    const { queryByTestId } = renderCUI(
+      <SidebarCollapsibleItem
+        icon="user"
+        label="collapsible item"
+        onOpenChange={onOpenChange}
+        data-testid="collapsible-header"
+      >
+        <div data-testid="collapsible-content">Sidebar nav content</div>
+      </SidebarCollapsibleItem>
     );
     const collapsibleHeader = queryByTestId("collapsible-header");
     expect(collapsibleHeader).not.toBeNull();
