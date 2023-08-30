@@ -1,9 +1,16 @@
 import { Icon } from "./Icon";
+import { ICONS_MAP } from "./IconCommon";
 
 export default {
   component: Icon,
   title: "Display/Icon",
-  tags: ["icon","autodocs"],
+  tags: ["icon", "autodocs"],
+  argTypes: {
+    name: {
+      options: Object.keys(ICONS_MAP),
+      control: { type: "select" },
+    },
+  },
 };
 
 export const Playground = {

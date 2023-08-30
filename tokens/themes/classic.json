@@ -9,6 +9,24 @@
               "type": "color"
             }
           },
+          "text": {
+            "default": {
+              "value": "{palette.neutral.0}",
+              "type": "color"
+            },
+            "muted": {
+              "value": "{palette.indigo.300}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{palette.indigo.700}",
+              "type": "color"
+            }
+          }
+        },
+        "navigation": {
           "item": {
             "background": {
               "default": {
@@ -34,22 +52,6 @@
                 "type": "color"
               }
             }
-          },
-          "text": {
-            "default": {
-              "value": "{palette.neutral.0}",
-              "type": "color"
-            },
-            "muted": {
-              "value": "{palette.indigo.300}",
-              "type": "color"
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{palette.indigo.700}",
-              "type": "color"
-            }
           }
         }
       },
@@ -59,6 +61,114 @@
             "color": {
               "default": {
                 "value": "{click.button.basic.color.primary.background.default}",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "title": {
+          "color": {
+            "default": {
+              "value": "{palette.indigo.300}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.sidebar.navigation.title.color.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.sidebar.navigation.title.color.default}",
+              "type": "color"
+            }
+          }
+        },
+        "subItem": {
+          "color": {
+            "text": {
+              "default": {
+                "value": "{palette.slate.50}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.sidebar.navigation.item.color.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "item": {
+          "color": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.indigo.600}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.035",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "active": {
+                "value": "{palette.indigo.600}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.6",
+                      "space": "lch"
+                    }
+                  }
+                }
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{palette.slate.50}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
+            },
+            "icon": {
+              "default": {
+                "value": "{palette.indigo.100}",
                 "type": "color"
               }
             }
