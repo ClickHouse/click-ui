@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Icon, IconName, Dropdown } from "@/components";
@@ -49,6 +49,26 @@ export const SplitButton = ({
   side,
   ...props
 }: SplitButtonProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const targetDiv = ref.current;
+    if (!targetDiv) return;
+
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        setWidth(entry.target.clientWidth);
+      }
+    });
+
+    resizeObserver.observe(targetDiv);
+
+    return () => {
+      resizeObserver.unobserve(targetDiv);
+    };
+  }, []);
+
   return (
     <Dropdown
       dir={dir}
@@ -59,6 +79,7 @@ export const SplitButton = ({
     >
       <SplitButtonTrigger
         $disabled={disabled}
+        ref={ref}
         $type={type}
       >
         <PrimaryButton
@@ -78,7 +99,12 @@ export const SplitButton = ({
           </span>
         </SecondaryButton>
       </SplitButtonTrigger>
-      <Dropdown.Content side={side}>
+      <DropdownContent
+        as={Dropdown.Content}
+        side={side}
+        $width={width}
+        align="end"
+      >
         {menu.map((item: Menu, index: number) => (
           <MenuContentItem
             key={`split-menu-option-${index}`}
@@ -86,10 +112,14 @@ export const SplitButton = ({
             {...item}
           />
         ))}
-      </Dropdown.Content>
+      </DropdownContent>
     </Dropdown>
   );
 };
+const DropdownContent = styled.div<{ $width: number }>`
+  min-width: ${({ $width }) => $width}px;
+  background: red;
+`;
 
 const IconWrapper = ({ label, icon, iconDir }: Omit<MenuItem, "type" | "items">) => {
   return (
@@ -175,6 +205,7 @@ const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }
   display: inline-flex;
   align-items: center;
   overflow: hidden;
+  user-select: none;
   ${({ theme, $disabled = false, $type }) => `
     border-radius: ${theme.click.button.radii.all};
     border: 1px solid ${theme.click.button.split[$type].stroke.default};

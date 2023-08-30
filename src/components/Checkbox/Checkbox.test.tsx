@@ -1,16 +1,10 @@
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { Checkbox } from "@/components";
 import { CheckboxProps } from "@/components/Checkbox/Checkbox";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Checkbox", () => {
-  const renderCheckbox = (props: CheckboxProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Checkbox {...props} />
-      </ThemeProvider>
-    );
+  const renderCheckbox = (props: CheckboxProps) => renderCUI(<Checkbox {...props} />);
 
   it("should execute action on click", () => {
     let counter = 0;

@@ -1,30 +1,27 @@
-import { ThemeProvider } from "styled-components";
 import "@testing-library/jest-dom";
-import { themes } from "../../theme";
 import { HoverCardProps } from "@radix-ui/react-hover-card";
 import { Checkbox, HoverCard } from "@/components";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
+import { renderCUI } from "@/utils/test-utils";
 // import userEvent from "@testing-library/user-event";
 
 describe("HoverCard", () => {
   const renderHoverCard = (props: HoverCardProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <HoverCard
-          openDelay={0}
-          closeDelay={0}
-          {...props}
-        >
-          <HoverCard.Trigger>Hover Here</HoverCard.Trigger>
-          <HoverCard.Content data-testid="popover-panel">
-            <div>
-              Click on the input element below
-              <Checkbox />
-              <div>This is a sample data to experiment the hoverCard</div>
-            </div>
-          </HoverCard.Content>
-        </HoverCard>
-      </ThemeProvider>
+    renderCUI(
+      <HoverCard
+        openDelay={0}
+        closeDelay={0}
+        {...props}
+      >
+        <HoverCard.Trigger>Hover Here</HoverCard.Trigger>
+        <HoverCard.Content data-testid="popover-panel">
+          <div>
+            Click on the input element below
+            <Checkbox />
+            <div>This is a sample data to experiment the hoverCard</div>
+          </div>
+        </HoverCard.Content>
+      </HoverCard>
     );
 
   it("should open hover card on hover", async () => {

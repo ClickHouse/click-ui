@@ -1,9 +1,8 @@
-import { ThemeProvider } from "styled-components";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { themes } from "../../theme";
 import { Select, SelectProps } from "./Select";
 import { ReactNode } from "react";
+import { renderCUI } from "@/utils/test-utils";
 interface Props extends Omit<SelectProps, "children" | "label"> {
   nodata?: ReactNode;
 }
@@ -17,27 +16,25 @@ describe("Select", () => {
     }));
   });
   const renderSelect = ({ nodata, ...props }: Props) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Select
-          label="Test Select Label"
-          {...props}
+    renderCUI(
+      <Select
+        label="Test Select Label"
+        {...props}
+      >
+        <Select.Group heading="Group label">
+          <Select.Item value="content0">Content0</Select.Item>
+        </Select.Group>
+        <Select.Item value="content1">Content1</Select.Item>
+        <Select.Item value="content2">Content2</Select.Item>
+        <Select.Item value="content3">Content3</Select.Item>
+        <Select.Item
+          value="content4"
+          disabled
         >
-          <Select.Group heading="Group label">
-            <Select.Item value="content0">Content0</Select.Item>
-          </Select.Group>
-          <Select.Item value="content1">Content1</Select.Item>
-          <Select.Item value="content2">Content2</Select.Item>
-          <Select.Item value="content3">Content3</Select.Item>
-          <Select.Item
-            value="content4"
-            disabled
-          >
-            Content4
-          </Select.Item>
-          {nodata ? nodata : <Select.NoData />}
-        </Select>
-      </ThemeProvider>
+          Content4
+        </Select.Item>
+        {nodata ? nodata : <Select.NoData />}
+      </Select>
     );
 
   it("should open select on click", () => {

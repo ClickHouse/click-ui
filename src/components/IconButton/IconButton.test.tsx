@@ -1,15 +1,9 @@
-import { ThemeProvider } from "styled-components";
 import { IconButton, IconButtonProps } from "./IconButton";
-import { themes } from "../../theme";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Button", () => {
-  const renderButton = (props: IconButtonProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <IconButton {...props} />
-      </ThemeProvider>
-    );
+  const renderButton = (props: IconButtonProps) => renderCUI(<IconButton {...props} />);
 
   it("should render the button", () => {
     const { getAllByRole } = renderButton({ icon: "user" });
