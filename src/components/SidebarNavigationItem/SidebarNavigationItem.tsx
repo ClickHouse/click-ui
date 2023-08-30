@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
@@ -11,29 +11,25 @@ export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonEle
   iconDir?: HorizontalDirection;
 }
 
-const SidebarNavigationItem = ({
-  label,
-  level = 0,
-  icon,
-  selected,
-  iconDir,
-  ...props
-}: SidebarNavigationItemProps) => {
-  return (
-    <SidebarItemWrapper
-      $level={level}
-      data-selected={selected}
-      {...props}
-    >
-      <IconWrapper
-        icon={icon}
-        iconDir={iconDir}
+const SidebarNavigationItem = forwardRef<HTMLButtonElement, SidebarNavigationItemProps>(
+  ({ label, level = 0, icon, selected, iconDir, ...props }, ref) => {
+    return (
+      <SidebarItemWrapper
+        $level={level}
+        data-selected={selected}
+        ref={ref}
+        {...props}
       >
-        {label}
-      </IconWrapper>
-    </SidebarItemWrapper>
-  );
-};
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+        >
+          {label}
+        </IconWrapper>
+      </SidebarItemWrapper>
+    );
+  }
+);
 
 export const SidebarItemWrapper = styled.button<{
   $collapsible?: boolean;
