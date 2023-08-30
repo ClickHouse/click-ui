@@ -1523,16 +1523,6 @@
           }
         }
       },
-      "sql-sidebar": {
-        "color": {
-          "background": {
-            "default": "#f6f7fa"
-          },
-          "stroke": {
-            "default": "lch(91.6 1.1 266)"
-          }
-        }
-      },
       "sqlSidebar": {
         "color": {
           "background": {

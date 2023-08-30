@@ -176,6 +176,62 @@
           }
         }
       },
+      "iconButton": {
+        "color": {
+          "primary": {
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#282828",
+              "active": "rgb(14.1% 14.1% 14.1%)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#282828",
+              "active": "rgb(14.1% 14.1% 14.1%)"
+            },
+            "text": {
+              "default": "#ffffff",
+              "hover": "#ffffff",
+              "active": "#ffffff"
+            }
+          },
+          "secondary": {
+            "background": {
+              "default": "#FAFF69",
+              "hover": "lch(98.3 49.3 103)",
+              "active": "lch(85.7 61.9 103)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "lch(98.3 49.3 103)",
+              "active": "lch(85.7 61.9 103)"
+            },
+            "text": {
+              "default": "#1F1F1C",
+              "hover": "#1F1F1C",
+              "active": "#1F1F1C"
+            }
+          },
+          "disabled": {
+            "background": {
+              "default": "#dfdfdf"
+            },
+            "text": {
+              "default": "#a0a0a0"
+            }
+          },
+          "danger": {
+            "background": {
+              "default": "#610000",
+              "hover": "#ff9898",
+              "active": "#ffbaba"
+            },
+            "text": {
+              "default": "#ff7575"
+            }
+          }
+        }
+      },
       "split": {
         "primary": {
           "background": {
@@ -669,7 +725,7 @@
           }
         }
       },
-      "sql-sidebar": {
+      "sqlSidebar": {
         "color": {
           "background": {
             "default": "#282828"
