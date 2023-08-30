@@ -1,9 +1,8 @@
-import { ThemeProvider } from "styled-components";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import userEvent from "@testing-library/user-event";
-import { themes } from "../../theme";
 import { Dropdown } from "./Dropdown";
+import { renderCUI } from "@/utils/test-utils";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
@@ -19,29 +18,27 @@ describe("Dropdown", () => {
     }));
   });
   const renderDropdown = ({ disabled, ...props }: Props) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Dropdown {...props}>
-          <Dropdown.Trigger disabled={disabled}>
-            <div>Dropdown Trigger</div>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            <Dropdown.Group>
-              <Dropdown.Item>Content0</Dropdown.Item>
-            </Dropdown.Group>
-            <Dropdown.Item>Content1 long text content</Dropdown.Item>
-            <Dropdown.Sub>
-              <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>
-              <Dropdown.Content sub>
-                <Dropdown.Item>SubContent0</Dropdown.Item>
-                <Dropdown.Item>SubContent1</Dropdown.Item>
-              </Dropdown.Content>
-            </Dropdown.Sub>
-            <Dropdown.Item>Content2</Dropdown.Item>
-            <Dropdown.Item disabled>Content3</Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
-      </ThemeProvider>
+    renderCUI(
+      <Dropdown {...props}>
+        <Dropdown.Trigger disabled={disabled}>
+          <div>Dropdown Trigger</div>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Group>
+            <Dropdown.Item>Content0</Dropdown.Item>
+          </Dropdown.Group>
+          <Dropdown.Item>Content1 long text content</Dropdown.Item>
+          <Dropdown.Sub>
+            <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+              <Dropdown.Item>SubContent1</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
+          <Dropdown.Item>Content2</Dropdown.Item>
+          <Dropdown.Item disabled>Content3</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
     );
 
   it("should open dropdown on pointer", async () => {

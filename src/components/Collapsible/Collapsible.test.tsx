@@ -1,7 +1,6 @@
-import { ThemeProvider } from "styled-components";
-import { themes } from "../../theme";
+import { renderCUI } from "@/utils/test-utils";
 import { Collapsible } from "./Collapsible";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 
 describe("Collapsible", () => {
   const onOpenChange = jest.fn();
@@ -9,18 +8,16 @@ describe("Collapsible", () => {
     onOpenChange.mockReset();
   });
   const renderCollapsible = () =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Collapsible onOpenChange={onOpenChange}>
-          <Collapsible.Header data-testid="collapsible-header">
-            <Collapsible.Trigger data-testid="collapsible-trigger" />
-            <div>Collapsible Header Text</div>
-          </Collapsible.Header>
-          <Collapsible.Content data-testid="collapsible-content">
-            <div>This is a sample data to experiment the collapsible</div>
-          </Collapsible.Content>
-        </Collapsible>
-      </ThemeProvider>
+    renderCUI(
+      <Collapsible onOpenChange={onOpenChange}>
+        <Collapsible.Header data-testid="collapsible-header">
+          <Collapsible.Trigger data-testid="collapsible-trigger" />
+          <div>Collapsible Header Text</div>
+        </Collapsible.Header>
+        <Collapsible.Content data-testid="collapsible-content">
+          <div>This is a sample data to experiment the collapsible</div>
+        </Collapsible.Content>
+      </Collapsible>
     );
 
   it("should open collapsible on click trigger", () => {

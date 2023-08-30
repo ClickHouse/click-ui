@@ -1,8 +1,8 @@
-import { ThemeProvider } from "styled-components";
-import { render, fireEvent, createEvent } from "@testing-library/react";
+import { fireEvent, createEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { themes } from "../../theme";
+
 import { FileTabs, StatusType } from "./FileTabs";
+import { renderCUI } from "@/utils/test-utils";
 
 const tabs = ["tab1", "tab2", "tab3"];
 describe("FileTabs", () => {
@@ -24,27 +24,25 @@ describe("FileTabs", () => {
   });
 
   const renderTabs = ({ selected, status }: { selected?: string; status?: StatusType }) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <FileTabs
-          onReorderTab={onReorderTab}
-          onClose={onClose}
-          onSelect={onSelect}
-          selected={selected}
-          data-testid="tab-container"
-        >
-          {tabs.map((option, index) => (
-            <FileTabs.Tab
-              value={option}
-              key={`${option}-${index}`}
-              icon="code-in-square"
-              status={index === 0 ? status : undefined}
-              text={`Tab ${index} value-${option}`}
-              testId="tab-element"
-            />
-          ))}
-        </FileTabs>
-      </ThemeProvider>
+    renderCUI(
+      <FileTabs
+        onReorderTab={onReorderTab}
+        onClose={onClose}
+        onSelect={onSelect}
+        selected={selected}
+        data-testid="tab-container"
+      >
+        {tabs.map((option, index) => (
+          <FileTabs.Tab
+            value={option}
+            key={`${option}-${index}`}
+            icon="code-in-square"
+            status={index === 0 ? status : undefined}
+            text={`Tab ${index} value-${option}`}
+            testId="tab-element"
+          />
+        ))}
+      </FileTabs>
     );
 
   it("should show all tabs", () => {

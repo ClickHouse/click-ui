@@ -1,15 +1,9 @@
-import { ThemeProvider } from "styled-components";
 import { Button, ButtonProps } from "./Button";
-import { themes } from "../../theme";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Button", () => {
-  const renderButton = (props: ButtonProps) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <Button {...props} />
-      </ThemeProvider>
-    );
+  const renderButton = (props: ButtonProps) => renderCUI(<Button {...props} />);
 
   it("should render the button", () => {
     const { getByText } = renderButton({ children: "Hello" });
