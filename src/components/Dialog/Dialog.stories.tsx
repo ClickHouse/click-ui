@@ -1,16 +1,21 @@
 import React from "react";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
 import { Dialog } from "./Dialog";
+import Separator from "../Separator/Separator";
+import { Button } from "../Button/Button";
+import styled from "styled-components";
+import { Link } from "../Link/Link";
 
 const DialogComponent = ({
   open,
+  title,
   modal,
   showClose,
   forceMount,
 }: {
   open: "default" | "open" | "closed";
+  title: string;
   modal: boolean;
   showClose: boolean;
   forceMount?: boolean;
@@ -21,29 +26,47 @@ const DialogComponent = ({
       modal={modal}
     >
       <Dialog.Trigger>
-        <div>Click Here</div>
+        <Link>Open dialog</Link>
       </Dialog.Trigger>
       <Dialog.Content
+        title={title}
         showClose={showClose}
         forceMount={forceMount ? true : undefined}
       >
-        <Title type="h2">Content popover</Title>
-        <br />
-        <Text>Click on the input element below.</Text>
-        <br />
+        <Text color="muted">
+          Hello there, I'm a wonderful example of a modal dialog. You can close me by
+          using the button in my top, left corner.
+          <Separator size="lg" />
+          <ActionArea>
+            <Dialog.Close label="Close" />
+            <Button iconRight="arrow-right">Continue</Button>
+          </ActionArea>
+        </Text>
       </Dialog.Content>
     </Dialog>
   </GridCenter>
 );
 
+const ActionArea = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: ${({ theme }) => theme.click.dialog.space.gap};
+`;
 export default {
   component: DialogComponent,
   title: "Display/Dialog",
   tags: ["autodocs", "dialog"],
+  argTypes: {
+    open: {
+      options: ["default", "open", "closed"],
+      control: { type: "radio" },
+    },
+  },
 };
 
 export const Playground = {
   args: {
+    title: "Example dialog title",
     open: "default",
     showClose: true,
   },

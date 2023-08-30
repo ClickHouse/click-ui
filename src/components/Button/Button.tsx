@@ -15,6 +15,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   align?: Alignment;
   width?: string;
   height?: string;
+  as?: unknown;
 }
 
 export const Button = ({
@@ -26,6 +27,7 @@ export const Button = ({
   children,
   width,
   height,
+  as,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
@@ -33,6 +35,7 @@ export const Button = ({
     $align={align}
     $width={width}
     $height={height}
+    as={as}
     {...delegated}
   >
     {iconLeft && (
@@ -56,6 +59,7 @@ const StyledButton = styled(BaseButton)<{
   $align?: Alignment;
   $width?: string;
   $height?: string;
+  as?: unknown;
 }>`
   ${({ $width }) => ($width ? `width: ${$width};` : "")}
   ${({ $height }) => ($height ? `height: ${$height};` : "")}
