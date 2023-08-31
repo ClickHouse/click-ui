@@ -81,12 +81,15 @@ const ContentArea = styled(RadixDialog.Content)`
   padding: ${({ theme }) => theme.click.dialog.space.y}
     ${({ theme }) => theme.click.dialog.space.x};
   box-shadow: ${({ theme }) => theme.click.dialog.shadow.default};
-  border: ${({ theme }) => theme.click.dialog.stroke.default};
+  border: 1px solid ${({ theme }) => theme.click.global.color.stroke.default};
   width: 75%;
   max-width: 670px;
   position: fixed;
-  top: 35%;
+  top: 25%;
+  margin-top: 20%;
   left: 50%;
+  max-height: 75%;
+  overflow: auto;
   transform: translate(-50%, -50%);
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
@@ -96,6 +99,7 @@ const TitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
 
 const CloseButton = styled(EmptyButton)`
@@ -126,7 +130,12 @@ const DialogContent = ({
       <DialogOverlay />
       <ContentArea>
         <TitleArea>
-          <Title type="h2">{title}</Title>
+          <Title
+            size="xl"
+            type="h2"
+          >
+            {title}
+          </Title>
           {showClose && (
             <CloseButton
               as={RadixDialog.Close}

@@ -3,6 +3,7 @@ import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Dialog } from "./Dialog";
 import Separator from "../Separator/Separator";
+import { Spacer } from "../Spacer/Spacer";
 import { Button } from "../Button/Button";
 import styled from "styled-components";
 import { Link } from "../Link/Link";
@@ -36,17 +37,24 @@ const DialogComponent = ({
         <Text color="muted">
           Hello there, I'm a wonderful example of a modal dialog. You can close me by
           using the button in my top, left corner.
-          <Separator size="lg" />
-          <ActionArea>
-            <Dialog.Close label="Close" />
-            <Button iconRight="arrow-right">Continue</Button>
-          </ActionArea>
         </Text>
+        <Spacer />
+        {/* <ReallyTallContent>This is going to be tall</ReallyTallContent> */}
+        <Separator size="lg" />
+        <ActionArea>
+          <Dialog.Close label="Close" />
+          <Button iconRight="arrow-right">Continue</Button>
+        </ActionArea>
       </Dialog.Content>
     </Dialog>
   </GridCenter>
 );
 
+const ReallyTallContent = styled.div`
+  height: 1900px;
+  vertical-align: middle;
+  background: blue;
+`;
 const ActionArea = styled.div`
   display: flex;
   justify-content: flex-end;
