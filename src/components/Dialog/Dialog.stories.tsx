@@ -38,7 +38,6 @@ const DialogComponent = ({
           using the button in my top, left corner.
         </Text>
         <Spacer />
-        {/* <ReallyTallContent>This is going to be tall</ReallyTallContent> */}
         <Separator size="lg" />
         <ActionArea>
           <Dialog.Close label="Close" />
@@ -49,11 +48,6 @@ const DialogComponent = ({
   </GridCenter>
 );
 
-const ReallyTallContent = styled.div`
-  height: 1900px;
-  vertical-align: middle;
-  background: blue;
-`;
 const ActionArea = styled.div`
   display: flex;
   justify-content: flex-end;
