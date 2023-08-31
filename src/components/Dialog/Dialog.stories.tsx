@@ -1,4 +1,3 @@
-import React from "react";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Dialog } from "./Dialog";

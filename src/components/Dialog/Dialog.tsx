@@ -1,16 +1,14 @@
 import React from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import styled, { keyframes } from "styled-components";
-import { Icon } from "@/components";
-import { Title } from "../Typography/Title/Title";
+import { Button, Icon, Spacer, Title } from "@/components";
 import { EmptyButton } from "../commonElement";
-import { Spacer } from "../Spacer/Spacer";
-import { Button } from "../Button/Button";
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
 };
 
+// Dialog Trigger
 const Trigger = styled(RadixDialog.Trigger)`
   width: fit-content;
   background: transparent;
@@ -18,7 +16,11 @@ const Trigger = styled(RadixDialog.Trigger)`
   cursor: pointer;
 `;
 
-const DialogTrigger = ({ children, ...props }) => {
+interface DialogTriggerProps extends RadixDialog.DialogTriggerProps {
+  children: React.ReactNode;
+}
+
+const DialogTrigger = ({ children, ...props }: DialogTriggerProps) => {
   return (
     <>
       <Trigger
@@ -34,7 +36,12 @@ const DialogTrigger = ({ children, ...props }) => {
 DialogTrigger.displayName = "DialogTrigger";
 Dialog.Trigger = DialogTrigger;
 
-const DialogClose = ({ label }) => {
+// Dialog Close
+interface DialogCloseProps extends RadixDialog.DialogCloseProps {
+  label: string;
+}
+
+const DialogClose = ({ label }: DialogCloseProps) => {
   label = label ?? "Close";
   return (
     <>
@@ -51,13 +58,7 @@ const DialogClose = ({ label }) => {
 DialogClose.displayName = "DialogClose";
 Dialog.Close = DialogClose;
 
-interface DialogContentProps extends RadixDialog.DialogContentProps {
-  title: string;
-  showClose?: boolean;
-  forceMount?: true;
-  container?: HTMLElement | null;
-}
-
+// Dialog Content
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
   "100%": { opacity: 1 },
@@ -114,6 +115,13 @@ const CloseButton = styled(EmptyButton)`
       theme.click.button.iconButton.color.primary.background.hover};
   }
 `;
+
+interface DialogContentProps extends RadixDialog.DialogContentProps {
+  title: string;
+  showClose?: boolean;
+  forceMount?: true;
+  container?: HTMLElement | null;
+}
 
 const DialogContent = ({
   title,
