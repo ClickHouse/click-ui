@@ -1,4 +1,5 @@
 import { SVGAttributes } from "react";
+import { styled } from "styled-components";
 
 const Loading = (props: SVGAttributes<SVGElement>) => (
   <svg
@@ -40,4 +41,7 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Loading;
+const LoadingFlipped = styled(Loading)`
+  transform: scaleX(-1);
+`;
+export default LoadingFlipped;

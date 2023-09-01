@@ -3,10 +3,10 @@ import Loading from "./Loading";
 
 const spin = keyframes`
   from {
-    transform: rotate(360deg);
+    transform: rotate(0deg) scaleX(-1);
   }
   to {
-    transform: rotate(0deg);
+    transform: rotate(360deg) scaleX(-1);
   }
 `;
 

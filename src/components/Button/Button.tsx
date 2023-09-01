@@ -2,6 +2,7 @@ import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 import { BaseButton } from "../commonElement";
+import { Fragment } from "react";
 
 type ButtonType = "primary" | "secondary" | "danger";
 type Alignment = "center" | "left";
@@ -14,39 +15,70 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   iconRight?: IconName;
   align?: Alignment;
   fillWidth?: boolean;
+  loading?: boolean;
 }
 
 export const Button = ({
   type = "primary",
   iconLeft,
   iconRight,
-  label,
   align = "center",
   children,
   fillWidth,
+  label,
+  loading = false,
+  disabled,
   ...delegated
-}: ButtonProps) => (
-  <StyledButton
-    $styleType={type}
-    $align={align}
-    $fillWidth={fillWidth}
-    {...delegated}
-  >
-    {iconLeft && (
-      <ButtonIcon
-        name={iconLeft}
-        size="sm"
-      />
-    )}
-    {label ? label : children}
-    {iconRight && (
-      <ButtonIcon
-        name={iconRight}
-        size="sm"
-      />
-    )}
-  </StyledButton>
-);
+}: ButtonProps) => {
+  const ContentWrapper = loading ? Hidden : Fragment;
+  return (
+    <StyledButton
+      $styleType={type}
+      $align={align}
+      $fillWidth={fillWidth}
+      disabled={disabled || loading}
+      {...delegated}
+    >
+      <ContentWrapper>
+        {iconLeft && (
+          <ButtonIcon
+            name={iconLeft}
+            size="sm"
+          />
+        )}
+        {label ? label : children}
+        {iconRight && (
+          <ButtonIcon
+            name={iconRight}
+            size="sm"
+          />
+        )}
+      </ContentWrapper>
+      {loading && (
+        <LoadinIconWrapper>
+          <Icon
+            name="loading-animated"
+            data-testid="click-ui-loading-icon"
+          />
+        </LoadinIconWrapper>
+      )}
+    </StyledButton>
+  );
+};
+
+const LoadinIconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+`;
+const Hidden = styled.div`
+  visibility: hidden;
+`;
 
 const StyledButton = styled(BaseButton)<{
   $styleType: ButtonType;
@@ -61,6 +93,7 @@ const StyledButton = styled(BaseButton)<{
   border: 1px solid
     ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].stroke.default};
+  position: relative;
 
   display: flex;
   align-items: center;

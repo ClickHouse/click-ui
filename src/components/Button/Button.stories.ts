@@ -23,5 +23,6 @@ export const Playground = {
     label: "Button",
     align: "center",
     fillWidth: false,
+    loading: false,
   },
 };
