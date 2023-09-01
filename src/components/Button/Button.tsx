@@ -42,7 +42,7 @@ export const Button = ({
         size="sm"
       />
     )}
-    <span data-testid="click-ui-button-label">{label ? label : children}</span>
+    <span data-testid="click-ui-button-label">{label ?? children}</span>
     {iconRight && (
       <ButtonIcon
         name={iconRight}
@@ -50,17 +50,17 @@ export const Button = ({
       />
     )}
     {loading && (
-      <LoadinIconWrapper>
+      <LoadingIconWrapper>
         <Icon
           name="loading-animated"
           data-testid="click-ui-loading-icon"
         />
-      </LoadinIconWrapper>
+      </LoadingIconWrapper>
     )}
   </StyledButton>
 );
 
-const LoadinIconWrapper = styled.div`
+const LoadingIconWrapper = styled.div`
   position: absolute;
   background-color: inherit;
   top: 0;

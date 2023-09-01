@@ -1,5 +1,5 @@
 import { SVGAttributes } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 const Loading = (props: SVGAttributes<SVGElement>) => (
   <svg
