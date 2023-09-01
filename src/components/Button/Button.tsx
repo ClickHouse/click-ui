@@ -53,7 +53,7 @@ const StyledButton = styled(BaseButton)<{
   $align?: Alignment;
   $fillWidth?: boolean;
 }>`
-  ${({ $fillWidth }) => ($fillWidth ? "width: 100%;" : "")}
+  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "revert")};
   color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
   background-color: ${({ $styleType = "primary", theme }) =>
