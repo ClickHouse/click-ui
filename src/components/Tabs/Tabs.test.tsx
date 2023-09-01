@@ -1,16 +1,11 @@
-import { ThemeProvider } from "../../theme";
-import { render, waitFor } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Tabs } from "./Tabs";
 import { TabsProps } from "@/components/Tabs/Tabs";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Tabs", () => {
-  const renderTabs = (props: TabsProps) =>
-    render(
-      <ThemeProvider theme="dark">
-        <Tabs {...props} />
-      </ThemeProvider>
-    );
+  const renderTabs = (props: TabsProps) => renderCUI(<Tabs {...props} />);
 
   it("should render the Tabs", () => {
     const { getByText } = renderTabs({
@@ -27,13 +22,22 @@ describe("Tabs", () => {
       children: (
         <>
           <Tabs.TriggersList>
-            <Tabs.Trigger value="tab1" key="tab1">
+            <Tabs.Trigger
+              value="tab1"
+              key="tab1"
+            >
               tab1
             </Tabs.Trigger>
-            <Tabs.Trigger value="tab2" key="tab2">
+            <Tabs.Trigger
+              value="tab2"
+              key="tab2"
+            >
               tab2
             </Tabs.Trigger>
-            <Tabs.Trigger value="tab3" key="tab3">
+            <Tabs.Trigger
+              value="tab3"
+              key="tab3"
+            >
               tab3
             </Tabs.Trigger>
           </Tabs.TriggersList>
@@ -60,13 +64,22 @@ describe("Tabs", () => {
       children: (
         <>
           <Tabs.TriggersList>
-            <Tabs.Trigger value="tab1" key="tab1">
+            <Tabs.Trigger
+              value="tab1"
+              key="tab1"
+            >
               tab1
             </Tabs.Trigger>
-            <Tabs.Trigger value="tab2" key="tab2">
+            <Tabs.Trigger
+              value="tab2"
+              key="tab2"
+            >
               tab2
             </Tabs.Trigger>
-            <Tabs.Trigger value="tab3" key="tab3">
+            <Tabs.Trigger
+              value="tab3"
+              key="tab3"
+            >
               tab3
             </Tabs.Trigger>
           </Tabs.TriggersList>

@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 const SelectValueContainer = styled.div`
   display: flex;

@@ -33,6 +33,14 @@ const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
   width: fit-content;
 `;
+
+const DropdownSubTriggerContent = styled.span`
+  display: flex;
+  font: inherit;
+  gap: inherit;
+  color: inherit;
+  width: inherit;
+`;
 const DropdownTrigger = ({
   sub,
   ...props
@@ -44,7 +52,7 @@ const DropdownTrigger = ({
         as={DropdownMenu.SubTrigger}
         {...menuProps}
       >
-        {children}
+        <DropdownSubTriggerContent>{children}</DropdownSubTriggerContent>
         <div className="dropdown-arrow">
           <Icon name="chevron-right" />
         </div>

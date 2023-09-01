@@ -19,6 +19,7 @@ export { InlineCodeBlock } from "./CodeBlock/InlineCodeBlock";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
 export { HoverCard } from "./HoverCard/HoverCard";
+export { Link } from "./Link/Link";
 export { NumberField } from "./Input/NumberField";
 export { PasswordField } from "./Input/PasswordField";
 export { Popover } from "./Popover/Popover";

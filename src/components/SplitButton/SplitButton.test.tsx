@@ -1,9 +1,8 @@
-import { ThemeProvider } from "styled-components";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import userEvent from "@testing-library/user-event";
-import { themes } from "../../theme";
 import { Menu, SplitButton } from "./SplitButton";
+import { renderCUI } from "@/utils/test-utils";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
@@ -65,17 +64,15 @@ describe("SplitButton", () => {
     mainButtonClick.mockReset();
   });
   const renderDropdown = ({ disabled, ...props }: Props) =>
-    render(
-      <ThemeProvider theme={themes.dark}>
-        <SplitButton
-          menu={menuItems}
-          disabled={disabled}
-          onClick={mainButtonClick}
-          {...props}
-        >
-          <div>SplitButton Main Trigger</div>
-        </SplitButton>
-      </ThemeProvider>
+    renderCUI(
+      <SplitButton
+        menu={menuItems}
+        disabled={disabled}
+        onClick={mainButtonClick}
+        {...props}
+      >
+        <div>SplitButton Main Trigger</div>
+      </SplitButton>
     );
 
   it("should not open dropdown on pointer on main btn", async () => {
