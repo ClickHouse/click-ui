@@ -2,7 +2,6 @@ import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 import { BaseButton } from "../commonElement";
-import { Fragment } from "react";
 
 type ButtonType = "primary" | "secondary" | "danger";
 type Alignment = "center" | "left";
@@ -29,45 +28,41 @@ export const Button = ({
   loading = false,
   disabled,
   ...delegated
-}: ButtonProps) => {
-  const ContentWrapper = loading ? Hidden : Fragment;
-  return (
-    <StyledButton
-      $styleType={type}
-      $align={align}
-      $fillWidth={fillWidth}
-      disabled={disabled || loading}
-      {...delegated}
-    >
-      <ContentWrapper>
-        {iconLeft && (
-          <ButtonIcon
-            name={iconLeft}
-            size="sm"
-          />
-        )}
-        {label ? label : children}
-        {iconRight && (
-          <ButtonIcon
-            name={iconRight}
-            size="sm"
-          />
-        )}
-      </ContentWrapper>
-      {loading && (
-        <LoadinIconWrapper>
-          <Icon
-            name="loading-animated"
-            data-testid="click-ui-loading-icon"
-          />
-        </LoadinIconWrapper>
-      )}
-    </StyledButton>
-  );
-};
+}: ButtonProps) => (
+  <StyledButton
+    $styleType={type}
+    $align={align}
+    $fillWidth={fillWidth}
+    disabled={disabled || loading}
+    {...delegated}
+  >
+    {iconLeft && (
+      <ButtonIcon
+        name={iconLeft}
+        size="sm"
+      />
+    )}
+    <span data-testid="click-ui-button-label">{label ? label : children}</span>
+    {iconRight && (
+      <ButtonIcon
+        name={iconRight}
+        size="sm"
+      />
+    )}
+    {loading && (
+      <LoadinIconWrapper>
+        <Icon
+          name="loading-animated"
+          data-testid="click-ui-loading-icon"
+        />
+      </LoadinIconWrapper>
+    )}
+  </StyledButton>
+);
 
 const LoadinIconWrapper = styled.div`
   position: absolute;
+  background-color: inherit;
   top: 0;
   left: 0;
   bottom: 0;
@@ -75,9 +70,6 @@ const LoadinIconWrapper = styled.div`
   display: flex;
   align-content: center;
   justify-content: center;
-`;
-const Hidden = styled.div`
-  visibility: hidden;
 `;
 
 const StyledButton = styled(BaseButton)<{

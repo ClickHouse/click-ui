@@ -25,15 +25,23 @@ describe("Button", () => {
     expect(counter).toEqual(1);
   });
 
-  it("given a loading button, it should redner the loading icon but not the children", () => {
-    const { queryByText, getAllByTestId } = renderButton({
-      children: [<>Button</>],
+  it("given a loading button, it should redner the loading icon", async () => {
+    const { getAllByTestId } = renderButton({
+      label: "Button",
       loading: true,
     });
-    const button = queryByText("Button");
-    expect(button).not.toBeVisible();
 
-    const loadingButton = getAllByTestId("click-ui-button");
+    const loadingButton = getAllByTestId("click-ui-loading-icon");
     expect(loadingButton.length).toEqual(1);
+  });
+
+  it("given a non-loading button, it should not redner the loading icon", async () => {
+    const { queryAllByTestId } = renderButton({
+      label: "Button",
+      loading: false,
+    });
+
+    const loadingButton = queryAllByTestId("click-ui-loading-icon");
+    expect(loadingButton.length).toEqual(0);
   });
 });
