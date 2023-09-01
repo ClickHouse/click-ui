@@ -13,8 +13,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   iconLeft?: IconName;
   iconRight?: IconName;
   align?: Alignment;
-  width?: string;
-  height?: string;
+  fillWidth?: boolean;
 }
 
 export const Button = ({
@@ -24,15 +23,13 @@ export const Button = ({
   label,
   align = "center",
   children,
-  width,
-  height,
+  fillWidth,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
     $styleType={type}
     $align={align}
-    $width={width}
-    $height={height}
+    $fillWidth={fillWidth}
     {...delegated}
   >
     {iconLeft && (
@@ -54,11 +51,9 @@ export const Button = ({
 const StyledButton = styled(BaseButton)<{
   $styleType: ButtonType;
   $align?: Alignment;
-  $width?: string;
-  $height?: string;
+  $fillWidth?: boolean;
 }>`
-  ${({ $width }) => ($width ? `width: ${$width};` : "")}
-  ${({ $height }) => ($height ? `height: ${$height};` : "")}
+  ${({ $fillWidth }) => ($fillWidth ? "width: 100%;" : "")}
   color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
   background-color: ${({ $styleType = "primary", theme }) =>

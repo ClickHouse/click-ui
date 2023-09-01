@@ -22,5 +22,6 @@ export const Playground = {
     disabled: false,
     label: "Button",
     align: "center",
+    fillWidth: false,
   },
 };
