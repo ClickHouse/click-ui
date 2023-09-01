@@ -2,6 +2,7 @@ import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import styled from "styled-components";
 import { BaseButton } from "../commonElement";
+import React from "react";
 
 type ButtonType = "primary" | "secondary" | "danger";
 type Alignment = "center" | "left";
@@ -42,7 +43,9 @@ export const Button = ({
         size="sm"
       />
     )}
-    <span data-testid="click-ui-button-label">{label ?? children}</span>
+
+    {label ?? children}
+
     {iconRight && (
       <ButtonIcon
         name={iconRight}
