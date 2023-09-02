@@ -47,10 +47,13 @@ import Display from "@/components/icons/Display";
 import Document from "@/components/icons/Document";
 import DotsVertical from "@/components/icons/DotsVertical";
 import DotsHorizontal from "@/components/icons/DotsHorizontal";
+import Download from "@/components/icons/Download";
+import DownloadInCircle from "@/components/icons/DownloadInCircle";
 import Email from "@/components/icons/Email";
 import Empty from "@/components/icons/Empty";
 import Fire from "@/components/icons/Fire";
-import Folder from "@/components/icons/Folder";
+import FolderOpen from "../icons/FolderOpen";
+import FolderClosed from "../icons/FolderClosed";
 import Gift from "@/components/icons/Gift";
 import Home from "@/components/icons/Home";
 import Http from "@/components/icons/Http";
@@ -129,13 +132,16 @@ export const ICONS_MAP = {
   document: Document,
   "dots-horizontal": DotsHorizontal,
   "dots-vertical": DotsVertical,
+  download: Download,
+  "download-in-circle": DownloadInCircle,
   email: Email,
   empty: Empty,
   eye: Eye,
   "eye-closed": EyeClosed,
   filter: FilterIcon,
   fire: Fire,
-  folder: Folder,
+  "folder-closed": FolderClosed,
+  "folder-open": FolderOpen,
   gift: Gift,
   history: HistoryIcon,
   home: Home,
