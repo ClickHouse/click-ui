@@ -311,7 +311,7 @@ const TabContentText = styled.span`
   overflow: hidden;
 `;
 
-const EmptyButton = styled(IconButton)`
+const EmptyButton = styled.button`
   padding: 0;
 `;
 
@@ -404,6 +404,7 @@ const Tab = ({
         <TabContentText>{text}</TabContentText>
       </TabContent>
       <EmptyButton
+        as={IconButton}
         icon="cross"
         onClick={onClose}
         data-type="close"
