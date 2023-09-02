@@ -5,6 +5,7 @@ import Flags, { FlagList, FlagName } from "../icons/Flags";
 import { Logo } from "../Logos/Logo";
 import LogosLight from "../Logos/LogosLight";
 import { LogoName } from "../Logos/types";
+import Payments, { PaymentList, PaymentName } from "../icons/Payments";
 
 const SVGIcon = ({
   name,
@@ -64,6 +65,7 @@ const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
     return (
       <Flags
         name={name as FlagName}
+        size={size}
         {...props}
       />
     );
@@ -73,6 +75,15 @@ const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
       <Logo
         name={name as LogoName}
         theme={theme}
+        size={size}
+        {...props}
+      />
+    );
+  }
+  if (Object.keys(PaymentList).includes(name)) {
+    return (
+      <Payments
+        name={name as PaymentName}
         size={size}
         {...props}
       />

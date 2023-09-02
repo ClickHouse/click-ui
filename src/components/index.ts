@@ -32,6 +32,7 @@ export { Spacer } from "./Spacer/Spacer";
 export { SplitButton } from "./SplitButton/SplitButton";
 export { Switch } from "./Switch/Switch";
 export { Tabs } from "./Tabs/Tabs";
+export { FileTabs } from "./FileTabs/FileTabs";
 export { Text } from "./Typography/Text/Text";
 export { TextField } from "./Input/TextField";
 export { Title } from "./Typography/Title/Title";

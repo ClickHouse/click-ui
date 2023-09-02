@@ -1,4 +1,4 @@
-import React from "react";
+import { SVGAttributes } from "react";
 import UnitedStates from "./UnitedStates";
 import UnitedKingdom from "./UnitedKingdom";
 import EuropeanUnion from "./EuropeanUnion";
@@ -11,6 +11,8 @@ import Australia from "./Australia";
 import SouthAfrica from "./SouthAfrica";
 import Brazil from "./Brazil";
 import Canada from "./Canada";
+import { IconSize } from "@/components/Icon/types";
+import { IconSvgElement } from "@/components/commonElement";
 
 export type FlagName =
   | "usa"
@@ -25,8 +27,9 @@ export type FlagName =
   | "br"
   | "ca"
   | "za";
-export interface FlagProps extends React.SVGAttributes<SVGElement> {
+export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   name: FlagName;
+  size?: IconSize;
 }
 
 export const FlagList = {
@@ -44,12 +47,18 @@ export const FlagList = {
   za: SouthAfrica,
 };
 
-const Flags = ({ name, ...props }: FlagProps) => {
+const Flags = ({ name, size, ...props }: FlagProps) => {
   const Component = FlagList[name];
   if (Component === undefined) {
     return;
   }
-  return <Component {...props} />;
+  return (
+    <IconSvgElement
+      as={Component}
+      $size={size}
+      {...props}
+    />
+  );
 };
 
 export default Flags;

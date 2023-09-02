@@ -22,18 +22,15 @@ import { BadgeProps } from "./Badge/Badge";
 import { AvatarProps } from "./Avatar/Avatar";
 import { AlertProps } from "./Alert/Alert";
 import { IconButtonProps } from "./IconButton/IconButton";
-import { IconName as IconNameType } from "./Icon/types";
+export type { ImageName as IconName } from "./Icon/types";
 import { SidebarNavigationTitleProps } from "./SidebarNavigationTitle/SidebarNavigationTitle";
 import { SidebarCollapsibleItemProps } from "./SidebarCollapsibleItem/SidebarCollapsibleItem";
 import { SidebarCollapsibleTitleProps } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
-import { LogoName } from "./Logos/types";
-import { FlagName } from "./icons/Flags";
 export type { Menu, SplitButtonProps } from "./SplitButton/SplitButton";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
 
-export type IconName = IconNameType | FlagName | LogoName;
 export type { IconButtonProps };
 export type { AlertProps };
 export type { AvatarProps };

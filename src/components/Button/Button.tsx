@@ -1,5 +1,4 @@
-import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { Icon, IconName } from "@/components";
 import styled from "styled-components";
 import { BaseButton } from "../commonElement";
 import React from "react";

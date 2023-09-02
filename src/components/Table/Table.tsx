@@ -1,5 +1,4 @@
-import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { Icon, IconName } from "@/components";
 import styled from "styled-components";
 
 type TableHeaderProps = {
@@ -9,8 +8,7 @@ type TableHeaderProps = {
 };
 const StyledHeader = styled.th`
   padding: 8px 16px;
-  background-color: ${props =>
-    props.theme.click.table.header.color.background.default};
+  background-color: ${props => props.theme.click.table.header.color.background.default};
   font: ${props => props.theme.click.table.header.title.default};
   color: ${props => props.theme.click.table.header.color.title.default};
   gap: 4px;
@@ -39,39 +37,46 @@ const TableHeader = ({
 }: TableHeaderProps) => (
   <StyledHeader {...delegated}>
     <HeaderContentWrapper>
-      {leftIcon && <Icon name={leftIcon} width="12px" height="12px" />}
+      {leftIcon && (
+        <Icon
+          name={leftIcon}
+          width="12px"
+          height="12px"
+        />
+      )}
       {children}
-      {rightIcon && <Icon name={rightIcon} width="12px" height="12px" />}
+      {rightIcon && (
+        <Icon
+          name={rightIcon}
+          width="12px"
+          height="12px"
+        />
+      )}
     </HeaderContentWrapper>
   </StyledHeader>
 );
 
 const TableRow = styled.tr`
-  background-color: ${props =>
-    props.theme.click.table.row.color.background.default};
-  border-bottom: 1px solid
-    ${props => props.theme.click.table.row.color.stroke.default};
+  background-color: ${props => props.theme.click.table.row.color.background.default};
+  border-bottom: 1px solid ${props => props.theme.click.table.row.color.stroke.default};
 
   &:has(${StyledHeader}) {
     border-bottom: revert;
   }
 
   &:active {
-    background-color: ${props =>
-      props.theme.click.table.row.color.background.active};
+    background-color: ${props => props.theme.click.table.row.color.background.active};
   }
 
   &:hover {
-    background-color: ${props =>
-      props.theme.click.table.row.color.background.hover};
+    background-color: ${props => props.theme.click.table.row.color.background.hover};
   }
 `;
 
 const TableData = styled.td`
   font: ${props => props.theme.click.table.cell.label.default};
   padding: 16px;
-  border: 1px solid
-    ${props => props.theme.click.table.global.color.stroke.default};
+  border: 1px solid ${props => props.theme.click.table.global.color.stroke.default};
   border-top: none;
 
   :not(:last-of-type) {

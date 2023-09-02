@@ -1,8 +1,9 @@
 import { Icon } from "../Icon/Icon";
-import {ICONS_MAP} from '../Icon/IconCommon'
-import Flags from "./Flags";
-import Payments from './Payments'
-import { Meta, IconGallery, IconItem } from "@storybook/blocks";
+import { ICONS_MAP } from '../Icon/IconCommon'
+import { FlagList } from "./Flags";
+import { PaymentList } from './Payments'
+import LogosLight from '../Logos/LogosLight'
+import { Meta, IconGallery, IconItem, Story } from "@storybook/blocks";
 import { ThemeProvider } from "../../theme";
 
 <Meta title='Display/Icon/Icons' />
@@ -22,19 +23,31 @@ import { ThemeProvider } from "../../theme";
 # Flags
 
 <IconGallery>
-  {["usa", "de", "sg", "uk", "ie", "eu", "in", "nl", "au", "br", "ca", "za"].map((iconName) => (
+  {Object.keys(FlagList).map((iconName) => (
     <IconItem name={iconName} key={iconName}>
-      <Flags name={iconName} />
+      <Icon name={iconName} />
     </IconItem>
   ))}
 </IconGallery>
 
-# Payments
+# Logo
 
 <IconGallery>
-  {["visa", "mastercard", "amex", "paypal"].map((iconName) => (
+  {(Object.keys(PaymentList)).map((iconName) => (
     <IconItem name={iconName} key={iconName}>
-      <Payments name={iconName} />
+      <Icon name={iconName} />
     </IconItem>
   ))}
 </IconGallery>
+
+# Logo
+
+<ThemeProvider theme='light'>
+  <IconGallery>
+    {(Object.keys(LogosLight)).map((iconName) => (
+      <IconItem name={iconName} key={iconName}>
+        <Icon name={iconName} />
+      </IconItem>
+    ))}
+  </IconGallery>
+</ThemeProvider>
