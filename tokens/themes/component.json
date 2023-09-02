@@ -610,7 +610,7 @@
           }
         }
       },
-      "button-group": {
+      "group": {
         "radii": {
           "center": {
             "value": "{border.radii.0}",
