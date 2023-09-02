@@ -12,51 +12,44 @@ import SouthAfrica from "./SouthAfrica";
 import Brazil from "./Brazil";
 import Canada from "./Canada";
 
-interface Props extends React.SVGAttributes<SVGElement> {
-  name: string;
+export type FlagName =
+  | "usa"
+  | "de"
+  | "sg"
+  | "uk"
+  | "ie"
+  | "eu"
+  | "in"
+  | "nl"
+  | "au"
+  | "br"
+  | "ca"
+  | "za";
+export interface FlagProps extends React.SVGAttributes<SVGElement> {
+  name: FlagName;
 }
 
-const Flags = ({ name, ...props }: Props) => {
-  switch (name) {
-    case "usa":
-      return <UnitedStates {...props} />;
+export const FlagList = {
+  usa: UnitedStates,
+  de: Germany,
+  sg: Singapore,
+  uk: UnitedKingdom,
+  ie: Ireland,
+  eu: EuropeanUnion,
+  in: India,
+  nl: Netherlands,
+  au: Australia,
+  br: Brazil,
+  ca: Canada,
+  za: SouthAfrica,
+};
 
-    case "de":
-      return <Germany {...props} />;
-
-    case "sg":
-      return <Singapore {...props} />;
-
-    case "uk":
-      return <UnitedKingdom {...props} />;
-
-    case "ie":
-      return <Ireland {...props} />;
-
-    case "eu":
-      return <EuropeanUnion {...props} />;
-
-    case "in":
-      return <India {...props} />;
-
-    case "nl":
-      return <Netherlands {...props} />;
-
-    case "au":
-      return <Australia {...props} />;
-
-    case "br":
-      return <Brazil {...props} />;
-
-    case "ca":
-      return <Canada {...props} />;
-
-    case "za":
-      return <SouthAfrica {...props} />;
-
-    default:
-      return null;
+const Flags = ({ name, ...props }: FlagProps) => {
+  const Component = FlagList[name];
+  if (Component === undefined) {
+    return;
   }
+  return <Component {...props} />;
 };
 
 export default Flags;

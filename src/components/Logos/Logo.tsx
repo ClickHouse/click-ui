@@ -7,7 +7,7 @@ import { LogoName } from "./types";
 
 export interface LogoProps extends SVGAttributes<HTMLOrSVGElement> {
   name: LogoName;
-  theme: "light" | "dark";
+  theme?: "light" | "dark";
   size?: IconSize;
 }
 

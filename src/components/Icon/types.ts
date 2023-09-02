@@ -1,4 +1,6 @@
 import { SVGAttributes } from "react";
+import { LogoProps } from "../Logos/Logo";
+import { FlagProps } from "../icons/Flags";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type IconName =
@@ -101,3 +103,16 @@ export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   color?: string;
   size?: IconSize;
 }
+
+type NoThemeType = {
+  theme?: never;
+};
+
+type NoColorType = {
+  color?: never;
+};
+
+export type ImageType =
+  | (IconProps & NoThemeType)
+  | (LogoProps & NoColorType)
+  | (FlagProps & NoThemeType & NoColorType & { size?: never });

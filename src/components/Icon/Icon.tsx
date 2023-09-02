@@ -1,32 +1,38 @@
-import { ElementType, ReactElement } from "react";
 import styled from "styled-components";
-import { IconProps, IconSize } from "./types";
+import { IconName, IconProps, IconSize, ImageType } from "./types";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
+import Flags, { FlagList, FlagName } from "../icons/Flags";
+import { Logo } from "../Logos/Logo";
+import LogosLight from "../Logos/LogosLight";
+import { LogoName } from "../Logos/types";
 
-const SVGIcon = ({ name, ...delegated }: IconProps) => {
+const SVGIcon = ({
+  name,
+  color,
+  width,
+  height,
+  className,
+  size,
+  ...props
+}: IconProps) => {
   const Component = ICONS_MAP[name];
 
   if (!Component) {
     return null;
   }
 
-  return <Component {...delegated} />;
+  return (
+    <SvgWrapper
+      $color={color}
+      $width={width}
+      $height={height}
+      $size={size}
+      className={className}
+    >
+      <Component {...props} />
+    </SvgWrapper>
+  );
 };
-
-const withStylesWrapper =
-  (IconComponent: ElementType) =>
-  ({ color, width, height, className, size, ...props }: IconProps): ReactElement =>
-    (
-      <SvgWrapper
-        $color={color}
-        $width={width}
-        $height={height}
-        $size={size}
-        className={className}
-      >
-        <IconComponent {...props} />
-      </SvgWrapper>
-    );
 
 const SvgWrapper = styled.div<{
   $color?: string;
@@ -53,9 +59,34 @@ const SvgWrapper = styled.div<{
   `}
 `;
 
-const Icon = withStylesWrapper(SVGIcon);
-const IconToExport = styled(Icon)``;
+const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
+  if (Object.keys(FlagList).includes(name)) {
+    return (
+      <Flags
+        name={name as FlagName}
+        {...props}
+      />
+    );
+  }
+  if (Object.keys(LogosLight).includes(name)) {
+    return (
+      <Logo
+        name={name as LogoName}
+        theme={theme}
+        size={size}
+        {...props}
+      />
+    );
+  }
+  return (
+    <SVGIcon
+      name={name as IconName}
+      size={size}
+      {...props}
+    />
+  );
+};
 
-IconToExport.displayName = "Icon";
+SvgImage.displayName = "Icon";
 
-export { IconToExport as Icon };
+export { SvgImage as Icon };
