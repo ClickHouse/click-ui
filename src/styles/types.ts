@@ -538,10 +538,26 @@
           }
         }
       },
-      "button-group": {
+      "group": {
         "radii": {
           "center": string,
           "end": string
+        },
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "panel": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "panel": string
+          }
         }
       },
       "alignLeft": {
@@ -568,24 +584,6 @@
               "hover": string,
               "active": string
             }
-          }
-        }
-      },
-      "group": {
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "panel": string
-          },
-          "text": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "stroke": {
-            "panel": string
           }
         }
       },

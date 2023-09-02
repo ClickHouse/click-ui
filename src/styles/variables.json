@@ -537,10 +537,26 @@
           }
         }
       },
-      "button-group": {
+      "group": {
         "radii": {
           "center": "0",
           "end": "0.25rem"
+        },
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "lch(68.1 1.1 272)",
+            "active": "lch(81 1.31 272)",
+            "panel": "#ffffff"
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#151515"
+          },
+          "stroke": {
+            "panel": "lch(91.6 1.1 266)"
+          }
         }
       },
       "alignLeft": {
@@ -567,24 +583,6 @@
               "hover": "500 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;",
               "active": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
             }
-          }
-        }
-      },
-      "group": {
-        "color": {
-          "background": {
-            "default": "#ffffff",
-            "hover": "lch(68.1 1.1 272)",
-            "active": "lch(81 1.31 272)",
-            "panel": "#ffffff"
-          },
-          "text": {
-            "default": "#161517",
-            "hover": "#161517",
-            "active": "#151515"
-          },
-          "stroke": {
-            "panel": "lch(91.6 1.1 266)"
           }
         }
       },
