@@ -4,7 +4,7 @@ import LogosLight from "./LogosLight";
 import LogosDark from "./LogosDark";
 import { IconSize } from "@/components/Icon/types";
 import { LogoName } from "./types";
-import { IconSvgElement } from "../commonElement";
+import { SvgImageElement } from "../commonElement";
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
   name: LogoName;
@@ -23,7 +23,7 @@ const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   }
 
   return (
-    <IconSvgElement
+    <SvgImageElement
       as={Component}
       $size={size}
       {...props}

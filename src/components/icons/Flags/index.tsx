@@ -12,7 +12,7 @@ import SouthAfrica from "./SouthAfrica";
 import Brazil from "./Brazil";
 import Canada from "./Canada";
 import { IconSize } from "@/components/Icon/types";
-import { IconSvgElement } from "@/components/commonElement";
+import { SvgImageElement } from "@/components/commonElement";
 
 export type FlagName =
   | "usa"
@@ -53,7 +53,7 @@ const Flags = ({ name, size, ...props }: FlagProps) => {
     return;
   }
   return (
-    <IconSvgElement
+    <SvgImageElement
       as={Component}
       $size={size}
       {...props}

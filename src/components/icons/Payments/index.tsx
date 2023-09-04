@@ -4,7 +4,7 @@ import MasterCard from "./MasterCard";
 import Amex from "./Amex";
 import Paypal from "./Paypal";
 import { IconSize } from "@/components/Icon/types";
-import { IconSvgElement } from "@/components/commonElement";
+import { SvgImageElement } from "@/components/commonElement";
 
 export type PaymentName = "visa" | "mastercard" | "amex" | "paypal";
 
@@ -26,7 +26,7 @@ const Payments = ({ name, size, ...props }: PaymentProps) => {
     return;
   }
   return (
-    <IconSvgElement
+    <SvgImageElement
       as={Component}
       $size={size}
       {...props}

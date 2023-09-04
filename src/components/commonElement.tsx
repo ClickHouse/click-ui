@@ -73,7 +73,7 @@ export const BaseButton = styled.button`
     `}
 `;
 
-export const IconSvgElement = styled.svg<{
+export const SvgImageElement = styled.svg<{
   $size?: IconSize;
 }>`
   display: flex;
