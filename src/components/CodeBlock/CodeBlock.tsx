@@ -4,9 +4,9 @@ import { IconButton } from "@/components";
 import styled from "styled-components";
 import useColorStyle from "./useColorStyle";
 import { EmptyButton } from "../commonElement";
-import sql from "react-syntax-highlighter/dist/esm/languages/hljs/sql";
-import bash from "react-syntax-highlighter/dist/esm/languages/hljs/bash";
-import json from "react-syntax-highlighter/dist/esm/languages/hljs/json";
+import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";
+import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
+import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 
 SyntaxHighlighter.registerLanguage("sql", sql);
 SyntaxHighlighter.registerLanguage("bash", bash);
