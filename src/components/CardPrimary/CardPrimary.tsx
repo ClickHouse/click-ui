@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { IconName } from "@/components/Icon/types";
-import { Button, Icon, Spacer } from "@/components";
+import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { ReactNode } from "react";
