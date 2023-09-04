@@ -46,6 +46,7 @@ const Alert = ({
         >
           <StyledIcon
             $size={size}
+            size="sm"
             name={stateIconMap[state]}
           />
         </IconWrapper>
@@ -75,6 +76,7 @@ const Wrapper = styled.div<{
 }>`
   display: flex;
   border-radius: ${props => props.theme.click.alert.radii.end};
+  overflow: hidden;
   background-color: ${({ $state = "neutral", theme }) =>
     theme.click.alert.color.background[$state]};
   color: ${({ $state = "neutral", theme }) => theme.click.alert.color.text[$state]};
@@ -84,10 +86,8 @@ const IconWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
   display: flex;
   align-items: center;
   ${({ $state = "neutral", $size, theme }) => `
-    background-color: ${theme.click.alert.color.iconBackground[$state]}};
+    background-color: ${theme.click.alert.color.iconBackground[$state]};
     color: ${theme.click.alert.color.iconForeground[$state]};
-    border-top-left-radius: ${theme.click.alert.radii.end};
-    border-bottom-left-radius: ${theme.click.alert.radii.end};
     padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
   `}
 `;
@@ -101,6 +101,7 @@ const StyledIcon = styled(Icon)<{ $size: AlertSize }>`
 const TextWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
   display: flex;
   flex-flow: column;
+  word-break: break-word;
   ${({ $size, theme }) => `
     gap: ${theme.click.alert[$size].space.gap};
     padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
