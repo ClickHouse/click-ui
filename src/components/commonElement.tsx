@@ -31,6 +31,7 @@ export const EmptyButton = styled.button`
   cursor: pointer;
   outline: none;
   padding: 0;
+  border: 0;
   &:disabled {
     cursor: not-allowed;
   }

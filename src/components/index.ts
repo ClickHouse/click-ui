@@ -14,6 +14,8 @@ export { Button } from "./Button/Button";
 export { CardSecondary } from "./CardSecondary/CardSecondary";
 export { CardPrimary } from "./CardPrimary/CardPrimary";
 export { Checkbox } from "./Checkbox/Checkbox";
+export { CodeBlock } from "./CodeBlock/CodeBlock";
+export { InlineCodeBlock } from "./CodeBlock/InlineCodeBlock";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
 export { HoverCard } from "./HoverCard/HoverCard";
