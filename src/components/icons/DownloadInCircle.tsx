@@ -1,7 +1,6 @@
 import { SVGAttributes } from "react";
-import styled from "styled-components";
 
-const Loading = (props: SVGAttributes<SVGElement>) => (
+const DownloadInCircle= (props: SVGAttributes<SVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -12,36 +11,33 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
   >
     <path
       stroke="#161517"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.25}
-      d="M7.625 8.875H4.5V5.75"
-    />
-    <path
-      stroke="#161517"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       strokeWidth={1.5}
-      d="M19.5 12A7.495 7.495 0 0 0 5.188 8.875"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15 10L12 13L9 10"
     />
     <path
       stroke="#161517"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.25}
-      d="M16.375 15.125H19.5v3.125"
-    />
-    <path
-      stroke="#161517"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       strokeWidth={1.5}
-      d="M4.5 12a7.495 7.495 0 0 0 14.312 3.125"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 3V13"
+    />
+    <path
+      stroke="#161517"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M8 16H16"
+    />
+    <path
+      stroke="#161517"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M18.3643 5.63623C21.8793 9.15123 21.8793 14.8492 18.3643 18.3642C14.8493 21.8792 9.15125 21.8792 5.63625 18.3642C2.12125 14.8492 2.12125 9.15123 5.63625 5.63623"
     />
   </svg>
 );
 
-const LoadingFlipped = styled(Loading)`
-  transform: scaleX(-1);
-`;
-export default LoadingFlipped;
+export default DownloadInCircle;
