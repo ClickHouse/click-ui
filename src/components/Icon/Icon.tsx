@@ -38,11 +38,11 @@ const SvgWrapper = styled.div<{
   align-items: center;
 
   ${({ theme, $color = "currentColor", $width, $height, $size }) => `
-    & path[stroke], & svg[stroke]:not([stroke="none"]) {
+    & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke] {
       stroke: ${$color};
     }
 
-    & path[fill], & svg[fill]:not([fill="none"]) {
+    & path[fill], & svg[fill]:not([fill="none"]), & rect[fill] {
       fill: ${$color};
     }
 

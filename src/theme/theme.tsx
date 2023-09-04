@@ -7,8 +7,7 @@ import { ThemeName, themes } from ".";
 const GlobalStyle = createGlobalStyle`
   body{
     color: ${props => props.theme.click.global.color.text.default};
-    background-color: ${props =>
-      props.theme.click.global.color.background.default}
+    background-color: ${props => props.theme.click.global.color.background.default}
   }
 `;
 
