@@ -33,6 +33,8 @@ export default {
     disabled: { control: "boolean" },
     placeholder: { control: "text" },
     readOnly: { control: "boolean" },
+    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
+    dir: { control: "inline-radio", options: ["start", "end"] },
   },
 };
 
