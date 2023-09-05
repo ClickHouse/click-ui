@@ -5,15 +5,30 @@ export interface PasswordFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "string" | "onChange"
+      "children" | "type" | "string" | "onChange" | "dir"
     > {
   type?: "password";
   value?: string;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
 }
 
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
-  ({ disabled, label, error, id, value = "", onChange: onChangeProp, ...props }, ref) => {
+  (
+    {
+      disabled,
+      label,
+      error,
+      id,
+      value = "",
+      onChange: onChangeProp,
+      orientation,
+      dir,
+      ...props
+    },
+    ref
+  ) => {
     const defaultId = useId();
     const [viewPassword, setViewPassword] = useState<boolean>(false);
     const togglePasswordViewer = () => {
@@ -30,6 +45,8 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
         id={id ?? defaultId}
         label={label}
         error={error}
+        orientation={orientation}
+        dir={dir}
       >
         <InputElement
           ref={ref}

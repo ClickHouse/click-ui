@@ -1,31 +1,57 @@
 import { Theme } from "@/styles/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
-import { forwardRef } from "react";
+import { ReactNode, forwardRef, useId } from "react";
 import styled, { DefaultTheme } from "styled-components";
+import { FormRoot } from "../commonElement";
+import { Label } from "@/components";
 
 interface RootProps {
   checked: boolean;
   disabled?: boolean;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
+  label?: ReactNode;
 }
 
-type SwitchProps = RootProps & RadixSwitch.SwitchProps;
+type SwitchProps = RootProps & Omit<RadixSwitch.SwitchProps, "dir">;
 
 interface ThumbProps {
   $checked: boolean;
   $disabled?: boolean;
 }
 
+const Wrapper = styled(FormRoot)`
+  max-width: fit-content;
+`;
+
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ checked, disabled, ...props }, ref) => (
-    <SwitchRoot
-      ref={ref}
-      disabled={disabled}
-      checked={checked}
-      {...props}
-    >
-      <SwitchThumb $checked={checked} />
-    </SwitchRoot>
-  )
+  ({ checked, disabled, orientation, dir, label, id, ...props }, ref) => {
+    const defaultId = useId();
+    return (
+      <Wrapper
+        $orientation={orientation}
+        $dir={dir}
+      >
+        <SwitchRoot
+          ref={ref}
+          id={id ?? defaultId}
+          disabled={disabled}
+          checked={checked}
+          {...props}
+        >
+          <SwitchThumb $checked={checked} />
+        </SwitchRoot>
+        {label && (
+          <Label
+            htmlFor={id ?? defaultId}
+            disabled={disabled}
+          >
+            {label}
+          </Label>
+        )}
+      </Wrapper>
+    );
+  }
 );
 
 const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
