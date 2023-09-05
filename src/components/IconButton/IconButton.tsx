@@ -35,8 +35,9 @@ const Button = styled.button<{
 }>`
   ${({ theme, $size, $styleType = "primary" }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
-  border-color: ${theme.click.button.iconButton.color.primary.stroke.default};
-  border: 1px solid ${theme.click.button.iconButton.color.primary.stroke.default};
+  border: ${theme.click.button.stroke} solid ${
+    theme.click.button.iconButton.color.primary.stroke.default
+  };
   padding: ${
     $size
       ? `${theme.click.button.iconButton[$size].space.y} ${theme.click.button.iconButton[$size].space.x}`

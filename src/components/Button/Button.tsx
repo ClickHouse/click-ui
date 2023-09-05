@@ -84,11 +84,10 @@ const StyledButton = styled(BaseButton)<{
     theme.click.button.basic.color[$styleType].text.default};
   background-color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].background.default};
-  border: 1px solid
+  border: ${({ theme }) => theme.click.button.stroke} solid
     ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].stroke.default};
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
@@ -96,7 +95,7 @@ const StyledButton = styled(BaseButton)<{
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].background.hover};
-    border: 1px solid
+    border: ${({ theme }) => theme.click.button.stroke} solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.hover};
     transition: ${({ theme }) => theme.transition.default};
@@ -118,7 +117,7 @@ const StyledButton = styled(BaseButton)<{
       theme.click.button.basic.color[$styleType].background.disabled};
     color: ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].text.disabled};
-    border: 1px solid
+    border: ${({ theme }) => theme.click.button.stroke} solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.disabled};
   }
