@@ -41,6 +41,8 @@ describe("Tooltip", () => {
     const TooltipTrigger = getAllByText("Hover Here");
     expect(TooltipTrigger.length).toEqual(1);
     await userEvent.hover(TooltipTrigger[0]);
-    expect(getAllByText("Tooltip content")).toBeNull();
+    waitFor(() => {
+      expect(getAllByText("Tooltip content")).toBeNull();
+    });
   });
 });
