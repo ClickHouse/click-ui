@@ -1092,6 +1092,59 @@
                 "type": "color"
               }
             }
+          },
+          "ghost": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.ghost.background.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.ghost.background.default}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.1",
+                      "space": "srgb"
+                    }
+                  }
+                }
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.button.iconButton.color.primary.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.ghost.stroke.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.ghost.stroke.default}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
           }
         }
       },
