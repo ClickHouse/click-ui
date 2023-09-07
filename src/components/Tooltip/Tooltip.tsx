@@ -1,4 +1,5 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export const TooltipProvider = ({
@@ -8,8 +9,35 @@ export const TooltipProvider = ({
   return <RadixTooltip.Provider {...props}>{children}</RadixTooltip.Provider>;
 };
 
-export const Tooltip = ({ children, ...props }: RadixTooltip.TooltipProps) => {
-  return <RadixTooltip.Root {...props}>{children}</RadixTooltip.Root>;
+interface TooltipProps extends RadixTooltip.TooltipProps {
+  disabled?: boolean;
+}
+export const Tooltip = ({
+  children,
+  onOpenChange: onOpenChangeProp,
+  open: openProp,
+  disabled,
+  ...props
+}: TooltipProps) => {
+  const [open, setOpen] = useState(openProp);
+  const onOpenChange = (open: boolean) => {
+    if (onOpenChangeProp) {
+      onOpenChangeProp(open);
+    }
+    setOpen(open);
+  };
+  useEffect(() => {
+    setOpen(openProp);
+  }, [openProp]);
+  return (
+    <RadixTooltip.Root
+      open={open && !disabled}
+      onOpenChange={onOpenChange}
+      {...props}
+    >
+      {children}
+    </RadixTooltip.Root>
+  );
 };
 
 const Trigger = styled(RadixTooltip.Trigger)`
