@@ -51,125 +51,248 @@
                 "value": "{palette.indigo.300}",
                 "type": "color"
               }
+            },
+            "color": {
+              "background": {
+                "default": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{palette.indigo.600}",
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "lighten",
+                        "value": "0.035",
+                        "space": "lch"
+                      }
+                    }
+                  }
+                },
+                "active": {
+                  "value": "{palette.indigo.600}",
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "alpha",
+                        "value": "0.6",
+                        "space": "lch"
+                      }
+                    }
+                  }
+                }
+              },
+              "text": {
+                "default": {
+                  "value": "{palette.slate.50}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                },
+                "muted": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                }
+              },
+              "icon": {
+                "default": {
+                  "value": "{palette.indigo.100}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": {
+                  "value": "{click.button.basic.color.primary.background.default}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": {
+                "value": "{palette.indigo.300}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.sidebar.main.navigation.title.color.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.sidebar.main.navigation.title.color.default}",
+                "type": "color"
+              }
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": {
+                  "value": "{palette.slate.50}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                }
+              },
+              "background": {
+                "default": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.sidebar.main.navigation.item.color.background.hover}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                }
+              }
             }
           }
         }
       },
-      "navigation": {
-        "dragControl": {
-          "separator": {
+      "sqlSidebar": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "default": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{palette.slate.100}",
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "alpha",
+                        "value": "0.6",
+                        "space": "lch"
+                      }
+                    }
+                  }
+                },
+                "active": {
+                  "value": "{palette.slate.100}",
+                  "type": "color"
+                }
+              },
+              "text": {
+                "default": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "muted": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                }
+              },
+              "icon": {
+                "default": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "title": {
             "color": {
               "default": {
-                "value": "{click.button.basic.color.primary.background.default}",
-                "type": "color"
-              }
-            }
-          }
-        },
-        "title": {
-          "color": {
-            "default": {
-              "value": "{palette.indigo.300}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.sidebar.navigation.title.color.default}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.sidebar.navigation.title.color.default}",
-              "type": "color"
-            }
-          }
-        },
-        "subItem": {
-          "color": {
-            "text": {
-              "default": {
-                "value": "{palette.slate.50}",
+                "value": "{click.global.color.text.muted}",
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.neutral.0}",
+                "value": "{click.global.color.text.muted}",
                 "type": "color"
               },
               "active": {
-                "value": "{palette.neutral.0}",
-                "type": "color"
-              }
-            },
-            "background": {
-              "default": {
-                "value": "{palette.utility.transparent}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{click.sidebar.navigation.item.color.background.hover}",
-                "type": "color"
-              },
-              "active": {
-                "value": "{palette.utility.transparent}",
-                "type": "color"
-              }
-            }
-          }
-        },
-        "item": {
-          "color": {
-            "background": {
-              "default": {
-                "value": "{palette.utility.transparent}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{palette.indigo.600}",
-                "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "lighten",
-                      "value": "0.035",
-                      "space": "lch"
-                    }
-                  }
-                }
-              },
-              "active": {
-                "value": "{palette.indigo.600}",
-                "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "alpha",
-                      "value": "0.6",
-                      "space": "lch"
-                    }
-                  }
-                }
-              }
-            },
-            "text": {
-              "default": {
-                "value": "{palette.slate.50}",
-                "type": "color"
-              },
-              "hover": {
-                "value": "{palette.neutral.0}",
-                "type": "color"
-              },
-              "active": {
-                "value": "{palette.neutral.0}",
-                "type": "color"
-              },
-              "muted": {
                 "value": "{click.global.color.text.muted}",
                 "type": "color"
               }
-            },
-            "icon": {
-              "default": {
-                "value": "{palette.indigo.100}",
-                "type": "color"
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.sidebar.main.navigation.subItem.color.text.active}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                }
+              },
+              "background": {
+                "default": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.sidebar.main.navigation.item.color.background.hover}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": {
+                  "value": "{palette.slate.900}",
+                  "type": "color"
+                }
               }
             }
           }
