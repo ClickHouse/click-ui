@@ -1,4 +1,4 @@
-import { TooltipProps } from "@radix-ui/react-tooltip";
+import { TooltipProps } from "./Tooltip/Tooltip";
 import { TitleProps } from "./Typography/Title/Title";
 import { TextProps } from "./Typography/Text/Text";
 import { TabsProps } from "./Tabs/Tabs";

@@ -9,14 +9,14 @@ export const TooltipProvider = ({
   return <RadixTooltip.Provider {...props}>{children}</RadixTooltip.Provider>;
 };
 
-interface TooltipProps extends RadixTooltip.TooltipProps {
+export interface TooltipProps extends RadixTooltip.TooltipProps {
   disabled?: boolean;
 }
 export const Tooltip = ({
   children,
   onOpenChange: onOpenChangeProp,
   open: openProp,
-  disabled,
+  disabled = false,
   ...props
 }: TooltipProps) => {
   const [open, setOpen] = useState(openProp);

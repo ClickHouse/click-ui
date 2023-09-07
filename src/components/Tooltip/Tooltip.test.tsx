@@ -1,5 +1,4 @@
-import { TooltipProps } from "@radix-ui/react-tooltip";
-import { Tooltip, TooltipProvider } from "..";
+import { Tooltip, TooltipProvider, TooltipProps } from "..";
 import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderCUI } from "@/utils/test-utils";
@@ -35,5 +34,13 @@ describe("Tooltip", () => {
     waitFor(() => {
       expect(getByTestId("tooltip-content")).toBeNull();
     });
+  });
+
+  it("should not open tooltip on hover if disabled", async () => {
+    const { getAllByText } = renderTooltip({ disabled: true });
+    const TooltipTrigger = getAllByText("Hover Here");
+    expect(TooltipTrigger.length).toEqual(1);
+    await userEvent.hover(TooltipTrigger[0]);
+    expect(getAllByText("Tooltip content")).toBeNull();
   });
 });

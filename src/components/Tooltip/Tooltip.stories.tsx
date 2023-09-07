@@ -1,5 +1,4 @@
-import { TooltipProps } from "@radix-ui/react-tooltip";
-import { Tooltip, TooltipProvider } from "./Tooltip";
+import { Tooltip, TooltipProvider, TooltipProps } from "./Tooltip";
 
 interface Props extends TooltipProps {
   showArrow?: boolean;
@@ -57,6 +56,7 @@ export default {
     skipDelayDuration: { control: "number" },
     disableHoverableContent: { control: "boolean" },
     side: { control: "select", options: ["top", "right", "left", "bottom"] },
+    disabled: { control: "boolean" },
   },
 };
 
