@@ -476,6 +476,23 @@
             "text": {
               "default": string
             }
+          },
+          "ghost": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
           }
         }
       },
@@ -1423,22 +1440,6 @@
               "height": string,
               "width": string
             }
-          },
-          "color": {
-            "background": {
-              "active": string,
-              "hover": string,
-              "default": string
-            },
-            "text": {
-              "default": string,
-              "hover": string,
-              "active": string,
-              "muted": string
-            },
-            "icon": {
-              "default": string
-            }
           }
         },
         "title": {
@@ -1447,11 +1448,6 @@
             "hover": string,
             "active": string,
             "disabled": string
-          },
-          "color": {
-            "default": string,
-            "hover": string,
-            "active": string
           }
         },
         "subItem": {
@@ -1483,27 +1479,12 @@
             "hover": string,
             "active": string,
             "disabled": string
-          },
-          "color": {
-            "text": {
-              "default": string,
-              "hover": string,
-              "active": string
-            },
-            "background": {
-              "default": string,
-              "hover": string,
-              "active": string
-            }
           }
         },
         "dragControl": {
           "separator": {
             "size": {
               "height": string
-            },
-            "color": {
-              "default": string
             }
           }
         }
@@ -1520,6 +1501,54 @@
           "stroke": {
             "default": string
           }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "active": string,
+                "hover": string,
+                "default": string
+              },
+              "text": {
+                "default": string,
+                "hover": string,
+                "active": string,
+                "muted": string
+              },
+              "icon": {
+                "default": string
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": string,
+                "hover": string,
+                "active": string
+              },
+              "background": {
+                "default": string,
+                "hover": string,
+                "active": string
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": string
+              }
+            }
+          }
         }
       },
       "sqlSidebar": {
@@ -1529,6 +1558,54 @@
           },
           "stroke": {
             "default": string
+          }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "active": string,
+                "hover": string,
+                "default": string
+              },
+              "text": {
+                "default": string,
+                "hover": string,
+                "active": string,
+                "muted": string
+              },
+              "icon": {
+                "default": string
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": string,
+                "hover": string,
+                "active": string
+              },
+              "background": {
+                "default": string,
+                "hover": string,
+                "active": string
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": string
+              }
+            }
           }
         }
       }
