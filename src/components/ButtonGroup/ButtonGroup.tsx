@@ -35,14 +35,15 @@ interface ButtonProps {
 }
 
 const ButtonGroupWrapper = styled.div`
-  box-sizing: border-box;
+box-sizing: default;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px 1px;
-  border: var(--click-button-group-color-stroke-panel);
-  background: var(--click-button-group-color-background-panel);
+  padding: 0px;
+  border: 1px solid ${({ theme }) => theme.click.button.group.color.stroke.panel};
+  background: ${({ theme }) =>
+  theme.click.button.group.color.background.panel};
 `;
 
 const endRadii = "var(--click-button-button-group-radii-end)";
@@ -51,19 +52,29 @@ const rightBorderRadius = `0px ${endRadii} ${endRadii} 0px`;
 const centerBorderRadius = "var(--click-button-button-group-radii-center)";
 
 const Button = styled.button<ButtonProps>`
-  box-sizing: border-box;
+  box-sizing: default;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   border: none;
-  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
-  gap: 10px;
+  background: ${({ theme }) => theme.click.button.group.color.background.default};
+  color: ${({ theme }) => theme.click.button.group.color.text.default};
+  font: ${({ theme }) => theme.click.button.basic.typography.label.default};
+  border-radius: ${({ theme }) => theme.click.button.group.radii};
+  padding: ${({ theme }) =>
+  theme.click.button.basic.space.y} ${({ theme }) =>
+  theme.click.button.basic.space.x};
+  gap: ${({ theme }) => theme.click.button.basic.space.group};
 
-  background: ${({ active }: ButtonProps) =>
-    active
-      ? "var(--click-button-group-color-background-active)"
-      : "var(--click-button-group-color-background-default)"};
+  &:hover {
+    background: ${({ theme }) => theme.click.button.group.color.background.hover};
+  }
+
+  &:active, &:focus {
+    background: ${({ theme }) => theme.click.button.group.color.background.active};
+  }
+
 
   border-radius: ${({ position }: ButtonProps) =>
     position === "left"
@@ -72,7 +83,4 @@ const Button = styled.button<ButtonProps>`
       ? rightBorderRadius
       : centerBorderRadius};
 
-  &:hover {
-    background: var(--click-button-group-color-background-hover);
-  }
 `;
