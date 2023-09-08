@@ -724,15 +724,15 @@
         "color": {
           "background": {
             "default": {
-              "value": "{palette.neutral.0}",
+              "value": "{palette.slate.100}",
               "type": "color"
             },
             "hover": {
-              "value": "{click.button.basic.color.secondary.background.hover}",
+              "value": "{palette.slate.50}",
               "type": "color"
             },
             "active": {
-              "value": "{click.button.basic.color.secondary.background.active}",
+              "value": "{palette.neutral.0}",
               "type": "color"
             },
             "panel": {
