@@ -732,28 +732,12 @@
             "hover": {
               "value": "{palette.neutral.700}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.30",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
             },
             "active": {
               "value": "{palette.neutral.700}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.15",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",
