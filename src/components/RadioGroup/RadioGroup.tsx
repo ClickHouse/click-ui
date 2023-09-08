@@ -1,6 +1,8 @@
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import { HTMLAttributes, ReactNode, useId } from "react";
 import styled from "styled-components";
+import { Label } from "@/components";
+import { FormRoot } from "../commonElement";
 
 export interface RadioGroupProps extends RadixRadioGroup.RadioGroupProps {
   inline?: boolean;
@@ -40,7 +42,11 @@ const RadioGroupItem = ({
 }: RadioGroupItemProps) => {
   const defaultId = useId();
   return (
-    <Wrapper {...props}>
+    <Wrapper
+      $orientation="horizontal"
+      $dir="end"
+      {...props}
+    >
       <RadioInput
         value={value}
         id={id ?? defaultId}
@@ -50,12 +56,12 @@ const RadioGroupItem = ({
         <RadioGroupIndicator />
       </RadioInput>
       {label && (
-        <label
-          className="Label"
+        <Label
           htmlFor={id ?? defaultId}
+          disabled={disabled}
         >
           {label}
-        </label>
+        </Label>
       )}
     </Wrapper>
   );
@@ -64,7 +70,7 @@ const RadioGroupItem = ({
 RadioGroupItem.displayName = "RadioGroupItem";
 RadioGroup.Item = RadioGroupItem;
 
-const Wrapper = styled.div`
+const Wrapper = styled(FormRoot)`
   padding: ${({ theme }) => theme.click.checkbox.space.all};
 
   display: flex;
@@ -85,33 +91,16 @@ const RadioInput = styled(RadixRadioGroup.Item)`
     background: ${theme.click.radio.color.background.default};
     border: 1px solid ${theme.click.radio.color.stroke.default};
 
-    & ~ label {
-      color: ${theme.click.field.color.genericLabel.default};
-      font: ${theme.click.radio.typography.label.default};
-      cursor: pointer;
-    }
     &:hover {
       background: ${theme.click.radio.color.background.hover};
-      & ~ label {
-        color: ${theme.click.field.color.genericLabel.hover};
-        font: ${theme.click.radio.typography.label.hover};
-      }
     }
     &[data-state="checked"] {
       border-color: ${theme.click.radio.color.stroke.active};
       background: ${theme.click.radio.color.background.active};
-      & ~ label {
-        color: ${theme.click.field.color.genericLabel.active};
-        font: ${theme.click.radio.typography.label.active};
-      }
     }
     &[data-disabled] {
       background: ${theme.click.radio.color.background.disabled};
       border-color: ${theme.click.radio.color.stroke.disabled};
-      & ~ label {
-        color: ${theme.click.field.color.genericLabel.disabled};
-        font: ${theme.click.radio.typography.label.disabled};
-      }
     }
   `};
 `;

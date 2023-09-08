@@ -182,6 +182,8 @@ const App = () => {
         Secondary
       </Button>
       <Icon name="users" />
+      <Icon name="in" />
+      <Icon name="gcp" />
       <Accordion title="Accordion">I'm some content </Accordion>
       <SidebarNavigationItem
         icon="user"

@@ -7,12 +7,14 @@ export interface SearchFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "string" | "onChange"
+      "children" | "type" | "string" | "onChange" | "dir"
     > {
   loading?: boolean;
   value?: string;
   clear?: boolean;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
 }
 
 export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
@@ -26,6 +28,8 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
       clear = true,
       value = "",
       onChange: onChangeProp,
+      orientation,
+      dir,
       ...props
     },
     ref
@@ -45,6 +49,8 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
         id={id ?? defaultId}
         label={label}
         error={error}
+        orientation={orientation}
+        dir={dir}
       >
         <Icon
           name="search"

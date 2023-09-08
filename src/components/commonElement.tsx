@@ -1,11 +1,25 @@
 import styled, { css } from "styled-components";
+import { IconSize } from "./Icon/types";
 
-export const FormRoot = styled.div`
+export const FormRoot = styled.div<{
+  $orientation?: "horizontal" | "vertical";
+  $dir?: "start" | "end";
+}>`
   display: flex;
-  flex-direction: column-reverse;
   width: 100%;
-  align-items: flex-start;
   gap: ${({ theme }) => theme.click.field.space.gap};
+  ${({ $orientation = "vertical", $dir = "start" }) => `
+    flex-direction: ${
+      $orientation === "horizontal"
+        ? $dir === "start"
+          ? "row-reverse"
+          : "row"
+        : $dir === "start"
+        ? "column-reverse"
+        : "column"
+    };
+    align-items: ${$orientation === "vertical" ? "flex-start" : "center"};
+  `}
   * {
     box-shadow: none;
     outline: none;
@@ -30,6 +44,7 @@ export const EmptyButton = styled.button`
   cursor: pointer;
   outline: none;
   padding: 0;
+  border: 0;
   &:disabled {
     cursor: not-allowed;
   }
@@ -70,4 +85,35 @@ export const BaseButton = styled.button`
       cursor: not-allowed;
     }
     `}
+`;
+
+export const SvgImageElement = styled.svg<{
+  $size?: IconSize;
+}>`
+  display: flex;
+  align-items: center;
+
+  ${({ theme, $size }) => `
+    & svg {
+      ${
+        $size
+          ? `
+        width: ${theme.click.image[$size].size.width};
+        height: ${theme.click.image[$size].size.height};
+      `
+          : ""
+      }
+    }
+  `}
+`;
+
+export const FormElementContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  gap: ${({ theme }) => theme.click.field.space.gap};
 `;

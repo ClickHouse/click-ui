@@ -1,18 +1,37 @@
-import { Icon } from "@/components";
+import { Icon, Label } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
-import { useId } from "react";
+import { ReactNode, useId } from "react";
 import styled from "styled-components";
+import { FormRoot } from "../commonElement";
 
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
-  label?: string;
+  label?: ReactNode;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
 }
-export const Checkbox = ({ id, label = "", ...delegated }: CheckboxProps) => {
+
+const Wrapper = styled(FormRoot)`
+  max-width: fit-content;
+`;
+
+export const Checkbox = ({
+  id,
+  label,
+  disabled,
+  orientation,
+  dir,
+  ...delegated
+}: CheckboxProps) => {
   const defaultId = useId();
   return (
-    <Wrapper>
+    <Wrapper
+      $orientation={orientation ?? "horizontal"}
+      $dir={dir ?? "end"}
+    >
       <CheckInput
         id={id ?? defaultId}
         data-testid="checkbox"
+        disabled={disabled}
         {...delegated}
       >
         <CheckIconWrapper>
@@ -22,17 +41,17 @@ export const Checkbox = ({ id, label = "", ...delegated }: CheckboxProps) => {
           />
         </CheckIconWrapper>
       </CheckInput>
-      {label && <label htmlFor={id ?? defaultId}>{label}</label>}
+      {label && (
+        <Label
+          htmlFor={id ?? defaultId}
+          disabled={disabled}
+        >
+          {label}
+        </Label>
+      )}
     </Wrapper>
   );
 };
-
-const Wrapper = styled.div`
-  padding: ${({ theme }) => theme.click.checkbox.space.all};
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.click.checkbox.space.gap};
-`;
 
 const CheckInput = styled(RadixCheckbox.Root)`
   display: flex;
@@ -47,23 +66,12 @@ const CheckInput = styled(RadixCheckbox.Root)`
     border: 1px solid ${theme.click.checkbox.color.stroke.default};
     cursor: pointer;
 
-    & ~ label {
-      color: ${theme.click.checkbox.color.label.default};
-      font: ${theme.click.field.typography.fieldText.default}
-      cursor: pointer;
-    }
     &:hover {
       background: ${theme.click.checkbox.color.background.hover};
-      &~ label {
-        color: ${theme.click.checkbox.color.label.hover};
-      }
     }
     &[data-state="checked"] {
       border-color: ${theme.click.checkbox.color.stroke.active};
       background: ${theme.click.checkbox.color.background.active};
-      & ~ label {
-        color: ${theme.click.checkbox.color.label.active};
-      }
     }
     &[data-disabled] {
       background: ${theme.click.checkbox.color.background.disabled};
@@ -71,9 +79,6 @@ const CheckInput = styled(RadixCheckbox.Root)`
       &[data-state="checked"] {
         background: ${theme.click.checkbox.color.background.disabled};
         border-color: ${theme.click.checkbox.color.stroke.disabled};
-      }
-      & ~ label {
-        color: ${theme.click.checkbox.color.label.disabled};
       }
     }
   `};

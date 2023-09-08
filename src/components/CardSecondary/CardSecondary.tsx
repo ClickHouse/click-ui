@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Badge, Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { ReactNode } from "react";
