@@ -562,8 +562,8 @@
         "color": {
           "background": {
             "default": "#e6e7e9",
-            "hover": "lch(68.1 1.1 272)",
-            "active": "lch(85 0 0)",
+            "hover": "#f6f7fa",
+            "active": "#ffffff",
             "panel": "#e6e7e9"
           },
           "text": {

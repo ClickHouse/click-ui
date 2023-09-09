@@ -289,8 +289,8 @@
         "color": {
           "background": {
             "default": "#282828",
-            "hover": "lch(19.3 0 0)",
-            "active": "lch(23.4 0 0)",
+            "hover": "#414141",
+            "active": "#414141",
             "panel": "#282828"
           },
           "text": {
