@@ -727,12 +727,29 @@
           "background": {
             "default": {
               "value": "{click.global.color.background.muted}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "hover": {
-              "value": "{palette.neutral.700}",
+              "value": "{palette.neutral.725}",
               "type": "color",
-              "$extensions": {}
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.075",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "active": {
               "value": "{palette.neutral.700}",

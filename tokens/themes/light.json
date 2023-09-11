@@ -733,7 +733,8 @@
             },
             "active": {
               "value": "{palette.neutral.0}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {}
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",
