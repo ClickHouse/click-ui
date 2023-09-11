@@ -20,6 +20,7 @@ export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
 export { HoverCard } from "./HoverCard/HoverCard";
 export { Link } from "./Link/Link";
+export { Logo } from "./Logos/Logo";
 export { NumberField } from "./Input/NumberField";
 export { PasswordField } from "./Input/PasswordField";
 export { Popover } from "./Popover/Popover";
@@ -32,6 +33,7 @@ export { SidebarCollapsibleItem } from "./SidebarCollapsibleItem/SidebarCollapsi
 export { SidebarNavigationTitle } from "./SidebarNavigationTitle/SidebarNavigationTitle";
 export { SidebarCollapsibleTitle } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 export { Spacer } from "./Spacer/Spacer";
+export { default as Separator } from "./Separator/Separator";
 export { SplitButton } from "./SplitButton/SplitButton";
 export { Switch } from "./Switch/Switch";
 export { Tabs } from "./Tabs/Tabs";

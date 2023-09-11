@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Icon } from "@/components";
+import { ReactNode } from "react";
 export type BadgeState =
   | "default"
   | "success"
@@ -11,18 +12,18 @@ export type BadgeState =
 
 export type BadgeSize = "sm" | "md";
 
-export interface BadgeProps {
-  text: string;
+export interface CommonBadgeProps {
+  text: ReactNode;
   state?: BadgeState;
   size?: BadgeSize;
 }
 
-export interface DismissibleBadge extends BadgeProps {
+export interface DismissibleBadge extends CommonBadgeProps {
   dismissible: true;
   onClose: () => void;
 }
 
-export interface NonDismissibleBadge extends BadgeProps {
+export interface NonDismissibleBadge extends CommonBadgeProps {
   dismissible?: never;
   onClose?: never;
 }
@@ -53,13 +54,15 @@ const CrossContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
   `}
 `;
 
+export type BadgeProps = NonDismissibleBadge | DismissibleBadge;
+
 export const Badge = ({
   text,
   state = "default",
   size,
   dismissible,
   onClose,
-}: NonDismissibleBadge | DismissibleBadge) => (
+}: BadgeProps) => (
   <Wrapper
     $state={state}
     $size={size}

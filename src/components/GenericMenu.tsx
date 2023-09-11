@@ -97,7 +97,7 @@ export const GenericMenuItem = styled.div`
       color:${theme.click.genericMenu.item.color.text.hover};
       cursor: pointer;
     }
-    &[data-state="open"] {
+    &[data-state="open"], &[data-state-"checked"] {
       background:${theme.click.genericMenu.item.color.background.active};
       color:${theme.click.genericMenu.item.color.text.active};
       font: ${theme.click.genericMenu.item.typography.label.active};
@@ -113,5 +113,8 @@ export const GenericMenuItem = styled.div`
   &:hover .dropdown-arrow,
   &[data-state="open"] .dropdown-arrow {
     left: 0.5rem;
+  }
+  &[hidden] {
+    display: none;
   }
 `;

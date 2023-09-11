@@ -1,46 +1,41 @@
 import { Icon } from "@/components";
-import { Select, SelectProps } from "./Select";
+import { MultiSelect, SelectProps } from "./MultiSelect";
 interface Props extends SelectProps {
   clickableNoData?: boolean;
 }
-const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
+const MultiSelectExample = ({ clickableNoData, value, ...props }: Props) => {
   return (
-    <Select
+    <MultiSelect
       value={value}
       {...props}
     >
-      <Select.Trigger />
-      <Select.Content showSearch>
-        <Select.Group heading="Group label">
-          <Select.Item value="content0">
+      <MultiSelect.Trigger />
+      <MultiSelect.Content>
+        <MultiSelect.Group heading="Group label">
+          <MultiSelect.Item value="content0">
             <Icon name="user" />
             Content0
-          </Select.Item>
-        </Select.Group>
+          </MultiSelect.Item>
+        </MultiSelect.Group>
         <div>
-          <Select.Item value="content1">Content1 long text content</Select.Item>
+          <MultiSelect.Item value="content1">Content1 long text content</MultiSelect.Item>
         </div>
-        <Select.Item
-          value="content2"
-          disabled
-        >
-          Content2
-        </Select.Item>
-        <Select.Item value="content3">Content3</Select.Item>
+        <MultiSelect.Item value="content2">Content2</MultiSelect.Item>
+        <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
         {clickableNoData ? (
-          <Select.NoData onClick={() => console.log("Asasas")}>
+          <MultiSelect.NoData onCreateOption={search => console.log("Clicked ", search)}>
             {"No Field found {search}"}
-          </Select.NoData>
+          </MultiSelect.NoData>
         ) : (
-          <Select.NoData />
+          <MultiSelect.NoData />
         )}
-      </Select.Content>
-    </Select>
+      </MultiSelect.Content>
+    </MultiSelect>
   );
 };
 export default {
-  component: SelectExample,
-  title: "Forms/Select",
+  component: MultiSelectExample,
+  title: "Forms/MultiSelect",
   tags: ["form-field", "select", "autodocs"],
   argTypes: {
     label: { control: "string" },

@@ -1,13 +1,12 @@
 import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { Select, SelectProps } from "./Select";
+import { MultiSelect, SelectProps } from "./MultiSelect";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 interface Props extends Omit<SelectProps, "children" | "label"> {
   nodata?: ReactNode;
-  showSearch?: boolean;
 }
-describe("Select", () => {
+describe("MultiSelect", () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = jest.fn();
     global.ResizeObserver = jest.fn().mockImplementation(() => ({
@@ -16,29 +15,26 @@ describe("Select", () => {
       disconnect: jest.fn(),
     }));
   });
-  const renderSelect = ({ nodata, showSearch, ...props }: Props) =>
+  const renderSelect = ({ nodata, ...props }: Props) =>
     renderCUI(
-      <Select
+      <MultiSelect
         label="Test Select Label"
         {...props}
       >
-        <Select.Trigger />
-        <Select.Content showSearch={showSearch}>
-          <Select.Group heading="Group label">
-            <Select.Item value="content0">Content0</Select.Item>
-          </Select.Group>
-          <Select.Item value="content1">Content1</Select.Item>
-          <Select.Item value="content2">Content2</Select.Item>
-          <Select.Item value="content3">Content3</Select.Item>
-          <Select.Item
-            value="content4"
-            disabled
-          >
-            Content4
-          </Select.Item>
-          {nodata ? nodata : <Select.NoData />}
-        </Select.Content>
-      </Select>
+        <MultiSelect.Group heading="Group label">
+          <MultiSelect.Item value="content0">Content0</MultiSelect.Item>
+        </MultiSelect.Group>
+        <MultiSelect.Item value="content1">Content1</MultiSelect.Item>
+        <MultiSelect.Item value="content2">Content2</MultiSelect.Item>
+        <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
+        <MultiSelect.Item
+          value="content4"
+          disabled
+        >
+          Content4
+        </MultiSelect.Item>
+        {nodata ? nodata : <MultiSelect.NoData />}
+      </MultiSelect>
     );
 
   it("should open select on click", () => {
@@ -108,9 +104,7 @@ describe("Select", () => {
 
   describe("onSearch enabled", () => {
     it("on open show all options", () => {
-      const { queryByText } = renderSelect({
-        showSearch: true,
-      });
+      const { queryByText } = renderSelect({});
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
@@ -123,9 +117,7 @@ describe("Select", () => {
     });
 
     it("filter by text", () => {
-      const { queryByText, getByTestId } = renderSelect({
-        showSearch: true,
-      });
+      const { queryByText, getByTestId } = renderSelect({});
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
@@ -145,9 +137,7 @@ describe("Select", () => {
     });
 
     it("on clear show all data", () => {
-      const { queryByText, getByTestId } = renderSelect({
-        showSearch: true,
-      });
+      const { queryByText, getByTestId } = renderSelect({});
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
@@ -169,9 +159,7 @@ describe("Select", () => {
       expect(document.activeElement).toBe(selectInput);
     });
     it("on no options available show no data", () => {
-      const { queryByText, getByTestId } = renderSelect({
-        showSearch: true,
-      });
+      const { queryByText, getByTestId } = renderSelect({});
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
@@ -190,11 +178,10 @@ describe("Select", () => {
     it("on no options available show no custom data", () => {
       const onClick = jest.fn();
       const { queryByText, getByTestId } = renderSelect({
-        showSearch: true,
         nodata: (
-          <Select.NoData onCreateOption={onClick}>
+          <MultiSelect.NoData onClick={onClick}>
             {"No Field found {search}"}
-          </Select.NoData>
+          </MultiSelect.NoData>
         ),
       });
       const selectTrigger = queryByText("Select an option");
