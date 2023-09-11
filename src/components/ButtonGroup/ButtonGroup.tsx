@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 
 export interface ButtonGroupProps {
   labels: string[];
@@ -25,9 +25,11 @@ export const ButtonGroup = ({ labels, activeIndex, onClick }: ButtonGroupProps) 
 };
 
 type ButtonPosition = "left" | "center" | "right";
+
 interface ButtonProps {
   active: boolean;
   position: ButtonPosition;
+  theme: DefaultTheme;
 }
 
 const ButtonGroupWrapper = styled.div`
@@ -54,7 +56,10 @@ const Button = styled.button<ButtonProps>`
   justify-content: center;
   align-items: center;
   border: none;
-  background: ${({ theme }) => theme.click.button.group.color.background.default};
+  background: ${({ active, theme }: ButtonProps) =>
+    active
+      ? theme.click.button.group.color.background.active
+      : theme.click.button.group.color.background.default};
   color: ${({ theme }) => theme.click.button.group.color.text.default};
   font: ${({ theme }) => theme.click.button.basic.typography.label.default};
   border-radius: ${({ theme }) => theme.click.button.group.radii.end};
