@@ -137,7 +137,6 @@ export const MultiSelect = ({
 
 interface TriggerProps extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
   placeholder?: string;
-  sortable?: boolean;
 }
 
 const BadgeList = styled.div`
@@ -150,21 +149,10 @@ const BadgeList = styled.div`
 `;
 
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  (
-    { placeholder = "Select an option", sortable, onClick: onClickProp, ...props },
-    ref
-  ) => {
-    const {
-      disabled,
-      id,
-      hasError,
-      selectedValueNodeProps,
-      onSelect,
-      updateSearch,
-      updateValues,
-    } = useCombobox();
+  ({ placeholder = "Select an option", onClick: onClickProp, ...props }, ref) => {
+    const { disabled, id, hasError, selectedValueNodeProps, onSelect, updateSearch } =
+      useCombobox();
 
-    const draggable = typeof updateValues === "function" && sortable;
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
       if (typeof onClickProp === "function") {
         onClickProp(e);
@@ -178,12 +166,6 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         id={id}
         $error={hasError}
         disabled={disabled}
-        cui-select-trigger=""
-        onDrop={() => {
-          if (draggable) {
-            updateValues([]);
-          }
-        }}
         onClick={onClick}
         {...props}
       >
@@ -211,10 +193,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
                 } as DismissibleBadge;
               }
               return (
-                <div
-                  key={`multi-select-${id}-${index}`}
-                  draggable={draggable}
-                >
+                <div key={`multi-select-${id}-${index}`}>
                   <Badge
                     size="sm"
                     state={disabled ? "disabled" : "default"}

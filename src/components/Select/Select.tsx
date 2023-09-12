@@ -186,7 +186,6 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         id={id}
         $error={hasError}
         disabled={disabled}
-        cui-select-trigger=""
         onClick={onClick}
         {...props}
       >
