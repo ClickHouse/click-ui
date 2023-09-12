@@ -3,7 +3,9 @@ import {
   FunctionComponent,
   KeyboardEvent,
   ReactNode,
+  RefObject,
   isValidElement,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -94,30 +96,36 @@ interface ComboboxProviderProps {
   id: string;
   hasError: boolean;
   disabled?: boolean;
+  inputRef: RefObject<HTMLInputElement | null>;
+  onCreateOption?: (search: string) => void;
+  showCheck?: boolean;
 }
 
 interface MultiSelectProps extends ComboboxProviderProps {
-  isMultiSelect: true;
+  type: "MultiSelect";
   value?: Array<string>;
 }
 
 interface SingleSelectProps extends ComboboxProviderProps {
-  isMultiSelect?: never;
+  type: "Select";
   value?: string;
 }
 export const ComboboxProvider = ({
-  isMultiSelect,
+  type,
   children,
   onSelect: onSelectProp,
   id,
   hasError,
   disabled,
   value: valueProp,
+  inputRef,
+  onCreateOption,
+  showCheck,
 }: MultiSelectProps | SingleSelectProps) => {
   const [highlighted, updateHighlighted] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const selectedValues = useRef<Array<string>>(
-    isMultiSelect ? valueProp ?? [] : valueProp ? [valueProp] : []
+    type === "MultiSelect" ? valueProp ?? [] : valueProp ? [valueProp] : []
   );
   const [selectedValueNodeProps, setSelectedValueNodeProps] = useState<
     Array<ComboboxItemProps>
@@ -127,13 +135,24 @@ export const ComboboxProvider = ({
   const navigatable = useRef<Array<string>>([]);
   const valueToElement = useRef<Record<string, ComboboxItemProps>>({});
 
+  const updateValues = useCallback(
+    (valueArray: Array<string>) => {
+      selectedValues.current = valueArray;
+      setSelectedValueNodeProps(() => {
+        return valueArray.map(
+          value => valueToElement.current[value] ?? { children: value }
+        );
+      });
+      if (inputRef.current) {
+        inputRef.current.value = selectedValues.current.join(",");
+      }
+    },
+    [inputRef]
+  );
+
   useEffect(() => {
-    selectedValues.current = isMultiSelect
-      ? valueProp ?? []
-      : valueProp
-      ? [valueProp]
-      : [];
-  }, [valueProp, isMultiSelect]);
+    updateValues(type === "MultiSelect" ? valueProp ?? [] : valueProp ? [valueProp] : []);
+  }, [valueProp, type, updateValues]);
 
   const updateElements = ({
     disabled,
@@ -150,12 +169,19 @@ export const ComboboxProvider = ({
     }
     valueToElement.current[value] = nodeProps;
   };
+
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (!e.defaultPrevented) {
       if (e.key === "Enter") {
         e.preventDefault();
         if (highlighted) {
           onSelect(highlighted);
+        } else if (
+          visibleList.current.length === 0 &&
+          typeof onCreateOption === "function"
+        ) {
+          onCreateOption(search);
+          onSelect(search);
         }
       } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
         e.preventDefault();
@@ -187,7 +213,7 @@ export const ComboboxProvider = ({
       }
     }
   };
-  const updateChildren = (children: ReactNode, type: string) => {
+  const updateChildren = (children: ReactNode) => {
     itemList.current = childrenToComboboxItemArray(children, type, updateElements);
   };
   const updateSearch = (search: string) => {
@@ -195,8 +221,12 @@ export const ComboboxProvider = ({
     let hasHighlightedValue = false;
     const visibleItemsList: Array<string> = [];
     const navigatableList: Array<string> = [];
+    const searchLowerCase = search.toLowerCase();
     itemList.current.forEach(item => {
-      if (item.title.includes(search) || item.heading?.includes(search)) {
+      if (
+        item.title.toLowerCase().includes(searchLowerCase) ||
+        item.heading?.toLowerCase()?.includes(searchLowerCase)
+      ) {
         if (item.value === highlighted) {
           hasHighlightedValue = true;
         }
@@ -224,23 +254,26 @@ export const ComboboxProvider = ({
   };
 
   const onSelect = (newValue: string) => {
-    if (isMultiSelect) {
+    if (type === "MultiSelect") {
       const index = selectedValues.current.findIndex(value => value === newValue);
+
       if (index === -1) {
-        selectedValues.current = [...selectedValues.current, newValue];
+        updateValues([...selectedValues.current, newValue]);
         setSelectedValueNodeProps(values => [
           ...values,
-          valueToElement.current[newValue],
+          valueToElement.current[newValue] ?? { children: newValue },
         ]);
       } else {
-        selectedValues.current = selectedValues.current.filter(
-          value => value !== newValue
+        updateValues(selectedValues.current.filter(value => value !== newValue));
+        setSelectedValueNodeProps(values =>
+          values.filter(item => item.value !== newValue)
         );
-        setSelectedValueNodeProps(values => values.splice(index, 1));
       }
     } else {
-      selectedValues.current = [newValue];
-      setSelectedValueNodeProps([valueToElement.current[newValue]]);
+      updateValues([newValue]);
+      setSelectedValueNodeProps([
+        valueToElement.current[newValue] ?? { children: newValue },
+      ]);
     }
     onSelectProp(selectedValues.current);
   };
@@ -263,6 +296,9 @@ export const ComboboxProvider = ({
     hasError,
     disabled,
     selectedValueNodeProps,
+    onCreateOption,
+    showCheck,
+    updateValues,
   };
   return <ComboboxContext.Provider value={value}>{children}</ComboboxContext.Provider>;
 };

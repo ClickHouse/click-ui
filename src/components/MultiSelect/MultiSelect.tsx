@@ -1,11 +1,11 @@
 import {
-  FocusEvent,
   HTMLAttributes,
+  MouseEvent,
   ReactNode,
   forwardRef,
-  useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
@@ -13,12 +13,12 @@ import { Badge, BadgeProps, Icon, Label } from "@/components";
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import styled from "styled-components";
 import {
-  ComboboxContent,
   ComboboxGroup,
   ComboboxItem,
   ComboboxNoData,
   ComboboxTrigger,
   IconWrapper,
+  ComboboxContent,
 } from "../Combobox/ComboBoxElements";
 import { useCombobox } from "../Combobox/useCombobox";
 import { ComboboxProvider } from "../Combobox/ComboboxProvider";
@@ -30,16 +30,19 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir">
   error?: ReactNode;
   disabled?: boolean;
   defaultValue?: Array<string>;
-  onChange?: (value: string) => void;
+  onChange?: (value: Array<string>) => void;
   name?: string;
   required?: boolean;
   isFormControl?: boolean;
   value?: Array<string>;
   dir?: "start" | "end";
   orientation?: "horizontal" | "vertical";
+  onCreateOption?: (search: string) => void;
+  showCheck?: boolean;
+  sortable?: true;
 }
 
-export type SelectProps = RadixPopover.PopoverProps & Props;
+export type MultiSelectProps = RadixPopover.PopoverProps & Props;
 
 const SelectPopoverRoot = styled(RadixPopover.Root)`
   width: 100%;
@@ -62,17 +65,19 @@ export const MultiSelect = ({
   name,
   required,
   isFormControl,
+  onCreateOption,
+  showCheck,
   ...props
-}: SelectProps) => {
+}: MultiSelectProps) => {
   const defaultId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(defaultOpen ?? openProp);
   const hasError = !!error && typeof error !== "undefined";
 
   const onSelect = (value: Array<string>) => {
     if (typeof onChange === "function") {
-      onChange(value[0]);
+      onChange(value);
     }
-    onOpenChange(false);
   };
 
   const onOpenChange = (open: boolean) => {
@@ -91,6 +96,7 @@ export const MultiSelect = ({
       <FormElementContainer>
         {isFormControl && (
           <input
+            ref={inputRef}
             type="hidden"
             name={name}
             required={required}
@@ -101,12 +107,15 @@ export const MultiSelect = ({
           onOpenChange={onOpenChange}
         >
           <ComboboxProvider
-            isMultiSelect
+            type="MultiSelect"
             value={valueProp ?? defaultValue}
             onSelect={onSelect}
             id={id ?? defaultId}
             hasError={hasError}
             disabled={disabled}
+            inputRef={inputRef}
+            onCreateOption={onCreateOption}
+            showCheck={showCheck}
           >
             {children}
           </ComboboxProvider>
@@ -128,52 +137,41 @@ export const MultiSelect = ({
 
 interface TriggerProps extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
   placeholder?: string;
+  sortable?: boolean;
 }
 
+const BadgeList = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: inherit;
+  //click-field-space-gap
+`;
+
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  ({ placeholder = "Select an option", ...props }, ref) => {
+  (
+    { placeholder = "Select an option", sortable, onClick: onClickProp, ...props },
+    ref
+  ) => {
     const {
       disabled,
       id,
       hasError,
       selectedValueNodeProps,
-      search,
-      onKeyDown: onKeyDownContext,
-      updateSearch,
       onSelect,
+      updateSearch,
+      updateValues,
     } = useCombobox();
 
-    const valueList = useMemo(() => {
-      return selectedValueNodeProps.map((nodeProps, index) => {
-        let otherProps: BadgeProps = {
-          text: (
-            <IconWrapper
-              icon={nodeProps.icon}
-              iconDir={nodeProps.iconDir}
-            >
-              {nodeProps.children}
-            </IconWrapper>
-          ),
-        } as NonDismissibleBadge;
-        if (!disabled && !nodeProps.disabled) {
-          otherProps = {
-            ...otherProps,
-            dismissible: true,
-            onClose: () => {
-              onSelect(nodeProps.value);
-            },
-          } as DismissibleBadge;
-        }
-        return (
-          <Badge
-            key={`multi-select-${id}-${index}`}
-            size="sm"
-            state={disabled ? "disabled" : "default"}
-            {...otherProps}
-          />
-        );
-      });
-    }, [selectedValueNodeProps, disabled, id, onSelect]);
+    const draggable = typeof updateValues === "function" && sortable;
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+      if (typeof onClickProp === "function") {
+        onClickProp(e);
+      }
+      updateSearch("");
+    };
+
     return (
       <ComboboxTrigger
         ref={ref}
@@ -181,16 +179,54 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         $error={hasError}
         disabled={disabled}
         cui-select-trigger=""
+        onDrop={() => {
+          if (draggable) {
+            updateValues([]);
+          }
+        }}
+        onClick={onClick}
         {...props}
       >
-        {valueList}
-        <input
-          value={search}
-          onChange={e => updateSearch(e.target.value)}
-          data-testid="select-search-input"
-          onKeyDown={onKeyDownContext}
-          placeholder={placeholder}
-        />
+        {selectedValueNodeProps.length > 0 ? (
+          <BadgeList>
+            {selectedValueNodeProps.map((nodeProps, index) => {
+              let otherProps: BadgeProps = {
+                text: (
+                  <IconWrapper
+                    icon={nodeProps.icon}
+                    iconDir={nodeProps.iconDir}
+                    size="xs"
+                  >
+                    {nodeProps.children}
+                  </IconWrapper>
+                ),
+              } as NonDismissibleBadge;
+              if (!disabled && !nodeProps.disabled) {
+                otherProps = {
+                  ...otherProps,
+                  dismissible: true,
+                  onClose: () => {
+                    onSelect(nodeProps.value);
+                  },
+                } as DismissibleBadge;
+              }
+              return (
+                <div
+                  key={`multi-select-${id}-${index}`}
+                  draggable={draggable}
+                >
+                  <Badge
+                    size="sm"
+                    state={disabled ? "disabled" : "default"}
+                    {...otherProps}
+                  />
+                </div>
+              );
+            })}
+          </BadgeList>
+        ) : (
+          placeholder
+        )}
         <Icon
           name="sort"
           size="sm"
@@ -203,44 +239,8 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
 Trigger.displayName = "MultiSelect.Trigger";
 MultiSelect.Trigger = Trigger;
 
-const SelectList = styled.div`
-  width: inherit;
-`;
-
-const Content = ({
-  onFocus: onFocusProp,
-  children,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) => {
-  const { updateChildren, onKeyDown: onKeyDownContext } = useCombobox();
-
-  useEffect(() => {
-    updateChildren(children, "Select");
-  }, [children, updateChildren]);
-
-  const onFocus = (e: FocusEvent<HTMLDivElement, Element>) => {
-    if (onFocusProp) {
-      onFocusProp(e);
-    }
-  };
-
-  return (
-    <>
-      <RadixPopover.Portal>
-        <ComboboxContent
-          sideOffset={5}
-          onFocus={onFocus}
-          {...props}
-        >
-          <SelectList onKeyDown={onKeyDownContext}>{children}</SelectList>
-        </ComboboxContent>
-      </RadixPopover.Portal>
-    </>
-  );
-};
-
-Content.displayName = "MultiSelect.Content";
-MultiSelect.Content = Content;
+ComboboxContent.displayName = "MultiSelect.Content";
+MultiSelect.Content = ComboboxContent;
 
 ComboboxGroup.displayName = "MultiSelect.Group";
 MultiSelect.Group = ComboboxGroup;

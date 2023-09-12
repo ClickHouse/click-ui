@@ -1,24 +1,23 @@
 import {
-  FocusEvent,
   HTMLAttributes,
+  MouseEvent,
   ReactNode,
   forwardRef,
-  useEffect,
   useId,
   useRef,
   useState,
 } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
-import { Icon, IconButton, Label } from "@/components";
+import { Icon, Label } from "@/components";
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import styled from "styled-components";
 import {
-  ComboboxContent,
   ComboboxGroup,
   ComboboxItem,
   ComboboxNoData,
   ComboboxTrigger,
   IconWrapper,
+  ComboboxContent,
 } from "../Combobox/ComboBoxElements";
 import { useCombobox } from "../Combobox/useCombobox";
 import { ComboboxProvider } from "../Combobox/ComboboxProvider";
@@ -36,6 +35,8 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir">
   value?: string;
   dir?: "start" | "end";
   orientation?: "horizontal" | "vertical";
+  onCreateOption?: (search: string) => void;
+  showCheck?: boolean;
 }
 
 export type SelectProps = RadixPopover.PopoverProps & Props;
@@ -94,9 +95,12 @@ export const Select = ({
   name,
   required,
   isFormControl,
+  onCreateOption,
+  showCheck,
   ...props
 }: SelectProps) => {
   const defaultId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(defaultOpen ?? openProp);
   const hasError = !!error && typeof error !== "undefined";
 
@@ -123,6 +127,7 @@ export const Select = ({
       <FormElementContainer>
         {isFormControl && (
           <input
+            ref={inputRef}
             type="hidden"
             name={name}
             required={required}
@@ -138,6 +143,10 @@ export const Select = ({
             id={id ?? defaultId}
             hasError={hasError}
             disabled={disabled}
+            inputRef={inputRef}
+            onCreateOption={onCreateOption}
+            showCheck={showCheck}
+            type="Select"
           >
             {children}
           </ComboboxProvider>
@@ -162,8 +171,15 @@ interface TriggerProps extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
 }
 
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  ({ placeholder = "Select an option", ...props }, ref) => {
-    const { disabled, id, hasError, selectedValueNodeProps } = useCombobox();
+  ({ placeholder = "Select an option", onClick: onClickProp, ...props }, ref) => {
+    const { disabled, id, hasError, selectedValueNodeProps, updateSearch } =
+      useCombobox();
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+      if (typeof onClickProp === "function") {
+        onClickProp(e);
+      }
+      updateSearch("");
+    };
     return (
       <ComboboxTrigger
         ref={ref}
@@ -171,6 +187,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         $error={hasError}
         disabled={disabled}
         cui-select-trigger=""
+        onClick={onClick}
         {...props}
       >
         {selectedValueNodeProps.length === 0 ? (
@@ -197,129 +214,8 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
 Trigger.displayName = "Select.Trigger";
 Select.Trigger = Trigger;
 
-const SearchBarContainer = styled.div`
-  width: auto;
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  ${({ theme }) => `
-    border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
-    padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
-    color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
-    font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
-  `}
-`;
-
-const SearchBar = styled.input`
-  background: transparent;
-  border: none;
-  width: 100%;
-  outline: none;
-  ${({ theme }) => `
-    min-height: 21px;
-    padding-right: 24px;
-    gap: ${theme.click.genericMenu.item.space.gap};
-    font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
-    border-bottom: 2px solid ${theme.click.genericMenu.button.color.stroke.default};
-    color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
-    &::placeholder {
-      color: ${theme.click.genericMenu.autocomplete.color.placeholder.default};
-      font: ${theme.click.genericMenu.autocomplete.typography.search.placeholder.default};
-    }
-  `}
-`;
-
-const SearchClose = styled.button<{ $showClose: boolean }>`
-  position: absolute;
-  ${({ theme }) => `
-    top: ${theme.click.genericMenu.item.space.y};
-    right: ${theme.click.genericMenu.item.space.x};
-  `}
-  visibility: ${({ $showClose }) => ($showClose ? "visible" : "hidden")};
-`;
-
-const SelectList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: inherit;
-  max-height: var(--radix-popover-content-available-height);
-`;
-const SelectContent = styled.div`
-  width: inherit;
-  overflow: overlay;
-  flex: 1;
-`;
-interface ContentProps extends HTMLAttributes<HTMLDivElement> {
-  showSearch?: boolean;
-}
-const Content = ({
-  showSearch = true,
-  onFocus: onFocusProp,
-  children,
-  ...props
-}: ContentProps) => {
-  const {
-    updateChildren,
-    search,
-    updateSearch,
-    onKeyDown: onKeyDownContext,
-  } = useCombobox();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    updateChildren(children, "Select");
-  }, [children, updateChildren]);
-
-  const onFocus = (e: FocusEvent<HTMLDivElement, Element>) => {
-    inputRef.current?.focus();
-    if (onFocusProp) {
-      onFocusProp(e);
-    }
-  };
-
-  const clearSearch = () => {
-    updateSearch("");
-  };
-
-  return (
-    <>
-      <RadixPopover.Portal>
-        <ComboboxContent
-          sideOffset={5}
-          onFocus={onFocus}
-          {...props}
-        >
-          <SelectList onKeyDown={onKeyDownContext}>
-            {showSearch && (
-              <SearchBarContainer>
-                <SearchBar
-                  ref={inputRef}
-                  value={search}
-                  onChange={e => updateSearch(e.target.value)}
-                  data-testid="select-search-input"
-                  onKeyDown={onKeyDownContext}
-                />
-                <SearchClose
-                  as={IconButton}
-                  icon="cross"
-                  onClick={clearSearch}
-                  data-testid="select-search-close"
-                  $showClose={search.length > 0}
-                  size="xs"
-                />
-              </SearchBarContainer>
-            )}
-            <SelectContent>{children}</SelectContent>
-          </SelectList>
-        </ComboboxContent>
-      </RadixPopover.Portal>
-    </>
-  );
-};
-
-Content.displayName = "Select.Content";
-Select.Content = Content;
+ComboboxContent.displayName = "Select.Content";
+Select.Content = ComboboxContent;
 
 ComboboxGroup.displayName = "Select.Group";
 Select.Group = ComboboxGroup;

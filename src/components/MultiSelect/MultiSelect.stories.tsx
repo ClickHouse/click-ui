@@ -1,12 +1,16 @@
 import { Icon } from "@/components";
-import { MultiSelect, SelectProps } from "./MultiSelect";
-interface Props extends SelectProps {
+import { MultiSelect, MultiSelectProps } from "./MultiSelect";
+interface Props extends Omit<MultiSelectProps, "value"> {
   clickableNoData?: boolean;
+  value: string;
 }
 const MultiSelectExample = ({ clickableNoData, value, ...props }: Props) => {
   return (
     <MultiSelect
-      value={value}
+      value={value ? value.split(",") : undefined}
+      onCreateOption={
+        clickableNoData ? search => console.log("Clicked ", search) : undefined
+      }
       {...props}
     >
       <MultiSelect.Trigger />
@@ -22,13 +26,7 @@ const MultiSelectExample = ({ clickableNoData, value, ...props }: Props) => {
         </div>
         <MultiSelect.Item value="content2">Content2</MultiSelect.Item>
         <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
-        {clickableNoData ? (
-          <MultiSelect.NoData onCreateOption={search => console.log("Clicked ", search)}>
-            {"No Field found {search}"}
-          </MultiSelect.NoData>
-        ) : (
-          <MultiSelect.NoData />
-        )}
+        <MultiSelect.NoData />
       </MultiSelect.Content>
     </MultiSelect>
   );

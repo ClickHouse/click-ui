@@ -10,11 +10,14 @@ type ContextProps = {
   search: string;
   updateSearch: (search: string) => void;
   updateHighlighted: (search: string) => void;
-  updateChildren: (children: ReactNode, type: string) => void;
+  updateChildren: (children: ReactNode) => void;
   id: string;
   hasError: boolean;
   disabled?: boolean;
   selectedValueNodeProps: Array<ComboboxItemProps>;
+  onCreateOption?: (search: string) => void;
+  showCheck?: boolean;
+  updateValues?: (value: Array<string>) => void;
 };
 
 export const ComboboxContext = createContext<ContextProps>({
@@ -30,6 +33,7 @@ export const ComboboxContext = createContext<ContextProps>({
   id: "",
   hasError: false,
   selectedValueNodeProps: [],
+  onCreateOption: () => null,
 });
 
 export const useCombobox = () => {

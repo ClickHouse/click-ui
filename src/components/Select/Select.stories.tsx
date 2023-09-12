@@ -7,6 +7,9 @@ const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
   return (
     <Select
       value={value}
+      onCreateOption={
+        clickableNoData ? search => console.log("Clicked ", search) : undefined
+      }
       {...props}
     >
       <Select.Trigger />
@@ -27,13 +30,7 @@ const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
           Content2
         </Select.Item>
         <Select.Item value="content3">Content3</Select.Item>
-        {clickableNoData ? (
-          <Select.NoData onClick={() => console.log("Asasas")}>
-            {"No Field found {search}"}
-          </Select.NoData>
-        ) : (
-          <Select.NoData />
-        )}
+        <Select.NoData />
       </Select.Content>
     </Select>
   );

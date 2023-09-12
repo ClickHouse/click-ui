@@ -136,7 +136,7 @@ describe("Select", () => {
       expect(queryByText("Content2")).not.toBeNull();
       expect(queryByText("Content3")).not.toBeNull();
       expect(queryByText("Content4")).not.toBeNull();
-      fireEvent.change(getByTestId("select-search-input"), {
+      fireEvent.change(getByTestId("combobox-search-input"), {
         target: { value: "content2" },
       });
       expect(queryByText("Content2")).not.toBeNull();
@@ -152,7 +152,7 @@ describe("Select", () => {
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
 
-      const selectInput = getByTestId("select-search-input");
+      const selectInput = getByTestId("combobox-search-input");
       fireEvent.change(selectInput, {
         target: { value: "content2" },
       });
@@ -176,7 +176,7 @@ describe("Select", () => {
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
 
-      fireEvent.change(getByTestId("select-search-input"), {
+      fireEvent.change(getByTestId("combobox-search-input"), {
         target: { value: "nodata" },
       });
       expect(queryByText("Content2")).toBeNull();
@@ -191,17 +191,14 @@ describe("Select", () => {
       const onClick = jest.fn();
       const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
-        nodata: (
-          <Select.NoData onCreateOption={onClick}>
-            {"No Field found {search}"}
-          </Select.NoData>
-        ),
+        onCreateOption: onClick,
+        nodata: <Select.NoData>{"No Field found {search}"}</Select.NoData>,
       });
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
 
-      fireEvent.change(getByTestId("select-search-input"), {
+      fireEvent.change(getByTestId("combobox-search-input"), {
         target: { value: "nodata" },
       });
       expect(queryByText("Content2")).toBeNull();
