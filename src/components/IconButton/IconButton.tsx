@@ -20,7 +20,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       >
         <Icon
           name={icon}
-          size="md"
+          size="sm"
         />
       </Button>
     );

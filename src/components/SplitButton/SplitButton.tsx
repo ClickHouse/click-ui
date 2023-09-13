@@ -95,7 +95,10 @@ export const SplitButton = ({
           data-testid="split-button-dropdown"
         >
           <span>
-            <Icon name="chevron-down" />
+            <Icon
+              name="chevron-down"
+              size="sm"
+            />
           </span>
         </SecondaryButton>
       </SplitButtonTrigger>
