@@ -725,7 +725,16 @@
           "background": {
             "default": {
               "value": "{palette.slate.100}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.35",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "hover": {
               "value": "{palette.slate.50}",

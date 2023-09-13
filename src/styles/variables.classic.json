@@ -185,10 +185,10 @@
       "group": {
         "color": {
           "background": {
-            "default": "#ffffff",
-            "hover": "#f6f7fa",
+            "default": "lch(100 0 0)",
+            "hover": "lch(97.4 1.45 272)",
             "active": "lch(95.3 1.54 272)",
-            "panel": "#ffffff"
+            "panel": "lch(100 0 0)"
           },
           "text": {
             "default": "#161517",

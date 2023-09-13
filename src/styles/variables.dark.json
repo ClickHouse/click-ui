@@ -288,10 +288,10 @@
       "group": {
         "color": {
           "background": {
-            "default": "#282828",
-            "hover": "#414141",
+            "default": "lch(18.2 0 0)",
+            "hover": "lch(22.4 0 0)",
             "active": "#414141",
-            "panel": "#282828"
+            "panel": "lch(18.2 0 0)"
           },
           "text": {
             "default": "#ffffff",

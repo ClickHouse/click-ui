@@ -561,10 +561,10 @@
         },
         "color": {
           "background": {
-            "default": "#e6e7e9",
-            "hover": "#f6f7fa",
+            "default": "lch(91.8 1.07 266)",
+            "hover": "lch(97.4 1.45 272)",
             "active": "#ffffff",
-            "panel": "#e6e7e9"
+            "panel": "lch(91.8 1.07 266)"
           },
           "text": {
             "default": "#161517",

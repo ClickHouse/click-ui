@@ -46,16 +46,16 @@ export const SidebarTitleWrapper = styled.button<{ $collapsible?: boolean }>`
     padding: 0;
     padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
     font: ${theme.click.sidebar.navigation.title.typography.default};
-    color: ${theme.click.sidebar.navigation.title.color.default};
+    color: ${theme.click.sidebar.main.navigation.title.color.default};
 
     &:hover {
       font: ${theme.click.sidebar.navigation.title.typography.hover};
-      color: ${theme.click.sidebar.navigation.title.color.hover};
+      color: ${theme.click.sidebar.main.navigation.title.color.hover};
     }
 
     &:active, &[data-state="open"], &[data-selected="true"] {
       font: ${theme.click.sidebar.navigation.title.typography.active};
-      color: ${theme.click.sidebar.navigation.title.color.active};
+      color: ${theme.click.sidebar.main.navigation.title.color.active};
     }
   `}
 
