@@ -1708,7 +1708,7 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.success.600}",
+            "value": "{palette.success.700}",
             "type": "color"
           }
         },
