@@ -186,7 +186,7 @@
         "color": {
           "background": {
             "default": "lch(100 0 0)",
-            "hover": "lch(97.4 1.45 272)",
+            "hover": "lch(97.4 1.44 272)",
             "active": "lch(95.3 1.54 272)",
             "panel": "lch(100 0 0)"
           },
