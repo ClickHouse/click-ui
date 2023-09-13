@@ -580,6 +580,20 @@
               "type": "spacing"
             }
           }
+        },
+        "space": {
+          "x": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "0.28125rem",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
         }
       },
       "mobile": {
