@@ -1268,7 +1268,7 @@
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.product.text.semibold.md}",
+              "value": "{typography.styles.product.text.normal.md}",
               "type": "typography"
             },
             "disabled": {
