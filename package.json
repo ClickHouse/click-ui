@@ -39,7 +39,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic",
-    "publish": "npm run test && npm run build && npm publish"
+    "publish:click-ui": "npm run test && npm run build && npm publish"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
@@ -56,7 +56,8 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.6",
     "cmdk": "^0.2.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "react-syntax-highlighter": "^15.5.0"
   },
   "devDependencies": {
     "@radix-ui/react-switch": "^1.0.2",
@@ -79,6 +80,8 @@
     "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/react-syntax-highlighter": "^15.5.7",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.1",

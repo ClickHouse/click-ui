@@ -3,14 +3,29 @@ import { Icon } from "@/components";
 import { InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
 export interface NumberFieldProps
   extends Omit<WrapperProps, "id" | "children">,
-    Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange"> {
+    Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "dir"> {
   type?: "number";
   loading: boolean;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
 }
 
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
-  ({ disabled, label, error, id, loading, onChange: onChangeProp, ...props }, ref) => {
+  (
+    {
+      disabled,
+      label,
+      error,
+      id,
+      loading,
+      onChange: onChangeProp,
+      orientation,
+      dir,
+      ...props
+    },
+    ref
+  ) => {
     const defaultId = useId();
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChangeProp(e.target.value, e);
@@ -22,6 +37,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         id={id ?? defaultId}
         label={label}
         error={error}
+        orientation={orientation}
+        dir={dir}
       >
         <InputElement
           ref={ref}

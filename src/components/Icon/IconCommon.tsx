@@ -47,10 +47,13 @@ import Display from "@/components/icons/Display";
 import Document from "@/components/icons/Document";
 import DotsVertical from "@/components/icons/DotsVertical";
 import DotsHorizontal from "@/components/icons/DotsHorizontal";
+import Download from "@/components/icons/Download";
+import DownloadInCircle from "@/components/icons/DownloadInCircle";
 import Email from "@/components/icons/Email";
 import Empty from "@/components/icons/Empty";
 import Fire from "@/components/icons/Fire";
-import Folder from "@/components/icons/Folder";
+import FolderOpen from "../icons/FolderOpen";
+import FolderClosed from "../icons/FolderClosed";
 import Gift from "@/components/icons/Gift";
 import Home from "@/components/icons/Home";
 import Http from "@/components/icons/Http";
@@ -88,12 +91,20 @@ import Upload from "@/components/icons/Upload";
 import Url from "@/components/icons/Url";
 import EyeClosed from "@/components/icons/EyeClosed";
 import Eye from "@/components/icons/Eye";
+import ArrowDirections from "@/components/icons/ArrowDirections";
+import DotsTriangle from "@/components/icons/DotsTriangle";
+import Key from "@/components/icons/Key";
+import Keys from "@/components/icons/Keys";
+import Query from "@/components/icons/Query";
+import ShareArrow from "@/components/icons/ShareArrow";
+import Waves from "@/components/icons/Waves";
 
 export const ICONS_MAP = {
   activity: Activity,
   "arrow-down": ArrowDown,
   "arrow-right": ArrowRight,
   "arrow-triangle": ArrowTriangle,
+  "arrow-directions": ArrowDirections,
   "arrow-up": ArrowUp,
   "auth-app": AuthApp,
   "auth-sms": AuthSms,
@@ -128,14 +139,18 @@ export const ICONS_MAP = {
   display: Display,
   document: Document,
   "dots-horizontal": DotsHorizontal,
+  "dots-triangle": DotsTriangle,
   "dots-vertical": DotsVertical,
+  download: Download,
+  "download-in-circle": DownloadInCircle,
   email: Email,
   empty: Empty,
   eye: Eye,
   "eye-closed": EyeClosed,
   filter: FilterIcon,
   fire: Fire,
-  folder: Folder,
+  "folder-closed": FolderClosed,
+  "folder-open": FolderOpen,
   gift: Gift,
   history: HistoryIcon,
   home: Home,
@@ -144,6 +159,8 @@ export const ICONS_MAP = {
   information: InformationIcon,
   "insert-row": InsertRowIcon,
   integrations: Integrations,
+  key: Key,
+  keys: Keys,
   "light-bulb": LightBulb,
   lightening: Lightening,
   loading: Loading,
@@ -156,6 +173,7 @@ export const ICONS_MAP = {
   play: Play,
   plus: Plus,
   popout: Popout,
+  query: Query,
   question: Question,
   refresh: Refresh,
   search: Search,
@@ -163,6 +181,7 @@ export const ICONS_MAP = {
   services: Services,
   settings: Settings,
   share: Share,
+  "share-arrow": ShareArrow,
   "slide-in": SlideIn,
   "slide-out": SlideOut,
   "sort-alt": SortAltIcon,
@@ -180,4 +199,5 @@ export const ICONS_MAP = {
   user: UserIcon,
   users: UsersIcon,
   warning: WarningIcon,
+  waves: Waves,
 };

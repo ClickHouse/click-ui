@@ -229,6 +229,23 @@
             "text": {
               "default": "#c10000"
             }
+          },
+          "ghost": {
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgb(0% 0% 0% / 0)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgba(0,0,0,0)"
+            },
+            "text": {
+              "default": "#696e79",
+              "hover": "#161517",
+              "active": "#161517"
+            }
           }
         }
       },
@@ -271,10 +288,10 @@
       "group": {
         "color": {
           "background": {
-            "default": "#ffffff",
-            "hover": "lch(68.1 1.1 272)",
-            "active": "lch(81 1.31 272)",
-            "panel": "#ffffff"
+            "default": "lch(94.5 0.72 266)",
+            "hover": "lch(97.4 1.44 272)",
+            "active": "#ffffff",
+            "panel": "lch(94.5 0.72 266)"
           },
           "text": {
             "default": "#161517",
@@ -659,54 +676,6 @@
       }
     },
     "sidebar": {
-      "navigation": {
-        "item": {
-          "color": {
-            "background": {
-              "active": "lch(91.6 1.1 266 / 0.6)",
-              "hover": "lch(91.6 1.1 266 / 0.6)",
-              "default": "rgba(0,0,0,0)"
-            },
-            "text": {
-              "default": "#161517",
-              "hover": "#161517",
-              "active": "#161517",
-              "muted": "#696e79"
-            },
-            "icon": {
-              "default": "#696e79"
-            }
-          }
-        },
-        "title": {
-          "color": {
-            "default": "#696e79",
-            "hover": "#696e79",
-            "active": "#696e79"
-          }
-        },
-        "subItem": {
-          "color": {
-            "text": {
-              "default": "#696e79",
-              "hover": "#161517",
-              "active": "#161517"
-            },
-            "background": {
-              "default": "rgba(0,0,0,0)",
-              "hover": "lch(91.6 1.1 266 / 0.6)",
-              "active": "rgba(0,0,0,0)"
-            }
-          }
-        },
-        "dragControl": {
-          "separator": {
-            "color": {
-              "default": "#161517"
-            }
-          }
-        }
-      },
       "main": {
         "color": {
           "background": {
@@ -719,6 +688,54 @@
           "stroke": {
             "default": "lch(91.6 1.1 266)"
           }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "active": "lch(91.6 1.1 266 / 0.6)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "default": "rgba(0,0,0,0)"
+              },
+              "text": {
+                "default": "#161517",
+                "hover": "#161517",
+                "active": "#161517",
+                "muted": "#696e79"
+              },
+              "icon": {
+                "default": "#696e79"
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#696e79",
+              "hover": "#696e79",
+              "active": "#696e79"
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": "#696e79",
+                "hover": "#161517",
+                "active": "#161517"
+              },
+              "background": {
+                "default": "rgba(0,0,0,0)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "active": "rgba(0,0,0,0)"
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": "#161517"
+              }
+            }
+          }
         }
       },
       "sqlSidebar": {
@@ -728,6 +745,54 @@
           },
           "stroke": {
             "default": "lch(91.6 1.1 266)"
+          }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "active": "lch(91.6 1.1 266 / 0.6)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "default": "rgba(0,0,0,0)"
+              },
+              "text": {
+                "default": "#161517",
+                "hover": "#161517",
+                "active": "#161517",
+                "muted": "#696e79"
+              },
+              "icon": {
+                "default": "#696e79"
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#696e79",
+              "hover": "#696e79",
+              "active": "#696e79"
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": "#696e79",
+                "hover": "#161517",
+                "active": "#161517"
+              },
+              "background": {
+                "default": "rgba(0,0,0,0)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "active": "rgba(0,0,0,0)"
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": "#161517"
+              }
+            }
           }
         }
       }

@@ -58,23 +58,23 @@ export const SidebarItemWrapper = styled.button<{
     border-radius: ${theme.click.sidebar.navigation[itemType].radii.all};
     font: ${theme.click.sidebar.navigation[itemType].typography.default};
     background-color: ${
-      theme.click.sidebar.navigation[itemType].color.background.default
+      theme.click.sidebar.main.navigation[itemType].color.background.default
     };
-    color: ${theme.click.sidebar.navigation[itemType].color.text.default};
+    color: ${theme.click.sidebar.main.navigation[itemType].color.text.default};
     &:hover, &:focus {
       font: ${theme.click.sidebar.navigation[itemType].typography.hover};
       background-color: ${
-        theme.click.sidebar.navigation[itemType].color.background.hover
+        theme.click.sidebar.main.navigation[itemType].color.background.hover
       };
-      color: ${theme.click.sidebar.navigation[itemType].color.text.hover};
+      color: ${theme.click.sidebar.main.navigation[itemType].color.text.hover};
     }
 
     &:active, &[data-selected="true"]  {
       font: ${theme.click.sidebar.navigation[itemType].typography.active};
       background-color: ${
-        theme.click.sidebar.navigation[itemType].color.background.active
+        theme.click.sidebar.main.navigation[itemType].color.background.active
       };
-      color: ${theme.click.sidebar.navigation[itemType].color.text.active};
+      color: ${theme.click.sidebar.main.navigation[itemType].color.text.active};
     }
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};

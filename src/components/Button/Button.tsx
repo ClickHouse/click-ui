@@ -1,7 +1,7 @@
-import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { Icon, IconName } from "@/components";
 import styled from "styled-components";
 import { BaseButton } from "../commonElement";
+import React from "react";
 
 type ButtonType = "primary" | "secondary" | "danger";
 type Alignment = "center" | "left";
@@ -13,29 +13,28 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   iconLeft?: IconName;
   iconRight?: IconName;
   align?: Alignment;
-  width?: string;
-  height?: string;
-  as?: React.ElementType;
+  fillWidth?: boolean;
+  loading?: boolean;
+  as?: unknown;
 }
 
 export const Button = ({
   type = "primary",
   iconLeft,
   iconRight,
-  label,
   align = "center",
   children,
-  width,
-  height,
-  as,
+  fillWidth,
+  label,
+  loading = false,
+  disabled,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
     $styleType={type}
     $align={align}
-    $width={width}
-    $height={height}
-    as={as}
+    $fillWidth={fillWidth}
+    disabled={disabled || loading}
     {...delegated}
   >
     {iconLeft && (
@@ -44,33 +43,52 @@ export const Button = ({
         size="sm"
       />
     )}
-    {label ? label : children}
+
+    {label ?? children}
+
     {iconRight && (
       <ButtonIcon
         name={iconRight}
         size="sm"
       />
     )}
+    {loading && (
+      <LoadingIconWrapper>
+        <Icon
+          name="loading-animated"
+          data-testid="click-ui-loading-icon"
+        />
+      </LoadingIconWrapper>
+    )}
   </StyledButton>
 );
+
+const LoadingIconWrapper = styled.div`
+  position: absolute;
+  background-color: inherit;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+`;
 
 const StyledButton = styled(BaseButton)<{
   $styleType: ButtonType;
   $align?: Alignment;
-  $width?: string;
-  $height?: string;
-  as?: unknown;
+  $fillWidth?: boolean;
 }>`
-  ${({ $width }) => ($width ? `width: ${$width};` : "")}
-  ${({ $height }) => ($height ? `height: ${$height};` : "")}
+  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "revert")};
   color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
   background-color: ${({ $styleType = "primary", theme }) =>
     theme.click.button.basic.color[$styleType].background.default};
-  border: 1px solid
+  border: ${({ theme }) => theme.click.button.stroke} solid
     ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].stroke.default};
-
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
@@ -78,7 +96,7 @@ const StyledButton = styled(BaseButton)<{
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].background.hover};
-    border: 1px solid
+    border: ${({ theme }) => theme.click.button.stroke} solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.hover};
     transition: ${({ theme }) => theme.transition.default};
@@ -100,7 +118,7 @@ const StyledButton = styled(BaseButton)<{
       theme.click.button.basic.color[$styleType].background.disabled};
     color: ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].text.disabled};
-    border: 1px solid
+    border: ${({ theme }) => theme.click.button.stroke} solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.disabled};
   }
