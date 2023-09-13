@@ -11,12 +11,16 @@ export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ type = "primary", icon, size, ...props }, ref) => {
+    const iconName = icon ? icon.toString() : "unknown icon";
+
     return (
       <Button
         {...props}
         $styleType={type}
         $size={size}
         ref={ref}
+        role="button"
+        aria-label={iconName}
       >
         <Icon
           name={icon}
@@ -38,6 +42,7 @@ const Button = styled.button<{
   border: ${theme.click.button.stroke} solid ${
     theme.click.button.iconButton.color.primary.stroke.default
   };
+  cursor: pointer;
   padding: ${
     $size
       ? `${theme.click.button.iconButton[$size].space.y} ${theme.click.button.iconButton[$size].space.x}`

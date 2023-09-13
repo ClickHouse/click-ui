@@ -69,6 +69,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             disabled={disabled}
             onClick={clearInput}
             $show={value.length > 0}
+            aria-label="clear input"
           >
             <Icon
               name="cross"

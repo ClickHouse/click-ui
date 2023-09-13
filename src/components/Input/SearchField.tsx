@@ -70,6 +70,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
             disabled={disabled}
             onClick={clearInput}
             $show={value.length > 0}
+            aria-label="clear input"
           >
             <Icon
               name="cross"
