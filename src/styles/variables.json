@@ -574,6 +574,22 @@
           "stroke": {
             "panel": "lch(91.6 1.1 266)"
           }
+        },
+        "color": {
+          "background": {
+            "default": "lch(91.8 1.07 266)",
+            "hover": "lch(97.4 1.45 272)",
+            "active": "#ffffff",
+            "panel": "lch(91.8 1.07 266)"
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#151515"
+          },
+          "stroke": {
+            "panel": "lch(91.6 1.1 266)"
+          }
         }
       },
       "alignLeft": {
