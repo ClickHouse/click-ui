@@ -121,7 +121,6 @@ export const SplitButton = ({
 };
 const DropdownContent = styled.div<{ $width: number }>`
   min-width: ${({ $width }) => $width}px;
-  background: red;
 `;
 
 const IconWrapper = ({ label, icon, iconDir }: Omit<MenuItem, "type" | "items">) => {
@@ -231,9 +230,11 @@ const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }
 `;
 
 const PrimaryButton = styled(BaseButton)<{ $type: ButtonType }>`
-  border: none;
+  border: 1px solid transparent;
   align-self: stretch;
   border-radius: 0;
+  padding: ${({ theme }) => theme.click.button.split.space.y}
+    ${({ theme }) => theme.click.button.split.space.x};
   ${({ theme, $type }) => `
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};
