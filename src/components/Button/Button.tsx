@@ -39,6 +39,7 @@ export const Button = ({
     {iconLeft && (
       <ButtonIcon
         name={iconLeft}
+        aria-hidden
         size="sm"
       />
     )}
@@ -48,6 +49,7 @@ export const Button = ({
     {iconRight && (
       <ButtonIcon
         name={iconRight}
+        aria-hidden
         size="sm"
       />
     )}
@@ -56,6 +58,7 @@ export const Button = ({
         <Icon
           name="loading-animated"
           data-testid="click-ui-loading-icon"
+          aria-label="loading"
         />
       </LoadingIconWrapper>
     )}

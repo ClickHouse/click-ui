@@ -127,6 +127,7 @@ export const CardSecondary = ({
           <Icon
             name={icon}
             size="lg"
+            area-hidden
           />
           <Title type="h3">{title}</Title>
         </HeaderLeft>

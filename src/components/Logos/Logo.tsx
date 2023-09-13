@@ -26,6 +26,8 @@ const Logo = ({ name, theme, size, ...props }: LogoProps) => {
     <SvgImageElement
       as={Component}
       $size={size}
+      role="img"
+      aria-label={name}
       {...props}
     />
   );

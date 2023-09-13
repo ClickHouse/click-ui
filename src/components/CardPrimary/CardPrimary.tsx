@@ -127,7 +127,10 @@ export const CardPrimary = ({
         $size={size}
         $disabled={disabled}
       >
-        <Icon name={icon} />
+        <Icon
+          name={icon}
+          aria-hidden
+        />
         <Title type="h3">{title}</Title>
       </Header>
 

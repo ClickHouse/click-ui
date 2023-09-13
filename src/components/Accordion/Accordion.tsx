@@ -38,6 +38,7 @@ const Accordion = ({
             <Icon
               name="chevron-right"
               size={iconSize || size}
+              aria-label="accordion icon"
             />
           </AccordionIconWrapper>
           {icon ? (
