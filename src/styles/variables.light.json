@@ -26,7 +26,7 @@
         },
         "text": {
           "default": "#696e79",
-          "success": "#1c8439",
+          "success": "#15632b",
           "neutral": "#53575f",
           "danger": "#c10000",
           "warning": "#9e5600",
@@ -42,7 +42,7 @@
         },
         "iconForeground": {
           "default": "#696e79",
-          "success": "lch(48.3 52.9 144 / 0.75)",
+          "success": "lch(36.5 42 144 / 0.75)",
           "neutral": "lch(36.8 5.23 267 / 0.75)",
           "danger": "lch(41 86.6 40.9 / 0.75)",
           "warning": "lch(44.6 59.8 63.2 / 0.75)",
@@ -77,7 +77,7 @@
         },
         "text": {
           "default": "#696e79",
-          "success": "#1c8439",
+          "success": "#15632b",
           "neutral": "#53575f",
           "danger": "#c10000",
           "disabled": "#a0a0a0",
@@ -952,7 +952,7 @@
         },
         "icon": {
           "default": "#161517",
-          "success": "#1c8439",
+          "success": "#15632b",
           "warning": "#9e5600",
           "danger": "#c10000"
         }
@@ -1022,7 +1022,7 @@
         },
         "success": {
           "background": "#e0f8e7",
-          "foreground": "#1c8439"
+          "foreground": "#15632b"
         },
         "warning": {
           "background": "#ffedd8",

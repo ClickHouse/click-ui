@@ -40,4 +40,6 @@ export { Text } from "./Typography/Text/Text";
 export { TextField } from "./Input/TextField";
 export { Title } from "./Typography/Title/Title";
 export { Tooltip, TooltipProvider } from "./Tooltip/Tooltip";
+export { ToastProvider } from "./Toast/Toast";
+export { useToast } from "./Toast/useToast";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
