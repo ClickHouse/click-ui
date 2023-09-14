@@ -27,6 +27,7 @@ import { SidebarNavigationTitleProps } from "./SidebarNavigationTitle/SidebarNav
 import { SidebarCollapsibleItemProps } from "./SidebarCollapsibleItem/SidebarCollapsibleItem";
 import { SidebarCollapsibleTitleProps } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 export type { Menu, SplitButtonProps } from "./SplitButton/SplitButton";
+export type { ToastProps } from "./Toast/Toast";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
