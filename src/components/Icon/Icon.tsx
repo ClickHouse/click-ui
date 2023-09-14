@@ -93,6 +93,8 @@ const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
     <SVGIcon
       name={name as IconName}
       size={size}
+      role="img"
+      aria-label={name}
       {...props}
     />
   );

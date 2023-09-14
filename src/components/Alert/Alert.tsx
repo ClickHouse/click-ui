@@ -47,6 +47,7 @@ const Alert = ({
           <StyledIcon
             $size={size}
             size="sm"
+            aria-hidden
             name={stateIconMap[state]}
           />
         </IconWrapper>
@@ -63,7 +64,10 @@ const Alert = ({
           data-testid="click-alert-dismiss-button"
           onClick={() => setIsVisible(false)}
         >
-          <Icon name="cross" />
+          <Icon
+            name="cross"
+            aria-label="close"
+          />
         </DismissWrapper>
       )}
     </Wrapper>

@@ -72,6 +72,7 @@ export const Badge = ({
           $state={state}
           as={Icon}
           onClick={onClose}
+          aria-label="close"
         />
       )}
     </Content>

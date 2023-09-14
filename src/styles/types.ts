@@ -504,6 +504,11 @@
             "x": string
           }
         },
+        "space": {
+          "x": string,
+          "y": string,
+          "gap": string
+        },
         "primary": {
           "background": {
             "main": {

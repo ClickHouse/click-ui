@@ -580,6 +580,20 @@
               "type": "spacing"
             }
           }
+        },
+        "space": {
+          "x": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "y": {
+            "value": "0.28125rem",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
         }
       },
       "mobile": {
@@ -1254,7 +1268,7 @@
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.product.text.semibold.md}",
+              "value": "{typography.styles.product.text.normal.md}",
               "type": "typography"
             },
             "disabled": {
