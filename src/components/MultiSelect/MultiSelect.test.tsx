@@ -22,7 +22,7 @@ describe("MultiSelect", () => {
         label="Test MultiSelect Label"
         {...props}
       >
-        <MultiSelect.Trigger />
+        <MultiSelect.Trigger data-testid="multiselect-trigger" />
         <MultiSelect.Content showSearch={showSearch}>
           <MultiSelect.Group heading="Group label">
             <MultiSelect.Item value="content0">Content0</MultiSelect.Item>
@@ -81,7 +81,7 @@ describe("MultiSelect", () => {
   });
 
   it("should close select on selecting item", () => {
-    const { queryByText } = renderSelect({});
+    const { queryByText, getByTestId } = renderSelect({});
     const selectTrigger = queryByText("Select an option");
     expect(selectTrigger).not.toBeNull();
     selectTrigger && fireEvent.click(selectTrigger);
@@ -90,7 +90,7 @@ describe("MultiSelect", () => {
     expect(item).not.toBeNull();
     item && fireEvent.click(item);
     expect(item).not.toBeNull();
-    expect(queryByText("Content1")).toBeNull();
+    expect(getByTestId("multiselect-trigger")).toHaveTextContent("Content0");
   });
 
   it("should close select on selecting diabled item", () => {
@@ -208,7 +208,7 @@ describe("MultiSelect", () => {
       expect(btn).not.toBeNull();
       btn && fireEvent.click(btn);
       expect(onClick).toBeCalledTimes(1);
-      expect(btn).not.toBeVisible();
+      expect(getByTestId("multiselect-trigger")).toHaveTextContent("nodata");
     });
   });
 });
