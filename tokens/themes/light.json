@@ -964,7 +964,7 @@
           "primary": {
             "background": {
               "default": {
-                "value": "{palette.utility.transparent}",
+                "value": "rgba(0,0,0,0)",
                 "type": "color"
               },
               "hover": {
@@ -1106,7 +1106,7 @@
           "ghost": {
             "background": {
               "default": {
-                "value": "{palette.utility.transparent}",
+                "value": "{click.button.iconButton.color.primary.background.default}",
                 "type": "color"
               },
               "hover": {
