@@ -16,6 +16,7 @@ export const ButtonGroup = ({ labels, activeIndex, onClick }: ButtonGroupProps) 
         active={index === activeIndex}
         position={position}
         onClick={() => onClick?.(index)}
+        role="button"
       >
         {label}
       </Button>
