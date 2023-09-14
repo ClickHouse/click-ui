@@ -2276,6 +2276,12 @@
             "type": "typography"
           }
         }
+      },
+      "size": {
+        "width": {
+          "value": "20.75rem",
+          "type": "sizing"
+        }
       }
     },
     "tooltip": {
