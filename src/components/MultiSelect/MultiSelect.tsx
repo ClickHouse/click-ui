@@ -4,11 +4,11 @@ import {
   ReactNode,
   forwardRef,
   useId,
-  useMemo,
   useRef,
   useState,
 } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
+import { ReactSortable } from "react-sortablejs";
 import { Badge, BadgeProps, Icon, Label } from "@/components";
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import styled from "styled-components";
@@ -17,7 +17,6 @@ import {
   ComboboxItem,
   ComboboxNoData,
   ComboboxTrigger,
-  IconWrapper,
   ComboboxContent,
 } from "../Combobox/ComboBoxElements";
 import { useCombobox } from "../Combobox/useCombobox";
@@ -39,7 +38,6 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir">
   orientation?: "horizontal" | "vertical";
   onCreateOption?: (search: string) => void;
   showCheck?: boolean;
-  sortable?: true;
 }
 
 export type MultiSelectProps = RadixPopover.PopoverProps & Props;
@@ -137,6 +135,7 @@ export const MultiSelect = ({
 
 interface TriggerProps extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
   placeholder?: string;
+  sortable?: boolean;
 }
 
 const BadgeList = styled.div`
@@ -145,13 +144,29 @@ const BadgeList = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: inherit;
-  //click-field-space-gap
+  flex: 1;
 `;
 
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
-  ({ placeholder = "Select an option", onClick: onClickProp, ...props }, ref) => {
-    const { disabled, id, hasError, selectedValueNodeProps, onSelect, updateSearch } =
-      useCombobox();
+  (
+    {
+      placeholder = "Select an option",
+      onClick: onClickProp,
+      sortable = false,
+      ...props
+    },
+    ref
+  ) => {
+    const {
+      disabled,
+      id,
+      hasError,
+      selectedValues,
+      onSelect,
+      updateSearch,
+      getValueProps,
+      updateValues,
+    } = useCombobox();
 
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
       if (typeof onClickProp === "function") {
@@ -169,25 +184,37 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         onClick={onClick}
         {...props}
       >
-        {selectedValueNodeProps.length > 0 ? (
-          <BadgeList>
-            {selectedValueNodeProps.map((nodeProps, index) => {
+        {selectedValues.length > 0 ? (
+          <BadgeList
+            as={ReactSortable}
+            list={selectedValues.map(value => ({ id: value, value, filtered: sortable }))}
+            setList={() => null}
+            onEnd={e => {
+              const { newDraggableIndex, oldDraggableIndex } = e;
+              if (
+                typeof newDraggableIndex === "number" &&
+                typeof oldDraggableIndex === "number"
+              ) {
+                const temp = selectedValues[oldDraggableIndex];
+                selectedValues[oldDraggableIndex] = selectedValues[newDraggableIndex];
+                selectedValues[newDraggableIndex] = temp;
+                updateValues([...selectedValues]);
+              }
+            }}
+          >
+            {selectedValues.map((value, index) => {
+              const nodeProps = getValueProps(value);
               let otherProps: BadgeProps = {
-                text: (
-                  <IconWrapper
-                    icon={nodeProps.icon}
-                    iconDir={nodeProps.iconDir}
-                    size="xs"
-                  >
-                    {nodeProps.children}
-                  </IconWrapper>
-                ),
+                text: nodeProps.children,
+                icon: nodeProps.icon,
+                iconDir: nodeProps.iconDir,
               } as NonDismissibleBadge;
               if (!disabled && !nodeProps.disabled) {
                 otherProps = {
                   ...otherProps,
                   dismissible: true,
-                  onClose: () => {
+                  onClose: (e: MouseEvent<HTMLOrSVGElement>) => {
+                    e.preventDefault();
                     onSelect(nodeProps.value);
                   },
                 } as DismissibleBadge;

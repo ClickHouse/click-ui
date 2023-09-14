@@ -172,7 +172,7 @@ interface TriggerProps extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
 
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
   ({ placeholder = "Select an option", onClick: onClickProp, ...props }, ref) => {
-    const { disabled, id, hasError, selectedValueNodeProps, updateSearch } =
+    const { disabled, id, hasError, selectedValues, updateSearch, getValueProps } =
       useCombobox();
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
       if (typeof onClickProp === "function") {
@@ -180,6 +180,8 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
       }
       updateSearch("");
     };
+    const nodeProps =
+      selectedValues.length === 0 ? null : getValueProps(selectedValues[0]);
     return (
       <ComboboxTrigger
         ref={ref}
@@ -189,17 +191,17 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         onClick={onClick}
         {...props}
       >
-        {selectedValueNodeProps.length === 0 ? (
-          <SelectValueContainer>{placeholder}</SelectValueContainer>
-        ) : (
+        {nodeProps ? (
           <SelectValueContainer>
             <IconWrapper
-              icon={selectedValueNodeProps[0].icon}
-              iconDir={selectedValueNodeProps[0].iconDir}
+              icon={nodeProps.icon}
+              iconDir={nodeProps.iconDir}
             >
-              {selectedValueNodeProps[0].children}
+              {nodeProps.children}
             </IconWrapper>
           </SelectValueContainer>
+        ) : (
+          <SelectValueContainer>{placeholder}</SelectValueContainer>
         )}
         <Icon
           name="sort"

@@ -46,8 +46,9 @@ export default {
     name: { control: "string" },
     required: { control: "boolean" },
     showSearch: { control: "boolean" },
-    isFormCotrol: { control: "boolean" },
+    isFormControl: { control: "boolean" },
     clickableNoData: { control: "boolean" },
+    showCheck: { control: "boolean" },
   },
 };
 

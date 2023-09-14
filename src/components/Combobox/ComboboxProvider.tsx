@@ -4,6 +4,7 @@ import {
   KeyboardEvent,
   ReactNode,
   RefObject,
+  SetStateAction,
   isValidElement,
   useCallback,
   useEffect,
@@ -124,28 +125,24 @@ export const ComboboxProvider = ({
 }: MultiSelectProps | SingleSelectProps) => {
   const [highlighted, updateHighlighted] = useState<string | null>(null);
   const [search, setSearch] = useState("");
-  const selectedValues = useRef<Array<string>>(
+  const [selectedValues, setSelectedValues] = useState<Array<string>>(
     type === "MultiSelect" ? valueProp ?? [] : valueProp ? [valueProp] : []
   );
-  const [selectedValueNodeProps, setSelectedValueNodeProps] = useState<
-    Array<ComboboxItemProps>
-  >([]);
   const itemList = useRef<Array<ComboboxItemObject>>([]);
   const visibleList = useRef<Array<string>>([]);
   const navigatable = useRef<Array<string>>([]);
   const valueToElement = useRef<Record<string, ComboboxItemProps>>({});
 
   const updateValues = useCallback(
-    (valueArray: Array<string>) => {
-      selectedValues.current = valueArray;
-      setSelectedValueNodeProps(() => {
-        return valueArray.map(
-          value => valueToElement.current[value] ?? { children: value }
-        );
+    (value: SetStateAction<Array<string>>) => {
+      setSelectedValues(values => {
+        const newValue = typeof value === "function" ? value(values) : value;
+
+        if (inputRef.current) {
+          inputRef.current.value = newValue.join(",");
+        }
+        return newValue;
       });
-      if (inputRef.current) {
-        inputRef.current.value = selectedValues.current.join(",");
-      }
     },
     [inputRef]
   );
@@ -254,32 +251,27 @@ export const ComboboxProvider = ({
   };
 
   const onSelect = (newValue: string) => {
+    let newSelectedArray = selectedValues;
     if (type === "MultiSelect") {
-      const index = selectedValues.current.findIndex(value => value === newValue);
+      const index = newSelectedArray.findIndex(value => value === newValue);
 
       if (index === -1) {
-        updateValues([...selectedValues.current, newValue]);
-        setSelectedValueNodeProps(values => [
-          ...values,
-          valueToElement.current[newValue] ?? { children: newValue },
-        ]);
+        newSelectedArray = [...newSelectedArray, newValue];
       } else {
-        updateValues(selectedValues.current.filter(value => value !== newValue));
-        setSelectedValueNodeProps(values =>
-          values.filter(item => item.value !== newValue)
-        );
+        newSelectedArray = newSelectedArray.filter(value => value !== newValue);
       }
     } else {
-      updateValues([newValue]);
-      setSelectedValueNodeProps([
-        valueToElement.current[newValue] ?? { children: newValue },
-      ]);
+      newSelectedArray = [newValue];
     }
-    onSelectProp(selectedValues.current);
+    updateValues(newSelectedArray);
+    onSelectProp(newSelectedArray);
   };
 
   const isSelected = (value: string) => {
-    return selectedValues.current.includes(value);
+    return selectedValues.includes(value);
+  };
+  const getValueProps = (value: string): ComboboxItemProps => {
+    return valueToElement.current[value] ?? { children: value, value };
   };
 
   const value = {
@@ -295,10 +287,12 @@ export const ComboboxProvider = ({
     id,
     hasError,
     disabled,
-    selectedValueNodeProps,
+    selectedValues,
+    setSelectedValues,
     onCreateOption,
     showCheck,
     updateValues,
+    getValueProps,
   };
   return <ComboboxContext.Provider value={value}>{children}</ComboboxContext.Provider>;
 };

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Icon } from "@/components";
-import { ReactNode } from "react";
+import { HorizontalDirection, Icon, IconName } from "@/components";
+import { MouseEvent, ReactNode } from "react";
+import { EllipsisContainer } from "../commonElement";
 export type BadgeState =
   | "default"
   | "success"
@@ -16,11 +17,13 @@ export interface CommonBadgeProps {
   text: ReactNode;
   state?: BadgeState;
   size?: BadgeSize;
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
 }
 
 export interface DismissibleBadge extends CommonBadgeProps {
   dismissible: true;
-  onClose: () => void;
+  onClose: (e: MouseEvent<HTMLOrSVGElement>) => void;
 }
 
 export interface NonDismissibleBadge extends CommonBadgeProps {
@@ -46,17 +49,32 @@ const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
   gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
 `;
 
-const CrossContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
+const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
   ${({ $state = "default", $size = "md", theme }) => `
     color: ${theme.click.badge.color.text[$state]};
     height: ${theme.click.badge.icon[$size].size.height};
     width: ${theme.click.badge.icon[$size].size.width};
   `}
 `;
+const BadgeContent = styled(EllipsisContainer)<{
+  $state?: BadgeState;
+  $size?: BadgeSize;
+}>`
+  svg {
+    ${({ $state = "default", $size = "md", theme }) => `
+    color: ${theme.click.badge.color.text[$state]};
+    height: ${theme.click.badge.icon[$size].size.height};
+    width: ${theme.click.badge.icon[$size].size.width};
+    gap: inherit;
+  `}
+  }
+`;
 
 export type BadgeProps = NonDismissibleBadge | DismissibleBadge;
 
 export const Badge = ({
+  icon,
+  iconDir,
   text,
   state = "default",
   size,
@@ -68,9 +86,26 @@ export const Badge = ({
     $size={size}
   >
     <Content>
-      {text}
+      {icon && iconDir === "start" && (
+        <SvgContainer
+          as={Icon}
+          name={icon}
+          $state={state}
+          $size={size}
+        />
+      )}
+      <BadgeContent>{text}</BadgeContent>
+      {icon && iconDir === "end" && (
+        <SvgContainer
+          as={Icon}
+          name={icon}
+          $state={state}
+          $size={size}
+        />
+      )}
+
       {dismissible && (
-        <CrossContainer
+        <SvgContainer
           name="cross"
           $state={state}
           as={Icon}

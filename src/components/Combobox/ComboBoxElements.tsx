@@ -16,6 +16,7 @@ import { ComboboxItemProps } from "./types";
 
 import * as RadixPopover from "@radix-ui/react-popover";
 import { IconSize } from "../Icon/types";
+import { EllipsisContainer } from "../commonElement";
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 interface GroupProps extends Omit<DivProps, "value" | "heading"> {
@@ -28,7 +29,9 @@ const ComboboxGroupContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: var(--radix-popover-trigger-width);
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
   overflow: hidden;
   background: transparent;
   &[aria-selected] {
@@ -155,6 +158,7 @@ export const ComboboxItem = forwardRef<HTMLDivElement, ComboboxItemProps>(
     if (isHidden("item", value)) {
       return null;
     }
+    const isChecked = isSelected(value);
 
     return (
       <>
@@ -164,7 +168,7 @@ export const ComboboxItem = forwardRef<HTMLDivElement, ComboboxItemProps>(
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
           ref={forwardedRef}
-          data-state={isSelected(value) ? "checked" : "unchecked"}
+          data-state={isChecked ? "checked" : "unchecked"}
           data-disabled={disabled ? true : undefined}
           data-highlighted={highlighted == value ? "true" : undefined}
           cui-combobox-item=""
@@ -175,7 +179,7 @@ export const ComboboxItem = forwardRef<HTMLDivElement, ComboboxItemProps>(
           >
             {children}
           </IconWrapper>
-          {showCheck && (
+          {showCheck && isChecked && (
             <Icon
               name="check"
               size="sm"
@@ -231,27 +235,20 @@ const LabelContainer = styled.span`
   gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
 `;
 
-const EllipsisContainer = styled.span`
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  justify-content: flex-end;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-
 export const IconWrapper = ({
   icon,
   iconDir = "start",
   size = "sm",
+  width,
+  height,
   children,
 }: {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   children: ReactNode;
   size?: IconSize;
+  width?: number | string;
+  height?: number | string;
 }) => {
   return (
     <LabelContainer>
@@ -259,6 +256,8 @@ export const IconWrapper = ({
         <Icon
           name={icon}
           size={size}
+          width={width}
+          height={height}
         />
       )}
       <EllipsisContainer>{children}</EllipsisContainer>
@@ -266,6 +265,8 @@ export const IconWrapper = ({
         <Icon
           name={icon}
           size={size}
+          width={width}
+          height={height}
         />
       )}
     </LabelContainer>

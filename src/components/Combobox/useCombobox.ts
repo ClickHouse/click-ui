@@ -1,4 +1,11 @@
-import { KeyboardEvent, ReactNode, createContext, useContext } from "react";
+import {
+  Dispatch,
+  KeyboardEvent,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+} from "react";
 import { ComboboxItemProps } from "./types";
 
 type ContextProps = {
@@ -14,10 +21,11 @@ type ContextProps = {
   id: string;
   hasError: boolean;
   disabled?: boolean;
-  selectedValueNodeProps: Array<ComboboxItemProps>;
+  selectedValues: Array<string>;
   onCreateOption?: (search: string) => void;
   showCheck?: boolean;
-  updateValues?: (value: Array<string>) => void;
+  updateValues: (value: SetStateAction<Array<string>>) => void;
+  getValueProps: (value: string) => ComboboxItemProps;
 };
 
 export const ComboboxContext = createContext<ContextProps>({
@@ -32,8 +40,10 @@ export const ComboboxContext = createContext<ContextProps>({
   isSelected: () => false,
   id: "",
   hasError: false,
-  selectedValueNodeProps: [],
+  selectedValues: [],
   onCreateOption: () => null,
+  updateValues: () => null,
+  getValueProps: (value: string) => ({ children: value, value: value }),
 });
 
 export const useCombobox = () => {
