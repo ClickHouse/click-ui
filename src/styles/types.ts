@@ -1897,6 +1897,9 @@
           "default": string
         }
       },
+      "size": {
+        "width": string
+      },
       "color": {
         "title": {
           "default": string

@@ -181,7 +181,7 @@ const Viewport = styled(RadixUIToast.Viewport)`
   flex-direction: column;
   padding: var(--viewport-padding);
   gap: ${({ theme }) => theme.click.toast.space.gap};
-  width: 390px;
+  width: ${({ theme }) => theme.click.toast.size.width};
   max-width: 100vw;
   margin: 0;
   list-style: none;
