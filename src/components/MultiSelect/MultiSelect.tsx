@@ -187,13 +187,18 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         {selectedValues.length > 0 ? (
           <BadgeList
             as={ReactSortable}
-            list={selectedValues.map(value => ({ id: value, value, filtered: sortable }))}
+            list={selectedValues.map(value => ({
+              id: `multi-select-${id}-${value}`,
+              value,
+              filtered: sortable,
+            }))}
             setList={() => null}
             onEnd={e => {
               const { newDraggableIndex, oldDraggableIndex } = e;
               if (
                 typeof newDraggableIndex === "number" &&
-                typeof oldDraggableIndex === "number"
+                typeof oldDraggableIndex === "number" &&
+                oldDraggableIndex !== newDraggableIndex
               ) {
                 const temp = selectedValues[oldDraggableIndex];
                 selectedValues[oldDraggableIndex] = selectedValues[newDraggableIndex];
@@ -201,8 +206,9 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
                 updateValues([...selectedValues]);
               }
             }}
+            revertOnSpill
           >
-            {selectedValues.map((value, index) => {
+            {selectedValues.map(value => {
               const nodeProps = getValueProps(value);
               let otherProps: BadgeProps = {
                 text: nodeProps.children,
@@ -220,7 +226,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
                 } as DismissibleBadge;
               }
               return (
-                <div key={`multi-select-${id}-${index}`}>
+                <div key={`multi-select-${id}-${value}`}>
                   <Badge
                     size="sm"
                     state={disabled ? "disabled" : "default"}
