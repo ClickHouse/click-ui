@@ -2395,6 +2395,78 @@
           }
         }
       }
+    },
+    "flyout": {
+      "space": {
+        "y": {
+          "value": "{spaces.5}",
+          "type": "spacing"
+        },
+        "x": {
+          "value": "{spaces.0}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{spaces.4}",
+          "type": "spacing"
+        },
+        "default": {
+          "top": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          }
+        },
+        "inline": {
+          "top": {
+            "value": "3.5rem",
+            "type": "spacing"
+          }
+        },
+        "actions": {
+          "space": {
+            "top": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.5}",
+              "type": "spacing"
+            },
+            "gap": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            }
+          }
+        }
+      },
+      "shadow": {
+        "default": {
+          "value": "{shadow.1}",
+          "type": "boxShadow"
+        }
+      },
+      "size": {
+        "narrow": {
+          "width": {
+            "value": "27.5rem",
+            "type": "sizing"
+          },
+          "height": {
+            "value": "100%",
+            "type": "sizing"
+          }
+        },
+        "wide": {
+          "width": {
+            "value": "37.5rem",
+            "type": "sizing"
+          },
+          "height": {
+            "value": "100vh",
+            "type": "sizing"
+          }
+        }
+      }
     }
   },
   "transition": {

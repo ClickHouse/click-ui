@@ -2885,6 +2885,34 @@
           }
         }
       }
+    },
+    "flyout": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{click.alert.color.background.default}",
+            "type": "color"
+          }
+        },
+        "title": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "name": {
