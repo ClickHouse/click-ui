@@ -2441,7 +2441,7 @@
       },
       "shadow": {
         "default": {
-          "value": "{shadow.1}",
+          "value": "{shadow.3}",
           "type": "boxShadow"
         }
       },
