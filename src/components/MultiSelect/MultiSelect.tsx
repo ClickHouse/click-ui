@@ -3,6 +3,7 @@ import {
   MouseEvent,
   ReactNode,
   forwardRef,
+  useEffect,
   useId,
   useRef,
   useState,
@@ -157,6 +158,7 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
     },
     ref
   ) => {
+    const [, forceUpate] = useState(0);
     const {
       disabled,
       id,
@@ -174,6 +176,10 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
       }
       updateSearch("");
     };
+
+    useEffect(() => {
+      forceUpate(n => n + 1);
+    }, []);
 
     return (
       <ComboboxTrigger

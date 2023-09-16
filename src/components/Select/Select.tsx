@@ -3,6 +3,7 @@ import {
   MouseEvent,
   ReactNode,
   forwardRef,
+  useEffect,
   useId,
   useRef,
   useState,
@@ -172,6 +173,7 @@ interface TriggerProps extends Omit<HTMLAttributes<HTMLButtonElement>, "id"> {
 
 const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
   ({ placeholder = "Select an option", onClick: onClickProp, ...props }, ref) => {
+    const [, forceUpate] = useState(0);
     const { disabled, id, hasError, selectedValues, updateSearch, getValueProps } =
       useCombobox();
     const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -182,6 +184,10 @@ const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
     };
     const nodeProps =
       selectedValues.length === 0 ? null : getValueProps(selectedValues[0]);
+    useEffect(() => {
+      forceUpate(n => n + 1);
+    }, []);
+
     return (
       <ComboboxTrigger
         ref={ref}
