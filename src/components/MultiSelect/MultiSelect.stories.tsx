@@ -50,6 +50,8 @@ export default {
     isFormControl: { control: "boolean" },
     clickableNoData: { control: "boolean" },
     showCheck: { control: "boolean" },
+    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
+    dir: { control: "inline-radio", options: ["start", "end"] },
   },
 };
 

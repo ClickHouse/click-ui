@@ -53,6 +53,8 @@ export default {
     showSearch: { control: "boolean" },
     isFormControl: { control: "boolean" },
     clickableNoData: { control: "boolean" },
+    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
+    dir: { control: "inline-radio", options: ["start", "end"] },
   },
 };
 
