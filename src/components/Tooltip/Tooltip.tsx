@@ -13,7 +13,7 @@ export const Tooltip = ({ children, ...props }: RadixTooltip.TooltipProps) => {
 };
 
 const Trigger = styled(RadixTooltip.Trigger)`
-  width: fit-content;
+  width: auto;
 `;
 const TooltipTrigger = (props: RadixTooltip.TooltipTriggerProps) => {
   return (
