@@ -2,8 +2,9 @@ import { Icon } from "@/components";
 import { Select, SelectProps } from "./Select";
 interface Props extends SelectProps {
   clickableNoData?: boolean;
+  showSearch?: boolean;
 }
-const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
+const SelectExample = ({ clickableNoData, value, showSearch, ...props }: Props) => {
   return (
     <Select
       value={value}
@@ -13,7 +14,7 @@ const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
       {...props}
     >
       <Select.Trigger />
-      <Select.Content showSearch>
+      <Select.Content showSearch={showSearch}>
         <Select.Group heading="Group label">
           <Select.Item value="content0">
             <Icon name="user" />

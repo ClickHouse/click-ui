@@ -3,8 +3,9 @@ import { MultiSelect, MultiSelectProps } from "./MultiSelect";
 interface Props extends Omit<MultiSelectProps, "value"> {
   clickableNoData?: boolean;
   value: string;
+  showSearch?: boolean;
 }
-const MultiSelectExample = ({ clickableNoData, value, ...props }: Props) => {
+const MultiSelectExample = ({ clickableNoData, value, showSearch, ...props }: Props) => {
   return (
     <MultiSelect
       value={value ? value.split(",") : undefined}
@@ -14,7 +15,7 @@ const MultiSelectExample = ({ clickableNoData, value, ...props }: Props) => {
       {...props}
     >
       <MultiSelect.Trigger />
-      <MultiSelect.Content>
+      <MultiSelect.Content showSearch={showSearch}>
         <MultiSelect.Group heading="Group label">
           <MultiSelect.Item value="content0">
             <Icon name="user" />
@@ -56,5 +57,6 @@ export const Playground = {
   args: {
     label: "Label",
     value: "content1",
+    showSearch: true,
   },
 };
