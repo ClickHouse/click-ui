@@ -137,14 +137,14 @@ export const ComboboxProvider = ({
     (value: SetStateAction<Array<string>>) => {
       setSelectedValues(values => {
         const newValue = typeof value === "function" ? value(values) : value;
-
+        onSelectProp(newValue);
         if (inputRef.current) {
           inputRef.current.value = newValue.join(",");
         }
         return newValue;
       });
     },
-    [inputRef]
+    [inputRef, onSelectProp]
   );
 
   useEffect(() => {
