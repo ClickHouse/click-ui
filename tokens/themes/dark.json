@@ -3000,6 +3000,14 @@
           }
         }
       }
+    },
+    "storybook": {
+      "global": {
+        "background": {
+          "value": "rgb(27,28,29)",
+          "type": "color"
+        }
+      }
     }
   },
   "name": {

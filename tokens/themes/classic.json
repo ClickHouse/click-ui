@@ -1027,6 +1027,14 @@
           }
         }
       }
+    },
+    "storybook": {
+      "global": {
+        "background": {
+          "value": "{palette.neutral.0}",
+          "type": "color"
+        }
+      }
     }
   },
   "name": {
