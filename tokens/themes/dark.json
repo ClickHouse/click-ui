@@ -1135,13 +1135,13 @@
           "disabled": {
             "background": {
               "default": {
-                "value": "{palette.neutral.200}",
+                "value": "{click.button.basic.color.primary.background.disabled}",
                 "type": "color"
               }
             },
             "text": {
               "default": {
-                "value": "{palette.neutral.400}",
+                "value": "{click.button.basic.color.primary.text.disabled}",
                 "type": "color"
               }
             }
