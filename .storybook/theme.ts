@@ -3,11 +3,12 @@
 import { create } from "@storybook/theming/create";
 
 export default create({
-  base: "light",
+  base: "dark",
+  colorPrimary: '#FAFF69',
+  colorSecondary: '#FAFF69',
   brandTitle: "ClickUI Storybook",
   brandUrl: "/",
   brandImage: "/logo.svg",
-  appBg: "white",
   brandTarget: "_self",
   fontBase:  `"Inter", "SF Pro Display", -apple-system,
   BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
