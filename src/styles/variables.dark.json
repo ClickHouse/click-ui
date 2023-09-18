@@ -214,10 +214,10 @@
           },
           "disabled": {
             "background": {
-              "default": "#dfdfdf"
+              "default": "#414141"
             },
             "text": {
-              "default": "#a0a0a0"
+              "default": "#808080"
             }
           },
           "danger": {
@@ -433,7 +433,7 @@
           "default": "#ffffff",
           "hover": "#ffffff",
           "active": "#151515",
-          "disabled": "#a0a0a0"
+          "disabled": "#808080"
         },
         "label": {
           "default": "#ffffff",
@@ -668,7 +668,7 @@
           "default": "#1F1F1C",
           "hover": "#282828",
           "active": "#151515",
-          "disabled": "#a0a0a0"
+          "disabled": "#808080"
         }
       }
     },
