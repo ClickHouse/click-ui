@@ -17,6 +17,7 @@ const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
       bottom: 0;
       overflow: auto;
       padding: 1rem;
+      background: ${theme.click.storybook.global.background};
     `
 );
 

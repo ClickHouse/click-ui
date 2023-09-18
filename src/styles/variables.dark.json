@@ -988,6 +988,25 @@
         }
       }
     },
+    "flyout": {
+      "color": {
+        "background": {
+          "default": "#1F1F1C"
+        },
+        "title": {
+          "default": "#ffffff"
+        },
+        "description": {
+          "default": "#b3b6bd"
+        },
+        "opaqueBackground": {
+          "default": "lch(6.77 0 0 / 0.45)"
+        },
+        "stroke": {
+          "default": "lch(27.5 0 0 / 0.3)"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1066,6 +1085,11 @@
             "stroke": "lch(27.5 0 0 / 0.3)"
           }
         }
+      }
+    },
+    "storybook": {
+      "global": {
+        "background": "rgb(27,28,29)"
       }
     }
   },
