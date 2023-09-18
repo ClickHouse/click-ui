@@ -17,7 +17,6 @@ const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
       bottom: 0;
       overflow: auto;
       padding: 1rem;
-      background: ${theme.click.global.color.background.default};
     `
 );
 
@@ -31,8 +30,8 @@ export const globalTypes = {
       icon: "circlehollow",
       // Array of options
       items: [
-        { value: "light", icon: "circlehollow", title: "light" },
-        { value: "dark", icon: "circle", title: "dark" },
+        { value: "dark", icon: "moon", title: "dark" },
+        { value: "light", icon: "sun", title: "light" },
         { value: "classic", icon: "circle", title: "classic" },
       ],
       // Property that specifies if the name of the item will be displayed
@@ -58,6 +57,7 @@ const preview: Preview = {
       storySort: {
         method: "alphabetical",
         order: [
+          "Introduction",
           "Buttons",
           "Cards",
           "Forms",
@@ -76,7 +76,7 @@ const preview: Preview = {
       },
     },
     docs: {
-      theme: themes.light,
+      theme: themes.dark,
     },
   },
 };
