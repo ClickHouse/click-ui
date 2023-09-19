@@ -12,12 +12,9 @@ export const Tooltip = ({ children, ...props }: RadixTooltip.TooltipProps) => {
   return <RadixTooltip.Root {...props}>{children}</RadixTooltip.Root>;
 };
 
-const Trigger = styled(RadixTooltip.Trigger)`
-  width: fit-content;
-`;
 const TooltipTrigger = (props: RadixTooltip.TooltipTriggerProps) => {
   return (
-    <Trigger
+    <RadixTooltip.Trigger
       asChild
       {...props}
     />
