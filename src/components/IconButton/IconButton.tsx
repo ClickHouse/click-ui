@@ -5,7 +5,7 @@ import styled from "styled-components";
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "xs";
   disabled?: boolean;
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "ghost";
   icon: IconName;
 }
 
@@ -34,13 +34,13 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 const Button = styled.button<{
-  $styleType?: "primary" | "secondary";
+  $styleType?: "primary" | "secondary" | "ghost";
   $size?: "sm" | "xs";
 }>`
   ${({ theme, $size, $styleType = "primary" }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
   border: ${theme.click.button.stroke} solid ${
-    theme.click.button.iconButton.color.primary.stroke.default
+    theme.click.button.iconButton.color[$styleType].stroke.default
   };
   cursor: pointer;
   padding: ${
@@ -68,6 +68,7 @@ const Button = styled.button<{
   &[disabled] {
     background-color: ${theme.click.button.iconButton.color.disabled.background.default};
     color: ${theme.click.button.iconButton.color.disabled.text.default};
+    cursor: not-allowed;
   }
   `}
 `;
