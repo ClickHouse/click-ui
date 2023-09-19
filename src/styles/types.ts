@@ -1997,6 +1997,56 @@
         }
       }
     },
+    "flyout": {
+      "space": {
+        "y": string,
+        "x": string,
+        "gap": string,
+        "default": {
+          "top": string
+        },
+        "inline": {
+          "top": string
+        },
+        "actions": {
+          "space": {
+            "top": string,
+            "x": string,
+            "gap": string
+          }
+        }
+      },
+      "shadow": {
+        "default": string
+      },
+      "size": {
+        "narrow": {
+          "width": string,
+          "height": string
+        },
+        "wide": {
+          "width": string,
+          "height": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string
+        },
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        },
+        "opaqueBackground": {
+          "default": string
+        },
+        "stroke": {
+          "default": string
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -2075,6 +2125,11 @@
             "stroke": string
           }
         }
+      }
+    },
+    "storybook": {
+      "global": {
+        "background": string
       }
     }
   },
@@ -2335,7 +2390,8 @@
   },
   "shadow": {
     "1": string,
-    "2": string
+    "2": string,
+    "3": string
   }
 }
     

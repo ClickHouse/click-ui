@@ -1135,13 +1135,13 @@
           "disabled": {
             "background": {
               "default": {
-                "value": "{palette.neutral.200}",
+                "value": "{click.button.basic.color.primary.background.disabled}",
                 "type": "color"
               }
             },
             "text": {
               "default": {
-                "value": "{palette.neutral.400}",
+                "value": "{click.button.basic.color.primary.text.disabled}",
                 "type": "color"
               }
             }
@@ -2998,6 +2998,14 @@
             "value": "{click.global.color.stroke.default}",
             "type": "color"
           }
+        }
+      }
+    },
+    "storybook": {
+      "global": {
+        "background": {
+          "value": "rgb(27,28,29)",
+          "type": "color"
         }
       }
     }

@@ -1,0 +1,57 @@
+
+<img src='/clickhouse-backs.png' alt='Click UI' style={{width:'100%', borderRadius:'4px'}} />
+
+<br /><br />
+
+# Click UI
+Welcome to the home of Click UI, the ClickHouse design system and component library. Our aim with Click UI is to provide an accessible, theme-able, modern, and attractive interface with which to experience the speed and power of ClickHouse.
+
+As we shift our tech stack to React, we’re looking to implement a consistent experience that runs across the entire ClickHouse ecosystem, whether that be the Cloud product, the docs, or the website.
+
+While this library is primarily meant for ClickHouse designers and developers, in keeping with the ethos of the company, this is an open-source project and we‘re excited to provide value to the greater community.
+
+The source code is available on [GitHub](https://github.com/ClickHouse/click-ui) and the latest version of the package can be on [npm.js](https://www.npmjs.com/package/@clickhouse/click-ui). Once ready, we’ll be publishing the design system to the Figma community.
+<br />
+--- 
+<br />
+### Using Click UI in an external app
+Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
+1. Navigate to your app's route and run
+   `npm i @clickhouse/click-ui`
+   or
+   `yarn add @clickhouse/click-ui`
+2. Make sure to wrap your application in the Click UI `ThemeProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
+
+```
+import { Switch, Text, ThemeName, ThemeProvider, Title } from '@clickhouse/click-ui'
+
+function App() {
+  const [theme, setTheme] = useState<ThemeName>('dark')
+
+  const toggleTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark')
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Switch checked={theme === 'dark'} onClick={() => toggleTheme() } />
+
+      <Title type='h1'>Click UI Example</Title>
+      <Text>Welcome to Click UI. Get started here.</Text>
+    </ThemeProvider>
+  )
+}
+
+export default App
+```
+    
+
+
+### To develop this library locally 🚀
+1. Clone this repo, cd into the `click-ui` directory
+2. To install dependencies, run `npm i` 
+3. To build the latest styles, run `npm run generate-tokens`
+4. To run Click UI locally, run `npm run dev` and navigate to [https://localhost:5173](https://localhost:5173)
+5. To run Storybook locally, run `npm run storybook` and navigate to [https://localhost:6006](https://localhost:6006)
+
+Enjoy! 
