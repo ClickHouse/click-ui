@@ -4,7 +4,7 @@ import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Icon, IconName, Dropdown } from "@/components";
 import { BaseButton } from "../commonElement";
 
-type ButtonType = "primary"; //| "secondary";
+type ButtonType = "primary" | "secondary";
 type IconDirection = "left" | "right";
 type MenuItem = {
   icon?: IconName;

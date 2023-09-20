@@ -48,7 +48,7 @@ export default {
   tags: ["split-button", "autodocs"],
   argTypes: {
     disabled: { control: "boolean" },
-    type: { control: "inline-radio", options: ["primary"] },
+    type: { control: "inline-radio", options: ["primary", "secondary"] },
     side: { control: "select", options: ["top", "bottom"] },
   },
 };

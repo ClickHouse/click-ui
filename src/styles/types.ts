@@ -542,6 +542,40 @@
             "active": string,
             "disabled": string
           }
+        },
+        "secondary": {
+          "divide": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "background": {
+            "main": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "action": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
         }
       },
       "mobile": {
