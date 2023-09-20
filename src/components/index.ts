@@ -27,6 +27,7 @@ export { Popover } from "./Popover/Popover";
 export { RadioGroup } from "./RadioGroup/RadioGroup";
 export { SearchField } from "./Input/SearchField";
 export { Select } from "./Select/SingleSelect";
+export { MultiSelect } from "./Select/MultiSelect";
 export { default as Separator } from "./Separator/Separator";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { SidebarCollapsibleItem } from "./SidebarCollapsibleItem/SidebarCollapsibleItem";

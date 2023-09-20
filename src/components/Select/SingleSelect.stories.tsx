@@ -67,7 +67,7 @@ export const Playground: Preview = {
   parameters: {
     docs: {
       source: {
-        transform: (_: string, story: { args: Props; [x: string]: any }) => {
+        transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
           const { clickableNoData, showSearch, value, ...props } = story.args;
           return `<Select\n  value={${value}}\n${
             clickableNoData
