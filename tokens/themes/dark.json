@@ -971,56 +971,24 @@
         "secondary": {
           "divide": {
             "default": {
-              "value": "{click.global.color.stroke.default}",
+              "value": "{click.button.split.secondary.stroke.default}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "active": {
-              "value": "{click.button.basic.color.primary.background.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.15",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
             },
             "hover": {
-              "value": "{click.button.split.primary.background.action.hover}",
+              "value": "{click.button.split.secondary.stroke.hover}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.1",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
+            },
+            "active": {
+              "value": "{click.button.split.secondary.stroke.active}",
+              "type": "color",
+              "$extensions": {}
             },
             "disabled": {
               "value": "{click.button.basic.color.primary.stroke.disabled}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.15",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
             }
           },
           "background": {
