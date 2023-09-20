@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { Select, SelectProps } from "./Select";
+import { Select, SelectProps } from "./SingleSelect";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 interface Props extends Omit<SelectProps, "children" | "label"> {

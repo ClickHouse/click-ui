@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { HorizontalDirection, Icon, IconName } from "@/components";
-import { MouseEvent, ReactNode } from "react";
+import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { EllipsisContainer } from "../commonElement";
 export type BadgeState =
   | "default"
@@ -13,7 +13,7 @@ export type BadgeState =
 
 export type BadgeSize = "sm" | "md";
 
-export interface CommonBadgeProps {
+export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
   text: ReactNode;
   state?: BadgeState;
   size?: BadgeSize;
@@ -32,7 +32,7 @@ export interface NonDismissibleBadge extends CommonBadgeProps {
 }
 
 const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
-  display: inline-block;
+  display: inline-flex;
   ${({ $state = "default", $size = "md", theme }) => `
     background-color: ${theme.click.badge.color.background[$state]};
     color: ${theme.click.badge.color.text[$state]};
@@ -80,10 +80,12 @@ export const Badge = ({
   size,
   dismissible,
   onClose,
+  ...props
 }: BadgeProps) => (
   <Wrapper
     $state={state}
     $size={size}
+    {...props}
   >
     <Content>
       {icon && iconDir === "start" && (

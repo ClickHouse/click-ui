@@ -26,7 +26,7 @@ export { PasswordField } from "./Input/PasswordField";
 export { Popover } from "./Popover/Popover";
 export { RadioGroup } from "./RadioGroup/RadioGroup";
 export { SearchField } from "./Input/SearchField";
-export { Select } from "./Select/Select";
+export { Select } from "./Select/SingleSelect";
 export { default as Separator } from "./Separator/Separator";
 export { SidebarNavigationItem } from "./SidebarNavigationItem/SidebarNavigationItem";
 export { SidebarCollapsibleItem } from "./SidebarCollapsibleItem/SidebarCollapsibleItem";

@@ -4,7 +4,7 @@ import { TextProps } from "./Typography/Text/Text";
 import { TabsProps } from "./Tabs/Tabs";
 import { SpacerProps } from "./Spacer/Spacer";
 import { SidebarNavigationItemProps } from "./SidebarNavigationItem/SidebarNavigationItem";
-import { SelectProps } from "./Select/Select";
+import { SelectProps } from "./Select/SingleSelect";
 import { SearchFieldProps } from "./Input/SearchField";
 import { RadioGroupProps, RadioGroupItemProps } from "./RadioGroup/RadioGroup";
 import { PopoverProps } from "@radix-ui/react-popover";
