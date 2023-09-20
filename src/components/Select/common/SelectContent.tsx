@@ -315,6 +315,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
             name={name}
             options={list}
             selectedValues={selectedValues}
+            multiple={type === "MultiSelect"}
           />
         )}
         {triggerRef.current &&
