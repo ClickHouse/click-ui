@@ -52,27 +52,35 @@ const SearchBarContainer = styled.div<{ $showSearch: boolean }>`
   justify-content: flex-start;
   align-items: center;
   ${({ theme, $showSearch }) => `
-    border-bottom: 1px solid ${theme.click.genericMenu.button.color.stroke.default};
-    padding: ${theme.click.genericMenu.item.space.y} ${
-    theme.click.genericMenu.item.space.x
-  };
+    border-bottom: ${
+      $showSearch ? `1px solid ${theme.click.genericMenu.button.color.stroke.default}` : 0
+    };
+    padding: ${
+      $showSearch
+        ? `${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x}`
+        : 0
+    };
     color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
     font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
     height: ${$showSearch ? "auto" : " 0"};
   `}
 `;
 
-const SearchBar = styled.input`
+const SearchBar = styled.input<{ $showSearch: boolean }>`
   background: transparent;
   border: none;
   width: 100%;
   outline: none;
-  ${({ theme }) => `
-    min-height: 21px;
-    padding-right: 24px;
+  ${({ theme, $showSearch }) => `
+    min-height: ${$showSearch ? "21px" : 0};
+    height: ${$showSearch ? "initial" : 0};
+    ${$showSearch ? "padding-right: 24px" : "padding:0"};
+
     gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
-    border-bottom: 2px solid ${theme.click.genericMenu.button.color.stroke.default};
+    border-bottom: ${
+      $showSearch ? `2px solid ${theme.click.genericMenu.button.color.stroke.default}` : 0
+    };
     color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
     &::placeholder {
       color: ${theme.click.genericMenu.autocomplete.color.placeholder.default};
@@ -357,6 +365,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
                   onChange={e => onUpdateSearch(e.target.value)}
                   data-testid="combobox-search-input"
                   onKeyDown={onKeyDown}
+                  $showSearch={showSearch}
                 />
                 <SearchClose
                   as={IconButton}
