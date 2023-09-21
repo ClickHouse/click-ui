@@ -6,6 +6,7 @@ import { BaseButton } from "../commonElement";
 
 type ButtonType = "primary" | "secondary";
 type IconDirection = "left" | "right";
+type Alignment = "center" | "left";
 type MenuItem = {
   icon?: IconName;
   iconDir?: IconDirection;
@@ -33,8 +34,12 @@ export interface SplitButtonProps
     Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
   type?: ButtonType;
   disabled?: boolean;
+  fillWidth?: boolean;
+  align?: Alignment;
   menu: Array<Menu>;
   side?: "top" | "bottom";
+  icon?: IconName;
+  iconDir?: IconDirection;
 }
 
 export const SplitButton = ({
@@ -47,6 +52,11 @@ export const SplitButton = ({
   onOpenChange,
   modal,
   side,
+  fillWidth,
+  align,
+  children,
+  icon,
+  iconDir = "left",
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -79,14 +89,23 @@ export const SplitButton = ({
     >
       <SplitButtonTrigger
         $disabled={disabled}
+        $fillWidth={fillWidth}
         ref={ref}
         $type={type}
       >
         <PrimaryButton
           disabled={disabled}
           $type={type}
+          $fillWidth={fillWidth}
+          $align={align}
           {...props}
-        />
+        >
+          <IconWrapper
+            icon={icon}
+            iconDir={iconDir}
+            label={children}
+          />
+        </PrimaryButton>
         <SecondaryButton
           as={Dropdown.Trigger}
           disabled={disabled}
@@ -203,12 +222,17 @@ const MenuContentItem = ({
   }
 };
 
-const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }>`
+const SplitButtonTrigger = styled.div<{
+  $disabled?: boolean;
+  $type: ButtonType;
+  $fillWidth?: boolean;
+}>`
   display: inline-flex;
   align-items: center;
   overflow: hidden;
   user-select: none;
-  ${({ theme, $disabled = false, $type }) => `
+  ${({ theme, $disabled = false, $type, $fillWidth }) => `
+    width: ${$fillWidth ? "100%" : "revert"};
     border-radius: ${theme.click.button.radii.all};
     border: 1px solid ${theme.click.button.split[$type].stroke.default};
     ${
@@ -229,13 +253,20 @@ const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }
   `}
 `;
 
-const PrimaryButton = styled(BaseButton)<{ $type: ButtonType }>`
+const PrimaryButton = styled(BaseButton)<{
+  $type: ButtonType;
+  $align?: Alignment;
+  $fillWidth?: boolean;
+}>`
   border: 1px solid transparent;
   align-self: stretch;
   border-radius: 0;
+  align-items: center;
   padding: ${({ theme }) => theme.click.button.split.space.y}
     ${({ theme }) => theme.click.button.split.space.x};
-  ${({ theme, $type }) => `
+  ${({ theme, $type, $align, $fillWidth }) => `
+    width: ${$fillWidth ? "100%" : "revert"};
+    justify-content: ${$align === "left" ? "flex-start" : "center"};
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};
     &:hover {
