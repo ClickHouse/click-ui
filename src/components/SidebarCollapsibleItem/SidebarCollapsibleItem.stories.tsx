@@ -4,6 +4,12 @@ export default {
   component: SidebarCollapsibleItem,
   title: "Sidebar/CollapsibleItem",
   tags: ["sidebar", "collapsible-item", "autodocs"],
+  argTypes: {
+    type: {
+      options: ["main", "sqlSidebar"],
+      control: { type: "radio" },
+    },
+  },
 };
 
 export const Default = {
