@@ -4,7 +4,7 @@ import "../src/styles/variables.css";
 import { Decorator } from "@storybook/react";
 import styled from "styled-components";
 import { themes } from "@storybook/theming";
-import ClickUIProvider from "./components/ClickUIProvider/ClickUIProvider";
+import ClickUIProvider from "../src/components/ClickUIProvider/ClickUIProvider";
 
 const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
   ({ $left, $bfill: fill, theme }) => `
