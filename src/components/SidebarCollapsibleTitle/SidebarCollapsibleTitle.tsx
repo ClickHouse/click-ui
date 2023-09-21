@@ -12,7 +12,7 @@ export interface SidebarCollapsibleTitleProps
   iconDir?: HorizontalDirection;
   icon?: IconName;
   selected?: boolean;
-  type: "main" | "sqlSidebar";
+  type?: "main" | "sqlSidebar";
 }
 
 export const SidebarCollapsibleTitle = ({

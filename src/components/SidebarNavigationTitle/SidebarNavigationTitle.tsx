@@ -8,7 +8,7 @@ export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonEl
   selected?: boolean;
   icon?: IconName;
   iconDir?: HorizontalDirection;
-  type: "main" | "sqlSidebar";
+  type?: "main" | "sqlSidebar";
 }
 
 export const SidebarNavigationTitle = ({
