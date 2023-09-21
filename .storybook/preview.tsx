@@ -44,7 +44,10 @@ const withTheme: Decorator = (StoryFn, context) => {
   const parameters = context.parameters;
   const theme = parameters?.theme || context.globals.theme;
   return (
-    <ClickUIProvider theme={theme}>
+    <ClickUIProvider
+      theme={theme}
+      config={{ tooltip: { delayDuration: 0 } }}
+    >
       <ThemeBlock $left>
         <StoryFn />
       </ThemeBlock>

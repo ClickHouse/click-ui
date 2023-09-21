@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <ClickUIProvider theme={theme} delayDuration={0}>
+    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
       <Switch checked={theme === 'dark'} onClick={() => toggleTheme() } />
 
       <Title type='h1'>Click UI Example</Title>

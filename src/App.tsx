@@ -38,7 +38,7 @@ const App = () => {
   return (
     <ClickUIProvider
       theme={currentTheme}
-      delayDuration={0}
+      config={{ tooltip: { delayDuration: 0 } }}
     >
       <div className={styles.flexWrap}>
         <IconButton

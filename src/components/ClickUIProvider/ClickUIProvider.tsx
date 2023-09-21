@@ -6,30 +6,23 @@ import { ToastProps } from "@radix-ui/react-toast";
 import { ToastProvider } from "@/components/Toast/Toast";
 import { ThemeName } from "@/theme";
 import { ThemeProvider } from "@/theme/theme";
+import { ReactNode } from "react";
 
-type Props = TooltipProviderProps &
-  ToastProps & {
-    theme: ThemeName;
+interface Props {
+  config?: {
+    tooltip?: Omit<TooltipProviderProps, "children">;
+    toast?: Omit<ToastProps, "children">;
   };
+  theme: ThemeName;
+  children: ReactNode;
+}
 
-const ClickUIProvider = ({
-  children,
-  theme,
-  delayDuration,
-  skipDelayDuration,
-  disableHoverableContent,
-  ...props
-}: Props) => {
+const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
+  const { toast = {}, tooltip = {} } = config;
   return (
     <ThemeProvider theme={theme}>
-      <ToastProvider {...props}>
-        <TooltipProvider
-          delayDuration={delayDuration}
-          skipDelayDuration={skipDelayDuration}
-          disableHoverableContent={disableHoverableContent}
-        >
-          {children}
-        </TooltipProvider>
+      <ToastProvider {...toast}>
+        <TooltipProvider {...tooltip}>{children}</TooltipProvider>
       </ToastProvider>
     </ThemeProvider>
   );
