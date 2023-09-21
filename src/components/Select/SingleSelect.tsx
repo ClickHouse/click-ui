@@ -86,7 +86,7 @@ export const Select = ({
     <SelectContainer
       onChange={onChange}
       value={selectedValues}
-      open={open}
+      open={openProp ?? open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
       {...props}

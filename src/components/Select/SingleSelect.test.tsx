@@ -50,6 +50,18 @@ describe("Select", () => {
     expect(queryByText("Content0")).not.toBeNull();
   });
 
+  it("should open select on prop open and not close on click", () => {
+    const { queryByText } = renderSelect({
+      open: true,
+    });
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByText("Content0")).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(queryByText("Content0")).not.toBeNull();
+  });
+
   it("should show error", () => {
     const { queryByText } = renderSelect({
       error: "Select Error",
