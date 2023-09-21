@@ -1,21 +1,11 @@
 import { TooltipProps } from "@radix-ui/react-tooltip";
-import { Tooltip, TooltipProvider } from "./Tooltip";
+import { Tooltip } from "./Tooltip";
 
 interface Props extends TooltipProps {
   showArrow?: boolean;
-  delayDuration?: number;
-  skipDelayDuration?: number;
-  disableHoverableContent?: boolean;
   side: "top" | "right" | "left" | "bottom";
 }
-const TooltipExample = ({
-  delayDuration,
-  skipDelayDuration,
-  showArrow,
-  disableHoverableContent,
-  side,
-  ...props
-}: Props) => {
+const TooltipExample = ({ showArrow, side, ...props }: Props) => {
   return (
     <div
       style={{
@@ -25,23 +15,17 @@ const TooltipExample = ({
         height: "100%",
       }}
     >
-      <TooltipProvider
-        delayDuration={delayDuration}
-        disableHoverableContent={disableHoverableContent}
-        skipDelayDuration={skipDelayDuration}
-      >
-        <Tooltip {...props}>
-          <Tooltip.Trigger>
-            <div>Tooltip Trigger(Hover)</div>
-          </Tooltip.Trigger>
-          <Tooltip.Content
-            showArrow={showArrow}
-            side={side}
-          >
-            Tooltip content
-          </Tooltip.Content>
-        </Tooltip>
-      </TooltipProvider>
+      <Tooltip {...props}>
+        <Tooltip.Trigger>
+          <div>Tooltip Trigger(Hover)</div>
+        </Tooltip.Trigger>
+        <Tooltip.Content
+          showArrow={showArrow}
+          side={side}
+        >
+          Tooltip content
+        </Tooltip.Content>
+      </Tooltip>
     </div>
   );
 };
@@ -53,9 +37,6 @@ export default {
     open: { control: "inline-radio", options: [undefined, true, false] },
     defaultOpen: { control: "boolean" },
     showArrow: { control: "boolean" },
-    delayDuration: { control: "number" },
-    skipDelayDuration: { control: "number" },
-    disableHoverableContent: { control: "boolean" },
     side: { control: "select", options: ["top", "right", "left", "bottom"] },
   },
 };

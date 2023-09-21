@@ -1,13 +1,6 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import styled from "styled-components";
 
-export const TooltipProvider = ({
-  children,
-  ...props
-}: RadixTooltip.TooltipProviderProps) => {
-  return <RadixTooltip.Provider {...props}>{children}</RadixTooltip.Provider>;
-};
-
 export const Tooltip = ({ children, ...props }: RadixTooltip.TooltipProps) => {
   return <RadixTooltip.Root {...props}>{children}</RadixTooltip.Root>;
 };

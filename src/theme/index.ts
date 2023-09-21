@@ -1,5 +1,4 @@
 import { Theme } from "../styles/types";
-import { ThemeProvider } from "./theme";
 import merge from "lodash/merge";
 import * as classicTheme from "../styles/variables.classic.json";
 import * as darkTheme from "../styles/variables.dark.json";
@@ -19,4 +18,3 @@ declare module "styled-components" {
 }
 
 export type { ThemeName };
-export { ThemeProvider };

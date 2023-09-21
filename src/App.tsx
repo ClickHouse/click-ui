@@ -5,7 +5,7 @@ import "./styles/variables.css";
 import "./styles/variables.dark.css";
 
 import styles from "./App.module.css";
-import { ThemeName, ThemeProvider } from "./theme";
+import { ThemeName } from "./theme";
 import {
   Accordion,
   Alert,
@@ -13,6 +13,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
+  ClickUIProvider,
   CardSecondary,
   Checkbox,
   DangerAlert,
@@ -35,7 +36,10 @@ const App = () => {
   const [disabled] = useState(false);
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ClickUIProvider
+      theme={currentTheme}
+      delayDuration={0}
+    >
       <div className={styles.flexWrap}>
         <IconButton
           icon="user"
@@ -233,7 +237,7 @@ const App = () => {
         title="Title"
       />
       <Avatar text="CH" />
-    </ThemeProvider>
+    </ClickUIProvider>
   );
 };
 

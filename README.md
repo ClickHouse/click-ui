@@ -7,10 +7,10 @@ Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems u
    `npm i @clickhouse/click-ui`
    or
    `yarn add @clickhouse/click-ui`
-2. Make sure to wrap your application in the Click UI `ThemeProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
+2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
 
 ```
-import { Switch, Text, ThemeName, ThemeProvider, Title } from '@clickhouse/click-ui'
+import { Switch, Text, ThemeName, ClickUIProvider, Title } from '@clickhouse/click-ui'
 
 function App() {
   const [theme, setTheme] = useState<ThemeName>('dark')
@@ -20,25 +20,25 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ClickUIProvider theme={theme} delayDuration={0}>
       <Switch checked={theme === 'dark'} onClick={() => toggleTheme() } />
 
       <Title type='h1'>Click UI Example</Title>
       <Text>Welcome to Click UI. Get started here.</Text>
-    </ThemeProvider>
+    </ClickUIProvider>
   )
 }
 
 export default App
 ```
-    
+
 
 
 ### To develop this library locally 🚀
 1. Clone this repo, cd into the `click-ui` directory
-2. To install dependencies, run `npm i` 
+2. To install dependencies, run `npm i`
 3. To build the latest styles, run `npm run generate-tokens`
 4. To run ClickUI locally, run `npm run dev` and navigate to https://localhost:5173
 5. To run Storybook locally, run `npm run storybook` and navigate to https://localhost:6006
 
-Enjoy! 
+Enjoy!
