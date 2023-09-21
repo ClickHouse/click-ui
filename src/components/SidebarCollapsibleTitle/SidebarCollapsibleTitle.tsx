@@ -12,6 +12,7 @@ export interface SidebarCollapsibleTitleProps
   iconDir?: HorizontalDirection;
   icon?: IconName;
   selected?: boolean;
+  type: "main" | "sqlSidebar";
 }
 
 export const SidebarCollapsibleTitle = ({
@@ -22,6 +23,7 @@ export const SidebarCollapsibleTitle = ({
   iconDir,
   icon,
   selected,
+  type = "main",
   ...props
 }: SidebarCollapsibleTitleProps) => {
   if (!label) {
@@ -37,6 +39,7 @@ export const SidebarCollapsibleTitle = ({
         $collapsible
         iconDir={iconDir}
         data-selected={selected}
+        $type={type}
         {...props}
       >
         {icon && (
