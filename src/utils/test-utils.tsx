@@ -6,7 +6,7 @@ const renderCUI = (children: React.ReactNode, theme: ThemeName = "dark") => {
   return renderTL(
     <ClickUIProvider
       theme={theme}
-      tooltip={{ delayDuration: 0 }}
+      config={{ tooltip: { delayDuration: 0 } }}
     >
       {children}
     </ClickUIProvider>
