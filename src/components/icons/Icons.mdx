@@ -4,13 +4,13 @@ import { FlagList } from "./Flags";
 import { PaymentList } from './Payments'
 import LogosLight from '../Logos/LogosLight'
 import { Meta, IconGallery, IconItem, Story } from "@storybook/blocks";
-import { ThemeProvider } from "../../theme";
+import { ClickUIProvider } from "..";
 
 <Meta title='Display/Icon/Icons' />
 
 # Glyphs
 
-<ThemeProvider theme='light'>
+<ClickUIProvider theme='light'>
   <IconGallery>
     {Object.keys(ICONS_MAP).map((iconName) => (
       <IconItem name={iconName} key={iconName}>
@@ -18,7 +18,7 @@ import { ThemeProvider } from "../../theme";
       </IconItem>
     ))}
   </IconGallery>
-</ThemeProvider>
+</ClickUIProvider>
 
 # Flags
 
@@ -42,7 +42,7 @@ import { ThemeProvider } from "../../theme";
 
 # Logo
 
-<ThemeProvider theme='light'>
+<ClickUIProvider theme='light'>
   <IconGallery>
     {(Object.keys(LogosLight)).map((iconName) => (
       <IconItem name={iconName} key={iconName}>
@@ -50,4 +50,4 @@ import { ThemeProvider } from "../../theme";
       </IconItem>
     ))}
   </IconGallery>
-</ThemeProvider>
+</ClickUIProvider>
