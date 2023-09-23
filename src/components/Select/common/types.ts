@@ -4,8 +4,8 @@ import { PopoverProps } from "@radix-ui/react-popover";
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 
-export interface SelectItemProps
-  extends Omit<DivProps, "disabled" | "onSelect" | "value"> {
+interface SelectItemComponentProps
+  extends Omit<DivProps, "disabled" | "onSelect" | "value" | "children"> {
   separator?: boolean;
   disabled?: boolean;
   onSelect?: (value: string) => void;
@@ -14,15 +14,54 @@ export interface SelectItemProps
   iconDir?: HorizontalDirection;
 }
 
-export interface SelectContainerProps
+type SelectItemChildren = {
+  children: ReactNode;
+  label?: never;
+};
+
+type SelectItemLabel = {
+  children?: never;
+  label: ReactNode;
+};
+
+export type SelectItemProps = SelectItemComponentProps &
+  (SelectItemChildren | SelectItemLabel);
+export interface SelectGroupProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "heading"> {
+  heading?: ReactNode;
+  value?: never;
+  onSelect?: never;
+}
+export interface SelectOptionItem extends Omit<SelectItemProps, "children" | "label"> {
+  type?: never;
+  label: ReactNode;
+  options?: never;
+}
+
+interface SelectGroupOptionItem extends Omit<SelectGroupProps, "children" | "label"> {
+  type: "group";
+  options: Array<SelectOptionItem>;
+}
+
+export type SelectOptionListItem = SelectGroupOptionItem | SelectOptionItem;
+
+type SelectOptionType = {
+  options: Array<SelectOptionListItem>;
+  children?: never;
+};
+
+type SelectChildrenType = {
+  children: ReactNode;
+  options?: never;
+};
+
+interface SelectProps
   extends PopoverProps,
-    Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect"> {
+    Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
   label?: ReactNode;
-  children?: ReactNode;
   error?: ReactNode;
   disabled?: boolean;
   name?: string;
-  required?: boolean;
   form?: string;
   dir?: "start" | "end";
   orientation?: "horizontal" | "vertical";
@@ -34,7 +73,12 @@ export interface SelectContainerProps
   value: Array<string>;
   sortable?: boolean;
   onSelect: (value: string) => void;
+  multiple?: boolean;
+  showSearch?: boolean;
+  customText?: string;
 }
+
+export type SelectContainerProps = (SelectOptionType | SelectChildrenType) & SelectProps;
 
 export type SelectItemObject = {
   disabled?: boolean;

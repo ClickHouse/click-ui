@@ -1,49 +1,34 @@
 import { useCallback, useEffect, useState } from "react";
-import { SelectGroup, SelectItem, SelectNoData } from "./common/SelectContenOptions";
-import { SelectContent } from "./common/SelectContent";
-import SelectTrigger from "./common/SelectTrigger";
 import { SelectContainerProps } from "./common/types";
-import SelectContainer from "./common/SelectContainer";
+import { InternalSelect, SelectGroup, SelectItem } from "./common/InternalSelect";
 
-interface Props {
+interface SelectProps
+  extends Omit<
+    SelectContainerProps,
+    "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
+  > {
   defaultValue?: string;
   onChange?: (value: string) => void;
   value?: string;
-  defaultOpen?: boolean;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  placeholder?: string;
 }
 
-export type SelectProps = Omit<
-  SelectContainerProps,
-  "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
-> &
-  Props;
-
 export const Select = ({
-  children,
   value: valueProp,
   defaultValue,
   onChange: onChangeProp,
-  open: openProp,
-  defaultOpen,
-  onOpenChange: onOpenChangeProp,
+  options,
+  children,
   ...props
 }: SelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
     valueProp ? [valueProp] : defaultValue ? [defaultValue] : []
   );
-  const [open, setOpen] = useState(openProp ?? defaultOpen ?? false);
+  const [open, setOpen] = useState(false);
 
-  const onOpenChange = useCallback(
-    (newOpen?: boolean) => {
-      setOpen(newOpen ?? !open);
-      if (typeof onOpenChangeProp === "function") {
-        onOpenChangeProp(newOpen ?? !open);
-      }
-    },
-    [onOpenChangeProp, open]
-  );
+  const onOpenChange = useCallback((newOpen?: boolean) => {
+    setOpen(open => newOpen ?? !open);
+  }, []);
 
   const onChange = useCallback(
     (values: Array<string>) => {
@@ -57,10 +42,6 @@ export const Select = ({
     },
     [onChangeProp, onOpenChange, selectedValues]
   );
-
-  useEffect(() => {
-    setOpen(openProp ?? false);
-  }, [openProp]);
 
   useEffect(() => {
     setSelectedValues(valueProp ? [valueProp] : []);
@@ -83,25 +64,18 @@ export const Select = ({
   );
 
   return (
-    <SelectContainer
+    <InternalSelect
       onChange={onChange}
-      value={selectedValues}
-      open={openProp ?? open}
+      value={valueProp ? [valueProp] : selectedValues}
+      open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
+      options={options}
+      children={children}
       {...props}
-    >
-      {children}
-    </SelectContainer>
+    />
   );
 };
 
-SelectTrigger.displayName = "Select.Trigger";
-Select.Trigger = SelectTrigger;
-
-SelectContent.displayName = "MultiSelect.Content";
-Select.Content = SelectContent;
-
 Select.Group = SelectGroup;
 Select.Item = SelectItem;
-Select.NoData = SelectNoData;

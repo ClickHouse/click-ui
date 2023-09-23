@@ -22,7 +22,6 @@ interface MultiSelectValueProps {
   onSelect: (selectedValue: string) => void;
   sortable: boolean;
   disabled: boolean;
-  onOpenChange: (open?: boolean) => void;
 }
 
 export const MultiSelectValue = ({
@@ -32,7 +31,6 @@ export const MultiSelectValue = ({
   sortable,
   onSelect,
   disabled,
-  onOpenChange,
 }: MultiSelectValueProps) => {
   const id = useId();
   const [values, setValues] = useState<Array<ItemInterface>>(
@@ -77,7 +75,7 @@ export const MultiSelectValue = ({
       {selectedValues.map(value => {
         const nodeProps = valueNode.get(value) ?? { children: value, value: value };
         let otherProps: BadgeProps = {
-          text: nodeProps.children,
+          text: nodeProps.label ?? nodeProps.children,
           icon: nodeProps?.icon,
           iconDir: nodeProps?.iconDir,
         } as NonDismissibleBadge;
@@ -97,7 +95,6 @@ export const MultiSelectValue = ({
             <Badge
               size="sm"
               state={disabled ? "disabled" : "default"}
-              onClick={() => onOpenChange()}
               {...otherProps}
             />
           </div>

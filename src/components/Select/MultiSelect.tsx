@@ -1,10 +1,7 @@
-import { forwardRef, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import SelectContainer from "./common/SelectContainer";
-import { SelectContainerProps } from "./types";
-import SelectTrigger from "./common/SelectTrigger";
-import { SelectContent, SelectContentProps } from "./common/SelectContent";
-import { SelectGroup, SelectItem, SelectNoData } from "./common/SelectContenOptions";
+import { SelectContainerProps } from "./common/types";
+import { SelectGroup, SelectItem, InternalSelect } from "./common/InternalSelect";
 
 interface Props {
   defaultValue?: Array<string>;
@@ -22,7 +19,6 @@ export type MultiSelectProps = Omit<
   Props;
 
 export const MultiSelect = ({
-  children,
   value: valueProp,
   defaultValue,
   onChange: onChangeProp,
@@ -81,37 +77,16 @@ export const MultiSelect = ({
   );
 
   return (
-    <SelectContainer
+    <InternalSelect
       onChange={onChange}
-      value={selectedValues}
+      value={valueProp ?? selectedValues}
       open={openProp ?? open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
       {...props}
-    >
-      {children}
-    </SelectContainer>
+    />
   );
 };
 
-SelectTrigger.displayName = "MultiSelect.Trigger";
-MultiSelect.Trigger = SelectTrigger;
-
-const MultiSelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
-  (props, ref) => {
-    return (
-      <SelectContent
-        ref={ref}
-        {...props}
-        type="MultiSelect"
-      />
-    );
-  }
-);
-
-MultiSelectContent.displayName = "MultiSelect.Content";
-MultiSelect.Content = MultiSelectContent;
-
 MultiSelect.Group = SelectGroup;
 MultiSelect.Item = SelectItem;
-MultiSelect.NoData = SelectNoData;

@@ -16,24 +16,22 @@ const SelectValueContainer = styled.div`
 const SingleSelectValue = ({
   valueNode,
   value,
-  onOpenChange,
 }: {
   valueNode?: SelectItemProps;
   value: string;
-  onOpenChange: (open?: boolean) => void;
 }) => {
-  const { icon, iconDir, children } = valueNode ?? {};
+  const { icon, iconDir, children, label } = valueNode ?? {};
   if (!value) {
     return null;
   }
 
   return (
-    <SelectValueContainer onClick={() => onOpenChange()}>
+    <SelectValueContainer>
       <IconWrapper
         icon={icon}
         iconDir={iconDir}
       >
-        {children ?? value}
+        {label ?? children ?? value}
       </IconWrapper>
     </SelectValueContainer>
   );

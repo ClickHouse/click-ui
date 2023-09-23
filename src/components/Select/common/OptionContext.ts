@@ -4,11 +4,17 @@ type OptionContextProps = {
   search: string;
   highlighted?: string;
   updateHighlighted: (value: string) => void;
-  isHidden: (type: "empty" | "item", value?: string) => boolean;
+  isHidden: (value?: string) => boolean;
+  selectedValues: Array<string>;
+  onSelect: (value: string) => void;
+  onCreateOption?: (search: string) => void;
+  showCheck?: boolean;
 };
 
 export const OptionContext = createContext<OptionContextProps>({
   search: "",
+  selectedValues: [],
   updateHighlighted: () => null,
+  onSelect: () => null,
   isHidden: () => true,
 });
