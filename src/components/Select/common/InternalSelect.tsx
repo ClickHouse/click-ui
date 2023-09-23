@@ -18,7 +18,6 @@ import {
   SelectGroupProps,
   SelectItemObject,
   SelectItemProps,
-  SelectOptionItem,
   SelectOptionListItem,
 } from "./types";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";

@@ -78,7 +78,9 @@ interface SelectProps
   customText?: string;
 }
 
-export type SelectContainerProps = (SelectOptionType | SelectChildrenType) & SelectProps;
+export type SelectOptionProp = SelectOptionType | SelectChildrenType;
+
+export type SelectContainerProps = SelectOptionProp & SelectProps;
 
 export type SelectItemObject = {
   disabled?: boolean;

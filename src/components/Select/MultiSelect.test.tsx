@@ -16,28 +16,24 @@ describe("MultiSelect", () => {
       disconnect: jest.fn(),
     }));
   });
-  const renderSelect = ({ nodata, showSearch, ...props }: Props) =>
+  const renderSelect = (props: Props) =>
     renderCUI(
       <MultiSelect
         label="Test MultiSelect Label"
         {...props}
       >
-        <MultiSelect.Trigger data-testid="multiselect-trigger" />
-        <MultiSelect.Content showSearch={showSearch}>
-          <MultiSelect.Group heading="Group label">
-            <MultiSelect.Item value="content0">Content0</MultiSelect.Item>
-          </MultiSelect.Group>
-          <MultiSelect.Item value="content1">Content1</MultiSelect.Item>
-          <MultiSelect.Item value="content2">Content2</MultiSelect.Item>
-          <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
-          <MultiSelect.Item
-            value="content4"
-            disabled
-          >
-            Content4
-          </MultiSelect.Item>
-          {nodata ? nodata : <MultiSelect.NoData />}
-        </MultiSelect.Content>
+        <MultiSelect.Group heading="Group label">
+          <MultiSelect.Item value="content0">Content0</MultiSelect.Item>
+        </MultiSelect.Group>
+        <MultiSelect.Item value="content1">Content1</MultiSelect.Item>
+        <MultiSelect.Item value="content2">Content2</MultiSelect.Item>
+        <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
+        <MultiSelect.Item
+          value="content4"
+          disabled
+        >
+          Content4
+        </MultiSelect.Item>
       </MultiSelect>
     );
 
@@ -52,7 +48,7 @@ describe("MultiSelect", () => {
 
   it("should open select on prop open and not close on click", () => {
     const { queryByText } = renderSelect({
-      open: true,
+      value: ["content0", "content1"],
     });
     const selectTrigger = queryByText("Select an option");
     expect(selectTrigger).not.toBeNull();
@@ -204,7 +200,7 @@ describe("MultiSelect", () => {
       const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
         onCreateOption: onClick,
-        nodata: <MultiSelect.NoData>{"No Field found {search}"}</MultiSelect.NoData>,
+        customText: "No Field found {search}",
       });
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();

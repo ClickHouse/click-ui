@@ -3,9 +3,8 @@ import { Select, SelectProps } from "./SingleSelect";
 import { Preview } from "@storybook/react";
 interface Props extends SelectProps {
   clickableNoData?: boolean;
-  showSearch?: boolean;
 }
-const SelectExample = ({ clickableNoData, value, showSearch, ...props }: Props) => {
+const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
   return (
     <Select
       value={value}
@@ -14,26 +13,26 @@ const SelectExample = ({ clickableNoData, value, showSearch, ...props }: Props) 
       }
       {...props}
     >
-      <Select.Trigger />
-      <Select.Content showSearch={showSearch}>
-        <Select.Group heading="Group label">
-          <Select.Item value="content0">
-            <Icon name="user" />
-            Content0
-          </Select.Item>
-        </Select.Group>
-        <div>
-          <Select.Item value="content1">Content1 long text content</Select.Item>
-        </div>
-        <Select.Item
-          value="content2"
-          disabled
-        >
-          Content2
+      <Select.Group heading="Group label">
+        <Select.Item value="content0">
+          <Icon name="user" />
+          Content0
         </Select.Item>
-        <Select.Item value="content3">Content3</Select.Item>
-        <Select.NoData />
-      </Select.Content>
+      </Select.Group>
+      <div>
+        <Select.Item value="content1">Content1 long text content</Select.Item>
+      </div>
+      <Select.Item
+        value="content2"
+        disabled
+      >
+        Content2
+      </Select.Item>
+      <Select.Item value="content3">Content3</Select.Item>
+      <Select.Item
+        value="content4"
+        label="Content4"
+      />
     </Select>
   );
 };
@@ -80,8 +79,6 @@ export const Playground: Preview = {
             )
             .join("\n")}
 >
-  <Select.Trigger />
-  <Select.Content ${showSearch ? "showSearch" : ""}>
     <Select.Group heading="Group label">
       <Select.Item value="content0">
         <Icon name="user" />
@@ -98,8 +95,6 @@ export const Playground: Preview = {
       Content2
     </Select.Item>
     <Select.Item value="content3">Content3</Select.Item>
-    <Select.NoData />
-  </Select.Content>
 </Select>`;
         },
       },

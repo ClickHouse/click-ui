@@ -1,49 +1,37 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { SelectContainerProps } from "./common/types";
+import { SelectContainerProps, SelectOptionProp } from "./common/types";
 import { SelectGroup, SelectItem, InternalSelect } from "./common/InternalSelect";
 
-interface Props {
+export interface MultiSelectProps
+  extends Omit<
+    SelectContainerProps,
+    "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
+  > {
   defaultValue?: Array<string>;
   onChange?: (value: Array<string>) => void;
   value?: Array<string>;
   defaultOpen?: boolean;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
 }
-
-export type MultiSelectProps = Omit<
-  SelectContainerProps,
-  "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
-> &
-  Props;
 
 export const MultiSelect = ({
   value: valueProp,
   defaultValue,
   onChange: onChangeProp,
-  open: openProp,
-  defaultOpen,
-  onOpenChange: onOpenChangeProp,
+  options,
+  children,
   ...props
 }: MultiSelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
     valueProp ?? defaultValue ?? []
   );
-  const [open, setOpen] = useState(openProp ?? defaultOpen ?? false);
+  const [open, setOpen] = useState(false);
   const onOpenChange = useCallback(
     (newOpen?: boolean) => {
       setOpen(newOpen ?? !open);
-      if (typeof onOpenChangeProp === "function") {
-        onOpenChangeProp(newOpen ?? !open);
-      }
     },
-    [onOpenChangeProp, open]
+    [open]
   );
-
-  useEffect(() => {
-    setOpen(openProp ?? false);
-  }, [openProp]);
 
   useEffect(() => {
     setSelectedValues(valueProp ?? []);
@@ -76,13 +64,21 @@ export const MultiSelect = ({
     [onChange]
   );
 
+  const conditionalProps: Partial<SelectOptionProp> = {};
+  if (options) {
+    conditionalProps.options = options;
+  } else {
+    conditionalProps.children = children;
+  }
+
   return (
     <InternalSelect
       onChange={onChange}
       value={valueProp ?? selectedValues}
-      open={openProp ?? open}
+      open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
+      {...conditionalProps}
       {...props}
     />
   );

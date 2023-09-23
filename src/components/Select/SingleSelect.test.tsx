@@ -16,28 +16,27 @@ describe("Select", () => {
       disconnect: jest.fn(),
     }));
   });
-  const renderSelect = ({ nodata, showSearch, ...props }: Props) =>
+  const renderSelect = (props: Props) =>
     renderCUI(
       <Select
         label="Test Select Label"
         {...props}
       >
-        <Select.Trigger />
-        <Select.Content showSearch={showSearch}>
-          <Select.Group heading="Group label">
-            <Select.Item value="content0">Content0</Select.Item>
-          </Select.Group>
-          <Select.Item value="content1">Content1</Select.Item>
-          <Select.Item value="content2">Content2</Select.Item>
-          <Select.Item value="content3">Content3</Select.Item>
-          <Select.Item
-            value="content4"
-            disabled
-          >
-            Content4
-          </Select.Item>
-          {nodata ? nodata : <Select.NoData />}
-        </Select.Content>
+        <Select.Group heading="Group label">
+          <Select.Item value="content0">Content0</Select.Item>
+        </Select.Group>
+        <Select.Item value="content1">Content1</Select.Item>
+        <Select.Item
+          value="content2"
+          label="Content2"
+        />
+        <Select.Item value="content3">Content3</Select.Item>
+        <Select.Item
+          value="content4"
+          disabled
+        >
+          Content4
+        </Select.Item>
       </Select>
     );
 
@@ -45,18 +44,6 @@ describe("Select", () => {
     const { queryByText } = renderSelect({});
     const selectTrigger = queryByText("Select an option");
     expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
-
-    expect(queryByText("Content0")).not.toBeNull();
-  });
-
-  it("should open select on prop open and not close on click", () => {
-    const { queryByText } = renderSelect({
-      open: true,
-    });
-    const selectTrigger = queryByText("Select an option");
-    expect(selectTrigger).not.toBeNull();
-    expect(queryByText("Content0")).not.toBeNull();
     selectTrigger && fireEvent.click(selectTrigger);
 
     expect(queryByText("Content0")).not.toBeNull();
@@ -204,7 +191,7 @@ describe("Select", () => {
       const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
         onCreateOption: onClick,
-        nodata: <Select.NoData>{"No Field found {search}"}</Select.NoData>,
+        customText: "No Field found {search}",
       });
       const selectTrigger = queryByText("Select an option");
       expect(selectTrigger).not.toBeNull();

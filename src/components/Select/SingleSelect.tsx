@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { SelectContainerProps } from "./common/types";
+import { SelectContainerProps, SelectOptionProp } from "./common/types";
 import { InternalSelect, SelectGroup, SelectItem } from "./common/InternalSelect";
 
-interface SelectProps
+export interface SelectProps
   extends Omit<
     SelectContainerProps,
     "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
@@ -63,6 +63,13 @@ export const Select = ({
     [onChangeProp, onOpenChange]
   );
 
+  const conditionalProps: Partial<SelectOptionProp> = {};
+  if (options) {
+    conditionalProps.options = options;
+  } else {
+    conditionalProps.children = children;
+  }
+
   return (
     <InternalSelect
       onChange={onChange}
@@ -70,8 +77,7 @@ export const Select = ({
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
-      options={options}
-      children={children}
+      {...conditionalProps}
       {...props}
     />
   );
