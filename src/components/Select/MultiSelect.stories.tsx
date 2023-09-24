@@ -65,6 +65,7 @@ export default {
   argTypes: {
     label: { control: "text" },
     disabled: { control: "boolean" },
+    sortable: { control: "boolean" },
     error: { control: "text" },
     value: { control: "text" },
     defaultValue: { control: "text" },

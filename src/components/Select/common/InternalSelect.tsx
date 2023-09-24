@@ -347,7 +347,7 @@ export const InternalSelect = ({
                   disabled={disabled ?? false}
                   onSelect={onSelect}
                   selectedValues={selectedValues}
-                  sortable={sortable ?? false}
+                  sortable={!disabled && sortable}
                   valueNode={valueNode.current}
                   onChange={onChange}
                 />

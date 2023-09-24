@@ -37,7 +37,6 @@ export const MultiSelectValue = ({
     selectedValues.map(value => ({
       id: `multi-select-${id}-${value}`,
       value,
-      filtered: sortable,
     }))
   );
   useEffect(() => {
@@ -45,16 +44,17 @@ export const MultiSelectValue = ({
       selectedValues.map(value => ({
         id: `multi-select-${id}-${value}`,
         value,
-        filtered: sortable,
       }))
     );
-  }, [id, selectedValues, sortable]);
+  }, [id, selectedValues]);
   if (selectedValues.length === 0) {
     return null;
   }
+
   return (
     <BadgeList
       as={ReactSortable}
+      disabled={!sortable}
       list={values}
       setList={setValues}
       onEnd={e => {
