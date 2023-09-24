@@ -1,10 +1,38 @@
 import { Icon } from "@/components";
 import { MultiSelect, MultiSelectProps } from "./MultiSelect";
+import { selectOptions } from "./selectOptions";
+import { useEffect, useState } from "react";
 interface Props extends Omit<MultiSelectProps, "value"> {
   clickableNoData?: boolean;
   value: string;
+  childrenType: "children" | "options";
 }
-const MultiSelectExample = ({ clickableNoData, value, ...props }: Props) => {
+const MultiSelectExample = ({
+  clickableNoData,
+  childrenType,
+  value,
+  ...props
+}: Props) => {
+  const [selectedValues, setSelectedValues] = useState(
+    value ? value.split(",") : undefined
+  );
+  useEffect(() => {
+    setSelectedValues(value ? value.split(",") : undefined);
+  }, [value]);
+
+  if (childrenType === "options") {
+    return (
+      <MultiSelect
+        value={selectedValues}
+        onCreateOption={
+          clickableNoData ? search => console.log("Clicked ", search) : undefined
+        }
+        options={selectOptions}
+        onChange={value => setSelectedValues(value)}
+        {...props}
+      />
+    );
+  }
   return (
     <MultiSelect
       value={value ? value.split(",") : undefined}
@@ -58,25 +86,31 @@ export const Playground = {
     label: "Label",
     value: "content1",
     showSearch: true,
+    childrenType: "children",
   },
   parameters: {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { clickableNoData, showSearch, value, ...props } = story.args;
+          const { clickableNoData, childrenType, value, ...props } = story.args;
           return `<MultiSelect\n  value={${JSON.stringify((value ?? "").split(","))}}\n${
             clickableNoData
               ? "  onCreateOption={search => console.log('Clicked ', search)}\n"
               : ""
-          }${Object.entries(props)
-            .map(
-              ([key, value]) =>
-                `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
+          }
+          ${Object.entries(props)
+            .flatMap(([key, value]) =>
+              typeof value === "boolean"
+                ? value
+                  ? `  ${key}`
+                  : []
+                : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
             )
             .join("\n")}
->
-  <MultiSelect.Trigger />
-  <MultiSelect.Content ${showSearch ? "showSearch" : ""}>
+${childrenType === "options" ? "/" : ""}>
+${
+  childrenType !== "options"
+    ? `
     <MultiSelect.Group heading="Group label">
       <MultiSelect.Item value="content0">
         <Icon name="user" />
@@ -93,9 +127,10 @@ export const Playground = {
       Content2
     </MultiSelect.Item>
     <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
-    <MultiSelect.NoData />
-  </MultiSelect.Content>
-</MultiSelect>`;
+</Select>
+`
+    : ""
+}`;
         },
       },
     },

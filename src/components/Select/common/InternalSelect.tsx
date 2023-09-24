@@ -85,10 +85,10 @@ const childrenToComboboxItemArray = (
         return childrenToComboboxItemArray(
           groupChildren,
           callback,
-          getTextFromNodes(child.props.heading)
+          getTextFromNodes(child.props.heading).toLowerCase()
         );
       } else if (type.displayName === "Select.Item") {
-        const title = getTextFromNodes(child);
+        const title = getTextFromNodes(child).toLowerCase();
         const value = child.props.value;
         const disabled = child.props.disabled;
         callback({
@@ -165,8 +165,8 @@ export const InternalSelect = ({
       const searchLowerCase = search.toLowerCase();
       list.forEach(item => {
         if (
-          item.title.toLowerCase().includes(searchLowerCase) ||
-          item.heading?.toLowerCase()?.includes(searchLowerCase)
+          item.title.includes(searchLowerCase) ||
+          item.heading?.includes(searchLowerCase)
         ) {
           if (item.value === highlighted) {
             hasHighlightedValue = true;
@@ -188,15 +188,19 @@ export const InternalSelect = ({
 
   const updateList = useCallback(
     (children?: ReactNode, options?: Array<SelectOptionListItem>) => {
+      const lowerCasedSearch = search.toLowerCase();
       if (options) {
         setList(
           options.flatMap(option => {
-            if ("type" in option && option.type === "group") {
-              const heading = getTextFromNodes(option.heading);
-              return option.options.map(item => {
+            if ("options" in option) {
+              const heading = getTextFromNodes(option.heading).toLowerCase();
+              return (option.options ?? []).map(item => {
                 valueNode.current.set(item.value, item);
-                const title = getTextFromNodes(item.label);
-                if (title.includes(search) || heading?.includes(search)) {
+                const title = getTextFromNodes(item.label).toLowerCase();
+                if (
+                  title.includes(lowerCasedSearch) ||
+                  heading?.includes(lowerCasedSearch)
+                ) {
                   visibleList.current.push(item.value);
                   if (!disabled) {
                     navigatable.current.push(item.value);
@@ -211,8 +215,8 @@ export const InternalSelect = ({
               });
             } else {
               valueNode.current.set(option.value, option);
-              const title = getTextFromNodes(option.label);
-              if (title.includes(search)) {
+              const title = getTextFromNodes(option.label).toLowerCase();
+              if (title.includes(lowerCasedSearch)) {
                 visibleList.current.push(option.value);
                 if (!disabled) {
                   navigatable.current.push(option.value);
@@ -333,6 +337,7 @@ export const InternalSelect = ({
             id={id ?? defaultId}
             $error={!!error}
             disabled={disabled}
+            data-testid="select-trigger"
           >
             <SelectValue>
               {selectedValues.length === 0 ? (
@@ -391,7 +396,7 @@ export const InternalSelect = ({
                     ref={inputRef}
                     value={search}
                     onChange={e => onUpdateSearch(e.target.value)}
-                    data-testid="combobox-search-input"
+                    data-testid="select-search-input"
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
                   />
@@ -407,38 +412,52 @@ export const InternalSelect = ({
                 <SelectListContent>
                   <OptionContext.Provider value={optionContextValue}>
                     {options && options.length > 0
-                      ? options.map(props => {
-                          if ("type" in props && props.type === "group") {
-                            const { type, options: itemList, ...groupProps } = props;
+                      ? options.map((props, index) => {
+                          if ("options" in props) {
+                            const { options: itemList = [], ...groupProps } = props;
                             return (
-                              <SelectGroup {...groupProps}>
-                                {itemList.map(({ label, ...itemProps }) => (
-                                  <SelectItem {...itemProps}>{label}</SelectItem>
+                              <SelectGroup
+                                key={`select-${id}-group-${index}`}
+                                {...groupProps}
+                              >
+                                {itemList.map(({ label, ...itemProps }, itemIndex) => (
+                                  <SelectItem
+                                    key={`select-${id}-group-${index}-item-${itemIndex}`}
+                                    {...itemProps}
+                                  >
+                                    {label}
+                                  </SelectItem>
                                 ))}
                               </SelectGroup>
                             );
                           } else {
-                            return <SelectItem {...props} />;
+                            return (
+                              <SelectItem
+                                key={`select-${id}-item-${index}`}
+                                {...props}
+                              />
+                            );
                           }
                         })
                       : children}
                   </OptionContext.Provider>
                 </SelectListContent>
-                <SelectNoDataContainer
-                  onClick={onCreateOption}
-                  $clickable={clickable}
-                  {...props}
-                >
-                  {customText.length > 0
-                    ? customText.replaceAll("{search}", search)
-                    : `
+                {visibleList.current.length === 0 && (
+                  <SelectNoDataContainer
+                    onClick={onCreateOption}
+                    $clickable={clickable}
+                    {...props}
+                  >
+                    {customText.length > 0
+                      ? customText.replaceAll("{search}", search)
+                      : `
           No Options found${search.length > 0 ? ` for "${search}" ` : ""}
         `}
-                </SelectNoDataContainer>
+                  </SelectNoDataContainer>
+                )}
               </SelectList>
             </SelectPopoverContent>
           </Portal>
-          {children}
         </SelectPopoverRoot>
         {!!error && <Error>{error}</Error>}
       </FormElementContainer>
@@ -464,12 +483,13 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
         ref={mergeRefs([
           forwardedRef,
           node => {
-            const hidden = node?.querySelectorAll("[cui-combobox-item]").length === 0;
+            const hidden = node?.querySelectorAll("[cui-select-item]").length === 0;
             if (hidden) {
               node?.setAttribute("hidden", "");
             } else {
               node?.removeAttribute("hidden");
             }
+            node?.setAttribute("aria-hidden", hidden.toString());
           },
         ])}
       >
@@ -539,7 +559,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
           data-state={isChecked ? "checked" : "unchecked"}
           data-disabled={disabled ? true : undefined}
           data-highlighted={highlighted == value ? "true" : undefined}
-          cui-combobox-item=""
+          cui-select-item=""
         >
           <IconWrapper
             icon={icon}

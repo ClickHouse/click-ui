@@ -8,6 +8,7 @@ export const SelectPopoverRoot = styled(Root)`
 export const SelectValue = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: left;
   flex: 1;
   gap: inherit;
   color: inherit;
@@ -186,8 +187,6 @@ export const SelectGroupContainer = styled.div`
     font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
     color: ${theme.click.genericMenu.item.color.text.muted};
   `};
-  [cui-combobox-group-heading] {
-  }
   &[hidden] {
     display: none;
   }

@@ -1,10 +1,31 @@
 import { Icon } from "@/components";
 import { Select, SelectProps } from "./SingleSelect";
 import { Preview } from "@storybook/react";
+import { selectOptions } from "./selectOptions";
+import { useEffect, useState } from "react";
 interface Props extends SelectProps {
   clickableNoData?: boolean;
+  childrenType: "children" | "options";
 }
-const SelectExample = ({ clickableNoData, value, ...props }: Props) => {
+const SelectExample = ({ clickableNoData, childrenType, value, ...props }: Props) => {
+  const [selectedValue, setSelectedValue] = useState(value);
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
+
+  if (childrenType === "options") {
+    return (
+      <Select
+        value={selectedValue}
+        onChange={value => setSelectedValue(value)}
+        onCreateOption={
+          clickableNoData ? search => console.log("Clicked ", search) : undefined
+        }
+        options={selectOptions}
+        {...props}
+      />
+    );
+  }
   return (
     <Select
       value={value}
@@ -56,29 +77,37 @@ export default {
     clickableNoData: { control: "boolean" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
+    childrenType: { control: "inline-radio", options: ["children", "options"] },
   },
 };
 
 export const Playground: Preview = {
   args: {
     label: "Label",
+    childrenType: "children",
   },
   parameters: {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { clickableNoData, showSearch, value, ...props } = story.args;
+          const { clickableNoData, childrenType, value, ...props } = story.args;
           return `<Select\n  value={${value}}\n${
             clickableNoData
               ? "  onCreateOption={search => console.log('Clicked ', search)}\n"
               : ""
           }${Object.entries(props)
-            .map(
-              ([key, value]) =>
-                `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
+            .flatMap(([key, value]) =>
+              typeof value === "boolean"
+                ? value
+                  ? `  ${key}`
+                  : []
+                : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
             )
             .join("\n")}
->
+${childrenType === "options" ? "/" : ""}>
+${
+  childrenType !== "options"
+    ? `
     <Select.Group heading="Group label">
       <Select.Item value="content0">
         <Icon name="user" />
@@ -95,7 +124,10 @@ export const Playground: Preview = {
       Content2
     </Select.Item>
     <Select.Item value="content3">Content3</Select.Item>
-</Select>`;
+</Select>
+`
+    : ""
+}`;
         },
       },
     },

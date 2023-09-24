@@ -28,19 +28,20 @@ export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
 export interface SelectGroupProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "heading"> {
-  heading?: ReactNode;
+  heading: ReactNode;
   value?: never;
   onSelect?: never;
 }
 export interface SelectOptionItem extends Omit<SelectItemProps, "children" | "label"> {
-  type?: never;
+  heading?: never;
   label: ReactNode;
-  options?: never;
+  [key: `data-${string}`]: string;
 }
 
 interface SelectGroupOptionItem extends Omit<SelectGroupProps, "children" | "label"> {
-  type: "group";
   options: Array<SelectOptionItem>;
+  label?: never;
+  [key: `data-${string}`]: string;
 }
 
 export type SelectOptionListItem = SelectGroupOptionItem | SelectOptionItem;

@@ -78,6 +78,7 @@ export const MultiSelect = ({
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
+      multiple
       {...conditionalProps}
       {...props}
     />
