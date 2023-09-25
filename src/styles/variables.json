@@ -541,6 +541,40 @@
             "active": "lch(16.4 2.36 306)",
             "disabled": "lch(75.5 0 0)"
           }
+        },
+        "secondary": {
+          "divide": {
+            "default": "lch(92 1.05 266)",
+            "hover": "lch(33 3.27 267)",
+            "active": "lch(16.4 2.36 306)",
+            "disabled": "lch(75.5 0 0)"
+          },
+          "background": {
+            "main": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "lch(95.3 1.54 272)",
+              "disabled": "#dfdfdf"
+            },
+            "action": {
+              "default": "#f6f7fa",
+              "hover": "lch(94.8 1.53 272)",
+              "active": "lch(92.9 1.5 272)",
+              "disabled": "lch(77.2 0 0)"
+            }
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266)",
+            "hover": "lch(91.6 1.1 266)",
+            "active": "lch(84 2.28 258)",
+            "disabled": "rgba(0,0,0,0)"
+          }
         }
       },
       "mobile": {

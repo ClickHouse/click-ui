@@ -2,9 +2,9 @@ import React from "react";
 import type { Preview } from "@storybook/react";
 import "../src/styles/variables.css";
 import { Decorator } from "@storybook/react";
-import { ThemeProvider } from "../src/theme";
 import styled from "styled-components";
 import { themes } from "@storybook/theming";
+import ClickUIProvider from "../src/components/ClickUIProvider/ClickUIProvider";
 
 const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
   ({ $left, $bfill: fill, theme }) => `
@@ -44,11 +44,14 @@ const withTheme: Decorator = (StoryFn, context) => {
   const parameters = context.parameters;
   const theme = parameters?.theme || context.globals.theme;
   return (
-    <ThemeProvider theme={theme}>
+    <ClickUIProvider
+      theme={theme}
+      config={{ tooltip: { delayDuration: 0 } }}
+    >
       <ThemeBlock $left>
         <StoryFn />
       </ThemeBlock>
-    </ThemeProvider>
+    </ClickUIProvider>
   );
 };
 

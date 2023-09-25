@@ -1,6 +1,5 @@
-import { render } from "@testing-library/react";
 import { Link } from "./Link";
-import { ThemeProvider } from "@/theme";
+import { renderCUI } from "@/utils/test-utils";
 
 interface LinkProps {
   hasIcon?: boolean;
@@ -10,15 +9,11 @@ describe("Link Component", () => {
   const text = "text to render";
 
   const renderLink = (props: LinkProps) => {
-    return render(
-      <ThemeProvider theme="light">
-        <Link {...props}>{text}</Link>
-      </ThemeProvider>
-    );
+    return renderCUI(<Link {...props}>{text}</Link>);
   };
 
   test("renders the text", () => {
-    const rendered = renderLink({ hasIcon: false});
+    const rendered = renderLink({ hasIcon: false });
     expect(rendered.getByText(text).textContent).toEqual(text);
   });
 

@@ -1,5 +1,5 @@
 import { TooltipProps } from "@radix-ui/react-tooltip";
-import { Tooltip, TooltipProvider } from "..";
+import { Tooltip } from "..";
 import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderCUI } from "@/utils/test-utils";
@@ -7,14 +7,12 @@ import { renderCUI } from "@/utils/test-utils";
 describe("Tooltip", () => {
   const renderTooltip = (props: TooltipProps) =>
     renderCUI(
-      <TooltipProvider delayDuration={0}>
-        <Tooltip {...props}>
-          <Tooltip.Trigger>
-            <div>Hover Here</div>
-          </Tooltip.Trigger>
-          <Tooltip.Content data-testid="tooltip-content">Tooltip content</Tooltip.Content>
-        </Tooltip>
-      </TooltipProvider>
+      <Tooltip {...props}>
+        <Tooltip.Trigger>
+          <div>Hover Here</div>
+        </Tooltip.Trigger>
+        <Tooltip.Content data-testid="tooltip-content">Tooltip content</Tooltip.Content>
+      </Tooltip>
     );
 
   it("should open tooltip on hover", async () => {

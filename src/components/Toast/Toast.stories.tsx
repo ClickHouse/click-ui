@@ -1,4 +1,4 @@
-import { Button, useToast, ToastProvider, ToastProps } from "@/components";
+import { Button, useToast, ToastProps } from "@/components";
 const ToastTrigger = (props: ToastProps) => {
   const { createToast } = useToast();
   return (
@@ -12,11 +12,7 @@ const ToastTrigger = (props: ToastProps) => {
   );
 };
 const ToastExample = (props: ToastProps) => {
-  return (
-    <ToastProvider>
-      <ToastTrigger {...props} />
-    </ToastProvider>
-  );
+  return <ToastTrigger {...props} />;
 };
 export default {
   component: ToastExample,

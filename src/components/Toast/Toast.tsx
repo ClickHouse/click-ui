@@ -3,10 +3,10 @@ import * as RadixUIToast from "@radix-ui/react-toast";
 import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
 import styled, { keyframes } from "styled-components";
 
-interface ContextProps {
+interface ToastContextProps {
   createToast: (toast: ToastProps) => void;
 }
-export const ToastContext = createContext<ContextProps>({
+export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
 

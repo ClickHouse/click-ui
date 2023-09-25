@@ -53,9 +53,9 @@
     "avatar": {
       "color": {
         "background": {
-          "default": "#53575f",
-          "hover": "#696e79",
-          "active": "#696e79"
+          "default": "#696e79",
+          "hover": "#53575f",
+          "active": "#53575f"
         },
         "text": {
           "default": "#1F1F1C",
@@ -282,6 +282,40 @@
             "hover": "lch(78.7 39.5 103)",
             "active": "lch(72.2 52.2 103)",
             "disabled": "lch(23.1 0 0)"
+          }
+        },
+        "secondary": {
+          "divide": {
+            "default": "lch(31.2 0 0)",
+            "hover": "lch(34.8 0 0)",
+            "active": "lch(20.5 2.21 306)",
+            "disabled": "lch(23.4 0 0)"
+          },
+          "background": {
+            "main": {
+              "default": "#1F1F1C",
+              "hover": "#282828",
+              "active": "lch(20.3 0 0)",
+              "disabled": "#414141"
+            },
+            "action": {
+              "default": "#282828",
+              "hover": "lch(18.2 0 0)",
+              "active": "lch(21.1 0 0)",
+              "disabled": "lch(23.9 0 0)"
+            }
+          },
+          "text": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#ffffff",
+            "disabled": "#808080"
+          },
+          "stroke": {
+            "default": "#414141",
+            "hover": "#414141",
+            "active": "lch(24.1 2.6 306)",
+            "disabled": "rgba(0,0,0,0)"
           }
         }
       },

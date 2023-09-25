@@ -973,21 +973,8 @@
                 }
               }
             },
-            "active": {
-              "value": "{click.button.basic.color.primary.background.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.15",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
             "hover": {
-              "value": "{click.button.split.primary.background.action.hover}",
+              "value": "{click.button.split.secondary.stroke.hover}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
@@ -998,6 +985,11 @@
                   }
                 }
               }
+            },
+            "active": {
+              "value": "{click.button.basic.color.secondary.stroke.active}",
+              "type": "color",
+              "$extensions": {}
             },
             "disabled": {
               "value": "{click.button.basic.color.primary.stroke.disabled}",

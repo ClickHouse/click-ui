@@ -10,6 +10,7 @@ const LabelContainer = styled.span`
   width: -webkit-fill-available;
   width: fill-available;
   width: stretch;
+  flex: 1;
   gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
 `;
 
@@ -17,7 +18,9 @@ const EllipsisContainer = styled.span`
   display: flex;
   white-space: nowrap;
   overflow: hidden;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  gap: inherit;
+  flex: 1;
   & > *:not(button) {
     overflow: hidden;
     text-overflow: ellipsis;
