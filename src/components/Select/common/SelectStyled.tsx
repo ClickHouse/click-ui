@@ -74,6 +74,7 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
       border: 1px solid ${theme.click.field.color.stroke.disabled};
       background: ${theme.click.field.color.background.disabled};
       color: ${theme.click.field.color.text.disabled};
+      cursor: not-allowed;
     }
   `}
 `;
@@ -104,9 +105,6 @@ export const SearchBarContainer = styled.div<{ $showSearch: boolean }>`
   justify-content: flex-start;
   align-items: center;
   ${({ theme, $showSearch }) => `
-    border-bottom: ${
-      $showSearch ? `1px solid ${theme.click.genericMenu.button.color.stroke.default}` : 0
-    };
     padding: ${
       $showSearch
         ? `${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x}`
