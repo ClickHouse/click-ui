@@ -65,10 +65,10 @@ describe("MultiSelect", () => {
   });
 
   it("should always respect given value in select", () => {
-    const onChange = jest.fn();
+    const onSelect = jest.fn();
     const { queryByText, getByTestId, getByText } = renderSelect({
       value: ["content0", "content1"],
-      onChange,
+      onSelect,
     });
     const selectTrigger = getByTestId("select-trigger");
     expect(selectTrigger).not.toBeNull();
@@ -83,7 +83,7 @@ describe("MultiSelect", () => {
     act(() => {
       getByText("Content3").click();
     });
-    expect(onChange).toBeCalledTimes(1);
+    expect(onSelect).toBeCalledTimes(1);
     expect(queryByTestingText(selectTrigger, "Content3")).toBeNull();
   });
 
