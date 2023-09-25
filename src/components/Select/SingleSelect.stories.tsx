@@ -17,7 +17,7 @@ const SelectExample = ({ clickableNoData, childrenType, value, ...props }: Props
     return (
       <Select
         value={selectedValue}
-        onChange={value => setSelectedValue(value)}
+        onSelect={value => setSelectedValue(value)}
         onCreateOption={
           clickableNoData ? search => console.log("Clicked ", search) : undefined
         }
