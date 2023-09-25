@@ -6,11 +6,11 @@ import LogosLight from '../Logos/LogosLight'
 import { Meta, IconGallery, IconItem, Story } from "@storybook/blocks";
 import { ThemeProvider } from "../../theme";
 
-<Meta title='Display/Icon/Icons' />
+<Meta title='Display/Icon/Icon Gallery' />
 
 # Glyphs
-
-<ThemeProvider theme='light'>
+<br />
+<ThemeProvider theme='dark'>
   <IconGallery>
     {Object.keys(ICONS_MAP).map((iconName) => (
       <IconItem name={iconName} key={iconName}>
@@ -21,7 +21,7 @@ import { ThemeProvider } from "../../theme";
 </ThemeProvider>
 
 # Flags
-
+<br />
 <IconGallery>
   {Object.keys(FlagList).map((iconName) => (
     <IconItem name={iconName} key={iconName}>
@@ -31,7 +31,7 @@ import { ThemeProvider } from "../../theme";
 </IconGallery>
 
 # Payments
-
+<br />
 <IconGallery>
   {(Object.keys(PaymentList)).map((iconName) => (
     <IconItem name={iconName} key={iconName}>
@@ -41,8 +41,8 @@ import { ThemeProvider } from "../../theme";
 </IconGallery>
 
 # Logo
-
-<ThemeProvider theme='light'>
+<br />
+<ThemeProvider theme='dark'>
   <IconGallery>
     {(Object.keys(LogosLight)).map((iconName) => (
       <IconItem name={iconName} key={iconName}>
