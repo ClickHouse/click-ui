@@ -833,15 +833,7 @@
               "default": {
                 "value": "{click.button.basic.color.primary.background.default}",
                 "type": "color",
-                "$extensions": {
-                  "studio.tokens": {
-                    "modify": {
-                      "type": "darken",
-                      "value": "0.085",
-                      "space": "lch"
-                    }
-                  }
-                }
+                "$extensions": {}
               },
               "hover": {
                 "value": "{click.button.basic.color.primary.background.hover}",

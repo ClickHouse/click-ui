@@ -489,7 +489,7 @@
           "background": {
             "main": {
               "default": {
-                "value": "{click.button.basic.color.primary.background.default}",
+                "value": "#FFC029",
                 "type": "color",
                 "$extensions": {}
               },

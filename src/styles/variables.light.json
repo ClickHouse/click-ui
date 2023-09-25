@@ -253,7 +253,7 @@
         "primary": {
           "background": {
             "main": {
-              "default": "lch(17.6 2.54 306)",
+              "default": "#302e32",
               "hover": "lch(27 3.82 267)",
               "active": "lch(5.87 1.22 305)",
               "disabled": "lch(81.3 0 0)"
@@ -287,8 +287,8 @@
         "secondary": {
           "divide": {
             "default": "lch(92 1.05 266)",
-            "hover": "lch(33 3.27 267)",
-            "active": "lch(16.4 2.36 306)",
+            "hover": "lch(92.4 0.99 266)",
+            "active": "lch(83.8 2.3 258)",
             "disabled": "lch(75.5 0 0)"
           },
           "background": {
