@@ -10,19 +10,13 @@ const Play = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      stroke="#161517"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M10.336 3.156a8.99 8.99 0 0 0-5.224 3.05M3.49 9.08a8.874 8.874 0 0 0 .049 5.973M5.209 17.9a8.982 8.982 0 0 0 5.128 2.944M13.638 3.152a8.997 8.997 0 0 1 0 17.696"
-    />
-    <path
-      stroke="#161517"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="m10.941 9.057 3.884 2.297a.75.75 0 0 1 0 1.292l-3.884 2.297a.75.75 0 0 1-1.132-.647V9.703a.75.75 0 0 1 1.132-.646v0Z"
+      fillRule="evenodd"
       clipRule="evenodd"
+      d="M8.15482 3.30857L18.9737 10.0927C19.6098 10.4914 20 11.2166 20 12C20 12.7834 19.6098 13.5086 18.9737 13.9073L8.15482 20.6914C7.50841 21.0966 6.70669 21.1032 6.05448 20.7086C5.40227 20.314 4.99976 19.5788 5 18.7827V5.21734C4.99976 4.42118 5.40227 3.68604 6.05448 3.29143C6.70669 2.89682 7.50841 2.90336 8.15482 3.30857V3.30857Z"
+      stroke="#161517"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

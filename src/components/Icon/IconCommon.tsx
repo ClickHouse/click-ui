@@ -68,6 +68,7 @@ import Payment from "@/components/icons/Payment";
 import Pencil from "@/components/icons/Pencil";
 import PieChart from "@/components/icons/PieChart";
 import Play from "@/components/icons/Play";
+import PlayInCircle from "@/components/icons/PlayInCircle";
 import Plus from "@/components/icons/Plus";
 import Popout from "@/components/icons/Popout";
 import Question from "@/components/icons/Question";
@@ -171,6 +172,7 @@ export const ICONS_MAP = {
   pencil: Pencil,
   "pie-chart": PieChart,
   play: Play,
+  "play-in-circle": PlayInCircle,
   plus: Plus,
   popout: Popout,
   query: Query,
