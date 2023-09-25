@@ -56,7 +56,7 @@ type SelectChildrenType = {
   options?: never;
 };
 
-interface SelectProps
+interface InternalSelectProps
   extends PopoverProps,
     Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
   label?: ReactNode;
@@ -81,7 +81,7 @@ interface SelectProps
 
 export type SelectOptionProp = SelectOptionType | SelectChildrenType;
 
-export type SelectContainerProps = SelectOptionProp & SelectProps;
+export type SelectContainerProps = SelectOptionProp & InternalSelectProps;
 
 export type SelectItemObject = {
   disabled?: boolean;

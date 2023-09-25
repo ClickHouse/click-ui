@@ -389,6 +389,10 @@ export const InternalSelect = ({
               onCloseAutoFocus={() => {
                 onUpdateSearch("");
               }}
+              onOpenAutoFocus={() => {
+                setHighlighted(visibleList.current[0]);
+              }}
+              align="start"
             >
               <SelectList>
                 <SearchBarContainer $showSearch={showSearch}>
