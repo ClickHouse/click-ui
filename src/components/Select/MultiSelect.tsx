@@ -9,7 +9,7 @@ export interface MultiSelectProps
     "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
   > {
   defaultValue?: Array<string>;
-  onChange?: (value: Array<string>) => void;
+  onSelect?: (value: Array<string>) => void;
   value?: Array<string>;
   defaultOpen?: boolean;
 }
@@ -17,7 +17,7 @@ export interface MultiSelectProps
 export const MultiSelect = ({
   value: valueProp,
   defaultValue,
-  onChange: onChangeProp,
+  onSelect: onSelectProp,
   options,
   children,
   ...props
@@ -34,28 +34,25 @@ export const MultiSelect = ({
   const onChange = useCallback(
     (values: Array<string>) => {
       setSelectedValues(values);
-      if (typeof onChangeProp === "function") {
-        onChangeProp(values);
+      if (typeof onSelectProp === "function") {
+        onSelectProp(values);
       }
     },
-    [onChangeProp]
+    [onSelectProp]
   );
 
   const onSelect = useCallback(
     (value: string) => {
-      setSelectedValues(values => {
-        let newValues = [];
-        if (values.includes(value)) {
-          newValues = values.filter(currentValue => currentValue !== value);
-        } else {
-          newValues = [...values, value];
-        }
+      let newValues = [];
+      if (selectedValues.includes(value)) {
+        newValues = selectedValues.filter(currentValue => currentValue !== value);
+      } else {
+        newValues = [...selectedValues, value];
+      }
 
-        onChange(newValues);
-        return newValues;
-      });
+      onChange(newValues);
     },
-    [onChange]
+    [onChange, selectedValues]
   );
 
   const conditionalProps: Partial<SelectOptionProp> = {};

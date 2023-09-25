@@ -28,7 +28,7 @@ const MultiSelectExample = ({
           clickableNoData ? search => console.log("Clicked ", search) : undefined
         }
         options={selectOptions}
-        onChange={value => setSelectedValues(value)}
+        onSelect={value => setSelectedValues(value)}
         {...props}
       />
     );

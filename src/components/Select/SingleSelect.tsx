@@ -8,7 +8,7 @@ export interface SelectProps
     "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
   > {
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onSelect?: (value: string) => void;
   value?: string;
   placeholder?: string;
 }
@@ -16,7 +16,7 @@ export interface SelectProps
 export const Select = ({
   value: valueProp,
   defaultValue,
-  onChange: onChangeProp,
+  onSelect: onSelectProp,
   options,
   children,
   ...props
@@ -30,23 +30,6 @@ export const Select = ({
     setOpen(open);
   }, []);
 
-  const onChange = useCallback(
-    (values: Array<string>) => {
-      if (values[0] !== selectedValues[0]) {
-        setSelectedValues(values);
-        if (typeof onChangeProp === "function") {
-          onChangeProp(values[0]);
-        }
-        onOpenChange(false);
-      }
-    },
-    [onChangeProp, onOpenChange, selectedValues]
-  );
-
-  useEffect(() => {
-    setSelectedValues(valueProp ? [valueProp] : []);
-  }, [valueProp]);
-
   const onSelect = useCallback(
     (value: string) => {
       setSelectedValues(values => {
@@ -56,12 +39,25 @@ export const Select = ({
         return values;
       });
       onOpenChange(false);
-      if (typeof onChangeProp === "function") {
-        onChangeProp(value);
+      if (typeof onSelectProp === "function") {
+        onSelectProp(value);
       }
     },
-    [onChangeProp, onOpenChange]
+    [onSelectProp, onOpenChange]
   );
+
+  const onChange = useCallback(
+    (values: Array<string>) => {
+      if (values[0] !== selectedValues[0]) {
+        onSelect(values[0]);
+      }
+    },
+    [selectedValues, onSelect]
+  );
+
+  useEffect(() => {
+    setSelectedValues(valueProp ? [valueProp] : []);
+  }, [valueProp]);
 
   const conditionalProps: Partial<SelectOptionProp> = {};
   if (options) {
