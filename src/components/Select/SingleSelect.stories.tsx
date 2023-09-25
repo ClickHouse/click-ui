@@ -102,7 +102,11 @@ export const Playground: Preview = {
                 : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
             )
             .join("\n")}
-${childrenType === "options" ? "/" : ""}>
+${
+  childrenType === "options"
+    ? `options={${JSON.stringify(selectOptions, null, 2)}}\n/`
+    : ""
+}>
 ${
   childrenType !== "options"
     ? `

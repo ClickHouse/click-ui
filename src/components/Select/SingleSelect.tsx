@@ -26,8 +26,8 @@ export const Select = ({
   );
   const [open, setOpen] = useState(false);
 
-  const onOpenChange = useCallback((newOpen?: boolean) => {
-    setOpen(open => newOpen ?? !open);
+  const onOpenChange = useCallback((open: boolean) => {
+    setOpen(open);
   }, []);
 
   const onChange = useCallback(

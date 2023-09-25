@@ -70,7 +70,7 @@ interface InternalSelectProps
   showCheck?: boolean;
   onChange: (selectedValues: Array<string>) => void;
   open: boolean;
-  onOpenChange: (open?: boolean) => void;
+  onOpenChange: (open: boolean) => void;
   value: Array<string>;
   sortable?: boolean;
   onSelect: (value: string) => void;

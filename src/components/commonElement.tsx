@@ -8,7 +8,7 @@ export const FormRoot = styled.div<{
   display: flex;
   width: 100%;
   gap: ${({ theme }) => theme.click.field.space.gap};
-  ${({ $orientation = "vertical", $dir = "start" }) => `
+  ${({ theme, $orientation = "vertical", $dir = "start" }) => `
     flex-direction: ${
       $orientation === "horizontal"
         ? $dir === "start"
@@ -18,7 +18,13 @@ export const FormRoot = styled.div<{
         ? "column-reverse"
         : "column"
     };
-    align-items: ${$orientation === "vertical" ? "flex-start" : "center"};
+    align-items: flex-start;
+    label {
+      padding-top: ${
+        $orientation === "horizontal" ? `calc(${theme.click.field.space.y} + 1px)` : 0
+      };
+      ${$orientation === "horizontal" ? "line-height: 1lh;" : ""}
+    }
   `}
   * {
     box-shadow: none;

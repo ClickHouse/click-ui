@@ -91,13 +91,12 @@ export const MultiSelectValue = ({
           } as DismissibleBadge;
         }
         return (
-          <div key={`multi-select-${id}-${value}`}>
-            <Badge
-              size="sm"
-              state={disabled ? "disabled" : "default"}
-              {...otherProps}
-            />
-          </div>
+          <Badge
+            key={`multi-select-${id}-${value}`}
+            size="sm"
+            state={disabled ? "disabled" : "default"}
+            {...otherProps}
+          />
         );
       })}
     </BadgeList>

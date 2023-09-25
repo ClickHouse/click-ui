@@ -26,12 +26,6 @@ export const MultiSelect = ({
     valueProp ?? defaultValue ?? []
   );
   const [open, setOpen] = useState(false);
-  const onOpenChange = useCallback(
-    (newOpen?: boolean) => {
-      setOpen(newOpen ?? !open);
-    },
-    [open]
-  );
 
   useEffect(() => {
     setSelectedValues(valueProp ?? []);
@@ -76,7 +70,7 @@ export const MultiSelect = ({
       onChange={onChange}
       value={valueProp ?? selectedValues}
       open={open}
-      onOpenChange={onOpenChange}
+      onOpenChange={setOpen}
       onSelect={onSelect}
       multiple
       {...conditionalProps}
