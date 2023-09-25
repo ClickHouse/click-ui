@@ -2,6 +2,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 const config: StorybookConfig = {
   stories: [
     "../src/Introduction.mdx", 
+    "../src/components/icons/Icons.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
