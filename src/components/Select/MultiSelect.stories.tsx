@@ -69,8 +69,6 @@ export default {
     error: { control: "text" },
     value: { control: "text" },
     defaultValue: { control: "text" },
-    open: { control: "inline-radio", options: [undefined, true, false] },
-    defaultOpen: { control: "boolean" },
     name: { control: "text" },
     required: { control: "boolean" },
     showSearch: { control: "boolean" },
