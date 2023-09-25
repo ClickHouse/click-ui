@@ -28,6 +28,8 @@ import { SidebarCollapsibleItemProps } from "./SidebarCollapsibleItem/SidebarCol
 import { SidebarCollapsibleTitleProps } from "./SidebarCollapsibleTitle/SidebarCollapsibleTitle";
 export type { Menu, SplitButtonProps } from "./SplitButton/SplitButton";
 export type { ToastProps } from "./Toast/Toast";
+export type { SelectOptionListItem } from "./Select/common/types";
+export type { MultiSelectProps } from "./Select/MultiSelect";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
