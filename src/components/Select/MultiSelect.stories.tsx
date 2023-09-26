@@ -1,4 +1,3 @@
-import { Icon } from "@/components";
 import { MultiSelect, MultiSelectProps } from "./MultiSelect";
 import { selectOptions } from "./selectOptions";
 import { useEffect, useState } from "react";
@@ -42,8 +41,10 @@ const MultiSelectExample = ({
       {...props}
     >
       <MultiSelect.Group heading="Group label">
-        <MultiSelect.Item value="content0">
-          <Icon name="user" />
+        <MultiSelect.Item
+          value="content0"
+          icon="user"
+        >
           Content0
         </MultiSelect.Item>
       </MultiSelect.Group>

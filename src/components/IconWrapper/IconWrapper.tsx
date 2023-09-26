@@ -2,9 +2,9 @@ import { ReactNode } from "react";
 import { HorizontalDirection, Icon, IconName } from "@/components";
 import { IconSize } from "@/components/Icon/types";
 import styled from "styled-components";
-import { EllipsisContainer } from "../commonElement";
+import { EllipsisContent } from "../EllipsisContent/EllipsisContent";
 
-const LabelContainer = styled.span`
+const LabelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -40,7 +40,7 @@ const IconWrapper = ({
           height={height}
         />
       )}
-      <EllipsisContainer>{children}</EllipsisContainer>
+      <EllipsisContent>{children}</EllipsisContent>
       {icon && iconDir === "end" && (
         <Icon
           name={icon}
