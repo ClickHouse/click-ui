@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
-import { MouseEvent, MouseEventHandler, ReactNode } from "react";
+import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 
-export interface CardPrimaryProps {
+export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   icon: IconName;
   hasShadow?: boolean;
