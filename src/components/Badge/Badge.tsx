@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { Icon } from "@/components";
+import { HorizontalDirection, Icon, IconName } from "@/components";
+import { HTMLAttributes, MouseEvent, ReactNode } from "react";
+import { EllipsisContainer } from "../commonElement";
 export type BadgeState =
   | "default"
   | "success"
@@ -11,24 +13,26 @@ export type BadgeState =
 
 export type BadgeSize = "sm" | "md";
 
-export interface BadgeProps {
-  text: string;
+export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
+  text: ReactNode;
   state?: BadgeState;
   size?: BadgeSize;
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
 }
 
-export interface DismissibleBadge extends BadgeProps {
+export interface DismissibleBadge extends CommonBadgeProps {
   dismissible: true;
-  onClose: () => void;
+  onClose: (e: MouseEvent<HTMLOrSVGElement>) => void;
 }
 
-export interface NonDismissibleBadge extends BadgeProps {
+export interface NonDismissibleBadge extends CommonBadgeProps {
   dismissible?: never;
   onClose?: never;
 }
 
 const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
-  display: inline-block;
+  display: inline-flex;
   ${({ $state = "default", $size = "md", theme }) => `
     background-color: ${theme.click.badge.color.background[$state]};
     color: ${theme.click.badge.color.text[$state]};
@@ -45,29 +49,65 @@ const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
   gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
 `;
 
-const CrossContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
+const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
   ${({ $state = "default", $size = "md", theme }) => `
     color: ${theme.click.badge.color.text[$state]};
     height: ${theme.click.badge.icon[$size].size.height};
     width: ${theme.click.badge.icon[$size].size.width};
   `}
 `;
+const BadgeContent = styled(EllipsisContainer)<{
+  $state?: BadgeState;
+  $size?: BadgeSize;
+}>`
+  svg {
+    ${({ $state = "default", $size = "md", theme }) => `
+    color: ${theme.click.badge.color.text[$state]};
+    height: ${theme.click.badge.icon[$size].size.height};
+    width: ${theme.click.badge.icon[$size].size.width};
+    gap: inherit;
+  `}
+  }
+`;
+
+export type BadgeProps = NonDismissibleBadge | DismissibleBadge;
 
 export const Badge = ({
+  icon,
+  iconDir,
   text,
   state = "default",
   size,
   dismissible,
   onClose,
-}: NonDismissibleBadge | DismissibleBadge) => (
+  ...props
+}: BadgeProps) => (
   <Wrapper
     $state={state}
     $size={size}
+    {...props}
   >
     <Content>
-      {text}
+      {icon && iconDir === "start" && (
+        <SvgContainer
+          as={Icon}
+          name={icon}
+          $state={state}
+          $size={size}
+        />
+      )}
+      <BadgeContent>{text}</BadgeContent>
+      {icon && iconDir === "end" && (
+        <SvgContainer
+          as={Icon}
+          name={icon}
+          $state={state}
+          $size={size}
+        />
+      )}
+
       {dismissible && (
-        <CrossContainer
+        <SvgContainer
           name="cross"
           $state={state}
           as={Icon}
