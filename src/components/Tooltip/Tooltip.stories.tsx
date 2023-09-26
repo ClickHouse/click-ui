@@ -16,9 +16,7 @@ const TooltipExample = ({ showArrow, side, ...props }: Props) => {
       }}
     >
       <Tooltip {...props}>
-        <Tooltip.Trigger>
-          <div>Tooltip Trigger(Hover)</div>
-        </Tooltip.Trigger>
+        <Tooltip.Trigger>Tooltip Trigger(Hover)</Tooltip.Trigger>
         <Tooltip.Content
           showArrow={showArrow}
           side={side}
