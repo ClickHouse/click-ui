@@ -77,6 +77,7 @@ export type IconName =
   | "pencil"
   | "pie-chart"
   | "play"
+  | "play-in-circle"
   | "plus"
   | "popout"
   | "query"
