@@ -8,9 +8,7 @@ describe("Tooltip", () => {
   const renderTooltip = (props: TooltipProps) =>
     renderCUI(
       <Tooltip {...props}>
-        <Tooltip.Trigger>
-          <div>Hover Here</div>
-        </Tooltip.Trigger>
+        <Tooltip.Trigger>Hover Here</Tooltip.Trigger>
         <Tooltip.Content data-testid="tooltip-content">Tooltip content</Tooltip.Content>
       </Tooltip>
     );
