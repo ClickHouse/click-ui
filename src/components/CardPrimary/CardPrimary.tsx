@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
-import { ReactNode } from "react";
+import { MouseEvent, MouseEventHandler, ReactNode } from "react";
 
 export interface CardPrimaryProps {
   title: string;
@@ -13,6 +13,7 @@ export interface CardPrimaryProps {
   infoUrl?: string;
   infoText?: string;
   size?: "sm" | "md";
+  onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Wrapper = styled.div<{
@@ -109,19 +110,25 @@ export const CardPrimary = ({
   infoText,
   size,
   disabled = false,
+  onButtonClick,
+  ...props
 }: CardPrimaryProps) => {
-  const handleClick = () => {
-    if (infoUrl) {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    if (typeof onButtonClick === "function") {
+      onButtonClick(e);
+    }
+    if (infoUrl && infoUrl.length > 0) {
       window.open(infoUrl, "_blank");
     }
   };
 
-  const Component = !infoUrl || infoUrl.length === 0 ? "div" : Button;
+  const Component = !!infoUrl || typeof onButtonClick === "function" ? Button : "div";
   return (
     <Wrapper
       $hasShadow={hasShadow}
       $size={size}
       $disabled={disabled}
+      {...props}
     >
       <Header
         $size={size}
