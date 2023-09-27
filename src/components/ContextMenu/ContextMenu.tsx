@@ -1,35 +1,52 @@
 import * as RightMenu from "@radix-ui/react-context-menu";
 import styled from "styled-components";
-import { Icon } from "@/components";
+import { HorizontalDirection, Icon, IconName } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
+import IconWrapper from "../IconWrapper/IconWrapper";
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
 
-const ContextMenuTrigger = (props: RightMenu.ContextMenuTriggerProps) => {
+const ContextMenuTrigger = ({
+  disabled,
+  ...props
+}: RightMenu.ContextMenuTriggerProps) => {
   return (
     <RightMenu.Trigger
       asChild
-      {...props}
-    />
+      disabled={disabled}
+    >
+      <div {...props} />
+    </RightMenu.Trigger>
   );
 };
 
 ContextMenuTrigger.displayName = "ContextMenuTrigger";
 ContextMenu.Trigger = ContextMenuTrigger;
 
+interface ContextMenuSubTriggerProps extends RightMenu.ContextMenuSubTriggerProps {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+}
 const ContextMenuSubTrigger = ({
+  icon,
+  iconDir,
   children,
   ...props
-}: RightMenu.ContextMenuSubTriggerProps) => {
+}: ContextMenuSubTriggerProps) => {
   return (
     <GenericMenuItem
       as={RightMenu.SubTrigger}
       {...props}
     >
-      {children}
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+      >
+        {children}
+      </IconWrapper>
       <div className="dropdown-arrow">
         <Icon name="chevron-right" />
       </div>
@@ -139,13 +156,24 @@ const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
 
 ContextMenuSub.displayName = "ContextMenuSub";
 ContextMenu.Sub = ContextMenuSub;
+interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+}
 
-const ContextMenuItem = ({ ...props }: RightMenu.ContextMenuItemProps) => {
+const ContextMenuItem = ({ icon, iconDir, children, ...props }: ContextMenuItemProps) => {
   return (
     <GenericMenuItem
       as={RightMenu.Item}
       {...props}
-    />
+    >
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+      >
+        {children}
+      </IconWrapper>
+    </GenericMenuItem>
   );
 };
 
