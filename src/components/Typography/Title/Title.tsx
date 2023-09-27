@@ -14,12 +14,13 @@ export interface TitleProps {
 }
 
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
-export const Title = ({ size, family, type, color, children }: TitleProps) => (
+export const Title = ({ size, family, type, color, children, ...props }: TitleProps) => (
   <CuiTitle
     $color={color}
     $size={size}
     $family={family}
     as={type}
+    {...props}
   >
     {children}
   </CuiTitle>
