@@ -31,7 +31,7 @@ const ContextMenuExample = ({ showArrow, disabled, side, ...props }: Props) => {
           <ContextMenu.Group>
             <ContextMenu.Item>Content0</ContextMenu.Item>
           </ContextMenu.Group>
-          <ContextMenu.Item>Content1 long text content</ContextMenu.Item>
+          <ContextMenu.Item icon="activity">Content1 long text content</ContextMenu.Item>
           <ContextMenu.Sub>
             <ContextMenu.SubTrigger>Hover over</ContextMenu.SubTrigger>
             <ContextMenu.Content sub>
@@ -47,7 +47,12 @@ const ContextMenuExample = ({ showArrow, disabled, side, ...props }: Props) => {
               <ContextMenu.Item>SubContent1</ContextMenu.Item>
             </ContextMenu.Content>
           </ContextMenu.Sub>
-          <ContextMenu.Item>Content2</ContextMenu.Item>
+          <ContextMenu.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Content2
+          </ContextMenu.Item>
           <ContextMenu.Item disabled>Content3</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu>

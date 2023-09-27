@@ -1,8 +1,9 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styled from "styled-components";
-import { Icon } from "@/components";
+import { HorizontalDirection, Icon, IconName } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
+import IconWrapper from "../IconWrapper/IconWrapper";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -10,6 +11,7 @@ export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
 
 const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
+  display: flex;
   &:hover .dropdown-arrow,
   &[data-state="open"] .dropdown-arrow {
     position: relative;
@@ -19,6 +21,8 @@ const DropdownMenuItem = styled(GenericMenuItem)`
 
 interface SubDropdownProps {
   sub?: true;
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
 }
 
 interface MainDropdownProps {
@@ -34,25 +38,23 @@ const Trigger = styled(DropdownMenu.Trigger)`
   width: fit-content;
 `;
 
-const DropdownSubTriggerContent = styled.span`
-  display: flex;
-  font: inherit;
-  gap: inherit;
-  color: inherit;
-  width: inherit;
-`;
 const DropdownTrigger = ({
   sub,
   ...props
 }: DropdownSubTriggerProps | DropdownTriggerProps) => {
   if (sub) {
-    const { children, ...menuProps } = props as DropdownSubTriggerProps;
+    const { children, icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
     return (
       <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
         {...menuProps}
       >
-        <DropdownSubTriggerContent>{children}</DropdownSubTriggerContent>
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+        >
+          {children}
+        </IconWrapper>
         <div className="dropdown-arrow">
           <Icon name="chevron-right" />
         </div>
@@ -144,12 +146,23 @@ const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = "DropdownSub";
 Dropdown.Sub = DropdownSub;
 
-const DropdownItem = (props: DropdownMenu.DropdownMenuItemProps) => {
+interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+}
+const DropdownItem = ({ icon, iconDir, children, ...props }: DropdownItemProps) => {
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
       {...props}
-    />
+    >
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+      >
+        {children}
+      </IconWrapper>
+    </DropdownMenuItem>
   );
 };
 
