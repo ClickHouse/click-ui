@@ -21,7 +21,7 @@ const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
           <Dropdown.Group>
             <Dropdown.Item>Content0</Dropdown.Item>
           </Dropdown.Group>
-          <Dropdown.Item>Content1 long text content</Dropdown.Item>
+          <Dropdown.Item icon="activity">Content1 long text content</Dropdown.Item>
           <Dropdown.Sub>
             <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>
             <Dropdown.Content sub>
@@ -37,7 +37,12 @@ const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
               <Dropdown.Item>SubContent1</Dropdown.Item>
             </Dropdown.Content>
           </Dropdown.Sub>
-          <Dropdown.Item>Content2</Dropdown.Item>
+          <Dropdown.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Content2
+          </Dropdown.Item>
           <Dropdown.Item disabled>Content3</Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
