@@ -11,6 +11,10 @@ export default {
       options: ["none", "xs", "sm", "md", "lg", "xl"],
       control: { type: "select" },
     },
+    orientation: {
+      options: ["vertical", "horizontal"],
+      control: { type: "inline-radio" },
+    },
   },
 };
 
@@ -21,16 +25,15 @@ export const Playground = {
     hasBorder: true,
     hasShadow: true,
     children: (
-      <div>
+      <>
         <Title type="h3">Example panel title</Title>
-        <br />
         <Text
           size="md"
           color="default"
         >
           Panel content
         </Text>
-      </div>
+      </>
     ),
   },
 };
