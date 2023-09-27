@@ -12,17 +12,23 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 
-export const Panel = ({ hasBorder, hasShadow, color, padding, children }: PanelProps) => (
-  <FlexContainer>
-    <Wrapper
-      $hasBorder={hasBorder}
-      $hasShadow={hasShadow}
-      $color={color}
-      $padding={padding}
-    >
-      {children}
-    </Wrapper>
-  </FlexContainer>
+export const Panel = ({
+  hasBorder,
+  hasShadow,
+  color,
+  padding,
+  children,
+  ...props
+}: PanelProps) => (
+  <Wrapper
+    $hasBorder={hasBorder}
+    $hasShadow={hasShadow}
+    $color={color}
+    $padding={padding}
+    {...props}
+  >
+    {children}
+  </Wrapper>
 );
 
 const Wrapper = styled.div<{
@@ -39,8 +45,5 @@ const Wrapper = styled.div<{
     $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
   display: flex;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
+  gap: 0.625rem;
 `;
