@@ -31,5 +31,43 @@ describe("CardPrimary Component", () => {
 
       expect(screen.getByText(description)).toBeDefined();
     });
+    it("should render button when the infoUrl is provided", () => {
+      const description = "This is the card description";
+      const { queryByRole } = renderCard({
+        icon: "warning",
+        title: "",
+        description,
+        infoUrl: "test",
+        infoText: "test",
+      });
+
+      expect(queryByRole("button")).not.toBeNull();
+    });
+    it("should not render button when the infoUrl is provided and length is 0", () => {
+      const description = "This is the card description";
+      const { queryByRole } = renderCard({
+        icon: "warning",
+        title: "",
+        description,
+        infoUrl: "",
+        infoText: "",
+      });
+
+      expect(queryByRole("button")).toBeNull();
+    });
+
+    it("should render button when onButtonClick is provided", () => {
+      const description = "This is the card description";
+      const { queryByRole } = renderCard({
+        icon: "warning",
+        title: "",
+        description,
+        onButtonClick: () => null,
+        infoText: "test1",
+      });
+
+      screen.debug();
+      expect(queryByRole("button")).not.toBeNull();
+    });
   });
 });
