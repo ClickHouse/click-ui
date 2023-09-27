@@ -13,12 +13,13 @@ export interface TextProps {
 }
 
 /** Component for writing blocks of body copy */
-const _Text = ({ color, size, weight, className, children }: TextProps) => (
+const _Text = ({ color, size, weight, className, children, ...props }: TextProps) => (
   <CuiText
     $color={color}
     $size={size}
     $weight={weight}
     className={className}
+    {...props}
   >
     {children}
   </CuiText>
