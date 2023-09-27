@@ -35,11 +35,13 @@ import Superset from "./Superset";
 import Tableau from "./TableauLight";
 import Vector from "./Vector";
 import { LogoName } from "./types";
+import AWSMsk from "./AWSMsk";
 
 const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
   clickhouse: Clickhouse,
   "aws-s3": AwsS3,
   "aws-redshift": AWSRedshift,
+  "aws-msk": AWSMsk,
   kakfa: Kafka,
   fivetran: Fivetran,
   confluent: Confluent,
