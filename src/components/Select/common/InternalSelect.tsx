@@ -463,7 +463,7 @@ export const InternalSelect = ({
             </SelectPopoverContent>
           </Portal>
         </SelectPopoverRoot>
-        {!!error && <Error>{error}</Error>}
+        {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
         <Label

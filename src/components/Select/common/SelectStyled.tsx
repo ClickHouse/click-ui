@@ -152,7 +152,7 @@ export const SelectList = styled.div`
   display: flex;
   flex-direction: column;
   width: inherit;
-  max-height: var(--radix-popover-content-available-height);
+  max-height: calc(var(--radix-popover-content-available-height) - 1rem);
 `;
 export const SelectListContent = styled.div`
   width: inherit;
