@@ -47,6 +47,7 @@ const HeaderLeft = styled.div<{ $disabled?: boolean }>`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 const InfoLink = styled.a`

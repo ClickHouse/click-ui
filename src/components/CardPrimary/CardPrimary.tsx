@@ -99,6 +99,17 @@ const Content = styled.div<{ $size?: "sm" | "md" }>`
   flex-direction: column;
   align-self: center;
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
+  flex: 1;
+`;
+
+const ContentContainer = styled.div<{ $size?: "sm" | "md" }>`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
 `;
 
 export const CardPrimary = ({
@@ -141,20 +152,22 @@ export const CardPrimary = ({
         <Title type="h3">{title}</Title>
       </Header>
 
-      <Content $size={size}>
-        <Text color="muted">{description}</Text>
-      </Content>
+      <ContentContainer>
+        <Content $size={size}>
+          <Text color="muted">{description}</Text>
+        </Content>
 
-      {size == "sm" && <Spacer size="sm" />}
+        {size == "sm" && <Spacer size="sm" />}
 
-      {infoText && (
-        <Component
-          onClick={handleClick}
-          disabled={disabled}
-        >
-          {infoText}
-        </Component>
-      )}
+        {infoText && (
+          <Component
+            onClick={handleClick}
+            disabled={disabled}
+          >
+            {infoText}
+          </Component>
+        )}
+      </ContentContainer>
     </Wrapper>
   );
 };
