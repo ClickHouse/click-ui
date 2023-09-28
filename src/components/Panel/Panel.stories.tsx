@@ -11,10 +11,6 @@ export default {
       options: ["none", "xs", "sm", "md", "lg", "xl"],
       control: { type: "select" },
     },
-    orientation: {
-      options: ["vertical", "horizontal"],
-      control: { type: "inline-radio" },
-    },
   },
 };
 
