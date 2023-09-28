@@ -326,6 +326,7 @@ export const InternalSelect = ({
     <FormRoot
       $orientation={orientation}
       $dir={dir}
+      $addLabelPadding
       {...props}
     >
       <FormElementContainer>
