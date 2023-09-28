@@ -377,12 +377,12 @@
             "color": {
               "text": {
                 "default": "#696e79",
-                "hover": "#ffffff",
+                "hover": "#151515",
                 "active": "#161517"
               },
               "background": {
                 "default": "rgba(0,0,0,0)",
-                "hover": "lch(40.9 16.2 296)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
                 "active": "rgba(0,0,0,0)"
               }
             }
