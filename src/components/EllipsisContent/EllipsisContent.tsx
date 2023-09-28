@@ -23,7 +23,6 @@ export const EllipsisContent = forwardRef<HTMLElement, HTMLAttributes<HTMLSpanEl
         ref={mergeRefs([
           ref,
           node => {
-            console.log({ a: node?.scrollWidth, b: node?.clientWidth });
             if (node && node.scrollWidth > node.clientWidth) {
               node.title = node.innerText;
             }

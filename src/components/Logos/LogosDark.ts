@@ -42,7 +42,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   "aws-s3": AwsS3,
   "aws-redshift": AWSRedshift,
   "aws-msk": AWSMsk,
-  kakfa: Kafka,
+  kafka: Kafka,
   fivetran: Fivetran,
   confluent: Confluent,
   tableau: Tableau,

@@ -262,7 +262,7 @@
                   "type": "color"
                 },
                 "hover": {
-                  "value": "{click.sidebar.main.navigation.subItem.color.text.active}",
+                  "value": "{palette.neutral.900}",
                   "type": "color"
                 },
                 "active": {
@@ -276,8 +276,17 @@
                   "type": "color"
                 },
                 "hover": {
-                  "value": "{click.sidebar.main.navigation.item.color.background.hover}",
-                  "type": "color"
+                  "value": "{palette.slate.100}",
+                  "type": "color",
+                  "$extensions": {
+                    "studio.tokens": {
+                      "modify": {
+                        "type": "alpha",
+                        "value": "0.6",
+                        "space": "lch"
+                      }
+                    }
+                  }
                 },
                 "active": {
                   "value": "{palette.utility.transparent}",
@@ -490,18 +499,15 @@
             "main": {
               "default": {
                 "value": "#FFC029",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "hover": {
                 "value": "{click.button.basic.color.primary.background.hover}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "active": {
                 "value": "{click.button.basic.color.primary.background.active}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
@@ -722,23 +728,19 @@
             "main": {
               "default": {
                 "value": "{click.button.basic.color.secondary.background.default}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "hover": {
                 "value": "{click.button.basic.color.secondary.background.hover}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "active": {
                 "value": "{click.button.basic.color.secondary.background.active}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               }
             },
             "action": {

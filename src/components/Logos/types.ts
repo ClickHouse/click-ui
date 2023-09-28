@@ -3,7 +3,7 @@ export type LogoName =
   | "aws-s3"
   | "aws-redshift"
   | "aws-msk"
-  | "kakfa"
+  | "kafka"
   | "fivetran"
   | "confluent"
   | "tableau"
