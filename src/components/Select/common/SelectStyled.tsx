@@ -148,6 +148,11 @@ export const SearchClose = styled.button<{ $showClose: boolean }>`
   visibility: ${({ $showClose }) => ($showClose ? "visible" : "hidden")};
 `;
 
+/*
+  Added the max-height with calc as the content should always be fit inside SelectPopoverContent
+  SelectPopoverContent has hardcoded padding and thats why we are using 1 rem instead of tokens
+  This makes sure that the content is always visible with the scrolling
+*/
 export const SelectList = styled.div`
   display: flex;
   flex-direction: column;
