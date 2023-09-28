@@ -77,27 +77,26 @@ export interface WrapperProps {
 export const InputWrapper = ({
   id,
   label = "",
-  error = "",
+  error,
   disabled,
   children,
   orientation,
   dir,
 }: WrapperProps) => {
-  const showError = error ? typeof error === "string" && error.length !== 0 : false;
   return (
     <FormRoot
       $orientation={orientation}
       $dir={dir}
     >
       <FormElementContainer>
-        <Wrapper $error={showError}>{children}</Wrapper>
-        {showError && <Error>{error}</Error>}
+        <Wrapper $error={!!error}>{children}</Wrapper>
+        {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
         <Label
           htmlFor={id}
           disabled={disabled}
-          error={showError}
+          error={!!error}
         >
           {label}
         </Label>
