@@ -77,6 +77,9 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
       cursor: not-allowed;
     }
   `}
+  [data-hide-in-trigger] {
+    display: none;
+  }
 `;
 
 export const SelectPopoverContent = styled(Content)`
