@@ -753,8 +753,7 @@
             },
             "active": {
               "value": "{palette.neutral.700}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",
@@ -972,46 +971,38 @@
           "divide": {
             "default": {
               "value": "{click.button.split.secondary.stroke.default}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "hover": {
               "value": "{click.button.split.secondary.stroke.hover}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "active": {
               "value": "{click.button.split.secondary.stroke.active}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "disabled": {
               "value": "{click.button.basic.color.primary.stroke.disabled}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             }
           },
           "background": {
             "main": {
               "default": {
                 "value": "{click.button.basic.color.secondary.background.default}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "hover": {
                 "value": "{click.button.basic.color.secondary.background.hover}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "active": {
                 "value": "{click.button.basic.color.secondary.background.active}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               }
             },
             "action": {
@@ -1736,23 +1727,19 @@
           },
           "hover": {
             "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "active": {
             "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "disabled": {
             "value": "{click.field.color.text.disabled}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "error": {
             "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           }
         },
         "genericLabel": {
@@ -1843,23 +1830,19 @@
             },
             "hover": {
               "value": "{click.field.color.format.default}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "active": {
               "value": "{click.field.color.format.default}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "disabled": {
               "value": "{click.field.color.text.disabled}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "error": {
               "value": "{click.field.color.format.default}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             }
           },
           "stroke": {

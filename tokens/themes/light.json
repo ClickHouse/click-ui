@@ -691,8 +691,7 @@
               },
               "active": {
                 "value": "{palette.danger.200}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
@@ -742,8 +741,7 @@
             },
             "active": {
               "value": "{palette.neutral.0}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "panel": {
               "value": "{click.button.group.color.background.default}",
@@ -832,8 +830,7 @@
             "main": {
               "default": {
                 "value": "{click.button.basic.color.primary.background.default}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "hover": {
                 "value": "{click.button.basic.color.primary.background.hover}",
@@ -863,8 +860,7 @@
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               }
             },
             "action": {
@@ -980,8 +976,7 @@
             },
             "active": {
               "value": "{click.button.basic.color.secondary.stroke.active}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "disabled": {
               "value": "{click.button.basic.color.primary.stroke.disabled}",
@@ -1001,23 +996,19 @@
             "main": {
               "default": {
                 "value": "{click.button.basic.color.secondary.background.default}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "hover": {
                 "value": "{click.button.basic.color.secondary.background.hover}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "active": {
                 "value": "{click.button.basic.color.secondary.background.active}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               }
             },
             "action": {
@@ -2023,23 +2014,19 @@
           },
           "hover": {
             "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "active": {
             "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "disabled": {
             "value": "{click.field.color.text.disabled}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "error": {
             "value": "{click.field.color.format.default}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           }
         }
       }
@@ -2109,18 +2096,15 @@
             },
             "hover": {
               "value": "{click.field.color.format.default}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "active": {
               "value": "{click.field.color.format.default}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "disabled": {
               "value": "{click.field.color.text.disabled}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             }
           }
         }
