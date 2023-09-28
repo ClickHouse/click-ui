@@ -1,4 +1,6 @@
-import { Checkbox } from "..";
+import { Checkbox } from "../Checkbox/Checkbox";
+import { Spacer } from "../Spacer/Spacer";
+import { Text } from "../Typography/Text/Text";
 import { Title } from "../Typography/Title/Title";
 import { HoverCard } from "./HoverCard";
 
@@ -35,11 +37,10 @@ const HoverCardComponent = ({
       >
         Hover Title
       </Title>
-      <div>
-        Click on the input element below
-        <Checkbox />
-        <div>This is a sample data to experiment the popover</div>
-      </div>
+      <Spacer />
+      <Text>Click on the input element below.</Text>
+      <Spacer />
+      <Checkbox label="This is a sample data to experiment the popover" />
     </HoverCard.Content>
   </HoverCard>
 );
