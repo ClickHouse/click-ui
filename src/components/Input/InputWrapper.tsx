@@ -87,6 +87,7 @@ export const InputWrapper = ({
     <FormRoot
       $orientation={orientation}
       $dir={dir}
+      $addLabelPadding
     >
       <FormElementContainer>
         <Wrapper $error={!!error}>{children}</Wrapper>
