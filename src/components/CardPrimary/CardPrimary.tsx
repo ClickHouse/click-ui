@@ -99,6 +99,7 @@ const Content = styled.div<{ $size?: "sm" | "md" }>`
   flex-direction: column;
   align-self: center;
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
+  flex: 1;
 `;
 
 export const CardPrimary = ({
