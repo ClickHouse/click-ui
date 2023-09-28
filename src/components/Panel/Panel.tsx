@@ -19,7 +19,6 @@ export const Panel = ({
   color,
   padding,
   children,
-  orientation = "horizontal",
   ...props
 }: PanelProps) => (
   <Wrapper
@@ -27,7 +26,6 @@ export const Panel = ({
     $hasShadow={hasShadow}
     $color={color}
     $padding={padding}
-    $orientation={orientation}
     {...props}
   >
     {children}
@@ -39,7 +37,6 @@ const Wrapper = styled.div<{
   $hasShadow?: boolean;
   $color?: PanelColor;
   $padding?: PanelPadding;
-  $orientation: "horizontal" | "vertical";
 }>`
   background-color: ${({ $color = "default", theme }) =>
     theme.click.panel.color.background[$color]};
@@ -48,10 +45,5 @@ const Wrapper = styled.div<{
   border: ${({ $hasBorder, theme }) =>
     $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
-  display: flex;
-  flex-direction: ${({ $orientation }) =>
-    $orientation === "horizontal" ? "row" : "column"};
-  align-items: ${({ $orientation }) =>
-    $orientation === "horizontal" ? "center" : "flex-start"};
   gap: 0.625rem;
 `;
