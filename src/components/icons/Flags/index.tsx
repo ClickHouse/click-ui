@@ -11,21 +11,23 @@ import Australia from "./Australia";
 import SouthAfrica from "./SouthAfrica";
 import Brazil from "./Brazil";
 import Canada from "./Canada";
+import Sweden from "./Sweden";
 import { IconSize } from "@/components/Icon/types";
 import { SvgImageElement } from "@/components/commonElement";
 
 export type FlagName =
-  | "usa"
-  | "de"
-  | "sg"
-  | "uk"
-  | "ie"
-  | "eu"
-  | "in"
-  | "nl"
   | "au"
   | "br"
   | "ca"
+  | "de"
+  | "eu"
+  | "in"
+  | "nl"
+  | "ie"
+  | "sg"
+  | "sw"
+  | "usa"
+  | "uk"
   | "za";
 export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   name: FlagName;
@@ -33,18 +35,19 @@ export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
 }
 
 export const FlagList = {
-  usa: UnitedStates,
-  de: Germany,
-  sg: Singapore,
-  uk: UnitedKingdom,
-  ie: Ireland,
-  eu: EuropeanUnion,
-  in: India,
-  nl: Netherlands,
   au: Australia,
   br: Brazil,
   ca: Canada,
+  de: Germany,
+  eu: EuropeanUnion,
+  ie: Ireland,
+  in: India,
+  nl: Netherlands,
+  sg: Singapore,
   za: SouthAfrica,
+  sw: Sweden,
+  uk: UnitedKingdom,
+  usa: UnitedStates,
 };
 
 const Flags = ({ name, size, ...props }: FlagProps) => {
