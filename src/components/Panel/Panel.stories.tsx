@@ -25,6 +25,7 @@ export const Playground = {
     height: "",
     fillHeight: false,
     width: "50%",
+    alignItems: "start",
     children: (
       <>
         <Title type="h3">Example panel title</Title>

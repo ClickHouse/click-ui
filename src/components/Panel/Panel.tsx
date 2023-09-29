@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export type PanelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 export type PanelColor = "default" | "muted" | "transparent";
+type AlignItemsOption = "start" | "center" | "end";
 
 export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   hasBorder?: boolean;
@@ -16,6 +17,7 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   fillWidth?: boolean;
   height?: string;
   fillHeight?: boolean;
+  alignItems?: AlignItemsOption;
 }
 
 export const Panel = ({
@@ -29,6 +31,7 @@ export const Panel = ({
   fillWidth,
   height,
   fillHeight,
+  alignItems = "center",
   ...props
 }: PanelProps) => (
   <Wrapper
@@ -41,6 +44,7 @@ export const Panel = ({
     $fillWidth={fillWidth}
     $height={height}
     $fillHeight={fillHeight}
+    $alignItems={alignItems}
     {...props}
   >
     {children}
@@ -57,11 +61,13 @@ const Wrapper = styled.div<{
   $height?: string;
   $fillHeight?: boolean;
   $orientation?: Orientation;
+  $alignItems?: AlignItemsOption;
 }>`
   display: flex;
   flex-flow: ${({ $orientation = "horizontal" }) =>
     $orientation === "horizontal" ? "row wrap" : "column"};
-  align-items: flex-start;
+  align-items: ${({ $alignItems = "center" }) =>
+    $alignItems === "center" ? "center" : `flex-${$alignItems}`};
   width: ${({ $width, $fillWidth }) => ($fillWidth ? "100%" : $width)};
   height: ${({ $height, $fillHeight }) => ($fillHeight ? "100%" : $height)};
   background-color: ${({ $color = "default", theme }) =>
