@@ -34,7 +34,7 @@ export type { PanelProps } from "./Panel/Panel";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
-
+export type Orientation = "horizontal" | "vertical";
 export type { IconButtonProps };
 export type { AlertProps };
 export type { AvatarProps };
