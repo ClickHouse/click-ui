@@ -13,8 +13,42 @@ const DropdownExample = ({ showArrow, disabled, side, type, ...props }: Props) =
   return (
     <GridCenter>
       <Dropdown {...props}>
+        <Dropdown.Trigger disabled={disabled}>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          showArrow={showArrow}
+          side={side}
+        >
+          <Dropdown.Group>
+            <Dropdown.Item>Content0</Dropdown.Item>
+          </Dropdown.Group>
+          <Dropdown.Item icon="activity">Content1 long text content</Dropdown.Item>
+          <Dropdown.Sub>
+            <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+              <Dropdown.Item>SubContent1</Dropdown.Item>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+              <Dropdown.Item>SubContent1</Dropdown.Item>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+              <Dropdown.Item>SubContent1</Dropdown.Item>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+              <Dropdown.Item>SubContent1</Dropdown.Item>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+              <Dropdown.Item>SubContent1</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
+          <Dropdown.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Content2
+          </Dropdown.Item>
+          <Dropdown.Item disabled>Content3</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+      <Dropdown {...props}>
         <Dropdown.Trigger disabled={disabled}>
-          {type === "text" ? "Dropdown Trigger" : <Button>Dropdown Trigger</Button>}
+          <Button>Dropdown Trigger Button</Button>
         </Dropdown.Trigger>
         <Dropdown.Content
           showArrow={showArrow}
@@ -68,6 +102,5 @@ export default {
 export const Playground = {
   args: {
     side: "bottom",
-    type: "text",
   },
 };
