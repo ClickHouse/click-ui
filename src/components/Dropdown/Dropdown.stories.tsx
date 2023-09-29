@@ -9,7 +9,7 @@ interface Props extends DropdownMenuProps {
   side: "top" | "right" | "left" | "bottom";
   type: "text" | "button";
 }
-const DropdownExample = ({ showArrow, disabled, side, type, ...props }: Props) => {
+const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
   return (
     <GridCenter>
       <Dropdown {...props}>
