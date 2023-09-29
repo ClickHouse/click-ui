@@ -16,12 +16,17 @@ export default {
 
 export const Playground = {
   args: {
+    orientation: "vertical",
     color: "default",
     padding: "md",
     hasBorder: true,
     hasShadow: true,
+    fillWidth: false,
+    height: "",
+    fillHeight: false,
+    width: "50%",
     children: (
-      <>
+      <div>
         <Title type="h3">Example panel title</Title>
         <Text
           size="md"
@@ -29,7 +34,7 @@ export const Playground = {
         >
           Panel content
         </Text>
-      </>
+      </div>
     ),
   },
 };
