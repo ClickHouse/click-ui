@@ -1,15 +1,15 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Icon, IconName, Dropdown } from "@/components";
+import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
 import { BaseButton } from "../commonElement";
+import IconWrapper from "../IconWrapper/IconWrapper";
 
 type ButtonType = "primary" | "secondary";
-type IconDirection = "left" | "right";
 type Alignment = "center" | "left";
 type MenuItem = {
   icon?: IconName;
-  iconDir?: IconDirection;
+  iconDir?: HorizontalDirection;
   label: ReactNode;
   type?: "item";
   items?: never;
@@ -39,7 +39,7 @@ export interface SplitButtonProps
   menu: Array<Menu>;
   side?: "top" | "bottom";
   icon?: IconName;
-  iconDir?: IconDirection;
+  iconDir?: HorizontalDirection;
 }
 
 export const SplitButton = ({
@@ -56,7 +56,7 @@ export const SplitButton = ({
   align,
   children,
   icon,
-  iconDir = "left",
+  iconDir = "start",
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -103,8 +103,9 @@ export const SplitButton = ({
           <IconWrapper
             icon={icon}
             iconDir={iconDir}
-            label={children}
-          />
+          >
+            {children}
+          </IconWrapper>
         </PrimaryButton>
         <SecondaryButton
           as={Dropdown.Trigger}
@@ -142,32 +143,12 @@ const DropdownContent = styled.div<{ $width: number }>`
   min-width: ${({ $width }) => $width}px;
 `;
 
-const IconWrapper = ({ label, icon, iconDir }: Omit<MenuItem, "type" | "items">) => {
-  return (
-    <>
-      {icon && iconDir === "left" && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-      {label}
-      {icon && iconDir === "right" && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-    </>
-  );
-};
-
 const MenuContentItem = ({
   items = [],
   type = "item",
   label,
   icon,
-  iconDir = "left",
+  iconDir = "start",
   parentKey,
   ...props
 }: Menu & { parentKey: string }) => {
@@ -177,8 +158,9 @@ const MenuContentItem = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
-          label={label}
-        />
+        >
+          {label}
+        </IconWrapper>
       </Dropdown.Item>
     );
   }
@@ -205,8 +187,9 @@ const MenuContentItem = ({
           <IconWrapper
             icon={icon}
             iconDir={iconDir}
-            label={label}
-          />
+          >
+            {label}
+          </IconWrapper>
         </Dropdown.Trigger>
         <Dropdown.Content sub>
           {items.map((item, index) => (
