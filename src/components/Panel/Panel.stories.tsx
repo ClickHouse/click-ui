@@ -26,7 +26,7 @@ export const Playground = {
     fillHeight: false,
     width: "50%",
     children: (
-      <div>
+      <>
         <Title type="h3">Example panel title</Title>
         <Text
           size="md"
@@ -34,7 +34,7 @@ export const Playground = {
         >
           Panel content
         </Text>
-      </div>
+      </>
     ),
   },
 };
