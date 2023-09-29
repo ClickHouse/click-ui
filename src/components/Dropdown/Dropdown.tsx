@@ -36,14 +36,18 @@ type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdown
 const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
   width: fit-content;
+  &[disabled] {
+    cursor: not-allowed;
+  }
 `;
 
 const DropdownTrigger = ({
   sub,
+  children,
   ...props
 }: DropdownSubTriggerProps | DropdownTriggerProps) => {
   if (sub) {
-    const { children, icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
+    const { icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
     return (
       <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
@@ -61,11 +65,14 @@ const DropdownTrigger = ({
       </DropdownMenuItem>
     );
   }
+
   return (
     <Trigger
       asChild
       {...(props as DropdownTriggerProps)}
-    />
+    >
+      <div>{children}</div>
+    </Trigger>
   );
 };
 

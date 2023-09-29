@@ -7,9 +7,7 @@ describe("Popover", () => {
   const renderPopover = (props: PopoverProps) =>
     renderCUI(
       <Popover {...props}>
-        <Popover.Trigger>
-          <div>Click Here</div>
-        </Popover.Trigger>
+        <Popover.Trigger>Click Here</Popover.Trigger>
         <Popover.Content>
           <div>
             Click on the input element below
