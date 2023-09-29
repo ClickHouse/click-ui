@@ -19,7 +19,7 @@ const menuItems: Array<Menu> = [
   },
   {
     icon: "code",
-    iconDir: "left",
+    iconDir: "start",
     label: "Content1",
   },
   {
@@ -42,7 +42,7 @@ const menuItems: Array<Menu> = [
   },
   {
     icon: "code",
-    iconDir: "right",
+    iconDir: "end",
     label: "Content2",
   },
   {
