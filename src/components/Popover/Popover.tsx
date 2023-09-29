@@ -1,7 +1,7 @@
 import * as RadixPopover from "@radix-ui/react-popover";
 import { Arrow, GenericMenuPanel } from "../GenericMenu";
 import styled from "styled-components";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { Icon } from "@/components";
 import { EmptyButton } from "../commonElement";
 import PopoverArrow from "../icons/PopoverArrow";
@@ -20,14 +20,11 @@ interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
 }
 
-const PopoverTrigger = ({ children, anchor, ...props }: TriggerProps) => {
+const PopoverTrigger = ({ anchor, ...props }: TriggerProps) => {
   return (
     <>
-      <Trigger
-        asChild
-        {...props}
-      >
-        {children}
+      <Trigger asChild>
+        <div {...(props as HTMLAttributes<HTMLDivElement>)} />
       </Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>
