@@ -56,6 +56,9 @@ export const EmptyButton = styled.button`
   outline: none;
   padding: 0;
   border: 0;
+  color: inherit;
+  background: inherit;
+  font: inherit;
   &:disabled {
     cursor: not-allowed;
   }
