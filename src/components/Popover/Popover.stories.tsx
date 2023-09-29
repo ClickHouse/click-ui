@@ -1,4 +1,4 @@
-import { Checkbox } from "..";
+import { Button, Checkbox } from "..";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Title } from "../Typography/Title/Title";
@@ -11,6 +11,7 @@ const PopoverComponent = ({
   showClose,
   forceMount,
   side,
+  type,
 }: {
   open: "default" | "open" | "closed";
   modal: boolean;
@@ -18,13 +19,16 @@ const PopoverComponent = ({
   showClose: boolean;
   forceMount?: boolean;
   side: "top" | "right" | "left" | "bottom";
+  type: "text" | "button";
 }) => (
   <GridCenter>
     <Popover
       open={open === "default" ? undefined : open === "open"}
       modal={modal}
     >
-      <Popover.Trigger>Click Here</Popover.Trigger>
+      <Popover.Trigger>
+        {type === "text" ? "Click Here" : <Button>Click Here</Button>}
+      </Popover.Trigger>
       <Popover.Content
         side={side}
         showArrow={showArrow}
@@ -52,6 +56,7 @@ export default {
     showClose: { control: "boolean" },
     forceMount: { control: "boolean" },
     side: { control: "select", options: ["top", "right", "left", "bottom"] },
+    type: { control: "inline-radio", options: ["text", "button"] },
   },
 };
 
@@ -61,5 +66,6 @@ export const Playground = {
     showArrow: true,
     showClose: true,
     side: "bottom",
+    type: "text",
   },
 };

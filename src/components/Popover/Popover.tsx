@@ -20,11 +20,14 @@ interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
 }
 
-const PopoverTrigger = ({ anchor, ...props }: TriggerProps) => {
+const PopoverTrigger = ({ anchor, children, ...props }: TriggerProps) => {
   return (
     <>
-      <Trigger asChild>
-        <EmptyButton {...props} />
+      <Trigger
+        asChild
+        {...props}
+      >
+        <div>{children}</div>
       </Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>

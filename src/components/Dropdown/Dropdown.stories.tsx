@@ -1,17 +1,21 @@
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Dropdown } from "./Dropdown";
 import { GridCenter } from "../commonElement";
+import { Button } from "..";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
   side: "top" | "right" | "left" | "bottom";
+  type: "text" | "button";
 }
-const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
+const DropdownExample = ({ showArrow, disabled, side, type, ...props }: Props) => {
   return (
     <GridCenter>
       <Dropdown {...props}>
-        <Dropdown.Trigger disabled={disabled}>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Trigger disabled={disabled}>
+          {type === "text" ? "Dropdown Trigger" : <Button>Dropdown Trigger</Button>}
+        </Dropdown.Trigger>
         <Dropdown.Content
           showArrow={showArrow}
           side={side}
@@ -57,11 +61,13 @@ export default {
     defaultOpen: { control: "boolean" },
     showArrow: { control: "boolean" },
     side: { control: "select", options: ["top", "right", "left", "bottom"] },
+    type: { control: "inline-radio", options: ["text", "button"] },
   },
 };
 
 export const Playground = {
   args: {
     side: "bottom",
+    type: "text",
   },
 };
