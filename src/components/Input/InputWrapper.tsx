@@ -111,7 +111,6 @@ export const InputElement = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  width: inherit;
   color: inherit;
   font: inherit;
   ${({ theme }) => `
