@@ -11,9 +11,7 @@ const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
   return (
     <GridCenter>
       <Dropdown {...props}>
-        <Dropdown.Trigger disabled={disabled}>
-          <div>Dropdown Trigger</div>
-        </Dropdown.Trigger>
+        <Dropdown.Trigger disabled={disabled}>Dropdown Trigger</Dropdown.Trigger>
         <Dropdown.Content
           showArrow={showArrow}
           side={side}

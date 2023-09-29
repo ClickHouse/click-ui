@@ -4,7 +4,7 @@ import { HorizontalDirection, Icon, IconName } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 import IconWrapper from "../IconWrapper/IconWrapper";
-import { HTMLAttributes } from "react";
+import { EmptyButton } from "../commonElement";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -62,9 +62,13 @@ const DropdownTrigger = ({
       </DropdownMenuItem>
     );
   }
+  const { disabled, ...otherProps } = props as DropdownTriggerProps;
   return (
-    <Trigger asChild>
-      <div {...(props as HTMLAttributes<HTMLDivElement>)} />
+    <Trigger
+      asChild
+      disabled={disabled}
+    >
+      <EmptyButton {...otherProps} />
     </Trigger>
   );
 };

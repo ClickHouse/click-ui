@@ -24,9 +24,7 @@ const PopoverComponent = ({
       open={open === "default" ? undefined : open === "open"}
       modal={modal}
     >
-      <Popover.Trigger>
-        <div>Click Here</div>
-      </Popover.Trigger>
+      <Popover.Trigger>Click Here</Popover.Trigger>
       <Popover.Content
         side={side}
         showArrow={showArrow}

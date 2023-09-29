@@ -20,9 +20,7 @@ describe("Dropdown", () => {
   const renderDropdown = ({ disabled, ...props }: Props) =>
     renderCUI(
       <Dropdown {...props}>
-        <Dropdown.Trigger disabled={disabled}>
-          <div>Dropdown Trigger</div>
-        </Dropdown.Trigger>
+        <Dropdown.Trigger disabled={disabled}>Dropdown Trigger</Dropdown.Trigger>
         <Dropdown.Content>
           <Dropdown.Group>
             <Dropdown.Item>Content0</Dropdown.Item>
