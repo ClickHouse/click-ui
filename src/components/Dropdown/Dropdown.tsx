@@ -36,6 +36,9 @@ type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdown
 const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
   width: fit-content;
+  &[disabled] {
+    cursor: not-allowed;
+  }
 `;
 
 const DropdownTrigger = ({
