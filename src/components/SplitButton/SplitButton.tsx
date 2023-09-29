@@ -258,7 +258,7 @@ const PrimaryButton = styled(BaseButton)<{
   $align?: Alignment;
   $fillWidth?: boolean;
 }>`
-  border: 1px solid transparent;
+  border: none;
   align-self: stretch;
   border-radius: 0;
   align-items: center;
