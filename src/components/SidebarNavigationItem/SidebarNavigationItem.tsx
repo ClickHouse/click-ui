@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 
-export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonElement> {
+export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
   selected?: boolean;
   level?: number;
@@ -12,7 +12,7 @@ export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonEle
   type?: "main" | "sqlSidebar";
 }
 
-const SidebarNavigationItem = forwardRef<HTMLButtonElement, SidebarNavigationItemProps>(
+const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
   ({ label, level = 0, icon, selected, iconDir, type = "main", ...props }, ref) => {
     return (
       <SidebarItemWrapper
@@ -33,7 +33,7 @@ const SidebarNavigationItem = forwardRef<HTMLButtonElement, SidebarNavigationIte
   }
 );
 
-export const SidebarItemWrapper = styled.button<{
+export const SidebarItemWrapper = styled.div<{
   $collapsible?: boolean;
   $level: number;
   $type: "main" | "sqlSidebar";
@@ -94,7 +94,7 @@ export const SidebarItemWrapper = styled.button<{
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
       }
 
-      &:active {
+      &:active, &[data-selected="true"] {
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
       }
     }
