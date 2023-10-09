@@ -94,7 +94,7 @@ export const SidebarItemWrapper = styled.div<{
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
       }
 
-      &:active {
+      &:active, &[data-selected="true"] {
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
       }
     }
