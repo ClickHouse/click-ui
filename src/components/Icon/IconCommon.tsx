@@ -56,6 +56,7 @@ import FolderOpen from "../icons/FolderOpen";
 import FolderClosed from "../icons/FolderClosed";
 import Gift from "@/components/icons/Gift";
 import Home from "@/components/icons/Home";
+import HorizontalLoading from "@/components/icons/HorizontalLoading";
 import Http from "@/components/icons/Http";
 import Integrations from "@/components/icons/Integrations";
 import LightBulb from "@/components/icons/LightBulb";
@@ -155,6 +156,7 @@ export const ICONS_MAP = {
   gift: Gift,
   history: HistoryIcon,
   home: Home,
+  "horizontal-loading": HorizontalLoading,
   http: Http,
   "info-in-circle": InfoInCircleIcon,
   information: InformationIcon,
