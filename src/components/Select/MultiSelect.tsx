@@ -12,6 +12,7 @@ export interface MultiSelectProps
   onSelect?: (value: Array<string>) => void;
   value?: Array<string>;
   defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export const MultiSelect = ({
@@ -20,12 +21,23 @@ export const MultiSelect = ({
   onSelect: onSelectProp,
   options,
   children,
+  onOpenChange: onOpenChangeProp,
   ...props
 }: MultiSelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
     valueProp ?? defaultValue ?? []
   );
   const [open, setOpen] = useState(false);
+
+  const onOpenChange = useCallback(
+    (open: boolean) => {
+      setOpen(open);
+      if (typeof onOpenChangeProp === "function") {
+        onOpenChangeProp(open);
+      }
+    },
+    [onOpenChangeProp]
+  );
 
   useEffect(() => {
     setSelectedValues(valueProp ?? []);
@@ -67,7 +79,7 @@ export const MultiSelect = ({
       onChange={onChange}
       value={valueProp ?? selectedValues}
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={onOpenChange}
       onSelect={onSelect}
       multiple
       {...conditionalProps}

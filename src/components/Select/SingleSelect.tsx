@@ -11,6 +11,7 @@ export interface SelectProps
   onSelect?: (value: string) => void;
   value?: string;
   placeholder?: string;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export const Select = ({
@@ -19,6 +20,7 @@ export const Select = ({
   onSelect: onSelectProp,
   options,
   children,
+  onOpenChange: onOpenChangeProp,
   ...props
 }: SelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
@@ -26,9 +28,15 @@ export const Select = ({
   );
   const [open, setOpen] = useState(false);
 
-  const onOpenChange = useCallback((open: boolean) => {
-    setOpen(open);
-  }, []);
+  const onOpenChange = useCallback(
+    (open: boolean) => {
+      setOpen(open);
+      if (typeof onOpenChangeProp === "function") {
+        onOpenChangeProp(open);
+      }
+    },
+    [onOpenChangeProp]
+  );
 
   const onSelect = useCallback(
     (value: string) => {
