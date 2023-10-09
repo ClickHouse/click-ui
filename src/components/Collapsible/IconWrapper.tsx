@@ -12,6 +12,7 @@ const LabelContainer = styled.span`
   width: stretch;
   flex: 1;
   gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
+  overflow: hidden;
 `;
 
 const EllipsisContainer = styled.span`
