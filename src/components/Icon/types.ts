@@ -59,6 +59,7 @@ export type IconName =
   | "folder-open"
   | "gift"
   | "history"
+  | "horizontal-loading"
   | "home"
   | "http"
   | "info-in-circle"
