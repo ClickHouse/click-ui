@@ -1146,6 +1146,84 @@
             }
           }
         }
+      },
+      "primary": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color",
+              "$extensions": {}
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.primary.background.disabled}",
+              "type": "color"
+            }
+          },
+          "title": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.primary.text.disabled}",
+              "type": "color"
+            }
+          },
+          "description": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.card.primary.color.title.disabled}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.neutral.900}",
+              "type": "color",
+              "$extensions": {}
+            },
+            "disabled": {
+              "value": "{click.field.color.stroke.disabled}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "flyout": {
