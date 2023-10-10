@@ -21,16 +21,7 @@ interface DialogTriggerProps extends RadixDialog.DialogTriggerProps {
 }
 
 const DialogTrigger = ({ children, ...props }: DialogTriggerProps) => {
-  return (
-    <>
-      <Trigger
-        asChild
-        {...props}
-      >
-        {children}
-      </Trigger>
-    </>
-  );
+  return <Trigger {...props}>{children}</Trigger>;
 };
 
 DialogTrigger.displayName = "DialogTrigger";
@@ -111,9 +102,9 @@ const CrossButton = styled(EmptyButton)`
   }
 `;
 
-const CloseButton = () => (
+const CloseButton = ({ onClose }: { onClose?: () => void }) => (
   <RadixDialog.Close asChild>
-    <CrossButton>
+    <CrossButton onClick={onClose}>
       <Icon
         name="cross"
         size="lg"
@@ -128,12 +119,14 @@ interface DialogContentProps extends RadixDialog.DialogContentProps {
   forceMount?: true;
   container?: HTMLElement | null;
   children: ReactNode;
+  onClose?: () => void;
 }
 
 const DialogContent = ({
   title,
   children,
   showClose,
+  onClose,
   forceMount,
   container,
 }: DialogContentProps) => {
@@ -151,7 +144,7 @@ const DialogContent = ({
           >
             {title}
           </Title>
-          {showClose && <CloseButton />}
+          {showClose && <CloseButton onClose={onClose} />}
         </TitleArea>
         <Spacer />
         {children}

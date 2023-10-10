@@ -14,7 +14,7 @@ const DialogComponent = ({
   showClose,
   forceMount,
 }: {
-  open: "default" | "open" | "closed";
+  open?: boolean;
   title: string;
   modal: boolean;
   showClose: boolean;
@@ -22,7 +22,7 @@ const DialogComponent = ({
 }) => (
   <GridCenter>
     <Dialog
-      open={open === "default" ? undefined : open === "open"}
+      open={open}
       modal={modal}
     >
       <Dialog.Trigger>
@@ -59,7 +59,7 @@ export default {
   tags: ["autodocs", "dialog"],
   argTypes: {
     open: {
-      options: ["default", "open", "closed"],
+      options: [true, false, undefined],
       control: { type: "radio" },
     },
   },
@@ -68,7 +68,10 @@ export default {
 export const Playground = {
   args: {
     title: "Example dialog title",
-    open: "true",
     showClose: true,
+    open: true,
+    onOpenChange: () => {
+      console.log("ignored");
+    },
   },
 };
