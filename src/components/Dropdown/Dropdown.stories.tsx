@@ -19,7 +19,7 @@ const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
           side={side}
         >
           <Dropdown.Group>
-            <Dropdown.Item>Content0</Dropdown.Item>
+            <Dropdown.Item data-state="checked">Content0</Dropdown.Item>
           </Dropdown.Group>
           <Dropdown.Item icon="activity">Content1 long text content</Dropdown.Item>
           <Dropdown.Sub>

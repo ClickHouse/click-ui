@@ -97,7 +97,7 @@ export const GenericMenuItem = styled.div`
       color:${theme.click.genericMenu.item.color.text.hover};
       cursor: pointer;
     }
-    &[data-state="open"], &[data-state-"checked"] {
+    &[data-state="open"], &[data-state="checked"], &[data-selected="true"]  {
       background:${theme.click.genericMenu.item.color.background.active};
       color:${theme.click.genericMenu.item.color.text.active};
       font: ${theme.click.genericMenu.item.typography.label.active};
