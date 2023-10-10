@@ -15,12 +15,6 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   align?: Alignment;
   fillWidth?: boolean;
   loading?: boolean;
-<<<<<<< HEAD
-||||||| merged common ancestors
->>>>>>>>> Temporary merge branch 2
-=======
-  as?: unknown;
->>>>>>> 0cfd13da5869704b2c729341807dab164e280ff4
 }
 
 export const Button = ({
@@ -40,12 +34,7 @@ export const Button = ({
     $align={align}
     $fillWidth={fillWidth}
     disabled={disabled || loading}
-<<<<<<< HEAD
     role="button"
-||||||| merged common ancestors
->>>>>>>>> Temporary merge branch 2
-=======
->>>>>>> 0cfd13da5869704b2c729341807dab164e280ff4
     {...delegated}
   >
     {iconLeft && (
