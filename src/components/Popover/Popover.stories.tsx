@@ -1,4 +1,4 @@
-import { Checkbox } from "..";
+import { Button, Checkbox } from "..";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Title } from "../Typography/Title/Title";
@@ -24,8 +24,26 @@ const PopoverComponent = ({
       open={open === "default" ? undefined : open === "open"}
       modal={modal}
     >
+      <Popover.Trigger>Click Here</Popover.Trigger>
+      <Popover.Content
+        side={side}
+        showArrow={showArrow}
+        showClose={showClose}
+        forceMount={forceMount ? true : undefined}
+      >
+        <Title type="h2">Content popover</Title>
+        <br />
+        <Text>Click on the input element below.</Text>
+        <br />
+        <Checkbox label="This is a sample data to experiment the popover" />
+      </Popover.Content>
+    </Popover>
+    <Popover
+      open={open === "default" ? undefined : open === "open"}
+      modal={modal}
+    >
       <Popover.Trigger>
-        <div>Click Here</div>
+        <Button>Click Here Button</Button>
       </Popover.Trigger>
       <Popover.Content
         side={side}
@@ -57,7 +75,7 @@ export default {
   },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     open: "default",
     showArrow: true,

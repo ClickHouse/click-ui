@@ -9,7 +9,7 @@ export default {
 
 type Story = StoryObj<typeof Tabs>;
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     defaultValue: "tab2",
     onValueChange: s => console.log(s),
@@ -17,13 +17,22 @@ export const Default: Story = {
     children: (
       <>
         <Tabs.TriggersList>
-          <Tabs.Trigger value="tab1" key="tab1">
+          <Tabs.Trigger
+            value="tab1"
+            key="tab1"
+          >
             tab1
           </Tabs.Trigger>
-          <Tabs.Trigger value="tab2" key="tab2">
+          <Tabs.Trigger
+            value="tab2"
+            key="tab2"
+          >
             tab2
           </Tabs.Trigger>
-          <Tabs.Trigger value="tab3" key="tab3">
+          <Tabs.Trigger
+            value="tab3"
+            key="tab3"
+          >
             tab3
           </Tabs.Trigger>
         </Tabs.TriggersList>

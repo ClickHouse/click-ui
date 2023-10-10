@@ -1,14 +1,15 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Icon, IconName, Dropdown } from "@/components";
+import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
 import { BaseButton } from "../commonElement";
+import IconWrapper from "../IconWrapper/IconWrapper";
 
-type ButtonType = "primary"; //| "secondary";
-type IconDirection = "left" | "right";
+type ButtonType = "primary" | "secondary";
+type Alignment = "center" | "left";
 type MenuItem = {
   icon?: IconName;
-  iconDir?: IconDirection;
+  iconDir?: HorizontalDirection;
   label: ReactNode;
   type?: "item";
   items?: never;
@@ -33,8 +34,12 @@ export interface SplitButtonProps
     Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
   type?: ButtonType;
   disabled?: boolean;
+  fillWidth?: boolean;
+  align?: Alignment;
   menu: Array<Menu>;
   side?: "top" | "bottom";
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
 }
 
 export const SplitButton = ({
@@ -47,6 +52,11 @@ export const SplitButton = ({
   onOpenChange,
   modal,
   side,
+  fillWidth,
+  align,
+  children,
+  icon,
+  iconDir = "start",
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -79,14 +89,24 @@ export const SplitButton = ({
     >
       <SplitButtonTrigger
         $disabled={disabled}
+        $fillWidth={fillWidth}
         ref={ref}
         $type={type}
       >
         <PrimaryButton
           disabled={disabled}
           $type={type}
+          $fillWidth={fillWidth}
+          $align={align}
           {...props}
-        />
+        >
+          <IconWrapper
+            icon={icon}
+            iconDir={iconDir}
+          >
+            {children}
+          </IconWrapper>
+        </PrimaryButton>
         <SecondaryButton
           as={Dropdown.Trigger}
           disabled={disabled}
@@ -95,7 +115,10 @@ export const SplitButton = ({
           data-testid="split-button-dropdown"
         >
           <span>
-            <Icon name="chevron-down" />
+            <Icon
+              name="chevron-down"
+              size="sm"
+            />
           </span>
         </SecondaryButton>
       </SplitButtonTrigger>
@@ -118,35 +141,14 @@ export const SplitButton = ({
 };
 const DropdownContent = styled.div<{ $width: number }>`
   min-width: ${({ $width }) => $width}px;
-  background: red;
 `;
-
-const IconWrapper = ({ label, icon, iconDir }: Omit<MenuItem, "type" | "items">) => {
-  return (
-    <>
-      {icon && iconDir === "left" && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-      {label}
-      {icon && iconDir === "right" && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-    </>
-  );
-};
 
 const MenuContentItem = ({
   items = [],
   type = "item",
   label,
   icon,
-  iconDir = "left",
+  iconDir = "start",
   parentKey,
   ...props
 }: Menu & { parentKey: string }) => {
@@ -156,8 +158,9 @@ const MenuContentItem = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
-          label={label}
-        />
+        >
+          {label}
+        </IconWrapper>
       </Dropdown.Item>
     );
   }
@@ -184,8 +187,9 @@ const MenuContentItem = ({
           <IconWrapper
             icon={icon}
             iconDir={iconDir}
-            label={label}
-          />
+          >
+            {label}
+          </IconWrapper>
         </Dropdown.Trigger>
         <Dropdown.Content sub>
           {items.map((item, index) => (
@@ -201,12 +205,17 @@ const MenuContentItem = ({
   }
 };
 
-const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }>`
+const SplitButtonTrigger = styled.div<{
+  $disabled?: boolean;
+  $type: ButtonType;
+  $fillWidth?: boolean;
+}>`
   display: inline-flex;
   align-items: center;
   overflow: hidden;
   user-select: none;
-  ${({ theme, $disabled = false, $type }) => `
+  ${({ theme, $disabled = false, $type, $fillWidth }) => `
+    width: ${$fillWidth ? "100%" : "revert"};
     border-radius: ${theme.click.button.radii.all};
     border: 1px solid ${theme.click.button.split[$type].stroke.default};
     ${
@@ -227,11 +236,20 @@ const SplitButtonTrigger = styled.div<{ $disabled?: boolean; $type: ButtonType }
   `}
 `;
 
-const PrimaryButton = styled(BaseButton)<{ $type: ButtonType }>`
+const PrimaryButton = styled(BaseButton)<{
+  $type: ButtonType;
+  $align?: Alignment;
+  $fillWidth?: boolean;
+}>`
   border: none;
   align-self: stretch;
   border-radius: 0;
-  ${({ theme, $type }) => `
+  align-items: center;
+  padding: ${({ theme }) => theme.click.button.split.space.y}
+    ${({ theme }) => theme.click.button.split.space.x};
+  ${({ theme, $type, $align, $fillWidth }) => `
+    width: ${$fillWidth ? "100%" : "revert"};
+    justify-content: ${$align === "left" ? "flex-start" : "center"};
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};
     &:hover {

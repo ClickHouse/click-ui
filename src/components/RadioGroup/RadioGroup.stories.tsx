@@ -36,7 +36,7 @@ export default {
   },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     disabled: false,
   },

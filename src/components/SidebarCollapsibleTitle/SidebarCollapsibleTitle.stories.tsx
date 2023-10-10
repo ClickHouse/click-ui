@@ -4,9 +4,15 @@ export default {
   component: SidebarCollapsibleTitle,
   title: "Sidebar/CollapsibleTitle",
   tags: ["sidebar", "collapsible-title", "autodocs"],
+  argTypes: {
+    type: {
+      options: ["main", "sqlSidebar"],
+      control: { type: "radio" },
+    },
+  },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     icon: "code",
     label: "Queries",

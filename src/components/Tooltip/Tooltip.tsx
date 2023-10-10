@@ -1,26 +1,16 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
-
-export const TooltipProvider = ({
-  children,
-  ...props
-}: RadixTooltip.TooltipProviderProps) => {
-  return <RadixTooltip.Provider {...props}>{children}</RadixTooltip.Provider>;
-};
 
 export const Tooltip = ({ children, ...props }: RadixTooltip.TooltipProps) => {
   return <RadixTooltip.Root {...props}>{children}</RadixTooltip.Root>;
 };
 
-const Trigger = styled(RadixTooltip.Trigger)`
-  width: fit-content;
-`;
-const TooltipTrigger = (props: RadixTooltip.TooltipTriggerProps) => {
+const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
-    <Trigger
-      asChild
-      {...props}
-    />
+    <RadixTooltip.Trigger asChild>
+      <div {...props} />
+    </RadixTooltip.Trigger>
   );
 };
 TooltipTrigger.displayName = "TooltipTrigger";
@@ -47,10 +37,18 @@ const Arrow = styled.svg`
   `};
 `;
 
-const TooltipContent = ({ showArrow, children, ...props }: TooltipContentProps) => {
+const TooltipContent = ({
+  showArrow,
+  children,
+  sideOffset = 6,
+  ...props
+}: TooltipContentProps) => {
   return (
     <RadixTooltip.Portal>
-      <RadixTooltipContent {...props}>
+      <RadixTooltipContent
+        sideOffset={sideOffset}
+        {...props}
+      >
         {showArrow && (
           <Arrow
             as={RadixTooltip.Arrow}

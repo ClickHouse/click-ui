@@ -697,6 +697,15 @@
             }
           },
           "mono": {
+            "xs": {
+              "value": {
+                "fontFamily": "{typography.font.families.mono}",
+                "fontWeight": "{typography.font.weights.2}",
+                "lineHeight": "{typography.font.line-height.2}",
+                "fontSize": "{typography.font.sizes.0}"
+              },
+              "type": "typography"
+            },
             "sm": {
               "value": {
                 "fontFamily": "{typography.font.families.mono}",
@@ -939,6 +948,27 @@
           "spread": "0",
           "color": "rgba(104, 105, 111, 0.1)",
           "type": "innerShadow"
+        }
+      ],
+      "type": "boxShadow"
+    },
+    "3": {
+      "value": [
+        {
+          "x": "-5",
+          "y": "0",
+          "blur": "20",
+          "spread": "0",
+          "color": "rgba(0, 0, 0, 0.08)",
+          "type": "dropShadow"
+        },
+        {
+          "x": "-6",
+          "y": "0",
+          "blur": "10",
+          "spread": "0",
+          "color": "rgba(0, 0, 0, 0.08)",
+          "type": "dropShadow"
         }
       ],
       "type": "boxShadow"

@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { IconName } from "@/components/Icon/types";
-import { Button, Icon, Spacer } from "@/components";
+import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
-import { ReactNode } from "react";
+import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 
-export interface CardPrimaryProps {
+export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   icon: IconName;
   hasShadow?: boolean;
@@ -14,6 +13,7 @@ export interface CardPrimaryProps {
   infoUrl?: string;
   infoText?: string;
   size?: "sm" | "md";
+  onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Wrapper = styled.div<{
@@ -99,6 +99,7 @@ const Content = styled.div<{ $size?: "sm" | "md" }>`
   flex-direction: column;
   align-self: center;
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
+  flex: 1;
 `;
 
 export const CardPrimary = ({
@@ -110,25 +111,34 @@ export const CardPrimary = ({
   infoText,
   size,
   disabled = false,
+  onButtonClick,
+  ...props
 }: CardPrimaryProps) => {
-  const handleClick = () => {
-    if (infoUrl) {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    if (typeof onButtonClick === "function") {
+      onButtonClick(e);
+    }
+    if (infoUrl && infoUrl.length > 0) {
       window.open(infoUrl, "_blank");
     }
   };
 
-  const Component = !infoUrl || infoUrl.length === 0 ? "div" : Button;
+  const Component = !!infoUrl || typeof onButtonClick === "function" ? Button : "div";
   return (
     <Wrapper
       $hasShadow={hasShadow}
       $size={size}
       $disabled={disabled}
+      {...props}
     >
       <Header
         $size={size}
         $disabled={disabled}
       >
-        <Icon name={icon} />
+        <Icon
+          name={icon}
+          aria-hidden
+        />
         <Title type="h3">{title}</Title>
       </Header>
 

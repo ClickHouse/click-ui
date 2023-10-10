@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Badge, Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { ReactNode } from "react";
@@ -48,6 +47,7 @@ const HeaderLeft = styled.div<{ $disabled?: boolean }>`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 const InfoLink = styled.a`
@@ -128,6 +128,7 @@ export const CardSecondary = ({
           <Icon
             name={icon}
             size="lg"
+            area-hidden=""
           />
           <Title type="h3">{title}</Title>
         </HeaderLeft>

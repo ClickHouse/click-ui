@@ -3,20 +3,22 @@ import styled from "styled-components";
 import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 
-export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLButtonElement> {
+export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
   selected?: boolean;
   level?: number;
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  type?: "main" | "sqlSidebar";
 }
 
-const SidebarNavigationItem = forwardRef<HTMLButtonElement, SidebarNavigationItemProps>(
-  ({ label, level = 0, icon, selected, iconDir, ...props }, ref) => {
+const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
+  ({ label, level = 0, icon, selected, iconDir, type = "main", ...props }, ref) => {
     return (
       <SidebarItemWrapper
         $level={level}
         data-selected={selected}
+        $type={type}
         ref={ref}
         {...props}
       >
@@ -31,9 +33,10 @@ const SidebarNavigationItem = forwardRef<HTMLButtonElement, SidebarNavigationIte
   }
 );
 
-export const SidebarItemWrapper = styled.button<{
+export const SidebarItemWrapper = styled.div<{
   $collapsible?: boolean;
   $level: number;
+  $type: "main" | "sqlSidebar";
 }>`
   display: flex;
   align-items: center;
@@ -45,7 +48,7 @@ export const SidebarItemWrapper = styled.button<{
   white-space: nowrap;
   overflow: hidden;
   flex-wrap: nowrap;
-  ${({ theme, $collapsible = false, $level }) => {
+  ${({ theme, $collapsible = false, $level, $type }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `
     padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
@@ -58,23 +61,23 @@ export const SidebarItemWrapper = styled.button<{
     border-radius: ${theme.click.sidebar.navigation[itemType].radii.all};
     font: ${theme.click.sidebar.navigation[itemType].typography.default};
     background-color: ${
-      theme.click.sidebar.navigation[itemType].color.background.default
+      theme.click.sidebar[$type].navigation[itemType].color.background.default
     };
-    color: ${theme.click.sidebar.navigation[itemType].color.text.default};
+    color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
     &:hover, &:focus {
       font: ${theme.click.sidebar.navigation[itemType].typography.hover};
       background-color: ${
-        theme.click.sidebar.navigation[itemType].color.background.hover
+        theme.click.sidebar[$type].navigation[itemType].color.background.hover
       };
-      color: ${theme.click.sidebar.navigation[itemType].color.text.hover};
+      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
     }
 
     &:active, &[data-selected="true"]  {
       font: ${theme.click.sidebar.navigation[itemType].typography.active};
       background-color: ${
-        theme.click.sidebar.navigation[itemType].color.background.active
+        theme.click.sidebar[$type].navigation[itemType].color.background.active
       };
-      color: ${theme.click.sidebar.navigation[itemType].color.text.active};
+      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
     }
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
@@ -91,7 +94,7 @@ export const SidebarItemWrapper = styled.button<{
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
       }
 
-      &:active {
+      &:active, &[data-selected="true"] {
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
       }
     }

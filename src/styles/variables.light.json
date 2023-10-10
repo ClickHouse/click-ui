@@ -26,7 +26,7 @@
         },
         "text": {
           "default": "#696e79",
-          "success": "#1c8439",
+          "success": "#15632b",
           "neutral": "#53575f",
           "danger": "#c10000",
           "warning": "#9e5600",
@@ -42,7 +42,7 @@
         },
         "iconForeground": {
           "default": "#696e79",
-          "success": "lch(48.3 52.9 144 / 0.75)",
+          "success": "lch(36.5 42 144 / 0.75)",
           "neutral": "lch(36.8 5.23 267 / 0.75)",
           "danger": "lch(41 86.6 40.9 / 0.75)",
           "warning": "lch(44.6 59.8 63.2 / 0.75)",
@@ -77,7 +77,7 @@
         },
         "text": {
           "default": "#696e79",
-          "success": "#1c8439",
+          "success": "#15632b",
           "neutral": "#53575f",
           "danger": "#c10000",
           "disabled": "#a0a0a0",
@@ -229,6 +229,23 @@
             "text": {
               "default": "#c10000"
             }
+          },
+          "ghost": {
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgb(0% 0% 0% / 0)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgba(0,0,0,0)"
+            },
+            "text": {
+              "default": "#696e79",
+              "hover": "#161517",
+              "active": "#161517"
+            }
           }
         }
       },
@@ -236,7 +253,7 @@
         "primary": {
           "background": {
             "main": {
-              "default": "lch(17.6 2.54 306)",
+              "default": "#302e32",
               "hover": "lch(27 3.82 267)",
               "active": "lch(5.87 1.22 305)",
               "disabled": "lch(81.3 0 0)"
@@ -266,15 +283,49 @@
             "active": "lch(16.4 2.36 306)",
             "disabled": "lch(75.5 0 0)"
           }
+        },
+        "secondary": {
+          "divide": {
+            "default": "lch(92 1.05 266)",
+            "hover": "lch(92.4 0.99 266)",
+            "active": "lch(83.8 2.3 258)",
+            "disabled": "lch(75.5 0 0)"
+          },
+          "background": {
+            "main": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "lch(95.3 1.54 272)",
+              "disabled": "#dfdfdf"
+            },
+            "action": {
+              "default": "#f6f7fa",
+              "hover": "lch(94.8 1.53 272)",
+              "active": "lch(92.9 1.5 272)",
+              "disabled": "lch(77.2 0 0)"
+            }
+          },
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517",
+            "disabled": "#a0a0a0"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266)",
+            "hover": "lch(91.6 1.1 266)",
+            "active": "lch(84 2.28 258)",
+            "disabled": "rgba(0,0,0,0)"
+          }
         }
       },
       "group": {
         "color": {
           "background": {
-            "default": "#ffffff",
-            "hover": "lch(68.1 1.1 272)",
-            "active": "lch(81 1.31 272)",
-            "panel": "#ffffff"
+            "default": "lch(94.5 0.72 266)",
+            "hover": "lch(97.4 1.44 272)",
+            "active": "#ffffff",
+            "panel": "lch(94.5 0.72 266)"
           },
           "text": {
             "default": "#161517",
@@ -659,54 +710,6 @@
       }
     },
     "sidebar": {
-      "navigation": {
-        "item": {
-          "color": {
-            "background": {
-              "active": "lch(91.6 1.1 266 / 0.6)",
-              "hover": "lch(91.6 1.1 266 / 0.6)",
-              "default": "rgba(0,0,0,0)"
-            },
-            "text": {
-              "default": "#161517",
-              "hover": "#161517",
-              "active": "#161517",
-              "muted": "#696e79"
-            },
-            "icon": {
-              "default": "#696e79"
-            }
-          }
-        },
-        "title": {
-          "color": {
-            "default": "#696e79",
-            "hover": "#696e79",
-            "active": "#696e79"
-          }
-        },
-        "subItem": {
-          "color": {
-            "text": {
-              "default": "#696e79",
-              "hover": "#161517",
-              "active": "#161517"
-            },
-            "background": {
-              "default": "rgba(0,0,0,0)",
-              "hover": "lch(91.6 1.1 266 / 0.6)",
-              "active": "rgba(0,0,0,0)"
-            }
-          }
-        },
-        "dragControl": {
-          "separator": {
-            "color": {
-              "default": "#161517"
-            }
-          }
-        }
-      },
       "main": {
         "color": {
           "background": {
@@ -719,6 +722,54 @@
           "stroke": {
             "default": "lch(91.6 1.1 266)"
           }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "active": "lch(91.6 1.1 266 / 0.6)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "default": "rgba(0,0,0,0)"
+              },
+              "text": {
+                "default": "#161517",
+                "hover": "#161517",
+                "active": "#161517",
+                "muted": "#696e79"
+              },
+              "icon": {
+                "default": "#696e79"
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#696e79",
+              "hover": "#696e79",
+              "active": "#696e79"
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": "#696e79",
+                "hover": "#161517",
+                "active": "#161517"
+              },
+              "background": {
+                "default": "rgba(0,0,0,0)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "active": "rgba(0,0,0,0)"
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": "#161517"
+              }
+            }
+          }
         }
       },
       "sqlSidebar": {
@@ -728,6 +779,54 @@
           },
           "stroke": {
             "default": "lch(91.6 1.1 266)"
+          }
+        },
+        "navigation": {
+          "item": {
+            "color": {
+              "background": {
+                "active": "lch(91.6 1.1 266 / 0.6)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "default": "rgba(0,0,0,0)"
+              },
+              "text": {
+                "default": "#161517",
+                "hover": "#161517",
+                "active": "#161517",
+                "muted": "#696e79"
+              },
+              "icon": {
+                "default": "#696e79"
+              }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#696e79",
+              "hover": "#696e79",
+              "active": "#696e79"
+            }
+          },
+          "subItem": {
+            "color": {
+              "text": {
+                "default": "#696e79",
+                "hover": "#161517",
+                "active": "#161517"
+              },
+              "background": {
+                "default": "rgba(0,0,0,0)",
+                "hover": "lch(91.6 1.1 266 / 0.6)",
+                "active": "rgba(0,0,0,0)"
+              }
+            }
+          },
+          "dragControl": {
+            "separator": {
+              "color": {
+                "default": "#161517"
+              }
+            }
           }
         }
       }
@@ -887,7 +986,7 @@
         },
         "icon": {
           "default": "#161517",
-          "success": "#1c8439",
+          "success": "#15632b",
           "warning": "#9e5600",
           "danger": "#c10000"
         }
@@ -916,6 +1015,22 @@
         },
         "opaqueBackground": {
           "default": "lch(6.77 0 0 / 0.45)"
+        }
+      }
+    },
+    "flyout": {
+      "color": {
+        "background": {
+          "default": "#ffffff"
+        },
+        "title": {
+          "default": "#161517"
+        },
+        "description": {
+          "default": "#696e79"
+        },
+        "stroke": {
+          "default": "lch(91.6 1.1 266)"
         }
       }
     },
@@ -957,7 +1072,7 @@
         },
         "success": {
           "background": "#e0f8e7",
-          "foreground": "#1c8439"
+          "foreground": "#15632b"
         },
         "warning": {
           "background": "#ffedd8",
@@ -997,6 +1112,11 @@
             "stroke": "lch(91.6 1.1 266)"
           }
         }
+      }
+    },
+    "storybook": {
+      "global": {
+        "background": "#ffffff"
       }
     }
   },

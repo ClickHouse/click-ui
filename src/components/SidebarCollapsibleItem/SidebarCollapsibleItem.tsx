@@ -14,9 +14,10 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   indicatorDir?: HorizontalDirection;
   selected?: boolean;
   level?: number;
+  type?: "main" | "sqlSidebar";
 }
 
-const SidebarCollapsibleItem = forwardRef<HTMLButtonElement, SidebarCollapsibleItemProps>(
+const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItemProps>(
   (
     {
       label,
@@ -28,6 +29,7 @@ const SidebarCollapsibleItem = forwardRef<HTMLButtonElement, SidebarCollapsibleI
       icon,
       level = 0,
       selected,
+      type = "main",
       ...props
     },
     ref
@@ -48,6 +50,7 @@ const SidebarCollapsibleItem = forwardRef<HTMLButtonElement, SidebarCollapsibleI
           indicatorDir={indicatorDir}
           $collapsible
           $level={level}
+          $type={type}
           data-selected={selected}
           {...props}
         >

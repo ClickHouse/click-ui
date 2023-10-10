@@ -12,22 +12,23 @@ export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
 
 const Trigger = styled(RadixPopover.Trigger)`
   width: fit-content;
-  background: transparent;
+  font: inherit;
+  color: inherit;
+  background: inherit;
   border: none;
 `;
-
 interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
 }
 
-const PopoverTrigger = ({ children, anchor, ...props }: TriggerProps) => {
+const PopoverTrigger = ({ anchor, children, ...props }: TriggerProps) => {
   return (
     <>
       <Trigger
         asChild
         {...props}
       >
-        {children}
+        <div>{children}</div>
       </Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>

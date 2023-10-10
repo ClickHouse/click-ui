@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export type TextColor = "default" | "muted";
 export type TextSize = "xs" | "sm" | "md" | "lg";
-export type TextWeight = "normal" | "medium" | "semibold" | "bold";
+export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 
 export interface TextProps {
   color?: TextColor;
@@ -13,12 +13,13 @@ export interface TextProps {
 }
 
 /** Component for writing blocks of body copy */
-const _Text = ({ color, size, weight, className, children }: TextProps) => (
+const _Text = ({ color, size, weight, className, children, ...props }: TextProps) => (
   <CuiText
     $color={color}
     $size={size}
     $weight={weight}
     className={className}
+    {...props}
   >
     {children}
   </CuiText>

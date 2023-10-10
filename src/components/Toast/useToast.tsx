@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import { SelectContext } from "./SelectContext";
-
-export const useSelect = () => {
-  const result = useContext(SelectContext);
+import { ToastContext } from "./Toast";
+export const useToast = () => {
+  const result = useContext(ToastContext);
   if (!result) {
     throw new Error("Context used outside of its Provider!");
   }

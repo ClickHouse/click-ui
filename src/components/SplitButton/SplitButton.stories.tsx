@@ -11,7 +11,7 @@ const menuItems: Array<Menu> = [
   },
   {
     icon: "code",
-    iconDir: "left",
+    iconDir: "start",
     label: "Content1",
   },
   {
@@ -34,7 +34,7 @@ const menuItems: Array<Menu> = [
   },
   {
     icon: "code",
-    iconDir: "right",
+    iconDir: "end",
     label: "Content2",
   },
   {
@@ -48,7 +48,7 @@ export default {
   tags: ["split-button", "autodocs"],
   argTypes: {
     disabled: { control: "boolean" },
-    type: { control: "inline-radio", options: ["primary"] },
+    type: { control: "inline-radio", options: ["primary", "secondary"] },
     side: { control: "select", options: ["top", "bottom"] },
   },
 };

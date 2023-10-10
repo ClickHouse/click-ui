@@ -30,7 +30,7 @@ export default {
   },
 };
 
-export const Default = {
+export const Playground = {
   args: {
     text: "Form Field label",
     error: false,

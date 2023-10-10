@@ -5,7 +5,7 @@ import "./styles/variables.css";
 import "./styles/variables.dark.css";
 
 import styles from "./App.module.css";
-import { ThemeName, ThemeProvider } from "./theme";
+import { ThemeName } from "./theme";
 import {
   Accordion,
   Alert,
@@ -13,6 +13,7 @@ import {
   Badge,
   Button,
   ButtonGroup,
+  ClickUIProvider,
   CardSecondary,
   Checkbox,
   DangerAlert,
@@ -26,6 +27,7 @@ import {
   Switch,
   Tabs,
   WarningAlert,
+  CardPrimary,
 } from "@/components";
 
 const App = () => {
@@ -35,7 +37,10 @@ const App = () => {
   const [disabled] = useState(false);
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ClickUIProvider
+      theme={currentTheme}
+      config={{ tooltip: { delayDuration: 0 } }}
+    >
       <div className={styles.flexWrap}>
         <IconButton
           icon="user"
@@ -124,15 +129,44 @@ const App = () => {
           state={"disabled"}
         ></Badge>
       </div>
-      <CardSecondary
-        title="Card title"
-        icon="building"
-        description="This is a card description"
-        badgeText="experiment"
-        infoText="Read More"
-        infoUrl="#"
-      />
+      <div style={{ display: "flex", padding: "1rem" }}>
+        <CardSecondary
+          title="Card title"
+          icon="building"
+          description="This is a card description"
+          badgeText="experiment"
+          infoText="Read More"
+          infoUrl="#"
+        />
 
+        <CardSecondary
+          title="Card title"
+          icon="building"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut sagittis neque. Quisque ut nunc tortor. Donec ut faucibus neque. In vel suscipit nunc. Praesent odio velit, sollicitudin ac tempor a, varius vitae turpis. Donec mauris risus, dapibus a justo eu, ultricies ullamcorper lacus. Sed ligula purus, sodales quis arcu sit amet, tempor dignissim velit. In ullamcorper lectus non rutrum bibendum. Etiam velit dolor, hendrerit vitae tristique a, semper vitae est. Vivamus elit justo, pellentesque eu auctor feugiat, ultrices vitae diam. Donec accumsan tortor nec vestibulum lobortis. Proin mattis quam nisl, sed malesuada diam volutpat a."
+          badgeText="experiment"
+          infoText="Read More"
+          infoUrl="#"
+        />
+      </div>
+      <div style={{ display: "flex", padding: "1rem" }}>
+        <CardPrimary
+          title="Card title"
+          icon="building"
+          description="This is a card description"
+          infoText="Read More"
+          infoUrl="#"
+          style={{ display: "flex", width: "100%" }}
+        />
+
+        <CardPrimary
+          title="Card title"
+          icon="building"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut sagittis neque. Quisque ut nunc tortor. Donec ut faucibus neque. In vel suscipit nunc. Praesent odio velit, sollicitudin ac tempor a, varius vitae turpis. Donec mauris risus, dapibus a justo eu, ultricies ullamcorper lacus. Sed ligula purus, sodales quis arcu sit amet, tempor dignissim velit. In ullamcorper lectus non rutrum bibendum. Etiam velit dolor, hendrerit vitae tristique a, semper vitae est. Vivamus elit justo, pellentesque eu auctor feugiat, ultrices vitae diam. Donec accumsan tortor nec vestibulum lobortis. Proin mattis quam nisl, sed malesuada diam volutpat a."
+          infoText="Read More"
+          infoUrl="#"
+          style={{ display: "flex", width: "100%" }}
+        />
+      </div>
       <ButtonGroup
         labels={["Left center", "Center", "Center", "Center", "Right end"]}
         activeIndex={selectedButton}
@@ -182,6 +216,8 @@ const App = () => {
         Secondary
       </Button>
       <Icon name="users" />
+      <Icon name="in" />
+      <Icon name="gcp" />
       <Accordion title="Accordion">I'm some content </Accordion>
       <SidebarNavigationItem
         icon="user"
@@ -231,7 +267,7 @@ const App = () => {
         title="Title"
       />
       <Avatar text="CH" />
-    </ThemeProvider>
+    </ClickUIProvider>
   );
 };
 

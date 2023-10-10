@@ -1,19 +1,10 @@
-import { Error, FormRoot } from "../commonElement";
+import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import { Label } from "@/components";
 import styled from "styled-components";
 import { ReactNode } from "react";
 
-const FormRootWrapper = styled(FormRoot)`
-  label {
-    width: 100%;
-    width: -webkit-fill-available;
-    width: fill-available;
-    width: stretch;
-  }
-`;
-
-const Wrapper = styled.div<{ $error: boolean; $hasLabel: boolean }>`
-  width: 100%;
+const Wrapper = styled.div<{ $error: boolean }>`
+  width: inherit;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,9 +17,8 @@ const Wrapper = styled.div<{ $error: boolean; $hasLabel: boolean }>`
     text-overflow: ellipsis;
   }
 
-  ${({ theme, $error, $hasLabel }) => `
+  ${({ theme, $error }) => `
     gap: ${theme.click.field.space.gap};
-    margin-top: ${$hasLabel ? theme.click.field.space.gap : 0};
     border-radius: ${theme.click.field.radii.all};
     font: ${theme.click.field.typography.fieldText.default};
     color: ${theme.click.field.color.text.default};
@@ -62,10 +52,6 @@ const Wrapper = styled.div<{ $error: boolean; $hasLabel: boolean }>`
       border: 1px solid ${theme.click.field.color.stroke.active};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.active};
-      &~ label {
-      color: ${theme.click.field.color.label.active};
-      font: ${theme.click.field.typography.label.active};;
-    }
     }
     `
     };
@@ -84,34 +70,39 @@ export interface WrapperProps {
   error?: ReactNode;
   disabled?: boolean;
   children: ReactNode;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
 }
 
 export const InputWrapper = ({
   id,
   label = "",
-  error = "",
+  error,
   disabled,
   children,
+  orientation,
+  dir,
 }: WrapperProps) => {
-  const showError = error ? typeof error === "string" && error.length !== 0 : false;
-  const showLabel = label ? typeof label === "string" && label.length !== 0 : false;
   return (
-    <FormRootWrapper>
-      {showError && <Error>{error}</Error>}
-      <Label
-        htmlFor={id}
-        disabled={disabled}
-        error={showError}
-      >
-        {label}
-        <Wrapper
-          $error={showError}
-          $hasLabel={showLabel}
+    <FormRoot
+      $orientation={orientation}
+      $dir={dir}
+      $addLabelPadding
+    >
+      <FormElementContainer>
+        <Wrapper $error={!!error}>{children}</Wrapper>
+        {!!error && error !== true && <Error>{error}</Error>}
+      </FormElementContainer>
+      {label && (
+        <Label
+          htmlFor={id}
+          disabled={disabled}
+          error={!!error}
         >
-          {children}
-        </Wrapper>
-      </Label>
-    </FormRootWrapper>
+          {label}
+        </Label>
+      )}
+    </FormRoot>
   );
 };
 
@@ -120,7 +111,6 @@ export const InputElement = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  width: inherit;
   color: inherit;
   font: inherit;
   ${({ theme }) => `

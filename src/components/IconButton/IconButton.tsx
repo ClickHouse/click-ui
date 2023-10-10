@@ -1,27 +1,30 @@
-import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
+import { Icon, IconName } from "@/components";
 import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "xs";
   disabled?: boolean;
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "ghost";
   icon: IconName;
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ type = "primary", icon, size, ...props }, ref) => {
+    const iconName = icon ? icon.toString() : "unknown icon";
+
     return (
       <Button
         {...props}
         $styleType={type}
         $size={size}
         ref={ref}
+        role="button"
+        aria-label={iconName}
       >
         <Icon
           name={icon}
-          size="md"
+          size="sm"
         />
       </Button>
     );
@@ -31,12 +34,15 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 const Button = styled.button<{
-  $styleType?: "primary" | "secondary";
+  $styleType?: "primary" | "secondary" | "ghost";
   $size?: "sm" | "xs";
 }>`
   ${({ theme, $size, $styleType = "primary" }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
-  border-color: ${theme.click.button.iconButton.color.primary.stroke.default};
+  border: ${theme.click.button.stroke} solid ${
+    theme.click.button.iconButton.color[$styleType].stroke.default
+  };
+  cursor: pointer;
   padding: ${
     $size
       ? `${theme.click.button.iconButton[$size].space.y} ${theme.click.button.iconButton[$size].space.x}`
@@ -62,6 +68,7 @@ const Button = styled.button<{
   &[disabled] {
     background-color: ${theme.click.button.iconButton.color.disabled.background.default};
     color: ${theme.click.button.iconButton.color.disabled.text.default};
+    cursor: not-allowed;
   }
   `}
 `;

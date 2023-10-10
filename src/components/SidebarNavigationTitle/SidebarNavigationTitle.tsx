@@ -8,6 +8,7 @@ export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonEl
   selected?: boolean;
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  type?: "main" | "sqlSidebar";
 }
 
 export const SidebarNavigationTitle = ({
@@ -15,11 +16,13 @@ export const SidebarNavigationTitle = ({
   icon,
   iconDir,
   selected,
+  type = "main",
   ...props
 }: SidebarNavigationTitleProps) => {
   return (
     <SidebarTitleWrapper
       data-selected={selected}
+      $type={type}
       {...props}
     >
       <IconWrapper
@@ -31,7 +34,10 @@ export const SidebarNavigationTitle = ({
     </SidebarTitleWrapper>
   );
 };
-export const SidebarTitleWrapper = styled.button<{ $collapsible?: boolean }>`
+export const SidebarTitleWrapper = styled.button<{
+  $collapsible?: boolean;
+  $type: "main" | "sqlSidebar";
+}>`
   display: inline-flex;
   align-items: center;
   background: transparent;
@@ -42,20 +48,20 @@ export const SidebarTitleWrapper = styled.button<{ $collapsible?: boolean }>`
   width: stretch;
   white-space: nowrap;
   overflow: hidden;
-  ${({ theme, $collapsible = false }) => `
+  ${({ theme, $collapsible = false, $type }) => `
     padding: 0;
     padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
     font: ${theme.click.sidebar.navigation.title.typography.default};
-    color: ${theme.click.sidebar.navigation.title.color.default};
+    color: ${theme.click.sidebar[$type].navigation.title.color.default};
 
     &:hover {
       font: ${theme.click.sidebar.navigation.title.typography.hover};
-      color: ${theme.click.sidebar.navigation.title.color.hover};
+      color: ${theme.click.sidebar[$type].navigation.title.color.hover};
     }
 
     &:active, &[data-state="open"], &[data-selected="true"] {
       font: ${theme.click.sidebar.navigation.title.typography.active};
-      color: ${theme.click.sidebar.navigation.title.color.active};
+      color: ${theme.click.sidebar[$type].navigation.title.color.active};
     }
   `}
 

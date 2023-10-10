@@ -7,13 +7,15 @@ export interface TextFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "value" | "onChange"
+      "children" | "type" | "value" | "onChange" | "dir"
     > {
   type?: "text" | "email" | "tel" | "url";
   loading?: boolean;
   value?: string;
   clear?: boolean;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -28,6 +30,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       loading,
       value = "",
       onChange: onChangeProp,
+      orientation,
+      dir,
       ...props
     },
     ref
@@ -47,6 +51,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         id={id ?? defaultId}
         label={label}
         error={error}
+        orientation={orientation}
+        dir={dir}
       >
         <InputElement
           ref={mergeRefs([inputRef, ref])}
@@ -63,6 +69,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             disabled={disabled}
             onClick={clearInput}
             $show={value.length > 0}
+            aria-label="clear input"
           >
             <Icon
               name="cross"

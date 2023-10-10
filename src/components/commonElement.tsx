@@ -1,11 +1,36 @@
 import styled, { css } from "styled-components";
+import { IconSize } from "./Icon/types";
 
-export const FormRoot = styled.div`
+export const FormRoot = styled.div<{
+  $orientation?: "horizontal" | "vertical";
+  $dir?: "start" | "end";
+  $addLabelPadding?: boolean;
+}>`
   display: flex;
-  flex-direction: column-reverse;
   width: 100%;
-  align-items: flex-start;
   gap: ${({ theme }) => theme.click.field.space.gap};
+  ${({ theme, $orientation = "vertical", $dir = "start", $addLabelPadding = false }) => `
+    flex-direction: ${
+      $orientation === "horizontal"
+        ? $dir === "start"
+          ? "row-reverse"
+          : "row"
+        : $dir === "start"
+        ? "column-reverse"
+        : "column"
+    };
+    align-items: flex-start;
+    ${
+      $addLabelPadding && $orientation === "horizontal"
+        ? `
+    label {
+      padding-top: calc(${theme.click.field.space.y} + 1px);
+      line-height: 1lh;
+    }
+    `
+        : ""
+    }
+  `}
   * {
     box-shadow: none;
     outline: none;
@@ -30,6 +55,10 @@ export const EmptyButton = styled.button`
   cursor: pointer;
   outline: none;
   padding: 0;
+  border: 0;
+  color: inherit;
+  background: inherit;
+  font: inherit;
   &:disabled {
     cursor: not-allowed;
   }
@@ -70,4 +99,47 @@ export const BaseButton = styled.button`
       cursor: not-allowed;
     }
     `}
+`;
+
+export const SvgImageElement = styled.svg<{
+  $size?: IconSize;
+}>`
+  display: flex;
+  align-items: center;
+
+  ${({ theme, $size }) => `
+    & svg {
+      ${
+        $size
+          ? `
+        width: ${theme.click.image[$size].size.width};
+        height: ${theme.click.image[$size].size.height};
+      `
+          : ""
+      }
+    }
+  `}
+`;
+
+export const FormElementContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  gap: ${({ theme }) => theme.click.field.space.gap};
+`;
+
+export const EllipsisContainer = styled.span`
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: flex-end;
+  gap: inherit;
+  & > *:not(button) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;

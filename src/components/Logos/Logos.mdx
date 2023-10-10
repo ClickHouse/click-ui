@@ -1,13 +1,13 @@
 import { Meta, IconGallery, IconItem } from "@storybook/blocks";
 import LogosLight from "./LogosLight.ts"
 import { Logo } from "./Logo"
-import { ThemeProvider } from "../../theme";
+import { ClickUIProvider } from "..";
 
 <Meta title='Display/Logo/Logos' />
 
 # Logos
 
-<ThemeProvider theme='light'>
+<ClickUIProvider theme='dark'>
 <IconGallery>
   {Object.keys(LogosLight).map((iconName) => (
     <IconItem name={iconName} key={iconName}>
@@ -15,4 +15,4 @@ import { ThemeProvider } from "../../theme";
     </IconItem>
   ))}
 </IconGallery>
-</ThemeProvider>
+</ClickUIProvider>

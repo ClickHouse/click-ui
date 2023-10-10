@@ -18,11 +18,13 @@ const CheckboxComponent = ({
 export default {
   component: CheckboxComponent,
   title: "Forms/Checkbox",
-  tags: ["checkbox","autodocs"],
+  tags: ["checkbox", "autodocs"],
   argTypes: {
     checked: { control: "radio", options: ["default", "checked", "unchecked"] },
     disabled: { control: "boolean" },
     label: { control: "text" },
+    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
+    dir: { control: "inline-radio", options: ["start", "end"] },
   },
 };
 

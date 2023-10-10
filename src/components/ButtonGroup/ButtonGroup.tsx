@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 
 export interface ButtonGroupProps {
   labels: string[];
@@ -6,11 +6,7 @@ export interface ButtonGroupProps {
   onClick?: (index: number) => void;
 }
 
-export const ButtonGroup = ({
-  labels,
-  activeIndex,
-  onClick,
-}: ButtonGroupProps) => {
+export const ButtonGroup = ({ labels, activeIndex, onClick }: ButtonGroupProps) => {
   const btns = labels.map((label, index) => {
     const position: ButtonPosition =
       index === 0 ? "left" : index === labels.length - 1 ? "right" : "center";
@@ -20,6 +16,7 @@ export const ButtonGroup = ({
         active={index === activeIndex}
         position={position}
         onClick={() => onClick?.(index)}
+        role="button"
       >
         {label}
       </Button>
@@ -29,20 +26,23 @@ export const ButtonGroup = ({
 };
 
 type ButtonPosition = "left" | "center" | "right";
+
 interface ButtonProps {
   active: boolean;
   position: ButtonPosition;
+  theme: DefaultTheme;
 }
 
 const ButtonGroupWrapper = styled.div`
   box-sizing: border-box;
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px 1px;
-  border: var(--click-button-group-color-stroke-panel);
-  background: var(--click-button-group-color-background-panel);
+  padding: 0px;
+  border: 1px solid ${({ theme }) => theme.click.button.group.color.stroke.panel};
+  background: ${({ theme }) => theme.click.button.group.color.background.panel};
+  border-radius: ${({ theme }) => theme.click.button.group.radii.end};
 `;
 
 const endRadii = "var(--click-button-button-group-radii-end)";
@@ -57,13 +57,32 @@ const Button = styled.button<ButtonProps>`
   justify-content: center;
   align-items: center;
   border: none;
-  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
-  gap: 10px;
-
-  background: ${({ active }: ButtonProps) =>
+  background: ${({ active, theme }: ButtonProps) =>
     active
-      ? "var(--click-button-group-color-background-active)"
-      : "var(--click-button-group-color-background-default)"};
+      ? theme.click.button.group.color.background.active
+      : theme.click.button.group.color.background.default};
+  color: ${({ theme }) => theme.click.button.group.color.text.default};
+  font: ${({ theme }) => theme.click.button.basic.typography.label.default};
+  border-radius: ${({ theme }) => theme.click.button.group.radii.end};
+  padding: ${({ theme }) => theme.click.button.basic.space.y}
+    ${({ theme }) => theme.click.button.basic.space.x};
+  gap: ${({ theme }) => theme.click.button.basic.space.group};
+  cursor: pointer;
+
+  &:hover {
+    background: ${({ theme }) => theme.click.button.group.color.background.hover};
+  }
+
+  &:active,
+  &:focus {
+    background: ${({ theme }) => theme.click.button.group.color.background.active};
+  }
+
+  &:disabled {
+    cursor: disabled;
+    background: ${({ theme }) =>
+      theme.click.button.basic.color.primary.background.disabled};
+  }
 
   border-radius: ${({ position }: ButtonProps) =>
     position === "left"
@@ -71,8 +90,4 @@ const Button = styled.button<ButtonProps>`
       : position === "right"
       ? rightBorderRadius
       : centerBorderRadius};
-
-  &:hover {
-    background: var(--click-button-group-color-background-hover);
-  }
 `;

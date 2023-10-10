@@ -1,4 +1,4 @@
-import React from "react";
+import { SVGAttributes } from "react";
 import UnitedStates from "./UnitedStates";
 import UnitedKingdom from "./UnitedKingdom";
 import EuropeanUnion from "./EuropeanUnion";
@@ -11,52 +11,57 @@ import Australia from "./Australia";
 import SouthAfrica from "./SouthAfrica";
 import Brazil from "./Brazil";
 import Canada from "./Canada";
+import Sweden from "./Sweden";
+import { IconSize } from "@/components/Icon/types";
+import { SvgImageElement } from "@/components/commonElement";
 
-interface Props extends React.SVGAttributes<SVGElement> {
-  name: string;
+export type FlagName =
+  | "au"
+  | "br"
+  | "ca"
+  | "de"
+  | "eu"
+  | "in"
+  | "nl"
+  | "ie"
+  | "sg"
+  | "sw"
+  | "usa"
+  | "uk"
+  | "za";
+export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
+  name: FlagName;
+  size?: IconSize;
 }
 
-const Flags = ({ name, ...props }: Props) => {
-  switch (name) {
-    case "usa":
-      return <UnitedStates {...props} />;
+export const FlagList = {
+  au: Australia,
+  br: Brazil,
+  ca: Canada,
+  de: Germany,
+  eu: EuropeanUnion,
+  ie: Ireland,
+  in: India,
+  nl: Netherlands,
+  sg: Singapore,
+  za: SouthAfrica,
+  sw: Sweden,
+  uk: UnitedKingdom,
+  usa: UnitedStates,
+};
 
-    case "de":
-      return <Germany {...props} />;
-
-    case "sg":
-      return <Singapore {...props} />;
-
-    case "uk":
-      return <UnitedKingdom {...props} />;
-
-    case "ie":
-      return <Ireland {...props} />;
-
-    case "eu":
-      return <EuropeanUnion {...props} />;
-
-    case "in":
-      return <India {...props} />;
-
-    case "nl":
-      return <Netherlands {...props} />;
-
-    case "au":
-      return <Australia {...props} />;
-
-    case "br":
-      return <Brazil {...props} />;
-
-    case "ca":
-      return <Canada {...props} />;
-
-    case "za":
-      return <SouthAfrica {...props} />;
-
-    default:
-      return null;
+const Flags = ({ name, size, ...props }: FlagProps) => {
+  const Component = FlagList[name];
+  if (Component === undefined) {
+    return;
   }
+  return (
+    <SvgImageElement
+      as={Component}
+      $size={size}
+      {...props}
+    />
+  );
 };
 
 export default Flags;

@@ -8,4 +8,18 @@ describe("Title", () => {
 
     expect(rendered.getByRole("heading", { level: 1 }).textContent).toEqual(text);
   });
+
+  test("it should pass properties to the Title component ", () => {
+    const text = "text to render";
+    const rendered = renderCUI(
+      <Title
+        type="h1"
+        data-testid={"test-testid"}
+      >
+        {text}
+      </Title>
+    );
+
+    expect(rendered.getAllByTestId("test-testid").length).toEqual(1);
+  });
 });

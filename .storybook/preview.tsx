@@ -2,9 +2,9 @@ import React from "react";
 import type { Preview } from "@storybook/react";
 import "../src/styles/variables.css";
 import { Decorator } from "@storybook/react";
-import { ThemeProvider } from "../src/theme";
 import styled from "styled-components";
 import { themes } from "@storybook/theming";
+import ClickUIProvider from "../src/components/ClickUIProvider/ClickUIProvider";
 
 const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
   ({ $left, $bfill: fill, theme }) => `
@@ -17,7 +17,7 @@ const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
       bottom: 0;
       overflow: auto;
       padding: 1rem;
-      background: ${theme.click.global.color.background.default};
+      background: ${theme.click.storybook.global.background};
     `
 );
 
@@ -31,8 +31,8 @@ export const globalTypes = {
       icon: "circlehollow",
       // Array of options
       items: [
-        { value: "light", icon: "circlehollow", title: "light" },
-        { value: "dark", icon: "circle", title: "dark" },
+        { value: "dark", icon: "moon", title: "dark" },
+        { value: "light", icon: "sun", title: "light" },
         { value: "classic", icon: "circle", title: "classic" },
       ],
       // Property that specifies if the name of the item will be displayed
@@ -44,11 +44,14 @@ const withTheme: Decorator = (StoryFn, context) => {
   const parameters = context.parameters;
   const theme = parameters?.theme || context.globals.theme;
   return (
-    <ThemeProvider theme={theme}>
+    <ClickUIProvider
+      theme={theme}
+      config={{ tooltip: { delayDuration: 0 } }}
+    >
       <ThemeBlock $left>
         <StoryFn />
       </ThemeBlock>
-    </ThemeProvider>
+    </ClickUIProvider>
   );
 };
 
@@ -58,6 +61,7 @@ const preview: Preview = {
       storySort: {
         method: "alphabetical",
         order: [
+          "Introduction",
           "Buttons",
           "Cards",
           "Forms",
@@ -76,7 +80,7 @@ const preview: Preview = {
       },
     },
     docs: {
-      theme: themes.light,
+      theme: themes.dark,
     },
   },
 };
