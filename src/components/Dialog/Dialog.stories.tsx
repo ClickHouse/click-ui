@@ -68,7 +68,7 @@ export default {
 export const Playground = {
   args: {
     title: "Example dialog title",
-    open: "default",
+    open: "true",
     showClose: true,
   },
 };

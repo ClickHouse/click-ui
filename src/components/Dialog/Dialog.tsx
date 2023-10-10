@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import styled, { keyframes } from "styled-components";
 import { Button, Icon, Spacer, Title } from "@/components";
@@ -44,14 +44,9 @@ interface DialogCloseProps extends RadixDialog.DialogCloseProps {
 const DialogClose = ({ label }: DialogCloseProps) => {
   label = label ?? "Close";
   return (
-    <>
-      <Button
-        type="secondary"
-        as={RadixDialog.Close}
-      >
-        {label}
-      </Button>
-    </>
+    <RadixDialog.Close asChild>
+      <Button type="secondary">{label}</Button>
+    </RadixDialog.Close>
   );
 };
 
@@ -103,7 +98,7 @@ const TitleArea = styled.div`
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
 
-const CloseButton = styled(EmptyButton)`
+const CrossButton = styled(EmptyButton)`
   padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}
     ${({ theme }) => theme.click.button.iconButton.sm.space.x};
   background: ${({ theme }) =>
@@ -116,11 +111,23 @@ const CloseButton = styled(EmptyButton)`
   }
 `;
 
+const CloseButton = () => (
+  <RadixDialog.Close asChild>
+    <CrossButton>
+      <Icon
+        name="cross"
+        size="lg"
+      />
+    </CrossButton>
+  </RadixDialog.Close>
+);
+
 interface DialogContentProps extends RadixDialog.DialogContentProps {
   title: string;
   showClose?: boolean;
   forceMount?: true;
   container?: HTMLElement | null;
+  children: ReactNode;
 }
 
 const DialogContent = ({
@@ -144,17 +151,7 @@ const DialogContent = ({
           >
             {title}
           </Title>
-          {showClose && (
-            <CloseButton
-              as={RadixDialog.Close}
-              asChild
-            >
-              <Icon
-                name="cross"
-                size="lg"
-              />
-            </CloseButton>
-          )}
+          {showClose && <CloseButton />}
         </TitleArea>
         <Spacer />
         {children}
