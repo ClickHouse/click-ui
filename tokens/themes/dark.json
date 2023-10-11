@@ -3125,5 +3125,98 @@
   "name": {
     "value": "dark",
     "type": "other"
+  },
+  "global": {
+    "color": {
+      "background": {
+        "default": {
+          "value": "{palette.neutral.750}",
+          "type": "color"
+        },
+        "muted": {
+          "value": "{palette.neutral.725}",
+          "type": "color"
+        }
+      },
+      "text": {
+        "default": {
+          "value": "{palette.neutral.0}",
+          "type": "color"
+        },
+        "muted": {
+          "value": "{palette.slate.300}",
+          "type": "color"
+        },
+        "link": {
+          "default": {
+            "value": "{palette.brand.300}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{palette.brand.100}",
+            "type": "color"
+          }
+        }
+      },
+      "stroke": {
+        "default": {
+          "value": "{palette.neutral.700}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.3",
+                "space": "lch"
+              }
+            }
+          }
+        },
+        "muted": {
+          "value": "{palette.neutral.700}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.3",
+                "space": "lch"
+              }
+            }
+          }
+        },
+        "intense": {
+          "value": "{palette.neutral.700}",
+          "type": "color"
+        }
+      },
+      "accent": {
+        "default": {
+          "value": "{palette.brand.300}",
+          "type": "color"
+        }
+      },
+      "outline": {
+        "default": {
+          "value": "{palette.brand.300}",
+          "type": "color"
+        }
+      },
+      "shadow": {
+        "default": {
+          "value": "{palette.neutral.900}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.6",
+                "space": "lch"
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
