@@ -29,12 +29,14 @@ import {
   WarningAlert,
   CardPrimary,
 } from "@/components";
+import { Dialog } from "@/components/Dialog/Dialog";
 
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState(0);
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <ClickUIProvider
@@ -267,6 +269,20 @@ const App = () => {
         title="Title"
       />
       <Avatar text="CH" />
+
+      <Button onClick={() => setOpen(true)}>Button</Button>
+      <Dialog
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <Dialog.Content
+          title="Hello"
+          showClose
+          onClose={() => setOpen(false)}
+        >
+          <p>I'm a dialog</p>
+        </Dialog.Content>
+      </Dialog>
     </ClickUIProvider>
   );
 };

@@ -1,6 +1,6 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
@@ -46,6 +46,7 @@
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-context-menu": "^2.1.4",
+    "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-hover-card": "^1.0.6",
     "@radix-ui/react-popover": "^1.0.6",

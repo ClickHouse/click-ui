@@ -2373,6 +2373,7 @@
             "lg": string
           },
           "mono": {
+            "xs": string,
             "sm": string,
             "md": string,
             "lg": string
