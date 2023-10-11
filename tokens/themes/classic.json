@@ -1279,5 +1279,122 @@
   "name": {
     "value": "classic",
     "type": "other"
+  },
+  "global": {
+    "color": {
+      "stroke": {
+        "default": {
+          "value": "{palette.slate.100}",
+          "type": "color",
+          "increased": {
+            "value": "#cccdcf",
+            "type": "color"
+          },
+          "muted": {
+            "value": "#e6e7e9",
+            "type": "color"
+          },
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "1",
+                "space": "lch"
+              }
+            }
+          }
+        },
+        "muted": {
+          "value": "{palette.slate.100}",
+          "type": "color",
+          "increased": {
+            "value": "#cccdcf",
+            "type": "color"
+          },
+          "muted": {
+            "value": "#e6e7e9",
+            "type": "color"
+          },
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "1",
+                "space": "lch"
+              }
+            }
+          }
+        },
+        "intense": {
+          "value": "{palette.slate.300}",
+          "type": "color",
+          "increased": {
+            "value": "#cccdcf",
+            "type": "color"
+          },
+          "muted": {
+            "value": "#e6e7e9",
+            "type": "color"
+          }
+        }
+      },
+      "accent": {
+        "default": {
+          "value": "{palette.neutral.900}",
+          "type": "color"
+        }
+      },
+      "background": {
+        "default": {
+          "value": "{palette.neutral.0}",
+          "type": "color"
+        },
+        "muted": {
+          "value": "{palette.slate.50}",
+          "type": "color"
+        }
+      },
+      "text": {
+        "default": {
+          "value": "{palette.slate.900}",
+          "type": "color"
+        },
+        "muted": {
+          "value": "{palette.slate.600}",
+          "type": "color"
+        },
+        "link": {
+          "default": {
+            "value": "#C78F0F",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#C78F0F",
+            "type": "color"
+          }
+        }
+      },
+      "outline": {
+        "default": {
+          "value": "{global.color.text.link.default}",
+          "type": "color"
+        }
+      },
+      "shadow": {
+        "default": {
+          "value": "{palette.neutral.900}",
+          "type": "color",
+          "$extensions": {
+            "studio.tokens": {
+              "modify": {
+                "type": "alpha",
+                "value": "0.15",
+                "space": "lch"
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
