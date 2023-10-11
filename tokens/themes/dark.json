@@ -2726,17 +2726,8 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
+              "value": "{palette.brand.300}",
+              "type": "color"
             },
             "disabled": {
               "value": "{click.field.color.stroke.disabled}",
@@ -3064,7 +3055,7 @@
         },
         "opaqueBackground": {
           "default": {
-            "value": "{palette.neutral.100}",
+            "value": "{palette.neutral.300}",
             "type": "color",
             "$extensions": {
               "studio.tokens": {

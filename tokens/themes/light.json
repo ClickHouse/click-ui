@@ -1364,16 +1364,7 @@
             },
             "active": {
               "value": "{click.global.color.background.muted}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
+              "type": "color"
             },
             "disabled": {
               "value": "{click.button.basic.color.primary.background.disabled}",
@@ -1426,17 +1417,8 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.05",
-                    "space": "lch"
-                  }
-                }
-              }
+              "value": "{palette.neutral.900}",
+              "type": "color"
             },
             "disabled": {
               "value": "{click.field.color.stroke.disabled}",
