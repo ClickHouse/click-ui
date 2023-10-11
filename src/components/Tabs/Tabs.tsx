@@ -46,7 +46,7 @@ const Trigger = styled(RadixTabs.Trigger)`
   }
 
   &:hover[data-state="active"] {
-    border-bottom: 1px solid ${props => props.theme.click.tabs.basic.stroke.active};
+    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.stroke.active};
   }
 `;
 
