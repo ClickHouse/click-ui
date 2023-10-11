@@ -1470,7 +1470,7 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.text.link.default}",
+              "value": "{click.button.basic.color.primary.background.default}",
               "type": "color"
             }
           },
