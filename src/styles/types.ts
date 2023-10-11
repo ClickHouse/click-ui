@@ -804,30 +804,60 @@
             "disabled": string
           }
         },
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string
-          },
-          "title": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string
-          },
-          "description": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string
-          },
-          "stroke": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string
+        "default": {
+          "color": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "title": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "description": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          }
+        },
+        "muted": {
+          "color": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "title": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "description": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
           }
         }
       }
@@ -2186,6 +2216,36 @@
     }
   },
   "name": string,
+  "global": {
+    "color": {
+      "background": {
+        "default": string,
+        "muted": string
+      },
+      "text": {
+        "default": string,
+        "muted": string,
+        "link": {
+          "default": string,
+          "hover": string
+        }
+      },
+      "stroke": {
+        "default": string,
+        "muted": string,
+        "intense": string
+      },
+      "accent": {
+        "default": string
+      },
+      "outline": {
+        "default": string
+      },
+      "shadow": {
+        "default": string
+      }
+    }
+  },
   "palette": {
     "brand": {
       "50": string,
