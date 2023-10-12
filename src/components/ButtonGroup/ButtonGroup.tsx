@@ -13,8 +13,8 @@ export const ButtonGroup = ({ labels, activeIndex, onClick }: ButtonGroupProps) 
     return (
       <Button
         key={index}
-        active={index === activeIndex}
-        position={position}
+        $active={index === activeIndex}
+        $position={position}
         onClick={() => onClick?.(index)}
         role="button"
       >
@@ -28,8 +28,8 @@ export const ButtonGroup = ({ labels, activeIndex, onClick }: ButtonGroupProps) 
 type ButtonPosition = "left" | "center" | "right";
 
 interface ButtonProps {
-  active: boolean;
-  position: ButtonPosition;
+  $active: boolean;
+  $position: ButtonPosition;
   theme: DefaultTheme;
 }
 
@@ -57,8 +57,8 @@ const Button = styled.button<ButtonProps>`
   justify-content: center;
   align-items: center;
   border: none;
-  background: ${({ active, theme }: ButtonProps) =>
-    active
+  background: ${({ $active, theme }: ButtonProps) =>
+    $active
       ? theme.click.button.group.color.background.active
       : theme.click.button.group.color.background.default};
   color: ${({ theme }) => theme.click.button.group.color.text.default};
@@ -84,10 +84,10 @@ const Button = styled.button<ButtonProps>`
       theme.click.button.basic.color.primary.background.disabled};
   }
 
-  border-radius: ${({ position }: ButtonProps) =>
-    position === "left"
+  border-radius: ${({ $position }: ButtonProps) =>
+    $position === "left"
       ? leftBorderRadius
-      : position === "right"
+      : $position === "right"
       ? rightBorderRadius
       : centerBorderRadius};
 `;
