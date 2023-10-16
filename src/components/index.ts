@@ -16,6 +16,7 @@ export { CardPrimary } from "./CardPrimary/CardPrimary";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { CodeBlock } from "./CodeBlock/CodeBlock";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";
+export { Flyout } from "./Flyout/Flyout";
 export { InlineCodeBlock } from "./CodeBlock/InlineCodeBlock";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
