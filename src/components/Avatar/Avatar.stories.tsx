@@ -3,7 +3,7 @@ import { Avatar } from "./Avatar";
 export default {
   component: Avatar,
   title: "Display/Avatar",
-  tags: ["avatar","autodocs"],
+  tags: ["avatar", "autodocs"],
 };
 
 export const Playground = {

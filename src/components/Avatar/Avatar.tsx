@@ -1,16 +1,33 @@
-import { Fallback, Root } from "@radix-ui/react-avatar";
+import { Fallback, Image, Root } from "@radix-ui/react-avatar";
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
 
 type TextSize = "md" | "sm";
 
-export type AvatarProps = {
+export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   text: string;
   textSize?: TextSize;
-};
+  src?: string;
+  srcSet?: string;
+}
 
-const Avatar = ({ text = "", textSize = "sm", ...delegated }: AvatarProps) => (
+const Avatar = ({ text, textSize = "sm", src, srcSet, ...delegated }: AvatarProps) => (
   <StyledRoot {...delegated}>
-    <StyledFallback $textSize={textSize}>{text}</StyledFallback>
+    <AvatarImage
+      src={src}
+      srcSet={srcSet}
+      alt={text}
+    />
+    <StyledFallback
+      $textSize={textSize}
+      delayMs={0}
+    >
+      {text
+        .trim()
+        .replace(/(^.)([^ ]* )?(.).*/, "$1$3")
+        .trim()
+        .toUpperCase()}
+    </StyledFallback>
   </StyledRoot>
 );
 
@@ -37,6 +54,13 @@ const StyledRoot = styled(Root)`
     background-color: ${props => props.theme.click.avatar.color.background.hover};
     color: ${props => props.theme.click.avatar.color.text.hover};
   }
+`;
+
+const AvatarImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 `;
 
 const StyledFallback = styled(Fallback)<{ $textSize: TextSize }>`
