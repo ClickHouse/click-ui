@@ -1,16 +1,15 @@
-import React from "react";
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
 export type TitleColor = "default" | "muted";
 export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type TitleFamily = "product" | "brand";
 export type TitleType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export interface TitleProps {
+export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
   color?: TitleColor;
   size?: TitleSize;
   family?: TitleFamily;
   type: TitleType;
-  children?: React.ReactNode;
 }
 
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
