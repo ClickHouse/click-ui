@@ -2422,31 +2422,17 @@
             "type": "spacing"
           }
         },
-        "actions": {
-          "space": {
-            "x": {
-              "value": "{spaces.5}",
-              "type": "spacing"
-            },
-            "gap": {
-              "value": "{spaces.4}",
-              "type": "spacing"
-            }
-          }
-        },
         "content": {
           "x": {
             "value": "{spaces.5}",
             "type": "spacing"
-          }
-        },
-        "title": {
-          "x": {
-            "value": "{spaces.5}",
+          },
+          "row-gap": {
+            "value": "{spaces.1}",
             "type": "spacing"
           },
-          "gap": {
-            "value": "{spaces.1}",
+          "column-gap": {
+            "value": "{spaces.4}",
             "type": "spacing"
           }
         }
