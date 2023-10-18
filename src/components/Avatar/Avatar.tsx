@@ -1,10 +1,14 @@
-import { Fallback, Image, Root } from "@radix-ui/react-avatar";
-import { HTMLAttributes } from "react";
+import {
+  AvatarProps as RadixAvatarProps,
+  Fallback,
+  Image,
+  Root,
+} from "@radix-ui/react-avatar";
 import styled from "styled-components";
 
 type TextSize = "md" | "sm";
 
-export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
+export interface AvatarProps extends RadixAvatarProps {
   text: string;
   textSize?: TextSize;
   src?: string;
