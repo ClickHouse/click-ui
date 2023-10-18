@@ -2444,7 +2444,7 @@
         }
       },
       "size": {
-        "narrow": {
+        "default": {
           "width": {
             "value": "27.5rem",
             "type": "sizing"
@@ -2461,6 +2461,16 @@
           },
           "height": {
             "value": "100vh",
+            "type": "sizing"
+          }
+        },
+        "narrow": {
+          "width": {
+            "value": "21rem",
+            "type": "sizing"
+          },
+          "height": {
+            "value": "100%",
             "type": "sizing"
           }
         }
