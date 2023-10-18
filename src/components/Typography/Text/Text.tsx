@@ -1,15 +1,15 @@
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
 
 export type TextColor = "default" | "muted";
 export type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 
-export interface TextProps {
+export interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
   color?: TextColor;
   size?: TextSize;
   weight?: TextWeight;
   className?: string;
-  children?: React.ReactNode;
 }
 
 /** Component for writing blocks of body copy */

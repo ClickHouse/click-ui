@@ -1,18 +1,9 @@
 import * as RadixTabs from "@radix-ui/react-tabs";
 import styled from "styled-components";
 
-export type TabProps = {
-  label: React.ReactNode;
-  value: string;
-  children?: React.ReactNode;
-};
-
-export type TabsProps = {
-  defaultValue?: string;
+export interface TabsProps extends RadixTabs.TabsProps {
   ariaLabel?: string;
-  onValueChange?: (s: string) => unknown;
-  children: React.ReactElement<TabProps>[] | React.ReactElement<TabProps>;
-};
+}
 
 const Trigger = styled(RadixTabs.Trigger)`
   border: none;
