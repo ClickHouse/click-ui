@@ -2582,11 +2582,11 @@
         "color": {
           "background": {
             "default": {
-              "value": "{click.global.color.background.muted}",
+              "value": "{click.global.color.background.default}",
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.background.default}",
+              "value": "{click.global.color.background.muted}",
               "type": "color"
             },
             "active": {
