@@ -2328,7 +2328,7 @@
       "title": {
         "space": {
           "gap": {
-            "value": "{spaces.2}",
+            "value": "{spaces.1}",
             "type": "spacing"
           }
         }
@@ -2424,10 +2424,6 @@
         },
         "actions": {
           "space": {
-            "top": {
-              "value": "{spaces.4}",
-              "type": "spacing"
-            },
             "x": {
               "value": "{spaces.5}",
               "type": "spacing"
@@ -2436,6 +2432,22 @@
               "value": "{spaces.4}",
               "type": "spacing"
             }
+          }
+        },
+        "content": {
+          "x": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          }
+        },
+        "title": {
+          "x": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
           }
         }
       },
