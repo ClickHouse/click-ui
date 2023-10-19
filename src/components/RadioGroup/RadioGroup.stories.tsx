@@ -23,10 +23,13 @@ export default {
   title: "Forms/RadioGroup",
   tags: ["radio", "autodocs"],
   argTypes: {
+    label: { control: "text" },
+    error: { control: "text" },
     disabled: { control: "boolean" },
     required: { control: "boolean" },
     inline: { control: "boolean" },
-    dir: { control: "inline-radio", options: ["ltr", "rtl"] },
+    dir: { control: "inline-radio", options: ["start", "end"] },
+    itemDir: { control: "inline-radio", options: ["ltr", "rtl"] },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     loop: { control: "inline-radio", options: [undefined, true, false] },
     value: {

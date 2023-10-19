@@ -2,27 +2,73 @@ import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import { HTMLAttributes, ReactNode, useId } from "react";
 import styled from "styled-components";
 import { Label } from "@/components";
-import { FormRoot } from "../commonElement";
+import { Error, FormElementContainer, FormRoot } from "../commonElement";
 
-export interface RadioGroupProps extends RadixRadioGroup.RadioGroupProps {
+export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, "dir"> {
   inline?: boolean;
+  orientation?: "vertical" | "horizontal";
+  dir?: "start" | "end";
+  itemDir?: "rtl" | "ltr";
+  label?: ReactNode;
+  error?: ReactNode;
 }
 
-const RadioGroupRoot = styled(RadixRadioGroup.Root)<{ $inline: "true" | "false" }>`
+const RadioGroupRoot = styled(RadixRadioGroup.Root)<{
+  $error: boolean;
+  $inline?: boolean;
+}>`
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.click.checkbox.space.gap};
-  flex-direction: ${({ $inline }) => ($inline === "true" ? "row" : "column")};
+  flex-direction: ${({ $inline = true }) => ($inline === true ? "row" : "column")};
+  label {
+    ${({ $error, theme }) =>
+      $error ? `color: ${theme.click.field.color.label.error};` : ""}
+  }
 `;
 
-export const RadioGroup = ({ children, inline, ...props }: RadioGroupProps) => {
+export const RadioGroup = ({
+  children,
+  inline,
+  orientation,
+  dir,
+  error,
+  itemDir,
+  label,
+  disabled,
+  id,
+  ...props
+}: RadioGroupProps) => {
   return (
-    <RadioGroupRoot
-      $inline={inline === true ? "true" : "false"}
-      {...props}
+    <FormRoot
+      $orientation={orientation}
+      $dir={dir}
+      $addLabelPadding
     >
-      {children}
-    </RadioGroupRoot>
+      <FormElementContainer>
+        <RadioGroupRoot
+          orientation={inline ? "horizontal" : "vertical"}
+          disabled={disabled}
+          id={id}
+          $error={!!error}
+          dir={itemDir}
+          $inline={inline}
+          {...props}
+        >
+          {children}
+        </RadioGroupRoot>
+        {!!error && error !== true && <Error>{error}</Error>}
+      </FormElementContainer>
+      {label && (
+        <Label
+          htmlFor={id}
+          disabled={disabled}
+          error={!!error}
+        >
+          {label}
+        </Label>
+      )}
+    </FormRoot>
   );
 };
 
@@ -45,6 +91,7 @@ const RadioGroupItem = ({
     <Wrapper
       $orientation="horizontal"
       $dir="end"
+      $addLabelPadding={false}
       {...props}
     >
       <RadioInput
@@ -76,6 +123,7 @@ const Wrapper = styled(FormRoot)`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.click.checkbox.space.gap};
+  width: auto;
 `;
 
 const RadioInput = styled(RadixRadioGroup.Item)`
