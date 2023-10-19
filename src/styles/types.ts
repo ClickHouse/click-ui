@@ -2072,23 +2072,25 @@
         "inline": {
           "top": string
         },
-        "actions": {
-          "space": {
-            "top": string,
-            "x": string,
-            "gap": string
-          }
+        "content": {
+          "x": string,
+          "row-gap": string,
+          "column-gap": string
         }
       },
       "shadow": {
         "default": string
       },
       "size": {
-        "narrow": {
+        "default": {
           "width": string,
           "height": string
         },
         "wide": {
+          "width": string,
+          "height": string
+        },
+        "narrow": {
           "width": string,
           "height": string
         }
