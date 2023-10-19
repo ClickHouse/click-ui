@@ -2328,7 +2328,7 @@
       "title": {
         "space": {
           "gap": {
-            "value": "{spaces.2}",
+            "value": "{spaces.1}",
             "type": "spacing"
           }
         }
@@ -2422,20 +2422,18 @@
             "type": "spacing"
           }
         },
-        "actions": {
-          "space": {
-            "top": {
-              "value": "{spaces.4}",
-              "type": "spacing"
-            },
-            "x": {
-              "value": "{spaces.5}",
-              "type": "spacing"
-            },
-            "gap": {
-              "value": "{spaces.4}",
-              "type": "spacing"
-            }
+        "content": {
+          "x": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "row-gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
+          },
+          "column-gap": {
+            "value": "{spaces.4}",
+            "type": "spacing"
           }
         }
       },
@@ -2446,7 +2444,7 @@
         }
       },
       "size": {
-        "narrow": {
+        "default": {
           "width": {
             "value": "27.5rem",
             "type": "sizing"
@@ -2463,6 +2461,16 @@
           },
           "height": {
             "value": "100vh",
+            "type": "sizing"
+          }
+        },
+        "narrow": {
+          "width": {
+            "value": "21rem",
+            "type": "sizing"
+          },
+          "height": {
+            "value": "100%",
             "type": "sizing"
           }
         }
