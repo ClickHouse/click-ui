@@ -8,8 +8,10 @@ const EllipsisContainer = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   justify-content: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
   width: fill-available;
-  flex: 1;
+  width: stretch;
   & > *:not(button) {
     overflow: hidden;
     text-overflow: ellipsis;
