@@ -6,7 +6,6 @@ import { BaseButton } from "../commonElement";
 import IconWrapper from "../IconWrapper/IconWrapper";
 
 type ButtonType = "primary" | "secondary";
-type Alignment = "center" | "left";
 type MenuItem = {
   icon?: IconName;
   iconDir?: HorizontalDirection;
