@@ -35,7 +35,6 @@ export interface SplitButtonProps
   type?: ButtonType;
   disabled?: boolean;
   fillWidth?: boolean;
-  align?: Alignment;
   menu: Array<Menu>;
   side?: "top" | "bottom";
   icon?: IconName;
@@ -53,7 +52,6 @@ export const SplitButton = ({
   modal,
   side,
   fillWidth,
-  align,
   children,
   icon,
   iconDir = "start",
@@ -97,14 +95,12 @@ export const SplitButton = ({
           disabled={disabled}
           $type={type}
           $fillWidth={fillWidth}
-          $align={align}
           {...props}
         >
           <ButtonData
             as={IconWrapper}
             icon={icon}
             iconDir={iconDir}
-            $align={align}
           >
             {children}
           </ButtonData>
@@ -240,18 +236,17 @@ const SplitButtonTrigger = styled.div<{
 
 const PrimaryButton = styled(BaseButton)<{
   $type: ButtonType;
-  $align?: Alignment;
   $fillWidth?: boolean;
 }>`
   border: none;
   align-self: stretch;
   border-radius: 0;
   align-items: center;
-  padding: ${({ theme }) => theme.click.button.split.space.y}
-    ${({ theme }) => theme.click.button.split.space.x};
-  ${({ theme, $type, $align, $fillWidth }) => `
+  padding: ${({ theme }) =>
+    `${theme.click.button.split.space.y} ${theme.click.button.split.space.x}`};
+  ${({ theme, $type, $fillWidth }) => `
     width: ${$fillWidth ? "100%" : "revert"};
-    justify-content: ${$align === "left" ? "flex-start" : "center"};
+    justify-content: center;
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};
     &:hover {
@@ -292,6 +287,6 @@ const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
   `}
 `;
 
-const ButtonData = styled.div<{ $align?: Alignment }>`
-  ${({ $align }) => `${$align === "center" ? "width: auto;" : ""}`};
+const ButtonData = styled.div`
+  width: auto;
 `;
