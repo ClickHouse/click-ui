@@ -22,6 +22,7 @@ const IconWrapper = ({
   width,
   height,
   children,
+  ...props
 }: {
   icon?: IconName;
   iconDir?: HorizontalDirection;
@@ -31,7 +32,7 @@ const IconWrapper = ({
   height?: number | string;
 }) => {
   return (
-    <LabelContainer>
+    <LabelContainer {...props}>
       {icon && iconDir === "start" && (
         <Icon
           name={icon}

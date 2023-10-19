@@ -100,12 +100,14 @@ export const SplitButton = ({
           $align={align}
           {...props}
         >
-          <IconWrapper
+          <ButtonData
+            as={IconWrapper}
             icon={icon}
             iconDir={iconDir}
+            $align={align}
           >
             {children}
-          </IconWrapper>
+          </ButtonData>
         </PrimaryButton>
         <SecondaryButton
           as={Dropdown.Trigger}
@@ -288,4 +290,8 @@ const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
       color: ${theme.click.button.split[$type].text.disabled};
     }
   `}
+`;
+
+const ButtonData = styled.div<{ $align?: Alignment }>`
+  ${({ $align }) => `${$align === "center" ? "width: auto;" : ""}`};
 `;
