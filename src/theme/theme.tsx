@@ -1,6 +1,7 @@
 import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
+  useTheme,
 } from "styled-components";
 import { ThemeName, themes } from ".";
 
