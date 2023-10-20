@@ -30,6 +30,7 @@ import {
   CardPrimary,
   Flyout,
   Select,
+  Text,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 
@@ -64,85 +65,148 @@ const App = () => {
           onClick={() => console.log("click")}
         />
       </div>
+      <div className={styles.flexWrap}>
+        <IconButton
+          icon="user"
+          size="sm"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          size="sm"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          size="sm"
+          disabled
+          onClick={() => console.log("click")}
+        />
+      </div>
+      <div className={styles.flexWrap}>
+        <IconButton
+          icon="user"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          icon="user"
+          onClick={() => console.log("click")}
+        />
+        <IconButton
+          disabled
+          icon="user"
+          onClick={() => console.log("click")}
+        />
+      </div>
       <div
-        className={styles.flexWrap}
         ref={ref}
+        style={{ position: "relative", minHeight: 200 }}
       >
-        <IconButton
-          icon="user"
-          size="sm"
-          onClick={() => console.log("click")}
-        />
-        <Flyout>
-          <Flyout.Trigger>
-            <IconButton
-              icon="user"
-              size="sm"
-              onClick={() => console.log("click")}
-            />
-          </Flyout.Trigger>
-          <Flyout.Content container={ref.current}>
-            <Flyout.Header
-              title="test1"
-              description="test2"
-            />
-            <Flyout.Body>
-              hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
-              <Select>
-                <Select.Item value="test">test</Select.Item>
-                <Select.Item value="test2">test2</Select.Item>
-                <Select.Item value="test3">test3</Select.Item>
-                <Select.Item value="test4">test4</Select.Item>
-                <Select.Item value="test5">test5</Select.Item>
-                <Select.Item value="test6">test6</Select.Item>
-                <Select.Item value="test7">test7</Select.Item>
-                <Select.Item value="test8">test8</Select.Item>
-              </Select>
-            </Flyout.Body>
-            <Flyout.Footer>
-              <Button type="primary">Primary Button</Button>
-            </Flyout.Footer>
-          </Flyout.Content>
-        </Flyout>
-        <IconButton
-          icon="user"
-          size="sm"
-          disabled
-          onClick={() => console.log("click")}
-        />
-      </div>
-      <div className={styles.flexWrap}>
-        <IconButton
-          icon="user"
-          onClick={() => console.log("click")}
-        />
-        <IconButton
-          icon="user"
-          onClick={() => console.log("click")}
-        />
-        <IconButton
-          disabled
-          icon="user"
-          onClick={() => console.log("click")}
-        />
-      </div>
-      <div className={styles.flexWrap}>
-        <IconButton
-          type="secondary"
-          icon="user"
-          onClick={() => console.log("click")}
-        />
-        <IconButton
-          type="secondary"
-          icon="user"
-          onClick={() => console.log("click")}
-        />
-        <IconButton
-          type="secondary"
-          disabled
-          icon="user"
-          onClick={() => console.log("click")}
-        />
+        <Text>Flyout</Text>
+        <div className={styles.flexWrap}>
+          <Flyout>
+            <Flyout.Trigger>
+              <Button
+                iconLeft="user"
+                onClick={() => console.log("click")}
+              >
+                Flyout Relative
+              </Button>
+            </Flyout.Trigger>
+            <Flyout.Content container={ref.current}>
+              <Flyout.Header
+                title="test1"
+                description="test2"
+              />
+              <Flyout.Body>
+                hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
+                <Select>
+                  <Select.Item value="test">test</Select.Item>
+                  <Select.Item value="test2">test2</Select.Item>
+                  <Select.Item value="test3">test3</Select.Item>
+                  <Select.Item value="test4">test4</Select.Item>
+                  <Select.Item value="test5">test5</Select.Item>
+                  <Select.Item value="test6">test6</Select.Item>
+                  <Select.Item value="test7">test7</Select.Item>
+                  <Select.Item value="test8">test8</Select.Item>
+                </Select>
+              </Flyout.Body>
+              <Flyout.Footer>
+                <Button type="primary">Primary Button</Button>
+              </Flyout.Footer>
+            </Flyout.Content>
+          </Flyout>
+          <Flyout>
+            <Flyout.Trigger>
+              <Button
+                iconLeft="user"
+                onClick={() => console.log("click")}
+              >
+                Flyout Absolute
+              </Button>
+            </Flyout.Trigger>
+            <Flyout.Content
+              container={ref.current}
+              strategy="absolute"
+            >
+              <Flyout.Header
+                title="test1"
+                description="test2"
+              />
+              <Flyout.Body>
+                hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
+                <Select>
+                  <Select.Item value="test">test</Select.Item>
+                  <Select.Item value="test2">test2</Select.Item>
+                  <Select.Item value="test3">test3</Select.Item>
+                  <Select.Item value="test4">test4</Select.Item>
+                  <Select.Item value="test5">test5</Select.Item>
+                  <Select.Item value="test6">test6</Select.Item>
+                  <Select.Item value="test7">test7</Select.Item>
+                  <Select.Item value="test8">test8</Select.Item>
+                </Select>
+              </Flyout.Body>
+              <Flyout.Footer>
+                <Button type="primary">Primary Button</Button>
+              </Flyout.Footer>
+            </Flyout.Content>
+          </Flyout>
+          <Flyout>
+            <Flyout.Trigger>
+              <Button
+                iconLeft="user"
+                onClick={() => console.log("click")}
+              >
+                Flyout Fixed
+              </Button>
+            </Flyout.Trigger>
+            <Flyout.Content
+              container={ref.current}
+              strategy="fixed"
+            >
+              <Flyout.Header
+                title="test1"
+                description="test2"
+              />
+              <Flyout.Body>
+                hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
+                <Select>
+                  <Select.Item value="test">test</Select.Item>
+                  <Select.Item value="test2">test2</Select.Item>
+                  <Select.Item value="test3">test3</Select.Item>
+                  <Select.Item value="test4">test4</Select.Item>
+                  <Select.Item value="test5">test5</Select.Item>
+                  <Select.Item value="test6">test6</Select.Item>
+                  <Select.Item value="test7">test7</Select.Item>
+                  <Select.Item value="test8">test8</Select.Item>
+                </Select>
+              </Flyout.Body>
+              <Flyout.Footer>
+                <Button type="primary">Primary Button</Button>
+              </Flyout.Footer>
+            </Flyout.Content>
+          </Flyout>
+        </div>
       </div>
       <div className={styles.flexWrap}>
         <Badge text={"default"}></Badge>
@@ -306,6 +370,7 @@ const App = () => {
       <Dialog
         open={open}
         onOpenChange={setOpen}
+        modal={false}
       >
         <Dialog.Content
           title="Hello"
