@@ -131,7 +131,7 @@ ${
       Content2
     </MultiSelect.Item>
     <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
-</Select>
+</MultiSelect>
 `
     : ""
 }`;

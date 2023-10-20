@@ -3,7 +3,9 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Button, IconButton, Separator } from "..";
 import styled from "styled-components";
 
-export const Flyout = (props: Dialog.DialogProps) => {
+export type FlyoutProps = Dialog.DialogProps;
+
+export const Flyout = (props: FlyoutProps) => {
   return <Dialog.Root {...props} />;
 };
 
@@ -22,7 +24,7 @@ Flyout.Trigger = Trigger;
 
 type FlyoutSizeType = "narrow" | "wide";
 type Strategy = "relative" | "absolute" | "fixed";
-interface DialogContentProps extends Dialog.DialogContentProps {
+export interface DialogContentProps extends Dialog.DialogContentProps {
   container?: HTMLElement | null;
   showOverlay?: boolean;
   showClose?: boolean;
@@ -39,13 +41,14 @@ const FlyoutContent = styled(Dialog.Content)<{
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
   overflow: hidden;
   flex: 1;
   top: 0;
   right: 0;
+  bottom: 0;
   ${({ theme, $size = "narrow", $strategy }) => `
     position: ${$strategy};
+    height: ${$strategy === "relative" ? "100%" : "auto"};
     width: ${theme.click.flyout.size[$size].width};
     padding: ${theme.click.flyout.space.y} ${theme.click.flyout.space.x};
     gap: ${theme.click.flyout.space.gap};
@@ -54,11 +57,13 @@ const FlyoutContent = styled(Dialog.Content)<{
     box-shadow: -6px 0px 10px 0px ${
       theme.click.flyout.shadow.default
     }, -5px 0px 20px 0px ${theme.click.flyout.shadow.default};
+        @media (max-width: 1024px) {
     ${
       $strategy === "relative"
         ? `
-        @media (max-width: 1024px) {
-          position: absolute !important;
+          position: absolute !important;`
+        : ""
+    }
           overflow: hidden;
           transform: translateX(calc(100% - 50px));
           transition: 0.3s ease-in-out;
@@ -69,9 +74,6 @@ const FlyoutContent = styled(Dialog.Content)<{
             left: auto;
           }
         }
-    `
-        : ""
-    }
   `}
 `;
 const FlyoutContainer = styled.div`
@@ -131,7 +133,7 @@ Flyout.Element = Element;
 
 interface TitleHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   title: string;
-  description: string;
+  description?: string;
   children?: never;
 }
 
@@ -140,7 +142,7 @@ interface ChildrenHeaderProps extends HTMLAttributes<HTMLDivElement> {
   description?: never;
 }
 
-type HeaderProps = TitleHeaderProps | ChildrenHeaderProps;
+export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
 const FlyoutHeaderContainer = styled.div`
   display: flex;
@@ -163,6 +165,8 @@ const FlyoutTitle = styled(Dialog.Title)`
   ${({ theme }) => `
     color: ${theme.click.flyout.color.title.default};
     font: ${theme.typography.styles.product.titles.xl};
+    margin: 0;
+    padding: 0;
   `}
 `;
 
@@ -170,10 +174,12 @@ const FlyoutDescription = styled(Dialog.Description)`
   ${({ theme }) => `
     color: ${theme.click.flyout.color.description.default};
     font: ${theme.typography.styles.product.text.normal.md};
+    margin: 0;
+    padding: 0;
   `}
 `;
 
-const Header = ({ title, description, children, ...props }: HeaderProps) => {
+const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) => {
   if (children) {
     return (
       <FlyoutContainer>
@@ -181,6 +187,7 @@ const Header = ({ title, description, children, ...props }: HeaderProps) => {
           <FlexGrow>{children}</FlexGrow>
           <Dialog.Close asChild>
             <IconButton
+              data-testid="flyout-header-close-btn"
               icon="cross"
               type="ghost"
               size="xs"
@@ -199,8 +206,9 @@ const Header = ({ title, description, children, ...props }: HeaderProps) => {
           <FlyoutTitle>{title}</FlyoutTitle>
           {description && <FlyoutDescription>{description}</FlyoutDescription>}
         </FlexGrow>
-        <Dialog.Close>
+        <Dialog.Close asChild>
           <IconButton
+            data-testid="flyout-header-close-btn"
             icon="cross"
             type="ghost"
             size="xs"
@@ -227,7 +235,7 @@ const Body = (props: HTMLAttributes<HTMLDivElement>) => <FlyoutBody {...props} /
 Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
-interface FooterProps extends HTMLAttributes<HTMLDivElement> {
+export interface FlyoutFooterProps extends HTMLAttributes<HTMLDivElement> {
   cancelText?: string;
   showClose?: boolean;
 }
@@ -236,7 +244,6 @@ const FlyoutFooter = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
   ${({ theme }) => `
     row-gap: ${theme.click.flyout.space.content["row-gap"]};
     column-gap: ${theme.click.flyout.space.content["column-gap"]};
@@ -244,7 +251,7 @@ const FlyoutFooter = styled.div`
   `}
 `;
 
-const Footer = ({ cancelText, showClose, children, ...props }: FooterProps) => {
+const Footer = ({ cancelText, showClose, children, ...props }: FlyoutFooterProps) => {
   return (
     <FlyoutContainer>
       <Separator size="lg" />

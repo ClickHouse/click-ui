@@ -119,7 +119,7 @@ const App = () => {
                 description="test2"
               />
               <Flyout.Body>
-                hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
+                Flyout Text
                 <Select>
                   <Select.Item value="test">test</Select.Item>
                   <Select.Item value="test2">test2</Select.Item>
@@ -154,7 +154,7 @@ const App = () => {
                 description="test2"
               />
               <Flyout.Body>
-                hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
+                Flyout Text
                 <Select>
                   <Select.Item value="test">test</Select.Item>
                   <Select.Item value="test2">test2</Select.Item>
@@ -189,7 +189,7 @@ const App = () => {
                 description="test2"
               />
               <Flyout.Body>
-                hadksjhadksjhaskdjhaksdjhkajsdhkajshdkjashdkjashd
+                Flyout Text
                 <Select>
                   <Select.Item value="test">test</Select.Item>
                   <Select.Item value="test2">test2</Select.Item>
