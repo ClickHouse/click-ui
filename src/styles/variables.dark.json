@@ -990,9 +990,9 @@
       "fileTabs": {
         "color": {
           "background": {
-            "default": "#282828",
-            "hover": "#1F1F1C",
-            "active": "#1F1F1C"
+            "default": "#1F1F1C",
+            "hover": "#282828",
+            "active": "#282828"
           },
           "text": {
             "default": "#b3b6bd",
