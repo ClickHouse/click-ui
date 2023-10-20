@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { HorizontalDirection, Icon, IconName } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { EllipsisContainer } from "../commonElement";
+import IconWrapper from "../IconWrapper/IconWrapper";
 export type BadgeState =
   | "default"
   | "success"
@@ -92,26 +93,14 @@ export const Badge = ({
     {...props}
   >
     <Content>
-      {icon && iconDir === "start" && (
-        <SvgContainer
-          as={Icon}
-          name={icon}
-          $state={state}
-          $size={size}
-        />
-      )}
-      <BadgeContent>
-        <span>{text}</span>
+      <BadgeContent
+        as={IconWrapper}
+        icon={icon}
+        iconDir={iconDir}
+        size={size}
+      >
+        {text}
       </BadgeContent>
-      {icon && iconDir === "end" && (
-        <SvgContainer
-          as={Icon}
-          name={icon}
-          $state={state}
-          $size={size}
-        />
-      )}
-
       {dismissible && (
         <SvgContainer
           name="cross"
