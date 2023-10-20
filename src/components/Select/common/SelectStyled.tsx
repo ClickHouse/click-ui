@@ -6,13 +6,12 @@ export const SelectPopoverRoot = styled(Root)`
 `;
 
 export const SelectValue = styled.div`
-  display: flex;
-  flex-direction: column;
   text-align: left;
   flex: 1;
   gap: inherit;
   color: inherit;
   font: inherit;
+  overflow: hidden;
 `;
 
 export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { HorizontalDirection, Icon, IconName } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { EllipsisContainer } from "../commonElement";
+import IconWrapper from "../IconWrapper/IconWrapper";
 export type BadgeState =
   | "default"
   | "success"
@@ -47,6 +48,8 @@ const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
   display: inline-flex;
   align-items: center;
   gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
+  max-width: 100%;
+  justify-content: flex-start;
 `;
 
 const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
@@ -58,13 +61,15 @@ const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
 `;
 const BadgeContent = styled(EllipsisContainer)<{
   $state?: BadgeState;
-  $size?: BadgeSize;
+  size?: BadgeSize;
 }>`
+  width: auto;
+  overflow: hidden;
   svg {
-    ${({ $state = "default", $size = "md", theme }) => `
+    ${({ $state = "default", size = "md", theme }) => `
     color: ${theme.click.badge.color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
+    height: ${theme.click.badge.icon[size].size.height};
+    width: ${theme.click.badge.icon[size].size.width};
     gap: inherit;
   `}
   }
@@ -88,24 +93,15 @@ export const Badge = ({
     {...props}
   >
     <Content>
-      {icon && iconDir === "start" && (
-        <SvgContainer
-          as={Icon}
-          name={icon}
-          $state={state}
-          $size={size}
-        />
-      )}
-      <BadgeContent>{text}</BadgeContent>
-      {icon && iconDir === "end" && (
-        <SvgContainer
-          as={Icon}
-          name={icon}
-          $state={state}
-          $size={size}
-        />
-      )}
-
+      <BadgeContent
+        as={IconWrapper}
+        icon={icon}
+        iconDir={iconDir}
+        size={size}
+        $state={state}
+      >
+        {text}
+      </BadgeContent>
       {dismissible && (
         <SvgContainer
           name="cross"
