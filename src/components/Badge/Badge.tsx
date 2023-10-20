@@ -47,6 +47,8 @@ const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
   display: inline-flex;
   align-items: center;
   gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
+  max-width: 100%;
+  justify-content: flex-start;
 `;
 
 const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
@@ -60,6 +62,8 @@ const BadgeContent = styled(EllipsisContainer)<{
   $state?: BadgeState;
   $size?: BadgeSize;
 }>`
+  width: auto;
+  overflow: hidden;
   svg {
     ${({ $state = "default", $size = "md", theme }) => `
     color: ${theme.click.badge.color.text[$state]};
@@ -96,7 +100,9 @@ export const Badge = ({
           $size={size}
         />
       )}
-      <BadgeContent>{text}</BadgeContent>
+      <BadgeContent>
+        <span>{text}</span>
+      </BadgeContent>
       {icon && iconDir === "end" && (
         <SvgContainer
           as={Icon}
