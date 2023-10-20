@@ -15,6 +15,14 @@ const BadgeList = styled.div`
   color: inherit;
 `;
 
+const MultiSelectBadge = styled.div`
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  max-width: fit-content;
+`;
+
 interface MultiSelectValueProps {
   selectedValues: Array<string>;
   valueNode: Map<string, SelectItemProps>;
@@ -91,7 +99,8 @@ export const MultiSelectValue = ({
           } as DismissibleBadge;
         }
         return (
-          <Badge
+          <MultiSelectBadge
+            as={Badge}
             key={`multi-select-${id}-${value}`}
             size="sm"
             state={disabled ? "disabled" : "default"}
