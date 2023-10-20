@@ -12,8 +12,9 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from "@radix-ui/react-dialog";
-import { Button, IconButton, Separator } from "..";
+import { Button, Icon, Separator } from "..";
 import styled from "styled-components";
+import { CrossButton } from "../commonElement";
 
 export type FlyoutProps = DialogProps;
 
@@ -198,12 +199,12 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
         <FlyoutHeaderContainer {...props}>
           <FlexGrow>{children}</FlexGrow>
           <DialogClose asChild>
-            <IconButton
-              data-testid="flyout-header-close-btn"
-              icon="cross"
-              type="ghost"
-              size="xs"
-            />
+            <CrossButton data-testid="flyout-header-close-btn">
+              <Icon
+                name="cross"
+                size="lg"
+              />
+            </CrossButton>
           </DialogClose>
         </FlyoutHeaderContainer>
         <Separator size="lg" />
@@ -219,12 +220,12 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
           {description && <FlyoutDescription>{description}</FlyoutDescription>}
         </FlexGrow>
         <DialogClose asChild>
-          <IconButton
-            data-testid="flyout-header-close-btn"
-            icon="cross"
-            type="ghost"
-            size="xs"
-          />
+          <CrossButton data-testid="flyout-header-close-btn">
+            <Icon
+              name="cross"
+              size="lg"
+            />
+          </CrossButton>
         </DialogClose>
       </FlyoutHeaderContainer>
       <Separator size="lg" />

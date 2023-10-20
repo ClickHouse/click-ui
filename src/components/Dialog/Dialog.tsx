@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import styled, { keyframes } from "styled-components";
 import { Button, Icon, Spacer, Title } from "@/components";
-import { EmptyButton } from "../commonElement";
+import { CrossButton } from "../commonElement";
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
@@ -87,19 +87,6 @@ const TitleArea = styled.div`
   justify-content: space-between;
   align-items: center;
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
-`;
-
-const CrossButton = styled(EmptyButton)`
-  padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}
-    ${({ theme }) => theme.click.button.iconButton.sm.space.x};
-  background: ${({ theme }) =>
-    theme.click.button.iconButton.color.primary.background.default};
-  border-radius: ${({ theme }) => theme.click.button.iconButton.radii.all};
-
-  &:hover {
-    background: ${({ theme }) =>
-      theme.click.button.iconButton.color.primary.background.hover};
-  }
 `;
 
 const CloseButton = ({ onClose }: { onClose?: () => void }) => (
