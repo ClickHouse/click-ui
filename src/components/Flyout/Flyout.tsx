@@ -1,22 +1,34 @@
 import { HTMLAttributes } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogOverlay,
+  DialogPortal,
+  DialogProps,
+  DialogTitle,
+  DialogTrigger,
+  DialogTriggerProps,
+  DialogContentProps as RadixDialogContentProps,
+} from "@radix-ui/react-dialog";
 import { Button, IconButton, Separator } from "..";
 import styled from "styled-components";
 
-export type FlyoutProps = Dialog.DialogProps;
+export type FlyoutProps = DialogProps;
 
 export const Flyout = (props: FlyoutProps) => {
-  return <Dialog.Root {...props} />;
+  return <Dialog {...props} />;
 };
 
-const Trigger = ({ children, ...props }: Dialog.DialogTriggerProps) => {
+const Trigger = ({ children, ...props }: DialogTriggerProps) => {
   return (
-    <Dialog.Trigger
+    <DialogTrigger
       asChild
       {...props}
     >
       <div>{children}</div>
-    </Dialog.Trigger>
+    </DialogTrigger>
   );
 };
 Trigger.displayName = "Flyout.Trigger";
@@ -24,7 +36,7 @@ Flyout.Trigger = Trigger;
 
 type FlyoutSizeType = "narrow" | "wide";
 type Strategy = "relative" | "absolute" | "fixed";
-export interface DialogContentProps extends Dialog.DialogContentProps {
+export interface DialogContentProps extends RadixDialogContentProps {
   container?: HTMLElement | null;
   showOverlay?: boolean;
   showClose?: boolean;
@@ -33,7 +45,7 @@ export interface DialogContentProps extends Dialog.DialogContentProps {
   closeOnInteractOutside?: boolean;
 }
 
-const FlyoutContent = styled(Dialog.Content)<{
+const FlyoutContent = styled(DialogContent)<{
   $size?: FlyoutSizeType;
   $strategy: Strategy;
 }>`
@@ -94,8 +106,8 @@ const Content = ({
   ...props
 }: DialogContentProps) => {
   return (
-    <Dialog.Portal container={container}>
-      {showOverlay && <Dialog.Overlay className="DialogOverlay" />}
+    <DialogPortal container={container}>
+      {showOverlay && <DialogOverlay className="DialogOverlay" />}
       <FlyoutContent
         $size={size}
         $strategy={strategy}
@@ -111,7 +123,7 @@ const Content = ({
       >
         {children}
       </FlyoutContent>
-    </Dialog.Portal>
+    </DialogPortal>
   );
 };
 Content.displayName = "Flyout.Content";
@@ -161,7 +173,7 @@ const FlexGrow = styled.div`
   flex: 1;
 `;
 
-const FlyoutTitle = styled(Dialog.Title)`
+const FlyoutTitle = styled(DialogTitle)`
   ${({ theme }) => `
     color: ${theme.click.flyout.color.title.default};
     font: ${theme.typography.styles.product.titles.xl};
@@ -170,7 +182,7 @@ const FlyoutTitle = styled(Dialog.Title)`
   `}
 `;
 
-const FlyoutDescription = styled(Dialog.Description)`
+const FlyoutDescription = styled(DialogDescription)`
   ${({ theme }) => `
     color: ${theme.click.flyout.color.description.default};
     font: ${theme.typography.styles.product.text.normal.md};
@@ -185,14 +197,14 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
       <FlyoutContainer>
         <FlyoutHeaderContainer {...props}>
           <FlexGrow>{children}</FlexGrow>
-          <Dialog.Close asChild>
+          <DialogClose asChild>
             <IconButton
               data-testid="flyout-header-close-btn"
               icon="cross"
               type="ghost"
               size="xs"
             />
-          </Dialog.Close>
+          </DialogClose>
         </FlyoutHeaderContainer>
         <Separator size="lg" />
       </FlyoutContainer>
@@ -206,14 +218,14 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
           <FlyoutTitle>{title}</FlyoutTitle>
           {description && <FlyoutDescription>{description}</FlyoutDescription>}
         </FlexGrow>
-        <Dialog.Close asChild>
+        <DialogClose asChild>
           <IconButton
             data-testid="flyout-header-close-btn"
             icon="cross"
             type="ghost"
             size="xs"
           />
-        </Dialog.Close>
+        </DialogClose>
       </FlyoutHeaderContainer>
       <Separator size="lg" />
     </FlyoutContainer>
@@ -257,9 +269,9 @@ const Footer = ({ cancelText, showClose, children, ...props }: FlyoutFooterProps
       <Separator size="lg" />
       <FlyoutFooter {...props}>
         {showClose && (
-          <Dialog.Close asChild>
+          <DialogClose asChild>
             <Button type="secondary">{cancelText ?? "Cancel"}</Button>
-          </Dialog.Close>
+          </DialogClose>
         )}
         {children}
       </FlyoutFooter>
