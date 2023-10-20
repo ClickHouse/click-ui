@@ -61,15 +61,15 @@ const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
 `;
 const BadgeContent = styled(EllipsisContainer)<{
   $state?: BadgeState;
-  $size?: BadgeSize;
+  size?: BadgeSize;
 }>`
   width: auto;
   overflow: hidden;
   svg {
-    ${({ $state = "default", $size = "md", theme }) => `
+    ${({ $state = "default", size = "md", theme }) => `
     color: ${theme.click.badge.color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
+    height: ${theme.click.badge.icon[size].size.height};
+    width: ${theme.click.badge.icon[size].size.width};
     gap: inherit;
   `}
   }
@@ -98,6 +98,7 @@ export const Badge = ({
         icon={icon}
         iconDir={iconDir}
         size={size}
+        $state={state}
       >
         {text}
       </BadgeContent>
