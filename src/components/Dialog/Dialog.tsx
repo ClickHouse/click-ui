@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import styled, { keyframes } from "styled-components";
 import { Button, Icon, Spacer, Title } from "@/components";
@@ -16,11 +16,7 @@ const Trigger = styled(RadixDialog.Trigger)`
   cursor: pointer;
 `;
 
-interface DialogTriggerProps extends RadixDialog.DialogTriggerProps {
-  children: React.ReactNode;
-}
-
-const DialogTrigger = ({ children, ...props }: DialogTriggerProps) => {
+const DialogTrigger = ({ children, ...props }: RadixDialog.DialogTriggerProps) => {
   return <Trigger {...props}>{children}</Trigger>;
 };
 
@@ -100,7 +96,7 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
   </RadixDialog.Close>
 );
 
-interface DialogContentProps extends RadixDialog.DialogContentProps {
+export interface DialogContentProps extends RadixDialog.DialogContentProps {
   title: string;
   showClose?: boolean;
   forceMount?: true;
