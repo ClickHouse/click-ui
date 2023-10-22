@@ -103,6 +103,7 @@ export interface DialogContentProps extends RadixDialog.DialogContentProps {
   container?: HTMLElement | null;
   children: ReactNode;
   onClose?: () => void;
+  showOverlay?: boolean;
 }
 
 const DialogContent = ({
@@ -112,13 +113,14 @@ const DialogContent = ({
   onClose,
   forceMount,
   container,
+  showOverlay = true,
 }: DialogContentProps) => {
   return (
     <RadixDialog.Portal
       forceMount={forceMount}
       container={container}
     >
-      <DialogOverlay />
+      {showOverlay && <DialogOverlay />}
       <ContentArea>
         <TitleArea>
           <Title
