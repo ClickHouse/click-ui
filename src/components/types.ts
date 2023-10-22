@@ -32,6 +32,8 @@ export type { SelectOptionListItem } from "./Select/common/types";
 export type { MultiSelectProps } from "./Select/MultiSelect";
 export type { PanelProps } from "./Panel/Panel";
 export type { FlyoutProps, FlyoutFooterProps, FlyoutHeaderProps } from "./Flyout/Flyout";
+export type { DialogContentProps } from "./Dialog/Dialog";
+export type { DialogProps, DialogTriggerProps } from "@radix-ui/react-dialog";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
