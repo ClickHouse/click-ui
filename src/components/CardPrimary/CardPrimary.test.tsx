@@ -66,7 +66,6 @@ describe("CardPrimary Component", () => {
         infoText: "test1",
       });
 
-      screen.debug();
       expect(queryByRole("button")).not.toBeNull();
     });
   });

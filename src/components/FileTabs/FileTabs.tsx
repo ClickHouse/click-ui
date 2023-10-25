@@ -1,23 +1,28 @@
 import {
-  DragEvent,
   HTMLAttributes,
   createContext,
   useContext,
-  useRef,
   ReactElement,
   Children,
   useState,
-  WheelEvent,
-  RefObject,
   MouseEvent,
   useEffect,
   ReactNode,
+  WheelEvent,
+  useRef,
 } from "react";
 import styled from "styled-components";
 import { Icon, IconButton } from "@/components";
 import { IconName } from "../Icon/types";
+import {
+  ItemInterface,
+  ReactSortable,
+  ReactSortableProps,
+  Sortable,
+  Store,
+} from "react-sortablejs";
 
-export type StatusType =
+export type FileTabStatusType =
   | "default"
   | "success"
   | "neutral"
@@ -35,53 +40,50 @@ const TabsContainer = styled.div`
     height: 0;
   }
 `;
-
-const DragElementContainer = styled.div`
-  width: fit-content;
-  position: absolute;
-  visibility: hidden;
-  left: 0;
-  top: 0;
-  z-index: -1;
+const TabsSortableContainer = styled.div`
+  display: flex;
+  & > div {
+    outline: none;
+    min-width: 100px;
+    width: clamp(100px, 100%, 200px);
+    &.sortable-ghost {
+      opacity: 0;
+    }
+  }
 `;
 
 interface ContextProps {
-  selected?: string;
-  list: Array<string>;
-  updateOrder: (order: number) => void;
-  dragElementContainer: RefObject<HTMLDivElement>;
-  onSelect: (value: string) => void;
-  onClose: (value: string) => void;
+  selectedIndex?: number;
+  onClose: (index: number) => void;
 }
 
 export const TabContext = createContext<ContextProps>({
-  selected: undefined,
-  list: [],
-  updateOrder: () => null,
-  dragElementContainer: { current: null },
-  onSelect: () => null,
+  selectedIndex: undefined,
   onClose: () => null,
 });
 
-interface TabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   onClose?: () => void;
-  value: string;
-  status?: StatusType;
+  index: number;
+  status?: FileTabStatusType;
   icon?: IconName | ReactNode;
   text: string;
   testId?: string;
+  preview?: boolean;
 }
-interface Props
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onClose" | "onSelect"> {
-  selected?: string;
-  children: ReactElement<TabProps> | Array<ReactElement<TabProps>>;
-  onReorderTab: (props: {
-    sourcePosition: number;
-    destinationPosition: number;
-    sourceValue: string;
-  }) => void;
-  onClose: (value: string, index: number) => void;
-  onSelect: (value: string, index: number) => void;
+export interface FileTabsProps
+  extends Omit<ReactSortableProps<ItemInterface>, "onSelect" | "list" | "setList"> {
+  selectedIndex?: number;
+  children: ReactElement<FileTabProps> | Array<ReactElement<FileTabProps>>;
+  onReorderTab: (sourcePosition: number, destinationPosition: number) => void;
+  onClose: (index: number) => void;
+  onSelect: (index: number) => void;
+  list?: Array<ItemInterface>;
+  setList?: (
+    newState: Array<ItemInterface>,
+    sortable: Sortable | null,
+    store: Store
+  ) => void;
 }
 
 const useSelect = () => {
@@ -91,125 +93,99 @@ const useSelect = () => {
   }
   return result;
 };
-type DragElementType = {
-  order: number;
-  value: string;
-};
-
-const getOrderFromChildren = (
-  children: ReactElement<TabProps> | Array<ReactElement<TabProps>>
-) => {
-  return Children.map(children, child => child.props.value);
-};
 
 export const FileTabs = ({
-  selected,
+  selectedIndex,
   children,
   onReorderTab,
-  onMouseLeave: onMouseLeaveProp,
   onClose: onCloseProp,
   onSelect: onSelectProp,
+  list: listProp,
+  setList: setListProp,
+  onEnd,
+  direction,
+  group,
   ...props
-}: Props) => {
-  const dragElement = useRef<DragElementType | null>(null);
-  const dragElementContainer = useRef<HTMLDivElement>(null);
-  const [orderList, setOrderList] = useState<Array<string>>(
-    getOrderFromChildren(children)
+}: FileTabsProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [list, setList] = useState<Array<ItemInterface>>(
+    Children.map(children, (_, index) => ({
+      id: `tab-element-${index}`,
+    }))
   );
-
   useEffect(() => {
-    setOrderList(getOrderFromChildren(children));
+    setList(
+      Children.map(children, (_, index) => ({
+        id: `tab-element-${index}`,
+      }))
+    );
   }, [children]);
-  const updateOrder = (order: number) => {
-    if (dragElement.current) {
-      const { value } = dragElement.current;
-      setOrderList((list: string[]) => {
-        const newList = list.filter(element => element !== value);
-        newList.splice(order, 0, value);
-        return newList;
-      });
-    }
-  };
 
-  const onClose = (value: string) => {
-    const index = orderList.findIndex(option => option === value);
-    onCloseProp(value, index);
-    setOrderList((list: string[]) => {
+  const onClose = (index: number) => {
+    onCloseProp(index);
+    setList(list => {
       list.splice(index, 1);
       return [...list];
     });
   };
 
-  const onSelect = (value: string) => {
-    const index = orderList.findIndex(option => option === value);
-    onSelectProp(value, index);
+  const onSelect = (index: number) => () => {
+    onSelectProp(index);
   };
 
   const value = {
-    dragElementContainer,
-    selected,
-    list: orderList,
-    updateOrder,
-    onSelect,
+    selectedIndex,
     onClose,
   };
 
-  const onDragEnd = (e: DragEvent) => {
-    e.preventDefault();
-    if (dragElement.current) {
-      setOrderList(getOrderFromChildren(children));
-      dragElement.current = null;
-    }
-    if (dragElementContainer.current) {
-      dragElementContainer.current.innerHTML = "";
-    }
-  };
-
-  const onDrop = () => {
-    if (dragElement.current) {
-      const { order, value } = dragElement.current;
-      dragElement.current = null;
-      const destinationPosition = orderList.findIndex(element => element === value);
-      onReorderTab({ sourcePosition: order, destinationPosition, sourceValue: value });
-    }
-  };
-
-  const onDragStart = (e: DragEvent) => {
-    const order = +e.dataTransfer.getData("order");
-    const value = e.dataTransfer.getData("value");
-    dragElement.current = {
-      order,
-      value,
-    };
-  };
-
   const onWheel = (evt: WheelEvent<HTMLDivElement>) => {
-    evt.currentTarget.scrollLeft += evt.deltaY;
-  };
-
-  const onDragLeave = (e: MouseEvent<HTMLDivElement>) => {
-    updateOrder(Children.count(children));
-    if (typeof onMouseLeaveProp === "function") {
-      onMouseLeaveProp(e);
+    if (ref.current) {
+      ref.current.scrollLeft += evt.deltaY;
     }
   };
-
   return (
     <TabContext.Provider value={value}>
       <TabsContainer
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
+        ref={ref}
         onWheel={onWheel}
         onScroll={e => {
           e.preventDefault();
           e.stopPropagation();
         }}
-        {...props}
       >
-        <DragElementContainer ref={dragElementContainer} />
-        {children}
+        <TabsSortableContainer
+          as={ReactSortable}
+          direction={direction ?? "horizontal"}
+          group={group ?? "tabbar"}
+          list={listProp ?? list}
+          setList={setListProp ?? setList}
+          onEnd={(evt, sortable, store) => {
+            const { newDraggableIndex, oldDraggableIndex } = evt;
+            if (
+              typeof newDraggableIndex === "number" &&
+              typeof oldDraggableIndex === "number" &&
+              oldDraggableIndex !== newDraggableIndex
+            ) {
+              onReorderTab(oldDraggableIndex, newDraggableIndex);
+            }
+            if (typeof onEnd === "function") {
+              onEnd(evt, sortable, store);
+            }
+          }}
+          revertOnSpill
+          {...props}
+        >
+          {Children.map(children, (child, index) => (
+            <div
+              tabIndex={index}
+              role="tab"
+              onClick={onSelect(index)}
+              key={`tab-element-${index}`}
+            >
+              {child}
+            </div>
+          ))}
+        </TabsSortableContainer>
       </TabsContainer>
     </TabContext.Provider>
   );
@@ -217,23 +193,23 @@ export const FileTabs = ({
 
 const TabElement = styled.div<{
   $active: boolean;
-  $order: number;
-  $isDragging?: boolean;
+  $preview?: boolean;
 }>`
   display: grid;
   justify-content: flex-start;
   align-items: center;
   outline: none;
-  min-width: 100px;
-  width: clamp(100px, 100%, 200px);
+  width: 100%;
+  max-width: 100%;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
   border: none;
-  ${({ theme, $active, $order, $isDragging }) => `
+  ${({ theme, $active, $preview }) => `
     grid-template-columns: 1fr ${theme.click.tabs.fileTabs.icon.size.width};
     padding: ${theme.click.tabs.fileTabs.space.y} ${theme.click.tabs.fileTabs.space.x};
     gap: ${theme.click.tabs.fileTabs.space.gap};
     border-radius: ${theme.click.tabs.fileTabs.radii.all};
-    order: ${$order};
-    opacity: ${$isDragging ? 0 : 1};
     border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.default};
     background: ${theme.click.tabs.fileTabs.color.background.default};
     color: ${theme.click.tabs.fileTabs.color.text.default};
@@ -260,6 +236,7 @@ const TabElement = styled.div<{
           }
         `
     }
+    ${$preview === true ? "font-style: italic;" : ""}
   `}
   [data-type="close"] {
     display: none;
@@ -277,7 +254,7 @@ const TabElement = styled.div<{
   }
 `;
 
-const Indicator = styled.div<{ $status: StatusType }>`
+const Indicator = styled.div<{ $status: FileTabStatusType }>`
   position: relative;
   &::after {
     position: absolute;
@@ -317,23 +294,15 @@ const EmptyButton = styled.button`
 
 const Tab = ({
   text,
-  value,
+  index,
   icon,
   onMouseDown: onMouseDownProp,
   status = "default",
   testId,
+  preview,
   ...props
-}: TabProps) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const {
-    selected,
-    updateOrder,
-    list,
-    dragElementContainer,
-    onSelect,
-    onClose: onCloseProp,
-  } = useSelect();
-  const order = list.findIndex(element => element === value) ?? 0;
+}: FileTabProps) => {
+  const { selectedIndex, onClose: onCloseProp } = useSelect();
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     e.currentTarget.scrollIntoView({
       behavior: "smooth",
@@ -343,60 +312,18 @@ const Tab = ({
     if (typeof onMouseDownProp === "function") {
       onMouseDownProp(e);
     }
-    onSelect(value);
-  };
-  const onDragStart = (event: DragEvent) => {
-    if (dragElementContainer.current) {
-      setIsDragging(true);
-      event.dataTransfer.effectAllowed = "move";
-      const node = event.currentTarget.cloneNode(true) as HTMLElement;
-      node.style.opacity = "1";
-      node.style.visibility = "visible";
-      dragElementContainer.current.append(node);
-
-      event.dataTransfer.setDragImage(dragElementContainer.current, 0, 0);
-
-      event.dataTransfer.setData("order", order.toString());
-      event.dataTransfer.setData("value", value);
-    }
-  };
-
-  const preventDragEvent = (e: DragEvent) => {
-    e.preventDefault();
-  };
-
-  const onDragEnter = (e: DragEvent) => {
-    updateOrder(order);
-    e.currentTarget.scrollIntoView(false);
-  };
-
-  const onDragEnd = () => {
-    setIsDragging(false);
   };
 
   const onClose = () => {
-    onCloseProp(value);
+    onCloseProp(index);
   };
 
   return (
     <TabElement
-      tabIndex={order}
-      role="tab"
-      $active={selected === value}
-      $isDragging={isDragging}
-      $order={order}
-      onDragStart={onDragStart}
-      onDragOver={preventDragEvent}
-      onDragLeave={e => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      onDragEnter={onDragEnter}
-      onDragEnd={onDragEnd}
+      $active={selectedIndex === index}
       onMouseDown={onMouseDown}
-      onDragExit={preventDragEvent}
-      draggable={list.length > 1}
-      data-testid={testId ? `${testId}-${value}` : undefined}
+      data-testid={testId ? `${testId}-${index}` : undefined}
+      $preview={preview}
       {...props}
     >
       <TabContent>
@@ -408,12 +335,12 @@ const Tab = ({
         icon="cross"
         onClick={onClose}
         data-type="close"
-        data-testid={testId ? `${testId}-${value}-close` : undefined}
+        data-testid={testId ? `${testId}-${index}-close` : undefined}
       />
       <Indicator
         $status={status}
         data-indicator={status}
-        data-testid={testId ? `${testId}-${value}-status` : undefined}
+        data-testid={testId ? `${testId}-${index}-status` : undefined}
       />
     </TabElement>
   );
@@ -422,3 +349,29 @@ const Tab = ({
 Tab.displayName = "FileTab";
 
 FileTabs.Tab = Tab;
+
+interface FileTabElementProps extends HTMLAttributes<HTMLDivElement> {
+  icon?: IconName | ReactNode;
+  active?: boolean;
+  preview?: boolean;
+}
+export const FileTabElement = ({
+  icon,
+  children,
+  active = false,
+  preview,
+  ...props
+}: FileTabElementProps) => {
+  return (
+    <TabElement
+      $active={active}
+      $preview={preview}
+      {...props}
+    >
+      <TabContent>
+        {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
+        {children && <TabContentText>{children}</TabContentText>}
+      </TabContent>
+    </TabElement>
+  );
+};
