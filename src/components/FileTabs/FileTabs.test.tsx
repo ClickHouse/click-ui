@@ -1,7 +1,7 @@
 import { fireEvent, createEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { FileTabs, StatusType } from "./FileTabs";
+import { FileTabs, FileTabStatusType } from "./FileTabs";
 import { renderCUI } from "@/utils/test-utils";
 
 const tabs = ["tab1", "tab2", "tab3"];
@@ -23,18 +23,24 @@ describe("FileTabs", () => {
     onSelect.mockClear();
   });
 
-  const renderTabs = ({ selected, status }: { selected?: string; status?: StatusType }) =>
+  const renderTabs = ({
+    selectedIndex,
+    status,
+  }: {
+    selectedIndex?: number;
+    status?: FileTabStatusType;
+  }) =>
     renderCUI(
       <FileTabs
         onReorderTab={onReorderTab}
         onClose={onClose}
         onSelect={onSelect}
-        selected={selected}
+        selectedIndex={selectedIndex}
         data-testid="tab-container"
       >
         {tabs.map((option, index) => (
           <FileTabs.Tab
-            value={option}
+            index={index}
             key={`${option}-${index}`}
             icon="code-in-square"
             status={index === 0 ? status : undefined}

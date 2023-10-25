@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FileTabs as CUIFileTabs, StatusType } from "./FileTabs";
+import { FileTabs as CUIFileTabs, FileTabStatusType } from "./FileTabs";
 
 const options = [
   "a1",
@@ -20,10 +20,10 @@ const FileTabs = ({
   selected: selectedProp,
   status,
 }: {
-  selected: string;
-  status: StatusType;
+  selected: number;
+  status: FileTabStatusType;
 }) => {
-  const [selected, setSelected] = useState(selectedProp);
+  const [selected, setSelected] = useState<number>(selectedProp);
   useEffect(() => {
     setSelected(selectedProp);
   }, [selectedProp]);
@@ -32,18 +32,18 @@ const FileTabs = ({
   return (
     <CUIFileTabs
       onReorderTab={() => null}
-      onClose={(_: string, index: number) => {
+      onClose={(index: number) => {
         setTabs(tabs => {
           tabs.splice(index, 1);
           return [...tabs];
         });
       }}
-      onSelect={(value: string) => setSelected(value)}
-      selected={selected}
+      onSelect={(index: number) => setSelected(index)}
+      selectedIndex={selected}
     >
       {tabs.map((option, index) => (
         <CUIFileTabs.Tab
-          value={option}
+          index={index}
           key={`${option}-${index}`}
           icon="code-in-square"
           status={index === 0 ? status : undefined}
@@ -58,7 +58,7 @@ export default {
   title: "Display/FileTabs",
   tags: ["tabs", "file-tabs", "autodocs"],
   argTypes: {
-    selected: { control: "select", options },
+    selected: { control: "select", options: options.map((_, index) => index) },
     status: {
       control: "radio",
       options: ["success", "warning", "danger", "neutral", "info"],
