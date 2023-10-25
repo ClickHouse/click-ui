@@ -1,4 +1,4 @@
-import { fireEvent, createEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { FileTabs, FileTabStatusType } from "./FileTabs";
