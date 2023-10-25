@@ -68,8 +68,7 @@ const ContentArea = styled(RadixDialog.Content)`
   width: 75%;
   max-width: 670px;
   position: fixed;
-  top: 25%;
-  margin-top: 20%;
+  top: 50%;
   left: 50%;
   max-height: 75%;
   overflow: auto;
