@@ -41,6 +41,7 @@ const TabsContainer = styled.div`
   }
 `;
 const TabsSortableContainer = styled.div`
+  display: flex;
   & > div {
     outline: none;
     min-width: 100px;
@@ -154,7 +155,6 @@ export const FileTabs = ({
       >
         <TabsSortableContainer
           as={ReactSortable}
-          style={{ display: "flex" }}
           direction={direction ?? "horizontal"}
           group={group ?? "tabbar"}
           list={listProp ?? list}
