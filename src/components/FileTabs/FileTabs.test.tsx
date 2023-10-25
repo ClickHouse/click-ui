@@ -60,7 +60,7 @@ describe("FileTabs", () => {
   it("should call onSelect on clicking tab", () => {
     const { getByTestId } = renderTabs({});
     const tabElement = getByTestId("tab-element-0");
-    fireEvent.mouseDown(tabElement);
+    fireEvent.click(tabElement);
     expect(onSelect).toBeCalledTimes(1);
   });
 });
