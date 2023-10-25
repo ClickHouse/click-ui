@@ -9,6 +9,7 @@ import {
   useEffect,
   ReactNode,
   WheelEvent,
+  useRef,
 } from "react";
 import styled from "styled-components";
 import { Icon, IconButton } from "@/components";
@@ -38,6 +39,8 @@ const TabsContainer = styled.div`
   &::-webkit-scrollbar {
     height: 0;
   }
+`;
+const TabsSortableContainer = styled.div`
   & > div {
     outline: none;
     min-width: 100px;
@@ -103,6 +106,7 @@ export const FileTabs = ({
   group,
   ...props
 }: FileTabsProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<Array<ItemInterface>>(
     Children.map(children, (_, index) => ({
       id: `tab-element-${index}`,
@@ -134,20 +138,23 @@ export const FileTabs = ({
   };
 
   const onWheel = (evt: WheelEvent<HTMLDivElement>) => {
-    evt.currentTarget.scrollLeft += evt.deltaY;
+    if (ref.current) {
+      ref.current.scrollLeft += evt.deltaY;
+    }
   };
-
   return (
     <TabContext.Provider value={value}>
-      <div
+      <TabsContainer
+        ref={ref}
         onWheel={onWheel}
         onScroll={e => {
           e.preventDefault();
           e.stopPropagation();
         }}
       >
-        <TabsContainer
+        <TabsSortableContainer
           as={ReactSortable}
+          style={{ display: "flex" }}
           direction={direction ?? "horizontal"}
           group={group ?? "tabbar"}
           list={listProp ?? list}
@@ -178,8 +185,8 @@ export const FileTabs = ({
               {child}
             </div>
           ))}
-        </TabsContainer>
-      </div>
+        </TabsSortableContainer>
+      </TabsContainer>
     </TabContext.Provider>
   );
 };
