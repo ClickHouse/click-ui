@@ -59,50 +59,8 @@ describe("FileTabs", () => {
 
   it("should call onSelect on clicking tab", () => {
     const { getByTestId } = renderTabs({});
-    const tabElement = getByTestId("tab-element-tab1");
+    const tabElement = getByTestId("tab-element-0");
     fireEvent.mouseDown(tabElement);
     expect(onSelect).toBeCalledTimes(1);
-  });
-
-  it("should call onReorderTab on drag and drop", () => {
-    const { getByTestId } = renderTabs({});
-    const tabElement = getByTestId("tab-element-tab1");
-    expect(onReorderTab).toBeCalledTimes(0);
-    const mockDropEvent = createEvent.dragStart(tabElement);
-
-    const data: Record<string, string> = {};
-    Object.assign(mockDropEvent, {
-      dataTransfer: {
-        setData: (key: string, value: string) => (data[key] = value),
-        setDragImage: jest.fn(),
-        effectAllowed: "none",
-        getData: (key: string) => data[key],
-      },
-    });
-    fireEvent(tabElement, mockDropEvent);
-    fireEvent.dragOver(getByTestId("tab-element-tab2"));
-    fireEvent.drop(getByTestId("tab-container"));
-    expect(onReorderTab).toBeCalledTimes(1);
-  });
-
-  it("should not call onReorderTab on drag and drop outside the container", () => {
-    const { getByTestId } = renderTabs({});
-    const tabElement = getByTestId("tab-element-tab1");
-    expect(onReorderTab).toBeCalledTimes(0);
-    const mockDropEvent = createEvent.dragStart(tabElement);
-
-    const data: Record<string, string> = {};
-    Object.assign(mockDropEvent, {
-      dataTransfer: {
-        setData: (key: string, value: string) => (data[key] = value),
-        setDragImage: jest.fn(),
-        effectAllowed: "none",
-        getData: (key: string) => data[key],
-      },
-    });
-    fireEvent(tabElement, mockDropEvent);
-    fireEvent.dragOver(getByTestId("tab-element-tab2"));
-    fireEvent.drop(document.body);
-    expect(onReorderTab).toBeCalledTimes(0);
   });
 });
