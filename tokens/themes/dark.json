@@ -3196,6 +3196,10 @@
         "muted": {
           "value": "{palette.neutral.725}",
           "type": "color"
+        },
+        "sidebar": {
+          "value": "{click.global.color.background.default}",
+          "type": "color"
         }
       },
       "text": {

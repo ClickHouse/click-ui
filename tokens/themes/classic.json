@@ -1606,6 +1606,10 @@
         "muted": {
           "value": "{palette.slate.50}",
           "type": "color"
+        },
+        "sidebar": {
+          "value": "{palette.indigo.base}",
+          "type": "color"
         }
       },
       "text": {
