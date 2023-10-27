@@ -5,13 +5,17 @@ import { renderCUI } from "@/utils/test-utils";
 describe("ButtonGroup", () => {
   const renderButtonGroup = (props: ButtonGroupProps) =>
     renderCUI(<ButtonGroup {...props} />);
-  const labels = ["Option 1", "Option 2", "Option 3"];
+  const options = [
+    { label: "Option 1", value: "option1" },
+    { label: "Option 2", value: "option2" },
+    { label: "Option 3", value: "option3" },
+  ];
 
   it("renders buttons with labels correctly", () => {
-    const { getByText } = renderButtonGroup({ labels: labels });
+    const { getByText } = renderButtonGroup({ options });
 
-    labels.forEach(label => {
-      expect(getByText(label).textContent).toBe(label);
+    options.forEach(option => {
+      expect(getByText(option.label).textContent).toBe(option.label);
     });
   });
 
@@ -20,7 +24,7 @@ describe("ButtonGroup", () => {
     const handleClick = () => (counter = 1);
 
     const { getByText } = renderButtonGroup({
-      labels: labels,
+      options,
       onClick: handleClick,
     });
 
@@ -31,8 +35,8 @@ describe("ButtonGroup", () => {
 
   it("adds 'active' class to the active button", () => {
     const { getByText } = renderButtonGroup({
-      labels: labels,
-      activeIndex: 1,
+      options,
+      selected: "option2",
     });
 
     const activeButton = getByText("Option 2");

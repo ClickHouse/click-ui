@@ -1,28 +1,43 @@
+import { HTMLAttributes, ReactNode } from "react";
 import styled, { DefaultTheme } from "styled-components";
 
-export interface ButtonGroupProps {
-  labels: string[];
-  activeIndex?: number;
-  onClick?: (index: number) => void;
+export interface ButtonGroupElementProps
+  extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
+  value: string;
+  label?: ReactNode;
 }
 
-export const ButtonGroup = ({ labels, activeIndex, onClick }: ButtonGroupProps) => {
-  const btns = labels.map((label, index) => {
+export interface ButtonGroupProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onClick"> {
+  options: Array<ButtonGroupElementProps>;
+  selected?: string;
+  onClick?: (value: string) => void;
+}
+
+export const ButtonGroup = ({
+  options,
+  selected,
+  onClick,
+  ...props
+}: ButtonGroupProps) => {
+  const lastIndex = options.length - 1;
+  const btns = options.map(({ value, label, ...props }, index) => {
     const position: ButtonPosition =
-      index === 0 ? "left" : index === labels.length - 1 ? "right" : "center";
+      index === 0 ? "left" : index === lastIndex ? "right" : "center";
     return (
       <Button
-        key={index}
-        $active={index === activeIndex}
+        key={value}
+        $active={value === selected}
         $position={position}
-        onClick={() => onClick?.(index)}
+        onClick={() => onClick?.(value)}
         role="button"
+        {...props}
       >
         {label}
       </Button>
     );
   });
-  return <ButtonGroupWrapper>{btns}</ButtonGroupWrapper>;
+  return <ButtonGroupWrapper {...props}>{btns}</ButtonGroupWrapper>;
 };
 
 type ButtonPosition = "left" | "center" | "right";
