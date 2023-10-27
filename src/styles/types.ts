@@ -2222,7 +2222,8 @@
     "color": {
       "background": {
         "default": string,
-        "muted": string
+        "muted": string,
+        "sidebar": string
       },
       "text": {
         "default": string,

@@ -1162,7 +1162,8 @@
     "color": {
       "background": {
         "default": "#1F1F1C",
-        "muted": "#282828"
+        "muted": "#282828",
+        "sidebar": "#1F1F1C"
       },
       "text": {
         "default": "#ffffff",
