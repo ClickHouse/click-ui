@@ -566,7 +566,8 @@
     "color": {
       "background": {
         "default": "#ffffff",
-        "muted": "#f6f7fa"
+        "muted": "#f6f7fa",
+        "sidebar": "#2f2c3a"
       },
       "text": {
         "default": "#161517",
