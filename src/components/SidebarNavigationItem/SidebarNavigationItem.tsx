@@ -48,6 +48,7 @@ export const SidebarItemWrapper = styled.div<{
   white-space: nowrap;
   overflow: hidden;
   flex-wrap: nowrap;
+  cursor: pointer;
   ${({ theme, $collapsible = false, $level, $type }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `

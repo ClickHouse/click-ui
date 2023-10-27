@@ -48,6 +48,7 @@ export const SidebarTitleWrapper = styled.button<{
   width: stretch;
   white-space: nowrap;
   overflow: hidden;
+  cursor: pointer;
   ${({ theme, $collapsible = false, $type }) => `
     padding: 0;
     padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
