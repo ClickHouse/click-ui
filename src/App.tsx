@@ -36,7 +36,7 @@ import { Dialog } from "@/components/Dialog/Dialog";
 
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
-  const [selectedButton, setSelectedButton] = useState(0);
+  const [selectedButton, setSelectedButton] = useState("center1");
   const [checked, setChecked] = useState(false);
   const [disabled] = useState(false);
   const [open, setOpen] = useState(true);
@@ -266,9 +266,15 @@ const App = () => {
         />
       </div>
       <ButtonGroup
-        labels={["Left center", "Center", "Center", "Center", "Right end"]}
-        activeIndex={selectedButton}
-        onClick={(index: number) => setSelectedButton(index)}
+        options={[
+          { label: "Left center", value: "leftEnd" },
+          { label: "Center", value: "center1" },
+          { label: "Center", value: "center2" },
+          { label: "Center", value: "center3" },
+          { label: "Right end", value: "rightEnd" },
+        ]}
+        selected={selectedButton}
+        onClick={setSelectedButton}
       />
       <Switch
         checked={checked}
