@@ -4,15 +4,14 @@ export default {
   component: ButtonGroup,
   title: "Buttons/ButtonGroup",
   tags: ["button-group", "autodocs"],
-  argTypes: {
-    labels: { control: "array", options: ["default", "checked", "unchecked"] },
-    activeIndex: { control: "number" },
-  }
 };
 
 export const Playground = {
   args: {
-    labels: ["Button 1", "Button 2", "Button 3"],
-    activeIndex: 2,
+    options: [
+      { label: "Option 1", value: "option1" },
+      { label: "Option 2", value: "option2" },
+      { label: "Option 3", value: "option3" },
+    ],
   },
 };
