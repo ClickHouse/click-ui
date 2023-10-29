@@ -1866,12 +1866,6 @@
           "active": string,
           "global": string
         },
-        "stroke": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "global": string
-        },
         "color": {
           "background": {
             "default": string,
