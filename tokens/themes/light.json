@@ -1363,7 +1363,7 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.background.muted}",
+              "value": "{click.global.color.background.default}",
               "type": "color"
             },
             "disabled": {
