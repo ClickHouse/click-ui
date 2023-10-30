@@ -761,7 +761,7 @@
           "background": {
             "default": "#ffffff",
             "hover": "#f6f7fa",
-            "active": "lch(92.4 1.49 272)",
+            "active": "lch(95 0 0)",
             "disabled": "#dfdfdf"
           },
           "title": {
@@ -1864,12 +1864,6 @@
           "hover": "1px",
           "active": "2px",
           "global": "1px"
-        },
-        "stroke": {
-          "default": "1px solid rgba(0,0,0,0)",
-          "hover": "1px solid rgba(0,0,0,0)",
-          "active": "2px solid #151515",
-          "global": "1px solid lch(91.6 1.1 266)"
         },
         "color": {
           "background": {
