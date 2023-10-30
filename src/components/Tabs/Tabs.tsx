@@ -30,6 +30,7 @@ const Trigger = styled(RadixTabs.Trigger)`
   &:hover {
     border-bottom: 2px solid
       ${props => props.theme.click.tabs.basic.color.background.hover};
+    background-color: ${props => props.theme.click.tabs.basic.color.background.hover};
     color: ${props => props.theme.click.tabs.basic.color.text.hover};
     font: ${props => props.theme.click.tabs.typography.label.hover};
   }
