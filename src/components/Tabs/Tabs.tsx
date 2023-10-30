@@ -42,7 +42,8 @@ const Trigger = styled(RadixTabs.Trigger)`
 const Content = styled(RadixTabs.Content)``;
 
 const TriggersList = styled(RadixTabs.List)`
-  border-bottom: 2px solid ${props => props.theme.click.global.color.stroke.default};
+  border-bottom: 1px solid ${props => props.theme.click.global.color.stroke.default};
+  display: flex;
 `;
 
 const Tabs = ({
