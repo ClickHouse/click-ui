@@ -17,7 +17,8 @@ describe("Flyout", () => {
             description="test2"
           />
           <Flyout.Body>Flyout Text</Flyout.Body>
-          <Flyout.Footer showClose>
+          <Flyout.Footer>
+            <Flyout.Close label="Cancel" />
             <Button type="primary">Primary Button</Button>
           </Flyout.Footer>
         </Flyout.Content>

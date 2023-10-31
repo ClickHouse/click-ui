@@ -4,10 +4,9 @@ import { Flyout, FlyoutProps } from "./Flyout";
 interface Props extends FlyoutProps {
   title: string;
   description?: string;
-  showClose?: boolean;
 }
 
-const FlyoutExample = ({ title, description, showClose, ...props }: Props) => {
+const FlyoutExample = ({ title, description, ...props }: Props) => {
   return (
     <Flyout {...props}>
       <Flyout.Trigger>Flyout Trigger</Flyout.Trigger>
@@ -19,7 +18,8 @@ const FlyoutExample = ({ title, description, showClose, ...props }: Props) => {
         <Flyout.Body>
           <Flyout.Element>Content1 long text content</Flyout.Element>
         </Flyout.Body>
-        <Flyout.Footer showClose={showClose}>
+        <Flyout.Footer>
+          <Flyout.Close label="Cancel" />
           <Button>Test Primary</Button>
         </Flyout.Footer>
       </Flyout.Content>
@@ -33,7 +33,6 @@ export default {
   argTypes: {
     title: { control: "text" },
     description: { control: "text" },
-    showClose: { control: "boolean" },
   },
 };
 
@@ -41,13 +40,12 @@ export const Playground = {
   args: {
     title: "Title",
     description: "Description",
-    showClose: true,
   },
   parameters: {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { title, description, showClose, ...props } = story.args;
+          const { title, description, ...props } = story.args;
           return `<Flyout\n
           ${Object.entries(props)
             .flatMap(([key, value]) =>
@@ -67,7 +65,8 @@ export const Playground = {
       <Flyout.Body>
         <Flyout.Element>Content1 long text content</Flyout.Element>
       </Flyout.Body>
-      <Flyout.Footer showClose={${showClose}}>
+      <Flyout.Footer>
+        <Flyout.Close label="Cancel" />
         <Button>Test Primary</Button>
       </Flyout.Footer>
 </Flyout>
