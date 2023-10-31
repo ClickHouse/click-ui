@@ -13,13 +13,14 @@ SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("json", json);
 
 export type CodeThemeType = "light" | "dark";
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {
   language?: string;
   children: string;
   theme?: CodeThemeType;
   showLineNumbers?: boolean;
   showWrapButton?: boolean;
   wrapLines?: boolean;
+  onCopy?: (value: string) => void | Promise<void>;
 }
 
 interface RendererNodeType {
@@ -88,6 +89,7 @@ export const CodeBlock = ({
   showLineNumbers,
   showWrapButton = false,
   wrapLines = false,
+  onCopy,
   ...props
 }: Props) => {
   const [copied, setCopied] = useState(false);
@@ -98,6 +100,9 @@ export const CodeBlock = ({
   const copyCodeToClipboard = async () => {
     if (ref.current?.textContent) {
       await navigator.clipboard.writeText(ref.current.textContent);
+      if (typeof onCopy == "function") {
+        onCopy(ref.current.textContent);
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
