@@ -94,7 +94,7 @@ const Button = styled.button<ButtonProps>`
   }
 
   &:disabled {
-    cursor: disabled;
+    cursor: not-allowed;
     background: ${({ theme }) =>
       theme.click.button.basic.color.primary.background.disabled};
   }
