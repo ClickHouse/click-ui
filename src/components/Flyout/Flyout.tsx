@@ -241,15 +241,26 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
 Header.displayName = "Flyout.Header";
 Flyout.Header = Header;
 
-const FlyoutBody = styled.div`
+type FlyoutAlign = "default" | "top";
+const FlyoutBody = styled.div<{ $align?: FlyoutAlign }>`
   display: flex;
   flex-direction: column;
   flex: 1;
   width: 100%;
   overflow: auto;
+  margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
-const Body = (props: HTMLAttributes<HTMLDivElement>) => <FlyoutBody {...props} />;
+interface BodyProps extends HTMLAttributes<HTMLDivElement> {
+  align?: FlyoutAlign;
+}
+
+const Body = ({ align, ...props }: BodyProps) => (
+  <FlyoutBody
+    $align={align}
+    {...props}
+  />
+);
 
 Body.displayName = "Flyout.Body";
 Flyout.Body = Body;

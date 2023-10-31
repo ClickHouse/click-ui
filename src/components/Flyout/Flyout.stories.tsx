@@ -4,9 +4,10 @@ import { Flyout, FlyoutProps } from "./Flyout";
 interface Props extends FlyoutProps {
   title: string;
   description?: string;
+  align: "default" | "top";
 }
 
-const FlyoutExample = ({ title, description, ...props }: Props) => {
+const FlyoutExample = ({ title, description, align, ...props }: Props) => {
   return (
     <Flyout {...props}>
       <Flyout.Trigger>Flyout Trigger</Flyout.Trigger>
@@ -15,7 +16,7 @@ const FlyoutExample = ({ title, description, ...props }: Props) => {
           title={title}
           description={description}
         />
-        <Flyout.Body>
+        <Flyout.Body align={align}>
           <Flyout.Element>Content1 long text content</Flyout.Element>
         </Flyout.Body>
         <Flyout.Footer>
@@ -33,6 +34,7 @@ export default {
   argTypes: {
     title: { control: "text" },
     description: { control: "text" },
+    align: { control: "select", options: ["default", "top"] },
   },
 };
 
@@ -45,7 +47,7 @@ export const Playground = {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { title, description, ...props } = story.args;
+          const { title, description, align, ...props } = story.args;
           return `<Flyout\n
           ${Object.entries(props)
             .flatMap(([key, value]) =>
@@ -62,7 +64,7 @@ export const Playground = {
         title="${title}"
         description="${description}"
       />
-      <Flyout.Body>
+      <Flyout.Body align="${align}">
         <Flyout.Element>Content1 long text content</Flyout.Element>
       </Flyout.Body>
       <Flyout.Footer>
