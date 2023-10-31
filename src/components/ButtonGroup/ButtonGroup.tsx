@@ -5,6 +5,7 @@ export interface ButtonGroupElementProps
   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
   value: string;
   label?: ReactNode;
+  fillWidth?: boolean;
 }
 
 export interface ButtonGroupProps
@@ -21,7 +22,7 @@ export const ButtonGroup = ({
   ...props
 }: ButtonGroupProps) => {
   const lastIndex = options.length - 1;
-  const btns = options.map(({ value, label, ...props }, index) => {
+  const btns = options.map(({ value, label, fillWidth, ...props }, index) => {
     const position: ButtonPosition =
       index === 0 ? "left" : index === lastIndex ? "right" : "center";
     return (
@@ -29,6 +30,7 @@ export const ButtonGroup = ({
         key={value}
         $active={value === selected}
         $position={position}
+        $fillWidth={fillWidth}
         onClick={() => onClick?.(value)}
         role="button"
         {...props}
@@ -46,6 +48,7 @@ interface ButtonProps {
   $active: boolean;
   $position: ButtonPosition;
   theme: DefaultTheme;
+  $fillWidth?: boolean;
 }
 
 const ButtonGroupWrapper = styled.div`
@@ -82,6 +85,7 @@ const Button = styled.button<ButtonProps>`
   padding: ${({ theme }) => theme.click.button.basic.space.y}
     ${({ theme }) => theme.click.button.basic.space.x};
   gap: ${({ theme }) => theme.click.button.basic.space.group};
+  ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")}
   cursor: pointer;
 
   &:hover {
