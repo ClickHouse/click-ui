@@ -58,7 +58,7 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
 `;
 
 /** Component for linking to other pages or sections from with body text */
-export const Link = <T extends React.ElementType = "a">({
+export const Link = <T extends ElementType = "a">({
   size = "md",
   weight = "normal",
   className,

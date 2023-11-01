@@ -15,6 +15,7 @@ import {
 import { Button, ButtonProps, Icon, Separator } from "..";
 import styled from "styled-components";
 import { CrossButton } from "../commonElement";
+import { keyframes } from "styled-components";
 
 export type FlyoutProps = DialogProps;
 
@@ -51,6 +52,11 @@ export interface DialogContentProps extends RadixDialogContentProps {
   closeOnInteractOutside?: boolean;
 }
 
+const animationWidth = keyframes({
+  "0%": { width: 0 },
+  "100%": { width: "var(--flyout-width, 100%)" },
+});
+
 const FlyoutContent = styled(DialogContent)<{
   $size?: FlyoutSizeType;
   $strategy: Strategy;
@@ -58,16 +64,17 @@ const FlyoutContent = styled(DialogContent)<{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   overflow: hidden;
   flex: 1;
   top: 0;
   right: 0;
   bottom: 0;
-  ${({ theme, $size = "default", $strategy }) => `
+  --flyout-width: ${({ theme, $size = "default" }) =>
+    theme.click.flyout.size[$size].width};
+  animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  ${({ theme, $strategy }) => `
     position: ${$strategy};
     height: ${$strategy === "relative" ? "100%" : "auto"};
-    width: ${theme.click.flyout.size[$size].width};
     padding: ${theme.click.flyout.space.y} ${theme.click.flyout.space.x};
     gap: ${theme.click.flyout.space.gap};
     border-left: 1px solid ${theme.click.flyout.color.stroke.default};

@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 export type TitleColor = "default" | "muted";
 export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -13,16 +13,19 @@ export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
-export const Title = ({ size, family, type, color, children, ...props }: TitleProps) => (
-  <CuiTitle
-    $color={color}
-    $size={size}
-    $family={family}
-    as={type}
-    {...props}
-  >
-    {children}
-  </CuiTitle>
+export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
+  ({ size, family, type, color, children, ...props }, ref) => (
+    <CuiTitle
+      ref={ref}
+      $color={color}
+      $size={size}
+      $family={family}
+      as={type}
+      {...props}
+    >
+      {children}
+    </CuiTitle>
+  )
 );
 
 const CuiTitle = styled.div<{
