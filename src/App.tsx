@@ -31,6 +31,7 @@ import {
   Flyout,
   Select,
   Text,
+  EllipsisContent,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 
@@ -386,6 +387,35 @@ const App = () => {
           <p>I'm a dialog</p>
         </Dialog.Content>
       </Dialog>
+      <EllipsisContent
+        component={Text}
+        color="muted"
+        style={{ width: 100 }}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod dolor
+        vehicula tortor condimentum blandit. Quisque eget efficitur nisi, sit amet
+        facilisis felis. Sed malesuada ut dui vel hendrerit. Nulla at neque libero. Ut id
+        fringilla nisl. Nulla semper a sem a molestie. Vestibulum consequat feugiat magna,
+        vitae pellentesque lacus gravida non. Vestibulum bibendum gravida felis ac
+        elementum. In suscipit risus a sollicitudin molestie. Ut id cursus felis, vel
+        auctor ex. Cras vel metus ipsum. Sed finibus, ligula ut convallis maximus, turpis
+        ex imperdiet enim, ac finibus nunc ante non est. Ut mattis ex magna, ac faucibus
+        mi egestas interdum.
+      </EllipsisContent>
+      <EllipsisContent
+        component="span"
+        style={{ width: 100 }}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod dolor
+        vehicula tortor condimentum blandit. Quisque eget efficitur nisi, sit amet
+        facilisis felis. Sed malesuada ut dui vel hendrerit. Nulla at neque libero. Ut id
+        fringilla nisl. Nulla semper a sem a molestie. Vestibulum consequat feugiat magna,
+        vitae pellentesque lacus gravida non. Vestibulum bibendum gravida felis ac
+        elementum. In suscipit risus a sollicitudin molestie. Ut id cursus felis, vel
+        auctor ex. Cras vel metus ipsum. Sed finibus, ligula ut convallis maximus, turpis
+        ex imperdiet enim, ac finibus nunc ante non est. Ut mattis ex magna, ac faucibus
+        mi egestas interdum.
+      </EllipsisContent>
     </ClickUIProvider>
   );
 };
