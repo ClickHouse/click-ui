@@ -324,13 +324,17 @@
           "background": {
             "default": "lch(18.2 0 0)",
             "hover": "lch(22.8 0 0)",
-            "active": "#414141",
-            "panel": "lch(18.2 0 0)"
+            "active": "#1F1F1C",
+            "panel": "lch(18.2 0 0)",
+            "disabled": "#414141",
+            "disabled-active": "lch(22 0 0)"
           },
           "text": {
             "default": "#ffffff",
             "hover": "#ffffff",
-            "active": "#ffffff"
+            "active": "#ffffff",
+            "disabled": "#808080",
+            "disabled-active": "#808080"
           },
           "stroke": {
             "panel": "lch(27.5 0 0 / 0.3)"

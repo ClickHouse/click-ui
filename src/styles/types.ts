@@ -604,12 +604,16 @@
             "default": string,
             "hover": string,
             "active": string,
-            "panel": string
+            "panel": string,
+            "disabled": string,
+            "disabled-active": string
           },
           "text": {
             "default": string,
             "hover": string,
-            "active": string
+            "active": string,
+            "disabled": string,
+            "disabled-active": string
           },
           "stroke": {
             "panel": string
