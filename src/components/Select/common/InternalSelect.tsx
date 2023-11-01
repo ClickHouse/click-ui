@@ -135,6 +135,7 @@ export const InternalSelect = ({
   placeholder = "Select an option",
   multiple,
   showSearch = false,
+  container,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
@@ -383,7 +384,7 @@ export const InternalSelect = ({
               ))}
             </HiddenSelectElement>
           )}
-          <Portal>
+          <Portal container={container}>
             <SelectPopoverContent
               sideOffset={5}
               onFocus={onFocus}

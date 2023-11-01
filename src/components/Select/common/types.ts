@@ -77,6 +77,7 @@ interface InternalSelectProps
   multiple?: boolean;
   showSearch?: boolean;
   customText?: string;
+  container?: HTMLElement;
 }
 
 export type SelectOptionProp = SelectOptionType | SelectChildrenType;
