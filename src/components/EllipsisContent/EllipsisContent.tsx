@@ -2,7 +2,6 @@ import {
   ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   ElementType,
-  HTMLAttributes,
   forwardRef,
 } from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
