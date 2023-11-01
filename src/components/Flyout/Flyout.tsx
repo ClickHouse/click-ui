@@ -18,8 +18,13 @@ import { CrossButton } from "../commonElement";
 
 export type FlyoutProps = DialogProps;
 
-export const Flyout = (props: FlyoutProps) => {
-  return <Dialog {...props} />;
+export const Flyout = ({ modal = false, ...props }: FlyoutProps) => {
+  return (
+    <Dialog
+      modal={modal}
+      {...props}
+    />
+  );
 };
 
 const Trigger = ({ children, ...props }: DialogTriggerProps) => {
