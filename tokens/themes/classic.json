@@ -1610,7 +1610,7 @@
       },
       "accent": {
         "default": {
-          "value": "{palette.neutral.900}",
+          "value": "{click.button.basic.color.primary.background.default}",
           "type": "color"
         }
       },
