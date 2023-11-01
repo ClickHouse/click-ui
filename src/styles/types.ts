@@ -2244,6 +2244,29 @@
       },
       "shadow": {
         "default": string
+      },
+      "feedback": {
+        "info": {
+          "background": string,
+          "foreground": string
+        },
+        "success": {
+          "background": string,
+          "foreground": string
+        },
+        "warning": {
+          "background": string,
+          "foreground": string
+        },
+        "danger": {
+          "background": string,
+          "foreground": string
+        },
+        "neutral": {
+          "background": string,
+          "foreground": string,
+          "stroke": string
+        }
       }
     }
   },

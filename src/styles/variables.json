@@ -2243,6 +2243,29 @@
       },
       "shadow": {
         "default": "lch(6.77 0 0 / 0.15)"
+      },
+      "feedback": {
+        "info": {
+          "background": "#dae6fc",
+          "foreground": "#135be6"
+        },
+        "success": {
+          "background": "#e0f8e7",
+          "foreground": "#15632b"
+        },
+        "warning": {
+          "background": "#ffedd8",
+          "foreground": "#9e5600"
+        },
+        "danger": {
+          "background": "#ffdddd",
+          "foreground": "#c10000"
+        },
+        "neutral": {
+          "background": "#e6e7e9",
+          "foreground": "#53575f",
+          "stroke": "lch(91.6 1.1 266)"
+        }
       }
     }
   },
