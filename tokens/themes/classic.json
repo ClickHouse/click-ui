@@ -469,6 +469,14 @@
             "panel": {
               "value": "{click.button.group.color.background.default}",
               "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.200}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{palette.neutral.100}",
+              "type": "color"
             }
           },
           "text": {
@@ -482,6 +490,14 @@
             },
             "active": {
               "value": "{palette.neutral.900}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.400}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{palette.neutral.500}",
               "type": "color"
             }
           },
