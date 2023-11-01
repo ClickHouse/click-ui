@@ -92,15 +92,21 @@ const Button = styled.button<ButtonProps>`
     background: ${({ theme }) => theme.click.button.group.color.background.hover};
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    background: ${({ theme, $active }) =>
+      theme.click.button.group.color.background[
+        $active ? "disabled-active" : "disabled"
+      ]};
+  }
+
   &:active,
   &:focus {
     background: ${({ theme }) => theme.click.button.group.color.background.active};
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    background: ${({ theme }) =>
-      theme.click.button.basic.color.primary.background.disabled};
+    &:disabled {
+      background: ${({ theme }) =>
+        theme.click.button.group.color.background["disabled-active"]};
+    }
   }
 
   border-radius: ${({ $position }: ButtonProps) =>
