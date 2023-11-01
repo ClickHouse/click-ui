@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import {
   Dialog,
   DialogClose,
@@ -12,14 +12,19 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from "@radix-ui/react-dialog";
-import { Button, Icon, Separator } from "..";
+import { Button, ButtonProps, Icon, Separator } from "..";
 import styled from "styled-components";
 import { CrossButton } from "../commonElement";
 
 export type FlyoutProps = DialogProps;
 
-export const Flyout = (props: FlyoutProps) => {
-  return <Dialog {...props} />;
+export const Flyout = ({ modal = false, ...props }: FlyoutProps) => {
+  return (
+    <Dialog
+      modal={modal}
+      {...props}
+    />
+  );
 };
 
 const Trigger = ({ children, ...props }: DialogTriggerProps) => {
@@ -35,7 +40,7 @@ const Trigger = ({ children, ...props }: DialogTriggerProps) => {
 Trigger.displayName = "Flyout.Trigger";
 Flyout.Trigger = Trigger;
 
-type FlyoutSizeType = "narrow" | "wide";
+type FlyoutSizeType = "default" | "narrow" | "wide";
 type Strategy = "relative" | "absolute" | "fixed";
 export interface DialogContentProps extends RadixDialogContentProps {
   container?: HTMLElement | null;
@@ -59,7 +64,7 @@ const FlyoutContent = styled(DialogContent)<{
   top: 0;
   right: 0;
   bottom: 0;
-  ${({ theme, $size = "narrow", $strategy }) => `
+  ${({ theme, $size = "default", $strategy }) => `
     position: ${$strategy};
     height: ${$strategy === "relative" ? "100%" : "auto"};
     width: ${theme.click.flyout.size[$size].width};
@@ -94,6 +99,7 @@ const FlyoutContainer = styled.div`
   gap: 0;
   width: 100%;
   flex-flow: column nowrap;
+  gap: inherit;
 `;
 
 const Content = ({
@@ -207,7 +213,7 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
             </CrossButton>
           </DialogClose>
         </FlyoutHeaderContainer>
-        <Separator size="lg" />
+        <Separator size="xs" />
       </FlyoutContainer>
     );
   }
@@ -228,30 +234,38 @@ const Header = ({ title, description, children, ...props }: FlyoutHeaderProps) =
           </CrossButton>
         </DialogClose>
       </FlyoutHeaderContainer>
-      <Separator size="lg" />
+      <Separator size="xs" />
     </FlyoutContainer>
   );
 };
 Header.displayName = "Flyout.Header";
 Flyout.Header = Header;
 
-const FlyoutBody = styled.div`
+type FlyoutAlign = "default" | "top";
+const FlyoutBody = styled.div<{ $align?: FlyoutAlign }>`
   display: flex;
   flex-direction: column;
   flex: 1;
   width: 100%;
   overflow: auto;
+  margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
-const Body = (props: HTMLAttributes<HTMLDivElement>) => <FlyoutBody {...props} />;
+interface BodyProps extends HTMLAttributes<HTMLDivElement> {
+  align?: FlyoutAlign;
+}
+
+const Body = ({ align, ...props }: BodyProps) => (
+  <FlyoutBody
+    $align={align}
+    {...props}
+  />
+);
 
 Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
-export interface FlyoutFooterProps extends HTMLAttributes<HTMLDivElement> {
-  cancelText?: string;
-  showClose?: boolean;
-}
+export type FlyoutFooterProps = HTMLAttributes<HTMLDivElement>;
 
 const FlyoutFooter = styled.div`
   display: flex;
@@ -264,18 +278,33 @@ const FlyoutFooter = styled.div`
   `}
 `;
 
-const Footer = ({ cancelText, showClose, children, ...props }: FlyoutFooterProps) => {
+interface FlyoutButtonProps extends Omit<ButtonProps, "children"> {
+  children?: never;
+}
+
+const FlyoutClose = ({
+  children,
+  ...props
+}: FlyoutButtonProps | { children?: ReactNode }) => {
+  return (
+    <DialogClose asChild>
+      {children ?? (
+        <Button
+          type="secondary"
+          {...props}
+        />
+      )}
+    </DialogClose>
+  );
+};
+FlyoutClose.displayName = "Flyout.Close";
+Flyout.Close = FlyoutClose;
+
+const Footer = (props: FlyoutFooterProps) => {
   return (
     <FlyoutContainer>
-      <Separator size="lg" />
-      <FlyoutFooter {...props}>
-        {showClose && (
-          <DialogClose asChild>
-            <Button type="secondary">{cancelText ?? "Cancel"}</Button>
-          </DialogClose>
-        )}
-        {children}
-      </FlyoutFooter>
+      <Separator size="xs" />
+      <FlyoutFooter {...props} />
     </FlyoutContainer>
   );
 };

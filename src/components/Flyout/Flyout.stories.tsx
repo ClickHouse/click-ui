@@ -4,22 +4,27 @@ import { Flyout, FlyoutProps } from "./Flyout";
 interface Props extends FlyoutProps {
   title: string;
   description?: string;
-  showClose?: boolean;
+  align: "default" | "top";
+  size: "default" | "narrow" | "wide";
 }
 
-const FlyoutExample = ({ title, description, showClose, ...props }: Props) => {
+const FlyoutExample = ({ title, description, align, size, ...props }: Props) => {
   return (
     <Flyout {...props}>
       <Flyout.Trigger>Flyout Trigger</Flyout.Trigger>
-      <Flyout.Content strategy="fixed">
+      <Flyout.Content
+        strategy="fixed"
+        size={size}
+      >
         <Flyout.Header
           title={title}
           description={description}
         />
-        <Flyout.Body>
+        <Flyout.Body align={align}>
           <Flyout.Element>Content1 long text content</Flyout.Element>
         </Flyout.Body>
-        <Flyout.Footer showClose={showClose}>
+        <Flyout.Footer>
+          <Flyout.Close label="Cancel" />
           <Button>Test Primary</Button>
         </Flyout.Footer>
       </Flyout.Content>
@@ -33,7 +38,8 @@ export default {
   argTypes: {
     title: { control: "text" },
     description: { control: "text" },
-    showClose: { control: "boolean" },
+    align: { control: "select", options: ["default", "top"] },
+    size: { control: "select", options: ["default", "narrow", "wide"] },
   },
 };
 
@@ -41,13 +47,14 @@ export const Playground = {
   args: {
     title: "Title",
     description: "Description",
-    showClose: true,
+    align: "default",
+    size: "default",
   },
   parameters: {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { title, description, showClose, ...props } = story.args;
+          const { title, description, align, size, ...props } = story.args;
           return `<Flyout\n
           ${Object.entries(props)
             .flatMap(([key, value]) =>
@@ -60,16 +67,22 @@ export const Playground = {
             .join("\n")}
 >
 
-      <Flyout.Header
-        title="${title}"
-        description="${description}"
-      />
-      <Flyout.Body>
-        <Flyout.Element>Content1 long text content</Flyout.Element>
-      </Flyout.Body>
-      <Flyout.Footer showClose={${showClose}}>
-        <Button>Test Primary</Button>
-      </Flyout.Footer>
+      <Flyout.Content
+        strategy="fixed"
+        size="${size}"
+      >
+        <Flyout.Header
+          title="${title}"
+          description="${description}"
+        />
+        <Flyout.Body align="${align}">
+          <Flyout.Element>Content1 long text content</Flyout.Element>
+        </Flyout.Body>
+        <Flyout.Footer>
+          <Flyout.Close label="Cancel" />
+          <Button>Test Primary</Button>
+        </Flyout.Footer>
+      </Flyout.Content>
 </Flyout>
 `;
         },
