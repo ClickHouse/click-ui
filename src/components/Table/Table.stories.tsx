@@ -9,7 +9,7 @@ export default {
 export const Playground = {
   args: {
     children: [
-      <Table.Tr>
+      <Table.Tr type="header">
         <Table.Th>Company</Table.Th>
         <Table.Th>Contact</Table.Th>
         <Table.Th>Country</Table.Th>

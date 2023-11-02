@@ -1,4 +1,5 @@
 import { Icon, IconName } from "@/components";
+import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 type TableHeaderProps = {
@@ -6,20 +7,13 @@ type TableHeaderProps = {
   leftIcon?: IconName;
   rightIcon?: IconName;
 };
+type TableRowType = "header" | "default";
 const StyledHeader = styled.th`
-  padding: 8px 16px;
-  background-color: ${props => props.theme.click.table.header.color.background.default};
+  padding: 0.75rem 1rem;
   font: ${props => props.theme.click.table.header.title.default};
   color: ${props => props.theme.click.table.header.color.title.default};
   gap: 4px;
   text-align: left;
-
-  &:first-of-type {
-    border-top-left-radius: ${props => props.theme.click.table.radii.all};
-  }
-  &:last-of-type {
-    border-top-right-radius: ${props => props.theme.click.table.radii.all};
-  }
 `;
 
 const HeaderContentWrapper = styled.div`
@@ -56,59 +50,72 @@ const TableHeader = ({
   </StyledHeader>
 );
 
-const TableRow = styled.tr`
-  background-color: ${props => props.theme.click.table.row.color.background.default};
-  border-bottom: 1px solid ${props => props.theme.click.table.row.color.stroke.default};
+const StyledTableRow = styled.tr<{ $type?: TableRowType }>`
+  overflow: hidden;
+  ${({ $type = "default", theme }) =>
+    $type === "default"
+      ? `
+        background-color: ${theme.click.table.row.color.background.default};
+        border-bottom: 1px solid ${theme.click.table.row.color.stroke.default};
+        &:active {
+          background-color: ${theme.click.table.row.color.background.active};
+        }
+        &:hover {
+          background-color: ${theme.click.table.row.color.background.hover};
+        }
+      `
+      : `background-color: ${theme.click.table.header.color.background.default};`}
 
-  &:has(${StyledHeader}) {
-    border-bottom: revert;
-  }
-
-  &:active {
-    background-color: ${props => props.theme.click.table.row.color.background.active};
-  }
-
-  &:hover {
-    background-color: ${props => props.theme.click.table.row.color.background.hover};
+  &:last-of-type {
+    border-bottom: none;
   }
 `;
+
+const TableRow = ({
+  type,
+  ...props
+}: HTMLAttributes<HTMLTableRowElement> & { type?: TableRowType }) => {
+  return (
+    <StyledTableRow
+      $type={type}
+      {...props}
+    />
+  );
+};
 
 const TableData = styled.td`
   font: ${props => props.theme.click.table.cell.label.default};
-  padding: 16px;
-  border: 1px solid ${props => props.theme.click.table.global.color.stroke.default};
-  border-top: none;
-
-  :not(:last-of-type) {
-    border-right: none;
-  }
-  :not(:first-of-type) {
-    border-left: none;
-  }
-
-  ${TableRow}:last-of-type &:first-of-type {
-    border-bottom-left-radius: ${props => props.theme.click.table.radii.all};
-  }
-  ${TableRow}:last-of-type &:last-of-type {
-    border-bottom-right-radius: ${props => props.theme.click.table.radii.all};
-  }
+  padding: 0.75rem 1rem;
+  overflow: hidden;
 `;
 
-const Table = (props: React.HTMLAttributes<HTMLTableElement>) => (
-  <StyledTable {...props} />
+const Table = forwardRef<HTMLTableElement, HTMLAttributes<HTMLTableElement>>(
+  (props, ref) => (
+    <StyledTable
+      ref={ref}
+      {...props}
+    />
+  )
 );
 
 const StyledTable = styled.table`
   border-spacing: 0;
+  overflow: hidden;
+  ${({ theme }) => `
+    border-radius: ${theme.click.table.radii.all};
+    border: 1px solid ${theme.click.table.global.color.stroke.default};
+  `}
 `;
 
 TableHeader.displayName = "Table.Th";
-Table.Th = TableHeader;
 
 TableData.displayName = "Table.Td";
-Table.Td = TableData;
 
 TableRow.displayName = "Table.Tr";
-Table.Tr = TableRow;
 
-export { Table };
+const TableNamespace = Object.assign(Table, {
+  Th: TableHeader,
+  Td: TableData,
+  Tr: TableRow,
+});
+export { TableNamespace as Table };
