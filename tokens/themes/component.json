@@ -2059,6 +2059,30 @@
             "value": "{typography.styles.product.text.medium.sm}",
             "type": "typography"
           }
+        },
+        "cell": {
+          "space": {
+            "md": {
+              "y": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
+            },
+            "sm": {
+              "y": {
+                "value": "{spaces.2}",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
+            }
+          }
         }
       },
       "cell": {
@@ -2079,6 +2103,50 @@
         "all": {
           "value": "{border.radii.1}",
           "type": "borderRadius"
+        }
+      },
+      "body": {
+        "cell": {
+          "space": {
+            "md": {
+              "y": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
+            },
+            "sm": {
+              "y": {
+                "value": "{spaces.2}",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
+            }
+          }
+        }
+      },
+      "mobile": {
+        "cell": {
+          "space": {
+            "y": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            },
+            "gap": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
+          }
         }
       }
     },
@@ -2438,6 +2506,36 @@
           "height": {
             "value": "100%",
             "type": "sizing"
+          }
+        }
+      }
+    },
+    "grid": {
+      "header": {
+        "cell": {
+          "space": {
+            "y": {
+              "value": "0.4375rem",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
+          }
+        }
+      },
+      "body": {
+        "cell": {
+          "space": {
+            "y": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
           }
         }
       }
