@@ -743,6 +743,23 @@
               "value": "{palette.neutral.0}",
               "type": "color"
             },
+            "disabled": {
+              "value": "{palette.neutral.200}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{palette.neutral.200}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.008",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
             "panel": {
               "value": "{click.button.group.color.background.default}",
               "type": "color"
@@ -759,6 +776,14 @@
             },
             "active": {
               "value": "{palette.neutral.900}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.400}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{palette.neutral.500}",
               "type": "color"
             }
           },
@@ -3210,6 +3235,62 @@
                 "space": "lch"
               }
             }
+          }
+        }
+      },
+      "feedback": {
+        "info": {
+          "background": {
+            "value": "{palette.info.50}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{palette.info.400}",
+            "type": "color"
+          }
+        },
+        "success": {
+          "background": {
+            "value": "{palette.success.50}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{palette.success.700}",
+            "type": "color"
+          }
+        },
+        "warning": {
+          "background": {
+            "value": "{palette.warning.50}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{palette.warning.700}",
+            "type": "color"
+          }
+        },
+        "danger": {
+          "background": {
+            "value": "{palette.danger.50}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{palette.danger.600}",
+            "type": "color"
+          }
+        },
+        "neutral": {
+          "background": {
+            "value": "{palette.slate.100}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{palette.slate.700}",
+            "type": "color"
+          },
+          "stroke": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
           }
         }
       }

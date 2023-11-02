@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 export type TextColor = "default" | "muted";
@@ -13,16 +13,19 @@ export interface TextProps extends HTMLAttributes<HTMLParagraphElement> {
 }
 
 /** Component for writing blocks of body copy */
-const _Text = ({ color, size, weight, className, children, ...props }: TextProps) => (
-  <CuiText
-    $color={color}
-    $size={size}
-    $weight={weight}
-    className={className}
-    {...props}
-  >
-    {children}
-  </CuiText>
+const _Text = forwardRef<HTMLParagraphElement, TextProps>(
+  ({ color, size, weight, className, children, ...props }, ref) => (
+    <CuiText
+      ref={ref}
+      $color={color}
+      $size={size}
+      $weight={weight}
+      className={className}
+      {...props}
+    >
+      {children}
+    </CuiText>
+  )
 );
 
 const CuiText = styled.p<{ $color?: TextColor; $size?: TextSize; $weight?: TextWeight }>`

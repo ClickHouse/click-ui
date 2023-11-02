@@ -12,11 +12,13 @@ export interface ButtonGroupProps
   options: Array<ButtonGroupElementProps>;
   selected?: string;
   onClick?: (value: string) => void;
+  fillWidth?: boolean;
 }
 
 export const ButtonGroup = ({
   options,
   selected,
+  fillWidth,
   onClick,
   ...props
 }: ButtonGroupProps) => {
@@ -29,6 +31,7 @@ export const ButtonGroup = ({
         key={value}
         $active={value === selected}
         $position={position}
+        $fillWidth={fillWidth}
         onClick={() => onClick?.(value)}
         role="button"
         {...props}
@@ -37,7 +40,14 @@ export const ButtonGroup = ({
       </Button>
     );
   });
-  return <ButtonGroupWrapper {...props}>{btns}</ButtonGroupWrapper>;
+  return (
+    <ButtonGroupWrapper
+      $fillWidth={fillWidth}
+      {...props}
+    >
+      {btns}
+    </ButtonGroupWrapper>
+  );
 };
 
 type ButtonPosition = "left" | "center" | "right";
@@ -46,9 +56,10 @@ interface ButtonProps {
   $active: boolean;
   $position: ButtonPosition;
   theme: DefaultTheme;
+  $fillWidth?: boolean;
 }
 
-const ButtonGroupWrapper = styled.div`
+const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean }>`
   box-sizing: border-box;
   display: inline-flex;
   flex-direction: row;
@@ -58,6 +69,7 @@ const ButtonGroupWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.click.button.group.color.stroke.panel};
   background: ${({ theme }) => theme.click.button.group.color.background.panel};
   border-radius: ${({ theme }) => theme.click.button.group.radii.end};
+  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
 
 const endRadii = "var(--click-button-button-group-radii-end)";
@@ -82,21 +94,28 @@ const Button = styled.button<ButtonProps>`
   padding: ${({ theme }) => theme.click.button.basic.space.y}
     ${({ theme }) => theme.click.button.basic.space.x};
   gap: ${({ theme }) => theme.click.button.basic.space.group};
+  ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")}
   cursor: pointer;
 
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    background: ${({ theme, $active }) =>
+      theme.click.button.group.color.background[
+        $active ? "disabled-active" : "disabled"
+      ]};
+  }
+
   &:active,
   &:focus {
     background: ${({ theme }) => theme.click.button.group.color.background.active};
-  }
-
-  &:disabled {
-    cursor: disabled;
-    background: ${({ theme }) =>
-      theme.click.button.basic.color.primary.background.disabled};
+    &:disabled {
+      background: ${({ theme }) =>
+        theme.click.button.group.color.background["disabled-active"]};
+    }
   }
 
   border-radius: ${({ $position }: ButtonProps) =>

@@ -603,12 +603,16 @@
             "default": "lch(94.5 0.72 266)",
             "hover": "lch(97.4 1.44 272)",
             "active": "#ffffff",
-            "panel": "lch(94.5 0.72 266)"
+            "panel": "lch(94.5 0.72 266)",
+            "disabled": "#dfdfdf",
+            "disabled-active": "lch(88.9 0 0)"
           },
           "text": {
             "default": "#161517",
             "hover": "#161517",
-            "active": "#151515"
+            "active": "#151515",
+            "disabled": "#a0a0a0",
+            "disabled-active": "#808080"
           },
           "stroke": {
             "panel": "lch(91.6 1.1 266)"
@@ -2239,6 +2243,29 @@
       },
       "shadow": {
         "default": "lch(6.77 0 0 / 0.15)"
+      },
+      "feedback": {
+        "info": {
+          "background": "#dae6fc",
+          "foreground": "#135be6"
+        },
+        "success": {
+          "background": "#e0f8e7",
+          "foreground": "#15632b"
+        },
+        "warning": {
+          "background": "#ffedd8",
+          "foreground": "#9e5600"
+        },
+        "danger": {
+          "background": "#ffdddd",
+          "foreground": "#c10000"
+        },
+        "neutral": {
+          "background": "#e6e7e9",
+          "foreground": "#53575f",
+          "stroke": "lch(91.6 1.1 266)"
+        }
       }
     }
   },

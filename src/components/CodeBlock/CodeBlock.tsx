@@ -13,13 +13,15 @@ SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("json", json);
 
 export type CodeThemeType = "light" | "dark";
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {
   language?: string;
   children: string;
   theme?: CodeThemeType;
   showLineNumbers?: boolean;
   showWrapButton?: boolean;
   wrapLines?: boolean;
+  onCopy?: (value: string) => void | Promise<void>;
+  onCopyError?: (error: string) => void | Promise<void>;
 }
 
 interface RendererNodeType {
@@ -52,9 +54,15 @@ const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   }}
 `;
 
-const CodeButton = styled(EmptyButton)<{ $copied: boolean }>`
-  ${({ $copied }) => `
-    color: ${$copied ? "green" : "inherit"};
+const CodeButton = styled(EmptyButton)<{ $copied: boolean; $error: boolean }>`
+  ${({ $copied, $error, theme }) => `
+    color: ${
+      $copied
+        ? theme.click.alert.color.text.success
+        : $error
+        ? theme.click.alert.color.text.danger
+        : "inherit"
+    };
     padding: 0;
     border: 0;
   `}
@@ -88,18 +96,34 @@ export const CodeBlock = ({
   showLineNumbers,
   showWrapButton = false,
   wrapLines = false,
+  onCopy,
+  onCopyError,
   ...props
 }: Props) => {
   const [copied, setCopied] = useState(false);
+  const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
   const customStyle = useColorStyle(theme);
   const ref = useRef<HTMLElement>(null);
 
   const copyCodeToClipboard = async () => {
     if (ref.current?.textContent) {
-      await navigator.clipboard.writeText(ref.current.textContent);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        await navigator.clipboard.writeText(ref.current.textContent);
+        if (typeof onCopy == "function") {
+          onCopy(ref.current.textContent);
+        }
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (error) {
+        let message = "Unable to copy code";
+        if (error instanceof Error) message = error.message;
+        setErrorCopy(true);
+        if (typeof onCopyError === "function") {
+          onCopyError(message);
+        }
+        setTimeout(() => setErrorCopy(false), 2000);
+      }
     }
   };
   const wrapElement = () => {
@@ -122,6 +146,7 @@ export const CodeBlock = ({
           <CodeButton
             as={IconButton}
             $copied={false}
+            $error={false}
             icon="document"
             onClick={wrapElement}
           />
@@ -129,7 +154,8 @@ export const CodeBlock = ({
         <CodeButton
           as={IconButton}
           $copied={copied}
-          icon={copied ? "check" : "copy"}
+          $error={errorCopy}
+          icon={copied ? "check" : errorCopy ? "warning" : "copy"}
           onClick={copyCodeToClipboard}
         />
       </ButtonContainer>
