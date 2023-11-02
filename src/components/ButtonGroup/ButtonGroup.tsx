@@ -5,7 +5,6 @@ export interface ButtonGroupElementProps
   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
   value: string;
   label?: ReactNode;
-  fillWidth?: boolean;
 }
 
 export interface ButtonGroupProps
@@ -13,16 +12,18 @@ export interface ButtonGroupProps
   options: Array<ButtonGroupElementProps>;
   selected?: string;
   onClick?: (value: string) => void;
+  fillWidth?: boolean;
 }
 
 export const ButtonGroup = ({
   options,
   selected,
+  fillWidth,
   onClick,
   ...props
 }: ButtonGroupProps) => {
   const lastIndex = options.length - 1;
-  const btns = options.map(({ value, label, fillWidth, ...props }, index) => {
+  const btns = options.map(({ value, label, ...props }, index) => {
     const position: ButtonPosition =
       index === 0 ? "left" : index === lastIndex ? "right" : "center";
     return (
@@ -39,7 +40,14 @@ export const ButtonGroup = ({
       </Button>
     );
   });
-  return <ButtonGroupWrapper {...props}>{btns}</ButtonGroupWrapper>;
+  return (
+    <ButtonGroupWrapper
+      $fillWidth={fillWidth}
+      {...props}
+    >
+      {btns}
+    </ButtonGroupWrapper>
+  );
 };
 
 type ButtonPosition = "left" | "center" | "right";
@@ -51,7 +59,7 @@ interface ButtonProps {
   $fillWidth?: boolean;
 }
 
-const ButtonGroupWrapper = styled.div`
+const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean }>`
   box-sizing: border-box;
   display: inline-flex;
   flex-direction: row;
@@ -61,6 +69,7 @@ const ButtonGroupWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.click.button.group.color.stroke.panel};
   background: ${({ theme }) => theme.click.button.group.color.background.panel};
   border-radius: ${({ theme }) => theme.click.button.group.radii.end};
+  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
 
 const endRadii = "var(--click-button-button-group-radii-end)";
