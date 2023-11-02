@@ -1785,6 +1785,18 @@
         "title": {
           "default": string
         },
+        "cell": {
+          "space": {
+            "md": {
+              "y": string,
+              "x": string
+            },
+            "sm": {
+              "y": string,
+              "x": string
+            }
+          }
+        },
         "color": {
           "background": {
             "default": string
@@ -1815,6 +1827,29 @@
       },
       "radii": {
         "all": string
+      },
+      "body": {
+        "cell": {
+          "space": {
+            "md": {
+              "y": string,
+              "x": string
+            },
+            "sm": {
+              "y": string,
+              "x": string
+            }
+          }
+        }
+      },
+      "mobile": {
+        "cell": {
+          "space": {
+            "y": string,
+            "x": string,
+            "gap": string
+          }
+        }
       },
       "row": {
         "color": {
@@ -2111,6 +2146,47 @@
         }
       }
     },
+    "grid": {
+      "header": {
+        "cell": {
+          "space": {
+            "y": string,
+            "x": string
+          }
+        }
+      },
+      "body": {
+        "cell": {
+          "space": {
+            "y": string,
+            "x": string
+          }
+        }
+      },
+      "color": {
+        "background": {
+          "header": {
+            "default": string
+          },
+          "row": {
+            "default": string
+          }
+        },
+        "text": {
+          "header": {
+            "default": string
+          },
+          "row": {
+            "default": string
+          }
+        },
+        "stroke": {
+          "cell": {
+            "stroke": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -2163,31 +2239,6 @@
           "background": string,
           "foreground": string,
           "stroke": string
-        }
-      }
-    },
-    "grid": {
-      "color": {
-        "background": {
-          "header": {
-            "default": string
-          },
-          "row": {
-            "default": string
-          }
-        },
-        "text": {
-          "header": {
-            "default": string
-          },
-          "row": {
-            "default": string
-          }
-        },
-        "stroke": {
-          "cell": {
-            "stroke": string
-          }
         }
       }
     },

@@ -1075,6 +1075,31 @@
         }
       }
     },
+    "grid": {
+      "color": {
+        "background": {
+          "header": {
+            "default": "lch(16.1 0 0 / 0.7)"
+          },
+          "row": {
+            "default": "#1F1F1C"
+          }
+        },
+        "text": {
+          "header": {
+            "default": "#b3b6bd"
+          },
+          "row": {
+            "default": "#ffffff"
+          }
+        },
+        "stroke": {
+          "cell": {
+            "stroke": "lch(27.5 0 0 / 0.3)"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -1127,31 +1152,6 @@
           "background": "#414141",
           "foreground": "#c0c0c0",
           "stroke": "lch(27.5 0 0 / 0.3)"
-        }
-      }
-    },
-    "grid": {
-      "color": {
-        "background": {
-          "header": {
-            "default": "lch(16.1 0 0 / 0.7)"
-          },
-          "row": {
-            "default": "#1F1F1C"
-          }
-        },
-        "text": {
-          "header": {
-            "default": "#b3b6bd"
-          },
-          "row": {
-            "default": "#ffffff"
-          }
-        },
-        "stroke": {
-          "cell": {
-            "stroke": "lch(27.5 0 0 / 0.3)"
-          }
         }
       }
     },
