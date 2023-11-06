@@ -172,10 +172,10 @@ const MobileActions = styled.div`
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-type TableRowType = {
+interface TableRowType extends HTMLAttributes<HTMLTableRowElement> {
   checked?: boolean;
   cells: Array<TableCellType>;
-};
+}
 
 interface CommonTableProps
   extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
