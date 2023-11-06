@@ -1,4 +1,4 @@
-import { HorizontalDirection, Icon, IconName } from "@/components";
+import { Checkbox, HorizontalDirection, Icon, IconName } from "@/components";
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 
@@ -50,7 +50,7 @@ const TableHeader = ({
   </StyledHeader>
 );
 
-const TableRow = styled.tr`
+const TableRow = styled.tr<{ $selectable?: boolean }>`
   overflow: hidden;
   ${({ theme }) => `
     background-color: ${theme.click.table.row.color.background.default};
@@ -68,11 +68,17 @@ const TableRow = styled.tr`
   }
 
   @media (max-width: 768px) {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    ${({ theme }) => `
+    ${({ theme, $selectable = false }) => `
       border: 1px solid ${theme.click.table.row.color.stroke.default};
       border-radius: ${theme.click.table.radii.all};
+      ${
+        $selectable
+          ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + 1rem);`
+          : ""
+      }
     `}
   }
 `;
@@ -119,43 +125,144 @@ const Tbody = styled.tbody`
     gap: 0.25rem;
   }
 `;
+
+const SelectData = styled.td`
+  overflow: hidden;
+  ${({ theme }) => `
+    color: ${theme.click.table.row.color.text.default};
+    font: ${theme.click.table.cell.text.default};
+    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+  `}
+  @media (max-width: 768px) {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    ${({ theme }) => `
+      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+      border-right: 1px solid ${theme.click.table.row.color.stroke.default};
+    `}
+  }
+`;
+
+const TableWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+`;
+
+const TableOuterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const MobileActions = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
+  }
+`;
+
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-type TableRowType = Array<TableCellType>;
-interface TableProps extends HTMLAttributes<HTMLTableElement> {
+type TableRowType = {
+  checked?: boolean;
+  cells: Array<TableCellType>;
+};
+
+interface CommonTableProps
+  extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
   headers: Array<TableHeaderProps>;
   rows: Array<TableRowType>;
 }
+
+interface SelectionType extends CommonTableProps {
+  selectable?: boolean;
+  onSelect: (index: "all" | number, checked: boolean) => void;
+}
+
+interface NoSelectionType extends CommonTableProps {
+  selectable?: never;
+  onSelect?: never;
+}
+
+type TableProps = SelectionType | NoSelectionType;
+
 const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ headers, rows, ...props }, ref) => (
-    <StyledTable
-      ref={ref}
-      {...props}
-    >
-      <THead>
-        <tr>
-          {headers.map((headerProps, index) => (
-            <TableHeader
-              key={`table-header-${index}`}
-              {...headerProps}
-            />
-          ))}
-        </tr>
-      </THead>
-      <Tbody>
-        {rows.map(row => (
-          <TableRow>
-            {row.map(({ label, ...cellProps }, index) => (
-              <TableData {...cellProps}>
-                {headers[index] && <MobileHeader>{headers[index].label}</MobileHeader>}
-                <span>{label}</span>
-              </TableData>
+  ({ headers, rows, selectable, onSelect, ...props }, ref) => (
+    <TableOuterContainer>
+      <MobileActions>
+        {selectable && (
+          <Checkbox
+            label="Select All"
+            checked={rows.every(row => row.checked)}
+            onCheckedChange={(checked: boolean): void => onSelect("all", checked)}
+          />
+        )}
+      </MobileActions>
+      <TableWrapper>
+        <StyledTable
+          ref={ref}
+          {...props}
+        >
+          <THead>
+            <tr>
+              {selectable && (
+                <StyledHeader>
+                  <Checkbox
+                    onCheckedChange={(checked: boolean) =>
+                      onSelect && onSelect("all", checked)
+                    }
+                  />
+                </StyledHeader>
+              )}
+              {headers.map((headerProps, index) => (
+                <TableHeader
+                  key={`table-header-${index}`}
+                  {...headerProps}
+                />
+              ))}
+            </tr>
+          </THead>
+          <Tbody>
+            {rows.map(({ cells, checked, ...rowProps }, rowIndex) => (
+              <TableRow
+                key={`table-body-row-${rowIndex}`}
+                $selectable={selectable}
+                {...rowProps}
+              >
+                {selectable && (
+                  <SelectData>
+                    <Checkbox
+                      checked={checked}
+                      onCheckedChange={(checked: boolean) => onSelect(rowIndex, checked)}
+                    />
+                  </SelectData>
+                )}
+                {cells.map(({ label, ...cellProps }, index) => (
+                  <TableData
+                    key={`table-cell-${index}`}
+                    {...cellProps}
+                  >
+                    {headers[index] && (
+                      <MobileHeader>{headers[index].label}</MobileHeader>
+                    )}
+                    <span>{label}</span>
+                  </TableData>
+                ))}
+              </TableRow>
             ))}
-          </TableRow>
-        ))}
-      </Tbody>
-    </StyledTable>
+          </Tbody>
+        </StyledTable>
+      </TableWrapper>
+    </TableOuterContainer>
   )
 );
 
