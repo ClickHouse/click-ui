@@ -74,4 +74,12 @@ export const Playground = {
       console.log("ignored");
     },
   },
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 500,
+      },
+    },
+  },
 };
