@@ -240,7 +240,7 @@ const MobileActions = styled.div`
   }
 `;
 
-const TableRowCloseButton = styled(IconButton)<{ $deleted?: boolean }>`
+const TableRowCloseButton = styled.button<{ $deleted?: boolean }>`
   transition: transform 200ms;
 
   ${({ $deleted }) => `
@@ -341,6 +341,7 @@ const TableBodyRow = ({
               onClick={onEdit}
             />
             <TableRowCloseButton
+              as={IconButton}
               $deleted={deleted}
               type="ghost"
               icon="cross"
