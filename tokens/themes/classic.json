@@ -993,6 +993,20 @@
                 "value": "{click.feedback.color.danger.foreground}",
                 "type": "color"
               }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.danger.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
+                "type": "color"
+              }
             }
           },
           "ghost": {
@@ -1074,6 +1088,20 @@
               },
               "active": {
                 "value": "{click.button.iconButton.color.info.text.default}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.info.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.info.200}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.info.300}",
                 "type": "color"
               }
             }
