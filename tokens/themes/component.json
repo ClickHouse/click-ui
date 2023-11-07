@@ -1476,7 +1476,7 @@
     "panel": {
       "strokeWidth": {
         "default": {
-          "value": "1px",
+          "value": "{border.width.1}",
           "type": "borderWidth"
         }
       },
@@ -2097,6 +2097,10 @@
             "value": "{click.field.typography.label.default}",
             "type": "typography"
           }
+        },
+        "stroke": {
+          "value": "{border.width.1}",
+          "type": "borderWidth"
         }
       },
       "radii": {
