@@ -210,6 +210,7 @@ const ActionsList = styled.td`
 const ActionsContainer = styled.span`
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
   overflow: hidden;
   @media (max-width: 768px) {
     flex-direction: column;
