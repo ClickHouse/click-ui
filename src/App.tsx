@@ -41,7 +41,7 @@ const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" 
 const rows = [
   {
     id: "row-1",
-    cells: [
+    items: [
       { label: "Alfreds Futterkiste" },
       { label: "Maria Anders" },
       { label: "Germany" },
@@ -49,7 +49,7 @@ const rows = [
   },
   {
     id: "row-2",
-    cells: [
+    items: [
       { label: "Centro comercial Moctezuma" },
       { label: "Francisco Chang" },
       { label: "Mexico" },
