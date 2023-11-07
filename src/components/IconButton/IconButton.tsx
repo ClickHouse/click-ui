@@ -57,7 +57,8 @@ const Button = styled.button<{
     background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
     color: ${theme.click.button.iconButton.color[$styleType].text.hover};
     border-color: ${ theme.click.button.iconButton.color[$styleType].stroke.hover};
-
+  }
+  
   &:active {
     background-color: ${
       theme.click.button.iconButton.color[$styleType].background.active
