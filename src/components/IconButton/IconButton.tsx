@@ -3,9 +3,9 @@ import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  size?: "sm" | "xs";
+  size?: "default" | "sm" | "xs";
   disabled?: boolean;
-  type?: "primary" | "secondary" | "ghost";
+  type?: "primary" | "secondary" | "ghost" | "danger" | "info";
   icon: IconName;
 }
 
@@ -34,8 +34,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 const Button = styled.button<{
-  $styleType?: "primary" | "secondary" | "ghost";
-  $size?: "sm" | "xs";
+  $styleType?: "primary" | "secondary" | "ghost" | "danger" | "info";
+  $size?: "default" | "sm" | "xs";
 }>`
   ${({ theme, $size, $styleType = "primary" }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
