@@ -187,7 +187,7 @@ interface CommonTableProps
 }
 
 type SelectReturnValue = {
-  id: string | number;
+  index: number;
   item: TableRowType;
 };
 
@@ -251,9 +251,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const onSelectAll = (checked: boolean): void => {
       if (typeof onSelect === "function") {
         const ids = checked
-          ? rows.map(row => ({
+          ? rows.map((row, index) => ({
               item: row,
-              id: row.id,
+              index,
             }))
           : [];
         onSelect(ids);
@@ -264,14 +264,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       (id: number | string) =>
       (checked: boolean): void => {
         if (typeof onSelect == "function") {
-          const selectedItems = rows.flatMap(row => {
+          const selectedItems = rows.flatMap((row, index) => {
             if (
               (id === row.id && checked) ||
               (selectedIndices.includes(id) && id !== row.id)
             ) {
               return {
                 item: row,
-                id: row.id,
+                index,
               };
             }
 
