@@ -227,7 +227,14 @@
               "active": "#ffbaba"
             },
             "text": {
-              "default": "#ff7575"
+              "default": "#ff7575",
+              "hover": "#ff7575",
+              "active": "#ff7575"
+            },
+            "stroke": {
+              "default": "#610000",
+              "hover": "#910000",
+              "active": "lch(28.6 65.8 40)"
             }
           },
           "ghost": {
@@ -245,6 +252,23 @@
               "default": "#b3b6bd",
               "hover": "#ffffff",
               "active": "#ffffff"
+            }
+          },
+          "info": {
+            "background": {
+              "default": "#092e73",
+              "hover": "#0e44ad",
+              "active": "#135be6"
+            },
+            "text": {
+              "default": "#91b3f6",
+              "hover": "#91b3f6",
+              "active": "#91b3f6"
+            },
+            "stroke": {
+              "default": "#092e73",
+              "hover": "#0e44ad",
+              "active": "#135be6"
             }
           }
         }
