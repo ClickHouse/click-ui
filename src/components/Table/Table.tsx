@@ -76,7 +76,7 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
       border-radius: ${theme.click.table.radii.all};
       ${
         $isSelectable
-          ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + 1rem);`
+          ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
           : ""
       }
     `}
