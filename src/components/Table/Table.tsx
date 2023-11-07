@@ -184,10 +184,15 @@ interface CommonTableProps
   rows: Array<TableRowType>;
 }
 
+type SelectReturnValue = {
+  id: string | number;
+  item: TableRowType;
+};
+
 interface SelectionType {
   isSelectable?: boolean;
   selectedIndices?: Array<number | string>;
-  onSelect?: (indices: Array<string | number>) => void;
+  onSelect?: (indices: Array<SelectReturnValue>) => void;
 }
 
 interface NoSelectionType {
@@ -198,29 +203,21 @@ interface NoSelectionType {
 
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
-interface TableRowProps extends TableRowType {
+interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   headers: Array<TableHeaderProps>;
+  onSelect: (checked: boolean) => void;
+  isSelectable?: boolean;
+  checked: boolean;
 }
 
-type TableBodyRowProps = TableRowProps & (SelectionType | NoSelectionType);
 const TableBodyRow = ({
-  id,
-
   headers,
   items,
-  onSelect: onSelectProp,
+  onSelect,
   isSelectable,
-  selectedIndices,
+  checked,
   ...rowProps
 }: TableBodyRowProps) => {
-  const onSelect = (checked: boolean): void => {
-    if (selectedIndices && typeof onSelectProp === "function") {
-      const ids = checked
-        ? [...selectedIndices, id]
-        : selectedIndices.filter(selectedId => id !== selectedId);
-      onSelectProp(ids);
-    }
-  };
   return (
     <TableRow
       $isSelectable={isSelectable}
@@ -229,7 +226,7 @@ const TableBodyRow = ({
       {isSelectable && (
         <SelectData>
           <Checkbox
-            checked={selectedIndices?.includes(id)}
+            checked={checked}
             onCheckedChange={onSelect}
           />
         </SelectData>
@@ -251,10 +248,36 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
   ({ headers, rows, isSelectable, selectedIndices = [], onSelect, ...props }, ref) => {
     const onSelectAll = (checked: boolean): void => {
       if (typeof onSelect === "function") {
-        const ids = checked ? rows.map(row => row.id) : [];
+        const ids = checked
+          ? rows.map(row => ({
+              item: row,
+              id: row.id,
+            }))
+          : [];
         onSelect(ids);
       }
     };
+
+    const onRowSelect =
+      (id: number | string) =>
+      (checked: boolean): void => {
+        if (typeof onSelect == "function") {
+          const selectedItems = rows.flatMap(row => {
+            if (
+              (id === row.id && checked) ||
+              (selectedIndices.includes(id) && id !== row.id)
+            ) {
+              return {
+                item: row,
+                id: row.id,
+              };
+            }
+
+            return [];
+          });
+          onSelect(selectedItems);
+        }
+      };
     return (
       <TableOuterContainer>
         <MobileActions>
@@ -287,13 +310,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               </tr>
             </THead>
             <Tbody>
-              {rows.map((rowProps, rowIndex) => (
+              {rows.map(({ id, ...rowProps }, rowIndex) => (
                 <TableBodyRow
                   key={`table-body-row-${rowIndex}`}
                   headers={headers}
-                  selectedIndices={selectedIndices}
                   isSelectable={isSelectable}
-                  onSelect={onSelect}
+                  checked={selectedIndices?.includes(id)}
+                  onSelect={onRowSelect(id)}
                   {...rowProps}
                 />
               ))}
