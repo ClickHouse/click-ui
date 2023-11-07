@@ -110,6 +110,7 @@ const DialogContent = ({
   forceMount,
   container,
   showOverlay = true,
+  ...props
 }: DialogContentProps) => {
   return (
     <RadixDialog.Portal
@@ -117,7 +118,7 @@ const DialogContent = ({
       container={container}
     >
       {showOverlay && <DialogOverlay />}
-      <ContentArea>
+      <ContentArea {...props}>
         <TitleArea>
           <Title
             size="xl"
