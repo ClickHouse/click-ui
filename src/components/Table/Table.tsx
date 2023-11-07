@@ -50,7 +50,7 @@ const TableHeader = ({
   </StyledHeader>
 );
 
-const TableRow = styled.tr<{ $selectable?: boolean }>`
+const TableRow = styled.tr<{ $isSelectable?: boolean }>`
   overflow: hidden;
   ${({ theme }) => `
     background-color: ${theme.click.table.row.color.background.default};
@@ -71,11 +71,11 @@ const TableRow = styled.tr<{ $selectable?: boolean }>`
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    ${({ theme, $selectable = false }) => `
+    ${({ theme, $isSelectable = false }) => `
       border: 1px solid ${theme.click.table.row.color.stroke.default};
       border-radius: ${theme.click.table.radii.all};
       ${
-        $selectable
+        $isSelectable
           ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + 1rem);`
           : ""
       }
@@ -172,8 +172,9 @@ const MobileActions = styled.div`
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-interface TableRowType extends HTMLAttributes<HTMLTableRowElement> {
-  checked?: boolean;
+interface TableRowType
+  extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
+  id: string | number;
   cells: Array<TableCellType>;
 }
 
@@ -183,87 +184,125 @@ interface CommonTableProps
   rows: Array<TableRowType>;
 }
 
-interface SelectionType extends CommonTableProps {
-  selectable?: boolean;
-  onSelect: (index: "all" | number, checked: boolean) => void;
+interface SelectionType {
+  isSelectable?: boolean;
+  selectedIndices?: Array<number | string>;
+  onSelect?: (indices: Array<string | number>) => void;
 }
 
-interface NoSelectionType extends CommonTableProps {
-  selectable?: never;
+interface NoSelectionType {
+  isSelectable?: never;
+  selectedIndices?: never;
   onSelect?: never;
 }
 
-type TableProps = SelectionType | NoSelectionType;
+export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
+
+interface TableRowProps extends TableRowType {
+  headers: Array<TableHeaderProps>;
+}
+
+type TableBodyRowProps = TableRowProps & (SelectionType | NoSelectionType);
+const TableBodyRow = ({
+  id,
+
+  headers,
+  cells,
+  onSelect: onSelectProp,
+  isSelectable,
+  selectedIndices,
+  ...rowProps
+}: TableBodyRowProps) => {
+  const onSelect = (checked: boolean): void => {
+    if (selectedIndices && typeof onSelectProp === "function") {
+      const ids = checked
+        ? [...selectedIndices, id]
+        : selectedIndices.filter(selectedId => id !== selectedId);
+      onSelectProp(ids);
+    }
+  };
+  return (
+    <TableRow
+      $isSelectable={isSelectable}
+      {...rowProps}
+    >
+      {isSelectable && (
+        <SelectData>
+          <Checkbox
+            checked={selectedIndices?.includes(id)}
+            onCheckedChange={onSelect}
+          />
+        </SelectData>
+      )}
+      {cells.map(({ label, ...cellProps }, cellIndex) => (
+        <TableData
+          key={`table-cell-${cellIndex}`}
+          {...cellProps}
+        >
+          {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
+          <span>{label}</span>
+        </TableData>
+      ))}
+    </TableRow>
+  );
+};
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ headers, rows, selectable, onSelect, ...props }, ref) => (
-    <TableOuterContainer>
-      <MobileActions>
-        {selectable && (
-          <Checkbox
-            label="Select All"
-            checked={rows.every(row => row.checked)}
-            onCheckedChange={(checked: boolean): void => onSelect("all", checked)}
-          />
-        )}
-      </MobileActions>
-      <TableWrapper>
-        <StyledTable
-          ref={ref}
-          {...props}
-        >
-          <THead>
-            <tr>
-              {selectable && (
-                <StyledHeader>
-                  <Checkbox
-                    onCheckedChange={(checked: boolean) =>
-                      onSelect && onSelect("all", checked)
-                    }
+  ({ headers, rows, isSelectable, selectedIndices = [], onSelect, ...props }, ref) => {
+    const onSelectAll = (checked: boolean): void => {
+      if (typeof onSelect === "function") {
+        const ids = checked ? rows.map(row => row.id) : [];
+        onSelect(ids);
+      }
+    };
+    return (
+      <TableOuterContainer>
+        <MobileActions>
+          {isSelectable && (
+            <Checkbox
+              label="Select All"
+              checked={selectedIndices.length === rows.length}
+              onCheckedChange={onSelectAll}
+            />
+          )}
+        </MobileActions>
+        <TableWrapper>
+          <StyledTable
+            ref={ref}
+            {...props}
+          >
+            <THead>
+              <tr>
+                {isSelectable && (
+                  <StyledHeader>
+                    <Checkbox onCheckedChange={onSelectAll} />
+                  </StyledHeader>
+                )}
+                {headers.map((headerProps, index) => (
+                  <TableHeader
+                    key={`table-header-${index}`}
+                    {...headerProps}
                   />
-                </StyledHeader>
-              )}
-              {headers.map((headerProps, index) => (
-                <TableHeader
-                  key={`table-header-${index}`}
-                  {...headerProps}
+                ))}
+              </tr>
+            </THead>
+            <Tbody>
+              {rows.map((rowProps, rowIndex) => (
+                <TableBodyRow
+                  key={`table-body-row-${rowIndex}`}
+                  headers={headers}
+                  selectedIndices={selectedIndices}
+                  isSelectable={isSelectable}
+                  onSelect={onSelect}
+                  {...rowProps}
                 />
               ))}
-            </tr>
-          </THead>
-          <Tbody>
-            {rows.map(({ cells, checked, ...rowProps }, rowIndex) => (
-              <TableRow
-                key={`table-body-row-${rowIndex}`}
-                $selectable={selectable}
-                {...rowProps}
-              >
-                {selectable && (
-                  <SelectData>
-                    <Checkbox
-                      checked={checked}
-                      onCheckedChange={(checked: boolean) => onSelect(rowIndex, checked)}
-                    />
-                  </SelectData>
-                )}
-                {cells.map(({ label, ...cellProps }, index) => (
-                  <TableData
-                    key={`table-cell-${index}`}
-                    {...cellProps}
-                  >
-                    {headers[index] && (
-                      <MobileHeader>{headers[index].label}</MobileHeader>
-                    )}
-                    <span>{label}</span>
-                  </TableData>
-                ))}
-              </TableRow>
-            ))}
-          </Tbody>
-        </StyledTable>
-      </TableWrapper>
-    </TableOuterContainer>
-  )
+            </Tbody>
+          </StyledTable>
+        </TableWrapper>
+      </TableOuterContainer>
+    );
+  }
 );
 
 const StyledTable = styled.table`

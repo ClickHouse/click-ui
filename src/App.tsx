@@ -32,10 +32,30 @@ import {
   Select,
   Text,
   EllipsisContent,
+  Table,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 
+const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
+const rows = [
+  {
+    id: "row-1",
+    cells: [
+      { label: "Alfreds Futterkiste" },
+      { label: "Maria Anders" },
+      { label: "Germany" },
+    ],
+  },
+  {
+    id: "row-2",
+    cells: [
+      { label: "Centro comercial Moctezuma" },
+      { label: "Francisco Chang" },
+      { label: "Mexico" },
+    ],
+  },
+];
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState("center1");
@@ -430,6 +450,10 @@ const App = () => {
           faucibus mi egestas interdum.
         </EllipsisContent>
       </ClickUIProvider>
+      <Table
+        headers={headers}
+        rows={rows}
+      />
     </div>
   );
 };
