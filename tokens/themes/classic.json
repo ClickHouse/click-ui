@@ -1069,11 +1069,11 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.info.200}",
+                "value": "{palette.info.100}",
                 "type": "color"
               },
               "active": {
-                "value": "{palette.info.300}",
+                "value": "{palette.info.200}",
                 "type": "color"
               }
             },
@@ -1097,11 +1097,11 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.info.200}",
+                "value": "{palette.info.100}",
                 "type": "color"
               },
               "active": {
-                "value": "{palette.info.300}",
+                "value": "{palette.info.200}",
                 "type": "color"
               }
             }
