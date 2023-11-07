@@ -87,7 +87,7 @@ const Wrapper = styled.div<{
 }>`
   display: flex;
   border-radius: ${({ $type, theme }) =>
-  $type === "banner" ? 0 : theme.click.alert.radii.end};
+  $type === "banner" ? theme.sizes[0] : theme.click.alert.radii.end};
   justify-content: ${({ $type }) =>
   $type === "banner" ? "center" : "start"};
   overflow: hidden;
