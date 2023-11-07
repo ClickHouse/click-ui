@@ -1,4 +1,4 @@
-import { Checkbox, HorizontalDirection, Icon, IconName } from "@/components";
+import { Checkbox, HorizontalDirection, Icon, IconButton, IconName } from "@/components";
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 
@@ -53,8 +53,9 @@ interface TheadProps {
   headers: Array<TableHeaderProps>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
+  showActionsHeader?: boolean;
 }
-const Thead = ({ headers, isSelectable, onSelectAll }: TheadProps) => {
+const Thead = ({ headers, isSelectable, onSelectAll, showActionsHeader }: TheadProps) => {
   return (
     <StyledThead>
       <tr>
@@ -69,22 +70,30 @@ const Thead = ({ headers, isSelectable, onSelectAll }: TheadProps) => {
             {...headerProps}
           />
         ))}
+        {showActionsHeader && <StyledHeader />}
       </tr>
     </StyledThead>
   );
 };
 
-const TableRow = styled.tr<{ $isSelectable?: boolean }>`
+const TableRow = styled.tr<{
+  $isSelectable?: boolean;
+  $deleted?: boolean;
+  $showActions?: boolean;
+}>`
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme, $deleted }) => `
     background-color: ${theme.click.table.row.color.background.default};
-    border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
+    border-bottom: ${theme.click.table.cell.stroke} solid ${
+    theme.click.table.row.color.stroke.default
+  };
     &:active {
       background-color: ${theme.click.table.row.color.background.active};
     }
     &:hover {
       background-color: ${theme.click.table.row.color.background.hover};
     }
+    opacity: ${$deleted ? 0.5 : 1};
   `}
 
   &:last-of-type {
@@ -95,7 +104,7 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    ${({ theme, $isSelectable = false }) => `
+    ${({ theme, $isSelectable = false, $showActions = false }) => `
       border: ${theme.click.table.cell.stroke} solid ${
       theme.click.table.row.color.stroke.default
     };
@@ -103,6 +112,11 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
       ${
         $isSelectable
           ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
+          : ""
+      }
+      ${
+        $showActions
+          ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
           : ""
       }
     `}
@@ -172,6 +186,37 @@ const SelectData = styled.td`
     `}
   }
 `;
+const ActionsList = styled.td`
+  overflow: hidden;
+  ${({ theme }) => `
+    color: ${theme.click.table.row.color.text.default};
+    font: ${theme.click.table.cell.text.default};
+    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+  `}
+  @media (max-width: 768px) {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    ${({ theme }) => `
+      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+      border-left: 1px solid ${theme.click.table.row.color.stroke.default};
+    `}
+  }
+`;
+
+const ActionsContainer = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    overflow: auto;
+    flex-wrap: nowrap;
+  }
+`;
 
 const TableWrapper = styled.div`
   width: 100%;
@@ -195,6 +240,13 @@ const MobileActions = styled.div`
   }
 `;
 
+const TableRowCloseButton = styled(IconButton)<{ $deleted?: boolean }>`
+  transition: transform 200ms;
+
+  ${({ $deleted }) => `
+  ${$deleted ? "transform: rotate(90deg)" : ""}
+`}
+`;
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
@@ -202,12 +254,16 @@ interface TableRowType
   extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
   id: string | number;
   items: Array<TableCellType>;
+  disabled?: boolean;
+  deleted?: boolean;
 }
 
 interface CommonTableProps
   extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
   headers: Array<TableHeaderProps>;
   rows: Array<TableRowType>;
+  onDelete?: (item: TableRowType, id: string | number) => void;
+  onEdit?: (item: TableRowType, id: string | number) => void;
 }
 
 type SelectReturnValue = {
@@ -234,6 +290,8 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
   checked: boolean;
+  onDelete?: () => void;
+  onEdit?: () => void;
 }
 
 const TableBodyRow = ({
@@ -242,11 +300,19 @@ const TableBodyRow = ({
   onSelect,
   isSelectable,
   checked,
+  onDelete,
+  onEdit,
+  deleted,
+  disabled,
   ...rowProps
 }: TableBodyRowProps) => {
+  const isDeletable = typeof onDelete === "function";
+  const isEditable = typeof onEdit === "function";
   return (
     <TableRow
       $isSelectable={isSelectable}
+      $deleted={deleted ?? disabled}
+      $showActions={isDeletable || isEditable}
       {...rowProps}
     >
       {isSelectable && (
@@ -266,12 +332,43 @@ const TableBodyRow = ({
           <span>{label}</span>
         </TableData>
       ))}
+      {(isDeletable || isEditable) && (
+        <ActionsList>
+          <ActionsContainer>
+            <IconButton
+              type="ghost"
+              icon="pencil"
+              onClick={onEdit}
+            />
+            <TableRowCloseButton
+              $deleted={deleted}
+              type="ghost"
+              icon="cross"
+              onClick={onDelete}
+            />
+          </ActionsContainer>
+        </ActionsList>
+      )}
     </TableRow>
   );
 };
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ headers, rows, isSelectable, selectedIds = [], onSelect, ...props }, ref) => {
+  (
+    {
+      headers,
+      rows,
+      isSelectable,
+      selectedIds = [],
+      onSelect,
+      onDelete,
+      onEdit,
+      ...props
+    },
+    ref
+  ) => {
+    const isDeletable = typeof onDelete === "function";
+    const isEditable = typeof onEdit === "function";
     const onSelectAll = (checked: boolean): void => {
       if (typeof onSelect === "function") {
         const ids = checked
@@ -324,6 +421,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               headers={headers}
               isSelectable={isSelectable}
               onSelectAll={onSelectAll}
+              showActionsHeader={isDeletable || isEditable}
             />
             <Tbody>
               {rows.map(({ id, ...rowProps }, rowIndex) => (
@@ -333,6 +431,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   isSelectable={isSelectable}
                   checked={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
+                  onDelete={
+                    isDeletable ? () => onDelete({ id, ...rowProps }, id) : undefined
+                  }
+                  onEdit={isEditable ? () => onEdit({ id, ...rowProps }, id) : undefined}
                   {...rowProps}
                 />
               ))}
