@@ -8,7 +8,18 @@ export default {
 
 export const Playground = {
   args: {
-    state: "success",
+    title: "",
     text: "An alert example",
+    state: "success",
+    size: "small",
+    type: "default",
+    showIcon: true,
+    dismissible: false
   },
+  argTypes: {
+    state: { control: "select", options: ["neutral", "info", "success", "warning", "danger"] },
+    type: { control: "radio", options: ["default", "banner"] },
+    size: { control: "radio", options: ["medium", "small"] },
+  }
+
 };
