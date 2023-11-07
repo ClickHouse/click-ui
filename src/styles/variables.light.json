@@ -223,11 +223,18 @@
           "danger": {
             "background": {
               "default": "#ffdddd",
-              "hover": "#ff9898",
-              "active": "#ffbaba"
+              "hover": "#ffbaba",
+              "active": "lch(70.3 41.1 23.9)"
             },
             "text": {
-              "default": "#c10000"
+              "default": "#c10000",
+              "hover": "#c10000",
+              "active": "#c10000"
+            },
+            "stroke": {
+              "default": "#ffdddd",
+              "hover": "#ffbaba",
+              "active": "lch(70.3 41.1 23.9)"
             }
           },
           "ghost": {
@@ -245,6 +252,23 @@
               "default": "#696e79",
               "hover": "#161517",
               "active": "#161517"
+            }
+          },
+          "info": {
+            "background": {
+              "default": "#dae6fc",
+              "hover": "#b5cdf9",
+              "active": "#91b3f6"
+            },
+            "text": {
+              "default": "#135be6",
+              "hover": "#135be6",
+              "active": "#135be6"
+            },
+            "stroke": {
+              "default": "#dae6fc",
+              "hover": "#b5cdf9",
+              "active": "#91b3f6"
             }
           }
         }

@@ -3,9 +3,9 @@ import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  size?: "sm" | "xs";
+  size?: "default" | "sm" | "xs";
   disabled?: boolean;
-  type?: "primary" | "secondary" | "ghost";
+  type?: "primary" | "secondary" | "ghost" | "danger" | "info";
   icon: IconName;
 }
 
@@ -34,8 +34,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 const Button = styled.button<{
-  $styleType?: "primary" | "secondary" | "ghost";
-  $size?: "sm" | "xs";
+  $styleType?: "primary" | "secondary" | "ghost" | "danger" | "info";
+  $size?: "default" | "sm" | "xs";
 }>`
   ${({ theme, $size, $styleType = "primary" }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
@@ -56,13 +56,15 @@ const Button = styled.button<{
   &:hover {
     background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
     color: ${theme.click.button.iconButton.color[$styleType].text.hover};
+    border-color: ${ theme.click.button.iconButton.color[$styleType].stroke.hover};
   }
-
+  
   &:active {
     background-color: ${
       theme.click.button.iconButton.color[$styleType].background.active
     };
     color: ${theme.click.button.iconButton.color[$styleType].text.active};
+    border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
   }
 
   &[disabled] {
