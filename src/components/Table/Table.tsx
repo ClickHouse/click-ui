@@ -175,7 +175,7 @@ interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
 interface TableRowType
   extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
   id: string | number;
-  cells: Array<TableCellType>;
+  items: Array<TableCellType>;
 }
 
 interface CommonTableProps
@@ -207,7 +207,7 @@ const TableBodyRow = ({
   id,
 
   headers,
-  cells,
+  items,
   onSelect: onSelectProp,
   isSelectable,
   selectedIndices,
@@ -234,7 +234,7 @@ const TableBodyRow = ({
           />
         </SelectData>
       )}
-      {cells.map(({ label, ...cellProps }, cellIndex) => (
+      {items.map(({ label, ...cellProps }, cellIndex) => (
         <TableData
           key={`table-cell-${cellIndex}`}
           {...cellProps}
