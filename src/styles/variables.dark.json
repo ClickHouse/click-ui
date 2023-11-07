@@ -267,8 +267,8 @@
             },
             "stroke": {
               "default": "#092e73",
-              "hover": "#91b3f6",
-              "active": "#6c9af3"
+              "hover": "#0e44ad",
+              "active": "#135be6"
             }
           }
         }

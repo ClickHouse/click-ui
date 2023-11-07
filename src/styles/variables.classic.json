@@ -145,8 +145,8 @@
           "info": {
             "background": {
               "default": "#dae6fc",
-              "hover": "#91b3f6",
-              "active": "#6c9af3"
+              "hover": "#b5cdf9",
+              "active": "#91b3f6"
             },
             "text": {
               "default": "#135be6",
@@ -155,8 +155,8 @@
             },
             "stroke": {
               "default": "#dae6fc",
-              "hover": "#91b3f6",
-              "active": "#6c9af3"
+              "hover": "#b5cdf9",
+              "active": "#91b3f6"
             }
           }
         }
