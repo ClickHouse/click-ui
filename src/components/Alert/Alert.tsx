@@ -1,15 +1,17 @@
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import styled from "styled-components";
 
+type AlertType = "default" | "banner"
 type AlertSize = "small" | "medium";
 type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
 export type AlertProps = {
   state?: AlertState;
   title?: string;
-  text: string;
+  text: ReactNode;
   size?: AlertSize;
+  type?: AlertType;
   showIcon?: boolean;
   dismissible?: boolean;
 };
@@ -21,11 +23,13 @@ const stateIconMap: Record<AlertState, IconName> = {
   danger: "warning",
   info: "information",
 };
+
 const Alert = ({
   text,
   title = "",
   size = "small",
   state = "neutral",
+  type = "default",
   showIcon = true,
   dismissible,
   ...delegated
@@ -36,6 +40,7 @@ const Alert = ({
     <Wrapper
       $size={size}
       $state={state}
+      $type={type}
       data-testid="click-alert"
       {...delegated}
     >
@@ -43,6 +48,7 @@ const Alert = ({
         <IconWrapper
           $state={state}
           $size={size}
+          $type={type}
         >
           <StyledIcon
             $size={size}
@@ -77,20 +83,25 @@ const Alert = ({
 const Wrapper = styled.div<{
   $state: AlertState;
   $size: AlertSize;
+  $type: AlertType;
 }>`
   display: flex;
-  border-radius: ${props => props.theme.click.alert.radii.end};
+  border-radius: ${({ $type, theme }) =>
+  $type === "banner" ? 0 : theme.click.alert.radii.end};
+  justify-content: ${({ $type }) =>
+  $type === "banner" ? "center" : "start"};
   overflow: hidden;
   background-color: ${({ $state = "neutral", theme }) =>
     theme.click.alert.color.background[$state]};
   color: ${({ $state = "neutral", theme }) => theme.click.alert.color.text[$state]};
 `;
 
-const IconWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
+const IconWrapper = styled.div<{ $state: AlertState; $size: AlertSize; $type: AlertType }>`
   display: flex;
   align-items: center;
+  background-color: ${({ $state = "neutral", $type, theme }) =>
+    $type === "banner" ? "none" : theme.click.alert.color.iconBackground[$state]};
   ${({ $state = "neutral", $size, theme }) => `
-    background-color: ${theme.click.alert.color.iconBackground[$state]};
     color: ${theme.click.alert.color.iconForeground[$state]};
     padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
   `}
