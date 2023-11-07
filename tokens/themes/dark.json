@@ -1432,11 +1432,11 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.info.200}",
+                "value": "{palette.info.500}",
                 "type": "color"
               },
               "active": {
-                "value": "{palette.info.300}",
+                "value": "{palette.info.400}",
                 "type": "color"
               }
             }
