@@ -54,7 +54,7 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
   overflow: hidden;
   ${({ theme }) => `
     background-color: ${theme.click.table.row.color.background.default};
-    border-bottom: 1px solid ${theme.click.table.row.color.stroke.default};
+    border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
     &:active {
       background-color: ${theme.click.table.row.color.background.active};
     }
@@ -72,7 +72,9 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
     display: flex;
     flex-wrap: wrap;
     ${({ theme, $isSelectable = false }) => `
-      border: 1px solid ${theme.click.table.row.color.stroke.default};
+      border: ${theme.click.table.cell.stroke} solid ${
+      theme.click.table.row.color.stroke.default
+    };
       border-radius: ${theme.click.table.radii.all};
       ${
         $isSelectable
@@ -142,7 +144,7 @@ const SelectData = styled.td`
     bottom: 0;
     ${({ theme }) => `
       padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-      border-right: 1px solid ${theme.click.table.row.color.stroke.default};
+      border-right: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
     `}
   }
 `;
@@ -333,7 +335,7 @@ const StyledTable = styled.table`
   overflow: hidden;
   ${({ theme }) => `
     border-radius: ${theme.click.table.radii.all};
-    border: 1px solid ${theme.click.table.global.color.stroke.default};
+    border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
   `}
 
   @media (max-width: 768px) {
