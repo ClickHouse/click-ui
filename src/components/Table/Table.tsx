@@ -2,11 +2,12 @@ import { Checkbox, HorizontalDirection, Icon, IconButton, IconName } from "@/com
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 
-interface TableHeaderProps extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   label: ReactNode;
 }
+
 const StyledHeader = styled.th`
   ${({ theme }) => `
     padding: ${theme.click.table.header.cell.space.md.y}
@@ -25,12 +26,7 @@ const HeaderContentWrapper = styled.div`
   gap: inherit;
 `;
 
-const TableHeader = ({
-  icon,
-  iconDir = "end",
-  label,
-  ...delegated
-}: TableHeaderProps) => (
+const TableHeader = ({ icon, iconDir = "end", label, ...delegated }: TableHeaderType) => (
   <StyledHeader {...delegated}>
     <HeaderContentWrapper>
       {icon && iconDir == "start" && (
@@ -50,7 +46,7 @@ const TableHeader = ({
   </StyledHeader>
 );
 interface TheadProps {
-  headers: Array<TableHeaderProps>;
+  headers: Array<TableHeaderType>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
   showActionsHeader?: boolean;
@@ -251,7 +247,7 @@ const TableRowCloseButton = styled.button<{ $isDeleted?: boolean }>`
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-interface TableRowType
+export interface TableRowType
   extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
   id: string | number;
   items: Array<TableCellType>;
@@ -261,7 +257,7 @@ interface TableRowType
 
 interface CommonTableProps
   extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
-  headers: Array<TableHeaderProps>;
+  headers: Array<TableHeaderType>;
   rows: Array<TableRowType>;
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
@@ -287,7 +283,7 @@ interface NoSelectionType {
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
 interface TableBodyRowProps extends Omit<TableRowType, "id"> {
-  headers: Array<TableHeaderProps>;
+  headers: Array<TableHeaderType>;
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
   isSelected: boolean;
@@ -441,7 +437,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   onSelect={onRowSelect(id)}
                   onDelete={
                     isDeletable
-                      ? () => onDelete({ id, ...rowProps }, rowIndex)
+                      ? () =>
+                          onDelete(
+                            { id, ...rowProps, isDeleted: !rowProps.isDeleted },
+                            rowIndex
+                          )
                       : undefined
                   }
                   onEdit={
