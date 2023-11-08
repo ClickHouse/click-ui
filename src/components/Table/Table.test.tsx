@@ -43,7 +43,7 @@ describe("Table", () => {
   it("should show checkbox on isSelectable", () => {
     const { queryByTestId, queryAllByTestId } = renderTable({
       isSelectable: true,
-      selectedIndices: [],
+      selectedIds: [],
     });
     expect(queryByTestId("table")).not.toBeNull();
     expect(queryAllByTestId("checkbox")[0]).not.toBeNull();
@@ -54,7 +54,7 @@ describe("Table", () => {
     const onSelect = jest.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({
       isSelectable: true,
-      selectedIndices: [],
+      selectedIds: [],
       onSelect,
     });
     expect(queryByTestId("table")).not.toBeNull();

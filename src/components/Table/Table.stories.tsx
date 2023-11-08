@@ -25,7 +25,7 @@ export default {
   title: "Display/Table",
   tags: ["table", "autodocs"],
   argTypes: {
-    selectedIndices: {
+    selectedIds: {
       control: { type: "object" },
       if: { arg: "isSelectable", exists: true },
     },
@@ -36,6 +36,6 @@ export const Playground = {
   args: {
     headers,
     rows,
-    selectedIndices: [],
+    selectedIds: [],
   },
 };
