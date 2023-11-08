@@ -78,11 +78,11 @@ const Thead = ({ headers, isSelectable, onSelectAll, showActionsHeader }: TheadP
 
 const TableRow = styled.tr<{
   $isSelectable?: boolean;
-  $deleted?: boolean;
+  $isDeleted?: boolean;
   $showActions?: boolean;
 }>`
   overflow: hidden;
-  ${({ theme, $deleted }) => `
+  ${({ theme, $isDeleted }) => `
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
     theme.click.table.row.color.stroke.default
@@ -93,7 +93,7 @@ const TableRow = styled.tr<{
     &:hover {
       background-color: ${theme.click.table.row.color.background.hover};
     }
-    opacity: ${$deleted ? 0.5 : 1};
+    opacity: ${$isDeleted ? 0.5 : 1};
   `}
 
   &:last-of-type {
@@ -241,11 +241,11 @@ const MobileActions = styled.div`
   }
 `;
 
-const TableRowCloseButton = styled.button<{ $deleted?: boolean }>`
+const TableRowCloseButton = styled.button<{ $isDeleted?: boolean }>`
   transition: transform 200ms;
 
-  ${({ $deleted }) => `
-  ${$deleted ? "transform: rotate(90deg)" : ""}
+  ${({ $isDeleted }) => `
+  ${$isDeleted ? "transform: rotate(90deg)" : ""}
 `}
 `;
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
@@ -256,7 +256,7 @@ interface TableRowType
   id: string | number;
   items: Array<TableCellType>;
   disabled?: boolean;
-  deleted?: boolean;
+  isDeleted?: boolean;
 }
 
 interface CommonTableProps
@@ -303,7 +303,7 @@ const TableBodyRow = ({
   isSelected,
   onDelete,
   onEdit,
-  deleted,
+  isDeleted,
   disabled,
   ...rowProps
 }: TableBodyRowProps) => {
@@ -312,7 +312,7 @@ const TableBodyRow = ({
   return (
     <TableRow
       $isSelectable={isSelectable}
-      $deleted={deleted ?? disabled}
+      $isDeleted={isDeleted ?? disabled}
       $showActions={isDeletable || isEditable}
       {...rowProps}
     >
@@ -347,7 +347,7 @@ const TableBodyRow = ({
             {isDeletable && (
               <TableRowCloseButton
                 as={IconButton}
-                $deleted={deleted}
+                $isDeleted={isDeleted}
                 type="ghost"
                 icon="cross"
                 onClick={onDelete}
