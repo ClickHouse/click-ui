@@ -1,4 +1,4 @@
-import { HorizontalDirection, Icon, IconName } from "@/components";
+import { Checkbox, HorizontalDirection, Icon, IconName } from "@/components";
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 
@@ -49,12 +49,36 @@ const TableHeader = ({
     </HeaderContentWrapper>
   </StyledHeader>
 );
+interface TheadProps {
+  headers: Array<TableHeaderProps>;
+  isSelectable?: boolean;
+  onSelectAll: (checked: boolean) => void;
+}
+const Thead = ({ headers, isSelectable, onSelectAll }: TheadProps) => {
+  return (
+    <StyledThead>
+      <tr>
+        {isSelectable && (
+          <StyledHeader>
+            <Checkbox onCheckedChange={onSelectAll} />
+          </StyledHeader>
+        )}
+        {headers.map((headerProps, index) => (
+          <TableHeader
+            key={`table-header-${index}`}
+            {...headerProps}
+          />
+        ))}
+      </tr>
+    </StyledThead>
+  );
+};
 
-const TableRow = styled.tr`
+const TableRow = styled.tr<{ $isSelectable?: boolean }>`
   overflow: hidden;
   ${({ theme }) => `
     background-color: ${theme.click.table.row.color.background.default};
-    border-bottom: 1px solid ${theme.click.table.row.color.stroke.default};
+    border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
     &:active {
       background-color: ${theme.click.table.row.color.background.active};
     }
@@ -68,11 +92,19 @@ const TableRow = styled.tr`
   }
 
   @media (max-width: 768px) {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    ${({ theme }) => `
-      border: 1px solid ${theme.click.table.row.color.stroke.default};
+    ${({ theme, $isSelectable = false }) => `
+      border: ${theme.click.table.cell.stroke} solid ${
+      theme.click.table.row.color.stroke.default
+    };
       border-radius: ${theme.click.table.radii.all};
+      ${
+        $isSelectable
+          ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
+          : ""
+      }
     `}
   }
 `;
@@ -92,7 +124,7 @@ const TableData = styled.td`
   }
 `;
 
-const THead = styled.thead`
+const StyledThead = styled.thead`
   tr {
     overflow: hidden;
     background-color: ${({ theme }) => theme.click.table.header.color.background.default};
@@ -119,44 +151,197 @@ const Tbody = styled.tbody`
     gap: 0.25rem;
   }
 `;
+
+const SelectData = styled.td`
+  overflow: hidden;
+  ${({ theme }) => `
+    color: ${theme.click.table.row.color.text.default};
+    font: ${theme.click.table.cell.text.default};
+    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+  `}
+  @media (max-width: 768px) {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    ${({ theme }) => `
+      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+      border-right: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
+    `}
+  }
+`;
+
+const TableWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+`;
+
+const TableOuterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const MobileActions = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
+  }
+`;
+
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-type TableRowType = Array<TableCellType>;
-interface TableProps extends HTMLAttributes<HTMLTableElement> {
+interface TableRowType
+  extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
+  id: string | number;
+  items: Array<TableCellType>;
+}
+
+interface CommonTableProps
+  extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
   headers: Array<TableHeaderProps>;
   rows: Array<TableRowType>;
 }
-const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ headers, rows, ...props }, ref) => (
-    <StyledTable
-      ref={ref}
-      {...props}
+
+type SelectReturnValue = {
+  index: number;
+  item: TableRowType;
+};
+
+interface SelectionType {
+  isSelectable?: boolean;
+  selectedIds?: Array<number | string>;
+  onSelect?: (selectedValues: Array<SelectReturnValue>) => void;
+}
+
+interface NoSelectionType {
+  isSelectable?: never;
+  selectedIds?: never;
+  onSelect?: never;
+}
+
+export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
+
+interface TableBodyRowProps extends Omit<TableRowType, "id"> {
+  headers: Array<TableHeaderProps>;
+  onSelect: (checked: boolean) => void;
+  isSelectable?: boolean;
+  checked: boolean;
+}
+
+const TableBodyRow = ({
+  headers,
+  items,
+  onSelect,
+  isSelectable,
+  checked,
+  ...rowProps
+}: TableBodyRowProps) => {
+  return (
+    <TableRow
+      $isSelectable={isSelectable}
+      {...rowProps}
     >
-      <THead>
-        <tr>
-          {headers.map((headerProps, index) => (
-            <TableHeader
-              key={`table-header-${index}`}
-              {...headerProps}
+      {isSelectable && (
+        <SelectData>
+          <Checkbox
+            checked={checked}
+            onCheckedChange={onSelect}
+          />
+        </SelectData>
+      )}
+      {items.map(({ label, ...cellProps }, cellIndex) => (
+        <TableData
+          key={`table-cell-${cellIndex}`}
+          {...cellProps}
+        >
+          {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
+          <span>{label}</span>
+        </TableData>
+      ))}
+    </TableRow>
+  );
+};
+
+const Table = forwardRef<HTMLTableElement, TableProps>(
+  ({ headers, rows, isSelectable, selectedIds = [], onSelect, ...props }, ref) => {
+    const onSelectAll = (checked: boolean): void => {
+      if (typeof onSelect === "function") {
+        const ids = checked
+          ? rows.map((row, index) => ({
+              item: row,
+              index,
+            }))
+          : [];
+        onSelect(ids);
+      }
+    };
+
+    const onRowSelect =
+      (id: number | string) =>
+      (checked: boolean): void => {
+        if (typeof onSelect == "function") {
+          const selectedItems = rows.flatMap((row, index) => {
+            if (
+              (id === row.id && checked) ||
+              (selectedIds.includes(id) && id !== row.id)
+            ) {
+              return {
+                item: row,
+                index,
+              };
+            }
+
+            return [];
+          });
+          onSelect(selectedItems);
+        }
+      };
+    return (
+      <TableOuterContainer>
+        <MobileActions>
+          {isSelectable && (
+            <Checkbox
+              label="Select All"
+              checked={selectedIds.length === rows.length}
+              onCheckedChange={onSelectAll}
             />
-          ))}
-        </tr>
-      </THead>
-      <Tbody>
-        {rows.map(row => (
-          <TableRow>
-            {row.map(({ label, ...cellProps }, index) => (
-              <TableData {...cellProps}>
-                {headers[index] && <MobileHeader>{headers[index].label}</MobileHeader>}
-                <span>{label}</span>
-              </TableData>
-            ))}
-          </TableRow>
-        ))}
-      </Tbody>
-    </StyledTable>
-  )
+          )}
+        </MobileActions>
+        <TableWrapper>
+          <StyledTable
+            ref={ref}
+            {...props}
+          >
+            <Thead
+              headers={headers}
+              isSelectable={isSelectable}
+              onSelectAll={onSelectAll}
+            />
+            <Tbody>
+              {rows.map(({ id, ...rowProps }, rowIndex) => (
+                <TableBodyRow
+                  key={`table-body-row-${rowIndex}`}
+                  headers={headers}
+                  isSelectable={isSelectable}
+                  checked={selectedIds?.includes(id)}
+                  onSelect={onRowSelect(id)}
+                  {...rowProps}
+                />
+              ))}
+            </Tbody>
+          </StyledTable>
+        </TableWrapper>
+      </TableOuterContainer>
+    );
+  }
 );
 
 const StyledTable = styled.table`
@@ -164,7 +349,7 @@ const StyledTable = styled.table`
   overflow: hidden;
   ${({ theme }) => `
     border-radius: ${theme.click.table.radii.all};
-    border: 1px solid ${theme.click.table.global.color.stroke.default};
+    border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
   `}
 
   @media (max-width: 768px) {

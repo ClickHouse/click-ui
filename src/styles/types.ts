@@ -1847,7 +1847,8 @@
         },
         "label": {
           "default": string
-        }
+        },
+        "stroke": string
       },
       "radii": {
         "all": string
