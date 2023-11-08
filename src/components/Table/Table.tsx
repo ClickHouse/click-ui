@@ -290,7 +290,7 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   headers: Array<TableHeaderProps>;
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
-  checked: boolean;
+  isSelected: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
 }
@@ -300,7 +300,7 @@ const TableBodyRow = ({
   items,
   onSelect,
   isSelectable,
-  checked,
+  isSelected,
   onDelete,
   onEdit,
   deleted,
@@ -319,7 +319,7 @@ const TableBodyRow = ({
       {isSelectable && (
         <SelectData>
           <Checkbox
-            checked={checked}
+            checked={isSelected}
             onCheckedChange={onSelect}
           />
         </SelectData>
@@ -437,7 +437,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   key={`table-body-row-${rowIndex}`}
                   headers={headers}
                   isSelectable={isSelectable}
-                  checked={selectedIds?.includes(id)}
+                  isSelected={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
                   onDelete={
                     isDeletable ? () => onDelete({ id, ...rowProps }, id) : undefined
