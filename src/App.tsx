@@ -33,29 +33,12 @@ import {
   Text,
   EllipsisContent,
   Table,
+  TableRowType,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 
 const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
-const rows = [
-  {
-    id: "row-1",
-    items: [
-      { label: "Alfreds Futterkiste" },
-      { label: "Maria Anders" },
-      { label: "Germany" },
-    ],
-  },
-  {
-    id: "row-2",
-    items: [
-      { label: "Centro comercial Moctezuma" },
-      { label: "Francisco Chang" },
-      { label: "Mexico" },
-    ],
-  },
-];
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState("center1");
@@ -63,7 +46,42 @@ const App = () => {
   const [disabled] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const [rows, setRows] = useState<Array<TableRowType>>([
+    {
+      id: "row-1",
+      items: [
+        { label: "Alfreds Futterkiste" },
+        { label: "Maria Anders" },
+        { label: "Germany" },
+      ],
+    },
+    {
+      id: "row-2",
+      items: [
+        { label: "Centro comercial Moctezuma" },
+        { label: "Francisco Chang" },
+        { label: "Mexico" },
+      ],
+    },
+    {
+      id: "row-3",
+      isDisabled: true,
+      items: [
+        { label: "Centro comercial Moctezuma" },
+        { label: "Francisco Chang" },
+        { label: "Mexico" },
+      ],
+    },
+  ]);
 
+  const onTableDelete = (row: TableRowType, index: number) => {
+    setRows(rows => {
+      rows[index] = row;
+      return [...rows];
+    });
+  };
+
+  console.log(currentTheme);
   return (
     <div style={{ padding: "6rem" }}>
       <ClickUIProvider
@@ -449,11 +467,12 @@ const App = () => {
           turpis ex imperdiet enim, ac finibus nunc ante non est. Ut mattis ex magna, ac
           faucibus mi egestas interdum.
         </EllipsisContent>
+        <Table
+          headers={headers}
+          rows={rows}
+          onDelete={onTableDelete}
+        />
       </ClickUIProvider>
-      <Table
-        headers={headers}
-        rows={rows}
-      />
     </div>
   );
 };

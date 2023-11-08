@@ -35,6 +35,7 @@ export type { FlyoutProps, FlyoutFooterProps, FlyoutHeaderProps } from "./Flyout
 export type { DialogContentProps } from "./Dialog/Dialog";
 export type { DialogProps, DialogTriggerProps } from "@radix-ui/react-dialog";
 export type { FileTabStatusType } from "./FileTabs/FileTabs";
+export type { TableHeaderType, TableRowType, TableProps } from "./Table/Table";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";

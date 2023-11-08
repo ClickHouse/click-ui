@@ -1,12 +1,13 @@
-import { Checkbox, HorizontalDirection, Icon, IconName } from "@/components";
+import { Checkbox, HorizontalDirection, Icon, IconButton, IconName } from "@/components";
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 
-interface TableHeaderProps extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   label: ReactNode;
 }
+
 const StyledHeader = styled.th`
   ${({ theme }) => `
     padding: ${theme.click.table.header.cell.space.md.y}
@@ -25,12 +26,7 @@ const HeaderContentWrapper = styled.div`
   gap: inherit;
 `;
 
-const TableHeader = ({
-  icon,
-  iconDir = "end",
-  label,
-  ...delegated
-}: TableHeaderProps) => (
+const TableHeader = ({ icon, iconDir = "end", label, ...delegated }: TableHeaderType) => (
   <StyledHeader {...delegated}>
     <HeaderContentWrapper>
       {icon && iconDir == "start" && (
@@ -50,11 +46,12 @@ const TableHeader = ({
   </StyledHeader>
 );
 interface TheadProps {
-  headers: Array<TableHeaderProps>;
+  headers: Array<TableHeaderType>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
+  showActionsHeader?: boolean;
 }
-const Thead = ({ headers, isSelectable, onSelectAll }: TheadProps) => {
+const Thead = ({ headers, isSelectable, onSelectAll, showActionsHeader }: TheadProps) => {
   return (
     <StyledThead>
       <tr>
@@ -69,22 +66,32 @@ const Thead = ({ headers, isSelectable, onSelectAll }: TheadProps) => {
             {...headerProps}
           />
         ))}
+        {showActionsHeader && <StyledHeader />}
       </tr>
     </StyledThead>
   );
 };
 
-const TableRow = styled.tr<{ $isSelectable?: boolean }>`
+const TableRow = styled.tr<{
+  $isSelectable?: boolean;
+  $isDeleted?: boolean;
+  $isDisabled?: boolean;
+  $showActions?: boolean;
+}>`
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme, $isDeleted, $isDisabled }) => `
     background-color: ${theme.click.table.row.color.background.default};
-    border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
+    border-bottom: ${theme.click.table.cell.stroke} solid ${
+    theme.click.table.row.color.stroke.default
+  };
     &:active {
       background-color: ${theme.click.table.row.color.background.active};
     }
     &:hover {
       background-color: ${theme.click.table.row.color.background.hover};
     }
+    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
+    cursor: ${$isDeleted || $isDisabled ? "not-allowed" : "default"}
   `}
 
   &:last-of-type {
@@ -95,7 +102,7 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    ${({ theme, $isSelectable = false }) => `
+    ${({ theme, $isSelectable = false, $showActions = false }) => `
       border: ${theme.click.table.cell.stroke} solid ${
       theme.click.table.row.color.stroke.default
     };
@@ -103,6 +110,11 @@ const TableRow = styled.tr<{ $isSelectable?: boolean }>`
       ${
         $isSelectable
           ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
+          : ""
+      }
+      ${
+        $showActions
+          ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
           : ""
       }
     `}
@@ -172,6 +184,38 @@ const SelectData = styled.td`
     `}
   }
 `;
+const ActionsList = styled.td`
+  overflow: hidden;
+  ${({ theme }) => `
+    color: ${theme.click.table.row.color.text.default};
+    font: ${theme.click.table.cell.text.default};
+    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+  `}
+  @media (max-width: 768px) {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    ${({ theme }) => `
+      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+      border-left: 1px solid ${theme.click.table.row.color.stroke.default};
+    `}
+  }
+`;
+
+const ActionsContainer = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  overflow: hidden;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    overflow: auto;
+    flex-wrap: nowrap;
+  }
+`;
 
 const TableWrapper = styled.div`
   width: 100%;
@@ -194,20 +238,41 @@ const MobileActions = styled.div`
     padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
   }
 `;
-
+const EditButton = styled.button`
+  &:disabled {
+    background: transparent;
+  }
+`;
+const TableRowCloseButton = styled.button<{
+  $isDeleted?: boolean;
+}>`
+  svg {
+    transition: transform 200ms;
+    ${({ $isDeleted }) => `
+    ${$isDeleted ? "transform: rotate(45deg)" : ""};
+    `}
+  }
+  &:disabled {
+    background: transparent;
+  }
+`;
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-interface TableRowType
+export interface TableRowType
   extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
   id: string | number;
   items: Array<TableCellType>;
+  isDisabled?: boolean;
+  isDeleted?: boolean;
 }
 
 interface CommonTableProps
   extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
-  headers: Array<TableHeaderProps>;
+  headers: Array<TableHeaderType>;
   rows: Array<TableRowType>;
+  onDelete?: (item: TableRowType, index: number) => void;
+  onEdit?: (item: TableRowType, index: number) => void;
 }
 
 type SelectReturnValue = {
@@ -230,10 +295,12 @@ interface NoSelectionType {
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
 interface TableBodyRowProps extends Omit<TableRowType, "id"> {
-  headers: Array<TableHeaderProps>;
+  headers: Array<TableHeaderType>;
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
-  checked: boolean;
+  isSelected: boolean;
+  onDelete?: () => void;
+  onEdit?: () => void;
 }
 
 const TableBodyRow = ({
@@ -241,18 +308,27 @@ const TableBodyRow = ({
   items,
   onSelect,
   isSelectable,
-  checked,
+  isSelected,
+  onDelete,
+  onEdit,
+  isDeleted,
+  isDisabled,
   ...rowProps
 }: TableBodyRowProps) => {
+  const isDeletable = typeof onDelete === "function";
+  const isEditable = typeof onEdit === "function";
   return (
     <TableRow
       $isSelectable={isSelectable}
+      $isDeleted={isDeleted}
+      $isDisabled={isDisabled}
+      $showActions={isDeletable || isEditable}
       {...rowProps}
     >
       {isSelectable && (
         <SelectData>
           <Checkbox
-            checked={checked}
+            checked={isSelected}
             onCheckedChange={onSelect}
           />
         </SelectData>
@@ -266,12 +342,53 @@ const TableBodyRow = ({
           <span>{label}</span>
         </TableData>
       ))}
+      {(isDeletable || isEditable) && (
+        <ActionsList>
+          <ActionsContainer>
+            {isEditable && (
+              <EditButton
+                as={IconButton}
+                type="ghost"
+                disabled={isDisabled || isDeleted}
+                icon="pencil"
+                onClick={onEdit}
+                data-testid="table-row-edit"
+              />
+            )}
+            {isDeletable && (
+              <TableRowCloseButton
+                as={IconButton}
+                disabled={isDisabled}
+                $isDeleted={isDeleted}
+                type="ghost"
+                icon="cross"
+                onClick={onDelete}
+                data-testid="table-row-delete"
+              />
+            )}
+          </ActionsContainer>
+        </ActionsList>
+      )}
     </TableRow>
   );
 };
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ headers, rows, isSelectable, selectedIds = [], onSelect, ...props }, ref) => {
+  (
+    {
+      headers,
+      rows,
+      isSelectable,
+      selectedIds = [],
+      onSelect,
+      onDelete,
+      onEdit,
+      ...props
+    },
+    ref
+  ) => {
+    const isDeletable = typeof onDelete === "function";
+    const isEditable = typeof onEdit === "function";
     const onSelectAll = (checked: boolean): void => {
       if (typeof onSelect === "function") {
         const ids = checked
@@ -324,6 +441,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               headers={headers}
               isSelectable={isSelectable}
               onSelectAll={onSelectAll}
+              showActionsHeader={isDeletable || isEditable}
             />
             <Tbody>
               {rows.map(({ id, ...rowProps }, rowIndex) => (
@@ -331,8 +449,20 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   key={`table-body-row-${rowIndex}`}
                   headers={headers}
                   isSelectable={isSelectable}
-                  checked={selectedIds?.includes(id)}
+                  isSelected={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
+                  onDelete={
+                    isDeletable
+                      ? () =>
+                          onDelete(
+                            { id, ...rowProps, isDeleted: !rowProps.isDeleted },
+                            rowIndex
+                          )
+                      : undefined
+                  }
+                  onEdit={
+                    isEditable ? () => onEdit({ id, ...rowProps }, rowIndex) : undefined
+                  }
                   {...rowProps}
                 />
               ))}
@@ -347,10 +477,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 const StyledTable = styled.table`
   border-spacing: 0;
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme }) => {
+    console.log(theme);
+    return `
     border-radius: ${theme.click.table.radii.all};
     border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
-  `}
+  `;
+  }}
 
   @media (max-width: 768px) {
     border: none;
