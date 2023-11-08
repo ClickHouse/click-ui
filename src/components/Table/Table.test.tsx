@@ -68,4 +68,34 @@ describe("Table", () => {
     fireEvent.click(selectAllCheckbox);
     expect(onSelect).toBeCalledTimes(2);
   });
+
+  it("should trigger onDelete on clicking closeButton", () => {
+    const onDelete = jest.fn();
+    const { queryByTestId, queryAllByTestId } = renderTable({
+      isSelectable: true,
+      onDelete,
+    });
+    expect(queryByTestId("table")).not.toBeNull();
+    expect(queryAllByTestId("table-row-delete")).toHaveLength(2);
+    expect(queryByTestId("table-row-edit")).toBeNull();
+    const rowCheckbox = queryAllByTestId("table-row-delete")[0];
+    expect(rowCheckbox).not.toBeNull();
+    fireEvent.click(rowCheckbox);
+    expect(onDelete).toBeCalledTimes(1);
+  });
+
+  it("should trigger onEdit on clicking editButton", () => {
+    const onEdit = jest.fn();
+    const { queryByTestId, queryAllByTestId } = renderTable({
+      isSelectable: true,
+      onEdit,
+    });
+    expect(queryByTestId("table")).not.toBeNull();
+    expect(queryAllByTestId("table-row-edit")).toHaveLength(2);
+    expect(queryByTestId("table-row-delete")).toBeNull();
+    const rowCheckbox = queryAllByTestId("table-row-edit")[0];
+    expect(rowCheckbox).not.toBeNull();
+    fireEvent.click(rowCheckbox);
+    expect(onEdit).toBeCalledTimes(1);
+  });
 });

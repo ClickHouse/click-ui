@@ -336,18 +336,24 @@ const TableBodyRow = ({
       {(isDeletable || isEditable) && (
         <ActionsList>
           <ActionsContainer>
-            <IconButton
-              type="ghost"
-              icon="pencil"
-              onClick={onEdit}
-            />
-            <TableRowCloseButton
-              as={IconButton}
-              $deleted={deleted}
-              type="ghost"
-              icon="cross"
-              onClick={onDelete}
-            />
+            {isEditable && (
+              <IconButton
+                type="ghost"
+                icon="pencil"
+                onClick={onEdit}
+                data-testid="table-row-edit"
+              />
+            )}
+            {isDeletable && (
+              <TableRowCloseButton
+                as={IconButton}
+                $deleted={deleted}
+                type="ghost"
+                icon="cross"
+                onClick={onDelete}
+                data-testid="table-row-delete"
+              />
+            )}
           </ActionsContainer>
         </ActionsList>
       )}
