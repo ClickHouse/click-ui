@@ -75,10 +75,11 @@ const Thead = ({ headers, isSelectable, onSelectAll, showActionsHeader }: TheadP
 const TableRow = styled.tr<{
   $isSelectable?: boolean;
   $isDeleted?: boolean;
+  $isDisabled?: boolean;
   $showActions?: boolean;
 }>`
   overflow: hidden;
-  ${({ theme, $isDeleted }) => `
+  ${({ theme, $isDeleted, $isDisabled }) => `
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
     theme.click.table.row.color.stroke.default
@@ -89,7 +90,8 @@ const TableRow = styled.tr<{
     &:hover {
       background-color: ${theme.click.table.row.color.background.hover};
     }
-    opacity: ${$isDeleted ? 0.5 : 1};
+    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
+    cursor: ${$isDeleted || $isDisabled ? "not-allowed" : "default"}
   `}
 
   &:last-of-type {
@@ -236,13 +238,23 @@ const MobileActions = styled.div`
     padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
   }
 `;
-
-const TableRowCloseButton = styled.button<{ $isDeleted?: boolean }>`
-  transition: transform 200ms;
-
-  ${({ $isDeleted }) => `
-  ${$isDeleted ? "transform: rotate(90deg)" : ""}
-`}
+const EditButton = styled.button`
+  &:disabled {
+    background: transparent;
+  }
+`;
+const TableRowCloseButton = styled.button<{
+  $isDeleted?: boolean;
+}>`
+  svg {
+    transition: transform 200ms;
+    ${({ $isDeleted }) => `
+    ${$isDeleted ? "transform: rotate(45deg)" : ""};
+    `}
+  }
+  &:disabled {
+    background: transparent;
+  }
 `;
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
@@ -308,7 +320,8 @@ const TableBodyRow = ({
   return (
     <TableRow
       $isSelectable={isSelectable}
-      $isDeleted={isDeleted ?? isDisabled}
+      $isDeleted={isDeleted}
+      $isDisabled={isDisabled}
       $showActions={isDeletable || isEditable}
       {...rowProps}
     >
@@ -333,8 +346,10 @@ const TableBodyRow = ({
         <ActionsList>
           <ActionsContainer>
             {isEditable && (
-              <IconButton
+              <EditButton
+                as={IconButton}
                 type="ghost"
+                disabled={isDisabled || isDeleted}
                 icon="pencil"
                 onClick={onEdit}
                 data-testid="table-row-edit"
@@ -343,6 +358,7 @@ const TableBodyRow = ({
             {isDeletable && (
               <TableRowCloseButton
                 as={IconButton}
+                disabled={isDisabled}
                 $isDeleted={isDeleted}
                 type="ghost"
                 icon="cross"
@@ -461,10 +477,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 const StyledTable = styled.table`
   border-spacing: 0;
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme }) => {
+    console.log(theme);
+    return `
     border-radius: ${theme.click.table.radii.all};
     border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
-  `}
+  `;
+  }}
 
   @media (max-width: 768px) {
     border: none;

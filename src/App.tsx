@@ -81,6 +81,7 @@ const App = () => {
     });
   };
 
+  console.log(currentTheme);
   return (
     <div style={{ padding: "6rem" }}>
       <ClickUIProvider
@@ -466,12 +467,12 @@ const App = () => {
           turpis ex imperdiet enim, ac finibus nunc ante non est. Ut mattis ex magna, ac
           faucibus mi egestas interdum.
         </EllipsisContent>
+        <Table
+          headers={headers}
+          rows={rows}
+          onDelete={onTableDelete}
+        />
       </ClickUIProvider>
-      <Table
-        headers={headers}
-        rows={rows}
-        onDelete={onTableDelete}
-      />
     </div>
   );
 };
