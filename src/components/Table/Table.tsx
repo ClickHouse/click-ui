@@ -255,7 +255,7 @@ interface TableRowType
   extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
   id: string | number;
   items: Array<TableCellType>;
-  disabled?: boolean;
+  isDisabled?: boolean;
   isDeleted?: boolean;
 }
 
@@ -263,8 +263,8 @@ interface CommonTableProps
   extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
   headers: Array<TableHeaderProps>;
   rows: Array<TableRowType>;
-  onDelete?: (item: TableRowType, id: string | number) => void;
-  onEdit?: (item: TableRowType, id: string | number) => void;
+  onDelete?: (item: TableRowType, index: number) => void;
+  onEdit?: (item: TableRowType, index: number) => void;
 }
 
 type SelectReturnValue = {
@@ -304,7 +304,7 @@ const TableBodyRow = ({
   onDelete,
   onEdit,
   isDeleted,
-  disabled,
+  isDisabled,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === "function";
@@ -312,7 +312,7 @@ const TableBodyRow = ({
   return (
     <TableRow
       $isSelectable={isSelectable}
-      $isDeleted={isDeleted ?? disabled}
+      $isDeleted={isDeleted ?? isDisabled}
       $showActions={isDeletable || isEditable}
       {...rowProps}
     >
@@ -440,9 +440,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   isSelected={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
                   onDelete={
-                    isDeletable ? () => onDelete({ id, ...rowProps }, id) : undefined
+                    isDeletable
+                      ? () => onDelete({ id, ...rowProps }, rowIndex)
+                      : undefined
                   }
-                  onEdit={isEditable ? () => onEdit({ id, ...rowProps }, id) : undefined}
+                  onEdit={
+                    isEditable ? () => onEdit({ id, ...rowProps }, rowIndex) : undefined
+                  }
                   {...rowProps}
                 />
               ))}
