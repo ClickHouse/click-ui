@@ -194,7 +194,7 @@ type SelectReturnValue = {
 interface SelectionType {
   isSelectable?: boolean;
   selectedIndices?: Array<number | string>;
-  onSelect?: (indices: Array<SelectReturnValue>) => void;
+  onSelect?: (selectedValues: Array<SelectReturnValue>) => void;
 }
 
 interface NoSelectionType {
