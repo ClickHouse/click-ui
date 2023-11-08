@@ -49,6 +49,30 @@ const TableHeader = ({
     </HeaderContentWrapper>
   </StyledHeader>
 );
+interface TheadProps {
+  headers: Array<TableHeaderProps>;
+  isSelectable?: boolean;
+  onSelectAll: (checked: boolean) => void;
+}
+const Thead = ({ headers, isSelectable, onSelectAll }: TheadProps) => {
+  return (
+    <StyledThead>
+      <tr>
+        {isSelectable && (
+          <StyledHeader>
+            <Checkbox onCheckedChange={onSelectAll} />
+          </StyledHeader>
+        )}
+        {headers.map((headerProps, index) => (
+          <TableHeader
+            key={`table-header-${index}`}
+            {...headerProps}
+          />
+        ))}
+      </tr>
+    </StyledThead>
+  );
+};
 
 const TableRow = styled.tr<{ $isSelectable?: boolean }>`
   overflow: hidden;
@@ -100,7 +124,7 @@ const TableData = styled.td`
   }
 `;
 
-const THead = styled.thead`
+const StyledThead = styled.thead`
   tr {
     overflow: hidden;
     background-color: ${({ theme }) => theme.click.table.header.color.background.default};
@@ -193,13 +217,13 @@ type SelectReturnValue = {
 
 interface SelectionType {
   isSelectable?: boolean;
-  selectedIndices?: Array<number | string>;
+  selectedIds?: Array<number | string>;
   onSelect?: (selectedValues: Array<SelectReturnValue>) => void;
 }
 
 interface NoSelectionType {
   isSelectable?: never;
-  selectedIndices?: never;
+  selectedIds?: never;
   onSelect?: never;
 }
 
@@ -247,7 +271,7 @@ const TableBodyRow = ({
 };
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ headers, rows, isSelectable, selectedIndices = [], onSelect, ...props }, ref) => {
+  ({ headers, rows, isSelectable, selectedIds = [], onSelect, ...props }, ref) => {
     const onSelectAll = (checked: boolean): void => {
       if (typeof onSelect === "function") {
         const ids = checked
@@ -267,7 +291,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           const selectedItems = rows.flatMap((row, index) => {
             if (
               (id === row.id && checked) ||
-              (selectedIndices.includes(id) && id !== row.id)
+              (selectedIds.includes(id) && id !== row.id)
             ) {
               return {
                 item: row,
@@ -286,7 +310,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           {isSelectable && (
             <Checkbox
               label="Select All"
-              checked={selectedIndices.length === rows.length}
+              checked={selectedIds.length === rows.length}
               onCheckedChange={onSelectAll}
             />
           )}
@@ -296,28 +320,18 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             ref={ref}
             {...props}
           >
-            <THead>
-              <tr>
-                {isSelectable && (
-                  <StyledHeader>
-                    <Checkbox onCheckedChange={onSelectAll} />
-                  </StyledHeader>
-                )}
-                {headers.map((headerProps, index) => (
-                  <TableHeader
-                    key={`table-header-${index}`}
-                    {...headerProps}
-                  />
-                ))}
-              </tr>
-            </THead>
+            <Thead
+              headers={headers}
+              isSelectable={isSelectable}
+              onSelectAll={onSelectAll}
+            />
             <Tbody>
               {rows.map(({ id, ...rowProps }, rowIndex) => (
                 <TableBodyRow
                   key={`table-body-row-${rowIndex}`}
                   headers={headers}
                   isSelectable={isSelectable}
-                  checked={selectedIndices?.includes(id)}
+                  checked={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
                   {...rowProps}
                 />
