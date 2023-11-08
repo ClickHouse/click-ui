@@ -1,11 +1,15 @@
 import { Checkbox, HorizontalDirection, Icon, IconButton, IconName } from "@/components";
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
+import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
-
+type SortDir = "asc" | "desc";
+type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   label: ReactNode;
+  isSortable?: boolean;
+  sortDir?: SortDir;
+  sortPosition?: HorizontalDirection;
 }
 
 const StyledHeader = styled.th`
@@ -26,32 +30,70 @@ const HeaderContentWrapper = styled.div`
   gap: inherit;
 `;
 
-const TableHeader = ({ icon, iconDir = "end", label, ...delegated }: TableHeaderType) => (
-  <StyledHeader {...delegated}>
-    <HeaderContentWrapper>
-      {icon && iconDir == "start" && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-      {label}
-      {icon && iconDir == "end" && (
-        <Icon
-          name={icon}
-          size="sm"
-        />
-      )}
-    </HeaderContentWrapper>
-  </StyledHeader>
-);
+const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
+  transition: all 200ms;
+  transform: rotate(${({ $sortDir }) => ($sortDir === "desc" ? "180deg" : "0deg")});
+`;
+
+const TableHeader = ({
+  label,
+  sortDir,
+  sortPosition = "end",
+  isSortable,
+  onSort,
+  onClick,
+  ...delegated
+}: TableHeaderType & { onSort?: () => void }) => {
+  const isSorted = typeof sortDir === "string";
+  const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
+    if (typeof onClick === "function") {
+      onClick(e);
+    }
+    if (typeof onSort === "function") {
+      onSort();
+    }
+  };
+  return (
+    <StyledHeader {...delegated}>
+      <HeaderContentWrapper onClick={onHeaderClick}>
+        {isSorted && isSortable && sortPosition == "start" && (
+          <SortIcon
+            $sortDir={sortDir}
+            name="arrow-down"
+            size="sm"
+          />
+        )}
+        {label}
+        {isSorted && isSortable && sortPosition == "end" && (
+          <SortIcon
+            $sortDir={sortDir}
+            name="arrow-down"
+            size="sm"
+          />
+        )}
+      </HeaderContentWrapper>
+    </StyledHeader>
+  );
+};
 interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
   showActionsHeader?: boolean;
+  onSort?: SortFn;
 }
-const Thead = ({ headers, isSelectable, onSelectAll, showActionsHeader }: TheadProps) => {
+const Thead = ({
+  headers,
+  isSelectable,
+  onSelectAll,
+  showActionsHeader,
+  onSort: onSortProp,
+}: TheadProps) => {
+  const onSort = (header: TableHeaderType, headerIndex: number) => () => {
+    if (typeof onSortProp === "function" && header.isSortable) {
+      onSortProp(header.sortDir === "asc" ? "desc" : "asc", header, headerIndex);
+    }
+  };
   return (
     <StyledThead>
       <tr>
@@ -63,6 +105,7 @@ const Thead = ({ headers, isSelectable, onSelectAll, showActionsHeader }: TheadP
         {headers.map((headerProps, index) => (
           <TableHeader
             key={`table-header-${index}`}
+            onSort={onSort(headerProps, index)}
             {...headerProps}
           />
         ))}
@@ -273,6 +316,7 @@ interface CommonTableProps
   rows: Array<TableRowType>;
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
+  onSort?: SortFn;
 }
 
 type SelectReturnValue = {
@@ -383,6 +427,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onSelect,
       onDelete,
       onEdit,
+      onSort,
       ...props
     },
     ref
@@ -442,6 +487,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               isSelectable={isSelectable}
               onSelectAll={onSelectAll}
               showActionsHeader={isDeletable || isEditable}
+              onSort={onSort}
             />
             <Tbody>
               {rows.map(({ id, ...rowProps }, rowIndex) => (
@@ -477,13 +523,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 const StyledTable = styled.table`
   border-spacing: 0;
   overflow: hidden;
-  ${({ theme }) => {
-    console.log(theme);
-    return `
+  ${({ theme }) => `
     border-radius: ${theme.click.table.radii.all};
     border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
-  `;
-  }}
+  `}
 
   @media (max-width: 768px) {
     border: none;

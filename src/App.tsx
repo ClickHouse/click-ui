@@ -34,11 +34,16 @@ import {
   EllipsisContent,
   Table,
   TableRowType,
+  TableHeaderType,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 
-const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
+const headers: Array<TableHeaderType> = [
+  { label: "Company", isSortable: true, sortDir: "asc" },
+  { label: "Contact", isSortable: true, sortDir: "desc", sortPosition: "start" },
+  { label: "Country" },
+];
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState("center1");
@@ -81,7 +86,6 @@ const App = () => {
     });
   };
 
-  console.log(currentTheme);
   return (
     <div style={{ padding: "6rem" }}>
       <ClickUIProvider
