@@ -22,7 +22,7 @@ const ActionsWrapper = styled.div`
   gap: ${props => props.theme.click.dialog.space.gap};
 `;
 
-const ConfirmationDialog = ({
+export const ConfirmationDialog = ({
   open,
   onOpenChange,
   title,
@@ -61,5 +61,3 @@ const ConfirmationDialog = ({
     </Dialog>
   );
 };
-
-export default ConfirmationDialog;

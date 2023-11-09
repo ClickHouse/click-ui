@@ -34,6 +34,7 @@ export type { PanelProps } from "./Panel/Panel";
 export type { FlyoutProps, FlyoutFooterProps, FlyoutHeaderProps } from "./Flyout/Flyout";
 export type { DialogContentProps } from "./Dialog/Dialog";
 export type { DialogProps, DialogTriggerProps } from "@radix-ui/react-dialog";
+export type { ConfirmationDialogProps } from "./ConfirmationDialog/ConfirmationDialog";
 export type { FileTabStatusType } from "./FileTabs/FileTabs";
 export type { TableHeaderType, TableRowType, TableProps } from "./Table/Table";
 
