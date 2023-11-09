@@ -1,6 +1,7 @@
 import { Link } from "@/components";
 import { GridCenter } from "../commonElement";
-import ConfirmationDialog, {
+import {
+  ConfirmationDialog,
   ConfirmationDialogProps,
 } from "@/components/ConfirmationDialog/ConfirmationDialog";
 

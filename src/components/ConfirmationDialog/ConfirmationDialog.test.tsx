@@ -1,5 +1,6 @@
 import { renderCUI } from "@/utils/test-utils";
-import ConfirmationDialog, {
+import {
+  ConfirmationDialog,
   ConfirmationDialogProps,
 } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { fireEvent } from "@testing-library/dom";
