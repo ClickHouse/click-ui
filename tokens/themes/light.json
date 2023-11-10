@@ -1249,17 +1249,39 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.danger.200}",
+                "value": "{click.button.basic.color.danger.background.hover}",
                 "type": "color"
               },
               "active": {
-                "value": "{palette.danger.100}",
+                "value": "{click.button.basic.color.danger.background.active}",
                 "type": "color"
               }
             },
             "text": {
               "default": {
                 "value": "{click.feedback.color.danger.foreground}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.danger.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.danger.text.default}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.danger.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
                 "type": "color"
               }
             }
@@ -1313,6 +1335,50 @@
               },
               "active": {
                 "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          },
+          "info": {
+            "background": {
+              "default": {
+                "value": "{click.feedback.color.info.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.info.100}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.info.200}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.feedback.color.info.foreground}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.info.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.info.text.default}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.info.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.info.100}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.info.200}",
                 "type": "color"
               }
             }
@@ -2634,68 +2700,6 @@
         }
       }
     },
-    "stepperVertical": {
-      "icon": {
-        "background": {
-          "default": {
-            "value": "{palette.slate.900}",
-            "type": "color"
-          },
-          "incomplete": {
-            "value": "{palette.slate.100}",
-            "type": "color"
-          },
-          "complete": {
-            "value": "{click.stepperVertical.connector.background.default}",
-            "type": "color"
-          }
-        },
-        "foreground": {
-          "default": {
-            "value": "{palette.neutral.0}",
-            "type": "color"
-          },
-          "incomplete": {
-            "value": "{click.stepperVertical.connector.background.default}",
-            "type": "color"
-          },
-          "complete": {
-            "value": "{click.stepperVertical.icon.foreground.default}",
-            "type": "color"
-          }
-        },
-        "stroke": {
-          "default": {
-            "value": "{click.stepperVertical.icon.foreground.default}",
-            "type": "color"
-          },
-          "incomplete": {
-            "value": "{palette.utility.transparent}",
-            "type": "color"
-          },
-          "complete": {
-            "value": "{palette.utility.transparent}",
-            "type": "color"
-          }
-        }
-      },
-      "connector": {
-        "background": {
-          "default": {
-            "value": "{click.stepperVertical.icon.background.default}",
-            "type": "color"
-          },
-          "incomplete": {
-            "value": "{click.stepperVertical.icon.background.incomplete}",
-            "type": "color"
-          },
-          "complete": {
-            "value": "{click.stepperVertical.icon.background.default}",
-            "type": "color"
-          }
-        }
-      }
-    },
     "switch": {
       "color": {
         "background": {
@@ -3115,6 +3119,174 @@
         "background": {
           "value": "{palette.neutral.0}",
           "type": "color"
+        }
+      }
+    },
+    "stepper": {
+      "vertical": {
+        "numbered": {
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{palette.neutral.300}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.complete}",
+                  "type": "color"
+                }
+              },
+              "background": {
+                "incomplete": {
+                  "value": "{click.alert.color.background.default}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.background.incomplete}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.complete}",
+                  "type": "color"
+                }
+              },
+              "icon": {
+                "incomplete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.connector.color.stroke.incomplete}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": {
+                "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                "type": "color"
+              },
+              "complete": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "bulleted": {
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{palette.neutral.300}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.complete}",
+                  "type": "color"
+                }
+              },
+              "background": {
+                "incomplete": {
+                  "value": "{click.alert.color.background.default}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.background.incomplete}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.background.complete}",
+                  "type": "color"
+                }
+              },
+              "icon": {
+                "incomplete": {
+                  "value": "{click.stepper.vertical.bulleted.step.color.background.incomplete}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.connector.color.stroke.incomplete}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": {
+                "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                "type": "color"
+              },
+              "complete": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          }
         }
       }
     }

@@ -984,6 +984,28 @@
               "default": {
                 "value": "{click.feedback.color.danger.foreground}",
                 "type": "color"
+              },
+              "hover": {
+                "value": "{click.feedback.color.danger.foreground}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.feedback.color.danger.foreground}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.danger.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
+                "type": "color"
               }
             }
           },
@@ -1036,6 +1058,50 @@
               },
               "active": {
                 "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          },
+          "info": {
+            "background": {
+              "default": {
+                "value": "{click.feedback.color.info.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.info.100}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.info.200}",
+                "type": "color"
+              }
+            },
+            "text": {
+              "default": {
+                "value": "{click.feedback.color.info.foreground}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.iconButton.color.info.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.iconButton.color.info.text.default}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{click.feedback.color.info.background}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.info.100}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.info.200}",
                 "type": "color"
               }
             }
@@ -1540,6 +1606,174 @@
             "active": {
               "value": "{click.global.color.stroke.default}",
               "type": "color"
+            }
+          }
+        }
+      }
+    },
+    "stepper": {
+      "vertical": {
+        "numbered": {
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{palette.neutral.300}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.complete}",
+                  "type": "color"
+                }
+              },
+              "background": {
+                "incomplete": {
+                  "value": "{click.alert.color.background.default}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.background.incomplete}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.complete}",
+                  "type": "color"
+                }
+              },
+              "icon": {
+                "incomplete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.connector.color.stroke.incomplete}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": {
+                "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                "type": "color"
+              },
+              "complete": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "bulleted": {
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{palette.neutral.300}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.complete}",
+                  "type": "color"
+                }
+              },
+              "background": {
+                "incomplete": {
+                  "value": "{click.alert.color.background.default}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.background.incomplete}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.step.color.background.complete}",
+                  "type": "color"
+                }
+              },
+              "icon": {
+                "incomplete": {
+                  "value": "{click.stepper.vertical.bulleted.step.color.background.incomplete}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{palette.neutral.0}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": {
+                  "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                  "type": "color"
+                },
+                "complete": {
+                  "value": "{palette.neutral.750}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.stepper.vertical.numbered.connector.color.stroke.incomplete}",
+                  "type": "color"
+                }
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": {
+                "value": "{click.stepper.vertical.numbered.step.color.stroke.incomplete}",
+                "type": "color"
+              },
+              "complete": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              }
             }
           }
         }

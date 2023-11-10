@@ -3,6 +3,7 @@ import * as RadixDialog from "@radix-ui/react-dialog";
 import styled, { keyframes } from "styled-components";
 import { Button, Icon, Spacer, Title } from "@/components";
 import { CrossButton } from "../commonElement";
+import { ButtonProps } from "@/components/Button/Button";
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
@@ -23,19 +24,15 @@ const DialogTrigger = ({ children, ...props }: RadixDialog.DialogTriggerProps) =
 DialogTrigger.displayName = "DialogTrigger";
 Dialog.Trigger = DialogTrigger;
 
-// Dialog Close
-interface DialogCloseProps extends RadixDialog.DialogCloseProps {
-  label: string;
-}
-
-const DialogClose = ({ label }: DialogCloseProps) => {
-  label = label ?? "Close";
-  return (
-    <RadixDialog.Close asChild>
-      <Button type="secondary">{label}</Button>
-    </RadixDialog.Close>
-  );
-};
+const DialogClose = ({ label = "Close", type = "secondary", ...props }: ButtonProps) => (
+  <RadixDialog.Close asChild>
+    <Button
+      type={type}
+      label={label}
+      {...props}
+    />
+  </RadixDialog.Close>
+);
 
 DialogClose.displayName = "DialogClose";
 Dialog.Close = DialogClose;
@@ -113,6 +110,7 @@ const DialogContent = ({
   forceMount,
   container,
   showOverlay = true,
+  ...props
 }: DialogContentProps) => {
   return (
     <RadixDialog.Portal
@@ -120,7 +118,7 @@ const DialogContent = ({
       container={container}
     >
       {showOverlay && <DialogOverlay />}
-      <ContentArea>
+      <ContentArea {...props}>
         <TitleArea>
           <Title
             size="xl"

@@ -474,7 +474,14 @@
               "active": string
             },
             "text": {
-              "default": string
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string
             }
           },
           "ghost": {
@@ -489,6 +496,23 @@
               "active": string
             },
             "text": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          },
+          "info": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string
+            },
+            "stroke": {
               "default": string,
               "hover": string,
               "active": string
@@ -1823,7 +1847,8 @@
         },
         "label": {
           "default": string
-        }
+        },
+        "stroke": string
       },
       "radii": {
         "all": string
