@@ -1,7 +1,7 @@
 import { SVGAttributes } from "react";
 import AWSDark from "./AWSDark";
 import AWSRedshift from "./AWSRedshift";
-import AWSS3 from "./AWSS3";
+import AWSS3 from "./AWS_S3";
 import AWSAthena from "./AWSAthena";
 import Azure from "./Azure";
 import BigQuery from "./BigQuery";

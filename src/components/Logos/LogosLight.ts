@@ -2,7 +2,7 @@ import { SVGAttributes } from "react";
 import AWSLight from "./AWSLight";
 import AWSAthena from "./AWSAthena";
 import AWSRedshift from "./AWSRedshift";
-import AWSS3 from "./AWSS3";
+import AWSS3 from "./AWS_S3";
 import Azure from "./Azure";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";

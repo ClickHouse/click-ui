@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const AWSS3 = (props: SVGAttributes<SVGElement>) => (
+const AWS_S3 = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -50,4 +50,4 @@ const AWSS3 = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AWSS3;
+export default AWS_S3;
