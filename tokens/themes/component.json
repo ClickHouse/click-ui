@@ -2040,6 +2040,64 @@
               }
             }
           }
+        },
+        "bulleted": {
+          "connector": {
+            "size": {
+              "width": {
+                "value": "0.1875rem",
+                "type": "sizing"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{border.width.2}",
+                "type": "borderWidth"
+              }
+            }
+          },
+          "step": {
+            "size": {
+              "height": {
+                "value": "{sizes.5}",
+                "type": "sizing"
+              },
+              "width": {
+                "value": "{sizes.5}",
+                "type": "sizing"
+              },
+              "icon": {
+                "height": {
+                  "value": "{sizes.4}",
+                  "type": "sizing"
+                },
+                "width": {
+                  "value": "{sizes.4}",
+                  "type": "sizing"
+                }
+              }
+            },
+            "radii": {
+              "default": {
+                "value": "{border.radii.full}",
+                "type": "borderRadius"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{border.width.2}",
+                "type": "borderWidth"
+              }
+            }
+          },
+          "typography": {
+            "title": {
+              "default": {
+                "value": "{typography.styles.product.titles.lg}",
+                "type": "typography"
+              }
+            }
+          }
         }
       }
     },
