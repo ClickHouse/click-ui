@@ -47,6 +47,7 @@ export type IconName =
   | "dots-horizontal"
   | "dots-triangle"
   | "dots-vertical"
+  | "dots-vertical-double"
   | "download"
   | "download-in-circle"
   | "email"

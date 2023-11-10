@@ -1,7 +1,8 @@
 import { SVGAttributes } from "react";
 import AWSDark from "./AWSDark";
 import AWSRedshift from "./AWSRedshift";
-import AwsS3 from "./AwsS3";
+import AWSS3 from "./AWSS3";
+import AWSAthena from "./AWSAthena";
 import Azure from "./Azure";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
@@ -39,7 +40,8 @@ import AWSMsk from "./AWSMsk";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
   clickhouse: Clickhouse,
-  "aws-s3": AwsS3,
+  "aws-athena": AWSAthena,
+  "aws-s3": AWSS3,
   "aws-redshift": AWSRedshift,
   "aws-msk": AWSMsk,
   kafka: Kafka,

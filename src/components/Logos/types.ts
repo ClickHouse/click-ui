@@ -1,6 +1,7 @@
 export type LogoName =
   | "clickhouse"
   | "aws-s3"
+  | "aws-athena" 
   | "aws-redshift"
   | "aws-msk"
   | "kafka"
