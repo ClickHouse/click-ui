@@ -1,4 +1,3 @@
-import { Link } from "@/components";
 import { GridCenter } from "../commonElement";
 import {
   ConfirmationDialog,
@@ -10,21 +9,20 @@ const ConfirmationDialogComponent = ({
   title,
   message,
   primaryActionLabel,
-  onPrimaryActionClick,
+  onConfirm,
   secondaryActionLabel,
-  onOpenChange,
+  onCancel,
 }: ConfirmationDialogProps) => (
   <GridCenter>
     <ConfirmationDialog
       open={open}
       title={title}
       message={message}
-      onOpenChange={onOpenChange}
+      onCancel={onCancel}
       primaryActionLabel={primaryActionLabel}
-      onPrimaryActionClick={onPrimaryActionClick}
+      onConfirm={onConfirm}
       secondaryActionLabel={secondaryActionLabel}
     >
-      <Link>Open dialog</Link>
     </ConfirmationDialog>
   </GridCenter>
 );
@@ -50,7 +48,7 @@ export const Playground = {
     onOpenChange: (b: boolean) => {
       void b;
     },
-    onPrimaryAcyionClick: () => {
+    onPrimaryActionClick: () => {
       console.log("Click");
     },
     primaryActionLabel: "Confirm",
