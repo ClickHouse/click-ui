@@ -270,6 +270,7 @@ const TableOuterContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 `;
 
 const MobileActions = styled.div`
@@ -469,7 +470,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     return (
       <TableOuterContainer>
         <MobileActions>
-          {isSelectable && (
+          {true && (
             <Checkbox
               label="Select All"
               checked={selectedIds.length === rows.length}
@@ -521,6 +522,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 );
 
 const StyledTable = styled.table`
+  width: 100%;
   border-spacing: 0;
   overflow: hidden;
   ${({ theme }) => `
