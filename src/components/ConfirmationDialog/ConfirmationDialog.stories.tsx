@@ -1,4 +1,3 @@
-import { Link } from "@/components";
 import { GridCenter } from "../commonElement";
 import {
   ConfirmationDialog,
@@ -24,7 +23,6 @@ const ConfirmationDialogComponent = ({
       onPrimaryActionClick={onPrimaryActionClick}
       secondaryActionLabel={secondaryActionLabel}
     >
-      <Link>Open dialog</Link>
     </ConfirmationDialog>
   </GridCenter>
 );
