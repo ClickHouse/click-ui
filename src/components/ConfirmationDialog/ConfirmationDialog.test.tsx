@@ -116,10 +116,16 @@ describe("Dialog Component", () => {
       onOpenChange: (b: boolean) => open = b
     });
 
-
     expect(queryAllByText(title).length).toEqual(1);
     const secondaryActionBtn = getByText(secondaryActionLabel);
     fireEvent.click(secondaryActionBtn);
     expect(open).toEqual(false);
+  });
+
+  it("fails to render in case you provide both children and message props", () => {
+    const children = <div>test</div>;
+    const message = "this is a test message";
+
+    expect(() => renderDialog({ children, message, open: true })).toThrowError("You can't pass children and message props at the same time");
   });
 });
