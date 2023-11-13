@@ -6,7 +6,7 @@ type DialogPrimaryAction = "primary" | "danger";
 
 export interface ConfirmationDialogProps {
   open?: boolean;
-  onOpenChange?: (b: boolean) => void;
+  onCancel?: () => void;
   title: string;
   primaryActionType?: DialogPrimaryAction;
   primaryActionLabel?: string;
@@ -14,7 +14,7 @@ export interface ConfirmationDialogProps {
   message?: string;
   children?: ReactNode;
   loading?: boolean;
-  onPrimaryActionClick?: (() => void) | (() => Promise<void>);
+  onConfirm?: (() => void) | (() => Promise<void>);
 }
 
 const ActionsWrapper = styled.div`
@@ -25,14 +25,14 @@ const ActionsWrapper = styled.div`
 
 export const ConfirmationDialog = ({
   open,
-  onOpenChange,
+  onCancel,
   title,
   message,
   loading,
   primaryActionType = "primary",
   primaryActionLabel = "Confirm",
   secondaryActionLabel = "Cancel",
-  onPrimaryActionClick,
+  onConfirm,
   children,
 }: ConfirmationDialogProps): ReactElement => {
   if (children && message) {
@@ -44,7 +44,9 @@ export const ConfirmationDialog = ({
   return (
     <Dialog
       open={open}
-      onOpenChange={onOpenChange}
+      onOpenChange={(open: boolean) => {
+        !open && onCancel && onCancel();
+      }}
     >
       <Dialog.Content title={title}>
         {children ? children : <Text>{message}</Text>}
@@ -57,11 +59,8 @@ export const ConfirmationDialog = ({
             type={primaryActionType}
             label={primaryActionLabel}
             onClick={() => {
-              if (onPrimaryActionClick) {
-                onPrimaryActionClick();
-              }
-              if (onOpenChange) {
-                onOpenChange(false);
+              if (onConfirm) {
+                onConfirm();
               }
             }}
           />

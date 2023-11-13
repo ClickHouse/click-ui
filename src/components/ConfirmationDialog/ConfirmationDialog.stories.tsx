@@ -9,18 +9,18 @@ const ConfirmationDialogComponent = ({
   title,
   message,
   primaryActionLabel,
-  onPrimaryActionClick,
+  onConfirm,
   secondaryActionLabel,
-  onOpenChange,
+  onCancel,
 }: ConfirmationDialogProps) => (
   <GridCenter>
     <ConfirmationDialog
       open={open}
       title={title}
       message={message}
-      onOpenChange={onOpenChange}
+      onCancel={onCancel}
       primaryActionLabel={primaryActionLabel}
-      onPrimaryActionClick={onPrimaryActionClick}
+      onConfirm={onConfirm}
       secondaryActionLabel={secondaryActionLabel}
     >
     </ConfirmationDialog>

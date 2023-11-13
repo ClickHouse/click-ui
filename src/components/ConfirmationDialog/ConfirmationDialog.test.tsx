@@ -10,10 +10,10 @@ describe("Dialog Component", () => {
     {
       title = "Dialog Title",
       message = "Are you sure you want to proceed?",
-      onPrimaryActionClick = () => {
+      onConfirm = () => {
         void undefined;
       },
-      onOpenChange,
+      onCancel,
       open,
       primaryActionLabel = "Confirm",
       secondaryActionLabel = "Cancel",
@@ -24,10 +24,10 @@ describe("Dialog Component", () => {
       <ConfirmationDialog
         title={title}
         message={message}
-        onPrimaryActionClick={onPrimaryActionClick}
+        onConfirm={onConfirm}
         primaryActionLabel={primaryActionLabel}
         secondaryActionLabel={secondaryActionLabel}
-        onOpenChange={onOpenChange}
+        onCancel={onCancel}
         open={open}
         children={children}
       />
@@ -70,7 +70,7 @@ describe("Dialog Component", () => {
       title,
       primaryActionLabel,
       open,
-      onOpenChange: (b: boolean) => open = b
+      onCancel: () => open = false
     });
 
     expect(queryAllByText(title).length).toEqual(1);
@@ -83,12 +83,12 @@ describe("Dialog Component", () => {
     let counter = 0;
     const title = "Dialog Title";
     const primaryActionLabel = "PrimaryAction";
-    const onPrimaryActionClick = () => counter++;
+    const onConfirm = () => counter++;
 
     const { getByText } = renderDialog({
       title,
       primaryActionLabel,
-      onPrimaryActionClick,
+      onConfirm,
       open: true,
     });
 
@@ -113,7 +113,7 @@ describe("Dialog Component", () => {
       title,
       secondaryActionLabel,
       open,
-      onOpenChange: (b: boolean) => open = b
+      onCancel: () => open = false
     });
 
     expect(queryAllByText(title).length).toEqual(1);
