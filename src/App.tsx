@@ -435,7 +435,7 @@ const App = () => {
         <ConfirmationDialog
           title="Confirmation Dialog Example"
           message="This is a simple dialog that will be reused across the application"
-          onPrimaryActionClick={() => {
+          onConfirm={() => {
             console.log("close");
           }}
         >
