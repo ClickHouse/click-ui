@@ -470,7 +470,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     return (
       <TableOuterContainer>
         <MobileActions>
-          {true && (
+          {isSelectable && (
             <Checkbox
               label="Select All"
               checked={selectedIds.length === rows.length}
