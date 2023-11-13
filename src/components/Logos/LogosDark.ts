@@ -48,7 +48,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   fivetran: Fivetran,
   confluent: Confluent,
   tableau: Tableau,
-  graphana: Grafana,
+  grafana: Grafana,
   superset: Superset,
   metabase: Metabase,
   aws: AWSDark,

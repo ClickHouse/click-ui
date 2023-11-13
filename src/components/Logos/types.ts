@@ -8,7 +8,7 @@ export type LogoName =
   | "fivetran"
   | "confluent"
   | "tableau"
-  | "graphana"
+  | "grafana"
   | "superset"
   | "metabase"
   | "aws"
