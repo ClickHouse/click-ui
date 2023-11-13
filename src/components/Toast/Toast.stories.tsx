@@ -1,10 +1,10 @@
-import { Button, useToast, ToastProps } from "@/components";
+import { Button, useCUIToast, ToastProps } from "@/components";
 const ToastTrigger = (props: ToastProps) => {
-  const { createToast } = useToast();
+  const { createCUIToast } = useCUIToast();
   return (
     <Button
       onClick={() => {
-        createToast(props);
+        createCUIToast(props);
       }}
     >
       Create Toast

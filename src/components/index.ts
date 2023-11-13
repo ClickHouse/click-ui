@@ -49,5 +49,5 @@ export { TextField } from "./Input/TextField";
 export { Title } from "./Typography/Title/Title";
 export { Tooltip } from "./Tooltip/Tooltip";
 export { default as ClickUIProvider } from "./ClickUIProvider/ClickUIProvider";
-export { useToast } from "./Toast/useToast";
+export { useCUIToast } from "./Toast/useCUIToast";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";

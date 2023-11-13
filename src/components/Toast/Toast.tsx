@@ -3,11 +3,11 @@ import * as RadixUIToast from "@radix-ui/react-toast";
 import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
 import styled, { keyframes } from "styled-components";
 
-interface ToastContextProps {
-  createToast: (toast: ToastProps) => void;
+export interface ToastContextProps {
+  createCUIToast: (toast: ToastProps) => void;
 }
 export const ToastContext = createContext<ToastContextProps>({
-  createToast: () => null,
+  createCUIToast: () => null,
 });
 
 type ToastType = "danger" | "warning" | "default" | "success";
@@ -202,7 +202,7 @@ export const ToastProvider = ({ children, ...props }: RadixUIToast.ToastProps) =
     }
   };
   const value = {
-    createToast: (toast: ToastProps) => {
+    createCUIToast: (toast: ToastProps): void => {
       setToasts(currentToasts => {
         const newMap = new Map(currentToasts);
         newMap.set(toast?.id ?? String(Date.now()), toast);
