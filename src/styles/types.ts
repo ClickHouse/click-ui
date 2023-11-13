@@ -1724,46 +1724,144 @@
         }
       }
     },
-    "stepperVertical": {
-      "icon": {
-        "size": {
-          "height": string,
-          "width": string
+    "stepper": {
+      "vertical": {
+        "numbered": {
+          "connector": {
+            "size": {
+              "width": string
+            },
+            "stroke": {
+              "default": string
+            },
+            "color": {
+              "stroke": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              }
+            }
+          },
+          "typography": {
+            "title": {
+              "default": string
+            }
+          },
+          "step": {
+            "typography": {
+              number: {
+                "default": string
+              }
+            },
+            "size": {
+              "height": string,
+              "width": string,
+              "icon": {
+                "height": string,
+                "width": string
+              }
+            },
+            "stroke": {
+              "default": string
+            },
+            "radii": {
+              "default": string
+            },
+            "color": {
+              "stroke": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              },
+              "background": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              },
+              "icon": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              }
+            }
+          },
+          "content": {
+            "space": {
+              "gap": {
+                "x": string,
+                "y": string
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": string,
+              "complete": string,
+              "active": string
+            }
+          }
         },
-        "space": {
-          "x": string,
-          "y": string
-        },
-        "radii": string,
-        "background": {
-          "default": string,
-          "incomplete": string,
-          "complete": string
-        },
-        "foreground": {
-          "default": string,
-          "incomplete": string,
-          "complete": string
-        },
-        "stroke": {
-          "default": string,
-          "incomplete": string,
-          "complete": string
-        }
-      },
-      "connector": {
-        "size": {
-          "width": string
-        },
-        "background": {
-          "default": string,
-          "incomplete": string,
-          "complete": string
-        }
-      },
-      "typography": {
-        "label": {
-          "default": string
+        "bulleted": {
+          "connector": {
+            "size": {
+              "width": string
+            },
+            "stroke": {
+              "default": string
+            },
+            "color": {
+              "stroke": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              }
+            }
+          },
+          "step": {
+            "size": {
+              "height": string,
+              "width": string,
+              "icon": {
+                "height": string,
+                "width": string
+              }
+            },
+            "radii": {
+              "default": string
+            },
+            "stroke": {
+              "default": string
+            },
+            "color": {
+              "stroke": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              },
+              "background": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              },
+              "icon": {
+                "incomplete": string,
+                "complete": string,
+                "active": string
+              }
+            }
+          },
+          "typography": {
+            "title": {
+              "default": string
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": string,
+              "complete": string,
+              "active": string
+            }
+          }
         }
       }
     },

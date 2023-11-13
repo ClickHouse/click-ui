@@ -893,29 +893,81 @@
         }
       }
     },
-    "stepperVertical": {
-      "icon": {
-        "background": {
-          "default": "#414141",
-          "incomplete": "lch(45.7 0 0)",
-          "complete": "#414141"
+    "stepper": {
+      "vertical": {
+        "numbered": {
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": "#606060",
+                "complete": "#ffffff",
+                "active": "#606060"
+              }
+            }
+          },
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": "#606060",
+                "complete": "#ffffff",
+                "active": "#ffffff"
+              },
+              "background": {
+                "incomplete": "#1F1F1C",
+                "complete": "#1F1F1C",
+                "active": "#ffffff"
+              },
+              "icon": {
+                "incomplete": "#ffffff",
+                "complete": "#ffffff",
+                "active": "#1F1F1C"
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": "#606060",
+              "complete": "#b3b6bd",
+              "active": "#ffffff"
+            }
+          }
         },
-        "foreground": {
-          "default": "#ffffff",
-          "incomplete": "#ffffff",
-          "complete": "#ffffff"
-        },
-        "stroke": {
-          "default": "#282828",
-          "incomplete": "rgba(0,0,0,0)",
-          "complete": "rgba(0,0,0,0)"
-        }
-      },
-      "connector": {
-        "background": {
-          "default": "#414141",
-          "incomplete": "lch(45.7 0 0)",
-          "complete": "#414141"
+        "bulleted": {
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": "#606060",
+                "complete": "#ffffff",
+                "active": "#606060"
+              }
+            }
+          },
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": "#606060",
+                "complete": "#ffffff",
+                "active": "#ffffff"
+              },
+              "background": {
+                "incomplete": "#1F1F1C",
+                "complete": "#1F1F1C",
+                "active": "#ffffff"
+              },
+              "icon": {
+                "incomplete": "#1F1F1C",
+                "complete": "#ffffff",
+                "active": "#ffffff"
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": "#606060",
+              "complete": "#b3b6bd",
+              "active": "#ffffff"
+            }
+          }
         }
       }
     },

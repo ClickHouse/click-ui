@@ -511,6 +511,84 @@
         }
       }
     },
+    "stepper": {
+      "vertical": {
+        "numbered": {
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": "#c0c0c0",
+                "complete": "#1F1F1C",
+                "active": "#c0c0c0"
+              }
+            }
+          },
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": "#c0c0c0",
+                "complete": "#1F1F1C",
+                "active": "#1F1F1C"
+              },
+              "background": {
+                "incomplete": "#ffffff",
+                "complete": "#ffffff",
+                "active": "#1F1F1C"
+              },
+              "icon": {
+                "incomplete": "#1F1F1C",
+                "complete": "#1F1F1C",
+                "active": "#ffffff"
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": "#c0c0c0",
+              "complete": "#696e79",
+              "active": "#161517"
+            }
+          }
+        },
+        "bulleted": {
+          "connector": {
+            "color": {
+              "stroke": {
+                "incomplete": "#c0c0c0",
+                "complete": "#1F1F1C",
+                "active": "#c0c0c0"
+              }
+            }
+          },
+          "step": {
+            "color": {
+              "stroke": {
+                "incomplete": "#c0c0c0",
+                "complete": "#1F1F1C",
+                "active": "#1F1F1C"
+              },
+              "background": {
+                "incomplete": "#ffffff",
+                "complete": "#ffffff",
+                "active": "#ffffff"
+              },
+              "icon": {
+                "incomplete": "#ffffff",
+                "complete": "#1F1F1C",
+                "active": "#ffffff"
+              }
+            }
+          },
+          "color": {
+            "title": {
+              "incomplete": "#c0c0c0",
+              "complete": "#696e79",
+              "active": "#161517"
+            }
+          }
+        }
+      }
+    },
     "tabs": {
       "basic": {
         "color": {
