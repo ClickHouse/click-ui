@@ -4,7 +4,6 @@ import {
   ConfirmationDialogProps,
 } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { fireEvent } from "@testing-library/dom";
-import { Button } from "@/components";
 
 describe("Dialog Component", () => {
   const renderDialog = (
@@ -65,40 +64,34 @@ describe("Dialog Component", () => {
   it("closes the dialog on primary action click", () => {
     const title = "Dialog Title";
     const primaryActionLabel = "PrimaryAction";
-    const triggerLabel = "Open Dialog";
-    const children = <Button label={triggerLabel} />;
 
+    let open = true;
     const { getByText, queryAllByText } = renderDialog({
       title,
       primaryActionLabel,
-      children,
+      open,
+      onOpenChange: (b: boolean) => open = b
     });
 
-    const triggerBtn = getByText(triggerLabel);
-    fireEvent.click(triggerBtn);
     expect(queryAllByText(title).length).toEqual(1);
     const primaryBtn = getByText(primaryActionLabel);
     fireEvent.click(primaryBtn);
-    expect(queryAllByText(title).length).toEqual(0);
+    expect(open).toEqual(false);
   });
 
   it("executes the primary action on primary action click", () => {
     let counter = 0;
     const title = "Dialog Title";
     const primaryActionLabel = "PrimaryAction";
-    const triggerLabel = "Open Dialog";
     const onPrimaryActionClick = () => counter++;
-    const children = <Button label={triggerLabel} />;
 
     const { getByText } = renderDialog({
       title,
       primaryActionLabel,
       onPrimaryActionClick,
-      children,
+      open: true,
     });
 
-    const triggerBtn = getByText(triggerLabel);
-    fireEvent.click(triggerBtn);
     const primaryBtn = getByText(primaryActionLabel);
     fireEvent.click(primaryBtn);
     expect(counter).toEqual(1);
@@ -114,20 +107,19 @@ describe("Dialog Component", () => {
   it("closes the dialog on secondary action click", () => {
     const title = "Dialog Title";
     const secondaryActionLabel = "SecondaryAction";
-    const triggerLabel = "Open Dialog";
-    const children = <Button label={triggerLabel} />;
 
+    let open = true;
     const { getByText, queryAllByText } = renderDialog({
       title,
       secondaryActionLabel,
-      children,
+      open,
+      onOpenChange: (b: boolean) => open = b
     });
 
-    const triggerBtn = getByText(triggerLabel);
-    fireEvent.click(triggerBtn);
+
     expect(queryAllByText(title).length).toEqual(1);
     const secondaryActionBtn = getByText(secondaryActionLabel);
     fireEvent.click(secondaryActionBtn);
-    expect(queryAllByText(title).length).toEqual(0);
+    expect(open).toEqual(false);
   });
 });

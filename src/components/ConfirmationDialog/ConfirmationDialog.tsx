@@ -8,12 +8,13 @@ export interface ConfirmationDialogProps {
   open?: boolean;
   onOpenChange?: (b: boolean) => void;
   title: string;
-  message: string;
   primaryActionType?: DialogPrimaryAction;
   primaryActionLabel?: string;
   secondaryActionLabel?: string;
-  onPrimaryActionClick?: (() => void) | (() => Promise<void>);
+  message?: string;
   children?: ReactNode;
+  loading?: boolean;
+  onPrimaryActionClick?: (() => void) | (() => Promise<void>);
 }
 
 const ActionsWrapper = styled.div`
@@ -27,24 +28,32 @@ export const ConfirmationDialog = ({
   onOpenChange,
   title,
   message,
+  loading,
   primaryActionType = "primary",
   primaryActionLabel = "Confirm",
   secondaryActionLabel = "Cancel",
   onPrimaryActionClick,
   children,
 }: ConfirmationDialogProps): ReactElement => {
+  if (children && message) {
+    throw new Error(
+      "You can't pass children and message props at the same time"
+    );
+  }
+
   return (
     <Dialog
       open={open}
       onOpenChange={onOpenChange}
     >
-      {children && <Dialog.Trigger>{children}</Dialog.Trigger>}
       <Dialog.Content title={title}>
-        <Text>{message}</Text>
+        {children ? children : <Text>{message}</Text>}
         <Separator size="xl" />
         <ActionsWrapper>
           <Dialog.Close label={secondaryActionLabel} />
           <Dialog.Close
+            loading={!!loading}
+            disabled={!!loading}
             type={primaryActionType}
             label={primaryActionLabel}
             onClick={() => {

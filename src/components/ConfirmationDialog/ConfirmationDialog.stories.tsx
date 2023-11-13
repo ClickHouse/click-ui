@@ -50,7 +50,7 @@ export const Playground = {
     onOpenChange: (b: boolean) => {
       void b;
     },
-    onPrimaryAcyionClick: () => {
+    onPrimaryActionClick: () => {
       console.log("Click");
     },
     primaryActionLabel: "Confirm",
