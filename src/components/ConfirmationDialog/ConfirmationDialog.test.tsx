@@ -1,19 +1,19 @@
 import { renderCUI } from "@/utils/test-utils";
-import ConfirmationDialog, {
+import {
+  ConfirmationDialog,
   ConfirmationDialogProps,
 } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { fireEvent } from "@testing-library/dom";
-import { Button } from "@/components";
 
 describe("Dialog Component", () => {
   const renderDialog = (
     {
       title = "Dialog Title",
       message = "Are you sure you want to proceed?",
-      onPrimaryActionClick = () => {
+      onConfirm = () => {
         void undefined;
       },
-      onOpenChange,
+      onCancel,
       open,
       primaryActionLabel = "Confirm",
       secondaryActionLabel = "Cancel",
@@ -24,10 +24,10 @@ describe("Dialog Component", () => {
       <ConfirmationDialog
         title={title}
         message={message}
-        onPrimaryActionClick={onPrimaryActionClick}
+        onConfirm={onConfirm}
         primaryActionLabel={primaryActionLabel}
         secondaryActionLabel={secondaryActionLabel}
-        onOpenChange={onOpenChange}
+        onCancel={onCancel}
         open={open}
         children={children}
       />
@@ -64,40 +64,34 @@ describe("Dialog Component", () => {
   it("closes the dialog on primary action click", () => {
     const title = "Dialog Title";
     const primaryActionLabel = "PrimaryAction";
-    const triggerLabel = "Open Dialog";
-    const children = <Button label={triggerLabel} />;
 
+    let open = true;
     const { getByText, queryAllByText } = renderDialog({
       title,
       primaryActionLabel,
-      children,
+      open,
+      onCancel: () => open = false
     });
 
-    const triggerBtn = getByText(triggerLabel);
-    fireEvent.click(triggerBtn);
     expect(queryAllByText(title).length).toEqual(1);
     const primaryBtn = getByText(primaryActionLabel);
     fireEvent.click(primaryBtn);
-    expect(queryAllByText(title).length).toEqual(0);
+    expect(open).toEqual(false);
   });
 
   it("executes the primary action on primary action click", () => {
     let counter = 0;
     const title = "Dialog Title";
     const primaryActionLabel = "PrimaryAction";
-    const triggerLabel = "Open Dialog";
-    const onPrimaryActionClick = () => counter++;
-    const children = <Button label={triggerLabel} />;
+    const onConfirm = () => counter++;
 
     const { getByText } = renderDialog({
       title,
       primaryActionLabel,
-      onPrimaryActionClick,
-      children,
+      onConfirm,
+      open: true,
     });
 
-    const triggerBtn = getByText(triggerLabel);
-    fireEvent.click(triggerBtn);
     const primaryBtn = getByText(primaryActionLabel);
     fireEvent.click(primaryBtn);
     expect(counter).toEqual(1);
@@ -113,20 +107,25 @@ describe("Dialog Component", () => {
   it("closes the dialog on secondary action click", () => {
     const title = "Dialog Title";
     const secondaryActionLabel = "SecondaryAction";
-    const triggerLabel = "Open Dialog";
-    const children = <Button label={triggerLabel} />;
 
+    let open = true;
     const { getByText, queryAllByText } = renderDialog({
       title,
       secondaryActionLabel,
-      children,
+      open,
+      onCancel: () => open = false
     });
 
-    const triggerBtn = getByText(triggerLabel);
-    fireEvent.click(triggerBtn);
     expect(queryAllByText(title).length).toEqual(1);
     const secondaryActionBtn = getByText(secondaryActionLabel);
     fireEvent.click(secondaryActionBtn);
-    expect(queryAllByText(title).length).toEqual(0);
+    expect(open).toEqual(false);
+  });
+
+  it("fails to render in case you provide both children and message props", () => {
+    const children = <div>test</div>;
+    const message = "this is a test message";
+
+    expect(() => renderDialog({ children, message, open: true })).toThrowError("You can't pass children and message props at the same time");
   });
 });

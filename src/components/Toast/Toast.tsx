@@ -1,16 +1,17 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import * as RadixUIToast from "@radix-ui/react-toast";
 import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
 import styled, { keyframes } from "styled-components";
+import { toastsEventEmitter } from "./toastEmitter";
 
-interface ToastContextProps {
+export interface ToastContextProps {
   createToast: (toast: ToastProps) => void;
 }
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
 
-type ToastType = "danger" | "warning" | "default" | "success";
+export type ToastType = "danger" | "warning" | "default" | "success";
 export interface ToastProps {
   id?: string;
   type?: ToastType;
@@ -148,7 +149,7 @@ const Toast = ({
         <RadixUIToast.Close asChild>
           <IconButton
             icon="cross"
-            type="primary"
+            type="ghost"
           />
         </RadixUIToast.Close>
       </ToastHeader>
@@ -191,6 +192,20 @@ const Viewport = styled(RadixUIToast.Viewport)`
 
 export const ToastProvider = ({ children, ...props }: RadixUIToast.ToastProps) => {
   const [toasts, setToasts] = useState<Map<string, ToastProps>>(new Map());
+
+  useEffect(() => {
+    const listener = (toast: ToastProps) => {
+      setToasts(currentToasts => {
+        const newMap = new Map(currentToasts);
+        newMap.set(toast?.id ?? String(Date.now()), toast);
+        return newMap;
+      });
+    };
+
+    toastsEventEmitter.on(listener);
+
+    return () => toastsEventEmitter.off(listener);
+  }, []);
 
   const onClose = (id: string) => (open: boolean) => {
     if (!open) {

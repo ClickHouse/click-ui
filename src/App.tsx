@@ -37,7 +37,7 @@ import {
   TableHeaderType,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
-import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
+import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
 
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
@@ -435,7 +435,7 @@ const App = () => {
         <ConfirmationDialog
           title="Confirmation Dialog Example"
           message="This is a simple dialog that will be reused across the application"
-          onPrimaryActionClick={() => {
+          onConfirm={() => {
             console.log("close");
           }}
         >

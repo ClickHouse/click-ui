@@ -7,7 +7,6 @@ type OptionContextProps = {
   isHidden: (value?: string) => boolean;
   selectedValues: Array<string>;
   onSelect: (value: string) => void;
-  onCreateOption?: (search: string) => void;
   showCheck?: boolean;
 };
 

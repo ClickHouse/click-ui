@@ -56,6 +56,8 @@ type SelectChildrenType = {
   options?: never;
 };
 
+export type SelectionType = "custom" | "default";
+
 interface InternalSelectProps
   extends PopoverProps,
     Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
@@ -66,14 +68,14 @@ interface InternalSelectProps
   form?: string;
   dir?: "start" | "end";
   orientation?: "horizontal" | "vertical";
-  onCreateOption?: (search: string) => void;
+  allowCreateOption?: boolean;
   showCheck?: boolean;
   onChange: (selectedValues: Array<string>) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   value: Array<string>;
   sortable?: boolean;
-  onSelect: (value: string) => void;
+  onSelect: (value: string, type?: SelectionType) => void;
   multiple?: boolean;
   showSearch?: boolean;
   customText?: string;

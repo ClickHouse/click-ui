@@ -2,16 +2,10 @@ import { MultiSelect, MultiSelectProps } from "./MultiSelect";
 import { selectOptions } from "./selectOptions";
 import { useEffect, useState } from "react";
 interface Props extends Omit<MultiSelectProps, "value"> {
-  clickableNoData?: boolean;
   value: string;
   childrenType: "children" | "options";
 }
-const MultiSelectExample = ({
-  clickableNoData,
-  childrenType,
-  value,
-  ...props
-}: Props) => {
+const MultiSelectExample = ({ childrenType, value, ...props }: Props) => {
   const [selectedValues, setSelectedValues] = useState(
     value ? value.split(",") : undefined
   );
@@ -23,9 +17,6 @@ const MultiSelectExample = ({
     return (
       <MultiSelect
         value={selectedValues}
-        onCreateOption={
-          clickableNoData ? search => console.log("Clicked ", search) : undefined
-        }
         options={selectOptions}
         onSelect={value => setSelectedValues(value)}
         {...props}
@@ -35,9 +26,6 @@ const MultiSelectExample = ({
   return (
     <MultiSelect
       value={value ? value.split(",") : undefined}
-      onCreateOption={
-        clickableNoData ? search => console.log("Clicked ", search) : undefined
-      }
       {...props}
     >
       <MultiSelect.Group heading="Group label">
@@ -74,7 +62,7 @@ export default {
     required: { control: "boolean" },
     showSearch: { control: "boolean" },
     form: { control: "text" },
-    clickableNoData: { control: "boolean" },
+    allowCreateOption: { control: "boolean" },
     showCheck: { control: "boolean" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
@@ -92,11 +80,9 @@ export const Playground = {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { clickableNoData, childrenType, value, ...props } = story.args;
+          const { allowCreateOption, childrenType, value, ...props } = story.args;
           return `<MultiSelect\n  value={${JSON.stringify((value ?? "").split(","))}}\n${
-            clickableNoData
-              ? "  onCreateOption={search => console.log('Clicked ', search)}\n"
-              : ""
+            allowCreateOption ? "  allowCreateOption\n" : ""
           }
           ${Object.entries(props)
             .flatMap(([key, value]) =>
