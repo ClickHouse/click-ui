@@ -2527,6 +2527,20 @@
           },
           "type": "border"
         }
+      },
+      "typography": {
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.titles.xl}",
+            "type": "typography"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
+          }
+        }
       }
     },
     "link": {
@@ -2645,6 +2659,20 @@
           "height": {
             "value": "100%",
             "type": "sizing"
+          }
+        }
+      },
+      "typography": {
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.titles.xl}",
+            "type": "typography"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
           }
         }
       }
