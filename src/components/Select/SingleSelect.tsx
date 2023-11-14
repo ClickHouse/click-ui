@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { SelectContainerProps, SelectOptionProp } from "./common/types";
+import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
 import { InternalSelect, SelectGroup, SelectItem } from "./common/InternalSelect";
 
 export interface SelectProps
@@ -8,7 +8,7 @@ export interface SelectProps
     "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
   > {
   defaultValue?: string;
-  onSelect?: (value: string) => void;
+  onSelect?: (value: string, type?: SelectionType) => void;
   value?: string;
   placeholder?: string;
   onOpenChange?: (open: boolean) => void;
@@ -39,7 +39,7 @@ export const Select = ({
   );
 
   const onSelect = useCallback(
-    (value: string) => {
+    (value: string, type?: SelectionType) => {
       setSelectedValues(values => {
         if (values[0] !== value) {
           return [value];
@@ -48,7 +48,7 @@ export const Select = ({
       });
       onOpenChange(false);
       if (typeof onSelectProp === "function") {
-        onSelectProp(value);
+        onSelectProp(value, type);
       }
     },
     [onSelectProp, onOpenChange]

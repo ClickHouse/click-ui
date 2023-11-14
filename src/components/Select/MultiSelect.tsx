@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { SelectContainerProps, SelectOptionProp } from "./common/types";
+import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
 import { SelectGroup, SelectItem, InternalSelect } from "./common/InternalSelect";
 
 export interface MultiSelectProps
@@ -9,7 +9,7 @@ export interface MultiSelectProps
     "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
   > {
   defaultValue?: Array<string>;
-  onSelect?: (value: Array<string>) => void;
+  onSelect?: (value: Array<string>, type?: SelectionType) => void;
   value?: Array<string>;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -44,17 +44,17 @@ export const MultiSelect = ({
   }, [valueProp]);
 
   const onChange = useCallback(
-    (values: Array<string>) => {
+    (values: Array<string>, type?: SelectionType) => {
       setSelectedValues(values);
       if (typeof onSelectProp === "function") {
-        onSelectProp(values);
+        onSelectProp(values, type);
       }
     },
     [onSelectProp]
   );
 
   const onSelect = useCallback(
-    (value: string) => {
+    (value: string, type?: SelectionType) => {
       let newValues = [];
       if (selectedValues.includes(value)) {
         newValues = selectedValues.filter(currentValue => currentValue !== value);
@@ -62,7 +62,7 @@ export const MultiSelect = ({
         newValues = [...selectedValues, value];
       }
 
-      onChange(newValues);
+      onChange(newValues, type);
     },
     [onChange, selectedValues]
   );
