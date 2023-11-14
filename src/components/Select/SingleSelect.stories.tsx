@@ -3,10 +3,9 @@ import { Preview } from "@storybook/react";
 import { selectOptions } from "./selectOptions";
 import { useEffect, useState } from "react";
 interface Props extends SelectProps {
-  clickableNoData?: boolean;
   childrenType: "children" | "options";
 }
-const SelectExample = ({ clickableNoData, childrenType, value, ...props }: Props) => {
+const SelectExample = ({ childrenType, value, ...props }: Props) => {
   const [selectedValue, setSelectedValue] = useState(value);
   useEffect(() => {
     setSelectedValue(value);
@@ -17,22 +16,13 @@ const SelectExample = ({ clickableNoData, childrenType, value, ...props }: Props
       <Select
         value={selectedValue}
         onSelect={value => setSelectedValue(value)}
-        onCreateOption={
-          clickableNoData ? search => console.log("Clicked ", search) : undefined
-        }
         options={selectOptions}
         {...props}
       />
     );
   }
   return (
-    <Select
-      value={value}
-      onCreateOption={
-        clickableNoData ? search => console.log("Clicked ", search) : undefined
-      }
-      {...props}
-    >
+    <Select {...props}>
       <Select.Group heading="Group label">
         <Select.Item
           value="content0"
@@ -89,11 +79,9 @@ export const Playground: Preview = {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { clickableNoData, childrenType, value, ...props } = story.args;
+          const { allowCreateOption, childrenType, value, ...props } = story.args;
           return `<Select\n  value={${value}}\n${
-            clickableNoData
-              ? "  onCreateOption={search => console.log('Clicked ', search)}\n"
-              : ""
+            allowCreateOption ? "  allowCreateOption\n" : ""
           }${Object.entries(props)
             .flatMap(([key, value]) =>
               typeof value === "boolean"
