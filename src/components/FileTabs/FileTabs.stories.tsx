@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FileTabs as CUIFileTabs, FileTabStatusType } from "./FileTabs";
+import { FileTabs as CUIFileTabs, FileTabElement, FileTabStatusType } from "./FileTabs";
 
 const options = [
   "a1",
@@ -30,27 +30,30 @@ const FileTabs = ({
   const [tabs, setTabs] = useState(options);
 
   return (
-    <CUIFileTabs
-      onReorderTab={() => null}
-      onClose={(index: number) => {
-        setTabs(tabs => {
-          tabs.splice(index, 1);
-          return [...tabs];
-        });
-      }}
-      onSelect={(index: number) => setSelected(index)}
-      selectedIndex={selected}
-    >
-      {tabs.map((option, index) => (
-        <CUIFileTabs.Tab
-          index={index}
-          key={`${option}-${index}`}
-          icon="code-in-square"
-          status={index === 0 ? status : undefined}
-          text={`Tab ${index} value-${option}`}
-        />
-      ))}
-    </CUIFileTabs>
+    <div style={{ display: "flex" }}>
+      <FileTabElement icon="home" />
+      <CUIFileTabs
+        onReorderTab={() => null}
+        onClose={(index: number) => {
+          setTabs(tabs => {
+            tabs.splice(index, 1);
+            return [...tabs];
+          });
+        }}
+        onSelect={(index: number) => setSelected(index)}
+        selectedIndex={selected}
+      >
+        {tabs.map((option, index) => (
+          <CUIFileTabs.Tab
+            index={index}
+            key={`${option}-${index}`}
+            icon="code-in-square"
+            status={index === 0 ? status : undefined}
+            text={`Tab ${index} value-${option}`}
+          />
+        ))}
+      </CUIFileTabs>
+    </div>
   );
 };
 export default {
