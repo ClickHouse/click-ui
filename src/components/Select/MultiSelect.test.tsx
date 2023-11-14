@@ -266,7 +266,8 @@ describe("MultiSelect", () => {
       const onClick = jest.fn();
       const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
-        onCreateOption: onClick,
+        allowCreateOption: true,
+        onSelect: onClick,
         customText: "No Field found {search}",
       });
       const selectTrigger = queryByText("Select an option");

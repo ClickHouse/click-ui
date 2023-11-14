@@ -149,7 +149,7 @@ const Toast = ({
         <RadixUIToast.Close asChild>
           <IconButton
             icon="cross"
-            type="primary"
+            type="ghost"
           />
         </RadixUIToast.Close>
       </ToastHeader>
@@ -194,13 +194,13 @@ export const ToastProvider = ({ children, ...props }: RadixUIToast.ToastProps) =
   const [toasts, setToasts] = useState<Map<string, ToastProps>>(new Map());
 
   useEffect(() => {
-    const listener = (toast: ToastProps) =>  {
-        setToasts(currentToasts => {
+    const listener = (toast: ToastProps) => {
+      setToasts(currentToasts => {
         const newMap = new Map(currentToasts);
         newMap.set(toast?.id ?? String(Date.now()), toast);
         return newMap;
       });
-    }
+    };
 
     toastsEventEmitter.on(listener);
 
