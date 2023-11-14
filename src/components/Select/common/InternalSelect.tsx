@@ -127,7 +127,7 @@ export const InternalSelect = ({
   onOpenChange,
   name,
   form,
-  onCreateOption: onCreateOptionProp,
+  allowCreateOption = false,
   customText = "",
   options,
   showCheck,
@@ -258,12 +258,8 @@ export const InternalSelect = ({
         e.preventDefault();
         if (highlighted) {
           onSelect(highlighted);
-        } else if (
-          visibleList.current.length === 0 &&
-          typeof onCreateOptionProp === "function"
-        ) {
-          onCreateOptionProp(search);
-          onSelect(search);
+        } else if (visibleList.current.length === 0 && allowCreateOption) {
+          onSelect(search, "custom");
         }
       } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
         e.preventDefault();
@@ -314,13 +310,11 @@ export const InternalSelect = ({
     };
   }, [search, highlighted, isHidden, onSelect, showCheck, selectedValues]);
 
-  const clickable = typeof onCreateOptionProp === "function";
   const onCreateOption = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    if (clickable) {
-      onCreateOptionProp(search);
-      onSelect(search);
+    if (allowCreateOption) {
+      onSelect(search, "custom");
     }
   };
   return (
@@ -451,14 +445,15 @@ export const InternalSelect = ({
                 {visibleList.current.length === 0 && (
                   <SelectNoDataContainer
                     onClick={onCreateOption}
-                    $clickable={clickable}
+                    $clickable={allowCreateOption}
                     {...props}
                   >
                     {customText.length > 0
                       ? customText.replaceAll("{search}", search)
-                      : `
-          No Options found${search.length > 0 ? ` for "${search}" ` : ""}
-        `}
+                      : allowCreateOption
+                      ? `Add ${search}`
+                      : `No Options found${search.length > 0 ? ` for "${search}" ` : ""}
+                    `}
                   </SelectNoDataContainer>
                 )}
               </SelectList>

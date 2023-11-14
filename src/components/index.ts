@@ -50,4 +50,5 @@ export { Title } from "./Typography/Title/Title";
 export { Tooltip } from "./Tooltip/Tooltip";
 export { default as ClickUIProvider } from "./ClickUIProvider/ClickUIProvider";
 export { useToast } from "./Toast/useToast";
+export { createToast } from "./Toast/toastEmitter";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
