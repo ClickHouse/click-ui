@@ -53,8 +53,8 @@ export interface DialogContentProps extends RadixDialogContentProps {
 }
 
 const animationWidth = keyframes({
-  "0%": { width: 0 },
-  "100%": { width: "var(--flyout-width, 100%)" },
+  "0%": { maxWidth: 0, minWidth: 0 },
+  "100%": { maxWidth: "fit-content", minWidth: "var(--flyout-width, 100%)" },
 });
 
 const FlyoutContent = styled(DialogContent)<{
@@ -69,6 +69,7 @@ const FlyoutContent = styled(DialogContent)<{
   top: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
   --flyout-width: ${({ theme, $size = "default" }) =>
     theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
