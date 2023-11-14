@@ -2663,20 +2663,15 @@
         }
       },
       "typography": {
-        "title": {
-          "default": {
-            "value": {
-              "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.3}",
-              "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.3}"
-            },
-            "type": "typography"
-          }
-        },
         "description": {
           "default": {
             "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
+          }
+        },
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.titles.xl}",
             "type": "typography"
           }
         }
