@@ -2277,14 +2277,11 @@
         }
       },
       "typography": {
-        "title": {
-          "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
-        },
         "description": {
           "default": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
         },
-        "title-copy": {
-          "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+        "title": {
+          "default": "700 1.25rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
         }
       },
       "color": {

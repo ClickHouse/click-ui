@@ -2278,13 +2278,10 @@
         }
       },
       "typography": {
-        "title": {
-          "default": string
-        },
         "description": {
           "default": string
         },
-        "title-copy": {
+        "title": {
           "default": string
         }
       },
