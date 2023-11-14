@@ -1790,6 +1790,11 @@
               "gap": {
                 "x": string,
                 "y": string
+              },
+              "left": string,
+              "bottom": {
+                "default": string,
+                "active": string
               }
             }
           },
@@ -1853,6 +1858,19 @@
           "typography": {
             "title": {
               "default": string
+            }
+          },
+          "content": {
+            "space": {
+              "gap": {
+                "x": string,
+                "y": string
+              },
+              "left": string,
+              "bottom": {
+                "default": string,
+                "active": string
+              }
             }
           },
           "color": {
@@ -2180,6 +2198,14 @@
       "stroke": {
         "default": string
       },
+      "typography": {
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        }
+      },
       "color": {
         "background": {
           "default": string
@@ -2249,6 +2275,17 @@
         "narrow": {
           "width": string,
           "height": string
+        }
+      },
+      "typography": {
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        },
+        "title-copy": {
+          "default": string
         }
       },
       "color": {
