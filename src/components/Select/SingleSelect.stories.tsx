@@ -63,7 +63,7 @@ export default {
     required: { control: "boolean" },
     showSearch: { control: "boolean" },
     form: { control: "text" },
-    clickableNoData: { control: "boolean" },
+    allowCreateOption: { control: "boolean" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
     childrenType: { control: "inline-radio", options: ["children", "options"] },
