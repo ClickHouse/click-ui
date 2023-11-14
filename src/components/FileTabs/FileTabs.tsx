@@ -194,19 +194,33 @@ export const FileTabs = ({
 const TabElement = styled.div<{
   $active: boolean;
   $preview?: boolean;
+  $dismissable: boolean;
+  $fixedTabElement?: boolean;
 }>`
   display: grid;
   justify-content: flex-start;
   align-items: center;
   outline: none;
-  width: 100%;
   max-width: 100%;
   max-width: -webkit-fill-available;
   max-width: fill-available;
   max-width: stretch;
   border: none;
-  ${({ theme, $active, $preview }) => `
-    grid-template-columns: 1fr ${theme.click.tabs.fileTabs.icon.size.width};
+  ${({ theme, $active, $preview, $dismissable, $fixedTabElement }) => `
+    width:${$fixedTabElement ? "auto" : "100%"};
+    grid-template-columns: 1fr ${
+      $dismissable ? theme.click.tabs.fileTabs.icon.size.width : ""
+    };
+    ${
+      $dismissable
+        ? `
+        height: 100%;
+        height: -webkit-fill-available;
+        height: fill-available;
+        height: stretch;
+    `
+        : ""
+    }
     padding: ${theme.click.tabs.fileTabs.space.y} ${theme.click.tabs.fileTabs.space.x};
     gap: ${theme.click.tabs.fileTabs.space.gap};
     border-radius: ${theme.click.tabs.fileTabs.radii.all};
@@ -314,7 +328,9 @@ const Tab = ({
     }
   };
 
-  const onClose = () => {
+  const onClose = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    e.stopPropagation();
     onCloseProp(index);
   };
 
@@ -324,6 +340,7 @@ const Tab = ({
       onMouseDown={onMouseDown}
       data-testid={testId ? `${testId}-${index}` : undefined}
       $preview={preview}
+      $dismissable
       {...props}
     >
       <TabContent>
@@ -366,12 +383,12 @@ export const FileTabElement = ({
     <TabElement
       $active={active}
       $preview={preview}
+      $dismissable={false}
+      $fixedTabElement
       {...props}
     >
-      <TabContent>
-        {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
-        {children && <TabContentText>{children}</TabContentText>}
-      </TabContent>
+      {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
+      {children && <TabContentText>{children}</TabContentText>}
     </TabElement>
   );
 };
