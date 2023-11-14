@@ -2037,6 +2037,20 @@
                   "value": "{spaces.2}",
                   "type": "spacing"
                 }
+              },
+              "left": {
+                "value": "{spaces.7}",
+                "type": "spacing"
+              },
+              "bottom": {
+                "default": {
+                  "value": "{spaces.7}",
+                  "type": "spacing"
+                },
+                "active": {
+                  "value": "{spaces.5}",
+                  "type": "spacing"
+                }
               }
             }
           }
@@ -2095,6 +2109,34 @@
               "default": {
                 "value": "{typography.styles.product.titles.lg}",
                 "type": "typography"
+              }
+            }
+          },
+          "content": {
+            "space": {
+              "gap": {
+                "x": {
+                  "value": "{spaces.4}",
+                  "type": "spacing"
+                },
+                "y": {
+                  "value": "{spaces.2}",
+                  "type": "spacing"
+                }
+              },
+              "left": {
+                "value": "{spaces.7}",
+                "type": "spacing"
+              },
+              "bottom": {
+                "default": {
+                  "value": "{spaces.7}",
+                  "type": "spacing"
+                },
+                "active": {
+                  "value": "{spaces.5}",
+                  "type": "spacing"
+                }
               }
             }
           }
