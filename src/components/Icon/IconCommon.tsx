@@ -46,6 +46,7 @@ import Disk from "@/components/icons/Disk";
 import Display from "@/components/icons/Display";
 import Document from "@/components/icons/Document";
 import DotsVertical from "@/components/icons/DotsVertical";
+import DotsVerticalDouble from "@/components/icons/DotsVerticalDouble";
 import DotsHorizontal from "@/components/icons/DotsHorizontal";
 import Download from "@/components/icons/Download";
 import DownloadInCircle from "@/components/icons/DownloadInCircle";
@@ -143,6 +144,7 @@ export const ICONS_MAP = {
   "dots-horizontal": DotsHorizontal,
   "dots-triangle": DotsTriangle,
   "dots-vertical": DotsVertical,
+  "dots-vertical-double": DotsVerticalDouble,
   download: Download,
   "download-in-circle": DownloadInCircle,
   email: Email,

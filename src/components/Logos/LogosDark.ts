@@ -1,23 +1,28 @@
 import { SVGAttributes } from "react";
+import Airbyte from "./Airbyte";
 import AWSDark from "./AWSDark";
 import AWSRedshift from "./AWSRedshift";
-import AwsS3 from "./AwsS3";
+import AWSS3 from "./AWS_S3";
+import AWSAthena from "./AWSAthena";
 import Azure from "./Azure";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
 import Clickhouse from "./ClickhouseDark";
 import Confluent from "./Confluent";
 import DataGrip from "./DataGrip";
+import dBeaver from "./dBeaver";
 import Dbt from "./Dbt";
 import Decodeable from "./Decodeable";
 import DeepNote from "./DeepNote";
 import DeltaLake from "./DeltaLake";
 import Fivetran from "./Fivetran";
 import Gcp from "./Gcp";
+import Gcs from "./GCS";
 import Github from "./GithubDark";
 import GoLang from "./GoLang";
 import Google from "./Google";
 import Grafana from "./Grafana";
+import Hex from "./Hex";
 import Hudi from "./Hudi";
 import Iceberg from "./Iceberg";
 import Jdbc from "./Jdbc";
@@ -28,6 +33,7 @@ import MongoDb from "./MongoDb";
 import MySQL from "./MySQL";
 import NodeJs from "./NodeJs";
 import Postgres from "./Postgres";
+import Prequel from "./Prequel";
 import Python from "./Python";
 import Rust from "./RustDark";
 import Snowflake from "./Snowflake";
@@ -39,41 +45,47 @@ import AWSMsk from "./AWSMsk";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
   clickhouse: Clickhouse,
-  "aws-s3": AwsS3,
-  "aws-redshift": AWSRedshift,
-  "aws-msk": AWSMsk,
-  kafka: Kafka,
-  fivetran: Fivetran,
-  confluent: Confluent,
-  tableau: Tableau,
-  graphana: Grafana,
-  superset: Superset,
-  metabase: Metabase,
+  airbyte: Airbyte,
   aws: AWSDark,
-  gcp: Gcp,
+  "aws-athena": AWSAthena,
+  "aws-msk": AWSMsk,
+  "aws-redshift": AWSRedshift,
+  "aws-s3": AWSS3,
   azure: Azure,
-  dbt: Dbt,
-  jdbc: Jdbc,
-  mysql: MySQL,
-  postgres: Postgres,
-  google: Google,
-  github: Github,
-  decodeable: Decodeable,
-  golang: GoLang,
-  python: Python,
-  deepnote: DeepNote,
-  nodejs: NodeJs,
-  datagrip: DataGrip,
-  vector: Vector,
-  kubenetes: Kubenetes,
-  "c#": Chash,
-  rust: Rust,
-  hudi: Hudi,
-  deltalake: DeltaLake,
-  snowflake: Snowflake,
-  mongodb: MongoDb,
   bigquery: BigQuery,
+  "c#": Chash,
+  confluent: Confluent,
+  datagrip: DataGrip,
+  dbeaver: dBeaver,
+  dbt: Dbt,
+  decodeable: Decodeable,
+  deepnote: DeepNote,
+  deltalake: DeltaLake,
+  fivetran: Fivetran,
+  gcp: Gcp,
+  gcs: Gcs,
+  github: Github,
+  golang: GoLang,
+  google: Google,
+  grafana: Grafana,
+  hex: Hex,
+  hudi: Hudi,
   iceberg: Iceberg,
+  jdbc: Jdbc,
+  kafka: Kafka,
+  kubenetes: Kubenetes,
+  metabase: Metabase,
+  mongodb: MongoDb,
+  mysql: MySQL,
+  nodejs: NodeJs,
+  postgres: Postgres,
+  prequel: Prequel,
+  python: Python,
+  rust: Rust,
+  snowflake: Snowflake,
+  superset: Superset,
+  tableau: Tableau,
+  vector: Vector
 };
 
 export default LogosDark;
