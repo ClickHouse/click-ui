@@ -100,8 +100,7 @@ ${
   childrenType !== "options"
     ? `
     <Select.Group heading="Group label">
-      <Select.Item value="content0">
-        <Icon name="user" />
+      <Select.Item value="content0" icon="user>
         Content0
       </Select.Item>
     </Select.Group>
