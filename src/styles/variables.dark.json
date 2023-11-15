@@ -1109,7 +1109,7 @@
     "tooltip": {
       "color": {
         "background": {
-          "default": "lch(100 0 0 / 0.15)"
+          "default": "lch(16.1 0 0 / 0.9)"
         },
         "label": {
           "default": "#ffffff"
