@@ -1,4 +1,4 @@
-import { HTMLAttributes, useRef, useState } from "react";
+import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
 import { IconButton } from "@/components";
 import styled from "styled-components";
