@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import styled, { keyframes } from "styled-components";
-import { Button, Icon, Spacer, Title } from "@/components";
+import { Button, Icon, Spacer } from "@/components";
 import { CrossButton } from "../commonElement";
 import { ButtonProps } from "@/components/Button/Button";
 
@@ -81,6 +81,12 @@ const TitleArea = styled.div`
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
 
+const Title = styled.h2`
+  font: ${({ theme }) => theme.click.dialog.typography.title.default};
+  padding: 0;
+  margin: 0;
+`;
+
 const CloseButton = ({ onClose }: { onClose?: () => void }) => (
   <RadixDialog.Close asChild>
     <CrossButton onClick={onClose}>
@@ -120,15 +126,10 @@ const DialogContent = ({
       {showOverlay && <DialogOverlay />}
       <ContentArea {...props}>
         <TitleArea>
-          <Title
-            size="xl"
-            type="h2"
-          >
-            {title}
-          </Title>
+          <Title>{title}</Title>
           {showClose && <CloseButton onClose={onClose} />}
         </TitleArea>
-        <Spacer />
+        <Spacer size="sm" />
         {children}
       </ContentArea>
     </RadixDialog.Portal>

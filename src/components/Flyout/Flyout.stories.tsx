@@ -1,4 +1,4 @@
-import { Button } from "..";
+import { Button, Link, Text } from "..";
 import { Flyout, FlyoutProps } from "./Flyout";
 
 interface Props extends FlyoutProps {
@@ -11,7 +11,9 @@ interface Props extends FlyoutProps {
 const FlyoutExample = ({ title, description, align, size, ...props }: Props) => {
   return (
     <Flyout {...props}>
-      <Flyout.Trigger>Flyout Trigger</Flyout.Trigger>
+      <Flyout.Trigger>
+        <Link>Flyout Trigger</Link>
+      </Flyout.Trigger>
       <Flyout.Content
         strategy="fixed"
         size={size}
@@ -21,7 +23,9 @@ const FlyoutExample = ({ title, description, align, size, ...props }: Props) => 
           description={description}
         />
         <Flyout.Body align={align}>
-          <Flyout.Element>Content1 long text content</Flyout.Element>
+          <Flyout.Element>
+            <Text>Flyout content belongs here.</Text>
+          </Flyout.Element>
         </Flyout.Body>
         <Flyout.Footer>
           <Flyout.Close label="Cancel" />
