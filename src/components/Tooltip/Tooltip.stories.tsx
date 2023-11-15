@@ -1,5 +1,6 @@
 import { TooltipProps } from "@radix-ui/react-tooltip";
 import { Tooltip } from "./Tooltip";
+import { Text } from "..";
 
 interface Props extends TooltipProps {
   showArrow?: boolean;
@@ -16,7 +17,10 @@ const TooltipExample = ({ showArrow, side, ...props }: Props) => {
       }}
     >
       <Tooltip {...props}>
-        <Tooltip.Trigger>Tooltip Trigger(Hover)</Tooltip.Trigger>
+        <Tooltip.Trigger>
+          <Text>Tooltip Trigger(Hover)</Text>
+        </Tooltip.Trigger>
+
         <Tooltip.Content
           showArrow={showArrow}
           side={side}

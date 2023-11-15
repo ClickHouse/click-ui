@@ -2649,13 +2649,13 @@
       "color": {
         "background": {
           "default": {
-            "value": "{palette.neutral.0}",
+            "value": "{palette.neutral.725}",
             "type": "color",
             "$extensions": {
               "studio.tokens": {
                 "modify": {
                   "type": "alpha",
-                  "value": "0.15",
+                  "value": "0.95",
                   "space": "lch"
                 }
               }
