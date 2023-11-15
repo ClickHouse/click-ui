@@ -85,6 +85,7 @@ export const SelectPopoverContent = styled(Content)`
   width: var(--radix-popover-trigger-width);
   max-height: var(--radix-popover-content-available-height);
   border-radius: 0.25rem;
+  pointer-events: auto;
 
   ${({ theme }) => `
     border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};

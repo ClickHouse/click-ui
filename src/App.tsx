@@ -48,6 +48,7 @@ const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState("center1");
   const [checked, setChecked] = useState(false);
+  const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [disabled] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -428,19 +429,29 @@ const App = () => {
             showClose
             onClose={() => setOpen(false)}
           >
+            <Select
+              value={"no value"}
+              onSelect={(value): void => {
+                alert(value);
+              }}
+            >
+              <Select.Item value="item1">Item 1</Select.Item>
+              <Select.Item value="item2">Item 2</Select.Item>
+            </Select>
             <p>I'm a dialog</p>
           </Dialog.Content>
         </Dialog>
 
+        <Button>Open Confirmation Dialog</Button>
         <ConfirmationDialog
+          open={confirmationDialogOpen}
+          onCancel={() => setConfirmationDialogOpen(false)}
           title="Confirmation Dialog Example"
           message="This is a simple dialog that will be reused across the application"
           onConfirm={() => {
             console.log("close");
           }}
-        >
-          <Button>Open Confirmation Dialog</Button>
-        </ConfirmationDialog>
+        />
 
         <EllipsisContent
           component={Text}

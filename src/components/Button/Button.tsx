@@ -95,6 +95,7 @@ const StyledButton = styled(BaseButton)<{
   display: flex;
   align-items: center;
   justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
+  white-space: nowrap;
 
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>

@@ -10,6 +10,7 @@ export const GenericMenuPanel = styled.div<{
   overflow: hidden;
   display: flex;
   align-items: flex-start;
+  pointer-events: auto;
 
   ${({ theme }) => `
     border: 1px solid ${theme.click.genericMenu.panel.color.stroke.default};
