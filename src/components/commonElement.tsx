@@ -120,7 +120,6 @@ export const SvgImageElement = styled.svg<{
   align-items: center;
 
   ${({ theme, $size }) => `
-    & svg {
       ${
         $size
           ? `
@@ -129,7 +128,6 @@ export const SvgImageElement = styled.svg<{
       `
           : ""
       }
-    }
   `}
 `;
 

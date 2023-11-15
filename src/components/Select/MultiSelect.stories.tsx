@@ -102,8 +102,7 @@ ${
   childrenType !== "options"
     ? `
     <MultiSelect.Group heading="Group label">
-      <MultiSelect.Item value="content0">
-        <Icon name="user" />
+      <MultiSelect.Item value="content0" icon="user">
         Content0
       </MultiSelect.Item>
     </MultiSelect.Group>
