@@ -191,7 +191,7 @@ const FlexGrow = styled.div`
 const FlyoutTitle = styled(DialogTitle)`
   ${({ theme }) => `
     color: ${theme.click.flyout.color.title.default};
-    font: ${theme.typography.styles.product.titles.xl};
+    font: ${theme.click.flyout.typography.title.default};
     margin: 0;
     padding: 0;
   `}
@@ -200,7 +200,7 @@ const FlyoutTitle = styled(DialogTitle)`
 const FlyoutDescription = styled(DialogDescription)`
   ${({ theme }) => `
     color: ${theme.click.flyout.color.description.default};
-    font: ${theme.typography.styles.product.text.normal.md};
+    font: ${theme.click.flyout.typography.description.default};
     margin: 0;
     padding: 0;
   `}
