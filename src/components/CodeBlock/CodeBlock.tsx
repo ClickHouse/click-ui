@@ -104,38 +104,30 @@ export const CodeBlock = ({
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
   const customStyle = useColorStyle(theme);
-  const ref = useRef<HTMLElement>(null);
 
   const copyCodeToClipboard = async () => {
-    if (ref.current?.textContent) {
-      try {
-        await navigator.clipboard.writeText(ref.current.textContent);
-        if (typeof onCopy == "function") {
-          onCopy(ref.current.textContent);
-        }
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (error) {
-        let message = "Unable to copy code";
-        if (error instanceof Error) message = error.message;
-        setErrorCopy(true);
-        if (typeof onCopyError === "function") {
-          onCopyError(message);
-        }
-        setTimeout(() => setErrorCopy(false), 2000);
+    try {
+      await navigator.clipboard.writeText(children);
+      if (typeof onCopy == "function") {
+        onCopy(children);
       }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      let message = "Unable to copy code";
+      if (error instanceof Error) message = error.message;
+      setErrorCopy(true);
+      if (typeof onCopyError === "function") {
+        onCopyError(message);
+      }
+      setTimeout(() => setErrorCopy(false), 2000);
     }
   };
   const wrapElement = () => {
     setWrap(wrap => !wrap);
   };
 
-  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => (
-    <CodeContent
-      {...props}
-      ref={ref}
-    />
-  );
+  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => <CodeContent {...props} />;
   return (
     <CodeBlockContainer
       $theme={theme}
