@@ -1,4 +1,11 @@
-import { Checkbox, HorizontalDirection, Icon, IconButton, IconName } from "@/components";
+import {
+  Checkbox,
+  HorizontalDirection,
+  Icon,
+  IconButton,
+  IconName,
+  Text,
+} from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 type SortDir = "asc" | "desc";
@@ -81,6 +88,7 @@ interface TheadProps {
   onSelectAll: (checked: boolean) => void;
   showActionsHeader?: boolean;
   onSort?: SortFn;
+  hasRows: boolean;
 }
 const Thead = ({
   headers,
@@ -88,6 +96,7 @@ const Thead = ({
   onSelectAll,
   showActionsHeader,
   onSort: onSortProp,
+  hasRows,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === "function" && header.isSortable) {
@@ -99,7 +108,10 @@ const Thead = ({
       <tr>
         {isSelectable && (
           <StyledHeader>
-            <Checkbox onCheckedChange={onSelectAll} />
+            <Checkbox
+              onCheckedChange={onSelectAll}
+              disabled={!hasRows}
+            />
           </StyledHeader>
         )}
         {headers.map((headerProps, index) => (
@@ -318,6 +330,8 @@ interface CommonTableProps
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
+  loading?: boolean;
+  noDataMessage?: ReactNode;
 }
 
 type SelectReturnValue = {
@@ -418,6 +432,41 @@ const TableBodyRow = ({
   );
 };
 
+const SpanedTableData = styled(TableData)`
+  text-align: center;
+`;
+const CustomTableDataMessage = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+`;
+const LoadingData = () => {
+  return (
+    <>
+      <Icon
+        name="loading-animated"
+        size="sm"
+      />
+      <Text size="sm">Loading data</Text>
+    </>
+  );
+};
+interface CustomTableRowProps {
+  loading?: boolean;
+  noDataMessage?: ReactNode;
+  colSpan: number;
+}
+const CustomTableRow = ({ loading, noDataMessage, colSpan }: CustomTableRowProps) => {
+  return (
+    <TableRow>
+      <SpanedTableData colSpan={colSpan}>
+        <CustomTableDataMessage>
+          {loading ? <LoadingData /> : noDataMessage ?? "No Data avaialble"}
+        </CustomTableDataMessage>
+      </SpanedTableData>
+    </TableRow>
+  );
+};
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
     {
@@ -429,6 +478,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onDelete,
       onEdit,
       onSort,
+      loading,
+      noDataMessage,
       ...props
     },
     ref
@@ -467,17 +518,20 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           onSelect(selectedItems);
         }
       };
+    const hasRows = rows.length > 0;
     return (
       <TableOuterContainer>
-        <MobileActions>
-          {isSelectable && (
-            <Checkbox
-              label="Select All"
-              checked={selectedIds.length === rows.length}
-              onCheckedChange={onSelectAll}
-            />
-          )}
-        </MobileActions>
+        {hasRows && (
+          <MobileActions>
+            {isSelectable && (
+              <Checkbox
+                label="Select All"
+                checked={selectedIds.length === rows.length}
+                onCheckedChange={onSelectAll}
+              />
+            )}
+          </MobileActions>
+        )}
         <TableWrapper>
           <StyledTable
             ref={ref}
@@ -489,8 +543,20 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               onSelectAll={onSelectAll}
               showActionsHeader={isDeletable || isEditable}
               onSort={onSort}
+              hasRows={hasRows}
             />
             <Tbody>
+              {(loading || !hasRows) && (
+                <CustomTableRow
+                  colSpan={
+                    headers.length +
+                    (isEditable || isDeletable ? 1 : 0) +
+                    (isSelectable ? 1 : 0)
+                  }
+                  loading={loading}
+                  noDataMessage={noDataMessage}
+                />
+              )}
               {rows.map(({ id, ...rowProps }, rowIndex) => (
                 <TableBodyRow
                   key={`table-body-row-${rowIndex}`}
