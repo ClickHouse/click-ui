@@ -4,6 +4,7 @@ import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 
+export type CardPrimarySize = "sm" | "md";
 export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   icon: IconName;
@@ -12,12 +13,12 @@ export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   description?: ReactNode;
   infoUrl?: string;
   infoText?: string;
-  size?: "sm" | "md";
+  size?: CardPrimarySize;
   onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Wrapper = styled.div<{
-  $size?: "sm" | "md";
+  $size?: CardPrimarySize;
   $hasShadow?: boolean;
   $disabled?: boolean;
 }>`
