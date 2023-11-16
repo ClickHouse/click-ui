@@ -37,6 +37,11 @@ export type { DialogProps, DialogTriggerProps } from "@radix-ui/react-dialog";
 export type { ConfirmationDialogProps } from "./ConfirmationDialog/ConfirmationDialog";
 export type { FileTabStatusType } from "./FileTabs/FileTabs";
 export type { TableHeaderType, TableRowType, TableProps } from "./Table/Table";
+export type { BigStatProps } from "./BigStat/BigStat";
+export type {
+  VerticalStepperProps,
+  VerticalStepProps,
+} from "./VerticalStepper/VerticalStepper";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";

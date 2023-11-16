@@ -1,0 +1,212 @@
+import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
+import styled from "styled-components";
+import { Icon } from "@/components";
+
+type StepperType = "numbered" | "bulleted";
+type StepStatus = "active" | "complete" | "incomplete";
+type ContextProps = {
+  type: StepperType;
+};
+
+const StepperContext = createContext<ContextProps>({
+  type: "numbered",
+});
+
+export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
+  type?: StepperType;
+}
+
+const StepRoot = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  counter-reset: vertical-stepper;
+  width: 100%;
+`;
+
+const VerticalStepper = ({
+  children,
+  type = "numbered",
+  ...props
+}: VerticalStepperProps) => {
+  const value = {
+    type,
+  };
+  return (
+    <StepRoot {...props}>
+      <StepperContext.Provider value={value}>{children}</StepperContext.Provider>
+    </StepRoot>
+  );
+};
+const StepItem = styled.div<{
+  $type: StepperType;
+  $status: StepStatus;
+  $isOpen: boolean;
+}>`
+  position: relative;
+  width: 100%;
+  padding: 0;
+  ${({ theme, $type, $status, $isOpen }) => `
+    padding-bottom: ${
+      theme.click.stepper.vertical[$type].content.space.bottom[
+        $isOpen ? "active" : "default"
+      ]
+    };
+    &:not(:last-of-type) {
+      &::before{
+        content: "";
+        position: absolute;
+        top: ${theme.click.stepper.vertical[$type].step.size.height};
+        height: 100%;
+        left: calc(${theme.click.stepper.vertical[$type].step.size.width}  / 2 );
+        width: ${theme.click.stepper.vertical[$type].connector.size.width};
+        background: ${theme.click.stepper.vertical[$type].connector.color.stroke[$status]}
+      }
+    }
+  `}
+`;
+
+const StepTrigger = styled.button<{
+  $type: StepperType;
+  $status: StepStatus;
+}>`
+  ${({ theme, $type, $status }) => `
+    display: flex;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: ${
+      $status === "active"
+        ? "default"
+        : $status === "complete"
+        ? "pointer"
+        : "not-allowed"
+    };
+    flex-direction: row;
+    row-gap: ${theme.click.stepper.vertical[$type].content.space.gap.y};
+    column-gap: ${theme.click.stepper.vertical[$type].content.space.gap.x};
+  `}
+`;
+
+const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
+  ${({ theme, $type, $status }) => `
+    display: grid;
+    place-items: center;
+    position: relative;
+    width: ${theme.click.stepper.vertical[$type].step.size.width};
+    height: ${theme.click.stepper.vertical[$type].step.size.width};
+    border-radius: ${theme.click.stepper.vertical[$type].step.radii.default};
+    background: ${theme.click.stepper.vertical[$type].step.color.background[$status]};
+    border: 2px solid ${theme.click.stepper.vertical[$type].step.color.stroke[$status]};
+    font: ${theme.click.stepper.vertical.numbered.step.typography.number.default};
+    color: ${theme.click.stepper.vertical[$type].step.color.icon[$status]};
+    counter-increment: vertical-stepper;
+    ${
+      $type === "numbered" && $status !== "complete"
+        ? `
+        &::before {
+          font: inherit;
+          color: inherit;
+          content: counter(vertical-stepper);
+        }
+    `
+        : ""
+    }
+      ${
+        $status == "complete" && $type === "bulleted"
+          ? `
+      &::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        border-radius: inherit;
+        background: ${theme.click.stepper.vertical.bulleted.step.color.icon.complete}
+      }
+      `
+          : ""
+      };
+  `}
+`;
+
+const CheckIcon = styled(Icon)`
+  color: inherit;
+  path {
+    stroke-width: 3;
+  }
+`;
+const StepLabel = styled.div<{ $type: StepperType; $status: StepStatus }>`
+  ${({ theme, $type, $status }) => `
+    font: ${theme.click.stepper.vertical[$type].typography.title.default};
+    color: ${theme.click.stepper.vertical[$type].color.title[$status]};
+  `})
+`;
+
+const StepContent = styled.div<{ $type: StepperType }>`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  ${({ theme, $type }) => `
+    padding-left: ${theme.click.stepper.vertical[$type].content.space.left};
+  `}
+`;
+
+export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
+  status?: "active" | "complete" | "incomplete";
+  collapsed?: boolean;
+  label?: ReactNode;
+  disabled?: boolean;
+}
+
+const VerticalStep = ({
+  status = "incomplete",
+  children,
+  label,
+  collapsed = true,
+  disabled,
+  ...props
+}: VerticalStepProps) => {
+  const { type } = useContext(StepperContext);
+  const isOpen = !collapsed || status === "active";
+  return (
+    <StepItem
+      $type={type}
+      $status={status}
+      $isOpen={isOpen}
+    >
+      <StepTrigger
+        $type={type}
+        $status={status}
+        disabled={status === "incomplete" || disabled}
+        {...props}
+      >
+        <StepBubble
+          $type={type}
+          $status={status}
+        >
+          {type === "numbered" && status === "complete" ? (
+            <CheckIcon
+              name="check"
+              size="xs"
+            />
+          ) : null}
+        </StepBubble>
+        {label && (
+          <StepLabel
+            $type={type}
+            $status={status}
+          >
+            {label}
+          </StepLabel>
+        )}
+      </StepTrigger>
+      {isOpen && <StepContent $type={type}>{children}</StepContent>}
+    </StepItem>
+  );
+};
+VerticalStep.displayName = "VerticalStepper.Step";
+VerticalStepper.Step = VerticalStep;
+
+export default VerticalStepper;

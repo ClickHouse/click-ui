@@ -29,6 +29,7 @@ export default {
       control: { type: "object" },
       if: { arg: "isSelectable", exists: true },
     },
+    message: { control: "string" },
   },
 };
 
@@ -37,5 +38,6 @@ export const Playground = {
     headers,
     rows,
     selectedIds: [],
+    loading: false,
   },
 };
