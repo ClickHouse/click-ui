@@ -9,6 +9,7 @@ export { Accordion } from "./Accordion/Accordion";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
 export { Avatar } from "./Avatar/Avatar";
 export { Badge } from "./Badge/Badge";
+export { BigStat } from "./BigStat/BigStat";
 export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
 export { Button } from "./Button/Button";
 export { CardSecondary } from "./CardSecondary/CardSecondary";
