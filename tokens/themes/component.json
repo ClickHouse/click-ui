@@ -2039,7 +2039,7 @@
                 }
               },
               "left": {
-                "value": "{spaces.7}",
+                "value": "2.75rem",
                 "type": "spacing"
               },
               "bottom": {
@@ -2125,7 +2125,7 @@
                 }
               },
               "left": {
-                "value": "{spaces.7}",
+                "value": "2.25rem",
                 "type": "spacing"
               },
               "bottom": {
