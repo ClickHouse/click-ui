@@ -331,7 +331,7 @@ interface CommonTableProps
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
   loading?: boolean;
-  message: ReactNode;
+  message?: ReactNode;
 }
 
 type SelectReturnValue = {
