@@ -1790,7 +1790,7 @@
                 "x": "1rem",
                 "y": "0.5rem"
               },
-              "left": "2.5rem",
+              "left": "2.75rem",
               "bottom": {
                 "default": "2.5rem",
                 "active": "1.5rem"
@@ -1865,7 +1865,7 @@
                 "x": "1rem",
                 "y": "0.5rem"
               },
-              "left": "2.5rem",
+              "left": "2.25rem",
               "bottom": {
                 "default": "2.5rem",
                 "active": "1.5rem"
