@@ -331,7 +331,7 @@ interface CommonTableProps
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
   loading?: boolean;
-  message?: ReactNode;
+  noDataMessage?: ReactNode;
 }
 
 type SelectReturnValue = {
@@ -453,15 +453,15 @@ const LoadingData = () => {
 };
 interface CustomTableRowProps {
   loading?: boolean;
-  message?: ReactNode;
+  noDataMessage?: ReactNode;
   colSpan: number;
 }
-const CustomTableRow = ({ loading, message, colSpan }: CustomTableRowProps) => {
+const CustomTableRow = ({ loading, noDataMessage, colSpan }: CustomTableRowProps) => {
   return (
     <TableRow>
       <SpanedTableData colSpan={colSpan}>
         <CustomTableDataMessage>
-          {loading ? <LoadingData /> : message ?? "No Data avaialble"}
+          {loading ? <LoadingData /> : noDataMessage ?? "No Data avaialble"}
         </CustomTableDataMessage>
       </SpanedTableData>
     </TableRow>
@@ -479,7 +479,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onEdit,
       onSort,
       loading,
-      message,
+      noDataMessage,
       ...props
     },
     ref
@@ -554,7 +554,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                     (isSelectable ? 1 : 0)
                   }
                   loading={loading}
-                  message={message}
+                  noDataMessage={noDataMessage}
                 />
               )}
               {rows.map(({ id, ...rowProps }, rowIndex) => (
