@@ -85,46 +85,46 @@ describe("VerticalStepper", () => {
     );
 
   test("renders Stepper", () => {
-    const { queryByTestId } = renderVerticalStepper({});
-    expect(queryByTestId("stepper")).not.toBeNull();
-    expect(queryByTestId("stepper-1")).not.toBeNull();
-    expect(queryByTestId("stepper-2")).not.toBeNull();
-    expect(queryByTestId("stepper-3")).not.toBeNull();
-    expect(queryByTestId("stepper-4")).not.toBeNull();
-    expect(queryByTestId("stepper-value-1")).not.toBeNull();
-    expect(queryByTestId("stepper-value-2")).toBeNull();
-    expect(queryByTestId("stepper-value-3")).toBeNull();
-    expect(queryByTestId("stepper-value-4")).toBeNull();
+    const { queryAllByTestId } = renderVerticalStepper({});
+    expect(queryAllByTestId("stepper")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-1")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-2")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-3")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-4")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-value-1")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-value-2")).toHaveLength(0);
+    expect(queryAllByTestId("stepper-value-3")).toHaveLength(0);
+    expect(queryAllByTestId("stepper-value-4")).toHaveLength(0);
   });
 
   test("inactive step is disabled", () => {
-    const { queryByTestId, getByTestId } = renderVerticalStepper({});
+    const { queryAllByTestId, getByTestId } = renderVerticalStepper({});
 
-    expect(queryByTestId("stepper-4")).not.toBeNull();
+    expect(queryAllByTestId("stepper-4")).toHaveLength(1);
     fireEvent.click(getByTestId("stepper-4"));
     expect(label4Click).not.toBeCalled();
   });
 
   test("complete step is clickable", () => {
-    const { queryByTestId, getByTestId } = renderVerticalStepper({
+    const { queryAllByTestId, getByTestId } = renderVerticalStepper({
       activeIndex: 2,
       completed: [1],
     });
 
-    expect(queryByTestId("stepper-1")).not.toBeNull();
+    expect(queryAllByTestId("stepper-1")).toHaveLength(1);
     fireEvent.click(getByTestId("stepper-1"));
     expect(label1Click).toBeCalled();
   });
 
   test("show items with collapsible false ", () => {
-    const { queryByTestId } = renderVerticalStepper({
+    const { queryAllByTestId } = renderVerticalStepper({
       activeIndex: 2,
       completed: [1],
       showItems: [1],
     });
 
-    expect(queryByTestId("stepper-value-1")).not.toBeNull();
-    expect(queryByTestId("stepper-value-2")).not.toBeNull();
-    expect(queryByTestId("stepper-value-3")).toBeNull();
+    expect(queryAllByTestId("stepper-value-1")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-value-2")).toHaveLength(1);
+    expect(queryAllByTestId("stepper-value-3")).toHaveLength(0);
   });
 });
