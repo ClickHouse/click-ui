@@ -5,11 +5,11 @@ import { Text } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 
 export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
+  title?: string;
   icon: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
-  description: ReactNode;
+  description?: ReactNode;
   infoUrl?: string;
   infoText?: string;
   size?: "sm" | "md";
@@ -139,12 +139,14 @@ export const CardPrimary = ({
           name={icon}
           aria-hidden
         />
-        <Title type="h3">{title}</Title>
+        {title && <Title type="h3">{title}</Title>}
       </Header>
 
-      <Content $size={size}>
-        <Text color="muted">{description}</Text>
-      </Content>
+      {description && (
+        <Content $size={size}>
+          <Text color="muted">{description}</Text>
+        </Content>
+      )}
 
       {size == "sm" && <Spacer size="sm" />}
 
