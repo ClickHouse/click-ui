@@ -1,3 +1,4 @@
+import { Text } from "..";
 import VerticalStepper, { VerticalStepperProps } from "./VerticalStepper";
 const StepperExample = (props: VerticalStepperProps) => {
   return (
@@ -7,21 +8,23 @@ const StepperExample = (props: VerticalStepperProps) => {
         collapsed={false}
         status="complete"
       >
-        Text Value 1
+        <Text>Text Value 1</Text>
       </VerticalStepper.Step>
       <VerticalStepper.Step
         label="Label 2"
         status="complete"
       >
-        Text Value 2
+        <Text>Text Value 2</Text>
       </VerticalStepper.Step>
       <VerticalStepper.Step
         label="Label 3"
         status="active"
       >
-        Text Value 3
+        <Text>Text Value 3</Text>
       </VerticalStepper.Step>
-      <VerticalStepper.Step label="Label 4">Text Value 4</VerticalStepper.Step>
+      <VerticalStepper.Step label="Label 4">
+        <Text>Text Value 4</Text>
+      </VerticalStepper.Step>
     </VerticalStepper>
   );
 };
