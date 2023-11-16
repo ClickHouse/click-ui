@@ -66,6 +66,7 @@ import Loading from "@/components/icons/Loading";
 import LoadingAnimated from "@/components/icons/LoadingAnimated";
 import Metrics from "@/components/icons/Metrics";
 import MetricsAlt from "@/components/icons/MetricsAlt";
+import Pause from "@/components/icons/Pause";
 import Payment from "@/components/icons/Payment";
 import Pencil from "@/components/icons/Pencil";
 import PieChart from "@/components/icons/PieChart";
@@ -86,6 +87,7 @@ import Sparkle from "@/components/icons/Sparkle";
 import Speaker from "@/components/icons/Speaker";
 import Speed from "@/components/icons/Speed";
 import Star from "@/components/icons/Star";
+import Stop from "@/components/icons/Stop";
 import Support from "@/components/icons/Support";
 import Table from "@/components/icons/Table";
 import Taxi from "@/components/icons/Taxi";
@@ -172,6 +174,7 @@ export const ICONS_MAP = {
   "loading-animated": LoadingAnimated,
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
+  pause: Pause,
   payment: Payment,
   pencil: Pencil,
   "pie-chart": PieChart,
@@ -196,6 +199,7 @@ export const ICONS_MAP = {
   speaker: Speaker,
   speed: Speed,
   star: Star,
+  stop: Stop,
   support: Support,
   table: Table,
   taxi: Taxi,
