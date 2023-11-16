@@ -77,17 +77,16 @@ const StepTrigger = styled.button<{
     width: 100%;
     background: transparent;
     border: none;
-      cursor: ${
-        $status === "active"
-          ? "default"
-          : $status === "complete"
-          ? "pointer"
-          : "not-allowed"
-      };
-      flex-direction: row;
-      gap: ${theme.click.stepper.vertical[$type].content.space.gap.y} ${
-    theme.click.stepper.vertical[$type].content.space.gap.x
-  };
+    cursor: ${
+      $status === "active"
+        ? "default"
+        : $status === "complete"
+        ? "pointer"
+        : "not-allowed"
+    };
+    flex-direction: row;
+    row-gap: ${theme.click.stepper.vertical[$type].content.space.gap.y};
+    column-gap: ${theme.click.stepper.vertical[$type].content.space.gap.x};
   `}
 `;
 
