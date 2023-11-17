@@ -15,6 +15,7 @@ export const Playground = {
     infoText: "Read More",
     hasShadow: false,
     disabled: false,
+    isSelected: false,
     size: "md",
   },
 };

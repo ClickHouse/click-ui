@@ -4,29 +4,37 @@ import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 
+export type CardPrimarySize = "sm" | "md";
+type ContentAlignment = "start" | "center" | "end";
 export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  icon: IconName;
+  title?: string;
+  icon?: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
-  description: ReactNode;
+  description?: ReactNode;
   infoUrl?: string;
   infoText?: string;
-  size?: "sm" | "md";
+  size?: CardPrimarySize;
+  isSelected?: boolean;
+  children?: ReactNode;
+  alignContent?: ContentAlignment;
   onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Wrapper = styled.div<{
-  $size?: "sm" | "md";
+  $size?: CardPrimarySize;
   $hasShadow?: boolean;
   $disabled?: boolean;
+  $isSelected?: boolean;
+  $alignContent?: ContentAlignment;
 }>`
   background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
   border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
   display: flex;
   max-width: 100%;
-  text-align: center;
+  text-align: ${({ $alignContent }) =>
+    $alignContent === "start" ? "left" : $alignContent === "end" ? "right" : "center"};
   flex-direction: column;
   padding: ${({ $size = "md", theme }) =>
     `${theme.click.card.primary.space[$size].x} ${theme.click.card.primary.space[$size].y}`};
@@ -48,6 +56,10 @@ const Wrapper = styled.div<{
           theme.click.button.basic.color.primary.stroke.active};
       }
     }
+  }
+
+  &:active {
+    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
   }
 
   &[disabled],
@@ -72,6 +84,11 @@ const Wrapper = styled.div<{
       }
     }
   }
+
+  ${({ $isSelected, theme }) =>
+    $isSelected
+      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
+      : ""}
 `;
 
 const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
@@ -103,6 +120,7 @@ const Content = styled.div<{ $size?: "sm" | "md" }>`
 `;
 
 export const CardPrimary = ({
+  alignContent,
   title,
   icon,
   hasShadow = false,
@@ -112,6 +130,8 @@ export const CardPrimary = ({
   size,
   disabled = false,
   onButtonClick,
+  isSelected,
+  children,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -126,25 +146,32 @@ export const CardPrimary = ({
   const Component = !!infoUrl || typeof onButtonClick === "function" ? Button : "div";
   return (
     <Wrapper
+      $alignContent={alignContent}
       $hasShadow={hasShadow}
       $size={size}
       $disabled={disabled}
+      $isSelected={isSelected}
       {...props}
     >
       <Header
         $size={size}
         $disabled={disabled}
       >
-        <Icon
-          name={icon}
-          aria-hidden
-        />
-        <Title type="h3">{title}</Title>
+        {icon && (
+          <Icon
+            name={icon}
+            aria-hidden
+          />
+        )}
+        {title && <Title type="h3">{title}</Title>}
       </Header>
 
-      <Content $size={size}>
-        <Text color="muted">{description}</Text>
-      </Content>
+      {(description || children) && (
+        <Content $size={size}>
+          <Text color="muted">{description}</Text>
+          {children}
+        </Content>
+      )}
 
       {size == "sm" && <Spacer size="sm" />}
 
