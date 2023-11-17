@@ -419,12 +419,6 @@
             }
           }
         }
-      },
-      "size": {
-        "height": {
-          "value": "96px",
-          "type": "sizing"
-        }
       }
     },
     "button": {
@@ -1481,8 +1475,20 @@
         }
       },
       "radii": {
-        "all": {
+        "none": {
+          "value": "{border.radii.0}",
+          "type": "borderRadius"
+        },
+        "sm": {
           "value": "{border.radii.1}",
+          "type": "borderRadius"
+        },
+        "md": {
+          "value": "{border.radii.2}",
+          "type": "borderRadius"
+        },
+        "lg": {
+          "value": "{border.radii.3}",
           "type": "borderRadius"
         }
       },

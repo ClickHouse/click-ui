@@ -859,6 +859,10 @@
         "value": "{sizes.3}",
         "type": "borderRadius"
       },
+      "3": {
+        "value": "{sizes.4}",
+        "type": "borderRadius"
+      },
       "full": {
         "value": "9999px",
         "type": "borderRadius"
