@@ -43,7 +43,7 @@ export const BigStat = ({
 const Wrapper = styled.div<{
   $state?: bigStatState;
   $size?: bigStatSize;
-  $height?: number;
+  $height?: string;
 }>`
   display: flex;
   justify-content: center;
