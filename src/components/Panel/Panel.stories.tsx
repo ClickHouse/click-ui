@@ -11,6 +11,10 @@ export default {
       options: ["none", "xs", "sm", "md", "lg", "xl"],
       control: { type: "select" },
     },
+    radii: {
+      options: ["none", "sm", "md", "lg"],
+      control: { type: "select" },
+    },
   },
 };
 
@@ -20,6 +24,7 @@ export const Playground = {
     color: "default",
     padding: "md",
     hasBorder: true,
+    radii: "sm",
     hasShadow: true,
     fillWidth: false,
     height: "",
