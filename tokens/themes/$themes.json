@@ -1620,7 +1620,6 @@
       "click.image.xxl.size.height": "04acb5a1044417a6e86d03de75a30252fac50787",
       "click.image.xxl.size.width": "94c7ea513f29f59974f4cdaf787a9fecfda5766d",
       "click.panel.strokeWidth.default": "a6bc9b5605a9a7e0ce152dfa925937369d718b7b",
-      "click.panel.radii.all": "1dfbd75dd7ab1158fffd3d41c8817d7bed669efe",
       "click.panel.space.y.none": "a5e88da5caff79b2d1754da93da27058e684a1e8",
       "click.panel.space.y.xs": "b3f864a327d353ca2878e3bca93603c15477635a",
       "click.panel.space.y.sm": "ccbf91aad76603a7f09b272f82cc9941e3c58be3",
@@ -1897,7 +1896,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.panel.radii.sm": "1dfbd75dd7ab1158fffd3d41c8817d7bed669efe"
     },
     "group": "Default"
   },
@@ -3247,7 +3247,6 @@
       "click.image.xxl.size.height": "04acb5a1044417a6e86d03de75a30252fac50787",
       "click.image.xxl.size.width": "94c7ea513f29f59974f4cdaf787a9fecfda5766d",
       "click.panel.strokeWidth.default": "a6bc9b5605a9a7e0ce152dfa925937369d718b7b",
-      "click.panel.radii.all": "1dfbd75dd7ab1158fffd3d41c8817d7bed669efe",
       "click.panel.space.y.none": "a5e88da5caff79b2d1754da93da27058e684a1e8",
       "click.panel.space.y.xs": "b3f864a327d353ca2878e3bca93603c15477635a",
       "click.panel.space.y.sm": "ccbf91aad76603a7f09b272f82cc9941e3c58be3",
@@ -3524,7 +3523,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.panel.radii.sm": "1dfbd75dd7ab1158fffd3d41c8817d7bed669efe"
     },
     "group": "Default"
   },
@@ -4768,7 +4768,6 @@
       "click.image.xxl.size.height": "04acb5a1044417a6e86d03de75a30252fac50787",
       "click.image.xxl.size.width": "94c7ea513f29f59974f4cdaf787a9fecfda5766d",
       "click.panel.strokeWidth.default": "a6bc9b5605a9a7e0ce152dfa925937369d718b7b",
-      "click.panel.radii.all": "1dfbd75dd7ab1158fffd3d41c8817d7bed669efe",
       "click.panel.space.y.none": "a5e88da5caff79b2d1754da93da27058e684a1e8",
       "click.panel.space.y.xs": "b3f864a327d353ca2878e3bca93603c15477635a",
       "click.panel.space.y.sm": "ccbf91aad76603a7f09b272f82cc9941e3c58be3",
@@ -5045,7 +5044,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.panel.radii.sm": "1dfbd75dd7ab1158fffd3d41c8817d7bed669efe"
     }
   }
 ]

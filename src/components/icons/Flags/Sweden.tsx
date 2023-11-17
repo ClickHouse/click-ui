@@ -8,7 +8,7 @@ const Sweden = (props: React.SVGAttributes<SVGElement>): React.ReactElement => (
     fill="none"
     {...props}
   >
-    <g clip-path="url(#swedenFlagClipPath)">
+    <g clipPath="url(#swedenFlagClipPath)">
       <path
         d="M0 0H30V20H0V0Z"
         fill="#006AA7"
