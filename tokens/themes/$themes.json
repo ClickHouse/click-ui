@@ -914,7 +914,10 @@
       "click.stepper.vertical.bulleted.typography.title.default": "S:4d527d23e46aa5944cdf15223306cdde39fe39f4,",
       "click.flyout.typography.description.default": "S:73984ed5368d28c823403815d50880d3775eccbb,",
       "click.dialog.typography.title.default": "S:e2f59edd6252bf791a6180a47d50451f1b6086e0,",
-      "click.dialog.typography.description.default": "S:4cf2e020b69bb7d0fbbbed5c90bef8d939c0abc1,"
+      "click.dialog.typography.description.default": "S:4cf2e020b69bb7d0fbbbed5c90bef8d939c0abc1,",
+      "click.flyout.typography.title.default": "S:46f634ad7a9a37778621dc3e80af0cd90f017cf1,",
+      "click.grid.header.title.default": "S:1c43ea5df17165485d84158879a8b7c40b0dc50e,",
+      "click.grid.cell.text.default": "S:85d44ea9ac1130f7cf819b70f01a319b86d04e96,"
     },
     "selectedTokenSets": {
       "primitives": "enabled",
