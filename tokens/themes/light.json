@@ -3315,6 +3315,14 @@
             "default": {
               "value": "{click.global.color.stroke.default}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
             }
           },
           "text": {

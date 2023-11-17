@@ -1881,6 +1881,14 @@
             "default": {
               "value": "{click.global.color.stroke.default}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{global.color.accent.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{global.color.accent.default}",
+              "type": "color"
             }
           },
           "text": {
