@@ -7,11 +7,7 @@ export default {
   size: {
     options: ["lg", "sm"],
     control: { type: "radio" },
-  },
-  height: {
-    options: ["fixed", "fluid"],
-    control: { type: "radio" },
-  },
+  }
 };
 
 export const Playground = {
@@ -20,6 +16,6 @@ export const Playground = {
     title: "100%",
     state: "default",
     size: "lg",
-    height: "fixed"
+    height: ""
   },
 };

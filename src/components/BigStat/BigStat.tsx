@@ -7,7 +7,7 @@ export type bigStatHeight = "fixed" | "fluid";
 export interface BigStatProps {
   label: React.ReactNode;
   title: React.ReactNode;
-  height?: bigStatHeight;
+  height?: string;
   state?: bigStatState;
   size?: bigStatSize;
 }
@@ -16,7 +16,7 @@ export interface BigStatProps {
 export const BigStat = ({
   label = "Label",
   title = "Title",
-  height = "fixed",
+  height = "6rem",
   size,
   state,
 }: BigStatProps) => (
@@ -43,7 +43,7 @@ export const BigStat = ({
 const Wrapper = styled.div<{
   $state?: bigStatState;
   $size?: bigStatSize;
-  $height?: bigStatHeight;
+  $height?: number;
 }>`
   display: flex;
   justify-content: center;
@@ -58,7 +58,7 @@ const Wrapper = styled.div<{
   };
     gap: ${theme.click.bigStat.space.gap};
     padding: ${$height === "fixed" ? `0 ${theme.click.bigStat.space.all}` : theme.click.bigStat.space.all};
-    min-height: ${$height === "fixed" ? theme.click.bigStat.size.height : "auto"};
+    min-height: ${$height !== undefined ? `${$height}` : "auto"};
     flex-direction: ${$size === "sm" ? "column-reverse" : "column"};
   `}
 `;
