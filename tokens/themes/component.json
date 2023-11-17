@@ -2696,6 +2696,12 @@
               "type": "spacing"
             }
           }
+        },
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.text.medium.sm}",
+            "type": "typography"
+          }
         }
       },
       "body": {
@@ -2709,6 +2715,14 @@
               "value": "{spaces.2}",
               "type": "spacing"
             }
+          }
+        }
+      },
+      "cell": {
+        "text": {
+          "default": {
+            "value": "{typography.styles.product.text.mono.md}",
+            "type": "typography"
           }
         }
       }
