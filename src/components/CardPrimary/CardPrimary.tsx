@@ -14,6 +14,7 @@ export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   infoUrl?: string;
   infoText?: string;
   size?: CardPrimarySize;
+  isSelected?: boolean;
   onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
@@ -21,6 +22,7 @@ const Wrapper = styled.div<{
   $size?: CardPrimarySize;
   $hasShadow?: boolean;
   $disabled?: boolean;
+  $isSelected?: boolean;
 }>`
   background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
@@ -51,7 +53,7 @@ const Wrapper = styled.div<{
     }
   }
 
-  &.selected, &:active  {
+  &:active {
     border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
   }
 
@@ -77,6 +79,11 @@ const Wrapper = styled.div<{
       }
     }
   }
+
+  ${({ $isSelected, theme }) =>
+    $isSelected
+      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
+      : ""}
 `;
 
 const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
@@ -117,6 +124,7 @@ export const CardPrimary = ({
   size,
   disabled = false,
   onButtonClick,
+  isSelected,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -134,16 +142,19 @@ export const CardPrimary = ({
       $hasShadow={hasShadow}
       $size={size}
       $disabled={disabled}
+      $isSelected={isSelected}
       {...props}
     >
       <Header
         $size={size}
         $disabled={disabled}
       >
-        {icon && <Icon
-          name={icon}
-          aria-hidden
-        /> } 
+        {icon && (
+          <Icon
+            name={icon}
+            aria-hidden
+          />
+        )}
         {title && <Title type="h3">{title}</Title>}
       </Header>
 
