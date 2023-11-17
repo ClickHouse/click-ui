@@ -283,9 +283,6 @@
           }
         }
       },
-      "size": {
-        "height": string
-      },
       "color": {
         "stroke": {
           "default": string
@@ -1355,7 +1352,10 @@
         "default": string
       },
       "radii": {
-        "all": string
+        "none": string,
+        "sm": string,
+        "md": string,
+        "lg": string
       },
       "stroke": {
         "default": string
@@ -2698,6 +2698,7 @@
       "0": string,
       "1": string,
       "2": string,
+      "3": string,
       "full": string
     },
     "width": {

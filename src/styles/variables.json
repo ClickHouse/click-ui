@@ -282,9 +282,6 @@
           }
         }
       },
-      "size": {
-        "height": "6rem"
-      },
       "color": {
         "stroke": {
           "default": "lch(91.6 1.1 266)"
@@ -1354,7 +1351,10 @@
         "default": "1px"
       },
       "radii": {
-        "all": "0.25rem"
+        "none": "0",
+        "sm": "0.25rem",
+        "md": "0.5rem",
+        "lg": "0.75rem"
       },
       "stroke": {
         "default": "1px solid lch(91.6 1.1 266)"
@@ -2697,6 +2697,7 @@
       "0": "0",
       "1": "0.25rem",
       "2": "0.5rem",
+      "3": "0.75rem",
       "full": "9999px"
     },
     "width": {
