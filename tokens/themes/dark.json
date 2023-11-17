@@ -2471,12 +2471,21 @@
               "type": "color"
             },
             "hover": {
-              "value": "{palette.neutral.800}",
+              "value": "{click.table.row.color.background.default}",
               "type": "color"
             },
             "active": {
               "value": "{click.table.row.color.background.hover}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           },
           "stroke": {
@@ -3408,12 +3417,21 @@
               "type": "color"
             },
             "hover": {
-              "value": "{palette.neutral.800}",
+              "value": "{click.grid.row.color.background.default}",
               "type": "color"
             },
             "active": {
               "value": "{click.table.row.color.background.hover}",
-              "type": "color"
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           },
           "stroke": {
