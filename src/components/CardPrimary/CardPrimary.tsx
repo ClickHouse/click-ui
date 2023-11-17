@@ -51,6 +51,10 @@ const Wrapper = styled.div<{
     }
   }
 
+  &.selected, &:active  {
+    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
+  }
+
   &[disabled],
   &[disabled]:hover,
   &[disabled]:active {
