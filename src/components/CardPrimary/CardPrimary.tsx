@@ -7,7 +7,7 @@ import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react"
 export type CardPrimarySize = "sm" | "md";
 export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
-  icon: IconName;
+  icon?: IconName;
   hasShadow?: boolean;
   disabled?: boolean;
   description?: ReactNode;
@@ -49,6 +49,10 @@ const Wrapper = styled.div<{
           theme.click.button.basic.color.primary.stroke.active};
       }
     }
+  }
+
+  &.selected, &:active  {
+    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
   }
 
   &[disabled],
@@ -136,10 +140,10 @@ export const CardPrimary = ({
         $size={size}
         $disabled={disabled}
       >
-        <Icon
+        {icon && <Icon
           name={icon}
           aria-hidden
-        />
+        /> } 
         {title && <Title type="h3">{title}</Title>}
       </Header>
 
