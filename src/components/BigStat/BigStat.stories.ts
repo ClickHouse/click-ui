@@ -7,7 +7,7 @@ export default {
   size: {
     options: ["lg", "sm"],
     control: { type: "radio" },
-  },
+  }
 };
 
 export const Playground = {
@@ -15,6 +15,7 @@ export const Playground = {
     label: "Percentage complete",
     title: "100%",
     state: "default",
-    size: "lg"
+    size: "lg",
+    height: ""
   },
 };

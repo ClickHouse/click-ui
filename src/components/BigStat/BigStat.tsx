@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export type bigStatState = "default";
 export type bigStatSize = "sm" | "lg";
+export type bigStatHeight = "fixed" | "fluid";
 
 export interface BigStatProps {
   label: React.ReactNode;
   title: React.ReactNode;
+  height?: string;
   state?: bigStatState;
   size?: bigStatSize;
 }
@@ -14,12 +16,14 @@ export interface BigStatProps {
 export const BigStat = ({
   label = "Label",
   title = "Title",
+  height = "6rem",
   size,
   state,
 }: BigStatProps) => (
   <Wrapper
     $state={state}
     $size={size}
+    $height={height}
   >
     <Label
       $state={state}
@@ -39,9 +43,12 @@ export const BigStat = ({
 const Wrapper = styled.div<{
   $state?: bigStatState;
   $size?: bigStatSize;
+  $height?: string;
 }>`
   display: flex;
-  ${({ $state = "default", $size = "lg", theme }) => `
+  justify-content: center;
+  box-sizing: border-box;
+  ${({ $state = "default", $size = "lg", $height = "fixed", theme }) => `
     background-color: ${theme.click.bigStat.color.background[$state]};
     color: ${theme.click.bigStat.color.label[$state]};
     font: ${theme.click.bigStat.typography[$size].label[$state]};
@@ -50,7 +57,8 @@ const Wrapper = styled.div<{
     theme.click.bigStat.color.stroke[$state]
   };
     gap: ${theme.click.bigStat.space.gap};
-    padding: ${theme.click.bigStat.space.all};
+    padding: ${$height === "fixed" ? `0 ${theme.click.bigStat.space.all}` : theme.click.bigStat.space.all};
+    min-height: ${$height !== undefined ? `${$height}` : "auto"};
     flex-direction: ${$size === "sm" ? "column-reverse" : "column"};
   `}
 `;
