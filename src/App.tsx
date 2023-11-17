@@ -301,7 +301,6 @@ const App = () => {
             infoUrl="#"
             style={{ display: "flex", width: "100%" }}
           />
-
           <CardPrimary
             title="Card title"
             icon="building"
@@ -310,6 +309,19 @@ const App = () => {
             infoUrl="#"
             style={{ display: "flex", width: "100%" }}
           />
+        </div>
+        <div style={{ width: "300px" }}>
+          <CardPrimary
+            title="Development"
+            alignContent="start"
+          >
+            <ul>
+              <Text as="li">Designed to handle larger production workloads</Text>
+              <Text as="li">Unlimited storage with 24 GB + total memory</Text>
+              <Text as="li">Usage based pricing</Text>
+              <Text as="li">Includes 3 availability zones</Text>
+            </ul>
+          </CardPrimary>
         </div>
         <ButtonGroup
           options={[
