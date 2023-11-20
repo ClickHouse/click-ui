@@ -3357,113 +3357,169 @@
     },
     "grid": {
       "header": {
-        "color": {
-          "background": {
-            "default": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.025",
-                    "space": "lch"
+        "cell": {
+          "color": {
+            "background": {
+              "default": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color"
+              },
+              "selectIndirect": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.04",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "selectDirect": {
+                "value": "{palette.neutral.700}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.01",
+                      "space": "lch"
+                    }
                   }
                 }
               }
-            }
-          },
-          "title": {
-            "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          },
-          "icon": {
-            "default": {
-              "value": "{click.image.color.stroke}",
-              "type": "color"
-            }
-          },
-          "checkbox": {
-            "background": {
+            },
+            "title": {
               "default": {
-                "value": "{palette.slate.200}",
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              },
+              "selectIndirect": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "selectDirect": {
+                "value": "{click.global.color.text.default}",
                 "type": "color"
               }
             },
-            "border": {
+            "stroke": {
               "default": {
-                "value": "{palette.slate.500}",
-                "type": "color"
+                "value": "{click.global.color.stroke.default}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.025",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "selectIndirect": {
+                "value": "{palette.neutral.700}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.025",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "selectDirect": {
+                "value": "{click.grid.header.cell.color.stroke.selectIndirect}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.035",
+                      "space": "lch"
+                    }
+                  }
+                }
               }
             }
           }
         }
       },
-      "row": {
-        "color": {
-          "background": {
-            "default": {
-              "value": "{click.global.color.background.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.grid.row.color.background.default}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.table.row.color.background.hover}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.025",
-                    "space": "lch"
+      "body": {
+        "cell": {
+          "color": {
+            "background": {
+              "default": {
+                "value": "{click.global.color.background.default}",
+                "type": "color"
+              },
+              "selectIndirect": {
+                "value": "{palette.neutral.725}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.02",
+                      "space": "lch"
+                    }
                   }
                 }
+              },
+              "selectDirect": {
+                "value": "{click.grid.body.cell.color.background.selectIndirect}",
+                "type": "color"
               }
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
             },
-            "hover": {
-              "value": "{click.global.color.accent.default}",
-              "type": "color"
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke.default}",
+                "type": "color"
+              },
+              "selectIndirect": {
+                "value": "{palette.neutral.700}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "darken",
+                      "value": "0.2",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "selectDirect": {
+                "value": "{click.global.color.accent.default}",
+                "type": "color"
+              }
             },
-            "active": {
-              "value": "{click.global.color.accent.default}",
-              "type": "color"
-            }
-          },
-          "text": {
-            "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          },
-          "link": {
-            "default": {
-              "value": "{click.global.color.text.link.default}",
-              "type": "color"
-            }
-          },
-          "label": {
-            "default": {
-              "value": "{click.field.color.label.default}",
-              "type": "color"
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.0025",
+                      "space": "lch"
+                    }
+                  }
+                }
+              },
+              "selectIndirect": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "selectDirect": {
+                "value": "{click.grid.body.cell.color.text.selectIndirect}",
+                "type": "color"
+              }
             }
           }
         }

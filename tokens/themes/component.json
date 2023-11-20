@@ -2717,6 +2717,12 @@
               "value": "{spaces.2}",
               "type": "spacing"
             }
+          },
+          "size": {
+            "height": {
+              "value": "{sizes.9}",
+              "type": "sizing"
+            }
           }
         },
         "title": {
@@ -2737,6 +2743,12 @@
               "value": "{spaces.2}",
               "type": "spacing"
             }
+          },
+          "size": {
+            "height": {
+              "value": "{sizes.9}",
+              "type": "sizing"
+            }
           }
         }
       },
@@ -2747,6 +2759,24 @@
             "type": "typography"
           }
         }
+      },
+      "radii": {
+        "none": {
+          "value": "{border.radii.0}",
+          "type": "borderRadius"
+        },
+        "sm": {
+          "value": "{border.radii.1}",
+          "type": "borderRadius"
+        },
+        "md": {
+          "value": "{border.radii.2}",
+          "type": "borderRadius"
+        },
+        "lg": {
+          "value": "{border.radii.3}",
+          "type": "borderRadius"
+        }
       }
     }
   },
@@ -2754,6 +2784,44 @@
     "default": {
       "value": "all {transition.duration.medium} {transition.function.ease-in} {transition.delay.fast}",
       "type": "other"
+    }
+  },
+  "grid": {
+    "header": {
+      "cell": {
+        "borderWidth": {
+          "default": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
+          },
+          "selectIndirect": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
+          },
+          "selectDirect": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
+          }
+        }
+      }
+    },
+    "body": {
+      "cell": {
+        "borderWidth": {
+          "default": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
+          },
+          "selectIndirect": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
+          },
+          "selectDirect": {
+            "value": "{border.width.2}",
+            "type": "borderWidth"
+          }
+        }
+      }
     }
   }
 }
