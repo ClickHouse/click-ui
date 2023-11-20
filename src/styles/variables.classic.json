@@ -663,6 +663,64 @@
         }
       }
     },
+    "grid": {
+      "header": {
+        "color": {
+          "background": {
+            "default": "#f6f7fa",
+            "hover": "#f6f7fa",
+            "active": "lch(94.8 1.53 272)"
+          },
+          "title": {
+            "default": "#161517"
+          },
+          "icon": {
+            "default": "#161517"
+          },
+          "checkbox": {
+            "background": {
+              "default": "#cccfd3"
+            },
+            "border": {
+              "default": "#808691"
+            }
+          }
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "#dae6fc",
+            "active": "lch(91.1 11.9 266)"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266)",
+            "hover": "#FFC029",
+            "active": "#FFC029"
+          },
+          "text": {
+            "default": "#161517"
+          },
+          "link": {
+            "default": "#C78F0F"
+          },
+          "label": {
+            "default": "#696e79"
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": "lch(91.6 1.1 266)"
+          },
+          "background": {
+            "default": "#ffffff"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "text": {

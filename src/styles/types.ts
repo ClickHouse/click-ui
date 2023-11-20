@@ -1939,7 +1939,9 @@
         },
         "color": {
           "background": {
-            "default": string
+            "default": string,
+            "hover": string,
+            "active": string
           },
           "title": {
             "default": string
@@ -2310,6 +2312,30 @@
             "y": string,
             "x": string
           }
+        },
+        "title": {
+          "default": string
+        },
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "title": {
+            "default": string
+          },
+          "icon": {
+            "default": string
+          },
+          "checkbox": {
+            "background": {
+              "default": string
+            },
+            "border": {
+              "default": string
+            }
+          }
         }
       },
       "body": {
@@ -2320,26 +2346,41 @@
           }
         }
       },
-      "color": {
-        "background": {
-          "header": {
-            "default": string
-          },
-          "row": {
-            "default": string
-          }
-        },
+      "cell": {
         "text": {
-          "header": {
+          "default": string
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
             "default": string
           },
-          "row": {
+          "link": {
+            "default": string
+          },
+          "label": {
             "default": string
           }
-        },
-        "stroke": {
-          "cell": {
-            "stroke": string
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": string
+          },
+          "background": {
+            "default": string
           }
         }
       }

@@ -1938,7 +1938,9 @@
         },
         "color": {
           "background": {
-            "default": "#f6f7fa"
+            "default": "#f6f7fa",
+            "hover": "#f6f7fa",
+            "active": "lch(97.3 1.53 272)"
           },
           "title": {
             "default": "#161517"
@@ -1996,7 +1998,7 @@
           "background": {
             "default": "#ffffff",
             "hover": "#dae6fc",
-            "active": "#dae6fc"
+            "active": "lch(91.1 11.9 266)"
           },
           "stroke": {
             "default": "lch(91.6 1.1 266)"
@@ -2309,6 +2311,30 @@
             "y": "0.438rem",
             "x": "0.5rem"
           }
+        },
+        "title": {
+          "default": "500 0.75rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+        },
+        "color": {
+          "background": {
+            "default": "#f6f7fa",
+            "hover": "#f6f7fa",
+            "active": "lch(94.8 1.53 272)"
+          },
+          "title": {
+            "default": "#161517"
+          },
+          "icon": {
+            "default": "#161517"
+          },
+          "checkbox": {
+            "background": {
+              "default": "#cccfd3"
+            },
+            "border": {
+              "default": "#808691"
+            }
+          }
         }
       },
       "body": {
@@ -2319,26 +2345,41 @@
           }
         }
       },
-      "color": {
-        "background": {
-          "header": {
-            "default": "lch(97.2 1.57 272 / 0.7)"
-          },
-          "row": {
-            "default": "#ffffff"
-          }
-        },
+      "cell": {
         "text": {
-          "header": {
-            "default": "#696e79"
+          "default": "500 0.875rem/1.7 \"Inconsolata\", '\"SFMono Regular\"', monospace"
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": "#ffffff",
+            "hover": "#dae6fc",
+            "active": "lch(91.1 11.9 266)"
           },
-          "row": {
+          "stroke": {
+            "default": "lch(91.6 1.1 266)",
+            "hover": "#151515",
+            "active": "#151515"
+          },
+          "text": {
             "default": "#161517"
+          },
+          "link": {
+            "default": "#135be6"
+          },
+          "label": {
+            "default": "#696e79"
           }
-        },
-        "stroke": {
-          "cell": {
-            "stroke": "lch(91.6 1.1 266)"
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": "lch(91.6 1.1 266)"
+          },
+          "background": {
+            "default": "#ffffff"
           }
         }
       }

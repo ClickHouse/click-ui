@@ -994,7 +994,9 @@
       "header": {
         "color": {
           "background": {
-            "default": "#282828"
+            "default": "#282828",
+            "hover": "#282828",
+            "active": "lch(18.2 0 0)"
           },
           "title": {
             "default": "#ffffff"
@@ -1016,8 +1018,8 @@
         "color": {
           "background": {
             "default": "#1F1F1C",
-            "hover": "#1d1d1d",
-            "active": "#1d1d1d"
+            "hover": "#1F1F1C",
+            "active": "lch(13.9 2.07 105)"
           },
           "stroke": {
             "default": "lch(27.5 0 0 / 0.3)"
@@ -1152,26 +1154,59 @@
       }
     },
     "grid": {
-      "color": {
-        "background": {
-          "header": {
-            "default": "lch(16.1 0 0 / 0.7)"
+      "header": {
+        "color": {
+          "background": {
+            "default": "#282828",
+            "hover": "#282828",
+            "active": "lch(18.2 0 0)"
           },
-          "row": {
-            "default": "#1F1F1C"
-          }
-        },
-        "text": {
-          "header": {
-            "default": "#b3b6bd"
-          },
-          "row": {
+          "title": {
             "default": "#ffffff"
+          },
+          "icon": {
+            "default": "#ffffff"
+          },
+          "checkbox": {
+            "background": {
+              "default": "#cccfd3"
+            },
+            "border": {
+              "default": "#808691"
+            }
           }
-        },
-        "stroke": {
-          "cell": {
-            "stroke": "lch(27.5 0 0 / 0.3)"
+        }
+      },
+      "row": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C",
+            "hover": "#1F1F1C",
+            "active": "lch(13.9 2.07 105)"
+          },
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)",
+            "hover": "#FAFF69",
+            "active": "#FAFF69"
+          },
+          "text": {
+            "default": "#ffffff"
+          },
+          "link": {
+            "default": "#FAFF69"
+          },
+          "label": {
+            "default": "#b3b6bd"
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": "lch(27.5 0 0 / 0.3)"
+          },
+          "background": {
+            "default": "#1F1F1C"
           }
         }
       }
