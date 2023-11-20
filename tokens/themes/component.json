@@ -900,6 +900,28 @@
               "type": "typography"
             }
           }
+        },
+        "icon": {
+          "size": {
+            "all": {
+              "value": "{sizes.7}",
+              "type": "sizing"
+            }
+          }
+        },
+        "space": {
+          "y": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          }
         }
       }
     },
