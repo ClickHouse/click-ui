@@ -42,6 +42,7 @@ export type {
   VerticalStepperProps,
   VerticalStepProps,
 } from "./VerticalStepper/VerticalStepper";
+export type { CardHorizontalProps } from "./CardHorizontal/CardHorizontal";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
