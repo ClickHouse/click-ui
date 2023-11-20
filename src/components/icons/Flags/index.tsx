@@ -3,6 +3,7 @@ import UnitedStates from "./UnitedStates";
 import UnitedKingdom from "./UnitedKingdom";
 import EuropeanUnion from "./EuropeanUnion";
 import Germany from "./Germany";
+import GreatBritain from "./GreatBritain";
 import Singapore from "./Singapore";
 import Ireland from "./Ireland";
 import India from "./India";
@@ -21,9 +22,10 @@ export type FlagName =
   | "ca"
   | "de"
   | "eu"
+  | "gb"
   | "in"
-  | "nl"
   | "ie"
+  | "nl"
   | "sg"
   | "sw"
   | "usa"
@@ -40,6 +42,7 @@ export const FlagList = {
   ca: Canada,
   de: Germany,
   eu: EuropeanUnion,
+  gb: GreatBritain,
   ie: Ireland,
   in: India,
   nl: Netherlands,
