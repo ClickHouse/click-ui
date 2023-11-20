@@ -3148,21 +3148,13 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.background.muted}",
+              "value": "{click.grid.header.cell.color.background.selectIndirect}",
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.background.muted}",
+              "value": "{click.table.header.color.background.hover}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "darken",
-                    "value": "0.025",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
             }
           },
           "title": {
@@ -3201,7 +3193,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{palette.info.50}",
+              "value": "{click.grid.body.cell.color.background.selectIndirect}",
               "type": "color"
             },
             "active": {
