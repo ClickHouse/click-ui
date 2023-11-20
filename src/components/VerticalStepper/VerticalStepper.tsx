@@ -43,10 +43,14 @@ const StepItem = styled.div<{
   $status: StepStatus;
   $isOpen: boolean;
 }>`
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   padding: 0;
   ${({ theme, $type, $status, $isOpen }) => `
+    row-gap: ${theme.click.stepper.vertical[$type].content.space.gap.y};
+    column-gap: ${theme.click.stepper.vertical[$type].content.space.gap.x};
     padding-bottom: ${
       theme.click.stepper.vertical[$type].content.space.bottom[
         $isOpen ? "active" : "default"
@@ -67,16 +71,16 @@ const StepItem = styled.div<{
 `;
 
 const StepTrigger = styled.button<{
-  $type: StepperType;
   $status: StepStatus;
 }>`
-  ${({ theme, $type, $status }) => `
+  ${({ $status }) => `
     display: flex;
     align-items: center;
     padding: 0;
     width: 100%;
     background: transparent;
     border: none;
+    gap: inherit;
     cursor: ${
       $status === "active"
         ? "default"
@@ -85,8 +89,6 @@ const StepTrigger = styled.button<{
         : "not-allowed"
     };
     flex-direction: row;
-    row-gap: ${theme.click.stepper.vertical[$type].content.space.gap.y};
-    column-gap: ${theme.click.stepper.vertical[$type].content.space.gap.x};
   `}
 `;
 
@@ -138,9 +140,12 @@ const CheckIcon = styled(Icon)`
   }
 `;
 const StepLabel = styled.div<{ $type: StepperType; $status: StepStatus }>`
+  display: flex;
+  flex-direction: column;
   ${({ theme, $type, $status }) => `
     font: ${theme.click.stepper.vertical[$type].typography.title.default};
     color: ${theme.click.stepper.vertical[$type].color.title[$status]};
+    gap: inherit;
   `})
 `;
 
@@ -177,7 +182,6 @@ const VerticalStep = ({
       $isOpen={isOpen}
     >
       <StepTrigger
-        $type={type}
         $status={status}
         disabled={status === "incomplete" || disabled}
         {...props}
