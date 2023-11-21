@@ -828,6 +828,16 @@
             "disabled": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
           }
         },
+        "icon": {
+          "size": {
+            "all": "1.5rem"
+          }
+        },
+        "space": {
+          "y": "0.75rem",
+          "x": "1.5rem",
+          "gap": "1rem"
+        },
         "default": {
           "color": {
             "background": {
@@ -1939,8 +1949,8 @@
         "color": {
           "background": {
             "default": "#f6f7fa",
-            "hover": "#f6f7fa",
-            "active": "lch(97.3 1.53 272)"
+            "hover": "lch(93.2 9.14 266)",
+            "active": "lch(93.4 8.91 266)"
           },
           "title": {
             "default": "#161517"
@@ -1997,8 +2007,8 @@
         "color": {
           "background": {
             "default": "#ffffff",
-            "hover": "#dae6fc",
-            "active": "lch(91.1 11.9 266)"
+            "hover": "lch(90.9 12.2 266 / 0.2)",
+            "active": "lch(91.1 11.9 266 / 0.2)"
           },
           "stroke": {
             "default": "lch(91.6 1.1 266)"
@@ -2310,31 +2320,30 @@
           "space": {
             "y": "0.438rem",
             "x": "0.5rem"
+          },
+          "size": {
+            "height": "2rem"
+          },
+          "color": {
+            "background": {
+              "default": "#f6f7fa",
+              "selectIndirect": "lch(93.2 9.14 266)",
+              "selectDirect": "lch(90 12.1 266)"
+            },
+            "title": {
+              "default": "#696e79",
+              "selectIndirect": "#161517",
+              "selectDirect": "#161517"
+            },
+            "stroke": {
+              "default": "lch(89.3 1.07 266)",
+              "selectIndirect": "lch(88.6 11.9 266)",
+              "selectDirect": "lch(79.7 24 268)"
+            }
           }
         },
         "title": {
           "default": "500 0.75rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
-        },
-        "color": {
-          "background": {
-            "default": "#f6f7fa",
-            "hover": "#f6f7fa",
-            "active": "lch(94.8 1.53 272)"
-          },
-          "title": {
-            "default": "#161517"
-          },
-          "icon": {
-            "default": "#161517"
-          },
-          "checkbox": {
-            "background": {
-              "default": "#cccfd3"
-            },
-            "border": {
-              "default": "#808691"
-            }
-          }
         }
       },
       "body": {
@@ -2342,6 +2351,26 @@
           "space": {
             "y": "0.25rem",
             "x": "0.5rem"
+          },
+          "size": {
+            "height": "2rem"
+          },
+          "color": {
+            "background": {
+              "default": "#ffffff",
+              "selectIndirect": "lch(90.9 12.2 266 / 0.2)",
+              "selectDirect": "lch(90.9 12.2 266 / 0.2)"
+            },
+            "stroke": {
+              "default": "lch(91.6 1.1 266)",
+              "selectIndirect": "lch(65.4 19.7 268)",
+              "selectDirect": "#135be6"
+            },
+            "text": {
+              "default": "lch(7.17 1.44 305)",
+              "selectIndirect": "#161517",
+              "selectDirect": "#161517"
+            }
           }
         }
       },
@@ -2350,28 +2379,11 @@
           "default": "500 0.875rem/1.7 \"Inconsolata\", '\"SFMono Regular\"', monospace"
         }
       },
-      "row": {
-        "color": {
-          "background": {
-            "default": "#ffffff",
-            "hover": "#dae6fc",
-            "active": "lch(91.1 11.9 266)"
-          },
-          "stroke": {
-            "default": "lch(91.6 1.1 266)",
-            "hover": "#151515",
-            "active": "#151515"
-          },
-          "text": {
-            "default": "#161517"
-          },
-          "link": {
-            "default": "#135be6"
-          },
-          "label": {
-            "default": "#696e79"
-          }
-        }
+      "radii": {
+        "none": "0",
+        "sm": "0.25rem",
+        "md": "0.5rem",
+        "lg": "0.75rem"
       },
       "global": {
         "color": {
@@ -2461,6 +2473,26 @@
       "ease-in": "ease-in",
       "ease-in-out": "ease-in-out",
       "linear": "linear"
+    }
+  },
+  "grid": {
+    "header": {
+      "cell": {
+        "borderWidth": {
+          "default": "1px",
+          "selectIndirect": "1px",
+          "selectDirect": "1px"
+        }
+      }
+    },
+    "body": {
+      "cell": {
+        "borderWidth": {
+          "default": "1px",
+          "selectIndirect": "1px",
+          "selectDirect": "2px"
+        }
+      }
     }
   },
   "name": "light",

@@ -1155,48 +1155,44 @@
     },
     "grid": {
       "header": {
-        "color": {
-          "background": {
-            "default": "#282828",
-            "hover": "#282828",
-            "active": "lch(18.2 0 0)"
-          },
-          "title": {
-            "default": "#ffffff"
-          },
-          "icon": {
-            "default": "#ffffff"
-          },
-          "checkbox": {
+        "cell": {
+          "color": {
             "background": {
-              "default": "#cccfd3"
+              "default": "#282828",
+              "selectIndirect": "lch(19.5 0 0)",
+              "selectDirect": "lch(27.3 0 0)"
             },
-            "border": {
-              "default": "#808691"
+            "title": {
+              "default": "#b3b6bd",
+              "selectIndirect": "#ffffff",
+              "selectDirect": "#ffffff"
+            },
+            "stroke": {
+              "default": "lch(26.8 0 0 / 0.3)",
+              "selectIndirect": "lch(26.8 0 0)",
+              "selectDirect": "lch(29.4 0 0)"
             }
           }
         }
       },
-      "row": {
-        "color": {
-          "background": {
-            "default": "#1F1F1C",
-            "hover": "#1F1F1C",
-            "active": "lch(13.9 2.07 105)"
-          },
-          "stroke": {
-            "default": "lch(27.5 0 0 / 0.3)",
-            "hover": "#FAFF69",
-            "active": "#FAFF69"
-          },
-          "text": {
-            "default": "#ffffff"
-          },
-          "link": {
-            "default": "#FAFF69"
-          },
-          "label": {
-            "default": "#b3b6bd"
+      "body": {
+        "cell": {
+          "color": {
+            "background": {
+              "default": "#1F1F1C",
+              "selectIndirect": "lch(15.8 0 0)",
+              "selectDirect": "lch(15.8 0 0)"
+            },
+            "stroke": {
+              "default": "lch(27.5 0 0 / 0.3)",
+              "selectIndirect": "lch(22 0 0)",
+              "selectDirect": "#FAFF69"
+            },
+            "text": {
+              "default": "lch(100 0 0)",
+              "selectIndirect": "#ffffff",
+              "selectDirect": "#ffffff"
+            }
           }
         }
       },

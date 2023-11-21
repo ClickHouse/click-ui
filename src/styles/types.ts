@@ -829,6 +829,16 @@
             "disabled": string
           }
         },
+        "icon": {
+          "size": {
+            "all": string
+          }
+        },
+        "space": {
+          "y": string,
+          "x": string,
+          "gap": string
+        },
         "default": {
           "color": {
             "background": {
@@ -2311,31 +2321,30 @@
           "space": {
             "y": string,
             "x": string
+          },
+          "size": {
+            "height": string
+          },
+          "color": {
+            "background": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "title": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "stroke": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            }
           }
         },
         "title": {
           "default": string
-        },
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "title": {
-            "default": string
-          },
-          "icon": {
-            "default": string
-          },
-          "checkbox": {
-            "background": {
-              "default": string
-            },
-            "border": {
-              "default": string
-            }
-          }
         }
       },
       "body": {
@@ -2343,6 +2352,26 @@
           "space": {
             "y": string,
             "x": string
+          },
+          "size": {
+            "height": string
+          },
+          "color": {
+            "background": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "stroke": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "text": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            }
           }
         }
       },
@@ -2351,28 +2380,11 @@
           "default": string
         }
       },
-      "row": {
-        "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "stroke": {
-            "default": string,
-            "hover": string,
-            "active": string
-          },
-          "text": {
-            "default": string
-          },
-          "link": {
-            "default": string
-          },
-          "label": {
-            "default": string
-          }
-        }
+      "radii": {
+        "none": string,
+        "sm": string,
+        "md": string,
+        "lg": string
       },
       "global": {
         "color": {
@@ -2462,6 +2474,26 @@
       "ease-in": string,
       "ease-in-out": string,
       "linear": string
+    }
+  },
+  "grid": {
+    "header": {
+      "cell": {
+        "borderWidth": {
+          "default": string,
+          "selectIndirect": string,
+          "selectDirect": string
+        }
+      }
+    },
+    "body": {
+      "cell": {
+        "borderWidth": {
+          "default": string,
+          "selectIndirect": string,
+          "selectDirect": string
+        }
+      }
     }
   },
   "name": string,

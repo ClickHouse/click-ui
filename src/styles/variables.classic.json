@@ -665,48 +665,44 @@
     },
     "grid": {
       "header": {
-        "color": {
-          "background": {
-            "default": "#f6f7fa",
-            "hover": "#f6f7fa",
-            "active": "lch(94.8 1.53 272)"
-          },
-          "title": {
-            "default": "#161517"
-          },
-          "icon": {
-            "default": "#161517"
-          },
-          "checkbox": {
+        "cell": {
+          "color": {
             "background": {
-              "default": "#cccfd3"
+              "default": "#f6f7fa",
+              "selectIndirect": "lch(99.6 3.76 101)",
+              "selectDirect": "lch(97.5 12 97.4)"
             },
-            "border": {
-              "default": "#808691"
+            "title": {
+              "default": "#696e79",
+              "selectIndirect": "#161517",
+              "selectDirect": "#161517"
+            },
+            "stroke": {
+              "default": "lch(89.3 1.07 266)",
+              "selectIndirect": "lch(92.8 31.1 85.9)",
+              "selectDirect": "lch(90.9 28.1 85.9)"
             }
           }
         }
       },
-      "row": {
-        "color": {
-          "background": {
-            "default": "#ffffff",
-            "hover": "#dae6fc",
-            "active": "lch(91.1 11.9 266)"
-          },
-          "stroke": {
-            "default": "lch(91.6 1.1 266)",
-            "hover": "#FFC029",
-            "active": "#FFC029"
-          },
-          "text": {
-            "default": "#161517"
-          },
-          "link": {
-            "default": "#C78F0F"
-          },
-          "label": {
-            "default": "#696e79"
+      "body": {
+        "cell": {
+          "color": {
+            "background": {
+              "default": "#ffffff",
+              "selectIndirect": "lch(99.4 8.48 102 / 0.2)",
+              "selectDirect": "lch(99.4 8.48 102 / 0.2)"
+            },
+            "stroke": {
+              "default": "lch(91.6 1.1 266)",
+              "selectIndirect": "lch(74.1 25.6 85.9)",
+              "selectDirect": "#FFC029"
+            },
+            "text": {
+              "default": "lch(7.17 1.44 305)",
+              "selectIndirect": "#161517",
+              "selectDirect": "#161517"
+            }
           }
         }
       },
