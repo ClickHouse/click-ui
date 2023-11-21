@@ -35,11 +35,11 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: npm run test
-      - run: npm run build
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+      # - run: npm run test
+      # - run: npm run build
+      # - run: npm publish --access public
+        # env:
+          # NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Set tag from input
         if: github.event_name == 'workflow_dispatch'
         run: |
