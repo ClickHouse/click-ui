@@ -37,7 +37,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Set tag from input
-      if: github.event_name == 'workflow_dispatch'
-      run: |
-        git push origin $GITHUB_TAG
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git push origin $GITHUB_TAG
       
