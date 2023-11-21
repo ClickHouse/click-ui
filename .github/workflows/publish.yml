@@ -3,11 +3,30 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set tag from input
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "GITHUB_TAG=${{ github.event.inputs.tag }}" >> "$GITHUB_ENV"
+      - name: Set tag from REF
+        if: github.event_name == 'release'
+        run: |
+          echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GITHUB_TAG }}
+      - name: Bump package version
+        run: |
+          npm pkg set version=$GITHUB_TAG
+
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
@@ -17,3 +36,8 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+      - name: Set tag from input
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git push origin $GITHUB_TAG
+      
