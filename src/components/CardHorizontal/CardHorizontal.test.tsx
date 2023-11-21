@@ -3,7 +3,7 @@ import { CardHorizontal, CardHorizontalProps } from "./CardHorizontal";
 import { renderCUI } from "@/utils/test-utils";
 
 describe("CardHorizontal Component", () => {
-  describe("Primary card", () => {
+  describe("Horizontal card", () => {
     const renderCard = (props: CardHorizontalProps) =>
       renderCUI(<CardHorizontal {...props} />);
 
