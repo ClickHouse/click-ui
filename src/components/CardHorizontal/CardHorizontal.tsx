@@ -1,8 +1,6 @@
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import { Icon, IconName } from "@/components";
-import { Title } from "@/components/Typography/Title/Title";
-import { Text } from "@/components/Typography/Text/Text";
-import { HTMLAttributes, ReactNode } from "react";
 
 type CardColor = "default" | "muted";
 
@@ -16,108 +14,113 @@ export interface CardHorizontalProps extends HTMLAttributes<HTMLDivElement> {
   color?: CardColor;
 }
 
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  gap: inherit;
+`;
+
+const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
+  flex: 1;
+`;
+
 const Wrapper = styled.div<{
   $hasShadow?: boolean;
   $disabled?: boolean;
   $isSelected?: boolean;
   $color: CardColor;
 }>`
-  display: flex;
+  display: inline-flex;
   max-width: 100%;
   align-items: center;
   justify-content: flex-start;
 
-  ${({ theme, $color }) => `
+  ${({ theme, $color, $isSelected, $disabled }) => `
     background: ${theme.click.card.horizontal[$color].color.background.default};
+    color: ${theme.click.card.horizontal[$color].color.title.default};
     border-radius: ${theme.click.card.horizontal.radii.all};
-    border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.default};
-    padding: ${theme.click.card.horizontal.space[$size].x} ${theme.click.card.horizontal.space[$size].y};
-    gap: ${theme.click.card.horizontal.space[$size].gap};
+    border: 1px solid ${
+      theme.click.card.horizontal[$color].color.stroke[$isSelected ? "active" : "default"]
+    };
+    padding: ${theme.click.card.horizontal.space.y} ${
+    theme.click.card.horizontal.space.x
+  };
+    gap: ${theme.click.card.horizontal.space.gap};
+    font: ${theme.click.card.horizontal.typography.title.default};
+    ${Description} {
+      color: ${theme.click.card.horizontal[$color].color.description.default};
+      font: ${theme.click.card.horizontal.typography.description.default};
+    }
+    &:hover{
+      background-color: ${theme.click.card.horizontal[$color].color.background.hover};
+      color: ${theme.click.card.horizontal[$color].color.title.hover};
+      border: 1px solid ${
+        theme.click.card.horizontal[$color].color.stroke[$isSelected ? "active" : "hover"]
+      };
+      cursor: pointer;
+      font: ${theme.click.card.horizontal.typography.title.hover};
+      ${Description} {
+        color: ${theme.click.card.horizontal[$color].color.description.hover};
+        font: ${theme.click.card.horizontal.typography.description.hover};
+      }
+    }
+
+    &:active, &:focus, &:focus-within {
+      background-color: ${theme.click.card.horizontal[$color].color.background.active};
+      color: ${theme.click.card.horizontal[$color].color.title.active};
+      border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
+      ${Description} {
+        color: ${theme.click.card.horizontal[$color].color.description.active};
+        font: ${theme.click.card.horizontal.typography.description.active};
+      }
+    }
+    ${
+      $disabled
+        ? `
+          &,
+          &:hover,
+          &:active, &:focus, &:focus-within {
+            background-color: ${
+              theme.click.card.horizontal[$color].color.background.disabled
+            };
+            color: ${theme.click.card.horizontal[$color].color.title.disabled};
+            border: 1px solid ${
+              theme.click.card.horizontal[$color].color.stroke[
+                $isSelected ? "active" : "disabled"
+              ]
+            };
+            cursor: not-allowed;
+            ${Description} {
+              color: ${theme.click.card.horizontal[$color].color.description.disabled};
+              font: ${theme.click.card.horizontal.typography.description.disabled};
+            }
+          },
+          &:active, &:focus, &:focus-within {
+            border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
+          }
+        `
+        : ""
+    }
   `}
-  &:hover,
-  &:focus {
-    background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
-    cursor: pointer;
-    button {
-      background-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.background.hover};
-      border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.hover};
-      &:active {
-        background-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.background.active};
-        border-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.stroke.active};
-      }
-    }
-  }
-
-  &:active {
-    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
-  }
-
-  &[disabled],
-  &[disabled]:hover,
-  &[disabled]:active {
-    background-color: ${({ theme }) =>
-      theme.click.card.primary.color.background.disabled};
-    color: ${({ theme }) => theme.click.card.primary.color.title.disabled};
-    border: 1px solid ${({ theme }) => theme.click.card.primary.color.stroke.disabled};
-    cursor: not-allowed;
-
-    button {
-      background-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.background.disabled};
-      border-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.stroke.disabled};
-      &:active {
-        background-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.background.disabled};
-        border-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.stroke.disabled};
-      }
-    }
-  }
-
-  ${({ $isSelected, theme }) =>
-    $isSelected
-      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ""}
 `;
 
-const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ $size = "md", theme }) => theme.click.card.horizontal.space[$size].gap};
-
-  h3 {
-    color: ${({ $disabled, theme }) =>
-      $disabled == true
-        ? theme.click.global.color.text.muted
-        : theme.click.global.color.text.default};
-  }
-
-  svg {
-    height: ${({ $size = "md", theme }) =>
-      theme.click.card.horizontal.size.icon[$size].all};
-    width: ${({ $size = "md", theme }) =>
-      theme.click.card.horizontal.size.icon[$size].all};
-  }
+const CardIcon = styled(Icon)`
+  ${({ theme }) => `
+      height: ${theme.click.card.horizontal.icon.size.all};
+      width: ${theme.click.card.horizontal.icon.size.all};
+  `}
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: inherit;
-`;
-
-const Content = styled.div<{ $size?: "sm" | "md" }>`
-  width: 85%;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  gap: ${({ $size = "md", theme }) => theme.click.card.horizontal.space[$size].gap};
-  flex: 1;
 `;
 
 export const CardHorizontal = ({
@@ -127,25 +130,27 @@ export const CardHorizontal = ({
   disabled = false,
   isSelected,
   children,
+  color = "default",
   ...props
 }: CardHorizontalProps) => {
   return (
     <Wrapper
       $disabled={disabled}
       $isSelected={isSelected}
+      $color={color}
       {...props}
     >
       {icon && (
-        <Icon
+        <CardIcon
           name={icon}
           aria-hidden
         />
       )}
       <ContentWrapper>
-        <Header $disabled={disabled}>{title && <Title type="h3">{title}</Title>}</Header>
+        {title && <Header>{title}</Header>}
 
-        {description && <Text color="muted">{description}</Text>}
-        {children && <Content>{children}</Content>}
+        {description && <Description>{description}</Description>}
+        {children && <Description>{children}</Description>}
       </ContentWrapper>
     </Wrapper>
   );
