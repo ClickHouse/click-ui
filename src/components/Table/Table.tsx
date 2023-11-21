@@ -10,6 +10,7 @@ import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
+type TableSize = "sm" | "md";
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
@@ -19,10 +20,9 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   sortPosition?: HorizontalDirection;
 }
 
-const StyledHeader = styled.th`
-  ${({ theme }) => `
-    padding: ${theme.click.table.header.cell.space.md.y}
-      ${theme.click.table.body.cell.space.md.x};
+const StyledHeader = styled.th<{ $size: TableSize }>`
+  ${({ theme, $size }) => `
+    padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
   `}
@@ -49,8 +49,9 @@ const TableHeader = ({
   isSortable,
   onSort,
   onClick,
+  size,
   ...delegated
-}: TableHeaderType & { onSort?: () => void }) => {
+}: TableHeaderType & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === "function") {
@@ -61,7 +62,10 @@ const TableHeader = ({
     }
   };
   return (
-    <StyledHeader {...delegated}>
+    <StyledHeader
+      $size={size}
+      {...delegated}
+    >
       <HeaderContentWrapper onClick={onHeaderClick}>
         {isSorted && isSortable && sortPosition == "start" && (
           <SortIcon
@@ -89,7 +93,9 @@ interface TheadProps {
   showActionsHeader?: boolean;
   onSort?: SortFn;
   hasRows: boolean;
+  size: TableSize;
 }
+
 const Thead = ({
   headers,
   isSelectable,
@@ -97,6 +103,7 @@ const Thead = ({
   showActionsHeader,
   onSort: onSortProp,
   hasRows,
+  size,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === "function" && header.isSortable) {
@@ -107,7 +114,7 @@ const Thead = ({
     <StyledThead>
       <tr>
         {isSelectable && (
-          <StyledHeader>
+          <StyledHeader $size={size}>
             <Checkbox
               onCheckedChange={onSelectAll}
               disabled={!hasRows}
@@ -118,10 +125,11 @@ const Thead = ({
           <TableHeader
             key={`table-header-${index}`}
             onSort={onSort(headerProps, index)}
+            size={size}
             {...headerProps}
           />
         ))}
-        {showActionsHeader && <StyledHeader />}
+        {showActionsHeader && <StyledHeader $size={size} />}
       </tr>
     </StyledThead>
   );
@@ -176,12 +184,12 @@ const TableRow = styled.tr<{
   }
 `;
 
-const TableData = styled.td`
+const TableData = styled.td<{ $size: TableSize }>`
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme, $size }) => `
     color: ${theme.click.table.row.color.text.default};
     font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
   @media (max-width: 768px) {
     width: auto;
@@ -219,12 +227,12 @@ const Tbody = styled.tbody`
   }
 `;
 
-const SelectData = styled.td`
+const SelectData = styled.td<{ $size: TableSize }>`
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme, $size }) => `
     color: ${theme.click.table.row.color.text.default};
     font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
   @media (max-width: 768px) {
     width: auto;
@@ -239,12 +247,12 @@ const SelectData = styled.td`
     `}
   }
 `;
-const ActionsList = styled.td`
+const ActionsList = styled.td<{ $size: TableSize }>`
   overflow: hidden;
-  ${({ theme }) => `
+  ${({ theme, $size }) => `
     color: ${theme.click.table.row.color.text.default};
     font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space.md.y} ${theme.click.table.body.cell.space.md.x};
+    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
   @media (max-width: 768px) {
     width: auto;
@@ -332,6 +340,7 @@ interface CommonTableProps
   onSort?: SortFn;
   loading?: boolean;
   noDataMessage?: ReactNode;
+  size?: TableSize;
 }
 
 type SelectReturnValue = {
@@ -360,6 +369,7 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   isSelected: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
+  size: TableSize;
 }
 
 const TableBodyRow = ({
@@ -372,6 +382,7 @@ const TableBodyRow = ({
   onEdit,
   isDeleted,
   isDisabled,
+  size,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === "function";
@@ -385,7 +396,7 @@ const TableBodyRow = ({
       {...rowProps}
     >
       {isSelectable && (
-        <SelectData>
+        <SelectData $size={size}>
           <Checkbox
             checked={isSelected}
             onCheckedChange={onSelect}
@@ -394,6 +405,7 @@ const TableBodyRow = ({
       )}
       {items.map(({ label, ...cellProps }, cellIndex) => (
         <TableData
+          $size={size}
           key={`table-cell-${cellIndex}`}
           {...cellProps}
         >
@@ -402,7 +414,7 @@ const TableBodyRow = ({
         </TableData>
       ))}
       {(isDeletable || isEditable) && (
-        <ActionsList>
+        <ActionsList $size={size}>
           <ActionsContainer>
             {isEditable && (
               <EditButton
@@ -455,11 +467,20 @@ interface CustomTableRowProps {
   loading?: boolean;
   noDataMessage?: ReactNode;
   colSpan: number;
+  size: TableSize;
 }
-const CustomTableRow = ({ loading, noDataMessage, colSpan }: CustomTableRowProps) => {
+const CustomTableRow = ({
+  loading,
+  noDataMessage,
+  colSpan,
+  size,
+}: CustomTableRowProps) => {
   return (
     <TableRow>
-      <SpanedTableData colSpan={colSpan}>
+      <SpanedTableData
+        $size={size}
+        colSpan={colSpan}
+      >
         <CustomTableDataMessage>
           {loading ? <LoadingData /> : noDataMessage ?? "No Data avaialble"}
         </CustomTableDataMessage>
@@ -480,6 +501,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onSort,
       loading,
       noDataMessage,
+      size = "sm",
       ...props
     },
     ref
@@ -544,6 +566,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               showActionsHeader={isDeletable || isEditable}
               onSort={onSort}
               hasRows={hasRows}
+              size={size}
             />
             <Tbody>
               {(loading || !hasRows) && (
@@ -555,6 +578,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   }
                   loading={loading}
                   noDataMessage={noDataMessage}
+                  size={size}
                 />
               )}
               {rows.map(({ id, ...rowProps }, rowIndex) => (
@@ -576,6 +600,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   onEdit={
                     isEditable ? () => onEdit({ id, ...rowProps }, rowIndex) : undefined
                   }
+                  size={size}
                   {...rowProps}
                 />
               ))}
