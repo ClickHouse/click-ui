@@ -25,7 +25,6 @@ jobs:
       - name: Bump package version
         run: |
           npm version $GITHUB_TAG
-          git push origin
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
@@ -37,4 +36,8 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+      - name: Push to origin
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git push origin
 
