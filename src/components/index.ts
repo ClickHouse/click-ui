@@ -14,6 +14,7 @@ export { ButtonGroup } from "./ButtonGroup/ButtonGroup";
 export { Button } from "./Button/Button";
 export { CardSecondary } from "./CardSecondary/CardSecondary";
 export { CardPrimary } from "./CardPrimary/CardPrimary";
+export { CardHorizontal } from "./CardHorizontal/CardHorizontal";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { CodeBlock } from "./CodeBlock/CodeBlock";
 export { Dialog } from "./Dialog/Dialog";
