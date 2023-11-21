@@ -37,5 +37,6 @@ jobs:
       - name: Set tag from input
         if: github.event_name == 'workflow_dispatch'
         run: |
+          git tag $GITHUB_TAG
           git push origin $GITHUB_TAG
       
