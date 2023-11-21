@@ -22,6 +22,10 @@ jobs:
         run: |
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
+      - name: Set up Git
+        run: |
+          git config user.email "actions@clickhouse.com"
+          git config user.name "GitHub Actions"
       - name: Bump package version
         run: |
           npm pkg set version=$GITHUB_TAG
@@ -31,6 +35,8 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
+      - run: npm run test
+      - run: npm run build
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
@@ -39,8 +45,10 @@ jobs:
         run: |
           git tag $GITHUB_TAG
           git push origin $GITHUB_TAG
+      - name: update package version
+        run: |
           npm i --package-lock-only
           git add package.json package-lock.json
           git commit -m 'bump version to $GITHUB_TAG'
-          git push origin main
+          git push -u origin main
       
