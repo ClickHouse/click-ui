@@ -24,7 +24,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Bump package version
         run: |
-          npm pkg set version=$GITHUB_TAG
+          npm version $GITHUB_TAG
+          git push origin
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
@@ -36,13 +37,4 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
-      - name: Set tag from input
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          git tag $GITHUB_TAG
-          git push origin $GITHUB_TAG
-          npm i --package-lock-only
-          git add package.json package-lock.json
-          git commit -m 'bump version to $GITHUB_TAG'
-          git push origin main
-      
+
