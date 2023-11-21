@@ -25,7 +25,6 @@ jobs:
       - name: Bump package version
         run: |
           npm pkg set version=$GITHUB_TAG
-
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
@@ -40,4 +39,7 @@ jobs:
         run: |
           git tag $GITHUB_TAG
           git push origin $GITHUB_TAG
+          git add package.json
+          git commit -m 'bump version to $GITHUB_TAG'
+          git push origin main
       
