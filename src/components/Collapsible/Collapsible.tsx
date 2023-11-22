@@ -66,6 +66,7 @@ interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   indicatorDir?: HorizontalDirection;
+  wrapInTrigger?: boolean;
 }
 
 const CollapsipleHeader = ({
@@ -73,6 +74,7 @@ const CollapsipleHeader = ({
   icon,
   iconDir,
   children,
+  wrapInTrigger,
   ...props
 }: CollapsipleHeaderProps) => {
   return (
@@ -80,16 +82,26 @@ const CollapsipleHeader = ({
       $indicatorDir={indicatorDir}
       {...props}
     >
-      {indicatorDir === "start" && <Collapsible.Trigger />}
-      {children && (
-        <IconWrapper
+      {wrapInTrigger ? (
+        <Collapsible.Trigger
           icon={icon}
           iconDir={iconDir}
-        >
-          {children}
-        </IconWrapper>
+          children={children}
+        />
+      ) : (
+        <>
+          {indicatorDir === "start" && <Collapsible.Trigger />}
+          {children && (
+            <IconWrapper
+              icon={icon}
+              iconDir={iconDir}
+            >
+              {children}
+            </IconWrapper>
+          )}
+          {indicatorDir === "end" && <Collapsible.Trigger />}
+        </>
       )}
-      {indicatorDir === "end" && <Collapsible.Trigger />}
     </CollapsipleHeaderContainer>
   );
 };
