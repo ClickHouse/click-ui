@@ -12,19 +12,21 @@ type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = "sm" | "md";
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
-  icon?: IconName;
-  iconDir?: HorizontalDirection;
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
+  width: number | string;
 }
 
-const StyledHeader = styled.th<{ $size: TableSize }>`
-  ${({ theme, $size }) => `
-    padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
+const StyledHeader = styled.th<{ $size: TableSize; $width?: number | string }>`
+  ${({ theme, $size, $width }) => `
+    padding: ${theme.click.table.header.cell.space[$size].y} ${
+    theme.click.table.body.cell.space[$size].x
+  };
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
+    ${$width ? `width: ${typeof $width === "number" ? `${$width}px` : $width}` : ""}
   `}
   gap: 0.25rem;
   text-align: left;
@@ -50,6 +52,7 @@ const TableHeader = ({
   onSort,
   onClick,
   size,
+  width,
   ...delegated
 }: TableHeaderType & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
@@ -63,6 +66,7 @@ const TableHeader = ({
   };
   return (
     <StyledHeader
+      $width={width}
       $size={size}
       {...delegated}
     >
@@ -341,6 +345,7 @@ interface CommonTableProps
   loading?: boolean;
   noDataMessage?: ReactNode;
   size?: TableSize;
+  showHeader?: boolean;
 }
 
 type SelectReturnValue = {
@@ -502,6 +507,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       loading,
       noDataMessage,
       size = "sm",
+      showHeader = true,
       ...props
     },
     ref
@@ -543,7 +549,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const hasRows = rows.length > 0;
     return (
       <TableOuterContainer>
-        {hasRows && (
+        {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
               <Checkbox
@@ -559,15 +565,17 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             ref={ref}
             {...props}
           >
-            <Thead
-              headers={headers}
-              isSelectable={isSelectable}
-              onSelectAll={onSelectAll}
-              showActionsHeader={isDeletable || isEditable}
-              onSort={onSort}
-              hasRows={hasRows}
-              size={size}
-            />
+            {showHeader && (
+              <Thead
+                headers={headers}
+                isSelectable={isSelectable}
+                onSelectAll={onSelectAll}
+                showActionsHeader={isDeletable || isEditable}
+                onSort={onSort}
+                hasRows={hasRows}
+                size={size}
+              />
+            )}
             <Tbody>
               {(loading || !hasRows) && (
                 <CustomTableRow
