@@ -47,9 +47,8 @@ jobs:
           git push origin $GITHUB_TAG
       - name: update package version
         run: |
-          git pull --ff-only origin main
           npm i --package-lock-only
           git add package.json package-lock.json
           git commit -m 'bump version to $GITHUB_TAG'
-          git push origin main
+          git push
       
