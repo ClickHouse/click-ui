@@ -44,7 +44,7 @@ jobs:
         run: |
           npm i --package-lock-only
           git add package.json package-lock.json
-          git commit -m 'bump version to ${GITHUB_TAG}'
+          git commit -m 'bump version to ${{ env.GITHUB_TAG }}'
           git push
       - name: Set tag from input
         if: github.event_name == 'workflow_dispatch'
