@@ -120,6 +120,21 @@ export const InputElement = styled.input`
   `}
 `;
 
+export const TextAreaElement = styled.textarea`
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  ${({ theme }) => `
+    &::placeholder {
+      color: ${theme.click.field.color.placeholder.default};
+    }
+  `}
+`;
+
+
 export const IconButton = styled.button<{ $show?: boolean }>`
   background: transparent;
   color: inherit;
