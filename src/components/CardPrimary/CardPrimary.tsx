@@ -19,6 +19,7 @@ export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   alignContent?: ContentAlignment;
   onButtonClick?: MouseEventHandler<HTMLElement>;
+  width?: number | string;
 }
 
 const Wrapper = styled.div<{
@@ -27,12 +28,15 @@ const Wrapper = styled.div<{
   $disabled?: boolean;
   $isSelected?: boolean;
   $alignContent?: ContentAlignment;
+  $width?: number | string;
 }>`
   background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
   border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
   display: flex;
-  max-width: 100%;
+  width: 100%;
+  max-width: ${({ $width = "100%" }) =>
+    typeof $width === "number" ? `${$width}px` : $width};
   text-align: ${({ $alignContent }) =>
     $alignContent === "start" ? "left" : $alignContent === "end" ? "right" : "center"};
   flex-direction: column;
@@ -91,10 +95,15 @@ const Wrapper = styled.div<{
       : ""}
 `;
 
-const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
+const Header = styled.div<{
+  $size?: "sm" | "md";
+  $disabled?: boolean;
+  $alignContent?: ContentAlignment;
+}>`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: ${({ $alignContent = "center" }) =>
+    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
 
   h3 {
@@ -110,11 +119,12 @@ const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
   }
 `;
 
-const Content = styled.div<{ $size?: "sm" | "md" }>`
-  width: 85%;
+const Content = styled.div<{ $size?: "sm" | "md"; $alignContent?: ContentAlignment }>`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-self: center;
+  align-self: ${({ $alignContent = "center" }) =>
+    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
   flex: 1;
 `;
@@ -132,6 +142,7 @@ export const CardPrimary = ({
   onButtonClick,
   isSelected,
   children,
+  width,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -151,24 +162,31 @@ export const CardPrimary = ({
       $size={size}
       $disabled={disabled}
       $isSelected={isSelected}
+      $width={width}
       {...props}
     >
-      <Header
-        $size={size}
-        $disabled={disabled}
-      >
-        {icon && (
-          <Icon
-            name={icon}
-            aria-hidden
-          />
-        )}
-        {title && <Title type="h3">{title}</Title>}
-      </Header>
+      {(icon || title) && (
+        <Header
+          $size={size}
+          $disabled={disabled}
+          $alignContent={alignContent}
+        >
+          {icon && (
+            <Icon
+              name={icon}
+              aria-hidden
+            />
+          )}
+          {title && <Title type="h3">{title}</Title>}
+        </Header>
+      )}
 
       {(description || children) && (
-        <Content $size={size}>
-          <Text color="muted">{description}</Text>
+        <Content
+          $size={size}
+          $alignContent={alignContent}
+        >
+          {description && <Text color="muted">{description}</Text>}
           {children}
         </Content>
       )}

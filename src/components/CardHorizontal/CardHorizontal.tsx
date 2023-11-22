@@ -12,6 +12,7 @@ export interface CardHorizontalProps extends HTMLAttributes<HTMLDivElement> {
   isSelected?: boolean;
   children?: ReactNode;
   color?: CardColor;
+  width?: number | string;
 }
 
 const Header = styled.div`
@@ -36,13 +37,15 @@ const Wrapper = styled.div<{
   $disabled?: boolean;
   $isSelected?: boolean;
   $color: CardColor;
+  $width?: number | string;
 }>`
   display: inline-flex;
-  max-width: 100%;
+  width: 100%;
   align-items: center;
   justify-content: flex-start;
 
-  ${({ theme, $color, $isSelected, $disabled }) => `
+  ${({ theme, $color, $isSelected, $disabled, $width }) => `
+    max-width: ${typeof $width === "number" ? `${$width}px` : $width ?? "100%"};
     background: ${theme.click.card.horizontal[$color].color.background.default};
     color: ${theme.click.card.horizontal[$color].color.title.default};
     border-radius: ${theme.click.card.horizontal.radii.all};
@@ -131,6 +134,7 @@ export const CardHorizontal = ({
   isSelected,
   children,
   color = "default",
+  width,
   ...props
 }: CardHorizontalProps) => {
   return (
@@ -138,6 +142,7 @@ export const CardHorizontal = ({
       $disabled={disabled}
       $isSelected={isSelected}
       $color={color}
+      $width={width}
       {...props}
     >
       {icon && (
