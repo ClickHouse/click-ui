@@ -23,7 +23,7 @@ jobs:
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag || github.event.release.tag_name }}
+          ref: ${{ github.event_name == 'release' ? github.event.release.target_commitish : github.ref }}
           token: ${{secrets.PAT_TOKEN}}
           fetch-depth: 0
       - name: Set up Git
