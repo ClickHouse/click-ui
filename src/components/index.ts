@@ -1,5 +1,3 @@
-import { from } from 'stylis';
-import { TextAreaField } from './Input/TextArea';
 export * from "./types";
 
 export { Icon } from "./Icon/Icon";
