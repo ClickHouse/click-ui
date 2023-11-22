@@ -31,6 +31,7 @@ export { NumberField } from "./Input/NumberField";
 export { PasswordField } from "./Input/PasswordField";
 export { Popover } from "./Popover/Popover";
 export { Panel } from "./Panel/Panel";
+export { ProgressBar } from "./ProgressBar/ProgressBar";
 export { RadioGroup } from "./RadioGroup/RadioGroup";
 export { SearchField } from "./Input/SearchField";
 export { Select } from "./Select/SingleSelect";
