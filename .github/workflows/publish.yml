@@ -23,8 +23,9 @@ jobs:
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }} || main
+          ref: ${{ github.event.inputs.tag || github.event.release.tag_name }}
           token: ${{secrets.PAT_TOKEN}}
+          fetch-depth: 0
       - name: Set up Git
         run: |
           git config user.email "actions@clickhouse.com"
