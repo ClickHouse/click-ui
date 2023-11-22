@@ -1,7 +1,6 @@
 import { ChangeEvent, TextareaHTMLAttributes, forwardRef, useId, useRef } from "react";
 import { TextAreaElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
-import styled from "styled-components";
 
 export interface TextAreaFieldProps
   extends Omit<WrapperProps, "id" | "children">,
@@ -16,9 +15,6 @@ export interface TextAreaFieldProps
   dir?: "start" | "end";
 }
 
-const TextAreaWrapper = styled(InputWrapper)`
-  position: relative;
-`;
 
 export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
   (
@@ -43,7 +39,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>
     };
 
     return (
-      <TextAreaWrapper
+      <InputWrapper
         disabled={disabled}
         id={id ?? defaultId}
         label={label}
@@ -60,7 +56,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>
           onInput={onChange}
           {...props}
         />
-      </TextAreaWrapper>
+      </InputWrapper>
     );
   }
 );
