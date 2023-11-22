@@ -53,8 +53,8 @@ import DownloadInCircle from "@/components/icons/DownloadInCircle";
 import Email from "@/components/icons/Email";
 import Empty from "@/components/icons/Empty";
 import Fire from "@/components/icons/Fire";
-import FolderOpen from "../icons/FolderOpen";
-import FolderClosed from "../icons/FolderClosed";
+import FolderOpen from "@/components/icons/FolderOpen";
+import FolderClosed from "@/components/icons/FolderClosed";
 import Gift from "@/components/icons/Gift";
 import Home from "@/components/icons/Home";
 import HorizontalLoading from "@/components/icons/HorizontalLoading";
@@ -103,9 +103,27 @@ import Keys from "@/components/icons/Keys";
 import Query from "@/components/icons/Query";
 import ShareArrow from "@/components/icons/ShareArrow";
 import Waves from "@/components/icons/Waves";
+import CreditCard from "@/components/icons/CreditCard";
+import Dot from "@/components/icons/Dot";
+import Rocket from "@/components/icons/Rocket";
+import Circle from "@/components/icons/Circle";
+import BarChart from "@/components/icons/BarChart";
+import Alarm from "@/components/icons/Alarm";
+import Gear from "@/components/icons/Gear";
+import ShareNetwork from "@/components/icons/ShareNetwork";
+import PuzzlePiece from "@/components/icons/PuzzlePiece";
+import LineInCircle from "@/components/icons/LineInCircle";
+import Flag from "@/components/icons/Flag";
+import Server from "@/components/icons/Server";
+import Flask from "@/components/icons/Flask";
+import Beta from "@/components/icons/Beta";
+import NoCloud from "@/components/icons/NoCloud";
+import Lifebuoy from "@/components/icons/Lifebuoy";
+import GitMerge from "@/components/icons/GitMerge";
 
 export const ICONS_MAP = {
   activity: Activity,
+  alarm: Alarm,
   "arrow-down": ArrowDown,
   "arrow-right": ArrowRight,
   "arrow-triangle": ArrowTriangle,
@@ -114,6 +132,8 @@ export const ICONS_MAP = {
   "auth-app": AuthApp,
   "auth-sms": AuthSms,
   backups: BackUps,
+  "bar-chart": BarChart,
+  beta: Beta,
   blog: Blog,
   book: Book,
   brackets: Brackets,
@@ -129,6 +149,7 @@ export const ICONS_MAP = {
   "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
   "chevron-up": ChevronUp,
+  circle: Circle,
   clock: Clock,
   cloud: Cloud,
   code: Code,
@@ -138,11 +159,13 @@ export const ICONS_MAP = {
   console: Console,
   copy: Copy,
   cross: CrossIcon,
+  "credit-card": CreditCard,
   data: Data,
   database: DatabaseIcon,
   disk: Disk,
   display: Display,
   document: Document,
+  dot: Dot,
   "dots-horizontal": DotsHorizontal,
   "dots-triangle": DotsTriangle,
   "dots-vertical": DotsVertical,
@@ -155,9 +178,13 @@ export const ICONS_MAP = {
   "eye-closed": EyeClosed,
   filter: FilterIcon,
   fire: Fire,
+  flag: Flag,
+  flask: Flask,
   "folder-closed": FolderClosed,
   "folder-open": FolderOpen,
+  gear: Gear,
   gift: Gift,
+  "git-merge": GitMerge,
   history: HistoryIcon,
   home: Home,
   "horizontal-loading": HorizontalLoading,
@@ -168,12 +195,15 @@ export const ICONS_MAP = {
   integrations: Integrations,
   key: Key,
   keys: Keys,
+  lifebuoy: Lifebuoy,
   "light-bulb": LightBulb,
   lightening: Lightening,
+  "line-in-circle": LineInCircle,
   loading: Loading,
   "loading-animated": LoadingAnimated,
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
+  "no-cloud": NoCloud,
   pause: Pause,
   payment: Payment,
   pencil: Pencil,
@@ -182,15 +212,19 @@ export const ICONS_MAP = {
   "play-in-circle": PlayInCircle,
   plus: Plus,
   popout: Popout,
+  "puzzle-piece": PuzzlePiece,
   query: Query,
   question: Question,
   refresh: Refresh,
+  rocket: Rocket,
   search: Search,
   secure: Secure,
+  server: Server,
   services: Services,
   settings: Settings,
   share: Share,
   "share-arrow": ShareArrow,
+  "share-network": ShareNetwork,
   "slide-in": SlideIn,
   "slide-out": SlideOut,
   "sort-alt": SortAltIcon,
