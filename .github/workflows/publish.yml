@@ -23,7 +23,7 @@ jobs:
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.ref }} || main
           token: ${{secrets.PAT_TOKEN}}
       - name: Set up Git
         run: |
