@@ -1,3 +1,5 @@
+import { from } from 'stylis';
+import { TextAreaField } from './Input/TextArea';
 export * from "./types";
 
 export { Icon } from "./Icon/Icon";
@@ -54,4 +56,5 @@ export { default as ClickUIProvider } from "./ClickUIProvider/ClickUIProvider";
 export { useToast } from "./Toast/useToast";
 export { createToast } from "./Toast/toastEmitter";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
+export { TextAreaField } from "./Input/TextArea";
 export { default as VerticalStepper } from "./VerticalStepper/VerticalStepper";
