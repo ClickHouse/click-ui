@@ -38,6 +38,7 @@ import {
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
+import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
@@ -93,6 +94,12 @@ const App = () => {
         theme={currentTheme}
         config={{ tooltip: { delayDuration: 0 } }}
       >
+        <ProgressBar
+          progress={100}
+          dismissable
+          onCancel={() => console.log("eee")}
+          successMessage="Upload Complete"
+        />
         <div className={styles.flexWrap}>
           <IconButton
             icon="user"
