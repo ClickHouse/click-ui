@@ -15,7 +15,7 @@ export interface TextProps<T extends ElementType> {
   size?: TextSize;
   weight?: TextWeight;
   className?: string;
-  component: T;
+  component?: T;
 }
 
 /** Component for writing blocks of body copy */
