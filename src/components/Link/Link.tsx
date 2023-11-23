@@ -88,8 +88,8 @@ export const Link = <T extends ElementType = "a">({
     {hasIcon && (
       <IconWrapper $size={size}>
         <Icon
-          name="popout"
-          className={icon ?? "external-icon"}
+          name={icon ?? "popout"}
+          className="external-icon"
           data-testid={icon ?? "external-icon"}
         />
       </IconWrapper>
