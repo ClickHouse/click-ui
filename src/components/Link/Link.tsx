@@ -12,7 +12,6 @@ export interface LinkProps<T extends ElementType> {
   href?: string;
   onClick?: ReactEventHandler;
   target?: string;
-  hasIcon?: boolean;
   rel?: string;
   children?: React.ReactNode;
   icon?: IconName;
@@ -67,7 +66,6 @@ export const Link = <T extends ElementType = "a">({
   onClick,
   target,
   rel,
-  hasIcon = false,
   icon,
   children,
   component,
@@ -85,12 +83,12 @@ export const Link = <T extends ElementType = "a">({
     {...props}
   >
     {children}
-    {hasIcon && (
+    {icon && (
       <IconWrapper $size={size}>
         <Icon
-          name={icon ?? "popout"}
+          name={icon}
           className="external-icon"
-          data-testid={icon ?? "external-icon"}
+          data-testid={icon}
         />
       </IconWrapper>
     )}
