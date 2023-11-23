@@ -23,17 +23,22 @@ interface SmallProgressBar extends CommonProgressBarProps {
   dismissable?: never;
   onCancel?: never;
 }
+
 interface DismissableProgressBar {
   dismissable: true;
   onCancel: () => void;
 }
+
 interface NonDismissableProgressBar {
   dismissable?: false;
   onCancel?: never;
 }
+
 export type ProgressBarProps =
   | (DefaultProgressBar & (DismissableProgressBar | NonDismissableProgressBar))
   | SmallProgressBar;
+
+// The tokens are copied from dataloading page and may need to change on the new component creation in figma
 const ProgressContainer = styled.div<{
   $progress: number;
   $completed: boolean;
@@ -121,6 +126,7 @@ export const ProgressBar = ({
 }: ProgressBarProps) => {
   const completed = progress === 100;
   const defaultId = useId();
+
   return (
     <FormRootWrapper
       $orientation={orientation}

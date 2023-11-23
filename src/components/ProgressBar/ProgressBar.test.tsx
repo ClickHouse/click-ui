@@ -2,7 +2,7 @@ import { ProgressBar, ProgressBarProps } from "./ProgressBar";
 import { fireEvent } from "@testing-library/react";
 import { renderCUI } from "@/utils/test-utils";
 
-describe("Popover", () => {
+describe("Progress bar", () => {
   const renderPopover = (props: ProgressBarProps) =>
     renderCUI(
       <ProgressBar
@@ -46,14 +46,14 @@ describe("Popover", () => {
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
-  it("should percentage if successmessage is not present", () => {
+  it("should percentage if success message is not present", () => {
     const { queryAllByTestId } = renderPopover({ type: "default", progress: 100 });
     const progressBar = queryAllByTestId("progressbar");
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).toContain("100%");
   });
 
-  it("should message if successmessage is present", () => {
+  it("should message if success message is present", () => {
     const { queryAllByTestId } = renderPopover({
       type: "default",
       progress: 100,
