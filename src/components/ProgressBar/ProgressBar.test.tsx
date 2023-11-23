@@ -12,15 +12,13 @@ describe("Progress bar", () => {
     );
 
   it("should render progressBar", () => {
-    const { queryAllByTestId, queryAllByText } = renderPopover({
+    const { queryAllByTestId } = renderPopover({
       type: "default",
       progress: 38,
-      label: "Label",
     });
     const progressBar = queryAllByTestId("progressbar");
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).toContain("38%");
-    expect(queryAllByText("Label")).toHaveLength(1);
   });
 
   it("should not show count in small progressbar", () => {

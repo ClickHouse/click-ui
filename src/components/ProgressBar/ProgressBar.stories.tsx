@@ -20,10 +20,6 @@ export default {
       control: { type: "text" },
       if: { arg: "type", eq: "default" },
     },
-    label: { control: "text" },
-    error: { control: "text" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
   },
 };
 

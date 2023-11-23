@@ -1,7 +1,6 @@
-import { HTMLAttributes, ReactNode, useId } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import { IconButton, Label } from "@/components";
-import { Error, FormElementContainer, FormRoot } from "../commonElement";
+import { IconButton } from "@/components";
 
 interface CommonProgressBarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -43,7 +42,6 @@ const ProgressContainer = styled.div<{
   $progress: number;
   $completed: boolean;
   $type: "small" | "default";
-  $error: boolean;
 }>`
   display: flex;
   justify-content: space-between;
@@ -55,7 +53,7 @@ const ProgressContainer = styled.div<{
   width: fill-available;
   width: stretch;
   min-height: 2px;
-  ${({ theme, $completed, $progress, $type, $error }) => `
+  ${({ theme, $completed, $progress, $type }) => `
     background: ${
       $completed
         ? theme.click.field.color.background.default
@@ -90,7 +88,6 @@ const ProgressContainer = styled.div<{
       background-size: calc(100% + 2px);
       background-position: center;
     }
-    ${$error ? `border-color: ${theme.click.field.color.stroke.error};` : ""}
   `};
 `;
 
@@ -106,68 +103,39 @@ const ProgressCloseButton = styled.button<{ $dismissable?: boolean }>`
   visibility: ${({ $dismissable }) => ($dismissable ? "visible" : "hidden")};
 `;
 
-const FormRootWrapper = styled(FormRoot)`
-  align-items: ${({ $orientation }) =>
-    $orientation === "horizontal" ? "center" : "flex-start"};
-`;
-
 export const ProgressBar = ({
   progress,
   type = "default",
   dismissable = false,
   onCancel,
   successMessage,
-  label,
-  id,
-  orientation,
-  error,
-  dir,
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
-  const defaultId = useId();
 
   return (
-    <FormRootWrapper
-      $orientation={orientation}
-      $dir={dir}
+    <ProgressContainer
+      $completed={completed}
+      $progress={progress}
+      $type={type}
       {...props}
     >
-      <FormElementContainer>
-        <ProgressContainer
-          $completed={completed}
-          $progress={progress}
-          $type={type}
-          $error={!!error}
-          id={id ?? defaultId}
-        >
-          {type === "default" && (
-            <>
-              <ProgressText $completed={completed}>
-                {successMessage && completed ? successMessage : `${progress}%`}
-              </ProgressText>
-              <ProgressCloseButton
-                as={IconButton}
-                size="sm"
-                type="ghost"
-                icon="cross"
-                $dismissable={dismissable}
-                onClick={onCancel}
-                data-testid="progressbar-close"
-              />
-            </>
-          )}
-        </ProgressContainer>
-        {!!error && error !== true && <Error>{error}</Error>}
-      </FormElementContainer>
-      {label && (
-        <Label
-          htmlFor={id ?? defaultId}
-          error={!!error}
-        >
-          {label}
-        </Label>
+      {type === "default" && (
+        <>
+          <ProgressText $completed={completed}>
+            {successMessage && completed ? successMessage : `${progress}%`}
+          </ProgressText>
+          <ProgressCloseButton
+            as={IconButton}
+            size="sm"
+            type="ghost"
+            icon="cross"
+            $dismissable={dismissable}
+            onClick={onCancel}
+            data-testid="progressbar-close"
+          />
+        </>
       )}
-    </FormRootWrapper>
+    </ProgressContainer>
   );
 };
