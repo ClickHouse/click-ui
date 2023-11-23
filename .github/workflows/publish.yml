@@ -21,11 +21,16 @@ jobs:
         if: github.event_name == 'release'
         run: |
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
-      - uses: actions/checkout@v4
+      - name: Checkout repository on release
+        if: github.event_name == 'release'
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag || github.event.release.tag_name }}
+          ref: ${{ github.event.release.target_commitish }}
           token: ${{secrets.PAT_TOKEN}}
           fetch-depth: 0
+      - name: Checkout repository on workflow_dispatch
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
       - name: Set up Git
         run: |
           git config user.email "actions@clickhouse.com"
