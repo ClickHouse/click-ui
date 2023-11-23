@@ -52,6 +52,7 @@ const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItem
           $level={level}
           $type={type}
           data-selected={selected}
+          wrapInTrigger={type === "main"}
           {...props}
         >
           {label}
