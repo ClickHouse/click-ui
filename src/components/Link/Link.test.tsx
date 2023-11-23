@@ -1,8 +1,9 @@
+import { IconName } from "..";
 import { Link } from "./Link";
 import { renderCUI } from "@/utils/test-utils";
 
 interface LinkProps {
-  hasIcon?: boolean;
+  icon?: IconName;
 }
 
 describe("Link Component", () => {
@@ -13,12 +14,12 @@ describe("Link Component", () => {
   };
 
   test("renders the text", () => {
-    const rendered = renderLink({ hasIcon: false });
+    const rendered = renderLink({});
     expect(rendered.getByText(text).textContent).toEqual(text);
   });
 
   test("displays icon when isExternal is true", () => {
-    const rendered = renderLink({ hasIcon: true });
-    expect(rendered.getAllByTestId("external-icon").length).toEqual(1);
+    const rendered = renderLink({ icon: "popout" });
+    expect(rendered.getAllByTestId("popout").length).toEqual(1);
   });
 });
