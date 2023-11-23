@@ -19,7 +19,6 @@ export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   alignContent?: ContentAlignment;
   onButtonClick?: MouseEventHandler<HTMLElement>;
-  width?: number | string;
 }
 
 const Wrapper = styled.div<{
@@ -28,15 +27,13 @@ const Wrapper = styled.div<{
   $disabled?: boolean;
   $isSelected?: boolean;
   $alignContent?: ContentAlignment;
-  $width?: number | string;
 }>`
   background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
   border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
   display: flex;
   width: 100%;
-  max-width: ${({ $width = "100%" }) =>
-    typeof $width === "number" ? `${$width}px` : $width};
+  max-width: 100%;
   text-align: ${({ $alignContent }) =>
     $alignContent === "start" ? "left" : $alignContent === "end" ? "right" : "center"};
   flex-direction: column;
@@ -142,7 +139,6 @@ export const CardPrimary = ({
   onButtonClick,
   isSelected,
   children,
-  width,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -162,7 +158,6 @@ export const CardPrimary = ({
       $size={size}
       $disabled={disabled}
       $isSelected={isSelected}
-      $width={width}
       {...props}
     >
       {(icon || title) && (
