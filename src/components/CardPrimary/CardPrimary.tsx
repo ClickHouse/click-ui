@@ -32,6 +32,7 @@ const Wrapper = styled.div<{
   border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
   border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
   display: flex;
+  width: 100%;
   max-width: 100%;
   text-align: ${({ $alignContent }) =>
     $alignContent === "start" ? "left" : $alignContent === "end" ? "right" : "center"};
@@ -91,10 +92,15 @@ const Wrapper = styled.div<{
       : ""}
 `;
 
-const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
+const Header = styled.div<{
+  $size?: "sm" | "md";
+  $disabled?: boolean;
+  $alignContent?: ContentAlignment;
+}>`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: ${({ $alignContent = "center" }) =>
+    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
 
   h3 {
@@ -110,11 +116,12 @@ const Header = styled.div<{ $size?: "sm" | "md"; $disabled?: boolean }>`
   }
 `;
 
-const Content = styled.div<{ $size?: "sm" | "md" }>`
-  width: 85%;
+const Content = styled.div<{ $size?: "sm" | "md"; $alignContent?: ContentAlignment }>`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-self: center;
+  align-self: ${({ $alignContent = "center" }) =>
+    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
   gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
   flex: 1;
 `;
@@ -153,22 +160,28 @@ export const CardPrimary = ({
       $isSelected={isSelected}
       {...props}
     >
-      <Header
-        $size={size}
-        $disabled={disabled}
-      >
-        {icon && (
-          <Icon
-            name={icon}
-            aria-hidden
-          />
-        )}
-        {title && <Title type="h3">{title}</Title>}
-      </Header>
+      {(icon || title) && (
+        <Header
+          $size={size}
+          $disabled={disabled}
+          $alignContent={alignContent}
+        >
+          {icon && (
+            <Icon
+              name={icon}
+              aria-hidden
+            />
+          )}
+          {title && <Title type="h3">{title}</Title>}
+        </Header>
+      )}
 
       {(description || children) && (
-        <Content $size={size}>
-          <Text color="muted">{description}</Text>
+        <Content
+          $size={size}
+          $alignContent={alignContent}
+        >
+          {description && <Text color="muted">{description}</Text>}
           {children}
         </Content>
       )}
