@@ -461,7 +461,9 @@ const App = () => {
           </Dialog.Content>
         </Dialog>
 
-        <Button>Open Confirmation Dialog</Button>
+        <Button onClick={() => setConfirmationDialogOpen(true)}>
+          Open Confirmation Dialog
+        </Button>
         <ConfirmationDialog
           open={confirmationDialogOpen}
           onCancel={() => setConfirmationDialogOpen(false)}
@@ -470,6 +472,7 @@ const App = () => {
           onConfirm={() => {
             console.log("close");
           }}
+          showClose
         />
 
         <EllipsisContent
