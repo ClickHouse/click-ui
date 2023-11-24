@@ -14,6 +14,7 @@ export interface ConfirmationDialogProps {
   message?: string;
   children?: ReactNode;
   loading?: boolean;
+  showClose?: boolean;
   onConfirm?: (() => void) | (() => Promise<void>);
 }
 
@@ -34,11 +35,10 @@ export const ConfirmationDialog = ({
   secondaryActionLabel = "Cancel",
   onConfirm,
   children,
+  showClose,
 }: ConfirmationDialogProps): ReactElement => {
   if (children && message) {
-    throw new Error(
-      "You can't pass children and message props at the same time"
-    );
+    throw new Error("You can't pass children and message props at the same time");
   }
 
   return (
@@ -48,7 +48,10 @@ export const ConfirmationDialog = ({
         !open && onCancel && onCancel();
       }}
     >
-      <Dialog.Content title={title}>
+      <Dialog.Content
+        title={title}
+        showClose={showClose}
+      >
         {children ? children : <Text>{message}</Text>}
         <Separator size="xl" />
         <ActionsWrapper>

@@ -12,6 +12,7 @@ const ConfirmationDialogComponent = ({
   onConfirm,
   secondaryActionLabel,
   onCancel,
+  showClose,
 }: ConfirmationDialogProps) => (
   <GridCenter>
     <ConfirmationDialog
@@ -22,8 +23,8 @@ const ConfirmationDialogComponent = ({
       primaryActionLabel={primaryActionLabel}
       onConfirm={onConfirm}
       secondaryActionLabel={secondaryActionLabel}
-    >
-    </ConfirmationDialog>
+      showClose={showClose}
+    ></ConfirmationDialog>
   </GridCenter>
 );
 
@@ -45,14 +46,13 @@ export const Playground = {
     message:
       "This is a simple dialog that cab be used to ask a confirmation of the action requested",
     open: true,
-    onOpenChange: (b: boolean) => {
-      void b;
-    },
-    onPrimaryActionClick: () => {
+    onCancel: () => {},
+    onConfirm: () => {
       console.log("Click");
     },
     primaryActionLabel: "Confirm",
     secondaryActionLabel: "Cancel",
+    showClose: false,
   },
   parameters: {
     docs: {
