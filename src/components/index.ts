@@ -49,6 +49,7 @@ export { Tabs } from "./Tabs/Tabs";
 export { FileTabs, FileTabElement } from "./FileTabs/FileTabs";
 export { Table } from "./Table/Table";
 export { Text } from "./Typography/Text/Text";
+export { TextAreaField } from "./Input/TextArea";
 export { TextField } from "./Input/TextField";
 export { Title } from "./Typography/Title/Title";
 export { Tooltip } from "./Tooltip/Tooltip";
