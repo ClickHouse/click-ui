@@ -35,9 +35,11 @@ import {
   Table,
   TableRowType,
   TableHeaderType,
+  Tooltip,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
+import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
@@ -93,6 +95,12 @@ const App = () => {
         theme={currentTheme}
         config={{ tooltip: { delayDuration: 0 } }}
       >
+        <ProgressBar
+          progress={100}
+          dismissable
+          onCancel={() => console.log("eee")}
+          successMessage="Upload Complete"
+        />
         <div className={styles.flexWrap}>
           <IconButton
             icon="user"
@@ -454,7 +462,9 @@ const App = () => {
           </Dialog.Content>
         </Dialog>
 
-        <Button>Open Confirmation Dialog</Button>
+        <Button onClick={() => setConfirmationDialogOpen(true)}>
+          Open Confirmation Dialog
+        </Button>
         <ConfirmationDialog
           open={confirmationDialogOpen}
           onCancel={() => setConfirmationDialogOpen(false)}
@@ -463,6 +473,7 @@ const App = () => {
           onConfirm={() => {
             console.log("close");
           }}
+          showClose
         />
 
         <EllipsisContent
@@ -499,6 +510,11 @@ const App = () => {
           rows={rows}
           onDelete={onTableDelete}
         />
+
+        <Tooltip disabled>
+          <Tooltip.Trigger>Tooltip trigger</Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
       </ClickUIProvider>
     </div>
   );

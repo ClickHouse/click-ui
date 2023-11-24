@@ -1,4 +1,4 @@
-import { TooltipProps } from "@radix-ui/react-tooltip";
+import { TooltipProps } from "./Tooltip/Tooltip";
 import { TitleProps } from "./Typography/Title/Title";
 import { TextProps } from "./Typography/Text/Text";
 import { TabsProps } from "./Tabs/Tabs";
@@ -38,15 +38,18 @@ export type { ConfirmationDialogProps } from "./ConfirmationDialog/ConfirmationD
 export type { FileTabStatusType } from "./FileTabs/FileTabs";
 export type { TableHeaderType, TableRowType, TableProps } from "./Table/Table";
 export type { BigStatProps } from "./BigStat/BigStat";
+export type { TextAreaFieldProps } from "./Input/TextArea";
 export type {
   VerticalStepperProps,
   VerticalStepProps,
 } from "./VerticalStepper/VerticalStepper";
 export type { CardHorizontalProps } from "./CardHorizontal/CardHorizontal";
+export type { ProgressBarProps } from "./ProgressBar/ProgressBar";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
 export type Orientation = "horizontal" | "vertical";
+export type { FormContainerProps } from "./FormContainer/FormContainer";
 
 export type { IconButtonProps };
 export type { AlertProps };

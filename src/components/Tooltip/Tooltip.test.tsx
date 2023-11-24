@@ -1,4 +1,4 @@
-import { TooltipProps } from "@radix-ui/react-tooltip";
+import { TooltipProps } from "./Tooltip";
 import { Tooltip } from "..";
 import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -19,6 +19,19 @@ describe("Tooltip", () => {
     expect(TooltipTrigger.length).toEqual(1);
     await userEvent.hover(TooltipTrigger[0]);
     expect(getAllByText("Tooltip content")).not.toBeNull();
+  });
+
+  it("should show the tooltip if the open prop is true", async () => {
+    const { getAllByText } = renderTooltip({ open: true });
+    expect(getAllByText("Tooltip content")).not.toBeNull();
+  });
+
+  it("should not open tooltip on hover if it is disabled", async () => {
+    const { queryAllByText } = renderTooltip({ disabled: true });
+    const TooltipTrigger = queryAllByText("Hover Here");
+    expect(TooltipTrigger.length).toEqual(1);
+    await userEvent.hover(TooltipTrigger[0]);
+    expect(queryAllByText("Tooltip content").length).toEqual(0);
   });
 
   it("should close hover card on pointerLeave", async () => {
