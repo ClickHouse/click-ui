@@ -17,6 +17,8 @@ export interface ToastProps {
   type?: ToastType;
   title: string;
   description?: ReactNode;
+  /** Time in milliseconds the toast will be visible */
+  duration?: number;
   actions?: Array<ButtonProps & { altText: string }>;
 }
 
@@ -126,6 +128,7 @@ const Toast = ({
   title,
   description,
   actions = [],
+  duration,
   onClose,
 }: ToastProps & { onClose: (open: boolean) => void }) => {
   let iconName = "";
@@ -137,7 +140,10 @@ const Toast = ({
     iconName = "warning";
   }
   return (
-    <ToastRoot onOpenChange={onClose}>
+    <ToastRoot
+      onOpenChange={onClose}
+      duration={duration}
+    >
       <ToastHeader>
         {iconName.length > 0 && (
           <ToastIcon
