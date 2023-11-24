@@ -44,10 +44,12 @@ export type {
   VerticalStepProps,
 } from "./VerticalStepper/VerticalStepper";
 export type { CardHorizontalProps } from "./CardHorizontal/CardHorizontal";
+export type { ProgressBarProps } from "./ProgressBar/ProgressBar";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
 export type Orientation = "horizontal" | "vertical";
+export type { FormContainerProps } from "./FormContainer/FormContainer";
 
 export type { IconButtonProps };
 export type { AlertProps };

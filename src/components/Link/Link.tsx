@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ElementType, ReactEventHandler } from "react";
-import { Icon } from "@/components";
+import { Icon, IconName } from "@/components";
 import styled from "styled-components";
 
 type TextSize = "xs" | "sm" | "md" | "lg";
@@ -12,9 +12,9 @@ export interface LinkProps<T extends ElementType> {
   href?: string;
   onClick?: ReactEventHandler;
   target?: string;
-  hasIcon?: boolean;
   rel?: string;
   children?: React.ReactNode;
+  icon?: IconName;
   component?: T;
 }
 
@@ -66,7 +66,7 @@ export const Link = <T extends ElementType = "a">({
   onClick,
   target,
   rel,
-  hasIcon = false,
+  icon,
   children,
   component,
   ...props
@@ -83,12 +83,12 @@ export const Link = <T extends ElementType = "a">({
     {...props}
   >
     {children}
-    {hasIcon && (
+    {icon && (
       <IconWrapper $size={size}>
         <Icon
-          name="popout"
+          name={icon}
           className="external-icon"
-          data-testid="external-icon"
+          data-testid={icon}
         />
       </IconWrapper>
     )}
