@@ -35,6 +35,7 @@ import {
   Table,
   TableRowType,
   TableHeaderType,
+  Tooltip,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
@@ -509,6 +510,11 @@ const App = () => {
           rows={rows}
           onDelete={onTableDelete}
         />
+
+        <Tooltip disabled>
+          <Tooltip.Trigger>Tooltip trigger</Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
       </ClickUIProvider>
     </div>
   );

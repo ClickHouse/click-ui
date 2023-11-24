@@ -1,4 +1,4 @@
-import { TooltipProps } from "@radix-ui/react-tooltip";
+import { TooltipProps } from "./Tooltip";
 import { Tooltip } from "./Tooltip";
 import { Text } from "..";
 
@@ -47,5 +47,6 @@ export const Playground = {
   args: {
     side: "bottom",
     showArrow: true,
+    disabled: false,
   },
 };
