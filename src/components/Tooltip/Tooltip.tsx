@@ -2,8 +2,19 @@ import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
 
-export const Tooltip = ({ children, ...props }: RadixTooltip.TooltipProps) => {
-  return <RadixTooltip.Root {...props}>{children}</RadixTooltip.Root>;
+export interface TooltipProps extends RadixTooltip.TooltipProps {
+  disabled?: boolean;
+}
+
+export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) => {
+  return (
+    <RadixTooltip.Root
+      open={disabled ? false : open}
+      {...props}
+    >
+      {children}
+    </RadixTooltip.Root>
+  );
 };
 
 const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
