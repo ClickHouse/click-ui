@@ -38,6 +38,7 @@ export type { ConfirmationDialogProps } from "./ConfirmationDialog/ConfirmationD
 export type { FileTabStatusType } from "./FileTabs/FileTabs";
 export type { TableHeaderType, TableRowType, TableProps } from "./Table/Table";
 export type { BigStatProps } from "./BigStat/BigStat";
+export type { TextAreaFieldProps } from "./Input/TextArea";
 export type {
   VerticalStepperProps,
   VerticalStepProps,
