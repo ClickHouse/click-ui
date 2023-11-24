@@ -46,7 +46,9 @@ export const Playground = {
     message:
       "This is a simple dialog that cab be used to ask a confirmation of the action requested",
     open: true,
-    onCancel: () => {},
+    onCancel: () => {
+      console.log("Cancel");
+    },
     onConfirm: () => {
       console.log("Click");
     },
