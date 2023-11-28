@@ -1280,15 +1280,15 @@
               "type": "typography"
             },
             "hover": {
-              "value": "{typography.styles.product.text.normal.md}",
+              "value": "{click.genericMenu.item.typography.label.default}",
               "type": "typography"
             },
             "active": {
-              "value": "{typography.styles.product.text.normal.md}",
+              "value": "{click.genericMenu.item.typography.label.default}",
               "type": "typography"
             },
             "disabled": {
-              "value": "{typography.styles.product.text.normal.md}",
+              "value": "{click.genericMenu.item.typography.label.default}",
               "type": "typography"
             }
           },
@@ -1296,6 +1296,40 @@
             "default": {
               "value": "{typography.styles.product.text.medium.sm}",
               "type": "typography"
+            }
+          },
+          "subtext": {
+            "default": {
+              "value": "{typography.styles.product.text.normal.sm}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.genericMenu.item.typography.subtext.default}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{click.genericMenu.item.typography.subtext.default}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{click.genericMenu.item.typography.subtext.default}",
+              "type": "typography"
+            }
+          }
+        },
+        "two-lines": {
+          "space": {
+            "x": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            },
+            "y": {
+              "value": "0.34375rem",
+              "type": "spacing"
+            },
+            "gap": {
+              "value": "{spaces.3}",
+              "type": "spacing"
             }
           }
         }

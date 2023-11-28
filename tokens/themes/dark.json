@@ -1912,7 +1912,7 @@
               }
             },
             "active": {
-              "value": "{click.genericMenu.item.color.background.hover}",
+              "value": "{click.genericMenu.item.color.background.default}",
               "type": "color"
             },
             "disabled": {
@@ -1954,6 +1954,24 @@
           "stroke": {
             "default": {
               "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "subtext": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.genericMenu.item.color.subtext.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.genericMenu.item.color.subtext.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.300}",
               "type": "color"
             }
           }
