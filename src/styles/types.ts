@@ -1192,6 +1192,19 @@
           },
           "sectionHeader": {
             "default": string
+          },
+          "subtext": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          }
+        },
+        "two-lines": {
+          "space": {
+            "x": string,
+            "y": string,
+            "gap": string
           }
         },
         "color": {
@@ -1217,6 +1230,12 @@
           },
           "stroke": {
             "default": string
+          },
+          "subtext": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
           }
         }
       },
@@ -2423,6 +2442,9 @@
           "default": string
         },
         "shadow": {
+          "default": string
+        },
+        "title": {
           "default": string
         }
       }

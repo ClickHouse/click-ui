@@ -107,7 +107,7 @@
           "default": "#b3b6bd"
         },
         "title": {
-          "default": "#ffffff"
+          "default": "lch(97.5 0 0)"
         }
       }
     },
@@ -395,9 +395,9 @@
             "disabled": "#414141"
           },
           "title": {
-            "default": "#ffffff",
-            "hover": "#ffffff",
-            "active": "#ffffff",
+            "default": "lch(97.5 0 0)",
+            "hover": "lch(97.5 0 0)",
+            "active": "lch(97.5 0 0)",
             "disabled": "#808080"
           },
           "description": {
@@ -429,9 +429,9 @@
             "disabled": "#414141"
           },
           "title": {
-            "default": "#ffffff",
-            "hover": "#ffffff",
-            "active": "#ffffff",
+            "default": "lch(97.5 0 0)",
+            "hover": "lch(97.5 0 0)",
+            "active": "lch(97.5 0 0)",
             "disabled": "#808080"
           },
           "description": {
@@ -458,9 +458,9 @@
               "disabled": "#414141"
             },
             "title": {
-              "default": "#ffffff",
-              "hover": "#ffffff",
-              "active": "#ffffff",
+              "default": "lch(97.5 0 0)",
+              "hover": "lch(97.5 0 0)",
+              "active": "lch(97.5 0 0)",
               "disabled": "#808080"
             },
             "description": {
@@ -486,9 +486,9 @@
               "disabled": "#414141"
             },
             "title": {
-              "default": "#ffffff",
-              "hover": "#ffffff",
-              "active": "#ffffff",
+              "default": "lch(97.5 0 0)",
+              "hover": "lch(97.5 0 0)",
+              "active": "lch(97.5 0 0)",
               "disabled": "#808080"
             },
             "description": {
@@ -658,7 +658,7 @@
           "background": {
             "default": "#282828",
             "hover": "lch(23.5 0 0)",
-            "active": "lch(23.5 0 0)",
+            "active": "#282828",
             "disabled": "#414141"
           },
           "format": {
@@ -670,6 +670,12 @@
           },
           "stroke": {
             "default": "lch(27.5 0 0 / 0.3)"
+          },
+          "subtext": {
+            "default": "#b3b6bd",
+            "hover": "#b3b6bd",
+            "active": "#b3b6bd",
+            "disabled": "#c0c0c0"
           }
         }
       },
@@ -999,7 +1005,7 @@
             "active": "lch(18.2 0 0)"
           },
           "title": {
-            "default": "#ffffff"
+            "default": "lch(97.5 0 0)"
           },
           "icon": {
             "default": "#ffffff"
@@ -1092,7 +1098,7 @@
     "toast": {
       "color": {
         "title": {
-          "default": "#ffffff"
+          "default": "lch(97.5 0 0)"
         },
         "description": {
           "default": "#b3b6bd"
@@ -1101,7 +1107,7 @@
           "default": "#414141"
         },
         "icon": {
-          "default": "#ffffff",
+          "default": "lch(97.5 0 0)",
           "success": "#81e59d",
           "warning": "#ff9416",
           "danger": "#ff7575"
@@ -1124,7 +1130,7 @@
           "default": "#1F1F1C"
         },
         "title": {
-          "default": "#ffffff"
+          "default": "lch(97.5 0 0)"
         },
         "description": {
           "default": "#b3b6bd"
@@ -1140,7 +1146,7 @@
           "default": "#1F1F1C"
         },
         "title": {
-          "default": "#ffffff"
+          "default": "lch(97.5 0 0)"
         },
         "description": {
           "default": "#b3b6bd"
@@ -1234,6 +1240,9 @@
         },
         "shadow": {
           "default": "lch(6.77 0 0 / 0.6)"
+        },
+        "title": {
+          "default": "lch(97.5 0 0)"
         }
       }
     },
