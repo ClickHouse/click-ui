@@ -90,6 +90,21 @@
               }
             }
           }
+        },
+        "title": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "darken",
+                  "value": "0.025",
+                  "space": "lch"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -498,7 +513,7 @@
         },
         "title": {
           "default": {
-            "value": "{click.global.color.text.default}",
+            "value": "{click.global.color.title.default}",
             "type": "color"
           }
         }
@@ -2437,7 +2452,7 @@
           },
           "title": {
             "default": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.global.color.title.default}",
               "type": "color"
             }
           },
@@ -2688,15 +2703,15 @@
           },
           "title": {
             "default": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.global.color.title.default}",
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.card.primary.color.title.default}",
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.card.primary.color.title.default}",
               "type": "color"
             },
             "disabled": {
@@ -2773,15 +2788,15 @@
           },
           "title": {
             "default": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.global.color.title.default}",
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.card.secondary.color.title.default}",
               "type": "color"
             },
             "active": {
-              "value": "{click.global.color.text.default}",
+              "value": "{click.card.secondary.color.title.default}",
               "type": "color"
             },
             "disabled": {
@@ -2877,15 +2892,15 @@
             },
             "title": {
               "default": {
-                "value": "{click.global.color.text.default}",
+                "value": "{click.global.color.title.default}",
                 "type": "color"
               },
               "hover": {
-                "value": "{click.global.color.text.default}",
+                "value": "{click.card.horizontal.default.color.title.default}",
                 "type": "color"
               },
               "active": {
-                "value": "{click.global.color.text.default}",
+                "value": "{click.card.horizontal.default.color.title.default}",
                 "type": "color"
               },
               "disabled": {
@@ -2953,15 +2968,15 @@
             },
             "title": {
               "default": {
-                "value": "{click.global.color.text.default}",
+                "value": "{click.global.color.title.default}",
                 "type": "color"
               },
               "hover": {
-                "value": "{click.global.color.text.default}",
+                "value": "{click.card.horizontal.muted.color.title.default}",
                 "type": "color"
               },
               "active": {
-                "value": "{click.global.color.text.default}",
+                "value": "{click.card.horizontal.muted.color.title.default}",
                 "type": "color"
               },
               "disabled": {
@@ -3063,7 +3078,7 @@
       "color": {
         "title": {
           "default": {
-            "value": "{click.global.color.text.default}",
+            "value": "{click.global.color.title.default}",
             "type": "color"
           }
         },
@@ -3109,7 +3124,7 @@
         },
         "title": {
           "default": {
-            "value": "{click.global.color.text.default}",
+            "value": "{click.global.color.title.default}",
             "type": "color"
           }
         },
@@ -3146,7 +3161,7 @@
         },
         "title": {
           "default": {
-            "value": "{click.global.color.text.default}",
+            "value": "{click.global.color.title.default}",
             "type": "color"
           }
         },
