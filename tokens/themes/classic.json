@@ -1818,8 +1818,7 @@
               },
               "selectIndirect": {
                 "value": "#FFFEF4",
-                "type": "color",
-                "$extensions": {}
+                "type": "color"
               },
               "selectDirect": {
                 "value": "#FFFBE3",

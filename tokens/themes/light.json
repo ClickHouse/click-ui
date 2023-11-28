@@ -3153,8 +3153,7 @@
             },
             "active": {
               "value": "{click.table.header.color.background.hover}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             }
           },
           "title": {
