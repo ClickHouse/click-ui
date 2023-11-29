@@ -1801,29 +1801,6 @@
       },
       "promo": {
         "color": {
-          "background": {
-            "layer": {
-              "value": "{palette.neutral.725}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "alpha",
-                    "value": "0.4",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "default": {
-              "value": "{palette.neutral.100}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{palette.neutral.200}",
-              "type": "color"
-            }
-          },
           "text": {
             "default": {
               "value": "{click.global.color.text.default}",
@@ -1851,6 +1828,16 @@
             },
             "hover": {
               "value": "{click.card.promo.color.icon.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{palette.slate.50}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.slate.100}",
               "type": "color"
             }
           }
