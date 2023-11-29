@@ -378,6 +378,26 @@
             }
           }
         }
+      },
+      "promotion": {
+        "color": {
+          "text": {
+            "default": "#161517",
+            "hover": "#161517"
+          },
+          "icon": {
+            "default": "#161517",
+            "hover": "#161517"
+          },
+          "background": {
+            "default": "lch(97.2 1.57 272 / 0.9)",
+            "hover": "lch(91.8 1.07 266)"
+          },
+          "stroke": {
+            "default": "lch(91.6 1.1 266)",
+            "hover": "lch(91.6 1.1 266)"
+          }
+        }
       }
     },
     "sidebar": {

@@ -895,6 +895,26 @@
             }
           }
         }
+      },
+      "promotion": {
+        "color": {
+          "text": {
+            "default": string,
+            "hover": string
+          },
+          "icon": {
+            "default": string,
+            "hover": string
+          },
+          "background": {
+            "default": string,
+            "hover": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string
+          }
+        }
       }
     },
     "checkbox": {
@@ -1206,6 +1226,9 @@
             "y": string,
             "gap": string
           }
+        },
+        "size": {
+          "minWidth": string
         },
         "color": {
           "text": {
