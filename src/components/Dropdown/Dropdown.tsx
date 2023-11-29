@@ -12,11 +12,6 @@ export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
 const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
   display: flex;
-  &:hover .dropdown-arrow,
-  &[data-state="open"] .dropdown-arrow {
-    position: relative;
-    left: 0.5rem;
-  }
 `;
 
 interface SubDropdownProps {
@@ -59,9 +54,7 @@ const DropdownTrigger = ({
         >
           {children}
         </IconWrapper>
-        <div className="dropdown-arrow">
-          <Icon name="chevron-right" />
-        </div>
+        <Icon name="chevron-right" />
       </DropdownMenuItem>
     );
   }
@@ -89,6 +82,7 @@ type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
   ArrowProps;
 
 const DropdownMenuContent = styled(GenericMenuPanel)`
+  min-width: 250px;
   flex-direction: column;
   z-index: 1;
 `;
