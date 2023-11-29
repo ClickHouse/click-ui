@@ -3059,7 +3059,7 @@
                 "studio.tokens": {
                   "modify": {
                     "type": "alpha",
-                    "value": "0.4",
+                    "value": "0.9",
                     "space": "lch"
                   }
                 }
