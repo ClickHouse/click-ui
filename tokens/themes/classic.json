@@ -1498,7 +1498,7 @@
           },
           "stroke": {
             "default": {
-              "value": "{click.global.color.stroke.muted}",
+              "value": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
               "type": "color"
             },
             "hover": {
