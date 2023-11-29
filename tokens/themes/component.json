@@ -1332,6 +1332,12 @@
               "type": "spacing"
             }
           }
+        },
+        "size": {
+          "minWidth": {
+            "value": "180px",
+            "type": "sizing"
+          }
         }
       },
       "itemCustom": {
