@@ -300,6 +300,7 @@ const TabContentText = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  cursor: default;
 `;
 
 const EmptyButton = styled.button`
