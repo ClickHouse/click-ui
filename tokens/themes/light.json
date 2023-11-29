@@ -1798,6 +1798,63 @@
             }
           }
         }
+      },
+      "promo": {
+        "color": {
+          "background": {
+            "layer": {
+              "value": "{palette.neutral.725}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "alpha",
+                    "value": "0.4",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "default": {
+              "value": "{palette.neutral.100}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.neutral.200}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promo.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "icon": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promo.color.icon.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "checkbox": {

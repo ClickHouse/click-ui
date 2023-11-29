@@ -3040,6 +3040,63 @@
             }
           }
         }
+      },
+      "promo": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "linear-gradient(134deg, rgba(250, 255, 105, 0.20) 6.64%, rgba(30, 30, 30, 0.30) 32.9%), rgba(80, 80, 80, 0.30)",
+              "type": "color"
+            },
+            "hover": {
+              "value": "linear-gradient(134deg, rgba(250, 255, 105, 0.20) 6.64%, rgba(60, 60, 60, 0.30) 32.9%), rgba(80, 80, 80, 0.30)",
+              "type": "color"
+            },
+            "layer": {
+              "value": "{palette.neutral.725}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "alpha",
+                    "value": "0.4",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "linear-gradient(135deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+              "type": "color"
+            },
+            "hover": {
+              "value": "linear-gradient(135deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "icon": {
+            "default": {
+              "value": "{palette.brand.300}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promo.color.icon.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "image": {
