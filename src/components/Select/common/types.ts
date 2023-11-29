@@ -69,7 +69,6 @@ interface InternalSelectProps
   dir?: "start" | "end";
   orientation?: "horizontal" | "vertical";
   allowCreateOption?: boolean;
-  showCheck?: boolean;
   onChange: (selectedValues: Array<string>) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;

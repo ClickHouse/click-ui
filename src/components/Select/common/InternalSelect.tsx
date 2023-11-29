@@ -46,6 +46,7 @@ import { useOption, useSearch } from "./useOption";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { GenericMenuItem } from "@/components/GenericMenu";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
+import styled from "styled-components";
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
@@ -130,7 +131,6 @@ export const InternalSelect = ({
   allowCreateOption = false,
   customText = "",
   options,
-  showCheck,
   sortable = false,
   placeholder = "Select an option",
   multiple,
@@ -305,10 +305,9 @@ export const InternalSelect = ({
       highlighted,
       isHidden,
       onSelect,
-      showCheck,
       selectedValues,
     };
-  }, [search, highlighted, isHidden, onSelect, showCheck, selectedValues]);
+  }, [search, highlighted, isHidden, onSelect, selectedValues]);
 
   const onCreateOption = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -503,6 +502,10 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
 
 SelectGroup.displayName = "Select.Group";
 
+const CheckIcon = styled.svg<{ $showCheck: boolean }>`
+  opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
+`;
+
 export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   (
     {
@@ -519,14 +522,8 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     },
     forwardedRef
   ) => {
-    const {
-      highlighted,
-      updateHighlighted,
-      isHidden,
-      selectedValues,
-      onSelect,
-      showCheck,
-    } = useOption();
+    const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
+      useOption();
     const onSelectValue = () => {
       if (!disabled) {
         onSelect(value);
@@ -568,12 +565,12 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
           >
             {label ?? children}
           </IconWrapper>
-          {showCheck && isChecked && (
-            <Icon
-              name="check"
-              size="sm"
-            />
-          )}
+          <CheckIcon
+            as={Icon}
+            name="check"
+            size="sm"
+            $showCheck={isChecked}
+          />
         </GenericMenuItem>
         {separator && <Separator size="sm" />}
       </>
