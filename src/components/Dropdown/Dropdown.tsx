@@ -12,6 +12,14 @@ export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
 const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
   display: flex;
+  &[data-state="open"] {
+    ${({ theme }) => `
+      font: ${theme.click.genericMenu.item.typography.label.hover};
+      background: ${theme.click.genericMenu.item.color.background.hover};
+      color: ${theme.click.genericMenu.item.color.text.hover};
+      cursor: pointer;
+    `}
+  }
 `;
 
 interface SubDropdownProps {
