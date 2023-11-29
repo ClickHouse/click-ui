@@ -90,7 +90,7 @@ type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
   ArrowProps;
 
 const DropdownMenuContent = styled(GenericMenuPanel)`
-  min-width: 250px;
+  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
   flex-direction: column;
   z-index: 1;
 `;
