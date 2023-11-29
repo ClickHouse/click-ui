@@ -3041,7 +3041,7 @@
           }
         }
       },
-      "promo": {
+      "promotion": {
         "color": {
           "text": {
             "default": {
@@ -3059,7 +3059,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.card.promo.color.icon.default}",
+              "value": "{click.card.promotion.color.icon.default}",
               "type": "color"
             }
           },
@@ -3078,7 +3078,7 @@
               }
             },
             "hover": {
-              "value": "{click.card.promo.color.background.default}",
+              "value": "{click.card.promotion.color.background.default}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
@@ -3097,7 +3097,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.card.promo.color.stroke.default}",
+              "value": "{click.card.promotion.color.stroke.default}",
               "type": "color"
             }
           }

@@ -1474,25 +1474,15 @@
           }
         }
       },
-      "promo": {
+      "promotion": {
         "color": {
-          "text": {
+          "background": {
             "default": {
-              "value": "{click.global.color.text.default}",
+              "value": "{palette.slate.50}",
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.muted}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.card.promo.color.stroke.default}",
+              "value": "{palette.slate.100}",
               "type": "color"
             }
           },
@@ -1502,17 +1492,27 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.card.promo.color.icon.default}",
+              "value": "{click.card.promotion.color.icon.default}",
               "type": "color"
             }
           },
-          "background": {
+          "stroke": {
             "default": {
-              "value": "{palette.slate.50}",
+              "value": "{click.global.color.stroke.muted}",
               "type": "color"
             },
             "hover": {
-              "value": "{palette.slate.100}",
+              "value": "{click.card.promotion.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.icon.default}",
               "type": "color"
             }
           }
