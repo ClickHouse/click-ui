@@ -85,7 +85,7 @@ const Label = styled.div<{
 }>`
   ${({ $state = "default", $size = "lg", theme }) => `
     color: ${theme.click.bigStat.color.label[$state]};
-    font: ${theme.click.bigStat.typography[$size].label.default};
+    font: ${theme.click.bigStat.typography[$size].label[$state]};
   `}
 `;
 
