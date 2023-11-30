@@ -521,11 +521,19 @@
           "default": {
             "value": "{click.global.color.stroke.default}",
             "type": "color"
+          },
+          "muted": {
+            "value": "{click.bigStat.color.stroke.default}",
+            "type": "color"
           }
         },
         "background": {
           "default": {
             "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "muted": {
+            "value": "{click.global.color.background.muted}",
             "type": "color"
           }
         },
@@ -533,11 +541,19 @@
           "default": {
             "value": "{click.global.color.text.muted}",
             "type": "color"
+          },
+          "muted": {
+            "value": "{click.bigStat.color.label.default}",
+            "type": "color"
           }
         },
         "title": {
           "default": {
             "value": "{click.global.color.title.default}",
+            "type": "color"
+          },
+          "muted": {
+            "value": "{click.bigStat.color.title.default}",
             "type": "color"
           }
         }
