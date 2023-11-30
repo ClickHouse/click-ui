@@ -501,7 +501,7 @@
                 "type": "typography"
               },
               "active": {
-                "value": "{ {click.button.basic.typography.mobile.label.default}",
+                "value": "{click.button.basic.typography.mobile.label.default}",
                 "type": "typography"
               }
             }
