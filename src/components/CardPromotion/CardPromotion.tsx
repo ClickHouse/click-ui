@@ -2,7 +2,7 @@ import { HTMLAttributes, useState } from "react";
 import styled from "styled-components";
 import { Icon, IconName, Text } from "@/components";
 
-export interface CardPromoProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
   icon: IconName;
   dismissible?: boolean;
@@ -63,12 +63,12 @@ const DismissWrapper = styled.button`
   cursor: pointer;
 `;
 
-export const CardPromo = ({
+export const CardPromotion = ({
   label,
   icon,
   dismissible = false,
   ...props
-}: CardPromoProps) => {
+}: CardPromotionProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
   return isVisible ? (

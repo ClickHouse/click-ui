@@ -1,7 +1,7 @@
-import { CardPromo } from "./CardPromo";
+import { CardPromotion } from "./CardPromotion";
 
 export default {
-  component: CardPromo,
+  component: CardPromotion,
   title: "Cards/Promotion Card",
   tags: ["cardPromotion", "autodocs"],
 };

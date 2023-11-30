@@ -1,10 +1,11 @@
 import { screen } from "@testing-library/react";
-import { CardPromo, CardPromoProps } from "./CardPromo";
+import { CardPromotion, CardPromotionProps } from "./CardPromotion";
 import { renderCUI } from "@/utils/test-utils";
 
 describe("CardPromo Component", () => {
   describe("Promotional card", () => {
-    const renderCard = (props: CardPromoProps) => renderCUI(<CardPromo {...props} />);
+    const renderCard = (props: CardPromotionProps) =>
+      renderCUI(<CardPromotion {...props} />);
 
     it("should render the label", () => {
       const label = "Test card component";
