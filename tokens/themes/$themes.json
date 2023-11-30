@@ -1622,7 +1622,6 @@
       "click.badge.icon.sm.size.height": "637c4358a7f79956b2dcdee2593474c4990ee1dc",
       "click.badge.icon.sm.size.width": "523f3a089a96a0132cd512741b5f8af9a0d2d564",
       "click.bigStat.space.all": "86dd960297417abc1db868160764a4c36a7e4580",
-      "click.bigStat.space.gap": "b66a6b21c856727066ba9645c5fc0c709e9eba56",
       "click.bigStat.radii.all": "1ebfd007a4b8d53536f06eb30ac2c42608f1e85f",
       "click.bigStat.stroke": "62014050f5d7b9c76a35bcc2b917641c0c60a951",
       "click.button.radii.all": "41c014df58b0434ad805fc0dc2d2ac6b7ec1b965",
@@ -2751,7 +2750,6 @@
       "click.bigStat.color.label.default": "b391b0abc9c1731dc668ca3bae7e82d833344d49",
       "click.bigStat.color.label.muted": "e9e945d5c151972e1dd63a8e7d89102eade7edfa",
       "click.bigStat.color.title.default": "cff020db9555d55aaace5bb0a1b574ec64677088",
-      "click.bigStat.color.title.muetd": "7585602941fcff4444e7f1d2345d899008d0185e",
       "click.button.basic.color.primary.background.default": "9be8bc96ef6ac96af49c99d1068cde63c99ce26e",
       "click.button.basic.color.primary.background.hover": "c93dff23aed004e09d1791839153d5cd658315b6",
       "click.button.basic.color.primary.background.active": "56ddc9b306100632b129c6ace5f36560ff1e3a6b",
@@ -3312,7 +3310,6 @@
       "click.badge.icon.sm.size.height": "637c4358a7f79956b2dcdee2593474c4990ee1dc",
       "click.badge.icon.sm.size.width": "523f3a089a96a0132cd512741b5f8af9a0d2d564",
       "click.bigStat.space.all": "86dd960297417abc1db868160764a4c36a7e4580",
-      "click.bigStat.space.gap": "b66a6b21c856727066ba9645c5fc0c709e9eba56",
       "click.bigStat.radii.all": "1ebfd007a4b8d53536f06eb30ac2c42608f1e85f",
       "click.bigStat.stroke": "62014050f5d7b9c76a35bcc2b917641c0c60a951",
       "click.button.radii.all": "41c014df58b0434ad805fc0dc2d2ac6b7ec1b965",
@@ -3716,7 +3713,8 @@
       "spaces.4": "bb7c29d6fcd923be04d515c5b1881fce2e15fea2",
       "spaces.5": "ebcc0c4868d31b7230740bf175afa8acc2a125cf",
       "spaces.6": "a9c1b12ef5f296c4d95bb7e96c662766caebdb46",
-      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8"
+      "spaces.7": "183adda6b610a6b75f02902bcd9d210f112f34f8",
+      "click.bigStat.color.title.muted": "7585602941fcff4444e7f1d2345d899008d0185e"
     },
     "group": "Default"
   },
@@ -4903,7 +4901,6 @@
       "click.badge.icon.sm.size.height": "637c4358a7f79956b2dcdee2593474c4990ee1dc",
       "click.badge.icon.sm.size.width": "523f3a089a96a0132cd512741b5f8af9a0d2d564",
       "click.bigStat.space.all": "86dd960297417abc1db868160764a4c36a7e4580",
-      "click.bigStat.space.gap": "b66a6b21c856727066ba9645c5fc0c709e9eba56",
       "click.bigStat.radii.all": "1ebfd007a4b8d53536f06eb30ac2c42608f1e85f",
       "click.bigStat.stroke": "62014050f5d7b9c76a35bcc2b917641c0c60a951",
       "click.button.radii.all": "41c014df58b0434ad805fc0dc2d2ac6b7ec1b965",

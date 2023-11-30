@@ -528,7 +528,7 @@
             "value": "{click.global.color.title.default}",
             "type": "color"
           },
-          "muetd": {
+          "muted": {
             "value": "{click.bigStat.color.title.default}",
             "type": "color"
           }

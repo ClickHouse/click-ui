@@ -370,9 +370,17 @@
           "value": "{spaces.4}",
           "type": "spacing"
         },
-        "gap": {
-          "value": "{spaces.0}",
-          "type": "spacing"
+        "sm": {
+          "gap": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          }
+        },
+        "lg": {
+          "gap": {
+            "value": "{spaces.2}",
+            "type": "spacing"
+          }
         }
       },
       "radii": {
