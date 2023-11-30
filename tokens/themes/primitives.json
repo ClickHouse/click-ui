@@ -985,7 +985,7 @@
         "type": "other"
       },
       "medium": {
-        "value": "150ms",
+        "value": "130ms",
         "type": "other"
       },
       "fast": {
