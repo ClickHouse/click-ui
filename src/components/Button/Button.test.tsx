@@ -25,7 +25,7 @@ describe("Button", () => {
     expect(counter).toEqual(1);
   });
 
-  it("given a loading button, it should redner the loading icon", async () => {
+  it("given a loading button, it should render the loading icon", async () => {
     const { getAllByTestId } = renderButton({
       label: "Button",
       loading: true,
@@ -35,7 +35,7 @@ describe("Button", () => {
     expect(loadingButton.length).toEqual(1);
   });
 
-  it("given a non-loading button, it should not redner the loading icon", async () => {
+  it("given a non-loading button, it should not render the loading icon", async () => {
     const { queryAllByTestId } = renderButton({
       label: "Button",
       loading: false,

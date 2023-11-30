@@ -259,7 +259,12 @@
     "bigStat": {
       "space": {
         "all": string,
-        "gap": string
+        "sm": {
+          "gap": string
+        },
+        "lg": {
+          "gap": string
+        }
       },
       "radii": {
         "all": string
@@ -268,33 +273,41 @@
       "typography": {
         "lg": {
           "label": {
-            "default": string
+            "default": string,
+            "muted": string
           },
           "title": {
-            "default": string
+            "default": string,
+            "muted": string
           }
         },
         "sm": {
           "label": {
-            "default": string
+            "default": string,
+            "muted": string
           },
           "title": {
-            "default": string
+            "default": string,
+            "muted": string
           }
         }
       },
       "color": {
         "stroke": {
-          "default": string
+          "default": string,
+          "muted": string
         },
         "background": {
-          "default": string
+          "default": string,
+          "muted": string
         },
         "label": {
-          "default": string
+          "default": string,
+          "muted": string
         },
         "title": {
-          "default": string
+          "default": string,
+          "muted": string
         }
       }
     },
@@ -893,6 +906,49 @@
               "active": string,
               "disabled": string
             }
+          }
+        }
+      },
+      "promotion": {
+        "radii": {
+          "all": string
+        },
+        "typography": {
+          "text": {
+            "default": string
+          }
+        },
+        "space": {
+          "y": string,
+          "x": string,
+          "gap": string
+        },
+        "icon": {
+          "size": {
+            "all": string
+          }
+        },
+        "color": {
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "icon": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "focus": string
           }
         }
       }
