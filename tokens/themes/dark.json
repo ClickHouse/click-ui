@@ -3040,6 +3040,68 @@
             }
           }
         }
+      },
+      "promotion": {
+        "color": {
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "icon": {
+            "default": {
+              "value": "{palette.brand.300}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.icon.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{palette.neutral.725}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "alpha",
+                    "value": "0.9",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.background.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.stroke.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "image": {
