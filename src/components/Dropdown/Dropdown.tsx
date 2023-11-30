@@ -12,10 +12,13 @@ export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
 const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
   display: flex;
-  &:hover .dropdown-arrow,
-  &[data-state="open"] .dropdown-arrow {
-    position: relative;
-    left: 0.5rem;
+  &[data-state="open"] {
+    ${({ theme }) => `
+      font: ${theme.click.genericMenu.item.typography.label.hover};
+      background: ${theme.click.genericMenu.item.color.background.hover};
+      color: ${theme.click.genericMenu.item.color.text.hover};
+      cursor: pointer;
+    `}
   }
 `;
 
@@ -59,9 +62,7 @@ const DropdownTrigger = ({
         >
           {children}
         </IconWrapper>
-        <div className="dropdown-arrow">
-          <Icon name="chevron-right" />
-        </div>
+        <Icon name="chevron-right" />
       </DropdownMenuItem>
     );
   }
@@ -89,6 +90,7 @@ type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
   ArrowProps;
 
 const DropdownMenuContent = styled(GenericMenuPanel)`
+  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
   flex-direction: column;
   z-index: 1;
 `;

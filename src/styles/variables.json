@@ -1206,6 +1206,9 @@
             "gap": "0.75rem"
           }
         },
+        "size": {
+          "minWidth": "180px"
+        },
         "color": {
           "text": {
             "default": "#161517",
