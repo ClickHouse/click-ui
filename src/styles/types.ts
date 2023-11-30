@@ -897,22 +897,44 @@
         }
       },
       "promotion": {
+        "radii": {
+          "all": string
+        },
+        "typography": {
+          "text": {
+            "default": string
+          }
+        },
+        "space": {
+          "y": string,
+          "x": string,
+          "gap": string
+        },
+        "icon": {
+          "size": {
+            "all": string
+          }
+        },
         "color": {
           "text": {
             "default": string,
-            "hover": string
+            "hover": string,
+            "active": string
           },
           "icon": {
             "default": string,
-            "hover": string
+            "hover": string,
+            "active": string
           },
           "background": {
             "default": string,
-            "hover": string
+            "hover": string,
+            "active": string
           },
           "stroke": {
             "default": string,
-            "hover": string
+            "hover": string,
+            "active": string
           }
         }
       }

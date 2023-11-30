@@ -896,22 +896,44 @@
         }
       },
       "promotion": {
+        "radii": {
+          "all": "0.25rem"
+        },
+        "typography": {
+          "text": {
+            "default": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+          }
+        },
+        "space": {
+          "y": "0.75rem",
+          "x": "1.5rem",
+          "gap": "1rem"
+        },
+        "icon": {
+          "size": {
+            "all": "1rem"
+          }
+        },
         "color": {
           "text": {
             "default": "#161517",
-            "hover": "#161517"
+            "hover": "#161517",
+            "active": "#161517"
           },
           "icon": {
             "default": "#161517",
-            "hover": "#161517"
+            "hover": "#161517",
+            "active": "#161517"
           },
           "background": {
             "default": "lch(97.2 1.57 272 / 0.9)",
-            "hover": "lch(91.8 1.07 266)"
+            "hover": "lch(91.8 1.07 266)",
+            "active": "lch(89.8 1.08 266)"
           },
           "stroke": {
             "default": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
-            "hover": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)"
+            "hover": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
+            "active": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)"
           }
         }
       }

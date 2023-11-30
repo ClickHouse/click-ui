@@ -9,11 +9,11 @@ export interface CardPromoProps extends HTMLAttributes<HTMLDivElement> {
 }
 const Background = styled.div`
   ${({ theme }) => `
-  background-image: ${theme.click.card.promotion.color.stroke.default};
-  padding: 1px;
-  border-radius: ${theme.click.card.horizontal.radii.all};
-  box-shadow: ${theme.click.card.shadow};
-  display: flex;
+    background-image: ${theme.click.card.promotion.color.stroke.default};
+    padding: 1px;
+    border-radius: ${theme.click.card.promotion.radii.all};
+    box-shadow: ${theme.click.card.shadow};
+    display: flex;
   `}
 `;
 const Wrapper = styled.div<{
@@ -28,22 +28,27 @@ const Wrapper = styled.div<{
   ${({ theme }) => `
     background: ${theme.click.card.promotion.color.background.default};
     color: ${theme.click.card.promotion.color.text.default}; 
-    border-radius: ${theme.click.card.horizontal.radii.all};
-    padding: ${theme.click.card.horizontal.space.y} ${theme.click.card.horizontal.space.x};
-    gap: ${theme.click.card.horizontal.space.gap};
+    border-radius: ${theme.click.card.promotion.radii.all};
+    padding: ${theme.click.card.promotion.space.y} ${theme.click.card.promotion.space.x};
+    gap: ${theme.click.card.promotion.space.gap};
     transition: .2s ease-in-out all;
   
     &:hover {
       background: ${theme.click.card.promotion.color.background.hover};
+      color: ${theme.click.card.promotion.color.text.hover};
     }
 
-    `}
+    &:active, &:focus {
+      background: ${theme.click.card.promotion.color.background.active};
+      color: ${theme.click.card.promotion.color.text.active};
+    }
+  `}
 `;
 
 const CardIcon = styled(Icon)`
   ${({ theme }) => `
-      height: ${theme.click.card.horizontal.icon.size.all};
-      width: ${theme.click.card.horizontal.icon.size.all};
+      height: ${theme.click.card.promotion.icon.size.all};
+      width: ${theme.click.card.promotion.icon.size.all};
       color: ${theme.click.card.promotion.color.icon.default};
   `}
 `;

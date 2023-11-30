@@ -383,19 +383,23 @@
         "color": {
           "text": {
             "default": "#161517",
-            "hover": "#161517"
+            "hover": "#161517",
+            "active": "#161517"
           },
           "icon": {
             "default": "#161517",
-            "hover": "#161517"
+            "hover": "#161517",
+            "active": "#161517"
           },
           "background": {
             "default": "lch(97.2 1.57 272 / 0.9)",
-            "hover": "lch(91.8 1.07 266)"
+            "hover": "lch(91.8 1.07 266)",
+            "active": "lch(89.3 1.07 266)"
           },
           "stroke": {
             "default": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
-            "hover": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)"
+            "hover": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
+            "active": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)"
           }
         }
       }
