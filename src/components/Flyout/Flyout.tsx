@@ -80,9 +80,9 @@ const FlyoutContent = styled(DialogContent)<{
     gap: ${theme.click.flyout.space.gap};
     border-left: 1px solid ${theme.click.flyout.color.stroke.default};
     background: ${theme.click.flyout.color.background.default};
-    box-shadow: -6px 0px 10px 0px ${
-      theme.click.flyout.shadow.default
-    }, -5px 0px 20px 0px ${theme.click.flyout.shadow.default};
+    box-shadow: ${theme.click.flyout.shadow.default}, ${
+    theme.click.flyout.shadow.default
+  };
         @media (max-width: 1024px) {
     ${
       $strategy === "relative"
