@@ -83,23 +83,24 @@ const FlyoutContent = styled(DialogContent)<{
     box-shadow: ${theme.click.flyout.shadow.default}, ${
     theme.click.flyout.shadow.default
   };
-        @media (max-width: 1024px) {
-    ${
-      $strategy === "relative"
-        ? `
-          position: absolute !important;`
-        : ""
+    
+    @media (max-width: 1024px) {
+      ${
+        $strategy === "relative"
+          ? `
+            position: absolute !important;`
+          : ""
+      }
+      overflow: hidden;
+      transform: translateX(calc(100% - 50px));
+      transition: 0.3s ease-in-out;
+      &:hover,
+      &.active,
+      &:focus-within {
+        transform: translateX(0);
+        left: auto;
+      }
     }
-          overflow: hidden;
-          transform: translateX(calc(100% - 50px));
-          transition: 0.3s ease-in-out;
-          &:hover,
-          &.active,
-          &:focus-within {
-            transform: translateX(0);
-            left: auto;
-          }
-        }
   `}
 `;
 const FlyoutContainer = styled.div`
