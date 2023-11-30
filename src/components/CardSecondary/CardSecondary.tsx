@@ -80,6 +80,7 @@ const Wrapper = styled.div<{
   padding: ${({ theme }) => theme.click.card.secondary.space.all};
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
+  transition: ${({ theme }) => theme.transition.default};
 
   &:hover,
   :focus {

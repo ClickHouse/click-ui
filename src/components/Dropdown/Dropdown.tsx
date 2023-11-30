@@ -17,6 +17,7 @@ const DropdownMenuItem = styled(GenericMenuItem)`
       font: ${theme.click.genericMenu.item.typography.label.hover};
       background: ${theme.click.genericMenu.item.color.background.hover};
       color: ${theme.click.genericMenu.item.color.text.hover};
+      transition: ${theme.transition.default};
       cursor: pointer;
     `}
   }

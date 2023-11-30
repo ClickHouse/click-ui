@@ -98,16 +98,20 @@
     "bigStat": {
       "color": {
         "stroke": {
-          "default": "lch(91.6 1.1 266)"
+          "default": "lch(91.6 1.1 266)",
+          "muted": "lch(91.6 1.1 266)"
         },
         "background": {
-          "default": "#ffffff"
+          "default": "#ffffff",
+          "muted": "#f6f7fa"
         },
         "label": {
-          "default": "#696e79"
+          "default": "#696e79",
+          "muted": "#696e79"
         },
         "title": {
-          "default": "lch(9.26 1.4 305)"
+          "default": "lch(9.26 1.4 305)",
+          "muted": "lch(9.26 1.4 305)"
         }
       }
     },
@@ -505,6 +509,31 @@
             }
           }
         }
+      },
+      "promotion": {
+        "color": {
+          "text": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517"
+          },
+          "icon": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#161517"
+          },
+          "background": {
+            "default": "lch(97.2 1.57 272 / 0.9)",
+            "hover": "lch(91.8 1.07 266)",
+            "active": "lch(89.8 1.08 266)"
+          },
+          "stroke": {
+            "default": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
+            "hover": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
+            "active": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
+            "focus": "#151515"
+          }
+        }
       }
     },
     "checkbox": {
@@ -597,8 +626,8 @@
     "field": {
       "color": {
         "background": {
-          "default": "#f6f7fa",
-          "hover": "#f6f7fa",
+          "default": "lch(97.3 1.53 272)",
+          "hover": "lch(97.3 1.53 272)",
           "active": "#ffffff",
           "disabled": "#dfdfdf",
           "error": "#ffffff"

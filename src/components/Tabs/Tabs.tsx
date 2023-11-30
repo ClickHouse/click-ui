@@ -17,6 +17,7 @@ const Trigger = styled(RadixTabs.Trigger)`
   color: ${props => props.theme.click.tabs.basic.color.text.default};
   font: ${props => props.theme.click.tabs.typography.label.default};
   cursor: pointer;
+  transition: ${props => props.theme.transition.default};
 
   &[data-state="active"] {
     border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};

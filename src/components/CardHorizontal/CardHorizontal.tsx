@@ -42,6 +42,7 @@ const Wrapper = styled.div<{
   max-width: 100%;
   align-items: center;
   justify-content: flex-start;
+  transition: ${({ theme }) => theme.transition.default};
 
   ${({ theme, $color, $isSelected, $disabled }) => `
     background: ${theme.click.card.horizontal[$color].color.background.default};

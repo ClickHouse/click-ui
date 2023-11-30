@@ -24,6 +24,8 @@ const Wrapper = styled.div<{ $error: boolean }>`
     color: ${theme.click.field.color.text.default};
     border: 1px solid ${theme.click.field.color.stroke.default};
     background: ${theme.click.field.color.background.default};
+    transition: ${theme.transition.default};
+    
     &:hover {
       border: 1px solid ${theme.click.field.color.stroke.hover};
       background: ${theme.click.field.color.background.hover};
@@ -133,7 +135,6 @@ export const TextAreaElement = styled.textarea`
     }
   `}
 `;
-
 
 export const IconButton = styled.button<{ $show?: boolean }>`
   background: transparent;

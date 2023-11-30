@@ -42,16 +42,15 @@ const Button = styled.button<{
   border: ${theme.click.button.stroke} solid ${
     theme.click.button.iconButton.color[$styleType].stroke.default
   };
+  background-color: ${theme.click.button.iconButton.color[$styleType].background.default};
+  color: ${theme.click.button.iconButton.color[$styleType].text.default};
+  transition: ${theme.transition.default};
   cursor: pointer;
   padding: ${
     $size
       ? `${theme.click.button.iconButton[$size].space.y} ${theme.click.button.iconButton[$size].space.x}`
       : `${theme.click.button.iconButton.default.space.y} ${theme.click.button.iconButton.default.space.x}`
   };
-
-  background-color: ${theme.click.button.iconButton.color[$styleType].background.default};
-
-  color: ${theme.click.button.iconButton.color[$styleType].text.default};
 
   &:hover {
     background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};

@@ -64,6 +64,7 @@ export const SidebarItemWrapper = styled.div<{
     background-color: ${
       theme.click.sidebar[$type].navigation[itemType].color.background.default
     };
+    transition: ${theme.transition.default};
     color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
     &:hover, &:focus {
       font: ${theme.click.sidebar.navigation[itemType].typography.hover};

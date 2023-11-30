@@ -44,6 +44,7 @@ const Wrapper = styled.div<{
 
   &:hover,
   &:focus {
+    transition: ${({ theme }) => theme.transition.default};
     background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
     cursor: pointer;
     button {

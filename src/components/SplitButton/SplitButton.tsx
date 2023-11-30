@@ -247,6 +247,7 @@ const PrimaryButton = styled(BaseButton)<{
   ${({ theme, $type, $fillWidth }) => `
     width: ${$fillWidth ? "100%" : "revert"};
     justify-content: center;
+    transition: ${theme.transition.default};
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};
     &:hover {
@@ -272,6 +273,7 @@ const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
     padding: ${theme.click.button.split.icon.space.y} ${theme.click.button.split.icon.space.x};
     background: ${theme.click.button.split[$type].background.action.default};
     color: ${theme.click.button.split[$type].text.default};
+    transition: ${theme.transition.default};
     &:hover {
       background: ${theme.click.button.split[$type].background.action.hover};
       color: ${theme.click.button.split[$type].text.hover};

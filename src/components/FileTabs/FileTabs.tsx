@@ -228,6 +228,8 @@ const TabElement = styled.div<{
     background: ${theme.click.tabs.fileTabs.color.background.default};
     color: ${theme.click.tabs.fileTabs.color.text.default};
     font: ${theme.click.tabs.fileTabs.typography.label.default};
+    transition: ${theme.transition.default};
+    cursor: pointer;
     svg,
     [data-indicator] {
       height: ${theme.click.tabs.fileTabs.icon.size.height};
