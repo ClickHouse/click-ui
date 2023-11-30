@@ -14,6 +14,10 @@ const Background = styled.div`
     border-radius: ${theme.click.card.promotion.radii.all};
     box-shadow: ${theme.click.card.shadow};
     display: flex;
+
+    &:focus {
+      background: ${theme.click.card.promotion.color.stroke.focus};
+    }
   `}
 `;
 const Wrapper = styled.div<{

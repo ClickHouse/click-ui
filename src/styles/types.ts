@@ -934,7 +934,8 @@
           "stroke": {
             "default": string,
             "hover": string,
-            "active": string
+            "active": string,
+            "focus": string
           }
         }
       }

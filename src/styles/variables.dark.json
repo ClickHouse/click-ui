@@ -526,7 +526,8 @@
           "stroke": {
             "default": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
             "hover": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
-            "active": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)"
+            "active": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            "focus": "#FAFF69"
           }
         }
       }
