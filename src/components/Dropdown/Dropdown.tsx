@@ -108,6 +108,7 @@ const DropdownContent = ({
         $type="dropdown-menu"
         $showArrow={showArrow}
         as={ContentElement}
+        sideOffset={4}
         loop
         {...props}
       >

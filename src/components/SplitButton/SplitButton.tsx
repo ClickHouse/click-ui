@@ -123,6 +123,7 @@ export const SplitButton = ({
         as={Dropdown.Content}
         side={side}
         $width={width}
+        sideOffset={4}
         align="end"
       >
         {menu.map((item: Menu, index: number) => (
