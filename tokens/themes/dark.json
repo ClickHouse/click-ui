@@ -503,6 +503,10 @@
           "default": {
             "value": "{click.global.color.background.default}",
             "type": "color"
+          },
+          "muted": {
+            "value": "{click.global.color.background.muted}",
+            "type": "color"
           }
         },
         "label": {
