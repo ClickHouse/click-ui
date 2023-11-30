@@ -1473,6 +1473,50 @@
             }
           }
         }
+      },
+      "promotion": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{palette.slate.50}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.slate.100}",
+              "type": "color"
+            }
+          },
+          "icon": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.icon.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.card.promotion.color.icon.default}",
+              "type": "color"
+            }
+          }
+        }
       }
     },
     "flyout": {

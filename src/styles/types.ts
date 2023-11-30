@@ -1207,6 +1207,9 @@
             "gap": string
           }
         },
+        "size": {
+          "minWidth": string
+        },
         "color": {
           "text": {
             "default": string,
