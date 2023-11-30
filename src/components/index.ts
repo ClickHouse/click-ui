@@ -1,5 +1,3 @@
-import { from } from "stylis";
-
 export * from "./types";
 
 export { Icon } from "./Icon/Icon";
