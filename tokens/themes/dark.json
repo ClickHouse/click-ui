@@ -3051,6 +3051,10 @@
             "hover": {
               "value": "{click.global.color.text.default}",
               "type": "color"
+            },
+            "active": {
+              "value": "{click.card.promotion.color.text.default}",
+              "type": "color"
             }
           },
           "icon": {
@@ -3059,6 +3063,10 @@
               "type": "color"
             },
             "hover": {
+              "value": "{click.card.promotion.color.icon.default}",
+              "type": "color"
+            },
+            "active": {
               "value": "{click.card.promotion.color.icon.default}",
               "type": "color"
             }
@@ -3089,6 +3097,19 @@
                   }
                 }
               }
+            },
+            "active": {
+              "value": "{click.card.promotion.color.background.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
             }
           },
           "stroke": {
@@ -3097,6 +3118,10 @@
               "type": "color"
             },
             "hover": {
+              "value": "{click.card.promotion.color.stroke.default}",
+              "type": "color"
+            },
+            "active": {
               "value": "{click.card.promotion.color.stroke.default}",
               "type": "color"
             }
