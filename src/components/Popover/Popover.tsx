@@ -82,6 +82,7 @@ const PopoverContent = ({
         $type="popover"
         $showClose={showClose}
         $showArrow={showArrow}
+        sideOffset={4}
         {...props}
       >
         {showClose && (

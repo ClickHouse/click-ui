@@ -923,6 +923,44 @@
             "type": "spacing"
           }
         }
+      },
+      "promotion": {
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
+        },
+        "typography": {
+          "text": {
+            "default": {
+              "value": "{typography.styles.product.text.normal.md}",
+              "type": "typography"
+            }
+          }
+        },
+        "space": {
+          "y": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{spaces.5}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          }
+        },
+        "icon": {
+          "size": {
+            "all": {
+              "value": "{sizes.5}",
+              "type": "sizing"
+            }
+          }
+        }
       }
     },
     "checkbox": {
