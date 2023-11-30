@@ -391,6 +391,10 @@
             "default": {
               "value": "{typography.styles.product.text.normal.md}",
               "type": "typography"
+            },
+            "muted": {
+              "value": "{click.bigStat.typography.lg.label.default}",
+              "type": "typography"
             }
           },
           "title": {
@@ -402,6 +406,10 @@
                 "fontSize": "{typography.font.sizes.6}"
               },
               "type": "typography"
+            },
+            "muted": {
+              "value": "{click.bigStat.typography.lg.title.default}",
+              "type": "typography"
             }
           }
         },
@@ -410,11 +418,19 @@
             "default": {
               "value": "{typography.styles.product.text.normal.md}",
               "type": "typography"
+            },
+            "muted": {
+              "value": "{click.bigStat.typography.sm.label.default}",
+              "type": "typography"
             }
           },
           "title": {
             "default": {
               "value": "{typography.styles.product.titles.lg}",
+              "type": "typography"
+            },
+            "muted": {
+              "value": "{click.bigStat.typography.sm.title.default}",
               "type": "typography"
             }
           }
