@@ -529,7 +529,7 @@
           "xs": {
             "value": {
               "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
+              "fontWeight": "{typography.font.weights.3}",
               "fontSize": "{typography.font.sizes.1}",
               "lineHeight": "{typography.font.line-height.1}"
             },
@@ -538,7 +538,7 @@
           "sm": {
             "value": {
               "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.4}",
+              "fontWeight": "{typography.font.weights.3}",
               "lineHeight": "{typography.font.line-height.1}",
               "fontSize": "{typography.font.sizes.2}"
             },

@@ -123,7 +123,7 @@
               "studio.tokens": {
                 "modify": {
                   "type": "lighten",
-                  "value": "0.025",
+                  "value": "0.045",
                   "space": "lch"
                 }
               }
