@@ -91,6 +91,7 @@ const StyledButton = styled(BaseButton)<{
   border: ${({ theme }) => theme.click.button.stroke} solid
     ${({ $styleType = "primary", theme }) =>
       theme.click.button.basic.color[$styleType].stroke.default};
+  font: ${({ theme }) => theme.click.button.basic.typography.label.default};
   position: relative;
   display: flex;
   align-items: center;
@@ -104,6 +105,7 @@ const StyledButton = styled(BaseButton)<{
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.hover};
     transition: ${({ theme }) => theme.transition.default};
+    font: ${({ theme }) => theme.click.button.basic.typography.label.hover};
   }
 
   &:active,
@@ -113,6 +115,7 @@ const StyledButton = styled(BaseButton)<{
     border: 1px solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.active};
+    font: ${({ theme }) => theme.click.button.basic.typography.label.active};
   }
 
   &:disabled,
@@ -125,6 +128,7 @@ const StyledButton = styled(BaseButton)<{
     border: ${({ theme }) => theme.click.button.stroke} solid
       ${({ $styleType = "primary", theme }) =>
         theme.click.button.basic.color[$styleType].stroke.disabled};
+    font: ${({ theme }) => theme.click.button.basic.typography.label.disabled};
   }
 `;
 
