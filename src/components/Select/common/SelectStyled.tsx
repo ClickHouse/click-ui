@@ -1,4 +1,7 @@
 import { Content, Root, Trigger } from "@radix-ui/react-popover";
+import "@radix-ui/react-popper";
+import "@radix-ui/react-dismissable-layer";
+
 import styled from "styled-components";
 
 export const SelectPopoverRoot = styled(Root)`
