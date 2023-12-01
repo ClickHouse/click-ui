@@ -1730,14 +1730,32 @@
         "background": {
           "default": {
             "value": "{palette.neutral.725}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.025",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "hover": {
-            "value": "{click.global.color.background.muted}",
-            "type": "color"
+            "value": "{click.field.color.background.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.025",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "active": {
-            "value": "{click.global.color.background.default}",
+            "value": "{click.field.color.background.hover}",
             "type": "color"
           },
           "disabled": {
@@ -3280,7 +3298,7 @@
       "color": {
         "background": {
           "default": {
-            "value": "{click.alert.color.background.default}",
+            "value": "{click.global.color.background.muted}",
             "type": "color"
           }
         },
