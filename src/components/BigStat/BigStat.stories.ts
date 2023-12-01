@@ -4,10 +4,18 @@ export default {
   component: BigStat,
   title: "Display/Big Stat",
   tags: ["big-stat", "autodocs"],
+  order: {
+    options: ["titleTop", "titleBottom"],
+    control: { type: "radio" },
+  },
   size: {
     options: ["lg", "sm"],
     control: { type: "radio" },
-  }
+  },
+  spacing: {
+    options: ["lg", "sm"],
+    control: { type: "radio" },
+  },
 };
 
 export const Playground = {
@@ -16,6 +24,8 @@ export const Playground = {
     title: "100%",
     state: "default",
     size: "lg",
-    height: ""
+    spacing: "sm",
+    order: "titleTop",
+    height: "",
   },
 };

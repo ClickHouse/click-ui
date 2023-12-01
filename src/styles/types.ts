@@ -259,7 +259,12 @@
     "bigStat": {
       "space": {
         "all": string,
-        "gap": string
+        "sm": {
+          "gap": string
+        },
+        "lg": {
+          "gap": string
+        }
       },
       "radii": {
         "all": string
@@ -268,33 +273,41 @@
       "typography": {
         "lg": {
           "label": {
-            "default": string
+            "default": string,
+            "muted": string
           },
           "title": {
-            "default": string
+            "default": string,
+            "muted": string
           }
         },
         "sm": {
           "label": {
-            "default": string
+            "default": string,
+            "muted": string
           },
           "title": {
-            "default": string
+            "default": string,
+            "muted": string
           }
         }
       },
       "color": {
         "stroke": {
-          "default": string
+          "default": string,
+          "muted": string
         },
         "background": {
-          "default": string
+          "default": string,
+          "muted": string
         },
         "label": {
-          "default": string
+          "default": string,
+          "muted": string
         },
         "title": {
-          "default": string
+          "default": string,
+          "muted": string
         }
       }
     },

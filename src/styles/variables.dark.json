@@ -98,16 +98,20 @@
     "bigStat": {
       "color": {
         "stroke": {
-          "default": "lch(27.5 0 0 / 0.3)"
+          "default": "lch(27.5 0 0 / 0.3)",
+          "muted": "lch(27.5 0 0 / 0.3)"
         },
         "background": {
-          "default": "#1F1F1C"
+          "default": "#1F1F1C",
+          "muted": "#282828"
         },
         "label": {
-          "default": "#b3b6bd"
+          "default": "#b3b6bd",
+          "muted": "#b3b6bd"
         },
         "title": {
-          "default": "lch(97.5 0 0)"
+          "default": "lch(97.5 0 0)",
+          "muted": "lch(97.5 0 0)"
         }
       }
     },
