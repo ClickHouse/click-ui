@@ -89,7 +89,7 @@ const Button = styled.button<ButtonProps>`
       ? theme.click.button.group.color.background.active
       : theme.click.button.group.color.background.default};
   color: ${({ theme }) => theme.click.button.group.color.text.default};
-  font: ${({ theme }) => theme.click.button.basic.typography.label.default};
+  font: ${({ theme }) => theme.click.button.group.typography.label.default};
   border-radius: ${({ theme }) => theme.click.button.group.radii.end};
   padding: ${({ theme }) => theme.click.button.basic.space.y}
     ${({ theme }) => theme.click.button.basic.space.x};
@@ -99,10 +99,12 @@ const Button = styled.button<ButtonProps>`
 
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};
+    font: ${({ theme }) => theme.click.button.group.typography.label.hover};
   }
 
   &:disabled {
     cursor: not-allowed;
+    font: ${({ theme }) => theme.click.button.group.typography.label.disabled};
     background: ${({ theme, $active }) =>
       theme.click.button.group.color.background[
         $active ? "disabled-active" : "disabled"
@@ -112,6 +114,7 @@ const Button = styled.button<ButtonProps>`
   &:active,
   &:focus {
     background: ${({ theme }) => theme.click.button.group.color.background.active};
+    font: ${({ theme }) => theme.click.button.group.typography.label.active};
     &:disabled {
       background: ${({ theme }) =>
         theme.click.button.group.color.background["disabled-active"]};

@@ -110,8 +110,8 @@
           "muted": "#696e79"
         },
         "title": {
-          "default": "lch(9.26 1.4 305)",
-          "muted": "lch(9.26 1.4 305)"
+          "default": "lch(11.1 1.37 305)",
+          "muted": "lch(11.1 1.37 305)"
         }
       }
     },
@@ -399,9 +399,9 @@
             "disabled": "#dfdfdf"
           },
           "title": {
-            "default": "lch(9.26 1.4 305)",
-            "hover": "lch(9.26 1.4 305)",
-            "active": "lch(9.26 1.4 305)",
+            "default": "lch(11.1 1.37 305)",
+            "hover": "lch(11.1 1.37 305)",
+            "active": "lch(11.1 1.37 305)",
             "disabled": "#a0a0a0"
           },
           "description": {
@@ -433,9 +433,9 @@
             "disabled": "#dfdfdf"
           },
           "title": {
-            "default": "lch(9.26 1.4 305)",
-            "hover": "lch(9.26 1.4 305)",
-            "active": "lch(9.26 1.4 305)",
+            "default": "lch(11.1 1.37 305)",
+            "hover": "lch(11.1 1.37 305)",
+            "active": "lch(11.1 1.37 305)",
             "disabled": "#a0a0a0"
           },
           "description": {
@@ -462,9 +462,9 @@
               "disabled": "#dfdfdf"
             },
             "title": {
-              "default": "lch(9.26 1.4 305)",
-              "hover": "lch(9.26 1.4 305)",
-              "active": "lch(9.26 1.4 305)",
+              "default": "lch(11.1 1.37 305)",
+              "hover": "lch(11.1 1.37 305)",
+              "active": "lch(11.1 1.37 305)",
               "disabled": "#a0a0a0"
             },
             "description": {
@@ -490,9 +490,9 @@
               "disabled": "#dfdfdf"
             },
             "title": {
-              "default": "lch(9.26 1.4 305)",
-              "hover": "lch(9.26 1.4 305)",
-              "active": "lch(9.26 1.4 305)",
+              "default": "lch(11.1 1.37 305)",
+              "hover": "lch(11.1 1.37 305)",
+              "active": "lch(11.1 1.37 305)",
               "disabled": "#a0a0a0"
             },
             "description": {
@@ -626,8 +626,8 @@
     "field": {
       "color": {
         "background": {
-          "default": "#f6f7fa",
-          "hover": "#f6f7fa",
+          "default": "lch(97.3 1.53 272)",
+          "hover": "lch(97.3 1.53 272)",
           "active": "#ffffff",
           "disabled": "#dfdfdf",
           "error": "#ffffff"
@@ -1123,7 +1123,7 @@
     "toast": {
       "color": {
         "title": {
-          "default": "lch(9.26 1.4 305)"
+          "default": "lch(11.1 1.37 305)"
         },
         "description": {
           "default": "#696e79"
@@ -1132,7 +1132,7 @@
           "default": "lch(91.6 1.1 266)"
         },
         "icon": {
-          "default": "lch(9.26 1.4 305)",
+          "default": "lch(11.1 1.37 305)",
           "success": "#15632b",
           "warning": "#9e5600",
           "danger": "#c10000"
@@ -1155,7 +1155,7 @@
           "default": "#ffffff"
         },
         "title": {
-          "default": "lch(9.26 1.4 305)"
+          "default": "lch(11.1 1.37 305)"
         },
         "description": {
           "default": "#696e79"
@@ -1171,7 +1171,7 @@
           "default": "#ffffff"
         },
         "title": {
-          "default": "lch(9.26 1.4 305)"
+          "default": "lch(11.1 1.37 305)"
         },
         "description": {
           "default": "#696e79"
@@ -1264,7 +1264,7 @@
           "default": "lch(6.77 0 0 / 0.15)"
         },
         "title": {
-          "default": "lch(9.26 1.4 305)"
+          "default": "lch(11.1 1.37 305)"
         }
       }
     },

@@ -249,17 +249,21 @@ const PrimaryButton = styled(BaseButton)<{
     justify-content: center;
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};
+    font: ${theme.click.button.split.typography.label.default};
     &:hover {
       background: ${theme.click.button.split[$type].background.main.hover};
       color: ${theme.click.button.split[$type].text.hover};
+      font: ${theme.click.button.split.typography.label.hover};
     }
     &:focus {
       background: ${theme.click.button.split[$type].background.main.active};
       color: ${theme.click.button.split[$type].text.active};
+      font: ${theme.click.button.split.typography.label.active};
     }
     &:disabled {
       background: ${theme.click.button.split[$type].background.main.disabled};
       color: ${theme.click.button.split[$type].text.disabled};
+      font: ${theme.click.button.split.typography.label.disabled};
     }
   `}
 `;

@@ -539,8 +539,8 @@
     "checkbox": {
       "color": {
         "background": {
-          "default": "#282828",
-          "hover": "#282828",
+          "default": "lch(18.2 0 0)",
+          "hover": "lch(18.2 0 0)",
           "active": "#FAFF69",
           "disabled": "#414141"
         },
@@ -632,11 +632,11 @@
     "field": {
       "color": {
         "background": {
-          "default": "#282828",
-          "hover": "#282828",
-          "active": "#1F1F1C",
+          "default": "lch(18.2 0 0)",
+          "hover": "lch(20.2 0 0)",
+          "active": "lch(20.2 0 0)",
           "disabled": "#414141",
-          "error": "#1F1F1C"
+          "error": "lch(20.2 0 0)"
         },
         "text": {
           "default": "#e6e7e9",
@@ -780,8 +780,8 @@
     "radio": {
       "color": {
         "background": {
-          "default": "#282828",
-          "hover": "#282828",
+          "default": "lch(18.2 0 0)",
+          "hover": "lch(18.2 0 0)",
           "active": "#FAFF69",
           "disabled": "#414141"
         },
@@ -793,7 +793,7 @@
         },
         "indicator": {
           "default": "#1F1F1C",
-          "hover": "#282828",
+          "hover": "lch(18.2 0 0)",
           "active": "#151515",
           "disabled": "#808080"
         }
@@ -1172,7 +1172,7 @@
     "flyout": {
       "color": {
         "background": {
-          "default": "#1F1F1C"
+          "default": "#282828"
         },
         "title": {
           "default": "lch(97.5 0 0)"

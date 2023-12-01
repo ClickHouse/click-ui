@@ -543,6 +543,21 @@
           "y": string,
           "gap": string
         },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "mobile": {
+            "label": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          }
+        },
         "primary": {
           "background": {
             "main": {
@@ -632,6 +647,21 @@
         "radii": {
           "center": string,
           "end": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "mobile": {
+            "label": {
+              "default": string,
+              "hover": string,
+              "active": string
+            }
+          }
         },
         "color": {
           "background": {
