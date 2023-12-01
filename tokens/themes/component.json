@@ -612,6 +612,42 @@
             "value": "{spaces.2}",
             "type": "spacing"
           }
+        },
+        "typography": {
+          "label": {
+            "default": {
+              "value": "{click.button.basic.typography.label.default}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.button.basic.typography.label.hover}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{click.button.basic.typography.label.active}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{click.button.basic.typography.label.disabled}",
+              "type": "typography"
+            }
+          },
+          "mobile": {
+            "label": {
+              "default": {
+                "value": "{typography.styles.product.text.normal.lg}",
+                "type": "typography"
+              },
+              "hover": {
+                "value": "{click.button.basic.typography.mobile.label.default}",
+                "type": "typography"
+              },
+              "active": {
+                "value": "{click.button.basic.typography.mobile.label.default}",
+                "type": "typography"
+              }
+            }
+          }
         }
       },
       "mobile": {
@@ -651,6 +687,42 @@
           "end": {
             "value": "{border.radii.1}",
             "type": "borderRadius"
+          }
+        },
+        "typography": {
+          "label": {
+            "default": {
+              "value": "{click.button.basic.typography.label.default}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{click.button.basic.typography.label.hover}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{click.button.basic.typography.label.active}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{click.button.basic.typography.label.disabled}",
+              "type": "typography"
+            }
+          },
+          "mobile": {
+            "label": {
+              "default": {
+                "value": "{typography.styles.product.text.normal.lg}",
+                "type": "typography"
+              },
+              "hover": {
+                "value": "{click.button.basic.typography.mobile.label.default}",
+                "type": "typography"
+              },
+              "active": {
+                "value": "{click.button.basic.typography.mobile.label.default}",
+                "type": "typography"
+              }
+            }
           }
         }
       },
