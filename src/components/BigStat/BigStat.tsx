@@ -1,15 +1,18 @@
 import styled from "styled-components";
 
-export type bigStatState = "default";
+export type bigStatOrder = "titleTop" | "titleBottom";
 export type bigStatSize = "sm" | "lg";
-export type bigStatHeight = "fixed" | "fluid";
+export type bigStatSpacing = "sm" | "lg";
+export type bigStatState = "default" | "muted";
 
 export interface BigStatProps {
   label: React.ReactNode;
   title: React.ReactNode;
   height?: string;
-  state?: bigStatState;
+  order?: bigStatOrder;
   size?: bigStatSize;
+  spacing?: bigStatSpacing;
+  state?: bigStatState;
 }
 
 //* Use this component to highlight important pieces of information. */
@@ -17,13 +20,17 @@ export const BigStat = ({
   label = "Label",
   title = "Title",
   height = "6rem",
+  order = "titleTop",
   size,
-  state,
+  spacing = "sm",
+  state = "default",
 }: BigStatProps) => (
   <Wrapper
-    $state={state}
-    $size={size}
     $height={height}
+    $order={order}
+    $size={size}
+    $spacing={spacing}
+    $state={state}
   >
     <Label
       $state={state}
@@ -41,14 +48,23 @@ export const BigStat = ({
 );
 
 const Wrapper = styled.div<{
-  $state?: bigStatState;
-  $size?: bigStatSize;
   $height?: string;
+  $order?: bigStatOrder;
+  $size?: bigStatSize;
+  $spacing?: bigStatSpacing;
+  $state?: bigStatState;
 }>`
   display: flex;
   justify-content: center;
   box-sizing: border-box;
-  ${({ $state = "default", $size = "lg", $height = "fixed", theme }) => `
+  ${({
+    $state = "default",
+    $size = "lg",
+    $height = "fixed",
+    $order,
+    $spacing = "sm",
+    theme,
+  }) => `
     background-color: ${theme.click.bigStat.color.background[$state]};
     color: ${theme.click.bigStat.color.label[$state]};
     font: ${theme.click.bigStat.typography[$size].label[$state]};
@@ -56,10 +72,10 @@ const Wrapper = styled.div<{
     border: ${theme.click.bigStat.stroke} solid ${
     theme.click.bigStat.color.stroke[$state]
   };
-    gap: ${theme.click.bigStat.space.gap};
-    padding: ${$height === "fixed" ? `0 ${theme.click.bigStat.space.all}` : theme.click.bigStat.space.all};
-    min-height: ${$height !== undefined ? `${$height}` : "auto"};
-    flex-direction: ${$size === "sm" ? "column-reverse" : "column"};
+  gap: ${theme.click.bigStat.space[$spacing].gap};
+  padding: ${theme.click.bigStat.space.all};
+  min-height: ${$height !== undefined ? `${$height}` : "auto"};
+  flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
   `}
 `;
 

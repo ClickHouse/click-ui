@@ -98,16 +98,20 @@
     "bigStat": {
       "color": {
         "stroke": {
-          "default": "lch(27.5 0 0 / 0.3)"
+          "default": "lch(27.5 0 0 / 0.3)",
+          "muted": "lch(27.5 0 0 / 0.3)"
         },
         "background": {
-          "default": "#1F1F1C"
+          "default": "#1F1F1C",
+          "muted": "#282828"
         },
         "label": {
-          "default": "#b3b6bd"
+          "default": "#b3b6bd",
+          "muted": "#b3b6bd"
         },
         "title": {
-          "default": "lch(97.5 0 0)"
+          "default": "lch(97.5 0 0)",
+          "muted": "lch(97.5 0 0)"
         }
       }
     },
@@ -503,6 +507,31 @@
               "active": "#FAFF69",
               "disabled": "#414141"
             }
+          }
+        }
+      },
+      "promotion": {
+        "color": {
+          "text": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#ffffff"
+          },
+          "icon": {
+            "default": "#FAFF69",
+            "hover": "#FAFF69",
+            "active": "#FAFF69"
+          },
+          "background": {
+            "default": "lch(16.1 0 0 / 0.9)",
+            "hover": "lch(18.2 0 0 / 0.9)",
+            "active": "lch(20.2 0 0 / 0.9)"
+          },
+          "stroke": {
+            "default": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            "hover": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            "active": "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            "focus": "#FAFF69"
           }
         }
       }
