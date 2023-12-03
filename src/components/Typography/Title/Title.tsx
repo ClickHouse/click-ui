@@ -39,5 +39,4 @@ const CuiTitle = styled.div<{
   margin: 0;
   padding: 0;
   font-style: inherit;
-  line-height: 1;
 `;
