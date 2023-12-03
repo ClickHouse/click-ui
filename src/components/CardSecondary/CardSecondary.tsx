@@ -42,6 +42,13 @@ const HeaderLeft = styled.div<{ $disabled?: boolean }>`
         ? theme.click.global.color.text.muted
         : theme.click.global.color.text.default};
   }
+
+  svg {
+    color: ${({ $disabled, theme }) =>
+      $disabled == true
+        ? theme.click.global.color.text.muted
+        : theme.click.global.color.text.default};
+  }
 `;
 
 const Content = styled.div`

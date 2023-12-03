@@ -42,6 +42,11 @@ const CuiLink = styled.a<{ $size: TextSize; $weight: TextWeight }>`
     text-decoration: underline;
     cursor: pointer;
   }
+
+  &:visited {
+    color: ${({ theme }) => theme.click.global.color.text.link.default};
+    text-decoration: underline;
+  }
 `;
 
 const IconWrapper = styled.span<{ $size: TextSize }>`
