@@ -810,25 +810,26 @@
         "color": {
           "background": {
             "default": {
-              "value": "{palette.slate.100}",
+              "value": "{palette.utility.transparent}",
               "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.35",
-                    "space": "lch"
-                  }
-                }
-              }
+              "$extensions": {}
             },
             "hover": {
               "value": "{palette.slate.50}",
               "type": "color"
             },
             "active": {
-              "value": "{palette.neutral.0}",
-              "type": "color"
+              "value": "{click.button.group.color.background.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
             },
             "disabled": {
               "value": "{palette.neutral.200}",
@@ -846,10 +847,6 @@
                   }
                 }
               }
-            },
-            "panel": {
-              "value": "{click.button.group.color.background.default}",
-              "type": "color"
             }
           },
           "text": {
@@ -875,8 +872,8 @@
             }
           },
           "stroke": {
-            "panel": {
-              "value": "{click.global.color.stroke.default}",
+            "default": {
+              "value": "{palette.utility.transparent}",
               "type": "color"
             }
           }

@@ -680,11 +680,7 @@
       },
       "group": {
         "radii": {
-          "center": {
-            "value": "{border.radii.0}",
-            "type": "borderRadius"
-          },
-          "end": {
+          "all": {
             "value": "{border.radii.1}",
             "type": "borderRadius"
           }
@@ -723,6 +719,12 @@
                 "type": "typography"
               }
             }
+          }
+        },
+        "space": {
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
           }
         }
       },
