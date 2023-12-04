@@ -1,4 +1,3 @@
-import { themes } from "@/theme";
 import { HTMLAttributes, ReactNode } from "react";
 import styled, { DefaultTheme } from "styled-components";
 
