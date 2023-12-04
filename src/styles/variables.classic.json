@@ -49,6 +49,26 @@
               "default": "#c10000"
             }
           },
+          "link": {
+            "text": {
+              "default": "#C78F0F",
+              "hover": "#C78F0F",
+              "active": "#C78F0F",
+              "disabled": "#a0a0a0"
+            },
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "rgba(0,0,0,0)",
+              "disabled": "rgba(0,0,0,0)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgba(0,0,0,0)",
+              "disabled": "rgba(0,0,0,0)"
+            }
+          },
           "disabled": {
             "background": {
               "default": "#dfdfdf"

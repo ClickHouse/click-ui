@@ -177,6 +177,26 @@
               "active": "lch(28.6 65.8 40)",
               "disabled": "#414141"
             }
+          },
+          "link": {
+            "text": {
+              "default": "#FAFF69",
+              "hover": "#feffba",
+              "active": "#FAFF69",
+              "disabled": "#a0a0a0"
+            },
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#282828",
+              "active": "rgba(0,0,0,0)",
+              "disabled": "rgba(0,0,0,0)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgba(0,0,0,0)",
+              "disabled": "rgba(0,0,0,0)"
+            }
           }
         }
       },

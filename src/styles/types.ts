@@ -404,6 +404,26 @@
               "active": string,
               "disabled": string
             }
+          },
+          "link": {
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
           }
         }
       },
