@@ -36,7 +36,8 @@ const HeaderLeft = styled.div<{ $disabled?: boolean }>`
   align-items: center;
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
 
-  h3 {
+  h3,
+  svg {
     color: ${({ $disabled, theme }) =>
       $disabled == true
         ? theme.click.global.color.text.muted
