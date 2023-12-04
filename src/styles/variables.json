@@ -403,6 +403,26 @@
               "active": "lch(70.3 41.1 23.9)",
               "disabled": "#dfdfdf"
             }
+          },
+          "link": {
+            "text": {
+              "default": "#135be6",
+              "hover": "#092e73",
+              "active": "#135be6",
+              "disabled": "#a0a0a0"
+            },
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#f6f7fa",
+              "active": "rgba(0,0,0,0)",
+              "disabled": "rgba(0,0,0,0)"
+            },
+            "stroke": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "rgba(0,0,0,0)",
+              "active": "rgba(0,0,0,0)",
+              "disabled": "rgba(0,0,0,0)"
+            }
           }
         }
       },
@@ -644,8 +664,7 @@
       },
       "group": {
         "radii": {
-          "center": "0",
-          "end": "0.25rem"
+          "all": "0.25rem"
         },
         "typography": {
           "label": {
@@ -662,12 +681,14 @@
             }
           }
         },
+        "space": {
+          "gap": "0.25rem"
+        },
         "color": {
           "background": {
-            "default": "lch(94.5 0.72 266)",
-            "hover": "lch(97.4 1.44 272)",
-            "active": "#ffffff",
-            "panel": "lch(94.5 0.72 266)",
+            "default": "rgba(0,0,0,0)",
+            "hover": "#f6f7fa",
+            "active": "lch(94.8 1.53 272)",
             "disabled": "#dfdfdf",
             "disabled-active": "lch(88.9 0 0)"
           },
@@ -679,7 +700,7 @@
             "disabled-active": "#808080"
           },
           "stroke": {
-            "panel": "lch(91.6 1.1 266)"
+            "default": "rgba(0,0,0,0)"
           }
         }
       },

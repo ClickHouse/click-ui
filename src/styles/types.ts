@@ -404,6 +404,26 @@
               "active": string,
               "disabled": string
             }
+          },
+          "link": {
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
           }
         }
       },
@@ -645,8 +665,7 @@
       },
       "group": {
         "radii": {
-          "center": string,
-          "end": string
+          "all": string
         },
         "typography": {
           "label": {
@@ -663,12 +682,14 @@
             }
           }
         },
+        "space": {
+          "gap": string
+        },
         "color": {
           "background": {
             "default": string,
             "hover": string,
             "active": string,
-            "panel": string,
             "disabled": string,
             "disabled-active": string
           },
@@ -680,7 +701,7 @@
             "disabled-active": string
           },
           "stroke": {
-            "panel": string
+            "default": string
           }
         }
       },
