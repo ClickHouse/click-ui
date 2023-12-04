@@ -1,6 +1,6 @@
-import { ComponentType } from "react";
 import styled from "styled-components";
-import { CellProps, SelectionType } from "./types";
+import { RoundedType, SelectionTypeFn } from "./types";
+import { StyledCell } from "./StyledCell";
 
 const RowNumberColumnContainer = styled.div<{
   $height: number;
@@ -16,58 +16,100 @@ const RowNumberColumnContainer = styled.div<{
   `}
 `;
 
-const RowNumberCell = styled.div<{
+const RowNumberCell = styled(StyledCell)<{
   $height: number;
-  $width: string;
   $rowNumber: number;
-  $selectionType: SelectionType;
 }>`
-  position: sticky;
+  position: absolute;
   left: 0;
   z-index: 2;
-  ${({ theme, $height, $width, $rowNumber, $selectionType }) => `
-    background: ${theme.click.grid.header.cell.color.background[$selectionType]};
-    text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: right;
+  ${({ $height, $rowNumber }) => `
     top: ${$height * $rowNumber}px;
-    width: ${$width};
-    height: calc(100% - ${$height}px);
+    height: ${$height}px;
   `}
 `;
 interface RowNumberColumnProps {
   minRow: number;
   maxRow: number;
   rowHeight: number;
+  headerHeight: number;
   rowWidth: string;
+  getSelectionType: SelectionTypeFn;
+  rowCount: number;
+  rounded: RoundedType;
+  showHeader: boolean;
 }
+interface RowNumberProps
+  extends Pick<RowNumberColumnProps, "rowHeight" | "getSelectionType" | "rounded"> {
+  rowIndex: number;
+  isLastColumn: boolean;
+  isFirstColumn: boolean;
+}
+const RowNumber = ({
+  rowIndex: row,
+  rowHeight,
+  getSelectionType,
+  isLastColumn,
+  rounded,
+  isFirstColumn,
+}: RowNumberProps) => {
+  const selectionType = getSelectionType({
+    row,
+    type: "row",
+  });
+
+  return (
+    <RowNumberCell
+      $height={rowHeight}
+      $rowNumber={row}
+      $isLastColumn={isLastColumn}
+      $selectionType={selectionType}
+      $rounded={rounded}
+      $isFirstColumn={isFirstColumn}
+      $type="header"
+      $isFirstRow
+      $isFocused={false}
+      $isLastRow
+      $isSelectedLeft
+      $isSelectedTop
+    >
+      {row}
+    </RowNumberCell>
+  );
+};
 
 const RowNumberColumn = ({
   minRow,
   maxRow,
   rowHeight,
+  headerHeight,
   rowWidth,
   getSelectionType,
-  pageStart = 0,
+  rowCount,
+  rounded,
+  showHeader,
 }: RowNumberColumnProps) => {
-  const selectionType = getSelectionType({
-    row: rowIndex,
-    column: columnIndex - 1,
-  });
   return (
     <RowNumberColumnContainer
-      $height={rowHeight}
+      $height={headerHeight}
       $width={rowWidth}
     >
       {Array.from({ length: maxRow - minRow + 1 }, (_, index) => minRow + index).map(
         rowIndex => (
-          <RowNumberCell
+          <RowNumber
             key={`row-number-${rowIndex}`}
-            $width={rowWidth}
-            $height={rowHeight}
-            $rowNumber={rowIndex}
-            $selectionType={selectionType}
-          >
-            {pageStart + rowIndex}
-          </RowNumberCell>
+            getSelectionType={getSelectionType}
+            rowHeight={rowHeight}
+            rowIndex={rowIndex}
+            isLastColumn={rowIndex === rowCount}
+            rounded={rounded}
+            isFirstColumn={!showHeader && rowIndex === 0}
+          />
         )
       )}
     </RowNumberColumnContainer>

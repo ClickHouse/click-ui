@@ -1,11 +1,10 @@
 import {
-  ComponentType,
   HTMLAttributes,
   ReactElement,
-  ReactNode,
   forwardRef,
   memo,
   useCallback,
+  useRef,
   useState,
 } from "react";
 import {
@@ -15,31 +14,37 @@ import {
   VariableSizeGridProps,
 } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
-import GridContextMenuGuard from "./GridContextMenuGuard";
 import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
 import styled, { useTheme } from "styled-components";
-import { CellProps, SelectionTypeFn, SelectionType, onSelectFn } from "./types";
-import { ContextMenuItemProps } from "../ContextMenu/ContextMenu";
+import {
+  CellProps,
+  SelectionTypeFn,
+  SelectionType,
+  onSelectFn,
+  RoundedType,
+  ColumnResizeFn,
+  SelectionAction,
+  KeyEventType,
+  SelectionFocus,
+} from "./types";
 import { useSelectionActions } from "./useSelectionActions";
 import { useRefCallback } from "./useRefCallback";
+import { mergeRefs } from "@/utils/mergeRefs";
+import { StyledCell } from "./StyledCell";
 
-export interface MenuOptionType extends Omit<ContextMenuItemProps, "children"> {
-  label: ReactNode;
-}
 interface GridProps
   extends Omit<VariableSizeGridProps, "height" | "width" | "rowHeight" | "children"> {
-  isRounded?: boolean;
-  focusedRow: number;
-  focusedColumn: number;
+  rounded?: RoundedType;
+  focus: SelectionFocus;
   rowHeight?: number;
-  cell: ComponentType<CellProps>;
+  cell: CellProps;
   showHeader?: boolean;
   showRowNumber?: boolean;
   headerHeight: number;
-  getMenuOptions: (selection: SelectionType) => Array<MenuOptionType>;
   onFocusChange: (rowIndex: number, columnIndex: number) => void;
   onSelect?: onSelectFn;
+  onColumnResize: ColumnResizeFn;
 }
 
 interface ItemDataType {
@@ -48,109 +53,59 @@ interface ItemDataType {
   getSelectionType: SelectionTypeFn;
   rowCount: number;
   columnCount: number;
-  selectedValues: SelectionType;
-  cell: ComponentType<CellProps>;
-  focusedRow: number;
-  focusedColumn: number;
-  isRounded: boolean;
+  cell: CellProps;
+  focus: SelectionFocus;
+  rounded: RoundedType;
+  onFocusChange: any;
+  rowHeight: number;
 }
 
-const StyledCell = styled.div<{
-  $isNumber?: boolean;
-  $isFocused: boolean;
-  $selectionType: SelectionType;
-  $isSelectedTop: boolean;
-  $isSelectedLeft: boolean;
-  $isLastRow: boolean;
-  $isLastColumn: boolean;
-  $isFirstRow: boolean;
-  $isFirstColumn: boolean;
-}>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  ${({
-    theme,
-    $isNumber,
-    $isFocused,
-    $isSelected,
-    $isLastRow,
-    $isLastColumn,
-    $selectionType,
-  }) => {
-    let selectionType: SelectionType = "default";
-    if ($isFocused || $isSelected) {
-      selectionType = $isFocused ? "selectDirect" : "selectIndirect";
-    }
-    return `
-    justify-content: ${$isNumber ? "flex-end" : "flex-start"};
-    background: ${theme.click.grid.body.cell.color.background[$selectionType]};
-    color: ${theme.click.grid.cell.text.default};
-    padding: ${theme.click.grid.body.cell.space.y} ${theme.click.grid.body.cell.space.x};
-    border: 1px solid ${theme.click.grid.body.cell.color.stroke[selectionType]};
-    ${
-      $isFocused
-        ? `box-shadow: inset 0 0 0 1px ${theme.click.grid.body.cell.color.stroke.selectDirect};`
-        : ""
-    }
-    ${
-      $isLastRow
-        ? `
-        border-bottom-color: ${theme.click.grid.body.cell.color.stroke[selectionType]};
-    `
-        : "border-bottom: none;"
-    }
-    ${
-      $isLastColumn
-        ? `
-        border-right-color: ${theme.click.grid.body.cell.color.stroke[selectionType]};
-    `
-        : "border-bottom: none;"
-    }
-    ${
-      $isSelected
-        ? `
-    `
-        : ""
-    }
-  `;
-  }}
-`;
 const Cell = memo(
   ({ data, rowIndex, columnIndex, ...props }: GridChildComponentProps<ItemDataType>) => {
     const {
       cell: CellData,
       getSelectionType,
-      focusedRow,
-      focusedColumn,
+      focus,
       columnCount,
       rowCount,
       showRowNumber,
       showHeader,
+      rowHeight,
+      rounded,
+      onFocusChange,
     } = data;
+
+    const { row: focusedRow, column: focusedColumn } = focus;
     const isFocused = columnIndex === focusedColumn && rowIndex === focusedRow;
     const rightOfFocus = columnIndex - 1 === focusedColumn && rowIndex === focusedRow;
     const belowFocus = columnIndex === focusedColumn && rowIndex - 1 === focusedRow;
 
-    const selectionType = getSelectionType({ rowIndex, columnIndex, type: "cell" });
+    const selectionType = getSelectionType({
+      row: rowIndex,
+      column: columnIndex,
+      type: "cell",
+    });
     const rightOfSelectionBorder =
       selectionType !==
       getSelectionType({
-        rowIndex,
-        columnIndex: columnIndex - 1,
+        row: rowIndex,
+        column: columnIndex - 1,
         type: "cell",
       });
     const belowSelectionBorder =
       selectionType !==
       getSelectionType({
-        rowIndex: rowIndex - 1,
-        columnIndex,
+        row: rowIndex - 1,
+        column: columnIndex,
         type: "cell",
       });
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
-
+    const onClick = () => {
+      onFocusChange(rowIndex, columnIndex);
+      console.log("onClick");
+    };
     return (
       <StyledCell
         as={CellData}
@@ -160,12 +115,14 @@ const Cell = memo(
         $isSelectedTop={selectionBorderTop}
         $isSelectedLeft={selectionBorderLeft}
         $isFocused={isFocused}
-        $isSelected={isSelected}
         $isLastRow={rowCount === rowIndex - 1}
         $isLastColumn={columnCount === columnIndex - 1}
         $isFirstColumn={columnIndex === 0 && !showRowNumber}
         $isFirstRow={rowIndex === 0 && !showHeader}
         $selectionType={selectionType}
+        $height={rowHeight}
+        $rounded={rounded}
+        onClick={onClick}
         {...props}
       />
     );
@@ -210,73 +167,180 @@ interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
 
-const Grid = ({
-  showRowNumber = true,
-  rounded = "none",
-  showHeader = true,
-  focusedRow,
-  focusedColumn,
-  useIsScrolling = true,
-  rowHeight = 33,
-  columnCount,
-  columnWidth,
-  onSelect: onSelectProp,
-  getMenuOptions,
-  headerHeight,
-  rowCount,
-  cell,
-  ...props
-}: GridProps) => {
-  const [menuOptions, setMenuOptions] = useState<Array<MenuOptionType>>([]);
-
-  const onCellSelect = useRefCallback(onSelectProp);
-  const onSelect = useCallback(
-    (key: string, props: Record<string, any>) => {
-      const newOptions = getMenuOptions(props.selection);
-      onCellSelect(key, props);
-      setMenuOptions(newOptions);
-    },
-    [getMenuOptions, onCellSelect]
-  );
-  const { getSelectionType, moveSelection, clearSelection, select } = useSelectionActions(
+export const Grid = forwardRef<VariableSizeGrid, GridProps>(
+  (
     {
-      onSelect,
-      focusedRow,
-      focusedColumn,
+      showRowNumber = true,
+      rounded = "none",
+      showHeader = true,
+      focus,
+      useIsScrolling = true,
+      rowHeight = 33,
       columnCount,
+      columnWidth,
+      onSelect: onSelectProp,
+      headerHeight,
       rowCount,
-    }
-  );
-  const data: ItemDataType = {
-    showRowNumber,
-    cell,
-    rowCount,
-    columnCount,
-    rounded,
-    showHeader,
-    focusedColumn,
-    focusedRow,
-  };
-  const theme = useTheme();
-  const getRowHeight = (index: number) => {
-    if (showHeader && index === 0) {
-      return 50;
-    } else {
-      return rowHeight;
-    }
-  };
-  const rowNumberWidth = `calc(${rowCount.toString().length}ch + ${
-    theme.click.grid.body.cell.space.x
-  } + ${theme.click.grid.body.cell.space.x})`;
+      cell,
+      onColumnResize: onColumnResizeProp,
+      onFocusChange,
+      ...props
+    },
+    forwardedRed
+  ) => {
+    const gridRef = useRef<VariableSizeGrid>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
-  const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
-    ({ children, ...containerProps }, ref) => {
-      const [minRow, maxRow, minColumn, maxColumn] = getRenderedCursor(children);
-      return (
-        <GridContextMenuGuard menuOptions={menuOptions}>
+    const onCellSelect = useRefCallback(onSelectProp);
+    const { getSelectionType, moveSelection, clearSelection, onSelection } =
+      useSelectionActions({
+        onCellSelect,
+        focus,
+        columnCount,
+        rowCount,
+      });
+    const data: ItemDataType = {
+      showRowNumber,
+      cell,
+      rowCount,
+      columnCount,
+      rounded,
+      showHeader,
+      focus,
+      getSelectionType,
+      rowHeight,
+      onFocusChange,
+    };
+    const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<
+      Array<number>
+    >(() => {
+      const columnWidthList = [...Array(columnCount).keys()];
+      const array: Array<number> = [];
+      return columnWidthList.reduce((acc, curr, index) => {
+        const width = columnWidth(curr - 1);
+        if (index !== 0) {
+          acc.push(width + acc[index - 1]);
+        } else {
+          acc.push(0);
+        }
+        return acc;
+      }, array);
+    });
+
+    const theme = useTheme();
+    const rowNumberWidth = `calc(${rowCount.toString().length}ch + ${
+      theme.click.grid.body.cell.space.x
+    } + ${theme.click.grid.body.cell.space.x})`;
+
+    const onDragStart = e => {
+      console.log("dragstart", e);
+    };
+    const onDragEnd = e => {
+      console.log("dragend", e);
+    };
+
+    const scrollGridTo = useCallback((columnIndex: number, rowIndex: number) => {
+      if (gridRef.current) {
+        gridRef.current.scrollToItem({
+          columnIndex,
+          rowIndex,
+        });
+      }
+    }, []);
+
+    const onChangeFocusEvent = useCallback(
+      (row: number, column: number) => {
+        const corrected = onFocusChange(row, column);
+        scrollGridTo(column, row);
+        return corrected;
+      },
+      [onFocusChange, scrollGridTo]
+    );
+
+    const clearSelectionAndFocus = useCallback(
+      (force: boolean) => {
+        clearSelection(force);
+        containerRef.current && containerRef.current.focus();
+      },
+      [clearSelection, containerRef]
+    );
+
+    const changeSelectionAndFocus = useCallback(
+      (action: SelectionAction, event: KeyEventType = "click") => {
+        onSelection({ ...action, event });
+        containerRef.current && containerRef.current.focus();
+      },
+      [onSelection]
+    );
+
+    const onKeyDown = useCallback(
+      async (e: React.KeyboardEvent) => {
+        console.log("asasas");
+        e.preventDefault();
+        const moveAnchor = e.shiftKey;
+
+        const applyAction = (action: SelectionAction | null): void => {
+          if (action) {
+            changeSelectionAndFocus(action);
+          }
+          if (action?.type === "normal") {
+            onChangeFocusEvent(action.row, action.column);
+          }
+        };
+
+        switch (e.key) {
+          case "ArrowLeft":
+            applyAction(moveSelection(-1, 0, moveAnchor, "keypress"));
+            break;
+          case "ArrowRight":
+            applyAction(moveSelection(1, 0, moveAnchor, "keypress"));
+            break;
+          case "ArrowUp":
+            applyAction(moveSelection(0, -1, moveAnchor, "keypress"));
+            break;
+          case "ArrowDown":
+            applyAction(moveSelection(0, 1, moveAnchor, "keypress"));
+            break;
+          case "Enter":
+            changeSelectionAndFocus(
+              { type: "normal", row: focus.row, column: focus.column },
+              "keypress"
+            );
+            break;
+          case "Escape":
+            clearSelectionAndFocus(true);
+            break;
+        }
+      },
+      [
+        changeSelectionAndFocus,
+        onChangeFocusEvent,
+        moveSelection,
+        focus,
+        clearSelectionAndFocus,
+      ]
+    );
+    const onColumnResize = (columnIndex: number, newWidth: number) => {
+      setColumnHorizontalPosition(columnHorizontalPosition => {
+        const originalWidthForUpdatedColumn = columnHorizontalPosition[columnIndex];
+        for (let i = columnIndex + 1; i < columnCount; i++) {
+          columnHorizontalPosition[i] += newWidth - originalWidthForUpdatedColumn;
+        }
+        return [...columnHorizontalPosition];
+      });
+      onColumnResizeProp(columnIndex, newWidth);
+    };
+
+    const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
+      ({ children, ...containerProps }, ref) => {
+        const [minRow, maxRow, minColumn, maxColumn] = getRenderedCursor(children);
+        return (
           <div
             className="sticky-grid__container"
-            ref={ref}
+            ref={mergeRefs([containerRef, ref])}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            onKeyDown={onKeyDown}
             {...containerProps}
           >
             {showHeader && (
@@ -290,6 +354,9 @@ const Grid = ({
                 rowNumberWidth={rowNumberWidth}
                 rounded={rounded}
                 getSelectionType={getSelectionType}
+                columnCount={columnCount}
+                onColumnResize={onColumnResize}
+                columnHorizontalPosition={columnHorizontalPosition}
               />
             )}
             {showRowNumber && (
@@ -297,11 +364,12 @@ const Grid = ({
                 minRow={minRow}
                 maxRow={maxRow}
                 rowHeight={rowHeight}
+                headerHeight={headerHeight}
                 rowWidth={rowNumberWidth}
-                cell={cell}
                 rowCount={rowCount}
                 rounded={rounded}
                 getSelectionType={getSelectionType}
+                showHeader={showHeader}
               />
             )}
 
@@ -312,32 +380,31 @@ const Grid = ({
               {children}
             </GridDataContainer>
           </div>
-        </GridContextMenuGuard>
-      );
-    }
-  );
-  return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <VariableSizeGrid
-          height={height}
-          width={width}
-          columnCount={columnCount + (showRowNumber ? 1 : 0)}
-          rowHeight={getRowHeight}
-          useIsScrolling={useIsScrolling}
-          innerElementType={InnerElementType}
-          itemData={data}
-          initialScrollTop={focusedRow}
-          initialScrollLeft={focusedColumn}
-          columnWidth={columnWidth}
-          rowCount={rowCount}
-          {...props}
-        >
-          {Cell}
-        </VariableSizeGrid>
-      )}
-    </AutoSizer>
-  );
-};
-
-export default Grid;
+        );
+      }
+    );
+    return (
+      <AutoSizer>
+        {({ height, width }) => (
+          <VariableSizeGrid
+            ref={mergeRefs([forwardedRed, gridRef])}
+            height={height}
+            width={width}
+            columnCount={columnCount}
+            rowHeight={() => rowHeight}
+            useIsScrolling={useIsScrolling}
+            innerElementType={InnerElementType}
+            itemData={data}
+            initialScrollTop={focus.row}
+            initialScrollLeft={focus.column}
+            columnWidth={columnWidth}
+            rowCount={rowCount}
+            {...props}
+          >
+            {Cell}
+          </VariableSizeGrid>
+        )}
+      </AutoSizer>
+    );
+  }
+);

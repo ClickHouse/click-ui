@@ -48,6 +48,7 @@ export type {
 export type { CardHorizontalProps } from "./CardHorizontal/CardHorizontal";
 export type { CardPromotionProps } from "./CardPromotion/CardPromotion";
 export type { ProgressBarProps } from "./ProgressBar/ProgressBar";
+export type { CellProps } from "./Grid/types";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";

@@ -44,12 +44,14 @@ import {
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
+import GridExample from "./examples/GridExample";
 
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
   { label: "Contact", isSortable: true, sortDir: "desc", sortPosition: "start" },
   { label: "Country" },
 ];
+
 const App = () => {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
   const [selectedButton, setSelectedButton] = useState("center1");
@@ -92,7 +94,6 @@ const App = () => {
       return [...rows];
     });
   };
-
   return (
     <div style={{ padding: "6rem" }}>
       <ClickUIProvider
@@ -603,6 +604,8 @@ const App = () => {
           <div style={{ border: "1px solid blue" }}>Child 5</div>
           <div style={{ border: "1px solid green" }}>Child 6</div>
         </GridContainer>
+        <Spacer />
+        <GridExample />
       </ClickUIProvider>
     </div>
   );

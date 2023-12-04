@@ -19,14 +19,14 @@ import {
 } from "./types";
 
 interface Props {
-  onSelect: onSelectFn;
+  onCellSelect: onSelectFn;
   focus: { row: number; column: number };
   columnCount: number;
   rowCount: number;
 }
 
 interface SelectionActions {
-  onSelect: onSelectFn;
+  onSelection: onSelectFn;
   clearSelection: (force: boolean) => void;
   moveSelection: (
     columnDiff: number,
@@ -157,7 +157,7 @@ export const rangeIndices = (a: number, b: number): number[] => {
 };
 
 export const useSelectionActions = ({
-  onSelect: onSelectProp,
+  onCellSelect,
   focus,
   columnCount,
   rowCount,
@@ -179,16 +179,16 @@ export const useSelectionActions = ({
   const cellSelect = useCallback(
     (action: CellSelectionAction) => {
       const { row: rowIndex, column: columnIndex } = action;
-      onSelectProp(action);
+      onCellSelect(action);
       setSelection(selectCell(columnIndex, rowIndex));
     },
-    [onSelectProp]
+    [onCellSelect]
   );
 
   const shiftSelect = useCallback(
     (action: CellSelectionAction) => {
       const { row: rowIndex, column: columnIndex } = action;
-      onSelectProp(action);
+      onCellSelect(action);
       const newSelection = rectangleSelection(
         columnIndex,
         rowIndex,
@@ -197,53 +197,53 @@ export const useSelectionActions = ({
       );
       setSelection(newSelection);
     },
-    [focus.column, focus.row, onSelectProp, selection]
+    [focus.column, focus.row, onCellSelect]
   );
 
   const rowSelect = useCallback(
     (action: RowSelectionAction) => {
       const rowIndex = action.row;
-      onSelectProp(action);
+      onCellSelect(action);
       const newSelection = rowSelection([rowIndex], rowIndex);
       setSelection(newSelection);
     },
-    [onSelectProp, selection]
+    [onCellSelect]
   );
 
   const shiftRowSelect = useCallback(
     (action: RowSelectionAction) => {
       const rowIndex = action.row;
-      onSelectProp(action);
+      onCellSelect(action);
       const newSelection = rowSelection(rangeIndices(focus.row, rowIndex), rowIndex);
       setSelection(newSelection);
     },
-    [focus.row, onSelectProp]
+    [focus.row, onCellSelect]
   );
 
   const columnSelect = useCallback(
     (action: ColumnSelectionAction) => {
       const columnIndex = action.column;
-      onSelectProp(action);
+      onCellSelect(action);
       const newSelection = columnSelection([columnIndex], columnIndex);
       setSelection(newSelection);
     },
-    [onSelectProp, selection]
+    [onCellSelect]
   );
 
   const shiftColumnSelect = useCallback(
     (action: ColumnSelectionAction) => {
       const columnIndex = action.column;
-      onSelectProp(action);
+      onCellSelect(action);
       const newSelection = columnSelection(
         rangeIndices(focus.column, columnIndex),
         columnIndex
       );
       setSelection(newSelection);
     },
-    [focus.column, onSelectProp]
+    [focus.column, onCellSelect]
   );
 
-  const onSelect = useCallback(
+  const onSelection = useCallback(
     (action: SelectionAction): void => {
       switch (action.type) {
         case "normal":
@@ -303,12 +303,12 @@ export const useSelectionActions = ({
       }
 
       if (action) {
-        onSelect(action);
+        onSelection(action);
       }
 
       return action;
     },
-    [onSelect, columnCount, rowCount, selection, focus]
+    [onSelection, columnCount, rowCount, selection, focus]
   );
 
   const getSelectionType = (args: IsSelectedType): SelectionType => {
@@ -343,7 +343,7 @@ export const useSelectionActions = ({
     return "selectIndirect";
   };
   return {
-    onSelect,
+    onSelection,
     clearSelection,
     moveSelection,
     getSelectionType,

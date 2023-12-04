@@ -1,6 +1,6 @@
-import { ComponentType } from "react";
 import styled from "styled-components";
-import { CellProps, RoundedType, SelectionType, SelectionTypeFn } from "./types";
+import { CellProps, ColumnResizeFn, RoundedType, SelectionTypeFn } from "./types";
+import { StyledCell } from "./StyledCell";
 
 interface HeaderProps {
   showRowNumber: boolean;
@@ -9,73 +9,123 @@ interface HeaderProps {
   maxColumn: number;
   height: number;
   columnWidth: (index: number) => number;
-  cell: ComponentType<CellProps>;
-  inSelection: SelectionTypeFn;
+  cell: CellProps;
+  getSelectionType: SelectionTypeFn;
   rounded: RoundedType;
+  columnCount: number;
+  onColumnResize: ColumnResizeFn;
+  columnHorizontalPosition: Array<number>;
 }
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.div<{ $height: number }>`
   position: sticky;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: row;
   z-index: 3;
+  height: ${({ $height }) => $height}px;
 `;
 
 const ScrollableHeaderContainer = styled.div`
-  position: absolute;
+  position: relative;
+  left: 0;
 `;
 
-const HeaderCell = styled.div<{
+const RowColumn = styled(StyledCell)<{
   $width: string | number;
-  $rounded: RoundedType;
-  $selectionType: SelectionType;
-  $isFirstColumn: boolean;
-  $isLastColumn: boolean;
 }>`
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  ${({ theme, $width, $selectionType, $rounded, $isFirstColumn, $isLastColumn }) => `
-    width:${typeof $width === "string" ? $width : `${$width}px`};
-    padding: ${theme.click.grid.header.cell.space.y} ${
-    theme.click.grid.header.cell.space.x
-  };
-    background: ${theme.click.grid.header.cell.color.background[$selectionType]};
-    ${
-      $isFirstColumn ? `border-top-left-radius: ${theme.click.grid.radii[$rounded]};` : ""
-    }
-    ${
-      $isLastColumn ? `border-top-right-radius: ${theme.click.grid.radii[$rounded]};` : ""
-    }
-  `}
-`;
-
-const RowColumn = styled(HeaderCell)`
+  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
   position: sticky;
   z-index: 3;
+  top: 0;
   left: 0;
   text-align: right;
 `;
 
-const Column = ({ columnIndex, cell, rounded, columnWidth, inSelection }) => {
-  const selectionType = inSelection({
-    columnIndex,
+const ResizeSpan = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+interface ColumnProps
+  extends Pick<
+    HeaderProps,
+    "cell" | "getSelectionType" | "rounded" | "onColumnResize" | "columnWidth" | "height"
+  > {
+  columnIndex: number;
+  isFirstColumn: boolean;
+  isLastColumn: boolean;
+  columnHorizontalPosition: Array<number>;
+}
+
+const HeaderCellContainer = styled.div<{
+  $width: string | number;
+  $height: number;
+  $columnPosition: number;
+}>`
+  position: absolute;
+  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
+  height: ${({ $height }) => $height}px;
+  left: ${({ $columnPosition }) => $columnPosition}px;
+`;
+const Column = ({
+  columnIndex,
+  cell,
+  rounded,
+  columnWidth,
+  columnHorizontalPosition,
+  getSelectionType,
+  isFirstColumn,
+  isLastColumn,
+  onColumnResize,
+  height,
+}: ColumnProps) => {
+  const selectionType = getSelectionType({
+    column: columnIndex,
     type: "column",
   });
+  const onDragStart = (e: any) => {
+    console.log("headerdrag", e);
+  };
+  const onDragEnd = (e: any) => {
+    console.log("headerdrop", e);
+    const a = false;
+    if (a) {
+      onColumnResize(columnIndex, 0);
+    }
+  };
+
   return (
-    <HeaderCell
-      key={`header-${columnIndex}`}
-      as={cell}
-      columnIndex={columnIndex}
-      type="header-cell"
+    <HeaderCellContainer
       $width={columnWidth(columnIndex)}
-      $rounded={rounded}
-      $isFirstColumn={columnIndex}
-      $selectionType={selectionType}
-    />
+      $columnPosition={columnHorizontalPosition[columnIndex]}
+      $height={height}
+      data-a={height}
+    >
+      <StyledCell
+        $type="header"
+        as={cell}
+        columnIndex={columnIndex}
+        type="header-cell"
+        $rounded={rounded}
+        $isFirstColumn={isFirstColumn}
+        $selectionType={selectionType}
+        $isLastColumn={isLastColumn}
+        $isFocused={false}
+        $isSelectedLeft={true}
+        $isSelectedTop={true}
+        $isLastRow
+        $isFirstRow
+        $height={height}
+        data-z={height}
+      />
+      <ResizeSpan
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+      />
+    </HeaderCellContainer>
   );
 };
 
@@ -88,41 +138,51 @@ const Header = ({
   columnWidth,
   cell,
   rounded,
-  inSelection,
+  columnCount,
+  getSelectionType,
+  onColumnResize,
+  columnHorizontalPosition,
 }: HeaderProps) => {
-  const baseStyle = {
-    height: height,
-    minWidth: rowNumberWidth,
-  };
-  const scrollableStyle = { left: rowNumberWidth };
-
-  const selectedAll = inSelection({
+  const selectedAllType = getSelectionType({
     type: "all",
   });
   return (
-    <HeaderContainer>
+    <HeaderContainer $height={height}>
       {showRowNumber && (
         <RowColumn
-          style={baseStyle}
+          $type="header"
           $width={rowNumberWidth}
+          $isFirstRow
           $isFirstColumn
           $rounded={rounded}
-          $selectionType={selectionType}
+          $selectionType={selectedAllType}
+          $isLastRow={false}
+          $isLastColumn={false}
+          $height={height}
+          $isFocused={false}
+          $isSelectedLeft
+          $isSelectedTop
         >
           #
         </RowColumn>
       )}
-      <ScrollableHeaderContainer style={scrollableStyle}>
+      <ScrollableHeaderContainer>
         {Array.from(
           { length: maxColumn - minColumn + 1 },
           (_, index) => minColumn + index
         ).map(columnIndex => (
           <Column
-            inSelection={inSelection}
+            key={`header-${columnIndex}`}
+            getSelectionType={getSelectionType}
             columnIndex={columnIndex}
             columnWidth={columnWidth}
+            columnHorizontalPosition={columnHorizontalPosition}
             cell={cell}
             rounded={rounded}
+            isFirstColumn={columnIndex === 0 && !showRowNumber}
+            isLastColumn={columnIndex + 1 === columnCount}
+            onColumnResize={onColumnResize}
+            height={height}
           />
         ))}
       </ScrollableHeaderContainer>

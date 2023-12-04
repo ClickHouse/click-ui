@@ -1,11 +1,11 @@
-import { HTMLAttributes } from "react";
+import { ComponentType, HTMLAttributes } from "react";
 
-export interface CellProps extends HTMLAttributes<HTMLElement> {
+interface CellComponentProps extends HTMLAttributes<HTMLElement> {
   rowIndex?: number;
-  columnIndex: number;
+  columnIndex?: number;
   type: "row-cell" | "header-cell";
 }
-
+export type CellProps = ComponentType<CellComponentProps>;
 export interface CellSelectionAction {
   type: "normal" | "shiftSelection";
   row: number;
@@ -104,3 +104,7 @@ export type IsSelectedType =
   | IsCellSelectedType;
 
 export type SelectionTypeFn = (props: IsSelectedType) => SelectionType;
+
+export type ColumnResizeFn = (columnIndex: number, newWidth: number) => void;
+
+export type SelectionFocus = { row: number; column: number };
