@@ -814,13 +814,11 @@
           "background": {
             "default": {
               "value": "{palette.utility.transparent}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "hover": {
               "value": "{click.button.basic.color.secondary.background.hover}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "active": {
               "value": "{click.button.group.color.background.hover}",

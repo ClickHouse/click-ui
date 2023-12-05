@@ -1039,11 +1039,11 @@
         },
         "space": {
           "y": {
-            "value": "{spaces.3}",
+            "value": "{spaces.1}",
             "type": "spacing"
           },
           "x": {
-            "value": "{spaces.5}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "gap": {

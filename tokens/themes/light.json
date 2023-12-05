@@ -811,8 +811,7 @@
           "background": {
             "default": {
               "value": "{palette.utility.transparent}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "hover": {
               "value": "{palette.slate.50}",
