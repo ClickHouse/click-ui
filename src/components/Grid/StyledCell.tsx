@@ -20,6 +20,11 @@ export const StyledCell = styled.div<{
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: default;
+
+  &::selection {
+    background: transparent;
+  }
+
   ${({
     theme,
     $isFocused,
@@ -31,6 +36,8 @@ export const StyledCell = styled.div<{
     $rounded,
     $height,
     $type = "body",
+    $isSelectedTop,
+    $isSelectedLeft,
   }) => `
     height: ${$height}px;
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
@@ -43,7 +50,7 @@ export const StyledCell = styled.div<{
     padding: ${theme.click.grid[$type].cell.space.y} ${
     theme.click.grid[$type].cell.space.x
   };
-    border: 1px solid ${theme.click.grid[$type].cell.color.stroke[$selectionType]};
+    border: 1px solid ${theme.click.grid[$type].cell.color.stroke.default};
     ${
       $isFocused
         ? `box-shadow: inset 0 0 0 1px ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
@@ -61,8 +68,19 @@ export const StyledCell = styled.div<{
         ? `
         border-right-color: ${theme.click.grid[$type].cell.color.stroke[$selectionType]};
     `
-        : "border-bottom: none;"
+        : "border-right: none;"
     }
+    ${
+      $isSelectedTop
+        ? `border-top-color: ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
+        : ""
+    }
+    ${
+      $isSelectedLeft
+        ? `border-left-color: ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
+        : ""
+    }
+
     ${
       $isFirstRow || $isLastRow
         ? `

@@ -1,5 +1,7 @@
 import {
   HTMLAttributes,
+  MouseEvent,
+  PointerEvent,
   ReactElement,
   forwardRef,
   memo,
@@ -7,31 +9,25 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  VariableSizeGrid,
-  areEqual,
-  GridChildComponentProps,
-  VariableSizeGridProps,
-} from "react-window";
+import { VariableSizeGrid, VariableSizeGridProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
 import styled, { useTheme } from "styled-components";
 import {
   CellProps,
-  SelectionTypeFn,
-  SelectionType,
   onSelectFn,
   RoundedType,
   ColumnResizeFn,
   SelectionAction,
   KeyEventType,
   SelectionFocus,
+  ItemDataType,
 } from "./types";
 import { useSelectionActions } from "./useSelectionActions";
 import { useRefCallback } from "./useRefCallback";
 import { mergeRefs } from "@/utils/mergeRefs";
-import { StyledCell } from "./StyledCell";
+import { Cell } from "./Cell";
 
 interface GridProps
   extends Omit<VariableSizeGridProps, "height" | "width" | "rowHeight" | "children"> {
@@ -47,88 +43,11 @@ interface GridProps
   onColumnResize: ColumnResizeFn;
 }
 
-interface ItemDataType {
-  showRowNumber: boolean;
-  showHeader: boolean;
-  getSelectionType: SelectionTypeFn;
-  rowCount: number;
-  columnCount: number;
-  cell: CellProps;
-  focus: SelectionFocus;
-  rounded: RoundedType;
-  onFocusChange: any;
-  rowHeight: number;
-}
-
-const Cell = memo(
-  ({ data, rowIndex, columnIndex, ...props }: GridChildComponentProps<ItemDataType>) => {
-    const {
-      cell: CellData,
-      getSelectionType,
-      focus,
-      columnCount,
-      rowCount,
-      showRowNumber,
-      showHeader,
-      rowHeight,
-      rounded,
-      onFocusChange,
-    } = data;
-
-    const { row: focusedRow, column: focusedColumn } = focus;
-    const isFocused = columnIndex === focusedColumn && rowIndex === focusedRow;
-    const rightOfFocus = columnIndex - 1 === focusedColumn && rowIndex === focusedRow;
-    const belowFocus = columnIndex === focusedColumn && rowIndex - 1 === focusedRow;
-
-    const selectionType = getSelectionType({
-      row: rowIndex,
-      column: columnIndex,
-      type: "cell",
-    });
-    const rightOfSelectionBorder =
-      selectionType !==
-      getSelectionType({
-        row: rowIndex,
-        column: columnIndex - 1,
-        type: "cell",
-      });
-    const belowSelectionBorder =
-      selectionType !==
-      getSelectionType({
-        row: rowIndex - 1,
-        column: columnIndex,
-        type: "cell",
-      });
-
-    const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
-    const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
-    const onClick = () => {
-      onFocusChange(rowIndex, columnIndex);
-      console.log("onClick");
-    };
-    return (
-      <StyledCell
-        as={CellData}
-        rowIndex={rowIndex}
-        columnIndex={columnIndex}
-        type="row-cell"
-        $isSelectedTop={selectionBorderTop}
-        $isSelectedLeft={selectionBorderLeft}
-        $isFocused={isFocused}
-        $isLastRow={rowCount === rowIndex - 1}
-        $isLastColumn={columnCount === columnIndex - 1}
-        $isFirstColumn={columnIndex === 0 && !showRowNumber}
-        $isFirstRow={rowIndex === 0 && !showHeader}
-        $selectionType={selectionType}
-        $height={rowHeight}
-        $rounded={rounded}
-        onClick={onClick}
-        {...props}
-      />
-    );
-  },
-  areEqual
-);
+const GridContainer = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
+`;
 
 const getRenderedCursor = (children: Array<ReactElement>) =>
   children.reduce(
@@ -166,6 +85,7 @@ const GridDataContainer = styled.div<{ $top: number; $left: string }>`
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
+const emptyFn = () => null;
 
 export const Grid = forwardRef<VariableSizeGrid, GridProps>(
   (
@@ -183,22 +103,30 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       rowCount,
       cell,
       onColumnResize: onColumnResizeProp,
-      onFocusChange,
+      onFocusChange: onFocusChangeProp,
       ...props
     },
     forwardedRed
   ) => {
-    const gridRef = useRef<VariableSizeGrid>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const onCellSelect = useRefCallback(onSelectProp ?? emptyFn);
+    const onFocusRefChange = useRefCallback(onFocusChangeProp);
 
-    const onCellSelect = useRefCallback(onSelectProp);
-    const { getSelectionType, moveSelection, clearSelection, onSelection } =
-      useSelectionActions({
-        onCellSelect,
-        focus,
-        columnCount,
-        rowCount,
-      });
+    const {
+      getSelectionType,
+      onMouseDown,
+      onMouseMove,
+      onKeyDown,
+      containerRef,
+      gridRef,
+      onPointerDown,
+      onPointerUp,
+    } = useSelectionActions({
+      onCellSelect,
+      focus,
+      columnCount,
+      rowCount,
+      onFocusRefChange,
+    });
     const data: ItemDataType = {
       showRowNumber,
       cell,
@@ -209,7 +137,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       focus,
       getSelectionType,
       rowHeight,
-      onFocusChange,
     };
     const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<
       Array<number>
@@ -232,94 +159,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       theme.click.grid.body.cell.space.x
     } + ${theme.click.grid.body.cell.space.x})`;
 
-    const onDragStart = e => {
-      console.log("dragstart", e);
-    };
-    const onDragEnd = e => {
-      console.log("dragend", e);
-    };
-
-    const scrollGridTo = useCallback((columnIndex: number, rowIndex: number) => {
-      if (gridRef.current) {
-        gridRef.current.scrollToItem({
-          columnIndex,
-          rowIndex,
-        });
-      }
-    }, []);
-
-    const onChangeFocusEvent = useCallback(
-      (row: number, column: number) => {
-        const corrected = onFocusChange(row, column);
-        scrollGridTo(column, row);
-        return corrected;
-      },
-      [onFocusChange, scrollGridTo]
-    );
-
-    const clearSelectionAndFocus = useCallback(
-      (force: boolean) => {
-        clearSelection(force);
-        containerRef.current && containerRef.current.focus();
-      },
-      [clearSelection, containerRef]
-    );
-
-    const changeSelectionAndFocus = useCallback(
-      (action: SelectionAction, event: KeyEventType = "click") => {
-        onSelection({ ...action, event });
-        containerRef.current && containerRef.current.focus();
-      },
-      [onSelection]
-    );
-
-    const onKeyDown = useCallback(
-      async (e: React.KeyboardEvent) => {
-        console.log("asasas");
-        e.preventDefault();
-        const moveAnchor = e.shiftKey;
-
-        const applyAction = (action: SelectionAction | null): void => {
-          if (action) {
-            changeSelectionAndFocus(action);
-          }
-          if (action?.type === "normal") {
-            onChangeFocusEvent(action.row, action.column);
-          }
-        };
-
-        switch (e.key) {
-          case "ArrowLeft":
-            applyAction(moveSelection(-1, 0, moveAnchor, "keypress"));
-            break;
-          case "ArrowRight":
-            applyAction(moveSelection(1, 0, moveAnchor, "keypress"));
-            break;
-          case "ArrowUp":
-            applyAction(moveSelection(0, -1, moveAnchor, "keypress"));
-            break;
-          case "ArrowDown":
-            applyAction(moveSelection(0, 1, moveAnchor, "keypress"));
-            break;
-          case "Enter":
-            changeSelectionAndFocus(
-              { type: "normal", row: focus.row, column: focus.column },
-              "keypress"
-            );
-            break;
-          case "Escape":
-            clearSelectionAndFocus(true);
-            break;
-        }
-      },
-      [
-        changeSelectionAndFocus,
-        onChangeFocusEvent,
-        moveSelection,
-        focus,
-        clearSelectionAndFocus,
-      ]
-    );
     const onColumnResize = (columnIndex: number, newWidth: number) => {
       setColumnHorizontalPosition(columnHorizontalPosition => {
         const originalWidthForUpdatedColumn = columnHorizontalPosition[columnIndex];
@@ -335,14 +174,36 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       ({ children, ...containerProps }, ref) => {
         const [minRow, maxRow, minColumn, maxColumn] = getRenderedCursor(children);
         return (
-          <div
+          <GridContainer
             className="sticky-grid__container"
             ref={mergeRefs([containerRef, ref])}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
             onKeyDown={onKeyDown}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
             {...containerProps}
           >
+            <GridDataContainer
+              $top={headerHeight}
+              $left={rowNumberWidth}
+            >
+              {children}
+            </GridDataContainer>
+            {showRowNumber && (
+              <RowNumberColumn
+                minRow={minRow}
+                maxRow={maxRow}
+                rowHeight={rowHeight}
+                headerHeight={headerHeight}
+                rowWidth={rowNumberWidth}
+                rowCount={rowCount}
+                rounded={rounded}
+                getSelectionType={getSelectionType}
+                showHeader={showHeader}
+              />
+            )}
+
             {showHeader && (
               <Header
                 showRowNumber={showRowNumber}
@@ -359,27 +220,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 columnHorizontalPosition={columnHorizontalPosition}
               />
             )}
-            {showRowNumber && (
-              <RowNumberColumn
-                minRow={minRow}
-                maxRow={maxRow}
-                rowHeight={rowHeight}
-                headerHeight={headerHeight}
-                rowWidth={rowNumberWidth}
-                rowCount={rowCount}
-                rounded={rounded}
-                getSelectionType={getSelectionType}
-                showHeader={showHeader}
-              />
-            )}
-
-            <GridDataContainer
-              $top={headerHeight}
-              $left={rowNumberWidth}
-            >
-              {children}
-            </GridDataContainer>
-          </div>
+          </GridContainer>
         );
       }
     );

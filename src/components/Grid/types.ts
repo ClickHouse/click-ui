@@ -108,3 +108,15 @@ export type SelectionTypeFn = (props: IsSelectedType) => SelectionType;
 export type ColumnResizeFn = (columnIndex: number, newWidth: number) => void;
 
 export type SelectionFocus = { row: number; column: number };
+
+export interface ItemDataType {
+  showRowNumber: boolean;
+  showHeader: boolean;
+  getSelectionType: SelectionTypeFn;
+  rowCount: number;
+  columnCount: number;
+  cell: CellProps;
+  focus: SelectionFocus;
+  rounded: RoundedType;
+  rowHeight: number;
+}

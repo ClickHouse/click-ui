@@ -23,24 +23,12 @@ const HeaderContainer = styled.div<{ $height: number }>`
   left: 0;
   display: flex;
   flex-direction: row;
-  z-index: 3;
   height: ${({ $height }) => $height}px;
 `;
 
 const ScrollableHeaderContainer = styled.div`
   position: relative;
   left: 0;
-`;
-
-const RowColumn = styled(StyledCell)<{
-  $width: string | number;
-}>`
-  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
-  position: sticky;
-  z-index: 3;
-  top: 0;
-  left: 0;
-  text-align: right;
 `;
 
 const ResizeSpan = styled.span`
@@ -70,6 +58,22 @@ const HeaderCellContainer = styled.div<{
   height: ${({ $height }) => $height}px;
   left: ${({ $columnPosition }) => $columnPosition}px;
 `;
+
+const RowColumnContainer = styled(HeaderCellContainer)<{
+  $width: string | number;
+}>`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
+  text-align: right;
+`;
+
+const RowColumn = styled(StyledCell)`
+  width: 100%;
+  text-align: right;
+`;
+
 const Column = ({
   columnIndex,
   cell,
@@ -116,10 +120,11 @@ const Column = ({
         $isFocused={false}
         $isSelectedLeft={true}
         $isSelectedTop={true}
-        $isLastRow
+        $isLastRow={false}
         $isFirstRow
         $height={height}
-        data-z={height}
+        data-row={-1}
+        data-column={columnIndex}
       />
       <ResizeSpan
         onDragStart={onDragStart}
@@ -149,22 +154,27 @@ const Header = ({
   return (
     <HeaderContainer $height={height}>
       {showRowNumber && (
-        <RowColumn
-          $type="header"
+        <RowColumnContainer
           $width={rowNumberWidth}
-          $isFirstRow
-          $isFirstColumn
-          $rounded={rounded}
-          $selectionType={selectedAllType}
-          $isLastRow={false}
-          $isLastColumn={false}
           $height={height}
-          $isFocused={false}
-          $isSelectedLeft
-          $isSelectedTop
+          $columnPosition={0}
         >
-          #
-        </RowColumn>
+          <RowColumn
+            $type="header"
+            $isFirstRow
+            $isFirstColumn
+            $rounded={rounded}
+            $selectionType={selectedAllType}
+            $isLastRow={false}
+            $isLastColumn={false}
+            $height={height}
+            $isFocused={false}
+            $isSelectedLeft
+            $isSelectedTop
+          >
+            #
+          </RowColumn>
+        </RowColumnContainer>
       )}
       <ScrollableHeaderContainer>
         {Array.from(

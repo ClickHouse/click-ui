@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import { RoundedType, SelectionTypeFn } from "./types";
 import { StyledCell } from "./StyledCell";
-
 const RowNumberColumnContainer = styled.div<{
   $height: number;
   $width: string;
 }>`
   position: sticky;
   left: 0;
-  z-index: 2;
   ${({ $height, $width }) => `
     top: ${$height}px;
     width: ${$width};
@@ -22,7 +20,6 @@ const RowNumberCell = styled(StyledCell)<{
 }>`
   position: absolute;
   left: 0;
-  z-index: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -47,16 +44,16 @@ interface RowNumberColumnProps {
 interface RowNumberProps
   extends Pick<RowNumberColumnProps, "rowHeight" | "getSelectionType" | "rounded"> {
   rowIndex: number;
-  isLastColumn: boolean;
-  isFirstColumn: boolean;
+  isLastRow: boolean;
+  isFirstRow: boolean;
 }
 const RowNumber = ({
   rowIndex: row,
   rowHeight,
   getSelectionType,
-  isLastColumn,
+  isLastRow,
   rounded,
-  isFirstColumn,
+  isFirstRow,
 }: RowNumberProps) => {
   const selectionType = getSelectionType({
     row,
@@ -67,16 +64,19 @@ const RowNumber = ({
     <RowNumberCell
       $height={rowHeight}
       $rowNumber={row}
-      $isLastColumn={isLastColumn}
+      $isLastColumn={false}
       $selectionType={selectionType}
       $rounded={rounded}
-      $isFirstColumn={isFirstColumn}
+      $isFirstColumn
       $type="header"
-      $isFirstRow
+      $isFirstRow={isFirstRow}
       $isFocused={false}
-      $isLastRow
-      $isSelectedLeft
-      $isSelectedTop
+      $isLastRow={isLastRow}
+      $isSelectedLeft={selectionType === "selectDirect"}
+      $isSelectedTop={selectionType === "selectDirect"}
+      data-row={row}
+      data-column={-1}
+      data-s={selectionType}
     >
       {row}
     </RowNumberCell>
@@ -106,9 +106,9 @@ const RowNumberColumn = ({
             getSelectionType={getSelectionType}
             rowHeight={rowHeight}
             rowIndex={rowIndex}
-            isLastColumn={rowIndex === rowCount}
+            isLastRow={rowIndex === rowCount}
             rounded={rounded}
-            isFirstColumn={!showHeader && rowIndex === 0}
+            isFirstRow={!showHeader && rowIndex === 0}
           />
         )
       )}
