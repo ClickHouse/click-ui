@@ -9,7 +9,7 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   isSortable?: boolean;
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
-  width: number | string;
+  width?: number | string;
 }
 
 const StyledHeader = styled.th<{ $size: TableSize; $width?: number | string }>`
