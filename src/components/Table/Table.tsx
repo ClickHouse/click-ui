@@ -1,11 +1,4 @@
-import {
-  Checkbox,
-  HorizontalDirection,
-  Icon,
-  IconButton,
-  IconName,
-  Text,
-} from "@/components";
+import { Checkbox, HorizontalDirection, Icon, IconButton, Text } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 type SortDir = "asc" | "desc";
