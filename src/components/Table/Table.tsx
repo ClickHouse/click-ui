@@ -19,7 +19,11 @@ const StyledHeader = styled.th<{ $size: TableSize; $width?: number | string }>`
   };
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
-    ${$width ? `width: ${typeof $width === "number" ? `${$width}px` : $width}` : ""}
+    ${
+      typeof $width !== "undefined"
+        ? `width: ${typeof $width === "number" ? `${$width}px` : $width};`
+        : ""
+    }
   `}
   gap: 0.25rem;
   text-align: left;
