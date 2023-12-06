@@ -507,64 +507,6 @@
           }
         }
       },
-      "group": {
-        "color": {
-          "background": {
-            "default": {
-              "value": "{palette.neutral.0}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.button.basic.color.secondary.background.hover}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.button.basic.color.secondary.background.active}",
-              "type": "color"
-            },
-            "panel": {
-              "value": "{click.button.group.color.background.default}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{palette.neutral.200}",
-              "type": "color"
-            },
-            "disabled-active": {
-              "value": "{palette.neutral.100}",
-              "type": "color"
-            }
-          },
-          "text": {
-            "default": {
-              "value": "{palette.slate.900}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.button.group.color.text.default}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{palette.neutral.900}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{palette.neutral.400}",
-              "type": "color"
-            },
-            "disabled-active": {
-              "value": "{palette.neutral.500}",
-              "type": "color"
-            }
-          },
-          "stroke": {
-            "panel": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
-            }
-          }
-        }
-      },
       "split": {
         "primary": {
           "background": {
@@ -1241,6 +1183,78 @@
                 "value": "{sizes.6}",
                 "type": "sizing"
               }
+            }
+          }
+        }
+      },
+      "group": {
+        "color": {
+          "background": {
+            "default": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.slate.50}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.group.color.background.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "darken",
+                    "value": "0.025",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "disabled": {
+              "value": "{palette.neutral.200}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{palette.neutral.200}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.008",
+                    "space": "lch"
+                  }
+                }
+              }
+            }
+          },
+          "text": {
+            "default": {
+              "value": "{palette.slate.900}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.button.group.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.neutral.900}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.400}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{palette.neutral.500}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{palette.utility.transparent}",
+              "type": "color"
             }
           }
         }

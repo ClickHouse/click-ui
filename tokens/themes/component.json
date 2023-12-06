@@ -680,11 +680,7 @@
       },
       "group": {
         "radii": {
-          "center": {
-            "value": "{border.radii.0}",
-            "type": "borderRadius"
-          },
-          "end": {
+          "all": {
             "value": "{border.radii.1}",
             "type": "borderRadius"
           }
@@ -723,6 +719,12 @@
                 "type": "typography"
               }
             }
+          }
+        },
+        "space": {
+          "gap": {
+            "value": "{spaces.1}",
+            "type": "spacing"
           }
         }
       },
@@ -1037,15 +1039,15 @@
         },
         "space": {
           "y": {
-            "value": "{spaces.3}",
+            "value": "5.5px",
             "type": "spacing"
           },
           "x": {
-            "value": "{spaces.5}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "gap": {
-            "value": "{spaces.4}",
+            "value": "{spaces.3}",
             "type": "spacing"
           }
         },

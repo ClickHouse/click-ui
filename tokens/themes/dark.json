@@ -813,7 +813,15 @@
         "color": {
           "background": {
             "default": {
-              "value": "{click.global.color.background.muted}",
+              "value": "{palette.utility.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.button.basic.color.secondary.background.hover}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.group.color.background.hover}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
@@ -824,27 +832,6 @@
                   }
                 }
               }
-            },
-            "hover": {
-              "value": "{palette.neutral.725}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.080",
-                    "space": "lch"
-                  }
-                }
-              }
-            },
-            "active": {
-              "value": "{click.global.color.background.default}",
-              "type": "color"
-            },
-            "panel": {
-              "value": "{click.button.group.color.background.default}",
-              "type": "color"
             },
             "disabled": {
               "value": "{click.field.color.background.disabled}",
@@ -887,8 +874,8 @@
             }
           },
           "stroke": {
-            "panel": {
-              "value": "{click.global.color.stroke.default}",
+            "default": {
+              "value": "{palette.utility.transparent}",
               "type": "color"
             }
           }
