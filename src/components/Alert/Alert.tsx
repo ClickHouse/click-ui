@@ -14,6 +14,7 @@ export type AlertProps = {
   type?: AlertType;
   showIcon?: boolean;
   dismissible?: boolean;
+  customIcon?: IconName;
 };
 
 const stateIconMap: Record<AlertState, IconName> = {
@@ -32,6 +33,7 @@ const Alert = ({
   type = "default",
   showIcon = true,
   dismissible,
+  customIcon,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -54,7 +56,7 @@ const Alert = ({
             $size={size}
             size="sm"
             aria-hidden
-            name={stateIconMap[state]}
+            name={customIcon || stateIconMap[state]}
           />
         </IconWrapper>
       )}
