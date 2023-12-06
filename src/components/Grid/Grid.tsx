@@ -1,14 +1,4 @@
-import {
-  HTMLAttributes,
-  MouseEvent,
-  PointerEvent,
-  ReactElement,
-  forwardRef,
-  memo,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { HTMLAttributes, ReactElement, forwardRef, useState } from "react";
 import { VariableSizeGrid, VariableSizeGridProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
@@ -19,8 +9,6 @@ import {
   onSelectFn,
   RoundedType,
   ColumnResizeFn,
-  SelectionAction,
-  KeyEventType,
   SelectionFocus,
   ItemDataType,
 } from "./types";
