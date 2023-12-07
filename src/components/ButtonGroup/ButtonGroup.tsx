@@ -1,6 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 import styled, { DefaultTheme } from "styled-components";
 
+type ButtonGroupType = "default" | "borderless";
 export interface ButtonGroupElementProps
   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
   value: string;
@@ -13,6 +14,7 @@ export interface ButtonGroupProps
   selected?: string;
   onClick?: (value: string) => void;
   fillWidth?: boolean;
+  type?: ButtonGroupType;
 }
 
 export const ButtonGroup = ({
@@ -20,17 +22,15 @@ export const ButtonGroup = ({
   selected,
   fillWidth,
   onClick,
+  type,
   ...props
 }: ButtonGroupProps) => {
   const lastIndex = options.length - 1;
   const btns = options.map(({ value, label, ...props }, index) => {
-    const position: ButtonPosition =
-      index === 0 ? "left" : index === lastIndex ? "right" : "center";
     return (
       <Button
         key={value}
         $active={value === selected}
-        $position={position}
         $fillWidth={fillWidth}
         onClick={() => onClick?.(value)}
         role="button"
@@ -43,6 +43,7 @@ export const ButtonGroup = ({
   return (
     <ButtonGroupWrapper
       $fillWidth={fillWidth}
+      $type={type}
       {...props}
     >
       {btns}
@@ -50,16 +51,14 @@ export const ButtonGroup = ({
   );
 };
 
-type ButtonPosition = "left" | "center" | "right";
-
 interface ButtonProps {
   $active: boolean;
-  $position: ButtonPosition;
   theme: DefaultTheme;
   $fillWidth?: boolean;
+  $type?: ButtonGroupType;
 }
 
-const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean }>`
+const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean; $type?: ButtonGroupType }>`
   box-sizing: border-box;
   display: inline-flex;
   flex-direction: row;
@@ -68,6 +67,10 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean }>`
   padding: 0px;
   gap: ${({ theme }) => theme.click.button.group.space.gap};
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
+  border: 1px solid
+    ${({ theme, $type = "default" }) =>
+      theme.click.button.group.color.panel.stroke[$type]};
+  border-radius: ${({ theme }) => theme.click.button.group.radii.all};
 `;
 
 const Button = styled.button<ButtonProps>`

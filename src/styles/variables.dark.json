@@ -384,7 +384,17 @@
             "disabled-active": "#808080"
           },
           "stroke": {
-            "default": "rgba(0,0,0,0)"
+            "default": "rgba(0,0,0,0)",
+            "hover": "rgba(0,0,0,0)",
+            "active": "rgba(0,0,0,0)",
+            "disabled": "rgba(0,0,0,0)",
+            "disabled-active": "rgba(0,0,0,0)"
+          },
+          "panel": {
+            "stroke": {
+              "default": "lch(27.5 0 0 / 0.3)",
+              "borderless": "rgba(0,0,0,0)"
+            }
           }
         }
       },
@@ -1184,7 +1194,7 @@
           "default": "#b3b6bd"
         },
         "opaqueBackground": {
-          "default": "lch(77.7 0 0 / 0.45)"
+          "default": "lch(40.7 0 0 / 0.75)"
         }
       }
     },

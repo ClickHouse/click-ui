@@ -701,7 +701,17 @@
             "disabled-active": string
           },
           "stroke": {
-            "default": string
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "disabled-active": string
+          },
+          "panel": {
+            "stroke": {
+              "default": string,
+              "borderless": string
+            }
           }
         }
       },
