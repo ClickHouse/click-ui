@@ -2,6 +2,7 @@ import { HTMLAttributes, ReactNode } from "react";
 import styled, { DefaultTheme } from "styled-components";
 
 type ButtonGroupType = "default" | "borderless";
+
 export interface ButtonGroupElementProps
   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
   value: string;
@@ -25,12 +26,17 @@ export const ButtonGroup = ({
   type,
   ...props
 }: ButtonGroupProps) => {
-  const btns = options.map(({ value, label, ...props }) => {
+  const lastIndex = options.length - 1;
+  const btns = options.map(({ value, label, ...props }, index) => {
+    const position: ButtonPosition =
+      index === 0 ? "left" : index === lastIndex ? "right" : "center";
     return (
       <Button
         key={value}
         $active={value === selected}
+        $position={position}
         $fillWidth={fillWidth}
+        $type={type}
         onClick={() => onClick?.(value)}
         role="button"
         {...props}
@@ -50,8 +56,11 @@ export const ButtonGroup = ({
   );
 };
 
+type ButtonPosition = "left" | "center" | "right";
+
 interface ButtonProps {
   $active: boolean;
+  $position: ButtonPosition;
   theme: DefaultTheme;
   $fillWidth?: boolean;
   $type?: ButtonGroupType;
@@ -64,13 +73,19 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean; $type?: ButtonGrou
   justify-content: center;
   align-items: center;
   padding: 0px;
-  gap: ${({ theme }) => theme.click.button.group.space.gap};
-  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
+  gap: ${({ theme, $type = "default" }) => theme.click.button.group.space.gap[$type]};
   border: 1px solid
     ${({ theme, $type = "default" }) =>
       theme.click.button.group.color.panel.stroke[$type]};
+  background: ${({ theme }) => theme.click.button.group.color.background.panel};
   border-radius: ${({ theme }) => theme.click.button.group.radii.all};
+  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
+
+const endRadii = "var(--click-button-button-group-radii-end)";
+const leftBorderRadius = `${endRadii} 0px 0px ${endRadii}`;
+const rightBorderRadius = `0px ${endRadii} ${endRadii} 0px`;
+const centerBorderRadius = "var(--click-button-button-group-radii-center)";
 
 const Button = styled.button<ButtonProps>`
   box-sizing: border-box;
@@ -85,7 +100,6 @@ const Button = styled.button<ButtonProps>`
       : theme.click.button.group.color.background.default};
   color: ${({ theme }) => theme.click.button.group.color.text.default};
   font: ${({ theme }) => theme.click.button.group.typography.label.default};
-  border-radius: ${({ theme }) => theme.click.button.group.radii.all};
   padding: ${({ theme }) => theme.click.button.basic.space.y}
     ${({ theme }) => theme.click.button.basic.space.x};
   gap: ${({ theme }) => theme.click.button.basic.space.group};
@@ -115,4 +129,13 @@ const Button = styled.button<ButtonProps>`
         theme.click.button.group.color.background["disabled-active"]};
     }
   }
+
+  border-radius: ${({ theme, $type, $position }: ButtonProps) =>
+    $type === "borderless"
+      ? theme.click.button.group.radii.all
+      : $position === "left"
+      ? leftBorderRadius
+      : $position === "right"
+      ? rightBorderRadius
+      : centerBorderRadius};
 `;

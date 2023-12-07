@@ -178,7 +178,7 @@
               "disabled": "#414141"
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": "#FAFF69",
               "hover": "#feffba",
@@ -374,7 +374,8 @@
             "hover": "#282828",
             "active": "lch(18.2 0 0)",
             "disabled": "#414141",
-            "disabled-active": "lch(22 0 0)"
+            "disabled-active": "lch(22 0 0)",
+            "panel": "rgba(0,0,0,0)"
           },
           "text": {
             "default": "#ffffff",
@@ -388,7 +389,8 @@
             "hover": "rgba(0,0,0,0)",
             "active": "rgba(0,0,0,0)",
             "disabled": "rgba(0,0,0,0)",
-            "disabled-active": "rgba(0,0,0,0)"
+            "disabled-active": "rgba(0,0,0,0)",
+            "panel": "lch(27.5 0 0 / 0.3)"
           },
           "panel": {
             "stroke": {

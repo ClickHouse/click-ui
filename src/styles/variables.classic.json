@@ -49,7 +49,7 @@
               "default": "#c10000"
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": "#C78F0F",
               "hover": "#C78F0F",
@@ -267,7 +267,8 @@
             "hover": "#f6f7fa",
             "active": "lch(97.3 1.53 272)",
             "disabled": "#dfdfdf",
-            "disabled-active": "lch(71.1 0 0)"
+            "disabled-active": "lch(71.1 0 0)",
+            "panel": "rgba(0,0,0,0)"
           },
           "text": {
             "default": "#161517",
@@ -281,7 +282,8 @@
             "hover": "rgba(0,0,0,0)",
             "active": "rgba(0,0,0,0)",
             "disabled": "rgba(0,0,0,0)",
-            "disabled-active": "rgba(0,0,0,0)"
+            "disabled-active": "rgba(0,0,0,0)",
+            "panel": "lch(91.6 1.1 266)"
           },
           "panel": {
             "stroke": {

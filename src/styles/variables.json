@@ -404,7 +404,7 @@
               "disabled": "#dfdfdf"
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": "#135be6",
               "hover": "#092e73",
@@ -664,7 +664,8 @@
       },
       "group": {
         "radii": {
-          "all": "0.25rem"
+          "all": "0.25rem",
+          "end": "0"
         },
         "typography": {
           "label": {
@@ -682,7 +683,10 @@
           }
         },
         "space": {
-          "gap": "0.25rem"
+          "gap": {
+            "default": "0",
+            "borderless": "0.25rem"
+          }
         },
         "color": {
           "background": {
@@ -690,7 +694,8 @@
             "hover": "#f6f7fa",
             "active": "lch(97.3 1.53 272)",
             "disabled": "#dfdfdf",
-            "disabled-active": "lch(71.1 0 0)"
+            "disabled-active": "lch(71.1 0 0)",
+            "panel": "rgba(0,0,0,0)"
           },
           "text": {
             "default": "#161517",
@@ -704,7 +709,8 @@
             "hover": "rgba(0,0,0,0)",
             "active": "rgba(0,0,0,0)",
             "disabled": "rgba(0,0,0,0)",
-            "disabled-active": "rgba(0,0,0,0)"
+            "disabled-active": "rgba(0,0,0,0)",
+            "panel": "lch(91.6 1.1 266)"
           },
           "panel": {
             "stroke": {
@@ -2488,7 +2494,7 @@
       "body": {
         "cell": {
           "space": {
-            "y": "0.25rem",
+            "y": "5.5px",
             "x": "0.5rem"
           },
           "size": {
@@ -2515,7 +2521,7 @@
       },
       "cell": {
         "text": {
-          "default": "500 0.875rem/1.7 \"Inconsolata\", '\"SFMono Regular\"', monospace"
+          "default": "500 0.875rem/1.5 \"Inconsolata\", '\"SFMono Regular\"', monospace"
         }
       },
       "radii": {
