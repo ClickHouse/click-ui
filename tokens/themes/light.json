@@ -94,6 +94,25 @@
             }
           }
         },
+        "title": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.045",
+                  "space": "lch"
+                }
+              }
+            }
+          },
+          "muted": {
+            "value": "{palette.slate.600}",
+            "type": "color"
+          }
+        },
         "outline": {
           "default": {
             "value": "{palette.info.400}",
@@ -109,21 +128,6 @@
                 "modify": {
                   "type": "alpha",
                   "value": "0.15",
-                  "space": "lch"
-                }
-              }
-            }
-          }
-        },
-        "title": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.045",
                   "space": "lch"
                 }
               }
