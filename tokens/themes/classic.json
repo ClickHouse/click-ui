@@ -1195,7 +1195,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{palette.slate.50}",
+              "value": "{click.button.basic.color.secondary.background.hover}",
               "type": "color"
             },
             "active": {
@@ -1204,7 +1204,7 @@
               "$extensions": {
                 "studio.tokens": {
                   "modify": {
-                    "type": "darken",
+                    "type": "lighten",
                     "value": "0.025",
                     "space": "lch"
                   }
@@ -1212,17 +1212,17 @@
               }
             },
             "disabled": {
-              "value": "{palette.neutral.200}",
+              "value": "{click.field.color.background.disabled}",
               "type": "color"
             },
             "disabled-active": {
-              "value": "{palette.neutral.200}",
+              "value": "{click.button.group.color.background.disabled}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
                   "modify": {
-                    "type": "lighten",
-                    "value": "0.008",
+                    "type": "darken",
+                    "value": "0.2",
                     "space": "lch"
                   }
                 }
@@ -1231,7 +1231,7 @@
           },
           "text": {
             "default": {
-              "value": "{palette.slate.900}",
+              "value": "{click.global.color.text.default}",
               "type": "color"
             },
             "hover": {
@@ -1239,11 +1239,11 @@
               "type": "color"
             },
             "active": {
-              "value": "{palette.neutral.900}",
+              "value": "{palette.neutral.0}",
               "type": "color"
             },
             "disabled": {
-              "value": "{palette.neutral.400}",
+              "value": "{click.field.color.text.disabled}",
               "type": "color"
             },
             "disabled-active": {
@@ -1255,6 +1255,30 @@
             "default": {
               "value": "{palette.utility.transparent}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.button.group.color.stroke.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.button.group.color.stroke.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.group.color.stroke.default}",
+              "type": "color"
+            },
+            "disabled-active": {
+              "value": "{click.button.group.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "panel": {
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke.default}",
+                "type": "color"
+              }
             }
           }
         }
