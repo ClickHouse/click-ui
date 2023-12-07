@@ -25,8 +25,7 @@ export const ButtonGroup = ({
   type,
   ...props
 }: ButtonGroupProps) => {
-  const lastIndex = options.length - 1;
-  const btns = options.map(({ value, label, ...props }, index) => {
+  const btns = options.map(({ value, label, ...props }) => {
     return (
       <Button
         key={value}
