@@ -178,7 +178,7 @@
               "disabled": "#414141"
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": "#FAFF69",
               "hover": "#feffba",
@@ -370,10 +370,9 @@
       "group": {
         "color": {
           "background": {
-            "default": "lch(18.2 0 0)",
-            "hover": "lch(22.8 0 0)",
-            "active": "#1F1F1C",
-            "panel": "lch(18.2 0 0)",
+            "default": "rgba(0,0,0,0)",
+            "hover": "#282828",
+            "active": "lch(18.2 0 0)",
             "disabled": "#414141",
             "disabled-active": "lch(22 0 0)"
           },
@@ -385,7 +384,17 @@
             "disabled-active": "#808080"
           },
           "stroke": {
-            "panel": "lch(27.5 0 0 / 0.3)"
+            "default": "rgba(0,0,0,0)",
+            "hover": "rgba(0,0,0,0)",
+            "active": "rgba(0,0,0,0)",
+            "disabled": "rgba(0,0,0,0)",
+            "disabled-active": "rgba(0,0,0,0)"
+          },
+          "panel": {
+            "stroke": {
+              "default": "lch(27.5 0 0 / 0.3)",
+              "borderless": "rgba(0,0,0,0)"
+            }
           }
         }
       },
@@ -1185,7 +1194,7 @@
           "default": "#b3b6bd"
         },
         "opaqueBackground": {
-          "default": "lch(77.7 0 0 / 0.45)"
+          "default": "lch(40.7 0 0 / 0.75)"
         }
       }
     },

@@ -405,7 +405,7 @@
               "disabled": string
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": string,
               "hover": string,
@@ -665,8 +665,7 @@
       },
       "group": {
         "radii": {
-          "center": string,
-          "end": string
+          "all": string
         },
         "typography": {
           "label": {
@@ -683,12 +682,14 @@
             }
           }
         },
+        "space": {
+          "gap": string
+        },
         "color": {
           "background": {
             "default": string,
             "hover": string,
             "active": string,
-            "panel": string,
             "disabled": string,
             "disabled-active": string
           },
@@ -700,7 +701,17 @@
             "disabled-active": string
           },
           "stroke": {
-            "panel": string
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "disabled-active": string
+          },
+          "panel": {
+            "stroke": {
+              "default": string,
+              "borderless": string
+            }
           }
         }
       },

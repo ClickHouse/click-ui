@@ -404,7 +404,7 @@
               "disabled": "#dfdfdf"
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": "#135be6",
               "hover": "#092e73",
@@ -664,8 +664,7 @@
       },
       "group": {
         "radii": {
-          "center": "0",
-          "end": "0.25rem"
+          "all": "0.25rem"
         },
         "typography": {
           "label": {
@@ -682,24 +681,36 @@
             }
           }
         },
+        "space": {
+          "gap": "0.25rem"
+        },
         "color": {
           "background": {
-            "default": "lch(94.5 0.72 266)",
-            "hover": "lch(97.4 1.44 272)",
-            "active": "#ffffff",
-            "panel": "lch(94.5 0.72 266)",
+            "default": "rgba(0,0,0,0)",
+            "hover": "#f6f7fa",
+            "active": "lch(97.3 1.53 272)",
             "disabled": "#dfdfdf",
-            "disabled-active": "lch(88.9 0 0)"
+            "disabled-active": "lch(71.1 0 0)"
           },
           "text": {
             "default": "#161517",
             "hover": "#161517",
-            "active": "#151515",
+            "active": "#ffffff",
             "disabled": "#a0a0a0",
             "disabled-active": "#808080"
           },
           "stroke": {
-            "panel": "lch(91.6 1.1 266)"
+            "default": "rgba(0,0,0,0)",
+            "hover": "rgba(0,0,0,0)",
+            "active": "rgba(0,0,0,0)",
+            "disabled": "rgba(0,0,0,0)",
+            "disabled-active": "rgba(0,0,0,0)"
+          },
+          "panel": {
+            "stroke": {
+              "default": "lch(91.6 1.1 266)",
+              "borderless": "rgba(0,0,0,0)"
+            }
           }
         }
       },
@@ -968,9 +979,9 @@
           }
         },
         "space": {
-          "y": "0.75rem",
-          "x": "1.5rem",
-          "gap": "1rem"
+          "y": "5.5px",
+          "x": "0.75rem",
+          "gap": "0.75rem"
         },
         "icon": {
           "size": {
@@ -2356,7 +2367,7 @@
           "default": "#696e79"
         },
         "opaqueBackground": {
-          "default": "lch(6.77 0 0 / 0.45)"
+          "default": "lch(6.77 0 0 / 0.75)"
         }
       }
     },

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BaseButton } from "../commonElement";
 import React from "react";
 
-export type ButtonType = "primary" | "secondary" | "link" | "danger";
+export type ButtonType = "primary" | "secondary" | "empty" | "danger";
 type Alignment = "center" | "left";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
