@@ -128,7 +128,7 @@ const Title = styled.h6<{ $size: AlertSize }>`
   margin: 0;
   font: ${({ theme, $size }) => theme.click.alert[$size].typography.title.default};
 `;
-const Text = styled.p<{ $size: AlertSize }>`
+const Text = styled.div<{ $size: AlertSize }>`
   margin: 0;
   font: ${({ theme, $size }) => theme.click.alert[$size].typography.text.default};
 `;
