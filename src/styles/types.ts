@@ -665,7 +665,8 @@
       },
       "group": {
         "radii": {
-          "all": string
+          "all": string,
+          "end": string
         },
         "typography": {
           "label": {
@@ -683,7 +684,10 @@
           }
         },
         "space": {
-          "gap": string
+          "gap": {
+            "default": string,
+            "borderless": string
+          }
         },
         "color": {
           "background": {
@@ -691,7 +695,8 @@
             "hover": string,
             "active": string,
             "disabled": string,
-            "disabled-active": string
+            "disabled-active": string,
+            "panel": string
           },
           "text": {
             "default": string,
@@ -705,7 +710,8 @@
             "hover": string,
             "active": string,
             "disabled": string,
-            "disabled-active": string
+            "disabled-active": string,
+            "panel": string
           },
           "panel": {
             "stroke": {
