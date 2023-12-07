@@ -2571,7 +2571,8 @@
           "default": string
         },
         "title": {
-          "default": string
+          "default": string,
+          "muted": string
         }
       }
     },

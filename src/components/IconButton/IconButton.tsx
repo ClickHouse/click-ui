@@ -67,6 +67,12 @@ const Button = styled.button<{
     border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
   }
 
+  &:visited {
+    background-color: ${
+      theme.click.button.iconButton.color[$styleType].background.default
+    };
+  }
+
   &[disabled] {
     background-color: ${theme.click.button.iconButton.color.disabled.background.default};
     color: ${theme.click.button.iconButton.color.disabled.text.default};
