@@ -19,6 +19,7 @@ export { CardPromotion } from "./CardPromotion/CardPromotion";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { CodeBlock } from "./CodeBlock/CodeBlock";
 export { Dialog } from "./Dialog/Dialog";
+export { EmptyState } from "./EmptyState/EmptyState";
 export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";
 export { Flyout } from "./Flyout/Flyout";
