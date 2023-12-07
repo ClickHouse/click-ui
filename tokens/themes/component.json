@@ -1039,15 +1039,15 @@
         },
         "space": {
           "y": {
-            "value": "{spaces.3}",
+            "value": "5.5px",
             "type": "spacing"
           },
           "x": {
-            "value": "{spaces.5}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "gap": {
-            "value": "{spaces.4}",
+            "value": "{spaces.3}",
             "type": "spacing"
           }
         },
