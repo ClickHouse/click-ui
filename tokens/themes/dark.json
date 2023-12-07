@@ -751,7 +751,7 @@
               }
             }
           },
-          "link": {
+          "empty": {
             "text": {
               "default": {
                 "value": "{click.global.color.text.link.default}",
@@ -762,7 +762,7 @@
                 "type": "color"
               },
               "active": {
-                "value": "{click.button.basic.color.link.text.default}",
+                "value": "{click.button.basic.color.empty.text.default}",
                 "type": "color"
               },
               "disabled": {
@@ -780,29 +780,29 @@
                 "type": "color"
               },
               "active": {
-                "value": "{click.button.basic.color.link.background.default}",
+                "value": "{click.button.basic.color.empty.background.default}",
                 "type": "color"
               },
               "disabled": {
-                "value": "{click.button.basic.color.link.background.default}",
+                "value": "{click.button.basic.color.empty.background.default}",
                 "type": "color"
               }
             },
             "stroke": {
               "default": {
-                "value": "{click.button.basic.color.link.background.default}",
+                "value": "{click.button.basic.color.empty.background.default}",
                 "type": "color"
               },
               "hover": {
-                "value": "{click.button.basic.color.link.stroke.default}",
+                "value": "{click.button.basic.color.empty.stroke.default}",
                 "type": "color"
               },
               "active": {
-                "value": "{click.button.basic.color.link.stroke.default}",
+                "value": "{click.button.basic.color.empty.stroke.default}",
                 "type": "color"
               },
               "disabled": {
-                "value": "{click.button.basic.color.link.stroke.default}",
+                "value": "{click.button.basic.color.empty.stroke.default}",
                 "type": "color"
               }
             }

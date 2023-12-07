@@ -2912,7 +2912,7 @@
         "cell": {
           "space": {
             "y": {
-              "value": "{spaces.1}",
+              "value": "5.5px",
               "type": "spacing"
             },
             "x": {
@@ -2931,7 +2931,12 @@
       "cell": {
         "text": {
           "default": {
-            "value": "{typography.styles.product.text.mono.md}",
+            "value": {
+              "fontFamily": "{typography.font.families.mono}",
+              "fontWeight": "{typography.font.weights.2}",
+              "lineHeight": "{typography.font.line-height.1}",
+              "fontSize": "{typography.font.sizes.2}"
+            },
             "type": "typography"
           }
         }
