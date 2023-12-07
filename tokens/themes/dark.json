@@ -104,6 +104,10 @@
                 }
               }
             }
+          },
+          "muted": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
           }
         }
       }

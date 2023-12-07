@@ -1320,6 +1320,10 @@
                 }
               }
             }
+          },
+          "muted": {
+            "value": "{palette.slate.600}",
+            "type": "color"
           }
         }
       }
