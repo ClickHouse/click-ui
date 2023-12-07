@@ -1485,6 +1485,11 @@
                   }
                 }
               }
+            },
+            "panel": {
+              "value": "{palette.utility.transparent}",
+              "type": "color",
+              "$extensions": {}
             }
           },
           "text": {
@@ -1528,6 +1533,10 @@
             },
             "disabled-active": {
               "value": "{click.button.group.color.stroke.default}",
+              "type": "color"
+            },
+            "panel": {
+              "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
           },
