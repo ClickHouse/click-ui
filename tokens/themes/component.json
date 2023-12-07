@@ -683,6 +683,10 @@
           "all": {
             "value": "{border.radii.1}",
             "type": "borderRadius"
+          },
+          "end": {
+            "value": "{border.radii.0}",
+            "type": "borderRadius"
           }
         },
         "typography": {
