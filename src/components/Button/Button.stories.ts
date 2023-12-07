@@ -6,7 +6,7 @@ export default {
   tags: ["button", "autodocs"],
   argTypes: {
     type: {
-      options: ["primary", "secondary", "danger"],
+      options: ["primary", "secondary", "empty", "danger"],
       control: { type: "radio" },
     },
     align: {
