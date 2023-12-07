@@ -404,6 +404,26 @@
               "active": string,
               "disabled": string
             }
+          },
+          "empty": {
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
           }
         }
       },
@@ -645,7 +665,7 @@
       },
       "group": {
         "radii": {
-          "center": string,
+          "all": string,
           "end": string
         },
         "typography": {
@@ -663,14 +683,20 @@
             }
           }
         },
+        "space": {
+          "gap": {
+            "default": string,
+            "borderless": string
+          }
+        },
         "color": {
           "background": {
             "default": string,
             "hover": string,
             "active": string,
-            "panel": string,
             "disabled": string,
-            "disabled-active": string
+            "disabled-active": string,
+            "panel": string
           },
           "text": {
             "default": string,
@@ -680,7 +706,18 @@
             "disabled-active": string
           },
           "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "disabled-active": string,
             "panel": string
+          },
+          "panel": {
+            "stroke": {
+              "default": string,
+              "borderless": string
+            }
           }
         }
       },

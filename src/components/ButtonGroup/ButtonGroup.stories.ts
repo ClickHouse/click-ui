@@ -4,6 +4,10 @@ export default {
   component: ButtonGroup,
   title: "Buttons/ButtonGroup",
   tags: ["button-group", "autodocs"],
+  type: {
+    options: ["default", "borderless"],
+    control: { type: "radio" },
+  },
 };
 
 export const Playground = {
@@ -14,5 +18,6 @@ export const Playground = {
       { label: "Option 3", value: "option3" },
     ],
     fillWidth: false,
+    type: "default"
   },
 };
