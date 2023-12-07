@@ -727,8 +727,14 @@
         },
         "space": {
           "gap": {
-            "value": "{spaces.1}",
-            "type": "spacing"
+            "default": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            },
+            "borderless": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            }
           }
         }
       },
