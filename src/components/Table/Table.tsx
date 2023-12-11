@@ -112,27 +112,39 @@ const Thead = ({
     }
   };
   return (
-    <StyledThead>
-      <tr>
-        {isSelectable && (
-          <StyledHeader $size={size}>
-            <Checkbox
-              onCheckedChange={onSelectAll}
-              disabled={!hasRows}
-            />
-          </StyledHeader>
-        )}
+    <>
+      <StyledColGroup>
+        {isSelectable && <col />}
         {headers.map((headerProps, index) => (
-          <TableHeader
-            key={`table-header-${index}`}
-            onSort={onSort(headerProps, index)}
-            size={size}
-            {...headerProps}
+          <col
+            key={`header-col-${index}`}
+            width={headerProps.width}
           />
         ))}
-        {showActionsHeader && <StyledHeader $size={size} />}
-      </tr>
-    </StyledThead>
+        {showActionsHeader && <col />}
+      </StyledColGroup>
+      <StyledThead>
+        <tr>
+          {isSelectable && (
+            <StyledHeader $size={size}>
+              <Checkbox
+                onCheckedChange={onSelectAll}
+                disabled={!hasRows}
+              />
+            </StyledHeader>
+          )}
+          {headers.map((headerProps, index) => (
+            <TableHeader
+              key={`table-header-${index}`}
+              onSort={onSort(headerProps, index)}
+              size={size}
+              {...headerProps}
+            />
+          ))}
+          {showActionsHeader && <StyledHeader $size={size} />}
+        </tr>
+      </StyledThead>
+    </>
   );
 };
 
@@ -199,7 +211,11 @@ const TableData = styled.td<{ $size: TableSize }>`
       ${({ theme }) => theme.click.table.body.cell.space.sm.x};
   }
 `;
-
+const StyledColGroup = styled.colgroup`
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 const StyledThead = styled.thead`
   tr {
     overflow: hidden;
@@ -621,6 +637,7 @@ const StyledTable = styled.table`
   width: 100%;
   border-spacing: 0;
   overflow: hidden;
+  table-layout: fixed;
   ${({ theme }) => `
     border-radius: ${theme.click.table.radii.all};
     border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
@@ -628,6 +645,7 @@ const StyledTable = styled.table`
 
   @media (max-width: 768px) {
     border: none;
+    table-layout: auto;
   }
 `;
 
