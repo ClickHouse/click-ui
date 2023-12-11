@@ -828,8 +828,8 @@
           "foreground": "#135be6"
         },
         "success": {
-          "background": "#e0f8e7",
-          "foreground": "#15632b"
+          "background": "#E5FFE8",
+          "foreground": "#00990D"
         },
         "warning": {
           "background": "#ffedd8",

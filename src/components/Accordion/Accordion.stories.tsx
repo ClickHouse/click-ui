@@ -13,6 +13,10 @@ export default {
       options: ["sm", "md", "lg"],
       control: { type: "radio" },
     },
+    color: {
+      options: ["default", "link"],
+      control: { type: "radio" },
+    },
   },
 };
 
@@ -34,6 +38,7 @@ export const Playground = {
   args: {
     title: "Accordion title",
     size: "md",
+    color: "default",
     children,
   },
 };
