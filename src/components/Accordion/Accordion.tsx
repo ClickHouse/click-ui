@@ -10,7 +10,7 @@ export interface AccordionProps
   extends SizeProp,
     Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible"> {
   title: string;
-  color: Color;
+  color?: Color;
   icon?: IconName;
   iconSize?: IconSize;
   children: React.ReactNode;
