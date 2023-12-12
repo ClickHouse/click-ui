@@ -4,11 +4,13 @@ import { IconSize } from "@/components/Icon/types";
 import { Icon, IconName } from "@/components";
 
 type Size = "sm" | "md" | "lg";
+type Color = "default" | "link";
 
 export interface AccordionProps
   extends SizeProp,
     Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible"> {
   title: string;
+  color?: Color;
   icon?: IconName;
   iconSize?: IconSize;
   children: React.ReactNode;
@@ -21,6 +23,7 @@ interface SizeProp {
 const Accordion = ({
   title,
   size = "md",
+  color,
   icon,
   iconSize,
   children,
@@ -32,7 +35,10 @@ const Accordion = ({
     {...delegated}
   >
     <RadixAccordion.Item value="item">
-      <AccordionTrigger $size={size}>
+      <AccordionTrigger
+        $size={size}
+        color={color}
+      >
         <AccordionIconsWrapper>
           <AccordionIconWrapper>
             <Icon
@@ -57,24 +63,25 @@ const Accordion = ({
 
 const AccordionTrigger = styled(RadixAccordion.Trigger)<{
   $size?: Size;
+  color?: Color;
 }>`
   border: none;
   padding: 0;
   background-color: transparent;
   display: flex;
   align-items: center;
-  ${({ theme, $size = "md" }) => `
+  ${({ theme, $size = "md", color = "default" }) => `
     gap: ${theme.click.accordion[$size].space.gap};
-    color: ${theme.click.accordion.color.label.default};
+    color: ${theme.click.accordion.color[color].label.default};
     font: ${theme.click.accordion[$size].typography.label.default};
 
     &:active {
-      color: ${theme.click.accordion.color.label.active};
+      color: ${theme.click.accordion.color[color].label.active};
       font: ${theme.click.accordion[$size].typography.label.active};
     }
 
     &:hover {
-      color: ${theme.click.accordion.color.label.hover};
+      color: ${theme.click.accordion.color[color].label.hover};
       font: ${theme.click.accordion[$size].typography.label.hover};
       cursor: pointer;
     }
