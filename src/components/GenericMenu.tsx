@@ -109,6 +109,9 @@ export const GenericMenuItem = styled.div`
       font: ${theme.click.genericMenu.item.typography.label.disabled};
       pointer-events: none;
     }
+    &:visited {
+      color: ${theme.click.genericMenu.item.color.text.default};
+    }
   `};
   position: relative;
   &:hover .dropdown-arrow,

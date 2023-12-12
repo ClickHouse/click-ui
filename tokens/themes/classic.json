@@ -1230,8 +1230,7 @@
             },
             "panel": {
               "value": "{palette.utility.transparent}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             }
           },
           "text": {
@@ -1320,6 +1319,10 @@
                 }
               }
             }
+          },
+          "muted": {
+            "value": "{palette.slate.600}",
+            "type": "color"
           }
         }
       }

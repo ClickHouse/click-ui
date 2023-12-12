@@ -35,8 +35,18 @@ const CuiTitle = styled.div<{
 }>`
   font: ${({ $size = "md", $family = "product", theme }) =>
     theme.typography.styles[$family].titles[$size]};
-  color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
+  color: ${({ $color = "default", theme }) => theme.click.global.color.title[$color]};
   margin: 0;
   padding: 0;
   font-style: inherit;
+
+  a,
+  a:visited {
+    color: ${({ $color = "default", theme }) => theme.click.global.color.title[$color]};
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: ${({ theme }) => theme.click.global.color.title.muted};
+  }
 `;

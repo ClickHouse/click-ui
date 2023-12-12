@@ -14,6 +14,7 @@ export type AlertProps = {
   type?: AlertType;
   showIcon?: boolean;
   dismissible?: boolean;
+  customIcon?: IconName;
 };
 
 const stateIconMap: Record<AlertState, IconName> = {
@@ -32,6 +33,7 @@ const Alert = ({
   type = "default",
   showIcon = true,
   dismissible,
+  customIcon,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -54,7 +56,7 @@ const Alert = ({
             $size={size}
             size="sm"
             aria-hidden
-            name={stateIconMap[state]}
+            name={customIcon || stateIconMap[state]}
           />
         </IconWrapper>
       )}
@@ -126,7 +128,7 @@ const Title = styled.h6<{ $size: AlertSize }>`
   margin: 0;
   font: ${({ theme, $size }) => theme.click.alert[$size].typography.title.default};
 `;
-const Text = styled.p<{ $size: AlertSize }>`
+const Text = styled.div<{ $size: AlertSize }>`
   margin: 0;
   font: ${({ theme, $size }) => theme.click.alert[$size].typography.text.default};
 `;

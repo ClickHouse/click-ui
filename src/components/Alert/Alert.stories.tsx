@@ -1,4 +1,5 @@
 import { Alert } from "@/components/Alert/Alert";
+import {ICON_NAMES} from "@/components/Icon/types.ts";
 
 export default {
   component: Alert,
@@ -20,6 +21,7 @@ export const Playground = {
     state: { control: "select", options: ["neutral", "info", "success", "warning", "danger"] },
     type: { control: "radio", options: ["default", "banner"] },
     size: { control: "radio", options: ["medium", "small"] },
+    customIcon: {control: "select", options: ICON_NAMES}
   }
 
 };

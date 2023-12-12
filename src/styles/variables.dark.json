@@ -1302,7 +1302,8 @@
           "default": "lch(6.77 0 0 / 0.6)"
         },
         "title": {
-          "default": "lch(97.5 0 0)"
+          "default": "lch(97.5 0 0)",
+          "muted": "#b3b6bd"
         }
       }
     },

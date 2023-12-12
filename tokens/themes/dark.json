@@ -104,56 +104,102 @@
                 }
               }
             }
+          },
+          "muted": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
           }
         }
       }
     },
     "accordion": {
       "color": {
-        "label": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.text.default}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.075",
-                  "space": "lch"
+        "default": {
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.075",
+                    "space": "lch"
+                  }
                 }
               }
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
             }
           },
-          "active": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
+          "icon": {
+            "default": {
+              "value": "{click.accordion.color.default.label.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.accordion.color.default.label.default}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.075",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "active": {
+              "value": "{click.accordion.color.default.label.default}",
+              "type": "color"
+            }
           }
         },
-        "icon": {
-          "default": {
-            "value": "{click.accordion.color.label.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.accordion.color.label.default}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.075",
-                  "space": "lch"
-                }
-              }
+        "link": {
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.link.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.link.hover}",
+              "type": "color",
+              "$extensions": {}
+            },
+            "active": {
+              "value": "{click.global.color.text.link.default}",
+              "type": "color"
             }
           },
-          "active": {
-            "value": "{click.accordion.color.label.default}",
-            "type": "color"
+          "icon": {
+            "default": {
+              "value": "{click.accordion.color.link.label.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.accordion.color.link.label.hover}",
+              "type": "color",
+              "$extensions": {
+                "studio.tokens": {
+                  "modify": {
+                    "type": "lighten",
+                    "value": "0.075",
+                    "space": "lch"
+                  }
+                }
+              }
+            },
+            "active": {
+              "value": "{click.accordion.color.link.label.active}",
+              "type": "color"
+            }
           }
         }
       }
@@ -1488,8 +1534,7 @@
             },
             "panel": {
               "value": "{palette.utility.transparent}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             }
           },
           "text": {
