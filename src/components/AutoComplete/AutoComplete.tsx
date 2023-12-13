@@ -239,9 +239,6 @@ const SelectNoDataContainer = styled.div`
     padding: ${theme.click.genericMenu.button.space.y} ${theme.click.genericMenu.item.space.x};
     background: ${theme.click.genericMenu.button.color.background.default};
     color: ${theme.click.genericMenu.button.color.label.default};
-    &:hover {
-      font: ${theme.click.genericMenu.button.typography.label.hover};
-    }
   `}
 `;
 const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
