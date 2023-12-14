@@ -15,6 +15,8 @@ export const Cell = memo(
       showHeader,
       rowHeight,
       rounded,
+      headerHeight,
+      rowNumberWidth,
     } = data;
 
     const { row: focusedRow, column: focusedColumn } = focus;
@@ -64,10 +66,6 @@ export const Cell = memo(
         $rounded={rounded}
         data-row={rowIndex}
         data-column={columnIndex}
-        onSelect={e => {
-          e.preventDefault();
-          console.log(e);
-        }}
         {...props}
       />
     );

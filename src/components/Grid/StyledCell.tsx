@@ -21,9 +21,9 @@ export const StyledCell = styled.div<{
   white-space: nowrap;
   cursor: default;
 
-  &::selection {
-    background: transparent;
-  }
+  // &::selection {
+  //   background: transparent;
+  // }
 
   ${({
     theme,

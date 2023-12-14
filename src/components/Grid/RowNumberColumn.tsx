@@ -3,15 +3,21 @@ import { RoundedType, SelectionTypeFn } from "./types";
 import { StyledCell } from "./StyledCell";
 const RowNumberColumnContainer = styled.div<{
   $height: number;
-  $width: string;
+  $width: number;
+  $scrolledHorizontal: boolean;
 }>`
   position: sticky;
   left: 0;
   ${({ $height, $width }) => `
     top: ${$height}px;
-    width: ${$width};
+    width: ${$width}px;
     height: calc(100% - ${$height}px);
   `}
+
+  ${({ $scrolledHorizontal, theme }) =>
+    $scrolledHorizontal
+      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
+      : ""}
 `;
 
 const RowNumberCell = styled(StyledCell)<{
@@ -35,11 +41,12 @@ interface RowNumberColumnProps {
   maxRow: number;
   rowHeight: number;
   headerHeight: number;
-  rowWidth: string;
+  rowWidth: number;
   getSelectionType: SelectionTypeFn;
   rowCount: number;
   rounded: RoundedType;
   showHeader: boolean;
+  scrolledHorizontal: boolean;
 }
 interface RowNumberProps
   extends Pick<RowNumberColumnProps, "rowHeight" | "getSelectionType" | "rounded"> {
@@ -76,7 +83,6 @@ const RowNumber = ({
       $isSelectedTop={selectionType === "selectDirect"}
       data-row={row}
       data-column={-1}
-      data-s={selectionType}
     >
       {row}
     </RowNumberCell>
@@ -93,11 +99,13 @@ const RowNumberColumn = ({
   rowCount,
   rounded,
   showHeader,
+  scrolledHorizontal,
 }: RowNumberColumnProps) => {
   return (
     <RowNumberColumnContainer
       $height={headerHeight}
       $width={rowWidth}
+      $scrolledHorizontal={scrolledHorizontal}
     >
       {Array.from({ length: maxRow - minRow + 1 }, (_, index) => minRow + index).map(
         rowIndex => (

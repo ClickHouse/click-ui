@@ -1,8 +1,6 @@
 import {
   KeyboardEventHandler,
   MouseEventHandler,
-  PointerEventHandler,
-  RefObject,
   useCallback,
   useRef,
   useState,
@@ -24,31 +22,24 @@ import {
   SelectionType,
   IsSelectedType,
   SelectionTypeFn,
+  AllSelection,
 } from "./types";
-import { VariableSizeGrid } from "react-window";
 
-const NO_BUTTONS_PRESSED = 0;
 interface Props {
   onCellSelect: onSelectFn;
   focus: { row: number; column: number };
   columnCount: number;
   rowCount: number;
   onFocusRefChange: (rowIndex: number, columnIndex: number) => void;
+  scrollGridTo: (props: { row?: number; column?: number }) => void;
 }
 
 interface SelectionActions {
   getSelectionType: SelectionTypeFn;
-  onMouseDown: MouseEventHandler<HTMLDivElement>;
+  onSelection: (action: SelectionAction) => void;
   onMouseMove: MouseEventHandler<HTMLDivElement>;
   onKeyDown: KeyboardEventHandler<HTMLDivElement>;
-  onPointerDown: PointerEventHandler<HTMLDivElement>;
-  onPointerUp: PointerEventHandler<HTMLDivElement>;
-  containerRef: RefObject<HTMLDivElement>;
-  gridRef: RefObject<VariableSizeGrid>;
 }
-
-const PRIMARY_BUTTON = 1; // Primary button (usually the left button)
-const AUXILIARY_BUTTON = 4; // Auxiliary button (usually the mouse wheel button or middle button)
 
 export const singleCellSelected = (selection: SelectedRegion): SelectionPos | null => {
   if (
@@ -175,22 +166,17 @@ export const useSelectionActions = ({
   columnCount,
   rowCount,
   onFocusRefChange,
+  scrollGridTo,
 }: Props): SelectionActions => {
-  const dragState = useRef<number | false>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<VariableSizeGrid>(null);
+  const prevScrollRef = useRef({
+    left: 0,
+    top: 0,
+    row: focus.row,
+    column: focus.column,
+  });
   const [selection, setSelection] = useState<SelectedRegion>({
     type: "empty",
   });
-
-  const scrollGridTo = useCallback((rowIndex: number, columnIndex: number) => {
-    if (gridRef.current) {
-      gridRef.current.scrollToItem({
-        columnIndex,
-        rowIndex,
-      });
-    }
-  }, []);
 
   const clearSelection = useCallback((force: boolean): void => {
     setSelection(selection => {
@@ -202,13 +188,28 @@ export const useSelectionActions = ({
     });
   }, []);
 
+  const allSelect = useCallback(
+    (action: AllSelection) => {
+      onCellSelect(action);
+      setSelection({
+        type: "rows",
+        rows: new Set(rangeIndices(0, rowCount - 1)),
+        anchorRow: 0,
+      });
+      scrollGridTo({ row: 0, column: 0 });
+      onFocusRefChange(0, 0);
+    },
+    [onCellSelect, onFocusRefChange, rowCount, scrollGridTo]
+  );
+
   const cellSelect = useCallback(
     (action: CellSelectionAction) => {
-      const { row: rowIndex, column: columnIndex } = action;
+      const { row, column } = action;
       onCellSelect(action);
-      setSelection(selectCell(columnIndex, rowIndex));
+      scrollGridTo({ row, column });
+      setSelection(selectCell(column, row));
     },
-    [onCellSelect]
+    [onCellSelect, scrollGridTo]
   );
 
   const shiftSelect = useCallback(
@@ -221,9 +222,10 @@ export const useSelectionActions = ({
         focus.column,
         focus.row
       );
+      scrollGridTo({ row: rowIndex, column: columnIndex });
       setSelection(newSelection);
     },
-    [focus.column, focus.row, onCellSelect]
+    [focus.column, focus.row, onCellSelect, scrollGridTo]
   );
 
   const rowSelect = useCallback(
@@ -231,9 +233,10 @@ export const useSelectionActions = ({
       const rowIndex = action.row;
       onCellSelect(action);
       const newSelection = rowSelection([rowIndex], rowIndex);
+      scrollGridTo({ row: rowIndex });
       setSelection(newSelection);
     },
-    [onCellSelect]
+    [onCellSelect, scrollGridTo]
   );
 
   const shiftRowSelect = useCallback(
@@ -241,9 +244,10 @@ export const useSelectionActions = ({
       const rowIndex = action.row;
       onCellSelect(action);
       const newSelection = rowSelection(rangeIndices(focus.row, rowIndex), rowIndex);
+      scrollGridTo({ row: rowIndex });
       setSelection(newSelection);
     },
-    [focus.row, onCellSelect]
+    [focus.row, onCellSelect, scrollGridTo]
   );
 
   const columnSelect = useCallback(
@@ -251,9 +255,10 @@ export const useSelectionActions = ({
       const columnIndex = action.column;
       onCellSelect(action);
       const newSelection = columnSelection([columnIndex], columnIndex);
+      scrollGridTo({ column: columnIndex });
       setSelection(newSelection);
     },
-    [onCellSelect]
+    [onCellSelect, scrollGridTo]
   );
 
   const shiftColumnSelect = useCallback(
@@ -264,14 +269,23 @@ export const useSelectionActions = ({
         rangeIndices(focus.column, columnIndex),
         columnIndex
       );
+      scrollGridTo({ column: columnIndex });
       setSelection(newSelection);
     },
-    [focus.column, onCellSelect]
+    [focus.column, onCellSelect, scrollGridTo]
   );
 
   const onSelection = useCallback(
     (action: SelectionAction): void => {
+      prevScrollRef.current = {
+        ...prevScrollRef.current,
+        row: "row" in action ? action.row : prevScrollRef.current.row,
+        column: "column" in action ? action.column : prevScrollRef.current.column,
+      };
       switch (action.type) {
+        case "all":
+          allSelect(action);
+          break;
         case "normal":
           cellSelect(action);
           break;
@@ -294,7 +308,15 @@ export const useSelectionActions = ({
           throw new Error(`Value should not occur ${action}`);
       }
     },
-    [cellSelect, shiftSelect, columnSelect, rowSelect, shiftColumnSelect, shiftRowSelect]
+    [
+      allSelect,
+      cellSelect,
+      shiftSelect,
+      columnSelect,
+      shiftColumnSelect,
+      rowSelect,
+      shiftRowSelect,
+    ]
   );
 
   const moveSelection = useCallback(
@@ -370,67 +392,13 @@ export const useSelectionActions = ({
     return "selectIndirect";
   };
 
-  const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
-    e => {
-      const target = (e.target as HTMLElement).closest(
-        "[data-row][data-column]"
-      ) as HTMLElement;
-      if (
-        !target ||
-        target.dataset.row === undefined ||
-        target.dataset.column === undefined
-      ) {
-        return;
-      }
-
-      const { row: rowIndexString, column: columnIndexString } = target.dataset;
-      const row = parseInt(rowIndexString);
-      const column = parseInt(columnIndexString);
-      if (row === -1 && column === -1) {
-        setSelection({
-          type: "rows",
-          rows: new Set(rangeIndices(0, rowCount - 1)),
-          anchorRow: 0,
-        });
-        onFocusRefChange(0, 0);
-        return;
-      }
-      if (row === -1) {
-        onSelection({
-          type: "columnSelection",
-          column,
-          event: "click",
-        });
-        onFocusRefChange(0, column);
-        return;
-      }
-      if (column === -1) {
-        onSelection({
-          type: "rowSelection",
-          row,
-          event: "click",
-        });
-        onFocusRefChange(row, 0);
-        return;
-      }
-      onSelection({
-        type: "normal",
-        row,
-        column,
-        event: "click",
-      });
-      onFocusRefChange(row, column);
-    },
-    [onFocusRefChange, onSelection, rowCount]
-  );
-
   const clearSelectionAndFocus = useCallback(
     (force: boolean) => {
       clearSelection(force);
       onFocusRefChange(focus.row, focus.column);
-      scrollGridTo(focus.row, focus.column);
+      scrollGridTo(focus);
     },
-    [clearSelection, focus.column, focus.row, onFocusRefChange, scrollGridTo]
+    [clearSelection, focus, onFocusRefChange, scrollGridTo]
   );
 
   const changeSelectionAndFocus = useCallback(
@@ -447,6 +415,7 @@ export const useSelectionActions = ({
   const onKeyDown = useCallback(
     async (e: React.KeyboardEvent) => {
       e.preventDefault();
+      console.log("asasas");
       const moveAnchor = e.shiftKey;
 
       const applyAction = (action: SelectionAction | null): void => {
@@ -491,41 +460,76 @@ export const useSelectionActions = ({
     ]
   );
 
-  const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {
-    console.log("asasasasxxxx");
-
-    dragState.current = e.pointerId;
-  }, []);
-
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
-      console.log("asasas", e.target);
-      if (e.buttons === NO_BUTTONS_PRESSED && dragState.current !== false) {
-        containerRef.current?.releasePointerCapture(dragState.current);
-        dragState.current = false;
-      }
+      const { clientX: x, clientY: y, screenY, screenX } = e;
+      let cell = document.elementFromPoint(x, y) as HTMLElement;
+      console.log("ssss111", prevScrollRef.current);
+      if (!cell || cell.dataset.row === undefined || cell.dataset.column === undefined) {
+        let customColumnIndex = prevScrollRef.current.column;
+        let customRowIndex = prevScrollRef.current.row;
+        if (screenX - prevScrollRef.current.left < 0) {
+          customColumnIndex = Math.max(0, customColumnIndex - 1);
+        } else {
+          customColumnIndex = Math.min(columnCount - 1, customColumnIndex + 1);
+        }
+        if (screenY - prevScrollRef.current.top < 0) {
+          customRowIndex = Math.max(0, customRowIndex - 1);
+        } else {
+          customRowIndex = Math.min(rowCount - 1, customRowIndex + 1);
+        }
 
-      if (dragState.current === false) {
+        console.log("xxxxx", {
+          a: screenX - prevScrollRef.current.left < 0,
+          b: screenY - prevScrollRef.current.top < 0,
+          row: customRowIndex,
+          column: customColumnIndex,
+        });
+        prevScrollRef.current = {
+          top: e.screenY,
+          left: e.screenX,
+          row: customRowIndex,
+          column: customColumnIndex,
+        };
+        scrollGridTo({ row: customRowIndex, column: customColumnIndex });
+        cell = document.querySelector(
+          `[data-row="${customRowIndex}"][data-column="${customColumnIndex}"]`
+        ) as HTMLElement;
+      }
+      if (!cell) {
         return;
       }
-
-      const target = (e.target as HTMLElement).closest(
+      const target = (cell as HTMLElement).closest(
         "[data-row][data-column]"
       ) as HTMLElement;
 
       let { row: rowIndexString, column: columnIndexString } = target?.dataset ?? {};
 
+      console.log("asasasasxxxxxxxx", {
+        ...prevScrollRef.current,
+        target,
+        x,
+        y,
+        cell,
+        rowIndexString,
+        columnIndexString,
+        eaa: e.target,
+      });
       if (!target || rowIndexString === undefined || columnIndexString === undefined) {
+        return;
         rowIndexString = "0";
         columnIndexString = "0";
         console.log(e.target);
       }
 
-      if (containerRef.current) {
-        containerRef.current.setPointerCapture(dragState.current);
-      }
       const row = parseInt(rowIndexString);
       const column = parseInt(columnIndexString);
+      prevScrollRef.current = {
+        top: e.screenY,
+        left: e.screenX,
+        row,
+        column,
+      };
       const selectionType = selection.type;
       const event = "click";
       if (row === -1 && column == -1) {
@@ -551,35 +555,24 @@ export const useSelectionActions = ({
       }
 
       if (row === -1) {
-        console.log("x", selection);
         onSelection({
           type: "shiftSelection",
-          row:
-            "bounds" in selection
-              ? focus.row <= selection.bounds.bottom
-                ? selection.bounds.top
-                : selection.bounds.left
-              : focus.column,
+          row: prevScrollRef.current.row,
           column,
           event,
         });
         return;
       }
       if (column === -1) {
-        console.log("xy", selection);
         onSelection({
           type: "shiftSelection",
           row,
-          column:
-            "bounds" in selection
-              ? focus.column <= selection.bounds.right
-                ? selection.bounds.right
-                : selection.bounds.left
-              : focus.column,
+          column: prevScrollRef.current.column,
           event,
         });
         return;
       }
+
       onSelection({
         type: "shiftSelection",
         row,
@@ -587,37 +580,13 @@ export const useSelectionActions = ({
         event,
       });
     },
-    [focus.column, focus.row, onSelection, selection]
-  );
-
-  const onPointerUp: PointerEventHandler<HTMLDivElement> = useCallback(
-    e => {
-      console.log(
-        "Asasasas",
-        e.buttons,
-        e.button,
-        [PRIMARY_BUTTON, AUXILIARY_BUTTON],
-        [PRIMARY_BUTTON, AUXILIARY_BUTTON].includes(e.buttons)
-      );
-
-      console.log(containerRef);
-      if (containerRef.current) {
-        containerRef.current.releasePointerCapture(e.pointerId);
-      }
-      dragState.current = false;
-      onFocusRefChange(focus.row, focus.column);
-    },
-    [focus.column, focus.row, onFocusRefChange]
+    [columnCount, onSelection, rowCount, scrollGridTo, selection.type]
   );
 
   return {
     getSelectionType,
-    onMouseDown,
+    onSelection,
     onMouseMove,
     onKeyDown,
-    onPointerDown,
-    onPointerUp,
-    containerRef,
-    gridRef,
   };
 };

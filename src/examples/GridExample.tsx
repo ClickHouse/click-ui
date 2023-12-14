@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Grid, CellProps } from "..";
 
-const Cell: CellProps = ({ type, rowIndex, columnIndex, ...props }) => {
+const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   return (
     <div {...props}>
-      {type} {rowIndex} {columnIndex}
+      {rowIndex} {columnIndex} - {type}
     </div>
   );
 };
@@ -13,16 +13,22 @@ const GridExample = () => {
     row: 0,
     column: 0,
   });
-  const columnWidth = (columnIndex: number) => {
-    return (columnIndex + 1) * 100;
-  };
+  const [columnWidth, setColumnWidth] = useState<Array<number>>(
+    Array.from({ length: 20 }, () => 100)
+  );
+  const getColumnWidth = useCallback(
+    (columnIndex: number) => {
+      return columnWidth[columnIndex]; //(columnIndex + 1) * 100;
+    },
+    [columnWidth]
+  );
 
   return (
-    <div style={{ height: 500, width: 500 }}>
+    <div style={{ height: 500, width: "100%" }}>
       <Grid
         columnCount={20}
         rowCount={20}
-        columnWidth={columnWidth}
+        columnWidth={getColumnWidth}
         focus={focus}
         cell={Cell}
         headerHeight={32}
@@ -30,7 +36,10 @@ const GridExample = () => {
           setFocus({ row, column });
         }}
         onColumnResize={(columnIndex: number, newWidth: number): void => {
-          console.log({ columnIndex, newWidth });
+          setColumnWidth(columnWidths => {
+            columnWidths[columnIndex] = newWidth;
+            return [...columnWidths];
+          });
         }}
       />
     </div>

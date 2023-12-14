@@ -1,9 +1,11 @@
 import { ComponentType, HTMLAttributes } from "react";
+import { VariableSizeGridProps } from "react-window";
 
 interface CellComponentProps extends HTMLAttributes<HTMLElement> {
   rowIndex?: number;
   columnIndex?: number;
   type: "row-cell" | "header-cell";
+  isScrolling?: boolean;
 }
 export type CellProps = ComponentType<CellComponentProps>;
 export interface CellSelectionAction {
@@ -13,6 +15,10 @@ export interface CellSelectionAction {
   event?: KeyEventType;
 }
 
+export interface AllSelection {
+  type: "all";
+  event?: KeyEventType;
+}
 export interface ColumnSelectionAction {
   type: "columnSelection" | "shiftColumnSelection" | "ctrlColumnSelection";
   column: number;
@@ -26,6 +32,7 @@ export interface RowSelectionAction {
 }
 
 export type SelectionAction =
+  | AllSelection
   | CellSelectionAction
   | ColumnSelectionAction
   | RowSelectionAction;
@@ -119,4 +126,20 @@ export interface ItemDataType {
   focus: SelectionFocus;
   rounded: RoundedType;
   rowHeight: number;
+  headerHeight: number;
+  rowNumberWidth: number;
+}
+
+export interface GridProps
+  extends Omit<VariableSizeGridProps, "height" | "width" | "rowHeight" | "children"> {
+  rounded?: RoundedType;
+  focus: SelectionFocus;
+  rowHeight?: number;
+  cell: CellProps;
+  showHeader?: boolean;
+  showRowNumber?: boolean;
+  headerHeight: number;
+  onFocusChange: (rowIndex: number, columnIndex: number) => void;
+  onSelect?: onSelectFn;
+  onColumnResize: ColumnResizeFn;
 }
