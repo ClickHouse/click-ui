@@ -31,6 +31,7 @@ import IconWrapper from "../IconWrapper/IconWrapper";
 import { OptionContext } from "./OptionContext";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { getTextFromNodes } from "@/lib/getTextFromNodes";
+import AutoCompleteOptionList from "./AutoCompleteOptionList";
 
 type DivProps = HTMLAttributes<HTMLDivElement>;
 interface SelectItemComponentProps
@@ -576,35 +577,14 @@ export const AutoComplete = ({
               <SelectList>
                 <SelectListContent>
                   <OptionContext.Provider value={optionContextValue}>
-                    {options && options.length > 0
-                      ? options.map((props, index) => {
-                          if ("options" in props) {
-                            const { options: itemList = [], ...groupProps } = props;
-                            return (
-                              <Group
-                                key={`autocomplete-${id}-group-${index}`}
-                                {...groupProps}
-                              >
-                                {itemList.map(({ label, ...itemProps }, itemIndex) => (
-                                  <Item
-                                    key={`autocomplete-${id}-group-${index}-item-${itemIndex}`}
-                                    {...itemProps}
-                                  >
-                                    {label}
-                                  </Item>
-                                ))}
-                              </Group>
-                            );
-                          } else {
-                            return (
-                              <Item
-                                key={`autocomplete-${id}-item-${index}`}
-                                {...props}
-                              />
-                            );
-                          }
-                        })
-                      : children}
+                    {options && options.length > 0 ? (
+                      <AutoCompleteOptionList
+                        options={options}
+                        id={id ?? defaultId}
+                      />
+                    ) : (
+                      children
+                    )}
                   </OptionContext.Provider>
                 </SelectListContent>
                 {visibleList.current.length === 0 && (
@@ -663,7 +643,7 @@ const CheckIcon = styled.svg<{ $showCheck: boolean }>`
   opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
 `;
 
-const Item = forwardRef<HTMLDivElement, SelectItemProps>(
+export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
   (
     {
       disabled = false,
