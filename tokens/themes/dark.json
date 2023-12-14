@@ -170,8 +170,7 @@
             },
             "hover": {
               "value": "{click.global.color.text.link.hover}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "active": {
               "value": "{click.global.color.text.link.default}",

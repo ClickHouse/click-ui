@@ -1057,6 +1057,10 @@
     "7": {
       "value": "{sizes.10}",
       "type": "spacing"
+    },
+    "8": {
+      "value": "{sizes.11}",
+      "type": "spacing"
     }
   },
   "shadow": {
