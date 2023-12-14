@@ -9,21 +9,14 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   isSortable?: boolean;
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
-  width?: number | string;
+  width?: string;
 }
 
-const StyledHeader = styled.th<{ $size: TableSize; $width?: number | string }>`
-  ${({ theme, $size, $width }) => `
-    padding: ${theme.click.table.header.cell.space[$size].y} ${
-    theme.click.table.body.cell.space[$size].x
-  };
+const StyledHeader = styled.th<{ $size: TableSize }>`
+  ${({ theme, $size }) => `
+    padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
-    ${
-      typeof $width !== "undefined"
-        ? `width: ${typeof $width === "number" ? `${$width}px` : $width};`
-        : ""
-    }
   `}
   gap: 0.25rem;
   text-align: left;
@@ -63,7 +56,6 @@ const TableHeader = ({
   };
   return (
     <StyledHeader
-      $width={width}
       $size={size}
       {...delegated}
     >
@@ -91,7 +83,7 @@ interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
-  showActionsHeader?: boolean;
+  actionsCount: number;
   onSort?: SortFn;
   hasRows: boolean;
   size: TableSize;
@@ -101,7 +93,7 @@ const Thead = ({
   headers,
   isSelectable,
   onSelectAll,
-  showActionsHeader,
+  actionsCount,
   onSort: onSortProp,
   hasRows,
   size,
@@ -114,14 +106,14 @@ const Thead = ({
   return (
     <>
       <StyledColGroup>
-        {isSelectable && <col />}
+        {isSelectable && <col width={48} />}
         {headers.map((headerProps, index) => (
           <col
             key={`header-col-${index}`}
             width={headerProps.width}
           />
         ))}
-        {showActionsHeader && <col />}
+        {actionsCount > 0 && <col width={(actionsCount + 1) * 32 + 10} />}
       </StyledColGroup>
       <StyledThead>
         <tr>
@@ -141,7 +133,7 @@ const Thead = ({
               {...headerProps}
             />
           ))}
-          {showActionsHeader && <StyledHeader $size={size} />}
+          {actionsCount > 0 && <StyledHeader $size={size} />}
         </tr>
       </StyledThead>
     </>
@@ -226,7 +218,7 @@ const StyledThead = styled.thead`
   }
 `;
 
-const MobileHeader = styled.span`
+const MobileHeader = styled.div`
   display: none;
   ${({ theme }) => `
     color: ${theme.click.table.row.color.label.default};
@@ -285,7 +277,7 @@ const ActionsList = styled.td<{ $size: TableSize }>`
   }
 `;
 
-const ActionsContainer = styled.span`
+const ActionsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -390,6 +382,13 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   size: TableSize;
 }
 
+const TableText = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 1lh;
+  white-space: nowrap;
+`;
+
 const TableBodyRow = ({
   headers,
   items,
@@ -428,7 +427,7 @@ const TableBodyRow = ({
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <span>{label}</span>
+          <TableText>{label}</TableText>
         </TableData>
       ))}
       {(isDeletable || isEditable) && (
@@ -583,7 +582,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 headers={headers}
                 isSelectable={isSelectable}
                 onSelectAll={onSelectAll}
-                showActionsHeader={isDeletable || isEditable}
+                actionsCount={
+                  isDeletable && isEditable ? 2 : isDeletable && isEditable ? 1 : 0
+                }
                 onSort={onSort}
                 hasRows={hasRows}
                 size={size}
