@@ -2556,6 +2556,28 @@
         }
       }
     },
+    "container": {
+      "space": {
+        "none": string,
+        "xxs": string,
+        "xs": string,
+        "sm": string,
+        "md": string,
+        "lg": string,
+        "xl": string,
+        "xxl": string
+      },
+      "gap": {
+        "none": string,
+        "xxs": string,
+        "xs": string,
+        "sm": string,
+        "md": string,
+        "lg": string,
+        "xl": string,
+        "xxl": string
+      }
+    },
     "global": {
       "color": {
         "background": {
@@ -2991,7 +3013,8 @@
     "4": string,
     "5": string,
     "6": string,
-    "7": string
+    "7": string,
+    "8": string
   },
   "shadow": {
     "1": string,
