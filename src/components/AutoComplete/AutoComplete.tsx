@@ -119,7 +119,7 @@ const PopoverContent = styled(Content)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.625rem;
+  gap: 5px;
 `;
 const SelectGroupContainer = styled.div`
   display: flex;
@@ -316,8 +316,7 @@ const SelectList = styled.div`
   ${({ theme }) => `
     border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
     background: ${theme.click.genericMenu.item.color.background.default};
-    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
     border-radius: 0.25rem;
   `}
 `;
