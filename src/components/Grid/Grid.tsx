@@ -63,8 +63,6 @@ const GridDataContainer = styled.div<{ $top: number; $left: number }>`
   ${({ $top, $left }) => `
     margin-top: ${$top}px;
     margin-left: ${$left}px;
-    scroll-margin-top: ${$top}px;
-    scroll-margin-left: ${$left}px;
   `}
 `;
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
@@ -124,8 +122,8 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         const rowIndex = row ?? 0;
         const columnIndex = column ?? 0;
         gridRef.current?.scrollToItem({
-          rowIndex,
-          columnIndex: column ?? 0,
+          rowIndex: row,
+          columnIndex: column,
         });
         await new Promise(requestAnimationFrame);
         const element = containerRef.current?.querySelector(
@@ -134,9 +132,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         element?.scrollIntoView({
           block: "nearest",
           inline: "nearest",
-          behavior: "instant",
         });
-        // containerRef.current?.scrollBy(2, 2);
       },
       []
     );
@@ -190,8 +186,8 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             ref={containerRef}
           >
             <GridDataContainer
-              $top={headerHeight}
-              $left={rowNumberWidth}
+              $top={showHeader ? headerHeight : 0}
+              $left={showRowNumber ? rowNumberWidth : 0}
               ref={ref}
             >
               {children}

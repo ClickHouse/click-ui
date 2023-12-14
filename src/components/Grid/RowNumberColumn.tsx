@@ -11,7 +11,7 @@ const RowNumberColumnContainer = styled.div<{
   ${({ $height, $width }) => `
     top: ${$height}px;
     width: ${$width}px;
-    height: calc(100% - ${$height}px);
+    height: 100%;
   `}
 
   ${({ $scrolledHorizontal, theme }) =>
