@@ -42,9 +42,8 @@ const TableHeader = ({
   onSort,
   onClick,
   size,
-  width,
   ...delegated
-}: TableHeaderType & { onSort?: () => void; size: TableSize }) => {
+}: Omit<TableHeaderType, "width"> & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === "function") {
@@ -125,9 +124,9 @@ const Thead = ({
               />
             </StyledHeader>
           )}
-          {headers.map((headerProps, index) => (
+          {headers.map(({ width, ...headerProps }, index) => (
             <TableHeader
-              key={`table-header-${index}`}
+              key={`table-header-${index}-${width}`}
               onSort={onSort(headerProps, index)}
               size={size}
               {...headerProps}
