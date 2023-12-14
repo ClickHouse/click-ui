@@ -18,7 +18,6 @@ const StyledHeader = styled.th<{ $size: TableSize }>`
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
   `}
-  gap: 0.25rem;
   text-align: left;
 `;
 
