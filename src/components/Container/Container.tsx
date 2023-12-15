@@ -4,10 +4,8 @@ import { Orientation } from "@/components";
 
 type AlignItemsOptions = "start" | "center" | "end";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
-type GrowthOptions = "0" | "1" | "2" | "3" | "4" | "5" | "6";
+type GrowShrinkOptions = "0" | "1" | "2" | "3" | "4" | "5" | "6";
 type JustifyContentOptions =
-  | "flex-start"
-  | "flex-end"
   | "center"
   | "space-between"
   | "space-around"
@@ -17,18 +15,21 @@ type JustifyContentOptions =
   | "left"
   | "right";
 type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
 export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   alignItems?: AlignItemsOptions;
   children?: React.ReactNode;
   fillWidth?: boolean;
   gap?: GapOptions;
-  grow?: GrowthOptions;
+  grow?: GrowShrinkOptions;
+  shrink?: GrowShrinkOptions;
   hasBorder?: boolean;
   isResponsive?: boolean;
   justifyContent?: JustifyContentOptions;
   orientation?: Orientation;
   padding?: PaddingOptions;
+  wrap?: WrapOptions;
 }
 
 const Container = ({
@@ -37,11 +38,14 @@ const Container = ({
   fillWidth = false,
   gap = "none",
   grow = "1",
+  shrink = "0",
   hasBorder,
   isResponsive,
   justifyContent = "start",
   orientation = "horizontal",
   padding = "md",
+  wrap = "nowrap",
+  ...props
 }: ContainerProps) => {
   return (
     <Wrapper
@@ -49,11 +53,14 @@ const Container = ({
       $fillWidth={fillWidth}
       $gapSize={gap}
       $grow={grow}
+      $shrink={shrink}
       $hasBorder={hasBorder}
       $isResponsive={isResponsive}
       $justifyContent={justifyContent}
       $orientation={orientation}
       $paddingSize={padding}
+      $wrap={wrap}
+      {...props}
     >
       {children}
     </Wrapper>
@@ -62,17 +69,21 @@ const Container = ({
 
 const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
-  $fillWidth: boolean;
+  $fillWidth?: boolean;
   $gapSize: GapOptions;
-  $grow: GrowthOptions;
+  $grow: GrowShrinkOptions;
+  $shrink: GrowShrinkOptions;
   $hasBorder?: boolean;
   $isResponsive?: boolean;
   $justifyContent: JustifyContentOptions;
-  $orientation?: Orientation;
+  $orientation: Orientation;
   $paddingSize: PaddingOptions;
+  $wrap: WrapOptions;
 }>`
   display: flex;
   flex-grow: ${({ $grow = "1" }) => ($grow === "1" ? "1" : `${$grow}`)};
+  flex-shrink: ${({ $shrink = "0" }) => ($shrink === "0" ? "0" : `${$shrink}`)};
+  flex-wrap: ${({ $wrap = "nowrap" }) => ($wrap === "nowrap" ? "nowrap" : `${$wrap}`)};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
   padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
   background-color: ${({ theme }) => theme.click.global.color.background.muted};
