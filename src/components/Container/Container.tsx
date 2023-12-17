@@ -60,6 +60,7 @@ const Container = ({
       $orientation={orientation}
       $paddingSize={padding}
       $wrap={wrap}
+      data-testid="container"
       {...props}
     >
       {children}
@@ -95,6 +96,7 @@ const Wrapper = styled.div<{
   justify-content: ${({ $justifyContent = "left" }) =>
     $justifyContent === "start" ? "start" : `${$justifyContent}`};
 
+  /* Will remove before merging */
   border: ${({ $hasBorder }) => ($hasBorder ? "1px solid red" : "none")};
 
   @media (max-width: 768px) {
