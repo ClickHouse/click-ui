@@ -146,8 +146,16 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           if (containerRef.current?.scrollTop - element.offsetTop > 0) {
             top = element.offsetTop - containerRef.current?.scrollTop;
           }
+          console.log(
+            "here1",
+            left,
+            top,
+            containerRef.current?.scrollLeft,
+            element.offsetLeft
+          );
           containerRef.current.scrollBy(left, top);
         } else {
+          console.log("here2");
           gridRef.current?.scrollToItem({
             rowIndex: row,
             columnIndex: column,
@@ -176,7 +184,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         if (width < 50) {
           //50 is the minWidth for the column
-          return columnHorizontalPosition[columnIndex] + 50;
+          return columnHorizontalPosition[columnIndex] + rowNumberWidth + 50;
         }
         return columnLeft + rowNumberWidth;
       },
