@@ -415,7 +415,7 @@ export const useSelectionActions = ({
   const onKeyDown = useCallback(
     async (e: React.KeyboardEvent) => {
       e.preventDefault();
-      console.log("asasas");
+      e.stopPropagation();
       const moveAnchor = e.shiftKey;
 
       const applyAction = (action: SelectionAction | null): void => {

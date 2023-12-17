@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CellProps, ColumnResizeFn, RoundedType, SelectionTypeFn } from "./types";
 import { StyledCell } from "./StyledCell";
-import { useRef } from "react";
+import ColumnResizer from "./ColumnResizer";
 
 interface HeaderProps {
   showRowNumber: boolean;
@@ -17,6 +17,11 @@ interface HeaderProps {
   onColumnResize: ColumnResizeFn;
   columnHorizontalPosition: Array<number>;
   scrolledVertical: boolean;
+  getFixedResizerLeftPosition: (
+    clientX: number,
+    width: number,
+    columnIndex: number
+  ) => number | string;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -39,27 +44,16 @@ const ScrollableHeaderContainer = styled.div<{
   left: ${({ $left }) => $left}px;
 `;
 
-const ResizeSpan = styled.div`
-  right: 0;
-  left: auto;
-  position: absolute;
-  z-index: 10;
-  height: 100%;
-  width: 10px;
-  overflow: auto;
-  &:hover,
-  &:active {
-    border: 1px solid red;
-  }
-  &:active {
-    height: 100%;
-  }
-`;
-
 interface ColumnProps
   extends Pick<
     HeaderProps,
-    "cell" | "getSelectionType" | "rounded" | "onColumnResize" | "columnWidth" | "height"
+    | "cell"
+    | "getSelectionType"
+    | "rounded"
+    | "onColumnResize"
+    | "columnWidth"
+    | "height"
+    | "getFixedResizerLeftPosition"
   > {
   columnIndex: number;
   isFirstColumn: boolean;
@@ -105,26 +99,20 @@ const Column = ({
   isLastColumn,
   onColumnResize,
   height,
+  getFixedResizerLeftPosition,
 }: ColumnProps) => {
-  const resizeRef = useRef(null);
   const selectionType = getSelectionType({
     column: columnIndex,
     type: "column",
   });
-  const onDragEnd = (e: any) => {
-    console.log("headerdrop", e);
-    const a = false;
-    if (a) {
-      onColumnResize(columnIndex, 0);
-    }
-  };
+  const columnPosition = columnHorizontalPosition[columnIndex];
 
   return (
     <HeaderCellContainer
       $width={columnWidth(columnIndex)}
-      $columnPosition={columnHorizontalPosition[columnIndex]}
+      $columnPosition={columnPosition}
       $height={height}
-      data-a={height}
+      data-header={columnIndex}
     >
       <StyledCell
         $type="header"
@@ -144,40 +132,11 @@ const Column = ({
         data-row={-1}
         data-column={columnIndex}
       />
-      <ResizeSpan
-        ref={resizeRef}
-        onPointerDown={e => e.stopPropagation()}
-        onPointerUp={e => e.stopPropagation()}
-        onMouseDown={e => {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log("aasasas", resizeRef.current, e.screenX, e.clientX);
-          resizeRef.current.style = {
-            position: "fixed",
-            left: e.screenX,
-            right: "auto",
-          };
-        }}
-        onMouseMove={e => {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log("aasasas1", resizeRef.current, e.screenX, e.clientX);
-          resizeRef.current.style = {
-            position: "fixed",
-            left: e.screenX,
-            right: "auto",
-          };
-        }}
-        onMouseUp={e => {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log("aasasas2", resizeRef.current, e.screenX, e.clientX);
-          resizeRef.current.style = {
-            position: "absolute",
-            left: "auto",
-            right: 0,
-          };
-        }}
+      <ColumnResizer
+        height={height}
+        onColumnResize={onColumnResize}
+        columnIndex={columnIndex}
+        getFixedResizerLeftPosition={getFixedResizerLeftPosition}
       />
     </HeaderCellContainer>
   );
@@ -197,6 +156,7 @@ const Header = ({
   getSelectionType,
   onColumnResize,
   columnHorizontalPosition,
+  getFixedResizerLeftPosition,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",
@@ -223,6 +183,7 @@ const Header = ({
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
             height={height}
+            getFixedResizerLeftPosition={getFixedResizerLeftPosition}
           />
         ))}
       </ScrollableHeaderContainer>

@@ -20,11 +20,7 @@ export const StyledCell = styled.div<{
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: default;
-
-  // &::selection {
-  //   background: transparent;
-  // }
-
+  width: 100%;
   ${({
     theme,
     $isFocused,
@@ -101,5 +97,5 @@ export const StyledCell = styled.div<{
     `
         : ""
     }
-  `}
+  `};
 `;

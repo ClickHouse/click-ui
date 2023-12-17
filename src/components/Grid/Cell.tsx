@@ -15,8 +15,6 @@ export const Cell = memo(
       showHeader,
       rowHeight,
       rounded,
-      headerHeight,
-      rowNumberWidth,
     } = data;
 
     const { row: focusedRow, column: focusedColumn } = focus;
