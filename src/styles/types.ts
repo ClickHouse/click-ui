@@ -3020,6 +3020,15 @@
     "1": string,
     "2": string,
     "3": string
+  },
+  "breakpoint": {
+    "sizes": {
+      "sm": string,
+      "md": string,
+      "lg": string,
+      "xl": string,
+      "2xl": string
+    }
   }
 }
     

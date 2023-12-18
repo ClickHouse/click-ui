@@ -109,7 +109,7 @@ const Wrapper = styled.div<{
   /* Will remove before merging */
   border: ${({ $hasBorder }) => ($hasBorder ? "1px solid red" : "none")};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     width: ${({ $isResponsive = true, $fillWidth = true }) =>
       $isResponsive === true ? "100%" : $fillWidth === true ? "100%" : "auto"};
     flex-direction: ${({ $isResponsive = true }) =>
