@@ -27,6 +27,8 @@ export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   hasBorder?: boolean;
   isResponsive?: boolean;
   justifyContent?: JustifyContentOptions;
+  maxWidth?: string;
+  minWidth?: string;
   orientation?: Orientation;
   padding?: PaddingOptions;
   wrap?: WrapOptions;
@@ -42,8 +44,10 @@ const Container = ({
   hasBorder,
   isResponsive,
   justifyContent = "start",
+  maxWidth,
+  minWidth,
   orientation = "horizontal",
-  padding = "md",
+  padding = "none",
   wrap = "nowrap",
   ...props
 }: ContainerProps) => {
@@ -57,6 +61,8 @@ const Container = ({
       $hasBorder={hasBorder}
       $isResponsive={isResponsive}
       $justifyContent={justifyContent}
+      $maxWidth={maxWidth}
+      $minWidth={minWidth}
       $orientation={orientation}
       $paddingSize={padding}
       $wrap={wrap}
@@ -77,6 +83,8 @@ const Wrapper = styled.div<{
   $hasBorder?: boolean;
   $isResponsive?: boolean;
   $justifyContent: JustifyContentOptions;
+  $maxWidth?: string;
+  $minWidth?: string;
   $orientation: Orientation;
   $paddingSize: PaddingOptions;
   $wrap: WrapOptions;
@@ -86,6 +94,8 @@ const Wrapper = styled.div<{
   flex-shrink: ${({ $shrink = "0" }) => ($shrink === "0" ? "0" : `${$shrink}`)};
   flex-wrap: ${({ $wrap = "nowrap" }) => ($wrap === "nowrap" ? "nowrap" : `${$wrap}`)};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
+  max-width: ${({ $maxWidth = "100%" }) => ($maxWidth === "" ? "none" : `${$maxWidth}`)};
+  min-width: ${({ $minWidth = "auto" }) => ($minWidth === "" ? "none" : `${$minWidth}`)};
   padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
   background-color: ${({ theme }) => theme.click.global.color.background.muted};
   width: ${({ $fillWidth = true }) => ($fillWidth === true ? "100%" : "auto")};
