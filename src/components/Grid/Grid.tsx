@@ -96,6 +96,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     const dragState = useRef<number | false>(false);
     const gridRef = useRef<VariableSizeGrid>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const outerRef = useRef<HTMLDivElement>(null);
     const elementBorderRef = useRef({
       top: 0,
       bottom: 0,
@@ -128,40 +129,32 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const scrollGridTo = useCallback(
       async ({ row, column }: { row?: number; column?: number }) => {
-        if (!containerRef.current) {
+        if (!outerRef.current) {
           return;
         }
 
         const rowIndex = row ?? 0;
         const columnIndex = column ?? 0;
-        let element = containerRef.current?.querySelector<HTMLElement>(
+        let element = outerRef.current?.querySelector<HTMLElement>(
           `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
         );
         if (element) {
           let left = 0,
             top = 0;
-          if (containerRef.current?.scrollLeft - element.offsetLeft > 0) {
-            left = element.offsetLeft - containerRef.current?.scrollLeft;
+          if (outerRef.current?.scrollLeft - element.offsetLeft > 0) {
+            left = element.offsetLeft - outerRef.current?.scrollLeft;
           }
-          if (containerRef.current?.scrollTop - element.offsetTop > 0) {
-            top = element.offsetTop - containerRef.current?.scrollTop;
+          if (outerRef.current?.scrollTop - element.offsetTop > 0) {
+            top = element.offsetTop - outerRef.current?.scrollTop;
           }
-          console.log(
-            "here1",
-            left,
-            top,
-            containerRef.current?.scrollLeft,
-            element.offsetLeft
-          );
-          containerRef.current.scrollBy(left, top);
+          outerRef.current.scrollBy(left, top);
         } else {
-          console.log("here2");
           gridRef.current?.scrollToItem({
             rowIndex: row,
             columnIndex: column,
           });
           await new Promise(requestAnimationFrame);
-          element = containerRef.current?.querySelector<HTMLElement>(
+          element = outerRef.current?.querySelector<HTMLElement>(
             `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
           );
         }
@@ -191,19 +184,15 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       [columnHorizontalPosition, rowNumberWidth]
     );
 
-    const {
-      getSelectionType,
-      onSelection,
-      onMouseMove: onMouseMovement,
-      onKeyDown,
-    } = useSelectionActions({
-      onCellSelect,
-      focus,
-      columnCount,
-      rowCount,
-      onFocusRefChange,
-      scrollGridTo,
-    });
+    const { getSelectionType, onSelection, mouseMoveCellSelect, onKeyDown } =
+      useSelectionActions({
+        onCellSelect,
+        focus,
+        columnCount,
+        rowCount,
+        onFocusRefChange,
+        scrollGridTo,
+      });
     const data: ItemDataType = {
       showRowNumber,
       cell,
@@ -377,14 +366,82 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       e => {
         e.preventDefault();
         e.stopPropagation();
-        if (dragState.current === false || e.buttons === NO_BUTTONS_PRESSED) {
+        if (
+          dragState.current === false ||
+          e.buttons === NO_BUTTONS_PRESSED ||
+          !containerRef.current ||
+          !outerRef.current
+        ) {
           return;
         }
-        containerRef.current?.setPointerCapture(dragState.current);
+        // let cell: Element | null = document.elementFromPoint(e.clientX, e.clientY);
+        containerRef.current.setPointerCapture(dragState.current);
+        let scrollHorizontalDirection: "left" | "right" | undefined,
+          scrollVerticalDirection: "top" | "bottom" | undefined,
+          top,
+          left,
+          x = e.clientX,
+          y = e.clientY;
+        if (
+          elementBorderRef.current.left >= e.clientX ||
+          e.clientX >=
+            elementBorderRef.current.right - elementBorderRef.current.scrollBarWidth
+        ) {
+          scrollHorizontalDirection =
+            e.clientX <= elementBorderRef.current.left ? "left" : "right";
+          if (
+            (scrollHorizontalDirection === "left" && e.movementX < 0) ||
+            (scrollHorizontalDirection === "right" && e.movementX > 0)
+          ) {
+            const directionNum = scrollHorizontalDirection === "left" ? -1 : 1;
+            left = 30 * directionNum;
+          }
+          x =
+            scrollHorizontalDirection === "left"
+              ? elementBorderRef.current.left + rowNumberWidth + 10
+              : elementBorderRef.current.right -
+                elementBorderRef.current.scrollBarWidth -
+                10;
+        }
 
-        onMouseMovement(e);
+        if (
+          elementBorderRef.current.top >= e.clientY ||
+          e.clientY >=
+            elementBorderRef.current.bottom - elementBorderRef.current.scrollBarHeight
+        ) {
+          scrollVerticalDirection =
+            e.clientY <= elementBorderRef.current.top ? "top" : "bottom";
+          if (
+            (scrollVerticalDirection === "top" && e.movementY < 0) ||
+            (scrollVerticalDirection === "bottom" && e.movementY > 0)
+          ) {
+            top = 30 * (scrollVerticalDirection === "top" ? -1 : 1);
+          }
+          y =
+            scrollVerticalDirection === "top"
+              ? elementBorderRef.current.top + headerHeight + 10
+              : elementBorderRef.current.bottom -
+                elementBorderRef.current.scrollBarHeight -
+                10;
+        }
+
+        if (
+          scrollHorizontalDirection !== undefined ||
+          scrollVerticalDirection !== undefined
+        ) {
+          outerRef.current.scrollBy({
+            top,
+            left,
+          });
+        }
+        const cell = document.elementFromPoint(x, y);
+
+        if (!cell) {
+          return;
+        }
+        mouseMoveCellSelect(cell as HTMLElement);
       },
-      [onMouseMovement]
+      [headerHeight, mouseMoveCellSelect, rowNumberWidth]
     );
 
     const onScroll = ({ scrollLeft, scrollTop }: GridOnScrollProps) => {
@@ -392,69 +449,66 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       setScrolledHorizontal(scrollLeft > 0);
     };
 
-    const OuterElementType = forwardRef((props, ref) => {
-      return (
-        <div
-          {...props}
-          tabIndex={0}
-          ref={mergeRefs([containerRef, ref])}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onKeyDown={e => {
-            onKeyDown(e);
-            containerRef.current?.focus();
-          }}
-          onPointerDown={onPointerDown}
-          onPointerUp={onPointerUp}
-          onPointerLeave={setPointerCapture}
-          onPointerEnter={setPointerCapture}
-        />
-      );
-    });
     return (
-      <AutoSizer
-        onResize={({ height, width }) => {
-          setTimeout(() => {
-            if (!containerRef.current) {
-              return;
-            }
-            const { top, bottom, left, right } =
-              containerRef.current.getBoundingClientRect() ?? {};
-            elementBorderRef.current = {
-              top,
-              bottom,
-              left,
-              right,
-              scrollBarWidth: width - containerRef.current.clientWidth,
-              scrollBarHeight: height - containerRef.current.clientHeight,
-              width,
-              height,
-            };
-          }, 0);
+      <div
+        ref={containerRef}
+        tabIndex={0}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onKeyDown={e => {
+          onKeyDown(e);
+          containerRef.current?.focus();
         }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerLeave={setPointerCapture}
+        onPointerEnter={setPointerCapture}
+        style={{ width: "100%", height: "100%" }}
       >
-        {({ height, width }) => (
-          <VariableSizeGrid
-            ref={mergeRefs([forwardedRed, gridRef])}
-            height={height}
-            width={width}
-            columnCount={columnCount}
-            rowHeight={() => rowHeight}
-            useIsScrolling={useIsScrolling}
-            innerElementType={InnerElementType}
-            itemData={data}
-            initialScrollTop={0}
-            initialScrollLeft={0}
-            columnWidth={columnWidth}
-            rowCount={rowCount}
-            onScroll={onScroll}
-            outerElementType={OuterElementType}
-            {...props}
-          >
-            {Cell}
-          </VariableSizeGrid>
-        )}
-      </AutoSizer>
+        <AutoSizer
+          onResize={({ height, width }) => {
+            setTimeout(() => {
+              if (!outerRef.current) {
+                return;
+              }
+              const { top, bottom, left, right } =
+                outerRef.current.getBoundingClientRect() ?? {};
+              elementBorderRef.current = {
+                top,
+                bottom,
+                left,
+                right,
+                scrollBarWidth: width - outerRef.current.clientWidth,
+                scrollBarHeight: height - outerRef.current.clientHeight,
+                width,
+                height,
+              };
+            }, 0);
+          }}
+        >
+          {({ height, width }) => (
+            <VariableSizeGrid
+              ref={mergeRefs([forwardedRed, gridRef])}
+              height={height}
+              width={width}
+              columnCount={columnCount}
+              rowHeight={() => rowHeight}
+              useIsScrolling={useIsScrolling}
+              innerElementType={InnerElementType}
+              itemData={data}
+              initialScrollTop={0}
+              initialScrollLeft={0}
+              columnWidth={columnWidth}
+              rowCount={rowCount}
+              onScroll={onScroll}
+              outerRef={outerRef}
+              {...props}
+            >
+              {Cell}
+            </VariableSizeGrid>
+          )}
+        </AutoSizer>
+      </div>
     );
   }
 );
