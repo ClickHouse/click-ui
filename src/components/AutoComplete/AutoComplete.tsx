@@ -15,12 +15,10 @@ import {
   useState,
 } from "react";
 import { Portal, PopoverProps, Content, Root, Trigger } from "@radix-ui/react-popover";
-import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import {
   HorizontalDirection,
   Icon,
   IconName,
-  Label,
   SearchField,
   Separator,
 } from "@/components";
@@ -112,10 +110,21 @@ export type AutoCompleteProps = (SelectOptionType & Props) | (SelectChildrenType
 
 export const SelectPopoverRoot = styled(Root)`
   width: 100%;
+  ${({ theme }) => `
+    border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    border-radius: 0.25rem;
+  `}
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
 `;
 
 const PopoverContent = styled(Content)`
-  margin-top: calc(var(--radix-popover-trigger-height) * -1);
   width: var(--radix-popover-trigger-width);
   display: flex;
   flex-direction: column;
@@ -169,16 +178,6 @@ const SelectListContent = styled.div`
   width: inherit;
   overflow: overlay;
   flex: 1;
-`;
-
-const Placeholder = styled.div`
-  flex: 1;
-  text-align: left;
-  ${({ theme }) => `
-    margin-right: calc(${theme.click.image.sm.size.width} + ${theme.click.genericMenu.item.space.gap});
-    color: ${theme.click.field.color.placeholder.default};
-    font: ${theme.click.field.typography.fieldText.default};
-  `}
 `;
 
 type CallbackProps = SelectItemObject & {
@@ -242,78 +241,12 @@ const SelectNoDataContainer = styled.div`
     color: ${theme.click.genericMenu.button.color.label.default};
   `}
 `;
-const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-
-  span:first-of-type {
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  ${({ theme, $error }) => `
-    border-radius: ${theme.click.field.radii.all};
-    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
-    gap: ${theme.click.field.space.gap};
-    font: ${theme.click.field.typography.fieldText.default};
-    color: ${theme.click.field.color.text.default};
-    border: 1px solid ${theme.click.field.color.stroke.default};
-    background: ${theme.click.field.color.background.default};
-    &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.hover};
-      background: ${theme.click.field.color.background.hover};
-      color: ${theme.click.field.color.text.hover};
-    }
-    ${
-      $error
-        ? `
-      font: ${theme.click.field.typography.fieldText.error};
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.error};
-      &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      color: ${theme.click.field.color.text.error};
-      }
-    `
-        : `
-    &:focus,
-    &[data-state="open"] {
-      font: ${theme.click.field.typography.fieldText.active};
-      border: 1px solid ${theme.click.field.color.stroke.active};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.active};
-      & ~ label {
-        color: ${theme.click.field.color.label.active};
-        font: ${theme.click.field.typography.label.active};;
-      }
-    }
-    `
-    };
-    &:disabled {
-      font: ${theme.click.field.typography.fieldText.disabled};
-      border: 1px solid ${theme.click.field.color.stroke.disabled};
-      background: ${theme.click.field.color.background.disabled};
-      color: ${theme.click.field.color.text.disabled};
-      cursor: not-allowed;
-    }
-  `}
-  [data-hide-in-trigger] {
-    display: none;
-  }
-`;
 
 const SelectList = styled.div`
   display: flex;
   flex-direction: column;
   width: inherit;
-  max-height: calc(var(--radix-popover-content-available-height) - 5px);
+  max-height: var(--radix-popover-content-available-height);
   ${({ theme }) => `
     border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
     background: ${theme.click.genericMenu.item.color.background.default};
@@ -327,13 +260,7 @@ export const AutoComplete = ({
   options,
   children,
   onOpenChange: onOpenChangeProp,
-  id,
-  label,
-  orientation,
-  dir,
   disabled,
-  error,
-  placeholder = "Search",
   value = "",
   ...props
 }: AutoCompleteProps) => {
@@ -470,6 +397,7 @@ export const AutoComplete = ({
   }, [children, options, updateList]);
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
+    console.log("asasasas");
     if (!e.defaultPrevented) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -532,82 +460,64 @@ export const AutoComplete = ({
   }
 
   return (
-    <FormRoot
-      $orientation={orientation}
-      $dir={dir}
-      $addLabelPadding
-      {...props}
+    <SelectPopoverRoot
+      open={open}
+      onOpenChange={onOpenChange}
     >
-      <FormElementContainer>
-        <SelectPopoverRoot
-          open={open}
-          onOpenChange={onOpenChange}
-        >
-          <StyledSelectTrigger
-            id={id ?? defaultId}
-            $error={!!error}
+      <Trigger
+        asChild
+        disabled={disabled}
+        data-testid="autocomplete-trigger"
+      >
+        <div>
+          <SearchField
+            ref={inputRef}
+            value={search}
+            onChange={onUpdateSearch}
+            onKeyDown={onKeyDown}
+            defaultValue={value}
             disabled={disabled}
-            data-testid="autocomplete-trigger"
-          >
-            <Icon
-              name="search"
-              size="sm"
-            />
-            <Placeholder>{placeholder}</Placeholder>
-          </StyledSelectTrigger>
-          <Portal>
-            <PopoverContent
-              sideOffset={0}
-              onFocus={onFocus}
-              onCloseAutoFocus={() => {
-                onUpdateSearch("");
-              }}
-              onOpenAutoFocus={() => {
-                setHighlighted(visibleList.current[0]);
-              }}
-              align="start"
-            >
-              <SearchField
-                ref={inputRef}
-                value={search}
-                onChange={onUpdateSearch}
-                onKeyDown={onKeyDown}
-                placeholder={placeholder}
-              />
-              <SelectList>
-                <SelectListContent>
-                  <OptionContext.Provider value={optionContextValue}>
-                    {options && options.length > 0 ? (
-                      <AutoCompleteOptionList
-                        options={options}
-                        id={id ?? defaultId}
-                      />
-                    ) : (
-                      children
-                    )}
-                  </OptionContext.Provider>
-                </SelectListContent>
-                {visibleList.current.length === 0 && (
-                  <SelectNoDataContainer {...props}>
-                    No Options found{search.length > 0 ? ` for "${search}" ` : ""}
-                  </SelectNoDataContainer>
-                )}
-              </SelectList>
-            </PopoverContent>
-          </Portal>
-        </SelectPopoverRoot>
-        {!!error && error !== true && <Error>{error}</Error>}
-      </FormElementContainer>
-      {label && (
-        <Label
-          htmlFor={id ?? defaultId}
-          disabled={disabled}
-          error={!!error}
+            {...props}
+          />
+        </div>
+      </Trigger>
+      <Portal>
+        <PopoverContent
+          sideOffset={5}
+          onFocus={onFocus}
+          onCloseAutoFocus={() => {
+            onUpdateSearch("");
+            inputRef.current?.blur();
+          }}
+          onOpenAutoFocus={e => {
+            e.preventDefault();
+            setHighlighted(visibleList.current[0]);
+            inputRef.current?.focus();
+          }}
+          align="start"
         >
-          {label}
-        </Label>
-      )}
-    </FormRoot>
+          <SelectList>
+            <SelectListContent>
+              <OptionContext.Provider value={optionContextValue}>
+                {options && options.length > 0 ? (
+                  <AutoCompleteOptionList
+                    options={options}
+                    id={defaultId}
+                  />
+                ) : (
+                  children
+                )}
+              </OptionContext.Provider>
+            </SelectListContent>
+            {visibleList.current.length === 0 && (
+              <SelectNoDataContainer {...props}>
+                No Options found{search.length > 0 ? ` for "${search}" ` : ""}
+              </SelectNoDataContainer>
+            )}
+          </SelectList>
+        </PopoverContent>
+      </Portal>
+    </SelectPopoverRoot>
   );
 };
 
