@@ -262,6 +262,7 @@ export const AutoComplete = ({
   onOpenChange: onOpenChangeProp,
   disabled,
   value = "",
+  placeholder = "Search",
   ...props
 }: AutoCompleteProps) => {
   const defaultId = useId();
@@ -397,7 +398,6 @@ export const AutoComplete = ({
   }, [children, options, updateList]);
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
-    console.log("asasasas");
     if (!e.defaultPrevented) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -459,6 +459,13 @@ export const AutoComplete = ({
     conditionalProps.children = children;
   }
 
+  const onTriggerClick: MouseEventHandler<HTMLDivElement> = e => {
+    if (open) {
+      e.preventDefault();
+      inputRef.current?.focus();
+    }
+  };
+
   return (
     <SelectPopoverRoot
       open={open}
@@ -469,14 +476,14 @@ export const AutoComplete = ({
         disabled={disabled}
         data-testid="autocomplete-trigger"
       >
-        <div>
+        <div onClick={onTriggerClick}>
           <SearchField
             ref={inputRef}
             value={search}
             onChange={onUpdateSearch}
             onKeyDown={onKeyDown}
-            defaultValue={value}
             disabled={disabled}
+            placeholder={placeholder}
             {...props}
           />
         </div>
@@ -487,7 +494,7 @@ export const AutoComplete = ({
           onFocus={onFocus}
           onCloseAutoFocus={() => {
             onUpdateSearch("");
-            inputRef.current?.blur();
+            inputRef.current?.focus();
           }}
           onOpenAutoFocus={e => {
             e.preventDefault();

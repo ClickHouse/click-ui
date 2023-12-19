@@ -1,4 +1,4 @@
-import { act, fireEvent } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
 import { renderCUI } from "@/utils/test-utils";
@@ -12,7 +12,7 @@ describe("AutoComplete", () => {
       disconnect: jest.fn(),
     }));
   });
-  const renderSelect = (props: Omit<AutoCompleteProps, "label" | "children">) => {
+  const renderAutocomplete = (props: Omit<AutoCompleteProps, "label" | "children">) => {
     if (props.options) {
       return renderCUI(
         <AutoComplete
@@ -49,53 +49,55 @@ describe("AutoComplete", () => {
   };
 
   it("should open select on click", () => {
-    const { queryByText } = renderSelect({});
-    const selectTrigger = queryByText("Search");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({});
+    const trigger = getByPlaceholderText("Search");
+    expect(trigger).not.toBeNull();
+    trigger && fireEvent.click(trigger);
 
     expect(queryByText("Content0")).not.toBeNull();
   });
 
   it("should show error", () => {
-    const { queryByText } = renderSelect({
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({
       error: "Select Error",
     });
-    expect(queryByText("Search")).not.toBeNull();
+    expect(getByPlaceholderText("Search")).not.toBeNull();
     expect(queryByText("Select Error")).not.toBeNull();
   });
 
   it("should not open disabled select on click", () => {
-    const { queryByText } = renderSelect({
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({
       disabled: true,
     });
-    const selectTrigger = queryByText("Search");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const trigger = getByPlaceholderText("Search");
+    expect(trigger).not.toBeNull();
+    screen.debug(trigger);
+    trigger && fireEvent.click(trigger);
 
     expect(queryByText("Content0")).toBeNull();
   });
 
   it("should close select on clicking outside content", () => {
-    const { queryByText } = renderSelect({});
-    const selectTrigger = queryByText("Search");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({});
+    const trigger = getByPlaceholderText("Search");
+    expect(trigger).not.toBeNull();
+    trigger && fireEvent.click(trigger);
 
     expect(queryByText("Content0")).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    fireEvent.click(document.body);
+    screen.debug();
     expect(queryByText("Content0")).toBeNull();
   });
 
   it("should always respect given value in select", () => {
     const onSelect = jest.fn();
-    const { queryByText, getByTestId, getByText } = renderSelect({
+    const { queryByText, getByTestId, getByText } = renderAutocomplete({
       value: "content0",
       onSelect,
     });
-    const selectTrigger = getByTestId("autocomplete-trigger");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const trigger = getByTestId("autocomplete-trigger");
+    expect(trigger).not.toBeNull();
+    trigger && fireEvent.click(trigger);
 
     expect(queryByText("Content3")).not.toBeNull();
     act(() => {
@@ -105,22 +107,22 @@ describe("AutoComplete", () => {
   });
 
   it("should render options", () => {
-    const { queryByText } = renderSelect({
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({
       options: selectOptions,
     });
-    const selectTrigger = queryByText("Search");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const trigger = getByPlaceholderText("Search");
+    expect(trigger).not.toBeNull();
+    trigger && fireEvent.click(trigger);
 
     const item = queryByText("Content0");
     expect(item).not.toBeNull();
   });
 
   it("should close select on selecting item", () => {
-    const { queryByText } = renderSelect({});
-    const selectTrigger = queryByText("Search");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({});
+    const trigger = getByPlaceholderText("Search");
+    expect(trigger).not.toBeNull();
+    trigger && fireEvent.click(trigger);
 
     const item = queryByText("Content0");
     expect(item).not.toBeNull();
@@ -130,10 +132,10 @@ describe("AutoComplete", () => {
   });
 
   it("should not close select on selecting diabled item", () => {
-    const { queryByText } = renderSelect({});
-    const selectTrigger = queryByText("Search");
-    expect(selectTrigger).not.toBeNull();
-    selectTrigger && fireEvent.click(selectTrigger);
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({});
+    const trigger = getByPlaceholderText("Search");
+    expect(trigger).not.toBeNull();
+    trigger && fireEvent.click(trigger);
 
     const item = queryByText("Content2");
     expect(item).not.toBeNull();
@@ -144,10 +146,10 @@ describe("AutoComplete", () => {
 
   describe("onSearch enabled", () => {
     it("on open show all options", () => {
-      const { queryByText } = renderSelect({});
-      const selectTrigger = queryByText("Search");
-      expect(selectTrigger).not.toBeNull();
-      selectTrigger && fireEvent.click(selectTrigger);
+      const { queryByText, getByPlaceholderText } = renderAutocomplete({});
+      const trigger = getByPlaceholderText("Search");
+      expect(trigger).not.toBeNull();
+      trigger && fireEvent.click(trigger);
 
       expect(queryByText("Content0")).not.toBeNull();
       expect(queryByText("Content1 long text content")).not.toBeNull();
@@ -157,10 +159,10 @@ describe("AutoComplete", () => {
     });
 
     it("filter by text", () => {
-      const { queryByText, getByRole } = renderSelect({});
-      const selectTrigger = queryByText("Search");
-      expect(selectTrigger).not.toBeNull();
-      selectTrigger && fireEvent.click(selectTrigger);
+      const { queryByText, getByRole, getByPlaceholderText } = renderAutocomplete({});
+      const trigger = getByPlaceholderText("Search");
+      expect(trigger).not.toBeNull();
+      trigger && fireEvent.click(trigger);
 
       expect(queryByText("Group label")).toBeVisible();
       expect(queryByText("Content0")).not.toBeNull();
@@ -177,12 +179,12 @@ describe("AutoComplete", () => {
     });
 
     it("filter by text in options", () => {
-      const { queryByText, getByRole } = renderSelect({
+      const { queryByText, getByRole, getByPlaceholderText } = renderAutocomplete({
         options: selectOptions,
       });
-      const selectTrigger = queryByText("Search");
-      expect(selectTrigger).not.toBeNull();
-      selectTrigger && fireEvent.click(selectTrigger);
+      const trigger = getByPlaceholderText("Search");
+      expect(trigger).not.toBeNull();
+      trigger && fireEvent.click(trigger);
 
       expect(queryByText("Group label")).toBeVisible();
       expect(queryByText("Content0")).not.toBeNull();
@@ -199,13 +201,12 @@ describe("AutoComplete", () => {
     });
 
     it("on clear show all data", () => {
-      const { queryByText, getByTestId, getByRole } = renderSelect({});
-      const selectTrigger = queryByText("Search");
-      expect(selectTrigger).not.toBeNull();
-      selectTrigger && fireEvent.click(selectTrigger);
+      const { queryByText, getByTestId, getByPlaceholderText } = renderAutocomplete({});
+      const trigger = getByPlaceholderText("Search");
+      expect(trigger).not.toBeNull();
+      trigger && fireEvent.click(trigger);
 
-      const selectInput = getByRole("textbox");
-      fireEvent.change(selectInput, {
+      fireEvent.change(trigger, {
         target: { value: "content3" },
       });
       expect(queryByText("Content3")).not.toBeNull();
@@ -218,14 +219,14 @@ describe("AutoComplete", () => {
       expect(queryByText("Content2")).not.toBeNull();
       expect(queryByText("Content3")).not.toBeNull();
       expect(queryByText("Content4")).not.toBeNull();
-      expect(document.activeElement).toBe(selectInput);
+      expect(document.activeElement).toBe(trigger);
     });
 
     it("on no options available show no data", () => {
-      const { queryByText, getByRole } = renderSelect({});
-      const selectTrigger = queryByText("Search");
-      expect(selectTrigger).not.toBeNull();
-      selectTrigger && fireEvent.click(selectTrigger);
+      const { queryByText, getByRole, getByPlaceholderText } = renderAutocomplete({});
+      const trigger = getByPlaceholderText("Search");
+      expect(trigger).not.toBeNull();
+      trigger && fireEvent.click(trigger);
 
       fireEvent.change(getByRole("textbox"), {
         target: { value: "nodata" },
