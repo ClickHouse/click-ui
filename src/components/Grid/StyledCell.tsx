@@ -67,13 +67,49 @@ export const StyledCell = styled.div<{
         : "border-right: none;"
     }
     ${
-      $isSelectedTop
-        ? `border-top-color: ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
-        : ""
-    }
-    ${
-      $isSelectedLeft
-        ? `border-left-color: ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
+      $isSelectedTop ||
+      $isSelectedLeft ||
+      ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn))
+        ? `
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: -1px;
+            right: 0;
+            left: 0;
+            ${
+              $isSelectedTop
+                ? `border-top: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
+                : ""
+            }
+            ${
+              $isSelectedLeft
+                ? `border-left: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
+                : ""
+            }
+            ${
+              $selectionType === "selectDirect"
+                ? `
+      ${
+        $isLastRow
+          ? `
+          border-bottom: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};
+      `
+          : ""
+      }
+      ${
+        $isLastColumn
+          ? `
+          border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};
+      `
+          : ""
+      }
+            `
+                : ""
+            }
+          }
+        `
         : ""
     }
 

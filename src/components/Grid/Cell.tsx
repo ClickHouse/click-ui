@@ -4,7 +4,13 @@ import { ItemDataType } from "./types";
 import { StyledCell } from "./StyledCell";
 
 export const Cell = memo(
-  ({ data, rowIndex, columnIndex, ...props }: GridChildComponentProps<ItemDataType>) => {
+  ({
+    data,
+    rowIndex,
+    columnIndex,
+    style,
+    ...props
+  }: GridChildComponentProps<ItemDataType>) => {
     const {
       cell: CellData,
       getSelectionType,
@@ -47,25 +53,27 @@ export const Cell = memo(
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
     return (
-      <StyledCell
-        as={CellData}
-        rowIndex={rowIndex}
-        columnIndex={columnIndex}
-        type="row-cell"
-        $isSelectedTop={selectionBorderTop}
-        $isSelectedLeft={selectionBorderLeft}
-        $isFocused={isFocused}
-        $isLastRow={rowCount - 1 === rowIndex}
-        $isLastColumn={columnCount - 1 === columnIndex}
-        $isFirstColumn={columnIndex === 0 && !showRowNumber}
-        $isFirstRow={rowIndex === 0 && !showHeader}
-        $selectionType={selectionType}
-        $height={rowHeight}
-        $rounded={rounded}
-        data-row={rowIndex}
-        data-column={columnIndex}
-        {...props}
-      />
+      <div style={style}>
+        <StyledCell
+          as={CellData}
+          rowIndex={rowIndex}
+          columnIndex={columnIndex}
+          type="row-cell"
+          $isSelectedTop={selectionBorderTop}
+          $isSelectedLeft={selectionBorderLeft}
+          $isFocused={isFocused}
+          $isLastRow={rowCount - 1 === rowIndex}
+          $isLastColumn={columnCount - 1 === columnIndex}
+          $isFirstColumn={columnIndex === 0 && !showRowNumber}
+          $isFirstRow={rowIndex === 0 && !showHeader}
+          $selectionType={selectionType}
+          $height={rowHeight}
+          $rounded={rounded}
+          data-row={rowIndex}
+          data-column={columnIndex}
+          {...props}
+        />
+      </div>
     );
   },
   areEqual
