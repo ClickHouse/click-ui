@@ -170,7 +170,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       (clientX: number, width: number, columnIndex: number): string | number => {
         const columnLeft = columnHorizontalPosition[columnIndex] + width;
         const { width: containerWidth, left, scrollBarWidth } = elementBorderRef.current;
-        const scrollLeft = containerRef.current?.scrollLeft ?? 0;
+        const scrollLeft = outerRef.current?.scrollLeft ?? 0;
         if (clientX + rowNumberWidth - left > containerWidth + scrollBarWidth) {
           return scrollLeft + containerWidth - scrollBarWidth - 4;
         }
@@ -179,6 +179,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           //50 is the minWidth for the column
           return columnHorizontalPosition[columnIndex] + rowNumberWidth + 50;
         }
+
         return columnLeft + rowNumberWidth;
       },
       [columnHorizontalPosition, rowNumberWidth]
