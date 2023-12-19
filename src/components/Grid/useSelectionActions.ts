@@ -1,10 +1,4 @@
-import {
-  KeyboardEventHandler,
-  MouseEventHandler,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { KeyboardEventHandler, useCallback, useState } from "react";
 
 import {
   SelectionAction,
@@ -168,12 +162,6 @@ export const useSelectionActions = ({
   onFocusRefChange,
   scrollGridTo,
 }: Props): SelectionActions => {
-  const prevScrollRef = useRef({
-    left: 0,
-    top: 0,
-    row: focus.row,
-    column: focus.column,
-  });
   const [selection, setSelection] = useState<SelectedRegion>({
     type: "empty",
   });
