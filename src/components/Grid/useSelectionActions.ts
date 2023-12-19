@@ -352,26 +352,37 @@ export const useSelectionActions = ({
       if (cellRectSelected(selection, args.column, 0, args.column, rowCount)) {
         return "selectDirect";
       }
+
       return columnAnySelected(selection, args.column) ? "selectIndirect" : "default";
     }
+
     const isRowSelected = cellRectSelected(selection, 0, args.row, columnCount, args.row);
     const isRowAnySelected =
       focus.row === args.row || rowAnySelected(selection, args.row);
+
+    if (args.type === "cell" && args.column == -1) {
+      return "default";
+    }
+
     if (isRowSelected) {
       return "selectDirect";
     }
+
     if (!isRowAnySelected) {
       return "default";
     }
+
     if (args.type === "cell") {
       const { row, column } = args;
       if (row >= rowCount || column >= columnCount || row < 0 || column < 0) {
         return "default";
       }
+
       if (cellRectSelected(selection, column, row, column, row)) {
         return "selectDirect";
       }
     }
+
     return "selectIndirect";
   };
 
