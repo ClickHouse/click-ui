@@ -205,6 +205,8 @@ const Header = ({
             $isFocused={false}
             $isSelectedLeft
             $isSelectedTop
+            data-row={-1}
+            data-column={-1}
           >
             #
           </RowColumn>
