@@ -81,7 +81,7 @@ interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
-  actionsCount: number;
+  actionsList: Array<string>;
   onSort?: SortFn;
   hasRows: boolean;
   size: TableSize;
@@ -91,7 +91,7 @@ const Thead = ({
   headers,
   isSelectable,
   onSelectAll,
-  actionsCount,
+  actionsList,
   onSort: onSortProp,
   hasRows,
   size,
@@ -111,7 +111,7 @@ const Thead = ({
             width={headerProps.width}
           />
         ))}
-        {actionsCount > 0 && <col width={(actionsCount + 1) * 32 + 10} />}
+        {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
       </StyledColGroup>
       <StyledThead>
         <tr>
@@ -131,7 +131,7 @@ const Thead = ({
               {...headerProps}
             />
           ))}
-          {actionsCount > 0 && <StyledHeader $size={size} />}
+          {actionsList.length > 0 && <StyledHeader $size={size} />}
         </tr>
       </StyledThead>
     </>
@@ -377,6 +377,7 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   isSelected: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
+  actionsList: Array<string>;
   size: TableSize;
 }
 
@@ -398,6 +399,7 @@ const TableBodyRow = ({
   isDeleted,
   isDisabled,
   size,
+  actionsList,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === "function";
@@ -428,23 +430,23 @@ const TableBodyRow = ({
           <TableText>{label}</TableText>
         </TableData>
       ))}
-      {(isDeletable || isEditable) && (
+      {actionsList.length > 0 && (
         <ActionsList $size={size}>
           <ActionsContainer>
-            {isEditable && (
+            {actionsList.includes("editAction") && (
               <EditButton
                 as={IconButton}
                 type="ghost"
-                disabled={isDisabled || isDeleted}
+                disabled={isDisabled || isDeleted || !isEditable}
                 icon="pencil"
                 onClick={onEdit}
                 data-testid="table-row-edit"
               />
             )}
-            {isDeletable && (
+            {actionsList.includes("deleteAction") && (
               <TableRowCloseButton
                 as={IconButton}
-                disabled={isDisabled}
+                disabled={isDisabled || !isDeletable}
                 $isDeleted={isDeleted}
                 type="ghost"
                 icon="cross"
@@ -557,6 +559,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
       };
     const hasRows = rows.length > 0;
+    const actionsList: Array<string> = [];
+    if (isDeletable) {
+      actionsList.push("deleteAction");
+    }
+    if (isEditable) {
+      actionsList.push("editAction");
+    }
+
     return (
       <TableOuterContainer>
         {hasRows && showHeader && (
@@ -580,9 +590,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 headers={headers}
                 isSelectable={isSelectable}
                 onSelectAll={onSelectAll}
-                actionsCount={
-                  isDeletable && isEditable ? 2 : isDeletable && isEditable ? 1 : 0
-                }
+                actionsList={actionsList}
                 onSort={onSort}
                 hasRows={hasRows}
                 size={size}
@@ -608,6 +616,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   isSelectable={isSelectable}
                   isSelected={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
+                  actionsList={actionsList}
                   onDelete={
                     isDeletable
                       ? () =>
