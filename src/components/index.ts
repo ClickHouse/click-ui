@@ -7,6 +7,7 @@ export { Dropdown } from "./Dropdown/Dropdown";
 
 export { Accordion } from "./Accordion/Accordion";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
+export { AutoComplete } from "./AutoComplete/AutoComplete";
 export { Avatar } from "./Avatar/Avatar";
 export { Badge } from "./Badge/Badge";
 export { BigStat } from "./BigStat/BigStat";
