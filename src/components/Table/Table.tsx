@@ -388,7 +388,6 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
 const TableText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 1lh;
   white-space: nowrap;
 `;
 
