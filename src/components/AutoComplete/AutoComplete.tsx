@@ -1,8 +1,9 @@
 import {
   Children,
   FunctionComponent,
-  KeyboardEvent,
-  MouseEvent,
+  HTMLAttributes,
+  KeyboardEventHandler,
+  MouseEventHandler,
   ReactNode,
   forwardRef,
   isValidElement,
@@ -13,41 +14,171 @@ import {
   useRef,
   useState,
 } from "react";
+import { Portal, PopoverProps, Content, Root, Trigger } from "@radix-ui/react-popover";
 import {
-  SelectContainerProps,
-  SelectGroupProps,
-  SelectItemObject,
-  SelectItemProps,
-  SelectOptionListItem,
-} from "./types";
-import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
-import { Portal } from "@radix-ui/react-popover";
-import { Icon, IconButton, Label, Separator } from "@/components";
-import {
-  SelectPopoverContent,
-  SearchBar,
-  SearchBarContainer,
-  SearchClose,
-  SelectList,
-  SelectListContent,
-  SelectPopoverRoot,
-  StyledSelectTrigger,
-  SelectValue,
-  HiddenSelectElement,
-  SelectGroupContainer,
-  SelectGroupName,
-  SelectGroupContent,
-  SelectNoDataContainer,
-} from "./SelectStyled";
-import { OptionContext } from "./OptionContext";
-import { MultiSelectValue } from "../MultiSelectValue";
-import SingleSelectValue from "../SingleSelectValue";
-import { useOption, useSearch } from "./useOption";
-import { mergeRefs } from "@/utils/mergeRefs";
-import { GenericMenuItem } from "@/components/GenericMenu";
-import IconWrapper from "@/components/IconWrapper/IconWrapper";
+  HorizontalDirection,
+  Icon,
+  IconName,
+  SearchField,
+  Separator,
+} from "@/components";
 import styled from "styled-components";
+import { GenericMenuItem } from "../GenericMenu";
+import { useOption, useSearch } from "./useOption";
+import IconWrapper from "../IconWrapper/IconWrapper";
+import { OptionContext } from "./OptionContext";
+import { mergeRefs } from "@/utils/mergeRefs";
 import { getTextFromNodes } from "@/lib/getTextFromNodes";
+import AutoCompleteOptionList from "./AutoCompleteOptionList";
+
+type DivProps = HTMLAttributes<HTMLDivElement>;
+interface SelectItemComponentProps
+  extends Omit<DivProps, "disabled" | "onSelect" | "value" | "children"> {
+  separator?: boolean;
+  disabled?: boolean;
+  onSelect?: (value: string) => void;
+  value: string;
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+}
+
+type SelectItemChildren = {
+  children: ReactNode;
+  label?: never;
+};
+
+type SelectItemLabel = {
+  children?: never;
+  label: ReactNode;
+};
+export interface SelectGroupProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "heading"> {
+  heading: ReactNode;
+  value?: never;
+  onSelect?: never;
+}
+export interface SelectOptionItem extends Omit<SelectItemProps, "children" | "label"> {
+  heading?: never;
+  label: ReactNode;
+  [key: `data-${string}`]: string;
+}
+
+interface SelectGroupOptionItem extends Omit<SelectGroupProps, "children" | "label"> {
+  options: Array<SelectOptionItem>;
+  label?: never;
+  [key: `data-${string}`]: string;
+}
+
+export type SelectOptionListItem = SelectGroupOptionItem | SelectOptionItem;
+
+export type SelectItemProps = SelectItemComponentProps &
+  (SelectItemChildren | SelectItemLabel);
+type SelectOptionType = {
+  options: Array<SelectOptionListItem>;
+  children?: never;
+};
+
+type SelectChildrenType = {
+  children: ReactNode;
+  options?: never;
+};
+
+type SelectOptionProp = SelectOptionType | SelectChildrenType;
+
+interface Props
+  extends PopoverProps,
+    Omit<DivProps, "onChange" | "dir" | "onSelect" | "children"> {
+  onSelect?: (value: string) => void;
+  value?: string;
+  placeholder?: string;
+  onOpenChange?: (open: boolean) => void;
+  label?: ReactNode;
+  error?: ReactNode;
+  disabled?: boolean;
+  dir?: "start" | "end";
+  orientation?: "horizontal" | "vertical";
+  allowCreateOption?: boolean;
+}
+type SelectItemObject = {
+  disabled?: boolean;
+  value: string;
+  title: string;
+  heading?: string;
+};
+
+export type AutoCompleteProps = (SelectOptionType & Props) | (SelectChildrenType & Props);
+
+export const SelectPopoverRoot = styled(Root)`
+  width: 100%;
+  ${({ theme }) => `
+    border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    border-radius: 0.25rem;
+  `}
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+`;
+
+const PopoverContent = styled(Content)`
+  width: var(--radix-popover-trigger-width);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+`;
+const SelectGroupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  overflow: hidden;
+  background: transparent;
+  &[aria-selected] {
+    outline: none;
+  }
+
+  ${({ theme }) => `
+    font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
+    color: ${theme.click.genericMenu.item.color.text.muted};
+  `};
+  &[hidden] {
+    display: none;
+  }
+`;
+
+const SelectGroupName = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  ${({ theme }) => `
+     font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
+     color: ${theme.click.genericMenu.item.color.text.muted};
+     padding: ${theme.click.genericMenu.sectionHeader.space.top} ${theme.click.genericMenu.item.space.x} ${theme.click.genericMenu.sectionHeader.space.bottom};
+     gap: ${theme.click.genericMenu.item.space.gap};
+     border-bottom: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+   `}
+`;
+
+const SelectGroupContent = styled.div`
+  width: inherit;
+`;
+
+const SelectListContent = styled.div`
+  width: inherit;
+  overflow: overlay;
+  flex: 1;
+`;
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
@@ -61,14 +192,14 @@ const childrenToComboboxItemArray = (
   return Children.toArray(children).flatMap(child => {
     if (isValidElement(child) && child && typeof child === "object") {
       const type = child.type as FunctionComponent;
-      if (type.displayName === "Select.Group") {
+      if (type.displayName === "AutoComplete.Group") {
         const groupChildren = child.props.children;
         return childrenToComboboxItemArray(
           groupChildren,
           callback,
           getTextFromNodes(child.props.heading).toLowerCase()
         );
-      } else if (type.displayName === "Select.Item") {
+      } else if (type.displayName === "AutoComplete.Item") {
         const title = getTextFromNodes(child).toLowerCase();
         const value = child.props.value;
         const disabled = child.props.disabled;
@@ -92,34 +223,53 @@ const childrenToComboboxItemArray = (
     return [];
   });
 };
+const SelectNoDataContainer = styled.div`
+  border: none;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  cursor: default;
+  &[hidden="true"] {
+    display: none;
+  }
+  ${({ theme }) => `
+    font: ${theme.click.genericMenu.button.typography.label.default}
+    padding: ${theme.click.genericMenu.button.space.y} ${theme.click.genericMenu.item.space.x};
+    background: ${theme.click.genericMenu.button.color.background.default};
+    color: ${theme.click.genericMenu.button.color.label.default};
+  `}
+`;
 
-export const InternalSelect = ({
-  label,
-  children,
-  orientation,
-  dir,
-  disabled,
-  id,
-  error,
-  value: selectedValues,
-  onChange,
-  onSelect,
-  open,
-  onOpenChange,
-  name,
-  form,
-  allowCreateOption = false,
-  customText = "",
+const SelectList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  max-height: var(--radix-popover-content-available-height);
+  ${({ theme }) => `
+    border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+    background: ${theme.click.genericMenu.item.color.background.default};
+    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
+    border-radius: 0.25rem;
+  `}
+`;
+
+export const AutoComplete = ({
+  onSelect: onSelectProp,
   options,
-  sortable = false,
-  placeholder = "Select an option",
-  multiple,
-  showSearch = false,
-  container,
+  children,
+  onOpenChange: onOpenChangeProp,
+  disabled,
+  value = "",
+  placeholder = "Search",
   ...props
-}: SelectContainerProps) => {
+}: AutoCompleteProps) => {
   const defaultId = useId();
   const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
   const [highlighted, setHighlighted] = useState<string | undefined>();
   const visibleList = useRef<Array<string>>([]);
   const navigatable = useRef<Array<string>>([]);
@@ -137,6 +287,32 @@ export const InternalSelect = ({
     },
     [search]
   );
+
+  const onFocus = () => {
+    inputRef.current?.focus();
+  };
+
+  const onOpenChange = useCallback(
+    (open: boolean) => {
+      const newOpen = open && !disabled;
+      setOpen(newOpen);
+      if (typeof onOpenChangeProp === "function") {
+        onOpenChangeProp(newOpen);
+      }
+    },
+    [disabled, onOpenChangeProp]
+  );
+
+  const onSelect = useCallback(
+    (value: string) => {
+      onOpenChange(false);
+      if (typeof onSelectProp === "function") {
+        onSelectProp(value);
+      }
+    },
+    [onSelectProp, onOpenChange]
+  );
+
   const onUpdateSearch = useCallback(
     (search: string) => {
       setSearch(search);
@@ -222,24 +398,12 @@ export const InternalSelect = ({
     updateList(children, options);
   }, [children, options, updateList]);
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const onFocus = () => {
-    inputRef.current?.focus();
-  };
-
-  const clearSearch = () => {
-    onUpdateSearch("");
-  };
-
-  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (!e.defaultPrevented) {
       if (e.key === "Enter") {
         e.preventDefault();
         if (highlighted) {
           onSelect(highlighted);
-        } else if (visibleList.current.length === 0 && allowCreateOption) {
-          onSelect(search, "custom");
         }
       } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
         e.preventDefault();
@@ -285,176 +449,87 @@ export const InternalSelect = ({
       highlighted,
       isHidden,
       onSelect,
-      selectedValues,
+      selectedValue: value,
     };
-  }, [search, highlighted, isHidden, onSelect, selectedValues]);
+  }, [search, highlighted, isHidden, onSelect, value]);
 
-  const onCreateOption = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (allowCreateOption) {
-      onSelect(search, "custom");
+  const conditionalProps: Partial<SelectOptionProp> = {};
+  if (options) {
+    conditionalProps.options = options;
+  } else {
+    conditionalProps.children = children;
+  }
+
+  const onTriggerClick: MouseEventHandler<HTMLDivElement> = e => {
+    if (open) {
+      e.preventDefault();
+      inputRef.current?.focus();
     }
   };
+
   return (
-    <FormRoot
-      $orientation={orientation}
-      $dir={dir}
-      $addLabelPadding
-      {...props}
+    <SelectPopoverRoot
+      open={open}
+      onOpenChange={onOpenChange}
     >
-      <FormElementContainer>
-        <SelectPopoverRoot
-          open={open}
-          onOpenChange={onOpenChange}
-        >
-          <StyledSelectTrigger
-            id={id ?? defaultId}
-            $error={!!error}
+      <Trigger
+        asChild
+        disabled={disabled}
+        data-testid="autocomplete-trigger"
+      >
+        <div onClick={onTriggerClick}>
+          <SearchField
+            ref={inputRef}
+            value={search}
+            onChange={onUpdateSearch}
+            onKeyDown={onKeyDown}
             disabled={disabled}
-            data-testid="select-trigger"
-          >
-            <SelectValue>
-              {selectedValues.length === 0 ? (
-                placeholder
-              ) : multiple ? (
-                <MultiSelectValue
-                  disabled={disabled ?? false}
-                  onSelect={onSelect}
-                  selectedValues={selectedValues}
-                  sortable={!disabled && sortable}
-                  valueNode={valueNode.current}
-                  onChange={onChange}
-                />
-              ) : (
-                <SingleSelectValue
-                  valueNode={valueNode.current.get(selectedValues[0])}
-                  value={selectedValues[0]}
-                />
-              )}
-            </SelectValue>
-            <Icon
-              name="sort"
-              size="sm"
-            />
-          </StyledSelectTrigger>
-          {form && (
-            <HiddenSelectElement
-              multiple={multiple}
-              name={name}
-              form={form}
-              value={selectedValues}
-              onChange={() => null}
-            >
-              {list.map(item => (
-                <option
-                  key={item.value}
-                  value={item.value}
-                  disabled={item.disabled}
-                >
-                  {item.value}
-                </option>
-              ))}
-            </HiddenSelectElement>
-          )}
-          <Portal container={container}>
-            <SelectPopoverContent
-              sideOffset={5}
-              onFocus={onFocus}
-              onCloseAutoFocus={() => {
-                onUpdateSearch("");
-              }}
-              onOpenAutoFocus={() => {
-                setHighlighted(visibleList.current[0]);
-              }}
-              align="start"
-            >
-              <SelectList>
-                <SearchBarContainer $showSearch={showSearch}>
-                  <SearchBar
-                    ref={inputRef}
-                    value={search}
-                    onChange={e => onUpdateSearch(e.target.value)}
-                    data-testid="select-search-input"
-                    onKeyDown={onKeyDown}
-                    $showSearch={showSearch}
-                  />
-                  <SearchClose
-                    as={IconButton}
-                    icon="cross"
-                    onClick={clearSearch}
-                    data-testid="select-search-close"
-                    $showClose={search.length > 0}
-                    size="xs"
-                  />
-                </SearchBarContainer>
-                <SelectListContent>
-                  <OptionContext.Provider value={optionContextValue}>
-                    {options && options.length > 0
-                      ? options.map((props, index) => {
-                          if ("options" in props) {
-                            const { options: itemList = [], ...groupProps } = props;
-                            return (
-                              <SelectGroup
-                                key={`select-${id}-group-${index}`}
-                                {...groupProps}
-                              >
-                                {itemList.map(({ label, ...itemProps }, itemIndex) => (
-                                  <SelectItem
-                                    key={`select-${id}-group-${index}-item-${itemIndex}`}
-                                    {...itemProps}
-                                  >
-                                    {label}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            );
-                          } else {
-                            return (
-                              <SelectItem
-                                key={`select-${id}-item-${index}`}
-                                {...props}
-                              />
-                            );
-                          }
-                        })
-                      : children}
-                  </OptionContext.Provider>
-                </SelectListContent>
-                {visibleList.current.length === 0 && (
-                  <SelectNoDataContainer
-                    onClick={onCreateOption}
-                    $clickable={allowCreateOption}
-                    {...props}
-                  >
-                    {customText.length > 0
-                      ? customText.replaceAll("{search}", search)
-                      : allowCreateOption
-                      ? `Add ${search}`
-                      : `No Options found${search.length > 0 ? ` for "${search}" ` : ""}
-                    `}
-                  </SelectNoDataContainer>
-                )}
-              </SelectList>
-            </SelectPopoverContent>
-          </Portal>
-        </SelectPopoverRoot>
-        {!!error && error !== true && <Error>{error}</Error>}
-      </FormElementContainer>
-      {label && (
-        <Label
-          htmlFor={id ?? defaultId}
-          disabled={disabled}
-          error={!!error}
+            placeholder={placeholder}
+            {...props}
+          />
+        </div>
+      </Trigger>
+      <Portal>
+        <PopoverContent
+          sideOffset={5}
+          onFocus={onFocus}
+          onCloseAutoFocus={() => {
+            onUpdateSearch("");
+            inputRef.current?.focus();
+          }}
+          onOpenAutoFocus={e => {
+            e.preventDefault();
+            setHighlighted(visibleList.current[0]);
+            inputRef.current?.focus();
+          }}
+          align="start"
         >
-          {label}
-        </Label>
-      )}
-    </FormRoot>
+          <SelectList>
+            <SelectListContent>
+              <OptionContext.Provider value={optionContextValue}>
+                {options && options.length > 0 ? (
+                  <AutoCompleteOptionList
+                    options={options}
+                    id={defaultId}
+                  />
+                ) : (
+                  children
+                )}
+              </OptionContext.Provider>
+            </SelectListContent>
+            {visibleList.current.length === 0 && (
+              <SelectNoDataContainer {...props}>
+                No Options found{search.length > 0 ? ` for "${search}" ` : ""}
+              </SelectNoDataContainer>
+            )}
+          </SelectList>
+        </PopoverContent>
+      </Portal>
+    </SelectPopoverRoot>
   );
 };
 
-export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
+export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
   ({ children, heading, ...props }, forwardedRef) => {
     useSearch();
     return (
@@ -463,7 +538,7 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
         ref={mergeRefs([
           forwardedRef,
           node => {
-            const hidden = node?.querySelectorAll("[cui-select-item]").length === 0;
+            const hidden = node?.querySelectorAll("[cui-autocomplete-item]").length === 0;
             if (hidden) {
               node?.setAttribute("hidden", "");
             } else {
@@ -480,13 +555,13 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
   }
 );
 
-SelectGroup.displayName = "Select.Group";
+Group.displayName = "AutoComplete.Group";
 
 const CheckIcon = styled.svg<{ $showCheck: boolean }>`
   opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
 `;
 
-export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
+export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
   (
     {
       disabled = false,
@@ -502,7 +577,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     },
     forwardedRef
   ) => {
-    const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
+    const { highlighted, updateHighlighted, isHidden, selectedValue, onSelect } =
       useOption();
     const onSelectValue = () => {
       if (!disabled) {
@@ -512,7 +587,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
         }
       }
     };
-    const onMouseOver = (e: MouseEvent<HTMLDivElement>) => {
+    const onMouseOver: MouseEventHandler<HTMLDivElement> = e => {
       if (onMouseOverProp) {
         onMouseOverProp(e);
       }
@@ -524,7 +599,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     if (isHidden(value)) {
       return null;
     }
-    const isChecked = selectedValues.includes(value);
+    const isChecked = selectedValue === value;
 
     return (
       <>
@@ -537,7 +612,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
           data-state={isChecked ? "checked" : "unchecked"}
           data-disabled={disabled ? true : undefined}
           data-highlighted={highlighted == value ? "true" : undefined}
-          cui-select-item=""
+          cui-autocomplete-item=""
         >
           <IconWrapper
             icon={icon}
@@ -558,4 +633,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   }
 );
 
-SelectItem.displayName = "Select.Item";
+Item.displayName = "AutoComplete.Item";
+
+AutoComplete.Group = Group;
+AutoComplete.Item = Item;
