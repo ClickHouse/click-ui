@@ -294,12 +294,13 @@ export const AutoComplete = ({
 
   const onOpenChange = useCallback(
     (open: boolean) => {
-      setOpen(open);
+      const newOpen = open && !disabled;
+      setOpen(newOpen);
       if (typeof onOpenChangeProp === "function") {
-        onOpenChangeProp(open);
+        onOpenChangeProp(newOpen);
       }
     },
-    [onOpenChangeProp]
+    [disabled, onOpenChangeProp]
   );
 
   const onSelect = useCallback(

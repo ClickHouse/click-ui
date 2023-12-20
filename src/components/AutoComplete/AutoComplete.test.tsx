@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from "@testing-library/react";
+import { act, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
 import { renderCUI } from "@/utils/test-utils";
@@ -71,21 +71,23 @@ describe("AutoComplete", () => {
     });
     const trigger = getByPlaceholderText("Search");
     expect(trigger).not.toBeNull();
-    screen.debug(trigger);
     trigger && fireEvent.click(trigger);
 
     expect(queryByText("Content0")).toBeNull();
   });
 
-  it("should close select on clicking outside content", () => {
-    const { queryByText, getByPlaceholderText } = renderAutocomplete({});
+  it("should close autocomplete when focus is on outside content", () => {
+    const onOpenChange = jest.fn();
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({
+      onOpenChange,
+    });
     const trigger = getByPlaceholderText("Search");
     expect(trigger).not.toBeNull();
     trigger && fireEvent.click(trigger);
 
     expect(queryByText("Content0")).not.toBeNull();
-    fireEvent.click(document.body);
-    screen.debug();
+    fireEvent.focus(document.body);
+    expect(onOpenChange).toBeCalledTimes(2);
     expect(queryByText("Content0")).toBeNull();
   });
 
