@@ -143,9 +143,11 @@ const TableRow = styled.tr<{
   $isDeleted?: boolean;
   $isDisabled?: boolean;
   $showActions?: boolean;
+  $rowHeight?: string;
 }>`
   overflow: hidden;
-  ${({ theme, $isDeleted, $isDisabled }) => `
+  ${({ theme, $isDeleted, $isDisabled, $rowHeight }) => `
+    ${$rowHeight ? `height: ${$rowHeight};` : ""}
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
     theme.click.table.row.color.stroke.default
@@ -349,6 +351,7 @@ interface CommonTableProps
   noDataMessage?: ReactNode;
   size?: TableSize;
   showHeader?: boolean;
+  rowHeight?: string;
 }
 
 type SelectReturnValue = {
@@ -379,6 +382,7 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   onEdit?: () => void;
   actionsList: Array<string>;
   size: TableSize;
+  rowHeight?: string;
 }
 
 const TableText = styled.div`
@@ -400,6 +404,7 @@ const TableBodyRow = ({
   isDisabled,
   size,
   actionsList,
+  rowHeight,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === "function";
@@ -410,6 +415,7 @@ const TableBodyRow = ({
       $isDeleted={isDeleted}
       $isDisabled={isDisabled}
       $showActions={isDeletable || isEditable}
+      $rowHeight={rowHeight}
       {...rowProps}
     >
       {isSelectable && (
@@ -520,6 +526,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       noDataMessage,
       size = "sm",
       showHeader = true,
+      rowHeight,
       ...props
     },
     ref
@@ -630,6 +637,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                     isEditable ? () => onEdit({ id, ...rowProps }, rowIndex) : undefined
                   }
                   size={size}
+                  rowHeight={rowHeight}
                   {...rowProps}
                 />
               ))}
