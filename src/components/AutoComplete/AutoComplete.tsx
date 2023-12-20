@@ -69,12 +69,12 @@ interface SelectGroupOptionItem extends Omit<SelectGroupProps, "children" | "lab
   [key: `data-${string}`]: string;
 }
 
-export type SelectOptionListItem = SelectGroupOptionItem | SelectOptionItem;
+export type AutoCompleteOptionListItem = SelectGroupOptionItem | SelectOptionItem;
 
 export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
 type SelectOptionType = {
-  options: Array<SelectOptionListItem>;
+  options: Array<AutoCompleteOptionListItem>;
   children?: never;
 };
 
@@ -344,7 +344,7 @@ export const AutoComplete = ({
   );
 
   const updateList = useCallback(
-    (children?: ReactNode, options?: Array<SelectOptionListItem>) => {
+    (children?: ReactNode, options?: Array<AutoCompleteOptionListItem>) => {
       const lowerCasedSearch = search.toLowerCase();
       if (options) {
         setList(
