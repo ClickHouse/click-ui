@@ -781,7 +781,8 @@
           }
         },
         "title": {
-          "default": "lch(10.2 1.39 305)"
+          "default": "lch(10.2 1.39 305)",
+          "muted": "#696e79"
         }
       }
     },
@@ -827,8 +828,8 @@
           "foreground": "#135be6"
         },
         "success": {
-          "background": "#e0f8e7",
-          "foreground": "#15632b"
+          "background": "#E5FFE8",
+          "foreground": "#00990D"
         },
         "warning": {
           "background": "#ffedd8",

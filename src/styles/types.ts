@@ -57,15 +57,29 @@
         }
       },
       "color": {
-        "label": {
-          "default": string,
-          "hover": string,
-          "active": string
+        "default": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "icon": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
         },
-        "icon": {
-          "default": string,
-          "hover": string,
-          "active": string
+        "link": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "icon": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
         }
       }
     },
@@ -2571,7 +2585,8 @@
           "default": string
         },
         "title": {
-          "default": string
+          "default": string,
+          "muted": string
         }
       }
     },
@@ -2761,6 +2776,7 @@
       "400": string,
       "500": string,
       "600": string,
+      "650": string,
       "700": string,
       "800": string,
       "900": string,
@@ -2776,6 +2792,7 @@
       "600": string,
       "700": string,
       "800": string,
+      "850": string,
       "900": string,
       "base": string
     },
@@ -2811,6 +2828,45 @@
     },
     "utility": {
       "transparent": string
+    },
+    "teal": {
+      "50": string,
+      "100": string,
+      "200": string,
+      "300": string,
+      "400": string,
+      "500": string,
+      "600": string,
+      "700": string,
+      "800": string,
+      "850": string,
+      "900": string
+    },
+    "violet": {
+      "50": string,
+      "100": string,
+      "200": string,
+      "300": string,
+      "400": string,
+      "500": string,
+      "600": string,
+      "700": string,
+      "800": string,
+      "850": string,
+      "900": string
+    },
+    "fuchsia": {
+      "50": string,
+      "100": string,
+      "200": string,
+      "300": string,
+      "400": string,
+      "500": string,
+      "600": string,
+      "700": string,
+      "800": string,
+      "850": string,
+      "900": string
     }
   },
   "sizes": {
