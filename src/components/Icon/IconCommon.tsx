@@ -120,6 +120,7 @@ import Beta from "@/components/icons/Beta";
 import NoCloud from "@/components/icons/NoCloud";
 import Lifebuoy from "@/components/icons/Lifebuoy";
 import GitMerge from "@/components/icons/GitMerge";
+import Bell from "@/components/icons/Bell";
 
 export const ICONS_MAP = {
   activity: Activity,
@@ -133,6 +134,7 @@ export const ICONS_MAP = {
   "auth-sms": AuthSms,
   backups: BackUps,
   "bar-chart": BarChart,
+  bell: Bell,
   beta: Beta,
   blog: Blog,
   book: Book,
