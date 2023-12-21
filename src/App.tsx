@@ -469,12 +469,14 @@ const App = () => {
           open={confirmationDialogOpen}
           onCancel={() => setConfirmationDialogOpen(false)}
           title="Confirmation Dialog Example"
-          message="This is a simple dialog that will be reused across the application"
           onConfirm={() => {
             console.log("close");
           }}
           showClose
-        />
+        >
+          <Text>This is a confirmation dialog with some content in it</Text>
+          <Select options={[{ label: "1", value: "1" }]} />
+        </ConfirmationDialog>
 
         <EllipsisContent
           component={Text}
