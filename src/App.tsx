@@ -36,6 +36,8 @@ import {
   TableRowType,
   TableHeaderType,
   Tooltip,
+  Container,
+  InlineCodeBlock,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
@@ -517,6 +519,73 @@ const App = () => {
           <Tooltip.Trigger>Tooltip trigger</Tooltip.Trigger>
           <Tooltip.Content>Tooltip content</Tooltip.Content>
         </Tooltip>
+
+        <Spacer size="xxl" />
+
+        <Container
+          padding="lg"
+          gap="md"
+          orientation="vertical"
+          alignItems="start"
+        >
+          <Text>
+            Parent Container:
+            <InlineCodeBlock>padding="none" fillWidth=true</InlineCodeBlock>
+          </Text>
+
+          <Container
+            padding="none"
+            fillWidth
+          >
+            <Container>
+              <InlineCodeBlock>1. default</InlineCodeBlock>
+            </Container>
+            <Container>
+              <InlineCodeBlock>2. default</InlineCodeBlock>
+            </Container>
+            <Container>
+              <InlineCodeBlock>3. default</InlineCodeBlock>
+            </Container>
+          </Container>
+
+          <Text>
+            Parent Container:
+            <InlineCodeBlock>
+              padding="none" fillWidth=true justifyContent="space-between"
+              isResponsive=false
+            </InlineCodeBlock>
+          </Text>
+          <Container
+            padding="none"
+            fillWidth
+            justifyContent="space-between"
+            isResponsive={false}
+          >
+            <Container grow="0">
+              <InlineCodeBlock>4. grow="0"</InlineCodeBlock>
+            </Container>
+            <Container grow="0">
+              <InlineCodeBlock>5. grow="0"</InlineCodeBlock>
+            </Container>
+            <Container grow="0">
+              <InlineCodeBlock>6. grow="0"</InlineCodeBlock>
+            </Container>
+          </Container>
+
+          <Text>
+            Parent Container:
+            <InlineCodeBlock>fillWidth=true justifyContent="center"</InlineCodeBlock>
+          </Text>
+
+          <Container
+            justifyContent="center"
+            fillWidth
+          >
+            <Container grow="0">
+              <InlineCodeBlock>7. grow="0"</InlineCodeBlock>
+            </Container>
+          </Container>
+        </Container>
       </ClickUIProvider>
     </div>
   );
