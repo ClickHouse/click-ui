@@ -1,23 +1,15 @@
-import {
-  Checkbox,
-  HorizontalDirection,
-  Icon,
-  IconButton,
-  IconName,
-  Text,
-} from "@/components";
+import { Checkbox, HorizontalDirection, Icon, IconButton, Text } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = "sm" | "md";
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
-  icon?: IconName;
-  iconDir?: HorizontalDirection;
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
+  width?: string;
 }
 
 const StyledHeader = styled.th<{ $size: TableSize }>`
@@ -26,7 +18,6 @@ const StyledHeader = styled.th<{ $size: TableSize }>`
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
   `}
-  gap: 0.25rem;
   text-align: left;
 `;
 
@@ -51,7 +42,7 @@ const TableHeader = ({
   onClick,
   size,
   ...delegated
-}: TableHeaderType & { onSort?: () => void; size: TableSize }) => {
+}: Omit<TableHeaderType, "width"> & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === "function") {
@@ -90,7 +81,7 @@ interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
   onSelectAll: (checked: boolean) => void;
-  showActionsHeader?: boolean;
+  actionsList: Array<string>;
   onSort?: SortFn;
   hasRows: boolean;
   size: TableSize;
@@ -100,7 +91,7 @@ const Thead = ({
   headers,
   isSelectable,
   onSelectAll,
-  showActionsHeader,
+  actionsList,
   onSort: onSortProp,
   hasRows,
   size,
@@ -111,27 +102,39 @@ const Thead = ({
     }
   };
   return (
-    <StyledThead>
-      <tr>
-        {isSelectable && (
-          <StyledHeader $size={size}>
-            <Checkbox
-              onCheckedChange={onSelectAll}
-              disabled={!hasRows}
-            />
-          </StyledHeader>
-        )}
+    <>
+      <StyledColGroup>
+        {isSelectable && <col width={48} />}
         {headers.map((headerProps, index) => (
-          <TableHeader
-            key={`table-header-${index}`}
-            onSort={onSort(headerProps, index)}
-            size={size}
-            {...headerProps}
+          <col
+            key={`header-col-${index}`}
+            width={headerProps.width}
           />
         ))}
-        {showActionsHeader && <StyledHeader $size={size} />}
-      </tr>
-    </StyledThead>
+        {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
+      </StyledColGroup>
+      <StyledThead>
+        <tr>
+          {isSelectable && (
+            <StyledHeader $size={size}>
+              <Checkbox
+                onCheckedChange={onSelectAll}
+                disabled={!hasRows}
+              />
+            </StyledHeader>
+          )}
+          {headers.map(({ width, ...headerProps }, index) => (
+            <TableHeader
+              key={`table-header-${index}-${width}`}
+              onSort={onSort(headerProps, index)}
+              size={size}
+              {...headerProps}
+            />
+          ))}
+          {actionsList.length > 0 && <StyledHeader $size={size} />}
+        </tr>
+      </StyledThead>
+    </>
   );
 };
 
@@ -140,9 +143,11 @@ const TableRow = styled.tr<{
   $isDeleted?: boolean;
   $isDisabled?: boolean;
   $showActions?: boolean;
+  $rowHeight?: string;
 }>`
   overflow: hidden;
-  ${({ theme, $isDeleted, $isDisabled }) => `
+  ${({ theme, $isDeleted, $isDisabled, $rowHeight }) => `
+    ${$rowHeight ? `height: ${$rowHeight};` : ""}
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
     theme.click.table.row.color.stroke.default
@@ -198,7 +203,11 @@ const TableData = styled.td<{ $size: TableSize }>`
       ${({ theme }) => theme.click.table.body.cell.space.sm.x};
   }
 `;
-
+const StyledColGroup = styled.colgroup`
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 const StyledThead = styled.thead`
   tr {
     overflow: hidden;
@@ -209,7 +218,7 @@ const StyledThead = styled.thead`
   }
 `;
 
-const MobileHeader = styled.span`
+const MobileHeader = styled.div`
   display: none;
   ${({ theme }) => `
     color: ${theme.click.table.row.color.label.default};
@@ -268,7 +277,7 @@ const ActionsList = styled.td<{ $size: TableSize }>`
   }
 `;
 
-const ActionsContainer = styled.span`
+const ActionsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -341,6 +350,8 @@ interface CommonTableProps
   loading?: boolean;
   noDataMessage?: ReactNode;
   size?: TableSize;
+  showHeader?: boolean;
+  rowHeight?: string;
 }
 
 type SelectReturnValue = {
@@ -369,8 +380,16 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   isSelected: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
+  actionsList: Array<string>;
   size: TableSize;
+  rowHeight?: string;
 }
+
+const TableText = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 
 const TableBodyRow = ({
   headers,
@@ -383,6 +402,8 @@ const TableBodyRow = ({
   isDeleted,
   isDisabled,
   size,
+  actionsList,
+  rowHeight,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === "function";
@@ -393,6 +414,7 @@ const TableBodyRow = ({
       $isDeleted={isDeleted}
       $isDisabled={isDisabled}
       $showActions={isDeletable || isEditable}
+      $rowHeight={rowHeight}
       {...rowProps}
     >
       {isSelectable && (
@@ -410,26 +432,26 @@ const TableBodyRow = ({
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <span>{label}</span>
+          <TableText>{label}</TableText>
         </TableData>
       ))}
-      {(isDeletable || isEditable) && (
+      {actionsList.length > 0 && (
         <ActionsList $size={size}>
           <ActionsContainer>
-            {isEditable && (
+            {actionsList.includes("editAction") && (
               <EditButton
                 as={IconButton}
                 type="ghost"
-                disabled={isDisabled || isDeleted}
+                disabled={isDisabled || isDeleted || !isEditable}
                 icon="pencil"
                 onClick={onEdit}
                 data-testid="table-row-edit"
               />
             )}
-            {isDeletable && (
+            {actionsList.includes("deleteAction") && (
               <TableRowCloseButton
                 as={IconButton}
-                disabled={isDisabled}
+                disabled={isDisabled || !isDeletable}
                 $isDeleted={isDeleted}
                 type="ghost"
                 icon="cross"
@@ -502,6 +524,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       loading,
       noDataMessage,
       size = "sm",
+      showHeader = true,
+      rowHeight,
       ...props
     },
     ref
@@ -541,9 +565,17 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
       };
     const hasRows = rows.length > 0;
+    const actionsList: Array<string> = [];
+    if (isDeletable) {
+      actionsList.push("deleteAction");
+    }
+    if (isEditable) {
+      actionsList.push("editAction");
+    }
+
     return (
       <TableOuterContainer>
-        {hasRows && (
+        {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
               <Checkbox
@@ -559,15 +591,17 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             ref={ref}
             {...props}
           >
-            <Thead
-              headers={headers}
-              isSelectable={isSelectable}
-              onSelectAll={onSelectAll}
-              showActionsHeader={isDeletable || isEditable}
-              onSort={onSort}
-              hasRows={hasRows}
-              size={size}
-            />
+            {showHeader && (
+              <Thead
+                headers={headers}
+                isSelectable={isSelectable}
+                onSelectAll={onSelectAll}
+                actionsList={actionsList}
+                onSort={onSort}
+                hasRows={hasRows}
+                size={size}
+              />
+            )}
             <Tbody>
               {(loading || !hasRows) && (
                 <CustomTableRow
@@ -588,6 +622,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   isSelectable={isSelectable}
                   isSelected={selectedIds?.includes(id)}
                   onSelect={onRowSelect(id)}
+                  actionsList={actionsList}
                   onDelete={
                     isDeletable
                       ? () =>
@@ -601,6 +636,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                     isEditable ? () => onEdit({ id, ...rowProps }, rowIndex) : undefined
                   }
                   size={size}
+                  rowHeight={rowHeight}
                   {...rowProps}
                 />
               ))}
@@ -616,6 +652,7 @@ const StyledTable = styled.table`
   width: 100%;
   border-spacing: 0;
   overflow: hidden;
+  table-layout: fixed;
   ${({ theme }) => `
     border-radius: ${theme.click.table.radii.all};
     border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
@@ -623,6 +660,7 @@ const StyledTable = styled.table`
 
   @media (max-width: 768px) {
     border: none;
+    table-layout: auto;
   }
 `;
 
