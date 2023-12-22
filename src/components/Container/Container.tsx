@@ -24,7 +24,6 @@ export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   gap?: GapOptions;
   grow?: GrowShrinkOptions;
   shrink?: GrowShrinkOptions;
-  hasBorder?: boolean;
   isResponsive?: boolean;
   justifyContent?: JustifyContentOptions;
   maxWidth?: string;
@@ -41,7 +40,6 @@ const Container = ({
   gap = "none",
   grow = "1",
   shrink = "0",
-  hasBorder,
   isResponsive,
   justifyContent = "start",
   maxWidth,
@@ -58,7 +56,6 @@ const Container = ({
       $gapSize={gap}
       $grow={grow}
       $shrink={shrink}
-      $hasBorder={hasBorder}
       $isResponsive={isResponsive}
       $justifyContent={justifyContent}
       $maxWidth={maxWidth}
@@ -105,9 +102,6 @@ const Wrapper = styled.div<{
     $alignItems === "center" ? "center" : `${$alignItems}`};
   justify-content: ${({ $justifyContent = "left" }) =>
     $justifyContent === "start" ? "start" : `${$justifyContent}`};
-
-  /* Will remove before merging */
-  border: ${({ $hasBorder }) => ($hasBorder ? "1px solid red" : "none")};
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     width: ${({ $isResponsive = true, $fillWidth = true }) =>
