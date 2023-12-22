@@ -77,7 +77,6 @@ const Wrapper = styled.div<{
   $gapSize: GapOptions;
   $grow: GrowShrinkOptions;
   $shrink: GrowShrinkOptions;
-  $hasBorder?: boolean;
   $isResponsive?: boolean;
   $justifyContent: JustifyContentOptions;
   $maxWidth?: string;

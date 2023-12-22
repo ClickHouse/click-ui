@@ -523,7 +523,6 @@ const App = () => {
         <Spacer size="xxl" />
 
         <Container
-          hasBorder
           padding="lg"
           gap="md"
           orientation="vertical"
@@ -538,13 +537,13 @@ const App = () => {
             padding="none"
             fillWidth
           >
-            <Container hasBorder>
+            <Container>
               <InlineCodeBlock>1. default</InlineCodeBlock>
             </Container>
-            <Container hasBorder>
+            <Container>
               <InlineCodeBlock>2. default</InlineCodeBlock>
             </Container>
-            <Container hasBorder>
+            <Container>
               <InlineCodeBlock>3. default</InlineCodeBlock>
             </Container>
           </Container>
@@ -562,22 +561,13 @@ const App = () => {
             justifyContent="space-between"
             isResponsive={false}
           >
-            <Container
-              grow="0"
-              hasBorder
-            >
+            <Container grow="0">
               <InlineCodeBlock>4. grow="0"</InlineCodeBlock>
             </Container>
-            <Container
-              grow="0"
-              hasBorder
-            >
+            <Container grow="0">
               <InlineCodeBlock>5. grow="0"</InlineCodeBlock>
             </Container>
-            <Container
-              grow="0"
-              hasBorder
-            >
+            <Container grow="0">
               <InlineCodeBlock>6. grow="0"</InlineCodeBlock>
             </Container>
           </Container>
@@ -591,10 +581,7 @@ const App = () => {
             justifyContent="center"
             fillWidth
           >
-            <Container
-              grow="0"
-              hasBorder
-            >
+            <Container grow="0">
               <InlineCodeBlock>7. grow="0"</InlineCodeBlock>
             </Container>
           </Container>
