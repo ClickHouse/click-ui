@@ -144,6 +144,7 @@ const DismissWrapper = styled.button`
   border: none;
   background-color: transparent;
   color: inherit;
+  cursor: pointer;
 `;
 
 const DangerAlert = (props: AlertProps) => (
