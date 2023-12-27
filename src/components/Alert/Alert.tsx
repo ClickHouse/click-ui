@@ -46,7 +46,7 @@ const Alert = ({
       data-testid="click-alert"
       {...delegated}
     >
-      {dismissible && <DismissWrapper></DismissWrapper>}
+      {dismissible && type === "banner" && <DismissWrapper></DismissWrapper>}
       {showIcon && (
         <IconWrapper
           $state={state}
