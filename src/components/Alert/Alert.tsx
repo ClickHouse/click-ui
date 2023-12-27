@@ -3,7 +3,7 @@ import { IconName } from "@/components/Icon/types";
 import { useState, ReactNode } from "react";
 import styled from "styled-components";
 
-type AlertType = "default" | "banner"
+type AlertType = "default" | "banner";
 type AlertSize = "small" | "medium";
 type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
 export type AlertProps = {
@@ -46,6 +46,7 @@ const Alert = ({
       data-testid="click-alert"
       {...delegated}
     >
+      {dismissible && type === "banner" && <DismissWrapper></DismissWrapper>}
       {showIcon && (
         <IconWrapper
           $state={state}
@@ -89,16 +90,19 @@ const Wrapper = styled.div<{
 }>`
   display: flex;
   border-radius: ${({ $type, theme }) =>
-  $type === "banner" ? theme.sizes[0] : theme.click.alert.radii.end};
-  justify-content: ${({ $type }) =>
-  $type === "banner" ? "center" : "start"};
+    $type === "banner" ? theme.sizes[0] : theme.click.alert.radii.end};
+  justify-content: ${({ $type }) => ($type === "banner" ? "center" : "start")};
   overflow: hidden;
   background-color: ${({ $state = "neutral", theme }) =>
     theme.click.alert.color.background[$state]};
   color: ${({ $state = "neutral", theme }) => theme.click.alert.color.text[$state]};
 `;
 
-const IconWrapper = styled.div<{ $state: AlertState; $size: AlertSize; $type: AlertType }>`
+const IconWrapper = styled.div<{
+  $state: AlertState;
+  $size: AlertSize;
+  $type: AlertType;
+}>`
   display: flex;
   align-items: center;
   background-color: ${({ $state = "neutral", $type, theme }) =>
@@ -140,6 +144,7 @@ const DismissWrapper = styled.button`
   border: none;
   background-color: transparent;
   color: inherit;
+  cursor: pointer;
 `;
 
 const DangerAlert = (props: AlertProps) => (
