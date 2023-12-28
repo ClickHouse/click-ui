@@ -158,6 +158,7 @@ export const CardPrimary = ({
       $size={size}
       $disabled={disabled}
       $isSelected={isSelected}
+      tabIndex={0}
       {...props}
     >
       {(icon || title) && (

@@ -139,6 +139,7 @@ export const CardHorizontal = ({
       $disabled={disabled}
       $isSelected={isSelected}
       $color={color}
+      tabIndex={0}
       {...props}
     >
       {icon && (

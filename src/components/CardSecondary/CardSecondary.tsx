@@ -122,6 +122,7 @@ export const CardSecondary = ({
   return (
     <Wrapper
       $disabled={disabled}
+      tabIndex={0}
       $hasShadow={hasShadow}
     >
       <Header>
