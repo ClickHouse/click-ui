@@ -1,5 +1,6 @@
-import { ComponentType, HTMLAttributes } from "react";
+import { ComponentType, HTMLAttributes, KeyboardEventHandler, ReactNode } from "react";
 import { VariableSizeGridProps } from "react-window";
+import { ContextMenuItemProps } from "@/components";
 
 interface CellComponentProps extends HTMLAttributes<HTMLElement> {
   rowIndex?: number;
@@ -82,7 +83,11 @@ export type SelectedRegion =
 export type RoundedType = "none" | "lg" | "md" | "sm";
 
 export type KeyEventType = "keypress" | "click";
-export type onSelectFn = (props: SelectionAction) => void;
+export type onSelectFn = (
+  action: SelectionAction,
+  selction: SelectedRegion,
+  focus: SelectionFocus
+) => void;
 
 type IsAllSelectedType = {
   type: "all";
@@ -130,16 +135,26 @@ export interface ItemDataType {
   rowNumberWidth: number;
 }
 
+export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "children"> {
+  label: ReactNode;
+}
+
 export interface GridProps
   extends Omit<VariableSizeGridProps, "height" | "width" | "rowHeight" | "children"> {
+  rowStart?: number;
   rounded?: RoundedType;
   focus: SelectionFocus;
   rowHeight?: number;
   cell: CellProps;
   showHeader?: boolean;
   showRowNumber?: boolean;
-  headerHeight: number;
+  headerHeight?: number;
   onFocusChange: (rowIndex: number, columnIndex: number) => void;
   onSelect?: onSelectFn;
   onColumnResize: ColumnResizeFn;
+  getMenuOptions?: (
+    selection: SelectedRegion,
+    focus: SelectionFocus
+  ) => Array<GridContextMenuItemProps>;
+  onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
 }

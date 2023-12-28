@@ -1,5 +1,6 @@
 import {
   HTMLAttributes,
+  KeyboardEventHandler,
   MouseEventHandler,
   PointerEventHandler,
   ReactElement,
@@ -10,17 +11,19 @@ import {
   useState,
 } from "react";
 import { GridOnScrollProps, VariableSizeGrid } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
+import AutoSizer, { Size } from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
 import styled from "styled-components";
-import { GridProps, ItemDataType } from "./types";
+import { GridContextMenuItemProps, GridProps, ItemDataType, onSelectFn } from "./types";
 import { useSelectionActions } from "./useSelectionActions";
 import { useRefCallback } from "./useRefCallback";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { Cell } from "./Cell";
+import { ContextMenu } from "@/components";
 
 const NO_BUTTONS_PRESSED = 0;
+const RIGHT_BUTTON_PRESSED = 2;
 
 const GridContainer = styled.div`
   display: flex;
@@ -65,14 +68,21 @@ const GridDataContainer = styled.div<{ $top: number; $left: number }>`
     margin-left: ${$left}px;
   `}
 `;
+
+const ContextMenuTrigger = styled(ContextMenu.Trigger)`
+  outline: none;
+  height: 100%;
+  width: 100%;
+`;
+
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
-const emptyFn = () => null;
 
 export const Grid = forwardRef<VariableSizeGrid, GridProps>(
   (
     {
+      rowStart,
       showRowNumber = true,
       rounded = "none",
       showHeader = true,
@@ -82,15 +92,19 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       columnCount,
       columnWidth,
       onSelect: onSelectProp,
-      headerHeight,
+      headerHeight = 33,
       rowCount,
       cell,
       onColumnResize: onColumnResizeProp,
       onFocusChange: onFocusChangeProp,
+      getMenuOptions,
+      onKeyDown: onKeyDownProp,
       ...props
     },
     forwardedRed
   ) => {
+    const [menuOptions, setMenuOptions] = useState<Array<GridContextMenuItemProps>>([]);
+    const [contextMenuOpen, setContextMenuOpen] = useState(false);
     const [scrolledVertical, setScrolledVertical] = useState(false);
     const [scrolledHorizontal, setScrolledHorizontal] = useState(false);
     const dragState = useRef<number | false>(false);
@@ -107,7 +121,18 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       width: 0,
       height: 0,
     });
-    const onCellSelect = useRefCallback(onSelectProp ?? emptyFn);
+    const onCellSelect: onSelectFn = useCallback(
+      (action, selection, focus) => {
+        if (typeof onSelectProp === "function") {
+          onSelectProp(action, selection, focus);
+        }
+        if (typeof getMenuOptions === "function") {
+          setMenuOptions(getMenuOptions(selection, focus));
+        }
+      },
+      [getMenuOptions, onSelectProp]
+    );
+
     const onFocusRefChange = useRefCallback(onFocusChangeProp);
     const rowNumberWidth = 16 + rowCount; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount)
 
@@ -185,15 +210,31 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       [columnHorizontalPosition, rowNumberWidth]
     );
 
-    const { getSelectionType, onSelection, mouseMoveCellSelect, onKeyDown } =
-      useSelectionActions({
-        onCellSelect,
-        focus,
-        columnCount,
-        rowCount,
-        onFocusRefChange,
-        scrollGridTo,
-      });
+    const {
+      getSelectionType,
+      onSelection,
+      mouseMoveCellSelect,
+      onKeyDown: onKeyDownAction,
+    } = useSelectionActions({
+      onCellSelect,
+      focus,
+      columnCount,
+      rowCount,
+      onFocusRefChange,
+      scrollGridTo,
+    });
+
+    const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
+      e => {
+        if (typeof onKeyDownProp === "function") {
+          onKeyDownProp(e);
+        }
+        onKeyDownAction(e);
+        containerRef.current?.focus();
+      },
+      [onKeyDownAction, onKeyDownProp]
+    );
+
     const data: ItemDataType = {
       showRowNumber,
       cell,
@@ -254,6 +295,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 rounded={rounded}
                 getSelectionType={getSelectionType}
                 showHeader={showHeader}
+                rowStart={rowStart}
               />
             )}
 
@@ -289,11 +331,15 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         const target = (e.target as HTMLElement).closest(
           "[data-row][data-column]"
         ) as HTMLElement;
+
         if (
           !target ||
           target.dataset.row === undefined ||
           target.dataset.column === undefined
         ) {
+          return;
+        }
+        if (e.buttons === RIGHT_BUTTON_PRESSED && target.dataset.selected === "true") {
           return;
         }
 
@@ -305,6 +351,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           return;
         }
         const shiftKeyPressed = e.shiftKey;
+
         if (row === -1) {
           onSelection({
             type: shiftKeyPressed ? "shiftColumnSelection" : "columnSelection",
@@ -339,6 +386,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       },
       [onFocusRefChange, onSelection]
     );
+
     const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {
       dragState.current = e.pointerId;
     }, []);
@@ -355,12 +403,15 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       e => {
         if (containerRef.current) {
           containerRef.current.releasePointerCapture(e.pointerId);
-          containerRef.current.focus();
+          if (!contextMenuOpen) {
+            containerRef.current.focus();
+          }
         }
+
         dragState.current = false;
         onFocusRefChange(focus.row, focus.column);
       },
-      [focus.column, focus.row, onFocusRefChange]
+      [contextMenuOpen, focus.column, focus.row, onFocusRefChange]
     );
 
     const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -450,66 +501,79 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       setScrolledHorizontal(scrollLeft > 0);
     };
 
+    const onResize = useCallback(({ height, width }: Size) => {
+      setTimeout(() => {
+        if (!outerRef.current) {
+          return;
+        }
+
+        const { top, bottom, left, right } =
+          outerRef.current.getBoundingClientRect() ?? {};
+        elementBorderRef.current = {
+          top,
+          bottom,
+          left,
+          right,
+          scrollBarWidth: width - outerRef.current.clientWidth,
+          scrollBarHeight: height - outerRef.current.clientHeight,
+          width,
+          height,
+        };
+      }, 0);
+    }, []);
+
     return (
-      <div
-        ref={containerRef}
-        tabIndex={0}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onKeyDown={e => {
-          onKeyDown(e);
-          containerRef.current?.focus();
-        }}
-        onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        onPointerLeave={setPointerCapture}
-        onPointerEnter={setPointerCapture}
-        style={{ width: "100%", height: "100%" }}
+      <ContextMenu
+        modal={false}
+        onOpenChange={setContextMenuOpen}
       >
-        <AutoSizer
-          onResize={({ height, width }) => {
-            setTimeout(() => {
-              if (!outerRef.current) {
-                return;
-              }
-              const { top, bottom, left, right } =
-                outerRef.current.getBoundingClientRect() ?? {};
-              elementBorderRef.current = {
-                top,
-                bottom,
-                left,
-                right,
-                scrollBarWidth: width - outerRef.current.clientWidth,
-                scrollBarHeight: height - outerRef.current.clientHeight,
-                width,
-                height,
-              };
-            }, 0);
-          }}
+        <ContextMenuTrigger
+          ref={containerRef}
+          tabIndex={0}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onKeyDown={onKeyDown}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerLeave={setPointerCapture}
+          onPointerEnter={setPointerCapture}
+          onContextMenu={onMouseDown}
         >
-          {({ height, width }) => (
-            <VariableSizeGrid
-              ref={mergeRefs([forwardedRed, gridRef])}
-              height={height}
-              width={width}
-              columnCount={columnCount}
-              rowHeight={() => rowHeight}
-              useIsScrolling={useIsScrolling}
-              innerElementType={InnerElementType}
-              itemData={data}
-              initialScrollTop={0}
-              initialScrollLeft={0}
-              columnWidth={columnWidth}
-              rowCount={rowCount}
-              onScroll={onScroll}
-              outerRef={outerRef}
-              {...props}
+          <AutoSizer onResize={onResize}>
+            {({ height, width }) => (
+              <VariableSizeGrid
+                ref={mergeRefs([forwardedRed, gridRef])}
+                height={height}
+                width={width}
+                columnCount={columnCount}
+                rowHeight={() => rowHeight}
+                useIsScrolling={useIsScrolling}
+                innerElementType={InnerElementType}
+                itemData={data}
+                initialScrollTop={0}
+                initialScrollLeft={0}
+                columnWidth={columnWidth}
+                rowCount={rowCount}
+                onScroll={onScroll}
+                outerRef={outerRef}
+                {...props}
+              >
+                {Cell}
+              </VariableSizeGrid>
+            )}
+          </AutoSizer>
+        </ContextMenuTrigger>
+        <ContextMenu.Content>
+          {menuOptions.map((option, index) => (
+            <ContextMenu.Item
+              key={`grid-${index}`}
+              onSelect={option.onSelect}
             >
-              {Cell}
-            </VariableSizeGrid>
-          )}
-        </AutoSizer>
-      </div>
+              {option.label}
+            </ContextMenu.Item>
+          ))}
+        </ContextMenu.Content>
+      </ContextMenu>
     );
   }
 );

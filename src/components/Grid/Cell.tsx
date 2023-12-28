@@ -59,6 +59,8 @@ export const Cell = memo(
           rowIndex={rowIndex}
           columnIndex={columnIndex}
           type="row-cell"
+          data-selected={isFocused || selectionType === "selectDirect"}
+          data-focused={isFocused}
           $isSelectedTop={selectionBorderTop}
           $isSelectedLeft={selectionBorderLeft}
           $isFocused={isFocused}

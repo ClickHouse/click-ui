@@ -4,24 +4,27 @@ import { HorizontalDirection, Icon, IconName } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 import IconWrapper from "../IconWrapper/IconWrapper";
+import { forwardRef } from "react";
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
 
-const ContextMenuTrigger = ({
-  disabled,
-  ...props
-}: RightMenu.ContextMenuTriggerProps) => {
-  return (
-    <RightMenu.Trigger
-      asChild
-      disabled={disabled}
-    >
-      <div {...props} />
-    </RightMenu.Trigger>
-  );
-};
+const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTriggerProps>(
+  ({ disabled, ...props }, ref) => {
+    return (
+      <RightMenu.Trigger
+        asChild
+        disabled={disabled}
+      >
+        <div
+          ref={ref}
+          {...props}
+        />
+      </RightMenu.Trigger>
+    );
+  }
+);
 
 ContextMenuTrigger.displayName = "ContextMenuTrigger";
 ContextMenu.Trigger = ContextMenuTrigger;

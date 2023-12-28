@@ -1,5 +1,14 @@
-import React, { useCallback, useState } from "react";
-import { Grid, CellProps } from "..";
+import React, { KeyboardEventHandler, useCallback, useState } from "react";
+import {
+  Grid,
+  CellProps,
+  copyGridElements,
+  SelectedRegion,
+  SelectionFocus,
+  SelectionAction,
+  GridContextMenuItemProps,
+  createToast,
+} from "..";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   return (
@@ -9,10 +18,14 @@ const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props })
   );
 };
 const GridExample = () => {
+  const rowCount = 20,
+    columnCount = 20;
+
   const [focus, setFocus] = useState({
     row: 0,
     column: 0,
   });
+  const [selection, setSelection] = useState<SelectedRegion>({ type: "empty" });
   const [columnWidth, setColumnWidth] = useState<Array<number>>(
     Array.from({ length: 20 }, () => 100)
   );
@@ -23,11 +36,59 @@ const GridExample = () => {
     [columnWidth]
   );
 
+  const onCopy = async () => {
+    try {
+      await copyGridElements({
+        getElement: (rowIndex, columnIndex) => {
+          return `${rowIndex} ${columnIndex} - rowCell`;
+        },
+        selection,
+        focus,
+        rowCount,
+        columnCount,
+      });
+      createToast({
+        title: "Copied successfully",
+        description: "Now you can copy the content",
+        type: "success",
+      });
+    } catch (e) {
+      console.log(e);
+      createToast({
+        title: "Failed",
+        description: "Copy Failed",
+        type: "danger",
+      });
+    }
+  };
+  const getMenuOptions = (
+    selection: SelectedRegion,
+    focus: SelectionFocus
+  ): GridContextMenuItemProps[] => {
+    return [
+      {
+        label: "Copy",
+        onSelect: onCopy,
+      },
+      {
+        label: "Console log elements",
+        onSelect: () => {
+          console.log(selection, focus);
+        },
+      },
+    ];
+  };
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+      onCopy();
+    }
+  };
+
   return (
     <div style={{ height: 500, width: "100%" }}>
       <Grid
-        columnCount={20}
-        rowCount={20}
+        columnCount={columnCount}
+        rowCount={rowCount}
         columnWidth={getColumnWidth}
         focus={focus}
         cell={Cell}
@@ -41,6 +102,11 @@ const GridExample = () => {
             return [...columnWidths];
           });
         }}
+        onSelect={(_, selection) => {
+          setSelection(selection);
+        }}
+        getMenuOptions={getMenuOptions}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

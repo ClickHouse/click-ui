@@ -131,6 +131,7 @@ const Column = ({
         $height={height}
         data-row={-1}
         data-column={columnIndex}
+        data-selected={selectionType === "selectDirect"}
       />
       <ColumnResizer
         height={height}
@@ -194,6 +195,7 @@ const Header = ({
           $columnPosition={0}
         >
           <RowColumn
+            data-selected={selectedAllType === "selectDirect"}
             $type="header"
             $isFirstRow
             $isFirstColumn

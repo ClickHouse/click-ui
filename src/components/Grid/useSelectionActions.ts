@@ -178,14 +178,18 @@ export const useSelectionActions = ({
 
   const allSelect = useCallback(
     (action: AllSelection) => {
-      onCellSelect(action);
-      setSelection({
+      const newSelection: SelectedRegion = {
         type: "rows",
         rows: new Set(rangeIndices(0, rowCount - 1)),
         anchorRow: 0,
-      });
+      };
+      setSelection(newSelection);
       scrollGridTo({ row: 0, column: 0 });
       onFocusRefChange(0, 0);
+      onCellSelect(action, newSelection, {
+        row: 0,
+        column: 0,
+      });
     },
     [onCellSelect, onFocusRefChange, rowCount, scrollGridTo]
   );
@@ -193,17 +197,17 @@ export const useSelectionActions = ({
   const cellSelect = useCallback(
     (action: CellSelectionAction) => {
       const { row, column } = action;
-      onCellSelect(action);
       scrollGridTo({ row, column });
-      setSelection(selectCell(column, row));
+      const newSelection: SelectedRegion = selectCell(column, row);
+      setSelection(newSelection);
+      onCellSelect(action, newSelection, focus);
     },
-    [onCellSelect, scrollGridTo]
+    [focus, onCellSelect, scrollGridTo]
   );
 
   const shiftSelect = useCallback(
     (action: CellSelectionAction) => {
       const { row: rowIndex, column: columnIndex } = action;
-      onCellSelect(action);
       const newSelection = rectangleSelection(
         columnIndex,
         rowIndex,
@@ -212,55 +216,56 @@ export const useSelectionActions = ({
       );
       scrollGridTo({ row: rowIndex, column: columnIndex });
       setSelection(newSelection);
+      onCellSelect(action, newSelection, focus);
     },
-    [focus.column, focus.row, onCellSelect, scrollGridTo]
+    [focus, onCellSelect, scrollGridTo]
   );
 
   const rowSelect = useCallback(
     (action: RowSelectionAction) => {
       const rowIndex = action.row;
-      onCellSelect(action);
       const newSelection = rowSelection([rowIndex], rowIndex);
       scrollGridTo({ row: rowIndex });
       setSelection(newSelection);
+      onCellSelect(action, newSelection, focus);
     },
-    [onCellSelect, scrollGridTo]
+    [focus, onCellSelect, scrollGridTo]
   );
 
   const shiftRowSelect = useCallback(
     (action: RowSelectionAction) => {
       const rowIndex = action.row;
-      onCellSelect(action);
       const newSelection = rowSelection(rangeIndices(focus.row, rowIndex), rowIndex);
       scrollGridTo({ row: rowIndex });
       setSelection(newSelection);
+      onCellSelect(action, newSelection, focus);
     },
-    [focus.row, onCellSelect, scrollGridTo]
+    [focus, onCellSelect, scrollGridTo]
   );
 
   const columnSelect = useCallback(
     (action: ColumnSelectionAction) => {
       const columnIndex = action.column;
-      onCellSelect(action);
       const newSelection = columnSelection([columnIndex], columnIndex);
       scrollGridTo({ column: columnIndex });
       setSelection(newSelection);
+      onCellSelect(action, newSelection, focus);
     },
-    [onCellSelect, scrollGridTo]
+    [focus, onCellSelect, scrollGridTo]
   );
 
   const shiftColumnSelect = useCallback(
     (action: ColumnSelectionAction) => {
       const columnIndex = action.column;
-      onCellSelect(action);
       const newSelection = columnSelection(
         rangeIndices(focus.column, columnIndex),
         columnIndex
       );
+      onCellSelect(action, newSelection, focus);
       scrollGridTo({ column: columnIndex });
       setSelection(newSelection);
     },
-    [focus.column, onCellSelect, scrollGridTo]
+    [focus, onCellSelect, scrollGridTo]
   );
 
   const onSelection = useCallback(
@@ -344,7 +349,7 @@ export const useSelectionActions = ({
 
   const getSelectionType = (args: IsSelectedType): SelectionType => {
     if (args.type === "all") {
-      const isSelected = cellRectSelected(selection, 0, 0, columnCount, rowCount);
+      const isSelected = cellRectSelected(selection, 0, 0, columnCount - 1, rowCount - 1);
       return isSelected ? "selectDirect" : "default";
     }
 
@@ -383,6 +388,10 @@ export const useSelectionActions = ({
       }
     }
 
+    if (selection.type === "columns") {
+      return "default";
+    }
+
     return "selectIndirect";
   };
 
@@ -395,8 +404,8 @@ export const useSelectionActions = ({
     [clearSelection, focus, onFocusRefChange, scrollGridTo]
   );
 
-  const onKeyDown = useCallback(
-    async (e: React.KeyboardEvent) => {
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
+    async e => {
       e.preventDefault();
       e.stopPropagation();
       const moveAnchor = e.shiftKey;
