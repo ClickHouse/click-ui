@@ -92,6 +92,10 @@ export const GenericMenuItem = styled.div`
     font: ${theme.click.genericMenu.item.typography.label.default};
     background: ${theme.click.genericMenu.item.color.background.default};
     color: ${theme.click.genericMenu.item.color.text.default};
+    a {
+      color: ${theme.click.genericMenu.item.color.text.default}; 
+      text-decoration: none;
+    }
     &[data-highlighted] {
       font: ${theme.click.genericMenu.item.typography.label.hover};
       background: ${theme.click.genericMenu.item.color.background.hover};
@@ -102,18 +106,22 @@ export const GenericMenuItem = styled.div`
       background:${theme.click.genericMenu.item.color.background.active};
       color:${theme.click.genericMenu.item.color.text.active};
       font: ${theme.click.genericMenu.item.typography.label.active};
+      &:hover {
+        background: ${theme.click.genericMenu.item.color.background.hover};
+      }
     }
     &[data-disabled] {
       background:${theme.click.genericMenu.item.color.background.disabled};
       color:${theme.click.genericMenu.item.color.text.disabled};
       font: ${theme.click.genericMenu.item.typography.label.disabled};
       pointer-events: none;
+      cursor: not-allowed;
+      a {
+        color:${theme.click.genericMenu.item.color.text.disabled};
+      }
     }
     &:visited {
       color: ${theme.click.genericMenu.item.color.text.default};
-      a {
-        color: ${theme.click.genericMenu.item.color.text.default}; 
-      }
     }
   `};
   position: relative;
