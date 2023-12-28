@@ -104,6 +104,8 @@ const Wrapper = styled.div<{
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     width: ${({ $isResponsive = true, $fillWidth = true }) =>
       $isResponsive === true ? "100%" : $fillWidth === true ? "100%" : "auto"};
+    max-width: ${({ $isResponsive = true }) =>
+      $isResponsive === true ? "none" : "auto"};
     flex-direction: ${({ $isResponsive = true }) =>
       $isResponsive === true ? "column" : "auto"};
   }
