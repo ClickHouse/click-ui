@@ -93,7 +93,6 @@ const Wrapper = styled.div<{
   max-width: ${({ $maxWidth = "100%" }) => ($maxWidth === "" ? "none" : `${$maxWidth}`)};
   min-width: ${({ $minWidth = "auto" }) => ($minWidth === "" ? "none" : `${$minWidth}`)};
   padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
-  background-color: ${({ theme }) => theme.click.global.color.background.muted};
   width: ${({ $fillWidth = true }) => ($fillWidth === true ? "100%" : "auto")};
   flex-direction: ${({ $orientation = "horizontal" }) =>
     $orientation === "horizontal" ? "row" : "column"};

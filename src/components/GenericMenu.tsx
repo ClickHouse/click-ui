@@ -111,6 +111,9 @@ export const GenericMenuItem = styled.div`
     }
     &:visited {
       color: ${theme.click.genericMenu.item.color.text.default};
+      a {
+        color: ${theme.click.genericMenu.item.color.text.default}; 
+      }
     }
   `};
   position: relative;
