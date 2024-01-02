@@ -48,7 +48,7 @@ export const Collapsible = ({
   }, [openProp]);
 
   const value = {
-    open,
+    open: openProp ?? open,
     onOpenChange,
   };
   return (
@@ -61,6 +61,7 @@ export const Collapsible = ({
 const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: HorizontalDirection }>`
   margin-left: ${({ theme, $indicatorDir }) =>
     $indicatorDir === "start" ? 0 : theme.click.image.sm.size.width};
+  user-select: none;
 `;
 
 interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -78,36 +79,36 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
       iconDir,
       children,
       wrapInTrigger,
+      onClick: onClickProp,
       ...props
     }: CollapsipleHeaderProps,
     ref
   ) => {
+    const { onOpenChange } = useContext(NavContext);
     return (
       <CollapsipleHeaderContainer
         $indicatorDir={indicatorDir}
         ref={ref}
+        onClick={e => {
+          if (wrapInTrigger && typeof onOpenChange === "function") {
+            onOpenChange();
+          }
+          if (typeof onClickProp === "function") {
+            onClickProp(e);
+          }
+        }}
         {...props}
       >
-        {wrapInTrigger ? (
-          <Collapsible.Trigger
+        {indicatorDir === "start" && <Collapsible.Trigger />}
+        {children && (
+          <IconWrapper
             icon={icon}
             iconDir={iconDir}
-            children={children}
-          />
-        ) : (
-          <>
-            {indicatorDir === "start" && <Collapsible.Trigger />}
-            {children && (
-              <IconWrapper
-                icon={icon}
-                iconDir={iconDir}
-              >
-                {children}
-              </IconWrapper>
-            )}
-            {indicatorDir === "end" && <Collapsible.Trigger />}
-          </>
+          >
+            {children}
+          </IconWrapper>
         )}
+        {indicatorDir === "end" && <Collapsible.Trigger />}
       </CollapsipleHeaderContainer>
     );
   }
