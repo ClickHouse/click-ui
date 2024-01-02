@@ -1,11 +1,10 @@
-import React, { KeyboardEventHandler, useCallback, useState } from "react";
+import { KeyboardEventHandler, useCallback, useState } from "react";
 import {
   Grid,
   CellProps,
   copyGridElements,
   SelectedRegion,
   SelectionFocus,
-  SelectionAction,
   GridContextMenuItemProps,
   createToast,
 } from "..";

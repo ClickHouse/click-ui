@@ -86,6 +86,7 @@ const RowNumber = ({
       data-selected={isSelected}
       data-row={row}
       data-column={-1}
+      data-testid={`header-cell-${row}-x`}
     >
       {row}
     </RowNumberCell>

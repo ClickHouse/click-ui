@@ -140,7 +140,17 @@ export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "ch
 }
 
 export interface GridProps
-  extends Omit<VariableSizeGridProps, "height" | "width" | "rowHeight" | "children"> {
+  extends Omit<
+    VariableSizeGridProps,
+    | "height"
+    | "width"
+    | "rowHeight"
+    | "children"
+    | "innerElementType"
+    | "innerRef"
+    | "outerElementType"
+    | "outerRef"
+  > {
   rowStart?: number;
   rounded?: RoundedType;
   focus: SelectionFocus;

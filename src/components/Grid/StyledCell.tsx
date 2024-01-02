@@ -21,6 +21,7 @@ export const StyledCell = styled.div<{
   white-space: nowrap;
   cursor: default;
   width: 100%;
+  box-sizing: border-box;
   ${({
     theme,
     $isFocused,

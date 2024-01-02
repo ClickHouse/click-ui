@@ -79,6 +79,14 @@ interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
 
+const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
+  <div
+    ref={ref}
+    data-testid="grid-outer-element"
+    {...props}
+  />
+));
+
 export const Grid = forwardRef<VariableSizeGrid, GridProps>(
   (
     {
@@ -134,7 +142,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     );
 
     const onFocusRefChange = useRefCallback(onFocusChangeProp);
-    const rowNumberWidth = 16 + rowCount; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount)
+    const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
     const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<
       Array<number>
@@ -509,6 +517,16 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         const { top, bottom, left, right } =
           outerRef.current.getBoundingClientRect() ?? {};
+        console.log("asasasas", {
+          top,
+          bottom,
+          left,
+          right,
+          scrollBarWidth: width - outerRef.current.clientWidth,
+          scrollBarHeight: height - outerRef.current.clientHeight,
+          width,
+          height,
+        });
         elementBorderRef.current = {
           top,
           bottom,
@@ -556,6 +574,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 rowCount={rowCount}
                 onScroll={onScroll}
                 outerRef={outerRef}
+                outerElementType={OuterElementType}
                 {...props}
               >
                 {Cell}
