@@ -3,7 +3,10 @@ import { Label } from "@/components";
 import styled from "styled-components";
 import { ReactNode } from "react";
 
-const Wrapper = styled.div<{ $error: boolean }>`
+const Wrapper = styled.div<{
+  $error: boolean;
+  $resize: "none" | "vertical" | "horizontal" | "both";
+}>`
   width: inherit;
   display: flex;
   align-items: center;
@@ -17,7 +20,7 @@ const Wrapper = styled.div<{ $error: boolean }>`
     text-overflow: ellipsis;
   }
 
-  ${({ theme, $error }) => `
+  ${({ theme, $error, $resize }) => `
     gap: ${theme.click.field.space.gap};
     border-radius: ${theme.click.field.radii.all};
     font: ${theme.click.field.typography.fieldText.default};
@@ -29,8 +32,19 @@ const Wrapper = styled.div<{ $error: boolean }>`
       background: ${theme.click.field.color.background.hover};
       color: ${theme.click.field.color.text.hover};
     }
-    & > input {
+    & > input, & > textarea {
       padding: ${theme.click.field.space.y} 0;
+    }
+    ${
+      $resize === "none"
+        ? ""
+        : `
+      resize: ${$resize};
+      overflow: auto;
+      & > input, & > textarea {
+        align-self: stretch;
+      }
+    `
     }
     padding: 0 ${theme.click.field.space.x};
     ${
@@ -72,6 +86,7 @@ export interface WrapperProps {
   children: ReactNode;
   orientation?: "vertical" | "horizontal";
   dir?: "start" | "end";
+  resize?: "none" | "vertical" | "horizontal" | "both";
 }
 
 export const InputWrapper = ({
@@ -82,6 +97,7 @@ export const InputWrapper = ({
   children,
   orientation,
   dir,
+  resize = "none",
 }: WrapperProps) => {
   return (
     <FormRoot
@@ -90,7 +106,13 @@ export const InputWrapper = ({
       $addLabelPadding
     >
       <FormElementContainer>
-        <Wrapper $error={!!error}>{children}</Wrapper>
+        <Wrapper
+          $error={!!error}
+          $resize={resize}
+          data-resize={resize}
+        >
+          {children}
+        </Wrapper>
         {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
@@ -127,6 +149,7 @@ export const TextAreaElement = styled.textarea`
   width: 100%;
   color: inherit;
   font: inherit;
+  resize: none;
   ${({ theme }) => `
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
@@ -134,6 +157,11 @@ export const TextAreaElement = styled.textarea`
   `}
 `;
 
+export const TextAreaWrapper = styled(InputWrapper)`
+  resize: vertical;
+  overflow: auto;
+  color: red;
+`;
 
 export const IconButton = styled.button<{ $show?: boolean }>`
   background: transparent;
