@@ -493,7 +493,7 @@ export const AutoComplete = ({
         <PopoverContent
           sideOffset={5}
           onFocus={onFocus}
-          onCloseAutoFocus={e => {
+          onCloseAutoFocus={() => {
             onUpdateSearch("");
             inputRef.current?.focus();
           }}
