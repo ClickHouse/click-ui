@@ -36,6 +36,7 @@ export const ConfirmationDialog = ({
   onConfirm,
   children,
   showClose,
+  ...props
 }: ConfirmationDialogProps): ReactElement => {
   if (children && message) {
     throw new Error("You can't pass children and message props at the same time");
@@ -51,6 +52,7 @@ export const ConfirmationDialog = ({
       <Dialog.Content
         title={title}
         showClose={showClose}
+        {...props}
       >
         {children ? children : <Text>{message}</Text>}
         <Separator size="xl" />
