@@ -230,6 +230,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       rowCount,
       onFocusRefChange,
       scrollGridTo,
+      rowStart,
     });
 
     const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(

@@ -1,4 +1,4 @@
-import { KeyboardEventHandler, useCallback, useState } from "react";
+import { KeyboardEventHandler, useCallback, useEffect, useState } from "react";
 
 import {
   SelectionAction,
@@ -26,6 +26,7 @@ interface Props {
   rowCount: number;
   onFocusRefChange: (rowIndex: number, columnIndex: number) => void;
   scrollGridTo: (props: { row?: number; column?: number }) => void;
+  rowStart: number;
 }
 
 interface SelectionActions {
@@ -161,6 +162,7 @@ export const useSelectionActions = ({
   rowCount,
   onFocusRefChange,
   scrollGridTo,
+  rowStart,
 }: Props): SelectionActions => {
   const [selection, setSelection] = useState<SelectedRegion>({
     type: "empty",
@@ -403,6 +405,11 @@ export const useSelectionActions = ({
     },
     [clearSelection, focus, onFocusRefChange, scrollGridTo]
   );
+
+  useEffect(() => {
+    clearSelectionAndFocus(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowStart]);
 
   const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
     async e => {
