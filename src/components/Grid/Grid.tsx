@@ -90,7 +90,7 @@ const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
 export const Grid = forwardRef<VariableSizeGrid, GridProps>(
   (
     {
-      rowStart,
+      rowStart = 0,
       showRowNumber = true,
       rounded = "none",
       showHeader = true,
