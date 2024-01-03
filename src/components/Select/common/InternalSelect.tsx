@@ -47,30 +47,10 @@ import { mergeRefs } from "@/utils/mergeRefs";
 import { GenericMenuItem } from "@/components/GenericMenu";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
 import styled from "styled-components";
+import { getTextFromNodes } from "@/lib/getTextFromNodes";
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
-};
-
-const getTextFromNodes = (node: ReactNode): string => {
-  if (node === null) {
-    return "";
-  }
-
-  if (typeof node === "string") {
-    return node;
-  }
-
-  if (Array.isArray(node)) {
-    return node.map(getTextFromNodes).join(" ");
-  }
-
-  if (isValidElement(node)) {
-    const children = Children.toArray(node.props.children);
-    return children.map(getTextFromNodes).join(" ");
-  }
-
-  return "";
 };
 
 const childrenToComboboxItemArray = (

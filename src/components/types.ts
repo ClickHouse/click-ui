@@ -12,6 +12,7 @@ import { PasswordFieldProps } from "./Input/PasswordField";
 import { NumberFieldProps } from "./Input/NumberField";
 import { LabelProps } from "./Label/Label";
 import { HoverCardProps } from "@radix-ui/react-hover-card";
+import { ContainerProps } from "./Container/Container";
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
 import { CheckboxProps } from "./Checkbox/Checkbox";
 import { CardPrimaryProps } from "./CardPrimary/CardPrimary";
@@ -51,6 +52,10 @@ export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
 export type Orientation = "horizontal" | "vertical";
 export type { FormContainerProps } from "./FormContainer/FormContainer";
+export type {
+  AutoCompleteProps,
+  AutoCompleteOptionListItem,
+} from "./AutoComplete/AutoComplete";
 
 export type { IconButtonProps };
 export type { AlertProps };
@@ -61,6 +66,7 @@ export type { ButtonProps };
 export type { CardSecondaryProps, BadgeState };
 export type { CardPrimaryProps };
 export type { CheckboxProps };
+export type { ContainerProps};
 export type { ContextMenuProps };
 export type { HoverCardProps };
 export type { LabelProps };

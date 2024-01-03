@@ -5,6 +5,7 @@ import {
   MouseEvent,
   useContext,
   useEffect,
+  forwardRef,
 } from "react";
 import styled from "styled-components";
 import { Icon, HorizontalDirection, IconName } from "@/components";
@@ -69,42 +70,48 @@ interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
   wrapInTrigger?: boolean;
 }
 
-const CollapsipleHeader = ({
-  indicatorDir = "start",
-  icon,
-  iconDir,
-  children,
-  wrapInTrigger,
-  ...props
-}: CollapsipleHeaderProps) => {
-  return (
-    <CollapsipleHeaderContainer
-      $indicatorDir={indicatorDir}
-      {...props}
-    >
-      {wrapInTrigger ? (
-        <Collapsible.Trigger
-          icon={icon}
-          iconDir={iconDir}
-          children={children}
-        />
-      ) : (
-        <>
-          {indicatorDir === "start" && <Collapsible.Trigger />}
-          {children && (
-            <IconWrapper
-              icon={icon}
-              iconDir={iconDir}
-            >
-              {children}
-            </IconWrapper>
-          )}
-          {indicatorDir === "end" && <Collapsible.Trigger />}
-        </>
-      )}
-    </CollapsipleHeaderContainer>
-  );
-};
+const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
+  (
+    {
+      indicatorDir = "start",
+      icon,
+      iconDir,
+      children,
+      wrapInTrigger,
+      ...props
+    }: CollapsipleHeaderProps,
+    ref
+  ) => {
+    return (
+      <CollapsipleHeaderContainer
+        $indicatorDir={indicatorDir}
+        ref={ref}
+        {...props}
+      >
+        {wrapInTrigger ? (
+          <Collapsible.Trigger
+            icon={icon}
+            iconDir={iconDir}
+            children={children}
+          />
+        ) : (
+          <>
+            {indicatorDir === "start" && <Collapsible.Trigger />}
+            {children && (
+              <IconWrapper
+                icon={icon}
+                iconDir={iconDir}
+              >
+                {children}
+              </IconWrapper>
+            )}
+            {indicatorDir === "end" && <Collapsible.Trigger />}
+          </>
+        )}
+      </CollapsipleHeaderContainer>
+    );
+  }
+);
 
 CollapsipleHeader.displayName = "CollapsibleHeader";
 Collapsible.Header = CollapsipleHeader;

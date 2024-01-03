@@ -10,7 +10,7 @@ export type TextColor = "default" | "muted";
 export type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 
-export interface TextProps<T extends ElementType> {
+export interface TextProps<T extends ElementType | undefined> {
   color?: TextColor;
   size?: TextSize;
   weight?: TextWeight;
@@ -33,7 +33,7 @@ const _Text = forwardRef(
     ref: ComponentPropsWithRef<T>["ref"]
   ) => (
     <CuiText
-      as={component}
+      as={component ?? "p"}
       ref={ref}
       $color={color}
       $size={size}

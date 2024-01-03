@@ -7,6 +7,7 @@ export { Dropdown } from "./Dropdown/Dropdown";
 
 export { Accordion } from "./Accordion/Accordion";
 export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "./Alert/Alert";
+export { AutoComplete } from "./AutoComplete/AutoComplete";
 export { Avatar } from "./Avatar/Avatar";
 export { Badge } from "./Badge/Badge";
 export { BigStat } from "./BigStat/BigStat";
@@ -18,6 +19,7 @@ export { CardHorizontal } from "./CardHorizontal/CardHorizontal";
 export { CardPromotion } from "./CardPromotion/CardPromotion";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { CodeBlock } from "./CodeBlock/CodeBlock";
+export { Container } from "./Container/Container";
 export { Dialog } from "./Dialog/Dialog";
 export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export type PanelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 export type PanelColor = "default" | "muted" | "transparent";
-export type PanelRadii = "none" |"sm" | "md" | "lg"
+export type PanelRadii = "none" | "sm" | "md" | "lg";
 type AlignItemsOption = "start" | "center" | "end";
 
 export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
