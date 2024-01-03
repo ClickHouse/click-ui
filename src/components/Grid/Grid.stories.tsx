@@ -130,12 +130,43 @@ export const Playground = {
   args: {
     rowCount: 120,
     columnCount: 200,
-    cell: Cell,
-
     rowStart: 0,
     focus: {
       row: 0,
       column: 0,
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
+          const { focus, ...props } = story.args;
+          return `const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
+  return (
+    <div {...props}>
+      {rowIndex} {columnIndex} - {type}
+    </div>
+  );
+};
+
+<Grid\n  cell={Cell}\n  focus={{ row: ${focus.row}, column: ${
+            focus.column
+          } }}// this value changes with onFocusChange and would be updated (user has control over it)\n  columnWidth={getColumnWidth}// this determines the
+  onFocusChange={(row: number, column: number) => {}}// change focus and update state
+  onColumnResize={(columnIndex: number, newWidth: number): void => {}}// update columnWidth using this function on resize
+  getMenuOptions={getMenuOptions}\n${Object.entries(props)
+    .flatMap(([key, value]) =>
+      typeof value === "boolean"
+        ? value
+          ? `  ${key}`
+          : []
+        : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
+    )
+    .join("\n")}
+/>
+`;
+        },
+      },
     },
   },
 };
