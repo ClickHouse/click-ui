@@ -38,7 +38,7 @@ const Container = ({
   children,
   fillWidth = false,
   gap = "none",
-  grow = "1",
+  grow = "0",
   shrink = "0",
   isResponsive,
   justifyContent = "start",
@@ -86,18 +86,17 @@ const Wrapper = styled.div<{
   $wrap: WrapOptions;
 }>`
   display: flex;
-  flex-grow: ${({ $grow = "1" }) => ($grow === "1" ? "1" : `${$grow}`)};
-  flex-shrink: ${({ $shrink = "0" }) => ($shrink === "0" ? "0" : `${$shrink}`)};
-  flex-wrap: ${({ $wrap = "nowrap" }) => ($wrap === "nowrap" ? "nowrap" : `${$wrap}`)};
+  flex-grow: ${({ $grow = "1" }) => $grow};
+  flex-shrink: ${({ $shrink = "0" }) => $shrink};
+  flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
-  max-width: ${({ $maxWidth = "100%" }) => ($maxWidth === "" ? "none" : `${$maxWidth}`)};
-  min-width: ${({ $minWidth = "auto" }) => ($minWidth === "" ? "none" : `${$minWidth}`)};
+  max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
+  min-width: ${({ $minWidth }) => $minWidth ?? "none"};
   padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
   width: ${({ $fillWidth = true }) => ($fillWidth === true ? "100%" : "auto")};
   flex-direction: ${({ $orientation = "horizontal" }) =>
     $orientation === "horizontal" ? "row" : "column"};
-  align-items: ${({ $alignItems = "center" }) =>
-    $alignItems === "center" ? "center" : `${$alignItems}`};
+  align-items: ${({ $alignItems = "center" }) => $alignItems};
   justify-content: ${({ $justifyContent = "left" }) =>
     $justifyContent === "start" ? "start" : `${$justifyContent}`};
 
