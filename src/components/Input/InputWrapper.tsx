@@ -32,18 +32,12 @@ const Wrapper = styled.div<{
       background: ${theme.click.field.color.background.hover};
       color: ${theme.click.field.color.text.hover};
     }
-    & > input, & > textarea {
-      padding: ${theme.click.field.space.y} 0;
-    }
     ${
       $resize === "none"
         ? ""
         : `
       resize: ${$resize};
       overflow: auto;
-      & > input, & > textarea {
-        align-self: stretch;
-      }
     `
     }
     padding: 0 ${theme.click.field.space.x};
@@ -136,6 +130,7 @@ export const InputElement = styled.input`
   color: inherit;
   font: inherit;
   ${({ theme }) => `
+    padding: ${theme.click.field.space.y} 0;
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
     }
@@ -151,6 +146,8 @@ export const TextAreaElement = styled.textarea`
   font: inherit;
   resize: none;
   ${({ theme }) => `
+    padding: ${theme.click.field.space.y} 0;
+    align-self: stretch;
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
     }
