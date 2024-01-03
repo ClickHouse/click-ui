@@ -15,7 +15,6 @@ export interface TextAreaFieldProps
   dir?: "start" | "end";
 }
 
-
 export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
   (
     {
@@ -46,6 +45,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>
         error={error}
         orientation={orientation}
         dir={dir}
+        resize="vertical"
       >
         <TextAreaElement
           ref={mergeRefs([inputRef, ref])}
