@@ -52,6 +52,7 @@ import Download from "@/components/icons/Download";
 import DownloadInCircle from "@/components/icons/DownloadInCircle";
 import Email from "@/components/icons/Email";
 import Empty from "@/components/icons/Empty";
+import Enter from "@/components/icons/Enter";
 import Fire from "@/components/icons/Fire";
 import FolderOpen from "@/components/icons/FolderOpen";
 import FolderClosed from "@/components/icons/FolderClosed";
@@ -176,6 +177,7 @@ export const ICONS_MAP = {
   "download-in-circle": DownloadInCircle,
   email: Email,
   empty: Empty,
+  enter: Enter,
   eye: Eye,
   "eye-closed": EyeClosed,
   filter: FilterIcon,
