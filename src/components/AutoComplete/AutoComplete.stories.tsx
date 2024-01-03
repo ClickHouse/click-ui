@@ -15,14 +15,17 @@ const SelectExample = ({ childrenType, value, ...props }: Props) => {
     return (
       <AutoComplete
         value={selectedValue}
-        onSelect={value => setSelectedValue(value)}
+        onSelect={setSelectedValue}
         options={selectOptions}
         {...props}
       />
     );
   }
   return (
-    <AutoComplete {...props}>
+    <AutoComplete
+      onSelect={setSelectedValue}
+      {...props}
+    >
       <AutoComplete.Group heading="Group label">
         <AutoComplete.Item
           value="content0"

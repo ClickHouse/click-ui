@@ -467,6 +467,21 @@ export const AutoComplete = ({
     }
   };
 
+  const onFocusOutside = (
+    e: CustomEvent<{
+      originalEvent: FocusEvent;
+    }>
+  ) => {
+    const contentElement = (e.target as HTMLElement)?.closest("[aria-haspopup=dialog]");
+    const triggerElement = (e.target as HTMLElement)?.closest(
+      "[data-radix-popper-content-wrapper]"
+    );
+
+    if (contentElement || triggerElement) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <SelectPopoverRoot
       open={open}
@@ -503,6 +518,10 @@ export const AutoComplete = ({
             inputRef.current?.focus();
           }}
           align="start"
+          onPointerDownOutside={() => {
+            onOpenChange(false);
+          }}
+          onFocusOutside={onFocusOutside}
         >
           <SelectList>
             <SelectListContent>
