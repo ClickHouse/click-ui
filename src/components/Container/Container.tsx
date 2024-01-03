@@ -38,7 +38,7 @@ const Container = ({
   children,
   fillWidth = false,
   gap = "none",
-  grow = "1",
+  grow = "0",
   shrink = "0",
   isResponsive,
   justifyContent = "start",
