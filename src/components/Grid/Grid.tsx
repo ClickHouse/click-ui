@@ -69,7 +69,7 @@ const GridDataContainer = styled.div<{ $top: number; $left: number }>`
   `}
 `;
 
-const ContextMenuTrigger = styled(ContextMenu.Trigger)`
+const ContextMenuTrigger = styled.div`
   outline: none;
   height: 100%;
   width: 100%;
@@ -546,6 +546,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         onOpenChange={setContextMenuOpen}
       >
         <ContextMenuTrigger
+          as={ContextMenu.Trigger}
           ref={containerRef}
           tabIndex={0}
           onMouseDown={onMouseDown}

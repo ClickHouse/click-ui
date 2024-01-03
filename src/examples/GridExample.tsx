@@ -11,7 +11,10 @@ import {
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   return (
-    <div {...props}>
+    <div
+      data-scrolling={isScrolling}
+      {...props}
+    >
       {rowIndex} {columnIndex} - {type}
     </div>
   );

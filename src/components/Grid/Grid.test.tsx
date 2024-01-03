@@ -1,16 +1,13 @@
 import "@testing-library/jest-dom";
 import { CellProps, Grid, GridProps } from "@/components";
-import { fireEvent } from "@testing-library/react";
 import { renderCUI } from "@/utils/test-utils";
 import { SelectionFocus } from "./types";
-import { screen } from "@testing-library/dom";
 import { ReactNode } from "react";
-import userEvent from "@testing-library/user-event";
-// import userEvent from "@testing-library/user-event";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   return (
     <div
+      data-scrolling={isScrolling}
       {...props}
       data-testid={`${type}-${rowIndex ?? "x"}-${columnIndex ?? "x"}`}
     >
@@ -53,7 +50,7 @@ describe("Grid", () => {
   const onColumnResizeTestFn = jest.fn();
   const onFocusChangeTestFn = jest.fn();
   const getMenuOptions = jest.fn();
-  const columnWidthTestFn = (_: number) => {
+  const columnWidthTestFn = () => {
     return 100;
   };
 
