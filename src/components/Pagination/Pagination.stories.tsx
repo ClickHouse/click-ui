@@ -4,6 +4,11 @@ export default {
   component: Pagination,
   title: "Display/Pagination",
   tags: ["pagination", "autodocs"],
+  argTypes: {
+    rowCount: {
+      control: { type: "text" },
+    },
+  },
 };
 
 export const Playground = {

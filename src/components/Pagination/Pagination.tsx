@@ -7,6 +7,7 @@ import {
   Select,
   Text,
 } from "@/components";
+import styled from "styled-components";
 
 export interface PaginationProps extends Omit<ContainerProps, "children" | "onChange"> {
   totalPages?: number;
@@ -17,11 +18,14 @@ export interface PaginationProps extends Omit<ContainerProps, "children" | "onCh
   onPageSizeChange?: (pageNumber: number) => void;
   pageSize?: number;
 }
+const CustomSelect = styled.div`
+  width: 150px;
+`;
 
 export const Pagination = ({
   totalPages,
   currentPage,
-  options,
+  options = [],
   rowCount,
   onChange: onChangeProp,
   onPageSizeChange: onPageSizeChangeProp,
@@ -49,10 +53,12 @@ export const Pagination = ({
   return (
     <Container
       gap="md"
-      justifyContent="space-between"
+      justifyContent={rowCount || options.length > 0 ? "space-between" : "center"}
       {...props}
     >
-      {rowCount && <Text component="div">{rowCount} rows</Text>}
+      {["number", "string"].includes(typeof rowCount) && (
+        <Text component="div">{rowCount} rows</Text>
+      )}
       <Container gap="md">
         <IconButton
           icon="chevron-left"
@@ -78,8 +84,9 @@ export const Pagination = ({
           data-testid="next-btn"
         />
       </Container>
-      {options && options.length > 0 && (
-        <Select
+      {options.length > 0 && (
+        <CustomSelect
+          as={Select}
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
         >
@@ -92,7 +99,7 @@ export const Pagination = ({
               {option} rows
             </Select.Item>
           ))}
-        </Select>
+        </CustomSelect>
       )}
     </Container>
   );
