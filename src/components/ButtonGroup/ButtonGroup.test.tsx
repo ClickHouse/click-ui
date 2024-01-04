@@ -1,6 +1,7 @@
 import { fireEvent } from "@testing-library/react";
 import { ButtonGroup, ButtonGroupProps } from "./ButtonGroup";
 import { renderCUI } from "@/utils/test-utils";
+import "@testing-library/jest-dom";
 
 describe("ButtonGroup", () => {
   const renderButtonGroup = (props: ButtonGroupProps) =>
@@ -33,14 +34,15 @@ describe("ButtonGroup", () => {
     expect(counter).toEqual(1);
   });
 
-  it("adds 'active' class to the active button", () => {
+  it("adds 'aria-pressed' attr to the active/pressed button", () => {
     const { getByText } = renderButtonGroup({
       options,
       selected: "option2",
     });
 
     const activeButton = getByText("Option 2");
-
-    expect(activeButton).active == true;
+    expect(activeButton).toHaveAttribute("aria-pressed", "true");
+    const inactiveButton = getByText("Option 1");
+    expect(inactiveButton).toHaveAttribute("aria-pressed", "false");
   });
 });
