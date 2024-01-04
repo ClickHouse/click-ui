@@ -504,7 +504,7 @@ const CustomTableRow = ({
         colSpan={colSpan}
       >
         <CustomTableDataMessage>
-          {loading ? <LoadingData /> : noDataMessage ?? "No Data avaialble"}
+          {loading ? <LoadingData /> : noDataMessage ?? "No Data available"}
         </CustomTableDataMessage>
       </SpanedTableData>
     </TableRow>
