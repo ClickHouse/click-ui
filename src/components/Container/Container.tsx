@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { HTMLAttributes } from "react";
 import { Orientation } from "@/components";
 
-type AlignItemsOptions = "start" | "center" | "end";
+type AlignItemsOptions = "start" | "center" | "end" | "stretch";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type GrowShrinkOptions = "0" | "1" | "2" | "3" | "4" | "5" | "6";
 type JustifyContentOptions =

@@ -64,6 +64,7 @@ const preview: Preview = {
           "Introduction",
           "Buttons",
           "Cards",
+          "Layout",
           "Forms",
           "Display",
           "Sidebar",
