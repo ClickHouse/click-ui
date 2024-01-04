@@ -1,4 +1,4 @@
-import { Container, ContainerProps } from "./Container";
+import { Container } from "./Container";
 import { Text } from "..";
 import styled from "styled-components";
 
