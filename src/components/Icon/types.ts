@@ -59,6 +59,7 @@ export const ICON_NAMES = [
   "download-in-circle",
   "email",
   "empty",
+  "enter",
   "eye",
   "eye-closed",
   "filter",
