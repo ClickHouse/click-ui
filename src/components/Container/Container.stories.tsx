@@ -2,10 +2,6 @@ import { Container, ContainerProps } from "./Container";
 import { Text } from "..";
 import styled from "styled-components";
 
-interface Props extends ContainerProps {
-  color: string;
-}
-
 const GridCenter = styled.div`
   display: grid;
   place-items: center;
@@ -13,7 +9,7 @@ const GridCenter = styled.div`
   height: 100%;
 `;
 
-const ContainerExample = ({ color, ...props }: Props) => {
+const ContainerExample = ({ ...props }) => {
   return (
     <GridCenter>
       <Container
@@ -43,6 +39,7 @@ const ContainerExample = ({ color, ...props }: Props) => {
     </GridCenter>
   );
 };
+
 export default {
   component: ContainerExample,
   title: "Layout/Container",
