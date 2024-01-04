@@ -518,16 +518,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         const { top, bottom, left, right } =
           outerRef.current.getBoundingClientRect() ?? {};
-        console.log("asasasas", {
-          top,
-          bottom,
-          left,
-          right,
-          scrollBarWidth: width - outerRef.current.clientWidth,
-          scrollBarHeight: height - outerRef.current.clientHeight,
-          width,
-          height,
-        });
+
         elementBorderRef.current = {
           top,
           bottom,

@@ -67,7 +67,6 @@ export const cellRectSelected = (
   y2: number
 ): boolean => {
   const { left, right, top, bottom } = orderedRect(x1, y1, x2, y2);
-  // console.log(selection);
   switch (selection.type) {
     case "columns":
       for (let i = left; i <= right; ++i) {
@@ -419,7 +418,6 @@ export const useSelectionActions = ({
       const { row, column } = focus;
 
       const applyAction = (action: SelectionAction | null): void => {
-        console.log(action);
         if (action) {
           onSelection({ ...action, event: "keypress" });
         }

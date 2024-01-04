@@ -63,7 +63,6 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
         type: "success",
       });
     } catch (e) {
-      console.log(e);
       createToast({
         title: "Failed",
         description: "Copy Failed",
