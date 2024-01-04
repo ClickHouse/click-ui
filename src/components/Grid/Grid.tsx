@@ -109,7 +109,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       onKeyDown: onKeyDownProp,
       ...props
     },
-    forwardedRed
+    forwardedRef
   ) => {
     const [menuOptions, setMenuOptions] = useState<Array<GridContextMenuItemProps>>([]);
     const [contextMenuOpen, setContextMenuOpen] = useState(false);
@@ -553,7 +553,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           <AutoSizer onResize={onResize}>
             {({ height, width }) => (
               <VariableSizeGrid
-                ref={mergeRefs([forwardedRed, gridRef])}
+                ref={mergeRefs([forwardedRef, gridRef])}
                 height={height}
                 width={width}
                 columnCount={columnCount}
