@@ -86,5 +86,5 @@ const Wrapper = styled.div<{
   border: ${({ $hasBorder, theme }) =>
     $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
-  gap: ${({ $gap = "md", theme }) => theme.click.panel.space.gap[$gap]};
+  gap: ${({ $gap = "sm", theme }) => theme.click.panel.space.gap[$gap]};
 `;
