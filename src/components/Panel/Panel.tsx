@@ -12,7 +12,6 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
   hasShadow?: boolean;
   color?: PanelColor;
   padding?: PanelPadding;
-  gap?: PanelPadding;
   children?: React.ReactNode;
   radii?: PanelRadii;
   orientation?: Orientation;
@@ -28,7 +27,6 @@ export const Panel = ({
   hasShadow,
   color,
   padding,
-  gap,
   children,
   orientation = "horizontal",
   width,
@@ -44,7 +42,6 @@ export const Panel = ({
     $hasShadow={hasShadow}
     $color={color}
     $padding={padding}
-    $gap={gap}
     $width={width}
     $radii={radii}
     $orientation={orientation}
@@ -63,7 +60,6 @@ const Wrapper = styled.div<{
   $hasShadow?: boolean;
   $color?: PanelColor;
   $padding?: PanelPadding;
-  $gap?: PanelPadding;
   $width?: string;
   $radii?: PanelRadii;
   $fillWidth?: boolean;
@@ -86,5 +82,5 @@ const Wrapper = styled.div<{
   border: ${({ $hasBorder, theme }) =>
     $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
-  gap: ${({ $gap = "md", theme }) => theme.click.panel.space.gap[$gap]};
+  gap: 0.625rem;
 `;

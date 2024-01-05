@@ -1542,16 +1542,8 @@
           "xl": string
         },
         "x": {
-          "none": string,
           "xs": string,
-          "sm": string,
-          "md": string,
-          "lg": string,
-          "xl": string
-        },
-        "gap": {
           "none": string,
-          "xs": string,
           "sm": string,
           "md": string,
           "lg": string,
