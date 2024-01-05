@@ -87,7 +87,9 @@ const leftBorderRadius = `${endRadii} 0px 0px ${endRadii}`;
 const rightBorderRadius = `0px ${endRadii} ${endRadii} 0px`;
 const centerBorderRadius = "var(--click-button-button-group-radii-center)";
 
-const Button = styled.button<ButtonProps>`
+const Button = styled.button.attrs<ButtonProps>(
+  (props: ButtonProps) => ({"aria-pressed": props.$active})
+)`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
