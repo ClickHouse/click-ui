@@ -180,7 +180,9 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           if (outerRef.current?.scrollTop - element.offsetTop > 0) {
             top = element.offsetTop - outerRef.current?.scrollTop;
           }
-          outerRef.current.scrollBy(left, top);
+          if (top !== 0 && left !== 0) {
+            outerRef.current.scrollBy(left, top);
+          }
         } else {
           gridRef.current?.scrollToItem({
             rowIndex: row,
@@ -191,10 +193,13 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
           );
         }
-        element?.scrollIntoView({
-          block: "nearest",
-          inline: "nearest",
-        });
+        // this is for the test to perform correctly
+        if (typeof element?.scrollIntoView === "function") {
+          element?.scrollIntoView({
+            block: "nearest",
+            inline: "nearest",
+          });
+        }
       },
       []
     );
