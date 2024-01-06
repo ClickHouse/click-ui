@@ -25,6 +25,7 @@ export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";
 export { Flyout } from "./Flyout/Flyout";
 export { FormContainer } from "./FormContainer/FormContainer";
+export { GridContainer } from "./GridContainer/GridContainer";
 export { InlineCodeBlock } from "./CodeBlock/InlineCodeBlock";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";

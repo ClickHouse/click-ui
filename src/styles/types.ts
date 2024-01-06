@@ -1542,8 +1542,16 @@
           "xl": string
         },
         "x": {
-          "xs": string,
           "none": string,
+          "xs": string,
+          "sm": string,
+          "md": string,
+          "lg": string,
+          "xl": string
+        },
+        "gap": {
+          "none": string,
+          "xs": string,
           "sm": string,
           "md": string,
           "lg": string,
@@ -2576,6 +2584,19 @@
         "lg": string,
         "xl": string,
         "xxl": string
+      }
+    },
+    "gridContainer": {
+      "gap": {
+        "none": string,
+        "xxs": string,
+        "xs": string,
+        "sm": string,
+        "md": string,
+        "lg": string,
+        "xl": string,
+        "xxl": string,
+        "unset": string
       }
     },
     "global": {
