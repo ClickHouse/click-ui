@@ -18,13 +18,18 @@ export default {
       options: [...IconNames, ...FlagNames, ...LogoNames, ...PaymentNames],
       control: { type: "select" },
     },
+    size: {
+      options: ["xs" , "sm" , "md" , "lg" , "xl" , "xxl"],
+      control: { type: "select" },
+    },
   },
 };
 
 export const Playground = {
   args: {
     name: "users",
-    width: "1rem",
-    height: "16px",
+    size: "md",
+    width: "",
+    height: "",
   },
 };
