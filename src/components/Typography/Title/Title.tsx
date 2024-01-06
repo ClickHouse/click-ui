@@ -1,11 +1,14 @@
 import { HTMLAttributes, forwardRef } from "react";
 import styled from "styled-components";
+
+export type TitleAlignment = "left" | "center" | "right";
 export type TitleColor = "default" | "muted";
 export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type TitleFamily = "product" | "brand";
 export type TitleType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  align?: TitleAlignment;
   color?: TitleColor;
   size?: TitleSize;
   family?: TitleFamily;
@@ -14,9 +17,10 @@ export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
 
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
 export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
-  ({ size, family, type, color, children, ...props }, ref) => (
+  ({ align, size, family, type, color, children, ...props }, ref) => (
     <CuiTitle
       ref={ref}
+      $align={align}
       $color={color}
       $size={size}
       $family={family}
@@ -29,6 +33,7 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
 );
 
 const CuiTitle = styled.div<{
+  $align?: TitleAlignment;
   $color?: TitleColor;
   $size?: TitleSize;
   $family?: TitleFamily;
@@ -39,6 +44,7 @@ const CuiTitle = styled.div<{
   margin: 0;
   padding: 0;
   font-style: inherit;
+  text-align: ${({ $align = "left" }) => $align};
 
   a,
   a:visited {
