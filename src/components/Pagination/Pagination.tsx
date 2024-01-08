@@ -60,7 +60,7 @@ export const Pagination = ({
       {...props}
     >
       {hasRowCount && <Text component="div">{rowCount} rows</Text>}
-      <Container gap="md">
+      <Container gap="xxs">
         <IconButton
           icon="chevron-left"
           type="ghost"
