@@ -14,7 +14,7 @@ describe("Pagination", () => {
       onChange,
       totalPages: 2,
       rowCount: 200,
-      options: [250, 500],
+      maxRowsPerPageList: [250, 500],
     });
     expect(queryByTestId("prev-btn")).not.toBeNull();
     expect(queryByTestId("next-btn")).not.toBeNull();
@@ -33,6 +33,16 @@ describe("Pagination", () => {
   });
 
   it("disable next button on last page only", () => {
+    const { getByTestId } = renderPagination({
+      currentPage: 2,
+      totalPages: 2,
+      onChange,
+    });
+    const nextBtn = getByTestId("next-btn");
+    expect(nextBtn).toHaveProperty("disabled", true);
+  });
+
+  it("disable next button on first page if only one page is present", () => {
     const { getByTestId } = renderPagination({
       currentPage: 1,
       totalPages: 1,
@@ -62,7 +72,7 @@ describe("Pagination", () => {
       currentPage: 1,
       onChange,
       onPageSizeChange,
-      options: [250, 500],
+      maxRowsPerPageList: [250, 500],
     });
     const selector = getByText("All rows");
     fireEvent.click(selector);

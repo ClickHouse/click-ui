@@ -12,7 +12,7 @@ import styled from "styled-components";
 export interface PaginationProps extends Omit<ContainerProps, "children" | "onChange"> {
   totalPages?: number;
   currentPage: number;
-  options?: Array<number>;
+  maxRowsPerPageList?: Array<number>;
   rowCount?: number | string;
   onChange: (pageNumber: number) => void;
   onPageSizeChange?: (pageNumber: number) => void;
@@ -25,13 +25,14 @@ const CustomSelect = styled.div`
 export const Pagination = ({
   totalPages,
   currentPage,
-  options = [],
+  maxRowsPerPageList = [],
   rowCount,
   onChange: onChangeProp,
   onPageSizeChange: onPageSizeChangeProp,
   pageSize = -1,
   ...props
 }: PaginationProps): ReactElement => {
+  const hasRowCount = ["number", "string"].includes(typeof rowCount);
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (e.key === "ArrowUp" || e.key === "ArrowRight") {
       onChangeProp(currentPage + 1);
@@ -53,12 +54,12 @@ export const Pagination = ({
   return (
     <Container
       gap="md"
-      justifyContent={rowCount || options.length > 0 ? "space-between" : "center"}
+      justifyContent={
+        rowCount || maxRowsPerPageList.length > 0 ? "space-between" : "center"
+      }
       {...props}
     >
-      {["number", "string"].includes(typeof rowCount) && (
-        <Text component="div">{rowCount} rows</Text>
-      )}
+      {hasRowCount && <Text component="div">{rowCount} rows</Text>}
       <Container gap="md">
         <IconButton
           icon="chevron-left"
@@ -84,14 +85,14 @@ export const Pagination = ({
           data-testid="next-btn"
         />
       </Container>
-      {options.length > 0 && (
+      {maxRowsPerPageList.length > 0 && (
         <CustomSelect
           as={Select}
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
         >
           <Select.Item value="-1">All rows</Select.Item>
-          {options.map(option => (
+          {maxRowsPerPageList.map(option => (
             <Select.Item
               key={option}
               value={option.toString()}
