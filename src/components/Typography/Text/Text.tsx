@@ -6,11 +6,13 @@ import {
 } from "react";
 import styled from "styled-components";
 
+export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted";
 export type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 
 export interface TextProps<T extends ElementType | undefined> {
+  align?: TextAlignment;
   color?: TextColor;
   size?: TextSize;
   weight?: TextWeight;
@@ -22,6 +24,7 @@ export interface TextProps<T extends ElementType | undefined> {
 const _Text = forwardRef(
   <T extends ElementType = "p">(
     {
+      align,
       color,
       size,
       weight,
@@ -35,6 +38,7 @@ const _Text = forwardRef(
     <CuiText
       as={component ?? "p"}
       ref={ref}
+      $align={align}
       $color={color}
       $size={size}
       $weight={weight}
@@ -46,10 +50,16 @@ const _Text = forwardRef(
   )
 );
 
-const CuiText = styled.p<{ $color?: TextColor; $size?: TextSize; $weight?: TextWeight }>`
+const CuiText = styled.p<{
+  $align?: TextAlignment;
+  $color?: TextColor;
+  $size?: TextSize;
+  $weight?: TextWeight;
+}>`
   font: ${({ $size = "md", $weight = "normal", theme }) =>
     theme.typography.styles.product.text[$weight][$size]};
   color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
+  text-align: ${({ $align = "left" }) => $align};
   margin: 0;
 `;
 
