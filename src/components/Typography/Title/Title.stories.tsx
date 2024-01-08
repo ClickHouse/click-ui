@@ -6,8 +6,8 @@ export default {
   tags: ["title", "autodocs"],
   argTypes: {
     size: {
-      options: ["2xl", "xl", "lg", "md", "sm", "xs"],
-      control: { type: "radio" },
+      options: ["xs", "sm", "md", "lg", "xl", "2xl"],
+      control: { type: "select" },
     },
     type: {
       options: ["h1", "h2", "h3", "h4", "h5", "h6"],
@@ -15,6 +15,10 @@ export default {
     },
     family: {
       options: ["product", "brand"],
+      control: { type: "radio" },
+    },
+    align: {
+      options: ["left", "center", "right"],
       control: { type: "radio" },
     },
   },
@@ -26,6 +30,7 @@ export const Playground = {
     type: "h1",
     family: "product",
     color: "default",
+    align: "left",
     children: "Query billions of rows in milliseconds",
   },
 };
