@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 const GridCenter = styled.div`
   display: grid;
-  place-items: center;
+  justify-items: center;
   width: 100%;
-  height: 100%;
+  height: 120px;
 `;
 
 const ContainerExample = ({ ...props }) => {
@@ -55,10 +55,6 @@ export default {
       control: "select",
       options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
     },
-    display: {
-      control: "radio",
-      options: ["grid", "inline-grid"],
-    },
     gap: {
       control: "select",
       options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
@@ -96,7 +92,6 @@ export const Playground = {
     alignContent: "stretch",
     alignItems: "stretch",
     columnGap: "none",
-    display: "grid",
     gap: "",
     gridAutoColumns: "",
     gridAutoFlow: "",
@@ -105,6 +100,7 @@ export const Playground = {
     gridTemplateColumns: "",
     gridTemplateRows: "",
     gridTemplate: "",
+    inline: false,
     isResponsive: true,
     justifyContent: "stretch",
     justifyItems: "stretch",
