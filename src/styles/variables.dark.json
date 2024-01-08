@@ -1350,6 +1350,18 @@
       "global": {
         "background": "rgb(27,28,29)"
       }
+    },
+    "chart": {
+      "values": {
+        "color": {
+          "green": "#66FF73",
+          "blue": "#6c9af3",
+          "fuchsia": "#FB64D6",
+          "orange": "#FAFF69",
+          "violet": "#BB33FF",
+          "teal": "#66FFE5"
+        }
+      }
     }
   },
   "name": "dark",
