@@ -3822,6 +3822,36 @@
           }
         }
       }
+    },
+    "chart": {
+      "values": {
+        "color": {
+          "green": {
+            "value": "{palette.success.300}",
+            "type": "color"
+          },
+          "blue": {
+            "value": "{palette.info.300}",
+            "type": "color"
+          },
+          "fuchsia": {
+            "value": "{palette.fuchsia.300}",
+            "type": "color"
+          },
+          "orange": {
+            "value": "{palette.brand.300}",
+            "type": "color"
+          },
+          "violet": {
+            "value": "{palette.violet.400}",
+            "type": "color"
+          },
+          "teal": {
+            "value": "{palette.teal.300}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "name": {

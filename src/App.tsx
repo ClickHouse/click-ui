@@ -35,9 +35,11 @@ import {
   Table,
   TableRowType,
   TableHeaderType,
+  Title,
   Tooltip,
   Container,
   InlineCodeBlock,
+  GridContainer,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
@@ -586,6 +588,21 @@ const App = () => {
             </Container>
           </Container>
         </Container>
+
+        <Spacer />
+        <Title type="h2">Grid container</Title>
+        <GridContainer
+          gridTemplateColumns="100px 200px 1fr"
+          columnGap="lg"
+          rowGap="sm"
+        >
+          <div style={{ border: "1px solid red" }}>Child 1</div>
+          <div style={{ border: "1px solid blue" }}>Child 2</div>
+          <div style={{ border: "1px solid green" }}>Child 3</div>
+          <div style={{ border: "1px solid red" }}>Child 4</div>
+          <div style={{ border: "1px solid blue" }}>Child 5</div>
+          <div style={{ border: "1px solid green" }}>Child 6</div>
+        </GridContainer>
       </ClickUIProvider>
     </div>
   );

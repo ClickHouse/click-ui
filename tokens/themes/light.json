@@ -3662,6 +3662,36 @@
           }
         }
       }
+    },
+    "chart": {
+      "values": {
+        "color": {
+          "green": {
+            "value": "{palette.success.500}",
+            "type": "color"
+          },
+          "blue": {
+            "value": "{palette.info.300}",
+            "type": "color"
+          },
+          "fuchsia": {
+            "value": "{palette.fuchsia.300}",
+            "type": "color"
+          },
+          "orange": {
+            "value": "{palette.warning.300}",
+            "type": "color"
+          },
+          "violet": {
+            "value": "{palette.violet.300}",
+            "type": "color"
+          },
+          "teal": {
+            "value": "{palette.teal.600}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "global": {
