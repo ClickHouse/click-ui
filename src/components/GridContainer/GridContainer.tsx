@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { HTMLAttributes } from "react";
 
-export type DisplayOptions = "grid" | "inline-grid";
 export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "unset";
 type ItemsOptions = "start" | "center" | "end" | "stretch";
@@ -20,7 +19,6 @@ export interface GridContainerProps extends HTMLAttributes<HTMLDivElement> {
   alignItems?: ItemsOptions;
   alignContent?: ContentOptions;
   children?: React.ReactNode;
-  display?: DisplayOptions;
   columnGap?: GapOptions;
   gap?: GapOptions;
   gridAutoColumns?: string;
@@ -30,6 +28,7 @@ export interface GridContainerProps extends HTMLAttributes<HTMLDivElement> {
   gridTemplateColumns?: string;
   gridTemplateRows?: string;
   gridTemplate?: string;
+  inline?: boolean;
   isResponsive?: boolean;
   justifyContent?: ContentOptions;
   justifyItems?: ItemsOptions;
@@ -41,7 +40,6 @@ const GridContainer = ({
   alignContent = "stretch",
   children,
   columnGap = "none",
-  display = "grid",
   gap = "unset",
   gridAutoColumns = "",
   gridAutoFlow = "row",
@@ -50,6 +48,7 @@ const GridContainer = ({
   gridTemplateColumns = "",
   gridTemplateRows = "",
   gridTemplate = "",
+  inline = false,
   isResponsive = true,
   justifyContent = "stretch",
   justifyItems = "stretch",
@@ -61,7 +60,6 @@ const GridContainer = ({
       $alignItems={alignItems}
       $alignContent={alignContent}
       $columnGap={columnGap}
-      $display={display}
       $gap={gap}
       $gridAutoColumns={gridAutoColumns}
       $gridAutoFlow={gridAutoFlow}
@@ -70,6 +68,7 @@ const GridContainer = ({
       $gridTemplateColumns={gridTemplateColumns}
       $gridTemplateRows={gridTemplateRows}
       $gridTemplate={gridTemplate}
+      $inline={inline}
       $isResponsive={isResponsive}
       $justifyContent={justifyContent}
       $justifyItems={justifyItems}
@@ -86,7 +85,6 @@ const Wrapper = styled.div<{
   $alignContent: ContentOptions;
   $alignItems: ItemsOptions;
   $columnGap: GapOptions;
-  $display: DisplayOptions;
   $gap: GapOptions;
   $gridAutoColumns: string;
   $gridAutoFlow: FlowOptions;
@@ -95,6 +93,7 @@ const Wrapper = styled.div<{
   $gridTemplateColumns: string;
   $gridTemplateRows: string;
   $gridTemplate: string;
+  $inline: boolean;
   $isResponsive: boolean;
   $justifyContent: ContentOptions;
   $justifyItems: ItemsOptions;
@@ -103,7 +102,7 @@ const Wrapper = styled.div<{
   align-items: ${({ $alignItems = "stretch" }) => $alignItems};
   align-content: ${({ $alignContent = "stretch" }) => $alignContent};
   column-gap: ${({ theme, $columnGap }) => theme.click.gridContainer.gap[$columnGap]};
-  display: ${({ $display }) => $display};
+  display: ${({ $inline }) => ($inline === true ? "inline-grid" : "grid")};
   gap: ${({ theme, $gap }) => theme.click.gridContainer.gap[$gap]};
   grid-auto-columns: ${({ $gridAutoColumns }) => $gridAutoColumns || "auto"};
   grid-auto-flow: ${({ $gridAutoFlow }) => $gridAutoFlow || "auto"};
@@ -115,8 +114,6 @@ const Wrapper = styled.div<{
   justify-content: ${({ $justifyContent = "stretch" }) => $justifyContent};
   justify-items: ${({ $justifyItems = "stretch" }) => $justifyItems};
   row-gap: ${({ theme, $rowGap }) => theme.click.gridContainer.gap[$rowGap]};
-
-  background: rgba(30, 30, 30, 0.8);
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     grid-template-columns: ${({ $isResponsive = true }) =>
