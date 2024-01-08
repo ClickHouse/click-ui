@@ -57,6 +57,7 @@ export type {
   AutoCompleteProps,
   AutoCompleteOptionListItem,
 } from "./AutoComplete/AutoComplete";
+export type { PaginationProps } from "./Pagination/Pagination";
 
 export type { IconButtonProps };
 export type { AlertProps };
@@ -67,7 +68,7 @@ export type { ButtonProps };
 export type { CardSecondaryProps, BadgeState };
 export type { CardPrimaryProps };
 export type { CheckboxProps };
-export type { ContainerProps};
+export type { ContainerProps };
 export type { ContextMenuProps };
 export type { GridContainerProps };
 export type { HoverCardProps };
