@@ -34,10 +34,12 @@ export type LogoName =
   | "vector"
   | "kubenetes"
   | "c#"
+  | "redpanda"
   | "rust"
   | "hudi"
   | "deltalake"
   | "snowflake"
   | "mongodb"
   | "bigquery"
-  | "iceberg";
+  | "iceberg"
+  | "upstash";

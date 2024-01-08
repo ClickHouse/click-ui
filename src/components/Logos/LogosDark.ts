@@ -4,6 +4,7 @@ import AWSDark from "./AWSDark";
 import AWSRedshift from "./AWSRedshift";
 import AWSS3 from "./AWS_S3";
 import AWSAthena from "./AWSAthena";
+import AWSMsk from "./AWSMsk";
 import Azure from "./Azure";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
@@ -35,13 +36,14 @@ import NodeJs from "./NodeJs";
 import Postgres from "./Postgres";
 import Prequel from "./Prequel";
 import Python from "./Python";
+import Redpanda from "./Redpanda";
 import Rust from "./RustDark";
 import Snowflake from "./Snowflake";
 import Superset from "./Superset";
 import Tableau from "./TableauDark";
+import Upstash from "./Upstash";
 import Vector from "./Vector";
 import { LogoName } from "./types";
-import AWSMsk from "./AWSMsk";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
   clickhouse: Clickhouse,
@@ -81,10 +83,12 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   postgres: Postgres,
   prequel: Prequel,
   python: Python,
+  redpanda: Redpanda,
   rust: Rust,
   snowflake: Snowflake,
   superset: Superset,
   tableau: Tableau,
+  upstash: Upstash,
   vector: Vector
 };
 
