@@ -2662,6 +2662,18 @@
       "global": {
         "background": string
       }
+    },
+    "chart": {
+      "values": {
+        "color": {
+          "green": string,
+          "blue": string,
+          "fuchsia": string,
+          "orange": string,
+          "violet": string,
+          "teal": string
+        }
+      }
     }
   },
   "transition": {
