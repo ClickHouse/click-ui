@@ -3,6 +3,7 @@ export type LogoName =
   | "airbyte"
   | "aws-s3"
   | "aws-athena" 
+  | "aws-kinesis"
   | "aws-redshift"
   | "aws-msk"
   | "kafka"
@@ -34,10 +35,12 @@ export type LogoName =
   | "vector"
   | "kubenetes"
   | "c#"
+  | "redpanda"
   | "rust"
   | "hudi"
   | "deltalake"
   | "snowflake"
   | "mongodb"
   | "bigquery"
-  | "iceberg";
+  | "iceberg"
+  | "upstash";
