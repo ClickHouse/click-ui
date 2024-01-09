@@ -43,4 +43,5 @@ export type LogoName =
   | "mongodb"
   | "bigquery"
   | "iceberg"
-  | "upstash";
+  | "upstash"
+  | "warpstream";

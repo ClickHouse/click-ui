@@ -44,6 +44,7 @@ import Superset from "./Superset";
 import Tableau from "./TableauDark";
 import Upstash from "./Upstash";
 import Vector from "./Vector";
+import WarpStream from "./WarpStream";
 import { LogoName } from "./types";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
@@ -91,7 +92,8 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   superset: Superset,
   tableau: Tableau,
   upstash: Upstash,
-  vector: Vector
+  vector: Vector,
+  warpstream: WarpStream
 };
 
 export default LogosDark;
