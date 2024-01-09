@@ -3,6 +3,7 @@ export type LogoName =
   | "airbyte"
   | "aws-s3"
   | "aws-athena" 
+  | "aws-kinesis"
   | "aws-redshift"
   | "aws-msk"
   | "kafka"

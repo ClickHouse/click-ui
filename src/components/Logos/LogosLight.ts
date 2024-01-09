@@ -2,6 +2,7 @@ import { SVGAttributes } from "react";
 import Airbyte from "./Airbyte";
 import AWSLight from "./AWSLight";
 import AWSAthena from "./AWSAthena";
+import AWSKinesis from "./AWSKinesis";
 import AWSRedshift from "./AWSRedshift";
 import AWSMsk from "./AWSMsk";
 import AWSS3 from "./AWS_S3";
@@ -50,6 +51,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   airbyte: Airbyte,
   aws: AWSLight,
   "aws-athena": AWSAthena,
+  "aws-kinesis": AWSKinesis,
   "aws-msk": AWSMsk,
   "aws-redshift": AWSRedshift,
   "aws-s3": AWSS3,
