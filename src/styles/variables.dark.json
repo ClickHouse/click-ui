@@ -1416,6 +1416,16 @@
           "foreground": "#c0c0c0",
           "stroke": "lch(27.5 0 0 / 0.3)"
         }
+      },
+      "chart": {
+        "values": {
+          "green": "#66FF73",
+          "blue": "#6c9af3",
+          "fuchsia": "#FB64D6",
+          "orange": "#FAFF69",
+          "violet": "#BB33FF",
+          "teal": "#66FFE5"
+        }
       }
     }
   }
