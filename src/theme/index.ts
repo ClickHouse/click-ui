@@ -17,13 +17,17 @@ declare module "styled-components" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface DefaultTheme extends Theme {}
 }
-type CUIThemeType = Pick<Theme, "global" | "sizes" | "name">;
+type CUIThemeType = Pick<Theme, "global" | "sizes" | "name"> & {
+  chart: Theme["click"]["chart"];
+};
+
 const useCUITheme = (): CUIThemeType => {
   const theme = useTheme();
   return {
     name: theme.name,
     global: theme.global,
     sizes: theme.sizes,
+    chart: theme.click.chart,
   };
 };
 
