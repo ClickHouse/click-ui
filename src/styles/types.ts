@@ -2766,6 +2766,16 @@
           "foreground": string,
           "stroke": string
         }
+      },
+      "chart": {
+        "values": {
+          "green": string,
+          "blue": string,
+          "fuchsia": string,
+          "orange": string,
+          "violet": string,
+          "teal": string
+        }
       }
     }
   },
