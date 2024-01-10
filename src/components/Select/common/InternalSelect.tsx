@@ -124,6 +124,7 @@ export const InternalSelect = ({
   const visibleList = useRef<Array<string>>([]);
   const navigatable = useRef<Array<string>>([]);
   const valueNode = useRef<Map<string, SelectItemProps>>(new Map());
+  const [isInitialized, setInitialized] = useState(false);
   const [list, setList] = useState<Array<SelectItemObject>>([]);
   const updateElements = useCallback(
     ({ disabled, value, title, heading, nodeProps }: CallbackProps) => {
@@ -220,6 +221,7 @@ export const InternalSelect = ({
 
   useEffect(() => {
     updateList(children, options);
+    setInitialized(true);
   }, [children, options, updateList]);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -296,6 +298,7 @@ export const InternalSelect = ({
       onSelect(search, "custom");
     }
   };
+
   return (
     <FormRoot
       $orientation={orientation}
@@ -314,25 +317,27 @@ export const InternalSelect = ({
             disabled={disabled}
             data-testid="select-trigger"
           >
-            <SelectValue>
-              {selectedValues.length === 0 ? (
-                placeholder
-              ) : multiple ? (
-                <MultiSelectValue
-                  disabled={disabled ?? false}
-                  onSelect={onSelect}
-                  selectedValues={selectedValues}
-                  sortable={!disabled && sortable}
-                  valueNode={valueNode.current}
-                  onChange={onChange}
-                />
-              ) : (
-                <SingleSelectValue
-                  valueNode={valueNode.current.get(selectedValues[0])}
-                  value={selectedValues[0]}
-                />
-              )}
-            </SelectValue>
+            {isInitialized && (
+              <SelectValue>
+                {selectedValues.length === 0 ? (
+                  placeholder
+                ) : multiple ? (
+                  <MultiSelectValue
+                    disabled={disabled ?? false}
+                    onSelect={onSelect}
+                    selectedValues={selectedValues}
+                    sortable={!disabled && sortable}
+                    valueNode={valueNode.current}
+                    onChange={onChange}
+                  />
+                ) : (
+                  <SingleSelectValue
+                    valueNode={valueNode.current.get(selectedValues[0])}
+                    value={selectedValues[0]}
+                  />
+                )}
+              </SelectValue>
+            )}
             <Icon
               name="sort"
               size="sm"
