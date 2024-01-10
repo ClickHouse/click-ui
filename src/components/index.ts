@@ -30,7 +30,6 @@ export { InlineCodeBlock } from "./CodeBlock/InlineCodeBlock";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
 export { Grid } from "./Grid/Grid";
-export { default as copyGridElements } from "./Grid/copyGridElements";
 export { HoverCard } from "./HoverCard/HoverCard";
 export { Link } from "./Link/Link";
 export { Logo } from "./Logos/Logo";

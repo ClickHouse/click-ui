@@ -15,12 +15,20 @@ import AutoSizer, { Size } from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
 import styled from "styled-components";
-import { GridContextMenuItemProps, GridProps, ItemDataType, onSelectFn } from "./types";
+import {
+  GridContextMenuItemProps,
+  GridProps,
+  ItemDataType,
+  SelectedRegion,
+  SelectionAction,
+  SelectionFocus,
+  onSelectFn,
+} from "./types";
 import { useSelectionActions } from "./useSelectionActions";
-import { useRefCallback } from "./useRefCallback";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { Cell } from "./Cell";
-import { ContextMenu } from "@/components";
+import { ContextMenu, createToast } from "@/components";
+import copyGridElements from "./copyGridElements";
 
 const NO_BUTTONS_PRESSED = 0;
 const RIGHT_BUTTON_PRESSED = 2;
@@ -94,7 +102,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       showRowNumber = true,
       rounded = "none",
       showHeader = true,
-      focus,
+      focus: focusProp,
       useIsScrolling = true,
       rowHeight = 33,
       columnCount,
@@ -107,11 +115,60 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       onFocusChange: onFocusChangeProp,
       getMenuOptions,
       onKeyDown: onKeyDownProp,
+      selection: selectionProp,
+      showToast,
       ...props
     },
     forwardedRef
   ) => {
-    const [menuOptions, setMenuOptions] = useState<Array<GridContextMenuItemProps>>([]);
+    const [focus, setFocus] = useState<SelectionFocus>(
+      focusProp ?? {
+        row: 0,
+        column: 0,
+      }
+    );
+    const [selection, setSelection] = useState<SelectedRegion>(
+      selectionProp ?? {
+        type: "empty",
+      }
+    );
+    const onCopy = useCallback(async () => {
+      try {
+        await copyGridElements({
+          cell,
+          selection,
+          focus,
+          rowCount,
+          columnCount,
+        });
+        if (showToast) {
+          createToast({
+            title: "Copied successfully",
+            description: "Now you can copy the content",
+            type: "success",
+          });
+        }
+      } catch (e) {
+        console.error(e);
+        if (showToast) {
+          createToast({
+            title: "Failed to copy",
+            description: "Encountered an error while copying. Try again after sometime",
+            type: "danger",
+          });
+        }
+      }
+    }, [cell, columnCount, focus, rowCount, selection, showToast]);
+
+    const defaultMenuOptions = [
+      {
+        label: "Copy",
+        onSelect: onCopy,
+      },
+    ];
+
+    const [menuOptions, setMenuOptions] =
+      useState<Array<GridContextMenuItemProps>>(defaultMenuOptions);
     const [contextMenuOpen, setContextMenuOpen] = useState(false);
     const [scrolledVertical, setScrolledVertical] = useState(false);
     const [scrolledHorizontal, setScrolledHorizontal] = useState(false);
@@ -131,17 +188,27 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     });
     const onCellSelect: onSelectFn = useCallback(
       (action, selection, focus) => {
+        setSelection(selection);
         if (typeof onSelectProp === "function") {
           onSelectProp(action, selection, focus);
         }
-        if (typeof getMenuOptions === "function") {
-          setMenuOptions(getMenuOptions(selection, focus));
-        }
       },
-      [getMenuOptions, onSelectProp]
+      [onSelectProp]
     );
 
-    const onFocusRefChange = useRefCallback(onFocusChangeProp);
+    const onFocusChange = useCallback(
+      (row: number, column: number) => {
+        setFocus(focus => ({
+          row: row ?? focus.row,
+          column: column ?? focus.column,
+        }));
+        if (typeof onFocusChangeProp === "function") {
+          onFocusChangeProp(row, column);
+        }
+      },
+      [onFocusChangeProp]
+    );
+
     const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
     const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<
@@ -223,31 +290,36 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       [columnHorizontalPosition, rowNumberWidth]
     );
 
-    const {
-      getSelectionType,
-      onSelection,
-      mouseMoveCellSelect,
-      onKeyDown: onKeyDownAction,
-    } = useSelectionActions({
-      onCellSelect,
-      focus,
-      columnCount,
-      rowCount,
-      onFocusRefChange,
-      scrollGridTo,
-      rowStart,
-    });
-
-    const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
-      e => {
-        if (typeof onKeyDownProp === "function") {
-          onKeyDownProp(e);
-        }
-        onKeyDownAction(e);
-        containerRef.current?.focus();
+    const clearSelectionAndFocus = useCallback(
+      (force: boolean) => {
+        setSelection(selection => {
+          if (selection.type === "columns" && !force) {
+            return selection;
+          } else {
+            return { type: "empty" };
+          }
+        });
+        onFocusChange(focus.row, focus.column);
+        scrollGridTo(focus);
       },
-      [onKeyDownAction, onKeyDownProp]
+      [focus, onFocusChange, scrollGridTo]
     );
+
+    useEffect(() => {
+      clearSelectionAndFocus(true);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [rowStart]);
+
+    const { getSelectionType, onSelection, mouseMoveCellSelect, moveSelection } =
+      useSelectionActions({
+        onCellSelect,
+        focus: focusProp ?? focus,
+        columnCount,
+        rowCount,
+        onFocusChange,
+        scrollGridTo,
+        selection: selectionProp ?? selection,
+      });
 
     const data: ItemDataType = {
       showRowNumber,
@@ -373,7 +445,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             event: "click",
           });
           if (!shiftKeyPressed) {
-            onFocusRefChange(0, column);
+            onFocusChange(0, column);
           }
           return;
         }
@@ -384,7 +456,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             event: "click",
           });
           if (!shiftKeyPressed) {
-            onFocusRefChange(row, 0);
+            onFocusChange(row, 0);
           }
           return;
         }
@@ -395,10 +467,10 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           event: "click",
         });
         if (!shiftKeyPressed) {
-          onFocusRefChange(row, column);
+          onFocusChange(row, column);
         }
       },
-      [onFocusRefChange, onSelection]
+      [onFocusChange, onSelection]
     );
 
     const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {
@@ -423,9 +495,9 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         }
 
         dragState.current = false;
-        onFocusRefChange(focus.row, focus.column);
+        onFocusChange(focus.row, focus.column);
       },
-      [contextMenuOpen, focus.column, focus.row, onFocusRefChange]
+      [contextMenuOpen, focus.column, focus.row, onFocusChange]
     );
 
     const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -537,6 +609,78 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       }, 0);
     }, []);
 
+    const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
+      async e => {
+        if (typeof onKeyDownProp === "function") {
+          onKeyDownProp(e);
+        }
+        if (!e.defaultPrevented) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        const moveAnchor = e.shiftKey;
+        const { row, column } = focus;
+
+        const applyAction = (action: SelectionAction | null): void => {
+          if (action) {
+            onSelection({ ...action, event: "keypress" });
+          }
+          if (action?.type === "normal") {
+            onFocusChange(action.row, action.column);
+          }
+        };
+        if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+          onCopy();
+          return;
+        }
+
+        switch (e.key) {
+          case "ArrowLeft":
+            applyAction(moveSelection(-1, 0, moveAnchor, "keypress"));
+            break;
+          case "ArrowRight":
+            applyAction(moveSelection(1, 0, moveAnchor, "keypress"));
+            break;
+          case "ArrowUp":
+            applyAction(moveSelection(0, -1, moveAnchor, "keypress"));
+            break;
+          case "ArrowDown":
+            applyAction(moveSelection(0, 1, moveAnchor, "keypress"));
+            break;
+          case "Enter":
+            onSelection({
+              type: "normal",
+              row,
+              column,
+              event: "keypress",
+            });
+            onFocusChange(row, column);
+            break;
+          case "Escape":
+            clearSelectionAndFocus(true);
+            break;
+        }
+        containerRef.current?.focus();
+      },
+      [
+        onKeyDownProp,
+        focus,
+        onSelection,
+        onFocusChange,
+        onCopy,
+        moveSelection,
+        clearSelectionAndFocus,
+      ]
+    );
+    const onContextMenu: MouseEventHandler<HTMLDivElement> = e => {
+      onMouseDown(e);
+
+      if (typeof getMenuOptions === "function") {
+        const newOptions = getMenuOptions(selection, focus);
+        setMenuOptions([...defaultMenuOptions, ...newOptions]);
+      }
+    };
+
     return (
       <ContextMenu
         modal={false}
@@ -553,7 +697,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           onPointerUp={onPointerUp}
           onPointerLeave={setPointerCapture}
           onPointerEnter={setPointerCapture}
-          onContextMenu={onMouseDown}
+          onContextMenu={onContextMenu}
         >
           <AutoSizer onResize={onResize}>
             {({ height, width }) => (

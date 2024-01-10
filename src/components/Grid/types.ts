@@ -153,13 +153,13 @@ export interface GridProps
   > {
   rowStart?: number;
   rounded?: RoundedType;
-  focus: SelectionFocus;
+  focus?: SelectionFocus;
   rowHeight?: number;
   cell: CellProps;
   showHeader?: boolean;
   showRowNumber?: boolean;
   headerHeight?: number;
-  onFocusChange: (rowIndex: number, columnIndex: number) => void;
+  onFocusChange?: (rowIndex: number, columnIndex: number) => void;
   onSelect?: onSelectFn;
   onColumnResize: ColumnResizeFn;
   getMenuOptions?: (
@@ -167,4 +167,6 @@ export interface GridProps
     focus: SelectionFocus
   ) => Array<GridContextMenuItemProps>;
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
+  selection?: SelectedRegion;
+  showToast?: boolean;
 }

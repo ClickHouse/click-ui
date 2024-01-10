@@ -1,12 +1,5 @@
-import { KeyboardEventHandler, useCallback, useEffect, useState } from "react";
-import {
-  CellProps,
-  GridContextMenuItemProps,
-  SelectedRegion,
-  SelectionFocus,
-  copyGridElements,
-  createToast,
-} from "..";
+import { useCallback, useEffect, useState } from "react";
+import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from "..";
 import { Grid as CUIGrid } from "./Grid";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
@@ -30,7 +23,6 @@ interface Props {
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
-  const [selection, setSelection] = useState<SelectedRegion>({ type: "empty" });
   const [columnWidth, setColumnWidth] = useState<Array<number>>(
     Array.from({ length: 20 }, () => 100)
   );
@@ -46,39 +38,11 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
     [columnWidth]
   );
 
-  const onCopy = async () => {
-    try {
-      await copyGridElements({
-        getElement: (rowIndex, columnIndex) => {
-          return `${rowIndex} ${columnIndex} - rowCell`;
-        },
-        selection,
-        focus,
-        rowCount,
-        columnCount,
-      });
-      createToast({
-        title: "Copied successfully",
-        description: "Now you can copy the content",
-        type: "success",
-      });
-    } catch (e) {
-      createToast({
-        title: "Failed",
-        description: "Copy Failed",
-        type: "danger",
-      });
-    }
-  };
   const getMenuOptions = (
     selection: SelectedRegion,
     focus: SelectionFocus
   ): GridContextMenuItemProps[] => {
     return [
-      {
-        label: "Copy",
-        onSelect: onCopy,
-      },
       {
         label: "Console log elements",
         onSelect: () => {
@@ -86,11 +50,6 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
         },
       },
     ];
-  };
-  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = e => {
-    if ((e.ctrlKey || e.metaKey) && e.key === "c") {
-      onCopy();
-    }
   };
 
   return (
@@ -111,11 +70,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
             return [...columnWidths];
           });
         }}
-        onSelect={(_, selection) => {
-          setSelection(selection);
-        }}
         getMenuOptions={getMenuOptions}
-        onKeyDown={onKeyDown}
         {...props}
       />
     </div>
