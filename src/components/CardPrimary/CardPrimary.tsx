@@ -182,7 +182,7 @@ export const CardPrimary = ({
           $size={size}
           $alignContent={alignContent}
         >
-          {description && <Text color="muted">{description}</Text>}
+          {description && <Text color="muted" align={alignContent}>{description}</Text>}
           {children}
         </Content>
       )}
