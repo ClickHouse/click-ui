@@ -3956,55 +3956,55 @@
       "feedback": {
         "info": {
           "background": {
-            "value": "{palette.info.600}",
+            "value": "{click.feedback.color.info.background}",
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.info.200}",
+            "value": "{click.feedback.color.info.foreground}",
             "type": "color"
           }
         },
         "success": {
           "background": {
-            "value": "{palette.success.800}",
+            "value": "{click.feedback.color.success.background}",
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.success.300}",
+            "value": "{click.feedback.color.success.foreground}",
             "type": "color"
           }
         },
         "warning": {
           "background": {
-            "value": "{palette.warning.800}",
+            "value": "{click.feedback.color.warning.background}",
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.warning.400}",
+            "value": "{click.feedback.color.warning.foreground}",
             "type": "color"
           }
         },
         "danger": {
           "background": {
-            "value": "{palette.danger.800}",
+            "value": "{click.feedback.color.danger.background}",
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.danger.300}",
+            "value": "{click.feedback.color.danger.foreground}",
             "type": "color"
           }
         },
         "neutral": {
           "background": {
-            "value": "{palette.neutral.700}",
+            "value": "{click.feedback.color.neutral.background}",
             "type": "color"
           },
           "foreground": {
-            "value": "{palette.neutral.300}",
+            "value": "{click.feedback.color.neutral.foreground}",
             "type": "color"
           },
           "stroke": {
-            "value": "{click.global.color.stroke.default}",
+            "value": "{click.feedback.color.neutral.stroke}",
             "type": "color"
           }
         }
@@ -4012,27 +4012,27 @@
       "chart": {
         "values": {
           "green": {
-            "value": "{palette.success.300}",
+            "value": "{click.chart.values.color.green}",
             "type": "color"
           },
           "blue": {
-            "value": "{palette.info.300}",
+            "value": "{click.chart.values.color.blue}",
             "type": "color"
           },
           "fuchsia": {
-            "value": "{palette.fuchsia.300}",
+            "value": "{click.chart.values.color.fuchsia}",
             "type": "color"
           },
           "orange": {
-            "value": "{palette.brand.300}",
+            "value": "{click.chart.values.color.orange}",
             "type": "color"
           },
           "violet": {
-            "value": "{palette.violet.400}",
+            "value": "{click.chart.values.color.violet}",
             "type": "color"
           },
           "teal": {
-            "value": "{palette.teal.300}",
+            "value": "{click.chart.values.color.teal}",
             "type": "color"
           }
         }
