@@ -264,68 +264,23 @@
           },
           "success": {
             "value": "{click.feedback.color.success.background}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.03",
-                  "space": "lch"
-                }
-              }
-            }
+            "type": "color"
           },
           "neutral": {
             "value": "{click.feedback.color.neutral.background}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.03",
-                  "space": "lch"
-                }
-              }
-            }
+            "type": "color"
           },
           "danger": {
             "value": "{click.feedback.color.danger.background}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.03",
-                  "space": "lch"
-                }
-              }
-            }
+            "type": "color"
           },
           "warning": {
             "value": "{click.alert.color.background.warning}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.03",
-                  "space": "lch"
-                }
-              }
-            }
+            "type": "color"
           },
           "info": {
             "value": "{click.alert.color.background.info}",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "darken",
-                  "value": "0.03",
-                  "space": "lch"
-                }
-              }
-            }
+            "type": "color"
           }
         },
         "iconForeground": {
@@ -3956,55 +3911,55 @@
       "feedback": {
         "info": {
           "background": {
-            "value": "{click.feedback.color.info.background}",
+            "value": "{palette.info.650}",
             "type": "color"
           },
           "foreground": {
-            "value": "{click.feedback.color.info.foreground}",
+            "value": "{palette.info.100}",
             "type": "color"
           }
         },
         "success": {
           "background": {
-            "value": "{click.feedback.color.success.background}",
+            "value": "{palette.success.850}",
             "type": "color"
           },
           "foreground": {
-            "value": "{click.feedback.color.success.foreground}",
+            "value": "{palette.success.100}",
             "type": "color"
           }
         },
         "warning": {
           "background": {
-            "value": "{click.feedback.color.warning.background}",
+            "value": "{palette.warning.800}",
             "type": "color"
           },
           "foreground": {
-            "value": "{click.feedback.color.warning.foreground}",
+            "value": "{palette.warning.200}",
             "type": "color"
           }
         },
         "danger": {
           "background": {
-            "value": "{click.feedback.color.danger.background}",
+            "value": "{palette.danger.800}",
             "type": "color"
           },
           "foreground": {
-            "value": "{click.feedback.color.danger.foreground}",
+            "value": "{palette.danger.100}",
             "type": "color"
           }
         },
         "neutral": {
           "background": {
-            "value": "{click.feedback.color.neutral.background}",
+            "value": "{palette.neutral.700}",
             "type": "color"
           },
           "foreground": {
-            "value": "{click.feedback.color.neutral.foreground}",
+            "value": "{palette.neutral.100}",
             "type": "color"
           },
           "stroke": {
-            "value": "{click.feedback.color.neutral.stroke}",
+            "value": "{click.global.color.stroke.default}",
             "type": "color"
           }
         }
@@ -4012,27 +3967,27 @@
       "chart": {
         "values": {
           "green": {
-            "value": "{click.chart.values.color.green}",
+            "value": "{palette.success.300}",
             "type": "color"
           },
           "blue": {
-            "value": "{click.chart.values.color.blue}",
+            "value": "{palette.info.300}",
             "type": "color"
           },
           "fuchsia": {
-            "value": "{click.chart.values.color.fuchsia}",
+            "value": "{palette.fuchsia.300}",
             "type": "color"
           },
           "orange": {
-            "value": "{click.chart.values.color.orange}",
+            "value": "{palette.brand.300}",
             "type": "color"
           },
           "violet": {
-            "value": "{click.chart.values.color.violet}",
+            "value": "{palette.violet.400}",
             "type": "color"
           },
           "teal": {
-            "value": "{click.chart.values.color.teal}",
+            "value": "{palette.teal.300}",
             "type": "color"
           }
         }
