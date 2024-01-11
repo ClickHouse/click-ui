@@ -144,11 +144,11 @@
         },
         "iconBackground": {
           "default": "#ffffff",
-          "success": "lch(94.7 13.9 146)",
-          "neutral": "lch(88.9 1.07 266)",
-          "danger": "lch(88.3 12.6 20.6)",
-          "warning": "lch(91.9 12.7 73)",
-          "info": "lch(88.2 11.8 266)"
+          "success": "#E5FFE8",
+          "neutral": "#e6e7e9",
+          "danger": "#ffdddd",
+          "warning": "#ffedd8",
+          "info": "#dae6fc"
         },
         "iconForeground": {
           "default": "#696e79",
@@ -2761,7 +2761,7 @@
           "foreground": "#c10000"
         },
         "neutral": {
-          "background": "#e6e7e9",
+          "background": "#f6f7fa",
           "foreground": "#53575f",
           "stroke": "lch(91.6 1.1 266)"
         }
