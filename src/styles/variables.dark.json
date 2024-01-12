@@ -1352,7 +1352,7 @@
       }
     },
     "chart": {
-      "values": {
+      "bars": {
         "color": {
           "green": "#66FF73",
           "blue": "#6c9af3",
@@ -1418,7 +1418,7 @@
         }
       },
       "chart": {
-        "values": {
+        "bars": {
           "green": "#66FF73",
           "blue": "#6c9af3",
           "fuchsia": "#FB64D6",

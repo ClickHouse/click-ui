@@ -2664,7 +2664,7 @@
       }
     },
     "chart": {
-      "values": {
+      "bars": {
         "color": {
           "green": string,
           "blue": string,
@@ -2768,7 +2768,7 @@
         }
       },
       "chart": {
-        "values": {
+        "bars": {
           "green": string,
           "blue": string,
           "fuchsia": string,
