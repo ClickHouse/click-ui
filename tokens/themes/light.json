@@ -3619,7 +3619,7 @@
       }
     },
     "chart": {
-      "values": {
+      "bars": {
         "color": {
           "green": {
             "value": "{palette.success.500}",
@@ -3825,7 +3825,7 @@
         }
       },
       "chart": {
-        "values": {
+        "bars": {
           "green": {
             "value": "{palette.success.500}",
             "type": "color"
