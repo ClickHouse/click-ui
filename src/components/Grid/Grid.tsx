@@ -252,11 +252,12 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         if (!element) {
           return;
         }
-
-        outerRef.current?.scrollBy(
-          scrollLeft > element.offsetLeft ? -rowNumberWidth : 0,
-          scrollTop > element.offsetTop ? -headerHeight : 0
-        );
+        if (scrollLeft > element.offsetLeft || scrollTop > element.offsetTop) {
+          outerRef.current?.scrollBy(
+            scrollLeft > element.offsetLeft ? -rowNumberWidth : 0,
+            scrollTop > element.offsetTop ? -headerHeight : 0
+          );
+        }
       },
       [headerHeight, rowNumberWidth]
     );
