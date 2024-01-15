@@ -53,7 +53,11 @@ export const Cell = memo(
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
     return (
-      <div style={style}>
+      <div
+        style={style}
+        data-row={rowIndex}
+        data-column={columnIndex}
+      >
         <StyledCell
           as={CellData}
           rowIndex={rowIndex}
@@ -71,8 +75,8 @@ export const Cell = memo(
           $selectionType={selectionType}
           $height={rowHeight}
           $rounded={rounded}
-          data-row={rowIndex}
-          data-column={columnIndex}
+          data-grid-row={rowIndex}
+          data-grid-column={columnIndex}
           {...props}
         />
       </div>

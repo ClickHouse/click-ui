@@ -86,9 +86,7 @@ const ContextMenuTrigger = styled.div`
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
-const OuterElementContainer = styled.div`
-  // scroll-behavior: smooth;
-`;
+const OuterElementContainer = styled.div``;
 
 const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
   <OuterElementContainer
@@ -232,56 +230,39 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const scrollGridTo = useCallback(
       async ({ row, column }: { row?: number; column?: number }) => {
-        console.log("xxxx", { row, column });
         if (!outerRef.current || !gridRef.current) {
           return;
         }
 
         const rowIndex = row ?? 0;
         const columnIndex = column ?? 0;
-        gridRef.current.scrollToItem({
-          rowIndex: row,
-          columnIndex: column,
-        });
-        // await new Promise(requestAnimationFrame);
-        // gridRef.current.scrollToItem({
-        //   rowIndex: row,
-        //   columnIndex: column,
-        // });
-        console.log("xxxx1", { row, column, a: gridRef.current });
-        const element = outerRef.current?.querySelector<HTMLElement>(
+        let element = outerRef.current?.querySelector<HTMLElement>(
           `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
         );
-        console.log(element);
-        let left = 0,
-          top = 0;
-        console.log(element?.parentNode?.offsetLeft);
-        if (outerRef.current?.scrollLeft - element?.parentNode?.offsetLeft > 0) {
-          left = element?.parentNode?.offsetLeft - outerRef.current?.scrollLeft;
+        if (!element) {
+          return;
         }
-        if (outerRef.current?.scrollTop - element?.parentNode?.offsetTop > 0) {
-          top = element?.parentNode?.offsetTop - outerRef.current?.scrollTop;
-        }
-        // console.log({
-        //   top,
-        //   left,
-        //   scrollLeft: outerRef.current?.scrollLeft,
-        //   scrollTop: outerRef.current?.scrollTop,
-        //   offsetTop: element.offsetTop,
-        //   offsetLeft: element.offsetLeft,
-        // });
-        // if (top !== 0 && left !== 0) {
-        // }
-        outerRef.current.scrollBy(headerHeight, rowNumberWidth);
+
+        const { scrollTop, scrollLeft } = outerRef.current;
         // this is for the test to perform correctly
-        // if (typeof element?.scrollIntoView === "function") {
-        //   console.log("asaszzzzzzz", element);
-        //   element?.scrollIntoView({
-        //     block: "nearest",
-        //     inline: "nearest",
-        //   });
-        //   // await new Promise(requestAnimationFrame);
-        // }
+        if (typeof element?.scrollIntoView === "function") {
+          element?.scrollIntoView({
+            block: "nearest",
+            inline: "nearest",
+          });
+          await new Promise(requestAnimationFrame);
+        }
+        element = outerRef.current?.querySelector<HTMLElement>(
+          `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
+        );
+        if (!element) {
+          return;
+        }
+
+        outerRef.current?.scrollBy(
+          scrollLeft > element.offsetLeft ? -rowNumberWidth : 0,
+          scrollTop > element.offsetTop ? -headerHeight : 0
+        );
       },
       [headerHeight, rowNumberWidth]
     );
@@ -527,10 +508,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         ) {
           return;
         }
-        const currentCell: Element | null = document.elementFromPoint(
-          e.clientX,
-          e.clientY
-        );
+
         containerRef.current.setPointerCapture(dragState.current);
         let verticalSign = 0,
           horizontalSign = 0,
@@ -580,19 +558,17 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         await new Promise(requestAnimationFrame);
         const cell = document.elementFromPoint(x, y) as HTMLElement | null;
-        console.log(currentCell, cell, x, y);
+
         if (!cell) {
           return;
         }
 
-        const { row, column } = cell.dataset;
-        console.log("aa", row, column);
-        if (!row || !column) {
+        const { gridRow, gridColumn } = cell.dataset;
+        if (!gridRow || !gridColumn) {
           return;
         }
-        const rowIndex = Number(row) + verticalSign;
-        const columnIndex = Number(column) + horizontalSign;
-        console.log(row, rowIndex, column, columnIndex, verticalSign, horizontalSign);
+        const rowIndex = Number(gridRow) + verticalSign;
+        const columnIndex = Number(gridColumn) + horizontalSign;
 
         mouseMoveCellSelect(rowIndex, columnIndex);
       },
