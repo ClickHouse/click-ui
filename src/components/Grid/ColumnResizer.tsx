@@ -48,7 +48,6 @@ const ColumnResizer = ({
     e => {
       e.preventDefault();
       e.stopPropagation();
-      console.log("a1", e.detail, e.timeStamp);
       if (e.detail > 1) {
         onColumnResize(columnIndex, 0, "auto");
       }
@@ -57,11 +56,9 @@ const ColumnResizer = ({
   );
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
-      console.log("zzzz1");
       e.stopPropagation();
-      e.target.setPointerCapture(e.pointerId);
       if (resizeRef.current) {
-        console.log("p1");
+        resizeRef.current.setPointerCapture(e.pointerId);
         const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
         if (header) {
           pointerRef.current = {
@@ -105,19 +102,18 @@ const ColumnResizer = ({
       $height={height}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
-        console.log("Aaaazzzz", e);
-        e.target.releasePointerCapture(pointerRef.current.pointerId);
         e.preventDefault();
         e.stopPropagation();
-        setTimeout(() => {
-          if (pointerRef.current?.pointerId) {
-            const shouldCallResize = e.clientX !== pointerRef.current.initialClientX;
-            if (shouldCallResize) {
-              onColumnResize(columnIndex, pointerRef.current.width, "manual");
-            }
-            pointerRef.current = null;
+        if (resizeRef.current && pointerRef.current?.pointerId) {
+          resizeRef.current.releasePointerCapture(pointerRef.current.pointerId);
+          const shouldCallResize = e.clientX !== pointerRef.current.initialClientX;
+          if (shouldCallResize) {
+            onColumnResize(columnIndex, pointerRef.current.width, "manual");
           }
-        }, 300);
+          resizeRef.current.style.top = "0";
+          resizeRef.current.style.left = "calc(100% - 4px)";
+          pointerRef.current = null;
+        }
       }}
       onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}

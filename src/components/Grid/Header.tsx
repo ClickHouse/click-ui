@@ -137,9 +137,6 @@ const Column = ({
         data-grid-row={-1}
         data-grid-column={columnIndex}
         data-selected={selectionType === "selectDirect"}
-        onClick={e => console.log("headercellClick", e)}
-        onPointerDown={e => console.log("headercellClickdown", e)}
-        onPointerUp={e => console.log("headercellClickup", e)}
       />
       <ColumnResizer
         height={height}
@@ -174,12 +171,6 @@ const Header = ({
     <HeaderContainer
       $height={height}
       $scrolledVertical={scrolledVertical}
-      onPointerUp={e => console.log("onPointerUp", e.target, e.clientX)}
-      onPointerDown={e => console.log("onPointerDown", e.target, e.clientX)}
-      onMouseDown={e => console.log("onMouseDown", e.target, e.clientX)}
-      onMouseUp={e => console.log("onMouseUp", e.target, e.clientX)}
-      onClick={e => console.log("onClick", e.target, e.clientX)}
-      onDoubleClick={e => console.log("onDoubleClick", e.target, e.clientX)}
     >
       <ScrollableHeaderContainer $left={rowNumberWidth}>
         {Array.from(

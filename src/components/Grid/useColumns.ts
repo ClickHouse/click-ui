@@ -37,7 +37,6 @@ const useColumns = ({
 
   const onColumnResize: ColumnResizeFn = useCallback(
     (columnIndex, newWidth, type) => {
-      console.log("aaazzzzz", { columnIndex, newWidth, type });
       if (type === "auto") {
         const widthIndex = autoWidthIndices.current.findIndex(
           index => index === columnIndex
