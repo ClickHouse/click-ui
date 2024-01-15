@@ -32,7 +32,7 @@ interface Props {
 interface SelectionActions {
   getSelectionType: SelectionTypeFn;
   onSelection: (action: SelectionAction) => void;
-  mouseMoveCellSelect: (cell: HTMLElement) => void;
+  mouseMoveCellSelect: (row: number, column: number) => void;
   moveSelection: (
     columnDiff: number,
     rowDiff: number,
@@ -381,17 +381,7 @@ export const useSelectionActions = ({
   };
 
   const mouseMoveCellSelect = useCallback(
-    (cell: HTMLElement) => {
-      const target = cell.closest("[data-row][data-column]") as HTMLElement;
-
-      const { row: rowIndexString, column: columnIndexString } = target?.dataset ?? {};
-
-      if (!target || rowIndexString === undefined || columnIndexString === undefined) {
-        return;
-      }
-
-      const row = parseInt(rowIndexString);
-      const column = parseInt(columnIndexString);
+    (row: number, column: number) => {
       const selectionType = selection.type;
       const event = "click";
       if (row === -1 && column == -1) {

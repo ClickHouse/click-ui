@@ -86,9 +86,12 @@ const ContextMenuTrigger = styled.div`
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
+const OuterElementContainer = styled.div`
+  // scroll-behavior: smooth;
+`;
 
 const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
-  <div
+  <OuterElementContainer
     ref={ref}
     data-testid="grid-outer-element"
     {...props}
@@ -229,46 +232,58 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const scrollGridTo = useCallback(
       async ({ row, column }: { row?: number; column?: number }) => {
-        if (!outerRef.current) {
+        console.log("xxxx", { row, column });
+        if (!outerRef.current || !gridRef.current) {
           return;
         }
 
         const rowIndex = row ?? 0;
         const columnIndex = column ?? 0;
-        let element = outerRef.current?.querySelector<HTMLElement>(
+        gridRef.current.scrollToItem({
+          rowIndex: row,
+          columnIndex: column,
+        });
+        // await new Promise(requestAnimationFrame);
+        // gridRef.current.scrollToItem({
+        //   rowIndex: row,
+        //   columnIndex: column,
+        // });
+        console.log("xxxx1", { row, column, a: gridRef.current });
+        const element = outerRef.current?.querySelector<HTMLElement>(
           `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
         );
-        if (element) {
-          let left = 0,
-            top = 0;
-          if (outerRef.current?.scrollLeft - element.offsetLeft > 0) {
-            left = element.offsetLeft - outerRef.current?.scrollLeft;
-          }
-          if (outerRef.current?.scrollTop - element.offsetTop > 0) {
-            top = element.offsetTop - outerRef.current?.scrollTop;
-          }
-          if (top !== 0 && left !== 0) {
-            outerRef.current.scrollBy(left, top);
-          }
-        } else {
-          gridRef.current?.scrollToItem({
-            rowIndex: row,
-            columnIndex: column,
-          });
-          await new Promise(requestAnimationFrame);
-          element = outerRef.current?.querySelector<HTMLElement>(
-            `[data-row="${rowIndex}"][data-column="${columnIndex}"]`
-          );
+        console.log(element);
+        let left = 0,
+          top = 0;
+        console.log(element?.parentNode?.offsetLeft);
+        if (outerRef.current?.scrollLeft - element?.parentNode?.offsetLeft > 0) {
+          left = element?.parentNode?.offsetLeft - outerRef.current?.scrollLeft;
         }
+        if (outerRef.current?.scrollTop - element?.parentNode?.offsetTop > 0) {
+          top = element?.parentNode?.offsetTop - outerRef.current?.scrollTop;
+        }
+        // console.log({
+        //   top,
+        //   left,
+        //   scrollLeft: outerRef.current?.scrollLeft,
+        //   scrollTop: outerRef.current?.scrollTop,
+        //   offsetTop: element.offsetTop,
+        //   offsetLeft: element.offsetLeft,
+        // });
+        // if (top !== 0 && left !== 0) {
+        // }
+        outerRef.current.scrollBy(headerHeight, rowNumberWidth);
         // this is for the test to perform correctly
-        if (typeof element?.scrollIntoView === "function") {
-          element?.scrollIntoView({
-            block: "nearest",
-            inline: "nearest",
-          });
-        }
+        // if (typeof element?.scrollIntoView === "function") {
+        //   console.log("asaszzzzzzz", element);
+        //   element?.scrollIntoView({
+        //     block: "nearest",
+        //     inline: "nearest",
+        //   });
+        //   // await new Promise(requestAnimationFrame);
+        // }
       },
-      []
+      [headerHeight, rowNumberWidth]
     );
 
     const getFixedResizerLeftPosition = useCallback(
@@ -501,7 +516,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     );
 
     const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
-      e => {
+      async e => {
         e.preventDefault();
         e.stopPropagation();
         if (
@@ -512,12 +527,13 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         ) {
           return;
         }
-        // let cell: Element | null = document.elementFromPoint(e.clientX, e.clientY);
+        const currentCell: Element | null = document.elementFromPoint(
+          e.clientX,
+          e.clientY
+        );
         containerRef.current.setPointerCapture(dragState.current);
-        let scrollHorizontalDirection: "left" | "right" | undefined,
-          scrollVerticalDirection: "top" | "bottom" | undefined,
-          top,
-          left,
+        let verticalSign = 0,
+          horizontalSign = 0,
           x = e.clientX,
           y = e.clientY;
         if (
@@ -525,14 +541,13 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           e.clientX >=
             elementBorderRef.current.right - elementBorderRef.current.scrollBarWidth
         ) {
-          scrollHorizontalDirection =
+          const scrollHorizontalDirection =
             e.clientX <= elementBorderRef.current.left ? "left" : "right";
           if (
             (scrollHorizontalDirection === "left" && e.movementX < 0) ||
             (scrollHorizontalDirection === "right" && e.movementX > 0)
           ) {
-            const directionNum = scrollHorizontalDirection === "left" ? -1 : 1;
-            left = 30 * directionNum;
+            horizontalSign = scrollHorizontalDirection === "left" ? -1 : 1;
           }
           x =
             scrollHorizontalDirection === "left"
@@ -547,13 +562,13 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           e.clientY >=
             elementBorderRef.current.bottom - elementBorderRef.current.scrollBarHeight
         ) {
-          scrollVerticalDirection =
+          const scrollVerticalDirection =
             e.clientY <= elementBorderRef.current.top ? "top" : "bottom";
           if (
             (scrollVerticalDirection === "top" && e.movementY < 0) ||
             (scrollVerticalDirection === "bottom" && e.movementY > 0)
           ) {
-            top = 30 * (scrollVerticalDirection === "top" ? -1 : 1);
+            verticalSign = scrollVerticalDirection === "top" ? -1 : 1;
           }
           y =
             scrollVerticalDirection === "top"
@@ -563,21 +578,23 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 10;
         }
 
-        if (
-          scrollHorizontalDirection !== undefined ||
-          scrollVerticalDirection !== undefined
-        ) {
-          outerRef.current.scrollBy({
-            top,
-            left,
-          });
-        }
-        const cell = document.elementFromPoint(x, y);
-
+        await new Promise(requestAnimationFrame);
+        const cell = document.elementFromPoint(x, y) as HTMLElement | null;
+        console.log(currentCell, cell, x, y);
         if (!cell) {
           return;
         }
-        mouseMoveCellSelect(cell as HTMLElement);
+
+        const { row, column } = cell.dataset;
+        console.log("aa", row, column);
+        if (!row || !column) {
+          return;
+        }
+        const rowIndex = Number(row) + verticalSign;
+        const columnIndex = Number(column) + horizontalSign;
+        console.log(row, rowIndex, column, columnIndex, verticalSign, horizontalSign);
+
+        mouseMoveCellSelect(rowIndex, columnIndex);
       },
       [headerHeight, mouseMoveCellSelect, rowNumberWidth]
     );
