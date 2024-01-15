@@ -84,8 +84,8 @@ const RowNumber = ({
       $isSelectedLeft={isSelected}
       $isSelectedTop={isSelected}
       data-selected={isSelected}
-      data-row={row}
-      data-column={-1}
+      data-grid-row={row}
+      data-grid-column={-1}
       data-testid={`header-cell-${row}-x`}
     >
       {row}

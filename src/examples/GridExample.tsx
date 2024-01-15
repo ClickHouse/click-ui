@@ -31,19 +31,26 @@ const GridExample = () => {
     [columnWidth]
   );
 
-  const getMenuOptions = (
-    selection: SelectedRegion,
-    focus: SelectionFocus
-  ): GridContextMenuItemProps[] => {
-    return [
-      {
-        label: "Console log elements",
-        onSelect: () => {
-          console.log(selection, focus);
+  const getMenuOptions = useCallback(
+    (selection: SelectedRegion, focus: SelectionFocus): GridContextMenuItemProps[] => {
+      return [
+        {
+          label: "Console log elements",
+          onSelect: () => {
+            console.log(selection, focus);
+          },
         },
-      },
-    ];
-  };
+      ];
+    },
+    []
+  );
+
+  const onColumnResize = useCallback((columnIndex: number, newWidth: number): void => {
+    setColumnWidth(columnWidths => {
+      columnWidths[columnIndex] = newWidth;
+      return [...columnWidths];
+    });
+  }, []);
 
   return (
     <div style={{ height: 500, width: "100%" }}>
@@ -53,12 +60,7 @@ const GridExample = () => {
         columnWidth={getColumnWidth}
         cell={Cell}
         headerHeight={32}
-        onColumnResize={(columnIndex: number, newWidth: number): void => {
-          setColumnWidth(columnWidths => {
-            columnWidths[columnIndex] = newWidth;
-            return [...columnWidths];
-          });
-        }}
+        onColumnResize={onColumnResize}
         getMenuOptions={getMenuOptions}
       />
     </div>

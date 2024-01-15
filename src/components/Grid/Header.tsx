@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { CellProps, ColumnResizeFn, RoundedType, SelectionTypeFn } from "./types";
+import {
+  CellProps,
+  ColumnResizeFn,
+  RoundedType,
+  SelectionTypeFn,
+  SetResizeCursorPositionFn,
+} from "./types";
 import { StyledCell } from "./StyledCell";
 import ColumnResizer from "./ColumnResizer";
 
@@ -17,11 +23,7 @@ interface HeaderProps {
   onColumnResize: ColumnResizeFn;
   columnHorizontalPosition: Array<number>;
   scrolledVertical: boolean;
-  getFixedResizerLeftPosition: (
-    clientX: number,
-    width: number,
-    columnIndex: number
-  ) => number | string;
+  setResizeCursorPosition: SetResizeCursorPositionFn;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -53,7 +55,7 @@ interface ColumnProps
     | "onColumnResize"
     | "columnWidth"
     | "height"
-    | "getFixedResizerLeftPosition"
+    | "setResizeCursorPosition"
   > {
   columnIndex: number;
   isFirstColumn: boolean;
@@ -71,6 +73,9 @@ const HeaderCellContainer = styled.div<{
   width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
   height: ${({ $height }) => $height}px;
   left: ${({ $columnPosition }) => $columnPosition}px;
+  &:hover [data-resize] {
+    background: ${({ theme }) => theme.click.grid.header.cell.color.stroke.selectDirect};
+  }
 `;
 
 const RowColumnContainer = styled(HeaderCellContainer)<{
@@ -99,7 +104,7 @@ const Column = ({
   isLastColumn,
   onColumnResize,
   height,
-  getFixedResizerLeftPosition,
+  setResizeCursorPosition,
 }: ColumnProps) => {
   const selectionType = getSelectionType({
     column: columnIndex,
@@ -129,15 +134,18 @@ const Column = ({
         $isLastRow={false}
         $isFirstRow
         $height={height}
-        data-row={-1}
-        data-column={columnIndex}
+        data-grid-row={-1}
+        data-grid-column={columnIndex}
         data-selected={selectionType === "selectDirect"}
+        onClick={e => console.log("headercellClick", e)}
+        onPointerDown={e => console.log("headercellClickdown", e)}
+        onPointerUp={e => console.log("headercellClickup", e)}
       />
       <ColumnResizer
         height={height}
         onColumnResize={onColumnResize}
         columnIndex={columnIndex}
-        getFixedResizerLeftPosition={getFixedResizerLeftPosition}
+        setResizeCursorPosition={setResizeCursorPosition}
       />
     </HeaderCellContainer>
   );
@@ -157,7 +165,7 @@ const Header = ({
   getSelectionType,
   onColumnResize,
   columnHorizontalPosition,
-  getFixedResizerLeftPosition,
+  setResizeCursorPosition,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",
@@ -166,6 +174,12 @@ const Header = ({
     <HeaderContainer
       $height={height}
       $scrolledVertical={scrolledVertical}
+      onPointerUp={e => console.log("onPointerUp", e.target, e.clientX)}
+      onPointerDown={e => console.log("onPointerDown", e.target, e.clientX)}
+      onMouseDown={e => console.log("onMouseDown", e.target, e.clientX)}
+      onMouseUp={e => console.log("onMouseUp", e.target, e.clientX)}
+      onClick={e => console.log("onClick", e.target, e.clientX)}
+      onDoubleClick={e => console.log("onDoubleClick", e.target, e.clientX)}
     >
       <ScrollableHeaderContainer $left={rowNumberWidth}>
         {Array.from(
@@ -184,7 +198,7 @@ const Header = ({
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
             height={height}
-            getFixedResizerLeftPosition={getFixedResizerLeftPosition}
+            setResizeCursorPosition={setResizeCursorPosition}
           />
         ))}
       </ScrollableHeaderContainer>

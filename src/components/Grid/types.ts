@@ -117,7 +117,11 @@ export type IsSelectedType =
 
 export type SelectionTypeFn = (props: IsSelectedType) => SelectionType;
 
-export type ColumnResizeFn = (columnIndex: number, newWidth: number) => void;
+export type ColumnResizeFn = (
+  columnIndex: number,
+  newWidth: number,
+  type: "auto" | "manual"
+) => void;
 
 export type SelectionFocus = { row: number; column: number };
 
@@ -161,7 +165,7 @@ export interface GridProps
   headerHeight?: number;
   onFocusChange?: (rowIndex: number, columnIndex: number) => void;
   onSelect?: onSelectFn;
-  onColumnResize: ColumnResizeFn;
+  onColumnResize: (columnIndex: number, newWidth: number) => void;
   getMenuOptions?: (
     selection: SelectedRegion,
     focus: SelectionFocus
@@ -170,3 +174,10 @@ export interface GridProps
   selection?: SelectedRegion;
   showToast?: boolean;
 }
+
+export type SetResizeCursorPositionFn = (
+  element: HTMLSpanElement,
+  clientX: number,
+  width: number,
+  columnIndex: number
+) => void;

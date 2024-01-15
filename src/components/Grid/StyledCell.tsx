@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { RoundedType, SelectionType } from "./types";
 
-export const StyledCell = styled.span<{
+export const StyledCell = styled.div<{
   $isFocused: boolean;
   $selectionType: SelectionType;
   $isSelectedTop: boolean;

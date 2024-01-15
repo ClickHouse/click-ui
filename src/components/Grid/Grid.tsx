@@ -22,6 +22,7 @@ import {
   SelectedRegion,
   SelectionAction,
   SelectionFocus,
+  SetResizeCursorPositionFn,
   onSelectFn,
 } from "./types";
 import { useSelectionActions } from "./useSelectionActions";
@@ -29,6 +30,7 @@ import { mergeRefs } from "@/utils/mergeRefs";
 import { Cell } from "./Cell";
 import { ContextMenu, createToast } from "@/components";
 import copyGridElements from "./copyGridElements";
+import useColumns from "./useColumns";
 
 const NO_BUTTONS_PRESSED = 0;
 const RIGHT_BUTTON_PRESSED = 2;
@@ -212,20 +214,12 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
-    const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<
-      Array<number>
-    >(() => {
-      const columnWidthList = [...Array(columnCount).keys()];
-      const array: Array<number> = [];
-      return columnWidthList.reduce((acc, curr, index) => {
-        const width = columnWidth(curr - 1);
-        if (index !== 0) {
-          acc.push(width + acc[index - 1]);
-        } else {
-          acc.push(0);
-        }
-        return acc;
-      }, array);
+    const { columnHorizontalPosition, onColumnResize } = useColumns({
+      columnCount,
+      columnWidth,
+      outerGridRef: outerRef,
+      gridRef,
+      onColumnResize: onColumnResizeProp,
     });
 
     const scrollGridTo = useCallback(
@@ -281,9 +275,24 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           return columnHorizontalPosition[columnIndex] + rowNumberWidth + 50;
         }
 
-        return columnLeft + rowNumberWidth;
+        return columnLeft + rowNumberWidth - 4;
       },
       [columnHorizontalPosition, rowNumberWidth]
+    );
+
+    const setResizeCursorPosition: SetResizeCursorPositionFn = useCallback(
+      (element, clientX, width, columnIndex) => {
+        element.style.left = `${getFixedResizerLeftPosition(
+          clientX,
+          width,
+          columnIndex
+        )}px`;
+
+        if (outerRef.current) {
+          element.style.top = `${outerRef.current.scrollTop}px`;
+        }
+      },
+      [getFixedResizerLeftPosition]
     );
 
     const clearSelectionAndFocus = useCallback(
@@ -331,25 +340,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       rowNumberWidth,
     };
 
-    const onColumnResize = useCallback(
-      (columnIndex: number, newWidth: number) => {
-        setColumnHorizontalPosition(columnHorizontalPosition => {
-          const currentWidth =
-            columnHorizontalPosition[columnIndex + 1] -
-            columnHorizontalPosition[columnIndex];
-          const diff = newWidth - currentWidth;
-
-          for (let i = columnIndex + 1; i < columnCount; i++) {
-            columnHorizontalPosition[i] = columnHorizontalPosition[i] + diff;
-          }
-          return [...columnHorizontalPosition];
-        });
-        gridRef.current?.resetAfterColumnIndex(columnIndex);
-        onColumnResizeProp(columnIndex, newWidth);
-      },
-      [columnCount, onColumnResizeProp]
-    );
-
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
       ({ children, ...containerProps }, ref) => {
         const [minRow, maxRow, minColumn, maxColumn] = getRenderedCursor(children);
@@ -396,7 +386,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 columnCount={columnCount}
                 onColumnResize={onColumnResize}
                 columnHorizontalPosition={columnHorizontalPosition}
-                getFixedResizerLeftPosition={getFixedResizerLeftPosition}
+                setResizeCursorPosition={setResizeCursorPosition}
               />
             )}
           </GridContainer>
@@ -411,13 +401,14 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       e => {
         containerRef.current?.focus();
         const target = (e.target as HTMLElement).closest(
-          "[data-row][data-column]"
+          "[data-grid-row][data-grid-column]"
         ) as HTMLElement;
 
+        console.log(e.target, target);
         if (
           !target ||
-          target.dataset.row === undefined ||
-          target.dataset.column === undefined
+          target.dataset.gridRow === undefined ||
+          target.dataset.gridColumn === undefined
         ) {
           return;
         }
@@ -425,7 +416,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           return;
         }
 
-        const { row: rowIndexString, column: columnIndexString } = target.dataset;
+        const { gridRow: rowIndexString, gridColumn: columnIndexString } = target.dataset;
         const row = parseInt(rowIndexString);
         const column = parseInt(columnIndexString);
         if (row === -1 && column === -1) {

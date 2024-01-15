@@ -1,5 +1,7 @@
 import { MouseEventHandler, PointerEventHandler, useCallback, useRef } from "react";
 import styled from "styled-components";
+import { ColumnResizeFn, SetResizeCursorPositionFn } from "./types";
+import throttle from "lodash/throttle";
 
 const ResizeSpan = styled.div<{ $height: number }>`
   top: 0;
@@ -26,34 +28,40 @@ type PointerRefType = {
   initialClientX: number;
 };
 
-const onMouseDown: MouseEventHandler<HTMLDivElement> = e => {
-  e.preventDefault();
-  e.stopPropagation();
-};
-
 interface Props {
   height: number;
-  onColumnResize: (columnIndex: number, width: number) => void;
+  onColumnResize: ColumnResizeFn;
   columnIndex: number;
-  getFixedResizerLeftPosition: (
-    clientX: number,
-    width: number,
-    columnIndex: number
-  ) => number | string;
+  setResizeCursorPosition: SetResizeCursorPositionFn;
 }
 const ColumnResizer = ({
   height,
-  onColumnResize,
+  onColumnResize: onColumnResizeProp,
   columnIndex,
-  getFixedResizerLeftPosition,
+  setResizeCursorPosition,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
   const pointerRef = useRef<PointerRefType | null>(null);
+  const onColumnResize = throttle(onColumnResizeProp, 1000);
 
+  const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
+    e => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("a1", e.detail, e.timeStamp);
+      if (e.detail > 1) {
+        onColumnResize(columnIndex, 0, "auto");
+      }
+    },
+    [columnIndex, onColumnResize]
+  );
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
+      console.log("zzzz1");
+      e.stopPropagation();
+      e.target.setPointerCapture(e.pointerId);
       if (resizeRef.current) {
-        e.stopPropagation();
+        console.log("p1");
         const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
         if (header) {
           pointerRef.current = {
@@ -61,35 +69,34 @@ const ColumnResizer = ({
             initialClientX: e.clientX,
             width: header.clientWidth,
           };
-          resizeRef.current.setPointerCapture(e.pointerId);
-          resizeRef.current.style.left = `${getFixedResizerLeftPosition(
+
+          setResizeCursorPosition(
+            resizeRef.current,
             e.clientX,
             header.clientWidth,
             columnIndex
-          )}px`;
+          );
         }
       }
     },
-    [columnIndex, getFixedResizerLeftPosition]
+    [columnIndex, setResizeCursorPosition]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
+      e.stopPropagation();
       if (resizeRef.current && pointerRef.current) {
-        e.stopPropagation();
-
         const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
         if (header) {
           resizeRef.current.setPointerCapture(pointerRef.current.pointerId);
           const width =
             header.scrollWidth + (e.clientX - pointerRef.current.initialClientX);
-          const leftPosition = getFixedResizerLeftPosition(e.clientX, width, columnIndex);
-          resizeRef.current.style.left = `${leftPosition}px`;
+          setResizeCursorPosition(resizeRef.current, e.clientX, width, columnIndex);
           pointerRef.current.width = Math.max(width, 50);
         }
       }
     },
-    [columnIndex, getFixedResizerLeftPosition]
+    [columnIndex, setResizeCursorPosition]
   );
 
   return (
@@ -98,16 +105,25 @@ const ColumnResizer = ({
       $height={height}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
-        if (resizeRef.current && pointerRef.current?.pointerId) {
-          e.stopPropagation();
-
-          resizeRef.current.releasePointerCapture(pointerRef.current.pointerId);
-          onColumnResize(columnIndex, pointerRef.current.width);
-          pointerRef.current = null;
-        }
+        console.log("Aaaazzzz", e);
+        e.target.releasePointerCapture(pointerRef.current.pointerId);
+        e.preventDefault();
+        e.stopPropagation();
+        setTimeout(() => {
+          if (pointerRef.current?.pointerId) {
+            const shouldCallResize = e.clientX !== pointerRef.current.initialClientX;
+            if (shouldCallResize) {
+              onColumnResize(columnIndex, pointerRef.current.width, "manual");
+            }
+            pointerRef.current = null;
+          }
+        }, 300);
       }}
       onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}
+      onClick={e => e.stopPropagation()}
+      onMouseUp={e => e.stopPropagation()}
+      data-resize
     />
   );
 };
