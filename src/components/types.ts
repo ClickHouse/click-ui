@@ -48,6 +48,14 @@ export type {
 export type { CardHorizontalProps } from "./CardHorizontal/CardHorizontal";
 export type { CardPromotionProps } from "./CardPromotion/CardPromotion";
 export type { ProgressBarProps } from "./ProgressBar/ProgressBar";
+export type {
+  GridProps,
+  CellProps,
+  SelectedRegion,
+  SelectionFocus,
+  SelectionAction,
+  GridContextMenuItemProps,
+} from "./Grid/types";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
@@ -58,6 +66,7 @@ export type {
   AutoCompleteOptionListItem,
 } from "./AutoComplete/AutoComplete";
 export type { PaginationProps } from "./Pagination/Pagination";
+export type { ContextMenuItemProps } from "./ContextMenu/ContextMenu";
 
 export type { IconButtonProps };
 export type { AlertProps };

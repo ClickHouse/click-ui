@@ -29,6 +29,7 @@ export { GridContainer } from "./GridContainer/GridContainer";
 export { InlineCodeBlock } from "./CodeBlock/InlineCodeBlock";
 export { ContextMenu } from "./ContextMenu/ContextMenu";
 export { default as Flags } from "./icons/Flags";
+export { Grid } from "./Grid/Grid";
 export { HoverCard } from "./HoverCard/HoverCard";
 export { Link } from "./Link/Link";
 export { Logo } from "./Logos/Logo";

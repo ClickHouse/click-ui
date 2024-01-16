@@ -61,6 +61,8 @@
     "lodash": "^4.17.21",
     "react-sortablejs": "^6.1.4",
     "react-syntax-highlighter": "^15.5.0",
+    "react-virtualized-auto-sizer": "^1.0.20",
+    "react-window": "^1.8.9",
     "sortablejs": "^1.15.0"
   },
   "devDependencies": {
@@ -85,6 +87,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-syntax-highlighter": "^15.5.7",
+    "@types/react-window": "^1.8.8",
     "@types/sortablejs": "^1.15.2",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
