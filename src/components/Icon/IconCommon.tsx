@@ -12,6 +12,7 @@ import SortIcon from "@/components/icons/SortIcon";
 import { ChevronRight } from "@/components/icons/ChevronRight";
 import { ChevronDown } from "@/components/icons/ChevronDown";
 import ArrowDown from "@/components/icons/ArrowDown";
+import ArrowLeft from "../icons/ArrowLeft";
 import InfoInCircleIcon from "@/components/icons/InfoInCircleIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
 import InformationIcon from "@/components/icons/InformationIcon";
@@ -127,6 +128,7 @@ export const ICONS_MAP = {
   activity: Activity,
   alarm: Alarm,
   "arrow-down": ArrowDown,
+  "arrow-left": ArrowLeft,
   "arrow-right": ArrowRight,
   "arrow-triangle": ArrowTriangle,
   "arrow-directions": ArrowDirections,
