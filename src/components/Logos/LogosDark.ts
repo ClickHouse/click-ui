@@ -7,6 +7,7 @@ import AWSS3 from "./AWS_S3";
 import AWSAthena from "./AWSAthena";
 import AWSMsk from "./AWSMsk";
 import Azure from "./Azure";
+import AzureEventHub from "./AzureEventHub";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
 import Clickhouse from "./ClickhouseDark";
@@ -57,6 +58,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   "aws-redshift": AWSRedshift,
   "aws-s3": AWSS3,
   azure: Azure,
+  "azure-event-hub": AzureEventHub,
   bigquery: BigQuery,
   "c#": Chash,
   confluent: Confluent,
