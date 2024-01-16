@@ -9,6 +9,7 @@ export const ICON_NAMES = [
   "activity",
   "alarm",
   "arrow-down",
+  "arrow-left",
   "arrow-right",
   "arrow-triangle",
   "arrow-directions",
