@@ -2773,6 +2773,18 @@
               "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
+          },
+          "closeButton": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.neutral.700}",
+                "type": "color"
+              }
+            }
           }
         }
       }
