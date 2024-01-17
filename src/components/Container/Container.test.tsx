@@ -3,7 +3,8 @@ import { renderCUI } from "@/utils/test-utils";
 import "@testing-library/jest-dom";
 
 describe("Container", () => {
-  const renderContainer = (props: ContainerProps) => renderCUI(<Container {...props} />);
+  const renderContainer = (props: ContainerProps<"div">) =>
+    renderCUI(<Container {...props} />);
 
   it("should render the container", () => {
     const { getByText } = renderContainer({ children: "Hello" });
