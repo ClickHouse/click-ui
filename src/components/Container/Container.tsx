@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { HTMLAttributes } from "react";
+import {
+  ComponentPropsWithRef,
+  ComponentPropsWithoutRef,
+  ElementType,
+  forwardRef,
+} from "react";
 import { Orientation } from "@/components";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
@@ -17,7 +22,8 @@ type JustifyContentOptions =
 type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
-export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+export interface ContainerProps<T extends ElementType> {
+  component?: T;
   alignItems?: AlignItemsOptions;
   children?: React.ReactNode;
   fillWidth?: boolean;
@@ -33,43 +39,51 @@ export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   wrap?: WrapOptions;
 }
 
-const Container = ({
-  alignItems = "center",
-  children,
-  fillWidth = false,
-  gap = "none",
-  grow = "0",
-  shrink = "0",
-  isResponsive,
-  justifyContent = "start",
-  maxWidth,
-  minWidth,
-  orientation = "horizontal",
-  padding = "none",
-  wrap = "nowrap",
-  ...props
-}: ContainerProps) => {
-  return (
-    <Wrapper
-      $alignItems={alignItems}
-      $fillWidth={fillWidth}
-      $gapSize={gap}
-      $grow={grow}
-      $shrink={shrink}
-      $isResponsive={isResponsive}
-      $justifyContent={justifyContent}
-      $maxWidth={maxWidth}
-      $minWidth={minWidth}
-      $orientation={orientation}
-      $paddingSize={padding}
-      $wrap={wrap}
-      data-testid="container"
-      {...props}
-    >
-      {children}
-    </Wrapper>
-  );
-};
+const Container = forwardRef(
+  <T extends ElementType = "div">(
+    {
+      component,
+      alignItems = "center",
+      children,
+      fillWidth = false,
+      gap = "none",
+      grow = "0",
+      shrink = "0",
+      isResponsive,
+      justifyContent = "start",
+      maxWidth,
+      minWidth,
+      orientation = "horizontal",
+      padding = "none",
+      wrap = "nowrap",
+      ...props
+    }: ContainerProps<T> & ComponentPropsWithoutRef<T>,
+    ref: ComponentPropsWithRef<T>["ref"]
+  ) => {
+    return (
+      <Wrapper
+        ref={ref}
+        as={component ?? "div"}
+        $alignItems={alignItems}
+        $fillWidth={fillWidth}
+        $gapSize={gap}
+        $grow={grow}
+        $shrink={shrink}
+        $isResponsive={isResponsive}
+        $justifyContent={justifyContent}
+        $maxWidth={maxWidth}
+        $minWidth={minWidth}
+        $orientation={orientation}
+        $paddingSize={padding}
+        $wrap={wrap}
+        data-testid="container"
+        {...props}
+      >
+        {children}
+      </Wrapper>
+    );
+  }
+);
 
 const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
