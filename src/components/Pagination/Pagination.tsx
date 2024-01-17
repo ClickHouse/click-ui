@@ -9,7 +9,8 @@ import {
 } from "@/components";
 import styled from "styled-components";
 
-export interface PaginationProps extends Omit<ContainerProps, "children" | "onChange"> {
+export interface PaginationProps
+  extends Omit<ContainerProps<"div">, "children" | "onChange"> {
   totalPages?: number;
   currentPage: number;
   maxRowsPerPageList?: Array<number>;
