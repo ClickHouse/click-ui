@@ -206,21 +206,16 @@ const TabElement = styled.div<{
   max-width: fill-available;
   max-width: stretch;
   border: none;
+  cursor: pointer;
+  height: 100%;
+  height: -webkit-fill-available;
+  height: fill-available;
+  height: stretch;
   ${({ theme, $active, $preview, $dismissable, $fixedTabElement }) => `
     width:${$fixedTabElement ? "auto" : "100%"};
     grid-template-columns: 1fr ${
       $dismissable ? theme.click.tabs.fileTabs.icon.size.width : ""
     };
-    ${
-      $dismissable
-        ? `
-        height: 100%;
-        height: -webkit-fill-available;
-        height: fill-available;
-        height: stretch;
-    `
-        : ""
-    }
     padding: ${theme.click.tabs.fileTabs.space.y} ${theme.click.tabs.fileTabs.space.x};
     gap: ${theme.click.tabs.fileTabs.space.gap};
     border-radius: ${theme.click.tabs.fileTabs.radii.all};
@@ -293,6 +288,7 @@ const TabContent = styled.div`
   flex-wrap: nowrap;
   overflow: hidden;
   gap: ${({ theme }) => theme.click.tabs.fileTabs.space.gap};
+  cursor: inherit;
 `;
 
 const TabContentText = styled.span`
@@ -304,6 +300,11 @@ const TabContentText = styled.span`
 
 const EmptyButton = styled.button`
   padding: 0;
+  ${({ theme }) => theme.click.tabs.fileTabs.color.closeButton.background.default};
+  &:hover {
+    background: ${({ theme }) =>
+      theme.click.tabs.fileTabs.color.closeButton.background.hover};
+  }
 `;
 
 const Tab = ({

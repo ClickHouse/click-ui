@@ -1161,6 +1161,12 @@
             "default": "lch(91.6 1.1 266)",
             "hover": "lch(91.6 1.1 266)",
             "active": "lch(91.6 1.1 266)"
+          },
+          "closeButton": {
+            "background": {
+              "default": "rgba(0,0,0,0)",
+              "hover": "#e6e7e9"
+            }
           }
         }
       }
