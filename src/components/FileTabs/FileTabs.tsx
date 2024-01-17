@@ -288,7 +288,6 @@ const TabContent = styled.div`
   flex-wrap: nowrap;
   overflow: hidden;
   gap: ${({ theme }) => theme.click.tabs.fileTabs.space.gap};
-  cursor: inherit;
 `;
 
 const TabContentText = styled.span`
