@@ -109,7 +109,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       useIsScrolling = true,
       rowHeight = 33,
       columnCount,
-      columnWidth,
+      columnWidth: columnWidthProp,
       onSelect: onSelectProp,
       headerHeight = 33,
       rowCount,
@@ -120,6 +120,8 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       onKeyDown: onKeyDownProp,
       selection: selectionProp,
       showToast,
+      onMouseDown: onMouseDownProp,
+      onMouseMove: onMouseMoveProp,
       ...props
     },
     forwardedRef
@@ -214,13 +216,14 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
-    const { columnHorizontalPosition, onColumnResize } = useColumns({
-      columnCount,
-      columnWidth,
-      outerGridRef: outerRef,
-      gridRef,
-      onColumnResize: onColumnResizeProp,
-    });
+    const { columnHorizontalPosition, onColumnResize, columnWidth, initColumnSize } =
+      useColumns({
+        columnCount,
+        columnWidth: columnWidthProp,
+        outerGridRef: outerRef,
+        gridRef,
+        onColumnResize: onColumnResizeProp,
+      });
 
     const scrollGridTo = useCallback(
       async ({ row, column }: { row?: number; column?: number }) => {
@@ -244,6 +247,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             block: "nearest",
             inline: "nearest",
           });
+          // This is for the element to be available after the scroll.
           await new Promise(requestAnimationFrame);
         }
         element = outerRef.current?.querySelector<HTMLElement>(
@@ -401,11 +405,12 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       e => {
         containerRef.current?.focus();
+        if (typeof onMouseDownProp === "function") {
+          onMouseDownProp(e);
+        }
         const target = (e.target as HTMLElement).closest(
           "[data-grid-row][data-grid-column]"
         ) as HTMLElement;
-
-        console.log(e.target, target);
         if (
           !target ||
           target.dataset.gridRow === undefined ||
@@ -413,6 +418,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         ) {
           return;
         }
+
         if (e.buttons === RIGHT_BUTTON_PRESSED && target.dataset.selected === "true") {
           return;
         }
@@ -458,7 +464,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           onFocusChange(row, column);
         }
       },
-      [onFocusChange, onSelection]
+      [onFocusChange, onMouseDownProp, onSelection]
     );
 
     const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {
@@ -492,6 +498,9 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       async e => {
         e.preventDefault();
         e.stopPropagation();
+        if (typeof onMouseMoveProp === "function") {
+          onMouseMoveProp(e);
+        }
         if (
           dragState.current === false ||
           e.buttons === NO_BUTTONS_PRESSED ||
@@ -564,7 +573,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         mouseMoveCellSelect(rowIndex, columnIndex);
       },
-      [headerHeight, mouseMoveCellSelect, rowNumberWidth]
+      [headerHeight, mouseMoveCellSelect, onMouseMoveProp, rowNumberWidth]
     );
 
     const onScroll = ({ scrollLeft, scrollTop }: GridOnScrollProps) => {
@@ -572,27 +581,31 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       setScrolledHorizontal(scrollLeft > 0);
     };
 
-    const onResize = useCallback(({ height, width }: Size) => {
-      setTimeout(() => {
-        if (!outerRef.current) {
-          return;
-        }
+    const onResize = useCallback(
+      ({ height, width }: Size) => {
+        setTimeout(() => {
+          if (!outerRef.current) {
+            return;
+          }
 
-        const { top, bottom, left, right } =
-          outerRef.current.getBoundingClientRect() ?? {};
+          const { top, bottom, left, right } =
+            outerRef.current.getBoundingClientRect() ?? {};
 
-        elementBorderRef.current = {
-          top,
-          bottom,
-          left,
-          right,
-          scrollBarWidth: width - outerRef.current.clientWidth,
-          scrollBarHeight: height - outerRef.current.clientHeight,
-          width,
-          height,
-        };
-      }, 0);
-    }, []);
+          elementBorderRef.current = {
+            top,
+            bottom,
+            left,
+            right,
+            scrollBarWidth: width - outerRef.current.clientWidth,
+            scrollBarHeight: height - outerRef.current.clientHeight,
+            width,
+            height,
+          };
+          initColumnSize(outerRef.current.clientWidth - rowNumberWidth);
+        }, 0);
+      },
+      [initColumnSize, rowNumberWidth]
+    );
 
     const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
       async e => {

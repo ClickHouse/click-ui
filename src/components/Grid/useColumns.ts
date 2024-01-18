@@ -2,37 +2,64 @@ import { RefObject, useCallback, useRef, useState } from "react";
 import { ColumnResizeFn } from "./types";
 import { VariableSizeGrid } from "react-window";
 
+const DEFAULT_WIDTH = 100;
+
 interface Props {
   columnCount: number;
-  columnWidth: (index: number) => number;
+  columnWidth?: (index: number) => number;
   outerGridRef: RefObject<HTMLDivElement>;
   gridRef: RefObject<VariableSizeGrid>;
-  onColumnResize: (columnIndex: number, newWidth: number) => void;
+  onColumnResize?: (columnIndex: number, newWidth: number) => void;
 }
 const useColumns = ({
   columnCount,
-  columnWidth,
+  columnWidth: columnWidthProp,
   outerGridRef,
   onColumnResize: onColumnResizeProp,
   gridRef,
 }: Props) => {
   const prevWidth = useRef<Record<string, number>>({});
+  const columnWidthRefs = useRef<Array<number>>([]);
   const autoWidthIndices = useRef<Array<number>>([]);
   const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<Array<number>>(
-    () => {
+    []
+  );
+
+  const initColumnSize = useCallback(
+    (containerWidth: number) => {
+      if (columnWidthRefs.current.length > 0) {
+        return;
+      }
+
+      const newWidth =
+        containerWidth > DEFAULT_WIDTH * columnCount
+          ? containerWidth / columnCount
+          : DEFAULT_WIDTH;
+      const getWidth = (index: number) => {
+        if (typeof columnWidthProp === "function") {
+          return columnWidthProp(index - 1);
+        }
+        return newWidth;
+      };
+
       const columnWidthList = [...Array(columnCount).keys()];
       const array: Array<number> = [];
-      return columnWidthList.reduce((acc, curr, index) => {
-        const width = columnWidth(curr - 1);
-        prevWidth.current[index.toString()] = width;
-        if (index !== 0) {
-          acc.push(width + acc[index - 1]);
-        } else {
-          acc.push(0);
-        }
-        return acc;
-      }, array);
-    }
+      setColumnHorizontalPosition(() => {
+        return columnWidthList.reduce((acc, index) => {
+          const width = getWidth(index - 1);
+          prevWidth.current[index.toString()] = width;
+          columnWidthRefs.current[index] = width;
+          if (index !== 0) {
+            acc.push(width + acc[index - 1]);
+          } else {
+            acc.push(0);
+          }
+          return acc;
+        }, array);
+      });
+      gridRef.current?.resetAfterColumnIndex(0);
+    },
+    [columnCount, columnWidthProp, gridRef]
   );
 
   const onColumnResize: ColumnResizeFn = useCallback(
@@ -62,6 +89,7 @@ const useColumns = ({
         prevWidth.current[columnIndex.toString()] = newWidth;
       }
 
+      columnWidthRefs.current[columnIndex] = newWidth;
       setColumnHorizontalPosition(columnHorizontalPosition => {
         const currentWidth =
           columnHorizontalPosition[columnIndex + 1] -
@@ -74,14 +102,29 @@ const useColumns = ({
         return [...columnHorizontalPosition];
       });
       gridRef.current?.resetAfterColumnIndex(columnIndex);
-      onColumnResizeProp(columnIndex, newWidth);
+      if (typeof onColumnResizeProp === "function") {
+        onColumnResizeProp(columnIndex, newWidth);
+      }
     },
     [columnCount, gridRef, onColumnResizeProp, outerGridRef]
+  );
+
+  const columnWidth = useCallback(
+    (columnIndex: number) => {
+      if (columnWidthProp) {
+        return columnWidthProp(columnIndex);
+      }
+
+      return columnWidthRefs.current[columnIndex];
+    },
+    [columnWidthProp]
   );
 
   return {
     columnHorizontalPosition,
     onColumnResize,
+    columnWidth,
+    initColumnSize,
   };
 };
 
