@@ -1,4 +1,10 @@
-import { ComponentType, HTMLAttributes, KeyboardEventHandler, ReactNode } from "react";
+import {
+  ComponentType,
+  HTMLAttributes,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
 import { VariableSizeGridProps } from "react-window";
 import { ContextMenuItemProps } from "@/components";
 
@@ -175,6 +181,8 @@ export interface GridProps
   selection?: SelectedRegion;
   showToast?: boolean;
   columnWidth?: (index: number) => number;
+  onMouseDown: MouseEventHandler<HTMLDivElement>;
+  onMouseMove: MouseEventHandler<HTMLDivElement>;
 }
 
 export type SetResizeCursorPositionFn = (

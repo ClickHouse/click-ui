@@ -120,6 +120,8 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       onKeyDown: onKeyDownProp,
       selection: selectionProp,
       showToast,
+      onMouseDown: onMouseDownProp,
+      onMouseMove: onMouseMoveProp,
       ...props
     },
     forwardedRef
@@ -403,10 +405,12 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       e => {
         containerRef.current?.focus();
+        if (typeof onMouseDownProp === "function") {
+          onMouseDownProp(e);
+        }
         const target = (e.target as HTMLElement).closest(
           "[data-grid-row][data-grid-column]"
         ) as HTMLElement;
-
         if (
           !target ||
           target.dataset.gridRow === undefined ||
@@ -414,6 +418,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         ) {
           return;
         }
+
         if (e.buttons === RIGHT_BUTTON_PRESSED && target.dataset.selected === "true") {
           return;
         }
@@ -459,7 +464,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           onFocusChange(row, column);
         }
       },
-      [onFocusChange, onSelection]
+      [onFocusChange, onMouseDownProp, onSelection]
     );
 
     const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {
@@ -493,6 +498,9 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       async e => {
         e.preventDefault();
         e.stopPropagation();
+        if (typeof onMouseMoveProp === "function") {
+          onMouseMoveProp(e);
+        }
         if (
           dragState.current === false ||
           e.buttons === NO_BUTTONS_PRESSED ||
@@ -565,7 +573,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         mouseMoveCellSelect(rowIndex, columnIndex);
       },
-      [headerHeight, mouseMoveCellSelect, rowNumberWidth]
+      [headerHeight, mouseMoveCellSelect, onMouseMoveProp, rowNumberWidth]
     );
 
     const onScroll = ({ scrollLeft, scrollTop }: GridOnScrollProps) => {
