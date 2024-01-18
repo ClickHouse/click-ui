@@ -183,6 +183,7 @@ export interface GridProps
   columnWidth?: (index: number) => number;
   onMouseDown?: MouseEventHandler<HTMLDivElement>;
   onMouseMove?: MouseEventHandler<HTMLDivElement>;
+  showBorder?: boolean;
 }
 
 export type SetResizeCursorPositionFn = (

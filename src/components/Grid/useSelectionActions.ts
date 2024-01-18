@@ -189,10 +189,11 @@ export const useSelectionActions = ({
     (action: CellSelectionAction) => {
       const { row, column } = action;
       scrollGridTo({ row, column });
-      const newSelection: SelectedRegion = selectCell(column, row);
+      onFocusChange(row, column);
+      const newSelection: SelectedRegion = emptySelection();
       onCellSelect(action, newSelection, focus);
     },
-    [focus, onCellSelect, scrollGridTo]
+    [focus, onCellSelect, onFocusChange, scrollGridTo]
   );
 
   const shiftSelect = useCallback(

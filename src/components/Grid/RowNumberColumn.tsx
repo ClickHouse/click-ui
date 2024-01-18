@@ -48,9 +48,13 @@ interface RowNumberColumnProps {
   showHeader: boolean;
   scrolledHorizontal: boolean;
   rowStart?: number;
+  showBorder: boolean;
 }
 interface RowNumberProps
-  extends Pick<RowNumberColumnProps, "rowHeight" | "getSelectionType" | "rounded"> {
+  extends Pick<
+    RowNumberColumnProps,
+    "rowHeight" | "getSelectionType" | "rounded" | "showBorder"
+  > {
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;
@@ -62,6 +66,7 @@ const RowNumber = ({
   isLastRow,
   rounded,
   isFirstRow,
+  showBorder,
 }: RowNumberProps) => {
   const selectionType = getSelectionType({
     row,
@@ -87,6 +92,7 @@ const RowNumber = ({
       data-grid-row={row}
       data-grid-column={-1}
       data-testid={`header-cell-${row}-x`}
+      $showBorder={showBorder}
     >
       {row}
     </RowNumberCell>
@@ -105,6 +111,7 @@ const RowNumberColumn = ({
   showHeader,
   scrolledHorizontal,
   rowStart = 0,
+  showBorder,
 }: RowNumberColumnProps) => {
   return (
     <RowNumberColumnContainer
@@ -122,6 +129,7 @@ const RowNumberColumn = ({
             isLastRow={rowIndex === rowCount}
             rounded={rounded}
             isFirstRow={!showHeader && rowIndex === 0}
+            showBorder={showBorder}
           />
         )
       )}

@@ -13,6 +13,7 @@ export const StyledCell = styled.div<{
   $rounded: RoundedType;
   $height: number;
   $type?: "body" | "header";
+  $showBorder: boolean;
 }>`
   display: block;
   text-align: left;
@@ -30,6 +31,7 @@ export const StyledCell = styled.div<{
     $selectionType,
     $height,
     $type = "body",
+    $showBorder,
   }) => `
     height: ${$height}px;
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
@@ -44,6 +46,18 @@ export const StyledCell = styled.div<{
   };
     border: 1px solid ${theme.click.grid[$type].cell.color.stroke.default};
     ${
+      $type === "header" && !$showBorder
+        ? `
+      &[data-grid-row="-1"] {
+        border-top: none;
+      }
+      &[data-grid-column="-1"] {
+        border-left: none;
+      }
+    `
+        : ""
+    }
+    ${
       $isFocused
         ? `box-shadow: inset 0 0 0 1px ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
         : ""
@@ -51,14 +65,14 @@ export const StyledCell = styled.div<{
     ${
       $isLastRow
         ? `
-        border-bottom-color: ${theme.click.grid[$type].cell.color.stroke[$selectionType]};
+        border-bottom-color: ${theme.click.grid[$type].cell.color.stroke.default};
     `
         : "border-bottom: none;"
     }
     ${
       $isLastColumn
         ? `
-        border-right-color: ${theme.click.grid[$type].cell.color.stroke[$selectionType]};
+        border-right-color: ${theme.click.grid[$type].cell.color.stroke.default};
     `
         : "border-right: none;"
     }
