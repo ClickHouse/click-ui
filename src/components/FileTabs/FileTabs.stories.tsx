@@ -30,7 +30,7 @@ const FileTabs = ({
   const [tabs, setTabs] = useState(options);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", height: "4rem" }}>
       <FileTabElement icon="home" />
       <CUIFileTabs
         onReorderTab={() => null}

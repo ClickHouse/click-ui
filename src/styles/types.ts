@@ -2283,6 +2283,12 @@
             "default": string,
             "hover": string,
             "active": string
+          },
+          "closeButton": {
+            "background": {
+              "default": string,
+              "hover": string
+            }
           }
         }
       }
