@@ -3549,6 +3549,18 @@
               "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
+          },
+          "closeButton": {
+            "background": {
+              "default": {
+                "value": "{palette.utility.transparent}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.slate.100}",
+                "type": "color"
+              }
+            }
           }
         }
       }
