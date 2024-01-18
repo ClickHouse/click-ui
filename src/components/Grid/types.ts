@@ -154,6 +154,7 @@ export interface GridProps
     | "innerRef"
     | "outerElementType"
     | "outerRef"
+    | "columnWidth"
   > {
   rowStart?: number;
   rounded?: RoundedType;
@@ -165,7 +166,7 @@ export interface GridProps
   headerHeight?: number;
   onFocusChange?: (rowIndex: number, columnIndex: number) => void;
   onSelect?: onSelectFn;
-  onColumnResize: (columnIndex: number, newWidth: number) => void;
+  onColumnResize?: (columnIndex: number, newWidth: number) => void;
   getMenuOptions?: (
     selection: SelectedRegion,
     focus: SelectionFocus
@@ -173,6 +174,7 @@ export interface GridProps
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   selection?: SelectedRegion;
   showToast?: boolean;
+  columnWidth?: (index: number) => number;
 }
 
 export type SetResizeCursorPositionFn = (

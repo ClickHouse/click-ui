@@ -28,13 +28,8 @@ export const StyledCell = styled.div<{
     $isLastRow,
     $isLastColumn,
     $selectionType,
-    $isFirstRow,
-    $isFirstColumn,
-    $rounded,
     $height,
     $type = "body",
-    $isSelectedTop,
-    $isSelectedLeft,
   }) => `
     height: ${$height}px;
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
@@ -67,11 +62,20 @@ export const StyledCell = styled.div<{
     `
         : "border-right: none;"
     }
-    ${
-      $isSelectedTop ||
-      $isSelectedLeft ||
-      ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn))
-        ? `
+  `}
+  ${({
+    theme,
+    $isLastRow,
+    $isLastColumn,
+    $selectionType,
+    $type = "body",
+    $isSelectedTop,
+    $isSelectedLeft,
+  }) =>
+    $isSelectedTop ||
+    $isSelectedLeft ||
+    ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn))
+      ? `
           &::before {
             content: "";
             position: absolute;
@@ -90,33 +94,20 @@ export const StyledCell = styled.div<{
                 : ""
             }
             ${
-              $selectionType === "selectDirect"
-                ? `
-      ${
-        $isLastRow
-          ? `
-          border-bottom: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};
-      `
-          : ""
-      }
-      ${
-        $isLastColumn
-          ? `
-          border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};
-      `
-          : ""
-      }
-            `
+              $selectionType === "selectDirect" && $isLastRow
+                ? `border-bottom: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
+                : ""
+            }
+            ${
+              $selectionType === "selectDirect" && $isLastColumn
+                ? `border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
                 : ""
             }
           }
         `
-        : ""
-    }
+      : ""};
+  ${({ theme, $isFirstRow, $isFirstColumn, $rounded, $isLastColumn }) => `
 
-    ${
-      $isFirstRow || $isLastRow
-        ? `
     ${
       $isFirstColumn
         ? `border-${$isFirstRow ? "top" : "bottom"}-left-radius: ${
@@ -131,8 +122,5 @@ export const StyledCell = styled.div<{
           };`
         : ""
     }
-    `
-        : ""
-    }
-  `};
+  `}
 `;

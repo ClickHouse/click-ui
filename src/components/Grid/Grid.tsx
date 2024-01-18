@@ -109,7 +109,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       useIsScrolling = true,
       rowHeight = 33,
       columnCount,
-      columnWidth,
+      columnWidth: columnWidthProp,
       onSelect: onSelectProp,
       headerHeight = 33,
       rowCount,
@@ -214,13 +214,14 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
-    const { columnHorizontalPosition, onColumnResize } = useColumns({
-      columnCount,
-      columnWidth,
-      outerGridRef: outerRef,
-      gridRef,
-      onColumnResize: onColumnResizeProp,
-    });
+    const { columnHorizontalPosition, onColumnResize, columnWidth, initColumnSize } =
+      useColumns({
+        columnCount,
+        columnWidth: columnWidthProp,
+        outerGridRef: outerRef,
+        gridRef,
+        onColumnResize: onColumnResizeProp,
+      });
 
     const scrollGridTo = useCallback(
       async ({ row, column }: { row?: number; column?: number }) => {
@@ -244,6 +245,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             block: "nearest",
             inline: "nearest",
           });
+          // This is for the element to be available after the scroll.
           await new Promise(requestAnimationFrame);
         }
         element = outerRef.current?.querySelector<HTMLElement>(
@@ -405,7 +407,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           "[data-grid-row][data-grid-column]"
         ) as HTMLElement;
 
-        console.log(e.target, target);
         if (
           !target ||
           target.dataset.gridRow === undefined ||
@@ -572,27 +573,31 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       setScrolledHorizontal(scrollLeft > 0);
     };
 
-    const onResize = useCallback(({ height, width }: Size) => {
-      setTimeout(() => {
-        if (!outerRef.current) {
-          return;
-        }
+    const onResize = useCallback(
+      ({ height, width }: Size) => {
+        setTimeout(() => {
+          if (!outerRef.current) {
+            return;
+          }
 
-        const { top, bottom, left, right } =
-          outerRef.current.getBoundingClientRect() ?? {};
+          const { top, bottom, left, right } =
+            outerRef.current.getBoundingClientRect() ?? {};
 
-        elementBorderRef.current = {
-          top,
-          bottom,
-          left,
-          right,
-          scrollBarWidth: width - outerRef.current.clientWidth,
-          scrollBarHeight: height - outerRef.current.clientHeight,
-          width,
-          height,
-        };
-      }, 0);
-    }, []);
+          elementBorderRef.current = {
+            top,
+            bottom,
+            left,
+            right,
+            scrollBarWidth: width - outerRef.current.clientWidth,
+            scrollBarHeight: height - outerRef.current.clientHeight,
+            width,
+            height,
+          };
+          initColumnSize(outerRef.current.clientWidth - rowNumberWidth);
+        }, 0);
+      },
+      [initColumnSize, rowNumberWidth]
+    );
 
     const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
       async e => {
