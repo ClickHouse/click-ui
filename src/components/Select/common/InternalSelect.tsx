@@ -310,6 +310,7 @@ export const InternalSelect = ({
         <SelectPopoverRoot
           open={open}
           onOpenChange={onOpenChange}
+          modal={true}
         >
           <StyledSelectTrigger
             id={id ?? defaultId}
