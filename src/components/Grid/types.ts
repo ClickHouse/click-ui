@@ -1,4 +1,10 @@
-import { ComponentType, HTMLAttributes, KeyboardEventHandler, ReactNode } from "react";
+import {
+  ComponentType,
+  HTMLAttributes,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
 import { VariableSizeGridProps } from "react-window";
 import { ContextMenuItemProps } from "@/components";
 
@@ -154,6 +160,7 @@ export interface GridProps
     | "innerRef"
     | "outerElementType"
     | "outerRef"
+    | "columnWidth"
   > {
   rowStart?: number;
   rounded?: RoundedType;
@@ -165,7 +172,7 @@ export interface GridProps
   headerHeight?: number;
   onFocusChange?: (rowIndex: number, columnIndex: number) => void;
   onSelect?: onSelectFn;
-  onColumnResize: (columnIndex: number, newWidth: number) => void;
+  onColumnResize?: (columnIndex: number, newWidth: number) => void;
   getMenuOptions?: (
     selection: SelectedRegion,
     focus: SelectionFocus
@@ -173,6 +180,9 @@ export interface GridProps
   onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   selection?: SelectedRegion;
   showToast?: boolean;
+  columnWidth?: (index: number) => number;
+  onMouseDown?: MouseEventHandler<HTMLDivElement>;
+  onMouseMove?: MouseEventHandler<HTMLDivElement>;
 }
 
 export type SetResizeCursorPositionFn = (
