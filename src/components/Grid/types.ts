@@ -8,12 +8,23 @@ import {
 import { VariableSizeGridProps } from "react-window";
 import { ContextMenuItemProps } from "@/components";
 
-interface CellComponentProps extends HTMLAttributes<HTMLElement> {
-  rowIndex?: number;
-  columnIndex?: number;
-  type: "row-cell" | "header-cell";
+interface CellCommonProps extends HTMLAttributes<HTMLElement> {
+  columnIndex: number;
   isScrolling?: boolean;
 }
+
+interface CellHeaderProps extends CellCommonProps {
+  rowIndex?: never;
+  type: "header-cell";
+}
+
+interface CellBodyProps extends CellCommonProps {
+  rowIndex: number;
+  type: "row-cell";
+}
+
+type CellComponentProps = CellHeaderProps | CellBodyProps;
+
 export type CellProps = ComponentType<CellComponentProps>;
 export interface CellSelectionAction {
   type: "normal" | "shiftSelection";
