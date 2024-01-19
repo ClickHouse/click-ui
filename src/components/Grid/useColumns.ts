@@ -122,7 +122,7 @@ const useColumns = ({
 
   const getColumnHorizontalPosition = useCallback(
     (index: number) => {
-      columnHorizontalPosition[index] ?? DEFAULT_WIDTH * index;
+      return columnHorizontalPosition[index] ?? DEFAULT_WIDTH * index;
     },
     [columnHorizontalPosition]
   );
