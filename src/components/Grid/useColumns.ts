@@ -115,7 +115,7 @@ const useColumns = ({
         return columnWidthProp(columnIndex);
       }
 
-      return columnWidthRefs.current[columnIndex];
+      return columnWidthRefs.current[columnIndex] ?? DEFAULT_WIDTH;
     },
     [columnWidthProp]
   );

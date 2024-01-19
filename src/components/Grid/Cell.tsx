@@ -77,6 +77,7 @@ export const Cell = memo(
           $rounded={rounded}
           data-grid-row={rowIndex}
           data-grid-column={columnIndex}
+          $showBorder
           {...props}
         />
       </div>
