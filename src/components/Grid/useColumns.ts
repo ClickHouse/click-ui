@@ -120,8 +120,15 @@ const useColumns = ({
     [columnWidthProp]
   );
 
+  const getColumnHorizontalPosition = useCallback(
+    (index: number) => {
+      columnHorizontalPosition[index] ?? DEFAULT_WIDTH * index;
+    },
+    [columnHorizontalPosition]
+  );
+
   return {
-    columnHorizontalPosition,
+    getColumnHorizontalPosition,
     onColumnResize,
     columnWidth,
     initColumnSize,
