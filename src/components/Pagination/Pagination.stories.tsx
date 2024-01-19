@@ -6,7 +6,7 @@ export default {
   tags: ["pagination", "autodocs"],
   argTypes: {
     rowCount: {
-      control: { type: "text" },
+      control: { type: "number" },
     },
   },
 };

@@ -31,9 +31,15 @@ export const Pagination = ({
   onChange: onChangeProp,
   onPageSizeChange: onPageSizeChangeProp,
   pageSize = -1,
+  fillWidth = true,
+  gap = "md",
+  justifyContent,
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ["number", "string"].includes(typeof rowCount);
+  const formatNumber = (value: number) => {
+    return new Intl.NumberFormat("en").format(value);
+  };
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (e.key === "ArrowUp" || e.key === "ArrowRight") {
       onChangeProp(currentPage + 1);
@@ -54,13 +60,23 @@ export const Pagination = ({
 
   return (
     <Container
-      gap="md"
+      gap={gap}
       justifyContent={
-        rowCount || maxRowsPerPageList.length > 0 ? "space-between" : "center"
+        justifyContent ??
+        (rowCount || maxRowsPerPageList.length > 0 ? "space-between" : "center")
       }
+      fillWidth={fillWidth}
       {...props}
     >
-      {hasRowCount && <Text component="div">{rowCount} rows</Text>}
+      {hasRowCount && (
+        <Text
+          component="div"
+          color="muted"
+          size="sm"
+        >
+          {typeof rowCount === "number" ? formatNumber(rowCount) : rowCount} rows
+        </Text>
+      )}
       <Container gap="xxs">
         <IconButton
           icon="chevron-left"
@@ -78,7 +94,15 @@ export const Pagination = ({
             max={totalPages}
           />
         </Container>
-        {!!totalPages && <Text component="div">of {totalPages}</Text>}
+        {!!totalPages && (
+          <Text
+            component="div"
+            color="muted"
+            size="sm"
+          >
+            of {formatNumber(totalPages)}
+          </Text>
+        )}
         <IconButton
           icon="chevron-right"
           type="ghost"
