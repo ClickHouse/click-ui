@@ -21,7 +21,7 @@ interface HeaderProps {
   rounded: RoundedType;
   columnCount: number;
   onColumnResize: ColumnResizeFn;
-  columnHorizontalPosition: Array<number>;
+  getColumnHorizontalPosition: (columnIndex: number) => number;
   scrolledVertical: boolean;
   setResizeCursorPosition: SetResizeCursorPositionFn;
   showBorder: boolean;
@@ -58,11 +58,11 @@ interface ColumnProps
     | "height"
     | "setResizeCursorPosition"
     | "showBorder"
+    | "getColumnHorizontalPosition"
   > {
   columnIndex: number;
   isFirstColumn: boolean;
   isLastColumn: boolean;
-  columnHorizontalPosition: Array<number>;
 }
 
 const HeaderCellContainer = styled.div<{
@@ -100,7 +100,7 @@ const Column = ({
   cell,
   rounded,
   columnWidth,
-  columnHorizontalPosition,
+  getColumnHorizontalPosition,
   getSelectionType,
   isFirstColumn,
   isLastColumn,
@@ -117,7 +117,7 @@ const Column = ({
     column: columnIndex - 1,
     type: "column",
   });
-  const columnPosition = columnHorizontalPosition[columnIndex];
+  const columnPosition = getColumnHorizontalPosition(columnIndex);
 
   const isSelected = selectionType === "selectDirect";
   const isSelectedLeft =
@@ -174,7 +174,7 @@ const Header = ({
   columnCount,
   getSelectionType,
   onColumnResize,
-  columnHorizontalPosition,
+  getColumnHorizontalPosition,
   setResizeCursorPosition,
   showBorder,
 }: HeaderProps) => {
@@ -196,7 +196,7 @@ const Header = ({
             getSelectionType={getSelectionType}
             columnIndex={columnIndex}
             columnWidth={columnWidth}
-            columnHorizontalPosition={columnHorizontalPosition}
+            getColumnHorizontalPosition={getColumnHorizontalPosition}
             cell={cell}
             rounded={rounded}
             isFirstColumn={columnIndex === 0 && !showRowNumber}

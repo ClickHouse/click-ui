@@ -218,7 +218,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
-    const { columnHorizontalPosition, onColumnResize, columnWidth, initColumnSize } =
+    const { getColumnHorizontalPosition, onColumnResize, columnWidth, initColumnSize } =
       useColumns({
         columnCount,
         columnWidth: columnWidthProp,
@@ -270,7 +270,8 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
     const getFixedResizerLeftPosition = useCallback(
       (clientX: number, width: number, columnIndex: number): string | number => {
-        const columnLeft = columnHorizontalPosition[columnIndex] + width;
+        const columnPosition = getColumnHorizontalPosition(columnIndex);
+        const columnLeft = columnPosition + width;
         const { width: containerWidth, left, scrollBarWidth } = elementBorderRef.current;
         const scrollLeft = outerRef.current?.scrollLeft ?? 0;
         if (clientX + rowNumberWidth - left > containerWidth + scrollBarWidth) {
@@ -279,12 +280,12 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
 
         if (width < 50) {
           //50 is the minWidth for the column
-          return columnHorizontalPosition[columnIndex] + rowNumberWidth + 50;
+          return columnPosition + rowNumberWidth + 50;
         }
 
         return columnLeft + rowNumberWidth - 4;
       },
-      [columnHorizontalPosition, rowNumberWidth]
+      [getColumnHorizontalPosition, rowNumberWidth]
     );
 
     const setResizeCursorPosition: SetResizeCursorPositionFn = useCallback(
@@ -393,7 +394,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 getSelectionType={getSelectionType}
                 columnCount={columnCount}
                 onColumnResize={onColumnResize}
-                columnHorizontalPosition={columnHorizontalPosition}
+                getColumnHorizontalPosition={getColumnHorizontalPosition}
                 setResizeCursorPosition={setResizeCursorPosition}
                 showBorder={showBorder}
               />
