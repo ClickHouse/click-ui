@@ -5,7 +5,6 @@ import {
   SelectedRegion,
   SelectionPos,
   RowsSelection,
-  RectangleSelection,
   Rectangle,
   ColumnsSelection,
   KeyEventType,
@@ -119,11 +118,16 @@ export const rectangleSelection = (
   anchorRow: number,
   focusColumn: number,
   focusRow: number
-): RectangleSelection => ({
-  type: "rectangle",
-  bounds: orderedRect(anchorColumn, anchorRow, focusColumn, focusRow),
-  anchor: { column: anchorColumn, row: anchorRow },
-});
+): SelectedRegion => {
+  if (anchorColumn === focusColumn && focusRow === anchorRow) {
+    return emptySelection();
+  }
+  return {
+    type: "rectangle",
+    bounds: orderedRect(anchorColumn, anchorRow, focusColumn, focusRow),
+    anchor: { column: anchorColumn, row: anchorRow },
+  };
+};
 
 export const emptySelection = (): SelectedRegion => ({ type: "empty" });
 
@@ -145,9 +149,6 @@ const columnAnySelected = (selection: SelectedRegion, column: number): boolean =
   (selection.type === "rectangle" &&
     selection.bounds.left <= column &&
     selection.bounds.right >= column);
-
-export const selectCell = (col: number, row: number): SelectedRegion =>
-  rectangleSelection(col, row, col, row);
 
 export const rangeIndices = (a: number, b: number): number[] => {
   const low = Math.min(a, b);

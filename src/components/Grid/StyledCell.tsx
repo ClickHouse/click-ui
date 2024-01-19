@@ -17,6 +17,9 @@ export const StyledCell = styled.div<{
 }>`
   display: block;
   text-align: left;
+  &[data-align="right"] {
+    text-align: right;
+  }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -20,7 +20,7 @@ const RowNumberColumnContainer = styled.div<{
       : ""}
 `;
 
-const RowNumberCell = styled(StyledCell)<{
+const RowNumberCell = styled.div<{
   $height: number;
   $rowNumber: number;
 }>`
@@ -30,7 +30,6 @@ const RowNumberCell = styled(StyledCell)<{
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  text-align: right;
   ${({ $height, $rowNumber }) => `
     top: ${$height * $rowNumber}px;
     height: ${$height}px;
@@ -73,28 +72,40 @@ const RowNumber = ({
     type: "row",
   });
   const isSelected = selectionType === "selectDirect";
+  const topSelectionType = getSelectionType({
+    row: row - 1,
+    type: "row",
+  });
+  const isSelectedTop =
+    (topSelectionType === "selectDirect" || isSelected) &&
+    topSelectionType !== selectionType;
 
   return (
     <RowNumberCell
-      $height={rowHeight}
       $rowNumber={row}
-      $isLastColumn={false}
-      $selectionType={selectionType}
-      $rounded={rounded}
-      $isFirstColumn
-      $type="header"
-      $isFirstRow={isFirstRow}
-      $isFocused={false}
-      $isLastRow={isLastRow}
-      $isSelectedLeft={isSelected}
-      $isSelectedTop={isSelected}
-      data-selected={isSelected}
-      data-grid-row={row}
-      data-grid-column={-1}
-      data-testid={`header-cell-${row}-x`}
-      $showBorder={showBorder}
+      $height={rowHeight}
     >
-      {row}
+      <StyledCell
+        $height={rowHeight}
+        $isLastColumn={false}
+        $selectionType={selectionType}
+        $rounded={rounded}
+        $isFirstColumn
+        $type="header"
+        $isFirstRow={isFirstRow}
+        $isFocused={false}
+        $isLastRow={isLastRow}
+        $isSelectedLeft={isSelected}
+        $isSelectedTop={isSelectedTop}
+        data-selected={isSelected}
+        data-grid-row={row}
+        data-grid-column={-1}
+        data-testid={`header-cell-${row}-x`}
+        $showBorder={showBorder}
+        data-align="right"
+      >
+        {row}
+      </StyledCell>
     </RowNumberCell>
   );
 };

@@ -113,11 +113,16 @@ const Column = ({
     column: columnIndex,
     type: "column",
   });
-  const prevColumnSelectionType = getSelectionType({
+  const leftSelectionType = getSelectionType({
     column: columnIndex - 1,
     type: "column",
   });
   const columnPosition = columnHorizontalPosition[columnIndex];
+
+  const isSelected = selectionType === "selectDirect";
+  const isSelectedLeft =
+    (leftSelectionType === "selectDirect" || isSelected) &&
+    leftSelectionType !== selectionType;
 
   return (
     <HeaderCellContainer
@@ -136,14 +141,14 @@ const Column = ({
         $selectionType={selectionType}
         $isLastColumn={isLastColumn}
         $isFocused={false}
-        $isSelectedLeft={prevColumnSelectionType === "selectDirect"}
-        $isSelectedTop={selectionType === "selectDirect"}
+        $isSelectedLeft={isSelectedLeft}
+        $isSelectedTop={isSelected}
         $isLastRow={false}
         $isFirstRow
         $height={height}
         data-grid-row={-1}
         data-grid-column={columnIndex}
-        data-selected={selectionType === "selectDirect"}
+        data-selected={isSelected}
         $showBorder={showBorder}
       />
       <ColumnResizer
