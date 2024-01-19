@@ -38,7 +38,6 @@ const RIGHT_BUTTON_PRESSED = 2;
 const GridContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
   user-select: none;
   overflow-anchor: none;
 `;
@@ -88,7 +87,9 @@ const ContextMenuTrigger = styled.div`
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
-const OuterElementContainer = styled.div``;
+const OuterElementContainer = styled.div`
+  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
+`;
 
 const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
   <OuterElementContainer
@@ -122,6 +123,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       showToast,
       onMouseDown: onMouseDownProp,
       onMouseMove: onMouseMoveProp,
+      showBorder = false,
       ...props
     },
     forwardedRef
@@ -373,6 +375,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 getSelectionType={getSelectionType}
                 showHeader={showHeader}
                 rowStart={rowStart}
+                showBorder={showBorder}
               />
             )}
 
@@ -392,6 +395,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 onColumnResize={onColumnResize}
                 columnHorizontalPosition={columnHorizontalPosition}
                 setResizeCursorPosition={setResizeCursorPosition}
+                showBorder={showBorder}
               />
             )}
           </GridContainer>

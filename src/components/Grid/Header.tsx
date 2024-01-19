@@ -24,6 +24,7 @@ interface HeaderProps {
   columnHorizontalPosition: Array<number>;
   scrolledVertical: boolean;
   setResizeCursorPosition: SetResizeCursorPositionFn;
+  showBorder: boolean;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -56,6 +57,7 @@ interface ColumnProps
     | "columnWidth"
     | "height"
     | "setResizeCursorPosition"
+    | "showBorder"
   > {
   columnIndex: number;
   isFirstColumn: boolean;
@@ -105,12 +107,22 @@ const Column = ({
   onColumnResize,
   height,
   setResizeCursorPosition,
+  showBorder,
 }: ColumnProps) => {
   const selectionType = getSelectionType({
     column: columnIndex,
     type: "column",
   });
+  const leftSelectionType = getSelectionType({
+    column: columnIndex - 1,
+    type: "column",
+  });
   const columnPosition = columnHorizontalPosition[columnIndex];
+
+  const isSelected = selectionType === "selectDirect";
+  const isSelectedLeft =
+    (leftSelectionType === "selectDirect" || isSelected) &&
+    leftSelectionType !== selectionType;
 
   return (
     <HeaderCellContainer
@@ -129,14 +141,15 @@ const Column = ({
         $selectionType={selectionType}
         $isLastColumn={isLastColumn}
         $isFocused={false}
-        $isSelectedLeft={true}
-        $isSelectedTop={true}
+        $isSelectedLeft={isSelectedLeft}
+        $isSelectedTop={isSelected}
         $isLastRow={false}
         $isFirstRow
         $height={height}
         data-grid-row={-1}
         data-grid-column={columnIndex}
-        data-selected={selectionType === "selectDirect"}
+        data-selected={isSelected}
+        $showBorder={showBorder}
       />
       <ColumnResizer
         height={height}
@@ -163,6 +176,7 @@ const Header = ({
   onColumnResize,
   columnHorizontalPosition,
   setResizeCursorPosition,
+  showBorder,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",
@@ -190,6 +204,7 @@ const Header = ({
             onColumnResize={onColumnResize}
             height={height}
             setResizeCursorPosition={setResizeCursorPosition}
+            showBorder={showBorder}
           />
         ))}
       </ScrollableHeaderContainer>
@@ -210,10 +225,11 @@ const Header = ({
             $isLastColumn={false}
             $height={height}
             $isFocused={false}
-            $isSelectedLeft
-            $isSelectedTop
-            data-row={-1}
-            data-column={-1}
+            $isSelectedLeft={false}
+            $isSelectedTop={false}
+            data-grid-row={-1}
+            data-grid-column={-1}
+            $showBorder={showBorder}
           >
             #
           </RowColumn>

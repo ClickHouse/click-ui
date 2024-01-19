@@ -20,7 +20,7 @@ const RowNumberColumnContainer = styled.div<{
       : ""}
 `;
 
-const RowNumberCell = styled(StyledCell)<{
+const RowNumberCell = styled.div<{
   $height: number;
   $rowNumber: number;
 }>`
@@ -30,7 +30,6 @@ const RowNumberCell = styled(StyledCell)<{
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  text-align: right;
   ${({ $height, $rowNumber }) => `
     top: ${$height * $rowNumber}px;
     height: ${$height}px;
@@ -48,9 +47,13 @@ interface RowNumberColumnProps {
   showHeader: boolean;
   scrolledHorizontal: boolean;
   rowStart?: number;
+  showBorder: boolean;
 }
 interface RowNumberProps
-  extends Pick<RowNumberColumnProps, "rowHeight" | "getSelectionType" | "rounded"> {
+  extends Pick<
+    RowNumberColumnProps,
+    "rowHeight" | "getSelectionType" | "rounded" | "showBorder"
+  > {
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;
@@ -62,33 +65,47 @@ const RowNumber = ({
   isLastRow,
   rounded,
   isFirstRow,
+  showBorder,
 }: RowNumberProps) => {
   const selectionType = getSelectionType({
     row,
     type: "row",
   });
   const isSelected = selectionType === "selectDirect";
+  const topSelectionType = getSelectionType({
+    row: row - 1,
+    type: "row",
+  });
+  const isSelectedTop =
+    (topSelectionType === "selectDirect" || isSelected) &&
+    topSelectionType !== selectionType;
 
   return (
     <RowNumberCell
-      $height={rowHeight}
       $rowNumber={row}
-      $isLastColumn={false}
-      $selectionType={selectionType}
-      $rounded={rounded}
-      $isFirstColumn
-      $type="header"
-      $isFirstRow={isFirstRow}
-      $isFocused={false}
-      $isLastRow={isLastRow}
-      $isSelectedLeft={isSelected}
-      $isSelectedTop={isSelected}
-      data-selected={isSelected}
-      data-grid-row={row}
-      data-grid-column={-1}
-      data-testid={`header-cell-${row}-x`}
+      $height={rowHeight}
     >
-      {row}
+      <StyledCell
+        $height={rowHeight}
+        $isLastColumn={false}
+        $selectionType={selectionType}
+        $rounded={rounded}
+        $isFirstColumn
+        $type="header"
+        $isFirstRow={isFirstRow}
+        $isFocused={false}
+        $isLastRow={isLastRow}
+        $isSelectedLeft={isSelected}
+        $isSelectedTop={isSelectedTop}
+        data-selected={isSelected}
+        data-grid-row={row}
+        data-grid-column={-1}
+        data-testid={`header-cell-${row}-x`}
+        $showBorder={showBorder}
+        data-align="right"
+      >
+        {row}
+      </StyledCell>
     </RowNumberCell>
   );
 };
@@ -105,6 +122,7 @@ const RowNumberColumn = ({
   showHeader,
   scrolledHorizontal,
   rowStart = 0,
+  showBorder,
 }: RowNumberColumnProps) => {
   return (
     <RowNumberColumnContainer
@@ -122,6 +140,7 @@ const RowNumberColumn = ({
             isLastRow={rowIndex === rowCount}
             rounded={rounded}
             isFirstRow={!showHeader && rowIndex === 0}
+            showBorder={showBorder}
           />
         )
       )}
