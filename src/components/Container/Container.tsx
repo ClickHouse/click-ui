@@ -47,8 +47,8 @@ const Container = forwardRef(
       children,
       fillWidth = false,
       gap = "none",
-      grow = "0",
-      shrink = "0",
+      grow,
+      shrink,
       isResponsive,
       justifyContent = "start",
       maxWidth,
@@ -89,8 +89,8 @@ const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
   $fillWidth?: boolean;
   $gapSize: GapOptions;
-  $grow: GrowShrinkOptions;
-  $shrink: GrowShrinkOptions;
+  $grow?: GrowShrinkOptions;
+  $shrink?: GrowShrinkOptions;
   $isResponsive?: boolean;
   $justifyContent: JustifyContentOptions;
   $maxWidth?: string;
@@ -100,8 +100,10 @@ const Wrapper = styled.div<{
   $wrap: WrapOptions;
 }>`
   display: flex;
-  flex-grow: ${({ $grow = "1" }) => $grow};
-  flex-shrink: ${({ $shrink = "0" }) => $shrink};
+  ${({ $grow, $shrink }) => `
+    ${typeof $grow === "string" ? `flex-grow: ${$grow};` : ""}
+    ${typeof $shrink === "string" ? `flex-grow: ${$shrink};` : ""}
+  `}
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
   max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
