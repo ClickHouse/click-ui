@@ -130,7 +130,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
   ) => {
     const [focus, setFocus] = useState<SelectionFocus>(
       focusProp ?? {
-        row: 0,
+        row: rowStart,
         column: 0,
       }
     );
@@ -147,6 +147,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           focus,
           rowCount,
           columnCount,
+          outerRef: outerRef,
         });
         if (showToast) {
           createToast({
@@ -332,6 +333,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         onFocusChange,
         scrollGridTo,
         selection: selectionProp ?? selection,
+        rowStart,
       });
 
     const data: ItemDataType = {
@@ -346,6 +348,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       rowHeight,
       headerHeight,
       rowNumberWidth,
+      rowStart,
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
@@ -444,7 +447,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             event: "click",
           });
           if (!shiftKeyPressed) {
-            onFocusChange(0, column);
+            onFocusChange(rowStart, column);
           }
           return;
         }
@@ -469,7 +472,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           onFocusChange(row, column);
         }
       },
-      [onFocusChange, onMouseDownProp, onSelection]
+      [onFocusChange, onMouseDownProp, onSelection, rowStart]
     );
 
     const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {

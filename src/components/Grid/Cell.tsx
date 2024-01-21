@@ -21,25 +21,27 @@ export const Cell = memo(
       showHeader,
       rowHeight,
       rounded,
+      rowStart,
     } = data;
 
+    const row = rowIndex + rowStart;
     const { row: focusedRow, column: focusedColumn } = focus;
-    const isFocused = columnIndex === focusedColumn && rowIndex === focusedRow;
-    const rightOfFocus = columnIndex - 1 === focusedColumn && rowIndex === focusedRow;
-    const belowFocus = columnIndex === focusedColumn && rowIndex - 1 === focusedRow;
+    const isFocused = columnIndex === focusedColumn && row === focusedRow;
+    const rightOfFocus = columnIndex - 1 === focusedColumn && row === focusedRow;
+    const belowFocus = columnIndex === focusedColumn && row - 1 === focusedRow;
 
     const selectionType = getSelectionType({
-      row: rowIndex,
+      row,
       column: columnIndex,
       type: "cell",
     });
     const rightSelection = getSelectionType({
-      row: rowIndex,
+      row,
       column: columnIndex - 1,
       type: "cell",
     });
     const belowSelection = getSelectionType({
-      row: rowIndex - 1,
+      row: row - 1,
       column: columnIndex,
       type: "cell",
     });
@@ -52,16 +54,17 @@ export const Cell = memo(
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
+
     return (
       <div
         style={style}
-        data-row={rowIndex}
+        data-row={row}
         data-column={columnIndex}
       >
         <StyledCell
           as={CellData}
-          rowIndex={rowIndex}
-          columnIndex={columnIndex}
+          rowIndex={row}
+          columnIndex={columnIndex + rowStart}
           type="row-cell"
           data-selected={isFocused || selectionType === "selectDirect"}
           data-focused={isFocused}
@@ -75,7 +78,7 @@ export const Cell = memo(
           $selectionType={selectionType}
           $height={rowHeight}
           $rounded={rounded}
-          data-grid-row={rowIndex}
+          data-grid-row={row}
           data-grid-column={columnIndex}
           $showBorder
           {...props}

@@ -26,6 +26,7 @@ interface Props {
   onFocusChange: (rowIndex: number, columnIndex: number) => void;
   scrollGridTo: (props: { row?: number; column?: number }) => void;
   selection: SelectedRegion;
+  rowStart: number;
 }
 
 interface SelectionActions {
@@ -168,22 +169,23 @@ export const useSelectionActions = ({
   onFocusChange,
   scrollGridTo,
   selection,
+  rowStart,
 }: Props): SelectionActions => {
   const allSelect = useCallback(
     (action: AllSelection) => {
       const newSelection: SelectedRegion = {
         type: "rows",
-        rows: new Set(rangeIndices(0, rowCount - 1)),
+        rows: new Set(rangeIndices(rowStart, rowCount + rowStart - 1)),
         anchorRow: 0,
       };
-      scrollGridTo({ row: 0, column: 0 });
-      onFocusChange(0, 0);
+      scrollGridTo({ row: rowStart, column: 0 });
+      onFocusChange(rowStart, 0);
       onCellSelect(action, newSelection, {
-        row: 0,
+        row: rowStart,
         column: 0,
       });
     },
-    [onCellSelect, onFocusChange, rowCount, scrollGridTo]
+    [onCellSelect, onFocusChange, rowCount, rowStart, scrollGridTo]
   );
 
   const cellSelect = useCallback(
@@ -334,53 +336,81 @@ export const useSelectionActions = ({
     [onSelection, columnCount, rowCount, selection, focus]
   );
 
-  const getSelectionType = (args: IsSelectedType): SelectionType => {
-    if (args.type === "all") {
-      const isSelected = cellRectSelected(selection, 0, 0, columnCount - 1, rowCount - 1);
-      return isSelected ? "selectDirect" : "default";
-    }
-
-    if (args.type === "column") {
-      if (cellRectSelected(selection, args.column, 0, args.column, rowCount)) {
-        return "selectDirect";
+  const getSelectionType = useCallback(
+    (args: IsSelectedType): SelectionType => {
+      if (args.type === "all") {
+        const isSelected = cellRectSelected(
+          selection,
+          0,
+          rowStart,
+          columnCount - 1,
+          rowCount + rowStart - 1
+        );
+        return isSelected ? "selectDirect" : "default";
       }
 
-      return columnAnySelected(selection, args.column) ? "selectIndirect" : "default";
-    }
+      if (args.type === "column") {
+        if (
+          cellRectSelected(
+            selection,
+            args.column,
+            rowStart,
+            args.column,
+            rowCount + rowStart
+          )
+        ) {
+          return "selectDirect";
+        }
 
-    const isRowSelected = cellRectSelected(selection, 0, args.row, columnCount, args.row);
-    const isRowAnySelected =
-      focus.row === args.row || rowAnySelected(selection, args.row);
+        return columnAnySelected(selection, args.column) ? "selectIndirect" : "default";
+      }
 
-    if (args.type === "cell" && args.column == -1) {
-      return "default";
-    }
+      const isRowSelected = cellRectSelected(
+        selection,
+        0,
+        args.row,
+        columnCount,
+        args.row
+      );
+      const isRowAnySelected =
+        focus.row === args.row || rowAnySelected(selection, args.row);
 
-    if (isRowSelected) {
-      return "selectDirect";
-    }
-
-    if (!isRowAnySelected) {
-      return "default";
-    }
-
-    if (args.type === "cell") {
-      const { row, column } = args;
-      if (row >= rowCount || column >= columnCount || row < 0 || column < 0) {
+      if (args.type === "cell" && args.column == -1) {
         return "default";
       }
 
-      if (cellRectSelected(selection, column, row, column, row)) {
+      if (isRowSelected) {
         return "selectDirect";
       }
-    }
 
-    if (selection.type === "columns") {
-      return "default";
-    }
+      if (!isRowAnySelected) {
+        return "default";
+      }
 
-    return "selectIndirect";
-  };
+      if (args.type === "cell") {
+        const { row, column } = args;
+        if (
+          row >= rowCount + rowStart ||
+          column >= columnCount ||
+          row < rowStart ||
+          column < 0
+        ) {
+          return "default";
+        }
+
+        if (cellRectSelected(selection, column, row, column, row)) {
+          return "selectDirect";
+        }
+      }
+
+      if (selection.type === "columns") {
+        return "default";
+      }
+
+      return "selectIndirect";
+    },
+    [columnCount, focus.row, rowCount, rowStart, selection]
+  );
 
   const mouseMoveCellSelect = useCallback(
     (row: number, column: number) => {

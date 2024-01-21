@@ -46,27 +46,29 @@ interface RowNumberColumnProps {
   rounded: RoundedType;
   showHeader: boolean;
   scrolledHorizontal: boolean;
-  rowStart?: number;
+  rowStart: number;
   showBorder: boolean;
 }
 interface RowNumberProps
   extends Pick<
     RowNumberColumnProps,
-    "rowHeight" | "getSelectionType" | "rounded" | "showBorder"
+    "rowHeight" | "getSelectionType" | "rounded" | "showBorder" | "rowStart"
   > {
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;
 }
 const RowNumber = ({
-  rowIndex: row,
+  rowIndex,
   rowHeight,
   getSelectionType,
   isLastRow,
   rounded,
   isFirstRow,
   showBorder,
+  rowStart,
 }: RowNumberProps) => {
+  const row = rowIndex + rowStart;
   const selectionType = getSelectionType({
     row,
     type: "row",
@@ -82,7 +84,7 @@ const RowNumber = ({
 
   return (
     <RowNumberCell
-      $rowNumber={row}
+      $rowNumber={rowIndex}
       $height={rowHeight}
     >
       <StyledCell
@@ -136,11 +138,12 @@ const RowNumberColumn = ({
             key={`row-number-${rowIndex}`}
             getSelectionType={getSelectionType}
             rowHeight={rowHeight}
-            rowIndex={rowStart + rowIndex}
+            rowIndex={rowIndex}
             isLastRow={rowIndex === rowCount}
             rounded={rounded}
             isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
+            rowStart={rowStart}
           />
         )
       )}
