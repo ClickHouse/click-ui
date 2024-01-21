@@ -82,6 +82,9 @@ export const Pagination = ({
           icon="chevron-left"
           type="ghost"
           disabled={currentPage === 1}
+          onClick={() => {
+            onChangeProp(currentPage - 1);
+          }}
           data-testid="prev-btn"
         />
         <Container maxWidth="50px">
@@ -107,6 +110,9 @@ export const Pagination = ({
           icon="chevron-right"
           type="ghost"
           disabled={!!totalPages && currentPage === totalPages}
+          onClick={() => {
+            onChangeProp(currentPage + 1);
+          }}
           data-testid="next-btn"
         />
       </Container>

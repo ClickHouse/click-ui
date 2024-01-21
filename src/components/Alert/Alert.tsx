@@ -96,6 +96,7 @@ const Wrapper = styled.div<{
   background-color: ${({ $state = "neutral", theme }) =>
     theme.click.alert.color.background[$state]};
   color: ${({ $state = "neutral", theme }) => theme.click.alert.color.text[$state]};
+  width: 100%;
 `;
 
 const IconWrapper = styled.div<{
