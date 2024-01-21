@@ -37,7 +37,7 @@ const useColumns = ({
           : DEFAULT_WIDTH;
       const getWidth = (index: number) => {
         if (typeof columnWidthProp === "function") {
-          return columnWidthProp(index - 1);
+          return columnWidthProp(index);
         }
         return newWidth;
       };
@@ -46,7 +46,7 @@ const useColumns = ({
       const array: Array<number> = [];
       setColumnHorizontalPosition(() => {
         return columnWidthList.reduce((acc, index) => {
-          const width = getWidth(index - 1);
+          const width = getWidth(index);
           prevWidth.current[index.toString()] = width;
           columnWidthRefs.current[index] = width;
           if (index !== 0) {
