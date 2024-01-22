@@ -66,7 +66,7 @@ export const Cell = memo(
         <StyledCell
           as={CellData}
           rowIndex={currentRowIndex}
-          columnIndex={columnIndex + rowStart}
+          columnIndex={columnIndex}
           type="row-cell"
           data-selected={isFocused || selectionType === "selectDirect"}
           data-focused={isFocused}
