@@ -24,7 +24,7 @@ interface Props {
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
   const [columnWidth, setColumnWidth] = useState<Array<number>>(
-    Array.from({ length: 20 }, () => 100)
+    Array.from({ length: columnCount }, () => 100)
   );
 
   useEffect(() => {
@@ -88,10 +88,6 @@ export const Playground = {
     rowCount: 120,
     columnCount: 200,
     rowStart: 0,
-    focus: {
-      row: 0,
-      column: 0,
-    },
   },
   parameters: {
     docs: {

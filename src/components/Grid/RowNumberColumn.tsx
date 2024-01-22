@@ -46,34 +46,36 @@ interface RowNumberColumnProps {
   rounded: RoundedType;
   showHeader: boolean;
   scrolledHorizontal: boolean;
-  rowStart?: number;
+  rowStart: number;
   showBorder: boolean;
 }
 interface RowNumberProps
   extends Pick<
     RowNumberColumnProps,
-    "rowHeight" | "getSelectionType" | "rounded" | "showBorder"
+    "rowHeight" | "getSelectionType" | "rounded" | "showBorder" | "rowStart"
   > {
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;
 }
 const RowNumber = ({
-  rowIndex: row,
+  rowIndex,
   rowHeight,
   getSelectionType,
   isLastRow,
   rounded,
   isFirstRow,
   showBorder,
+  rowStart,
 }: RowNumberProps) => {
+  const currentRowIndex = rowIndex + rowStart;
   const selectionType = getSelectionType({
-    row,
+    row: currentRowIndex,
     type: "row",
   });
   const isSelected = selectionType === "selectDirect";
   const topSelectionType = getSelectionType({
-    row: row - 1,
+    row: currentRowIndex - 1,
     type: "row",
   });
   const isSelectedTop =
@@ -82,7 +84,7 @@ const RowNumber = ({
 
   return (
     <RowNumberCell
-      $rowNumber={row}
+      $rowNumber={rowIndex}
       $height={rowHeight}
     >
       <StyledCell
@@ -98,13 +100,13 @@ const RowNumber = ({
         $isSelectedLeft={isSelected}
         $isSelectedTop={isSelectedTop}
         data-selected={isSelected}
-        data-grid-row={row}
+        data-grid-row={currentRowIndex}
         data-grid-column={-1}
-        data-testid={`header-cell-${row}-x`}
+        data-testid={`header-cell-${currentRowIndex}-x`}
         $showBorder={showBorder}
         data-align="right"
       >
-        {row}
+        {currentRowIndex}
       </StyledCell>
     </RowNumberCell>
   );
@@ -136,11 +138,12 @@ const RowNumberColumn = ({
             key={`row-number-${rowIndex}`}
             getSelectionType={getSelectionType}
             rowHeight={rowHeight}
-            rowIndex={rowStart + rowIndex}
+            rowIndex={rowIndex}
             isLastRow={rowIndex === rowCount}
             rounded={rounded}
             isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
+            rowStart={rowStart}
           />
         )
       )}

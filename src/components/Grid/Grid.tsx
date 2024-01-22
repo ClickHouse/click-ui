@@ -130,7 +130,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
   ) => {
     const [focus, setFocus] = useState<SelectionFocus>(
       focusProp ?? {
-        row: 0,
+        row: rowStart,
         column: 0,
       }
     );
@@ -144,9 +144,10 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         await copyGridElements({
           cell,
           selection,
-          focus,
+          focus: focusProp ?? focus,
           rowCount,
           columnCount,
+          outerRef: outerRef,
         });
         if (showToast) {
           createToast({
@@ -165,7 +166,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           });
         }
       }
-    }, [cell, columnCount, focus, rowCount, selection, showToast]);
+    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast]);
 
     const defaultMenuOptions = [
       {
@@ -206,14 +207,14 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     const onFocusChange = useCallback(
       (row: number, column: number) => {
         setFocus(focus => ({
-          row: row ?? focus.row,
-          column: column ?? focus.column,
+          row: row ?? focusProp?.row ?? focus.row,
+          column: column ?? focusProp?.column ?? focus.column,
         }));
         if (typeof onFocusChangeProp === "function") {
           onFocusChangeProp(row, column);
         }
       },
-      [onFocusChangeProp]
+      [onFocusChangeProp, focusProp]
     );
 
     const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
@@ -312,10 +313,11 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             return { type: "empty" };
           }
         });
-        onFocusChange(focus.row, focus.column);
-        scrollGridTo(focus);
+        const newFocus = focusProp ?? focus;
+        onFocusChange(newFocus.row, newFocus.column);
+        scrollGridTo(newFocus);
       },
-      [focus, onFocusChange, scrollGridTo]
+      [focus, focusProp, onFocusChange, scrollGridTo]
     );
 
     useEffect(() => {
@@ -332,6 +334,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         onFocusChange,
         scrollGridTo,
         selection: selectionProp ?? selection,
+        rowStart,
       });
 
     const data: ItemDataType = {
@@ -341,11 +344,12 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       columnCount,
       rounded,
       showHeader,
-      focus,
+      focus: focusProp ?? focus,
       getSelectionType,
       rowHeight,
       headerHeight,
       rowNumberWidth,
+      rowStart,
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
@@ -444,7 +448,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             event: "click",
           });
           if (!shiftKeyPressed) {
-            onFocusChange(0, column);
+            onFocusChange(rowStart, column);
           }
           return;
         }
@@ -469,7 +473,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           onFocusChange(row, column);
         }
       },
-      [onFocusChange, onMouseDownProp, onSelection]
+      [onFocusChange, onMouseDownProp, onSelection, rowStart]
     );
 
     const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(e => {
@@ -494,9 +498,10 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
         }
 
         dragState.current = false;
-        onFocusChange(focus.row, focus.column);
+        const newFocus = focusProp ?? focus;
+        onFocusChange(newFocus.row, newFocus.column);
       },
-      [contextMenuOpen, focus.column, focus.row, onFocusChange]
+      [contextMenuOpen, focus, focusProp, onFocusChange]
     );
 
     const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -622,7 +627,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           e.stopPropagation();
         }
         const moveAnchor = e.shiftKey;
-        const { row, column } = focus;
+        const { row, column } = focusProp ?? focus;
 
         const applyAction = (action: SelectionAction | null): void => {
           if (action) {
@@ -667,6 +672,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       },
       [
         onKeyDownProp,
+        focusProp,
         focus,
         onSelection,
         onFocusChange,
@@ -679,7 +685,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       onMouseDown(e);
 
       if (typeof getMenuOptions === "function") {
-        const newOptions = getMenuOptions(selection, focus);
+        const newOptions = getMenuOptions(selection, focusProp ?? focus);
         setMenuOptions([...defaultMenuOptions, ...newOptions]);
       }
     };

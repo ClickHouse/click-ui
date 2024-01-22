@@ -1,5 +1,5 @@
 import { CellProps, SelectedRegion, SelectionFocus } from "./types";
-import { createElement } from "react";
+import { RefObject, createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 interface CopyGridElementsProps {
@@ -9,6 +9,7 @@ interface CopyGridElementsProps {
   columnCount: number;
   pageStart?: number;
   focus: SelectionFocus;
+  outerRef: RefObject<HTMLDivElement>;
 }
 
 const addCellToRow = (
@@ -48,9 +49,15 @@ const copyGridElements = async ({
   columnCount,
   pageStart = 0,
   focus,
+  outerRef,
 }: CopyGridElementsProps): Promise<void> => {
+  if (!outerRef.current) {
+    throw "Could not fetch selection";
+  }
   const table = document.createElement("table");
   table.style.position = "absolute";
+  table.style.top = "-200px";
+  table.style.left = "-200px";
   table.style.width = "0px";
   table.style.height = "0px";
   table.style.overflow = "hidden";
@@ -97,7 +104,7 @@ const copyGridElements = async ({
   table.appendChild(thead);
   table.appendChild(tbody);
 
-  document.body.appendChild(table);
+  outerRef.current.appendChild(table);
 
   const windowSelection = window.getSelection();
   if (windowSelection) {
@@ -108,7 +115,7 @@ const copyGridElements = async ({
     await navigator.clipboard.writeText(table.innerText);
     windowSelection.removeAllRanges();
 
-    document.body.removeChild(table);
+    outerRef.current.removeChild(table);
   } else {
     throw "Could not fetch selection";
   }
