@@ -24,24 +24,26 @@ export const Cell = memo(
       rowStart,
     } = data;
 
-    const row = rowIndex + rowStart;
+    const currentRowIndex = rowIndex + rowStart;
     const { row: focusedRow, column: focusedColumn } = focus;
-    const isFocused = columnIndex === focusedColumn && row === focusedRow;
-    const rightOfFocus = columnIndex - 1 === focusedColumn && row === focusedRow;
-    const belowFocus = columnIndex === focusedColumn && row - 1 === focusedRow;
+    const isFocused = columnIndex === focusedColumn && currentRowIndex === focusedRow;
+    const rightOfFocus =
+      columnIndex - 1 === focusedColumn && currentRowIndex === focusedRow;
+    const belowFocus =
+      columnIndex === focusedColumn && currentRowIndex - 1 === focusedRow;
 
     const selectionType = getSelectionType({
-      row,
+      row: currentRowIndex,
       column: columnIndex,
       type: "cell",
     });
     const rightSelection = getSelectionType({
-      row,
+      row: currentRowIndex,
       column: columnIndex - 1,
       type: "cell",
     });
     const belowSelection = getSelectionType({
-      row: row - 1,
+      row: currentRowIndex - 1,
       column: columnIndex,
       type: "cell",
     });
@@ -58,12 +60,12 @@ export const Cell = memo(
     return (
       <div
         style={style}
-        data-row={row}
+        data-row={currentRowIndex}
         data-column={columnIndex}
       >
         <StyledCell
           as={CellData}
-          rowIndex={row}
+          rowIndex={currentRowIndex}
           columnIndex={columnIndex + rowStart}
           type="row-cell"
           data-selected={isFocused || selectionType === "selectDirect"}
@@ -78,7 +80,7 @@ export const Cell = memo(
           $selectionType={selectionType}
           $height={rowHeight}
           $rounded={rounded}
-          data-grid-row={row}
+          data-grid-row={currentRowIndex}
           data-grid-column={columnIndex}
           $showBorder
           {...props}

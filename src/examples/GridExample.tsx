@@ -38,6 +38,7 @@ const GridExample = () => {
   return (
     <div style={{ height: 500, width: "100%" }}>
       <Grid
+        rowStart={32}
         columnCount={columnCount}
         rowCount={rowCount}
         cell={Cell}

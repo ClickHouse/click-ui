@@ -68,14 +68,14 @@ const RowNumber = ({
   showBorder,
   rowStart,
 }: RowNumberProps) => {
-  const row = rowIndex + rowStart;
+  const currentRowIndex = rowIndex + rowStart;
   const selectionType = getSelectionType({
-    row,
+    row: currentRowIndex,
     type: "row",
   });
   const isSelected = selectionType === "selectDirect";
   const topSelectionType = getSelectionType({
-    row: row - 1,
+    row: currentRowIndex - 1,
     type: "row",
   });
   const isSelectedTop =
@@ -100,13 +100,13 @@ const RowNumber = ({
         $isSelectedLeft={isSelected}
         $isSelectedTop={isSelectedTop}
         data-selected={isSelected}
-        data-grid-row={row}
+        data-grid-row={currentRowIndex}
         data-grid-column={-1}
-        data-testid={`header-cell-${row}-x`}
+        data-testid={`header-cell-${currentRowIndex}-x`}
         $showBorder={showBorder}
         data-align="right"
       >
-        {row}
+        {currentRowIndex}
       </StyledCell>
     </RowNumberCell>
   );
