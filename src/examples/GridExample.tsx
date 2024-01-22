@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import {
   Grid,
   CellProps,
@@ -18,6 +18,10 @@ const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props })
   );
 };
 const GridExample = () => {
+  const [focus, setFocus] = useState({
+    row: 32,
+    column: 0,
+  });
   const rowCount = 20,
     columnCount = 20;
 
@@ -44,6 +48,8 @@ const GridExample = () => {
         cell={Cell}
         headerHeight={32}
         getMenuOptions={getMenuOptions}
+        focus={focus}
+        onFocusChange={(row, column) => setFocus({ row, column })}
       />
     </div>
   );
