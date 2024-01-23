@@ -1,4 +1,10 @@
-import { KeyboardEventHandler, ReactElement } from "react";
+import {
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  ReactElement,
+  useCallback,
+} from "react";
 import {
   Container,
   ContainerProps,
@@ -18,6 +24,10 @@ export interface PaginationProps
   onChange: (pageNumber: number) => void;
   onPageSizeChange?: (pageNumber: number) => void;
   pageSize?: number;
+  onNextPageClick?: MouseEventHandler<HTMLButtonElement>;
+  onPrevPageClick?: MouseEventHandler<HTMLButtonElement>;
+  onPageNumberFocus?: FocusEventHandler<HTMLInputElement>;
+  onPageNumberBlur?: FocusEventHandler<HTMLInputElement>;
 }
 const CustomSelect = styled.div`
   width: 150px;
@@ -34,6 +44,10 @@ export const Pagination = ({
   fillWidth = true,
   gap = "md",
   justifyContent,
+  onNextPageClick,
+  onPrevPageClick,
+  onPageNumberFocus,
+  onPageNumberBlur,
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ["number", "string"].includes(typeof rowCount);
@@ -58,6 +72,25 @@ export const Pagination = ({
     }
   };
 
+  const onPrevClick: MouseEventHandler<HTMLButtonElement> = useCallback(
+    e => {
+      onChangeProp(currentPage - 1);
+      if (typeof onPrevPageClick === "function") {
+        onPrevPageClick(e);
+      }
+    },
+    [currentPage, onChangeProp, onPrevPageClick]
+  );
+
+  const onNextClick: MouseEventHandler<HTMLButtonElement> = useCallback(
+    e => {
+      onChangeProp(currentPage + 1);
+      if (typeof onNextPageClick === "function") {
+        onNextPageClick(e);
+      }
+    },
+    [currentPage, onChangeProp, onNextPageClick]
+  );
   return (
     <Container
       gap={gap}
@@ -82,9 +115,7 @@ export const Pagination = ({
           icon="chevron-left"
           type="ghost"
           disabled={currentPage === 1}
-          onClick={() => {
-            onChangeProp(currentPage - 1);
-          }}
+          onClick={onPrevClick}
           data-testid="prev-btn"
         />
         <Container maxWidth="50px">
@@ -95,6 +126,8 @@ export const Pagination = ({
             onKeyDown={onKeyDown}
             min={1}
             max={totalPages}
+            onFocus={onPageNumberFocus}
+            onBlur={onPageNumberBlur}
           />
         </Container>
         {!!totalPages && (
@@ -110,9 +143,7 @@ export const Pagination = ({
           icon="chevron-right"
           type="ghost"
           disabled={!!totalPages && currentPage === totalPages}
-          onClick={() => {
-            onChangeProp(currentPage + 1);
-          }}
+          onClick={onNextClick}
           data-testid="next-btn"
         />
       </Container>
