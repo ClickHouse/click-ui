@@ -33,6 +33,7 @@ import copyGridElements from "./copyGridElements";
 import useColumns from "./useColumns";
 
 const NO_BUTTONS_PRESSED = 0;
+const LEFT_BUTTON_PRESSED = 1;
 const RIGHT_BUTTON_PRESSED = 2;
 
 const GridContainer = styled.div`
@@ -124,6 +125,8 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       onMouseDown: onMouseDownProp,
       onMouseMove: onMouseMoveProp,
       showBorder = false,
+      onCopy: onCopyProp,
+      onContextMenu: onContextMenuProp,
       ...props
     },
     forwardedRef
@@ -140,6 +143,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       }
     );
     const onCopy = useCallback(async () => {
+      let isCopied = false;
       try {
         await copyGridElements({
           cell,
@@ -149,6 +153,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           columnCount,
           outerRef: outerRef,
         });
+        isCopied = true;
         if (showToast) {
           createToast({
             title: "Copied successfully",
@@ -165,8 +170,11 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             type: "danger",
           });
         }
+        if (typeof onCopyProp === "function") {
+          onCopyProp(isCopied);
+        }
       }
-    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast]);
+    }, [cell, columnCount, focus, focusProp, onCopyProp, rowCount, selection, showToast]);
 
     const defaultMenuOptions = [
       {
@@ -414,7 +422,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       e => {
         containerRef.current?.focus();
-        if (typeof onMouseDownProp === "function") {
+        if (typeof onMouseDownProp === "function" && e.buttons === LEFT_BUTTON_PRESSED) {
           onMouseDownProp(e);
         }
         const target = (e.target as HTMLElement).closest(
@@ -684,6 +692,9 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
     const onContextMenu: MouseEventHandler<HTMLDivElement> = e => {
       onMouseDown(e);
 
+      if (typeof onContextMenuProp === "function") {
+        onContextMenuProp(e);
+      }
       if (typeof getMenuOptions === "function") {
         const newOptions = getMenuOptions(selection, focusProp ?? focus);
         setMenuOptions([...defaultMenuOptions, ...newOptions]);
