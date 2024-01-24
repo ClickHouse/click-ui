@@ -1722,6 +1722,18 @@
             }
           }
         }
+      },
+      "monacoTheme": {
+        "parameter": {
+          "foreground": {
+            "value": "{click.feedback.color.neutral.foreground}",
+            "type": "color"
+          },
+          "background": {
+            "value": "{click.feedback.color.neutral.background}",
+            "type": "color"
+          }
+        }
       }
     },
     "codeInline": {
