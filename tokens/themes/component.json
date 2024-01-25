@@ -2847,6 +2847,20 @@
           "top": {
             "value": "3.5rem",
             "type": "spacing"
+          },
+          "content": {
+            "x": {
+              "value": "{spaces.3}",
+              "type": "spacing"
+            },
+            "row-gap": {
+              "value": "{spaces.1}",
+              "type": "spacing"
+            },
+            "column-gap": {
+              "value": "{spaces.3}",
+              "type": "spacing"
+            }
           }
         },
         "content": {
