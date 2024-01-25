@@ -49,19 +49,25 @@ const animationCircle3 = keyframes`
 
 const HorizontalLoading = styled(DotsHorizontal)`
   circle {
-    r: 0;
-    animation-name: example;
+    animation-name: horizontal-loading;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    -webkit-animation-name: horizontal-loading;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
     &:nth-child(1) {
       animation-name: ${animationCircle1};
+      -webkit-animation-name: ${animationCircle1};
     }
     &:nth-child(2) {
       animation-name: ${animationCircle2};
+      -webkit-animation-name: ${animationCircle2};
     }
     &:nth-child(3) {
       animation-name: ${animationCircle3};
+      -webkit-animation-name: ${animationCircle3};
     }
   }
 `;
