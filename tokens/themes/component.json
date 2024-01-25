@@ -2850,7 +2850,7 @@
           },
           "content": {
             "x": {
-              "value": "{spaces.3}",
+              "value": "{spaces.5}",
               "type": "spacing"
             },
             "row-gap": {
@@ -2858,8 +2858,46 @@
               "type": "spacing"
             },
             "column-gap": {
-              "value": "{spaces.3}",
+              "value": "{spaces.4}",
               "type": "spacing"
+            }
+          },
+          "y": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "x": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          },
+          "default": {
+            "top": {
+              "value": "{spaces.0}",
+              "type": "spacing"
+            }
+          },
+          "inline": {
+            "top": {
+              "value": "3.5rem",
+              "type": "spacing"
+            },
+            "content": {
+              "x": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              },
+              "row-gap": {
+                "value": "{spaces.1}",
+                "type": "spacing"
+              },
+              "column-gap": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              }
             }
           }
         },
