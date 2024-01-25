@@ -57,17 +57,24 @@ const HorizontalLoading = styled(DotsHorizontal)`
     -webkit-animation-duration: 1.5s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
+    -moz-animation-name: horizontal-loading;
+    -moz-animation-duration: 1.5s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
     &:nth-child(1) {
       animation-name: ${animationCircle1};
       -webkit-animation-name: ${animationCircle1};
+      -moz-animation-name: ${animationCircle1};
     }
     &:nth-child(2) {
       animation-name: ${animationCircle2};
       -webkit-animation-name: ${animationCircle2};
+      -moz-animation-name: ${animationCircle2};
     }
     &:nth-child(3) {
       animation-name: ${animationCircle3};
       -webkit-animation-name: ${animationCircle3};
+      -moz-animation-name: ${animationCircle3};
     }
   }
 `;
