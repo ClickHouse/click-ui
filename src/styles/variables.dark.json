@@ -659,6 +659,12 @@
             "default": "#282828"
           }
         }
+      },
+      "monacoTheme": {
+        "parameter": {
+          "foreground": "#c0c0c0",
+          "background": "#414141"
+        }
       }
     },
     "codeInline": {

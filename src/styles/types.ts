@@ -1149,6 +1149,12 @@
             "default": string
           }
         }
+      },
+      "monacoTheme": {
+        "parameter": {
+          "foreground": string,
+          "background": string
+        }
       }
     },
     "codeInline": {
@@ -2437,7 +2443,26 @@
           "top": string
         },
         "inline": {
-          "top": string
+          "top": string,
+          "content": {
+            "x": string,
+            "row-gap": string,
+            "column-gap": string
+          },
+          "y": string,
+          "x": string,
+          "gap": string,
+          "default": {
+            "top": string
+          },
+          "inline": {
+            "top": string,
+            "content": {
+              "x": string,
+              "row-gap": string,
+              "column-gap": string
+            }
+          }
         },
         "content": {
           "x": string,
