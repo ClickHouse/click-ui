@@ -37,7 +37,7 @@ export interface ContainerProps<T extends ElementType> {
   orientation?: Orientation;
   padding?: PaddingOptions;
   wrap?: WrapOptions;
-  height?: string;
+  fillHeight?: boolean;
   maxHeight?: string;
   minHeight?: string;
   overflow?: string;
@@ -60,7 +60,7 @@ const Container = forwardRef(
       orientation = "horizontal",
       padding = "none",
       wrap = "nowrap",
-      height,
+      fillHeight,
       maxHeight,
       minHeight,
       overflow,
@@ -84,7 +84,7 @@ const Container = forwardRef(
         $orientation={orientation}
         $paddingSize={padding}
         $wrap={wrap}
-        $height={height}
+        $fillHeight={fillHeight}
         $maxHeight={maxHeight}
         $minHeight={minHeight}
         $overflow={overflow}
@@ -110,7 +110,7 @@ const Wrapper = styled.div<{
   $orientation: Orientation;
   $paddingSize: PaddingOptions;
   $wrap: WrapOptions;
-  $height?: string;
+  $fillHeight?: boolean;
   $minHeight?: string;
   $maxHeight?: string;
   $overflow?: string;
@@ -120,8 +120,8 @@ const Wrapper = styled.div<{
     ${$grow && `flex: ${$grow};`}
     ${$shrink && `flex-shrink: ${$shrink};`}
   `}
-  ${({ $height, $maxHeight, $minHeight }) => `
-    ${$height && `height: ${$height};`}
+  ${({ $fillHeight, $maxHeight, $minHeight }) => `
+    ${$fillHeight && "height: 100%;"}
     ${$maxHeight && `max-height: ${$maxHeight};`}
     ${$minHeight && `min-height: ${$minHeight};`}
   `}
