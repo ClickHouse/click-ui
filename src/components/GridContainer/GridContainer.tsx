@@ -131,22 +131,22 @@ const Wrapper = styled.div<{
   align-content: ${({ $alignContent = "stretch" }) => $alignContent};
   display: ${({ $inline }) => ($inline === true ? "inline-grid" : "grid")};
   ${({ $gridAutoColumns }) =>
-    $gridAutoColumns ? `grid-auto-columns: ${$gridAutoColumns}` : ""};
-  ${({ $gridAutoFlow }) => ($gridAutoFlow ? `grid-auto-flow: ${$gridAutoFlow}` : "")};
-  ${({ $gridAutoRows }) => ($gridAutoRows ? `grid-auto-rows: ${$gridAutoRows}` : "")};
+    $gridAutoColumns && `grid-auto-columns: ${$gridAutoColumns}`};
+  ${({ $gridAutoFlow }) => $gridAutoFlow && `grid-auto-flow: ${$gridAutoFlow}`};
+  ${({ $gridAutoRows }) => $gridAutoRows && `grid-auto-rows: ${$gridAutoRows}`};
   ${({ $gridTemplateAreas }) =>
-    $gridTemplateAreas ? `grid-template-area: ${$gridTemplateAreas}` : ""};
+    $gridTemplateAreas && `grid-template-area: ${$gridTemplateAreas}`};
   ${({ $gridTemplateColumns }) =>
-    $gridTemplateColumns ? `grid-template-columns: ${$gridTemplateColumns}` : ""};
+    $gridTemplateColumns && `grid-template-columns: ${$gridTemplateColumns}`};
   ${({ $gridTemplateRows }) =>
-    $gridTemplateRows ? `grid-template-rows: ${$gridTemplateRows}` : ""};
-  ${({ $gridTemplate }) => ($gridTemplate ? `grid-template:  ${$gridTemplate}` : "")};
+    $gridTemplateRows && `grid-template-rows: ${$gridTemplateRows}`};
+  ${({ $gridTemplate }) => $gridTemplate && `grid-template:  ${$gridTemplate}`};
   justify-content: ${({ $justifyContent = "stretch" }) => $justifyContent};
   justify-items: ${({ $justifyItems = "stretch" }) => $justifyItems};
   ${({ theme, $gap, $columnGap, $rowGap }) => `
     gap: ${$gap ? theme.click.gridContainer.gap[$gap] : "inherit"};
-    ${$columnGap ? `column-gap: ${theme.click.gridContainer.gap[$columnGap]};` : ""}
-    ${$rowGap ? `row-gap: ${theme.click.gridContainer.gap[$rowGap]};` : ""}
+    ${$columnGap && `column-gap: ${theme.click.gridContainer.gap[$columnGap]};`}
+    ${$rowGap && `row-gap: ${theme.click.gridContainer.gap[$rowGap]};`}
   `}
 
   ${({ $fillWidth, $maxWidth, $minWidth }) => `
@@ -155,12 +155,12 @@ const Wrapper = styled.div<{
     ${typeof $minWidth === "string" ? `min-width: ${$minWidth};` : ""}
   `}
   ${({ $height, $maxHeight, $minHeight }) => `
-    ${typeof $height === "string" ? `height: ${$height};` : ""}
-    ${typeof $maxHeight === "string" ? `max-height: ${$maxHeight};` : ""}
-    ${typeof $minHeight === "string" ? `min-height: ${$minHeight};` : ""}
+    ${typeof $height === "string" && `height: ${$height};`}
+    ${typeof $maxHeight === "string" && `max-height: ${$maxHeight};`}
+    ${typeof $minHeight === "string" && `min-height: ${$minHeight};`}
   `}
   ${({ $overflow }) => `
-    ${typeof $overflow === "string" ? `overflow: ${$overflow};` : ""}
+    ${typeof $overflow === "string" && `overflow: ${$overflow};`}
   `}
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
