@@ -50,7 +50,7 @@ const Container = forwardRef(
       component,
       alignItems,
       children,
-      fillWidth = false,
+      fillWidth = true,
       gap = "none",
       grow,
       shrink,
