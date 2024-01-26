@@ -41,7 +41,6 @@ export interface ContainerProps<T extends ElementType> {
   maxHeight?: string;
   minHeight?: string;
   overflow?: string;
-  flex?: GrowShrinkOptions;
 }
 
 const Container = forwardRef(
@@ -65,7 +64,6 @@ const Container = forwardRef(
       maxHeight,
       minHeight,
       overflow,
-      flex,
       ...props
     }: ContainerProps<T> & ComponentPropsWithoutRef<T>,
     ref: ComponentPropsWithRef<T>["ref"]
@@ -77,7 +75,6 @@ const Container = forwardRef(
         $alignItems={alignItems ?? orientation === "vertical" ? "start" : "center"}
         $fillWidth={fillWidth}
         $gapSize={gap}
-        $flex={flex}
         $grow={grow}
         $shrink={shrink}
         $isResponsive={isResponsive}
@@ -104,7 +101,6 @@ const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
   $fillWidth?: boolean;
   $gapSize: GapOptions;
-  $flex?: GrowShrinkOptions;
   $grow?: GrowShrinkOptions;
   $shrink?: GrowShrinkOptions;
   $isResponsive?: boolean;
@@ -120,18 +116,17 @@ const Wrapper = styled.div<{
   $overflow?: string;
 }>`
   display: flex;
-  ${({ $flex, $grow, $shrink }) => `
-    ${typeof $flex === "string" ? `flex: ${$flex};` : ""}
-    ${typeof $grow === "string" ? `flex-grow: ${$grow};` : ""}
-    ${typeof $shrink === "string" ? `flex-shrink: ${$shrink};` : ""}
+  ${({ $grow, $shrink }) => `
+    ${$grow && `flex: ${$grow};`}
+    ${$shrink && `flex-shrink: ${$shrink};`}
   `}
   ${({ $height, $maxHeight, $minHeight }) => `
-    ${typeof $height === "string" ? `height: ${$height};` : ""}
-    ${typeof $maxHeight === "string" ? `max-height: ${$maxHeight};` : ""}
-    ${typeof $minHeight === "string" ? `min-height: ${$minHeight};` : ""}
+    ${$height && `height: ${$height};`}
+    ${$maxHeight && `max-height: ${$maxHeight};`}
+    ${$minHeight && `min-height: ${$minHeight};`}
   `}
   ${({ $overflow }) => `
-    ${typeof $overflow === "string" ? `overflow: ${$overflow};` : ""}
+    ${$overflow && `overflow: ${$overflow};`}
   `}
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
