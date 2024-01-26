@@ -37,13 +37,18 @@ export interface ContainerProps<T extends ElementType> {
   orientation?: Orientation;
   padding?: PaddingOptions;
   wrap?: WrapOptions;
+  height?: string;
+  maxHeight?: string;
+  minHeight?: string;
+  overflow?: string;
+  flex?: GrowShrinkOptions;
 }
 
 const Container = forwardRef(
   <T extends ElementType = "div">(
     {
       component,
-      alignItems = "center",
+      alignItems,
       children,
       fillWidth = false,
       gap = "none",
@@ -56,6 +61,11 @@ const Container = forwardRef(
       orientation = "horizontal",
       padding = "none",
       wrap = "nowrap",
+      height,
+      maxHeight,
+      minHeight,
+      overflow,
+      flex,
       ...props
     }: ContainerProps<T> & ComponentPropsWithoutRef<T>,
     ref: ComponentPropsWithRef<T>["ref"]
@@ -64,9 +74,10 @@ const Container = forwardRef(
       <Wrapper
         ref={ref}
         as={component ?? "div"}
-        $alignItems={alignItems}
+        $alignItems={alignItems ?? orientation === "vertical" ? "start" : "center"}
         $fillWidth={fillWidth}
         $gapSize={gap}
+        $flex={flex}
         $grow={grow}
         $shrink={shrink}
         $isResponsive={isResponsive}
@@ -76,6 +87,10 @@ const Container = forwardRef(
         $orientation={orientation}
         $paddingSize={padding}
         $wrap={wrap}
+        $height={height}
+        $maxHeight={maxHeight}
+        $minHeight={minHeight}
+        $overflow={overflow}
         data-testid="container"
         {...props}
       >
@@ -89,6 +104,7 @@ const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
   $fillWidth?: boolean;
   $gapSize: GapOptions;
+  $flex?: GrowShrinkOptions;
   $grow?: GrowShrinkOptions;
   $shrink?: GrowShrinkOptions;
   $isResponsive?: boolean;
@@ -98,11 +114,24 @@ const Wrapper = styled.div<{
   $orientation: Orientation;
   $paddingSize: PaddingOptions;
   $wrap: WrapOptions;
+  $height?: string;
+  $minHeight?: string;
+  $maxHeight?: string;
+  $overflow?: string;
 }>`
   display: flex;
-  ${({ $grow, $shrink }) => `
+  ${({ $flex, $grow, $shrink }) => `
+    ${typeof $flex === "string" ? `flex: ${$flex};` : ""}
     ${typeof $grow === "string" ? `flex-grow: ${$grow};` : ""}
-    ${typeof $shrink === "string" ? `flex-grow: ${$shrink};` : ""}
+    ${typeof $shrink === "string" ? `flex-shrink: ${$shrink};` : ""}
+  `}
+  ${({ $height, $maxHeight, $minHeight }) => `
+    ${typeof $height === "string" ? `height: ${$height};` : ""}
+    ${typeof $maxHeight === "string" ? `max-height: ${$maxHeight};` : ""}
+    ${typeof $minHeight === "string" ? `min-height: ${$minHeight};` : ""}
+  `}
+  ${({ $overflow }) => `
+    ${typeof $overflow === "string" ? `overflow: ${$overflow};` : ""}
   `}
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
