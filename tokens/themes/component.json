@@ -2863,7 +2863,7 @@
             "type": "spacing"
           },
           "y": {
-            "value": "{spaces.4}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "gap": {
