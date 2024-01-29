@@ -12,8 +12,7 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from "@radix-ui/react-dialog";
-
-import { Button, ButtonProps, Icon, Separator } from "..";
+import { Button, ButtonProps, Container, ContainerProps, Icon, Separator } from "..";
 import styled from "styled-components";
 import { CrossButton } from "../commonElement";
 import { keyframes } from "styled-components";
@@ -203,12 +202,6 @@ const FlyoutHeaderContainer = styled.div<{
   `}
 `;
 
-const FlexGrow = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
 const FlyoutTitle = styled(DialogTitle)<{
   type?: FlyoutType;
 }>`
@@ -239,7 +232,14 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           type={type}
           {...props}
         >
-          <FlexGrow>{children}</FlexGrow>
+          <Container
+            padding="none"
+            gap="none"
+            orientation="vertical"
+            grow="1"
+          >
+            {children}
+          </Container>
           <DialogClose asChild>
             <CrossButton data-testid="flyout-header-close-btn">
               <Icon
@@ -260,12 +260,15 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
         type={type}
         {...props}
       >
-        <FlexGrow>
-          <FlyoutTitle type={type}>{title}</FlyoutTitle>
-          {description && (
-            <FlyoutDescription type={type}>{description}</FlyoutDescription>
-          )}
-        </FlexGrow>
+        <Container
+          padding="none"
+          gap="none"
+          orientation="vertical"
+          grow="1"
+        >
+          <FlyoutTitle>{title}</FlyoutTitle>
+          {description && <FlyoutDescription>{description}</FlyoutDescription>}
+        </Container>
         <DialogClose asChild>
           <CrossButton data-testid="flyout-header-close-btn">
             <Icon
@@ -283,12 +286,7 @@ Header.displayName = "Flyout.Header";
 Flyout.Header = Header;
 
 type FlyoutAlign = "default" | "top";
-const FlyoutBody = styled.div<{ $align?: FlyoutAlign }>`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 100%;
-  overflow: auto;
+const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
   margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
@@ -298,6 +296,9 @@ interface BodyProps extends HTMLAttributes<HTMLDivElement> {
 
 const Body = ({ align, ...props }: BodyProps) => (
   <FlyoutBody
+    overflow="auto"
+    orientation="vertical"
+    grow="1"
     $align={align}
     {...props}
   />
@@ -306,7 +307,8 @@ const Body = ({ align, ...props }: BodyProps) => (
 Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
-export interface FlyoutFooterProps extends HTMLAttributes<HTMLDivElement> {
+export interface FlyoutFooterProps
+  extends Omit<ContainerProps<"div">, "orientaion" | "justifyContent"> {
   type?: FlyoutType;
 }
 
@@ -347,10 +349,14 @@ Flyout.Close = FlyoutClose;
 
 const Footer = (props: FlyoutFooterProps) => {
   return (
-    <FlyoutContainer>
+    <Container gap="none">
       <Separator size="xs" />
-      <FlyoutFooter {...props} />
-    </FlyoutContainer>
+      <FlyoutFooter
+        as={Container}
+        justifyContents="end"
+        {...props}
+      />
+    </Container>
   );
 };
 Footer.displayName = "Flyout.Footer";
