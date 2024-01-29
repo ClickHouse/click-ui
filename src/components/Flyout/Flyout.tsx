@@ -290,7 +290,7 @@ const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
   margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
-interface BodyProps extends HTMLAttributes<HTMLDivElement> {
+interface BodyProps extends ContainerProps<"div"> {
   align?: FlyoutAlign;
 }
 
