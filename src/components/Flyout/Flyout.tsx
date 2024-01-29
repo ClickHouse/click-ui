@@ -151,18 +151,18 @@ Content.displayName = "Flyout.Content";
 Flyout.Content = Content;
 
 const FlyoutElement = styled.div<{
-  type: FlyoutType;
+  type?: FlyoutType;
 }>`
   display: flex;
   flex-direction: column;
-  ${({ theme, type }) => `
+  ${({ theme, type = "default" }) => `
     gap: ${theme.click.flyout.space[type].gap};
     padding: 0 ${theme.click.flyout.space[type].content.x};
   `}
 `;
 
 interface ElementProps extends DialogContentProps {
-  type: FlyoutType;
+  type?: FlyoutType;
 }
 
 const Element = ({ type, ...props }: ElementProps) => (
@@ -178,25 +178,25 @@ Flyout.Element = Element;
 interface TitleHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   title: string;
   description?: string;
-  type: FlyoutType;
+  type?: FlyoutType;
   children?: never;
 }
 
 interface ChildrenHeaderProps extends HTMLAttributes<HTMLDivElement> {
   title?: never;
-  type: FlyoutType;
+  type?: FlyoutType;
   description?: never;
 }
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
 const FlyoutHeaderContainer = styled.div<{
-  type: FlyoutType;
+  type?: FlyoutType;
 }>`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  ${({ theme, type }) => `
+  ${({ theme, type = "default" }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
     padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].y} 0 ${theme.click.flyout.space[type].y} ;
@@ -210,9 +210,9 @@ const FlexGrow = styled.div`
 `;
 
 const FlyoutTitle = styled(DialogTitle)<{
-  type: FlyoutType;
+  type?: FlyoutType;
 }>`
-  ${({ theme, type }) => `
+  ${({ theme, type = "default" }) => `
     color: ${theme.click.flyout.color.title.default};
     font: ${theme.click.flyout.typography[type].title.default};
     margin: 0;
@@ -221,9 +221,9 @@ const FlyoutTitle = styled(DialogTitle)<{
 `;
 
 const FlyoutDescription = styled(DialogDescription)<{
-  type: FlyoutType;
+  type?: FlyoutType;
 }>`
-  ${({ theme, type }) => `
+  ${({ theme, type = "default" }) => `
     color: ${theme.click.flyout.color.description.default};
     font: ${theme.click.flyout.typography[type].description.default};
     margin: 0;
@@ -307,16 +307,16 @@ Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
 export interface FlyoutFooterProps extends HTMLAttributes<HTMLDivElement> {
-  type: FlyoutType;
+  type?: FlyoutType;
 }
 
 const FlyoutFooter = styled.div<{
-  type: FlyoutType;
+  type?: FlyoutType;
 }>`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  ${({ theme, type }) => `
+  ${({ theme, type = "default" }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
     padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].content.x};
