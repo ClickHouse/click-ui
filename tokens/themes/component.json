@@ -2847,6 +2847,10 @@
               "value": "{spaces.5}",
               "type": "spacing"
             },
+            "y": {
+              "value": "{spaces.5}",
+              "type": "spacing"
+            },
             "row-gap": {
               "value": "{spaces.1}",
               "type": "spacing"
@@ -2876,6 +2880,10 @@
           },
           "content": {
             "x": {
+              "value": "{spaces.3}",
+              "type": "spacing"
+            },
+            "y": {
               "value": "{spaces.3}",
               "type": "spacing"
             },
