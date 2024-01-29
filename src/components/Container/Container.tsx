@@ -37,15 +37,19 @@ export interface ContainerProps<T extends ElementType> {
   orientation?: Orientation;
   padding?: PaddingOptions;
   wrap?: WrapOptions;
+  fillHeight?: boolean;
+  maxHeight?: string;
+  minHeight?: string;
+  overflow?: string;
 }
 
 const Container = forwardRef(
   <T extends ElementType = "div">(
     {
       component,
-      alignItems = "center",
+      alignItems,
       children,
-      fillWidth = false,
+      fillWidth = true,
       gap = "none",
       grow,
       shrink,
@@ -56,6 +60,10 @@ const Container = forwardRef(
       orientation = "horizontal",
       padding = "none",
       wrap = "nowrap",
+      fillHeight,
+      maxHeight,
+      minHeight,
+      overflow,
       ...props
     }: ContainerProps<T> & ComponentPropsWithoutRef<T>,
     ref: ComponentPropsWithRef<T>["ref"]
@@ -64,7 +72,7 @@ const Container = forwardRef(
       <Wrapper
         ref={ref}
         as={component ?? "div"}
-        $alignItems={alignItems}
+        $alignItems={alignItems ?? orientation === "vertical" ? "start" : "center"}
         $fillWidth={fillWidth}
         $gapSize={gap}
         $grow={grow}
@@ -76,6 +84,10 @@ const Container = forwardRef(
         $orientation={orientation}
         $paddingSize={padding}
         $wrap={wrap}
+        $fillHeight={fillHeight}
+        $maxHeight={maxHeight}
+        $minHeight={minHeight}
+        $overflow={overflow}
         data-testid="container"
         {...props}
       >
@@ -98,11 +110,23 @@ const Wrapper = styled.div<{
   $orientation: Orientation;
   $paddingSize: PaddingOptions;
   $wrap: WrapOptions;
+  $fillHeight?: boolean;
+  $minHeight?: string;
+  $maxHeight?: string;
+  $overflow?: string;
 }>`
   display: flex;
   ${({ $grow, $shrink }) => `
-    ${typeof $grow === "string" ? `flex-grow: ${$grow};` : ""}
-    ${typeof $shrink === "string" ? `flex-grow: ${$shrink};` : ""}
+    ${$grow && `flex: ${$grow};`}
+    ${$shrink && `flex-shrink: ${$shrink};`}
+  `}
+  ${({ $fillHeight, $maxHeight, $minHeight }) => `
+    ${$fillHeight && "height: 100%;"}
+    ${$maxHeight && `max-height: ${$maxHeight};`}
+    ${$minHeight && `min-height: ${$minHeight};`}
+  `}
+  ${({ $overflow }) => `
+    ${$overflow && `overflow: ${$overflow};`}
   `}
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
