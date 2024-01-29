@@ -2442,6 +2442,7 @@
           "top": "0",
           "content": {
             "x": "1.5rem",
+            "y": "1.5rem",
             "row-gap": "0.25rem",
             "column-gap": "1rem"
           }
@@ -2453,6 +2454,7 @@
           "top": "3.5rem",
           "content": {
             "x": "0.75rem",
+            "y": "0.75rem",
             "row-gap": "0.25rem",
             "column-gap": "0.75rem"
           }

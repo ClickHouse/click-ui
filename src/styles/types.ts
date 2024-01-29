@@ -2443,6 +2443,7 @@
           "top": string,
           "content": {
             "x": string,
+            "y": string,
             "row-gap": string,
             "column-gap": string
           }
@@ -2454,6 +2455,7 @@
           "top": string,
           "content": {
             "x": string,
+            "y": string,
             "row-gap": string,
             "column-gap": string
           }

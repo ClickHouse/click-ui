@@ -81,7 +81,7 @@ const FlyoutContent = styled(DialogContent)<{
   ${({ theme, $strategy, $type = "default" }) => `
     position: ${$strategy};
     height: ${$strategy === "relative" ? "100%" : "auto"};
-    padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].x}
+    padding: 0 ${theme.click.flyout.space[$type].x}
     gap: ${theme.click.flyout.space[$type].gap};
     border-left: 1px solid ${theme.click.flyout.color.stroke.default};
     background: ${theme.click.flyout.color.background.default};
@@ -199,7 +199,7 @@ const FlyoutHeaderContainer = styled.div<{
   ${({ theme, type }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
-    padding: ${theme.click.flyout.space[type].y}; ${theme.click.flyout.space[type].x};
+    padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].y} 0 ${theme.click.flyout.space[type].y} ;
   `}
 `;
 
@@ -249,7 +249,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
             </CrossButton>
           </DialogClose>
         </FlyoutHeaderContainer>
-        <Separator size="xs" />
+        <Separator size="lg" />
       </FlyoutContainer>
     );
   }
@@ -275,7 +275,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           </CrossButton>
         </DialogClose>
       </FlyoutHeaderContainer>
-      <Separator size="xs" />
+      <Separator size="lg" />
     </FlyoutContainer>
   );
 };
