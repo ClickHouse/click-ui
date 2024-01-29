@@ -15,6 +15,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   align?: Alignment;
   fillWidth?: boolean;
   loading?: boolean;
+  autoFocus?: boolean;
 }
 
 export const Button = ({
