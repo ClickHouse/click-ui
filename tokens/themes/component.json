@@ -2867,7 +2867,7 @@
             "type": "spacing"
           },
           "gap": {
-            "value": "{spaces.4}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "top": {
@@ -2929,16 +2929,32 @@
         }
       },
       "typography": {
-        "description": {
-          "default": {
-            "value": "{typography.styles.product.text.normal.md}",
-            "type": "typography"
+        "default": {
+          "description": {
+            "default": {
+              "value": "{typography.styles.product.text.normal.md}",
+              "type": "typography"
+            }
+          },
+          "title": {
+            "default": {
+              "value": "{typography.styles.product.titles.xl}",
+              "type": "typography"
+            }
           }
         },
-        "title": {
-          "default": {
-            "value": "{typography.styles.product.titles.xl}",
-            "type": "typography"
+        "inline": {
+          "description": {
+            "default": {
+              "value": "{typography.styles.product.text.normal.md}",
+              "type": "typography"
+            }
+          },
+          "title": {
+            "default": {
+              "value": "{typography.styles.product.titles.md}",
+              "type": "typography"
+            }
           }
         }
       }
