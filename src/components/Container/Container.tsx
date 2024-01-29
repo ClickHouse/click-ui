@@ -117,16 +117,16 @@ const Wrapper = styled.div<{
 }>`
   display: flex;
   ${({ $grow, $shrink }) => `
-    ${$grow && `flex: ${$grow};`}
-    ${$shrink && `flex-shrink: ${$shrink};`}
+    ${$grow && `flex: ${$grow}`};
+    ${$shrink && `flex-shrink: ${$shrink}`};
   `}
   ${({ $fillHeight, $maxHeight, $minHeight }) => `
-    ${$fillHeight && "height: 100%;"}
-    ${$maxHeight && `max-height: ${$maxHeight};`}
-    ${$minHeight && `min-height: ${$minHeight};`}
+    ${$fillHeight && "height: 100%"};
+    ${$maxHeight && `max-height: ${$maxHeight}`};
+    ${$minHeight && `min-height: ${$minHeight}`};
   `}
   ${({ $overflow }) => `
-    ${$overflow && `overflow: ${$overflow};`}
+    ${$overflow && `overflow: ${$overflow}`};
   `}
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};

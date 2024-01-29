@@ -145,22 +145,22 @@ const Wrapper = styled.div<{
   justify-items: ${({ $justifyItems = "stretch" }) => $justifyItems};
   ${({ theme, $gap, $columnGap, $rowGap }) => `
     gap: ${$gap ? theme.click.gridContainer.gap[$gap] : "inherit"};
-    ${$columnGap && `column-gap: ${theme.click.gridContainer.gap[$columnGap]};`}
-    ${$rowGap && `row-gap: ${theme.click.gridContainer.gap[$rowGap]};`}
+    ${$columnGap && `column-gap: ${theme.click.gridContainer.gap[$columnGap]}`};
+    ${$rowGap && `row-gap: ${theme.click.gridContainer.gap[$rowGap]}`};
   `}
 
   ${({ $fillWidth, $maxWidth, $minWidth }) => `
     width: ${$fillWidth ? "100%" : "auto"};
-    ${typeof $maxWidth === "string" ? `max-width: ${$maxWidth};` : ""}
-    ${typeof $minWidth === "string" ? `min-width: ${$minWidth};` : ""}
+    ${typeof $maxWidth === "string" && `max-width: ${$maxWidth}`};
+    ${typeof $minWidth === "string" && `min-width: ${$minWidth}`};
   `}
   ${({ $height, $maxHeight, $minHeight }) => `
-    ${typeof $height === "string" && `height: ${$height};`}
-    ${typeof $maxHeight === "string" && `max-height: ${$maxHeight};`}
-    ${typeof $minHeight === "string" && `min-height: ${$minHeight};`}
+    ${typeof $height === "string" && `height: ${$height}`};
+    ${typeof $maxHeight === "string" && `max-height: ${$maxHeight}`};
+    ${typeof $minHeight === "string" && `min-height: ${$minHeight}`};
   `}
   ${({ $overflow }) => `
-    ${typeof $overflow === "string" && `overflow: ${$overflow};`}
+    ${typeof $overflow === "string" && `overflow: ${$overflow}`};
   `}
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
