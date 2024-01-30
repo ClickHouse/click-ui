@@ -2436,38 +2436,29 @@
     },
     "flyout": {
       "space": {
-        "y": string,
-        "x": string,
-        "gap": string,
         "default": {
-          "top": string
-        },
-        "inline": {
+          "x": string,
+          "y": string,
+          "gap": string,
           "top": string,
           "content": {
             "x": string,
+            "y": string,
             "row-gap": string,
             "column-gap": string
-          },
-          "y": string,
-          "x": string,
-          "gap": string,
-          "default": {
-            "top": string
-          },
-          "inline": {
-            "top": string,
-            "content": {
-              "x": string,
-              "row-gap": string,
-              "column-gap": string
-            }
           }
         },
-        "content": {
+        "inline": {
           "x": string,
-          "row-gap": string,
-          "column-gap": string
+          "y": string,
+          "gap": string,
+          "top": string,
+          "content": {
+            "x": string,
+            "y": string,
+            "row-gap": string,
+            "column-gap": string
+          }
         }
       },
       "shadow": {
@@ -2488,11 +2479,21 @@
         }
       },
       "typography": {
-        "description": {
-          "default": string
+        "default": {
+          "description": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          }
         },
-        "title": {
-          "default": string
+        "inline": {
+          "description": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          }
         }
       },
       "color": {

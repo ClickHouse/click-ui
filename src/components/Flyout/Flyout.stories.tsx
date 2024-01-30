@@ -5,10 +5,11 @@ interface Props extends FlyoutProps {
   title: string;
   description?: string;
   align: "default" | "top";
+  type: "default" | "inline";
   size: "default" | "narrow" | "wide";
 }
 
-const FlyoutExample = ({ title, description, align, size, ...props }: Props) => {
+const FlyoutExample = ({ title, description, align, type, size, ...props }: Props) => {
   return (
     <Flyout {...props}>
       <Flyout.Trigger>
@@ -19,15 +20,16 @@ const FlyoutExample = ({ title, description, align, size, ...props }: Props) => 
         size={size}
       >
         <Flyout.Header
+          type={type}
           title={title}
           description={description}
         />
         <Flyout.Body align={align}>
-          <Flyout.Element>
+          <Flyout.Element type={type}>
             <Text>Flyout content belongs here.</Text>
           </Flyout.Element>
         </Flyout.Body>
-        <Flyout.Footer>
+        <Flyout.Footer type={type}>
           <Flyout.Close label="Cancel" />
           <Button>Test Primary</Button>
         </Flyout.Footer>
@@ -44,6 +46,7 @@ export default {
     description: { control: "text" },
     align: { control: "select", options: ["default", "top"] },
     size: { control: "select", options: ["default", "narrow", "wide"] },
+    type: { control: "select", options: ["default", "inline"] },
   },
 };
 
@@ -53,6 +56,7 @@ export const Playground = {
     description: "Description",
     align: "default",
     size: "default",
+    type: "default",
   },
   parameters: {
     docs: {
