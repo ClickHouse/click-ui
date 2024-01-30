@@ -190,7 +190,7 @@ interface TitleHeaderProps
     | "padding"
     | "gap"
     | "children"
-    | "width"
+    | "fillWidth"
   > {
   title: string;
   description?: string;
@@ -207,7 +207,7 @@ interface ChildrenHeaderProps
     | "component"
     | "padding"
     | "gap"
-    | "width"
+    | "fillWidth"
   > {
   title?: never;
   type?: FlyoutType;
@@ -258,7 +258,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           alignItems="start"
           padding="none"
           gap="none"
-          width="auto"
+          fillWidth={false}
           {...props}
         >
           <Container
@@ -289,7 +289,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
         type={type}
         justifyContent="space-between"
         alignItems="start"
-        width="auto"
+        fillWidth={false}
         {...props}
       >
         <Container
@@ -381,7 +381,10 @@ Flyout.Close = FlyoutClose;
 
 const Footer = (props: FlyoutFooterProps) => {
   return (
-    <Container gap="none">
+    <Container
+      gap="none"
+      orientation="vertical"
+    >
       <Separator size="xs" />
       <FlyoutFooter
         justifyContents="end"
