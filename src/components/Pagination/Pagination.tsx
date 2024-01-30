@@ -110,7 +110,10 @@ export const Pagination = ({
           {typeof rowCount === "number" ? formatNumber(rowCount) : rowCount} rows
         </Text>
       )}
-      <Container gap="xxs">
+      <Container
+        gap="xxs"
+        fillWidth={false}
+      >
         <IconButton
           icon="chevron-left"
           type="ghost"
@@ -118,7 +121,10 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        <Container maxWidth="50px">
+        <Container
+          maxWidth="50px"
+          fillWidth={false}
+        >
           <NumberField
             onChange={onChange}
             value={currentPage}
