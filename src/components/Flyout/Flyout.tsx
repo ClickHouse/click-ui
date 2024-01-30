@@ -190,6 +190,7 @@ interface TitleHeaderProps
     | "padding"
     | "gap"
     | "children"
+    | "width"
   > {
   title: string;
   description?: string;
@@ -200,7 +201,13 @@ interface TitleHeaderProps
 interface ChildrenHeaderProps
   extends Omit<
     ContainerProps<"div">,
-    "orientaion" | "justifyContent" | "alignItems" | "component" | "padding" | "gap"
+    | "orientaion"
+    | "justifyContent"
+    | "alignItems"
+    | "component"
+    | "padding"
+    | "gap"
+    | "width"
   > {
   title?: never;
   type?: FlyoutType;
@@ -251,6 +258,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           alignItems="start"
           padding="none"
           gap="none"
+          width="auto"
           {...props}
         >
           <Container
@@ -281,6 +289,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
         type={type}
         justifyContent="space-between"
         alignItems="start"
+        width="auto"
         {...props}
       >
         <Container
