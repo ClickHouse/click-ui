@@ -384,10 +384,11 @@ const Footer = (props: FlyoutFooterProps) => {
     <Container
       gap="none"
       orientation="vertical"
+      alignItems="end"
     >
       <Separator size="xs" />
       <FlyoutFooter
-        justifyContents="end"
+        justifyContent="end"
         gap="none"
         padding="none"
         {...props}
