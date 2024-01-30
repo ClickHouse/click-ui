@@ -152,6 +152,10 @@ Flyout.Content = Content;
 const FlyoutElement = styled(Container)<{
   type?: FlyoutType;
 }>`
+  max-width: 100%;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
   ${({ theme, type = "default" }) => `
     gap: ${theme.click.flyout.space[type].gap};
     padding: 0 ${theme.click.flyout.space[type].content.x};
