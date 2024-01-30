@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { ReactNode } from "react";
 import {
   Dialog,
   DialogClose,
@@ -12,8 +12,7 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from "@radix-ui/react-dialog";
-
-import { Button, ButtonProps, Icon, Separator } from "..";
+import { Button, ButtonProps, Container, ContainerProps, Icon, Separator } from "..";
 import styled from "styled-components";
 import { CrossButton } from "../commonElement";
 import { keyframes } from "styled-components";
@@ -150,23 +149,29 @@ const Content = ({
 Content.displayName = "Flyout.Content";
 Flyout.Content = Content;
 
-const FlyoutElement = styled.div<{
+const FlyoutElement = styled(Container)<{
   type?: FlyoutType;
 }>`
-  display: flex;
-  flex-direction: column;
+  max-width: 100%;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
   ${({ theme, type = "default" }) => `
     gap: ${theme.click.flyout.space[type].gap};
     padding: 0 ${theme.click.flyout.space[type].content.x};
   `}
 `;
 
-interface ElementProps extends HTMLAttributes<HTMLDivElement> {
+interface ElementProps
+  extends Omit<ContainerProps<"div">, "component" | "padding" | "gap" | "orientation"> {
   type?: FlyoutType;
 }
 
 const Element = ({ type, ...props }: ElementProps) => (
   <FlyoutElement
+    orientation="vertical"
+    padding="none"
+    gap="none"
     type={type}
     {...props}
   />
@@ -175,14 +180,35 @@ const Element = ({ type, ...props }: ElementProps) => (
 Element.displayName = "Flyout.Element";
 Flyout.Element = Element;
 
-interface TitleHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface TitleHeaderProps
+  extends Omit<
+    ContainerProps<"div">,
+    | "orientaion"
+    | "justifyContent"
+    | "alignItems"
+    | "component"
+    | "padding"
+    | "gap"
+    | "children"
+    | "fillWidth"
+  > {
   title: string;
   description?: string;
   type?: FlyoutType;
   children?: never;
 }
 
-interface ChildrenHeaderProps extends HTMLAttributes<HTMLDivElement> {
+interface ChildrenHeaderProps
+  extends Omit<
+    ContainerProps<"div">,
+    | "orientaion"
+    | "justifyContent"
+    | "alignItems"
+    | "component"
+    | "padding"
+    | "gap"
+    | "fillWidth"
+  > {
   title?: never;
   type?: FlyoutType;
   description?: never;
@@ -190,23 +216,14 @@ interface ChildrenHeaderProps extends HTMLAttributes<HTMLDivElement> {
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
-const FlyoutHeaderContainer = styled.div<{
+const FlyoutHeaderContainer = styled(Container)<{
   type?: FlyoutType;
 }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   ${({ theme, type = "default" }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
     padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].y} 0 ${theme.click.flyout.space[type].y} ;
   `}
-`;
-
-const FlexGrow = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
 `;
 
 const FlyoutTitle = styled(DialogTitle)<{
@@ -237,9 +254,21 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
       <FlyoutContainer>
         <FlyoutHeaderContainer
           type={type}
+          justifyContent="space-between"
+          alignItems="start"
+          padding="none"
+          gap="none"
+          fillWidth={false}
           {...props}
         >
-          <FlexGrow>{children}</FlexGrow>
+          <Container
+            padding="none"
+            gap="none"
+            orientation="vertical"
+            grow="1"
+          >
+            {children}
+          </Container>
           <DialogClose asChild>
             <CrossButton data-testid="flyout-header-close-btn">
               <Icon
@@ -258,14 +287,20 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
     <FlyoutContainer>
       <FlyoutHeaderContainer
         type={type}
+        justifyContent="space-between"
+        alignItems="start"
+        fillWidth={false}
         {...props}
       >
-        <FlexGrow>
-          <FlyoutTitle type={type}>{title}</FlyoutTitle>
-          {description && (
-            <FlyoutDescription type={type}>{description}</FlyoutDescription>
-          )}
-        </FlexGrow>
+        <Container
+          padding="none"
+          gap="none"
+          orientation="vertical"
+          grow="1"
+        >
+          <FlyoutTitle>{title}</FlyoutTitle>
+          {description && <FlyoutDescription>{description}</FlyoutDescription>}
+        </Container>
         <DialogClose asChild>
           <CrossButton data-testid="flyout-header-close-btn">
             <Icon
@@ -283,21 +318,19 @@ Header.displayName = "Flyout.Header";
 Flyout.Header = Header;
 
 type FlyoutAlign = "default" | "top";
-const FlyoutBody = styled.div<{ $align?: FlyoutAlign }>`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  width: 100%;
-  overflow: auto;
+const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
   margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
-interface BodyProps extends HTMLAttributes<HTMLDivElement> {
+interface BodyProps extends ContainerProps<"div"> {
   align?: FlyoutAlign;
 }
 
 const Body = ({ align, ...props }: BodyProps) => (
   <FlyoutBody
+    overflow="auto"
+    orientation="vertical"
+    grow="1"
     $align={align}
     {...props}
   />
@@ -306,16 +339,17 @@ const Body = ({ align, ...props }: BodyProps) => (
 Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
-export interface FlyoutFooterProps extends HTMLAttributes<HTMLDivElement> {
+export interface FlyoutFooterProps
+  extends Omit<
+    ContainerProps<"div">,
+    "orientaion" | "justifyContent" | "component" | "padding" | "gap"
+  > {
   type?: FlyoutType;
 }
 
-const FlyoutFooter = styled.div<{
+const FlyoutFooter = styled(Container)<{
   type?: FlyoutType;
 }>`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   ${({ theme, type = "default" }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
@@ -347,10 +381,19 @@ Flyout.Close = FlyoutClose;
 
 const Footer = (props: FlyoutFooterProps) => {
   return (
-    <FlyoutContainer>
+    <Container
+      gap="none"
+      orientation="vertical"
+      alignItems="end"
+    >
       <Separator size="xs" />
-      <FlyoutFooter {...props} />
-    </FlyoutContainer>
+      <FlyoutFooter
+        justifyContent="end"
+        gap="none"
+        padding="none"
+        {...props}
+      />
+    </Container>
   );
 };
 Footer.displayName = "Flyout.Footer";
