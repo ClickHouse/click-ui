@@ -86,7 +86,7 @@ const FlyoutContent = styled(DialogContent)<{
     border-left: 1px solid ${theme.click.flyout.color.stroke.default};
     background: ${theme.click.flyout.color.background.default};
     box-shadow: ${theme.click.flyout.shadow.default}};
-    
+
     @media (max-width: 1024px) {
       ${
         $strategy === "relative"
@@ -161,7 +161,7 @@ const FlyoutElement = styled.div<{
   `}
 `;
 
-interface ElementProps extends DialogContentProps {
+interface ElementProps extends HTMLAttributes<HTMLDivElement> {
   type?: FlyoutType;
 }
 
