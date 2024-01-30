@@ -38,6 +38,7 @@ export const ICON_NAMES = [
   "circle",
   "clock",
   "cloud",
+  "cloud-keys",
   "code",
   "code-in-square",
   "connect",

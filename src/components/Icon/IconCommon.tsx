@@ -36,6 +36,7 @@ import CheckInCircle from "@/components/icons/CheckInCircle";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import Clock from "@/components/icons/Clock";
 import Cloud from "@/components/icons/Cloud";
+import CloudKeys from "@/components/icons/CloudKeys";
 import Code from "@/components/icons/Code";
 import CodeInSquare from "@/components/icons/CodeInSquare";
 import Connect from "@/components/icons/Connect";
@@ -157,6 +158,7 @@ export const ICONS_MAP = {
   circle: Circle,
   clock: Clock,
   cloud: Cloud,
+  "cloud-keys": CloudKeys,
   code: Code,
   "code-in-square": CodeInSquare,
   connect: Connect,
