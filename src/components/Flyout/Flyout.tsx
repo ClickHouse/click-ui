@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { ReactNode } from "react";
 import {
   Dialog,
   DialogClose,
@@ -149,23 +149,25 @@ const Content = ({
 Content.displayName = "Flyout.Content";
 Flyout.Content = Content;
 
-const FlyoutElement = styled.div<{
+const FlyoutElement = styled(Container)<{
   type?: FlyoutType;
 }>`
-  display: flex;
-  flex-direction: column;
   ${({ theme, type = "default" }) => `
     gap: ${theme.click.flyout.space[type].gap};
     padding: 0 ${theme.click.flyout.space[type].content.x};
   `}
 `;
 
-interface ElementProps extends HTMLAttributes<HTMLDivElement> {
+interface ElementProps
+  extends Omit<ContainerProps<"div">, "component" | "padding" | "gap" | "orientation"> {
   type?: FlyoutType;
 }
 
 const Element = ({ type, ...props }: ElementProps) => (
   <FlyoutElement
+    orientation="vertical"
+    padding="none"
+    gap="none"
     type={type}
     {...props}
   />
@@ -174,14 +176,28 @@ const Element = ({ type, ...props }: ElementProps) => (
 Element.displayName = "Flyout.Element";
 Flyout.Element = Element;
 
-interface TitleHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface TitleHeaderProps
+  extends Omit<
+    ContainerProps<"div">,
+    | "orientaion"
+    | "justifyContent"
+    | "alignItems"
+    | "component"
+    | "padding"
+    | "gap"
+    | "children"
+  > {
   title: string;
   description?: string;
   type?: FlyoutType;
   children?: never;
 }
 
-interface ChildrenHeaderProps extends HTMLAttributes<HTMLDivElement> {
+interface ChildrenHeaderProps
+  extends Omit<
+    ContainerProps<"div">,
+    "orientaion" | "justifyContent" | "alignItems" | "component" | "padding" | "gap"
+  > {
   title?: never;
   type?: FlyoutType;
   description?: never;
@@ -189,12 +205,9 @@ interface ChildrenHeaderProps extends HTMLAttributes<HTMLDivElement> {
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
-const FlyoutHeaderContainer = styled.div<{
+const FlyoutHeaderContainer = styled(Container)<{
   type?: FlyoutType;
 }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   ${({ theme, type = "default" }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
@@ -230,6 +243,10 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
       <FlyoutContainer>
         <FlyoutHeaderContainer
           type={type}
+          justifyContent="space-between"
+          alignItems="start"
+          padding="none"
+          gap="none"
           {...props}
         >
           <Container
@@ -258,6 +275,8 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
     <FlyoutContainer>
       <FlyoutHeaderContainer
         type={type}
+        justifyContent="space-between"
+        alignItems="start"
         {...props}
       >
         <Container
@@ -308,16 +327,16 @@ Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
 export interface FlyoutFooterProps
-  extends Omit<ContainerProps<"div">, "orientaion" | "justifyContent"> {
+  extends Omit<
+    ContainerProps<"div">,
+    "orientaion" | "justifyContent" | "component" | "padding" | "gap"
+  > {
   type?: FlyoutType;
 }
 
-const FlyoutFooter = styled.div<{
+const FlyoutFooter = styled(Container)<{
   type?: FlyoutType;
 }>`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   ${({ theme, type = "default" }) => `
     row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
     column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
@@ -352,8 +371,9 @@ const Footer = (props: FlyoutFooterProps) => {
     <Container gap="none">
       <Separator size="xs" />
       <FlyoutFooter
-        as={Container}
         justifyContents="end"
+        gap="none"
+        padding="none"
         {...props}
       />
     </Container>
