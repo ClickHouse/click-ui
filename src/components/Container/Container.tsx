@@ -72,7 +72,7 @@ const Container = forwardRef(
       <Wrapper
         ref={ref}
         as={component ?? "div"}
-        $alignItems={alignItems ?? orientation === "vertical" ? "start" : "center"}
+        $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
         $fillWidth={fillWidth}
         $gapSize={gap}
         $grow={grow}
