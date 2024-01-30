@@ -17,5 +17,6 @@ export const Playground = {
     disabled: false,
     isSelected: false,
     size: "md",
+    alignContent: "center"
   },
 };
