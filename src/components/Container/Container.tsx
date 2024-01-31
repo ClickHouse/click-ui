@@ -72,7 +72,7 @@ const Container = forwardRef(
       <Wrapper
         ref={ref}
         as={component ?? "div"}
-        $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
+        $alignItems={alignItems ?? orientation === "vertical" ? "start" : "center"}
         $fillWidth={fillWidth}
         $gapSize={gap}
         $grow={grow}
@@ -116,18 +116,12 @@ const Wrapper = styled.div<{
   $overflow?: string;
 }>`
   display: flex;
-  ${({ $grow, $shrink }) => `
-    ${$grow && `flex: ${$grow}`};
-    ${$shrink && `flex-shrink: ${$shrink}`};
-  `}
-  ${({ $fillHeight, $maxHeight, $minHeight }) => `
-    ${$fillHeight && "height: 100%"};
-    ${$maxHeight && `max-height: ${$maxHeight}`};
-    ${$minHeight && `min-height: ${$minHeight}`};
-  `}
-  ${({ $overflow }) => `
-    ${$overflow && `overflow: ${$overflow}`};
-  `}
+  ${({ $grow }) => $grow && `flex: ${$grow}`}
+  ${({ $shrink }) => $shrink && `flex-shrink: ${$shrink}`}
+  ${({ $fillHeight }) => $fillHeight && "height: 100%"}
+  ${({ $maxHeight }) => $maxHeight && `max-height: ${$maxHeight}`}
+  ${({ $minHeight }) => $minHeight && `min-height: ${$minHeight}`}
+  ${({ $overflow }) => $overflow && `overflow: ${$overflow}`};
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
   max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
