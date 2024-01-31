@@ -298,8 +298,10 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           orientation="vertical"
           grow="1"
         >
-          <FlyoutTitle>{title}</FlyoutTitle>
-          {description && <FlyoutDescription>{description}</FlyoutDescription>}
+          <FlyoutTitle type={type}>{title}</FlyoutTitle>
+          {description && (
+            <FlyoutDescription type={type}>{description}</FlyoutDescription>
+          )}
         </Container>
         <DialogClose asChild>
           <CrossButton data-testid="flyout-header-close-btn">
