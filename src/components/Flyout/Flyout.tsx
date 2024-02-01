@@ -150,15 +150,15 @@ Content.displayName = "Flyout.Content";
 Flyout.Content = Content;
 
 const FlyoutElement = styled(Container)<{
-  type?: FlyoutType;
+  $type?: FlyoutType;
 }>`
   max-width: 100%;
   max-width: -webkit-fill-available;
   max-width: fill-available;
   max-width: stretch;
-  ${({ theme, type = "default" }) => `
-    gap: ${theme.click.flyout.space[type].gap};
-    padding: 0 ${theme.click.flyout.space[type].content.x};
+  ${({ theme, $type = "default" }) => `
+    gap: ${theme.click.flyout.space[$type].gap};
+    padding: 0 ${theme.click.flyout.space[$type].content.x};
   `}
 `;
 
@@ -172,7 +172,7 @@ const Element = ({ type, ...props }: ElementProps) => (
     orientation="vertical"
     padding="none"
     gap="none"
-    type={type}
+    $type={type}
     {...props}
   />
 );
@@ -217,32 +217,32 @@ interface ChildrenHeaderProps
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
 const FlyoutHeaderContainer = styled(Container)<{
-  type?: FlyoutType;
+  $type?: FlyoutType;
 }>`
-  ${({ theme, type = "default" }) => `
-    row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
-    column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
-    padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].y} 0 ${theme.click.flyout.space[type].y} ;
+  ${({ theme, $type = "default" }) => `
+    row-gap: ${theme.click.flyout.space[$type].content["row-gap"]};
+    column-gap: ${theme.click.flyout.space[$type].content["column-gap"]};
+    padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].y} 0 ${theme.click.flyout.space[$type].y} ;
   `}
 `;
 
 const FlyoutTitle = styled(DialogTitle)<{
-  type?: FlyoutType;
+  $type?: FlyoutType;
 }>`
-  ${({ theme, type = "default" }) => `
+  ${({ theme, $type = "default" }) => `
     color: ${theme.click.flyout.color.title.default};
-    font: ${theme.click.flyout.typography[type].title.default};
+    font: ${theme.click.flyout.typography[$type].title.default};
     margin: 0;
     padding: 0;
   `}
 `;
 
 const FlyoutDescription = styled(DialogDescription)<{
-  type?: FlyoutType;
+  $type?: FlyoutType;
 }>`
-  ${({ theme, type = "default" }) => `
+  ${({ theme, $type = "default" }) => `
     color: ${theme.click.flyout.color.description.default};
-    font: ${theme.click.flyout.typography[type].description.default};
+    font: ${theme.click.flyout.typography[$type].description.default};
     margin: 0;
     padding: 0;
   `}
@@ -253,7 +253,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
     return (
       <FlyoutContainer>
         <FlyoutHeaderContainer
-          type={type}
+          $type={type}
           justifyContent="space-between"
           alignItems="start"
           padding="none"
@@ -286,7 +286,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
   return (
     <FlyoutContainer>
       <FlyoutHeaderContainer
-        type={type}
+        $type={type}
         justifyContent="space-between"
         alignItems="start"
         fillWidth={false}
@@ -298,8 +298,10 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           orientation="vertical"
           grow="1"
         >
-          <FlyoutTitle>{title}</FlyoutTitle>
-          {description && <FlyoutDescription>{description}</FlyoutDescription>}
+          <FlyoutTitle $type={type}>{title}</FlyoutTitle>
+          {description && (
+            <FlyoutDescription $type={type}>{description}</FlyoutDescription>
+          )}
         </Container>
         <DialogClose asChild>
           <CrossButton data-testid="flyout-header-close-btn">
