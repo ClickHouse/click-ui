@@ -255,7 +255,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
         <FlyoutHeaderContainer
           $type={type}
           justifyContent="space-between"
-          alignItems="start"
+          alignItems="center"
           padding="none"
           gap="none"
           fillWidth={false}
@@ -288,7 +288,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
       <FlyoutHeaderContainer
         $type={type}
         justifyContent="space-between"
-        alignItems="start"
+        alignItems="center"
         fillWidth={false}
         {...props}
       >
