@@ -3,6 +3,7 @@ import {
   ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   ElementType,
+  ReactNode,
   forwardRef,
 } from "react";
 import { Orientation } from "@/components";
@@ -43,7 +44,11 @@ export interface ContainerProps<T extends ElementType> {
   overflow?: string;
 }
 
-const Container = forwardRef(
+type ContainerType = <T extends ElementType = "div">(
+  props: Omit<ComponentPropsWithoutRef<T>, keyof ContainerProps<T>> & ContainerProps<T>
+) => ReactNode;
+
+const Container: ContainerType = forwardRef(
   <T extends ElementType = "div">(
     {
       component,
@@ -65,7 +70,7 @@ const Container = forwardRef(
       minHeight,
       overflow,
       ...props
-    }: ContainerProps<T> & ComponentPropsWithoutRef<T>,
+    }: Omit<ComponentPropsWithoutRef<T>, keyof ContainerProps<T>> & ContainerProps<T>,
     ref: ComponentPropsWithRef<T>["ref"]
   ) => {
     return (

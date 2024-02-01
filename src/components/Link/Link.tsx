@@ -1,4 +1,11 @@
-import { ComponentPropsWithoutRef, ElementType, ReactEventHandler } from "react";
+import {
+  ComponentPropsWithRef,
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactEventHandler,
+  ReactNode,
+  forwardRef,
+} from "react";
 import { Icon, IconName } from "@/components";
 import styled from "styled-components";
 
@@ -61,40 +68,50 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
   }
 `;
 
+type LinkType = <T extends ElementType = "div">(
+  props: Omit<ComponentPropsWithoutRef<T>, keyof LinkProps<T>> & LinkProps<T>
+) => ReactNode;
+
 /** Component for linking to other pages or sections from with body text */
-export const Link = <T extends ElementType = "a">({
-  size = "md",
-  weight = "normal",
-  className,
-  href,
-  onClick,
-  target,
-  rel,
-  icon,
-  children,
-  component,
-  ...props
-}: LinkProps<T> & ComponentPropsWithoutRef<T>) => (
-  <CuiLink
-    $size={size}
-    $weight={weight}
-    className={className}
-    as={component ?? "a"}
-    href={href}
-    onClick={onClick}
-    rel={rel}
-    target={target}
-    {...props}
-  >
-    {children}
-    {icon && (
-      <IconWrapper $size={size}>
-        <Icon
-          name={icon}
-          className="external-icon"
-          data-testid={icon}
-        />
-      </IconWrapper>
-    )}
-  </CuiLink>
+export const Link: LinkType = forwardRef(
+  <T extends ElementType = "a">(
+    {
+      size = "md",
+      weight = "normal",
+      className,
+      href,
+      onClick,
+      target,
+      rel,
+      icon,
+      children,
+      component,
+      ...props
+    }: LinkProps<T> & ComponentPropsWithoutRef<T>,
+    ref: ComponentPropsWithRef<T>["ref"]
+  ) => (
+    <CuiLink
+      ref={ref}
+      $size={size}
+      $weight={weight}
+      className={className}
+      as={component ?? "a"}
+      href={href}
+      onClick={onClick}
+      rel={rel}
+      target={target}
+      {...props}
+    >
+      {children}
+      {icon && (
+        <IconWrapper $size={size}>
+          <Icon
+            name={icon}
+            className="external-icon"
+            data-testid={icon}
+          />
+        </IconWrapper>
+      )}
+    </CuiLink>
+  )
 );

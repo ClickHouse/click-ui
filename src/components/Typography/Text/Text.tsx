@@ -2,6 +2,7 @@ import {
   ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   ElementType,
+  ReactNode,
   forwardRef,
 } from "react";
 import styled from "styled-components";
@@ -20,8 +21,12 @@ export interface TextProps<T extends ElementType | undefined> {
   component?: T;
 }
 
+type TextType = <T extends ElementType = "div">(
+  props: Omit<ComponentPropsWithoutRef<T>, keyof TextProps<T>> & TextProps<T>
+) => ReactNode;
+
 /** Component for writing blocks of body copy */
-const _Text = forwardRef(
+const Text: TextType = forwardRef(
   <T extends ElementType = "p">(
     {
       align,
@@ -63,7 +68,6 @@ const CuiText = styled.p<{
   margin: 0;
 `;
 
-const Text = styled(_Text)``;
 Text.displayName = "Text";
 
 export { Text };

@@ -2,6 +2,7 @@ import {
   ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   ElementType,
+  ReactNode,
   forwardRef,
 } from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
@@ -26,7 +27,12 @@ export interface EllipsisContentProps<T extends ElementType> {
   component?: T;
 }
 
-export const EllipsisContent = forwardRef(
+type EllipsisContentType = <T extends ElementType = "div">(
+  props: Omit<ComponentPropsWithoutRef<T>, keyof EllipsisContentProps<T>> &
+    EllipsisContentProps<T>
+) => ReactNode;
+
+export const EllipsisContent: EllipsisContentType = forwardRef(
   <T extends ElementType = "div">(
     { component, ...props }: EllipsisContentProps<T> & ComponentPropsWithoutRef<T>,
     ref: ComponentPropsWithRef<T>["ref"]
