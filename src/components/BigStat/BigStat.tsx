@@ -81,7 +81,7 @@ const Wrapper = styled.div<{
   padding: ${theme.click.bigStat.space.all};
   min-height: ${$height !== undefined ? `${$height}` : "auto"};
   flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
-  width: ${$fillWidth == true ? "100%" : "auto"};
+  width: ${$fillWidth === true ? "100%" : "auto"};
   `}
 `;
 
