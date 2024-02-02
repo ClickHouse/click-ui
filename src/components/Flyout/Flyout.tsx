@@ -273,7 +273,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
             <CrossButton data-testid="flyout-header-close-btn">
               <Icon
                 name="cross"
-                size="lg"
+                size={type === "inline" ? "md" : "lg"}
               />
             </CrossButton>
           </DialogClose>
@@ -307,7 +307,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           <CrossButton data-testid="flyout-header-close-btn">
             <Icon
               name="cross"
-              size="lg"
+              size={type === "inline" ? "md" : "lg"}
             />
           </CrossButton>
         </DialogClose>
