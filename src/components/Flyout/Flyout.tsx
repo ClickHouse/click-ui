@@ -255,7 +255,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
         <FlyoutHeaderContainer
           $type={type}
           justifyContent="space-between"
-          alignItems="center"
+          alignItems="start"
           padding="none"
           gap="none"
           fillWidth={false}
@@ -273,7 +273,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
             <CrossButton data-testid="flyout-header-close-btn">
               <Icon
                 name="cross"
-                size="lg"
+                size={type === "inline" ? "md" : "lg"}
               />
             </CrossButton>
           </DialogClose>
@@ -288,7 +288,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
       <FlyoutHeaderContainer
         $type={type}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems="start"
         fillWidth={false}
         {...props}
       >
@@ -307,7 +307,7 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           <CrossButton data-testid="flyout-header-close-btn">
             <Icon
               name="cross"
-              size="lg"
+              size={type === "inline" ? "md" : "lg"}
             />
           </CrossButton>
         </DialogClose>
