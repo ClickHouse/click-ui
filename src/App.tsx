@@ -329,10 +329,10 @@ const App = () => {
             alignContent="start"
           >
             <ul>
-              <Text as="li">Designed to handle larger production workloads</Text>
-              <Text as="li">Unlimited storage with 24 GB + total memory</Text>
-              <Text as="li">Usage based pricing</Text>
-              <Text as="li">Includes 3 availability zones</Text>
+              <Text component="li">Designed to handle larger production workloads</Text>
+              <Text component="li">Unlimited storage with 24 GB + total memory</Text>
+              <Text component="li">Usage based pricing</Text>
+              <Text component="li">Includes 3 availability zones</Text>
             </ul>
           </CardPrimary>
         </div>
