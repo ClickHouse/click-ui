@@ -23,7 +23,7 @@ const EllipsisContainer = styled.div`
     text-overflow: ellipsis;
   }
 `;
-export interface EllipsisContentProps<T extends ElementType> {
+export interface EllipsisContentProps<T extends ElementType = "div"> {
   component?: T;
 }
 

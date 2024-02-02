@@ -12,7 +12,7 @@ import styled from "styled-components";
 type TextSize = "xs" | "sm" | "md" | "lg";
 type TextWeight = "normal" | "medium" | "semibold" | "bold";
 
-export interface LinkProps<T extends ElementType> {
+export interface LinkProps<T extends ElementType = "a"> {
   size?: TextSize;
   weight?: TextWeight;
   className?: string;
@@ -68,7 +68,7 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
   }
 `;
 
-type LinkType = <T extends ElementType = "div">(
+type LinkType = <T extends ElementType = "a">(
   props: Omit<ComponentPropsWithoutRef<T>, keyof LinkProps<T>> & LinkProps<T>
 ) => ReactNode;
 

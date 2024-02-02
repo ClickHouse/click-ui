@@ -23,7 +23,7 @@ type JustifyContentOptions =
 type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
-export interface ContainerProps<T extends ElementType> {
+export interface ContainerProps<T extends ElementType = "div"> {
   component?: T;
   alignItems?: AlignItemsOptions;
   children?: React.ReactNode;

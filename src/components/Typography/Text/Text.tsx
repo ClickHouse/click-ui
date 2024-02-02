@@ -1,6 +1,6 @@
 import {
+  ComponentProps,
   ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
   ElementType,
   ReactNode,
   forwardRef,
@@ -12,7 +12,8 @@ export type TextColor = "default" | "muted";
 export type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 
-export interface TextProps<T extends ElementType | undefined> {
+export interface TextProps<T extends ElementType = "p"> {
+  children: ReactNode;
   align?: TextAlignment;
   color?: TextColor;
   size?: TextSize;
@@ -21,38 +22,32 @@ export interface TextProps<T extends ElementType | undefined> {
   component?: T;
 }
 
-type TextType = <T extends ElementType = "div">(
-  props: Omit<ComponentPropsWithoutRef<T>, keyof TextProps<T>> & TextProps<T>
-) => ReactNode;
-
 /** Component for writing blocks of body copy */
-const Text: TextType = forwardRef(
-  <T extends ElementType = "p">(
-    {
-      align,
-      color,
-      size,
-      weight,
-      className,
-      children,
-      component,
-      ...props
-    }: TextProps<T> & ComponentPropsWithoutRef<T>,
-    ref: ComponentPropsWithRef<T>["ref"]
-  ) => (
-    <CuiText
-      as={component ?? "p"}
-      ref={ref}
-      $align={align}
-      $color={color}
-      $size={size}
-      $weight={weight}
-      className={className}
-      {...props}
-    >
-      {children}
-    </CuiText>
-  )
+const _Text = <T extends ElementType = "p">(
+  {
+    align,
+    color,
+    size,
+    weight,
+    className,
+    children,
+    component,
+    ...props
+  }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
+  ref: ComponentPropsWithRef<T>["ref"]
+) => (
+  <CuiText
+    as={component ?? "p"}
+    ref={ref}
+    $align={align}
+    $color={color}
+    $size={size}
+    $weight={weight}
+    className={className}
+    {...props}
+  >
+    {children}
+  </CuiText>
 );
 
 const CuiText = styled.p<{
@@ -68,6 +63,7 @@ const CuiText = styled.p<{
   margin: 0;
 `;
 
-Text.displayName = "Text";
+_Text.displayName = "Text";
 
+const Text = forwardRef(_Text) as typeof _Text;
 export { Text };
