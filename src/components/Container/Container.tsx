@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
-  ElementType,
-  forwardRef,
-} from "react";
+import { ComponentProps, ComponentPropsWithRef, ElementType, forwardRef } from "react";
 import { Orientation } from "@/components";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
@@ -64,7 +59,7 @@ const _Container = <T extends ElementType = "div">(
     minHeight,
     overflow,
     ...props
-  }: Omit<ComponentPropsWithoutRef<T>, keyof ContainerProps<T>> & ContainerProps<T>,
+  }: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>,
   ref: ComponentPropsWithRef<T>["ref"]
 ) => {
   return (

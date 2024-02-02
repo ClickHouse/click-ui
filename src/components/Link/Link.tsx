@@ -14,11 +14,7 @@ type TextWeight = "normal" | "medium" | "semibold" | "bold";
 export interface LinkProps<T extends ElementType = "a"> {
   size?: TextSize;
   weight?: TextWeight;
-  className?: string;
-  href?: string;
   onClick?: ReactEventHandler;
-  target?: string;
-  rel?: string;
   children?: React.ReactNode;
   icon?: IconName;
   component?: T;
@@ -72,11 +68,7 @@ const _Link = <T extends ElementType = "a">(
   {
     size = "md",
     weight = "normal",
-    className,
-    href,
     onClick,
-    target,
-    rel,
     icon,
     children,
     component,
@@ -88,12 +80,8 @@ const _Link = <T extends ElementType = "a">(
     ref={ref}
     $size={size}
     $weight={weight}
-    className={className}
     as={component ?? "a"}
-    href={href}
     onClick={onClick}
-    rel={rel}
-    target={target}
     {...props}
   >
     {children}
