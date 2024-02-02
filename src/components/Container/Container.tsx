@@ -3,7 +3,6 @@ import {
   ComponentPropsWithRef,
   ComponentPropsWithoutRef,
   ElementType,
-  ReactNode,
   forwardRef,
 } from "react";
 import { Orientation } from "@/components";
@@ -44,64 +43,57 @@ export interface ContainerProps<T extends ElementType = "div"> {
   overflow?: string;
 }
 
-type ContainerType = <T extends ElementType = "div">(
-  props: Omit<ComponentPropsWithoutRef<T>, keyof ContainerProps<T>> & ContainerProps<T>
-) => ReactNode;
-
-const Container: ContainerType = forwardRef(
-  <T extends ElementType = "div">(
-    {
-      component,
-      alignItems,
-      children,
-      fillWidth = true,
-      gap = "none",
-      grow,
-      shrink,
-      isResponsive,
-      justifyContent = "start",
-      maxWidth,
-      minWidth,
-      orientation = "horizontal",
-      padding = "none",
-      wrap = "nowrap",
-      fillHeight,
-      maxHeight,
-      minHeight,
-      overflow,
-      ...props
-    }: Omit<ComponentPropsWithoutRef<T>, keyof ContainerProps<T>> & ContainerProps<T>,
-    ref: ComponentPropsWithRef<T>["ref"]
-  ) => {
-    return (
-      <Wrapper
-        ref={ref}
-        as={component ?? "div"}
-        $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
-        $fillWidth={fillWidth}
-        $gapSize={gap}
-        $grow={grow}
-        $shrink={shrink}
-        $isResponsive={isResponsive}
-        $justifyContent={justifyContent}
-        $maxWidth={maxWidth}
-        $minWidth={minWidth}
-        $orientation={orientation}
-        $paddingSize={padding}
-        $wrap={wrap}
-        $fillHeight={fillHeight}
-        $maxHeight={maxHeight}
-        $minHeight={minHeight}
-        $overflow={overflow}
-        data-testid="container"
-        {...props}
-      >
-        {children}
-      </Wrapper>
-    );
-  }
-);
-
+const _Container = <T extends ElementType = "div">(
+  {
+    component,
+    alignItems,
+    children,
+    fillWidth = true,
+    gap = "none",
+    grow,
+    shrink,
+    isResponsive,
+    justifyContent = "start",
+    maxWidth,
+    minWidth,
+    orientation = "horizontal",
+    padding = "none",
+    wrap = "nowrap",
+    fillHeight,
+    maxHeight,
+    minHeight,
+    overflow,
+    ...props
+  }: Omit<ComponentPropsWithoutRef<T>, keyof ContainerProps<T>> & ContainerProps<T>,
+  ref: ComponentPropsWithRef<T>["ref"]
+) => {
+  return (
+    <Wrapper
+      ref={ref}
+      as={component ?? "div"}
+      $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
+      $fillWidth={fillWidth}
+      $gapSize={gap}
+      $grow={grow}
+      $shrink={shrink}
+      $isResponsive={isResponsive}
+      $justifyContent={justifyContent}
+      $maxWidth={maxWidth}
+      $minWidth={minWidth}
+      $orientation={orientation}
+      $paddingSize={padding}
+      $wrap={wrap}
+      $fillHeight={fillHeight}
+      $maxHeight={maxHeight}
+      $minHeight={minHeight}
+      $overflow={overflow}
+      data-testid="container"
+      {...props}
+    >
+      {children}
+    </Wrapper>
+  );
+};
 const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
   $fillWidth?: boolean;
@@ -155,4 +147,4 @@ const Wrapper = styled.div<{
   }
 `;
 
-export { Container };
+export const Container = forwardRef(_Container) as typeof _Container;
