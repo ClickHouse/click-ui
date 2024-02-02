@@ -6,24 +6,26 @@ export type bigStatSpacing = "sm" | "lg";
 export type bigStatState = "default" | "muted";
 
 export interface BigStatProps {
-  label: React.ReactNode;
-  title: React.ReactNode;
+  fillWidth?: boolean;
   height?: string;
+  label: React.ReactNode;
   order?: bigStatOrder;
   size?: bigStatSize;
   spacing?: bigStatSpacing;
   state?: bigStatState;
+  title: React.ReactNode;
 }
 
 //* Use this component to highlight important pieces of information. */
 export const BigStat = ({
-  label = "Label",
-  title = "Title",
+  fillWidth = false,
   height = "6rem",
+  label = "Label",
   order = "titleTop",
   size,
   spacing = "sm",
   state = "default",
+  title = "Title",
 }: BigStatProps) => (
   <Wrapper
     $height={height}
@@ -31,6 +33,7 @@ export const BigStat = ({
     $size={size}
     $spacing={spacing}
     $state={state}
+    $fillWidth={fillWidth}
   >
     <Label
       $state={state}
@@ -48,6 +51,7 @@ export const BigStat = ({
 );
 
 const Wrapper = styled.div<{
+  $fillWidth?: boolean;
   $height?: string;
   $order?: bigStatOrder;
   $size?: bigStatSize;
@@ -58,6 +62,7 @@ const Wrapper = styled.div<{
   justify-content: center;
   box-sizing: border-box;
   ${({
+    $fillWidth = false,
     $state = "default",
     $size = "lg",
     $height = "fixed",
@@ -76,6 +81,7 @@ const Wrapper = styled.div<{
   padding: ${theme.click.bigStat.space.all};
   min-height: ${$height !== undefined ? `${$height}` : "auto"};
   flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
+  width: ${$fillWidth === true ? "100%" : "auto"};
   `}
 `;
 
