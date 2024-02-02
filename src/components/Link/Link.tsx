@@ -1,18 +1,20 @@
-import { ComponentPropsWithoutRef, ElementType, ReactEventHandler } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactEventHandler,
+  forwardRef,
+} from "react";
 import { Icon, IconName } from "@/components";
 import styled from "styled-components";
 
 type TextSize = "xs" | "sm" | "md" | "lg";
 type TextWeight = "normal" | "medium" | "semibold" | "bold";
 
-export interface LinkProps<T extends ElementType> {
+export interface LinkProps<T extends ElementType = "a"> {
   size?: TextSize;
   weight?: TextWeight;
-  className?: string;
-  href?: string;
   onClick?: ReactEventHandler;
-  target?: string;
-  rel?: string;
   children?: React.ReactNode;
   icon?: IconName;
   component?: T;
@@ -62,28 +64,24 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
 `;
 
 /** Component for linking to other pages or sections from with body text */
-export const Link = <T extends ElementType = "a">({
-  size = "md",
-  weight = "normal",
-  className,
-  href,
-  onClick,
-  target,
-  rel,
-  icon,
-  children,
-  component,
-  ...props
-}: LinkProps<T> & ComponentPropsWithoutRef<T>) => (
+const _Link = <T extends ElementType = "a">(
+  {
+    size = "md",
+    weight = "normal",
+    onClick,
+    icon,
+    children,
+    component,
+    ...props
+  }: Omit<ComponentProps<T>, keyof T> & LinkProps<T>,
+  ref: ComponentPropsWithRef<T>["ref"]
+) => (
   <CuiLink
+    ref={ref}
     $size={size}
     $weight={weight}
-    className={className}
     as={component ?? "a"}
-    href={href}
     onClick={onClick}
-    rel={rel}
-    target={target}
     {...props}
   >
     {children}
@@ -98,3 +96,4 @@ export const Link = <T extends ElementType = "a">({
     )}
   </CuiLink>
 );
+export const Link = forwardRef(_Link) as typeof _Link;

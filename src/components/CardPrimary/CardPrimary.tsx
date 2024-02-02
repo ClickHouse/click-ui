@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
-import { Text } from "@/components/Typography/Text/Text";
+import { Text, TextAlignment } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 
 export type CardPrimarySize = "sm" | "md";
@@ -126,6 +126,13 @@ const Content = styled.div<{ $size?: "sm" | "md"; $alignContent?: ContentAlignme
   flex: 1;
 `;
 
+const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => {
+  if (align === "center") {
+    return "center";
+  }
+  return align === "start" ? "left" : "right";
+};
+
 export const CardPrimary = ({
   alignContent,
   title,
@@ -182,7 +189,14 @@ export const CardPrimary = ({
           $size={size}
           $alignContent={alignContent}
         >
-          {description && <Text color="muted" align={alignContent}>{description}</Text>}
+          {description && (
+            <Text
+              color="muted"
+              align={convertCardAlignToTextAlign(alignContent ?? "start")}
+            >
+              {description}
+            </Text>
+          )}
           {children}
         </Content>
       )}
