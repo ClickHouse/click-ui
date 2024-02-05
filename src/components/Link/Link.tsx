@@ -64,7 +64,7 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
   }
 `;
 
-type LinkPolymorphicComponent = <T extends ElementType = "div">(
+type LinkPolymorphicComponent = <T extends ElementType = "a">(
   props: Omit<ComponentProps<T>, keyof T> & LinkProps<T>
 ) => ReactNode;
 
