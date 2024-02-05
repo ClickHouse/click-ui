@@ -64,7 +64,7 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
   }
 `;
 
-type PolymorphicComponent = <T extends ElementType = "div">(
+type LinkPolymorphicComponent = <T extends ElementType = "div">(
   props: Omit<ComponentProps<T>, keyof T> & LinkProps<T>
 ) => ReactNode;
 
@@ -101,4 +101,4 @@ const _Link = <T extends ElementType = "a">(
     )}
   </CuiLink>
 );
-export const Link: PolymorphicComponent = forwardRef(_Link);
+export const Link: LinkPolymorphicComponent = forwardRef(_Link);

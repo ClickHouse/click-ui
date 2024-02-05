@@ -22,7 +22,7 @@ export interface TextProps<T extends ElementType = "p"> {
   component?: T;
 }
 
-type PolymorphicComponent = <T extends ElementType = "p">(
+type TextPolymorphicComponent = <T extends ElementType = "p">(
   props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
 ) => ReactNode;
 
@@ -68,5 +68,5 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
-const Text: PolymorphicComponent = forwardRef(_Text);
+const Text: TextPolymorphicComponent = forwardRef(_Text);
 export { Text };

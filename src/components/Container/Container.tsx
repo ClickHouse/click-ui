@@ -44,7 +44,7 @@ export interface ContainerProps<T extends ElementType = "div"> {
   overflow?: string;
 }
 
-type PolymorphicComponent = <T extends ElementType = "div">(
+type ContainerPolymorphicComponent = <T extends ElementType = "div">(
   props: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>
 ) => ReactNode;
 
@@ -152,4 +152,4 @@ const Wrapper = styled.div<{
   }
 `;
 
-export const Container: PolymorphicComponent = forwardRef(_Container);
+export const Container: ContainerPolymorphicComponent = forwardRef(_Container);

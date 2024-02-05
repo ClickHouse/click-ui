@@ -27,7 +27,7 @@ export interface EllipsisContentProps<T extends ElementType = "div"> {
   component?: T;
 }
 
-type PolymorphicComponent = <T extends ElementType = "div">(
+type EllipsisPolymorphicComponent = <T extends ElementType = "div">(
   props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
 ) => ReactNode;
 
@@ -51,4 +51,4 @@ const _EllipsisContent = <T extends ElementType = "div">(
   );
 };
 
-export const EllipsisContent: PolymorphicComponent = forwardRef(_EllipsisContent);
+export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(_EllipsisContent);
