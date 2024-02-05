@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { ComponentProps, ComponentPropsWithRef, ElementType, forwardRef } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from "react";
 import { Orientation } from "@/components";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
@@ -37,6 +43,10 @@ export interface ContainerProps<T extends ElementType = "div"> {
   minHeight?: string;
   overflow?: string;
 }
+
+type PolymorphicComponent = <T extends ElementType = "div">(
+  props: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>
+) => ReactNode;
 
 const _Container = <T extends ElementType = "div">(
   {
@@ -142,4 +152,4 @@ const Wrapper = styled.div<{
   }
 `;
 
-export const Container = forwardRef(_Container) as typeof _Container;
+export const Container: PolymorphicComponent = forwardRef(_Container);

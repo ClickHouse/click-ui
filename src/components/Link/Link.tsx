@@ -3,6 +3,7 @@ import {
   ComponentPropsWithRef,
   ElementType,
   ReactEventHandler,
+  ReactNode,
   forwardRef,
 } from "react";
 import { Icon, IconName } from "@/components";
@@ -63,6 +64,10 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
   }
 `;
 
+type PolymorphicComponent = <T extends ElementType = "div">(
+  props: Omit<ComponentProps<T>, keyof T> & LinkProps<T>
+) => ReactNode;
+
 /** Component for linking to other pages or sections from with body text */
 const _Link = <T extends ElementType = "a">(
   {
@@ -96,4 +101,4 @@ const _Link = <T extends ElementType = "a">(
     )}
   </CuiLink>
 );
-export const Link = forwardRef(_Link) as typeof _Link;
+export const Link: PolymorphicComponent = forwardRef(_Link);

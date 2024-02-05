@@ -22,7 +22,10 @@ export interface TextProps<T extends ElementType = "p"> {
   component?: T;
 }
 
-/** Component for writing blocks of body copy */
+type PolymorphicComponent = <T extends ElementType = "p">(
+  props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
+) => ReactNode;
+
 const _Text = <T extends ElementType = "p">(
   {
     align,
@@ -65,5 +68,5 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
-const Text = forwardRef(_Text) as typeof _Text;
+const Text: PolymorphicComponent = forwardRef(_Text);
 export { Text };
