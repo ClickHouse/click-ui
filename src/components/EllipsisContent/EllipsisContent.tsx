@@ -1,4 +1,10 @@
-import { ComponentProps, ComponentPropsWithRef, ElementType, forwardRef } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
 import styled from "styled-components";
 
@@ -21,6 +27,10 @@ export interface EllipsisContentProps<T extends ElementType = "div"> {
   component?: T;
 }
 
+type EllipsisPolymorphicComponent = <T extends ElementType = "div">(
+  props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
+) => ReactNode;
+
 const _EllipsisContent = <T extends ElementType = "div">(
   { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
   ref: ComponentPropsWithRef<T>["ref"]
@@ -41,4 +51,4 @@ const _EllipsisContent = <T extends ElementType = "div">(
   );
 };
 
-export const EllipsisContent = forwardRef(_EllipsisContent) as typeof _EllipsisContent;
+export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(_EllipsisContent);
