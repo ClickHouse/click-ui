@@ -4024,6 +4024,18 @@
             "type": "color"
           }
         }
+      },
+      "iconButton": {
+        "badge": {
+          "foreground": {
+            "value": "{palette.neutral.800}",
+            "type": "color"
+          },
+          "background": {
+            "value": "{palette.brand.300}",
+            "type": "color"
+          }
+        }
       }
     }
   }

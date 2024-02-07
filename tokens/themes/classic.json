@@ -2390,6 +2390,18 @@
             "type": "color"
           }
         }
+      },
+      "iconButton": {
+        "badge": {
+          "foreground": {
+            "value": "{palette.info.400}",
+            "type": "color"
+          },
+          "background": {
+            "value": "{palette.info.50}",
+            "type": "color"
+          }
+        }
       }
     }
   }
