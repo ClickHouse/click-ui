@@ -3849,7 +3849,7 @@
           "type": "color"
         },
         "sidebar": {
-          "value": "{click.global.color.background.default}",
+          "value": "{palette.neutral.750}",
           "type": "color"
         },
         "split": {
@@ -3907,6 +3907,11 @@
         "intense": {
           "value": "{palette.neutral.700}",
           "type": "color"
+        },
+        "split": {
+          "value": "{palette.neutral.700}",
+          "type": "color",
+          "$extensions": {}
         }
       },
       "accent": {

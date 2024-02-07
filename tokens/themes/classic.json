@@ -2230,15 +2230,7 @@
             "value": "#e6e7e9",
             "type": "color"
           },
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "alpha",
-                "value": "1",
-                "space": "lch"
-              }
-            }
-          }
+          "$extensions": {}
         },
         "intense": {
           "value": "{palette.slate.300}",
@@ -2251,6 +2243,11 @@
             "value": "#e6e7e9",
             "type": "color"
           }
+        },
+        "split": {
+          "value": "{palette.slate.100}",
+          "type": "color",
+          "$extensions": {}
         }
       },
       "accent": {
@@ -2273,7 +2270,7 @@
           "type": "color"
         },
         "split": {
-          "value": "{click.global.color.background.default}",
+          "value": "{palette.neutral.0}",
           "type": "color"
         }
       },
