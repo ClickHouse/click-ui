@@ -1440,6 +1440,12 @@
           "violet": "#BB33FF",
           "teal": "#66FFE5"
         }
+      },
+      "iconButton": {
+        "badge": {
+          "foreground": "#1d1d1d",
+          "background": "#FAFF69"
+        }
       }
     }
   }

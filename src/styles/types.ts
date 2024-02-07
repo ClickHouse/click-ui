@@ -2810,6 +2810,12 @@
           "violet": string,
           "teal": string
         }
+      },
+      "iconButton": {
+        "badge": {
+          "foreground": string,
+          "background": string
+        }
       }
     }
   },
