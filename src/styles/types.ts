@@ -2752,7 +2752,8 @@
       "background": {
         "default": string,
         "muted": string,
-        "sidebar": string
+        "sidebar": string,
+        "split": string
       },
       "text": {
         "default": string,
@@ -2765,7 +2766,8 @@
       "stroke": {
         "default": string,
         "muted": string,
-        "intense": string
+        "intense": string,
+        "split": string
       },
       "accent": {
         "default": string

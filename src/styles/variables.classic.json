@@ -810,7 +810,8 @@
       "background": {
         "default": "#ffffff",
         "muted": "#f6f7fa",
-        "sidebar": "#2f2c3a"
+        "sidebar": "#2f2c3a",
+        "split": "#ffffff"
       },
       "text": {
         "default": "#161517",
@@ -821,9 +822,10 @@
         }
       },
       "stroke": {
-        "default": "lch(91.6 1.1 266)",
-        "muted": "lch(91.6 1.1 266)",
-        "intense": "#b3b6bd"
+        "default": "lch(91.6 1.1 266 / 0.3)",
+        "muted": "lch(91.6 1.1 266 / 0.3)",
+        "intense": "#b3b6bd",
+        "split": "#ffffff"
       },
       "accent": {
         "default": "#FFC029"

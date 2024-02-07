@@ -1382,7 +1382,8 @@
       "background": {
         "default": "#1F1F1C",
         "muted": "#282828",
-        "sidebar": "#1F1F1C"
+        "sidebar": "#1F1F1C",
+        "split": "#282828"
       },
       "text": {
         "default": "#ffffff",
@@ -1395,7 +1396,8 @@
       "stroke": {
         "default": "lch(27.5 0 0 / 0.3)",
         "muted": "lch(27.5 0 0 / 0.3)",
-        "intense": "#414141"
+        "intense": "#414141",
+        "split": "#414141"
       },
       "accent": {
         "default": "#FAFF69"
