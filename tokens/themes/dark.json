@@ -3851,6 +3851,10 @@
         "sidebar": {
           "value": "{click.global.color.background.default}",
           "type": "color"
+        },
+        "split": {
+          "value": "{click.global.color.background.muted}",
+          "type": "color"
         }
       },
       "text": {

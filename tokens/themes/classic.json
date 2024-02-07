@@ -2271,6 +2271,10 @@
         "sidebar": {
           "value": "{palette.indigo.base}",
           "type": "color"
+        },
+        "split": {
+          "value": "{click.global.color.background.default}",
+          "type": "color"
         }
       },
       "text": {
