@@ -2209,15 +2209,7 @@
             "value": "#e6e7e9",
             "type": "color"
           },
-          "$extensions": {
-            "studio.tokens": {
-              "modify": {
-                "type": "alpha",
-                "value": "1",
-                "space": "lch"
-              }
-            }
-          }
+          "$extensions": {}
         },
         "muted": {
           "value": "{palette.slate.100}",
@@ -2245,7 +2237,7 @@
           }
         },
         "split": {
-          "value": "{palette.slate.100}",
+          "value": "{palette.neutral.0}",
           "type": "color",
           "$extensions": {}
         }
