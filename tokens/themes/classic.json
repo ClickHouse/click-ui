@@ -2208,8 +2208,7 @@
           "muted": {
             "value": "#e6e7e9",
             "type": "color"
-          },
-          "$extensions": {}
+          }
         },
         "muted": {
           "value": "{palette.slate.100}",
@@ -2221,8 +2220,7 @@
           "muted": {
             "value": "#e6e7e9",
             "type": "color"
-          },
-          "$extensions": {}
+          }
         },
         "intense": {
           "value": "{palette.slate.300}",
@@ -2238,8 +2236,7 @@
         },
         "split": {
           "value": "{palette.neutral.0}",
-          "type": "color",
-          "$extensions": {}
+          "type": "color"
         }
       },
       "accent": {
@@ -2394,11 +2391,11 @@
       "iconButton": {
         "badge": {
           "foreground": {
-            "value": "{palette.info.400}",
+            "value": "{palette.neutral.800}",
             "type": "color"
           },
           "background": {
-            "value": "{palette.info.50}",
+            "value": "#C78F0F",
             "type": "color"
           }
         }

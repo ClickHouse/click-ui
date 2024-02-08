@@ -3704,8 +3704,7 @@
           "muted": {
             "value": "#e6e7e9",
             "type": "color"
-          },
-          "$extensions": {}
+          }
         },
         "muted": {
           "value": "{palette.slate.100}",
@@ -3717,8 +3716,7 @@
           "muted": {
             "value": "#e6e7e9",
             "type": "color"
-          },
-          "$extensions": {}
+          }
         },
         "intense": {
           "value": "{palette.slate.300}",
@@ -3742,8 +3740,7 @@
           "muted": {
             "value": "#e6e7e9",
             "type": "color"
-          },
-          "$extensions": {}
+          }
         }
       },
       "accent": {

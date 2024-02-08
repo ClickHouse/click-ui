@@ -3910,8 +3910,7 @@
         },
         "split": {
           "value": "{palette.neutral.700}",
-          "type": "color",
-          "$extensions": {}
+          "type": "color"
         }
       },
       "accent": {
