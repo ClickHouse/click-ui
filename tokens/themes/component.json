@@ -1881,6 +1881,10 @@
               "value": "{spaces.2}",
               "type": "spacing"
             },
+            "ml": {
+              "value": "{spaces.3}",
+              "type": "spacing"
+            },
             "lg": {
               "value": "{spaces.4}",
               "type": "spacing"
@@ -2175,6 +2179,10 @@
             },
             "md": {
               "value": "{spaces.2}",
+              "type": "spacing"
+            },
+            "ml": {
+              "value": "{spaces.3}",
               "type": "spacing"
             },
             "lg": {
