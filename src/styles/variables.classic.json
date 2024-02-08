@@ -871,8 +871,8 @@
       },
       "iconButton": {
         "badge": {
-          "foreground": "#135be6",
-          "background": "#dae6fc"
+          "foreground": "#1d1d1d",
+          "background": "#C78F0F"
         }
       }
     }
