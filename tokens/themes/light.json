@@ -2368,7 +2368,7 @@
         },
         "placeholder": {
           "default": {
-            "value": "{click.global.color.text.muted}",
+            "value": "{palette.slate.400}",
             "type": "color"
           }
         },
