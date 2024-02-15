@@ -43,6 +43,7 @@ const TabsContainer = styled.div`
 const TabsSortableContainer = styled.div`
   display: flex;
   & > div {
+    height: 100%;
     outline: none;
     min-width: 100px;
     width: clamp(100px, 100%, 200px);
@@ -208,9 +209,8 @@ const TabElement = styled.div<{
   border: none;
   cursor: pointer;
   height: 100%;
-  height: -webkit-fill-available;
-  height: fill-available;
-  height: stretch;
+  max-height: 100%;
+  box-sizing: border-box;
   ${({ theme, $active, $preview, $dismissable, $fixedTabElement }) => `
     width:${$fixedTabElement ? "auto" : "100%"};
     grid-template-columns: 1fr ${
