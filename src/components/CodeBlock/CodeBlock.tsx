@@ -38,6 +38,9 @@ interface CustomRendererProps {
 }
 
 const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
   width: stretch;
   position: relative;
   cursor: pointer;
