@@ -3,9 +3,10 @@ import {
   HTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
+  MutableRefObject,
   ReactNode,
 } from "react";
-import { VariableSizeGridProps } from "react-window";
+import { VariableSizeGrid, VariableSizeGridProps } from "react-window";
 import { ContextMenuItemProps } from "@/components";
 
 interface CellCommonProps extends HTMLAttributes<HTMLElement> {
@@ -174,6 +175,7 @@ export interface GridProps
     | "outerRef"
     | "columnWidth"
   > {
+  autoFocus?: boolean;
   rowStart?: number;
   rounded?: RoundedType;
   focus?: SelectionFocus;
@@ -198,6 +200,7 @@ export interface GridProps
   showBorder?: boolean;
   onCopy?: (isCopied: boolean) => void | Promise<void>;
   onContextMenu?: MouseEventHandler<HTMLDivElement>;
+  forwardedGridRef?: MutableRefObject<VariableSizeGrid>;
 }
 
 export type SetResizeCursorPositionFn = (

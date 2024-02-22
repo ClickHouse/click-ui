@@ -100,9 +100,10 @@ const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
   />
 ));
 
-export const Grid = forwardRef<VariableSizeGrid, GridProps>(
+export const Grid = forwardRef<HTMLDivElement, GridProps>(
   (
     {
+      autoFocus,
       rowStart = 0,
       showRowNumber = true,
       rounded = "none",
@@ -127,6 +128,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       showBorder = false,
       onCopy: onCopyProp,
       onContextMenu: onContextMenuProp,
+      forwardedGridRef,
       ...props
     },
     forwardedRef
@@ -417,8 +419,10 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       }
     );
     useEffect(() => {
-      containerRef.current?.focus();
-    }, []);
+      if (autoFocus) {
+        containerRef.current?.focus();
+      }
+    }, [autoFocus]);
 
     const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       e => {
@@ -709,7 +713,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       >
         <ContextMenuTrigger
           as={ContextMenu.Trigger}
-          ref={containerRef}
+          ref={mergeRefs([forwardedRef, containerRef])}
           tabIndex={0}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -723,7 +727,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           <AutoSizer onResize={onResize}>
             {({ height, width }) => (
               <VariableSizeGrid
-                ref={mergeRefs([forwardedRef, gridRef])}
+                ref={forwardedGridRef ? mergeRefs([forwardedGridRef, gridRef]) : gridRef}
                 height={height}
                 width={width}
                 columnCount={columnCount}
