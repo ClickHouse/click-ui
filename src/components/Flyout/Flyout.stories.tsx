@@ -28,7 +28,6 @@ const FlyoutExample = ({
         strategy="fixed"
         size={size}
         width={width}
-        align="start"
       >
         <Flyout.Header
           type={type}
