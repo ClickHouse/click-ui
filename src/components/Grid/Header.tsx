@@ -25,6 +25,7 @@ interface HeaderProps {
   scrolledVertical: boolean;
   setResizeCursorPosition: SetResizeCursorPositionFn;
   showBorder: boolean;
+  scrolledHorizontal: boolean;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -82,12 +83,17 @@ const HeaderCellContainer = styled.div<{
 
 const RowColumnContainer = styled(HeaderCellContainer)<{
   $width: string | number;
+  $scrolledHorizontal: boolean;
 }>`
   position: sticky;
   top: 0;
   left: 0;
   width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
   text-align: right;
+  ${({ $scrolledHorizontal, theme }) =>
+    $scrolledHorizontal
+      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
+      : ""}
 `;
 
 const RowColumn = styled(StyledCell)`
@@ -163,6 +169,7 @@ const Column = ({
 
 const Header = ({
   scrolledVertical,
+  scrolledHorizontal,
   showRowNumber,
   rowNumberWidth,
   minColumn,
@@ -213,6 +220,7 @@ const Header = ({
           $width={rowNumberWidth}
           $height={height}
           $columnPosition={0}
+          $scrolledHorizontal={scrolledHorizontal}
         >
           <RowColumn
             data-selected={selectedAllType === "selectDirect"}

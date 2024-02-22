@@ -395,6 +395,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             {showHeader && (
               <Header
                 scrolledVertical={scrolledVertical}
+                scrolledHorizontal={scrolledHorizontal}
                 showRowNumber={showRowNumber}
                 minColumn={minColumn}
                 maxColumn={maxColumn}
