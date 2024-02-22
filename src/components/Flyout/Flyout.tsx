@@ -90,9 +90,10 @@ const FlyoutContent = styled(DialogContent)<{
   bottom: 0;
   width: 100%;
   --flyout-width: ${({ theme, $size = "default", $width }) =>
-    $width ?? theme.click.flyout.size[$size].width};
+    $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   ${({ theme, $strategy, $type = "default" }) => `
+    max-width: 100%;
     position: ${$strategy};
     height: ${$strategy === "relative" ? "100%" : "auto"};
     padding: 0 ${theme.click.flyout.space[$type].x}

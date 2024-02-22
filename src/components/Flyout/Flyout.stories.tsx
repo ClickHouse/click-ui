@@ -35,7 +35,9 @@ const FlyoutExample = ({
           description={description}
         />
         <Flyout.Body align={align}>
-          <Flyout.CodeBlock statement="aaaa" />
+          <Flyout.Element type={type}>
+            <Text>Flyout content belongs here.</Text>
+          </Flyout.Element>
         </Flyout.Body>
         <Flyout.Footer type={type}>
           <Flyout.Close label="Cancel" />
