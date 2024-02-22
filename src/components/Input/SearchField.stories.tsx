@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SearchField as SearchFieldInput, SearchFieldProps } from "./SearchField";
+import { Container } from "../Container/Container";
 
 const SearchField = ({
   value: valueProp,
@@ -11,13 +12,15 @@ const SearchField = ({
   }, [valueProp]);
 
   return (
-    <SearchFieldInput
-      value={value}
-      onChange={(inputValue: string) => {
-        setValue(inputValue);
-      }}
-      {...props}
-    />
+    <Container maxWidth="75%">
+      <SearchFieldInput
+        value={value}
+        onChange={(inputValue: string) => {
+          setValue(inputValue);
+        }}
+        {...props}
+      />
+    </Container>
   );
 };
 

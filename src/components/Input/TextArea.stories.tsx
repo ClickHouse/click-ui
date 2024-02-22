@@ -1,23 +1,29 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { TextAreaField as TextAreaFieldInput, TextAreaFieldProps } from "./TextArea";
+import { Container } from "../Container/Container";
 
-const TextAreaField = ({ value: valueProp, ...props }: Omit<TextAreaFieldProps, "onChange">) => {
+const TextAreaField = ({
+  value: valueProp,
+  ...props
+}: Omit<TextAreaFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
   useEffect(() => {
     setValue(valueProp);
   }, [valueProp]);
 
   return (
-    <TextAreaFieldInput
-      value={value}
-      onChange={(inputValue: string, e?: ChangeEvent<HTMLTextAreaElement>) => {
-        if (e) {
-          e.preventDefault();
-        }
-        setValue(inputValue);
-      }}
-      {...props}
-    />
+    <Container maxWidth="75%">
+      <TextAreaFieldInput
+        value={value}
+        onChange={(inputValue: string, e?: ChangeEvent<HTMLTextAreaElement>) => {
+          if (e) {
+            e.preventDefault();
+          }
+          setValue(inputValue);
+        }}
+        {...props}
+      />
+    </Container>
   );
 };
 
@@ -28,7 +34,7 @@ export default {
   argTypes: {
     rows: {
       control: "number",
-      default: 10
+      default: 10,
     },
     value: { control: "text" },
     label: { control: "text" },

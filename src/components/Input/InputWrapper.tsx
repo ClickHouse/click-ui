@@ -63,7 +63,7 @@ const Wrapper = styled.div<{
     }
     `
     };
-    &:disabled {
+    &:disabled, &.disabled {
       font: ${theme.click.field.typography.fieldText.disabled};
       border: 1px solid ${theme.click.field.color.stroke.disabled};
       background: ${theme.click.field.color.background.disabled};
@@ -104,6 +104,7 @@ export const InputWrapper = ({
           $error={!!error}
           $resize={resize}
           data-resize={resize}
+          className={disabled ? "disabled" : ""}
         >
           {children}
         </Wrapper>

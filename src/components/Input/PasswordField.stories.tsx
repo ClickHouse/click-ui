@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PasswordField as PasswordFieldInput, PasswordFieldProps } from "./PasswordField";
+import { Container } from "../Container/Container";
 
 const PasswordField = ({
   value: valueProp,
@@ -11,13 +12,15 @@ const PasswordField = ({
   }, [valueProp]);
 
   return (
-    <PasswordFieldInput
-      value={value}
-      onChange={(inputValue: string) => {
-        setValue(inputValue);
-      }}
-      {...props}
-    />
+    <Container maxWidth="75%">
+      <PasswordFieldInput
+        value={value}
+        onChange={(inputValue: string) => {
+          setValue(inputValue);
+        }}
+        {...props}
+      />
+    </Container>
   );
 };
 

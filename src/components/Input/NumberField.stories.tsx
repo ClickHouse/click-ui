@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NumberField as NumberFieldInput, NumberFieldProps } from "./NumberField";
+import { Container } from "../Container/Container";
 
 const NumberField = ({
   value: valueProp,
@@ -11,13 +12,15 @@ const NumberField = ({
   }, [valueProp]);
 
   return (
-    <NumberFieldInput
-      value={value}
-      onChange={(inputValue: string) => {
-        setValue(inputValue);
-      }}
-      {...props}
-    />
+    <Container maxWidth="75%">
+      <NumberFieldInput
+        value={value}
+        onChange={(inputValue: string) => {
+          setValue(inputValue);
+        }}
+        {...props}
+      />
+    </Container>
   );
 };
 

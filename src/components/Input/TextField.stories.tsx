@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { TextField as TextFieldInput, TextFieldProps } from "./TextField";
+import { Container } from "../Container/Container";
 
 const TextField = ({ value: valueProp, ...props }: Omit<TextFieldProps, "onChange">) => {
   const [value, setValue] = useState(valueProp);
@@ -8,16 +9,18 @@ const TextField = ({ value: valueProp, ...props }: Omit<TextFieldProps, "onChang
   }, [valueProp]);
 
   return (
-    <TextFieldInput
-      value={value}
-      onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
-        if (e) {
-          e.preventDefault();
-        }
-        setValue(inputValue);
-      }}
-      {...props}
-    />
+    <Container maxWidth="75%">
+      <TextFieldInput
+        value={value}
+        onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
+          if (e) {
+            e.preventDefault();
+          }
+          setValue(inputValue);
+        }}
+        {...props}
+      />
+    </Container>
   );
 };
 
