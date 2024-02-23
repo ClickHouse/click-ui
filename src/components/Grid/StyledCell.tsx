@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RoundedType, SelectionType } from "./types";
+import { SelectionType } from "./types";
 
 export const StyledCell = styled.div<{
   $isFocused: boolean;
@@ -10,7 +10,6 @@ export const StyledCell = styled.div<{
   $isLastColumn: boolean;
   $isFirstRow: boolean;
   $isFirstColumn: boolean;
-  $rounded: RoundedType;
   $height: number;
   $type?: "body" | "header";
   $showBorder: boolean;
@@ -68,14 +67,22 @@ export const StyledCell = styled.div<{
     ${
       $isLastRow
         ? `
-        border-bottom-color: ${theme.click.grid[$type].cell.color.stroke.default};
+        border-bottom-color: ${
+          theme.click.grid[$type].cell.color.stroke[
+            $isFocused ? "selectDirect" : $selectionType
+          ]
+        };
     `
         : "border-bottom: none;"
     }
     ${
       $isLastColumn
         ? `
-        border-right-color: ${theme.click.grid[$type].cell.color.stroke.default};
+        border-right-color: ${
+          theme.click.grid[$type].cell.color.stroke[
+            $isFocused ? "selectDirect" : $selectionType
+          ]
+        };
     `
         : "border-right: none;"
     }
@@ -97,7 +104,7 @@ export const StyledCell = styled.div<{
             content: "";
             position: absolute;
             top: 0;
-            bottom: -1px;
+            bottom: 0;
             right: 0;
             left: 0;
             ${
@@ -123,21 +130,4 @@ export const StyledCell = styled.div<{
           }
         `
       : ""};
-  ${({ theme, $isFirstRow, $isFirstColumn, $rounded, $isLastColumn }) => `
-
-    ${
-      $isFirstColumn
-        ? `border-${$isFirstRow ? "top" : "bottom"}-left-radius: ${
-            theme.click.grid.radii[$rounded]
-          };`
-        : ""
-    }
-    ${
-      $isLastColumn
-        ? `border-${$isFirstRow ? "top" : "bottom"}-right-radius: ${
-            theme.click.grid.radii[$rounded]
-          };`
-        : ""
-    }
-  `}
 `;

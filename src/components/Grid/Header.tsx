@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {
   CellProps,
   ColumnResizeFn,
-  RoundedType,
   SelectionTypeFn,
   SetResizeCursorPositionFn,
 } from "./types";
@@ -18,7 +17,6 @@ interface HeaderProps {
   columnWidth: (index: number) => number;
   cell: CellProps;
   getSelectionType: SelectionTypeFn;
-  rounded: RoundedType;
   columnCount: number;
   onColumnResize: ColumnResizeFn;
   getColumnHorizontalPosition: (columnIndex: number) => number;
@@ -53,7 +51,6 @@ interface ColumnProps
     HeaderProps,
     | "cell"
     | "getSelectionType"
-    | "rounded"
     | "onColumnResize"
     | "columnWidth"
     | "height"
@@ -104,7 +101,6 @@ const RowColumn = styled(StyledCell)`
 const Column = ({
   columnIndex,
   cell,
-  rounded,
   columnWidth,
   getColumnHorizontalPosition,
   getSelectionType,
@@ -142,7 +138,6 @@ const Column = ({
         as={cell}
         columnIndex={columnIndex}
         type="header-cell"
-        $rounded={rounded}
         $isFirstColumn={isFirstColumn}
         $selectionType={selectionType}
         $isLastColumn={isLastColumn}
@@ -177,7 +172,6 @@ const Header = ({
   height,
   columnWidth,
   cell,
-  rounded,
   columnCount,
   getSelectionType,
   onColumnResize,
@@ -205,7 +199,6 @@ const Header = ({
             columnWidth={columnWidth}
             getColumnHorizontalPosition={getColumnHorizontalPosition}
             cell={cell}
-            rounded={rounded}
             isFirstColumn={columnIndex === 0 && !showRowNumber}
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
@@ -227,7 +220,6 @@ const Header = ({
             $type="header"
             $isFirstRow
             $isFirstColumn
-            $rounded={rounded}
             $selectionType={selectedAllType}
             $isLastRow={false}
             $isLastColumn={false}

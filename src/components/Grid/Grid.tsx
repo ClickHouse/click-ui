@@ -19,6 +19,7 @@ import {
   GridContextMenuItemProps,
   GridProps,
   ItemDataType,
+  RoundedType,
   SelectedRegion,
   SelectionAction,
   SelectionFocus,
@@ -79,21 +80,28 @@ const GridDataContainer = styled.div<{ $top: number; $left: number }>`
   `}
 `;
 
-const ContextMenuTrigger = styled.div`
+const ContextMenuTrigger = styled.div<{
+  $height?: number;
+  $rounded: RoundedType;
+  $showBorder: boolean;
+}>`
   outline: none;
-  height: 100%;
+  overflow: hidden;
+  height: ${({ $height }) => `${$height}px` ?? "100%"};
   width: 100%;
+  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
+  border-radius: ${({ theme, $rounded }) => theme.click.grid.radii[$rounded]};
+  ${({ $showBorder, theme }) =>
+    $showBorder &&
+    `border: 1px solid ${theme.click.grid.header.cell.color.stroke.default}`};
 `;
 
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
-const OuterElementContainer = styled.div`
-  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
-`;
 
 const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
-  <OuterElementContainer
+  <div
     ref={ref}
     data-testid="grid-outer-element"
     {...props}
@@ -104,6 +112,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
   (
     {
       autoFocus,
+      autoHeight = false,
       rowStart = 0,
       showRowNumber = true,
       rounded = "none",
@@ -352,7 +361,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       cell,
       rowCount,
       columnCount,
-      rounded,
       showHeader,
       focus: focusProp ?? focus,
       getSelectionType,
@@ -386,7 +394,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 headerHeight={headerHeight}
                 rowWidth={rowNumberWidth}
                 rowCount={rowCount}
-                rounded={rounded}
                 getSelectionType={getSelectionType}
                 showHeader={showHeader}
                 rowStart={rowStart}
@@ -405,7 +412,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 columnWidth={columnWidth}
                 cell={cell}
                 rowNumberWidth={rowNumberWidth}
-                rounded={rounded}
                 getSelectionType={getSelectionType}
                 columnCount={columnCount}
                 onColumnResize={onColumnResize}
@@ -723,6 +729,15 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           onPointerLeave={setPointerCapture}
           onPointerEnter={setPointerCapture}
           onContextMenu={onContextMenu}
+          $rounded={rounded}
+          $height={
+            autoHeight
+              ? rowCount * rowHeight +
+                (showHeader ? headerHeight : 0) +
+                elementBorderRef.current.scrollBarHeight
+              : undefined
+          }
+          $showBorder={showBorder}
         >
           <AutoSizer onResize={onResize}>
             {({ height, width }) => (

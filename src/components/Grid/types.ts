@@ -151,7 +151,6 @@ export interface ItemDataType {
   columnCount: number;
   cell: CellProps;
   focus: SelectionFocus;
-  rounded: RoundedType;
   rowHeight: number;
   headerHeight: number;
   rowNumberWidth: number;
@@ -176,6 +175,7 @@ export interface GridProps
     | "columnWidth"
   > {
   autoFocus?: boolean;
+  autoHeight?: boolean;
   rowStart?: number;
   rounded?: RoundedType;
   focus?: SelectionFocus;

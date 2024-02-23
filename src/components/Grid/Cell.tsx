@@ -20,7 +20,6 @@ export const Cell = memo(
       showRowNumber,
       showHeader,
       rowHeight,
-      rounded,
       rowStart,
     } = data;
 
@@ -79,7 +78,6 @@ export const Cell = memo(
           $isFirstRow={rowIndex === 0 && !showHeader}
           $selectionType={selectionType}
           $height={rowHeight}
-          $rounded={rounded}
           data-grid-row={currentRowIndex}
           data-grid-column={columnIndex}
           $showBorder
