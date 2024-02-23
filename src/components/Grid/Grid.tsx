@@ -87,7 +87,7 @@ const ContextMenuTrigger = styled.div<{
 }>`
   outline: none;
   overflow: hidden;
-  height: ${({ $height }) => `${$height}px` ?? "100%"};
+  height: ${({ $height }) => ($height ? `${$height}px` : "100%")};
   width: 100%;
   background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
   border-radius: ${({ theme, $rounded }) => theme.click.grid.radii[$rounded]};
