@@ -86,19 +86,21 @@ const FlyoutContent = styled(DialogContent)<{
   overflow: hidden;
   flex: 1;
   top: 0;
-  ${({ $align }) => ($align === "start" ? "left" : "right")}: 0;
   bottom: 0;
   width: fit-content;
   --flyout-width: ${({ theme, $size = "default", $width }) =>
     $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  ${({ theme, $strategy, $type = "default" }) => `
+  ${({ theme, $strategy, $type = "default", $align }) => `
+    ${$align === "start" ? "left" : "right"}: 0;
     max-width: 100%;
     position: ${$strategy};
     height: ${$strategy === "relative" ? "100%" : "auto"};
     padding: 0 ${theme.click.flyout.space[$type].x}
     gap: ${theme.click.flyout.space[$type].gap};
-    border-left: 1px solid ${theme.click.flyout.color.stroke.default};
+    border-${$align === "start" ? "right" : "left"}: 1px solid ${
+    theme.click.flyout.color.stroke.default
+  };
     background: ${theme.click.flyout.color.background.default};
     box-shadow: ${theme.click.flyout.shadow.default}};
 
