@@ -7,9 +7,18 @@ interface Props extends FlyoutProps {
   align: "default" | "top";
   type: "default" | "inline";
   size: "default" | "narrow" | "wide";
+  width?: string;
 }
 
-const FlyoutExample = ({ title, description, align, type, size, ...props }: Props) => {
+const FlyoutExample = ({
+  title,
+  description,
+  align,
+  type,
+  size,
+  width,
+  ...props
+}: Props) => {
   return (
     <Flyout {...props}>
       <Flyout.Trigger>
@@ -18,6 +27,7 @@ const FlyoutExample = ({ title, description, align, type, size, ...props }: Prop
       <Flyout.Content
         strategy="fixed"
         size={size}
+        width={width}
       >
         <Flyout.Header
           type={type}
@@ -47,6 +57,7 @@ export default {
     align: { control: "select", options: ["default", "top"] },
     size: { control: "select", options: ["default", "narrow", "wide"] },
     type: { control: "select", options: ["default", "inline"] },
+    width: { control: "text" },
   },
 };
 
@@ -62,7 +73,7 @@ export const Playground = {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { title, description, align, size, ...props } = story.args;
+          const { title, description, align, size, width, ...props } = story.args;
           return `<Flyout\n
           ${Object.entries(props)
             .flatMap(([key, value]) =>
@@ -77,7 +88,7 @@ export const Playground = {
 
       <Flyout.Content
         strategy="fixed"
-        size="${size}"
+        size="${size}"${width ? `\n\t\twidth="${width}"` : "\b"}
       >
         <Flyout.Header
           title="${title}"

@@ -12,7 +12,16 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from "@radix-ui/react-dialog";
-import { Button, ButtonProps, Container, ContainerProps, Icon, Separator } from "..";
+import {
+  Button,
+  ButtonProps,
+  CodeBlock,
+  Container,
+  ContainerProps,
+  Icon,
+  Separator,
+  Spacer,
+} from "@/components";
 import styled from "styled-components";
 import { CrossButton } from "../commonElement";
 import { keyframes } from "styled-components";
@@ -45,6 +54,7 @@ type FlyoutSizeType = "default" | "narrow" | "wide";
 type Strategy = "relative" | "absolute" | "fixed";
 type FlyoutType = "default" | "inline";
 
+type DialogContentAlignmentType = "start" | "end";
 export interface DialogContentProps extends RadixDialogContentProps {
   container?: HTMLElement | null;
   showOverlay?: boolean;
@@ -53,17 +63,22 @@ export interface DialogContentProps extends RadixDialogContentProps {
   type?: FlyoutType;
   strategy?: Strategy;
   closeOnInteractOutside?: boolean;
+  width?: string;
+  align?: DialogContentAlignmentType;
 }
 
-const animationWidth = keyframes({
-  "0%": { maxWidth: 0, minWidth: 0 },
-  "100%": { maxWidth: "fit-content", minWidth: "var(--flyout-width, 100%)" },
-});
+const animationWidth = () =>
+  keyframes({
+    "0%": { width: 0 },
+    "100%": { width: "var(--flyout-width, 100%)" },
+  });
 
 const FlyoutContent = styled(DialogContent)<{
   $size?: FlyoutSizeType;
   $type?: FlyoutType;
   $strategy: Strategy;
+  $width?: string;
+  $align: DialogContentAlignmentType;
 }>`
   display: flex;
   flex-direction: column;
@@ -71,13 +86,14 @@ const FlyoutContent = styled(DialogContent)<{
   overflow: hidden;
   flex: 1;
   top: 0;
-  right: 0;
+  ${({ $align }) => ($align === "start" ? "left" : "right")}: 0;
   bottom: 0;
   width: 100%;
-  --flyout-width: ${({ theme, $size = "default" }) =>
-    theme.click.flyout.size[$size].width};
+  --flyout-width: ${({ theme, $size = "default", $width }) =>
+    $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   ${({ theme, $strategy, $type = "default" }) => `
+    max-width: 100%;
     position: ${$strategy};
     height: ${$strategy === "relative" ? "100%" : "auto"};
     padding: 0 ${theme.click.flyout.space[$type].x}
@@ -121,6 +137,8 @@ const Content = ({
   size,
   type = "default",
   closeOnInteractOutside = false,
+  width,
+  align = "end",
   onInteractOutside,
   ...props
 }: DialogContentProps) => {
@@ -139,6 +157,8 @@ const Content = ({
             onInteractOutside(e);
           }
         }}
+        $width={width}
+        $align={align}
         {...props}
       >
         {children}
@@ -400,3 +420,33 @@ const Footer = (props: FlyoutFooterProps) => {
 };
 Footer.displayName = "Flyout.Footer";
 Flyout.Footer = Footer;
+
+const CustomCodeBlock = styled(CodeBlock)`
+  display: flex;
+  height: 100%;
+  pre {
+    flex: 1;
+  }
+`;
+
+const FlyoutCodeBlock = ({
+  statement,
+  ...props
+}: { statement: string } & ElementProps) => {
+  return (
+    <Element
+      fillHeight
+      {...props}
+    >
+      <CustomCodeBlock
+        wrapLines
+        className="fs-exclude"
+      >
+        {statement}
+      </CustomCodeBlock>
+      <Spacer size="xs" />
+    </Element>
+  );
+};
+
+Flyout.CodeBlock = FlyoutCodeBlock;
