@@ -30,12 +30,13 @@ export type FileTabStatusType =
   | "warning"
   | "info";
 
-const TabsContainer = styled.div`
+const TabsContainer = styled.div<{ $count: number }>`
   display: flex;
   position: relative;
   overflow: auto;
   overscroll-behavior: none;
   scrollbar-width: 0;
+  max-width: ${({ $count }) => `${$count * 200}px`};
   &::-webkit-scrollbar {
     height: 0;
   }
@@ -153,6 +154,7 @@ export const FileTabs = ({
           e.preventDefault();
           e.stopPropagation();
         }}
+        $count={(listProp ?? list).length}
       >
         <TabsSortableContainer
           as={ReactSortable}

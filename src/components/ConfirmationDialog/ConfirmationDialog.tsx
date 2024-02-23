@@ -1,4 +1,4 @@
-import { Dialog, Separator, Text } from "@/components";
+import { Container, Dialog, Separator, Text } from "@/components";
 import { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 
@@ -22,6 +22,12 @@ const ActionsWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: ${props => props.theme.click.dialog.space.gap};
+`;
+
+const DialogContent = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ConfirmationDialog = ({
@@ -49,12 +55,19 @@ export const ConfirmationDialog = ({
         !open && onCancel && onCancel();
       }}
     >
-      <Dialog.Content
+      <DialogContent
+        as={Dialog.Content}
         title={title}
         showClose={showClose}
         {...props}
       >
-        {children ? children : <Text>{message}</Text>}
+        <Container
+          overflow="auto"
+          grow="1"
+          orientation="vertical"
+        >
+          {children ? children : <Text>{message}</Text>}
+        </Container>
         <Separator size="xl" />
         <ActionsWrapper>
           <Dialog.Close label={secondaryActionLabel} />
@@ -70,7 +83,7 @@ export const ConfirmationDialog = ({
             }}
           />
         </ActionsWrapper>
-      </Dialog.Content>
+      </DialogContent>
     </Dialog>
   );
 };
