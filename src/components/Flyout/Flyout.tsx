@@ -70,7 +70,7 @@ export interface DialogContentProps extends RadixDialogContentProps {
 const animationWidth = () =>
   keyframes({
     "0%": { width: 0 },
-    "100%": { width: "var(--flyout-width, 100%)" },
+    "100%": { width: "fit-content" },
   });
 
 const FlyoutContent = styled(DialogContent)<{
@@ -88,7 +88,7 @@ const FlyoutContent = styled(DialogContent)<{
   top: 0;
   ${({ $align }) => ($align === "start" ? "left" : "right")}: 0;
   bottom: 0;
-  width: 100%;
+  width: fit-content;
   --flyout-width: ${({ theme, $size = "default", $width }) =>
     $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -124,7 +124,7 @@ const FlyoutContent = styled(DialogContent)<{
 const FlyoutContainer = styled.div`
   display: flex;
   gap: 0;
-  width: 100%;
+  width: var(--flyout-width);
   flex-flow: column nowrap;
   gap: inherit;
 `;
@@ -341,6 +341,7 @@ Flyout.Header = Header;
 
 type FlyoutAlign = "default" | "top";
 const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
+  width: var(--flyout-width);
   margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
@@ -401,9 +402,13 @@ const FlyoutClose = ({
 FlyoutClose.displayName = "Flyout.Close";
 Flyout.Close = FlyoutClose;
 
+const FooterContainer = styled(Container)`
+  width: var(--flyout-width);
+`;
+
 const Footer = (props: FlyoutFooterProps) => {
   return (
-    <Container
+    <FooterContainer
       gap="none"
       orientation="vertical"
       alignItems="end"
@@ -415,7 +420,7 @@ const Footer = (props: FlyoutFooterProps) => {
         padding="none"
         {...props}
       />
-    </Container>
+    </FooterContainer>
   );
 };
 Footer.displayName = "Flyout.Footer";
