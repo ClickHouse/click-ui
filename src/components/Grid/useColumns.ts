@@ -76,8 +76,7 @@ const useColumns = ({
           outerGridRef.current
             .querySelectorAll<HTMLDivElement>(`[data-grid-column="${columnIndex}"]`)
             .forEach(item => {
-              item.style.width = "fit-content";
-              newWidth = Math.max(newWidth, item.scrollWidth);
+              newWidth = Math.max(newWidth, item.scrollWidth + 2); // +2 inorder to avoid the ellipsis
             });
           autoWidthIndices.current.push(columnIndex);
         }

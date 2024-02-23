@@ -2,7 +2,6 @@ import styled from "styled-components";
 import {
   CellProps,
   ColumnResizeFn,
-  RoundedType,
   SelectionTypeFn,
   SetResizeCursorPositionFn,
 } from "./types";
@@ -18,13 +17,13 @@ interface HeaderProps {
   columnWidth: (index: number) => number;
   cell: CellProps;
   getSelectionType: SelectionTypeFn;
-  rounded: RoundedType;
   columnCount: number;
   onColumnResize: ColumnResizeFn;
   getColumnHorizontalPosition: (columnIndex: number) => number;
   scrolledVertical: boolean;
   setResizeCursorPosition: SetResizeCursorPositionFn;
   showBorder: boolean;
+  scrolledHorizontal: boolean;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -52,7 +51,6 @@ interface ColumnProps
     HeaderProps,
     | "cell"
     | "getSelectionType"
-    | "rounded"
     | "onColumnResize"
     | "columnWidth"
     | "height"
@@ -82,12 +80,17 @@ const HeaderCellContainer = styled.div<{
 
 const RowColumnContainer = styled(HeaderCellContainer)<{
   $width: string | number;
+  $scrolledHorizontal: boolean;
 }>`
   position: sticky;
   top: 0;
   left: 0;
   width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
   text-align: right;
+  ${({ $scrolledHorizontal, theme }) =>
+    $scrolledHorizontal
+      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
+      : ""}
 `;
 
 const RowColumn = styled(StyledCell)`
@@ -98,7 +101,6 @@ const RowColumn = styled(StyledCell)`
 const Column = ({
   columnIndex,
   cell,
-  rounded,
   columnWidth,
   getColumnHorizontalPosition,
   getSelectionType,
@@ -136,7 +138,6 @@ const Column = ({
         as={cell}
         columnIndex={columnIndex}
         type="header-cell"
-        $rounded={rounded}
         $isFirstColumn={isFirstColumn}
         $selectionType={selectionType}
         $isLastColumn={isLastColumn}
@@ -163,6 +164,7 @@ const Column = ({
 
 const Header = ({
   scrolledVertical,
+  scrolledHorizontal,
   showRowNumber,
   rowNumberWidth,
   minColumn,
@@ -170,7 +172,6 @@ const Header = ({
   height,
   columnWidth,
   cell,
-  rounded,
   columnCount,
   getSelectionType,
   onColumnResize,
@@ -198,7 +199,6 @@ const Header = ({
             columnWidth={columnWidth}
             getColumnHorizontalPosition={getColumnHorizontalPosition}
             cell={cell}
-            rounded={rounded}
             isFirstColumn={columnIndex === 0 && !showRowNumber}
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
@@ -213,13 +213,13 @@ const Header = ({
           $width={rowNumberWidth}
           $height={height}
           $columnPosition={0}
+          $scrolledHorizontal={scrolledHorizontal}
         >
           <RowColumn
             data-selected={selectedAllType === "selectDirect"}
             $type="header"
             $isFirstRow
             $isFirstColumn
-            $rounded={rounded}
             $selectionType={selectedAllType}
             $isLastRow={false}
             $isLastColumn={false}

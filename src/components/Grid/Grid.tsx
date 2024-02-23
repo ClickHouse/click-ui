@@ -19,6 +19,7 @@ import {
   GridContextMenuItemProps,
   GridProps,
   ItemDataType,
+  RoundedType,
   SelectedRegion,
   SelectionAction,
   SelectionFocus,
@@ -79,30 +80,39 @@ const GridDataContainer = styled.div<{ $top: number; $left: number }>`
   `}
 `;
 
-const ContextMenuTrigger = styled.div`
+const ContextMenuTrigger = styled.div<{
+  $height?: number;
+  $rounded: RoundedType;
+  $showBorder: boolean;
+}>`
   outline: none;
-  height: 100%;
+  overflow: hidden;
+  height: ${({ $height }) => `${$height}px` ?? "100%"};
   width: 100%;
+  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
+  border-radius: ${({ theme, $rounded }) => theme.click.grid.radii[$rounded]};
+  ${({ $showBorder, theme }) =>
+    $showBorder &&
+    `border: 1px solid ${theme.click.grid.header.cell.color.stroke.default}`};
 `;
 
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: Array<ReactElement>;
 }
-const OuterElementContainer = styled.div`
-  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
-`;
 
 const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
-  <OuterElementContainer
+  <div
     ref={ref}
     data-testid="grid-outer-element"
     {...props}
   />
 ));
 
-export const Grid = forwardRef<VariableSizeGrid, GridProps>(
+export const Grid = forwardRef<HTMLDivElement, GridProps>(
   (
     {
+      autoFocus,
+      autoHeight = false,
       rowStart = 0,
       showRowNumber = true,
       rounded = "none",
@@ -127,6 +137,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       showBorder = false,
       onCopy: onCopyProp,
       onContextMenu: onContextMenuProp,
+      forwardedGridRef,
       ...props
     },
     forwardedRef
@@ -350,7 +361,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       cell,
       rowCount,
       columnCount,
-      rounded,
       showHeader,
       focus: focusProp ?? focus,
       getSelectionType,
@@ -384,7 +394,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 headerHeight={headerHeight}
                 rowWidth={rowNumberWidth}
                 rowCount={rowCount}
-                rounded={rounded}
                 getSelectionType={getSelectionType}
                 showHeader={showHeader}
                 rowStart={rowStart}
@@ -395,6 +404,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
             {showHeader && (
               <Header
                 scrolledVertical={scrolledVertical}
+                scrolledHorizontal={scrolledHorizontal}
                 showRowNumber={showRowNumber}
                 minColumn={minColumn}
                 maxColumn={maxColumn}
@@ -402,7 +412,6 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
                 columnWidth={columnWidth}
                 cell={cell}
                 rowNumberWidth={rowNumberWidth}
-                rounded={rounded}
                 getSelectionType={getSelectionType}
                 columnCount={columnCount}
                 onColumnResize={onColumnResize}
@@ -416,8 +425,10 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       }
     );
     useEffect(() => {
-      containerRef.current?.focus();
-    }, []);
+      if (autoFocus) {
+        containerRef.current?.focus();
+      }
+    }, [autoFocus]);
 
     const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       e => {
@@ -708,7 +719,7 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
       >
         <ContextMenuTrigger
           as={ContextMenu.Trigger}
-          ref={containerRef}
+          ref={mergeRefs([forwardedRef, containerRef])}
           tabIndex={0}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -718,11 +729,20 @@ export const Grid = forwardRef<VariableSizeGrid, GridProps>(
           onPointerLeave={setPointerCapture}
           onPointerEnter={setPointerCapture}
           onContextMenu={onContextMenu}
+          $rounded={rounded}
+          $height={
+            autoHeight
+              ? rowCount * rowHeight +
+                (showHeader ? headerHeight : 0) +
+                elementBorderRef.current.scrollBarHeight
+              : undefined
+          }
+          $showBorder={showBorder}
         >
           <AutoSizer onResize={onResize}>
             {({ height, width }) => (
               <VariableSizeGrid
-                ref={mergeRefs([forwardedRef, gridRef])}
+                ref={forwardedGridRef ? mergeRefs([forwardedGridRef, gridRef]) : gridRef}
                 height={height}
                 width={width}
                 columnCount={columnCount}

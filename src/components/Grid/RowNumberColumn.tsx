@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RoundedType, SelectionTypeFn } from "./types";
+import { SelectionTypeFn } from "./types";
 import { StyledCell } from "./StyledCell";
 const RowNumberColumnContainer = styled.div<{
   $height: number;
@@ -43,7 +43,6 @@ interface RowNumberColumnProps {
   rowWidth: number;
   getSelectionType: SelectionTypeFn;
   rowCount: number;
-  rounded: RoundedType;
   showHeader: boolean;
   scrolledHorizontal: boolean;
   rowStart: number;
@@ -52,7 +51,7 @@ interface RowNumberColumnProps {
 interface RowNumberProps
   extends Pick<
     RowNumberColumnProps,
-    "rowHeight" | "getSelectionType" | "rounded" | "showBorder" | "rowStart"
+    "rowHeight" | "getSelectionType" | "showBorder" | "rowStart"
   > {
   rowIndex: number;
   isLastRow: boolean;
@@ -63,7 +62,6 @@ const RowNumber = ({
   rowHeight,
   getSelectionType,
   isLastRow,
-  rounded,
   isFirstRow,
   showBorder,
   rowStart,
@@ -91,7 +89,6 @@ const RowNumber = ({
         $height={rowHeight}
         $isLastColumn={false}
         $selectionType={selectionType}
-        $rounded={rounded}
         $isFirstColumn
         $type="header"
         $isFirstRow={isFirstRow}
@@ -120,7 +117,6 @@ const RowNumberColumn = ({
   rowWidth,
   getSelectionType,
   rowCount,
-  rounded,
   showHeader,
   scrolledHorizontal,
   rowStart = 0,
@@ -140,7 +136,6 @@ const RowNumberColumn = ({
             rowHeight={rowHeight}
             rowIndex={rowIndex}
             isLastRow={rowIndex === rowCount}
-            rounded={rounded}
             isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
             rowStart={rowStart}
