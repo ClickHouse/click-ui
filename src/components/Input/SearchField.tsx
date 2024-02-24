@@ -15,7 +15,6 @@ export interface SearchFieldProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
   orientation?: "vertical" | "horizontal";
   dir?: "start" | "end";
-  isFilter?: boolean;
 }
 
 export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
@@ -31,7 +30,6 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
       onChange: onChangeProp,
       orientation,
       dir,
-      isFilter,
       ...props
     },
     ref
@@ -55,10 +53,9 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
         dir={dir}
       >
         <Icon
-          name={isFilter ? "filter" : "search"}
+          name="search"
           size="sm"
         />
-
         <InputElement
           ref={mergeRefs([inputRef, ref])}
           type="text"
