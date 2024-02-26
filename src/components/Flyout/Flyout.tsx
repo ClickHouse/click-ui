@@ -84,7 +84,6 @@ const FlyoutContent = styled(DialogContent)<{
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  flex: 1;
   top: 0;
   bottom: 0;
   width: fit-content;
@@ -426,6 +425,7 @@ const Footer = (props: FlyoutFooterProps) => {
         gap="none"
         padding="none"
         isResponsive={false}
+        wrap="wrap"
         {...props}
       />
     </FooterContainer>
@@ -444,16 +444,18 @@ const CustomCodeBlock = styled(CodeBlock)`
 
 const FlyoutCodeBlock = ({
   statement,
+  language,
+  wrapLines,
   ...props
-}: { statement: string } & ElementProps) => {
+}: { statement: string; language?: string; wrapLines?: boolean } & ElementProps) => {
   return (
     <Element
       fillHeight
       {...props}
     >
       <CustomCodeBlock
-        wrapLines
-        className="fs-exclude"
+        wrapLines={wrapLines}
+        language={language}
       >
         {statement}
       </CustomCodeBlock>
