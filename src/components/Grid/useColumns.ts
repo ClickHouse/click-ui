@@ -18,6 +18,7 @@ const useColumns = ({
   onColumnResize: onColumnResizeProp,
   gridRef,
 }: Props) => {
+  const columnResized = useRef(false);
   const prevWidth = useRef<Record<string, number>>({});
   const columnWidthRefs = useRef<Array<number>>([]);
   const autoWidthIndices = useRef<Array<number>>([]);
@@ -27,14 +28,14 @@ const useColumns = ({
 
   const initColumnSize = useCallback(
     (containerWidth: number) => {
-      if (columnWidthRefs.current.length > 0) {
-        return;
-      }
-
       const newWidth =
         containerWidth > DEFAULT_WIDTH * columnCount
           ? containerWidth / columnCount
           : DEFAULT_WIDTH;
+      if (columnResized.current) {
+        return;
+      }
+
       const getWidth = (index: number) => {
         if (typeof columnWidthProp === "function") {
           return columnWidthProp(index);
@@ -64,6 +65,7 @@ const useColumns = ({
 
   const onColumnResize: ColumnResizeFn = useCallback(
     (columnIndex, newWidth, type) => {
+      columnResized.current = true;
       if (type === "auto") {
         const widthIndex = autoWidthIndices.current.findIndex(
           index => index === columnIndex
