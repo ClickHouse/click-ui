@@ -619,7 +619,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
           const { top, bottom, left, right } =
             outerRef.current.getBoundingClientRect() ?? {};
-
           elementBorderRef.current = {
             top,
             bottom,
