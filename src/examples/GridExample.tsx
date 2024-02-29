@@ -19,11 +19,11 @@ const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props })
 };
 const GridExample = () => {
   const [focus, setFocus] = useState({
-    row: 32,
-    column: 0,
+    row: 19994,
+    column: 17460,
   });
-  const rowCount = 20,
-    columnCount = 20;
+  const rowCount = 20000,
+    columnCount = 20000;
 
   const getMenuOptions = useCallback(
     (selection: SelectedRegion, focus: SelectionFocus): GridContextMenuItemProps[] => {
