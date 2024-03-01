@@ -778,7 +778,8 @@
           "link": {
             "default": "#C78F0F",
             "hover": "#C78F0F"
-          }
+          },
+          "danger": "#c10000"
         },
         "title": {
           "default": "lch(10.2 1.39 305)",

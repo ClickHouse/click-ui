@@ -711,11 +711,11 @@
           "error": "#ffbaba"
         },
         "format": {
-          "default": "lch(79.2 3.16 269)",
-          "hover": "lch(79.2 3.16 269)",
-          "active": "lch(79.2 3.16 269)",
+          "default": "lch(72 4.18 268)",
+          "hover": "lch(72 4.18 268)",
+          "active": "lch(72 4.18 268)",
           "disabled": "#808080",
-          "error": "lch(79.2 3.16 269)"
+          "error": "lch(72 4.18 268)"
         },
         "genericLabel": {
           "default": "#ffffff",
@@ -742,11 +742,11 @@
             "disabled": "#414141"
           },
           "format": {
-            "default": "lch(79.2 3.16 269)",
-            "hover": "lch(79.2 3.16 269)",
-            "active": "lch(79.2 3.16 269)",
+            "default": "lch(72 4.18 268)",
+            "hover": "lch(72 4.18 268)",
+            "active": "lch(72 4.18 268)",
             "disabled": "#808080",
-            "error": "lch(79.2 3.16 269)"
+            "error": "lch(72 4.18 268)"
           },
           "stroke": {
             "default": "lch(27.5 0 0 / 0.3)"
@@ -785,7 +785,7 @@
       "autocomplete": {
         "color": {
           "placeholder": {
-            "default": "#b3b6bd"
+            "default": "#9a9ea7"
           },
           "searchTerm": {
             "default": "#ffffff"
@@ -1311,7 +1311,8 @@
           "link": {
             "default": "#FAFF69",
             "hover": "#feffba"
-          }
+          },
+          "danger": "#ffbaba"
         },
         "stroke": {
           "default": "lch(27.5 0 0 / 0.3)",
