@@ -594,7 +594,7 @@
           "type": "fontFamilies"
         },
         "mono": {
-          "value": "\"Inconsolata\", \"SFMono Regular\", monospace",
+          "value": "\"Inconsolata\",  Consolas, \"SFMono Regular\", monospace",
           "type": "fontFamilies"
         },
         "display": {

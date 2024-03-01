@@ -1304,6 +1304,10 @@
               "value": "#C78F0F",
               "type": "color"
             }
+          },
+          "danger": {
+            "value": "{click.button.basic.color.danger.text.default}",
+            "type": "color"
           }
         },
         "title": {

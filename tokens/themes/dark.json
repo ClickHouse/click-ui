@@ -30,6 +30,10 @@
               "value": "{palette.brand.100}",
               "type": "color"
             }
+          },
+          "danger": {
+            "value": "{click.button.basic.color.danger.text.default}",
+            "type": "color"
           }
         },
         "stroke": {
@@ -2576,7 +2580,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.global.color.background.muted}",
+              "value": "{click.table.header.color.background.default}",
               "type": "color"
             },
             "active": {

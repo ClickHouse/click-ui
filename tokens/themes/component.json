@@ -2055,6 +2055,12 @@
                 "type": "sizing"
               }
             }
+          },
+          "global": {
+            "gap": {
+              "value": "2px",
+              "type": "spacing"
+            }
           }
         },
         "title": {
