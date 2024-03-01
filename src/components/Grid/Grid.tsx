@@ -619,7 +619,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
           const { top, bottom, left, right } =
             outerRef.current.getBoundingClientRect() ?? {};
-
           elementBorderRef.current = {
             top,
             bottom,
@@ -750,8 +749,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 useIsScrolling={useIsScrolling}
                 innerElementType={InnerElementType}
                 itemData={data}
-                initialScrollTop={0}
-                initialScrollLeft={0}
+                initialScrollTop={(focus.row - 32) * rowHeight}
+                initialScrollLeft={getColumnHorizontalPosition(focus.column)}
                 columnWidth={columnWidth}
                 rowCount={rowCount}
                 onScroll={onScroll}

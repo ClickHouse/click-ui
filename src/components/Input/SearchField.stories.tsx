@@ -12,7 +12,7 @@ const SearchField = ({
   }, [valueProp]);
 
   return (
-    <Container maxWidth="75%">
+    <Container maxWidth="350px">
       <SearchFieldInput
         value={value}
         onChange={(inputValue: string) => {
@@ -38,6 +38,7 @@ export default {
     readOnly: { control: "boolean" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
+    isFilter: { control: "boolean" },
   },
 };
 
@@ -46,5 +47,10 @@ export const Playground = {
     label: "Label",
     disabled: false,
     placeholder: "Placeholder",
+    clear: false,
+    readOnly: false,
+    isFilter: false,
+    value: "",
+    error: "",
   },
 };

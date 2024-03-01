@@ -39,7 +39,7 @@ export default App
 1. Clone this repo, cd into the `click-ui` directory
 2. To install dependencies, run `npm i`
 3. To build the latest styles, run `npm run generate-tokens`
-4. To run ClickUI locally, run `npm run dev` and navigate to https://localhost:5173
+4. To run ClickUI locally, run `npm run dev` and navigate to http://localhost:5173
 5. To run Storybook locally, run `npm run storybook` and navigate to https://localhost:6006
 
 Enjoy!

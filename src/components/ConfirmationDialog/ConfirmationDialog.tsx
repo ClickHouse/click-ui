@@ -5,17 +5,18 @@ import styled from "styled-components";
 type DialogPrimaryAction = "primary" | "danger";
 
 export interface ConfirmationDialogProps {
-  open?: boolean;
-  onCancel?: () => void;
-  title: string;
-  primaryActionType?: DialogPrimaryAction;
-  primaryActionLabel?: string;
-  secondaryActionLabel?: string;
-  message?: string;
   children?: ReactNode;
+  disabled?: boolean;
   loading?: boolean;
-  showClose?: boolean;
+  message?: string;
+  onCancel?: () => void;
   onConfirm?: (() => void) | (() => Promise<void>);
+  open?: boolean;
+  primaryActionLabel?: string;
+  primaryActionType?: DialogPrimaryAction;
+  secondaryActionLabel?: string;
+  showClose?: boolean;
+  title: string;
 }
 
 const ActionsWrapper = styled.div`
@@ -31,17 +32,18 @@ const DialogContent = styled.div`
 `;
 
 export const ConfirmationDialog = ({
-  open,
-  onCancel,
-  title,
-  message,
-  loading,
-  primaryActionType = "primary",
-  primaryActionLabel = "Confirm",
-  secondaryActionLabel = "Cancel",
-  onConfirm,
   children,
+  disabled,
+  loading,
+  message,
+  onCancel,
+  onConfirm,
+  open,
+  primaryActionLabel = "Confirm",
+  primaryActionType = "primary",
+  secondaryActionLabel = "Cancel",
   showClose,
+  title,
   ...props
 }: ConfirmationDialogProps): ReactElement => {
   if (children && message) {
@@ -70,10 +72,13 @@ export const ConfirmationDialog = ({
         </Container>
         <Separator size="xl" />
         <ActionsWrapper>
-          <Dialog.Close label={secondaryActionLabel} />
+          <Dialog.Close
+            label={secondaryActionLabel}
+            data-testid="cancel-action-button"
+          />
           <Dialog.Close
             loading={!!loading}
-            disabled={!!loading}
+            disabled={!!disabled || !!loading}
             type={primaryActionType}
             label={primaryActionLabel}
             onClick={() => {
@@ -81,6 +86,7 @@ export const ConfirmationDialog = ({
                 onConfirm();
               }
             }}
+            data-testid="confirm-action-button"
           />
         </ActionsWrapper>
       </DialogContent>

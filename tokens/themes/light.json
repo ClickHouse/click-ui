@@ -92,6 +92,10 @@
               "value": "{palette.info.600}",
               "type": "color"
             }
+          },
+          "danger": {
+            "value": "{click.button.basic.color.danger.text.default}",
+            "type": "color"
           }
         },
         "title": {
@@ -3370,11 +3374,11 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.grid.header.cell.color.background.selectIndirect}",
+              "value": "{click.table.header.color.background.default}",
               "type": "color"
             },
             "active": {
-              "value": "{click.table.header.color.background.hover}",
+              "value": "{click.grid.header.cell.color.background.selectDirect}",
               "type": "color"
             }
           },

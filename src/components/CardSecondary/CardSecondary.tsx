@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 
 export type BadgeState =
   | "default"
@@ -13,7 +13,7 @@ export type BadgeState =
   | "warning"
   | "info";
 
-export interface CardSecondaryProps {
+export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   icon: IconName;
   badgeState?: BadgeState;
@@ -118,12 +118,14 @@ export const CardSecondary = ({
   description,
   infoUrl,
   infoText,
+  ...props
 }: CardSecondaryProps) => {
   return (
     <Wrapper
       $disabled={disabled}
       tabIndex={0}
       $hasShadow={hasShadow}
+      {...props}
     >
       <Header>
         <HeaderLeft $disabled={disabled}>

@@ -5,25 +5,29 @@ import {
 } from "@/components/ConfirmationDialog/ConfirmationDialog";
 
 const ConfirmationDialogComponent = ({
-  open,
-  title,
+  disabled,
+  loading,
   message,
-  primaryActionLabel,
-  onConfirm,
-  secondaryActionLabel,
   onCancel,
+  onConfirm,
+  open,
+  primaryActionLabel,
+  secondaryActionLabel,
   showClose,
+  title,
 }: ConfirmationDialogProps) => (
   <GridCenter>
     <ConfirmationDialog
-      open={open}
-      title={title}
+      disabled={disabled}
+      loading={loading}
       message={message}
       onCancel={onCancel}
-      primaryActionLabel={primaryActionLabel}
       onConfirm={onConfirm}
+      open={open}
+      primaryActionLabel={primaryActionLabel}
       secondaryActionLabel={secondaryActionLabel}
       showClose={showClose}
+      title={title}
     ></ConfirmationDialog>
   </GridCenter>
 );
@@ -43,6 +47,8 @@ export default {
 export const Playground = {
   args: {
     title: "Example dialog title",
+    disabled: false,
+    loading: false,
     message:
       "This is a simple dialog that cab be used to ask a confirmation of the action requested",
     open: true,
