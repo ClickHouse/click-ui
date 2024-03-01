@@ -66,6 +66,7 @@ import Integrations from "@/components/icons/Integrations";
 import LightBulb from "@/components/icons/LightBulb";
 import Lightening from "@/components/icons/Lightening";
 import Loading from "@/components/icons/Loading";
+import Lock from "@/components/icons/Lock";
 import LoadingAnimated from "@/components/icons/LoadingAnimated";
 import Metrics from "@/components/icons/Metrics";
 import MetricsAlt from "@/components/icons/MetricsAlt";
@@ -209,6 +210,7 @@ export const ICONS_MAP = {
   "line-in-circle": LineInCircle,
   loading: Loading,
   "loading-animated": LoadingAnimated,
+  lock: Lock,
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
   "no-cloud": NoCloud,
