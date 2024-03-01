@@ -70,7 +70,10 @@ export const ConfirmationDialog = ({
         </Container>
         <Separator size="xl" />
         <ActionsWrapper>
-          <Dialog.Close label={secondaryActionLabel} />
+          <Dialog.Close
+            label={secondaryActionLabel}
+            data-testid="cancel-action-button"
+          />
           <Dialog.Close
             loading={!!loading}
             disabled={!!loading}
@@ -81,6 +84,7 @@ export const ConfirmationDialog = ({
                 onConfirm();
               }
             }}
+            data-testid="confirm-action-button"
           />
         </ActionsWrapper>
       </DialogContent>
