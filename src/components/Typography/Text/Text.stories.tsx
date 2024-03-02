@@ -14,7 +14,7 @@ export default {
       control: { type: "radio" },
     },
     color: {
-      options: ["default", "muted"],
+      options: ["default", "muted", "danger"],
       control: { type: "radio" },
     },
     weight: {
