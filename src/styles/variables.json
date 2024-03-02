@@ -1091,7 +1091,7 @@
       "stroke": "1px",
       "typography": {
         "text": {
-          "default": "500 0.875rem/1.7 \"Inconsolata\", '\"SFMono Regular\"', monospace"
+          "default": "500 0.875rem/1.7 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace"
         }
       },
       "numbers": {
@@ -1163,7 +1163,7 @@
       "stroke": "1px",
       "typography": {
         "text": {
-          "default": "500 0.875rem/1.7 \"Inconsolata\", '\"SFMono Regular\"', monospace"
+          "default": "500 0.875rem/1.7 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace"
         }
       },
       "radii": {
@@ -1295,11 +1295,11 @@
           "error": "#c10000"
         },
         "format": {
-          "default": "lch(57 5.46 269)",
-          "hover": "lch(57 5.46 269)",
-          "active": "lch(57 5.46 269)",
+          "default": "lch(72 4.18 268)",
+          "hover": "lch(72 4.18 268)",
+          "active": "lch(72 4.18 268)",
           "disabled": "#a0a0a0",
-          "error": "lch(57 5.46 269)"
+          "error": "lch(72 4.18 268)"
         },
         "genericLabel": {
           "default": "#161517",
@@ -1308,7 +1308,7 @@
           "disabled": "#a0a0a0"
         },
         "placeholder": {
-          "default": "#696e79"
+          "default": "#9a9ea7"
         }
       }
     },
@@ -1367,11 +1367,11 @@
             "disabled": "#ffffff"
           },
           "format": {
-            "default": "lch(57 5.46 269)",
-            "hover": "lch(57 5.46 269)",
-            "active": "lch(57 5.46 269)",
+            "default": "lch(72 4.18 268)",
+            "hover": "lch(72 4.18 268)",
+            "active": "lch(72 4.18 268)",
             "disabled": "#a0a0a0",
-            "error": "lch(57 5.46 269)"
+            "error": "lch(72 4.18 268)"
           },
           "stroke": {
             "default": "lch(91.6 1.1 266)"
@@ -1455,7 +1455,7 @@
         },
         "color": {
           "placeholder": {
-            "default": "#696e79"
+            "default": "#9a9ea7"
           },
           "searchTerm": {
             "default": "#161517"
@@ -1643,6 +1643,7 @@
             "xs": "0",
             "sm": "0.25rem",
             "md": "0.5rem",
+            "ml": "0.75rem",
             "lg": "1rem",
             "xl": "1.5rem",
             "xxl": "2rem"
@@ -1719,6 +1720,9 @@
               "height": "1rem",
               "width": "1rem"
             }
+          },
+          "global": {
+            "gap": "2px"
           }
         },
         "title": {
@@ -1896,6 +1900,7 @@
             "xs": "0",
             "sm": "0.25rem",
             "md": "0.5rem",
+            "ml": "0.75rem",
             "lg": "1rem",
             "xl": "1.5rem",
             "xxl": "2rem"
@@ -2122,8 +2127,8 @@
         "color": {
           "background": {
             "default": "#f6f7fa",
-            "hover": "lch(93.2 9.14 266)",
-            "active": "lch(93.4 8.91 266)"
+            "hover": "#f6f7fa",
+            "active": "lch(90.3 11.8 266)"
           },
           "title": {
             "default": "#161517"
@@ -2575,7 +2580,7 @@
       },
       "cell": {
         "text": {
-          "default": "500 0.875rem/1.5 \"Inconsolata\", '\"SFMono Regular\"', monospace"
+          "default": "500 0.875rem/1.5 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace"
         }
       },
       "radii": {
@@ -2642,7 +2647,8 @@
           "link": {
             "default": "#135be6",
             "hover": "#092e73"
-          }
+          },
+          "danger": "#c10000"
         },
         "stroke": {
           "default": "lch(91.6 1.1 266)",
@@ -2991,7 +2997,7 @@
     "font": {
       "families": {
         "regular": "\"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;",
-        "mono": "\"Inconsolata\", '\"SFMono Regular\"', monospace",
+        "mono": "\"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace",
         "display": "'Basier Square', \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
       },
       "weights": {
@@ -3046,10 +3052,10 @@
             "lg": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
           },
           "mono": {
-            "xs": "500 0.625rem/1.6 \"Inconsolata\", '\"SFMono Regular\"', monospace",
-            "sm": "500 0.75rem/1.6 \"Inconsolata\", '\"SFMono Regular\"', monospace",
-            "md": "500 0.875rem/1.7 \"Inconsolata\", '\"SFMono Regular\"', monospace",
-            "lg": "500 1rem/1.6 \"Inconsolata\", '\"SFMono Regular\"', monospace"
+            "xs": "500 0.625rem/1.6 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace",
+            "sm": "500 0.75rem/1.6 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace",
+            "md": "500 0.875rem/1.7 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace",
+            "lg": "500 1rem/1.6 \"Inconsolata\", Consolas, '\"SFMono Regular\"', monospace"
           },
           "bold": {
             "xs": "700 0.625rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;",
