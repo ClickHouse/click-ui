@@ -705,11 +705,11 @@
           "error": "#c10000"
         },
         "format": {
-          "default": "lch(57 5.46 269)",
-          "hover": "lch(57 5.46 269)",
-          "active": "lch(57 5.46 269)",
+          "default": "lch(72 4.18 268)",
+          "hover": "lch(72 4.18 268)",
+          "active": "lch(72 4.18 268)",
           "disabled": "#a0a0a0",
-          "error": "lch(57 5.46 269)"
+          "error": "lch(72 4.18 268)"
         },
         "genericLabel": {
           "default": "#161517",
@@ -718,7 +718,7 @@
           "disabled": "#a0a0a0"
         },
         "placeholder": {
-          "default": "#696e79"
+          "default": "#9a9ea7"
         }
       }
     },
@@ -739,9 +739,9 @@
             "disabled": "#ffffff"
           },
           "format": {
-            "default": "lch(57 5.46 269)",
-            "hover": "lch(57 5.46 269)",
-            "active": "lch(57 5.46 269)",
+            "default": "lch(72 4.18 268)",
+            "hover": "lch(72 4.18 268)",
+            "active": "lch(72 4.18 268)",
             "disabled": "#a0a0a0"
           },
           "stroke": {
@@ -781,7 +781,7 @@
       "autocomplete": {
         "color": {
           "placeholder": {
-            "default": "#696e79"
+            "default": "#9a9ea7"
           },
           "searchTerm": {
             "default": "#161517"
@@ -1077,8 +1077,8 @@
         "color": {
           "background": {
             "default": "#f6f7fa",
-            "hover": "lch(93.2 9.14 266)",
-            "active": "lch(93.4 8.91 266)"
+            "hover": "#f6f7fa",
+            "active": "lch(90.3 11.8 266)"
           },
           "title": {
             "default": "#161517"
@@ -1304,7 +1304,8 @@
           "link": {
             "default": "#135be6",
             "hover": "#092e73"
-          }
+          },
+          "danger": "#c10000"
         },
         "stroke": {
           "default": "lch(91.6 1.1 266)",

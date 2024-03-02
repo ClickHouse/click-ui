@@ -8,7 +8,7 @@ import {
 import styled from "styled-components";
 
 export type TextAlignment = "left" | "center" | "right";
-export type TextColor = "default" | "muted";
+export type TextColor = "default" | "muted" | "danger";
 export type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 

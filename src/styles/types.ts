@@ -1644,6 +1644,7 @@
             "xs": string,
             "sm": string,
             "md": string,
+            "ml": string,
             "lg": string,
             "xl": string,
             "xxl": string
@@ -1720,6 +1721,9 @@
               "height": string,
               "width": string
             }
+          },
+          "global": {
+            "gap": string
           }
         },
         "title": {
@@ -1897,6 +1901,7 @@
             "xs": string,
             "sm": string,
             "md": string,
+            "ml": string,
             "lg": string,
             "xl": string,
             "xxl": string
@@ -2643,7 +2648,8 @@
           "link": {
             "default": string,
             "hover": string
-          }
+          },
+          "danger": string
         },
         "stroke": {
           "default": string,
