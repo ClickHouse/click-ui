@@ -89,6 +89,7 @@ export const ICON_NAMES = [
   "line-in-circle",
   "loading",
   "loading-animated",
+  "lock",
   "metrics",
   "metrics-alt",
   "no-cloud",
