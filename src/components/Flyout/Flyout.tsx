@@ -58,7 +58,6 @@ type DialogContentAlignmentType = "start" | "end";
 export interface DialogContentProps extends RadixDialogContentProps {
   container?: HTMLElement | null;
   showOverlay?: boolean;
-  showClose?: boolean;
   size?: FlyoutSizeType;
   type?: FlyoutType;
   strategy?: Strategy;
@@ -204,7 +203,7 @@ Flyout.Element = Element;
 
 interface TitleHeaderProps
   extends Omit<
-    ContainerProps<"div">,
+    ContainerProps,
     | "orientaion"
     | "justifyContent"
     | "alignItems"
@@ -218,11 +217,13 @@ interface TitleHeaderProps
   description?: string;
   type?: FlyoutType;
   children?: never;
+  showClose?: boolean;
+  showSeparator?: boolean;
 }
 
 interface ChildrenHeaderProps
   extends Omit<
-    ContainerProps<"div">,
+    ContainerProps,
     | "orientaion"
     | "justifyContent"
     | "alignItems"
@@ -234,6 +235,8 @@ interface ChildrenHeaderProps
   title?: never;
   type?: FlyoutType;
   description?: never;
+  showClose?: boolean;
+  showSeparator?: boolean;
 }
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
@@ -270,7 +273,15 @@ const FlyoutDescription = styled(DialogDescription)<{
   `}
 `;
 
-const Header = ({ title, description, type, children, ...props }: FlyoutHeaderProps) => {
+const Header = ({
+  title,
+  description,
+  type,
+  children,
+  showClose = true,
+  showSeparator = true,
+  ...props
+}: FlyoutHeaderProps) => {
   if (children) {
     return (
       <FlyoutContainer>
@@ -292,16 +303,18 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           >
             {children}
           </Container>
-          <DialogClose asChild>
-            <CrossButton data-testid="flyout-header-close-btn">
-              <Icon
-                name="cross"
-                size={type === "inline" ? "md" : "lg"}
-              />
-            </CrossButton>
-          </DialogClose>
+          {showClose && (
+            <DialogClose asChild>
+              <CrossButton data-testid="flyout-header-close-btn">
+                <Icon
+                  name="cross"
+                  size={type === "inline" ? "md" : "lg"}
+                />
+              </CrossButton>
+            </DialogClose>
+          )}
         </FlyoutHeaderContainer>
-        <Separator size="lg" />
+        {showSeparator && <Separator size="lg" />}
       </FlyoutContainer>
     );
   }
@@ -327,16 +340,18 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
             <FlyoutDescription $type={type}>{description}</FlyoutDescription>
           )}
         </Container>
-        <DialogClose asChild>
-          <CrossButton data-testid="flyout-header-close-btn">
-            <Icon
-              name="cross"
-              size={type === "inline" ? "md" : "lg"}
-            />
-          </CrossButton>
-        </DialogClose>
+        {showClose && (
+          <DialogClose asChild>
+            <CrossButton data-testid="flyout-header-close-btn">
+              <Icon
+                name="cross"
+                size={type === "inline" ? "md" : "lg"}
+              />
+            </CrossButton>
+          </DialogClose>
+        )}
       </FlyoutHeaderContainer>
-      <Separator size="lg" />
+      {showSeparator && <Separator size="lg" />}
     </FlyoutContainer>
   );
 };
