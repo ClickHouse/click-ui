@@ -184,7 +184,7 @@ const FlyoutElement = styled(Container)<{
 `;
 
 interface ElementProps
-  extends Omit<ContainerProps<"div">, "component" | "padding" | "gap" | "orientation"> {
+  extends Omit<ContainerProps, "component" | "padding" | "gap" | "orientation"> {
   type?: FlyoutType;
 }
 
@@ -365,7 +365,7 @@ const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
   margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
-interface BodyProps extends ContainerProps<"div"> {
+interface BodyProps extends ContainerProps {
   align?: FlyoutAlign;
 }
 
