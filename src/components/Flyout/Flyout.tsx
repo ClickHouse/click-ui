@@ -58,7 +58,6 @@ type DialogContentAlignmentType = "start" | "end";
 export interface DialogContentProps extends RadixDialogContentProps {
   container?: HTMLElement | null;
   showOverlay?: boolean;
-  showClose?: boolean;
   size?: FlyoutSizeType;
   type?: FlyoutType;
   strategy?: Strategy;
@@ -185,7 +184,7 @@ const FlyoutElement = styled(Container)<{
 `;
 
 interface ElementProps
-  extends Omit<ContainerProps<"div">, "component" | "padding" | "gap" | "orientation"> {
+  extends Omit<ContainerProps, "component" | "padding" | "gap" | "orientation"> {
   type?: FlyoutType;
 }
 
@@ -204,7 +203,7 @@ Flyout.Element = Element;
 
 interface TitleHeaderProps
   extends Omit<
-    ContainerProps<"div">,
+    ContainerProps,
     | "orientaion"
     | "justifyContent"
     | "alignItems"
@@ -218,11 +217,13 @@ interface TitleHeaderProps
   description?: string;
   type?: FlyoutType;
   children?: never;
+  showClose?: boolean;
+  showSeparator?: boolean;
 }
 
 interface ChildrenHeaderProps
   extends Omit<
-    ContainerProps<"div">,
+    ContainerProps,
     | "orientaion"
     | "justifyContent"
     | "alignItems"
@@ -234,6 +235,8 @@ interface ChildrenHeaderProps
   title?: never;
   type?: FlyoutType;
   description?: never;
+  showClose?: boolean;
+  showSeparator?: boolean;
 }
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
@@ -270,7 +273,15 @@ const FlyoutDescription = styled(DialogDescription)<{
   `}
 `;
 
-const Header = ({ title, description, type, children, ...props }: FlyoutHeaderProps) => {
+const Header = ({
+  title,
+  description,
+  type,
+  children,
+  showClose = true,
+  showSeparator = true,
+  ...props
+}: FlyoutHeaderProps) => {
   if (children) {
     return (
       <FlyoutContainer>
@@ -292,16 +303,23 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
           >
             {children}
           </Container>
-          <DialogClose asChild>
-            <CrossButton data-testid="flyout-header-close-btn">
-              <Icon
-                name="cross"
-                size={type === "inline" ? "md" : "lg"}
-              />
-            </CrossButton>
-          </DialogClose>
+          {showClose && (
+            <DialogClose asChild>
+              <CrossButton data-testid="flyout-header-close-btn">
+                <Icon
+                  name="cross"
+                  size={type === "inline" ? "md" : "lg"}
+                />
+              </CrossButton>
+            </DialogClose>
+          )}
         </FlyoutHeaderContainer>
-        <Separator size="lg" />
+        {showSeparator && (
+          <Separator
+            data-testid="flyout-header-separator"
+            size="lg"
+          />
+        )}
       </FlyoutContainer>
     );
   }
@@ -327,16 +345,23 @@ const Header = ({ title, description, type, children, ...props }: FlyoutHeaderPr
             <FlyoutDescription $type={type}>{description}</FlyoutDescription>
           )}
         </Container>
-        <DialogClose asChild>
-          <CrossButton data-testid="flyout-header-close-btn">
-            <Icon
-              name="cross"
-              size={type === "inline" ? "md" : "lg"}
-            />
-          </CrossButton>
-        </DialogClose>
+        {showClose && (
+          <DialogClose asChild>
+            <CrossButton data-testid="flyout-header-close-btn">
+              <Icon
+                name="cross"
+                size={type === "inline" ? "md" : "lg"}
+              />
+            </CrossButton>
+          </DialogClose>
+        )}
       </FlyoutHeaderContainer>
-      <Separator size="lg" />
+      {showSeparator && (
+        <Separator
+          data-testid="flyout-header-separator"
+          size="lg"
+        />
+      )}
     </FlyoutContainer>
   );
 };
@@ -350,7 +375,7 @@ const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
   margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
 `;
 
-interface BodyProps extends ContainerProps<"div"> {
+interface BodyProps extends ContainerProps {
   align?: FlyoutAlign;
 }
 
@@ -439,15 +464,32 @@ const CustomCodeBlock = styled(CodeBlock)`
   height: 100%;
   pre {
     flex: 1;
+    code {
+      display: inline-block;
+      max-width: calc(100% - 1rem);
+    }
   }
 `;
 
+interface FlyoutCodeBlockProps {
+  language?: string;
+  statement: string;
+  showLineNumbers?: boolean;
+  showWrapButton?: boolean;
+  wrapLines?: boolean;
+  onCopy?: (value: string) => void | Promise<void>;
+  onCopyError?: (error: string) => void | Promise<void>;
+}
 const FlyoutCodeBlock = ({
   statement,
   language,
   wrapLines,
+  showLineNumbers,
+  showWrapButton,
+  onCopy,
+  onCopyError,
   ...props
-}: { statement: string; language?: string; wrapLines?: boolean } & ElementProps) => {
+}: FlyoutCodeBlockProps & ElementProps) => {
   return (
     <Element
       fillHeight
@@ -456,6 +498,10 @@ const FlyoutCodeBlock = ({
       <CustomCodeBlock
         wrapLines={wrapLines}
         language={language}
+        showLineNumbers={showLineNumbers}
+        showWrapButton={showWrapButton}
+        onCopy={onCopy}
+        onCopyError={onCopyError}
       >
         {statement}
       </CustomCodeBlock>
