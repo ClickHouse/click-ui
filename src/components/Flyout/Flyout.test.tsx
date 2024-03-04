@@ -4,8 +4,13 @@ import { renderCUI } from "@/utils/test-utils";
 import { Button } from "..";
 import { DialogProps } from "@radix-ui/react-dialog";
 
+interface Props extends DialogProps {
+  showClose?: boolean;
+  showSeparator?: boolean;
+}
+
 describe("Flyout", () => {
-  const renderFlyout = (props: DialogProps) => {
+  const renderFlyout = ({ showClose, showSeparator, ...props }: Props) => {
     return renderCUI(
       <Flyout {...props}>
         <Flyout.Trigger>
@@ -15,6 +20,8 @@ describe("Flyout", () => {
           <Flyout.Header
             title="test1"
             description="test2"
+            showClose={showClose}
+            showSeparator={showSeparator}
           />
           <Flyout.Body>Flyout Text</Flyout.Body>
           <Flyout.Footer>
@@ -26,13 +33,15 @@ describe("Flyout", () => {
     );
   };
   it("should open flyout on click", () => {
-    const { queryByText } = renderFlyout({});
+    const { queryByText, queryByTestId } = renderFlyout({});
     const selectTrigger = queryByText("Flyout Fixed");
     expect(selectTrigger).not.toBeNull();
     expect(queryByText("Flyout Text")).toBeNull();
     selectTrigger && fireEvent.click(selectTrigger);
 
     expect(queryByText("Flyout Text")).not.toBeNull();
+    expect(queryByTestId("flyout-header-close-btn")).not.toBeNull();
+    expect(queryByTestId("flyout-header-separator")).not.toBeNull();
     expect(queryByText("test1")).not.toBeNull();
   });
 
@@ -62,6 +71,36 @@ describe("Flyout", () => {
     expect(selectTrigger).not.toBeNull();
     expect(queryByText("Flyout Text")).toBeNull();
     selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(queryByText("Flyout Text")).not.toBeNull();
+    fireEvent.click(getByText("Cancel"));
+    expect(queryByText("Flyout Text")).toBeNull();
+  });
+
+  it("should hide close when showClose is false in header", () => {
+    const { queryByText, getByText, queryByTestId } = renderFlyout({
+      showClose: false,
+    });
+    const selectTrigger = queryByText("Flyout Fixed");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByText("Flyout Text")).toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
+    expect(queryByTestId("flyout-header-close-btn")).toBeNull();
+
+    expect(queryByText("Flyout Text")).not.toBeNull();
+    fireEvent.click(getByText("Cancel"));
+    expect(queryByText("Flyout Text")).toBeNull();
+  });
+
+  it("should hide header separator when showSeparator is false", () => {
+    const { queryByText, getByText, queryByTestId } = renderFlyout({
+      showSeparator: false,
+    });
+    const selectTrigger = queryByText("Flyout Fixed");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByText("Flyout Text")).toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
+    expect(queryByTestId("flyout-header-separator")).toBeNull();
 
     expect(queryByText("Flyout Text")).not.toBeNull();
     fireEvent.click(getByText("Cancel"));

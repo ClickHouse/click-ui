@@ -314,7 +314,12 @@ const Header = ({
             </DialogClose>
           )}
         </FlyoutHeaderContainer>
-        {showSeparator && <Separator size="lg" />}
+        {showSeparator && (
+          <Separator
+            data-testid="flyout-header-separator"
+            size="lg"
+          />
+        )}
       </FlyoutContainer>
     );
   }
@@ -351,7 +356,12 @@ const Header = ({
           </DialogClose>
         )}
       </FlyoutHeaderContainer>
-      {showSeparator && <Separator size="lg" />}
+      {showSeparator && (
+        <Separator
+          data-testid="flyout-header-separator"
+          size="lg"
+        />
+      )}
     </FlyoutContainer>
   );
 };
