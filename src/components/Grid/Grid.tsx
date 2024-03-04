@@ -749,7 +749,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 useIsScrolling={useIsScrolling}
                 innerElementType={InnerElementType}
                 itemData={data}
-                initialScrollTop={(focus.row - rowStart) * rowHeight}
+                initialScrollTop={
+                  focus.row < rowStart
+                    ? focus.row * rowHeight
+                    : (focus.row - rowStart) * rowHeight
+                }
                 initialScrollLeft={getColumnHorizontalPosition(focus.column)}
                 columnWidth={columnWidth}
                 rowCount={rowCount}
