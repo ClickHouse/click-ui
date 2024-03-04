@@ -464,15 +464,32 @@ const CustomCodeBlock = styled(CodeBlock)`
   height: 100%;
   pre {
     flex: 1;
+    code {
+      display: inline-block;
+      max-width: calc(100% - 1rem);
+    }
   }
 `;
 
+interface FlyoutCodeBlockProps {
+  language?: string;
+  statement: string;
+  showLineNumbers?: boolean;
+  showWrapButton?: boolean;
+  wrapLines?: boolean;
+  onCopy?: (value: string) => void | Promise<void>;
+  onCopyError?: (error: string) => void | Promise<void>;
+}
 const FlyoutCodeBlock = ({
   statement,
   language,
   wrapLines,
+  showLineNumbers,
+  showWrapButton,
+  onCopy,
+  onCopyError,
   ...props
-}: { statement: string; language?: string; wrapLines?: boolean } & ElementProps) => {
+}: FlyoutCodeBlockProps & ElementProps) => {
   return (
     <Element
       fillHeight
@@ -481,6 +498,10 @@ const FlyoutCodeBlock = ({
       <CustomCodeBlock
         wrapLines={wrapLines}
         language={language}
+        showLineNumbers={showLineNumbers}
+        showWrapButton={showWrapButton}
+        onCopy={onCopy}
+        onCopyError={onCopyError}
       >
         {statement}
       </CustomCodeBlock>
