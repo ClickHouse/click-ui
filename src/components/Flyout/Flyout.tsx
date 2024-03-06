@@ -464,6 +464,7 @@ const CustomCodeBlock = styled(CodeBlock)`
   height: 100%;
   pre {
     flex: 1;
+    overflow-wrap: break-word;
     code {
       display: inline-block;
       max-width: calc(100% - 1rem);
@@ -471,7 +472,7 @@ const CustomCodeBlock = styled(CodeBlock)`
   }
 `;
 
-interface FlyoutCodeBlockProps {
+interface FlyoutCodeBlockProps extends ContainerProps {
   language?: string;
   statement: string;
   showLineNumbers?: boolean;
