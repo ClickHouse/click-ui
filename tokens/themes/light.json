@@ -5,24 +5,7 @@
         "stroke": {
           "default": {
             "value": "{palette.slate.100}",
-            "type": "color",
-            "increased": {
-              "value": "#cccdcf",
-              "type": "color"
-            },
-            "muted": {
-              "value": "#e6e7e9",
-              "type": "color"
-            },
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "1",
-                  "space": "lch"
-                }
-              }
-            }
+            "type": "color"
           },
           "muted": {
             "value": "{palette.slate.100}",
@@ -3700,15 +3683,7 @@
       "stroke": {
         "default": {
           "value": "{palette.slate.100}",
-          "type": "color",
-          "increased": {
-            "value": "#cccdcf",
-            "type": "color"
-          },
-          "muted": {
-            "value": "#e6e7e9",
-            "type": "color"
-          }
+          "type": "color"
         },
         "muted": {
           "value": "{palette.slate.100}",
