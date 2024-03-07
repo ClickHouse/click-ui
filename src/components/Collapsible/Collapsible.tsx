@@ -8,17 +8,11 @@ import {
   forwardRef,
 } from "react";
 import styled from "styled-components";
-import {
-  Icon,
-  HorizontalDirection,
-  IconName,
-  ContainerProps,
-  Container,
-} from "@/components";
+import { Icon, HorizontalDirection, IconName } from "@/components";
 import { EmptyButton } from "../commonElement";
 import { IconWrapper } from "./IconWrapper";
 
-export interface CollapsibleProps extends ContainerProps {
+export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
 }
@@ -32,6 +26,9 @@ const NavContext = createContext<ContextProps>({
   open: false,
   onOpenChange: () => null,
 });
+const CollapsibleContainer = styled.div`
+  width: 100%;
+`;
 
 export const Collapsible = ({
   open: openProp,
@@ -58,12 +55,9 @@ export const Collapsible = ({
     onOpenChange,
   };
   return (
-    <Container
-      isResponsive={false}
-      {...props}
-    >
+    <CollapsibleContainer {...props}>
       <NavContext.Provider value={value}>{children}</NavContext.Provider>
-    </Container>
+    </CollapsibleContainer>
   );
 };
 
