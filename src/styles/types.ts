@@ -2847,6 +2847,7 @@
       "500": string,
       "600": string,
       "700": string,
+      "712": string,
       "725": string,
       "750": string,
       "800": string,

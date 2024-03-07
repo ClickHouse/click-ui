@@ -31,7 +31,7 @@
               "active": "lch(95.3 1.54 272)"
             },
             "stroke": {
-              "default": "lch(91.6 1.1 266)",
+              "default": "#e6e7e9",
               "hover": "#e6e7e9",
               "active": "lch(83.8 2.3 258)"
             },
@@ -93,8 +93,8 @@
               "active": "rgb(86.8% 87.2% 88.2%)"
             },
             "stroke": {
-              "default": "lch(91.6 1.1 266)",
-              "hover": "lch(91.6 1.1 266)",
+              "default": "#e6e7e9",
+              "hover": "#e6e7e9",
               "active": "rgb(86.8% 87.2% 88.2%)"
             },
             "text": {
@@ -244,8 +244,8 @@
             "disabled": "#a0a0a0"
           },
           "stroke": {
-            "default": "lch(91.6 1.1 266)",
-            "hover": "lch(91.6 1.1 266)",
+            "default": "#e6e7e9",
+            "hover": "#e6e7e9",
             "active": "lch(84 2.28 258)",
             "disabled": "rgba(0,0,0,0)"
           }
@@ -283,11 +283,11 @@
             "active": "rgba(0,0,0,0)",
             "disabled": "rgba(0,0,0,0)",
             "disabled-active": "rgba(0,0,0,0)",
-            "panel": "lch(91.6 1.1 266)"
+            "panel": "#e6e7e9"
           },
           "panel": {
             "stroke": {
-              "default": "lch(91.6 1.1 266)"
+              "default": "#e6e7e9"
             }
           }
         }
@@ -300,7 +300,7 @@
             "active": "lch(95.3 1.54 272)"
           },
           "stroke": {
-            "default": "lch(91.6 1.1 266)",
+            "default": "#e6e7e9",
             "hover": "#e6e7e9",
             "active": "#cccfd3"
           },
@@ -344,8 +344,8 @@
             "disabled": "#a0a0a0"
           },
           "stroke": {
-            "default": "lch(91.6 1.1 266)",
-            "hover": "lch(91.6 1.1 266)",
+            "default": "#e6e7e9",
+            "hover": "#e6e7e9",
             "active": "#151515",
             "disabled": "#dfdfdf"
           }
@@ -373,8 +373,8 @@
               "disabled": "#a0a0a0"
             },
             "stroke": {
-              "default": "lch(91.6 1.1 266)",
-              "hover": "lch(91.6 1.1 266)",
+              "default": "#e6e7e9",
+              "hover": "#e6e7e9",
               "active": "#151515",
               "disabled": "#dfdfdf"
             }
@@ -401,8 +401,8 @@
               "disabled": "#a0a0a0"
             },
             "stroke": {
-              "default": "lch(91.6 1.1 266)",
-              "hover": "lch(91.6 1.1 266)",
+              "default": "#e6e7e9",
+              "hover": "#e6e7e9",
               "active": "#151515",
               "disabled": "#dfdfdf"
             }
@@ -513,7 +513,7 @@
             "default": "#f6f7fa"
           },
           "stroke": {
-            "default": "lch(91.6 1.1 266)"
+            "default": "#e6e7e9"
           }
         },
         "navigation": {
@@ -663,7 +663,7 @@
             "active": "#FFC029"
           },
           "global": {
-            "default": "lch(91.6 1.1 266)"
+            "default": "#e6e7e9"
           }
         }
       },
@@ -680,9 +680,9 @@
             "active": "#161517"
           },
           "stroke": {
-            "default": "lch(91.6 1.1 266)",
-            "hover": "lch(91.6 1.1 266)",
-            "active": "lch(91.6 1.1 266)"
+            "default": "#e6e7e9",
+            "hover": "#e6e7e9",
+            "active": "#e6e7e9"
           }
         }
       }
@@ -714,7 +714,7 @@
           "default": "lch(6.77 0 0 / 0.45)"
         },
         "stroke": {
-          "default": "lch(91.6 1.1 266)"
+          "default": "#e6e7e9"
         }
       }
     },
@@ -749,7 +749,7 @@
               "selectDirect": "lch(99.4 8.48 102 / 0.2)"
             },
             "stroke": {
-              "default": "lch(91.6 1.1 266)",
+              "default": "#e6e7e9",
               "selectIndirect": "lch(74.1 25.6 85.9)",
               "selectDirect": "#FFC029"
             },
@@ -764,7 +764,7 @@
       "global": {
         "color": {
           "stroke": {
-            "default": "lch(91.6 1.1 266)"
+            "default": "#e6e7e9"
           },
           "background": {
             "default": "#ffffff"
@@ -823,8 +823,8 @@
         }
       },
       "stroke": {
-        "default": "lch(91.6 1.1 266 / 0.3)",
-        "muted": "lch(91.6 1.1 266 / 0.3)",
+        "default": "#e6e7e9",
+        "muted": "#e6e7e9",
         "intense": "#b3b6bd",
         "split": "#ffffff"
       },
@@ -857,7 +857,7 @@
         "neutral": {
           "background": "#e6e7e9",
           "foreground": "#53575f",
-          "stroke": "lch(91.6 1.1 266)"
+          "stroke": "#e6e7e9"
         }
       },
       "chart": {
