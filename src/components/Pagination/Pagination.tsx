@@ -133,6 +133,7 @@ export const Pagination = ({
             min={1}
             max={totalPages}
             onFocus={onPageNumberFocus}
+            hideControls
             onBlur={onPageNumberBlur}
           />
         </Container>
