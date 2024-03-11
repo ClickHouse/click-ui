@@ -138,6 +138,20 @@ export const InputElement = styled.input`
   `}
 `;
 
+export const NumberInputElement = styled(InputElement)<{$hideControls?: boolean}>`
+  ${({$hideControls}) => `
+    ${$hideControls ?  `
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    -moz-appearance: textfield;
+    ` : ""}
+  `}
+`;
+
 export const TextAreaElement = styled.textarea`
   background: transparent;
   border: none;
