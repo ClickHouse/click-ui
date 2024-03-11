@@ -1,9 +1,10 @@
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import styled from "styled-components";
 import { IconSize } from "@/components/Icon/types";
-import { Icon, IconName } from "@/components";
+import { Icon, IconName, Spacer, Text } from "@/components";
 
 type Size = "sm" | "md" | "lg";
+type Gap = "sm" | "md" | "lg";
 type Color = "default" | "link";
 
 export interface AccordionProps
@@ -13,6 +14,7 @@ export interface AccordionProps
   color?: Color;
   icon?: IconName;
   iconSize?: IconSize;
+  gap?: Gap;
   children: React.ReactNode;
 }
 
@@ -26,6 +28,7 @@ const Accordion = ({
   color,
   icon,
   iconSize,
+  gap,
   children,
   ...delegated
 }: AccordionProps) => (
@@ -54,8 +57,9 @@ const Accordion = ({
             />
           ) : null}
         </AccordionIconsWrapper>
-        <p>{title}</p>
+        <Text size={size}>{title}</Text>
       </AccordionTrigger>
+      <Spacer size={gap} />
       <AccordionContent>{children}</AccordionContent>
     </RadixAccordion.Item>
   </RadixAccordion.Root>
