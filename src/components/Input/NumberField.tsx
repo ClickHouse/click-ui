@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
 import { Icon } from "@/components";
-import { InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
+import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";
 export interface NumberFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "dir"> {
@@ -9,6 +9,7 @@ export interface NumberFieldProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
   orientation?: "vertical" | "horizontal";
   dir?: "start" | "end";
+  hideControls?: boolean;
 }
 
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
@@ -22,6 +23,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       onChange: onChangeProp,
       orientation,
       dir,
+      hideControls,
       ...props
     },
     ref
@@ -40,12 +42,13 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         orientation={orientation}
         dir={dir}
       >
-        <InputElement
+        <NumberInputElement
           ref={ref}
           type="number"
           id={id ?? defaultId}
           disabled={disabled}
           onChange={onChange}
+          $hideControls={hideControls}
           {...props}
         />
         {loading && (
