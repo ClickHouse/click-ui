@@ -26,6 +26,9 @@ const NavContext = createContext<ContextProps>({
   open: false,
   onOpenChange: () => null,
 });
+const CollapsibleContainer = styled.div`
+  width: 100%;
+`;
 
 export const Collapsible = ({
   open: openProp,
@@ -52,9 +55,9 @@ export const Collapsible = ({
     onOpenChange,
   };
   return (
-    <div {...props}>
+    <CollapsibleContainer {...props}>
       <NavContext.Provider value={value}>{children}</NavContext.Provider>
-    </div>
+    </CollapsibleContainer>
   );
 };
 
