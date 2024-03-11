@@ -12,7 +12,7 @@ const NumberField = ({
   }, [valueProp]);
 
   return (
-    <Container maxWidth="75%">
+    <Container maxWidth="300px">
       <NumberFieldInput
         value={value}
         onChange={(inputValue: string) => {
@@ -37,6 +37,7 @@ export default {
     readOnly: { control: "boolean" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
+    hideControls: { control: "boolean" },
   },
 };
 
