@@ -1,4 +1,11 @@
-import { Checkbox, HorizontalDirection, Icon, IconButton, Text } from "@/components";
+import {
+  Checkbox,
+  EllipsisContent,
+  HorizontalDirection,
+  Icon,
+  IconButton,
+  Text,
+} from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
 import styled from "styled-components";
 type SortDir = "asc" | "desc";
@@ -137,14 +144,15 @@ const Thead = ({
     </>
   );
 };
-
-const TableRow = styled.tr<{
+interface TableRowProps {
   $isSelectable?: boolean;
   $isDeleted?: boolean;
   $isDisabled?: boolean;
   $showActions?: boolean;
   $rowHeight?: string;
-}>`
+}
+
+const TableRow = styled.tr<TableRowProps>`
   overflow: hidden;
   ${({ theme, $isDeleted, $isDisabled, $rowHeight }) => `
     ${$rowHeight ? `height: ${$rowHeight};` : ""}
@@ -199,10 +207,12 @@ const TableData = styled.td<{ $size: TableSize }>`
   @media (max-width: 768px) {
     width: auto;
     min-width: 40%;
-    padding: ${({ theme }) => theme.click.table.body.cell.space.sm.y}
-      ${({ theme }) => theme.click.table.body.cell.space.sm.x};
+    ${({ theme }) => `
+      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+    `}
   }
 `;
+
 const StyledColGroup = styled.colgroup`
   @media (max-width: 768px) {
     display: none;
@@ -316,9 +326,11 @@ const EditButton = styled.button`
     background: transparent;
   }
 `;
-const TableRowCloseButton = styled.button<{
+interface TableRowCloseButtonProps {
   $isDeleted?: boolean;
-}>`
+}
+
+const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
   svg {
     transition: transform 200ms;
     ${({ $isDeleted }) => `
@@ -385,12 +397,6 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   rowHeight?: string;
 }
 
-const TableText = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
 const TableBodyRow = ({
   headers,
   items,
@@ -432,7 +438,7 @@ const TableBodyRow = ({
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <TableText>{label}</TableText>
+          <EllipsisContent component="div">{label}</EllipsisContent>
         </TableData>
       ))}
       {actionsList.length > 0 && (
