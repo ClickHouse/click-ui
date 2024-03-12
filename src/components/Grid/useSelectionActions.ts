@@ -333,7 +333,7 @@ export const useSelectionActions = ({
 
       return action;
     },
-    [onSelection, columnCount, rowCount, selection, focus]
+    [onSelection, columnCount, rowCount, selection, focus, rowStart]
   );
 
   const getSelectionType = useCallback(
