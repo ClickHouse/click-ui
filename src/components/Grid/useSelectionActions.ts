@@ -311,18 +311,18 @@ export const useSelectionActions = ({
 
       if (moveAnchor) {
         if (selection.type === "rows") {
-          const row = clamp(selection.anchorRow + rowDiff, 0, rowCount - 1);
+          const row = clamp(selection.anchorRow + rowDiff, 0, rowCount + rowStart - 1);
           action = { type: "shiftRowSelection", row, event };
         } else if (selection.type === "columns") {
           const column = clamp(selection.anchorColumn + columnDiff, 0, columnCount - 1);
           action = { type: "shiftColumnSelection", column, event };
         } else if (selection.type === "rectangle") {
-          const row = clamp(selection.anchor.row + rowDiff, 0, rowCount - 1);
+          const row = clamp(selection.anchor.row + rowDiff, 0, rowCount + rowStart - 1);
           const column = clamp(selection.anchor.column + columnDiff, 0, columnCount - 1);
           action = { type: "shiftSelection", row, column, event };
         }
       } else {
-        const row = clamp(focus.row + rowDiff, 0, rowCount - 1);
+        const row = clamp(focus.row + rowDiff, 0, rowCount + rowStart - 1);
         const column = clamp(focus.column + columnDiff, 0, columnCount - 1);
         action = { type: "normal", row, column, event };
       }
@@ -333,7 +333,7 @@ export const useSelectionActions = ({
 
       return action;
     },
-    [onSelection, columnCount, rowCount, selection, focus]
+    [onSelection, columnCount, rowCount, selection, focus, rowStart]
   );
 
   const getSelectionType = useCallback(
