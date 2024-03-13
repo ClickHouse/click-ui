@@ -27,6 +27,7 @@ export const Playground = {
     spacing: "sm",
     order: "titleTop",
     height: "",
-    fillWidth: false
+    fillWidth: false,
+    maxWidth: "none"
   },
 };
