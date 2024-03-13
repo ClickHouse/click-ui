@@ -7,6 +7,7 @@ export type bigStatState = "default" | "muted";
 
 export interface BigStatProps {
   fillWidth?: boolean;
+  maxWidth?: string;
   height?: string;
   label: React.ReactNode;
   order?: bigStatOrder;
@@ -19,6 +20,7 @@ export interface BigStatProps {
 //* Use this component to highlight important pieces of information. */
 export const BigStat = ({
   fillWidth = false,
+  maxWidth,
   height = "6rem",
   label = "Label",
   order = "titleTop",
@@ -34,6 +36,7 @@ export const BigStat = ({
     $spacing={spacing}
     $state={state}
     $fillWidth={fillWidth}
+    $maxWidth={maxWidth}
   >
     <Label
       $state={state}
@@ -52,6 +55,7 @@ export const BigStat = ({
 
 const Wrapper = styled.div<{
   $fillWidth?: boolean;
+  $maxWidth?: string;
   $height?: string;
   $order?: bigStatOrder;
   $size?: bigStatSize;
@@ -63,6 +67,7 @@ const Wrapper = styled.div<{
   box-sizing: border-box;
   ${({
     $fillWidth = false,
+    $maxWidth = "none",
     $state = "default",
     $size = "lg",
     $height = "fixed",
@@ -82,6 +87,7 @@ const Wrapper = styled.div<{
   min-height: ${$height !== undefined ? `${$height}` : "auto"};
   flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
   width: ${$fillWidth === true ? "100%" : "auto"};
+  max-width: ${$maxWidth ? $maxWidth : "none"};
   `}
 `;
 
