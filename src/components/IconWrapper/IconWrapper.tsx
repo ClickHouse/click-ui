@@ -4,10 +4,15 @@ import { IconSize } from "@/components/Icon/types";
 import styled from "styled-components";
 import { EllipsisContent } from "../EllipsisContent/EllipsisContent";
 
-const LabelContainer = styled.div`
-  display: flex;
+const LabelContainer = styled.div<{ $hasIcon: boolean; $iconDir: HorizontalDirection }>`
+  display: grid;
+  grid-template-columns: ${({ $hasIcon, $iconDir }) =>
+    `${$hasIcon && $iconDir === "start" ? "auto " : ""}1fr${
+      $hasIcon && $iconDir === "end" ? " auto" : ""
+    }`};
   align-items: center;
   justify-content: flex-start;
+
   width: 100%;
   width: -webkit-fill-available;
   width: fill-available;
@@ -32,7 +37,11 @@ const IconWrapper = ({
   height?: number | string;
 }) => {
   return (
-    <LabelContainer {...props}>
+    <LabelContainer
+      $hasIcon={typeof icon === "string"}
+      $iconDir={iconDir}
+      {...props}
+    >
       {icon && iconDir === "start" && (
         <Icon
           name={icon}
