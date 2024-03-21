@@ -1,11 +1,11 @@
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
-
 export type bigStatOrder = "titleTop" | "titleBottom";
 export type bigStatSize = "sm" | "lg";
 export type bigStatSpacing = "sm" | "lg";
 export type bigStatState = "default" | "muted";
 
-export interface BigStatProps {
+export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   fillWidth?: boolean;
   maxWidth?: string;
   height?: string;
@@ -28,6 +28,7 @@ export const BigStat = ({
   spacing = "sm",
   state = "default",
   title = "Title",
+  ...props
 }: BigStatProps) => (
   <Wrapper
     $height={height}
@@ -37,6 +38,7 @@ export const BigStat = ({
     $state={state}
     $fillWidth={fillWidth}
     $maxWidth={maxWidth}
+    {...props}
   >
     <Label
       $state={state}
