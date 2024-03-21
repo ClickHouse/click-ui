@@ -14,6 +14,7 @@ export type LogoName =
   | "grafana"
   | "superset"
   | "metabase"
+  | "microsoft"
   | "aws"
   | "gcp"
   | "gcs"

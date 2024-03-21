@@ -32,6 +32,7 @@ import Jdbc from "./Jdbc";
 import Kafka from "./KafkaDark";
 import Kubenetes from "./Kubenetes";
 import Metabase from "./Metabase";
+import Microsoft from "./Microsoft";
 import MongoDb from "./MongoDb";
 import MySQL from "./MySQL";
 import NodeJs from "./NodeJs";
@@ -82,6 +83,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   kafka: Kafka,
   kubenetes: Kubenetes,
   metabase: Metabase,
+  microsoft: Microsoft,
   mongodb: MongoDb,
   mysql: MySQL,
   nodejs: NodeJs,
