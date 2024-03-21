@@ -168,7 +168,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         if (showToast) {
           createToast({
             title: "Copied successfully",
-            description: "Now you can copy the content",
+            description: "Now you can paste the content",
             type: "success",
           });
         }
