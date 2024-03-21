@@ -28,6 +28,7 @@ export interface PaginationProps
   onPrevPageClick?: MouseEventHandler<HTMLButtonElement>;
   onPageNumberFocus?: FocusEventHandler<HTMLInputElement>;
   onPageNumberBlur?: FocusEventHandler<HTMLInputElement>;
+  disableNextButton?: boolean;
 }
 const CustomSelect = styled.div`
   width: 150px;
@@ -48,6 +49,7 @@ export const Pagination = ({
   onPrevPageClick,
   onPageNumberFocus,
   onPageNumberBlur,
+  disableNextButton,
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ["number", "string"].includes(typeof rowCount);
@@ -63,7 +65,12 @@ export const Pagination = ({
   };
 
   const onChange = (value: string) => {
-    onChangeProp(Number(value));
+    const valueToNumber = Number(value);
+    if (valueToNumber < 1) {
+      return;
+    }
+
+    onChangeProp(valueToNumber);
   };
 
   const onPageSizeChange = (value: string) => {
@@ -117,7 +124,7 @@ export const Pagination = ({
         <IconButton
           icon="chevron-left"
           type="ghost"
-          disabled={currentPage === 1}
+          disabled={currentPage <= 1}
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
@@ -149,7 +156,7 @@ export const Pagination = ({
         <IconButton
           icon="chevron-right"
           type="ghost"
-          disabled={!!totalPages && currentPage === totalPages}
+          disabled={(!!totalPages && currentPage === totalPages) || disableNextButton}
           onClick={onNextClick}
           data-testid="next-btn"
         />

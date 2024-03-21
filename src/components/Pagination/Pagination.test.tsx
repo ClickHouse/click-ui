@@ -42,6 +42,17 @@ describe("Pagination", () => {
     expect(nextBtn).toHaveProperty("disabled", true);
   });
 
+  it("disable next button when disableNextButton is true", () => {
+    const { getByTestId } = renderPagination({
+      currentPage: 2,
+      totalPages: 3,
+      disableNextButton: true,
+      onChange,
+    });
+    const nextBtn = getByTestId("next-btn");
+    expect(nextBtn).toHaveProperty("disabled", true);
+  });
+
   it("disable next button on first page if only one page is present", () => {
     const { getByTestId } = renderPagination({
       currentPage: 1,
@@ -63,7 +74,22 @@ describe("Pagination", () => {
         value: "2",
       },
     });
-    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not call onChange when input is less than 1", () => {
+    const onChange = jest.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      onChange,
+    });
+    const pageInput = getByDisplayValue("1");
+    fireEvent.input(pageInput, {
+      target: {
+        value: "0",
+      },
+    });
+    expect(onChange).toHaveBeenCalledTimes(0);
   });
 
   it("should call onPageSizeChange when pageSize option are selected", () => {
