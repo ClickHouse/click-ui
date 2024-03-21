@@ -28,6 +28,7 @@ export const BigStat = ({
   spacing = "sm",
   state = "default",
   title = "Title",
+  ...props
 }: BigStatProps) => (
   <Wrapper
     $height={height}
@@ -37,6 +38,7 @@ export const BigStat = ({
     $state={state}
     $fillWidth={fillWidth}
     $maxWidth={maxWidth}
+    {...props}
   >
     <Label
       $state={state}
