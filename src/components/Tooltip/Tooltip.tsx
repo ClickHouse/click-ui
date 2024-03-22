@@ -28,17 +28,20 @@ TooltipTrigger.displayName = "TooltipTrigger";
 Tooltip.Trigger = TooltipTrigger;
 interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
   showArrow?: boolean;
+  maxWidth?: string;
 }
 
-const RadixTooltipContent = styled(RadixTooltip.Content)`
+const RadixTooltipContent = styled(RadixTooltip.Content)<{ $maxWidth?: string }>`
   display: flex;
   align-items: flex-start;
-  ${({ theme }) => `
+  ${({ theme, $maxWidth }) => `
     padding: ${theme.click.tooltip.space.y} ${theme.click.tooltip.space.x};
     color: ${theme.click.tooltip.color.label.default};
     background: ${theme.click.tooltip.color.background.default};
     border-radius: ${theme.click.tooltip.radii.all};
     font: ${theme.click.tooltip.typography.label.default};
+    white-space: pre-wrap;
+    ${$maxWidth && `max-width: ${$maxWidth}`};
   `}
 `;
 
@@ -52,12 +55,14 @@ const TooltipContent = ({
   showArrow,
   children,
   sideOffset = 6,
+  maxWidth,
   ...props
 }: TooltipContentProps) => {
   return (
     <RadixTooltip.Portal>
       <RadixTooltipContent
         sideOffset={sideOffset}
+        $maxWidth={maxWidth}
         {...props}
       >
         {showArrow && (
