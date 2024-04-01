@@ -32,6 +32,7 @@ export type { Menu, SplitButtonProps } from "./SplitButton/SplitButton";
 export type { ToastProps } from "./Toast/Toast";
 export type { SelectOptionListItem } from "./Select/common/types";
 export type { MultiSelectProps } from "./Select/MultiSelect";
+export type { CheckboxMultiSelectProps } from "./Select/CheckboxMultiSelect";
 export type { PanelProps } from "./Panel/Panel";
 export type { FlyoutProps, FlyoutFooterProps, FlyoutHeaderProps } from "./Flyout/Flyout";
 export type { DialogContentProps } from "./Dialog/Dialog";

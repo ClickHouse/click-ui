@@ -76,6 +76,8 @@ interface InternalSelectProps
   sortable?: boolean;
   onSelect: (value: string, type?: SelectionType) => void;
   multiple?: boolean;
+  checkbox?: boolean;
+  selectLabel?: string;
   placeholder?: string;
   showSearch?: boolean;
   customText?: string;

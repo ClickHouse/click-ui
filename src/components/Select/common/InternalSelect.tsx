@@ -22,7 +22,7 @@ import {
 } from "./types";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { Portal } from "@radix-ui/react-popover";
-import { Icon, IconButton, Label, Separator } from "@/components";
+import { Checkbox, Icon, IconButton, Label, Separator } from "@/components";
 import {
   SelectPopoverContent,
   SearchBar,
@@ -114,6 +114,8 @@ export const InternalSelect = ({
   sortable = false,
   placeholder = "Select an option",
   multiple,
+  checkbox,
+  selectLabel,
   showSearch = false,
   container,
   ...props
@@ -333,7 +335,11 @@ export const InternalSelect = ({
                   />
                 ) : (
                   <SingleSelectValue
-                    valueNode={valueNode.current.get(selectedValues[0])}
+                    valueNode={
+                      checkbox
+                        ? { label: selectLabel as string, value: selectLabel as string }
+                        : valueNode.current.get(selectedValues[0])
+                    }
                     value={selectedValues[0]}
                   />
                 )}
@@ -405,17 +411,37 @@ export const InternalSelect = ({
                                 key={`select-${id}-group-${index}`}
                                 {...groupProps}
                               >
-                                {itemList.map(({ label, ...itemProps }, itemIndex) => (
-                                  <SelectItem
-                                    key={`select-${id}-group-${index}-item-${itemIndex}`}
-                                    {...itemProps}
-                                  >
-                                    {label}
-                                  </SelectItem>
-                                ))}
+                                {itemList.map(({ label, ...itemProps }, itemIndex) => {
+                                  if (checkbox) {
+                                    return (
+                                      <MultiSelectCheckboxItem
+                                        key={`select-${id}-group-${index}-item-${itemIndex}`}
+                                        {...itemProps}
+                                      >
+                                        {label}
+                                      </MultiSelectCheckboxItem>
+                                    );
+                                  }
+                                  return (
+                                    <SelectItem
+                                      key={`select-${id}-group-${index}-item-${itemIndex}`}
+                                      {...itemProps}
+                                    >
+                                      {label}
+                                    </SelectItem>
+                                  );
+                                })}
                               </SelectGroup>
                             );
                           } else {
+                            if (checkbox) {
+                              return (
+                                <MultiSelectCheckboxItem
+                                  key={`select-${id}-item-${index}`}
+                                  {...props}
+                                />
+                              );
+                            }
                             return (
                               <SelectItem
                                 key={`select-${id}-item-${index}`}
@@ -565,3 +591,81 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 );
 
 SelectItem.displayName = "Select.Item";
+
+export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProps>(
+  (
+    {
+      disabled = false,
+      children,
+      icon,
+      iconDir,
+      label,
+      onMouseOver: onMouseOverProp,
+      onSelect: onSelectProp,
+      separator,
+      value = "",
+      ...props
+    },
+    forwardedRef
+  ) => {
+    const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
+      useOption();
+    const onSelectValue = () => {
+      if (!disabled) {
+        onSelect(value);
+        if (typeof onSelectProp == "function") {
+          onSelectProp(value);
+        }
+      }
+    };
+    const onMouseOver = (e: MouseEvent<HTMLDivElement>) => {
+      if (onMouseOverProp) {
+        onMouseOverProp(e);
+      }
+      if (!disabled) {
+        updateHighlighted(value);
+      }
+    };
+
+    if (isHidden(value)) {
+      return null;
+    }
+    const isChecked = selectedValues.includes(value);
+
+    const onChange = (): void => {
+      onSelect(value);
+    };
+
+    return (
+      <>
+        <GenericMenuItem
+          {...props}
+          data-value={value}
+          onClick={onSelectValue}
+          onMouseOver={onMouseOver}
+          ref={forwardedRef}
+          data-state={isChecked ? "checked" : "unchecked"}
+          data-disabled={disabled ? true : undefined}
+          data-highlighted={highlighted == value ? "true" : undefined}
+          data-testid={`multi-select-checkbox-${value}`}
+          cui-select-item=""
+        >
+          <IconWrapper
+            icon={icon}
+            iconDir={iconDir}
+          >
+            <Checkbox
+              label={label ?? children}
+              checked={isChecked}
+              onClick={onChange}
+              data-testid="multi-select-checkbox"
+            />
+          </IconWrapper>
+        </GenericMenuItem>
+        {separator && <Separator size="sm" />}
+      </>
+    );
+  }
+);
+
+MultiSelectCheckboxItem.displayName = "Select.Item";

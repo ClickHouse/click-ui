@@ -1,33 +1,28 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
+import { SelectOptionProp, SelectionType } from "./common/types";
 import {
   SelectGroup,
-  SelectItem,
-  InternalSelect
+  InternalSelect,
+  MultiSelectCheckboxItem,
 } from "./common/InternalSelect";
 
-export interface MultiSelectProps
-  extends Omit<
-    SelectContainerProps,
-    "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
-  > {
-  defaultValue?: Array<string>;
-  onSelect?: (value: Array<string>, type?: SelectionType) => void;
-  value?: Array<string>;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
+import { MultiSelectProps } from "..";
+
+export interface CheckboxMultiSelectProps extends MultiSelectProps {
+  selectLabel?: string;
 }
 
-export const MultiSelect = ({
+export const CheckboxMultiSelect = ({
   value: valueProp,
   defaultValue,
   onSelect: onSelectProp,
   options,
   children,
   onOpenChange: onOpenChangeProp,
+  selectLabel,
   ...props
-}: MultiSelectProps) => {
+}: CheckboxMultiSelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
     valueProp ?? defaultValue ?? []
   );
@@ -81,16 +76,17 @@ export const MultiSelect = ({
   return (
     <InternalSelect
       onChange={onChange}
-      value={valueProp ?? selectedValues}
+      value={selectedValues}
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
-      multiple
+      checkbox={true}
+      selectLabel={selectLabel}
       {...conditionalProps}
       {...props}
     />
   );
 };
 
-MultiSelect.Group = SelectGroup;
-MultiSelect.Item = SelectItem;
+CheckboxMultiSelect.Group = SelectGroup;
+CheckboxMultiSelect.Item = MultiSelectCheckboxItem;
