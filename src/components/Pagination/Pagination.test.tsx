@@ -106,4 +106,20 @@ describe("Pagination", () => {
     fireEvent.click(getByText("250 rows"));
     expect(onPageSizeChange).toBeCalledTimes(1);
   });
+  it("should disable input if the left and right button are disabled", () => {
+    const onChange = jest.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      totalPages: 1,
+      onChange,
+    });
+    const pageInput = getByDisplayValue("1");
+    expect(pageInput).toHaveProperty("disabled", true);
+    fireEvent.input(pageInput, {
+      target: {
+        value: "2",
+      },
+    });
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });

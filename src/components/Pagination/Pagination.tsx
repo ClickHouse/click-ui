@@ -4,6 +4,7 @@ import {
   MouseEventHandler,
   ReactElement,
   useCallback,
+  useRef,
 } from "react";
 import {
   Container,
@@ -53,6 +54,7 @@ export const Pagination = ({
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ["number", "string"].includes(typeof rowCount);
+  const inputRef = useRef<HTMLInputElement>(null);
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat("en").format(value);
   };
@@ -66,7 +68,7 @@ export const Pagination = ({
 
   const onChange = (value: string) => {
     const valueToNumber = Number(value);
-    if (valueToNumber < 1) {
+    if (valueToNumber < 1 || inputRef.current?.disabled) {
       return;
     }
 
@@ -79,25 +81,38 @@ export const Pagination = ({
     }
   };
 
+  const leftButtonDisabled = currentPage <= 1;
+  const rightButtonDisabled =
+    (!!totalPages && currentPage === totalPages) || disableNextButton;
+
   const onPrevClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     e => {
+      if (leftButtonDisabled) {
+        return;
+      }
+
       onChangeProp(currentPage - 1);
       if (typeof onPrevPageClick === "function") {
         onPrevPageClick(e);
       }
     },
-    [currentPage, onChangeProp, onPrevPageClick]
+    [currentPage, leftButtonDisabled, onChangeProp, onPrevPageClick]
   );
 
   const onNextClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     e => {
+      if (rightButtonDisabled) {
+        return;
+      }
+
       onChangeProp(currentPage + 1);
       if (typeof onNextPageClick === "function") {
         onNextPageClick(e);
       }
     },
-    [currentPage, onChangeProp, onNextPageClick]
+    [currentPage, onChangeProp, onNextPageClick, rightButtonDisabled]
   );
+
   return (
     <Container
       gap={gap}
@@ -124,7 +139,7 @@ export const Pagination = ({
         <IconButton
           icon="chevron-left"
           type="ghost"
-          disabled={currentPage <= 1}
+          disabled={leftButtonDisabled}
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
@@ -133,6 +148,7 @@ export const Pagination = ({
           fillWidth={false}
         >
           <NumberField
+            ref={inputRef}
             onChange={onChange}
             value={currentPage}
             loading={false}
@@ -142,6 +158,7 @@ export const Pagination = ({
             onFocus={onPageNumberFocus}
             hideControls
             onBlur={onPageNumberBlur}
+            disabled={leftButtonDisabled && rightButtonDisabled}
           />
         </Container>
         {!!totalPages && (
@@ -156,7 +173,7 @@ export const Pagination = ({
         <IconButton
           icon="chevron-right"
           type="ghost"
-          disabled={(!!totalPages && currentPage === totalPages) || disableNextButton}
+          disabled={rightButtonDisabled}
           onClick={onNextClick}
           data-testid="next-btn"
         />
