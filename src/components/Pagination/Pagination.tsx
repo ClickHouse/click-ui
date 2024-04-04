@@ -98,6 +98,11 @@ export const Pagination = ({
     },
     [currentPage, onChangeProp, onNextPageClick]
   );
+
+  const leftButtonDisabled = currentPage <= 1;
+  const rightButtonDisabled =
+    (!!totalPages && currentPage === totalPages) || disableNextButton;
+
   return (
     <Container
       gap={gap}
@@ -124,7 +129,7 @@ export const Pagination = ({
         <IconButton
           icon="chevron-left"
           type="ghost"
-          disabled={currentPage <= 1}
+          disabled={leftButtonDisabled}
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
@@ -142,6 +147,7 @@ export const Pagination = ({
             onFocus={onPageNumberFocus}
             hideControls
             onBlur={onPageNumberBlur}
+            disabled={leftButtonDisabled || rightButtonDisabled}
           />
         </Container>
         {!!totalPages && (
@@ -156,7 +162,7 @@ export const Pagination = ({
         <IconButton
           icon="chevron-right"
           type="ghost"
-          disabled={(!!totalPages && currentPage === totalPages) || disableNextButton}
+          disabled={rightButtonDisabled}
           onClick={onNextClick}
           data-testid="next-btn"
         />
