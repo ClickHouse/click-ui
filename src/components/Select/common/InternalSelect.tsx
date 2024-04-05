@@ -598,7 +598,6 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
       disabled = false,
       children,
       icon,
-      iconDir,
       label,
       onMouseOver: onMouseOverProp,
       onSelect: onSelectProp,
@@ -652,7 +651,7 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
         >
           <IconWrapper
             icon={icon}
-            iconDir={iconDir}
+            iconDir="end"
           >
             <Checkbox
               label={label ?? children}
