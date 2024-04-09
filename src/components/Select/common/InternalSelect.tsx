@@ -598,6 +598,7 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
       disabled = false,
       children,
       icon,
+      iconDir = "end",
       label,
       onMouseOver: onMouseOverProp,
       onSelect: onSelectProp,
@@ -649,17 +650,56 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
           data-testid={`multi-select-checkbox-${value}`}
           cui-select-item=""
         >
-          <IconWrapper
-            icon={icon}
-            iconDir="end"
-          >
+          {icon && iconDir === "start" && (
             <Checkbox
-              label={label ?? children}
               checked={isChecked}
-              onClick={onChange}
               data-testid="multi-select-checkbox"
+              disabled={disabled}
+              label={
+                label ? (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Icon
+                      name={icon}
+                      size="sm"
+                    />
+                    {label}
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <Icon
+                      name={icon}
+                      size="sm"
+                    />
+                    {children}
+                  </div>
+                )
+              }
+              onClick={onChange}
             />
-          </IconWrapper>
+          )}
+          {icon && iconDir === "end" && (
+            <IconWrapper
+              icon={icon}
+              iconDir="end"
+            >
+              <Checkbox
+                checked={isChecked}
+                data-testid="multi-select-checkbox"
+                disabled={disabled}
+                label={label ?? children}
+                onClick={onChange}
+              />
+            </IconWrapper>
+          )}
+          {!icon && (
+            <Checkbox
+              checked={isChecked}
+              data-testid="multi-select-checkbox"
+              disabled={disabled}
+              label={label ?? children}
+              onClick={onChange}
+            />
+          )}
         </GenericMenuItem>
         {separator && <Separator size="sm" />}
       </>

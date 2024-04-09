@@ -35,6 +35,7 @@ const CheckboxMultiSelectExample = ({ childrenType, value, ...props }: Props) =>
         <CheckboxMultiSelect.Item
           value="content0"
           icon="user"
+          iconDir="start"
         >
           Content0
         </CheckboxMultiSelect.Item>
