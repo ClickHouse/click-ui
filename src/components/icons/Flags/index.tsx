@@ -26,7 +26,7 @@ export type FlagName =
   | "gb"
   | "in"
   | "ie"
-  | "jpn"
+  | "jp"
   | "nl"
   | "sg"
   | "sw"
@@ -47,7 +47,7 @@ export const FlagList = {
   gb: GreatBritain,
   ie: Ireland,
   in: India,
-  jpn: Japan,
+  jp: Japan,
   nl: Netherlands,
   sg: Singapore,
   za: SouthAfrica,
