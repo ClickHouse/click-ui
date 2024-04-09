@@ -20,7 +20,7 @@ const CheckboxMultiSelectExample = ({ childrenType, value, ...props }: Props) =>
         value={selectedValues}
         options={selectOptions}
         onSelect={value => setSelectedValues(value)}
-        selectLabel="Columns"
+        selectLabel="Columns;"
         {...props}
       />
     );
@@ -73,6 +73,7 @@ export default {
     showCheck: { control: "boolean" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
+    selectLabel: { control: "text" },
   },
 };
 

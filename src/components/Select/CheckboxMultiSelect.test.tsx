@@ -100,17 +100,21 @@ describe("CheckboxCheckboxMultiSelect", () => {
     const selectTrigger = getByTestId("select-trigger");
     selectTrigger && fireEvent.click(selectTrigger);
 
-    expect(screen.getByTestId("multi-select-checkbox-content0")).toHaveAttribute(
+    expect(
+      screen
+        .getByTestId("multi-select-checkbox-content0")
+        .querySelector("[role='checkbox']")
+    ).toHaveAttribute("data-state", "checked");
+
+    const content3 = screen.getByTestId("multi-select-checkbox-content3");
+    expect(content3.querySelector("[role='checkbox']")).toHaveAttribute(
       "data-state",
-      "checked"
+      "unchecked"
     );
 
-    const content2 = screen.getByTestId("multi-select-checkbox-content2");
-    expect(content2).toHaveAttribute("data-state", "unchecked");
-
-    const checkbox = content2.querySelector("[data-testid='multi-select-checkbox']");
+    const checkbox = content3.querySelector("[role='checkbox']");
     checkbox && fireEvent.click(checkbox);
-    expect(screen.getByTestId("multi-select-checkbox-content2")).toHaveAttribute(
+    expect(await content3.querySelector("[role='checkbox']")).toHaveAttribute(
       "data-state",
       "checked"
     );

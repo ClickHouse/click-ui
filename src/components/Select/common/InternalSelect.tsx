@@ -336,7 +336,7 @@ export const InternalSelect = ({
                 ) : (
                   <SingleSelectValue
                     valueNode={
-                      checkbox
+                      checkbox && selectLabel
                         ? { label: selectLabel as string, value: selectLabel as string }
                         : valueNode.current.get(selectedValues[0])
                     }
@@ -644,7 +644,6 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
           ref={forwardedRef}
-          data-state={isChecked ? "checked" : "unchecked"}
           data-disabled={disabled ? true : undefined}
           data-highlighted={highlighted == value ? "true" : undefined}
           data-testid={`multi-select-checkbox-${value}`}
