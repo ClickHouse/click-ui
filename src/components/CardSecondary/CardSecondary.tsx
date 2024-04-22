@@ -92,20 +92,24 @@ const Wrapper = styled.div<{
     }
   }
 
-  &[disabled],
-  &[disabled]:hover,
-  &[disabled]:active {
-    background-color: ${({ theme }) =>
-      theme.click.card.secondary.color.background.disabled};
-    color: ${({ theme }) => theme.click.card.secondary.color.title.disabled};
-    border: 1px solid ${({ theme }) => theme.click.card.secondary.color.stroke.disabled};
+  ${({ $disabled, theme }) =>
+    $disabled &&
+    `
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: ${theme.click.card.secondary.color.background.disabled};
+    color: ${theme.click.card.secondary.color.title.disabled};
+    border: 1px solid ${theme.click.card.secondary.color.stroke.disabled};
     cursor: not-allowed;
 
     ${LinkText},
     ${LinkArrow} {
-      color: ${({ theme }) => theme.click.card.secondary.color.link.disabled};
+      color: ${theme.click.card.secondary.color.link.disabled};
     }
   }
+  `}
 `;
 
 export const CardSecondary = ({
