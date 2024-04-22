@@ -39,13 +39,11 @@
         "stroke": {
           "default": {
             "value": "{palette.neutral.712}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "muted": {
             "value": "{palette.neutral.712}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "intense": {
             "value": "{palette.neutral.700}",
@@ -2302,11 +2300,19 @@
                 "muted": {
                   "value": "{click.global.color.text.muted}",
                   "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.button.basic.color.danger.text.disabled}",
+                  "type": "color"
                 }
               },
               "icon": {
                 "default": {
                   "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.sidebar.main.navigation.item.color.text.disabled}",
                   "type": "color"
                 }
               }
@@ -2335,6 +2341,10 @@
                   "value": "{click.global.color.text.muted}",
                   "type": "color"
                 },
+                "disabled": {
+                  "value": "{click.sidebar.main.navigation.item.color.text.disabled}",
+                  "type": "color"
+                },
                 "hover": {
                   "value": "{click.sidebar.main.navigation.subItem.color.text.active}",
                   "type": "color"
@@ -2346,6 +2356,10 @@
               },
               "background": {
                 "default": {
+                  "value": "{palette.utility.transparent}",
+                  "type": "color"
+                },
+                "disabled": {
                   "value": "{palette.utility.transparent}",
                   "type": "color"
                 },
@@ -3868,13 +3882,11 @@
       "stroke": {
         "default": {
           "value": "{palette.neutral.712}",
-          "type": "color",
-          "$extensions": {}
+          "type": "color"
         },
         "muted": {
           "value": "{palette.neutral.712}",
-          "type": "color",
-          "$extensions": {}
+          "type": "color"
         },
         "intense": {
           "value": "{palette.neutral.700}",
