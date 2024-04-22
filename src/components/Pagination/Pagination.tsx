@@ -59,10 +59,14 @@ export const Pagination = ({
     return new Intl.NumberFormat("en").format(value);
   };
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
-    if (e.key === "ArrowUp" || e.key === "ArrowRight") {
+    const isInputEnabled = !inputRef.current?.disabled;
+    if ((e.key === "ArrowUp" || e.key === "ArrowRight") && isInputEnabled) {
       onChangeProp(currentPage + 1);
     } else if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
-      onChangeProp(currentPage - 1);
+      const newPage = currentPage - 1;
+      if (newPage > 0 && isInputEnabled) {
+        onChangeProp(newPage);
+      }
     }
   };
 
