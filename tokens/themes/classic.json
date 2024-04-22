@@ -101,11 +101,19 @@
                 "muted": {
                   "value": "{click.global.color.text.muted}",
                   "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.button.basic.color.danger.text.disabled}",
+                  "type": "color"
                 }
               },
               "icon": {
                 "default": {
                   "value": "{palette.indigo.100}",
+                  "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.sidebar.main.navigation.item.color.text.disabled}",
                   "type": "color"
                 }
               }
