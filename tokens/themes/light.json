@@ -2999,6 +2999,16 @@
                   "value": "{palette.utility.transparent}",
                   "type": "color"
                 }
+              },
+              "icon": {
+                "default": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.sidebar.main.navigation.item.color.text.disabled}",
+                  "type": "color"
+                }
               }
             }
           },
@@ -3015,23 +3025,31 @@
         }
       },
       "sqlSidebar": {
-        "color": {
-          "background": {
-            "default": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color"
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
-            }
-          }
-        },
         "navigation": {
           "item": {
             "color": {
+              "text": {
+                "disabled": {
+                  "value": "{click.button.basic.color.danger.text.disabled}",
+                  "type": "color"
+                },
+                "default": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "hover": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "active": {
+                  "value": "{click.global.color.text.default}",
+                  "type": "color"
+                },
+                "muted": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                }
+              },
               "background": {
                 "default": {
                   "value": "{palette.utility.transparent}",
@@ -3052,24 +3070,6 @@
                 },
                 "active": {
                   "value": "{palette.slate.100}",
-                  "type": "color"
-                }
-              },
-              "text": {
-                "default": {
-                  "value": "{click.global.color.text.default}",
-                  "type": "color"
-                },
-                "hover": {
-                  "value": "{click.global.color.text.default}",
-                  "type": "color"
-                },
-                "active": {
-                  "value": "{click.global.color.text.default}",
-                  "type": "color"
-                },
-                "muted": {
-                  "value": "{click.global.color.text.muted}",
                   "type": "color"
                 }
               },
@@ -3111,6 +3111,10 @@
                 "active": {
                   "value": "{click.global.color.text.default}",
                   "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.sidebar.main.navigation.item.color.icon.disabled}",
+                  "type": "color"
                 }
               },
               "background": {
@@ -3137,6 +3141,20 @@
                   "type": "color"
                 }
               }
+            }
+          }
+        },
+        "color": {
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.muted}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
             }
           }
         }
