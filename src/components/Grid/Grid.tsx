@@ -197,11 +197,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
         if(onCopyProp) {
-          await  onCopyProp(selection)
+          await  onCopyProp(selection, focus)
         }
       }
       return result;
-    }, [onCopyProp, selection]);
+    }, [onCopyProp, selection, focus]);
 
     const onCopy: () => Promise<void> = typeof onCopyProp === "function" ? customOnCopy: defaultOnCopy;
 
