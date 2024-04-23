@@ -341,6 +341,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
     useEffect(() => {
       clearSelectionAndFocus(true);
+      gridRef.current?.resetAfterColumnIndex(0);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rowStart]);
 
