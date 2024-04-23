@@ -137,6 +137,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onMouseMove: onMouseMoveProp,
       showBorder = false,
       onCopy: onCopyProp,
+      onCopyCallback,
       onContextMenu: onContextMenuProp,
       forwardedGridRef,
       ...props
@@ -165,6 +166,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           columnCount,
           outerRef: outerRef,
         });
+
+        if (onCopyCallback)  {
+          onCopyCallback(true);
+        }
         if (showToast) {
           createToast({
             title: "Copied successfully",
@@ -174,6 +179,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         }
       } catch (e) {
         console.error(e);
+
+        if (onCopyCallback)  {
+          onCopyCallback(false);
+        }
+
         if (showToast) {
           createToast({
             title: "Failed to copy",
@@ -182,7 +192,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           });
         }
       }
-    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast]);
+    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast, onCopyCallback]);
 
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
