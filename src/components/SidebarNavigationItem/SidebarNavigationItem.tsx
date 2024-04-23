@@ -6,6 +6,7 @@ import { IconWrapper } from "../Collapsible/IconWrapper";
 export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
   selected?: boolean;
+  disabled?: boolean;
   level?: number;
   icon?: IconName;
   iconDir?: HorizontalDirection;
@@ -13,11 +14,15 @@ export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElemen
 }
 
 const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
-  ({ label, level = 0, icon, selected, iconDir, type = "main", ...props }, ref) => {
+  (
+    { label, level = 0, icon, selected, iconDir, disabled, type = "main", ...props },
+    ref
+  ) => {
     return (
       <SidebarItemWrapper
         $level={level}
         data-selected={selected}
+        $disabled={disabled}
         $type={type}
         ref={ref}
         {...props}
@@ -37,6 +42,7 @@ export const SidebarItemWrapper = styled.div<{
   $collapsible?: boolean;
   $level: number;
   $type: "main" | "sqlSidebar";
+  $disabled?: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -48,8 +54,8 @@ export const SidebarItemWrapper = styled.div<{
   white-space: nowrap;
   overflow: hidden;
   flex-wrap: nowrap;
-  cursor: pointer;
-  ${({ theme, $collapsible = false, $level, $type }) => {
+
+  ${({ $disabled, theme, $collapsible = false, $level, $type }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `
     padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
@@ -64,21 +70,43 @@ export const SidebarItemWrapper = styled.div<{
     background-color: ${
       theme.click.sidebar[$type].navigation[itemType].color.background.default
     };
-    color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
-    &:hover, &:focus {
-      font: ${theme.click.sidebar.navigation[itemType].typography.hover};
-      background-color: ${
-        theme.click.sidebar[$type].navigation[itemType].color.background.hover
+    color: ${
+      $disabled
+        ? theme.click.sidebar[$type].navigation[itemType].color.text.disabled
+        : theme.click.sidebar[$type].navigation[itemType].color.text.default
+    };
+    span a {
+      color: ${
+        $disabled
+          ? theme.click.sidebar[$type].navigation[itemType].color.text.disabled
+          : theme.click.sidebar[$type].navigation[itemType].color.text.default
       };
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
+      cursor: ${$disabled ? "not-allowed" : "pointer"};
+      text-decoration: none;
     }
-
-    &:active, &[data-selected="true"]  {
-      font: ${theme.click.sidebar.navigation[itemType].typography.active};
-      background-color: ${
-        theme.click.sidebar[$type].navigation[itemType].color.background.active
-      };
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
+    cursor: ${$disabled ? "not-allowed" : "pointer"};
+    pointer-events: all;
+    ${
+      $disabled
+        ? `
+          &:hover {
+            pointer-events: none;
+          }
+        `
+        : `
+          &:hover, &:focus {
+            font: ${theme.click.sidebar.navigation[itemType].typography.hover};
+            background-color: ${theme.click.sidebar[$type].navigation[itemType].color.background.hover};
+            color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
+            pointer-events: auto;
+          }
+          &:active, &[data-selected="true"] {
+            font: ${theme.click.sidebar.navigation[itemType].typography.active};
+            background-color: ${theme.click.sidebar[$type].navigation[itemType].color.background.active};
+            color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
+            pointer-events: all;
+          }
+        `
     }
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
@@ -90,29 +118,15 @@ export const SidebarItemWrapper = styled.div<{
         : theme.click.image.sm.size.width
     };
       font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
-
       &:hover, &:focus {
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
       }
-
       &:active, &[data-selected="true"] {
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
       }
     }
   `;
   }}
-  a {
-    color: inherit;
-    text-decoration: none;
-
-    &:active {
-      color: inherit;
-    }
-  }
-  &:hover [data-trigger-icon],
-  [data-open="true"][data-trigger-icon] {
-    visibility: visible;
-  }
 `;
 
 export { SidebarNavigationItem };

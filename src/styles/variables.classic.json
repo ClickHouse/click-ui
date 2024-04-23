@@ -461,10 +461,12 @@
                 "default": "#f6f7fa",
                 "hover": "#ffffff",
                 "active": "#ffffff",
-                "muted": "#696e79"
+                "muted": "#696e79",
+                "disabled": "#a0a0a0"
               },
               "icon": {
-                "default": "#e4e2e9"
+                "default": "#e4e2e9",
+                "disabled": "#a0a0a0"
               }
             },
             "background": {
@@ -535,13 +537,6 @@
               }
             }
           },
-          "title": {
-            "color": {
-              "default": "#696e79",
-              "hover": "#696e79",
-              "active": "#696e79"
-            }
-          },
           "subItem": {
             "color": {
               "text": {
@@ -554,6 +549,13 @@
                 "hover": "lch(91.6 1.1 266 / 0.6)",
                 "active": "rgba(0,0,0,0)"
               }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#696e79",
+              "hover": "#696e79",
+              "active": "#696e79"
             }
           },
           "dragControl": {

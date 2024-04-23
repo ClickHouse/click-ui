@@ -883,10 +883,12 @@
                 "default": "#ffffff",
                 "hover": "#ffffff",
                 "active": "#ffffff",
-                "muted": "#b3b6bd"
+                "muted": "#b3b6bd",
+                "disabled": "#808080"
               },
               "icon": {
-                "default": "#b3b6bd"
+                "default": "#b3b6bd",
+                "disabled": "#808080"
               }
             }
           },
@@ -901,11 +903,13 @@
             "color": {
               "text": {
                 "default": "#b3b6bd",
+                "disabled": "#808080",
                 "hover": "#ffffff",
                 "active": "#ffffff"
               },
               "background": {
                 "default": "rgba(0,0,0,0)",
+                "disabled": "rgba(0,0,0,0)",
                 "hover": "lch(19.1 0 0)",
                 "active": "rgba(0,0,0,0)"
               }
@@ -941,23 +945,19 @@
                 "default": "#ffffff",
                 "hover": "#ffffff",
                 "active": "#ffffff",
-                "muted": "#b3b6bd"
+                "muted": "#b3b6bd",
+                "disabled": "#808080"
               },
               "icon": {
-                "default": "#b3b6bd"
+                "default": "#b3b6bd",
+                "disabled": "#808080"
               }
-            }
-          },
-          "title": {
-            "color": {
-              "default": "#b3b6bd",
-              "hover": "#b3b6bd",
-              "active": "#b3b6bd"
             }
           },
           "subItem": {
             "color": {
               "text": {
+                "disabled": "#808080",
                 "default": "#b3b6bd",
                 "hover": "#ffffff",
                 "active": "#ffffff"
@@ -967,6 +967,13 @@
                 "hover": "lch(19.1 0 0)",
                 "active": "rgba(0,0,0,0)"
               }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#b3b6bd",
+              "hover": "#b3b6bd",
+              "active": "#b3b6bd"
             }
           },
           "dragControl": {
