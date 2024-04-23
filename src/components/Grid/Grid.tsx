@@ -193,7 +193,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       return result;
     }, [onCopyProp, selection]);
 
-    const onCopy: () => Promise<void> = typeof onCopyProp === "function" ?  customOnCopy: defaultOnCopy;
+    const onCopy: () => Promise<void> = typeof onCopyProp === "function" ? customOnCopy: defaultOnCopy;
 
     const defaultMenuOptions = [
       {
