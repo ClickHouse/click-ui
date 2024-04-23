@@ -7,6 +7,7 @@ import {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -153,8 +154,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         type: "empty",
       }
     );
-    const onCopy = useCallback(async () => {
-      let isCopied = false;
+
+    const defaultOnCopy: () => Promise<void> = useCallback(async () => {
       try {
         await copyGridElements({
           cell,
@@ -164,7 +165,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           columnCount,
           outerRef: outerRef,
         });
-        isCopied = true;
         if (showToast) {
           createToast({
             title: "Copied successfully",
@@ -181,11 +181,19 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
             type: "danger",
           });
         }
-        if (typeof onCopyProp === "function") {
-          onCopyProp(isCopied);
+      }
+    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast]);
+
+    const customOnCopy: () => Promise<void> = useMemo(() => {
+      const result = async () => {
+        if(onCopyProp) {
+          await  onCopyProp(selection)
         }
       }
-    }, [cell, columnCount, focus, focusProp, onCopyProp, rowCount, selection, showToast]);
+      return result;
+    }, [onCopyProp, selection]);
+
+    const onCopy: () => Promise<void> = typeof onCopyProp === "function" ?  customOnCopy: defaultOnCopy;
 
     const defaultMenuOptions = [
       {

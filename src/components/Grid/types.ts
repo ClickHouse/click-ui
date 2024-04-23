@@ -198,7 +198,7 @@ export interface GridProps
   onMouseDown?: MouseEventHandler<HTMLDivElement>;
   onMouseMove?: MouseEventHandler<HTMLDivElement>;
   showBorder?: boolean;
-  onCopy?: (isCopied: boolean) => void | Promise<void>;
+  onCopy?: (selection: SelectedRegion) => void | Promise<void>;
   onContextMenu?: MouseEventHandler<HTMLDivElement>;
   forwardedGridRef?: MutableRefObject<VariableSizeGrid>;
 }
