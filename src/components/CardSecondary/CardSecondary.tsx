@@ -68,7 +68,6 @@ const LinkArrow = styled(ArrowContainer)``;
 
 const Wrapper = styled.div<{
   $hasShadow?: boolean;
-  $disabled?: boolean;
 }>`
   background-color: ${({ theme }) => theme.click.card.secondary.color.background.default};
   border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
@@ -92,24 +91,22 @@ const Wrapper = styled.div<{
     }
   }
 
-  ${({ $disabled, theme }) =>
-    $disabled &&
-    `
-  &,
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: ${theme.click.card.secondary.color.background.disabled};
-    color: ${theme.click.card.secondary.color.title.disabled};
-    border: 1px solid ${theme.click.card.secondary.color.stroke.disabled};
-    cursor: not-allowed;
+  &[aria-disabled="true"],
+  &[aria-disabled="true"]:hover,
+  &[aria-disabled="true"]:focus,
+  &[aria-disabled="true"]:active {
+    ${({ theme }) => `
+      background-color: ${theme.click.card.secondary.color.background.disabled};
+      color: ${theme.click.card.secondary.color.title.disabled};
+      border: 1px solid ${theme.click.card.secondary.color.stroke.disabled};
+      cursor: not-allowed;
 
-    ${LinkText},
-    ${LinkArrow} {
-      color: ${theme.click.card.secondary.color.link.disabled};
-    }
+      ${LinkText},
+      ${LinkArrow} {
+        color: ${theme.click.card.secondary.color.link.disabled};
+      }
+    `}
   }
-  `}
 `;
 
 export const CardSecondary = ({
@@ -126,7 +123,7 @@ export const CardSecondary = ({
 }: CardSecondaryProps) => {
   return (
     <Wrapper
-      $disabled={disabled}
+      aria-disabled={disabled}
       tabIndex={0}
       $hasShadow={hasShadow}
       {...props}
