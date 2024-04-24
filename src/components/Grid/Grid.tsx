@@ -254,7 +254,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       [onFocusChangeProp, focusProp]
     );
 
-    const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
+    const rowNumberWidth = ((rowStart + rowCount).toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
     const { getColumnHorizontalPosition, onColumnResize, columnWidth, initColumnSize } =
       useColumns({
