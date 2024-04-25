@@ -22,9 +22,9 @@ const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemPr
       <SidebarItemWrapper
         $level={level}
         data-selected={selected}
-        $disabled={disabled}
         $type={type}
         ref={ref}
+        aria-disabled={disabled}
         {...props}
       >
         <IconWrapper
@@ -42,7 +42,6 @@ export const SidebarItemWrapper = styled.div<{
   $collapsible?: boolean;
   $level: number;
   $type: "main" | "sqlSidebar";
-  $disabled?: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -55,7 +54,7 @@ export const SidebarItemWrapper = styled.div<{
   overflow: hidden;
   flex-wrap: nowrap;
 
-  ${({ $disabled, theme, $collapsible = false, $level, $type }) => {
+  ${({ theme, $collapsible = false, $level, $type }) => {
     const itemType = $level === 0 ? "item" : "subItem";
     return `
     padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
@@ -70,44 +69,51 @@ export const SidebarItemWrapper = styled.div<{
     background-color: ${
       theme.click.sidebar[$type].navigation[itemType].color.background.default
     };
-    color: ${
-      $disabled
-        ? theme.click.sidebar[$type].navigation[itemType].color.text.disabled
-        : theme.click.sidebar[$type].navigation[itemType].color.text.default
-    };
+    color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
     span a {
-      color: ${
-        $disabled
-          ? theme.click.sidebar[$type].navigation[itemType].color.text.disabled
-          : theme.click.sidebar[$type].navigation[itemType].color.text.default
-      };
-      cursor: ${$disabled ? "not-allowed" : "pointer"};
+      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
+    cursor: pointer;
       text-decoration: none;
     }
-    cursor: ${$disabled ? "not-allowed" : "pointer"};
+    cursor: pointer;
     pointer-events: all;
-    ${
-      $disabled
-        ? `
-          &:hover {
-            pointer-events: none;
-          }
-        `
-        : `
-          &:hover, &:focus {
-            font: ${theme.click.sidebar.navigation[itemType].typography.hover};
-            background-color: ${theme.click.sidebar[$type].navigation[itemType].color.background.hover};
-            color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
-            pointer-events: auto;
-          }
-          &:active, &[data-selected="true"] {
-            font: ${theme.click.sidebar.navigation[itemType].typography.active};
-            background-color: ${theme.click.sidebar[$type].navigation[itemType].color.background.active};
-            color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
-            pointer-events: all;
-          }
-        `
+
+    &:hover, &:focus {
+      font: ${theme.click.sidebar.navigation[itemType].typography.hover};
+      background-color: ${
+        theme.click.sidebar[$type].navigation[itemType].color.background.hover
+      };
+      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
+      pointer-events: auto;
     }
+
+    &:active, &[data-selected="true"] {
+      font: ${theme.click.sidebar.navigation[itemType].typography.active};
+      background-color: ${
+        theme.click.sidebar[$type].navigation[itemType].color.background.active
+      };
+      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
+      pointer-events: all;
+    }
+
+    &[aria-disabled=true],
+    &[aria-disabled=true]:hover,
+    &[aria-disabled=true]:focus,
+    &[aria-disabled=true]:active,
+    &[aria-disabled=true]:focus-within,
+    &[aria-disabled=true][data-selected="true"] {
+
+      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.disabled};
+      pointer-events: none;
+
+      span a {
+        color: ${theme.click.sidebar[$type].navigation[itemType].color.text.disabled};
+        cursor: not-allowed;
+        text-decoration: none;
+      }
+      cursor: not-allowed;
+    }
+
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
       padding: ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
