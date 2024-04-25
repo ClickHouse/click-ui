@@ -879,10 +879,12 @@
                 "default": "#161517",
                 "hover": "#161517",
                 "active": "#161517",
-                "muted": "#696e79"
+                "muted": "#696e79",
+                "disabled": "#a0a0a0"
               },
               "icon": {
-                "default": "#696e79"
+                "default": "#696e79",
+                "disabled": "#a0a0a0"
               }
             }
           },
@@ -897,13 +899,19 @@
             "color": {
               "text": {
                 "default": "#696e79",
+                "disabled": "#a0a0a0",
                 "hover": "#161517",
                 "active": "#161517"
               },
               "background": {
                 "default": "rgba(0,0,0,0)",
+                "disabled": "rgba(0,0,0,0)",
                 "hover": "lch(91.6 1.1 266 / 0.6)",
                 "active": "rgba(0,0,0,0)"
+              },
+              "icon": {
+                "default": "#696e79",
+                "disabled": "#a0a0a0"
               }
             }
           },
@@ -937,23 +945,18 @@
                 "default": "#161517",
                 "hover": "#161517",
                 "active": "#161517",
-                "muted": "#696e79"
+                "muted": "#696e79",
+                "disabled": "#a0a0a0"
               },
               "icon": {
                 "default": "#696e79"
               }
             }
           },
-          "title": {
-            "color": {
-              "default": "#696e79",
-              "hover": "#696e79",
-              "active": "#696e79"
-            }
-          },
           "subItem": {
             "color": {
               "text": {
+                "disabled": "#a0a0a0",
                 "default": "#696e79",
                 "hover": "#161517",
                 "active": "#161517"
@@ -963,6 +966,13 @@
                 "hover": "lch(91.6 1.1 266 / 0.6)",
                 "active": "rgba(0,0,0,0)"
               }
+            }
+          },
+          "title": {
+            "color": {
+              "default": "#696e79",
+              "hover": "#696e79",
+              "active": "#696e79"
             }
           },
           "dragControl": {

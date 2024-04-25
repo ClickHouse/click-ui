@@ -16,6 +16,7 @@ export const Playground = {
   args: {
     icon: "code-in-square",
     selected: false,
-    label: <a href="/profile">Untitled Query</a>,
+    disabled: false,
+    label: <a href="https://clickhouse.com/">Untitled Query</a>,
   },
 };

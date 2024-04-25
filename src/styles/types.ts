@@ -1798,10 +1798,12 @@
                 "default": string,
                 "hover": string,
                 "active": string,
-                "muted": string
+                "muted": string,
+                "disabled": string
               },
               "icon": {
-                "default": string
+                "default": string,
+                "disabled": string
               }
             }
           },
@@ -1816,13 +1818,19 @@
             "color": {
               "text": {
                 "default": string,
+                "disabled": string,
                 "hover": string,
                 "active": string
               },
               "background": {
                 "default": string,
+                "disabled": string,
                 "hover": string,
                 "active": string
+              },
+              "icon": {
+                "default": string,
+                "disabled": string
               }
             }
           },
@@ -1856,23 +1864,19 @@
                 "default": string,
                 "hover": string,
                 "active": string,
-                "muted": string
+                "muted": string,
+                "disabled": string
               },
               "icon": {
-                "default": string
+                "default": string,
+                "disabled": string
               }
-            }
-          },
-          "title": {
-            "color": {
-              "default": string,
-              "hover": string,
-              "active": string
             }
           },
           "subItem": {
             "color": {
               "text": {
+                "disabled": string,
                 "default": string,
                 "hover": string,
                 "active": string
@@ -1882,6 +1886,13 @@
                 "hover": string,
                 "active": string
               }
+            }
+          },
+          "title": {
+            "color": {
+              "default": string,
+              "hover": string,
+              "active": string
             }
           },
           "dragControl": {
