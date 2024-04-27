@@ -56,6 +56,7 @@ export type {
   SelectionFocus,
   SelectionAction,
   GridContextMenuItemProps,
+  Rectangle
 } from "./Grid/types";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";

@@ -7,6 +7,7 @@ import {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -136,6 +137,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onMouseMove: onMouseMoveProp,
       showBorder = false,
       onCopy: onCopyProp,
+      onCopyCallback,
       onContextMenu: onContextMenuProp,
       forwardedGridRef,
       ...props
@@ -153,8 +155,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         type: "empty",
       }
     );
-    const onCopy = useCallback(async () => {
-      let isCopied = false;
+
+    const defaultOnCopy: () => Promise<void> = useCallback(async () => {
       try {
         await copyGridElements({
           cell,
@@ -164,7 +166,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           columnCount,
           outerRef: outerRef,
         });
-        isCopied = true;
+
+        if (onCopyCallback)  {
+          onCopyCallback(true);
+        }
         if (showToast) {
           createToast({
             title: "Copied successfully",
@@ -174,6 +179,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         }
       } catch (e) {
         console.error(e);
+
+        if (onCopyCallback)  {
+          onCopyCallback(false);
+        }
+
         if (showToast) {
           createToast({
             title: "Failed to copy",
@@ -181,11 +191,19 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
             type: "danger",
           });
         }
-        if (typeof onCopyProp === "function") {
-          onCopyProp(isCopied);
+      }
+    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast, onCopyCallback]);
+
+    const customOnCopy: () => Promise<void> = useMemo(() => {
+      const result = async () => {
+        if(onCopyProp) {
+          await  onCopyProp(selection, focus)
         }
       }
-    }, [cell, columnCount, focus, focusProp, onCopyProp, rowCount, selection, showToast]);
+      return result;
+    }, [onCopyProp, selection, focus]);
+
+    const onCopy: () => Promise<void> = typeof onCopyProp === "function" ? customOnCopy: defaultOnCopy;
 
     const defaultMenuOptions = [
       {
@@ -236,7 +254,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       [onFocusChangeProp, focusProp]
     );
 
-    const rowNumberWidth = (rowCount.toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
+    const rowNumberWidth = ((rowStart + rowCount).toString().length + 2) * 8 + 3; // 128 includes 8px left and right padding and (8px + 8px + 8x(1ch) * rowcount) and 3 is for avoiding ellipsis
 
     const { getColumnHorizontalPosition, onColumnResize, columnWidth, initColumnSize } =
       useColumns({

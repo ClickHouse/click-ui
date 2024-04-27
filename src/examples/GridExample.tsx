@@ -5,6 +5,7 @@ import {
   SelectedRegion,
   SelectionFocus,
   GridContextMenuItemProps,
+  Pagination,
 } from "..";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
@@ -22,6 +23,7 @@ const GridExample = () => {
     row: 19994,
     column: 17460,
   });
+  const [currentPage, setCurrentPage] = useState(1);
   const rowCount = 20000,
     columnCount = 20000;
 
@@ -40,16 +42,23 @@ const GridExample = () => {
   );
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
-      <Grid
-        rowStart={32}
-        columnCount={columnCount}
-        rowCount={rowCount}
-        cell={Cell}
-        headerHeight={32}
-        getMenuOptions={getMenuOptions}
-        focus={focus}
-        onFocusChange={(row, column) => setFocus({ row, column })}
+    <div>
+      <div style={{ height: 500, width: "100%" }}>
+        <Grid
+          rowStart={currentPage * rowCount}
+          columnCount={columnCount}
+          rowCount={rowCount}
+          cell={Cell}
+          headerHeight={32}
+          getMenuOptions={getMenuOptions}
+          focus={focus}
+          onFocusChange={(row, column) => setFocus({ row, column })}
+        />
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        onChange={setCurrentPage}
+        totalPages={5}
       />
     </div>
   );

@@ -24,7 +24,6 @@ export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
 const Wrapper = styled.div<{
   $size?: CardPrimarySize;
   $hasShadow?: boolean;
-  $disabled?: boolean;
   $isSelected?: boolean;
   $alignContent?: ContentAlignment;
 }>`
@@ -63,27 +62,24 @@ const Wrapper = styled.div<{
     border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
   }
 
-  &[disabled],
-  &[disabled]:hover,
-  &[disabled]:active {
-    background-color: ${({ theme }) =>
-      theme.click.card.primary.color.background.disabled};
-    color: ${({ theme }) => theme.click.card.primary.color.title.disabled};
-    border: 1px solid ${({ theme }) => theme.click.card.primary.color.stroke.disabled};
+  &[aria-disabled="true"],
+  &[aria-disabled="true"]:hover,
+  &[aria-disabled="true"]:focus,
+  &[aria-disabled="true"]:active {
+    ${({ theme }) => `
+    background-color: ${theme.click.card.primary.color.background.disabled};
+    color: ${theme.click.card.primary.color.title.disabled};
+    border: 1px solid ${theme.click.card.primary.color.stroke.disabled};
     cursor: not-allowed;
 
     button {
-      background-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.background.disabled};
-      border-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.stroke.disabled};
+      background-color: ${theme.click.button.basic.color.primary.background.disabled};
+      border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
       &:active {
-        background-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.background.disabled};
-        border-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.stroke.disabled};
+        background-color: ${theme.click.button.basic.color.primary.background.disabled};
+        border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
       }
-    }
+    }`}
   }
 
   ${({ $isSelected, theme }) =>
@@ -163,7 +159,7 @@ export const CardPrimary = ({
       $alignContent={alignContent}
       $hasShadow={hasShadow}
       $size={size}
-      $disabled={disabled}
+      aria-disabled={disabled}
       $isSelected={isSelected}
       tabIndex={0}
       {...props}
