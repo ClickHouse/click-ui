@@ -92,6 +92,28 @@ describe("Pagination", () => {
     expect(onChange).toHaveBeenCalledTimes(0);
   });
 
+  it("should not call onChange when input is greater than totalPages", () => {
+    const onChange = jest.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 99,
+      totalPages: 100,
+      onChange,
+    });
+    const pageInput = getByDisplayValue("99");
+    fireEvent.input(pageInput, {
+      target: {
+        value: "100",
+      },
+    });
+    expect(onChange).toHaveBeenCalledTimes(1);
+    fireEvent.input(pageInput, {
+      target: {
+        value: "101",
+      },
+    });
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
   it("should call onPageSizeChange when pageSize option are selected", () => {
     const onPageSizeChange = jest.fn();
     const { getByText } = renderPagination({
@@ -106,6 +128,7 @@ describe("Pagination", () => {
     fireEvent.click(getByText("250 rows"));
     expect(onPageSizeChange).toBeCalledTimes(1);
   });
+
   it("should disable input if the left and right button are disabled", () => {
     const onChange = jest.fn();
     const { getByDisplayValue } = renderPagination({

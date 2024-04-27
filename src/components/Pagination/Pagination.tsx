@@ -58,17 +58,37 @@ export const Pagination = ({
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat("en").format(value);
   };
+  const leftButtonDisabled = currentPage <= 1;
+  const rightButtonDisabled =
+    (!!totalPages && currentPage === totalPages) || disableNextButton;
+
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
-    if (e.key === "ArrowUp" || e.key === "ArrowRight") {
+    const isInputEnabled = !inputRef.current?.disabled;
+    if (
+      (e.key === "ArrowUp" || e.key === "ArrowRight") &&
+      isInputEnabled &&
+      !rightButtonDisabled
+    ) {
       onChangeProp(currentPage + 1);
-    } else if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
-      onChangeProp(currentPage - 1);
+    } else if (
+      (e.key === "ArrowDown" || e.key === "ArrowLeft") &&
+      isInputEnabled &&
+      !leftButtonDisabled
+    ) {
+      const newPage = currentPage - 1;
+      if (newPage > 0) {
+        onChangeProp(newPage);
+      }
     }
   };
 
   const onChange = (value: string) => {
     const valueToNumber = Number(value);
-    if (valueToNumber < 1 || inputRef.current?.disabled) {
+    if (
+      valueToNumber < 1 ||
+      inputRef.current?.disabled ||
+      (typeof totalPages !== "undefined" ? valueToNumber > totalPages : false)
+    ) {
       return;
     }
 
@@ -80,10 +100,6 @@ export const Pagination = ({
       onPageSizeChangeProp(Number(value));
     }
   };
-
-  const leftButtonDisabled = currentPage <= 1;
-  const rightButtonDisabled =
-    (!!totalPages && currentPage === totalPages) || disableNextButton;
 
   const onPrevClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     e => {
