@@ -43,14 +43,3 @@ export default App
 5. To run Storybook locally, run `npm run storybook` and navigate to https://localhost:6006
 
 Enjoy!
-
-### Creating a release after merging your changes in
-1. Go to /releases, then click the `Draft a new release` button
-   <img width="1624" alt="1" src="https://github.com/ClickHouse/click-ui/assets/146112/0c21a07e-6b26-4446-8c0a-e393a9beb139">
-1. Click the `Choose a new tag` button, then add the next sequential tag. E.g. if the current tag is `0.0.137`, the next tag should be `0.0.138`
-   <img width="1624" alt="2" src="https://github.com/ClickHouse/click-ui/assets/146112/9a206bc8-8585-438f-b23e-9887f7d5d2e5">
-1. Click the `Generate release notes` button.
-   <img width="1624" alt="3" src="https://github.com/ClickHouse/click-ui/assets/146112/03c69dcb-310e-479d-8f72-22a69f3c23c7">
-1. Click the `Publish release` button.
-   <img width="1624" alt="4" src="https://github.com/ClickHouse/click-ui/assets/146112/3e358410-66ce-448e-81f2-72d39920f4ef">
-1. When the [npm library](https://www.npmjs.com/package/@clickhouse/click-ui) shows the correct version in the top left corner, the relase has successfully been published.
