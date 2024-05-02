@@ -77,6 +77,7 @@ export const ICON_NAMES = [
   "horizontal-loading",
   "home",
   "http",
+  "http-monitoring",
   "info-in-circle",
   "information",
   "insert-row",
