@@ -62,6 +62,7 @@ import Gift from "@/components/icons/Gift";
 import Home from "@/components/icons/Home";
 import HorizontalLoading from "@/components/icons/HorizontalLoading";
 import Http from "@/components/icons/Http";
+import HttpMonitoring from "@/components/icons/HttpMonitoring";
 import Integrations from "@/components/icons/Integrations";
 import LightBulb from "@/components/icons/LightBulb";
 import Lightening from "@/components/icons/Lightening";
@@ -198,6 +199,7 @@ export const ICONS_MAP = {
   home: Home,
   "horizontal-loading": HorizontalLoading,
   http: Http,
+  "http-monitoring": HttpMonitoring,
   "info-in-circle": InfoInCircleIcon,
   information: InformationIcon,
   "insert-row": InsertRowIcon,
