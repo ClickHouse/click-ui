@@ -11,7 +11,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { GridOnScrollProps, VariableSizeGrid } from "react-window";
+import {
+  GridOnScrollProps,
+  VariableSizeGrid,
+  GridOnItemsRenderedProps,
+} from "react-window";
 import AutoSizer, { Size } from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
@@ -140,6 +144,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onCopyCallback,
       onContextMenu: onContextMenuProp,
       forwardedGridRef,
+      onItemsRendered: onItemsRenderedProp,
       ...props
     },
     forwardedRef
@@ -167,7 +172,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           outerRef: outerRef,
         });
 
-        if (onCopyCallback)  {
+        if (onCopyCallback) {
           onCopyCallback(true);
         }
         if (showToast) {
@@ -180,7 +185,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       } catch (e) {
         console.error(e);
 
-        if (onCopyCallback)  {
+        if (onCopyCallback) {
           onCopyCallback(false);
         }
 
@@ -192,18 +197,28 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           });
         }
       }
-    }, [cell, columnCount, focus, focusProp, rowCount, selection, showToast, onCopyCallback]);
+    }, [
+      cell,
+      columnCount,
+      focus,
+      focusProp,
+      rowCount,
+      selection,
+      showToast,
+      onCopyCallback,
+    ]);
 
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
-        if(onCopyProp) {
-          await  onCopyProp(selection, focus)
+        if (onCopyProp) {
+          await onCopyProp(selection, focus);
         }
-      }
+      };
       return result;
     }, [onCopyProp, selection, focus]);
 
-    const onCopy: () => Promise<void> = typeof onCopyProp === "function" ? customOnCopy: defaultOnCopy;
+    const onCopy: () => Promise<void> =
+      typeof onCopyProp === "function" ? customOnCopy : defaultOnCopy;
 
     const defaultMenuOptions = [
       {
@@ -729,6 +744,33 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       }
     };
 
+    const lastItemsRenderedProps = useRef<GridOnItemsRenderedProps>();
+    const lastRowStart = useRef(rowStart);
+
+    const onItemsRendered = useCallback(
+      (props: GridOnItemsRenderedProps) => {
+        lastItemsRenderedProps.current = props;
+
+        return onItemsRenderedProp?.({
+          ...props,
+          visibleRowStartIndex: props.visibleRowStartIndex + rowStart,
+          visibleRowStopIndex: props.visibleRowStopIndex + rowStart,
+          overscanRowStartIndex: props.overscanRowStartIndex + rowStart,
+          overscanRowStopIndex: props.overscanRowStopIndex + rowStart,
+        });
+      },
+      [onItemsRenderedProp, rowStart]
+    );
+
+    // handles the case where rowStart changes, make sure to inform caller
+    // of the new visible rows.
+    useEffect(() => {
+      if (lastItemsRenderedProps.current && rowStart !== lastRowStart.current) {
+        onItemsRendered(lastItemsRenderedProps.current);
+        lastRowStart.current = rowStart;
+      }
+    }, [rowStart, onItemsRendered]);
+
     return (
       <ContextMenu
         modal={false}
@@ -778,6 +820,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 onScroll={onScroll}
                 outerRef={outerRef}
                 outerElementType={OuterElementType}
+                onItemsRendered={onItemsRendered}
                 {...props}
               >
                 {Cell}
