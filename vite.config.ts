@@ -8,11 +8,13 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [["babel-plugin-styled-components", { displayName: false }]],
+        plugins: [["babel-plugin-styled-components", { displayName: false, ssr: true }]],
 
         env: {
           development: {
-            plugins: [["babel-plugin-styled-components", { displayName: true }]],
+            plugins: [
+              ["babel-plugin-styled-components", { displayName: true, ssr: true }],
+            ],
           },
         },
       },
