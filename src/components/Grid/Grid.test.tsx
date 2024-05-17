@@ -1,8 +1,7 @@
-import "@testing-library/jest-dom";
-import { CellProps, Grid, GridProps } from "@/components";
-import { renderCUI } from "@/utils/test-utils";
-import { SelectionFocus } from "./types";
-import { ReactNode } from "react";
+import {CellProps, Grid, GridProps} from "@/components";
+import {renderCUI} from "@/utils/test-utils";
+import {SelectionFocus} from "./types";
+import {ReactNode} from "react";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   return (
@@ -35,10 +34,10 @@ interface Props
 }
 type AutoSizerModule = typeof import("react-virtualized-auto-sizer");
 
-jest.mock<AutoSizerModule>("react-virtualized-auto-sizer", () => ({
+vi.mock("react-virtualized-auto-sizer", async () => ({
   __esModule: true,
-  ...jest.requireActual<AutoSizerModule>("react-virtualized-auto-sizer"),
-  default: jest.fn().mockImplementation(({ children }) => {
+  ...(await vi.importActual<AutoSizerModule>("react-virtualized-auto-sizer")),
+  default: vi.fn().mockImplementation(({ children }) => {
     return (children as (size: { width: number; height: number }) => ReactNode)({
       width: 600,
       height: 600,
@@ -47,9 +46,9 @@ jest.mock<AutoSizerModule>("react-virtualized-auto-sizer", () => ({
 }));
 
 describe("Grid", () => {
-  const onColumnResizeTestFn = jest.fn();
-  const onFocusChangeTestFn = jest.fn();
-  const getMenuOptions = jest.fn();
+  const onColumnResizeTestFn = vi.fn();
+  const onFocusChangeTestFn = vi.fn();
+  const getMenuOptions = vi.fn();
   const columnWidthTestFn = () => {
     return 100;
   };

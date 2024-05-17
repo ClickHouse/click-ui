@@ -1,4 +1,4 @@
-import { ProgressBar, ProgressBarProps } from "./ProgressBar";
+import { ProgressBar, ProgressBarProps } from "@/components";
 import { fireEvent } from "@testing-library/react";
 import { renderCUI } from "@/utils/test-utils";
 
@@ -29,7 +29,7 @@ describe("Progress bar", () => {
   });
 
   it("should show close Button if dismissable is true", () => {
-    const onCancel = jest.fn();
+    const onCancel = vi.fn();
     const { queryAllByTestId } = renderPopover({
       type: "default",
       progress: 38,

@@ -8,6 +8,7 @@ import { SvgImageElement } from "@/components/commonElement";
 
 export type PaymentName = "visa" | "mastercard" | "amex" | "paypal";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const PaymentList = {
   visa: Visa,
   mastercard: MasterCard,

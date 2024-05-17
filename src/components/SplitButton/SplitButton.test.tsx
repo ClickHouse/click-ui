@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from "@testing-library/react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import userEvent from "@testing-library/user-event";
-import { Menu, SplitButton } from "./SplitButton";
+import { Menu, SplitButton } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 
 interface Props extends DropdownMenuProps {
@@ -52,14 +52,14 @@ const menuItems: Array<Menu> = [
 
 describe("SplitButton", () => {
   beforeAll(() => {
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
-    global.ResizeObserver = jest.fn().mockImplementation(() => ({
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     }));
   });
-  const mainButtonClick = jest.fn();
+  const mainButtonClick = vi.fn();
   beforeEach(() => {
     mainButtonClick.mockReset();
   });

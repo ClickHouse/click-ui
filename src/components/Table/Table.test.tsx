@@ -51,7 +51,7 @@ describe("Table", () => {
   });
 
   it("should trigger onSelect on clicking checkbox", () => {
-    const onSelect = jest.fn();
+    const onSelect = vi.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({
       isSelectable: true,
       selectedIds: [],
@@ -70,7 +70,7 @@ describe("Table", () => {
   });
 
   it("should trigger onDelete on clicking closeButton", () => {
-    const onDelete = jest.fn();
+    const onDelete = vi.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({
       isSelectable: true,
       onDelete,
@@ -85,7 +85,7 @@ describe("Table", () => {
   });
 
   it("should trigger onEdit on clicking editButton", () => {
-    const onEdit = jest.fn();
+    const onEdit = vi.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({
       isSelectable: true,
       onEdit,

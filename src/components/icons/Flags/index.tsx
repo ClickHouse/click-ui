@@ -38,6 +38,7 @@ export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   size?: IconSize;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const FlagList = {
   au: Australia,
   br: Brazil,

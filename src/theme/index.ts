@@ -14,7 +14,6 @@ export const themes: Record<ThemeName, Theme> = {
 type ThemeName = "dark" | "light" | "classic";
 
 declare module "styled-components" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface DefaultTheme extends Theme {}
 }
 type CUIThemeType = Pick<Theme, "global" | "sizes" | "name">;

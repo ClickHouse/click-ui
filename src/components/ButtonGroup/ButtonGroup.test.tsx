@@ -1,7 +1,6 @@
 import { fireEvent } from "@testing-library/react";
-import { ButtonGroup, ButtonGroupProps } from "./ButtonGroup";
+import { ButtonGroup, ButtonGroupProps } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
-import "@testing-library/jest-dom";
 
 describe("ButtonGroup", () => {
   const renderButtonGroup = (props: ButtonGroupProps) =>
