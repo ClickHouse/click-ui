@@ -42,4 +42,4 @@ export default App
 4. To run ClickUI locally, run `npm run dev` and navigate to http://localhost:5173
 5. To run Storybook locally, run `npm run storybook` and navigate to https://localhost:6006
 
-Enjoy!
+Enjoy
