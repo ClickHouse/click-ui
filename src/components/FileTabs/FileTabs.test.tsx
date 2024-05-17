@@ -1,20 +1,19 @@
 import { fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 import { FileTabs, FileTabStatusType } from "./FileTabs";
 import { renderCUI } from "@/utils/test-utils";
 
 const tabs = ["tab1", "tab2", "tab3"];
 describe("FileTabs", () => {
-  const onReorderTab = jest.fn();
-  const onClose = jest.fn();
-  const onSelect = jest.fn();
+  const onReorderTab = vi.fn();
+  const onClose = vi.fn();
+  const onSelect = vi.fn();
   beforeAll(() => {
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
-    global.ResizeObserver = jest.fn().mockImplementation(() => ({
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     }));
   });
   beforeEach(() => {

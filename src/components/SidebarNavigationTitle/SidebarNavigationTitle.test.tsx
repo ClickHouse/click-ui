@@ -1,9 +1,9 @@
 import { fireEvent } from "@testing-library/react";
-import { SidebarNavigationTitle } from "./SidebarNavigationTitle";
+import { SidebarNavigationTitle } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 describe("SidebarNavigationTitle", () => {
   it("should trigger click", () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
 
     const { queryByTestId } = renderCUI(
       <SidebarNavigationTitle

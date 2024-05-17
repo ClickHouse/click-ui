@@ -1,10 +1,10 @@
 import { fireEvent } from "@testing-library/react";
-import { SidebarCollapsibleTitle } from "./SidebarCollapsibleTitle";
+import { SidebarCollapsibleTitle } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 
 describe("SidebarCollapsibleTitle", () => {
   it("should trigger toggle on clicking trigger", () => {
-    const onOpenChange = jest.fn();
+    const onOpenChange = vi.fn();
     const { queryByTestId } = renderCUI(
       <SidebarCollapsibleTitle
         icon="user"

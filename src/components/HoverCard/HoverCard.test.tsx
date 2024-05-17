@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import { HoverCardProps } from "@radix-ui/react-hover-card";
 import { Checkbox, HoverCard } from "@/components";
 import { fireEvent, waitFor } from "@testing-library/react";

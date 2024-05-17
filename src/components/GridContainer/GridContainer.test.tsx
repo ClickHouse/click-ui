@@ -1,6 +1,5 @@
-import { GridContainer, GridContainerProps } from "./GridContainer";
+import { GridContainer, GridContainerProps } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
-import "@testing-library/jest-dom";
 
 describe("GridContainer", () => {
   const renderContainer = (props: GridContainerProps) =>

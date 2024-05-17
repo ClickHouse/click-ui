@@ -10,11 +10,11 @@ interface Props extends ContextMenuProps {
 
 describe("ContextMenu", () => {
   beforeAll(() => {
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
-    global.ResizeObserver = jest.fn().mockImplementation(() => ({
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     }));
     global.DOMRect = class DOMRect {
       bottom = 0;

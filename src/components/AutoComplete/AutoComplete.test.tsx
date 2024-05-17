@@ -1,15 +1,14 @@
 import { act, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
+import { AutoComplete, AutoCompleteProps } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "../Select/selectOptions";
 describe("AutoComplete", () => {
   beforeAll(() => {
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
-    global.ResizeObserver = jest.fn().mockImplementation(() => ({
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     }));
   });
   const renderAutocomplete = (props: Omit<AutoCompleteProps, "label" | "children">) => {
@@ -77,7 +76,7 @@ describe("AutoComplete", () => {
   });
 
   it("should close autocomplete when focus is on outside content", () => {
-    const onOpenChange = jest.fn();
+    const onOpenChange = vi.fn();
     const { queryByText, getByPlaceholderText } = renderAutocomplete({
       onOpenChange,
     });
@@ -92,7 +91,7 @@ describe("AutoComplete", () => {
   });
 
   it("should always respect given value in select", () => {
-    const onSelect = jest.fn();
+    const onSelect = vi.fn();
     const { queryByText, getByTestId, getByText } = renderAutocomplete({
       value: "content0",
       onSelect,

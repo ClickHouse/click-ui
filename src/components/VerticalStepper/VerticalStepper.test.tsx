@@ -6,10 +6,10 @@ interface Props {
   completed?: Array<number>;
   showItems?: Array<number>;
 }
-const label1Click = jest.fn();
-const label2Click = jest.fn();
-const label3Click = jest.fn();
-const label4Click = jest.fn();
+const label1Click = vi.fn();
+const label2Click = vi.fn();
+const label3Click = vi.fn();
+const label4Click = vi.fn();
 describe("VerticalStepper", () => {
   const renderVerticalStepper = ({
     activeIndex = 1,

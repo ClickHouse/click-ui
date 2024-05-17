@@ -4,8 +4,7 @@ import {
   queryByText as queryByTestingText,
   screen,
 } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import { CheckboxMultiSelect, CheckboxMultiSelectProps } from "./CheckboxMultiSelect";
+import { CheckboxMultiSelect, CheckboxMultiSelectProps } from "@/components";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "./selectOptions";
@@ -53,11 +52,11 @@ const renderSelect = (props: Props) => {
 
 describe("CheckboxCheckboxMultiSelect", () => {
   beforeAll(() => {
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
-    global.ResizeObserver = jest.fn().mockImplementation(() => ({
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     }));
   });
 

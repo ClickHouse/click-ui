@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path, { resolve } from "path";
@@ -55,4 +57,12 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    environment: "jsdom",
+    include: ["**/*.test.{ts,tsx}"],
+    globals: true,
+    watch: false,
+    exclude: ["node_modules"],
+    setupFiles: ["@testing-library/jest-dom", "./setupTests.ts"],
+  }
 });

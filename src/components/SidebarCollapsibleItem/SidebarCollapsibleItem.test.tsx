@@ -1,10 +1,10 @@
 import { fireEvent } from "@testing-library/react";
-import { SidebarCollapsibleItem } from "./SidebarCollapsibleItem";
+import { SidebarCollapsibleItem } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 
 describe("SidebarCollapsibleItem", () => {
   it("should trigger toggle on clicking trigger type main", () => {
-    const onOpenChange = jest.fn();
+    const onOpenChange = vi.fn();
     const { queryByTestId } = renderCUI(
       <SidebarCollapsibleItem
         icon="user"
@@ -23,7 +23,7 @@ describe("SidebarCollapsibleItem", () => {
     expect(queryByTestId("collapsible-content")).not.toBeNull();
   });
   it("should trigger toggle on clicking trigger type sqlSidebar", () => {
-    const onOpenChange = jest.fn();
+    const onOpenChange = vi.fn();
     const { queryByTestId } = renderCUI(
       <SidebarCollapsibleItem
         icon="user"

@@ -29,7 +29,7 @@ describe("RadioGroup", () => {
     );
 
   it("should execute action on click", () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
     });
@@ -41,7 +41,7 @@ describe("RadioGroup", () => {
   });
 
   it("should not execute action on click if the radio is disabled", () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     const { getByLabelText } = renderRadioGroup({
       onValueChange: handleClick,
       disabled: true,

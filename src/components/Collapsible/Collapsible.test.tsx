@@ -3,7 +3,7 @@ import { Collapsible } from "./Collapsible";
 import { fireEvent } from "@testing-library/react";
 
 describe("Collapsible", () => {
-  const onOpenChange = jest.fn();
+  const onOpenChange = vi.fn();
   beforeEach(() => {
     onOpenChange.mockReset();
   });

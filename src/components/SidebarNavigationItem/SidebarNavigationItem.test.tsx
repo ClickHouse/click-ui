@@ -1,10 +1,10 @@
 import { fireEvent } from "@testing-library/react";
-import { SidebarNavigationItem } from "./SidebarNavigationItem";
+import { SidebarNavigationItem } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 
 describe("SidebarNavigationItem", () => {
   it("should trigger click", () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
 
     const { queryByTestId } = renderCUI(
       <SidebarNavigationItem

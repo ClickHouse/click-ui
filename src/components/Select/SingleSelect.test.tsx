@@ -3,8 +3,7 @@ import {
   fireEvent,
   queryByText as queryByTestingText,
 } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import { Select, SelectProps } from "./SingleSelect";
+import { Select, SelectProps } from "@/components";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "./selectOptions";
@@ -14,11 +13,11 @@ interface Props extends Omit<SelectProps, "children" | "label"> {
 }
 describe("Select", () => {
   beforeAll(() => {
-    window.HTMLElement.prototype.scrollIntoView = jest.fn();
-    global.ResizeObserver = jest.fn().mockImplementation(() => ({
-      observe: jest.fn(),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
+    global.ResizeObserver = vi.fn().mockImplementation(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     }));
   });
   const renderSelect = (props: Props) => {
@@ -95,7 +94,7 @@ describe("Select", () => {
   });
 
   it("should always respect given value in select", () => {
-    const onSelect = jest.fn();
+    const onSelect = vi.fn();
     const { queryByText, getByTestId, getByText } = renderSelect({
       value: "content0",
       onSelect,
@@ -262,7 +261,7 @@ describe("Select", () => {
       expect(btn).not.toBeNull();
     });
     it("on no options available show no custom data", () => {
-      const onClick = jest.fn();
+      const onClick = vi.fn();
       const { queryByText, getByTestId } = renderSelect({
         showSearch: true,
         allowCreateOption: true,

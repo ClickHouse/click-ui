@@ -3,7 +3,7 @@ import { Pagination, PaginationProps } from "@/components";
 import { fireEvent } from "@testing-library/dom";
 
 describe("Pagination", () => {
-  const onChange = jest.fn();
+  const onChange = vi.fn();
   const renderPagination = (props: PaginationProps) => {
     return renderCUI(<Pagination {...props} />);
   };
@@ -78,7 +78,7 @@ describe("Pagination", () => {
   });
 
   it("should not call onChange when input is less than 1", () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({
       currentPage: 1,
       onChange,
@@ -93,7 +93,7 @@ describe("Pagination", () => {
   });
 
   it("should not call onChange when input is greater than totalPages", () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({
       currentPage: 99,
       totalPages: 100,
@@ -115,7 +115,7 @@ describe("Pagination", () => {
   });
 
   it("should call onPageSizeChange when pageSize option are selected", () => {
-    const onPageSizeChange = jest.fn();
+    const onPageSizeChange = vi.fn();
     const { getByText } = renderPagination({
       currentPage: 1,
       onChange,
@@ -130,7 +130,7 @@ describe("Pagination", () => {
   });
 
   it("should disable input if the left and right button are disabled", () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({
       currentPage: 1,
       totalPages: 1,
