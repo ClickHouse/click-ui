@@ -28,6 +28,18 @@ const NavContext = createContext<ContextProps>({
 });
 const CollapsibleContainer = styled.div`
   width: 100%;
+  [data-trigger-icon] {
+    visibility: hidden;
+    transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
+    &[data-open="true"] {
+      transform: rotate(90deg);
+    }
+  }
+  &:hover {
+    [data-trigger-icon] {
+      visibility: visible;
+    }
+  }
 `;
 
 export const Collapsible = ({
@@ -128,18 +140,6 @@ const CollapsipleTriggerButton = styled(EmptyButton)<{
   font: inherit;
   color: inherit;
   cursor: inherit;
-  [data-trigger-icon] {
-    visibility: hidden;
-    transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
-    &[data-open="true"] {
-      transform: rotate(90deg);
-    }
-  }
-  &:hover {
-    [data-trigger-icon] {
-      visibility: visible;
-    }
-  }
 `;
 interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
   icon?: IconName;
