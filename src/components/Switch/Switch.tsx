@@ -21,6 +21,7 @@ interface ThumbProps {
 }
 
 const Wrapper = styled(FormRoot)`
+  align-items: center;
   max-width: fit-content;
 `;
 

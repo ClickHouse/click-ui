@@ -11,6 +11,7 @@ export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
 }
 
 const Wrapper = styled(FormRoot)`
+  align-items: center;
   max-width: fit-content;
 `;
 
