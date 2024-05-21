@@ -27,10 +27,29 @@ const Wrapper = styled.div<{
     color: ${theme.click.field.color.text.default};
     border: 1px solid ${theme.click.field.color.stroke.default};
     background: ${theme.click.field.color.background.default};
+
+    *:autofill,
+    *:-webkit-autofill  {
+      -webkit-box-shadow: 0 0 0px 50vh ${
+        theme.click.field.color.background.default
+      } inset;
+      -webkit-text-fill-color: ${theme.click.field.color.text.default};
+      caret-color: ${theme.click.field.color.text.default};
+    }
+
     &:hover {
       border: 1px solid ${theme.click.field.color.stroke.hover};
       background: ${theme.click.field.color.background.hover};
       color: ${theme.click.field.color.text.hover};
+
+      *:autofill,
+      *:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 50vh ${
+          theme.click.field.color.background.hover
+        } inset;
+        -webkit-text-fill-color: ${theme.click.field.color.text.hover};
+        caret-color: ${theme.click.field.color.text.hover};
+      }
     }
     ${
       $resize === "none"
@@ -48,9 +67,23 @@ const Wrapper = styled.div<{
       border: 1px solid ${theme.click.field.color.stroke.error};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.error};
+
+      *:autofill,
+      *:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.error} inset;
+        -webkit-text-fill-color: ${theme.click.field.color.text.error};
+        caret-color: ${theme.click.field.color.text.error};
+      }
+
       &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      color: ${theme.click.field.color.text.error};
+        border: 1px solid ${theme.click.field.color.stroke.error};
+        color: ${theme.click.field.color.text.error};
+        *:autofill,
+        *:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.error} inset;
+          -webkit-text-fill-color: ${theme.click.field.color.text.error};
+          caret-color: ${theme.click.field.color.text.error};
+        }
       }
     `
         : `
@@ -60,6 +93,13 @@ const Wrapper = styled.div<{
       border: 1px solid ${theme.click.field.color.stroke.active};
       background: ${theme.click.field.color.background.active};
       color: ${theme.click.field.color.text.active};
+
+      *:autofill,
+      *:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.active} inset;
+        -webkit-text-fill-color: ${theme.click.field.color.text.active};
+        caret-color: ${theme.click.field.color.text.active};
+      }
     }
     `
     };
@@ -68,6 +108,15 @@ const Wrapper = styled.div<{
       border: 1px solid ${theme.click.field.color.stroke.disabled};
       background: ${theme.click.field.color.background.disabled};
       color: ${theme.click.field.color.text.disabled};
+
+      *:autofill,
+      *:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 50vh ${
+          theme.click.field.color.background.disabled
+        } inset;
+        -webkit-text-fill-color: ${theme.click.field.color.text.disabled};
+        caret-color: ${theme.click.field.color.text.disabled};
+      }
     }
   `}
 `;
@@ -138,17 +187,21 @@ export const InputElement = styled.input`
   `}
 `;
 
-export const NumberInputElement = styled(InputElement)<{$hideControls?: boolean}>`
-  ${({$hideControls}) => `
-    ${$hideControls ?  `
+export const NumberInputElement = styled(InputElement)<{ $hideControls?: boolean }>`
+  ${({ $hideControls }) => `
+    ${
+      $hideControls
+        ? `
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
-    }
+    }X
 
     -moz-appearance: textfield;
-    ` : ""}
+    `
+        : ""
+    }
   `}
 `;
 
