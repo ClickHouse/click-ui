@@ -3,7 +3,7 @@ import * as RadixSwitch from "@radix-ui/react-switch";
 import { ReactNode, forwardRef, useId } from "react";
 import styled, { DefaultTheme } from "styled-components";
 import { FormRoot } from "../commonElement";
-import { Label } from "@/components";
+import { GenericLabel } from "@/components";
 
 interface RootProps {
   checked: boolean;
@@ -42,12 +42,12 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           <SwitchThumb $checked={checked} />
         </SwitchRoot>
         {label && (
-          <Label
+          <GenericLabel
             htmlFor={id ?? defaultId}
             disabled={disabled}
           >
             {label}
-          </Label>
+          </GenericLabel>
         )}
       </Wrapper>
     );

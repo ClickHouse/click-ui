@@ -56,7 +56,7 @@ export type {
   SelectionFocus,
   SelectionAction,
   GridContextMenuItemProps,
-  Rectangle
+  Rectangle,
 } from "./Grid/types";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
@@ -69,6 +69,7 @@ export type {
 } from "./AutoComplete/AutoComplete";
 export type { PaginationProps } from "./Pagination/Pagination";
 export type { ContextMenuItemProps } from "./ContextMenu/ContextMenu";
+export type { GenericLabelProps } from "./GenericLabel/GenericLabel";
 
 export type { IconButtonProps };
 export type { AlertProps };

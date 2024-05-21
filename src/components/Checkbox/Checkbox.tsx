@@ -1,4 +1,4 @@
-import { Icon, Label } from "@/components";
+import { GenericLabel, Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { ReactNode, useId } from "react";
 import styled from "styled-components";
@@ -42,12 +42,12 @@ export const Checkbox = ({
         </CheckIconWrapper>
       </CheckInput>
       {label && (
-        <Label
+        <GenericLabel
           htmlFor={id ?? defaultId}
           disabled={disabled}
         >
           {label}
-        </Label>
+        </GenericLabel>
       )}
     </Wrapper>
   );
