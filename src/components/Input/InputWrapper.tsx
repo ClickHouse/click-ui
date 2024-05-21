@@ -196,7 +196,7 @@ export const NumberInputElement = styled(InputElement)<{ $hideControls?: boolean
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
-    }X
+    }
 
     -moz-appearance: textfield;
     `
