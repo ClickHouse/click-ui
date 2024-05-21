@@ -1,6 +1,6 @@
 import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Tabs } from "./Tabs";
+import { Tabs, FullWidthTabs } from "./Tabs";
 import { TabsProps } from "@/components/Tabs/Tabs";
 import { renderCUI } from "@/utils/test-utils";
 
@@ -95,5 +95,44 @@ describe("Tabs", () => {
     await waitFor(() => {
       expect(counter).toEqual(1);
     });
+  });
+});
+
+describe("FullWidthTabs", () => {
+  it("should render the FullWidthTabs", () => {
+    const { getByText } = renderCUI(
+      <FullWidthTabs>
+        <FullWidthTabs.TriggersList>
+          <FullWidthTabs.Trigger
+            value="tab1"
+            key="tab1"
+          >
+            Tab 1
+          </FullWidthTabs.Trigger>
+          <FullWidthTabs.Trigger
+            value="tab2"
+            key="tab2"
+          >
+            Tab 2
+          </FullWidthTabs.Trigger>
+          <FullWidthTabs.Trigger
+            value="tab3"
+            key="tab3"
+          >
+            Tab 3
+          </FullWidthTabs.Trigger>
+        </FullWidthTabs.TriggersList>
+        <FullWidthTabs.Content value="tab1">
+          Tab 1 content
+        </FullWidthTabs.Content>
+        <FullWidthTabs.Content value="tab2">
+          Tab 2 content
+        </FullWidthTabs.Content>
+        <FullWidthTabs.Content value="tab3">
+          Tab 3 content
+        </FullWidthTabs.Content>
+      </FullWidthTabs>
+    );
+    expect(getByText("Tab 1").textContent).toBe("Tab 1");
   });
 });

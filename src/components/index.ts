@@ -52,7 +52,7 @@ export { SidebarCollapsibleTitle } from "./SidebarCollapsibleTitle/SidebarCollap
 export { Spacer } from "./Spacer/Spacer";
 export { SplitButton } from "./SplitButton/SplitButton";
 export { Switch } from "./Switch/Switch";
-export { Tabs } from "./Tabs/Tabs";
+export { Tabs, FullWidthTabs } from "./Tabs/Tabs";
 export { FileTabs, FileTabElement } from "./FileTabs/FileTabs";
 export { Table } from "./Table/Table";
 export { Text } from "./Typography/Text/Text";
