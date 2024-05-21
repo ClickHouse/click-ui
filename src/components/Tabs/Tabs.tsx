@@ -69,4 +69,19 @@ Tabs.TriggersList = TriggersList;
 Tabs.Trigger = Trigger;
 Tabs.Content = Content;
 
-export { Tabs };
+const FullWidthTabs = styled(Tabs)`
+  width: 100%;
+`;
+
+FullWidthTabs.Trigger = styled(Trigger)<{ width?: string }>`
+  ${props => props.width ? `width: ${props.width};` :
+  `
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+  `};
+`;
+
+FullWidthTabs.TriggersList = TriggersList;
+
+export { Tabs, FullWidthTabs };
