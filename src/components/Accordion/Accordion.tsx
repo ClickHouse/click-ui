@@ -16,6 +16,7 @@ export interface AccordionProps
   iconSize?: IconSize;
   gap?: Gap;
   children: React.ReactNode;
+  fillWidth?: boolean;
 }
 
 interface SizeProp {
@@ -30,6 +31,7 @@ const Accordion = ({
   iconSize,
   gap,
   children,
+  fillWidth = false,
   ...delegated
 }: AccordionProps) => (
   <RadixAccordion.Root
@@ -41,8 +43,9 @@ const Accordion = ({
       <AccordionTrigger
         $size={size}
         color={color}
+        $fillWidth={fillWidth}
       >
-        <AccordionIconsWrapper>
+        <AccordionIconsWrapper $fillWidth={fillWidth}>
           <AccordionIconWrapper>
             <Icon
               name="chevron-right"
@@ -57,7 +60,12 @@ const Accordion = ({
             />
           ) : null}
         </AccordionIconsWrapper>
-        <Text size={size}>{title}</Text>
+        <Text
+          component="div"
+          size={size}
+        >
+          {title}
+        </Text>
       </AccordionTrigger>
       <Spacer size={gap} />
       <AccordionContent>{children}</AccordionContent>
@@ -68,6 +76,7 @@ const Accordion = ({
 const AccordionTrigger = styled(RadixAccordion.Trigger)<{
   $size?: Size;
   color?: Color;
+  $fillWidth: boolean;
 }>`
   border: none;
   padding: 0;
@@ -90,6 +99,7 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<{
       cursor: pointer;
     }
   `}
+  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
 `;
 
 const AccordionIconWrapper = styled.div`
@@ -102,10 +112,11 @@ const AccordionIconWrapper = styled.div`
     transform: rotate(90deg);
   }
 `;
-const AccordionIconsWrapper = styled.div`
+const AccordionIconsWrapper = styled.div<{ $fillWidth: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
 `;
 
 const AccordionContent = styled(RadixAccordion.Content)``;
