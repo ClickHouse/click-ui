@@ -44,6 +44,7 @@ export const Playground = {
     size: "md",
     gap: "md",
     color: "default",
+    fillWidth: false,
     children,
   },
 };

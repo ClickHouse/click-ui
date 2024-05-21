@@ -37,6 +37,7 @@ const Accordion = ({
   <RadixAccordion.Root
     type="single"
     collapsible
+    className="asasas"
     {...delegated}
   >
     <RadixAccordion.Item value="item">
@@ -45,7 +46,7 @@ const Accordion = ({
         color={color}
         $fillWidth={fillWidth}
       >
-        <AccordionIconsWrapper $fillWidth={fillWidth}>
+        <AccordionIconsWrapper>
           <AccordionIconWrapper>
             <Icon
               name="chevron-right"
@@ -67,8 +68,10 @@ const Accordion = ({
           {title}
         </Text>
       </AccordionTrigger>
-      <Spacer size={gap} />
-      <AccordionContent>{children}</AccordionContent>
+      <AccordionContent>
+        <Spacer size={gap} />
+        {children}
+      </AccordionContent>
     </RadixAccordion.Item>
   </RadixAccordion.Root>
 );
@@ -112,11 +115,10 @@ const AccordionIconWrapper = styled.div`
     transform: rotate(90deg);
   }
 `;
-const AccordionIconsWrapper = styled.div<{ $fillWidth: boolean }>`
+const AccordionIconsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
 `;
 
 const AccordionContent = styled(RadixAccordion.Content)``;
