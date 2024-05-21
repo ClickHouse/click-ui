@@ -16,6 +16,7 @@ export interface AccordionProps
   iconSize?: IconSize;
   gap?: Gap;
   children: React.ReactNode;
+  fillWidth?: boolean;
 }
 
 interface SizeProp {
@@ -30,17 +31,20 @@ const Accordion = ({
   iconSize,
   gap,
   children,
+  fillWidth = false,
   ...delegated
 }: AccordionProps) => (
   <RadixAccordion.Root
     type="single"
     collapsible
+    className="asasas"
     {...delegated}
   >
     <RadixAccordion.Item value="item">
       <AccordionTrigger
         $size={size}
         color={color}
+        $fillWidth={fillWidth}
       >
         <AccordionIconsWrapper>
           <AccordionIconWrapper>
@@ -57,10 +61,17 @@ const Accordion = ({
             />
           ) : null}
         </AccordionIconsWrapper>
-        <Text size={size}>{title}</Text>
+        <Text
+          component="div"
+          size={size}
+        >
+          {title}
+        </Text>
       </AccordionTrigger>
-      <Spacer size={gap} />
-      <AccordionContent>{children}</AccordionContent>
+      <AccordionContent>
+        <Spacer size={gap} />
+        {children}
+      </AccordionContent>
     </RadixAccordion.Item>
   </RadixAccordion.Root>
 );
@@ -68,6 +79,7 @@ const Accordion = ({
 const AccordionTrigger = styled(RadixAccordion.Trigger)<{
   $size?: Size;
   color?: Color;
+  $fillWidth: boolean;
 }>`
   border: none;
   padding: 0;
@@ -90,6 +102,7 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<{
       cursor: pointer;
     }
   `}
+  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
 `;
 
 const AccordionIconWrapper = styled.div`
