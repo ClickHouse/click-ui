@@ -56,6 +56,7 @@ const StepItem = styled.div<{
         $isOpen ? "active" : "default"
       ]
     };
+    box-sizing: content-box;
     &:not(:last-of-type) {
       &::before{
         content: "";
@@ -64,7 +65,10 @@ const StepItem = styled.div<{
         height: 100%;
         left: calc(${theme.click.stepper.vertical[$type].step.size.width}  / 2 );
         width: ${theme.click.stepper.vertical[$type].connector.size.width};
-        background: ${theme.click.stepper.vertical[$type].connector.color.stroke[$status]}
+        background: ${
+          theme.click.stepper.vertical[$type].connector.color.stroke[$status]
+        };
+        box-sizing: content-box;
       }
     }
   `}
@@ -105,10 +109,12 @@ const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
     font: ${theme.click.stepper.vertical.numbered.step.typography.number.default};
     color: ${theme.click.stepper.vertical[$type].step.color.icon[$status]};
     counter-increment: vertical-stepper;
+    box-sizing: content-box;
     ${
       $type === "numbered" && $status !== "complete"
         ? `
         &::before {
+          box-sizing: content-box;
           font: inherit;
           color: inherit;
           content: counter(vertical-stepper);
@@ -120,6 +126,7 @@ const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
         $status == "complete" && $type === "bulleted"
           ? `
       &::after {
+        box-sizing: content-box;
         content: "";
         position: absolute;
         width: 50%;
