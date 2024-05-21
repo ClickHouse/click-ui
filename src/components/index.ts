@@ -3,6 +3,7 @@ export * from "./types";
 export { Icon } from "./Icon/Icon";
 export { IconButton } from "./IconButton/IconButton";
 export { Label } from "./Label/Label";
+export { GenericLabel } from "./GenericLabel/GenericLabel";
 export { Dropdown } from "./Dropdown/Dropdown";
 
 export { Accordion } from "./Accordion/Accordion";
