@@ -5,6 +5,9 @@ import {
 import { ThemeName, themes } from ".";
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: content-box;
+  }
   body{
     color: ${props => props.theme.click.global.color.text.default};
     background-color: ${props => props.theme.click.global.color.background.default}
