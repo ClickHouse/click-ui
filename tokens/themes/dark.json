@@ -346,11 +346,11 @@
       "color": {
         "background": {
           "default": {
-            "value": "{palette.slate.600}",
+            "value": "{palette.slate.500}",
             "type": "color"
           },
           "hover": {
-            "value": "{palette.slate.700}",
+            "value": "{palette.slate.300}",
             "type": "color"
           },
           "active": {
