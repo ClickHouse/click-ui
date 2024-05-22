@@ -2643,7 +2643,7 @@
               "type": "color"
             },
             "hover": {
-              "value": "{click.table.row.color.background.default}",
+              "value": "{click.grid.body.cell.color.background.selectIndirect}",
               "type": "color"
             },
             "active": {
