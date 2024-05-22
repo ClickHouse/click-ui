@@ -169,6 +169,7 @@ const CollapsipleTrigger = ({
     <CollapsipleTriggerButton
       onClick={onClick}
       $indicatorDir={indicatorDir}
+      aria-label="trigger children"
       {...props}
     >
       {indicatorDir === "start" && (
