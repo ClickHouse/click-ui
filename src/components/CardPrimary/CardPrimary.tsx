@@ -3,10 +3,16 @@ import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text, TextAlignment } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
+import {
+  WithTopBadgeProps,
+  withTopBadge,
+} from "@/components/CardPrimary/CardPrimaryTopBadge";
 
 export type CardPrimarySize = "sm" | "md";
 type ContentAlignment = "start" | "center" | "end";
-export interface CardPrimaryProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardPrimaryProps
+  extends HTMLAttributes<HTMLDivElement>,
+    WithTopBadgeProps {
   title?: string;
   icon?: IconName;
   hasShadow?: boolean;
@@ -129,7 +135,7 @@ const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => 
   return align === "start" ? "left" : "right";
 };
 
-export const CardPrimary = ({
+const Card = ({
   alignContent,
   title,
   icon,
@@ -210,3 +216,5 @@ export const CardPrimary = ({
     </Wrapper>
   );
 };
+
+export const CardPrimary = withTopBadge<CardPrimaryProps>(Card);

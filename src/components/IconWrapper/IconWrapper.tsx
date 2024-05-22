@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import { HorizontalDirection, Icon, IconName } from "@/components";
-import { IconSize } from "@/components/Icon/types";
+import { HorizontalDirection } from "@/components";
+import { IconName, IconSize } from "@/components/Icon/types";
 import styled from "styled-components";
 import { EllipsisContent } from "../EllipsisContent/EllipsisContent";
+import { Icon } from "@/components/Icon/Icon";
 
 const LabelContainer = styled.div<{ $hasIcon: boolean; $iconDir: HorizontalDirection }>`
   display: grid;
