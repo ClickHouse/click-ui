@@ -16,7 +16,7 @@ export const Playground: Story = {
     ariaLabel: "a full width simple tab component",
     children: (
       <div style={{ width: "700px" }}>
-        <FullWidthTabs.TriggersList>
+        <FullWidthTabs.TriggersList role="tablist">
           <FullWidthTabs.Trigger
             value="tab1"
             key="tab1"

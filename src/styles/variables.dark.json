@@ -67,9 +67,9 @@
     "avatar": {
       "color": {
         "background": {
-          "default": "#696e79",
-          "hover": "#53575f",
-          "active": "#53575f"
+          "default": "#808691",
+          "hover": "#b3b6bd",
+          "active": "#b3b6bd"
         },
         "text": {
           "default": "#1F1F1C",
@@ -1111,8 +1111,8 @@
         "color": {
           "background": {
             "default": "#1F1F1C",
-            "hover": "#1F1F1C",
-            "active": "lch(13.9 2.07 105)"
+            "hover": "lch(15.8 0 0)",
+            "active": "lch(17.9 0 0)"
           },
           "stroke": {
             "default": "#323232"
