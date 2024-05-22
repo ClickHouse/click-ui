@@ -123,7 +123,10 @@ const Thead = ({
       <StyledThead>
         <tr>
           {isSelectable && (
-            <StyledHeader $size={size}>
+            <StyledHeader
+              $size={size}
+              aria-label="Select column"
+            >
               <Checkbox
                 onCheckedChange={onSelectAll}
                 disabled={!hasRows}
@@ -138,7 +141,12 @@ const Thead = ({
               {...headerProps}
             />
           ))}
-          {actionsList.length > 0 && <StyledHeader $size={size} />}
+          {actionsList.length > 0 && (
+            <StyledHeader
+              aria-label="Actions"
+              $size={size}
+            />
+          )}
         </tr>
       </StyledThead>
     </>

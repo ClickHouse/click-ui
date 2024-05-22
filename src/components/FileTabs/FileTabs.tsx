@@ -181,7 +181,7 @@ export const FileTabs = ({
         >
           {Children.map(children, (child, index) => (
             <div
-              tabIndex={index === 0 ? 1 : index + 1}
+              tabIndex={index + 1}
               role="tab"
               onClick={onSelect(index)}
               key={`tab-element-${index}`}
