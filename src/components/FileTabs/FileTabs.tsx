@@ -150,6 +150,7 @@ export const FileTabs = ({
       <TabsContainer
         ref={ref}
         onWheel={onWheel}
+        role="tablist"
         onScroll={e => {
           e.preventDefault();
           e.stopPropagation();
@@ -180,7 +181,7 @@ export const FileTabs = ({
         >
           {Children.map(children, (child, index) => (
             <div
-              tabIndex={index}
+              tabIndex={index + 1}
               role="tab"
               onClick={onSelect(index)}
               key={`tab-element-${index}`}

@@ -33,6 +33,7 @@ export const Checkbox = ({
         id={id ?? defaultId}
         data-testid="checkbox"
         disabled={disabled}
+        aria-label={`${label}`}
         {...delegated}
       >
         <CheckIconWrapper>

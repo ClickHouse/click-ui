@@ -169,6 +169,7 @@ export const Pagination = ({
             value={currentPage}
             loading={false}
             onKeyDown={onKeyDown}
+            aria-label={currentPage.toString()}
             min={1}
             max={totalPages}
             onFocus={onPageNumberFocus}

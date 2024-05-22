@@ -37,6 +37,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           ref={ref}
           id={id ?? defaultId}
           disabled={disabled}
+          aria-label={`${label}`}
           checked={checked}
           {...props}
         >

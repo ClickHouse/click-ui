@@ -99,6 +99,7 @@ const RadioGroupItem = ({
         id={id ?? defaultId}
         disabled={disabled}
         required={required}
+        aria-label={`${label}`}
       >
         <RadioGroupIndicator />
       </RadioInput>
