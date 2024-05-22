@@ -35,6 +35,7 @@ export const withTopBadge =
         <Component {...(props as P)} />
         {topBadgeText && (
           <TopBadge
+            data-testid="card-top-badge"
             text={topBadgeText}
             $isSelected={props.isSelected || false}
           />

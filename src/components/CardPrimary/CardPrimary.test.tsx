@@ -81,5 +81,16 @@ describe("CardPrimary Component", () => {
 
       expect(queryAllByText(topBadgeText).length).toEqual(1);
     });
+
+    it("should not render the top badge", () => {
+      const { queryAllByTestId } = renderCard({
+        icon: "warning",
+        title: "",
+        onButtonClick: () => null,
+        infoText: "test1",
+      });
+
+      expect(queryAllByTestId("card-top-badge").length).toEqual(0);
+    });
   });
 });
