@@ -5,6 +5,7 @@ export const TopBadgeWrapper = styled.div`
   position: relative;
   width: 100%;
   max-width: 100%;
+  display: flex;
 `;
 
 export const CardPrimaryTopBadge = styled(Badge)<{ $isSelected?: boolean }>`
