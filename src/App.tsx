@@ -436,7 +436,17 @@ const App = () => {
         <Icon name="users" />
         <Icon name="in" />
         <Icon name="gcp" />
-        <Accordion title="Accordion">I'm some content </Accordion>
+        <Accordion
+          title={
+            <Container justifyContent="space-between">
+              <div>a</div>
+              <div>b</div>
+            </Container>
+          }
+          fillWidth
+        >
+          I'm some content{" "}
+        </Accordion>
         <SidebarNavigationItem
           icon="user"
           label={<a href="/color"> link to color</a>}
