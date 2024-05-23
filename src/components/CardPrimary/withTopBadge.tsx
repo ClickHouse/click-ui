@@ -13,7 +13,10 @@ export const withTopBadge =
   <P extends object>(Component: ComponentType<P>): FC<P & WithTopBadgeProps> =>
   ({ topBadgeText, ...props }: P & WithTopBadgeProps) => {
     return (
-      <TopBadgeWrapper>
+      <TopBadgeWrapper
+        alignItems="stretch"
+        fillWidth
+      >
         <Component {...(props as P)} />
         {topBadgeText && (
           <CardPrimaryTopBadge

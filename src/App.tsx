@@ -305,14 +305,13 @@ const App = () => {
             infoUrl="#"
           />
         </div>
-        <div style={{ display: "flex", padding: "1rem" }}>
+        <Container alignItems="start">
           <CardPrimary
             title="Card title"
             icon="building"
             description="This is a card description"
             infoText="Read More"
             infoUrl="#"
-            style={{ display: "flex", width: "100%" }}
           />
           <CardPrimary
             title="Card title"
@@ -320,7 +319,6 @@ const App = () => {
             description="This is a card description"
             infoText="Read More"
             infoUrl="#"
-            style={{ display: "flex", width: "100%" }}
             topBadgeText="Top badge"
           />
           <CardPrimary
@@ -329,7 +327,6 @@ const App = () => {
             description="This is a card description"
             infoText="Read More"
             infoUrl="#"
-            style={{ display: "flex", width: "100%" }}
             topBadgeText="Top badge"
             isSelected={true}
           />
@@ -339,9 +336,36 @@ const App = () => {
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut sagittis neque. Quisque ut nunc tortor. Donec ut faucibus neque. In vel suscipit nunc. Praesent odio velit, sollicitudin ac tempor a, varius vitae turpis. Donec mauris risus, dapibus a justo eu, ultricies ullamcorper lacus. Sed ligula purus, sodales quis arcu sit amet, tempor dignissim velit. In ullamcorper lectus non rutrum bibendum. Etiam velit dolor, hendrerit vitae tristique a, semper vitae est. Vivamus elit justo, pellentesque eu auctor feugiat, ultrices vitae diam. Donec accumsan tortor nec vestibulum lobortis. Proin mattis quam nisl, sed malesuada diam volutpat a."
             infoText="Read More"
             infoUrl="#"
-            style={{ display: "flex", width: "100%" }}
           />
-        </div>
+        </Container>
+
+        <Text>Same-height cards</Text>
+        <Container alignItems="stretch">
+          <CardPrimary
+            title="Development"
+            alignContent="center"
+            icon="building"
+          >
+            <ul>
+              <Text component="li">Designed to handle larger production workloads</Text>
+              <Text component="li">Unlimited storage with 24 GB + total memory</Text>
+              <Text component="li">Usage based pricing</Text>
+              <Text component="li">Includes 3 availability zones</Text>
+            </ul>
+          </CardPrimary>
+          <CardPrimary
+            title="Production"
+            alignContent="start"
+          >
+            <ul>
+              <Text component="li">Designed to handle larger production workloads</Text>
+              <Text component="li">Unlimited storage with 24 GB + total memory</Text>
+              <Text component="li">Usage based pricing</Text>
+              <Text component="li">Includes 3 availability zones</Text>
+            </ul>
+          </CardPrimary>
+        </Container>
+        <Spacer />
         <div style={{ width: "300px" }}>
           <CardPrimary
             title="Development"

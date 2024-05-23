@@ -1,10 +1,9 @@
 import { Badge } from "@/components/Badge/Badge";
+import { Container } from "@/components/Container/Container";
 import styled from "styled-components";
 
-export const TopBadgeWrapper = styled.div`
+export const TopBadgeWrapper = styled(Container)`
   position: relative;
-  width: 100%;
-  max-width: 100%;
 `;
 
 export const CardPrimaryTopBadge = styled(Badge)<{ $isSelected?: boolean }>`
