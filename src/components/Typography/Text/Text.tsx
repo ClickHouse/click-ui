@@ -20,6 +20,7 @@ export interface TextProps<T extends ElementType = "p"> {
   weight?: TextWeight;
   className?: string;
   component?: T;
+  fillWidth?: boolean;
 }
 
 type TextPolymorphicComponent = <T extends ElementType = "p">(
@@ -35,6 +36,7 @@ const _Text = <T extends ElementType = "p">(
     className,
     children,
     component,
+    fillWidth,
     ...props
   }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
   ref: ComponentPropsWithRef<T>["ref"]
@@ -46,6 +48,7 @@ const _Text = <T extends ElementType = "p">(
     $color={color}
     $size={size}
     $weight={weight}
+    $fillWidth={fillWidth}
     className={className}
     {...props}
   >
@@ -58,12 +61,14 @@ const CuiText = styled.p<{
   $color?: TextColor;
   $size?: TextSize;
   $weight?: TextWeight;
+  $fillWidth?: boolean;
 }>`
   font: ${({ $size = "md", $weight = "normal", theme }) =>
     theme.typography.styles.product.text[$weight][$size]};
   color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
   text-align: ${({ $align = "left" }) => $align};
   margin: 0;
+  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
 `;
 
 _Text.displayName = "Text";

@@ -2,6 +2,7 @@ import * as RadixAccordion from "@radix-ui/react-accordion";
 import styled from "styled-components";
 import { IconSize } from "@/components/Icon/types";
 import { Icon, IconName, Spacer, Text } from "@/components";
+import { ReactNode } from "react";
 
 type Size = "sm" | "md" | "lg";
 type Gap = "sm" | "md" | "lg";
@@ -9,8 +10,8 @@ type Color = "default" | "link";
 
 export interface AccordionProps
   extends SizeProp,
-    Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible"> {
-  title: string;
+    Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible" | "title"> {
+  title: ReactNode;
   color?: Color;
   icon?: IconName;
   iconSize?: IconSize;
@@ -34,10 +35,10 @@ const Accordion = ({
   fillWidth = false,
   ...delegated
 }: AccordionProps) => (
-  <RadixAccordion.Root
+  <AccordionRoot
     type="single"
     collapsible
-    className="asasas"
+    $fillWidth={fillWidth}
     {...delegated}
   >
     <RadixAccordion.Item value="item">
@@ -64,6 +65,7 @@ const Accordion = ({
         <Text
           component="div"
           size={size}
+          fillWidth={fillWidth}
         >
           {title}
         </Text>
@@ -73,8 +75,14 @@ const Accordion = ({
         {children}
       </AccordionContent>
     </RadixAccordion.Item>
-  </RadixAccordion.Root>
+  </AccordionRoot>
 );
+
+const AccordionRoot = styled(RadixAccordion.Root)<{
+  $fillWidth: boolean;
+}>`
+  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
+`;
 
 const AccordionTrigger = styled(RadixAccordion.Trigger)<{
   $size?: Size;
