@@ -15,8 +15,9 @@ export const Playground = {
     infoText: "Read More",
     hasShadow: false,
     disabled: false,
-    isSelected: false,
+    isSelected: true,
     size: "md",
-    alignContent: "center"
+    alignContent: "center",
+    topBadgeText: "Top badge",
   },
 };

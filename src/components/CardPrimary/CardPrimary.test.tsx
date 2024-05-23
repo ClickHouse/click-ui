@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
-import { CardPrimary, CardPrimaryProps } from "./CardPrimary";
 import { renderCUI } from "@/utils/test-utils";
+import { CardPrimary, CardPrimaryProps } from "@/components/CardPrimary/CardPrimary";
 
 describe("CardPrimary Component", () => {
   describe("Primary card", () => {
@@ -67,6 +67,30 @@ describe("CardPrimary Component", () => {
       });
 
       expect(queryByRole("button")).not.toBeNull();
+    });
+
+    it("should render the top badge", () => {
+      const topBadgeText = "TopBadge";
+      const { queryAllByText } = renderCard({
+        topBadgeText,
+        icon: "warning",
+        title: "",
+        onButtonClick: () => null,
+        infoText: "test1",
+      });
+
+      expect(queryAllByText(topBadgeText).length).toEqual(1);
+    });
+
+    it("should not render the top badge", () => {
+      const { queryAllByTestId } = renderCard({
+        icon: "warning",
+        title: "",
+        onButtonClick: () => null,
+        infoText: "test1",
+      });
+
+      expect(queryAllByTestId("card-top-badge").length).toEqual(0);
     });
   });
 });

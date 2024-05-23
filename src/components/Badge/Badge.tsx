@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { HorizontalDirection, Icon, IconName } from "@/components";
+import { HorizontalDirection } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
-import { EllipsisContainer } from "../commonElement";
-import IconWrapper from "../IconWrapper/IconWrapper";
+import { IconName } from "@/components/Icon/types";
+import { Icon } from "@/components/Icon/Icon";
+import IconWrapper from "@/components/IconWrapper/IconWrapper";
+
 export type BadgeState =
   | "default"
   | "success"
@@ -59,7 +61,7 @@ const SvgContainer = styled.svg<{ $state?: BadgeState; $size?: BadgeSize }>`
     width: ${theme.click.badge.icon[$size].size.width};
   `}
 `;
-const BadgeContent = styled(EllipsisContainer)<{
+const BadgeContent = styled.div<{
   $state?: BadgeState;
   size?: BadgeSize;
 }>`

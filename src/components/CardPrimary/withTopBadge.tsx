@@ -1,0 +1,27 @@
+import {
+  CardPrimaryTopBadge,
+  TopBadgeWrapper,
+} from "@/components/CardPrimary/CardPrimaryTopBadge";
+import { ComponentType, FC } from "react";
+
+export interface WithTopBadgeProps {
+  topBadgeText?: string;
+  isSelected?: boolean;
+}
+
+export const withTopBadge =
+  <P extends object>(Component: ComponentType<P>): FC<P & WithTopBadgeProps> =>
+  ({ topBadgeText, ...props }: P & WithTopBadgeProps) => {
+    return (
+      <TopBadgeWrapper>
+        <Component {...(props as P)} />
+        {topBadgeText && (
+          <CardPrimaryTopBadge
+            data-testid="card-top-badge"
+            text={topBadgeText}
+            $isSelected={props.isSelected || false}
+          />
+        )}
+      </TopBadgeWrapper>
+    );
+  };
