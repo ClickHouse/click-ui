@@ -35,10 +35,8 @@ const CollapsibleContainer = styled.div`
       transform: rotate(90deg);
     }
   }
-  &:hover {
-    [data-trigger-icon] {
-      visibility: visible;
-    }
+  [data-collapsible-header]:hover [data-trigger-icon] {
+    visibility: visible;
   }
 `;
 
@@ -112,6 +110,7 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
             onClickProp(e);
           }
         }}
+        data-collapsible-header
         {...props}
       >
         {indicatorDir === "start" && <Collapsible.Trigger />}
