@@ -178,7 +178,7 @@ const TableRow = styled.tr<TableRowProps>`
     cursor: ${$isDeleted || $isDisabled ? "not-allowed" : "default"}
   `}
 
-  &:last-of-type {
+  &:last-of-type, &:last-child {
     border-bottom: none;
   }
 
@@ -230,6 +230,10 @@ const StyledThead = styled.thead`
   tr {
     overflow: hidden;
     background-color: ${({ theme }) => theme.click.table.header.color.background.default};
+    ${({
+      theme,
+    }) => ` border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
+  `}
   }
   @media (max-width: 768px) {
     display: none;
@@ -311,6 +315,10 @@ const TableWrapper = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
+  ${({ theme }) => `
+  border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
+  border-radius: ${theme.click.table.radii.all}
+  `}
 `;
 
 const TableOuterContainer = styled.div`
@@ -664,13 +672,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
 const StyledTable = styled.table`
   width: 100%;
-  border-spacing: 0;
+  border-collapse: collapse;
   overflow: hidden;
   table-layout: fixed;
-  ${({ theme }) => `
-    border-radius: ${theme.click.table.radii.all};
-    border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
-  `}
 
   @media (max-width: 768px) {
     border: none;
