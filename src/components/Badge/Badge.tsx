@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { HorizontalDirection } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
-import { IconName } from "@/components/Icon/types";
+import { ImageName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
 
@@ -20,7 +20,7 @@ export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
   text: ReactNode;
   state?: BadgeState;
   size?: BadgeSize;
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
 }
 
