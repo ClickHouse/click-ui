@@ -179,7 +179,7 @@ const Card = ({
           {iconUrl ? (
             <img
               src={iconUrl}
-              alt="card image"
+              alt="card icon"
               aria-hidden
             />
           ) : (

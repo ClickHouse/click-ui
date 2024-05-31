@@ -103,7 +103,7 @@ describe("CardPrimary Component", () => {
         infoText: "",
       });
 
-      const imgElement = screen.getByAltText("card image");
+      const imgElement = screen.getByAltText("card icon");
       expect(imgElement).toHaveAttribute("src", iconUrl);
     });
   });

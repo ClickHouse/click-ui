@@ -52,7 +52,7 @@ const Content = styled.div`
   flex: 1;
 `;
 
-const CustomImage = styled.img`
+const CustomIcon = styled.img`
   height: ${({ theme }) => theme.click.image.lg.size.height};
   width: ${({ theme }) => theme.click.image.lg.size.width};
 `;
@@ -138,9 +138,9 @@ export const CardSecondary = ({
       <Header>
         <HeaderLeft $disabled={disabled}>
           {iconUrl ? (
-            <CustomImage
+            <CustomIcon
               src={iconUrl}
-              alt="card image"
+              alt="card icon"
               aria-hidden
             />
           ) : (
