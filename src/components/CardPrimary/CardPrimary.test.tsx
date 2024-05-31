@@ -92,5 +92,19 @@ describe("CardPrimary Component", () => {
 
       expect(queryAllByTestId("card-top-badge").length).toEqual(0);
     });
+
+    it("should render an image when iconUrl is provided", () => {
+      const iconUrl = "https://example.com/icon.png";
+      renderCard({
+        iconUrl,
+        title: "Card with custom icon",
+        description: "",
+        infoUrl: "",
+        infoText: "",
+      });
+
+      const imgElement = screen.getByAltText("card image");
+      expect(imgElement).toHaveAttribute("src", iconUrl);
+    });
   });
 });

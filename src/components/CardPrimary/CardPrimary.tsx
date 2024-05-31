@@ -12,6 +12,7 @@ export interface CardPrimaryProps
     WithTopBadgeProps {
   title?: string;
   icon?: IconName;
+  iconUrl?: string;
   hasShadow?: boolean;
   disabled?: boolean;
   description?: ReactNode;
@@ -109,7 +110,8 @@ const Header = styled.div<{
         : theme.click.global.color.text.default};
   }
 
-  svg {
+  svg,
+  img {
     height: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
     width: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
   }
@@ -136,6 +138,7 @@ const Card = ({
   alignContent,
   title,
   icon,
+  iconUrl,
   hasShadow = false,
   description,
   infoUrl,
@@ -173,11 +176,19 @@ const Card = ({
           $disabled={disabled}
           $alignContent={alignContent}
         >
-          {icon && (
-            <Icon
-              name={icon}
+          {iconUrl ? (
+            <img
+              src={iconUrl}
+              alt="card image"
               aria-hidden
             />
+          ) : (
+            icon && (
+              <Icon
+                name={icon}
+                aria-hidden
+              />
+            )
           )}
           {title && <Title type="h3">{title}</Title>}
         </Header>

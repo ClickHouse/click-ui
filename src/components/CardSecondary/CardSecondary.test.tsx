@@ -45,4 +45,18 @@ describe("CardSecondary Component", () => {
 
     expect(screen.getAllByText(badgeText).length).toEqual(1);
   });
+
+  it("should render an image when iconUrl is provided", () => {
+    const iconUrl = "https://example.com/icon.png";
+    renderCard({
+      iconUrl,
+      title: "Card with custom icon",
+      description: "",
+      infoUrl: "",
+      infoText: "",
+    });
+
+    const imgElement = screen.getByAltText("card image");
+    expect(imgElement).toHaveAttribute("src", iconUrl);
+  });
 });

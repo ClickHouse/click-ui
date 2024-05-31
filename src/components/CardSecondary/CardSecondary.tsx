@@ -15,7 +15,8 @@ export type BadgeState =
 
 export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  icon: IconName;
+  icon?: IconName;
+  iconUrl?: string;
   badgeState?: BadgeState;
   hasShadow?: boolean;
   disabled?: boolean;
@@ -49,6 +50,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+`;
+
+const CustomImage = styled.img`
+  height: ${({ theme }) => theme.click.image.lg.size.height};
+  width: ${({ theme }) => theme.click.image.lg.size.width};
 `;
 
 const InfoLink = styled.a`
@@ -112,6 +118,7 @@ const Wrapper = styled.div<{
 export const CardSecondary = ({
   title,
   icon,
+  iconUrl,
   badgeState,
   badgeText = "",
   hasShadow = false,
@@ -130,11 +137,21 @@ export const CardSecondary = ({
     >
       <Header>
         <HeaderLeft $disabled={disabled}>
-          <Icon
-            name={icon}
-            size="lg"
-            area-hidden=""
-          />
+          {iconUrl ? (
+            <CustomImage
+              src={iconUrl}
+              alt="card image"
+              aria-hidden
+            />
+          ) : (
+            icon && (
+              <Icon
+                name={icon}
+                aria-hidden
+                size="lg"
+              />
+            )
+          )}
           <Title type="h3">{title}</Title>
         </HeaderLeft>
         {badgeText && (
