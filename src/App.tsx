@@ -290,6 +290,7 @@ const App = () => {
           <CardSecondary
             title="Card title"
             icon="building"
+            iconUrl="https://upload.wikimedia.org/wikipedia/sco/3/3c/Cardiff_City_crest.svg"
             description="This is a card description"
             badgeText="experiment"
             infoText="Read More"
@@ -308,6 +309,7 @@ const App = () => {
         <Container alignItems="start">
           <CardPrimary
             title="Card title"
+            size="sm"
             icon="building"
             description="This is a card description"
             infoText="Read More"
@@ -316,6 +318,7 @@ const App = () => {
           <CardPrimary
             title="Card title"
             icon="building"
+            iconUrl="https://upload.wikimedia.org/wikipedia/sco/3/3c/Cardiff_City_crest.svg"
             description="This is a card description"
             infoText="Read More"
             infoUrl="#"
