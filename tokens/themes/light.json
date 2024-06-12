@@ -1463,7 +1463,7 @@
               }
             },
             "disabled": {
-              "value": "{click.field.color.background.disabled}",
+              "value": "{click.button.group.color.background.default}",
               "type": "color"
             },
             "disabled-active": {
@@ -1486,7 +1486,7 @@
           },
           "text": {
             "default": {
-              "value": "{click.global.color.text.default}",
+              "value": "{palette.neutral.700}",
               "type": "color"
             },
             "hover": {
