@@ -1836,7 +1836,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.field.color.background.default}",
+            "value": "{palette.neutral.700}",
             "type": "color"
           },
           "error": {
@@ -1858,7 +1858,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.neutral.700}",
+            "value": "{palette.neutral.400}",
             "type": "color"
           },
           "error": {
