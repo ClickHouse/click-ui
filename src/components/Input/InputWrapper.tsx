@@ -184,6 +184,11 @@ export const InputElement = styled.input`
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
     }
+
+    &:disabled, &.disabled {
+      &::placeholder {
+      color: ${theme.click.field.color.placeholder.disabled};
+    }
   `}
 `;
 

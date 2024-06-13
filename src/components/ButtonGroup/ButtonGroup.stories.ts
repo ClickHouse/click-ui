@@ -8,6 +8,14 @@ export default {
     options: ["default", "borderless"],
     control: { type: "radio" },
   },
+  selected:{ 
+    options: ["option1","option2","option3"],
+    control: { type: "select" },
+  },
+  disabled:{ 
+    options: ["option1","option2","option3"],
+    control: { type: "select" },
+  },
 };
 
 export const Playground = {
@@ -18,6 +26,7 @@ export const Playground = {
       { label: "Option 3", value: "option3" },
     ],
     fillWidth: false,
-    type: "default"
+    type: "default",
+    selected: "option3",
   },
 };

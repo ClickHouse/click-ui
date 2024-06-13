@@ -87,9 +87,9 @@ const leftBorderRadius = `${endRadii} 0px 0px ${endRadii}`;
 const rightBorderRadius = `0px ${endRadii} ${endRadii} 0px`;
 const centerBorderRadius = "var(--click-button-button-group-radii-center)";
 
-const Button = styled.button.attrs<ButtonProps>(
-  (props: ButtonProps) => ({"aria-pressed": props.$active})
-)`
+const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
+  "aria-pressed": props.$active,
+}))`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -104,28 +104,38 @@ const Button = styled.button.attrs<ButtonProps>(
   font: ${({ theme }) => theme.click.button.group.typography.label.default};
   padding: ${({ theme }) => theme.click.button.basic.space.y}
     ${({ theme }) => theme.click.button.basic.space.x};
-  gap: ${({ theme }) => theme.click.button.basic.space.group};
-  ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")}
+  gap: ${({ theme }) => theme.click.button.basic.space.group}
+    ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")};
   cursor: pointer;
 
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};
     font: ${({ theme }) => theme.click.button.group.typography.label.hover};
+    color: ${({ theme }) => theme.click.button.group.color.text.hover};
   }
 
   &:disabled {
     cursor: not-allowed;
     font: ${({ theme }) => theme.click.button.group.typography.label.disabled};
+    color: ${({ theme }) => theme.click.button.group.color.text.disabled};
     background: ${({ theme, $active }) =>
       theme.click.button.group.color.background[
         $active ? "disabled-active" : "disabled"
       ]};
+
+    &:active,
+    &:focus,
+    &[aria-pressed="true"] {
+      color: ${({ theme }) => theme.click.button.group.color.text.disabled};
+    }
   }
 
   &:active,
-  &:focus {
+  &:focus,
+  &[aria-pressed="true"] {
     background: ${({ theme }) => theme.click.button.group.color.background.active};
     font: ${({ theme }) => theme.click.button.group.typography.label.active};
+    color: ${({ theme }) => theme.click.button.group.color.text.active};
     &:disabled {
       background: ${({ theme }) =>
         theme.click.button.group.color.background["disabled-active"]};
