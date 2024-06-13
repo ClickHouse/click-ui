@@ -1467,7 +1467,7 @@
               "type": "color"
             },
             "disabled-active": {
-              "value": "{click.button.group.color.background.disabled}",
+              "value": "{click.button.group.color.background.active}",
               "type": "color",
               "$extensions": {
                 "studio.tokens": {
@@ -1498,11 +1498,11 @@
               "type": "color"
             },
             "disabled": {
-              "value": "{click.field.color.text.disabled}",
+              "value": "{palette.neutral.400}",
               "type": "color"
             },
             "disabled-active": {
-              "value": "{palette.neutral.500}",
+              "value": "{palette.neutral.400}",
               "type": "color"
             }
           },
