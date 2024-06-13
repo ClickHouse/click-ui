@@ -7,11 +7,7 @@ export default {
   type: {
     options: ["default", "borderless"],
     control: { type: "radio" },
-  },
-  selected:{ 
-    options: ["option1","option2","option3"],
-    control: { type: "select" },
-  }
+  } 
 };
 
 export const Playground = {
