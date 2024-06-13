@@ -104,8 +104,8 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
   font: ${({ theme }) => theme.click.button.group.typography.label.default};
   padding: ${({ theme }) => theme.click.button.basic.space.y}
     ${({ theme }) => theme.click.button.basic.space.x};
-  gap: ${({ theme }) => theme.click.button.basic.space.group}
-    ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")};
+  gap: ${({ theme }) => theme.click.button.basic.space.group};
+  ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")};
   cursor: pointer;
 
   &:hover {

@@ -11,11 +11,7 @@ export default {
   selected:{ 
     options: ["option1","option2","option3"],
     control: { type: "select" },
-  },
-  disabled:{ 
-    options: ["option1","option2","option3"],
-    control: { type: "select" },
-  },
+  }
 };
 
 export const Playground = {
