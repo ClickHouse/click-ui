@@ -71,6 +71,10 @@
         "value": "#606060",
         "type": "color"
       },
+      "650": {
+        "value": "#505050",
+        "type": "color"
+      },
       "700": {
         "value": "#414141",
         "type": "color"

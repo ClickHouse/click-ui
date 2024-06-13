@@ -1898,7 +1898,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.neutral.600}",
+            "value": "{palette.neutral.700}",
             "type": "color"
           },
           "error": {
@@ -1974,6 +1974,16 @@
           },
           "disabled": {
             "value": "#a0a0a0",
+            "type": "color"
+          }
+        },
+        "placeholder": {
+          "default": {
+            "value": "{palette.neutral.500}",
+            "type": "color"
+          },
+          "disabled": {
+            "value": "{palette.neutral.600}",
             "type": "color"
           }
         }
