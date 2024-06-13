@@ -1486,7 +1486,7 @@
           },
           "text": {
             "default": {
-              "value": "{palette.neutral.700}",
+              "value": "{palette.neutral.600}",
               "type": "color"
             },
             "hover": {
