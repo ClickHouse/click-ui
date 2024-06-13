@@ -1858,7 +1858,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.neutral.400}",
+            "value": "{palette.neutral.500}",
             "type": "color"
           },
           "error": {
@@ -1920,7 +1920,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.neutral.400}",
+            "value": "{palette.neutral.600}",
             "type": "color"
           },
           "error": {
