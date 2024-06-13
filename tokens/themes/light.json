@@ -1487,8 +1487,7 @@
           "text": {
             "default": {
               "value": "{palette.neutral.650}",
-              "type": "color",
-              "$extensions": {}
+              "type": "color"
             },
             "hover": {
               "value": "{click.button.group.color.text.default}",
@@ -2360,7 +2359,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.slate.200}",
+            "value": "{palette.slate.300}",
             "type": "color"
           }
         },
