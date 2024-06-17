@@ -42,17 +42,16 @@ export default defineConfig({
       external: [
         "react",
         "react-dom",
-        "styled-components",
+        "react/jsx-runtime",
         "**/*.stories.ts",
         "**/*.stories.tsx",
         "**/*.test.ts",
         "**/*.test.tsx",
       ],
       output: {
-        exports: "named",
         globals: {
           react: "React",
-          "styled-components": "styled-components",
+          "react/jsx-runtime": "react/jsx-runtime",
           "react-dom": "ReactDOM",
         },
       },

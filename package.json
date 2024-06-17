@@ -63,6 +63,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-virtualized-auto-sizer": "^1.0.20",
     "react-window": "^1.8.9",
+    "styled-components": "^6.1.11",
     "sortablejs": "^1.15.0"
   },
   "devDependencies": {
@@ -103,7 +104,6 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.18",
     "storybook-addon-pseudo-states": "^2.0.1",
-    "styled-components": "^6.1.11",
     "stylis": "^4.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.4.5",
@@ -114,8 +114,7 @@
   },
   "peerDependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^6.1.11"
+    "react-dom": "^18.2.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

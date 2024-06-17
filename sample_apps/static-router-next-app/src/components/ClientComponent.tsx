@@ -7,8 +7,9 @@ export default function ClientComponent() {
     <ClickUIProvider theme="dark">
       <CodeBlock
         language="sql"
-        onCopy={function Da() { }}
-        onCopyError={function Da() { }}
+        theme="dark"
+        onCopy={() => { }}
+        onCopyError={() => { }}
         showLineNumbers
       >
         {`SELECT
