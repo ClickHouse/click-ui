@@ -49,9 +49,10 @@ export default defineConfig({
         "**/*.test.tsx",
       ],
       output: {
+        exports: "named",
         globals: {
           react: "React",
-          "styled-components": "styled",
+          "styled-components": "styled-components",
           "react-dom": "ReactDOM",
         },
       },

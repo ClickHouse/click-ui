@@ -2,10 +2,13 @@
   "compilerOptions": {
     "target": "ESNext",
     "esModuleInterop": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -13,17 +16,38 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": [
+        "./src/*"
+      ],
     },
-    "types": ["@testing-library/jest-dom", "vitest/globals"]
+    "types": [
+      "@testing-library/jest-dom",
+      "vitest/globals"
+    ]
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "plugins": [
+    // Transform paths in output .js files
+    {
+      "transform": "typescript-transform-paths"
+    },
+    // Transform paths for declarations files
+    {
+      "transform": "typescript-transform-paths",
+      "afterDeclarations": true
+    }
+  ],
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
