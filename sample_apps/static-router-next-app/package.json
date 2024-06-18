@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clickhouse/click-ui": "file:../..",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18"
