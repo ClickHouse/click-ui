@@ -387,15 +387,15 @@
             "default": "rgba(0,0,0,0)",
             "hover": "#282828",
             "active": "lch(18.2 0 0)",
-            "disabled": "#414141",
-            "disabled-active": "lch(22 0 0)",
+            "disabled": "rgba(0,0,0,0)",
+            "disabled-active": "lch(0 0 0 / 0)",
             "panel": "rgba(0,0,0,0)"
           },
           "text": {
-            "default": "#ffffff",
-            "hover": "#ffffff",
+            "default": "#c0c0c0",
+            "hover": "#c0c0c0",
             "active": "#ffffff",
-            "disabled": "#808080",
+            "disabled": "#414141",
             "disabled-active": "#808080"
           },
           "stroke": {
@@ -605,7 +605,7 @@
           "default": "#ffffff",
           "hover": "#ffffff",
           "active": "#ffffff",
-          "disabled": "#a0a0a0"
+          "disabled": "#606060"
         }
       }
     },
@@ -707,21 +707,25 @@
           "default": "#b3b6bd",
           "hover": "#b3b6bd",
           "active": "#ffffff",
-          "disabled": "#a0a0a0",
+          "disabled": "#606060",
           "error": "#ffbaba"
         },
         "format": {
-          "default": "lch(72 4.18 268)",
-          "hover": "lch(72 4.18 268)",
-          "active": "lch(72 4.18 268)",
+          "default": "lch(62.9 0 0)",
+          "hover": "lch(62.9 0 0)",
+          "active": "lch(62.9 0 0)",
           "disabled": "#808080",
-          "error": "lch(72 4.18 268)"
+          "error": "lch(62.9 0 0)"
         },
         "genericLabel": {
           "default": "#ffffff",
           "hover": "#ffffff",
           "active": "#ffffff",
           "disabled": "#a0a0a0"
+        },
+        "placeholder": {
+          "default": "#808080",
+          "disabled": "#606060"
         }
       }
     },
@@ -742,11 +746,11 @@
             "disabled": "#414141"
           },
           "format": {
-            "default": "lch(72 4.18 268)",
-            "hover": "lch(72 4.18 268)",
-            "active": "lch(72 4.18 268)",
+            "default": "lch(62.9 0 0)",
+            "hover": "lch(62.9 0 0)",
+            "active": "lch(62.9 0 0)",
             "disabled": "#808080",
-            "error": "lch(72 4.18 268)"
+            "error": "lch(62.9 0 0)"
           },
           "stroke": {
             "default": "#323232"
@@ -785,7 +789,7 @@
       "autocomplete": {
         "color": {
           "placeholder": {
-            "default": "#9a9ea7"
+            "default": "#808080"
           },
           "searchTerm": {
             "default": "#ffffff"

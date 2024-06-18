@@ -1309,7 +1309,8 @@
           "disabled": string
         },
         "placeholder": {
-          "default": string
+          "default": string,
+          "disabled": string
         }
       }
     },
@@ -2857,6 +2858,7 @@
       "400": string,
       "500": string,
       "600": string,
+      "650": string,
       "700": string,
       "712": string,
       "725": string,

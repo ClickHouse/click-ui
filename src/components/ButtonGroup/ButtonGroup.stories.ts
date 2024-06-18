@@ -7,7 +7,7 @@ export default {
   type: {
     options: ["default", "borderless"],
     control: { type: "radio" },
-  },
+  } 
 };
 
 export const Playground = {
@@ -18,6 +18,7 @@ export const Playground = {
       { label: "Option 3", value: "option3" },
     ],
     fillWidth: false,
-    type: "default"
+    type: "default",
+    selected: "option3",
   },
 };

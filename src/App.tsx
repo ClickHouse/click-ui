@@ -25,6 +25,7 @@ import {
   Spacer,
   SuccessAlert,
   Switch,
+  Panel,
   Tabs,
   WarningAlert,
   CardPrimary,
@@ -40,6 +41,8 @@ import {
   Container,
   InlineCodeBlock,
   GridContainer,
+  TextField,
+  Label,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
@@ -286,7 +289,7 @@ const App = () => {
             state={"disabled"}
           ></Badge>
         </div>
-        <div style={{ display: "flex", padding: "1rem" }}>
+        <Container>
           <CardSecondary
             title="Card title"
             icon="building"
@@ -305,8 +308,12 @@ const App = () => {
             infoText="Read More"
             infoUrl="#"
           />
-        </div>
-        <Container alignItems="start">
+        </Container>
+        <Spacer size="xl" />
+        <Container
+          alignItems="start"
+          gap="lg"
+        >
           <CardPrimary
             title="Card title"
             size="sm"
@@ -343,7 +350,10 @@ const App = () => {
         </Container>
 
         <Text>Same-height cards</Text>
-        <Container alignItems="stretch">
+        <Container
+          alignItems="stretch"
+          gap="xl"
+        >
           <CardPrimary
             title="Development"
             alignContent="center"
@@ -382,17 +392,89 @@ const App = () => {
             </ul>
           </CardPrimary>
         </div>
-        <ButtonGroup
-          options={[
-            { label: "Left center", value: "leftEnd" },
-            { label: "Center", value: "center1" },
-            { label: "Center", value: "center2" },
-            { label: "Center", value: "center3" },
-            { label: "Right end", value: "rightEnd" },
-          ]}
-          selected={selectedButton}
-          onClick={setSelectedButton}
-        />
+
+        <Spacer size="lg" />
+        <Panel
+          orientation="vertical"
+          gap="lg"
+          alignItems="start"
+        >
+          <ButtonGroup
+            options={[
+              { label: "Left center", value: "leftEnd" },
+              { label: "Center", value: "center1" },
+              { label: "Center", value: "center2" },
+              { label: "Center", value: "center3" },
+              { label: "Right end", value: "rightEnd" },
+            ]}
+            selected={selectedButton}
+            onClick={setSelectedButton}
+          />
+
+          <ButtonGroup
+            options={[
+              { label: "Left center", value: "leftEnd" },
+              { label: "Center", value: "center1" },
+              { label: "Center", value: "center2" },
+              { label: "Center", value: "center3" },
+              { label: "Right end", value: "rightEnd" },
+            ]}
+            selected={selectedButton}
+            onClick={setSelectedButton}
+            type="borderless"
+          />
+        </Panel>
+
+        <Spacer size="lg" />
+
+        <Panel>
+          <Container
+            orientation="vertical"
+            gap="xs"
+          >
+            <Label>Example label</Label>
+            <TextField
+              onChange={inputValue => console.log(inputValue)}
+              placeholder="Placeholder"
+            />
+          </Container>
+
+          <Container
+            orientation="vertical"
+            gap="xs"
+          >
+            <Label>Example label</Label>
+            <TextField
+              onChange={inputValue => console.log(inputValue)}
+              value="Value"
+            />
+          </Container>
+
+          <Container
+            orientation="vertical"
+            gap="xs"
+          >
+            <Label disabled>Example label</Label>
+            <TextField
+              onChange={inputValue => console.log(inputValue)}
+              value="Value"
+              disabled
+            />
+          </Container>
+
+          <Container
+            orientation="vertical"
+            gap="xs"
+          >
+            <Label disabled>Example label</Label>
+            <TextField
+              onChange={inputValue => console.log(inputValue)}
+              placeholder="Placeholder"
+              disabled
+            />
+          </Container>
+        </Panel>
+        <Spacer size="lg" />
         <Switch
           checked={checked}
           disabled={disabled}
