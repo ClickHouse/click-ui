@@ -126,6 +126,7 @@ import NoCloud from "@/components/icons/NoCloud";
 import Lifebuoy from "@/components/icons/Lifebuoy";
 import GitMerge from "@/components/icons/GitMerge";
 import Bell from "@/components/icons/Bell";
+import DoubleCheckIcon from "@/components/icons/DoubleCheckIcon";
 
 export const ICONS_MAP = {
   activity: Activity,
@@ -179,6 +180,7 @@ export const ICONS_MAP = {
   "dots-triangle": DotsTriangle,
   "dots-vertical": DotsVertical,
   "dots-vertical-double": DotsVerticalDouble,
+  "double-check": DoubleCheckIcon,
   download: Download,
   "download-in-circle": DownloadInCircle,
   email: Email,
