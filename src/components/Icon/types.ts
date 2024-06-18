@@ -57,6 +57,7 @@ export const ICON_NAMES = [
   "dots-triangle",
   "dots-vertical",
   "dots-vertical-double",
+  "double-check",
   "download",
   "download-in-circle",
   "email",
