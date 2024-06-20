@@ -1,4 +1,4 @@
-import React, {
+import {
   HTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
