@@ -21,7 +21,7 @@ const addCellToRow = (
   const td = document.createElement("td");
   // const root = createRoot(td);
   const html = renderToStaticMarkup(
-    createElement(cell, { rowIndex, columnIndex, type: "row-cell" })
+    createElement(cell, { rowIndex, columnIndex, width: 1000, type: "row-cell" })
   );
   td.innerHTML = html;
 

@@ -8,13 +8,13 @@ import {
   Pagination,
 } from "..";
 
-const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
+const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, width, ...props }) => {
   return (
     <span
       data-scrolling={isScrolling}
       {...props}
     >
-      {rowIndex} {columnIndex} - {type}
+      {rowIndex} {columnIndex} - {type} {width}px
     </span>
   );
 };

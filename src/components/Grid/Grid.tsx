@@ -1,4 +1,4 @@
-import {
+import React, {
   HTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
@@ -15,6 +15,7 @@ import {
   GridOnScrollProps,
   VariableSizeGrid,
   GridOnItemsRenderedProps,
+  GridChildComponentProps,
 } from "react-window";
 import AutoSizer, { Size } from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
@@ -771,6 +772,16 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       }
     }, [rowStart, onItemsRendered]);
 
+    const CellWithWidth = (args: GridChildComponentProps<ItemDataType>): JSX.Element => {
+      const width = columnWidth(args.columnIndex);
+      return (
+        <Cell
+          {...args}
+          width={width}
+        />
+      );
+    }
+
     return (
       <ContextMenu
         modal={false}
@@ -823,7 +834,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 onItemsRendered={onItemsRendered}
                 {...props}
               >
-                {Cell}
+                {CellWithWidth}
               </VariableSizeGrid>
             )}
           </AutoSizer>
