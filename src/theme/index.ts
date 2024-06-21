@@ -16,12 +16,13 @@ type ThemeName = "dark" | "light" | "classic";
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
 }
-type CUIThemeType = Pick<Theme, "global" | "sizes" | "name">;
+type CUIThemeType = Pick<Theme, "breakpoint" | "global" | "name" | "sizes">;
 const useCUITheme = (): CUIThemeType => {
   const theme = useTheme();
   return {
-    name: theme.name,
+    breakpoint: theme.breakpoint,
     global: theme.global,
+    name: theme.name,
     sizes: theme.sizes,
   };
 };
