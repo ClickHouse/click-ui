@@ -4,7 +4,8 @@ import { Flyout, FlyoutProps } from "./Flyout";
 interface Props extends FlyoutProps {
   title: string;
   description?: string;
-  align: "default" | "top";
+  alignBody: "default" | "top";
+  align: "start" | "end";
   type: "default" | "inline";
   size: "default" | "narrow" | "wide";
   width?: string;
@@ -13,10 +14,11 @@ interface Props extends FlyoutProps {
 const FlyoutExample = ({
   title,
   description,
-  align,
+  alignBody,
   type,
   size,
   width,
+  align,
   ...props
 }: Props) => {
   return (
@@ -26,6 +28,7 @@ const FlyoutExample = ({
       </Flyout.Trigger>
       <Flyout.Content
         strategy="fixed"
+        align={align}
         size={size}
         width={width}
       >
@@ -34,7 +37,7 @@ const FlyoutExample = ({
           title={title}
           description={description}
         />
-        <Flyout.Body align={align}>
+        <Flyout.Body align={alignBody}>
           <Flyout.Element type={type}>
             <Text>Flyout content belongs here.</Text>
           </Flyout.Element>
@@ -54,7 +57,18 @@ export default {
   argTypes: {
     title: { control: "text" },
     description: { control: "text" },
-    align: { control: "select", options: ["default", "top"] },
+    alignBody: {
+      control: "radio",
+      options: ["default", "top"],
+      defaultValue: "default",
+      description: "Align the content inside the flyout",
+    },
+    align: {
+      control: "radio",
+      options: ["start", "end"],
+
+      description: "Align the flyout",
+    },
     size: { control: "select", options: ["default", "narrow", "wide"] },
     type: { control: "select", options: ["default", "inline"] },
     width: { control: "text" },
