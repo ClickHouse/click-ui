@@ -3,6 +3,10 @@ import { GridChildComponentProps, areEqual } from "react-window";
 import { ItemDataType } from "./types";
 import { StyledCell } from "./StyledCell";
 
+type CellProps = GridChildComponentProps<ItemDataType> & {
+  width: number;
+}
+
 export const Cell = memo(
   ({
     data,
@@ -10,7 +14,7 @@ export const Cell = memo(
     columnIndex,
     style,
     ...props
-  }: GridChildComponentProps<ItemDataType>) => {
+  }: CellProps) => {
     const {
       cell: CellData,
       getSelectionType,

@@ -17,11 +17,13 @@ interface CellCommonProps extends HTMLAttributes<HTMLElement> {
 interface CellHeaderProps extends CellCommonProps {
   rowIndex?: never;
   type: "header-cell";
+  width: number;
 }
 
 interface CellBodyProps extends CellCommonProps {
   rowIndex: number;
   type: "row-cell";
+  width: number;
 }
 
 type CellComponentProps = CellHeaderProps | CellBodyProps;

@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from "..";
 import { Grid as CUIGrid } from "./Grid";
 
-const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
+const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, width, ...props }) => {
   return (
     <div
       data-scrolling={isScrolling}
       {...props}
     >
-      {rowIndex} {columnIndex} - {type}
+      {rowIndex} {columnIndex} - {type} - {width}px
     </div>
   );
 };

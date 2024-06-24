@@ -32,6 +32,7 @@
     "test": "vitest",
     "dev": "vite",
     "generate-tokens": "node build-tokens.js",
+    "typecheck": "tsc --noEmit",
     "build": "tsc && vite build",
     "build:watch": "watch 'npm run build' ./src",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

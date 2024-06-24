@@ -151,6 +151,7 @@ const Column = ({
         data-grid-column={columnIndex}
         data-selected={isSelected}
         $showBorder={showBorder}
+        width={columnWidth(columnIndex)}
       />
       <ColumnResizer
         height={height}
