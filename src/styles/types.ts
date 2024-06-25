@@ -2479,7 +2479,8 @@
         }
       },
       "shadow": {
-        "default": string
+        "default": string,
+        "reverse": string
       },
       "size": {
         "default": {
@@ -3122,7 +3123,8 @@
   "shadow": {
     "1": string,
     "2": string,
-    "3": string
+    "3": string,
+    "4": string
   },
   "breakpoint": {
     "sizes": {
