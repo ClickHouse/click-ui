@@ -2916,6 +2916,10 @@
         "default": {
           "value": "{shadow.3}",
           "type": "boxShadow"
+        },
+        "reverse": {
+          "value": "{shadow.4}",
+          "type": "boxShadow"
         }
       },
       "size": {
