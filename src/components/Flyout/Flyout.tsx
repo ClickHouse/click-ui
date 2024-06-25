@@ -96,11 +96,15 @@ const FlyoutContent = styled(DialogContent)<{
     height: ${$strategy === "relative" ? "100%" : "auto"};
     padding: 0 ${theme.click.flyout.space[$type].x}
     gap: ${theme.click.flyout.space[$type].gap};
+    box-shadow: ${
+      $align === "start"
+        ? theme.click.flyout.shadow.reverse
+        : theme.click.flyout.shadow.default
+    };
     border-${$align === "start" ? "right" : "left"}: 1px solid ${
     theme.click.flyout.color.stroke.default
   };
     background: ${theme.click.flyout.color.background.default};
-    box-shadow: ${theme.click.flyout.shadow.default}};
 
     @media (max-width: 1024px) {
       ${
