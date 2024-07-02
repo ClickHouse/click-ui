@@ -42,13 +42,19 @@ export const SidebarCollapsibleTitle = ({
         $type={type}
         {...props}
       >
-        {icon && (
+        {icon && iconDir === "start" && (
           <Icon
             name={icon}
             size="sm"
           />
         )}
         {label}
+        {icon && iconDir === "end" && (
+          <Icon
+            name={icon}
+            size="sm"
+          />
+        )}
       </SidebarTitleWrapper>
       <Collapsible.Content>{children}</Collapsible.Content>
     </Collapsible>
