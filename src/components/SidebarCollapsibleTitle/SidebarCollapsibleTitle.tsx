@@ -20,7 +20,7 @@ export const SidebarCollapsibleTitle = ({
   children,
   open,
   onOpenChange,
-  iconDir,
+  iconDir = "start",
   icon,
   selected,
   type = "main",
