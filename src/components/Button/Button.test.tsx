@@ -34,6 +34,18 @@ describe("Button", () => {
     expect(loadingButton.length).toEqual(1);
   });
 
+  it("given a loading button and showLabelWithLoading, it should render the loading icon and the label", async () => {
+    const { getAllByTestId, getByTestId } = renderButton({
+      label: "Button",
+      loading: true,
+      showLabelWithLoading: true
+    });
+
+    const loadingButton = getAllByTestId("click-ui-loading-icon");
+    expect(loadingButton.length).toEqual(1);
+    expect(getByTestId("click-ui-loading-icon-wrapper")).toHaveTextContent("Button");
+  });
+
   it("given a non-loading button, it should not render the loading icon", async () => {
     const { queryAllByTestId } = renderButton({
       label: "Button",
