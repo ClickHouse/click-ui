@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
+import { IconSize } from "@/components/Icon/types";
 import { HTMLAttributes, ReactNode } from "react";
 
 export type BadgeState =
@@ -25,6 +26,7 @@ export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   infoUrl?: string;
   infoText?: string;
   infoIcon?: IconName;
+  infoIconSize?: IconSize;
 }
 
 const Header = styled.div`
@@ -65,7 +67,6 @@ const InfoLink = styled.a`
   text-decoration: none;
 `;
 const LinkIconContainer = styled(Icon)`
-  padding-left: ${({ theme }) => theme.click.card.secondary.space.gap};
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
   height: ${({ theme }) => theme.click.image.md.size.height};
   width: ${({ theme }) => theme.click.image.md.size.width};
@@ -129,6 +130,7 @@ export const CardSecondary = ({
   infoUrl,
   infoText,
   infoIcon = "chevron-right",
+  infoIconSize = "md",
   ...props
 }: CardSecondaryProps) => {
   return (
@@ -174,7 +176,7 @@ export const CardSecondary = ({
           as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
         >
           <LinkText>{infoText}</LinkText>
-          <LinkIcon name={infoIcon} />
+          <LinkIcon size={infoIconSize} name={infoIcon} />
         </InfoLink>
       )}
     </Wrapper>
