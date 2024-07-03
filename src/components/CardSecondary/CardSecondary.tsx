@@ -65,6 +65,7 @@ const InfoLink = styled.a`
   text-decoration: none;
 `;
 const LinkIconContainer = styled(Icon)`
+  padding-left: ${({ theme }) => theme.click.card.secondary.space.gap};
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
   height: ${({ theme }) => theme.click.image.md.size.height};
   width: ${({ theme }) => theme.click.image.md.size.width};
