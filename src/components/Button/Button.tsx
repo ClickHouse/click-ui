@@ -40,6 +40,8 @@ export const Button = ({
     role="button"
     {...delegated}
   >
+    {!loading && (
+        <>
     {iconLeft && (
       <ButtonIcon
         name={iconLeft}
@@ -57,6 +59,8 @@ export const Button = ({
         size="sm"
       />
     )}
+        </>
+    )}
     {loading && (
       <LoadingIconWrapper data-testid="click-ui-loading-icon-wrapper">
         <Icon
@@ -71,7 +75,6 @@ export const Button = ({
 );
 
 const LoadingIconWrapper = styled.div`
-  position: absolute;
   background-color: inherit;
   top: 0;
   left: 0;
