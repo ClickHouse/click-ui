@@ -59,4 +59,42 @@ describe("CardSecondary Component", () => {
     const imgElement = screen.getByAltText("card icon");
     expect(imgElement).toHaveAttribute("src", iconUrl);
   });
+
+  it("should render the info text", () => {
+    const infoText = "hi there";
+    renderCard({
+      title: "Test card component",
+      icon: "warning",
+      description: "",
+      infoUrl: "",
+      infoText,
+    });
+
+    expect(screen.getAllByText(infoText).length).toEqual(1);
+  });
+
+  it("should render custom the info icon", () => {
+    renderCard({
+      title: "Test card component",
+      icon: "warning",
+      description: "",
+      infoUrl: "",
+      infoText: "Read more",
+      infoIcon: "popout",
+    });
+
+    expect(screen.getAllByLabelText("popout").length).toEqual(1);
+  });
+
+  it("should render chevron-right by default", () => {
+    renderCard({
+      title: "Test card component",
+      icon: "warning",
+      description: "",
+      infoUrl: "",
+      infoText: "Read more",
+    });
+
+    expect(screen.getAllByLabelText("chevron-right").length).toEqual(1);
+  });
 });
