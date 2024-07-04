@@ -64,6 +64,7 @@ const InfoLink = styled.a`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
+  gap: ${({ theme }) => theme.click.card.secondary.space.link.gap};
   text-decoration: none;
 `;
 const LinkIconContainer = styled(Icon)`
