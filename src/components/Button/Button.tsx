@@ -16,6 +16,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   fillWidth?: boolean;
   loading?: boolean;
   autoFocus?: boolean;
+  showLabelWithLoading?: boolean;
 }
 
 export const Button = ({
@@ -28,6 +29,7 @@ export const Button = ({
   label,
   loading = false,
   disabled,
+  showLabelWithLoading = false,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
@@ -56,12 +58,13 @@ export const Button = ({
       />
     )}
     {loading && (
-      <LoadingIconWrapper>
+      <LoadingIconWrapper data-testid="click-ui-loading-icon-wrapper">
         <Icon
           name="loading-animated"
           data-testid="click-ui-loading-icon"
           aria-label="loading"
-        />
+        ></Icon>
+        {showLabelWithLoading? label ?? children : ""}
       </LoadingIconWrapper>
     )}
   </StyledButton>
@@ -77,6 +80,8 @@ const LoadingIconWrapper = styled.div`
   display: flex;
   align-content: center;
   justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
 const StyledButton = styled(BaseButton)<{

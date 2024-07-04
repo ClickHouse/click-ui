@@ -24,5 +24,6 @@ export const Playground = {
     align: "center",
     fillWidth: false,
     loading: false,
+    showLabelWithLoading: false,
   },
 };

@@ -786,7 +786,10 @@
       "secondary": {
         "space": {
           "all": string,
-          "gap": string
+          "gap": string,
+          "link": {
+            "gap": string
+          }
         },
         "radii": {
           "all": string
