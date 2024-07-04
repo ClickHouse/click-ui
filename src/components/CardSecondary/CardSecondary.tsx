@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
+import { IconSize } from "@/components/Icon/types";
 import { HTMLAttributes, ReactNode } from "react";
 
 export type BadgeState =
@@ -24,6 +25,8 @@ export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   description: ReactNode;
   infoUrl?: string;
   infoText?: string;
+  infoIcon?: IconName;
+  infoIconSize?: IconSize;
 }
 
 const Header = styled.div`
@@ -61,16 +64,17 @@ const InfoLink = styled.a`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
+  gap: ${({ theme }) => theme.click.card.secondary.space.link.gap};
   text-decoration: none;
 `;
-const ArrowContainer = styled(Icon)`
+const LinkIconContainer = styled(Icon)`
   color: ${({ theme }) => theme.click.card.secondary.color.link.default};
   height: ${({ theme }) => theme.click.image.md.size.height};
   width: ${({ theme }) => theme.click.image.md.size.width};
 `;
 
 const LinkText = styled(Text)``;
-const LinkArrow = styled(ArrowContainer)``;
+const LinkIcon = styled(LinkIconContainer)``;
 
 const Wrapper = styled.div<{
   $hasShadow?: boolean;
@@ -92,7 +96,7 @@ const Wrapper = styled.div<{
     background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
     cursor: pointer;
     ${LinkText},
-    ${LinkArrow} {
+    ${LinkIcon} {
       color: ${({ theme }) => theme.click.card.secondary.color.link.hover};
     }
   }
@@ -108,7 +112,7 @@ const Wrapper = styled.div<{
       cursor: not-allowed;
 
       ${LinkText},
-      ${LinkArrow} {
+      ${LinkIcon} {
         color: ${theme.click.card.secondary.color.link.disabled};
       }
     `}
@@ -126,6 +130,8 @@ export const CardSecondary = ({
   description,
   infoUrl,
   infoText,
+  infoIcon = "chevron-right",
+  infoIconSize = "md",
   ...props
 }: CardSecondaryProps) => {
   return (
@@ -171,7 +177,7 @@ export const CardSecondary = ({
           as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
         >
           <LinkText>{infoText}</LinkText>
-          <LinkArrow name="chevron-right" />
+          <LinkIcon size={infoIconSize} name={infoIcon} />
         </InfoLink>
       )}
     </Wrapper>
