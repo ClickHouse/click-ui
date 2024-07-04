@@ -809,6 +809,12 @@
           "gap": {
             "value": "{spaces.4}",
             "type": "spacing"
+          },
+          "link": {
+            "gap": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
           }
         },
         "radii": {
