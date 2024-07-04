@@ -785,7 +785,10 @@
       "secondary": {
         "space": {
           "all": "1rem",
-          "gap": "1rem"
+          "gap": "1rem",
+          "link": {
+            "gap": "0.5rem"
+          }
         },
         "radii": {
           "all": "0.25rem"
