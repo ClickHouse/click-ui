@@ -461,7 +461,7 @@
                 "modify": {
                   "type": "darken",
                   "value": "0.05",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
