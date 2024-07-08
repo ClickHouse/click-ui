@@ -103,7 +103,7 @@
           "success": "#004206",
           "neutral": "#414141",
           "danger": "#610000",
-          "disabled": "lch(26.2 0 0)",
+          "disabled": "rgb(24.2% 24.2% 24.2%)",
           "info": "#09255B",
           "warning": "#4f2b00"
         }
@@ -135,8 +135,8 @@
           "primary": {
             "background": {
               "default": "#FAFF69",
-              "hover": "lch(98.3 49.3 103)",
-              "active": "lch(90.2 65.2 103)",
+              "hover": "rgb(98.6% 100% 58.8%)",
+              "active": "rgb(90.7% 92.5% 38.1%)",
               "disabled": "#414141"
             },
             "text": {
@@ -148,7 +148,7 @@
             "stroke": {
               "default": "#FAFF69",
               "hover": "#FAFF69",
-              "active": "lch(82.5 59.7 103)",
+              "active": "lch(83.3 60.6 103)",
               "disabled": "#414141"
             }
           },
@@ -156,13 +156,13 @@
             "background": {
               "default": "#1F1F1C",
               "hover": "#282828",
-              "active": "lch(20.3 0 0)",
+              "active": "rgb(19.9% 19.9% 19.9%)",
               "disabled": "#414141"
             },
             "stroke": {
               "default": "#414141",
               "hover": "#53575f",
-              "active": "lch(23.3 2.63 306)",
+              "active": "rgb(22.9% 22.1% 23.6%)",
               "disabled": "#414141"
             },
             "text": {
@@ -236,13 +236,13 @@
           "secondary": {
             "background": {
               "default": "#FAFF69",
-              "hover": "lch(98.3 49.3 103)",
-              "active": "lch(85.7 61.9 103)"
+              "hover": "rgb(98.6% 100% 58.8%)",
+              "active": "lch(86.5 62.9 103)"
             },
             "stroke": {
               "default": "rgba(0,0,0,0)",
-              "hover": "lch(98.3 49.3 103)",
-              "active": "lch(85.7 61.9 103)"
+              "hover": "rgb(98.6% 100% 58.8%)",
+              "active": "lch(86.5 62.9 103)"
             },
             "text": {
               "default": "#1F1F1C",
@@ -316,14 +316,14 @@
           "background": {
             "main": {
               "default": "#FAFF69",
-              "hover": "lch(89.9 45.1 103)",
-              "active": "lch(82.5 59.7 103)",
+              "hover": "lch(89.7 46.7 104)",
+              "active": "lch(83.3 60.6 103)",
               "disabled": "lch(25.2 0 0)"
             },
             "action": {
               "default": "lch(87.8 63.4 103)",
-              "hover": "lch(82.7 41.5 103)",
-              "active": "lch(72.6 52.5 103)",
+              "hover": "lch(82.5 43 104)",
+              "active": "lch(73.3 53.3 103)",
               "disabled": "lch(22.2 0 0)"
             }
           },
@@ -341,8 +341,8 @@
           },
           "divide": {
             "default": "lch(85.4 61.7 103)",
-            "hover": "lch(78.7 39.5 103)",
-            "active": "lch(72.2 52.2 103)",
+            "hover": "lch(78.5 40.9 104)",
+            "active": "lch(72.9 53 103)",
             "disabled": "lch(23.1 0 0)"
           }
         },
@@ -350,20 +350,20 @@
           "divide": {
             "default": "lch(31.2 0 0)",
             "hover": "lch(34.8 0 0)",
-            "active": "lch(24.1 2.6 306)",
+            "active": "lch(24.8 2.56 307)",
             "disabled": "lch(23.4 0 0)"
           },
           "background": {
             "main": {
               "default": "#1F1F1C",
               "hover": "#282828",
-              "active": "lch(20.3 0 0)",
+              "active": "rgb(19.9% 19.9% 19.9%)",
               "disabled": "#414141"
             },
             "action": {
               "default": "#282828",
               "hover": "lch(18.2 0 0)",
-              "active": "lch(21.1 0 0)",
+              "active": "lch(21.9 0 0)",
               "disabled": "lch(23.9 0 0)"
             }
           },
@@ -376,7 +376,7 @@
           "stroke": {
             "default": "#414141",
             "hover": "#414141",
-            "active": "lch(24.1 2.6 306)",
+            "active": "lch(24.8 2.56 307)",
             "disabled": "rgba(0,0,0,0)"
           }
         }
@@ -424,7 +424,7 @@
           "stroke": {
             "default": "#323232",
             "hover": "#53575f",
-            "active": "lch(23.3 2.63 306)"
+            "active": "rgb(22.9% 22.1% 23.6%)"
           },
           "text": {
             "default": "#ffffff",
