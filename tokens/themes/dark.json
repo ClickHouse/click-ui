@@ -538,7 +538,7 @@
                     "modify": {
                       "type": "lighten",
                       "value": "0.3",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -551,7 +551,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.075",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -616,7 +616,7 @@
                     "modify": {
                       "type": "lighten",
                       "value": "0.05",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -643,7 +643,7 @@
                     "modify": {
                       "type": "lighten",
                       "value": "0.05",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
