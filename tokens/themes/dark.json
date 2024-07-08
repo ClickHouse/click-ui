@@ -71,7 +71,7 @@
                 "modify": {
                   "type": "alpha",
                   "value": "0.6",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -86,7 +86,7 @@
                 "modify": {
                   "type": "darken",
                   "value": "0.025",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -114,7 +114,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.075",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -137,7 +137,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.075",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -176,7 +176,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.075",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -815,7 +815,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.085",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -828,7 +828,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.085",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -843,7 +843,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.1",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -856,7 +856,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.08",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -869,7 +869,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.12",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -882,7 +882,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.12",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -934,7 +934,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.125",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -947,7 +947,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.125",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -960,7 +960,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.125",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -973,7 +973,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.085",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -1031,7 +1031,7 @@
                     "modify": {
                       "type": "lighten",
                       "value": "0.025",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -1044,7 +1044,7 @@
                     "modify": {
                       "type": "lighten",
                       "value": "0.01",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -1057,7 +1057,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.05",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -1099,7 +1099,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.01",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -1130,7 +1130,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.02",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -1239,7 +1239,7 @@
                     "modify": {
                       "type": "darken",
                       "value": "0.05",
-                      "space": "lch"
+                      "space": "srgb"
                     }
                   }
                 }
@@ -1299,7 +1299,7 @@
                 "type": "color"
               },
               "active": {
-                "value": "{palette.danger.100}",
+                "value": "{palette.danger.600}",
                 "type": "color"
               }
             },
@@ -1450,7 +1450,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.025",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -1813,7 +1813,7 @@
                 "modify": {
                   "type": "lighten",
                   "value": "0.025",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -1826,7 +1826,7 @@
                 "modify": {
                   "type": "lighten",
                   "value": "0.025",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -1875,7 +1875,7 @@
                 "modify": {
                   "type": "lighten",
                   "value": "0.05",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -1888,7 +1888,7 @@
                 "modify": {
                   "type": "lighten",
                   "value": "0.05",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -1937,7 +1937,7 @@
                 "modify": {
                   "type": "lighten",
                   "value": "0.2",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
@@ -2027,7 +2027,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.0875",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -2611,7 +2611,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.025",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -2664,7 +2664,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.025",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -2870,7 +2870,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.05",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -2955,7 +2955,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.05",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -3036,7 +3036,7 @@
                   "modify": {
                     "type": "darken",
                     "value": "0.05",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -3241,7 +3241,7 @@
                   "modify": {
                     "type": "alpha",
                     "value": "0.9",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -3254,7 +3254,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.025",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
@@ -3267,7 +3267,7 @@
                   "modify": {
                     "type": "lighten",
                     "value": "0.025",
-                    "space": "lch"
+                    "space": "srgb"
                   }
                 }
               }
