@@ -41,7 +41,7 @@
           },
           "danger": {
             "background": {
-              "default": "#ffdddd",
+              "default": "rgb(100% 13.7% 13.7% / 0.1)",
               "hover": "#ff9898",
               "active": "lch(78 26.3 22)"
             },
@@ -130,7 +130,7 @@
           },
           "danger": {
             "background": {
-              "default": "#ffdddd",
+              "default": "rgb(100% 13.7% 13.7% / 0.1)",
               "hover": "#ff9898",
               "active": "#ffbaba"
             },
@@ -140,7 +140,7 @@
               "active": "#c10000"
             },
             "stroke": {
-              "default": "#ffdddd",
+              "default": "rgb(100% 13.7% 13.7% / 0.1)",
               "hover": "#ff9898",
               "active": "lch(78 26.3 22)"
             }
@@ -164,7 +164,7 @@
           },
           "info": {
             "background": {
-              "default": "#dae6fc",
+              "default": "rgb(7.45% 35.7% 90.2% / 0.1)",
               "hover": "#b5cdf9",
               "active": "#91b3f6"
             },
@@ -174,7 +174,7 @@
               "active": "#135be6"
             },
             "stroke": {
-              "default": "#dae6fc",
+              "default": "rgb(7.45% 35.7% 90.2% / 0.1)",
               "hover": "#b5cdf9",
               "active": "#91b3f6"
             }
@@ -246,7 +246,7 @@
           "stroke": {
             "default": "#e6e7e9",
             "hover": "#e6e7e9",
-            "active": "lch(84 2.28 258)",
+            "active": "rgb(81.2% 82.3% 83.8%)",
             "disabled": "rgba(0,0,0,0)"
           }
         }
@@ -328,7 +328,7 @@
           "background": {
             "default": "#ffffff",
             "hover": "#f6f7fa",
-            "active": "lch(92.4 1.49 272)",
+            "active": "rgb(91.6% 92% 93.1%)",
             "disabled": "#dfdfdf"
           },
           "title": {
@@ -422,8 +422,8 @@
             "active": "#161517"
           },
           "background": {
-            "default": "lch(97.2 1.57 272 / 0.9)",
-            "hover": "lch(91.8 1.07 266)",
+            "default": "rgb(96.5% 96.9% 98% / 0.9)",
+            "hover": "rgb(90.4% 90.8% 91.6%)",
             "active": "lch(89.3 1.07 266)"
           },
           "stroke": {
