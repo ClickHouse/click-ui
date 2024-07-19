@@ -275,23 +275,68 @@
           },
           "success": {
             "value": "{click.feedback.color.success.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "neutral": {
             "value": "{click.feedback.color.neutral.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "danger": {
             "value": "{click.feedback.color.danger.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "warning": {
             "value": "{click.alert.color.background.warning}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "info": {
             "value": "{click.alert.color.background.info}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           }
         },
         "iconForeground": {
@@ -404,38 +449,31 @@
         "background": {
           "default": {
             "value": "{global.color.background.muted}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "success": {
             "value": "{click.feedback.color.success.background}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "neutral": {
             "value": "{click.feedback.color.neutral.background}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "danger": {
             "value": "{click.feedback.color.danger.background}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "disabled": {
             "value": "{click.card.primary.color.background.disabled}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "info": {
             "value": "{click.feedback.color.info.background}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           },
           "warning": {
             "value": "{click.feedback.color.warning.background}",
-            "type": "color",
-            "$extensions": {}
+            "type": "color"
           }
         },
         "text": {

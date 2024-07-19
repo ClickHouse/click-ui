@@ -250,23 +250,68 @@
           },
           "success": {
             "value": "{click.feedback.color.success.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "neutral": {
             "value": "{click.feedback.color.neutral.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "danger": {
             "value": "{click.feedback.color.danger.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "warning": {
             "value": "{click.alert.color.background.warning}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "info": {
             "value": "{click.alert.color.background.info}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0",
+                  "space": "srgb"
+                }
+              }
+            }
           }
         },
         "iconForeground": {
