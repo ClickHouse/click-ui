@@ -403,32 +403,39 @@
       "color": {
         "background": {
           "default": {
-            "value": "{click.global.color.background.default}",
-            "type": "color"
+            "value": "{global.color.background.muted}",
+            "type": "color",
+            "$extensions": {}
           },
           "success": {
             "value": "{click.feedback.color.success.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {}
           },
           "neutral": {
             "value": "{click.feedback.color.neutral.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {}
           },
           "danger": {
             "value": "{click.feedback.color.danger.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {}
           },
           "disabled": {
             "value": "{click.card.primary.color.background.disabled}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {}
           },
           "info": {
             "value": "{click.feedback.color.info.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {}
           },
           "warning": {
             "value": "{click.feedback.color.warning.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {}
           }
         },
         "text": {
@@ -468,7 +475,16 @@
           },
           "success": {
             "value": "{click.feedback.color.success.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.05",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "neutral": {
             "value": "{click.feedback.color.neutral.background}",
@@ -476,7 +492,16 @@
           },
           "danger": {
             "value": "{click.feedback.color.danger.background}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.05",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "disabled": {
             "value": "{click.card.primary.color.stroke.disabled}",
@@ -486,18 +511,36 @@
                 "modify": {
                   "type": "darken",
                   "value": "0.05",
-                  "space": "lch"
+                  "space": "srgb"
                 }
               }
             }
           },
           "info": {
             "value": "{click.badge.color.background.info}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.05",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "warning": {
             "value": "{click.badge.color.background.warning}",
-            "type": "color"
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.05",
+                  "space": "srgb"
+                }
+              }
+            }
           }
         }
       }
@@ -2191,8 +2234,17 @@
       "color": {
         "info": {
           "background": {
-            "value": "{palette.info.50}",
-            "type": "color"
+            "value": "{palette.info.400}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.1",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "foreground": {
             "value": "{palette.info.400}",
@@ -2201,8 +2253,17 @@
         },
         "success": {
           "background": {
-            "value": "{palette.success.50}",
-            "type": "color"
+            "value": "{palette.success.400}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.1",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "foreground": {
             "value": "{palette.success.700}",
@@ -2211,8 +2272,17 @@
         },
         "warning": {
           "background": {
-            "value": "{palette.warning.50}",
-            "type": "color"
+            "value": "{palette.warning.400}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.1",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "foreground": {
             "value": "{palette.warning.700}",
@@ -2221,8 +2291,17 @@
         },
         "danger": {
           "background": {
-            "value": "{palette.danger.50}",
-            "type": "color"
+            "value": "{palette.danger.400}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.1",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "foreground": {
             "value": "{palette.danger.600}",
@@ -2231,8 +2310,17 @@
         },
         "neutral": {
           "background": {
-            "value": "{palette.slate.100}",
-            "type": "color"
+            "value": "{palette.slate.600}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.1",
+                  "space": "srgb"
+                }
+              }
+            }
           },
           "foreground": {
             "value": "{palette.slate.700}",
