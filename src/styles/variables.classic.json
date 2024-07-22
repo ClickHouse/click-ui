@@ -42,8 +42,8 @@
           "danger": {
             "background": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
-              "hover": "#ff9898",
-              "active": "lch(78 26.3 22)"
+              "hover": "rgb(100% 59.6% 59.6% / 0.2)",
+              "active": "rgb(100% 72.9% 72.9% / 0.3)"
             },
             "text": {
               "default": "#c10000"
@@ -141,8 +141,8 @@
             },
             "stroke": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
-              "hover": "#ff9898",
-              "active": "lch(78 26.3 22)"
+              "hover": "rgb(100% 59.6% 59.6% / 0.2)",
+              "active": "rgb(100% 72.9% 72.9% / 0.3)"
             }
           },
           "ghost": {

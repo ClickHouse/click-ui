@@ -401,8 +401,8 @@
           "danger": {
             "background": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
-              "hover": "#ffbaba",
-              "active": "lch(70.3 41.1 23.9)",
+              "hover": "rgb(100% 13.7% 13.7% / 0.2)",
+              "active": "rgb(100% 13.7% 13.7% / 0.3)",
               "disabled": "#dfdfdf"
             },
             "text": {
@@ -413,8 +413,8 @@
             },
             "stroke": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
-              "hover": "#ffbaba",
-              "active": "lch(70.3 41.1 23.9)",
+              "hover": "rgb(100% 13.7% 13.7% / 0.05)",
+              "active": "rgb(100% 13.7% 13.7% / 0.05)",
               "disabled": "#dfdfdf"
             }
           },
@@ -513,8 +513,8 @@
           "danger": {
             "background": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
-              "hover": "#ffbaba",
-              "active": "lch(70.3 41.1 23.9)"
+              "hover": "rgb(100% 13.7% 13.7% / 0.2)",
+              "active": "rgb(100% 13.7% 13.7% / 0.3)"
             },
             "text": {
               "default": "#c10000",
@@ -523,8 +523,8 @@
             },
             "stroke": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
-              "hover": "#ffbaba",
-              "active": "lch(70.3 41.1 23.9)"
+              "hover": "rgb(100% 13.7% 13.7% / 0.2)",
+              "active": "rgb(100% 13.7% 13.7% / 0.3)"
             }
           },
           "ghost": {
