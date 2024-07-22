@@ -781,16 +781,34 @@
             },
             "background": {
               "default": {
-                "value": "{click.feedback.color.danger.background}",
+                "value": "{click.alert.color.background.danger}",
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.danger.100}",
-                "type": "color"
+                "value": "{palette.danger.400}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.2",
+                      "space": "srgb"
+                    }
+                  }
+                }
               },
               "active": {
-                "value": "{palette.danger.200}",
-                "type": "color"
+                "value": "{palette.danger.400}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.3",
+                      "space": "srgb"
+                    }
+                  }
+                }
               },
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
@@ -800,15 +818,42 @@
             "stroke": {
               "default": {
                 "value": "{click.feedback.color.danger.background}",
-                "type": "color"
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.1",
+                      "space": "srgb"
+                    }
+                  }
+                }
               },
               "hover": {
                 "value": "{click.button.basic.color.danger.background.hover}",
-                "type": "color"
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.05",
+                      "space": "srgb"
+                    }
+                  }
+                }
               },
               "active": {
                 "value": "{click.button.basic.color.danger.background.active}",
-                "type": "color"
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "alpha",
+                      "value": "0.05",
+                      "space": "srgb"
+                    }
+                  }
+                }
               },
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
