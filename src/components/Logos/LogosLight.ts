@@ -37,6 +37,7 @@ import MongoDb from "./MongoDb";
 import MySQL from "./MySQL";
 import NodeJs from "./NodeJs";
 import Postgres from "./Postgres";
+import PostgresCDCLight from "./PostgresCDCLight.tsx";
 import Prequel from "./Prequel";
 import Python from "./Python";
 import Redpanda from "./Redpanda";
@@ -88,6 +89,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   mysql: MySQL,
   nodejs: NodeJs,
   postgres: Postgres,
+  postgres_cdc: PostgresCDCLight,
   prequel: Prequel,
   python: Python,
   redpanda: Redpanda,
