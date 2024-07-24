@@ -133,7 +133,7 @@ const Wrapper = styled.div<{
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
   max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
-  min-width: ${({ $minWidth }) => $minWidth ?? "none"};
+  min-width: ${({ $minWidth }) => $minWidth ?? "auto"};
   padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
   width: ${({ $fillWidth = true }) => ($fillWidth === true ? "100%" : "auto")};
   flex-direction: ${({ $orientation = "horizontal" }) =>
