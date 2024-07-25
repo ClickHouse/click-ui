@@ -88,6 +88,7 @@ const ColumnResizer = ({
           resizeRef.current.setPointerCapture(pointerRef.current.pointerId);
           const width =
             header.scrollWidth + (e.clientX - pointerRef.current.initialClientX);
+
           setResizeCursorPosition(resizeRef.current, e.clientX, width, columnIndex);
           pointerRef.current.width = Math.max(width, 50);
         }
@@ -104,7 +105,12 @@ const ColumnResizer = ({
       onPointerUp={e => {
         e.preventDefault();
         e.stopPropagation();
-        if (resizeRef.current && pointerRef.current?.pointerId) {
+
+        if (
+          resizeRef.current &&
+          // 0 is a valid pointerId in Firefox
+          (pointerRef.current?.pointerId || pointerRef.current?.pointerId === 0)
+        ) {
           resizeRef.current.releasePointerCapture(pointerRef.current.pointerId);
           const shouldCallResize = e.clientX !== pointerRef.current.initialClientX;
           if (shouldCallResize) {
