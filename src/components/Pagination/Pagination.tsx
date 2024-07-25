@@ -83,16 +83,16 @@ export const Pagination = ({
   };
 
   const onChange = (value: string) => {
-    const valueToNumber = Number(value);
+    const sanitizedValue = parseInt(value, 10);
     if (
-      valueToNumber < 1 ||
+      sanitizedValue < 1 ||
       inputRef.current?.disabled ||
-      (typeof totalPages !== "undefined" ? valueToNumber > totalPages : false)
+      (typeof totalPages !== "undefined" ? sanitizedValue > totalPages : false)
     ) {
       return;
     }
 
-    onChangeProp(valueToNumber);
+    onChangeProp(sanitizedValue);
   };
 
   const onPageSizeChange = (value: string) => {
