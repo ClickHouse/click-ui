@@ -48,6 +48,7 @@ const ColumnResizer = ({
     e => {
       e.preventDefault();
       e.stopPropagation();
+
       if (e.detail > 1) {
         onColumnResize(columnIndex, 0, "auto");
       }
@@ -87,7 +88,7 @@ const ColumnResizer = ({
         if (header) {
           resizeRef.current.setPointerCapture(pointerRef.current.pointerId);
           const width =
-            header.scrollWidth + (e.clientX - pointerRef.current.initialClientX);
+            header.clientWidth + (e.clientX - pointerRef.current.initialClientX);
 
           setResizeCursorPosition(resizeRef.current, e.clientX, width, columnIndex);
           pointerRef.current.width = Math.max(width, 50);
