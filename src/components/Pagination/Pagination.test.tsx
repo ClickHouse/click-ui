@@ -114,6 +114,20 @@ describe("Pagination", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
+  it("santizes inputs so that decimals become integers", () => {
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      onChange,
+    });
+    const pageInput = getByDisplayValue("1");
+    fireEvent.input(pageInput, {
+      target: {
+        value: "1.3",
+      },
+    });
+    expect(onChange).toHaveBeenCalledWith(1);
+  });
+
   it("should call onPageSizeChange when pageSize option are selected", () => {
     const onPageSizeChange = vi.fn();
     const { getByText } = renderPagination({
