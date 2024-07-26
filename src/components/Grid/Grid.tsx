@@ -110,6 +110,7 @@ const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
   <div
     ref={ref}
     data-testid="grid-outer-element"
+    tabIndex={0}
     {...props}
   />
 ));
