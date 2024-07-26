@@ -780,7 +780,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           width={width}
         />
       );
-    }
+    };
 
     return (
       <ContextMenu
