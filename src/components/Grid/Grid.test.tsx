@@ -90,7 +90,7 @@ describe("Grid", () => {
     expect(lastHeaderCell).toBeNull();
   });
 
-  it("should render focussed element", () => {
+  it("should render focused element", () => {
     const { queryByTestId, getByText } = renderGrid({});
     const rowNumber = getByText("1");
     expect(rowNumber).not.toBeNull();
