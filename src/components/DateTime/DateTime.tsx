@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import duration, { DurationUnitType } from "dayjs/plugin/duration";
+import duration from "dayjs/plugin/duration";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import timezone from "dayjs/plugin/timezone";
@@ -54,13 +54,60 @@ import { Panel } from "../Panel/Panel";
 import { Popover } from "../Popover/Popover";
 import { Text } from "../Typography/Text/Text";
 
+const dateStyle = "medium";
+const timeStyle = "medium";
+
+const createBasicDateTimeFormatter = () => {
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "medium",
+  });
+};
+
+const formatDateTime = (date: Date, locale?: Intl.Locale, timeZone?: string) => {
+  let dateTimeFormatter;
+  try {
+    dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+      dateStyle,
+      timeStyle,
+      timeZone,
+    });
+  } catch (error) {
+    if ((error as Error).message.includes("invalid time zone")) {
+      try {
+        dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+          dateStyle,
+          timeStyle,
+        });
+      } catch {
+        dateTimeFormatter = createBasicDateTimeFormatter();
+      }
+    } else if ((error as Error).message.includes("invalid language tag")) {
+      try {
+        dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
+          dateStyle,
+          timeStyle,
+          timeZone,
+        });
+      } catch {
+        dateTimeFormatter = createBasicDateTimeFormatter();
+      }
+    } else {
+      dateTimeFormatter = createBasicDateTimeFormatter();
+    }
+  }
+
+  return dateTimeFormatter.format(date);
+};
+
 export interface DateTimeProps {
   date: Date;
+  locale?: Intl.Locale;
   systemTimeZone?: string;
 }
 
-export const DateTime = ({ date, systemTimeZone }: DateTimeProps) => {
-  console.log(systemTimeZone);
+export const DateTime = ({ date, locale, systemTimeZone }: DateTimeProps) => {
+  console.log(systemTimeZone, locale);
 
   const FORMAT = "YYYY-MM-DD hh:mm:ss";
 
@@ -69,7 +116,11 @@ export const DateTime = ({ date, systemTimeZone }: DateTimeProps) => {
   let systemTime;
   if (systemTimeZone) {
     dayjs.extend(timezone);
-    systemTime = dayjsDate.tz(systemTimeZone);
+    try {
+      systemTime = dayjsDate.tz(systemTimeZone);
+    } catch {
+      systemTime = dayjsDate.tz("America/New_York");
+    }
   }
 
   return (
@@ -82,8 +133,9 @@ export const DateTime = ({ date, systemTimeZone }: DateTimeProps) => {
           orientation="vertical"
           padding="none"
         >
-          <Container orientation="horizontal">
+          <Container orientation="vertical">
             <Text size="sm">{date.getTime()}</Text>
+            <Text size="sm">{date.toISOString()}</Text>
           </Container>
           <Panel orientation="vertical">
             <Container
@@ -91,23 +143,27 @@ export const DateTime = ({ date, systemTimeZone }: DateTimeProps) => {
               justifyContent="space-between"
             >
               <Text size="md">UTC:</Text>
-              <Text size="md">{dayjsDate.utc().format(FORMAT)}</Text>
+              <Text size="md">
+                {formatDateTime(dayjsDate.utc().toDate(), locale, "UTC")}
+              </Text>
             </Container>
             <Container
               orientation="horizontal"
               justifyContent="space-between"
             >
               <Text size="md">Local:</Text>
-              <Text size="md">{dayjsDate.format(FORMAT)}</Text>
+              <Text size="md">{formatDateTime(dayjsDate.toDate(), locale)}</Text>
             </Container>
             {systemTime && (
               <Container
                 orientation="horizontal"
                 justifyContent="space-between"
-                minWidth="210px"
+                minWidth="260px"
               >
                 <Text size="md">System:</Text>
-                <Text size="md">{systemTime.format(FORMAT)}</Text>
+                <Text size="md">
+                  {formatDateTime(systemTime.toDate(), locale, systemTimeZone)}
+                </Text>
               </Container>
             )}
           </Panel>
