@@ -16,11 +16,13 @@ import Canada from "./Canada";
 import Sweden from "./Sweden";
 import { IconSize } from "@/components/Icon/types";
 import { SvgImageElement } from "@/components/commonElement";
+import Switzerland from "@/components/icons/Flags/Switzerland.tsx";
 
 export type FlagName =
   | "au"
   | "br"
   | "ca"
+  | "ch"
   | "de"
   | "eu"
   | "gb"
@@ -33,6 +35,7 @@ export type FlagName =
   | "usa"
   | "uk"
   | "za";
+
 export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   name: FlagName;
   size?: IconSize;
@@ -43,6 +46,7 @@ export const FlagList = {
   au: Australia,
   br: Brazil,
   ca: Canada,
+  ch: Switzerland,
   de: Germany,
   eu: EuropeanUnion,
   gb: GreatBritain,
