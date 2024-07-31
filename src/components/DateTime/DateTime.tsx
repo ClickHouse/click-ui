@@ -6,6 +6,12 @@ import timezone from "dayjs/plugin/timezone";
 import updateLocale from "dayjs/plugin/updateLocale";
 import utc from "dayjs/plugin/utc";
 
+import { Container } from "@/components/Container/Container";
+import { Panel } from "@/components/Panel/Panel";
+import { Popover } from "@/components/Popover/Popover";
+import { Text } from "@/components/Typography/Text/Text";
+import styled from "styled-components";
+
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
 dayjs.extend(updateLocale);
@@ -49,10 +55,9 @@ dayjs.updateLocale("en", {
   },
 });
 
-import { Container } from "../Container/Container";
-import { Panel } from "../Panel/Panel";
-import { Popover } from "../Popover/Popover";
-import { Text } from "../Typography/Text/Text";
+const UnderlinedTrigger = styled(Popover.Trigger)`
+  text-decoration: wavy underline;
+`;
 
 const dateStyle = "medium";
 const timeStyle = "medium";
@@ -109,8 +114,6 @@ export interface DateTimeProps {
 export const DateTime = ({ date, locale, systemTimeZone }: DateTimeProps) => {
   console.log(systemTimeZone, locale);
 
-  const FORMAT = "YYYY-MM-DD hh:mm:ss";
-
   const dayjsDate = dayjs(date);
 
   let systemTime;
@@ -125,16 +128,16 @@ export const DateTime = ({ date, locale, systemTimeZone }: DateTimeProps) => {
 
   return (
     <Popover>
-      <Popover.Trigger>
+      <UnderlinedTrigger>
         <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
-      </Popover.Trigger>
+      </UnderlinedTrigger>
       <Popover.Content showArrow>
         <Container
           orientation="vertical"
           padding="none"
         >
           <Container orientation="vertical">
-            <Text size="sm">{date.getTime()}</Text>
+            <Text size="sm">{Math.round(date.getTime() / 1000)}</Text>
             <Text size="sm">{date.toISOString()}</Text>
           </Container>
           <Panel orientation="vertical">
@@ -151,7 +154,7 @@ export const DateTime = ({ date, locale, systemTimeZone }: DateTimeProps) => {
               orientation="horizontal"
               justifyContent="space-between"
             >
-              <Text size="md">Local:</Text>
+              <Text size="md">Local ({dayjs.tz.guess()}):</Text>
               <Text size="md">{formatDateTime(dayjsDate.toDate(), locale)}</Text>
             </Container>
             {systemTime && (
@@ -160,7 +163,7 @@ export const DateTime = ({ date, locale, systemTimeZone }: DateTimeProps) => {
                 justifyContent="space-between"
                 minWidth="260px"
               >
-                <Text size="md">System:</Text>
+                <Text size="md">System ({systemTimeZone}):</Text>
                 <Text size="md">
                   {formatDateTime(systemTime.toDate(), locale, systemTimeZone)}
                 </Text>
