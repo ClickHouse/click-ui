@@ -64,8 +64,8 @@ const timeStyle = "medium";
 
 const createBasicDateTimeFormatter = () => {
   return new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "medium",
+    dateStyle,
+    timeStyle,
   });
 };
 
