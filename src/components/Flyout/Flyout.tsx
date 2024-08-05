@@ -114,13 +114,17 @@ const FlyoutContent = styled(DialogContent)<{
           : ""
       }
       overflow: hidden;
-      transform: translateX(calc(100% - 50px));
+      transform: ${
+        $align === "start"
+          ? "translateX(calc(50px - 100%))"
+          : "translateX(calc(100% - 50px))"
+      };
       transition: 0.3s ease-in-out;
       &:hover,
       &.active,
       &:focus-within {
         transform: translateX(0);
-        left: auto;
+        ${$align === "start" ? "right" : "left"}: auto;
       }
     }
   `}
