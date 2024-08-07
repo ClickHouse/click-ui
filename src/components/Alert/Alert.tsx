@@ -127,8 +127,14 @@ const TextWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
   ${({ $size, theme }) => `
     gap: ${theme.click.alert[$size].space.gap};
     padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
+    a {
+      font: inherit;
+      color: inherit;
+      text-decoration: underline;
+    }
   `}
 `;
+
 const Title = styled.h6<{ $size: AlertSize }>`
   margin: 0;
   font: ${({ theme, $size }) => theme.click.alert[$size].typography.title.default};
