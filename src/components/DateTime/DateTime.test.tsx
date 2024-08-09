@@ -3,9 +3,6 @@ import { renderCUI } from "@/utils/test-utils";
 import { fireEvent } from "@testing-library/dom";
 
 describe("DateTime", () => {
-  const baseDate = new Date("2024-07-04 11:45:00 AM");
-  const systemTimeZone = "America/Los_Angeles";
-  const locale = new Intl.Locale("en", { region: "US" });
   const actualTZ = process.env.TZ;
 
   beforeAll(() => {
@@ -24,11 +21,12 @@ describe("DateTime", () => {
     process.env.TZ = actualTZ;
   });
 
-  beforeEach(() => {
-    vi.setSystemTime(baseDate);
-  });
-
   it("renders the DateTime component with relevant timezone information", () => {
+    const baseDate = new Date("2024-07-04 11:45:00 AM");
+    const systemTimeZone = "America/Los_Angeles";
+    const locale = new Intl.Locale("en", { region: "US" });
+    vi.setSystemTime(baseDate);
+
     const fiveMinutesAgo = new Date("2024-07-04 11:40:00 AM");
 
     const { getByText } = renderCUI(
