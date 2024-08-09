@@ -11,11 +11,12 @@ export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
 };
 
 const Trigger = styled(RadixPopover.Trigger)`
-  width: fit-content;
-  font: inherit;
-  color: inherit;
   background: inherit;
   border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  width: fit-content;
 `;
 interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
