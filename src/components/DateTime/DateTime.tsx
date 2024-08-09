@@ -112,8 +112,6 @@ export interface DateTimeProps {
 }
 
 export const DateTime = ({ date, locale, systemTimeZone }: DateTimeProps) => {
-  console.log(systemTimeZone, locale);
-
   const dayjsDate = dayjs(date);
 
   let systemTime;
