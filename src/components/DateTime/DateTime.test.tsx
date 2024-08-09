@@ -54,5 +54,7 @@ describe("DateTime", () => {
     expect(getByText("Jul 4, 2024, 3:40:00 PM")).toBeInTheDocument();
     expect(getByText("Jul 4, 2024, 11:40:00 AM")).toBeInTheDocument();
     expect(getByText("Jul 4, 2024, 8:40:00 AM")).toBeInTheDocument();
+    expect(getByText(fiveMinutesAgo.getTime() / 1000)).toBeInTheDocument();
+    expect(getByText(fiveMinutesAgo.toISOString())).toBeInTheDocument();
   });
 });
