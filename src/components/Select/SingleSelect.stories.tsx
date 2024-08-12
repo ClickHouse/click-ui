@@ -1,7 +1,10 @@
-import { Select, SelectProps } from "./SingleSelect";
 import { Preview } from "@storybook/react";
-import { selectOptions } from "./selectOptions";
+import { Select, SelectProps } from "@/components/Select/SingleSelect";
+import { selectOptions } from "@/components/Select/selectOptions";
 import { useEffect, useState } from "react";
+import { Container } from "@/components/Container/Container";
+import { Panel } from "@/components/Panel/Panel";
+import { Title } from "@/components/Typography/Title/Title";
 interface Props extends SelectProps {
   childrenType: "children" | "options";
 }
@@ -122,4 +125,46 @@ ${
       },
     },
   },
+};
+
+export const UseFullWidth = {
+  args: {},
+  render: () => {
+    return (
+      <Container fillWidth>
+        <Panel width="200px">
+          <Title type="h2">Full width items</Title>
+          <Select useFullWidthItems>
+            <Select.Item value="item 1">
+              Ask and it will be given to you; seek and you will find; knock and the door
+              will be opened to you.
+            </Select.Item>
+            <Select.Item value="item 2">
+              For everyone who asks receives; the one who seeks finds; and to the one who
+              knocks, the door will be opened.
+            </Select.Item>
+            <Select.Item value="item 3">
+              Which of you, if your son asks for bread, will give him a stone?
+            </Select.Item>
+          </Select>
+
+          <Title type="h2">Not full width items</Title>
+          <Select>
+            <Select.Item value="item 1">
+              Ask and it will be given to you; seek and you will find; knock and the door
+              will be opened to you.
+            </Select.Item>
+            <Select.Item value="item 2">
+              For everyone who asks receives; the one who seeks finds; and to the one who
+              knocks, the door will be opened.
+            </Select.Item>
+            <Select.Item value="item 3">
+              Which of you, if your son asks for bread, will give him a stone?
+            </Select.Item>
+          </Select>
+        </Panel>
+      </Container>
+    );
+  },
+  tags: ["autodocs"],
 };

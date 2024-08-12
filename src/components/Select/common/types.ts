@@ -82,6 +82,7 @@ interface InternalSelectProps
   showSearch?: boolean;
   customText?: string;
   container?: HTMLElement;
+  useFullWidthItems?: boolean;
 }
 
 export type SelectOptionProp = SelectOptionType | SelectChildrenType;
