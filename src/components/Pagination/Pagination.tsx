@@ -30,6 +30,7 @@ export interface PaginationProps
   onPageNumberFocus?: FocusEventHandler<HTMLInputElement>;
   onPageNumberBlur?: FocusEventHandler<HTMLInputElement>;
   disableNextButton?: boolean;
+  allowAllRows?: boolean;
 }
 const CustomSelect = styled.div`
   width: 150px;
@@ -51,6 +52,7 @@ export const Pagination = ({
   onPageNumberFocus,
   onPageNumberBlur,
   disableNextButton,
+  allowAllRows = true,
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ["number", "string"].includes(typeof rowCount);
@@ -129,6 +131,11 @@ export const Pagination = ({
     [currentPage, onChangeProp, onNextPageClick, rightButtonDisabled]
   );
 
+  // if `allowAllRows` is false we need to switch to the first option in the list
+  if (pageSize === -1 && !allowAllRows && maxRowsPerPageList.length > 0) {
+    pageSize = maxRowsPerPageList[0];
+  }
+
   return (
     <Container
       gap={gap}
@@ -201,7 +208,7 @@ export const Pagination = ({
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
         >
-          <Select.Item value="-1">All rows</Select.Item>
+          {allowAllRows && <Select.Item value="-1">All rows</Select.Item>}
           {maxRowsPerPageList.map(option => (
             <Select.Item
               key={option}
