@@ -159,4 +159,22 @@ describe("Pagination", () => {
     });
     expect(onChange).not.toHaveBeenCalled();
   });
+
+  it("should not show `All rows` in the page sizes if it's disabled", async () => {
+    const onPageSizeChange = vi.fn();
+    const { getByText, queryByText } = renderPagination({
+      currentPage: 1,
+      onChange,
+      onPageSizeChange,
+      maxRowsPerPageList: [250, 500],
+      allowAllRows: false,
+    });
+    expect(queryByText("All rows")).not.toBeInTheDocument();
+
+    await vi.waitFor(() => {
+      fireEvent.click(getByText("250 rows"));
+      fireEvent.click(getByText("500 rows"));
+      expect(onPageSizeChange).toBeCalledTimes(1);
+    });
+  });
 });
