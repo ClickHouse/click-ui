@@ -88,7 +88,15 @@ export const SelectPopoverContent = styled(Content)<{ $useFullWidthItems: boolea
   pointer-events: auto;
 
   ${({ $useFullWidthItems }) => `
-    width: ${$useFullWidthItems ? "100%" : "var(--radix-popover-trigger-width)"};
+    ${
+      $useFullWidthItems
+        ? `
+      max-width: 64ch;
+      min-width: var(--radix-popover-trigger-width);
+      width: 100%;
+    `
+        : "width: var(--radix-popover-trigger-width)"
+    };
   `}
 
   ${({ theme }) => `
