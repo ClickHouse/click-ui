@@ -70,6 +70,8 @@ export default {
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
     childrenType: { control: "inline-radio", options: ["children", "options"] },
+    useFullWidthItems: { control: "boolean" },
+    itemCharacterLimit: { control: "text" },
   },
 };
 
@@ -148,6 +150,24 @@ export const UseFullWidth = {
             </Select.Item>
           </Select>
 
+          <Title type="h2">Larger itemCharacterLimit</Title>
+          <Select
+            useFullWidthItems
+            itemCharacterLimit="90ch"
+          >
+            <Select.Item value="item 1">
+              Ask and it will be given to you; seek and you will find; knock and the door
+              will be opened to you.
+            </Select.Item>
+            <Select.Item value="item 2">
+              For everyone who asks receives; the one who seeks finds; and to the one who
+              knocks, the door will be opened.
+            </Select.Item>
+            <Select.Item value="item 3">
+              Which of you, if your son asks for bread, will give him a stone?
+            </Select.Item>
+          </Select>
+
           <Title type="h2">Not full width items</Title>
           <Select>
             <Select.Item value="item 1">
@@ -166,5 +186,5 @@ export const UseFullWidth = {
       </Container>
     );
   },
-  tags: ["autodocs"],
+  tags: ["form-field", "select", "autodocs"],
 };

@@ -81,17 +81,20 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
   }
 `;
 
-export const SelectPopoverContent = styled(Content)<{ $useFullWidthItems: boolean }>`
+export const SelectPopoverContent = styled(Content)<{
+  $useFullWidthItems: boolean;
+  $itemCharacterLimit?: string;
+}>`
   width: var(--radix-popover-trigger-width);
   max-height: var(--radix-popover-content-available-height);
   border-radius: 0.25rem;
   pointer-events: auto;
 
-  ${({ $useFullWidthItems }) => `
+  ${({ $useFullWidthItems, $itemCharacterLimit }) => `
     ${
       $useFullWidthItems
         ? `
-      max-width: 64ch;
+      max-width: ${$itemCharacterLimit};
       min-width: var(--radix-popover-trigger-width);
       width: 100%;
     `
