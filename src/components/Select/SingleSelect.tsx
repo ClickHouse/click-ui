@@ -12,6 +12,8 @@ export interface SelectProps
   value?: string;
   placeholder?: string;
   onOpenChange?: (open: boolean) => void;
+  useFullWidthItems?: boolean;
+  itemCharacterLimit?: string;
 }
 
 export const Select = ({

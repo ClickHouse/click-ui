@@ -118,6 +118,8 @@ export const InternalSelect = ({
   selectLabel,
   showSearch = false,
   container,
+  useFullWidthItems = false,
+  itemCharacterLimit = "64ch",
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
@@ -380,6 +382,8 @@ export const InternalSelect = ({
                 setHighlighted(visibleList.current[0]);
               }}
               align="start"
+              $useFullWidthItems={useFullWidthItems}
+              $itemCharacterLimit={itemCharacterLimit}
             >
               <SelectList>
                 <SearchBarContainer $showSearch={showSearch}>
