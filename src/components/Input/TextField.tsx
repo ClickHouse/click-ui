@@ -11,6 +11,7 @@ export interface TextFieldProps
     > {
   type?: "text" | "email" | "tel" | "url";
   loading?: boolean;
+  labelColor?: string;
   value?: string;
   clear?: boolean;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
@@ -25,6 +26,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       type,
       disabled,
       label,
+      labelColor,
       error,
       id,
       loading,
@@ -50,6 +52,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         disabled={disabled}
         id={id ?? defaultId}
         label={label}
+        labelColor={labelColor}
         error={error}
         orientation={orientation}
         dir={dir}

@@ -54,3 +54,14 @@ export const Playground = {
     placeholder: "Placeholder",
   },
 };
+
+export const LabelColor = {
+  args: {
+    label: "Label",
+    labelColor: "rgb(193, 0, 0)",
+    clear: false,
+    type: "text",
+    disabled: false,
+    placeholder: "Placeholder",
+  },
+};
