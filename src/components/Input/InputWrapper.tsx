@@ -121,9 +121,16 @@ const Wrapper = styled.div<{
   `}
 `;
 
+const StyledLabel = styled(Label)<{ $labelColor?: string }>`
+  ${({ $labelColor }) => `
+    ${$labelColor ? `color: ${$labelColor};` : ""}
+  `}
+`;
+
 export interface WrapperProps {
   id: string;
   label?: ReactNode;
+  labelColor?: string;
   error?: ReactNode;
   disabled?: boolean;
   children: ReactNode;
@@ -135,6 +142,7 @@ export interface WrapperProps {
 export const InputWrapper = ({
   id,
   label = "",
+  labelColor,
   error,
   disabled,
   children,
@@ -160,13 +168,14 @@ export const InputWrapper = ({
         {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
-        <Label
+        <StyledLabel
           htmlFor={id}
           disabled={disabled}
           error={!!error}
+          $labelColor={labelColor}
         >
           {label}
-        </Label>
+        </StyledLabel>
       )}
     </FormRoot>
   );
