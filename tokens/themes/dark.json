@@ -399,7 +399,7 @@
             "type": "color"
           },
           "active": {
-            "value": "{click.avatar.color.background.hover}",
+            "value": "{click.avatar.color.neutral.background.hover}",
             "type": "color"
           }
         },
@@ -409,11 +409,11 @@
             "type": "color"
           },
           "hover": {
-            "value": "{click.avatar.color.text.default}",
+            "value": "{click.avatar.color.neutral.text.default}",
             "type": "color"
           },
           "active": {
-            "value": "{click.avatar.color.text.default}",
+            "value": "{click.avatar.color.neutral.text.default}",
             "type": "color"
           }
         }
