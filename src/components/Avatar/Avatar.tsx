@@ -32,6 +32,7 @@ const Avatar = ({
     {...delegated}
     $size={size}
     $state={state}
+    data-testid="click-avatar"
   >
     <AvatarImage
       src={src}
