@@ -66,15 +66,41 @@
     },
     "avatar": {
       "color": {
-        "background": {
-          "default": "#808691",
-          "hover": "#b3b6bd",
-          "active": "#b3b6bd"
+        "neutral": {
+          "background": {
+            "default": "#808691",
+            "hover": "#b3b6bd",
+            "active": "#b3b6bd"
+          },
+          "text": {
+            "default": "#1F1F1C",
+            "hover": "#1F1F1C",
+            "active": "#1F1F1C"
+          }
         },
-        "text": {
-          "default": "#1F1F1C",
-          "hover": "#1F1F1C",
-          "active": "#1F1F1C"
+        "success": {
+          "background": {
+            "default": "rgb(20% 100% 26.7% / 0.2)",
+            "hover": "rgb(44% 100% 48.7% / 0.2)",
+            "active": "rgb(44% 100% 48.7% / 0.2)"
+          },
+          "text": {
+            "default": "#CCFFD0",
+            "hover": "#CCFFD0",
+            "active": "#CCFFD0"
+          }
+        },
+        "vivid": {
+          "background": {
+            "default": "#CC66FF",
+            "hover": "#DD99FF",
+            "active": "#DD99FF"
+          },
+          "text": {
+            "default": "#1F1F1C",
+            "hover": "#1F1F1C",
+            "active": "#1F1F1C"
+          }
         }
       }
     },

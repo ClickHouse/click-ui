@@ -181,21 +181,55 @@
           "width": string
         },
         "width": string,
-        "height": string
+        "height": string,
+        "sm": {
+          "height": string,
+          "width": string
+        },
+        "md": {
+          "height": string,
+          "width": string
+        }
       },
       "radii": {
         "all": string
       },
       "color": {
-        "background": {
-          "default": string,
-          "hover": string,
-          "active": string
+        "neutral": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
         },
-        "text": {
-          "default": string,
-          "hover": string,
-          "active": string
+        "success": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
+        },
+        "vivid": {
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
+          "text": {
+            "default": string,
+            "hover": string,
+            "active": string
+          }
         }
       }
     },
