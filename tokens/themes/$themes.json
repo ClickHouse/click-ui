@@ -1051,12 +1051,12 @@
       "click.accordion.color.link.icon.default": "S:ef262bf36b7383a11ae890c8dd4c98d692272e63,",
       "click.accordion.color.link.icon.hover": "S:f83f0f182d22a41f4972708a6ee5aeb44c064bfb,",
       "click.accordion.color.link.icon.active": "S:75973cfa9d0a047cb738f42a7fa1d44ad26579df,",
-      "click.avatar.color.neutral.background.default": "S:769464228d74314c11c5a5a28b0c2f0862cff1d0,",
-      "click.avatar.color.neutral.background.hover": "S:25d0e844ec119725752f919906694c4f8b8bbfa7,",
-      "click.avatar.color.neutral.background.active": "S:09d4f8a263b85d6d8f2b8407fd58515061cc45ee,",
-      "click.avatar.color.neutral.text.default": "S:d4bf8ab8b16ca002ecebc3ca23b79b43acb1e918,",
-      "click.avatar.color.neutral.text.hover": "S:418e719feb9acbc23037568aadbc93465a6dd4ec,",
-      "click.avatar.color.neutral.text.active": "S:0848b8765251fe6af257cf320c4cb7b563f3f7a9,"
+      "click.avatar.color.background.default": "S:769464228d74314c11c5a5a28b0c2f0862cff1d0,",
+      "click.avatar.color.background.hover": "S:25d0e844ec119725752f919906694c4f8b8bbfa7,",
+      "click.avatar.color.background.active": "S:09d4f8a263b85d6d8f2b8407fd58515061cc45ee,",
+      "click.avatar.color.text.default": "S:d4bf8ab8b16ca002ecebc3ca23b79b43acb1e918,",
+      "click.avatar.color.text.hover": "S:418e719feb9acbc23037568aadbc93465a6dd4ec,",
+      "click.avatar.color.text.active": "S:0848b8765251fe6af257cf320c4cb7b563f3f7a9,"
     },
     "selectedTokenSets": {
       "primitives": "enabled",
@@ -2236,12 +2236,12 @@
       "breakpoint.sizes.lg": "7586e0a87837d754f03341daeaf35d73873c549d",
       "breakpoint.sizes.xl": "5c9ffe3d9724442fe25f35cdabbbfe7c39c17c64",
       "breakpoint.sizes.2xl": "1b6a6625a9ffabf623bbec63ea2b8fda1e44bfc3",
-      "click.avatar.color.neutral.background.default": "947b5c4fcd8838a7db7e057dce1e5e90a00df55c",
-      "click.avatar.color.neutral.background.hover": "6f21aed93be1d2d74e0f761148bd6b08d1829fd0",
-      "click.avatar.color.neutral.background.active": "4d6208026e65a9e8a419447ea1a3030df00749f4",
-      "click.avatar.color.neutral.text.default": "94b2c729bd3761a2b28b35d1ac2b93eaaaeb258c",
-      "click.avatar.color.neutral.text.hover": "87d94f2334051df81d53b5c0cd1969d2f7c8d327",
-      "click.avatar.color.neutral.text.active": "1e014070f4af667b85ff725e02b715a63496acef"
+      "click.avatar.color.background.default": "947b5c4fcd8838a7db7e057dce1e5e90a00df55c",
+      "click.avatar.color.background.hover": "6f21aed93be1d2d74e0f761148bd6b08d1829fd0",
+      "click.avatar.color.background.active": "4d6208026e65a9e8a419447ea1a3030df00749f4",
+      "click.avatar.color.text.default": "94b2c729bd3761a2b28b35d1ac2b93eaaaeb258c",
+      "click.avatar.color.text.hover": "87d94f2334051df81d53b5c0cd1969d2f7c8d327",
+      "click.avatar.color.text.active": "1e014070f4af667b85ff725e02b715a63496acef"
     },
     "group": "Default"
   },
@@ -2872,12 +2872,12 @@
       "click.accordion.color.default.icon.default": "S:d69c61b2295c7acf1af827533d6c44554712039b,",
       "click.accordion.color.default.icon.hover": "S:62a0d29dda9e7f5e406bb9d8b963f53b36008ecc,",
       "click.accordion.color.default.icon.active": "S:3b5df33d352c214e2585f5cb123b8c92003372f4,",
-      "click.avatar.color.neutral.background.default": "S:769464228d74314c11c5a5a28b0c2f0862cff1d0,",
-      "click.avatar.color.neutral.background.hover": "S:25d0e844ec119725752f919906694c4f8b8bbfa7,",
-      "click.avatar.color.neutral.background.active": "S:09d4f8a263b85d6d8f2b8407fd58515061cc45ee,",
-      "click.avatar.color.neutral.text.default": "S:d4bf8ab8b16ca002ecebc3ca23b79b43acb1e918,",
-      "click.avatar.color.neutral.text.hover": "S:418e719feb9acbc23037568aadbc93465a6dd4ec,",
-      "click.avatar.color.neutral.text.active": "S:0848b8765251fe6af257cf320c4cb7b563f3f7a9,"
+      "click.avatar.color.background.default": "S:769464228d74314c11c5a5a28b0c2f0862cff1d0,",
+      "click.avatar.color.background.hover": "S:25d0e844ec119725752f919906694c4f8b8bbfa7,",
+      "click.avatar.color.background.active": "S:09d4f8a263b85d6d8f2b8407fd58515061cc45ee,",
+      "click.avatar.color.text.default": "S:d4bf8ab8b16ca002ecebc3ca23b79b43acb1e918,",
+      "click.avatar.color.text.hover": "S:418e719feb9acbc23037568aadbc93465a6dd4ec,",
+      "click.avatar.color.text.active": "S:0848b8765251fe6af257cf320c4cb7b563f3f7a9,"
     },
     "selectedTokenSets": {
       "primitives": "enabled",
@@ -4062,12 +4062,12 @@
       "breakpoint.sizes.lg": "7586e0a87837d754f03341daeaf35d73873c549d",
       "breakpoint.sizes.xl": "5c9ffe3d9724442fe25f35cdabbbfe7c39c17c64",
       "breakpoint.sizes.2xl": "1b6a6625a9ffabf623bbec63ea2b8fda1e44bfc3",
-      "click.avatar.color.neutral.background.default": "947b5c4fcd8838a7db7e057dce1e5e90a00df55c",
-      "click.avatar.color.neutral.background.hover": "6f21aed93be1d2d74e0f761148bd6b08d1829fd0",
-      "click.avatar.color.neutral.background.active": "4d6208026e65a9e8a419447ea1a3030df00749f4",
-      "click.avatar.color.neutral.text.default": "94b2c729bd3761a2b28b35d1ac2b93eaaaeb258c",
-      "click.avatar.color.neutral.text.hover": "87d94f2334051df81d53b5c0cd1969d2f7c8d327",
-      "click.avatar.color.neutral.text.active": "1e014070f4af667b85ff725e02b715a63496acef"
+      "click.avatar.color.background.default": "947b5c4fcd8838a7db7e057dce1e5e90a00df55c",
+      "click.avatar.color.background.hover": "6f21aed93be1d2d74e0f761148bd6b08d1829fd0",
+      "click.avatar.color.background.active": "4d6208026e65a9e8a419447ea1a3030df00749f4",
+      "click.avatar.color.text.default": "94b2c729bd3761a2b28b35d1ac2b93eaaaeb258c",
+      "click.avatar.color.text.hover": "87d94f2334051df81d53b5c0cd1969d2f7c8d327",
+      "click.avatar.color.text.active": "1e014070f4af667b85ff725e02b715a63496acef"
     },
     "group": "Default"
   },
@@ -4587,12 +4587,12 @@
       "click.accordion.color.default.icon.default": "S:d69c61b2295c7acf1af827533d6c44554712039b,",
       "click.accordion.color.default.icon.hover": "S:62a0d29dda9e7f5e406bb9d8b963f53b36008ecc,",
       "click.accordion.color.default.icon.active": "S:3b5df33d352c214e2585f5cb123b8c92003372f4,",
-      "click.avatar.color.neutral.background.default": "S:769464228d74314c11c5a5a28b0c2f0862cff1d0,",
-      "click.avatar.color.neutral.background.hover": "S:25d0e844ec119725752f919906694c4f8b8bbfa7,",
-      "click.avatar.color.neutral.background.active": "S:09d4f8a263b85d6d8f2b8407fd58515061cc45ee,",
-      "click.avatar.color.neutral.text.default": "S:d4bf8ab8b16ca002ecebc3ca23b79b43acb1e918,",
-      "click.avatar.color.neutral.text.hover": "S:418e719feb9acbc23037568aadbc93465a6dd4ec,",
-      "click.avatar.color.neutral.text.active": "S:0848b8765251fe6af257cf320c4cb7b563f3f7a9,"
+      "click.avatar.color.background.default": "S:769464228d74314c11c5a5a28b0c2f0862cff1d0,",
+      "click.avatar.color.background.hover": "S:25d0e844ec119725752f919906694c4f8b8bbfa7,",
+      "click.avatar.color.background.active": "S:09d4f8a263b85d6d8f2b8407fd58515061cc45ee,",
+      "click.avatar.color.text.default": "S:d4bf8ab8b16ca002ecebc3ca23b79b43acb1e918,",
+      "click.avatar.color.text.hover": "S:418e719feb9acbc23037568aadbc93465a6dd4ec,",
+      "click.avatar.color.text.active": "S:0848b8765251fe6af257cf320c4cb7b563f3f7a9,"
     },
     "selectedTokenSets": {
       "primitives": "enabled",
@@ -5782,12 +5782,12 @@
       "breakpoint.sizes.lg": "7586e0a87837d754f03341daeaf35d73873c549d",
       "breakpoint.sizes.xl": "5c9ffe3d9724442fe25f35cdabbbfe7c39c17c64",
       "breakpoint.sizes.2xl": "1b6a6625a9ffabf623bbec63ea2b8fda1e44bfc3",
-      "click.avatar.color.neutral.background.default": "947b5c4fcd8838a7db7e057dce1e5e90a00df55c",
-      "click.avatar.color.neutral.background.hover": "6f21aed93be1d2d74e0f761148bd6b08d1829fd0",
-      "click.avatar.color.neutral.background.active": "4d6208026e65a9e8a419447ea1a3030df00749f4",
-      "click.avatar.color.neutral.text.default": "94b2c729bd3761a2b28b35d1ac2b93eaaaeb258c",
-      "click.avatar.color.neutral.text.hover": "87d94f2334051df81d53b5c0cd1969d2f7c8d327",
-      "click.avatar.color.neutral.text.active": "1e014070f4af667b85ff725e02b715a63496acef"
+      "click.avatar.color.background.default": "947b5c4fcd8838a7db7e057dce1e5e90a00df55c",
+      "click.avatar.color.background.hover": "6f21aed93be1d2d74e0f761148bd6b08d1829fd0",
+      "click.avatar.color.background.active": "4d6208026e65a9e8a419447ea1a3030df00749f4",
+      "click.avatar.color.text.default": "94b2c729bd3761a2b28b35d1ac2b93eaaaeb258c",
+      "click.avatar.color.text.hover": "87d94f2334051df81d53b5c0cd1969d2f7c8d327",
+      "click.avatar.color.text.active": "1e014070f4af667b85ff725e02b715a63496acef"
     }
   }
 ]

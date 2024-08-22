@@ -259,26 +259,6 @@
         "height": {
           "value": "{sizes.7}",
           "type": "sizing"
-        },
-        "sm": {
-          "height": {
-            "value": "{sizes.6}",
-            "type": "sizing"
-          },
-          "width": {
-            "value": "{sizes.6}",
-            "type": "sizing"
-          }
-        },
-        "md": {
-          "height": {
-            "value": "{sizes.7}",
-            "type": "sizing"
-          },
-          "width": {
-            "value": "{sizes.7}",
-            "type": "sizing"
-          }
         }
       },
       "radii": {
