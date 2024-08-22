@@ -1,10 +1,8 @@
 import { Orientation } from "@/components";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
+import { PanelColor, PanelPadding, PanelRadii } from "@/components/Panel/types.ts";
 
-export type PanelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
-export type PanelColor = "default" | "muted" | "transparent";
-export type PanelRadii = "none" | "sm" | "md" | "lg";
 type AlignItemsOption = "start" | "center" | "end";
 
 export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
