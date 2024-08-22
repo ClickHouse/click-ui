@@ -127,6 +127,13 @@ import Lifebuoy from "@/components/icons/Lifebuoy";
 import GitMerge from "@/components/icons/GitMerge";
 import Bell from "@/components/icons/Bell";
 import DoubleCheckIcon from "@/components/icons/DoubleCheckIcon";
+import SandGlass from "../icons/SandGlass";
+import Calendar from "../icons/Calendar";
+import CalendarWithTime from "../icons/CalendarWithTime";
+import Cpu from "../icons/Cpu";
+import Minus from "../icons/Minus";
+import Pipe from "../icons/Pipe";
+import TreeStructure from "../icons/TreeStructure";
 
 export const ICONS_MAP = {
   activity: Activity,
@@ -149,6 +156,8 @@ export const ICONS_MAP = {
   briefcase: Briefcase,
   building: Building,
   "burger-menu": BurgerMenu,
+  calendar: Calendar,
+  "calendar-with-time": CalendarWithTime,
   cards: Cards,
   "cell-tower": CellTower,
   chat: ChatIcon,
@@ -168,6 +177,7 @@ export const ICONS_MAP = {
   "connect-alt": ConnectAlt,
   console: Console,
   copy: Copy,
+  cpu: Cpu,
   cross: CrossIcon,
   "credit-card": CreditCard,
   data: Data,
@@ -217,11 +227,13 @@ export const ICONS_MAP = {
   lock: Lock,
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
+  minus: Minus,
   "no-cloud": NoCloud,
   pause: Pause,
   payment: Payment,
   pencil: Pencil,
   "pie-chart": PieChart,
+  pipe: Pipe,
   play: Play,
   "play-in-circle": PlayInCircle,
   plus: Plus,
@@ -231,6 +243,7 @@ export const ICONS_MAP = {
   question: Question,
   refresh: Refresh,
   rocket: Rocket,
+  sandglass: SandGlass,
   search: Search,
   secure: Secure,
   server: Server,
@@ -252,6 +265,7 @@ export const ICONS_MAP = {
   table: Table,
   taxi: Taxi,
   trash: Trash,
+  "tree-structure": TreeStructure,
   upload: Upload,
   url: Url,
   user: UserIcon,
