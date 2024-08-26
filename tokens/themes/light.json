@@ -2438,7 +2438,7 @@
         },
         "background": {
           "default": {
-            "value": "{click.global.color.background.muted}",
+            "value": "{palette.slate.25}",
             "type": "color"
           },
           "hover": {
