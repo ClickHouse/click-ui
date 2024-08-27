@@ -48,6 +48,7 @@ import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import GridExample from "./examples/GridExample";
+import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
 
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
@@ -744,6 +745,7 @@ const App = () => {
         </GridContainer>
         <Spacer />
         <GridExample />
+        <MultiAccordionDemo />
       </ClickUIProvider>
     </div>
   );
