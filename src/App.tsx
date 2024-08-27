@@ -49,7 +49,12 @@ import { ConfirmationDialog } from "@/components/ConfirmationDialog/Confirmation
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import GridExample from "./examples/GridExample";
 import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
+import styled from "styled-components";
 
+const BackgroundWrapper = styled.div`
+  background: ${({ theme }) => theme.global.color.background.default};
+  padding: 6rem;
+`;
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
   { label: "Contact", isSortable: true, sortDir: "desc", sortPosition: "start" },
@@ -99,11 +104,11 @@ const App = () => {
     });
   };
   return (
-    <div style={{ padding: "6rem" }}>
-      <ClickUIProvider
-        theme={currentTheme}
-        config={{ tooltip: { delayDuration: 0 } }}
-      >
+    <ClickUIProvider
+      theme={currentTheme}
+      config={{ tooltip: { delayDuration: 0 } }}
+    >
+      <BackgroundWrapper>
         <ProgressBar
           progress={100}
           dismissable
@@ -745,9 +750,10 @@ const App = () => {
         </GridContainer>
         <Spacer />
         <GridExample />
+        <Spacer />
         <MultiAccordionDemo />
-      </ClickUIProvider>
-    </div>
+      </BackgroundWrapper>
+    </ClickUIProvider>
   );
 };
 
