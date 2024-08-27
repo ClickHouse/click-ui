@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IconName, IconProps, IconSize, ImageType } from "./types";
+import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
 import Flags, { FlagList, FlagName } from "../icons/Flags";
 import { Logo } from "../Logos/Logo";
@@ -12,6 +12,7 @@ const SVGIcon = ({
   color,
   width,
   height,
+  state,
   className,
   size,
   ...props
@@ -29,6 +30,7 @@ const SVGIcon = ({
       $height={height}
       $size={size}
       className={className}
+      state={state}
     >
       <Component {...props} />
     </SvgWrapper>
@@ -40,6 +42,7 @@ const SvgWrapper = styled.div<{
   $width?: number | string;
   $height?: number | string;
   $size?: IconSize;
+  state?: IconState;
 }>`
   display: flex;
   align-items: center;
@@ -57,6 +60,13 @@ const SvgWrapper = styled.div<{
       width: ${$width || theme.click.image[$size || "md"].size.width || "24px"};
       height: ${$height || theme.click.image[$size || "md"].size.height || "24px"};
     }
+  `}
+
+  ${({ theme, $color = "currentColor", state = "default", $size = "md" }) => `
+    background: ${theme.click.icon.color.background[state]};
+    border-radius: ${theme.border.radii.full};
+    padding: ${state === "default" ? "none" : theme.click.icon.space[$size].all};
+    color: ${state === "default" ? $color : theme.click.icon.color.text[state]};
   `}
 `;
 

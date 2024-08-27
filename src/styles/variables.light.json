@@ -1303,6 +1303,34 @@
         }
       }
     },
+    "icon": {
+      "color": {
+        "background": {
+          "default": "rgba(0,0,0,0)",
+          "success": "rgb(20% 100% 26.7% / 0.1)",
+          "neutral": "rgb(41.2% 43.1% 47.5% / 0.1)",
+          "danger": "rgb(100% 13.7% 13.7% / 0.1)",
+          "info": "rgb(7.45% 35.7% 90.2% / 0.1)",
+          "warning": "rgb(100% 58% 8.63% / 0.1)"
+        },
+        "text": {
+          "default": "rgba(0,0,0,0)",
+          "success": "#00990D",
+          "neutral": "#53575f",
+          "danger": "#c10000",
+          "info": "#135be6",
+          "warning": "#9e5600"
+        },
+        "stroke": {
+          "default": "rgba(0,0,0,0)",
+          "success": "rgb(20% 100% 26.7% / 0.05)",
+          "neutral": "rgb(41.2% 43.1% 47.5% / 0.1)",
+          "danger": "rgb(100% 13.7% 13.7% / 0.05)",
+          "info": "rgb(7.45% 35.7% 90.2% / 0.05)",
+          "warning": "rgb(100% 58% 8.63% / 0.05)"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

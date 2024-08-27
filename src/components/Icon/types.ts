@@ -5,6 +5,8 @@ import { LogoName } from "../Logos/types";
 import { PaymentName, PaymentProps } from "../icons/Payments";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+export type IconState = "default" | "success" | "warning" | "danger" | "info";
+
 export const ICON_NAMES = [
   "activity",
   "alarm",
@@ -149,6 +151,7 @@ export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   name: IconName;
   color?: string;
   size?: IconSize;
+  state?: IconState;
 }
 
 type NoThemeType = {

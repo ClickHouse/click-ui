@@ -1310,6 +1310,34 @@
         }
       }
     },
+    "icon": {
+      "color": {
+        "background": {
+          "default": "rgba(0,0,0,0)",
+          "success": "rgb(20% 100% 26.7% / 0.2)",
+          "neutral": "rgb(62.7% 62.7% 62.7% / 0.2)",
+          "danger": "rgb(100% 13.7% 13.7% / 0.2)",
+          "info": "rgb(7.45% 35.7% 90.2% / 0.2)",
+          "warning": "rgb(100% 58% 8.63% / 0.2)"
+        },
+        "text": {
+          "default": "rgba(0,0,0,0)",
+          "success": "#CCFFD0",
+          "neutral": "#c0c0c0",
+          "danger": "#ffbaba",
+          "info": "#b5cdf9",
+          "warning": "#ffca8b"
+        },
+        "stroke": {
+          "default": "rgba(0,0,0,0)",
+          "success": "rgb(20% 100% 26.7% / 0.05)",
+          "neutral": "rgb(62.7% 62.7% 62.7% / 0.2)",
+          "danger": "rgb(100% 13.7% 13.7% / 0.05)",
+          "info": "rgb(7.45% 35.7% 90.2% / 0.05)",
+          "warning": "rgb(100% 58% 8.63% / 0.05)"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
