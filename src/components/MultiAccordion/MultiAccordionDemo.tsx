@@ -1,7 +1,7 @@
-import React from "react";
+import { ReactElement } from "react";
 import { MultiAccordion } from "./MultiAccordion";
 
-const MultiAccordionDemo = () => {
+const MultiAccordionDemo = (): ReactElement => {
   return (
     <MultiAccordion
       type="single"
