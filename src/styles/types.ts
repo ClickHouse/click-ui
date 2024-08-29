@@ -2652,6 +2652,54 @@
         "unset": string
       }
     },
+    "icon": {
+      "space": {
+        "xs": {
+          "all": string
+        },
+        "sm": {
+          "all": string
+        },
+        "md": {
+          "all": string
+        },
+        "lg": {
+          "all": string
+        },
+        "xl": {
+          "all": string
+        },
+        "xxl": {
+          "all": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "info": string,
+          "warning": string
+        },
+        "text": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "info": string,
+          "warning": string
+        },
+        "stroke": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "info": string,
+          "warning": string
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

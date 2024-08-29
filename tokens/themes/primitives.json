@@ -105,6 +105,10 @@
       }
     },
     "slate": {
+      "25": {
+        "value": "#FBFCFF",
+        "type": "color"
+      },
       "50": {
         "value": "#f6f7fa",
         "type": "color"
