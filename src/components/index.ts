@@ -66,3 +66,4 @@ export { useToast } from "./Toast/useToast";
 export { createToast } from "./Toast/toastEmitter";
 export { UserIcon as ProfileIcon } from "./icons/UserIcon";
 export { default as VerticalStepper } from "./VerticalStepper/VerticalStepper";
+export { MultiAccordion } from "./MultiAccordion/MultiAccordion";
