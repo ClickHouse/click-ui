@@ -9,7 +9,7 @@ const Cpu = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_7971_4934)">
+    <g clipPath="url(#clip0_7971_4934)">
       <path
         d="M14.25 9.75H9.75V14.25H14.25V9.75Z"
         stroke="#161517"

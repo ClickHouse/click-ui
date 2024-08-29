@@ -9,7 +9,7 @@ const TreeStructure = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_7969_2214)">
+    <g clipPath="url(#clip0_7969_2214)">
       <path
         d="M6 9.75H3C2.58579 9.75 2.25 10.0858 2.25 10.5V13.5C2.25 13.9142 2.58579 14.25 3 14.25H6C6.41421 14.25 6.75 13.9142 6.75 13.5V10.5C6.75 10.0858 6.41421 9.75 6 9.75Z"
         stroke="#161517"
