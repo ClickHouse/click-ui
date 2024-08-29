@@ -2,7 +2,7 @@ import { MultiAccordion } from "./MultiAccordion";
 
 export default {
   component: MultiAccordion,
-  title: "Display/MultiAccordion",
+  title: "Accordion/MultiAccordion",
   tags: ["multi-accordion", "autodocs"],
   argTypes: {
     gap: {

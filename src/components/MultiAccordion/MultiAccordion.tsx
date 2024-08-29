@@ -45,19 +45,19 @@ interface MultiAccordionContextProps {
 
 const MultiAccordionContext = createContext<MultiAccordionContextProps>({
   size: "md",
-  fillWidth: false,
-  padding: "none",
-  showBorder: false,
+  fillWidth: true,
+  padding: "md",
+  showBorder: true,
   showCheck: false,
 });
 
 export const MultiAccordion = ({
   size = "md",
   children,
-  fillWidth = false,
+  fillWidth = true,
   showCheck = false,
-  padding = "none",
-  showBorder = false,
+  padding = "md",
+  showBorder = true,
   gap = "md",
   markAsCompleted,
   ...delegated
