@@ -8,7 +8,7 @@ const MultiAccordionDemo = (): ReactElement => {
       showBorder
       showCheck
       fillWidth
-      padding="md"
+      size="md"
       markAsCompleted={value => console.log("Accordion status icon clicked", value)}
       collapsible
       title="test"

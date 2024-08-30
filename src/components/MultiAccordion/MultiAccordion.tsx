@@ -12,7 +12,7 @@ import {
 import { GapOptions, PaddingOptions } from "../Container/Container";
 import { SizeType as SpacerSizeType } from "../Spacer/Spacer";
 
-type Size = "sm" | "md" | "lg";
+type Size = "none" | "sm" | "md" | "lg";
 type Color = "default" | "link";
 
 type MarkAsCompletedFunctionType = (value: string) => void | Promise<void>;
@@ -22,7 +22,6 @@ interface MultiAccordionCommonProps {
   size?: Size;
   fillWidth?: boolean;
   gap?: GapOptions;
-  padding?: PaddingOptions;
   showBorder?: boolean;
   showCheck?: boolean;
   markAsCompleted?: MarkAsCompletedFunctionType;
@@ -37,7 +36,6 @@ export type MultiAccordionProps = MultiAccordionCommonProps &
 interface MultiAccordionContextProps {
   size: Size;
   fillWidth: boolean;
-  padding: PaddingOptions;
   showBorder: boolean;
   showCheck: boolean;
   markAsCompleted?: MarkAsCompletedFunctionType;
@@ -46,7 +44,6 @@ interface MultiAccordionContextProps {
 const MultiAccordionContext = createContext<MultiAccordionContextProps>({
   size: "md",
   fillWidth: true,
-  padding: "md",
   showBorder: true,
   showCheck: false,
 });
@@ -56,7 +53,6 @@ export const MultiAccordion = ({
   children,
   fillWidth = true,
   showCheck = false,
-  padding = "md",
   showBorder = true,
   gap = "md",
   markAsCompleted,
@@ -65,7 +61,6 @@ export const MultiAccordion = ({
   const contextValue = {
     size,
     fillWidth,
-    padding,
     showBorder,
     showCheck,
     markAsCompleted,
@@ -104,7 +99,7 @@ const MultiAccordionItem = ({
   isCompleted = false,
   ...props
 }: MultiAccordionItemProps): ReactElement => {
-  const { fillWidth, size, padding, showBorder, showCheck, markAsCompleted } =
+  const { fillWidth, size, showBorder, showCheck, markAsCompleted } =
     useContext(MultiAccordionContext);
 
   const onClickStatus: MouseEventHandler<HTMLOrSVGElement> = e => {
@@ -113,6 +108,8 @@ const MultiAccordionItem = ({
       markAsCompleted(value);
     }
   };
+
+  const customSize = size === "none" ? "sm" : size;
 
   return (
     <AccordionItem
@@ -124,20 +121,19 @@ const MultiAccordionItem = ({
       <AccordionTrigger
         $size={size}
         color={color}
-        $padding={padding}
       >
         <AccordionIconsWrapper>
           <AccordionIconWrapper>
             <Icon
               name="chevron-right"
-              size={iconSize || size}
+              size={iconSize ?? customSize}
               aria-label="accordion icon"
             />
           </AccordionIconWrapper>
           {icon ? (
             <Icon
               name={icon}
-              size={iconSize || size}
+              size={iconSize ?? customSize}
             />
           ) : null}
         </AccordionIconsWrapper>
@@ -151,7 +147,7 @@ const MultiAccordionItem = ({
         >
           <Text
             component="span"
-            size={size}
+            size={customSize}
             fillWidth={fillWidth}
           >
             {title}
@@ -160,7 +156,7 @@ const MultiAccordionItem = ({
             <CustomIcon
               name={isCompleted ? "check-in-circle" : "circle"}
               $isCompleted={isCompleted}
-              size="lg"
+              size={iconSize ?? customSize}
               aria-label="accordion icon status"
               onClick={onClickStatus}
               data-icon="accordion-status"
@@ -169,7 +165,7 @@ const MultiAccordionItem = ({
           )}
         </Container>
       </AccordionTrigger>
-      <AccordionContent $padding={padding}>
+      <AccordionContent $padding={size}>
         <Spacer size={gap} />
         {children}
       </AccordionContent>
@@ -212,7 +208,6 @@ const AccordionItem = styled(RadixAccordion.Item)<StyledAccordionItemProps>`
 interface StyledAccordionTriggerProps {
   $size?: Size;
   color?: Color;
-  $padding: PaddingOptions;
 }
 
 const AccordionTrigger = styled(RadixAccordion.Trigger)<StyledAccordionTriggerProps>`
@@ -222,28 +217,32 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<StyledAccordionTriggerPr
   background-color: transparent;
   display: flex;
   align-items: center;
-  ${({ theme, $size = "md", $padding, color = "default" }) => `
-    padding: ${theme.click.container.space[$padding]};
-    gap: ${theme.click.accordion[$size].space.gap};
+  ${({ theme, $size = "md", color = "default" }) => {
+    const size: Size = $size === "none" ? "sm" : $size;
+
+    return `
+    padding: ${theme.click.container.space[$size]};
+    gap: ${theme.click.accordion[size].space.gap};
     color: ${theme.click.accordion.color[color].label.default};
-    font: ${theme.click.accordion[$size].typography.label.default};
+    font: ${theme.click.accordion[size].typography.label.default};
 
     &:active {
       color: ${theme.click.accordion.color[color].label.active};
-      font: ${theme.click.accordion[$size].typography.label.active};
+      font: ${theme.click.accordion[size].typography.label.active};
     }
 
     &:hover {
       color: ${theme.click.accordion.color[color].label.hover};
       background: ${theme.click.global.color.stroke.default};
-      font: ${theme.click.accordion[$size].typography.label.hover};
+      font: ${theme.click.accordion[size].typography.label.hover};
       cursor: pointer;
     }
 
   [data-icon="accordion-status"] {
     color: ${theme.global.color.stroke.intense};
   }
-  `};
+  `;
+  }};
   &[data-state="open"] [data-icon="accordion-status"] {
     color: ${({ theme }): string => theme.global.color.accent.default};
   }

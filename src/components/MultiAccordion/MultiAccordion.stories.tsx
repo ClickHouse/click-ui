@@ -9,13 +9,9 @@ export default {
       control: "select",
       options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
     },
-    padding: {
-      control: "select",
-      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
-    },
     size: {
       control: "radio",
-      options: ["sm", "md", "lg"],
+      options: ["none", "sm", "md", "lg"],
     },
     fillWidth: { control: "boolean" },
     showBorder: { control: "boolean" },
