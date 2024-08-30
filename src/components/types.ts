@@ -70,6 +70,7 @@ export type {
 export type { PaginationProps } from "./Pagination/Pagination";
 export type { ContextMenuItemProps } from "./ContextMenu/ContextMenu";
 export type { GenericLabelProps } from "./GenericLabel/GenericLabel";
+export type { PanelPadding, PanelColor, PanelRadii } from "./Panel/types";
 
 export type { IconButtonProps };
 export type { AlertProps };
