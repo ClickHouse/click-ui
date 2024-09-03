@@ -1875,7 +1875,7 @@
                 "type": "color"
               },
               "active": {
-                "value": "{click.global.color.background.muted}",
+                "value": "{click.card.horizontal.default.color.background.default}",
                 "type": "color"
               },
               "disabled": {
