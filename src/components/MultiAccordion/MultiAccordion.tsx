@@ -243,8 +243,13 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<StyledAccordionTriggerPr
   }
   `;
   }};
-  &[data-state="open"] [data-icon="accordion-status"] {
-    color: ${({ theme }): string => theme.global.color.accent.default};
+  border-radius: inherit;
+  &[data-state="open"] {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    [data-icon="accordion-status"] {
+      color: ${({ theme }): string => theme.global.color.accent.default};
+    }
   }
 `;
 
