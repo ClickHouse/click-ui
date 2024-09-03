@@ -179,7 +179,7 @@ export const SelectList = styled.div`
 `;
 export const SelectListContent = styled.div`
   width: inherit;
-  overflow: overlay;
+  overflow: auto;
   flex: 1;
 `;
 

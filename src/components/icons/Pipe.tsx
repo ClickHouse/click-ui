@@ -9,7 +9,7 @@ const Pipe = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_8130_6058)">
+    <g clipPath="url(#clip0_8130_6058)">
       <path
         d="M10.5 15.75V13.5C10.5 12.7044 10.8161 11.9413 11.3787 11.3787C11.9413 10.8161 12.7044 10.5 13.5 10.5H15.75"
         stroke="#161517"
