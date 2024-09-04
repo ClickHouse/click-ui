@@ -677,7 +677,7 @@
     "field": {
       "color": {
         "background": {
-          "default": "rgb(96.6% 96.9% 98.1%)",
+          "default": "rgb(98.5% 98.9% 100%)",
           "hover": "rgb(96.6% 96.9% 98.1%)",
           "active": "#ffffff",
           "disabled": "#dfdfdf",

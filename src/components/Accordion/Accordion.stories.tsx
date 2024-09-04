@@ -6,7 +6,7 @@ import { Title } from "../Typography/Title/Title";
 
 export default {
   component: Accordion,
-  title: "Display/Accordion",
+  title: "Accordion/Accordion",
   tags: ["accordion", "autodocs"],
   argTypes: {
     size: {

@@ -9,7 +9,7 @@ import {
 import { Orientation } from "@/components";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
-type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+export type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type GrowShrinkOptions = "0" | "1" | "2" | "3" | "4" | "5" | "6";
 type JustifyContentOptions =
   | "center"
@@ -20,7 +20,7 @@ type JustifyContentOptions =
   | "end"
   | "left"
   | "right";
-type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+export type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
 export interface ContainerProps<T extends ElementType = "div"> {
