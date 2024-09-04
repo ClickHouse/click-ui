@@ -152,6 +152,19 @@
       "base": {
         "value": "#373439",
         "type": "color"
+      },
+      "50a": {
+        "value": "#6476AA",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "alpha",
+              "value": "0.06",
+              "space": "lch"
+            }
+          }
+        }
       }
     },
     "indigo": {
@@ -395,6 +408,14 @@
     "gradients": {
       "base": {
         "value": "linear-gradient(229.65deg, #292924 15.78%, #0F0F0F 88.39%)",
+        "type": "color"
+      },
+      "yellowToblack": {
+        "value": "linear-gradient(132deg, #FAFF69 7.59%, #292929 30.01%);",
+        "type": "color"
+      },
+      "whiteToblack": {
+        "value": "linear-gradient(132deg, #FFFFFF 7.59%, #292929 30.01%);",
         "type": "color"
       },
       "transparent": {

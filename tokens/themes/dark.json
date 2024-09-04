@@ -4321,6 +4321,12 @@
             "type": "color"
           }
         }
+      },
+      "icon": {
+        "background": {
+          "value": "{palette.gradients.yellowToblack}",
+          "type": "color"
+        }
       }
     }
   }
