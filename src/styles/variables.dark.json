@@ -1486,6 +1486,9 @@
           "foreground": "#1d1d1d",
           "background": "#FAFF69"
         }
+      },
+      "icon": {
+        "background": "linear-gradient(132deg, #FAFF69 7.59%, #292929 30.01%);"
       }
     }
   }

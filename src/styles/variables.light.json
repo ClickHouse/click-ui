@@ -503,7 +503,7 @@
             "background": {
               "default": "#ffffff",
               "hover": "#f6f7fa",
-              "active": "#f6f7fa",
+              "active": "#ffffff",
               "disabled": "#dfdfdf"
             },
             "title": {
@@ -1416,7 +1416,8 @@
         "default": "#ffffff",
         "muted": "#f6f7fa",
         "sidebar": "#ffffff",
-        "split": "#f6f7fa"
+        "split": "#f6f7fa",
+        "muted_a": "lch(49.8 30.5 277 / 0.06)"
       },
       "text": {
         "default": "#161517",
@@ -1479,6 +1480,9 @@
           "foreground": "#135be6",
           "background": "#dae6fc"
         }
+      },
+      "icon": {
+        "background": "linear-gradient(132deg, #FFFFFF 7.59%, #292929 30.01%);"
       }
     }
   }

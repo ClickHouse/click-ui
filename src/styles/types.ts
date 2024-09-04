@@ -2823,7 +2823,8 @@
         "default": string,
         "muted": string,
         "sidebar": string,
-        "split": string
+        "split": string,
+        "muted_a": string
       },
       "text": {
         "default": string,
@@ -2886,6 +2887,9 @@
           "foreground": string,
           "background": string
         }
+      },
+      "icon": {
+        "background": string
       }
     }
   },
@@ -2931,7 +2935,8 @@
       "700": string,
       "800": string,
       "900": string,
-      "base": string
+      "base": string,
+      "50a": string
     },
     "indigo": {
       "50": string,
@@ -3002,6 +3007,8 @@
     },
     "gradients": {
       "base": string,
+      "yellowToblack": string,
+      "whiteToblack": string,
       "transparent": string
     },
     "utility": {

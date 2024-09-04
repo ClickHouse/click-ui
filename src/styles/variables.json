@@ -940,7 +940,7 @@
             "background": {
               "default": "#ffffff",
               "hover": "#f6f7fa",
-              "active": "#f6f7fa",
+              "active": "#ffffff",
               "disabled": "#dfdfdf"
             },
             "title": {
@@ -2822,7 +2822,8 @@
         "default": "#ffffff",
         "muted": "#f6f7fa",
         "sidebar": "#ffffff",
-        "split": "#f6f7fa"
+        "split": "#f6f7fa",
+        "muted_a": "lch(49.8 30.5 277 / 0.06)"
       },
       "text": {
         "default": "#161517",
@@ -2885,6 +2886,9 @@
           "foreground": "#135be6",
           "background": "#dae6fc"
         }
+      },
+      "icon": {
+        "background": "linear-gradient(132deg, #FFFFFF 7.59%, #292929 30.01%);"
       }
     }
   },
@@ -2930,7 +2934,8 @@
       "700": "#53575f",
       "800": "#302e32",
       "900": "#161517",
-      "base": "#373439"
+      "base": "#373439",
+      "50a": "lch(49.8 30.5 277 / 0.06)"
     },
     "indigo": {
       "50": "#f4f1fc",
@@ -3001,6 +3006,8 @@
     },
     "gradients": {
       "base": "linear-gradient(229.65deg, #292924 15.78%, #0F0F0F 88.39%)",
+      "yellowToblack": "linear-gradient(132deg, #FAFF69 7.59%, #292929 30.01%);",
+      "whiteToblack": "linear-gradient(132deg, #FFFFFF 7.59%, #292929 30.01%);",
       "transparent": "rgba(0,0,0,0)"
     },
     "utility": {
