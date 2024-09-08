@@ -156,18 +156,23 @@ interface TableRowProps {
   $isSelectable?: boolean;
   $isDeleted?: boolean;
   $isDisabled?: boolean;
+  $isActive?: boolean;
   $showActions?: boolean;
   $rowHeight?: string;
 }
 
 const TableRow = styled.tr<TableRowProps>`
   overflow: hidden;
-  ${({ theme, $isDeleted, $isDisabled, $rowHeight }) => `
+  ${({ theme, $isDeleted, $isDisabled, $isActive, $rowHeight }) => `
     ${$rowHeight ? `height: ${$rowHeight};` : ""}
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
-    theme.click.table.row.color.stroke.default
-  };
+      theme.click.table.row.color.stroke.default
+    };
+
+    ${$isActive &&
+      `background-color: ${theme.click.table.row.color.background.active};`}
+
     &:active {
       background-color: ${theme.click.table.row.color.background.active};
     }
@@ -366,6 +371,7 @@ export interface TableRowType
   items: Array<TableCellType>;
   isDisabled?: boolean;
   isDeleted?: boolean;
+  isActive?: boolean;
 }
 
 interface CommonTableProps
@@ -422,6 +428,7 @@ const TableBodyRow = ({
   onDelete,
   onEdit,
   isDeleted,
+  isActive,
   isDisabled,
   size,
   actionsList,
@@ -435,6 +442,7 @@ const TableBodyRow = ({
       $isSelectable={isSelectable}
       $isDeleted={isDeleted}
       $isDisabled={isDisabled}
+      $isActive={isActive}
       $showActions={isDeletable || isEditable}
       $rowHeight={rowHeight}
       {...rowProps}

@@ -18,6 +18,24 @@ const rows = [
       { label: "Mexico" },
     ],
   },
+  {
+    id: "row-3",
+    isActive: true,
+    items: [
+      { label: "Alfreds Futterkiste" },
+      { label: "Maria Anders" },
+      { label: "Germany" },
+    ],
+  },
+  {
+    id: "row-4",
+    isDeleted: true,
+    items: [
+      { label: "Centro comercial Moctezuma" },
+      { label: "Francisco Chang" },
+      { label: "Mexico" },
+    ],
+  },
 ];
 
 export default {
