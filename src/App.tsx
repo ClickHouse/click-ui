@@ -49,7 +49,7 @@ import { ConfirmationDialog } from "@/components/ConfirmationDialog/Confirmation
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import GridExample from "./examples/GridExample";
 import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 const BackgroundWrapper = styled.div`
   background: ${({ theme }) => theme.global.color.background.default};

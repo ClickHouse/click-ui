@@ -6,7 +6,7 @@ import {
   forwardRef,
 } from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 const EllipsisContainer = styled.div`
   display: inline-block;

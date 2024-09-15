@@ -1,6 +1,6 @@
 import { Container, Dialog, Separator, Text } from "@/components";
 import { ReactElement, ReactNode } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 type DialogPrimaryAction = "primary" | "danger";
 

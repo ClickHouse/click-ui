@@ -22,7 +22,7 @@ import {
   Separator,
   Spacer,
 } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { CrossButton } from "../commonElement";
 import { keyframes } from "styled-components";
 

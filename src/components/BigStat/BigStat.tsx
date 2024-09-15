@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 export type bigStatOrder = "titleTop" | "titleBottom";
 export type bigStatSize = "sm" | "lg";
 export type bigStatSpacing = "sm" | "lg";

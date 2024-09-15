@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { HTMLAttributes } from "react";
 
 export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";

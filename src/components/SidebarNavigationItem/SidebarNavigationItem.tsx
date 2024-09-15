@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 

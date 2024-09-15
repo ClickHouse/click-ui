@@ -2,7 +2,7 @@ import { Badge, BadgeProps } from "@/components";
 import { DismissibleBadge, NonDismissibleBadge } from "@/components/Badge/Badge";
 import { MouseEvent, useEffect, useId, useState } from "react";
 import { ItemInterface, ReactSortable } from "react-sortablejs";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { SelectItemProps } from "./common/types";
 
 const BadgeList = styled.div`

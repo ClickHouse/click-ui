@@ -1,6 +1,6 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { HTMLAttributes } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export interface TooltipProps extends RadixTooltip.TooltipProps {
   disabled?: boolean;

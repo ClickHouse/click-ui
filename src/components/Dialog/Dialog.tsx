@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import * as RadixDialog from "@radix-ui/react-dialog";
-import styled, { keyframes } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import { Button, Icon, Spacer } from "@/components";
 import { CrossButton } from "../commonElement";
 import { ButtonProps } from "@/components/Button/Button";

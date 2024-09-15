@@ -4,7 +4,7 @@ import {
   Image,
   Root,
 } from "@radix-ui/react-avatar";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 type TextSize = "md" | "sm";
 

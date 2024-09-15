@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
 import Flags, { FlagList, FlagName } from "../icons/Flags";

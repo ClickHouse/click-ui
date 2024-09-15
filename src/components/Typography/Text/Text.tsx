@@ -5,7 +5,7 @@ import {
   ReactNode,
   forwardRef,
 } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger";

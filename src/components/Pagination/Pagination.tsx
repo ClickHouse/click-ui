@@ -14,7 +14,7 @@ import {
   Select,
   Text,
 } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export interface PaginationProps
   extends Omit<ContainerProps<"div">, "children" | "onChange"> {

@@ -1,7 +1,7 @@
 import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
 import { IconButton } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import useColorStyle from "./useColorStyle";
 import { EmptyButton } from "../commonElement";
 import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";

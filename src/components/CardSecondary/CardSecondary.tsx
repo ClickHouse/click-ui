@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
@@ -177,7 +177,10 @@ export const CardSecondary = ({
           as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
         >
           <LinkText>{infoText}</LinkText>
-          <LinkIcon size={infoIconSize} name={infoIcon} />
+          <LinkIcon
+            size={infoIconSize}
+            name={infoIcon}
+          />
         </InfoLink>
       )}
     </Wrapper>

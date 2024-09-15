@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import { styled } from "styled-components";
 import { IconSize } from "./Icon/types";
 
 export const FormRoot = styled.div<{
@@ -42,11 +42,6 @@ export const Error = styled.div`
   font: ${theme.click.field.typography.label.error};
   color: ${theme.click.field.color.label.error};
 `};
-`;
-
-export const ItemSeparator = css`
-  height: 1px;
-  background-color: ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
 `;
 
 export const EmptyButton = styled.button`

@@ -1,6 +1,6 @@
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
 import { ContextMenu } from "./ContextMenu";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 interface Props extends ContextMenuProps {
   disabled?: boolean;

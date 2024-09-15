@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { HorizontalDirection, IconName } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { EllipsisContent } from "../EllipsisContent/EllipsisContent";
 import { Icon } from "@/components/Icon/Icon";
 import { IconSize } from "@/components/Icon/types";

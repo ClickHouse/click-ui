@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Icon, IconName } from "@/components";
 
 type CardColor = "default" | "muted";

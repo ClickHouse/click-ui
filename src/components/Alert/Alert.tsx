@@ -1,7 +1,7 @@
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import { useState, ReactNode } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 type AlertType = "default" | "banner";
 type AlertSize = "small" | "medium";

@@ -1,5 +1,5 @@
 import { Content, Root, Trigger } from "@radix-ui/react-popover";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export const SelectPopoverRoot = styled(Root)`
   width: 100%;
