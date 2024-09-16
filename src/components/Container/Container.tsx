@@ -9,6 +9,7 @@ import {
 import { Orientation } from "@/components";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
+type BorderColor = "default" | "intense" | "muted";
 export type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type GrowShrinkOptions = "0" | "1" | "2" | "3" | "4" | "5" | "6";
 type JustifyContentOptions =
@@ -25,6 +26,7 @@ type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
 export interface ContainerProps<T extends ElementType = "div"> {
   component?: T;
+  border?: BorderColor;
   alignItems?: AlignItemsOptions;
   children?: React.ReactNode;
   fillWidth?: boolean;
@@ -51,6 +53,7 @@ type ContainerPolymorphicComponent = <T extends ElementType = "div">(
 const _Container = <T extends ElementType = "div">(
   {
     component,
+    border,
     alignItems,
     children,
     fillWidth = true,
@@ -77,6 +80,7 @@ const _Container = <T extends ElementType = "div">(
       ref={ref}
       as={component ?? "div"}
       $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
+      $border={border}
       $fillWidth={fillWidth}
       $gapSize={gap}
       $grow={grow}
@@ -101,6 +105,7 @@ const _Container = <T extends ElementType = "div">(
 };
 const Wrapper = styled.div<{
   $alignItems: AlignItemsOptions;
+  $border?: BorderColor;
   $fillWidth?: boolean;
   $gapSize: GapOptions;
   $grow?: GrowShrinkOptions;
@@ -130,6 +135,8 @@ const Wrapper = styled.div<{
   ${({ $overflow }) => `
     ${$overflow && `overflow: ${$overflow}`};
   `}
+  ${({ $border, theme }) =>
+    $border ? `border: 1px solid ${theme.click.global.color.stroke[$border]};` : ""}
   flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
   max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
