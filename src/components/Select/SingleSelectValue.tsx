@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { SelectItemProps } from "./common/types";
 import IconWrapper from "../IconWrapper/IconWrapper";
 

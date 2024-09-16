@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export interface LabelProps extends HTMLAttributes<HTMLLabelElement> {
   disabled?: boolean;

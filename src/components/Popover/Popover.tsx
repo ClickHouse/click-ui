@@ -1,6 +1,6 @@
 import * as RadixPopover from "@radix-ui/react-popover";
 import { Arrow, GenericMenuPanel } from "../GenericMenu";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { ReactNode } from "react";
 import { Icon } from "@/components";
 import { EmptyButton } from "../commonElement";

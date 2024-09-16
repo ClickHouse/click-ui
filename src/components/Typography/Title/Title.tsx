@@ -1,5 +1,5 @@
 import { HTMLAttributes, forwardRef } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export type TitleAlignment = "left" | "center" | "right";
 export type TitleColor = "default" | "muted";

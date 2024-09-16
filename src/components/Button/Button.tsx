@@ -1,5 +1,5 @@
 import { Icon, IconName } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { BaseButton } from "../commonElement";
 import React from "react";
 
@@ -41,25 +41,25 @@ export const Button = ({
     {...delegated}
   >
     {!loading && (
-        <>
-    {iconLeft && (
-      <ButtonIcon
-        name={iconLeft}
-        aria-hidden
-        size="sm"
-      />
-    )}
+      <>
+        {iconLeft && (
+          <ButtonIcon
+            name={iconLeft}
+            aria-hidden
+            size="sm"
+          />
+        )}
 
-    {label ?? children}
+        {label ?? children}
 
-    {iconRight && (
-      <ButtonIcon
-        name={iconRight}
-        aria-hidden
-        size="sm"
-      />
-    )}
-        </>
+        {iconRight && (
+          <ButtonIcon
+            name={iconRight}
+            aria-hidden
+            size="sm"
+          />
+        )}
+      </>
     )}
     {loading && (
       <LoadingIconWrapper data-testid="click-ui-loading-icon-wrapper">
@@ -68,7 +68,7 @@ export const Button = ({
           data-testid="click-ui-loading-icon"
           aria-label="loading"
         ></Icon>
-        {showLabelWithLoading? label ?? children : ""}
+        {showLabelWithLoading ? label ?? children : ""}
       </LoadingIconWrapper>
     )}
   </StyledButton>

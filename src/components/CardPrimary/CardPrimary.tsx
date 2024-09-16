@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text, TextAlignment } from "@/components/Typography/Text/Text";

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import * as RadixSeparator from "@radix-ui/react-separator";
 interface Props extends RadixSeparator.SeparatorProps {
   size: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";

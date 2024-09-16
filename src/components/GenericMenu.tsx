@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export const GenericMenuPanel = styled.div<{
   $type: "popover" | "dropdown-menu" | "context-menu";
@@ -112,7 +112,7 @@ export const GenericMenuItem = styled.div`
     &:visited {
       color: ${theme.click.genericMenu.item.color.text.default};
       a {
-        color: ${theme.click.genericMenu.item.color.text.default}; 
+        color: ${theme.click.genericMenu.item.color.text.default};
       }
     }
   `};

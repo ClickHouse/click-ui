@@ -1,6 +1,6 @@
 import { Container } from "./Container";
 import { Text } from "..";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 const GridCenter = styled.div`
   display: grid;

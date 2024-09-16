@@ -4,7 +4,7 @@ import { Dialog } from "./Dialog";
 import Separator from "../Separator/Separator";
 import { Spacer } from "../Spacer/Spacer";
 import { Button } from "../Button/Button";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Link } from "../Link/Link";
 
 const DialogComponent = ({

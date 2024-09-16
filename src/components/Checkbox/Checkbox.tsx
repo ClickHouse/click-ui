@@ -1,7 +1,7 @@
 import { GenericLabel, Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { ReactNode, useId } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { FormRoot } from "../commonElement";
 
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {

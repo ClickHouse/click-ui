@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { SelectionTypeFn } from "./types";
 import { StyledCell } from "./StyledCell";
 const RowNumberColumnContainer = styled.div<{

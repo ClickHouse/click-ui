@@ -1,7 +1,7 @@
 import { Theme } from "@/styles/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import { ReactNode, forwardRef, useId } from "react";
-import styled, { DefaultTheme } from "styled-components";
+import { DefaultTheme, styled } from "styled-components";
 import { FormRoot } from "../commonElement";
 import { GenericLabel } from "@/components";
 

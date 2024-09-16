@@ -1,5 +1,5 @@
 import * as RadixTabs from "@radix-ui/react-tabs";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export interface TabsProps extends RadixTabs.TabsProps {
   ariaLabel?: string;
@@ -74,8 +74,10 @@ const FullWidthTabs = styled(Tabs)`
 `;
 
 FullWidthTabs.Trigger = styled(Trigger)<{ width?: string }>`
-  ${props => props.width ? `width: ${props.width};` :
-  `
+  ${props =>
+    props.width
+      ? `width: ${props.width};`
+      : `
     flex-basis: auto;
     flex-grow: 1;
     flex-shrink: 1;

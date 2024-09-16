@@ -7,7 +7,7 @@ import {
   Text,
 } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = "sm" | "md";
@@ -167,11 +167,10 @@ const TableRow = styled.tr<TableRowProps>`
     ${$rowHeight ? `height: ${$rowHeight};` : ""}
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
-      theme.click.table.row.color.stroke.default
-    };
+    theme.click.table.row.color.stroke.default
+  };
 
-    ${$isActive &&
-      `background-color: ${theme.click.table.row.color.background.active};`}
+    ${$isActive && `background-color: ${theme.click.table.row.color.background.active};`}
 
     &:active {
       background-color: ${theme.click.table.row.color.background.active};

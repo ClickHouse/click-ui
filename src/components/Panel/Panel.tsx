@@ -1,6 +1,6 @@
 import { Orientation } from "@/components";
 import { HTMLAttributes } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export type PanelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 export type PanelColor = "default" | "muted" | "transparent";

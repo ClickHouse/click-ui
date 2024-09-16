@@ -47,6 +47,7 @@ export default defineConfig({
         "**/*.stories.tsx",
         "**/*.test.ts",
         "**/*.test.tsx",
+        "react/jsx-runtime",
       ],
       output: {
         globals: {

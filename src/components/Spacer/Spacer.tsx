@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export type SizeType = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export interface SpacerProps {

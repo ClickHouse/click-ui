@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Icon } from "@/components";
 
 type StepperType = "numbered" | "bulleted";

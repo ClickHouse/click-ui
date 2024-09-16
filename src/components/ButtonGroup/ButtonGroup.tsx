@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from "react";
-import styled, { DefaultTheme } from "styled-components";
+import { DefaultTheme, styled } from "styled-components";
 
 type ButtonGroupType = "default" | "borderless";
 

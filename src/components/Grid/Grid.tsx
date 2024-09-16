@@ -20,7 +20,7 @@ import {
 import AutoSizer, { Size } from "react-virtualized-auto-sizer";
 import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import {
   GridContextMenuItemProps,
   GridProps,

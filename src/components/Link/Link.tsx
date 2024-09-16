@@ -7,7 +7,7 @@ import {
   forwardRef,
 } from "react";
 import { Icon, IconName } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 type TextSize = "xs" | "sm" | "md" | "lg";
 type TextWeight = "normal" | "medium" | "semibold" | "bold";

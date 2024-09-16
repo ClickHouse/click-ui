@@ -1,6 +1,6 @@
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import { Label } from "@/components";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { ReactNode } from "react";
 
 const Wrapper = styled.div<{

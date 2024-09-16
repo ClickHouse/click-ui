@@ -1,5 +1,5 @@
 import { HTMLAttributes, useState } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Icon, IconName, Text } from "@/components";
 
 export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
@@ -31,12 +31,12 @@ const Wrapper = styled.div<{
 
   ${({ theme }) => `
     background: ${theme.click.card.promotion.color.background.default};
-    color: ${theme.click.card.promotion.color.text.default}; 
+    color: ${theme.click.card.promotion.color.text.default};
     border-radius: ${theme.click.card.promotion.radii.all};
     padding: ${theme.click.card.promotion.space.y} ${theme.click.card.promotion.space.x};
     gap: ${theme.click.card.promotion.space.gap};
     transition: .2s ease-in-out all;
-  
+
     &:hover {
       background: ${theme.click.card.promotion.color.background.hover};
       color: ${theme.click.card.promotion.color.text.hover};

@@ -11,7 +11,7 @@ import {
   WheelEvent,
   useRef,
 } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { Icon, IconButton } from "@/components";
 import { IconName } from "../Icon/types";
 import {

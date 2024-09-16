@@ -20,7 +20,8 @@ Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems u
    `npm i @clickhouse/click-ui`
    or
    `yarn add @clickhouse/click-ui`
-2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
+2. Add styled-components and @types/react and @types/react-dom to package.json
+3. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
 
 ```
 import { Switch, Text, ThemeName, ClickUIProvider, Title } from '@clickhouse/click-ui'
