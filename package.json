@@ -43,6 +43,7 @@
     "publish:click-ui": "npm run test && npm run build && npm publish"
   },
   "dependencies": {
+    "@h6s/calendar": "^2.0.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
