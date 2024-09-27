@@ -5,8 +5,9 @@ import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { Container } from "../Container/Container";
 import styled from "styled-components";
+import { Title } from "../Typography/Title/Title";
 
-const locale = 'en-US';
+const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
 const headerDateFormatter = new Intl.DateTimeFormat(locale, {
   month: "short",
@@ -15,21 +16,13 @@ const headerDateFormatter = new Intl.DateTimeFormat(locale, {
 const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
   day: "2-digit",
   month: "short",
-  year: "numeric"
-})
-
-// ${({ theme }) => {
-//     return `
-//       ${theme.global.color.accent.default}
-//     `
-//   }}
-
-//border: 1px solid ${({ theme }) => theme.palette.slate}
+  year: "numeric",
+});
 
 const DateTable = styled.table`
   border-collapse: separate;
   border-spacing: 0;
-  font: ${({ theme }) => theme.typography.styles.product.text.normal.md }
+  font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
   table-layout: fixed;
   width: 250px;
 
@@ -50,20 +43,36 @@ const DateTable = styled.table`
     padding: ${({ theme }) => {
       console.log(theme.click.table.body.cell.space.md);
       // return theme.click.table.body.cell.space.sm.x;
-      return '4px;'
+      return "4px;";
     }}
   }
 `;
 
-const DateTableBody = styled.tbody`
-  cursor: pointer;
-`
+const DateTableHeader = styled.th`
+  ${({ theme }) => `
+    color: ${theme.palette.neutral[500]};
+    font-weight: 300;
+  `}
+`;
 
-const DateTableCell = styled.td<{ $isSelected?: boolean; $isToday?: boolean }>`
-  ${({ $isSelected }) => $isSelected && `background: black; color: white;`}
+const DateTableCell = styled.td<{
+  $isCurrentMonth?: boolean;
+  $isSelected?: boolean;
+  $isToday?: boolean;
+}>`
+  ${({ $isCurrentMonth, theme }) =>
+    !$isCurrentMonth &&
+    `
+    color: ${theme.click.field.color.text.disabled};
+    font-weight: 200;
+  `}
+
+  ${({ $isSelected, theme }) =>
+    $isSelected &&
+    `background: ${theme.palette.slate[900]}; color: ${theme.palette.neutral[0]};`}
   border-radius: ${({ theme }) => theme.border.radii[1]};
 
-  ${({ $isToday }) => $isToday && 'font-weight: bold;'}
+  ${({ $isToday }) => $isToday && "font-weight: bold;"}
 
   &:hover {
     border: 1px solid black;
@@ -78,19 +87,30 @@ interface DateTimeInputFieldProps {
 
 const DateTimeInputField = ({ disabled, id, selectedDate }: DateTimeInputFieldProps) => {
   const defaultId = useId();
-  const formattedSelectedDate = selectedDate ? selectedDateFormatter.format(selectedDate) : '';
+  const formattedSelectedDate = selectedDate
+    ? selectedDateFormatter.format(selectedDate)
+    : "";
   return (
     <InputWrapper
       disabled={disabled}
       id={id ?? defaultId}
     >
       <Icon name="calendar" />
-      <InputElement readOnly value={formattedSelectedDate} />
+      <InputElement
+        readOnly
+        value={formattedSelectedDate}
+      />
     </InputWrapper>
   );
 };
 
-const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }) => {
+interface CalendarProps {
+  closeDatepicker: () => void;
+  selectedDate?: Date;
+  setSelectedDate: (selectedDate: Date) => void;
+}
+
+const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarProps) => {
   const { body, headers, month, navigation, view, year } = useCalendar({
     defaultWeekStart: 1,
   });
@@ -123,7 +143,12 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }) => {
           name="arrow-left"
           onClick={handlePreviousClick}
         />
-        {headerDateFormatter.format(headerDate)}
+        <Title
+          type="h3"
+          size="sm"
+        >
+          {headerDateFormatter.format(headerDate)}
+        </Title>
         <Icon
           cursor="pointer"
           name="arrow-right"
@@ -134,30 +159,48 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }) => {
         <thead>
           <tr>
             {headers.weekDays.map(({ key, value: date }) => {
-              return <th key={key}>{weekdayFormatter.format(date)}</th>;
+              return (
+                <DateTableHeader key={key}>
+                  {weekdayFormatter.format(date)}
+                </DateTableHeader>
+              );
             })}
           </tr>
         </thead>
-        <DateTableBody>
+        <tbody>
           {body.value.map(({ key: weekKey, value: week }) => {
             return (
               <tr key={weekKey}>
-                {week.map(({ date, isCurrentDate, key: dayKey, value: fullDate }) => {
-                  const isSelected = selectedDate?.getTime() === fullDate.getTime();
+                {week.map(
+                  ({
+                    date,
+                    isCurrentDate,
+                    isCurrentMonth,
+                    key: dayKey,
+                    value: fullDate,
+                  }) => {
+                    const isSelected = selectedDate?.getTime() === fullDate.getTime();
 
-                  if (isSelected) {
-                    console.log('SAME', fullDate);
+                    return (
+                      <DateTableCell
+                        $isCurrentMonth={isCurrentMonth}
+                        $isSelected={isSelected}
+                        $isToday={isCurrentDate}
+                        key={dayKey}
+                        onClick={() => {
+                          setSelectedDate(fullDate);
+                          closeDatepicker();
+                        }}
+                      >
+                        {date}
+                      </DateTableCell>
+                    );
                   }
-
-                  return <DateTableCell $isSelected={isSelected} $isToday={isCurrentDate} key={dayKey} onClick={() => {
-                    setSelectedDate(fullDate);
-                    closeDatepicker();
-                  }}>{date}</DateTableCell>;
-                })}
+                )}
               </tr>
             );
           })}
-        </DateTableBody>
+        </tbody>
       </DateTable>
     </Container>
   );
@@ -169,15 +212,25 @@ export const DateTimePicker = ({ disabled = false }) => {
 
   const closeDatePicker = () => {
     setIsOpen(false);
-  }
+  };
 
   return (
-    <Dropdown onOpenChange={setIsOpen} open={isOpen}>
+    <Dropdown
+      onOpenChange={setIsOpen}
+      open={isOpen}
+    >
       <Dropdown.Trigger disabled={disabled}>
-        <DateTimeInputField disabled={disabled} selectedDate={selectedDate} />
+        <DateTimeInputField
+          disabled={disabled}
+          selectedDate={selectedDate}
+        />
       </Dropdown.Trigger>
       <Dropdown.Content>
-        <Calendar closeDatepicker={closeDatePicker} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        <Calendar
+          closeDatepicker={closeDatePicker}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
       </Dropdown.Content>
     </Dropdown>
   );
