@@ -26,34 +26,27 @@ const DateTable = styled.table`
   table-layout: fixed;
   width: 250px;
 
+  thead tr {
+    height: 35px;
+  }
+
   tbody {
     cursor: pointer;
   }
 
-  th {
-    width: 14%;
-  }
-
-  td {
-    font-weight: 200;
-    text-align: center;
-  }
-
   td, th {
     border: 1px solid transparent;
-    padding: ${({ theme }) => {
-      console.log(theme.click.table.body.cell.space.md);
-      // return theme.click.table.body.cell.space.sm.x;
-      return "4px;";
-    }}
+    padding: 4px;
   }
 `;
 
 const DateTableHeader = styled.th`
   ${({ theme }) => `
-    color: ${theme.palette.neutral[500]};
+    color: ${theme.global.color.text.muted};
     font-weight: 300;
   `}
+
+  width: 14%;
 `;
 
 const DateTableCell = styled.td<{
@@ -61,6 +54,9 @@ const DateTableCell = styled.td<{
   $isSelected?: boolean;
   $isToday?: boolean;
 }>`
+  font-weight: 300;
+  text-align: center;
+
   ${({ $isCurrentMonth, theme }) =>
     !$isCurrentMonth &&
     `
@@ -70,13 +66,13 @@ const DateTableCell = styled.td<{
 
   ${({ $isSelected, theme }) =>
     $isSelected &&
-    `background: ${theme.palette.slate[900]}; color: ${theme.palette.neutral[0]};`}
+    `background: ${theme.global.color.accent.default}; color: ${theme.global.color.background.default};`}
   border-radius: ${({ theme }) => theme.border.radii[1]};
 
   ${({ $isToday }) => $isToday && "font-weight: bold;"}
 
   &:hover {
-    border: 1px solid black;
+    ${({ theme }) => `border: 1px solid ${theme.global.color.outline.default}`};
   }
 `;
 
@@ -121,7 +117,7 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
   }
   const { body, headers, month, navigation, view, year } = useCalendar(calendarOptions);
 
-console.log(headers, body, view, month, year, navigation);
+  console.log(headers, body, view, month, year, navigation);
 
   const handleNextClick = (): void => {
     navigation.toNext();
