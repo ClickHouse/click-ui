@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-import { useCalendar } from "@h6s/calendar";
+import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import Dropdown from "../Dropdown/Dropdown";
 import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
@@ -35,6 +35,7 @@ const DateTable = styled.table`
   }
 
   td {
+    font-weight: 200;
     text-align: center;
   }
 
@@ -111,10 +112,16 @@ interface CalendarProps {
 }
 
 const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarProps) => {
-  const { body, headers, month, navigation, view, year } = useCalendar({
+  const calendarOptions: UseCalendarOptions = {
     defaultWeekStart: 1,
-  });
-  console.log(headers, body, view, month, year);
+  };
+
+  if (selectedDate) {
+    calendarOptions.defaultDate = selectedDate;
+  }
+  const { body, headers, month, navigation, view, year } = useCalendar(calendarOptions);
+
+console.log(headers, body, view, month, year, navigation);
 
   const handleNextClick = (): void => {
     navigation.toNext();
