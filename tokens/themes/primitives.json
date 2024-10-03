@@ -411,11 +411,11 @@
         "type": "color"
       },
       "yellowToblack": {
-        "value": "linear-gradient(132deg, #FAFF69 7.59%, #292929 30.01%);",
+        "value": "linear-gradient(132deg, #FAFF69 8%, #292929 30%);",
         "type": "color"
       },
       "whiteToblack": {
-        "value": "linear-gradient(132deg, #FFFFFF 7.59%, #292929 30.01%);",
+        "value": "linear-gradient(132deg, #FFFFFF 8%, #292929 30%);",
         "type": "color"
       },
       "transparent": {
@@ -1247,6 +1247,20 @@
       "2xl": {
         "value": "1536px",
         "type": "sizing"
+      }
+    }
+  },
+  "global": {
+    "color": {
+      "gradients": {
+        "yellowToBlack": {
+          "value": "linear-gradient(132deg, #faff69 8%, #292929 30%)",
+          "type": "color"
+        },
+        "whiteToBlack": {
+          "value": "linear-gradient(132deg, #ffffff 8%, #292929 30%)",
+          "type": "color"
+        }
       }
     }
   }

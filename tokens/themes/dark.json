@@ -1627,76 +1627,134 @@
     },
     "checkbox": {
       "color": {
-        "background": {
-          "default": {
-            "value": "{click.field.color.background.default}",
-            "type": "color"
+        "default": {
+          "background": {
+            "default": {
+              "value": "{click.field.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.field.color.background.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.brand.300}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.700}",
+              "type": "color"
+            }
           },
-          "hover": {
-            "value": "{click.field.color.background.default}",
-            "type": "color"
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.intense}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke.intense}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.checkbox.color.default.background.active}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.600}",
+              "type": "color"
+            }
           },
-          "active": {
-            "value": "{palette.brand.300}",
-            "type": "color"
+          "check": {
+            "default": {
+              "value": "{palette.neutral.0}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.neutral.0}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.neutral.900}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.iconButton.color.disabled.text.default}",
+              "type": "color"
+            }
           },
-          "disabled": {
-            "value": "{palette.neutral.700}",
-            "type": "color"
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.field.color.label.disabled}",
+              "type": "color"
+            }
           }
         },
-        "stroke": {
-          "default": {
-            "value": "{click.global.color.stroke.intense}",
-            "type": "color"
+        "var1": {
+          "background": {
+            "default": {
+              "value": "{palette.slate.50}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.checkbox.color.default.background.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.chart.bars.color.green}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.200}",
+              "type": "color"
+            }
           },
-          "hover": {
-            "value": "{click.global.color.stroke.intense}",
-            "type": "color"
+          "stroke": {
+            "default": {
+              "value": "{palette.success.600}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.success.700}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.checkbox.color.var1.stroke.hover}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.300}",
+              "type": "color"
+            }
           },
-          "active": {
-            "value": "{click.checkbox.color.background.active}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{palette.neutral.600}",
-            "type": "color"
-          }
-        },
-        "check": {
-          "default": {
-            "value": "{palette.neutral.0}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{palette.neutral.0}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{palette.neutral.900}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.button.iconButton.color.disabled.text.default}",
-            "type": "color"
-          }
-        },
-        "label": {
-          "default": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "active": {
-            "value": "{click.global.color.text.default}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{click.field.color.label.disabled}",
-            "type": "color"
+          "check": {
+            "default": {
+              "value": "{palette.neutral.0}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.checkbox.color.default.check.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{palette.neutral.0}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{palette.neutral.400}",
+              "type": "color"
+            }
           }
         }
       }
@@ -2299,7 +2357,7 @@
       "color": {
         "background": {
           "default": {
-            "value": "{click.checkbox.color.background.default}",
+            "value": "{click.checkbox.color.default.background.default}",
             "type": "color"
           },
           "hover": {
@@ -2307,17 +2365,17 @@
             "type": "color"
           },
           "active": {
-            "value": "{click.checkbox.color.background.active}",
+            "value": "{click.checkbox.color.default.background.active}",
             "type": "color"
           },
           "disabled": {
-            "value": "{click.checkbox.color.background.disabled}",
+            "value": "{click.checkbox.color.default.background.disabled}",
             "type": "color"
           }
         },
         "stroke": {
           "default": {
-            "value": "{click.checkbox.color.stroke.default}",
+            "value": "{click.checkbox.color.default.stroke.default}",
             "type": "color"
           },
           "hover": {
@@ -2329,7 +2387,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.checkbox.color.stroke.disabled}",
+            "value": "{click.checkbox.color.default.stroke.disabled}",
             "type": "color"
           }
         },
@@ -2343,11 +2401,11 @@
             "type": "color"
           },
           "active": {
-            "value": "{click.checkbox.color.check.active}",
+            "value": "{click.checkbox.color.default.check.active}",
             "type": "color"
           },
           "disabled": {
-            "value": "{click.checkbox.color.check.disabled}",
+            "value": "{click.checkbox.color.default.check.disabled}",
             "type": "color"
           }
         }
@@ -2697,7 +2755,7 @@
             "type": "color"
           },
           "active": {
-            "value": "{click.checkbox.color.background.active}",
+            "value": "{click.checkbox.color.default.background.active}",
             "type": "color"
           },
           "disabled": {
