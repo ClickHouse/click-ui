@@ -2204,6 +2204,62 @@
                 "type": "color"
               }
             }
+          },
+          "var2": {
+            "background": {
+              "default": {
+                "value": "{palette.slate.50}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.checkbox.color.variations.default.background.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.chart.bars.color.blue}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{palette.neutral.200}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "{palette.info.600}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{palette.info.700}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.checkbox.color.variations.var2.stroke.hover}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{palette.neutral.300}",
+                "type": "color"
+              }
+            },
+            "check": {
+              "default": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.checkbox.color.variations.default.check.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{palette.neutral.0}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{palette.neutral.400}",
+                "type": "color"
+              }
+            }
           }
         },
         "background": {
