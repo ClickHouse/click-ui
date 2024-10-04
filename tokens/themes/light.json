@@ -2174,7 +2174,7 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.success.300}",
+                "value": "{palette.success.base}",
                 "type": "color"
               },
               "active": {
