@@ -25,6 +25,10 @@ export default {
     label: { control: "text" },
     orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
     dir: { control: "inline-radio", options: ["start", "end"] },
+    variant: {
+      control: "radio",
+      options: ["default", "var1", "var2", "var3", "var4", "var5", "var6"],
+    },
   },
 };
 
