@@ -1839,7 +1839,7 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.fuchsia.200}",
+                "value": "{palette.fuchsia.300}",
                 "type": "color"
               },
               "active": {
@@ -2007,7 +2007,7 @@
                 "type": "color"
               },
               "hover": {
-                "value": "{palette.violet.200}",
+                "value": "{palette.violet.300}",
                 "type": "color"
               },
               "active": {
