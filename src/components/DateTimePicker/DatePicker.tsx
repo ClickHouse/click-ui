@@ -29,6 +29,10 @@ const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   }}
 }`;
 
+const UnselectableTitle = styled(Title)`
+  user-select: none;
+`;
+
 const DateTable = styled.table`
   border-collapse: separate;
   border-spacing: 0;
@@ -91,25 +95,24 @@ const DateTableCell = styled.td<{
   }
 `;
 
-interface DateTimeInputFieldProps {
+interface DatePickerInputProps {
   isActive: boolean;
   disabled: boolean;
   id?: string;
   selectedDate?: Date;
 }
 
-const DateTimeInputField = ({
+const DatePickerInput = ({
   isActive,
   disabled,
   id,
   selectedDate,
-}: DateTimeInputFieldProps) => {
+}: DatePickerInputProps) => {
   const defaultId = useId();
   const formattedSelectedDate = selectedDate
     ? selectedDateFormatter.format(selectedDate)
     : "";
 
-  console.log({ isActive });
   return (
     <HighlightedInputWrapper
       $isActive={isActive}
@@ -139,9 +142,7 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
   if (selectedDate) {
     calendarOptions.defaultDate = selectedDate;
   }
-  const { body, headers, month, navigation, view, year } = useCalendar(calendarOptions);
-
-  console.log(headers, body, view, month, year, navigation);
+  const { body, headers, month, navigation, year } = useCalendar(calendarOptions);
 
   const handleNextClick = (): void => {
     navigation.toNext();
@@ -170,12 +171,12 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
           name="arrow-left"
           onClick={handlePreviousClick}
         />
-        <Title
+        <UnselectableTitle
           type="h3"
           size="sm"
         >
           {headerDateFormatter.format(headerDate)}
-        </Title>
+        </UnselectableTitle>
         <Icon
           cursor="pointer"
           name="arrow-right"
@@ -233,7 +234,11 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
   );
 };
 
-export const DatePicker = ({ disabled = false }) => {
+export interface DatePickerProps {
+  disabled: boolean;
+}
+
+export const DatePicker = ({ disabled = false }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
 
@@ -243,11 +248,13 @@ export const DatePicker = ({ disabled = false }) => {
 
   return (
     <Dropdown
+      data-testid="datepicker-container"
       onOpenChange={setIsOpen}
       open={isOpen}
     >
       <Dropdown.Trigger disabled={disabled}>
-        <DateTimeInputField
+        <DatePickerInput
+          data-testid="datepicker-container"
           isActive={isOpen}
           disabled={disabled}
           selectedDate={selectedDate}
