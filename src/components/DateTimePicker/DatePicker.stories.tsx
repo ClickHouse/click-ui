@@ -1,4 +1,4 @@
-import { DateTimePicker } from "./DateTimePicker";
+import { DatePicker } from "./DatePicker";
 
 export default {
   argTypes: {
@@ -25,8 +25,8 @@ export default {
       },
     },
   },
-  component: DateTimePicker,
-  title: "Display/DateTimePicker",
+  component: DatePicker,
+  title: "Display/DatePicker",
   tags: ["autodocs"],
 };
 
@@ -35,6 +35,6 @@ export const Playground = {
     date: new Date(),
     locale: "en-US",
     systemTimeZone: "America/Los_Angeles",
-    title: "DateTimePicker",
+    title: "DatePicker",
   },
 };

@@ -19,6 +19,16 @@ const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
   year: "numeric",
 });
 
+const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
+  ${({ $isActive, theme }) => {
+    return `border: 1px solid ${
+      $isActive
+        ? theme.global.color.outline.default
+        : theme.global.color.background.default
+    };`;
+  }}
+}`;
+
 const DateTable = styled.table`
   border-collapse: separate;
   border-spacing: 0;
@@ -55,7 +65,7 @@ const DateTableCell = styled.td<{
   $isToday?: boolean;
 }>`
   font-weight: 300;
-  text-align: center;
+  border-radius: ${({ theme }) => theme.border.radii[1]};
 
   ${({ $isCurrentMonth, theme }) =>
     !$isCurrentMonth &&
@@ -66,8 +76,13 @@ const DateTableCell = styled.td<{
 
   ${({ $isSelected, theme }) =>
     $isSelected &&
-    `background: ${theme.global.color.accent.default}; color: ${theme.global.color.background.default};`}
-  border-radius: ${({ theme }) => theme.border.radii[1]};
+    `
+      background: ${theme.global.color.accent.default};
+      color: ${theme.global.color.background.default};
+    `}
+
+
+  text-align: center;
 
   ${({ $isToday }) => $isToday && "font-weight: bold;"}
 
@@ -77,18 +92,27 @@ const DateTableCell = styled.td<{
 `;
 
 interface DateTimeInputFieldProps {
+  isActive: boolean;
   disabled: boolean;
   id?: string;
   selectedDate?: Date;
 }
 
-const DateTimeInputField = ({ disabled, id, selectedDate }: DateTimeInputFieldProps) => {
+const DateTimeInputField = ({
+  isActive,
+  disabled,
+  id,
+  selectedDate,
+}: DateTimeInputFieldProps) => {
   const defaultId = useId();
   const formattedSelectedDate = selectedDate
     ? selectedDateFormatter.format(selectedDate)
     : "";
+
+  console.log({ isActive });
   return (
-    <InputWrapper
+    <HighlightedInputWrapper
+      $isActive={isActive}
       disabled={disabled}
       id={id ?? defaultId}
     >
@@ -97,7 +121,7 @@ const DateTimeInputField = ({ disabled, id, selectedDate }: DateTimeInputFieldPr
         readOnly
         value={formattedSelectedDate}
       />
-    </InputWrapper>
+    </HighlightedInputWrapper>
   );
 };
 
@@ -209,7 +233,7 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
   );
 };
 
-export const DateTimePicker = ({ disabled = false }) => {
+export const DatePicker = ({ disabled = false }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
 
@@ -224,11 +248,12 @@ export const DateTimePicker = ({ disabled = false }) => {
     >
       <Dropdown.Trigger disabled={disabled}>
         <DateTimeInputField
+          isActive={isOpen}
           disabled={disabled}
           selectedDate={selectedDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content>
+      <Dropdown.Content align="start">
         <Calendar
           closeDatepicker={closeDatePicker}
           selectedDate={selectedDate}
