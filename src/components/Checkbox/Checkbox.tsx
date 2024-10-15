@@ -4,9 +4,12 @@ import { ReactNode, useId } from "react";
 import { styled } from "styled-components";
 import { FormRoot } from "../commonElement";
 
+type CheckboxVariants = "default" | "var1" | "var2" | "var3" | "var4" | "var5" | "var6";
+
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
   label?: ReactNode;
   orientation?: "vertical" | "horizontal";
+  variant?: CheckboxVariants;
   dir?: "start" | "end";
 }
 
@@ -18,6 +21,7 @@ const Wrapper = styled(FormRoot)`
 export const Checkbox = ({
   id,
   label,
+  variant,
   disabled,
   orientation,
   dir,
@@ -32,6 +36,7 @@ export const Checkbox = ({
       <CheckInput
         id={id ?? defaultId}
         data-testid="checkbox"
+        variant={variant ?? "default"}
         disabled={disabled}
         aria-label={`${label}`}
         {...delegated}
@@ -55,25 +60,27 @@ export const Checkbox = ({
   );
 };
 
-const CheckInput = styled(RadixCheckbox.Root)`
+const CheckInput = styled(RadixCheckbox.Root)<{
+  variant: CheckboxVariants;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  ${({ theme }) => `
+  ${({ theme, variant = "default" }) => `
     border-radius: ${theme.click.checkbox.radii.all};
     width: ${theme.click.checkbox.size.all};
     height: ${theme.click.checkbox.size.all};
-    background: ${theme.click.checkbox.color.background.default};
-    border: 1px solid ${theme.click.checkbox.color.stroke.default};
+    background: ${theme.click.checkbox.color.variations[variant].background.default};
+    border: 1px solid ${theme.click.checkbox.color.variations[variant].stroke.default};
     cursor: pointer;
 
     &:hover {
-      background: ${theme.click.checkbox.color.background.hover};
+      background: ${theme.click.checkbox.color.variations[variant].background.hover};
     }
     &[data-state="checked"] {
-      border-color: ${theme.click.checkbox.color.stroke.active};
-      background: ${theme.click.checkbox.color.background.active};
+      border-color: ${theme.click.checkbox.color.variations[variant].stroke.active};
+      background: ${theme.click.checkbox.color.variations[variant].background.active};
     }
     &[data-disabled] {
       background: ${theme.click.checkbox.color.background.disabled};

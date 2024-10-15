@@ -1057,6 +1057,154 @@
         }
       },
       "color": {
+        "variations": {
+          "default": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "label": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "var1": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "var2": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "var3": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "var4": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "var5": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          },
+          "var6": {
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            }
+          }
+        },
         "background": {
           "default": string,
           "hover": string,
@@ -2890,6 +3038,10 @@
       },
       "icon": {
         "background": string
+      },
+      "gradients": {
+        "yellowToBlack": string,
+        "whiteToBlack": string
       }
     }
   },
