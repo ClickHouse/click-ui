@@ -1,40 +1,37 @@
+import { Args } from "@storybook/react";
 import { DatePicker } from "./DatePicker";
 
-export default {
-  argTypes: {
-    locale: {
-      options: ["en-US", "en-GB", "fr-FR", "de-DE", "ru-RU"],
-      control: {
-        type: "select",
-      },
+const defaultStory = {
+  args: {
+    onSelectDate: (date: Date) => {
+      console.log("Date selected: ", date);
     },
-    systemTimeZone: {
-      options: [
-        "America/Denver",
-        "America/Los_Angeles",
-        "America/New_York",
-        "Asia/Shanghai",
-        "Asia/Tokyo",
-        "Europe/London",
-        "Europe/Berlin",
-        "Europe/Moscow",
-        "Europe/Rome",
-      ],
-      control: {
-        type: "select",
-      },
+  },
+  argTypes: {
+    date: {
+      control: "date",
+    },
+    onSelectDate: {
+      control: "object",
     },
   },
   component: DatePicker,
+  render: (args: Args) => {
+    const date = args.date ? new Date(args.date) : undefined;
+    return (
+      <DatePicker
+        date={date}
+        disabled={args.disabled}
+        onSelectDate={args.onSelectDate}
+      />
+    );
+  },
   title: "Display/DatePicker",
   tags: ["autodocs"],
 };
 
+export default defaultStory;
+
 export const Playground = {
-  args: {
-    date: new Date(),
-    locale: "en-US",
-    systemTimeZone: "America/Los_Angeles",
-    title: "DatePicker",
-  },
+  ...defaultStory,
 };

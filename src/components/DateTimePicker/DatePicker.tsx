@@ -1,5 +1,5 @@
-import { useId, useState } from "react";
-import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
+import { useEffect, useId, useState } from "react";
+import { isSameDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import Dropdown from "../Dropdown/Dropdown";
 import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
@@ -109,9 +109,8 @@ const DatePickerInput = ({
   selectedDate,
 }: DatePickerInputProps) => {
   const defaultId = useId();
-  const formattedSelectedDate = selectedDate
-    ? selectedDateFormatter.format(selectedDate)
-    : "";
+  const formattedSelectedDate =
+    selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : "";
 
   return (
     <HighlightedInputWrapper
@@ -121,6 +120,7 @@ const DatePickerInput = ({
     >
       <Icon name="calendar" />
       <InputElement
+        data-testid="datepicker-input"
         readOnly
         value={formattedSelectedDate}
       />
@@ -158,6 +158,7 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
 
   return (
     <Container
+      data-testid="datepicker-calendar-container"
       fillWidth={false}
       orientation="vertical"
       padding="sm"
@@ -199,32 +200,27 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
           {body.value.map(({ key: weekKey, value: week }) => {
             return (
               <tr key={weekKey}>
-                {week.map(
-                  ({
-                    date,
-                    isCurrentDate,
-                    isCurrentMonth,
-                    key: dayKey,
-                    value: fullDate,
-                  }) => {
-                    const isSelected = selectedDate?.getTime() === fullDate.getTime();
+                {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
+                  const isSelected = selectedDate
+                    ? isSameDate(selectedDate, fullDate)
+                    : false;
+                  const isCurrentDate = isSameDate(new Date(), fullDate);
 
-                    return (
-                      <DateTableCell
-                        $isCurrentMonth={isCurrentMonth}
-                        $isSelected={isSelected}
-                        $isToday={isCurrentDate}
-                        key={dayKey}
-                        onClick={() => {
-                          setSelectedDate(fullDate);
-                          closeDatepicker();
-                        }}
-                      >
-                        {date}
-                      </DateTableCell>
-                    );
-                  }
-                )}
+                  return (
+                    <DateTableCell
+                      $isCurrentMonth={isCurrentMonth}
+                      $isSelected={isSelected}
+                      $isToday={isCurrentDate}
+                      key={dayKey}
+                      onClick={() => {
+                        setSelectedDate(fullDate);
+                        closeDatepicker();
+                      }}
+                    >
+                      {date}
+                    </DateTableCell>
+                  );
+                })}
               </tr>
             );
           })}
@@ -235,26 +231,38 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
 };
 
 export interface DatePickerProps {
-  disabled: boolean;
+  date?: Date;
+  disabled?: boolean;
+  onSelectDate: (selectedDate: Date) => void;
 }
 
-export const DatePicker = ({ disabled = false }: DatePickerProps) => {
+export const DatePicker = ({ date, disabled = false, onSelectDate }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
+
+  useEffect(() => {
+    if (date) {
+      setSelectedDate(date);
+    }
+  }, [date]);
 
   const closeDatePicker = () => {
     setIsOpen(false);
   };
 
+  const handleSelectDate = (selectedDate: Date): void => {
+    setSelectedDate(selectedDate);
+    onSelectDate(selectedDate);
+  };
+
   return (
     <Dropdown
-      data-testid="datepicker-container"
       onOpenChange={setIsOpen}
       open={isOpen}
     >
       <Dropdown.Trigger disabled={disabled}>
         <DatePickerInput
-          data-testid="datepicker-container"
+          data-testid="datepicker-inpcontainer"
           isActive={isOpen}
           disabled={disabled}
           selectedDate={selectedDate}
@@ -264,7 +272,7 @@ export const DatePicker = ({ disabled = false }: DatePickerProps) => {
         <Calendar
           closeDatepicker={closeDatePicker}
           selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
+          setSelectedDate={handleSelectDate}
         />
       </Dropdown.Content>
     </Dropdown>
