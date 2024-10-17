@@ -2958,6 +2958,16 @@
             "value": "100%",
             "type": "sizing"
           }
+        },
+        "widest": {
+          "width": {
+            "value": "55rem",
+            "type": "sizing"
+          },
+          "height": {
+            "value": "100vh",
+            "type": "sizing"
+          }
         }
       },
       "typography": {
