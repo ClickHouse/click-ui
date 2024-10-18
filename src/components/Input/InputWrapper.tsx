@@ -25,7 +25,7 @@ const Wrapper = styled.div<{
     border-radius: ${theme.click.field.radii.all};
     font: ${theme.click.field.typography.fieldText.default};
     color: ${theme.click.field.color.text.default};
-    border: 1px solid ${theme.global.color.outline.default};
+    border: 1px solid ${theme.click.field.color.stroke.default};
     background: ${theme.click.field.color.background.default};
 
     *:autofill,

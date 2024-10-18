@@ -24,7 +24,7 @@ const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
     return `border: 1px solid ${
       $isActive
         ? theme.global.color.outline.default
-        : theme.global.color.background.default
+        : theme.click.field.color.stroke.default
     };`;
   }}
 }`;
