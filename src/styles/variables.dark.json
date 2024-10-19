@@ -1486,6 +1486,41 @@
         }
       }
     },
+    "datePicker": {
+      "dateOption": {
+        "color": {
+          "label": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#1F1F1C",
+            "disabled": "#a0a0a0",
+            "range": "#ffffff"
+          },
+          "background": {
+            "default": "#1F1F1C",
+            "hover": "#1F1F1C",
+            "active": "#FAFF69",
+            "disabled": "#1F1F1C",
+            "range": "#323232"
+          },
+          "stroke": {
+            "default": "#1F1F1C",
+            "hover": "#FAFF69",
+            "active": "#FAFF69",
+            "disabled": "#1F1F1C",
+            "range": "#323232"
+          }
+        }
+      },
+      "color": {
+        "title": {
+          "default": "rgb(97.5% 97.5% 97.5%)"
+        },
+        "daytitle": {
+          "default": "#b3b6bd"
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

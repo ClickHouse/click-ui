@@ -2645,6 +2645,10 @@
         "narrow": {
           "width": string,
           "height": string
+        },
+        "widest": {
+          "width": string,
+          "height": string
         }
       },
       "typography": {
@@ -2845,6 +2849,73 @@
           "danger": string,
           "info": string,
           "warning": string
+        }
+      }
+    },
+    "datePicker": {
+      "dateOption": {
+        "space": {
+          "gap": string
+        },
+        "radii": {
+          "default": string,
+          "range": string
+        },
+        "stroke": string,
+        "size": {
+          "height": string,
+          "width": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          }
+        },
+        "color": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          },
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          }
+        }
+      },
+      "space": {
+        "gap": string
+      },
+      "typography": {
+        "daytitle": {
+          "default": string
+        },
+        "title": {
+          "default": string
+        }
+      },
+      "color": {
+        "title": {
+          "default": string
+        },
+        "daytitle": {
+          "default": string
         }
       }
     },

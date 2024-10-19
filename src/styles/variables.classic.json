@@ -774,6 +774,41 @@
         }
       }
     },
+    "datePicker": {
+      "dateOption": {
+        "color": {
+          "label": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#ffffff",
+            "disabled": "#a0a0a0",
+            "range": "#161517"
+          },
+          "background": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#151515",
+            "disabled": "#ffffff",
+            "range": "#e6e7e9"
+          },
+          "stroke": {
+            "default": "#ffffff",
+            "hover": "#151515",
+            "active": "#151515",
+            "disabled": "#ffffff",
+            "range": "#e6e7e9"
+          }
+        }
+      },
+      "color": {
+        "title": {
+          "default": "lch(10.2 1.39 305)"
+        },
+        "daytitle": {
+          "default": "#696e79"
+        }
+      }
+    },
     "global": {
       "color": {
         "text": {

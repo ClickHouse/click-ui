@@ -613,8 +613,8 @@
             },
             "stroke": {
               "default": "#62de85",
-              "hover": "#66FF73",
-              "active": "#66FF73",
+              "hover": "#62de85",
+              "active": "#62de85",
               "disabled": "#c0c0c0"
             },
             "check": {
@@ -1470,6 +1470,41 @@
           "danger": "rgb(100% 13.7% 13.7% / 0.05)",
           "info": "rgb(7.45% 35.7% 90.2% / 0.05)",
           "warning": "rgb(100% 58% 8.63% / 0.05)"
+        }
+      }
+    },
+    "datePicker": {
+      "dateOption": {
+        "color": {
+          "label": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#ffffff",
+            "disabled": "#a0a0a0",
+            "range": "#161517"
+          },
+          "background": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#151515",
+            "disabled": "#ffffff",
+            "range": "#e6e7e9"
+          },
+          "stroke": {
+            "default": "#ffffff",
+            "hover": "#151515",
+            "active": "#151515",
+            "disabled": "#ffffff",
+            "range": "#e6e7e9"
+          }
+        }
+      },
+      "color": {
+        "title": {
+          "default": "lch(11.1 1.37 305)"
+        },
+        "daytitle": {
+          "default": "#696e79"
         }
       }
     },
