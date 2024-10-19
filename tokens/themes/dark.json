@@ -4547,6 +4547,92 @@
           }
         }
       }
+    },
+    "datePicker": {
+      "color": {
+        "title": {
+          "default": {
+            "value": "{click.global.color.title.default}",
+            "type": "color"
+          }
+        },
+        "daytitle": {
+          "default": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          }
+        }
+      },
+      "dateOption": {
+        "color": {
+          "label": {
+            "default": {
+              "value": "{global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{global.color.text.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.button.basic.color.disabled.text.default}",
+              "type": "color"
+            },
+            "range": {
+              "value": "{global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.global.color.background.default}",
+              "type": "color"
+            },
+            "range": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            }
+          },
+          "stroke": {
+            "default": {
+              "value": "{click.datePicker.dateOption.color.background.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            },
+            "active": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            },
+            "disabled": {
+              "value": "{click.datePicker.dateOption.color.background.default}",
+              "type": "color"
+            },
+            "range": {
+              "value": "{click.datePicker.dateOption.color.background.range}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   },
   "name": {

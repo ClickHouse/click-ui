@@ -3229,6 +3229,84 @@
           }
         }
       }
+    },
+    "datePicker": {
+      "dateOption": {
+        "space": {
+          "gap": {
+            "value": "2px",
+            "type": "spacing"
+          }
+        },
+        "radii": {
+          "default": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          },
+          "range": {
+            "value": "{border.radii.0}",
+            "type": "borderRadius"
+          }
+        },
+        "stroke": {
+          "value": "{border.width.1}",
+          "type": "borderWidth"
+        },
+        "size": {
+          "height": {
+            "value": "{sizes.9}",
+            "type": "sizing"
+          },
+          "width": {
+            "value": "{sizes.9}",
+            "type": "sizing"
+          }
+        },
+        "typography": {
+          "label": {
+            "default": {
+              "value": "{typography.styles.product.text.normal.sm}",
+              "type": "typography"
+            },
+            "hover": {
+              "value": "{typography.styles.product.text.normal.sm}",
+              "type": "typography"
+            },
+            "active": {
+              "value": "{typography.styles.product.text.semibold.sm}",
+              "type": "typography"
+            },
+            "disabled": {
+              "value": "{typography.styles.product.text.normal.sm}",
+              "type": "typography"
+            },
+            "range": {
+              "value": "{typography.styles.product.text.normal.sm}",
+              "type": "typography"
+            }
+          }
+        }
+      },
+      "space": {
+        "gap": {
+          "value": "{spaces.1}",
+          "type": "spacing"
+        }
+      },
+      "typography": {
+        "daytitle": {
+          "default": {
+            "value": "{typography.styles.product.text.normal.sm}",
+            "type": "typography"
+          }
+        },
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.titles.sm}",
+            "type": "typography"
+          }
+        }
+      }
     }
   },
   "transition": {
