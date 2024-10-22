@@ -5,7 +5,6 @@ import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { Container } from "../Container/Container";
 import styled from "styled-components";
-import { Title } from "../Typography/Title/Title";
 
 const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
@@ -21,15 +20,20 @@ const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
 
 const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
-    return `border: 1px solid ${
+    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
       $isActive
-        ? theme.global.color.outline.default
-        : theme.click.field.color.stroke.default
+        ? theme.click.datePicker.dateOption.color.stroke.active
+        : theme.click.datePicker.dateOption.color.stroke.default
     };`;
   }}
 }`;
 
-const UnselectableTitle = styled(Title)`
+const UnselectableTitle = styled.h2`
+  ${({ theme }) => `
+    color: ${theme.click.datePicker.color.title.default};
+    font: ${theme.click.datePicker.typography.title.default};
+  `}
+
   user-select: none;
 `;
 
@@ -41,7 +45,7 @@ const DateTable = styled.table`
   width: 250px;
 
   thead tr {
-    height: 35px;
+    height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
   }
 
   tbody {
@@ -49,15 +53,16 @@ const DateTable = styled.table`
   }
 
   td, th {
-    border: 1px solid transparent;
+    ${({ theme }) =>
+      `border: ${theme.click.datePicker.dateOption.stroke} solid transparent`};
     padding: 4px;
   }
 `;
 
 const DateTableHeader = styled.th`
   ${({ theme }) => `
-    color: ${theme.global.color.text.muted};
-    font-weight: 300;
+    color: ${theme.click.datePicker.color.daytitle.default};
+    font: ${theme.click.datePicker.typography.daytitle.default};
   `}
 
   width: 14%;
@@ -68,21 +73,23 @@ const DateTableCell = styled.td<{
   $isSelected?: boolean;
   $isToday?: boolean;
 }>`
-  font-weight: 300;
-  border-radius: ${({ theme }) => theme.border.radii[1]};
+  ${({ theme }) => `
+    border-radius: ${theme.click.datePicker.dateOption.radii.default};
+    font: ${theme.click.datePicker.dateOption.typography.label.default};
+  `}
 
   ${({ $isCurrentMonth, theme }) =>
     !$isCurrentMonth &&
     `
-    color: ${theme.click.field.color.text.disabled};
-    font-weight: 200;
+    color: ${theme.click.datePicker.dateOption.color.label.disabled};
+    font: ${theme.click.datePicker.dateOption.typography.label.disabled};
   `}
 
   ${({ $isSelected, theme }) =>
     $isSelected &&
     `
-      background: ${theme.global.color.accent.default};
-      color: ${theme.global.color.background.default};
+      background: ${theme.click.datePicker.dateOption.color.background.active};
+      color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
 
@@ -91,7 +98,8 @@ const DateTableCell = styled.td<{
   ${({ $isToday }) => $isToday && "font-weight: bold;"}
 
   &:hover {
-    ${({ theme }) => `border: 1px solid ${theme.global.color.outline.default}`};
+    ${({ theme }) =>
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.hover}`};
   }
 `;
 
@@ -172,12 +180,7 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
           name="arrow-left"
           onClick={handlePreviousClick}
         />
-        <UnselectableTitle
-          type="h3"
-          size="sm"
-        >
-          {headerDateFormatter.format(headerDate)}
-        </UnselectableTitle>
+        <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
         <Icon
           cursor="pointer"
           name="arrow-right"
