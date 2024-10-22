@@ -5,6 +5,7 @@ import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { Container } from "../Container/Container";
 import styled from "styled-components";
+import { IconButton } from "../IconButton/IconButton";
 
 const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
@@ -175,15 +176,13 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
         justifyContent="space-between"
         orientation="horizontal"
       >
-        <Icon
-          cursor="pointer"
-          name="arrow-left"
+        <IconButton
+          icon="chevron-left"
           onClick={handlePreviousClick}
         />
         <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
-        <Icon
-          cursor="pointer"
-          name="arrow-right"
+        <IconButton
+          icon="chevron-right"
           onClick={handleNextClick}
         />
       </Container>
