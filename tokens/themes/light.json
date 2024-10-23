@@ -4236,11 +4236,11 @@
       "bars": {
         "color": {
           "green": {
-            "value": "{palette.success.base}",
+            "value": "{palette.success.600}",
             "type": "color"
           },
           "blue": {
-            "value": "{palette.info.300}",
+            "value": "{palette.info.base}",
             "type": "color"
           },
           "fuchsia": {
