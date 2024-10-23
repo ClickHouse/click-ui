@@ -1,11 +1,12 @@
 import { useEffect, useId, useState } from "react";
-import { isSameDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
+import { isSameDate, parseDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import Dropdown from "../Dropdown/Dropdown";
 import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { Container } from "../Container/Container";
 import styled from "styled-components";
 import { IconButton } from "../IconButton/IconButton";
+import { isDateInFuture } from "@/utils/date";
 
 const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
@@ -24,7 +25,7 @@ const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
     return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
       $isActive
         ? theme.click.datePicker.dateOption.color.stroke.active
-        : theme.click.datePicker.dateOption.color.stroke.default
+        : theme.click.field.color.stroke.default
     };`;
   }}
 }`;
@@ -71,6 +72,7 @@ const DateTableHeader = styled.th`
 
 const DateTableCell = styled.td<{
   $isCurrentMonth?: boolean;
+  $isDisabled?: boolean;
   $isSelected?: boolean;
   $isToday?: boolean;
 }>`
@@ -79,8 +81,8 @@ const DateTableCell = styled.td<{
     font: ${theme.click.datePicker.dateOption.typography.label.default};
   `}
 
-  ${({ $isCurrentMonth, theme }) =>
-    !$isCurrentMonth &&
+  ${({ $isCurrentMonth, $isDisabled, theme }) =>
+    (!$isCurrentMonth || $isDisabled) &&
     `
     color: ${theme.click.datePicker.dateOption.color.label.disabled};
     font: ${theme.click.datePicker.dateOption.typography.label.disabled};
@@ -99,8 +101,12 @@ const DateTableCell = styled.td<{
   ${({ $isToday }) => $isToday && "font-weight: bold;"}
 
   &:hover {
-    ${({ theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.hover}`};
+    ${({ $isDisabled, theme }) =>
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+        $isDisabled
+          ? theme.click.datePicker.dateOption.color.stroke.disabled
+          : theme.click.datePicker.dateOption.color.stroke.hover
+      }`};
   }
 `;
 
@@ -139,11 +145,17 @@ const DatePickerInput = ({
 
 interface CalendarProps {
   closeDatepicker: () => void;
+  futureDatesDisabled: boolean;
   selectedDate?: Date;
   setSelectedDate: (selectedDate: Date) => void;
 }
 
-const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarProps) => {
+const Calendar = ({
+  closeDatepicker,
+  futureDatesDisabled,
+  selectedDate,
+  setSelectedDate,
+}: CalendarProps) => {
   const calendarOptions: UseCalendarOptions = {
     defaultWeekStart: 1,
   };
@@ -207,14 +219,21 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
                     ? isSameDate(selectedDate, fullDate)
                     : false;
                   const isCurrentDate = isSameDate(new Date(), fullDate);
+                  const isDisabled = futureDatesDisabled
+                    ? isDateInFuture(fullDate)
+                    : false;
 
                   return (
                     <DateTableCell
                       $isCurrentMonth={isCurrentMonth}
+                      $isDisabled={isDisabled}
                       $isSelected={isSelected}
                       $isToday={isCurrentDate}
                       key={dayKey}
                       onClick={() => {
+                        if (isDisabled) {
+                          return false;
+                        }
                         setSelectedDate(fullDate);
                         closeDatepicker();
                       }}
@@ -235,10 +254,16 @@ const Calendar = ({ closeDatepicker, selectedDate, setSelectedDate }: CalendarPr
 export interface DatePickerProps {
   date?: Date;
   disabled?: boolean;
+  futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
 }
 
-export const DatePicker = ({ date, disabled = false, onSelectDate }: DatePickerProps) => {
+export const DatePicker = ({
+  date,
+  disabled = false,
+  futureDatesDisabled = false,
+  onSelectDate,
+}: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
 
@@ -273,6 +298,7 @@ export const DatePicker = ({ date, disabled = false, onSelectDate }: DatePickerP
       <Dropdown.Content align="start">
         <Calendar
           closeDatepicker={closeDatePicker}
+          futureDatesDisabled={futureDatesDisabled}
           selectedDate={selectedDate}
           setSelectedDate={handleSelectDate}
         />
