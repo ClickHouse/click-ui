@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import { isSameDate, parseDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
+import { isSameDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import Dropdown from "../Dropdown/Dropdown";
 import { Icon } from "../Icon/Icon";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
