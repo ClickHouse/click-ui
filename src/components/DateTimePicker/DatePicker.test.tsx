@@ -47,4 +47,37 @@ describe("DatePicker", () => {
     const selectedDate = handleSelectDate.mock.lastCall?.[0];
     expect(selectedDate).toEqual(new Date("2020-07-22 00:00.00"));
   });
+
+  describe("disabling dates", () => {
+    // this test was throwing an error if `vi.useFakeTimers` was called outside
+    // of beforeAll, so it needed to be put in here
+    beforeAll(() => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date(2020, 6, 5));
+    });
+
+    afterAll(() => {
+      vi.runOnlyPendingTimers();
+      vi.useRealTimers();
+    });
+
+    it("allows disabling selecting dates in the future", async () => {
+      const date = new Date("07-04-2020");
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText } = renderCUI(
+        <DatePicker
+          date={date}
+          futureDatesDisabled={true}
+          onSelectDate={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId("datepicker-input"));
+      user.click(await findByText("22"));
+
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+  });
 });

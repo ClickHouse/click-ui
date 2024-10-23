@@ -11,6 +11,9 @@ const defaultStory = {
     date: {
       control: "date",
     },
+    futureDatesDisabled: {
+      control: "boolean",
+    },
     onSelectDate: {
       control: "object",
     },
@@ -22,6 +25,7 @@ const defaultStory = {
       <DatePicker
         date={date}
         disabled={args.disabled}
+        futureDatesDisabled={args.futureDatesDisabled}
         onSelectDate={args.onSelectDate}
       />
     );
