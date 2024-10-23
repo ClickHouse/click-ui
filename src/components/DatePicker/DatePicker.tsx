@@ -34,6 +34,11 @@ const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   width: ${explicitWidth};
 }`;
 
+const DatePickerContainer = styled(Container)`
+  background: ${({ theme }) =>
+    theme.click.datePicker.dateOption.color.background.default};
+`;
+
 const UnselectableTitle = styled.h2`
   ${({ theme }) => `
     color: ${theme.click.datePicker.color.title.default};
@@ -61,7 +66,7 @@ const DateTable = styled.table`
 
   td, th {
     ${({ theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid transparent`};
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default}`};
     padding: 4px;
   }
 `;
@@ -103,7 +108,8 @@ const DateTableCell = styled.td<{
 
   text-align: center;
 
-  ${({ $isToday }) => $isToday && "font-weight: bold;"}
+  ${({ $isToday, theme }) =>
+    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
 
   &:hover {
     ${({ $isDisabled, theme }) =>
@@ -183,7 +189,7 @@ const Calendar = ({
   headerDate.setFullYear(year);
 
   return (
-    <Container
+    <DatePickerContainer
       data-testid="datepicker-calendar-container"
       fillWidth={false}
       orientation="vertical"
@@ -252,7 +258,7 @@ const Calendar = ({
           })}
         </tbody>
       </DateTable>
-    </Container>
+    </DatePickerContainer>
   );
 };
 
