@@ -20,6 +20,8 @@ const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
   year: "numeric",
 });
 
+const explicitWidth = "250px";
+
 const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
     return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
@@ -28,6 +30,8 @@ const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
         : theme.click.field.color.stroke.default
     };`;
   }}
+
+  width: ${explicitWidth};
 }`;
 
 const UnselectableTitle = styled.h2`
@@ -45,7 +49,7 @@ const DateTable = styled.table`
   font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
   table-layout: fixed;
   user-select: none;
-  width: 250px;
+  width: ${explicitWidth};
 
   thead tr {
     height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
