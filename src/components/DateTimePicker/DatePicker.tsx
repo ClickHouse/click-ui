@@ -44,6 +44,7 @@ const DateTable = styled.table`
   border-spacing: 0;
   font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
   table-layout: fixed;
+  user-select: none;
   width: 250px;
 
   thead tr {
