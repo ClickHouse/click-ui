@@ -21,6 +21,7 @@ export { CardPromotion } from "./CardPromotion/CardPromotion";
 export { Checkbox } from "./Checkbox/Checkbox";
 export { CodeBlock } from "./CodeBlock/CodeBlock";
 export { Container } from "./Container/Container";
+export { DatePicker } from "./DatePicker/DatePicker";
 export { Dialog } from "./Dialog/Dialog";
 export { ConfirmationDialog } from "./ConfirmationDialog/ConfirmationDialog";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";
