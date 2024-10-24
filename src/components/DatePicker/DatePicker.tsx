@@ -202,11 +202,15 @@ const Calendar = ({
         <IconButton
           icon="chevron-left"
           onClick={handlePreviousClick}
+          size="sm"
+          type="ghost"
         />
         <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
         <IconButton
           icon="chevron-right"
           onClick={handleNextClick}
+          size="sm"
+          type="ghost"
         />
       </Container>
       <DateTable>
