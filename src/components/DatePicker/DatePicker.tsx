@@ -125,6 +125,7 @@ interface DatePickerInputProps {
   isActive: boolean;
   disabled: boolean;
   id?: string;
+  placeholder?: string;
   selectedDate?: Date;
 }
 
@@ -132,6 +133,7 @@ const DatePickerInput = ({
   isActive,
   disabled,
   id,
+  placeholder,
   selectedDate,
 }: DatePickerInputProps) => {
   const defaultId = useId();
@@ -147,6 +149,7 @@ const DatePickerInput = ({
       <Icon name="calendar" />
       <InputElement
         data-testid="datepicker-input"
+        placeholder={placeholder}
         readOnly
         value={formattedSelectedDate}
       />
@@ -271,6 +274,7 @@ export interface DatePickerProps {
   disabled?: boolean;
   futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
+  placeholder?: string;
 }
 
 export const DatePicker = ({
@@ -278,6 +282,7 @@ export const DatePicker = ({
   disabled = false,
   futureDatesDisabled = false,
   onSelectDate,
+  placeholder,
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -305,8 +310,9 @@ export const DatePicker = ({
       <Dropdown.Trigger disabled={disabled}>
         <DatePickerInput
           data-testid="datepicker-inpcontainer"
-          isActive={isOpen}
           disabled={disabled}
+          isActive={isOpen}
+          placeholder={placeholder}
           selectedDate={selectedDate}
         />
       </Dropdown.Trigger>

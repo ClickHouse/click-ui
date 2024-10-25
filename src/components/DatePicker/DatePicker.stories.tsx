@@ -14,6 +14,9 @@ const defaultStory = {
     futureDatesDisabled: {
       control: "boolean",
     },
+    placeholder: {
+      control: "text",
+    },
     onSelectDate: {
       control: "object",
     },
@@ -27,6 +30,7 @@ const defaultStory = {
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
         onSelectDate={args.onSelectDate}
+        placeholder={args.placeholder}
       />
     );
   },
