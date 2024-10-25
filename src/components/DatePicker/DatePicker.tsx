@@ -194,11 +194,13 @@ const Calendar = ({
   return (
     <DatePickerContainer
       data-testid="datepicker-calendar-container"
+      isResponsive={false}
       fillWidth={false}
       orientation="vertical"
       padding="sm"
     >
       <Container
+        isResponsive={false}
         justifyContent="space-between"
         orientation="horizontal"
       >
