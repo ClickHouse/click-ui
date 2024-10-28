@@ -6,7 +6,6 @@ import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { Container } from "../Container/Container";
 import styled from "styled-components";
 import { IconButton } from "../IconButton/IconButton";
-import { isDateInFuture } from "@/utils/date";
 
 const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
@@ -238,9 +237,10 @@ const Calendar = ({
                   const isSelected = selectedDate
                     ? isSameDate(selectedDate, fullDate)
                     : false;
-                  const isCurrentDate = isSameDate(new Date(), fullDate);
+                  const today = new Date();
+                  const isCurrentDate = isSameDate(today, fullDate);
                   const isDisabled = futureDatesDisabled
-                    ? isDateInFuture(fullDate)
+                    ? fullDate > today
                     : false;
 
                   return (
