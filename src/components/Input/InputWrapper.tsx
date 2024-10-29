@@ -128,6 +128,7 @@ const StyledLabel = styled(Label)<{ $labelColor?: string }>`
 `;
 
 export interface WrapperProps {
+  className?: string;
   id: string;
   label?: ReactNode;
   labelColor?: string;
@@ -140,6 +141,7 @@ export interface WrapperProps {
 }
 
 export const InputWrapper = ({
+  className,
   id,
   label = "",
   labelColor,
@@ -161,7 +163,7 @@ export const InputWrapper = ({
           $error={!!error}
           $resize={resize}
           data-resize={resize}
-          className={disabled ? "disabled" : ""}
+          className={disabled ? `disabled ${className}` : className}
         >
           {children}
         </Wrapper>
