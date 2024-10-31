@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import { ResizerPosition } from "./types";
 
 type PointerType = {
@@ -14,6 +14,7 @@ export interface ResizingState {
   setIsPressed: (columndIndex: number, pressed: boolean) => void;
   getPosition: (columndIndex: number) => ResizerPosition;
   setPosition: (position: ResizerPosition) => void;
+  lastPressedTimestamp: number;
 }
 
 export const initialPosition = {
@@ -25,6 +26,7 @@ const useResizingState = (): ResizingState => {
   const [pressedColumnIndex, setPressedColumndIndex] = useState<number>(-1);
   const pointer = useRef<PointerType | null>(null);
   const [position, setPosition] = useState<ResizerPosition>(initialPosition);
+  const [lastPressedTimestamp, setLastPressedTimestamp] = useState<number>(0);
 
   const setPointer = useCallback((newPointer: PointerType | null) => {
     pointer.current = newPointer;
@@ -40,6 +42,7 @@ const useResizingState = (): ResizingState => {
   const setIsPressed = useCallback((columnIndex: number, pressed: boolean) => {
     if (pressed) {
       setPressedColumndIndex(columnIndex);
+      setLastPressedTimestamp(Date.now());
     } else {
       setPressedColumndIndex(-1);
     }
@@ -55,14 +58,18 @@ const useResizingState = (): ResizingState => {
     [position, pressedColumnIndex]
   );
 
-  return {
-    pointer: pointer.current,
-    setPointer,
-    getIsPressed,
-    setIsPressed,
-    getPosition,
-    setPosition,
-  };
+  return useMemo(
+    () => ({
+      pointer: pointer.current,
+      setPointer,
+      getIsPressed,
+      setIsPressed,
+      getPosition,
+      setPosition,
+      lastPressedTimestamp,
+    }),
+    [setPointer, getIsPressed, setIsPressed, getPosition, lastPressedTimestamp]
+  );
 };
 
 export default useResizingState;

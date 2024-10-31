@@ -8,7 +8,9 @@ import {
 import { styled } from "styled-components";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
-import useResizingState, { initialPosition, ResizingState } from "./useResizingState";
+import { initialPosition, ResizingState } from "./useResizingState";
+
+const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
 
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
   top: ${initialPosition.top};
@@ -48,55 +50,41 @@ const ColumnResizer = ({
   resizingState,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
-  if (!resizingState) {
-    console.log(resizingState);
-  }
-  const { pointer, setPointer, getIsPressed, setIsPressed, getPosition, setPosition } =
-    //resizingState;
-    useResizingState();
+  const {
+    pointer,
+    setPointer,
+    getIsPressed,
+    setIsPressed,
+    getPosition,
+    setPosition,
+    lastPressedTimestamp,
+  } = resizingState;
   const isPressed = getIsPressed(columnIndex);
   const position = getPosition(columnIndex);
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
   useEffect(() => {
     const control = resizeRef.current;
-    if (control && pointer) {
-      resizeRef.current.setPointerCapture(pointer?.pointerId);
+    if (!isPressed || !control || !pointer) {
+      return;
     }
+    control.setPointerCapture(pointer.pointerId);
     return () => {
-      if (control && pointer) {
-        control.releasePointerCapture(pointer.pointerId);
-      }
+      control.releasePointerCapture(pointer.pointerId);
     };
-  }, [pointer]);
+  }, [pointer, isPressed, columnIndex]);
 
-  const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
-    e => {
-      console.log("onMouseDown");
-      e.preventDefault();
-      e.stopPropagation();
-      setIsPressed(columnIndex, true);
-      if (e.detail > 1) {
-        // Auto-size the column on double click
-        onColumnResize(columnIndex, 0, "auto");
-      }
-    },
-    [columnIndex, onColumnResize, setIsPressed]
-  );
-
-  const onMouseUp: MouseEventHandler<HTMLDivElement> = useCallback(
-    e => {
-      console.log("onMouseUp");
-      e.stopPropagation();
-      setIsPressed(columnIndex, false);
-    },
-    [columnIndex, setIsPressed]
-  );
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
-      console.log("onPointerDown");
       e.stopPropagation();
       if (resizeRef.current) {
+        // We cannot detect double-click with onDoubleClick event,
+        // because this component might be unmounted before the second click and mounted again.
+        // We keep track of the last click timestamp and check if it was a double-click.
+        if (lastPressedTimestamp > Date.now() - DOUBLE_CLICK_THRESHOLD_MSEC) {
+          // Auto-size the column on double click.
+          onColumnResize(columnIndex, 0, "auto");
+        }
         setPointer({
           pointerId: e.pointerId,
           initialClientX: e.clientX,
@@ -107,7 +95,16 @@ const ColumnResizer = ({
         setPosition(pos);
       }
     },
-    [setPointer, columnWidth, setIsPressed, columnIndex, getResizerPosition, setPosition]
+    [
+      lastPressedTimestamp,
+      setPointer,
+      columnWidth,
+      setIsPressed,
+      columnIndex,
+      getResizerPosition,
+      setPosition,
+      onColumnResize,
+    ]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -130,10 +127,8 @@ const ColumnResizer = ({
       $isPressed={isPressed}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
-        console.log("onPointerUp");
         e.preventDefault();
         e.stopPropagation();
-
         if (
           resizeRef.current &&
           // 0 is a valid pointerId in Firefox
@@ -149,9 +144,7 @@ const ColumnResizer = ({
         }
       }}
       onMouseMove={onMouseMove}
-      onMouseDown={onMouseDown}
       onClick={e => e.stopPropagation()}
-      onMouseUp={onMouseUp}
       data-resize
       style={position}
     />
