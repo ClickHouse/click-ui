@@ -22,14 +22,15 @@ import RowNumberColumn from "./RowNumberColumn";
 import Header from "./Header";
 import { styled } from "styled-components";
 import {
+  GetResizerPositionFn,
   GridContextMenuItemProps,
   GridProps,
   ItemDataType,
+  ResizerPosition,
   RoundedType,
   SelectedRegion,
   SelectionAction,
   SelectionFocus,
-  SetResizeCursorPositionFn,
   onSelectFn,
 } from "./types";
 import { useSelectionActions } from "./useSelectionActions";
@@ -343,17 +344,17 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       [getColumnHorizontalPosition, rowNumberWidth]
     );
 
-    const setResizeCursorPosition: SetResizeCursorPositionFn = useCallback(
-      (element, clientX, width, columnIndex) => {
-        element.style.left = `${getFixedResizerLeftPosition(
-          clientX,
-          width,
-          columnIndex
-        )}px`;
+    const getResizerPosition: GetResizerPositionFn = useCallback(
+      (clientX, width, columnIndex) => {
+        console.log("getResizerPosition", clientX, width, columnIndex);
+        const result: ResizerPosition = {
+          left: `${getFixedResizerLeftPosition(clientX, width, columnIndex)}px`,
+        };
 
         if (outerRef.current) {
-          element.style.top = `${outerRef.current.scrollTop}px`;
+          result.top = `${outerRef.current.scrollTop}px`;
         }
+        return result;
       },
       [getFixedResizerLeftPosition]
     );
@@ -451,7 +452,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 columnCount={columnCount}
                 onColumnResize={onColumnResize}
                 getColumnHorizontalPosition={getColumnHorizontalPosition}
-                setResizeCursorPosition={setResizeCursorPosition}
+                getResizerPosition={getResizerPosition}
                 showBorder={showBorder}
               />
             )}

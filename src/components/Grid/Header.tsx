@@ -2,8 +2,8 @@ import { styled } from "styled-components";
 import {
   CellProps,
   ColumnResizeFn,
+  GetResizerPositionFn,
   SelectionTypeFn,
-  SetResizeCursorPositionFn,
 } from "./types";
 import { StyledCell } from "./StyledCell";
 import ColumnResizer from "./ColumnResizer";
@@ -21,7 +21,7 @@ interface HeaderProps {
   onColumnResize: ColumnResizeFn;
   getColumnHorizontalPosition: (columnIndex: number) => number;
   scrolledVertical: boolean;
-  setResizeCursorPosition: SetResizeCursorPositionFn;
+  getResizerPosition: GetResizerPositionFn;
   showBorder: boolean;
   scrolledHorizontal: boolean;
 }
@@ -54,7 +54,7 @@ interface ColumnProps
     | "onColumnResize"
     | "columnWidth"
     | "height"
-    | "setResizeCursorPosition"
+    | "getResizerPosition"
     | "showBorder"
     | "getColumnHorizontalPosition"
   > {
@@ -108,7 +108,7 @@ const Column = ({
   isLastColumn,
   onColumnResize,
   height,
-  setResizeCursorPosition,
+  getResizerPosition,
   showBorder,
 }: ColumnProps) => {
   const selectionType = getSelectionType({
@@ -157,7 +157,7 @@ const Column = ({
         height={height}
         onColumnResize={onColumnResize}
         columnIndex={columnIndex}
-        setResizeCursorPosition={setResizeCursorPosition}
+        getResizerPosition={getResizerPosition}
       />
     </HeaderCellContainer>
   );
@@ -177,7 +177,7 @@ const Header = ({
   getSelectionType,
   onColumnResize,
   getColumnHorizontalPosition,
-  setResizeCursorPosition,
+  getResizerPosition,
   showBorder,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
@@ -204,7 +204,7 @@ const Header = ({
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
             height={height}
-            setResizeCursorPosition={setResizeCursorPosition}
+            getResizerPosition={getResizerPosition}
             showBorder={showBorder}
           />
         ))}

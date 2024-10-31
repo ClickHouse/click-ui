@@ -1,6 +1,6 @@
 import { MouseEventHandler, PointerEventHandler, useCallback, useRef } from "react";
 import { styled } from "styled-components";
-import { ColumnResizeFn, SetResizeCursorPositionFn } from "./types";
+import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
 import useResizingState from "./useResizingState";
 
@@ -29,13 +29,13 @@ interface Props {
   height: number;
   onColumnResize: ColumnResizeFn;
   columnIndex: number;
-  setResizeCursorPosition: SetResizeCursorPositionFn;
+  getResizerPosition: GetResizerPositionFn;
 }
 const ColumnResizer = ({
   height,
   onColumnResize: onColumnResizeProp,
   columnIndex,
-  setResizeCursorPosition,
+  getResizerPosition,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
   const { pointer, setPointer, isPressed, setIsPressed } = useResizingState();
@@ -75,16 +75,19 @@ const ColumnResizer = ({
             width: header.clientWidth,
           });
 
-          setResizeCursorPosition(
-            resizeRef.current,
+          const pos = getResizerPosition(
             e.clientX,
             header.clientWidth,
             columnIndex
           );
+          resizeRef.current.style.left = pos.left
+          if (pos.top) {
+            resizeRef.current.style.top = pos.top;
+          }
         }
       }
     },
-    [columnIndex, setPointer, setResizeCursorPosition]
+    [columnIndex, setPointer, getResizerPosition]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -96,12 +99,16 @@ const ColumnResizer = ({
           resizeRef.current.setPointerCapture(pointer.pointerId);
           const width = header.clientWidth + (e.clientX - pointer.initialClientX);
 
-          setResizeCursorPosition(resizeRef.current, e.clientX, width, columnIndex);
+          const pos = getResizerPosition(e.clientX, width, columnIndex);
+          resizeRef.current.style.left = pos.left
+          if (pos.top) {
+            resizeRef.current.style.top = pos.top;
+          }
           pointer.width = Math.max(width, 50);
         }
       }
     },
-    [columnIndex, pointer, setResizeCursorPosition]
+    [columnIndex, pointer, getResizerPosition]
   );
 
   return (
