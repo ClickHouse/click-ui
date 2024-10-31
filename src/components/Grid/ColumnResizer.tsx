@@ -1,13 +1,8 @@
-import {
-  MouseEventHandler,
-  PointerEventHandler,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { MouseEventHandler, PointerEventHandler, useCallback, useRef } from "react";
 import { styled } from "styled-components";
 import { ColumnResizeFn, SetResizeCursorPositionFn } from "./types";
 import throttle from "lodash/throttle";
+import useResizingState from "./useResizingState";
 
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
   top: 0;
@@ -30,12 +25,6 @@ const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
       position: fixed;
     `}
 `;
-type PointerRefType = {
-  width: number;
-  pointerId: number;
-  initialClientX: number;
-};
-
 interface Props {
   height: number;
   onColumnResize: ColumnResizeFn;
@@ -49,8 +38,7 @@ const ColumnResizer = ({
   setResizeCursorPosition,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
-  const pointerRef = useRef<PointerRefType | null>(null);
-  const [isPressed, setIsPressed] = useState<boolean>(false);
+  const { pointer, setPointer, isPressed, setIsPressed } = useResizingState();
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
   const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -81,11 +69,11 @@ const ColumnResizer = ({
         resizeRef.current.setPointerCapture(e.pointerId);
         const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
         if (header) {
-          pointerRef.current = {
+          setPointer({
             pointerId: e.pointerId,
             initialClientX: e.clientX,
             width: header.clientWidth,
-          };
+          });
 
           setResizeCursorPosition(
             resizeRef.current,
@@ -96,25 +84,24 @@ const ColumnResizer = ({
         }
       }
     },
-    [columnIndex, setResizeCursorPosition]
+    [columnIndex, setPointer, setResizeCursorPosition]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
-      if (resizeRef.current && pointerRef.current) {
+      if (resizeRef.current && pointer) {
         const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
         if (header) {
-          resizeRef.current.setPointerCapture(pointerRef.current.pointerId);
-          const width =
-            header.clientWidth + (e.clientX - pointerRef.current.initialClientX);
+          resizeRef.current.setPointerCapture(pointer.pointerId);
+          const width = header.clientWidth + (e.clientX - pointer.initialClientX);
 
           setResizeCursorPosition(resizeRef.current, e.clientX, width, columnIndex);
-          pointerRef.current.width = Math.max(width, 50);
+          pointer.width = Math.max(width, 50);
         }
       }
     },
-    [columnIndex, setResizeCursorPosition]
+    [columnIndex, pointer, setResizeCursorPosition]
   );
 
   return (
@@ -130,16 +117,16 @@ const ColumnResizer = ({
         if (
           resizeRef.current &&
           // 0 is a valid pointerId in Firefox
-          (pointerRef.current?.pointerId || pointerRef.current?.pointerId === 0)
+          (pointer?.pointerId || pointer?.pointerId === 0)
         ) {
-          resizeRef.current.releasePointerCapture(pointerRef.current.pointerId);
-          const shouldCallResize = e.clientX !== pointerRef.current.initialClientX;
+          resizeRef.current.releasePointerCapture(pointer.pointerId);
+          const shouldCallResize = e.clientX !== pointer.initialClientX;
           if (shouldCallResize) {
-            onColumnResize(columnIndex, pointerRef.current.width, "manual");
+            onColumnResize(columnIndex, pointer.width, "manual");
           }
           resizeRef.current.style.top = "0";
           resizeRef.current.style.left = "calc(100% - 4px)";
-          pointerRef.current = null;
+          setPointer(null);
         }
       }}
       onMouseMove={onMouseMove}
