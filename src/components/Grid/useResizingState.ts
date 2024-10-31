@@ -1,7 +1,7 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { ResizerPosition } from "./types";
 
-type PointerType = {
+export type PointerType = {
   width: number;
   pointerId: number;
   initialClientX: number;
@@ -24,13 +24,9 @@ export const initialPosition = {
 
 const useResizingState = (): ResizingState => {
   const [pressedColumnIndex, setPressedColumndIndex] = useState<number>(-1);
-  const pointer = useRef<PointerType | null>(null);
+  const [pointer, setPointer] = useState<PointerType | null>(null);
   const [position, setPosition] = useState<ResizerPosition>(initialPosition);
   const [lastPressedTimestamp, setLastPressedTimestamp] = useState<number>(0);
-
-  const setPointer = useCallback((newPointer: PointerType | null) => {
-    pointer.current = newPointer;
-  }, []);
 
   const getIsPressed = useCallback(
     (columnIndex: number) => {
@@ -60,7 +56,7 @@ const useResizingState = (): ResizingState => {
 
   return useMemo(
     () => ({
-      pointer: pointer.current,
+      pointer,
       setPointer,
       getIsPressed,
       setIsPressed,
@@ -68,7 +64,7 @@ const useResizingState = (): ResizingState => {
       setPosition,
       lastPressedTimestamp,
     }),
-    [setPointer, getIsPressed, setIsPressed, getPosition, lastPressedTimestamp]
+    [pointer, getIsPressed, setIsPressed, getPosition, lastPressedTimestamp]
   );
 };
 
