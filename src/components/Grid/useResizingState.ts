@@ -10,8 +10,8 @@ type PointerType = {
 interface ResizingState {
   pointer: PointerType | null;
   setPointer: (pointer: PointerType | null) => void;
-  isPressed: boolean;
-  setIsPressed: (pressed: boolean) => void;
+  getIsPressed: (columndIndex:number) => boolean;
+  setIsPressed: (columndIndex:number, pressed: boolean) => void;
   position: ResizerPosition;
   setPosition: (position: ResizerPosition) => void;
 }
@@ -22,7 +22,7 @@ export const initialPosition = {
 };
 
 const useResizingState = (): ResizingState => {
-  const [isPressed, setIsPressed] = useState<boolean>(false);
+  const [pressedColumnIndex, setPressedColumndIndex] = useState<number>(-1);
   const pointer = useRef<PointerType | null>(null);
   const [position, setPosition] = useState<ResizerPosition>(initialPosition);
 
@@ -30,10 +30,22 @@ const useResizingState = (): ResizingState => {
     pointer.current = newPointer;
   }, []);
 
+  const getIsPressed = useCallback((columnIndex:number) => {
+    return pressedColumnIndex === columnIndex;
+  }, [pressedColumnIndex]);
+
+  const setIsPressed = useCallback((columnIndex:number, pressed: boolean) => {
+    if (pressed) {
+      setPressedColumndIndex(columnIndex);
+    } else {
+      setPressedColumndIndex(-1);
+    }
+  }, []);
+
   return {
     pointer: pointer.current,
     setPointer,
-    isPressed,
+    getIsPressed,
     setIsPressed,
     position,
     setPosition,

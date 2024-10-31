@@ -346,7 +346,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
     const getResizerPosition: GetResizerPositionFn = useCallback(
       (clientX, width, columnIndex) => {
-        console.log("getResizerPosition", clientX, width, columnIndex);
         const result: ResizerPosition = {
           left: `${getFixedResizerLeftPosition(clientX, width, columnIndex)}px`,
         };

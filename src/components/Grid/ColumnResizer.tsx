@@ -1,4 +1,10 @@
-import { MouseEventHandler, PointerEventHandler, useCallback, useEffect, useRef } from "react";
+import {
+  MouseEventHandler,
+  PointerEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { styled } from "styled-components";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
@@ -40,8 +46,9 @@ const ColumnResizer = ({
   columnWidth,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
-  const { pointer, setPointer, isPressed, setIsPressed, position, setPosition } =
+  const { pointer, setPointer, getIsPressed, setIsPressed, position, setPosition } =
     useResizingState();
+  const isPressed = getIsPressed(columnIndex);
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
   useEffect(() => {
@@ -53,16 +60,16 @@ const ColumnResizer = ({
       if (control && pointer) {
         control.releasePointerCapture(pointer.pointerId);
       }
-    }
+    };
   }, [pointer]);
 
   const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.preventDefault();
       e.stopPropagation();
-      setIsPressed(true);
-
+      setIsPressed(columnIndex, true);
       if (e.detail > 1) {
+        // Auto-size the column on double click
         onColumnResize(columnIndex, 0, "auto");
       }
     },
@@ -72,10 +79,9 @@ const ColumnResizer = ({
   const onMouseUp: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
-
-      setIsPressed(false);
+      setIsPressed(columnIndex, false);
     },
-    [setIsPressed]
+    [columnIndex, setIsPressed]
   );
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
