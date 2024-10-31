@@ -1,4 +1,4 @@
-import { MouseEventHandler, PointerEventHandler, useCallback, useRef } from "react";
+import { MouseEventHandler, PointerEventHandler, useCallback, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
@@ -44,6 +44,18 @@ const ColumnResizer = ({
     useResizingState();
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
+  useEffect(() => {
+    const control = resizeRef.current;
+    if (control && pointer) {
+      resizeRef.current.setPointerCapture(pointer?.pointerId);
+    }
+    return () => {
+      if (control && pointer) {
+        control.releasePointerCapture(pointer.pointerId);
+      }
+    }
+  }, [pointer]);
+
   const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.preventDefault();
@@ -69,7 +81,6 @@ const ColumnResizer = ({
     e => {
       e.stopPropagation();
       if (resizeRef.current) {
-        resizeRef.current.setPointerCapture(e.pointerId);
         setPointer({
           pointerId: e.pointerId,
           initialClientX: e.clientX,
@@ -87,15 +98,11 @@ const ColumnResizer = ({
     e => {
       e.stopPropagation();
       if (resizeRef.current && pointer) {
-        const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
-        if (header) {
-          resizeRef.current.setPointerCapture(pointer.pointerId);
-          const width = columnWidth + (e.clientX - pointer.initialClientX);
+        const width = columnWidth + (e.clientX - pointer.initialClientX);
 
-          const pos = getResizerPosition(e.clientX, width, columnIndex);
-          setPosition(pos);
-          pointer.width = Math.max(width, 50);
-        }
+        const pos = getResizerPosition(e.clientX, width, columnIndex);
+        setPosition(pos);
+        pointer.width = Math.max(width, 50);
       }
     },
     [pointer, columnIndex, columnWidth, getResizerPosition, setPosition]
@@ -116,7 +123,6 @@ const ColumnResizer = ({
           // 0 is a valid pointerId in Firefox
           (pointer?.pointerId || pointer?.pointerId === 0)
         ) {
-          resizeRef.current.releasePointerCapture(pointer.pointerId);
           const shouldCallResize = e.clientX !== pointer.initialClientX;
           if (shouldCallResize) {
             onColumnResize(columnIndex, pointer.width, "manual");
