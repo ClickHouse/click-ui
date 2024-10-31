@@ -2,11 +2,11 @@ import { MouseEventHandler, PointerEventHandler, useCallback, useRef } from "rea
 import { styled } from "styled-components";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
-import useResizingState from "./useResizingState";
+import useResizingState, { initialPosition } from "./useResizingState";
 
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
-  top: 0;
-  left: calc(100% - 4px);
+  top: ${initialPosition.top};
+  left: ${initialPosition.left};
   z-index: 1;
   position: absolute;
   height: ${({ $height }) => $height}px;
@@ -38,7 +38,8 @@ const ColumnResizer = ({
   getResizerPosition,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
-  const { pointer, setPointer, isPressed, setIsPressed } = useResizingState();
+  const { pointer, setPointer, isPressed, setIsPressed, position, setPosition } =
+    useResizingState();
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
   const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -75,19 +76,12 @@ const ColumnResizer = ({
             width: header.clientWidth,
           });
 
-          const pos = getResizerPosition(
-            e.clientX,
-            header.clientWidth,
-            columnIndex
-          );
-          resizeRef.current.style.left = pos.left
-          if (pos.top) {
-            resizeRef.current.style.top = pos.top;
-          }
+          const pos = getResizerPosition(e.clientX, header.clientWidth, columnIndex);
+          setPosition(pos);
         }
       }
     },
-    [columnIndex, setPointer, getResizerPosition]
+    [columnIndex, setPointer, getResizerPosition, setPosition]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -100,15 +94,12 @@ const ColumnResizer = ({
           const width = header.clientWidth + (e.clientX - pointer.initialClientX);
 
           const pos = getResizerPosition(e.clientX, width, columnIndex);
-          resizeRef.current.style.left = pos.left
-          if (pos.top) {
-            resizeRef.current.style.top = pos.top;
-          }
+          setPosition(pos);
           pointer.width = Math.max(width, 50);
         }
       }
     },
-    [columnIndex, pointer, getResizerPosition]
+    [pointer, columnIndex, getResizerPosition, setPosition]
   );
 
   return (
@@ -131,8 +122,7 @@ const ColumnResizer = ({
           if (shouldCallResize) {
             onColumnResize(columnIndex, pointer.width, "manual");
           }
-          resizeRef.current.style.top = "0";
-          resizeRef.current.style.left = "calc(100% - 4px)";
+          setPosition(initialPosition);
           setPointer(null);
         }
       }}
@@ -141,6 +131,7 @@ const ColumnResizer = ({
       onClick={e => e.stopPropagation()}
       onMouseUp={onMouseUp}
       data-resize
+      style={position}
     />
   );
 };
