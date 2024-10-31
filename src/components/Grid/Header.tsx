@@ -7,6 +7,7 @@ import {
 } from "./types";
 import { StyledCell } from "./StyledCell";
 import ColumnResizer from "./ColumnResizer";
+import { ResizingState } from "./useResizingState";
 
 interface HeaderProps {
   showRowNumber: boolean;
@@ -24,6 +25,7 @@ interface HeaderProps {
   getResizerPosition: GetResizerPositionFn;
   showBorder: boolean;
   scrolledHorizontal: boolean;
+  resizingState: ResizingState;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -57,6 +59,7 @@ interface ColumnProps
     | "getResizerPosition"
     | "showBorder"
     | "getColumnHorizontalPosition"
+    | "resizingState"
   > {
   columnIndex: number;
   isFirstColumn: boolean;
@@ -110,6 +113,7 @@ const Column = ({
   height,
   getResizerPosition,
   showBorder,
+  resizingState,
 }: ColumnProps) => {
   const selectionType = getSelectionType({
     column: columnIndex,
@@ -160,6 +164,7 @@ const Column = ({
         columnIndex={columnIndex}
         getResizerPosition={getResizerPosition}
         columnWidth={columnWidth}
+        resizingState={resizingState}
       />
     </HeaderCellContainer>
   );
@@ -181,6 +186,7 @@ const Header = ({
   getColumnHorizontalPosition,
   getResizerPosition,
   showBorder,
+  resizingState
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",
@@ -208,6 +214,7 @@ const Header = ({
             height={height}
             getResizerPosition={getResizerPosition}
             showBorder={showBorder}
+            resizingState={resizingState}
           />
         ))}
       </ScrollableHeaderContainer>

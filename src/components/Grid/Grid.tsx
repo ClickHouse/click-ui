@@ -39,6 +39,7 @@ import { Cell } from "./Cell";
 import { ContextMenu, createToast } from "@/components";
 import copyGridElements from "./copyGridElements";
 import useColumns from "./useColumns";
+import useResizingState from "./useResizingState";
 
 const NO_BUTTONS_PRESSED = 0;
 const LEFT_BUTTON_PRESSED = 1;
@@ -258,6 +259,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       },
       [onSelectProp]
     );
+    const resizingState = useResizingState();
 
     const onFocusChange = useCallback(
       (row: number, column: number) => {
@@ -453,6 +455,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 getColumnHorizontalPosition={getColumnHorizontalPosition}
                 getResizerPosition={getResizerPosition}
                 showBorder={showBorder}
+                resizingState={resizingState}
               />
             )}
           </GridContainer>

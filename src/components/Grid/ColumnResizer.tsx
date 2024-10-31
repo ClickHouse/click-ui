@@ -8,7 +8,7 @@ import {
 import { styled } from "styled-components";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
-import useResizingState, { initialPosition } from "./useResizingState";
+import useResizingState, { initialPosition, ResizingState } from "./useResizingState";
 
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
   top: ${initialPosition.top};
@@ -37,6 +37,7 @@ interface Props {
   columnIndex: number;
   getResizerPosition: GetResizerPositionFn;
   columnWidth: number;
+  resizingState: ResizingState;
 }
 const ColumnResizer = ({
   height,
@@ -44,9 +45,14 @@ const ColumnResizer = ({
   columnIndex,
   getResizerPosition,
   columnWidth,
+  resizingState,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
+  if (!resizingState) {
+    console.log(resizingState);
+  }
   const { pointer, setPointer, getIsPressed, setIsPressed, position, setPosition } =
+    //resizingState;
     useResizingState();
   const isPressed = getIsPressed(columnIndex);
   const onColumnResize = throttle(onColumnResizeProp, 1000);
@@ -65,6 +71,7 @@ const ColumnResizer = ({
 
   const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
+      console.log("onMouseDown");
       e.preventDefault();
       e.stopPropagation();
       setIsPressed(columnIndex, true);
@@ -78,6 +85,7 @@ const ColumnResizer = ({
 
   const onMouseUp: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
+      console.log("onMouseUp");
       e.stopPropagation();
       setIsPressed(columnIndex, false);
     },
@@ -85,6 +93,7 @@ const ColumnResizer = ({
   );
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
+      console.log("onPointerDown");
       e.stopPropagation();
       if (resizeRef.current) {
         setPointer({
@@ -92,26 +101,25 @@ const ColumnResizer = ({
           initialClientX: e.clientX,
           width: columnWidth,
         });
-
+        setIsPressed(columnIndex, true);
         const pos = getResizerPosition(e.clientX, columnWidth, columnIndex);
         setPosition(pos);
       }
     },
-    [columnIndex, setPointer, columnWidth, getResizerPosition, setPosition]
+    [setPointer, columnWidth, setIsPressed, columnIndex, getResizerPosition, setPosition]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
-      if (resizeRef.current && pointer) {
+      if (isPressed && pointer) {
         const width = columnWidth + (e.clientX - pointer.initialClientX);
-
         const pos = getResizerPosition(e.clientX, width, columnIndex);
         setPosition(pos);
         pointer.width = Math.max(width, 50);
       }
     },
-    [pointer, columnIndex, columnWidth, getResizerPosition, setPosition]
+    [pointer, isPressed, columnWidth, getResizerPosition, columnIndex, setPosition]
   );
 
   return (
@@ -121,6 +129,7 @@ const ColumnResizer = ({
       $isPressed={isPressed}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
+        console.log("onPointerUp");
         e.preventDefault();
         e.stopPropagation();
 
@@ -135,6 +144,7 @@ const ColumnResizer = ({
           }
           setPosition(initialPosition);
           setPointer(null);
+          setIsPressed(columnIndex, false);
         }
       }}
       onMouseMove={onMouseMove}
