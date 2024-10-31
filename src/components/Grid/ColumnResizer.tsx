@@ -30,12 +30,14 @@ interface Props {
   onColumnResize: ColumnResizeFn;
   columnIndex: number;
   getResizerPosition: GetResizerPositionFn;
+  columnWidth: number;
 }
 const ColumnResizer = ({
   height,
   onColumnResize: onColumnResizeProp,
   columnIndex,
   getResizerPosition,
+  columnWidth,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
   const { pointer, setPointer, isPressed, setIsPressed, position, setPosition } =
@@ -68,20 +70,17 @@ const ColumnResizer = ({
       e.stopPropagation();
       if (resizeRef.current) {
         resizeRef.current.setPointerCapture(e.pointerId);
-        const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
-        if (header) {
-          setPointer({
-            pointerId: e.pointerId,
-            initialClientX: e.clientX,
-            width: header.clientWidth,
-          });
+        setPointer({
+          pointerId: e.pointerId,
+          initialClientX: e.clientX,
+          width: columnWidth,
+        });
 
-          const pos = getResizerPosition(e.clientX, header.clientWidth, columnIndex);
-          setPosition(pos);
-        }
+        const pos = getResizerPosition(e.clientX, columnWidth, columnIndex);
+        setPosition(pos);
       }
     },
-    [columnIndex, setPointer, getResizerPosition, setPosition]
+    [columnIndex, setPointer, columnWidth, getResizerPosition, setPosition]
   );
 
   const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -91,7 +90,7 @@ const ColumnResizer = ({
         const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
         if (header) {
           resizeRef.current.setPointerCapture(pointer.pointerId);
-          const width = header.clientWidth + (e.clientX - pointer.initialClientX);
+          const width = columnWidth + (e.clientX - pointer.initialClientX);
 
           const pos = getResizerPosition(e.clientX, width, columnIndex);
           setPosition(pos);
@@ -99,7 +98,7 @@ const ColumnResizer = ({
         }
       }
     },
-    [pointer, columnIndex, getResizerPosition, setPosition]
+    [pointer, columnIndex, columnWidth, getResizerPosition, setPosition]
   );
 
   return (

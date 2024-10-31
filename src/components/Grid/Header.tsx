@@ -14,7 +14,7 @@ interface HeaderProps {
   minColumn: number;
   maxColumn: number;
   height: number;
-  columnWidth: (index: number) => number;
+  getColumnWidth: (index: number) => number;
   cell: CellProps;
   getSelectionType: SelectionTypeFn;
   columnCount: number;
@@ -52,7 +52,7 @@ interface ColumnProps
     | "cell"
     | "getSelectionType"
     | "onColumnResize"
-    | "columnWidth"
+    | "getColumnWidth"
     | "height"
     | "getResizerPosition"
     | "showBorder"
@@ -101,7 +101,7 @@ const RowColumn = styled(StyledCell)`
 const Column = ({
   columnIndex,
   cell,
-  columnWidth,
+  getColumnWidth,
   getColumnHorizontalPosition,
   getSelectionType,
   isFirstColumn,
@@ -126,9 +126,10 @@ const Column = ({
     (leftSelectionType === "selectDirect" || isSelected) &&
     leftSelectionType !== selectionType;
 
+  const columnWidth = getColumnWidth(columnIndex)
   return (
     <HeaderCellContainer
-      $width={columnWidth(columnIndex)}
+      $width={columnWidth}
       $columnPosition={columnPosition}
       $height={height}
       data-header={columnIndex}
@@ -151,13 +152,14 @@ const Column = ({
         data-grid-column={columnIndex}
         data-selected={isSelected}
         $showBorder={showBorder}
-        width={columnWidth(columnIndex)}
+        width={columnWidth}
       />
       <ColumnResizer
         height={height}
         onColumnResize={onColumnResize}
         columnIndex={columnIndex}
         getResizerPosition={getResizerPosition}
+        columnWidth={columnWidth}
       />
     </HeaderCellContainer>
   );
@@ -171,7 +173,7 @@ const Header = ({
   minColumn,
   maxColumn,
   height,
-  columnWidth,
+  getColumnWidth,
   cell,
   columnCount,
   getSelectionType,
@@ -197,7 +199,7 @@ const Header = ({
             key={`header-${columnIndex}`}
             getSelectionType={getSelectionType}
             columnIndex={columnIndex}
-            columnWidth={columnWidth}
+            getColumnWidth={getColumnWidth}
             getColumnHorizontalPosition={getColumnHorizontalPosition}
             cell={cell}
             isFirstColumn={columnIndex === 0 && !showRowNumber}
