@@ -1,5 +1,4 @@
 import {
-  MouseEventHandler,
   PointerEventHandler,
   useCallback,
   useEffect,
@@ -77,6 +76,7 @@ const ColumnResizer = ({
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
+      e.preventDefault();
       if (resizeRef.current) {
         // We cannot detect double-click with onDoubleClick event,
         // because this component might be unmounted before the second click and mounted again.
@@ -107,9 +107,10 @@ const ColumnResizer = ({
     ]
   );
 
-  const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
+  const onPointerMove: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
+      e.preventDefault();
       if (isPressed && pointer) {
         const width = columnWidth + (e.clientX - pointer.initialClientX);
         const pos = getResizerPosition(e.clientX, width, columnIndex);
@@ -143,7 +144,7 @@ const ColumnResizer = ({
           setIsPressed(columnIndex, false);
         }
       }}
-      onMouseMove={onMouseMove}
+      onPointerMove={onPointerMove}
       onClick={e => e.stopPropagation()}
       data-resize
       style={position}
