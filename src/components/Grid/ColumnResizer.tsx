@@ -1,9 +1,4 @@
-import {
-  PointerEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
+import { PointerEventHandler, useCallback, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
@@ -67,10 +62,17 @@ const ColumnResizer = ({
     if (!isPressed || !control || !pointer) {
       return;
     }
-    control.setPointerCapture(pointer.pointerId);
-    return () => {
-      control.releasePointerCapture(pointer.pointerId);
-    };
+    const pointerId = pointer.pointerId;
+    try {
+      control.setPointerCapture(pointerId);
+      return () => {
+        if (control.hasPointerCapture(pointerId)) {
+          control.releasePointerCapture(pointerId);
+        }
+      };
+    } catch (e) {
+      console.error(e);
+    }
   }, [pointer, isPressed, columnIndex]);
 
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
@@ -145,6 +147,13 @@ const ColumnResizer = ({
         }
       }}
       onPointerMove={onPointerMove}
+      onPointerCancel={e => {
+        e.preventDefault();
+        e.stopPropagation();
+        setPosition(initialPosition);
+        setPointer(null);
+        setIsPressed(columnIndex, false);
+      }}
       onClick={e => e.stopPropagation()}
       data-resize
       style={position}
