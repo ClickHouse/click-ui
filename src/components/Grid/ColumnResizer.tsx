@@ -51,10 +51,11 @@ const ColumnResizer = ({
   if (!resizingState) {
     console.log(resizingState);
   }
-  const { pointer, setPointer, getIsPressed, setIsPressed, position, setPosition } =
+  const { pointer, setPointer, getIsPressed, setIsPressed, getPosition, setPosition } =
     //resizingState;
     useResizingState();
   const isPressed = getIsPressed(columnIndex);
+  const position = getPosition(columnIndex);
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
   useEffect(() => {

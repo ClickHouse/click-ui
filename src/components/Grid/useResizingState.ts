@@ -12,7 +12,7 @@ export interface ResizingState {
   setPointer: (pointer: PointerType | null) => void;
   getIsPressed: (columndIndex: number) => boolean;
   setIsPressed: (columndIndex: number, pressed: boolean) => void;
-  position: ResizerPosition;
+  getPosition: (columndIndex: number) => ResizerPosition;
   setPosition: (position: ResizerPosition) => void;
 }
 
@@ -45,12 +45,22 @@ const useResizingState = (): ResizingState => {
     }
   }, []);
 
+  const getPosition = useCallback(
+    (columnIndex: number) => {
+      if (pressedColumnIndex !== columnIndex) {
+        return initialPosition;
+      }
+      return position;
+    },
+    [position, pressedColumnIndex]
+  );
+
   return {
     pointer: pointer.current,
     setPointer,
     getIsPressed,
     setIsPressed,
-    position,
+    getPosition,
     setPosition,
   };
 };
