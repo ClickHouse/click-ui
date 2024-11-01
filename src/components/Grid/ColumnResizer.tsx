@@ -6,6 +6,12 @@ import { initialPosition, ResizingState } from "./useResizingState";
 
 const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
 
+/**
+ * Styled component for the resizer span element.
+ * @type {StyledComponent}
+ * @param {number} $height - Height of the resizer element in pixels.
+ * @param {boolean} $isPressed - Indicates if the resizer is currently pressed.
+ */
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
   top: ${initialPosition.top};
   left: ${initialPosition.left};
@@ -27,6 +33,17 @@ const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
       position: fixed;
     `}
 `;
+
+/**
+ * Properties for the ColumnResizer component.
+ * @typedef {Object} Props
+ * @property {number} height - Height of the resizer.
+ * @property {ColumnResizeFn} onColumnResize - Function to handle column resize.
+ * @property {number} columnIndex - Index of the column being resized.
+ * @property {GetResizerPositionFn} getResizerPosition - Function to get the position of the resizer.
+ * @property {number} columnWidth - Initial width of the column.
+ * @property {ResizingState} resizingState - State management object for resizing interactions.
+ */
 interface Props {
   height: number;
   onColumnResize: ColumnResizeFn;
@@ -35,6 +52,12 @@ interface Props {
   columnWidth: number;
   resizingState: ResizingState;
 }
+
+/**
+ * Component for rendering a column resizer with pointer events and resizing state management.
+ * @param {Props} props - Properties passed to the component.
+ * @returns {JSX.Element} The ColumnResizer component.
+ */
 const ColumnResizer = ({
   height,
   onColumnResize: onColumnResizeProp,
@@ -58,6 +81,9 @@ const ColumnResizer = ({
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
   useEffect(() => {
+    // Capture the pointer when pressed to ensure we receive move events outside the element.
+    // Capturing must be properly handled when the component unmounts and mounts again,
+    // based on its pressed state.
     const control = resizeRef.current;
     if (!isPressed || !control || !pointer) {
       return;
@@ -75,6 +101,10 @@ const ColumnResizer = ({
     }
   }, [pointer, isPressed, columnIndex]);
 
+  /**
+   * Handler for pointer down events to initiate resizing or auto-sizing on double-click.
+   * @type {PointerEventHandler<HTMLDivElement>}
+   */
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
@@ -109,6 +139,10 @@ const ColumnResizer = ({
     ]
   );
 
+  /**
+   * Handler for pointer move events to update the column width as the user drags.
+   * @type {PointerEventHandler<HTMLDivElement>}
+   */
   const onPointerMove: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
@@ -117,6 +151,7 @@ const ColumnResizer = ({
         const width = columnWidth + (e.clientX - pointer.initialClientX);
         const pos = getResizerPosition(e.clientX, width, columnIndex);
         setPosition(pos);
+        // Ensure minimum width of 50px
         pointer.width = Math.max(width, 50);
       }
     },
