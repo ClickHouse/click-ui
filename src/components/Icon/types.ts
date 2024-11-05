@@ -79,6 +79,7 @@ export const ICON_NAMES = [
   "gear",
   "gift",
   "git-merge",
+  "globe",
   "history",
   "horizontal-loading",
   "home",
