@@ -92,6 +92,7 @@ import SlideOut from "@/components/icons/SlideOut";
 import Sparkle from "@/components/icons/Sparkle";
 import Speaker from "@/components/icons/Speaker";
 import Speed from "@/components/icons/Speed";
+import Square from "../icons/Square";
 import Star from "@/components/icons/Star";
 import Stop from "@/components/icons/Stop";
 import Support from "@/components/icons/Support";
@@ -261,6 +262,7 @@ export const ICONS_MAP = {
   sparkle: Sparkle,
   speaker: Speaker,
   speed: Speed,
+  square: Square,
   star: Star,
   stop: Stop,
   support: Support,
