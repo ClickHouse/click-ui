@@ -92,7 +92,7 @@ import SlideOut from "@/components/icons/SlideOut";
 import Sparkle from "@/components/icons/Sparkle";
 import Speaker from "@/components/icons/Speaker";
 import Speed from "@/components/icons/Speed";
-import Square from "../icons/Square";
+import Square from "@/components/icons/Square";
 import Star from "@/components/icons/Star";
 import Stop from "@/components/icons/Stop";
 import Support from "@/components/icons/Support";
