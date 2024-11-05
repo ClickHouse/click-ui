@@ -59,6 +59,7 @@ import Fire from "@/components/icons/Fire";
 import FolderOpen from "@/components/icons/FolderOpen";
 import FolderClosed from "@/components/icons/FolderClosed";
 import Gift from "@/components/icons/Gift";
+import Globe from "@/components/icons/Globe";
 import Home from "@/components/icons/Home";
 import HorizontalLoading from "@/components/icons/HorizontalLoading";
 import Http from "@/components/icons/Http";
@@ -91,6 +92,7 @@ import SlideOut from "@/components/icons/SlideOut";
 import Sparkle from "@/components/icons/Sparkle";
 import Speaker from "@/components/icons/Speaker";
 import Speed from "@/components/icons/Speed";
+import Square from "@/components/icons/Square";
 import Star from "@/components/icons/Star";
 import Stop from "@/components/icons/Stop";
 import Support from "@/components/icons/Support";
@@ -206,6 +208,7 @@ export const ICONS_MAP = {
   "folder-open": FolderOpen,
   gear: Gear,
   gift: Gift,
+  globe: Globe,
   "git-merge": GitMerge,
   history: HistoryIcon,
   home: Home,
@@ -259,6 +262,7 @@ export const ICONS_MAP = {
   sparkle: Sparkle,
   speaker: Speaker,
   speed: Speed,
+  square: Square,
   star: Star,
   stop: Stop,
   support: Support,
