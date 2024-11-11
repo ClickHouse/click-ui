@@ -2,11 +2,12 @@ import { styled } from "styled-components";
 import {
   CellProps,
   ColumnResizeFn,
+  GetResizerPositionFn,
   SelectionTypeFn,
-  SetResizeCursorPositionFn,
 } from "./types";
 import { StyledCell } from "./StyledCell";
 import ColumnResizer from "./ColumnResizer";
+import { ResizingState } from "./useResizingState";
 
 interface HeaderProps {
   showRowNumber: boolean;
@@ -14,16 +15,17 @@ interface HeaderProps {
   minColumn: number;
   maxColumn: number;
   height: number;
-  columnWidth: (index: number) => number;
+  getColumnWidth: (index: number) => number;
   cell: CellProps;
   getSelectionType: SelectionTypeFn;
   columnCount: number;
   onColumnResize: ColumnResizeFn;
   getColumnHorizontalPosition: (columnIndex: number) => number;
   scrolledVertical: boolean;
-  setResizeCursorPosition: SetResizeCursorPositionFn;
+  getResizerPosition: GetResizerPositionFn;
   showBorder: boolean;
   scrolledHorizontal: boolean;
+  resizingState: ResizingState;
 }
 
 const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
@@ -52,11 +54,12 @@ interface ColumnProps
     | "cell"
     | "getSelectionType"
     | "onColumnResize"
-    | "columnWidth"
+    | "getColumnWidth"
     | "height"
-    | "setResizeCursorPosition"
+    | "getResizerPosition"
     | "showBorder"
     | "getColumnHorizontalPosition"
+    | "resizingState"
   > {
   columnIndex: number;
   isFirstColumn: boolean;
@@ -101,15 +104,16 @@ const RowColumn = styled(StyledCell)`
 const Column = ({
   columnIndex,
   cell,
-  columnWidth,
+  getColumnWidth,
   getColumnHorizontalPosition,
   getSelectionType,
   isFirstColumn,
   isLastColumn,
   onColumnResize,
   height,
-  setResizeCursorPosition,
+  getResizerPosition,
   showBorder,
+  resizingState,
 }: ColumnProps) => {
   const selectionType = getSelectionType({
     column: columnIndex,
@@ -126,9 +130,10 @@ const Column = ({
     (leftSelectionType === "selectDirect" || isSelected) &&
     leftSelectionType !== selectionType;
 
+  const columnWidth = getColumnWidth(columnIndex)
   return (
     <HeaderCellContainer
-      $width={columnWidth(columnIndex)}
+      $width={columnWidth}
       $columnPosition={columnPosition}
       $height={height}
       data-header={columnIndex}
@@ -151,13 +156,15 @@ const Column = ({
         data-grid-column={columnIndex}
         data-selected={isSelected}
         $showBorder={showBorder}
-        width={columnWidth(columnIndex)}
+        width={columnWidth}
       />
       <ColumnResizer
         height={height}
         onColumnResize={onColumnResize}
         columnIndex={columnIndex}
-        setResizeCursorPosition={setResizeCursorPosition}
+        getResizerPosition={getResizerPosition}
+        columnWidth={columnWidth}
+        resizingState={resizingState}
       />
     </HeaderCellContainer>
   );
@@ -171,14 +178,15 @@ const Header = ({
   minColumn,
   maxColumn,
   height,
-  columnWidth,
+  getColumnWidth,
   cell,
   columnCount,
   getSelectionType,
   onColumnResize,
   getColumnHorizontalPosition,
-  setResizeCursorPosition,
+  getResizerPosition,
   showBorder,
+  resizingState
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",
@@ -197,15 +205,16 @@ const Header = ({
             key={`header-${columnIndex}`}
             getSelectionType={getSelectionType}
             columnIndex={columnIndex}
-            columnWidth={columnWidth}
+            getColumnWidth={getColumnWidth}
             getColumnHorizontalPosition={getColumnHorizontalPosition}
             cell={cell}
             isFirstColumn={columnIndex === 0 && !showRowNumber}
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
             height={height}
-            setResizeCursorPosition={setResizeCursorPosition}
+            getResizerPosition={getResizerPosition}
             showBorder={showBorder}
+            resizingState={resizingState}
           />
         ))}
       </ScrollableHeaderContainer>

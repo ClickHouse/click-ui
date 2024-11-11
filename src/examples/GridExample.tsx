@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Grid,
   CellProps,
@@ -6,9 +6,17 @@ import {
   SelectionFocus,
   GridContextMenuItemProps,
   Pagination,
+  Switch,
 } from "..";
 
-const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, width, ...props }) => {
+const Cell: CellProps = ({
+  type,
+  rowIndex,
+  columnIndex,
+  isScrolling,
+  width,
+  ...props
+}) => {
   return (
     <span
       data-scrolling={isScrolling}
@@ -24,8 +32,11 @@ const GridExample = () => {
     column: 17460,
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const rowCount = 20000,
-    columnCount = 20000;
+  const columnCount = 20000;
+  const initialRowCount = 20000;
+
+  const [rowCount, setRowCount] = useState(initialRowCount);
+  const [dynamicUpdates, setDynamicUpdates] = useState(false);
 
   const getMenuOptions = useCallback(
     (selection: SelectedRegion, focus: SelectionFocus): GridContextMenuItemProps[] => {
@@ -40,6 +51,23 @@ const GridExample = () => {
     },
     []
   );
+
+  useEffect(() => {
+    if (!dynamicUpdates) {
+      // Reset the row count when the switch is off.
+      setRowCount(initialRowCount);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      // Add a row every 200ms
+      setRowCount(v => v + 1);
+    }, 200);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dynamicUpdates]);
 
   return (
     <div>
@@ -59,6 +87,14 @@ const GridExample = () => {
         currentPage={currentPage}
         onChange={setCurrentPage}
         totalPages={5}
+      />
+      <Switch
+        onClick={() => {
+          setDynamicUpdates(v => !v);
+        }}
+        label="Add a row every 200ms"
+        checked={dynamicUpdates}
+        orientation="horizontal"
       />
     </div>
   );

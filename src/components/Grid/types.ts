@@ -206,9 +206,13 @@ export interface GridProps
   forwardedGridRef?: MutableRefObject<VariableSizeGrid>;
 }
 
-export type SetResizeCursorPositionFn = (
-  element: HTMLSpanElement,
+export type ResizerPosition = {
+  left: string;
+  top?: string;
+};
+
+export type GetResizerPositionFn = (
   clientX: number,
   width: number,
   columnIndex: number
-) => void;
+) => ResizerPosition;

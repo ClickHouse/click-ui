@@ -1,17 +1,20 @@
-import {
-  MouseEventHandler,
-  PointerEventHandler,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { PointerEventHandler, useCallback, useEffect, useRef } from "react";
 import { styled } from "styled-components";
-import { ColumnResizeFn, SetResizeCursorPositionFn } from "./types";
+import { ColumnResizeFn, GetResizerPositionFn } from "./types";
 import throttle from "lodash/throttle";
+import { initialPosition, ResizingState } from "./useResizingState";
 
+const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
+
+/**
+ * Styled component for the resizer span element.
+ * @type {StyledComponent}
+ * @param {number} $height - Height of the resizer element in pixels.
+ * @param {boolean} $isPressed - Indicates if the resizer is currently pressed.
+ */
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
-  top: 0;
-  left: calc(100% - 4px);
+  top: ${initialPosition.top};
+  left: ${initialPosition.left};
   z-index: 1;
   position: absolute;
   height: ${({ $height }) => $height}px;
@@ -30,91 +33,129 @@ const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
       position: fixed;
     `}
 `;
-type PointerRefType = {
-  width: number;
-  pointerId: number;
-  initialClientX: number;
-};
 
+/**
+ * Properties for the ColumnResizer component.
+ * @typedef {Object} Props
+ * @property {number} height - Height of the resizer.
+ * @property {ColumnResizeFn} onColumnResize - Function to handle column resize.
+ * @property {number} columnIndex - Index of the column being resized.
+ * @property {GetResizerPositionFn} getResizerPosition - Function to get the position of the resizer.
+ * @property {number} columnWidth - Initial width of the column.
+ * @property {ResizingState} resizingState - State management object for resizing interactions.
+ */
 interface Props {
   height: number;
   onColumnResize: ColumnResizeFn;
   columnIndex: number;
-  setResizeCursorPosition: SetResizeCursorPositionFn;
+  getResizerPosition: GetResizerPositionFn;
+  columnWidth: number;
+  resizingState: ResizingState;
 }
+
+/**
+ * Component for rendering a column resizer with pointer events and resizing state management.
+ * @param {Props} props - Properties passed to the component.
+ * @returns {JSX.Element} The ColumnResizer component.
+ */
 const ColumnResizer = ({
   height,
   onColumnResize: onColumnResizeProp,
   columnIndex,
-  setResizeCursorPosition,
+  getResizerPosition,
+  columnWidth,
+  resizingState,
 }: Props) => {
   const resizeRef = useRef<HTMLDivElement>(null);
-  const pointerRef = useRef<PointerRefType | null>(null);
-  const [isPressed, setIsPressed] = useState<boolean>(false);
+  const {
+    pointer,
+    setPointer,
+    getIsPressed,
+    setIsPressed,
+    getPosition,
+    setPosition,
+    lastPressedTimestamp,
+  } = resizingState;
+  const isPressed = getIsPressed(columnIndex);
+  const position = getPosition(columnIndex);
   const onColumnResize = throttle(onColumnResizeProp, 1000);
 
-  const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
-    e => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsPressed(true);
+  useEffect(() => {
+    // Capture the pointer when pressed to ensure we receive move events outside the element.
+    // Capturing must be properly handled when the component unmounts and mounts again,
+    // based on its pressed state.
+    const control = resizeRef.current;
+    if (!isPressed || !control || !pointer) {
+      return;
+    }
+    const pointerId = pointer.pointerId;
+    try {
+      control.setPointerCapture(pointerId);
+      return () => {
+        if (control.hasPointerCapture(pointerId)) {
+          control.releasePointerCapture(pointerId);
+        }
+      };
+    } catch (e) {
+      console.error(e);
+    }
+  }, [pointer, isPressed, columnIndex]);
 
-      if (e.detail > 1) {
-        onColumnResize(columnIndex, 0, "auto");
-      }
-    },
-    [columnIndex, onColumnResize, setIsPressed]
-  );
-
-  const onMouseUp: MouseEventHandler<HTMLDivElement> = useCallback(
-    e => {
-      e.stopPropagation();
-
-      setIsPressed(false);
-    },
-    [setIsPressed]
-  );
+  /**
+   * Handler for pointer down events to initiate resizing or auto-sizing on double-click.
+   * @type {PointerEventHandler<HTMLDivElement>}
+   */
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
+      e.preventDefault();
       if (resizeRef.current) {
-        resizeRef.current.setPointerCapture(e.pointerId);
-        const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
-        if (header) {
-          pointerRef.current = {
-            pointerId: e.pointerId,
-            initialClientX: e.clientX,
-            width: header.clientWidth,
-          };
-
-          setResizeCursorPosition(
-            resizeRef.current,
-            e.clientX,
-            header.clientWidth,
-            columnIndex
-          );
+        // We cannot detect double-click with onDoubleClick event,
+        // because this component might be unmounted before the second click and mounted again.
+        // We keep track of the last click timestamp and check if it was a double-click.
+        if (lastPressedTimestamp > Date.now() - DOUBLE_CLICK_THRESHOLD_MSEC) {
+          // Auto-size the column on double click.
+          onColumnResize(columnIndex, 0, "auto");
         }
+        setPointer({
+          pointerId: e.pointerId,
+          initialClientX: e.clientX,
+          width: columnWidth,
+        });
+        setIsPressed(columnIndex, true);
+        const pos = getResizerPosition(e.clientX, columnWidth, columnIndex);
+        setPosition(pos);
       }
     },
-    [columnIndex, setResizeCursorPosition]
+    [
+      lastPressedTimestamp,
+      setPointer,
+      columnWidth,
+      setIsPressed,
+      columnIndex,
+      getResizerPosition,
+      setPosition,
+      onColumnResize,
+    ]
   );
 
-  const onMouseMove: MouseEventHandler<HTMLDivElement> = useCallback(
+  /**
+   * Handler for pointer move events to update the column width as the user drags.
+   * @type {PointerEventHandler<HTMLDivElement>}
+   */
+  const onPointerMove: PointerEventHandler<HTMLDivElement> = useCallback(
     e => {
       e.stopPropagation();
-      if (resizeRef.current && pointerRef.current) {
-        const header = resizeRef.current.closest(`[data-header="${columnIndex}"]`);
-        if (header) {
-          resizeRef.current.setPointerCapture(pointerRef.current.pointerId);
-          const width =
-            header.clientWidth + (e.clientX - pointerRef.current.initialClientX);
-
-          setResizeCursorPosition(resizeRef.current, e.clientX, width, columnIndex);
-          pointerRef.current.width = Math.max(width, 50);
-        }
+      e.preventDefault();
+      if (isPressed && pointer) {
+        const width = columnWidth + (e.clientX - pointer.initialClientX);
+        const pos = getResizerPosition(e.clientX, width, columnIndex);
+        setPosition(pos);
+        // Ensure minimum width of 50px
+        pointer.width = Math.max(width, 50);
       }
     },
-    [columnIndex, setResizeCursorPosition]
+    [pointer, isPressed, columnWidth, getResizerPosition, columnIndex, setPosition]
   );
 
   return (
@@ -126,27 +167,31 @@ const ColumnResizer = ({
       onPointerUp={e => {
         e.preventDefault();
         e.stopPropagation();
-
         if (
           resizeRef.current &&
           // 0 is a valid pointerId in Firefox
-          (pointerRef.current?.pointerId || pointerRef.current?.pointerId === 0)
+          (pointer?.pointerId || pointer?.pointerId === 0)
         ) {
-          resizeRef.current.releasePointerCapture(pointerRef.current.pointerId);
-          const shouldCallResize = e.clientX !== pointerRef.current.initialClientX;
+          const shouldCallResize = e.clientX !== pointer.initialClientX;
           if (shouldCallResize) {
-            onColumnResize(columnIndex, pointerRef.current.width, "manual");
+            onColumnResize(columnIndex, pointer.width, "manual");
           }
-          resizeRef.current.style.top = "0";
-          resizeRef.current.style.left = "calc(100% - 4px)";
-          pointerRef.current = null;
+          setPosition(initialPosition);
+          setPointer(null);
+          setIsPressed(columnIndex, false);
         }
       }}
-      onMouseMove={onMouseMove}
-      onMouseDown={onMouseDown}
+      onPointerMove={onPointerMove}
+      onPointerCancel={e => {
+        e.preventDefault();
+        e.stopPropagation();
+        setPosition(initialPosition);
+        setPointer(null);
+        setIsPressed(columnIndex, false);
+      }}
       onClick={e => e.stopPropagation()}
-      onMouseUp={onMouseUp}
       data-resize
+      style={position}
     />
   );
 };
