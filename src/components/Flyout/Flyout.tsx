@@ -50,7 +50,7 @@ const Trigger = ({ children, ...props }: DialogTriggerProps) => {
 Trigger.displayName = "Flyout.Trigger";
 Flyout.Trigger = Trigger;
 
-type FlyoutSizeType = "default" | "narrow" | "wide";
+type FlyoutSizeType = "default" | "narrow" | "wide" | "widest";
 type Strategy = "relative" | "absolute" | "fixed";
 type FlyoutType = "default" | "inline";
 

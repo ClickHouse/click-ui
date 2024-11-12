@@ -7,7 +7,7 @@ interface Props extends FlyoutProps {
   alignBody: "default" | "top";
   align: "start" | "end";
   type: "default" | "inline";
-  size: "default" | "narrow" | "wide";
+  size: "default" | "narrow" | "wide" | "widest";
   width?: string;
 }
 
@@ -69,7 +69,7 @@ export default {
 
       description: "Align the flyout",
     },
-    size: { control: "select", options: ["default", "narrow", "wide"] },
+    size: { control: "select", options: ["default", "narrow", "wide", "widest"] },
     type: { control: "select", options: ["default", "inline"] },
     width: { control: "text" },
   },
