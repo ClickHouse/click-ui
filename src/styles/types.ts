@@ -2987,12 +2987,32 @@
     "chart": {
       "bars": {
         "color": {
-          "green": string,
           "blue": string,
-          "fuchsia": string,
           "orange": string,
+          "green": string,
+          "fuchsia": string,
+          "yellow": string,
           "violet": string,
-          "teal": string
+          "babyblue": string,
+          "red": string,
+          "teal": string,
+          "sunrise": string,
+          "slate": string
+        }
+      },
+      "color": {
+        "default": {
+          "blue": string,
+          "orange": string,
+          "green": string,
+          "fuchsia": string,
+          "yellow": string,
+          "violet": string,
+          "babyblue": string,
+          "red": string,
+          "teal": string,
+          "sunrise": string,
+          "slate": string
         }
       }
     }
@@ -3093,12 +3113,32 @@
       },
       "chart": {
         "bars": {
-          "green": string,
           "blue": string,
-          "fuchsia": string,
           "orange": string,
+          "green": string,
+          "fuchsia": string,
+          "yellow": string,
           "violet": string,
-          "teal": string
+          "babyblue": string,
+          "danger": string,
+          "teal": string,
+          "sunrise": string,
+          "slate": string,
+          "red": string
+        },
+        "default": {
+          "blue": string,
+          "orange": string,
+          "green": string,
+          "fuchsia": string,
+          "yellow": string,
+          "violet": string,
+          "babyblue": string,
+          "danger": string,
+          "teal": string,
+          "sunrise": string,
+          "slate": string,
+          "red": string
         }
       },
       "iconButton": {
@@ -3127,6 +3167,7 @@
       "600": string,
       "700": string,
       "800": string,
+      "900": string,
       "base": string
     },
     "neutral": {
@@ -3274,6 +3315,30 @@
       "700": string,
       "800": string,
       "850": string,
+      "900": string
+    },
+    "sunrise": {
+      "50": string,
+      "100": string,
+      "200": string,
+      "300": string,
+      "400": string,
+      "500": string,
+      "600": string,
+      "700": string,
+      "800": string,
+      "900": string
+    },
+    "babyblue": {
+      "50": string,
+      "100": string,
+      "200": string,
+      "300": string,
+      "400": string,
+      "500": string,
+      "600": string,
+      "700": string,
+      "800": string,
       "900": string
     }
   },
