@@ -1,11 +1,10 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { isSameDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
-import { Icon } from "../Icon/Icon";
-import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { Container } from "../Container/Container";
 import { IconButton } from "../IconButton/IconButton";
+import { DatePickerInput } from "./Common";
 
 const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
@@ -13,25 +12,8 @@ const headerDateFormatter = new Intl.DateTimeFormat(locale, {
   month: "short",
   year: "numeric",
 });
-const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-});
 
 const explicitWidth = "250px";
-
-const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
-  ${({ $isActive, theme }) => {
-    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-      $isActive
-        ? theme.click.datePicker.dateOption.color.stroke.active
-        : theme.click.field.color.stroke.default
-    };`;
-  }}
-
-  width: ${explicitWidth};
-}`;
 
 const DatePickerContainer = styled(Container)`
   background: ${({ theme }) =>
@@ -119,42 +101,6 @@ const DateTableCell = styled.td<{
       }`};
   }
 `;
-
-interface DatePickerInputProps {
-  isActive: boolean;
-  disabled: boolean;
-  id?: string;
-  placeholder?: string;
-  selectedDate?: Date;
-}
-
-const DatePickerInput = ({
-  isActive,
-  disabled,
-  id,
-  placeholder,
-  selectedDate,
-}: DatePickerInputProps) => {
-  const defaultId = useId();
-  const formattedSelectedDate =
-    selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : "";
-
-  return (
-    <HighlightedInputWrapper
-      $isActive={isActive}
-      disabled={disabled}
-      id={id ?? defaultId}
-    >
-      <Icon name="calendar" />
-      <InputElement
-        data-testid="datepicker-input"
-        placeholder={placeholder}
-        readOnly
-        value={formattedSelectedDate}
-      />
-    </HighlightedInputWrapper>
-  );
-};
 
 interface CalendarProps {
   closeDatepicker: () => void;
