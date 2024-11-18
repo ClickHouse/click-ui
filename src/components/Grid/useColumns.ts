@@ -3,6 +3,7 @@ import { ColumnResizeFn } from "./types";
 import { VariableSizeGrid } from "react-window";
 
 const DEFAULT_WIDTH = 100;
+const MIN_COLUMN_WIDTH = 32;
 
 interface Props {
   columnCount: number;
@@ -63,6 +64,49 @@ const useColumns = ({
     [columnCount, columnWidthProp, gridRef]
   );
 
+  /**
+   * Measures the minimum width required to display all content in a column without wrapping or truncation.
+   * Note. We cannot simply measure item.scrollWidth, because it will return the current width if it is larger than needed.
+   * To workaround it, we temporary shrink the column width to MIN_COLUMN_WIDTH and measure the scrollWidth.
+   * @param {number} columnIndex - The index of the column to measure
+   * @returns {number} The minimum width needed for the column's content (in pixels)
+   *                   Returns MIN_COLUMN_WIDTH if outerGridRef is not available
+   */
+  const measureColumnWidth = useCallback(
+    (columnIndex: number): number => {
+      if (!outerGridRef.current) {
+        // The check is not necessary, but without it the linter will complain.
+        return MIN_COLUMN_WIDTH;
+      }
+
+      // Store the original widths
+      const cells = outerGridRef.current.querySelectorAll<HTMLDivElement>(
+        `[data-grid-column="${columnIndex}"]`
+      );
+      // In theory, all widths are the same, but it's better to be safe than sorry.
+      const originalWidths = Array.from(cells).map(cell => cell.style.width);
+
+      // Temporarily set cells to minimum width
+      cells.forEach(cell => {
+        cell.style.width = `${MIN_COLUMN_WIDTH}px`;
+      });
+
+      // Measure the actual content width
+      let maxWidth = MIN_COLUMN_WIDTH;
+      cells.forEach(item => {
+        maxWidth = Math.max(maxWidth, item.scrollWidth + 2);
+      });
+
+      // Restore original widths
+      cells.forEach((cell, i) => {
+        cell.style.width = originalWidths[i];
+      });
+
+      return maxWidth;
+    },
+    [outerGridRef]
+  );
+
   const onColumnResize: ColumnResizeFn = useCallback(
     (columnIndex, newWidth, type) => {
       columnResized.current = true;
@@ -74,12 +118,7 @@ const useColumns = ({
           newWidth = prevWidth.current[columnIndex.toString()];
           autoWidthIndices.current.splice(widthIndex, 1);
         } else if (outerGridRef.current) {
-          newWidth = 32;
-          outerGridRef.current
-            .querySelectorAll<HTMLDivElement>(`[data-grid-column="${columnIndex}"]`)
-            .forEach(item => {
-              newWidth = Math.max(newWidth, item.scrollWidth + 2); // +2 inorder to avoid the ellipsis
-            });
+          newWidth = measureColumnWidth(columnIndex);
           autoWidthIndices.current.push(columnIndex);
         }
       } else {
@@ -107,7 +146,7 @@ const useColumns = ({
         onColumnResizeProp(columnIndex, newWidth);
       }
     },
-    [columnCount, gridRef, onColumnResizeProp, outerGridRef]
+    [columnCount, gridRef, onColumnResizeProp, measureColumnWidth]
   );
 
   const columnWidth = useCallback(
