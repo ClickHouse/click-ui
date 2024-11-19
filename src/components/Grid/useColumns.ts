@@ -137,7 +137,7 @@ const useColumns = ({
         onColumnResizeProp(columnIndex, newWidth);
       }
     },
-    [gridRef, onColumnResizeProp, outerGridRef, measureColumnWidth, columnCount]
+    [gridRef, onColumnResizeProp, outerGridRef, columnCount]
   );
 
   const columnWidth = useCallback(
