@@ -3,6 +3,41 @@ import { ColumnResizeFn } from "./types";
 import { VariableSizeGrid } from "react-window";
 
 const DEFAULT_WIDTH = 100;
+const MIN_COLUMN_WIDTH = 32;
+
+/**
+ * Measures the minimum width required to display all content in a column without wrapping or truncation.
+ * Note. We cannot simply measure item.scrollWidth, because it will return the current width if it is larger than needed.
+ * To workaround it, we temporary shrink the column width to MIN_COLUMN_WIDTH and measure the scrollWidth.
+ * @param {number} columnIndex - The index of the column to measure.
+ * @param {HTMLDivElement} outerGrid - The grid element containing the column.
+ * @returns {number} The minimum width needed for the column's content (in pixels).
+ */
+const measureColumnWidth = (columnIndex: number, outerGrid: HTMLDivElement): number => {
+  // Store the original widths
+  const cells = outerGrid.querySelectorAll<HTMLDivElement>(
+    `[data-grid-column="${columnIndex}"]`
+  );
+
+  // Store the original widths and temporarily set cells to minimum width
+  const originalWidths: string[] = [];
+  cells.forEach(cell => {
+    originalWidths.push(cell.style.width);
+    cell.style.width = `${MIN_COLUMN_WIDTH}px`;
+  });
+
+  // Measure the actual content width
+  const maxWidth = Array.from(cells).reduce((max, item) => {
+    return Math.max(max, item.scrollWidth + 2);
+  }, MIN_COLUMN_WIDTH);
+
+  // Restore original widths
+  cells.forEach((cell, i) => {
+    cell.style.width = originalWidths[i];
+  });
+
+  return maxWidth;
+};
 
 interface Props {
   columnCount: number;
@@ -74,12 +109,7 @@ const useColumns = ({
           newWidth = prevWidth.current[columnIndex.toString()];
           autoWidthIndices.current.splice(widthIndex, 1);
         } else if (outerGridRef.current) {
-          newWidth = 32;
-          outerGridRef.current
-            .querySelectorAll<HTMLDivElement>(`[data-grid-column="${columnIndex}"]`)
-            .forEach(item => {
-              newWidth = Math.max(newWidth, item.scrollWidth + 2); // +2 inorder to avoid the ellipsis
-            });
+          newWidth = measureColumnWidth(columnIndex, outerGridRef.current);
           autoWidthIndices.current.push(columnIndex);
         }
       } else {
@@ -107,7 +137,7 @@ const useColumns = ({
         onColumnResizeProp(columnIndex, newWidth);
       }
     },
-    [columnCount, gridRef, onColumnResizeProp, outerGridRef]
+    [gridRef, onColumnResizeProp, outerGridRef, columnCount]
   );
 
   const columnWidth = useCallback(

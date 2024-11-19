@@ -22,7 +22,7 @@ const Cell: CellProps = ({
       data-scrolling={isScrolling}
       {...props}
     >
-      {rowIndex} {columnIndex} - {type} {width}px
+      {rowIndex} {columnIndex} - {type} {Math.round(width)}px
     </span>
   );
 };
