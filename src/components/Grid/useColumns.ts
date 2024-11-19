@@ -9,10 +9,9 @@ const MIN_COLUMN_WIDTH = 32;
  * Measures the minimum width required to display all content in a column without wrapping or truncation.
  * Note. We cannot simply measure item.scrollWidth, because it will return the current width if it is larger than needed.
  * To workaround it, we temporary shrink the column width to MIN_COLUMN_WIDTH and measure the scrollWidth.
- * @param {number} columnIndex - The index of the column to measure
- * @param {HTMLDivElement} outerGrid - The grid element containing the column
- * @returns {number} The minimum width needed for the column's content (in pixels)
- *                   Returns MIN_COLUMN_WIDTH if outerGridRef is not available
+ * @param {number} columnIndex - The index of the column to measure.
+ * @param {HTMLDivElement} outerGrid - The grid element containing the column.
+ * @returns {number} The minimum width needed for the column's content (in pixels).
  */
 const measureColumnWidth = (columnIndex: number, outerGrid: HTMLDivElement): number => {
   // Store the original widths
