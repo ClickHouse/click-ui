@@ -11,33 +11,33 @@ const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
   >
     <g filter="url(#filter0_dd_17_261)">
       <path
-        d="M34.9601 3.1222C36.2303 2.42345 37.7697 2.42344 39.0399 3.1222L62.5205 16.0393C63.8727 16.7831 64.7128 18.2041 64.7128 19.7474V45.2337C64.7128 46.777 63.8727 48.198 62.5205 48.9419L39.0399 61.8589C37.7697 62.5577 36.2303 62.5577 34.9601 61.8589L11.4795 48.9419C10.1273 48.198 9.28719 46.777 9.28719 45.2337V19.7474C9.28719 18.2041 10.1273 16.7831 11.4795 16.0393L34.9601 3.1222Z"
+        d="M30.2287 7.01192C31.3263 6.38486 32.6737 6.38486 33.7713 7.01192L52.717 17.8351C53.8299 18.4709 54.5167 19.6542 54.5167 20.9358V42.517C54.5167 43.7986 53.8299 44.982 52.717 45.6177L33.7713 56.4409C32.6737 57.068 31.3263 57.068 30.2287 56.4409L11.283 45.6177C10.1701 44.982 9.48334 43.7986 9.48334 42.517V20.9358C9.48334 19.6542 10.1701 18.4709 11.283 17.8351L30.2287 7.01192Z"
         fill="url(#paint0_linear_17_261)"
       />
       <path
-        d="M62.7759 15.5749L39.2954 2.65787C37.8661 1.87162 36.1339 1.87162 34.7046 2.65787L11.2241 15.5749C9.70252 16.4119 8.75723 18.0109 8.75723 19.7474V45.2337C8.75723 46.9703 9.70252 48.5692 11.2241 49.4062L34.7046 62.3233C36.1339 63.1095 37.8661 63.1095 39.2954 62.3233L62.7759 49.4062C64.2975 48.5692 65.2428 46.9703 65.2428 45.2337V19.7474C65.2428 18.0109 64.2975 16.4119 62.7759 15.5749Z"
+        d="M52.9388 17.4469L33.9931 6.62366C32.758 5.91808 31.242 5.91808 30.0069 6.62366L11.0612 17.4469C9.80899 18.1622 9.03619 19.4937 9.03619 20.9358V42.517C9.03619 43.9591 9.80899 45.2906 11.0612 46.006L30.0069 56.8292C31.242 57.5347 32.758 57.5347 33.9931 56.8292L52.9388 46.006C54.191 45.2906 54.9638 43.9591 54.9638 42.517V20.9358C54.9638 19.4937 54.191 18.1622 52.9388 17.4469Z"
         stroke="url(#paint1_linear_17_261)"
-        strokeWidth="1.05991"
+        strokeWidth="0.894299"
       />
     </g>
     <path
-      d="M37.8933 10.8518L55.9236 20.7706C56.5997 21.1425 57.0198 21.853 57.0198 22.6247V42.1145C57.0198 42.8861 56.5997 43.5966 55.9236 43.9686L37.8933 53.8874C37.2582 54.2367 36.4884 54.2367 35.8533 53.8874L17.823 43.9686C17.1468 43.5966 16.7268 42.8861 16.7268 42.1145V22.6247C16.7268 21.853 17.1468 21.1425 17.823 20.7706L35.8533 10.8518C36.4884 10.5024 37.2582 10.5024 37.8933 10.8518Z"
+      d="M32.7827 13.5198L47.3001 21.8132C47.8565 22.1311 48.1999 22.7227 48.1999 23.3636V39.8853C48.1999 40.5261 47.8565 41.1177 47.3001 41.4356L32.7827 49.729C32.2339 50.0426 31.5602 50.0426 31.0114 49.729L16.494 41.4356C15.9375 41.1177 15.5941 40.5261 15.5941 39.8853V23.3636C15.5941 22.7227 15.9375 22.1311 16.494 21.8132L31.0114 13.5198C31.5602 13.2062 32.2339 13.2062 32.7827 13.5198Z"
       fill="url(#paint2_linear_17_261)"
       stroke="white"
-      strokeWidth="4.23226"
+      strokeWidth="3.57097"
     />
     <defs>
       <filter
         id="filter0_dd_17_261"
-        x="0.967637"
-        y="0.0862763"
-        width="72.0647"
-        height="76.424"
+        x="3.81412"
+        y="3.87241"
+        width="56.3718"
+        height="61.7081"
         filterUnits="userSpaceOnUse"
         colorInterpolationFilters="sRGB"
       >
         <feFlood
-          floodOpacity="0"
+          flood-opacity="0"
           result="BackgroundImageFix"
         />
         <feColorMatrix
@@ -47,13 +47,13 @@ const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
           result="hardAlpha"
         />
         <feMorphology
-          radius="1.45193"
+          radius="1.22507"
           operator="erode"
           in="SourceAlpha"
           result="effect1_dropShadow_17_261"
         />
-        <feOffset dy="2.90386" />
-        <feGaussianBlur stdDeviation="2.90386" />
+        <feOffset dy="3" />
+        <feGaussianBlur stdDeviation="1.5" />
         <feComposite
           in2="hardAlpha"
           operator="out"
@@ -74,13 +74,13 @@ const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
           result="hardAlpha"
         />
         <feMorphology
-          radius="1.45193"
+          radius="1.22507"
           operator="erode"
           in="SourceAlpha"
           result="effect2_dropShadow_17_261"
         />
-        <feOffset dy="5.80773" />
-        <feGaussianBlur stdDeviation="4.35579" />
+        <feOffset dy="3" />
+        <feGaussianBlur stdDeviation="3" />
         <feComposite
           in2="hardAlpha"
           operator="out"
@@ -103,10 +103,10 @@ const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
       </filter>
       <linearGradient
         id="paint0_linear_17_261"
-        x1="14.253"
-        y1="2.00001"
-        x2="28.6311"
-        y2="15.6354"
+        x1="13.5181"
+        y1="6.00001"
+        x2="25.6168"
+        y2="17.0488"
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="white" />
@@ -117,10 +117,10 @@ const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
       </linearGradient>
       <linearGradient
         id="paint1_linear_17_261"
-        x1="14.253"
-        y1="2.00001"
-        x2="28.6311"
-        y2="15.6354"
+        x1="13.5181"
+        y1="6.00001"
+        x2="25.6168"
+        y2="17.0488"
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="white" />
@@ -131,10 +131,10 @@ const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
       </linearGradient>
       <linearGradient
         id="paint2_linear_17_261"
-        x1="18.5999"
-        y1="7.8755"
-        x2="30.1503"
-        y2="18.8293"
+        x1="17.0499"
+        y1="10.9575"
+        x2="26.7692"
+        y2="19.8334"
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="white" />
