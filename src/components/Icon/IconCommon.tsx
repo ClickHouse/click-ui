@@ -60,6 +60,7 @@ import FolderOpen from "@/components/icons/FolderOpen";
 import FolderClosed from "@/components/icons/FolderClosed";
 import Gift from "@/components/icons/Gift";
 import Globe from "@/components/icons/Globe";
+import Hexagon from "../icons/Hexagon";
 import Home from "@/components/icons/Home";
 import HorizontalLoading from "@/components/icons/HorizontalLoading";
 import Http from "@/components/icons/Http";
@@ -210,6 +211,7 @@ export const ICONS_MAP = {
   gift: Gift,
   globe: Globe,
   "git-merge": GitMerge,
+  hexagon: Hexagon,
   history: HistoryIcon,
   home: Home,
   "horizontal-loading": HorizontalLoading,
