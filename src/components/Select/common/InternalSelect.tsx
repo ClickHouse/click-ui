@@ -285,6 +285,9 @@ export const InternalSelect = ({
   );
 
   const optionContextValue = useMemo(() => {
+    if (selectedValues[0]?.startsWith("\n")) {
+      selectedValues.length = 0;
+    }
     return {
       search,
       updateHighlighted: setHighlighted,
