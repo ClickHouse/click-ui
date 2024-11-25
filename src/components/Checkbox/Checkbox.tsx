@@ -4,7 +4,14 @@ import { ReactNode, useId } from "react";
 import { styled } from "styled-components";
 import { FormRoot } from "../commonElement";
 
-type CheckboxVariants = "default" | "var1" | "var2" | "var3" | "var4" | "var5" | "var6";
+export type CheckboxVariants =
+  | "default"
+  | "var1"
+  | "var2"
+  | "var3"
+  | "var4"
+  | "var5"
+  | "var6";
 
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
   label?: ReactNode;
