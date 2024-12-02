@@ -22,7 +22,14 @@ import {
 } from "./types";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { Portal } from "@radix-ui/react-popover";
-import { Checkbox, Icon, IconButton, Label, Separator } from "@/components";
+import {
+  Checkbox,
+  CheckboxVariants,
+  Icon,
+  IconButton,
+  Label,
+  Separator,
+} from "@/components";
 import {
   SelectPopoverContent,
   SearchBar,
@@ -594,9 +601,16 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   }
 );
 
+export type MultiSelectCheckboxItemProps = SelectItemProps & {
+  variant?: CheckboxVariants;
+};
+
 SelectItem.displayName = "Select.Item";
 
-export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProps>(
+export const MultiSelectCheckboxItem = forwardRef<
+  HTMLDivElement,
+  MultiSelectCheckboxItemProps
+>(
   (
     {
       disabled = false,
@@ -608,6 +622,7 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
       onSelect: onSelectProp,
       separator,
       value = "",
+      variant,
       ...props
     },
     forwardedRef
@@ -678,6 +693,7 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
                 )
               }
               onClick={onChange}
+              variant={variant ?? "default"}
             />
           )}
           {icon && iconDir === "end" && (
@@ -691,6 +707,7 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
                 disabled={disabled}
                 label={label ?? children}
                 onClick={onChange}
+                variant={variant ?? "default"}
               />
             </IconWrapper>
           )}
@@ -701,6 +718,7 @@ export const MultiSelectCheckboxItem = forwardRef<HTMLDivElement, SelectItemProp
               disabled={disabled}
               label={label ?? children}
               onClick={onChange}
+              variant={variant ?? "default"}
             />
           )}
         </GenericMenuItem>

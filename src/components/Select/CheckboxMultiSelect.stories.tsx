@@ -133,3 +133,48 @@ ${
     },
   },
 };
+
+export const CheckboxMultiSelectVariants = {
+  render: () => {
+    const [selectedCount, setSetlectedCount] = useState<number>(0);
+
+    const label = `Selected (${selectedCount})`;
+
+    const handleSelect = (selectedVariants: Array<string>) => {
+      setSetlectedCount(selectedVariants.length);
+    };
+
+    return (
+      <CheckboxMultiSelect
+        onSelect={handleSelect}
+        placeholder={label}
+        selectLabel={label}
+      >
+        <CheckboxMultiSelect.Item
+          value="variant 1"
+          variant="var1"
+        >
+          Variant 1
+        </CheckboxMultiSelect.Item>
+        <CheckboxMultiSelect.Item
+          value="variant 2"
+          variant="var2"
+        >
+          Variant 2
+        </CheckboxMultiSelect.Item>
+        <CheckboxMultiSelect.Item
+          value="variant 4"
+          variant="var4"
+        >
+          Variant 4
+        </CheckboxMultiSelect.Item>
+        <CheckboxMultiSelect.Item
+          value="variant 6"
+          variant="var6"
+        >
+          Variant 6
+        </CheckboxMultiSelect.Item>
+      </CheckboxMultiSelect>
+    );
+  },
+};
