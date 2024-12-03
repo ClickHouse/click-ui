@@ -1,4 +1,4 @@
-import { Orientation } from "@/components";
+import { CursorOptions, Orientation } from "@/components";
 import { HTMLAttributes } from "react";
 import { styled } from "styled-components";
 
@@ -8,50 +8,53 @@ export type PanelRadii = "none" | "sm" | "md" | "lg";
 type AlignItemsOption = "start" | "center" | "end";
 
 export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
+  alignItems?: AlignItemsOption;
+  children?: React.ReactNode;
+  color?: PanelColor;
+  cursor?: CursorOptions;
+  fillHeight?: boolean;
+  fillWidth?: boolean;
+  gap?: PanelPadding;
   hasBorder?: boolean;
   hasShadow?: boolean;
-  color?: PanelColor;
-  padding?: PanelPadding;
-  gap?: PanelPadding;
-  children?: React.ReactNode;
-  radii?: PanelRadii;
-  orientation?: Orientation;
-  width?: string;
-  fillWidth?: boolean;
   height?: string;
-  fillHeight?: boolean;
-  alignItems?: AlignItemsOption;
+  orientation?: Orientation;
+  padding?: PanelPadding;
+  radii?: PanelRadii;
+  width?: string;
 }
 
 export const Panel = ({
+  alignItems = "center",
+  children,
+  color,
+  cursor,
+  fillHeight,
+  fillWidth,
+  gap,
   hasBorder,
   hasShadow,
-  color,
-  padding,
-  gap,
-  children,
-  orientation = "horizontal",
-  width,
-  radii = "sm",
-  fillWidth,
   height,
-  fillHeight,
-  alignItems = "center",
+  orientation = "horizontal",
+  padding,
+  radii = "sm",
+  width,
   ...props
 }: PanelProps) => (
   <Wrapper
+    $alignItems={alignItems}
+    $color={color}
+    $cursor={cursor}
+    $fillHeight={fillHeight}
+    $fillWidth={fillWidth}
+    $gap={gap}
     $hasBorder={hasBorder}
     $hasShadow={hasShadow}
-    $color={color}
-    $padding={padding}
-    $gap={gap}
-    $width={width}
-    $radii={radii}
-    $orientation={orientation}
-    $fillWidth={fillWidth}
     $height={height}
-    $fillHeight={fillHeight}
-    $alignItems={alignItems}
+    $orientation={orientation}
+    $padding={padding}
+    $radii={radii}
+    $width={width}
     {...props}
   >
     {children}
@@ -59,18 +62,19 @@ export const Panel = ({
 );
 
 const Wrapper = styled.div<{
+  $alignItems?: AlignItemsOption;
+  $color?: PanelColor;
+  $cursor?: CursorOptions;
+  $fillHeight?: boolean;
+  $fillWidth?: boolean;
+  $gap?: PanelPadding;
   $hasBorder?: boolean;
   $hasShadow?: boolean;
-  $color?: PanelColor;
-  $padding?: PanelPadding;
-  $gap?: PanelPadding;
-  $width?: string;
-  $radii?: PanelRadii;
-  $fillWidth?: boolean;
   $height?: string;
-  $fillHeight?: boolean;
   $orientation?: Orientation;
-  $alignItems?: AlignItemsOption;
+  $padding?: PanelPadding;
+  $radii?: PanelRadii;
+  $width?: string;
 }>`
   display: flex;
   flex-flow: ${({ $orientation = "horizontal" }) =>
@@ -87,4 +91,5 @@ const Wrapper = styled.div<{
     $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
   gap: ${({ $gap = "sm", theme }) => theme.click.panel.space.gap[$gap]};
+  ${({ $cursor }) => $cursor && `cursor: ${$cursor}`};
 `;
