@@ -58,6 +58,7 @@ export type {
   GridContextMenuItemProps,
   Rectangle,
 } from "./Grid/types";
+export type { StyledLinkProps } from "./Link/common";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";

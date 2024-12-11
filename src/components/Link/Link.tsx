@@ -8,9 +8,7 @@ import {
 } from "react";
 import { Icon, IconName } from "@/components";
 import { styled } from "styled-components";
-
-type TextSize = "xs" | "sm" | "md" | "lg";
-type TextWeight = "normal" | "medium" | "semibold" | "bold";
+import { linkStyles, TextSize, TextWeight } from "./common";
 
 export interface LinkProps<T extends ElementType = "a"> {
   size?: TextSize;
@@ -22,33 +20,7 @@ export interface LinkProps<T extends ElementType = "a"> {
 }
 
 const CuiLink = styled.a<{ $size: TextSize; $weight: TextWeight }>`
-  font: ${({ $size, $weight = "normal", theme }) =>
-    theme.typography.styles.product.text[$weight][$size]};
-  color: ${({ theme }) => theme.click.global.color.text.link.default};
-  margin: 0;
-  text-decoration: none;
-  display: inline-flex;
-  gap: ${({ $size, theme }) =>
-    $size === "xs" || $size === "sm"
-      ? theme.click.link.space.sm.gap
-      : theme.click.link.space.md.gap};
-  margin-right: ${({ $size, theme }) =>
-    $size === "xs" || $size === "sm"
-      ? theme.click.link.space.sm.gap
-      : theme.click.link.space.md.gap};
-  align-items: center;
-
-  &:hover,
-  &:focus {
-    color: ${({ theme }) => theme.click.global.color.text.link.hover};
-    transition: ${({ theme }) => theme.transition.default};
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  &:visited {
-    color: ${({ theme }) => theme.click.global.color.text.link.default};
-  }
+  ${linkStyles}
 `;
 
 const IconWrapper = styled.span<{ $size: TextSize }>`
