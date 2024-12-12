@@ -14,6 +14,7 @@ import Clickhouse from "./ClickhouseDark";
 import Confluent from "./Confluent";
 import DataGrip from "./DataGrip";
 import dBeaver from "./dBeaver";
+import DigitalOcean from "./DigitalOcean";
 import Dbt from "./Dbt";
 import Decodeable from "./Decodeable";
 import DeepNote from "./DeepNote";
@@ -72,6 +73,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   decodeable: Decodeable,
   deepnote: DeepNote,
   deltalake: DeltaLake,
+  digital_ocean: DigitalOcean,
   feature_database: FeatureDatabaseDark,
   feature_hexagon: FeatureHexagonDark,
   fivetran: Fivetran,
