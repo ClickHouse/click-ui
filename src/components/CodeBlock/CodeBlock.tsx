@@ -12,7 +12,7 @@ import tsx from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
 SyntaxHighlighter.registerLanguage("sql", sql);
 SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("json", json);
-SyntaxHighlighter.registerLanguage("text", tsx);
+SyntaxHighlighter.registerLanguage("tsx", tsx);
 
 export type CodeThemeType = "light" | "dark";
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {
