@@ -67,12 +67,14 @@ import Http from "@/components/icons/Http";
 import HttpMonitoring from "@/components/icons/HttpMonitoring";
 import Integrations from "@/components/icons/Integrations";
 import LightBulb from "@/components/icons/LightBulb";
+import LightBulbOn from "@/components/icons/LightBulbOn";
 import Lightening from "@/components/icons/Lightening";
 import Loading from "@/components/icons/Loading";
 import Lock from "@/components/icons/Lock";
 import LoadingAnimated from "@/components/icons/LoadingAnimated";
 import Metrics from "@/components/icons/Metrics";
 import MetricsAlt from "@/components/icons/MetricsAlt";
+import Moon from "@/components/icons/Moon";
 import Pause from "@/components/icons/Pause";
 import Payment from "@/components/icons/Payment";
 import Pencil from "@/components/icons/Pencil";
@@ -225,6 +227,7 @@ export const ICONS_MAP = {
   keys: Keys,
   lifebuoy: Lifebuoy,
   "light-bulb": LightBulb,
+  "light-bulb-on": LightBulbOn,
   lightening: Lightening,
   "line-in-circle": LineInCircle,
   loading: Loading,
@@ -233,6 +236,7 @@ export const ICONS_MAP = {
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
   minus: Minus,
+  moon: Moon,
   "no-cloud": NoCloud,
   pause: Pause,
   payment: Payment,
