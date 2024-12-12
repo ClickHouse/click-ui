@@ -73,6 +73,7 @@ export type { ContextMenuItemProps } from "./ContextMenu/ContextMenu";
 export type { GenericLabelProps } from "./GenericLabel/GenericLabel";
 export type { MultiAccordionProps } from "./MultiAccordion/MultiAccordion";
 export type { CheckboxVariants } from "./Checkbox/Checkbox";
+export type { CursorOptions } from "./cursorOptions";
 
 export type { IconButtonProps };
 export type { AlertProps };
