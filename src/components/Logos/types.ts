@@ -7,6 +7,7 @@ export type LogoName =
   | "aws-redshift"
   | "aws-msk"
   | "kafka"
+  | "digital_ocean"
   | "feature_database"
   | "feature_hexagon"
   | "fivetran"

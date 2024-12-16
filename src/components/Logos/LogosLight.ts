@@ -18,6 +18,7 @@ import Dbt from "./Dbt";
 import Decodeable from "./Decodeable";
 import DeepNote from "./DeepNote";
 import DeltaLake from "./DeltaLake";
+import DigitalOcean from "./DigitalOcean";
 import FeatureDatabaseLight from "./FeatureDatabaseLight.tsx";
 import FeatureHexagonLight from "./FeatureHexagonLight.tsx";
 import Fivetran from "./Fivetran";
@@ -72,6 +73,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   decodeable: Decodeable,
   deepnote: DeepNote,
   deltalake: DeltaLake,
+  digital_ocean: DigitalOcean,
   feature_database: FeatureDatabaseLight,
   feature_hexagon: FeatureHexagonLight,
   fivetran: Fivetran,
