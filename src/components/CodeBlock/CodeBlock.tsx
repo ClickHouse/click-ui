@@ -7,7 +7,7 @@ import { EmptyButton } from "../commonElement";
 import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";
 import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
-import tsx from "react-syntax-highlighter/dist/cjs/languages/prism/typescript";
+import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript"
 
 SyntaxHighlighter.registerLanguage("sql", sql);
 SyntaxHighlighter.registerLanguage("bash", bash);

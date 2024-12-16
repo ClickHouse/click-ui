@@ -58,6 +58,7 @@ export type {
   GridContextMenuItemProps,
   Rectangle,
 } from "./Grid/types";
+export type { StyledLinkProps } from "./Link/common";
 
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
@@ -72,6 +73,7 @@ export type { ContextMenuItemProps } from "./ContextMenu/ContextMenu";
 export type { GenericLabelProps } from "./GenericLabel/GenericLabel";
 export type { MultiAccordionProps } from "./MultiAccordion/MultiAccordion";
 export type { CheckboxVariants } from "./Checkbox/Checkbox";
+export type { CursorOptions } from "./cursorOptions";
 
 export type { IconButtonProps };
 export type { AlertProps };
