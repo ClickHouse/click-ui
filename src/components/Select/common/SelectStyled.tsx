@@ -84,6 +84,7 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
 export const SelectPopoverContent = styled(Content)<{
   $useFullWidthItems: boolean;
   $itemCharacterLimit?: string;
+  $zIndex?: string;
 }>`
   width: var(--radix-popover-trigger-width);
   max-height: var(--radix-popover-content-available-height);
@@ -114,6 +115,8 @@ export const SelectPopoverContent = styled(Content)<{
   padding: 0.5rem 0rem;
   align-items: flex-start;
   gap: 0.625rem;
+
+  z-index: ${({ $zIndex = "auto" }) => $zIndex};
 `;
 
 export const SearchBarContainer = styled.div<{ $showSearch: boolean }>`

@@ -84,6 +84,7 @@ interface InternalSelectProps
   container?: HTMLElement;
   useFullWidthItems?: boolean;
   itemCharacterLimit?: string;
+  zIndex?: string;
 }
 
 export type SelectOptionProp = SelectOptionType | SelectChildrenType;
