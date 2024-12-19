@@ -85,6 +85,7 @@ const Wrapper = styled.div<{
     ${
       $disabled
         ? `
+          pointer-events: none;
           &,
           &:hover,
           &:active, &:focus, &:focus-within {
