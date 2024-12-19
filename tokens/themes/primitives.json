@@ -1268,12 +1268,29 @@
         }
       ],
       "type": "boxShadow"
+    },
+    "5": {
+      "value": [
+        {
+          "x": "0",
+          "y": "2",
+          "blur": "2",
+          "spread": "0",
+          "color": "rgba(0, 0, 0, 0.03)",
+          "type": "dropShadow"
+        }
+      ],
+      "type": "boxShadow"
     }
   },
   "transition": {
     "duration": {
       "slow": {
         "value": "300ms",
+        "type": "other"
+      },
+      "smooth": {
+        "value": "150ms",
         "type": "other"
       },
       "medium": {

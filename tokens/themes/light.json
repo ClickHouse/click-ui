@@ -4533,6 +4533,30 @@
           }
         }
       }
+    },
+    "serviceCard": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{palette.slate.25}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{palette.slate.25}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.global.color.stroke.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.field.color.stroke.hover}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "global": {

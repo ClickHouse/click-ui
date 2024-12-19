@@ -4701,6 +4701,39 @@
           }
         }
       }
+    },
+    "serviceCard": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{click.field.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.serviceCard.color.background.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.005",
+                  "space": "lch"
+                }
+              }
+            }
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.field.color.stroke.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.field.color.stroke.hover}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "name": {
