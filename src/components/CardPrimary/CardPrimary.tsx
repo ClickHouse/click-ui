@@ -70,6 +70,7 @@ const Wrapper = styled.div<{
   &[aria-disabled="true"]:hover,
   &[aria-disabled="true"]:focus,
   &[aria-disabled="true"]:active {
+    pointer-events: none;
     ${({ theme }) => `
     background-color: ${theme.click.card.primary.color.background.disabled};
     color: ${theme.click.card.primary.color.title.disabled};
