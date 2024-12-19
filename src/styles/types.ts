@@ -3015,12 +3015,25 @@
           "slate": string
         }
       }
+    },
+    "serviceCard": {
+      "color": {
+        "background": {
+          "default": string,
+          "hover": string
+        },
+        "stroke": {
+          "default": string,
+          "hover": string
+        }
+      }
     }
   },
   "transition": {
     "default": string,
     "duration": {
       "slow": string,
+      "smooth": string,
       "medium": string,
       "fast": string
     },
@@ -3471,7 +3484,8 @@
     "1": string,
     "2": string,
     "3": string,
-    "4": string
+    "4": string,
+    "5": string
   },
   "breakpoint": {
     "sizes": {

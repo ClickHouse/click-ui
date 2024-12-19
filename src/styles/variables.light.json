@@ -1604,6 +1604,18 @@
           "slate": "#9a9ea7"
         }
       }
+    },
+    "serviceCard": {
+      "color": {
+        "background": {
+          "default": "#FBFCFF",
+          "hover": "lch(99 1.55 272)"
+        },
+        "stroke": {
+          "default": "#e6e7e9",
+          "hover": "rgb(81% 82.1% 83.6%)"
+        }
+      }
     }
   },
   "name": "light",

@@ -3014,12 +3014,25 @@
           "slate": "#9a9ea7"
         }
       }
+    },
+    "serviceCard": {
+      "color": {
+        "background": {
+          "default": "#FBFCFF",
+          "hover": "lch(99 1.55 272)"
+        },
+        "stroke": {
+          "default": "#e6e7e9",
+          "hover": "rgb(81% 82.1% 83.6%)"
+        }
+      }
     }
   },
   "transition": {
     "default": "all 100ms ease-in 0ms",
     "duration": {
       "slow": "300ms",
+      "smooth": "150ms",
       "medium": "100ms",
       "fast": "50ms"
     },
@@ -3470,7 +3483,8 @@
     "1": "0 4px 6px -1px lch(6.77 0 0 / 0.15), 0 2px 4px -1px lch(6.77 0 0 / 0.15)",
     "2": "0 4px 4px 0 rgba(88, 92, 98, 0.06), inset 5px 0 10px 0 rgba(104, 105, 111, 0.1)",
     "3": "-5px 0 20px 0 rgba(0, 0, 0, 0.08), -6px 0 10px 0 rgba(0, 0, 0, 0.08)",
-    "4": "5px 0 20px 0 rgba(0, 0, 0, 0.08), 6px 0 10px 0 rgba(0, 0, 0, 0.08)"
+    "4": "5px 0 20px 0 rgba(0, 0, 0, 0.08), 6px 0 10px 0 rgba(0, 0, 0, 0.08)",
+    "5": "0 2px 2px 0 rgba(0, 0, 0, 0.03)"
   },
   "breakpoint": {
     "sizes": {
