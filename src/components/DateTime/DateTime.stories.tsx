@@ -8,6 +8,12 @@ export default {
         type: "select",
       },
     },
+    side: {
+      control: {
+        type: "select",
+      },
+      options: ["top", "right", "left", "bottom"],
+    },
     systemTimeZone: {
       options: [
         "America/Denver",
@@ -34,6 +40,7 @@ export const Playground = {
   args: {
     date: new Date(),
     locale: "en-US",
+    side: "top",
     systemTimeZone: "America/Los_Angeles",
     title: "DateTime",
   },
