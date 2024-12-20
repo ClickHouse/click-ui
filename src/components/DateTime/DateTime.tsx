@@ -10,7 +10,7 @@ import { Container } from "@/components/Container/Container";
 import { Panel } from "@/components/Panel/Panel";
 import { Popover } from "@/components/Popover/Popover";
 import { Text } from "@/components/Typography/Text/Text";
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
