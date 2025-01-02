@@ -143,6 +143,7 @@ export const ICON_NAMES = [
   "taxi",
   "trash",
   "tree-structure",
+  "upgrade",
   "upload",
   "url",
   "user",
