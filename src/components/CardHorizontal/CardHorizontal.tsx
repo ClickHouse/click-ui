@@ -4,31 +4,34 @@ import { Icon, IconName } from "@/components";
 
 type CardColor = "default" | "muted";
 
-export interface CardHorizontalProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
+export interface CardHorizontalProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  title?: ReactNode;
   icon?: IconName;
   disabled?: boolean;
   description?: ReactNode;
   isSelected?: boolean;
   children?: ReactNode;
   color?: CardColor;
+  fillWidth?: boolean;
 }
 
-const Header = styled.div`
+const Header = styled.div<{ $fillWidth?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: fit-content;
+  width: ${({ $fillWidth = false }) => ($fillWidth ? "100%" : "fit-content")};
   max-width: 100%;
   gap: inherit;
 `;
 
-const Description = styled.div`
+const Description = styled.div<{ $fillWidth?: boolean }>`
   display: flex;
   flex-direction: column;
-  align-self: center;
+  align-self: start;
   gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
   flex: 1;
+  width: ${({ $fillWidth = false }) => ($fillWidth ? "100%" : "auto")};
 `;
 
 const Wrapper = styled.div<{
@@ -123,6 +126,7 @@ const CardIcon = styled(Icon)`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const CardHorizontal = ({
@@ -133,6 +137,7 @@ export const CardHorizontal = ({
   isSelected,
   children,
   color = "default",
+  fillWidth,
   ...props
 }: CardHorizontalProps) => {
   return (
@@ -150,10 +155,10 @@ export const CardHorizontal = ({
         />
       )}
       <ContentWrapper>
-        {title && <Header>{title}</Header>}
+        {title && <Header $fillWidth={fillWidth}>{title}</Header>}
 
-        {description && <Description>{description}</Description>}
-        {children && <Description>{children}</Description>}
+        {description && <Description $fillWidth={fillWidth}>{description}</Description>}
+        {children && <Description $fillWidth={fillWidth}>{children}</Description>}
       </ContentWrapper>
     </Wrapper>
   );
