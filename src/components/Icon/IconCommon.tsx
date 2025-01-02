@@ -139,6 +139,7 @@ import Cpu from "../icons/Cpu";
 import Minus from "../icons/Minus";
 import Pipe from "../icons/Pipe";
 import TreeStructure from "../icons/TreeStructure";
+import Upgrade from "../icons/Upgrade";
 
 export const ICONS_MAP = {
   activity: Activity,
@@ -276,6 +277,7 @@ export const ICONS_MAP = {
   taxi: Taxi,
   trash: Trash,
   "tree-structure": TreeStructure,
+  upgrade: Upgrade,
   upload: Upload,
   url: Url,
   user: UserIcon,
