@@ -37,7 +37,7 @@ const FeatureHexagonDark = (props: SVGAttributes<SVGElement>) => (
         colorInterpolationFilters="sRGB"
       >
         <feFlood
-          flood-opacity="0"
+          floodOpacity="0"
           result="BackgroundImageFix"
         />
         <feColorMatrix
