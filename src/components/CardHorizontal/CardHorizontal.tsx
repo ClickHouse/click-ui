@@ -4,8 +4,9 @@ import { Icon, IconName } from "@/components";
 
 type CardColor = "default" | "muted";
 
-export interface CardHorizontalProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
+export interface CardHorizontalProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  title?: ReactNode;
   icon?: IconName;
   disabled?: boolean;
   description?: ReactNode;
@@ -17,8 +18,8 @@ export interface CardHorizontalProps extends HTMLAttributes<HTMLDivElement> {
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: fit-content;
+  align-items: start;
+  width: 100%;
   max-width: 100%;
   gap: inherit;
 `;
@@ -26,9 +27,10 @@ const Header = styled.div`
 const Description = styled.div`
   display: flex;
   flex-direction: column;
-  align-self: center;
+  align-self: start;
   gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
   flex: 1;
+  width: 100%;
 `;
 
 const Wrapper = styled.div<{
@@ -123,6 +125,7 @@ const CardIcon = styled(Icon)`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const CardHorizontal = ({
