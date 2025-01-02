@@ -13,25 +13,24 @@ export interface CardHorizontalProps
   isSelected?: boolean;
   children?: ReactNode;
   color?: CardColor;
-  fillWidth?: boolean;
 }
 
-const Header = styled.div<{ $fillWidth?: boolean }>`
+const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  width: ${({ $fillWidth = false }) => ($fillWidth ? "100%" : "fit-content")};
+  width: 100%;
   max-width: 100%;
   gap: inherit;
 `;
 
-const Description = styled.div<{ $fillWidth?: boolean }>`
+const Description = styled.div`
   display: flex;
   flex-direction: column;
   align-self: start;
   gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
   flex: 1;
-  width: ${({ $fillWidth = false }) => ($fillWidth ? "100%" : "auto")};
+  width: 100%;
 `;
 
 const Wrapper = styled.div<{
@@ -137,7 +136,6 @@ export const CardHorizontal = ({
   isSelected,
   children,
   color = "default",
-  fillWidth,
   ...props
 }: CardHorizontalProps) => {
   return (
@@ -155,10 +153,10 @@ export const CardHorizontal = ({
         />
       )}
       <ContentWrapper>
-        {title && <Header $fillWidth={fillWidth}>{title}</Header>}
+        {title && <Header>{title}</Header>}
 
-        {description && <Description $fillWidth={fillWidth}>{description}</Description>}
-        {children && <Description $fillWidth={fillWidth}>{children}</Description>}
+        {description && <Description>{description}</Description>}
+        {children && <Description>{children}</Description>}
       </ContentWrapper>
     </Wrapper>
   );
