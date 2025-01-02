@@ -19,7 +19,7 @@ export interface CardHorizontalProps
 const Header = styled.div<{ $fillWidth?: boolean }>`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   width: ${({ $fillWidth = false }) => ($fillWidth ? "100%" : "fit-content")};
   max-width: 100%;
   gap: inherit;
