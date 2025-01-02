@@ -105,7 +105,11 @@ const Wrapper = styled.div<{
             }
           },
           &:active, &:focus, &:focus-within {
-            border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
+            border: 1px solid ${
+              theme.click.card.horizontal[$color].color.stroke[
+                $isSelected ? "active" : "disabled"
+              ]
+            };
           }
         `
         : ""
