@@ -65,17 +65,17 @@ const UnderlinedTrigger = styled(Popover.Trigger)<StyledLinkProps>`
 const dateStyle = "medium";
 const timeStyle = "medium";
 
-const createBasicDateTimeFormatter = () => {
+const createBasicDateDetailsFormatter = () => {
   return new Intl.DateTimeFormat(undefined, {
     dateStyle,
     timeStyle,
   });
 };
 
-const formatDateTime = (date: Date, locale?: Intl.Locale, timeZone?: string) => {
-  let dateTimeFormatter;
+const formatDateDetails = (date: Date, locale?: Intl.Locale, timeZone?: string) => {
+  let dateDetailsFormatter;
   try {
-    dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+    dateDetailsFormatter = new Intl.DateTimeFormat(locale, {
       dateStyle,
       timeStyle,
       timeZone,
@@ -83,46 +83,46 @@ const formatDateTime = (date: Date, locale?: Intl.Locale, timeZone?: string) => 
   } catch (error) {
     if ((error as Error).message.includes("invalid time zone")) {
       try {
-        dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+        dateDetailsFormatter = new Intl.DateTimeFormat(locale, {
           dateStyle,
           timeStyle,
         });
       } catch {
-        dateTimeFormatter = createBasicDateTimeFormatter();
+        dateDetailsFormatter = createBasicDateDetailsFormatter();
       }
     } else if ((error as Error).message.includes("invalid language tag")) {
       try {
-        dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
+        dateDetailsFormatter = new Intl.DateTimeFormat(undefined, {
           dateStyle,
           timeStyle,
           timeZone,
         });
       } catch {
-        dateTimeFormatter = createBasicDateTimeFormatter();
+        dateDetailsFormatter = createBasicDateDetailsFormatter();
       }
     } else {
-      dateTimeFormatter = createBasicDateTimeFormatter();
+      dateDetailsFormatter = createBasicDateDetailsFormatter();
     }
   }
 
-  return dateTimeFormatter.format(date);
+  return dateDetailsFormatter.format(date);
 };
 
 export type ArrowPosition = "top" | "right" | "left" | "bottom";
 
-export interface DateTimeProps {
+export interface DateDetailsProps {
   date: Date;
   locale?: Intl.Locale;
   side?: ArrowPosition;
   systemTimeZone?: string;
 }
 
-export const DateTime = ({
+export const DateDetails = ({
   date,
   locale,
   side = "top",
   systemTimeZone,
-}: DateTimeProps) => {
+}: DateDetailsProps) => {
   const dayjsDate = dayjs(date);
 
   let systemTime;
@@ -155,7 +155,7 @@ export const DateTime = ({
           <Text size="md">Local</Text>
           <Container justifyContent="end">
             <Text size="md">
-              {formatDateTime(dayjsDate.toDate(), locale)} ({dayjsDate.format("z")})
+              {formatDateDetails(dayjsDate.toDate(), locale)} ({dayjsDate.format("z")})
             </Text>
           </Container>
 
@@ -165,7 +165,7 @@ export const DateTime = ({
 
               <Container justifyContent="end">
                 <Text size="md">
-                  {formatDateTime(systemTime.toDate(), locale, systemTimeZone)} (
+                  {formatDateDetails(systemTime.toDate(), locale, systemTimeZone)} (
                   {systemTime.format("z")})
                 </Text>
               </Container>
@@ -175,7 +175,7 @@ export const DateTime = ({
           <Text size="md">UTC</Text>
           <Container justifyContent="end">
             <Text size="md">
-              {formatDateTime(dayjsDate.utc().toDate(), locale, "UTC")}
+              {formatDateDetails(dayjsDate.utc().toDate(), locale, "UTC")}
             </Text>
           </Container>
 

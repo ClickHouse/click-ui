@@ -1,4 +1,4 @@
-import { DateTime } from "./DateTime";
+import { DateDetails } from "./DateDetails";
 
 export default {
   argTypes: {
@@ -31,8 +31,8 @@ export default {
       },
     },
   },
-  component: DateTime,
-  title: "Display/DateTime",
+  component: DateDetails,
+  title: "Display/DateDetails",
   tags: ["autodocs"],
 };
 
@@ -42,6 +42,6 @@ export const Playground = {
     locale: "en-US",
     side: "top",
     systemTimeZone: "America/Los_Angeles",
-    title: "DateTime",
+    title: "DateDetails",
   },
 };
