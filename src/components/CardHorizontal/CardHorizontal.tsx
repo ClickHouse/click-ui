@@ -186,6 +186,7 @@ export const CardHorizontal = ({
                 isResponsive={false}
                 justifyContent="end"
                 fillWidth={false}
+                data-testid="horizontal-card-badge"
               >
                 <Badge
                   text={badgeText}

@@ -13,9 +13,11 @@ describe("CardHorizontal Component", () => {
         title,
         icon: "warning",
         description: "",
+        badgeText: "",
       });
 
       expect(screen.getByText(title)).toBeDefined();
+      expect(screen.queryByTestId("horizontal-card-badge")).toBeNull();
     });
 
     it("should render the description when provided", () => {
@@ -27,6 +29,30 @@ describe("CardHorizontal Component", () => {
       });
 
       expect(screen.getByText(description)).toBeDefined();
+    });
+
+    it("should render the badge when provided", () => {
+      const description = "This is the card description";
+      renderCard({
+        icon: "warning",
+        title: "title",
+        description,
+        badgeText: "Badge",
+      });
+
+      expect(screen.getByText("title")).toBeDefined();
+      expect(screen.getByTestId("horizontal-card-badge")).toBeDefined();
+    });
+    it("should not render the badge when badgeText is provided and not title", () => {
+      const description = "This is the card description";
+      renderCard({
+        icon: "warning",
+        title: "",
+        description,
+        badgeText: "Badge",
+      });
+
+      expect(screen.queryByTestId("horizontal-card-badge")).toBeNull();
     });
   });
 });
