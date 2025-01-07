@@ -13,5 +13,7 @@ export const Playground = {
     description: "A description very interesting that presumably relates to the card.",
     disabled: false,
     isSelected: false,
+    badgeText: null,
+    badgeIcon: null,
   },
 };

@@ -1,6 +1,13 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { styled } from "styled-components";
-import { Icon, IconName } from "@/components";
+import {
+  Badge,
+  BadgeState,
+  Container,
+  HorizontalDirection,
+  Icon,
+  IconName,
+} from "@/components";
 
 type CardColor = "default" | "muted";
 
@@ -13,13 +20,13 @@ export interface CardHorizontalProps
   isSelected?: boolean;
   children?: ReactNode;
   color?: CardColor;
+  badgeText?: string;
+  badgeState?: BadgeState;
+  badgeIcon?: IconName;
+  badgeIconDir?: HorizontalDirection;
 }
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  width: 100%;
+const Header = styled(Container)`
   max-width: 100%;
   gap: inherit;
 `;
@@ -136,6 +143,10 @@ export const CardHorizontal = ({
   isSelected,
   children,
   color = "default",
+  badgeText,
+  badgeState,
+  badgeIcon,
+  badgeIconDir,
   ...props
 }: CardHorizontalProps) => {
   return (
@@ -153,7 +164,39 @@ export const CardHorizontal = ({
         />
       )}
       <ContentWrapper>
-        {title && <Header>{title}</Header>}
+        {title && (
+          <Header
+            isResponsive={false}
+            gap="xs"
+            justifyContent="space-between"
+            fillWidth
+          >
+            <Container
+              orientation="horizontal"
+              gap="xs"
+              isResponsive={false}
+              fillWidth={false}
+              grow="1"
+            >
+              {title}
+            </Container>
+            {badgeText && (
+              <Container
+                isResponsive={false}
+                justifyContent="end"
+                fillWidth={false}
+              >
+                <Badge
+                  text={badgeText}
+                  size="md"
+                  state={badgeState}
+                  icon={badgeIcon}
+                  iconDir={badgeIconDir}
+                />
+              </Container>
+            )}
+          </Header>
+        )}
 
         {description && <Description>{description}</Description>}
         {children && <Description>{children}</Description>}
