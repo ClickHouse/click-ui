@@ -26,7 +26,7 @@ export interface CardHorizontalProps
   badgeIconDir?: HorizontalDirection;
 }
 
-const Header = styled(Container)`
+const Header = styled.div`
   max-width: 100%;
   gap: inherit;
 `;
@@ -166,6 +166,7 @@ export const CardHorizontal = ({
       <ContentWrapper>
         {title && (
           <Header
+            as={Container}
             isResponsive={false}
             gap="xs"
             justifyContent="space-between"
