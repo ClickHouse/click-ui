@@ -1602,6 +1602,10 @@
           "teal": "#089B83",
           "sunrise": "#FFC300",
           "slate": "#9a9ea7"
+        },
+        "label": {
+          "default": "#161517",
+          "deselected": "lch(6.94 1.44 305 / 0.3)"
         }
       }
     },
@@ -1700,6 +1704,10 @@
           "sunrise": "#FFC300",
           "slate": "#9a9ea7",
           "red": "#ff2323"
+        },
+        "label": {
+          "default": "#161517",
+          "deselected": "lch(6.94 1.44 305 / 0.3)"
         }
       },
       "iconButton": {
