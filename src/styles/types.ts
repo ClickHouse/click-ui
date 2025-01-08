@@ -3013,6 +3013,10 @@
           "teal": string,
           "sunrise": string,
           "slate": string
+        },
+        "label": {
+          "default": string,
+          "deselected": string
         }
       }
     },
@@ -3152,6 +3156,10 @@
           "sunrise": string,
           "slate": string,
           "red": string
+        },
+        "label": {
+          "default": string,
+          "deselected": string
         }
       },
       "iconButton": {
