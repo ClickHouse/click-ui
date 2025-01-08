@@ -4279,6 +4279,25 @@
             "value": "{palette.slate.400}",
             "type": "color"
           }
+        },
+        "label": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "deselected": {
+            "value": "{click.global.color.text.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.30",
+                  "space": "lch"
+                }
+              }
+            }
+          }
         }
       },
       "bars": {
@@ -4819,6 +4838,25 @@
           "slate": {
             "value": "{palette.slate.400}",
             "type": "color"
+          }
+        },
+        "label": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "deselected": {
+            "value": "{click.global.color.text.default}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.30",
+                  "space": "lch"
+                }
+              }
+            }
           }
         }
       },
