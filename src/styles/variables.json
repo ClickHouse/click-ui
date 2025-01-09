@@ -2927,6 +2927,7 @@
         "text": {
           "default": "#161517",
           "muted": "#696e79",
+          "disabled": "#a0a0a0",
           "link": {
             "default": "#437EEF",
             "hover": "#104EC6"
@@ -3084,6 +3085,7 @@
       "text": {
         "default": "#161517",
         "muted": "#696e79",
+        "disabled": "#a0a0a0",
         "link": {
           "default": "#437EEF",
           "hover": "#104EC6"

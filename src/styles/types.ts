@@ -2928,6 +2928,7 @@
         "text": {
           "default": string,
           "muted": string,
+          "disabled": string,
           "link": {
             "default": string,
             "hover": string
@@ -3085,6 +3086,7 @@
       "text": {
         "default": string,
         "muted": string,
+        "disabled": string,
         "link": {
           "default": string,
           "hover": string
