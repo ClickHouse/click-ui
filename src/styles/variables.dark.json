@@ -1530,6 +1530,7 @@
         "text": {
           "default": "#ffffff",
           "muted": "#b3b6bd",
+          "disabled": "#808080",
           "link": {
             "default": "#FAFF69",
             "hover": "#FEFFC2"
@@ -1647,6 +1648,7 @@
       "text": {
         "default": "#ffffff",
         "muted": "#b3b6bd",
+        "disabled": "#808080",
         "link": {
           "default": "#FAFF69",
           "hover": "#FEFFC2"

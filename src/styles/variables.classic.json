@@ -812,6 +812,8 @@
     "global": {
       "color": {
         "text": {
+          "default": "#161517",
+          "muted": "#696e79",
           "link": {
             "default": "#C78F0F",
             "hover": "#C78F0F"
@@ -890,6 +892,7 @@
       "text": {
         "default": "#161517",
         "muted": "#696e79",
+        "disabled": "#a0a0a0",
         "link": {
           "default": "#C78F0F",
           "hover": "#C78F0F"
