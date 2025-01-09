@@ -21,6 +21,10 @@
             "value": "{palette.slate.300}",
             "type": "color"
           },
+          "disabled": {
+            "value": "{click.button.iconButton.color.disabled.text.default}",
+            "type": "color"
+          },
           "link": {
             "default": {
               "value": "{palette.brand.300}",
@@ -4786,6 +4790,10 @@
         },
         "muted": {
           "value": "{palette.slate.300}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{click.button.iconButton.color.disabled.text.default}",
           "type": "color"
         },
         "link": {

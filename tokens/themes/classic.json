@@ -1316,6 +1316,14 @@
           "danger": {
             "value": "{click.button.basic.color.danger.text.default}",
             "type": "color"
+          },
+          "default": {
+            "value": "{palette.slate.900}",
+            "type": "color"
+          },
+          "muted": {
+            "value": "{palette.slate.600}",
+            "type": "color"
           }
         },
         "title": {
@@ -2479,6 +2487,10 @@
         },
         "muted": {
           "value": "{palette.slate.600}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{palette.neutral.400}",
           "type": "color"
         },
         "link": {

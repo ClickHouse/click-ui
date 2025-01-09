@@ -66,6 +66,10 @@
             "value": "{palette.slate.600}",
             "type": "color"
           },
+          "disabled": {
+            "value": "{palette.neutral.400}",
+            "type": "color"
+          },
           "link": {
             "default": {
               "value": "{palette.info.400}",
@@ -4657,6 +4661,10 @@
         },
         "muted": {
           "value": "{palette.slate.600}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{palette.neutral.400}",
           "type": "color"
         },
         "link": {
