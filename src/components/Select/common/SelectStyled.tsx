@@ -193,7 +193,6 @@ export const HiddenSelectElement = styled.select`
 export const SelectGroupContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
   width: -webkit-fill-available;
   width: fill-available;
