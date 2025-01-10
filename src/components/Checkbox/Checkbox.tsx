@@ -73,6 +73,7 @@ const CheckInput = styled(RadixCheckbox.Root)<{
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
   ${({ theme, variant = "default" }) => `
     border-radius: ${theme.click.checkbox.radii.all};
