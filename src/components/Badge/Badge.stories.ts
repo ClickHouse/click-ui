@@ -9,6 +9,10 @@ export default {
       options: ["sm", "md"],
       control: { type: "radio" },
     },
+    type: {
+      options: ["opaque", "solid"],
+      control: { type: "radio" },
+    },
     state: {
       options: ["default","success","neutral", "info", "warning", "danger", "disabled"],
       control: { type: "radio" },
@@ -26,5 +30,6 @@ export const Playground = {
     state: "success",
     size: "md",
     dismissible: false,
+    type: "opaque",
   },
 };
