@@ -548,7 +548,7 @@
               "type": "color"
             },
             "success": {
-              "value": "{palette.success.500}",
+              "value": "{palette.success.200}",
               "type": "color"
             },
             "neutral": {
@@ -556,7 +556,7 @@
               "type": "color"
             },
             "danger": {
-              "value": "{palette.danger.300}",
+              "value": "{palette.danger.200}",
               "type": "color"
             },
             "disabled": {
@@ -564,7 +564,7 @@
               "type": "color"
             },
             "info": {
-              "value": "{palette.info.300}",
+              "value": "{palette.info.200}",
               "type": "color"
             },
             "warning": {
