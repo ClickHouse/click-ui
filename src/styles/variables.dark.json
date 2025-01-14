@@ -114,11 +114,11 @@
         "color": {
           "background": {
             "default": "#c0c0c0",
-            "success": "#00E513",
+            "success": "#99FFA1",
             "neutral": "#c0c0c0",
-            "danger": "#ff7575",
+            "danger": "#ff9898",
             "disabled": "#414141",
-            "info": "#6D9BF3",
+            "info": "#A1BEF7",
             "warning": "#FF9457"
           },
           "text": {
