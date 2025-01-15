@@ -240,33 +240,66 @@
           }
         }
       },
-      "color": {
-        "background": {
-          "default": string,
-          "success": string,
-          "neutral": string,
-          "danger": string,
-          "disabled": string,
-          "info": string,
-          "warning": string
-        },
-        "text": {
-          "default": string,
-          "success": string,
-          "neutral": string,
-          "danger": string,
-          "disabled": string,
-          "info": string,
-          "warning": string
-        },
-        "stroke": {
-          "default": string,
-          "success": string,
-          "neutral": string,
-          "danger": string,
-          "disabled": string,
-          "info": string,
-          "warning": string
+      "opaque": {
+        "color": {
+          "background": {
+            "default": string,
+            "success": string,
+            "neutral": string,
+            "danger": string,
+            "disabled": string,
+            "info": string,
+            "warning": string
+          },
+          "text": {
+            "default": string,
+            "success": string,
+            "neutral": string,
+            "danger": string,
+            "disabled": string,
+            "info": string,
+            "warning": string
+          },
+          "stroke": {
+            "default": string,
+            "success": string,
+            "neutral": string,
+            "danger": string,
+            "disabled": string,
+            "info": string,
+            "warning": string
+          }
+        }
+      },
+      "solid": {
+        "color": {
+          "background": {
+            "default": string,
+            "success": string,
+            "neutral": string,
+            "danger": string,
+            "disabled": string,
+            "info": string,
+            "warning": string
+          },
+          "text": {
+            "default": string,
+            "success": string,
+            "neutral": string,
+            "danger": string,
+            "disabled": string,
+            "info": string,
+            "warning": string
+          },
+          "stroke": {
+            "default": string,
+            "success": string,
+            "neutral": string,
+            "danger": string,
+            "disabled": string,
+            "info": string,
+            "warning": string
+          }
         }
       }
     },

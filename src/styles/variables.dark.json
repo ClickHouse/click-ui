@@ -79,33 +79,66 @@
       }
     },
     "badge": {
-      "color": {
-        "background": {
-          "default": "#1F1F1C",
-          "success": "rgb(20% 100% 26.7% / 0.2)",
-          "neutral": "rgb(62.7% 62.7% 62.7% / 0.2)",
-          "danger": "rgb(100% 13.7% 13.7% / 0.2)",
-          "disabled": "#414141",
-          "info": "rgb(26.3% 49.4% 93.7% / 0.2)",
-          "warning": "rgb(100% 46.7% 16.1% / 0.2)"
-        },
-        "text": {
-          "default": "#b3b6bd",
-          "success": "#CCFFD0",
-          "neutral": "#c0c0c0",
-          "danger": "#ffbaba",
-          "disabled": "#808080",
-          "info": "#D0DFFB",
-          "warning": "#FFB88F"
-        },
-        "stroke": {
-          "default": "#323232",
-          "success": "rgb(20% 100% 26.7% / 0.1)",
-          "neutral": "rgb(62.7% 62.7% 62.7% / 0.1)",
-          "danger": "rgb(100% 22.3% 22.3% / 0.2)",
-          "disabled": "rgb(24.2% 24.2% 24.2%)",
-          "info": "rgb(26.3% 49.4% 93.7% / 0.1)",
-          "warning": "rgb(100% 46.7% 16.1% / 0.1)"
+      "opaque": {
+        "color": {
+          "background": {
+            "default": "#1F1F1C",
+            "success": "rgb(20% 100% 26.7% / 0.2)",
+            "neutral": "rgb(62.7% 62.7% 62.7% / 0.2)",
+            "danger": "rgb(100% 13.7% 13.7% / 0.2)",
+            "disabled": "#414141",
+            "info": "rgb(26.3% 49.4% 93.7% / 0.2)",
+            "warning": "rgb(100% 46.7% 16.1% / 0.2)"
+          },
+          "text": {
+            "default": "#b3b6bd",
+            "success": "#CCFFD0",
+            "neutral": "#c0c0c0",
+            "danger": "#ffbaba",
+            "disabled": "#808080",
+            "info": "#D0DFFB",
+            "warning": "#FFB88F"
+          },
+          "stroke": {
+            "default": "#323232",
+            "success": "rgb(20% 100% 26.7% / 0.1)",
+            "neutral": "rgb(62.7% 62.7% 62.7% / 0.1)",
+            "danger": "rgb(100% 22.3% 22.3% / 0.2)",
+            "disabled": "rgb(24.2% 24.2% 24.2%)",
+            "info": "rgb(26.3% 49.4% 93.7% / 0.1)",
+            "warning": "rgb(100% 46.7% 16.1% / 0.1)"
+          }
+        }
+      },
+      "solid": {
+        "color": {
+          "background": {
+            "default": "#c0c0c0",
+            "success": "#99FFA1",
+            "neutral": "#c0c0c0",
+            "danger": "#ff9898",
+            "disabled": "#414141",
+            "info": "#A1BEF7",
+            "warning": "#FF9457"
+          },
+          "text": {
+            "default": "#1F1F1C",
+            "success": "#1F1F1C",
+            "neutral": "#1F1F1C",
+            "danger": "#1F1F1C",
+            "disabled": "#808080",
+            "info": "#1F1F1C",
+            "warning": "#1F1F1C"
+          },
+          "stroke": {
+            "default": "rgb(19.6% 19.6% 19.6% / 0.1)",
+            "success": "rgb(20% 100% 26.7% / 0.1)",
+            "neutral": "rgb(62.7% 62.7% 62.7% / 0.1)",
+            "danger": "rgb(100% 22.3% 22.3% / 0.2)",
+            "disabled": "rgb(24.2% 24.2% 24.2%)",
+            "info": "rgb(26.3% 49.4% 93.7% / 0.1)",
+            "warning": "rgb(100% 46.7% 16.1% / 0.1)"
+          }
         }
       }
     },
