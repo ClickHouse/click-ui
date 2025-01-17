@@ -83,6 +83,16 @@ describe("MultiSelect", () => {
     expect(queryByTestingText(selectTrigger, "Content3")).toBeNull();
   });
 
+  it("should respect given defaultValue in select", () => {
+    const { getByTestId } = renderSelect({
+      defaultValue: ["content0", "content2"],
+    });
+    const selectTrigger = getByTestId("select-trigger");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "Content0")).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "Content2")).not.toBeNull();
+  });
+
   it("should show error", () => {
     const { queryByText } = renderSelect({
       error: "Select Error",
