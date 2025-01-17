@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+
+import { useUpdateEffect } from "@/hooks";
+
 import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
 import { InternalSelect, SelectGroup, SelectItem } from "./common/InternalSelect";
 
@@ -65,7 +68,7 @@ export const Select = ({
     [selectedValues, onSelect]
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setSelectedValues(valueProp ? [valueProp] : []);
   }, [valueProp]);
 
