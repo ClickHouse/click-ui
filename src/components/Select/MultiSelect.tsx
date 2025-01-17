@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+
+import {useUpdateEffect} from "@/hooks";
 
 import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
 import {
@@ -43,7 +45,7 @@ export const MultiSelect = ({
     [onOpenChangeProp]
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setSelectedValues(valueProp ?? []);
   }, [valueProp]);
 
