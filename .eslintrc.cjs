@@ -29,5 +29,8 @@ module.exports = {
         singleReturnOnly: false,
       },
     ],
+    "react-hooks/exhaustive-deps": ["warn", {
+      "additionalHooks": "(useUpdateEffect)"
+    }]  
   },
 };
