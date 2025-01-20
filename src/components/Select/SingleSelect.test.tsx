@@ -115,6 +115,14 @@ describe("Select", () => {
     expect(queryByTestingText(selectTrigger, "Content0")).not.toBeNull();
   });
 
+  it("should respect given defaultValue in select", () => {
+    const { getByTestId } = renderSelect({
+      defaultValue: "content0",
+    });
+    const selectedValue = getByTestId("select-trigger");
+    expect(selectedValue.textContent).toBe("Content0");
+  });
+
   it("should render options", () => {
     const { queryByText, getByTestId } = renderSelect({
       options: selectOptions,
