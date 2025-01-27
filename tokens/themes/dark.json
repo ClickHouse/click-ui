@@ -3262,7 +3262,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{palette.neutral.500}",
+            "value": "{palette.neutral.700}",
             "type": "color"
           }
         },
