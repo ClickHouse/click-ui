@@ -21,6 +21,7 @@ import { SvgImageElement } from "@/components/commonElement";
 import Switzerland from "@/components/icons/Flags/Switzerland.tsx";
 
 export type FlagName =
+  | "ae"
   | "au"
   | "br"
   | "ca"
@@ -35,7 +36,6 @@ export type FlagName =
   | "sg"
   | "kr"
   | "sw"
-  | "uae"
   | "usa"
   | "uk"
   | "za";
@@ -47,6 +47,7 @@ export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const FlagList = {
+  ae: UnitedArabEmirates,
   au: Australia,
   br: Brazil,
   ca: Canada,
@@ -62,7 +63,6 @@ export const FlagList = {
   za: SouthAfrica,
   kr: SouthKorea,
   sw: Sweden,
-  uae: UnitedArabEmirates,
   uk: UnitedKingdom,
   usa: UnitedStates,
 };
