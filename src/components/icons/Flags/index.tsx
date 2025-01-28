@@ -1,6 +1,7 @@
 import { SVGAttributes } from "react";
 import UnitedStates from "./UnitedStates";
 import UnitedKingdom from "./UnitedKingdom";
+import UnitedArabEmirates from "./UnitedArabEmirates";
 import EuropeanUnion from "./EuropeanUnion";
 import Germany from "./Germany";
 import GreatBritain from "./GreatBritain";
@@ -11,6 +12,7 @@ import Japan from "./Japan";
 import Netherlands from "./Netherlands";
 import Australia from "./Australia";
 import SouthAfrica from "./SouthAfrica";
+import SouthKorea from "./SouthKorea";
 import Brazil from "./Brazil";
 import Canada from "./Canada";
 import Sweden from "./Sweden";
@@ -34,7 +36,9 @@ export type FlagName =
   | "sw"
   | "usa"
   | "uk"
-  | "za";
+  | "za"
+  | "uae"
+  | "kr";
 
 export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   name: FlagName;
@@ -59,6 +63,8 @@ export const FlagList = {
   sw: Sweden,
   uk: UnitedKingdom,
   usa: UnitedStates,
+  uae: UnitedArabEmirates,
+  kr: SouthKorea,
 };
 
 const Flags = ({ name, size, ...props }: FlagProps) => {
