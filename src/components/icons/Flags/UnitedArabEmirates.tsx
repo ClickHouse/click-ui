@@ -11,7 +11,7 @@ const UnitedArabEmirates = (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_10582_2024)">
+    <g clipPath="url(#clip0_10582_2024)">
       <path
         d="M30 0H0V20H30V0Z"
         fill="#00732F"
