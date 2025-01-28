@@ -33,12 +33,12 @@ export type FlagName =
   | "jp"
   | "nl"
   | "sg"
+  | "kr"
   | "sw"
+  | "uae"
   | "usa"
   | "uk"
-  | "za"
-  | "uae"
-  | "kr";
+  | "za";
 
 export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   name: FlagName;
@@ -60,11 +60,11 @@ export const FlagList = {
   nl: Netherlands,
   sg: Singapore,
   za: SouthAfrica,
+  kr: SouthKorea,
   sw: Sweden,
+  uae: UnitedArabEmirates,
   uk: UnitedKingdom,
   usa: UnitedStates,
-  uae: UnitedArabEmirates,
-  kr: SouthKorea,
 };
 
 const Flags = ({ name, size, ...props }: FlagProps) => {
