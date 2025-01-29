@@ -56,7 +56,11 @@ const IconWrapper = ({
           height={height}
         />
       )}
-      <TextWrapper>{children}</TextWrapper>
+      <TextWrapper
+        data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-icon-wrapper-text`}
+      >
+        {children}
+      </TextWrapper>
       {icon && iconDir === "end" && (
         <Icon
           name={icon}

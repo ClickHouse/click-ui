@@ -105,7 +105,7 @@ export const Badge = ({
     $type={type}
     {...props}
   >
-    <Content>
+    <Content data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}>
       <BadgeContent
         as={IconWrapper}
         icon={icon}
