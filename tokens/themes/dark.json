@@ -2904,7 +2904,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{click.checkbox.color.variations.default.stroke.disabled}",
+            "value": "{click.checkbox.color.variations.default.background.disabled}",
             "type": "color"
           }
         },
