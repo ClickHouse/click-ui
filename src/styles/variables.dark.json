@@ -1025,7 +1025,7 @@
           "default": "#414141",
           "hover": "#414141",
           "active": "#151515",
-          "disabled": "#606060"
+          "disabled": "#414141"
         },
         "indicator": {
           "default": "#1F1F1C",
@@ -1254,12 +1254,12 @@
         "background": {
           "default": "#606060",
           "active": "#FAFF69",
-          "disabled": "#808080"
+          "disabled": "#414141"
         },
         "stroke": {
           "default": "#606060",
           "active": "#FAFF69",
-          "disabled": "#808080"
+          "disabled": "#414141"
         },
         "indicator": {
           "default": "#151515",
