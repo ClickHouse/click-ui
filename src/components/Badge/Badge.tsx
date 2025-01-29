@@ -24,6 +24,7 @@ export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
   type?: BadgeType;
   icon?: ImageName;
   iconDir?: HorizontalDirection;
+  ellipsisContent?: boolean;
 }
 
 export interface DismissibleBadge extends CommonBadgeProps {
@@ -95,6 +96,7 @@ export const Badge = ({
   type,
   dismissible,
   onClose,
+  ellipsisContent = true,
   ...props
 }: BadgeProps) => (
   <Wrapper
@@ -110,6 +112,7 @@ export const Badge = ({
         iconDir={iconDir}
         size={size}
         $state={state}
+        ellipsisContent={ellipsisContent}
       >
         {text}
       </BadgeContent>

@@ -21,6 +21,16 @@ const LabelContainer = styled.div<{ $hasIcon: boolean; $iconDir: HorizontalDirec
   gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
 `;
 
+interface IconWrapperProps {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+  size?: IconSize;
+  width?: number | string;
+  height?: number | string;
+  children: ReactNode;
+  ellipsisContent?: boolean;
+}
+
 const IconWrapper = ({
   icon,
   iconDir = "start",
@@ -28,15 +38,10 @@ const IconWrapper = ({
   width,
   height,
   children,
+  ellipsisContent = true,
   ...props
-}: {
-  icon?: IconName;
-  iconDir?: HorizontalDirection;
-  children: ReactNode;
-  size?: IconSize;
-  width?: number | string;
-  height?: number | string;
-}) => {
+}: IconWrapperProps) => {
+  const TextWrapper = ellipsisContent ? EllipsisContent : "div";
   return (
     <LabelContainer
       $hasIcon={typeof icon === "string"}
@@ -51,7 +56,7 @@ const IconWrapper = ({
           height={height}
         />
       )}
-      <EllipsisContent>{children}</EllipsisContent>
+      <TextWrapper>{children}</TextWrapper>
       {icon && iconDir === "end" && (
         <Icon
           name={icon}
