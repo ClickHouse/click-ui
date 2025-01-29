@@ -2,14 +2,17 @@ import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Dropdown } from "./Dropdown";
 import { GridCenter } from "../commonElement";
 import { Button } from "..";
+import { Key } from "react";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
   side: "top" | "right" | "left" | "bottom";
   type: "text" | "button";
+  itemCount: number
 }
-const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
+const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: Props) => {
+  const items = Array.from({ length: itemCount }, (_, i) => `Item ${i + 1}`);
   return (
     <GridCenter>
       <Dropdown {...props}>
@@ -21,6 +24,9 @@ const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
           <Dropdown.Group>
             <Dropdown.Item data-state="checked">Content0</Dropdown.Item>
           </Dropdown.Group>
+          {items.map((item:string, index: Key | null | undefined) => (
+                <Dropdown.Item key={index}>{item}</Dropdown.Item>
+              ))}
           <Dropdown.Item icon="activity">Content1 long text content</Dropdown.Item>
           <Dropdown.Sub>
             <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>
@@ -85,6 +91,7 @@ const DropdownExample = ({ showArrow, disabled, side, ...props }: Props) => {
     </GridCenter>
   );
 };
+
 export default {
   component: DropdownExample,
   title: "Display/Dropdown",
@@ -95,12 +102,16 @@ export default {
     defaultOpen: { control: "boolean" },
     showArrow: { control: "boolean" },
     side: { control: "select", options: ["top", "right", "left", "bottom"] },
-    type: { control: "inline-radio", options: ["text", "button"] },
+    itemCount: {
+      control: { type: "number", min: 0, max: 100, step: 1 },
+      description: "Number of items to display",
+    },
   },
 };
 
 export const Playground = {
   args: {
     side: "bottom",
+    itemCount: 0,
   },
 };
