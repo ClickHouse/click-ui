@@ -90,11 +90,13 @@ type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
   MainDropdownProps &
   ArrowProps;
 
+  console.log("Max height: ", )
 const DropdownMenuContent = styled(GenericMenuPanel)`
   min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
   flex-direction: column;
   z-index: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
+  max-height: calc((var(--radix-${({ $type }) => $type}-content-available-height) - 100px))
 `;
 
 const DropdownContent = ({
