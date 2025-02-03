@@ -181,6 +181,7 @@ export const ICONS_MAP = {
   "chart-scatter": ChartScatter,
   "chart-stacked-horizontal": ChartStackedHorizontal,
   "chart-stacked-vertical": ChartStackedVertical,
+  check: CheckIcon,
   "check-in-circle": CheckInCircle,
   "chevron-down": ChevronDown,
   "chevron-left": ChevronLeft,
