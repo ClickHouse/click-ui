@@ -35,9 +35,10 @@ export const StyledCell = styled.div<{
     $height,
     $type = "body",
     $showBorder,
-    $isOnlyRow
+    $isOnlyRow,
   }) => `
-    height: ${$isOnlyRow ? "100%" : `${$height}px`};
+    height: ${$isOnlyRow ? "auto" : `${$height}px`};
+    overflow-y: ${$isOnlyRow ? "auto" : "hidden"};
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
     color: ${
       $type === "header"
@@ -88,6 +89,10 @@ export const StyledCell = styled.div<{
     `
         : "border-right: none;"
     }
+    ${
+      $isOnlyRow
+        && "border: none;"
+      }
   `}
   ${({
     theme,
@@ -130,6 +135,10 @@ export const StyledCell = styled.div<{
               $selectionType === "selectDirect" && $isLastColumn
                 ? `border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
                 : ""
+            }
+            ${
+              $isOnlyRow
+                && "border: none;"
             }
           }
         `
