@@ -777,14 +777,36 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     }, [rowStart, onItemsRendered]);
 
     const CellWithWidth = (args: GridChildComponentProps<ItemDataType>): JSX.Element => {
-      const width = columnWidth(args.columnIndex);
-      return (
-        <Cell
-          {...args}
-          width={width}
-        />
-      );
-    };
+  const width = columnWidth(args.columnIndex);
+  return (
+    <Cell
+      {...args}
+      width={width}
+    />
+  );
+};
+
+    useEffect(() => {
+      if (gridRef.current) {
+        gridRef.current.resetAfterRowIndex(0);
+      }
+    }, [rowCount]);
+
+    const getRowHeight = useCallback(
+      (index: number, parentHeight: number): number => {
+        const headerHeight = 33;
+    
+        // For single data row case
+        if (rowCount === 1 && index === 0) {
+          console.log("Returning parentheight - headerheight", parentHeight, parentHeight - headerHeight)
+          return parentHeight - headerHeight*2;
+        }
+        
+        console.log("Returning rowheight ", rowHeight)
+        return rowHeight; // Default row height for multiple rows
+      },
+      [rowCount, rowHeight]
+    );
 
     return (
       <ContextMenu
@@ -814,33 +836,36 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           $showBorder={showBorder}
         >
           <AutoSizer onResize={onResize}>
-            {({ height, width }) => (
-              <VariableSizeGrid
-                ref={forwardedGridRef ? mergeRefs([forwardedGridRef, gridRef]) : gridRef}
-                height={height}
-                width={width}
-                columnCount={columnCount}
-                rowHeight={() => rowHeight}
-                useIsScrolling={useIsScrolling}
-                innerElementType={InnerElementType}
-                itemData={data}
-                initialScrollTop={
-                  focus.row < rowStart
-                    ? focus.row * rowHeight
-                    : (focus.row - rowStart) * rowHeight
-                }
-                initialScrollLeft={getColumnHorizontalPosition(focus.column)}
-                columnWidth={columnWidth}
-                rowCount={rowCount}
-                onScroll={onScroll}
-                outerRef={outerRef}
-                outerElementType={OuterElementType}
-                onItemsRendered={onItemsRendered}
-                {...props}
-              >
-                {CellWithWidth}
-              </VariableSizeGrid>
-            )}
+            {({ height, width }) => {
+              console.log('Parent container height:', height);
+              return (
+                <VariableSizeGrid
+                  ref={forwardedGridRef ? mergeRefs([forwardedGridRef, gridRef]) : gridRef}
+                  height={height}
+                  width={width}
+                  columnCount={columnCount}
+                  rowHeight={index => getRowHeight(index, height)}
+                  useIsScrolling={useIsScrolling}
+                  innerElementType={InnerElementType}
+                  itemData={data}
+                  initialScrollTop={
+                    focus.row < rowStart
+                      ? focus.row * rowHeight
+                      : (focus.row - rowStart) * rowHeight
+                  }
+                  initialScrollLeft={getColumnHorizontalPosition(focus.column)}
+                  columnWidth={columnWidth}
+                  rowCount={rowCount}
+                  onScroll={onScroll}
+                  outerRef={outerRef}
+                  outerElementType={OuterElementType}
+                  onItemsRendered={onItemsRendered}
+                  {...props}
+                >
+                  {CellWithWidth}
+                </VariableSizeGrid>
+            )
+            }}
           </AutoSizer>
         </ContextMenuTrigger>
         <ContextMenu.Content>

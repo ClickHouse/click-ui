@@ -59,7 +59,7 @@ export const Cell = memo(
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
-
+    console.log("Only row? ",rowCount === 1 )
     return (
       <div
         style={style}
@@ -85,6 +85,7 @@ export const Cell = memo(
           data-grid-row={currentRowIndex}
           data-grid-column={columnIndex}
           $showBorder
+          $isOnlyRow={rowCount === 1}
           {...props}
         />
       </div>

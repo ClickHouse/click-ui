@@ -13,6 +13,7 @@ export const StyledCell = styled.div<{
   $height: number;
   $type?: "body" | "header";
   $showBorder: boolean;
+  $isOnlyRow?: boolean;
 }>`
   display: block;
   text-align: left;
@@ -34,8 +35,9 @@ export const StyledCell = styled.div<{
     $height,
     $type = "body",
     $showBorder,
+    $isOnlyRow
   }) => `
-    height: ${$height}px;
+    height: ${$isOnlyRow ? "100%" : `${$height}px`};
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
     color: ${
       $type === "header"
@@ -95,10 +97,12 @@ export const StyledCell = styled.div<{
     $type = "body",
     $isSelectedTop,
     $isSelectedLeft,
+    $isOnlyRow
   }) =>
     $isSelectedTop ||
     $isSelectedLeft ||
-    ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn))
+    ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn)) ||
+    $isOnlyRow
       ? `
           &::before {
             content: "";
