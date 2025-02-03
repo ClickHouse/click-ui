@@ -15,6 +15,13 @@ import ArrowDown from "@/components/icons/ArrowDown";
 import ArrowLeft from "../icons/ArrowLeft";
 import InfoInCircleIcon from "@/components/icons/InfoInCircleIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
+import ChartArea from "@/components/icons/ChartArea";
+import ChartBarHorizontal from "@/components/icons/ChartBarHorizontal";
+import ChartDonut from "@/components/icons/ChartDonut";
+import ChartHeatmap from "@/components/icons/ChartHeatmap";
+import ChartScatter from "@/components/icons/ChartScatter";
+import ChartStackedHorizontal from "@/components/icons/ChartStackedHorizontal";
+import ChartStackedVertical from "@/components/icons/ChartStackedVertical";
 import InformationIcon from "@/components/icons/InformationIcon";
 import WarningIcon from "@/components/icons/WarningIcon";
 import CrossIcon from "@/components/icons/CrossIcon";
@@ -167,7 +174,13 @@ export const ICONS_MAP = {
   cards: Cards,
   "cell-tower": CellTower,
   chat: ChatIcon,
-  check: CheckIcon,
+  "chart-area": ChartArea,
+  "chart-bar-horizontal": ChartBarHorizontal,
+  "chart-donut": ChartDonut,
+  "chart-heatmap": ChartHeatmap,
+  "chart-scatter": ChartScatter,
+  "chart-stacked-horizontal": ChartStackedHorizontal,
+  "chart-stacked-vertical": ChartStackedVertical,
   "check-in-circle": CheckInCircle,
   "chevron-down": ChevronDown,
   "chevron-left": ChevronLeft,
