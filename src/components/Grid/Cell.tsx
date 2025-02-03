@@ -5,16 +5,10 @@ import { StyledCell } from "./StyledCell";
 
 type CellProps = GridChildComponentProps<ItemDataType> & {
   width: number;
-}
+};
 
 export const Cell = memo(
-  ({
-    data,
-    rowIndex,
-    columnIndex,
-    style,
-    ...props
-  }: CellProps) => {
+  ({ data, rowIndex, columnIndex, style, ...props }: CellProps) => {
     const {
       cell: CellData,
       getSelectionType,
@@ -59,7 +53,7 @@ export const Cell = memo(
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
-    console.log("Only row? ",rowCount === 1 )
+    console.log("Only row? ", rowCount === 1);
     return (
       <div
         style={style}

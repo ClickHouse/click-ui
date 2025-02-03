@@ -777,15 +777,17 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     }, [rowStart, onItemsRendered]);
 
     const CellWithWidth = (args: GridChildComponentProps<ItemDataType>): JSX.Element => {
-  const width = columnWidth(args.columnIndex);
-  return (
-    <Cell
-      {...args}
-      width={width}
-    />
-  );
-};
+      const width = columnWidth(args.columnIndex);
+      return (
+        <Cell
+          {...args}
+          width={width}
+        />
+      );
+    };
 
+    // Handles the case when rowCount changes, expanding the cell height
+    // to fit content if there is only one row.
     useEffect(() => {
       if (gridRef.current) {
         gridRef.current.resetAfterRowIndex(0);
@@ -794,11 +796,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
     const getRowHeight = useCallback(
       (index: number, parentHeight: number): number => {
-    
         if (rowCount === 1 && index === 0) {
-          return parentHeight - rowHeight*2;
+          return parentHeight - rowHeight * 2;
         }
-        
+
         return rowHeight;
       },
       [rowCount, rowHeight]
@@ -858,7 +859,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
               >
                 {CellWithWidth}
               </VariableSizeGrid>
-          )}
+            )}
           </AutoSizer>
         </ContextMenuTrigger>
         <ContextMenu.Content>

@@ -89,10 +89,7 @@ export const StyledCell = styled.div<{
     `
         : "border-right: none;"
     }
-    ${
-      $isOnlyRow
-        && "border: none;"
-      }
+    ${$isOnlyRow && "border: none;"}
   `}
   ${({
     theme,
@@ -102,7 +99,7 @@ export const StyledCell = styled.div<{
     $type = "body",
     $isSelectedTop,
     $isSelectedLeft,
-    $isOnlyRow
+    $isOnlyRow,
   }) =>
     $isSelectedTop ||
     $isSelectedLeft ||
@@ -136,10 +133,7 @@ export const StyledCell = styled.div<{
                 ? `border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
                 : ""
             }
-            ${
-              $isOnlyRow
-                && "border: none;"
-            }
+            ${$isOnlyRow && "border: none;"}
           }
         `
       : ""};
