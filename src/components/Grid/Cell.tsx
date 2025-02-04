@@ -19,6 +19,7 @@ export const Cell = memo(
       showHeader,
       rowHeight,
       rowStart,
+      rowAutoHeight,
     } = data;
 
     const currentRowIndex = rowIndex + rowStart;
@@ -78,7 +79,7 @@ export const Cell = memo(
           data-grid-row={currentRowIndex}
           data-grid-column={columnIndex}
           $showBorder
-          $isOnlyRow={rowCount === 1}
+          $rowAutoHeight={rowAutoHeight}
           {...props}
         />
       </div>

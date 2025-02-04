@@ -13,7 +13,7 @@ export const StyledCell = styled.div<{
   $height: number;
   $type?: "body" | "header";
   $showBorder: boolean;
-  $isOnlyRow?: boolean;
+  $rowAutoHeight?: boolean;
 }>`
   display: block;
   text-align: left;
@@ -35,10 +35,10 @@ export const StyledCell = styled.div<{
     $height,
     $type = "body",
     $showBorder,
-    $isOnlyRow,
+    $rowAutoHeight,
   }) => `
-    height: ${$isOnlyRow ? "auto" : `${$height}px`};
-    overflow-y: ${$isOnlyRow ? "auto" : "hidden"};
+    height: ${$rowAutoHeight ? "auto" : `${$height}px`};
+    overflow-y: ${$rowAutoHeight ? "auto" : "hidden"};
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
     color: ${
       $type === "header"
@@ -89,7 +89,7 @@ export const StyledCell = styled.div<{
     `
         : "border-right: none;"
     }
-    ${$isOnlyRow && "border: none;"}
+    ${$rowAutoHeight && "border: none;"}
   `}
   ${({
     theme,
@@ -99,12 +99,12 @@ export const StyledCell = styled.div<{
     $type = "body",
     $isSelectedTop,
     $isSelectedLeft,
-    $isOnlyRow,
+    $rowAutoHeight,
   }) =>
     $isSelectedTop ||
     $isSelectedLeft ||
     ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn)) ||
-    $isOnlyRow
+    $rowAutoHeight
       ? `
           &::before {
             content: "";
@@ -133,7 +133,7 @@ export const StyledCell = styled.div<{
                 ? `border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
                 : ""
             }
-            ${$isOnlyRow && "border: none;"}
+            ${$rowAutoHeight && "border: none;"}
           }
         `
       : ""};

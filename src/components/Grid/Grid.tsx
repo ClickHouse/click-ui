@@ -406,6 +406,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       headerHeight,
       rowNumberWidth,
       rowStart,
+      rowAutoHeight,
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
@@ -436,6 +437,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 showHeader={showHeader}
                 rowStart={rowStart}
                 showBorder={showBorder}
+                rowAutoHeight={rowAutoHeight}
               />
             )}
 
@@ -778,7 +780,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     }, [rowStart, onItemsRendered]);
 
     const CellWithWidth = (args: GridChildComponentProps<ItemDataType>): JSX.Element => {
-      console.log("Cell with width ", rowAutoHeight)
       const width = columnWidth(args.columnIndex);
       return (
         <Cell
@@ -795,17 +796,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         gridRef.current.resetAfterRowIndex(0);
       }
     }, [rowCount]);
-
-    const getRowHeight = useCallback(
-      (index: number, parentHeight: number): number => {
-        if (rowCount === 1 && index === 0) {
-          return parentHeight - rowHeight * 2;
-        }
-
-        return rowHeight;
-      },
-      [rowCount, rowHeight]
-    );
 
     return (
       <ContextMenu
@@ -841,7 +831,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 height={height}
                 width={width}
                 columnCount={columnCount}
-                rowHeight={index => getRowHeight(index, height)}
+                rowHeight={() => rowHeight}
                 useIsScrolling={useIsScrolling}
                 innerElementType={InnerElementType}
                 itemData={data}

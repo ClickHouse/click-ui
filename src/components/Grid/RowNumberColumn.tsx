@@ -47,6 +47,7 @@ interface RowNumberColumnProps {
   scrolledHorizontal: boolean;
   rowStart: number;
   showBorder: boolean;
+  rowAutoHeight?: boolean;
 }
 interface RowNumberProps
   extends Pick<
@@ -56,6 +57,7 @@ interface RowNumberProps
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;
+  rowAutoHeight?: boolean;
 }
 const RowNumber = ({
   rowIndex,
@@ -65,6 +67,7 @@ const RowNumber = ({
   isFirstRow,
   showBorder,
   rowStart,
+  rowAutoHeight
 }: RowNumberProps) => {
   const currentRowIndex = rowIndex + rowStart;
   const selectionType = getSelectionType({
@@ -96,6 +99,7 @@ const RowNumber = ({
         $isLastRow={isLastRow}
         $isSelectedLeft={isSelected}
         $isSelectedTop={isSelectedTop}
+        $rowAutoHeight={rowAutoHeight}
         data-selected={isSelected}
         data-grid-row={currentRowIndex}
         data-grid-column={-1}
@@ -121,6 +125,7 @@ const RowNumberColumn = ({
   scrolledHorizontal,
   rowStart = 0,
   showBorder,
+  rowAutoHeight
 }: RowNumberColumnProps) => {
   return (
     <RowNumberColumnContainer
@@ -139,6 +144,7 @@ const RowNumberColumn = ({
             isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
             rowStart={rowStart}
+            rowAutoHeight={rowAutoHeight}
           />
         )
       )}
