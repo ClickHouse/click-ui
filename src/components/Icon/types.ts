@@ -37,7 +37,6 @@ export const ICON_NAMES = [
   "chart-bar-horizontal",
   "chart-donut",
   "chart-heatmap",
-  "chart-line",
   "chart-scatter",
   "chart-stacked-horizontal",
   "chart-stacked-vertical",
