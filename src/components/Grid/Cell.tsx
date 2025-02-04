@@ -53,7 +53,6 @@ export const Cell = memo(
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
-    console.log("Only row? ", rowCount === 1);
     return (
       <div
         style={style}
