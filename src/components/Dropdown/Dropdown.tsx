@@ -12,6 +12,7 @@ export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
 const DropdownMenuItem = styled(GenericMenuItem)`
   position: relative;
   display: flex;
+  min-height: 32px;
   &[data-state="open"] {
     ${({ theme }) => `
       font: ${theme.click.genericMenu.item.typography.label.hover};
@@ -93,6 +94,10 @@ const DropdownMenuContent = styled(GenericMenuPanel)`
   min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
   flex-direction: column;
   z-index: 1;
+  overflow-y: scroll;
+  max-height: calc(
+    (var(--radix-${({ $type }) => $type}-content-available-height) - 100px)
+  );
 `;
 
 const DropdownContent = ({
