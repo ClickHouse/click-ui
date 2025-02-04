@@ -149,6 +149,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onContextMenu: onContextMenuProp,
       forwardedGridRef,
       onItemsRendered: onItemsRenderedProp,
+      rowAutoHeight,
       ...props
     },
     forwardedRef
@@ -777,6 +778,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     }, [rowStart, onItemsRendered]);
 
     const CellWithWidth = (args: GridChildComponentProps<ItemDataType>): JSX.Element => {
+      console.log("Cell with width ", rowAutoHeight)
       const width = columnWidth(args.columnIndex);
       return (
         <Cell

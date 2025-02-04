@@ -204,6 +204,7 @@ export interface GridProps
   onCopyCallback?: (copied: boolean) => void;
   onContextMenu?: MouseEventHandler<HTMLDivElement>;
   forwardedGridRef?: MutableRefObject<VariableSizeGrid>;
+  rowAutoHeight?: boolean;
 }
 
 export type ResizerPosition = {
