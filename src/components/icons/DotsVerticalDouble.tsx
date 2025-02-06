@@ -17,13 +17,13 @@ const DotsVerticalDouble = (props: SVGAttributes<SVGElement>) => (
     />
     <circle
       cx="8.5"
-      cy="12"
+      cy="13.5"
       r="1.5"
       fill="#161517"
     />
     <circle
       cx="8.5"
-      cy="17.5"
+      cy="20.5"
       r="1.5"
       fill="#161517"
     />
@@ -35,13 +35,13 @@ const DotsVerticalDouble = (props: SVGAttributes<SVGElement>) => (
     />
     <circle
       cx="15.5"
-      cy="12"
+      cy="13.5"
       r="1.5"
       fill="#161517"
     />
     <circle
       cx="15.5"
-      cy="17.5"
+      cy="20.5"
       r="1.5"
       fill="#161517"
     />
