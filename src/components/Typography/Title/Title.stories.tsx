@@ -9,6 +9,10 @@ export default {
       options: ["xs", "sm", "md", "lg", "xl", "2xl"],
       control: { type: "select" },
     },
+    weight: {
+      options: ["1", "2", "3", "4"],
+      control: { type: "select" },
+    },
     type: {
       options: ["h1", "h2", "h3", "h4", "h5", "h6"],
       control: { type: "select" },
@@ -27,6 +31,7 @@ export default {
 export const Playground = {
   args: {
     size: "md",
+    weight: "inherit",
     type: "h1",
     family: "product",
     color: "default",
