@@ -20,7 +20,7 @@ interface Props {
     row: number;
     column: number;
   };
-  autoheight?: boolean;
+  rowAutoHeight?: boolean;
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
@@ -72,7 +72,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
           });
         }}
         getMenuOptions={getMenuOptions}
-        autoheight={props.autoheight}
+        rowAutoHeight={props.rowAutoHeight}
         {...props}
       />
     </div>
@@ -128,14 +128,14 @@ export const AutoHeightWithVariableData = {
   args: {
     rowCount: 10,
     columnCount: 5,
-    autoheight: true,
+    rowAutoHeight: true,
     rowStart: 0,
   },
   parameters: {
     docs: {
       source: {
         transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { rowCount, columnCount, autoheight, ...props } = story.args;
+          const { rowCount, columnCount, rowAutoHeight, ...props } = story.args;
           return `
 const VariableCell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, width, ...props }) => {
   let content = \`Row \${rowIndex}, Col \${columnIndex}\${rowIndex % 2 === 0 ? '\\nExtra line' : ''}\`;
@@ -175,7 +175,7 @@ SETTINGS index_granularity = 8192;\`;
   cell={VariableCell}
   focus={{ row: 0, column: 0 }}
   columnWidth={() => 300}
-  autoheight={${autoheight}}
+  rowAutoHeight={${rowAutoHeight}}
 ${Object.entries(props)
   .flatMap(([key, value]) =>
     typeof value === "boolean"
