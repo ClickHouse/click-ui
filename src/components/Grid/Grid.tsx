@@ -213,15 +213,30 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onCopyCallback,
     ]);
 
+    
     const rowHeightsRef = useRef(new Map());
-
+  
+    const getRowHeight = useCallback((index: number) => {
+      // console.log(`GetRowHeight: from ref: ${rowHeightsRef.current.get(index)}`)
+      if (rowHeightsRef.current.get(index)) {
+        // console.log(`Returning ref: ${rowHeightsRef.current.get(index)}`)
+        return rowHeightsRef.current.get(index) + 33;
+      }
+      // console.log("Returning rowHeight")
+      return rowHeight;
+    }, [rowHeight]);
 
     const updateRowHeight = useCallback((rowIndex: number, height: number) => {
       console.log("Updating row height!");
       const prevHeight = rowHeightsRef.current.get(rowIndex) || 0;
+      console.log("Previous row height", prevHeight);
       if (height > prevHeight) {
         rowHeightsRef.current.set(rowIndex, height);
-        gridRef.current?.resetAfterRowIndex(rowIndex);
+        console.log("Current height > prevheight", rowHeightsRef);
+        if (gridRef.current) {
+          gridRef.current.resetAfterRowIndex(rowIndex);
+          console.log("Reset the grid");
+        }
       }
     }, []);
     
@@ -420,7 +435,8 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       rowNumberWidth,
       rowStart,
       rowAutoHeight,
-      updateRowHeight
+      updateRowHeight,
+      getRowHeight
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
@@ -806,9 +822,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     // to fit content if there is only one row.
     useEffect(() => {
       if (gridRef.current) {
-        gridRef.current.resetAfterRowIndex(0);
-        console.log("Inner: ", innerCellRef.current?.scrollHeight)
-        console.log("Bounding: ", innerCellRef.current?.scrollHeight)
+        gridRef.current.resetAfterRowIndex(1);
+        // console.log("Inner: ", innerCellRef.current?.scrollHeight)
+        // console.log("Bounding: ", innerCellRef.current?.scrollHeight)
       }
     }, [rowCount]);
 
@@ -816,17 +832,14 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const innerCellRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      console.log("Inner: ", innerCellRef.current?.getBoundingClientRect().height)
+      // console.log("Inner: ", innerCellRef.current?.getBoundingClientRect().height)
       if (innerCellRef.current) {
         // gridRef.current.resetAfterRowIndex(0);
-        console.log("Is current")
+        // console.log("Is current")
       }
     }, [onItemsRendered]);
 
-    const getRowHeight = useCallback((index: number) => {
-      console.log(`GetRowHeight: from ref: ${rowHeightsRef.current.get(index)}`)
-      return rowHeightsRef.current.get(index) || rowHeight;
-    }, [rowHeight]);
+ 
     
     
     // console.log("Inner ref? ", innerCellRef.current?.scrollHeight)

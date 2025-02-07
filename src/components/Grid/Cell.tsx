@@ -20,6 +20,7 @@ export const Cell = memo(
       rowHeight,
       rowStart,
       rowAutoHeight,
+      getRowHeight
     } = data;
 
     const currentRowIndex = rowIndex + rowStart;
@@ -57,9 +58,8 @@ export const Cell = memo(
 
     const cellRef = useRef<HTMLDivElement>(null);
 
-    // useEffect(() => {
-    //   console.log("Current ref form cell: ", cellRef.current?.getBoundingClientRect().height)
-    // })
+    const currentHeight = getRowHeight(rowIndex);
+    console.log(`Which is bigger, rowHeight ${rowHeight} or current height? ${currentHeight}`)
 
     useEffect(() => {
       console.log("Current ref form cell: ", cellRef.current?.getBoundingClientRect().height)
@@ -69,11 +69,12 @@ export const Cell = memo(
       }
     }, [cellRef, data.updateRowHeight, rowIndex]);
 
+    console.log("Row height is: ", rowHeight)
     return (
       <div
         style={{
           ...style,
-          height: "max-content"
+          height: "max-content",
         }}
         data-row={currentRowIndex}
         data-column={columnIndex}

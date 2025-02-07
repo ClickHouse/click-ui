@@ -37,7 +37,8 @@ export const StyledCell = styled.div<{
     $showBorder,
     $rowAutoHeight,
   }) => `
-    height: ${$rowAutoHeight ? "auto" : `${$height}px`};
+    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
+    min-height: ${$rowAutoHeight ? "auto" : ""};
     overflow-y: ${$rowAutoHeight ? "auto" : "hidden"};
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
     color: ${

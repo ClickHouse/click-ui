@@ -23,6 +23,7 @@ const RowNumberColumnContainer = styled.div<{
 const RowNumberCell = styled.div<{
   $height: number;
   $rowNumber: number;
+  $rowAutoHeight?: boolean;
 }>`
   position: absolute;
   left: 0;
@@ -30,9 +31,9 @@ const RowNumberCell = styled.div<{
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  ${({ $height, $rowNumber }) => `
+  ${({ $height, $rowNumber, $rowAutoHeight }) => `
     top: ${$height * $rowNumber}px;
-    height: ${$height}px;
+    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
   `}
 `;
 interface RowNumberColumnProps {
@@ -87,6 +88,7 @@ const RowNumber = ({
     <RowNumberCell
       $rowNumber={rowIndex}
       $height={rowHeight}
+      $rowAutoHeight={rowAutoHeight}
     >
       <StyledCell
         $height={rowHeight}
