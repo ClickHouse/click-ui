@@ -64,13 +64,14 @@ export const Cell = memo(
       }
     });
 
-    console.log("Row height is: ", rowHeight);
+    const styleWithHeight = {
+      ...style,
+      height: "auto"
+    }
+
     return (
       <div
-        style={{
-          ...style,
-          height: "auto",
-        }}
+        style={styleWithHeight}
         data-row={currentRowIndex}
         data-column={columnIndex}
         ref={cellRef}

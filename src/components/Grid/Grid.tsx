@@ -218,7 +218,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const getRowHeight = useCallback(
       (index: number) => {
         if (rowAutoHeight && rowHeightsRef.current.get(index)) {
-          return rowHeightsRef.current.get(index) + 33;
+          return rowHeightsRef.current.get(index) + rowHeight;
         }
         return rowHeight;
       },
@@ -226,7 +226,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     );
 
     const updateRowHeight = useCallback((rowIndex: number, height: number) => {
-      const prevHeight = rowHeightsRef.current.get(rowIndex) || 0;
+      const prevHeight = rowHeightsRef.current.get(rowIndex) ?? 0;
       if (height > prevHeight) {
         rowHeightsRef.current.set(rowIndex, height);
         if (gridRef.current) {
