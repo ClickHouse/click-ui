@@ -1,18 +1,16 @@
+import { Args } from "@storybook/react";
 import { DateDetails } from "./DateDetails";
 
 export default {
   argTypes: {
-    locale: {
-      options: ["en-US", "en-GB", "fr-FR", "de-DE", "ru-RU"],
-      control: {
-        type: "select",
-      },
-    },
     side: {
       control: {
         type: "select",
       },
       options: ["top", "right", "left", "bottom"],
+    },
+    date: {
+      control: "date",
     },
     systemTimeZone: {
       options: [
@@ -39,9 +37,18 @@ export default {
 export const Playground = {
   args: {
     date: new Date(),
-    locale: "en-US",
     side: "top",
     systemTimeZone: "America/Los_Angeles",
     title: "DateDetails",
+  },
+  render: (args: Args) => {
+    const date = args.date ? new Date(args.date) : new Date();
+    return (
+      <DateDetails
+        date={date}
+        side={args.side}
+        systemTimeZone={args.systemTimeZone}
+      />
+    );
   },
 };

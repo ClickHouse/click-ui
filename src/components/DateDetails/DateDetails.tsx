@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import duration from "dayjs/plugin/duration";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -62,66 +62,56 @@ const UnderlinedTrigger = styled(Popover.Trigger)<StyledLinkProps>`
   ${linkStyles}
 `;
 
-const dateStyle = "medium";
-const timeStyle = "medium";
+const formatDateDetails = (date: Dayjs, timezone?: string): string => {
+  const isCurrentYear = dayjs().year() === date.year();
+  const formatForCurrentYear = "MMM D, h:mm a";
+  const formatForPastYear = "MMM D, YYYY, h:mm a";
 
-const createBasicDateDetailsFormatter = () => {
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle,
-    timeStyle,
-  });
-};
-
-const formatDateDetails = (date: Date, locale?: Intl.Locale, timeZone?: string) => {
-  let dateDetailsFormatter;
-  try {
-    dateDetailsFormatter = new Intl.DateTimeFormat(locale, {
-      dateStyle,
-      timeStyle,
-      timeZone,
-    });
-  } catch (error) {
-    if ((error as Error).message.includes("invalid time zone")) {
-      try {
-        dateDetailsFormatter = new Intl.DateTimeFormat(locale, {
-          dateStyle,
-          timeStyle,
-        });
-      } catch {
-        dateDetailsFormatter = createBasicDateDetailsFormatter();
-      }
-    } else if ((error as Error).message.includes("invalid language tag")) {
-      try {
-        dateDetailsFormatter = new Intl.DateTimeFormat(undefined, {
-          dateStyle,
-          timeStyle,
-          timeZone,
-        });
-      } catch {
-        dateDetailsFormatter = createBasicDateDetailsFormatter();
-      }
-    } else {
-      dateDetailsFormatter = createBasicDateDetailsFormatter();
+  if (isCurrentYear) {
+    if (timezone) {
+      const dateWithTimezone = date.tz(timezone);
+      return dateWithTimezone
+        .format(formatForCurrentYear)
+        .replace("am", "a.m.")
+        .replace("pm", "p.m.");
     }
+
+    return date.format(formatForCurrentYear).replace("am", "a.m.").replace("pm", "p.m.");
   }
 
-  return dateDetailsFormatter.format(date);
+  if (timezone) {
+    const dateWithTimezone = date.tz(timezone);
+    return dateWithTimezone
+      .format(formatForPastYear)
+      .replace("am", "a.m.")
+      .replace("pm", "p.m.");
+  }
+  return date.format(formatForPastYear).replace("am", "a.m.").replace("pm", "p.m.");
+};
+
+const formatTimezone = (date: Dayjs, timezone: string): string => {
+  return (
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: timezone,
+      timeZoneName: "short",
+    })
+      .formatToParts(date.toDate())
+      .find(part => part.type === "timeZoneName")?.value ?? date.format("z")
+  );
 };
 
 export type ArrowPosition = "top" | "right" | "left" | "bottom";
 
 export interface DateDetailsProps {
   date: Date;
-  locale?: Intl.Locale;
   side?: ArrowPosition;
   systemTimeZone?: string;
 }
 
 export const DateDetails = ({
   date,
-  locale,
   side = "top",
-  systemTimeZone,
+  systemTimeZone = "America/New_York",
 }: DateDetailsProps) => {
   const dayjsDate = dayjs(date);
 
@@ -155,7 +145,8 @@ export const DateDetails = ({
           <Text size="md">Local</Text>
           <Container justifyContent="end">
             <Text size="md">
-              {formatDateDetails(dayjsDate.toDate(), locale)} ({dayjsDate.format("z")})
+              {formatDateDetails(dayjsDate)} (
+              {formatTimezone(dayjsDate, dayjs.tz.guess())})
             </Text>
           </Container>
 
@@ -165,8 +156,8 @@ export const DateDetails = ({
 
               <Container justifyContent="end">
                 <Text size="md">
-                  {formatDateDetails(systemTime.toDate(), locale, systemTimeZone)} (
-                  {systemTime.format("z")})
+                  {formatDateDetails(systemTime, systemTimeZone)} (
+                  {formatTimezone(systemTime, systemTimeZone)})
                 </Text>
               </Container>
             </>
@@ -174,9 +165,7 @@ export const DateDetails = ({
 
           <Text size="md">UTC</Text>
           <Container justifyContent="end">
-            <Text size="md">
-              {formatDateDetails(dayjsDate.utc().toDate(), locale, "UTC")}
-            </Text>
+            <Text size="md">{formatDateDetails(dayjsDate.utc(), "UTC")}</Text>
           </Container>
 
           <Text size="md">Unix</Text>

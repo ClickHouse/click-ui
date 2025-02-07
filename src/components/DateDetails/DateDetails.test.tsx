@@ -24,7 +24,6 @@ describe("DateDetails", () => {
   it("renders the DateDetails component with relevant timezone information", () => {
     const baseDate = new Date("2024-12-24 11:45:00 AM");
     const systemTimeZone = "America/Los_Angeles";
-    const locale = new Intl.Locale("en", { region: "US" });
     vi.setSystemTime(baseDate);
 
     const fiveMinutesAgo = new Date("2024-12-24 11:40:00 AM");
@@ -32,7 +31,6 @@ describe("DateDetails", () => {
     const { getByText } = renderCUI(
       <DateDetails
         date={fiveMinutesAgo}
-        locale={locale}
         systemTimeZone={systemTimeZone}
       />
     );
@@ -51,16 +49,39 @@ describe("DateDetails", () => {
         return content.includes("PST");
       })
     ).toBeInTheDocument();
-    expect(getByText("Dec 24, 2024, 4:40:00 PM")).toBeInTheDocument();
-    expect(getByText("Dec 24, 2024, 11:40:00 AM (EST)")).toBeInTheDocument();
-    expect(getByText("Dec 24, 2024, 8:40:00 AM (PST)")).toBeInTheDocument();
+    expect(getByText("Dec 24, 4:40 p.m.")).toBeInTheDocument();
+    expect(getByText("Dec 24, 11:40 a.m. (EST)")).toBeInTheDocument();
+    expect(getByText("Dec 24, 8:40 a.m. (PST)")).toBeInTheDocument();
     expect(getByText(fiveMinutesAgo.getTime() / 1000)).toBeInTheDocument();
+  });
+
+  it("only shows the date if the previous date isn't in this year", () => {
+    const baseDate = new Date("2025-02-07 11:45:00 AM");
+    const systemTimeZone = "America/Los_Angeles";
+    vi.setSystemTime(baseDate);
+
+    const oneYearAgo = new Date("2024-02-07 11:45:00 AM");
+
+    const { getByText } = renderCUI(
+      <DateDetails
+        date={oneYearAgo}
+        systemTimeZone={systemTimeZone}
+      />
+    );
+
+    const trigger = getByText("1 year ago");
+    expect(trigger).toBeInTheDocument();
+
+    fireEvent.click(trigger);
+    expect(getByText("Feb 7, 2024, 4:45 p.m.")).toBeInTheDocument();
+    expect(getByText("Feb 7, 2024, 11:45 a.m. (EST)")).toBeInTheDocument();
+    expect(getByText("Feb 7, 2024, 8:45 a.m. (PST)")).toBeInTheDocument();
+    expect(getByText(oneYearAgo.getTime() / 1000)).toBeInTheDocument();
   });
 
   it("handles Daylight Savings Time", () => {
     const baseDate = new Date("2024-07-04 11:45:00 AM");
     const systemTimeZone = "America/Los_Angeles";
-    const locale = new Intl.Locale("en", { region: "US" });
     vi.setSystemTime(baseDate);
 
     const fiveMinutesAgo = new Date("2024-07-04 11:40:00 AM");
@@ -68,7 +89,6 @@ describe("DateDetails", () => {
     const { getByText } = renderCUI(
       <DateDetails
         date={fiveMinutesAgo}
-        locale={locale}
         systemTimeZone={systemTimeZone}
       />
     );
@@ -87,9 +107,9 @@ describe("DateDetails", () => {
         return content.includes("PDT");
       })
     ).toBeInTheDocument();
-    expect(getByText("Jul 4, 2024, 3:40:00 PM")).toBeInTheDocument();
-    expect(getByText("Jul 4, 2024, 11:40:00 AM (EDT)")).toBeInTheDocument();
-    expect(getByText("Jul 4, 2024, 8:40:00 AM (PDT)")).toBeInTheDocument();
+    expect(getByText("Jul 4, 3:40 p.m.")).toBeInTheDocument();
+    expect(getByText("Jul 4, 11:40 a.m. (EDT)")).toBeInTheDocument();
+    expect(getByText("Jul 4, 8:40 a.m. (PDT)")).toBeInTheDocument();
     expect(getByText(fiveMinutesAgo.getTime() / 1000)).toBeInTheDocument();
   });
 });
