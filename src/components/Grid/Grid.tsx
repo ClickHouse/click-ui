@@ -213,6 +213,19 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onCopyCallback,
     ]);
 
+    const rowHeightsRef = useRef(new Map());
+
+
+    const updateRowHeight = useCallback((rowIndex: number, height: number) => {
+      console.log("Updating row height!");
+      const prevHeight = rowHeightsRef.current.get(rowIndex) || 0;
+      if (height > prevHeight) {
+        rowHeightsRef.current.set(rowIndex, height);
+        gridRef.current?.resetAfterRowIndex(rowIndex);
+      }
+    }, []);
+    
+
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
         if (onCopyProp) {
@@ -407,6 +420,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       rowNumberWidth,
       rowStart,
       rowAutoHeight,
+      updateRowHeight
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
@@ -758,7 +772,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const onItemsRendered = useCallback(
       (props: GridOnItemsRenderedProps) => {
         lastItemsRenderedProps.current = props;
-
         return onItemsRenderedProp?.({
           ...props,
           visibleRowStartIndex: props.visibleRowStartIndex + rowStart,
@@ -794,9 +807,30 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     useEffect(() => {
       if (gridRef.current) {
         gridRef.current.resetAfterRowIndex(0);
+        console.log("Inner: ", innerCellRef.current?.scrollHeight)
+        console.log("Bounding: ", innerCellRef.current?.scrollHeight)
       }
     }, [rowCount]);
 
+    
+    const innerCellRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      console.log("Inner: ", innerCellRef.current?.getBoundingClientRect().height)
+      if (innerCellRef.current) {
+        // gridRef.current.resetAfterRowIndex(0);
+        console.log("Is current")
+      }
+    }, [onItemsRendered]);
+
+    const getRowHeight = useCallback((index: number) => {
+      console.log(`GetRowHeight: from ref: ${rowHeightsRef.current.get(index)}`)
+      return rowHeightsRef.current.get(index) || rowHeight;
+    }, [rowHeight]);
+    
+    
+    // console.log("Inner ref? ", innerCellRef.current?.scrollHeight)
+    // console.log("Bounding client height? ", innerCellRef.current?.getBoundingClientRect().height)
     return (
       <ContextMenu
         modal={false}
@@ -831,7 +865,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 height={height}
                 width={width}
                 columnCount={columnCount}
-                rowHeight={() => rowHeight}
+                rowHeight={getRowHeight}
                 useIsScrolling={useIsScrolling}
                 innerElementType={InnerElementType}
                 itemData={data}
@@ -847,6 +881,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 outerRef={outerRef}
                 outerElementType={OuterElementType}
                 onItemsRendered={onItemsRendered}
+                innerRef={innerCellRef}
                 {...props}
               >
                 {CellWithWidth}

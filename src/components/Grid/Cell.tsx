@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { GridChildComponentProps, areEqual } from "react-window";
 import { ItemDataType } from "./types";
 import { StyledCell } from "./StyledCell";
@@ -54,11 +54,30 @@ export const Cell = memo(
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
+
+    const cellRef = useRef<HTMLDivElement>(null);
+
+    // useEffect(() => {
+    //   console.log("Current ref form cell: ", cellRef.current?.getBoundingClientRect().height)
+    // })
+
+    useEffect(() => {
+      console.log("Current ref form cell: ", cellRef.current?.getBoundingClientRect().height)
+      if (cellRef.current && data.updateRowHeight) {
+        const height = cellRef.current.getBoundingClientRect().height;
+        data.updateRowHeight(rowIndex, height);
+      }
+    }, [cellRef, data.updateRowHeight, rowIndex]);
+
     return (
       <div
-        style={style}
+        style={{
+          ...style,
+          height: "max-content"
+        }}
         data-row={currentRowIndex}
         data-column={columnIndex}
+        ref={cellRef}
       >
         <StyledCell
           as={CellData}

@@ -158,6 +158,7 @@ export interface ItemDataType {
   rowNumberWidth: number;
   rowStart: number;
   rowAutoHeight?: boolean;
+  updateRowHeight: (rowIndex: number, height: number) => void;
 }
 
 export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "children"> {
