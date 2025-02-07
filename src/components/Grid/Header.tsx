@@ -99,6 +99,7 @@ const RowColumnContainer = styled(HeaderCellContainer)<{
 const RowColumn = styled(StyledCell)`
   width: 100%;
   text-align: right;
+  overflow: hidden;
 `;
 
 const Column = ({
@@ -130,7 +131,7 @@ const Column = ({
     (leftSelectionType === "selectDirect" || isSelected) &&
     leftSelectionType !== selectionType;
 
-  const columnWidth = getColumnWidth(columnIndex)
+  const columnWidth = getColumnWidth(columnIndex);
   return (
     <HeaderCellContainer
       $width={columnWidth}
@@ -152,6 +153,7 @@ const Column = ({
         $isLastRow={false}
         $isFirstRow
         $height={height}
+        $overflow="hidden"
         data-grid-row={-1}
         data-grid-column={columnIndex}
         data-selected={isSelected}
@@ -186,7 +188,7 @@ const Header = ({
   getColumnHorizontalPosition,
   getResizerPosition,
   showBorder,
-  resizingState
+  resizingState,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",

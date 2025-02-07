@@ -5,13 +5,14 @@ const RowNumberColumnContainer = styled.div<{
   $height: number;
   $width: number;
   $scrolledHorizontal: boolean;
+  $rowAutoHeight?: boolean;
 }>`
   position: sticky;
   left: 0;
   ${({ $height, $width }) => `
     top: ${$height}px;
     width: ${$width}px;
-    height: 100%;
+    height: 100%
   `}
 
   ${({ $scrolledHorizontal, theme }) =>
@@ -68,7 +69,7 @@ const RowNumber = ({
   isFirstRow,
   showBorder,
   rowStart,
-  rowAutoHeight
+  rowAutoHeight,
 }: RowNumberProps) => {
   const currentRowIndex = rowIndex + rowStart;
   const selectionType = getSelectionType({
@@ -102,6 +103,7 @@ const RowNumber = ({
         $isSelectedLeft={isSelected}
         $isSelectedTop={isSelectedTop}
         $rowAutoHeight={rowAutoHeight}
+        $overflow="hidden"
         data-selected={isSelected}
         data-grid-row={currentRowIndex}
         data-grid-column={-1}
@@ -127,13 +129,14 @@ const RowNumberColumn = ({
   scrolledHorizontal,
   rowStart = 0,
   showBorder,
-  rowAutoHeight
+  rowAutoHeight,
 }: RowNumberColumnProps) => {
   return (
     <RowNumberColumnContainer
       $height={headerHeight}
       $width={rowWidth}
       $scrolledHorizontal={scrolledHorizontal}
+      $rowAutoHeight={rowAutoHeight}
     >
       {Array.from({ length: maxRow - minRow + 1 }, (_, index) => minRow + index).map(
         rowIndex => (
