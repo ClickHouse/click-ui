@@ -1,16 +1,33 @@
-import {CellProps, Grid, GridProps} from "@/components";
-import {renderCUI} from "@/utils/test-utils";
-import {SelectionFocus} from "./types";
-import {ReactNode} from "react";
+import { CellProps, Grid, GridProps } from "@/components";
+import { renderCUI } from "@/utils/test-utils";
+import { SelectionFocus } from "./types";
+import { ReactNode } from "react";
+import { act } from "react-dom/test-utils";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
+  let content = `${rowIndex} ${columnIndex} - ${type}`;
+
+  if (rowIndex === 0 && columnIndex === 0) {
+    content = `CREATE TABLE random_user_events (
+        user_id UInt32,
+        event_time DateTime,
+        event_type Enum8('click' = 1, 'view' = 2, 'purchase' = 3),
+        item_id String,
+        price Decimal(10,2),
+        quantity UInt16
+    ) ENGINE = MergeTree()
+    ORDER BY (user_id, event_time)
+    PARTITION BY toYYYYMM(event_time)
+    SETTINGS index_granularity = 8192;`;
+  }
+
   return (
     <div
       data-scrolling={isScrolling}
       {...props}
       data-testid={`${type}-${rowIndex ?? "x"}-${columnIndex ?? "x"}`}
     >
-      {rowIndex} {columnIndex} - {type}
+      {content}
     </div>
   );
 };
@@ -31,6 +48,7 @@ interface Props
   focus?: SelectionFocus;
   onFocusChange?: (rowIndex: number, columnIndex: number) => void;
   onColumnResize?: () => void;
+  rowAutoHeight?: boolean;
 }
 type AutoSizerModule = typeof import("react-virtualized-auto-sizer");
 
@@ -54,24 +72,26 @@ describe("Grid", () => {
   };
 
   const renderGrid = ({
-    rowCount = 20,
-    columnCount = 20,
+    rowCount,
+    columnCount,
     columnWidth,
     onColumnResize,
     focus,
     onFocusChange,
+    rowAutoHeight,
     ...props
   }: Props) =>
     renderCUI(
       <Grid
-        rowCount={rowCount}
-        columnCount={columnCount}
+        rowCount={rowCount ?? 20}
+        columnCount={columnCount ?? 20}
         columnWidth={columnWidth ?? columnWidthTestFn}
         cell={Cell}
         focus={focus ?? { row: 0, column: 0 }}
         onColumnResize={onColumnResize ?? onColumnResizeTestFn}
         onFocusChange={onFocusChange ?? onFocusChangeTestFn}
         getMenuOptions={getMenuOptions}
+        rowAutoHeight={rowAutoHeight}
         {...props}
       />
     );
@@ -98,5 +118,42 @@ describe("Grid", () => {
     expect(cell).not.toBeNull();
     cell && expect(cell.dataset.selected).toEqual("true");
     cell && expect(cell.dataset.focused).toEqual("true");
+  });
+
+  it.only("should set row height to default (33px) when rowAutoHeight is false", async () => {
+    const { queryByTestId } = renderGrid({
+      rowCount: 10,
+      columnCount: 10,
+      rowAutoHeight: false,
+    });
+
+    const cell = queryByTestId("row-cell-0-0");
+    expect(cell).toBeDefined();
+
+    if (!cell) {
+      throw new Error("Cell with data-testid 'row-cell-0-0' not found");
+    }
+
+    const computedHeight = window.getComputedStyle(cell).height;
+    const heightValue = parseFloat(computedHeight);
+    expect(heightValue).toBe(33);
+  });
+
+  it("should expand row height to 100% when rowAutoHeight is true", async () => {
+    const { queryByTestId } = renderGrid({
+      rowCount: 1,
+      columnCount: 1,
+      rowAutoHeight: true,
+    });
+
+    const cell = queryByTestId("row-cell-0-0");
+    expect(cell).toBeDefined();
+
+    if (!cell) {
+      throw new Error("Cell with data-testid 'row-cell-0-0' not found");
+    }
+
+    const computedHeight = window.getComputedStyle(cell).height;
+    expect(computedHeight).toBe("100%");
   });
 });
