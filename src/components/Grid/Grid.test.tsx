@@ -119,7 +119,7 @@ describe("Grid", () => {
     cell && expect(cell.dataset.focused).toEqual("true");
   });
 
-  it.only("should set row height to default (33px) when rowAutoHeight is false", async () => {
+  it("should set row height to default (33px) when rowAutoHeight is false", async () => {
     const { queryByTestId } = renderGrid({
       rowCount: 10,
       columnCount: 10,
