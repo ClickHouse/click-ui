@@ -59,12 +59,12 @@ export const Cell = memo(
     const cellRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      if (rowCount !== 1) return;
+      if (!rowAutoHeight) return;
       else if (cellRef.current) {
         const height = cellRef.current.getBoundingClientRect().height;
         updateRowHeight(rowIndex, height);
       }
-    }, [rowCount, updateRowHeight, rowIndex]);
+    }, [updateRowHeight, rowIndex, rowAutoHeight]);
 
     const styleWithHeight = {
       ...style,

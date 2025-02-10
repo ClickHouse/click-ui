@@ -103,7 +103,6 @@ const RowNumber = ({
         $isSelectedLeft={isSelected}
         $isSelectedTop={isSelectedTop}
         $rowAutoHeight={rowAutoHeight}
-        $overflow="hidden"
         data-selected={isSelected}
         data-grid-row={currentRowIndex}
         data-grid-column={-1}

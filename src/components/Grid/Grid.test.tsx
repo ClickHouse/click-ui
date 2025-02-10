@@ -2,7 +2,6 @@ import { CellProps, Grid, GridProps } from "@/components";
 import { renderCUI } from "@/utils/test-utils";
 import { SelectionFocus } from "./types";
 import { ReactNode } from "react";
-import { act } from "react-dom/test-utils";
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   let content = `${rowIndex} ${columnIndex} - ${type}`;

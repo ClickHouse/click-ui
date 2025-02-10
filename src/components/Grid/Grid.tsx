@@ -227,8 +227,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
     const updateRowHeight = useCallback(
       (rowIndex: number, height: number) => {
-        if (rowCount !== 1) return;
-
+        if (!rowAutoHeight) return;
         const prevHeight = rowHeightsRef.current.get(rowIndex) ?? 0;
         if (height > prevHeight) {
           rowHeightsRef.current.set(rowIndex, height);
@@ -237,7 +236,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           }
         }
       },
-      [rowCount]
+      [rowAutoHeight]
     );
 
     const customOnCopy: () => Promise<void> = useMemo(() => {

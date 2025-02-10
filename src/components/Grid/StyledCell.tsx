@@ -14,7 +14,6 @@ export const StyledCell = styled.div<{
   $type?: "body" | "header";
   $showBorder: boolean;
   $rowAutoHeight?: boolean;
-  $overflow?: string;
 }>`
   display: block;
   text-align: left;
@@ -37,11 +36,10 @@ export const StyledCell = styled.div<{
     $type = "body",
     $showBorder,
     $rowAutoHeight,
-    $overflow,
   }) => `
     height: ${$rowAutoHeight ? "100%" : `${$height}px`};
     min-height: ${$rowAutoHeight ? "auto" : ""};
-    overflow-y: ${$overflow ? $overflow : "auto"};
+    overflow-y: ${$rowAutoHeight ? "auto" : ""};
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
     color: ${
       $type === "header"

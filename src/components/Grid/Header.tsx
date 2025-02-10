@@ -153,7 +153,6 @@ const Column = ({
         $isLastRow={false}
         $isFirstRow
         $height={height}
-        $overflow="hidden"
         data-grid-row={-1}
         data-grid-column={columnIndex}
         data-selected={isSelected}
