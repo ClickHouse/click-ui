@@ -120,31 +120,29 @@ describe("Grid", () => {
   });
 
   it("should set row height to default (33px) when rowAutoHeight is false", async () => {
-    const { queryByTestId } = renderGrid({
+    const { getByTestId } = renderGrid({
       rowCount: 10,
       columnCount: 10,
       rowAutoHeight: false,
     });
 
-    const cell = queryByTestId("row-cell-0-0");
-    expect(cell).toBeDefined();
+    const cell = getByTestId("row-cell-0-0");
 
-    const computedHeight = window.getComputedStyle(cell!).height;
+    const computedHeight = window.getComputedStyle(cell).height;
     const heightValue = parseFloat(computedHeight);
     expect(heightValue).toBe(33);
   });
 
   it("should expand row height to 100% when rowAutoHeight is true", async () => {
-    const { queryByTestId } = renderGrid({
+    const { getByTestId } = renderGrid({
       rowCount: 1,
       columnCount: 1,
       rowAutoHeight: true,
     });
 
-    const cell = queryByTestId("row-cell-0-0");
-    expect(cell).toBeDefined();
+    const cell = getByTestId("row-cell-0-0");
 
-    const computedHeight = window.getComputedStyle(cell!).height;
+    const computedHeight = window.getComputedStyle(cell).height;
     expect(computedHeight).toBe("100%");
   });
 });
