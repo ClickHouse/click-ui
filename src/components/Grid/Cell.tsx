@@ -20,6 +20,7 @@ export const Cell = memo(
       rowHeight,
       rowStart,
       rowAutoHeight,
+      updateRowHeight,
     } = data;
 
     const currentRowIndex = rowIndex + rowStart;
@@ -58,16 +59,17 @@ export const Cell = memo(
     const cellRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      if (cellRef.current && data.updateRowHeight) {
+      if (rowCount !== 1) return;
+      else if (cellRef.current) {
         const height = cellRef.current.getBoundingClientRect().height;
-        data.updateRowHeight(rowIndex, height);
+        updateRowHeight(rowIndex, height);
       }
-    });
+    }, [rowCount, updateRowHeight, rowIndex]);
 
     const styleWithHeight = {
       ...style,
-      height: "auto"
-    }
+      height: "auto",
+    };
 
     return (
       <div

@@ -225,15 +225,20 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       [rowHeight, rowAutoHeight]
     );
 
-    const updateRowHeight = useCallback((rowIndex: number, height: number) => {
-      const prevHeight = rowHeightsRef.current.get(rowIndex) ?? 0;
-      if (height > prevHeight) {
-        rowHeightsRef.current.set(rowIndex, height);
-        if (gridRef.current) {
-          gridRef.current.resetAfterRowIndex(rowIndex);
+    const updateRowHeight = useCallback(
+      (rowIndex: number, height: number) => {
+        if (rowCount !== 1) return;
+
+        const prevHeight = rowHeightsRef.current.get(rowIndex) ?? 0;
+        if (height > prevHeight) {
+          rowHeightsRef.current.set(rowIndex, height);
+          if (gridRef.current) {
+            gridRef.current.resetAfterRowIndex(rowIndex);
+          }
         }
-      }
-    }, []);
+      },
+      [rowCount]
+    );
 
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
