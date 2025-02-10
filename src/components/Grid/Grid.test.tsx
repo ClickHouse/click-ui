@@ -71,8 +71,8 @@ describe("Grid", () => {
   };
 
   const renderGrid = ({
-    rowCount,
-    columnCount,
+    rowCount = 20,
+    columnCount = 20,
     columnWidth,
     onColumnResize,
     focus,
@@ -82,8 +82,8 @@ describe("Grid", () => {
   }: Props) =>
     renderCUI(
       <Grid
-        rowCount={rowCount ?? 20}
-        columnCount={columnCount ?? 20}
+        rowCount={rowCount}
+        columnCount={columnCount}
         columnWidth={columnWidth ?? columnWidthTestFn}
         cell={Cell}
         focus={focus ?? { row: 0, column: 0 }}
@@ -129,11 +129,7 @@ describe("Grid", () => {
     const cell = queryByTestId("row-cell-0-0");
     expect(cell).toBeDefined();
 
-    if (!cell) {
-      throw new Error("Cell with data-testid 'row-cell-0-0' not found");
-    }
-
-    const computedHeight = window.getComputedStyle(cell).height;
+    const computedHeight = window.getComputedStyle(cell!).height;
     const heightValue = parseFloat(computedHeight);
     expect(heightValue).toBe(33);
   });
@@ -148,11 +144,7 @@ describe("Grid", () => {
     const cell = queryByTestId("row-cell-0-0");
     expect(cell).toBeDefined();
 
-    if (!cell) {
-      throw new Error("Cell with data-testid 'row-cell-0-0' not found");
-    }
-
-    const computedHeight = window.getComputedStyle(cell).height;
+    const computedHeight = window.getComputedStyle(cell!).height;
     expect(computedHeight).toBe("100%");
   });
 });
