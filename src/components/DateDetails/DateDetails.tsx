@@ -91,7 +91,7 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
 
 const formatTimezone = (date: Dayjs, timezone: string): string => {
   return (
-    new Intl.DateTimeFormat("en-US", {
+    new Intl.DateTimeFormat(undefined, {
       timeZone: timezone,
       timeZoneName: "short",
     })
@@ -128,7 +128,7 @@ export const DateDetails = ({
   return (
     <Popover>
       <UnderlinedTrigger
-        $size="md"
+        $size="sm"
         $weight="medium"
       >
         <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
@@ -142,9 +142,14 @@ export const DateDetails = ({
           gridTemplateColumns="repeat(2, auto)"
           gap="sm"
         >
-          <Text size="md">Local</Text>
+          <Text
+            color="muted"
+            size="sm"
+          >
+            Local
+          </Text>
           <Container justifyContent="end">
-            <Text size="md">
+            <Text size="sm">
               {formatDateDetails(dayjsDate)} (
               {formatTimezone(dayjsDate, dayjs.tz.guess())})
             </Text>
@@ -152,10 +157,15 @@ export const DateDetails = ({
 
           {systemTime && (
             <>
-              <Text size="md">System</Text>
+              <Text
+                color="muted"
+                size="sm"
+              >
+                System
+              </Text>
 
               <Container justifyContent="end">
-                <Text size="md">
+                <Text size="sm">
                   {formatDateDetails(systemTime, systemTimeZone)} (
                   {formatTimezone(systemTime, systemTimeZone)})
                 </Text>
@@ -163,14 +173,24 @@ export const DateDetails = ({
             </>
           )}
 
-          <Text size="md">UTC</Text>
+          <Text
+            color="muted"
+            size="sm"
+          >
+            UTC
+          </Text>
           <Container justifyContent="end">
-            <Text size="md">{formatDateDetails(dayjsDate.utc(), "UTC")}</Text>
+            <Text size="sm">{formatDateDetails(dayjsDate.utc(), "UTC")}</Text>
           </Container>
 
-          <Text size="md">Unix</Text>
+          <Text
+            color="muted"
+            size="sm"
+          >
+            Unix
+          </Text>
           <Container justifyContent="end">
-            <Text size="md">{Math.round(date.getTime() / 1000)}</Text>
+            <Text size="sm">{Math.round(date.getTime() / 1000)}</Text>
           </Container>
         </GridContainer>
       </Popover.Content>
