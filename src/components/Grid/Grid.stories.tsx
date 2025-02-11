@@ -2,7 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from "..";
 import { Grid as CUIGrid } from "./Grid";
 
-const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, width, ...props }) => {
+const Cell: CellProps = ({
+  type,
+  rowIndex,
+  columnIndex,
+  isScrolling,
+  width,
+  ...props
+}) => {
   return (
     <div
       data-scrolling={isScrolling}
@@ -20,6 +27,7 @@ interface Props {
     row: number;
     column: number;
   };
+  rowAutoHeight?: boolean;
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
@@ -71,6 +79,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
           });
         }}
         getMenuOptions={getMenuOptions}
+        rowAutoHeight={props.rowAutoHeight}
         {...props}
       />
     </div>
