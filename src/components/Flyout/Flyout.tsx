@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -25,6 +25,7 @@ import {
 import { styled } from "styled-components";
 import { CrossButton } from "../commonElement";
 import { keyframes } from "styled-components";
+import { Resizable } from "re-resizable";
 
 export type FlyoutProps = DialogProps;
 
@@ -62,7 +63,9 @@ export interface DialogContentProps extends RadixDialogContentProps {
   type?: FlyoutType;
   strategy?: Strategy;
   closeOnInteractOutside?: boolean;
-  width?: string;
+  resizable?: boolean;
+  onFlyoutResize?: (width: number) => void;
+  width?: string | number;
   align?: DialogContentAlignmentType;
 }
 
@@ -76,7 +79,7 @@ const FlyoutContent = styled(DialogContent)<{
   $size?: FlyoutSizeType;
   $type?: FlyoutType;
   $strategy: Strategy;
-  $width?: string;
+  $width?: string | number;
   $align: DialogContentAlignmentType;
 }>`
   display: flex;
@@ -85,9 +88,9 @@ const FlyoutContent = styled(DialogContent)<{
   overflow: hidden;
   top: 0;
   bottom: 0;
-  width: fit-content;
-  --flyout-width: ${({ theme, $size = "default", $width }) =>
-    $width || theme.click.flyout.size[$size].width};
+  width: 100%;
+  --flyout-width: ${({ $width }) =>
+    (typeof $width === "number" ? `${$width}px` : $width) || "100%"};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   ${({ theme, $strategy, $type = "default", $align }) => `
     ${$align === "start" ? "left" : "right"}: 0;
@@ -138,19 +141,52 @@ const FlyoutContainer = styled.div`
   gap: inherit;
 `;
 
+const defaultWidths = {
+  default: 440,
+  wide: 600,
+  narrow: 336,
+};
+
+const MIN_WIDTH = 200;
+
 const Content = ({
   showOverlay = false,
   children,
   container,
   strategy = "relative",
-  size,
+  size = "default",
   type = "default",
   closeOnInteractOutside = false,
-  width,
+  onFlyoutResize,
+  resizable = false,
+  width: widthProp,
   align = "end",
   onInteractOutside,
   ...props
 }: DialogContentProps) => {
+  const [width, setWidth] = useState(defaultWidths[size]);
+
+  useEffect(() => {
+    if (typeof widthProp === "number") {
+      setWidth(Number(widthProp));
+    }
+  }, [widthProp]);
+
+  const resizeEnable = {
+    top: false,
+    right: false,
+    bottom: false,
+    left: false,
+    topRight: false,
+    bottomRight: false,
+    bottomLeft: false,
+    topLeft: false,
+  };
+
+  if (resizable) {
+    resizeEnable[align === "start" ? "right" : "left"] = true;
+  }
+
   return (
     <DialogPortal container={container}>
       {showOverlay && <DialogOverlay className="DialogOverlay" />}
@@ -166,11 +202,32 @@ const Content = ({
             onInteractOutside(e);
           }
         }}
-        $width={width}
+        $width={resizable ? undefined : widthProp}
         $align={align}
         {...props}
       >
-        {children}
+        <Resizable
+          size={{
+            width: resizable ? width : undefined,
+            height: "100%",
+          }}
+          onResizeStop={(_, __, ___, delta) => {
+            setWidth(currentWidth => currentWidth + delta.width);
+            if (typeof onFlyoutResize === "function") {
+              onFlyoutResize(width + delta.width);
+            }
+          }}
+          minWidth={MIN_WIDTH}
+          enable={resizeEnable}
+        >
+          <Container
+            orientation="vertical"
+            grow="1"
+            minHeight="100%"
+          >
+            {children}
+          </Container>
+        </Resizable>
       </FlyoutContent>
     </DialogPortal>
   );
