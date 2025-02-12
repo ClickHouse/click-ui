@@ -138,6 +138,46 @@ describe("Select", () => {
     expect(getByTestId("select-trigger")).toHaveTextContent("Content0");
   });
 
+  it("should render initially selected option with empty value", () => {
+    const OPTION_TEXT = "Empty option";
+
+    const { getByTestId } = renderSelect({
+      value: "",
+      options: [
+        {
+          value: "",
+          label: OPTION_TEXT,
+        },
+      ],
+    });
+
+    const selectedValue = getByTestId("select-trigger");
+    expect(selectedValue.textContent).toBe(OPTION_TEXT);
+  });
+
+  it("should render manually selected option with empty value", () => {
+    const OPTION_TEXT = "Empty option";
+
+    const { queryByText, getByTestId } = renderSelect({
+      options: [
+        {
+          value: "",
+          label: OPTION_TEXT,
+        },
+      ],
+    });
+
+    const selectTrigger = getByTestId("select-trigger");
+    expect(selectTrigger).not.toBeNull();
+    expect(selectTrigger.textContent).toBe("Select an option");
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    const item = queryByText(OPTION_TEXT);
+    expect(item).not.toBeNull();
+    item && fireEvent.click(item);
+    expect(selectTrigger.textContent).toBe(OPTION_TEXT);
+  });
+
   it("should close select on selecting item", () => {
     const { queryByText } = renderSelect({});
     const selectTrigger = queryByText("Select an option");

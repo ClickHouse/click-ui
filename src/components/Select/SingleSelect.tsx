@@ -29,7 +29,11 @@ export const Select = ({
   ...props
 }: SelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
-    valueProp ? [valueProp] : defaultValue ? [defaultValue] : []
+    typeof valueProp === "string"
+      ? [valueProp]
+      : typeof defaultValue === "string"
+      ? [defaultValue]
+      : []
   );
   const [open, setOpen] = useState(false);
 
@@ -69,7 +73,7 @@ export const Select = ({
   );
 
   useUpdateEffect(() => {
-    setSelectedValues(valueProp ? [valueProp] : []);
+    setSelectedValues(typeof valueProp === "string" ? [valueProp] : []);
   }, [valueProp]);
 
   const conditionalProps: Partial<SelectOptionProp> = {};
@@ -82,7 +86,7 @@ export const Select = ({
   return (
     <InternalSelect
       onChange={onChange}
-      value={valueProp ? [valueProp] : selectedValues}
+      value={typeof valueProp === "string" ? [valueProp] : selectedValues}
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
