@@ -40,6 +40,7 @@ export default defineConfig({
     rollupOptions: {
       // Add _all_ external dependencies here
       external: [
+        "dayjs",
         "react",
         "react-dom",
         "styled-components",
@@ -51,6 +52,7 @@ export default defineConfig({
       ],
       output: {
         globals: {
+          dayjs: "dayjs",
           react: "React",
           "styled-components": "styled",
           "react-dom": "ReactDOM",
