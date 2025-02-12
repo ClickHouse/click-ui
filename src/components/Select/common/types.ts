@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, KeyboardEvent, ReactNode } from "react";
 import { HorizontalDirection, IconName } from "@/components";
 import { PopoverProps } from "@radix-ui/react-popover";
 
@@ -74,7 +74,11 @@ interface InternalSelectProps
   onOpenChange: (open: boolean) => void;
   value: Array<string>;
   sortable?: boolean;
-  onSelect: (value: string, type?: SelectionType) => void;
+  onSelect: (
+    value: string,
+    type?: SelectionType,
+    evt?: KeyboardEvent<HTMLElement>
+  ) => void;
   multiple?: boolean;
   checkbox?: boolean;
   selectLabel?: string;

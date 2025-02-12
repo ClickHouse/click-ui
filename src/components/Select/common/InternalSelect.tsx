@@ -250,9 +250,9 @@ export const InternalSelect = ({
       if (e.key === "Enter") {
         e.preventDefault();
         if (highlighted) {
-          onSelect(highlighted);
+          onSelect(highlighted, "default", e);
         } else if (visibleList.current.length === 0 && allowCreateOption) {
-          onSelect(search, "custom");
+          onSelect(search, "custom", e);
         }
       } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
         e.preventDefault();
