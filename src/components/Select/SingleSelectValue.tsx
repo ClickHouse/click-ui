@@ -20,6 +20,10 @@ const SingleSelectValue = ({
   valueNode?: SelectItemProps;
   value: string;
 }) => {
+  if (value === undefined || value === null) {
+    return null;
+  }
+
   const { icon, iconDir, children, label } = valueNode ?? {};
 
   return (
