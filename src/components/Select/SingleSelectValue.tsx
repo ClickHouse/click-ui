@@ -21,9 +21,6 @@ const SingleSelectValue = ({
   value: string;
 }) => {
   const { icon, iconDir, children, label } = valueNode ?? {};
-  if (!value) {
-    return null;
-  }
 
   return (
     <SelectValueContainer>
