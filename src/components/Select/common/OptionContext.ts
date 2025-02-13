@@ -1,4 +1,5 @@
-import { createContext } from "react";
+import { createContext, KeyboardEvent, MouseEvent } from "react";
+import { SelectionType } from "./types";
 
 type OptionContextProps = {
   search: string;
@@ -6,7 +7,11 @@ type OptionContextProps = {
   updateHighlighted: (value: string) => void;
   isHidden: (value?: string) => boolean;
   selectedValues: Array<string>;
-  onSelect: (value: string) => void;
+  onSelect: (
+    value: string,
+    type?: SelectionType,
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+  ) => void;
   showCheck?: boolean;
 };
 

@@ -1,4 +1,4 @@
-import { KeyboardEvent, useCallback, useState } from "react";
+import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 
 import { useUpdateEffect } from "@/hooks";
 
@@ -14,7 +14,7 @@ export interface SelectProps
   onSelect?: (
     value: string,
     type?: SelectionType,
-    evt?: KeyboardEvent<HTMLElement>
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   value?: string;
   placeholder?: string;
@@ -52,7 +52,11 @@ export const Select = ({
   );
 
   const onSelect = useCallback(
-    (value: string, type?: SelectionType, evt?: KeyboardEvent<HTMLElement>) => {
+    (
+      value: string,
+      type?: SelectionType,
+      evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+    ) => {
       setSelectedValues(values => {
         if (values[0] !== value) {
           return [value];

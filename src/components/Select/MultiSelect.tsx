@@ -1,4 +1,4 @@
-import { KeyboardEvent, useCallback, useState } from "react";
+import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 
 import { useUpdateEffect } from "@/hooks";
 
@@ -14,7 +14,7 @@ export interface MultiSelectProps
   onSelect?: (
     value: Array<string>,
     type?: SelectionType,
-    evt?: KeyboardEvent<HTMLElement>
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   value?: Array<string>;
   defaultOpen?: boolean;

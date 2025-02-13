@@ -1,4 +1,4 @@
-import { HTMLAttributes, KeyboardEvent, ReactNode } from "react";
+import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { HorizontalDirection, IconName } from "@/components";
 import { PopoverProps } from "@radix-ui/react-popover";
 
@@ -8,7 +8,11 @@ interface SelectItemComponentProps
   extends Omit<DivProps, "disabled" | "onSelect" | "value" | "children"> {
   separator?: boolean;
   disabled?: boolean;
-  onSelect?: (value: string) => void;
+  onSelect?: (
+    value: string,
+    type?: SelectionType,
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+  ) => void;
   value: string;
   icon?: IconName;
   iconDir?: HorizontalDirection;
@@ -77,7 +81,7 @@ interface InternalSelectProps
   onSelect: (
     value: string,
     type?: SelectionType,
-    evt?: KeyboardEvent<HTMLElement>
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   multiple?: boolean;
   checkbox?: boolean;
