@@ -250,9 +250,9 @@ export const InternalSelect = ({
       if (e.key === "Enter") {
         e.preventDefault();
         if (highlighted) {
-          onSelect(highlighted);
+          onSelect(highlighted, undefined, e);
         } else if (visibleList.current.length === 0 && allowCreateOption) {
-          onSelect(search, "custom");
+          onSelect(search, "custom", e);
         }
       } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
         e.preventDefault();
@@ -306,7 +306,7 @@ export const InternalSelect = ({
     e.preventDefault();
     e.stopPropagation();
     if (allowCreateOption) {
-      onSelect(search, "custom");
+      onSelect(search, "custom", e);
     }
   };
 
@@ -547,11 +547,11 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   ) => {
     const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
       useOption();
-    const onSelectValue = () => {
+    const onSelectValue = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
-        onSelect(value);
+        onSelect(value, undefined, evt);
         if (typeof onSelectProp == "function") {
-          onSelectProp(value);
+          onSelectProp(value, undefined, evt);
         }
       }
     };
@@ -629,11 +629,11 @@ export const MultiSelectCheckboxItem = forwardRef<
   ) => {
     const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
       useOption();
-    const onSelectValue = () => {
+    const onSelectValue = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
-        onSelect(value);
+        onSelect(value, undefined, evt);
         if (typeof onSelectProp == "function") {
-          onSelectProp(value);
+          onSelectProp(value, undefined, evt);
         }
       }
     };

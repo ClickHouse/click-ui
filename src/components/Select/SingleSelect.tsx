@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 
 import { useUpdateEffect } from "@/hooks";
 
@@ -11,7 +11,11 @@ export interface SelectProps
     "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
   > {
   defaultValue?: string;
-  onSelect?: (value: string, type?: SelectionType) => void;
+  onSelect?: (
+    value: string,
+    type?: SelectionType,
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+  ) => void;
   value?: string;
   placeholder?: string;
   onOpenChange?: (open: boolean) => void;
@@ -48,7 +52,11 @@ export const Select = ({
   );
 
   const onSelect = useCallback(
-    (value: string, type?: SelectionType) => {
+    (
+      value: string,
+      type?: SelectionType,
+      evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+    ) => {
       setSelectedValues(values => {
         if (values[0] !== value) {
           return [value];
@@ -57,7 +65,7 @@ export const Select = ({
       });
       onOpenChange(false);
       if (typeof onSelectProp === "function") {
-        onSelectProp(value, type);
+        onSelectProp(value, type, evt);
       }
     },
     [onSelectProp, onOpenChange]

@@ -1,13 +1,9 @@
-import { useCallback, useState } from "react";
+import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 
-import {useUpdateEffect} from "@/hooks";
+import { useUpdateEffect } from "@/hooks";
 
 import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
-import {
-  SelectGroup,
-  SelectItem,
-  InternalSelect
-} from "./common/InternalSelect";
+import { SelectGroup, SelectItem, InternalSelect } from "./common/InternalSelect";
 
 export interface MultiSelectProps
   extends Omit<
@@ -15,7 +11,11 @@ export interface MultiSelectProps
     "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
   > {
   defaultValue?: Array<string>;
-  onSelect?: (value: Array<string>, type?: SelectionType) => void;
+  onSelect?: (
+    value: Array<string>,
+    type?: SelectionType,
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+  ) => void;
   value?: Array<string>;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -50,10 +50,10 @@ export const MultiSelect = ({
   }, [valueProp]);
 
   const onChange = useCallback(
-    (values: Array<string>, type?: SelectionType) => {
+    (values: Array<string>, type?: SelectionType, evt?: KeyboardEvent<HTMLElement>) => {
       setSelectedValues(values);
       if (typeof onSelectProp === "function") {
-        onSelectProp(values, type);
+        onSelectProp(values, type, evt);
       }
     },
     [onSelectProp]
