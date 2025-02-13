@@ -94,7 +94,7 @@ const DropdownMenuContent = styled(GenericMenuPanel)`
   min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
   flex-direction: column;
   z-index: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: calc(
     (var(--radix-${({ $type }) => $type}-content-available-height) - 100px)
   );
