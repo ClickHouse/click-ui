@@ -13,7 +13,6 @@ export const StyledCell = styled.div<{
   $height: number;
   $type?: "body" | "header";
   $showBorder: boolean;
-  $rowAutoHeight?: boolean;
 }>`
   display: block;
   text-align: left;
@@ -35,11 +34,8 @@ export const StyledCell = styled.div<{
     $height,
     $type = "body",
     $showBorder,
-    $rowAutoHeight,
   }) => `
-    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
-    min-height: ${$rowAutoHeight ? "auto" : ""};
-    overflow-y: ${$rowAutoHeight ? "auto" : ""};
+    height: ${$height}px;
     background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
     color: ${
       $type === "header"
@@ -90,7 +86,6 @@ export const StyledCell = styled.div<{
     `
         : "border-right: none;"
     }
-    ${$rowAutoHeight && "border: none;"}
   `}
   ${({
     theme,
@@ -100,12 +95,10 @@ export const StyledCell = styled.div<{
     $type = "body",
     $isSelectedTop,
     $isSelectedLeft,
-    $rowAutoHeight,
   }) =>
     $isSelectedTop ||
     $isSelectedLeft ||
-    ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn)) ||
-    $rowAutoHeight
+    ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn))
       ? `
           &::before {
             content: "";
@@ -134,7 +127,6 @@ export const StyledCell = styled.div<{
                 ? `border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
                 : ""
             }
-            ${$rowAutoHeight && "border: none;"}
           }
         `
       : ""};
