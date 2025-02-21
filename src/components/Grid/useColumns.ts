@@ -81,15 +81,14 @@ const useColumns = ({
       const columnWidthList = [...Array(columnCount).keys()];
       
       setColumnHorizontalPosition(() => {
-        return columnWidthList.reduce((acc, _, i) => {
-          const newWidth = getWidth(i);
-          prevWidth.current[i] = newWidth;
-          columnWidthRefs.current[i] = newWidth;
-          acc.push(acc[i] + newWidth);
+        return columnWidthList.reduce((acc, _, index) => {
+          const width = getWidth(index);
+          prevWidth.current[index.toString()] = width;
+          columnWidthRefs.current[index] = width;
+          acc.push(acc[index] + width);
           return acc;
         }, [0]);
       })
-
       gridRef.current?.resetAfterColumnIndex(0);
     },
     [columnCount, columnWidthProp, gridRef]
