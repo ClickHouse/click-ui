@@ -79,20 +79,17 @@ const useColumns = ({
       };
 
       const columnWidthList = [...Array(columnCount).keys()];
-      const array: Array<number> = [];
+      
       setColumnHorizontalPosition(() => {
-        return columnWidthList.reduce((acc, index) => {
-          const width = getWidth(index);
-          prevWidth.current[index.toString()] = width;
-          columnWidthRefs.current[index] = width;
-          if (index !== 0) {
-            acc.push(width + acc[index - 1]);
-          } else {
-            acc.push(0);
-          }
+        return columnWidthList.reduce((acc, _, i) => {
+          const newWidth = getWidth(i);
+          prevWidth.current[i] = newWidth;
+          columnWidthRefs.current[i] = newWidth;
+          acc.push(acc[i] + newWidth);
           return acc;
-        }, array);
-      });
+        }, [0]);
+      })
+
       gridRef.current?.resetAfterColumnIndex(0);
     },
     [columnCount, columnWidthProp, gridRef]
@@ -100,6 +97,7 @@ const useColumns = ({
 
   const onColumnResize: ColumnResizeFn = useCallback(
     (columnIndex, newWidth, type) => {
+
       columnResized.current = true;
       if (type === "auto") {
         const widthIndex = autoWidthIndices.current.findIndex(
@@ -145,7 +143,6 @@ const useColumns = ({
       if (columnWidthProp) {
         return columnWidthProp(columnIndex);
       }
-
       return columnWidthRefs.current[columnIndex] ?? DEFAULT_WIDTH;
     },
     [columnWidthProp]
