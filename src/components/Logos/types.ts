@@ -28,7 +28,6 @@ export type LogoName =
   | "jdbc"
   | "mysql"
   | "postgres"
-  | "postgres_cdc"
   | "google"
   | "github"
   | "decodeable"
