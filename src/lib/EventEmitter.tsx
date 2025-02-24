@@ -13,19 +13,19 @@ export class EventEmitter<T> {
   on = (listener: Listener<T>): Disposable => {
     this.listeners.push(listener);
     return {
-      dispose: () => this.off(listener)
+      dispose: () => this.off(listener),
     };
-  }
+  };
 
   off = (listener: Listener<T>) => {
     const callbackIndex = this.listeners.indexOf(listener);
     if (callbackIndex > -1) {
       this.listeners.splice(callbackIndex, 1);
     }
-  }
+  };
 
   emit = (event: T) => {
     /** Update any general listeners */
     this.listeners.forEach((listener: Listener<T>) => listener(event));
-  }
+  };
 }

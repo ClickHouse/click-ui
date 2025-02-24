@@ -7,7 +7,7 @@ export default {
   type: {
     options: ["default", "borderless"],
     control: { type: "radio" },
-  } 
+  },
 };
 
 export const Playground = {

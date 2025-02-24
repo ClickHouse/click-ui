@@ -38,7 +38,7 @@ describe("Button", () => {
     const { getAllByTestId, getByTestId } = renderButton({
       label: "Button",
       loading: true,
-      showLabelWithLoading: true
+      showLabelWithLoading: true,
     });
 
     const loadingButton = getAllByTestId("click-ui-loading-icon");

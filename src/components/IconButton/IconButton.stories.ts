@@ -10,12 +10,15 @@ export const Playground = {
   args: {
     icon: "user",
     size: "default",
-    disabled: false
+    disabled: false,
   },
   argTypes: {
     size: { control: "radio", options: ["default", "sm", "xs"] },
-    type: { control: "select", options: ["primary", "secondary", "ghost", "info", "danger"] },
-  }
+    type: {
+      control: "select",
+      options: ["primary", "secondary", "ghost", "info", "danger"],
+    },
+  },
 };
 
 export const Disabled = {

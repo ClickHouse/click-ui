@@ -239,9 +239,7 @@ const Calendar = ({
                     : false;
                   const today = new Date();
                   const isCurrentDate = isSameDate(today, fullDate);
-                  const isDisabled = futureDatesDisabled
-                    ? fullDate > today
-                    : false;
+                  const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
                   return (
                     <DateTableCell

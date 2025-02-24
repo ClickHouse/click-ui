@@ -122,15 +122,9 @@ describe("FullWidthTabs", () => {
             Tab 3
           </FullWidthTabs.Trigger>
         </FullWidthTabs.TriggersList>
-        <FullWidthTabs.Content value="tab1">
-          Tab 1 content
-        </FullWidthTabs.Content>
-        <FullWidthTabs.Content value="tab2">
-          Tab 2 content
-        </FullWidthTabs.Content>
-        <FullWidthTabs.Content value="tab3">
-          Tab 3 content
-        </FullWidthTabs.Content>
+        <FullWidthTabs.Content value="tab1">Tab 1 content</FullWidthTabs.Content>
+        <FullWidthTabs.Content value="tab2">Tab 2 content</FullWidthTabs.Content>
+        <FullWidthTabs.Content value="tab3">Tab 3 content</FullWidthTabs.Content>
       </FullWidthTabs>
     );
     expect(getByText("Tab 1").textContent).toBe("Tab 1");

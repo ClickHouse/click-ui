@@ -103,7 +103,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   tableau: Tableau,
   upstash: Upstash,
   vector: Vector,
-  warpstream: WarpStream
+  warpstream: WarpStream,
 };
 
 export default LogosDark;

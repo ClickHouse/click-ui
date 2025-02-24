@@ -9,7 +9,7 @@ interface Props extends DropdownMenuProps {
   showArrow?: boolean;
   side: "top" | "right" | "left" | "bottom";
   type: "text" | "button";
-  itemCount: number
+  itemCount: number;
 }
 const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: Props) => {
   const items = Array.from({ length: itemCount }, (_, i) => `Item ${i + 1}`);
@@ -24,9 +24,9 @@ const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: Pro
           <Dropdown.Group>
             <Dropdown.Item data-state="checked">Content0</Dropdown.Item>
           </Dropdown.Group>
-          {items.map((item:string, index: Key | null | undefined) => (
-                <Dropdown.Item key={index}>{item}</Dropdown.Item>
-              ))}
+          {items.map((item: string, index: Key | null | undefined) => (
+            <Dropdown.Item key={index}>{item}</Dropdown.Item>
+          ))}
           <Dropdown.Item icon="activity">Content1 long text content</Dropdown.Item>
           <Dropdown.Sub>
             <Dropdown.Trigger sub>Hover over</Dropdown.Trigger>

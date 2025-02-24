@@ -28,6 +28,6 @@ export const Playground = {
     order: "titleTop",
     height: "",
     fillWidth: false,
-    maxWidth: "none"
+    maxWidth: "none",
   },
 };

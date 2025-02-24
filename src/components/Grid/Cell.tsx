@@ -5,16 +5,10 @@ import { StyledCell } from "./StyledCell";
 
 type CellProps = GridChildComponentProps<ItemDataType> & {
   width: number;
-}
+};
 
 export const Cell = memo(
-  ({
-    data,
-    rowIndex,
-    columnIndex,
-    style,
-    ...props
-  }: CellProps) => {
+  ({ data, rowIndex, columnIndex, style, ...props }: CellProps) => {
     const {
       cell: CellData,
       getSelectionType,
