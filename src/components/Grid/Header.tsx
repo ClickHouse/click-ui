@@ -186,7 +186,7 @@ const Header = ({
   getColumnHorizontalPosition,
   getResizerPosition,
   showBorder,
-  resizingState
+  resizingState,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
     type: "all",
