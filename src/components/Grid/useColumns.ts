@@ -70,7 +70,7 @@ const useColumns = ({
       if (columnResized.current) {
         return;
       }
-
+      console.log("New width: ", newWidth)
       const getWidth = (index: number) => {
         if (typeof columnWidthProp === "function") {
           return columnWidthProp(index);
