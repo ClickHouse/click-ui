@@ -70,7 +70,7 @@ describe("Dialog Component", () => {
       title,
       primaryActionLabel,
       open,
-      onCancel: () => open = false
+      onCancel: () => (open = false),
     });
 
     expect(queryAllByText(title).length).toEqual(1);
@@ -113,7 +113,7 @@ describe("Dialog Component", () => {
       title,
       secondaryActionLabel,
       open,
-      onCancel: () => open = false
+      onCancel: () => (open = false),
     });
 
     expect(queryAllByText(title).length).toEqual(1);
@@ -126,6 +126,8 @@ describe("Dialog Component", () => {
     const children = <div>test</div>;
     const message = "this is a test message";
 
-    expect(() => renderDialog({ children, message, open: true })).toThrowError("You can't pass children and message props at the same time");
+    expect(() => renderDialog({ children, message, open: true })).toThrowError(
+      "You can't pass children and message props at the same time"
+    );
   });
 });

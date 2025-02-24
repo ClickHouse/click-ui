@@ -3,7 +3,7 @@ import { Spacer } from "./Spacer";
 export default {
   component: Spacer,
   title: "Display/Spacer",
-  tags: ["spacer","autodocs"],
+  tags: ["spacer", "autodocs"],
   argTypes: {
     size: {
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],
@@ -17,4 +17,3 @@ export const Playground = {
     size: "xxl",
   },
 };
-

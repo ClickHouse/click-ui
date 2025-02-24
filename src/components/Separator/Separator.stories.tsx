@@ -3,7 +3,7 @@ import Separator from "./Separator";
 export default {
   component: Separator,
   title: "Display/Separator",
-  tags: ["separator","autodocs"],
+  tags: ["separator", "autodocs"],
   argTypes: {
     size: {
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],

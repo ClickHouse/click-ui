@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 
 export const useUpdateEffect: typeof useEffect = (effect, deps) => {
-    const isFirstMount = useRef(true);
+  const isFirstMount = useRef(true);
 
-    useEffect(() => {
-        if (isFirstMount) {
-            isFirstMount.current = false;
-            return;
-        }
+  useEffect(() => {
+    if (isFirstMount) {
+      isFirstMount.current = false;
+      return;
+    }
 
-        return effect();
+    return effect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, deps);
+  }, deps);
 };
