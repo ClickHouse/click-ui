@@ -125,8 +125,8 @@ describe("useColumns", () => {
         result.current.initColumnSize(300);
         result.current.onColumnResize(1, 0, "auto");
       });
-      // prettier-ignore
-      expect(mockQuerySelector).toHaveBeenCalledWith("[data-grid-column=\"1\"]");
+      // eslint-disable-next-line quotes
+      expect(mockQuerySelector).toHaveBeenCalledWith('[data-grid-column="1"]');
       expect(result.current.columnWidth(1)).toBe(122);
     });
   });
