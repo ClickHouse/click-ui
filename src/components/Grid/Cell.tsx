@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { GridChildComponentProps, areEqual } from "react-window";
 import { ItemDataType } from "./types";
 import { StyledCell } from "./StyledCell";
@@ -19,6 +19,8 @@ export const Cell = memo(
       showHeader,
       rowHeight,
       rowStart,
+      rowAutoHeight,
+      updateRowHeight,
     } = data;
 
     const currentRowIndex = rowIndex + rowStart;
@@ -54,11 +56,29 @@ export const Cell = memo(
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
     const selectionBorderTop = belowSelectionBorder || belowFocus || isFocused;
 
+    const cellRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (!rowAutoHeight) {
+        return;
+      }
+      if (cellRef.current) {
+        const height = cellRef.current.getBoundingClientRect().height;
+        updateRowHeight(rowIndex, height);
+      }
+    }, [updateRowHeight, rowIndex, rowAutoHeight]);
+
+    const styleWithHeight = {
+      ...style,
+      height: "auto",
+    };
+
     return (
       <div
-        style={style}
+        style={styleWithHeight}
         data-row={currentRowIndex}
         data-column={columnIndex}
+        ref={cellRef}
       >
         <StyledCell
           as={CellData}
@@ -79,6 +99,7 @@ export const Cell = memo(
           data-grid-row={currentRowIndex}
           data-grid-column={columnIndex}
           $showBorder
+          $rowAutoHeight={rowAutoHeight}
           {...props}
         />
       </div>
