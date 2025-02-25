@@ -11,6 +11,7 @@ import { styled } from "styled-components";
 import { linkStyles, TextSize, TextWeight } from "./common";
 
 export interface LinkProps<T extends ElementType = "a"> {
+  disabled?: boolean;
   size?: TextSize;
   weight?: TextWeight;
   onClick?: ReactEventHandler;
@@ -19,7 +20,7 @@ export interface LinkProps<T extends ElementType = "a"> {
   component?: T;
 }
 
-const CuiLink = styled.a<{ $size: TextSize; $weight: TextWeight }>`
+const CuiLink = styled.a<{ $disabled: boolean; $size: TextSize; $weight: TextWeight }>`
   ${linkStyles}
 `;
 
@@ -43,6 +44,7 @@ type LinkPolymorphicComponent = <T extends ElementType = "a">(
 /** Component for linking to other pages or sections from with body text */
 const _Link = <T extends ElementType = "a">(
   {
+    disabled = false,
     size = "md",
     weight = "normal",
     onClick,
@@ -55,10 +57,17 @@ const _Link = <T extends ElementType = "a">(
 ) => (
   <CuiLink
     ref={ref}
+    $disabled={disabled}
     $size={size}
     $weight={weight}
     as={component ?? "a"}
-    onClick={onClick}
+    onClick={e => {
+      if (disabled || typeof onClick !== "function") {
+        return;
+      }
+
+      onClick(e);
+    }}
     {...props}
   >
     {children}

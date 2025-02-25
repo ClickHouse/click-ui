@@ -3,12 +3,22 @@ import { css } from "styled-components";
 export type TextSize = "xs" | "sm" | "md" | "lg";
 export type TextWeight = "normal" | "medium" | "semibold" | "bold";
 
-export type StyledLinkProps = { $size: TextSize; $weight: TextWeight };
+export type StyledLinkProps = {
+  $disabled?: boolean;
+  $size: TextSize;
+  $weight: TextWeight;
+};
 
 export const linkStyles = css<StyledLinkProps>`
   font: ${({ $size, $weight = "normal", theme }) =>
     theme.typography.styles.product.text[$weight][$size]};
-  color: ${({ theme }) => theme.click.global.color.text.link.default};
+  color: ${({ $disabled, theme }) => {
+    if ($disabled) {
+      return theme.click.global.color.text.muted;
+    }
+
+    return theme.click.global.color.text.link.default;
+  }};
   margin: 0;
   text-decoration: none;
   display: inline-flex;
