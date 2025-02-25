@@ -70,7 +70,6 @@ const useColumns = ({
       if (columnResized.current) {
         return;
       }
-
       const getWidth = (index: number) => {
         if (typeof columnWidthProp === "function") {
           return columnWidthProp(index);
@@ -79,19 +78,18 @@ const useColumns = ({
       };
 
       const columnWidthList = [...Array(columnCount).keys()];
-      const array: Array<number> = [];
+
       setColumnHorizontalPosition(() => {
-        return columnWidthList.reduce((acc, index) => {
-          const width = getWidth(index);
-          prevWidth.current[index.toString()] = width;
-          columnWidthRefs.current[index] = width;
-          if (index !== 0) {
-            acc.push(width + acc[index - 1]);
-          } else {
-            acc.push(0);
-          }
-          return acc;
-        }, array);
+        return columnWidthList.reduce(
+          (acc, _, index) => {
+            const width = getWidth(index);
+            prevWidth.current[index.toString()] = width;
+            columnWidthRefs.current[index] = width;
+            acc.push(acc[index] + width);
+            return acc;
+          },
+          [0]
+        );
       });
       gridRef.current?.resetAfterColumnIndex(0);
     },
@@ -145,7 +143,6 @@ const useColumns = ({
       if (columnWidthProp) {
         return columnWidthProp(columnIndex);
       }
-
       return columnWidthRefs.current[columnIndex] ?? DEFAULT_WIDTH;
     },
     [columnWidthProp]
