@@ -12,6 +12,7 @@ const EllipsisContainer = styled.div`
   display: inline-block;
   white-space: nowrap;
   text-overflow: ellipsis;
+  vertical-align: text-bottom;
   overflow: hidden;
   justify-content: flex-start;
   width: 100%;
