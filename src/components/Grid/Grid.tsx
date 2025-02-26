@@ -213,7 +213,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onCopyCallback,
     ]);
 
-    // const rowHeightsRef = useRef(new Map());
     const [rowHeights, setRowHeights] = useState<{ [key: number]: number }>({});
 
     const getRowHeight = useCallback(
@@ -245,33 +244,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       },
       [rowAutoHeight]
     );
-
-    // const getRowHeight = useCallback(
-    //   (index: number) => {
-    //     if (rowAutoHeight && rowHeightsRef.current.get(index)) {
-    //       console.log('Rowheightref:', rowHeightsRef)
-    //       return rowHeightsRef.current.get(index) + rowHeight;
-    //     }
-    //     return rowHeight;
-    //   },
-    //   [rowHeight, rowAutoHeight]
-    // );
-
-    // const updateRowHeight = useCallback(
-    //   (rowIndex: number, height: number) => {
-    //     if (!rowAutoHeight) {
-    //       return;
-    //     }
-    //     const prevHeight = rowHeightsRef.current.get(rowIndex) ?? 0;
-    //     if (height > prevHeight) {
-    //       rowHeightsRef.current.set(rowIndex, height);
-    //       if (gridRef.current) {
-    //         gridRef.current.resetAfterRowIndex(rowIndex);
-    //       }
-    //     }
-    //   },
-    //   [rowAutoHeight]
-    // );
 
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
