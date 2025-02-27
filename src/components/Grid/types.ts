@@ -157,6 +157,9 @@ export interface ItemDataType {
   headerHeight: number;
   rowNumberWidth: number;
   rowStart: number;
+  rowAutoHeight?: boolean;
+  updateRowHeight: (rowIndex: number, height: number) => void;
+  getRowHeight: (index: number) => number;
 }
 
 export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "children"> {
@@ -204,6 +207,7 @@ export interface GridProps
   onCopyCallback?: (copied: boolean) => void;
   onContextMenu?: MouseEventHandler<HTMLDivElement>;
   forwardedGridRef?: MutableRefObject<VariableSizeGrid>;
+  rowAutoHeight?: boolean;
 }
 
 export type ResizerPosition = {

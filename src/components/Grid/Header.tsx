@@ -99,6 +99,7 @@ const RowColumnContainer = styled(HeaderCellContainer)<{
 const RowColumn = styled(StyledCell)`
   width: 100%;
   text-align: right;
+  overflow: hidden;
 `;
 
 const Column = ({

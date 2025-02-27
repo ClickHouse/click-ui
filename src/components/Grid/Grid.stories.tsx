@@ -27,6 +27,7 @@ interface Props {
     row: number;
     column: number;
   };
+  rowAutoHeight?: boolean;
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
@@ -78,6 +79,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
           });
         }}
         getMenuOptions={getMenuOptions}
+        rowAutoHeight={props.rowAutoHeight}
         {...props}
       />
     </div>

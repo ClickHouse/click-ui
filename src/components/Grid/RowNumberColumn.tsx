@@ -5,6 +5,7 @@ const RowNumberColumnContainer = styled.div<{
   $height: number;
   $width: number;
   $scrolledHorizontal: boolean;
+  $rowAutoHeight?: boolean;
 }>`
   position: sticky;
   left: 0;
@@ -23,6 +24,7 @@ const RowNumberColumnContainer = styled.div<{
 const RowNumberCell = styled.div<{
   $height: number;
   $rowNumber: number;
+  $rowAutoHeight?: boolean;
 }>`
   position: absolute;
   left: 0;
@@ -30,9 +32,9 @@ const RowNumberCell = styled.div<{
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  ${({ $height, $rowNumber }) => `
+  ${({ $height, $rowNumber, $rowAutoHeight }) => `
     top: ${$height * $rowNumber}px;
-    height: ${$height}px;
+    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
   `}
 `;
 interface RowNumberColumnProps {
@@ -47,6 +49,7 @@ interface RowNumberColumnProps {
   scrolledHorizontal: boolean;
   rowStart: number;
   showBorder: boolean;
+  rowAutoHeight?: boolean;
 }
 interface RowNumberProps
   extends Pick<
@@ -56,6 +59,7 @@ interface RowNumberProps
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;
+  rowAutoHeight?: boolean;
 }
 const RowNumber = ({
   rowIndex,
@@ -65,6 +69,7 @@ const RowNumber = ({
   isFirstRow,
   showBorder,
   rowStart,
+  rowAutoHeight,
 }: RowNumberProps) => {
   const currentRowIndex = rowIndex + rowStart;
   const selectionType = getSelectionType({
@@ -84,6 +89,7 @@ const RowNumber = ({
     <RowNumberCell
       $rowNumber={rowIndex}
       $height={rowHeight}
+      $rowAutoHeight={rowAutoHeight}
     >
       <StyledCell
         $height={rowHeight}
@@ -96,6 +102,7 @@ const RowNumber = ({
         $isLastRow={isLastRow}
         $isSelectedLeft={isSelected}
         $isSelectedTop={isSelectedTop}
+        $rowAutoHeight={rowAutoHeight}
         data-selected={isSelected}
         data-grid-row={currentRowIndex}
         data-grid-column={-1}
@@ -121,12 +128,14 @@ const RowNumberColumn = ({
   scrolledHorizontal,
   rowStart = 0,
   showBorder,
+  rowAutoHeight,
 }: RowNumberColumnProps) => {
   return (
     <RowNumberColumnContainer
       $height={headerHeight}
       $width={rowWidth}
       $scrolledHorizontal={scrolledHorizontal}
+      $rowAutoHeight={rowAutoHeight}
     >
       {Array.from({ length: maxRow - minRow + 1 }, (_, index) => minRow + index).map(
         rowIndex => (
@@ -139,6 +148,7 @@ const RowNumberColumn = ({
             isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
             rowStart={rowStart}
+            rowAutoHeight={rowAutoHeight}
           />
         )
       )}
