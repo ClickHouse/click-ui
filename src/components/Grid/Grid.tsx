@@ -213,38 +213,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onCopyCallback,
     ]);
 
-    const [rowHeights, setRowHeights] = useState<{ [key: number]: number }>({});
-
-    const getRowHeight = useCallback(
-      (index: number) => {
-        if (rowAutoHeight && rowHeights[index] !== undefined) {
-          return rowHeights[index] + rowHeight;
-        }
-        return rowHeight;
-      },
-      [rowHeight, rowAutoHeight, rowHeights]
-    );
-
-    const updateRowHeight = useCallback(
-      (rowIndex: number, height: number) => {
-        if (!rowAutoHeight) {
-          return;
-        }
-
-        setRowHeights(prevRowHeights => {
-          const newRowHeights = { ...prevRowHeights }; // Create a copy to avoid direct mutation
-          if (height > (newRowHeights[rowIndex] || 0)) {
-            newRowHeights[rowIndex] = height;
-            if (gridRef.current) {
-              gridRef.current.resetAfterRowIndex(rowIndex);
-            }
-          }
-          return newRowHeights;
-        });
-      },
-      [rowAutoHeight]
-    );
-
     const customOnCopy: () => Promise<void> = useMemo(() => {
       const result = async () => {
         if (onCopyProp) {
@@ -293,6 +261,36 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       [onSelectProp]
     );
     const resizingState = useResizingState();
+
+    const [rowHeights, setRowHeights] = useState<{ [key: number]: number }>({});
+
+    const getRowHeight = useCallback(
+      (index: number) => {
+        if (rowAutoHeight && rowHeights[index] !== undefined) {
+          return rowHeights[index] + rowHeight;
+        }
+        return rowHeight;
+      },
+      [rowHeight, rowAutoHeight, rowHeights]
+    );
+
+    const updateRowHeight = useCallback(
+      (rowIndex: number, height: number) => {
+        if (!rowAutoHeight) {
+          return;
+        }
+
+        setRowHeights(prevRowHeights => {
+          if (height > (prevRowHeights[rowIndex] || 0) && gridRef.current) {
+            const newRowHeights = { ...prevRowHeights, [rowIndex]: height };
+            gridRef.current.resetAfterRowIndex(rowIndex);
+            return newRowHeights;
+          }
+          return prevRowHeights;
+        });
+      },
+      [rowAutoHeight, gridRef]
+    );
 
     const onFocusChange = useCallback(
       (row: number, column: number) => {
