@@ -25,6 +25,10 @@ const Wrapper = styled(FormRoot)`
   max-width: fit-content;
 `;
 
+const StyledLabel = styled(GenericLabel)<{ disabled?: boolean }>`
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+`;
+
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   ({ checked, disabled, orientation, dir, label, id, ...props }, ref) => {
     const defaultId = useId();
@@ -44,12 +48,12 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           <SwitchThumb $checked={checked} />
         </SwitchRoot>
         {label && (
-          <GenericLabel
+          <StyledLabel
             htmlFor={id ?? defaultId}
             disabled={disabled}
           >
             {label}
-          </GenericLabel>
+          </StyledLabel>
         )}
       </Wrapper>
     );
@@ -116,6 +120,7 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
     borderRadius: props.theme.click.switch.radii.all,
     position: "relative",
     padding: 0,
+    cursor: props.disabled ? "default" : "pointer",
   };
 });
 
