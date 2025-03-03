@@ -149,6 +149,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onContextMenu: onContextMenuProp,
       forwardedGridRef,
       onItemsRendered: onItemsRenderedProp,
+      rowAutoHeight,
       ...props
     },
     forwardedRef
@@ -260,6 +261,36 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       [onSelectProp]
     );
     const resizingState = useResizingState();
+
+    const [rowHeights, setRowHeights] = useState<{ [key: number]: number }>({});
+
+    const getRowHeight = useCallback(
+      (index: number) => {
+        if (rowAutoHeight && rowHeights[index] !== undefined) {
+          return rowHeights[index] + rowHeight;
+        }
+        return rowHeight;
+      },
+      [rowHeight, rowAutoHeight, rowHeights]
+    );
+
+    const updateRowHeight = useCallback(
+      (rowIndex: number, height: number) => {
+        if (!rowAutoHeight) {
+          return;
+        }
+
+        setRowHeights(prevRowHeights => {
+          if (height > (prevRowHeights[rowIndex] || 0) && gridRef.current) {
+            const newRowHeights = { ...prevRowHeights, [rowIndex]: height };
+            gridRef.current.resetAfterRowIndex(rowIndex);
+            return newRowHeights;
+          }
+          return prevRowHeights;
+        });
+      },
+      [rowAutoHeight, gridRef]
+    );
 
     const onFocusChange = useCallback(
       (row: number, column: number) => {
@@ -405,6 +436,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       headerHeight,
       rowNumberWidth,
       rowStart,
+      rowAutoHeight,
+      updateRowHeight,
+      getRowHeight,
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
@@ -435,6 +469,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 showHeader={showHeader}
                 rowStart={rowStart}
                 showBorder={showBorder}
+                rowAutoHeight={rowAutoHeight}
               />
             )}
 
@@ -755,7 +790,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const onItemsRendered = useCallback(
       (props: GridOnItemsRenderedProps) => {
         lastItemsRenderedProps.current = props;
-
         return onItemsRenderedProp?.({
           ...props,
           visibleRowStartIndex: props.visibleRowStartIndex + rowStart,
@@ -785,6 +819,13 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         />
       );
     };
+
+    // Handles the case when rowCount/columnCount changes, rerenders styles
+    useEffect(() => {
+      if (gridRef.current) {
+        gridRef.current.resetAfterRowIndex(0);
+      }
+    }, [rowCount, columnCount]);
 
     return (
       <ContextMenu
@@ -820,7 +861,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 height={height}
                 width={width}
                 columnCount={columnCount}
-                rowHeight={() => rowHeight}
+                rowHeight={getRowHeight}
                 useIsScrolling={useIsScrolling}
                 innerElementType={InnerElementType}
                 itemData={data}
