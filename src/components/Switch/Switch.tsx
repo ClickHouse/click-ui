@@ -26,7 +26,7 @@ const Wrapper = styled(FormRoot)`
 `;
 
 const StyledLabel = styled(GenericLabel)<{ disabled?: boolean }>`
-  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
@@ -120,7 +120,7 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
     borderRadius: props.theme.click.switch.radii.all,
     position: "relative",
     padding: 0,
-    cursor: props.disabled ? "default" : "pointer",
+    cursor: props.disabled ? "not-allowed" : "pointer",
   };
 });
 
