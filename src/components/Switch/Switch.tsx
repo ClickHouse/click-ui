@@ -116,6 +116,7 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
     borderRadius: props.theme.click.switch.radii.all,
     position: "relative",
     padding: 0,
+    cursor: props.disabled ? "not-allowed" : "pointer",
   };
 });
 

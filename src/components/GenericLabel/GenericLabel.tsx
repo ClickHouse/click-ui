@@ -18,8 +18,10 @@ const FormFieldLabel = styled.label<FormFieldLableProps>`
         ? `
     color: ${theme.click.field.color.genericLabel.disabled};
     font: ${theme.click.field.typography.genericLabel.disabled};
+    cursor: not-allowed;
     `
         : `
+    cursor: pointer;
     color: ${theme.click.field.color.genericLabel.default};
     font: ${theme.click.field.typography.genericLabel.default};
     &:hover {
