@@ -25,10 +25,6 @@ const Wrapper = styled(FormRoot)`
   max-width: fit-content;
 `;
 
-const StyledLabel = styled(GenericLabel)<{ disabled?: boolean }>`
-  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
-`;
-
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   ({ checked, disabled, orientation, dir, label, id, ...props }, ref) => {
     const defaultId = useId();
@@ -48,12 +44,12 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           <SwitchThumb $checked={checked} />
         </SwitchRoot>
         {label && (
-          <StyledLabel
+          <GenericLabel
             htmlFor={id ?? defaultId}
             disabled={disabled}
           >
             {label}
-          </StyledLabel>
+          </GenericLabel>
         )}
       </Wrapper>
     );
