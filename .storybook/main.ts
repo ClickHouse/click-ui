@@ -1,5 +1,8 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 const config: StorybookConfig = {
+  core: {
+    disableTelemetry: true
+  },
   stories: [
     "../src/Introduction.mdx", 
     "../src/components/icons/Icons.mdx",
