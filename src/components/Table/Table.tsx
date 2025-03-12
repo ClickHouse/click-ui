@@ -363,8 +363,9 @@ interface TableRowCloseButtonProps {
 const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
   svg {
     transition: transform 200ms;
-    ${({ $isDeleted }) => `
+    ${({ $isDeleted, theme }) => `
     ${$isDeleted ? "transform: rotate(45deg)" : ""};
+      color: ${$isDeleted ? theme.click.table.header.color.title.default : ""}
     `}
   }
   &:disabled {
@@ -498,7 +499,7 @@ const TableBodyRow = ({
                 as={IconButton}
                 disabled={isDisabled || !isDeletable}
                 $isDeleted={isDeleted}
-                type="primary"
+                type="ghost"
                 icon="cross"
                 onClick={onDelete}
                 data-testid="table-row-delete"
