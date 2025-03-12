@@ -178,7 +178,6 @@ const TableRow = styled.tr<TableRowProps>`
     &:hover {
       background-color: ${theme.click.table.row.color.background.hover};
     }
-    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
     cursor: ${$isDeleted || $isDisabled ? "not-allowed" : "default"}
   `}
 
@@ -209,12 +208,20 @@ const TableRow = styled.tr<TableRowProps>`
   }
 `;
 
-const TableData = styled.td<{ $size: TableSize }>`
+interface TableDataProps {
+  $size: TableSize;
+  $isDeleted?: boolean;
+  $isDisabled?: boolean;
+}
+const TableData = styled.td<TableDataProps>`
   overflow: hidden;
-  ${({ theme, $size }) => `
+  ${({ theme, $size, $isDeleted, $isDisabled }) => `
     color: ${theme.click.table.row.color.text.default};
     font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
+    padding: ${theme.click.table.body.cell.space[$size].y} ${
+    theme.click.table.body.cell.space[$size].x
+  };
+    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
   `}
   @media (max-width: 768px) {
     width: auto;
@@ -262,12 +269,15 @@ const Tbody = styled.tbody`
   }
 `;
 
-const SelectData = styled.td<{ $size: TableSize }>`
+const SelectData = styled.td<TableDataProps>`
   overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
+  ${({ theme, $size, $isDeleted, $isDisabled }) => `
+    color: ${$isDeleted || $isDisabled ? "tomato" : "blue"};
     font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
+    padding: ${theme.click.table.body.cell.space[$size].y} ${
+    theme.click.table.body.cell.space[$size].x
+  };
+    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
   `}
   @media (max-width: 768px) {
     width: auto;
@@ -447,7 +457,11 @@ const TableBodyRow = ({
       {...rowProps}
     >
       {isSelectable && (
-        <SelectData $size={size}>
+        <SelectData
+          $size={size}
+          $isDeleted={isDeleted}
+          $isDisabled={isDisabled}
+        >
           <Checkbox
             checked={isSelected}
             onCheckedChange={onSelect}
@@ -458,6 +472,8 @@ const TableBodyRow = ({
         <TableData
           $size={size}
           key={`table-cell-${cellIndex}`}
+          $isDeleted={isDeleted}
+          $isDisabled={isDisabled}
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
