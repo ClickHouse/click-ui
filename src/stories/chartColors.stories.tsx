@@ -12,7 +12,7 @@ const ColorBox = styled(Container)<{
 
 const defaultStory = {
   title: "Colors/Chart Colors",
-  tags: ["autodocs"],
+  tags: ["autodocs", "color", "chart"],
   render: () => {
     const theme = useTheme();
     return (
