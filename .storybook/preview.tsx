@@ -69,6 +69,7 @@ const preview: Preview = {
           "Display",
           "Sidebar",
           "Typography",
+          "Colors",
           ["Title", "Text", "Link"],
         ],
       },
