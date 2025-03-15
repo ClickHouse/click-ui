@@ -4167,6 +4167,10 @@
             "default": {
               "value": "{click.global.color.text.default}",
               "type": "color"
+            },
+            "disabled": {
+              "value": "{click.global.color.text.disabled}",
+              "type": "color"
             }
           },
           "link": {
