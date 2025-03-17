@@ -43,7 +43,6 @@ import {
   GridContainer,
   TextField,
   Label,
-  Link,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
@@ -663,14 +662,8 @@ const App = () => {
           onDelete={onTableDelete}
         />
 
-        <Spacer />
-
-        <Tooltip>
-          <Tooltip.Trigger>
-            <Text>
-              <Link>Tooltip trigger</Link>
-            </Text>
-          </Tooltip.Trigger>
+        <Tooltip disabled>
+          <Tooltip.Trigger>Tooltip trigger</Tooltip.Trigger>
           <Tooltip.Content>Tooltip content</Tooltip.Content>
         </Tooltip>
 
