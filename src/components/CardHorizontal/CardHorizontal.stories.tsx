@@ -1,0 +1,84 @@
+import { CardHorizontal } from "./CardHorizontal";
+import { ICON_NAMES } from "@/components/Icon/types.ts";
+import { styled } from "styled-components";
+const GridCenter = styled.div`
+  display: grid;
+  width: 60%;
+`;
+
+const CardHorizontalExample = ({ ...props }) => {
+  return (
+    <GridCenter>
+      <CardHorizontal
+        title={props.title}
+        icon={props.icon}
+        description={props.description}
+        disabled={props.disabled}
+        isSelected={props.isSelected}
+        badgeText={props.badgeText}
+        badgeIcon={props.badgeIcon}
+        badgeState={props.badgeState}
+        badgeIconDir={props.badgeIconDir}
+        infoText={props.infoText}
+        infoUrl={props.infoUrl}
+      />
+    </GridCenter>
+  );
+};
+
+export default {
+  component: CardHorizontalExample,
+  title: "Cards/Horizontal Card",
+  tags: ["cardHorizontal", "autodocs"],
+  argTypes: {
+    icon: { control: "select", options: ICON_NAMES, description: "`IconName`" },
+    badgeIcon: { control: "select", options: ICON_NAMES, description: "`IconName`" },
+    badgeText: {
+      control: "text",
+      description: "Shows and hides the badge <br />`string`",
+    },
+    badgeState: {
+      control: "select",
+      options: ["default", "info", "success", "warning", "danger"],
+      description: "`BadgeState`",
+    },
+    badgeIconDir: {
+      control: "radio",
+      options: ["start", "end"],
+      description: "`start` `end`",
+    },
+    title: { control: "text", description: "`ReactNode`" },
+    description: { control: "text", description: "`ReactNode`" },
+    infoText: {
+      control: "text",
+      description: "Shows and hides the button <br />`string`",
+    },
+    infoUrl: { control: "text", description: "`string`" },
+    disabled: {
+      control: "boolean",
+      description: "`boolean`",
+      defaultValue: { summary: "false" },
+    },
+    isSelected: {
+      control: "boolean",
+      description: "`boolean`",
+      defaultValue: { summary: "false" },
+    },
+  },
+};
+
+export const Playground = {
+  args: {
+    icon: "building",
+    title: "Card title",
+    description: "A description very interesting that presumably relates to the card.",
+    disabled: false,
+    isSelected: false,
+    badgeText: "",
+    badgeIcon: null,
+    badgeState: "default",
+    badgeIconDir: "",
+    infoText: "",
+    infoUrl: "",
+  },
+};

@@ -1,8 +1,9 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import { styled } from "styled-components";
 import {
   Badge,
   BadgeState,
+  Button,
   Container,
   HorizontalDirection,
   Icon,
@@ -17,13 +18,17 @@ export interface CardHorizontalProps
   icon?: IconName;
   disabled?: boolean;
   description?: ReactNode;
+  infoUrl?: string;
+  infoText?: string;
   isSelected?: boolean;
+  isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
   badgeText?: string;
   badgeState?: BadgeState;
   badgeIcon?: IconName;
   badgeIconDir?: HorizontalDirection;
+  onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Header = styled.div`
@@ -44,6 +49,7 @@ const Wrapper = styled.div<{
   $hasShadow?: boolean;
   $disabled?: boolean;
   $isSelected?: boolean;
+  $isSelectable?: boolean;
   $color: CardColor;
 }>`
   display: inline-flex;
@@ -52,12 +58,14 @@ const Wrapper = styled.div<{
   align-items: center;
   justify-content: flex-start;
 
-  ${({ theme, $color, $isSelected, $disabled }) => `
+  ${({ theme, $color, $isSelected, $isSelectable, $disabled }) => `
     background: ${theme.click.card.horizontal[$color].color.background.default};
     color: ${theme.click.card.horizontal[$color].color.title.default};
     border-radius: ${theme.click.card.horizontal.radii.all};
     border: 1px solid ${
-      theme.click.card.horizontal[$color].color.stroke[$isSelected ? "active" : "default"]
+      theme.click.card.horizontal[$color].color.stroke[
+        $isSelectable ? ($isSelected ? "active" : "hover") : "default"
+      ]
     };
     padding: ${theme.click.card.horizontal.space.y} ${
     theme.click.card.horizontal.space.x
@@ -69,26 +77,64 @@ const Wrapper = styled.div<{
       font: ${theme.click.card.horizontal.typography.description.default};
     }
     &:hover{
-      background-color: ${theme.click.card.horizontal[$color].color.background.hover};
-      color: ${theme.click.card.horizontal[$color].color.title.hover};
-      border: 1px solid ${
-        theme.click.card.horizontal[$color].color.stroke[$isSelected ? "active" : "hover"]
+      background-color: ${
+        theme.click.card.horizontal[$color].color.background[
+          $isSelectable ? "hover" : "default"
+        ]
       };
-      cursor: pointer;
+      color: ${
+        theme.click.card.horizontal[$color].color.title[
+          $isSelectable ? "hover" : "default"
+        ]
+      };
+      border: 1px solid ${
+        theme.click.card.horizontal[$color].color.stroke[
+          $isSelectable ? ($isSelected ? "active" : "default") : "default"
+        ]
+      };
+      cursor: ${$isSelectable ? "pointer" : "default"};
       font: ${theme.click.card.horizontal.typography.title.hover};
       ${Description} {
-        color: ${theme.click.card.horizontal[$color].color.description.hover};
-        font: ${theme.click.card.horizontal.typography.description.hover};
+        color: ${
+          theme.click.card.horizontal[$color].color.description[
+            $isSelectable ? "hover" : "default"
+          ]
+        };
+        font: ${
+          theme.click.card.horizontal.typography.description[
+            $isSelectable ? "hover" : "default"
+          ]
+        };
       }
     }
 
     &:active, &:focus, &:focus-within {
-      background-color: ${theme.click.card.horizontal[$color].color.background.active};
-      color: ${theme.click.card.horizontal[$color].color.title.active};
-      border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
+      background-color: ${
+        theme.click.card.horizontal[$color].color.background[
+          $isSelectable ? "active" : "default"
+        ]
+      };
+      color: ${
+        theme.click.card.horizontal[$color].color.title[
+          $isSelectable ? "active" : "default"
+        ]
+      };
+      border: 1px solid ${
+        theme.click.card.horizontal[$color].color.stroke[
+          $isSelectable ? "active" : "default"
+        ]
+      };
       ${Description} {
-        color: ${theme.click.card.horizontal[$color].color.description.active};
-        font: ${theme.click.card.horizontal.typography.description.active};
+        color: ${
+          theme.click.card.horizontal[$color].color.description[
+            $isSelectable ? "active" : "default"
+          ]
+        };
+        font: ${
+          theme.click.card.horizontal.typography.description[
+            $isSelectable ? "active" : "default"
+          ]
+        };
       }
     }
     ${
@@ -131,8 +177,21 @@ const CardIcon = styled(Icon)`
 
 const ContentWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+  gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
+
+  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
+    flex-direction: column;
+  }
+`;
+
+const IconTextContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
 `;
 
 export const CardHorizontal = ({
@@ -140,68 +199,103 @@ export const CardHorizontal = ({
   icon,
   description,
   disabled = false,
+  infoText,
+  infoUrl,
   isSelected,
+  isSelectable = infoText ? false : true,
   children,
   color = "default",
   badgeText,
   badgeState,
   badgeIcon,
   badgeIconDir,
+  onButtonClick,
   ...props
 }: CardHorizontalProps) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    MouseEvent;
+    if (typeof onButtonClick === "function") {
+      onButtonClick(e);
+    }
+    if (infoUrl && infoUrl.length > 0) {
+      window.open(infoUrl, "_blank");
+    }
+  };
   return (
     <Wrapper
       $disabled={disabled}
       $isSelected={isSelected}
+      $isSelectable={isSelectable}
       $color={color}
       tabIndex={0}
+      onClick={handleClick}
       {...props}
     >
-      {icon && (
-        <CardIcon
-          name={icon}
-          aria-hidden
-        />
-      )}
       <ContentWrapper>
-        {title && (
-          <Header
-            as={Container}
-            isResponsive={false}
-            gap="xs"
-            justifyContent="space-between"
-            fillWidth
+        <IconTextContentWrapper>
+          {icon && (
+            <CardIcon
+              name={icon}
+              aria-hidden
+            />
+          )}
+          <Container
+            padding="none"
+            orientation="vertical"
           >
-            <Container
-              orientation="horizontal"
-              gap="xs"
-              isResponsive={false}
-              fillWidth={false}
-              grow="1"
-            >
-              {title}
-            </Container>
-            {badgeText && (
-              <Container
+            {title && (
+              <Header
+                as={Container}
                 isResponsive={false}
-                justifyContent="end"
-                fillWidth={false}
-                data-testid="horizontal-card-badge"
+                gap="xs"
+                justifyContent="space-between"
+                fillWidth
               >
-                <Badge
-                  text={badgeText}
-                  size="md"
-                  state={badgeState}
-                  icon={badgeIcon}
-                  iconDir={badgeIconDir}
-                />
-              </Container>
+                <Container
+                  orientation="horizontal"
+                  gap="xs"
+                  isResponsive={false}
+                  fillWidth={false}
+                  grow="1"
+                >
+                  {title}
+                </Container>
+                {badgeText && (
+                  <Container
+                    isResponsive={false}
+                    justifyContent="end"
+                    fillWidth={false}
+                    data-testid="horizontal-card-badge"
+                  >
+                    <Badge
+                      text={badgeText}
+                      size="md"
+                      state={badgeState}
+                      icon={badgeIcon}
+                      iconDir={badgeIconDir}
+                    />
+                  </Container>
+                )}
+              </Header>
             )}
-          </Header>
-        )}
 
-        {description && <Description>{description}</Description>}
-        {children && <Description>{children}</Description>}
+            {description && <Description>{description}</Description>}
+            {children && <Description>{children}</Description>}
+          </Container>
+        </IconTextContentWrapper>
+        {infoText && (
+          <Container
+            justifyContent="end"
+            fillWidth={false}
+            data-testid="horizontal-card-button"
+          >
+            <Button
+              label={infoText}
+              onClick={handleClick}
+              fillWidth
+            />
+          </Container>
+        )}
       </ContentWrapper>
     </Wrapper>
   );
