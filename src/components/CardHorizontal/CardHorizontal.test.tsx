@@ -54,5 +54,15 @@ describe("CardHorizontal Component", () => {
 
       expect(screen.queryByTestId("horizontal-card-badge")).toBeNull();
     });
+
+    it("should render the button when provided", () => {
+      renderCard({
+        title: "title",
+        infoText: "I'm a button",
+      });
+
+      expect(screen.getByText("title")).toBeDefined();
+      expect(screen.getByTestId("horizontal-card-button")).toBeDefined();
+    });
   });
 });

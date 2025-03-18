@@ -2389,6 +2389,7 @@ export interface Theme {
           };
           text: {
             default: string;
+            disabled: string;
           };
           link: {
             default: string;

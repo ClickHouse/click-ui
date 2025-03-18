@@ -1303,7 +1303,8 @@
             "default": "#323232"
           },
           "text": {
-            "default": "#ffffff"
+            "default": "#ffffff",
+            "disabled": "#808080"
           },
           "link": {
             "default": "#FAFF69"

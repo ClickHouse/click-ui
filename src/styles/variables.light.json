@@ -1293,7 +1293,8 @@
             "default": "#e6e7e9"
           },
           "text": {
-            "default": "#161517"
+            "default": "#161517",
+            "disabled": "#a0a0a0"
           },
           "link": {
             "default": "#437EEF"
