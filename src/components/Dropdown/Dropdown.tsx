@@ -95,9 +95,6 @@ const DropdownMenuContent = styled(GenericMenuPanel)`
   flex-direction: column;
   z-index: 1;
   overflow-y: auto;
-  max-height: calc(
-    (var(--radix-${({ $type }) => $type}-content-available-height) - 100px)
-  );
 `;
 
 const DropdownContent = ({
@@ -115,6 +112,7 @@ const DropdownContent = ({
         as={ContentElement}
         sideOffset={4}
         loop
+        collisionPadding={100}
         {...props}
       >
         {showArrow && (
