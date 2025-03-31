@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { isSameDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
@@ -46,8 +46,6 @@ const DateTable = styled.table`
   }
 
   td, th {
-    ${({ theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default}`};
     padding: 4px;
   }
 `;
@@ -62,11 +60,11 @@ const DateTableHeader = styled.th`
 `;
 
 const DateTableCell = styled.td<{
-  $isBetweenStartAndEndDates?: boolean;
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
   $isToday?: boolean;
+  $shouldShowRangeIndicator?: boolean;
 }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
@@ -74,11 +72,11 @@ const DateTableCell = styled.td<{
     font: ${theme.click.datePicker.dateOption.typography.label.default};
   `}
 
-  ${({ $isBetweenStartAndEndDates, theme }) =>
-    $isBetweenStartAndEndDates &&
+  ${({ $shouldShowRangeIndicator, theme }) =>
+    $shouldShowRangeIndicator &&
     `
     background: ${theme.click.datePicker.dateOption.color.background.range};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range} !important;
+    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
     border-radius: 0;
     `}
 
@@ -108,8 +106,8 @@ const DateTableCell = styled.td<{
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
-      } !important;
-      border-radius: ${theme.click.datePicker.dateOption.radii.default} !important;`};
+      };
+      border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
   }
 `;
 
@@ -130,6 +128,7 @@ const Calendar = ({
   startDate,
   endDate,
 }: CalendarProps) => {
+  const [hoveredDate, setHoveredDate] = useState<Date>();
   const calendarOptions: UseCalendarOptions = {
     defaultWeekStart: 1,
   };
@@ -147,6 +146,10 @@ const Calendar = ({
     navigation.toPrev();
   };
 
+  const handleMouseOut = (): void => {
+    setHoveredDate(undefined);
+  };
+
   const headerDate = new Date();
   headerDate.setMonth(month);
   headerDate.setFullYear(year);
@@ -158,6 +161,7 @@ const Calendar = ({
       fillWidth={false}
       orientation="vertical"
       padding="sm"
+      onMouseLeave={handleMouseOut}
     >
       <Container
         isResponsive={false}
@@ -203,28 +207,47 @@ const Calendar = ({
 
                   const isCurrentDate = isSameDate(today, fullDate);
                   const isDisabled = futureDatesDisabled ? fullDate > today : false;
-                  const isBetweenStartAndEndDates =
-                    startDate && fullDate > startDate && endDate && fullDate < endDate;
+                  const isBetweenStartAndEndDates = Boolean(
+                    startDate &&
+                      endDate &&
+                      ((fullDate > startDate && fullDate < endDate) ||
+                        (fullDate < startDate && fullDate > endDate))
+                  );
 
-                  if (isBetweenStartAndEndDates) {
-                    console.log("between", fullDate);
-                  }
+                  const shouldShowRangeIndicator =
+                    !endDate &&
+                    Boolean(
+                      startDate &&
+                        hoveredDate &&
+                        ((fullDate > startDate && fullDate < hoveredDate) ||
+                          (fullDate < startDate && fullDate > hoveredDate))
+                    );
+
+                  const handleMouseEnter = () => {
+                    setHoveredDate(fullDate);
+                  };
+
+                  const handleClick = () => {
+                    if (isDisabled) {
+                      return false;
+                    }
+                    setSelectedDate(fullDate);
+                    closeDatepicker();
+                  };
 
                   return (
                     <DateTableCell
-                      $isBetweenStartAndEndDates={isBetweenStartAndEndDates}
+                      $shouldShowRangeIndicator={
+                        shouldShowRangeIndicator || isBetweenStartAndEndDates
+                      }
                       $isCurrentMonth={isCurrentMonth}
                       $isDisabled={isDisabled}
                       $isSelected={isSelected}
                       $isToday={isCurrentDate}
                       key={dayKey}
-                      onClick={() => {
-                        if (isDisabled) {
-                          return false;
-                        }
-                        setSelectedDate(fullDate);
-                        closeDatepicker();
-                      }}
+                      onClick={handleClick}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseOut}
                     >
                       {date}
                     </DateTableCell>
