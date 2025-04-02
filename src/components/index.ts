@@ -27,6 +27,7 @@ export { DateDetails } from "@/components/DateDetails/DateDetails";
 export { DatePicker } from "./DatePicker/DatePicker";
 export { Dialog } from "./Dialog/Dialog";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";
+export { FileUpload } from "./FileUpload/FileUpload";
 export { Flyout } from "./Flyout/Flyout";
 export { FormContainer } from "./FormContainer/FormContainer";
 export { GridContainer } from "./GridContainer/GridContainer";
