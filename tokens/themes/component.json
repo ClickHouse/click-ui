@@ -1679,6 +1679,16 @@
             "type": "sizing"
           }
         }
+      },
+      "borderWidth": {
+        "default": {
+          "value": "1.5",
+          "type": "sizing"
+        },
+        "thin": {
+          "value": "{sizes.1}",
+          "type": "sizing"
+        }
       }
     },
     "panel": {
