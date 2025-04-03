@@ -1703,6 +1703,10 @@
           "width": string
         }
       },
+      "borderWidth": {
+        "default": string,
+        "thin": string
+      },
       "color": {
         "stroke": string
       }

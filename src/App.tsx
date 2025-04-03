@@ -51,6 +51,8 @@ import GridExample from "./examples/GridExample";
 import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
 import { styled } from "styled-components";
 
+import { ICON_NAMES } from "@/components/Icon/types";
+
 const BackgroundWrapper = styled.div`
   background: ${({ theme }) => theme.global.color.background.default};
   padding: 6rem;
@@ -752,6 +754,33 @@ const App = () => {
         <GridExample />
         <Spacer />
         <MultiAccordionDemo />
+        <Spacer />
+        <Title type='h2'>Icons</Title>
+        <Spacer />
+          {ICON_NAMES.map(name => {
+            return (
+              <div key={name}>
+                <GridContainer
+                  gridTemplateColumns="repeat(12, minmax(0, 1fr))"
+                  columnGap="lg"
+                  rowGap="sm"
+                >
+                  <Icon name={name} size='xs' />
+                  <Icon name={name} size='sm' />
+                  <Icon name={name} size='md' />
+                  <Icon name={name} size='lg' />
+                  <Icon name={name} size='xl' />
+                  <Icon name={name} size='xxl' />
+                  <Icon name={name} size='xs' weight='thin' />
+                  <Icon name={name} size='sm' weight='thin' />
+                  <Icon name={name} size='md' weight='thin' />
+                  <Icon name={name} size='lg' weight='thin' />
+                  <Icon name={name} size='xl' weight='thin' />
+                  <Icon name={name} size='xxl' weight='thin' />
+                </GridContainer>
+              </div>
+            );
+          })}
       </BackgroundWrapper>
     </ClickUIProvider>
   );

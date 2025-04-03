@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
+import { IconName, IconProps, IconSize, IconState, IconWeight, ImageType } from "./types";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
 import Flags, { FlagList, FlagName } from "../icons/Flags";
 import { Logo } from "../Logos/Logo";
@@ -13,6 +13,7 @@ const SVGIcon = ({
   width,
   height,
   state,
+  weight,
   className,
   size,
   ...props
@@ -29,6 +30,7 @@ const SVGIcon = ({
       $width={width}
       $height={height}
       $size={size}
+      $weight={weight}
       className={className}
       state={state}
     >
@@ -42,18 +44,23 @@ const SvgWrapper = styled.div<{
   $width?: number | string;
   $height?: number | string;
   $size?: IconSize;
+  $weight?: IconWeight;
   state?: IconState;
 }>`
   display: flex;
   align-items: center;
 
-  ${({ theme, $color = "currentColor", $width, $height, $size }) => `
+  ${({ theme, $color = "currentColor", $width, $height, $size, $weight = "default" }) => `
     & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke], & circle[fill] {
       stroke: ${$color};
     }
 
     & path[fill], & svg[fill]:not([fill="none"]), & rect[fill], & circle[fill] {
       fill: ${$color};
+    }
+
+    & path[stroke-width] {
+      stroke-width: ${theme.click.image.borderWidth[$weight]}
     }
 
     & svg {
