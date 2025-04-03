@@ -396,7 +396,7 @@ export const FileUpload = ({
               <DocumentIcon name={"document"} />
               <FileDetails>
                 <Text size={"md"}>{truncateFilename(file.name)}</Text>
-                {isSuccess && (
+                {isSuccess || showProgress && (
                   <Text
                     size={"md"}
                     color={"muted"}
