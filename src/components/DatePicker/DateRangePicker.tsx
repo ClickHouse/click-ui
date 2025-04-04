@@ -4,74 +4,64 @@ import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
 import { Container } from "../Container/Container";
 import { IconButton } from "../IconButton/IconButton";
-import { DateRangePickerInput } from "./Common";
+import { CalendarRenderer, DateRangePickerInput, DateTableCell, WeekRenderer } from "./Common";
 
-const locale = "en-US";
-const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
-const headerDateFormatter = new Intl.DateTimeFormat(locale, {
-  month: "short",
-  year: "numeric",
-});
+// const locale = "en-US";
+// const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+// const headerDateFormatter = new Intl.DateTimeFormat(locale, {
+//   month: "short",
+//   year: "numeric",
+// });
 
-const explicitWidth = "250px";
+// const explicitWidth = "250px";
 
-const DatePickerContainer = styled(Container)`
-  background: ${({ theme }) =>
-    theme.click.datePicker.dateOption.color.background.default};
-`;
+// const DatePickerContainer = styled(Container)`
+//   background: ${({ theme }) =>
+//     theme.click.datePicker.dateOption.color.background.default};
+// `;
 
-const UnselectableTitle = styled.h2`
-  ${({ theme }) => `
-    color: ${theme.click.datePicker.color.title.default};
-    font: ${theme.click.datePicker.typography.title.default};
-  `}
+// const UnselectableTitle = styled.h2`
+//   ${({ theme }) => `
+//     color: ${theme.click.datePicker.color.title.default};
+//     font: ${theme.click.datePicker.typography.title.default};
+//   `}
 
-  user-select: none;
-`;
+//   user-select: none;
+// `;
 
-const DateTable = styled.table`
-  border-collapse: separate;
-  border-spacing: 0;
-  font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
-  table-layout: fixed;
-  user-select: none;
-  width: ${explicitWidth};
+// const DateTable = styled.table`
+//   border-collapse: separate;
+//   border-spacing: 0;
+//   font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
+//   table-layout: fixed;
+//   user-select: none;
+//   width: ${explicitWidth};
 
-  thead tr {
-    height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
-  }
+//   thead tr {
+//     height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
+//   }
 
-  tbody {
-    cursor: pointer;
-  }
+//   tbody {
+//     cursor: pointer;
+//   }
 
-  td, th {
-    padding: 4px;
-  }
-`;
+//   td, th {
+//     padding: 4px;
+//   }
+// `;
 
-const DateTableHeader = styled.th`
-  ${({ theme }) => `
-    color: ${theme.click.datePicker.color.daytitle.default};
-    font: ${theme.click.datePicker.typography.daytitle.default};
-  `}
+// const DateTableHeader = styled.th`
+//   ${({ theme }) => `
+//     color: ${theme.click.datePicker.color.daytitle.default};
+//     font: ${theme.click.datePicker.typography.daytitle.default};
+//   `}
 
-  width: 14%;
-`;
+//   width: 14%;
+// `;
 
-const DateTableCell = styled.td<{
-  $isCurrentMonth?: boolean;
-  $isDisabled?: boolean;
-  $isSelected?: boolean;
-  $isToday?: boolean;
+const DateRangeTableCell = styled(DateTableCell)<{
   $shouldShowRangeIndicator?: boolean;
 }>`
-  ${({ theme }) => `
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    font: ${theme.click.datePicker.dateOption.typography.label.default};
-  `}
-
   ${({ $shouldShowRangeIndicator, theme }) =>
     $shouldShowRangeIndicator &&
     `
@@ -79,36 +69,6 @@ const DateTableCell = styled.td<{
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
     border-radius: 0;
     `}
-
-  ${({ $isCurrentMonth, $isDisabled, theme }) =>
-    (!$isCurrentMonth || $isDisabled) &&
-    `
-    color: ${theme.click.datePicker.dateOption.color.label.disabled};
-    font: ${theme.click.datePicker.dateOption.typography.label.disabled};
-  `}
-
-  ${({ $isSelected, theme }) =>
-    $isSelected &&
-    `
-      background: ${theme.click.datePicker.dateOption.color.background.active};
-      color: ${theme.click.datePicker.dateOption.color.label.active};
-    `}
-
-
-  text-align: center;
-
-  ${({ $isToday, theme }) =>
-    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
-
-  &:hover {
-    ${({ $isDisabled, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-        $isDisabled
-          ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
-      };
-      border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
-  }
 `;
 
 interface CalendarProps {
@@ -127,133 +87,144 @@ const Calendar = ({
   endDate,
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
-  const calendarOptions: UseCalendarOptions = {
-    defaultWeekStart: 1,
-  };
+  // const calendarOptions: UseCalendarOptions = {
+  //   defaultWeekStart: 1,
+  // };
 
-  const { body, headers, month, navigation, year } = useCalendar(calendarOptions);
+  // const { body, headers, month, navigation, year } = useCalendar(calendarOptions);
 
-  const handleNextClick = (): void => {
-    navigation.toNext();
-  };
+  // const handleNextClick = (): void => {
+  //   navigation.toNext();
+  // };
 
-  const handlePreviousClick = (): void => {
-    navigation.toPrev();
-  };
+  // const handlePreviousClick = (): void => {
+  //   navigation.toPrev();
+  // };
 
-  const headerDate = new Date();
-  headerDate.setMonth(month);
-  headerDate.setFullYear(year);
+  // const headerDate = new Date();
+  // headerDate.setMonth(month);
+  // headerDate.setFullYear(year);
 
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
   };
 
-  return (
-    <DatePickerContainer
-      data-testid="datepicker-calendar-container"
-      isResponsive={false}
-      fillWidth={false}
-      orientation="vertical"
-      padding="sm"
-      onMouseLeave={handleMouseOut}
-    >
-      <Container
-        isResponsive={false}
-        justifyContent="space-between"
-        orientation="horizontal"
+  const weekRenderer: WeekRenderer = ({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
+    const isSelected =
+      (startDate && isSameDate(startDate, fullDate)) ||
+      (endDate && isSameDate(endDate, fullDate));
+
+    const today = new Date();
+
+    const isCurrentDate = isSameDate(today, fullDate);
+    const isDisabled = futureDatesDisabled ? fullDate > today : false;
+    const isBetweenStartAndEndDates = Boolean(
+      startDate && endDate && fullDate > startDate && fullDate < endDate
+    );
+
+    const shouldShowRangeIndicator =
+      !endDate &&
+      Boolean(startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate);
+
+    const handleMouseEnter = () => {
+      setHoveredDate(fullDate);
+    };
+
+    const handleClick = () => {
+      if (isDisabled) {
+        return false;
+      }
+      setSelectedDate(fullDate);
+
+      // User has a date range selected and clicked the selected end date.
+      // This will cause the end date to be unselected, thus do not close the datepicker.
+      if (startDate && endDate && isSameDate(fullDate, endDate)) {
+        return
+      }
+
+      // Only close the datepicker if the user hasn't clicked the selected start date.
+      if (startDate && !isSameDate(fullDate, startDate)) {
+        closeDatepicker();
+        return;
+      }
+    };
+
+    return (
+      <DateRangeTableCell
+        $shouldShowRangeIndicator={shouldShowRangeIndicator || isBetweenStartAndEndDates}
+        $isCurrentMonth={isCurrentMonth}
+        $isDisabled={isDisabled}
+        $isSelected={isSelected}
+        $isToday={isCurrentDate}
+        key={dayKey}
+        onClick={handleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseOut}
       >
-        <IconButton
-          icon="chevron-left"
-          onClick={handlePreviousClick}
-          size="sm"
-          type="ghost"
-        />
-        <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
-        <IconButton
-          icon="chevron-right"
-          onClick={handleNextClick}
-          size="sm"
-          type="ghost"
-        />
-      </Container>
-      <DateTable>
-        <thead>
-          <tr>
-            {headers.weekDays.map(({ key, value: date }) => {
-              return (
-                <DateTableHeader key={key}>
-                  {weekdayFormatter.format(date)}
-                </DateTableHeader>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {body.value.map(({ key: weekKey, value: week }) => {
-            return (
-              <tr key={weekKey}>
-                {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-                  const isSelected =
-                    (startDate && isSameDate(startDate, fullDate)) ||
-                    (endDate && isSameDate(endDate, fullDate));
+        {date}
+      </DateRangeTableCell>
+    );
+  };
 
-                  const today = new Date();
-
-                  const isCurrentDate = isSameDate(today, fullDate);
-                  const isDisabled = futureDatesDisabled ? fullDate > today : false;
-                  const isBetweenStartAndEndDates = Boolean(
-                    startDate && endDate && fullDate > startDate && fullDate < endDate
-                  );
-
-                  const shouldShowRangeIndicator =
-                    !endDate &&
-                    Boolean(
-                      startDate &&
-                        hoveredDate &&
-                        fullDate > startDate &&
-                        fullDate < hoveredDate
-                    );
-
-                  const handleMouseEnter = () => {
-                    setHoveredDate(fullDate);
-                  };
-
-                  const handleClick = () => {
-                    if (isDisabled) {
-                      return false;
-                    }
-                    setSelectedDate(fullDate);
-                    if (startDate && endDate) {
-                      closeDatepicker();
-                    }
-                  };
-
-                  return (
-                    <DateTableCell
-                      $shouldShowRangeIndicator={
-                        shouldShowRangeIndicator || isBetweenStartAndEndDates
-                      }
-                      $isCurrentMonth={isCurrentMonth}
-                      $isDisabled={isDisabled}
-                      $isSelected={isSelected}
-                      $isToday={isCurrentDate}
-                      key={dayKey}
-                      onClick={handleClick}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseOut}
-                    >
-                      {date}
-                    </DateTableCell>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </DateTable>
-    </DatePickerContainer>
+  return (
+    <CalendarRenderer
+      renderWeek={weekRenderer}
+      onMouseOut={handleMouseOut}
+    />
   );
+  // <DatePickerContainer
+  //   data-testid="datepicker-calendar-container"
+  //   isResponsive={false}
+  //   fillWidth={false}
+  //   orientation="vertical"
+  //   padding="sm"
+  //   onMouseLeave={handleMouseOut}
+  // >
+  //   <Container
+  //     isResponsive={false}
+  //     justifyContent="space-between"
+  //     orientation="horizontal"
+  //   >
+  //     <IconButton
+  //       icon="chevron-left"
+  //       onClick={handlePreviousClick}
+  //       size="sm"
+  //       type="ghost"
+  //     />
+  //     <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
+  //     <IconButton
+  //       icon="chevron-right"
+  //       onClick={handleNextClick}
+  //       size="sm"
+  //       type="ghost"
+  //     />
+  //   </Container>
+  //   <DateTable>
+  //     <thead>
+  //       <tr>
+  //         {headers.weekDays.map(({ key, value: date }) => {
+  //           return (
+  //             <DateTableHeader key={key}>
+  //               {weekdayFormatter.format(date)}
+  //             </DateTableHeader>
+  //           );
+  //         })}
+  //       </tr>
+  //     </thead>
+  //     <tbody>
+  //       {body.value.map(({ key: weekKey, value: week }) => {
+  //         return (
+  //           <tr key={weekKey}>
+  // {week.map(
+
+  //               })}
+  //             </tr>
+  //           );
+  //         })}
+  //       </tbody>
+  //     </DateTable>
+  //   </DatePickerContainer>
+  // );
 };
 
 export interface DatePickerProps {
@@ -289,11 +260,11 @@ export const DateRangePicker = ({
     }
   }, [endDate]);
 
-  useEffect(() => {
-    if (selectedStartDate && selectedEndDate) {
-      closeDatePicker();
-    }
-  }, [selectedStartDate, selectedEndDate]);
+  // useEffect(() => {
+  //   if (selectedStartDate && selectedEndDate) {
+  //     closeDatePicker();
+  //   }
+  // }, [selectedStartDate, selectedEndDate]);
 
   const closeDatePicker = () => {
     setIsOpen(false);
