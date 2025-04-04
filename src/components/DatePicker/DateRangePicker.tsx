@@ -208,10 +208,7 @@ const Calendar = ({
                   const isCurrentDate = isSameDate(today, fullDate);
                   const isDisabled = futureDatesDisabled ? fullDate > today : false;
                   const isBetweenStartAndEndDates = Boolean(
-                    startDate &&
-                      endDate &&
-                      ((fullDate > startDate && fullDate < endDate) ||
-                        (fullDate < startDate && fullDate > endDate))
+                    startDate && endDate && fullDate > startDate && fullDate < endDate
                   );
 
                   const shouldShowRangeIndicator =
@@ -219,8 +216,8 @@ const Calendar = ({
                     Boolean(
                       startDate &&
                         hoveredDate &&
-                        ((fullDate > startDate && fullDate < hoveredDate) ||
-                          (fullDate < startDate && fullDate > hoveredDate))
+                        fullDate > startDate &&
+                        fullDate < hoveredDate
                     );
 
                   const handleMouseEnter = () => {
@@ -275,7 +272,7 @@ export const DateRangePicker = ({
   disabled = false,
   futureDatesDisabled = false,
   onSelectDate,
-  placeholder,
+  placeholder = "start date - end date",
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -295,15 +292,37 @@ export const DateRangePicker = ({
   };
 
   const handleSelectDate = (selectedDate: Date): void => {
+    // Start date and end date are selected, user clicks end date.
+    // Reset the end date.
+    if (endDate && isSameDate(endDate, selectedDate)) {
+      setEndDate(undefined);
+      return;
+    }
+
     if (startDate) {
       if (isSameDate(startDate, selectedDate)) {
-        console.log("same date!");
+        // Start date and end date are selected, user clicks start date.
+        // Set the start date to the old end date, reset end date.
+        if (endDate) {
+          setStartDate(endDate);
+          setEndDate(undefined);
+          return;
+        }
+
+        // Start date is selected, user clicks start date.
+        // Reset the start date.
+        setStartDate(undefined);
+        return;
       }
 
+      // Start date is selected, user clicks an earlier date.
+      // Set the earlier date to the new start date.
       if (selectedDate < startDate) {
-        setEndDate(startDate);
+        setStartDate(selectedDate);
+        return;
       }
 
+      // Otherwise, set the end date to the date the user clicked.
       setEndDate(selectedDate);
       setSelectedDate(selectedDate);
       onSelectDate(selectedDate);
