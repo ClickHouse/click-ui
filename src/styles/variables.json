@@ -1703,7 +1703,7 @@
         }
       },
       "borderWidth": {
-        "default": "1.5px",
+        "default": "1.5",
         "thin": "1px"
       },
       "color": {
