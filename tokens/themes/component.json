@@ -1686,7 +1686,7 @@
           "type": "strokeWidth"
         },
         "thin": {
-          "value": "{sizes.1}",
+          "value": "0.5",
           "type": "strokeWidth"
         }
       }
