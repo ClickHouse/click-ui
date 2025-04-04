@@ -59,6 +59,12 @@ const SvgWrapper = styled.div<{
       fill: ${$color};
     }
 
+    & rect[stroke-width],
+    & circle[stroke-width],
+    & ellipse[stroke-width],
+    & line[stroke-width],
+    & polyline[stroke-width],
+    & polygon[stroke-width],
     & path[stroke-width] {
       stroke-width: ${theme.click.image.borderWidth[$weight]}
     }
