@@ -1,63 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import { isSameDate, useCalendar, UseCalendarOptions } from "@h6s/calendar";
+import { useEffect, useState } from "react";
+import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
 import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
-import { Container } from "../Container/Container";
-import { IconButton } from "../IconButton/IconButton";
-import { CalendarRenderer, DateRangePickerInput, DateTableCell, WeekRenderer } from "./Common";
-
-// const locale = "en-US";
-// const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
-// const headerDateFormatter = new Intl.DateTimeFormat(locale, {
-//   month: "short",
-//   year: "numeric",
-// });
-
-// const explicitWidth = "250px";
-
-// const DatePickerContainer = styled(Container)`
-//   background: ${({ theme }) =>
-//     theme.click.datePicker.dateOption.color.background.default};
-// `;
-
-// const UnselectableTitle = styled.h2`
-//   ${({ theme }) => `
-//     color: ${theme.click.datePicker.color.title.default};
-//     font: ${theme.click.datePicker.typography.title.default};
-//   `}
-
-//   user-select: none;
-// `;
-
-// const DateTable = styled.table`
-//   border-collapse: separate;
-//   border-spacing: 0;
-//   font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
-//   table-layout: fixed;
-//   user-select: none;
-//   width: ${explicitWidth};
-
-//   thead tr {
-//     height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
-//   }
-
-//   tbody {
-//     cursor: pointer;
-//   }
-
-//   td, th {
-//     padding: 4px;
-//   }
-// `;
-
-// const DateTableHeader = styled.th`
-//   ${({ theme }) => `
-//     color: ${theme.click.datePicker.color.daytitle.default};
-//     font: ${theme.click.datePicker.typography.daytitle.default};
-//   `}
-
-//   width: 14%;
-// `;
+import {
+  CalendarRenderer,
+  DateRangePickerInput,
+  DateTableCell,
+  WeekRenderer,
+} from "./Common";
 
 const DateRangeTableCell = styled(DateTableCell)<{
   $shouldShowRangeIndicator?: boolean;
@@ -87,29 +37,24 @@ const Calendar = ({
   endDate,
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
-  // const calendarOptions: UseCalendarOptions = {
-  //   defaultWeekStart: 1,
-  // };
 
-  // const { body, headers, month, navigation, year } = useCalendar(calendarOptions);
+  const calendarOptions: UseCalendarOptions = {};
 
-  // const handleNextClick = (): void => {
-  //   navigation.toNext();
-  // };
-
-  // const handlePreviousClick = (): void => {
-  //   navigation.toPrev();
-  // };
-
-  // const headerDate = new Date();
-  // headerDate.setMonth(month);
-  // headerDate.setFullYear(year);
+  // If a start date is selected, open the calendar to that date
+  if (startDate) {
+    calendarOptions.defaultDate = startDate;
+  }
 
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
   };
 
-  const weekRenderer: WeekRenderer = ({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
+  const weekRenderer: WeekRenderer = ({
+    date,
+    isCurrentMonth,
+    key: dayKey,
+    value: fullDate,
+  }) => {
     const isSelected =
       (startDate && isSameDate(startDate, fullDate)) ||
       (endDate && isSameDate(endDate, fullDate));
@@ -139,7 +84,7 @@ const Calendar = ({
       // User has a date range selected and clicked the selected end date.
       // This will cause the end date to be unselected, thus do not close the datepicker.
       if (startDate && endDate && isSameDate(fullDate, endDate)) {
-        return
+        return;
       }
 
       // Only close the datepicker if the user hasn't clicked the selected start date.
@@ -168,70 +113,18 @@ const Calendar = ({
 
   return (
     <CalendarRenderer
-      renderWeek={weekRenderer}
+      calendarOptions={calendarOptions}
       onMouseOut={handleMouseOut}
+      weekRenderer={weekRenderer}
     />
   );
-  // <DatePickerContainer
-  //   data-testid="datepicker-calendar-container"
-  //   isResponsive={false}
-  //   fillWidth={false}
-  //   orientation="vertical"
-  //   padding="sm"
-  //   onMouseLeave={handleMouseOut}
-  // >
-  //   <Container
-  //     isResponsive={false}
-  //     justifyContent="space-between"
-  //     orientation="horizontal"
-  //   >
-  //     <IconButton
-  //       icon="chevron-left"
-  //       onClick={handlePreviousClick}
-  //       size="sm"
-  //       type="ghost"
-  //     />
-  //     <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
-  //     <IconButton
-  //       icon="chevron-right"
-  //       onClick={handleNextClick}
-  //       size="sm"
-  //       type="ghost"
-  //     />
-  //   </Container>
-  //   <DateTable>
-  //     <thead>
-  //       <tr>
-  //         {headers.weekDays.map(({ key, value: date }) => {
-  //           return (
-  //             <DateTableHeader key={key}>
-  //               {weekdayFormatter.format(date)}
-  //             </DateTableHeader>
-  //           );
-  //         })}
-  //       </tr>
-  //     </thead>
-  //     <tbody>
-  //       {body.value.map(({ key: weekKey, value: week }) => {
-  //         return (
-  //           <tr key={weekKey}>
-  // {week.map(
-
-  //               })}
-  //             </tr>
-  //           );
-  //         })}
-  //       </tbody>
-  //     </DateTable>
-  //   </DatePickerContainer>
-  // );
 };
 
 export interface DatePickerProps {
   endDate?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
-  onSelectDate: (selectedDate: Date) => void;
+  onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   placeholder?: string;
   startDate?: Date;
 }
@@ -241,7 +134,7 @@ export const DateRangePicker = ({
   startDate,
   disabled = false,
   futureDatesDisabled = false,
-  onSelectDate,
+  onSelectDateRange,
   placeholder = "start date - end date",
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -259,12 +152,6 @@ export const DateRangePicker = ({
       setSelectedEndDate(endDate);
     }
   }, [endDate]);
-
-  // useEffect(() => {
-  //   if (selectedStartDate && selectedEndDate) {
-  //     closeDatePicker();
-  //   }
-  // }, [selectedStartDate, selectedEndDate]);
 
   const closeDatePicker = () => {
     setIsOpen(false);
@@ -303,7 +190,7 @@ export const DateRangePicker = ({
 
       // Otherwise, set the end date to the date the user clicked.
       setSelectedEndDate(selectedDate);
-      onSelectDate(selectedDate);
+      onSelectDateRange(selectedStartDate, selectedDate);
       return;
     }
 

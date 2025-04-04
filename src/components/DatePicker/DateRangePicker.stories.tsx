@@ -3,8 +3,8 @@ import { DateRangePicker } from "./DateRangePicker";
 
 const defaultStory = {
   args: {
-    onSelectDate: (date: Date) => {
-      console.log("Date selected: ", date);
+    onSelectDateRange: (startDate: Date, endDate: Date) => {
+      console.log("Date range selected: ", startDate, endDate);
     },
   },
   argTypes: {
@@ -20,7 +20,7 @@ const defaultStory = {
     placeholder: {
       control: "text",
     },
-    onSelectDate: {
+    onSelectDateRange: {
       control: "object",
     },
   },
@@ -33,7 +33,7 @@ const defaultStory = {
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
-        onSelectDate={args.onSelectDate}
+        onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         startDate={startDate}
       />
