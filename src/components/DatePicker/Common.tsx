@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
 import { ReactNode, useId } from "react";
 import { Icon } from "../Icon/Icon";
-import { Container, ContainerProps } from "../Container/Container";
+import { Container } from "../Container/Container";
 import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import { IconButton } from "../IconButton/IconButton";
 
@@ -217,14 +217,14 @@ type Week = {
 
 export type WeekRenderer = (week: Week) => ReactNode;
 
-interface CalendarRendererProps extends ContainerProps {
-  calendarOptions: UseCalendarOptions;
-  renderWeek: WeekRenderer;
+interface CalendarRendererProps extends React.HTMLAttributes<typeof Container> {
+  calendarOptions?: UseCalendarOptions;
+  weekRenderer: WeekRenderer;
 }
 
 export const CalendarRenderer = ({
-  calendarOptions,
-  renderWeek,
+  calendarOptions = {},
+  weekRenderer,
   ...props
 }: CalendarRendererProps) => {
   const { body, headers, month, navigation, year } = useCalendar({
@@ -286,7 +286,7 @@ export const CalendarRenderer = ({
         </thead>
         <tbody>
           {body.value.map(({ key: weekKey, value: week }) => {
-            return <tr key={weekKey}>{week.map(renderWeek)}</tr>;
+            return <tr key={weekKey}>{week.map(weekRenderer)}</tr>;
           })}
         </tbody>
       </DateTable>
