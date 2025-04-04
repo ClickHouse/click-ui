@@ -42,11 +42,11 @@
           "size": {
             "height": {
               "value": "{click.image.md.size.height}",
-              "type": "sizing"
+              "type": "strokeWidth"
             },
             "width": {
               "value": "{click.image.md.size.width}",
-              "type": "sizing"
+              "type": "strokeWidth"
             }
           }
         },
