@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 import "@/styles/globals.css";
 import "./styles/variables.css";
@@ -51,7 +51,7 @@ import GridExample from "./examples/GridExample";
 import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
 import { styled } from "styled-components";
 
-import { ICON_NAMES } from "@/components/Icon/types";
+import { ICON_NAMES, IconSize } from "@/components/Icon/types";
 
 const BackgroundWrapper = styled.div`
   background: ${({ theme }) => theme.global.color.background.default};
@@ -759,26 +759,33 @@ const App = () => {
         <Spacer />
           {ICON_NAMES.map(name => {
             return (
-              <div key={name}>
+              <Fragment key={name}>
+                <Title type='h3'>{name} : default</Title>
                 <GridContainer
-                  gridTemplateColumns="repeat(12, minmax(0, 1fr))"
+                  gridTemplateColumns="repeat(5, minmax(0, 1fr))"
                   columnGap="lg"
                   rowGap="sm"
                 >
-                  <Icon name={name} size='xs' />
-                  <Icon name={name} size='sm' />
-                  <Icon name={name} size='md' />
-                  <Icon name={name} size='lg' />
-                  <Icon name={name} size='xl' />
-                  <Icon name={name} size='xxl' />
-                  <Icon name={name} size='xs' weight='thin' />
-                  <Icon name={name} size='sm' weight='thin' />
-                  <Icon name={name} size='md' weight='thin' />
-                  <Icon name={name} size='lg' weight='thin' />
-                  <Icon name={name} size='xl' weight='thin' />
-                  <Icon name={name} size='xxl' weight='thin' />
+                  {(["sm", "md", "lg", "xl", "xxl"] satisfies Array<IconSize>).map(size => {
+                    return (
+                      <Icon key={size} name={name} size={size} />
+                    )
+                  })}
                 </GridContainer>
-              </div>
+                <Spacer /><Title type='h3'>{name} : thin</Title>
+                <GridContainer
+                  gridTemplateColumns="repeat(5, minmax(0, 1fr))"
+                  columnGap="lg"
+                  rowGap="sm"
+                >
+                  {(["sm", "md", "lg", "xl", "xxl"] satisfies Array<IconSize>).map(size => {
+                    return (
+                      <Icon key={size} name={name} size={size} weight='thin' />
+                    )
+                  })}
+                </GridContainer>
+                <Spacer />
+              </Fragment>
             );
           })}
       </BackgroundWrapper>
