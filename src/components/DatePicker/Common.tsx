@@ -60,3 +60,47 @@ export const DatePickerInput = ({
   );
 };
 
+interface DateRangePickerInputProps {
+  isActive: boolean;
+  disabled: boolean;
+  id?: string;
+  placeholder?: string;
+  selectedEndDate?: Date;
+  selectedStartDate?: Date;
+}
+
+export const DateRangePickerInput = ({
+  isActive,
+  disabled,
+  id,
+  placeholder,
+  selectedEndDate,
+  selectedStartDate,
+}: DateRangePickerInputProps) => {
+  const defaultId = useId();
+
+  let formattedValue = "";
+  if (selectedStartDate) {
+    formattedValue = selectedDateFormatter.format(selectedStartDate);
+
+    formattedValue = `${formattedValue} - ${
+      selectedEndDate ? selectedDateFormatter.format(selectedEndDate) : "end date"
+    }`;
+  }
+
+  return (
+    <HighlightedInputWrapper
+      $isActive={isActive}
+      disabled={disabled}
+      id={id ?? defaultId}
+    >
+      <Icon name="calendar" />
+      <InputElement
+        data-testid="datepicker-input"
+        placeholder={placeholder}
+        readOnly
+        value={formattedValue}
+      />
+    </HighlightedInputWrapper>
+  );
+};

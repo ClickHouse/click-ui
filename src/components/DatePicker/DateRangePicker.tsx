@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
 import { Container } from "../Container/Container";
 import { IconButton } from "../IconButton/IconButton";
-import { DatePickerInput } from "./Common";
+import { DateRangePickerInput } from "./Common";
 
 const locale = "en-US";
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
@@ -114,7 +114,6 @@ const DateTableCell = styled.td<{
 interface CalendarProps {
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
-  selectedDate?: Date;
   setSelectedDate: (selectedDate: Date) => void;
   startDate?: Date;
   endDate?: Date;
@@ -123,7 +122,6 @@ interface CalendarProps {
 const Calendar = ({
   closeDatepicker,
   futureDatesDisabled,
-  selectedDate,
   setSelectedDate,
   startDate,
   endDate,
@@ -133,9 +131,6 @@ const Calendar = ({
     defaultWeekStart: 1,
   };
 
-  if (selectedDate) {
-    calendarOptions.defaultDate = selectedDate;
-  }
   const { body, headers, month, navigation, year } = useCalendar(calendarOptions);
 
   const handleNextClick = (): void => {
@@ -146,13 +141,13 @@ const Calendar = ({
     navigation.toPrev();
   };
 
-  const handleMouseOut = (): void => {
-    setHoveredDate(undefined);
-  };
-
   const headerDate = new Date();
   headerDate.setMonth(month);
   headerDate.setFullYear(year);
+
+  const handleMouseOut = (): void => {
+    setHoveredDate(undefined);
+  };
 
   return (
     <DatePickerContainer
@@ -229,7 +224,9 @@ const Calendar = ({
                       return false;
                     }
                     setSelectedDate(fullDate);
-                    closeDatepicker();
+                    if (startDate && endDate) {
+                      closeDatepicker();
+                    }
                   };
 
                   return (
@@ -260,76 +257,86 @@ const Calendar = ({
 };
 
 export interface DatePickerProps {
-  date?: Date;
+  endDate?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
   placeholder?: string;
+  startDate?: Date;
 }
 
 export const DateRangePicker = ({
-  date,
+  endDate,
+  startDate,
   disabled = false,
   futureDatesDisabled = false,
   onSelectDate,
   placeholder = "start date - end date",
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<Date>();
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  const [selectedStartDate, setSelectedStartDate] = useState<Date>();
+  const [selectedEndDate, setSelectedEndDate] = useState<Date>();
 
   useEffect(() => {
-    if (date) {
-      setSelectedDate(date);
+    if (startDate) {
+      setSelectedStartDate(startDate);
     }
-  }, [date]);
+  }, [startDate]);
+
+  useEffect(() => {
+    if (endDate) {
+      setSelectedEndDate(endDate);
+    }
+  }, [endDate]);
+
+  useEffect(() => {
+    if (selectedStartDate && selectedEndDate) {
+      closeDatePicker();
+    }
+  }, [selectedStartDate, selectedEndDate]);
 
   const closeDatePicker = () => {
-    if (startDate && endDate) {
-      setIsOpen(false);
-    }
+    setIsOpen(false);
   };
 
   const handleSelectDate = (selectedDate: Date): void => {
     // Start date and end date are selected, user clicks end date.
     // Reset the end date.
-    if (endDate && isSameDate(endDate, selectedDate)) {
-      setEndDate(undefined);
+    if (selectedEndDate && isSameDate(selectedEndDate, selectedDate)) {
+      setSelectedEndDate(undefined);
       return;
     }
 
-    if (startDate) {
-      if (isSameDate(startDate, selectedDate)) {
+    if (selectedStartDate) {
+      if (isSameDate(selectedStartDate, selectedDate)) {
         // Start date and end date are selected, user clicks start date.
         // Set the start date to the old end date, reset end date.
-        if (endDate) {
-          setStartDate(endDate);
-          setEndDate(undefined);
+        if (selectedEndDate) {
+          setSelectedStartDate(selectedEndDate);
+          setSelectedEndDate(undefined);
           return;
         }
 
         // Start date is selected, user clicks start date.
         // Reset the start date.
-        setStartDate(undefined);
+        setSelectedStartDate(undefined);
         return;
       }
 
       // Start date is selected, user clicks an earlier date.
       // Set the earlier date to the new start date.
-      if (selectedDate < startDate) {
-        setStartDate(selectedDate);
+      if (selectedDate < selectedStartDate) {
+        setSelectedStartDate(selectedDate);
         return;
       }
 
       // Otherwise, set the end date to the date the user clicked.
-      setEndDate(selectedDate);
-      setSelectedDate(selectedDate);
+      setSelectedEndDate(selectedDate);
       onSelectDate(selectedDate);
       return;
     }
 
-    setStartDate(selectedDate);
+    setSelectedStartDate(selectedDate);
   };
 
   return (
@@ -338,12 +345,13 @@ export const DateRangePicker = ({
       open={isOpen}
     >
       <Dropdown.Trigger disabled={disabled}>
-        <DatePickerInput
-          data-testid="datepicker-inpcontainer"
+        <DateRangePickerInput
+          data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
           placeholder={placeholder}
-          selectedDate={selectedDate}
+          selectedEndDate={selectedEndDate}
+          selectedStartDate={selectedStartDate}
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
@@ -351,8 +359,8 @@ export const DateRangePicker = ({
           closeDatepicker={closeDatePicker}
           futureDatesDisabled={futureDatesDisabled}
           setSelectedDate={handleSelectDate}
-          startDate={startDate}
-          endDate={endDate}
+          startDate={selectedStartDate}
+          endDate={selectedEndDate}
         />
       </Dropdown.Content>
     </Dropdown>
