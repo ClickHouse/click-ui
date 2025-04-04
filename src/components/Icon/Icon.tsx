@@ -51,21 +51,40 @@ const SvgWrapper = styled.div<{
   align-items: center;
 
   ${({ theme, $color = "currentColor", $width, $height, $size, $weight = "default" }) => `
-    & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke], & circle[fill] {
+    & svg[stroke]:not([stroke="none"]),
+    & g[stroke]:not([stroke="none"]),
+    & path[stroke]:not([stroke="none"]),
+    & rect[stroke]:not([stroke="none"]),
+    & circle[stroke]:not([stroke="none"]),
+    & ellipse[stroke]:not([stroke="none"]),
+    & line[stroke]:not([stroke="none"]),
+    & polyline[stroke]:not([stroke="none"]),
+    & polygon[stroke]:not([stroke="none"]) {
       stroke: ${$color};
     }
 
-    & path[fill], & svg[fill]:not([fill="none"]), & rect[fill], & circle[fill] {
+    & svg[fill]:not([fill="none"]),
+    & g[fill]:not([fill="none"]),
+    & path[fill]:not([fill="none"]),
+    & rect[fill]:not([fill="none"]),
+    & circle[fill]:not([fill="none"]),
+    & ellipse[fill]:not([fill="none"]),
+    & line[fill]:not([fill="none"]),
+    & polyline[fill]:not([fill="none"]),
+    & polygon[fill]:not([fill="none"]) {
       fill: ${$color};
     }
 
+
+    & svg[stroke-width],
+    & g[stroke-width],
+    & path[stroke-width],
     & rect[stroke-width],
     & circle[stroke-width],
     & ellipse[stroke-width],
     & line[stroke-width],
     & polyline[stroke-width],
-    & polygon[stroke-width],
-    & path[stroke-width] {
+    & polygon[stroke-width] {
       stroke-width: ${theme.click.image.borderWidth[$weight]}
     }
 
