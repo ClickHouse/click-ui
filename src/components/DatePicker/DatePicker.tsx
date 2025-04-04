@@ -255,7 +255,7 @@ export const DatePicker = ({
     >
       <Dropdown.Trigger disabled={disabled}>
         <DatePickerInput
-          data-testid="datepicker-inpcontainer"
+          data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
           placeholder={placeholder}
