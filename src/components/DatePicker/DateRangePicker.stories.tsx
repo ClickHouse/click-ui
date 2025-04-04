@@ -8,7 +8,10 @@ const defaultStory = {
     },
   },
   argTypes: {
-    date: {
+    startDate: {
+      control: "date",
+    },
+    endDate: {
       control: "date",
     },
     futureDatesDisabled: {
@@ -23,14 +26,16 @@ const defaultStory = {
   },
   component: DateRangePicker,
   render: (args: Args) => {
-    const date = args.date ? new Date(args.date) : undefined;
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
     return (
       <DateRangePicker
-        date={date}
+        endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
         onSelectDate={args.onSelectDate}
         placeholder={args.placeholder}
+        startDate={startDate}
       />
     );
   },
