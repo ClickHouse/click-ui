@@ -9,34 +9,13 @@ const ChartHeatmap = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path
-      d="M21.5 19.75C21.5 19.9489 21.421 20.1397 21.2803 20.2803C21.1397 20.421 20.9489 20.5 20.75 20.5H2.75C2.55109 20.5 2.36032 20.421 2.21967 20.2803C2.07902 20.1397 2 19.9489 2 19.75V4.75C2 4.55109 2.07902 4.36032 2.21967 4.21967C2.36032 4.07902 2.55109 4 2.75 4C2.94891 4 3.13968 4.07902 3.28033 4.21967C3.42098 4.36032 3.5 4.55109 3.5 4.75V19H20.75C20.9489 19 21.1397 19.079 21.2803 19.2197C21.421 19.3603 21.5 19.5511 21.5 19.75Z"
-      fill="white"
-    />
-    <circle
-      cx="10.5"
-      cy="11.5"
-      r="2.5"
-      fill="white"
-    />
-    <circle
-      cx="16"
-      cy="15"
-      r="2"
-      fill="white"
-    />
-    <circle
-      cx="7"
-      cy="7"
-      r="1"
-      fill="white"
-    />
-    <circle
-      cx="14"
-      cy="8"
-      r="4"
-      fill="white"
-    />
+    <g fill="none" fillRule="evenodd" stroke="#FFF" strokeWidth="1.5" transform="translate(3 4)">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M0 .03v14.98h18.05"/>
+      <circle cx="7.75" cy="6.75" r="1.75" fill="#FFF" fill-rule="nonzero"/>
+      <circle cx="13.25" cy="10.25" r="1.25" fill="#FFF" fill-rule="nonzero"/>
+      <circle cx="4.25" cy="2.25" r="1" fill="#FFF" fill-rule="nonzero"/>
+      <circle cx="11.25" cy="3.25" r="3.25" fill="#FFF" fill-rule="nonzero"/>
+    </g>
   </svg>
 );
 

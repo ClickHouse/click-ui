@@ -1,81 +1,47 @@
 import DotsHorizontal from "./DotsHorizontal";
 import { keyframes, styled } from "styled-components";
 
-const animationCircle1 = keyframes`
+const animationCircle = keyframes`
   0 {
-    r: 0;
-  }
-  30% {
-    r: 1.5;
-  }
-  60% {
-    r: 0;
+    transform: scale(1);
   }
   100% {
-    r: 0;
-  }
-`;
-const animationCircle2 = keyframes`
-  0 {
-    r: 0;
-  }
-  20% {
-    r: 0;
-  }
-  40% {
-    r: 1.5;
-  }
-  80% {
-    r: 0;
-  }
-  100% {
-   r: 0
-  }
-`;
-const animationCircle3 = keyframes`
-  0 {
-    r: 0;
-  }
-  40% {
-    r: 0;
-  }
-  80% {
-    r: 1.5;
-  }
-  100% {
-   r: 0
+    transform: scale(0);
   }
 `;
 
 const HorizontalLoading = styled(DotsHorizontal)`
   circle {
-    animation-name: horizontal-loading;
+    animation-name: ${animationCircle};
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-    -webkit-animation-name: horizontal-loading;
+    animation-direction: alternate;
     -webkit-animation-duration: 1.5s;
+    -webkit-animation-name: ${animationCircle};
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
-    -moz-animation-name: horizontal-loading;
-    -moz-animation-duration: 1.5s;
+    -webkit-animation-direction: alternate;
+    -moz-animation-duration: 1s;
+    -moz-animation-name: ${animationCircle};
     -moz-animation-iteration-count: infinite;
     -moz-animation-timing-function: linear;
-    &:nth-child(1) {
-      animation-name: ${animationCircle1};
-      -webkit-animation-name: ${animationCircle1};
-      -moz-animation-name: ${animationCircle1};
-    }
-    &:nth-child(2) {
-      animation-name: ${animationCircle2};
-      -webkit-animation-name: ${animationCircle2};
-      -moz-animation-name: ${animationCircle2};
-    }
-    &:nth-child(3) {
-      animation-name: ${animationCircle3};
-      -webkit-animation-name: ${animationCircle3};
-      -moz-animation-name: ${animationCircle3};
-    }
+    -moz-animation-direction: alternate;
+  }
+  g:nth-child(1) circle {
+    animation-delay: 0s;
+    -webkit-animation-delay: 0s;
+    -moz-animation-delay: 0s;
+  }
+  g:nth-child(2) circle {
+    animation-delay: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+  }
+  g:nth-child(3) circle {
+    animation-delay: 0.6s;
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
   }
 `;
 
