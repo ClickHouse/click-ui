@@ -13,12 +13,13 @@ interface FileUploadProps {
   title: string;
   supportedFileTypes?: string[];
   size?: "sm" | "md";
-  onFileSelect?: (file: File) => void;
-  onRetry?: () => void;
   progress?: number;
+  showSuccess?: boolean;
   showProgress?: boolean;
   failureMessage?: string;
-  isSuccess?: boolean;
+  onRetry?: () => void;
+  onFileSelect?: (file: File) => void;
+  onFileSelectFailure?: () => void;
 }
 
 const UploadArea = styled.div<{
@@ -235,7 +236,8 @@ export const FileUpload = ({
   progress = 0,
   failureMessage = "Upload failed",
   showProgress = false,
-  isSuccess = false,
+  showSuccess = false,
+  onFileSelectFailure,
 }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [file, setFile] = useState<FileInfo | null>(null);
@@ -288,7 +290,11 @@ export const FileUpload = ({
   const processFile = useCallback(
     (file: File) => {
       if (!isFiletypeSupported(file.name, supportedFileTypes)) {
-        console.warn(`File type not supported: ${file.name}`);
+        if (onFileSelectFailure) {
+          onFileSelectFailure();
+        } else {
+          console.warn(`File type not supported: ${file.name}`);
+        }
         return;
       }
 
@@ -358,7 +364,7 @@ export const FileUpload = ({
         $isDragging={isDragging}
         $size={size}
         $hasFile={!!file}
-        $isError={!!file && !isSuccess && !showProgress}
+        $isError={!!file && !showSuccess && !showProgress}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -396,7 +402,7 @@ export const FileUpload = ({
               <DocumentIcon name={"document"} />
               <FileDetails>
                 <Text size={"md"}>{truncateFilename(file.name)}</Text>
-                {isSuccess || showProgress && (
+                {(showSuccess || showProgress) && (
                   <Text
                     size={"md"}
                     color={"muted"}
@@ -404,7 +410,7 @@ export const FileUpload = ({
                     {formatFileSize(file.size)}
                   </Text>
                 )}
-                {!showProgress && !isSuccess && (
+                {!showProgress && !showSuccess && (
                   <Text
                     size={"md"}
                     color={"danger"}
@@ -412,7 +418,7 @@ export const FileUpload = ({
                     {failureMessage}
                   </Text>
                 )}
-                {isSuccess && (
+                {showSuccess && (
                   <SuccessIcon
                     size={"sm"}
                     name={"check"}
@@ -421,7 +427,7 @@ export const FileUpload = ({
               </FileDetails>
 
               <FileActions>
-                {!showProgress && !isSuccess && (
+                {!showProgress && !showSuccess && (
                   <IconButton
                     size={"sm"}
                     icon={"refresh"}

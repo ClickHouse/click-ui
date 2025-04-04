@@ -26,7 +26,7 @@ export default {
     showProgress: {
       control: "boolean",
     },
-    isSuccess: {
+    showSuccess: {
       control: "boolean",
     },
     failureMessage: {
@@ -42,9 +42,9 @@ export const SmallSize = {
     title: "Upload file",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
     size: "sm",
-    progress: 0,
+    progress: 75,
     showProgress: false,
-    isSuccess: false,
+    showSuccess: false,
   },
   parameters: {
     docs: {
@@ -59,6 +59,7 @@ export const MediumSize = {
   args: {
     title: "Upload file",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    progress: 65,
     size: "md",
   },
   parameters: {
