@@ -42,11 +42,11 @@
           "size": {
             "height": {
               "value": "{click.image.md.size.height}",
-              "type": "strokeWidth"
+              "type": "sizing"
             },
             "width": {
               "value": "{click.image.md.size.width}",
-              "type": "strokeWidth"
+              "type": "sizing"
             }
           }
         },
@@ -1683,11 +1683,11 @@
       "borderWidth": {
         "default": {
           "value": "1.5",
-          "type": "sizing"
+          "type": "strokeWidth"
         },
         "thin": {
           "value": "{sizes.1}",
-          "type": "sizing"
+          "type": "strokeWidth"
         }
       }
     },
