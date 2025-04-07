@@ -1704,7 +1704,7 @@
       },
       "borderWidth": {
         "default": "1.5",
-        "thin": "1px"
+        "thin": "0.5"
       },
       "color": {
         "stroke": "#161517"
