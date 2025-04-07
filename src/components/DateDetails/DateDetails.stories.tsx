@@ -38,7 +38,7 @@ export const Playground = {
   args: {
     date: new Date(),
     side: "top",
-    systemTimeZone: "America/Los_Angeles",
+    systemTimeZone: undefined,
     title: "DateDetails",
   },
   render: (args: Args) => {

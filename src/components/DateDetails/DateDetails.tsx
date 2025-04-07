@@ -17,6 +17,7 @@ import { Container } from "@/components/Container/Container";
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
+dayjs.extend(timezone);
 dayjs.extend(updateLocale);
 dayjs.extend(utc);
 
@@ -89,7 +90,7 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   return date.format(formatForPastYear).replace("am", "a.m.").replace("pm", "p.m.");
 };
 
-const formatTimezone = (date: Dayjs, timezone: string): string => {
+const formatTimezone = (date: Dayjs, timezone?: string): string => {
   return (
     new Intl.DateTimeFormat(undefined, {
       timeZone: timezone,
@@ -108,16 +109,11 @@ export interface DateDetailsProps {
   systemTimeZone?: string;
 }
 
-export const DateDetails = ({
-  date,
-  side = "top",
-  systemTimeZone = "America/New_York",
-}: DateDetailsProps) => {
+export const DateDetails = ({ date, side = "top", systemTimeZone }: DateDetailsProps) => {
   const dayjsDate = dayjs(date);
 
   let systemTime;
   if (systemTimeZone) {
-    dayjs.extend(timezone);
     try {
       systemTime = dayjsDate.tz(systemTimeZone);
     } catch {
