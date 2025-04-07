@@ -28,6 +28,9 @@ export default {
         type: "select",
       },
     },
+    useHoverTrigger: {
+      control: "boolean",
+    },
   },
   component: DateDetails,
   title: "Display/DateDetails",
@@ -38,8 +41,9 @@ export const Playground = {
   args: {
     date: new Date(),
     side: "top",
-    systemTimeZone: "America/Los_Angeles",
+    systemTimeZone: undefined,
     title: "DateDetails",
+    useHoverTrigger: false,
   },
   render: (args: Args) => {
     const date = args.date ? new Date(args.date) : new Date();
@@ -48,6 +52,7 @@ export const Playground = {
         date={date}
         side={args.side}
         systemTimeZone={args.systemTimeZone}
+        useHoverTrigger={args.useHoverTrigger}
       />
     );
   },

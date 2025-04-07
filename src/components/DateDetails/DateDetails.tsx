@@ -13,10 +13,12 @@ import { Text } from "@/components/Typography/Text/Text";
 import { linkStyles, StyledLinkProps } from "@/components/Link/common";
 import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Container } from "@/components/Container/Container";
+import { PropsWithChildren, ReactElement, useState } from "react";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
+dayjs.extend(timezone);
 dayjs.extend(updateLocale);
 dayjs.extend(utc);
 
@@ -89,7 +91,7 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   return date.format(formatForPastYear).replace("am", "a.m.").replace("pm", "p.m.");
 };
 
-const formatTimezone = (date: Dayjs, timezone: string): string => {
+const formatTimezone = (date: Dayjs, timezone?: string): string => {
   return (
     new Intl.DateTimeFormat(undefined, {
       timeZone: timezone,
@@ -100,29 +102,40 @@ const formatTimezone = (date: Dayjs, timezone: string): string => {
   );
 };
 
-export type ArrowPosition = "top" | "right" | "left" | "bottom";
-
-export interface DateDetailsProps {
+interface PopoverWrapperProps extends PropsWithChildren {
   date: Date;
-  side?: ArrowPosition;
-  systemTimeZone?: string;
+  useHoverTrigger?: boolean;
 }
 
-export const DateDetails = ({
+const PopoverWrapper = ({
+  children,
   date,
-  side = "top",
-  systemTimeZone = "America/New_York",
-}: DateDetailsProps) => {
-  const dayjsDate = dayjs(date);
+  useHoverTrigger,
+}: PopoverWrapperProps): ReactElement => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  let systemTime;
-  if (systemTimeZone) {
-    dayjs.extend(timezone);
-    try {
-      systemTime = dayjsDate.tz(systemTimeZone);
-    } catch {
-      systemTime = dayjsDate.tz("America/New_York");
-    }
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
+  if (useHoverTrigger) {
+    return (
+      <Popover open={isOpen}>
+        <UnderlinedTrigger
+          $size="sm"
+          $weight="medium"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
+        </UnderlinedTrigger>
+        {children}
+      </Popover>
+    );
   }
 
   return (
@@ -133,6 +146,42 @@ export const DateDetails = ({
       >
         <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
       </UnderlinedTrigger>
+      {children}
+    </Popover>
+  );
+};
+
+export type ArrowPosition = "top" | "right" | "left" | "bottom";
+
+export interface DateDetailsProps {
+  date: Date;
+  side?: ArrowPosition;
+  systemTimeZone?: string;
+  useHoverTrigger?: boolean;
+}
+
+export const DateDetails = ({
+  date,
+  side = "top",
+  systemTimeZone,
+  useHoverTrigger = false,
+}: DateDetailsProps) => {
+  const dayjsDate = dayjs(date);
+
+  let systemTime;
+  if (systemTimeZone) {
+    try {
+      systemTime = dayjsDate.tz(systemTimeZone);
+    } catch {
+      systemTime = dayjsDate.tz("America/New_York");
+    }
+  }
+
+  return (
+    <PopoverWrapper
+      date={date}
+      useHoverTrigger={useHoverTrigger}
+    >
       <Popover.Content
         side={side}
         showArrow
@@ -194,6 +243,6 @@ export const DateDetails = ({
           </Container>
         </GridContainer>
       </Popover.Content>
-    </Popover>
+    </PopoverWrapper>
   );
 };
