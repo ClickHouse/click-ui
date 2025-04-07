@@ -2,8 +2,11 @@ import DotsHorizontal from "./DotsHorizontal";
 import { keyframes, styled } from "styled-components";
 
 const animationCircle = keyframes`
-  0 {
+  0% {
     transform: scale(1);
+  }
+  85% {
+    transform: scale(0);
   }
   100% {
     transform: scale(0);
@@ -13,11 +16,11 @@ const animationCircle = keyframes`
 const HorizontalLoading = styled(DotsHorizontal)`
   circle {
     animation-name: ${animationCircle};
-    animation-duration: 1.5s;
+    animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-direction: alternate;
-    -webkit-animation-duration: 1.5s;
+    -webkit-animation-duration: 1s;
     -webkit-animation-name: ${animationCircle};
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
