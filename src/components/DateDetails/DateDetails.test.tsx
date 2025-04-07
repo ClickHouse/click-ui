@@ -55,6 +55,30 @@ describe("DateDetails", () => {
     expect(getByText(fiveMinutesAgo.getTime() / 1000)).toBeInTheDocument();
   });
 
+  it("allows for not passing in a system timezone", () => {
+    const baseDate = new Date("2024-12-24 11:45:00 AM");
+    vi.setSystemTime(baseDate);
+
+    const fiveMinutesAgo = new Date("2024-12-24 11:40:00 AM");
+
+    const { getByText, queryByText } = renderCUI(<DateDetails date={fiveMinutesAgo} />);
+
+    const trigger = getByText("5 minutes ago");
+    expect(trigger).toBeInTheDocument();
+
+    fireEvent.click(trigger);
+    expect(
+      getByText(content => {
+        return content.includes("EST");
+      })
+    ).toBeInTheDocument();
+
+    expect(getByText("Dec 24, 4:40 p.m.")).toBeInTheDocument();
+    expect(getByText("Dec 24, 11:40 a.m. (EST)")).toBeInTheDocument();
+    expect(queryByText("System")).not.toBeInTheDocument();
+    expect(getByText(fiveMinutesAgo.getTime() / 1000)).toBeInTheDocument();
+  });
+
   it("only shows the date if the previous date isn't in this year", () => {
     const baseDate = new Date("2025-02-07 11:45:00 AM");
     const systemTimeZone = "America/Los_Angeles";

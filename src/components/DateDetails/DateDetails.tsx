@@ -13,7 +13,6 @@ import { Text } from "@/components/Typography/Text/Text";
 import { linkStyles, StyledLinkProps } from "@/components/Link/common";
 import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Container } from "@/components/Container/Container";
-import { PropsWithChildren, ReactElement, useState } from "react";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
@@ -102,70 +101,15 @@ const formatTimezone = (date: Dayjs, timezone?: string): string => {
   );
 };
 
-interface PopoverWrapperProps extends PropsWithChildren {
-  date: Date;
-  useHoverTrigger?: boolean;
-}
-
-const PopoverWrapper = ({
-  children,
-  date,
-  useHoverTrigger,
-}: PopoverWrapperProps): ReactElement => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleMouseEnter = () => {
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsOpen(false);
-  };
-
-  if (useHoverTrigger) {
-    return (
-      <Popover open={isOpen}>
-        <UnderlinedTrigger
-          $size="sm"
-          $weight="medium"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
-        </UnderlinedTrigger>
-        {children}
-      </Popover>
-    );
-  }
-
-  return (
-    <Popover>
-      <UnderlinedTrigger
-        $size="sm"
-        $weight="medium"
-      >
-        <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
-      </UnderlinedTrigger>
-      {children}
-    </Popover>
-  );
-};
-
 export type ArrowPosition = "top" | "right" | "left" | "bottom";
 
 export interface DateDetailsProps {
   date: Date;
   side?: ArrowPosition;
   systemTimeZone?: string;
-  useHoverTrigger?: boolean;
 }
 
-export const DateDetails = ({
-  date,
-  side = "top",
-  systemTimeZone,
-  useHoverTrigger = false,
-}: DateDetailsProps) => {
+export const DateDetails = ({ date, side = "top", systemTimeZone }: DateDetailsProps) => {
   const dayjsDate = dayjs(date);
 
   let systemTime;
@@ -178,10 +122,13 @@ export const DateDetails = ({
   }
 
   return (
-    <PopoverWrapper
-      date={date}
-      useHoverTrigger={useHoverTrigger}
-    >
+    <Popover>
+      <UnderlinedTrigger
+        $size="sm"
+        $weight="medium"
+      >
+        <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
+      </UnderlinedTrigger>
       <Popover.Content
         side={side}
         showArrow
@@ -243,6 +190,6 @@ export const DateDetails = ({
           </Container>
         </GridContainer>
       </Popover.Content>
-    </PopoverWrapper>
+    </Popover>
   );
 };
