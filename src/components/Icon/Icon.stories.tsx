@@ -46,6 +46,7 @@ export const Playground = {
   args: {
     name: "users",
     size: "md",
+    weight: "default",
     state: "default",
     width: "",
     height: "",
