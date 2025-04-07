@@ -177,12 +177,16 @@ type NoColorType = {
   color?: never;
 };
 
+type NoWeightType = {
+  weight?: never;
+};
+
 export type ImageName = IconName | LogoName | FlagName | PaymentName;
 export type ImageType = (
   | (Omit<IconProps, "name"> & NoThemeType)
-  | (Omit<LogoProps, "name"> & NoColorType)
-  | (Omit<FlagProps, "name"> & NoThemeType & NoColorType)
-  | (Omit<PaymentProps, "name"> & NoThemeType & NoColorType)
+  | (Omit<LogoProps, "name"> & NoColorType & NoWeightType)
+  | (Omit<FlagProps, "name"> & NoThemeType & NoColorType & NoWeightType)
+  | (Omit<PaymentProps, "name"> & NoThemeType & NoColorType & NoWeightType)
 ) & {
   name: ImageName;
 };
