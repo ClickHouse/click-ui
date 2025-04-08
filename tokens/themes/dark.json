@@ -4920,6 +4920,102 @@
           }
         }
       }
+    },
+    "fileUpload": {
+      "color": {
+        "background": {
+          "default": {
+            "value": "{click.global.color.background.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.fileUpload.color.background.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.field.color.background.hover}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.feedback.color.danger.background}",
+            "type": "color"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": "{click.field.color.stroke.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.fileUpload.color.stroke.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.global.color.stroke.intense}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{palette.utility.transparent}",
+            "type": "color"
+          }
+        },
+        "title": {
+          "default": {
+            "value": "{click.global.color.text.default}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.fileUpload.color.title.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.fileUpload.color.title.default}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.feedback.color.danger.foreground}",
+            "type": "color"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{click.global.color.text.muted}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{click.fileUpload.color.description.default}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{click.fileUpload.color.description.default}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{click.fileUpload.color.title.error}",
+            "type": "color"
+          }
+        }
+      },
+      "sm": {
+        "color": {
+          "icon": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "md": {
+        "color": {
+          "icon": {
+            "default": {
+              "value": "{click.image.color.stroke}",
+              "type": "color"
+            }
+          }
+        }
+      }
     }
   },
   "name": {
