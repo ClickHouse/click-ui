@@ -1632,6 +1632,12 @@
             "value": "{spaces.2}",
             "type": "spacing"
           }
+        },
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
         }
       },
       "md": {
@@ -1659,6 +1665,26 @@
           "y": {
             "value": "{spaces.3}",
             "type": "spacing"
+          }
+        },
+        "radii": {
+          "all": {
+            "value": "{border.radii.2}",
+            "type": "borderRadius"
+          }
+        }
+      },
+      "typography": {
+        "title": {
+          "default": {
+            "value": "{typography.styles.product.text.medium.md}",
+            "type": "typography"
+          }
+        },
+        "description": {
+          "default": {
+            "value": "{typography.styles.product.text.normal.md}",
+            "type": "typography"
           }
         }
       }
