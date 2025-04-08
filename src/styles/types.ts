@@ -1366,6 +1366,138 @@
         }
       }
     },
+    "container": {
+      "space": {
+        "none": string,
+        "xxs": string,
+        "xs": string,
+        "sm": string,
+        "md": string,
+        "lg": string,
+        "xl": string,
+        "xxl": string
+      },
+      "gap": {
+        "none": string,
+        "xxs": string,
+        "xs": string,
+        "sm": string,
+        "md": string,
+        "lg": string,
+        "xl": string,
+        "xxl": string
+      }
+    },
+    "datePicker": {
+      "dateOption": {
+        "space": {
+          "gap": string
+        },
+        "radii": {
+          "default": string,
+          "range": string
+        },
+        "stroke": string,
+        "size": {
+          "height": string,
+          "width": string
+        },
+        "typography": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          }
+        },
+        "color": {
+          "label": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          },
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          },
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string,
+            "range": string
+          }
+        }
+      },
+      "space": {
+        "gap": string
+      },
+      "typography": {
+        "daytitle": {
+          "default": string
+        },
+        "title": {
+          "default": string
+        }
+      },
+      "color": {
+        "title": {
+          "default": string
+        },
+        "daytitle": {
+          "default": string
+        }
+      }
+    },
+    "dialog": {
+      "space": {
+        "y": string,
+        "x": string,
+        "gap": string
+      },
+      "title": {
+        "space": {
+          "gap": string
+        }
+      },
+      "radii": {
+        "all": string
+      },
+      "shadow": {
+        "default": string
+      },
+      "stroke": {
+        "default": string
+      },
+      "typography": {
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string
+        },
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        },
+        "opaqueBackground": {
+          "default": string
+        }
+      }
+    },
     "docs": {
       "typography": {
         "titles": {
@@ -1495,6 +1627,169 @@
         "placeholder": {
           "default": string,
           "disabled": string
+        }
+      }
+    },
+    "fileUpload": {
+      "sm": {
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "space": {
+          "gap": string,
+          "x": string,
+          "y": string
+        },
+        "radii": {
+          "all": string
+        },
+        "color": {
+          "icon": {
+            "default": string
+          }
+        }
+      },
+      "md": {
+        "icon": {
+          "size": {
+            "height": string,
+            "width": string
+          }
+        },
+        "space": {
+          "gap": string,
+          "x": string,
+          "y": string
+        },
+        "radii": {
+          "all": string
+        },
+        "color": {
+          "icon": {
+            "default": string
+          }
+        }
+      },
+      "typography": {
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "error": string
+        },
+        "stroke": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "error": string
+        },
+        "title": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "error": string
+        },
+        "description": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "error": string
+        }
+      }
+    },
+    "flyout": {
+      "space": {
+        "default": {
+          "x": string,
+          "y": string,
+          "gap": string,
+          "top": string,
+          "content": {
+            "x": string,
+            "y": string,
+            "row-gap": string,
+            "column-gap": string
+          }
+        },
+        "inline": {
+          "x": string,
+          "y": string,
+          "gap": string,
+          "top": string,
+          "content": {
+            "x": string,
+            "y": string,
+            "row-gap": string,
+            "column-gap": string
+          }
+        }
+      },
+      "shadow": {
+        "default": string,
+        "reverse": string
+      },
+      "size": {
+        "default": {
+          "width": string,
+          "height": string
+        },
+        "wide": {
+          "width": string,
+          "height": string
+        },
+        "narrow": {
+          "width": string,
+          "height": string
+        },
+        "widest": {
+          "width": string,
+          "height": string
+        }
+      },
+      "typography": {
+        "default": {
+          "description": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          }
+        },
+        "inline": {
+          "description": {
+            "default": string
+          },
+          "title": {
+            "default": string
+          }
+        }
+      },
+      "color": {
+        "background": {
+          "default": string
+        },
+        "title": {
+          "default": string
+        },
+        "description": {
+          "default": string
+        },
+        "opaqueBackground": {
+          "default": string
+        },
+        "stroke": {
+          "default": string
         }
       }
     },
@@ -1666,6 +1961,149 @@
         }
       }
     },
+    "grid": {
+      "header": {
+        "cell": {
+          "space": {
+            "y": string,
+            "x": string
+          },
+          "size": {
+            "height": string
+          },
+          "color": {
+            "background": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "title": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "stroke": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            }
+          }
+        },
+        "title": {
+          "default": string
+        }
+      },
+      "body": {
+        "cell": {
+          "space": {
+            "y": string,
+            "x": string
+          },
+          "size": {
+            "height": string
+          },
+          "color": {
+            "background": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "stroke": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            },
+            "text": {
+              "default": string,
+              "selectIndirect": string,
+              "selectDirect": string
+            }
+          }
+        }
+      },
+      "cell": {
+        "text": {
+          "default": string
+        }
+      },
+      "radii": {
+        "none": string,
+        "sm": string,
+        "md": string,
+        "lg": string
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": string
+          },
+          "background": {
+            "default": string
+          }
+        }
+      }
+    },
+    "gridContainer": {
+      "gap": {
+        "none": string,
+        "xxs": string,
+        "xs": string,
+        "sm": string,
+        "md": string,
+        "lg": string,
+        "xl": string,
+        "xxl": string,
+        "unset": string
+      }
+    },
+    "icon": {
+      "space": {
+        "xs": {
+          "all": string
+        },
+        "sm": {
+          "all": string
+        },
+        "md": {
+          "all": string
+        },
+        "lg": {
+          "all": string
+        },
+        "xl": {
+          "all": string
+        },
+        "xxl": {
+          "all": string
+        }
+      },
+      "color": {
+        "background": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "info": string,
+          "warning": string
+        },
+        "text": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "info": string,
+          "warning": string
+        },
+        "stroke": {
+          "default": string,
+          "success": string,
+          "neutral": string,
+          "danger": string,
+          "info": string,
+          "warning": string
+        }
+      }
+    },
     "image": {
       "sm": {
         "size": {
@@ -1703,8 +2141,34 @@
           "width": string
         }
       },
+      "borderWidth": {
+        "default": string,
+        "thin": string
+      },
       "color": {
         "stroke": string
+      }
+    },
+    "link": {
+      "space": {
+        "md": {
+          "gap": string
+        },
+        "sm": {
+          "gap": string
+        }
+      },
+      "icon": {
+        "size": {
+          "sm": {
+            "height": string,
+            "width": string
+          },
+          "md": {
+            "height": string,
+            "width": string
+          }
+        }
       }
     },
     "panel": {
@@ -2567,388 +3031,6 @@
           "default": string
         },
         "label": {
-          "default": string
-        }
-      }
-    },
-    "dialog": {
-      "space": {
-        "y": string,
-        "x": string,
-        "gap": string
-      },
-      "title": {
-        "space": {
-          "gap": string
-        }
-      },
-      "radii": {
-        "all": string
-      },
-      "shadow": {
-        "default": string
-      },
-      "stroke": {
-        "default": string
-      },
-      "typography": {
-        "title": {
-          "default": string
-        },
-        "description": {
-          "default": string
-        }
-      },
-      "color": {
-        "background": {
-          "default": string
-        },
-        "title": {
-          "default": string
-        },
-        "description": {
-          "default": string
-        },
-        "opaqueBackground": {
-          "default": string
-        }
-      }
-    },
-    "link": {
-      "space": {
-        "md": {
-          "gap": string
-        },
-        "sm": {
-          "gap": string
-        }
-      },
-      "icon": {
-        "size": {
-          "sm": {
-            "height": string,
-            "width": string
-          },
-          "md": {
-            "height": string,
-            "width": string
-          }
-        }
-      }
-    },
-    "flyout": {
-      "space": {
-        "default": {
-          "x": string,
-          "y": string,
-          "gap": string,
-          "top": string,
-          "content": {
-            "x": string,
-            "y": string,
-            "row-gap": string,
-            "column-gap": string
-          }
-        },
-        "inline": {
-          "x": string,
-          "y": string,
-          "gap": string,
-          "top": string,
-          "content": {
-            "x": string,
-            "y": string,
-            "row-gap": string,
-            "column-gap": string
-          }
-        }
-      },
-      "shadow": {
-        "default": string,
-        "reverse": string
-      },
-      "size": {
-        "default": {
-          "width": string,
-          "height": string
-        },
-        "wide": {
-          "width": string,
-          "height": string
-        },
-        "narrow": {
-          "width": string,
-          "height": string
-        },
-        "widest": {
-          "width": string,
-          "height": string
-        }
-      },
-      "typography": {
-        "default": {
-          "description": {
-            "default": string
-          },
-          "title": {
-            "default": string
-          }
-        },
-        "inline": {
-          "description": {
-            "default": string
-          },
-          "title": {
-            "default": string
-          }
-        }
-      },
-      "color": {
-        "background": {
-          "default": string
-        },
-        "title": {
-          "default": string
-        },
-        "description": {
-          "default": string
-        },
-        "opaqueBackground": {
-          "default": string
-        },
-        "stroke": {
-          "default": string
-        }
-      }
-    },
-    "grid": {
-      "header": {
-        "cell": {
-          "space": {
-            "y": string,
-            "x": string
-          },
-          "size": {
-            "height": string
-          },
-          "color": {
-            "background": {
-              "default": string,
-              "selectIndirect": string,
-              "selectDirect": string
-            },
-            "title": {
-              "default": string,
-              "selectIndirect": string,
-              "selectDirect": string
-            },
-            "stroke": {
-              "default": string,
-              "selectIndirect": string,
-              "selectDirect": string
-            }
-          }
-        },
-        "title": {
-          "default": string
-        }
-      },
-      "body": {
-        "cell": {
-          "space": {
-            "y": string,
-            "x": string
-          },
-          "size": {
-            "height": string
-          },
-          "color": {
-            "background": {
-              "default": string,
-              "selectIndirect": string,
-              "selectDirect": string
-            },
-            "stroke": {
-              "default": string,
-              "selectIndirect": string,
-              "selectDirect": string
-            },
-            "text": {
-              "default": string,
-              "selectIndirect": string,
-              "selectDirect": string
-            }
-          }
-        }
-      },
-      "cell": {
-        "text": {
-          "default": string
-        }
-      },
-      "radii": {
-        "none": string,
-        "sm": string,
-        "md": string,
-        "lg": string
-      },
-      "global": {
-        "color": {
-          "stroke": {
-            "default": string
-          },
-          "background": {
-            "default": string
-          }
-        }
-      }
-    },
-    "container": {
-      "space": {
-        "none": string,
-        "xxs": string,
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string,
-        "xxl": string
-      },
-      "gap": {
-        "none": string,
-        "xxs": string,
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string,
-        "xxl": string
-      }
-    },
-    "gridContainer": {
-      "gap": {
-        "none": string,
-        "xxs": string,
-        "xs": string,
-        "sm": string,
-        "md": string,
-        "lg": string,
-        "xl": string,
-        "xxl": string,
-        "unset": string
-      }
-    },
-    "icon": {
-      "space": {
-        "xs": {
-          "all": string
-        },
-        "sm": {
-          "all": string
-        },
-        "md": {
-          "all": string
-        },
-        "lg": {
-          "all": string
-        },
-        "xl": {
-          "all": string
-        },
-        "xxl": {
-          "all": string
-        }
-      },
-      "color": {
-        "background": {
-          "default": string,
-          "success": string,
-          "neutral": string,
-          "danger": string,
-          "info": string,
-          "warning": string
-        },
-        "text": {
-          "default": string,
-          "success": string,
-          "neutral": string,
-          "danger": string,
-          "info": string,
-          "warning": string
-        },
-        "stroke": {
-          "default": string,
-          "success": string,
-          "neutral": string,
-          "danger": string,
-          "info": string,
-          "warning": string
-        }
-      }
-    },
-    "datePicker": {
-      "dateOption": {
-        "space": {
-          "gap": string
-        },
-        "radii": {
-          "default": string,
-          "range": string
-        },
-        "stroke": string,
-        "size": {
-          "height": string,
-          "width": string
-        },
-        "typography": {
-          "label": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string,
-            "range": string
-          }
-        },
-        "color": {
-          "label": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string,
-            "range": string
-          },
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string,
-            "range": string
-          },
-          "stroke": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string,
-            "range": string
-          }
-        }
-      },
-      "space": {
-        "gap": string
-      },
-      "typography": {
-        "daytitle": {
-          "default": string
-        },
-        "title": {
-          "default": string
-        }
-      },
-      "color": {
-        "title": {
-          "default": string
-        },
-        "daytitle": {
           "default": string
         }
       }

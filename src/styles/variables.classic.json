@@ -435,6 +435,126 @@
         }
       }
     },
+    "datePicker": {
+      "dateOption": {
+        "color": {
+          "label": {
+            "default": "#161517",
+            "hover": "#161517",
+            "active": "#ffffff",
+            "disabled": "#a0a0a0",
+            "range": "#161517"
+          },
+          "background": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "active": "#151515",
+            "disabled": "#ffffff",
+            "range": "#e6e7e9"
+          },
+          "stroke": {
+            "default": "#ffffff",
+            "hover": "#151515",
+            "active": "#151515",
+            "disabled": "#ffffff",
+            "range": "#e6e7e9"
+          }
+        }
+      },
+      "color": {
+        "title": {
+          "default": "lch(10.2 1.39 305)"
+        },
+        "daytitle": {
+          "default": "#696e79"
+        }
+      }
+    },
+    "dialog": {
+      "typography": {
+        "title": {
+          "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+        }
+      }
+    },
+    "flyout": {
+      "typography": {
+        "title": {
+          "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+        }
+      },
+      "color": {
+        "background": {
+          "default": "#ffffff"
+        },
+        "title": {
+          "default": "lch(10.2 1.39 305)"
+        },
+        "description": {
+          "default": "#696e79"
+        },
+        "opaqueBackground": {
+          "default": "lch(6.77 0 0 / 0.45)"
+        },
+        "stroke": {
+          "default": "#e6e7e9"
+        }
+      }
+    },
+    "grid": {
+      "header": {
+        "cell": {
+          "color": {
+            "background": {
+              "default": "#f6f7fa",
+              "selectIndirect": "lch(99.6 3.76 101)",
+              "selectDirect": "lch(97.5 12 97.4)"
+            },
+            "title": {
+              "default": "#696e79",
+              "selectIndirect": "#161517",
+              "selectDirect": "#161517"
+            },
+            "stroke": {
+              "default": "lch(89.3 1.07 266)",
+              "selectIndirect": "lch(92.8 31.1 85.9)",
+              "selectDirect": "lch(90.9 28.1 85.9)"
+            }
+          }
+        }
+      },
+      "body": {
+        "cell": {
+          "color": {
+            "background": {
+              "default": "#ffffff",
+              "selectIndirect": "lch(99.4 8.48 102 / 0.2)",
+              "selectDirect": "lch(99.4 8.48 102 / 0.2)"
+            },
+            "stroke": {
+              "default": "#e6e7e9",
+              "selectIndirect": "lch(74.1 25.6 85.9)",
+              "selectDirect": "#FFC029"
+            },
+            "text": {
+              "default": "lch(7.17 1.44 305)",
+              "selectIndirect": "#161517",
+              "selectDirect": "#161517"
+            }
+          }
+        }
+      },
+      "global": {
+        "color": {
+          "stroke": {
+            "default": "#e6e7e9"
+          },
+          "background": {
+            "default": "#ffffff"
+          }
+        }
+      }
+    },
     "sidebar": {
       "main": {
         "color": {
@@ -686,126 +806,6 @@
             "hover": "#e6e7e9",
             "active": "#e6e7e9"
           }
-        }
-      }
-    },
-    "dialog": {
-      "typography": {
-        "title": {
-          "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
-        }
-      }
-    },
-    "flyout": {
-      "typography": {
-        "title": {
-          "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
-        }
-      },
-      "color": {
-        "background": {
-          "default": "#ffffff"
-        },
-        "title": {
-          "default": "lch(10.2 1.39 305)"
-        },
-        "description": {
-          "default": "#696e79"
-        },
-        "opaqueBackground": {
-          "default": "lch(6.77 0 0 / 0.45)"
-        },
-        "stroke": {
-          "default": "#e6e7e9"
-        }
-      }
-    },
-    "grid": {
-      "header": {
-        "cell": {
-          "color": {
-            "background": {
-              "default": "#f6f7fa",
-              "selectIndirect": "lch(99.6 3.76 101)",
-              "selectDirect": "lch(97.5 12 97.4)"
-            },
-            "title": {
-              "default": "#696e79",
-              "selectIndirect": "#161517",
-              "selectDirect": "#161517"
-            },
-            "stroke": {
-              "default": "lch(89.3 1.07 266)",
-              "selectIndirect": "lch(92.8 31.1 85.9)",
-              "selectDirect": "lch(90.9 28.1 85.9)"
-            }
-          }
-        }
-      },
-      "body": {
-        "cell": {
-          "color": {
-            "background": {
-              "default": "#ffffff",
-              "selectIndirect": "lch(99.4 8.48 102 / 0.2)",
-              "selectDirect": "lch(99.4 8.48 102 / 0.2)"
-            },
-            "stroke": {
-              "default": "#e6e7e9",
-              "selectIndirect": "lch(74.1 25.6 85.9)",
-              "selectDirect": "#FFC029"
-            },
-            "text": {
-              "default": "lch(7.17 1.44 305)",
-              "selectIndirect": "#161517",
-              "selectDirect": "#161517"
-            }
-          }
-        }
-      },
-      "global": {
-        "color": {
-          "stroke": {
-            "default": "#e6e7e9"
-          },
-          "background": {
-            "default": "#ffffff"
-          }
-        }
-      }
-    },
-    "datePicker": {
-      "dateOption": {
-        "color": {
-          "label": {
-            "default": "#161517",
-            "hover": "#161517",
-            "active": "#ffffff",
-            "disabled": "#a0a0a0",
-            "range": "#161517"
-          },
-          "background": {
-            "default": "#ffffff",
-            "hover": "#ffffff",
-            "active": "#151515",
-            "disabled": "#ffffff",
-            "range": "#e6e7e9"
-          },
-          "stroke": {
-            "default": "#ffffff",
-            "hover": "#151515",
-            "active": "#151515",
-            "disabled": "#ffffff",
-            "range": "#e6e7e9"
-          }
-        }
-      },
-      "color": {
-        "title": {
-          "default": "lch(10.2 1.39 305)"
-        },
-        "daytitle": {
-          "default": "#696e79"
         }
       }
     },

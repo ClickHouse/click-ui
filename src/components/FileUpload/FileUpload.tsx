@@ -28,9 +28,9 @@ const UploadArea = styled.div<{
   $hasFile: boolean;
   $isError?: boolean;
 }>`
-  background-color: ${({ theme }) => theme.click.card.secondary.color.background.default};
-  border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
+  border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
+  border-radius: ${({ theme }) => `${theme.click.fileUpload.md.radii.all}`};
   padding: ${props => (!props.$hasFile ? "16px" : "8px")};
   display: flex;
   flex-direction: ${props =>
@@ -69,31 +69,34 @@ const UploadArea = styled.div<{
   ${props =>
     props.$isError &&
     css`
-      background-color: ${({ theme }) => theme.click.alert.color.background.danger};
+      background-color: ${({ theme }) => theme.click.fileUpload.color.background.error};
       border: none;
     `}
 `;
 
+const FileUploadTitle = styled(Title)`
+  font-family: ${({ theme }) => theme.click.fileUpload.typography.title.default};
+  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
+`;
+
+const FileUploadDescription = styled(Text)`
+  font-family: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+  color: ${({ theme }) => theme.click.fileUpload.color.description.default};
+`;
+
 const DocumentIcon = styled(Icon)`
   svg {
-    width: 24px;
-    height: 24px;
-    color: ${({ theme }) => theme.global.color.text.muted};
+    width: ${({ theme }) => theme.click.fileUpload.sm.icon.size.width};
+    height: ${({ theme }) => theme.click.fileUpload.sm.icon.size.height};
+    color: ${({ theme }) => theme.click.fileUpload.sm.color.icon.default};
   }
 `;
 
 const UploadIcon = styled(Icon)`
   svg {
-    width: 32px;
-    height: 32px;
-    ${({ theme }) =>
-      theme.name === "dark"
-        ? `
-    color: ${theme.global.color.text.default};
-  `
-        : `
-    color: ${theme.global.color.text.default};
-  `}
+    width: ${({ theme }) => theme.click.fileUpload.md.icon.size.width};
+    height: ${({ theme }) => theme.click.fileUpload.md.icon.size.height};
+    color: ${({ theme }) => theme.click.fileUpload.md.color.icon.default};
   }
 `;
 
@@ -133,7 +136,7 @@ const FileInfo = styled.div`
 
 const FileDetails = styled.div`
   display: flex;
-  gap: 8px;
+  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
   border: none;
 `;
 
@@ -378,13 +381,10 @@ export const FileUpload = ({
               $size={size}
               $hasFile={false}
             >
-              <Title type="h1">{title}</Title>
-              <Text
-                size={"lg"}
-                color={"muted"}
-              >
+              <FileUploadTitle type="h1">{title}</FileUploadTitle>
+              <FileUploadDescription>
                 Files supported: {supportedFileTypes.join(", ")}
-              </Text>
+              </FileUploadDescription>
             </UploadText>
             <Button
               type={"secondary"}
