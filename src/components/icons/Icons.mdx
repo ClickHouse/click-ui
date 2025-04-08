@@ -51,3 +51,15 @@ import { ClickUIProvider } from "..";
     ))}
   </IconGallery>
 </ClickUIProvider>
+
+# Glyphs (thin)
+
+<ClickUIProvider theme='dark'>
+  <IconGallery>
+    {Object.keys(ICONS_MAP).map((iconName) => (
+      <IconItem name={iconName} key={iconName}>
+        <Icon name={iconName} weight="thin" />
+      </IconItem>
+    ))}
+  </IconGallery>
+</ClickUIProvider>
