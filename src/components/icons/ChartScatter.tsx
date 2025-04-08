@@ -9,14 +9,19 @@ const ChartScatter = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g fill="none" fillRule="evenodd" stroke="#FFF" strokeWidth="1.5" transform="translate(3 5)">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M0 0v14.98h18.05"/>
-      <circle cx="4.1" cy="10.84" r="1" fill="#FFF" fillRule="nonzero"/>
-      <circle cx="9.38" cy="9.35" r="1" fill="#FFF" fillRule="nonzero"/>
-      <circle cx="13.12" cy="6.34" r="1" fill="#FFF" fillRule="nonzero"/>
-      <circle cx="15.36" cy="2.61" r="1" fill="#FFF" fillRule="nonzero"/>
-      <circle cx="7.13" cy="4.1" r="1" fill="#FFF" fillRule="nonzero"/>
-      <circle cx="14.62" cy="10.84" r="1" fill="#FFF" fillRule="nonzero"/>
+    <g fill="none" fillRule="evenodd">
+      <path
+        stroke="#FFF"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M3 5v14.98h18.05"
+      />
+      <path
+        fill="#FFF"
+        fillRule="nonzero"
+        d="M12.13 15.25a1.13 1.13 0 1 0 0-2.25 1.13 1.13 0 0 0 0 2.25ZM9.88 10a1.12 1.12 0 1 0 0-2.25 1.12 1.12 0 0 0 0 2.25Zm-3 6.75a1.13 1.13 0 1 0 0-2.25 1.13 1.13 0 0 0 0 2.25Zm9-4.5a1.13 1.13 0 1 0 0-2.25 1.13 1.13 0 0 0 0 2.25Zm2.25-3.75a1.12 1.12 0 1 0 0-2.25 1.12 1.12 0 0 0 0 2.25Zm-1.88 7.13a1.13 1.13 0 1 0 2.25 0 1.13 1.13 0 0 0-2.25 0Z"
+      />
     </g>
   </svg>
 );

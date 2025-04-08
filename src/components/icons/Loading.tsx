@@ -14,7 +14,7 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.25}
+      strokeWidth={1.5}
       d="M7.625 8.875H4.5V5.75"
     />
     <path
@@ -28,7 +28,7 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1.25}
+      strokeWidth={1.5}
       d="M16.375 15.125H19.5v3.125"
     />
     <path
