@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 import { Text } from "@/components/Typography/Text/Text";
-import { Button, Icon, IconButton, ProgressBar, Title } from "@/components";
+import { Title } from "@/components/Typography/Title/Title";
+import { Button, Icon, IconButton, ProgressBar } from "@/components";
 
 interface FileInfo {
   name: string;
