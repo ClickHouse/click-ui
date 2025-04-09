@@ -1621,7 +1621,7 @@
         },
         "space": {
           "gap": {
-            "value": "{spaces.2}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "x": {
@@ -1655,7 +1655,7 @@
         },
         "space": {
           "gap": {
-            "value": "{spaces.3}",
+            "value": "{spaces.2}",
             "type": "spacing"
           },
           "x": {
