@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
 import Dropdown from "../Dropdown/Dropdown";
-import { CalendarRenderer, DatePickerInput, DateTableCell, WeekRenderer } from "./Common";
+import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from "./Common";
 
 interface CalendarProps {
+  calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
   selectedDate?: Date;
@@ -11,6 +12,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({
+  calendarBody,
   closeDatepicker,
   futureDatesDisabled,
   selectedDate,
@@ -18,43 +20,44 @@ const Calendar = ({
 }: CalendarProps) => {
   const calendarOptions: UseCalendarOptions = {};
 
-  // If a is selected, open the calendar to that date
+  // If a date is selected, open the calendar to that date
   if (selectedDate) {
     calendarOptions.defaultDate = selectedDate;
   }
 
-  const weekRenderer: WeekRenderer = ({
-    date,
-    isCurrentMonth,
-    key: dayKey,
-    value: fullDate,
-  }) => {
-    const isSelected = selectedDate ? isSameDate(selectedDate, fullDate) : false;
-    const today = new Date();
-    const isCurrentDate = isSameDate(today, fullDate);
-    const isDisabled = futureDatesDisabled ? fullDate > today : false;
-
+  return calendarBody.value.map(({ key: weekKey, value: week }) => {
     return (
-      <DateTableCell
-        $isCurrentMonth={isCurrentMonth}
-        $isDisabled={isDisabled}
-        $isSelected={isSelected}
-        $isToday={isCurrentDate}
-        key={dayKey}
-        onClick={() => {
-          if (isDisabled) {
-            return false;
-          }
-          setSelectedDate(fullDate);
-          closeDatepicker();
-        }}
-      >
-        {date}
-      </DateTableCell>
-    );
-  };
+      <tr key={weekKey}>
+        {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
+          const isSelected = selectedDate ? isSameDate(selectedDate, fullDate) : false;
+          const today = new Date();
+          const isCurrentDate = isSameDate(today, fullDate);
+          const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
-  return <CalendarRenderer weekRenderer={weekRenderer} />;
+          const handleClick = () => {
+            if (isDisabled) {
+              return false;
+            }
+            setSelectedDate(fullDate);
+            closeDatepicker();
+          };
+
+          return (
+            <DateTableCell
+              $isCurrentMonth={isCurrentMonth}
+              $isDisabled={isDisabled}
+              $isSelected={isSelected}
+              $isToday={isCurrentDate}
+              key={dayKey}
+              onClick={handleClick}
+            >
+              {date}
+            </DateTableCell>
+          );
+        })}
+      </tr>
+    );
+  });
 };
 
 export interface DatePickerProps {
@@ -105,12 +108,17 @@ export const DatePicker = ({
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
-        <Calendar
-          closeDatepicker={closeDatePicker}
-          futureDatesDisabled={futureDatesDisabled}
-          selectedDate={selectedDate}
-          setSelectedDate={handleSelectDate}
-        />
+        <CalendarRenderer>
+          {body => (
+            <Calendar
+              calendarBody={body}
+              closeDatepicker={closeDatePicker}
+              futureDatesDisabled={futureDatesDisabled}
+              selectedDate={selectedDate}
+              setSelectedDate={handleSelectDate}
+            />
+          )}
+        </CalendarRenderer>
       </Dropdown.Content>
     </Dropdown>
   );
