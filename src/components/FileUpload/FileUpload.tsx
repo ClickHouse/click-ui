@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar, Spacer } from "@/components";
+import { Button, Icon, IconButton, ProgressBar } from "@/components";
 
 interface FileInfo {
   name: string;
@@ -129,13 +129,13 @@ const FileInfoHeader = styled.div`
 const FileInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.click.fileUpload.hasFile.space.gap};
+  gap: ${({ theme }) => theme.click.fileUpload.hasFile.header.space.gap};
   flex: 1;
 `;
 
 const FileDetails = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
+  gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   border: none;
 `;
 
@@ -162,7 +162,7 @@ const ProgressBarContainer = styled.div`
 const ProgressPercentage = styled(Text)`
   min-width: ${({ theme }) => theme.sizes[10]};
   text-align: right;
-  padding-right: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
+  padding-right: ${({ theme }) => theme.click.fileUpload.md.space.gap};
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
@@ -418,7 +418,6 @@ export const FileUpload = ({
 
             {showProgress && (
               <ProgressContainer>
-                <Spacer size={"sm"} />
                 <ProgressBarContainer>
                   <ProgressBar
                     progress={progress}
