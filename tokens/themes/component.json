@@ -1687,6 +1687,28 @@
             "type": "typography"
           }
         }
+      },
+      "hasFile": {
+        "space": {
+          "gap": {
+            "value": "{spaces.3}",
+            "type": "spacing"
+          }
+        },
+        "header": {
+          "space": {
+            "gap": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
+          }
+        }
+      },
+      "transitions": {
+        "all": {
+          "value": "{transition.default}",
+          "type": "other"
+        }
       }
     },
     "flyout": {
