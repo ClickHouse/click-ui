@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 import { Text } from "@/components/Typography/Text/Text";
-import { Button, Icon, IconButton, Title } from "@/components";
+import { Button, Icon, IconButton, ProgressBar, Title } from "@/components";
 
 interface FileInfo {
   name: string;
@@ -161,37 +161,15 @@ const ProgressContainer = styled.div`
 const ProgressBarContainer = styled.div`
   width: 100%;
   height: 4px;
-  background-color: #e5e7eb;
   border-radius: 2px;
   flex: 1;
   overflow: hidden;
-`;
-
-const ProgressBar = styled.div<{ $progress: number }>`
-  height: 100%;
-  width: ${props => props.$progress}%;
-  transition: width 0.3s ease;
-
-  ${({ theme }) =>
-    theme.name === "dark"
-      ? `
-    background-color: ${theme.global.color.accent.default};
-  `
-      : `
-    background-color: ${theme.global.color.text.default};
-  `}
 `;
 
 const ProgressPercentage = styled(Text)`
   min-width: 36px;
   text-align: right;
   padding-right: 8px;
-`;
-
-const SuccessIcon = styled(Icon)`
-  color: ${({ theme }) => theme.click.alert.color.text.success};
-  background-color: ${({ theme }) => theme.click.alert.color.background.success};
-  padding: 2px;
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
@@ -260,7 +238,7 @@ export const FileUpload = ({
 
     dragCounterRef.current -= 1;
 
-    // Only set isDragging to false when we've left the container
+    // Only set to false when left the container
     if (dragCounterRef.current <= 0) {
       setIsDragging(false);
       dragCounterRef.current = 0;
@@ -312,7 +290,7 @@ export const FileUpload = ({
         onFileSelect(file);
       }
     },
-    [onFileSelect, supportedFileTypes]
+    [onFileSelect, supportedFileTypes, onFileSelectFailure]
   );
 
   const handleDrop = useCallback(
@@ -419,8 +397,9 @@ export const FileUpload = ({
                   </Text>
                 )}
                 {showSuccess && (
-                  <SuccessIcon
+                  <Icon
                     size={"sm"}
+                    state={"success"}
                     name={"check"}
                   />
                 )}
@@ -447,7 +426,7 @@ export const FileUpload = ({
             {showProgress && (
               <ProgressContainer>
                 <ProgressBarContainer>
-                  <ProgressBar $progress={progress} />
+                  <ProgressBar progress={progress} />
                 </ProgressBarContainer>
                 <ProgressPercentage
                   size={"sm"}
