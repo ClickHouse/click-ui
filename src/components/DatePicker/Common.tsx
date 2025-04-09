@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { InputElement, InputWrapper } from "../Input/InputWrapper";
-import { ReactNode, useId } from "react";
+import { ReactNode, useCallback, useId } from "react";
 import { Icon } from "../Icon/Icon";
 import { Container } from "../Container/Container";
 import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
@@ -203,28 +203,16 @@ export const DateTableCell = styled.td<{
   }
 `;
 
-// Taken from h6s/calendar
-type Week = {
-  value: Date;
-} & {
-  date: number;
-  isCurrentMonth: boolean;
-  isCurrentDate: boolean;
-  isWeekend: boolean;
-} & {
-  key: string;
-};
+export type Body = ReturnType<typeof useCalendar>["body"];
 
-export type WeekRenderer = (week: Week) => ReactNode;
-
-interface CalendarRendererProps extends React.HTMLAttributes<typeof Container> {
+interface CalendarRendererProps {
   calendarOptions?: UseCalendarOptions;
-  weekRenderer: WeekRenderer;
+  children: (body: Body) => ReactNode;
 }
 
 export const CalendarRenderer = ({
   calendarOptions = {},
-  weekRenderer,
+  children,
   ...props
 }: CalendarRendererProps) => {
   const { body, headers, month, navigation, year } = useCalendar({
@@ -232,13 +220,13 @@ export const CalendarRenderer = ({
     ...calendarOptions,
   });
 
-  const handleNextClick = (): void => {
+  const handleNextClick = useCallback((): void => {
     navigation.toNext();
-  };
+  }, [navigation]);
 
-  const handlePreviousClick = (): void => {
+  const handlePreviousClick = useCallback((): void => {
     navigation.toPrev();
-  };
+  }, [navigation]);
 
   const headerDate = new Date();
   headerDate.setMonth(month);
@@ -284,11 +272,7 @@ export const CalendarRenderer = ({
             })}
           </tr>
         </thead>
-        <tbody>
-          {body.value.map(({ key: weekKey, value: week }) => {
-            return <tr key={weekKey}>{week.map(weekRenderer)}</tr>;
-          })}
-        </tbody>
+        <tbody>{children(body)}</tbody>
       </DateTable>
     </DatePickerContainer>
   );
