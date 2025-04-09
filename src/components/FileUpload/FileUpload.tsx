@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import { Button, Icon, IconButton, ProgressBar, Spacer } from "@/components";
 
 interface FileInfo {
   name: string;
@@ -31,39 +31,35 @@ const UploadArea = styled.div<{
 }>`
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
-  border-radius: ${({ theme }) => `${theme.click.fileUpload.md.radii.all}`};
-  padding: ${props => (!props.$hasFile ? "16px" : "8px")};
+  border-radius: ${({ theme, $hasFile }) =>
+    $hasFile
+      ? `${theme.click.fileUpload.sm.radii.all}`
+      : `${theme.click.fileUpload.md.radii.all}`};
+  padding: ${({ theme, $hasFile, $size }) =>
+    $hasFile || $size === "sm"
+      ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
+      : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   display: flex;
   flex-direction: ${props =>
     props.$hasFile ? "row" : props.$size === "sm" ? "row" : "column"};
   align-items: center;
   justify-content: ${props =>
     props.$hasFile ? "space-between" : props.$size === "sm" ? "space-between" : "center"};
-  gap: 12px;
+  gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   cursor: ${props => (props.$hasFile ? "default" : "pointer")};
-  transition: all 0.2s ease;
+  transition: ${({ theme }) => theme.click.fileUpload.transitions.all};
 
   ${props =>
     !props.$hasFile &&
     css`
       border-style: dashed;
-      border-color: ${({ theme }) => theme.click.card.primary.color.stroke.default};
-
-      &:focus {
-        background-color: ${({ theme }) =>
-          theme.click.card.secondary.color.background.hover};
-
-        button {
-          background-color: ${({ theme }) =>
-            theme.click.card.secondary.color.background.hover};
-        }
-      }
+      border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.default};
 
       ${props.$isDragging &&
       css`
         background-color: ${({ theme }) =>
-          theme.click.card.secondary.color.background.hover};
-        border-color: #9ca3af;
+          theme.click.fileUpload.color.background.active};
+        border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.active};
       `}
     `}
 
@@ -76,12 +72,12 @@ const UploadArea = styled.div<{
 `;
 
 const FileUploadTitle = styled(Title)`
-  font-family: ${({ theme }) => theme.click.fileUpload.typography.title.default};
+  font: ${({ theme }) => theme.click.fileUpload.typography.title.default};
   color: ${({ theme }) => theme.click.fileUpload.color.title.default};
 `;
 
 const FileUploadDescription = styled(Text)`
-  font-family: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme }) => theme.click.fileUpload.color.description.default};
 `;
 
@@ -107,7 +103,6 @@ const UploadText = styled.div<{ $size: "sm" | "md"; $hasFile: boolean }>`
     (props.$hasFile || props.$size === "sm") &&
     css`
       flex: 1;
-      margin-left: 12px;
     `}
 
   ${props =>
@@ -124,14 +119,14 @@ const UploadText = styled.div<{ $size: "sm" | "md"; $hasFile: boolean }>`
 const FileInfoHeader = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
   width: 100%;
 `;
 
 const FileInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: ${({ theme }) => theme.click.fileUpload.hasFile.space.gap};
   flex: 1;
 `;
 
@@ -152,25 +147,19 @@ const ProgressContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
-  margin-top: 4px;
+  justify-content: space-between;
   width: 100%;
-  padding-left: 4px;
-  padding-right: 8px;
 `;
 
 const ProgressBarContainer = styled.div`
   width: 100%;
-  height: 4px;
-  border-radius: 2px;
   flex: 1;
-  overflow: hidden;
 `;
 
 const ProgressPercentage = styled(Text)`
-  min-width: 36px;
+  min-width: ${({ theme }) => theme.sizes[10]};
   text-align: right;
-  padding-right: 8px;
+  padding-right: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
@@ -426,8 +415,12 @@ export const FileUpload = ({
 
             {showProgress && (
               <ProgressContainer>
+                <Spacer size={"sm"} />
                 <ProgressBarContainer>
-                  <ProgressBar progress={progress} />
+                  <ProgressBar
+                    progress={progress}
+                    type={"small"}
+                  />
                 </ProgressBarContainer>
                 <ProgressPercentage
                   size={"sm"}

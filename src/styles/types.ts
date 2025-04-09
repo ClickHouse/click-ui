@@ -1681,6 +1681,19 @@
           "default": string
         }
       },
+      "hasFile": {
+        "space": {
+          "gap": string
+        },
+        "header": {
+          "space": {
+            "gap": string
+          }
+        }
+      },
+      "transitions": {
+        "all": string
+      },
       "color": {
         "background": {
           "default": string,
