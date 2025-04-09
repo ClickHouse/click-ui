@@ -45,7 +45,10 @@ const UploadArea = styled.div<{
   align-items: center;
   justify-content: ${props =>
     props.$hasFile ? "space-between" : props.$size === "sm" ? "space-between" : "center"};
-  gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
+  gap: ${({ theme, $size }) =>
+    $size === "sm"
+      ? theme.click.fileUpload.sm.space.gap
+      : theme.click.fileUpload.md.space.gap};
   cursor: ${props => (props.$hasFile ? "default" : "pointer")};
   transition: ${({ theme }) => theme.click.fileUpload.transitions.all};
 
