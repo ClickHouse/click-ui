@@ -35,13 +35,6 @@ const Calendar = ({
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
 
-  const calendarOptions: UseCalendarOptions = {};
-
-  // If a start date is selected, open the calendar to that date
-  if (startDate) {
-    calendarOptions.defaultDate = startDate;
-  }
-
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
   };
@@ -134,6 +127,13 @@ export const DateRangePicker = ({
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
   const [selectedEndDate, setSelectedEndDate] = useState<Date>();
 
+  const calendarOptions: UseCalendarOptions = {};
+
+  // If a start date is selected, open the calendar to that date
+  if (selectedStartDate) {
+    calendarOptions.defaultDate = selectedStartDate;
+  }
+
   useEffect(() => {
     if (startDate) {
       setSelectedStartDate(startDate);
@@ -209,7 +209,7 @@ export const DateRangePicker = ({
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
-        <CalendarRenderer>
+        <CalendarRenderer calendarOptions={calendarOptions}>
           {body => (
             <Calendar
               calendarBody={body}
