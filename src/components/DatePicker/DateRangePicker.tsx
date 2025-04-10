@@ -69,7 +69,6 @@ const Calendar = ({
             );
 
           const handleMouseEnter = () => {
-            console.log("mouseEnter");
             setHoveredDate(fullDate);
           };
 

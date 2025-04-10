@@ -63,6 +63,33 @@ export const DatePickerInput = ({
   );
 };
 
+// This is taken from InputElement from InputWrapper.tsx
+// We need to be able to change the color of some of the text of the 'input element'
+// but that isn't possible with an input element, so we have to fake it. Thus the name.
+const FakeInputElement = styled.div`
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  ${({ theme }) => `
+    padding: ${theme.click.field.space.y} 0;
+    &::placeholder {
+      color: ${theme.click.field.color.placeholder.default};
+    }
+
+    &:disabled, &.disabled {
+      &::placeholder {
+      color: ${theme.click.field.color.placeholder.disabled};
+    }
+  `}
+`;
+
+const MutedColorSpan = styled.span`
+  color: ${({ theme }) => theme.global.color.text.muted};
+`;
+
 interface DateRangePickerInputProps {
   isActive: boolean;
   disabled: boolean;
@@ -82,13 +109,23 @@ export const DateRangePickerInput = ({
 }: DateRangePickerInputProps) => {
   const defaultId = useId();
 
-  let formattedValue = "";
+  let formattedValue = <MutedColorSpan>{placeholder ?? ""}</MutedColorSpan>;
   if (selectedStartDate) {
-    formattedValue = selectedDateFormatter.format(selectedStartDate);
-
-    formattedValue = `${formattedValue} - ${
-      selectedEndDate ? selectedDateFormatter.format(selectedEndDate) : "end date"
-    }`;
+    if (selectedEndDate) {
+      formattedValue = (
+        <span>
+          {selectedDateFormatter.format(selectedStartDate)} -{" "}
+          {selectedDateFormatter.format(selectedEndDate)}
+        </span>
+      );
+    } else {
+      formattedValue = (
+        <span>
+          {selectedDateFormatter.format(selectedStartDate)}{" "}
+          <MutedColorSpan>- end date</MutedColorSpan>
+        </span>
+      );
+    }
   }
 
   return (
@@ -98,12 +135,9 @@ export const DateRangePickerInput = ({
       id={id ?? defaultId}
     >
       <Icon name="calendar" />
-      <InputElement
-        data-testid="datepicker-input"
-        placeholder={placeholder}
-        readOnly
-        value={formattedValue}
-      />
+      <FakeInputElement data-testid="daterangepicker-input">
+        {formattedValue}
+      </FakeInputElement>
     </HighlightedInputWrapper>
   );
 };
