@@ -18,13 +18,6 @@ const Calendar = ({
   selectedDate,
   setSelectedDate,
 }: CalendarProps) => {
-  const calendarOptions: UseCalendarOptions = {};
-
-  // If a date is selected, open the calendar to that date
-  if (selectedDate) {
-    calendarOptions.defaultDate = selectedDate;
-  }
-
   return calendarBody.value.map(({ key: weekKey, value: week }) => {
     return (
       <tr key={weekKey}>
@@ -78,6 +71,13 @@ export const DatePicker = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
 
+  const calendarOptions: UseCalendarOptions = {};
+
+  // If a date is selected, open the calendar to that date
+  if (selectedDate) {
+    calendarOptions.defaultDate = selectedDate;
+  }
+
   useEffect(() => {
     if (date) {
       setSelectedDate(date);
@@ -108,7 +108,7 @@ export const DatePicker = ({
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
-        <CalendarRenderer>
+        <CalendarRenderer calendarOptions={calendarOptions}>
           {body => (
             <Calendar
               calendarBody={body}
