@@ -222,6 +222,20 @@ export const FileUpload = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounterRef = useRef(0);
 
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (isNotSupported) {
+      timeoutId = setTimeout(() => {
+        setIsNotSupported(false);
+      }, 2000);
+    }
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isNotSupported]);
+
   const handleDragEnter = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
