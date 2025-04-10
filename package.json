@@ -117,7 +117,7 @@
     "stylis": "^4.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.5.3",
-    "vite": "^5.2.11",
+    "vite": "^6.2.6",
     "vite-plugin-dts": "^3.9.1",
     "vitest": "^2.0.3",
     "watch": "^1.0.2"
