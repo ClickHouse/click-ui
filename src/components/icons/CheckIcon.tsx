@@ -10,11 +10,10 @@ const CheckIcon = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      d="M20 6.5L9 17.5L4 12.5"
+      fill="#161517"
       stroke="#161517"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="1.5"
+      d="M19.82 6.82a.25.25 0 0 1 .36.36l-11 11c-.1.1-.26.1-.36 0l-5-5a.25.25 0 0 1 .36-.36L9 17.65 19.82 6.82Z"
     />
   </svg>
 );

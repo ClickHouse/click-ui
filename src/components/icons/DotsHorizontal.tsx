@@ -9,27 +9,30 @@ const DotsHorizontal = (props: SVGAttributes<SVGElement>) => (
     fill="none"
     {...props}
   >
-    <circle
-      cx={7}
-      cy={12}
-      r={1.5}
-      fill="#161517"
-      transform="rotate(-90 7 12)"
-    />
-    <circle
-      cx={12.5}
-      cy={12}
-      r={1.5}
-      fill="#161517"
-      transform="rotate(-90 12.5 12)"
-    />
-    <circle
-      cx={18}
-      cy={12}
-      r={1.5}
-      fill="#161517"
-      transform="rotate(-90 18 12)"
-    />
+    <g transform='translate(7 12)'>
+      <circle
+        r={1.5}
+        fill="#FFF"
+        stroke="#FFF"
+        strokeWidth="1.5"
+      />
+    </g>
+    <g transform='translate(12.5 12)'>
+      <circle
+        r={1.5}
+        fill="#FFF"
+        stroke="#FFF"
+        strokeWidth="1.5"
+      />
+    </g>
+    <g transform='translate(18 12)'>
+      <circle
+        r={1.5}
+        fill="#FFF"
+        stroke="#FFF"
+        strokeWidth="1.5"
+      />
+    </g>
   </svg>
 );
 

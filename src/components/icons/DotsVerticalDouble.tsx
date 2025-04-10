@@ -14,36 +14,48 @@ const DotsVerticalDouble = (props: SVGAttributes<SVGElement>) => (
       cy="6.5"
       r="1.5"
       fill="#161517"
+      stroke="#161517"
+      strokeWidth="1.5"
     />
     <circle
       cx="8.5"
       cy="12"
       r="1.5"
       fill="#161517"
+      stroke="#161517"
+      strokeWidth="1.5"
     />
     <circle
       cx="8.5"
       cy="17.5"
       r="1.5"
       fill="#161517"
+      stroke="#161517"
+      strokeWidth="1.5"
     />
     <circle
       cx="15.5"
       cy="6.5"
       r="1.5"
       fill="#161517"
+      stroke="#161517"
+      strokeWidth="1.5"
     />
     <circle
       cx="15.5"
       cy="12"
       r="1.5"
       fill="#161517"
+      stroke="#161517"
+      strokeWidth="1.5"
     />
     <circle
       cx="15.5"
       cy="17.5"
       r="1.5"
       fill="#161517"
+      stroke="#161517"
+      strokeWidth="1.5"
     />
   </svg>
 );

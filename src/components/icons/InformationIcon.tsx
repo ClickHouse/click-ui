@@ -13,6 +13,7 @@ const InformationIcon = (props: SVGAttributes<SVGElement>) => (
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth={1.5}
       d="M10.854 11.877h1.15v4.252M10.845 16.128h2.31"
     />
     <path
@@ -26,6 +27,7 @@ const InformationIcon = (props: SVGAttributes<SVGElement>) => (
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth={1.5}
       d="M11.695 8.623a.25.25 0 0 1 .25.25"
     />
   </svg>

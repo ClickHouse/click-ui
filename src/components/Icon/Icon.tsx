@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
+import { IconName, IconProps, IconSize, IconState, IconWeight, ImageType } from "./types";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
 import Flags, { FlagList, FlagName } from "../icons/Flags";
 import { Logo } from "../Logos/Logo";
@@ -13,6 +13,7 @@ const SVGIcon = ({
   width,
   height,
   state,
+  weight,
   className,
   size,
   ...props
@@ -29,6 +30,7 @@ const SVGIcon = ({
       $width={width}
       $height={height}
       $size={size}
+      $weight={weight}
       className={className}
       state={state}
     >
@@ -42,18 +44,47 @@ const SvgWrapper = styled.div<{
   $width?: number | string;
   $height?: number | string;
   $size?: IconSize;
+  $weight?: IconWeight;
   state?: IconState;
 }>`
   display: flex;
   align-items: center;
 
-  ${({ theme, $color = "currentColor", $width, $height, $size }) => `
-    & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke], & circle[fill] {
+  ${({ theme, $color = "currentColor", $width, $height, $size, $weight = "default" }) => `
+    & svg[stroke]:not([stroke="none"]),
+    & g[stroke]:not([stroke="none"]),
+    & path[stroke]:not([stroke="none"]),
+    & rect[stroke]:not([stroke="none"]),
+    & circle[stroke]:not([stroke="none"]),
+    & ellipse[stroke]:not([stroke="none"]),
+    & line[stroke]:not([stroke="none"]),
+    & polyline[stroke]:not([stroke="none"]),
+    & polygon[stroke]:not([stroke="none"]) {
       stroke: ${$color};
     }
 
-    & path[fill], & svg[fill]:not([fill="none"]), & rect[fill], & circle[fill] {
+    & svg[fill]:not([fill="none"]),
+    & g[fill]:not([fill="none"]),
+    & path[fill]:not([fill="none"]),
+    & rect[fill]:not([fill="none"]),
+    & circle[fill]:not([fill="none"]),
+    & ellipse[fill]:not([fill="none"]),
+    & line[fill]:not([fill="none"]),
+    & polyline[fill]:not([fill="none"]),
+    & polygon[fill]:not([fill="none"]) {
       fill: ${$color};
+    }
+
+    & svg[stroke-width="1.5"],
+    & g[stroke-width="1.5"],
+    & path[stroke-width="1.5"],
+    & rect[stroke-width="1.5"],
+    & circle[stroke-width="1.5"],
+    & ellipse[stroke-width="1.5"],
+    & line[stroke-width="1.5"],
+    & polyline[stroke-width="1.5"],
+    & polygon[stroke-width="1.5"] {
+      stroke-width: ${theme.click.image.borderWidth[$weight]}
     }
 
     & svg {

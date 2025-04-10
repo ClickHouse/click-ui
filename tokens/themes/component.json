@@ -2314,11 +2314,11 @@
       "borderWidth": {
         "default": {
           "value": "1.5",
-          "type": "sizing"
+          "type": "strokeWidth"
         },
         "thin": {
-          "value": "{sizes.1}",
-          "type": "sizing"
+          "value": "0.5",
+          "type": "strokeWidth"
         }
       }
     },

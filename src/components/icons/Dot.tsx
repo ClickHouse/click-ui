@@ -10,10 +10,13 @@ const Dot = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <circle
-      cx="12"
-      cy="12"
-      r="4.5"
-      fill="white"
+      cx="3.75"
+      cy="3.75"
+      r="3.75"
+      fill="#FFF"
+      stroke="#FFF"
+      strokeWidth="1.5"
+      transform="translate(8 8)"
     />
   </svg>
 );

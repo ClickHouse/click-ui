@@ -6,6 +6,7 @@ import { PaymentName, PaymentProps } from "../icons/Payments";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type IconState = "default" | "success" | "warning" | "danger" | "info";
+export type IconWeight = "default" | "thin"
 
 export const ICON_NAMES = [
   "activity",
@@ -165,6 +166,7 @@ export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   color?: string;
   size?: IconSize;
   state?: IconState;
+  weight?: IconWeight;
 }
 
 type NoThemeType = {
@@ -175,12 +177,16 @@ type NoColorType = {
   color?: never;
 };
 
+type NoWeightType = {
+  weight?: never;
+};
+
 export type ImageName = IconName | LogoName | FlagName | PaymentName;
 export type ImageType = (
   | (Omit<IconProps, "name"> & NoThemeType)
-  | (Omit<LogoProps, "name"> & NoColorType)
-  | (Omit<FlagProps, "name"> & NoThemeType & NoColorType)
-  | (Omit<PaymentProps, "name"> & NoThemeType & NoColorType)
+  | (Omit<LogoProps, "name"> & NoColorType & NoWeightType)
+  | (Omit<FlagProps, "name"> & NoThemeType & NoColorType & NoWeightType)
+  | (Omit<PaymentProps, "name"> & NoThemeType & NoColorType & NoWeightType)
 ) & {
   name: ImageName;
 };

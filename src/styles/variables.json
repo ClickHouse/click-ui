@@ -1702,6 +1702,10 @@
           "width": "4rem"
         }
       },
+      "borderWidth": {
+        "default": "1.5",
+        "thin": "0.5"
+      },
       "color": {
         "stroke": "#161517"
       }

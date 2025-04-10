@@ -30,6 +30,11 @@ export default {
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],
       control: { type: "select" },
     },
+    weight: {
+      options: ["default", "thin"],
+      control: { type: "select" },
+      defaultValue: "default",
+    },
     state: {
       options: ["default", "info", "success", "warning", "danger", "neutral"],
       control: { type: "select" },
@@ -41,6 +46,7 @@ export const Playground = {
   args: {
     name: "users",
     size: "md",
+    weight: "default",
     state: "default",
     width: "",
     height: "",

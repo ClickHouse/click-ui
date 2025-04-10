@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 import "@/styles/globals.css";
 import "./styles/variables.css";
@@ -50,6 +50,8 @@ import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import GridExample from "./examples/GridExample";
 import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
 import { styled } from "styled-components";
+
+import { ICON_NAMES, IconSize } from "@/components/Icon/types";
 
 const BackgroundWrapper = styled.div`
   background: ${({ theme }) => theme.global.color.background.default};
@@ -752,6 +754,40 @@ const App = () => {
         <GridExample />
         <Spacer />
         <MultiAccordionDemo />
+        <Spacer />
+        <Title type='h2'>Icons</Title>
+        <Spacer />
+          {ICON_NAMES.map(name => {
+            return (
+              <Fragment key={name}>
+                <Title type='h3'>{name} : default</Title>
+                <GridContainer
+                  gridTemplateColumns="repeat(5, minmax(0, 1fr))"
+                  columnGap="lg"
+                  rowGap="sm"
+                >
+                  {(["sm", "md", "lg", "xl", "xxl"] satisfies Array<IconSize>).map(size => {
+                    return (
+                      <Icon key={size} name={name} size={size} />
+                    )
+                  })}
+                </GridContainer>
+                <Spacer /><Title type='h3'>{name} : thin</Title>
+                <GridContainer
+                  gridTemplateColumns="repeat(5, minmax(0, 1fr))"
+                  columnGap="lg"
+                  rowGap="sm"
+                >
+                  {(["sm", "md", "lg", "xl", "xxl"] satisfies Array<IconSize>).map(size => {
+                    return (
+                      <Icon key={size} name={name} size={size} weight='thin' />
+                    )
+                  })}
+                </GridContainer>
+                <Spacer />
+              </Fragment>
+            );
+          })}
       </BackgroundWrapper>
     </ClickUIProvider>
   );
