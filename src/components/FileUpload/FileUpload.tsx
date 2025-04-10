@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import { truncateFilename } from "@/utils/truncate.ts";
 
 interface FileInfo {
   name: string;
@@ -178,23 +179,6 @@ const formatFileSize = (sizeInBytes: number): string => {
   } else {
     return `${(sizeInBytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
   }
-};
-
-const truncateFilename = (filename: string, maxLength: number = 40): string => {
-  if (filename.length <= maxLength) {
-    return filename;
-  }
-
-  const extension =
-    filename.lastIndexOf(".") !== -1 ? filename.slice(filename.lastIndexOf(".")) : "";
-
-  const nameWithoutExtension = extension
-    ? filename.slice(0, filename.lastIndexOf("."))
-    : filename;
-
-  const truncatedName =
-    nameWithoutExtension.slice(0, maxLength - extension.length - 3) + "...";
-  return truncatedName + extension;
 };
 
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
