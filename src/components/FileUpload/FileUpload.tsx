@@ -74,9 +74,12 @@ const UploadArea = styled.div<{
     `}
 `;
 
-const FileUploadTitle = styled(Title)`
+const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.title.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
+  color: ${({ theme, $isNotSupported }) =>
+    $isNotSupported
+      ? theme.click.fileUpload.color.title.error
+      : theme.click.fileUpload.color.title.default};
 `;
 
 const FileUploadDescription = styled(Text)`
@@ -214,6 +217,7 @@ export const FileUpload = ({
   onFileSelectFailure,
 }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [isNotSupported, setIsNotSupported] = useState(false);
   const [file, setFile] = useState<FileInfo | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounterRef = useRef(0);
@@ -266,6 +270,8 @@ export const FileUpload = ({
       if (!isFiletypeSupported(file.name, supportedFileTypes)) {
         if (onFileSelectFailure) {
           onFileSelectFailure();
+          console.log("File type not supported");
+          setIsNotSupported(true);
         } else {
           console.warn(`File type not supported: ${file.name}`);
         }
@@ -281,6 +287,7 @@ export const FileUpload = ({
 
       if (onFileSelect) {
         onFileSelect(file);
+        setIsNotSupported(false);
       }
     },
     [onFileSelect, supportedFileTypes, onFileSelectFailure]
@@ -352,7 +359,21 @@ export const FileUpload = ({
               $size={size}
               $hasFile={false}
             >
-              <FileUploadTitle type="h1">{title}</FileUploadTitle>
+              {isNotSupported ? (
+                <FileUploadTitle
+                  $isNotSupported
+                  type="h1"
+                >
+                  Unsupported file type
+                </FileUploadTitle>
+              ) : (
+                <FileUploadTitle
+                  $isNotSupported={isNotSupported}
+                  type="h1"
+                >
+                  {title}
+                </FileUploadTitle>
+              )}
               <FileUploadDescription>
                 Files supported: {supportedFileTypes.join(", ")}
               </FileUploadDescription>
@@ -391,7 +412,7 @@ export const FileUpload = ({
                 )}
                 {showSuccess && (
                   <Icon
-                    size={"sm"}
+                    size={"xs"}
                     state={"success"}
                     name={"check"}
                   />
