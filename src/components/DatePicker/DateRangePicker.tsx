@@ -77,6 +77,11 @@ const Calendar = ({
               return;
             }
 
+            // The user has selected a new start date, don't close
+            if (startDate && fullDate < startDate) {
+              return;
+            }
+
             // Only close the datepicker if the user hasn't clicked the selected start date.
             if (startDate && !isSameDate(fullDate, startDate)) {
               closeDatepicker();
