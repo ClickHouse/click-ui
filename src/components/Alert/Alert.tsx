@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 
 type AlertType = "default" | "banner";
 type AlertSize = "small" | "medium";
-type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
+export type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
 export type AlertProps = {
   state?: AlertState;
   title?: string;
