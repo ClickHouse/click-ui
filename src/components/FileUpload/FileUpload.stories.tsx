@@ -34,17 +34,22 @@ export default {
     },
     onFileSelect: { action: "file selected" },
     onRetry: { action: "retry requested" },
+    onFileFailure: { action: "operation failed" },
+    onFileClose: { action: "operation dismissed" },
   },
 };
 
 export const SmallSize = {
   args: {
     title: "Upload file",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    supportedFileTypes: [".txt", ".csv"],
     size: "sm",
     progress: 75,
     showProgress: false,
     showSuccess: false,
+    onRetry: () => console.log("File retried"),
+    onFileFailure: () => console.log("File failed"),
+    onFileClose: () => console.log("File dismissed"),
   },
   parameters: {
     docs: {
@@ -61,6 +66,9 @@ export const MediumSize = {
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
     progress: 65,
     size: "md",
+    onRetry: () => console.log("File retried"),
+    onFileFailure: () => console.log("File failed"),
+    onFileClose: () => console.log("File dismissed"),
   },
   parameters: {
     docs: {
