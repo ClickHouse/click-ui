@@ -71,9 +71,9 @@ const Calendar = ({
             }
             setSelectedDate(fullDate);
 
-            // User has a date range selected and clicked the selected end date.
-            // This will cause the end date to be unselected, thus do not close the datepicker.
-            if (startDate && endDate && isSameDate(fullDate, endDate)) {
+            // User has a date range selected and clicked a new date.
+            // This will cause the selected date to be reset, thus do not close the datepicker.
+            if (startDate && endDate) {
               return;
             }
 
@@ -157,23 +157,16 @@ export const DateRangePicker = ({
 
   const handleSelectDate = useCallback(
     (selectedDate: Date): void => {
-      // Start date and end date are selected, user clicks end date.
-      // Reset the end date.
-      if (selectedEndDate && isSameDate(selectedEndDate, selectedDate)) {
+      // Start date and end date are selected, user clicks any date.
+      // Set start date to the selected date, clear the end date.
+      if (selectedStartDate && selectedEndDate) {
+        setSelectedStartDate(selectedDate);
         setSelectedEndDate(undefined);
         return;
       }
 
       if (selectedStartDate) {
         if (isSameDate(selectedStartDate, selectedDate)) {
-          // Start date and end date are selected, user clicks start date.
-          // Set the start date to the old end date, reset end date.
-          if (selectedEndDate) {
-            setSelectedStartDate(selectedEndDate);
-            setSelectedEndDate(undefined);
-            return;
-          }
-
           // Start date is selected, user clicks start date.
           // Reset the start date.
           setSelectedStartDate(undefined);

@@ -82,46 +82,6 @@ describe("DateRangePicker", () => {
       expect(getByText("start date - end date")).toBeInTheDocument();
     });
 
-    it("allows clearing the end date by clicking the end date after selecting a range", async () => {
-      const handleSelectDate = vi.fn();
-
-      const { getByTestId, getByText, queryByTestId } = renderCUI(
-        <DateRangePicker onSelectDateRange={handleSelectDate} />
-      );
-
-      await userEvent.click(getByTestId("daterangepicker-input"));
-      await userEvent.click(getByText("4"));
-      await userEvent.click(getByText("10"));
-
-      expect(queryByTestId("datepicker-calendar-container")).not.toBeInTheDocument();
-
-      await userEvent.click(getByTestId("daterangepicker-input"));
-      await userEvent.click(getByText("10"));
-
-      expect(getByText("Jul 04, 2020")).toBeInTheDocument();
-      expect(getByText("- end date")).toBeInTheDocument();
-    });
-
-    it("allows resetting the start date by clicking the start date after selecting a range", async () => {
-      const handleSelectDate = vi.fn();
-
-      const { getByTestId, getByText, queryByTestId } = renderCUI(
-        <DateRangePicker onSelectDateRange={handleSelectDate} />
-      );
-
-      await userEvent.click(getByTestId("daterangepicker-input"));
-      await userEvent.click(getByText("4"));
-      await userEvent.click(getByText("10"));
-
-      expect(queryByTestId("datepicker-calendar-container")).not.toBeInTheDocument();
-
-      await userEvent.click(getByTestId("daterangepicker-input"));
-      await userEvent.click(getByText("4"));
-
-      expect(getByText("Jul 10, 2020")).toBeInTheDocument();
-      expect(getByText("- end date")).toBeInTheDocument();
-    });
-
     it("calls onSelectDateRange when a date range is selected and passes in the selected date range", async () => {
       const handleSelectDate = vi.fn();
 
@@ -139,27 +99,7 @@ describe("DateRangePicker", () => {
       expect(endDate).toEqual(new Date("2020-07-10 00:00.00"));
     });
 
-    it("allows clearing the selection by clicking start date then end date", async () => {
-      const handleSelectDate = vi.fn();
-
-      const { getByTestId, getByText, queryByTestId } = renderCUI(
-        <DateRangePicker onSelectDateRange={handleSelectDate} />
-      );
-
-      await userEvent.click(getByTestId("daterangepicker-input"));
-      await userEvent.click(getByText("4"));
-      await userEvent.click(getByText("10"));
-
-      expect(queryByTestId("datepicker-calendar-container")).not.toBeInTheDocument();
-
-      await userEvent.click(getByTestId("daterangepicker-input"));
-      await userEvent.click(getByText("4"));
-      await userEvent.click(getByText("10"));
-
-      expect(getByText("start date - end date")).toBeInTheDocument();
-    });
-
-    it("allows clearing the selection by clicking end date then start date", async () => {
+    it("allows setting a new start date by clicking any date", async () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, getByText, queryByTestId } = renderCUI(
@@ -174,9 +114,9 @@ describe("DateRangePicker", () => {
 
       await userEvent.click(getByTestId("daterangepicker-input"));
       await userEvent.click(getByText("10"));
-      await userEvent.click(getByText("4"));
 
-      expect(getByText("start date - end date")).toBeInTheDocument();
+      expect(getByText("Jul 10, 2020")).toBeInTheDocument();
+      expect(getByText("- end date")).toBeInTheDocument();
     });
   });
 
