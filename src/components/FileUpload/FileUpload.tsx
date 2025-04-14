@@ -333,7 +333,7 @@ export const FileUpload = ({
     if (onFileClose) {
       onFileClose();
     }
-  }, []);
+  }, [onFileClose]);
 
   const handleRetryUpload = useCallback(() => {
     if (onRetry) {
