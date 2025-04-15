@@ -5,6 +5,7 @@ import { Icon } from "../Icon/Icon";
 import { Container } from "../Container/Container";
 import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import { IconButton } from "../IconButton/IconButton";
+import { Text } from "../Typography/Text/Text";
 
 const locale = "en-US";
 const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
@@ -63,33 +64,6 @@ export const DatePickerInput = ({
   );
 };
 
-// This is taken from InputElement from InputWrapper.tsx
-// We need to be able to change the color of some of the text of the 'input element'
-// but that isn't possible with an input element, so we have to fake it. Thus the name.
-const FakeInputElement = styled.div`
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  ${({ theme }) => `
-    padding: ${theme.click.field.space.y} 0;
-    &::placeholder {
-      color: ${theme.click.field.color.placeholder.default};
-    }
-
-    &:disabled, &.disabled {
-      &::placeholder {
-      color: ${theme.click.field.color.placeholder.disabled};
-    }
-  `}
-`;
-
-const MutedColorSpan = styled.span`
-  color: ${({ theme }) => theme.global.color.text.muted};
-`;
-
 interface DateRangePickerInputProps {
   isActive: boolean;
   disabled: boolean;
@@ -109,7 +83,14 @@ export const DateRangePickerInput = ({
 }: DateRangePickerInputProps) => {
   const defaultId = useId();
 
-  let formattedValue = <MutedColorSpan>{placeholder ?? ""}</MutedColorSpan>;
+  let formattedValue = (
+    <Text
+      color="muted"
+      component="span"
+    >
+      {placeholder ?? ""}
+    </Text>
+  );
   if (selectedStartDate) {
     if (selectedEndDate) {
       formattedValue = (
@@ -122,7 +103,12 @@ export const DateRangePickerInput = ({
       formattedValue = (
         <span>
           {selectedDateFormatter.format(selectedStartDate)}{" "}
-          <MutedColorSpan>– end date</MutedColorSpan>
+          <Text
+            color="muted"
+            component="span"
+          >
+            – end date
+          </Text>
         </span>
       );
     }
@@ -135,9 +121,12 @@ export const DateRangePickerInput = ({
       id={id ?? defaultId}
     >
       <Icon name="calendar" />
-      <FakeInputElement data-testid="daterangepicker-input">
+      <InputElement
+        as="div"
+        data-testid="daterangepicker-input"
+      >
         {formattedValue}
-      </FakeInputElement>
+      </InputElement>
     </HighlightedInputWrapper>
   );
 };
@@ -165,7 +154,7 @@ const UnselectableTitle = styled.h2`
 const DateTable = styled.table`
   border-collapse: separate;
   border-spacing: 0;
-  font: ${({ theme }) => theme.typography.styles.product.text.normal.md}
+  font: ${({ theme }) => theme.typography.styles.product.text.normal.md};
   table-layout: fixed;
   user-select: none;
   width: ${explicitWidth};
@@ -178,7 +167,8 @@ const DateTable = styled.table`
     cursor: pointer;
   }
 
-  td, th {
+  td,
+  th {
     padding: 4px;
   }
 `;
