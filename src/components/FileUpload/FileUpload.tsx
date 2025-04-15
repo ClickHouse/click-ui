@@ -21,7 +21,8 @@ interface FileUploadProps {
   failureMessage?: string;
   onRetry?: () => void;
   onFileSelect?: (file: File) => void;
-  onFileSelectFailure?: () => void;
+  onFileFailure?: () => void;
+  onFileClose?: () => void;
 }
 
 const UploadArea = styled.div<{
@@ -198,7 +199,8 @@ export const FileUpload = ({
   failureMessage = "Upload failed",
   showProgress = false,
   showSuccess = false,
-  onFileSelectFailure,
+  onFileFailure,
+  onFileClose,
 }: FileUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isNotSupported, setIsNotSupported] = useState(false);
@@ -266,8 +268,8 @@ export const FileUpload = ({
   const processFile = useCallback(
     (file: File) => {
       if (!isFiletypeSupported(file.name, supportedFileTypes)) {
-        if (onFileSelectFailure) {
-          onFileSelectFailure();
+        if (onFileFailure) {
+          onFileFailure();
           console.log("File type not supported");
           setIsNotSupported(true);
         } else {
@@ -288,7 +290,7 @@ export const FileUpload = ({
         setIsNotSupported(false);
       }
     },
-    [onFileSelect, supportedFileTypes, onFileSelectFailure]
+    [onFileSelect, supportedFileTypes, onFileFailure]
   );
 
   const handleDrop = useCallback(
@@ -327,7 +329,11 @@ export const FileUpload = ({
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }, []);
+
+    if (onFileClose) {
+      onFileClose();
+    }
+  }, [onFileClose]);
 
   const handleRetryUpload = useCallback(() => {
     if (onRetry) {
