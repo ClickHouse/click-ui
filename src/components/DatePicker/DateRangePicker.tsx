@@ -126,7 +126,7 @@ export const DateRangePicker = ({
   disabled = false,
   futureDatesDisabled = false,
   onSelectDateRange,
-  placeholder = "start date - end date",
+  placeholder = "start date – end date",
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();

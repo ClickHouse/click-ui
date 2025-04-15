@@ -28,7 +28,7 @@ describe("DateRangePicker", () => {
     );
 
     expect(getByText("Jul 04, 2020")).toBeInTheDocument();
-    expect(getByText("- end date")).toBeInTheDocument();
+    expect(getByText("– end date")).toBeInTheDocument();
   });
 
   it("sets the value of the DatePicker input end date to the end date passed in", () => {
@@ -43,7 +43,7 @@ describe("DateRangePicker", () => {
       />
     );
 
-    expect(getByText("Jul 04, 2020 - Jul 05, 2020")).toBeInTheDocument();
+    expect(getByText("Jul 04, 2020 – Jul 05, 2020")).toBeInTheDocument();
   });
 
   it("does nothing if an end date is passed in but not a start date", () => {
@@ -56,7 +56,7 @@ describe("DateRangePicker", () => {
       />
     );
 
-    expect(getByText("start date - end date")).toBeInTheDocument();
+    expect(getByText("start date – end date")).toBeInTheDocument();
   });
 
   describe("selecting dates", () => {
@@ -79,7 +79,7 @@ describe("DateRangePicker", () => {
       await userEvent.click(getByText("4"));
       await userEvent.click(getByText("4"));
 
-      expect(getByText("start date - end date")).toBeInTheDocument();
+      expect(getByText("start date – end date")).toBeInTheDocument();
     });
 
     it("calls onSelectDateRange when a date range is selected and passes in the selected date range", async () => {
@@ -116,7 +116,7 @@ describe("DateRangePicker", () => {
       await userEvent.click(getByText("10"));
 
       expect(getByText("Jul 10, 2020")).toBeInTheDocument();
-      expect(getByText("- end date")).toBeInTheDocument();
+      expect(getByText("– end date")).toBeInTheDocument();
     });
   });
 

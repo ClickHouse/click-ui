@@ -114,7 +114,7 @@ export const DateRangePickerInput = ({
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)} -{" "}
+          {selectedDateFormatter.format(selectedStartDate)} –{" "}
           {selectedDateFormatter.format(selectedEndDate)}
         </span>
       );
@@ -122,7 +122,7 @@ export const DateRangePickerInput = ({
       formattedValue = (
         <span>
           {selectedDateFormatter.format(selectedStartDate)}{" "}
-          <MutedColorSpan>- end date</MutedColorSpan>
+          <MutedColorSpan>– end date</MutedColorSpan>
         </span>
       );
     }
