@@ -22,6 +22,7 @@ export type LogoName =
   | "gcp"
   | "gcs"
   | "azure"
+  | "azure-blob-storage"
   | "azure-event-hub"
   | "dbeaver"
   | "dbt"
