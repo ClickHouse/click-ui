@@ -7,6 +7,7 @@ import AWSS3 from "./AWS_S3";
 import AWSAthena from "./AWSAthena";
 import AWSMsk from "./AWSMsk";
 import Azure from "./Azure";
+import AzureBlobStorage from "./AzureBlobStorage";
 import AzureEventHub from "./AzureEventHub";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
@@ -62,6 +63,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   "aws-redshift": AWSRedshift,
   "aws-s3": AWSS3,
   azure: Azure,
+  "azure-blob-storage": AzureBlobStorage,
   "azure-event-hub": AzureEventHub,
   bigquery: BigQuery,
   "c#": Chash,
