@@ -20,6 +20,9 @@ const defaultStory = {
     placeholder: {
       control: "text",
     },
+    predefinedDatesCount: {
+      control: "number",
+    },
     onSelectDateRange: {
       control: "object",
     },
@@ -28,6 +31,10 @@ const defaultStory = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
+    const predefinedDatesCount = args.predefinedDatesCount
+      ? args.predefinedDatesCount
+      : undefined;
+
     return (
       <DateRangePicker
         endDate={endDate}
@@ -35,6 +42,7 @@ const defaultStory = {
         futureDatesDisabled={args.futureDatesDisabled}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
+        predefinedDatesCount={predefinedDatesCount}
         startDate={startDate}
       />
     );
@@ -44,6 +52,30 @@ const defaultStory = {
 };
 
 export default defaultStory;
+
+// export const PredefinedRanges = {
+//   args: {
+//     ...defaultStory.args
+//   },
+//   render: (args: Args) => {
+//     const endDate = args.endDate ? new Date(args.endDate) : undefined;
+//     const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+//     console.log('predefined dates story', args.predefinedDatesCount)
+//     return (
+//       <DateRangePicker
+//         endDate={endDate}
+//         disabled={args.disabled}
+//         futureDatesDisabled={args.futureDatesDisabled}
+//         onSelectDateRange={args.onSelectDateRange}
+//         placeholder={args.placeholder}
+//         predefinedDatesCount={6}
+//         startDate={startDate}
+//       />
+//     );
+//   },
+//   title: "Display/DateRangePickerPredefinedDates"
+// };
 
 export const Playground = {
   ...defaultStory,
