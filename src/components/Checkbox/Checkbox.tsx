@@ -93,6 +93,7 @@ const CheckInput = styled(RadixCheckbox.Root)<{
     &[data-disabled] {
       background: ${theme.click.checkbox.color.background.disabled};
       border-color: ${theme.click.checkbox.color.stroke.disabled};
+      cursor: not-allowed;
       &[data-state="checked"] {
         background: ${theme.click.checkbox.color.background.disabled};
         border-color: ${theme.click.checkbox.color.stroke.disabled};

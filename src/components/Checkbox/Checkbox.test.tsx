@@ -27,7 +27,12 @@ describe("Checkbox", () => {
       label: "Accept terms and conditions",
       disabled: true,
     });
+
     const checkbox = getByTestId("checkbox");
+
+    const computedStyle = window.getComputedStyle(checkbox);
+    expect(computedStyle.cursor).toBe("not-allowed");
+
     fireEvent.click(checkbox);
 
     expect(counter).toEqual(0);
