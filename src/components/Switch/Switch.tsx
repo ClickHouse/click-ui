@@ -41,7 +41,10 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           checked={checked}
           {...props}
         >
-          <SwitchThumb $checked={checked} />
+          <SwitchThumb
+            $checked={checked}
+            $disabled={disabled}
+          />
         </SwitchRoot>
         {label && (
           <GenericLabel
