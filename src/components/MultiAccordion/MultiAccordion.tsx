@@ -201,6 +201,7 @@ const AccordionItem = styled(RadixAccordion.Item)<StyledAccordionItemProps>`
       $showBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"
     };
     border-radius: ${theme.border.radii[1]};
+    background-color: ${theme.click.global.color.background.default};
   `};
   ${({ $fillWidth }) => $fillWidth && "width: 100%"};
 `;
