@@ -2,12 +2,12 @@ import { SVGAttributes } from "react";
 
 const Mcp = (props: SVGAttributes<SVGElement>) => (
   <svg
+    width="24"
+    height="24"
     xmlns="http://www.w3.org/2000/svg"
-    width={30}
-    height={22}
     viewBox="0 0 24 24"
     fill="currentColor"
-    fill-rule="evenodd"
+    fillRule="evenodd"
     {...props}
   >
     <title>ModelContextProtocol</title>
