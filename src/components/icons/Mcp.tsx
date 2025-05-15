@@ -6,7 +6,8 @@ const Mcp = (props: SVGAttributes<SVGElement>) => (
     width={30}
     height={22}
     viewBox="0 0 24 24"
-    fill="currentColor" fill-rule="evenodd"
+    fill="currentColor"
+    fill-rule="evenodd"
     {...props}
   >
     <title>ModelContextProtocol</title>
