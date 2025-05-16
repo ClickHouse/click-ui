@@ -115,6 +115,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
                 onClick={clearInput}
                 $show={value.length > 0}
                 aria-label="clear input"
+                data-testid="textfield-clear"
               >
                 <Icon
                   name="cross"

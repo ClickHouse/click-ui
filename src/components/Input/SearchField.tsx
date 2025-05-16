@@ -1,94 +1,28 @@
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useRef } from "react";
-import { Icon } from "@/components";
-import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
-import { mergeRefs } from "@/utils/mergeRefs";
+import { forwardRef } from "react";
+
+import { Icon, TextField } from "@/components";
+
+import { TextFieldProps } from "./TextField";
 
 export interface SearchFieldProps
-  extends Omit<WrapperProps, "id" | "children">,
-    Omit<
-      InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "string" | "onChange" | "dir"
-    > {
-  loading?: boolean;
-  value?: string;
-  clear?: boolean;
-  onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
-  orientation?: "vertical" | "horizontal";
-  dir?: "start" | "end";
+  extends Omit<TextFieldProps, "type" | "startContent" | "endContent"> {
   isFilter?: boolean;
 }
 
 export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
-  (
-    {
-      disabled,
-      label,
-      error,
-      id,
-      loading,
-      clear = true,
-      value = "",
-      onChange: onChangeProp,
-      orientation,
-      dir,
-      isFilter = false,
-      ...props
-    },
-    ref
-  ) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const defaultId = useId();
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-      onChangeProp(e.target.value, e);
-    };
-    const clearInput = () => {
-      onChangeProp("");
-    };
-
+  ({ isFilter = false, clear = true, ...props }, ref) => {
     return (
-      <InputWrapper
-        disabled={disabled}
-        id={id ?? defaultId}
-        label={label}
-        error={error}
-        orientation={orientation}
-        dir={dir}
-      >
-        <Icon
-          name={isFilter ? "filter" : "search"}
-          size="sm"
-        />
-
-        <InputElement
-          ref={mergeRefs([inputRef, ref])}
-          type="text"
-          id={id ?? defaultId}
-          disabled={disabled}
-          value={value}
-          onChange={onChange}
-          {...props}
-        />
-        {clear && (
-          <IconButton
-            disabled={disabled}
-            onClick={clearInput}
-            $show={value.length > 0}
-            aria-label="clear input"
-            data-testid="search-close"
-          >
-            <Icon
-              name="cross"
-              size="sm"
-            />
-          </IconButton>
-        )}
-        {loading && (
+      <TextField
+        startContent={
           <Icon
-            name="loading-animated"
+            name={isFilter ? "filter" : "search"}
             size="sm"
           />
-        )}
-      </InputWrapper>
+        }
+        clear={clear}
+        ref={ref}
+        {...props}
+      />
     );
   }
 );
