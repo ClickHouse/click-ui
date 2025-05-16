@@ -237,13 +237,7 @@ export const TextAreaElement = styled.textarea`
   `}
 `;
 
-export const TextAreaWrapper = styled(InputWrapper)`
-  resize: vertical;
-  overflow: auto;
-  color: red;
-`;
-
-export const IconButton = styled.button<{ $show?: boolean }>`
+export const IconButton = styled.button`
   background: transparent;
   color: inherit;
   border: none;
