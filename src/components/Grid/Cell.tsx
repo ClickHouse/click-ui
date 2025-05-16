@@ -21,6 +21,7 @@ export const Cell = memo(
       rowStart,
       rowAutoHeight,
       updateRowHeight,
+      readOnly = false,
     } = data;
 
     const currentRowIndex = rowIndex + rowStart;
@@ -96,6 +97,7 @@ export const Cell = memo(
           $height={rowHeight}
           data-grid-row={currentRowIndex}
           data-grid-column={columnIndex}
+          $readOnly={readOnly}
           $showBorder
           $rowAutoHeight={rowAutoHeight}
           {...props}
