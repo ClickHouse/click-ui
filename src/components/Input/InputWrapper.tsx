@@ -59,7 +59,6 @@ const Wrapper = styled.div<{
       overflow: auto;
     `
     }
-    padding: 0 ${theme.click.field.space.x};
     ${
       $error
         ? `
@@ -191,7 +190,7 @@ export const InputElement = styled.input`
   color: inherit;
   font: inherit;
   ${({ theme }) => `
-    padding: ${theme.click.field.space.y} 0;
+    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
     }
@@ -230,7 +229,7 @@ export const TextAreaElement = styled.textarea`
   font: inherit;
   resize: none;
   ${({ theme }) => `
-    padding: ${theme.click.field.space.y} 0;
+    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
     align-self: stretch;
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
