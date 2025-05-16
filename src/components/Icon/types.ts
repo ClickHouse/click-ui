@@ -110,6 +110,7 @@ export const ICON_NAMES = [
   "metrics",
   "metrics-alt",
   "minus",
+  "mcp",
   "moon",
   "no-cloud",
   "pause",
