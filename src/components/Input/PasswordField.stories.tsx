@@ -1,46 +1,33 @@
 import { useEffect, useState } from "react";
-import { PasswordField as PasswordFieldInput, PasswordFieldProps } from "./PasswordField";
-import { Container } from "../Container/Container";
 
-const PasswordField = ({
-  value: valueProp,
-  ...props
-}: Omit<PasswordFieldProps, "onChange">) => {
-  const [value, setValue] = useState(valueProp);
-  useEffect(() => {
-    setValue(valueProp);
-  }, [valueProp]);
+import { Meta, StoryObj } from "@storybook/react";
 
-  return (
-    <Container maxWidth="75%">
-      <PasswordFieldInput
-        value={value}
-        onChange={(inputValue: string) => {
-          setValue(inputValue);
-        }}
-        {...props}
-      />
-    </Container>
-  );
-};
+import { PasswordField } from "./PasswordField";
 
-export default {
+const meta: Meta<typeof PasswordField> = {
   component: PasswordField,
   title: "Forms/Input/PasswordField",
   tags: ["form-field", "input", "autodocs"],
-  argTypes: {
-    value: { control: "text" },
-    label: { control: "text" },
-    error: { control: "text" },
-    disabled: { control: "boolean" },
-    placeholder: { control: "text" },
-    readOnly: { control: "boolean" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
+  render: ({ value: valueProp, ...props }) => {
+    const [value, setValue] = useState(valueProp);
+
+    useEffect(() => {
+      setValue(valueProp);
+    }, [valueProp]);
+
+    return (
+      <PasswordField
+        {...props}
+        value={value}
+        onChange={setValue}
+      />
+    );
   },
 };
 
-export const Playground = {
+export default meta;
+
+export const Playground: StoryObj<typeof PasswordField> = {
   args: {
     label: "Label",
     disabled: false,

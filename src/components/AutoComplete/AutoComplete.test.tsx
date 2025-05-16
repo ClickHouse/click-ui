@@ -213,7 +213,7 @@ describe("AutoComplete", () => {
       expect(queryByText("Content3")).not.toBeNull();
       expect(queryByText("Content1 long text content")).toBeNull();
       expect(queryByText("Group label")).not.toBeVisible();
-      fireEvent.click(getByTestId("search-close"));
+      fireEvent.click(getByTestId("textfield-clear"));
       expect(queryByText("Group label")).toBeVisible();
       expect(queryByText("Content0")).not.toBeNull();
       expect(queryByText("Content1 long text content")).not.toBeNull();

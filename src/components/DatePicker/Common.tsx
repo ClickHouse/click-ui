@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { InputElement, InputWrapper } from "../Input/InputWrapper";
+import { InputElement, InputStartContent, InputWrapper } from "../Input/InputWrapper";
 import { ReactNode, useCallback, useId } from "react";
 import { Icon } from "../Icon/Icon";
 import { Container } from "../Container/Container";
@@ -53,8 +53,11 @@ export const DatePickerInput = ({
       disabled={disabled}
       id={id ?? defaultId}
     >
-      <Icon name="calendar" />
+      <InputStartContent>
+        <Icon name="calendar" />
+      </InputStartContent>
       <InputElement
+        $hasStartContent
         data-testid="datepicker-input"
         placeholder={placeholder}
         readOnly
@@ -120,8 +123,11 @@ export const DateRangePickerInput = ({
       disabled={disabled}
       id={id ?? defaultId}
     >
-      <Icon name="calendar" />
+      <InputStartContent>
+        <Icon name="calendar" />
+      </InputStartContent>
       <InputElement
+        $hasStartContent
         as="div"
         data-testid="daterangepicker-input"
       >
