@@ -1,6 +1,20 @@
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useRef } from "react";
+import {
+  ChangeEvent,
+  InputHTMLAttributes,
+  ReactNode,
+  forwardRef,
+  useId,
+  useRef,
+} from "react";
 import { Icon } from "@/components";
-import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
+import {
+  IconButton,
+  InputElement,
+  InputEndContent,
+  InputStartContent,
+  InputWrapper,
+  WrapperProps,
+} from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
 export interface TextFieldProps
@@ -17,6 +31,14 @@ export interface TextFieldProps
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
   orientation?: "vertical" | "horizontal";
   dir?: "start" | "end";
+  /**
+   * Additional content to the left of the control
+   */
+  startContent?: ReactNode;
+  /**
+   * Additional content to the right of the control
+   */
+  endContent?: ReactNode;
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -34,6 +56,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       onChange: onChangeProp,
       orientation,
       dir,
+      startContent,
+      endContent,
       ...props
     },
     ref
@@ -47,6 +71,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       onChangeProp("");
     };
 
+    const handleStartContentClick: React.MouseEventHandler<HTMLDivElement> = () => {
+      inputRef.current?.focus();
+    };
+
+    const hasStartContent = Boolean(startContent);
+    const hasEndContent = Boolean(clear || loading || endContent);
+
     return (
       <InputWrapper
         disabled={disabled}
@@ -57,7 +88,15 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         orientation={orientation}
         dir={dir}
       >
+        {startContent && (
+          <InputStartContent onClick={handleStartContentClick}>
+            {startContent}
+          </InputStartContent>
+        )}
+
         <InputElement
+          $hasStartContent={hasStartContent}
+          $hasEndContent={hasEndContent}
           ref={mergeRefs([inputRef, ref])}
           type={type}
           id={id ?? defaultId}
@@ -67,24 +106,29 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           {...props}
         />
 
-        {clear && (
-          <IconButton
-            disabled={disabled}
-            onClick={clearInput}
-            $show={value.length > 0}
-            aria-label="clear input"
-          >
-            <Icon
-              name="cross"
-              size="sm"
-            />
-          </IconButton>
-        )}
-        {loading && (
-          <Icon
-            name="loading-animated"
-            size="sm"
-          />
+        {hasEndContent && (
+          <InputEndContent>
+            {endContent ? endContent : null}
+            {clear && (
+              <IconButton
+                disabled={disabled}
+                onClick={clearInput}
+                $show={value.length > 0}
+                aria-label="clear input"
+              >
+                <Icon
+                  name="cross"
+                  size="sm"
+                />
+              </IconButton>
+            )}
+            {loading && (
+              <Icon
+                name="loading-animated"
+                size="sm"
+              />
+            )}
+          </InputEndContent>
         )}
       </InputWrapper>
     );

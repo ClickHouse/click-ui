@@ -182,15 +182,20 @@ export const InputWrapper = ({
   );
 };
 
-export const InputElement = styled.input`
+export const InputElement = styled.input<{
+  $hasStartContent?: boolean;
+  $hasEndContent?: boolean;
+}>`
   background: transparent;
   border: none;
   outline: none;
   width: 100%;
   color: inherit;
   font: inherit;
-  ${({ theme }) => `
-    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
+  ${({ theme, $hasStartContent, $hasEndContent }) => `
+    padding: ${theme.click.field.space.y} 0;
+    padding-left: ${$hasStartContent ? "0" : theme.click.field.space.x};
+    padding-right: ${$hasEndContent ? "0" : theme.click.field.space.x};
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
     }
@@ -260,5 +265,26 @@ export const IconWrapper = styled.svg`
     &:last-of-type {
       padding-right: ${theme.click.field.space.x};
     }
+  `}
+`;
+
+export const InputStartContent = styled.div`
+  ${({ theme }) => `
+    padding-left: ${theme.click.field.space.x};
+    cursor: text;
+    gap: ${theme.click.field.space.gap};
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+  `}
+`;
+
+export const InputEndContent = styled.div`
+  ${({ theme }) => `
+    padding-right: ${theme.click.field.space.x};
+    gap: ${theme.click.field.space.gap};
+    display: flex;
+    align-self: stretch;
+    align-items: center;
   `}
 `;
