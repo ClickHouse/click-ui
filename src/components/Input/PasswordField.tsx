@@ -1,6 +1,12 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from "react";
 import { Icon } from "@/components";
-import { IconButton, InputElement, InputWrapper, WrapperProps } from "./InputWrapper";
+import {
+  IconButton,
+  InputElement,
+  InputEndContent,
+  InputWrapper,
+  WrapperProps,
+} from "./InputWrapper";
 export interface PasswordFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<
@@ -49,6 +55,8 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
         dir={dir}
       >
         <InputElement
+          $hasStartContent={false}
+          $hasEndContent={true}
           ref={ref}
           type={viewPassword ? "text" : "password"}
           id={id ?? defaultId}
@@ -57,16 +65,18 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           onChange={onChange}
           {...props}
         />
-        <IconButton
-          disabled={disabled}
-          onClick={togglePasswordViewer}
-          $show={value.length > 0}
-        >
-          <Icon
-            name={viewPassword ? "eye-closed" : "eye"}
-            size="md"
-          />
-        </IconButton>
+        <InputEndContent>
+          <IconButton
+            disabled={disabled}
+            onClick={togglePasswordViewer}
+            $show={value.length > 0}
+          >
+            <Icon
+              name={viewPassword ? "eye-closed" : "eye"}
+              size="md"
+            />
+          </IconButton>
+        </InputEndContent>
       </InputWrapper>
     );
   }
