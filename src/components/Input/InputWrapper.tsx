@@ -251,9 +251,8 @@ export const IconButton = styled.button`
   &:not(:disabled) {
     cursor: pointer;
   }
-  ${({ theme, $show }) => `
+  ${({ theme }) => `
       padding: ${theme.click.field.space.y} 0;
-      visibility: ${$show ? "visible" : "hidden"};
   `}
 `;
 

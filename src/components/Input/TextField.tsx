@@ -76,7 +76,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     const hasStartContent = Boolean(startContent);
-    const hasEndContent = Boolean(clear || loading || endContent);
+
+    const hasClear = clear && value.length > 0;
+    const hasEndContent = Boolean(hasClear || loading || endContent);
 
     return (
       <InputWrapper
@@ -109,11 +111,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         {hasEndContent && (
           <InputEndContent>
             {endContent ? endContent : null}
-            {clear && (
+            {hasClear && (
               <IconButton
                 disabled={disabled}
                 onClick={clearInput}
-                $show={value.length > 0}
                 aria-label="clear input"
                 data-testid="textfield-clear"
               >

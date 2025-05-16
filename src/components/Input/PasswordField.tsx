@@ -45,6 +45,8 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
       onChangeProp(e.target.value, e);
     };
 
+    const hasEndContent = value.length > 0;
+
     return (
       <InputWrapper
         disabled={disabled}
@@ -56,7 +58,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
       >
         <InputElement
           $hasStartContent={false}
-          $hasEndContent={true}
+          $hasEndContent={hasEndContent}
           ref={ref}
           type={viewPassword ? "text" : "password"}
           id={id ?? defaultId}
@@ -65,18 +67,19 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           onChange={onChange}
           {...props}
         />
-        <InputEndContent>
-          <IconButton
-            disabled={disabled}
-            onClick={togglePasswordViewer}
-            $show={value.length > 0}
-          >
-            <Icon
-              name={viewPassword ? "eye-closed" : "eye"}
-              size="md"
-            />
-          </IconButton>
-        </InputEndContent>
+        {hasEndContent && (
+          <InputEndContent>
+            <IconButton
+              disabled={disabled}
+              onClick={togglePasswordViewer}
+            >
+              <Icon
+                name={viewPassword ? "eye-closed" : "eye"}
+                size="md"
+              />
+            </IconButton>
+          </InputEndContent>
+        )}
       </InputWrapper>
     );
   }
