@@ -1,67 +1,45 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { TextField as TextFieldInput, TextFieldProps } from "./TextField";
-import { Container } from "../Container/Container";
+import { useEffect, useState } from "react";
 
-const TextField = ({ value: valueProp, ...props }: Omit<TextFieldProps, "onChange">) => {
-  const [value, setValue] = useState(valueProp);
-  useEffect(() => {
-    setValue(valueProp);
-  }, [valueProp]);
+import { Meta, StoryObj } from "@storybook/react";
 
-  return (
-    <Container maxWidth="75%">
-      <TextFieldInput
-        value={value}
-        onChange={(inputValue: string, e?: ChangeEvent<HTMLInputElement>) => {
-          if (e) {
-            e.preventDefault();
-          }
-          setValue(inputValue);
-        }}
-        {...props}
-      />
-    </Container>
-  );
-};
+import { TextField } from "./TextField";
 
-export default {
+const meta: Meta<typeof TextField> = {
   component: TextField,
   title: "Forms/Input/TextField",
   tags: ["form-field", "input", "autodocs"],
-  argTypes: {
-    type: {
-      control: "inline-radio",
-      options: ["text", "email", "tel", "url"],
-    },
-    value: { control: "text" },
-    clear: { control: "boolean" },
-    label: { control: "text" },
-    error: { control: "text" },
-    disabled: { control: "boolean" },
-    placeholder: { control: "text" },
-    readOnly: { control: "boolean" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
+  render: ({ value: valueProp, ...props }) => {
+    const [value, setValue] = useState(valueProp);
+
+    useEffect(() => {
+      setValue(valueProp);
+    }, [valueProp]);
+
+    return (
+      <TextField
+        {...props}
+        value={value}
+        onChange={setValue}
+      />
+    );
   },
 };
 
-export const Playground = {
+export default meta;
+
+export const Playground: StoryObj<typeof TextField> = {
   args: {
     label: "Label",
-    clear: false,
     type: "text",
-    disabled: false,
     placeholder: "Placeholder",
   },
 };
 
-export const LabelColor = {
+export const LabelColor: StoryObj<typeof TextField> = {
   args: {
     label: "Label",
     labelColor: "rgb(193, 0, 0)",
-    clear: false,
     type: "text",
-    disabled: false,
     placeholder: "Placeholder",
   },
 };

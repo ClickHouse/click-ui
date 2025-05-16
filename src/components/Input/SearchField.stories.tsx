@@ -1,56 +1,39 @@
 import { useEffect, useState } from "react";
-import { SearchField as SearchFieldInput, SearchFieldProps } from "./SearchField";
+
+import { Meta, StoryObj } from "@storybook/react";
+
 import { Container } from "../Container/Container";
 
-const SearchField = ({
-  value: valueProp,
-  ...props
-}: Omit<SearchFieldProps, "onChange">) => {
-  const [value, setValue] = useState(valueProp);
-  useEffect(() => {
-    setValue(valueProp);
-  }, [valueProp]);
+import { SearchField } from "./SearchField";
 
-  return (
-    <Container maxWidth="350px">
-      <SearchFieldInput
-        value={value}
-        onChange={(inputValue: string) => {
-          setValue(inputValue);
-        }}
-        {...props}
-      />
-    </Container>
-  );
-};
-
-export default {
+const meta: Meta<typeof SearchField> = {
   component: SearchField,
   title: "Forms/Input/SearchField",
   tags: ["form-field", "input", "autodocs"],
-  argTypes: {
-    value: { control: "text" },
-    clear: { control: "boolean" },
-    label: { control: "text" },
-    error: { control: "text" },
-    disabled: { control: "boolean" },
-    placeholder: { control: "text" },
-    readOnly: { control: "boolean" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
-    isFilter: { control: "boolean" },
+  render: ({ value: valueProp, ...props }) => {
+    const [value, setValue] = useState(valueProp);
+
+    useEffect(() => {
+      setValue(valueProp);
+    }, [valueProp]);
+
+    return (
+      <Container maxWidth="350px">
+        <SearchField
+          {...props}
+          value={value}
+          onChange={setValue}
+        />
+      </Container>
+    );
   },
 };
 
-export const Playground = {
+export default meta;
+
+export const Playground: StoryObj<typeof SearchField> = {
   args: {
     label: "Label",
-    disabled: false,
     placeholder: "Placeholder",
-    clear: false,
-    readOnly: false,
-    isFilter: false,
-    value: "",
-    error: "",
   },
 };
