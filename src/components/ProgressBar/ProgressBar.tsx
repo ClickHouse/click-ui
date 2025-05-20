@@ -55,7 +55,7 @@ const ProgressContainer = styled.div<{
   min-height: 2px;
   ${({ theme, $completed, $progress, $type }) => `
     background: ${
-      $completed
+      $completed && $type === "default"
         ? theme.click.field.color.background.default
         : `linear-gradient(to right, ${theme.global.color.accent.default} 0%, ${theme.global.color.accent.default} ${$progress}%, ${theme.click.field.color.background.default} ${$progress}%,  ${theme.click.field.color.background.default} 100%)`
     };
