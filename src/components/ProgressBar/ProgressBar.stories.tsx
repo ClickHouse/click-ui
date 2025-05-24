@@ -23,12 +23,20 @@ export default {
   },
 };
 
-export const Playground = {
+export const DefaultProgressBar = {
   args: {
-    progress: 0,
+    progress: 100,
     type: "default",
     dismissable: true,
     onCancel: () => console.log("onCancel clicked"),
+    successMessage: "Progress completed",
+  },
+};
+
+export const SmallProgressBar = {
+  args: {
+    progress: 100,
+    type: "small",
     successMessage: "Progress completed",
   },
 };
