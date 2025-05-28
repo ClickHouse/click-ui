@@ -141,19 +141,32 @@ interface DateRange {
   endDate: Date;
 }
 
-const getLastMonths = (numberOfMonths: number = 6): Array<DateRange> => {
+const getMonthsByNumber = (numberOfMonths: number): Array<DateRange> => {
   const now = dayjs();
 
-  const lastSixMonths: Array<DateRange> = [];
+  if (numberOfMonths < 0) {
+    const lastSixMonths: Array<DateRange> = [];
+    for (let i = 0; i < Math.abs(numberOfMonths); i++) {
+      const date = now.subtract(i, "month");
+      lastSixMonths.push({
+        startDate: date.startOf("month").toDate(),
+        endDate: i === 0 ? now.toDate() : date.endOf("month").toDate(),
+      });
+    }
+
+    return lastSixMonths;
+  }
+
+  const nextSixMonths: Array<DateRange> = [];
   for (let i = 0; i < numberOfMonths; i++) {
-    const date = now.subtract(i, "month");
-    lastSixMonths.push({
+    const date = now.add(i, "month");
+    nextSixMonths.push({
       startDate: date.startOf("month").toDate(),
       endDate: i === 0 ? now.toDate() : date.endOf("month").toDate(),
     });
   }
 
-  return lastSixMonths;
+  return nextSixMonths;
 };
 
 interface PredefinedDatesProps {
@@ -177,7 +190,7 @@ const PredefinedDates = ({
   shouldShowCustomRange,
   showCustomDateRange,
 }: PredefinedDatesProps) => {
-  const pastSixMonths = getLastMonths(predefinedDatesCount);
+  const pastSixMonths = getMonthsByNumber(predefinedDatesCount);
 
   const handleCustomTimePeriodClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -318,6 +331,18 @@ export const DateRangePicker = ({
     [onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
+  const shouldShowPredefinedDates =
+    predefinedDatesCount !== undefined && predefinedDatesCount !== 0;
+
+  let clampedPredefinedDatesCount = 0;
+  if (shouldShowPredefinedDates) {
+    if (predefinedDatesCount > 0) {
+      clampedPredefinedDatesCount = Math.min(6, predefinedDatesCount);
+    } else {
+      clampedPredefinedDatesCount = Math.max(-6, predefinedDatesCount);
+    }
+  }
+
   return (
     <Dropdown
       onOpenChange={handleOpenChange}
@@ -334,14 +359,14 @@ export const DateRangePicker = ({
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
-        {predefinedDatesCount !== undefined && predefinedDatesCount > 0 ? (
+        {shouldShowPredefinedDates ? (
           <Panel
             orientation="horizontal"
             padding="none"
           >
             <PredefinedDates
               onSelectDateRange={onSelectDateRange}
-              predefinedDatesCount={Math.min(6, predefinedDatesCount)}
+              predefinedDatesCount={clampedPredefinedDatesCount}
               selectedEndDate={selectedEndDate}
               selectedStartDate={selectedStartDate}
               setEndDate={setSelectedEndDate}
