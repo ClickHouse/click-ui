@@ -277,6 +277,7 @@ export const CalendarRenderer = ({
         orientation="horizontal"
       >
         <IconButton
+          data-testid="calendar-previous-month"
           icon="chevron-left"
           onClick={handlePreviousClick}
           size="sm"
@@ -284,6 +285,7 @@ export const CalendarRenderer = ({
         />
         <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
         <IconButton
+          data-testid="calendar-next-month"
           icon="chevron-right"
           onClick={handleNextClick}
           size="sm"
