@@ -64,7 +64,7 @@ describe("MultiSelect", () => {
     expect(queryByText("Content0")).not.toBeNull();
   });
 
-  it("should always respect given value in select", () => {
+  it("should prioritize external value over internal state", () => {
     const onSelect = vi.fn();
     const { queryByText, getByTestId, getByText } = renderSelect({
       value: ["content0", "content1"],
@@ -85,6 +85,51 @@ describe("MultiSelect", () => {
     });
     expect(onSelect).toBeCalledTimes(1);
     expect(queryByTestingText(selectTrigger, "Content3")).toBeNull();
+  });
+
+  it("should react to external value change", () => {
+    const { getByTestId, rerender } = renderCUI(
+      <MultiSelect
+        value={["content0", "content1"]}
+        options={selectOptions}
+      />
+    );
+    const selectTrigger = getByTestId("select-trigger");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "Content0")).not.toBeNull();
+    expect(
+      queryByTestingText(selectTrigger, "Content1 long text content")
+    ).not.toBeNull();
+    rerender(
+      <MultiSelect
+        value={["content0", "content3"]}
+        options={selectOptions}
+      />
+    );
+    expect(queryByTestingText(selectTrigger, "Content0")).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "Content1 long text content")).toBeNull();
+    expect(queryByTestingText(selectTrigger, "Content3")).not.toBeNull();
+  });
+
+  it("shuold fall back to placeholder if value changes to undefined", () => {
+    const { getByTestId, rerender } = renderCUI(
+      <MultiSelect
+        value={["content0", "content1"]}
+        placeholder="noop"
+        options={selectOptions}
+      />
+    );
+    const selectTrigger = getByTestId("select-trigger");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "noop")).toBeNull();
+    rerender(
+      <MultiSelect
+        value={undefined}
+        placeholder="noop"
+        options={selectOptions}
+      />
+    );
+    expect(queryByTestingText(selectTrigger, "noop")).not.toBeNull();
   });
 
   it("should respect given defaultValue in select", () => {
