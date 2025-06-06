@@ -93,7 +93,7 @@ describe("Select", () => {
     expect(queryByText("Content0")).toBeNull();
   });
 
-  it("should always respect given value in select", () => {
+  it("should prioritize external value over internal state", () => {
     const onSelect = vi.fn();
     const { queryByText, getByTestId, getByText } = renderSelect({
       value: "content0",
@@ -113,6 +113,46 @@ describe("Select", () => {
     expect(queryByText("Content4")).toBeNull();
     expect(queryByTestingText(selectTrigger, "Content3")).toBeNull();
     expect(queryByTestingText(selectTrigger, "Content0")).not.toBeNull();
+  });
+
+  it("should react to external value change", () => {
+    const { getByTestId, rerender } = renderCUI(
+      <Select
+        value="content0"
+        options={selectOptions}
+      />
+    );
+    const selectTrigger = getByTestId("select-trigger");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "Content0")).not.toBeNull();
+    rerender(
+      <Select
+        value="content3"
+        options={selectOptions}
+      />
+    );
+    expect(queryByTestingText(selectTrigger, "Content3")).not.toBeNull();
+  });
+
+  it("shuold fall back to placeholder if value changes to undefined", () => {
+    const { getByTestId, rerender } = renderCUI(
+      <Select
+        value="content0"
+        placeholder="noop"
+        options={selectOptions}
+      />
+    );
+    const selectTrigger = getByTestId("select-trigger");
+    expect(selectTrigger).not.toBeNull();
+    expect(queryByTestingText(selectTrigger, "noop")).toBeNull();
+    rerender(
+      <Select
+        value={undefined}
+        placeholder="noop"
+        options={selectOptions}
+      />
+    );
+    expect(queryByTestingText(selectTrigger, "noop")).not.toBeNull();
   });
 
   it("should respect given defaultValue in select", () => {
