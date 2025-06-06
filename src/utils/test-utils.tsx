@@ -2,6 +2,7 @@ import { type ThemeName } from "@/theme";
 import { render as renderTL } from "@testing-library/react";
 import { ClickUIProvider } from "..";
 
+// eslint-disable-next-line react-refresh/only-export-components
 const Wrapper = ({
   theme,
   children,
