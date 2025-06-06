@@ -150,4 +150,182 @@ describe("DateRangePicker", () => {
       expect(handleSelectDate).not.toHaveBeenCalled();
     });
   });
+
+  describe("predefined date ranges", () => {
+    beforeEach(() => {
+      vi.setSystemTime(new Date("07-04-2020"));
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("doesn't show any preselected dates if the value isn't set", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, queryByTestId } = renderCUI(
+        <DateRangePicker onSelectDateRange={handleSelectDate} />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      expect(queryByTestId("predefined-dates-list")).not.toBeInTheDocument();
+    });
+
+    it("shows dates in the past if the value is negative", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-6}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      expect(getByText("Jul 2020")).toBeInTheDocument();
+      expect(getByText("Jun 2020")).toBeInTheDocument();
+      expect(getByText("May 2020")).toBeInTheDocument();
+      expect(getByText("Apr 2020")).toBeInTheDocument();
+      expect(getByText("Mar 2020")).toBeInTheDocument();
+      expect(getByText("Feb 2020")).toBeInTheDocument();
+    });
+
+    it("shows dates in the future if the value is positive", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={6}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      expect(getByText("Jul 2020")).toBeInTheDocument();
+      expect(getByText("Aug 2020")).toBeInTheDocument();
+      expect(getByText("Sep 2020")).toBeInTheDocument();
+      expect(getByText("Oct 2020")).toBeInTheDocument();
+      expect(getByText("Nov 2020")).toBeInTheDocument();
+      expect(getByText("Dec 2020")).toBeInTheDocument();
+    });
+
+    it("allows showing the full calendar", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText, queryByTestId } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-12}
+        />
+      );
+
+      expect(queryByTestId("datepicker-calendar-container")).not.toBeInTheDocument();
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+      await userEvent.click(getByText("Custom time period"));
+
+      expect(getByTestId("datepicker-calendar-container")).toBeInTheDocument();
+    });
+
+    it("shows at maximum six dates in the past or future", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText, queryByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-12}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      expect(getByText("Jul 2020")).toBeInTheDocument();
+      expect(getByText("Jun 2020")).toBeInTheDocument();
+      expect(getByText("May 2020")).toBeInTheDocument();
+      expect(getByText("Apr 2020")).toBeInTheDocument();
+      expect(getByText("Mar 2020")).toBeInTheDocument();
+      expect(getByText("Feb 2020")).toBeInTheDocument();
+
+      expect(queryByText("Jan 2020")).not.toBeInTheDocument();
+    });
+
+    it("selects up to the current date if the current month is selected", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-6}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      await userEvent.click(getByText("Jul 2020"));
+      expect(getByText("Jul 01, 2020 – Jul 04, 2020")).toBeInTheDocument();
+    });
+
+    it("selects the full month if a date in the past or future is selected", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-6}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      await userEvent.click(getByText("May 2020"));
+      expect(getByText("May 01, 2020 – May 31, 2020")).toBeInTheDocument();
+    });
+
+    it("shows the selected month if an entire month is manually selected", async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getAllByText, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-6}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+      await userEvent.click(getByText("Custom time period"));
+      await userEvent.click(getByTestId("calendar-previous-month"));
+
+      await userEvent.click(getAllByText("1")[0]);
+      await userEvent.click(getByText("30"));
+
+      expect(getByText("Jun 01, 2020 – Jun 30, 2020")).toBeInTheDocument();
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+      expect(getByText("Jun 2020").getAttribute("data-selected")).toBeTruthy();
+    });
+
+    it("shows months wrapping around to the next or previous year", async () => {
+      vi.setSystemTime(new Date("03-04-2020"));
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedDatesCount={-6}
+        />
+      );
+
+      await userEvent.click(getByTestId("daterangepicker-input"));
+
+      expect(getByText("Mar 2020")).toBeInTheDocument();
+      expect(getByText("Feb 2020")).toBeInTheDocument();
+      expect(getByText("Jan 2020")).toBeInTheDocument();
+      expect(getByText("Dec 2019")).toBeInTheDocument();
+      expect(getByText("Nov 2019")).toBeInTheDocument();
+      expect(getByText("Oct 2019")).toBeInTheDocument();
+    });
+  });
 });
