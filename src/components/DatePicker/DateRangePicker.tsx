@@ -27,6 +27,11 @@ const DateRangeTableCell = styled(DateTableCell)<{
     `}
 `;
 
+// ${({ theme }) => }
+const PredefinedCalendarContainer = styled(Panel)`
+  background: #282828;
+`;
+
 const PredefinedDatesContainer = styled(Container)`
   width: 275px;
 `;
@@ -199,6 +204,7 @@ const PredefinedDates = ({
 
   return (
     <PredefinedDatesContainer
+      data-testid="predefined-dates-list"
       isResponsive={false}
       orientation="vertical"
     >
@@ -208,20 +214,25 @@ const PredefinedDates = ({
           setEndDate(endDate);
           onSelectDateRange(startDate, endDate);
         };
+
+        const monthIsSelected =
+          selectedEndDate &&
+          isSameDate(selectedEndDate, endDate) &&
+          selectedStartDate &&
+          isSameDate(selectedStartDate, startDate);
         return (
           <StyledDropdownItem
+            data-testid={`predefined-date-${startDate.getTime()}`}
             key={startDate.toISOString()}
             onClick={handleItemClick}
           >
             <Container
+              data-selected={monthIsSelected}
               justifyContent="space-between"
               orientation="horizontal"
             >
               {monthFormatter.format(startDate)}
-              {selectedEndDate &&
-                isSameDate(selectedEndDate, endDate) &&
-                selectedStartDate &&
-                isSameDate(selectedStartDate, startDate) && <Icon name="check" />}
+              {monthIsSelected && <Icon name="check" />}
             </Container>
           </StyledDropdownItem>
         );
@@ -360,7 +371,7 @@ export const DateRangePicker = ({
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
         {shouldShowPredefinedDates ? (
-          <Panel
+          <PredefinedCalendarContainer
             orientation="horizontal"
             padding="none"
           >
@@ -389,7 +400,7 @@ export const DateRangePicker = ({
                 )}
               </CalendarRenderer>
             )}
-          </Panel>
+          </PredefinedCalendarContainer>
         ) : (
           <CalendarRenderer calendarOptions={calendarOptions}>
             {body => (
