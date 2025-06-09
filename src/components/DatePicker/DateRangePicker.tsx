@@ -27,9 +27,9 @@ const DateRangeTableCell = styled(DateTableCell)<{
     `}
 `;
 
-// ${({ theme }) => }
 const PredefinedCalendarContainer = styled(Panel)`
-  background: #282828;
+  align-items: start;
+  background: ${({ theme }) => theme.click.panel.color.background.muted};
 `;
 
 const PredefinedDatesContainer = styled(Container)`
@@ -372,6 +372,7 @@ export const DateRangePicker = ({
       <Dropdown.Content align="start">
         {shouldShowPredefinedDates ? (
           <PredefinedCalendarContainer
+            gap="none"
             orientation="horizontal"
             padding="none"
           >
