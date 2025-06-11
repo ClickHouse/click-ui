@@ -629,15 +629,33 @@ export const MultiSelectCheckboxItem = forwardRef<
   ) => {
     const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
       useOption();
-    const onSelectValue = (evt: MouseEvent<HTMLElement>) => {
+
+    const handleSelect = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
         onSelect(value, undefined, evt);
-        if (typeof onSelectProp == "function") {
+
+        if (typeof onSelectProp === "function") {
           onSelectProp(value, undefined, evt);
         }
       }
     };
-    const onMouseOver = (e: MouseEvent<HTMLDivElement>) => {
+
+    const handleMenuItemClick = (evt: MouseEvent<HTMLElement>) => {
+      // Clicking checkbox label fires another click event on the checkbox input.
+      // They cancel each other out, so we handle checkbox clicks separately,
+      // and this covers the outside area.
+      if (evt.target !== evt.currentTarget) {
+        return;
+      }
+
+      handleSelect(evt);
+    };
+
+    const handleCheckboxClick = (evt: MouseEvent<HTMLButtonElement>): void => {
+      handleSelect(evt);
+    };
+
+    const handleMenuItemMouseOver = (e: MouseEvent<HTMLDivElement>) => {
       if (onMouseOverProp) {
         onMouseOverProp(e);
       }
@@ -649,19 +667,16 @@ export const MultiSelectCheckboxItem = forwardRef<
     if (isHidden(value)) {
       return null;
     }
-    const isChecked = selectedValues.includes(value);
 
-    const onChange = (): void => {
-      onSelect(value);
-    };
+    const isChecked = selectedValues.includes(value);
 
     return (
       <>
         <GenericMenuItem
           {...props}
           data-value={value}
-          onClick={onSelectValue}
-          onMouseOver={onMouseOver}
+          onClick={handleMenuItemClick}
+          onMouseOver={handleMenuItemMouseOver}
           ref={forwardedRef}
           data-disabled={disabled ? true : undefined}
           data-highlighted={highlighted == value ? "true" : undefined}
@@ -692,7 +707,7 @@ export const MultiSelectCheckboxItem = forwardRef<
                   </div>
                 )
               }
-              onClick={onChange}
+              onClick={handleCheckboxClick}
               variant={variant ?? "default"}
             />
           )}
@@ -706,7 +721,7 @@ export const MultiSelectCheckboxItem = forwardRef<
                 data-testid="multi-select-checkbox"
                 disabled={disabled}
                 label={label ?? children}
-                onClick={onChange}
+                onClick={handleCheckboxClick}
                 variant={variant ?? "default"}
               />
             </IconWrapper>
@@ -717,7 +732,7 @@ export const MultiSelectCheckboxItem = forwardRef<
               data-testid="multi-select-checkbox"
               disabled={disabled}
               label={label ?? children}
-              onClick={onChange}
+              onClick={handleCheckboxClick}
               variant={variant ?? "default"}
             />
           )}
