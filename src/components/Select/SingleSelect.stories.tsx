@@ -42,8 +42,12 @@ const SelectExample = ({ childrenType, value, ...props }: Props) => {
         disabled
       >
         Content2
+        <Select.ItemDescription>Description of a disabled item</Select.ItemDescription>
       </Select.Item>
-      <Select.Item value="content3">Content3</Select.Item>
+      <Select.Item value="content3">
+        Content3
+        <Select.ItemDescription>Description of Content3</Select.ItemDescription>
+      </Select.Item>
       <Select.Item
         value="content4"
         label="Content4"
