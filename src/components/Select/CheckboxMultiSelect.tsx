@@ -5,6 +5,7 @@ import {
   SelectGroup,
   InternalSelect,
   MultiSelectCheckboxItem,
+  SelectItemDescription,
 } from "./common/InternalSelect";
 
 import { MultiSelectProps } from "..";
@@ -90,3 +91,4 @@ export const CheckboxMultiSelect = ({
 
 CheckboxMultiSelect.Group = SelectGroup;
 CheckboxMultiSelect.Item = MultiSelectCheckboxItem;
+CheckboxMultiSelect.ItemDescription = SelectItemDescription;

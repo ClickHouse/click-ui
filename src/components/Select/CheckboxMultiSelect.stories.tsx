@@ -50,7 +50,12 @@ const CheckboxMultiSelectExample = ({ childrenType, value, ...props }: Props) =>
         value="content2"
         label="Content2"
       />
-      <CheckboxMultiSelect.Item value="content3">Content3</CheckboxMultiSelect.Item>
+      <CheckboxMultiSelect.Item value="content3">
+        Content3
+        <CheckboxMultiSelect.ItemDescription>
+          Description of Content3
+        </CheckboxMultiSelect.ItemDescription>
+      </CheckboxMultiSelect.Item>
     </CheckboxMultiSelect>
   );
 };

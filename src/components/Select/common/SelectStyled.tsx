@@ -254,3 +254,17 @@ export const SelectNoDataContainer = styled.div<{ $clickable: boolean }>`
     cursor: ${$clickable ? "pointer" : "default"}
   `}
 `;
+
+export const SelectItemDescriptionText = styled.div`
+  white-space: normal;
+
+  [data-disabled] &,
+  [disabled] & {
+    color: inherit;
+  }
+
+  // don't show description when item is rendered in the trigger
+  ${StyledSelectTrigger} & {
+    display: none;
+  }
+`;

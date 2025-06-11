@@ -44,7 +44,10 @@ const MultiSelectExample = ({ childrenType, value, ...props }: Props) => {
         value="content2"
         label="Content2"
       />
-      <MultiSelect.Item value="content3">Content3</MultiSelect.Item>
+      <MultiSelect.Item value="content3">
+        Content3
+        <MultiSelect.ItemDescription>Description of Content3</MultiSelect.ItemDescription>
+      </MultiSelect.Item>
     </MultiSelect>
   );
 };

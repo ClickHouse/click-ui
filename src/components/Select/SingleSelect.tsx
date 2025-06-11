@@ -3,7 +3,12 @@ import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 import { useUpdateEffect } from "@/hooks";
 
 import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
-import { InternalSelect, SelectGroup, SelectItem } from "./common/InternalSelect";
+import {
+  InternalSelect,
+  SelectGroup,
+  SelectItem,
+  SelectItemDescription,
+} from "./common/InternalSelect";
 
 export interface SelectProps
   extends Omit<
@@ -106,3 +111,4 @@ export const Select = ({
 
 Select.Group = SelectGroup;
 Select.Item = SelectItem;
+Select.ItemDescription = SelectItemDescription;

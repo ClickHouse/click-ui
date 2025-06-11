@@ -30,6 +30,8 @@ import {
   IconButton,
   Label,
   Separator,
+  Text,
+  TextProps,
 } from "@/components";
 import {
   SelectPopoverContent,
@@ -46,6 +48,7 @@ import {
   SelectGroupName,
   SelectGroupContent,
   SelectNoDataContainer,
+  SelectItemDescriptionText,
 } from "./SelectStyled";
 import { OptionContext } from "./OptionContext";
 import { MultiSelectValue } from "../MultiSelectValue";
@@ -696,3 +699,15 @@ export const MultiSelectCheckboxItem = forwardRef<
 );
 
 MultiSelectCheckboxItem.displayName = "Select.Item";
+
+export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(props => {
+  return (
+    <Text
+      component={SelectItemDescriptionText}
+      color="muted"
+      {...props}
+    />
+  );
+});
+
+SelectItemDescription.displayName = "Select.ItemDescription";
