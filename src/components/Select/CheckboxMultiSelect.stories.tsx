@@ -27,7 +27,8 @@ const CheckboxMultiSelectExample = ({ childrenType, value, ...props }: Props) =>
   }
   return (
     <CheckboxMultiSelect
-      value={value ? value.split(",") : undefined}
+      value={selectedValues}
+      onSelect={value => setSelectedValues(value)}
       selectLabel="Columns"
       {...props}
     >

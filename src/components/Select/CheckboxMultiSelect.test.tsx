@@ -90,7 +90,7 @@ describe("CheckboxCheckboxMultiSelect", () => {
     expect(queryByTestingText(selectTrigger, "Content3")).not.toBeInTheDocument();
   });
 
-  it("shows allows checking and unchecking", async () => {
+  it("allows checking and unchecking", async () => {
     const { getByTestId } = renderSelect({
       selectLabel: "Select columns",
       value: ["content0", "content1"],
@@ -117,6 +117,59 @@ describe("CheckboxCheckboxMultiSelect", () => {
       "data-state",
       "checked"
     );
+  });
+
+  it("reports onSelect by clicking on the label", () => {
+    const handleSelect = vi.fn();
+    const { queryByText, getByTestId } = renderSelect({
+      selectLabel: "Select columns",
+      value: ["content0", "content1"],
+      onSelect: handleSelect,
+    });
+
+    const selectTrigger = getByTestId("select-trigger");
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(handleSelect).not.toHaveBeenCalled();
+    const content0Label = queryByText("Content0");
+    content0Label && fireEvent.click(content0Label);
+    expect(handleSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports onSelect by clicking on the checkbox", () => {
+    const handleSelect = vi.fn();
+    const { getByTestId } = renderSelect({
+      selectLabel: "Select columns",
+      value: ["content0", "content1"],
+      onSelect: handleSelect,
+    });
+
+    const selectTrigger = getByTestId("select-trigger");
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(handleSelect).not.toHaveBeenCalled();
+    const content0Checkbox = screen
+      .getByTestId("multi-select-checkbox-content0")
+      .querySelector("[role='checkbox']");
+    fireEvent.click(content0Checkbox!);
+    expect(handleSelect).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports onSelect by clicking on the menu item", () => {
+    const handleSelect = vi.fn();
+    const { getByTestId } = renderSelect({
+      selectLabel: "Select columns",
+      value: ["content0", "content1"],
+      onSelect: handleSelect,
+    });
+
+    const selectTrigger = getByTestId("select-trigger");
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(handleSelect).not.toHaveBeenCalled();
+    const content0MenuItem = screen.getByTestId("multi-select-checkbox-content0");
+    content0MenuItem && fireEvent.click(content0MenuItem);
+    expect(handleSelect).toHaveBeenCalledTimes(1);
   });
 
   it("shows errors", () => {

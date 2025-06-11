@@ -25,7 +25,8 @@ const MultiSelectExample = ({ childrenType, value, ...props }: Props) => {
   }
   return (
     <MultiSelect
-      value={value ? value.split(",") : undefined}
+      value={selectedValues}
+      onSelect={value => setSelectedValues(value)}
       {...props}
     >
       <MultiSelect.Group heading="Group label">
