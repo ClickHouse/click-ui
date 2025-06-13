@@ -21,11 +21,13 @@ interface SelectItemComponentProps
 type SelectItemChildren = {
   children: ReactNode;
   label?: never;
+  description?: never;
 };
 
 type SelectItemLabel = {
   children?: never;
   label: ReactNode;
+  description?: ReactNode;
 };
 
 export type SelectItemProps = SelectItemComponentProps &
@@ -36,15 +38,16 @@ export interface SelectGroupProps
   value?: never;
   onSelect?: never;
 }
-export interface SelectOptionItem extends Omit<SelectItemProps, "children" | "label"> {
-  heading?: never;
+export interface SelectOptionItem
+  extends Omit<SelectItemProps, "children" | "label" | "description"> {
   label: ReactNode;
+  description?: ReactNode;
   [key: `data-${string}`]: string;
 }
 
-interface SelectGroupOptionItem extends Omit<SelectGroupProps, "children" | "label"> {
+interface SelectGroupOptionItem
+  extends Omit<SelectGroupProps, "children" | "label" | "description"> {
   options: Array<SelectOptionItem>;
-  label?: never;
   [key: `data-${string}`]: string;
 }
 

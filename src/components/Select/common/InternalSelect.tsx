@@ -426,24 +426,20 @@ export const InternalSelect = ({
                                 key={`select-${id}-group-${index}`}
                                 {...groupProps}
                               >
-                                {itemList.map(({ label, ...itemProps }, itemIndex) => {
+                                {itemList.map((itemProps, itemIndex) => {
                                   if (checkbox) {
                                     return (
                                       <MultiSelectCheckboxItem
                                         key={`select-${id}-group-${index}-item-${itemIndex}`}
                                         {...itemProps}
-                                      >
-                                        {label}
-                                      </MultiSelectCheckboxItem>
+                                      />
                                     );
                                   }
                                   return (
                                     <SelectItem
                                       key={`select-${id}-group-${index}-item-${itemIndex}`}
                                       {...itemProps}
-                                    >
-                                      {label}
-                                    </SelectItem>
+                                    />
                                   );
                                 })}
                               </SelectGroup>
@@ -539,6 +535,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       disabled = false,
       children,
       label,
+      description,
       separator,
       onSelect: onSelectProp,
       value = "",
@@ -591,7 +588,16 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             iconDir={iconDir}
             gap="xxs"
           >
-            {label ?? children}
+            {label ? (
+              <>
+                {label}
+                {description && (
+                  <SelectItemDescription>{description}</SelectItemDescription>
+                )}
+              </>
+            ) : (
+              children
+            )}
           </IconWrapper>
           <CheckIcon
             as={Icon}
@@ -623,6 +629,7 @@ export const MultiSelectCheckboxItem = forwardRef<
       icon,
       iconDir = "end",
       label,
+      description,
       onMouseOver: onMouseOverProp,
       onSelect: onSelectProp,
       separator,
@@ -688,7 +695,16 @@ export const MultiSelectCheckboxItem = forwardRef<
               iconDir={iconDir}
               gap="xxs"
             >
-              {label ?? children}
+              {label ? (
+                <>
+                  {label}
+                  {description && (
+                    <SelectItemDescription>{description}</SelectItemDescription>
+                  )}
+                </>
+              ) : (
+                children
+              )}
             </IconWrapper>
           </Container>
         </GenericMenuItem>

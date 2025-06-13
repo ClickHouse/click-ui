@@ -18,11 +18,13 @@ export const selectOptions: Array<SelectOptionListItem> = [
   {
     value: "content2",
     label: "Content2",
+    description: "Description of a disabled item",
     disabled: true,
   },
   {
     value: "content3",
     label: "Content3",
+    description: "Description of Content3",
   },
   {
     value: "content4",
