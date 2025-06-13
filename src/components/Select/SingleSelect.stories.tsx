@@ -1,30 +1,23 @@
-import { Preview } from "@storybook/react";
-import { Select, SelectProps } from "@/components/Select/SingleSelect";
+import { Meta, StoryObj } from "@storybook/react";
+import { Select } from "@/components/Select/SingleSelect";
 import { selectOptions } from "@/components/Select/selectOptions";
-import { useEffect, useState } from "react";
 import { Container } from "@/components/Container/Container";
 import { Panel } from "@/components/Panel/Panel";
 import { Title } from "@/components/Typography/Title/Title";
-interface Props extends SelectProps {
-  childrenType: "children" | "options";
-}
-const SelectExample = ({ childrenType, value, ...props }: Props) => {
-  const [selectedValue, setSelectedValue] = useState(value);
-  useEffect(() => {
-    setSelectedValue(value);
-  }, [value]);
 
-  if (childrenType === "options") {
-    return (
-      <Select
-        value={selectedValue}
-        onSelect={value => setSelectedValue(value)}
-        options={selectOptions}
-        {...props}
-      />
-    );
-  }
-  return (
+const meta: Meta<typeof Select> = {
+  component: Select,
+  title: "Forms/Select",
+  tags: ["form-field", "select", "autodocs"],
+};
+
+export default meta;
+
+export const OptionsAsChildren: StoryObj<typeof Select> = {
+  args: {
+    label: "Label",
+  },
+  render: props => (
     <Select {...props}>
       <Select.Group heading="Group label">
         <Select.Item
@@ -42,91 +35,30 @@ const SelectExample = ({ childrenType, value, ...props }: Props) => {
         disabled
       >
         Content2
+        <Select.ItemDescription>Description of a disabled item</Select.ItemDescription>
       </Select.Item>
-      <Select.Item value="content3">Content3</Select.Item>
+      <Select.Item value="content3">
+        Content3
+        <Select.ItemDescription>Description of Content3</Select.ItemDescription>
+      </Select.Item>
       <Select.Item
         value="content4"
         label="Content4"
       />
     </Select>
-  );
+  ),
 };
 
-export default {
-  component: SelectExample,
-  title: "Forms/Select",
-  tags: ["form-field", "select", "autodocs"],
-  argTypes: {
-    label: { control: "text" },
-    disabled: { control: "boolean" },
-    error: { control: "text" },
-    value: { control: "text" },
-    defaultValue: { control: "text" },
-    name: { control: "text" },
-    required: { control: "boolean" },
-    showSearch: { control: "boolean" },
-    form: { control: "text" },
-    allowCreateOption: { control: "boolean" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
-    childrenType: { control: "inline-radio", options: ["children", "options"] },
-    useFullWidthItems: { control: "boolean" },
-    itemCharacterLimit: { control: "text" },
-  },
-};
-
-export const Playground: Preview = {
+export const OptionsAsProp: StoryObj<typeof Select> = {
   args: {
     label: "Label",
-    childrenType: "children",
   },
-  parameters: {
-    docs: {
-      source: {
-        transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
-          const { allowCreateOption, childrenType, value, ...props } = story.args;
-          return `<Select\n  value={${value}}\n${
-            allowCreateOption ? "  allowCreateOption\n" : ""
-          }${Object.entries(props)
-            .flatMap(([key, value]) =>
-              typeof value === "boolean"
-                ? value
-                  ? `  ${key}`
-                  : []
-                : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
-            )
-            .join("\n")}
-${
-  childrenType === "options"
-    ? `options={${JSON.stringify(selectOptions, null, 2)}}\n/`
-    : ""
-}>
-${
-  childrenType !== "options"
-    ? `
-    <Select.Group heading="Group label">
-      <Select.Item value="content0" icon="user>
-        Content0
-      </Select.Item>
-    </Select.Group>
-    <div>
-      <Select.Item value="content1">Content1 long text content</Select.Item>
-    </div>
-    <Select.Item
-      value="content2"
-      disabled
-    >
-      Content2
-    </Select.Item>
-    <Select.Item value="content3">Content3</Select.Item>
-</Select>
-`
-    : ""
-}`;
-        },
-      },
-    },
-  },
+  render: props => (
+    <Select
+      options={selectOptions}
+      {...props}
+    />
+  ),
 };
 
 export const UseFullWidth = {

@@ -29,6 +29,8 @@ import {
   IconButton,
   Label,
   Separator,
+  Text,
+  TextProps,
 } from "@/components";
 import {
   SelectPopoverContent,
@@ -45,6 +47,7 @@ import {
   SelectGroupName,
   SelectGroupContent,
   SelectNoDataContainer,
+  SelectItemDescriptionText,
 } from "./SelectStyled";
 import { OptionContext } from "./OptionContext";
 import { MultiSelectValue } from "../MultiSelectValue";
@@ -422,24 +425,20 @@ export const InternalSelect = ({
                                 key={`select-${id}-group-${index}`}
                                 {...groupProps}
                               >
-                                {itemList.map(({ label, ...itemProps }, itemIndex) => {
+                                {itemList.map((itemProps, itemIndex) => {
                                   if (checkbox) {
                                     return (
                                       <MultiSelectCheckboxItem
                                         key={`select-${id}-group-${index}-item-${itemIndex}`}
                                         {...itemProps}
-                                      >
-                                        {label}
-                                      </MultiSelectCheckboxItem>
+                                      />
                                     );
                                   }
                                   return (
                                     <SelectItem
                                       key={`select-${id}-group-${index}-item-${itemIndex}`}
                                       {...itemProps}
-                                    >
-                                      {label}
-                                    </SelectItem>
+                                    />
                                   );
                                 })}
                               </SelectGroup>
@@ -535,6 +534,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       disabled = false,
       children,
       label,
+      description,
       separator,
       onSelect: onSelectProp,
       value = "",
@@ -586,7 +586,16 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             icon={icon}
             iconDir={iconDir}
           >
-            {label ?? children}
+            {label ? (
+              <>
+                {label}
+                {description && (
+                  <SelectItemDescription>{description}</SelectItemDescription>
+                )}
+              </>
+            ) : (
+              children
+            )}
           </IconWrapper>
           <CheckIcon
             as={Icon}
@@ -618,6 +627,7 @@ export const MultiSelectCheckboxItem = forwardRef<
       icon,
       iconDir = "end",
       label,
+      description,
       onMouseOver: onMouseOverProp,
       onSelect: onSelectProp,
       separator,
@@ -670,6 +680,13 @@ export const MultiSelectCheckboxItem = forwardRef<
 
     const isChecked = selectedValues.includes(value);
 
+    const labelContent = label ? (
+      <>
+        {label}
+        {description && <SelectItemDescription>{description}</SelectItemDescription>}
+      </>
+    ) : null;
+
     return (
       <>
         <GenericMenuItem
@@ -689,13 +706,13 @@ export const MultiSelectCheckboxItem = forwardRef<
               data-testid="multi-select-checkbox"
               disabled={disabled}
               label={
-                label ? (
+                labelContent ? (
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <Icon
                       name={icon}
                       size="sm"
                     />
-                    {label}
+                    {labelContent}
                   </div>
                 ) : (
                   <div style={{ display: "flex", justifyContent: "center" }}>
@@ -720,7 +737,7 @@ export const MultiSelectCheckboxItem = forwardRef<
                 checked={isChecked}
                 data-testid="multi-select-checkbox"
                 disabled={disabled}
-                label={label ?? children}
+                label={labelContent ?? children}
                 onClick={handleCheckboxClick}
                 variant={variant ?? "default"}
               />
@@ -731,7 +748,7 @@ export const MultiSelectCheckboxItem = forwardRef<
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
-              label={label ?? children}
+              label={labelContent ?? children}
               onClick={handleCheckboxClick}
               variant={variant ?? "default"}
             />
@@ -744,3 +761,19 @@ export const MultiSelectCheckboxItem = forwardRef<
 );
 
 MultiSelectCheckboxItem.displayName = "Select.Item";
+
+export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
+  ({ children, ...props }) => {
+    return (
+      <Text
+        component={SelectItemDescriptionText}
+        color="muted"
+        {...props}
+      >
+        {children}
+      </Text>
+    );
+  }
+);
+
+SelectItemDescription.displayName = "Select.ItemDescription";
