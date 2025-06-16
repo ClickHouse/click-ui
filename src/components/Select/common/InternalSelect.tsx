@@ -25,6 +25,7 @@ import { Portal } from "@radix-ui/react-popover";
 import {
   Checkbox,
   CheckboxVariants,
+  Container,
   Icon,
   IconButton,
   Label,
@@ -630,7 +631,7 @@ export const MultiSelectCheckboxItem = forwardRef<
     const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
       useOption();
 
-    const handleSelect = (evt: MouseEvent<HTMLElement>) => {
+    const handleMenuItemClick = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
         onSelect(value, undefined, evt);
 
@@ -638,21 +639,6 @@ export const MultiSelectCheckboxItem = forwardRef<
           onSelectProp(value, undefined, evt);
         }
       }
-    };
-
-    const handleMenuItemClick = (evt: MouseEvent<HTMLElement>) => {
-      // Clicking checkbox label fires another click event on the checkbox input.
-      // They cancel each other out, so we handle checkbox clicks separately,
-      // and this covers the outside area.
-      if (evt.target !== evt.currentTarget) {
-        return;
-      }
-
-      handleSelect(evt);
-    };
-
-    const handleCheckboxClick = (evt: MouseEvent<HTMLButtonElement>): void => {
-      handleSelect(evt);
     };
 
     const handleMenuItemMouseOver = (e: MouseEvent<HTMLDivElement>) => {
@@ -683,59 +669,23 @@ export const MultiSelectCheckboxItem = forwardRef<
           data-testid={`multi-select-checkbox-${value}`}
           cui-select-item=""
         >
-          {icon && iconDir === "start" && (
+          <Container
+            orientation="horizontal"
+            gap="xs"
+          >
             <Checkbox
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
-              label={
-                label ? (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Icon
-                      name={icon}
-                      size="sm"
-                    />
-                    {label}
-                  </div>
-                ) : (
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Icon
-                      name={icon}
-                      size="sm"
-                    />
-                    {children}
-                  </div>
-                )
-              }
-              onClick={handleCheckboxClick}
               variant={variant ?? "default"}
             />
-          )}
-          {icon && iconDir === "end" && (
             <IconWrapper
               icon={icon}
-              iconDir="end"
+              iconDir={iconDir}
             >
-              <Checkbox
-                checked={isChecked}
-                data-testid="multi-select-checkbox"
-                disabled={disabled}
-                label={label ?? children}
-                onClick={handleCheckboxClick}
-                variant={variant ?? "default"}
-              />
+              {label ?? children}
             </IconWrapper>
-          )}
-          {!icon && (
-            <Checkbox
-              checked={isChecked}
-              data-testid="multi-select-checkbox"
-              disabled={disabled}
-              label={label ?? children}
-              onClick={handleCheckboxClick}
-              variant={variant ?? "default"}
-            />
-          )}
+          </Container>
         </GenericMenuItem>
         {separator && <Separator size="sm" />}
       </>
