@@ -608,6 +608,11 @@ export type MultiSelectCheckboxItemProps = SelectItemProps & {
 
 SelectItem.displayName = "Select.Item";
 
+// FIXME IconWrapper should support gap prop
+const IconWrapperCustomGap = styled(IconWrapper)`
+  gap: ${({ theme }) => theme.spaces[1]};
+`;
+
 export const MultiSelectCheckboxItem = forwardRef<
   HTMLDivElement,
   MultiSelectCheckboxItemProps
@@ -679,12 +684,12 @@ export const MultiSelectCheckboxItem = forwardRef<
               disabled={disabled}
               variant={variant ?? "default"}
             />
-            <IconWrapper
+            <IconWrapperCustomGap
               icon={icon}
               iconDir={iconDir}
             >
               {label ?? children}
-            </IconWrapper>
+            </IconWrapperCustomGap>
           </Container>
         </GenericMenuItem>
         {separator && <Separator size="sm" />}
