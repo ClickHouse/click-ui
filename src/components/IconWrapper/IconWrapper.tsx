@@ -1,25 +1,10 @@
 import { ReactNode } from "react";
-import { HorizontalDirection, IconName } from "@/components";
-import { styled } from "styled-components";
-import { EllipsisContent } from "../EllipsisContent/EllipsisContent";
+
+import { Container, HorizontalDirection, IconName } from "@/components";
+import { GapOptions } from "@/components/Container/Container";
+import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
 import { Icon } from "@/components/Icon/Icon";
 import { IconSize } from "@/components/Icon/types";
-
-const LabelContainer = styled.div<{ $hasIcon: boolean; $iconDir: HorizontalDirection }>`
-  display: grid;
-  grid-template-columns: ${({ $hasIcon, $iconDir }) =>
-    `${$hasIcon && $iconDir === "start" ? "auto " : ""}1fr${
-      $hasIcon && $iconDir === "end" ? " auto" : ""
-    }`};
-  align-items: center;
-  justify-content: flex-start;
-
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
-`;
 
 interface IconWrapperProps {
   icon?: IconName;
@@ -29,6 +14,7 @@ interface IconWrapperProps {
   height?: number | string;
   children: ReactNode;
   ellipsisContent?: boolean;
+  gap?: GapOptions;
 }
 
 const IconWrapper = ({
@@ -39,13 +25,14 @@ const IconWrapper = ({
   height,
   children,
   ellipsisContent = true,
+  gap = "sm",
   ...props
 }: IconWrapperProps) => {
   const TextWrapper = ellipsisContent ? EllipsisContent : "div";
   return (
-    <LabelContainer
-      $hasIcon={typeof icon === "string"}
-      $iconDir={iconDir}
+    <Container
+      orientation="horizontal"
+      gap={gap}
       {...props}
     >
       {icon && iconDir === "start" && (
@@ -69,7 +56,7 @@ const IconWrapper = ({
           height={height}
         />
       )}
-    </LabelContainer>
+    </Container>
   );
 };
 export default IconWrapper;
