@@ -13,6 +13,7 @@ import BarChart from "@/components/icons/BarChart";
 import Bell from "@/components/icons/Bell";
 import Beta from "@/components/icons/Beta";
 import Blog from "@/components/icons/Blog";
+import Bold from "@/components/icons/Bold";
 import Book from "@/components/icons/Book";
 import Brackets from "@/components/icons/Brackets";
 import Briefcase from "@/components/icons/Briefcase";
@@ -87,6 +88,7 @@ import InfoInCircleIcon from "@/components/icons/InfoInCircleIcon";
 import InformationIcon from "@/components/icons/InformationIcon";
 import InsertRowIcon from "@/components/icons/InsertRowIcon";
 import Integrations from "@/components/icons/Integrations";
+import Italic from "@/components/icons/Italic";
 import Key from "@/components/icons/Key";
 import Keys from "@/components/icons/Keys";
 import Lifebuoy from "@/components/icons/Lifebuoy";
@@ -94,6 +96,8 @@ import LightBulb from "@/components/icons/LightBulb";
 import LightBulbOn from "@/components/icons/LightBulbOn";
 import Lightening from "@/components/icons/Lightening";
 import LineInCircle from "@/components/icons/LineInCircle";
+import ListBulleted from "@/components/icons/ListBulleted";
+import ListNumbered from "@/components/icons/ListNumbered";
 import Loading from "@/components/icons/Loading";
 import LoadingAnimated from "@/components/icons/LoadingAnimated";
 import Lock from "@/components/icons/Lock";
@@ -141,6 +145,7 @@ import Table from "@/components/icons/Table";
 import Taxi from "@/components/icons/Taxi";
 import Trash from "@/components/icons/Trash";
 import TreeStructure from "@/components/icons/TreeStructure";
+import Underline from "@/components/icons/Underline";
 import Upgrade from "@/components/icons/Upgrade";
 import Upload from "@/components/icons/Upload";
 import Url from "@/components/icons/Url";
@@ -165,6 +170,7 @@ export const ICONS_MAP = {
   bell: Bell,
   beta: Beta,
   blog: Blog,
+  bold: Bold,
   book: Book,
   brackets: Brackets,
   briefcase: Briefcase,
@@ -239,6 +245,7 @@ export const ICONS_MAP = {
   information: InformationIcon,
   "insert-row": InsertRowIcon,
   integrations: Integrations,
+  italic: Italic,
   key: Key,
   keys: Keys,
   lifebuoy: Lifebuoy,
@@ -246,6 +253,8 @@ export const ICONS_MAP = {
   "light-bulb-on": LightBulbOn,
   lightening: Lightening,
   "line-in-circle": LineInCircle,
+  "list-bulleted": ListBulleted,
+  "list-numbered": ListNumbered,
   loading: Loading,
   "loading-animated": LoadingAnimated,
   lock: Lock,
@@ -293,6 +302,7 @@ export const ICONS_MAP = {
   taxi: Taxi,
   trash: Trash,
   "tree-structure": TreeStructure,
+  underline: Underline,
   upgrade: Upgrade,
   upload: Upload,
   url: Url,
