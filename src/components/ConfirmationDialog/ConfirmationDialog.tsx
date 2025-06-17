@@ -23,6 +23,9 @@ const ActionsWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: ${props => props.theme.click.dialog.space.gap};
+  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.sm}) {
+    flex-direction: column;
+  }
 `;
 
 const DialogContent = styled.div`
