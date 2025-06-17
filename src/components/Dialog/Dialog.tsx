@@ -58,8 +58,8 @@ const DialogOverlay = styled(RadixDialog.Overlay)`
 const ContentArea = styled(RadixDialog.Content)`
   background: ${({ theme }) => theme.click.dialog.color.background.default};
   border-radius: ${({ theme }) => theme.click.dialog.radii.all};
-  padding: ${({ theme }) => theme.click.dialog.space.y}
-    ${({ theme }) => theme.click.dialog.space.x};
+  padding: ${({ theme }) =>
+    `${theme.click.dialog.space.y} ${theme.click.dialog.space.x}`};
   box-shadow: ${({ theme }) => theme.click.dialog.shadow.default};
   border: 1px solid ${({ theme }) => theme.click.global.color.stroke.default};
   width: 75%;
@@ -72,6 +72,12 @@ const ContentArea = styled(RadixDialog.Content)`
   transform: translate(-50%, -50%);
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
+
+  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.sm}) {
+    max-height: 100%;
+    border-radius: 0;
+    width: 100%;
+  }
 `;
 
 const TitleArea = styled.div`
