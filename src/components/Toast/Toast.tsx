@@ -179,11 +179,18 @@ const Toast = ({
   );
 };
 
-const Viewport = styled(RadixUIToast.Viewport)`
+const Viewport = styled(RadixUIToast.Viewport)<{ $align: "start" | "end" }>`
   --viewport-padding: 25px;
   position: fixed;
   bottom: 0;
-  right: 0;
+  ${({ $align }) => {
+    if ($align === "start") {
+      return "left: 0";
+    }
+    return `
+      right: 0;
+  `;
+  }};
   display: flex;
   flex-direction: column;
   padding: var(--viewport-padding);
@@ -196,7 +203,11 @@ const Viewport = styled(RadixUIToast.Viewport)`
   outline: none;
 `;
 
-export const ToastProvider = ({ children, ...props }: RadixUIToast.ToastProps) => {
+export interface ToastProviderProps extends RadixUIToast.ToastProps {
+  align: "start" | "end";
+}
+
+export const ToastProvider = ({ children, align, ...props }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<Map<string, ToastProps>>(new Map());
 
   useEffect(() => {
@@ -234,7 +245,7 @@ export const ToastProvider = ({ children, ...props }: RadixUIToast.ToastProps) =
 
   return (
     <RadixUIToast.Provider
-      swipeDirection="right"
+      swipeDirection={align === "start" ? "left" : "right"}
       {...props}
     >
       <ToastContext.Provider value={value}>
@@ -247,7 +258,7 @@ export const ToastProvider = ({ children, ...props }: RadixUIToast.ToastProps) =
           />
         ))}
       </ToastContext.Provider>
-      <Viewport />
+      <Viewport $align={align} />
     </RadixUIToast.Provider>
   );
 };
