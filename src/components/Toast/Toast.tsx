@@ -204,10 +204,14 @@ const Viewport = styled(RadixUIToast.Viewport)<{ $align: "start" | "end" }>`
 `;
 
 export interface ToastProviderProps extends RadixUIToast.ToastProps {
-  align: "start" | "end";
+  align?: "start" | "end";
 }
 
-export const ToastProvider = ({ children, align, ...props }: ToastProviderProps) => {
+export const ToastProvider = ({
+  children,
+  align = "end",
+  ...props
+}: ToastProviderProps) => {
   const [toasts, setToasts] = useState<Map<string, ToastProps>>(new Map());
 
   useEffect(() => {
