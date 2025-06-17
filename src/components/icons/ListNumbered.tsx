@@ -1,6 +1,6 @@
 import { SVGAttributes } from "react";
 
-const ListBulleted = (props: SVGAttributes<SVGElement>) => (
+const ListNumbered = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="24"
     height="24"
@@ -54,4 +54,4 @@ const ListBulleted = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default ListBulleted;
+export default ListNumbered;
