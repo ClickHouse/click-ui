@@ -2,8 +2,7 @@ import {
   Provider as TooltipProvider,
   TooltipProviderProps,
 } from "@radix-ui/react-tooltip";
-import { ToastProps } from "@radix-ui/react-toast";
-import { ToastProvider } from "@/components/Toast/Toast";
+import { ToastProvider, ToastProviderProps } from "@/components/Toast/Toast";
 import { ThemeName } from "@/theme";
 import { ThemeProvider } from "@/theme/theme";
 import { ReactNode } from "react";
@@ -11,7 +10,7 @@ import { ReactNode } from "react";
 interface Props {
   config?: {
     tooltip?: Omit<TooltipProviderProps, "children">;
-    toast?: Omit<ToastProps, "children">;
+    toast?: Omit<ToastProviderProps, "children">;
   };
   theme: ThemeName;
   children: ReactNode;
