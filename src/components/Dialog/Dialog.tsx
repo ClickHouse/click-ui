@@ -76,6 +76,7 @@ const ContentArea = styled(RadixDialog.Content)`
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.sm}) {
     max-height: 100%;
     border-radius: 0;
+    width: 100%;
   }
 `;
 
