@@ -43,6 +43,9 @@ import {
   GridContainer,
   TextField,
   Label,
+  createToast,
+  ToastProvider,
+  Toast,
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
@@ -108,6 +111,78 @@ const App = () => {
       theme={currentTheme}
       config={{ tooltip: { delayDuration: 0 } }}
     >
+      <Button
+        onClick={() => {
+          createToast({
+            title: "Toast Title",
+            description: "This is a toast description",
+            type: "success",
+            actions: [
+              {
+                label: "Action 1",
+                altText: "Action 1 Alt Text",
+                onClick: () => console.log("Action 1 clicked"),
+                type: "secondary",
+              },
+              {
+                label: "Action 2",
+                altText: "Action 2 Alt Text",
+                onClick: () => console.log("Action 2 clicked"),
+                type: "secondary",
+              },
+            ],
+          });
+        }}
+      >
+        Show Normal Toast
+      </Button>
+      <ToastProvider align="start">
+        <Button
+          onClick={() => {
+            createToast({
+              title: "Toast Title with Align Start",
+              description: "This is a toast description   with align start",
+              type: "success",
+              actions: [
+                {
+                  label: "Action 1",
+                  altText: "Action 1 Alt Text",
+                  onClick: () => console.log("Action 1 clicked"),
+                },
+                {
+                  label: "Action 2",
+                  altText: "Action 2 Alt Text",
+                  onClick: () => console.log("Action 2 clicked"),
+                },
+              ],
+              align: "start",
+            });
+          }}
+        >
+          Show Toast with Align Start
+        </Button>
+        <Toast
+          onClose={() => console.log("Toast closed")}
+          title="Toast Title with Align Start without Button"
+          duration={5000}
+          description="This is a toast description   with align start"
+          type="success"
+          actions={[
+            {
+              label: "Action 1",
+              altText: "Action 1 Alt Text",
+              onClick: () => console.log("Action 1 clicked"),
+              type: "primary",
+            },
+            {
+              label: "Action 2",
+              altText: "Action 2 Alt Text",
+              onClick: () => console.log("Action 2 clicked"),
+              type: "secondary",
+            },
+          ]}
+        />
+      </ToastProvider>
       <BackgroundWrapper>
         <ProgressBar
           progress={100}
