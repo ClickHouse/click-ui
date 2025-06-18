@@ -5,12 +5,13 @@ import { keyframes, styled } from "styled-components";
 import { toastsEventEmitter } from "./toastEmitter";
 
 export interface ToastContextProps {
-  createToast: (toast: ToastProps) => void;
+  createToast: (toast: ToastProps, align?: ToastAlignment) => void;
 }
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
 
+export type ToastAlignment = "start" | "end";
 export type ToastType = "danger" | "warning" | "default" | "success";
 export interface ToastProps {
   id?: string;
@@ -20,6 +21,7 @@ export interface ToastProps {
   /** Time in milliseconds the toast will be visible */
   duration?: number;
   actions?: Array<ButtonProps & { altText: string }>;
+  align?: ToastAlignment;
 }
 
 const ToastIcon = styled(Icon)<{ $type?: ToastType }>`
@@ -168,8 +170,14 @@ export const Toast = ({
           {actions.length > 0 && (
             <ToastDescriptionContent>
               {actions.map(({ altText, ...btnProps }) => (
-                <RadixUIToast.Action altText={altText}>
-                  <Button {...btnProps} />
+                <RadixUIToast.Action
+                  altText={altText}
+                  asChild
+                  key={altText}
+                >
+                  <div>
+                    <Button {...btnProps} />
+                  </div>
                 </RadixUIToast.Action>
               ))}
             </ToastDescriptionContent>
@@ -180,7 +188,7 @@ export const Toast = ({
   );
 };
 
-const Viewport = styled(RadixUIToast.Viewport)<{ $align: "start" | "end" }>`
+const Viewport = styled(RadixUIToast.Viewport)<{ $align: ToastAlignment }>`
   --viewport-padding: 25px;
   position: fixed;
   bottom: 0;
@@ -205,7 +213,7 @@ const Viewport = styled(RadixUIToast.Viewport)<{ $align: "start" | "end" }>`
 `;
 
 export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
-  align?: "start" | "end";
+  align?: ToastAlignment;
 }
 
 export const ToastProvider = ({
@@ -213,14 +221,20 @@ export const ToastProvider = ({
   align = "end",
   ...props
 }: ToastProviderProps) => {
-  const [toasts, setToasts] = useState<Map<string, ToastProps>>(new Map());
+  const [toasts, setToasts] = useState<Record<ToastAlignment, Map<string, ToastProps>>>({
+    start: new Map(),
+    end: new Map(),
+  });
 
   useEffect(() => {
     const listener = (toast: ToastProps) => {
       setToasts(currentToasts => {
-        const newMap = new Map(currentToasts);
-        newMap.set(toast?.id ?? String(Date.now()), toast);
-        return newMap;
+        const alignment = toast.align ?? "end";
+        const newToasts = { ...currentToasts };
+        const map = new Map(newToasts[alignment]);
+        map.set(toast?.id ?? String(Date.now()), toast);
+        newToasts[alignment] = map;
+        return newToasts;
       });
     };
 
@@ -232,18 +246,23 @@ export const ToastProvider = ({
   const onClose = (id: string) => (open: boolean) => {
     if (!open) {
       setToasts(currentToasts => {
-        const newMap = new Map(currentToasts);
-        newMap.delete(id);
-        return newMap;
+        const newToasts = { ...currentToasts };
+        const map = new Map(newToasts[align]);
+        map.delete(id);
+        newToasts[align] = map;
+        return newToasts;
       });
     }
   };
+
   const value = {
-    createToast: (toast: ToastProps) => {
+    createToast: (toast: ToastProps, toastAlign: ToastAlignment = align) => {
       setToasts(currentToasts => {
-        const newMap = new Map(currentToasts);
-        newMap.set(toast?.id ?? String(Date.now()), toast);
-        return newMap;
+        const newToasts = { ...currentToasts };
+        const map = new Map(newToasts[toastAlign]);
+        map.set(toast?.id ?? String(Date.now()), toast);
+        newToasts[toastAlign] = map;
+        return newToasts;
       });
     },
   };
@@ -251,11 +270,15 @@ export const ToastProvider = ({
   return (
     <RadixUIToast.Provider
       swipeDirection={align === "start" ? "left" : "right"}
+      key={`toast-provider-${align}`}
       {...props}
     >
       <ToastContext.Provider value={value}>
+        {JSON.stringify(toasts[align].size)}
+        {align}
+        {JSON.stringify(Array.from(toasts[align]))}
         {children}
-        {Array.from(toasts).map(([id, toast]) => (
+        {Array.from(toasts[align]).map(([id, toast]) => (
           <Toast
             key={id}
             {...toast}
