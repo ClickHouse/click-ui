@@ -204,7 +204,7 @@ const Viewport = styled(RadixUIToast.Viewport)<{ $align: "start" | "end" }>`
   outline: none;
 `;
 
-export interface ToastProviderProps extends RadixUIToast.ToastProps {
+export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
   align?: "start" | "end";
 }
 
