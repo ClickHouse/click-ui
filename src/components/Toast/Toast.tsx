@@ -99,6 +99,7 @@ const ToastHeader = styled(RadixUIToast.Title)`
 
 const ToastDescriptionContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   align-items: flex-end;
@@ -123,7 +124,7 @@ const Title = styled.div`
   flex: 1;
 `;
 
-const Toast = ({
+export const Toast = ({
   type,
   title,
   description,
