@@ -274,9 +274,6 @@ export const ToastProvider = ({
       {...props}
     >
       <ToastContext.Provider value={value}>
-        {JSON.stringify(toasts[align].size)}
-        {align}
-        {JSON.stringify(Array.from(toasts[align]))}
         {children}
         {Array.from(toasts[align]).map(([id, toast]) => (
           <Toast
