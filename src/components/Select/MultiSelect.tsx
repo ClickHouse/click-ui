@@ -3,7 +3,12 @@ import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 import { useUpdateEffect } from "@/hooks";
 
 import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
-import { SelectGroup, SelectItem, InternalSelect } from "./common/InternalSelect";
+import {
+  SelectGroup,
+  SelectItem,
+  InternalSelect,
+  SelectItemDescription,
+} from "./common/InternalSelect";
 
 export interface MultiSelectProps
   extends Omit<
@@ -96,3 +101,4 @@ export const MultiSelect = ({
 
 MultiSelect.Group = SelectGroup;
 MultiSelect.Item = SelectItem;
+MultiSelect.ItemDescription = SelectItemDescription;
