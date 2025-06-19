@@ -12,16 +12,16 @@ const Underline = (props: SVGAttributes<SVGElement>) => (
     <path
       d="M6 20H18"
       stroke="#161517"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M17 4V11C17 13.761 14.761 16 12 16C9.239 16 7 13.761 7 11V4"
       stroke="#161517"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
