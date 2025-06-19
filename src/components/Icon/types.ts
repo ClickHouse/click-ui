@@ -153,6 +153,7 @@ export const ICON_NAMES = [
   "support",
   "table",
   "taxi",
+  "text-slash",
   "trash",
   "tree-structure",
   "upgrade",
