@@ -12,9 +12,9 @@ const Italic = (props: SVGAttributes<SVGElement>) => (
     <path
       d="M14.1821 18H5.45508H9.43508L14.5651 6H18.5451H9.81808"
       stroke="#161517"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

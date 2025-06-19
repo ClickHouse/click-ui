@@ -143,6 +143,7 @@ import Stop from "@/components/icons/Stop";
 import Support from "@/components/icons/Support";
 import Table from "@/components/icons/Table";
 import Taxi from "@/components/icons/Taxi";
+import TextSlash from "@/components/icons/TextSlash";
 import Trash from "@/components/icons/Trash";
 import TreeStructure from "@/components/icons/TreeStructure";
 import Underline from "@/components/icons/Underline";
@@ -300,6 +301,7 @@ export const ICONS_MAP = {
   support: Support,
   table: Table,
   taxi: Taxi,
+  "text-slash": TextSlash,
   trash: Trash,
   "tree-structure": TreeStructure,
   underline: Underline,
