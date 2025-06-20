@@ -40,6 +40,7 @@ export interface SelectGroupProps
 }
 export interface SelectOptionItem
   extends Omit<SelectItemProps, "children" | "label" | "description"> {
+  heading?: never;
   label: ReactNode;
   description?: ReactNode;
   [key: `data-${string}`]: string;
@@ -48,6 +49,7 @@ export interface SelectOptionItem
 interface SelectGroupOptionItem
   extends Omit<SelectGroupProps, "children" | "label" | "description"> {
   options: Array<SelectOptionItem>;
+  label?: never;
   [key: `data-${string}`]: string;
 }
 
