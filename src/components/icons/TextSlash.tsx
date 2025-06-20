@@ -9,7 +9,7 @@ const TextSlash = (props: SVGAttributes<SVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_12066_12491)">
+    <g clipPath="url(#clip0_12066_12491)">
       <path
         d="M4.5 3.75L19.5 20.25"
         stroke="#161517"
