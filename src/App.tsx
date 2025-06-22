@@ -807,6 +807,23 @@ const App = () => {
               <InlineCodeBlock>7. grow="0"</InlineCodeBlock>
             </Container>
           </Container>
+
+          <Text>
+            Parent Container:
+            <InlineCodeBlock>
+              border="default" fillWidth=true padding="md"
+            </InlineCodeBlock>
+          </Text>
+
+          <Container
+            border="default"
+            fillWidth
+            padding="md"
+          >
+            <Container grow="0">
+              <InlineCodeBlock>7. grow="0"</InlineCodeBlock>
+            </Container>
+          </Container>
         </Container>
 
         <Spacer />
