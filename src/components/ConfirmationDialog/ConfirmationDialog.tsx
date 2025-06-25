@@ -84,6 +84,7 @@ export const ConfirmationDialog = ({
             disabled={!!disabled || !!loading}
             type={primaryActionType}
             label={primaryActionLabel}
+            autoFocus={open}
             onClick={() => {
               if (onConfirm) {
                 onConfirm();

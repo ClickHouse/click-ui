@@ -130,4 +130,16 @@ describe("Dialog Component", () => {
       "You can't pass children and message props at the same time"
     );
   });
+
+  it("focuses the confirm button when dialog opens", async () => {
+    const { getByTestId } = renderDialog({ open: true });
+    const confirmButton = getByTestId("confirm-action-button");
+
+    expect(document.activeElement).toBe(confirmButton);
+  });
+
+  it("does not focus when dialog is closed", () => {
+    const { queryByTestId } = renderDialog({ open: false });
+    expect(queryByTestId("confirm-action-button")).toBeNull();
+  });
 });
