@@ -18,6 +18,8 @@ describe("Dialog Component", () => {
       primaryActionLabel = "Confirm",
       secondaryActionLabel = "Cancel",
       children,
+      disabled,
+      loading,
     }: Partial<ConfirmationDialogProps> = {} as ConfirmationDialogProps
   ) =>
     renderCUI(
@@ -30,6 +32,8 @@ describe("Dialog Component", () => {
         onCancel={onCancel}
         open={open}
         children={children}
+        disabled={disabled}
+        loading={loading}
       />
     );
 
@@ -129,5 +133,57 @@ describe("Dialog Component", () => {
     expect(() => renderDialog({ children, message, open: true })).toThrowError(
       "You can't pass children and message props at the same time"
     );
+  });
+
+  describe("Enter key functionality", () => {
+    it("triggers onConfirm when Enter key is pressed", () => {
+      const onConfirm = vi.fn();
+      const { getByRole } = renderDialog({ onConfirm, open: true });
+
+      fireEvent.keyDown(getByRole("dialog"), { key: "Enter" });
+      expect(onConfirm).toHaveBeenCalledTimes(1);
+    });
+
+    it("triggers onConfirm multiple times when Enter is pressed multiple times", () => {
+      const onConfirm = vi.fn();
+      const { getByRole } = renderDialog({ onConfirm, open: true });
+
+      fireEvent.keyDown(getByRole("dialog"), { key: "Enter" });
+      fireEvent.keyDown(getByRole("dialog"), { key: "Enter" });
+      fireEvent.keyDown(getByRole("dialog"), { key: "Enter" });
+      expect(onConfirm).toHaveBeenCalledTimes(3);
+    });
+
+    it("does not trigger onConfirm when Enter is pressed and dialog is disabled", () => {
+      const onConfirm = vi.fn();
+      const { getByRole } = renderDialog({
+        onConfirm,
+        disabled: true,
+        open: true,
+      });
+
+      fireEvent.keyDown(getByRole("dialog"), { key: "Enter" });
+      expect(onConfirm).not.toHaveBeenCalled();
+    });
+
+    it("does not trigger onConfirm when Enter is pressed and dialog is loading", () => {
+      const onConfirm = vi.fn();
+      const { getByRole } = renderDialog({
+        onConfirm,
+        loading: true,
+        open: true,
+      });
+
+      fireEvent.keyDown(getByRole("dialog"), { key: "Enter" });
+      expect(onConfirm).not.toHaveBeenCalled();
+    });
+
+    it("does not trigger onConfirm when Enter is pressed and onConfirm is not provided", () => {
+      const { getByRole } = renderDialog({ onConfirm: undefined, open: true });
+
+      expect(() =>
+        fireEvent.keyDown(getByRole("dialog"), { key: "Enter" })
+      ).not.toThrow();
+    });
   });
 });
