@@ -53,19 +53,6 @@ export const ConfirmationDialog = ({
     throw new Error("You can't pass children and message props at the same time");
   }
 
-  /**
-   * Run the onConfirm callback when the Enter key is pressed.
-   * Prevents the default action of the Enter key if the dialog is not disabled or loading.
-   *
-   * @param event - The React keyboard event
-   */
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && onConfirm && !disabled && !loading) {
-      event.preventDefault();
-      onConfirm();
-    }
-  };
-
   return (
     <Dialog
       open={open}
@@ -77,7 +64,6 @@ export const ConfirmationDialog = ({
         as={Dialog.Content}
         title={title}
         showClose={showClose}
-        onKeyDown={handleKeyDown}
         {...props}
       >
         <Container
@@ -98,6 +84,7 @@ export const ConfirmationDialog = ({
             disabled={!!disabled || !!loading}
             type={primaryActionType}
             label={primaryActionLabel}
+            autoFocus={open}
             onClick={() => {
               if (onConfirm) {
                 onConfirm();
