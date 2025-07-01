@@ -13,9 +13,10 @@ export const ToastContext = createContext<ToastContextProps>({
 
 export type ToastAlignment = "start" | "end";
 export type ToastType = "danger" | "warning" | "default" | "success";
-export interface ToastProps {
+export interface ToastProps extends Omit<RadixUIToast.ToastProps, "type"> {
   id?: string;
   type?: ToastType;
+  toastType?: "foreground" | "background";
   title: string;
   description?: ReactNode;
   /** Time in milliseconds the toast will be visible */
@@ -128,11 +129,14 @@ const Title = styled.div`
 
 export const Toast = ({
   type,
+  toastType = "foreground",
   title,
   description,
   actions = [],
   duration,
   onClose,
+
+  ...props
 }: ToastProps & { onClose: (open: boolean) => void }) => {
   let iconName = "";
   if (type === "default") {
@@ -146,6 +150,8 @@ export const Toast = ({
     <ToastRoot
       onOpenChange={onClose}
       duration={duration}
+      type={toastType}
+      {...props}
     >
       <ToastHeader>
         {iconName.length > 0 && (
