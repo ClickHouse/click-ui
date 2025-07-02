@@ -144,11 +144,13 @@ const MultiAccordionItem = ({
           fillWidth
           justifyContent="space-between"
           component="span"
+          overflow="hidden"
         >
           <Text
             component="span"
             size={customSize}
             fillWidth={fillWidth}
+            style={{ overflow: "hidden" }}
           >
             {title}
           </Text>
