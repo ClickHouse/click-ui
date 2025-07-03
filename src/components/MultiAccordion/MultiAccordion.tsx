@@ -146,14 +146,13 @@ const MultiAccordionItem = ({
           component="span"
           overflow="hidden"
         >
-          <Text
+          <AccordionItemTitle
             component="span"
             size={customSize}
             fillWidth={fillWidth}
-            style={{ overflow: "hidden" }}
           >
             {title}
-          </Text>
+          </AccordionItemTitle>
           {showCheck && (
             <CustomIcon
               name={isCompleted ? "check-in-circle" : "circle"}
@@ -290,4 +289,8 @@ const CustomIcon = styled(Icon)<{ $isCompleted: boolean }>`
 const AccordionContent = styled(RadixAccordion.Content)<{ $padding: PaddingOptions }>`
   padding: ${({ theme, $padding }): string => theme.click.container.space[$padding]};
   padding-top: 0;
+`;
+
+const AccordionItemTitle = styled(Text)`
+  overflow: hidden;
 `;
