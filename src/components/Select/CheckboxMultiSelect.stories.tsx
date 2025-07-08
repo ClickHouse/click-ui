@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
 
+import { Panel } from "../Panel/Panel";
+import { Text } from "../Typography/Text/Text";
+
 import { CheckboxMultiSelect } from "./CheckboxMultiSelect";
-import { selectOptions } from "./selectOptions";
+import { selectOptions, selectOptionsLong } from "./selectOptions";
+import { Spacer } from "../Spacer/Spacer";
 
 const meta: Meta<typeof CheckboxMultiSelect> = {
   component: CheckboxMultiSelect,
@@ -87,7 +91,7 @@ export const OptionsAsProp: StoryObj<typeof CheckboxMultiSelect> = {
   },
 };
 
-export const CheckboxMultiSelectVariants = {
+export const CheckboxMultiSelectVariants: StoryObj<typeof CheckboxMultiSelect> = {
   render: () => {
     const [selectedCount, setSetlectedCount] = useState<number>(0);
 
@@ -128,6 +132,112 @@ export const CheckboxMultiSelectVariants = {
           Variant 6
         </CheckboxMultiSelect.Item>
       </CheckboxMultiSelect>
+    );
+  },
+};
+
+export const Showcase: StoryObj<typeof CheckboxMultiSelect> = {
+  render: () => {
+    return (
+      <>
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>With overflown options</Text>
+          <CheckboxMultiSelect options={selectOptionsLong} />
+        </Panel>
+
+        <Spacer />
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>With overflown options (full width)</Text>
+          <CheckboxMultiSelect
+            useFullWidthItems
+            options={selectOptionsLong}
+          />
+        </Panel>
+
+        <Spacer />
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>Disabled</Text>
+          <CheckboxMultiSelect
+            disabled
+            options={selectOptions}
+          />
+        </Panel>
+
+        <Spacer />
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>With an error</Text>
+          <CheckboxMultiSelect
+            error="Incorrect value"
+            options={selectOptions}
+          />
+        </Panel>
+
+        <Spacer />
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>With disabled options</Text>
+          <CheckboxMultiSelect
+            options={[
+              {
+                value: "1",
+                label: "Option 1 (disabled)",
+                disabled: true,
+              },
+              {
+                value: "2",
+                label: "Option 2 (disabled)",
+                disabled: true,
+              },
+              {
+                value: "3",
+                label: "Option 3",
+              },
+              {
+                value: "4",
+                label: "Option 4",
+              },
+            ]}
+          />
+        </Panel>
+
+        <Spacer />
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>With search</Text>
+          <CheckboxMultiSelect
+            showSearch
+            options={selectOptions}
+          />
+        </Panel>
+
+        <Spacer />
+        <Panel
+          hasBorder
+          width="300px"
+        >
+          <Text>With custom selected text</Text>
+          <CheckboxMultiSelect
+            selectLabel="Something is selected"
+            options={selectOptions}
+          />
+        </Panel>
+      </>
     );
   },
 };
