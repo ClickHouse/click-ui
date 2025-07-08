@@ -33,6 +33,7 @@ const IconWrapper = ({
     <Container
       orientation="horizontal"
       gap={gap}
+      overflow="hidden"
       {...props}
     >
       {icon && iconDir === "start" && (

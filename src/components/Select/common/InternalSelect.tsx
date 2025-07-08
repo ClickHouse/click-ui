@@ -683,6 +683,7 @@ export const MultiSelectCheckboxItem = forwardRef<
           <Container
             orientation="horizontal"
             gap="xs"
+            overflow="hidden"
           >
             <Checkbox
               checked={isChecked}
