@@ -36,6 +36,19 @@ const PredefinedDatesContainer = styled(Container)`
   width: 275px;
 `;
 
+const CalendarRendererContainer = styled.div`
+  border: ${({ theme }) =>
+    `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
+  border-left: none;
+  left: 274px;
+  position: absolute;
+  top: 0;
+`;
+
+const StyledCalendarRenderer = styled(CalendarRenderer)`
+  height: 245px;
+`;
+
 const StyledDropdownItem = styled(Dropdown.Item)`
   min-height: 24px;
 `;
@@ -388,18 +401,20 @@ export const DateRangePicker = ({
             />
 
             {shouldShowCustomRange && (
-              <CalendarRenderer calendarOptions={calendarOptions}>
-                {body => (
-                  <Calendar
-                    calendarBody={body}
-                    closeDatepicker={closeDatePicker}
-                    futureDatesDisabled={futureDatesDisabled}
-                    setSelectedDate={handleSelectDate}
-                    startDate={selectedStartDate}
-                    endDate={selectedEndDate}
-                  />
-                )}
-              </CalendarRenderer>
+              <CalendarRendererContainer>
+                <StyledCalendarRenderer calendarOptions={calendarOptions}>
+                  {body => (
+                    <Calendar
+                      calendarBody={body}
+                      closeDatepicker={closeDatePicker}
+                      futureDatesDisabled={futureDatesDisabled}
+                      setSelectedDate={handleSelectDate}
+                      startDate={selectedStartDate}
+                      endDate={selectedEndDate}
+                    />
+                  )}
+                </StyledCalendarRenderer>
+              </CalendarRendererContainer>
             )}
           </PredefinedCalendarContainer>
         ) : (
