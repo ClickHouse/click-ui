@@ -21,6 +21,7 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  min-height: ${({ theme }) => theme.sizes[9]};
 
   span:first-of-type {
     max-width: 100%;
