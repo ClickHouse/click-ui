@@ -730,18 +730,36 @@
           }
         },
         "space": {
-          "gap": {
-            "default": "0",
-            "borderless": "0.25rem"
+          "panel": {
+            "gap": {
+              "default": "0.25rem",
+              "borderless": "0.25rem"
+            },
+            "default": {
+              "x": "3px",
+              "y": "3px"
+            },
+            "borderless": {
+              "x": "0",
+              "y": "0"
+            }
+          },
+          "default": {
+            "y": "1.5px",
+            "x": "0.75rem"
+          },
+          "borderless": {
+            "y": "5.5px",
+            "x": "1rem"
           }
         },
         "color": {
           "background": {
             "default": "rgba(0,0,0,0)",
             "hover": "#f6f7fa",
-            "active": "lch(97.3 1.53 272)",
+            "active": "lch(95.3 1.54 272)",
             "disabled": "rgba(0,0,0,0)",
-            "disabled-active": "lch(77.8 1.22 272)",
+            "disabled-active": "lch(76.2 1.23 272)",
             "panel": "rgba(0,0,0,0)"
           },
           "text": {

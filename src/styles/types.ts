@@ -731,9 +731,27 @@
           }
         },
         "space": {
-          "gap": {
-            "default": string,
-            "borderless": string
+          "panel": {
+            "gap": {
+              "default": string,
+              "borderless": string
+            },
+            "default": {
+              "x": string,
+              "y": string
+            },
+            "borderless": {
+              "x": string,
+              "y": string
+            }
+          },
+          "default": {
+            "y": string,
+            "x": string
+          },
+          "borderless": {
+            "y": string,
+            "x": string
           }
         },
         "color": {

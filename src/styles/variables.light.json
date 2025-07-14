@@ -419,9 +419,9 @@
           "background": {
             "default": "rgba(0,0,0,0)",
             "hover": "#f6f7fa",
-            "active": "lch(97.3 1.53 272)",
+            "active": "lch(95.3 1.54 272)",
             "disabled": "rgba(0,0,0,0)",
-            "disabled-active": "lch(77.8 1.22 272)",
+            "disabled-active": "lch(76.2 1.23 272)",
             "panel": "rgba(0,0,0,0)"
           },
           "text": {
