@@ -726,13 +726,55 @@
           }
         },
         "space": {
-          "gap": {
+          "panel": {
+            "gap": {
+              "default": {
+                "value": "{spaces.1}",
+                "type": "spacing"
+              },
+              "borderless": {
+                "value": "{spaces.1}",
+                "type": "spacing"
+              }
+            },
             "default": {
-              "value": "{spaces.0}",
-              "type": "spacing"
+              "x": {
+                "value": "3px",
+                "type": "spacing"
+              },
+              "y": {
+                "value": "3px",
+                "type": "spacing"
+              }
             },
             "borderless": {
-              "value": "{spaces.1}",
+              "x": {
+                "value": "{spaces.0}",
+                "type": "spacing"
+              },
+              "y": {
+                "value": "{spaces.0}",
+                "type": "spacing"
+              }
+            }
+          },
+          "default": {
+            "y": {
+              "value": "1.5px",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.3}",
+              "type": "spacing"
+            }
+          },
+          "borderless": {
+            "y": {
+              "value": "5.5px",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.4}",
               "type": "spacing"
             }
           }

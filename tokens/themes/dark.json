@@ -1691,17 +1691,8 @@
               "type": "color"
             },
             "active": {
-              "value": "{click.button.group.color.background.hover}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.025",
-                    "space": "srgb"
-                  }
-                }
-              }
+              "value": "{palette.neutral.700}",
+              "type": "color"
             },
             "disabled": {
               "value": "{click.button.group.color.background.default}",
