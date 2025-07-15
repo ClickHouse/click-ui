@@ -2184,7 +2184,6 @@
       "click.button.mobile.button.space.x": "d75968cd5d2a8f71e510f6eea92199a563fb9591",
       "click.button.mobile.button.space.y": "06152177977fe542621352341fe07d98c6833a4a",
       "click.button.mobile.button.space.gap": "5fac9ef2c73d70fdb4cf385f0c2b3861488c35a5",
-      "click.button.group.radii.default.all": "2f48dc968eacdef7bdb55874f11e2b14d9564583",
       "click.button.alignLeft.size.icon.all": "ddfb6a29614b6ef4f274e7d44081da098792cffc",
       "click.button.alignLeft.space.x": "f2abe0fef63f2b7ae43c4f563d78768a6bdb5ad9",
       "click.button.alignLeft.space.y": "2ec2e2cb51c6f892911d98d4f091853153e430a4",
@@ -2521,10 +2520,11 @@
       "click.button.group.space.button.borderless.x": "4cd37a8f8a5ea64483c357c1393bef848fd08dd3",
       "click.button.group.space.panel.default.gap": "d99638b91030ba6eef72b9f85165e4ec258cdc65",
       "click.button.group.space.panel.borderless.gap": "73a61660bbef0a70a21a14f689679a2cc2eb6510",
-      "click.button.group.radii.borderless.all": "804e26eb067f48444ac49b22d81fd012eb3718ac",
       "click.sidebar.main.navigation.subItem.color.icon.default": "6ddec81962ed05554675841012f52943a1485aa9",
       "click.sidebar.main.navigation.subItem.color.icon.disabled": "5887b762e16323bfc5b8fcd4a245f0c344cdf219",
-      "global.color.background.muted_a": "d5f690d02ee12b83055e5a1f4ce0ad8e91bf3d07"
+      "global.color.background.muted_a": "d5f690d02ee12b83055e5a1f4ce0ad8e91bf3d07",
+      "click.button.group.radii.button.default.all": "2f48dc968eacdef7bdb55874f11e2b14d9564583",
+      "click.button.group.radii.button.borderless.all": "804e26eb067f48444ac49b22d81fd012eb3718ac"
     },
     "group": "Default"
   },
@@ -4667,7 +4667,6 @@
       "click.button.mobile.button.space.x": "d75968cd5d2a8f71e510f6eea92199a563fb9591",
       "click.button.mobile.button.space.y": "06152177977fe542621352341fe07d98c6833a4a",
       "click.button.mobile.button.space.gap": "5fac9ef2c73d70fdb4cf385f0c2b3861488c35a5",
-      "click.button.group.radii.default.all": "2f48dc968eacdef7bdb55874f11e2b14d9564583",
       "click.button.alignLeft.size.icon.all": "ddfb6a29614b6ef4f274e7d44081da098792cffc",
       "click.button.alignLeft.space.x": "f2abe0fef63f2b7ae43c4f563d78768a6bdb5ad9",
       "click.button.alignLeft.space.y": "2ec2e2cb51c6f892911d98d4f091853153e430a4",
@@ -5004,7 +5003,6 @@
       "click.button.group.space.button.borderless.x": "4cd37a8f8a5ea64483c357c1393bef848fd08dd3",
       "click.button.group.space.panel.default.gap": "d99638b91030ba6eef72b9f85165e4ec258cdc65",
       "click.button.group.space.panel.borderless.gap": "73a61660bbef0a70a21a14f689679a2cc2eb6510",
-      "click.button.group.radii.borderless.all": "804e26eb067f48444ac49b22d81fd012eb3718ac",
       "click.checkbox.color.variations.default.label.default": "757f7c0086a350c05723972add9568ba62df5251",
       "click.checkbox.color.variations.default.label.hover": "33c75ec937584860101ce8a7f091036380c7f817",
       "click.checkbox.color.variations.default.label.active": "9215e7a530300eed5fe1e40c1b83aa0435d64763",
@@ -5016,7 +5014,9 @@
       "click.genericMenu.item.color.format.error": "ecd3148bc5daf6c86989efa91635f3be093172cf",
       "click.sidebar.sqlSidebar.navigation.item.color.icon.disabled": "18fcf350d30a573a46eb8bdb1c19bee45527cd3b",
       "global.color.chart.bars.danger": "470d16485e81c58da2f6bf10114902a72df9df50",
-      "global.color.chart.default.danger": "6b38029ec24dec25c35281c2c427157eaeae74d2"
+      "global.color.chart.default.danger": "6b38029ec24dec25c35281c2c427157eaeae74d2",
+      "click.button.group.radii.button.default.all": "2f48dc968eacdef7bdb55874f11e2b14d9564583",
+      "click.button.group.radii.button.borderless.all": "804e26eb067f48444ac49b22d81fd012eb3718ac"
     },
     "group": "Default"
   },
@@ -7265,7 +7265,6 @@
       "click.button.mobile.button.space.y": "06152177977fe542621352341fe07d98c6833a4a",
       "click.button.mobile.button.space.gap": "5fac9ef2c73d70fdb4cf385f0c2b3861488c35a5",
       "click.button.mobile.basic.size.icon.all": "10e998edb5de7e81f3a8ee6e15a9a0296cf423af",
-      "click.button.group.radii.default.all": "2f48dc968eacdef7bdb55874f11e2b14d9564583",
       "click.button.alignLeft.size.icon.all": "ddfb6a29614b6ef4f274e7d44081da098792cffc",
       "click.button.alignLeft.space.x": "f2abe0fef63f2b7ae43c4f563d78768a6bdb5ad9",
       "click.button.alignLeft.space.y": "2ec2e2cb51c6f892911d98d4f091853153e430a4",
@@ -7602,7 +7601,6 @@
       "click.button.group.space.button.borderless.x": "4cd37a8f8a5ea64483c357c1393bef848fd08dd3",
       "click.button.group.space.panel.default.gap": "d99638b91030ba6eef72b9f85165e4ec258cdc65",
       "click.button.group.space.panel.borderless.gap": "73a61660bbef0a70a21a14f689679a2cc2eb6510",
-      "click.button.group.radii.borderless.all": "804e26eb067f48444ac49b22d81fd012eb3718ac",
       "click.sidebar.main.navigation.subItem.color.icon.default": "6ddec81962ed05554675841012f52943a1485aa9",
       "click.sidebar.main.navigation.subItem.color.icon.disabled": "5887b762e16323bfc5b8fcd4a245f0c344cdf219",
       "global.color.background.muted_a": "d5f690d02ee12b83055e5a1f4ce0ad8e91bf3d07",
@@ -7614,7 +7612,9 @@
       "click.sidebar.main.navigation.item.text.default": "053098f0d4641fbbc8ab9567ae292eb591577d4a",
       "click.sidebar.main.navigation.item.text.muted": "c918c9b91c34c4561d425c69c153693fb61c210c",
       "click.button.basic.color.disabled.background.default": "f57d46f0f8febe8f20956f68ec99b425d930a4a9",
-      "click.button.basic.color.disabled.text.default": "94ba6ef5c2d4867169fe0deb9eee51cfbcd85148"
+      "click.button.basic.color.disabled.text.default": "94ba6ef5c2d4867169fe0deb9eee51cfbcd85148",
+      "click.button.group.radii.button.default.all": "2f48dc968eacdef7bdb55874f11e2b14d9564583",
+      "click.button.group.radii.button.borderless.all": "804e26eb067f48444ac49b22d81fd012eb3718ac"
     }
   }
 ]
