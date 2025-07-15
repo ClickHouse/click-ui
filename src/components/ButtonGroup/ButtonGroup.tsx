@@ -75,12 +75,12 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean; $type?: ButtonGrou
   padding: ${({ theme, $type = "default" }) =>
     `${theme.click.button.group.space.panel[$type].x} ${theme.click.button.group.space.panel[$type].y}`};
   gap: ${({ theme, $type = "default" }) =>
-    theme.click.button.group.space.panel.gap[$type]};
+    theme.click.button.group.space.panel[$type].gap};
   border: 1px solid
     ${({ theme, $type = "default" }) =>
       theme.click.button.group.color.panel.stroke[$type]};
   background: ${({ theme }) => theme.click.button.group.color.background.panel};
-  border-radius: ${({ theme }) => theme.click.button.group.radii.all};
+  border-radius: ${({ theme }) => theme.click.button.group.radii.panel.all};
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
 
@@ -99,9 +99,10 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
   color: ${({ theme }) => theme.click.button.group.color.text.default};
   font: ${({ theme }) => theme.click.button.group.typography.label.default};
   padding: ${({ theme, $type = "default" }) =>
-    `${theme.click.button.group.space[$type].y} ${theme.click.button.group.space[$type].x}`};
+    `${theme.click.button.group.space.button[$type].y} ${theme.click.button.group.space.button[$type].x}`};
   ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")};
-  border-radius: ${({ theme }) => theme.click.button.group.radii.all};
+  border-radius: ${({ theme, $type = "default" }) =>
+    theme.click.button.group.radii.button[$type].all};
   cursor: pointer;
   border: none;
 

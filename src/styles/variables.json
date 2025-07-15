@@ -711,8 +711,17 @@
       },
       "group": {
         "radii": {
-          "all": "0.25rem",
-          "end": "0"
+          "button": {
+            "default": {
+              "all": "2px"
+            },
+            "borderless": {
+              "all": "0.25rem"
+            }
+          },
+          "panel": {
+            "all": "0.25rem"
+          }
         },
         "typography": {
           "label": {
@@ -731,26 +740,26 @@
         },
         "space": {
           "panel": {
-            "gap": {
-              "default": "0.25rem",
-              "borderless": "0.25rem"
-            },
             "default": {
               "x": "3px",
-              "y": "3px"
+              "y": "3px",
+              "gap": "3px"
             },
             "borderless": {
               "x": "0",
-              "y": "0"
+              "y": "0",
+              "gap": "0.25rem"
             }
           },
-          "default": {
-            "y": "1.5px",
-            "x": "0.75rem"
-          },
-          "borderless": {
-            "y": "5.5px",
-            "x": "1rem"
+          "button": {
+            "default": {
+              "y": "1.5px",
+              "x": "0.75rem"
+            },
+            "borderless": {
+              "y": "4.5px",
+              "x": "1rem"
+            }
           }
         },
         "color": {
