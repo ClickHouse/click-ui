@@ -680,13 +680,17 @@
       },
       "group": {
         "radii": {
-          "all": {
-            "value": "{border.radii.1}",
-            "type": "borderRadius"
+          "default": {
+            "all": {
+              "value": "2px",
+              "type": "borderRadius"
+            }
           },
-          "end": {
-            "value": "{border.radii.0}",
-            "type": "borderRadius"
+          "borderless": {
+            "all": {
+              "value": "{border.radii.1}",
+              "type": "borderRadius"
+            }
           }
         },
         "typography": {
@@ -727,23 +731,17 @@
         },
         "space": {
           "panel": {
-            "gap": {
-              "default": {
-                "value": "{spaces.1}",
-                "type": "spacing"
-              },
-              "borderless": {
-                "value": "{spaces.1}",
-                "type": "spacing"
-              }
-            },
             "default": {
               "x": {
                 "value": "3px",
                 "type": "spacing"
               },
               "y": {
-                "value": "3px",
+                "value": "{click.button.group.space.panel.default.x}",
+                "type": "spacing"
+              },
+              "gap": {
+                "value": "{click.button.group.space.panel.default.x}",
                 "type": "spacing"
               }
             },
@@ -755,27 +753,33 @@
               "y": {
                 "value": "{spaces.0}",
                 "type": "spacing"
+              },
+              "gap": {
+                "value": "{spaces.1}",
+                "type": "spacing"
               }
             }
           },
-          "default": {
-            "y": {
-              "value": "1.5px",
-              "type": "spacing"
+          "button": {
+            "default": {
+              "y": {
+                "value": "1.5px",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.3}",
+                "type": "spacing"
+              }
             },
-            "x": {
-              "value": "{spaces.3}",
-              "type": "spacing"
-            }
-          },
-          "borderless": {
-            "y": {
-              "value": "5.5px",
-              "type": "spacing"
-            },
-            "x": {
-              "value": "{spaces.4}",
-              "type": "spacing"
+            "borderless": {
+              "y": {
+                "value": "4.5px",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
             }
           }
         }
