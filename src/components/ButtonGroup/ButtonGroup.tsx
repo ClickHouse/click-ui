@@ -51,13 +51,6 @@ export const ButtonGroup = ({
   );
 };
 
-interface ButtonProps {
-  $active: boolean;
-  theme: DefaultTheme;
-  $fillWidth: boolean;
-  $type: ButtonGroupType;
-}
-
 const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
   display: inline-flex;
   box-sizing: border-box;
@@ -75,6 +68,13 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupT
   border-radius: ${({ theme }) => theme.click.button.group.radii.panel.all};
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
+
+interface ButtonProps {
+  $active: boolean;
+  theme: DefaultTheme;
+  $fillWidth: boolean;
+  $type: ButtonGroupType;
+}
 
 const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
   "aria-pressed": props.$active,
