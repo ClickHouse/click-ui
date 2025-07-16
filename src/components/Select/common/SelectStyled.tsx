@@ -21,7 +21,7 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  min-height: ${({ theme }) => theme.genericMenu.panel.size.height};
+  min-height: ${({ theme }) => theme.click.genericMenu.panel.size.height};
 
   span:first-of-type {
     max-width: 100%;
