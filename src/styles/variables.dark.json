@@ -419,7 +419,7 @@
           "background": {
             "default": "rgba(0,0,0,0)",
             "hover": "#282828",
-            "active": "rgb(17.8% 17.8% 17.8%)",
+            "active": "#414141",
             "disabled": "rgba(0,0,0,0)",
             "disabled-active": "lch(0 0 0 / 0)",
             "panel": "rgba(0,0,0,0)"

@@ -67,25 +67,23 @@ interface ButtonProps {
 }
 
 const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean; $type?: ButtonGroupType }>`
-  box-sizing: border-box;
   display: inline-flex;
+  box-sizing: border-box;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px;
-  gap: ${({ theme, $type = "default" }) => theme.click.button.group.space.gap[$type]};
-  border: 1px solid
-    ${({ theme, $type = "default" }) =>
-      theme.click.button.group.color.panel.stroke[$type]};
+  padding: ${({ theme, $type = "default" }) =>
+    `${theme.click.button.group.space.panel[$type].x} ${theme.click.button.group.space.panel[$type].y}`};
+  gap: ${({ theme, $type = "default" }) =>
+    theme.click.button.group.space.panel[$type].gap};
+  border: ${({ theme, $type = "default" }) =>
+    $type === "default"
+      ? `1px solid ${theme.click.button.group.color.panel.stroke[$type]}`
+      : "none"};
   background: ${({ theme }) => theme.click.button.group.color.background.panel};
-  border-radius: ${({ theme }) => theme.click.button.group.radii.all};
+  border-radius: ${({ theme }) => theme.click.button.group.radii.panel.all};
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
-
-const endRadii = "var(--click-button-button-group-radii-end)";
-const leftBorderRadius = `${endRadii} 0px 0px ${endRadii}`;
-const rightBorderRadius = `0px ${endRadii} ${endRadii} 0px`;
-const centerBorderRadius = "var(--click-button-button-group-radii-center)";
 
 const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
   "aria-pressed": props.$active,
@@ -95,18 +93,19 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: none;
   background: ${({ $active, theme }: ButtonProps) =>
     $active
       ? theme.click.button.group.color.background.active
       : theme.click.button.group.color.background.default};
   color: ${({ theme }) => theme.click.button.group.color.text.default};
   font: ${({ theme }) => theme.click.button.group.typography.label.default};
-  padding: ${({ theme }) => theme.click.button.basic.space.y}
-    ${({ theme }) => theme.click.button.basic.space.x};
-  gap: ${({ theme }) => theme.click.button.basic.space.group};
+  padding: ${({ theme, $type = "default" }) =>
+    `${theme.click.button.group.space.button[$type].y} ${theme.click.button.group.space.button[$type].x}`};
   ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")};
+  border-radius: ${({ theme, $type = "default" }) =>
+    theme.click.button.group.radii.button[$type].all};
   cursor: pointer;
+  border: none;
 
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};
@@ -141,13 +140,4 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
         theme.click.button.group.color.background["disabled-active"]};
     }
   }
-
-  border-radius: ${({ theme, $type, $position }: ButtonProps) =>
-    $type === "borderless"
-      ? theme.click.button.group.radii.all
-      : $position === "left"
-      ? leftBorderRadius
-      : $position === "right"
-      ? rightBorderRadius
-      : centerBorderRadius};
 `;
