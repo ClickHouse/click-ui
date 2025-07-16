@@ -21,62 +21,53 @@ export interface ButtonGroupProps
 export const ButtonGroup = ({
   options,
   selected,
-  fillWidth,
+  fillWidth = false,
   onClick,
-  type,
+  type = "default",
   ...props
 }: ButtonGroupProps) => {
-  const lastIndex = options.length - 1;
-  const btns = options.map(({ value, label, ...props }, index) => {
-    const position: ButtonPosition =
-      index === 0 ? "left" : index === lastIndex ? "right" : "center";
-    return (
-      <Button
-        key={value}
-        $active={value === selected}
-        $position={position}
-        $fillWidth={fillWidth}
-        $type={type}
-        onClick={() => onClick?.(value)}
-        role="button"
-        {...props}
-      >
-        {label}
-      </Button>
-    );
-  });
+  const buttons = options.map(({ value, label, ...props }) => (
+    <Button
+      key={value}
+      $active={value === selected}
+      $fillWidth={fillWidth}
+      $type={type}
+      onClick={() => onClick?.(value)}
+      role="button"
+      {...props}
+    >
+      {label}
+    </Button>
+  ));
+
   return (
     <ButtonGroupWrapper
       $fillWidth={fillWidth}
       $type={type}
       {...props}
     >
-      {btns}
+      {buttons}
     </ButtonGroupWrapper>
   );
 };
 
-type ButtonPosition = "left" | "center" | "right";
-
 interface ButtonProps {
   $active: boolean;
-  $position: ButtonPosition;
   theme: DefaultTheme;
-  $fillWidth?: boolean;
-  $type?: ButtonGroupType;
+  $fillWidth: boolean;
+  $type: ButtonGroupType;
 }
 
-const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean; $type?: ButtonGroupType }>`
+const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
   display: inline-flex;
   box-sizing: border-box;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: ${({ theme, $type = "default" }) =>
+  padding: ${({ theme, $type }) =>
     `${theme.click.button.group.space.panel[$type].x} ${theme.click.button.group.space.panel[$type].y}`};
-  gap: ${({ theme, $type = "default" }) =>
-    theme.click.button.group.space.panel[$type].gap};
-  border: ${({ theme, $type = "default" }) =>
+  gap: ${({ theme, $type }) => theme.click.button.group.space.panel[$type].gap};
+  border: ${({ theme, $type }) =>
     $type === "default"
       ? `1px solid ${theme.click.button.group.color.panel.stroke[$type]}`
       : "none"};
@@ -99,10 +90,10 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
       : theme.click.button.group.color.background.default};
   color: ${({ theme }) => theme.click.button.group.color.text.default};
   font: ${({ theme }) => theme.click.button.group.typography.label.default};
-  padding: ${({ theme, $type = "default" }) =>
+  padding: ${({ theme, $type }) =>
     `${theme.click.button.group.space.button[$type].y} ${theme.click.button.group.space.button[$type].x}`};
-  ${({ $fillWidth = false }) => ($fillWidth ? "flex: 1;" : "")};
-  border-radius: ${({ theme, $type = "default" }) =>
+  ${({ $fillWidth }) => ($fillWidth ? "flex: 1;" : "")};
+  border-radius: ${({ theme, $type }) =>
     theme.click.button.group.radii.button[$type].all};
   cursor: pointer;
   border: none;
