@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 
 import { truncateFilename } from "@/utils/truncate.ts";
