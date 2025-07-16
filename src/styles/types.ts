@@ -1944,6 +1944,9 @@
         "shadow": {
           "default": string
         },
+        "size": {
+          "height": string
+        },
         "color": {
           "background": {
             "default": string

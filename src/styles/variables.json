@@ -1943,6 +1943,9 @@
         "shadow": {
           "default": "0 4px 6px -1px lch(6.77 0 0 / 0.15), 0 2px 4px -1px lch(6.77 0 0 / 0.15)"
         },
+        "size": {
+          "height": "2rem"
+        },
         "color": {
           "background": {
             "default": "#ffffff"
