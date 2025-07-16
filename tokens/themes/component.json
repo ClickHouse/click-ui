@@ -2072,6 +2072,12 @@
             "value": "{shadow.1}",
             "type": "boxShadow"
           }
+        },
+        "size": {
+          "height": {
+            "value": "{sizes.9}",
+            "type": "sizing"
+          }
         }
       },
       "autocomplete": {
