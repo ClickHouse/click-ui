@@ -76,9 +76,10 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth?: boolean; $type?: ButtonGrou
     `${theme.click.button.group.space.panel[$type].x} ${theme.click.button.group.space.panel[$type].y}`};
   gap: ${({ theme, $type = "default" }) =>
     theme.click.button.group.space.panel[$type].gap};
-  border: 1px solid
-    ${({ theme, $type = "default" }) =>
-      theme.click.button.group.color.panel.stroke[$type]};
+  border: ${({ theme, $type = "default" }) =>
+    $type === "default"
+      ? `1px solid ${theme.click.button.group.color.panel.stroke[$type]}`
+      : "none"};
   background: ${({ theme }) => theme.click.button.group.color.background.panel};
   border-radius: ${({ theme }) => theme.click.button.group.radii.panel.all};
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
