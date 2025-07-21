@@ -4175,6 +4175,16 @@
               "value": "{click.field.color.label.default}",
               "type": "color"
             }
+          },
+          "barChart": {
+            "default": {
+              "value": "{palette.neutral.200}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{palette.neutral.300}",
+              "type": "color"
+            }
           }
         }
       },
