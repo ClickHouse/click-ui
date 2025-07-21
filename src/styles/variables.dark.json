@@ -1505,6 +1505,10 @@
           },
           "label": {
             "default": "#b3b6bd"
+          },
+          "barChart": {
+            "default": "#414141",
+            "hover": "#606060"
           }
         }
       },

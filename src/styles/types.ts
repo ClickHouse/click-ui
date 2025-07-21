@@ -2904,6 +2904,10 @@
           },
           "label": {
             "default": string
+          },
+          "barChart": {
+            "default": string,
+            "hover": string
           }
         }
       },

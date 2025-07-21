@@ -1492,6 +1492,10 @@
           },
           "label": {
             "default": "#696e79"
+          },
+          "barChart": {
+            "default": "#dfdfdf",
+            "hover": "#c0c0c0"
           }
         }
       },
