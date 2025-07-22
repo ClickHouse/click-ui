@@ -8,7 +8,7 @@ import { IconButton } from "../IconButton/IconButton";
 import { Text } from "../Typography/Text/Text";
 
 const locale = "en-US";
-const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
+export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
   day: "2-digit",
   month: "short",
   year: "numeric",
