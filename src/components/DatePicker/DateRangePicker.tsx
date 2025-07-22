@@ -62,10 +62,22 @@ const DateRangeTableCell = styled(DateTableCell)<{
     `}
 `;
 
+const datesAreWithinMaxRange = (
+  startDate: Date,
+  endDate: Date,
+  maxRangeLength: number
+): boolean => {
+  const daysDifference =
+    Math.abs(startDate.getTime() - endDate.getTime()) / (1000 * 60 * 60 * 24);
+
+  return daysDifference >= maxRangeLength;
+};
+
 interface CalendarProps {
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
+  maxRangeLength: number;
   setSelectedDate: (selectedDate: Date) => void;
   startDate?: Date;
   endDate?: Date;
@@ -75,6 +87,7 @@ const Calendar = ({
   calendarBody,
   closeDatepicker,
   futureDatesDisabled,
+  maxRangeLength,
   setSelectedDate,
   startDate,
   endDate,
@@ -96,10 +109,23 @@ const Calendar = ({
           const today = new Date();
 
           const isCurrentDate = isSameDate(today, fullDate);
-          const isDisabled = futureDatesDisabled ? fullDate > today : false;
           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
           );
+
+          maxRangeLength;
+          let isDisabled = false;
+          if (futureDatesDisabled && fullDate > today) {
+            isDisabled = true;
+          }
+
+          if (
+            maxRangeLength > 1 &&
+            startDate &&
+            datesAreWithinMaxRange(startDate, fullDate, maxRangeLength)
+          ) {
+            isDisabled = true;
+          }
 
           const shouldShowRangeIndicator =
             !endDate &&
@@ -281,6 +307,7 @@ export interface DateRangePickerProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   placeholder?: string;
   predefinedDatesList?: Array<DateRange>;
+  maxRangeLength?: number;
   startDate?: Date;
 }
 
@@ -289,6 +316,7 @@ export const DateRangePicker = ({
   startDate,
   disabled = false,
   futureDatesDisabled = false,
+  maxRangeLength = -1,
   onSelectDateRange,
   placeholder = "start date – end date",
   predefinedDatesList,
@@ -411,6 +439,7 @@ export const DateRangePicker = ({
                       calendarBody={body}
                       closeDatepicker={closeDatePicker}
                       futureDatesDisabled={futureDatesDisabled}
+                      maxRangeLength={maxRangeLength}
                       setSelectedDate={handleSelectDate}
                       startDate={selectedStartDate}
                       endDate={selectedEndDate}
@@ -427,6 +456,7 @@ export const DateRangePicker = ({
                 calendarBody={body}
                 closeDatepicker={closeDatePicker}
                 futureDatesDisabled={futureDatesDisabled}
+                maxRangeLength={maxRangeLength}
                 setSelectedDate={handleSelectDate}
                 startDate={selectedStartDate}
                 endDate={selectedEndDate}
