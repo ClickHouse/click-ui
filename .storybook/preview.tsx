@@ -1,9 +1,9 @@
 import React from "react";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import "../src/styles/variables.css";
-import { Decorator } from "@storybook/react";
+import { Decorator } from "@storybook/react-vite";
 import styled from "styled-components";
-import { themes } from "@storybook/theming";
+import { themes } from "storybook/theming";
 import ClickUIProvider from "../src/components/ClickUIProvider/ClickUIProvider";
 
 const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
@@ -83,6 +83,7 @@ const preview: Preview = {
     },
     docs: {
       theme: themes.dark,
+      codePanel: true
     },
   },
 };
