@@ -9,23 +9,16 @@ import {
 import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
 import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
-import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./Common";
+import {
+  Body,
+  CalendarRenderer,
+  DateRangePickerInput,
+  DateTableCell,
+  selectedDateFormatter,
+} from "./Common";
 import { Container } from "../Container/Container";
-import dayjs from "dayjs";
 import { Panel } from "../Panel/Panel";
 import { Icon } from "../Icon/Icon";
-
-const DateRangeTableCell = styled(DateTableCell)<{
-  $shouldShowRangeIndicator?: boolean;
-}>`
-  ${({ $shouldShowRangeIndicator, theme }) =>
-    $shouldShowRangeIndicator &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.range};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
-    border-radius: 0;
-    `}
-`;
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -39,18 +32,34 @@ const PredefinedDatesContainer = styled(Container)`
 const CalendarRendererContainer = styled.div`
   border: ${({ theme }) =>
     `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
-  border-left: none;
-  left: 274px;
+  left: 276px;
   position: absolute;
   top: 0;
 `;
 
 const StyledCalendarRenderer = styled(CalendarRenderer)`
-  height: 245px;
+  height: 221px;
 `;
 
 const StyledDropdownItem = styled(Dropdown.Item)`
   min-height: 24px;
+`;
+
+const ScrollableContainer = styled(Container)`
+  max-height: 210px;
+  overflow-y: auto;
+`;
+
+const DateRangeTableCell = styled(DateTableCell)<{
+  $shouldShowRangeIndicator?: boolean;
+}>`
+  ${({ $shouldShowRangeIndicator, theme }) =>
+    $shouldShowRangeIndicator &&
+    `
+    background: ${theme.click.datePicker.dateOption.color.background.range};
+    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
+    border-radius: 0;
+    `}
 `;
 
 interface CalendarProps {
@@ -154,42 +163,37 @@ const monthFormatter = new Intl.DateTimeFormat(locale, {
   year: "numeric",
 });
 
-interface DateRange {
+export interface DateRange {
   startDate: Date;
   endDate: Date;
 }
 
-const getMonthsByNumber = (numberOfMonths: number): Array<DateRange> => {
-  const now = dayjs();
-
-  if (numberOfMonths < 0) {
-    const lastSixMonths: Array<DateRange> = [];
-    for (let i = 0; i < Math.abs(numberOfMonths); i++) {
-      const date = now.subtract(i, "month");
-      lastSixMonths.push({
-        startDate: date.startOf("month").toDate(),
-        endDate: i === 0 ? now.toDate() : date.endOf("month").toDate(),
-      });
-    }
-
-    return lastSixMonths;
+const isDateRangeTheWholeMonth = ({ startDate, endDate }: DateRange): boolean => {
+  if (startDate.getMonth() !== endDate.getMonth()) {
+    return false;
   }
 
-  const nextSixMonths: Array<DateRange> = [];
-  for (let i = 0; i < numberOfMonths; i++) {
-    const date = now.add(i, "month");
-    nextSixMonths.push({
-      startDate: date.startOf("month").toDate(),
-      endDate: i === 0 ? now.toDate() : date.endOf("month").toDate(),
-    });
-  }
+  const normalizedStartDate = new Date(startDate);
+  normalizedStartDate.setHours(0, 0, 0, 0);
+  const normalizedEndDate = new Date(endDate);
+  normalizedEndDate.setHours(0, 0, 0, 0);
 
-  return nextSixMonths;
+  const startDateIsFirstDay = normalizedStartDate.getDate() === 1;
+
+  const endDateNextMonth = new Date(
+    normalizedEndDate.getFullYear(),
+    normalizedEndDate.getMonth() + 1,
+    1
+  ).getTime();
+  const lastDayOfMonth = new Date(endDateNextMonth - 1).getDate();
+  const endDateIsLastDay = normalizedEndDate.getDate() === lastDayOfMonth;
+
+  return startDateIsFirstDay && endDateIsLastDay;
 };
 
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedDatesCount: number;
+  predefinedDatesList: Array<DateRange>;
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -200,7 +204,7 @@ interface PredefinedDatesProps {
 
 const PredefinedDates = ({
   onSelectDateRange,
-  predefinedDatesCount,
+  predefinedDatesList,
   selectedEndDate,
   selectedStartDate,
   setEndDate,
@@ -208,8 +212,6 @@ const PredefinedDates = ({
   shouldShowCustomRange,
   showCustomDateRange,
 }: PredefinedDatesProps) => {
-  const pastSixMonths = getMonthsByNumber(predefinedDatesCount);
-
   const handleCustomTimePeriodClick = (event: MouseEvent) => {
     event.preventDefault();
     showCustomDateRange(!shouldShowCustomRange);
@@ -221,35 +223,45 @@ const PredefinedDates = ({
       isResponsive={false}
       orientation="vertical"
     >
-      {pastSixMonths.map(({ startDate, endDate }) => {
-        const handleItemClick = () => {
-          setStartDate(startDate);
-          setEndDate(endDate);
-          onSelectDateRange(startDate, endDate);
-        };
+      <ScrollableContainer orientation="vertical">
+        {predefinedDatesList.map(({ startDate, endDate }) => {
+          const handleItemClick = () => {
+            setStartDate(startDate);
+            setEndDate(endDate);
+            onSelectDateRange(startDate, endDate);
+          };
 
-        const monthIsSelected =
-          selectedEndDate &&
-          isSameDate(selectedEndDate, endDate) &&
-          selectedStartDate &&
-          isSameDate(selectedStartDate, startDate);
-        return (
-          <StyledDropdownItem
-            data-testid={`predefined-date-${startDate.getTime()}`}
-            key={startDate.toISOString()}
-            onClick={handleItemClick}
-          >
-            <Container
-              data-selected={monthIsSelected}
-              justifyContent="space-between"
-              orientation="horizontal"
+          const rangeIsSelected =
+            selectedEndDate &&
+            isSameDate(selectedEndDate, endDate) &&
+            selectedStartDate &&
+            isSameDate(selectedStartDate, startDate);
+
+          const isWholeMonth = isDateRangeTheWholeMonth({ startDate, endDate });
+
+          return (
+            <StyledDropdownItem
+              data-testid={`predefined-date-${startDate.getTime()}`}
+              key={startDate.toISOString()}
+              onClick={handleItemClick}
             >
-              {monthFormatter.format(startDate)}
-              {monthIsSelected && <Icon name="check" />}
-            </Container>
-          </StyledDropdownItem>
-        );
-      })}
+              <Container
+                data-selected={rangeIsSelected}
+                justifyContent="space-between"
+                orientation="horizontal"
+              >
+                {isWholeMonth
+                  ? monthFormatter.format(startDate)
+                  : `
+                  ${selectedDateFormatter.format(startDate)} -
+                  ${selectedDateFormatter.format(endDate)}
+                `}
+                {rangeIsSelected && <Icon name="check" />}
+              </Container>
+            </StyledDropdownItem>
+          );
+        })}
+      </ScrollableContainer>
       <StyledDropdownItem onClick={handleCustomTimePeriodClick}>
         <Container
           justifyContent="space-between"
@@ -268,7 +280,7 @@ export interface DateRangePickerProps {
   futureDatesDisabled?: boolean;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   placeholder?: string;
-  predefinedDatesCount?: number;
+  predefinedDatesList?: Array<DateRange>;
   startDate?: Date;
 }
 
@@ -279,7 +291,7 @@ export const DateRangePicker = ({
   futureDatesDisabled = false,
   onSelectDateRange,
   placeholder = "start date – end date",
-  predefinedDatesCount,
+  predefinedDatesList,
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -356,16 +368,7 @@ export const DateRangePicker = ({
   );
 
   const shouldShowPredefinedDates =
-    predefinedDatesCount !== undefined && predefinedDatesCount !== 0;
-
-  let clampedPredefinedDatesCount = 0;
-  if (shouldShowPredefinedDates) {
-    if (predefinedDatesCount > 0) {
-      clampedPredefinedDatesCount = Math.min(6, predefinedDatesCount);
-    } else {
-      clampedPredefinedDatesCount = Math.max(-6, predefinedDatesCount);
-    }
-  }
+    predefinedDatesList !== undefined && predefinedDatesList.length > 0;
 
   return (
     <Dropdown
@@ -391,7 +394,7 @@ export const DateRangePicker = ({
           >
             <PredefinedDates
               onSelectDateRange={onSelectDateRange}
-              predefinedDatesCount={clampedPredefinedDatesCount}
+              predefinedDatesList={predefinedDatesList}
               selectedEndDate={selectedEndDate}
               selectedStartDate={selectedStartDate}
               setEndDate={setSelectedEndDate}
