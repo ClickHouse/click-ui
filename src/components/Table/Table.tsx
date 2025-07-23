@@ -1,6 +1,8 @@
 import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
 import { styled } from "styled-components";
 
+import { CheckedState } from "@radix-ui/react-checkbox";
+
 import {
   Checkbox,
   CheckboxProps,
@@ -691,7 +693,8 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
 
   const { checked, disabled } = useMemo(() => {
-    let checked = true;
+    let areAllChecked = true;
+    let maybeIndeterminate: CheckedState = false;
     let disabled = true;
 
     for (const row of rows) {
@@ -701,13 +704,15 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
         disabled = false;
       }
 
-      if (!selectedIdSet.has(row.id)) {
-        checked = false;
+      if (selectedIdSet.has(row.id)) {
+        maybeIndeterminate = "indeterminate";
+      } else {
+        areAllChecked = false;
       }
     }
 
     return {
-      checked: disabled ? false : checked,
+      checked: disabled ? false : areAllChecked || maybeIndeterminate,
       disabled,
     };
   }, [rows, selectedIdSet]);
