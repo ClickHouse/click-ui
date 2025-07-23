@@ -1,16 +1,20 @@
+import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
+import { styled } from "styled-components";
+
 import {
   Checkbox,
+  CheckboxProps,
   EllipsisContent,
   HorizontalDirection,
   Icon,
   IconButton,
   Text,
 } from "@/components";
-import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
-import { styled } from "styled-components";
+
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = "sm" | "md";
+
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   isSortable?: boolean;
@@ -87,11 +91,12 @@ const TableHeader = ({
 interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
-  onSelectAll: (checked: boolean) => void;
+  onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
   actionsList: Array<string>;
   onSort?: SortFn;
-  hasRows: boolean;
   size: TableSize;
+  rows: TableRowType[];
+  selectedIds: (number | string)[];
 }
 
 const Thead = ({
@@ -100,8 +105,9 @@ const Thead = ({
   onSelectAll,
   actionsList,
   onSort: onSortProp,
-  hasRows,
   size,
+  rows,
+  selectedIds,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === "function" && header.isSortable) {
@@ -127,9 +133,10 @@ const Thead = ({
               $size={size}
               aria-label="Select column"
             >
-              <Checkbox
+              <SelectAllCheckbox
                 onCheckedChange={onSelectAll}
-                disabled={!hasRows}
+                rows={rows}
+                selectedIds={selectedIds}
               />
             </StyledHeader>
           )}
@@ -562,17 +569,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
   ) => {
     const isDeletable = typeof onDelete === "function";
     const isEditable = typeof onEdit === "function";
-    const onSelectAll = (checked: boolean): void => {
-      if (typeof onSelect === "function") {
-        const ids = checked
-          ? rows.map((row, index) => ({
-              item: row,
-              index,
-            }))
-          : [];
-        onSelect(ids);
-      }
-    };
 
     const onRowSelect =
       (id: number | string) =>
@@ -608,10 +604,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
-              <Checkbox
+              <SelectAllCheckbox
                 label="Select All"
-                checked={selectedIds.length === rows.length}
-                onCheckedChange={onSelectAll}
+                onCheckedChange={onSelect}
+                rows={rows}
+                selectedIds={selectedIds}
               />
             )}
           </MobileActions>
@@ -625,11 +622,12 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               <Thead
                 headers={headers}
                 isSelectable={isSelectable}
-                onSelectAll={onSelectAll}
+                onSelectAll={onSelect}
                 actionsList={actionsList}
                 onSort={onSort}
-                hasRows={hasRows}
                 size={size}
+                rows={rows}
+                selectedIds={selectedIds}
               />
             )}
             <Tbody>
@@ -677,6 +675,40 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
   }
 );
+
+interface SelectAllCheckboxProps extends Omit<CheckboxProps, "onCheckedChange"> {
+  onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
+  selectedIds: (number | string)[];
+  rows: TableRowType[];
+}
+
+const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
+  rows,
+  selectedIds,
+  onCheckedChange,
+  ...checkboxProps
+}) => {
+  const handleCheckedChange = (checked: boolean): void => {
+    if (typeof onCheckedChange === "function") {
+      const ids = checked
+        ? rows.map((row, index) => ({
+            item: row,
+            index,
+          }))
+        : [];
+      onCheckedChange(ids);
+    }
+  };
+
+  return (
+    <Checkbox
+      checked={selectedIds.length === rows.length}
+      disabled={rows.length === 0}
+      onCheckedChange={handleCheckedChange}
+      {...checkboxProps}
+    />
+  );
+};
 
 const StyledTable = styled.table`
   width: 100%;
