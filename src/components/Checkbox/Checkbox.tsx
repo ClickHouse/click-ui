@@ -28,23 +28,23 @@ const Wrapper = styled(FormRoot)`
 export const Checkbox = ({
   id,
   label,
-  variant,
+  variant = "default",
   disabled,
-  orientation,
-  dir,
+  orientation = "horizontal",
+  dir = "end",
   checked,
   ...delegated
 }: CheckboxProps) => {
   const defaultId = useId();
   return (
     <Wrapper
-      $orientation={orientation ?? "horizontal"}
-      $dir={dir ?? "end"}
+      $orientation={orientation}
+      $dir={dir}
     >
       <CheckInput
         id={id ?? defaultId}
         data-testid="checkbox"
-        variant={variant ?? "default"}
+        variant={variant}
         disabled={disabled}
         aria-label={`${label}`}
         checked={checked}
@@ -77,7 +77,7 @@ const CheckInput = styled(RadixCheckbox.Root)<{
   justify-content: center;
   flex-shrink: 0;
 
-  ${({ theme, variant = "default" }) => `
+  ${({ theme, variant }) => `
     border-radius: ${theme.click.checkbox.radii.all};
     width: ${theme.click.checkbox.size.all};
     height: ${theme.click.checkbox.size.all};
