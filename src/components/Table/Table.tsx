@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
+import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
 import { styled } from "styled-components";
 
 import {
@@ -688,22 +688,61 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
   onCheckedChange,
   ...checkboxProps
 }) => {
-  const handleCheckedChange = (checked: boolean): void => {
-    if (typeof onCheckedChange === "function") {
-      const ids = checked
-        ? rows.map((row, index) => ({
-            item: row,
-            index,
-          }))
-        : [];
-      onCheckedChange(ids);
+  const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+
+  const { checked, disabled } = useMemo(() => {
+    let checked = true;
+    let disabled = true;
+
+    for (const row of rows) {
+      if (row.isDisabled || row.isDeleted) {
+        continue;
+      } else {
+        disabled = false;
+      }
+
+      if (!selectedIdSet.has(row.id)) {
+        checked = false;
+      }
     }
+
+    return {
+      checked: disabled ? false : checked,
+      disabled,
+    };
+  }, [rows, selectedIdSet]);
+
+  const handleCheckedChange = (checked: boolean) => {
+    if (typeof onCheckedChange !== "function") {
+      return;
+    }
+
+    // disabled items should not change their selected state because of user interaction
+
+    const newSelectedRows = rows.reduce((acc: SelectReturnValue[], row, index) => {
+      const isDisabled = row.isDisabled || row.isDeleted;
+
+      const shouldBeSelected = checked
+        ? !isDisabled || selectedIdSet.has(row.id)
+        : isDisabled && selectedIdSet.has(row.id);
+
+      if (shouldBeSelected) {
+        acc.push({
+          item: row,
+          index,
+        });
+      }
+
+      return acc;
+    }, []);
+
+    onCheckedChange(newSelectedRows);
   };
 
   return (
     <Checkbox
-      checked={selectedIds.length === rows.length}
-      disabled={rows.length === 0}
+      checked={checked}
+      disabled={disabled}
       onCheckedChange={handleCheckedChange}
       {...checkboxProps}
     />
