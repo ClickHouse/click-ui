@@ -1,7 +1,9 @@
-import { Table } from "./Table";
+import { Meta, StoryObj } from "@storybook/react";
+
+import { Table, TableRowType } from "./Table";
 
 const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
-const rows = [
+const rows: TableRowType[] = [
   {
     id: "row-1",
     items: [
@@ -38,24 +40,17 @@ const rows = [
   },
 ];
 
-export default {
+const meta: Meta<typeof Table> = {
   component: Table,
   title: "Display/Table",
   tags: ["table", "autodocs"],
-  argTypes: {
-    selectedIds: {
-      control: { type: "object" },
-      if: { arg: "isSelectable", exists: true },
-    },
-    message: { control: "string" },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+export const Playground: StoryObj<typeof Table> = {
   args: {
     headers,
     rows,
-    selectedIds: [],
-    loading: false,
   },
 };
