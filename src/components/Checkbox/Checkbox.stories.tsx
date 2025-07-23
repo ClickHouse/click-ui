@@ -1,41 +1,37 @@
-import { Checkbox } from "./Checkbox";
+import { Meta, StoryObj } from "@storybook/react";
 
-const CheckboxComponent = ({
-  checked,
-  ...props
-}: {
-  checked: "default" | "checked" | "unchecked";
-  disabled: boolean;
-  label?: string;
-}) => {
-  return (
-    <Checkbox
-      checked={checked === "default" ? undefined : checked === "checked"}
-      {...props}
-    />
-  );
-};
-export default {
-  component: CheckboxComponent,
+import { Checkbox } from "./Checkbox";
+import { useEffect, useState } from "react";
+
+const meta: Meta<typeof Checkbox> = {
+  component: Checkbox,
   title: "Forms/Checkbox",
   tags: ["checkbox", "autodocs"],
   argTypes: {
-    checked: { control: "radio", options: ["default", "checked", "unchecked"] },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
-    variant: {
-      control: "radio",
-      options: ["default", "var1", "var2", "var3", "var4", "var5", "var6"],
-    },
+    checked: { control: "radio", options: [true, false, "indeterminate"] },
+    defaultChecked: { control: "radio", options: [true, false, "indeterminate"] },
+  },
+  render: ({ checked, ...props }) => {
+    const [checkedState, setCheckedState] = useState(checked);
+
+    useEffect(() => {
+      setCheckedState(checked);
+    }, [checked]);
+
+    return (
+      <Checkbox
+        {...props}
+        checked={checkedState}
+        onCheckedChange={setCheckedState}
+      />
+    );
   },
 };
 
-export const Playground = {
+export default meta;
+
+export const Playground: StoryObj<typeof Checkbox> = {
   args: {
     label: "Accept terms and conditions",
-    disabled: false,
-    checked: "default",
   },
 };
