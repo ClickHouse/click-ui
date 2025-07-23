@@ -451,6 +451,7 @@ const TableBodyRow = ({
           <Checkbox
             checked={isSelected}
             onCheckedChange={onSelect}
+            disabled={isDisabled || isDeleted}
           />
         </SelectData>
       )}
