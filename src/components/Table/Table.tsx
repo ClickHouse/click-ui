@@ -580,7 +580,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           const selectedItems = rows.flatMap((row, index) => {
             if (
               (id === row.id && checked) ||
-              (selectedIds.includes(id) && id !== row.id)
+              (selectedIds.includes(row.id) && id !== row.id)
             ) {
               return {
                 item: row,
