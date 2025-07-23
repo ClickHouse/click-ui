@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { Meta, StoryObj } from "@storybook/react";
 
 import { Table, TableRowType } from "./Table";
@@ -52,5 +54,31 @@ export const Playground: StoryObj<typeof Table> = {
   args: {
     headers,
     rows,
+  },
+};
+
+export const Selectable: StoryObj<typeof Table> = {
+  args: {
+    headers,
+    rows,
+    isSelectable: true,
+    selectedIds: [],
+  },
+  render: ({ selectedIds, ...props }) => {
+    const [selectedRows, setSelectedRows] = useState(selectedIds);
+
+    useEffect(() => {
+      setSelectedRows(selectedIds);
+    }, [selectedIds]);
+
+    return (
+      <Table
+        {...props}
+        selectedIds={selectedRows}
+        onSelect={selectedItems =>
+          setSelectedRows(selectedItems.map(({ item: { id } }) => id))
+        }
+      />
+    );
   },
 };
