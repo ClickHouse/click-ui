@@ -1,10 +1,10 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 const config: StorybookConfig = {
   core: {
-    disableTelemetry: true
+    disableTelemetry: true,
   },
   stories: [
-    "../src/Introduction.mdx", 
+    "../src/Introduction.mdx",
     "../src/components/icons/Icons.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
@@ -12,7 +12,7 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     {
-      name: '@storybook/addon-storysource',
+      name: "@storybook/addon-storysource",
       options: {
         loaderOptions: {
           prettierConfig: { printWidth: 80, singleQuote: false },
@@ -31,5 +31,18 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   staticDirs: ["../public"],
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+      shouldRemoveUndefinedFromOptional: true,
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: prop =>
+        prop.parent ? !/node_modules\/(?!@radix-ui)/.test(prop.parent.fileName) : true,
+    },
+  },
 };
 export default config;
