@@ -1,7 +1,11 @@
-import { Table } from "./Table";
+import { useEffect, useState } from "react";
+
+import { Meta, StoryObj } from "@storybook/react";
+
+import { Table, TableRowType } from "./Table";
 
 const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
-const rows = [
+const rows: TableRowType[] = [
   {
     id: "row-1",
     items: [
@@ -38,24 +42,43 @@ const rows = [
   },
 ];
 
-export default {
+const meta: Meta<typeof Table> = {
   component: Table,
   title: "Display/Table",
   tags: ["table", "autodocs"],
-  argTypes: {
-    selectedIds: {
-      control: { type: "object" },
-      if: { arg: "isSelectable", exists: true },
-    },
-    message: { control: "string" },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+export const Playground: StoryObj<typeof Table> = {
   args: {
     headers,
     rows,
+  },
+};
+
+export const Selectable: StoryObj<typeof Table> = {
+  args: {
+    headers,
+    rows,
+    isSelectable: true,
     selectedIds: [],
-    loading: false,
+  },
+  render: ({ selectedIds, ...props }) => {
+    const [selectedRows, setSelectedRows] = useState(selectedIds);
+
+    useEffect(() => {
+      setSelectedRows(selectedIds);
+    }, [selectedIds]);
+
+    return (
+      <Table
+        {...props}
+        selectedIds={selectedRows}
+        onSelect={selectedItems =>
+          setSelectedRows(selectedItems.map(({ item: { id } }) => id))
+        }
+      />
+    );
   },
 };
