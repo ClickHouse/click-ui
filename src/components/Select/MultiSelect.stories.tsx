@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { MultiSelect } from "./MultiSelect";
 import { selectOptions } from "./selectOptions";
 import { useEffect, useState } from "react";
