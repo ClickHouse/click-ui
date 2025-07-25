@@ -77,6 +77,7 @@ interface CalendarProps {
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
+  futureStartDatesDisabled: boolean;
   maxRangeLength: number;
   setSelectedDate: (selectedDate: Date) => void;
   startDate?: Date;
@@ -87,6 +88,7 @@ const Calendar = ({
   calendarBody,
   closeDatepicker,
   futureDatesDisabled,
+  futureStartDatesDisabled,
   maxRangeLength,
   setSelectedDate,
   startDate,
@@ -116,6 +118,10 @@ const Calendar = ({
           maxRangeLength;
           let isDisabled = false;
           if (futureDatesDisabled && fullDate > today) {
+            isDisabled = true;
+          }
+
+          if (futureStartDatesDisabled && !startDate && fullDate > today) {
             isDisabled = true;
           }
 
@@ -304,6 +310,7 @@ export interface DateRangePickerProps {
   endDate?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
+  futureStartDatesDisabled?: boolean;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   placeholder?: string;
   predefinedDatesList?: Array<DateRange>;
@@ -316,6 +323,7 @@ export const DateRangePicker = ({
   startDate,
   disabled = false,
   futureDatesDisabled = false,
+  futureStartDatesDisabled = false,
   maxRangeLength = -1,
   onSelectDateRange,
   placeholder = "start date – end date",
@@ -363,6 +371,11 @@ export const DateRangePicker = ({
       // Start date and end date are selected, user clicks any date.
       // Set start date to the selected date, clear the end date.
       if (selectedStartDate && selectedEndDate) {
+        // If futureStartDatesDisabled is true, only set the selected date to the date clicked if it's before today
+        if (futureStartDatesDisabled && selectedDate > new Date()) {
+          setSelectedEndDate(undefined);
+          return;
+        }
         setSelectedStartDate(selectedDate);
         setSelectedEndDate(undefined);
         return;
@@ -392,7 +405,7 @@ export const DateRangePicker = ({
 
       setSelectedStartDate(selectedDate);
     },
-    [onSelectDateRange, selectedEndDate, selectedStartDate]
+    [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
   const shouldShowPredefinedDates =
@@ -439,6 +452,7 @@ export const DateRangePicker = ({
                       calendarBody={body}
                       closeDatepicker={closeDatePicker}
                       futureDatesDisabled={futureDatesDisabled}
+                      futureStartDatesDisabled={futureStartDatesDisabled}
                       maxRangeLength={maxRangeLength}
                       setSelectedDate={handleSelectDate}
                       startDate={selectedStartDate}
@@ -456,6 +470,7 @@ export const DateRangePicker = ({
                 calendarBody={body}
                 closeDatepicker={closeDatePicker}
                 futureDatesDisabled={futureDatesDisabled}
+                futureStartDatesDisabled={futureStartDatesDisabled}
                 maxRangeLength={maxRangeLength}
                 setSelectedDate={handleSelectDate}
                 startDate={selectedStartDate}
