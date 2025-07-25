@@ -272,7 +272,7 @@ export const FileUpload = ({
       if (!isFiletypeSupported(file.name, supportedFileTypes)) {
         console.log("File type not supported");
         setIsNotSupported(true);
-        
+
         if (onFileFailure) {
           onFileFailure();
         }

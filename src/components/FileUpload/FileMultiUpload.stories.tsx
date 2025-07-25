@@ -1,6 +1,9 @@
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
-import { FileMultiUpload, FileUploadItem } from "@/components/FileUpload/FileMultiUpload.tsx";
+import {
+  FileMultiUpload,
+  FileUploadItem,
+} from "@/components/FileUpload/FileMultiUpload.tsx";
 
 export default {
   component: FileMultiUpload,
@@ -54,7 +57,7 @@ export const WithUploadingFiles = {
         progress: 45,
       },
       {
-        id: "2", 
+        id: "2",
         name: "spreadsheet.csv",
         size: 2048,
         status: "uploading" as const,
@@ -191,7 +194,8 @@ export const MixedStates = {
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileMultiUpload` component with files in various states (success, uploading, error)",
+        story:
+          "Shows the `FileMultiUpload` component with files in various states (success, uploading, error)",
       },
     },
   },
@@ -214,41 +218,43 @@ export const Interactive: StoryFn = () => {
 
     // Simulate upload progress
     const interval = setInterval(() => {
-      setFiles(prev => prev.map(f => {
-        if (f.id === newFile.id && f.status === "uploading") {
-          const newProgress = Math.min(f.progress + 10, 100);
-          return {
-            ...f,
-            progress: newProgress,
-            status: newProgress === 100 ? "success" : "uploading",
-          };
-        }
-        return f;
-      }));
+      setFiles(prev =>
+        prev.map(f => {
+          if (f.id === newFile.id && f.status === "uploading") {
+            const newProgress = Math.min(f.progress + 10, 100);
+            return {
+              ...f,
+              progress: newProgress,
+              status: newProgress === 100 ? "success" : "uploading",
+            };
+          }
+          return f;
+        })
+      );
     }, 200);
 
     setTimeout(() => clearInterval(interval), 2000);
   };
 
   const handleFileRetry = (fileId: string) => {
-    setFiles(prev => prev.map(f => 
-      f.id === fileId 
-        ? { ...f, status: "uploading", progress: 0 }
-        : f
-    ));
+    setFiles(prev =>
+      prev.map(f => (f.id === fileId ? { ...f, status: "uploading", progress: 0 } : f))
+    );
 
     // Simulate retry with potential failure
     setTimeout(() => {
-      setFiles(prev => prev.map(f => 
-        f.id === fileId 
-          ? { 
-              ...f, 
-              status: Math.random() > 0.5 ? "success" : "error",
-              progress: Math.random() > 0.5 ? 100 : 0,
-              errorMessage: Math.random() > 0.5 ? undefined : "Retry failed"
-            }
-          : f
-      ));
+      setFiles(prev =>
+        prev.map(f =>
+          f.id === fileId
+            ? {
+                ...f,
+                status: Math.random() > 0.5 ? "success" : "error",
+                progress: Math.random() > 0.5 ? 100 : 0,
+                errorMessage: Math.random() > 0.5 ? undefined : "Retry failed",
+              }
+            : f
+        )
+      );
     }, 1000);
   };
 
@@ -271,7 +277,8 @@ export const Interactive: StoryFn = () => {
 Interactive.parameters = {
   docs: {
     description: {
-      story: "Interactive example that simulates file upload behavior with progress and state management",
+      story:
+        "Interactive example that simulates file upload behavior with progress and state management",
     },
   },
 };

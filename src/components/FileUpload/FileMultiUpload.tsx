@@ -33,7 +33,8 @@ const UploadArea = styled.div<{
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
   border-radius: ${({ theme }) => theme.click.fileUpload.md.radii.all};
-  padding: ${({ theme }) => `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
+  padding: ${({ theme }) =>
+    `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,8 +48,7 @@ const UploadArea = styled.div<{
   ${props =>
     props.$isDragging &&
     css`
-      background-color: ${({ theme }) =>
-        theme.click.fileUpload.color.background.active};
+      background-color: ${({ theme }) => theme.click.fileUpload.color.background.active};
       border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.active};
     `}
 `;
@@ -94,7 +94,8 @@ const FileItem = styled.div<{ $isError?: boolean }>`
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
   border-radius: ${({ theme }) => theme.click.fileUpload.sm.radii.all};
-  padding: ${({ theme }) => `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`};
+  padding: ${({ theme }) =>
+    `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -307,17 +308,23 @@ export const FileMultiUpload = ({
     }
   }, []);
 
-  const handleRemoveFile = useCallback((fileId: string) => {
-    if (onFileRemove) {
-      onFileRemove(fileId);
-    }
-  }, [onFileRemove]);
+  const handleRemoveFile = useCallback(
+    (fileId: string) => {
+      if (onFileRemove) {
+        onFileRemove(fileId);
+      }
+    },
+    [onFileRemove]
+  );
 
-  const handleRetryUpload = useCallback((fileId: string) => {
-    if (onFileRetry) {
-      onFileRetry(fileId);
-    }
-  }, [onFileRetry]);
+  const handleRetryUpload = useCallback(
+    (fileId: string) => {
+      if (onFileRetry) {
+        onFileRetry(fileId);
+      }
+    },
+    [onFileRetry]
+  );
 
   const acceptedFileTypes = supportedFileTypes.join(",");
 
@@ -366,7 +373,10 @@ export const FileMultiUpload = ({
       {files.length > 0 && (
         <FilesList>
           {files.map(file => (
-            <FileItem key={file.id} $isError={file.status === "error"}>
+            <FileItem
+              key={file.id}
+              $isError={file.status === "error"}
+            >
               <FileInfo>
                 <FileInfoHeader>
                   <DocumentIcon name={"document"} />
