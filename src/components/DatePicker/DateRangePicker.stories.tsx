@@ -48,6 +48,9 @@ const meta: Meta<typeof DateRangePicker> = {
     futureDatesDisabled: {
       control: "boolean",
     },
+    futureStartDatesDisabled: {
+      control: "boolean",
+    },
     maxRangeLength: {
       control: "number",
     },
@@ -73,7 +76,6 @@ export const Default: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const maxRangeLength = args.maxRangeLength;
 
     return (
       <DateRangePicker
@@ -81,7 +83,8 @@ export const Default: Story = {
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
-        maxRangeLength={maxRangeLength}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         startDate={startDate}
@@ -97,11 +100,17 @@ export const DateRangeWithMaxRange: Story = {
   },
 };
 
+export const DateRangeFutureStartDatesDisabled: Story = {
+  args: {
+    futureStartDatesDisabled: true,
+    predefinedDatesList: [],
+  },
+};
+
 export const PredefinedDatesLastSixMonths: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const maxRangeLength = args.maxRangeLength;
     const predefinedDatesList = getMonthsByNumber(-6);
 
     return (
@@ -110,7 +119,8 @@ export const PredefinedDatesLastSixMonths: Story = {
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
-        maxRangeLength={maxRangeLength}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         predefinedDatesList={predefinedDatesList}
@@ -124,7 +134,6 @@ export const PredefinedDatesNextSixMonths: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const maxRangeLength = args.maxRangeLength;
     const predefinedDatesList = getMonthsByNumber(6);
 
     return (
@@ -133,7 +142,8 @@ export const PredefinedDatesNextSixMonths: Story = {
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
-        maxRangeLength={maxRangeLength}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         predefinedDatesList={predefinedDatesList}
@@ -147,7 +157,6 @@ export const PredefinedDatesArbitraryDates: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const maxRangeLength = args.maxRangeLength;
     const predefinedDatesList = [
       { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
       { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
@@ -160,7 +169,8 @@ export const PredefinedDatesArbitraryDates: Story = {
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
-        maxRangeLength={maxRangeLength}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         predefinedDatesList={predefinedDatesList}
@@ -174,7 +184,6 @@ export const PredefinedDatesScrollable: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const maxRangeLength = args.maxRangeLength;
     const predefinedDatesList = [
       { startDate: new Date("09/14/2024"), endDate: new Date("10/14/2024") },
       { startDate: new Date("10/14/2024"), endDate: new Date("11/14/2024") },
@@ -194,7 +203,8 @@ export const PredefinedDatesScrollable: Story = {
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
-        maxRangeLength={maxRangeLength}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         predefinedDatesList={predefinedDatesList}
