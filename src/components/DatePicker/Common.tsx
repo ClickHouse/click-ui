@@ -8,7 +8,7 @@ import { IconButton } from "../IconButton/IconButton";
 import { Text } from "../Typography/Text/Text";
 
 const locale = "en-US";
-const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
+export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
   day: "2-digit",
   month: "short",
   year: "numeric",
@@ -277,6 +277,7 @@ export const CalendarRenderer = ({
         orientation="horizontal"
       >
         <IconButton
+          data-testid="calendar-previous-month"
           icon="chevron-left"
           onClick={handlePreviousClick}
           size="sm"
@@ -284,6 +285,7 @@ export const CalendarRenderer = ({
         />
         <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
         <IconButton
+          data-testid="calendar-next-month"
           icon="chevron-right"
           onClick={handleNextClick}
           size="sm"
