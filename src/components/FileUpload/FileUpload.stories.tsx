@@ -78,3 +78,22 @@ export const MediumSize = {
     },
   },
 };
+
+export const RestrictedFileTypes = {
+  args: {
+    title: "Upload SQL files only",
+    supportedFileTypes: [".sql"],
+    size: "md",
+    onRetry: () => console.log("File retried"),
+    onFileFailure: () => console.log("File failed - unsupported type"),
+    onFileClose: () => console.log("File dismissed"),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows the `FileUpload` component with restricted file types. Try dropping or selecting a non-SQL file to see the 'Unsupported file type' message.",
+      },
+    },
+  },
+};
