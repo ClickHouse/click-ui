@@ -270,7 +270,6 @@ export const FileUpload = ({
   const processFile = useCallback(
     (file: File) => {
       if (!isFiletypeSupported(file.name, supportedFileTypes)) {
-        console.log("File type not supported");
         setIsNotSupported(true);
 
         if (onFileFailure) {

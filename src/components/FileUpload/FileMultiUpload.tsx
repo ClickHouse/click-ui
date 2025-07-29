@@ -193,15 +193,15 @@ export const FileMultiUpload = ({
   onFileFailure,
 }: FileMultiUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [isNotSupported, setIsNotSupported] = useState(false);
+  const [isSupported, setIsSupported] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounterRef = useRef(0);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
-    if (isNotSupported) {
+    if (!isSupported) {
       timeoutId = setTimeout(() => {
-        setIsNotSupported(false);
+        setIsSupported(true);
       }, 2000);
     }
     return () => {
@@ -209,7 +209,7 @@ export const FileMultiUpload = ({
         clearTimeout(timeoutId);
       }
     };
-  }, [isNotSupported]);
+  }, [isSupported]);
 
   const handleDragEnter = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -257,8 +257,7 @@ export const FileMultiUpload = ({
   const processFile = useCallback(
     (file: File) => {
       if (!isFiletypeSupported(file.name, supportedFileTypes)) {
-        console.log("File type not supported");
-        setIsNotSupported(true);
+        setIsSupported(false);
 
         if (onFileFailure) {
           onFileFailure();
@@ -266,7 +265,7 @@ export const FileMultiUpload = ({
         return;
       }
 
-      setIsNotSupported(false);
+      setIsSupported(true);
 
       if (onFileSelect) {
         onFileSelect(file);
@@ -340,7 +339,7 @@ export const FileMultiUpload = ({
       >
         <UploadIcon name="upload" />
         <UploadText>
-          {isNotSupported ? (
+          {!isSupported ? (
             <FileUploadTitle
               $isNotSupported
               type="h1"
@@ -349,7 +348,7 @@ export const FileMultiUpload = ({
             </FileUploadTitle>
           ) : (
             <FileUploadTitle
-              $isNotSupported={isNotSupported}
+              $isNotSupported={!isSupported}
               type="h1"
             >
               {title}
