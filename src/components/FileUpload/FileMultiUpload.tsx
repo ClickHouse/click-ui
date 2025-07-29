@@ -193,7 +193,7 @@ export const FileMultiUpload = ({
   onFileFailure,
 }: FileMultiUploadProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [isSupported, setIsSupported] = useState(false);
+  const [isSupported, setIsSupported] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounterRef = useRef(0);
 
