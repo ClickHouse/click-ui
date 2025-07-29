@@ -45,6 +45,7 @@ const buildOptions: BuildOptions = {
       },
     },
   },
+  sourcemap: true,
 };
 
 // https://vitejs.dev/config/
