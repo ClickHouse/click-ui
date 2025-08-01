@@ -63,21 +63,29 @@ export const Selectable: StoryObj<typeof Table> = {
     rows,
     isSelectable: true,
     selectedIds: [],
+    indeterminateIds: ["row-1"],
   },
-  render: ({ selectedIds, ...props }) => {
+  render: ({ selectedIds, indeterminateIds, ...props }) => {
     const [selectedRows, setSelectedRows] = useState(selectedIds);
+    const [indeterminateRows, setIndeterminateRows] = useState(indeterminateIds);
 
     useEffect(() => {
       setSelectedRows(selectedIds);
     }, [selectedIds]);
 
+    useEffect(() => {
+      setIndeterminateRows(indeterminateIds);
+    }, [indeterminateIds, selectedIds]);
+
     return (
       <Table
         {...props}
         selectedIds={selectedRows}
-        onSelect={selectedItems =>
-          setSelectedRows(selectedItems.map(({ item: { id } }) => id))
-        }
+        indeterminateIds={indeterminateRows}
+        onSelect={(selectedItems, indeterminateItems) => {
+          setSelectedRows(selectedItems.map(({ item: { id } }) => id));
+          setIndeterminateRows(indeterminateItems.map(({ item: { id } }) => id));
+        }}
       />
     );
   },

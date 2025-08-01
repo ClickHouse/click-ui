@@ -99,6 +99,7 @@ interface TheadProps {
   size: TableSize;
   rows: TableRowType[];
   selectedIds: (number | string)[];
+  indeterminateIds: (number | string)[];
 }
 
 const Thead = ({
@@ -110,6 +111,7 @@ const Thead = ({
   size,
   rows,
   selectedIds,
+  indeterminateIds,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === "function" && header.isSortable) {
@@ -139,6 +141,7 @@ const Thead = ({
                 onCheckedChange={onSelectAll}
                 rows={rows}
                 selectedIds={selectedIds}
+                indeterminateIds={indeterminateIds}
               />
             </StyledHeader>
           )}
@@ -404,12 +407,17 @@ type SelectReturnValue = {
 interface SelectionType {
   isSelectable?: boolean;
   selectedIds?: Array<number | string>;
-  onSelect?: (selectedValues: Array<SelectReturnValue>) => void;
+  indeterminateIds?: Array<number | string>;
+  onSelect?: (
+    selectedValues: Array<SelectReturnValue>,
+    indeterminateIds: Array<SelectReturnValue>
+  ) => void;
 }
 
 interface NoSelectionType {
   isSelectable?: never;
   selectedIds?: never;
+  indeterminateIds?: never;
   onSelect?: never;
 }
 
@@ -419,7 +427,7 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   headers: Array<TableHeaderType>;
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
-  isSelected: boolean;
+  isSelected: CheckedState;
   onDelete?: () => void;
   onEdit?: () => void;
   actionsList: Array<string>;
@@ -556,6 +564,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       rows,
       isSelectable,
       selectedIds = [],
+      indeterminateIds = [],
       onSelect,
       onDelete,
       onEdit,
@@ -576,20 +585,28 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       (id: number | string) =>
       (checked: boolean): void => {
         if (typeof onSelect == "function") {
-          const selectedItems = rows.flatMap((row, index) => {
-            if (
-              (id === row.id && checked) ||
-              (selectedIds.includes(row.id) && id !== row.id)
-            ) {
-              return {
-                item: row,
-                index,
-              };
-            }
+          const [selectedItems, indeterminateItems] = rows.reduce(
+            (acc: [SelectReturnValue[], SelectReturnValue[]], row, index) => {
+              if (
+                (id === row.id && checked) ||
+                (selectedIds.includes(row.id) && id !== row.id)
+              ) {
+                acc[0].push({
+                  item: row,
+                  index,
+                });
+              } else if (indeterminateIds.includes(row.id)) {
+                acc[1].push({
+                  item: row,
+                  index,
+                });
+              }
 
-            return [];
-          });
-          onSelect(selectedItems);
+              return acc;
+            },
+            [[], []]
+          );
+          onSelect(selectedItems, indeterminateItems);
         }
       };
     const hasRows = rows.length > 0;
@@ -608,9 +625,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             {isSelectable && (
               <SelectAllCheckbox
                 label="Select All"
-                onCheckedChange={onSelect}
+                onCheckedChange={selectedValues => onSelect?.(selectedValues, [])}
                 rows={rows}
                 selectedIds={selectedIds}
+                indeterminateIds={indeterminateIds}
               />
             )}
           </MobileActions>
@@ -624,12 +642,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               <Thead
                 headers={headers}
                 isSelectable={isSelectable}
-                onSelectAll={onSelect}
+                onSelectAll={selectedValues => onSelect?.(selectedValues, [])}
                 actionsList={actionsList}
                 onSort={onSort}
                 size={size}
                 rows={rows}
                 selectedIds={selectedIds}
+                indeterminateIds={indeterminateIds}
               />
             )}
             <Tbody>
@@ -650,7 +669,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   key={`table-body-row-${rowIndex}`}
                   headers={headers}
                   isSelectable={isSelectable}
-                  isSelected={selectedIds?.includes(id)}
+                  isSelected={
+                    selectedIds?.includes(id) ||
+                    (indeterminateIds.includes(id) && "indeterminate")
+                  }
                   onSelect={onRowSelect(id)}
                   actionsList={actionsList}
                   onDelete={
@@ -681,16 +703,19 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 interface SelectAllCheckboxProps extends Omit<CheckboxProps, "onCheckedChange"> {
   onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
   selectedIds: (number | string)[];
+  indeterminateIds: (number | string)[];
   rows: TableRowType[];
 }
 
 const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
   rows,
   selectedIds,
+  indeterminateIds,
   onCheckedChange,
   ...checkboxProps
 }) => {
   const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+  const indeterminateIdSet = useMemo(() => new Set(indeterminateIds), [indeterminateIds]);
 
   const { checked, disabled } = useMemo(() => {
     let areAllChecked = true;
@@ -704,6 +729,10 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
         disabled = false;
       }
 
+      if (indeterminateIdSet.has(row.id)) {
+        maybeIndeterminate = "indeterminate";
+      }
+
       if (selectedIdSet.has(row.id)) {
         maybeIndeterminate = "indeterminate";
       } else {
@@ -715,7 +744,7 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
       checked: disabled ? false : areAllChecked || maybeIndeterminate,
       disabled,
     };
-  }, [rows, selectedIdSet]);
+  }, [indeterminateIdSet, rows, selectedIdSet]);
 
   const handleCheckedChange = (checked: boolean) => {
     if (typeof onCheckedChange !== "function") {
