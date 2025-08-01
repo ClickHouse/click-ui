@@ -45,7 +45,7 @@ const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   width: fill-available;
   width: stretch;
   position: relative;
-  cursor: pointer;
+  cursor: text;
   ${({ theme, $theme }) => {
     const themeName = (theme.name !== "classic" ? theme.name : "light") as CodeThemeType;
 
