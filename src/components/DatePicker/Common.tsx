@@ -6,13 +6,7 @@ import { Container } from "../Container/Container";
 import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
 import { IconButton } from "../IconButton/IconButton";
 import { Text } from "../Typography/Text/Text";
-
-const locale = "en-US";
-export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-});
+import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from "./utils";
 
 const explicitWidth = "250px";
 
@@ -136,12 +130,6 @@ export const DateRangePickerInput = ({
     </HighlightedInputWrapper>
   );
 };
-
-const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
-const headerDateFormatter = new Intl.DateTimeFormat(locale, {
-  month: "short",
-  year: "numeric",
-});
 
 const DatePickerContainer = styled(Container)`
   background: ${({ theme }) =>
