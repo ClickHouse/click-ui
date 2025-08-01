@@ -1,34 +1,6 @@
 import { Args, Meta, StoryObj } from "@storybook/react";
-import { DateRange, DateRangePicker } from "./DateRangePicker";
-import dayjs from "dayjs";
-
-const getMonthsByNumber = (numberOfMonths: number): Array<DateRange> => {
-  const now = dayjs();
-
-  if (numberOfMonths < 0) {
-    const lastSixMonths: Array<DateRange> = [];
-    for (let i = 0; i < Math.abs(numberOfMonths); i++) {
-      const date = now.subtract(i, "month");
-      lastSixMonths.push({
-        startDate: date.startOf("month").toDate(),
-        endDate: i === 0 ? now.toDate() : date.endOf("month").toDate(),
-      });
-    }
-
-    return lastSixMonths.reverse();
-  }
-
-  const nextSixMonths: Array<DateRange> = [];
-  for (let i = 0; i < numberOfMonths; i++) {
-    const date = now.add(i, "month");
-    nextSixMonths.push({
-      startDate: date.startOf("month").toDate(),
-      endDate: i === 0 ? now.toDate() : date.endOf("month").toDate(),
-    });
-  }
-
-  return nextSixMonths;
-};
+import { DateRangePicker } from "./DateRangePicker";
+import { getPredefinedMonthsByNumber } from "./utils";
 
 const meta: Meta<typeof DateRangePicker> = {
   component: DateRangePicker,
@@ -98,6 +70,24 @@ export const DateRangeWithMaxRange: Story = {
     maxRangeLength: 15,
     predefinedDatesList: [],
   },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+    return (
+      <DateRangePicker
+        key="default"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={args.futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+      />
+    );
+  },
 };
 
 export const DateRangeFutureStartDatesDisabled: Story = {
@@ -111,7 +101,7 @@ export const PredefinedDatesLastSixMonths: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getMonthsByNumber(-6);
+    const predefinedDatesList = getPredefinedMonthsByNumber(-6);
 
     return (
       <DateRangePicker
@@ -134,7 +124,7 @@ export const PredefinedDatesNextSixMonths: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getMonthsByNumber(6);
+    const predefinedDatesList = getPredefinedMonthsByNumber(6);
 
     return (
       <DateRangePicker

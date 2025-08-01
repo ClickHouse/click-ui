@@ -9,16 +9,11 @@ import {
 import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
 import { styled } from "styled-components";
 import Dropdown from "../Dropdown/Dropdown";
-import {
-  Body,
-  CalendarRenderer,
-  DateRangePickerInput,
-  DateTableCell,
-  selectedDateFormatter,
-} from "./Common";
+import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./Common";
 import { Container } from "../Container/Container";
 import { Panel } from "../Panel/Panel";
 import { Icon } from "../Icon/Icon";
+import { DateRange, selectedDateFormatter } from "./utils";
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -195,11 +190,6 @@ const monthFormatter = new Intl.DateTimeFormat(locale, {
   year: "numeric",
 });
 
-export interface DateRange {
-  startDate: Date;
-  endDate: Date;
-}
-
 const isDateRangeTheWholeMonth = ({ startDate, endDate }: DateRange): boolean => {
   if (startDate.getMonth() !== endDate.getMonth()) {
     return false;
@@ -271,6 +261,12 @@ const PredefinedDates = ({
 
           const isWholeMonth = isDateRangeTheWholeMonth({ startDate, endDate });
 
+          const formattedText = isWholeMonth
+            ? monthFormatter.format(startDate)
+            : `${selectedDateFormatter.format(
+                startDate
+              )} - ${selectedDateFormatter.format(endDate)}`.trim();
+
           return (
             <StyledDropdownItem
               data-testid={`predefined-date-${startDate.getTime()}`}
@@ -279,15 +275,11 @@ const PredefinedDates = ({
             >
               <Container
                 data-selected={rangeIsSelected}
+                data-testid={formattedText}
                 justifyContent="space-between"
                 orientation="horizontal"
               >
-                {isWholeMonth
-                  ? monthFormatter.format(startDate)
-                  : `
-                  ${selectedDateFormatter.format(startDate)} -
-                  ${selectedDateFormatter.format(endDate)}
-                `}
+                {formattedText}
                 {rangeIsSelected && <Icon name="check" />}
               </Container>
             </StyledDropdownItem>
@@ -447,7 +439,7 @@ export const DateRangePicker = ({
             {shouldShowCustomRange && (
               <CalendarRendererContainer>
                 <StyledCalendarRenderer calendarOptions={calendarOptions}>
-                  {body => (
+                  {(body: Body) => (
                     <Calendar
                       calendarBody={body}
                       closeDatepicker={closeDatePicker}
@@ -465,7 +457,7 @@ export const DateRangePicker = ({
           </PredefinedCalendarContainer>
         ) : (
           <CalendarRenderer calendarOptions={calendarOptions}>
-            {body => (
+            {(body: Body) => (
               <Calendar
                 calendarBody={body}
                 closeDatepicker={closeDatePicker}
