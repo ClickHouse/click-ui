@@ -49,3 +49,13 @@ export const getPredefinedMonthsByNumber = (numberOfMonths: number): Array<DateR
 
   return nextSixMonths;
 };
+
+export const datesAreWithinMaxRange = (
+  startDate: Date,
+  endDate: Date,
+  maxRangeLength: number
+): boolean => {
+  const daysDifference = Math.abs(dayjs(startDate).diff(dayjs(endDate), "days"));
+
+  return daysDifference <= maxRangeLength;
+};

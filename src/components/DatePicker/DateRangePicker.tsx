@@ -13,7 +13,7 @@ import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./C
 import { Container } from "../Container/Container";
 import { Panel } from "../Panel/Panel";
 import { Icon } from "../Icon/Icon";
-import { DateRange, selectedDateFormatter } from "./utils";
+import { DateRange, datesAreWithinMaxRange, selectedDateFormatter } from "./utils";
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -56,17 +56,6 @@ const DateRangeTableCell = styled(DateTableCell)<{
     border-radius: 0;
     `}
 `;
-
-const datesAreWithinMaxRange = (
-  startDate: Date,
-  endDate: Date,
-  maxRangeLength: number
-): boolean => {
-  const daysDifference =
-    Math.abs(startDate.getTime() - endDate.getTime()) / (1000 * 60 * 60 * 24);
-
-  return daysDifference >= maxRangeLength;
-};
 
 interface CalendarProps {
   calendarBody: Body;
@@ -122,7 +111,7 @@ const Calendar = ({
           if (
             maxRangeLength > 1 &&
             startDate &&
-            datesAreWithinMaxRange(startDate, fullDate, maxRangeLength)
+            !datesAreWithinMaxRange(startDate, fullDate, maxRangeLength)
           ) {
             isDisabled = true;
           }
