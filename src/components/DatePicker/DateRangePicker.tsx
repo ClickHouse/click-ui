@@ -110,7 +110,6 @@ const Calendar = ({
             startDate && endDate && fullDate > startDate && fullDate < endDate
           );
 
-          maxRangeLength;
           let isDisabled = false;
           if (futureDatesDisabled && fullDate > today) {
             isDisabled = true;
