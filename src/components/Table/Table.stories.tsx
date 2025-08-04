@@ -13,6 +13,7 @@ const rows: TableRowType[] = [
       { label: "Maria Anders" },
       { label: "Germany" },
     ],
+    isIndeterminate: true,
   },
   {
     id: "row-2",
@@ -63,28 +64,31 @@ export const Selectable: StoryObj<typeof Table> = {
     rows,
     isSelectable: true,
     selectedIds: [],
-    indeterminateIds: ["row-1"],
   },
-  render: ({ selectedIds, indeterminateIds, ...props }) => {
+  render: ({ selectedIds, rows: rowsProp, ...props }) => {
+    const [rows, setRows] = useState(rowsProp);
     const [selectedRows, setSelectedRows] = useState(selectedIds);
-    const [indeterminateRows, setIndeterminateRows] = useState(indeterminateIds);
 
     useEffect(() => {
       setSelectedRows(selectedIds);
     }, [selectedIds]);
 
     useEffect(() => {
-      setIndeterminateRows(indeterminateIds);
-    }, [indeterminateIds, selectedIds]);
+      setRows(prevState =>
+        prevState.map(row => ({
+          ...row,
+          isIndeterminate: selectedRows?.includes(row.id) ? false : row.isIndeterminate,
+        }))
+      );
+    }, [selectedRows]);
 
     return (
       <Table
         {...props}
+        rows={rows}
         selectedIds={selectedRows}
-        indeterminateIds={indeterminateRows}
-        onSelect={(selectedItems, indeterminateItems) => {
+        onSelect={selectedItems => {
           setSelectedRows(selectedItems.map(({ item: { id } }) => id));
-          setIndeterminateRows(indeterminateItems.map(({ item: { id } }) => id));
         }}
       />
     );
