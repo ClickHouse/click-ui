@@ -10,29 +10,6 @@ const meta: Meta<typeof DateRangePicker> = {
       console.log("Date range selected: ", startDate, endDate);
     },
   },
-  argTypes: {
-    startDate: {
-      control: "date",
-    },
-    endDate: {
-      control: "date",
-    },
-    futureDatesDisabled: {
-      control: "boolean",
-    },
-    futureStartDatesDisabled: {
-      control: "boolean",
-    },
-    maxRangeLength: {
-      control: "number",
-    },
-    placeholder: {
-      control: "text",
-    },
-    onSelectDateRange: {
-      control: "object",
-    },
-  },
   tags: ["autodocs"],
   title: "Display/DateRangePicker",
 };
