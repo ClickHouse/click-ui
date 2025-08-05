@@ -380,6 +380,8 @@ export interface TableRowType
   isDisabled?: boolean;
   isDeleted?: boolean;
   isActive?: boolean;
+  /** only works with <Table isSelectable={true} /> */
+  isIndeterminate?: boolean;
 }
 
 interface CommonTableProps
@@ -433,6 +435,7 @@ const TableBodyRow = ({
   onSelect,
   isSelectable,
   isSelected,
+  isIndeterminate,
   onDelete,
   onEdit,
   isDeleted,
@@ -458,7 +461,7 @@ const TableBodyRow = ({
       {isSelectable && (
         <SelectData $size={size}>
           <Checkbox
-            checked={isSelected}
+            checked={isIndeterminate ? "indeterminate" : isSelected}
             onCheckedChange={onSelect}
             disabled={isDisabled || isDeleted}
           />
