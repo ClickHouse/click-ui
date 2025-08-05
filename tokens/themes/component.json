@@ -3483,6 +3483,88 @@
           }
         }
       }
+    },
+    "dashboards": {
+      "chartWidget": {
+        "space": {
+          "gap": {
+            "value": "{spaces.4}",
+            "type": "spacing"
+          }
+        },
+        "borderWidth": {
+          "default": {
+            "value": "{border.width.1}",
+            "type": "borderWidth"
+          }
+        },
+        "stroke": {
+          "default": {
+            "value": {
+              "color": "{click.dashboards.chartWidget.color.stroke.default}",
+              "width": "{click.dashboards.chartWidget.borderWidth.default}",
+              "style": "solid"
+            },
+            "type": "border"
+          },
+          "panel": {
+            "default": {
+              "value": {
+                "color": "{click.dashboards.chartWidget.color.stroke.default}",
+                "width": "{click.dashboards.chartWidget.borderWidth.default}",
+                "style": "solid"
+              },
+              "type": "border"
+            }
+          },
+          "hover": {
+            "value": {
+              "color": "{click.dashboards.chartWidget.color.stroke.hover}",
+              "width": "{click.dashboards.chartWidget.borderWidth.default}",
+              "style": "solid"
+            },
+            "type": "border"
+          },
+          "selected": {
+            "value": {
+              "color": "{click.dashboards.chartWidget.color.stroke.selected}",
+              "width": "{click.dashboards.chartWidget.borderWidth.default}",
+              "style": "solid"
+            },
+            "type": "border"
+          }
+        },
+        "panel": {
+          "radii": {
+            "all": {
+              "value": "{border.radii.1}",
+              "type": "borderRadius"
+            }
+          }
+        },
+        "radii": {
+          "all": {
+            "value": "{border.radii.1}",
+            "type": "borderRadius"
+          }
+        },
+        "typography": {
+          "title": {
+            "default": {
+              "value": "{typography.styles.product.titles.md}",
+              "type": "typography"
+            }
+          },
+          "description": {
+            "default": {
+              "default": {
+                "value": "{typography.styles.product.text.normal.md}",
+                "type": "typography"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "transition": {
