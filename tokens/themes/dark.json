@@ -5061,7 +5061,7 @@
               "type": "color"
             }
           },
-          "panel": {
+          "element": {
             "stroke": {
               "default": {
                 "value": "{click.global.color.stroke.default}",

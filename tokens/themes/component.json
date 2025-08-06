@@ -3491,7 +3491,7 @@
             "value": "{spaces.4}",
             "type": "spacing"
           },
-          "panel": {
+          "element": {
             "gap": {
               "value": "{spaces.2}",
               "type": "spacing"
@@ -3513,7 +3513,7 @@
             },
             "type": "border"
           },
-          "panel": {
+          "element": {
             "default": {
               "value": {
                 "color": "{click.dashboards.chartWidget.color.stroke.default}",
@@ -3540,7 +3540,7 @@
             "type": "border"
           }
         },
-        "panel": {
+        "element": {
           "radii": {
             "all": {
               "value": "{border.radii.1}",
