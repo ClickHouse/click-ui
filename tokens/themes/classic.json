@@ -2410,66 +2410,6 @@
     "dashboards": {
       "chartWidget": {
         "color": {
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.stroke.intense}",
-              "type": "color"
-            },
-            "selected": {
-              "value": "{click.global.color.accent.default}",
-              "type": "color"
-            }
-          },
-          "title": {
-            "default": {
-              "value": "{click.global.color.title.default}",
-              "type": "color"
-            }
-          },
-          "description": {
-            "default": {
-              "value": "{click.global.color.text.muted}",
-              "type": "color"
-            }
-          },
-          "legend": {
-            "default": {
-              "value": "{click.global.color.text.muted}",
-              "type": "color"
-            }
-          },
-          "panel": {
-            "stroke": {
-              "default": {
-                "value": "{click.global.color.stroke.default}",
-                "type": "color"
-              }
-            }
-          },
-          "background": {
-            "default": {
-              "value": "{click.bigStat.color.background.default}",
-              "type": "color"
-            }
-          },
-          "icon": {
-            "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.dashboards.chartWidget.color.icon.default}",
-              "type": "color"
-            },
-            "selected": {
-              "value": "{click.global.color.text.link.default}",
-              "type": "color"
-            }
-          },
           "opacity": {
             "bar": {
               "default": {

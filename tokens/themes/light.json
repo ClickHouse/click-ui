@@ -4828,7 +4828,7 @@
         "color": {
           "background": {
             "default": {
-              "value": "{click.bigStat.color.background.default}",
+              "value": "{click.bigStat.color.background.muted}",
               "type": "color"
             }
           },
