@@ -1014,7 +1014,7 @@
             "default": "#161517",
             "hover": "#161517",
             "active": "#161517",
-            "disabled": "#c0c0c0",
+            "disabled": "#a0a0a0",
             "muted": "#696e79"
           },
           "background": {
