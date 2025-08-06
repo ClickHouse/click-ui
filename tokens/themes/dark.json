@@ -5031,7 +5031,7 @@
               "type": "color"
             },
             "selected": {
-              "value": "{click.global.color.outline.default}",
+              "value": "{click.global.color.accent.default}",
               "type": "color"
             }
           },
@@ -5073,6 +5073,14 @@
             "default": {
               "value": "{click.bigStat.color.background.muted}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.background.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.dashboards.chartWidget.color.background.default}",
+              "type": "color"
             }
           },
           "icon": {
@@ -5085,7 +5093,7 @@
               "type": "color"
             },
             "selected": {
-              "value": "{click.global.color.text.link.default}",
+              "value": "{click.dashboards.chartWidget.color.stroke.selected}",
               "type": "color"
             }
           },
@@ -5104,6 +5112,14 @@
           "label": {
             "default": {
               "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.label.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.dashboards.chartWidget.color.label.default}",
               "type": "color"
             }
           }
