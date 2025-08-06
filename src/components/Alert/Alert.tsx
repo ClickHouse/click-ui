@@ -8,7 +8,7 @@ type AlertSize = "small" | "medium";
 type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
 export type AlertProps = {
   state?: AlertState;
-  title?: string;
+  title?: ReactNode;
   text: ReactNode;
   size?: AlertSize;
   type?: AlertType;

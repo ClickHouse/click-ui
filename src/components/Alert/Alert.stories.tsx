@@ -45,3 +45,27 @@ export const Playground = {
     dismissible: false,
   },
 };
+
+export const TitleWithLink = {
+  args: {
+    title: (
+      <>
+        Important: Please review our{" "}
+        <a
+          href={"https://clickhouse.com/docs"}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          documentation
+        </a>{" "}
+        before progressing
+      </>
+    ),
+    text: "Example demos how you can pass react elements like links to the title prop",
+    state: "info",
+    size: "medium",
+    type: "default",
+    showIcon: true,
+    dismissible: false,
+  },
+};
