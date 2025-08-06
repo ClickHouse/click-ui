@@ -809,6 +809,18 @@
         }
       }
     },
+    "dashboards": {
+      "chartWidget": {
+        "color": {
+          "opacity": {
+            "bar": {
+              "default": 0.2,
+              "hover": 0.5
+            }
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "text": {

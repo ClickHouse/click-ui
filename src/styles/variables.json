@@ -3081,6 +3081,107 @@
         }
       }
     },
+    "dashboards": {
+      "chartWidget": {
+        "space": {
+          "gap": "1rem",
+          "element": {
+            "gap": "0.5rem"
+          }
+        },
+        "borderWidth": {
+          "default": "1px"
+        },
+        "stroke": {
+          "default": "1px solid #e6e7e9",
+          "element": {
+            "default": "1px solid #e6e7e9"
+          },
+          "hover": "1px solid #b3b6bd",
+          "selected": "1px solid #151515"
+        },
+        "element": {
+          "radii": {
+            "all": "0.25rem"
+          }
+        },
+        "radii": {
+          "all": "0.25rem"
+        },
+        "typography": {
+          "title": {
+            "default": "600 1rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+          },
+          "description": {
+            "default": {
+              "default": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+            }
+          },
+          "label": {
+            "default": {
+              "default": "400 0.875rem/1.5 \"Inter\", '\"SF Pro Display\"', -apple-system, BlinkMacSystemFont, '\"Segoe UI\"', Roboto, Oxygen, Ubuntu, Cantarell, '\"Open Sans\"', '\"Helvetica Neue\"', sans-serif;"
+            }
+          }
+        },
+        "shadow": {
+          "default": "0",
+          "hover": "0 4px 6px -1px lch(6.77 0 0 / 0.15), 0 2px 4px -1px lch(6.77 0 0 / 0.15)"
+        },
+        "size": {
+          "icon": {
+            "all": {
+              "drag": "1.25rem",
+              "menu": "1.5rem",
+              "resize": "0.75rem"
+            }
+          }
+        },
+        "color": {
+          "stroke": {
+            "default": "#e6e7e9",
+            "hover": "#b3b6bd",
+            "selected": "#151515"
+          },
+          "title": {
+            "default": "lch(11.1 1.37 305)"
+          },
+          "description": {
+            "default": "#696e79"
+          },
+          "legend": {
+            "default": "#696e79",
+            "hover": "#696e79",
+            "selected": "#161517"
+          },
+          "element": {
+            "stroke": {
+              "default": "#e6e7e9"
+            }
+          },
+          "background": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "selected": "#ffffff"
+          },
+          "icon": {
+            "default": "#161517",
+            "hover": "#161517",
+            "selected": "#151515"
+          },
+          "opacity": {
+            "bar": {
+              "default": 0.2,
+              "hover": 0.5
+            }
+          },
+          "label": {
+            "default": "#696e79",
+            "hover": "#696e79",
+            "selected": "#696e79"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {
