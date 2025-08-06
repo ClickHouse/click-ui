@@ -5080,6 +5080,18 @@
               "value": "{click.global.color.text.link.default}",
               "type": "color"
             }
+          },
+          "opacity": {
+            "bar": {
+              "default": {
+                "value": "20%",
+                "type": "opacity"
+              },
+              "hover": {
+                "value": "50%",
+                "type": "opacity"
+              }
+            }
           }
         }
       }

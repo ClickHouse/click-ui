@@ -3490,6 +3490,12 @@
           "gap": {
             "value": "{spaces.4}",
             "type": "spacing"
+          },
+          "panel": {
+            "gap": {
+              "value": "{spaces.2}",
+              "type": "spacing"
+            }
           }
         },
         "borderWidth": {
@@ -3560,6 +3566,34 @@
               "default": {
                 "value": "{typography.styles.product.text.normal.md}",
                 "type": "typography"
+              }
+            }
+          }
+        },
+        "shadow": {
+          "default": {
+            "value": "0",
+            "type": "boxShadow"
+          },
+          "hover": {
+            "value": "{shadow.1}",
+            "type": "boxShadow"
+          }
+        },
+        "size": {
+          "icon": {
+            "all": {
+              "drag": {
+                "value": "{sizes.6}",
+                "type": "sizing"
+              },
+              "menu": {
+                "value": "{sizes.7}",
+                "type": "sizing"
+              },
+              "resize": {
+                "value": "{sizes.4}",
+                "type": "sizing"
               }
             }
           }
