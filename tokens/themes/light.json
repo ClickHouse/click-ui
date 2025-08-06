@@ -3142,7 +3142,7 @@
               "type": "color"
             },
             "disabled": {
-              "value": "{palette.neutral.300}",
+              "value": "{click.global.color.text.disabled}",
               "type": "color"
             },
             "muted": {
