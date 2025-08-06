@@ -50,10 +50,14 @@ export const TitleWithLink = {
   args: {
     title: (
       <>
-      Important: Please review our{" "}
-      <a href={"https://clickhouse.com/docs"} target="_blank" rel="noopener noreferrer">
-        documentation
-      </a>{" "}
+        Important: Please review our{" "}
+        <a
+          href={"https://clickhouse.com/docs"}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          documentation
+        </a>{" "}
         before progressing
       </>
     ),
@@ -63,5 +67,5 @@ export const TitleWithLink = {
     type: "default",
     showIcon: true,
     dismissible: false,
-  }
-}
+  },
+};
