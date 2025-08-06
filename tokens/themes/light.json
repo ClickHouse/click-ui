@@ -4862,6 +4862,14 @@
             "default": {
               "value": "{click.global.color.text.muted}",
               "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.legend.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
             }
           },
           "panel": {
@@ -4896,6 +4904,12 @@
                 "value": "50%",
                 "type": "opacity"
               }
+            }
+          },
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
             }
           }
         }

@@ -3568,6 +3568,14 @@
                 "type": "typography"
               }
             }
+          },
+          "label": {
+            "default": {
+              "default": {
+                "value": "{typography.styles.product.text.normal.md}",
+                "type": "typography"
+              }
+            }
           }
         },
         "shadow": {
