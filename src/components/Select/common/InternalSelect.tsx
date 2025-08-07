@@ -473,8 +473,8 @@ export const InternalSelect = ({
                     {customText.length > 0
                       ? customText.replaceAll("{search}", search)
                       : allowCreateOption
-                      ? `Add ${search}`
-                      : `No Options found${search.length > 0 ? ` for "${search}" ` : ""}
+                        ? `Add ${search}`
+                        : `No Options found${search.length > 0 ? ` for "${search}" ` : ""}
                     `}
                   </SelectNoDataContainer>
                 )}

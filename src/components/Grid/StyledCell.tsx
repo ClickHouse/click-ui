@@ -48,8 +48,8 @@ export const StyledCell = styled.div<{
     };
     font: ${theme.click.grid.cell.text.default};
     padding: ${theme.click.grid[$type].cell.space.y} ${
-    theme.click.grid[$type].cell.space.x
-  };
+      theme.click.grid[$type].cell.space.x
+    };
     border: 1px solid ${theme.click.grid[$type].cell.color.stroke.default};
     ${
       $type === "header" && !$showBorder

@@ -64,8 +64,8 @@ const CodeButton = styled(EmptyButton)<{ $copied: boolean; $error: boolean }>`
       $copied
         ? theme.click.alert.color.text.success
         : $error
-        ? theme.click.alert.color.text.danger
-        : "inherit"
+          ? theme.click.alert.color.text.danger
+          : "inherit"
     };
     padding: 0;
     border: 0;

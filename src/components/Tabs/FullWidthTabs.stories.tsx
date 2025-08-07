@@ -1,5 +1,5 @@
 import { Spacer, FullWidthTabs, Text } from "@/components";
-import type { StoryObj } from "@storybook/react";
+import type { StoryObj } from "@storybook/react-vite";
 
 export default {
   component: FullWidthTabs,

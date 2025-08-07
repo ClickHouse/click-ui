@@ -41,8 +41,8 @@ export const Select = ({
     typeof valueProp === "string"
       ? [valueProp]
       : typeof defaultValue === "string"
-      ? [defaultValue]
-      : []
+        ? [defaultValue]
+        : []
   );
   const [open, setOpen] = useState(false);
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Panel } from "../Panel/Panel";
 import { Text } from "../Typography/Text/Text";

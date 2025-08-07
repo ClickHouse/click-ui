@@ -89,8 +89,8 @@ const StepTrigger = styled.button<{
       $status === "active"
         ? "default"
         : $status === "complete"
-        ? "pointer"
-        : "not-allowed"
+          ? "pointer"
+          : "not-allowed"
     };
     flex-direction: row;
   `}

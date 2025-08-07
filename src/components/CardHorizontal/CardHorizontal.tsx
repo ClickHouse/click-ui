@@ -68,8 +68,8 @@ const Wrapper = styled.div<{
       ]
     };
     padding: ${theme.click.card.horizontal.space.y} ${
-    theme.click.card.horizontal.space.x
-  };
+      theme.click.card.horizontal.space.x
+    };
     gap: ${theme.click.card.horizontal.space.gap};
     font: ${theme.click.card.horizontal.typography.title.default};
     ${Description} {

@@ -22,11 +22,11 @@ const FormFieldLabel = styled.label<FormFieldLableProps>`
     font: ${theme.click.field.typography.label.disabled};
     `
         : $error
-        ? `
+          ? `
     color: ${theme.click.field.color.label.error};
     font: ${theme.click.field.typography.label.error};
     `
-        : `
+          : `
     color: ${theme.click.field.color.label.default};
     font: ${theme.click.field.typography.label.default};
     &:hover {

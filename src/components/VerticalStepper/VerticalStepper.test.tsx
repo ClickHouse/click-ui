@@ -29,8 +29,8 @@ describe("VerticalStepper", () => {
             activeIndex === 1
               ? "active"
               : completed.includes(1)
-              ? "complete"
-              : "incomplete"
+                ? "complete"
+                : "incomplete"
           }
           collapsed={!showItems.includes(1)}
         >
@@ -44,8 +44,8 @@ describe("VerticalStepper", () => {
             activeIndex === 2
               ? "active"
               : completed.includes(2)
-              ? "complete"
-              : "incomplete"
+                ? "complete"
+                : "incomplete"
           }
           collapsed={!showItems.includes(2)}
         >
@@ -59,8 +59,8 @@ describe("VerticalStepper", () => {
             activeIndex === 3
               ? "active"
               : completed.includes(3)
-              ? "complete"
-              : "incomplete"
+                ? "complete"
+                : "incomplete"
           }
           collapsed={!showItems.includes(3)}
         >
@@ -74,8 +74,8 @@ describe("VerticalStepper", () => {
             activeIndex === 4
               ? "active"
               : completed.includes(4)
-              ? "complete"
-              : "incomplete"
+                ? "complete"
+                : "incomplete"
           }
           collapsed={!showItems.includes(4)}
         >

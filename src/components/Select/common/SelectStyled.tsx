@@ -248,8 +248,8 @@ export const SelectNoDataContainer = styled.div<{ $clickable: boolean }>`
   ${({ theme, $clickable }) => `
     font: ${theme.click.genericMenu.button.typography.label.default}
     padding: ${theme.click.genericMenu.button.space.y} ${
-    theme.click.genericMenu.item.space.x
-  };
+      theme.click.genericMenu.item.space.x
+    };
     background: ${theme.click.genericMenu.button.color.background.default};
     color: ${theme.click.genericMenu.button.color.label.default};
     cursor: ${$clickable ? "pointer" : "default"}

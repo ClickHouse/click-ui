@@ -102,8 +102,8 @@ const FlyoutContent = styled(DialogContent)<{
         : theme.click.flyout.shadow.default
     };
     border-${$align === "start" ? "right" : "left"}: 1px solid ${
-    theme.click.flyout.color.stroke.default
-  };
+      theme.click.flyout.color.stroke.default
+    };
     background: ${theme.click.flyout.color.background.default};
 
     @media (max-width: 1024px) {
