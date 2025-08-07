@@ -167,8 +167,8 @@ const TableRow = styled.tr<TableRowProps>`
     ${$rowHeight ? `height: ${$rowHeight};` : ""}
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
-    theme.click.table.row.color.stroke.default
-  };
+      theme.click.table.row.color.stroke.default
+    };
 
     ${$isActive && `background-color: ${theme.click.table.row.color.background.active};`}
 
@@ -192,8 +192,8 @@ const TableRow = styled.tr<TableRowProps>`
     flex-wrap: wrap;
     ${({ theme, $isSelectable = false, $showActions = false }) => `
       border: ${theme.click.table.cell.stroke} solid ${
-      theme.click.table.row.color.stroke.default
-    };
+        theme.click.table.row.color.stroke.default
+      };
       border-radius: ${theme.click.table.radii.all};
       ${
         $isSelectable
@@ -533,7 +533,7 @@ const CustomTableRow = ({
         colSpan={colSpan}
       >
         <CustomTableDataMessage>
-          {loading ? <LoadingData /> : noDataMessage ?? "No Data available"}
+          {loading ? <LoadingData /> : (noDataMessage ?? "No Data available")}
         </CustomTableDataMessage>
       </SpanedTableData>
     </TableRow>

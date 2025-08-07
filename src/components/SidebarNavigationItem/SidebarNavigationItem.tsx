@@ -117,12 +117,12 @@ export const SidebarItemWrapper = styled.div<{
     @media (max-width: 640px) {
       gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
       padding: ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
-      theme.click.sidebar.navigation[itemType].mobile.space.right
-    } ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
-      $collapsible
-        ? theme.click.sidebar.navigation[itemType].mobile.space.left
-        : theme.click.image.sm.size.width
-    };
+        theme.click.sidebar.navigation[itemType].mobile.space.right
+      } ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
+        $collapsible
+          ? theme.click.sidebar.navigation[itemType].mobile.space.left
+          : theme.click.image.sm.size.width
+      };
       font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
       &:hover, &:focus {
         font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
