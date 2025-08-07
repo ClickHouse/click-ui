@@ -28,29 +28,31 @@ const Wrapper = styled(FormRoot)`
 export const Checkbox = ({
   id,
   label,
-  variant,
+  variant = "default",
   disabled,
-  orientation,
-  dir,
+  orientation = "horizontal",
+  dir = "end",
+  checked,
   ...delegated
 }: CheckboxProps) => {
   const defaultId = useId();
   return (
     <Wrapper
-      $orientation={orientation ?? "horizontal"}
-      $dir={dir ?? "end"}
+      $orientation={orientation}
+      $dir={dir}
     >
       <CheckInput
         id={id ?? defaultId}
         data-testid="checkbox"
-        variant={variant ?? "default"}
+        variant={variant}
         disabled={disabled}
         aria-label={`${label}`}
+        checked={checked}
         {...delegated}
       >
         <CheckIconWrapper>
           <Icon
-            name="check"
+            name={checked === "indeterminate" ? "minus" : "check"}
             size="sm"
           />
         </CheckIconWrapper>
@@ -75,7 +77,7 @@ const CheckInput = styled(RadixCheckbox.Root)<{
   justify-content: center;
   flex-shrink: 0;
 
-  ${({ theme, variant = "default" }) => `
+  ${({ theme, variant }) => `
     border-radius: ${theme.click.checkbox.radii.all};
     width: ${theme.click.checkbox.size.all};
     height: ${theme.click.checkbox.size.all};
@@ -86,7 +88,8 @@ const CheckInput = styled(RadixCheckbox.Root)<{
     &:hover {
       background: ${theme.click.checkbox.color.variations[variant].background.hover};
     }
-    &[data-state="checked"] {
+    &[data-state="checked"],
+    &[data-state="indeterminate"] {
       border-color: ${theme.click.checkbox.color.variations[variant].stroke.active};
       background: ${theme.click.checkbox.color.variations[variant].background.active};
     }
@@ -94,7 +97,8 @@ const CheckInput = styled(RadixCheckbox.Root)<{
       background: ${theme.click.checkbox.color.background.disabled};
       border-color: ${theme.click.checkbox.color.stroke.disabled};
       cursor: not-allowed;
-      &[data-state="checked"] {
+      &[data-state="checked"],
+      &[data-state="indeterminate"] {
         background: ${theme.click.checkbox.color.background.disabled};
         border-color: ${theme.click.checkbox.color.stroke.disabled};
       }

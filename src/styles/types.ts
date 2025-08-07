@@ -3082,6 +3082,107 @@
         }
       }
     },
+    "dashboards": {
+      "chartWidget": {
+        "space": {
+          "gap": string,
+          "element": {
+            "gap": string
+          }
+        },
+        "borderWidth": {
+          "default": string
+        },
+        "stroke": {
+          "default": string,
+          "element": {
+            "default": string
+          },
+          "hover": string,
+          "selected": string
+        },
+        "element": {
+          "radii": {
+            "all": string
+          }
+        },
+        "radii": {
+          "all": string
+        },
+        "typography": {
+          "title": {
+            "default": string
+          },
+          "description": {
+            "default": {
+              "default": string
+            }
+          },
+          "label": {
+            "default": {
+              "default": string
+            }
+          }
+        },
+        "shadow": {
+          "default": string,
+          "hover": string
+        },
+        "size": {
+          "icon": {
+            "all": {
+              "drag": string,
+              "menu": string,
+              "resize": string
+            }
+          }
+        },
+        "color": {
+          "stroke": {
+            "default": string,
+            "hover": string,
+            "selected": string
+          },
+          "title": {
+            "default": string
+          },
+          "description": {
+            "default": string
+          },
+          "legend": {
+            "default": string,
+            "hover": string,
+            "selected": string
+          },
+          "element": {
+            "stroke": {
+              "default": string
+            }
+          },
+          "background": {
+            "default": string,
+            "hover": string,
+            "selected": string
+          },
+          "icon": {
+            "default": string,
+            "hover": string,
+            "selected": string
+          },
+          "opacity": {
+            "bar": {
+              "default": number,
+              "hover": number
+            }
+          },
+          "label": {
+            "default": string,
+            "hover": string,
+            "selected": string
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

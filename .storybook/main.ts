@@ -3,9 +3,8 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true
   },
-
   stories: [
-    "../src/Introduction.mdx", 
+    "../src/Introduction.mdx",
     "../src/components/icons/Icons.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
@@ -18,6 +17,19 @@ const config: StorybookConfig = {
     options: {},
   },
 
-  staticDirs: ["../public"]
+  staticDirs: ["../public"],
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+      shouldRemoveUndefinedFromOptional: true,
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: prop =>
+        prop.parent ? !/node_modules\/(?!@radix-ui)/.test(prop.parent.fileName) : true,
+    },
+  },
 };
 export default config;

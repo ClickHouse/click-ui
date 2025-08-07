@@ -2702,7 +2702,7 @@
               "type": "color"
             },
             "disabled": {
-              "value": "{palette.neutral.300}",
+              "value": "{click.global.color.text.disabled}",
               "type": "color"
             },
             "muted": {
@@ -5012,6 +5012,114 @@
           "icon": {
             "default": {
               "value": "{click.image.color.stroke}",
+              "type": "color"
+            }
+          }
+        }
+      }
+    },
+    "dashboards": {
+      "chartWidget": {
+        "color": {
+          "stroke": {
+            "default": {
+              "value": "{click.global.color.stroke.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.global.color.stroke.intense}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            }
+          },
+          "title": {
+            "default": {
+              "value": "{click.global.color.title.default}",
+              "type": "color"
+            }
+          },
+          "description": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            }
+          },
+          "legend": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.legend.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            }
+          },
+          "element": {
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke.default}",
+                "type": "color"
+              }
+            }
+          },
+          "background": {
+            "default": {
+              "value": "{click.bigStat.color.background.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.background.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.dashboards.chartWidget.color.background.default}",
+              "type": "color"
+            }
+          },
+          "icon": {
+            "default": {
+              "value": "{click.global.color.text.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.icon.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.dashboards.chartWidget.color.stroke.selected}",
+              "type": "color"
+            }
+          },
+          "opacity": {
+            "bar": {
+              "default": {
+                "value": "20%",
+                "type": "opacity"
+              },
+              "hover": {
+                "value": "50%",
+                "type": "opacity"
+              }
+            }
+          },
+          "label": {
+            "default": {
+              "value": "{click.global.color.text.muted}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{click.dashboards.chartWidget.color.label.default}",
+              "type": "color"
+            },
+            "selected": {
+              "value": "{click.dashboards.chartWidget.color.label.default}",
               "type": "color"
             }
           }

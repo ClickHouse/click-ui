@@ -1601,6 +1601,54 @@
         }
       }
     },
+    "dashboards": {
+      "chartWidget": {
+        "color": {
+          "stroke": {
+            "default": "#323232",
+            "hover": "#414141",
+            "selected": "#FAFF69"
+          },
+          "title": {
+            "default": "rgb(97.5% 97.5% 97.5%)"
+          },
+          "description": {
+            "default": "#b3b6bd"
+          },
+          "legend": {
+            "default": "#b3b6bd",
+            "hover": "#b3b6bd",
+            "selected": "#ffffff"
+          },
+          "element": {
+            "stroke": {
+              "default": "#323232"
+            }
+          },
+          "background": {
+            "default": "#282828",
+            "hover": "#282828",
+            "selected": "#282828"
+          },
+          "icon": {
+            "default": "#ffffff",
+            "hover": "#ffffff",
+            "selected": "#FAFF69"
+          },
+          "opacity": {
+            "bar": {
+              "default": 0.2,
+              "hover": 0.5
+            }
+          },
+          "label": {
+            "default": "#b3b6bd",
+            "hover": "#b3b6bd",
+            "selected": "#b3b6bd"
+          }
+        }
+      }
+    },
     "global": {
       "color": {
         "background": {

@@ -1,16 +1,22 @@
+import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
+import { styled } from "styled-components";
+
+import { CheckedState } from "@radix-ui/react-checkbox";
+
 import {
   Checkbox,
+  CheckboxProps,
   EllipsisContent,
   HorizontalDirection,
   Icon,
   IconButton,
   Text,
 } from "@/components";
-import { HTMLAttributes, MouseEvent, ReactNode, forwardRef } from "react";
-import { styled } from "styled-components";
+
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = "sm" | "md";
+
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   isSortable?: boolean;
@@ -87,11 +93,12 @@ const TableHeader = ({
 interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
-  onSelectAll: (checked: boolean) => void;
+  onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
   actionsList: Array<string>;
   onSort?: SortFn;
-  hasRows: boolean;
   size: TableSize;
+  rows: TableRowType[];
+  selectedIds: (number | string)[];
 }
 
 const Thead = ({
@@ -100,8 +107,9 @@ const Thead = ({
   onSelectAll,
   actionsList,
   onSort: onSortProp,
-  hasRows,
   size,
+  rows,
+  selectedIds,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === "function" && header.isSortable) {
@@ -127,9 +135,10 @@ const Thead = ({
               $size={size}
               aria-label="Select column"
             >
-              <Checkbox
+              <SelectAllCheckbox
                 onCheckedChange={onSelectAll}
-                disabled={!hasRows}
+                rows={rows}
+                selectedIds={selectedIds}
               />
             </StyledHeader>
           )}
@@ -371,6 +380,8 @@ export interface TableRowType
   isDisabled?: boolean;
   isDeleted?: boolean;
   isActive?: boolean;
+  /** only works with <Table isSelectable={true} /> */
+  isIndeterminate?: boolean;
 }
 
 interface CommonTableProps
@@ -424,6 +435,7 @@ const TableBodyRow = ({
   onSelect,
   isSelectable,
   isSelected,
+  isIndeterminate,
   onDelete,
   onEdit,
   isDeleted,
@@ -449,8 +461,9 @@ const TableBodyRow = ({
       {isSelectable && (
         <SelectData $size={size}>
           <Checkbox
-            checked={isSelected}
+            checked={isIndeterminate ? "indeterminate" : isSelected}
             onCheckedChange={onSelect}
+            disabled={isDisabled || isDeleted}
           />
         </SelectData>
       )}
@@ -561,17 +574,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
   ) => {
     const isDeletable = typeof onDelete === "function";
     const isEditable = typeof onEdit === "function";
-    const onSelectAll = (checked: boolean): void => {
-      if (typeof onSelect === "function") {
-        const ids = checked
-          ? rows.map((row, index) => ({
-              item: row,
-              index,
-            }))
-          : [];
-        onSelect(ids);
-      }
-    };
 
     const onRowSelect =
       (id: number | string) =>
@@ -580,7 +582,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           const selectedItems = rows.flatMap((row, index) => {
             if (
               (id === row.id && checked) ||
-              (selectedIds.includes(id) && id !== row.id)
+              (selectedIds.includes(row.id) && id !== row.id)
             ) {
               return {
                 item: row,
@@ -607,10 +609,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
-              <Checkbox
+              <SelectAllCheckbox
                 label="Select All"
-                checked={selectedIds.length === rows.length}
-                onCheckedChange={onSelectAll}
+                onCheckedChange={onSelect}
+                rows={rows}
+                selectedIds={selectedIds}
               />
             )}
           </MobileActions>
@@ -624,11 +627,12 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               <Thead
                 headers={headers}
                 isSelectable={isSelectable}
-                onSelectAll={onSelectAll}
+                onSelectAll={onSelect}
                 actionsList={actionsList}
                 onSort={onSort}
-                hasRows={hasRows}
                 size={size}
+                rows={rows}
+                selectedIds={selectedIds}
               />
             )}
             <Tbody>
@@ -676,6 +680,82 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
   }
 );
+
+interface SelectAllCheckboxProps extends Omit<CheckboxProps, "onCheckedChange"> {
+  onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
+  selectedIds: (number | string)[];
+  rows: TableRowType[];
+}
+
+const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
+  rows,
+  selectedIds,
+  onCheckedChange,
+  ...checkboxProps
+}) => {
+  const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+
+  const { checked, disabled } = useMemo(() => {
+    let areAllChecked = true;
+    let maybeIndeterminate: CheckedState = false;
+    let disabled = true;
+
+    for (const row of rows) {
+      if (row.isDisabled || row.isDeleted) {
+        continue;
+      } else {
+        disabled = false;
+      }
+
+      if (selectedIdSet.has(row.id)) {
+        maybeIndeterminate = "indeterminate";
+      } else {
+        areAllChecked = false;
+      }
+    }
+
+    return {
+      checked: disabled ? false : areAllChecked || maybeIndeterminate,
+      disabled,
+    };
+  }, [rows, selectedIdSet]);
+
+  const handleCheckedChange = (checked: boolean) => {
+    if (typeof onCheckedChange !== "function") {
+      return;
+    }
+
+    // disabled items should not change their selected state because of user interaction
+
+    const newSelectedRows = rows.reduce((acc: SelectReturnValue[], row, index) => {
+      const isDisabled = row.isDisabled || row.isDeleted;
+
+      const shouldBeSelected = checked
+        ? !isDisabled || selectedIdSet.has(row.id)
+        : isDisabled && selectedIdSet.has(row.id);
+
+      if (shouldBeSelected) {
+        acc.push({
+          item: row,
+          index,
+        });
+      }
+
+      return acc;
+    }, []);
+
+    onCheckedChange(newSelectedRows);
+  };
+
+  return (
+    <Checkbox
+      checked={checked}
+      disabled={disabled}
+      onCheckedChange={handleCheckedChange}
+      {...checkboxProps}
+    />
+  );
+};
 
 const StyledTable = styled.table`
   width: 100%;
