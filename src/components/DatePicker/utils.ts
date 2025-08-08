@@ -19,7 +19,7 @@ export const headerDateFormatter = new Intl.DateTimeFormat(locale, {
   year: "numeric",
 });
 
-export const getPredefinedMonthsByNumber = (numberOfMonths: number): Array<DateRange> => {
+export const getPredefinedMonthsForDateRangePickerByNumber = (numberOfMonths: number): Array<DateRange> => {
   const now = dayjs();
 
   if (numberOfMonths < 0) {

@@ -13,7 +13,12 @@ import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./C
 import { Container } from "../Container/Container";
 import { Panel } from "../Panel/Panel";
 import { Icon } from "../Icon/Icon";
-import { DateRange, datesAreWithinMaxRange, isDateRangeTheWholeMonth, selectedDateFormatter } from "./utils";
+import {
+  DateRange,
+  datesAreWithinMaxRange,
+  isDateRangeTheWholeMonth,
+  selectedDateFormatter,
+} from "./utils";
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;

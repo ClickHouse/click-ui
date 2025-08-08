@@ -1,7 +1,7 @@
 import { renderCUI } from "@/utils/test-utils";
 import { DateRangePicker } from "./DateRangePicker";
 import userEvent from "@testing-library/user-event";
-import { getPredefinedMonthsByNumber } from "./utils";
+import { getPredefinedMonthsForDateRangePickerByNumber } from "./utils";
 import { fireEvent } from "@testing-library/dom";
 
 describe("DateRangePicker", () => {
@@ -196,10 +196,10 @@ describe("DateRangePicker", () => {
       expect(queryByTestId("predefined-dates-list")).not.toBeInTheDocument();
     });
 
-    it("shows dates in the past if getPredefinedMonthsByNumber's value is negative", async () => {
+    it("shows dates in the past if getPredefinedMonthsForDateRangePickerByNumber's value is negative", async () => {
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(-6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
       const { getByTestId, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -222,7 +222,7 @@ describe("DateRangePicker", () => {
 
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(-6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
       const { getByTestId, getByText, queryByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -240,10 +240,10 @@ describe("DateRangePicker", () => {
       expect(getByText("Feb 2020")).toBeInTheDocument();
     });
 
-    it("shows dates in the future if getPredefinedMonthsByNumber's value is positive", async () => {
+    it("shows dates in the future if getPredefinedMonthsForDateRangePickerByNumber's value is positive", async () => {
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(6);
       const { getByTestId, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -261,11 +261,11 @@ describe("DateRangePicker", () => {
       expect(getByText("Dec 2020")).toBeInTheDocument();
     });
 
-    it("shows the current current month if it's the first day of month if getPredefinedMonthsByNumber's value is positive", async () => {
+    it("shows the current current month if it's the first day of month if getPredefinedMonthsForDateRangePickerByNumber's value is positive", async () => {
       vi.setSystemTime(new Date("07-01-2020"));
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(6);
       const { getByTestId, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -286,7 +286,7 @@ describe("DateRangePicker", () => {
     it("allows showing the full calendar", async () => {
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(6);
       const { getByTestId, getByText, queryByTestId } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -305,7 +305,7 @@ describe("DateRangePicker", () => {
     it("selects up to the current date if the current month is selected", async () => {
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(-6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
       const { getByTestId, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -322,7 +322,7 @@ describe("DateRangePicker", () => {
     it("selects the full month if a date in the past or future is selected", async () => {
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(-6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
       const { getByTestId, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -339,7 +339,7 @@ describe("DateRangePicker", () => {
     it("shows the selected month if an entire month is manually selected", async () => {
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(-6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
       const { getByTestId, getAllByText, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
@@ -364,7 +364,7 @@ describe("DateRangePicker", () => {
       vi.setSystemTime(new Date("03-04-2020"));
       const handleSelectDate = vi.fn();
 
-      const predefinedDatesList = getPredefinedMonthsByNumber(-6);
+      const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
       const { getByTestId, getByText } = renderCUI(
         <DateRangePicker
           onSelectDateRange={handleSelectDate}
