@@ -24,22 +24,28 @@ const PredefinedDatesContainer = styled(Container)`
   width: 275px;
 `;
 
+// left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
 const CalendarRendererContainer = styled.div`
   border: ${({ theme }) =>
     `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
+  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
+  box-shadow: lch(6.77 0 0 / 0.15) 4px 4px 6px -1px, lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
   left: 276px;
   position: absolute;
   top: 0;
 `;
 
+// Height of 221px is height the height the calendar needs to match the PredefinedDatesContainer
 const StyledCalendarRenderer = styled(CalendarRenderer)`
-  height: 221px;
+  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
+  min-height: 221px;
 `;
 
 const StyledDropdownItem = styled(Dropdown.Item)`
   min-height: 24px;
 `;
 
+// max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
 const ScrollableContainer = styled(Container)`
   max-height: 210px;
   overflow-y: auto;
