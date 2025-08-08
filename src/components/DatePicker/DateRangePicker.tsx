@@ -13,7 +13,7 @@ import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./C
 import { Container } from "../Container/Container";
 import { Panel } from "../Panel/Panel";
 import { Icon } from "../Icon/Icon";
-import { DateRange, datesAreWithinMaxRange, selectedDateFormatter } from "./utils";
+import { DateRange, datesAreWithinMaxRange, isDateRangeTheWholeMonth, selectedDateFormatter } from "./utils";
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -183,29 +183,6 @@ const monthFormatter = new Intl.DateTimeFormat(locale, {
   month: "short",
   year: "numeric",
 });
-
-const isDateRangeTheWholeMonth = ({ startDate, endDate }: DateRange): boolean => {
-  if (startDate.getMonth() !== endDate.getMonth()) {
-    return false;
-  }
-
-  const normalizedStartDate = new Date(startDate);
-  normalizedStartDate.setHours(0, 0, 0, 0);
-  const normalizedEndDate = new Date(endDate);
-  normalizedEndDate.setHours(0, 0, 0, 0);
-
-  const startDateIsFirstDay = normalizedStartDate.getDate() === 1;
-
-  const endDateNextMonth = new Date(
-    normalizedEndDate.getFullYear(),
-    normalizedEndDate.getMonth() + 1,
-    1
-  ).getTime();
-  const lastDayOfMonth = new Date(endDateNextMonth - 1).getDate();
-  const endDateIsLastDay = normalizedEndDate.getDate() === lastDayOfMonth;
-
-  return startDateIsFirstDay && endDateIsLastDay;
-};
 
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;

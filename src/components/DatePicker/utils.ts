@@ -59,3 +59,16 @@ export const datesAreWithinMaxRange = (
 
   return daysDifference <= maxRangeLength;
 };
+
+export const isDateRangeTheWholeMonth = ({ startDate, endDate }: DateRange): boolean => {
+  if (startDate.getMonth() !== endDate.getMonth()) {
+    return false;
+  }
+
+  const start = dayjs(startDate);
+  const end = dayjs(endDate);
+  const startDateIsFirstDay = start.isSame(start.startOf("month"), "day");
+  const endDateIsLastDay = end.isSame(end.endOf("month"), "day");
+
+  return startDateIsFirstDay && endDateIsLastDay;
+};
