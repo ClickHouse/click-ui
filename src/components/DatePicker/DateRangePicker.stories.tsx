@@ -1,6 +1,6 @@
 import { Args, Meta, StoryObj } from "@storybook/react";
 import { DateRangePicker } from "./DateRangePicker";
-import { getPredefinedMonthsForDateRangePickerByNumber } from "./utils";
+import { getPredefinedMonthsForDateRangePicker } from "./utils";
 
 const meta: Meta<typeof DateRangePicker> = {
   component: DateRangePicker,
@@ -78,7 +78,7 @@ export const PredefinedDatesLastSixMonths: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(-6);
+    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(-6);
 
     return (
       <DateRangePicker
@@ -101,7 +101,7 @@ export const PredefinedDatesNextSixMonths: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getPredefinedMonthsForDateRangePickerByNumber(6);
+    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(6);
 
     return (
       <DateRangePicker
