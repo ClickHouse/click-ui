@@ -149,6 +149,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       onContextMenu: onContextMenuProp,
       forwardedGridRef,
       onItemsRendered: onItemsRenderedProp,
+      readOnly = false,
       rowAutoHeight,
       ...props
     },
@@ -439,6 +440,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       rowAutoHeight,
       updateRowHeight,
       getRowHeight,
+      readOnly,
     };
 
     const InnerElementType = forwardRef<HTMLDivElement, InnerElementTypeTypes>(
