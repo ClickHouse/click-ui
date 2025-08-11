@@ -26,7 +26,7 @@ export { Container } from "./Container/Container";
 export { DateDetails } from "@/components/DateDetails/DateDetails";
 export { DatePicker } from "./DatePicker/DatePicker";
 export { DateRangePicker } from "./DatePicker/DateRangePicker";
-export { getPredefinedMonthsForDateRangePickerByNumber } from "./DatePicker/utils";
+export { getPredefinedMonthsForDateRangePicker } from "./DatePicker/utils";
 export { Dialog } from "./Dialog/Dialog";
 export { EllipsisContent } from "./EllipsisContent/EllipsisContent";
 export { FileUpload } from "./FileUpload/FileUpload";
