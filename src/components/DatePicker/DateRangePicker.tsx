@@ -34,7 +34,9 @@ const CalendarRendererContainer = styled.div`
   border: ${({ theme }) =>
     `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  box-shadow: lch(6.77 0 0 / 0.15) 4px 4px 6px -1px, lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
+  box-shadow:
+    lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
+    lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
   left: 276px;
   position: absolute;
   top: 0;

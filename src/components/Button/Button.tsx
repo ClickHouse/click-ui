@@ -68,7 +68,7 @@ export const Button = ({
           data-testid="click-ui-loading-icon"
           aria-label="loading"
         ></Icon>
-        {showLabelWithLoading ? label ?? children : ""}
+        {showLabelWithLoading ? (label ?? children) : ""}
       </LoadingIconWrapper>
     )}
   </StyledButton>

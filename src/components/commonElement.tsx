@@ -16,8 +16,8 @@ export const FormRoot = styled.div<{
           ? "row-reverse"
           : "row"
         : $dir === "start"
-        ? "column-reverse"
-        : "column"
+          ? "column-reverse"
+          : "column"
     };
     align-items: flex-start;
     ${

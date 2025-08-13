@@ -1,4 +1,4 @@
-import { Args, Meta, StoryObj } from "@storybook/react";
+import { Args, Meta, StoryObj } from "@storybook/react-vite";
 import { DateRangePicker } from "./DateRangePicker";
 import { getPredefinedMonthsForDateRangePicker } from "./utils";
 

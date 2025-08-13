@@ -1,6 +1,6 @@
 // .storybook/YourTheme.js
 
-import { create } from "@storybook/theming/create";
+import { create } from "storybook/theming/create";
 
 export default create({
   base: "dark",
