@@ -1,10 +1,10 @@
 import { Container, Dialog, Separator, Text } from "@/components";
-import { ReactElement, ReactNode } from "react";
+import { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { styled } from "styled-components";
 
 type DialogPrimaryAction = "primary" | "danger";
 
-export interface ConfirmationDialogProps {
+export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   disabled?: boolean;
   loading?: boolean;
