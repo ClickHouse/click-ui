@@ -51,6 +51,7 @@ import Tableau from "./TableauDark";
 import Upstash from "./Upstash";
 import Vector from "./Vector";
 import WarpStream from "./WarpStream";
+import Databricks from "./Databricks";
 import { LogoName } from "./types";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
@@ -106,6 +107,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,
+  databricks: Databricks,
 };
 
 export default LogosDark;
