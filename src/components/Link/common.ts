@@ -1,7 +1,5 @@
 import { css } from "styled-components";
-
-export type TextSize = "xs" | "sm" | "md" | "lg";
-export type TextWeight = "normal" | "medium" | "semibold" | "bold";
+import { TextSize, TextWeight } from "../commonTypes";
 
 export type StyledLinkProps = { $size: TextSize; $weight: TextWeight };
 

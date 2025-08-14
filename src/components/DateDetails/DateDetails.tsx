@@ -13,6 +13,7 @@ import { Text } from "@/components/Typography/Text/Text";
 import { linkStyles, StyledLinkProps } from "@/components/Link/common";
 import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Container } from "@/components/Container/Container";
+import { TextSize, TextWeight } from "../commonTypes";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
@@ -106,10 +107,18 @@ export type ArrowPosition = "top" | "right" | "left" | "bottom";
 export interface DateDetailsProps {
   date: Date;
   side?: ArrowPosition;
+  size?: TextSize;
   systemTimeZone?: string;
+  weight?: TextWeight;
 }
 
-export const DateDetails = ({ date, side = "top", systemTimeZone }: DateDetailsProps) => {
+export const DateDetails = ({
+  date,
+  side = "top",
+  size = "sm",
+  systemTimeZone,
+  weight = "normal",
+}: DateDetailsProps) => {
   const dayjsDate = dayjs(date);
 
   let systemTime;
@@ -127,7 +136,12 @@ export const DateDetails = ({ date, side = "top", systemTimeZone }: DateDetailsP
         $size="sm"
         $weight="medium"
       >
-        <Text size="sm">{dayjs.utc(date).fromNow()}</Text>
+        <Text
+          size={size}
+          weight={weight}
+        >
+          {dayjs.utc(date).fromNow()}
+        </Text>
       </UnderlinedTrigger>
       <Popover.Content
         side={side}

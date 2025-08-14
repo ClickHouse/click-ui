@@ -28,6 +28,18 @@ export default {
         type: "select",
       },
     },
+    size: {
+      control: {
+        type: "select",
+      },
+      options: ["xs", "sm", "md", "lg"],
+    },
+    weight: {
+      control: {
+        type: "select",
+      },
+      options: ["normal", "medium", "semibold", "bold", "mono"],
+    },
   },
   component: DateDetails,
   title: "Display/DateDetails",
@@ -47,7 +59,9 @@ export const Playground = {
       <DateDetails
         date={date}
         side={args.side}
+        size={args.size}
         systemTimeZone={args.systemTimeZone}
+        weight={args.weight}
       />
     );
   },
