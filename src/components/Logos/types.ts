@@ -51,4 +51,5 @@ export type LogoName =
   | "iceberg"
   | "upstash"
   | "warpstream"
+  | "cloudflare"
   | "databricks";

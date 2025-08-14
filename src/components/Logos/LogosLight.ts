@@ -12,6 +12,7 @@ import AzureEventHub from "./AzureEventHub";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
 import Clickhouse from "./ClickhouseLight";
+import Cloudflare from "./Cloudflare";
 import Confluent from "./Confluent";
 import DataGrip from "./DataGrip";
 import Databricks from "./Databricks";
@@ -68,6 +69,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   "azure-event-hub": AzureEventHub,
   bigquery: BigQuery,
   "c#": Chash,
+  cloudflare: Cloudflare,
   confluent: Confluent,
   databricks: Databricks,
   datagrip: DataGrip,
