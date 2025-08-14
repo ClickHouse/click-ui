@@ -13,6 +13,7 @@ import BigQuery from "./BigQuery";
 import Chash from "./Chash";
 import Clickhouse from "./ClickhouseDark";
 import Confluent from "./Confluent";
+import Databricks from "./Databricks";
 import DataGrip from "./DataGrip";
 import dBeaver from "./dBeaver";
 import DigitalOcean from "./DigitalOcean";
@@ -68,6 +69,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   bigquery: BigQuery,
   "c#": Chash,
   confluent: Confluent,
+  databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
   dbt: Dbt,

@@ -14,6 +14,7 @@ import Chash from "./Chash";
 import Clickhouse from "./ClickhouseLight";
 import Confluent from "./Confluent";
 import DataGrip from "./DataGrip";
+import Databricks from "./Databricks";
 import dBeaver from "./dBeaver";
 import Dbt from "./Dbt";
 import Decodeable from "./Decodeable";
@@ -68,6 +69,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   bigquery: BigQuery,
   "c#": Chash,
   confluent: Confluent,
+  databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
   dbt: Dbt,
