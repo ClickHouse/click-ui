@@ -50,4 +50,5 @@ export type LogoName =
   | "bigquery"
   | "iceberg"
   | "upstash"
-  | "warpstream";
+  | "warpstream"
+  | "cloudflare";

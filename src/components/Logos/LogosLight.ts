@@ -51,6 +51,7 @@ import Tableau from "./TableauLight";
 import Upstash from "./Upstash";
 import Vector from "./Vector";
 import WarpStream from "./WarpStream";
+import Cloudflare from "./Cloudflare";
 import { LogoName } from "./types";
 
 const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
@@ -106,6 +107,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,
+  cloudflare: Cloudflare,
 };
 
 export default LogosLight;
