@@ -12,6 +12,7 @@ import AzureEventHub from "./AzureEventHub";
 import BigQuery from "./BigQuery";
 import Chash from "./Chash";
 import Clickhouse from "./ClickhouseDark";
+import Cloudflare from "./Cloudflare";
 import Confluent from "./Confluent";
 import DataGrip from "./DataGrip";
 import dBeaver from "./dBeaver";
@@ -51,7 +52,6 @@ import Tableau from "./TableauDark";
 import Upstash from "./Upstash";
 import Vector from "./Vector";
 import WarpStream from "./WarpStream";
-import Cloudflare from "./Cloudflare";
 import { LogoName } from "./types";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
@@ -68,6 +68,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   "azure-event-hub": AzureEventHub,
   bigquery: BigQuery,
   "c#": Chash,
+  cloudflare: Cloudflare,
   confluent: Confluent,
   datagrip: DataGrip,
   dbeaver: dBeaver,
@@ -107,7 +108,6 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,
-  cloudflare: Cloudflare,
 };
 
 export default LogosDark;
