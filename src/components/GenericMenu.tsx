@@ -105,7 +105,6 @@ export const GenericMenuItem = styled.div`
       font: ${theme.click.genericMenu.item.typography.label.active};
     }
     &[data-disabled] {
-      background:${theme.click.genericMenu.item.color.background.disabled};
       color:${theme.click.genericMenu.item.color.text.disabled};
       font: ${theme.click.genericMenu.item.typography.label.disabled};
       pointer-events: none;
