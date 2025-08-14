@@ -13,6 +13,7 @@ import BigQuery from "./BigQuery";
 import Chash from "./Chash";
 import Clickhouse from "./ClickhouseDark";
 import Confluent from "./Confluent";
+import Databricks from "./Databricks";
 import DataGrip from "./DataGrip";
 import dBeaver from "./dBeaver";
 import DigitalOcean from "./DigitalOcean";
@@ -51,7 +52,6 @@ import Tableau from "./TableauDark";
 import Upstash from "./Upstash";
 import Vector from "./Vector";
 import WarpStream from "./WarpStream";
-import Databricks from "./Databricks";
 import { LogoName } from "./types";
 
 const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
@@ -69,6 +69,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   bigquery: BigQuery,
   "c#": Chash,
   confluent: Confluent,
+  databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
   dbt: Dbt,
@@ -107,7 +108,6 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,
-  databricks: Databricks,
 };
 
 export default LogosDark;

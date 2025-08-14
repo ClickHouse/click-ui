@@ -14,6 +14,7 @@ import Chash from "./Chash";
 import Clickhouse from "./ClickhouseLight";
 import Confluent from "./Confluent";
 import DataGrip from "./DataGrip";
+import Databricks from "./Databricks";
 import dBeaver from "./dBeaver";
 import Dbt from "./Dbt";
 import Decodeable from "./Decodeable";
@@ -51,7 +52,6 @@ import Tableau from "./TableauLight";
 import Upstash from "./Upstash";
 import Vector from "./Vector";
 import WarpStream from "./WarpStream";
-import Databricks from "./Databricks";
 import { LogoName } from "./types";
 
 const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
@@ -69,6 +69,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   bigquery: BigQuery,
   "c#": Chash,
   confluent: Confluent,
+  databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
   dbt: Dbt,
@@ -107,7 +108,6 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,
-  databricks: Databricks,
 };
 
 export default LogosLight;
