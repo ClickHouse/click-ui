@@ -82,8 +82,8 @@ const Wrapper = styled.div<{
     font: ${theme.click.bigStat.typography[$size].label[$state]};
     border-radius: ${theme.click.bigStat.radii.all};
     border: ${theme.click.bigStat.stroke} solid ${
-    theme.click.bigStat.color.stroke[$state]
-  };
+      theme.click.bigStat.color.stroke[$state]
+    };
   gap: ${theme.click.bigStat.space[$spacing].gap};
   padding: ${theme.click.bigStat.space.all};
   min-height: ${$height !== undefined ? `${$height}` : "auto"};

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@/components/Select/SingleSelect";
 import { selectOptions } from "@/components/Select/selectOptions";
 import { Container } from "@/components/Container/Container";

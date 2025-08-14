@@ -1,9 +1,10 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { styled } from "styled-components";
-import { HorizontalDirection, Icon, IconName } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 import IconWrapper from "../IconWrapper/IconWrapper";
+import { HorizontalDirection, IconName } from "../types";
+import { Icon } from "../Icon/Icon";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />

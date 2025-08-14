@@ -1,4 +1,4 @@
-import { Args } from "@storybook/react";
+import { Args } from "@storybook/react-vite";
 import { DateDetails } from "./DateDetails";
 
 export default {
