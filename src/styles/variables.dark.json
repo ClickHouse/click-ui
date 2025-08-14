@@ -1029,7 +1029,7 @@
             "default": "#ffffff",
             "hover": "#ffffff",
             "active": "#ffffff",
-            "disabled": "#c0c0c0",
+            "disabled": "#808080",
             "muted": "#b3b6bd"
           },
           "background": {
