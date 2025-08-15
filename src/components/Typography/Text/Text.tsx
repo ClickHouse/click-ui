@@ -6,11 +6,10 @@ import {
   forwardRef,
 } from "react";
 import { styled } from "styled-components";
+import { TextSize, TextWeight } from "@/components/commonTypes";
 
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
-export type TextSize = "xs" | "sm" | "md" | "lg";
-export type TextWeight = "normal" | "medium" | "semibold" | "bold" | "mono";
 
 export interface TextProps<T extends ElementType = "p"> {
   children: ReactNode;

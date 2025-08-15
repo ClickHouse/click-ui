@@ -8,7 +8,8 @@ import {
 } from "react";
 import { Icon, IconName } from "@/components";
 import { styled } from "styled-components";
-import { linkStyles, TextSize, TextWeight } from "./common";
+import { linkStyles } from "./common";
+import { TextSize, TextWeight } from "../commonTypes";
 
 export interface LinkProps<T extends ElementType = "a"> {
   size?: TextSize;
