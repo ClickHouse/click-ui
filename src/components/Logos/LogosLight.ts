@@ -37,6 +37,7 @@ import Iceberg from "./Iceberg";
 import Jdbc from "./Jdbc";
 import Kafka from "./KafkaLight";
 import Kubenetes from "./Kubenetes";
+import MariaDB from "./MariaDB";
 import Metabase from "./Metabase";
 import Microsoft from "./Microsoft";
 import MongoDb from "./MongoDb";
@@ -94,6 +95,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   jdbc: Jdbc,
   kafka: Kafka,
   kubenetes: Kubenetes,
+  mariadb: MariaDB,
   metabase: Metabase,
   microsoft: Microsoft,
   mongodb: MongoDb,
