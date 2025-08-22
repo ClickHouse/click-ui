@@ -52,4 +52,5 @@ export type LogoName =
   | "upstash"
   | "warpstream"
   | "cloudflare"
-  | "databricks";
+  | "databricks"
+  | "mariadb";
