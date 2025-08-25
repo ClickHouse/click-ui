@@ -2,7 +2,6 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@/components/Select/SingleSelect";
 import { selectOptions } from "@/components/Select/selectOptions";
 import { Container } from "@/components/Container/Container";
-import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Panel } from "@/components/Panel/Panel";
 import { Title } from "@/components/Typography/Title/Title";
 
@@ -125,11 +124,8 @@ export const UseFullWidth = {
 export const NoOptions: StoryObj<typeof Select> = {
   args: { label: "Label", customText: 'No results for "{search}"' },
   render: ({ customText, ...rest }) => (
-    <GridContainer
-      columnGap="sm"
-      gridTemplateColumns="repeat(2, auto)"
-    >
-      <Panel>
+    <Container fillWidth gap="sm">   
+      <Panel width="400px">
         <Title type="h2">Empty options</Title>
         <Select
           options={[]}
@@ -137,7 +133,7 @@ export const NoOptions: StoryObj<typeof Select> = {
           {...rest}
         />
       </Panel>
-      <Panel>
+      <Panel width="400px">
         <Title type="h2">Simple options</Title>
         <Select
           options={[
@@ -149,6 +145,6 @@ export const NoOptions: StoryObj<typeof Select> = {
           {...rest}
         />
       </Panel>
-    </GridContainer>
+    </Container>
   ),
 };
