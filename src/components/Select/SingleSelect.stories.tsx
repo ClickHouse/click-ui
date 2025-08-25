@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@/components/Select/SingleSelect";
 import { selectOptions } from "@/components/Select/selectOptions";
 import { Container } from "@/components/Container/Container";
+import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Panel } from "@/components/Panel/Panel";
 import { Title } from "@/components/Typography/Title/Title";
 
@@ -119,4 +120,35 @@ export const UseFullWidth = {
     );
   },
   tags: ["form-field", "select", "autodocs"],
+};
+
+export const NoOptions: StoryObj<typeof Select> = {
+  args: { label: "Label", customText: 'No results for "{search}"' },
+  render: ({ customText, ...rest }) => (
+    <GridContainer
+      columnGap="sm"
+      gridTemplateColumns="repeat(2, auto)"
+    >
+      <Panel>
+        <Title type="h2">Empty options</Title>
+        <Select
+          options={[]}
+          customText="No results match your filters. Try adjusting them."
+          {...rest}
+        />
+      </Panel>
+      <Panel>
+        <Title type="h2">Simple options</Title>
+        <Select
+          options={[
+            { value: "apple", label: "Apple" },
+            { value: "banana", label: "Banana" },
+            { value: "cherry", label: "Cherry" },
+          ]}
+          customText={customText}
+          {...rest}
+        />
+      </Panel>
+    </GridContainer>
+  ),
 };
