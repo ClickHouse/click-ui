@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@/components/Select/SingleSelect";
 import { selectOptions } from "@/components/Select/selectOptions";
 import { Container } from "@/components/Container/Container";
+import { Text } from "@/components/Typography/Text/Text";
 import { Panel } from "@/components/Panel/Panel";
 import { Title } from "@/components/Typography/Title/Title";
 
@@ -119,4 +120,42 @@ export const UseFullWidth = {
     );
   },
   tags: ["form-field", "select", "autodocs"],
+};
+
+export const NoOptions: StoryObj<typeof Select> = {
+  // prettier-ignore
+  args: { label: "Label", customText: "No results for \"{search}\"" },
+  render: ({ customText, ...rest }) => (
+    <Container
+      fillWidth
+      gap="sm"
+    >
+      <Panel width="400px">
+        <Title type="h2">No options available</Title>
+        <Text>
+          When no options are available, the component will display a custom text.
+        </Text>
+        <Select
+          options={[]}
+          customText="No results match your filters. Try adjusting them."
+          {...rest}
+        />
+      </Panel>
+      <Panel width="400px">
+        <Title type="h2">Search returns no results</Title>
+        <Text>
+          When the search returns no results, the component will display a custom text.
+        </Text>
+        <Select
+          options={[
+            { value: "apple", label: "Apple" },
+            { value: "banana", label: "Banana" },
+            { value: "cherry", label: "Cherry" },
+          ]}
+          customText={customText}
+          {...rest}
+        />
+      </Panel>
+    </Container>
+  ),
 };

@@ -372,5 +372,33 @@ describe("Select", () => {
       expect(onClick).toBeCalledTimes(1);
       expect(btn).not.toBeVisible();
     });
+
+    it("replaces {search} token in customText", () => {
+      const { queryByText, getByTestId } = renderSelect({
+        showSearch: true,
+        customText: "No results for {search}",
+      });
+      const selectTrigger = queryByText("Select an option");
+      expect(selectTrigger).not.toBeNull();
+      selectTrigger && fireEvent.click(selectTrigger);
+
+      fireEvent.change(getByTestId("select-search-input"), {
+        target: { value: "xyz" },
+      });
+      const emptyState = queryByText("No results for xyz");
+      expect(emptyState).not.toBeNull();
+    });
+  });
+
+  it("shows customText when options list is empty", () => {
+    const { queryByText } = renderSelect({
+      options: [],
+      customText: "Nothing here",
+    });
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(queryByText("Nothing here")).not.toBeNull();
   });
 });
