@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@/components/Select/SingleSelect";
 import { selectOptions } from "@/components/Select/selectOptions";
 import { Container } from "@/components/Container/Container";
+import { Text } from "@/components/Typography/Text/Text";
 import { Panel } from "@/components/Panel/Panel";
 import { Title } from "@/components/Typography/Title/Title";
 
@@ -126,7 +127,8 @@ export const NoOptions: StoryObj<typeof Select> = {
   render: ({ customText, ...rest }) => (
     <Container fillWidth gap="sm">   
       <Panel width="400px">
-        <Title type="h2">Empty options</Title>
+        <Title type="h2">No options available</Title>
+        <Text>When no options are available, the component will display a custom text.</Text>
         <Select
           options={[]}
           customText="No results match your filters. Try adjusting them."
@@ -134,7 +136,8 @@ export const NoOptions: StoryObj<typeof Select> = {
         />
       </Panel>
       <Panel width="400px">
-        <Title type="h2">Simple options</Title>
+        <Title type="h2">Search returns no results</Title>
+        <Text>When the search returns no results, the component will display a custom text.</Text>
         <Select
           options={[
             { value: "apple", label: "Apple" },
