@@ -123,12 +123,17 @@ export const UseFullWidth = {
 };
 
 export const NoOptions: StoryObj<typeof Select> = {
-  args: { label: "Label", customText: "No results for \"{search}\"" },
+  args: { label: "Label", customText: 'No results for "{search}"' },
   render: ({ customText, ...rest }) => (
-    <Container fillWidth gap="sm">   
+    <Container
+      fillWidth
+      gap="sm"
+    >
       <Panel width="400px">
         <Title type="h2">No options available</Title>
-        <Text>When no options are available, the component will display a custom text.</Text>
+        <Text>
+          When no options are available, the component will display a custom text.
+        </Text>
         <Select
           options={[]}
           customText="No results match your filters. Try adjusting them."
@@ -137,7 +142,9 @@ export const NoOptions: StoryObj<typeof Select> = {
       </Panel>
       <Panel width="400px">
         <Title type="h2">Search returns no results</Title>
-        <Text>When the search returns no results, the component will display a custom text.</Text>
+        <Text>
+          When the search returns no results, the component will display a custom text.
+        </Text>
         <Select
           options={[
             { value: "apple", label: "Apple" },
