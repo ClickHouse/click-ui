@@ -123,7 +123,7 @@ export const UseFullWidth = {
 };
 
 export const NoOptions: StoryObj<typeof Select> = {
-  args: { label: "Label", customText: 'No results for "{search}"' },
+  args: { label: "Label", customText: "No results for \"{search}\"" },
   render: ({ customText, ...rest }) => (
     <Container fillWidth gap="sm">   
       <Panel width="400px">
