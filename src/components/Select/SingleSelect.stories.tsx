@@ -123,6 +123,7 @@ export const UseFullWidth = {
 };
 
 export const NoOptions: StoryObj<typeof Select> = {
+  // prettier-ignore
   args: { label: "Label", customText: "No results for \"{search}\"" },
   render: ({ customText, ...rest }) => (
     <Container
