@@ -94,7 +94,6 @@ export const ModalDialog = {
 
 export const ChatDialog = {
   args: {
-    title: "Example dialog title",
     showClose: false,
     open: true,
     onOpenChange: () => {
