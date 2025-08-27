@@ -55,11 +55,13 @@ const DialogOverlay = styled(RadixDialog.Overlay)`
   animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
-const ContentArea = styled(RadixDialog.Content)`
+const ContentArea = styled(RadixDialog.Content)<{ $reducePadding?: boolean }>`
   background: ${({ theme }) => theme.click.dialog.color.background.default};
   border-radius: ${({ theme }) => theme.click.dialog.radii.all};
-  padding: ${({ theme }) =>
-    `${theme.click.dialog.space.y} ${theme.click.dialog.space.x}`};
+  padding-block: ${({ theme, $reducePadding = false }) =>
+    $reducePadding ? theme.sizes[4] : theme.click.dialog.space.y};
+  padding-inline: ${({ theme, $reducePadding = false }) =>
+    $reducePadding ? theme.sizes[4] : theme.click.dialog.space.x};
   box-shadow: ${({ theme }) => theme.click.dialog.shadow.default};
   border: 1px solid ${({ theme }) => theme.click.global.color.stroke.default};
   width: 75%;
@@ -80,9 +82,9 @@ const ContentArea = styled(RadixDialog.Content)`
   }
 `;
 
-const TitleArea = styled.div`
+const TitleArea = styled.div<{ $onlyClose?: boolean }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ $onlyClose }) => ($onlyClose ? "flex-end" : "space-between")};
   align-items: center;
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
@@ -105,13 +107,14 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
 );
 
 export interface DialogContentProps extends RadixDialog.DialogContentProps {
-  title: string;
+  title?: string;
   showClose?: boolean;
   forceMount?: true;
   container?: HTMLElement | null;
   children: ReactNode;
   onClose?: () => void;
   showOverlay?: boolean;
+  reducePadding?: boolean;
 }
 
 const DialogContent = ({
@@ -122,6 +125,7 @@ const DialogContent = ({
   forceMount,
   container,
   showOverlay = true,
+  reducePadding = false,
   ...props
 }: DialogContentProps) => {
   return (
@@ -130,12 +134,20 @@ const DialogContent = ({
       container={container}
     >
       {showOverlay && <DialogOverlay />}
-      <ContentArea {...props}>
-        <TitleArea>
-          <Title>{title}</Title>
-          {showClose && <CloseButton onClose={onClose} />}
-        </TitleArea>
-        <Spacer size="sm" />
+      <ContentArea
+        $reducePadding={reducePadding}
+        {...props}
+      >
+        {(title || showClose) && (
+          <>
+            <TitleArea $onlyClose={!!showClose && !title}>
+              {title && <Title>{title}</Title>}
+              {showClose && <CloseButton onClose={onClose} />}
+            </TitleArea>
+            {title && <Spacer size="sm" />}
+          </>
+        )}
+
         {children}
       </ContentArea>
     </RadixDialog.Portal>
