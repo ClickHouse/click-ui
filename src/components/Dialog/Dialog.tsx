@@ -15,6 +15,7 @@ const Trigger = styled(RadixDialog.Trigger)`
   background: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 `;
 
 const DialogTrigger = ({ children, ...props }: RadixDialog.DialogTriggerProps) => {

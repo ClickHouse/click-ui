@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Dialog } from "./Dialog";
@@ -92,18 +93,29 @@ export const ModalDialog = {
   },
 };
 
+const TopNav = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1px solid ${({ theme }) => theme.click.separator.color.stroke.default};
+`;
+
 export const ChatDialog = {
   args: {
     title: "",
     showClose: false,
-    open: true,
+    open: false,
     onOpenChange: () => {
       console.log("ignored");
     },
     reducePadding: true,
   },
   render: ({
-    open,
     title,
     modal,
     showClose,
@@ -116,40 +128,52 @@ export const ChatDialog = {
     showClose: boolean;
     forceMount?: boolean;
     reducePadding?: boolean;
-  }) => (
-    <GridCenter>
-      <Dialog
-        open={open}
-        modal={modal}
-      >
-        <Dialog.Trigger>
-          <Link>Open dialog</Link>
-        </Dialog.Trigger>
-        <Dialog.Content
-          title={title}
-          showClose={showClose}
-          forceMount={forceMount ? true : undefined}
-          reducePadding={reducePadding}
+  }) => {
+    const [open, setOpen] = useState(true);
+
+    return (
+      <GridCenter style={{ position: "relative" }}>
+        <Dialog
+          open={open}
+          modal={modal}
+          onOpenChange={setOpen}
         >
-          <Container
-            fillWidth
-            gap="sm"
+          <TopNav>
+            <Dialog.Trigger>
+              <Button
+                type="secondary"
+                iconLeft="sparkle"
+              >
+                SQL AI
+              </Button>
+            </Dialog.Trigger>
+          </TopNav>
+          <Dialog.Content
+            title={title}
+            showClose={showClose}
+            forceMount={forceMount ? true : undefined}
+            reducePadding={reducePadding}
           >
-            <Icon
-              name="sparkle"
-              color="currentColor"
-            />
-            <TextField
-              onChange={() => {}}
-              placeholder="Ask our SQL assistant to build a query"
-              type="text"
-            />
-            <Button>⌘+↵ Enter</Button>
-          </Container>
-        </Dialog.Content>
-      </Dialog>
-    </GridCenter>
-  ),
+            <Container
+              fillWidth
+              gap="sm"
+            >
+              <Icon
+                name="sparkle"
+                color="currentColor"
+              />
+              <TextField
+                onChange={() => {}}
+                placeholder="Ask our SQL assistant to build a query"
+                type="text"
+              />
+              <Button>⌘+↵ Enter</Button>
+            </Container>
+          </Dialog.Content>
+        </Dialog>
+      </GridCenter>
+    );
+  },
   parameters: {
     docs: {
       story: {
