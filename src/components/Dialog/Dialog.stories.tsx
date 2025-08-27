@@ -19,7 +19,7 @@ const DialogComponent = ({
   reducePadding,
 }: {
   open?: boolean;
-  title: string;
+  title?: string;
   modal: boolean;
   showClose: boolean;
   forceMount?: boolean;
@@ -94,6 +94,7 @@ export const ModalDialog = {
 
 export const ChatDialog = {
   args: {
+    title: "",
     showClose: false,
     open: true,
     onOpenChange: () => {
@@ -103,6 +104,7 @@ export const ChatDialog = {
   },
   render: ({
     open,
+    title,
     modal,
     showClose,
     forceMount,
@@ -124,6 +126,7 @@ export const ChatDialog = {
           <Link>Open dialog</Link>
         </Dialog.Trigger>
         <Dialog.Content
+          title={title}
           showClose={showClose}
           forceMount={forceMount ? true : undefined}
           reducePadding={reducePadding}
