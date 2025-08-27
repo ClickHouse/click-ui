@@ -139,10 +139,10 @@ export const ChatDialog = {
           onOpenChange={setOpen}
         >
           <TopNav>
-            <Dialog.Trigger>
+            <Dialog.Trigger asChild>
               <Button
-                type="secondary"
                 iconLeft="sparkle"
+                type="secondary"
               >
                 SQL AI
               </Button>

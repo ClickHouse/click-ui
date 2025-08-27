@@ -15,10 +15,25 @@ const Trigger = styled(RadixDialog.Trigger)`
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
 `;
 
-const DialogTrigger = ({ children, ...props }: RadixDialog.DialogTriggerProps) => {
+const DialogTrigger = ({
+  children,
+  asChild,
+  ...props
+}: RadixDialog.DialogTriggerProps) => {
+  if (asChild) {
+    // Pass all props to RadixDialog.Trigger, no styled wrapper
+    return (
+      <RadixDialog.Trigger
+        asChild
+        {...props}
+      >
+        {children}
+      </RadixDialog.Trigger>
+    );
+  }
+  // Use styled Trigger if not asChild
   return <Trigger {...props}>{children}</Trigger>;
 };
 
