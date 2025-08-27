@@ -54,6 +54,7 @@ export type {
   CellProps,
   SelectedRegion,
   SelectionFocus,
+  SelectionPos,
   SelectionAction,
   GridContextMenuItemProps,
   Rectangle,
