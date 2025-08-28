@@ -1,5 +1,11 @@
 import { styled } from "styled-components";
-import { HTMLAttributes } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  forwardRef,
+  ReactNode,
+} from "react";
 
 export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "unset";
@@ -15,7 +21,8 @@ type ContentOptions =
   | "left"
   | "right";
 
-export interface GridContainerProps extends HTMLAttributes<HTMLDivElement> {
+export interface GridContainerProps<T extends ElementType = "div"> {
+  component?: T;
   alignItems?: ItemsOptions;
   alignContent?: ContentOptions;
   children?: React.ReactNode;
@@ -42,35 +49,44 @@ export interface GridContainerProps extends HTMLAttributes<HTMLDivElement> {
   overflow?: string;
 }
 
-const GridContainer = ({
-  alignItems = "stretch",
-  alignContent = "stretch",
-  children,
-  columnGap,
-  gap,
-  gridAutoColumns,
-  gridAutoFlow,
-  gridAutoRows,
-  gridTemplateAreas,
-  gridTemplateColumns,
-  gridTemplateRows,
-  gridTemplate,
-  inline = false,
-  isResponsive = true,
-  justifyContent = "stretch",
-  justifyItems = "stretch",
-  rowGap,
-  height,
-  maxHeight,
-  minHeight,
-  fillWidth = true,
-  maxWidth,
-  minWidth,
-  overflow,
-  ...props
-}: GridContainerProps) => {
+type GridContainerPolymorphicComponent = <T extends ElementType = "div">(
+  props: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>
+) => ReactNode;
+
+const _GridContainer = <T extends ElementType = "div">(
+  {
+    alignItems = "stretch",
+    alignContent = "stretch",
+    children,
+    columnGap,
+    gap,
+    gridAutoColumns,
+    gridAutoFlow,
+    gridAutoRows,
+    gridTemplateAreas,
+    gridTemplateColumns,
+    gridTemplateRows,
+    gridTemplate,
+    inline = false,
+    isResponsive = true,
+    justifyContent = "stretch",
+    justifyItems = "stretch",
+    rowGap,
+    height,
+    maxHeight,
+    minHeight,
+    fillWidth = true,
+    maxWidth,
+    minWidth,
+    overflow,
+    component,
+    ...props
+  }: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>,
+  ref: ComponentPropsWithRef<T>["ref"]
+) => {
   return (
     <Wrapper
+      as={component ?? "div"}
       $alignItems={alignItems}
       $alignContent={alignContent}
       $columnGap={columnGap}
@@ -95,6 +111,7 @@ const GridContainer = ({
       $minWidth={minWidth}
       $overflow={overflow}
       data-testid="grid-container"
+      ref={ref}
       {...props}
     >
       {children}
@@ -171,4 +188,5 @@ const Wrapper = styled.div<{
   }
 `;
 
-export { GridContainer };
+export const GridContainer: GridContainerPolymorphicComponent =
+  forwardRef(_GridContainer);
