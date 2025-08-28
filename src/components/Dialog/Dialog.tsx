@@ -151,14 +151,20 @@ const DialogContent = ({
     >
       {showOverlay && <DialogOverlay />}
       <ContentArea
+        data-testid="click-dialog-contentarea"
         $reducePadding={reducePadding}
         {...props}
       >
         {(title || showClose) && (
           <>
             <TitleArea $onlyClose={!!showClose && !title}>
-              {title && <Title>{title}</Title>}
-              {showClose && <CloseButton onClose={onClose} />}
+              {title && <Title data-testid="click-dialog-title">{title}</Title>}
+              {showClose && (
+                <CloseButton
+                  data-testid="click-dialog-close"
+                  onClose={onClose}
+                />
+              )}
             </TitleArea>
             <Spacer size="sm" />
           </>
