@@ -160,7 +160,7 @@ const DialogContent = ({
               {title && <Title>{title}</Title>}
               {showClose && <CloseButton onClose={onClose} />}
             </TitleArea>
-            {title && <Spacer size="sm" />}
+            <Spacer size="sm" />
           </>
         )}
 
