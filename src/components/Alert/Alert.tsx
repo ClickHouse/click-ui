@@ -14,6 +14,7 @@ export type AlertProps = {
   type?: AlertType;
   showIcon?: boolean;
   dismissible?: boolean;
+  fillWidth?: boolean;
   customIcon?: IconName;
 };
 
@@ -34,6 +35,7 @@ const Alert = ({
   showIcon = true,
   dismissible,
   customIcon,
+  fillWidth = false,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -64,6 +66,7 @@ const Alert = ({
       <TextWrapper
         $state={state}
         $size={size}
+        $fillWidth={fillWidth}
       >
         {title && <Title $size={size}>{title}</Title>}
         <Text $size={size}>{text}</Text>
@@ -83,11 +86,13 @@ const Alert = ({
   ) : null;
 };
 
-const Wrapper = styled.div<{
+interface WrapperProps {
   $state: AlertState;
   $size: AlertSize;
   $type: AlertType;
-}>`
+}
+
+const Wrapper = styled.div<WrapperProps>`
   display: flex;
   border-radius: ${({ $type, theme }) =>
     $type === "banner" ? theme.sizes[0] : theme.click.alert.radii.end};
@@ -99,11 +104,12 @@ const Wrapper = styled.div<{
   width: 100%;
 `;
 
-const IconWrapper = styled.div<{
+interface IconWrapperProps {
   $state: AlertState;
   $size: AlertSize;
   $type: AlertType;
-}>`
+}
+const IconWrapper = styled.div<IconWrapperProps>`
   display: flex;
   align-items: center;
   background-color: ${({ $state = "neutral", $type, theme }) =>
@@ -120,10 +126,18 @@ const StyledIcon = styled(Icon)<{ $size: AlertSize }>`
     width: ${theme.click.alert[$size].icon.width};
   `}
 `;
-const TextWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
+
+interface TextWrapperProps {
+  $state: AlertState;
+  $size: AlertSize;
+  $fillWidth: boolean;
+}
+
+const TextWrapper = styled.div<TextWrapperProps>`
   display: flex;
   flex-flow: column;
   word-break: break-word;
+  ${({ $fillWidth }) => $fillWidth && "width: 100%;"};
   ${({ $size, theme }) => `
     gap: ${theme.click.alert[$size].space.gap};
     padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
