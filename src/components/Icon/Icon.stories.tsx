@@ -107,7 +107,12 @@ export const Icons = () => {
       maxWidth="1000px"
       style={{ margin: "0 auto" }}
     >
-      <Title type="h2">Glyph</Title>
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Glyph
+      </Title>
 
       <Container
         orientation="vertical"
@@ -138,7 +143,12 @@ export const Icons = () => {
 
       <Spacer size="md" />
 
-      <Title type="h2">Flags</Title>
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Flags
+      </Title>
 
       <ResponsiveGridContainer>
         {Object.keys(FlagList).map(key => (
@@ -151,7 +161,12 @@ export const Icons = () => {
 
       <Spacer size="md" />
 
-      <Title type="h2">Payments</Title>
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Payments
+      </Title>
 
       <ResponsiveGridContainer>
         {Object.keys(PaymentList).map(key => (
@@ -164,20 +179,12 @@ export const Icons = () => {
 
       <Spacer size="md" />
 
-      <Title type="h2">Payments</Title>
-
-      <ResponsiveGridContainer>
-        {Object.keys(PaymentList).map(key => (
-          <IconGallery
-            key={key}
-            name={key as IconName}
-          />
-        ))}
-      </ResponsiveGridContainer>
-
-      <Spacer size="md" />
-
-      <Title type="h2">Logo</Title>
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Logo
+      </Title>
 
       <ResponsiveGridContainer>
         {Object.keys(LogosLight).map(key => (
