@@ -738,6 +738,10 @@
           "muted": {
             "value": "{click.bigStat.color.stroke.default}",
             "type": "color"
+          },
+          "danger": {
+            "value": "{click.feedback.color.danger.foreground}",
+            "type": "color"
           }
         },
         "background": {
@@ -757,6 +761,10 @@
           },
           "muted": {
             "value": "{click.bigStat.color.label.default}",
+            "type": "color"
+          },
+          "danger": {
+            "value": "{click.feedback.color.danger.foreground}",
             "type": "color"
           }
         },
