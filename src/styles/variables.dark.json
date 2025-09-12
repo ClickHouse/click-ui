@@ -146,7 +146,8 @@
       "color": {
         "stroke": {
           "default": "#323232",
-          "muted": "#323232"
+          "muted": "#323232",
+          "danger": "#ffbaba"
         },
         "background": {
           "default": "#1F1F1C",
@@ -154,7 +155,8 @@
         },
         "label": {
           "default": "#b3b6bd",
-          "muted": "#b3b6bd"
+          "muted": "#b3b6bd",
+          "danger": "#ffbaba"
         },
         "title": {
           "default": "rgb(97.5% 97.5% 97.5%)",

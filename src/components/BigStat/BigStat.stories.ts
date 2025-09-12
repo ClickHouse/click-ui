@@ -4,17 +4,26 @@ export default {
   component: BigStat,
   title: "Display/Big Stat",
   tags: ["big-stat", "autodocs"],
-  order: {
-    options: ["titleTop", "titleBottom"],
-    control: { type: "radio" },
-  },
-  size: {
-    options: ["lg", "sm"],
-    control: { type: "radio" },
-  },
-  spacing: {
-    options: ["lg", "sm"],
-    control: { type: "radio" },
+  argTypes: {
+    order: {
+      options: ["titleTop", "titleBottom"],
+      control: { type: "radio" },
+    },
+    size: {
+      options: ["lg", "sm"],
+      control: { type: "radio" },
+    },
+    spacing: {
+      options: ["lg", "sm"],
+      control: { type: "radio" },
+    },
+    state: {
+      options: ["default", "muted"],
+      control: { type: "radio" },
+    },
+    error: {
+      control: { type: "boolean" },
+    },
   },
 };
 
@@ -28,6 +37,7 @@ export const Playground = {
     order: "titleTop",
     height: "",
     fillWidth: false,
-    maxWidth: "none",
+    maxWidth: "300px",
+    error: false,
   },
 };

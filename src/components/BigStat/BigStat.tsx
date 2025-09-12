@@ -15,6 +15,7 @@ export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "titl
   spacing?: bigStatSpacing;
   state?: bigStatState;
   title: React.ReactNode;
+  error?: boolean;
 }
 
 //* Use this component to highlight important pieces of information. */
@@ -28,6 +29,7 @@ export const BigStat = ({
   spacing = "sm",
   state = "default",
   title = "Title",
+  error = false,
   ...props
 }: BigStatProps) => (
   <Wrapper
@@ -38,11 +40,13 @@ export const BigStat = ({
     $state={state}
     $fillWidth={fillWidth}
     $maxWidth={maxWidth}
+    $error={error}
     {...props}
   >
     <Label
       $state={state}
       $size={size}
+      $error={error}
     >
       {label}
     </Label>
@@ -63,6 +67,7 @@ const Wrapper = styled.div<{
   $size?: bigStatSize;
   $spacing?: bigStatSpacing;
   $state?: bigStatState;
+  $error?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -75,6 +80,7 @@ const Wrapper = styled.div<{
     $height = "fixed",
     $order,
     $spacing = "sm",
+    $error = false,
     theme,
   }) => `
     background-color: ${theme.click.bigStat.color.background[$state]};
@@ -82,7 +88,9 @@ const Wrapper = styled.div<{
     font: ${theme.click.bigStat.typography[$size].label[$state]};
     border-radius: ${theme.click.bigStat.radii.all};
     border: ${theme.click.bigStat.stroke} solid ${
-      theme.click.bigStat.color.stroke[$state]
+      $error
+        ? theme.click.bigStat.color.stroke.danger
+        : theme.click.bigStat.color.stroke[$state]
     };
   gap: ${theme.click.bigStat.space[$spacing].gap};
   padding: ${theme.click.bigStat.space.all};
@@ -96,9 +104,10 @@ const Wrapper = styled.div<{
 const Label = styled.div<{
   $state?: bigStatState;
   $size?: bigStatSize;
+  $error?: boolean;
 }>`
-  ${({ $state = "default", $size = "lg", theme }) => `
-    color: ${theme.click.bigStat.color.label[$state]};
+  ${({ $state = "default", $size = "lg", $error = false, theme }) => `
+    color: ${$error ? theme.click.bigStat.color.label.danger : theme.click.bigStat.color.label[$state]};
     font: ${theme.click.bigStat.typography[$size].label[$state]};
   `}
 `;
