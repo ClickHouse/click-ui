@@ -2,6 +2,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { MultiSelect } from "./MultiSelect";
 import { selectOptions } from "./selectOptions";
 import { useEffect, useState } from "react";
+import { Container } from "../Container/Container";
+import { Panel } from "../Panel/Panel";
 
 const meta: Meta<typeof MultiSelect> = {
   component: MultiSelect,
@@ -78,4 +80,27 @@ export const OptionsAsProp: StoryObj<typeof MultiSelect> = {
       />
     );
   },
+};
+
+export const MaxHeight = {
+  args: {},
+  render: () => {
+    return (
+      <Container fillWidth>
+        <Panel>
+          <MultiSelect maxHeight="200px">
+            <MultiSelect.Item value="item 1">Fish</MultiSelect.Item>
+            <MultiSelect.Item value="item 2">Bread</MultiSelect.Item>
+            <MultiSelect.Item value="item 3">Rocks</MultiSelect.Item>
+            <MultiSelect.Item value="item 4">Snakes</MultiSelect.Item>
+            <MultiSelect.Item value="item 5">Boats</MultiSelect.Item>
+            <MultiSelect.Item value="item 6">Sandals</MultiSelect.Item>
+            <MultiSelect.Item value="item 7">Potatoes</MultiSelect.Item>
+            <MultiSelect.Item value="item 8">Rabbits</MultiSelect.Item>
+          </MultiSelect>
+        </Panel>
+      </Container>
+    );
+  },
+  tags: ["form-field", "select", "autodocs"],
 };
