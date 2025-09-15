@@ -101,7 +101,7 @@ interface InternalSelectProps
   /**
    * Controls rendering when no options are available.
    * - false: renders nothing
-   * - true: renders default message `No Options found{search ? \` for "${search}" \` : ""}`
+   * - true: renders default message 'No Options found' with search term if present
    * - ({ search: string, onClose: () => void }) => ReactNode: renders the returned node allowing dynamic content based on current search string
    */
   noAvailableOptions?: boolean | ((props: NoAvailableOptionsFactoryProps) => ReactNode);
