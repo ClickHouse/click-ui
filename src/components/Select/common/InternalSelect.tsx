@@ -80,7 +80,6 @@ interface NoOptionsDisplayProps {
   containerProps?: HTMLAttributes<HTMLDivElement>;
 }
 
-
 const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   allowCreateOption,
   search,
@@ -115,9 +114,7 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   let noOptionsNode: ReactNode = null;
 
   if (shouldShowCreateOption) {
-    noOptionsNode = hasCustomText
-      ? getCustomTextWithSearch(customText)
-      : `Add ${search}`;
+    noOptionsNode = hasCustomText ? getCustomTextWithSearch(customText) : `Add ${search}`;
   } else if (hasCustomText) {
     noOptionsNode = getCustomTextWithSearch(customText);
   } else {
@@ -127,7 +124,6 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   if (!noOptionsNode) {
     return null;
   }
-
 
   const handleNoOptionsClick = (e: MouseEvent<HTMLDivElement>) => {
     if (shouldShowCreateOption) {
@@ -139,7 +135,10 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   const isCustomReactNode = typeof noAvailableOptions === "function";
   if (isCustomReactNode) {
     return (
-      <Container onClick={handleNoOptionsClick} {...containerProps}>
+      <Container
+        onClick={handleNoOptionsClick}
+        {...containerProps}
+      >
         {noOptionsNode}
       </Container>
     );
@@ -557,17 +556,18 @@ export const InternalSelect = ({
                       : children}
                   </OptionContext.Provider>
                 </SelectListContent>
-                {visibleList.current.length === 0 && (allowCreateOption || !!noAvailableOptions) && (
-                  <NoOptionsDisplay
-                    allowCreateOption={allowCreateOption}
-                    search={search}
-                    customText={customText}
-                    noAvailableOptions={noAvailableOptions}
-                    onCreateOption={onCreateOption}
-                    onOpenChange={onOpenChange}
-                    containerProps={props}
-                  />
-                )}
+                {visibleList.current.length === 0 &&
+                  (allowCreateOption || !!noAvailableOptions) && (
+                    <NoOptionsDisplay
+                      allowCreateOption={allowCreateOption}
+                      search={search}
+                      customText={customText}
+                      noAvailableOptions={noAvailableOptions}
+                      onCreateOption={onCreateOption}
+                      onOpenChange={onOpenChange}
+                      containerProps={props}
+                    />
+                  )}
               </SelectList>
             </SelectPopoverContent>
           </Portal>

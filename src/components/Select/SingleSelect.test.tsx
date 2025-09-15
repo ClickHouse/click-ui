@@ -402,14 +402,15 @@ describe("Select", () => {
     expect(queryByText("Nothing here")).not.toBeNull();
   });
 
-  it ("renders a custom no options element", () => {
-    const customNoOptionsComponent = ({ close }: { close: () => void }) =>  {
-      return (<div>
-        <span>No Options Custom</span>
-        <button onClick={close}>Close</button>
-      </div>
+  it("renders a custom no options element", () => {
+    const customNoOptionsComponent = ({ close }: { close: () => void }) => {
+      return (
+        <div>
+          <span>No Options Custom</span>
+          <button onClick={close}>Close</button>
+        </div>
       );
-    }
+    };
     const { queryByText } = renderSelect({
       options: [],
       noAvailableOptions: customNoOptionsComponent,

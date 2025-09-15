@@ -162,14 +162,13 @@ export const NoOptions: StoryObj<typeof Select> = {
   ),
 };
 
-
 interface NoOptionsComponentProps {
   onNewQueryClick: () => void;
 }
 
-const NoOptionsComponent =({
-  onNewQueryClick
-}: NoOptionsComponentProps): ReactElement  => {
+const NoOptionsComponent = ({
+  onNewQueryClick,
+}: NoOptionsComponentProps): ReactElement => {
   return (
     <Container
       alignItems="start"
@@ -186,16 +185,23 @@ const NoOptionsComponent =({
         orientation="vertical"
         gap="sm"
       >
-        <Title type="h3" size="xl">
+        <Title
+          type="h3"
+          size="xl"
+        >
           No options have been found
         </Title>
       </Container>
-      <Button type="primary" iconLeft="plus" onClick={onNewQueryClick}>
+      <Button
+        type="primary"
+        iconLeft="plus"
+        onClick={onNewQueryClick}
+      >
         New option
       </Button>
     </Container>
-  )
-}
+  );
+};
 export const NoOptionCustomNode: StoryObj<typeof Select> = {
   // prettier-ignore
   args: { },
@@ -210,9 +216,15 @@ export const NoOptionCustomNode: StoryObj<typeof Select> = {
           When the search returns no results, the component will display a custom text.
         </Text>
         <Select
-          placeholder='Select an option'
+          placeholder="Select an option"
           showSearch={false}
-          noAvailableOptions={({ close }) => <NoOptionsComponent onNewQueryClick={() => { close() }} />}
+          noAvailableOptions={({ close }) => (
+            <NoOptionsComponent
+              onNewQueryClick={() => {
+                close();
+              }}
+            />
+          )}
         />
       </Panel>
     </Container>

@@ -98,7 +98,7 @@ interface InternalSelectProps
   container?: HTMLElement;
   useFullWidthItems?: boolean;
   itemCharacterLimit?: string;
-    /**
+  /**
    * Controls rendering when no options are available.
    * - false: renders nothing
    * - true: renders default message `No Options found{search ? \` for "${search}" \` : ""}`
