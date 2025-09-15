@@ -1,6 +1,7 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { HorizontalDirection, IconName } from "@/components";
 import { PopoverProps } from "@radix-ui/react-popover";
+import { NoAvailableOptionsFactoryProps } from "@/components/Select/common/InternalSelect";
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 
@@ -97,6 +98,13 @@ interface InternalSelectProps
   container?: HTMLElement;
   useFullWidthItems?: boolean;
   itemCharacterLimit?: string;
+    /**
+   * Controls rendering when no options are available.
+   * - false: renders nothing
+   * - true: renders default message `No Options found{search ? \` for "${search}" \` : ""}`
+   * - ({ search: string, onClose: () => void }) => ReactNode: renders the returned node allowing dynamic content based on current search string
+   */
+  noAvailableOptions?: boolean | ((props: NoAvailableOptionsFactoryProps) => ReactNode);
 }
 
 export type SelectOptionProp = SelectOptionType | SelectChildrenType;

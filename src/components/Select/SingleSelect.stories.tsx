@@ -5,6 +5,8 @@ import { Container } from "@/components/Container/Container";
 import { Text } from "@/components/Typography/Text/Text";
 import { Panel } from "@/components/Panel/Panel";
 import { Title } from "@/components/Typography/Title/Title";
+import { Button } from "@/components/Button/Button";
+import { ReactElement } from "react";
 
 const meta: Meta<typeof Select> = {
   component: Select,
@@ -154,6 +156,63 @@ export const NoOptions: StoryObj<typeof Select> = {
           ]}
           customText={customText}
           {...rest}
+        />
+      </Panel>
+    </Container>
+  ),
+};
+
+
+interface NoOptionsComponentProps {
+  onNewQueryClick: () => void;
+}
+
+const NoOptionsComponent =({
+  onNewQueryClick
+}: NoOptionsComponentProps): ReactElement  => {
+  return (
+    <Container
+      alignItems="start"
+      color="default"
+      fillWidth
+      orientation="vertical"
+      padding="lg"
+      gap="md"
+    >
+      <Container
+        alignItems="start"
+        color="default"
+        fillWidth
+        orientation="vertical"
+        gap="sm"
+      >
+        <Title type="h3" size="xl">
+          No options have been found
+        </Title>
+      </Container>
+      <Button type="primary" iconLeft="plus" onClick={onNewQueryClick}>
+        New option
+      </Button>
+    </Container>
+  )
+}
+export const NoOptionCustomNode: StoryObj<typeof Select> = {
+  // prettier-ignore
+  args: { },
+  render: () => (
+    <Container
+      fillWidth
+      gap="sm"
+    >
+      <Panel width="400px">
+        <Title type="h2">Search returns no results</Title>
+        <Text>
+          When the search returns no results, the component will display a custom text.
+        </Text>
+        <Select
+          placeholder='Select an option'
+          showSearch={false}
+          noAvailableOptions={({ close }) => <NoOptionsComponent onNewQueryClick={() => { close() }} />}
         />
       </Panel>
     </Container>
