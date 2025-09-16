@@ -146,7 +146,8 @@
       "color": {
         "stroke": {
           "default": "#e6e7e9",
-          "muted": "#e6e7e9"
+          "muted": "#e6e7e9",
+          "danger": "#c10000"
         },
         "background": {
           "default": "#ffffff",
@@ -154,7 +155,8 @@
         },
         "label": {
           "default": "#696e79",
-          "muted": "#696e79"
+          "muted": "#696e79",
+          "danger": "#c10000"
         },
         "title": {
           "default": "lch(11.1 1.37 305)",

@@ -342,7 +342,8 @@
       "color": {
         "stroke": {
           "default": string,
-          "muted": string
+          "muted": string,
+          "danger": string
         },
         "background": {
           "default": string,
@@ -350,7 +351,8 @@
         },
         "label": {
           "default": string,
-          "muted": string
+          "muted": string,
+          "danger": string
         },
         "title": {
           "default": string,
