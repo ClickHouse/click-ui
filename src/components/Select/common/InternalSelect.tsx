@@ -1,6 +1,7 @@
 import {
   Children,
   FunctionComponent,
+  HTMLAttributes,
   KeyboardEvent,
   MouseEvent,
   ReactNode,
@@ -62,6 +63,96 @@ import { getTextFromNodes } from "@/lib/getTextFromNodes";
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
+};
+
+export interface NoAvailableOptionsFactoryProps {
+  search: string;
+  close: () => void;
+}
+
+interface NoOptionsDisplayProps {
+  allowCreateOption: boolean;
+  search: string;
+  customText: string;
+  noAvailableOptions: boolean | ((props: NoAvailableOptionsFactoryProps) => ReactNode);
+  onCreateOption: (e: MouseEvent<HTMLDivElement>) => void;
+  onOpenChange: (open: boolean) => void;
+  containerProps?: HTMLAttributes<HTMLDivElement>;
+}
+
+const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
+  allowCreateOption,
+  search,
+  customText,
+  noAvailableOptions,
+  onCreateOption,
+  onOpenChange,
+  containerProps,
+}) => {
+  const getCustomTextWithSearch = (text: string) => text.replaceAll("{search}", search);
+
+  const getDefaultMessage = () =>
+    `No Options found${search.length > 0 ? ` for "${search}" ` : ""}`;
+
+  const getNoAvailableOptionsNode = (): ReactNode => {
+    if (typeof noAvailableOptions === "boolean") {
+      return noAvailableOptions ? getDefaultMessage() : null;
+    }
+
+    // ReactNode
+    return noAvailableOptions({
+      search,
+      close: (): void => onOpenChange(false),
+    });
+  };
+
+  // Determine node to render when there are no options
+  const hasCustomText = customText.length > 0;
+  const hasSearchInput = search.length > 0;
+  const shouldShowCreateOption = allowCreateOption && hasSearchInput;
+
+  let noOptionsNode: ReactNode = null;
+
+  if (shouldShowCreateOption) {
+    noOptionsNode = hasCustomText ? getCustomTextWithSearch(customText) : `Add ${search}`;
+  } else if (hasCustomText) {
+    noOptionsNode = getCustomTextWithSearch(customText);
+  } else {
+    noOptionsNode = getNoAvailableOptionsNode();
+  }
+
+  if (!noOptionsNode) {
+    return null;
+  }
+
+  const handleNoOptionsClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (shouldShowCreateOption) {
+      onCreateOption(e);
+      onOpenChange(false);
+    }
+  };
+
+  const isCustomReactNode = typeof noAvailableOptions === "function";
+  if (isCustomReactNode) {
+    return (
+      <Container
+        onClick={handleNoOptionsClick}
+        {...containerProps}
+      >
+        {noOptionsNode}
+      </Container>
+    );
+  }
+
+  return (
+    <SelectNoDataContainer
+      onClick={handleNoOptionsClick}
+      $clickable={allowCreateOption}
+      {...containerProps}
+    >
+      {noOptionsNode}
+    </SelectNoDataContainer>
+  );
 };
 
 const childrenToComboboxItemArray = (
@@ -131,6 +222,7 @@ export const InternalSelect = ({
   container,
   useFullWidthItems = false,
   itemCharacterLimit = "64ch",
+  noAvailableOptions = true,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
@@ -464,20 +556,18 @@ export const InternalSelect = ({
                       : children}
                   </OptionContext.Provider>
                 </SelectListContent>
-                {visibleList.current.length === 0 && (
-                  <SelectNoDataContainer
-                    onClick={onCreateOption}
-                    $clickable={allowCreateOption}
-                    {...props}
-                  >
-                    {customText.length > 0
-                      ? customText.replaceAll("{search}", search)
-                      : allowCreateOption
-                        ? `Add ${search}`
-                        : `No Options found${search.length > 0 ? ` for "${search}" ` : ""}
-                    `}
-                  </SelectNoDataContainer>
-                )}
+                {visibleList.current.length === 0 &&
+                  (allowCreateOption || !!noAvailableOptions) && (
+                    <NoOptionsDisplay
+                      allowCreateOption={allowCreateOption}
+                      search={search}
+                      customText={customText}
+                      noAvailableOptions={noAvailableOptions}
+                      onCreateOption={onCreateOption}
+                      onOpenChange={onOpenChange}
+                      containerProps={props}
+                    />
+                  )}
               </SelectList>
             </SelectPopoverContent>
           </Portal>

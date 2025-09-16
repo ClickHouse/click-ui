@@ -401,4 +401,31 @@ describe("Select", () => {
 
     expect(queryByText("Nothing here")).not.toBeNull();
   });
+
+  it("renders a custom no options element", () => {
+    const customNoOptionsComponent = ({ close }: { close: () => void }) => {
+      return (
+        <div>
+          <span>No Options Custom</span>
+          <button onClick={close}>Close</button>
+        </div>
+      );
+    };
+    const { queryByText } = renderSelect({
+      options: [],
+      noAvailableOptions: customNoOptionsComponent,
+    });
+
+    const selectTrigger = queryByText("Select an option");
+    expect(selectTrigger).not.toBeNull();
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(queryByText("No Options Custom")).not.toBeNull();
+    const closeBtn = queryByText("Close");
+    expect(closeBtn).not.toBeNull();
+    act(() => {
+      closeBtn && closeBtn.click();
+    });
+    expect(queryByText("No Options Custom")).toBeNull();
+  });
 });
