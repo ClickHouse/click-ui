@@ -178,10 +178,16 @@ export const SelectList = styled.div`
   width: inherit;
   max-height: calc(var(--radix-popover-content-available-height) - 1rem);
 `;
-export const SelectListContent = styled.div`
+export const SelectListContent = styled.div<{ $maxHeight?: string }>`
   width: inherit;
   overflow: auto;
   flex: 1;
+
+  ${({ $maxHeight }) =>
+    $maxHeight &&
+    `
+      max-height: ${$maxHeight};
+    `}
 `;
 
 export const HiddenSelectElement = styled.select`

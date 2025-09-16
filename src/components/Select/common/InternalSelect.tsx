@@ -215,6 +215,7 @@ export const InternalSelect = ({
   options,
   sortable = false,
   placeholder = "Select an option",
+  maxHeight,
   multiple,
   checkbox,
   selectLabel,
@@ -507,7 +508,7 @@ export const InternalSelect = ({
                     size="xs"
                   />
                 </SearchBarContainer>
-                <SelectListContent>
+                <SelectListContent $maxHeight={maxHeight}>
                   <OptionContext.Provider value={optionContextValue}>
                     {options && options.length > 0
                       ? options.map((props, index) => {

@@ -124,6 +124,30 @@ export const UseFullWidth = {
   tags: ["form-field", "select", "autodocs"],
 };
 
+export const MaxHeight = {
+  args: {},
+  render: () => {
+    return (
+      <Container fillWidth>
+        <Panel>
+          <Title type="h2">Select with max height</Title>
+          <Select maxHeight="200px">
+            <Select.Item value="item 1">Fish</Select.Item>
+            <Select.Item value="item 2">Bread</Select.Item>
+            <Select.Item value="item 3">Rocks</Select.Item>
+            <Select.Item value="item 4">Snakes</Select.Item>
+            <Select.Item value="item 5">Boats</Select.Item>
+            <Select.Item value="item 6">Sandals</Select.Item>
+            <Select.Item value="item 7">Potatoes</Select.Item>
+            <Select.Item value="item 8">Rabbits</Select.Item>
+          </Select>
+        </Panel>
+      </Container>
+    );
+  },
+  tags: ["form-field", "select", "autodocs"],
+};
+
 export const NoOptions: StoryObj<typeof Select> = {
   // prettier-ignore
   args: { label: "Label", customText: "No results for \"{search}\"" },
@@ -202,6 +226,7 @@ const NoOptionsComponent = ({
     </Container>
   );
 };
+
 export const NoOptionCustomNode: StoryObj<typeof Select> = {
   // prettier-ignore
   args: { },

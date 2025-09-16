@@ -71,33 +71,28 @@ export type SelectionType = "custom" | "default";
 interface InternalSelectProps
   extends PopoverProps,
     Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
-  label?: ReactNode;
-  error?: ReactNode;
-  disabled?: boolean;
-  name?: string;
-  form?: string;
-  dir?: "start" | "end";
-  orientation?: "horizontal" | "vertical";
-  allowCreateOption?: boolean;
   onChange: (selectedValues: Array<string>) => void;
-  open: boolean;
   onOpenChange: (open: boolean) => void;
-  value: Array<string>;
-  sortable?: boolean;
   onSelect: (
     value: string,
     type?: SelectionType,
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
-  multiple?: boolean;
+  open: boolean;
+  value: Array<string>;
+  allowCreateOption?: boolean;
   checkbox?: boolean;
-  selectLabel?: string;
-  placeholder?: string;
-  showSearch?: boolean;
-  customText?: string;
   container?: HTMLElement;
-  useFullWidthItems?: boolean;
+  customText?: string;
+  dir?: "start" | "end";
+  disabled?: boolean;
+  error?: ReactNode;
+  form?: string;
   itemCharacterLimit?: string;
+  label?: ReactNode;
+  maxHeight?: string;
+  multiple?: boolean;
+  name?: string;
   /**
    * Controls rendering when no options are available.
    * - false: renders nothing
@@ -105,6 +100,12 @@ interface InternalSelectProps
    * - ({ search: string, onClose: () => void }) => ReactNode: renders the returned node allowing dynamic content based on current search string
    */
   noAvailableOptions?: boolean | ((props: NoAvailableOptionsFactoryProps) => ReactNode);
+  orientation?: "horizontal" | "vertical";
+  placeholder?: string;
+  selectLabel?: string;
+  showSearch?: boolean;
+  sortable?: boolean;
+  useFullWidthItems?: boolean;
 }
 
 export type SelectOptionProp = SelectOptionType | SelectChildrenType;
