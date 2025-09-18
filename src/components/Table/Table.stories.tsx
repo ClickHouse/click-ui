@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 
@@ -90,6 +90,47 @@ export const Selectable: StoryObj<typeof Table> = {
         onSelect={selectedItems => {
           setSelectedRows(selectedItems.map(({ item: { id } }) => id));
         }}
+      />
+    );
+  },
+};
+
+export const Sortable: StoryObj<typeof Table> = {
+  args: {
+    headers,
+    rows,
+  },
+  render: ({ rows, headers, ...props }) => {
+    const [sort, setSort] = useState<[number, "asc" | "desc"]>([0, "asc"]);
+
+    const sortedHeaders = useMemo(
+      () =>
+        headers.map((header, headerIndex) => ({
+          ...header,
+          isSortable: true,
+          sortDir: sort[0] === headerIndex ? sort[1] : undefined,
+        })),
+      [headers, sort]
+    );
+
+    const sortedRows = useMemo(
+      () =>
+        [...rows].sort((a, b) => {
+          const [cellIdx, sortDir] = sort;
+          const cellA = a.items[cellIdx]?.label?.toString() || "";
+          const cellB = b.items[cellIdx]?.label?.toString() || "";
+          const result = cellA.localeCompare(cellB, "en", { numeric: true });
+          return sortDir === "asc" ? result : -result;
+        }),
+      [rows, sort]
+    );
+
+    return (
+      <Table
+        {...props}
+        headers={sortedHeaders}
+        rows={sortedRows}
+        onSort={(dir, _, idx) => void setSort([idx, dir])}
       />
     );
   },
