@@ -34,11 +34,13 @@ const StyledHeader = styled.th<{ $size: TableSize }>`
   text-align: left;
 `;
 
-const HeaderContentWrapper = styled.div`
+const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
   display: flex;
   align-items: center;
   justify-content: start;
   gap: inherit;
+
+  ${({ $interactive }) => $interactive && "cursor: pointer;"}
 `;
 
 const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
@@ -57,6 +59,9 @@ const TableHeader = ({
   ...delegated
 }: Omit<TableHeaderType, "width"> & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
+  const isInteractive = Boolean(
+    typeof onClick === "function" || (isSortable && typeof onSort === "function")
+  );
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === "function") {
       onClick(e);
@@ -70,7 +75,10 @@ const TableHeader = ({
       $size={size}
       {...delegated}
     >
-      <HeaderContentWrapper onClick={onHeaderClick}>
+      <HeaderContentWrapper
+        onClick={onHeaderClick}
+        $interactive={isInteractive}
+      >
         {isSorted && isSortable && sortPosition == "start" && (
           <SortIcon
             $sortDir={sortDir}
