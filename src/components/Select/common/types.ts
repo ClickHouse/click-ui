@@ -47,7 +47,7 @@ export interface SelectOptionItem
   [key: `data-${string}`]: string;
 }
 
-interface SelectGroupOptionItem
+export interface SelectGroupOptionItem
   extends Omit<SelectGroupProps, "children" | "label" | "description"> {
   options: Array<SelectOptionItem>;
   label?: never;
