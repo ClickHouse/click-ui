@@ -44,7 +44,9 @@ const UploadArea = styled.div<{
       ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
       : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   min-height: ${({ theme, $size }) =>
-    $size === "sm" ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[6]})` : "auto"};
+    $size === "sm"
+      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[6]})`
+      : "auto"};
   display: flex;
   flex-direction: ${props =>
     props.$hasFile ? "row" : props.$size === "sm" ? "row" : "column"};
@@ -392,14 +394,10 @@ export const FileUpload = ({
                   {truncateFilename(file.name)}
                 </FileUploadDescription>
                 {showProgress && !showSuccess && (
-                  <FileUploadDescription>
-                    {progress}%
-                  </FileUploadDescription>
+                  <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
                 {!showProgress && !showSuccess && (
-                  <FileUploadDescription $isError>
-                    {failureMessage}
-                  </FileUploadDescription>
+                  <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
                 )}
                 {showSuccess && (
                   <Icon
@@ -418,9 +416,7 @@ export const FileUpload = ({
                 </ProgressBarWrapper>
               )}
               {(showSuccess || (!showProgress && !showSuccess)) && (
-                <FileUploadDescription>
-                  {formatFileSize(file.size)}
-                </FileUploadDescription>
+                <FileUploadDescription>{formatFileSize(file.size)}</FileUploadDescription>
               )}
             </FileContentContainer>
             <FileActions>

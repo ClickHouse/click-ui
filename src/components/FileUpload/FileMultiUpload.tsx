@@ -366,9 +366,7 @@ export const FileMultiUpload = ({
                     {truncateFilename(file.name)}
                   </FileUploadDescription>
                   {file.status === "uploading" && (
-                    <FileUploadDescription>
-                      {file.progress}%
-                    </FileUploadDescription>
+                    <FileUploadDescription>{file.progress}%</FileUploadDescription>
                   )}
                   {file.status === "error" && (
                     <FileUploadDescription $isError>
