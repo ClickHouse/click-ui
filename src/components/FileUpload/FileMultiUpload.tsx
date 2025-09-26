@@ -61,9 +61,12 @@ const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
       : theme.click.fileUpload.color.title.default};
 `;
 
-const FileUploadDescription = styled(Text)`
+const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.description.default};
+  color: ${({ theme, $isError }) =>
+    $isError
+      ? theme.click.fileUpload.color.title.error
+      : theme.click.fileUpload.color.description.default};
 `;
 
 const UploadIcon = styled(Icon)`
@@ -118,20 +121,6 @@ const DocumentIcon = styled(Icon)`
   }
 `;
 
-const FileInfoHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
-  width: 100%;
-`;
-
-const FileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.click.fileUpload.hasFile.header.space.gap};
-  flex: 1;
-`;
-
 const FileDetails = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
@@ -145,23 +134,17 @@ const FileActions = styled.div`
   gap: 0;
 `;
 
-const ProgressContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const ProgressBarContainer = styled.div`
-  width: 100%;
+const FileContentContainer = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 24px;
 `;
 
-const ProgressPercentage = styled(Text)`
-  min-width: ${({ theme }) => theme.sizes[10]};
-  text-align: right;
-  padding-right: ${({ theme }) => theme.click.fileUpload.md.space.gap};
+const ProgressBarWrapper = styled.div`
+  margin-top: 8px;
+  margin-bottom: 4px;
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
@@ -376,71 +359,60 @@ export const FileMultiUpload = ({
               key={file.id}
               $isError={file.status === "error"}
             >
-              <FileInfo>
-                <FileInfoHeader>
-                  <DocumentIcon name={"document"} />
-                  <FileDetails>
-                    <Text size={"md"}>{truncateFilename(file.name)}</Text>
-                    {(file.status === "success" || file.status === "uploading") && (
-                      <Text
-                        size={"md"}
-                        color={"muted"}
-                      >
-                        {formatFileSize(file.size)}
-                      </Text>
-                    )}
-                    {file.status === "error" && (
-                      <Text
-                        size={"md"}
-                        color={"danger"}
-                      >
-                        {file.errorMessage || "Upload failed"}
-                      </Text>
-                    )}
-                    {file.status === "success" && (
-                      <Icon
-                        size={"xs"}
-                        state={"success"}
-                        name={"check"}
-                      />
-                    )}
-                  </FileDetails>
-
-                  <FileActions>
-                    {file.status === "error" && (
-                      <IconButton
-                        size={"sm"}
-                        icon={"refresh"}
-                        type={"ghost"}
-                        onClick={() => handleRetryUpload(file.id)}
-                      />
-                    )}
-                    <IconButton
-                      size={"sm"}
-                      icon={"cross"}
-                      type={"ghost"}
-                      onClick={() => handleRemoveFile(file.id)}
-                    />
-                  </FileActions>
-                </FileInfoHeader>
-
-                {file.status === "uploading" && (
-                  <ProgressContainer>
-                    <ProgressBarContainer>
-                      <ProgressBar
-                        progress={file.progress}
-                        type={"small"}
-                      />
-                    </ProgressBarContainer>
-                    <ProgressPercentage
-                      size={"sm"}
-                      color={"muted"}
-                    >
+              <DocumentIcon name={"document"} />
+              <FileContentContainer>
+                <FileDetails>
+                  <FileUploadDescription>
+                    {truncateFilename(file.name)}
+                  </FileUploadDescription>
+                  {file.status === "uploading" && (
+                    <FileUploadDescription>
                       {file.progress}%
-                    </ProgressPercentage>
-                  </ProgressContainer>
+                    </FileUploadDescription>
+                  )}
+                  {file.status === "error" && (
+                    <FileUploadDescription $isError>
+                      {file.errorMessage || "Upload failed"}
+                    </FileUploadDescription>
+                  )}
+                  {file.status === "success" && (
+                    <Icon
+                      size={"xs"}
+                      state={"success"}
+                      name={"check"}
+                    />
+                  )}
+                </FileDetails>
+                {file.status === "uploading" && (
+                  <ProgressBarWrapper>
+                    <ProgressBar
+                      progress={file.progress}
+                      type={"small"}
+                    />
+                  </ProgressBarWrapper>
                 )}
-              </FileInfo>
+                {(file.status === "success" || file.status === "error") && (
+                  <FileUploadDescription>
+                    {formatFileSize(file.size)}
+                  </FileUploadDescription>
+                )}
+              </FileContentContainer>
+              <FileActions>
+                {file.status === "error" && (
+                  <IconButton
+                    size={"sm"}
+                    icon={"refresh"}
+                    type={"ghost"}
+                    onClick={() => handleRetryUpload(file.id)}
+                  />
+                )}
+                <IconButton
+                  size={"sm"}
+                  icon={"cross"}
+                  type={"ghost"}
+                  onClick={() => handleRemoveFile(file.id)}
+                />
+              </FileActions>
             </FileItem>
           ))}
         </FilesList>
