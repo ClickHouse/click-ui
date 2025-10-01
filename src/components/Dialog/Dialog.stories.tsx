@@ -1,34 +1,31 @@
-import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { GridCenter } from "../commonElement";
-import { Text } from "../Typography/Text/Text";
+import { useState } from "react";
+import { GridCenter } from "@/components/commonElement";
+import styles from "./Dialog.stories.module.scss";
+import { Text } from "@/components/Typography/Text/Text";
 import { Dialog } from "./Dialog";
-import Separator from "../Separator/Separator";
-import { Spacer } from "../Spacer/Spacer";
-import { Button } from "../Button/Button";
-import { styled } from "styled-components";
-import { Link } from "../Link/Link";
+import Separator from "@/components/Separator/Separator";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { Button } from "@/components/Button/Button";
+import { Link } from "@/components/Link/Link";
 import { Container } from "@/components/Container/Container";
 import { TextField } from "@/components/Input/TextField";
 import { Icon } from "@/components/Icon/Icon";
 
-interface DialogExampleProps {
-  open?: boolean;
-  title?: string;
-  modal: boolean;
-  showClose: boolean;
-  forceMount?: boolean;
-  reducePadding?: boolean;
-}
-
-const DialogExample = ({
+const DialogComponent = ({
   open,
   title,
   modal,
   showClose,
   forceMount,
   reducePadding,
-}: DialogExampleProps) => (
+}: {
+  open?: boolean;
+  title?: string;
+  modal: boolean;
+  showClose: boolean;
+  forceMount?: boolean;
+  reducePadding?: boolean;
+}) => (
   <GridCenter>
     <Dialog
       open={open}
@@ -58,19 +55,12 @@ const DialogExample = ({
   </GridCenter>
 );
 
-const ActionArea = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${({ theme }) => theme.click.dialog.space.gap};
-`;
+const ActionArea = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.cuiActionArea}>{children}</div>
+);
 
-const meta: Meta<typeof DialogExample> = {
-  component: DialogExample,
-  subcomponents: {
-    "Dialog.Trigger": Dialog.Trigger as React.ComponentType<unknown>,
-    "Dialog.Content": Dialog.Content as React.ComponentType<unknown>,
-    "Dialog.Close": Dialog.Close as React.ComponentType<unknown>,
-  },
+export default {
+  component: DialogComponent,
   title: "Display/Dialog",
   tags: ["autodocs", "dialog"],
   argTypes: {
@@ -81,15 +71,14 @@ const meta: Meta<typeof DialogExample> = {
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof DialogExample>;
-
-export const ModalDialog: Story = {
+export const ModalDialog = {
   args: {
     title: "Example dialog title",
     showClose: true,
     open: true,
+    onOpenChange: () => {
+      console.log("ignored");
+    },
     reducePadding: false,
   },
   parameters: {
@@ -102,26 +91,34 @@ export const ModalDialog: Story = {
   },
 };
 
-const TopNav = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-bottom: 1px solid ${({ theme }) => theme.click.separator.color.stroke.default};
-`;
+const TopNav = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.cuiTopNav}>{children}</div>
+);
 
-export const ChatDialog: Story = {
+export const ChatDialog = {
   args: {
     title: "",
     showClose: false,
     open: false,
+    onOpenChange: () => {
+      console.log("ignored");
+    },
     reducePadding: true,
   },
-  render: ({ title, modal, showClose, forceMount, reducePadding }) => {
+  render: ({
+    title,
+    modal,
+    showClose,
+    forceMount,
+    reducePadding,
+  }: {
+    open?: boolean;
+    title?: string;
+    modal: boolean;
+    showClose: boolean;
+    forceMount?: boolean;
+    reducePadding?: boolean;
+  }) => {
     const [open, setOpen] = useState(true);
 
     return (

@@ -1,0 +1,84 @@
+@use "cui-mixins" as mixins;
+
+$explicit-width: 250px;
+
+.cuiHighlightedInputWrapper {
+  width: $explicit-width;
+
+  &.cuiActive {
+    border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-stroke-active);
+  }
+
+  &.cuiInactive {
+    border: var(--click-datePicker-dateOption-stroke) solid var(--click-field-color-stroke-default);
+  }
+}
+
+.cuiDatePickerContainer {
+  background: var(--click-datePicker-dateOption-color-background-default);
+}
+
+.cuiUnselectableTitle {
+  color: var(--click-datePicker-color-title-default);
+  font: var(--click-datePicker-typography-title-default);
+  user-select: none;
+}
+
+.cuiDateTable {
+  border-collapse: separate;
+  border-spacing: 0;
+  font: var(--typography-styles-product-text-normal-md);
+  table-layout: fixed;
+  user-select: none;
+  width: $explicit-width;
+
+  thead tr {
+    height: var(--click-datePicker-dateOption-size-height);
+  }
+
+  tbody {
+    cursor: pointer;
+  }
+
+  td,
+  th {
+    padding: 4px;
+  }
+}
+
+.cuiDateTableHeader {
+  color: var(--click-datePicker-color-daytitle-default);
+  font: var(--click-datePicker-typography-daytitle-default);
+  width: 14%;
+}
+
+.cuiDateTableCell {
+  border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-stroke-default);
+  border-radius: var(--click-datePicker-dateOption-radii-default);
+  font: var(--click-datePicker-dateOption-typography-label-default);
+  text-align: center;
+
+  &.cuiNotCurrentMonth,
+  &.cuiDisabled {
+    color: var(--click-datePicker-dateOption-color-label-disabled);
+    font: var(--click-datePicker-dateOption-typography-label-disabled);
+  }
+
+  &.cuiSelected {
+    background: var(--click-datePicker-dateOption-color-background-active);
+    color: var(--click-datePicker-dateOption-color-label-active);
+  }
+
+  &.cuiToday {
+    font: var(--click-datePicker-dateOption-typography-label-active);
+  }
+
+  &:hover {
+    border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-stroke-hover);
+    border-radius: var(--click-datePicker-dateOption-radii-default);
+
+    &.cuiDisabled {
+      border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-stroke-disabled);
+    }
+  }
+}

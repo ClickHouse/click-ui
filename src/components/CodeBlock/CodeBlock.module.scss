@@ -1,0 +1,61 @@
+@use "cui-mixins" as mixins;
+
+.cuiCodeBlockContainer {
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  position: relative;
+
+  &.cuiLightMode {
+    color: var(--click-codeblock-lightMode-color-numbers-default);
+
+    .linenumber {
+      color: var(--click-codeblock-lightMode-color-numbers-default);
+    }
+  }
+
+  &.cuiDarkMode {
+    color: var(--click-codeblock-darkMode-color-numbers-default);
+
+    .linenumber {
+      color: var(--click-codeblock-darkMode-color-numbers-default);
+    }
+  }
+}
+
+.cuiCodeButton {
+  padding: 0;
+  border: 0;
+
+  &.cuiCopied {
+    color: var(--click-alert-color-text-success);
+  }
+
+  &.cuiError {
+    color: var(--click-alert-color-text-danger);
+  }
+
+  &.cuiNormal {
+    color: inherit;
+  }
+}
+
+.cuiHighlighter {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.cuiCodeContent {
+  font-family: inherit;
+  color: inherit;
+}
+
+.cuiButtonContainer {
+  position: absolute;
+  display: flex;
+  gap: 0.625rem;
+  top: var(--click-codeblock-space-y);
+  right: var(--click-codeblock-space-x);
+}

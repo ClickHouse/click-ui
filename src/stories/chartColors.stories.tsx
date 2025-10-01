@@ -1,48 +1,55 @@
 import { Container, Text } from "@/components";
-import styled, { useTheme } from "styled-components";
+import clsx from "clsx";
+import styles from "./chartColors.stories.module.scss";
+import { useCUITheme } from "@/theme/ClickUIProvider";
 
-const ColorBox = styled(Container)<{ $color: string }>`
-  ${({ $color }) => `
-    background-color: ${$color};
-  `}
-  border-radius: 4px;
-`;
-
-const ChartColorsDemo = () => {
-  const theme = useTheme();
-  return (
-    <Container
-      gap="sm"
-      padding="sm"
-      orientation="horizontal"
-      maxWidth="940px"
-      wrap="wrap"
-    >
-      {Object.entries(theme.global.color.chart.default).map(([name, hex]) => (
-        <Container
-          orientation="vertical"
-          maxWidth="120px"
-          key={name}
-        >
-          <Text>{name}</Text>
-          <ColorBox
-            $color={hex}
-            maxWidth="40px"
-            padding="md"
-          />
-          <Text>{hex}</Text>
-        </Container>
-      ))}
-    </Container>
-  );
-};
-
-export default {
+const defaultStory = {
   title: "Colors/Chart Colors",
   tags: ["autodocs", "color", "chart"],
-  render: () => <ChartColorsDemo />,
+  render: () => {
+    const theme = useCUITheme();
+    return (
+      <Container
+        gap="sm"
+        padding="sm"
+        orientation="horizontal"
+      >
+        {Object.entries(
+          (typeof theme.theme === "object" &&
+            theme.theme &&
+            "global" in theme.theme &&
+            typeof theme.theme.global === "object" &&
+            theme.theme.global &&
+            "color" in theme.theme.global &&
+            typeof theme.theme.global.color === "object" &&
+            theme.theme.global.color &&
+            "chart" in theme.theme.global.color &&
+            typeof theme.theme.global.color.chart === "object" &&
+            theme.theme.global.color.chart &&
+            "default" in theme.theme.global.color.chart &&
+            typeof theme.theme.global.color.chart.default === "object" &&
+            theme.theme.global.color.chart.default) ||
+            {}
+        ).map(([name, hex]) => {
+          return (
+            <Container orientation="vertical">
+              <Text>{name}</Text>
+              <Container
+                className={clsx(styles.cuiColorBox, styles[`cui${name.toLowerCase()}`])}
+                maxWidth="40px"
+                padding="md"
+              />
+              <Text>{hex as string}</Text>
+            </Container>
+          );
+        })}
+      </Container>
+    );
+  },
 };
 
 export const Playground = {
-  render: () => <ChartColorsDemo />,
+  ...defaultStory,
 };
+
+export default defaultStory;

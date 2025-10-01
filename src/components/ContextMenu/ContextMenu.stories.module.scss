@@ -1,0 +1,11 @@
+.cuiGridCenter {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cuiTrigger {
+  @extend .cuiGridCenter;
+  border: 2px currentColor dashed;
+}

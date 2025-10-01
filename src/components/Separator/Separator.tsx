@@ -1,30 +1,28 @@
-import { styled } from "styled-components";
+import clsx from "clsx";
 import * as RadixSeparator from "@radix-ui/react-separator";
-export interface SeparatorProps extends RadixSeparator.SeparatorProps {
-  /** The size/spacing of the separator */
+import styles from "./Separator.module.scss";
+
+interface Props extends RadixSeparator.SeparatorProps {
   size: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 }
-const CUISeparator = styled(RadixSeparator.Root)<SeparatorProps>`
-  ${({ theme, size, orientation }) => `
-    &[data-orientation="horizontal"] {
-      width: 100%;
-      border-top: 0.0625rem solid ${theme.click.separator.color.stroke.default};
-    }
-    &[data-orientation="vertical"] {
-      height: 100%;
-      border-right: 0.0625rem solid ${theme.click.separator.color.stroke.default};
-    }
-    margin: ${
-      orientation === "horizontal"
-        ? `${theme.click.separator.horizontal.space.y[size]} ${theme.click.separator.horizontal.space.x.all}`
-        : `${theme.click.separator.vertical.space.y.all} ${theme.click.separator.vertical.space.x[size]}`
-    }
-  `}
-`;
 
-const Separator = ({ orientation = "horizontal", ...props }: SeparatorProps) => (
-  <CUISeparator
+const Separator = ({ orientation = "horizontal", size, className, ...props }: Props) => (
+  <RadixSeparator.Root
     orientation={orientation}
+    className={clsx(
+      styles.cuiSeparator,
+      {
+        [styles.cuiHorizontal]: orientation === "horizontal",
+        [styles.cuiVertical]: orientation === "vertical",
+        [styles.cuiXs]: size === "xs",
+        [styles.cuiSm]: size === "sm",
+        [styles.cuiMd]: size === "md",
+        [styles.cuiLg]: size === "lg",
+        [styles.cuiXl]: size === "xl",
+        [styles.cuiXxl]: size === "xxl",
+      },
+      className
+    )}
     {...props}
   />
 );

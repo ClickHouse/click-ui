@@ -1,9 +1,10 @@
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { HorizontalDirection } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { ImageName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
+import styles from "./Badge.module.scss";
 
 export type BadgeState =
   | "default"
@@ -47,54 +48,6 @@ export interface NonDismissibleBadge extends CommonBadgeProps {
   onClose?: never;
 }
 
-const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize; $type?: BadgeType }>`
-  display: inline-flex;
-  ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
-    background-color: ${theme.click.badge[$type].color.background[$state]};
-    color: ${theme.click.badge[$type].color.text[$state]};
-    font: ${theme.click.badge.typography.label[$size].default};
-    border-radius: ${theme.click.badge.radii.all};
-    border: ${theme.click.badge.stroke} solid ${theme.click.badge[$type].color.stroke[$state]};
-    padding: ${theme.click.badge.space[$size].y} ${theme.click.badge.space[$size].x};
-  `}
-`;
-
-const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
-  max-width: 100%;
-  justify-content: flex-start;
-`;
-
-const SvgContainer = styled.svg<{
-  $state?: BadgeState;
-  $size?: BadgeSize;
-  $type?: BadgeType;
-}>`
-  ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
-    color: ${theme.click.badge[$type].color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
-  `}
-`;
-const BadgeContent = styled.div<{
-  $state?: BadgeState;
-  $size?: BadgeSize;
-  $type?: BadgeType;
-}>`
-  width: auto;
-  overflow: hidden;
-  svg {
-    ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
-    color: ${theme.click.badge[$type].color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
-    gap: inherit;
-  `}
-  }
-`;
-
 export type BadgeProps = NonDismissibleBadge | DismissibleBadge;
 
 export const Badge = ({
@@ -102,39 +55,87 @@ export const Badge = ({
   iconDir,
   text,
   state = "default",
-  size,
-  type,
+  size = "md",
+  type = "opaque",
   dismissible,
   onClose,
   ellipsisContent = true,
   ...props
-}: BadgeProps) => (
-  <Wrapper
-    $state={state}
-    $size={size}
-    $type={type}
-    {...props}
-  >
-    <Content data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}>
-      <BadgeContent
-        as={IconWrapper}
-        icon={icon}
-        iconDir={iconDir}
-        size={size}
-        $state={state}
-        ellipsisContent={ellipsisContent}
+}: BadgeProps) => {
+  const wrapperClasses = clsx(styles.cuiWrapper, {
+    [styles.cuiSm]: size === "sm",
+    [styles.cuiMd]: size === "md",
+    [styles.cuiOpaque]: type === "opaque",
+    [styles.cuiSolid]: type === "solid",
+    [styles.cuiDefault]: state === "default",
+    [styles.cuiSuccess]: state === "success",
+    [styles.cuiNeutral]: state === "neutral",
+    [styles.cuiDanger]: state === "danger",
+    [styles.cuiDisabled]: state === "disabled",
+    [styles.cuiWarning]: state === "warning",
+    [styles.cuiInfo]: state === "info",
+  });
+
+  const contentClasses = clsx(styles.cuiContent, {
+    [styles.cuiSm]: size === "sm",
+    [styles.cuiMd]: size === "md",
+  });
+
+  const badgeContentClasses = clsx(styles.cuiBadgeContent, {
+    [styles.cuiSm]: size === "sm",
+    [styles.cuiMd]: size === "md",
+    [styles.cuiOpaque]: type === "opaque",
+    [styles.cuiSolid]: type === "solid",
+    [styles.cuiDefault]: state === "default",
+    [styles.cuiSuccess]: state === "success",
+    [styles.cuiNeutral]: state === "neutral",
+    [styles.cuiDanger]: state === "danger",
+    [styles.cuiDisabled]: state === "disabled",
+    [styles.cuiWarning]: state === "warning",
+    [styles.cuiInfo]: state === "info",
+  });
+
+  const closeIconClasses = clsx(styles.cuiCloseIcon, {
+    [styles.cuiSm]: size === "sm",
+    [styles.cuiMd]: size === "md",
+    [styles.cuiOpaque]: type === "opaque",
+    [styles.cuiSolid]: type === "solid",
+    [styles.cuiDefault]: state === "default",
+    [styles.cuiSuccess]: state === "success",
+    [styles.cuiNeutral]: state === "neutral",
+    [styles.cuiDanger]: state === "danger",
+    [styles.cuiDisabled]: state === "disabled",
+    [styles.cuiWarning]: state === "warning",
+    [styles.cuiInfo]: state === "info",
+  });
+
+  return (
+    <div
+      className={wrapperClasses}
+      {...props}
+    >
+      <div
+        className={contentClasses}
+        data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}
       >
-        {text}
-      </BadgeContent>
-      {dismissible && (
-        <SvgContainer
-          name="cross"
-          $state={state}
-          as={Icon}
-          onClick={onClose}
-          aria-label="close"
-        />
-      )}
-    </Content>
-  </Wrapper>
-);
+        <IconWrapper
+          className={badgeContentClasses}
+          icon={icon}
+          iconDir={iconDir}
+          size={size}
+          ellipsisContent={ellipsisContent}
+        >
+          {text}
+        </IconWrapper>
+        {dismissible && (
+          <Icon
+            name="cross"
+            className={closeIconClasses}
+            onClick={onClose}
+            aria-label="close"
+          />
+        )}
+      </div>
+    </div>
+  );
+};

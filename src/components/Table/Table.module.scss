@@ -1,0 +1,304 @@
+@use "cui-mixins" as mixins;
+
+// Table wrapper styles
+.cuiTableOuterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.cuiTableWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border: var(--click-table-cell-stroke) solid var(--click-table-global-color-stroke-default);
+  border-radius: var(--click-table-radii-all);
+}
+
+.cuiTable {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  table-layout: fixed;
+
+  @include mixins.cuiMobile {
+    border: none;
+    table-layout: auto;
+  }
+}
+
+// Header styles
+.cuiHeader {
+  text-align: left;
+
+  &.cuiHeaderSm {
+    padding: var(--click-table-header-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    font: var(--click-table-header-title-default);
+    color: var(--click-table-header-color-title-default);
+  }
+
+  &.cuiHeaderMd {
+    padding: var(--click-table-header-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+    font: var(--click-table-header-title-default);
+    color: var(--click-table-header-color-title-default);
+  }
+}
+
+.cuiHeaderContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: inherit;
+
+  &.cuiInteractive {
+    cursor: pointer;
+  }
+}
+
+.cuiSortIcon {
+  transition: all 200ms;
+
+  &.cuiSortDesc {
+    transform: rotate(180deg);
+  }
+
+  &.cuiSortAsc {
+    transform: rotate(0deg);
+  }
+}
+
+// Column group and thead styles
+.cuiColGroup {
+  @include mixins.cuiMobile {
+    display: none;
+  }
+}
+
+.cuiThead {
+  tr {
+    overflow: hidden;
+    background-color: var(--click-table-header-color-background-default);
+    border-bottom: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+  }
+
+  @include mixins.cuiMobile {
+    display: none;
+  }
+}
+
+.cuiTbody {
+  @include mixins.cuiMobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+// Row styles
+.cuiTableRow {
+  overflow: hidden;
+  background-color: var(--click-table-row-color-background-default);
+  border-bottom: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+
+  &:active {
+    background-color: var(--click-table-row-color-background-active);
+  }
+
+  &:hover {
+    background-color: var(--click-table-row-color-background-hover);
+  }
+
+  &:last-of-type,
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.cuiActive {
+    background-color: var(--click-table-row-color-background-active);
+  }
+
+  &.cuiDeleted,
+  &.cuiDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include mixins.cuiMobile {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+    border-radius: var(--click-table-radii-all);
+
+    &.cuiSelectable {
+      padding-left: calc(
+        var(--click-table-body-cell-space-sm-x) + var(--click-table-body-cell-space-sm-x) +
+          var(--click-checkbox-size-all)
+      );
+    }
+
+    &.cuiShowActions {
+      padding-right: calc(
+        var(--click-table-body-cell-space-sm-x) + var(--click-table-body-cell-space-sm-x) +
+          var(--click-image-sm-size-width) + var(--click-button-iconButton-default-space-x) +
+          var(--click-button-iconButton-default-space-x)
+      );
+    }
+  }
+}
+
+// Cell styles
+.cuiTableData {
+  overflow: hidden;
+  color: var(--click-table-row-color-text-default);
+  font: var(--click-table-cell-text-default);
+
+  &.cuiDataSm {
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+  }
+
+  &.cuiDataMd {
+    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    min-width: 40%;
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+  }
+}
+
+.cuiSelectData {
+  overflow: hidden;
+  color: var(--click-table-row-color-text-default);
+  font: var(--click-table-cell-text-default);
+
+  &.cuiSelectSm {
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+  }
+
+  &.cuiSelectMd {
+    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    border-right: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+  }
+}
+
+.cuiActionsList {
+  overflow: hidden;
+  color: var(--click-table-row-color-text-default);
+  font: var(--click-table-cell-text-default);
+
+  &.cuiActionsSm {
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+  }
+
+  &.cuiActionsMd {
+    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    border-left: 1px solid var(--click-table-row-color-stroke-default);
+  }
+}
+
+.cuiActionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  overflow: hidden;
+
+  @include mixins.cuiMobile {
+    flex-direction: column;
+    overflow: auto;
+    flex-wrap: nowrap;
+  }
+}
+
+// Mobile specific styles
+.cuiMobileHeader {
+  display: none;
+  color: var(--click-table-row-color-label-default);
+  font: var(--click-table-cell-label-default);
+
+  @include mixins.cuiMobile {
+    display: block;
+  }
+}
+
+.cuiMobileActions {
+  display: none;
+
+  @include mixins.cuiMobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--click-table-body-cell-space-sm-x);
+  }
+}
+
+// Custom table data for loading/no data
+.cuiSpanedTableData {
+  text-align: center;
+  overflow: hidden;
+  color: var(--click-table-row-color-text-default);
+  font: var(--click-table-cell-text-default);
+
+  &.cuiSpanedSm {
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+  }
+
+  &.cuiSpanedMd {
+    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    min-width: 40%;
+    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+  }
+}
+
+.cuiCustomTableDataMessage {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+// Button styles
+.cuiEditButton {
+  &:disabled {
+    background: transparent;
+  }
+}
+
+.cuiTableRowCloseButton {
+  &:disabled {
+    background: transparent;
+  }
+
+  svg {
+    transition: transform 200ms;
+  }
+
+  &.cuiDeleted svg {
+    transform: rotate(45deg);
+  }
+}

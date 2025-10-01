@@ -1,4 +1,3 @@
-import { styled } from "styled-components";
 import {
   ComponentProps,
   ComponentPropsWithRef,
@@ -6,7 +5,9 @@ import {
   ReactNode,
   forwardRef,
 } from "react";
-import { Orientation } from "@/components";
+import clsx from "clsx";
+import { Orientation } from "@/components/types";
+import styles from "./Container.module.scss";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
 export type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
@@ -90,84 +91,84 @@ const _Container = <T extends ElementType = "div">(
   }: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>,
   ref: ComponentPropsWithRef<T>["ref"]
 ) => {
+  const Component = component ?? "div";
+  const defaultAlignItems =
+    alignItems ?? (orientation === "vertical" ? "start" : "center");
+
+  const containerClasses = clsx({
+    [styles.cuiContainer]: true,
+    [styles.cuiHorizontal]: orientation === "horizontal",
+    [styles.cuiVertical]: orientation === "vertical",
+    [styles.cuiAlignStart]: defaultAlignItems === "start",
+    [styles.cuiAlignCenter]: defaultAlignItems === "center",
+    [styles.cuiAlignEnd]: defaultAlignItems === "end",
+    [styles.cuiAlignStretch]: defaultAlignItems === "stretch",
+    [styles.cuiJustifyStart]: justifyContent === "start",
+    [styles.cuiJustifyCenter]: justifyContent === "center",
+    [styles.cuiJustifyEnd]: justifyContent === "end",
+    [styles.cuiJustifySpaceBetween]: justifyContent === "space-between",
+    [styles.cuiJustifySpaceAround]: justifyContent === "space-around",
+    [styles.cuiJustifySpaceEvenly]: justifyContent === "space-evenly",
+    [styles.cuiJustifyLeft]: justifyContent === "left",
+    [styles.cuiJustifyRight]: justifyContent === "right",
+    [styles.cuiFillWidth]: fillWidth,
+    [styles.cuiAutoWidth]: !fillWidth,
+    [styles.cuiFillHeight]: fillHeight,
+    [styles.cuiGrow0]: grow === "0",
+    [styles.cuiGrow1]: grow === "1",
+    [styles.cuiGrow2]: grow === "2",
+    [styles.cuiGrow3]: grow === "3",
+    [styles.cuiGrow4]: grow === "4",
+    [styles.cuiGrow5]: grow === "5",
+    [styles.cuiGrow6]: grow === "6",
+    [styles.cuiShrink0]: shrink === "0",
+    [styles.cuiShrink1]: shrink === "1",
+    [styles.cuiShrink2]: shrink === "2",
+    [styles.cuiShrink3]: shrink === "3",
+    [styles.cuiShrink4]: shrink === "4",
+    [styles.cuiShrink5]: shrink === "5",
+    [styles.cuiShrink6]: shrink === "6",
+    [styles.cuiWrapNowrap]: wrap === "nowrap",
+    [styles.cuiWrapWrap]: wrap === "wrap",
+    [styles.cuiWrapReverse]: wrap === "wrap-reverse",
+    [styles.cuiGapNone]: gap === "none",
+    [styles.cuiGapXxs]: gap === "xxs",
+    [styles.cuiGapXs]: gap === "xs",
+    [styles.cuiGapSm]: gap === "sm",
+    [styles.cuiGapMd]: gap === "md",
+    [styles.cuiGapLg]: gap === "lg",
+    [styles.cuiGapXl]: gap === "xl",
+    [styles.cuiGapXxl]: gap === "xxl",
+    [styles.cuiPaddingNone]: padding === "none",
+    [styles.cuiPaddingXxs]: padding === "xxs",
+    [styles.cuiPaddingXs]: padding === "xs",
+    [styles.cuiPaddingSm]: padding === "sm",
+    [styles.cuiPaddingMd]: padding === "md",
+    [styles.cuiPaddingLg]: padding === "lg",
+    [styles.cuiPaddingXl]: padding === "xl",
+    [styles.cuiPaddingXxl]: padding === "xxl",
+    [styles.cuiResponsive]: isResponsive,
+  });
+
+  const inlineStyles = {
+    maxWidth: maxWidth ?? undefined,
+    minWidth: minWidth ?? undefined,
+    maxHeight: maxHeight ?? undefined,
+    minHeight: minHeight ?? undefined,
+    overflow: overflow ?? undefined,
+  };
+
   return (
-    <Wrapper
+    <Component
       ref={ref}
-      as={component ?? "div"}
-      $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
-      $fillWidth={fillWidth}
-      $gapSize={gap}
-      $grow={grow}
-      $shrink={shrink}
-      $isResponsive={isResponsive}
-      $justifyContent={justifyContent}
-      $maxWidth={maxWidth}
-      $minWidth={minWidth}
-      $orientation={orientation}
-      $paddingSize={padding}
-      $wrap={wrap}
-      $fillHeight={fillHeight}
-      $maxHeight={maxHeight}
-      $minHeight={minHeight}
-      $overflow={overflow}
+      className={containerClasses}
+      style={inlineStyles}
       data-testid="container"
       {...props}
     >
       {children}
-    </Wrapper>
+    </Component>
   );
 };
-const Wrapper = styled.div<{
-  $alignItems: AlignItemsOptions;
-  $fillWidth?: boolean;
-  $gapSize: GapOptions;
-  $grow?: GrowShrinkOptions;
-  $shrink?: GrowShrinkOptions;
-  $isResponsive?: boolean;
-  $justifyContent: JustifyContentOptions;
-  $maxWidth?: string;
-  $minWidth?: string;
-  $orientation: Orientation;
-  $paddingSize: PaddingOptions;
-  $wrap: WrapOptions;
-  $fillHeight?: boolean;
-  $minHeight?: string;
-  $maxHeight?: string;
-  $overflow?: string;
-}>`
-  display: flex;
-  ${({ $grow, $shrink }) => `
-    ${$grow && `flex: ${$grow}`};
-    ${$shrink && `flex-shrink: ${$shrink}`};
-  `}
-  ${({ $fillHeight, $maxHeight, $minHeight }) => `
-    ${$fillHeight && "height: 100%"};
-    ${$maxHeight && `max-height: ${$maxHeight}`};
-    ${$minHeight && `min-height: ${$minHeight}`};
-  `}
-  ${({ $overflow }) => `
-    ${$overflow && `overflow: ${$overflow}`};
-  `}
-  flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
-  gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
-  max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
-  min-width: ${({ $minWidth }) => $minWidth ?? "auto"};
-  padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
-  width: ${({ $fillWidth = true }) => ($fillWidth === true ? "100%" : "auto")};
-  flex-direction: ${({ $orientation = "horizontal" }) =>
-    $orientation === "horizontal" ? "row" : "column"};
-  align-items: ${({ $alignItems = "center" }) => $alignItems};
-  justify-content: ${({ $justifyContent = "left" }) =>
-    $justifyContent === "start" ? "start" : `${$justifyContent}`};
-
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-    width: ${({ $isResponsive = true, $fillWidth = true }) =>
-      $isResponsive === true ? "100%" : $fillWidth === true ? "100%" : "auto"};
-    max-width: ${({ $isResponsive = true }) =>
-      $isResponsive === true ? "none" : "auto"};
-    flex-direction: ${({ $isResponsive = true }) =>
-      $isResponsive === true ? "column" : "auto"};
-  }
-`;
 
 export const Container: ContainerPolymorphicComponent = forwardRef(_Container);

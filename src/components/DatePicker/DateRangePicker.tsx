@@ -7,68 +7,18 @@ import {
   useState,
 } from "react";
 import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
-import { styled } from "styled-components";
-import { Dropdown } from "../Dropdown/Dropdown";
+import { Dropdown } from "@/components";
 import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./Common";
-import { Container } from "../Container/Container";
-import { Panel } from "../Panel/Panel";
-import { Icon } from "../Icon/Icon";
+import { Container } from "@/components";
+import { Panel } from "@/components";
+import { Icon } from "@/components";
 import {
   DateRange,
   datesAreWithinMaxRange,
   isDateRangeTheWholeMonth,
   selectedDateFormatter,
 } from "./utils";
-
-const PredefinedCalendarContainer = styled(Panel)`
-  align-items: start;
-  background: ${({ theme }) => theme.click.panel.color.background.muted};
-`;
-
-const PredefinedDatesContainer = styled(Container)`
-  width: 275px;
-`;
-
-// left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
-const CalendarRendererContainer = styled.div`
-  border: ${({ theme }) =>
-    `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  box-shadow:
-    lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
-    lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  left: 276px;
-  position: absolute;
-  top: 0;
-`;
-
-// Height of 221px is height the height the calendar needs to match the PredefinedDatesContainer
-const StyledCalendarRenderer = styled(CalendarRenderer)`
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  min-height: 221px;
-`;
-
-const StyledDropdownItem = styled(Dropdown.Item)`
-  min-height: 24px;
-`;
-
-// max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
-const ScrollableContainer = styled(Container)`
-  max-height: 210px;
-  overflow-y: auto;
-`;
-
-const DateRangeTableCell = styled(DateTableCell)<{
-  $shouldShowRangeIndicator?: boolean;
-}>`
-  ${({ $shouldShowRangeIndicator, theme }) =>
-    $shouldShowRangeIndicator &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.range};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
-    border-radius: 0;
-    `}
-`;
+import styles from "./DateRangePicker.module.scss";
 
 interface CalendarProps {
   calendarBody: Body;
@@ -91,12 +41,6 @@ const Calendar = ({
   startDate,
   endDate,
 }: CalendarProps) => {
-  const [hoveredDate, setHoveredDate] = useState<Date>();
-
-  const handleMouseOut = (): void => {
-    setHoveredDate(undefined);
-  };
-
   return calendarBody.value.map(({ key: weekKey, value: week }) => {
     return (
       <tr key={weekKey}>
@@ -108,10 +52,6 @@ const Calendar = ({
           const today = new Date();
 
           const isCurrentDate = isSameDate(today, fullDate);
-          const isBetweenStartAndEndDates = Boolean(
-            startDate && endDate && fullDate > startDate && fullDate < endDate
-          );
-
           let isDisabled = false;
           if (futureDatesDisabled && fullDate > today) {
             isDisabled = true;
@@ -129,15 +69,8 @@ const Calendar = ({
             isDisabled = true;
           }
 
-          const shouldShowRangeIndicator =
-            !endDate &&
-            Boolean(
-              startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
-            );
-
-          const handleMouseEnter = () => {
-            setHoveredDate(fullDate);
-          };
+          const handleMouseEnter = () => {};
+          const handleMouseLeave = () => {};
 
           const handleClick = () => {
             if (isDisabled) {
@@ -163,10 +96,7 @@ const Calendar = ({
             }
           };
           return (
-            <DateRangeTableCell
-              $shouldShowRangeIndicator={
-                !isSelected && (shouldShowRangeIndicator || isBetweenStartAndEndDates)
-              }
+            <DateTableCell
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
@@ -174,10 +104,10 @@ const Calendar = ({
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseOut}
+              onMouseLeave={handleMouseLeave}
             >
               {date}
-            </DateRangeTableCell>
+            </DateTableCell>
           );
         })}
       </tr>
@@ -218,12 +148,16 @@ const PredefinedDates = ({
   };
 
   return (
-    <PredefinedDatesContainer
+    <Container
+      className={styles.cuiPredefinedDatesContainer}
       data-testid="predefined-dates-list"
       isResponsive={false}
       orientation="vertical"
     >
-      <ScrollableContainer orientation="vertical">
+      <Container
+        className={styles.cuiScrollableContainer}
+        orientation="vertical"
+      >
         {predefinedDatesList.map(({ startDate, endDate }) => {
           const handleItemClick = () => {
             setStartDate(startDate);
@@ -246,7 +180,8 @@ const PredefinedDates = ({
               )} - ${selectedDateFormatter.format(endDate)}`.trim();
 
           return (
-            <StyledDropdownItem
+            <Dropdown.Item
+              className={styles.cuiStyledDropdownItem}
               data-testid={`predefined-date-${startDate.getTime()}`}
               key={startDate.toISOString()}
               onClick={handleItemClick}
@@ -260,19 +195,22 @@ const PredefinedDates = ({
                 {formattedText}
                 {rangeIsSelected && <Icon name="check" />}
               </Container>
-            </StyledDropdownItem>
+            </Dropdown.Item>
           );
         })}
-      </ScrollableContainer>
-      <StyledDropdownItem onClick={handleCustomTimePeriodClick}>
+      </Container>
+      <Dropdown.Item
+        className={styles.cuiStyledDropdownItem}
+        onClick={handleCustomTimePeriodClick}
+      >
         <Container
           justifyContent="space-between"
           orientation="horizontal"
         >
           Custom time period <Icon name="chevron-right" />
         </Container>
-      </StyledDropdownItem>
-    </PredefinedDatesContainer>
+      </Dropdown.Item>
+    </Container>
   );
 };
 
@@ -398,7 +336,8 @@ export const DateRangePicker = ({
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
         {shouldShowPredefinedDates ? (
-          <PredefinedCalendarContainer
+          <Panel
+            className={styles.cuiPredefinedCalendarContainer}
             gap="none"
             orientation="horizontal"
             padding="none"
@@ -415,8 +354,8 @@ export const DateRangePicker = ({
             />
 
             {shouldShowCustomRange && (
-              <CalendarRendererContainer>
-                <StyledCalendarRenderer calendarOptions={calendarOptions}>
+              <div className={styles.cuiCalendarRendererContainer}>
+                <CalendarRenderer calendarOptions={calendarOptions}>
                   {(body: Body) => (
                     <Calendar
                       calendarBody={body}
@@ -429,10 +368,10 @@ export const DateRangePicker = ({
                       endDate={selectedEndDate}
                     />
                   )}
-                </StyledCalendarRenderer>
-              </CalendarRendererContainer>
+                </CalendarRenderer>
+              </div>
             )}
-          </PredefinedCalendarContainer>
+          </Panel>
         ) : (
           <CalendarRenderer calendarOptions={calendarOptions}>
             {(body: Body) => (

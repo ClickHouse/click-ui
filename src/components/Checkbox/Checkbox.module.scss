@@ -1,0 +1,175 @@
+@use "cui-mixins" as mixins;
+
+.cuiWrapper {
+  @include mixins.cuiContainerBase;
+  align-items: center;
+  max-width: fit-content;
+  width: 100%;
+  gap: var(--click-field-space-gap);
+
+  // Orientation and direction styles
+  &.cuiHorizontal {
+    &.cuiDirStart {
+      flex-direction: row-reverse;
+    }
+    &.cuiDirEnd {
+      flex-direction: row;
+    }
+  }
+
+  &.cuiVertical {
+    &.cuiDirStart {
+      flex-direction: column-reverse;
+    }
+    &.cuiDirEnd {
+      flex-direction: column;
+    }
+  }
+
+  align-items: flex-start;
+
+  // Reset box-shadow and outline for all children
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.cuiCheckInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--click-checkbox-radii-all);
+  width: var(--click-checkbox-size-all);
+  height: var(--click-checkbox-size-all);
+  cursor: pointer;
+  border: 1px solid;
+
+  // Variant styles
+  &.cuiVariantDefault {
+    background: var(--click-checkbox-color-variations-default-background-default);
+    border-color: var(--click-checkbox-color-variations-default-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-default-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-default-stroke-active);
+      background: var(--click-checkbox-color-variations-default-background-active);
+    }
+  }
+
+  &.cuiVariantVar1 {
+    background: var(--click-checkbox-color-variations-var1-background-default);
+    border-color: var(--click-checkbox-color-variations-var1-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-var1-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-var1-stroke-active);
+      background: var(--click-checkbox-color-variations-var1-background-active);
+    }
+  }
+
+  &.cuiVariantVar2 {
+    background: var(--click-checkbox-color-variations-var2-background-default);
+    border-color: var(--click-checkbox-color-variations-var2-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-var2-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-var2-stroke-active);
+      background: var(--click-checkbox-color-variations-var2-background-active);
+    }
+  }
+
+  &.cuiVariantVar3 {
+    background: var(--click-checkbox-color-variations-var3-background-default);
+    border-color: var(--click-checkbox-color-variations-var3-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-var3-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-var3-stroke-active);
+      background: var(--click-checkbox-color-variations-var3-background-active);
+    }
+  }
+
+  &.cuiVariantVar4 {
+    background: var(--click-checkbox-color-variations-var4-background-default);
+    border-color: var(--click-checkbox-color-variations-var4-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-var4-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-var4-stroke-active);
+      background: var(--click-checkbox-color-variations-var4-background-active);
+    }
+  }
+
+  &.cuiVariantVar5 {
+    background: var(--click-checkbox-color-variations-var5-background-default);
+    border-color: var(--click-checkbox-color-variations-var5-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-var5-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-var5-stroke-active);
+      background: var(--click-checkbox-color-variations-var5-background-active);
+    }
+  }
+
+  &.cuiVariantVar6 {
+    background: var(--click-checkbox-color-variations-var6-background-default);
+    border-color: var(--click-checkbox-color-variations-var6-stroke-default);
+
+    &:hover {
+      background: var(--click-checkbox-color-variations-var6-background-hover);
+    }
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      border-color: var(--click-checkbox-color-variations-var6-stroke-active);
+      background: var(--click-checkbox-color-variations-var6-background-active);
+    }
+  }
+
+  // Disabled state
+  &.cuiDisabled {
+    background: var(--click-checkbox-color-background-disabled);
+    border-color: var(--click-checkbox-color-stroke-disabled);
+    cursor: not-allowed;
+
+    &.cuiChecked,
+    &.cuiIndeterminate {
+      background: var(--click-checkbox-color-background-disabled);
+      border-color: var(--click-checkbox-color-stroke-disabled);
+    }
+  }
+}
+
+.cuiCheckIconWrapper {
+  color: var(--click-checkbox-color-check-default);
+
+  &.cuiDisabled {
+    color: var(--click-checkbox-color-check-disabled);
+  }
+}

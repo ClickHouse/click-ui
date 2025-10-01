@@ -1,6 +1,6 @@
 import { HTMLAttributes, useState } from "react";
-import { styled } from "styled-components";
 import { Icon, IconName, Text } from "@/components";
+import styles from "./CardPromotion.module.scss";
 
 export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
   /** The text label displayed in the promotion card */
@@ -10,65 +10,6 @@ export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
   /** Whether the card can be dismissed/closed */
   dismissible?: boolean;
 }
-const Background = styled.div`
-  ${({ theme }) => `
-    background-image: ${theme.click.card.promotion.color.stroke.default};
-    padding: 1px;
-    border-radius: ${theme.click.card.promotion.radii.all};
-    box-shadow: ${theme.click.card.shadow};
-    display: flex;
-
-    &:focus {
-      background: ${theme.click.card.promotion.color.stroke.focus};
-    }
-  `}
-`;
-const Wrapper = styled.div<{
-  $dismissible?: boolean;
-}>`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-
-  ${({ theme }) => `
-    background: ${theme.click.card.promotion.color.background.default};
-    color: ${theme.click.card.promotion.color.text.default};
-    border-radius: ${theme.click.card.promotion.radii.all};
-    padding: ${theme.click.card.promotion.space.y} ${theme.click.card.promotion.space.x};
-    gap: ${theme.click.card.promotion.space.gap};
-    transition: .2s ease-in-out all;
-
-    &:hover {
-      background: ${theme.click.card.promotion.color.background.hover};
-      color: ${theme.click.card.promotion.color.text.hover};
-    }
-
-    &:active, &:focus {
-      background: ${theme.click.card.promotion.color.background.active};
-      color: ${theme.click.card.promotion.color.text.active};
-    }
-  `}
-`;
-
-const CardIcon = styled(Icon)`
-  ${({ theme }) => `
-      height: ${theme.click.card.promotion.icon.size.all};
-      width: ${theme.click.card.promotion.icon.size.all};
-      color: ${theme.click.card.promotion.color.icon.default};
-  `}
-`;
-
-const DismissWrapper = styled.button`
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  border: none;
-  background-color: transparent;
-  color: inherit;
-  cursor: pointer;
-`;
 
 export const CardPromotion = ({
   label,
@@ -79,20 +20,22 @@ export const CardPromotion = ({
   const [isVisible, setIsVisible] = useState(true);
 
   return isVisible ? (
-    <Background>
-      <Wrapper
-        $dismissible={dismissible}
+    <div className={styles.cuiBackground}>
+      <div
+        className={styles.cuiWrapper}
         {...props}
       >
-        <CardIcon
+        <Icon
           name={icon}
           aria-hidden
+          className={styles.cuiCardIcon}
         />
 
         <Text>{label}</Text>
 
         {dismissible && (
-          <DismissWrapper
+          <button
+            className={styles.cuiDismissWrapper}
             data-testid="click-alert-dismiss-button"
             onClick={() => setIsVisible(false)}
           >
@@ -100,9 +43,9 @@ export const CardPromotion = ({
               name="cross"
               aria-label="close"
             />
-          </DismissWrapper>
+          </button>
         )}
-      </Wrapper>
-    </Background>
+      </div>
+    </div>
   ) : null;
 };

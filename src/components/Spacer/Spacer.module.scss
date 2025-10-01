@@ -1,0 +1,26 @@
+@use "cui-mixins" as mixins;
+
+.cuiSpacer {
+  background: transparent;
+  display: flex;
+
+  // Size variations
+  &.cuiXs {
+    padding: var(--click-spacer-horizontal-space-y-xs) var(--click-spacer-horizontal-space-x-all);
+  }
+  &.cuiSm {
+    padding: var(--click-spacer-horizontal-space-y-sm) var(--click-spacer-horizontal-space-x-all);
+  }
+  &.cuiMd {
+    padding: var(--click-spacer-horizontal-space-y-md) var(--click-spacer-horizontal-space-x-all);
+  }
+  &.cuiLg {
+    padding: var(--click-spacer-horizontal-space-y-lg) var(--click-spacer-horizontal-space-x-all);
+  }
+  &.cuiXl {
+    padding: var(--click-spacer-horizontal-space-y-xl) var(--click-spacer-horizontal-space-x-all);
+  }
+  &.cuiXxl {
+    padding: var(--click-spacer-horizontal-space-y-xxl) var(--click-spacer-horizontal-space-x-all);
+  }
+}

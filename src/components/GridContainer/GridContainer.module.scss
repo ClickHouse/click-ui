@@ -1,0 +1,241 @@
+@use "cui-mixins" as mixins;
+
+.cuiGridContainer {
+  display: grid;
+
+  &.cuiInline {
+    display: inline-grid;
+  }
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  &.cuiWidthAuto {
+    width: auto;
+  }
+
+  // Alignment classes
+  &.cuiAlignItemsStart {
+    align-items: start;
+  }
+
+  &.cuiAlignItemsCenter {
+    align-items: center;
+  }
+
+  &.cuiAlignItemsEnd {
+    align-items: end;
+  }
+
+  &.cuiAlignItemsStretch {
+    align-items: stretch;
+  }
+
+  &.cuiAlignContentCenter {
+    align-content: center;
+  }
+
+  &.cuiAlignContentSpaceBetween {
+    align-content: space-between;
+  }
+
+  &.cuiAlignContentSpaceAround {
+    align-content: space-around;
+  }
+
+  &.cuiAlignContentSpaceEvenly {
+    align-content: space-evenly;
+  }
+
+  &.cuiAlignContentStart {
+    align-content: start;
+  }
+
+  &.cuiAlignContentStretch {
+    align-content: stretch;
+  }
+
+  &.cuiAlignContentEnd {
+    align-content: end;
+  }
+
+  &.cuiAlignContentLeft {
+    align-content: left;
+  }
+
+  &.cuiAlignContentRight {
+    align-content: right;
+  }
+
+  // Justify content classes
+  &.cuiJustifyContentCenter {
+    justify-content: center;
+  }
+
+  &.cuiJustifyContentSpaceBetween {
+    justify-content: space-between;
+  }
+
+  &.cuiJustifyContentSpaceAround {
+    justify-content: space-around;
+  }
+
+  &.cuiJustifyContentSpaceEvenly {
+    justify-content: space-evenly;
+  }
+
+  &.cuiJustifyContentStart {
+    justify-content: start;
+  }
+
+  &.cuiJustifyContentStretch {
+    justify-content: stretch;
+  }
+
+  &.cuiJustifyContentEnd {
+    justify-content: end;
+  }
+
+  &.cuiJustifyContentLeft {
+    justify-content: left;
+  }
+
+  &.cuiJustifyContentRight {
+    justify-content: right;
+  }
+
+  // Justify items classes
+  &.cuiJustifyItemsStart {
+    justify-items: start;
+  }
+
+  &.cuiJustifyItemsCenter {
+    justify-items: center;
+  }
+
+  &.cuiJustifyItemsEnd {
+    justify-items: end;
+  }
+
+  &.cuiJustifyItemsStretch {
+    justify-items: stretch;
+  }
+
+  // Gap classes
+  &.cuiGapNone {
+    gap: var(--click-gridContainer-gap-none);
+  }
+
+  &.cuiGapXxs {
+    gap: var(--click-gridContainer-gap-xxs);
+  }
+
+  &.cuiGapXs {
+    gap: var(--click-gridContainer-gap-xs);
+  }
+
+  &.cuiGapSm {
+    gap: var(--click-gridContainer-gap-sm);
+  }
+
+  &.cuiGapMd {
+    gap: var(--click-gridContainer-gap-md);
+  }
+
+  &.cuiGapLg {
+    gap: var(--click-gridContainer-gap-lg);
+  }
+
+  &.cuiGapXl {
+    gap: var(--click-gridContainer-gap-xl);
+  }
+
+  &.cuiGapXxl {
+    gap: var(--click-gridContainer-gap-xxl);
+  }
+
+  &.cuiGapUnset {
+    gap: unset;
+  }
+
+  // Column gap classes
+  &.cuiColumnGapNone {
+    column-gap: var(--click-gridContainer-gap-none);
+  }
+
+  &.cuiColumnGapXxs {
+    column-gap: var(--click-gridContainer-gap-xxs);
+  }
+
+  &.cuiColumnGapXs {
+    column-gap: var(--click-gridContainer-gap-xs);
+  }
+
+  &.cuiColumnGapSm {
+    column-gap: var(--click-gridContainer-gap-sm);
+  }
+
+  &.cuiColumnGapMd {
+    column-gap: var(--click-gridContainer-gap-md);
+  }
+
+  &.cuiColumnGapLg {
+    column-gap: var(--click-gridContainer-gap-lg);
+  }
+
+  &.cuiColumnGapXl {
+    column-gap: var(--click-gridContainer-gap-xl);
+  }
+
+  &.cuiColumnGapXxl {
+    column-gap: var(--click-gridContainer-gap-xxl);
+  }
+
+  &.cuiColumnGapUnset {
+    column-gap: unset;
+  }
+
+  // Row gap classes
+  &.cuiRowGapNone {
+    row-gap: var(--click-gridContainer-gap-none);
+  }
+
+  &.cuiRowGapXxs {
+    row-gap: var(--click-gridContainer-gap-xxs);
+  }
+
+  &.cuiRowGapXs {
+    row-gap: var(--click-gridContainer-gap-xs);
+  }
+
+  &.cuiRowGapSm {
+    row-gap: var(--click-gridContainer-gap-sm);
+  }
+
+  &.cuiRowGapMd {
+    row-gap: var(--click-gridContainer-gap-md);
+  }
+
+  &.cuiRowGapLg {
+    row-gap: var(--click-gridContainer-gap-lg);
+  }
+
+  &.cuiRowGapXl {
+    row-gap: var(--click-gridContainer-gap-xl);
+  }
+
+  &.cuiRowGapXxl {
+    row-gap: var(--click-gridContainer-gap-xxl);
+  }
+
+  &.cuiRowGapUnset {
+    row-gap: unset;
+  }
+
+  @media (max-width: var(--breakpoint-sizes-md)) {
+    &.cuiResponsive {
+      grid-template-columns: 1fr;
+    }
+  }
+}

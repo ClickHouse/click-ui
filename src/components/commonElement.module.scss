@@ -1,0 +1,171 @@
+@use "cui-mixins" as mixins;
+
+.cuiFormRoot {
+  display: flex;
+  width: 100%;
+  gap: var(--click-field-space-gap);
+  align-items: flex-start;
+
+  &.cuiOrientationHorizontal {
+    &.cuiDirStart {
+      flex-direction: row-reverse;
+    }
+
+    &.cuiDirEnd {
+      flex-direction: row;
+    }
+
+    &.cuiAddLabelPadding {
+      :global(label) {
+        padding-top: calc(var(--click-field-space-y) + 1px);
+        line-height: 1lh;
+      }
+    }
+  }
+
+  &.cuiOrientationVertical {
+    &.cuiDirStart {
+      flex-direction: column-reverse;
+    }
+
+    &.cuiDirEnd {
+      flex-direction: column;
+    }
+  }
+
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.cuiError {
+  font: var(--click-field-typography-label-error);
+  color: var(--click-field-color-label-error);
+}
+
+.cuiEmptyButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.cuiCrossButton {
+  @extend .cuiEmptyButton;
+  padding: var(--click-button-iconButton-sm-space-y) var(--click-button-iconButton-sm-space-x);
+  background: var(--click-button-iconButton-color-primary-background-default);
+  border-radius: var(--click-button-iconButton-radii-all);
+
+  &:hover {
+    background: var(--click-button-iconButton-color-primary-background-hover);
+  }
+}
+
+.cuiGridCenter {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cuiBaseButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  border-radius: var(--click-button-radii-all);
+  gap: var(--click-button-basic-space-gap);
+  font: var(--click-button-basic-typography-label-default);
+
+  &:hover {
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    font: var(--click-button-basic-typography-label-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.cuiSvgImageElement {
+  display: flex;
+  align-items: center;
+
+  &.cuiSizeXxs {
+    width: var(--click-image-xxs-size-width);
+    height: var(--click-image-xxs-size-height);
+  }
+
+  &.cuiSizeXs {
+    width: var(--click-image-xs-size-width);
+    height: var(--click-image-xs-size-height);
+  }
+
+  &.cuiSizeSm {
+    width: var(--click-image-sm-size-width);
+    height: var(--click-image-sm-size-height);
+  }
+
+  &.cuiSizeMd {
+    width: var(--click-image-md-size-width);
+    height: var(--click-image-md-size-height);
+  }
+
+  &.cuiSizeLg {
+    width: var(--click-image-lg-size-width);
+    height: var(--click-image-lg-size-height);
+  }
+
+  &.cuiSizeXl {
+    width: var(--click-image-xl-size-width);
+    height: var(--click-image-xl-size-height);
+  }
+
+  &.cuiSizeXxl {
+    width: var(--click-image-xxl-size-width);
+    height: var(--click-image-xxl-size-height);
+  }
+}
+
+.cuiFormElementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  gap: var(--click-field-space-gap);
+}
+
+.cuiEllipsisContainer {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: flex-end;
+  gap: inherit;
+
+  & > *:not(button) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

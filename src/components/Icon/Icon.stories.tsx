@@ -1,20 +1,19 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import LogosLight from "../Logos/LogosLight";
-import { FlagList } from "../icons/Flags";
-import { PaymentList } from "../icons/Payments";
+import LogosLight from "@/components/Logos/LogosLight";
+import { FlagList } from "@/components/icons/Flags";
+import { PaymentList } from "@/components/icons/Payments";
 import { Icon } from "./Icon";
-import { IconName } from "../types";
+import { IconName } from "@/components/types";
 import { ICONS_MAP } from "./IconCommon";
 import { IconProps } from "./types";
-import { Container } from "../Container/Container";
-import { styled } from "styled-components";
+import { Container } from "@/components/Container/Container";
 import { useState } from "react";
-import { SearchField } from "../Input/SearchField";
-import { Title } from "../Typography/Title/Title";
-import { Panel } from "../Panel/Panel";
-import { Text } from "../Typography/Text/Text";
-import { GridContainer } from "../GridContainer/GridContainer";
-import { Spacer } from "../Spacer/Spacer";
+import styles from "./Icon.stories.module.scss";
+import { SearchField } from "@/components/Input/SearchField";
+import { Title } from "@/components/Typography/Title/Title";
+import { Panel } from "@/components/Panel/Panel";
+import { Text } from "@/components/Typography/Text/Text";
+import { GridContainer } from "@/components/GridContainer/GridContainer";
+import { Spacer } from "@/components/Spacer/Spacer";
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagList);
@@ -27,8 +26,8 @@ const IconWrapper = (props: IconProps) => (
   </Container>
 );
 
-const meta: Meta<typeof Icon> = {
-  component: Icon,
+export default {
+  component: IconWrapper,
   title: "Display/Icon",
   tags: ["icon", "autodocs"],
   argTypes: {
@@ -40,20 +39,21 @@ const meta: Meta<typeof Icon> = {
       options: ["xs", "sm", "md", "lg", "xl", "xxl"],
       control: { type: "select" },
     },
+    state: {
+      options: ["default", "info", "success", "warning", "danger", "neutral"],
+      control: { type: "select" },
+    },
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof Icon>;
-
-export const Playground: Story = {
+export const Playground = {
   args: {
     name: "users",
     size: "md",
     state: "default",
+    width: "",
+    height: "",
   },
-  render: args => <IconWrapper {...(args as IconProps)} />,
 };
 
 type IconGalleryProps = {
@@ -80,122 +80,114 @@ const IconGallery = ({ name }: IconGalleryProps) => (
   </Container>
 );
 
-const ResponsiveGridContainer = styled(GridContainer)`
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1em;
+const ResponsiveGridContainer = ({
+  children,
+  ...props
+}: React.ComponentProps<typeof GridContainer>) => (
+  <GridContainer
+    className={styles.cuiResponsiveGridContainer}
+    {...props}
+  >
+    {children}
+  </GridContainer>
+);
 
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-`;
+export const Icons = () => {
+  const [query, setQuery] = useState("");
+  return (
+    <Container
+      orientation="vertical"
+      gap="sm"
+      maxWidth="1000px"
+      style={{ margin: "0 auto" }}
+    >
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Glyph
+      </Title>
 
-export const Icons: Story = {
-  render: () => {
-    const [query, setQuery] = useState("");
-    return (
       <Container
         orientation="vertical"
-        gap="sm"
-        maxWidth="1000px"
-        style={{ margin: "0 auto" }}
+        gap="md"
       >
-        <Title
-          type="h2"
-          size="xl"
-        >
-          Glyph
-        </Title>
-
-        <Container
-          orientation="vertical"
-          gap="md"
-        >
-          <SearchField
-            value={query}
-            placeholder="Search icons..."
-            onChange={setQuery}
-            tabIndex={1}
-          />
-          <ResponsiveGridContainer>
-            {Object.keys(ICONS_MAP)
-              .filter(
-                key => query === "" || key.toLowerCase().includes(query.toLowerCase())
-              )
-              .sort()
-              .map(key => {
-                return (
-                  <IconGallery
-                    key={key}
-                    name={key as IconName}
-                  />
-                );
-              })}
-          </ResponsiveGridContainer>
-        </Container>
-
-        <Spacer size="md" />
-
-        <Title
-          type="h2"
-          size="xl"
-        >
-          Flags
-        </Title>
-
+        <SearchField
+          value={query}
+          placeholder="Search icons..."
+          onChange={setQuery}
+          tabIndex={1}
+        />
         <ResponsiveGridContainer>
-          {Object.keys(FlagList).map(key => (
-            <IconGallery
-              key={key}
-              name={key as IconName}
-            />
-          ))}
-        </ResponsiveGridContainer>
-
-        <Spacer size="md" />
-
-        <Title
-          type="h2"
-          size="xl"
-        >
-          Payments
-        </Title>
-
-        <ResponsiveGridContainer>
-          {Object.keys(PaymentList).map(key => (
-            <IconGallery
-              key={key}
-              name={key as IconName}
-            />
-          ))}
-        </ResponsiveGridContainer>
-
-        <Spacer size="md" />
-
-        <Title
-          type="h2"
-          size="xl"
-        >
-          Logo
-        </Title>
-
-        <ResponsiveGridContainer>
-          {Object.keys(LogosLight).map(key => (
-            <IconGallery
-              key={key}
-              name={key as IconName}
-            />
-          ))}
+          {Object.keys(ICONS_MAP)
+            .filter(
+              key => query === "" || key.toLowerCase().includes(query.toLowerCase())
+            )
+            .sort()
+            .map(key => {
+              return (
+                <IconGallery
+                  key={key}
+                  name={key as IconName}
+                />
+              );
+            })}
         </ResponsiveGridContainer>
       </Container>
-    );
-  },
+
+      <Spacer size="md" />
+
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Flags
+      </Title>
+
+      <ResponsiveGridContainer>
+        {Object.keys(FlagList).map(key => (
+          <IconGallery
+            key={key}
+            name={key as IconName}
+          />
+        ))}
+      </ResponsiveGridContainer>
+
+      <Spacer size="md" />
+
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Payments
+      </Title>
+
+      <ResponsiveGridContainer>
+        {Object.keys(PaymentList).map(key => (
+          <IconGallery
+            key={key}
+            name={key as IconName}
+          />
+        ))}
+      </ResponsiveGridContainer>
+
+      <Spacer size="md" />
+
+      <Title
+        type="h2"
+        size="xl"
+      >
+        Logo
+      </Title>
+
+      <ResponsiveGridContainer>
+        {Object.keys(LogosLight).map(key => (
+          <IconGallery
+            key={key}
+            name={key as IconName}
+          />
+        ))}
+      </ResponsiveGridContainer>
+    </Container>
+  );
 };

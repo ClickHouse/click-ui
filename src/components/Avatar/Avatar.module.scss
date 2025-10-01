@@ -1,0 +1,63 @@
+@use "cui-mixins" as mixins;
+
+.cuiAvatarRoot {
+  width: var(--click-avatar-size-width);
+  height: var(--click-avatar-size-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  overflow: hidden;
+  user-select: none;
+  background-color: var(--click-avatar-color-background-default);
+  color: var(--click-avatar-color-text-default);
+  border-radius: var(--click-avatar-radii-all);
+
+  &:active {
+    background-color: var(--click-avatar-color-background-active);
+    color: var(--click-avatar-color-text-active);
+  }
+
+  &:hover {
+    background-color: var(--click-avatar-color-background-hover);
+    color: var(--click-avatar-color-text-hover);
+  }
+}
+
+.cuiAvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.cuiAvatarFallback {
+  width: var(--click-avatar-size-label-width);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.cuiMd {
+    font: var(--click-avatar-typography-label-md-default);
+
+    .cuiAvatarRoot:active & {
+      font: var(--click-avatar-typography-label-md-active);
+    }
+
+    .cuiAvatarRoot:hover & {
+      font: var(--click-avatar-typography-label-md-hover);
+    }
+  }
+
+  &.cuiSm {
+    font: var(--click-avatar-typography-label-sm-default);
+
+    .cuiAvatarRoot:active & {
+      font: var(--click-avatar-typography-label-sm-active);
+    }
+
+    .cuiAvatarRoot:hover & {
+      font: var(--click-avatar-typography-label-sm-hover);
+    }
+  }
+}

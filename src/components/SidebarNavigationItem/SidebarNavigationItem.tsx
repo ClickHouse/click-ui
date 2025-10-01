@@ -1,7 +1,8 @@
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { HorizontalDirection, IconName } from "@/components";
-import { IconWrapper } from "../Collapsible/IconWrapper";
+import { IconWrapper } from "@/components";
+import styles from "./SidebarNavigationItem.module.scss";
 
 export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */
@@ -26,12 +27,18 @@ const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemPr
     ref
   ) => {
     return (
-      <SidebarItemWrapper
-        $level={level}
+      <div
         data-selected={selected}
-        $type={type}
         ref={ref}
         aria-disabled={disabled}
+        className={clsx(styles.cuiSidebarItemWrapper, {
+          [styles.cuiItem]: level === 0,
+          [styles.cuiSubItem]: level > 0,
+          [styles.cuiMain]: type === "main",
+          [styles.cuiSqlSidebar]: type === "sqlSidebar",
+          [styles.cuiSelected]: selected,
+          [styles.cuiDisabled]: disabled,
+        })}
         {...props}
       >
         <IconWrapper
@@ -40,106 +47,9 @@ const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemPr
         >
           {label}
         </IconWrapper>
-      </SidebarItemWrapper>
+      </div>
     );
   }
 );
-
-export const SidebarItemWrapper = styled.div<{
-  $collapsible?: boolean;
-  $level: number;
-  $type: "main" | "sqlSidebar";
-}>`
-  display: flex;
-  align-items: center;
-  border: none;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  white-space: nowrap;
-  overflow: hidden;
-  flex-wrap: nowrap;
-
-  ${({ theme, $collapsible = false, $level, $type }) => {
-    const itemType = $level === 0 ? "item" : "subItem";
-    return `
-    padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
-      theme.click.sidebar.navigation[itemType].default.space.right
-    } ${theme.click.sidebar.navigation[itemType].default.space.y} ${
-      $collapsible
-        ? theme.click.sidebar.navigation[itemType].default.space.left
-        : theme.click.image.sm.size.width
-    };
-    border-radius: ${theme.click.sidebar.navigation[itemType].radii.all};
-    font: ${theme.click.sidebar.navigation[itemType].typography.default};
-    background-color: ${
-      theme.click.sidebar[$type].navigation[itemType].color.background.default
-    };
-    color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
-    span a {
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
-    cursor: pointer;
-      text-decoration: none;
-    }
-    cursor: pointer;
-    pointer-events: all;
-
-    &:hover, &:focus {
-      font: ${theme.click.sidebar.navigation[itemType].typography.hover};
-      background-color: ${
-        theme.click.sidebar[$type].navigation[itemType].color.background.hover
-      };
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
-      pointer-events: auto;
-    }
-
-    &:active, &[data-selected="true"] {
-      font: ${theme.click.sidebar.navigation[itemType].typography.active};
-      background-color: ${
-        theme.click.sidebar[$type].navigation[itemType].color.background.active
-      };
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
-      pointer-events: all;
-    }
-
-    &[aria-disabled=true],
-    &[aria-disabled=true]:hover,
-    &[aria-disabled=true]:focus,
-    &[aria-disabled=true]:active,
-    &[aria-disabled=true]:focus-within,
-    &[aria-disabled=true][data-selected="true"] {
-
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.disabled};
-      pointer-events: none;
-
-      span a {
-        color: ${theme.click.sidebar[$type].navigation[itemType].color.text.disabled};
-        cursor: not-allowed;
-        text-decoration: none;
-      }
-      cursor: not-allowed;
-    }
-
-    @media (max-width: 640px) {
-      gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
-      padding: ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
-        theme.click.sidebar.navigation[itemType].mobile.space.right
-      } ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
-        $collapsible
-          ? theme.click.sidebar.navigation[itemType].mobile.space.left
-          : theme.click.image.sm.size.width
-      };
-      font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
-      &:hover, &:focus {
-        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
-      }
-      &:active, &[data-selected="true"] {
-        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
-      }
-    }
-  `;
-  }}
-`;
 
 export { SidebarNavigationItem };

@@ -1,0 +1,11 @@
+.cuiCheckIcon {
+  transition: opacity 0.2s ease;
+
+  &.cuiShowCheck {
+    opacity: 1;
+  }
+
+  &.cuiHideCheck {
+    opacity: 0;
+  }
+}

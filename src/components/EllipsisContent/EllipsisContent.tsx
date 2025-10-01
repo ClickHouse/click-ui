@@ -6,39 +6,30 @@ import {
   forwardRef,
 } from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import styles from "./EllipsisContent.module.scss";
 
-const EllipsisContainer = styled.div`
-  display: inline-block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  vertical-align: text-bottom;
-  overflow: hidden;
-  justify-content: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
 export interface EllipsisContentProps<T extends ElementType = "div"> {
   component?: T;
 }
 
 type EllipsisPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
+  props: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>
 ) => ReactNode;
 
 const _EllipsisContent = <T extends ElementType = "div">(
-  { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
+  {
+    component,
+    className,
+    ...props
+  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>,
   ref: ComponentPropsWithRef<T>["ref"]
 ) => {
+  const Component = component ?? "div";
+
   return (
-    <EllipsisContainer
-      as={component ?? "div"}
+    <Component
+      className={clsx(styles.cuiEllipsisContainer, className)}
       ref={mergeRefs([
         ref,
         node => {

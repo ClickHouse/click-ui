@@ -1,0 +1,24 @@
+@use "cui-mixins" as mixins;
+
+.cuiUnderlinedTrigger {
+  // Import link styles from the common link styles
+  // This will need to match the linkStyles mixin behavior
+  text-decoration: underline;
+  color: var(--click-link-color-text-default);
+  font-size: var(--click-text-sm-font-size);
+  font-weight: var(--click-text-medium-font-weight);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--click-link-color-text-hover);
+  }
+
+  &:active {
+    color: var(--click-link-color-text-active);
+  }
+
+  &:focus {
+    outline: 2px solid var(--click-link-color-outline-focus);
+    outline-offset: 2px;
+  }
+}

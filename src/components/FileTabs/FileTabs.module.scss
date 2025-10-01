@@ -1,0 +1,166 @@
+@use "cui-mixins" as mixins;
+
+.cuiTabsContainer {
+  display: flex;
+  position: relative;
+  overflow: auto;
+  overscroll-behavior: none;
+  scrollbar-width: 0;
+  max-width: var(--dynamic-max-width);
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+}
+
+.cuiTabsSortableContainer {
+  display: flex;
+
+  & > div {
+    height: 100%;
+    outline: none;
+    min-width: 100px;
+    width: clamp(100px, 100%, 200px);
+
+    &.sortable-ghost {
+      opacity: 0;
+    }
+  }
+}
+
+.cuiTabElement {
+  display: grid;
+  justify-content: flex-start;
+  align-items: center;
+  outline: none;
+  max-width: 100%;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+  border: none;
+  cursor: pointer;
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--click-tabs-fileTabs-space-y) var(--click-tabs-fileTabs-space-x);
+  gap: var(--click-tabs-fileTabs-space-gap);
+  border-radius: var(--click-tabs-fileTabs-radii-all);
+  border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-default);
+  background: var(--click-tabs-fileTabs-color-background-default);
+  color: var(--click-tabs-fileTabs-color-text-default);
+  font: var(--click-tabs-fileTabs-typography-label-default);
+
+  svg,
+  [data-indicator] {
+    height: var(--click-tabs-fileTabs-icon-size-height);
+    width: var(--click-tabs-fileTabs-icon-size-width);
+  }
+
+  [data-type="close"] {
+    display: none;
+  }
+
+  [data-indicator] {
+    display: block;
+  }
+
+  &:hover {
+    [data-type="close"] {
+      display: block;
+    }
+
+    [data-indicator] {
+      display: none;
+    }
+  }
+
+  &.cuiActive {
+    background: var(--click-tabs-fileTabs-color-background-active);
+    color: var(--click-tabs-fileTabs-color-text-active);
+    font: var(--click-tabs-fileTabs-typography-label-active);
+    border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-active);
+  }
+
+  &:not(.cuiActive):hover {
+    background: var(--click-tabs-fileTabs-color-background-hover);
+    color: var(--click-tabs-fileTabs-color-text-hover);
+    font: var(--click-tabs-fileTabs-typography-label-hover);
+    border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-hover);
+  }
+
+  &.cuiPreview {
+    font-style: italic;
+  }
+
+  &.cuiDismissable {
+    grid-template-columns: 1fr var(--click-tabs-fileTabs-icon-size-width);
+  }
+
+  &.cuiFixedTabElement {
+    width: auto;
+  }
+}
+
+.cuiIndicator {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    left: 0.25rem;
+    top: 0.25rem;
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+  }
+
+  &.default::after {
+    background: transparent;
+  }
+
+  &.success::after {
+    background: var(--click-alert-color-text-success);
+  }
+
+  &.neutral::after {
+    background: var(--click-alert-color-text-neutral);
+  }
+
+  &.danger::after {
+    background: var(--click-alert-color-text-danger);
+  }
+
+  &.warning::after {
+    background: var(--click-alert-color-text-warning);
+  }
+
+  &.info::after {
+    background: var(--click-alert-color-text-info);
+  }
+}
+
+.cuiTabContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: var(--click-tabs-fileTabs-space-gap);
+}
+
+.cuiTabContentText {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cuiEmptyButton {
+  padding: 0;
+  background: var(--click-tabs-fileTabs-color-closeButton-background-default);
+
+  &:hover {
+    background: var(--click-tabs-fileTabs-color-closeButton-background-hover);
+  }
+}

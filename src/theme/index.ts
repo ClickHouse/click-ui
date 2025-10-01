@@ -1,37 +1,42 @@
-import darkTheme from "./tokens/variables.dark";
-import lightTheme from "./tokens/variables.light";
-import { useTheme } from "styled-components";
-import type { Prettify, GetTypes } from "./tokens/types";
+// === CORE TYPES ===
+export type {
+  Theme,
+  ThemeName,
+  ThemeConfig,
+  ThemeContextValue,
+  BaseThemeName,
+  ResolvedThemeName,
+  DeepPartial,
+  NestedJSONObject,
+  ConfigThemeValues,
+} from "./types";
 
-export type ThemeName = "dark" | "light" | "classic";
-type ActiveThemeName = "dark" | "light";
+// === CORE PROVIDERS ===
+export { ClickUIProvider, ServerClickUIProvider } from "./ClickUIProvider";
 
-export type CUIThemeType = GetTypes<typeof lightTheme>;
+// === HOOKS ===
+export {
+  useCUITheme,
+  useCUITheme as useClickUITheme, // Alias for convenience
+} from "./ClickUIProvider";
 
-export type PublicTheme = Prettify<{
-  breakpoint: CUIThemeType["breakpoint"];
-  global: CUIThemeType["global"];
-  sizes: CUIThemeType["sizes"];
-  name?: ThemeName;
-}>;
+// === UTILITIES ===
+export {
+  getBaseTheme,
+  getBaseThemeAsync,
+  preloadThemes,
+  getSystemTheme,
+  createSystemThemeListener,
+  loadCustomConfig,
+  deepMerge,
+} from "./utils";
 
-export const themes: Record<ActiveThemeName, CUIThemeType> = {
-  dark: darkTheme as unknown as CUIThemeType,
-  light: lightTheme as unknown as CUIThemeType,
-};
+// === CSS UTILITIES ===
+export { generateCSSVariables, injectThemeStyles } from "./utils/css-generator";
 
-declare module "styled-components" {
-  export interface DefaultTheme extends CUIThemeType {}
-}
+// === CONFIGURATION ===
+export { getThemeConfig } from "./config";
 
-const useCUITheme = () => {
-  const theme = useTheme();
-  return {
-    breakpoint: theme.breakpoint,
-    global: theme.global,
-    name: theme.name,
-    sizes: theme.sizes,
-  };
-};
-
-export { useCUITheme };
+// === RE-EXPORTS ===
+// For backward compatibility
+export type { ThemeName as ClickUIThemeName } from "./types";

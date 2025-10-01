@@ -12,6 +12,7 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from "@radix-ui/react-dialog";
+import clsx from "clsx";
 import {
   Button,
   ButtonProps,
@@ -22,9 +23,8 @@ import {
   Separator,
   Spacer,
 } from "@/components";
-import { styled } from "styled-components";
-import { CrossButton } from "../commonElement";
-import { keyframes } from "styled-components";
+import { CrossButton } from "@/components/commonElement";
+import styles from "./Flyout.module.scss";
 
 export type FlyoutProps = DialogProps;
 
@@ -74,84 +74,12 @@ export interface DialogContentProps extends RadixDialogContentProps {
   align?: DialogContentAlignmentType;
 }
 
-const animationWidth = () =>
-  keyframes({
-    from: { width: 0 },
-    to: { width: "fit-content" },
-  });
-
-const FlyoutContent = styled(DialogContent)<{
-  $size?: FlyoutSizeType;
-  $type?: FlyoutType;
-  $strategy: Strategy;
-  $width?: string;
-  $align: DialogContentAlignmentType;
-}>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  top: 0;
-  bottom: 0;
-  width: fit-content;
-  --flyout-width: ${({ theme, $size = "default", $width }) =>
-    $width || theme.click.flyout.size[$size].width};
-  animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  ${({ theme, $strategy, $type = "default", $align }) => `
-    ${$align === "start" ? "left" : "right"}: 0;
-    max-width: 100%;
-    position: ${$strategy};
-    height: ${$strategy === "relative" ? "100%" : "auto"};
-    padding: 0 ${theme.click.flyout.space[$type].x}
-    gap: ${theme.click.flyout.space[$type].gap};
-    box-shadow: ${
-      $align === "start"
-        ? theme.click.flyout.shadow.reverse
-        : theme.click.flyout.shadow.default
-    };
-    border-${$align === "start" ? "right" : "left"}: 1px solid ${
-      theme.click.flyout.color.stroke.default
-    };
-    background: ${theme.click.flyout.color.background.default};
-
-    @media (max-width: 1024px) {
-      ${
-        $strategy === "relative"
-          ? `
-            position: absolute !important;`
-          : ""
-      }
-      overflow: hidden;
-      transform: ${
-        $align === "start"
-          ? "translateX(calc(50px - 100%))"
-          : "translateX(calc(100% - 50px))"
-      };
-      transition: 0.3s ease-in-out;
-      &:hover,
-      &.active,
-      &:focus-within {
-        transform: translateX(0);
-        ${$align === "start" ? "right" : "left"}: auto;
-      }
-    }
-  `}
-`;
-const FlyoutContainer = styled.div`
-  display: flex;
-  gap: 0;
-  width: var(--flyout-width);
-  max-width: 100%;
-  flex-flow: column nowrap;
-  gap: inherit;
-`;
-
 const Content = ({
   showOverlay = false,
   children,
   container,
   strategy = "relative",
-  size,
+  size = "default",
   type = "default",
   closeOnInteractOutside = false,
   width,
@@ -159,13 +87,29 @@ const Content = ({
   onInteractOutside,
   ...props
 }: DialogContentProps) => {
+  const customWidthStyle = width
+    ? ({ "--flyout-width": width } as React.CSSProperties)
+    : {};
+
   return (
     <DialogPortal container={container}>
       {showOverlay && <DialogOverlay className="DialogOverlay" />}
-      <FlyoutContent
-        $size={size}
-        $type={type}
-        $strategy={strategy}
+      <DialogContent
+        className={clsx(styles.cuiFlyoutContent, {
+          [styles.cuiSizeDefault]: size === "default" && !width,
+          [styles.cuiSizeNarrow]: size === "narrow" && !width,
+          [styles.cuiSizeWide]: size === "wide" && !width,
+          [styles.cuiSizeWidest]: size === "widest" && !width,
+          [styles.cuiCustomWidth]: !!width,
+          [styles.cuiStrategyRelative]: strategy === "relative",
+          [styles.cuiStrategyAbsolute]: strategy === "absolute",
+          [styles.cuiStrategyFixed]: strategy === "fixed",
+          [styles.cuiTypeDefault]: type === "default",
+          [styles.cuiTypeInline]: type === "inline",
+          [styles.cuiAlignStart]: align === "start",
+          [styles.cuiAlignEnd]: align === "end",
+        })}
+        style={customWidthStyle}
         onInteractOutside={e => {
           if (!closeOnInteractOutside) {
             e.preventDefault();
@@ -174,30 +118,15 @@ const Content = ({
             onInteractOutside(e);
           }
         }}
-        $width={width}
-        $align={align}
         {...props}
       >
         {children}
-      </FlyoutContent>
+      </DialogContent>
     </DialogPortal>
   );
 };
 Content.displayName = "Flyout.Content";
 Flyout.Content = Content;
-
-const FlyoutElement = styled(Container)<{
-  $type?: FlyoutType;
-}>`
-  max-width: 100%;
-  max-width: -webkit-fill-available;
-  max-width: fill-available;
-  max-width: stretch;
-  ${({ theme, $type = "default" }) => `
-    gap: ${theme.click.flyout.space[$type].gap};
-    padding: 0 ${theme.click.flyout.space[$type].content.x};
-  `}
-`;
 
 interface ElementProps extends Omit<
   ContainerProps,
@@ -206,12 +135,15 @@ interface ElementProps extends Omit<
   type?: FlyoutType;
 }
 
-const Element = ({ type, ...props }: ElementProps) => (
-  <FlyoutElement
+const Element = ({ type = "default", ...props }: ElementProps) => (
+  <Container
     orientation="vertical"
     padding="none"
     gap="none"
-    $type={type}
+    className={clsx(styles.cuiFlyoutElement, {
+      [styles.cuiTypeDefault]: type === "default",
+      [styles.cuiTypeInline]: type === "inline",
+    })}
     {...props}
   />
 );
@@ -257,42 +189,10 @@ interface ChildrenHeaderProps extends Omit<
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
-const FlyoutHeaderContainer = styled(Container)<{
-  $type?: FlyoutType;
-}>`
-  ${({ theme, $type = "default" }) => `
-    row-gap: ${theme.click.flyout.space[$type].content["row-gap"]};
-    column-gap: ${theme.click.flyout.space[$type].content["column-gap"]};
-    padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].y} 0 ${theme.click.flyout.space[$type].y} ;
-  `}
-`;
-
-const FlyoutTitle = styled(DialogTitle)<{
-  $type?: FlyoutType;
-}>`
-  ${({ theme, $type = "default" }) => `
-    color: ${theme.click.flyout.color.title.default};
-    font: ${theme.click.flyout.typography[$type].title.default};
-    margin: 0;
-    padding: 0;
-  `}
-`;
-
-const FlyoutDescription = styled(DialogDescription)<{
-  $type?: FlyoutType;
-}>`
-  ${({ theme, $type = "default" }) => `
-    color: ${theme.click.flyout.color.description.default};
-    font: ${theme.click.flyout.typography[$type].description.default};
-    margin: 0;
-    padding: 0;
-  `}
-`;
-
 const Header = ({
   title,
   description,
-  type,
+  type = "default",
   children,
   showClose = true,
   showSeparator = true,
@@ -300,9 +200,12 @@ const Header = ({
 }: FlyoutHeaderProps) => {
   if (children) {
     return (
-      <FlyoutContainer>
-        <FlyoutHeaderContainer
-          $type={type}
+      <div className={styles.cuiFlyoutContainer}>
+        <Container
+          className={clsx(styles.cuiFlyoutHeaderContainer, {
+            [styles.cuiTypeDefault]: type === "default",
+            [styles.cuiTypeInline]: type === "inline",
+          })}
           justifyContent="space-between"
           alignItems="start"
           padding="none"
@@ -329,21 +232,24 @@ const Header = ({
               </CrossButton>
             </DialogClose>
           )}
-        </FlyoutHeaderContainer>
+        </Container>
         {showSeparator && (
           <Separator
             data-testid="flyout-header-separator"
             size="lg"
           />
         )}
-      </FlyoutContainer>
+      </div>
     );
   }
 
   return (
-    <FlyoutContainer>
-      <FlyoutHeaderContainer
-        $type={type}
+    <div className={styles.cuiFlyoutContainer}>
+      <Container
+        className={clsx(styles.cuiFlyoutHeaderContainer, {
+          [styles.cuiTypeDefault]: type === "default",
+          [styles.cuiTypeInline]: type === "inline",
+        })}
         justifyContent="space-between"
         alignItems="start"
         fillWidth={false}
@@ -356,9 +262,23 @@ const Header = ({
           orientation="vertical"
           grow="1"
         >
-          <FlyoutTitle $type={type}>{title}</FlyoutTitle>
+          <DialogTitle
+            className={clsx(styles.cuiFlyoutTitle, {
+              [styles.cuiTypeDefault]: type === "default",
+              [styles.cuiTypeInline]: type === "inline",
+            })}
+          >
+            {title}
+          </DialogTitle>
           {description && (
-            <FlyoutDescription $type={type}>{description}</FlyoutDescription>
+            <DialogDescription
+              className={clsx(styles.cuiFlyoutDescription, {
+                [styles.cuiTypeDefault]: type === "default",
+                [styles.cuiTypeInline]: type === "inline",
+              })}
+            >
+              {description}
+            </DialogDescription>
           )}
         </Container>
         {showClose && (
@@ -371,36 +291,34 @@ const Header = ({
             </CrossButton>
           </DialogClose>
         )}
-      </FlyoutHeaderContainer>
+      </Container>
       {showSeparator && (
         <Separator
           data-testid="flyout-header-separator"
           size="lg"
         />
       )}
-    </FlyoutContainer>
+    </div>
   );
 };
 Header.displayName = "Flyout.Header";
 Flyout.Header = Header;
 
 type FlyoutAlign = "default" | "top";
-const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
-  width: var(--flyout-width);
-  max-width: 100%;
-  margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
-`;
 
 interface BodyProps extends ContainerProps {
   align?: FlyoutAlign;
 }
 
-const Body = ({ align, ...props }: BodyProps) => (
-  <FlyoutBody
+const Body = ({ align = "default", ...props }: BodyProps) => (
+  <Container
     overflow="auto"
     orientation="vertical"
     grow="1"
-    $align={align}
+    className={clsx(styles.cuiFlyoutBody, {
+      [styles.cuiAlignTop]: align === "top",
+      [styles.cuiAlignDefault]: align === "default",
+    })}
     {...props}
   />
 );
@@ -414,16 +332,6 @@ export interface FlyoutFooterProps extends Omit<
 > {
   type?: FlyoutType;
 }
-
-const FlyoutFooter = styled(Container)<{
-  type?: FlyoutType;
-}>`
-  ${({ theme, type = "default" }) => `
-    row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
-    column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
-    padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].content.x};
-  `}
-`;
 
 interface FlyoutButtonProps extends Omit<ButtonProps, "children"> {
   children?: never;
@@ -447,45 +355,32 @@ const FlyoutClose = ({
 FlyoutClose.displayName = "Flyout.Close";
 Flyout.Close = FlyoutClose;
 
-const FooterContainer = styled(Container)`
-  width: var(--flyout-width);
-  max-width: 100%;
-`;
-
-const Footer = (props: FlyoutFooterProps) => {
+const Footer = ({ type = "default", ...props }: FlyoutFooterProps) => {
   return (
-    <FooterContainer
+    <Container
       gap="none"
       orientation="vertical"
       alignItems="end"
+      className={styles.cuiFooterContainer}
     >
       <Separator size="xs" />
-      <FlyoutFooter
+      <Container
         justifyContent="end"
         gap="none"
         padding="none"
         isResponsive={false}
         wrap="wrap"
+        className={clsx(styles.cuiFlyoutFooter, {
+          [styles.cuiTypeDefault]: type === "default",
+          [styles.cuiTypeInline]: type === "inline",
+        })}
         {...props}
       />
-    </FooterContainer>
+    </Container>
   );
 };
 Footer.displayName = "Flyout.Footer";
 Flyout.Footer = Footer;
-
-const CustomCodeBlock = styled(CodeBlock)`
-  display: flex;
-  height: 100%;
-  pre {
-    flex: 1;
-    overflow-wrap: break-word;
-    code {
-      display: inline-block;
-      max-width: calc(100% - 1rem);
-    }
-  }
-`;
 
 interface FlyoutCodeBlockProps extends ContainerProps {
   language?: string;
@@ -496,6 +391,7 @@ interface FlyoutCodeBlockProps extends ContainerProps {
   onCopy?: (value: string) => void | Promise<void>;
   onCopyError?: (error: string) => void | Promise<void>;
 }
+
 const FlyoutCodeBlock = ({
   statement,
   language,
@@ -511,16 +407,17 @@ const FlyoutCodeBlock = ({
       fillHeight
       {...props}
     >
-      <CustomCodeBlock
+      <CodeBlock
         wrapLines={wrapLines}
         language={language}
         showLineNumbers={showLineNumbers}
         showWrapButton={showWrapButton}
         onCopy={onCopy}
         onCopyError={onCopyError}
+        className={styles.cuiCustomCodeBlock}
       >
         {statement}
-      </CustomCodeBlock>
+      </CodeBlock>
       <Spacer size="xs" />
     </Element>
   );

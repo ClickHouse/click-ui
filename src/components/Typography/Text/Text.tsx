@@ -5,8 +5,9 @@ import {
   ReactNode,
   forwardRef,
 } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { TextSize, TextWeight } from "@/components/commonTypes";
+import styles from "./Text.module.scss";
 
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
@@ -36,10 +37,10 @@ type TextPolymorphicComponent = <T extends ElementType = "p">(
 
 const _Text = <T extends ElementType = "p">(
   {
-    align,
-    color,
-    size,
-    weight,
+    align = "left",
+    color = "default",
+    size = "md",
+    weight = "normal",
     className,
     children,
     component,
@@ -47,36 +48,41 @@ const _Text = <T extends ElementType = "p">(
     ...props
   }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
   ref: ComponentPropsWithRef<T>["ref"]
-) => (
-  <CuiText
-    as={component ?? "p"}
-    ref={ref}
-    $align={align}
-    $color={color}
-    $size={size}
-    $weight={weight}
-    $fillWidth={fillWidth}
-    className={className}
-    {...props}
-  >
-    {children}
-  </CuiText>
-);
+) => {
+  const Component = component ?? "p";
 
-const CuiText = styled.p<{
-  $align?: TextAlignment;
-  $color?: TextColor;
-  $size?: TextSize;
-  $weight?: TextWeight;
-  $fillWidth?: boolean;
-}>`
-  font: ${({ $size = "md", $weight = "normal", theme }) =>
-    theme.typography.styles.product.text[$weight][$size]};
-  color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
-  text-align: ${({ $align = "left" }) => $align};
-  margin: 0;
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
-`;
+  // Helper function to get font class based on size and weight
+  const getFontClass = (size: TextSize, weight: TextWeight) => {
+    const sizeCapitalized = size.charAt(0).toUpperCase() + size.slice(1);
+    const weightCapitalized =
+      weight === "normal" ? "" : weight.charAt(0).toUpperCase() + weight.slice(1);
+    return `fontSize${sizeCapitalized}${weightCapitalized}`;
+  };
+
+  return (
+    <Component
+      ref={ref}
+      className={clsx(
+        styles.cuiText,
+        {
+          [styles[getFontClass(size, weight)]]: true,
+          [styles.cuiColorDefault]: color === "default",
+          [styles.cuiColorMuted]: color === "muted",
+          [styles.cuiColorDanger]: color === "danger",
+          [styles.cuiColorDisabled]: color === "disabled",
+          [styles.cuiAlignLeft]: align === "left",
+          [styles.cuiAlignCenter]: align === "center",
+          [styles.cuiAlignRight]: align === "right",
+          [styles.cuiFillWidth]: fillWidth,
+        },
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};
 
 _Text.displayName = "Text";
 

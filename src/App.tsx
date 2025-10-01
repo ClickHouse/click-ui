@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 
 import "@/styles/globals.css";
 
-import styles from "./App.module.css";
-import { ThemeName } from "./theme";
+import styles from "./App.module.scss";
+import { ThemeName } from "@/theme";
+import { ClickUIProvider } from "@/theme/ClickUIProvider";
 import {
   Accordion,
   Alert,
@@ -11,7 +12,6 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  ClickUIProvider,
   CardSecondary,
   Checkbox,
   DangerAlert,
@@ -47,15 +47,9 @@ import {
 } from "@/components";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
-import { ProgressBar } from "./components/ProgressBar/ProgressBar";
-import GridExample from "./examples/GridExample";
-import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
-import { styled } from "styled-components";
-
-const BackgroundWrapper = styled.div`
-  background: ${({ theme }) => theme.global.color.background.default};
-  padding: 6rem;
-`;
+import { ProgressBar } from "@/components/ProgressBar/ProgressBar";
+import GridExample from "@/examples/GridExample";
+import MultiAccordionDemo from "@/components/MultiAccordion/MultiAccordionDemo";
 const headers: Array<TableHeaderType> = [
   { label: "Company", isSortable: true, sortDir: "asc" },
   { label: "Contact", isSortable: true, sortDir: "desc", sortPosition: "start" },
@@ -109,6 +103,29 @@ const App = () => {
       theme={currentTheme}
       config={{ tooltip: { delayDuration: 0 } }}
     >
+      <div
+        data-testid="theme-buttons"
+        className={styles.flexWrap}
+      >
+        <button
+          onClick={() => {
+            // Theme switching would now be handled by CSS variable updates
+            document.body.style.backgroundColor = "black";
+            setCurrentTheme("dark");
+          }}
+        >
+          Dark (CSS Variables)
+        </button>
+        <button
+          onClick={() => {
+            // Theme switching would now be handled by CSS variable updates
+            document.body.style.backgroundColor = "white";
+            setCurrentTheme("light");
+          }}
+        >
+          Light (CSS Variables)
+        </button>
+      </div>
       <Button
         onClick={() => {
           createToast({
@@ -181,7 +198,7 @@ const App = () => {
           ]}
         />
       </ToastProvider>
-      <BackgroundWrapper>
+      <div className={styles.cuiBackgroundWrapper}>
         <ProgressBar
           progress={100}
           dismissable
@@ -560,22 +577,6 @@ const App = () => {
           onCheckedChange={setChecked}
         />
         <div style={{ color: "white" }}>disabled: {`${disabled}`}</div>
-        <button
-          onClick={() => {
-            document.body.style.backgroundColor = "black";
-            setCurrentTheme("dark");
-          }}
-        >
-          Dark
-        </button>
-        <button
-          onClick={() => {
-            document.body.style.backgroundColor = "white";
-            setCurrentTheme("light");
-          }}
-        >
-          Light
-        </button>
 
         <Button
           type="primary"
@@ -817,7 +818,7 @@ const App = () => {
         <GridExample />
         <Spacer />
         <MultiAccordionDemo />
-      </BackgroundWrapper>
+      </div>
     </ClickUIProvider>
   );
 };

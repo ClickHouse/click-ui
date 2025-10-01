@@ -1,5 +1,6 @@
 import { HTMLAttributes } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import styles from "./BigStat.module.scss";
 export type bigStatOrder = "titleTop" | "titleBottom";
 export type bigStatSize = "sm" | "lg";
 export type bigStatSpacing = "sm" | "lg";
@@ -35,99 +36,55 @@ export const BigStat = ({
   height = "6rem",
   label = "Label",
   order = "titleTop",
-  size,
+  size = "lg",
   spacing = "sm",
   state = "default",
   title = "Title",
   error = false,
+  style,
   ...props
 }: BigStatProps) => (
-  <Wrapper
-    $height={height}
-    $order={order}
-    $size={size}
-    $spacing={spacing}
-    $state={state}
-    $fillWidth={fillWidth}
-    $maxWidth={maxWidth}
-    $error={error}
+  <div
+    className={clsx(styles.cuiWrapper, {
+      [styles.cuiDefault]: state === "default",
+      [styles.cuiMuted]: state === "muted",
+      [styles.cuiError]: error,
+      [styles.cuiSm]: size === "sm",
+      [styles.cuiLg]: size === "lg",
+      [styles.cuiSpacingSm]: spacing === "sm",
+      [styles.cuiSpacingLg]: spacing === "lg",
+      [styles.cuiTitleTop]: order === "titleTop",
+      [styles.cuiTitleBottom]: order === "titleBottom",
+      [styles.cuiFillWidth]: fillWidth,
+      [styles.cuiAutoWidth]: !fillWidth,
+    })}
+    style={{
+      ...style,
+      minHeight: height,
+      maxWidth: maxWidth || "none",
+    }}
     {...props}
   >
-    <Label
-      $state={state}
-      $size={size}
-      $error={error}
+    <div
+      className={clsx(styles.cuiLabel, {
+        [styles.cuiDefault]: state === "default",
+        [styles.cuiMuted]: state === "muted",
+        [styles.cuiError]: error,
+        [styles.cuiSm]: size === "sm",
+        [styles.cuiLg]: size === "lg",
+      })}
     >
       {label}
-    </Label>
-    <Title
-      $state={state}
-      $size={size}
+    </div>
+    <div
+      className={clsx(styles.cuiTitle, {
+        [styles.cuiDefault]: state === "default",
+        [styles.cuiMuted]: state === "muted",
+        [styles.cuiSm]: size === "sm",
+        [styles.cuiLg]: size === "lg",
+      })}
     >
       {title}
-    </Title>
-  </Wrapper>
+    </div>
+  </div>
 );
-
-const Wrapper = styled.div<{
-  $fillWidth?: boolean;
-  $maxWidth?: string;
-  $height?: string;
-  $order?: bigStatOrder;
-  $size?: bigStatSize;
-  $spacing?: bigStatSpacing;
-  $state?: bigStatState;
-  $error?: boolean;
-}>`
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  ${({
-    $fillWidth = false,
-    $maxWidth = "none",
-    $state = "default",
-    $size = "lg",
-    $height = "fixed",
-    $order,
-    $spacing = "sm",
-    $error = false,
-    theme,
-  }) => `
-    background-color: ${theme.click.bigStat.color.background[$state]};
-    color: ${theme.click.bigStat.color.label[$state]};
-    font: ${theme.click.bigStat.typography[$size].label[$state]};
-    border-radius: ${theme.click.bigStat.radii.all};
-    border: ${theme.click.bigStat.stroke} solid ${
-      $error
-        ? theme.click.bigStat.color.stroke.danger
-        : theme.click.bigStat.color.stroke[$state]
-    };
-  gap: ${theme.click.bigStat.space[$spacing].gap};
-  padding: ${theme.click.bigStat.space.all};
-  min-height: ${$height !== undefined ? `${$height}` : "auto"};
-  flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
-  width: ${$fillWidth === true ? "100%" : "auto"};
-  max-width: ${$maxWidth ? $maxWidth : "none"};
-  `}
-`;
-
-const Label = styled.div<{
-  $state?: bigStatState;
-  $size?: bigStatSize;
-  $error?: boolean;
-}>`
-  ${({ $state = "default", $size = "lg", $error = false, theme }) => `
-    color: ${$error ? theme.click.bigStat.color.label.danger : theme.click.bigStat.color.label[$state]};
-    font: ${theme.click.bigStat.typography[$size].label[$state]};
-  `}
-`;
-
-const Title = styled.div<{
-  $state?: bigStatState;
-  $size?: bigStatSize;
-}>`
-  ${({ $state = "default", $size = "lg", theme }) => `
-    color: ${theme.click.bigStat.color.title[$state]};
-    font: ${theme.click.bigStat.typography[$size].title[$state]};
-  `}
-`;

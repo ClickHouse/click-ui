@@ -1,6 +1,7 @@
 import { CursorOptions, Orientation } from "@/components";
-import { HTMLAttributes } from "react";
-import { styled } from "styled-components";
+import { HTMLAttributes, CSSProperties } from "react";
+import clsx from "clsx";
+import styles from "./Panel.module.scss";
 
 export type PanelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 export type PanelColor = "default" | "muted" | "transparent";
@@ -41,69 +42,127 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
 export const Panel = ({
   alignItems = "center",
   children,
-  color,
+  color = "default",
   cursor,
   fillHeight,
   fillWidth,
-  gap,
+  gap = "sm",
   hasBorder,
   hasShadow,
   height,
   orientation = "horizontal",
-  padding,
+  padding = "md",
   radii = "sm",
   width,
   ...props
-}: PanelProps) => (
-  <Wrapper
-    $alignItems={alignItems}
-    $color={color}
-    $cursor={cursor}
-    $fillHeight={fillHeight}
-    $fillWidth={fillWidth}
-    $gap={gap}
-    $hasBorder={hasBorder}
-    $hasShadow={hasShadow}
-    $height={height}
-    $orientation={orientation}
-    $padding={padding}
-    $radii={radii}
-    $width={width}
-    {...props}
-  >
-    {children}
-  </Wrapper>
-);
+}: PanelProps) => {
+  const inlineStyles: CSSProperties = {};
 
-const Wrapper = styled.div<{
-  $alignItems?: AlignItemsOption;
-  $color?: PanelColor;
-  $cursor?: CursorOptions;
-  $fillHeight?: boolean;
-  $fillWidth?: boolean;
-  $gap?: PanelPadding;
-  $hasBorder?: boolean;
-  $hasShadow?: boolean;
-  $height?: string;
-  $orientation?: Orientation;
-  $padding?: PanelPadding;
-  $radii?: PanelRadii;
-  $width?: string;
-}>`
-  display: flex;
-  flex-flow: ${({ $orientation = "horizontal" }) =>
-    $orientation === "horizontal" ? "row wrap" : "column"};
-  align-items: ${({ $alignItems = "center" }) =>
-    $alignItems === "center" ? "center" : `flex-${$alignItems}`};
-  width: ${({ $width, $fillWidth }) => ($fillWidth ? "100%" : $width)};
-  height: ${({ $height, $fillHeight }) => ($fillHeight ? "100%" : $height)};
-  background-color: ${({ $color = "default", theme }) =>
-    theme.click.panel.color.background[$color]};
-  border-radius: ${({ $radii = "sm", theme }) => theme.click.panel.radii[$radii]};
-  padding: ${({ $padding = "md", theme }) => theme.click.panel.space.y[$padding]};
-  border: ${({ $hasBorder, theme }) =>
-    $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
-  gap: ${({ $gap = "sm", theme }) => theme.click.panel.space.gap[$gap]};
-  ${({ $cursor }) => $cursor && `cursor: ${$cursor}`};
-`;
+  if (width && !fillWidth) {
+    inlineStyles.width = width;
+  }
+
+  if (height && !fillHeight) {
+    inlineStyles.height = height;
+  }
+
+  const className = clsx(styles.cuiPanel, {
+    // Orientation
+    [styles.cuiHorizontal]: orientation === "horizontal",
+    [styles.cuiVertical]: orientation === "vertical",
+
+    // Alignment
+    [styles.cuiAlignStart]: alignItems === "start",
+    [styles.cuiAlignCenter]: alignItems === "center",
+    [styles.cuiAlignEnd]: alignItems === "end",
+
+    // Size
+    [styles.cuiFillWidth]: fillWidth,
+    [styles.cuiFillHeight]: fillHeight,
+    [styles.cuiCustomWidth]: width && !fillWidth,
+    [styles.cuiCustomHeight]: height && !fillHeight,
+
+    // Color
+    [styles.cuiColorDefault]: color === "default",
+    [styles.cuiColorMuted]: color === "muted",
+    [styles.cuiColorTransparent]: color === "transparent",
+
+    // Border radius
+    [styles.cuiRadiiNone]: radii === "none",
+    [styles.cuiRadiiSm]: radii === "sm",
+    [styles.cuiRadiiMd]: radii === "md",
+    [styles.cuiRadiiLg]: radii === "lg",
+
+    // Padding
+    [styles.cuiPaddingNone]: padding === "none",
+    [styles.cuiPaddingXs]: padding === "xs",
+    [styles.cuiPaddingSm]: padding === "sm",
+    [styles.cuiPaddingMd]: padding === "md",
+    [styles.cuiPaddingLg]: padding === "lg",
+    [styles.cuiPaddingXl]: padding === "xl",
+
+    // Gap
+    [styles.cuiGapNone]: gap === "none",
+    [styles.cuiGapXs]: gap === "xs",
+    [styles.cuiGapSm]: gap === "sm",
+    [styles.cuiGapMd]: gap === "md",
+    [styles.cuiGapLg]: gap === "lg",
+    [styles.cuiGapXl]: gap === "xl",
+
+    // Border
+    [styles.cuiHasBorder]: hasBorder,
+    [styles.cuiNoBorder]: !hasBorder,
+
+    // Shadow
+    [styles.cuiHasShadow]: hasShadow,
+    [styles.cuiNoShadow]: !hasShadow,
+
+    // Cursor
+    [styles.cuiCursorAuto]: cursor === "auto",
+    [styles.cuiCursorDefault]: cursor === "default",
+    [styles.cuiCursorNone]: cursor === "none",
+    [styles.cuiCursorContextMenu]: cursor === "context-menu",
+    [styles.cuiCursorHelp]: cursor === "help",
+    [styles.cuiCursorPointer]: cursor === "pointer",
+    [styles.cuiCursorProgress]: cursor === "progress",
+    [styles.cuiCursorWait]: cursor === "wait",
+    [styles.cuiCursorCell]: cursor === "cell",
+    [styles.cuiCursorCrosshair]: cursor === "crosshair",
+    [styles.cuiCursorText]: cursor === "text",
+    [styles.cuiCursorVerticalText]: cursor === "vertical-text",
+    [styles.cuiCursorAlias]: cursor === "alias",
+    [styles.cuiCursorCopy]: cursor === "copy",
+    [styles.cuiCursorMove]: cursor === "move",
+    [styles.cuiCursorNoDrop]: cursor === "no-drop",
+    [styles.cuiCursorNotAllowed]: cursor === "not-allowed",
+    [styles.cuiCursorGrab]: cursor === "grab",
+    [styles.cuiCursorGrabbing]: cursor === "grabbing",
+    [styles.cuiCursorEResize]: cursor === "e-resize",
+    [styles.cuiCursorNResize]: cursor === "n-resize",
+    [styles.cuiCursorNeResize]: cursor === "ne-resize",
+    [styles.cuiCursorNwResize]: cursor === "nw-resize",
+    [styles.cuiCursorSResize]: cursor === "s-resize",
+    [styles.cuiCursorSeResize]: cursor === "se-resize",
+    [styles.cuiCursorSwResize]: cursor === "sw-resize",
+    [styles.cuiCursorWResize]: cursor === "w-resize",
+    [styles.cuiCursorEwResize]: cursor === "ew-resize",
+    [styles.cuiCursorNsResize]: cursor === "ns-resize",
+    [styles.cuiCursorNeswResize]: cursor === "nesw-resize",
+    [styles.cuiCursorNwseResize]: cursor === "nwse-resize",
+    [styles.cuiCursorColResize]: cursor === "col-resize",
+    [styles.cuiCursorRowResize]: cursor === "row-resize",
+    [styles.cuiCursorAllScroll]: cursor === "all-scroll",
+    [styles.cuiCursorZoomIn]: cursor === "zoom-in",
+    [styles.cuiCursorZoomOut]: cursor === "zoom-out",
+  });
+
+  return (
+    <div
+      className={className}
+      style={inlineStyles}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};

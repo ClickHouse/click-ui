@@ -1,0 +1,172 @@
+@use "cui-mixins" as mixins;
+
+.cuiWrapper {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+
+  &.cuiDefault {
+    justify-content: flex-start;
+    border-radius: var(--click-alert-radii-end);
+  }
+
+  &.cuiBanner {
+    justify-content: center;
+    border-radius: var(--sizes-0);
+  }
+
+  // State colors
+  &.cuiNeutral {
+    background-color: var(--click-alert-color-background-neutral);
+    color: var(--click-alert-color-text-neutral);
+  }
+
+  &.cuiSuccess {
+    background-color: var(--click-alert-color-background-success);
+    color: var(--click-alert-color-text-success);
+  }
+
+  &.cuiWarning {
+    background-color: var(--click-alert-color-background-warning);
+    color: var(--click-alert-color-text-warning);
+  }
+
+  &.cuiDanger {
+    background-color: var(--click-alert-color-background-danger);
+    color: var(--click-alert-color-text-danger);
+  }
+
+  &.cuiInfo {
+    background-color: var(--click-alert-color-background-info);
+    color: var(--click-alert-color-text-info);
+  }
+}
+
+.cuiIconWrapper {
+  display: flex;
+  align-items: center;
+
+  &.cuiDefault {
+    &.cuiNeutral {
+      background-color: var(--click-alert-color-iconBackground-neutral);
+    }
+
+    &.cuiSuccess {
+      background-color: var(--click-alert-color-iconBackground-success);
+    }
+
+    &.cuiWarning {
+      background-color: var(--click-alert-color-iconBackground-warning);
+    }
+
+    &.cuiDanger {
+      background-color: var(--click-alert-color-iconBackground-danger);
+    }
+
+    &.cuiInfo {
+      background-color: var(--click-alert-color-iconBackground-info);
+    }
+  }
+
+  &.cuiBanner {
+    background-color: transparent;
+  }
+
+  // Icon colors for different states
+  &.cuiNeutral {
+    color: var(--click-alert-color-iconForeground-neutral);
+  }
+
+  &.cuiSuccess {
+    color: var(--click-alert-color-iconForeground-success);
+  }
+
+  &.cuiWarning {
+    color: var(--click-alert-color-iconForeground-warning);
+  }
+
+  &.cuiDanger {
+    color: var(--click-alert-color-iconForeground-danger);
+  }
+
+  &.cuiInfo {
+    color: var(--click-alert-color-iconForeground-info);
+  }
+
+  // Size-based padding
+  &.cuiSmall {
+    padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
+  }
+
+  &.cuiMedium {
+    padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
+  }
+}
+
+.cuiStyledIcon {
+  &.cuiSmall {
+    height: var(--click-alert-small-icon-height);
+    width: var(--click-alert-small-icon-width);
+  }
+
+  &.cuiMedium {
+    height: var(--click-alert-medium-icon-height);
+    width: var(--click-alert-medium-icon-width);
+  }
+}
+
+.cuiTextWrapper {
+  display: flex;
+  flex-flow: column;
+  word-break: break-word;
+
+  &.cuiSmall {
+    gap: var(--click-alert-small-space-gap);
+    padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
+  }
+
+  &.cuiMedium {
+    gap: var(--click-alert-medium-space-gap);
+    padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
+  }
+
+  a {
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.cuiTitle {
+  margin: 0;
+
+  &.cuiSmall {
+    font: var(--click-alert-small-typography-title-default);
+  }
+
+  &.cuiMedium {
+    font: var(--click-alert-medium-typography-title-default);
+  }
+}
+
+.cuiText {
+  margin: 0;
+
+  &.cuiSmall {
+    font: var(--click-alert-small-typography-text-default);
+  }
+
+  &.cuiMedium {
+    font: var(--click-alert-medium-typography-text-default);
+  }
+}
+
+.cuiDismissWrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}

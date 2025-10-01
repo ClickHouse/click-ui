@@ -1,0 +1,90 @@
+@use "cui-mixins" as mixins;
+
+.cuiTitle {
+  margin: 0;
+  padding: 0;
+  font-style: inherit;
+
+  a,
+  a:visited {
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--global-color-title-muted);
+  }
+}
+
+// Font styles for product family
+.cuiFontSizeProductXs {
+  font: var(--typography-styles-product-titles-xs);
+}
+
+.cuiFontSizeProductSm {
+  font: var(--typography-styles-product-titles-sm);
+}
+
+.cuiFontSizeProductMd {
+  font: var(--typography-styles-product-titles-md);
+}
+
+.cuiFontSizeProductLg {
+  font: var(--typography-styles-product-titles-lg);
+}
+
+.cuiFontSizeProductXl {
+  font: var(--typography-styles-product-titles-xl);
+}
+
+// Font styles for brand family
+.cuiFontSizeBrandXs {
+  font: var(--typography-styles-brand-titles-xs);
+}
+
+.cuiFontSizeBrandSm {
+  font: var(--typography-styles-brand-titles-sm);
+}
+
+.cuiFontSizeBrandMd {
+  font: var(--typography-styles-brand-titles-md);
+}
+
+.cuiFontSizeBrandLg {
+  font: var(--typography-styles-brand-titles-lg);
+}
+
+.cuiFontSizeBrandXl {
+  font: var(--typography-styles-brand-titles-xl);
+}
+
+// Title colors
+.cuiColorDefault {
+  color: var(--global-color-title-default);
+
+  a,
+  a:visited {
+    color: var(--global-color-title-default);
+  }
+}
+
+.cuiColorMuted {
+  color: var(--global-color-title-muted);
+
+  a,
+  a:visited {
+    color: var(--global-color-title-muted);
+  }
+}
+
+// Text alignment
+.cuiAlignLeft {
+  text-align: left;
+}
+
+.cuiAlignCenter {
+  text-align: center;
+}
+
+.cuiAlignRight {
+  text-align: right;
+}

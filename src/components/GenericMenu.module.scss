@@ -1,0 +1,141 @@
+@use "cui-mixins" as mixins;
+
+.cuiGenericMenuPanel {
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: auto;
+  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
+  background: var(--click-genericMenu-panel-color-background-default);
+  box-shadow: var(--click-genericMenu-panel-shadow-default);
+  border-radius: var(--click-genericMenu-panel-radii-all);
+
+  &.cuiPopover {
+    max-width: var(--radix-popover-content-available-width);
+    max-height: var(--radix-popover-content-available-height);
+  }
+
+  &.cuiDropdownMenu {
+    max-width: var(--radix-dropdown-menu-content-available-width);
+    max-height: var(--radix-dropdown-menu-content-available-height);
+  }
+
+  &.cuiContextMenu {
+    max-width: var(--radix-context-menu-content-available-width);
+    max-height: var(--radix-context-menu-content-available-height);
+  }
+
+  &.cuiShowArrow {
+    &[data-side="bottom"] {
+      margin-top: -1px;
+    }
+    &[data-side="top"] {
+      margin-bottom: 1px;
+    }
+    &[data-side="left"] {
+      margin-right: -1px;
+    }
+    &[data-side="right"] {
+      margin-left: -1px;
+    }
+  }
+}
+
+.cuiGenericPopoverMenuPanel {
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 1;
+  border: 1px solid var(--click-popover-color-panel-stroke-default);
+  background: var(--click-popover-color-panel-background-default);
+  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  border-radius: var(--click-popover-radii-all);
+  box-shadow: var(--click-popover-shadow-default);
+
+  &.cuiPopoverType {
+    max-width: var(--radix-popover-content-available-width);
+    max-height: var(--radix-popover-content-available-height);
+  }
+
+  &.cuiHoverCard {
+    max-width: var(--radix-hover-card-content-available-width);
+    max-height: var(--radix-hover-card-content-available-height);
+  }
+
+  &.cuiShowArrow {
+    margin: -1px 0;
+  }
+}
+
+.cuiArrow {
+  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 4px 6px);
+  fill: var(--click-genericMenu-panel-color-background-default);
+  stroke: var(--click-genericMenu-panel-color-stroke-default);
+}
+
+.cuiGenericMenuItem {
+  display: flex;
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  outline: none;
+  position: relative;
+  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+  gap: var(--click-genericMenu-item-space-gap);
+  font: var(--click-genericMenu-item-typography-label-default);
+  background: var(--click-genericMenu-item-color-background-default);
+  color: var(--click-genericMenu-item-color-text-default);
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[data-highlighted] {
+    font: var(--click-genericMenu-item-typography-label-hover);
+    background: var(--click-genericMenu-item-color-background-hover);
+    color: var(--click-genericMenu-item-color-text-hover);
+    cursor: pointer;
+  }
+
+  &[data-state="open"],
+  &[data-state="checked"],
+  &[data-selected="true"] {
+    background: var(--click-genericMenu-item-color-background-active);
+    color: var(--click-genericMenu-item-color-text-active);
+    font: var(--click-genericMenu-item-typography-label-active);
+  }
+
+  &[data-disabled] {
+    color: var(--click-genericMenu-item-color-text-disabled);
+    font: var(--click-genericMenu-item-typography-label-disabled);
+    pointer-events: none;
+  }
+
+  &:visited {
+    color: var(--click-genericMenu-item-color-text-default);
+
+    a {
+      color: var(--click-genericMenu-item-color-text-default);
+    }
+  }
+
+  &:hover .dropdown-arrow,
+  &[data-state="open"] .dropdown-arrow {
+    left: 0.5rem;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}

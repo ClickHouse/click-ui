@@ -1,40 +1,12 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
 import { GridContainer } from "./GridContainer";
-import { Text } from "..";
-import { styled } from "styled-components";
+import { Text } from "@/components";
+import styles from "./GridContainer.stories.module.scss";
 
-const GridCenter = styled.div`
-  display: grid;
-  justify-items: center;
-  width: 100%;
-  height: 120px;
-`;
-
-const meta: Meta<typeof GridContainer> = {
-  component: GridContainer,
-  title: "Layout/GridContainer",
-  tags: ["grid_container", "autodocs"],
-};
-
-export default meta;
-
-type Story = StoryObj<typeof GridContainer>;
-
-export const Playground: Story = {
-  args: {
-    alignContent: "stretch",
-    alignItems: "stretch",
-    columnGap: "none",
-    inline: false,
-    isResponsive: true,
-    justifyContent: "stretch",
-    justifyItems: "stretch",
-    rowGap: "none",
-  },
-  render: args => (
-    <GridCenter>
+const ContainerExample = ({ ...props }) => {
+  return (
+    <div className={styles.cuiGridCenter}>
       <GridContainer
-        {...args}
+        {...props}
         style={{ border: "1px solid grey" }}
       >
         <Text>Parent container</Text>
@@ -48,6 +20,83 @@ export const Playground: Story = {
           <Text>Child</Text>
         </div>
       </GridContainer>
-    </GridCenter>
-  ),
+    </div>
+  );
+};
+
+export default {
+  component: ContainerExample,
+  title: "Layout/GridContainer",
+  tags: ["grid_container", "autodocs"],
+  argTypes: {
+    alignContent: {
+      control: "select",
+      options: [
+        "center",
+        "space-between",
+        "space-around",
+        "space-evenly",
+        "stretch",
+        "start",
+        "end",
+        "left",
+        "right",
+      ],
+    },
+    alignItems: { control: "select", options: ["start", "center", "end", "stretch"] },
+    columnGap: {
+      control: "select",
+      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
+    },
+    gap: {
+      control: "select",
+      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
+    },
+    gridAutoFlow: {
+      control: "select",
+      options: ["row", "column", "row-dense", "column-dense"],
+    },
+
+    isResponsive: { control: "boolean" },
+    justifyContent: {
+      control: "select",
+      options: [
+        "center",
+        "space-between",
+        "space-around",
+        "space-evenly",
+        "start",
+        "stretch",
+        "end",
+        "left",
+        "right",
+      ],
+    },
+    justifyItems: { control: "select", options: ["start", "center", "end", "stretch"] },
+    rowGap: {
+      control: "select",
+      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
+    },
+  },
+};
+
+export const Playground = {
+  args: {
+    alignContent: "stretch",
+    alignItems: "stretch",
+    columnGap: "none",
+    gap: "",
+    gridAutoColumns: "",
+    gridAutoFlow: "",
+    gridAutoRows: "",
+    gridTemplateAreas: "",
+    gridTemplateColumns: "",
+    gridTemplateRows: "",
+    gridTemplate: "",
+    inline: false,
+    isResponsive: true,
+    justifyContent: "stretch",
+    justifyItems: "stretch",
+    rowGap: "none",
+  },
 };

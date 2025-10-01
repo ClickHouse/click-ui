@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { Icon, HorizontalDirection, IconName } from "@/components";
-import { Collapsible } from "../Collapsible/Collapsible";
-import { SidebarTitleWrapper } from "../SidebarNavigationTitle/SidebarNavigationTitle";
+import { HorizontalDirection, IconName } from "@/components";
+import { Collapsible } from "@/components";
+import { SidebarNavigationTitle } from "@/components";
 
 export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
   /** The label content to display */
@@ -41,28 +41,16 @@ export const SidebarCollapsibleTitle = ({
       open={open}
       onOpenChange={onOpenChange}
     >
-      <SidebarTitleWrapper
-        as={Collapsible.Trigger}
-        $collapsible
-        iconDir={iconDir}
-        data-selected={selected}
-        $type={type}
-        {...props}
-      >
-        {icon && iconDir === "start" && (
-          <Icon
-            name={icon}
-            size="sm"
-          />
-        )}
-        {label}
-        {icon && iconDir === "end" && (
-          <Icon
-            name={icon}
-            size="sm"
-          />
-        )}
-      </SidebarTitleWrapper>
+      <Collapsible.Trigger>
+        <SidebarNavigationTitle
+          label={label}
+          icon={icon}
+          iconDir={iconDir}
+          selected={selected}
+          type={type}
+          {...props}
+        />
+      </Collapsible.Trigger>
       <Collapsible.Content>{children}</Collapsible.Content>
     </Collapsible>
   );

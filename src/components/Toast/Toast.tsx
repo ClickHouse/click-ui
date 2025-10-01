@@ -1,8 +1,9 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import * as RadixUIToast from "@radix-ui/react-toast";
 import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
-import { keyframes, styled } from "styled-components";
+import clsx from "clsx";
 import { toastsEventEmitter } from "./toastEmitter";
+import styles from "./Toast.module.scss";
 
 export interface ToastContextProps {
   createToast: (toast: ToastProps, align?: ToastAlignment) => void;
@@ -32,108 +33,6 @@ export interface ToastProps extends Omit<RadixUIToast.ToastProps, "type"> {
   align?: ToastAlignment;
 }
 
-const ToastIcon = styled(Icon)<{ $type?: ToastType }>`
-  ${({ theme, $type = "default" }) => `
-  width: ${theme.click.toast.icon.size.width};
-  height: ${theme.click.toast.icon.size.height};
-  color: ${theme.click.toast.color.icon[$type]}
-`}
-`;
-const hide = keyframes`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-`;
-const slideIn = keyframes`
-  from {
-    transform: translateX(calc(100% + var(--viewport-padding)));
-  }
-  to {
-    transform: translateX(0);
-  }
-`;
-const swipeOut = keyframes`
-  from {
-    transform: translateX(var(--radix-toast-swipe-end-x));
-  }
-  to {
-    transform: translateX(calc(100% + var(--viewport-padding)));
-  }
-`;
-
-const ToastRoot = styled(RadixUIToast.Root)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  ${({ theme }) => `
-    padding: ${theme.click.toast.space.y} ${theme.click.toast.space.x};
-    gap: ${theme.click.toast.space.gap};
-    border-radius: ${theme.click.toast.radii.all};
-    border: 1px solid ${theme.click.toast.color.stroke.default};
-    background: ${theme.click.global.color.background.default};
-    box-shadow: ${theme.click.toast.shadow};
-  `}
-  &[data-state='open'] {
-    animation: ${slideIn} 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  &[data-state="closed"] {
-    animation: ${hide} 100ms ease-in;
-  }
-  &[data-swipe="move"] {
-    transform: translateX(var(--radix-toast-swipe-move-x));
-  }
-  &[data-swipe="cancel"] {
-    transform: translateX(0);
-    transition: transform 200ms ease-out;
-  }
-  &[data-swipe="end"] {
-    animation: ${swipeOut} 100ms ease-out;
-  }
-`;
-
-const ToastHeader = styled(RadixUIToast.Title)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: inherit;
-  ${({ theme }) => `
-    font: ${theme.click.toast.typography.title.default};
-    color: ${theme.click.toast.color.title.default};
-  `}
-`;
-
-const ToastDescriptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  align-items: flex-end;
-  gap: inherit;
-  ${({ theme }) => `
-    font: ${theme.click.toast.typography.title.default};
-    color: ${theme.click.toast.color.title.default};
-  `}
-`;
-
-const ToastDescriptionContent = styled.div`
-  display: flex;
-  align-self: stretch;
-  gap: inherit;
-  ${({ theme }) => `
-    font: ${theme.click.toast.typography.description.default};
-    color: ${theme.click.toast.color.description.default};
-  `}
-`;
-
-const Title = styled.div`
-  flex: 1;
-`;
-
 export const Toast = ({
   type,
   toastType = "foreground",
@@ -154,34 +53,40 @@ export const Toast = ({
     iconName = "warning";
   }
   return (
-    <ToastRoot
+    <RadixUIToast.Root
+      className={styles.cuiToastRoot}
       onOpenChange={onClose}
       duration={duration}
       type={toastType}
       {...props}
     >
-      <ToastHeader>
+      <RadixUIToast.Title className={styles.cuiToastHeader}>
         {iconName.length > 0 && (
-          <ToastIcon
+          <Icon
             name={iconName as IconName}
-            $type={type}
+            className={clsx(styles.cuiToastIcon, {
+              [styles.cuiIconDefault]: type === "default",
+              [styles.cuiIconSuccess]: type === "success",
+              [styles.cuiIconDanger]: type === "danger",
+              [styles.cuiIconWarning]: type === "warning",
+            })}
           />
         )}
-        <Title>{title}</Title>
+        <div className={styles.cuiTitle}>{title}</div>
         <RadixUIToast.Close asChild>
           <IconButton
             icon="cross"
             type="ghost"
           />
         </RadixUIToast.Close>
-      </ToastHeader>
+      </RadixUIToast.Title>
       {(description || actions.length > 0) && (
-        <ToastDescriptionContainer>
-          <ToastDescriptionContent as={RadixUIToast.Description}>
+        <div className={styles.cuiToastDescriptionContainer}>
+          <RadixUIToast.Description className={styles.cuiToastDescriptionContent}>
             {description}
-          </ToastDescriptionContent>
+          </RadixUIToast.Description>
           {actions.length > 0 && (
-            <ToastDescriptionContent>
+            <div className={styles.cuiToastDescriptionContent}>
               {actions.map(({ altText, ...btnProps }) => (
                 <RadixUIToast.Action
                   altText={altText}
@@ -193,37 +98,13 @@ export const Toast = ({
                   </div>
                 </RadixUIToast.Action>
               ))}
-            </ToastDescriptionContent>
+            </div>
           )}
-        </ToastDescriptionContainer>
+        </div>
       )}
-    </ToastRoot>
+    </RadixUIToast.Root>
   );
 };
-
-const Viewport = styled(RadixUIToast.Viewport)<{ $align: ToastAlignment }>`
-  --viewport-padding: 25px;
-  position: fixed;
-  bottom: 0;
-  ${({ $align }) => {
-    if ($align === "start") {
-      return "left: 0";
-    }
-    return `
-      right: 0;
-  `;
-  }};
-  display: flex;
-  flex-direction: column;
-  padding: var(--viewport-padding);
-  gap: ${({ theme }) => theme.click.toast.space.gap};
-  width: ${({ theme }) => theme.click.toast.size.width};
-  max-width: 100vw;
-  margin: 0;
-  list-style: none;
-  z-index: 2147483647;
-  outline: none;
-`;
 
 export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
   align?: ToastAlignment;
@@ -296,7 +177,12 @@ export const ToastProvider = ({
           />
         ))}
       </ToastContext.Provider>
-      <Viewport $align={align} />
+      <RadixUIToast.Viewport
+        className={clsx(styles.cuiViewport, {
+          [styles.cuiAlignStart]: align === "start",
+          [styles.cuiAlignEnd]: align === "end",
+        })}
+      />
     </RadixUIToast.Provider>
   );
 };

@@ -7,7 +7,7 @@ import {
   GridContextMenuItemProps,
   Pagination,
   Switch,
-} from "..";
+} from "@/components";
 
 const Cell: CellProps = ({
   type,

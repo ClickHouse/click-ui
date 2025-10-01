@@ -1,0 +1,278 @@
+@use "cui-mixins" as mixins;
+
+.cuiSelectPopoverRoot {
+  width: 100%;
+}
+
+.cuiSelectValue {
+  text-align: left;
+  flex: 1;
+  gap: inherit;
+  color: inherit;
+  font: inherit;
+  overflow: hidden;
+}
+
+.cuiStyledSelectTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  min-height: var(--click-genericMenu-panel-size-height);
+  border-radius: var(--click-field-radii-all);
+  padding: var(--click-field-space-y) var(--click-field-space-x);
+  gap: var(--click-field-space-gap);
+  font: var(--click-field-typography-fieldText-default);
+  color: var(--click-field-color-text-default);
+  border: 1px solid var(--click-field-color-stroke-default);
+  background: var(--click-field-color-background-default);
+
+  span:first-of-type {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &:hover {
+    border: 1px solid var(--click-field-color-stroke-hover);
+    background: var(--click-field-color-background-hover);
+    color: var(--click-field-color-text-hover);
+  }
+
+  &:focus,
+  &[data-state="open"] {
+    font: var(--click-field-typography-fieldText-active);
+    border: 1px solid var(--click-field-color-stroke-active);
+    background: var(--click-field-color-background-active);
+    color: var(--click-field-color-text-active);
+
+    & ~ label {
+      color: var(--click-field-color-label-active);
+      font: var(--click-field-typography-label-active);
+    }
+  }
+
+  &:disabled {
+    font: var(--click-field-typography-fieldText-disabled);
+    border: 1px solid var(--click-field-color-stroke-disabled);
+    background: var(--click-field-color-background-disabled);
+    color: var(--click-field-color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  &.cuiError {
+    font: var(--click-field-typography-fieldText-error);
+    border: 1px solid var(--click-field-color-stroke-error);
+    background: var(--click-field-color-background-active);
+    color: var(--click-field-color-text-error);
+
+    &:hover {
+      border: 1px solid var(--click-field-color-stroke-error);
+      color: var(--click-field-color-text-error);
+    }
+
+    &:focus,
+    &[data-state="open"] {
+      font: var(--click-field-typography-fieldText-error);
+      border: 1px solid var(--click-field-color-stroke-error);
+      background: var(--click-field-color-background-active);
+      color: var(--click-field-color-text-error);
+    }
+  }
+
+  [data-hide-in-trigger] {
+    display: none;
+  }
+}
+
+.cuiSelectPopoverContent {
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+  border-radius: 0.25rem;
+  pointer-events: auto;
+  border: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  background: var(--click-genericMenu-item-color-background-default);
+  box-shadow:
+    0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+
+  &.cuiUseFullWidthItems {
+    min-width: var(--radix-popover-trigger-width);
+    width: 100%;
+
+    &.cuiHasCharacterLimit {
+      max-width: var(--character-limit);
+    }
+  }
+}
+
+.cuiSearchBarContainer {
+  width: auto;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
+  font: var(--click-genericMenu-autocomplete-typography-search-term-default);
+
+  &.cuiShowSearch {
+    padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+    height: auto;
+  }
+
+  &.cuiHideSearch {
+    padding: 0;
+    height: 0;
+  }
+}
+
+.cuiSearchBar {
+  background: transparent;
+  border: none;
+  width: 100%;
+  outline: none;
+  gap: var(--click-genericMenu-item-space-gap);
+  font: var(--click-genericMenu-autocomplete-typography-search-term-default);
+  color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
+
+  &::placeholder {
+    color: var(--click-genericMenu-autocomplete-color-placeholder-default);
+    font: var(--click-genericMenu-autocomplete-typography-search-placeholder-default);
+  }
+
+  &.cuiShowSearch {
+    min-height: 21px;
+    height: initial;
+    padding-right: 24px;
+    border-bottom: 2px solid var(--click-genericMenu-button-color-stroke-default);
+  }
+
+  &.cuiHideSearch {
+    min-height: 0;
+    height: 0;
+    padding: 0;
+    border-bottom: 0;
+  }
+}
+
+.cuiSearchClose {
+  position: absolute;
+  top: var(--click-genericMenu-item-space-y);
+  right: var(--click-genericMenu-item-space-x);
+
+  &.cuiShowClose {
+    visibility: visible;
+  }
+
+  &.cuiHideClose {
+    visibility: hidden;
+  }
+}
+
+.cuiSelectList {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  max-height: calc(var(--radix-popover-content-available-height) - 1rem);
+}
+
+.cuiSelectListContent {
+  width: inherit;
+  overflow: auto;
+  flex: 1;
+
+  &.cuiHasMaxHeight {
+    max-height: var(--max-height);
+  }
+}
+
+.cuiHiddenSelectElement {
+  @include mixins.cuiVisuallyHidden;
+  height: 0;
+}
+
+.cuiSelectGroupContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  overflow: hidden;
+  background: transparent;
+  font: var(--click-genericMenu-item-typography-sectionHeader-default);
+  color: var(--click-genericMenu-item-color-text-muted);
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.cuiSelectGroupName {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font: var(--click-genericMenu-item-typography-sectionHeader-default);
+  color: var(--click-genericMenu-item-color-text-muted);
+  padding: var(--click-genericMenu-sectionHeader-space-top) var(--click-genericMenu-item-space-x)
+    var(--click-genericMenu-sectionHeader-space-bottom);
+  gap: var(--click-genericMenu-item-space-gap);
+  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+}
+
+.cuiSelectGroupContent {
+  width: inherit;
+}
+
+.cuiSelectNoDataContainer {
+  border: none;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font: var(--click-genericMenu-button-typography-label-default);
+  padding: var(--click-genericMenu-button-space-y) var(--click-genericMenu-item-space-x);
+  background: var(--click-genericMenu-button-color-background-default);
+  color: var(--click-genericMenu-button-color-label-default);
+
+  &[hidden="true"] {
+    display: none;
+  }
+
+  &.cuiClickable {
+    cursor: pointer;
+  }
+
+  &.cuiNonClickable {
+    cursor: default;
+  }
+}
+
+.cuiSelectItemDescriptionText {
+  white-space: normal;
+
+  [data-disabled] &,
+  [disabled] & {
+    color: inherit;
+  }
+
+  .cuiStyledSelectTrigger & {
+    display: none;
+  }
+}

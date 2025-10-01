@@ -1,0 +1,60 @@
+@use "cui-mixins" as mixins;
+
+.cuiGridContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  user-select: none;
+  overflow-anchor: none;
+}
+
+.cuiGridDataContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cuiContextMenuTrigger {
+  outline: none;
+  overflow: hidden;
+  width: 100%;
+  background: var(--click-grid-body-cell-color-background-default);
+
+  // Height variants
+  &.cuiAutoHeight {
+    // Height will be calculated dynamically
+  }
+
+  &.cuiFixedHeight {
+    height: 100%;
+  }
+
+  // Rounded variants
+  &.cuiRoundedNone {
+    border-radius: var(--click-grid-radii-none);
+  }
+
+  &.cuiRoundedSm {
+    border-radius: var(--click-grid-radii-sm);
+  }
+
+  &.cuiRoundedMd {
+    border-radius: var(--click-grid-radii-md);
+  }
+
+  &.cuiRoundedLg {
+    border-radius: var(--click-grid-radii-lg);
+  }
+
+  &.cuiRoundedXl {
+    border-radius: var(--click-grid-radii-xl);
+  }
+
+  // Border variants
+  &.cuiShowBorder {
+    border: 1px solid var(--click-grid-header-cell-color-stroke-default);
+  }
+
+  &.cuiHideBorder {
+    border: none;
+  }
+}

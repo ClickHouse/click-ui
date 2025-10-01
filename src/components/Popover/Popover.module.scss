@@ -1,0 +1,31 @@
+@use "cui-mixins" as mixins;
+
+.cuiTrigger {
+  background: inherit;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  width: fit-content;
+}
+
+.cuiMenuPanel {
+  display: block;
+  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  background-color: var(--click-popover-color-panel-background-default);
+  border: 1px solid var(--click-popover-color-panel-stroke-default);
+  border-radius: var(--click-popover-radii-all);
+  box-shadow: var(--click-popover-shadow-default);
+
+  &.cuiShowClose {
+    padding-top: 1rem;
+  }
+}
+
+.cuiCloseButton {
+  position: absolute;
+  top: var(--click-popover-space-y);
+  right: var(--click-popover-space-x);
+  width: var(--click-popover-icon-size-width);
+  height: var(--click-popover-icon-size-height);
+}

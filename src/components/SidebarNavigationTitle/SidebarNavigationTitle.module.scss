@@ -1,0 +1,66 @@
+@use "cui-mixins" as mixins;
+
+.cuiSidebarTitleWrapper {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+
+  // Base styles for main type
+  &.cuiMain {
+    font: var(--click-sidebar-navigation-title-typography-default);
+    color: var(--click-sidebar-main-navigation-title-color-default);
+
+    &:hover {
+      font: var(--click-sidebar-navigation-title-typography-hover);
+      color: var(--click-sidebar-main-navigation-title-color-hover);
+    }
+
+    &:active,
+    &.cuiSelected,
+    &.open {
+      font: var(--click-sidebar-navigation-title-typography-active);
+      color: var(--click-sidebar-main-navigation-title-color-active);
+    }
+  }
+
+  // Base styles for sqlSidebar type
+  &.cuiSqlSidebar {
+    font: var(--click-sidebar-navigation-title-typography-default);
+    color: var(--click-sidebar-sqlSidebar-navigation-title-color-default);
+
+    &:hover {
+      font: var(--click-sidebar-navigation-title-typography-hover);
+      color: var(--click-sidebar-sqlSidebar-navigation-title-color-hover);
+    }
+
+    &:active,
+    &.cuiSelected,
+    &.open {
+      font: var(--click-sidebar-navigation-title-typography-active);
+      color: var(--click-sidebar-sqlSidebar-navigation-title-color-active);
+    }
+  }
+
+  // Collapsible padding adjustment
+  &:not(.cuiCollapsible) {
+    padding-left: var(--click-image-sm-size-width);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:active {
+      color: inherit;
+    }
+  }
+}

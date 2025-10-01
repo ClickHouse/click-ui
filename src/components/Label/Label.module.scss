@@ -1,0 +1,49 @@
+@use "cui-mixins" as mixins;
+
+.cuiLabel {
+  color: var(--click-field-color-label-default);
+  font: var(--click-field-typography-label-default);
+
+  &:hover {
+    color: var(--click-field-color-label-hover);
+    font: var(--click-field-typography-label-hover);
+  }
+
+  &:focus,
+  &:focus-within {
+    color: var(--click-field-color-label-active);
+    font: var(--click-field-typography-label-active);
+  }
+
+  &.cuiDisabled {
+    color: var(--click-field-color-label-disabled);
+    font: var(--click-field-typography-label-disabled);
+
+    &:hover {
+      color: var(--click-field-color-label-disabled);
+      font: var(--click-field-typography-label-disabled);
+    }
+
+    &:focus,
+    &:focus-within {
+      color: var(--click-field-color-label-disabled);
+      font: var(--click-field-typography-label-disabled);
+    }
+  }
+
+  &.cuiError {
+    color: var(--click-field-color-label-error);
+    font: var(--click-field-typography-label-error);
+
+    &:hover {
+      color: var(--click-field-color-label-error);
+      font: var(--click-field-typography-label-error);
+    }
+
+    &:focus,
+    &:focus-within {
+      color: var(--click-field-color-label-error);
+      font: var(--click-field-typography-label-error);
+    }
+  }
+}

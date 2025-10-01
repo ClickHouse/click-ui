@@ -1,0 +1,320 @@
+@use "cui-mixins" as mixins;
+
+// Wrapper for input fields with various states
+.cuiWrapper {
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--click-field-space-gap);
+  border-radius: var(--click-field-radii-all);
+  font: var(--click-field-typography-fieldText-default);
+  color: var(--click-field-color-text-default);
+  border: 1px solid var(--click-field-color-stroke-default);
+  background: var(--click-field-color-background-default);
+
+  span:first-of-type {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  // Autofill styles
+  :global(*:autofill),
+  :global(*:-webkit-autofill) {
+    -webkit-box-shadow: 0 0 0px 50vh var(--click-field-color-background-default) inset;
+    -webkit-text-fill-color: var(--click-field-color-text-default);
+    caret-color: var(--click-field-color-text-default);
+  }
+
+  &:hover {
+    border: 1px solid var(--click-field-color-stroke-hover);
+    background: var(--click-field-color-background-hover);
+    color: var(--click-field-color-text-hover);
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh var(--click-field-color-background-hover) inset;
+      -webkit-text-fill-color: var(--click-field-color-text-hover);
+      caret-color: var(--click-field-color-text-hover);
+    }
+  }
+
+  &:focus-within,
+  &[data-state="open"] {
+    font: var(--click-field-typography-fieldText-active);
+    border: 1px solid var(--click-field-color-stroke-active);
+    background: var(--click-field-color-background-active);
+    color: var(--click-field-color-text-active);
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh var(--click-field-color-background-active) inset;
+      -webkit-text-fill-color: var(--click-field-color-text-active);
+      caret-color: var(--click-field-color-text-active);
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    font: var(--click-field-typography-fieldText-disabled);
+    border: 1px solid var(--click-field-color-stroke-disabled);
+    background: var(--click-field-color-background-disabled);
+    color: var(--click-field-color-text-disabled);
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh var(--click-field-color-background-disabled) inset;
+      -webkit-text-fill-color: var(--click-field-color-text-disabled);
+      caret-color: var(--click-field-color-text-disabled);
+    }
+  }
+}
+
+// Error state styling
+.cuiError {
+  font: var(--click-field-typography-fieldText-error);
+  border: 1px solid var(--click-field-color-stroke-error);
+  background: var(--click-field-color-background-active);
+  color: var(--click-field-color-text-error);
+
+  :global(*:autofill),
+  :global(*:-webkit-autofill) {
+    -webkit-box-shadow: 0 0 0px 50vh var(--click-field-color-background-error) inset;
+    -webkit-text-fill-color: var(--click-field-color-text-error);
+    caret-color: var(--click-field-color-text-error);
+  }
+
+  &:hover {
+    border: 1px solid var(--click-field-color-stroke-error);
+    color: var(--click-field-color-text-error);
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh var(--click-field-color-background-error) inset;
+      -webkit-text-fill-color: var(--click-field-color-text-error);
+      caret-color: var(--click-field-color-text-error);
+    }
+  }
+
+  // Override focus styles for error state
+  &:focus-within,
+  &[data-state="open"] {
+    font: var(--click-field-typography-fieldText-error);
+    border: 1px solid var(--click-field-color-stroke-error);
+    background: var(--click-field-color-background-active);
+    color: var(--click-field-color-text-error);
+  }
+}
+
+// Resize variants
+.cuiResizeVertical {
+  resize: vertical;
+  overflow: auto;
+}
+
+.cuiResizeHorizontal {
+  resize: horizontal;
+  overflow: auto;
+}
+
+.cuiResizeBoth {
+  resize: both;
+  overflow: auto;
+}
+
+// Form root container
+.cuiFormRoot {
+  display: flex;
+  width: 100%;
+  gap: var(--click-field-space-gap);
+
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// Orientation variants
+.cuiVertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cuiVerticalReversed {
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+
+.cuiHorizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.cuiHorizontalReversed {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+
+// Label padding for horizontal layout
+.cuiLabelPadding {
+  label {
+    padding-top: calc(var(--click-field-space-y) + 1px);
+    line-height: 1lh;
+  }
+}
+
+// Form element container
+.cuiFormElementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  gap: var(--click-field-space-gap);
+}
+
+// Error message styling
+.cuiErrorMessage {
+  font: var(--click-field-typography-label-error);
+  color: var(--click-field-color-label-error);
+}
+
+// Label styling
+.cuiLabel {
+  // Base label styles will be inherited from Label component
+}
+
+.cuiLabelWithColor {
+  // Custom color will be applied via style prop
+}
+
+// Input element base
+.cuiInputElement {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  padding: var(--click-field-space-y) 0;
+
+  &::placeholder {
+    color: var(--click-field-color-placeholder-default);
+  }
+
+  &:disabled,
+  &.disabled {
+    &::placeholder {
+      color: var(--click-field-color-placeholder-disabled);
+    }
+  }
+}
+
+// Input with start content
+.cuiInputWithStartContent {
+  padding-left: 0;
+}
+
+// Input with end content
+.cuiInputWithEndContent {
+  padding-right: 0;
+}
+
+// Input with both start and end content
+.cuiInputNoPadding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Input with default padding
+.cuiInputWithPadding {
+  padding-left: var(--click-field-space-x);
+  padding-right: var(--click-field-space-x);
+}
+
+// Number input element
+.cuiNumberInputElement {
+  @extend .cuiInputElement;
+}
+
+// Hide number input controls
+.cuiHideNumberControls {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
+}
+
+// Textarea element
+.cuiTextareaElement {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  resize: none;
+  padding: var(--click-field-space-y) var(--click-field-space-x);
+  align-self: stretch;
+
+  &::placeholder {
+    color: var(--click-field-color-placeholder-default);
+  }
+
+  &:disabled,
+  &.disabled {
+    &::placeholder {
+      color: var(--click-field-color-placeholder-disabled);
+    }
+  }
+}
+
+// Icon button
+.cuiIconButton {
+  background: transparent;
+  color: inherit;
+  border: none;
+  padding: var(--click-field-space-y) 0;
+  outline: none;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+// Icon wrapper
+.cuiIconWrapper {
+  &:first-of-type {
+    padding-left: var(--click-field-space-gap);
+  }
+
+  &:last-of-type {
+    padding-right: var(--click-field-space-x);
+  }
+}
+
+// Input start content
+.cuiInputStartContent {
+  padding-left: var(--click-field-space-x);
+  cursor: text;
+  gap: var(--click-field-space-gap);
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+}
+
+// Input end content
+.cuiInputEndContent {
+  padding-right: var(--click-field-space-x);
+  gap: var(--click-field-space-gap);
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+}

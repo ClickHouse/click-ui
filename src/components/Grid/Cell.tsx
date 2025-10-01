@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import { GridChildComponentProps, areEqual } from "react-window";
 import { ItemDataType } from "./types";
 import { StyledCell } from "./StyledCell";
@@ -79,10 +79,6 @@ export const Cell = memo(
         ref={cellRef}
       >
         <StyledCell
-          as={CellData}
-          rowIndex={currentRowIndex}
-          columnIndex={columnIndex}
-          type="row-cell"
           data-selected={isFocused || selectionType === "selectDirect"}
           data-focused={isFocused}
           $isSelectedTop={selectionBorderTop}
@@ -98,8 +94,14 @@ export const Cell = memo(
           data-grid-column={columnIndex}
           $showBorder
           $rowAutoHeight={rowAutoHeight}
-          {...props}
-        />
+        >
+          {React.createElement(CellData, {
+            rowIndex: currentRowIndex,
+            columnIndex: columnIndex,
+            type: "row-cell",
+            ...props,
+          })}
+        </StyledCell>
       </div>
     );
   },

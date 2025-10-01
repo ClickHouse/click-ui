@@ -1,0 +1,264 @@
+@use "cui-mixins" as mixins;
+
+.cuiStepRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  counter-reset: vertical-stepper;
+  width: 100%;
+}
+
+.cuiStepItem {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  box-sizing: content-box;
+
+  // Numbered stepper styles
+  &.cuiNumbered {
+    &.cuiActive {
+      row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
+      column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
+      padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-active);
+    }
+
+    &:not(.cuiActive) {
+      row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
+      column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
+      padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-default);
+    }
+
+    &:not(:last-of-type) {
+      &::before {
+        content: "";
+        position: absolute;
+        top: var(--click-stepper-vertical-numbered-step-size-height);
+        height: 100%;
+        left: calc(var(--click-stepper-vertical-numbered-step-size-width) / 2);
+        width: var(--click-stepper-vertical-numbered-connector-size-width);
+        box-sizing: content-box;
+      }
+
+      &.cuiComplete::before {
+        background: var(--click-stepper-vertical-numbered-connector-color-stroke-complete);
+      }
+
+      &.cuiActive::before {
+        background: var(--click-stepper-vertical-numbered-connector-color-stroke-active);
+      }
+
+      &.cuiIncomplete::before {
+        background: var(--click-stepper-vertical-numbered-connector-color-stroke-incomplete);
+      }
+    }
+  }
+
+  // Bulleted stepper styles
+  &.cuiBulleted {
+    &.cuiActive {
+      row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
+      column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+      padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-active);
+    }
+
+    &:not(.cuiActive) {
+      row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
+      column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+      padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-default);
+    }
+
+    &:not(:last-of-type) {
+      &::before {
+        content: "";
+        position: absolute;
+        top: var(--click-stepper-vertical-bulleted-step-size-height);
+        height: 100%;
+        left: calc(var(--click-stepper-vertical-bulleted-step-size-width) / 2);
+        width: var(--click-stepper-vertical-bulleted-connector-size-width);
+        box-sizing: content-box;
+      }
+
+      &.cuiComplete::before {
+        background: var(--click-stepper-vertical-bulleted-connector-color-stroke-complete);
+      }
+
+      &.cuiActive::before {
+        background: var(--click-stepper-vertical-bulleted-connector-color-stroke-active);
+      }
+
+      &.cuiIncomplete::before {
+        background: var(--click-stepper-vertical-bulleted-connector-color-stroke-incomplete);
+      }
+    }
+  }
+}
+
+.cuiStepTrigger {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  gap: inherit;
+  flex-direction: row;
+
+  &.cuiComplete {
+    cursor: pointer;
+  }
+
+  &.cuiActive {
+    cursor: default;
+  }
+
+  &.cuiIncomplete {
+    cursor: not-allowed;
+  }
+}
+
+.cuiStepBubble {
+  display: grid;
+  place-items: center;
+  position: relative;
+  border-radius: var(--click-stepper-vertical-numbered-step-radii-default);
+  border-width: 2px;
+  border-style: solid;
+  font: var(--click-stepper-vertical-numbered-step-typography-number-default);
+  counter-increment: vertical-stepper;
+  box-sizing: content-box;
+
+  // Numbered stepper bubble styles
+  &.cuiNumbered {
+    width: var(--click-stepper-vertical-numbered-step-size-width);
+    height: var(--click-stepper-vertical-numbered-step-size-width);
+    border-radius: var(--click-stepper-vertical-numbered-step-radii-default);
+
+    &.cuiComplete {
+      background: var(--click-stepper-vertical-numbered-step-color-background-complete);
+      border-color: var(--click-stepper-vertical-numbered-step-color-stroke-complete);
+      color: var(--click-stepper-vertical-numbered-step-color-icon-complete);
+    }
+
+    &.cuiActive {
+      background: var(--click-stepper-vertical-numbered-step-color-background-active);
+      border-color: var(--click-stepper-vertical-numbered-step-color-stroke-active);
+      color: var(--click-stepper-vertical-numbered-step-color-icon-active);
+    }
+
+    &.cuiIncomplete {
+      background: var(--click-stepper-vertical-numbered-step-color-background-incomplete);
+      border-color: var(--click-stepper-vertical-numbered-step-color-stroke-incomplete);
+      color: var(--click-stepper-vertical-numbered-step-color-icon-incomplete);
+    }
+
+    &:not(.cuiComplete)::before {
+      box-sizing: content-box;
+      font: inherit;
+      color: inherit;
+      content: counter(vertical-stepper);
+    }
+  }
+
+  // Bulleted stepper bubble styles
+  &.cuiBulleted {
+    width: var(--click-stepper-vertical-bulleted-step-size-width);
+    height: var(--click-stepper-vertical-bulleted-step-size-width);
+    border-radius: var(--click-stepper-vertical-bulleted-step-radii-default);
+
+    &.cuiComplete {
+      background: var(--click-stepper-vertical-bulleted-step-color-background-complete);
+      border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-complete);
+      color: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
+
+      &::after {
+        box-sizing: content-box;
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        border-radius: inherit;
+        background: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
+      }
+    }
+
+    &.cuiActive {
+      background: var(--click-stepper-vertical-bulleted-step-color-background-active);
+      border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-active);
+      color: var(--click-stepper-vertical-bulleted-step-color-icon-active);
+    }
+
+    &.cuiIncomplete {
+      background: var(--click-stepper-vertical-bulleted-step-color-background-incomplete);
+      border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-incomplete);
+      color: var(--click-stepper-vertical-bulleted-step-color-icon-incomplete);
+    }
+  }
+}
+
+.cuiCheckIcon {
+  color: inherit;
+
+  path {
+    stroke-width: 3;
+  }
+}
+
+.cuiStepLabel {
+  display: flex;
+  flex-direction: column;
+  gap: inherit;
+
+  // Numbered stepper label styles
+  &.cuiNumbered {
+    &.cuiComplete {
+      font: var(--click-stepper-vertical-numbered-typography-title-default);
+      color: var(--click-stepper-vertical-numbered-color-title-complete);
+    }
+
+    &.cuiActive {
+      font: var(--click-stepper-vertical-numbered-typography-title-default);
+      color: var(--click-stepper-vertical-numbered-color-title-active);
+    }
+
+    &.cuiIncomplete {
+      font: var(--click-stepper-vertical-numbered-typography-title-default);
+      color: var(--click-stepper-vertical-numbered-color-title-incomplete);
+    }
+  }
+
+  // Bulleted stepper label styles
+  &.cuiBulleted {
+    &.cuiComplete {
+      font: var(--click-stepper-vertical-bulleted-typography-title-default);
+      color: var(--click-stepper-vertical-bulleted-color-title-complete);
+    }
+
+    &.cuiActive {
+      font: var(--click-stepper-vertical-bulleted-typography-title-default);
+      color: var(--click-stepper-vertical-bulleted-color-title-active);
+    }
+
+    &.cuiIncomplete {
+      font: var(--click-stepper-vertical-bulleted-typography-title-default);
+      color: var(--click-stepper-vertical-bulleted-color-title-incomplete);
+    }
+  }
+}
+
+.cuiStepContent {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  // Numbered stepper content styles
+  &.cuiNumbered {
+    padding-left: var(--click-stepper-vertical-numbered-content-space-left);
+  }
+
+  // Bulleted stepper content styles
+  &.cuiBulleted {
+    padding-left: var(--click-stepper-vertical-bulleted-content-space-left);
+  }
+}

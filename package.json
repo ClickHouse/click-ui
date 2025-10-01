@@ -33,7 +33,7 @@
   },
   "homepage": "https://clickhouse.com",
   "scripts": {
-    "build": "tsc && vite build && yarn build:bundled",
+    "build": "tsc && vite build && npm run build:bundled",
     "build:bundled": "vite build -- bundled",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
@@ -69,6 +69,7 @@
     "@radix-ui/react-toast": "1.1.5",
     "@radix-ui/react-tooltip": "1.0.7",
     "lodash": "^4.17.21",
+    "clsx": "^2.1.1",
     "react-sortablejs": "^6.1.4",
     "react-syntax-highlighter": "^15.5.0",
     "react-virtualized-auto-sizer": "^1.0.20",
