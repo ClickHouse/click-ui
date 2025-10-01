@@ -2,8 +2,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { MultiSelect } from "./MultiSelect";
 import { selectOptions } from "./selectOptions";
 import { useEffect, useState } from "react";
-import { Container } from "../Container/Container";
-import { Panel } from "../Panel/Panel";
+import { Container } from "@/components/Container/Container";
+import { Panel } from "@/components/Panel/Panel";
 
 const meta: Meta<typeof MultiSelect> = {
   component: MultiSelect,

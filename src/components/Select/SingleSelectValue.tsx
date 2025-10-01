@@ -1,17 +1,6 @@
-import { styled } from "styled-components";
 import { SelectItemProps } from "./common/types";
-import IconWrapper from "../IconWrapper/IconWrapper";
-
-const SelectValueContainer = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  cursor: inherit;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  pointer-events: inherit;
-`;
+import { IconWrapper } from "@/components";
+import styles from "./SingleSelectValue.module.scss";
 
 const SingleSelectValue = ({
   valueNode,
@@ -27,7 +16,7 @@ const SingleSelectValue = ({
   const { icon, iconDir, children, label } = valueNode ?? {};
 
   return (
-    <SelectValueContainer>
+    <div className={styles.cuiSelectValueContainer}>
       <IconWrapper
         icon={icon}
         iconDir={iconDir}
@@ -35,7 +24,7 @@ const SingleSelectValue = ({
       >
         {label ?? children ?? value}
       </IconWrapper>
-    </SelectValueContainer>
+    </div>
   );
 };
 

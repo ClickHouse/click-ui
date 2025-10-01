@@ -1,0 +1,54 @@
+@use "cui-mixins" as mixins;
+
+.cuiBackground {
+  background-image: var(--click-card-promotion-color-stroke-default);
+  padding: 1px;
+  border-radius: var(--click-card-promotion-radii-all);
+  box-shadow: var(--click-card-shadow);
+  display: flex;
+
+  &:focus {
+    background: var(--click-card-promotion-color-stroke-focus);
+  }
+}
+
+.cuiWrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  background: var(--click-card-promotion-color-background-default);
+  color: var(--click-card-promotion-color-text-default);
+  border-radius: var(--click-card-promotion-radii-all);
+  padding: var(--click-card-promotion-space-y) var(--click-card-promotion-space-x);
+  gap: var(--click-card-promotion-space-gap);
+  transition: 0.2s ease-in-out all;
+
+  &:hover {
+    background: var(--click-card-promotion-color-background-hover);
+    color: var(--click-card-promotion-color-text-hover);
+  }
+
+  &:active,
+  &:focus {
+    background: var(--click-card-promotion-color-background-active);
+    color: var(--click-card-promotion-color-text-active);
+  }
+}
+
+.cuiCardIcon {
+  height: var(--click-card-promotion-icon-size-all);
+  width: var(--click-card-promotion-icon-size-all);
+  color: var(--click-card-promotion-color-icon-default);
+}
+
+.cuiDismissWrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}

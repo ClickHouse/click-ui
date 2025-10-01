@@ -1,6 +1,6 @@
 import { Alert, AlertProps } from "@/components/Alert/Alert";
 import { ICON_NAMES } from "@/components/Icon/types.ts";
-import { Container } from "..";
+import { Container } from "@/components";
 
 const ExampleAlert = (props: AlertProps) => {
   return (

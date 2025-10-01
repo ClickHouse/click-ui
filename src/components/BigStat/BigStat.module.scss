@@ -1,0 +1,130 @@
+@use "cui-mixins" as mixins;
+
+.cuiWrapper {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--click-bigStat-radii-all);
+  border: var(--click-bigStat-stroke) solid;
+
+  // State variants
+  &.cuiDefault {
+    background-color: var(--click-bigStat-color-background-default);
+    color: var(--click-bigStat-color-label-default);
+    border-color: var(--click-bigStat-color-stroke-default);
+  }
+
+  &.cuiMuted {
+    background-color: var(--click-bigStat-color-background-muted);
+    color: var(--click-bigStat-color-label-muted);
+    border-color: var(--click-bigStat-color-stroke-muted);
+  }
+
+  &.cuiError {
+    border-color: var(--click-bigStat-color-stroke-danger);
+  }
+
+  // Size variants
+  &.cuiSm {
+    font: var(--click-bigStat-typography-sm-label-default);
+
+    &.cuiMuted {
+      font: var(--click-bigStat-typography-sm-label-muted);
+    }
+  }
+
+  &.cuiLg {
+    font: var(--click-bigStat-typography-lg-label-default);
+
+    &.cuiMuted {
+      font: var(--click-bigStat-typography-lg-label-muted);
+    }
+  }
+
+  // Spacing variants
+  &.cuiSpacingSm {
+    gap: var(--click-bigStat-space-sm-gap);
+  }
+
+  &.cuiSpacingLg {
+    gap: var(--click-bigStat-space-lg-gap);
+  }
+
+  // Layout variants
+  &.cuiTitleTop {
+    flex-direction: column;
+  }
+
+  &.cuiTitleBottom {
+    flex-direction: column-reverse;
+  }
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  &.cuiAutoWidth {
+    width: auto;
+  }
+
+  // Common padding for all variants
+  padding: var(--click-bigStat-space-all);
+}
+
+.cuiLabel {
+  // State variants
+  &.cuiDefault {
+    color: var(--click-bigStat-color-label-default);
+
+    &.cuiSm {
+      font: var(--click-bigStat-typography-sm-label-default);
+    }
+
+    &.cuiLg {
+      font: var(--click-bigStat-typography-lg-label-default);
+    }
+  }
+
+  &.cuiMuted {
+    color: var(--click-bigStat-color-label-muted);
+
+    &.cuiSm {
+      font: var(--click-bigStat-typography-sm-label-muted);
+    }
+
+    &.cuiLg {
+      font: var(--click-bigStat-typography-lg-label-muted);
+    }
+  }
+
+  &.cuiError {
+    color: var(--click-bigStat-color-label-danger);
+  }
+}
+
+.cuiTitle {
+  // State variants
+  &.cuiDefault {
+    color: var(--click-bigStat-color-title-default);
+
+    &.cuiSm {
+      font: var(--click-bigStat-typography-sm-title-default);
+    }
+
+    &.cuiLg {
+      font: var(--click-bigStat-typography-lg-title-default);
+    }
+  }
+
+  &.cuiMuted {
+    color: var(--click-bigStat-color-title-muted);
+
+    &.cuiSm {
+      font: var(--click-bigStat-typography-sm-title-muted);
+    }
+
+    &.cuiLg {
+      font: var(--click-bigStat-typography-lg-title-muted);
+    }
+  }
+}

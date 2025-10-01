@@ -1,0 +1,227 @@
+@use "cui-mixins" as mixins;
+
+.cuiContainer {
+  @include mixins.cuiContainerBase;
+
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+// Orientation classes
+.cuiHorizontal {
+  @include mixins.cuiContainerOrientation("horizontal");
+}
+
+.cuiVertical {
+  @include mixins.cuiContainerOrientation("vertical");
+}
+
+// Alignment classes
+.cuiAlignStart {
+  align-items: flex-start;
+}
+
+.cuiAlignCenter {
+  align-items: center;
+}
+
+.cuiAlignEnd {
+  align-items: flex-end;
+}
+
+.cuiAlignStretch {
+  align-items: stretch;
+}
+
+// Justify content classes
+.cuiJustifyStart {
+  justify-content: flex-start;
+}
+
+.cuiJustifyCenter {
+  justify-content: center;
+}
+
+.cuiJustifyEnd {
+  justify-content: flex-end;
+}
+
+.cuiJustifySpaceBetween {
+  justify-content: space-between;
+}
+
+.cuiJustifySpaceAround {
+  justify-content: space-around;
+}
+
+.cuiJustifySpaceEvenly {
+  justify-content: space-evenly;
+}
+
+.cuiJustifyLeft {
+  justify-content: left;
+}
+
+.cuiJustifyRight {
+  justify-content: right;
+}
+
+// Width classes
+.cuiFillWidth {
+  width: 100%;
+}
+
+.cuiAutoWidth {
+  width: auto;
+}
+
+// Height classes
+.cuiFillHeight {
+  height: 100%;
+}
+
+// Flex grow classes
+.cuiGrow0 {
+  flex-grow: 0;
+}
+
+.cuiGrow1 {
+  flex-grow: 1;
+}
+
+.cuiGrow2 {
+  flex-grow: 2;
+}
+
+.cuiGrow3 {
+  flex-grow: 3;
+}
+
+.cuiGrow4 {
+  flex-grow: 4;
+}
+
+.cuiGrow5 {
+  flex-grow: 5;
+}
+
+.cuiGrow6 {
+  flex-grow: 6;
+}
+
+// Flex shrink classes
+.cuiShrink0 {
+  flex-shrink: 0;
+}
+
+.cuiShrink1 {
+  flex-shrink: 1;
+}
+
+.cuiShrink2 {
+  flex-shrink: 2;
+}
+
+.cuiShrink3 {
+  flex-shrink: 3;
+}
+
+.cuiShrink4 {
+  flex-shrink: 4;
+}
+
+.cuiShrink5 {
+  flex-shrink: 5;
+}
+
+.cuiShrink6 {
+  flex-shrink: 6;
+}
+
+// Wrap classes
+.cuiWrapNowrap {
+  flex-wrap: nowrap;
+}
+
+.cuiWrapWrap {
+  flex-wrap: wrap;
+}
+
+.cuiWrapReverse {
+  flex-wrap: wrap-reverse;
+}
+
+// Gap classes
+.cuiGapNone {
+  @include mixins.cuiContainerGap("none");
+}
+
+.cuiGapXxs {
+  @include mixins.cuiContainerGap("xxs");
+}
+
+.cuiGapXs {
+  @include mixins.cuiContainerGap("xs");
+}
+
+.cuiGapSm {
+  @include mixins.cuiContainerGap("sm");
+}
+
+.cuiGapMd {
+  @include mixins.cuiContainerGap("md");
+}
+
+.cuiGapLg {
+  @include mixins.cuiContainerGap("lg");
+}
+
+.cuiGapXl {
+  @include mixins.cuiContainerGap("xl");
+}
+
+.cuiGapXxl {
+  @include mixins.cuiContainerGap("xxl");
+}
+
+// Padding classes
+.cuiPaddingNone {
+  padding: var(--click-container-space-none);
+}
+
+.cuiPaddingXxs {
+  padding: var(--click-container-space-xxs);
+}
+
+.cuiPaddingXs {
+  padding: var(--click-container-space-xs);
+}
+
+.cuiPaddingSm {
+  padding: var(--click-container-space-sm);
+}
+
+.cuiPaddingMd {
+  padding: var(--click-container-space-md);
+}
+
+.cuiPaddingLg {
+  padding: var(--click-container-space-lg);
+}
+
+.cuiPaddingXl {
+  padding: var(--click-container-space-xl);
+}
+
+.cuiPaddingXxl {
+  padding: var(--click-container-space-xxl);
+}
+
+// Responsive class
+.cuiResponsive {
+  @include mixins.cuiMobile {
+    width: 100% !important;
+    max-width: none !important;
+    flex-direction: column !important;
+  }
+}

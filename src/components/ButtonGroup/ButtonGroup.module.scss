@@ -1,0 +1,106 @@
+@use "cui-mixins" as mixins;
+
+.cuiButtonGroupWrapper {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--click-button-group-color-background-panel);
+  border-radius: var(--click-button-group-radii-panel-all);
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  &.cuiFillWidthFalse {
+    width: auto;
+  }
+
+  // Type variants
+  &.cuiTypeDefault {
+    padding: var(--click-button-group-space-panel-default-x) var(--click-button-group-space-panel-default-y);
+    gap: var(--click-button-group-space-panel-default-gap);
+    border: 1px solid var(--click-button-group-color-panel-stroke-default);
+  }
+
+  &.cuiTypeBorderless {
+    padding: var(--click-button-group-space-panel-borderless-x) var(--click-button-group-space-panel-borderless-y);
+    gap: var(--click-button-group-space-panel-borderless-gap);
+    border: none;
+  }
+}
+
+.cuiButton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--click-button-group-color-text-default);
+  font: var(--click-button-group-typography-label-default);
+  cursor: pointer;
+  border: none;
+
+  &.cuiFillWidth {
+    flex: 1;
+  }
+
+  // Active/inactive background states
+  &.cuiActive {
+    background: var(--click-button-group-color-background-active);
+  }
+
+  &.cuiInactive {
+    background: var(--click-button-group-color-background-default);
+  }
+
+  // Type variants
+  &.cuiTypeDefault {
+    padding: var(--click-button-group-space-button-default-y) var(--click-button-group-space-button-default-x);
+    border-radius: var(--click-button-group-radii-button-default-all);
+  }
+
+  &.cuiTypeBorderless {
+    padding: var(--click-button-group-space-button-borderless-y) var(--click-button-group-space-button-borderless-x);
+    border-radius: var(--click-button-group-radii-button-borderless-all);
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--click-button-group-color-background-hover);
+    font: var(--click-button-group-typography-label-hover);
+    color: var(--click-button-group-color-text-hover);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    font: var(--click-button-group-typography-label-disabled);
+    color: var(--click-button-group-color-text-disabled);
+
+    &.cuiActive {
+      background: var(--click-button-group-color-background-disabled-active);
+    }
+
+    &.cuiInactive {
+      background: var(--click-button-group-color-background-disabled);
+    }
+
+    &:active,
+    &:focus,
+    &[aria-pressed="true"] {
+      color: var(--click-button-group-color-text-disabled);
+    }
+  }
+
+  &:active:not(:disabled),
+  &:focus:not(:disabled),
+  &[aria-pressed="true"]:not(:disabled) {
+    background: var(--click-button-group-color-background-active);
+    font: var(--click-button-group-typography-label-active);
+    color: var(--click-button-group-color-text-active);
+
+    &:disabled {
+      background: var(--click-button-group-color-background-disabled-active);
+    }
+  }
+}

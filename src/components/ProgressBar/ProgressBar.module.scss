@@ -1,0 +1,106 @@
+@use "cui-mixins" as mixins;
+
+.cuiProgressContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  transition: all 100ms ease-in-out;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  min-height: 2px;
+  gap: var(--click-field-space-gap);
+  border-radius: var(--click-field-radii-all);
+  font: var(--typography-styles-product-text-normal-sm);
+  padding-right: 0;
+  color: var(--global-color-accent-default);
+  border: 1px solid var(--click-field-color-stroke-default);
+  background-size: calc(100% + 2px);
+  background-position: center;
+
+  // Default type styling
+  &.cuiDefault {
+    padding: 0.25rem var(--click-field-space-x);
+  }
+
+  &.cuiSmall {
+    padding: 0;
+  }
+
+  // Progress background based on completion and type
+  &.cuiIncomplete {
+    background: linear-gradient(
+      to right,
+      var(--global-color-accent-default) 0%,
+      var(--global-color-accent-default) var(--progress),
+      var(--click-field-color-background-default) var(--progress),
+      var(--click-field-color-background-default) 100%
+    );
+  }
+
+  &.cuiComplete.cuiDefault {
+    background: var(--click-field-color-background-default);
+  }
+
+  &:hover {
+    border: 1px solid var(--click-field-color-stroke-hover);
+    background-size: calc(100% + 2px);
+    background-position: center;
+
+    &.cuiIncomplete {
+      background: linear-gradient(
+        to right,
+        var(--global-color-accent-default) 0%,
+        var(--global-color-accent-default) var(--progress),
+        var(--click-field-color-background-hover) var(--progress),
+        var(--click-field-color-background-hover) 100%
+      );
+    }
+
+    &.cuiComplete {
+      background: var(--click-field-color-background-hover);
+    }
+  }
+
+  &:focus-within,
+  &:focus {
+    border: 1px solid var(--click-field-color-stroke-active);
+    background-size: calc(100% + 2px);
+    background-position: center;
+
+    &.cuiIncomplete {
+      background: linear-gradient(
+        to right,
+        var(--global-color-accent-default) 0%,
+        var(--global-color-accent-default) var(--progress),
+        var(--click-field-color-background-active) var(--progress),
+        var(--click-field-color-background-active) 100%
+      );
+    }
+
+    &.cuiComplete {
+      background: var(--click-field-color-background-active);
+    }
+  }
+}
+
+.cuiProgressText {
+  width: 100%;
+  font: inherit;
+  mix-blend-mode: difference;
+}
+
+.cuiProgressCloseButton {
+  mix-blend-mode: difference;
+  border: 0;
+
+  &.cuiHidden {
+    visibility: hidden;
+  }
+
+  &.cuiVisible {
+    visibility: visible;
+  }
+}

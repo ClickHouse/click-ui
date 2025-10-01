@@ -1,0 +1,86 @@
+@use "cui-mixins" as mixins;
+
+.cuiTrigger {
+  padding: var(--click-tabs-space-y) var(--click-tabs-space-x);
+  border-top-left-radius: var(--click-tabs-radii-all);
+  border-top-right-radius: var(--click-tabs-radii-all);
+  border: none;
+  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-default);
+  background-color: var(--click-tabs-basic-color-background-default);
+  color: var(--click-tabs-basic-color-text-default);
+  font: var(--click-tabs-typography-label-default);
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 2px solid var(--click-tabs-basic-color-accent-hover);
+    background-color: var(--click-tabs-basic-color-background-hover);
+    color: var(--click-tabs-basic-color-text-hover);
+    font: var(--click-tabs-typography-label-hover);
+  }
+
+  // Active state styles - using Radix UI's data-state attribute
+  &[data-state="active"] {
+    border-bottom: 2px solid var(--click-tabs-basic-color-accent-selected);
+    color: var(--click-tabs-basic-color-text-selected);
+    font: var(--click-tabs-typography-label-active);
+
+    &:hover {
+      border-bottom: 2px solid var(--click-tabs-basic-color-accent-selected);
+      font: var(--click-tabs-typography-label-active);
+    }
+  }
+}
+
+.cuiTriggersList {
+  border-bottom: 1px solid var(--global-color-stroke-default);
+  display: flex;
+}
+
+.cuiContent {
+  // Content styles can be added here if needed
+}
+
+.cuiFullWidthTabs {
+  width: 100%;
+}
+
+.cuiFullWidthTrigger {
+  padding: var(--click-tabs-space-y) var(--click-tabs-space-x);
+  border-top-left-radius: var(--click-tabs-radii-all);
+  border-top-right-radius: var(--click-tabs-radii-all);
+  border: none;
+  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-default);
+  background-color: var(--click-tabs-basic-color-background-default);
+  color: var(--click-tabs-basic-color-text-default);
+  font: var(--click-tabs-typography-label-default);
+  cursor: pointer;
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  &:hover {
+    border-bottom: 2px solid var(--click-tabs-basic-color-accent-hover);
+    background-color: var(--click-tabs-basic-color-background-hover);
+    color: var(--click-tabs-basic-color-text-hover);
+    font: var(--click-tabs-typography-label-hover);
+  }
+
+  // Active state styles - using Radix UI's data-state attribute
+  &[data-state="active"] {
+    border-bottom: 2px solid var(--click-tabs-basic-color-accent-selected);
+    color: var(--click-tabs-basic-color-text-selected);
+    font: var(--click-tabs-typography-label-active);
+
+    &:hover {
+      border-bottom: 2px solid var(--click-tabs-basic-color-accent-selected);
+      font: var(--click-tabs-typography-label-active);
+    }
+  }
+
+  // Custom width variant
+  &.cuiCustomWidth {
+    flex-basis: unset;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}

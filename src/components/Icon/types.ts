@@ -1,8 +1,8 @@
 import { SVGAttributes } from "react";
-import { LogoProps } from "../Logos/Logo";
-import { FlagName, FlagProps } from "../icons/Flags";
-import { LogoName } from "../Logos/types";
-import { PaymentName, PaymentProps } from "../icons/Payments";
+import { LogoProps } from "@/components/Logos/Logo";
+import { FlagName, FlagProps } from "@/components/icons/Flags";
+import { LogoName } from "@/components/Logos/types";
+import { PaymentName, PaymentProps } from "@/components/icons/Payments";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type IconState = "default" | "success" | "warning" | "danger" | "info";

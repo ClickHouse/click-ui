@@ -48,7 +48,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
           id={id ?? defaultId}
           disabled={disabled}
           onChange={onChange}
-          $hideControls={hideControls}
+          hideControls={hideControls}
           {...props}
         />
         {loading && (

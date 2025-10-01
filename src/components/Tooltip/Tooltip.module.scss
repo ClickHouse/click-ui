@@ -1,0 +1,20 @@
+@use "cui-mixins" as mixins;
+
+.cuiTooltipContent {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--click-tooltip-space-y) var(--click-tooltip-space-x);
+  color: var(--click-tooltip-color-label-default);
+  background: var(--click-tooltip-color-background-default);
+  border-radius: var(--click-tooltip-radii-all);
+  font: var(--click-tooltip-typography-label-default);
+  white-space: pre-wrap;
+}
+
+.cuiTooltipContentWithMaxWidth {
+  max-width: var(--max-width);
+}
+
+.cuiTooltipArrow {
+  fill: var(--click-tooltip-color-background-default);
+}

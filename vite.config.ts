@@ -19,13 +19,9 @@ const externalLibraries = [
   "react/jsx-runtime",
 ];
 
-if (!isBundledBuild) {
-  externalLibraries.push("styled-components");
-}
-
 const buildOptions: BuildOptions = {
   emptyOutDir: false,
-  minify: false,
+  minify: process.env.NODE_ENV === "production",
   lib: {
     entry: resolve(__dirname, "src/index.ts"),
     name: "click-ui",
@@ -40,36 +36,35 @@ const buildOptions: BuildOptions = {
       globals: {
         dayjs: "dayjs",
         react: "React",
-        "styled-components": "styled",
         "react-dom": "ReactDOM",
       },
     },
   },
-  sourcemap: true,
+  sourcemap: process.env.NODE_ENV === "development",
 };
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: [["babel-plugin-styled-components", { displayName: false }]],
-
-        env: {
-          development: {
-            plugins: [["babel-plugin-styled-components", { displayName: true }]],
-          },
-        },
-      },
-    }),
+    react(),
     dts({
       include: ["src/"],
       exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+        includePaths: [path.resolve(__dirname, "src")],
+        silenceDeprecations: ["legacy-js-api"],
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "cui-mixins": path.resolve(__dirname, "./src/styles/_mixins"),
     },
   },
   build: buildOptions,

@@ -1,0 +1,93 @@
+@use "cui-mixins" as mixins;
+
+// Wrapper styles (equivalent to FormRoot)
+.cuiWrapper {
+  @include mixins.cuiContainerBase;
+  align-items: center;
+  max-width: fit-content;
+  width: 100%;
+  gap: var(--click-field-space-gap);
+
+  // Base styles for all children
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// Orientation and direction handling
+.cuiWrapper.cuiHorizontal {
+  flex-direction: row;
+  align-items: flex-start;
+
+  &.cuiDirStart {
+    flex-direction: row-reverse;
+  }
+}
+
+.cuiWrapper.cuiVertical {
+  flex-direction: column;
+  align-items: flex-start;
+
+  &.cuiDirStart {
+    flex-direction: column-reverse;
+  }
+}
+
+// Switch root styles
+.cuiSwitchRoot {
+  width: var(--click-switch-size-width);
+  height: var(--click-switch-size-height);
+  border-radius: var(--click-switch-radii-all);
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+
+  // Default state
+  background-color: var(--click-switch-color-background-default);
+  border: 1px solid var(--click-switch-color-stroke-default);
+
+  // Checked state
+  &.cuiChecked {
+    background-color: var(--click-switch-color-background-active);
+    border: 1px solid var(--click-switch-color-stroke-active);
+  }
+
+  // Disabled state
+  &.cuiDisabled {
+    background-color: var(--click-switch-color-background-disabled);
+    border: 1px solid var(--click-switch-color-stroke-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// Switch thumb styles
+.cuiSwitchThumb {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--click-switch-radii-all);
+  transition: transform 100ms;
+  will-change: transform;
+
+  // Default position and color
+  transform: translateX(2px);
+  background-color: var(--click-switch-color-indicator-default);
+
+  // Checked state
+  &.cuiChecked {
+    transform: translateX(15px);
+    background-color: var(--click-switch-color-indicator-active);
+  }
+
+  // Disabled state
+  &.cuiDisabled {
+    background-color: var(--click-switch-color-indicator-disabled);
+  }
+
+  // Checked and disabled state
+  &.cuiChecked.cuiDisabled {
+    transform: translateX(15px);
+    background-color: var(--click-switch-color-indicator-disabled);
+  }
+}

@@ -1,30 +1,18 @@
-import { type ThemeName } from "@/theme";
 import { render as renderTL } from "@testing-library/react";
-import { ClickUIProvider } from "..";
+import { ClickUIProvider } from "@/theme/ClickUIProvider";
 
 // eslint-disable-next-line react-refresh/only-export-components
-const Wrapper = ({
-  theme,
-  children,
-}: {
-  theme: ThemeName;
-  children: React.ReactNode;
-}) => (
-  <ClickUIProvider
-    theme={theme}
-    config={{ tooltip: { delayDuration: 0 } }}
-  >
-    {children}
-  </ClickUIProvider>
+const Wrapper = ({ children }: { children: React.ReactNode }) => (
+  <ClickUIProvider config={{ tooltip: { delayDuration: 0 } }}>{children}</ClickUIProvider>
 );
 
-const renderCUI = (children: React.ReactNode, theme: ThemeName = "dark") => {
-  const rtlRenderResult = renderTL(<Wrapper theme={theme}>{children}</Wrapper>);
+const renderCUI = (children: React.ReactNode) => {
+  const rtlRenderResult = renderTL(<Wrapper>{children}</Wrapper>);
 
   return {
     ...rtlRenderResult,
     rerender: (rerenderChildren: React.ReactNode) =>
-      rtlRenderResult.rerender(<Wrapper theme={theme}>{rerenderChildren}</Wrapper>),
+      rtlRenderResult.rerender(<Wrapper>{rerenderChildren}</Wrapper>),
   };
 };
 
