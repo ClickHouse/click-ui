@@ -1,0 +1,221 @@
+@use "cui-mixins" as mixins;
+
+// Local module classes (used by Link component)
+.cuiLink {
+  margin: 0;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--click-global-color-text-link-default);
+
+  &:hover,
+  &:focus {
+    color: var(--click-global-color-text-link-hover);
+    transition: var(--transition-default);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &:visited {
+    color: var(--click-global-color-text-link-default);
+  }
+
+  // Size variants
+  &.cuiXs,
+  &.cuiSm {
+    font: var(--typography-styles-product-text-normal-xs);
+    gap: var(--click-link-space-sm-gap);
+    margin-right: var(--click-link-space-sm-gap);
+  }
+
+  &.cuiMd {
+    font: var(--typography-styles-product-text-normal-md);
+    gap: var(--click-link-space-md-gap);
+    margin-right: var(--click-link-space-md-gap);
+  }
+
+  &.cuiLg {
+    font: var(--typography-styles-product-text-normal-lg);
+    gap: var(--click-link-space-md-gap);
+    margin-right: var(--click-link-space-md-gap);
+  }
+
+  &.cuiXl {
+    font: var(--typography-styles-product-text-normal-xl);
+    gap: var(--click-link-space-md-gap);
+    margin-right: var(--click-link-space-md-gap);
+  }
+
+  // Weight variants
+  &.cuiWeightBold {
+    &.cuiXs,
+    &.cuiSm {
+      font: var(--typography-styles-product-text-bold-xs);
+    }
+    &.cuiMd {
+      font: var(--typography-styles-product-text-bold-md);
+    }
+    &.cuiLg {
+      font: var(--typography-styles-product-text-bold-lg);
+    }
+    &.cuiXl {
+      font: var(--typography-styles-product-text-bold-xl);
+    }
+  }
+
+  &.cuiWeightSemibold {
+    &.cuiXs,
+    &.cuiSm {
+      font: var(--typography-styles-product-text-semibold-xs);
+    }
+    &.cuiMd {
+      font: var(--typography-styles-product-text-semibold-md);
+    }
+    &.cuiLg {
+      font: var(--typography-styles-product-text-semibold-lg);
+    }
+    &.cuiXl {
+      font: var(--typography-styles-product-text-semibold-xl);
+    }
+  }
+
+  &.cuiWeightMedium {
+    &.cuiXs,
+    &.cuiSm {
+      font: var(--typography-styles-product-text-medium-xs);
+    }
+    &.cuiMd {
+      font: var(--typography-styles-product-text-medium-md);
+    }
+    &.cuiLg {
+      font: var(--typography-styles-product-text-medium-lg);
+    }
+    &.cuiXl {
+      font: var(--typography-styles-product-text-medium-xl);
+    }
+  }
+}
+
+// Global classes for external usage (e.g., React Router, Next.js links)
+// Use linkClasses() helper or LINK_CLASSES constants to apply these
+:global {
+  .cui-link {
+    margin: 0;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    color: var(--click-global-color-text-link-default);
+
+    &:hover,
+    &:focus {
+      color: var(--click-global-color-text-link-hover);
+      transition: var(--transition-default);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    &:visited {
+      color: var(--click-global-color-text-link-default);
+    }
+
+    // Size: xs
+    &.cui-link-xs {
+      font: var(--typography-styles-product-text-normal-xs);
+      gap: var(--click-link-space-sm-gap);
+      margin-right: var(--click-link-space-sm-gap);
+    }
+
+    // Size: sm
+    &.cui-link-sm {
+      font: var(--typography-styles-product-text-normal-sm);
+      gap: var(--click-link-space-sm-gap);
+      margin-right: var(--click-link-space-sm-gap);
+    }
+
+    // Size: md (default)
+    &.cui-link-md {
+      font: var(--typography-styles-product-text-normal-md);
+      gap: var(--click-link-space-md-gap);
+      margin-right: var(--click-link-space-md-gap);
+    }
+
+    // Size: lg
+    &.cui-link-lg {
+      font: var(--typography-styles-product-text-normal-lg);
+      gap: var(--click-link-space-md-gap);
+      margin-right: var(--click-link-space-md-gap);
+    }
+
+    // Size: xl
+    &.cui-link-xl {
+      font: var(--typography-styles-product-text-normal-xl);
+      gap: var(--click-link-space-md-gap);
+      margin-right: var(--click-link-space-md-gap);
+    }
+
+    // Weight: bold
+    &.cui-link-weight-bold {
+      &.cui-link-xs,
+      &.cui-link-sm {
+        font: var(--typography-styles-product-text-bold-xs);
+      }
+      &.cui-link-md {
+        font: var(--typography-styles-product-text-bold-md);
+      }
+      &.cui-link-lg {
+        font: var(--typography-styles-product-text-bold-lg);
+      }
+      &.cui-link-xl {
+        font: var(--typography-styles-product-text-bold-xl);
+      }
+    }
+
+    // Weight: semibold
+    &.cui-link-weight-semibold {
+      &.cui-link-xs,
+      &.cui-link-sm {
+        font: var(--typography-styles-product-text-semibold-xs);
+      }
+      &.cui-link-md {
+        font: var(--typography-styles-product-text-semibold-md);
+      }
+      &.cui-link-lg {
+        font: var(--typography-styles-product-text-semibold-lg);
+      }
+      &.cui-link-xl {
+        font: var(--typography-styles-product-text-semibold-xl);
+      }
+    }
+
+    // Weight: medium
+    &.cui-link-weight-medium {
+      &.cui-link-xs,
+      &.cui-link-sm {
+        font: var(--typography-styles-product-text-medium-xs);
+      }
+      &.cui-link-md {
+        font: var(--typography-styles-product-text-medium-md);
+      }
+      &.cui-link-lg {
+        font: var(--typography-styles-product-text-medium-lg);
+      }
+      &.cui-link-xl {
+        font: var(--typography-styles-product-text-medium-xl);
+      }
+    }
+  }
+}
+
+.cuiIconWrapper {
+  .cuiExternalIcon {
+    &.cuiSm {
+      height: var(--click-link-icon-size-sm-height);
+      width: var(--click-link-icon-size-sm-width);
+    }
+
+    &.cuiMd {
+      height: var(--click-link-icon-size-md-height);
+      width: var(--click-link-icon-size-md-width);
+    }
+  }
+}

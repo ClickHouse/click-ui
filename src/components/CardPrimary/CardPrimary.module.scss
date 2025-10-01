@@ -1,0 +1,158 @@
+@use "cui-mixins" as mixins;
+
+.cuiWrapper {
+  @include mixins.cuiCardBase;
+
+  background-color: var(--click-card-primary-color-background-default);
+  border-radius: var(--click-card-primary-radii-all);
+  border: 1px solid var(--click-card-primary-color-stroke-default);
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: column;
+  box-shadow: none;
+
+  &.cuiHasShadow {
+    box-shadow: var(--shadow-1);
+  }
+
+  &.cuiSizeSm {
+    padding: var(--click-card-primary-space-sm-x) var(--click-card-primary-space-sm-y);
+    gap: var(--click-card-primary-space-sm-gap);
+  }
+
+  &.cuiSizeMd {
+    padding: var(--click-card-primary-space-md-x) var(--click-card-primary-space-md-y);
+    gap: var(--click-card-primary-space-md-gap);
+  }
+
+  &.cuiAlignStart {
+    text-align: left;
+  }
+
+  &.cuiAlignCenter {
+    text-align: center;
+  }
+
+  &.cuiAlignEnd {
+    text-align: right;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: var(--click-card-secondary-color-background-hover);
+    cursor: pointer;
+
+    button {
+      background-color: var(--click-button-basic-color-primary-background-hover);
+      border-color: var(--click-button-basic-color-primary-stroke-hover);
+
+      &:active {
+        background-color: var(--click-button-basic-color-primary-background-active);
+        border-color: var(--click-button-basic-color-primary-stroke-active);
+      }
+    }
+  }
+
+  &:active {
+    border-color: var(--click-button-basic-color-primary-stroke-active);
+  }
+
+  &.cuiIsSelected {
+    border-color: var(--click-button-basic-color-primary-stroke-active);
+  }
+
+  &[aria-disabled="true"],
+  &[aria-disabled="true"]:hover,
+  &[aria-disabled="true"]:focus,
+  &[aria-disabled="true"]:active {
+    pointer-events: none;
+    background-color: var(--click-card-primary-color-background-disabled);
+    color: var(--click-card-primary-color-title-disabled);
+    border: 1px solid var(--click-card-primary-color-stroke-disabled);
+    cursor: not-allowed;
+
+    button {
+      background-color: var(--click-button-basic-color-primary-background-disabled);
+      border-color: var(--click-button-basic-color-primary-stroke-disabled);
+
+      &:active {
+        background-color: var(--click-button-basic-color-primary-background-disabled);
+        border-color: var(--click-button-basic-color-primary-stroke-disabled);
+      }
+    }
+  }
+}
+
+.cuiHeader {
+  display: flex;
+  flex-direction: column;
+
+  &.cuiAlignStart {
+    align-items: flex-start;
+  }
+
+  &.cuiAlignCenter {
+    align-items: center;
+  }
+
+  &.cuiAlignEnd {
+    align-items: flex-end;
+  }
+
+  &.cuiSizeSm {
+    gap: var(--click-card-primary-space-sm-gap);
+  }
+
+  &.cuiSizeMd {
+    gap: var(--click-card-primary-space-md-gap);
+  }
+
+  h3 {
+    color: var(--global-color-text-default);
+  }
+
+  &.cuiDisabled h3 {
+    color: var(--global-color-text-muted);
+  }
+
+  svg,
+  img {
+    &.cuiSizeSm {
+      height: var(--click-card-primary-size-icon-sm-all);
+      width: var(--click-card-primary-size-icon-sm-all);
+    }
+
+    &.cuiSizeMd {
+      height: var(--click-card-primary-size-icon-md-all);
+      width: var(--click-card-primary-size-icon-md-all);
+    }
+  }
+}
+
+.cuiContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  &.cuiAlignStart {
+    align-self: flex-start;
+  }
+
+  &.cuiAlignCenter {
+    align-self: center;
+  }
+
+  &.cuiAlignEnd {
+    align-self: flex-end;
+  }
+
+  &.cuiSizeSm {
+    gap: var(--click-card-primary-space-sm-gap);
+  }
+
+  &.cuiSizeMd {
+    gap: var(--click-card-primary-space-md-gap);
+  }
+}

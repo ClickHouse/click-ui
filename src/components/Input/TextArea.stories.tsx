@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { TextAreaField as TextAreaFieldInput, TextAreaFieldProps } from "./TextArea";
-import { Container } from "../Container/Container";
+import { Container } from "@/components/Container/Container";
 
 const TextAreaField = ({
   value: valueProp,

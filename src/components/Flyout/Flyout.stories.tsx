@@ -1,4 +1,4 @@
-import { Button, Link, Text } from "..";
+import { Button, Link, Text } from "@/components";
 import { Flyout, FlyoutProps } from "./Flyout";
 
 interface Props extends FlyoutProps {

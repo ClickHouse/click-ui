@@ -1,38 +1,46 @@
 import { PointerEventHandler, useCallback, useEffect, useRef } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { ColumnResizeFn, GetResizerPositionFn } from "./types";
-import throttle from "lodash/throttle";
+// Custom throttle implementation matching lodash behavior
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const throttle = <T extends (...args: any[]) => any>(
+  func: T,
+  wait: number,
+  options: { leading?: boolean; trailing?: boolean } = {}
+): T => {
+  let timeout: NodeJS.Timeout | null = null;
+  let previous = 0;
+  const { leading = true, trailing = true } = options;
+
+  return ((...args: Parameters<T>) => {
+    const now = Date.now();
+
+    if (!previous && !leading) {
+      previous = now;
+    }
+
+    const remaining = wait - (now - previous);
+
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      previous = now;
+      func(...args);
+    } else if (!timeout && trailing) {
+      timeout = setTimeout(() => {
+        previous = !leading ? 0 : Date.now();
+        timeout = null;
+        func(...args);
+      }, remaining);
+    }
+  }) as T;
+};
 import { initialPosition, ResizingState } from "./useResizingState";
+import styles from "./ColumnResizer.module.scss";
 
 const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
-
-/**
- * Styled component for the resizer span element.
- * @type {StyledComponent}
- * @param {number} $height - Height of the resizer element in pixels.
- * @param {boolean} $isPressed - Indicates if the resizer is currently pressed.
- */
-const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
-  top: ${initialPosition.top};
-  left: ${initialPosition.left};
-  z-index: 1;
-  position: absolute;
-  height: ${({ $height }) => $height}px;
-  cursor: col-resize;
-  width: 4px;
-  overflow: auto;
-  &:hover,
-  &:active,
-  &:hover {
-    background: ${({ theme }) => theme.click.grid.header.cell.color.stroke.selectDirect};
-  }
-  ${({ $isPressed }) =>
-    $isPressed &&
-    `
-      height: 100%;
-      position: fixed;
-    `}
-`;
 
 /**
  * Properties for the ColumnResizer component.
@@ -159,10 +167,16 @@ const ColumnResizer = ({
   );
 
   return (
-    <ResizeSpan
+    <div
       ref={resizeRef}
-      $height={height}
-      $isPressed={isPressed}
+      className={clsx(styles.cuiResizeSpan, {
+        [styles.cuiPressed]: isPressed,
+      })}
+      style={{
+        height: `${height}px`,
+        top: position.top,
+        left: position.left,
+      }}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
         e.preventDefault();
@@ -191,7 +205,6 @@ const ColumnResizer = ({
       }}
       onClick={e => e.stopPropagation()}
       data-resize
-      style={position}
     />
   );
 };

@@ -1,14 +1,10 @@
 import { CardHorizontal } from "./CardHorizontal";
 import { ICON_NAMES } from "@/components/Icon/types.ts";
-import { styled } from "styled-components";
-const GridCenter = styled.div`
-  display: grid;
-  width: 60%;
-`;
+import styles from "./CardHorizontal.stories.module.scss";
 
 const CardHorizontalExample = ({ ...props }) => {
   return (
-    <GridCenter>
+    <div className={styles.cuiGridCenter}>
       <CardHorizontal
         title={props.title}
         icon={props.icon}
@@ -22,7 +18,7 @@ const CardHorizontalExample = ({ ...props }) => {
         infoText={props.infoText}
         infoUrl={props.infoUrl}
       />
-    </GridCenter>
+    </div>
   );
 };
 

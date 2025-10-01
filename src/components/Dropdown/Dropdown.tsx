@@ -1,28 +1,14 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { styled } from "styled-components";
-import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
-import PopoverArrow from "../icons/PopoverArrow";
-import IconWrapper from "../IconWrapper/IconWrapper";
-import { HorizontalDirection, IconName } from "../types";
-import { Icon } from "../Icon/Icon";
+import clsx from "clsx";
+import PopoverArrow from "@/components/icons/PopoverArrow";
+import { IconWrapper } from "@/components";
+import { HorizontalDirection, IconName } from "@/components/types";
+import { Icon } from "@/components";
+import styles from "./Dropdown.module.scss";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
-
-const DropdownMenuItem = styled(GenericMenuItem)`
-  position: relative;
-  display: flex;
-  min-height: 32px;
-  &[data-state="open"] {
-    ${({ theme }) => `
-      font: ${theme.click.genericMenu.item.typography.label.hover};
-      background: ${theme.click.genericMenu.item.color.background.hover};
-      color: ${theme.click.genericMenu.item.color.text.hover};
-      cursor: pointer;
-    `}
-  }
-`;
 
 interface SubDropdownProps {
   sub?: true;
@@ -38,13 +24,6 @@ type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
   SubDropdownProps;
 
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
-const Trigger = styled(DropdownMenu.Trigger)`
-  cursor: pointer;
-  width: fit-content;
-  &[disabled] {
-    cursor: not-allowed;
-  }
-`;
 
 const DropdownTrigger = ({
   sub,
@@ -54,8 +33,8 @@ const DropdownTrigger = ({
   if (sub) {
     const { icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
     return (
-      <DropdownMenuItem
-        as={DropdownMenu.SubTrigger}
+      <DropdownMenu.SubTrigger
+        className={styles.cuiSubTrigger}
         {...menuProps}
       >
         <IconWrapper
@@ -65,17 +44,17 @@ const DropdownTrigger = ({
           {children}
         </IconWrapper>
         <Icon name="chevron-right" />
-      </DropdownMenuItem>
+      </DropdownMenu.SubTrigger>
     );
   }
 
   return (
-    <Trigger
+    <DropdownMenu.Trigger
       asChild
       {...(props as DropdownTriggerProps)}
     >
-      <div>{children}</div>
-    </Trigger>
+      <div className={styles.cuiTrigger}>{children}</div>
+    </DropdownMenu.Trigger>
   );
 };
 
@@ -91,13 +70,6 @@ type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
   MainDropdownProps &
   ArrowProps;
 
-const DropdownMenuContent = styled(GenericMenuPanel)`
-  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
-  flex-direction: column;
-  z-index: 1;
-  overflow-y: auto;
-`;
-
 const DropdownContent = ({
   sub,
   children,
@@ -105,29 +77,31 @@ const DropdownContent = ({
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
+  const contentClasses = clsx(styles.cuiMenuContent, {
+    [styles.cuiMenuContentWithArrow]: showArrow,
+    [styles.cuiDropdownMenu]: !sub,
+  });
+
   return (
     <DropdownMenu.Portal>
-      <DropdownMenuContent
-        $type="dropdown-menu"
-        $showArrow={showArrow}
-        as={ContentElement}
+      <ContentElement
+        className={contentClasses}
         sideOffset={4}
         loop
         collisionPadding={100}
         {...props}
       >
         {showArrow && (
-          <Arrow
+          <DropdownMenu.Arrow
             asChild
-            as={DropdownMenu.Arrow}
             width={20}
             height={10}
           >
-            <PopoverArrow />
-          </Arrow>
+            <PopoverArrow className={styles.cuiArrow} />
+          </DropdownMenu.Arrow>
         )}
         {children}
-      </DropdownMenuContent>
+      </ContentElement>
     </DropdownMenu.Portal>
   );
 };
@@ -135,26 +109,25 @@ const DropdownContent = ({
 DropdownContent.displayName = "DropdownContent";
 Dropdown.Content = DropdownContent;
 
-const DropdownMenuGroup = styled(DropdownMenu.Group)`
-  width: 100%;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
-`;
-
 const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuGroup {...props} />;
+  return (
+    <DropdownMenu.Group
+      className={styles.cuiMenuGroup}
+      {...props}
+    />
+  );
 };
 
 DropdownGroup.displayName = "DropdownGroup";
 Dropdown.Group = DropdownGroup;
 
-const DropdownMenuSub = styled(DropdownMenu.Sub)`
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
-`;
-
 const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuSub {...props} />;
+  return (
+    <DropdownMenu.Sub
+      className={styles.cuiMenuSub}
+      {...props}
+    />
+  );
 };
 
 DropdownSub.displayName = "DropdownSub";
@@ -166,8 +139,8 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
 }
 const DropdownItem = ({ icon, iconDir, children, ...props }: DropdownItemProps) => {
   return (
-    <DropdownMenuItem
-      as={DropdownMenu.Item}
+    <DropdownMenu.Item
+      className={styles.cuiMenuItem}
       {...props}
     >
       <IconWrapper
@@ -176,7 +149,7 @@ const DropdownItem = ({ icon, iconDir, children, ...props }: DropdownItemProps) 
       >
         {children}
       </IconWrapper>
-    </DropdownMenuItem>
+    </DropdownMenu.Item>
   );
 };
 

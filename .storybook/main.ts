@@ -31,5 +31,18 @@ const config: StorybookConfig = {
         prop.parent ? !/node_modules\/(?!@radix-ui)/.test(prop.parent.fileName) : true,
     },
   },
+
+  async viteFinal(config) {
+    if (config.css?.preprocessorOptions?.scss) {
+      config.css.preprocessorOptions.scss.api = 'modern-compiler';
+    } else {
+      config.css = config.css || {};
+      config.css.preprocessorOptions = config.css.preprocessorOptions || {};
+      config.css.preprocessorOptions.scss = {
+        api: 'modern-compiler'
+      };
+    }
+    return config;
+  },
 };
 export default config;

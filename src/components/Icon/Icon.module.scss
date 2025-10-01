@@ -1,0 +1,187 @@
+@use "cui-mixins" as mixins;
+
+.cuiIconWrapper {
+  display: flex;
+  align-items: center;
+
+  // Icon sizing
+  &.cuiSizeXs svg {
+    width: var(--click-image-xs-size-width, 12px);
+    height: var(--click-image-xs-size-height, 12px);
+  }
+
+  &.cuiSizeSm svg {
+    width: var(--click-image-sm-size-width, 16px);
+    height: var(--click-image-sm-size-height, 16px);
+  }
+
+  &.cuiSizeMd svg {
+    width: var(--click-image-md-size-width, 24px);
+    height: var(--click-image-md-size-height, 24px);
+  }
+
+  &.cuiSizeLg svg {
+    width: var(--click-image-lg-size-width, 32px);
+    height: var(--click-image-lg-size-height, 32px);
+  }
+
+  &.cuiSizeXl svg {
+    width: var(--click-image-xl-size-width, 48px);
+    height: var(--click-image-xl-size-height, 48px);
+  }
+
+  &.cuiSizeXxl svg {
+    width: var(--click-image-xxl-size-width, 64px);
+    height: var(--click-image-xxl-size-height, 64px);
+  }
+
+  // Icon states with background and padding
+  &.cuiStateDefault {
+    background: transparent;
+    padding: 0;
+  }
+
+  &.cuiStateSuccess {
+    background: var(--click-icon-color-background-success);
+    color: var(--click-icon-color-text-success);
+    border-radius: var(--border-radii-full);
+
+    &.cuiSizeXs {
+      padding: var(--click-icon-space-xs-all);
+    }
+
+    &.cuiSizeSm {
+      padding: var(--click-icon-space-sm-all);
+    }
+
+    &.cuiSizeMd {
+      padding: var(--click-icon-space-md-all);
+    }
+
+    &.cuiSizeLg {
+      padding: var(--click-icon-space-lg-all);
+    }
+
+    &.cuiSizeXl {
+      padding: var(--click-icon-space-xl-all);
+    }
+
+    &.cuiSizeXxl {
+      padding: var(--click-icon-space-xxl-all);
+    }
+  }
+
+  &.cuiStateWarning {
+    background: var(--click-icon-color-background-warning);
+    color: var(--click-icon-color-text-warning);
+    border-radius: var(--border-radii-full);
+
+    &.cuiSizeXs {
+      padding: var(--click-icon-space-xs-all);
+    }
+
+    &.cuiSizeSm {
+      padding: var(--click-icon-space-sm-all);
+    }
+
+    &.cuiSizeMd {
+      padding: var(--click-icon-space-md-all);
+    }
+
+    &.cuiSizeLg {
+      padding: var(--click-icon-space-lg-all);
+    }
+
+    &.cuiSizeXl {
+      padding: var(--click-icon-space-xl-all);
+    }
+
+    &.cuiSizeXxl {
+      padding: var(--click-icon-space-xxl-all);
+    }
+  }
+
+  &.cuiStateDanger {
+    background: var(--click-icon-color-background-danger);
+    color: var(--click-icon-color-text-danger);
+    border-radius: var(--border-radii-full);
+
+    &.cuiSizeXs {
+      padding: var(--click-icon-space-xs-all);
+    }
+
+    &.cuiSizeSm {
+      padding: var(--click-icon-space-sm-all);
+    }
+
+    &.cuiSizeMd {
+      padding: var(--click-icon-space-md-all);
+    }
+
+    &.cuiSizeLg {
+      padding: var(--click-icon-space-lg-all);
+    }
+
+    &.cuiSizeXl {
+      padding: var(--click-icon-space-xl-all);
+    }
+
+    &.cuiSizeXxl {
+      padding: var(--click-icon-space-xxl-all);
+    }
+  }
+
+  &.cuiStateInfo {
+    background: var(--click-icon-color-background-info);
+    color: var(--click-icon-color-text-info);
+    border-radius: var(--border-radii-full);
+
+    &.cuiSizeXs {
+      padding: var(--click-icon-space-xs-all);
+    }
+
+    &.cuiSizeSm {
+      padding: var(--click-icon-space-sm-all);
+    }
+
+    &.cuiSizeMd {
+      padding: var(--click-icon-space-md-all);
+    }
+
+    &.cuiSizeLg {
+      padding: var(--click-icon-space-lg-all);
+    }
+
+    &.cuiSizeXl {
+      padding: var(--click-icon-space-xl-all);
+    }
+
+    &.cuiSizeXxl {
+      padding: var(--click-icon-space-xxl-all);
+    }
+  }
+
+  // Custom width and height overrides
+  &.cuiHasCustomWidth svg {
+    width: var(--icon-custom-width);
+  }
+
+  &.cuiHasCustomHeight svg {
+    height: var(--icon-custom-height);
+  }
+
+  // Icon color styling for SVG elements
+  path[stroke]:not([stroke="none"]),
+  svg[stroke]:not([stroke="none"]),
+  rect[stroke]:not([stroke="none"]),
+  circle[stroke]:not([stroke="none"]) {
+    stroke: var(--icon-color, currentColor);
+  }
+
+  path[fill]:not([fill="none"]),
+  svg[fill]:not([fill="none"]),
+  rect[fill]:not([fill="none"]),
+  circle[fill]:not([fill="none"]) {
+    fill: var(--icon-color, currentColor);
+  }
+}

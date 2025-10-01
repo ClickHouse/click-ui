@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
-import { Dropdown } from "../Dropdown/Dropdown";
+import { Dropdown } from "@/components";
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from "./Common";
 
 interface CalendarProps {

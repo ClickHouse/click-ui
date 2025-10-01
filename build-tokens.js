@@ -1,17 +1,42 @@
-import _ from "lodash";
 import { registerTransforms, transforms } from "@tokens-studio/sd-transforms";
 import StyleDictionary from "style-dictionary";
 
 registerTransforms(StyleDictionary);
 const themes = ["classic", "dark", "light"];
+const setWith = (obj, path, value) => {
+  if (!obj || typeof obj !== "object") return obj;
 
-function generateThemeFromDictionary(dictionary, valueFunc = (value) => value) {
+  const keys = Array.isArray(path)
+    ? path
+    : path.replace(/\[(\d+)\]/g, ".$1").split(".");
+
+  let current = obj;
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+
+    if (i === keys.length - 1) {
+      // Last key → set value
+      current[key] = value;
+    } else {
+      // Ensure object/array exists
+      if (current[key] == null || typeof current[key] !== "object") {
+        current[key] = String(+keys[i + 1]) === keys[i + 1] ? [] : {};
+      }
+      current = current[key];
+    }
+  }
+
+  return obj;
+};
+
+const generateThemeFromDictionary = (dictionary, valueFunc = value => value) => {
   const theme = {};
-  dictionary.allTokens.forEach((token) => {
-    _.setWith(theme, token.name, valueFunc(token.value), Object)
+  dictionary.allTokens.forEach(token => {
+    setWith(theme, token.name, valueFunc(token.value), Object)
   });
   return theme;
-}
+};
 
 StyleDictionary.registerTransform({
   type: "name",
@@ -27,7 +52,7 @@ StyleDictionary.registerTransform({
 
 StyleDictionary.registerFormat({
   name: "ThemeFormat",
-  formatter: function ({ dictionary, platform, options, file }) {
+  formatter: ({ dictionary }) => {
     const theme = generateThemeFromDictionary(dictionary);
     return JSON.stringify(theme, null, 2);
   }
@@ -35,8 +60,8 @@ StyleDictionary.registerFormat({
 
 StyleDictionary.registerFormat({
   name: "TypescriptFormat",
-  formatter: function ({ dictionary, platform, options, file }) {
-    const theme = generateThemeFromDictionary(dictionary, (value) => typeof value);
+  formatter: ({ dictionary }) => {
+    const theme = generateThemeFromDictionary(dictionary, value => typeof value);
 
     return `
       export interface Theme ${JSON.stringify(theme, null, 2).replaceAll("\"string\"", "string").replaceAll("\"number\"", "number")}
@@ -62,7 +87,7 @@ StyleDictionary.extend({
     },
     js: {
       transforms: [...transforms, "name/cti/dot"],
-      buildPath: "src/styles/",
+      buildPath: "src/theme/tokens/",
       files: [
         {
           destination: "variables.json",
@@ -75,7 +100,7 @@ StyleDictionary.extend({
     },
     ts: {
       transforms: [...transforms, "name/cti/dot"],
-      buildPath: "src/styles/",
+      buildPath: "src/theme/tokens/",
       files: [
         {
           destination: "types.ts",
@@ -112,7 +137,7 @@ themes.forEach(theme =>
       },
       js: {
         transforms: [...transforms, "name/cti/dot"],
-        buildPath: "src/styles/",
+        buildPath: "src/theme/tokens/",
         files: [
           {
             destination: `variables.${theme}.json`,

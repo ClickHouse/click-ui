@@ -27,11 +27,9 @@ const Payments = ({ name, size, ...props }: PaymentProps) => {
     return;
   }
   return (
-    <SvgImageElement
-      as={Component}
-      $size={size}
-      {...props}
-    />
+    <SvgImageElement size={size}>
+      <Component {...props} />
+    </SvgImageElement>
   );
 };
 
