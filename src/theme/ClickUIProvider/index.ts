@@ -6,7 +6,7 @@ export { ServerClickUIProvider } from "./ServerClickUIProvider";
 export { useCUITheme, useClickUITheme } from "./hooks";
 
 // Export types and interfaces
-export type { ThemeName, ThemeTransition, ThemeContextValue } from "./context";
+export type { ThemeName, ThemeContextValue } from "./context";
 
 export type { ClickUIConfig, ClickUIProviderProps } from "./types";
 

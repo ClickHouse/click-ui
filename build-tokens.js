@@ -2,7 +2,7 @@ import { registerTransforms, transforms } from "@tokens-studio/sd-transforms";
 import StyleDictionary from "style-dictionary";
 
 registerTransforms(StyleDictionary);
-const themes = ["classic", "dark", "light"];
+const themes = ["dark", "light"];
 const setWith = (obj, path, value) => {
   if (!obj || typeof obj !== "object") return obj;
 

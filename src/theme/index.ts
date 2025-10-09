@@ -23,10 +23,6 @@ export {
 // === UTILITIES ===
 export {
   getBaseTheme,
-  getBaseThemeAsync,
-  preloadThemes,
-  getSystemTheme,
-  createSystemThemeListener,
   loadCustomConfig,
   deepMerge,
 } from "./utils";

@@ -1,11 +1,8 @@
 import { createContext } from "react";
 import { BaseThemeName, ConfigThemeValues } from "@/theme/types";
 
-// Enhanced theme name type with auto-detection
-export type ThemeName = "light" | "dark" | "classic" | "system" | "auto";
-
-// Theme transition modes
-export type ThemeTransition = "none" | "fade" | "slide" | "scale";
+// Enhanced theme name type with system detection
+export type ThemeName = "light" | "dark" | "system";
 
 // Enhanced theme context value
 export interface ThemeContextValue {

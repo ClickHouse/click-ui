@@ -1,8 +1,7 @@
 import React from "react";
 import type { BaseThemeName, ThemeConfig } from "@/theme/types";
-import { getBaseTheme } from "@/theme/utils";
-import { generateCSSVariables } from "@/theme/utils/css-generator";
-import { deepMerge } from "@/theme/utils";
+import { getBaseTheme, deepMerge } from "@/theme/utils";
+import { generateLightDarkVariables } from "@/theme/utils/css-generator";
 import {
   Provider as TooltipProvider,
   TooltipProviderProps,
@@ -27,61 +26,49 @@ export const ServerClickUIProvider = ({
   tooltipConfig = {},
   toastConfig = {},
 }: ServerClickUIProviderProps) => {
-  let themeStyles = "";
+  // Always use light-dark() approach for all themes
+  const baseLightTheme = getBaseTheme("light");
+  const baseDarkTheme = getBaseTheme("dark");
 
-  if (enableSystemMode && config?.systemModeOverrides) {
-    // Generate CSS for both light and dark modes
-    const baseLightTheme = getBaseTheme("light");
-    const baseDarkTheme = getBaseTheme("dark");
+  // Prepare light and dark themes with config overrides
+  let lightTheme = config?.theme
+    ? deepMerge(baseLightTheme, config.theme)
+    : baseLightTheme;
+  let darkTheme = config?.theme
+    ? deepMerge(baseDarkTheme, config.theme)
+    : baseDarkTheme;
 
-    const lightTheme = config.systemModeOverrides.light
-      ? deepMerge(
-          deepMerge(baseLightTheme, config.theme || {}),
-          config.systemModeOverrides.light
-        )
-      : deepMerge(baseLightTheme, config.theme || {});
-
-    const darkTheme = config.systemModeOverrides.dark
-      ? deepMerge(
-          deepMerge(baseDarkTheme, config.theme || {}),
-          config.systemModeOverrides.dark
-        )
-      : deepMerge(baseDarkTheme, config.theme || {});
-
-    const lightVars = generateCSSVariables(lightTheme);
-    const darkVars = generateCSSVariables(darkTheme);
-
-    themeStyles = `
-/* Light mode */
-@media (prefers-color-scheme: light) {
-  :root {
-${lightVars}  }
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-${darkVars}  }
-}
-
-/* Explicit theme overrides */
-:root[data-theme="light"] {
-${lightVars}}
-
-:root[data-theme="dark"] {
-${darkVars}}`;
-  } else {
-    // Single theme mode
-    const baseTheme = getBaseTheme(theme);
-    const finalTheme = config?.theme ? deepMerge(baseTheme, config.theme) : baseTheme;
-    const cssVars = generateCSSVariables(finalTheme);
-    themeStyles = `:root[data-theme="${theme}"] {\n${cssVars}}`;
+  // Apply system mode overrides if available
+  if (config?.systemModeOverrides) {
+    if (config.systemModeOverrides.light) {
+      lightTheme = deepMerge(lightTheme, config.systemModeOverrides.light);
+    }
+    if (config.systemModeOverrides.dark) {
+      darkTheme = deepMerge(darkTheme, config.systemModeOverrides.dark);
+    }
   }
+
+  const lightDarkVars = generateLightDarkVariables(lightTheme, darkTheme);
+
+  // Generate CSS content with light-dark()
+  const cssVars = Object.entries(lightDarkVars)
+    .map(([property, value]) => `  ${property}: ${value};`)
+    .join("\n");
+
+  const themeStyles = `:root {\n${cssVars}\n}`;
+
+  // Set color-scheme based on mode
+  const colorScheme = enableSystemMode ? "light dark" : (theme === "dark" ? "dark" : "light");
+  const dataTheme: BaseThemeName | "system" = enableSystemMode ? "system" : theme;
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
-      <div data-theme={enableSystemMode ? "system" : theme}>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `${themeStyles}\n:root { color-scheme: ${colorScheme}; }`,
+        }}
+      />
+      <div data-theme={dataTheme}>
         <ToastProvider {...toastConfig}>
           <TooltipProvider {...tooltipConfig}>{children}</TooltipProvider>
         </ToastProvider>

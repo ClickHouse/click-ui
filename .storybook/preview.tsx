@@ -35,7 +35,6 @@ export const globalTypes = {
       items: [
         { value: "light", icon: "sun", title: "Light" },
         { value: "dark", icon: "moon", title: "Dark" },
-        { value: "classic", icon: "component", title: "Classic" },
         { value: "system", icon: "browser", title: "System" },
       ],
       showName: true,
@@ -59,8 +58,7 @@ const withTheme: Decorator = (StoryFn, context) => {
       config={{
         tooltip: { delayDuration: 100 },
         toast: { duration: 3000 },
-        preloadThemes: ["light", "dark", "classic"],
-        enableAutoTheme: false,
+        preloadThemes: ["light", "dark"],
         logThemeChanges: true,
       }}
     >

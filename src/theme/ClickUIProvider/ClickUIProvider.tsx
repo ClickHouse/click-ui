@@ -15,7 +15,7 @@ import { getBaseTheme } from "@/theme/utils";
 import { getThemeConfig } from "@/theme/config";
 import { loadCustomConfig, deepMerge } from "@/theme/utils";
 import { injectThemeStyles } from "@/theme/utils/css-generator";
-import { useSystemTheme } from "@/theme/hooks/useSystemTheme";
+import { useSystemColorSchemePreference } from "@/theme/hooks/useSystemColorSchemePreference";
 import "@/theme/global.scss";
 // Note: All CSS variables are dynamically injected via injectThemeStyles()
 import { ConfigThemeValues } from "@/theme/types";
@@ -68,29 +68,6 @@ const useDebounce = <T extends (...args: Parameters<T>) => ReturnType<T>>(
     },
     [callback, delay]
   ) as T;
-};
-
-// Auto theme detection based on time
-const useAutoTheme = (enabled: boolean): BaseThemeName => {
-  const [autoTheme, setAutoTheme] = useState<BaseThemeName>("light");
-
-  useEffect(() => {
-    if (!enabled) return;
-
-    const updateAutoTheme = () => {
-      const hour = new Date().getHours();
-      // Dark mode from 7 PM to 6 AM
-      const isDarkTime = hour >= 19 || hour < 6;
-      setAutoTheme(isDarkTime ? "dark" : "light");
-    };
-
-    updateAutoTheme();
-    const interval = setInterval(updateAutoTheme, 60000); // Check every minute
-
-    return () => clearInterval(interval);
-  }, [enabled]);
-
-  return autoTheme;
 };
 
 // Theme preloader
@@ -170,9 +147,8 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     [fileConfig, customConfig, propConfig]
   );
 
-  // Theme detection hooks
-  const systemTheme = useSystemTheme();
-  const autoTheme = useAutoTheme(config.enableAutoTheme || false);
+  // Detect system color scheme preference
+  const systemTheme = useSystemColorSchemePreference();
 
   // Theme preloading
   useThemePreloader(config.preloadThemes || []);
@@ -184,16 +160,13 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     switch (currentTheme) {
       case "system":
         return systemTheme;
-      case "auto":
-        return autoTheme;
       case "light":
       case "dark":
-      case "classic":
         return currentTheme;
       default:
         return fallbackTheme;
     }
-  }, [currentTheme, systemTheme, autoTheme, isHydrated, fallbackTheme]);
+  }, [currentTheme, systemTheme, isHydrated, fallbackTheme]);
 
   // Sync external theme prop changes with internal state
   useEffect(() => {
@@ -217,7 +190,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
         // Only load from localStorage if no explicit theme prop is provided
         if (!initialTheme && typeof window !== "undefined") {
           const stored = localStorage.getItem(storageKey);
-          const validThemes: ThemeName[] = ["light", "dark", "classic", "system", "auto"];
+          const validThemes: ThemeName[] = ["light", "dark", "system"];
 
           if (stored && validThemes.includes(stored as ThemeName)) {
             setCurrentThemeState(stored as ThemeName);
@@ -247,39 +220,51 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   }, []);
 
   // Build theme data with system overrides
-  const { finalTheme, systemLightTheme, systemDarkTheme } = useMemo(() => {
+  const { finalTheme, systemLightTheme, systemDarkTheme, lightTheme, darkTheme } = useMemo(() => {
     const baseLightTheme = getBaseTheme("light");
     const baseDarkTheme = getBaseTheme("dark");
     const baseTheme = getBaseTheme(resolvedTheme);
 
     let processedTheme = baseTheme;
-    let lightTheme = null;
-    let darkTheme = null;
+    let systemLight = null;
+    let systemDark = null;
+
+    // Always prepare light and dark themes for light-dark() CSS function
+    let preparedLightTheme = config.theme
+      ? deepMerge(baseLightTheme, config.theme)
+      : baseLightTheme;
+    let preparedDarkTheme = config.theme
+      ? deepMerge(baseDarkTheme, config.theme)
+      : baseDarkTheme;
+
+    // Apply system mode overrides to prepared themes if available
+    if (config.systemModeOverrides) {
+      if (config.systemModeOverrides.light) {
+        preparedLightTheme = deepMerge(preparedLightTheme, config.systemModeOverrides.light);
+      }
+      if (config.systemModeOverrides.dark) {
+        preparedDarkTheme = deepMerge(preparedDarkTheme, config.systemModeOverrides.dark);
+      }
+    }
 
     // Apply custom theme overrides
     if (config.theme) {
       processedTheme = deepMerge(processedTheme, config.theme);
     }
 
-    // Handle system mode overrides
-    if (currentTheme === "system" && config.systemModeOverrides) {
-      const { light: lightOverrides, dark: darkOverrides } = config.systemModeOverrides;
-
-      lightTheme = lightOverrides
-        ? deepMerge(deepMerge(baseLightTheme, config.theme || {}), lightOverrides)
-        : deepMerge(baseLightTheme, config.theme || {});
-
-      darkTheme = darkOverrides
-        ? deepMerge(deepMerge(baseDarkTheme, config.theme || {}), darkOverrides)
-        : deepMerge(baseDarkTheme, config.theme || {});
-
-      processedTheme = resolvedTheme === "dark" ? darkTheme : lightTheme;
+    // Handle system mode - use prepared themes
+    if (currentTheme === "system") {
+      systemLight = preparedLightTheme;
+      systemDark = preparedDarkTheme;
+      processedTheme = resolvedTheme === "dark" ? systemDark : systemLight;
     }
 
     return {
       finalTheme: processedTheme,
-      systemLightTheme: lightTheme,
-      systemDarkTheme: darkTheme,
+      systemLightTheme: systemLight,
+      systemDarkTheme: systemDark,
+      lightTheme: preparedLightTheme,
+      darkTheme: preparedDarkTheme,
     };
   }, [resolvedTheme, currentTheme, config.theme, config.systemModeOverrides]);
 
@@ -305,7 +290,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   // Theme update function with debouncing and validation
   const updateThemeInternal = useCallback(
     (newTheme: ThemeName) => {
-      const validThemes: ThemeName[] = ["light", "dark", "classic", "system", "auto"];
+      const validThemes: ThemeName[] = ["light", "dark", "system"];
 
       if (!validThemes.includes(newTheme)) {
         console.warn(`Invalid theme: ${newTheme}. Falling back to system.`);
@@ -338,9 +323,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     const themeToggleMap: Record<ThemeName, ThemeName> = {
       light: "dark",
       dark: "light",
-      classic: "light",
       system: resolvedTheme === "dark" ? "light" : "dark",
-      auto: resolvedTheme === "dark" ? "light" : "dark",
     };
 
     updateTheme(themeToggleMap[currentTheme] || "light");
@@ -363,7 +346,9 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
         resolvedTheme,
         isSystem,
         systemLightTheme || undefined,
-        systemDarkTheme || undefined
+        systemDarkTheme || undefined,
+        lightTheme || undefined,
+        darkTheme || undefined
       );
 
       // Apply transitions if enabled
@@ -390,6 +375,8 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     currentTheme,
     systemLightTheme,
     systemDarkTheme,
+    lightTheme,
+    darkTheme,
     isHydrated,
     enableTransitions,
     transitionDuration,
@@ -401,7 +388,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
       // Core theme state
       themeName: currentTheme,
       resolvedTheme,
-      isSystemTheme: currentTheme === "system" || currentTheme === "auto",
+      isSystemTheme: currentTheme === "system",
 
       // Theme management
       updateTheme,
@@ -421,7 +408,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
       isHydrated,
 
       // Available themes
-      availableThemes: ["light", "dark", "classic", "system", "auto"],
+      availableThemes: ["light", "dark", "system"],
     };
   }, [
     currentTheme,
@@ -444,7 +431,6 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
         config,
         debug: {
           systemTheme,
-          autoTheme,
           buildTimeConfig,
           fileConfig,
         },
@@ -455,7 +441,6 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     contextValue,
     config,
     systemTheme,
-    autoTheme,
     buildTimeConfig,
     fileConfig,
   ]);

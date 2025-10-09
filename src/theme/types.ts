@@ -6,7 +6,7 @@ export type NestedJSONObject = {
 import type { Theme } from "./tokens/types";
 export type { Theme } from "./tokens/types";
 
-export type ThemeName = "light" | "dark" | "classic" | "system";
+export type ThemeName = "light" | "dark" | "system";
 export type ResolvedThemeName = Exclude<ThemeName, "system">;
 
 // For backward compatibility

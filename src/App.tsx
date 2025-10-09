@@ -130,11 +130,10 @@ const App = () => {
         <button
           onClick={() => {
             // Theme switching would now be handled by CSS variable updates
-            document.body.style.backgroundColor = "white";
-            setCurrentTheme("classic");
+            setCurrentTheme("system");
           }}
         >
-          Classic (CSS Variables)
+          System (CSS Variables)
         </button>
       </div>
       <Button

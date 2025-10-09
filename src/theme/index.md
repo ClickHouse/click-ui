@@ -4,7 +4,7 @@ A powerful, flexible theming system for React applications with full TypeScript 
 
 ## Features
 
-- 🎨 **Flexible Theming**: Light, dark, classic themes with custom theme support
+- 🎨 **Flexible Theming**: Light, dark themes with custom theme support
 - 🚀 **Performance Optimized**: Lazy loading, CSS variable generation, and tree-shaking
 - 🌐 **SSR Compatible**: Works with Next.js, Remix, and other SSR frameworks
 - 📱 **System Theme Detection**: Automatic light/dark mode based on user preferences
@@ -155,9 +155,9 @@ interface ClickUIProviderProps {
   children: ReactNode;
 
   // Theme settings
-  theme?: "light" | "dark" | "classic" | "system" | "auto";
+  theme?: "light" | "dark" | "system";
   storageKey?: string;
-  fallbackTheme?: "light" | "dark" | "classic";
+  fallbackTheme?: "light" | "dark";
 
   // Configuration
   config?: ThemeConfig;
@@ -189,7 +189,7 @@ The `useCUITheme()` hook provides comprehensive theme management:
 ```tsx
 const {
   // Current theme state
-  themeName,          // "light" | "dark" | "classic" | "system" | "auto"
+  themeName,          // "light" | "dark" | "system"
   resolvedTheme,      // Actual theme being used
   isSystemTheme,      // Boolean: using system detection
 

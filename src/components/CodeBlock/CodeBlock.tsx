@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
 import clsx from "clsx";
@@ -55,16 +57,14 @@ export const CodeBlock = ({
   const [copied, setCopied] = useState(false);
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
-  const customStyle = useColorStyle(theme);
 
-  // Determine theme mode based on theme prop or the custom style
-  const getThemeMode = (): CodeThemeType => {
-    if (theme) return theme;
-    // If no theme prop, try to determine from customStyle or default to 'light'
-    return "light"; // Default fallback
+  const themeMode = theme ?? "light";
+  const customStyle = useColorStyle(themeMode);
+
+  // Get theme-specific class name
+  const getThemeClassName = (theme: CodeThemeType): string => {
+    return styles[`cui${theme.charAt(0).toUpperCase() + theme.slice(1)}Mode`];
   };
-
-  const themeMode = getThemeMode();
 
   const copyCodeToClipboard = async () => {
     try {
@@ -100,10 +100,7 @@ export const CodeBlock = ({
     <div
       className={clsx(
         styles.cuiCodeBlockContainer,
-        {
-          [styles.cuiLightMode]: themeMode === "light",
-          [styles.cuiDarkMode]: themeMode === "dark",
-        },
+        getThemeClassName(themeMode),
         className
       )}
       {...props}
