@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixSwitch from "@radix-ui/react-switch";
 import { ReactNode, forwardRef, useId } from "react";
 import clsx from "clsx";

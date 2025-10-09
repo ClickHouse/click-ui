@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixHoverCard from "@radix-ui/react-hover-card";
 import { Arrow, GenericPopoverMenuPanel } from "@/components/GenericMenu";
 import { ReactNode } from "react";

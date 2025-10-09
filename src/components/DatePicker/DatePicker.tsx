@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
 import { Dropdown } from "@/components";

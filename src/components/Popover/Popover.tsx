@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixPopover from "@radix-ui/react-popover";
 import { ReactNode } from "react";
 import clsx from "clsx";

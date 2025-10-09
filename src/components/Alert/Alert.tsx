@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import { useState, ReactNode } from "react";

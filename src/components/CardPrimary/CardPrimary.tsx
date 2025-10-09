@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";

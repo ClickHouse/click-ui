@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
 import { Icon } from "@/components";
 import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";

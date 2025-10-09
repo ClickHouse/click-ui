@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, useState } from "react";
 import { Icon, IconName, Text } from "@/components";
 import styles from "./CardPromotion.module.scss";

@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode, createContext, useEffect, useState } from "react";
 import * as RadixUIToast from "@radix-ui/react-toast";
 import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
