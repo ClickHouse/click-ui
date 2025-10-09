@@ -1,0 +1,287 @@
+@use "cui-mixins" as mixins;
+
+.cuiPanel {
+  display: flex;
+
+  // Orientation styles
+  &.cuiHorizontal {
+    flex-flow: row wrap;
+  }
+
+  &.cuiVertical {
+    flex-flow: column;
+  }
+
+  // Alignment styles
+  &.cuiAlignStart {
+    align-items: flex-start;
+  }
+
+  &.cuiAlignCenter {
+    align-items: center;
+  }
+
+  &.cuiAlignEnd {
+    align-items: flex-end;
+  }
+
+  // Size styles
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  &.cuiFillHeight {
+    height: 100%;
+  }
+
+  &.cuiCustomWidth {
+    // Width will be set inline via style prop
+  }
+
+  &.cuiCustomHeight {
+    // Height will be set inline via style prop
+  }
+
+  // Color variants
+  &.cuiColorDefault {
+    background-color: var(--click-panel-color-background-default);
+  }
+
+  &.cuiColorMuted {
+    background-color: var(--click-panel-color-background-muted);
+  }
+
+  &.cuiColorTransparent {
+    background-color: var(--click-panel-color-background-transparent);
+  }
+
+  // Border radius styles
+  &.cuiRadiiNone {
+    border-radius: var(--click-panel-radii-none);
+  }
+
+  &.cuiRadiiSm {
+    border-radius: var(--click-panel-radii-sm);
+  }
+
+  &.cuiRadiiMd {
+    border-radius: var(--click-panel-radii-md);
+  }
+
+  &.cuiRadiiLg {
+    border-radius: var(--click-panel-radii-lg);
+  }
+
+  // Padding styles
+  &.cuiPaddingNone {
+    padding: var(--click-panel-space-y-none);
+  }
+
+  &.cuiPaddingXs {
+    padding: var(--click-panel-space-y-xs);
+  }
+
+  &.cuiPaddingSm {
+    padding: var(--click-panel-space-y-sm);
+  }
+
+  &.cuiPaddingMd {
+    padding: var(--click-panel-space-y-md);
+  }
+
+  &.cuiPaddingLg {
+    padding: var(--click-panel-space-y-lg);
+  }
+
+  &.cuiPaddingXl {
+    padding: var(--click-panel-space-y-xl);
+  }
+
+  // Gap styles
+  &.cuiGapNone {
+    gap: var(--click-panel-space-gap-none);
+  }
+
+  &.cuiGapXs {
+    gap: var(--click-panel-space-gap-xs);
+  }
+
+  &.cuiGapSm {
+    gap: var(--click-panel-space-gap-sm);
+  }
+
+  &.cuiGapMd {
+    gap: var(--click-panel-space-gap-md);
+  }
+
+  &.cuiGapLg {
+    gap: var(--click-panel-space-gap-lg);
+  }
+
+  &.cuiGapXl {
+    gap: var(--click-panel-space-gap-xl);
+  }
+
+  // Border styles
+  &.cuiHasBorder {
+    border: 1px solid var(--global-color-stroke-default);
+  }
+
+  &.cuiNoBorder {
+    border: none;
+  }
+
+  // Shadow styles
+  &.cuiHasShadow {
+    box-shadow: var(--shadow-1);
+  }
+
+  &.cuiNoShadow {
+    box-shadow: none;
+  }
+
+  // Cursor styles - covering all CursorOptions
+  &.cuiCursorAuto {
+    cursor: auto;
+  }
+
+  &.cuiCursorDefault {
+    cursor: default;
+  }
+
+  &.cuiCursorNone {
+    cursor: none;
+  }
+
+  &.cuiCursorContextMenu {
+    cursor: context-menu;
+  }
+
+  &.cuiCursorHelp {
+    cursor: help;
+  }
+
+  &.cuiCursorPointer {
+    cursor: pointer;
+  }
+
+  &.cuiCursorProgress {
+    cursor: progress;
+  }
+
+  &.cuiCursorWait {
+    cursor: wait;
+  }
+
+  &.cuiCursorCell {
+    cursor: cell;
+  }
+
+  &.cuiCursorCrosshair {
+    cursor: crosshair;
+  }
+
+  &.cuiCursorText {
+    cursor: text;
+  }
+
+  &.cuiCursorVerticalText {
+    cursor: vertical-text;
+  }
+
+  &.cuiCursorAlias {
+    cursor: alias;
+  }
+
+  &.cuiCursorCopy {
+    cursor: copy;
+  }
+
+  &.cuiCursorMove {
+    cursor: move;
+  }
+
+  &.cuiCursorNoDrop {
+    cursor: no-drop;
+  }
+
+  &.cuiCursorNotAllowed {
+    cursor: not-allowed;
+  }
+
+  &.cuiCursorGrab {
+    cursor: grab;
+  }
+
+  &.cuiCursorGrabbing {
+    cursor: grabbing;
+  }
+
+  &.cuiCursorEResize {
+    cursor: e-resize;
+  }
+
+  &.cuiCursorNResize {
+    cursor: n-resize;
+  }
+
+  &.cuiCursorNeResize {
+    cursor: ne-resize;
+  }
+
+  &.cuiCursorNwResize {
+    cursor: nw-resize;
+  }
+
+  &.cuiCursorSResize {
+    cursor: s-resize;
+  }
+
+  &.cuiCursorSeResize {
+    cursor: se-resize;
+  }
+
+  &.cuiCursorSwResize {
+    cursor: sw-resize;
+  }
+
+  &.cuiCursorWResize {
+    cursor: w-resize;
+  }
+
+  &.cuiCursorEwResize {
+    cursor: ew-resize;
+  }
+
+  &.cuiCursorNsResize {
+    cursor: ns-resize;
+  }
+
+  &.cuiCursorNeswResize {
+    cursor: nesw-resize;
+  }
+
+  &.cuiCursorNwseResize {
+    cursor: nwse-resize;
+  }
+
+  &.cuiCursorColResize {
+    cursor: col-resize;
+  }
+
+  &.cuiCursorRowResize {
+    cursor: row-resize;
+  }
+
+  &.cuiCursorAllScroll {
+    cursor: all-scroll;
+  }
+
+  &.cuiCursorZoomIn {
+    cursor: zoom-in;
+  }
+
+  &.cuiCursorZoomOut {
+    cursor: zoom-out;
+  }
+}

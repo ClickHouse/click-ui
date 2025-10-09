@@ -1,7 +1,7 @@
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Dropdown } from "./Dropdown";
-import { GridCenter } from "../commonElement";
-import { Button } from "..";
+import { GridCenter } from "@/components/commonElement";
+import { Button } from "@/components";
 import { Key } from "react";
 
 interface Props extends DropdownMenuProps {

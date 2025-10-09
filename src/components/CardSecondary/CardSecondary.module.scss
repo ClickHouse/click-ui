@@ -1,0 +1,97 @@
+@use "cui-mixins" as mixins;
+
+.cuiWrapper {
+  background-color: var(--click-card-secondary-color-background-default);
+  border-radius: var(--click-card-secondary-radii-all);
+  border: 1px solid var(--click-card-secondary-color-stroke-default);
+  max-width: 420px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--click-card-secondary-space-all);
+  gap: var(--click-card-secondary-space-gap);
+
+  &.cuiHasShadow {
+    box-shadow: var(--shadow-1);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: var(--click-card-secondary-color-background-hover);
+    cursor: pointer;
+
+    .cuiLinkText,
+    .cuiLinkIcon {
+      color: var(--click-card-secondary-color-link-hover);
+    }
+  }
+
+  &.cuiDisabled,
+  &.cuiDisabled:hover,
+  &.cuiDisabled:focus,
+  &.cuiDisabled:active {
+    pointer-events: none;
+    background-color: var(--click-card-secondary-color-background-disabled);
+    color: var(--click-card-secondary-color-title-disabled);
+    border: 1px solid var(--click-card-secondary-color-stroke-disabled);
+    cursor: not-allowed;
+
+    .cuiLinkText,
+    .cuiLinkIcon {
+      color: var(--click-card-secondary-color-link-disabled);
+    }
+  }
+}
+
+.cuiHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cuiHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--click-card-secondary-space-gap);
+
+  h3,
+  svg {
+    color: var(--global-color-text-default);
+  }
+
+  &.cuiDisabled {
+    h3,
+    svg {
+      color: var(--global-color-text-muted);
+    }
+  }
+}
+
+.cuiContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cuiCustomIcon {
+  height: var(--click-image-lg-size-height);
+  width: var(--click-image-lg-size-width);
+}
+
+.cuiInfoLink {
+  display: flex;
+  align-items: center;
+  color: var(--click-card-secondary-color-link-default);
+  gap: var(--click-card-secondary-space-link-gap);
+  text-decoration: none;
+}
+
+.cuiLinkText {
+  color: var(--click-card-secondary-color-link-default);
+}
+
+.cuiLinkIcon {
+  color: var(--click-card-secondary-color-link-default);
+  height: var(--click-image-md-size-height);
+  width: var(--click-image-md-size-width);
+}

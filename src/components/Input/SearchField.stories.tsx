@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Container } from "../Container/Container";
+import { Container } from "@/components/Container/Container";
 
 import { SearchField } from "./SearchField";
 

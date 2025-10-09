@@ -4,7 +4,7 @@ import { renderCUI } from "@/utils/test-utils";
 describe("Badge", () => {
   test("given a text, should render ellipsed badge", () => {
     const text = "text to render";
-    const rendered = renderCUI(<Badge text={text} />, "light");
+    const rendered = renderCUI(<Badge text={text} />);
 
     expect(rendered.getByText(text).textContent).toEqual(text);
     expect(rendered.queryByTestId("ellipsed-badge-content")).not.toBeNull();
@@ -18,8 +18,7 @@ describe("Badge", () => {
       <Badge
         text={text}
         ellipsisContent={false}
-      />,
-      "light"
+      />
     );
 
     expect(rendered.getByText(text).textContent).toEqual(text);

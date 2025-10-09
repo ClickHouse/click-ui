@@ -1,0 +1,167 @@
+@use "cui-mixins" as mixins;
+
+.cuiSplitButtonTrigger {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  user-select: none;
+  border-radius: var(--click-button-radii-all);
+
+  &.cuiPrimary {
+    border: 1px solid var(--click-button-split-primary-stroke-default);
+
+    &:hover {
+      border-color: var(--click-button-split-primary-stroke-hover);
+    }
+
+    &:focus-within {
+      border-color: var(--click-button-split-primary-stroke-active);
+    }
+
+    &.cuiDisabled {
+      cursor: not-allowed;
+      border-color: var(--click-button-split-primary-stroke-disabled);
+    }
+  }
+
+  &.cuiSecondary {
+    border: 1px solid var(--click-button-split-secondary-stroke-default);
+
+    &:hover {
+      border-color: var(--click-button-split-secondary-stroke-hover);
+    }
+
+    &:focus-within {
+      border-color: var(--click-button-split-secondary-stroke-active);
+    }
+
+    &.cuiDisabled {
+      cursor: not-allowed;
+      border-color: var(--click-button-split-secondary-stroke-disabled);
+    }
+  }
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  &.cuiDisabled {
+    cursor: not-allowed;
+  }
+}
+
+.cuiPrimaryButton {
+  border: none;
+  align-self: stretch;
+  border-radius: 0;
+  align-items: center;
+  padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
+  justify-content: center;
+
+  &.cuiPrimary {
+    background: var(--click-button-split-primary-background-main-default);
+    color: var(--click-button-split-primary-text-default);
+    font: var(--click-button-split-typography-label-default);
+
+    &:hover {
+      background: var(--click-button-split-primary-background-main-hover);
+      color: var(--click-button-split-primary-text-hover);
+      font: var(--click-button-split-typography-label-hover);
+    }
+
+    &:focus {
+      background: var(--click-button-split-primary-background-main-active);
+      color: var(--click-button-split-primary-text-active);
+      font: var(--click-button-split-typography-label-active);
+    }
+
+    &:disabled {
+      background: var(--click-button-split-primary-background-main-disabled);
+      color: var(--click-button-split-primary-text-disabled);
+      font: var(--click-button-split-typography-label-disabled);
+    }
+  }
+
+  &.cuiSecondary {
+    background: var(--click-button-split-secondary-background-main-default);
+    color: var(--click-button-split-secondary-text-default);
+    font: var(--click-button-split-typography-label-default);
+
+    &:hover {
+      background: var(--click-button-split-secondary-background-main-hover);
+      color: var(--click-button-split-secondary-text-hover);
+      font: var(--click-button-split-typography-label-hover);
+    }
+
+    &:focus {
+      background: var(--click-button-split-secondary-background-main-active);
+      color: var(--click-button-split-secondary-text-active);
+      font: var(--click-button-split-typography-label-active);
+    }
+
+    &:disabled {
+      background: var(--click-button-split-secondary-background-main-disabled);
+      color: var(--click-button-split-secondary-text-disabled);
+      font: var(--click-button-split-typography-label-disabled);
+    }
+  }
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+}
+
+.cuiSecondaryButton {
+  border: none;
+  align-self: stretch;
+  border-radius: 0;
+  padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
+
+  &.cuiPrimary {
+    background: var(--click-button-split-primary-background-action-default);
+    color: var(--click-button-split-primary-text-default);
+
+    &:hover {
+      background: var(--click-button-split-primary-background-action-hover);
+      color: var(--click-button-split-primary-text-hover);
+    }
+
+    &:focus {
+      background: var(--click-button-split-primary-background-action-active);
+      color: var(--click-button-split-primary-text-active);
+    }
+
+    &[data-disabled] {
+      background: var(--click-button-split-primary-background-action-disabled);
+      color: var(--click-button-split-primary-text-disabled);
+    }
+  }
+
+  &.cuiSecondary {
+    background: var(--click-button-split-secondary-background-action-default);
+    color: var(--click-button-split-secondary-text-default);
+
+    &:hover {
+      background: var(--click-button-split-secondary-background-action-hover);
+      color: var(--click-button-split-secondary-text-hover);
+    }
+
+    &:focus {
+      background: var(--click-button-split-secondary-background-action-active);
+      color: var(--click-button-split-secondary-text-active);
+    }
+
+    &[data-disabled] {
+      background: var(--click-button-split-secondary-background-action-disabled);
+      color: var(--click-button-split-secondary-text-disabled);
+    }
+  }
+}
+
+.cuiDropdownContent {
+  // Dynamic width will be applied via inline style
+}
+
+.cuiButtonData {
+  width: auto;
+}

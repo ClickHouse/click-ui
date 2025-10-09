@@ -1,26 +1,17 @@
-import styled from "styled-components";
-import { InputElement, InputStartContent, InputWrapper } from "../Input/InputWrapper";
-import { ReactNode, useCallback, useId } from "react";
-import { Icon } from "../Icon/Icon";
-import { Container } from "../Container/Container";
+import React, { ReactNode, useCallback, useId } from "react";
+import clsx from "clsx";
+import {
+  InputElement,
+  InputStartContent,
+  InputWrapper,
+} from "@/components/Input/InputWrapper";
+import { Icon } from "@/components";
+import { Container } from "@/components";
 import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
-import { IconButton } from "../IconButton/IconButton";
-import { Text } from "../Typography/Text/Text";
+import { IconButton } from "@/components";
+import { Text } from "@/components";
 import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from "./utils";
-
-const explicitWidth = "250px";
-
-const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
-  ${({ $isActive, theme }) => {
-    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-      $isActive
-        ? theme.click.datePicker.dateOption.color.stroke.active
-        : theme.click.field.color.stroke.default
-    };`;
-  }}
-
-  width: ${explicitWidth};
-}`;
+import styles from "./Common.module.scss";
 
 interface DatePickerInputProps {
   isActive: boolean;
@@ -42,8 +33,11 @@ export const DatePickerInput = ({
     selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : "";
 
   return (
-    <HighlightedInputWrapper
-      $isActive={isActive}
+    <InputWrapper
+      className={clsx(styles.cuiHighlightedInputWrapper, {
+        [styles.cuiActive]: isActive,
+        [styles.cuiInactive]: !isActive,
+      })}
       disabled={disabled}
       id={id ?? defaultId}
     >
@@ -51,13 +45,13 @@ export const DatePickerInput = ({
         <Icon name="calendar" />
       </InputStartContent>
       <InputElement
-        $hasStartContent
+        hasStartContent
         data-testid="datepicker-input"
         placeholder={placeholder}
         readOnly
         value={formattedSelectedDate}
       />
-    </HighlightedInputWrapper>
+    </InputWrapper>
   );
 };
 
@@ -112,114 +106,77 @@ export const DateRangePickerInput = ({
   }
 
   return (
-    <HighlightedInputWrapper
-      $isActive={isActive}
+    <InputWrapper
+      className={clsx(styles.cuiHighlightedInputWrapper, {
+        [styles.cuiActive]: isActive,
+        [styles.cuiInactive]: !isActive,
+      })}
       disabled={disabled}
       id={id ?? defaultId}
     >
       <InputStartContent>
         <Icon name="calendar" />
       </InputStartContent>
-      <InputElement
-        $hasStartContent
-        as="div"
+      <div
+        className="input-element-wrapper"
         data-testid="daterangepicker-input"
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          padding: "var(--click-input-space-y) var(--click-input-space-x)",
+          minHeight: "var(--click-input-size-height-md)",
+          backgroundColor: "var(--click-input-color-background-default)",
+          border: "var(--click-input-stroke-border-default)",
+          borderRadius: "var(--click-input-radii-all)",
+          fontSize: "var(--click-input-typography-text-default)",
+        }}
       >
         {formattedValue}
-      </InputElement>
-    </HighlightedInputWrapper>
+      </div>
+    </InputWrapper>
   );
 };
 
-const DatePickerContainer = styled(Container)`
-  background: ${({ theme }) =>
-    theme.click.datePicker.dateOption.color.background.default};
-`;
-
-const UnselectableTitle = styled.h2`
-  ${({ theme }) => `
-    color: ${theme.click.datePicker.color.title.default};
-    font: ${theme.click.datePicker.typography.title.default};
-  `}
-
-  user-select: none;
-`;
-
-const DateTable = styled.table`
-  border-collapse: separate;
-  border-spacing: 0;
-  font: ${({ theme }) => theme.typography.styles.product.text.normal.md};
-  table-layout: fixed;
-  user-select: none;
-  width: ${explicitWidth};
-
-  thead tr {
-    height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
-  }
-
-  tbody {
-    cursor: pointer;
-  }
-
-  td,
-  th {
-    padding: 4px;
-  }
-`;
-
-const DateTableHeader = styled.th`
-  ${({ theme }) => `
-    color: ${theme.click.datePicker.color.daytitle.default};
-    font: ${theme.click.datePicker.typography.daytitle.default};
-  `}
-
-  width: 14%;
-`;
-
-export const DateTableCell = styled.td<{
+interface DateTableCellProps {
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
   $isToday?: boolean;
-}>`
-  ${({ theme }) => `
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    font: ${theme.click.datePicker.dateOption.typography.label.default};
-  `}
+  children?: React.ReactNode;
+  onClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}
 
-  ${({ $isCurrentMonth, $isDisabled, theme }) =>
-    (!$isCurrentMonth || $isDisabled) &&
-    `
-    color: ${theme.click.datePicker.dateOption.color.label.disabled};
-    font: ${theme.click.datePicker.dateOption.typography.label.disabled};
-  `}
-
-  ${({ $isSelected, theme }) =>
-    $isSelected &&
-    `
-      background: ${theme.click.datePicker.dateOption.color.background.active};
-      color: ${theme.click.datePicker.dateOption.color.label.active};
-    `}
-
-
-  text-align: center;
-
-  ${({ $isToday, theme }) =>
-    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
-
-  &:hover {
-    ${({ $isDisabled, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-        $isDisabled
-          ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
-      };
-
-
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
-  }
-`;
+export const DateTableCell = ({
+  $isCurrentMonth,
+  $isDisabled,
+  $isSelected,
+  $isToday,
+  children,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  ...props
+}: DateTableCellProps) => {
+  return (
+    <td
+      className={clsx(styles.cuiDateTableCell, {
+        [styles.cuiNotCurrentMonth]: !$isCurrentMonth,
+        [styles.cuiDisabled]: $isDisabled,
+        [styles.cuiSelected]: $isSelected,
+        [styles.cuiToday]: $isToday,
+      })}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      {...props}
+    >
+      {children}
+    </td>
+  );
+};
 
 export type Body = ReturnType<typeof useCalendar>["body"];
 
@@ -251,7 +208,8 @@ export const CalendarRenderer = ({
   headerDate.setFullYear(year);
 
   return (
-    <DatePickerContainer
+    <Container
+      className={styles.cuiDatePickerContainer}
       data-testid="datepicker-calendar-container"
       isResponsive={false}
       fillWidth={false}
@@ -271,7 +229,9 @@ export const CalendarRenderer = ({
           size="sm"
           type="ghost"
         />
-        <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
+        <h2 className={styles.cuiUnselectableTitle}>
+          {headerDateFormatter.format(headerDate)}
+        </h2>
         <IconButton
           data-testid="calendar-next-month"
           icon="chevron-right"
@@ -280,20 +240,23 @@ export const CalendarRenderer = ({
           type="ghost"
         />
       </Container>
-      <DateTable>
+      <table className={styles.cuiDateTable}>
         <thead>
           <tr>
             {headers.weekDays.map(({ key, value: date }) => {
               return (
-                <DateTableHeader key={key}>
+                <th
+                  key={key}
+                  className={styles.cuiDateTableHeader}
+                >
                   {weekdayFormatter.format(date)}
-                </DateTableHeader>
+                </th>
               );
             })}
           </tr>
         </thead>
         <tbody>{children(body)}</tbody>
-      </DateTable>
-    </DatePickerContainer>
+      </table>
+    </Container>
   );
 };

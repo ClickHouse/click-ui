@@ -1,0 +1,35 @@
+@use "cui-mixins" as mixins;
+
+.cuiGenericLabel {
+  cursor: pointer;
+  color: var(--click-field-color-genericLabel-default);
+  font: var(--click-field-typography-genericLabel-default);
+
+  &:hover {
+    color: var(--click-field-color-genericLabel-hover);
+    font: var(--click-field-typography-genericLabel-hover);
+  }
+
+  &:focus,
+  &:focus-within {
+    color: var(--click-field-color-genericLabel-active);
+    font: var(--click-field-typography-genericLabel-active);
+  }
+
+  &.cuiDisabled {
+    color: var(--click-field-color-genericLabel-disabled);
+    font: var(--click-field-typography-genericLabel-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      color: var(--click-field-color-genericLabel-disabled);
+      font: var(--click-field-typography-genericLabel-disabled);
+    }
+
+    &:focus,
+    &:focus-within {
+      color: var(--click-field-color-genericLabel-disabled);
+      font: var(--click-field-typography-genericLabel-disabled);
+    }
+  }
+}

@@ -1,7 +1,7 @@
-import { Button, Checkbox } from "..";
-import { GridCenter } from "../commonElement";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Button, Checkbox } from "@/components";
+import { GridCenter } from "@/components/commonElement";
+import { Text } from "@/components/Typography/Text/Text";
+import { Title } from "@/components/Typography/Title/Title";
 import { Popover } from "./Popover";
 
 const PopoverComponent = ({

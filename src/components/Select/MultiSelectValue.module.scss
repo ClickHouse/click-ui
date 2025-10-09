@@ -1,0 +1,19 @@
+@use "cui-mixins" as mixins;
+
+.cuiBadgeList {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: inherit;
+  font: inherit;
+  color: inherit;
+}
+
+.cuiMultiSelectBadge {
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  max-width: fit-content;
+}

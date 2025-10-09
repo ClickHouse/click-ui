@@ -1,0 +1,89 @@
+@use "cui-mixins" as mixins;
+
+.cuiAccordion {
+  &.cuiFillWidth {
+    width: 100%;
+  }
+}
+
+.cuiTrigger {
+  @include mixins.cuiAccordionTriggerBase;
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  // Size variants
+  &.cuiSm {
+    &.cuiDefault {
+      @include mixins.cuiAccordionTriggerSize(sm, default);
+    }
+    &.cuiLink {
+      @include mixins.cuiAccordionTriggerSize(sm, link);
+    }
+  }
+
+  &.cuiMd {
+    &.cuiDefault {
+      @include mixins.cuiAccordionTriggerSize(md, default);
+    }
+    &.cuiLink {
+      @include mixins.cuiAccordionTriggerSize(md, link);
+    }
+  }
+
+  &.cuiLg {
+    &.cuiDefault {
+      @include mixins.cuiAccordionTriggerSize(lg, default);
+    }
+    &.cuiLink {
+      @include mixins.cuiAccordionTriggerSize(lg, link);
+    }
+  }
+}
+
+.cuiIconsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cuiIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+
+  .cuiTrigger[data-state="open"] & {
+    transform: rotate(90deg);
+  }
+}
+
+.cuiContent {
+  // Content styles from RadixAccordion.Content - inherit default styles
+}
+
+// SidebarAccordion specific styles
+.cuiSidebarAccordion {
+  .cuiTrigger {
+    gap: var(--click-sidebar-navigation-item-default-space-gap);
+  }
+
+  .cuiIconWrapper {
+    visibility: hidden;
+  }
+
+  &:hover .cuiIconWrapper,
+  &:active .cuiIconWrapper {
+    visibility: revert;
+  }
+
+  .cuiTrigger[data-state="open"] .cuiIconWrapper {
+    visibility: revert;
+  }
+
+  // Reset paragraph margins
+  p {
+    margin: 0;
+  }
+}

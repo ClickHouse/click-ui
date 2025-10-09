@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
-import { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
+import clsx from "clsx";
 
 import { truncateFilename } from "@/utils/truncate.ts";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import styles from "./FileMultiUpload.module.scss";
 
 export interface FileUploadItem {
   id: string;
@@ -26,143 +26,6 @@ interface FileMultiUploadProps {
   onFileRemove?: (fileId: string) => void;
   onFileFailure?: () => void;
 }
-
-const UploadArea = styled.div<{
-  $isDragging: boolean;
-}>`
-  background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
-  border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
-  border-radius: ${({ theme }) => theme.click.fileUpload.md.radii.all};
-  padding: ${({ theme }) =>
-    `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-  cursor: pointer;
-  transition: ${({ theme }) => theme.click.fileUpload.transitions.all};
-  border-style: dashed;
-  border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.default};
-
-  ${props =>
-    props.$isDragging &&
-    css`
-      background-color: ${({ theme }) => theme.click.fileUpload.color.background.active};
-      border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.active};
-    `}
-`;
-
-const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
-  font: ${({ theme }) => theme.click.fileUpload.typography.title.default};
-  color: ${({ theme, $isNotSupported }) =>
-    $isNotSupported
-      ? theme.click.fileUpload.color.title.error
-      : theme.click.fileUpload.color.title.default};
-`;
-
-const FileUploadDescription = styled(Text)`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.description.default};
-`;
-
-const UploadIcon = styled(Icon)`
-  svg {
-    width: ${({ theme }) => theme.click.fileUpload.md.icon.size.width};
-    height: ${({ theme }) => theme.click.fileUpload.md.icon.size.height};
-    color: ${({ theme }) => theme.click.fileUpload.md.color.icon.default};
-  }
-`;
-
-const UploadText = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
-
-const FilesList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
-  width: 100%;
-  margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-`;
-
-const FileItem = styled.div<{ $isError?: boolean }>`
-  background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
-  border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
-  border-radius: ${({ theme }) => theme.click.fileUpload.sm.radii.all};
-  padding: ${({ theme }) =>
-    `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`};
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
-
-  ${props =>
-    props.$isError &&
-    css`
-      background-color: ${({ theme }) => theme.click.fileUpload.color.background.error};
-      border: none;
-    `}
-`;
-
-const DocumentIcon = styled(Icon)`
-  svg {
-    width: ${({ theme }) => theme.click.fileUpload.sm.icon.size.width};
-    height: ${({ theme }) => theme.click.fileUpload.sm.icon.size.height};
-    color: ${({ theme }) => theme.click.fileUpload.sm.color.icon.default};
-  }
-`;
-
-const FileInfoHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
-  width: 100%;
-`;
-
-const FileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.click.fileUpload.hasFile.header.space.gap};
-  flex: 1;
-`;
-
-const FileDetails = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-  border: none;
-`;
-
-const FileActions = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  gap: 0;
-`;
-
-const ProgressContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const ProgressBarContainer = styled.div`
-  width: 100%;
-  flex: 1;
-`;
-
-const ProgressPercentage = styled(Text)`
-  min-width: ${({ theme }) => theme.sizes[10]};
-  text-align: right;
-  padding-right: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-`;
 
 const formatFileSize = (sizeInBytes: number): string => {
   if (sizeInBytes < 1024) {
@@ -329,35 +192,40 @@ export const FileMultiUpload = ({
 
   return (
     <>
-      <UploadArea
-        $isDragging={isDragging}
+      <div
+        className={clsx(styles.cuiUploadArea, { [styles.cuiDragging]: isDragging })}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         onClick={handleBrowseClick}
       >
-        <UploadIcon name="upload" />
-        <UploadText>
+        <Icon
+          name="upload"
+          className={styles.cuiUploadIcon}
+        />
+        <div className={styles.cuiUploadText}>
           {!isSupported ? (
-            <FileUploadTitle
-              $isNotSupported
+            <Title
               type="h1"
+              className={clsx(styles.cuiFileUploadTitle, styles.cuiNotSupported)}
             >
               Unsupported file type
-            </FileUploadTitle>
+            </Title>
           ) : (
-            <FileUploadTitle
-              $isNotSupported={!isSupported}
+            <Title
               type="h1"
+              className={clsx(styles.cuiFileUploadTitle, {
+                [styles.cuiNotSupported]: !isSupported,
+              })}
             >
               {title}
-            </FileUploadTitle>
+            </Title>
           )}
-          <FileUploadDescription>
+          <Text className={styles.cuiFileUploadDescription}>
             Files supported: {supportedFileTypes.join(", ")}
-          </FileUploadDescription>
-        </UploadText>
+          </Text>
+        </div>
         <Button
           type={"secondary"}
           onClick={e => {
@@ -367,19 +235,24 @@ export const FileMultiUpload = ({
         >
           Browse files
         </Button>
-      </UploadArea>
+      </div>
 
       {files.length > 0 && (
-        <FilesList>
+        <div className={styles.cuiFilesList}>
           {files.map(file => (
-            <FileItem
+            <div
               key={file.id}
-              $isError={file.status === "error"}
+              className={clsx(styles.cuiFileItem, {
+                [styles.cuiError]: file.status === "error",
+              })}
             >
-              <FileInfo>
-                <FileInfoHeader>
-                  <DocumentIcon name={"document"} />
-                  <FileDetails>
+              <div className={styles.cuiFileInfo}>
+                <div className={styles.cuiFileInfoHeader}>
+                  <Icon
+                    name={"document"}
+                    className={styles.cuiDocumentIcon}
+                  />
+                  <div className={styles.cuiFileDetails}>
                     <Text size={"md"}>{truncateFilename(file.name)}</Text>
                     {(file.status === "success" || file.status === "uploading") && (
                       <Text
@@ -404,9 +277,9 @@ export const FileMultiUpload = ({
                         name={"check"}
                       />
                     )}
-                  </FileDetails>
+                  </div>
 
-                  <FileActions>
+                  <div className={styles.cuiFileActions}>
                     {file.status === "error" && (
                       <IconButton
                         size={"sm"}
@@ -421,29 +294,30 @@ export const FileMultiUpload = ({
                       type={"ghost"}
                       onClick={() => handleRemoveFile(file.id)}
                     />
-                  </FileActions>
-                </FileInfoHeader>
+                  </div>
+                </div>
 
                 {file.status === "uploading" && (
-                  <ProgressContainer>
-                    <ProgressBarContainer>
+                  <div className={styles.cuiProgressContainer}>
+                    <div className={styles.cuiProgressBarContainer}>
                       <ProgressBar
                         progress={file.progress}
                         type={"small"}
                       />
-                    </ProgressBarContainer>
-                    <ProgressPercentage
+                    </div>
+                    <Text
                       size={"sm"}
                       color={"muted"}
+                      className={styles.cuiProgressPercentage}
                     >
                       {file.progress}%
-                    </ProgressPercentage>
-                  </ProgressContainer>
+                    </Text>
+                  </div>
                 )}
-              </FileInfo>
-            </FileItem>
+              </div>
+            </div>
           ))}
-        </FilesList>
+        </div>
       )}
 
       <input

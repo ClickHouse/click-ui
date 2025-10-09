@@ -100,7 +100,7 @@ export type SelectedRegion =
   | ColumnsSelection
   | RectangleSelection;
 
-export type RoundedType = "none" | "lg" | "md" | "sm";
+export type RoundedType = "none" | "sm" | "md" | "lg" | "xl";
 
 export type KeyEventType = "keypress" | "click";
 export type onSelectFn = (

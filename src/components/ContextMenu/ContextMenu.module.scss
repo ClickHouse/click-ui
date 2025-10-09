@@ -1,0 +1,41 @@
+@use "cui-mixins" as mixins;
+
+.cuiRightMenuContent {
+  flex-direction: column;
+  z-index: 1;
+
+  &.cuiShowArrow {
+    &[data-side="bottom"] {
+      margin-top: -1px;
+    }
+
+    &[data-side="top"] {
+      margin-bottom: -1px;
+    }
+
+    &[data-side="left"] {
+      margin-right: -1px;
+
+      .cuiPopoverArrow {
+        margin-right: 1rem;
+      }
+    }
+
+    &[data-side="right"] {
+      margin-left: -1px;
+
+      .cuiPopoverArrow {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+.cuiRightMenuGroup {
+  width: 100%;
+  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+}
+
+.cuiRightMenuSub {
+  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+}

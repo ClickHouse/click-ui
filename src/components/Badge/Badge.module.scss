@@ -1,0 +1,285 @@
+@use "cui-mixins" as mixins;
+
+// Base wrapper styles
+.cuiWrapper {
+  display: inline-flex;
+  border-radius: var(--click-badge-radii-all);
+
+  // Size variants
+  &.cuiSm {
+    padding: var(--click-badge-space-sm-y) var(--click-badge-space-sm-x);
+    font: var(--click-badge-typography-label-sm-default);
+  }
+
+  &.cuiMd {
+    padding: var(--click-badge-space-md-y) var(--click-badge-space-md-x);
+    font: var(--click-badge-typography-label-md-default);
+  }
+
+  // Type and state combinations - opaque
+  &.cuiOpaque {
+    // Default state
+    &.cuiDefault {
+      background-color: var(--click-badge-opaque-color-background-default);
+      color: var(--click-badge-opaque-color-text-default);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-default);
+    }
+
+    &.cuiSuccess {
+      background-color: var(--click-badge-opaque-color-background-success);
+      color: var(--click-badge-opaque-color-text-success);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-success);
+    }
+
+    &.cuiNeutral {
+      background-color: var(--click-badge-opaque-color-background-neutral);
+      color: var(--click-badge-opaque-color-text-neutral);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-neutral);
+    }
+
+    &.cuiDanger {
+      background-color: var(--click-badge-opaque-color-background-danger);
+      color: var(--click-badge-opaque-color-text-danger);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-danger);
+    }
+
+    &.cuiDisabled {
+      background-color: var(--click-badge-opaque-color-background-disabled);
+      color: var(--click-badge-opaque-color-text-disabled);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-disabled);
+    }
+
+    &.cuiWarning {
+      background-color: var(--click-badge-opaque-color-background-warning);
+      color: var(--click-badge-opaque-color-text-warning);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-warning);
+    }
+
+    &.cuiInfo {
+      background-color: var(--click-badge-opaque-color-background-info);
+      color: var(--click-badge-opaque-color-text-info);
+      border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-info);
+    }
+  }
+
+  // Type and state combinations - solid
+  &.cuiSolid {
+    // Default state
+    &.cuiDefault {
+      background-color: var(--click-badge-solid-color-background-default);
+      color: var(--click-badge-solid-color-text-default);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-default);
+    }
+
+    &.cuiSuccess {
+      background-color: var(--click-badge-solid-color-background-success);
+      color: var(--click-badge-solid-color-text-success);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-success);
+    }
+
+    &.cuiNeutral {
+      background-color: var(--click-badge-solid-color-background-neutral);
+      color: var(--click-badge-solid-color-text-neutral);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-neutral);
+    }
+
+    &.cuiDanger {
+      background-color: var(--click-badge-solid-color-background-danger);
+      color: var(--click-badge-solid-color-text-danger);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-danger);
+    }
+
+    &.cuiDisabled {
+      background-color: var(--click-badge-solid-color-background-disabled);
+      color: var(--click-badge-solid-color-text-disabled);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-disabled);
+    }
+
+    &.cuiWarning {
+      background-color: var(--click-badge-solid-color-background-warning);
+      color: var(--click-badge-solid-color-text-warning);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-warning);
+    }
+
+    &.cuiInfo {
+      background-color: var(--click-badge-solid-color-background-info);
+      color: var(--click-badge-solid-color-text-info);
+      border: var(--click-badge-stroke) solid var(--click-badge-solid-color-stroke-info);
+    }
+  }
+}
+
+// Content container
+.cuiContent {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  justify-content: flex-start;
+
+  &.cuiSm {
+    gap: var(--click-badge-space-sm-gap);
+  }
+
+  &.cuiMd {
+    gap: var(--click-badge-space-md-gap);
+  }
+}
+
+// Badge content wrapper
+.cuiBadgeContent {
+  width: auto;
+  overflow: hidden;
+
+  svg {
+    gap: inherit;
+  }
+
+  // Icon size variants
+  &.cuiSm svg {
+    height: var(--click-badge-icon-sm-size-height);
+    width: var(--click-badge-icon-sm-size-width);
+  }
+
+  &.cuiMd svg {
+    height: var(--click-badge-icon-md-size-height);
+    width: var(--click-badge-icon-md-size-width);
+  }
+
+  // Icon color variants for opaque type
+  &.cuiOpaque {
+    &.cuiDefault svg {
+      color: var(--click-badge-opaque-color-text-default);
+    }
+
+    &.cuiSuccess svg {
+      color: var(--click-badge-opaque-color-text-success);
+    }
+
+    &.cuiNeutral svg {
+      color: var(--click-badge-opaque-color-text-neutral);
+    }
+
+    &.cuiDanger svg {
+      color: var(--click-badge-opaque-color-text-danger);
+    }
+
+    &.cuiDisabled svg {
+      color: var(--click-badge-opaque-color-text-disabled);
+    }
+
+    &.cuiWarning svg {
+      color: var(--click-badge-opaque-color-text-warning);
+    }
+
+    &.cuiInfo svg {
+      color: var(--click-badge-opaque-color-text-info);
+    }
+  }
+
+  // Icon color variants for solid type
+  &.cuiSolid {
+    &.cuiDefault svg {
+      color: var(--click-badge-solid-color-text-default);
+    }
+
+    &.cuiSuccess svg {
+      color: var(--click-badge-solid-color-text-success);
+    }
+
+    &.cuiNeutral svg {
+      color: var(--click-badge-solid-color-text-neutral);
+    }
+
+    &.cuiDanger svg {
+      color: var(--click-badge-solid-color-text-danger);
+    }
+
+    &.cuiDisabled svg {
+      color: var(--click-badge-solid-color-text-disabled);
+    }
+
+    &.cuiWarning svg {
+      color: var(--click-badge-solid-color-text-warning);
+    }
+
+    &.cuiInfo svg {
+      color: var(--click-badge-solid-color-text-info);
+    }
+  }
+}
+
+// Close icon container
+.cuiCloseIcon {
+  // Size variants
+  &.cuiSm {
+    height: var(--click-badge-icon-sm-size-height);
+    width: var(--click-badge-icon-sm-size-width);
+  }
+
+  &.cuiMd {
+    height: var(--click-badge-icon-md-size-height);
+    width: var(--click-badge-icon-md-size-width);
+  }
+
+  // Color variants for opaque type
+  &.cuiOpaque {
+    &.cuiDefault {
+      color: var(--click-badge-opaque-color-text-default);
+    }
+
+    &.cuiSuccess {
+      color: var(--click-badge-opaque-color-text-success);
+    }
+
+    &.cuiNeutral {
+      color: var(--click-badge-opaque-color-text-neutral);
+    }
+
+    &.cuiDanger {
+      color: var(--click-badge-opaque-color-text-danger);
+    }
+
+    &.cuiDisabled {
+      color: var(--click-badge-opaque-color-text-disabled);
+    }
+
+    &.cuiWarning {
+      color: var(--click-badge-opaque-color-text-warning);
+    }
+
+    &.cuiInfo {
+      color: var(--click-badge-opaque-color-text-info);
+    }
+  }
+
+  // Color variants for solid type
+  &.cuiSolid {
+    &.cuiDefault {
+      color: var(--click-badge-solid-color-text-default);
+    }
+
+    &.cuiSuccess {
+      color: var(--click-badge-solid-color-text-success);
+    }
+
+    &.cuiNeutral {
+      color: var(--click-badge-solid-color-text-neutral);
+    }
+
+    &.cuiDanger {
+      color: var(--click-badge-solid-color-text-danger);
+    }
+
+    &.cuiDisabled {
+      color: var(--click-badge-solid-color-text-disabled);
+    }
+
+    &.cuiWarning {
+      color: var(--click-badge-solid-color-text-warning);
+    }
+
+    &.cuiInfo {
+      color: var(--click-badge-solid-color-text-info);
+    }
+  }
+}

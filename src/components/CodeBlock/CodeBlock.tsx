@@ -1,9 +1,12 @@
+"use client";
+
 import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
+import clsx from "clsx";
 import { IconButton } from "@/components";
-import { styled } from "styled-components";
+import { EmptyButton } from "@/components/commonElement";
 import useColorStyle from "./useColorStyle";
-import { EmptyButton } from "../commonElement";
+import styles from "./CodeBlock.module.scss";
 import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";
 import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
@@ -39,60 +42,6 @@ interface CustomRendererProps {
   useInlineStyles: boolean;
 }
 
-const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  position: relative;
-  ${({ theme, $theme }) => {
-    const themeName = (theme.name !== "classic" ? theme.name : "light") as CodeThemeType;
-
-    const codeTheme = theme.click.codeblock[`${!$theme ? themeName : $theme}Mode`].color;
-    return `
-    color: ${codeTheme.numbers.default};
-    .linenumber {
-      color: ${codeTheme.numbers.default}
-    }
-  `;
-  }}
-`;
-
-const CodeButton = styled(EmptyButton)<{ $copied: boolean; $error: boolean }>`
-  ${({ $copied, $error, theme }) => `
-    color: ${
-      $copied
-        ? theme.click.alert.color.text.success
-        : $error
-          ? theme.click.alert.color.text.danger
-          : "inherit"
-    };
-    padding: 0;
-    border: 0;
-  `}
-`;
-
-const Highlighter = styled(SyntaxHighlighter)`
-  background: transparent;
-  padding: 0;
-  margin: 0;
-`;
-
-const CodeContent = styled.code`
-  font-family: inherit;
-  color: inherit;
-`;
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  display: flex;
-  ${({ theme }) => `
-    gap:  0.625rem;
-    top: ${theme.click.codeblock.space.y};
-    right: ${theme.click.codeblock.space.x};
-  `}
-`;
-
 export const CodeBlock = ({
   children,
   language,
@@ -102,12 +51,20 @@ export const CodeBlock = ({
   wrapLines = false,
   onCopy,
   onCopyError,
+  className,
   ...props
 }: Props) => {
   const [copied, setCopied] = useState(false);
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
-  const customStyle = useColorStyle(theme);
+
+  const themeMode = theme ?? "light";
+  const customStyle = useColorStyle(themeMode);
+
+  // Get theme-specific class name
+  const getThemeClassName = (theme: CodeThemeType): string => {
+    return styles[`cui${theme.charAt(0).toUpperCase() + theme.slice(1)}Mode`];
+  };
 
   const copyCodeToClipboard = async () => {
     try {
@@ -127,38 +84,52 @@ export const CodeBlock = ({
       setTimeout(() => setErrorCopy(false), 2000);
     }
   };
+
   const wrapElement = () => {
     setWrap(wrap => !wrap);
   };
 
-  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => <CodeContent {...props} />;
+  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => (
+    <code
+      {...props}
+      className={styles.cuiCodeContent}
+    />
+  );
+
   return (
-    <CodeBlockContainer
-      $theme={theme}
+    <div
+      className={clsx(
+        styles.cuiCodeBlockContainer,
+        getThemeClassName(themeMode),
+        className
+      )}
       {...props}
     >
-      <ButtonContainer>
+      <div className={styles.cuiButtonContainer}>
         {showWrapButton && (
-          <CodeButton
-            as={IconButton}
-            $copied={false}
-            $error={false}
-            icon="document"
+          <EmptyButton
+            className={clsx(styles.cuiCodeButton, styles.cuiNormal)}
             onClick={wrapElement}
-          />
+          >
+            <IconButton icon="document" />
+          </EmptyButton>
         )}
-        <CodeButton
-          as={IconButton}
-          $copied={copied}
-          $error={errorCopy}
-          icon={copied ? "check" : errorCopy ? "warning" : "copy"}
+        <EmptyButton
+          className={clsx(styles.cuiCodeButton, {
+            [styles.cuiCopied]: copied,
+            [styles.cuiError]: errorCopy,
+            [styles.cuiNormal]: !copied && !errorCopy,
+          })}
           onClick={copyCodeToClipboard}
-        />
-      </ButtonContainer>
-      <Highlighter
+        >
+          <IconButton icon={copied ? "check" : errorCopy ? "warning" : "copy"} />
+        </EmptyButton>
+      </div>
+      <SyntaxHighlighter
         language={language}
-        style={customStyle}
+        style={customStyle as { [key: string]: React.CSSProperties }}
         CodeTag={CodeWithRef}
+        className={styles.cuiHighlighter}
         renderer={({ rows, stylesheet, useInlineStyles }: CustomRendererProps) => {
           return rows.map((row, index) => {
             const children = row.children;
@@ -195,7 +166,7 @@ export const CodeBlock = ({
         wrapLongLines={wrap || wrapLines}
       >
         {children}
-      </Highlighter>
-    </CodeBlockContainer>
+      </SyntaxHighlighter>
+    </div>
   );
 };

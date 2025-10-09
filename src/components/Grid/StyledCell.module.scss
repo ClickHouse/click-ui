@@ -1,0 +1,231 @@
+@use "cui-mixins" as mixins;
+
+.cuiStyledCell {
+  @include mixins.cuiGridCellBase;
+
+  &[data-align="right"] {
+    text-align: right;
+  }
+}
+
+// Height variations
+.cuiHeightFixed {
+  overflow-y: hidden;
+}
+
+.cuiHeightAuto {
+  height: 100%;
+  min-height: auto;
+  overflow-y: auto;
+}
+
+// Type and selection combinations - body
+.cuiTypeBody {
+  &.cuiSelectionDefault {
+    @include mixins.cuiGridCellType("body", "default");
+    color: var(--click-grid-body-cell-color-text-default);
+  }
+
+  &.cuiSelectionSelectIndirect {
+    @include mixins.cuiGridCellType("body", "selectIndirect");
+    color: var(--click-grid-body-cell-color-text-selectIndirect);
+  }
+
+  &.cuiSelectionSelectDirect {
+    @include mixins.cuiGridCellType("body", "selectDirect");
+    color: var(--click-grid-body-cell-color-text-selectDirect);
+  }
+}
+
+// Type and selection combinations - header
+.cuiTypeHeader {
+  &.cuiSelectionDefault {
+    @include mixins.cuiGridCellType("header", "default");
+    color: var(--click-grid-header-cell-color-title-default);
+  }
+
+  &.cuiSelectionSelectIndirect {
+    @include mixins.cuiGridCellType("header", "selectIndirect");
+    color: var(--click-grid-header-cell-color-title-selectIndirect);
+  }
+
+  &.cuiSelectionSelectDirect {
+    @include mixins.cuiGridCellType("header", "selectDirect");
+    color: var(--click-grid-header-cell-color-title-selectDirect);
+  }
+}
+
+// Focus state
+.cuiFocused {
+  &.cuiTypeBody {
+    box-shadow: inset 0 0 0 1px var(--click-grid-body-cell-color-stroke-selectDirect);
+  }
+
+  &.cuiTypeHeader {
+    box-shadow: inset 0 0 0 1px var(--click-grid-header-cell-color-stroke-selectDirect);
+  }
+}
+
+// Border management
+.cuiBorderNone {
+  border: none;
+}
+
+.cuiBorderRightNone {
+  border-right: none;
+}
+
+.cuiBorderBottomNone {
+  border-bottom: none;
+}
+
+// Last row/column border colors
+.cuiLastRowBorder {
+  &.cuiTypeBody {
+    &.cuiFocused {
+      border-bottom-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-bottom-color: var(--click-grid-body-cell-color-stroke-default);
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-bottom-color: var(--click-grid-body-cell-color-stroke-selectIndirect);
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-bottom-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+  }
+
+  &.cuiTypeHeader {
+    &.cuiFocused {
+      border-bottom-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-bottom-color: var(--click-grid-header-cell-color-stroke-default);
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-bottom-color: var(--click-grid-header-cell-color-stroke-selectIndirect);
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-bottom-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+  }
+}
+
+.cuiLastColumnBorder {
+  &.cuiTypeBody {
+    &.cuiFocused {
+      border-right-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-right-color: var(--click-grid-body-cell-color-stroke-default);
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-right-color: var(--click-grid-body-cell-color-stroke-selectIndirect);
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-right-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+  }
+
+  &.cuiTypeHeader {
+    &.cuiFocused {
+      border-right-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-right-color: var(--click-grid-header-cell-color-stroke-default);
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-right-color: var(--click-grid-header-cell-color-stroke-selectIndirect);
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-right-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+  }
+}
+
+// Header specific border hiding when showBorder is false
+.cuiHeaderNoBorder {
+  &[data-grid-row="-1"] {
+    border-top: none;
+  }
+
+  &[data-grid-column="-1"] {
+    border-left: none;
+  }
+}
+
+// Pseudo-element for additional borders
+.cuiPseudoBorder {
+  &::before {
+    @include mixins.cuiAbsoluteFill;
+    content: "";
+    pointer-events: none;
+  }
+}
+
+.cuiSelectedTop {
+  &::before {
+    &.cuiTypeBody {
+      border-top: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+
+    &.cuiTypeHeader {
+      border-top: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+  }
+}
+
+.cuiSelectedLeft {
+  &::before {
+    &.cuiTypeBody {
+      border-left: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+
+    &.cuiTypeHeader {
+      border-left: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+  }
+}
+
+.cuiSelectedBottomDirect {
+  &::before {
+    &.cuiTypeBody {
+      border-bottom: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+
+    &.cuiTypeHeader {
+      border-bottom: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+  }
+}
+
+.cuiSelectedRightDirect {
+  &::before {
+    &.cuiTypeBody {
+      border-right: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+    }
+
+    &.cuiTypeHeader {
+      border-right: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+    }
+  }
+}
+
+.cuiPseudoBorderNone {
+  &::before {
+    border: none;
+  }
+}

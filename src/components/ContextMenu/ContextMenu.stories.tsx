@@ -1,28 +1,19 @@
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
 import { ContextMenu } from "./ContextMenu";
-import { styled } from "styled-components";
+import styles from "./ContextMenu.stories.module.scss";
 
 interface Props extends ContextMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
   side: "top" | "right" | "left" | "bottom";
 }
-const GridCenter = styled.div`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-`;
 
-const Trigger = styled(GridCenter)`
-  border: 2px currentColor dashed;
-`;
 const ContextMenuExample = ({ showArrow, disabled, side, ...props }: Props) => {
   return (
-    <GridCenter>
+    <div className={styles.cuiGridCenter}>
       <ContextMenu {...props}>
         <ContextMenu.Trigger disabled={disabled}>
-          <Trigger>ContextMenu Trigger</Trigger>
+          <div className={styles.cuiTrigger}>ContextMenu Trigger</div>
         </ContextMenu.Trigger>
         <ContextMenu.Content
           showArrow={showArrow}
@@ -56,7 +47,7 @@ const ContextMenuExample = ({ showArrow, disabled, side, ...props }: Props) => {
           <ContextMenu.Item disabled>Content3</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu>
-    </GridCenter>
+    </div>
   );
 };
 export default {
