@@ -6,21 +6,24 @@
   width: fill-available;
   width: stretch;
   position: relative;
+  color: light-dark(
+    var(--click-codeblock-lightMode-color-numbers-default),
+    var(--click-codeblock-darkMode-color-numbers-default)
+  );
+
+  .linenumber {
+    color: light-dark(
+      var(--click-codeblock-lightMode-color-numbers-default),
+      var(--click-codeblock-darkMode-color-numbers-default)
+    );
+  }
 
   &.cuiLightMode {
-    color: var(--click-codeblock-lightMode-color-numbers-default);
-
-    .linenumber {
-      color: var(--click-codeblock-lightMode-color-numbers-default);
-    }
+    color-scheme: light;
   }
 
   &.cuiDarkMode {
-    color: var(--click-codeblock-darkMode-color-numbers-default);
-
-    .linenumber {
-      color: var(--click-codeblock-darkMode-color-numbers-default);
-    }
+    color-scheme: dark;
   }
 }
 

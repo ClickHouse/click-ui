@@ -58,8 +58,7 @@ const withTheme: Decorator = (StoryFn, context) => {
       config={{
         tooltip: { delayDuration: 100 },
         toast: { duration: 3000 },
-        preloadThemes: ["light", "dark", "classic"],
-        enableAutoTheme: false,
+        preloadThemes: ["light", "dark"],
         logThemeChanges: true,
       }}
     >

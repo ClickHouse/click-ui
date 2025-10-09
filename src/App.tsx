@@ -125,6 +125,14 @@ const App = () => {
         >
           Light (CSS Variables)
         </button>
+        <button
+          onClick={() => {
+            // Theme switching would now be handled by CSS variable updates
+            setCurrentTheme("system");
+          }}
+        >
+          System (CSS Variables)
+        </button>
       </div>
       <Button
         onClick={() => {

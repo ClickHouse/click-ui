@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { TooltipProviderProps } from "@radix-ui/react-tooltip";
 import { ToastProviderProps } from "@/components/Toast/Toast";
 import { ThemeConfig, BaseThemeName } from "@/theme/types";
-import { ThemeName, ThemeTransition } from "./context";
+import { ThemeName } from "./context";
 
 // Enhanced configuration interface
 export interface ClickUIConfig extends ThemeConfig {
@@ -17,9 +17,7 @@ export interface ClickUIConfig extends ThemeConfig {
   // Advanced features
   enableTransitions?: boolean;
   transitionDuration?: number;
-  transitionMode?: ThemeTransition;
   preloadThemes?: BaseThemeName[];
-  enableAutoTheme?: boolean; // Auto-switch based on time of day
 
   // Performance
   enableMemoization?: boolean;
@@ -71,9 +69,7 @@ export const DEFAULT_CONFIG: Required<ClickUIConfig> = {
   toastConfig: { duration: 4000 },
   enableTransitions: true,
   transitionDuration: 200,
-  transitionMode: "fade",
   preloadThemes: ["light", "dark"],
-  enableAutoTheme: false,
   enableMemoization: true,
   debounceDelay: 100,
   enableDevTools: process.env.NODE_ENV === "development",

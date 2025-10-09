@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import type { ResolvedThemeName } from "../types";
 
-export const useSystemTheme = (): ResolvedThemeName => {
+/**
+ * Hook that detects and tracks the user's system color scheme preference
+ * @returns Current system theme preference ("light" | "dark")
+ */
+export const useSystemColorSchemePreference = (): ResolvedThemeName => {
   const [systemTheme, setSystemTheme] = useState<ResolvedThemeName>("light");
 
   useEffect(() => {

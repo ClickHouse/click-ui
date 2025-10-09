@@ -62,7 +62,7 @@ function ThemeToggle() {
   enableMemoization={true}
   debounceDelay={150}
   config={{
-    preloadThemes: ['light', 'dark', 'classic']
+    preloadThemes: ['light', 'dark']
   }}
 >
   <App />
@@ -188,7 +188,6 @@ export default {
   enableTransitions: true,
   transitionDuration: 250,
   preloadThemes: ['light', 'dark'],
-  enableAutoTheme: true,
 
   // Performance
   enableMemoization: true,
@@ -254,8 +253,8 @@ function useAppTheme() {
   return {
     ...theme,
     // Custom theme logic
-    isHighContrast: theme.themeName === 'classic',
-    toggleHighContrast: () => theme.updateTheme('classic')
+    isHighContrast: theme.themeName === 'dark',
+    toggleHighContrast: () => theme.updateTheme('dark')
   };
 }
 

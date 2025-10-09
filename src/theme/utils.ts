@@ -8,31 +8,9 @@ import baseVariables from "@/theme/tokens/variables.json";
 // Import theme-specific color overrides
 import lightVariables from "@/theme/tokens/variables.light.json";
 import darkVariables from "@/theme/tokens/variables.dark.json";
-import classicVariables from "@/theme/tokens/variables.classic.json";
 
-// Lazy-loaded themes for better performance
+// Cached themes for better performance
 let BASE_THEMES: Record<BaseThemeName, Theme> | null = null;
-
-const loadBaseThemes = async (): Promise<Record<BaseThemeName, Theme>> => {
-  if (BASE_THEMES) return BASE_THEMES;
-
-  // Lazy load theme files
-  const [base, lightTheme, darkTheme, classicTheme] = await Promise.all([
-    import("@/theme/tokens/variables.json"),
-    import("@/theme/tokens/variables.light.json"),
-    import("@/theme/tokens/variables.dark.json"),
-    import("@/theme/tokens/variables.classic.json"),
-  ]);
-
-  // Merge base tokens with theme-specific colors
-  BASE_THEMES = {
-    light: deepMerge(base.default, lightTheme.default) as unknown as Theme,
-    dark: deepMerge(base.default, darkTheme.default) as unknown as Theme,
-    classic: deepMerge(base.default, classicTheme.default) as unknown as Theme,
-  };
-
-  return BASE_THEMES;
-};
 
 // Deep merge helper (defined below, but referenced here)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,7 +39,6 @@ const getBaseThemesCached = (): Record<BaseThemeName, Theme> => {
   BASE_THEMES = {
     light: deepMergeInternal(baseVariables, lightVariables) as unknown as Theme,
     dark: deepMergeInternal(baseVariables, darkVariables) as unknown as Theme,
-    classic: deepMergeInternal(baseVariables, classicVariables) as unknown as Theme,
   };
 
   return BASE_THEMES;
@@ -75,63 +52,6 @@ export const getBaseTheme = (themeName: BaseThemeName): Theme => {
   return themes[themeName] || themes.light;
 };
 
-/**
- * Get base theme by name (async, fully loaded)
- */
-export const getBaseThemeAsync = async (themeName: BaseThemeName): Promise<Theme> => {
-  const themes = await loadBaseThemes();
-  return themes[themeName] || themes.light;
-};
-
-/**
- * Preload all base themes for better performance
- */
-export const preloadThemes = async (): Promise<void> => {
-  await loadBaseThemes();
-};
-
-/**
- * Get system theme preference
- */
-export const getSystemTheme = (): BaseThemeName => {
-  if (typeof window === "undefined") return "light";
-
-  try {
-    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  } catch {
-    return "light";
-  }
-};
-
-/**
- * Create system theme listener
- */
-export const createSystemThemeListener = (callback: (theme: BaseThemeName) => void) => {
-  if (typeof window === "undefined") return () => {};
-
-  try {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const listener = (e: MediaQueryListEvent) => {
-      callback(e.matches ? "dark" : "light");
-    };
-
-    // Modern browsers
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener("change", listener);
-      return () => mediaQuery.removeEventListener("change", listener);
-    }
-    // Legacy browsers
-    else if (mediaQuery.addListener) {
-      mediaQuery.addListener(listener);
-      return () => mediaQuery.removeListener(listener);
-    }
-  } catch {
-    // Fallback for environments that don't support matchMedia
-  }
-
-  return () => {};
-};
 
 /**
  * Configuration loading utilities

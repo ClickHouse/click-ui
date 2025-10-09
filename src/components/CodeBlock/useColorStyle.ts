@@ -2,10 +2,10 @@ import { CodeThemeType } from "./CodeBlock";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
 const useColorStyle = (themeOverride?: CodeThemeType) => {
-  const { themeName: contextTheme } = useCUITheme();
+  const { resolvedTheme } = useCUITheme();
 
-  // Use theme override if provided, otherwise use context theme
-  const themeName = themeOverride ?? (contextTheme === "dark" ? "dark" : "light");
+  // Use theme override if provided, otherwise use resolved theme from context
+  const themeName = themeOverride ?? (resolvedTheme === "dark" ? "dark" : "light");
 
   return {
     hljs: {
