@@ -1,3 +1,5 @@
+"use client";
+
 import { GenericLabel, Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import clsx from "clsx";

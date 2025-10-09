@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import clsx from "clsx";
 import { IconSize } from "@/components/Icon/types";

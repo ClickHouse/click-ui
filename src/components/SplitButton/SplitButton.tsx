@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";

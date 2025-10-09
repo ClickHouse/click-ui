@@ -1,3 +1,5 @@
+"use client";
+
 import { Container, Dialog, Separator, Text } from "@/components";
 import { HTMLAttributes, ReactElement, ReactNode } from "react";
 import clsx from "clsx";

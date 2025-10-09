@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { HTMLAttributes, CSSProperties } from "react";
 import clsx from "clsx";

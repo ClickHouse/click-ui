@@ -1,3 +1,5 @@
+"use client";
+
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import clsx from "clsx";
 import PopoverArrow from "@/components/icons/PopoverArrow";

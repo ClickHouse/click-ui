@@ -1,3 +1,5 @@
+"use client";
+
 import * as RightMenu from "@radix-ui/react-context-menu";
 import { HorizontalDirection, Icon, IconName } from "@/components";
 import { IconWrapper } from "@/components";

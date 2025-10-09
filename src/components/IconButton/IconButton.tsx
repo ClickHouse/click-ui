@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon, IconName } from "@/components";
 import { HTMLAttributes, forwardRef } from "react";
 import clsx from "clsx";

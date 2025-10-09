@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import clsx from "clsx";
 import { HorizontalDirection, IconName } from "@/components";

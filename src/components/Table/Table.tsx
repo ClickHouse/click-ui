@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
 import clsx from "clsx";
 

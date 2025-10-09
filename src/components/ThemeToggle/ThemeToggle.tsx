@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 import { Button } from "@/components/Button/Button";

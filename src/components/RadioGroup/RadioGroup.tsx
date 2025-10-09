@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import { HTMLAttributes, ReactNode, useId } from "react";
 import clsx from "clsx";

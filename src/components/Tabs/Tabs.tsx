@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixTabs from "@radix-ui/react-tabs";
 import clsx from "clsx";
 import React, { forwardRef } from "react";

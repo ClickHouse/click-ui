@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
 import clsx from "clsx";
 import { Icon } from "@/components";

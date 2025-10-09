@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
 import styles from "@/components/ButtonGroup/ButtonGroup.module.scss";

@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, ReactNode } from "react";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { HorizontalDirection, Label, Orientation } from "@/components";
