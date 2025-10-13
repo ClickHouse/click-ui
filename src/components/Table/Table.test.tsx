@@ -133,11 +133,11 @@ describe("Table", () => {
 
       // Wait for popover to open and find checkboxes in the document (portal renders outside container)
       await waitFor(() => {
-        const checkboxes = document.querySelectorAll("[role=\"checkbox\"]");
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
         expect(checkboxes.length).toBeGreaterThan(0);
       });
 
-      const checkboxes = document.querySelectorAll("[role=\"checkbox\"]");
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
       const contactCheckbox = checkboxes[1];
       fireEvent.click(contactCheckbox);
 
@@ -171,11 +171,11 @@ describe("Table", () => {
 
       // Wait for popover to open and find checkboxes in the document (portal renders outside container)
       await waitFor(() => {
-        const checkboxes = document.querySelectorAll("[role=\"checkbox\"]");
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
         expect(checkboxes.length).toBeGreaterThan(0);
       });
 
-      const checkboxes = document.querySelectorAll("[role=\"checkbox\"]");
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
       const companyCheckbox = checkboxes[0];
 
       // Mandatory column checkbox should be disabled (Radix UI sets data-disabled="" when disabled)
@@ -216,11 +216,11 @@ describe("Table", () => {
 
       // Wait for popover to open and find checkboxes in the document (portal renders outside container)
       await waitFor(() => {
-        const checkboxes = document.querySelectorAll("[role=\"checkbox\"]");
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
         expect(checkboxes.length).toBeGreaterThan(0);
       });
 
-      const checkboxes = document.querySelectorAll("[role=\"checkbox\"]");
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
       const countryCheckbox = checkboxes[2];
       fireEvent.click(countryCheckbox);
 
