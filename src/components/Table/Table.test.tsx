@@ -1,4 +1,4 @@
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import { Table, TableProps } from "./Table";
 import { renderCUI } from "@/utils/test-utils";
 
@@ -106,7 +106,7 @@ describe("Table", () => {
       { id: "country", label: "Country" },
     ];
 
-    it("should render column visibility button and toggle columns", () => {
+    it("should render column visibility button and toggle columns", async () => {
       const { queryByTestId, container } = renderCUI(
         <Table
           headers={headersWithIds}
@@ -131,7 +131,13 @@ describe("Table", () => {
       const settingsButton = queryByTestId("column-visibility-button");
       fireEvent.click(settingsButton!);
 
-      const checkboxes = container.querySelectorAll('[role="checkbox"]');
+      // Wait for popover to open and find checkboxes in the document (portal renders outside container)
+      await waitFor(() => {
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
+        expect(checkboxes.length).toBeGreaterThan(0);
+      });
+
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
       const contactCheckbox = checkboxes[1];
       fireEvent.click(contactCheckbox);
 
@@ -143,14 +149,14 @@ describe("Table", () => {
       expect(headerTexts).toContain("Country");
     });
 
-    it("should not allow hiding mandatory columns", () => {
+    it("should not allow hiding mandatory columns", async () => {
       const headersWithMandatory = [
         { id: "company", label: "Company", mandatory: true },
         { id: "contact", label: "Contact" },
         { id: "country", label: "Country" },
       ];
 
-      const { queryByTestId, container } = renderCUI(
+      const { queryByTestId } = renderCUI(
         <Table
           headers={headersWithMandatory}
           rows={rows}
@@ -163,14 +169,20 @@ describe("Table", () => {
       const settingsButton = queryByTestId("column-visibility-button");
       fireEvent.click(settingsButton!);
 
-      const checkboxes = container.querySelectorAll('[role="checkbox"]');
+      // Wait for popover to open and find checkboxes in the document (portal renders outside container)
+      await waitFor(() => {
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
+        expect(checkboxes.length).toBeGreaterThan(0);
+      });
+
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
       const companyCheckbox = checkboxes[0];
 
-      // Mandatory column checkbox should be disabled
-      expect(companyCheckbox.getAttribute("data-disabled")).toBe("true");
+      // Mandatory column checkbox should be disabled (Radix UI sets data-disabled="" when disabled)
+      expect(companyCheckbox.hasAttribute("data-disabled")).toBe(true);
     });
 
-    it("should call onLoadColumnVisibility and onSaveColumnVisibility", () => {
+    it("should call onLoadColumnVisibility and onSaveColumnVisibility", async () => {
       const onLoad = vi.fn(() => ({
         company: true,
         contact: false,
@@ -201,7 +213,14 @@ describe("Table", () => {
       // Toggle Country column visibility
       const settingsButton = queryByTestId("column-visibility-button");
       fireEvent.click(settingsButton!);
-      const checkboxes = container.querySelectorAll('[role="checkbox"]');
+
+      // Wait for popover to open and find checkboxes in the document (portal renders outside container)
+      await waitFor(() => {
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
+        expect(checkboxes.length).toBeGreaterThan(0);
+      });
+
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
       const countryCheckbox = checkboxes[2];
       fireEvent.click(countryCheckbox);
 
