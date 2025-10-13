@@ -1,4 +1,13 @@
-import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
+import {
+  FC,
+  HTMLAttributes,
+  MouseEvent,
+  ReactNode,
+  forwardRef,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 import { styled } from "styled-components";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
@@ -11,6 +20,7 @@ import {
   Icon,
   IconButton,
   Text,
+  Popover,
 } from "@/components";
 
 type SortDir = "asc" | "desc";
@@ -23,6 +33,8 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
   width?: string;
+  mandatory?: boolean;
+  id?: string;
 }
 
 const StyledHeader = styled.th<{ $size: TableSize }>`
@@ -107,6 +119,9 @@ interface TheadProps {
   size: TableSize;
   rows: TableRowType[];
   selectedIds: (number | string)[];
+  enableColumnVisibility?: boolean;
+  visibleColumns: Record<string, boolean>;
+  onVisibilityChange: (columnId: string, visible: boolean) => void;
 }
 
 const Thead = ({
@@ -118,23 +133,33 @@ const Thead = ({
   size,
   rows,
   selectedIds,
+  enableColumnVisibility,
+  visibleColumns,
+  onVisibilityChange,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === "function" && header.isSortable) {
       onSortProp(header.sortDir === "asc" ? "desc" : "asc", header, headerIndex);
     }
   };
+
+  const visibleHeaders = headers.filter((header, index) => {
+    const columnId = header.id || `column-${index}`;
+    return visibleColumns[columnId] !== false;
+  });
+
   return (
     <>
       <StyledColGroup>
         {isSelectable && <col width={48} />}
-        {headers.map((headerProps, index) => (
+        {visibleHeaders.map((headerProps, index) => (
           <col
             key={`header-col-${index}`}
             width={headerProps.width}
           />
         ))}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
+        {enableColumnVisibility && <col width={48} />}
       </StyledColGroup>
       <StyledThead>
         <tr>
@@ -150,7 +175,7 @@ const Thead = ({
               />
             </StyledHeader>
           )}
-          {headers.map(({ width, ...headerProps }, index) => (
+          {visibleHeaders.map(({ width, ...headerProps }, index) => (
             <TableHeader
               key={`table-header-${index}-${width}`}
               onSort={onSort(headerProps, index)}
@@ -163,6 +188,18 @@ const Thead = ({
               aria-label="Actions"
               $size={size}
             />
+          )}
+          {enableColumnVisibility && (
+            <StyledHeader
+              aria-label="Column visibility"
+              $size={size}
+            >
+              <ColumnVisibilityPopover
+                headers={headers}
+                visibleColumns={visibleColumns}
+                onVisibilityChange={onVisibilityChange}
+              />
+            </StyledHeader>
           )}
         </tr>
       </StyledThead>
@@ -404,6 +441,10 @@ interface CommonTableProps
   size?: TableSize;
   showHeader?: boolean;
   rowHeight?: string;
+  tableId?: string;
+  enableColumnVisibility?: boolean;
+  onLoadColumnVisibility?: (tableId: string) => Record<string, boolean>;
+  onSaveColumnVisibility?: (tableId: string, visibility: Record<string, boolean>) => void;
 }
 
 type SelectReturnValue = {
@@ -435,6 +476,8 @@ interface TableBodyRowProps extends Omit<TableRowType, "id"> {
   actionsList: Array<string>;
   size: TableSize;
   rowHeight?: string;
+  visibleColumns: Record<string, boolean>;
+  enableColumnVisibility?: boolean;
 }
 
 const TableBodyRow = ({
@@ -452,10 +495,24 @@ const TableBodyRow = ({
   size,
   actionsList,
   rowHeight,
+  visibleColumns,
+  enableColumnVisibility,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === "function";
   const isEditable = typeof onEdit === "function";
+
+  const visibleItems = items.filter((_, cellIndex) => {
+    const header = headers[cellIndex];
+    const columnId = header?.id || `column-${cellIndex}`;
+    return visibleColumns[columnId] !== false;
+  });
+
+  const visibleHeaders = headers.filter((header, index) => {
+    const columnId = header.id || `column-${index}`;
+    return visibleColumns[columnId] !== false;
+  });
+
   return (
     <TableRow
       $isSelectable={isSelectable}
@@ -475,16 +532,21 @@ const TableBodyRow = ({
           />
         </SelectData>
       )}
-      {items.map(({ label, ...cellProps }, cellIndex) => (
-        <TableData
-          $size={size}
-          key={`table-cell-${cellIndex}`}
-          {...cellProps}
-        >
-          {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <EllipsisContent component="div">{label}</EllipsisContent>
-        </TableData>
-      ))}
+      {visibleItems.map(({ label, ...cellProps }, visibleIndex) => {
+        const originalIndex = items.findIndex(item => item === visibleItems[visibleIndex]);
+        return (
+          <TableData
+            $size={size}
+            key={`table-cell-${originalIndex}`}
+            {...cellProps}
+          >
+            {visibleHeaders[visibleIndex] && (
+              <MobileHeader>{visibleHeaders[visibleIndex].label}</MobileHeader>
+            )}
+            <EllipsisContent component="div">{label}</EllipsisContent>
+          </TableData>
+        );
+      })}
       {actionsList.length > 0 && (
         <ActionsList $size={size}>
           <ActionsContainer>
@@ -512,6 +574,7 @@ const TableBodyRow = ({
           </ActionsContainer>
         </ActionsList>
       )}
+      {enableColumnVisibility && <TableData $size={size} />}
     </TableRow>
   );
 };
@@ -576,12 +639,52 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       size = "sm",
       showHeader = true,
       rowHeight,
+      tableId,
+      enableColumnVisibility = false,
+      onLoadColumnVisibility,
+      onSaveColumnVisibility,
       ...props
     },
     ref
   ) => {
     const isDeletable = typeof onDelete === "function";
     const isEditable = typeof onEdit === "function";
+
+    // Initialize column visibility from storage
+    const [visibleColumns, setVisibleColumns] = useState<Record<string, boolean>>(() => {
+      if (!enableColumnVisibility || !tableId) return {};
+
+      const loadFn = onLoadColumnVisibility || defaultLoadColumnVisibility;
+      const stored = loadFn(tableId);
+      const initial: Record<string, boolean> = {};
+
+      headers.forEach((header, index) => {
+        const columnId = header.id || `column-${index}`;
+        // If mandatory, always visible. Otherwise, check stored preference (default true)
+        if (header.mandatory) {
+          initial[columnId] = true;
+        } else {
+          initial[columnId] = stored[columnId] !== false;
+        }
+      });
+
+      return initial;
+    });
+
+    // Save to storage when visibility changes
+    useEffect(() => {
+      if (enableColumnVisibility && tableId) {
+        const saveFn = onSaveColumnVisibility || defaultSaveColumnVisibility;
+        saveFn(tableId, visibleColumns);
+      }
+    }, [visibleColumns, enableColumnVisibility, tableId, onSaveColumnVisibility]);
+
+    const handleVisibilityChange = (columnId: string, visible: boolean) => {
+      setVisibleColumns(prev => ({
+        ...prev,
+        [columnId]: visible,
+      }));
+    };
 
     const onRowSelect =
       (id: number | string) =>
@@ -612,6 +715,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       actionsList.push("editAction");
     }
 
+    const visibleHeadersCount = enableColumnVisibility
+      ? headers.filter((header, index) => {
+          const columnId = header.id || `column-${index}`;
+          return visibleColumns[columnId] !== false;
+        }).length
+      : headers.length;
+
     return (
       <TableOuterContainer>
         {hasRows && showHeader && (
@@ -641,15 +751,19 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 size={size}
                 rows={rows}
                 selectedIds={selectedIds}
+                enableColumnVisibility={enableColumnVisibility}
+                visibleColumns={visibleColumns}
+                onVisibilityChange={handleVisibilityChange}
               />
             )}
             <Tbody>
               {(loading || !hasRows) && (
                 <CustomTableRow
                   colSpan={
-                    headers.length +
+                    visibleHeadersCount +
                     (isEditable || isDeletable ? 1 : 0) +
-                    (isSelectable ? 1 : 0)
+                    (isSelectable ? 1 : 0) +
+                    (enableColumnVisibility ? 1 : 0)
                   }
                   loading={loading}
                   noDataMessage={noDataMessage}
@@ -678,6 +792,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   }
                   size={size}
                   rowHeight={rowHeight}
+                  visibleColumns={visibleColumns}
+                  enableColumnVisibility={enableColumnVisibility}
                   {...rowProps}
                 />
               ))}
@@ -776,5 +892,130 @@ const StyledTable = styled.table`
     table-layout: auto;
   }
 `;
+
+// Default storage implementation (used as fallback)
+const defaultLoadColumnVisibility = (tableId: string): Record<string, boolean> => {
+  const key = `click-ui-table-column-visibility-${tableId}`;
+
+  try {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+};
+
+const defaultSaveColumnVisibility = (
+  tableId: string,
+  visibility: Record<string, boolean>
+) => {
+  const key = `click-ui-table-column-visibility-${tableId}`;
+
+  try {
+    localStorage.setItem(key, JSON.stringify(visibility));
+  } catch {
+    // Silently fail if localStorage is not available
+  }
+};
+
+// Styled components for column visibility popover
+const ColumnVisibilityContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+  max-width: 300px;
+`;
+
+const ColumnVisibilityItem = styled.label<{ $disabled?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
+  opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
+  user-select: none;
+`;
+
+const ColumnVisibilityLabel = styled.span`
+  ${({ theme }) => `
+    font: ${theme.click.table.cell.text.default};
+    color: ${theme.click.table.row.color.text.default};
+  `}
+`;
+
+const ColumnVisibilityHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  ${({ theme }) => `
+    border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
+  `}
+  margin-bottom: 0.5rem;
+`;
+
+// Column Visibility Popover Component
+interface ColumnVisibilityPopoverProps {
+  headers: Array<TableHeaderType>;
+  visibleColumns: Record<string, boolean>;
+  onVisibilityChange: (columnId: string, visible: boolean) => void;
+}
+
+const ColumnVisibilityPopover: FC<ColumnVisibilityPopoverProps> = ({
+  headers,
+  visibleColumns,
+  onVisibilityChange,
+}) => {
+  return (
+    <Popover>
+      <Popover.Trigger>
+        <IconButton
+          type="ghost"
+          icon="settings"
+          aria-label="Configure columns"
+          data-testid="column-visibility-button"
+        />
+      </Popover.Trigger>
+      <Popover.Content
+        align="end"
+        sideOffset={8}
+      >
+        <ColumnVisibilityContainer>
+          <ColumnVisibilityHeader>
+            <Text
+              size="sm"
+              weight="semibold"
+            >
+              Columns
+            </Text>
+          </ColumnVisibilityHeader>
+          {headers.map((header, index) => {
+            const columnId = header.id || `column-${index}`;
+            const isMandatory = header.mandatory === true;
+            const isVisible = visibleColumns[columnId] !== false;
+
+            return (
+              <ColumnVisibilityItem
+                key={columnId}
+                $disabled={isMandatory}
+              >
+                <Checkbox
+                  checked={isVisible}
+                  disabled={isMandatory}
+                  onCheckedChange={checked => {
+                    if (!isMandatory) {
+                      onVisibilityChange(columnId, checked === true);
+                    }
+                  }}
+                />
+                <ColumnVisibilityLabel>{header.label}</ColumnVisibilityLabel>
+              </ColumnVisibilityItem>
+            );
+          })}
+        </ColumnVisibilityContainer>
+      </Popover.Content>
+    </Popover>
+  );
+};
 
 export { Table };
