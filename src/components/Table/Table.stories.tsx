@@ -154,8 +154,8 @@ export const ConfigurableColumns: StoryObj<typeof Table> = {
       <div>
         <p style={{ marginBottom: "1rem", fontSize: "14px", color: "#666" }}>
           Click the settings icon in the top-right corner to configure visible columns.
-          The &quot;Company&quot; column is mandatory and cannot be hidden.
-          Uses default localStorage with key &quot;click-ui-table-column-visibility-demo-table&quot;.
+          The &quot;Company&quot; column is mandatory and cannot be hidden. Uses default
+          localStorage with key &quot;click-ui-table-column-visibility-demo-table&quot;.
         </p>
         <Table {...props} />
       </div>
@@ -197,8 +197,8 @@ export const ConfigurableColumnsCustomStorage: StoryObj<typeof Table> = {
       <div>
         <p style={{ marginBottom: "1rem", fontSize: "14px", color: "#666" }}>
           This example uses custom storage with key prefix &quot;my-app-columns-&quot;.
-          You can provide your own onLoadColumnVisibility and onSaveColumnVisibility
-          for custom storage (API, IndexedDB, sessionStorage, etc.).
+          You can provide your own onLoadColumnVisibility and onSaveColumnVisibility for
+          custom storage (API, IndexedDB, sessionStorage, etc.).
         </p>
         <Table
           {...props}

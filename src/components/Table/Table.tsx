@@ -533,7 +533,9 @@ const TableBodyRow = ({
         </SelectData>
       )}
       {visibleItems.map(({ label, ...cellProps }, visibleIndex) => {
-        const originalIndex = items.findIndex(item => item === visibleItems[visibleIndex]);
+        const originalIndex = items.findIndex(
+          item => item === visibleItems[visibleIndex]
+        );
         return (
           <TableData
             $size={size}
