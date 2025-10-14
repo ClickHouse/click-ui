@@ -161,8 +161,8 @@ const FileContentContainer = styled.div<{ $size: "sm" | "md" }>`
 `;
 
 const ProgressBarWrapper = styled.div`
-  margin-top: 8px;
-  margin-bottom: 4px;
+  margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
+  margin-bottom: 9px;
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
@@ -415,7 +415,7 @@ export const FileUpload = ({
                   />
                 </ProgressBarWrapper>
               )}
-              {(showSuccess || (!showProgress && !showSuccess)) && (
+              {(showSuccess || !showProgress) && (
                 <FileUploadDescription>{formatFileSize(file.size)}</FileUploadDescription>
               )}
             </FileContentContainer>
