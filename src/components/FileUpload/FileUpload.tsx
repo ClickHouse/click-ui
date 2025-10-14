@@ -78,7 +78,7 @@ const UploadArea = styled.div<{
     props.$isError &&
     css`
       background-color: ${({ theme }) => theme.click.fileUpload.color.background.error};
-      border: none;
+      border-color: transparent;
     `}
 `;
 
