@@ -109,7 +109,7 @@ const FileItem = styled.div<{ $isError?: boolean }>`
     props.$isError &&
     css`
       background-color: ${({ theme }) => theme.click.fileUpload.color.background.error};
-      border: none;
+      border-color: transparent;
     `}
 `;
 
@@ -143,8 +143,8 @@ const FileContentContainer = styled.div`
 `;
 
 const ProgressBarWrapper = styled.div`
-  margin-top: 8px;
-  margin-bottom: 4px;
+  margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
+  margin-bottom: 9px;
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
