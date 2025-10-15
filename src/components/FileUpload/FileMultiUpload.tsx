@@ -367,9 +367,7 @@ export const FileMultiUpload = ({
               <DocumentIcon name={"document"} />
               <FileContentContainer>
                 <FileDetails>
-                  <FileName>
-                    {truncateFilename(file.name)}
-                  </FileName>
+                  <FileName>{truncateFilename(file.name)}</FileName>
                   {file.status === "uploading" && (
                     <FileUploadDescription>{file.progress}%</FileUploadDescription>
                   )}

@@ -395,9 +395,7 @@ export const FileUpload = ({
             <DocumentIcon name={"document"} />
             <FileContentContainer $size={size}>
               <FileDetails>
-                <FileName>
-                  {truncateFilename(file.name)}
-                </FileName>
+                <FileName>{truncateFilename(file.name)}</FileName>
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
