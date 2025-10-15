@@ -61,12 +61,17 @@ const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
       : theme.click.fileUpload.color.title.default};
 `;
 
+const FileName = styled(Text)`
+  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
+`;
+
 const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme, $isError }) =>
     $isError
       ? theme.click.fileUpload.color.title.error
-      : theme.click.fileUpload.color.title.default};
+      : theme.click.fileUpload.color.description.default};
 `;
 
 const UploadIcon = styled(Icon)`
@@ -362,9 +367,9 @@ export const FileMultiUpload = ({
               <DocumentIcon name={"document"} />
               <FileContentContainer>
                 <FileDetails>
-                  <FileUploadDescription>
+                  <FileName>
                     {truncateFilename(file.name)}
-                  </FileUploadDescription>
+                  </FileName>
                   {file.status === "uploading" && (
                     <FileUploadDescription>{file.progress}%</FileUploadDescription>
                   )}
