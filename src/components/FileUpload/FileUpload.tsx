@@ -95,7 +95,7 @@ const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   color: ${({ theme, $isError }) =>
     $isError
       ? theme.click.fileUpload.color.title.error
-      : theme.click.fileUpload.color.description.default};
+      : theme.click.fileUpload.color.title.default};
 `;
 
 const DocumentIcon = styled(Icon)`
