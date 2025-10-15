@@ -33,7 +33,8 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
   width?: string;
-  mandatory?: boolean;
+  required?: boolean;
+  selected?: boolean;
   id?: string;
 }
 
@@ -662,11 +663,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
       headers.forEach((header, index) => {
         const columnId = header.id || `column-${index}`;
-        // If mandatory, always visible. Otherwise, check stored preference (default true)
-        if (header.mandatory) {
+        // If required, always visible. Otherwise, if selected show by default, else hidden
+        if (header.required) {
           initial[columnId] = true;
         } else {
-          initial[columnId] = stored[columnId] !== false;
+          initial[columnId] = stored[columnId] ?? header.selected;
         }
       });
 
@@ -945,17 +946,6 @@ const ColumnVisibilityLabel = styled.span`
   `}
 `;
 
-const ColumnVisibilityHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 0.5rem;
-  ${({ theme }) => `
-    border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
-  `}
-  margin-bottom: 0.5rem;
-`;
-
 // Column Visibility Popover Component
 interface ColumnVisibilityPopoverProps {
   headers: Array<TableHeaderType>;
@@ -973,7 +963,7 @@ const ColumnVisibilityPopover: FC<ColumnVisibilityPopoverProps> = ({
       <Popover.Trigger>
         <IconButton
           type="ghost"
-          icon="settings"
+          icon='gear'
           aria-label="Configure columns"
           data-testid="column-visibility-button"
         />
@@ -983,33 +973,25 @@ const ColumnVisibilityPopover: FC<ColumnVisibilityPopoverProps> = ({
         sideOffset={8}
       >
         <ColumnVisibilityContainer>
-          <ColumnVisibilityHeader>
-            <Text
-              size="sm"
-              weight="semibold"
-            >
-              Columns
-            </Text>
-          </ColumnVisibilityHeader>
           {headers.map((header, index) => {
             const columnId = header.id || `column-${index}`;
-            const isMandatory = header.mandatory === true;
+            const isRequired = header.required === true;
             const isVisible = visibleColumns[columnId] !== false;
 
-            return (
+            return  (
               <ColumnVisibilityItem
                 key={columnId}
-                $disabled={isMandatory}
+                $disabled={isRequired}
               >
-                <Checkbox
+                {isRequired ? <Icon name="lock" size="sm"/> : <Checkbox
                   checked={isVisible}
-                  disabled={isMandatory}
+                  disabled={isRequired}
                   onCheckedChange={checked => {
-                    if (!isMandatory) {
+                    if (!isRequired) {
                       onVisibilityChange(columnId, checked === true);
                     }
                   }}
-                />
+                />}
                 <ColumnVisibilityLabel>{header.label}</ColumnVisibilityLabel>
               </ColumnVisibilityItem>
             );

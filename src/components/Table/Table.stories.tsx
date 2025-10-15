@@ -139,9 +139,9 @@ export const Sortable: StoryObj<typeof Table> = {
 export const ConfigurableColumns: StoryObj<typeof Table> = {
   args: {
     headers: [
-      { id: "company", label: "Company", mandatory: true },
-      { id: "contact", label: "Contact" },
-      { id: "country", label: "Country" },
+      { id: "company", label: "Company", required: true },
+      { id: "contact", label: "Contact", selected: true },
+      { id: "country", label: "Country", selected: false },
     ],
     rows,
     enableColumnVisibility: true,
@@ -154,7 +154,7 @@ export const ConfigurableColumns: StoryObj<typeof Table> = {
       <div>
         <p style={{ marginBottom: "1rem", fontSize: "14px", color: "#666" }}>
           Click the settings icon in the top-right corner to configure visible columns.
-          The &quot;Company&quot; column is mandatory and cannot be hidden. Uses default
+          The &quot;Company&quot; column is required and cannot be hidden. Uses default
           localStorage with key &quot;click-ui-table-column-visibility-demo-table&quot;.
         </p>
         <Table {...props} />
@@ -166,7 +166,7 @@ export const ConfigurableColumns: StoryObj<typeof Table> = {
 export const ConfigurableColumnsCustomStorage: StoryObj<typeof Table> = {
   args: {
     headers: [
-      { id: "company", label: "Company", mandatory: true },
+      { id: "company", label: "Company", required: true },
       { id: "contact", label: "Contact" },
       { id: "country", label: "Country" },
     ],
