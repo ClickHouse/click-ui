@@ -1,30 +1,8 @@
-# Perfect ClickUIProvider Usage Guide
+# ClickUIProvider Usage Guide
 
-The enhanced ClickUIProvider is now a **comprehensive, production-ready theme system** with enterprise-grade features.
+Comprehensive guide for using the ClickUIProvider theme system with advanced features and production-ready patterns.
 
-## 🚀 Basic Usage
-
-```tsx
-import { ClickUIProvider, useCUITheme } from '@clickhouse/click-ui';
-
-function App() {
-  return (
-    <ClickUIProvider theme="system">
-      <YourApp />
-    </ClickUIProvider>
-  );
-}
-
-function ThemeToggle() {
-  const { themeName, toggleTheme, utils } = useCUITheme();
-
-  return (
-    <button onClick={toggleTheme}>
-      Current: {themeName} ({utils.isDark ? '🌙' : '☀️'})
-    </button>
-  );
-}
-```
+> **See Also:** [Theme System Overview](../index.md) for quick start and basic examples.
 
 ## ⚡ Advanced Features
 
@@ -157,6 +135,9 @@ function ThemeControls() {
 ## 🔧 Configuration Examples
 
 ### Build-time Configuration
+
+> **See Also:** [Build-Time Configuration Guide](../../../BUILD_TIME_CONFIG_CLICK_UI.md) for Vite plugin setup and optimization.
+
 ```typescript
 // click-ui.config.ts
 export default {
@@ -164,7 +145,7 @@ export default {
   defaultTheme: 'system',
   storageKey: 'my-app-theme',
 
-  // Custom theme
+  // Custom theme - Light mode (default)
   theme: {
     global: {
       color: {
@@ -174,14 +155,9 @@ export default {
     }
   },
 
-  // System overrides
-  systemModeOverrides: {
-    light: {
-      global: { color: { primary: '#0066cc' } }
-    },
-    dark: {
-      global: { color: { primary: '#66b3ff' } }
-    }
+  // Dark mode overrides - if not defined, theme values are used for dark mode too
+  dark: {
+    global: { color: { primary: '#66b3ff' } }
   },
 
   // Advanced features
@@ -285,34 +261,34 @@ const ThemedButton: React.FC<ThemedButtonProps> = ({
 
 ## 🚀 SSR/RSC Support
 
-### Next.js App Router
+> **See Also:** [Provider SSR/RSC Guide](./provider.md) for detailed SSR setup and ServerClickUIProvider usage.
+
+### Next.js App Router (Quick Example)
 ```tsx
 // app/layout.tsx
-import { ClickUIProvider } from '@clickhouse/click-ui';
+import { ServerClickUIProvider } from '@clickhouse/click-ui';
 
 export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <ClickUIProvider
-          theme="system"
-          suppressHydrationWarning={true}
-          fallbackTheme="light"
-        >
+        <ServerClickUIProvider theme="system">
           {children}
-        </ClickUIProvider>
+        </ServerClickUIProvider>
       </body>
     </html>
   );
 }
 ```
 
-### Next.js Pages Router
+### Next.js Pages Router (Quick Example)
 ```tsx
 // pages/_app.tsx
+import { ClickUIProvider } from '@clickhouse/click-ui';
+
 export default function App({ Component, pageProps }) {
   return (
-    <ClickUIProvider theme="system">
+    <ClickUIProvider theme="system" suppressHydrationWarning={true}>
       <Component {...pageProps} />
     </ClickUIProvider>
   );

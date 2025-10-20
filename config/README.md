@@ -31,36 +31,7 @@ npm install @clickhouse/click-ui
 npx @clickhouse/click-ui init
 ```
 
-This creates `click-ui.config.ts` in your project root:
-
-```typescript
-// click-ui.config.ts
-import type { ThemeConfig } from '@clickhouse/click-ui/theme';
-
-const config: ThemeConfig = {
-  cssPrefix: '--click',
-  // Light mode theme (default)
-  theme: {
-    global: {
-      color: {
-        brand: '#FFCC00',
-        background: { default: '#FFFFFF' }
-      }
-    }
-  },
-  // Dark mode overrides - if not defined, theme values are used for dark mode too
-  dark: {
-    global: {
-      color: {
-        background: { default: '#0D1117' },
-        text: { default: '#F0F6FC' }
-      }
-    }
-  }
-};
-
-export default config;
-```
+This creates `click-ui.config.ts` in your project root. See [Build-Time Configuration](../BUILD_TIME_CONFIG_CLICK_UI.md) for the complete theme config API reference and examples.
 
 ### 2. Add plugin to your bundler
 
@@ -187,53 +158,7 @@ clickUIConfig({ skipConfigDiscovery: true })
 
 ## How It Works
 
-### 1. **Config Discovery**
-
-The plugin automatically searches for these files in your project root:
-
-- `click-ui.config.ts`
-- `click-ui.config.mts`
-- `click-ui.config.cts`
-- `click-ui.config.js`
-- `click-ui.config.mjs`
-- `click-ui.config.cjs`
-
-### 2. **Build-Time Processing**
-
-- Loads your config file
-- Merges with default theme
-- Generates CSS variables
-- Injects config as build-time constants
-
-### 3. **CSS Generation**
-
-Generates CSS file with theme variables:
-
-```css
-/* Light Theme */
-@media (prefers-color-scheme: light) {
-  :root {
-    --click-global-color-brand: #FFCC00;
-    --click-global-color-background-default: #FFFFFF;
-  }
-}
-
-:root[data-theme="light"] {
-  --click-global-color-background-default: #FFFFFF;
-}
-
-/* Dark Theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --click-global-color-background-default: #0D1117;
-    --click-global-color-text-default: #F0F6FC;
-  }
-}
-
-:root[data-theme="dark"] {
-  --click-global-color-background-default: #0D1117;
-}
-```
+The plugin automatically discovers config files (`click-ui.config.ts`, `.js`, `.mjs`, etc.), loads them at build time, and generates CSS variables. For detailed architecture and design decisions, see [Configuration Architecture](../CONFIG_ARCHITECTURE.md).
 
 ## Plugin and Config File Are Both Optional
 
@@ -286,20 +211,7 @@ export default defineConfig({
 
 ## TypeScript Support
 
-Full TypeScript support with autocompletion:
-
-```typescript
-import type { ThemeConfig } from '@clickhouse/click-ui/theme';
-
-const config: ThemeConfig = {
-  // ← Full autocomplete here!
-  theme: {
-    button: {
-      // ← Autocomplete for all theme tokens
-    }
-  }
-};
-```
+Full TypeScript support with autocompletion. See [Build-Time Configuration](../BUILD_TIME_CONFIG_CLICK_UI.md) for type definitions and config schema.
 
 ## Architecture
 
