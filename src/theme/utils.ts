@@ -52,6 +52,29 @@ export const getBaseTheme = (themeName: BaseThemeName): Theme => {
   return themes[themeName] || themes.light;
 };
 
+/**
+ * Helper to get a specific value from a theme by path
+ * @example
+ * getThemeValue(lightTheme, "click.button.primary.background.default")
+ * // Returns: "#007bff"
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getThemeValue = (theme: Theme | Record<string, any>, path: string): unknown => {
+  const keys = path.split(".");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let value: any = theme;
+
+  for (const key of keys) {
+    if (value && typeof value === "object" && key in value) {
+      value = value[key];
+    } else {
+      return undefined;
+    }
+  }
+
+  return value;
+};
+
 
 /**
  * Configuration loading utilities
@@ -59,34 +82,10 @@ export const getBaseTheme = (themeName: BaseThemeName): Theme => {
 import type { ThemeConfig } from "./types";
 
 export const loadCustomConfig = async (): Promise<ThemeConfig | null> => {
-  if (typeof window === "undefined") {
-    // SSR: Try to load from Node environment
-    try {
-      // Try CommonJS first
-      const configPath = `${process.cwd()}/click-ui.config`;
-      delete require.cache[require.resolve(configPath)];
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const config = require(configPath);
-      return config.default || config;
-    } catch {
-      try {
-        // Try ES modules
-        const config = await import(/* @vite-ignore */ `${process.cwd()}/click-ui.config.js`);
-        return config.default || config;
-      } catch {
-        return null;
-      }
-    }
-  }
-
-  // Client-side loading - check if window.clickUIConfig exists
-  try {
-    // Check if config is available on window object
-    const config = (window as unknown as { clickUIConfig?: unknown }).clickUIConfig;
-    return config || null;
-  } catch {
-    return null;
-  }
+  // This function is kept for backwards compatibility
+  // but now only returns null since build-time config is the only supported method
+  // Build-time config is injected via __CLICK_UI_CONFIG__ by the plugin
+  return null;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

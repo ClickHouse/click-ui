@@ -53,15 +53,16 @@ export function clickUI(options = {}) {
 function generateCSSFromConfig(config) {
     const prefix = config.cssPrefix || '--click';
     let css = '';
-    // Light theme
-    if (config.theme || config.systemModeOverrides?.light) {
-        const lightVars = generateVariables({ ...config.theme, ...config.systemModeOverrides?.light }, prefix);
+    // Light theme (theme config is the light mode theme)
+    if (config.theme) {
+        const lightVars = generateVariables(config.theme, prefix);
         css += `@media (prefers-color-scheme: light) {\n  :root {\n${lightVars}  }\n}\n\n`;
         css += `:root[data-theme="light"] {\n${lightVars}}\n\n`;
     }
-    // Dark theme
-    if (config.systemModeOverrides?.dark) {
-        const darkVars = generateVariables({ ...config.theme, ...config.systemModeOverrides?.dark }, prefix);
+    // Dark theme (theme + dark overrides)
+    // If dark is not defined, theme values are used for dark mode too
+    if (config.theme || config.dark) {
+        const darkVars = generateVariables({ ...config.theme, ...config.dark }, prefix);
         css += `@media (prefers-color-scheme: dark) {\n  :root {\n${darkVars}  }\n}\n\n`;
         css += `:root[data-theme="dark"] {\n${darkVars}}\n`;
     }

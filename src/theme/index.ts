@@ -7,6 +7,7 @@ export type {
   BaseThemeName,
   ResolvedThemeName,
   DeepPartial,
+  TypedTheme,
   NestedJSONObject,
   ConfigThemeValues,
 } from "./types";
@@ -23,6 +24,7 @@ export {
 // === UTILITIES ===
 export {
   getBaseTheme,
+  getThemeValue,
   loadCustomConfig,
   deepMerge,
 } from "./utils";

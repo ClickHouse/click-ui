@@ -75,8 +75,7 @@ export const DEFAULT_CONFIG: Required<ClickUIConfig> = {
   enableDevTools: process.env.NODE_ENV === "development",
   logThemeChanges: process.env.NODE_ENV === "development",
   theme: {},
-  systemModeOverrides: {},
-  enableSystemMode: false,
+  dark: {},
   breakpoints: {},
   sizes: {},
 };
