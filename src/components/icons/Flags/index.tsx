@@ -7,6 +7,7 @@ import Germany from "./Germany";
 import GreatBritain from "./GreatBritain";
 import Singapore from "./Singapore";
 import Ireland from "./Ireland";
+import Israel from "./Israel";
 import India from "./India";
 import Japan from "./Japan";
 import Netherlands from "./Netherlands";
@@ -30,6 +31,7 @@ export type FlagName =
   | "eu"
   | "gb"
   | "in"
+  | "il"
   | "ie"
   | "jp"
   | "nl"
@@ -56,6 +58,7 @@ export const FlagList = {
   eu: EuropeanUnion,
   gb: GreatBritain,
   ie: Ireland,
+  il: Israel,
   in: India,
   jp: Japan,
   nl: Netherlands,
