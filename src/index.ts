@@ -1,3 +1,6 @@
+// Import global theme styles - automatically included when using the library
+import "@/theme/global.scss";
+
 // Export all components
 export * from "@/components/types";
 export { Icon } from "@/components/Icon/Icon";
