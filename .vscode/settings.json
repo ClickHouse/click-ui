@@ -1,2 +1,19 @@
 {
+  // TypeScript: Prioritize source files over declaration files
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "**/*.scss.d.ts",
+    "**/node_modules/**"
+  ],
+
+  // Hide generated .scss.d.ts files from search and file explorer
+  "files.exclude": {
+    "**/*.scss.d.ts": true
+  },
+
+  // Search settings to exclude generated files
+  "search.exclude": {
+    "**/*.scss.d.ts": true,
+    "**/node_modules": true,
+    "**/dist": true
+  }
 }
