@@ -24,8 +24,8 @@
  * ```
  */
 
-export type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold';
+export type TextSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type TextWeight = "normal" | "medium" | "semibold" | "bold";
 
 /**
  * Props for styled-components wrapper
@@ -64,10 +64,10 @@ export interface LinkStyleProps {
  * ```
  */
 export const linkStyles = (props: StyledLinkProps = {}): string => {
-  const size = props.$size || 'md';
-  const weight = props.$weight || 'normal';
-  const isSmall = size === 'xs' || size === 'sm';
-  const gapSize = isSmall ? 'sm' : 'md';
+  const size = props.$size || "md";
+  const weight = props.$weight || "normal";
+  const isSmall = size === "xs" || size === "sm";
+  const gapSize = isSmall ? "sm" : "md";
 
   return `
     margin: 0;
@@ -125,14 +125,14 @@ export const linkStyles = (props: StyledLinkProps = {}): string => {
  * </Link>
  * ```
  */
-export function linkClasses({ size = 'md', weight = 'normal', className }: LinkStyleProps = {}): string {
-  const classes = ['cui-link'];
+export const linkClasses = ({ size = "md", weight = "normal", className }: LinkStyleProps = {}): string => {
+  const classes = ["cui-link"];
 
   // Size classes
   classes.push(`cui-link-${size}`);
 
   // Weight classes (only add if not normal)
-  if (weight !== 'normal') {
+  if (weight !== "normal") {
     classes.push(`cui-link-weight-${weight}`);
   }
 
@@ -141,8 +141,8 @@ export function linkClasses({ size = 'md', weight = 'normal', className }: LinkS
     classes.push(className);
   }
 
-  return classes.join(' ');
-}
+  return classes.join(" ");
+};
 
 /**
  * CSS class name constants for granular control
@@ -168,18 +168,18 @@ export function linkClasses({ size = 'md', weight = 'normal', className }: LinkS
  * ```
  */
 export const LINK_CLASSES = {
-  base: 'cui-link',
+  base: "cui-link",
   size: {
-    xs: 'cui-link-xs',
-    sm: 'cui-link-sm',
-    md: 'cui-link-md',
-    lg: 'cui-link-lg',
-    xl: 'cui-link-xl',
+    xs: "cui-link-xs",
+    sm: "cui-link-sm",
+    md: "cui-link-md",
+    lg: "cui-link-lg",
+    xl: "cui-link-xl",
   },
   weight: {
-    normal: '',
-    medium: 'cui-link-weight-medium',
-    semibold: 'cui-link-weight-semibold',
-    bold: 'cui-link-weight-bold',
+    normal: "",
+    medium: "cui-link-weight-medium",
+    semibold: "cui-link-weight-semibold",
+    bold: "cui-link-weight-bold",
   },
 } as const;
