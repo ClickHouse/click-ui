@@ -1,3 +1,5 @@
+"use client";
+
 import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
 
 import { useUpdateEffect } from "@/hooks";

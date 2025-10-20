@@ -1,0 +1,235 @@
+@use "cui-mixins" as mixins;
+
+// Animation keyframes
+@keyframes animationWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: fit-content;
+  }
+}
+
+.cuiFlyoutContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  width: fit-content;
+  animation: animationWidth 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  max-width: 100%;
+
+  // Size variants
+  &.cuiSizeDefault {
+    --flyout-width: var(--click-flyout-size-default-width);
+  }
+
+  &.sizeNarrow {
+    --flyout-width: var(--click-flyout-size-narrow-width);
+  }
+
+  &.sizeWide {
+    --flyout-width: var(--click-flyout-size-wide-width);
+  }
+
+  &.sizeWidest {
+    --flyout-width: var(--click-flyout-size-widest-width);
+  }
+
+  &.customWidth {
+    // Custom width will be set via CSS custom property
+  }
+
+  // Strategy variants
+  &.strategyRelative {
+    position: relative;
+    height: 100%;
+  }
+
+  &.strategyAbsolute {
+    position: absolute;
+    height: auto;
+  }
+
+  &.strategyFixed {
+    position: fixed;
+    height: auto;
+  }
+
+  // Type variants
+  &.typeDefault {
+    padding: 0 var(--click-flyout-space-default-x);
+    gap: var(--click-flyout-space-default-gap);
+  }
+
+  &.typeInline {
+    padding: 0 var(--click-flyout-space-inline-x);
+    gap: var(--click-flyout-space-inline-gap);
+  }
+
+  // Alignment variants
+  &.alignStart {
+    left: 0;
+    box-shadow: var(--click-flyout-shadow-reverse);
+    border-right: 1px solid var(--click-flyout-color-stroke-default);
+  }
+
+  &.alignEnd {
+    right: 0;
+    box-shadow: var(--click-flyout-shadow-default);
+    border-left: 1px solid var(--click-flyout-color-stroke-default);
+  }
+
+  background: var(--click-flyout-color-background-default);
+
+  @include mixins.cuiMobile {
+    &.strategyRelative {
+      position: absolute !important;
+    }
+
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+
+    &.alignStart {
+      transform: translateX(calc(50px - 100%));
+
+      &:hover,
+      &.active,
+      &:focus-within {
+        transform: translateX(0);
+        right: auto;
+      }
+    }
+
+    &.alignEnd {
+      transform: translateX(calc(100% - 50px));
+
+      &:hover,
+      &.active,
+      &:focus-within {
+        transform: translateX(0);
+        left: auto;
+      }
+    }
+  }
+}
+
+.cuiFlyoutContainer {
+  display: flex;
+  gap: 0;
+  width: var(--flyout-width);
+  max-width: 100%;
+  flex-flow: column nowrap;
+  gap: inherit;
+}
+
+.cuiFlyoutElement {
+  max-width: 100%;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+
+  &.typeDefault {
+    gap: var(--click-flyout-space-default-gap);
+    padding: 0 var(--click-flyout-space-default-content-x);
+  }
+
+  &.typeInline {
+    gap: var(--click-flyout-space-inline-gap);
+    padding: 0 var(--click-flyout-space-inline-content-x);
+  }
+}
+
+.cuiFlyoutHeaderContainer {
+  &.typeDefault {
+    row-gap: var(--click-flyout-space-default-content-row-gap);
+    column-gap: var(--click-flyout-space-default-content-column-gap);
+    padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y) 0
+      var(--click-flyout-space-default-y);
+  }
+
+  &.typeInline {
+    row-gap: var(--click-flyout-space-inline-content-row-gap);
+    column-gap: var(--click-flyout-space-inline-content-column-gap);
+    padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-y) 0 var(--click-flyout-space-inline-y);
+  }
+}
+
+.cuiFlyoutTitle {
+  margin: 0;
+  padding: 0;
+
+  &.typeDefault {
+    color: var(--click-flyout-color-title-default);
+    font: var(--click-flyout-typography-default-title-default);
+  }
+
+  &.typeInline {
+    color: var(--click-flyout-color-title-default);
+    font: var(--click-flyout-typography-inline-title-default);
+  }
+}
+
+.cuiFlyoutDescription {
+  margin: 0;
+  padding: 0;
+
+  &.typeDefault {
+    color: var(--click-flyout-color-description-default);
+    font: var(--click-flyout-typography-default-description-default);
+  }
+
+  &.typeInline {
+    color: var(--click-flyout-color-description-default);
+    font: var(--click-flyout-typography-inline-description-default);
+  }
+}
+
+.cuiFlyoutBody {
+  width: var(--flyout-width);
+  max-width: 100%;
+
+  &.alignTop {
+    margin-top: -1rem;
+  }
+
+  &.alignDefault {
+    margin-top: 0;
+  }
+}
+
+.cuiFlyoutFooter {
+  &.typeDefault {
+    row-gap: var(--click-flyout-space-default-content-row-gap);
+    column-gap: var(--click-flyout-space-default-content-column-gap);
+    padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-content-x);
+  }
+
+  &.typeInline {
+    row-gap: var(--click-flyout-space-inline-content-row-gap);
+    column-gap: var(--click-flyout-space-inline-content-column-gap);
+    padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-content-x);
+  }
+}
+
+.cuiFooterContainer {
+  width: var(--flyout-width);
+  max-width: 100%;
+}
+
+.cuiCustomCodeBlock {
+  display: flex;
+  height: 100%;
+
+  pre {
+    flex: 1;
+    overflow-wrap: break-word;
+
+    code {
+      display: inline-block;
+      max-width: calc(100% - 1rem);
+    }
+  }
+}

@@ -76,11 +76,9 @@ const Flags = ({ name, size, ...props }: FlagProps) => {
     return;
   }
   return (
-    <SvgImageElement
-      as={Component}
-      $size={size}
-      {...props}
-    />
+    <SvgImageElement size={size}>
+      <Component {...props} />
+    </SvgImageElement>
   );
 };
 

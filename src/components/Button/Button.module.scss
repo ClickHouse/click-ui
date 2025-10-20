@@ -1,0 +1,188 @@
+@use "cui-mixins" as mixins;
+
+.cuiButton {
+  @include mixins.cuiButtonBase;
+
+  // Base button styling from BaseButton component
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  border-radius: var(--click-button-radii-all);
+  gap: var(--click-button-basic-space-gap);
+  font: var(--click-button-basic-typography-label-default);
+  position: relative;
+  white-space: nowrap;
+
+  &:hover {
+    font: var(--click-button-basic-typography-label-hover);
+    transition: var(--transition-default);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    font: var(--click-button-basic-typography-label-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// Button type variants
+.cuiPrimary {
+  color: var(--click-button-basic-color-primary-text-default);
+  background-color: var(--click-button-basic-color-primary-background-default);
+  border: var(--click-button-stroke) solid var(--click-button-basic-color-primary-stroke-default);
+
+  &:hover {
+    background-color: var(--click-button-basic-color-primary-background-hover);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-primary-stroke-hover);
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    background-color: var(--click-button-basic-color-primary-background-active);
+    border: 1px solid var(--click-button-basic-color-primary-stroke-active);
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    background-color: var(--click-button-basic-color-primary-background-disabled);
+    color: var(--click-button-basic-color-primary-text-disabled);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-primary-stroke-disabled);
+    font: var(--click-button-basic-typography-label-disabled);
+  }
+}
+
+.cuiSecondary {
+  color: var(--click-button-basic-color-secondary-text-default);
+  background-color: var(--click-button-basic-color-secondary-background-default);
+  border: var(--click-button-stroke) solid var(--click-button-basic-color-secondary-stroke-default);
+
+  &:hover {
+    background-color: var(--click-button-basic-color-secondary-background-hover);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-secondary-stroke-hover);
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    background-color: var(--click-button-basic-color-secondary-background-active);
+    border: 1px solid var(--click-button-basic-color-secondary-stroke-active);
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    background-color: var(--click-button-basic-color-secondary-background-disabled);
+    color: var(--click-button-basic-color-secondary-text-disabled);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-secondary-stroke-disabled);
+    font: var(--click-button-basic-typography-label-disabled);
+  }
+}
+
+.cuiEmpty {
+  color: var(--click-button-basic-color-empty-text-default);
+  background-color: var(--click-button-basic-color-empty-background-default);
+  border: var(--click-button-stroke) solid var(--click-button-basic-color-empty-stroke-default);
+
+  &:hover {
+    background-color: var(--click-button-basic-color-empty-background-hover);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-empty-stroke-hover);
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    background-color: var(--click-button-basic-color-empty-background-active);
+    border: 1px solid var(--click-button-basic-color-empty-stroke-active);
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    background-color: var(--click-button-basic-color-empty-background-disabled);
+    color: var(--click-button-basic-color-empty-text-disabled);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-empty-stroke-disabled);
+    font: var(--click-button-basic-typography-label-disabled);
+  }
+}
+
+.cuiDanger {
+  color: var(--click-button-basic-color-danger-text-default);
+  background-color: var(--click-button-basic-color-danger-background-default);
+  border: var(--click-button-stroke) solid var(--click-button-basic-color-danger-stroke-default);
+
+  &:hover {
+    background-color: var(--click-button-basic-color-danger-background-hover);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-danger-stroke-hover);
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    background-color: var(--click-button-basic-color-danger-background-active);
+    border: 1px solid var(--click-button-basic-color-danger-stroke-active);
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    background-color: var(--click-button-basic-color-danger-background-disabled);
+    color: var(--click-button-basic-color-danger-text-disabled);
+    border: var(--click-button-stroke) solid var(--click-button-basic-color-danger-stroke-disabled);
+    font: var(--click-button-basic-typography-label-disabled);
+  }
+}
+
+// Alignment variants
+.cuiAlignLeft {
+  justify-content: flex-start;
+}
+
+.cuiAlignCenter {
+  justify-content: center;
+}
+
+// Fill width variant
+.cuiFillWidth {
+  width: 100%;
+}
+
+// Loading icon wrapper
+.cuiLoadingIconWrapper {
+  background-color: inherit;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Button icon styling
+.cuiButtonIcon {
+  height: var(--click-button-basic-size-icon-all);
+  width: var(--click-button-basic-size-icon-all);
+
+  svg {
+    height: var(--click-button-basic-size-icon-all);
+    width: var(--click-button-basic-size-icon-all);
+  }
+}

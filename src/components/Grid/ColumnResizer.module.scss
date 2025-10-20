@@ -1,0 +1,19 @@
+@use "cui-mixins" as mixins;
+
+.cuiResizeSpan {
+  z-index: 1;
+  position: absolute;
+  cursor: col-resize;
+  width: 4px;
+  overflow: auto;
+
+  &:hover,
+  &:active {
+    background: var(--click-grid-header-cell-color-stroke-selectDirect);
+  }
+
+  &.cuiPressed {
+    height: 100% !important;
+    position: fixed !important;
+  }
+}

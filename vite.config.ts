@@ -17,15 +17,14 @@ const externalLibraries = [
   "**/*.test.ts",
   "**/*.test.tsx",
   "react/jsx-runtime",
+  // Note: "click-ui-config" is intentionally NOT external
+  // It's loaded via optional dynamic import with graceful fallback
 ];
-
-if (!isBundledBuild) {
-  externalLibraries.push("styled-components");
-}
 
 const buildOptions: BuildOptions = {
   emptyOutDir: false,
-  minify: false,
+  minify: process.env.NODE_ENV === "production",
+  cssCodeSplit: false, // Bundle all CSS into one file for library distribution
   lib: {
     entry: resolve(__dirname, "src/index.ts"),
     name: "click-ui",
@@ -35,41 +34,55 @@ const buildOptions: BuildOptions = {
   },
   rollupOptions: {
     // Add _all_ external dependencies here
-    external: externalLibraries,
+    external: (id) => {
+      // Mark all listed libraries as external
+      if (externalLibraries.some(lib => id === lib || id.startsWith(lib + '/'))) {
+        return true;
+      }
+      // Force ALL React imports to be external, even from dependencies
+      if (id === 'react' || id.startsWith('react/') || id === 'react-dom' || id.startsWith('react-dom/')) {
+        return true;
+      }
+      return false;
+    },
     output: {
       globals: {
         dayjs: "dayjs",
         react: "React",
-        "styled-components": "styled",
         "react-dom": "ReactDOM",
       },
     },
   },
-  sourcemap: true,
+  sourcemap: process.env.NODE_ENV === "development",
 };
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: [["babel-plugin-styled-components", { displayName: false }]],
-
-        env: {
-          development: {
-            plugins: [["babel-plugin-styled-components", { displayName: true }]],
-          },
-        },
-      },
-    }),
+    react(),
     dts({
       include: ["src/"],
       exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     }),
   ],
+  css: {
+    modules: {
+      // Use consistent class name generation for library builds
+      // Format: _className_hash where hash is deterministic
+      generateScopedName: '[local]_[hash:base64:5]',
+    },
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+        includePaths: [path.resolve(__dirname, "src")],
+        silenceDeprecations: ["legacy-js-api"],
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "cui-mixins": path.resolve(__dirname, "./src/styles/_mixins"),
     },
   },
   build: buildOptions,
