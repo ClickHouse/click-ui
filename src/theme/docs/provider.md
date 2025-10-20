@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
       <body>
         <ServerClickUIProvider
           theme="light"
-          enableSystemMode={true}
           config={themeConfig}
           tooltipConfig={{ delayDuration: 100 }}
           toastConfig={{ duration: 3000 }}
@@ -39,7 +38,6 @@ export default function App({ Component, pageProps }) {
   return (
     <ServerClickUIProvider
       theme="system"
-      enableSystemMode={true}
     >
       <Component {...pageProps} />
     </ServerClickUIProvider>
@@ -122,6 +120,7 @@ export default defineConfig({
 ```ts
 // theme.config.ts
 export default {
+  // Light mode theme (default)
   theme: {
     global: {
       color: {
@@ -129,12 +128,11 @@ export default {
       }
     }
   },
-  systemModeOverrides: {
-    dark: {
-      global: {
-        color: {
-          primary: '#66b3ff'
-        }
+  // Dark mode overrides - if not defined, theme values are used for dark mode too
+  dark: {
+    global: {
+      color: {
+        primary: '#66b3ff'
       }
     }
   }

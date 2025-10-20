@@ -6,39 +6,55 @@ You can find the official docs for the Click UI design system and component libr
 
 Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
 
-1. Navigate to your app's route and run
-   `npm i @clickhouse/click-ui`
-   or
-   `yarn add @clickhouse/click-ui`
-2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once that's done, you'll be able to import the individual components that you want to use on each page. Here's an example of an `App.tsx` in NextJS.
+### Quick Start
 
-```typescript
-import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import { useState } from 'react'
+1. **Install Click UI**
+   ```bash
+   npm install @clickhouse/click-ui
+   ```
 
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
+2. **Import the styles**
 
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
+   Add this import at the top of your main application file (before other styles):
 
-  return (
-    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
-        label="Dark mode"
-      />
+   ```typescript
+   import '@clickhouse/click-ui/style.css';
+   ```
 
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
+   **Where to import:**
+   - **Next.js App Router**: Add to your root `layout.tsx`
+   - **Next.js Pages Router**: Add to `pages/_app.tsx`
+   - **Gatsby**: Add to `gatsby-browser.js`
+   - **Vite/React**: Add to `main.tsx` or `App.tsx`
 
-export default App
-```
+3. **Wrap your app with ClickUIProvider**
+
+   ```typescript
+   import '@clickhouse/click-ui/style.css';
+   import { ClickUIProvider, Text, Title } from '@clickhouse/click-ui'
+
+   function App() {
+     return (
+       <ClickUIProvider>
+         <Title type='h1'>Click UI Example</Title>
+         <Text>Welcome to Click UI!</Text>
+       </ClickUIProvider>
+     )
+   }
+
+   export default App
+   ```
+
+### Customizing Your Theme
+
+Click UI supports extensive theming and configuration options:
+
+- **[Theme System](src/theme/index.md)** - Runtime theming, hooks, CSS variables, and theme switching
+- **[Build-Time Configuration](BUILD_TIME_CONFIG_CLICK_UI.md)** - Theme config API reference and optimization
+- **[Bundler Plugins](config/README.md)** - Setup guides for Vite, Webpack, Rollup, and Next.js
+- **[Configuration Architecture](CONFIG_ARCHITECTURE.md)** - Design philosophy and decision rationale
+
+For step-by-step customization instructions, see the [Theme System documentation](src/theme/index.md).
 
 ## To develop this library locally 🚀
 

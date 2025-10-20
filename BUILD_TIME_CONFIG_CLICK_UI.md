@@ -1,296 +1,287 @@
-# Click-UI Build-Time Configuration System
+# Click-UI Build-Time Configuration API
 
-This document describes the build-time configuration system for `@clickhouse/click-ui` that enables optimal bundle sizes, better performance, and build-time CSS generation.
+**Theme Configuration Reference** - Complete API documentation for `click-ui.config.ts` theme configuration.
+
+> **See Also:**
+> - [Quick Start](README.md) - Installation and basic setup
+> - [Bundler Plugins](config/README.md) - Plugin setup for Vite, Webpack, Rollup, Next.js
+> - [Configuration Architecture](CONFIG_ARCHITECTURE.md) - Design philosophy and scenarios
+> - [Theme System](src/theme/index.md) - Runtime theming and CSS variables
 
 ## Overview
 
-The build-time configuration system moves theme configuration from runtime to build-time, providing several advantages:
+This document is the **authoritative reference** for the theme configuration API used in `click-ui.config.ts`. For plugin setup instructions, see [Bundler Plugins](config/README.md).
 
-- **Better performance**: CSS variables generated at build time, no runtime processing overhead
-- **Automatic tree-shaking**: Existing component structure already supports optimal tree-shaking
-- **Build-time optimization**: Theme configurations are resolved during the build process
-- **Backward compatibility**: Works alongside existing runtime configuration
-
-## Architecture
-
-### 1. Vite Plugin (`vite-plugin.ts`)
-
-The Vite plugin for click-ui:
-- Loads user configuration at build time from `click-ui.config.ts`
-- Generates CSS variables from theme config
-- Injects config as global constants (`__CLICK_UI_CONFIG__`, `__CLICK_UI_PREFIX__`)
-- Emits CSS files with theme variables
-
-### 2. Build-Time Configuration (`src/theme/config.ts`)
-
-Runtime config getter that uses build-time injected values:
-- `getThemeConfig()` - Returns build-time injected configuration with fallback to window.clickUIConfig
-- `getCSSPrefix()` - Returns CSS prefix from build-time config (defaults to '--click')
-
-### 3. Enhanced ClickUIProvider
-
-The existing ClickUIProvider now supports both configurations:
-- **Build-time config**: Uses injected configuration when available (priority)
-- **Runtime config**: Falls back to existing click-ui-config.js/window.clickUIConfig system
-- **Seamless integration**: No breaking changes to existing usage
-
-## Usage
-
-### 1. Install Click-UI
-
-```bash
-npm install @clickhouse/click-ui
-```
-
-### 2. Configure Vite (For Build-Time Configuration)
-
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { clickUI } from '@clickhouse/click-ui/vite-plugin';
-
-export default defineConfig({
-  plugins: [
-    react(),
-    clickUI({
-      configPath: './click-ui.config.ts', // defaults to 'click-ui.config.ts'
-    })
-  ]
-});
-```
-
-### 3. Create Theme Configuration (Build-Time)
+## Complete Configuration Example
 
 ```typescript
 // click-ui.config.ts
 import type { ThemeConfig } from '@clickhouse/click-ui/theme';
 
 const config: ThemeConfig = {
-  cssPrefix: '--app',
-  storageKey: 'app-theme',
+  // Local storage key for theme persistence (optional)
+  storageKey: 'my-app-theme',
 
+  // Light mode theme (base configuration)
   theme: {
     global: {
       color: {
         brand: '#FF6B6B',
-        background: { default: '#FAFAFA' }
+        background: { default: '#FFFFFF' },
+        text: { default: '#1A1A1A' }
       }
     },
     button: {
-      basic: {
-        color: {
-          primary: {
-            background: {
-              default: '#FF6B6B',
-              hover: '#FF5252'
-            }
-          }
+      space: {
+        x: '1.5rem',
+        y: '0.75rem'
+      },
+      radii: {
+        all: '0.5rem'
+      },
+      primary: {
+        background: {
+          default: '#FF6B6B',
+          hover: '#FF5252'
         }
       }
     }
   },
 
-  systemModeOverrides: {
-    light: {
-      global: {
-        color: { background: { default: '#FFFFFF' } }
+  // Dark mode overrides
+  // If not defined, theme values are used for dark mode too
+  dark: {
+    global: {
+      color: {
+        background: { default: '#0D1117' },
+        text: { default: '#F0F6FC' }
       }
     },
-    dark: {
-      global: {
-        color: {
-          background: { default: '#0D1117' },
-          text: { default: '#F0F6FC' }
+    button: {
+      primary: {
+        background: {
+          default: '#FF8A80',
+          hover: '#FF7043'
         }
       }
     }
+  },
+
+  // Optional: Tooltip configuration
+  tooltipConfig: {
+    delayDuration: 100,
+    skipDelayDuration: 300,
+    disableHoverableContent: false
+  },
+
+  // Optional: Toast configuration
+  toastConfig: {
+    duration: 4000,
+    swipeDirection: 'right',
+    swipeThreshold: 50
   }
 };
 
 export default config;
 ```
 
-### 4. Use in Your App
+## Configuration Properties
+
+### `storageKey` (optional)
+- **Type**: `string`
+- **Default**: `'click-ui-theme'`
+- **Description**: Local storage key for persisting theme selection
+
+### `theme` (optional)
+- **Type**: `Partial theme object`
+- **Description**: Base theme configuration (used for light mode)
+- **Supports**: Partial overrides - only specify what you want to change
+- **Default**: Built-in ClickHouse theme if not specified
+
+### `dark` (optional)
+- **Type**: `Partial theme object`
+- **Description**: Dark mode specific overrides, merged with base `theme`
+- **Behavior**: If omitted, `theme` values are used for both light and dark modes
+
+### `tooltipConfig` (optional)
+- **Type**: `object`
+- **Properties**:
+  - `delayDuration`: Delay before tooltip appears (ms)
+  - `skipDelayDuration`: Skip delay when moving between tooltips (ms)
+  - `disableHoverableContent`: Disable hovering over tooltip content
+
+### `toastConfig` (optional)
+- **Type**: `object`
+- **Properties**:
+  - `duration`: Auto-dismiss duration (ms)
+  - `swipeDirection`: Swipe direction to dismiss (`'right'` | `'left'` | `'up'` | `'down'`)
+  - `swipeThreshold`: Swipe distance threshold (px)
+
+## Dark Mode Configuration
+
+### Approach 1: Full Dark Theme
+Specify complete dark theme overrides:
+
+```typescript
+const config: ThemeConfig = {
+  theme: {
+    global: { color: { brand: '#FF6B6B' } }
+  },
+  dark: {
+    global: {
+      color: {
+        brand: '#FF8989',  // Lighter brand color for dark mode
+        background: { default: '#0D1117' },
+        text: { default: '#F0F6FC' }
+      }
+    }
+  }
+};
+```
+
+### Approach 2: No Dark Overrides
+Use the same theme for both modes:
+
+```typescript
+const config: ThemeConfig = {
+  theme: {
+    global: { color: { brand: '#FF6B6B' } }
+  }
+  // No dark property - theme values used for both light and dark
+};
+```
+
+### Approach 3: Minimal Dark Overrides
+Only override specific dark mode values:
+
+```typescript
+const config: ThemeConfig = {
+  theme: {
+    global: {
+      color: {
+        brand: '#FF6B6B',
+        background: { default: '#FFFFFF' }
+      }
+    }
+  },
+  dark: {
+    global: {
+      color: {
+        // Only override background, inherit brand from theme
+        background: { default: '#0D1117' }
+      }
+    }
+  }
+};
+```
+
+## CSS Variables Output
+
+The bundler plugin generates CSS variables at build time using the `--click` prefix:
+
+```css
+/* Light mode (from theme property) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --click-global-color-brand: #FF6B6B;
+    --click-global-color-background-default: #FFFFFF;
+    --click-button-primary-background-default: #FF6B6B;
+    --click-button-primary-background-hover: #FF5252;
+  }
+}
+
+:root[data-theme="light"] {
+  --click-global-color-background-default: #FFFFFF;
+}
+
+/* Dark mode (from dark property merged with theme) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --click-global-color-brand: #FF6B6B;
+    --click-global-color-background-default: #0D1117;
+    --click-global-color-text-default: #F0F6FC;
+    --click-button-primary-background-default: #FF8A80;
+    --click-button-primary-background-hover: #FF7043;
+  }
+}
+
+:root[data-theme="dark"] {
+  --click-global-color-background-default: #0D1117;
+}
+```
+
+## Theme Token Structure
+
+The theme configuration is a nested object structure. You can override any part of the theme.
+
+### Example Token Paths
+
+```typescript
+theme: {
+  global: {
+    color: {
+      brand: '#FF6B6B',
+      background: { default: '#FFFFFF' },
+      text: { default: '#1A1A1A' }
+    }
+  },
+  button: {
+    space: {
+      x: '1.5rem',   // horizontal padding
+      y: '0.75rem'   // vertical padding
+    },
+    radii: {
+      all: '0.5rem'  // border radius
+    },
+    primary: {
+      background: {
+        default: '#FF6B6B',
+        hover: '#FF5252'
+      },
+      text: { default: '#FFFFFF' }
+    }
+  },
+  input: {
+    color: {
+      background: { default: '#FFFFFF' },
+      border: { default: '#D1D5DB' }
+    }
+  }
+}
+```
+
+### TypeScript Support
+
+For full autocomplete and type safety, import the ThemeConfig type:
+
+```typescript
+import type { ThemeConfig } from '@clickhouse/click-ui/theme';
+
+const config: ThemeConfig = {
+  theme: {
+    // Full autocomplete available here
+  }
+};
+```
+
+**Note:** The theme object supports arbitrary nested properties. You only need to specify the tokens you want to override - all other values will use the built-in ClickHouse theme defaults.
+
+## Usage in Application
+
+Once configured with a bundler plugin (see [Bundler Plugins](config/README.md)), the config is automatically available:
 
 ```tsx
-// App.tsx
-import { ClickUIProvider, Button, Text } from '@clickhouse/click-ui';
+import { ClickUIProvider } from '@clickhouse/click-ui';
+import '@clickhouse/click-ui/style.css';
 
 function App() {
   return (
-    <ClickUIProvider> {/* Config loaded at build time automatically! */}
-      <div>
-        <h1>My App</h1>
-        <Button type="primary">
-          Click me - styled with build-time config!
-        </Button>
-        <Text>This uses the build-time theme configuration</Text>
-        {/* Components not imported are automatically tree-shaken */}
-      </div>
+    <ClickUIProvider>
+      {/* Config loaded automatically from click-ui.config.ts */}
+      <YourApp />
     </ClickUIProvider>
   );
 }
 ```
 
-## Tree-Shaking Support
-
-Click-UI already has excellent tree-shaking support:
-
-### Current Export Structure
-```typescript
-// All components are individually exported (src/components/index.ts)
-export { Button } from "@/components/Button/Button";
-export { Text } from "@/components/Typography/Text/Text";
-export { Badge } from "@/components/Badge/Badge";
-// ... and so on
-```
-
-### Usage Examples
-```typescript
-// Import only what you need - unused components are tree-shaken
-import { ClickUIProvider, Button, Text } from '@clickhouse/click-ui';
-// Badge, Tooltip, etc. are NOT imported and will be tree-shaken out
-
-// Or import specific components
-import { Button } from '@clickhouse/click-ui';
-import { Text } from '@clickhouse/click-ui';
-```
-
-## Configuration Priority
-
-The system uses the following priority order:
-
-1. **Build-time config** (highest priority) - from `click-ui.config.ts` via Vite plugin
-2. **Runtime config** (medium priority) - from `window.clickUIConfig`
-3. **Default config** (fallback) - built-in defaults
-
-## CSS Variables Generation
-
-The system automatically generates CSS variables from your config:
-
-```css
-/* Generated at build time from click-ui.config.ts */
-:root {
-  --app-global-color-brand: #FF6B6B;
-  --app-button-basic-color-primary-background-default: #FF6B6B;
-  --app-button-basic-color-primary-background-hover: #FF5252;
-}
-
-/* System mode overrides */
-@media (prefers-color-scheme: light) {
-  :root {
-    --app-global-color-background-default: #FFFFFF;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --app-global-color-background-default: #0D1117;
-    --app-global-color-text-default: #F0F6FC;
-  }
-}
-
-/* Explicit theme overrides */
-:root[data-theme="light"] {
-  --app-global-color-background-default: #FFFFFF;
-}
-
-:root[data-theme="dark"] {
-  --app-global-color-background-default: #0D1117;
-}
-```
-
-## Migration Path
-
-### From Runtime Configuration
-If you're currently using runtime configuration:
-
-```typescript
-// Before (runtime config)
-<ClickUIProvider config={{ theme: myTheme }}>
-  {children}
-</ClickUIProvider>
-```
-
-```typescript
-// After (build-time config) - move config to click-ui.config.ts
-<ClickUIProvider> {/* Config loaded at build time */}
-  {children}
-</ClickUIProvider>
-```
-
-### Gradual Migration
-You can use both systems during migration:
-1. Keep existing runtime config working
-2. Add Vite plugin and `click-ui.config.ts`
-3. Build-time config will take priority automatically
-4. Remove runtime config when ready
-
-## Available Package Exports
-
-```typescript
-// Main library (includes Vite plugin)
-import { ClickUIProvider, Button, Text } from '@clickhouse/click-ui';
-
-// Vite plugin
-import { clickUI } from '@clickhouse/click-ui/vite-plugin';
-
-// Types
-import type { ThemeConfig } from '@clickhouse/click-ui';
-```
-
-## Build Configuration
-
-### Package.json Updates
-```json
-{
-  "scripts": {
-    "build": "tsc && vite build && yarn build:bundled && yarn build:plugin"
-  },
-  "exports": {
-    "./vite-plugin": {
-      "types": "./vite-plugin.d.ts",
-      "import": "./vite-plugin.js"
-    }
-  },
-  "files": [
-    "dist",
-    "vite-plugin.js",
-    "vite-plugin.d.ts"
-  ]
-}
-```
-
-## Benefits
-
-1. **Performance**: CSS generated at build time eliminates runtime overhead
-2. **Bundle Optimization**: Automatic tree-shaking of unused components
-3. **Developer Experience**: Type-safe configurations with build-time validation
-4. **Flexibility**: Supports both build-time and runtime configurations
-5. **Backward Compatibility**: No breaking changes to existing usage
-6. **Modern Tooling**: Leverages Vite's powerful build system
-
-## Example Build Output
-
-With build-time configuration, your final bundle will include:
-- Only the components you actually import and use
-- Pre-generated CSS variables for your specific theme
-- No runtime configuration processing overhead
-- Optimized theme switching logic
-
-This can result in significantly smaller bundle sizes compared to including all components and processing themes at runtime.
-
-## Troubleshooting
-
-### Build-Time Config Not Loading
-1. Ensure `click-ui.config.ts` is in your project root
-2. Verify the Vite plugin is configured correctly
-3. Check that the file exports a default configuration object
-
-### Fallback to Runtime Config
-If build-time config fails, the system automatically falls back to:
-1. `window.clickUIConfig` (if available)
-2. Default built-in configuration
-
-This ensures your application always has working themes.
+For runtime theme configuration and theming hooks, see [Theme System](src/theme/index.md).
