@@ -3,18 +3,11 @@ declare global {
 }
 
 export const getThemeConfig = () => {
-  // This will be replaced by Vite plugin with actual config
+  // Check if plugin injected config at build time
   if (typeof __CLICK_UI_CONFIG__ !== "undefined") {
     return __CLICK_UI_CONFIG__;
   }
 
-  // Development fallback - try to load from window.clickUIConfig
-  if (
-    typeof window !== "undefined" &&
-    (window as unknown as { clickUIConfig: unknown }).clickUIConfig
-  ) {
-    return (window as unknown as { clickUIConfig: unknown }).clickUIConfig;
-  }
-
+  // Use defaults
   return {};
 };

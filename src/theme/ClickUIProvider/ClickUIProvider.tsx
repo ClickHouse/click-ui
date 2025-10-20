@@ -219,7 +219,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Build theme data with system overrides
+  // Build theme data with dark mode support
   const { finalTheme, systemLightTheme, systemDarkTheme, lightTheme, darkTheme } = useMemo(() => {
     const baseLightTheme = getBaseTheme("light");
     const baseDarkTheme = getBaseTheme("dark");
@@ -229,27 +229,30 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     let systemLight = null;
     let systemDark = null;
 
-    // Always prepare light and dark themes for light-dark() CSS function
-    let preparedLightTheme = config.theme
+    // Prepare light theme: base light theme + theme config
+    const preparedLightTheme = config.theme
       ? deepMerge(baseLightTheme, config.theme)
       : baseLightTheme;
-    let preparedDarkTheme = config.theme
+
+    // Prepare dark theme: base dark theme + theme config + dark overrides
+    // If dark is not defined, theme values are used for dark mode too
+    const preparedDarkTheme = config.dark
+      ? deepMerge(
+          config.theme ? deepMerge(baseDarkTheme, config.theme) : baseDarkTheme,
+          config.dark
+        )
+      : config.theme
       ? deepMerge(baseDarkTheme, config.theme)
       : baseDarkTheme;
 
-    // Apply system mode overrides to prepared themes if available
-    if (config.systemModeOverrides) {
-      if (config.systemModeOverrides.light) {
-        preparedLightTheme = deepMerge(preparedLightTheme, config.systemModeOverrides.light);
-      }
-      if (config.systemModeOverrides.dark) {
-        preparedDarkTheme = deepMerge(preparedDarkTheme, config.systemModeOverrides.dark);
-      }
-    }
-
-    // Apply custom theme overrides
+    // Apply custom theme overrides to current theme
     if (config.theme) {
       processedTheme = deepMerge(processedTheme, config.theme);
+
+      // Also apply dark overrides if we're in dark mode
+      if (resolvedTheme === "dark" && config.dark) {
+        processedTheme = deepMerge(processedTheme, config.dark);
+      }
     }
 
     // Handle system mode - use prepared themes
@@ -266,7 +269,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
       lightTheme: preparedLightTheme,
       darkTheme: preparedDarkTheme,
     };
-  }, [resolvedTheme, currentTheme, config.theme, config.systemModeOverrides]);
+  }, [resolvedTheme, currentTheme, config.theme, config.dark]);
 
   // Extract breakpoints and sizes
   const breakpoints = useMemo(() => {
