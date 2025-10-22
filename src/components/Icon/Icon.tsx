@@ -16,6 +16,7 @@ const SVGIcon = ({
   state = "default",
   className,
   size = "md",
+  disableDefaultSize = false,
   ...props
 }: IconProps) => {
   const Component = ICONS_MAP[name];
@@ -38,21 +39,26 @@ const SVGIcon = ({
       typeof height === "number" ? `${height}px` : height;
   }
 
-  const iconClasses = clsx(styles.cuiIconWrapper, className, {
-    [styles.cuiSizeXs]: size === "xs",
-    [styles.cuiSizeSm]: size === "sm",
-    [styles.cuiSizeMd]: size === "md",
-    [styles.cuiSizeLg]: size === "lg",
-    [styles.cuiSizeXl]: size === "xl",
-    [styles.cuiSizeXxl]: size === "xxl",
-    [styles.cuiStateDefault]: state === "default",
-    [styles.cuiStateSuccess]: state === "success",
-    [styles.cuiStateWarning]: state === "warning",
-    [styles.cuiStateDanger]: state === "danger",
-    [styles.cuiStateInfo]: state === "info",
-    [styles.cuiHasCustomWidth]: !!width,
-    [styles.cuiHasCustomHeight]: !!height,
-  });
+  const iconClasses = clsx(
+    styles.cuiIconWrapper,
+    {
+      // Only apply size classes if not disabled (for custom sizing via className)
+      [styles.cuiSizeXs]: !disableDefaultSize && size === "xs",
+      [styles.cuiSizeSm]: !disableDefaultSize && size === "sm",
+      [styles.cuiSizeMd]: !disableDefaultSize && size === "md",
+      [styles.cuiSizeLg]: !disableDefaultSize && size === "lg",
+      [styles.cuiSizeXl]: !disableDefaultSize && size === "xl",
+      [styles.cuiSizeXxl]: !disableDefaultSize && size === "xxl",
+      [styles.cuiStateDefault]: state === "default",
+      [styles.cuiStateSuccess]: state === "success",
+      [styles.cuiStateWarning]: state === "warning",
+      [styles.cuiStateDanger]: state === "danger",
+      [styles.cuiStateInfo]: state === "info",
+      [styles.cuiHasCustomWidth]: !!width,
+      [styles.cuiHasCustomHeight]: !!height,
+    },
+    className
+  );
 
   return (
     <div

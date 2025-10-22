@@ -1,19 +1,21 @@
 import LogosLight from "@/components/Logos/LogosLight";
 import { FlagList } from "@/components/icons/Flags";
 import { PaymentList } from "@/components/icons/Payments";
-import { Icon } from "./Icon";
 import { IconName } from "@/components/types";
 import { ICONS_MAP } from "./IconCommon";
 import { IconProps } from "./types";
-import { Container } from "@/components/Container/Container";
 import { useState } from "react";
 import styles from "./Icon.stories.module.scss";
-import { SearchField } from "@/components/Input/SearchField";
-import { Title } from "@/components/Typography/Title/Title";
-import { Panel } from "@/components/Panel/Panel";
-import { Text } from "@/components/Typography/Text/Text";
-import { GridContainer } from "@/components/GridContainer/GridContainer";
-import { Spacer } from "@/components/Spacer/Spacer";
+import {
+  Icon,
+  Container,
+  SearchField,
+  Title,
+  Panel,
+  Text,
+  GridContainer,
+  Spacer,
+} from "@/components";
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagList);
