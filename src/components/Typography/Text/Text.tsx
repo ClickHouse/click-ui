@@ -1,31 +1,28 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, ReactNode, forwardRef } from "react";
 import clsx from "clsx";
 import { TextSize, TextWeight } from "@/components/commonTypes";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 import styles from "./Text.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
 
-export interface TextProps<T extends ElementType = "p"> {
+export interface TextProps<T extends ElementType = "p">
+  extends PolymorphicComponentProps<T> {
   children: ReactNode;
   align?: TextAlignment;
   color?: TextColor;
   size?: TextSize;
   weight?: TextWeight;
   className?: string;
-  component?: T;
   fillWidth?: boolean;
 }
-
-type TextPolymorphicComponent = <T extends ElementType = "p">(
-  props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
-) => ReactNode;
 
 const _Text = <T extends ElementType = "p">(
   {
@@ -38,17 +35,15 @@ const _Text = <T extends ElementType = "p">(
     component,
     fillWidth,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, TextProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
   const Component = component ?? "p";
 
   // Helper function to get font class based on size and weight
   const getFontClass = (size: TextSize, weight: TextWeight) => {
-    const sizeCapitalized = size.charAt(0).toUpperCase() + size.slice(1);
-    const weightCapitalized =
-      weight === "normal" ? "" : weight.charAt(0).toUpperCase() + weight.slice(1);
-    return `fontSize${sizeCapitalized}${weightCapitalized}`;
+    const weightCapitalized = weight === "normal" ? "" : capitalize(weight);
+    return `cuiFontSize${capitalize(size)}${weightCapitalized}`;
   };
 
   return (
@@ -78,5 +73,5 @@ const _Text = <T extends ElementType = "p">(
 
 _Text.displayName = "Text";
 
-const Text: TextPolymorphicComponent = forwardRef(_Text);
+const Text: PolymorphicComponent<TextProps, "p"> = forwardRef(_Text);
 export { Text };

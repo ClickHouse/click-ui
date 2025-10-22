@@ -2,6 +2,7 @@ import React, { HTMLAttributes, ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 import { IconSize } from "./Icon/types";
 import styles from "./commonElement.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 interface FormRootProps extends HTMLAttributes<HTMLDivElement> {
   orientation?: "horizontal" | "vertical";
@@ -91,16 +92,17 @@ export const SvgImageElement: React.FC<SvgImageElementProps> = ({
   className,
   ...props
 }) => (
-  <svg
+  <div
     className={clsx(
       styles.cuiSvgImageElement,
       {
-        [styles[`size${size ? size.charAt(0).toUpperCase() + size.slice(1) : ""}`]]: size,
+        [styles[`cuiSize${size ? capitalize(size) : ""}`]]: size,
       },
       className
     )}
-    {...props}
-  />
+  >
+    <svg {...props} />
+  </div>
 );
 
 export const FormElementContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({

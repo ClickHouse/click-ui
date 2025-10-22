@@ -1,28 +1,23 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactEventHandler,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, ReactEventHandler, forwardRef } from "react";
 import { Icon, IconName } from "@/components";
 import { TextSize, TextWeight } from "@/components/commonTypes";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 import clsx from "clsx";
 import styles from "./Link.module.scss";
 
-export interface LinkProps<T extends ElementType = "a"> {
+export interface LinkProps<T extends ElementType = "a">
+  extends PolymorphicComponentProps<T> {
   size?: TextSize;
   weight?: TextWeight;
   onClick?: ReactEventHandler;
   children?: React.ReactNode;
   icon?: IconName;
-  component?: T;
 }
-
-type LinkPolymorphicComponent = <T extends ElementType = "a">(
-  props: Omit<ComponentProps<T>, keyof LinkProps<T>> & LinkProps<T>
-) => ReactNode;
 
 /** Component for linking to other pages or sections from with body text */
 const _Link = <T extends ElementType = "a">(
@@ -35,8 +30,8 @@ const _Link = <T extends ElementType = "a">(
     component,
     className,
     ...props
-  }: Omit<ComponentProps<T>, keyof LinkProps<T>> & LinkProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, LinkProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
   const Component = component ?? "a";
   const isSmallSize = size === "xs" || size === "sm";
@@ -77,4 +72,4 @@ const _Link = <T extends ElementType = "a">(
     </Component>
   );
 };
-export const Link: LinkPolymorphicComponent = forwardRef(_Link);
+export const Link: PolymorphicComponent<LinkProps, "a"> = forwardRef(_Link);
