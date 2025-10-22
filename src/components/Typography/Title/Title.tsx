@@ -1,6 +1,7 @@
 import { HTMLAttributes, forwardRef } from "react";
 import clsx from "clsx";
 import styles from "./Title.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 export type TitleAlignment = "left" | "center" | "right";
 export type TitleColor = "default" | "muted";
@@ -38,9 +39,7 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
   ) => {
     // Helper function to get font class based on size and family
     const getFontClass = (size: TitleSize, family: TitleFamily) => {
-      const sizeCapitalized = size.charAt(0).toUpperCase() + size.slice(1);
-      const familyCapitalized = family.charAt(0).toUpperCase() + family.slice(1);
-      return `fontSize${familyCapitalized}${sizeCapitalized}`;
+      return `cuiFontSize${capitalize(family)}${capitalize(size)}`;
     };
 
     const Component = type;

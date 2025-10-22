@@ -1,12 +1,13 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  ReactNode,
-} from "react";
+import { ElementType, forwardRef } from "react";
 import clsx from "clsx";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 import styles from "./GridContainer.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "unset";
@@ -22,10 +23,9 @@ type ContentOptions =
   | "left"
   | "right";
 
-export interface GridContainerProps<T extends ElementType = "div"> {
-  /** Custom component to render as */
-  component?: T;
-  /** Alignment of items along the block axis */
+export interface GridContainerProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {
   alignItems?: ItemsOptions;
   /** Alignment of content along the block axis */
   alignContent?: ContentOptions;
@@ -75,10 +75,6 @@ export interface GridContainerProps<T extends ElementType = "div"> {
   overflow?: string;
 }
 
-type GridContainerPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>
-) => ReactNode;
-
 const _GridContainer = <T extends ElementType = "div">(
   {
     alignItems = "stretch",
@@ -107,35 +103,29 @@ const _GridContainer = <T extends ElementType = "div">(
     overflow,
     component,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, GridContainerProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
   const Component = component ?? "div";
 
-  const containerClassName = clsx(styles.cuiGridContainer, {
-    [styles.cuiInline]: inline,
-    [styles.cuiFillWidth]: fillWidth,
-    [styles.cuiWidthAuto]: !fillWidth,
-    [styles.cuiResponsive]: isResponsive,
-    [styles[`cuiAlignItems${alignItems.charAt(0).toUpperCase() + alignItems.slice(1)}`]]:
-      alignItems !== "stretch",
-    [styles[
-      `cuiAlignContent${alignContent.charAt(0).toUpperCase() + alignContent.slice(1)}`
-    ]]: alignContent !== "stretch",
-    [styles[
-      `cuiJustifyContent${justifyContent.charAt(0).toUpperCase() + justifyContent.slice(1)}`
-    ]]: justifyContent !== "stretch",
-    [styles[
-      `cuiJustifyItems${justifyItems.charAt(0).toUpperCase() + justifyItems.slice(1)}`
-    ]]: justifyItems !== "stretch",
-    [styles[`cuiGap${gap ? gap.charAt(0).toUpperCase() + gap.slice(1) : ""}`]]: gap,
-    [styles[
-      `cuiColumnGap${columnGap ? columnGap.charAt(0).toUpperCase() + columnGap.slice(1) : ""}`
-    ]]: columnGap,
-    [styles[
-      `cuiRowGap${rowGap ? rowGap.charAt(0).toUpperCase() + rowGap.slice(1) : ""}`
-    ]]: rowGap,
-  });
+  const containerClassName = clsx(
+    styles.cuiGridContainer,
+    {
+      [styles.cuiInline]: inline,
+      [styles.cuiFillWidth]: fillWidth,
+      [styles.cuiWidthAuto]: !fillWidth,
+      [styles.cuiResponsive]: isResponsive,
+      [styles[`cuiAlignItems${capitalize(alignItems)}`]]: alignItems !== "stretch",
+      [styles[`cuiAlignContent${capitalize(alignContent)}`]]: alignContent !== "stretch",
+      [styles[`cuiJustifyContent${capitalize(justifyContent)}`]]:
+        justifyContent !== "stretch",
+      [styles[`cuiJustifyItems${capitalize(justifyItems)}`]]: justifyItems !== "stretch",
+      [styles[`cuiGap${gap ? capitalize(gap) : ""}`]]: gap,
+      [styles[`cuiColumnGap${columnGap ? capitalize(columnGap) : ""}`]]: columnGap,
+      [styles[`cuiRowGap${rowGap ? capitalize(rowGap) : ""}`]]: rowGap,
+    },
+    props.className
+  );
 
   const containerStyle: React.CSSProperties = {
     ...(gridAutoColumns && { gridAutoColumns }),
@@ -151,20 +141,21 @@ const _GridContainer = <T extends ElementType = "div">(
     ...(maxWidth && { maxWidth }),
     ...(minWidth && { minWidth }),
     ...(overflow && { overflow }),
+    ...props.style,
   };
 
   return (
     <Component
+      {...props}
       className={containerClassName}
       style={containerStyle}
       data-testid="grid-container"
       ref={ref}
-      {...props}
     >
       {children}
     </Component>
   );
 };
 
-export const GridContainer: GridContainerPolymorphicComponent =
+export const GridContainer: PolymorphicComponent<GridContainerProps> =
   forwardRef(_GridContainer);
