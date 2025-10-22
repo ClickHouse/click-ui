@@ -1,0 +1,120 @@
+// Shared styles for FileUpload components - exported as CSS classes
+
+// Base upload area styles
+.uploadAreaBase {
+  background-color: var(--click-fileUpload-color-background-default);
+  border: 1px solid var(--click-fileUpload-color-stroke-default);
+  display: flex;
+  align-items: center;
+  transition: var(--click-fileUpload-transitions-all);
+}
+
+// Upload area with medium size
+.uploadAreaMd {
+  border-radius: var(--click-fileUpload-md-radii-all);
+  padding: var(--click-fileUpload-md-space-y) var(--click-fileUpload-md-space-x);
+  gap: var(--click-fileUpload-md-space-gap);
+}
+
+// Upload area with small size
+.uploadAreaSm {
+  border-radius: var(--click-fileUpload-sm-radii-all);
+  padding: var(--click-fileUpload-sm-space-y) var(--click-fileUpload-sm-space-x);
+  gap: var(--click-fileUpload-sm-space-gap);
+}
+
+// Draggable upload area
+.uploadAreaDraggable {
+  border-style: dashed;
+  border-color: var(--click-fileUpload-color-stroke-default);
+}
+
+// Dragging state
+.uploadAreaDragging {
+  background-color: var(--click-fileUpload-color-background-active);
+  border-color: var(--click-fileUpload-color-stroke-active);
+}
+
+// Error state
+.uploadAreaError {
+  background-color: var(--click-fileUpload-color-background-error);
+  border: none;
+}
+
+// Icon sizing - small (applied to wrapper, increased specificity to override Icon defaults)
+.iconSizeSm.iconSizeSm {
+  width: var(--click-fileUpload-sm-icon-size-width);
+  height: var(--click-fileUpload-sm-icon-size-height);
+  color: var(--click-fileUpload-sm-color-icon-default);
+}
+
+// Icon sizing - medium (applied to wrapper, increased specificity to override Icon defaults)
+.iconSizeMd.iconSizeMd {
+  width: var(--click-fileUpload-md-icon-size-width);
+  height: var(--click-fileUpload-md-icon-size-height);
+  color: var(--click-fileUpload-md-color-icon-default);
+}
+
+// Typography styles
+.fileUploadTitle {
+  font: var(--click-fileUpload-typography-title-default);
+  color: var(--click-fileUpload-color-title-default);
+}
+
+.fileUploadDescription {
+  font: var(--click-fileUpload-typography-description-default);
+  color: var(--click-fileUpload-color-description-default);
+}
+
+// File info container
+.fileInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--click-fileUpload-hasFile-header-space-gap);
+  flex: 1;
+}
+
+// File info header
+.fileInfoHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--click-fileUpload-sm-space-gap);
+  width: 100%;
+}
+
+// File details
+.fileDetails {
+  display: flex;
+  gap: var(--click-fileUpload-md-space-gap);
+  border: none;
+}
+
+// File actions container
+.fileActions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0;
+}
+
+// Progress container
+.progressContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+// Progress bar container
+.progressBarContainer {
+  width: 100%;
+  flex: 1;
+}
+
+// Progress percentage
+.progressPercentage {
+  min-width: var(--sizes-10);
+  text-align: right;
+  padding-right: var(--click-fileUpload-md-space-gap);
+}

@@ -9,6 +9,7 @@ import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar } from "@/components";
 import styles from "./FileUpload.module.scss";
+import commonStyles from "./FileUploadCommon.module.scss";
 
 interface FileInfo {
   name: string;
@@ -203,13 +204,19 @@ export const FileUpload = ({
   return (
     <>
       <div
-        className={clsx(styles.cuiUploadArea, {
-          [styles.cuiHasFile]: !!file,
-          [styles.cuiSmall]: size === "sm",
-          [styles.cuiDraggable]: !file,
-          [styles.cuiDragging]: isDragging && !file,
-          [styles.cuiError]: !!file && !showSuccess && !showProgress,
-        })}
+        className={clsx(
+          styles.cuiUploadArea,
+          commonStyles.uploadAreaBase,
+          commonStyles.uploadAreaMd,
+          {
+            [commonStyles.uploadAreaSm]: !!file || size === "sm",
+            [commonStyles.uploadAreaDraggable]: !file,
+            [commonStyles.uploadAreaDragging]: isDragging && !file,
+            [commonStyles.uploadAreaError]: !!file && !showSuccess && !showProgress,
+            [styles.cuiHasFile]: !!file,
+            [styles.cuiSmall]: size === "sm",
+          }
+        )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -220,7 +227,8 @@ export const FileUpload = ({
           <>
             <Icon
               name="upload"
-              className={styles.cuiUploadIcon}
+              className={commonStyles.iconSizeMd}
+              disableDefaultSize
             />
             <div
               className={clsx(styles.cuiUploadText, {
@@ -231,21 +239,25 @@ export const FileUpload = ({
               {isNotSupported ? (
                 <Title
                   type="h1"
-                  className={clsx(styles.cuiFileUploadTitle, styles.cuiNotSupported)}
+                  className={clsx(
+                    commonStyles.fileUploadTitle,
+                    styles.cuiFileUploadTitle,
+                    styles.cuiNotSupported
+                  )}
                 >
                   Unsupported file type
                 </Title>
               ) : (
                 <Title
                   type="h1"
-                  className={clsx(styles.cuiFileUploadTitle, {
+                  className={clsx(commonStyles.fileUploadTitle, styles.cuiFileUploadTitle, {
                     [styles.cuiNotSupported]: isNotSupported,
                   })}
                 >
                   {title}
                 </Title>
               )}
-              <Text className={styles.cuiFileUploadDescription}>
+              <Text className={commonStyles.fileUploadDescription}>
                 Files supported: {supportedFileTypes.join(", ")}
               </Text>
             </div>
@@ -260,13 +272,14 @@ export const FileUpload = ({
             </Button>
           </>
         ) : (
-          <div className={styles.cuiFileInfo}>
-            <div className={styles.cuiFileInfoHeader}>
+          <div className={commonStyles.fileInfoContainer}>
+            <div className={commonStyles.fileInfoHeader}>
               <Icon
                 name={"document"}
-                className={styles.cuiDocumentIcon}
+                className={commonStyles.iconSizeSm}
+                disableDefaultSize
               />
-              <div className={styles.cuiFileDetails}>
+              <div className={commonStyles.fileDetails}>
                 <Text size={"md"}>{truncateFilename(file.name)}</Text>
                 {(showSuccess || showProgress) && (
                   <Text
@@ -293,7 +306,7 @@ export const FileUpload = ({
                 )}
               </div>
 
-              <div className={styles.cuiFileActions}>
+              <div className={commonStyles.fileActions}>
                 {!showProgress && !showSuccess && (
                   <IconButton
                     size={"sm"}
@@ -312,8 +325,8 @@ export const FileUpload = ({
             </div>
 
             {showProgress && (
-              <div className={styles.cuiProgressContainer}>
-                <div className={styles.cuiProgressBarContainer}>
+              <div className={commonStyles.progressContainer}>
+                <div className={commonStyles.progressBarContainer}>
                   <ProgressBar
                     progress={progress}
                     type={"small"}
@@ -322,7 +335,7 @@ export const FileUpload = ({
                 <Text
                   size={"sm"}
                   color={"muted"}
-                  className={styles.cuiProgressPercentage}
+                  className={commonStyles.progressPercentage}
                 >
                   {progress}%
                 </Text>

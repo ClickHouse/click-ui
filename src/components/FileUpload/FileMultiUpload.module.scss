@@ -1,45 +1,15 @@
 @use "cui-mixins" as mixins;
 
+// Component-specific styles only - common styles imported in TSX
 .cuiUploadArea {
-  background-color: var(--click-fileUpload-color-background-default);
-  border: 1px solid var(--click-fileUpload-color-stroke-default);
-  border-radius: var(--click-fileUpload-md-radii-all);
-  padding: var(--click-fileUpload-md-space-y) var(--click-fileUpload-md-space-x);
-  display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: var(--click-fileUpload-md-space-gap);
   cursor: pointer;
-  transition: var(--click-fileUpload-transitions-all);
-  border-style: dashed;
-  border-color: var(--click-fileUpload-color-stroke-default);
-
-  &.cuiDragging {
-    background-color: var(--click-fileUpload-color-background-active);
-    border-color: var(--click-fileUpload-color-stroke-active);
-  }
 }
 
 .cuiFileUploadTitle {
-  font: var(--click-fileUpload-typography-title-default);
-  color: var(--click-fileUpload-color-title-default);
-
   &.cuiNotSupported {
     color: var(--click-fileUpload-color-title-error);
-  }
-}
-
-.cuiFileUploadDescription {
-  font: var(--click-fileUpload-typography-description-default);
-  color: var(--click-fileUpload-color-description-default);
-}
-
-.cuiUploadIcon {
-  svg {
-    width: var(--click-fileUpload-md-icon-size-width);
-    height: var(--click-fileUpload-md-icon-size-height);
-    color: var(--click-fileUpload-md-color-icon-default);
   }
 }
 
@@ -60,72 +30,6 @@
 }
 
 .cuiFileItem {
-  background-color: var(--click-fileUpload-color-background-default);
-  border: 1px solid var(--click-fileUpload-color-stroke-default);
-  border-radius: var(--click-fileUpload-sm-radii-all);
-  padding: var(--click-fileUpload-sm-space-y) var(--click-fileUpload-sm-space-x);
-  display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-  gap: var(--click-fileUpload-sm-space-gap);
-
-  &.cuiError {
-    background-color: var(--click-fileUpload-color-background-error);
-    border: none;
-  }
-}
-
-.cuiDocumentIcon {
-  svg {
-    width: var(--click-fileUpload-sm-icon-size-width);
-    height: var(--click-fileUpload-sm-icon-size-height);
-    color: var(--click-fileUpload-sm-color-icon-default);
-  }
-}
-
-.cuiFileInfoHeader {
-  display: flex;
-  align-items: center;
-  gap: var(--click-fileUpload-sm-space-gap);
-  width: 100%;
-}
-
-.cuiFileInfo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--click-fileUpload-hasFile-header-space-gap);
-  flex: 1;
-}
-
-.cuiFileDetails {
-  display: flex;
-  gap: var(--click-fileUpload-md-space-gap);
-  border: none;
-}
-
-.cuiFileActions {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  gap: 0;
-}
-
-.cuiProgressContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.cuiProgressBarContainer {
-  width: 100%;
-  flex: 1;
-}
-
-.cuiProgressPercentage {
-  min-width: var(--theme-sizes-10);
-  text-align: right;
-  padding-right: var(--click-fileUpload-md-space-gap);
 }
