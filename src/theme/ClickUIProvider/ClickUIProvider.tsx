@@ -404,7 +404,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
       sizes,
 
       // Utility functions
-      utils: createThemeUtils(finalTheme, resolvedTheme),
+      utils: createThemeUtils(finalTheme as ConfigThemeValues, resolvedTheme),
 
       // State indicators
       isLoading,
