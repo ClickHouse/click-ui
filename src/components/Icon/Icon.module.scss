@@ -4,33 +4,40 @@
   display: flex;
   align-items: center;
 
-  // Icon sizing
-  &.cuiSizeXs svg {
+  // SVG inherits dimensions from wrapper
+  > svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  // Icon sizing - applied to wrapper
+  &.cuiSizeXs {
     width: var(--click-image-xs-size-width, 12px);
     height: var(--click-image-xs-size-height, 12px);
   }
 
-  &.cuiSizeSm svg {
+  &.cuiSizeSm {
     width: var(--click-image-sm-size-width, 16px);
     height: var(--click-image-sm-size-height, 16px);
   }
 
-  &.cuiSizeMd svg {
+  &.cuiSizeMd {
     width: var(--click-image-md-size-width, 24px);
     height: var(--click-image-md-size-height, 24px);
   }
 
-  &.cuiSizeLg svg {
+  &.cuiSizeLg {
     width: var(--click-image-lg-size-width, 32px);
     height: var(--click-image-lg-size-height, 32px);
   }
 
-  &.cuiSizeXl svg {
+  &.cuiSizeXl {
     width: var(--click-image-xl-size-width, 48px);
     height: var(--click-image-xl-size-height, 48px);
   }
 
-  &.cuiSizeXxl svg {
+  &.cuiSizeXxl {
     width: var(--click-image-xxl-size-width, 64px);
     height: var(--click-image-xxl-size-height, 64px);
   }
@@ -161,27 +168,30 @@
     }
   }
 
-  // Custom width and height overrides
-  &.cuiHasCustomWidth svg {
+  // Custom width and height overrides - applied to wrapper
+  &.cuiHasCustomWidth {
     width: var(--icon-custom-width);
   }
 
-  &.cuiHasCustomHeight svg {
+  &.cuiHasCustomHeight {
     height: var(--icon-custom-height);
   }
 
-  // Icon color styling for SVG elements
+  // Icon color inheritance - wrapper color propagates to SVG via currentColor
+  color: var(--icon-color, currentColor);
+
+  // SVG elements inherit color from wrapper
   path[stroke]:not([stroke="none"]),
   svg[stroke]:not([stroke="none"]),
   rect[stroke]:not([stroke="none"]),
   circle[stroke]:not([stroke="none"]) {
-    stroke: var(--icon-color, currentColor);
+    stroke: currentColor;
   }
 
   path[fill]:not([fill="none"]),
   svg[fill]:not([fill="none"]),
   rect[fill]:not([fill="none"]),
   circle[fill]:not([fill="none"]) {
-    fill: var(--icon-color, currentColor);
+    fill: currentColor;
   }
 }
