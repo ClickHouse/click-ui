@@ -71,7 +71,16 @@ export const generateCSSVariables = (obj: Theme | NestedJSONObject): string => {
       if (typeof value === "string" || typeof value === "number") {
         const varName = `--${varPath.join("-")}`;
         css += `  ${varName}: ${value};\n`;
-      } else if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+      } else if (Array.isArray(value)) {
+        // Handle arrays: convert each element to a CSS variable with index
+        // e.g., border.radii[0] -> --border-radii-0
+        value.forEach((item, index) => {
+          if (typeof item === "string" || typeof item === "number") {
+            const varName = `--${[...varPath, index].join("-")}`;
+            css += `  ${varName}: ${item};\n`;
+          }
+        });
+      } else if (typeof value === "object" && value !== null) {
         traverse(value as Theme | NestedJSONObject, varPath);
       }
     });
@@ -97,7 +106,16 @@ export const themeToFlatVariables = (theme: Theme): Record<string, string> => {
       if (typeof value === "string" || typeof value === "number") {
         const varName = `--${varPath.join("-")}`;
         vars[varName] = String(value);
-      } else if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+      } else if (Array.isArray(value)) {
+        // Handle arrays: convert each element to a CSS variable with index
+        // e.g., border.radii[0] -> --border-radii-0
+        value.forEach((item, index) => {
+          if (typeof item === "string" || typeof item === "number") {
+            const varName = `--${[...varPath, index].join("-")}`;
+            vars[varName] = String(item);
+          }
+        });
+      } else if (typeof value === "object" && value !== null) {
         traverse(value as Theme | NestedJSONObject, varPath);
       }
     });

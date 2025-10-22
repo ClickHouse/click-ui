@@ -1,5 +1,10 @@
 export type NestedJSONObject = {
-  [key: string]: string | number | NestedJSONObject;
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | NestedJSONObject
+    | (string | number)[];
 };
 
 // Import the generated Theme interface from token types
@@ -12,8 +17,10 @@ export type ResolvedThemeName = Exclude<ThemeName, "system">;
 // For backward compatibility
 export type BaseThemeName = ResolvedThemeName;
 
-// Config theme values (from ClickUIProvider/types.ts)
-export type ConfigThemeValues = Theme | NestedJSONObject;
+// Config theme values - a superset type that includes all Theme properties
+// plus any custom properties from user config.
+// This is the runtime theme (base theme + config overrides merged together)
+export type ConfigThemeValues = Theme & NestedJSONObject;
 
 // Deep partial type for theme configuration (exported for advanced use cases)
 export type DeepPartial<T> = {
