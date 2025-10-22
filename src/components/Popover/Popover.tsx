@@ -4,7 +4,6 @@ import * as RadixPopover from "@radix-ui/react-popover";
 import { ReactNode } from "react";
 import clsx from "clsx";
 import { Icon } from "@/components";
-import { EmptyButton } from "@/components/commonElement";
 import PopoverArrow from "@/components/icons/PopoverArrow";
 import styles from "./Popover.module.scss";
 
@@ -65,9 +64,9 @@ const PopoverContent = ({
             className={styles.cuiCloseButton}
             asChild
           >
-            <EmptyButton>
+            <button>
               <Icon name="cross" />
-            </EmptyButton>
+            </button>
           </RadixPopover.Close>
         )}
         {showArrow && (

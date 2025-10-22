@@ -11,7 +11,6 @@ import {
 } from "react";
 import clsx from "clsx";
 import { Icon, HorizontalDirection, IconName } from "@/components";
-import { EmptyButton } from "@/components/commonElement";
 import { IconWrapper } from "./IconWrapper";
 import styles from "./Collapsible.module.scss";
 
@@ -146,7 +145,7 @@ const CollapsipleTrigger = ({
   };
 
   return (
-    <EmptyButton
+    <button
       onClick={onClick}
       aria-label="trigger children"
       className={styles.cuiTriggerButton}
@@ -176,7 +175,7 @@ const CollapsipleTrigger = ({
           size="sm"
         />
       )}
-    </EmptyButton>
+    </button>
   );
 };
 

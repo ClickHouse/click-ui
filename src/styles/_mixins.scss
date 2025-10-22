@@ -30,10 +30,11 @@
   min-height: var(--click-button-basic-#{$size}-size-height);
 }
 
-@mixin cuiButtonType($type, $state: 'default') {
+@mixin cuiButtonType($type, $state: "default") {
   background-color: var(--click-button-basic-#{$type}-color-background-#{$state});
   color: var(--click-button-basic-#{$type}-color-text-#{$state});
-  border: var(--click-button-basic-#{$type}-stroke-#{$state}) solid var(--click-button-basic-#{$type}-color-stroke-#{$state});
+  border: var(--click-button-basic-#{$type}-stroke-#{$state}) solid
+    var(--click-button-basic-#{$type}-color-stroke-#{$state});
 }
 
 // Container mixins
@@ -43,9 +44,9 @@
 }
 
 @mixin cuiContainerOrientation($orientation) {
-  @if $orientation == 'horizontal' {
+  @if $orientation == "horizontal" {
     flex-direction: row;
-  } @else if $orientation == 'vertical' {
+  } @else if $orientation == "vertical" {
     flex-direction: column;
   }
 }
@@ -142,12 +143,58 @@
   box-sizing: border-box;
 }
 
-@mixin cuiGridCellType($type, $selection: 'default') {
+@mixin cuiGridCellType($type, $selection: "default") {
   background: var(--click-grid-#{$type}-cell-color-background-#{$selection});
   color: var(--click-grid-#{$type}-cell-color-text-#{$selection});
   font: var(--click-grid-cell-text-default);
   padding: var(--click-grid-#{$type}-cell-space-y) var(--click-grid-#{$type}-cell-space-x);
   border: 1px solid var(--click-grid-#{$type}-cell-color-stroke-default);
+}
+
+// Empty button mixin (for unstyled buttons)
+@mixin cuiEmptyButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// Base button mixin (for styled buttons with common base styles)
+@mixin cuiBaseButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  border-radius: var(--click-button-radii-all);
+  gap: var(--click-button-basic-space-gap);
+  font: var(--click-button-basic-typography-label-default);
+
+  &:hover {
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    font: var(--click-button-basic-typography-label-disabled);
+    cursor: not-allowed;
+  }
 }
 
 // Accordion mixins
@@ -164,7 +211,7 @@
   }
 }
 
-@mixin cuiAccordionTriggerSize($size, $color: 'default') {
+@mixin cuiAccordionTriggerSize($size, $color: "default") {
   gap: var(--click-accordion-#{$size}-space-gap);
   color: var(--click-accordion-color-#{$color}-label-default);
   font: var(--click-accordion-#{$size}-typography-label-default);

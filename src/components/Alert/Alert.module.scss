@@ -103,7 +103,8 @@
   }
 }
 
-.cuiStyledIcon {
+// Increase specificity to override Icon's default size classes
+.cuiStyledIcon.cuiStyledIcon {
   &.cuiSmall {
     height: var(--click-alert-small-icon-height);
     width: var(--click-alert-small-icon-width);

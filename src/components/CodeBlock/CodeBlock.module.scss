@@ -6,12 +6,21 @@
   width: fill-available;
   width: stretch;
   position: relative;
+  --cui-codeblock-pre-background: light-dark(
+    var(--click-codeblock-lightMode-color-background-default),
+    var(--click-codeblock-darkMode-color-background-default)
+  );
+  --cui-codeblock-pre-text: light-dark(
+    var(--click-codeblock-lightMode-color-text-default),
+    var(--click-codeblock-darkMode-color-text-default)
+  );
+
   color: light-dark(
     var(--click-codeblock-lightMode-color-numbers-default),
     var(--click-codeblock-darkMode-color-numbers-default)
   );
 
-  .linenumber {
+  :global(.linenumber) {
     color: light-dark(
       var(--click-codeblock-lightMode-color-numbers-default),
       var(--click-codeblock-darkMode-color-numbers-default)
@@ -28,8 +37,7 @@
 }
 
 .cuiCodeButton {
-  padding: 0;
-  border: 0;
+  @include mixins.cuiEmptyButton;
 
   &.cuiCopied {
     color: var(--click-alert-color-text-success);

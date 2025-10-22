@@ -11,9 +11,9 @@ const useColorStyle = (themeOverride?: CodeThemeType) => {
     hljs: {
       display: "block",
       overflowX: "auto",
-      padding: "var(--click-code-block-space-all) var(--click-code-block-space-all)",
-      color: "var(--click-codeblock-color-text-default)",
-      background: "var(--click-codeblock-color-background-default)",
+      padding: "var(--click-codeblock-space-y) var(--click-codeblock-space-x)",
+      color: "var(--cui-codeblock-pre-text)",
+      background: "var(--cui-codeblock-pre-background)",
       borderRadius: "var(--click-codeblock-radii-all)",
       font: "var(--click-codeblock-typography-text-default)",
     },

@@ -13,7 +13,10 @@ const FieldExample = ({
     htmlFor="test"
   >
     {text}
-    <input id="test" />
+    <input
+      id="test"
+      style={{ colorScheme: "light" }}
+    />
   </GenericLabel>
 );
 
