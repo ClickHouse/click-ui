@@ -23,6 +23,7 @@
 }
 
 .cuiCloseButton {
+  @include mixins.cuiEmptyButton;
   position: absolute;
   top: var(--click-popover-space-y);
   right: var(--click-popover-space-x);

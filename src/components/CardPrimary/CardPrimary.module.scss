@@ -116,7 +116,18 @@
     color: var(--global-color-text-muted);
   }
 
-  svg,
+  // Icon wrapper sizing (applies to Icon component wrapper)
+  .cuiSizeSm {
+    height: var(--click-card-primary-size-icon-sm-all);
+    width: var(--click-card-primary-size-icon-sm-all);
+  }
+
+  .cuiSizeMd {
+    height: var(--click-card-primary-size-icon-md-all);
+    width: var(--click-card-primary-size-icon-md-all);
+  }
+
+  // Direct img sizing (for iconUrl prop)
   img {
     &.cuiSizeSm {
       height: var(--click-card-primary-size-icon-sm-all);

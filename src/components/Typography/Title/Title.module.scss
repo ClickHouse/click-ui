@@ -11,7 +11,7 @@
   }
 
   a:hover {
-    color: var(--global-color-title-muted);
+    color: var(--click-global-color-title-muted);
   }
 }
 
@@ -59,20 +59,20 @@
 
 // Title colors
 .cuiColorDefault {
-  color: var(--global-color-title-default);
+  color: var(--click-global-color-title-default);
 
   a,
   a:visited {
-    color: var(--global-color-title-default);
+    color: var(--click-global-color-title-default);
   }
 }
 
 .cuiColorMuted {
-  color: var(--global-color-title-muted);
+  color: var(--click-global-color-title-muted);
 
   a,
   a:visited {
-    color: var(--global-color-title-muted);
+    color: var(--click-global-color-title-muted);
   }
 }
 

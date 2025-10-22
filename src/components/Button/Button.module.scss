@@ -1,37 +1,12 @@
 @use "cui-mixins" as mixins;
 
 .cuiButton {
-  @include mixins.cuiButtonBase;
-
-  // Base button styling from BaseButton component
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
-  border-radius: var(--click-button-radii-all);
-  gap: var(--click-button-basic-space-gap);
-  font: var(--click-button-basic-typography-label-default);
+  @include mixins.cuiBaseButton;
   position: relative;
   white-space: nowrap;
 
   &:hover {
-    font: var(--click-button-basic-typography-label-hover);
     transition: var(--transition-default);
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-    font: var(--click-button-basic-typography-label-active);
-  }
-
-  &:disabled,
-  &:disabled:hover,
-  &:disabled:active {
-    font: var(--click-button-basic-typography-label-disabled);
-    cursor: not-allowed;
   }
 }
 

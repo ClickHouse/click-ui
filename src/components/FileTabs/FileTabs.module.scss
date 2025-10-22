@@ -157,7 +157,7 @@
 }
 
 .cuiEmptyButton {
-  padding: 0;
+  @include mixins.cuiEmptyButton;
   background: var(--click-tabs-fileTabs-color-closeButton-background-default);
 
   &:hover {

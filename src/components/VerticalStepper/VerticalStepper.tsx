@@ -64,7 +64,7 @@ const VerticalStep = ({
         [styles.cuiNumbered]: type === "numbered",
         [styles.cuiBulleted]: type === "bulleted",
         [styles.cuiComplete]: status === "complete",
-        [styles.cuiActive]: status === "active" || isOpen,
+        [styles.cuiActive]: status === "active",
         [styles.cuiIncomplete]: status === "incomplete",
       })}
     >

@@ -127,6 +127,7 @@ const Card = ({
                 name={icon}
                 aria-hidden
                 className={iconClasses}
+                disableDefaultSize
               />
             )
           )}

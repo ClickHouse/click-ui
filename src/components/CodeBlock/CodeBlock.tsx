@@ -4,13 +4,14 @@ import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
 import clsx from "clsx";
 import { IconButton } from "@/components";
-import { EmptyButton } from "@/components/commonElement";
 import useColorStyle from "./useColorStyle";
 import styles from "./CodeBlock.module.scss";
 import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";
 import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
+import { useClickUITheme } from "@/theme";
+import { capitalize } from "@/utils/capitalize";
 
 SyntaxHighlighter.registerLanguage("sql", sql);
 SyntaxHighlighter.registerLanguage("bash", bash);
@@ -57,14 +58,10 @@ export const CodeBlock = ({
   const [copied, setCopied] = useState(false);
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
+  const { resolvedTheme } = useClickUITheme();
+  const themeMode = theme ?? resolvedTheme;
 
-  const themeMode = theme ?? "light";
   const customStyle = useColorStyle(themeMode);
-
-  // Get theme-specific class name
-  const getThemeClassName = (theme: CodeThemeType): string => {
-    return styles[`cui${theme.charAt(0).toUpperCase() + theme.slice(1)}Mode`];
-  };
 
   const copyCodeToClipboard = async () => {
     try {
@@ -100,30 +97,28 @@ export const CodeBlock = ({
     <div
       className={clsx(
         styles.cuiCodeBlockContainer,
-        getThemeClassName(themeMode),
+        styles[`cui${capitalize(resolvedTheme)}Mode`],
         className
       )}
       {...props}
     >
       <div className={styles.cuiButtonContainer}>
         {showWrapButton && (
-          <EmptyButton
+          <IconButton
+            icon="document"
             className={clsx(styles.cuiCodeButton, styles.cuiNormal)}
             onClick={wrapElement}
-          >
-            <IconButton icon="document" />
-          </EmptyButton>
+          />
         )}
-        <EmptyButton
+        <IconButton
+          icon={copied ? "check" : errorCopy ? "warning" : "copy"}
           className={clsx(styles.cuiCodeButton, {
             [styles.cuiCopied]: copied,
             [styles.cuiError]: errorCopy,
             [styles.cuiNormal]: !copied && !errorCopy,
           })}
           onClick={copyCodeToClipboard}
-        >
-          <IconButton icon={copied ? "check" : errorCopy ? "warning" : "copy"} />
-        </EmptyButton>
+        />
       </div>
       <SyntaxHighlighter
         language={language}

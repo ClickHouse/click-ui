@@ -96,6 +96,7 @@ const Alert = ({
             size="sm"
             aria-hidden
             name={customIcon || stateIconMap[state]}
+            disableDefaultSize
           />
         </div>
       )}

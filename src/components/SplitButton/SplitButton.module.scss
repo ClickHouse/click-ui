@@ -51,12 +51,12 @@
 }
 
 .cuiPrimaryButton {
+  @include mixins.cuiBaseButton;
+  // Override BaseButton defaults for split button styling
   border: none;
   align-self: stretch;
   border-radius: 0;
-  align-items: center;
   padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
-  justify-content: center;
 
   &.cuiPrimary {
     background: var(--click-button-split-primary-background-main-default);
@@ -112,6 +112,8 @@
 }
 
 .cuiSecondaryButton {
+  @include mixins.cuiBaseButton;
+  // Override BaseButton defaults for split button styling
   border: none;
   align-self: stretch;
   border-radius: 0;
