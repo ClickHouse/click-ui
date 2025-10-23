@@ -34,13 +34,18 @@ const buildOptions: BuildOptions = {
   },
   rollupOptions: {
     // Add _all_ external dependencies here
-    external: (id) => {
+    external: id => {
       // Mark all listed libraries as external
-      if (externalLibraries.some(lib => id === lib || id.startsWith(lib + '/'))) {
+      if (externalLibraries.some(lib => id === lib || id.startsWith(lib + "/"))) {
         return true;
       }
       // Force ALL React imports to be external, even from dependencies
-      if (id === 'react' || id.startsWith('react/') || id === 'react-dom' || id.startsWith('react-dom/')) {
+      if (
+        id === "react" ||
+        id.startsWith("react/") ||
+        id === "react-dom" ||
+        id.startsWith("react-dom/")
+      ) {
         return true;
       }
       return false;
@@ -69,7 +74,7 @@ export default defineConfig({
     modules: {
       // Use consistent class name generation for library builds
       // Format: _className_hash where hash is deterministic
-      generateScopedName: '[local]_[hash:base64:5]',
+      generateScopedName: "[local]_[hash:base64:5]",
     },
     preprocessorOptions: {
       scss: {
@@ -83,6 +88,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "cui-mixins": path.resolve(__dirname, "./src/styles/_mixins"),
+      "cui-variants": path.resolve(__dirname, "./src/styles/_cui-variants"),
     },
   },
   build: buildOptions,
