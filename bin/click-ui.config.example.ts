@@ -1,4 +1,4 @@
-import type { ThemeConfig } from "./src/theme/types";
+import type { ThemeConfig } from "@clickhouse/click-ui/theme";
 
 const config: ThemeConfig = {
   storageKey: "click-ui-theme",

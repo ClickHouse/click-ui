@@ -143,6 +143,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "cui-mixins": path.resolve(__dirname, "./src/styles/_mixins"),
+      "cui-variants": path.resolve(__dirname, "./src/styles/_cui-variants"),
     },
   },
   build: buildOptions,
