@@ -1,6 +1,5 @@
 import {
   FocusEventHandler,
-  KeyboardEventHandler,
   MouseEventHandler,
   ReactElement,
   useCallback,
@@ -63,26 +62,6 @@ export const Pagination = ({
   const leftButtonDisabled = currentPage <= 1;
   const rightButtonDisabled =
     (!!totalPages && currentPage === totalPages) || disableNextButton;
-
-  const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
-    const isInputEnabled = !inputRef.current?.disabled;
-    if (
-      (e.key === "ArrowUp" || e.key === "ArrowRight") &&
-      isInputEnabled &&
-      !rightButtonDisabled
-    ) {
-      onChangeProp(currentPage + 1);
-    } else if (
-      (e.key === "ArrowDown" || e.key === "ArrowLeft") &&
-      isInputEnabled &&
-      !leftButtonDisabled
-    ) {
-      const newPage = currentPage - 1;
-      if (newPage > 0) {
-        onChangeProp(newPage);
-      }
-    }
-  };
 
   const onChange = (value: string) => {
     const sanitizedValue = parseInt(value, 10);
@@ -175,7 +154,6 @@ export const Pagination = ({
             onChange={onChange}
             value={currentPage}
             loading={false}
-            onKeyDown={onKeyDown}
             aria-label={currentPage.toString()}
             min={1}
             max={totalPages}
