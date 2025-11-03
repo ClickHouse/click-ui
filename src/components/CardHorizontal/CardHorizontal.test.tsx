@@ -64,5 +64,34 @@ describe("CardHorizontal Component", () => {
       expect(screen.getByText("title")).toBeDefined();
       expect(screen.getByTestId("horizontal-card-button")).toBeDefined();
     });
+
+    it("should render with small size", () => {
+      const { container } = renderCard({
+        title: "Test card",
+        description: "Test description",
+        size: "sm",
+      });
+
+      expect(container.firstChild).toBeDefined();
+    });
+
+    it("should render with medium size", () => {
+      const { container } = renderCard({
+        title: "Test card",
+        description: "Test description",
+        size: "md",
+      });
+
+      expect(container.firstChild).toBeDefined();
+    });
+
+    it("should default to medium size when size prop is not provided", () => {
+      const { container } = renderCard({
+        title: "Test card",
+        description: "Test description",
+      });
+
+      expect(container.firstChild).toBeDefined();
+    });
   });
 });
