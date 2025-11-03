@@ -21,6 +21,8 @@ const CardHorizontalExample = ({ ...props }) => {
         badgeIconDir={props.badgeIconDir}
         infoText={props.infoText}
         infoUrl={props.infoUrl}
+        size={props.size}
+        {...props}
       />
     </GridCenter>
   );
@@ -64,6 +66,11 @@ export default {
       description: "`boolean`",
       defaultValue: { summary: "false" },
     },
+    size: {
+      control: "select",
+      options: ["sm", "md"],
+      description: "`size`",
+    },
   },
 };
 
@@ -80,5 +87,6 @@ export const Playground = {
     badgeIconDir: "",
     infoText: "",
     infoUrl: "",
+    size: "md",
   },
 };

@@ -11,6 +11,7 @@ import {
 } from "@/components";
 
 type CardColor = "default" | "muted";
+export type CardSize = "sm" | "md";
 
 export interface CardHorizontalProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -24,6 +25,7 @@ export interface CardHorizontalProps
   isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
+  size?: CardSize;
   badgeText?: string;
   badgeState?: BadgeState;
   badgeIcon?: IconName;
@@ -40,7 +42,7 @@ const Description = styled.div`
   display: flex;
   flex-direction: column;
   align-self: start;
-  gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
+  gap: ${({ theme }) => theme.click.card.horizontal.space.md.gap};
   flex: 1;
   width: 100%;
 `;
@@ -51,6 +53,7 @@ const Wrapper = styled.div<{
   $isSelected?: boolean;
   $isSelectable?: boolean;
   $color: CardColor;
+  $size?: CardSize;
 }>`
   display: inline-flex;
   width: 100%;
@@ -58,7 +61,7 @@ const Wrapper = styled.div<{
   align-items: center;
   justify-content: flex-start;
 
-  ${({ theme, $color, $isSelected, $isSelectable, $disabled }) => `
+  ${({ theme, $color, $size, $isSelected, $isSelectable, $disabled }) => `
     background: ${theme.click.card.horizontal[$color].color.background.default};
     color: ${theme.click.card.horizontal[$color].color.title.default};
     border-radius: ${theme.click.card.horizontal.radii.all};
@@ -67,10 +70,11 @@ const Wrapper = styled.div<{
         $isSelectable ? ($isSelected ? "active" : "hover") : "default"
       ]
     };
-    padding: ${theme.click.card.horizontal.space.y} ${
-      theme.click.card.horizontal.space.x
-    };
-    gap: ${theme.click.card.horizontal.space.gap};
+     padding: ${
+       $size === "md"
+         ? `${theme.click.card.horizontal.space.md.y} ${theme.click.card.horizontal.space.md.x}`
+         : `${theme.click.card.horizontal.space.sm.y} ${theme.click.card.horizontal.space.sm.x}`
+     };
     font: ${theme.click.card.horizontal.typography.title.default};
     ${Description} {
       color: ${theme.click.card.horizontal[$color].color.description.default};
@@ -175,23 +179,29 @@ const CardIcon = styled(Icon)`
   `}
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{ $size?: CardSize }>`
   display: flex;
   flex-direction: row;
   width: 100%;
-  gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
+  gap: ${({ theme, $size }) =>
+    $size === "md"
+      ? theme.click.card.horizontal.space.md.gap
+      : theme.click.card.horizontal.space.sm.gap};
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     flex-direction: column;
   }
 `;
 
-const IconTextContentWrapper = styled.div`
+const IconTextContentWrapper = styled.div<{ $size?: CardSize }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  gap: ${({ theme }) => theme.click.card.horizontal.space.gap};
+  gap: ${({ theme, $size }) =>
+    $size === "md"
+      ? theme.click.card.horizontal.space.md.gap
+      : theme.click.card.horizontal.space.sm.gap};
 `;
 
 export const CardHorizontal = ({
@@ -205,6 +215,7 @@ export const CardHorizontal = ({
   isSelectable = infoText ? false : true,
   children,
   color = "default",
+  size = "md",
   badgeText,
   badgeState,
   badgeIcon,
@@ -227,12 +238,13 @@ export const CardHorizontal = ({
       $isSelected={isSelected}
       $isSelectable={isSelectable}
       $color={color}
+      $size={size}
       tabIndex={0}
       onClick={handleClick}
       {...props}
     >
       <ContentWrapper>
-        <IconTextContentWrapper>
+        <IconTextContentWrapper $size={size}>
           {icon && (
             <CardIcon
               name={icon}
