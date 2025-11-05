@@ -1,7 +1,6 @@
 import { CardHorizontal } from "./CardHorizontal";
-import { ICON_NAMES } from "@/components/Icon/types.ts";
 import { styled } from "styled-components";
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { Meta } from "@storybook/react-vite";
 
 const GridCenter = styled.div`
   display: grid;
