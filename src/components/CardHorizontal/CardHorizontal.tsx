@@ -25,6 +25,10 @@ export interface CardHorizontalProps
   isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
+  /**
+   * The size of the card
+   * @default "md"
+   */
   size?: CardSize;
   badgeText?: string;
   badgeState?: BadgeState;
@@ -179,7 +183,7 @@ const CardIcon = styled(Icon)`
   `}
 `;
 
-const ContentWrapper = styled.div<{ $size?: CardSize }>`
+const ContentWrapper = styled.div<{ $size: CardSize }>`
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -193,7 +197,7 @@ const ContentWrapper = styled.div<{ $size?: CardSize }>`
   }
 `;
 
-const IconTextContentWrapper = styled.div<{ $size?: CardSize }>`
+const IconTextContentWrapper = styled.div<{ $size: CardSize }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -243,7 +247,7 @@ export const CardHorizontal = ({
       onClick={handleClick}
       {...props}
     >
-      <ContentWrapper>
+      <ContentWrapper $size={size}>
         <IconTextContentWrapper $size={size}>
           {icon && (
             <CardIcon

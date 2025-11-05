@@ -1,6 +1,8 @@
 import { CardHorizontal } from "./CardHorizontal";
 import { ICON_NAMES } from "@/components/Icon/types.ts";
 import { styled } from "styled-components";
+import { Meta, StoryObj } from "@storybook/react-vite";
+
 const GridCenter = styled.div`
   display: grid;
   width: 60%;
@@ -28,51 +30,13 @@ const CardHorizontalExample = ({ ...props }) => {
   );
 };
 
-export default {
+const meta: Meta<typeof CardHorizontal> = {
   component: CardHorizontalExample,
   title: "Cards/Horizontal Card",
   tags: ["cardHorizontal", "autodocs"],
-  argTypes: {
-    icon: { control: "select", options: ICON_NAMES, description: "`IconName`" },
-    badgeIcon: { control: "select", options: ICON_NAMES, description: "`IconName`" },
-    badgeText: {
-      control: "text",
-      description: "Shows and hides the badge <br />`string`",
-    },
-    badgeState: {
-      control: "select",
-      options: ["default", "info", "success", "warning", "danger"],
-      description: "`BadgeState`",
-    },
-    badgeIconDir: {
-      control: "radio",
-      options: ["start", "end"],
-      description: "`start` `end`",
-    },
-    title: { control: "text", description: "`ReactNode`" },
-    description: { control: "text", description: "`ReactNode`" },
-    infoText: {
-      control: "text",
-      description: "Shows and hides the button <br />`string`",
-    },
-    infoUrl: { control: "text", description: "`string`" },
-    disabled: {
-      control: "boolean",
-      description: "`boolean`",
-      defaultValue: { summary: "false" },
-    },
-    isSelected: {
-      control: "boolean",
-      description: "`boolean`",
-      defaultValue: { summary: "false" },
-    },
-    size: {
-      control: "select",
-      options: ["sm", "md"],
-      description: "`size`",
-    },
-  },
 };
+
+export default meta;
 
 export const Playground = {
   args: {
