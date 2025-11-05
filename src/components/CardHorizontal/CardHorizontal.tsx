@@ -25,10 +25,6 @@ export interface CardHorizontalProps
   isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
-  /**
-   * The size of the card
-   * @default "md"
-   */
   size?: CardSize;
   badgeText?: string;
   badgeState?: BadgeState;
