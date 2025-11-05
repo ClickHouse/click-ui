@@ -1,43 +1,42 @@
-import { CardHorizontal } from "./CardHorizontal";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { styled } from "styled-components";
-import { Meta } from "@storybook/react-vite";
+
+import { ICON_NAMES } from "../Icon/types";
+
+import { CardHorizontal } from "./CardHorizontal";
 
 const GridCenter = styled.div`
   display: grid;
   width: 60%;
 `;
 
-const CardHorizontalExample = ({ ...props }) => {
-  return (
-    <GridCenter>
-      <CardHorizontal
-        title={props.title}
-        icon={props.icon}
-        description={props.description}
-        disabled={props.disabled}
-        isSelected={props.isSelected}
-        badgeText={props.badgeText}
-        badgeIcon={props.badgeIcon}
-        badgeState={props.badgeState}
-        badgeIconDir={props.badgeIconDir}
-        infoText={props.infoText}
-        infoUrl={props.infoUrl}
-        size={props.size}
-        {...props}
-      />
-    </GridCenter>
-  );
-};
-
 const meta: Meta<typeof CardHorizontal> = {
-  component: CardHorizontalExample,
+  component: CardHorizontal,
   title: "Cards/Horizontal Card",
   tags: ["cardHorizontal", "autodocs"],
+  argTypes: {
+    icon: { type: { name: "enum", value: [...ICON_NAMES] } },
+    badgeIcon: { type: { name: "enum", value: [...ICON_NAMES] } },
+    badgeState: {
+      type: {
+        name: "enum",
+        // FIXME should refer to the Badge constants
+        value: ["default", "success", "neutral", "danger", "disabled", "warning", "info"],
+      },
+    },
+    // FIXME should refer to a constant
+    badgeIconDir: { type: { name: "enum", value: ["start", "end"] } },
+  },
+  decorators: Story => (
+    <GridCenter>
+      <Story />
+    </GridCenter>
+  ),
 };
 
 export default meta;
 
-export const Playground = {
+export const Playground: StoryObj<typeof CardHorizontal> = {
   args: {
     icon: "building",
     title: "Card title",
@@ -45,9 +44,9 @@ export const Playground = {
     disabled: false,
     isSelected: false,
     badgeText: "",
-    badgeIcon: null,
+    badgeIcon: undefined,
     badgeState: "default",
-    badgeIconDir: "",
+    badgeIconDir: undefined,
     infoText: "",
     infoUrl: "",
     size: "md",

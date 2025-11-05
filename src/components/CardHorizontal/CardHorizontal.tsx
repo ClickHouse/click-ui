@@ -20,12 +20,14 @@ export interface CardHorizontalProps
   disabled?: boolean;
   description?: ReactNode;
   infoUrl?: string;
+  /** Shows and hides the button */
   infoText?: string;
   isSelected?: boolean;
   isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
   size?: CardSize;
+  /** Shows and hides the badge */
   badgeText?: string;
   badgeState?: BadgeState;
   badgeIcon?: IconName;
