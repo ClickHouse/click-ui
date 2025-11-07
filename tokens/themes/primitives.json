@@ -818,7 +818,7 @@
           "md": {
             "value": {
               "fontFamily": "{typography.font.families.regular}",
-              "fontWeight": "{typography.font.weights.3}",
+              "fontWeight": "{typography.font.weights.4}",
               "lineHeight": "{typography.font.line-height.1}",
               "fontSize": "{typography.font.sizes.3}"
             },
