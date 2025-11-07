@@ -759,6 +759,10 @@
           "type": "fontSizes"
         },
         "4": {
+          "value": "1.125rem",
+          "type": "fontSizes"
+        },
+        "5": {
           "value": "{sizes.6}",
           "type": "fontSizes"
         },
