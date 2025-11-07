@@ -759,6 +759,10 @@
           "type": "fontSizes"
         },
         "4": {
+          "value": "1.125rem",
+          "type": "fontSizes"
+        },
+        "5": {
           "value": "{sizes.6}",
           "type": "fontSizes"
         },
@@ -825,7 +829,7 @@
               "fontFamily": "{typography.font.families.regular}",
               "fontWeight": "{typography.font.weights.4}",
               "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.3}"
+              "fontSize": "{typography.font.sizes.4}"
             },
             "type": "typography"
           },
@@ -834,7 +838,7 @@
               "fontFamily": "{typography.font.families.regular}",
               "fontWeight": "{typography.font.weights.4}",
               "lineHeight": "{typography.font.line-height.1}",
-              "fontSize": "{typography.font.sizes.4}"
+              "fontSize": "{typography.font.sizes.5}"
             },
             "type": "typography"
           },
