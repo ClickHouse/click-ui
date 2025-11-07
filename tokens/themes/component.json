@@ -434,7 +434,7 @@
           },
           "title": {
             "default": {
-              "value": "{typography.styles.product.titles.lg}",
+              "value": "{typography.styles.product.titles.md}",
               "type": "typography"
             },
             "muted": {
@@ -1479,7 +1479,7 @@
             "type": "typography"
           },
           "sm": {
-            "value": "{typography.styles.product.titles.lg}",
+            "value": "{typography.styles.product.titles.md}",
             "type": "typography"
           }
         },
