@@ -62,6 +62,7 @@ export const ICON_NAMES = [
   "credit-card",
   "data",
   "database",
+  "data-lakes",
   "disk",
   "display",
   "document",

@@ -52,6 +52,7 @@ import CreditCard from "@/components/icons/CreditCard";
 import CrossIcon from "@/components/icons/CrossIcon";
 import Data from "@/components/icons/Data";
 import DatabaseIcon from "@/components/icons/DatabaseIcon";
+import DataLakes from "@/components/icons/DataLakes";
 import Disk from "@/components/icons/Disk";
 import Display from "@/components/icons/Display";
 import Document from "@/components/icons/Document";
@@ -210,6 +211,7 @@ export const ICONS_MAP = {
   "credit-card": CreditCard,
   data: Data,
   database: DatabaseIcon,
+  "data-lakes": DataLakes,
   disk: Disk,
   display: Display,
   document: Document,
