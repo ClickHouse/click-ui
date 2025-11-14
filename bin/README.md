@@ -110,9 +110,11 @@ export default config;
 
 4. **Import in your app:**
    ```typescript
-   import '@clickhouse/click-ui/style.css';
+   import '@clickhouse/click-ui/cui.css';
    import './public/cui-custom-theme.css'; // Your custom theme
    import { ClickUIProvider } from '@clickhouse/click-ui';
+   // OR for simple setup without custom theme:
+   // import '@clickhouse/click-ui/cui.css';
 
    function App() {
      return (

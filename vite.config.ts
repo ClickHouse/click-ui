@@ -17,14 +17,13 @@ const externalLibraries = [
   "**/*.test.ts",
   "**/*.test.tsx",
   "react/jsx-runtime",
-  // Note: "click-ui-config" is intentionally NOT external
-  // It's loaded via optional dynamic import with graceful fallback
 ];
 
 const buildOptions: BuildOptions = {
   emptyOutDir: false,
   minify: process.env.NODE_ENV === "production",
   cssCodeSplit: false, // Bundle all CSS into one file for library distribution
+  cssFileName: "cui-components", // Renamed from style.css to cui-components.css
   lib: {
     entry: resolve(__dirname, "src/index.ts"),
     name: "click-ui",

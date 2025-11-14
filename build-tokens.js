@@ -19,9 +19,9 @@ const setWith = (obj, path, value) => {
       // Last key → set value
       current[key] = value;
     } else {
-      // Ensure object/array exists
+      // Ensure object exists
       if (current[key] == null || typeof current[key] !== "object") {
-        current[key] = String(+keys[i + 1]) === keys[i + 1] ? [] : {};
+        current[key] = {};
       }
       current = current[key];
     }

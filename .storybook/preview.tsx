@@ -1,6 +1,6 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
-// Static CSS variables - will be overridden by dynamic theme injection
+import "@/styles/cui-default-theme.css";
 import { Decorator } from "@storybook/react-vite";
 import { themes } from "storybook/theming";
 import { ClickUIProvider } from "@/theme/ClickUIProvider";
