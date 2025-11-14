@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiResizeSpan {
   z-index: 1;
@@ -12,7 +13,7 @@
     background: var(--click-grid-header-cell-color-stroke-selectDirect);
   }
 
-  &.cuiPressed {
+  @include variants.variant('cuiPressed') {
     height: 100% !important;
     position: fixed !important;
   }

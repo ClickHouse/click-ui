@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiStyledCell {
   @include mixins.cuiGridCellBase;
@@ -8,7 +9,7 @@
   }
 }
 
-// Height variations
+/* Height variations */
 .cuiHeightFixed {
   overflow-y: hidden;
 }
@@ -19,54 +20,54 @@
   overflow-y: auto;
 }
 
-// Type and selection combinations - body
+/* Type and selection combinations - body */
 .cuiTypeBody {
-  &.cuiSelectionDefault {
+  @include variants.variant('cuiSelectionDefault') {
     @include mixins.cuiGridCellType("body", "default");
     color: var(--click-grid-body-cell-color-text-default);
   }
 
-  &.cuiSelectionSelectIndirect {
+  @include variants.variant('cuiSelectionSelectIndirect') {
     @include mixins.cuiGridCellType("body", "selectIndirect");
     color: var(--click-grid-body-cell-color-text-selectIndirect);
   }
 
-  &.cuiSelectionSelectDirect {
+  @include variants.variant('cuiSelectionSelectDirect') {
     @include mixins.cuiGridCellType("body", "selectDirect");
     color: var(--click-grid-body-cell-color-text-selectDirect);
   }
 }
 
-// Type and selection combinations - header
+/* Type and selection combinations - header */
 .cuiTypeHeader {
-  &.cuiSelectionDefault {
+  @include variants.variant('cuiSelectionDefault') {
     @include mixins.cuiGridCellType("header", "default");
     color: var(--click-grid-header-cell-color-title-default);
   }
 
-  &.cuiSelectionSelectIndirect {
+  @include variants.variant('cuiSelectionSelectIndirect') {
     @include mixins.cuiGridCellType("header", "selectIndirect");
     color: var(--click-grid-header-cell-color-title-selectIndirect);
   }
 
-  &.cuiSelectionSelectDirect {
+  @include variants.variant('cuiSelectionSelectDirect') {
     @include mixins.cuiGridCellType("header", "selectDirect");
     color: var(--click-grid-header-cell-color-title-selectDirect);
   }
 }
 
-// Focus state
+/* Focus state */
 .cuiFocused {
-  &.cuiTypeBody {
+  @include variants.variant('cuiTypeBody') {
     box-shadow: inset 0 0 0 1px var(--click-grid-body-cell-color-stroke-selectDirect);
   }
 
-  &.cuiTypeHeader {
+  @include variants.variant('cuiTypeHeader') {
     box-shadow: inset 0 0 0 1px var(--click-grid-header-cell-color-stroke-selectDirect);
   }
 }
 
-// Border management
+/* Border management */
 .cuiBorderNone {
   border: none;
 }
@@ -79,10 +80,10 @@
   border-bottom: none;
 }
 
-// Last row/column border colors
+/* Last row/column border colors */
 .cuiLastRowBorder {
-  &.cuiTypeBody {
-    &.cuiFocused {
+  @include variants.variant('cuiTypeBody') {
+    @include variants.variant('cuiFocused') {
       border-bottom-color: var(--click-grid-body-cell-color-stroke-selectDirect);
     }
 
@@ -99,8 +100,8 @@
     }
   }
 
-  &.cuiTypeHeader {
-    &.cuiFocused {
+  @include variants.variant('cuiTypeHeader') {
+    @include variants.variant('cuiFocused') {
       border-bottom-color: var(--click-grid-header-cell-color-stroke-selectDirect);
     }
 
@@ -119,8 +120,8 @@
 }
 
 .cuiLastColumnBorder {
-  &.cuiTypeBody {
-    &.cuiFocused {
+  @include variants.variant('cuiTypeBody') {
+    @include variants.variant('cuiFocused') {
       border-right-color: var(--click-grid-body-cell-color-stroke-selectDirect);
     }
 
@@ -137,8 +138,8 @@
     }
   }
 
-  &.cuiTypeHeader {
-    &.cuiFocused {
+  @include variants.variant('cuiTypeHeader') {
+    @include variants.variant('cuiFocused') {
       border-right-color: var(--click-grid-header-cell-color-stroke-selectDirect);
     }
 
@@ -156,7 +157,7 @@
   }
 }
 
-// Header specific border hiding when showBorder is false
+/* Header specific border hiding when showBorder is false */
 .cuiHeaderNoBorder {
   &[data-grid-row="-1"] {
     border-top: none;
@@ -167,7 +168,7 @@
   }
 }
 
-// Pseudo-element for additional borders
+/* Pseudo-element for additional borders */
 .cuiPseudoBorder {
   &::before {
     @include mixins.cuiAbsoluteFill;
@@ -178,11 +179,11 @@
 
 .cuiSelectedTop {
   &::before {
-    &.cuiTypeBody {
+    @include variants.variant('cuiTypeBody') {
       border-top: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
     }
 
-    &.cuiTypeHeader {
+    @include variants.variant('cuiTypeHeader') {
       border-top: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
     }
   }
@@ -190,11 +191,11 @@
 
 .cuiSelectedLeft {
   &::before {
-    &.cuiTypeBody {
+    @include variants.variant('cuiTypeBody') {
       border-left: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
     }
 
-    &.cuiTypeHeader {
+    @include variants.variant('cuiTypeHeader') {
       border-left: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
     }
   }
@@ -202,11 +203,11 @@
 
 .cuiSelectedBottomDirect {
   &::before {
-    &.cuiTypeBody {
+    @include variants.variant('cuiTypeBody') {
       border-bottom: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
     }
 
-    &.cuiTypeHeader {
+    @include variants.variant('cuiTypeHeader') {
       border-bottom: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
     }
   }
@@ -214,11 +215,11 @@
 
 .cuiSelectedRightDirect {
   &::before {
-    &.cuiTypeBody {
+    @include variants.variant('cuiTypeBody') {
       border-right: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
     }
 
-    &.cuiTypeHeader {
+    @include variants.variant('cuiTypeHeader') {
       border-right: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
     }
   }

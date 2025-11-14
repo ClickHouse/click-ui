@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiTrigger {
   padding: var(--click-tabs-space-y) var(--click-tabs-space-x);
@@ -18,7 +19,7 @@
     font: var(--click-tabs-typography-label-hover);
   }
 
-  // Active state styles - using Radix UI's data-state attribute
+  /* Active state styles - using Radix UI's data-state attribute */
   &[data-state="active"] {
     border-bottom: 2px solid var(--click-tabs-basic-color-accent-selected);
     color: var(--click-tabs-basic-color-text-selected);
@@ -37,7 +38,7 @@
 }
 
 .cuiContent {
-  // Content styles can be added here if needed
+  /* Content styles can be added here if needed */
 }
 
 .cuiFullWidthTabs {
@@ -65,7 +66,7 @@
     font: var(--click-tabs-typography-label-hover);
   }
 
-  // Active state styles - using Radix UI's data-state attribute
+  /* Active state styles - using Radix UI's data-state attribute */
   &[data-state="active"] {
     border-bottom: 2px solid var(--click-tabs-basic-color-accent-selected);
     color: var(--click-tabs-basic-color-text-selected);
@@ -77,8 +78,8 @@
     }
   }
 
-  // Custom width variant
-  &.cuiCustomWidth {
+  /* Custom width variant */
+  @include variants.variant('cuiCustomWidth') {
     flex-basis: unset;
     flex-grow: 0;
     flex-shrink: 0;

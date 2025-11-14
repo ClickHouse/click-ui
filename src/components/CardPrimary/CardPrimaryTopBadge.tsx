@@ -28,15 +28,14 @@ export const CardPrimaryTopBadge = ({
 }: CardPrimaryTopBadgeProps) => {
   const badgeClasses = clsx(
     styles.cuiCardPrimaryTopBadge,
-    {
-      [styles.cuiIsSelected]: $isSelected,
-    },
     className
   );
 
   return (
     <Badge
       className={badgeClasses}
+      data-cui-variant="card-top-badge"
+      data-cui-selected={$isSelected ? "true" : undefined}
       {...props}
     />
   );

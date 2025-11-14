@@ -1,21 +1,19 @@
-@use "cui-mixins" as mixins;
+@use "../styles/mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiFormRoot {
-  display: flex;
-  width: 100%;
-  gap: var(--click-field-space-gap);
-  align-items: flex-start;
+  @include mixins.cuiFormRoot();
 
-  &.cuiOrientationHorizontal {
-    &.cuiDirStart {
+  @include variants.variant('cuiOrientationHorizontal') {
+    @include variants.variant('cuiDirStart') {
       flex-direction: row-reverse;
     }
 
-    &.cuiDirEnd {
+    @include variants.variant('cuiDirEnd') {
       flex-direction: row;
     }
 
-    &.cuiAddLabelPadding {
+    @include variants.variant('cuiAddLabelPadding') {
       :global(label) {
         padding-top: calc(var(--click-field-space-y) + 1px);
         line-height: 1lh;
@@ -23,19 +21,14 @@
     }
   }
 
-  &.cuiOrientationVertical {
-    &.cuiDirStart {
+  @include variants.variant('cuiOrientationVertical') {
+    @include variants.variant('cuiDirStart') {
       flex-direction: column-reverse;
     }
 
-    &.cuiDirEnd {
+    @include variants.variant('cuiDirEnd') {
       flex-direction: column;
     }
-  }
-
-  * {
-    box-shadow: none;
-    outline: none;
   }
 }
 
@@ -107,49 +100,34 @@
 }
 
 .cuiSvgImageElement {
-  display: flex;
-  align-items: center;
+  @include mixins.cuiSvgImageElement;
 
-  // SVG inherits dimensions from wrapper
-  > svg {
-    width: 100%;
-    height: 100%;
-    display: block;
+  @include variants.variant('cuiSizeXxs') {
+    @include mixins.cuiIconSize(xxs);
   }
 
-  &.cuiSizeXxs {
-    width: var(--click-image-xxs-size-width);
-    height: var(--click-image-xxs-size-height);
+  @include variants.variant('cuiSizeXs') {
+    @include mixins.cuiIconSize(xs);
   }
 
-  &.cuiSizeXs {
-    width: var(--click-image-xs-size-width);
-    height: var(--click-image-xs-size-height);
+  @include variants.variant('cuiSizeSm') {
+    @include mixins.cuiIconSize(sm);
   }
 
-  &.cuiSizeSm {
-    width: var(--click-image-sm-size-width);
-    height: var(--click-image-sm-size-height);
+  @include variants.variant('cuiSizeMd') {
+    @include mixins.cuiIconSize(md);
   }
 
-  &.cuiSizeMd {
-    width: var(--click-image-md-size-width);
-    height: var(--click-image-md-size-height);
+  @include variants.variant('cuiSizeLg') {
+    @include mixins.cuiIconSize(lg);
   }
 
-  &.cuiSizeLg {
-    width: var(--click-image-lg-size-width);
-    height: var(--click-image-lg-size-height);
+  @include variants.variant('cuiSizeXl') {
+    @include mixins.cuiIconSize(xl);
   }
 
-  &.cuiSizeXl {
-    width: var(--click-image-xl-size-width);
-    height: var(--click-image-xl-size-height);
-  }
-
-  &.cuiSizeXxl {
-    width: var(--click-image-xxl-size-width);
-    height: var(--click-image-xxl-size-height);
+  @include variants.variant('cuiSizeXxl') {
+    @include mixins.cuiIconSize(xxl);
   }
 }
 

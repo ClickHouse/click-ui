@@ -1,58 +1,54 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiSeparator {
-  // Base horizontal styling (default)
-  &.cuiHorizontal {
+  // Orientation variants - using :where() for low specificity
+  @include variants.variant('cuiHorizontal') {
     width: 100%;
     border-top: 0.0625rem solid var(--click-separator-color-stroke-default);
-  }
 
-  // Vertical orientation
-  &.cuiVertical {
-    height: 100%;
-    border-right: 0.0625rem solid var(--click-separator-color-stroke-default);
-  }
-
-  // Size variations for horizontal orientation
-  &.cuiHorizontal {
-    &.cuiXs {
+    // Size variations for horizontal orientation
+    @include variants.variant('cuiSizeXs') {
       margin: var(--click-separator-horizontal-space-y-xs) var(--click-separator-horizontal-space-x-all);
     }
-    &.cuiSm {
+    @include variants.variant('cuiSizeSm') {
       margin: var(--click-separator-horizontal-space-y-sm) var(--click-separator-horizontal-space-x-all);
     }
-    &.cuiMd {
+    @include variants.variant('cuiSizeMd') {
       margin: var(--click-separator-horizontal-space-y-md) var(--click-separator-horizontal-space-x-all);
     }
-    &.cuiLg {
+    @include variants.variant('cuiSizeLg') {
       margin: var(--click-separator-horizontal-space-y-lg) var(--click-separator-horizontal-space-x-all);
     }
-    &.cuiXl {
+    @include variants.variant('cuiSizeXl') {
       margin: var(--click-separator-horizontal-space-y-xl) var(--click-separator-horizontal-space-x-all);
     }
-    &.cuiXxl {
+    @include variants.variant('cuiSizeXxl') {
       margin: var(--click-separator-horizontal-space-y-xxl) var(--click-separator-horizontal-space-x-all);
     }
   }
 
-  // Size variations for vertical orientation
-  &.cuiVertical {
-    &.cuiXs {
+  @include variants.variant('cuiVertical') {
+    height: 100%;
+    border-right: 0.0625rem solid var(--click-separator-color-stroke-default);
+
+    // Size variations for vertical orientation
+    @include variants.variant('cuiSizeXs') {
       margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xs);
     }
-    &.cuiSm {
+    @include variants.variant('cuiSizeSm') {
       margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-sm);
     }
-    &.cuiMd {
+    @include variants.variant('cuiSizeMd') {
       margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-md);
     }
-    &.cuiLg {
+    @include variants.variant('cuiSizeLg') {
       margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-lg);
     }
-    &.cuiXl {
+    @include variants.variant('cuiSizeXl') {
       margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xl);
     }
-    &.cuiXxl {
+    @include variants.variant('cuiSizeXxl') {
       margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xxl);
     }
   }

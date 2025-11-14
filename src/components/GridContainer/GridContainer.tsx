@@ -78,6 +78,7 @@ const _GridContainer = <T extends ElementType = "div">(
     minWidth,
     overflow,
     component,
+    className,
     ...props
   }: PolymorphicProps<T, GridContainerProps<T>>,
   ref: PolymorphicRef<T>
@@ -91,16 +92,16 @@ const _GridContainer = <T extends ElementType = "div">(
       [styles.cuiFillWidth]: fillWidth,
       [styles.cuiWidthAuto]: !fillWidth,
       [styles.cuiResponsive]: isResponsive,
-      [styles[`cuiAlignItems${capitalize(alignItems)}`]]:
-        alignItems !== "stretch",
+      [styles[`cuiAlignItems${capitalize(alignItems)}`]]: alignItems !== "stretch",
       [styles[`cuiAlignContent${capitalize(alignContent)}`]]: alignContent !== "stretch",
-      [styles[`cuiJustifyContent${capitalize(justifyContent)}`]]: justifyContent !== "stretch",
+      [styles[`cuiJustifyContent${capitalize(justifyContent)}`]]:
+        justifyContent !== "stretch",
       [styles[`cuiJustifyItems${capitalize(justifyItems)}`]]: justifyItems !== "stretch",
       [styles[`cuiGap${gap ? capitalize(gap) : ""}`]]: gap,
       [styles[`cuiColumnGap${columnGap ? capitalize(columnGap) : ""}`]]: columnGap,
       [styles[`cuiRowGap${rowGap ? capitalize(rowGap) : ""}`]]: rowGap,
     },
-    props.className
+    className
   );
 
   const containerStyle: React.CSSProperties = {

@@ -54,6 +54,7 @@ export const CardSecondary = ({
     <div
       aria-disabled={disabled}
       tabIndex={0}
+      {...props}
       className={clsx(
         styles.cuiWrapper,
         {
@@ -62,7 +63,7 @@ export const CardSecondary = ({
         },
         className
       )}
-      {...props}
+      data-cui-disabled={disabled ? "true" : undefined}
     >
       <div className={styles.cuiHeader}>
         <div

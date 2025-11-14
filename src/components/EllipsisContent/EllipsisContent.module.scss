@@ -7,10 +7,7 @@
   vertical-align: text-bottom;
   overflow: hidden;
   justify-content: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  @include mixins.cuiFullWidthStretch;
 
   & > *:not(button) {
     overflow: hidden;

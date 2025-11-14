@@ -2,6 +2,7 @@
 
 import { HTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
+import { capitalize } from "@/utils/capitalize";
 import { IconButton } from "@/components";
 import styles from "./ProgressBar.module.scss";
 
@@ -52,15 +53,14 @@ export const ProgressBar = ({
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
+  const typeClass = `cuiType${capitalize(type)}`;
+  const statusClass = completed ? "cuiStatusComplete" : "cuiStatusIncomplete";
 
   return (
     <div
-      className={clsx(styles.cuiProgressContainer, {
-        [styles.cuiDefault]: type === "default",
-        [styles.cuiSmall]: type === "small",
-        [styles.cuiComplete]: completed,
-        [styles.cuiIncomplete]: !completed,
-      })}
+      className={clsx(styles.cuiProgressContainer, styles[typeClass], styles[statusClass])}
+      data-cui-type={type}
+      data-cui-status={completed ? "complete" : "incomplete"}
       style={
         {
           ...style,
@@ -77,8 +77,8 @@ export const ProgressBar = ({
           <button
             className={clsx(styles.cuiProgressCloseButton, {
               [styles.cuiVisible]: dismissable,
-              [styles.cuiHidden]: !dismissable,
             })}
+            data-cui-visible={dismissable ? "true" : undefined}
             onClick={onCancel}
             data-testid="progressbar-close"
           >

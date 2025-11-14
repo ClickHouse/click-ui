@@ -1,22 +1,12 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiSidebarItemWrapper {
-  display: flex;
-  align-items: center;
-  border: none;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  white-space: nowrap;
-  overflow: hidden;
-  flex-wrap: nowrap;
-  cursor: pointer;
-  pointer-events: all;
+  @include mixins.cuiSidebarItemBase;
 
   // Base item styles (level 0)
   &.cuiItem {
-    &.cuiMain {
+    @include variants.variant('cuiTypeMain') {
       padding: var(--click-sidebar-navigation-item-default-space-y)
         var(--click-sidebar-navigation-item-default-space-right) var(--click-sidebar-navigation-item-default-space-y)
         var(--click-image-sm-size-width);
@@ -37,22 +27,35 @@
         background-color: var(--click-sidebar-main-navigation-item-color-background-hover);
         color: var(--click-sidebar-main-navigation-item-color-text-hover);
         pointer-events: auto;
+
+        span a {
+          color: var(--click-sidebar-main-navigation-item-color-text-hover);
+        }
       }
 
-      &:active,
-      &.cuiSelected {
+      &:active {
         font: var(--click-sidebar-navigation-item-typography-active);
         background-color: var(--click-sidebar-main-navigation-item-color-background-active);
         color: var(--click-sidebar-main-navigation-item-color-text-active);
         pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-main-navigation-item-color-text-active);
+        }
       }
 
-      &.cuiDisabled,
-      &.cuiDisabled:hover,
-      &.cuiDisabled:focus,
-      &.cuiDisabled:active,
-      &.cuiDisabled:focus-within,
-      &.cuiDisabled.cuiSelected {
+      @include variants.variant('cuiSelected') {
+        font: var(--click-sidebar-navigation-item-typography-active);
+        background-color: var(--click-sidebar-main-navigation-item-color-background-active);
+        color: var(--click-sidebar-main-navigation-item-color-text-active);
+        pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-main-navigation-item-color-text-active);
+        }
+      }
+
+      @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-main-navigation-item-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
@@ -61,6 +64,17 @@
           color: var(--click-sidebar-main-navigation-item-color-text-disabled);
           cursor: not-allowed;
           text-decoration: none;
+        }
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: var(--click-sidebar-main-navigation-item-color-text-disabled);
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: var(--click-sidebar-main-navigation-item-color-text-disabled);
         }
       }
 
@@ -76,14 +90,17 @@
           font: var(--click-sidebar-navigation-item-mobile-typography-hover);
         }
 
-        &:active,
-        &.cuiSelected {
+        &:active {
+          font: var(--click-sidebar-navigation-item-mobile-typography-active);
+        }
+
+        @include variants.variant('cuiSelected') {
           font: var(--click-sidebar-navigation-item-mobile-typography-active);
         }
       }
     }
 
-    &.cuiSqlSidebar {
+    @include variants.variant('cuiTypeSqlSidebar') {
       padding: var(--click-sidebar-navigation-item-default-space-y)
         var(--click-sidebar-navigation-item-default-space-right) var(--click-sidebar-navigation-item-default-space-y)
         var(--click-image-sm-size-width);
@@ -104,22 +121,35 @@
         background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-hover);
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
         pointer-events: auto;
+
+        span a {
+          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
+        }
       }
 
-      &:active,
-      &.cuiSelected {
+      &:active {
         font: var(--click-sidebar-navigation-item-typography-active);
         background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
         pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
+        }
       }
 
-      &.cuiDisabled,
-      &.cuiDisabled:hover,
-      &.cuiDisabled:focus,
-      &.cuiDisabled:active,
-      &.cuiDisabled:focus-within,
-      &.cuiDisabled.cuiSelected {
+      @include variants.variant('cuiSelected') {
+        font: var(--click-sidebar-navigation-item-typography-active);
+        background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
+        color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
+        pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
+        }
+      }
+
+      @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
@@ -128,6 +158,17 @@
           color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
           cursor: not-allowed;
           text-decoration: none;
+        }
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
         }
       }
 
@@ -143,8 +184,11 @@
           font: var(--click-sidebar-navigation-item-mobile-typography-hover);
         }
 
-        &:active,
-        &.cuiSelected {
+        &:active {
+          font: var(--click-sidebar-navigation-item-mobile-typography-active);
+        }
+
+        @include variants.variant('cuiSelected') {
           font: var(--click-sidebar-navigation-item-mobile-typography-active);
         }
       }
@@ -153,7 +197,7 @@
 
   // Sub-item styles (level > 0)
   &.cuiSubItem {
-    &.cuiMain {
+    @include variants.variant('cuiTypeMain') {
       padding: var(--click-sidebar-navigation-subItem-default-space-y)
         var(--click-sidebar-navigation-subItem-default-space-right)
         var(--click-sidebar-navigation-subItem-default-space-y) var(--click-image-sm-size-width);
@@ -174,22 +218,35 @@
         background-color: var(--click-sidebar-main-navigation-subItem-color-background-hover);
         color: var(--click-sidebar-main-navigation-subItem-color-text-hover);
         pointer-events: auto;
+
+        span a {
+          color: var(--click-sidebar-main-navigation-subItem-color-text-hover);
+        }
       }
 
-      &:active,
-      &.cuiSelected {
+      &:active {
         font: var(--click-sidebar-navigation-subItem-typography-active);
         background-color: var(--click-sidebar-main-navigation-subItem-color-background-active);
         color: var(--click-sidebar-main-navigation-subItem-color-text-active);
         pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-main-navigation-subItem-color-text-active);
+        }
       }
 
-      &.cuiDisabled,
-      &.cuiDisabled:hover,
-      &.cuiDisabled:focus,
-      &.cuiDisabled:active,
-      &.cuiDisabled:focus-within,
-      &.cuiDisabled.cuiSelected {
+      @include variants.variant('cuiSelected') {
+        font: var(--click-sidebar-navigation-subItem-typography-active);
+        background-color: var(--click-sidebar-main-navigation-subItem-color-background-active);
+        color: var(--click-sidebar-main-navigation-subItem-color-text-active);
+        pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-main-navigation-subItem-color-text-active);
+        }
+      }
+
+      @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
@@ -198,6 +255,17 @@
           color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
           cursor: not-allowed;
           text-decoration: none;
+        }
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
         }
       }
 
@@ -213,14 +281,17 @@
           font: var(--click-sidebar-navigation-subItem-mobile-typography-hover);
         }
 
-        &:active,
-        &.cuiSelected {
+        &:active {
+          font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+        }
+
+        @include variants.variant('cuiSelected') {
           font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
         }
       }
     }
 
-    &.cuiSqlSidebar {
+    @include variants.variant('cuiTypeSqlSidebar') {
       padding: var(--click-sidebar-navigation-subItem-default-space-y)
         var(--click-sidebar-navigation-subItem-default-space-right)
         var(--click-sidebar-navigation-subItem-default-space-y) var(--click-image-sm-size-width);
@@ -241,22 +312,35 @@
         background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-hover);
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
         pointer-events: auto;
+
+        span a {
+          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
+        }
       }
 
-      &:active,
-      &.cuiSelected {
+      &:active {
         font: var(--click-sidebar-navigation-subItem-typography-active);
         background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
         pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
+        }
       }
 
-      &.cuiDisabled,
-      &.cuiDisabled:hover,
-      &.cuiDisabled:focus,
-      &.cuiDisabled:active,
-      &.cuiDisabled:focus-within,
-      &.cuiDisabled.cuiSelected {
+      @include variants.variant('cuiSelected') {
+        font: var(--click-sidebar-navigation-subItem-typography-active);
+        background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
+        color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
+        pointer-events: all;
+
+        span a {
+          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
+        }
+      }
+
+      @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
@@ -265,6 +349,17 @@
           color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
           cursor: not-allowed;
           text-decoration: none;
+        }
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
         }
       }
 
@@ -280,8 +375,11 @@
           font: var(--click-sidebar-navigation-subItem-mobile-typography-hover);
         }
 
-        &:active,
-        &.cuiSelected {
+        &:active {
+          font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+        }
+
+        @include variants.variant('cuiSelected') {
           font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
         }
       }
@@ -291,7 +389,7 @@
   // Collapsible padding adjustment
   &.cuiCollapsible {
     &.cuiItem {
-      &.cuiMain {
+      @include variants.variant('cuiTypeMain') {
         padding-left: var(--click-sidebar-navigation-item-default-space-left);
 
         @include mixins.cuiMobile {
@@ -299,7 +397,7 @@
         }
       }
 
-      &.cuiSqlSidebar {
+      @include variants.variant('cuiTypeSqlSidebar') {
         padding-left: var(--click-sidebar-navigation-item-default-space-left);
 
         @include mixins.cuiMobile {
@@ -309,7 +407,7 @@
     }
 
     &.cuiSubItem {
-      &.cuiMain {
+      @include variants.variant('cuiTypeMain') {
         padding-left: var(--click-sidebar-navigation-subItem-default-space-left);
 
         @include mixins.cuiMobile {
@@ -317,7 +415,7 @@
         }
       }
 
-      &.cuiSqlSidebar {
+      @include variants.variant('cuiTypeSqlSidebar') {
         padding-left: var(--click-sidebar-navigation-subItem-default-space-left);
 
         @include mixins.cuiMobile {

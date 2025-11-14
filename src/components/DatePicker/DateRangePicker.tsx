@@ -78,8 +78,6 @@ const Calendar = ({
             }
             setSelectedDate(fullDate);
 
-            // User has a date range selected and clicked a new date.
-            // This will cause the selected date to be reset, thus do not close the datepicker.
             if (startDate && endDate) {
               return;
             }
@@ -276,8 +274,6 @@ export const DateRangePicker = ({
 
   const handleSelectDate = useCallback(
     (selectedDate: Date): void => {
-      // Start date and end date are selected, user clicks any date.
-      // Set start date to the selected date, clear the end date.
       if (selectedStartDate && selectedEndDate) {
         // If futureStartDatesDisabled is true, only set the selected date to the date clicked if it's before today
         if (futureStartDatesDisabled && selectedDate > new Date()) {
@@ -291,14 +287,10 @@ export const DateRangePicker = ({
 
       if (selectedStartDate) {
         if (isSameDate(selectedStartDate, selectedDate)) {
-          // Start date is selected, user clicks start date.
-          // Reset the start date.
           setSelectedStartDate(undefined);
           return;
         }
 
-        // Start date is selected, user clicks an earlier date.
-        // Set the earlier date to the new start date.
         if (selectedDate < selectedStartDate) {
           setSelectedStartDate(selectedDate);
           return;

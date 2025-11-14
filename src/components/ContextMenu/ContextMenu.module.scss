@@ -1,10 +1,11 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiRightMenuContent {
   flex-direction: column;
   z-index: 1;
 
-  &.cuiShowArrow {
+  @include variants.variant('cuiShowArrow') {
     &[data-side="bottom"] {
       margin-top: -1px;
     }
@@ -38,4 +39,25 @@
 
 .cuiRightMenuSub {
   border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+}
+
+.cuiGenericMenuItem {
+  @include mixins.cuiGenericMenuItem;
+}
+
+.cuiGenericMenuPanel {
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: auto;
+  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
+  background: var(--click-genericMenu-panel-color-background-default);
+  box-shadow: var(--click-genericMenu-panel-shadow-default);
+  border-radius: var(--click-genericMenu-panel-radii-all);
+}
+
+.cuiContextMenu {
+  max-width: var(--radix-context-menu-content-available-width);
+  max-height: var(--radix-context-menu-content-available-height);
 }

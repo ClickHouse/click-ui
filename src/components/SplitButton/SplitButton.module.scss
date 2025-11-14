@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiSplitButtonTrigger {
   display: inline-flex;
@@ -7,7 +8,8 @@
   user-select: none;
   border-radius: var(--click-button-radii-all);
 
-  &.cuiPrimary {
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiPrimary') {
     border: 1px solid var(--click-button-split-primary-stroke-default);
 
     &:hover {
@@ -24,7 +26,7 @@
     }
   }
 
-  &.cuiSecondary {
+  @include variants.variant('cuiSecondary') {
     border: 1px solid var(--click-button-split-secondary-stroke-default);
 
     &:hover {
@@ -41,7 +43,7 @@
     }
   }
 
-  &.cuiFillWidth {
+  @include variants.variant('cuiFillWidth') {
     width: 100%;
   }
 
@@ -58,7 +60,7 @@
   border-radius: 0;
   padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
 
-  &.cuiPrimary {
+  @include variants.variant('cuiPrimary') {
     background: var(--click-button-split-primary-background-main-default);
     color: var(--click-button-split-primary-text-default);
     font: var(--click-button-split-typography-label-default);
@@ -82,7 +84,7 @@
     }
   }
 
-  &.cuiSecondary {
+  @include variants.variant('cuiSecondary') {
     background: var(--click-button-split-secondary-background-main-default);
     color: var(--click-button-split-secondary-text-default);
     font: var(--click-button-split-typography-label-default);
@@ -106,7 +108,7 @@
     }
   }
 
-  &.cuiFillWidth {
+  @include variants.variant('cuiFillWidth') {
     width: 100%;
   }
 }
@@ -119,7 +121,7 @@
   border-radius: 0;
   padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
 
-  &.cuiPrimary {
+  @include variants.variant('cuiPrimary') {
     background: var(--click-button-split-primary-background-action-default);
     color: var(--click-button-split-primary-text-default);
 
@@ -139,7 +141,7 @@
     }
   }
 
-  &.cuiSecondary {
+  @include variants.variant('cuiSecondary') {
     background: var(--click-button-split-secondary-background-action-default);
     color: var(--click-button-split-secondary-text-default);
 

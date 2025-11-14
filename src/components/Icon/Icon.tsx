@@ -7,6 +7,7 @@ import { Logo } from "@/components/Logos/Logo";
 import LogosLight from "@/components/Logos/LogosLight";
 import { LogoName } from "@/components/Logos/types";
 import Payments, { PaymentList, PaymentName } from "@/components/icons/Payments";
+import { capitalize } from "@/utils/capitalize";
 
 const SVGIcon = ({
   name,
@@ -16,7 +17,6 @@ const SVGIcon = ({
   state = "default",
   className,
   size = "md",
-  disableDefaultSize = false,
   ...props
 }: IconProps) => {
   const Component = ICONS_MAP[name];
@@ -25,45 +25,33 @@ const SVGIcon = ({
     return null;
   }
 
-  // Create custom CSS properties for dynamic values
-  const customStyles: React.CSSProperties & Record<string, string> = {};
+  const style: React.CSSProperties = {};
   if (color) {
-    customStyles["--icon-color"] = color;
+    style.color = color;
   }
   if (width) {
-    customStyles["--icon-custom-width"] =
-      typeof width === "number" ? `${width}px` : width;
+    style.width = typeof width === "number" ? `${width}px` : width;
   }
   if (height) {
-    customStyles["--icon-custom-height"] =
-      typeof height === "number" ? `${height}px` : height;
+    style.height = typeof height === "number" ? `${height}px` : height;
   }
+
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const stateClass = `cuiState${capitalize(state)}`;
 
   const iconClasses = clsx(
     styles.cuiIconWrapper,
-    {
-      // Only apply size classes if not disabled (for custom sizing via className)
-      [styles.cuiSizeXs]: !disableDefaultSize && size === "xs",
-      [styles.cuiSizeSm]: !disableDefaultSize && size === "sm",
-      [styles.cuiSizeMd]: !disableDefaultSize && size === "md",
-      [styles.cuiSizeLg]: !disableDefaultSize && size === "lg",
-      [styles.cuiSizeXl]: !disableDefaultSize && size === "xl",
-      [styles.cuiSizeXxl]: !disableDefaultSize && size === "xxl",
-      [styles.cuiStateDefault]: state === "default",
-      [styles.cuiStateSuccess]: state === "success",
-      [styles.cuiStateWarning]: state === "warning",
-      [styles.cuiStateDanger]: state === "danger",
-      [styles.cuiStateInfo]: state === "info",
-      [styles.cuiHasCustomWidth]: !!width,
-      [styles.cuiHasCustomHeight]: !!height,
-    },
+    styles[sizeClass],
+    styles[stateClass],
     className
   );
 
   return (
     <div
       className={iconClasses}
-      style={customStyles}
+      {...(Object.keys(style).length > 0 && { style })}
+      data-cui-size={size}
+      data-cui-state={state}
     >
       <Component {...props} />
     </div>

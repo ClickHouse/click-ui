@@ -1,141 +1,142 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiText {
   margin: 0;
-}
 
-// Font styles using CSS custom properties
-.cuiFontSizeXs {
-  font: var(--typography-styles-product-text-normal-xs);
-}
+  /* Font styles using CSS custom properties */
+  @include variants.variant('cuiFontSizeXs') {
+    font: var(--typography-styles-product-text-normal-xs);
+  }
 
-.cuiFontSizeXsLight {
-  font: var(--typography-styles-product-text-light-xs);
-}
+  @include variants.variant('cuiFontSizeXsLight') {
+    font: var(--typography-styles-product-text-light-xs);
+  }
 
-.cuiFontSizeXsMedium {
-  font: var(--typography-styles-product-text-medium-xs);
-}
+  @include variants.variant('cuiFontSizeXsMedium') {
+    font: var(--typography-styles-product-text-medium-xs);
+  }
 
-.cuiFontSizeXsSemibold {
-  font: var(--typography-styles-product-text-semibold-xs);
-}
+  @include variants.variant('cuiFontSizeXsSemibold') {
+    font: var(--typography-styles-product-text-semibold-xs);
+  }
 
-.cuiFontSizeXsBold {
-  font: var(--typography-styles-product-text-bold-xs);
-}
+  @include variants.variant('cuiFontSizeXsBold') {
+    font: var(--typography-styles-product-text-bold-xs);
+  }
 
-.cuiFontSizeSm {
-  font: var(--typography-styles-product-text-normal-sm);
-}
+  @include variants.variant('cuiFontSizeSm') {
+    font: var(--typography-styles-product-text-normal-sm);
+  }
 
-.cuiFontSizeSmLight {
-  font: var(--typography-styles-product-text-light-sm);
-}
+  @include variants.variant('cuiFontSizeSmLight') {
+    font: var(--typography-styles-product-text-light-sm);
+  }
 
-.cuiFontSizeSmMedium {
-  font: var(--typography-styles-product-text-medium-sm);
-}
+  @include variants.variant('cuiFontSizeSmMedium') {
+    font: var(--typography-styles-product-text-medium-sm);
+  }
 
-.cuiFontSizeSmSemibold {
-  font: var(--typography-styles-product-text-semibold-sm);
-}
+  @include variants.variant('cuiFontSizeSmSemibold') {
+    font: var(--typography-styles-product-text-semibold-sm);
+  }
 
-.cuiFontSizeSmBold {
-  font: var(--typography-styles-product-text-bold-sm);
-}
+  @include variants.variant('cuiFontSizeSmBold') {
+    font: var(--typography-styles-product-text-bold-sm);
+  }
 
-.cuiFontSizeMd {
-  font: var(--typography-styles-product-text-normal-md);
-}
+  @include variants.variant('cuiFontSizeMd') {
+    font: var(--typography-styles-product-text-normal-md);
+  }
 
-.cuiFontSizeMdLight {
-  font: var(--typography-styles-product-text-light-md);
-}
+  @include variants.variant('cuiFontSizeMdLight') {
+    font: var(--typography-styles-product-text-light-md);
+  }
 
-.cuiFontSizeMdMedium {
-  font: var(--typography-styles-product-text-medium-md);
-}
+  @include variants.variant('cuiFontSizeMdMedium') {
+    font: var(--typography-styles-product-text-medium-md);
+  }
 
-.cuiFontSizeMdSemibold {
-  font: var(--typography-styles-product-text-semibold-md);
-}
+  @include variants.variant('cuiFontSizeMdSemibold') {
+    font: var(--typography-styles-product-text-semibold-md);
+  }
 
-.cuiFontSizeMdBold {
-  font: var(--typography-styles-product-text-bold-md);
-}
+  @include variants.variant('cuiFontSizeMdBold') {
+    font: var(--typography-styles-product-text-bold-md);
+  }
 
-.cuiFontSizeLg {
-  font: var(--typography-styles-product-text-normal-lg);
-}
+  @include variants.variant('cuiFontSizeLg') {
+    font: var(--typography-styles-product-text-normal-lg);
+  }
 
-.cuiFontSizeLgLight {
-  font: var(--typography-styles-product-text-light-lg);
-}
+  @include variants.variant('cuiFontSizeLgLight') {
+    font: var(--typography-styles-product-text-light-lg);
+  }
 
-.cuiFontSizeLgMedium {
-  font: var(--typography-styles-product-text-medium-lg);
-}
+  @include variants.variant('cuiFontSizeLgMedium') {
+    font: var(--typography-styles-product-text-medium-lg);
+  }
 
-.cuiFontSizeLgSemibold {
-  font: var(--typography-styles-product-text-semibold-lg);
-}
+  @include variants.variant('cuiFontSizeLgSemibold') {
+    font: var(--typography-styles-product-text-semibold-lg);
+  }
 
-.cuiFontSizeLgBold {
-  font: var(--typography-styles-product-text-bold-lg);
-}
+  @include variants.variant('cuiFontSizeLgBold') {
+    font: var(--typography-styles-product-text-bold-lg);
+  }
 
-.cuiFontSizeXl {
-  font: var(--typography-styles-product-text-normal-xl);
-}
+  @include variants.variant('cuiFontSizeXl') {
+    font: var(--typography-styles-product-text-normal-xl);
+  }
 
-.cuiFontSizeXlLight {
-  font: var(--typography-styles-product-text-light-xl);
-}
+  @include variants.variant('cuiFontSizeXlLight') {
+    font: var(--typography-styles-product-text-light-xl);
+  }
 
-.cuiFontSizeXlMedium {
-  font: var(--typography-styles-product-text-medium-xl);
-}
+  @include variants.variant('cuiFontSizeXlMedium') {
+    font: var(--typography-styles-product-text-medium-xl);
+  }
 
-.cuiFontSizeXlSemibold {
-  font: var(--typography-styles-product-text-semibold-xl);
-}
+  @include variants.variant('cuiFontSizeXlSemibold') {
+    font: var(--typography-styles-product-text-semibold-xl);
+  }
 
-.cuiFontSizeXlBold {
-  font: var(--typography-styles-product-text-bold-xl);
-}
+  @include variants.variant('cuiFontSizeXlBold') {
+    font: var(--typography-styles-product-text-bold-xl);
+  }
 
-// Text colors
-.cuiColorDefault {
-  color: var(--click-global-color-text-default);
-}
+  /* Text colors */
+  @include variants.variant('cuiColorDefault') {
+    color: var(--click-global-color-text-default);
+  }
 
-.cuiColorMuted {
-  color: var(--click-global-color-text-muted);
-}
+  @include variants.variant('cuiColorMuted') {
+    color: var(--click-global-color-text-muted);
+  }
 
-.cuiColorDanger {
-  color: var(--click-global-color-text-danger);
-}
+  @include variants.variant('cuiColorDanger') {
+    color: var(--click-global-color-text-danger);
+  }
 
-.cuiColorDisabled {
-  color: var(--click-global-color-text-disabled);
-}
+  @include variants.variant('cuiColorDisabled') {
+    color: var(--click-global-color-text-disabled);
+  }
 
-// Text alignment
-.cuiAlignLeft {
-  text-align: left;
-}
+  /* Text alignment */
+  @include variants.variant('cuiAlignLeft') {
+    text-align: left;
+  }
 
-.cuiAlignCenter {
-  text-align: center;
-}
+  @include variants.variant('cuiAlignCenter') {
+    text-align: center;
+  }
 
-.cuiAlignRight {
-  text-align: right;
-}
+  @include variants.variant('cuiAlignRight') {
+    text-align: right;
+  }
 
-// Fill width
-.cuiFillWidth {
-  width: 100%;
+  /* Fill width */
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
 }

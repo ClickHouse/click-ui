@@ -170,14 +170,10 @@ export type IconName = (typeof ICON_NAMES)[number];
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   name: IconName;
   color?: string;
+  width?: string | number;
+  height?: string | number;
   size?: IconSize;
   state?: IconState;
-  /**
-   * When true, prevents the default size classes from being applied.
-   * Use this when providing custom sizing via className.
-   * @default false
-   */
-  disableDefaultSize?: boolean;
 }
 
 type NoThemeType = {

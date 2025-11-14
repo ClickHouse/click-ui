@@ -2,6 +2,7 @@
 
 import { Icon, IconName } from "@/components";
 import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./Button.module.scss";
 import React from "react";
 
@@ -32,22 +33,31 @@ export const Button = ({
   loading = false,
   disabled,
   showLabelWithLoading = false,
+  className,
   ...delegated
-}: ButtonProps) => (
-  <button
-    className={clsx(styles.cuiButton, {
-      [styles.cuiPrimary]: type === "primary",
-      [styles.cuiSecondary]: type === "secondary",
-      [styles.cuiEmpty]: type === "empty",
-      [styles.cuiDanger]: type === "danger",
-      [styles.cuiAlignLeft]: align === "left",
-      [styles.cuiAlignCenter]: align === "center",
-      [styles.cuiFillWidth]: fillWidth,
-    })}
-    disabled={disabled || loading}
-    role="button"
-    {...delegated}
-  >
+}: ButtonProps) => {
+  const typeClass = `cui${capitalize(type)}`;
+  const alignClass = `cuiAlign${capitalize(align)}`;
+
+  return (
+    <button
+      className={clsx(
+        styles.cuiButton,
+        styles[typeClass],
+        styles[alignClass],
+        {
+          [styles.cuiFillWidth]: fillWidth,
+        },
+        className
+      )}
+      disabled={disabled || loading}
+      role="button"
+      data-cui-type={type}
+      data-cui-align={align}
+      data-cui-loading={loading ? 'true' : undefined}
+      {...delegated}
+    >
+
     {!loading && (
       <>
         {iconLeft && (
@@ -84,5 +94,6 @@ export const Button = ({
         {showLabelWithLoading ? (label ?? children) : ""}
       </div>
     )}
-  </button>
-);
+    </button>
+  );
+};

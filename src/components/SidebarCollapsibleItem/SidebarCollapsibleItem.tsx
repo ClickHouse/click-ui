@@ -53,6 +53,7 @@ const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItem
             level={level}
             type={type}
             selected={selected}
+            collapsible={true}
             {...props}
           />
         </Collapsible.Header>

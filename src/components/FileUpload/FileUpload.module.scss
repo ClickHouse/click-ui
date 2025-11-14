@@ -1,25 +1,26 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
-// Component-specific styles only - common styles imported in TSX
+/* Component-specific styles only - common styles imported in TSX */
 .cuiUploadArea {
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
 
-  &.cuiHasFile {
+  @include variants.variant('cuiHasFile') {
     flex-direction: row;
     justify-content: space-between;
     cursor: default;
   }
 
-  &.cuiSmall {
+  @include variants.variant('cuiSmall') {
     flex-direction: row;
     justify-content: space-between;
   }
 }
 
 .cuiFileUploadTitle {
-  &.cuiNotSupported {
+  @include variants.variant('cuiNotSupported') {
     color: var(--click-fileUpload-color-title-error);
   }
 }
@@ -27,13 +28,12 @@
 .cuiUploadText {
   text-align: center;
 
-  &.cuiHasFile,
-  &.cuiSmall {
+  @include variants.variants('cuiHasFile', 'cuiSmall') {
     text-align: left;
     flex: 1;
   }
 
-  &.cuiCentered {
+  @include variants.variant('cuiCentered') {
     display: flex;
     flex-direction: column;
     align-items: center;

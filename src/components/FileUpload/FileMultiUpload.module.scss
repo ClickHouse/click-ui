@@ -1,6 +1,7 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
-// Component-specific styles only - common styles imported in TSX
+/* Component-specific styles only - common styles imported in TSX */
 .cuiUploadArea {
   flex-direction: column;
   justify-content: center;
@@ -8,7 +9,7 @@
 }
 
 .cuiFileUploadTitle {
-  &.cuiNotSupported {
+  @include variants.variant('cuiNotSupported') {
     color: var(--click-fileUpload-color-title-error);
   }
 }

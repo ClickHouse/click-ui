@@ -5,8 +5,8 @@ import styles from "./LoadingAnimated.module.scss";
 
 const LoadingAnimated = (props: SVGAttributes<SVGElement>) => (
   <Loading
-    className={clsx(styles.cuiLoadingAnimated, props.className)}
     {...props}
+    className={clsx(styles.cuiLoadingAnimated, props.className)}
   />
 );
 

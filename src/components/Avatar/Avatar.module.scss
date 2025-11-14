@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiAvatarRoot {
   width: var(--click-avatar-size-width);
@@ -37,7 +38,8 @@
   align-items: center;
   justify-content: center;
 
-  &.cuiMd {
+  // Text size variants - using :where() for low specificity
+  @include variants.variant('cuiTextSizeMd') {
     font: var(--click-avatar-typography-label-md-default);
 
     .cuiAvatarRoot:active & {
@@ -49,7 +51,7 @@
     }
   }
 
-  &.cuiSm {
+  @include variants.variant('cuiTextSizeSm') {
     font: var(--click-avatar-typography-label-sm-default);
 
     .cuiAvatarRoot:active & {

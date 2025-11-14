@@ -1,19 +1,20 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiRadioGroupRoot {
   display: flex;
   flex-wrap: wrap;
   gap: var(--click-checkbox-space-gap);
 
-  &.cuiInline {
+  @include variants.variant('cuiInline') {
     flex-direction: row;
   }
 
-  &.cuiVertical {
+  @include variants.variant('cuiVertical') {
     flex-direction: column;
   }
 
-  &.cuiError {
+  @include variants.variant('cuiError') {
     label {
       color: var(--click-field-color-label-error);
     }
@@ -21,9 +22,8 @@
 }
 
 .cuiWrapper {
+  @include mixins.cuiFormRoot($align: center);
   padding: var(--click-checkbox-space-all);
-  display: flex;
-  align-items: center;
   gap: var(--click-checkbox-space-gap);
   width: auto;
 }

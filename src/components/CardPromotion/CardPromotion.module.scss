@@ -1,5 +1,13 @@
 @use "cui-mixins" as mixins;
 
+// Icon styles with composes - overrides Icon's default size
+.cuiCardIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: var(--click-card-promotion-icon-size-all);
+  width: var(--click-card-promotion-icon-size-all);
+  color: var(--click-card-promotion-color-icon-default);
+}
+
 .cuiBackground {
   background-image: var(--click-card-promotion-color-stroke-default);
   padding: 1px;

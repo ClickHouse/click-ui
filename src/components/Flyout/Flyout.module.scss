@@ -1,6 +1,7 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
-// Animation keyframes
+/* Animation keyframes */
 @keyframes animationWidth {
   from {
     width: 0;
@@ -21,62 +22,62 @@
   animation: animationWidth 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   max-width: 100%;
 
-  // Size variants
-  &.cuiSizeDefault {
+  /* Size variants */
+  @include variants.variant('cuiSizeDefault') {
     --flyout-width: var(--click-flyout-size-default-width);
   }
 
-  &.sizeNarrow {
+  @include variants.variant('sizeNarrow') {
     --flyout-width: var(--click-flyout-size-narrow-width);
   }
 
-  &.sizeWide {
+  @include variants.variant('sizeWide') {
     --flyout-width: var(--click-flyout-size-wide-width);
   }
 
-  &.sizeWidest {
+  @include variants.variant('sizeWidest') {
     --flyout-width: var(--click-flyout-size-widest-width);
   }
 
-  &.customWidth {
-    // Custom width will be set via CSS custom property
+  @include variants.variant('customWidth') {
+    /* Custom width will be set via CSS custom property */
   }
 
-  // Strategy variants
-  &.strategyRelative {
+  /* Strategy variants */
+  @include variants.variant('strategyRelative') {
     position: relative;
     height: 100%;
   }
 
-  &.strategyAbsolute {
+  @include variants.variant('strategyAbsolute') {
     position: absolute;
     height: auto;
   }
 
-  &.strategyFixed {
+  @include variants.variant('strategyFixed') {
     position: fixed;
     height: auto;
   }
 
-  // Type variants
-  &.typeDefault {
+  /* Type variants */
+  @include variants.variant('typeDefault') {
     padding: 0 var(--click-flyout-space-default-x);
     gap: var(--click-flyout-space-default-gap);
   }
 
-  &.typeInline {
+  @include variants.variant('typeInline') {
     padding: 0 var(--click-flyout-space-inline-x);
     gap: var(--click-flyout-space-inline-gap);
   }
 
-  // Alignment variants
-  &.alignStart {
+  /* Alignment variants */
+  @include variants.variant('alignStart') {
     left: 0;
     box-shadow: var(--click-flyout-shadow-reverse);
     border-right: 1px solid var(--click-flyout-color-stroke-default);
   }
 
-  &.alignEnd {
+  @include variants.variant('alignEnd') {
     right: 0;
     box-shadow: var(--click-flyout-shadow-default);
     border-left: 1px solid var(--click-flyout-color-stroke-default);
@@ -85,14 +86,14 @@
   background: var(--click-flyout-color-background-default);
 
   @include mixins.cuiMobile {
-    &.strategyRelative {
+    @include variants.variant('strategyRelative') {
       position: absolute !important;
     }
 
     overflow: hidden;
     transition: 0.3s ease-in-out;
 
-    &.alignStart {
+    @include variants.variant('alignStart') {
       transform: translateX(calc(50px - 100%));
 
       &:hover,
@@ -103,7 +104,7 @@
       }
     }
 
-    &.alignEnd {
+    @include variants.variant('alignEnd') {
       transform: translateX(calc(100% - 50px));
 
       &:hover,
@@ -126,31 +127,28 @@
 }
 
 .cuiFlyoutElement {
-  max-width: 100%;
-  max-width: -webkit-fill-available;
-  max-width: fill-available;
-  max-width: stretch;
+  @include mixins.cuiFullMaxWidthStretch;
 
-  &.typeDefault {
+  @include variants.variant('typeDefault') {
     gap: var(--click-flyout-space-default-gap);
     padding: 0 var(--click-flyout-space-default-content-x);
   }
 
-  &.typeInline {
+  @include variants.variant('typeInline') {
     gap: var(--click-flyout-space-inline-gap);
     padding: 0 var(--click-flyout-space-inline-content-x);
   }
 }
 
 .cuiFlyoutHeaderContainer {
-  &.typeDefault {
+  @include variants.variant('typeDefault') {
     row-gap: var(--click-flyout-space-default-content-row-gap);
     column-gap: var(--click-flyout-space-default-content-column-gap);
     padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y) 0
       var(--click-flyout-space-default-y);
   }
 
-  &.typeInline {
+  @include variants.variant('typeInline') {
     row-gap: var(--click-flyout-space-inline-content-row-gap);
     column-gap: var(--click-flyout-space-inline-content-column-gap);
     padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-y) 0 var(--click-flyout-space-inline-y);
@@ -161,12 +159,12 @@
   margin: 0;
   padding: 0;
 
-  &.typeDefault {
+  @include variants.variant('typeDefault') {
     color: var(--click-flyout-color-title-default);
     font: var(--click-flyout-typography-default-title-default);
   }
 
-  &.typeInline {
+  @include variants.variant('typeInline') {
     color: var(--click-flyout-color-title-default);
     font: var(--click-flyout-typography-inline-title-default);
   }
@@ -176,12 +174,12 @@
   margin: 0;
   padding: 0;
 
-  &.typeDefault {
+  @include variants.variant('typeDefault') {
     color: var(--click-flyout-color-description-default);
     font: var(--click-flyout-typography-default-description-default);
   }
 
-  &.typeInline {
+  @include variants.variant('typeInline') {
     color: var(--click-flyout-color-description-default);
     font: var(--click-flyout-typography-inline-description-default);
   }
@@ -191,23 +189,23 @@
   width: var(--flyout-width);
   max-width: 100%;
 
-  &.alignTop {
+  @include variants.variant('alignTop') {
     margin-top: -1rem;
   }
 
-  &.alignDefault {
+  @include variants.variant('alignDefault') {
     margin-top: 0;
   }
 }
 
 .cuiFlyoutFooter {
-  &.typeDefault {
+  @include variants.variant('typeDefault') {
     row-gap: var(--click-flyout-space-default-content-row-gap);
     column-gap: var(--click-flyout-space-default-content-column-gap);
     padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-content-x);
   }
 
-  &.typeInline {
+  @include variants.variant('typeInline') {
     row-gap: var(--click-flyout-space-inline-content-row-gap);
     column-gap: var(--click-flyout-space-inline-content-column-gap);
     padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-content-x);

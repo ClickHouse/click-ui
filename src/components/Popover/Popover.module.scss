@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiTrigger {
   background: inherit;
@@ -17,7 +18,7 @@
   border-radius: var(--click-popover-radii-all);
   box-shadow: var(--click-popover-shadow-default);
 
-  &.cuiShowClose {
+  @include variants.variant('cuiShowClose') {
     padding-top: 1rem;
   }
 }

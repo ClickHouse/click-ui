@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiTooltipContent {
   display: flex;
@@ -9,10 +10,10 @@
   border-radius: var(--click-tooltip-radii-all);
   font: var(--click-tooltip-typography-label-default);
   white-space: pre-wrap;
-}
 
-.cuiTooltipContentWithMaxWidth {
-  max-width: var(--max-width);
+  @include variants.variant('cuiTooltipContentWithMaxWidth') {
+    max-width: var(--max-width);
+  }
 }
 
 .cuiTooltipArrow {

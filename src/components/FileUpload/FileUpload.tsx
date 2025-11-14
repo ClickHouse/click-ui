@@ -95,7 +95,6 @@ export const FileUpload = ({
 
     dragCounterRef.current -= 1;
 
-    // Only set to false when left the container
     if (dragCounterRef.current <= 0) {
       setIsDragging(false);
       dragCounterRef.current = 0;
@@ -107,7 +106,6 @@ export const FileUpload = ({
     e.stopPropagation();
   }, []);
 
-  // Reset state when drag ends anywhere in the document
   useEffect(() => {
     const handleDragEnd = () => {
       setIsDragging(false);
@@ -228,7 +226,6 @@ export const FileUpload = ({
             <Icon
               name="upload"
               className={commonStyles.iconSizeMd}
-              disableDefaultSize
             />
             <div
               className={clsx(styles.cuiUploadText, {
@@ -277,7 +274,6 @@ export const FileUpload = ({
               <Icon
                 name={"document"}
                 className={commonStyles.iconSizeSm}
-                disableDefaultSize
               />
               <div className={commonStyles.fileDetails}>
                 <Text size={"md"}>{truncateFilename(file.name)}</Text>

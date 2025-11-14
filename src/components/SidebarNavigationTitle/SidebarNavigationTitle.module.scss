@@ -1,21 +1,14 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiSidebarTitleWrapper {
-  display: inline-flex;
-  align-items: center;
+  @include mixins.cuiSidebarItemBase;
   background: transparent;
-  border: none;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  white-space: nowrap;
-  overflow: hidden;
-  cursor: pointer;
   padding: 0;
+  display: inline-flex;
 
-  // Base styles for main type
-  &.cuiMain {
+  /* Base styles for main type */
+  @include variants.variant('cuiMain') {
     font: var(--click-sidebar-navigation-title-typography-default);
     color: var(--click-sidebar-main-navigation-title-color-default);
 
@@ -25,15 +18,15 @@
     }
 
     &:active,
-    &.cuiSelected,
-    &.open {
+    &[data-selected="true"],
+    &[data-open="true"] {
       font: var(--click-sidebar-navigation-title-typography-active);
       color: var(--click-sidebar-main-navigation-title-color-active);
     }
   }
 
-  // Base styles for sqlSidebar type
-  &.cuiSqlSidebar {
+  /* Base styles for sqlSidebar type */
+  @include variants.variant('cuiSqlSidebar') {
     font: var(--click-sidebar-navigation-title-typography-default);
     color: var(--click-sidebar-sqlSidebar-navigation-title-color-default);
 
@@ -43,14 +36,14 @@
     }
 
     &:active,
-    &.cuiSelected,
-    &.open {
+    &[data-selected="true"],
+    &[data-open="true"] {
       font: var(--click-sidebar-navigation-title-typography-active);
       color: var(--click-sidebar-sqlSidebar-navigation-title-color-active);
     }
   }
 
-  // Collapsible padding adjustment
+  /* Collapsible padding adjustment */
   &:not(.cuiCollapsible) {
     padding-left: var(--click-image-sm-size-width);
   }

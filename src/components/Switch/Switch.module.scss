@@ -1,36 +1,25 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 // Wrapper styles (equivalent to FormRoot)
 .cuiWrapper {
-  @include mixins.cuiContainerBase;
-  align-items: center;
-  max-width: fit-content;
-  width: 100%;
-  gap: var(--click-field-space-gap);
+  @include mixins.cuiFormRoot($align: center, $maxWidth: fit-content);
 
-  // Base styles for all children
-  * {
-    box-shadow: none;
-    outline: none;
+  // Orientation variants - using :where() for low specificity
+  @include variants.variant('cuiOrientationHorizontal') {
+    flex-direction: row;
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: row-reverse;
+    }
   }
-}
 
-// Orientation and direction handling
-.cuiWrapper.cuiHorizontal {
-  flex-direction: row;
-  align-items: flex-start;
+  @include variants.variant('cuiOrientationVertical') {
+    flex-direction: column;
 
-  &.cuiDirStart {
-    flex-direction: row-reverse;
-  }
-}
-
-.cuiWrapper.cuiVertical {
-  flex-direction: column;
-  align-items: flex-start;
-
-  &.cuiDirStart {
-    flex-direction: column-reverse;
+    @include variants.variant('cuiDirStart') {
+      flex-direction: column-reverse;
+    }
   }
 }
 
@@ -47,14 +36,13 @@
   background-color: var(--click-switch-color-background-default);
   border: 1px solid var(--click-switch-color-stroke-default);
 
-  // Checked state
-  &.cuiChecked {
+  // State variants - using :where() for low specificity
+  @include variants.variant('cuiChecked') {
     background-color: var(--click-switch-color-background-active);
     border: 1px solid var(--click-switch-color-stroke-active);
   }
 
-  // Disabled state
-  &.cuiDisabled {
+  @include variants.variant('cuiDisabled') {
     background-color: var(--click-switch-color-background-disabled);
     border: 1px solid var(--click-switch-color-stroke-disabled);
     cursor: not-allowed;
@@ -74,20 +62,19 @@
   transform: translateX(2px);
   background-color: var(--click-switch-color-indicator-default);
 
-  // Checked state
-  &.cuiChecked {
+  // State variants - using :where() for low specificity
+  @include variants.variant('cuiChecked') {
     transform: translateX(15px);
     background-color: var(--click-switch-color-indicator-active);
   }
 
-  // Disabled state
-  &.cuiDisabled {
+  @include variants.variant('cuiDisabled') {
     background-color: var(--click-switch-color-indicator-disabled);
-  }
 
-  // Checked and disabled state
-  &.cuiChecked.cuiDisabled {
-    transform: translateX(15px);
-    background-color: var(--click-switch-color-indicator-disabled);
+    // Checked and disabled - nested variant
+    @include variants.variant('cuiChecked') {
+      transform: translateX(15px);
+      background-color: var(--click-switch-color-indicator-disabled);
+    }
   }
 }

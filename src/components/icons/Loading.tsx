@@ -44,8 +44,8 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
 
 const LoadingFlipped = (props: SVGAttributes<SVGElement>) => (
   <Loading
-    className={clsx(styles.cuiLoadingFlipped, props.className)}
     {...props}
+    className={clsx(styles.cuiLoadingFlipped, props.className)}
   />
 );
 

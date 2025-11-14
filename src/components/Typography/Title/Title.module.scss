@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiTitle {
   margin: 0;
@@ -13,78 +14,78 @@
   a:hover {
     color: var(--click-global-color-title-muted);
   }
-}
 
-// Font styles for product family
-.cuiFontSizeProductXs {
-  font: var(--typography-styles-product-titles-xs);
-}
+  /* Font styles for product family */
+  @include variants.variant('cuiFontSizeProductXs') {
+    font: var(--typography-styles-product-titles-xs);
+  }
 
-.cuiFontSizeProductSm {
-  font: var(--typography-styles-product-titles-sm);
-}
+  @include variants.variant('cuiFontSizeProductSm') {
+    font: var(--typography-styles-product-titles-sm);
+  }
 
-.cuiFontSizeProductMd {
-  font: var(--typography-styles-product-titles-md);
-}
+  @include variants.variant('cuiFontSizeProductMd') {
+    font: var(--typography-styles-product-titles-md);
+  }
 
-.cuiFontSizeProductLg {
-  font: var(--typography-styles-product-titles-lg);
-}
+  @include variants.variant('cuiFontSizeProductLg') {
+    font: var(--typography-styles-product-titles-lg);
+  }
 
-.cuiFontSizeProductXl {
-  font: var(--typography-styles-product-titles-xl);
-}
+  @include variants.variant('cuiFontSizeProductXl') {
+    font: var(--typography-styles-product-titles-xl);
+  }
 
-// Font styles for brand family
-.cuiFontSizeBrandXs {
-  font: var(--typography-styles-brand-titles-xs);
-}
+  /* Font styles for brand family */
+  @include variants.variant('cuiFontSizeBrandXs') {
+    font: var(--typography-styles-brand-titles-xs);
+  }
 
-.cuiFontSizeBrandSm {
-  font: var(--typography-styles-brand-titles-sm);
-}
+  @include variants.variant('cuiFontSizeBrandSm') {
+    font: var(--typography-styles-brand-titles-sm);
+  }
 
-.cuiFontSizeBrandMd {
-  font: var(--typography-styles-brand-titles-md);
-}
+  @include variants.variant('cuiFontSizeBrandMd') {
+    font: var(--typography-styles-brand-titles-md);
+  }
 
-.cuiFontSizeBrandLg {
-  font: var(--typography-styles-brand-titles-lg);
-}
+  @include variants.variant('cuiFontSizeBrandLg') {
+    font: var(--typography-styles-brand-titles-lg);
+  }
 
-.cuiFontSizeBrandXl {
-  font: var(--typography-styles-brand-titles-xl);
-}
+  @include variants.variant('cuiFontSizeBrandXl') {
+    font: var(--typography-styles-brand-titles-xl);
+  }
 
-// Title colors
-.cuiColorDefault {
-  color: var(--click-global-color-title-default);
-
-  a,
-  a:visited {
+  /* Title colors */
+  @include variants.variant('cuiColorDefault') {
     color: var(--click-global-color-title-default);
+
+    a,
+    a:visited {
+      color: var(--click-global-color-title-default);
+    }
   }
-}
 
-.cuiColorMuted {
-  color: var(--click-global-color-title-muted);
-
-  a,
-  a:visited {
+  @include variants.variant('cuiColorMuted') {
     color: var(--click-global-color-title-muted);
+
+    a,
+    a:visited {
+      color: var(--click-global-color-title-muted);
+    }
   }
-}
 
-// Text alignment
-.cuiAlignLeft {
-  text-align: left;
-}
+  /* Text alignment */
+  @include variants.variant('cuiAlignLeft') {
+    text-align: left;
+  }
 
-.cuiAlignCenter {
-  text-align: center;
-}
+  @include variants.variant('cuiAlignCenter') {
+    text-align: center;
+  }
 
-.cuiAlignRight {
-  text-align: right;
+  @include variants.variant('cuiAlignRight') {
+    text-align: right;
+  }
 }

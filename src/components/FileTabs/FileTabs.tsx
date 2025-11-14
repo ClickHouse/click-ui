@@ -187,6 +187,7 @@ const Tab = ({
   status = "default",
   testId,
   preview,
+  className,
   ...props
 }: FileTabProps) => {
   const { selectedIndex, onClose: onCloseProp } = useSelect();
@@ -213,7 +214,7 @@ const Tab = ({
         [styles.cuiActive]: selectedIndex === index,
         [styles.cuiPreview]: preview,
         [styles.cuiDismissable]: true,
-      })}
+      }, className)}
       onMouseDown={onMouseDown}
       data-testid={testId ? `${testId}-${index}` : undefined}
       {...props}
@@ -252,6 +253,7 @@ export const FileTabElement = ({
   children,
   active = false,
   preview,
+  className,
   ...props
 }: FileTabElementProps) => {
   return (
@@ -260,7 +262,7 @@ export const FileTabElement = ({
         [styles.cuiActive]: active,
         [styles.cuiPreview]: preview,
         [styles.cuiFixedTabElement]: true,
-      })}
+      }, className)}
       {...props}
     >
       {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
