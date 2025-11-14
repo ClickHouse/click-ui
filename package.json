@@ -7,7 +7,9 @@
   "sideEffects": [
     "**/*.css",
     "**/*.scss",
-    "./dist/style.css",
+    "./dist/cui.css",
+    "./dist/cui-components.css",
+    "./dist/cui-default-theme.css",
     "./src/theme/global.scss"
   ],
   "files": [
@@ -31,28 +33,10 @@
     "./theme": {
       "types": "./dist/theme/index.d.ts"
     },
-    "./config": {
-      "types": "./dist/config/index.d.ts",
-      "import": "./dist/config/index.js",
-      "require": "./dist/config/index.js"
-    },
-    "./config/vite": {
-      "types": "./dist/config/vite.d.ts",
-      "import": "./dist/config/vite.js"
-    },
-    "./config/webpack": {
-      "types": "./dist/config/webpack.d.ts",
-      "import": "./dist/config/webpack.js"
-    },
-    "./config/rollup": {
-      "types": "./dist/config/rollup.d.ts",
-      "import": "./dist/config/rollup.js"
-    },
-    "./config/next": {
-      "types": "./dist/config/next.d.ts",
-      "import": "./dist/config/next.js"
-    },
-    "./style.css": "./dist/style.css"
+    "./cui.css": "./dist/cui.css",
+    "./cui-components.css": "./dist/cui-components.css",
+    "./cui-default-theme.css": "./dist/cui-default-theme.css",
+    "./style.css": "./dist/cui-components.css"
   },
   "main": "./dist/click-ui.umd.js",
   "module": "./dist/click-ui.es.js",
@@ -68,9 +52,11 @@
   },
   "homepage": "https://clickhouse.com",
   "scripts": {
-    "build": "tsc && npm run build:config && vite build && npm run build:bundled",
+    "build": "npm run generate-theme-css && tsc && vite build && npm run build:bundled && npm run copy-css-files",
     "build:bundled": "vite build -- bundled",
-    "build:config": "tsc --project tsconfig.config.json",
+    "copy-css-files": "npm run rename-css && cp src/styles/cui-default-theme.css dist/ && npm run build-combined-css",
+    "rename-css": "mv dist/style.css dist/cui-components.css",
+    "build-combined-css": "echo '/* Click UI - Combined CSS */\n@import \"./cui-default-theme.css\";\n@import \"./cui-components.css\";' > dist/cui.css",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
     "chromatic": "npx chromatic",
