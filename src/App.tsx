@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 
 import "@/styles/globals.css";
-
 import styles from "./App.module.scss";
 import { ThemeName } from "@/theme";
 import { ClickUIProvider } from "@/theme/ClickUIProvider";
@@ -109,7 +108,6 @@ const App = () => {
       >
         <button
           onClick={() => {
-            // Theme switching would now be handled by CSS variable updates
             document.body.style.backgroundColor = "black";
             setCurrentTheme("dark");
           }}
@@ -118,7 +116,6 @@ const App = () => {
         </button>
         <button
           onClick={() => {
-            // Theme switching would now be handled by CSS variable updates
             document.body.style.backgroundColor = "white";
             setCurrentTheme("light");
           }}
@@ -127,7 +124,6 @@ const App = () => {
         </button>
         <button
           onClick={() => {
-            // Theme switching would now be handled by CSS variable updates
             setCurrentTheme("system");
           }}
         >
