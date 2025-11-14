@@ -59,6 +59,65 @@
   padding: var(--click-container-padding-#{$padding});
 }
 
+/* Full-width stretch mixin - cross-browser support for width: stretch */
+@mixin cuiFullWidthStretch {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+}
+
+/* Full max-width stretch mixin - cross-browser support for max-width: stretch */
+@mixin cuiFullMaxWidthStretch {
+  max-width: 100%;
+  max-width: -moz-available;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+}
+
+/* Interactive container base - for clickable/hoverable items */
+@mixin cuiInteractiveContainer {
+  cursor: pointer;
+  pointer-events: all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Sidebar item base - common styles for sidebar navigation items */
+@mixin cuiSidebarItemBase {
+  display: flex;
+  align-items: center;
+  border: none;
+  @include cuiFullWidthStretch;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+// Form root mixin - base styles for form field containers
+@mixin cuiFormRoot($align: flex-start, $maxWidth: null) {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  gap: var(--click-field-space-gap);
+  align-items: $align;
+
+  @if $maxWidth {
+    max-width: $maxWidth;
+  }
+
+  /* Reset box-shadow and outline for all children */
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
 // Card mixins
 @mixin cuiCardBase {
   display: flex;
@@ -74,7 +133,7 @@
   border-color: var(--click-card-#{$color}-color-stroke-#{$state});
 }
 
-// Input mixins
+/* Input mixins - for custom input styling using click.input tokens */
 @mixin cuiInputBase {
   display: flex;
   align-items: center;
@@ -88,11 +147,21 @@
   &:focus-within {
     border-color: var(--click-input-color-stroke-focus);
     background: var(--click-input-color-background-focus);
+    color: var(--click-input-color-text-focus);
   }
 
-  &:hover {
+  &:hover:not(:focus-within) {
     border-color: var(--click-input-color-stroke-hover);
     background: var(--click-input-color-background-hover);
+    color: var(--click-input-color-text-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    border-color: var(--click-input-color-stroke-disabled);
+    background: var(--click-input-color-background-disabled);
+    color: var(--click-input-color-text-disabled);
+    cursor: not-allowed;
   }
 }
 
@@ -106,6 +175,90 @@
   border-color: var(--click-input-color-stroke-#{$state});
   background: var(--click-input-color-background-#{$state});
   color: var(--click-input-color-text-#{$state});
+}
+
+/* Input element mixin - for the actual input element inside wrapper */
+@mixin cuiInputElement {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  padding: var(--click-field-space-y) 0;
+
+  &::placeholder {
+    color: var(--click-field-color-placeholder-default);
+  }
+
+  &:disabled,
+  &.disabled {
+    &::placeholder {
+      color: var(--click-field-color-placeholder-disabled);
+    }
+  }
+}
+
+/* Generic menu item mixin - for menu items in ContextMenu, DropdownMenu, etc. */
+@mixin cuiGenericMenuItem {
+  display: flex;
+  @include cuiFullWidthStretch;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  outline: none;
+  position: relative;
+
+  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+  gap: var(--click-genericMenu-item-space-gap);
+  font: var(--click-genericMenu-item-typography-label-default);
+  background: var(--click-genericMenu-item-color-background-default);
+  color: var(--click-genericMenu-item-color-text-default);
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[data-highlighted] {
+    font: var(--click-genericMenu-item-typography-label-hover);
+    background: var(--click-genericMenu-item-color-background-hover);
+    color: var(--click-genericMenu-item-color-text-hover);
+    cursor: pointer;
+  }
+
+  &[data-state="open"],
+  &[data-state="checked"],
+  &[data-selected="true"] {
+    background: var(--click-genericMenu-item-color-background-active);
+    color: var(--click-genericMenu-item-color-text-active);
+    font: var(--click-genericMenu-item-typography-label-active);
+  }
+
+  &[data-disabled] {
+    color: var(--click-genericMenu-item-color-text-disabled);
+    font: var(--click-genericMenu-item-typography-label-disabled);
+    pointer-events: none;
+  }
+
+  &:visited {
+    color: var(--click-genericMenu-item-color-text-default);
+
+    a {
+      color: var(--click-genericMenu-item-color-text-default);
+    }
+  }
+
+  &:hover .dropdown-arrow,
+  &[data-state="open"] .dropdown-arrow {
+    left: 0.5rem;
+  }
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 // Typography mixins
@@ -129,6 +282,19 @@
 
 @mixin cuiIconColor($color) {
   color: var(--click-icon-color-text-#{$color});
+}
+
+// SVG Image Element mixin - wrapper for SVG elements
+@mixin cuiSvgImageElement {
+  display: flex;
+  align-items: center;
+
+  // Child SVG inherits dimensions from wrapper
+  > svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 }
 
 // Grid mixins

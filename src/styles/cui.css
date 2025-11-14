@@ -1,0 +1,16 @@
+/**
+ * Click UI - Combined CSS
+ *
+ * This file imports both component styles and theme variables.
+ * Use this for simple setup with default theme.
+ *
+ * For custom themes, import cui-components.css and your custom theme instead:
+ * import '@clickhouse/click-ui/cui-components.css';
+ * import './my-custom-theme.css';
+ */
+
+/* Theme variables (primitives + component tokens with light-dark()) */
+@import './cui-default-theme.css';
+
+/* Component styles (all component CSS without variables) */
+/* Note: This will be replaced with the built cui-components.css at build time */

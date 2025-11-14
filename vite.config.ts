@@ -17,8 +17,6 @@ const externalLibraries = [
   "**/*.test.ts",
   "**/*.test.tsx",
   "react/jsx-runtime",
-  // Note: "click-ui-config" is intentionally NOT external
-  // It's loaded via optional dynamic import with graceful fallback
 ];
 
 const buildOptions: BuildOptions = {
