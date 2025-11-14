@@ -1,7 +1,8 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiCollapsibleContainer {
-  width: 100%;
+  @include mixins.cuiFullWidthStretch;
 
   [data-trigger-icon] {
     visibility: hidden;
@@ -18,13 +19,15 @@
 }
 
 .cuiHeaderContainer {
+  display: flex;
+  align-items: center;
   user-select: none;
 
-  &.cuiIndicatorStart {
+  @include variants.variant('cuiIndicatorDirStart') {
     margin-left: 0;
   }
 
-  &.cuiIndicatorEnd {
+  @include variants.variant('cuiIndicatorDirEnd') {
     margin-left: var(--click-image-sm-size-width);
   }
 }
@@ -37,11 +40,11 @@
 }
 
 .cuiContentWrapper {
-  &.cuiIndicatorStart {
+  @include variants.variant('cuiIndicatorDirStart') {
     margin-left: var(--click-image-sm-size-width);
   }
 
-  &.cuiIndicatorEnd {
+  @include variants.variant('cuiIndicatorDirEnd') {
     margin-right: var(--click-image-sm-size-width);
   }
 }

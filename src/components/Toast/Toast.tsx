@@ -2,8 +2,9 @@
 
 import { ReactNode, createContext, useEffect, useState } from "react";
 import * as RadixUIToast from "@radix-ui/react-toast";
-import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
 import clsx from "clsx";
+import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
+import { capitalize } from "../../utils/capitalize";
 import { toastsEventEmitter } from "./toastEmitter";
 import styles from "./Toast.module.scss";
 
@@ -54,6 +55,9 @@ export const Toast = ({
   } else if (type && ["danger", "warning"].includes(type)) {
     iconName = "warning";
   }
+
+  const typeClass = type ? `cuiType${capitalize(type)}` : '';
+
   return (
     <RadixUIToast.Root
       className={styles.cuiToastRoot}
@@ -66,12 +70,8 @@ export const Toast = ({
         {iconName.length > 0 && (
           <Icon
             name={iconName as IconName}
-            className={clsx(styles.cuiToastIcon, {
-              [styles.cuiIconDefault]: type === "default",
-              [styles.cuiIconSuccess]: type === "success",
-              [styles.cuiIconDanger]: type === "danger",
-              [styles.cuiIconWarning]: type === "warning",
-            })}
+            className={clsx(styles.cuiToastIcon, type && styles[typeClass])}
+            data-cui-type={type}
           />
         )}
         <div className={styles.cuiTitle}>{title}</div>
@@ -180,10 +180,8 @@ export const ToastProvider = ({
         ))}
       </ToastContext.Provider>
       <RadixUIToast.Viewport
-        className={clsx(styles.cuiViewport, {
-          [styles.cuiAlignStart]: align === "start",
-          [styles.cuiAlignEnd]: align === "end",
-        })}
+        className={clsx(styles.cuiViewport, styles[`cuiAlign${capitalize(align)}`])}
+        data-cui-align={align}
       />
     </RadixUIToast.Provider>
   );

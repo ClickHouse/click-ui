@@ -4,6 +4,7 @@ import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { ImageName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
+import { capitalize } from "@/utils/capitalize";
 import styles from "./Badge.module.scss";
 
 export type BadgeState =
@@ -60,66 +61,33 @@ export const Badge = ({
   dismissible,
   onClose,
   ellipsisContent = true,
+  className,
   ...props
 }: BadgeProps) => {
-  const wrapperClasses = clsx(styles.cuiWrapper, {
-    [styles.cuiSm]: size === "sm",
-    [styles.cuiMd]: size === "md",
-    [styles.cuiOpaque]: type === "opaque",
-    [styles.cuiSolid]: type === "solid",
-    [styles.cuiDefault]: state === "default",
-    [styles.cuiSuccess]: state === "success",
-    [styles.cuiNeutral]: state === "neutral",
-    [styles.cuiDanger]: state === "danger",
-    [styles.cuiDisabled]: state === "disabled",
-    [styles.cuiWarning]: state === "warning",
-    [styles.cuiInfo]: state === "info",
-  });
-
-  const contentClasses = clsx(styles.cuiContent, {
-    [styles.cuiSm]: size === "sm",
-    [styles.cuiMd]: size === "md",
-  });
-
-  const badgeContentClasses = clsx(styles.cuiBadgeContent, {
-    [styles.cuiSm]: size === "sm",
-    [styles.cuiMd]: size === "md",
-    [styles.cuiOpaque]: type === "opaque",
-    [styles.cuiSolid]: type === "solid",
-    [styles.cuiDefault]: state === "default",
-    [styles.cuiSuccess]: state === "success",
-    [styles.cuiNeutral]: state === "neutral",
-    [styles.cuiDanger]: state === "danger",
-    [styles.cuiDisabled]: state === "disabled",
-    [styles.cuiWarning]: state === "warning",
-    [styles.cuiInfo]: state === "info",
-  });
-
-  const closeIconClasses = clsx(styles.cuiCloseIcon, {
-    [styles.cuiSm]: size === "sm",
-    [styles.cuiMd]: size === "md",
-    [styles.cuiOpaque]: type === "opaque",
-    [styles.cuiSolid]: type === "solid",
-    [styles.cuiDefault]: state === "default",
-    [styles.cuiSuccess]: state === "success",
-    [styles.cuiNeutral]: state === "neutral",
-    [styles.cuiDanger]: state === "danger",
-    [styles.cuiDisabled]: state === "disabled",
-    [styles.cuiWarning]: state === "warning",
-    [styles.cuiInfo]: state === "info",
-  });
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const typeClass = `cuiType${capitalize(type)}`;
+  const stateClass = `cuiState${capitalize(state)}`;
 
   return (
     <div
-      className={wrapperClasses}
+      className={clsx(
+        styles.cuiWrapper,
+        styles[sizeClass],
+        styles[typeClass],
+        styles[stateClass],
+        className
+      )}
+      data-cui-size={size}
+      data-cui-type={type}
+      data-cui-state={state}
       {...props}
     >
       <div
-        className={contentClasses}
+        className={styles.cuiContent}
         data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}
       >
         <IconWrapper
-          className={badgeContentClasses}
+          className={styles.cuiBadgeContent}
           icon={icon}
           iconDir={iconDir}
           size={size}
@@ -130,7 +98,7 @@ export const Badge = ({
         {dismissible && (
           <Icon
             name="cross"
-            className={closeIconClasses}
+            className={styles.cuiCloseIcon}
             onClick={onClose}
             aria-label="close"
           />

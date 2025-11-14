@@ -1,6 +1,7 @@
 import { Label } from "@/components";
 import React, { ReactNode } from "react";
 import clsx from "clsx";
+import { capitalize } from "@/utils/capitalize";
 import styles from "./InputWrapper.module.scss";
 
 const FormRoot = ({
@@ -21,15 +22,21 @@ const FormRoot = ({
     return dir === "start" ? "column-reverse" : "column";
   };
 
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const dirClass = `cuiDir${capitalize(dir)}`;
+
   return (
     <div
-      className={clsx(styles.cuiFormRoot, {
-        [styles.cuiVertical]: orientation === "vertical" && dir === "end",
-        [styles.cuiVerticalReversed]: orientation === "vertical" && dir === "start",
-        [styles.cuiHorizontal]: orientation === "horizontal" && dir === "end",
-        [styles.cuiHorizontalReversed]: orientation === "horizontal" && dir === "start",
-        [styles.cuiLabelPadding]: addLabelPadding && orientation === "horizontal",
-      })}
+      className={clsx(
+        styles.cuiFormRoot,
+        styles[orientationClass],
+        styles[dirClass],
+        {
+          [styles.cuiLabelPadding]: addLabelPadding && orientation === "horizontal",
+        }
+      )}
+      data-cui-orientation={orientation}
+      data-cui-dir={dir}
       style={{ flexDirection: getFlexDirection() }}
     >
       {children}
@@ -70,6 +77,8 @@ export const InputWrapper = ({
   dir,
   resize = "none",
 }: WrapperProps) => {
+  const resizeClass = resize !== "none" ? `cuiResize${capitalize(resize)}` : undefined;
+
   return (
     <FormRoot
       orientation={orientation}
@@ -78,14 +87,16 @@ export const InputWrapper = ({
     >
       <FormElementContainer>
         <div
-          className={clsx(styles.cuiWrapper, className, {
-            [styles.cuiError]: !!error,
-            [styles.cuiDisabled]: disabled,
-            [styles.cuiResizeVertical]: resize === "vertical",
-            [styles.cuiResizeHorizontal]: resize === "horizontal",
-            [styles.cuiResizeBoth]: resize === "both",
-          })}
-          data-resize={resize}
+          className={clsx(
+            styles.cuiWrapper,
+            {
+              [styles.cuiError]: !!error,
+              [styles.cuiDisabled]: disabled,
+              [styles[resizeClass!]]: resizeClass,
+            },
+            className
+          )}
+          data-cui-resize={resize}
         >
           {children}
         </div>
@@ -112,18 +123,26 @@ export interface InputElementProps extends React.InputHTMLAttributes<HTMLInputEl
 }
 
 export const InputElement = React.forwardRef<HTMLInputElement, InputElementProps>(
-  ({ hasStartContent, hasEndContent, className, ...props }, ref) => (
-    <input
-      className={clsx(styles.cuiInputElement, className, {
-        [styles.cuiInputWithStartContent]: hasStartContent && !hasEndContent,
-        [styles.cuiInputWithEndContent]: !hasStartContent && hasEndContent,
-        [styles.cuiInputNoPadding]: hasStartContent && hasEndContent,
-        [styles.cuiInputWithPadding]: !hasStartContent && !hasEndContent,
-      })}
-      ref={ref}
-      {...props}
-    />
-  )
+  ({ hasStartContent, hasEndContent, className, ...props }, ref) => {
+    const paddingType = hasStartContent && hasEndContent
+      ? "none"
+      : hasStartContent
+      ? "end"
+      : hasEndContent
+      ? "start"
+      : "both";
+
+    const paddingClass = `cuiPadding${capitalize(paddingType)}`;
+
+    return (
+      <input
+        className={clsx(styles.cuiInputElement, styles[paddingClass], className)}
+        data-cui-padding={paddingType}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
 );
 
 export interface NumberInputElementProps extends InputElementProps {

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { IconSize } from "@/components/Icon/types";
 import { Icon, IconName, Spacer, Text } from "@/components";
 import { ReactNode } from "react";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./Accordion.module.scss";
 
 type Size = "sm" | "md" | "lg";
@@ -45,27 +46,38 @@ const Accordion = ({
   gap,
   children,
   fillWidth = false,
+  className,
   ...delegated
-}: AccordionProps) => (
-  <RadixAccordion.Root
-    type="single"
-    collapsible
-    className={clsx(styles.cuiAccordion, {
-      [styles.cuiFillWidth]: fillWidth,
-    })}
-    {...delegated}
-  >
-    <RadixAccordion.Item value="item">
-      <RadixAccordion.Trigger
-        className={clsx(styles.cuiTrigger, {
-          [styles.cuiSm]: size === "sm",
-          [styles.cuiMd]: size === "md",
-          [styles.cuiLg]: size === "lg",
-          [styles.cuiDefault]: color === "default",
-          [styles.cuiLink]: color === "link",
+}: AccordionProps) => {
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const colorClass = `cuiColor${capitalize(color)}`;
+
+  return (
+    <RadixAccordion.Root
+      type="single"
+      collapsible
+      className={clsx(
+        styles.cuiAccordion,
+        {
           [styles.cuiFillWidth]: fillWidth,
-        })}
-      >
+        },
+        className
+      )}
+      data-cui-size={size}
+      data-cui-color={color}
+      {...delegated}
+    >
+      <RadixAccordion.Item value="item">
+        <RadixAccordion.Trigger
+          className={clsx(
+            styles.cuiTrigger,
+            styles[sizeClass],
+            styles[colorClass],
+            {
+              [styles.cuiFillWidth]: fillWidth,
+            }
+          )}
+        >
         <div className={styles.cuiIconsWrapper}>
           <div className={styles.cuiIconWrapper}>
             <Icon
@@ -95,7 +107,8 @@ const Accordion = ({
       </RadixAccordion.Content>
     </RadixAccordion.Item>
   </RadixAccordion.Root>
-);
+  );
+};
 
 const SidebarAccordion = (props: AccordionProps) => (
   <div className={styles.cuiSidebarAccordion}>

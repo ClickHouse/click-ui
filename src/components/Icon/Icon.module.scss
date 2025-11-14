@@ -1,186 +1,175 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiIconWrapper {
   display: flex;
   align-items: center;
 
-  // SVG inherits dimensions from wrapper
+  /* SVG inherits dimensions from wrapper */
   > svg {
     width: 100%;
     height: 100%;
     display: block;
   }
 
-  // Icon sizing - applied to wrapper
-  &.cuiSizeXs {
+  /* Icon sizing - applied to wrapper using :where() for low specificity */
+  @include variants.variant('cuiSizeXs') {
     width: var(--click-image-xs-size-width, 12px);
     height: var(--click-image-xs-size-height, 12px);
   }
 
-  &.cuiSizeSm {
+  @include variants.variant('cuiSizeSm') {
     width: var(--click-image-sm-size-width, 16px);
     height: var(--click-image-sm-size-height, 16px);
   }
 
-  &.cuiSizeMd {
+  @include variants.variant('cuiSizeMd') {
     width: var(--click-image-md-size-width, 24px);
     height: var(--click-image-md-size-height, 24px);
   }
 
-  &.cuiSizeLg {
+  @include variants.variant('cuiSizeLg') {
     width: var(--click-image-lg-size-width, 32px);
     height: var(--click-image-lg-size-height, 32px);
   }
 
-  &.cuiSizeXl {
+  @include variants.variant('cuiSizeXl') {
     width: var(--click-image-xl-size-width, 48px);
     height: var(--click-image-xl-size-height, 48px);
   }
 
-  &.cuiSizeXxl {
+  @include variants.variant('cuiSizeXxl') {
     width: var(--click-image-xxl-size-width, 64px);
     height: var(--click-image-xxl-size-height, 64px);
   }
 
-  // Icon states with background and padding
-  &.cuiStateDefault {
+  /* Icon states with background and padding using :where() for low specificity */
+  @include variants.variant('cuiStateDefault') {
     background: transparent;
     padding: 0;
   }
 
-  &.cuiStateSuccess {
+  @include variants.variant('cuiStateSuccess') {
     background: var(--click-icon-color-background-success);
     color: var(--click-icon-color-text-success);
     border-radius: var(--border-radii-full);
 
-    &.cuiSizeXs {
+    @include variants.variant('cuiSizeXs') {
       padding: var(--click-icon-space-xs-all);
     }
 
-    &.cuiSizeSm {
+    @include variants.variant('cuiSizeSm') {
       padding: var(--click-icon-space-sm-all);
     }
 
-    &.cuiSizeMd {
+    @include variants.variant('cuiSizeMd') {
       padding: var(--click-icon-space-md-all);
     }
 
-    &.cuiSizeLg {
+    @include variants.variant('cuiSizeLg') {
       padding: var(--click-icon-space-lg-all);
     }
 
-    &.cuiSizeXl {
+    @include variants.variant('cuiSizeXl') {
       padding: var(--click-icon-space-xl-all);
     }
 
-    &.cuiSizeXxl {
+    @include variants.variant('cuiSizeXxl') {
       padding: var(--click-icon-space-xxl-all);
     }
   }
 
-  &.cuiStateWarning {
+  @include variants.variant('cuiStateWarning') {
     background: var(--click-icon-color-background-warning);
     color: var(--click-icon-color-text-warning);
     border-radius: var(--border-radii-full);
 
-    &.cuiSizeXs {
+    @include variants.variant('cuiSizeXs') {
       padding: var(--click-icon-space-xs-all);
     }
 
-    &.cuiSizeSm {
+    @include variants.variant('cuiSizeSm') {
       padding: var(--click-icon-space-sm-all);
     }
 
-    &.cuiSizeMd {
+    @include variants.variant('cuiSizeMd') {
       padding: var(--click-icon-space-md-all);
     }
 
-    &.cuiSizeLg {
+    @include variants.variant('cuiSizeLg') {
       padding: var(--click-icon-space-lg-all);
     }
 
-    &.cuiSizeXl {
+    @include variants.variant('cuiSizeXl') {
       padding: var(--click-icon-space-xl-all);
     }
 
-    &.cuiSizeXxl {
+    @include variants.variant('cuiSizeXxl') {
       padding: var(--click-icon-space-xxl-all);
     }
   }
 
-  &.cuiStateDanger {
+  @include variants.variant('cuiStateDanger') {
     background: var(--click-icon-color-background-danger);
     color: var(--click-icon-color-text-danger);
     border-radius: var(--border-radii-full);
 
-    &.cuiSizeXs {
+    @include variants.variant('cuiSizeXs') {
       padding: var(--click-icon-space-xs-all);
     }
 
-    &.cuiSizeSm {
+    @include variants.variant('cuiSizeSm') {
       padding: var(--click-icon-space-sm-all);
     }
 
-    &.cuiSizeMd {
+    @include variants.variant('cuiSizeMd') {
       padding: var(--click-icon-space-md-all);
     }
 
-    &.cuiSizeLg {
+    @include variants.variant('cuiSizeLg') {
       padding: var(--click-icon-space-lg-all);
     }
 
-    &.cuiSizeXl {
+    @include variants.variant('cuiSizeXl') {
       padding: var(--click-icon-space-xl-all);
     }
 
-    &.cuiSizeXxl {
+    @include variants.variant('cuiSizeXxl') {
       padding: var(--click-icon-space-xxl-all);
     }
   }
 
-  &.cuiStateInfo {
+  @include variants.variant('cuiStateInfo') {
     background: var(--click-icon-color-background-info);
     color: var(--click-icon-color-text-info);
     border-radius: var(--border-radii-full);
 
-    &.cuiSizeXs {
+    @include variants.variant('cuiSizeXs') {
       padding: var(--click-icon-space-xs-all);
     }
 
-    &.cuiSizeSm {
+    @include variants.variant('cuiSizeSm') {
       padding: var(--click-icon-space-sm-all);
     }
 
-    &.cuiSizeMd {
+    @include variants.variant('cuiSizeMd') {
       padding: var(--click-icon-space-md-all);
     }
 
-    &.cuiSizeLg {
+    @include variants.variant('cuiSizeLg') {
       padding: var(--click-icon-space-lg-all);
     }
 
-    &.cuiSizeXl {
+    @include variants.variant('cuiSizeXl') {
       padding: var(--click-icon-space-xl-all);
     }
 
-    &.cuiSizeXxl {
+    @include variants.variant('cuiSizeXxl') {
       padding: var(--click-icon-space-xxl-all);
     }
   }
 
-  // Custom width and height overrides - applied to wrapper
-  &.cuiHasCustomWidth {
-    width: var(--icon-custom-width);
-  }
-
-  &.cuiHasCustomHeight {
-    height: var(--icon-custom-height);
-  }
-
-  // Icon color inheritance - wrapper color propagates to SVG via currentColor
-  color: var(--icon-color, currentColor);
-
-  // SVG elements inherit color from wrapper
+  /* SVG elements inherit color from wrapper */
   path[stroke]:not([stroke="none"]),
   svg[stroke]:not([stroke="none"]),
   rect[stroke]:not([stroke="none"]),

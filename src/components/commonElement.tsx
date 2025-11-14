@@ -83,13 +83,14 @@ export const BaseButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   />
 );
 
-interface SvgImageElementProps extends React.SVGAttributes<SVGSVGElement> {
+interface SvgImageElementProps extends HTMLAttributes<HTMLDivElement> {
   size?: IconSize;
 }
 
 export const SvgImageElement: React.FC<SvgImageElementProps> = ({
   size,
   className,
+  children,
   ...props
 }) => (
   <div
@@ -100,8 +101,9 @@ export const SvgImageElement: React.FC<SvgImageElementProps> = ({
       },
       className
     )}
+    {...props}
   >
-    <svg {...props} />
+    {children}
   </div>
 );
 

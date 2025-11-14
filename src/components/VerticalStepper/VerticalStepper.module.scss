@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiStepRoot {
   display: flex;
@@ -16,81 +17,74 @@
   padding: 0;
   box-sizing: content-box;
 
-  // Numbered stepper styles
-  &.cuiNumbered {
-    &.cuiActive {
-      row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
-      column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
+    row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
+    column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
+
+    @include variants.variant('cuiStatusActive') {
       padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-active);
     }
 
-    &:not(.cuiActive) {
-      row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
-      column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
+    &:not(:where(.cuiStatusActive)) {
       padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-default);
     }
 
-    &:not(:last-of-type) {
-      &::before {
-        content: "";
-        position: absolute;
-        top: var(--click-stepper-vertical-numbered-step-size-height);
-        height: 100%;
-        left: calc(var(--click-stepper-vertical-numbered-step-size-width) / 2);
-        width: var(--click-stepper-vertical-numbered-connector-size-width);
-        box-sizing: content-box;
-      }
+    &:not(:last-of-type)::before {
+      content: "";
+      position: absolute;
+      top: var(--click-stepper-vertical-numbered-step-size-height);
+      height: 100%;
+      left: calc(var(--click-stepper-vertical-numbered-step-size-width) / 2);
+      width: var(--click-stepper-vertical-numbered-connector-size-width);
+      box-sizing: content-box;
+    }
 
-      &.cuiComplete::before {
-        background: var(--click-stepper-vertical-numbered-connector-color-stroke-complete);
-      }
+    &:not(:last-of-type):where(.cuiStatusComplete)::before {
+      background: var(--click-stepper-vertical-numbered-connector-color-stroke-complete);
+    }
 
-      &.cuiActive::before {
-        background: var(--click-stepper-vertical-numbered-connector-color-stroke-active);
-      }
+    &:not(:last-of-type):where(.cuiStatusActive)::before {
+      background: var(--click-stepper-vertical-numbered-connector-color-stroke-active);
+    }
 
-      &.cuiIncomplete::before {
-        background: var(--click-stepper-vertical-numbered-connector-color-stroke-incomplete);
-      }
+    &:not(:last-of-type):where(.cuiStatusIncomplete)::before {
+      background: var(--click-stepper-vertical-numbered-connector-color-stroke-incomplete);
     }
   }
 
-  // Bulleted stepper styles
-  &.cuiBulleted {
-    &.cuiActive {
-      row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
-      column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+  @include variants.variant('cuiTypeBulleted') {
+    row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
+    column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+
+    @include variants.variant('cuiStatusActive') {
       padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-active);
     }
 
-    &:not(.cuiActive) {
-      row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
-      column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+    &:not(:where(.cuiStatusActive)) {
       padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-default);
     }
 
-    &:not(:last-of-type) {
-      &::before {
-        content: "";
-        position: absolute;
-        top: var(--click-stepper-vertical-bulleted-step-size-height);
-        height: 100%;
-        left: calc(var(--click-stepper-vertical-bulleted-step-size-width) / 2);
-        width: var(--click-stepper-vertical-bulleted-connector-size-width);
-        box-sizing: content-box;
-      }
+    &:not(:last-of-type)::before {
+      content: "";
+      position: absolute;
+      top: var(--click-stepper-vertical-bulleted-step-size-height);
+      height: 100%;
+      left: calc(var(--click-stepper-vertical-bulleted-step-size-width) / 2);
+      width: var(--click-stepper-vertical-bulleted-connector-size-width);
+      box-sizing: content-box;
+    }
 
-      &.cuiComplete::before {
-        background: var(--click-stepper-vertical-bulleted-connector-color-stroke-complete);
-      }
+    &:not(:last-of-type):where(.cuiStatusComplete)::before {
+      background: var(--click-stepper-vertical-bulleted-connector-color-stroke-complete);
+    }
 
-      &.cuiActive::before {
-        background: var(--click-stepper-vertical-bulleted-connector-color-stroke-active);
-      }
+    &:not(:last-of-type):where(.cuiStatusActive)::before {
+      background: var(--click-stepper-vertical-bulleted-connector-color-stroke-active);
+    }
 
-      &.cuiIncomplete::before {
-        background: var(--click-stepper-vertical-bulleted-connector-color-stroke-incomplete);
-      }
+    &:not(:last-of-type):where(.cuiStatusIncomplete)::before {
+      background: var(--click-stepper-vertical-bulleted-connector-color-stroke-incomplete);
     }
   }
 }
@@ -105,15 +99,16 @@
   gap: inherit;
   flex-direction: row;
 
-  &.cuiComplete {
+  // Status variants - using :where() for low specificity
+  @include variants.variant('cuiStatusComplete') {
     cursor: pointer;
   }
 
-  &.cuiActive {
+  @include variants.variant('cuiStatusActive') {
     cursor: default;
   }
 
-  &.cuiIncomplete {
+  @include variants.variant('cuiStatusIncomplete') {
     cursor: not-allowed;
   }
 }
@@ -129,31 +124,31 @@
   counter-increment: vertical-stepper;
   box-sizing: content-box;
 
-  // Numbered stepper bubble styles
-  &.cuiNumbered {
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
     width: var(--click-stepper-vertical-numbered-step-size-width);
     height: var(--click-stepper-vertical-numbered-step-size-width);
     border-radius: var(--click-stepper-vertical-numbered-step-radii-default);
 
-    &.cuiComplete {
+    @include variants.variant('cuiStatusComplete') {
       background: var(--click-stepper-vertical-numbered-step-color-background-complete);
       border-color: var(--click-stepper-vertical-numbered-step-color-stroke-complete);
       color: var(--click-stepper-vertical-numbered-step-color-icon-complete);
     }
 
-    &.cuiActive {
+    @include variants.variant('cuiStatusActive') {
       background: var(--click-stepper-vertical-numbered-step-color-background-active);
       border-color: var(--click-stepper-vertical-numbered-step-color-stroke-active);
       color: var(--click-stepper-vertical-numbered-step-color-icon-active);
     }
 
-    &.cuiIncomplete {
+    @include variants.variant('cuiStatusIncomplete') {
       background: var(--click-stepper-vertical-numbered-step-color-background-incomplete);
       border-color: var(--click-stepper-vertical-numbered-step-color-stroke-incomplete);
       color: var(--click-stepper-vertical-numbered-step-color-icon-incomplete);
     }
 
-    &:not(.cuiComplete)::before {
+    &:not(:where(.cuiStatusComplete))::before {
       box-sizing: content-box;
       font: inherit;
       color: inherit;
@@ -161,13 +156,12 @@
     }
   }
 
-  // Bulleted stepper bubble styles
-  &.cuiBulleted {
+  @include variants.variant('cuiTypeBulleted') {
     width: var(--click-stepper-vertical-bulleted-step-size-width);
     height: var(--click-stepper-vertical-bulleted-step-size-width);
     border-radius: var(--click-stepper-vertical-bulleted-step-radii-default);
 
-    &.cuiComplete {
+    @include variants.variant('cuiStatusComplete') {
       background: var(--click-stepper-vertical-bulleted-step-color-background-complete);
       border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-complete);
       color: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
@@ -183,13 +177,13 @@
       }
     }
 
-    &.cuiActive {
+    @include variants.variant('cuiStatusActive') {
       background: var(--click-stepper-vertical-bulleted-step-color-background-active);
       border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-active);
       color: var(--click-stepper-vertical-bulleted-step-color-icon-active);
     }
 
-    &.cuiIncomplete {
+    @include variants.variant('cuiStatusIncomplete') {
       background: var(--click-stepper-vertical-bulleted-step-color-background-incomplete);
       border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-incomplete);
       color: var(--click-stepper-vertical-bulleted-step-color-icon-incomplete);
@@ -210,38 +204,35 @@
   flex-direction: column;
   gap: inherit;
 
-  // Numbered stepper label styles
-  &.cuiNumbered {
-    &.cuiComplete {
-      font: var(--click-stepper-vertical-numbered-typography-title-default);
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
+    font: var(--click-stepper-vertical-numbered-typography-title-default);
+
+    @include variants.variant('cuiStatusComplete') {
       color: var(--click-stepper-vertical-numbered-color-title-complete);
     }
 
-    &.cuiActive {
-      font: var(--click-stepper-vertical-numbered-typography-title-default);
+    @include variants.variant('cuiStatusActive') {
       color: var(--click-stepper-vertical-numbered-color-title-active);
     }
 
-    &.cuiIncomplete {
-      font: var(--click-stepper-vertical-numbered-typography-title-default);
+    @include variants.variant('cuiStatusIncomplete') {
       color: var(--click-stepper-vertical-numbered-color-title-incomplete);
     }
   }
 
-  // Bulleted stepper label styles
-  &.cuiBulleted {
-    &.cuiComplete {
-      font: var(--click-stepper-vertical-bulleted-typography-title-default);
+  @include variants.variant('cuiTypeBulleted') {
+    font: var(--click-stepper-vertical-bulleted-typography-title-default);
+
+    @include variants.variant('cuiStatusComplete') {
       color: var(--click-stepper-vertical-bulleted-color-title-complete);
     }
 
-    &.cuiActive {
-      font: var(--click-stepper-vertical-bulleted-typography-title-default);
+    @include variants.variant('cuiStatusActive') {
       color: var(--click-stepper-vertical-bulleted-color-title-active);
     }
 
-    &.cuiIncomplete {
-      font: var(--click-stepper-vertical-bulleted-typography-title-default);
+    @include variants.variant('cuiStatusIncomplete') {
       color: var(--click-stepper-vertical-bulleted-color-title-incomplete);
     }
   }
@@ -252,13 +243,12 @@
   width: 100%;
   flex-direction: column;
 
-  // Numbered stepper content styles
-  &.cuiNumbered {
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
     padding-left: var(--click-stepper-vertical-numbered-content-space-left);
   }
 
-  // Bulleted stepper content styles
-  &.cuiBulleted {
+  @include variants.variant('cuiTypeBulleted') {
     padding-left: var(--click-stepper-vertical-bulleted-content-space-left);
   }
 }

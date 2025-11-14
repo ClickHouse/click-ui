@@ -102,6 +102,7 @@ const _GridContainer = <T extends ElementType = "div">(
     minWidth,
     overflow,
     component,
+    className,
     ...props
   }: PolymorphicProps<T, GridContainerProps<T>>,
   ref: PolymorphicRef<T>
@@ -124,7 +125,7 @@ const _GridContainer = <T extends ElementType = "div">(
       [styles[`cuiColumnGap${columnGap ? capitalize(columnGap) : ""}`]]: columnGap,
       [styles[`cuiRowGap${rowGap ? capitalize(rowGap) : ""}`]]: rowGap,
     },
-    props.className
+    className
   );
 
   const containerStyle: React.CSSProperties = {

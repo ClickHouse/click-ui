@@ -3,6 +3,7 @@
 import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
 import clsx from "clsx";
 import { Icon } from "@/components";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./VerticalStepper.module.scss";
 
 type StepperType = "numbered" | "bulleted";
@@ -22,6 +23,7 @@ export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
 const VerticalStepper = ({
   children,
   type = "numbered",
+  className,
   ...props
 }: VerticalStepperProps) => {
   const value = {
@@ -29,7 +31,7 @@ const VerticalStepper = ({
   };
   return (
     <div
-      className={styles.cuiStepRoot}
+      className={clsx(styles.cuiStepRoot, className)}
       {...props}
     >
       <StepperContext.Provider value={value}>{children}</StepperContext.Provider>
@@ -54,37 +56,31 @@ const VerticalStep = ({
   label,
   collapsed = true,
   disabled,
+  className,
   ...props
 }: VerticalStepProps) => {
   const { type } = useContext(StepperContext);
   const isOpen = !collapsed || status === "active";
+
+  const typeClass = `cuiType${capitalize(type)}`;
+  const statusClass = `cuiStatus${capitalize(status)}`;
+
   return (
     <div
-      className={clsx(styles.cuiStepItem, {
-        [styles.cuiNumbered]: type === "numbered",
-        [styles.cuiBulleted]: type === "bulleted",
-        [styles.cuiComplete]: status === "complete",
-        [styles.cuiActive]: status === "active",
-        [styles.cuiIncomplete]: status === "incomplete",
-      })}
+      className={clsx(styles.cuiStepItem, styles[typeClass], styles[statusClass])}
+      data-cui-type={type}
+      data-cui-status={status}
     >
       <button
         disabled={status === "incomplete" || disabled}
-        className={clsx(styles.cuiStepTrigger, {
-          [styles.cuiComplete]: status === "complete",
-          [styles.cuiActive]: status === "active",
-          [styles.cuiIncomplete]: status === "incomplete",
-        })}
+        className={clsx(styles.cuiStepTrigger, styles[statusClass], className)}
+        data-cui-status={status}
         {...props}
       >
         <div
-          className={clsx(styles.cuiStepBubble, {
-            [styles.cuiNumbered]: type === "numbered",
-            [styles.cuiBulleted]: type === "bulleted",
-            [styles.cuiComplete]: status === "complete",
-            [styles.cuiActive]: status === "active",
-            [styles.cuiIncomplete]: status === "incomplete",
-          })}
+          className={clsx(styles.cuiStepBubble, styles[typeClass], styles[statusClass])}
+          data-cui-type={type}
+          data-cui-status={status}
         >
           {type === "numbered" && status === "complete" ? (
             <Icon
@@ -96,13 +92,9 @@ const VerticalStep = ({
         </div>
         {label && (
           <div
-            className={clsx(styles.cuiStepLabel, {
-              [styles.cuiNumbered]: type === "numbered",
-              [styles.cuiBulleted]: type === "bulleted",
-              [styles.cuiComplete]: status === "complete",
-              [styles.cuiActive]: status === "active",
-              [styles.cuiIncomplete]: status === "incomplete",
-            })}
+            className={clsx(styles.cuiStepLabel, styles[typeClass], styles[statusClass])}
+            data-cui-type={type}
+            data-cui-status={status}
           >
             {label}
           </div>
@@ -110,10 +102,8 @@ const VerticalStep = ({
       </button>
       {isOpen && (
         <div
-          className={clsx(styles.cuiStepContent, {
-            [styles.cuiNumbered]: type === "numbered",
-            [styles.cuiBulleted]: type === "bulleted",
-          })}
+          className={clsx(styles.cuiStepContent, styles[typeClass])}
+          data-cui-type={type}
         >
           {children}
         </div>

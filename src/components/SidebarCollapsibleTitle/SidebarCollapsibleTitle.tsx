@@ -48,6 +48,7 @@ export const SidebarCollapsibleTitle = ({
           iconDir={iconDir}
           selected={selected}
           type={type}
+          collapsible={true}
           {...props}
         />
       </Collapsible.Trigger>

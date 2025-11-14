@@ -118,19 +118,8 @@ export const DateRangePickerInput = ({
         <Icon name="calendar" />
       </InputStartContent>
       <div
-        className="input-element-wrapper"
+        className={styles.cuiInputElement}
         data-testid="daterangepicker-input"
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          padding: "var(--click-input-space-y) var(--click-input-space-x)",
-          minHeight: "var(--click-input-size-height-md)",
-          backgroundColor: "var(--click-input-color-background-default)",
-          border: "var(--click-input-stroke-border-default)",
-          borderRadius: "var(--click-input-radii-all)",
-          fontSize: "var(--click-input-typography-text-default)",
-        }}
       >
         {formattedValue}
       </div>

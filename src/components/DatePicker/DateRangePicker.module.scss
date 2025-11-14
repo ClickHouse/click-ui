@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiPredefinedCalendarContainer {
   align-items: start;
@@ -38,7 +39,7 @@
 }
 
 .cuiDateRangeTableCell {
-  &.cuiShowRangeIndicator {
+  @include variants.variant('cuiShowRangeIndicator') {
     background: var(--click-datePicker-dateOption-color-background-range);
     border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-background-range);
     border-radius: 0;

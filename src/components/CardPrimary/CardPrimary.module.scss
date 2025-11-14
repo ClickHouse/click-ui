@@ -1,4 +1,18 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Icon styles with composes - overrides Icon's default size
+.cuiIconSm {
+  composes: cuiIconWrapper from "../Icon/Icon.module.scss";
+  width: var(--click-card-primary-size-icon-sm-all);
+  height: var(--click-card-primary-size-icon-sm-all);
+}
+
+.cuiIconMd {
+  composes: cuiIconWrapper from "../Icon/Icon.module.scss";
+  width: var(--click-card-primary-size-icon-md-all);
+  height: var(--click-card-primary-size-icon-md-all);
+}
 
 .cuiWrapper {
   @include mixins.cuiCardBase;
@@ -16,25 +30,27 @@
     box-shadow: var(--shadow-1);
   }
 
-  &.cuiSizeSm {
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeSm") {
     padding: var(--click-card-primary-space-sm-x) var(--click-card-primary-space-sm-y);
     gap: var(--click-card-primary-space-sm-gap);
   }
 
-  &.cuiSizeMd {
+  @include variants.variant("cuiSizeMd") {
     padding: var(--click-card-primary-space-md-x) var(--click-card-primary-space-md-y);
     gap: var(--click-card-primary-space-md-gap);
   }
 
-  &.cuiAlignStart {
+  // Align variants - using :where() for low specificity
+  @include variants.variant("cuiAlignStart") {
     text-align: left;
   }
 
-  &.cuiAlignCenter {
+  @include variants.variant("cuiAlignCenter") {
     text-align: center;
   }
 
-  &.cuiAlignEnd {
+  @include variants.variant("cuiAlignEnd") {
     text-align: right;
   }
 
@@ -88,23 +104,25 @@
   display: flex;
   flex-direction: column;
 
-  &.cuiAlignStart {
+  // Align variants - using :where() for low specificity
+  @include variants.variant("cuiAlignStart") {
     align-items: flex-start;
   }
 
-  &.cuiAlignCenter {
+  @include variants.variant("cuiAlignCenter") {
     align-items: center;
   }
 
-  &.cuiAlignEnd {
+  @include variants.variant("cuiAlignEnd") {
     align-items: flex-end;
   }
 
-  &.cuiSizeSm {
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeSm") {
     gap: var(--click-card-primary-space-sm-gap);
   }
 
-  &.cuiSizeMd {
+  @include variants.variant("cuiSizeMd") {
     gap: var(--click-card-primary-space-md-gap);
   }
 
@@ -147,23 +165,25 @@
   flex-direction: column;
   flex: 1;
 
-  &.cuiAlignStart {
+  // Align variants - using :where() for low specificity
+  @include variants.variant("cuiAlignStart") {
     align-self: flex-start;
   }
 
-  &.cuiAlignCenter {
+  @include variants.variant("cuiAlignCenter") {
     align-self: center;
   }
 
-  &.cuiAlignEnd {
+  @include variants.variant("cuiAlignEnd") {
     align-self: flex-end;
   }
 
-  &.cuiSizeSm {
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeSm") {
     gap: var(--click-card-primary-space-sm-gap);
   }
 
-  &.cuiSizeMd {
+  @include variants.variant("cuiSizeMd") {
     gap: var(--click-card-primary-space-md-gap);
   }
 }

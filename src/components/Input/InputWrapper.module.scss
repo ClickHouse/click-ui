@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 // Wrapper for input fields with various states
 .cuiWrapper {
@@ -109,52 +110,47 @@
 }
 
 // Resize variants
-.cuiResizeVertical {
-  resize: vertical;
-  overflow: auto;
-}
+.cuiWrapper {
+  @include variants.variant('cuiResizeVertical') {
+    resize: vertical;
+    overflow: auto;
+  }
 
-.cuiResizeHorizontal {
-  resize: horizontal;
-  overflow: auto;
-}
+  @include variants.variant('cuiResizeHorizontal') {
+    resize: horizontal;
+    overflow: auto;
+  }
 
-.cuiResizeBoth {
-  resize: both;
-  overflow: auto;
+  @include variants.variant('cuiResizeBoth') {
+    resize: both;
+    overflow: auto;
+  }
 }
 
 // Form root container
 .cuiFormRoot {
-  display: flex;
-  width: 100%;
-  gap: var(--click-field-space-gap);
+  @include mixins.cuiFormRoot();
 
-  * {
-    box-shadow: none;
-    outline: none;
+  // Orientation variants
+  @include variants.variant('cuiOrientationVertical') {
+    @include variants.variant('cuiDirEnd') {
+      flex-direction: column;
+    }
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: column-reverse;
+    }
   }
-}
 
-// Orientation variants
-.cuiVertical {
-  flex-direction: column;
-  align-items: flex-start;
-}
+  @include variants.variant('cuiOrientationHorizontal') {
+    @include variants.variant('cuiDirEnd') {
+      flex-direction: row;
+    }
 
-.cuiVerticalReversed {
-  flex-direction: column-reverse;
-  align-items: flex-start;
-}
-
-.cuiHorizontal {
-  flex-direction: row;
-  align-items: flex-start;
-}
-
-.cuiHorizontalReversed {
-  flex-direction: row-reverse;
-  align-items: flex-start;
+    @include variants.variant('cuiDirStart') {
+      flex-direction: row-reverse;
+    }
+  }
 }
 
 // Label padding for horizontal layout
@@ -170,10 +166,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  @include mixins.cuiFullWidthStretch;
   gap: var(--click-field-space-gap);
 }
 
@@ -194,46 +187,28 @@
 
 // Input element base
 .cuiInputElement {
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  padding: var(--click-field-space-y) 0;
+  @include mixins.cuiInputElement;
+}
 
-  &::placeholder {
-    color: var(--click-field-color-placeholder-default);
+// Input padding variants
+.cuiInputElement {
+  @include variants.variant('cuiPaddingEnd') {
+    padding-left: 0;
   }
 
-  &:disabled,
-  &.disabled {
-    &::placeholder {
-      color: var(--click-field-color-placeholder-disabled);
-    }
+  @include variants.variant('cuiPaddingStart') {
+    padding-right: 0;
   }
-}
 
-// Input with start content
-.cuiInputWithStartContent {
-  padding-left: 0;
-}
+  @include variants.variant('cuiPaddingNone') {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-// Input with end content
-.cuiInputWithEndContent {
-  padding-right: 0;
-}
-
-// Input with both start and end content
-.cuiInputNoPadding {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-// Input with default padding
-.cuiInputWithPadding {
-  padding-left: var(--click-field-space-x);
-  padding-right: var(--click-field-space-x);
+  @include variants.variant('cuiPaddingBoth') {
+    padding-left: var(--click-field-space-x);
+    padding-right: var(--click-field-space-x);
+  }
 }
 
 // Number input element

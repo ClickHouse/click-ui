@@ -106,12 +106,11 @@ const FullWidthTrigger = forwardRef<HTMLButtonElement, FullWidthTriggerProps>(
         ref={ref}
         className={clsx(
           styles.cuiFullWidthTrigger,
-          {
-            [styles.cuiCustomWidth]: width,
-          },
+          { [styles.cuiCustomWidth]: width },
           className
         )}
         style={width ? { width } : undefined}
+        data-cui-custom-width={!!width}
         {...props}
       />
     );

@@ -1,6 +1,7 @@
 import { CursorOptions, Orientation } from "@/components";
 import { HTMLAttributes, CSSProperties } from "react";
 import clsx from "clsx";
+import { capitalize } from "@/utils/capitalize";
 import styles from "./Panel.module.scss";
 
 export type PanelPadding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
@@ -54,6 +55,7 @@ export const Panel = ({
   padding = "md",
   radii = "sm",
   width,
+  className: propsClassName,
   ...props
 }: PanelProps) => {
   const inlineStyles: CSSProperties = {};
@@ -66,100 +68,54 @@ export const Panel = ({
     inlineStyles.height = height;
   }
 
-  const className = clsx(styles.cuiPanel, {
-    // Orientation
-    [styles.cuiHorizontal]: orientation === "horizontal",
-    [styles.cuiVertical]: orientation === "vertical",
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const alignClass = `cuiAlign${capitalize(alignItems)}`;
+  const colorClass = `cuiColor${capitalize(color)}`;
+  const radiiClass = `cuiRadii${capitalize(radii)}`;
+  const paddingClass = `cuiPadding${capitalize(padding)}`;
+  const gapClass = `cuiGap${capitalize(gap)}`;
+  const cursorClass = cursor ? `cuiCursor${capitalize(cursor)}` : undefined;
 
-    // Alignment
-    [styles.cuiAlignStart]: alignItems === "start",
-    [styles.cuiAlignCenter]: alignItems === "center",
-    [styles.cuiAlignEnd]: alignItems === "end",
+  const className = clsx(
+    styles.cuiPanel,
+    styles[orientationClass],
+    styles[alignClass],
+    styles[colorClass],
+    styles[radiiClass],
+    styles[paddingClass],
+    styles[gapClass],
+    {
+      // Size
+      [styles.cuiFillWidth]: fillWidth,
+      [styles.cuiFillHeight]: fillHeight,
+      [styles.cuiCustomWidth]: width && !fillWidth,
+      [styles.cuiCustomHeight]: height && !fillHeight,
 
-    // Size
-    [styles.cuiFillWidth]: fillWidth,
-    [styles.cuiFillHeight]: fillHeight,
-    [styles.cuiCustomWidth]: width && !fillWidth,
-    [styles.cuiCustomHeight]: height && !fillHeight,
+      // Border
+      [styles.cuiHasBorder]: hasBorder,
+      [styles.cuiNoBorder]: !hasBorder,
 
-    // Color
-    [styles.cuiColorDefault]: color === "default",
-    [styles.cuiColorMuted]: color === "muted",
-    [styles.cuiColorTransparent]: color === "transparent",
+      // Shadow
+      [styles.cuiHasShadow]: hasShadow,
+      [styles.cuiNoShadow]: !hasShadow,
 
-    // Border radius
-    [styles.cuiRadiiNone]: radii === "none",
-    [styles.cuiRadiiSm]: radii === "sm",
-    [styles.cuiRadiiMd]: radii === "md",
-    [styles.cuiRadiiLg]: radii === "lg",
-
-    // Padding
-    [styles.cuiPaddingNone]: padding === "none",
-    [styles.cuiPaddingXs]: padding === "xs",
-    [styles.cuiPaddingSm]: padding === "sm",
-    [styles.cuiPaddingMd]: padding === "md",
-    [styles.cuiPaddingLg]: padding === "lg",
-    [styles.cuiPaddingXl]: padding === "xl",
-
-    // Gap
-    [styles.cuiGapNone]: gap === "none",
-    [styles.cuiGapXs]: gap === "xs",
-    [styles.cuiGapSm]: gap === "sm",
-    [styles.cuiGapMd]: gap === "md",
-    [styles.cuiGapLg]: gap === "lg",
-    [styles.cuiGapXl]: gap === "xl",
-
-    // Border
-    [styles.cuiHasBorder]: hasBorder,
-    [styles.cuiNoBorder]: !hasBorder,
-
-    // Shadow
-    [styles.cuiHasShadow]: hasShadow,
-    [styles.cuiNoShadow]: !hasShadow,
-
-    // Cursor
-    [styles.cuiCursorAuto]: cursor === "auto",
-    [styles.cuiCursorDefault]: cursor === "default",
-    [styles.cuiCursorNone]: cursor === "none",
-    [styles.cuiCursorContextMenu]: cursor === "context-menu",
-    [styles.cuiCursorHelp]: cursor === "help",
-    [styles.cuiCursorPointer]: cursor === "pointer",
-    [styles.cuiCursorProgress]: cursor === "progress",
-    [styles.cuiCursorWait]: cursor === "wait",
-    [styles.cuiCursorCell]: cursor === "cell",
-    [styles.cuiCursorCrosshair]: cursor === "crosshair",
-    [styles.cuiCursorText]: cursor === "text",
-    [styles.cuiCursorVerticalText]: cursor === "vertical-text",
-    [styles.cuiCursorAlias]: cursor === "alias",
-    [styles.cuiCursorCopy]: cursor === "copy",
-    [styles.cuiCursorMove]: cursor === "move",
-    [styles.cuiCursorNoDrop]: cursor === "no-drop",
-    [styles.cuiCursorNotAllowed]: cursor === "not-allowed",
-    [styles.cuiCursorGrab]: cursor === "grab",
-    [styles.cuiCursorGrabbing]: cursor === "grabbing",
-    [styles.cuiCursorEResize]: cursor === "e-resize",
-    [styles.cuiCursorNResize]: cursor === "n-resize",
-    [styles.cuiCursorNeResize]: cursor === "ne-resize",
-    [styles.cuiCursorNwResize]: cursor === "nw-resize",
-    [styles.cuiCursorSResize]: cursor === "s-resize",
-    [styles.cuiCursorSeResize]: cursor === "se-resize",
-    [styles.cuiCursorSwResize]: cursor === "sw-resize",
-    [styles.cuiCursorWResize]: cursor === "w-resize",
-    [styles.cuiCursorEwResize]: cursor === "ew-resize",
-    [styles.cuiCursorNsResize]: cursor === "ns-resize",
-    [styles.cuiCursorNeswResize]: cursor === "nesw-resize",
-    [styles.cuiCursorNwseResize]: cursor === "nwse-resize",
-    [styles.cuiCursorColResize]: cursor === "col-resize",
-    [styles.cuiCursorRowResize]: cursor === "row-resize",
-    [styles.cuiCursorAllScroll]: cursor === "all-scroll",
-    [styles.cuiCursorZoomIn]: cursor === "zoom-in",
-    [styles.cuiCursorZoomOut]: cursor === "zoom-out",
-  });
+      // Cursor
+      [styles[cursorClass!]]: cursorClass,
+    },
+    propsClassName
+  );
 
   return (
     <div
-      className={className}
       style={inlineStyles}
+      className={className}
+      data-cui-orientation={orientation}
+      data-cui-align={alignItems}
+      data-cui-color={color}
+      data-cui-radii={radii}
+      data-cui-padding={padding}
+      data-cui-gap={gap}
+      data-cui-cursor={cursor}
       {...props}
     >
       {children}

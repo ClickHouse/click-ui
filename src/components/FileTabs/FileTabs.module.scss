@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiTabsContainer {
   display: flex;
@@ -33,10 +34,7 @@
   justify-content: flex-start;
   align-items: center;
   outline: none;
-  max-width: 100%;
-  max-width: -webkit-fill-available;
-  max-width: fill-available;
-  max-width: stretch;
+  @include mixins.cuiFullMaxWidthStretch;
   border: none;
   cursor: pointer;
   height: 100%;
@@ -75,7 +73,7 @@
     }
   }
 
-  &.cuiActive {
+  @include variants.variant('cuiActive') {
     background: var(--click-tabs-fileTabs-color-background-active);
     color: var(--click-tabs-fileTabs-color-text-active);
     font: var(--click-tabs-fileTabs-typography-label-active);
@@ -89,15 +87,15 @@
     border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-hover);
   }
 
-  &.cuiPreview {
+  @include variants.variant('cuiPreview') {
     font-style: italic;
   }
 
-  &.cuiDismissable {
+  @include variants.variant('cuiDismissable') {
     grid-template-columns: 1fr var(--click-tabs-fileTabs-icon-size-width);
   }
 
-  &.cuiFixedTabElement {
+  @include variants.variant('cuiFixedTabElement') {
     width: auto;
   }
 }

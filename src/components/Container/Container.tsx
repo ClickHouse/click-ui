@@ -1,5 +1,6 @@
 import { ElementType, forwardRef } from "react";
 import clsx from "clsx";
+import { capitalize } from "@/utils/capitalize";
 import { Orientation } from "@/components/types";
 import {
   PolymorphicComponent,
@@ -82,6 +83,7 @@ const _Container = <T extends ElementType = "div">(
     maxHeight,
     minHeight,
     overflow,
+    className,
     ...props
   }: PolymorphicProps<T, ContainerProps<T>>,
   ref: PolymorphicRef<T>
@@ -90,62 +92,32 @@ const _Container = <T extends ElementType = "div">(
   const defaultAlignItems =
     alignItems ?? (orientation === "vertical" ? "start" : "center");
 
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const alignClass = `cuiAlign${capitalize(defaultAlignItems)}`;
+  const justifyClass = `cuiJustify${capitalize(justifyContent)}`;
+  const wrapClass = `cuiWrap${capitalize(wrap)}`;
+  const gapClass = `cuiGap${capitalize(gap)}`;
+  const paddingClass = `cuiPadding${capitalize(padding)}`;
+  const growClass = grow ? `cuiGrow${grow}` : undefined;
+  const shrinkClass = shrink ? `cuiShrink${shrink}` : undefined;
+
   const containerClasses = clsx(
+    styles.cuiContainer,
+    styles[orientationClass],
+    styles[alignClass],
+    styles[justifyClass],
+    styles[wrapClass],
+    styles[gapClass],
+    styles[paddingClass],
     {
-      [styles.cuiContainer]: true,
-      [styles.cuiHorizontal]: orientation === "horizontal",
-      [styles.cuiVertical]: orientation === "vertical",
-      [styles.cuiAlignStart]: defaultAlignItems === "start",
-      [styles.cuiAlignCenter]: defaultAlignItems === "center",
-      [styles.cuiAlignEnd]: defaultAlignItems === "end",
-      [styles.cuiAlignStretch]: defaultAlignItems === "stretch",
-      [styles.cuiJustifyStart]: justifyContent === "start",
-      [styles.cuiJustifyCenter]: justifyContent === "center",
-      [styles.cuiJustifyEnd]: justifyContent === "end",
-      [styles.cuiJustifySpaceBetween]: justifyContent === "space-between",
-      [styles.cuiJustifySpaceAround]: justifyContent === "space-around",
-      [styles.cuiJustifySpaceEvenly]: justifyContent === "space-evenly",
-      [styles.cuiJustifyLeft]: justifyContent === "left",
-      [styles.cuiJustifyRight]: justifyContent === "right",
       [styles.cuiFillWidth]: fillWidth,
       [styles.cuiAutoWidth]: !fillWidth,
       [styles.cuiFillHeight]: fillHeight,
-      [styles.cuiGrow0]: grow === "0",
-      [styles.cuiGrow1]: grow === "1",
-      [styles.cuiGrow2]: grow === "2",
-      [styles.cuiGrow3]: grow === "3",
-      [styles.cuiGrow4]: grow === "4",
-      [styles.cuiGrow5]: grow === "5",
-      [styles.cuiGrow6]: grow === "6",
-      [styles.cuiShrink0]: shrink === "0",
-      [styles.cuiShrink1]: shrink === "1",
-      [styles.cuiShrink2]: shrink === "2",
-      [styles.cuiShrink3]: shrink === "3",
-      [styles.cuiShrink4]: shrink === "4",
-      [styles.cuiShrink5]: shrink === "5",
-      [styles.cuiShrink6]: shrink === "6",
-      [styles.cuiWrapNowrap]: wrap === "nowrap",
-      [styles.cuiWrapWrap]: wrap === "wrap",
-      [styles.cuiWrapReverse]: wrap === "wrap-reverse",
-      [styles.cuiGapNone]: gap === "none",
-      [styles.cuiGapXxs]: gap === "xxs",
-      [styles.cuiGapXs]: gap === "xs",
-      [styles.cuiGapSm]: gap === "sm",
-      [styles.cuiGapMd]: gap === "md",
-      [styles.cuiGapLg]: gap === "lg",
-      [styles.cuiGapXl]: gap === "xl",
-      [styles.cuiGapXxl]: gap === "xxl",
-      [styles.cuiPaddingNone]: padding === "none",
-      [styles.cuiPaddingXxs]: padding === "xxs",
-      [styles.cuiPaddingXs]: padding === "xs",
-      [styles.cuiPaddingSm]: padding === "sm",
-      [styles.cuiPaddingMd]: padding === "md",
-      [styles.cuiPaddingLg]: padding === "lg",
-      [styles.cuiPaddingXl]: padding === "xl",
-      [styles.cuiPaddingXxl]: padding === "xxl",
       [styles.cuiResponsive]: isResponsive,
+      [styles[growClass!]]: growClass,
+      [styles[shrinkClass!]]: shrinkClass,
     },
-    props.className
+    className
   );
 
   const inlineStyles = {
@@ -159,11 +131,19 @@ const _Container = <T extends ElementType = "div">(
 
   return (
     <Component
-      {...props}
       ref={ref}
       className={containerClasses}
       style={inlineStyles}
       data-testid="container"
+      data-cui-orientation={orientation}
+      data-cui-align={defaultAlignItems}
+      data-cui-justify={justifyContent}
+      data-cui-wrap={wrap}
+      data-cui-gap={gap}
+      data-cui-padding={padding}
+      data-cui-grow={grow}
+      data-cui-shrink={shrink}
+      {...props}
     >
       {children}
     </Component>

@@ -1,42 +1,57 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Icon styles with composes - overrides Icon's default size
+.cuiStyledIconSmall {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: var(--click-alert-small-icon-height);
+  width: var(--click-alert-small-icon-width);
+}
+
+.cuiStyledIconMedium {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: var(--click-alert-medium-icon-height);
+  width: var(--click-alert-medium-icon-width);
+}
+
 
 .cuiWrapper {
   display: flex;
   width: 100%;
   overflow: hidden;
 
-  &.cuiDefault {
+  @include variants.variant('cuiTypeDefault') {
     justify-content: flex-start;
     border-radius: var(--click-alert-radii-end);
   }
 
-  &.cuiBanner {
+  @include variants.variant('cuiTypeBanner') {
     justify-content: center;
     border-radius: var(--sizes-0);
   }
 
   // State colors
-  &.cuiNeutral {
+  @include variants.variant('cuiStateNeutral') {
     background-color: var(--click-alert-color-background-neutral);
     color: var(--click-alert-color-text-neutral);
   }
 
-  &.cuiSuccess {
+  @include variants.variant('cuiStateSuccess') {
     background-color: var(--click-alert-color-background-success);
     color: var(--click-alert-color-text-success);
   }
 
-  &.cuiWarning {
+  @include variants.variant('cuiStateWarning') {
     background-color: var(--click-alert-color-background-warning);
     color: var(--click-alert-color-text-warning);
   }
 
-  &.cuiDanger {
+  @include variants.variant('cuiStateDanger') {
     background-color: var(--click-alert-color-background-danger);
     color: var(--click-alert-color-text-danger);
   }
 
-  &.cuiInfo {
+  @include variants.variant('cuiStateInfo') {
     background-color: var(--click-alert-color-background-info);
     color: var(--click-alert-color-text-info);
   }
@@ -46,73 +61,60 @@
   display: flex;
   align-items: center;
 
-  &.cuiDefault {
-    &.cuiNeutral {
+  @include variants.variant('cuiTypeDefault') {
+    @include variants.variant('cuiStateNeutral') {
       background-color: var(--click-alert-color-iconBackground-neutral);
     }
 
-    &.cuiSuccess {
+    @include variants.variant('cuiStateSuccess') {
       background-color: var(--click-alert-color-iconBackground-success);
     }
 
-    &.cuiWarning {
+    @include variants.variant('cuiStateWarning') {
       background-color: var(--click-alert-color-iconBackground-warning);
     }
 
-    &.cuiDanger {
+    @include variants.variant('cuiStateDanger') {
       background-color: var(--click-alert-color-iconBackground-danger);
     }
 
-    &.cuiInfo {
+    @include variants.variant('cuiStateInfo') {
       background-color: var(--click-alert-color-iconBackground-info);
     }
   }
 
-  &.cuiBanner {
+  @include variants.variant('cuiTypeBanner') {
     background-color: transparent;
   }
 
   // Icon colors for different states
-  &.cuiNeutral {
+  @include variants.variant('cuiStateNeutral') {
     color: var(--click-alert-color-iconForeground-neutral);
   }
 
-  &.cuiSuccess {
+  @include variants.variant('cuiStateSuccess') {
     color: var(--click-alert-color-iconForeground-success);
   }
 
-  &.cuiWarning {
+  @include variants.variant('cuiStateWarning') {
     color: var(--click-alert-color-iconForeground-warning);
   }
 
-  &.cuiDanger {
+  @include variants.variant('cuiStateDanger') {
     color: var(--click-alert-color-iconForeground-danger);
   }
 
-  &.cuiInfo {
+  @include variants.variant('cuiStateInfo') {
     color: var(--click-alert-color-iconForeground-info);
   }
 
   // Size-based padding
-  &.cuiSmall {
+  @include variants.variant('cuiSizeSmall') {
     padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
   }
 
-  &.cuiMedium {
+  @include variants.variant('cuiSizeMedium') {
     padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
-  }
-}
-
-// Increase specificity to override Icon's default size classes
-.cuiStyledIcon.cuiStyledIcon {
-  &.cuiSmall {
-    height: var(--click-alert-small-icon-height);
-    width: var(--click-alert-small-icon-width);
-  }
-
-  &.cuiMedium {
-    height: var(--click-alert-medium-icon-height);
-    width: var(--click-alert-medium-icon-width);
   }
 }
 
@@ -121,12 +123,12 @@
   flex-flow: column;
   word-break: break-word;
 
-  &.cuiSmall {
+  @include variants.variant('cuiSizeSmall') {
     gap: var(--click-alert-small-space-gap);
     padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
   }
 
-  &.cuiMedium {
+  @include variants.variant('cuiSizeMedium') {
     gap: var(--click-alert-medium-space-gap);
     padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
   }
@@ -141,11 +143,11 @@
 .cuiTitle {
   margin: 0;
 
-  &.cuiSmall {
+  @include variants.variant('cuiSizeSmall') {
     font: var(--click-alert-small-typography-title-default);
   }
 
-  &.cuiMedium {
+  @include variants.variant('cuiSizeMedium') {
     font: var(--click-alert-medium-typography-title-default);
   }
 }
@@ -153,11 +155,11 @@
 .cuiText {
   margin: 0;
 
-  &.cuiSmall {
+  @include variants.variant('cuiSizeSmall') {
     font: var(--click-alert-small-typography-text-default);
   }
 
-  &.cuiMedium {
+  @include variants.variant('cuiSizeMedium') {
     font: var(--click-alert-medium-typography-text-default);
   }
 }

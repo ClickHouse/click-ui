@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiIconButton {
   border-radius: var(--click-button-iconButton-radii-all);
@@ -24,138 +25,139 @@
     color: var(--click-button-iconButton-color-disabled-text-default);
     cursor: not-allowed;
   }
-}
 
-// Size variants
-.cuiDefault {
-  padding: var(--click-button-iconButton-default-space-y) var(--click-button-iconButton-default-space-x);
-}
-
-.cuiSm {
-  padding: var(--click-button-iconButton-sm-space-y) var(--click-button-iconButton-sm-space-x);
-}
-
-.cuiXs {
-  padding: var(--click-button-iconButton-xs-space-y) var(--click-button-iconButton-xs-space-x);
-}
-
-// Type variants
-.cuiPrimary {
-  border-color: var(--click-button-iconButton-color-primary-stroke-default);
-  background-color: var(--click-button-iconButton-color-primary-background-default);
-  color: var(--click-button-iconButton-color-primary-text-default);
-
-  &:hover {
-    background-color: var(--click-button-iconButton-color-primary-background-hover);
-    color: var(--click-button-iconButton-color-primary-text-hover);
-    border-color: var(--click-button-iconButton-color-primary-stroke-hover);
+  // Size variants
+  @include variants.variant('cuiSizeDefault') {
+    padding: var(--click-button-iconButton-default-space-y) var(--click-button-iconButton-default-space-x);
   }
 
-  &:focus,
-  &:active,
-  &:focus-within {
-    background-color: var(--click-button-iconButton-color-primary-background-active);
-    color: var(--click-button-iconButton-color-primary-text-active);
-    border-color: var(--click-button-iconButton-color-primary-stroke-active);
+  @include variants.variant('cuiSizeSm') {
+    padding: var(--click-button-iconButton-sm-space-y) var(--click-button-iconButton-sm-space-x);
   }
 
-  &:visited {
+  @include variants.variant('cuiSizeXs') {
+    padding: var(--click-button-iconButton-xs-space-y) var(--click-button-iconButton-xs-space-x);
+  }
+
+  // Type variants
+  @include variants.variant('cuiTypePrimary') {
+    border-color: var(--click-button-iconButton-color-primary-stroke-default);
     background-color: var(--click-button-iconButton-color-primary-background-default);
+    color: var(--click-button-iconButton-color-primary-text-default);
+
+    &:hover {
+      background-color: var(--click-button-iconButton-color-primary-background-hover);
+      color: var(--click-button-iconButton-color-primary-text-hover);
+      border-color: var(--click-button-iconButton-color-primary-stroke-hover);
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: var(--click-button-iconButton-color-primary-background-active);
+      color: var(--click-button-iconButton-color-primary-text-active);
+      border-color: var(--click-button-iconButton-color-primary-stroke-active);
+    }
+
+    &:visited {
+      background-color: var(--click-button-iconButton-color-primary-background-default);
+    }
   }
-}
 
-.cuiSecondary {
-  border-color: var(--click-button-iconButton-color-secondary-stroke-default);
-  background-color: var(--click-button-iconButton-color-secondary-background-default);
-  color: var(--click-button-iconButton-color-secondary-text-default);
-
-  &:hover {
-    background-color: var(--click-button-iconButton-color-secondary-background-hover);
-    color: var(--click-button-iconButton-color-secondary-text-hover);
-    border-color: var(--click-button-iconButton-color-secondary-stroke-hover);
-  }
-
-  &:focus,
-  &:active,
-  &:focus-within {
-    background-color: var(--click-button-iconButton-color-secondary-background-active);
-    color: var(--click-button-iconButton-color-secondary-text-active);
-    border-color: var(--click-button-iconButton-color-secondary-stroke-active);
-  }
-
-  &:visited {
+  @include variants.variant('cuiTypeSecondary') {
+    border-color: var(--click-button-iconButton-color-secondary-stroke-default);
     background-color: var(--click-button-iconButton-color-secondary-background-default);
+    color: var(--click-button-iconButton-color-secondary-text-default);
+
+    &:hover {
+      background-color: var(--click-button-iconButton-color-secondary-background-hover);
+      color: var(--click-button-iconButton-color-secondary-text-hover);
+      border-color: var(--click-button-iconButton-color-secondary-stroke-hover);
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: var(--click-button-iconButton-color-secondary-background-active);
+      color: var(--click-button-iconButton-color-secondary-text-active);
+      border-color: var(--click-button-iconButton-color-secondary-stroke-active);
+    }
+
+    &:visited {
+      background-color: var(--click-button-iconButton-color-secondary-background-default);
+    }
   }
-}
 
-.cuiGhost {
-  border-color: var(--click-button-iconButton-color-ghost-stroke-default);
-  background-color: var(--click-button-iconButton-color-ghost-background-default);
-  color: var(--click-button-iconButton-color-ghost-text-default);
-
-  &:hover {
-    background-color: var(--click-button-iconButton-color-ghost-background-hover);
-    color: var(--click-button-iconButton-color-ghost-text-hover);
-    border-color: var(--click-button-iconButton-color-ghost-stroke-hover);
-  }
-
-  &:focus,
-  &:active,
-  &:focus-within {
-    background-color: var(--click-button-iconButton-color-ghost-background-active);
-    color: var(--click-button-iconButton-color-ghost-text-active);
-    border-color: var(--click-button-iconButton-color-ghost-stroke-active);
-  }
-
-  &:visited {
+  @include variants.variant('cuiTypeGhost') {
+    border-color: var(--click-button-iconButton-color-ghost-stroke-default);
     background-color: var(--click-button-iconButton-color-ghost-background-default);
+    color: var(--click-button-iconButton-color-ghost-text-default);
+
+    &:hover {
+      background-color: var(--click-button-iconButton-color-ghost-background-hover);
+      color: var(--click-button-iconButton-color-ghost-text-hover);
+      border-color: var(--click-button-iconButton-color-ghost-stroke-hover);
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: var(--click-button-iconButton-color-ghost-background-active);
+      color: var(--click-button-iconButton-color-ghost-text-active);
+      border-color: var(--click-button-iconButton-color-ghost-stroke-active);
+    }
+
+    &:visited {
+      background-color: var(--click-button-iconButton-color-ghost-background-default);
+    }
   }
-}
 
-.cuiDanger {
-  border-color: var(--click-button-iconButton-color-danger-stroke-default);
-  background-color: var(--click-button-iconButton-color-danger-background-default);
-  color: var(--click-button-iconButton-color-danger-text-default);
-
-  &:hover {
-    background-color: var(--click-button-iconButton-color-danger-background-hover);
-    color: var(--click-button-iconButton-color-danger-text-hover);
-    border-color: var(--click-button-iconButton-color-danger-stroke-hover);
-  }
-
-  &:focus,
-  &:active,
-  &:focus-within {
-    background-color: var(--click-button-iconButton-color-danger-background-active);
-    color: var(--click-button-iconButton-color-danger-text-active);
-    border-color: var(--click-button-iconButton-color-danger-stroke-active);
-  }
-
-  &:visited {
+  @include variants.variant('cuiTypeDanger') {
+    border-color: var(--click-button-iconButton-color-danger-stroke-default);
     background-color: var(--click-button-iconButton-color-danger-background-default);
+    color: var(--click-button-iconButton-color-danger-text-default);
+
+    &:hover {
+      background-color: var(--click-button-iconButton-color-danger-background-hover);
+      color: var(--click-button-iconButton-color-danger-text-hover);
+      border-color: var(--click-button-iconButton-color-danger-stroke-hover);
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: var(--click-button-iconButton-color-danger-background-active);
+      color: var(--click-button-iconButton-color-danger-text-active);
+      border-color: var(--click-button-iconButton-color-danger-stroke-active);
+    }
+
+    &:visited {
+      background-color: var(--click-button-iconButton-color-danger-background-default);
+    }
   }
-}
 
-.cuiInfo {
-  border-color: var(--click-button-iconButton-color-info-stroke-default);
-  background-color: var(--click-button-iconButton-color-info-background-default);
-  color: var(--click-button-iconButton-color-info-text-default);
-
-  &:hover {
-    background-color: var(--click-button-iconButton-color-info-background-hover);
-    color: var(--click-button-iconButton-color-info-text-hover);
-    border-color: var(--click-button-iconButton-color-info-stroke-hover);
-  }
-
-  &:focus,
-  &:active,
-  &:focus-within {
-    background-color: var(--click-button-iconButton-color-info-background-active);
-    color: var(--click-button-iconButton-color-info-text-active);
-    border-color: var(--click-button-iconButton-color-info-stroke-active);
-  }
-
-  &:visited {
+  @include variants.variant('cuiTypeInfo') {
+    border-color: var(--click-button-iconButton-color-info-stroke-default);
     background-color: var(--click-button-iconButton-color-info-background-default);
+    color: var(--click-button-iconButton-color-info-text-default);
+
+    &:hover {
+      background-color: var(--click-button-iconButton-color-info-background-hover);
+      color: var(--click-button-iconButton-color-info-text-hover);
+      border-color: var(--click-button-iconButton-color-info-stroke-hover);
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: var(--click-button-iconButton-color-info-background-active);
+      color: var(--click-button-iconButton-color-info-text-active);
+      border-color: var(--click-button-iconButton-color-info-stroke-active);
+    }
+
+    &:visited {
+      background-color: var(--click-button-iconButton-color-info-background-default);
+    }
   }
 }
+

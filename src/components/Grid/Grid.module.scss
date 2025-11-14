@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiGridContainer {
   display: flex;
@@ -19,42 +20,42 @@
   width: 100%;
   background: var(--click-grid-body-cell-color-background-default);
 
-  // Height variants
-  &.cuiAutoHeight {
-    // Height will be calculated dynamically
+  /* Height variants */
+  @include variants.variant('cuiAutoHeight') {
+    /* Height will be calculated dynamically */
   }
 
-  &.cuiFixedHeight {
+  @include variants.variant('cuiFixedHeight') {
     height: 100%;
   }
 
-  // Rounded variants
-  &.cuiRoundedNone {
+  /* Rounded variants */
+  @include variants.variant('cuiRoundedNone') {
     border-radius: var(--click-grid-radii-none);
   }
 
-  &.cuiRoundedSm {
+  @include variants.variant('cuiRoundedSm') {
     border-radius: var(--click-grid-radii-sm);
   }
 
-  &.cuiRoundedMd {
+  @include variants.variant('cuiRoundedMd') {
     border-radius: var(--click-grid-radii-md);
   }
 
-  &.cuiRoundedLg {
+  @include variants.variant('cuiRoundedLg') {
     border-radius: var(--click-grid-radii-lg);
   }
 
-  &.cuiRoundedXl {
+  @include variants.variant('cuiRoundedXl') {
     border-radius: var(--click-grid-radii-xl);
   }
 
-  // Border variants
-  &.cuiShowBorder {
+  /* Border variants */
+  @include variants.variant('cuiShowBorder') {
     border: 1px solid var(--click-grid-header-cell-color-stroke-default);
   }
 
-  &.cuiHideBorder {
+  @include variants.variant('cuiHideBorder') {
     border: none;
   }
 }

@@ -1,4 +1,5 @@
 import { HTMLAttributes } from "react";
+import { capitalize } from "@/utils/capitalize";
 import clsx from "clsx";
 import styles from "./BigStat.module.scss";
 export type bigStatOrder = "titleTop" | "titleBottom";
@@ -43,48 +44,44 @@ export const BigStat = ({
   error = false,
   style,
   ...props
-}: BigStatProps) => (
-  <div
-    className={clsx(styles.cuiWrapper, {
-      [styles.cuiDefault]: state === "default",
-      [styles.cuiMuted]: state === "muted",
-      [styles.cuiError]: error,
-      [styles.cuiSm]: size === "sm",
-      [styles.cuiLg]: size === "lg",
-      [styles.cuiSpacingSm]: spacing === "sm",
-      [styles.cuiSpacingLg]: spacing === "lg",
-      [styles.cuiTitleTop]: order === "titleTop",
-      [styles.cuiTitleBottom]: order === "titleBottom",
-      [styles.cuiFillWidth]: fillWidth,
-      [styles.cuiAutoWidth]: !fillWidth,
-    })}
-    style={{
-      ...style,
-      minHeight: height,
-      maxWidth: maxWidth || "none",
-    }}
-    {...props}
-  >
+}: BigStatProps) => {
+  const stateClass = error ? 'cuiStateError' : `cuiState${capitalize(state)}`;
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const spacingClass = `cuiSpacing${capitalize(spacing)}`;
+  const orderClass = `cuiOrder${capitalize(order)}`;
+  const widthClass = fillWidth ? 'cuiWidthFill' : 'cuiWidthAuto';
+
+  return (
     <div
-      className={clsx(styles.cuiLabel, {
-        [styles.cuiDefault]: state === "default",
-        [styles.cuiMuted]: state === "muted",
-        [styles.cuiError]: error,
-        [styles.cuiSm]: size === "sm",
-        [styles.cuiLg]: size === "lg",
-      })}
+      className={clsx(
+        styles.cuiWrapper,
+        styles[stateClass],
+        styles[sizeClass],
+        styles[spacingClass],
+        styles[orderClass],
+        styles[widthClass]
+      )}
+      style={{
+        ...style,
+        minHeight: height,
+        maxWidth: maxWidth || "none",
+      }}
+      data-cui-state={error ? 'error' : state}
+      data-cui-size={size}
+      data-cui-spacing={spacing}
+      data-cui-order={order}
+      {...props}
     >
-      {label}
+      <div
+        className={clsx(styles.cuiLabel, styles[stateClass], styles[sizeClass])}
+      >
+        {label}
+      </div>
+      <div
+        className={clsx(styles.cuiTitle, styles[stateClass], styles[sizeClass])}
+      >
+        {title}
+      </div>
     </div>
-    <div
-      className={clsx(styles.cuiTitle, {
-        [styles.cuiDefault]: state === "default",
-        [styles.cuiMuted]: state === "muted",
-        [styles.cuiSm]: size === "sm",
-        [styles.cuiLg]: size === "lg",
-      })}
-    >
-      {title}
-    </div>
-  </div>
-);
+  );
+};

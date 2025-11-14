@@ -1,27 +1,28 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiPanel {
   display: flex;
 
   // Orientation styles
-  &.cuiHorizontal {
+  @include variants.variant('cuiOrientationHorizontal') {
     flex-flow: row wrap;
   }
 
-  &.cuiVertical {
+  @include variants.variant('cuiOrientationVertical') {
     flex-flow: column;
   }
 
   // Alignment styles
-  &.cuiAlignStart {
+  @include variants.variant('cuiAlignStart') {
     align-items: flex-start;
   }
 
-  &.cuiAlignCenter {
+  @include variants.variant('cuiAlignCenter') {
     align-items: center;
   }
 
-  &.cuiAlignEnd {
+  @include variants.variant('cuiAlignEnd') {
     align-items: flex-end;
   }
 
@@ -43,82 +44,82 @@
   }
 
   // Color variants
-  &.cuiColorDefault {
+  @include variants.variant('cuiColorDefault') {
     background-color: var(--click-panel-color-background-default);
   }
 
-  &.cuiColorMuted {
+  @include variants.variant('cuiColorMuted') {
     background-color: var(--click-panel-color-background-muted);
   }
 
-  &.cuiColorTransparent {
+  @include variants.variant('cuiColorTransparent') {
     background-color: var(--click-panel-color-background-transparent);
   }
 
   // Border radius styles
-  &.cuiRadiiNone {
+  @include variants.variant('cuiRadiiNone') {
     border-radius: var(--click-panel-radii-none);
   }
 
-  &.cuiRadiiSm {
+  @include variants.variant('cuiRadiiSm') {
     border-radius: var(--click-panel-radii-sm);
   }
 
-  &.cuiRadiiMd {
+  @include variants.variant('cuiRadiiMd') {
     border-radius: var(--click-panel-radii-md);
   }
 
-  &.cuiRadiiLg {
+  @include variants.variant('cuiRadiiLg') {
     border-radius: var(--click-panel-radii-lg);
   }
 
   // Padding styles
-  &.cuiPaddingNone {
+  @include variants.variant('cuiPaddingNone') {
     padding: var(--click-panel-space-y-none);
   }
 
-  &.cuiPaddingXs {
+  @include variants.variant('cuiPaddingXs') {
     padding: var(--click-panel-space-y-xs);
   }
 
-  &.cuiPaddingSm {
+  @include variants.variant('cuiPaddingSm') {
     padding: var(--click-panel-space-y-sm);
   }
 
-  &.cuiPaddingMd {
+  @include variants.variant('cuiPaddingMd') {
     padding: var(--click-panel-space-y-md);
   }
 
-  &.cuiPaddingLg {
+  @include variants.variant('cuiPaddingLg') {
     padding: var(--click-panel-space-y-lg);
   }
 
-  &.cuiPaddingXl {
+  @include variants.variant('cuiPaddingXl') {
     padding: var(--click-panel-space-y-xl);
   }
 
   // Gap styles
-  &.cuiGapNone {
+  @include variants.variant('cuiGapNone') {
     gap: var(--click-panel-space-gap-none);
   }
 
-  &.cuiGapXs {
+  @include variants.variant('cuiGapXs') {
     gap: var(--click-panel-space-gap-xs);
   }
 
-  &.cuiGapSm {
+  @include variants.variant('cuiGapSm') {
     gap: var(--click-panel-space-gap-sm);
   }
 
-  &.cuiGapMd {
+  @include variants.variant('cuiGapMd') {
     gap: var(--click-panel-space-gap-md);
   }
 
-  &.cuiGapLg {
+  @include variants.variant('cuiGapLg') {
     gap: var(--click-panel-space-gap-lg);
   }
 
-  &.cuiGapXl {
+  @include variants.variant('cuiGapXl') {
     gap: var(--click-panel-space-gap-xl);
   }
 
@@ -140,148 +141,41 @@
     box-shadow: none;
   }
 
-  // Cursor styles - covering all CursorOptions
-  &.cuiCursorAuto {
-    cursor: auto;
-  }
-
-  &.cuiCursorDefault {
-    cursor: default;
-  }
-
-  &.cuiCursorNone {
-    cursor: none;
-  }
-
-  &.cuiCursorContextMenu {
-    cursor: context-menu;
-  }
-
-  &.cuiCursorHelp {
-    cursor: help;
-  }
-
-  &.cuiCursorPointer {
-    cursor: pointer;
-  }
-
-  &.cuiCursorProgress {
-    cursor: progress;
-  }
-
-  &.cuiCursorWait {
-    cursor: wait;
-  }
-
-  &.cuiCursorCell {
-    cursor: cell;
-  }
-
-  &.cuiCursorCrosshair {
-    cursor: crosshair;
-  }
-
-  &.cuiCursorText {
-    cursor: text;
-  }
-
-  &.cuiCursorVerticalText {
-    cursor: vertical-text;
-  }
-
-  &.cuiCursorAlias {
-    cursor: alias;
-  }
-
-  &.cuiCursorCopy {
-    cursor: copy;
-  }
-
-  &.cuiCursorMove {
-    cursor: move;
-  }
-
-  &.cuiCursorNoDrop {
-    cursor: no-drop;
-  }
-
-  &.cuiCursorNotAllowed {
-    cursor: not-allowed;
-  }
-
-  &.cuiCursorGrab {
-    cursor: grab;
-  }
-
-  &.cuiCursorGrabbing {
-    cursor: grabbing;
-  }
-
-  &.cuiCursorEResize {
-    cursor: e-resize;
-  }
-
-  &.cuiCursorNResize {
-    cursor: n-resize;
-  }
-
-  &.cuiCursorNeResize {
-    cursor: ne-resize;
-  }
-
-  &.cuiCursorNwResize {
-    cursor: nw-resize;
-  }
-
-  &.cuiCursorSResize {
-    cursor: s-resize;
-  }
-
-  &.cuiCursorSeResize {
-    cursor: se-resize;
-  }
-
-  &.cuiCursorSwResize {
-    cursor: sw-resize;
-  }
-
-  &.cuiCursorWResize {
-    cursor: w-resize;
-  }
-
-  &.cuiCursorEwResize {
-    cursor: ew-resize;
-  }
-
-  &.cuiCursorNsResize {
-    cursor: ns-resize;
-  }
-
-  &.cuiCursorNeswResize {
-    cursor: nesw-resize;
-  }
-
-  &.cuiCursorNwseResize {
-    cursor: nwse-resize;
-  }
-
-  &.cuiCursorColResize {
-    cursor: col-resize;
-  }
-
-  &.cuiCursorRowResize {
-    cursor: row-resize;
-  }
-
-  &.cuiCursorAllScroll {
-    cursor: all-scroll;
-  }
-
-  &.cuiCursorZoomIn {
-    cursor: zoom-in;
-  }
-
-  &.cuiCursorZoomOut {
-    cursor: zoom-out;
-  }
+  // Cursor styles
+  @include variants.variant('cuiCursorAuto') { cursor: auto; }
+  @include variants.variant('cuiCursorDefault') { cursor: default; }
+  @include variants.variant('cuiCursorNone') { cursor: none; }
+  @include variants.variant('cuiCursorContextMenu') { cursor: context-menu; }
+  @include variants.variant('cuiCursorHelp') { cursor: help; }
+  @include variants.variant('cuiCursorPointer') { cursor: pointer; }
+  @include variants.variant('cuiCursorProgress') { cursor: progress; }
+  @include variants.variant('cuiCursorWait') { cursor: wait; }
+  @include variants.variant('cuiCursorCell') { cursor: cell; }
+  @include variants.variant('cuiCursorCrosshair') { cursor: crosshair; }
+  @include variants.variant('cuiCursorText') { cursor: text; }
+  @include variants.variant('cuiCursorVerticalText') { cursor: vertical-text; }
+  @include variants.variant('cuiCursorAlias') { cursor: alias; }
+  @include variants.variant('cuiCursorCopy') { cursor: copy; }
+  @include variants.variant('cuiCursorMove') { cursor: move; }
+  @include variants.variant('cuiCursorNoDrop') { cursor: no-drop; }
+  @include variants.variant('cuiCursorNotAllowed') { cursor: not-allowed; }
+  @include variants.variant('cuiCursorGrab') { cursor: grab; }
+  @include variants.variant('cuiCursorGrabbing') { cursor: grabbing; }
+  @include variants.variant('cuiCursorEResize') { cursor: e-resize; }
+  @include variants.variant('cuiCursorNResize') { cursor: n-resize; }
+  @include variants.variant('cuiCursorNeResize') { cursor: ne-resize; }
+  @include variants.variant('cuiCursorNwResize') { cursor: nw-resize; }
+  @include variants.variant('cuiCursorSResize') { cursor: s-resize; }
+  @include variants.variant('cuiCursorSeResize') { cursor: se-resize; }
+  @include variants.variant('cuiCursorSwResize') { cursor: sw-resize; }
+  @include variants.variant('cuiCursorWResize') { cursor: w-resize; }
+  @include variants.variant('cuiCursorEwResize') { cursor: ew-resize; }
+  @include variants.variant('cuiCursorNsResize') { cursor: ns-resize; }
+  @include variants.variant('cuiCursorNeswResize') { cursor: nesw-resize; }
+  @include variants.variant('cuiCursorNwseResize') { cursor: nwse-resize; }
+  @include variants.variant('cuiCursorColResize') { cursor: col-resize; }
+  @include variants.variant('cuiCursorRowResize') { cursor: row-resize; }
+  @include variants.variant('cuiCursorAllScroll') { cursor: all-scroll; }
+  @include variants.variant('cuiCursorZoomIn') { cursor: zoom-in; }
+  @include variants.variant('cuiCursorZoomOut') { cursor: zoom-out; }
 }

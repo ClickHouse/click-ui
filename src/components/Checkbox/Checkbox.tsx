@@ -2,8 +2,9 @@
 
 import { GenericLabel, Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
-import clsx from "clsx";
 import { ReactNode, useId } from "react";
+import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./Checkbox.module.scss";
 
 export type CheckboxVariants =
@@ -34,17 +35,27 @@ export const Checkbox = ({
   orientation = "horizontal",
   dir = "end",
   checked,
+  className,
   ...delegated
 }: CheckboxProps) => {
   const defaultId = useId();
+
+  const variantClass = `cuiVariant${capitalize(variant)}`;
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const dirClass = `cuiDir${capitalize(dir)}`;
+  const checkedClass = checked === true ? "cuiCheckedTrue" : checked === "indeterminate" ? "cuiCheckedIndeterminate" : "";
+  const disabledClass = disabled ? "cuiDisabled" : "";
+
   return (
     <div
-      className={clsx(styles.cuiWrapper, {
-        [styles.cuiHorizontal]: orientation === "horizontal",
-        [styles.cuiVertical]: orientation === "vertical",
-        [styles.cuiDirStart]: dir === "start",
-        [styles.cuiDirEnd]: dir === "end",
-      })}
+      className={clsx(
+        styles.cuiWrapper,
+        styles[orientationClass],
+        styles[dirClass],
+        className
+      )}
+      data-cui-orientation={orientation}
+      data-cui-dir={dir}
     >
       <RadixCheckbox.Root
         id={id ?? defaultId}
@@ -52,24 +63,22 @@ export const Checkbox = ({
         disabled={disabled}
         aria-label={`${label}`}
         checked={checked}
-        className={clsx(styles.cuiCheckInput, {
-          [styles.cuiVariantDefault]: variant === "default",
-          [styles.cuiVariantVar1]: variant === "var1",
-          [styles.cuiVariantVar2]: variant === "var2",
-          [styles.cuiVariantVar3]: variant === "var3",
-          [styles.cuiVariantVar4]: variant === "var4",
-          [styles.cuiVariantVar5]: variant === "var5",
-          [styles.cuiVariantVar6]: variant === "var6",
-          [styles.cuiChecked]: checked === true,
-          [styles.cuiIndeterminate]: checked === "indeterminate",
-          [styles.cuiDisabled]: disabled,
-        })}
+        className={clsx(
+          styles.cuiCheckInput,
+          styles[variantClass],
+          checkedClass && styles[checkedClass],
+          disabledClass && styles[disabledClass]
+        )}
+        data-cui-variant={variant}
+        data-cui-checked={checked === true ? "true" : checked === "indeterminate" ? "indeterminate" : undefined}
+        data-cui-disabled={disabled ? "true" : undefined}
         {...delegated}
       >
         <RadixCheckbox.Indicator
-          className={clsx(styles.cuiCheckIconWrapper, {
-            [styles.cuiDisabled]: disabled,
-          })}
+          className={clsx(
+            styles.cuiCheckIconWrapper,
+            disabledClass && styles[disabledClass]
+          )}
         >
           <Icon
             name={checked === "indeterminate" ? "minus" : "check"}

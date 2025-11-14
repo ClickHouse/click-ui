@@ -3,7 +3,7 @@
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import clsx from "clsx";
 import { IconSize } from "@/components/Icon/types";
-import { Container, Icon, IconName, Spacer, Text } from "@/components";
+import { Icon, IconName, Spacer, Text } from "@/components";
 import {
   createContext,
   MouseEventHandler,
@@ -13,6 +13,7 @@ import {
 } from "react";
 import { GapOptions } from "@/components/Container/Container";
 import { SizeType as SpacerSizeType } from "@/components/Spacer/Spacer";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./MultiAccordion.module.scss";
 
 type Size = "none" | "sm" | "md" | "lg";
@@ -66,6 +67,7 @@ export const MultiAccordion = ({
   showBorder = true,
   gap = "md",
   markAsCompleted,
+  className,
   ...delegated
 }: MultiAccordionProps) => {
   const contextValue = {
@@ -76,17 +78,19 @@ export const MultiAccordion = ({
     markAsCompleted,
   };
 
+  const gapClass = `cuiGap${capitalize(gap)}`;
+
   return (
     <RadixAccordion.Root
-      className={clsx(styles.cuiAccordionRoot, {
-        [styles.cuiFillWidth]: fillWidth,
-        [styles.cuiGapNone]: gap === "none",
-        [styles.cuiGapXs]: gap === "xs",
-        [styles.cuiGapSm]: gap === "sm",
-        [styles.cuiGapMd]: gap === "md",
-        [styles.cuiGapLg]: gap === "lg",
-        [styles.cuiGapXl]: gap === "xl",
-      })}
+      className={clsx(
+        styles.cuiAccordionRoot,
+        styles[gapClass],
+        {
+          [styles.cuiFillWidth]: fillWidth,
+        },
+        className
+      )}
+      data-cui-gap={gap}
       {...delegated}
     >
       <MultiAccordionContext.Provider value={contextValue}>
@@ -116,7 +120,7 @@ interface MultiAccordionItemProps extends Omit<
 const MultiAccordionItem = ({
   value,
   title,
-  color,
+  color = "default",
   icon,
   iconSize,
   gap,
@@ -136,6 +140,10 @@ const MultiAccordionItem = ({
 
   const customSize = size === "none" ? "sm" : size;
 
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const colorClass = `cuiColor${capitalize(color)}`;
+  const paddingClass = `cuiPadding${capitalize(size)}`;
+
   return (
     <RadixAccordion.Item
       value={value}
@@ -146,13 +154,13 @@ const MultiAccordionItem = ({
       {...props}
     >
       <RadixAccordion.Trigger
-        className={clsx(styles.cuiAccordionTrigger, {
-          [styles.cuiSizeNone]: size === "none",
-          [styles.cuiSizeSm]: size === "sm",
-          [styles.cuiSizeMd]: size === "md",
-          [styles.cuiSizeLg]: size === "lg",
-          [styles.cuiColorLink]: color === "link",
-        })}
+        className={clsx(
+          styles.cuiAccordionTrigger,
+          styles[sizeClass],
+          styles[colorClass]
+        )}
+        data-cui-size={size}
+        data-cui-color={color}
       >
         <div className={styles.cuiAccordionIconsWrapper}>
           <div className={styles.cuiAccordionIconWrapper}>
@@ -169,45 +177,30 @@ const MultiAccordionItem = ({
             />
           ) : null}
         </div>
-        <Container
-          isResponsive={false}
-          gap="sm"
-          alignItems="center"
-          fillWidth
-          justifyContent="space-between"
+        <Text
           component="span"
-          overflow="hidden"
+          size={customSize}
+          fillWidth={fillWidth}
+          className={styles.cuiAccordionItemTitle}
         >
-          <Text
-            component="span"
-            size={customSize}
-            fillWidth={fillWidth}
-            className={styles.cuiAccordionItemTitle}
-          >
-            {title}
-          </Text>
-          {showCheck && (
-            <Icon
-              name={isCompleted ? "check-in-circle" : "circle"}
-              className={clsx(styles.cuiCustomIcon, {
-                [styles.cuiIsCompleted]: isCompleted,
-              })}
-              size={iconSize ?? customSize}
-              aria-label="accordion icon status"
-              onClick={onClickStatus}
-              data-icon="accordion-status"
-              data-testid="accordion-status-icon"
-            />
-          )}
-        </Container>
+          {title}
+        </Text>
+        {showCheck && (
+          <Icon
+            name={isCompleted ? "check-in-circle" : "circle"}
+            className={styles.cuiCustomIcon}
+            data-cui-completed={isCompleted ? "true" : undefined}
+            size={iconSize ?? customSize}
+            aria-label="accordion icon status"
+            onClick={onClickStatus}
+            data-icon="accordion-status"
+            data-testid="accordion-status-icon"
+          />
+        )}
       </RadixAccordion.Trigger>
       <RadixAccordion.Content
-        className={clsx(styles.cuiAccordionContent, {
-          [styles.cuiPaddingNone]: size === "none",
-          [styles.cuiPaddingSm]: size === "sm",
-          [styles.cuiPaddingMd]: size === "md",
-          [styles.cuiPaddingLg]: size === "lg",
-        })}
+        className={clsx(styles.cuiAccordionContent, styles[paddingClass])}
+        data-cui-padding={size}
       >
         <Spacer size={gap} />
         {children}

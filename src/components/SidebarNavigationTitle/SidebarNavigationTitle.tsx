@@ -17,6 +17,7 @@ export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonEl
   iconDir?: HorizontalDirection;
   /** The sidebar style type */
   type?: "main" | "sqlSidebar";
+  collapsible?: boolean;
 }
 
 export const SidebarNavigationTitle = ({
@@ -25,6 +26,8 @@ export const SidebarNavigationTitle = ({
   iconDir,
   selected,
   type = "main",
+  collapsible = false,
+  className,
   ...props
 }: SidebarNavigationTitleProps) => {
   return (
@@ -33,8 +36,8 @@ export const SidebarNavigationTitle = ({
       className={clsx(styles.cuiSidebarTitleWrapper, {
         [styles.cuiMain]: type === "main",
         [styles.cuiSqlSidebar]: type === "sqlSidebar",
-        [styles.cuiSelected]: selected,
-      })}
+        [styles.cuiCollapsible]: collapsible,
+      }, className)}
       {...props}
     >
       <IconWrapper

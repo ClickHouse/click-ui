@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiProgressContainer {
   display: flex;
@@ -6,10 +7,7 @@
   align-items: center;
   overflow: hidden;
   transition: all 100ms ease-in-out;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  @include mixins.cuiFullWidthStretch;
   min-height: 2px;
   gap: var(--click-field-space-gap);
   border-radius: var(--click-field-radii-all);
@@ -20,17 +18,17 @@
   background-size: calc(100% + 2px);
   background-position: center;
 
-  // Default type styling
-  &.cuiDefault {
+  // Type styling with variant mixins
+  @include variants.variant('cuiTypeDefault') {
     padding: 0.25rem var(--click-field-space-x);
   }
 
-  &.cuiSmall {
+  @include variants.variant('cuiTypeSmall') {
     padding: 0;
   }
 
-  // Progress background based on completion and type
-  &.cuiIncomplete {
+  // Progress background based on status
+  @include variants.variant('cuiStatusIncomplete') {
     background: linear-gradient(
       to right,
       var(--global-color-accent-default) 0%,
@@ -40,8 +38,10 @@
     );
   }
 
-  &.cuiComplete.cuiDefault {
-    background: var(--click-field-color-background-default);
+  @include variants.variant('cuiStatusComplete') {
+    @include variants.variant('cuiTypeDefault') {
+      background: var(--click-field-color-background-default);
+    }
   }
 
   &:hover {
@@ -49,7 +49,7 @@
     background-size: calc(100% + 2px);
     background-position: center;
 
-    &.cuiIncomplete {
+    @include variants.variant('cuiStatusIncomplete') {
       background: linear-gradient(
         to right,
         var(--global-color-accent-default) 0%,
@@ -59,7 +59,7 @@
       );
     }
 
-    &.cuiComplete {
+    @include variants.variant('cuiStatusComplete') {
       background: var(--click-field-color-background-hover);
     }
   }
@@ -70,7 +70,7 @@
     background-size: calc(100% + 2px);
     background-position: center;
 
-    &.cuiIncomplete {
+    @include variants.variant('cuiStatusIncomplete') {
       background: linear-gradient(
         to right,
         var(--global-color-accent-default) 0%,
@@ -80,7 +80,7 @@
       );
     }
 
-    &.cuiComplete {
+    @include variants.variant('cuiStatusComplete') {
       background: var(--click-field-color-background-active);
     }
   }
@@ -95,12 +95,9 @@
 .cuiProgressCloseButton {
   mix-blend-mode: difference;
   border: 0;
+  visibility: hidden;
 
-  &.cuiHidden {
-    visibility: hidden;
-  }
-
-  &.cuiVisible {
+  @include variants.variant('cuiVisible') {
     visibility: visible;
   }
 }

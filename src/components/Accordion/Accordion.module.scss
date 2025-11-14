@@ -1,7 +1,8 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiAccordion {
-  &.cuiFillWidth {
+  @include variants.variant('cuiFillWidth') {
     width: 100%;
   }
 }
@@ -9,34 +10,34 @@
 .cuiTrigger {
   @include mixins.cuiAccordionTriggerBase;
 
-  &.cuiFillWidth {
+  @include variants.variant('cuiFillWidth') {
     width: 100%;
   }
 
-  // Size variants
-  &.cuiSm {
-    &.cuiDefault {
+  // Size + Color combination variants using :where() for low specificity
+  @include variants.variant('cuiSizeSm') {
+    @include variants.variant('cuiColorDefault') {
       @include mixins.cuiAccordionTriggerSize(sm, default);
     }
-    &.cuiLink {
+    @include variants.variant('cuiColorLink') {
       @include mixins.cuiAccordionTriggerSize(sm, link);
     }
   }
 
-  &.cuiMd {
-    &.cuiDefault {
+  @include variants.variant('cuiSizeMd') {
+    @include variants.variant('cuiColorDefault') {
       @include mixins.cuiAccordionTriggerSize(md, default);
     }
-    &.cuiLink {
+    @include variants.variant('cuiColorLink') {
       @include mixins.cuiAccordionTriggerSize(md, link);
     }
   }
 
-  &.cuiLg {
-    &.cuiDefault {
+  @include variants.variant('cuiSizeLg') {
+    @include variants.variant('cuiColorDefault') {
       @include mixins.cuiAccordionTriggerSize(lg, default);
     }
-    &.cuiLink {
+    @include variants.variant('cuiColorLink') {
       @include mixins.cuiAccordionTriggerSize(lg, link);
     }
   }

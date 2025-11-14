@@ -1,9 +1,10 @@
 "use client";
 
 import * as RadixSwitch from "@radix-ui/react-switch";
-import { ReactNode, forwardRef, useId } from "react";
 import clsx from "clsx";
+import { ReactNode, forwardRef, useId } from "react";
 import { GenericLabel } from "@/components";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./Switch.module.scss";
 
 interface RootProps {
@@ -23,34 +24,45 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   ) => {
     const defaultId = useId();
 
-    const wrapperClasses = clsx(styles.cuiWrapper, {
-      [styles.cuiHorizontal]: orientation === "horizontal",
-      [styles.cuiVertical]: orientation === "vertical",
-      [styles.cuiDirStart]: dir === "start",
-    });
-
-    const switchRootClasses = clsx(styles.cuiSwitchRoot, {
-      [styles.cuiChecked]: checked,
-      [styles.cuiDisabled]: disabled,
-    });
-
-    const switchThumbClasses = clsx(styles.cuiSwitchThumb, {
-      [styles.cuiChecked]: checked,
-      [styles.cuiDisabled]: disabled,
-    });
+    const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+    const dirClass = `cuiDir${capitalize(dir)}`;
+    const checkedClass = checked ? 'cuiChecked' : '';
+    const disabledClass = disabled ? 'cuiDisabled' : '';
 
     return (
-      <div className={wrapperClasses}>
+      <div
+        className={clsx(
+          styles.cuiWrapper,
+          styles[orientationClass],
+          styles[dirClass]
+        )}
+        data-cui-orientation={orientation}
+        data-cui-dir={dir}
+      >
         <RadixSwitch.Root
           ref={ref}
           id={id ?? defaultId}
           disabled={disabled}
           aria-label={`${label}`}
           checked={checked}
-          className={switchRootClasses}
+          className={clsx(
+            styles.cuiSwitchRoot,
+            checkedClass && styles[checkedClass],
+            disabledClass && styles[disabledClass]
+          )}
+          data-cui-checked={checked ? "true" : undefined}
+          data-cui-disabled={disabled ? "true" : undefined}
           {...props}
         >
-          <RadixSwitch.Thumb className={switchThumbClasses} />
+          <RadixSwitch.Thumb
+            className={clsx(
+              styles.cuiSwitchThumb,
+              checkedClass && styles[checkedClass],
+              disabledClass && styles[disabledClass]
+            )}
+            data-cui-checked={checked ? "true" : undefined}
+            data-cui-disabled={disabled ? "true" : undefined}
+          />
         </RadixSwitch.Root>
         {label && (
           <GenericLabel

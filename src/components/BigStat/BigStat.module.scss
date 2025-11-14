@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiWrapper {
   display: flex;
@@ -6,124 +7,122 @@
   box-sizing: border-box;
   border-radius: var(--click-bigStat-radii-all);
   border: var(--click-bigStat-stroke) solid;
+  padding: var(--click-bigStat-space-all);
 
   // State variants
-  &.cuiDefault {
+  @include variants.variant('cuiStateDefault') {
     background-color: var(--click-bigStat-color-background-default);
     color: var(--click-bigStat-color-label-default);
     border-color: var(--click-bigStat-color-stroke-default);
   }
 
-  &.cuiMuted {
+  @include variants.variant('cuiStateMuted') {
     background-color: var(--click-bigStat-color-background-muted);
     color: var(--click-bigStat-color-label-muted);
     border-color: var(--click-bigStat-color-stroke-muted);
   }
 
-  &.cuiError {
+  @include variants.variant('cuiStateError') {
     border-color: var(--click-bigStat-color-stroke-danger);
   }
 
   // Size variants
-  &.cuiSm {
+  @include variants.variant('cuiSizeSm') {
     font: var(--click-bigStat-typography-sm-label-default);
 
-    &.cuiMuted {
+    @include variants.variant('cuiStateMuted') {
       font: var(--click-bigStat-typography-sm-label-muted);
     }
   }
 
-  &.cuiLg {
+  @include variants.variant('cuiSizeLg') {
     font: var(--click-bigStat-typography-lg-label-default);
 
-    &.cuiMuted {
+    @include variants.variant('cuiStateMuted') {
       font: var(--click-bigStat-typography-lg-label-muted);
     }
   }
 
   // Spacing variants
-  &.cuiSpacingSm {
+  @include variants.variant('cuiSpacingSm') {
     gap: var(--click-bigStat-space-sm-gap);
   }
 
-  &.cuiSpacingLg {
+  @include variants.variant('cuiSpacingLg') {
     gap: var(--click-bigStat-space-lg-gap);
   }
 
   // Layout variants
-  &.cuiTitleTop {
+  @include variants.variant('cuiOrderTitleTop') {
     flex-direction: column;
   }
 
-  &.cuiTitleBottom {
+  @include variants.variant('cuiOrderTitleBottom') {
     flex-direction: column-reverse;
   }
 
-  &.cuiFillWidth {
+  @include variants.variant('cuiWidthFill') {
     width: 100%;
   }
 
-  &.cuiAutoWidth {
+  @include variants.variant('cuiWidthAuto') {
     width: auto;
   }
-
-  // Common padding for all variants
-  padding: var(--click-bigStat-space-all);
 }
 
 .cuiLabel {
   // State variants
-  &.cuiDefault {
+  @include variants.variant('cuiStateDefault') {
     color: var(--click-bigStat-color-label-default);
 
-    &.cuiSm {
+    @include variants.variant('cuiSizeSm') {
       font: var(--click-bigStat-typography-sm-label-default);
     }
 
-    &.cuiLg {
+    @include variants.variant('cuiSizeLg') {
       font: var(--click-bigStat-typography-lg-label-default);
     }
   }
 
-  &.cuiMuted {
+  @include variants.variant('cuiStateMuted') {
     color: var(--click-bigStat-color-label-muted);
 
-    &.cuiSm {
+    @include variants.variant('cuiSizeSm') {
       font: var(--click-bigStat-typography-sm-label-muted);
     }
 
-    &.cuiLg {
+    @include variants.variant('cuiSizeLg') {
       font: var(--click-bigStat-typography-lg-label-muted);
     }
   }
 
-  &.cuiError {
+  @include variants.variant('cuiStateError') {
     color: var(--click-bigStat-color-label-danger);
   }
 }
 
 .cuiTitle {
   // State variants
-  &.cuiDefault {
+  @include variants.variant('cuiStateDefault') {
     color: var(--click-bigStat-color-title-default);
 
-    &.cuiSm {
+    @include variants.variant('cuiSizeSm') {
       font: var(--click-bigStat-typography-sm-title-default);
     }
 
-    &.cuiLg {
+    @include variants.variant('cuiSizeLg') {
       font: var(--click-bigStat-typography-lg-title-default);
     }
   }
 
-  &.cuiMuted {
+  @include variants.variant('cuiStateMuted') {
     color: var(--click-bigStat-color-title-muted);
 
-    &.cuiSm {
+    @include variants.variant('cuiSizeSm') {
       font: var(--click-bigStat-typography-sm-title-muted);
     }
 
-    &.cuiLg {
+    @include variants.variant('cuiSizeLg') {
       font: var(--click-bigStat-typography-lg-title-muted);
     }
   }

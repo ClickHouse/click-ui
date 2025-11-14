@@ -6,6 +6,7 @@ import { Title } from "@/components/Typography/Title/Title";
 import { Text, TextAlignment } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 import { WithTopBadgeProps, withTopBadge } from "@/components/CardPrimary/withTopBadge";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./CardPrimary.module.scss";
 
 export type CardPrimarySize = "sm" | "md";
@@ -61,6 +62,7 @@ const Card = ({
   onButtonClick,
   isSelected,
   children,
+  className,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -72,48 +74,50 @@ const Card = ({
     }
   };
 
-  const wrapperClasses = clsx(styles.cuiWrapper, {
-    [styles.cuiHasShadow]: hasShadow,
-    [styles.cuiSizeSm]: size === "sm",
-    [styles.cuiSizeMd]: size === "md",
-    [styles.cuiAlignStart]: alignContent === "start",
-    [styles.cuiAlignCenter]: alignContent === "center",
-    [styles.cuiAlignEnd]: alignContent === "end",
-    [styles.cuiIsSelected]: isSelected,
-  });
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const alignClass = `cuiAlign${capitalize(alignContent)}`;
+  const iconSizeClass = `cuiIcon${capitalize(size)}`;
 
-  const headerClasses = clsx(styles.cuiHeader, {
-    [styles.cuiSizeSm]: size === "sm",
-    [styles.cuiSizeMd]: size === "md",
-    [styles.cuiAlignStart]: alignContent === "start",
-    [styles.cuiAlignCenter]: alignContent === "center",
-    [styles.cuiAlignEnd]: alignContent === "end",
-    [styles.cuiDisabled]: disabled,
-  });
+  const wrapperClasses = clsx(
+    styles.cuiWrapper,
+    styles[sizeClass],
+    styles[alignClass],
+    {
+      [styles.cuiHasShadow]: hasShadow,
+      [styles.cuiIsSelected]: isSelected,
+    },
+    className
+  );
 
-  const contentClasses = clsx(styles.cuiContent, {
-    [styles.cuiSizeSm]: size === "sm",
-    [styles.cuiSizeMd]: size === "md",
-    [styles.cuiAlignStart]: alignContent === "start",
-    [styles.cuiAlignCenter]: alignContent === "center",
-    [styles.cuiAlignEnd]: alignContent === "end",
-  });
+  const headerClasses = clsx(
+    styles.cuiHeader,
+    styles[sizeClass],
+    styles[alignClass],
+    {
+      [styles.cuiDisabled]: disabled,
+    }
+  );
 
-  const iconClasses = clsx({
-    [styles.cuiSizeSm]: size === "sm",
-    [styles.cuiSizeMd]: size === "md",
-  });
+  const contentClasses = clsx(styles.cuiContent, styles[sizeClass], styles[alignClass]);
+
+  const iconClasses = styles[iconSizeClass];
 
   const Component = !!infoUrl || typeof onButtonClick === "function" ? Button : "div";
   return (
     <div
-      className={wrapperClasses}
       aria-disabled={disabled}
       tabIndex={0}
       {...props}
+      className={wrapperClasses}
+      data-cui-size={size}
+      data-cui-align={alignContent}
     >
       {(icon || title) && (
-        <div className={headerClasses}>
+        <div
+          className={headerClasses}
+          data-cui-size={size}
+          data-cui-align={alignContent}
+        >
           {iconUrl ? (
             <img
               src={iconUrl}
@@ -127,7 +131,6 @@ const Card = ({
                 name={icon}
                 aria-hidden
                 className={iconClasses}
-                disableDefaultSize
               />
             )
           )}
@@ -136,7 +139,11 @@ const Card = ({
       )}
 
       {(description || children) && (
-        <div className={contentClasses}>
+        <div
+          className={contentClasses}
+          data-cui-size={size}
+          data-cui-align={alignContent}
+        >
           {description && (
             <Text
               color="muted"

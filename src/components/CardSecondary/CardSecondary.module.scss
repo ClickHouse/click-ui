@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiWrapper {
   background-color: var(--click-card-secondary-color-background-default);
@@ -11,7 +12,7 @@
   padding: var(--click-card-secondary-space-all);
   gap: var(--click-card-secondary-space-gap);
 
-  &.cuiHasShadow {
+  @include variants.variant('cuiHasShadow') {
     box-shadow: var(--shadow-1);
   }
 
@@ -26,10 +27,7 @@
     }
   }
 
-  &.cuiDisabled,
-  &.cuiDisabled:hover,
-  &.cuiDisabled:focus,
-  &.cuiDisabled:active {
+  @include variants.variant('cuiDisabled') {
     pointer-events: none;
     background-color: var(--click-card-secondary-color-background-disabled);
     color: var(--click-card-secondary-color-title-disabled);
@@ -39,6 +37,21 @@
     .cuiLinkText,
     .cuiLinkIcon {
       color: var(--click-card-secondary-color-link-disabled);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      pointer-events: none;
+      background-color: var(--click-card-secondary-color-background-disabled);
+      color: var(--click-card-secondary-color-title-disabled);
+      border: 1px solid var(--click-card-secondary-color-stroke-disabled);
+      cursor: not-allowed;
+
+      .cuiLinkText,
+      .cuiLinkIcon {
+        color: var(--click-card-secondary-color-link-disabled);
+      }
     }
   }
 }
@@ -59,7 +72,7 @@
     color: var(--global-color-text-default);
   }
 
-  &.cuiDisabled {
+  @include variants.variant('cuiDisabled') {
     h3,
     svg {
       color: var(--global-color-text-muted);
@@ -74,6 +87,7 @@
 }
 
 .cuiCustomIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
   height: var(--click-image-lg-size-height);
   width: var(--click-image-lg-size-width);
 }
@@ -91,6 +105,7 @@
 }
 
 .cuiLinkIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
   color: var(--click-card-secondary-color-link-default);
   height: var(--click-image-md-size-height);
   width: var(--click-image-md-size-width);

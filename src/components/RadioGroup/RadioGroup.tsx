@@ -24,7 +24,7 @@ export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, "
 
 export const RadioGroup = ({
   children,
-  inline,
+  inline = true, // Default to horizontal orientation (matching main branch behavior)
   orientation,
   dir,
   error,

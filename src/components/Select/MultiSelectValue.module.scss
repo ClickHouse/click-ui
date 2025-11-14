@@ -11,9 +11,6 @@
 }
 
 .cuiMultiSelectBadge {
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  @include mixins.cuiFullWidthStretch;
   max-width: fit-content;
 }

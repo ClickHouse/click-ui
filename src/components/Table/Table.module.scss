@@ -1,6 +1,7 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
-// Table wrapper styles
+/* Table wrapper styles */
 .cuiTableOuterContainer {
   display: flex;
   flex-direction: column;
@@ -28,17 +29,17 @@
   }
 }
 
-// Header styles
+/* Header styles */
 .cuiHeader {
   text-align: left;
 
-  &.cuiHeaderSm {
+  @include variants.variant('cuiHeaderSm') {
     padding: var(--click-table-header-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
     font: var(--click-table-header-title-default);
     color: var(--click-table-header-color-title-default);
   }
 
-  &.cuiHeaderMd {
+  @include variants.variant('cuiHeaderMd') {
     padding: var(--click-table-header-cell-space-md-y) var(--click-table-body-cell-space-md-x);
     font: var(--click-table-header-title-default);
     color: var(--click-table-header-color-title-default);
@@ -51,7 +52,7 @@
   justify-content: start;
   gap: inherit;
 
-  &.cuiInteractive {
+  @include variants.variant('cuiInteractive') {
     cursor: pointer;
   }
 }
@@ -59,16 +60,16 @@
 .cuiSortIcon {
   transition: all 200ms;
 
-  &.cuiSortDesc {
+  @include variants.variant('cuiSortDesc') {
     transform: rotate(180deg);
   }
 
-  &.cuiSortAsc {
+  @include variants.variant('cuiSortAsc') {
     transform: rotate(0deg);
   }
 }
 
-// Column group and thead styles
+/* Column group and thead styles */
 .cuiColGroup {
   @include mixins.cuiMobile {
     display: none;
@@ -95,7 +96,7 @@
   }
 }
 
-// Row styles
+/* Row styles */
 .cuiTableRow {
   overflow: hidden;
   background-color: var(--click-table-row-color-background-default);
@@ -114,12 +115,11 @@
     border-bottom: none;
   }
 
-  &.cuiActive {
+  @include variants.variant('cuiActive') {
     background-color: var(--click-table-row-color-background-active);
   }
 
-  &.cuiDeleted,
-  &.cuiDisabled {
+  @include variants.variants('cuiDeleted', 'cuiDisabled') {
     opacity: 0.5;
     cursor: not-allowed;
   }
@@ -131,14 +131,14 @@
     border: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
     border-radius: var(--click-table-radii-all);
 
-    &.cuiSelectable {
+    @include variants.variant('cuiSelectable') {
       padding-left: calc(
         var(--click-table-body-cell-space-sm-x) + var(--click-table-body-cell-space-sm-x) +
           var(--click-checkbox-size-all)
       );
     }
 
-    &.cuiShowActions {
+    @include variants.variant('cuiShowActions') {
       padding-right: calc(
         var(--click-table-body-cell-space-sm-x) + var(--click-table-body-cell-space-sm-x) +
           var(--click-image-sm-size-width) + var(--click-button-iconButton-default-space-x) +
@@ -148,17 +148,17 @@
   }
 }
 
-// Cell styles
+/* Cell styles */
 .cuiTableData {
   overflow: hidden;
   color: var(--click-table-row-color-text-default);
   font: var(--click-table-cell-text-default);
 
-  &.cuiDataSm {
+  @include variants.variant('cuiDataSm') {
     padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
   }
 
-  &.cuiDataMd {
+  @include variants.variant('cuiDataMd') {
     padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
   }
 
@@ -174,11 +174,11 @@
   color: var(--click-table-row-color-text-default);
   font: var(--click-table-cell-text-default);
 
-  &.cuiSelectSm {
+  @include variants.variant('cuiSelectSm') {
     padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
   }
 
-  &.cuiSelectMd {
+  @include variants.variant('cuiSelectMd') {
     padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
   }
 
@@ -199,11 +199,11 @@
   color: var(--click-table-row-color-text-default);
   font: var(--click-table-cell-text-default);
 
-  &.cuiActionsSm {
+  @include variants.variant('cuiActionsSm') {
     padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
   }
 
-  &.cuiActionsMd {
+  @include variants.variant('cuiActionsMd') {
     padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
   }
 
@@ -232,7 +232,7 @@
   }
 }
 
-// Mobile specific styles
+/* Mobile specific styles */
 .cuiMobileHeader {
   display: none;
   color: var(--click-table-row-color-label-default);
@@ -254,18 +254,18 @@
   }
 }
 
-// Custom table data for loading/no data
+/* Custom table data for loading/no data */
 .cuiSpanedTableData {
   text-align: center;
   overflow: hidden;
   color: var(--click-table-row-color-text-default);
   font: var(--click-table-cell-text-default);
 
-  &.cuiSpanedSm {
+  @include variants.variant('cuiSpanedSm') {
     padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
   }
 
-  &.cuiSpanedMd {
+  @include variants.variant('cuiSpanedMd') {
     padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
   }
 
@@ -282,7 +282,7 @@
   justify-content: center;
 }
 
-// Button styles
+/* Button styles */
 .cuiEditButton {
   &:disabled {
     background: transparent;
@@ -298,7 +298,9 @@
     transition: transform 200ms;
   }
 
-  &.cuiDeleted svg {
-    transform: rotate(45deg);
+  @include variants.variant('cuiDeleted') {
+    svg {
+      transform: rotate(45deg);
+    }
   }
 }

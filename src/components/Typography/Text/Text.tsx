@@ -52,24 +52,24 @@ const _Text = <T extends ElementType = "p">(
     return `cuiFontSize${capitalize(size)}${weightCapitalized}`;
   };
 
+  const colorClass = `cuiColor${capitalize(color)}`;
+  const alignClass = `cuiAlign${capitalize(align)}`;
+
   return (
     <Component
       ref={ref}
       className={clsx(
         styles.cuiText,
-        {
-          [styles[getFontClass(size, weight)]]: true,
-          [styles.cuiColorDefault]: color === "default",
-          [styles.cuiColorMuted]: color === "muted",
-          [styles.cuiColorDanger]: color === "danger",
-          [styles.cuiColorDisabled]: color === "disabled",
-          [styles.cuiAlignLeft]: align === "left",
-          [styles.cuiAlignCenter]: align === "center",
-          [styles.cuiAlignRight]: align === "right",
-          [styles.cuiFillWidth]: fillWidth,
-        },
+        styles[getFontClass(size, weight)],
+        styles[colorClass],
+        styles[alignClass],
+        { [styles.cuiFillWidth]: fillWidth },
         className
       )}
+      data-cui-size={size}
+      data-cui-weight={weight}
+      data-cui-color={color}
+      data-cui-align={align}
       {...props}
     >
       {children}

@@ -1,3 +1,4 @@
+import { capitalize } from "@/utils/capitalize";
 import clsx from "clsx";
 import styles from "./Spacer.module.scss";
 
@@ -8,19 +9,13 @@ export interface SpacerProps {
   className?: string;
 }
 
-export const Spacer = ({ size = "md", className }: SpacerProps) => (
-  <div
-    className={clsx(
-      styles.cuiSpacer,
-      {
-        [styles.cuiXs]: size === "xs",
-        [styles.cuiSm]: size === "sm",
-        [styles.cuiMd]: size === "md",
-        [styles.cuiLg]: size === "lg",
-        [styles.cuiXl]: size === "xl",
-        [styles.cuiXxl]: size === "xxl",
-      },
-      className
-    )}
-  />
-);
+export const Spacer = ({ size = "md", className }: SpacerProps) => {
+  const sizeClass = `cuiSize${capitalize(size)}`;
+
+  return (
+    <div
+      className={clsx(styles.cuiSpacer, styles[sizeClass], className)}
+      data-cui-size={size}
+    />
+  );
+};

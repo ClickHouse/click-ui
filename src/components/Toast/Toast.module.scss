@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 // Toast animations
 @keyframes cuiHide {
@@ -81,22 +82,24 @@
 
 // Toast icon styles
 .cuiToastIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
   width: var(--click-toast-icon-size-width);
   height: var(--click-toast-icon-size-height);
 
-  &.cuiIconDefault {
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeDefault') {
     color: var(--click-toast-color-icon-default);
   }
 
-  &.cuiIconSuccess {
+  @include variants.variant('cuiTypeSuccess') {
     color: var(--click-toast-color-icon-success);
   }
 
-  &.cuiIconDanger {
+  @include variants.variant('cuiTypeDanger') {
     color: var(--click-toast-color-icon-danger);
   }
 
-  &.cuiIconWarning {
+  @include variants.variant('cuiTypeWarning') {
     color: var(--click-toast-color-icon-warning);
   }
 }
@@ -138,11 +141,12 @@
   z-index: 2147483647;
   outline: none;
 
-  &.cuiAlignStart {
+  // Alignment variants - using :where() for low specificity
+  @include variants.variant('cuiAlignStart') {
     left: 0;
   }
 
-  &.cuiAlignEnd {
+  @include variants.variant('cuiAlignEnd') {
     right: 0;
   }
 }

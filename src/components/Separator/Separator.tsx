@@ -1,30 +1,38 @@
 import clsx from "clsx";
-import * as RadixSeparator from "@radix-ui/react-separator";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./Separator.module.scss";
 
-interface Props extends RadixSeparator.SeparatorProps {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   size: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+  orientation?: "horizontal" | "vertical";
+  decorative?: boolean;
 }
 
-const Separator = ({ orientation = "horizontal", size, className, ...props }: Props) => (
-  <RadixSeparator.Root
-    orientation={orientation}
-    className={clsx(
-      styles.cuiSeparator,
-      {
-        [styles.cuiHorizontal]: orientation === "horizontal",
-        [styles.cuiVertical]: orientation === "vertical",
-        [styles.cuiXs]: size === "xs",
-        [styles.cuiSm]: size === "sm",
-        [styles.cuiMd]: size === "md",
-        [styles.cuiLg]: size === "lg",
-        [styles.cuiXl]: size === "xl",
-        [styles.cuiXxl]: size === "xxl",
-      },
-      className
-    )}
-    {...props}
-  />
-);
+const Separator = ({
+  orientation = "horizontal",
+  size,
+  className,
+  decorative = true,
+  ...props
+}: Props) => {
+  const orientationClass = `cui${capitalize(orientation)}`;
+  const sizeClass = `cuiSize${capitalize(size)}`;
+
+  return (
+    <div
+      role={decorative ? "none" : "separator"}
+      aria-orientation={!decorative && orientation !== "horizontal" ? orientation : undefined}
+      className={clsx(
+        styles.cuiSeparator,
+        styles[orientationClass],
+        styles[sizeClass],
+        className
+      )}
+      data-cui-orientation={orientation}
+      data-cui-size={size}
+      {...props}
+    />
+  );
+};
 
 export default Separator;

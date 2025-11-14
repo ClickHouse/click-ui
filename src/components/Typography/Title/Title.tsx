@@ -42,6 +42,8 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
       return `cuiFontSize${capitalize(family)}${capitalize(size)}`;
     };
 
+    const colorClass = `cuiColor${capitalize(color)}`;
+    const alignClass = `cuiAlign${capitalize(align)}`;
     const Component = type;
 
     return (
@@ -49,16 +51,16 @@ export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
         ref={ref}
         className={clsx(
           styles.cuiTitle,
-          {
-            [styles[getFontClass(size, family)]]: true,
-            [styles.cuiColorDefault]: color === "default",
-            [styles.cuiColorMuted]: color === "muted",
-            [styles.cuiAlignLeft]: align === "left",
-            [styles.cuiAlignCenter]: align === "center",
-            [styles.cuiAlignRight]: align === "right",
-          },
+          styles[getFontClass(size, family)],
+          styles[colorClass],
+          styles[alignClass],
           className
         )}
+        data-cui-type={type}
+        data-cui-size={size}
+        data-cui-family={family}
+        data-cui-color={color}
+        data-cui-align={align}
         {...props}
       >
         {children}

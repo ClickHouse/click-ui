@@ -1,240 +1,241 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiGridContainer {
   display: grid;
 
-  &.cuiInline {
+  @include variants.variant('cuiInline') {
     display: inline-grid;
   }
 
-  &.cuiFillWidth {
+  @include variants.variant('cuiFillWidth') {
     width: 100%;
   }
 
-  &.cuiWidthAuto {
+  @include variants.variant('cuiWidthAuto') {
     width: auto;
   }
 
-  // Alignment classes
-  &.cuiAlignItemsStart {
+  /* Alignment classes */
+  @include variants.variant('cuiAlignItemsStart') {
     align-items: start;
   }
 
-  &.cuiAlignItemsCenter {
+  @include variants.variant('cuiAlignItemsCenter') {
     align-items: center;
   }
 
-  &.cuiAlignItemsEnd {
+  @include variants.variant('cuiAlignItemsEnd') {
     align-items: end;
   }
 
-  &.cuiAlignItemsStretch {
+  @include variants.variant('cuiAlignItemsStretch') {
     align-items: stretch;
   }
 
-  &.cuiAlignContentCenter {
+  @include variants.variant('cuiAlignContentCenter') {
     align-content: center;
   }
 
-  &.cuiAlignContentSpaceBetween {
+  @include variants.variant('cuiAlignContentSpaceBetween') {
     align-content: space-between;
   }
 
-  &.cuiAlignContentSpaceAround {
+  @include variants.variant('cuiAlignContentSpaceAround') {
     align-content: space-around;
   }
 
-  &.cuiAlignContentSpaceEvenly {
+  @include variants.variant('cuiAlignContentSpaceEvenly') {
     align-content: space-evenly;
   }
 
-  &.cuiAlignContentStart {
+  @include variants.variant('cuiAlignContentStart') {
     align-content: start;
   }
 
-  &.cuiAlignContentStretch {
+  @include variants.variant('cuiAlignContentStretch') {
     align-content: stretch;
   }
 
-  &.cuiAlignContentEnd {
+  @include variants.variant('cuiAlignContentEnd') {
     align-content: end;
   }
 
-  &.cuiAlignContentLeft {
+  @include variants.variant('cuiAlignContentLeft') {
     align-content: left;
   }
 
-  &.cuiAlignContentRight {
+  @include variants.variant('cuiAlignContentRight') {
     align-content: right;
   }
 
-  // Justify content classes
-  &.cuiJustifyContentCenter {
+  /* Justify content classes */
+  @include variants.variant('cuiJustifyContentCenter') {
     justify-content: center;
   }
 
-  &.cuiJustifyContentSpaceBetween {
+  @include variants.variant('cuiJustifyContentSpaceBetween') {
     justify-content: space-between;
   }
 
-  &.cuiJustifyContentSpaceAround {
+  @include variants.variant('cuiJustifyContentSpaceAround') {
     justify-content: space-around;
   }
 
-  &.cuiJustifyContentSpaceEvenly {
+  @include variants.variant('cuiJustifyContentSpaceEvenly') {
     justify-content: space-evenly;
   }
 
-  &.cuiJustifyContentStart {
+  @include variants.variant('cuiJustifyContentStart') {
     justify-content: start;
   }
 
-  &.cuiJustifyContentStretch {
+  @include variants.variant('cuiJustifyContentStretch') {
     justify-content: stretch;
   }
 
-  &.cuiJustifyContentEnd {
+  @include variants.variant('cuiJustifyContentEnd') {
     justify-content: end;
   }
 
-  &.cuiJustifyContentLeft {
+  @include variants.variant('cuiJustifyContentLeft') {
     justify-content: left;
   }
 
-  &.cuiJustifyContentRight {
+  @include variants.variant('cuiJustifyContentRight') {
     justify-content: right;
   }
 
-  // Justify items classes
-  &.cuiJustifyItemsStart {
+  /* Justify items classes */
+  @include variants.variant('cuiJustifyItemsStart') {
     justify-items: start;
   }
 
-  &.cuiJustifyItemsCenter {
+  @include variants.variant('cuiJustifyItemsCenter') {
     justify-items: center;
   }
 
-  &.cuiJustifyItemsEnd {
+  @include variants.variant('cuiJustifyItemsEnd') {
     justify-items: end;
   }
 
-  &.cuiJustifyItemsStretch {
+  @include variants.variant('cuiJustifyItemsStretch') {
     justify-items: stretch;
   }
 
-  // Gap classes
-  &.cuiGapNone {
+  /* Gap classes */
+  @include variants.variant('cuiGapNone') {
     gap: var(--click-gridContainer-gap-none);
   }
 
-  &.cuiGapXxs {
+  @include variants.variant('cuiGapXxs') {
     gap: var(--click-gridContainer-gap-xxs);
   }
 
-  &.cuiGapXs {
+  @include variants.variant('cuiGapXs') {
     gap: var(--click-gridContainer-gap-xs);
   }
 
-  &.cuiGapSm {
+  @include variants.variant('cuiGapSm') {
     gap: var(--click-gridContainer-gap-sm);
   }
 
-  &.cuiGapMd {
+  @include variants.variant('cuiGapMd') {
     gap: var(--click-gridContainer-gap-md);
   }
 
-  &.cuiGapLg {
+  @include variants.variant('cuiGapLg') {
     gap: var(--click-gridContainer-gap-lg);
   }
 
-  &.cuiGapXl {
+  @include variants.variant('cuiGapXl') {
     gap: var(--click-gridContainer-gap-xl);
   }
 
-  &.cuiGapXxl {
+  @include variants.variant('cuiGapXxl') {
     gap: var(--click-gridContainer-gap-xxl);
   }
 
-  &.cuiGapUnset {
+  @include variants.variant('cuiGapUnset') {
     gap: unset;
   }
 
-  // Column gap classes
-  &.cuiColumnGapNone {
+  /* Column gap classes */
+  @include variants.variant('cuiColumnGapNone') {
     column-gap: var(--click-gridContainer-gap-none);
   }
 
-  &.cuiColumnGapXxs {
+  @include variants.variant('cuiColumnGapXxs') {
     column-gap: var(--click-gridContainer-gap-xxs);
   }
 
-  &.cuiColumnGapXs {
+  @include variants.variant('cuiColumnGapXs') {
     column-gap: var(--click-gridContainer-gap-xs);
   }
 
-  &.cuiColumnGapSm {
+  @include variants.variant('cuiColumnGapSm') {
     column-gap: var(--click-gridContainer-gap-sm);
   }
 
-  &.cuiColumnGapMd {
+  @include variants.variant('cuiColumnGapMd') {
     column-gap: var(--click-gridContainer-gap-md);
   }
 
-  &.cuiColumnGapLg {
+  @include variants.variant('cuiColumnGapLg') {
     column-gap: var(--click-gridContainer-gap-lg);
   }
 
-  &.cuiColumnGapXl {
+  @include variants.variant('cuiColumnGapXl') {
     column-gap: var(--click-gridContainer-gap-xl);
   }
 
-  &.cuiColumnGapXxl {
+  @include variants.variant('cuiColumnGapXxl') {
     column-gap: var(--click-gridContainer-gap-xxl);
   }
 
-  &.cuiColumnGapUnset {
+  @include variants.variant('cuiColumnGapUnset') {
     column-gap: unset;
   }
 
-  // Row gap classes
-  &.cuiRowGapNone {
+  /* Row gap classes */
+  @include variants.variant('cuiRowGapNone') {
     row-gap: var(--click-gridContainer-gap-none);
   }
 
-  &.cuiRowGapXxs {
+  @include variants.variant('cuiRowGapXxs') {
     row-gap: var(--click-gridContainer-gap-xxs);
   }
 
-  &.cuiRowGapXs {
+  @include variants.variant('cuiRowGapXs') {
     row-gap: var(--click-gridContainer-gap-xs);
   }
 
-  &.cuiRowGapSm {
+  @include variants.variant('cuiRowGapSm') {
     row-gap: var(--click-gridContainer-gap-sm);
   }
 
-  &.cuiRowGapMd {
+  @include variants.variant('cuiRowGapMd') {
     row-gap: var(--click-gridContainer-gap-md);
   }
 
-  &.cuiRowGapLg {
+  @include variants.variant('cuiRowGapLg') {
     row-gap: var(--click-gridContainer-gap-lg);
   }
 
-  &.cuiRowGapXl {
+  @include variants.variant('cuiRowGapXl') {
     row-gap: var(--click-gridContainer-gap-xl);
   }
 
-  &.cuiRowGapXxl {
+  @include variants.variant('cuiRowGapXxl') {
     row-gap: var(--click-gridContainer-gap-xxl);
   }
 
-  &.cuiRowGapUnset {
+  @include variants.variant('cuiRowGapUnset') {
     row-gap: unset;
   }
 
   @media (max-width: var(--breakpoint-sizes-md)) {
-    &.cuiResponsive {
+    @include variants.variant('cuiResponsive') {
       grid-template-columns: 1fr;
     }
   }

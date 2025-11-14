@@ -11,6 +11,7 @@ import {
   Icon,
   IconName,
 } from "@/components";
+import { capitalize } from "@/utils/capitalize";
 import styles from "./CardHorizontal.module.scss";
 
 type CardColor = "default" | "muted";
@@ -50,6 +51,7 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
+  className,
   ...props
 }: CardHorizontalProps) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -61,21 +63,31 @@ export const CardHorizontal = ({
     }
   };
 
-  const wrapperClasses = clsx(styles.cuiWrapper, {
-    [styles.cuiColorDefault]: color === "default",
-    [styles.cuiColorMuted]: color === "muted",
-    [styles.cuiIsSelectable]: isSelectable,
-    [styles.cuiIsSelected]: isSelected,
-    [styles.cuiDisabled]: disabled,
-  });
+  const colorClass = `cuiColor${capitalize(color)}`;
+  const selectedClass = isSelected ? "cuiSelected" : undefined;
+  const disabledClass = disabled ? "cuiDisabled" : undefined;
+
+  const wrapperClasses = clsx(
+    styles.cuiWrapper,
+    styles[colorClass],
+    selectedClass && styles[selectedClass],
+    disabledClass && styles[disabledClass],
+    {
+      [styles.cuiIsSelectable]: isSelectable,
+    },
+    className
+  );
 
   const iconClasses = clsx(styles.cuiCardIcon);
 
   return (
     <div
-      className={wrapperClasses}
       tabIndex={0}
       onClick={handleClick}
+      className={wrapperClasses}
+      data-cui-color={color}
+      data-cui-selected={isSelected ? "true" : undefined}
+      data-cui-disabled={disabled ? "true" : undefined}
       {...props}
     >
       <div className={styles.cuiContentWrapper}>

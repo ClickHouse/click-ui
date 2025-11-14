@@ -1,10 +1,8 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiCodeBlockContainer {
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  @include mixins.cuiFullWidthStretch;
   position: relative;
   --cui-codeblock-pre-background: light-dark(
     var(--click-codeblock-lightMode-color-background-default),
@@ -27,11 +25,11 @@
     );
   }
 
-  &.cuiLightMode {
+  @include variants.variant('cuiLightMode') {
     color-scheme: light;
   }
 
-  &.cuiDarkMode {
+  @include variants.variant('cuiDarkMode') {
     color-scheme: dark;
   }
 }
@@ -39,15 +37,15 @@
 .cuiCodeButton {
   @include mixins.cuiEmptyButton;
 
-  &.cuiCopied {
+  @include variants.variant('cuiCopied') {
     color: var(--click-alert-color-text-success);
   }
 
-  &.cuiError {
+  @include variants.variant('cuiError') {
     color: var(--click-alert-color-text-danger);
   }
 
-  &.cuiNormal {
+  @include variants.variant('cuiNormal') {
     color: inherit;
   }
 }

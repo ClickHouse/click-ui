@@ -11,18 +11,20 @@ export interface LabelProps extends HTMLAttributes<HTMLLabelElement> {
   htmlFor?: string;
 }
 
-export const Label = ({ disabled, error, children, ...props }: LabelProps) => (
-  <label
-    {...props}
-    className={clsx(
-      styles.cuiLabel,
-      {
-        [styles.cuiDisabled]: disabled,
-        [styles.cuiError]: error && !disabled,
-      },
-      props.className
-    )}
-  >
-    {children}
-  </label>
-);
+export const Label = ({ disabled, error, children, ...props }: LabelProps) => {
+  const stateClass = disabled
+    ? "cuiStateDisabled"
+    : error
+      ? "cuiStateError"
+      : "cuiStateDefault";
+
+  return (
+    <label
+      {...props}
+      className={clsx(styles.cuiLabel, styles[stateClass], props.className)}
+      data-cui-state={disabled ? "disabled" : error ? "error" : "default"}
+    >
+      {children}
+    </label>
+  );
+};

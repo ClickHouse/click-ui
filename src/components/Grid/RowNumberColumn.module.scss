@@ -1,11 +1,12 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiRowNumberColumnContainer {
   position: sticky;
   left: 0;
   height: 100%;
 
-  &.cuiScrolledHorizontal {
+  @include variants.variant('cuiScrolledHorizontal') {
     box-shadow: 0px 0 0px 1px var(--click-grid-header-cell-color-stroke-default);
   }
 }
@@ -18,7 +19,7 @@
   white-space: nowrap;
   width: 100%;
 
-  &.cuiAutoHeight {
+  @include variants.variant('cuiAutoHeight') {
     height: 100%;
   }
 }

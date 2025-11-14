@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiAccordionRoot {
   display: flex;
@@ -8,6 +9,31 @@
 
   &.cuiFillWidth {
     width: 100%;
+  }
+
+  // Gap variants - using :where() for low specificity
+  @include variants.variant("cuiGapNone") {
+    gap: var(--click-container-gap-none);
+  }
+
+  @include variants.variant("cuiGapXs") {
+    gap: var(--click-container-gap-xs);
+  }
+
+  @include variants.variant("cuiGapSm") {
+    gap: var(--click-container-gap-sm);
+  }
+
+  @include variants.variant("cuiGapMd") {
+    gap: var(--click-container-gap-md);
+  }
+
+  @include variants.variant("cuiGapLg") {
+    gap: var(--click-container-gap-lg);
+  }
+
+  @include variants.variant("cuiGapXl") {
+    gap: var(--click-container-gap-xl);
   }
 }
 
@@ -28,6 +54,8 @@
   @include mixins.cuiAccordionTriggerBase;
   width: 100%;
   border-radius: inherit;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
 
   &[data-state="open"] {
     border-bottom-left-radius: 0px;
@@ -47,40 +75,44 @@
     cursor: pointer;
   }
 
-  // Size and color variants
-  &.cuiSizeNone {
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeNone") {
     @include mixins.cuiAccordionTriggerSize("sm");
     padding: var(--click-container-space-sm);
   }
 
-  &.cuiSizeSm {
+  @include variants.variant("cuiSizeSm") {
     @include mixins.cuiAccordionTriggerSize("sm");
     padding: var(--click-container-space-sm);
   }
 
-  &.cuiSizeMd {
+  @include variants.variant("cuiSizeMd") {
     @include mixins.cuiAccordionTriggerSize("md");
     padding: var(--click-container-space-md);
   }
 
-  &.cuiSizeLg {
+  @include variants.variant("cuiSizeLg") {
     @include mixins.cuiAccordionTriggerSize("lg");
     padding: var(--click-container-space-lg);
   }
 
-  &.cuiColorLink {
+  // Color link variants with size combinations
+  @include variants.variant("cuiColorLink") {
     @include mixins.cuiAccordionTriggerSize("md", "link");
 
-    &.cuiSizeNone,
-    &.cuiSizeSm {
+    @include variants.variant("cuiSizeNone") {
       @include mixins.cuiAccordionTriggerSize("sm", "link");
     }
 
-    &.cuiSizeMd {
+    @include variants.variant("cuiSizeSm") {
+      @include mixins.cuiAccordionTriggerSize("sm", "link");
+    }
+
+    @include variants.variant("cuiSizeMd") {
       @include mixins.cuiAccordionTriggerSize("md", "link");
     }
 
-    &.cuiSizeLg {
+    @include variants.variant("cuiSizeLg") {
       @include mixins.cuiAccordionTriggerSize("lg", "link");
     }
   }
@@ -104,7 +136,7 @@
 }
 
 .cuiCustomIcon {
-  &.cuiIsCompleted {
+  &[data-cui-completed="true"] {
     svg path {
       stroke: var(--global-color-background-default) !important;
       fill: var(--global-color-accent-default) !important;
@@ -119,22 +151,23 @@
 .cuiAccordionContent {
   padding-top: 0;
 
-  &.cuiPaddingNone {
+  // Padding variants - using :where() for low specificity
+  @include variants.variant("cuiPaddingNone") {
     padding: var(--click-container-space-none);
     padding-top: 0;
   }
 
-  &.cuiPaddingSm {
+  @include variants.variant("cuiPaddingSm") {
     padding: var(--click-container-space-sm);
     padding-top: 0;
   }
 
-  &.cuiPaddingMd {
+  @include variants.variant("cuiPaddingMd") {
     padding: var(--click-container-space-md);
     padding-top: 0;
   }
 
-  &.cuiPaddingLg {
+  @include variants.variant("cuiPaddingLg") {
     padding: var(--click-container-space-lg);
     padding-top: 0;
   }
@@ -142,29 +175,4 @@
 
 .cuiAccordionItemTitle {
   overflow: hidden;
-}
-
-// Gap variants for accordion root
-.cuiGapNone {
-  gap: var(--click-container-gap-none);
-}
-
-.cuiGapXs {
-  gap: var(--click-container-gap-xs);
-}
-
-.cuiGapSm {
-  gap: var(--click-container-gap-sm);
-}
-
-.cuiGapMd {
-  gap: var(--click-container-gap-md);
-}
-
-.cuiGapLg {
-  gap: var(--click-container-gap-lg);
-}
-
-.cuiGapXl {
-  gap: var(--click-container-gap-xl);
 }

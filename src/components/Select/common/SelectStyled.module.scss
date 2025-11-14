@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiSelectPopoverRoot {
   width: 100%;
@@ -62,7 +63,7 @@
     cursor: not-allowed;
   }
 
-  &.cuiError {
+  @include variants.variant('cuiError') {
     font: var(--click-field-typography-fieldText-error);
     border: 1px solid var(--click-field-color-stroke-error);
     background: var(--click-field-color-background-active);
@@ -103,11 +104,11 @@
   align-items: flex-start;
   gap: 0.625rem;
 
-  &.cuiUseFullWidthItems {
+  @include variants.variant('cuiUseFullWidthItems') {
     min-width: var(--radix-popover-trigger-width);
     width: 100%;
 
-    &.cuiHasCharacterLimit {
+    @include variants.variant('cuiHasCharacterLimit') {
       max-width: var(--character-limit);
     }
   }
@@ -122,12 +123,12 @@
   color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
   font: var(--click-genericMenu-autocomplete-typography-search-term-default);
 
-  &.cuiShowSearch {
+  @include variants.variant('cuiShowSearch') {
     padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
     height: auto;
   }
 
-  &.cuiHideSearch {
+  @include variants.variant('cuiHideSearch') {
     padding: 0;
     height: 0;
   }
@@ -147,14 +148,14 @@
     font: var(--click-genericMenu-autocomplete-typography-search-placeholder-default);
   }
 
-  &.cuiShowSearch {
+  @include variants.variant('cuiShowSearch') {
     min-height: 21px;
     height: initial;
     padding-right: 24px;
     border-bottom: 2px solid var(--click-genericMenu-button-color-stroke-default);
   }
 
-  &.cuiHideSearch {
+  @include variants.variant('cuiHideSearch') {
     min-height: 0;
     height: 0;
     padding: 0;
@@ -167,11 +168,11 @@
   top: var(--click-genericMenu-item-space-y);
   right: var(--click-genericMenu-item-space-x);
 
-  &.cuiShowClose {
+  @include variants.variant('cuiShowClose') {
     visibility: visible;
   }
 
-  &.cuiHideClose {
+  @include variants.variant('cuiHideClose') {
     visibility: hidden;
   }
 }
@@ -188,7 +189,7 @@
   overflow: auto;
   flex: 1;
 
-  &.cuiHasMaxHeight {
+  @include variants.variant('cuiHasMaxHeight') {
     max-height: var(--max-height);
   }
 }
@@ -202,9 +203,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
+  @include mixins.cuiFullWidthStretch;
   overflow: hidden;
   background: transparent;
   font: var(--click-genericMenu-item-typography-sectionHeader-default);
@@ -255,11 +254,11 @@
     display: none;
   }
 
-  &.cuiClickable {
+  @include variants.variant('cuiClickable') {
     cursor: pointer;
   }
 
-  &.cuiNonClickable {
+  @include variants.variant('cuiNonClickable') {
     cursor: default;
   }
 }

@@ -9,13 +9,4 @@
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  &.cuiIsSelected {
-    border-color: var(--click-button-basic-color-primary-stroke-active);
-  }
-
-  // Target the previous sibling div when it's active
-  div:active + & {
-    border-color: var(--click-button-basic-color-primary-stroke-active);
-  }
 }

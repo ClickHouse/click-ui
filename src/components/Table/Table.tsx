@@ -36,6 +36,7 @@ const TableHeader = ({
   onSort,
   onClick,
   size,
+  className,
   ...delegated
 }: Omit<TableHeaderType, "width"> & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
@@ -55,7 +56,7 @@ const TableHeader = ({
       className={clsx(styles.cuiHeader, {
         [styles.cuiHeaderSm]: size === "sm",
         [styles.cuiHeaderMd]: size === "md",
-      })}
+      }, className)}
       {...delegated}
     >
       <div

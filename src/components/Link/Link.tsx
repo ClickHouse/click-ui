@@ -8,6 +8,7 @@ import {
   PolymorphicRef,
 } from "@/utils/polymorphic";
 import clsx from "clsx";
+import { capitalize } from "@/utils/capitalize";
 import styles from "./Link.module.scss";
 
 export interface LinkProps<
@@ -41,24 +42,22 @@ const _Link = <T extends ElementType = "a">(
   const Component = component ?? "a";
   const isSmallSize = size === "xs" || size === "sm";
 
+  const sizeClass = `cui${capitalize(size)}`;
+  const weightClass = weight !== "normal" ? `cuiWeight${capitalize(weight)}` : null;
+  const iconSizeClass = isSmallSize ? 'cuiSm' : 'cuiMd';
+
   return (
     <Component
       ref={ref}
       className={clsx(
         styles.cuiLink,
-        {
-          [styles.cuiXs]: size === "xs",
-          [styles.cuiSm]: size === "sm",
-          [styles.cuiMd]: size === "md",
-          [styles.cuiLg]: size === "lg",
-          [styles.cuiXl]: size === "xl",
-          [styles.cuiWeightBold]: weight === "bold",
-          [styles.cuiWeightSemibold]: weight === "semibold",
-          [styles.cuiWeightMedium]: weight === "medium",
-        },
+        styles[sizeClass],
+        weightClass && styles[weightClass],
         className
       )}
       onClick={onClick}
+      data-cui-size={size}
+      data-cui-weight={weight}
       {...props}
     >
       {children}
@@ -66,10 +65,7 @@ const _Link = <T extends ElementType = "a">(
         <span className={styles.cuiIconWrapper}>
           <Icon
             name={icon}
-            className={clsx(styles.cuiExternalIcon, {
-              [styles.cuiSm]: isSmallSize,
-              [styles.cuiMd]: !isSmallSize,
-            })}
+            className={clsx(styles.cuiExternalIcon, styles[iconSizeClass])}
             data-testid={icon}
           />
         </span>

@@ -1,4 +1,5 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiLabel {
   color: var(--click-field-color-label-default);
@@ -15,7 +16,7 @@
     font: var(--click-field-typography-label-active);
   }
 
-  &.cuiDisabled {
+  @include variants.variant('cuiStateDisabled') {
     color: var(--click-field-color-label-disabled);
     font: var(--click-field-typography-label-disabled);
 
@@ -31,7 +32,7 @@
     }
   }
 
-  &.cuiError {
+  @include variants.variant('cuiStateError') {
     color: var(--click-field-color-label-error);
     font: var(--click-field-typography-label-error);
 

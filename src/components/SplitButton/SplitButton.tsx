@@ -6,6 +6,7 @@ import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
 import { BaseButton } from "@/components/commonElement";
 import { IconWrapper } from "@/components";
 import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
 import styles from "./SplitButton.module.scss";
 
 type ButtonType = "primary" | "secondary";
@@ -63,10 +64,13 @@ export const SplitButton = ({
   children,
   icon,
   iconDir = "start",
+  className,
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+
+  const typeClass = `cui${capitalize(type)}`;
 
   useEffect(() => {
     const targetDiv = ref.current;
@@ -96,21 +100,28 @@ export const SplitButton = ({
       modal={modal}
     >
       <div
-        className={clsx(styles.cuiSplitButtonTrigger, {
-          [styles.cuiPrimary]: type === "primary",
-          [styles.cuiSecondary]: type === "secondary",
-          [styles.cuiFillWidth]: fillWidth,
-          [styles.cuiDisabled]: disabled,
-        })}
+        className={clsx(
+          styles.cuiSplitButtonTrigger,
+          styles[typeClass],
+          {
+            [styles.cuiFillWidth]: fillWidth,
+            [styles.cuiDisabled]: disabled,
+          },
+          className // User's className merged at top level
+        )}
+        data-cui-type={type}
+        data-cui-disabled={disabled ? 'true' : undefined}
         ref={ref}
       >
         <BaseButton
           disabled={disabled}
-          className={clsx(styles.cuiPrimaryButton, {
-            [styles.cuiPrimary]: type === "primary",
-            [styles.cuiSecondary]: type === "secondary",
-            [styles.cuiFillWidth]: fillWidth,
-          })}
+          className={clsx(
+            styles.cuiPrimaryButton,
+            styles[typeClass],
+            {
+              [styles.cuiFillWidth]: fillWidth,
+            }
+          )}
           {...props}
         >
           <div className={styles.cuiButtonData}>
@@ -128,10 +139,10 @@ export const SplitButton = ({
         >
           <BaseButton
             disabled={disabled}
-            className={clsx(styles.cuiSecondaryButton, {
-              [styles.cuiPrimary]: type === "primary",
-              [styles.cuiSecondary]: type === "secondary",
-            })}
+            className={clsx(
+              styles.cuiSecondaryButton,
+              styles[typeClass]
+            )}
           >
             <Icon
               name="chevron-down"

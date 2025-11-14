@@ -1,6 +1,7 @@
 @use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
-// Dropdown menu trigger
+/* Dropdown menu trigger */
 .cuiTrigger {
   cursor: pointer;
   width: fit-content;
@@ -10,81 +11,13 @@
   }
 }
 
-// Dropdown menu item (base for all items)
+/* Dropdown menu item (base for all items) */
 .cuiMenuItem {
-  position: relative;
-  display: flex;
+  @include mixins.cuiGenericMenuItem;
   min-height: 32px;
-  width: 100%;
-  width: -moz-available;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: default;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  outline: none;
-
-  // Default state
-  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
-  gap: var(--click-genericMenu-item-space-gap);
-  font: var(--click-genericMenu-item-typography-label-default);
-  background: var(--click-genericMenu-item-color-background-default);
-  color: var(--click-genericMenu-item-color-text-default);
-
-  // Highlighted state (hover)
-  &[data-highlighted] {
-    font: var(--click-genericMenu-item-typography-label-hover);
-    background: var(--click-genericMenu-item-color-background-hover);
-    color: var(--click-genericMenu-item-color-text-hover);
-    cursor: pointer;
-  }
-
-  // Open/checked/selected state
-  &[data-state="open"],
-  &[data-state="checked"],
-  &[data-selected="true"] {
-    background: var(--click-genericMenu-item-color-background-active);
-    color: var(--click-genericMenu-item-color-text-active);
-    font: var(--click-genericMenu-item-typography-label-active);
-  }
-
-  // Disabled state
-  &[data-disabled] {
-    color: var(--click-genericMenu-item-color-text-disabled);
-    font: var(--click-genericMenu-item-typography-label-disabled);
-    pointer-events: none;
-  }
-
-  // Visited state
-  &:visited {
-    color: var(--click-genericMenu-item-color-text-default);
-
-    a {
-      color: var(--click-genericMenu-item-color-text-default);
-    }
-  }
-
-  // Dropdown arrow animation
-  &:hover .dropdown-arrow,
-  &[data-state="open"] .dropdown-arrow {
-    left: 0.5rem;
-  }
-
-  // Hidden state
-  &[hidden] {
-    display: none;
-  }
-
-  &[aria-selected] {
-    outline: none;
-  }
 }
 
-// Sub trigger specific styles (extends menu item)
+/* Sub trigger specific styles (extends menu item) */
 .cuiSubTrigger {
   @extend .cuiMenuItem;
 
@@ -96,7 +29,7 @@
   }
 }
 
-// Dropdown menu content panel
+/* Dropdown menu content panel */
 .cuiMenuContent {
   outline: none;
   overflow: hidden;
@@ -108,30 +41,30 @@
   z-index: 1;
   overflow-y: auto;
 
-  // Panel styles
+  /* Panel styles */
   border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
   background: var(--click-genericMenu-panel-color-background-default);
   box-shadow: var(--click-genericMenu-panel-shadow-default);
   border-radius: var(--click-genericMenu-panel-radii-all);
 
-  // Max width/height based on type
-  &.cuiDropdownMenu {
+  /* Max width/height based on type */
+  @include variants.variant('cuiDropdownMenu') {
     max-width: var(--radix-dropdown-menu-content-available-width);
     max-height: var(--radix-dropdown-menu-content-available-height);
   }
 
-  &.cuiContextMenu {
+  @include variants.variant('cuiContextMenu') {
     max-width: var(--radix-context-menu-content-available-width);
     max-height: var(--radix-context-menu-content-available-height);
   }
 
-  &.cuiPopover {
+  @include variants.variant('cuiPopover') {
     max-width: var(--radix-popover-content-available-width);
     max-height: var(--radix-popover-content-available-height);
   }
 }
 
-// Arrow margin adjustments when showArrow is true
+/* Arrow margin adjustments when showArrow is true */
 .cuiMenuContentWithArrow {
   &[data-side="bottom"] {
     margin-top: -1px;
@@ -150,18 +83,18 @@
   }
 }
 
-// Menu group
+/* Menu group */
 .cuiMenuGroup {
   width: 100%;
   border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
 }
 
-// Menu sub
+/* Menu sub */
 .cuiMenuSub {
   border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
 }
 
-// Arrow styling
+/* Arrow styling */
 .cuiArrow {
   filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 4px 6px);
   fill: var(--click-genericMenu-panel-color-background-default);

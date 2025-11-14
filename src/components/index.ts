@@ -91,5 +91,4 @@ export { UserIcon as ProfileIcon } from "@/components/icons/UserIcon";
 export { default as VerticalStepper } from "@/components/VerticalStepper/VerticalStepper";
 export { MultiAccordion } from "@/components/MultiAccordion/MultiAccordion";
 export { ToastProvider, Toast } from "@/components/Toast/Toast";
-export { default as ThemeToggle } from "@/components/ThemeToggle/ThemeToggle";
 export { default as IconWrapper } from "@/components/IconWrapper/IconWrapper";

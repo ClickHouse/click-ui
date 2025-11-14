@@ -807,72 +807,68 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         modal={false}
         onOpenChange={setContextMenuOpen}
       >
-        <ContextMenu.Trigger asChild>
-          <div
-            ref={mergeRefs([forwardedRef, containerRef])}
-            tabIndex={0}
-            onMouseDown={onMouseDown}
-            onMouseMove={onMouseMove}
-            onKeyDown={onKeyDown}
-            onPointerDown={onPointerDown}
-            onPointerUp={onPointerUp}
-            onPointerLeave={setPointerCapture}
-            onPointerEnter={setPointerCapture}
-            onContextMenu={onContextMenu}
-            className={clsx(styles.cuiContextMenuTrigger, {
-              [styles.cuiAutoHeight]: autoHeight,
-              [styles.cuiFixedHeight]: !autoHeight,
-              [styles.cuiRoundedNone]: rounded === "none",
-              [styles.cuiRoundedSm]: rounded === "sm",
-              [styles.cuiRoundedMd]: rounded === "md",
-              [styles.cuiRoundedLg]: rounded === "lg",
-              [styles.cuiRoundedXl]: rounded === "xl",
-              [styles.cuiShowBorder]: showBorder,
-              [styles.cuiHideBorder]: !showBorder,
-            })}
-            style={
-              autoHeight
-                ? {
-                    height:
-                      rowCount * rowHeight +
-                      (showHeader ? headerHeight : 0) +
-                      elementBorderRef.current.scrollBarHeight,
-                  }
-                : undefined
-            }
-          >
-            <AutoSizer onResize={onResize}>
-              {({ height, width }) => (
-                <VariableSizeGrid
-                  ref={
-                    forwardedGridRef ? mergeRefs([forwardedGridRef, gridRef]) : gridRef
-                  }
-                  height={height}
-                  width={width}
-                  columnCount={columnCount}
-                  rowHeight={getRowHeight}
-                  useIsScrolling={useIsScrolling}
-                  innerElementType={InnerElementType}
-                  itemData={data}
-                  initialScrollTop={
-                    focus.row < rowStart
-                      ? focus.row * rowHeight
-                      : (focus.row - rowStart) * rowHeight
-                  }
-                  initialScrollLeft={getColumnHorizontalPosition(focus.column)}
-                  columnWidth={columnWidth}
-                  rowCount={rowCount}
-                  onScroll={onScroll}
-                  outerRef={outerRef}
-                  outerElementType={OuterElementType}
-                  onItemsRendered={onItemsRendered}
-                  {...props}
-                >
-                  {CellWithWidth}
-                </VariableSizeGrid>
-              )}
-            </AutoSizer>
-          </div>
+        <ContextMenu.Trigger
+          ref={mergeRefs([forwardedRef, containerRef])}
+          tabIndex={0}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onKeyDown={onKeyDown}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerLeave={setPointerCapture}
+          onPointerEnter={setPointerCapture}
+          onContextMenu={onContextMenu}
+          className={clsx(styles.cuiContextMenuTrigger, {
+            [styles.cuiAutoHeight]: autoHeight,
+            [styles.cuiFixedHeight]: !autoHeight,
+            [styles.cuiRoundedNone]: rounded === "none",
+            [styles.cuiRoundedSm]: rounded === "sm",
+            [styles.cuiRoundedMd]: rounded === "md",
+            [styles.cuiRoundedLg]: rounded === "lg",
+            [styles.cuiRoundedXl]: rounded === "xl",
+            [styles.cuiShowBorder]: showBorder,
+            [styles.cuiHideBorder]: !showBorder,
+          })}
+          style={
+            autoHeight
+              ? {
+                  height:
+                    rowCount * rowHeight +
+                    (showHeader ? headerHeight : 0) +
+                    elementBorderRef.current.scrollBarHeight,
+                }
+              : undefined
+          }
+        >
+          <AutoSizer onResize={onResize}>
+            {({ height, width }) => (
+              <VariableSizeGrid
+                ref={forwardedGridRef ? mergeRefs([forwardedGridRef, gridRef]) : gridRef}
+                height={height}
+                width={width}
+                columnCount={columnCount}
+                rowHeight={getRowHeight}
+                useIsScrolling={useIsScrolling}
+                innerElementType={InnerElementType}
+                itemData={data}
+                initialScrollTop={
+                  focus.row < rowStart
+                    ? focus.row * rowHeight
+                    : (focus.row - rowStart) * rowHeight
+                }
+                initialScrollLeft={getColumnHorizontalPosition(focus.column)}
+                columnWidth={columnWidth}
+                rowCount={rowCount}
+                onScroll={onScroll}
+                outerRef={outerRef}
+                outerElementType={OuterElementType}
+                onItemsRendered={onItemsRendered}
+                {...props}
+              >
+                {CellWithWidth}
+              </VariableSizeGrid>
+            )}
+          </AutoSizer>
         </ContextMenu.Trigger>
         <ContextMenu.Content>
           {menuOptions.map((option, index) => (

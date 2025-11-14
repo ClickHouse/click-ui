@@ -1,6 +1,7 @@
 "use client";
 
 import { HTMLAttributes, useState } from "react";
+import clsx from "clsx";
 import { Icon, IconName, Text } from "@/components";
 import styles from "./CardPromotion.module.scss";
 
@@ -17,6 +18,7 @@ export const CardPromotion = ({
   label,
   icon,
   dismissible = false,
+  className,
   ...props
 }: CardPromotionProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -24,7 +26,7 @@ export const CardPromotion = ({
   return isVisible ? (
     <div className={styles.cuiBackground}>
       <div
-        className={styles.cuiWrapper}
+        className={clsx(styles.cuiWrapper, className)}
         {...props}
       >
         <Icon

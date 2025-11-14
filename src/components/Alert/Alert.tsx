@@ -2,6 +2,7 @@
 
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
+import { capitalize } from "@/utils/capitalize";
 import { useState, ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./Alert.module.scss";
@@ -52,23 +53,17 @@ const Alert = ({
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  const handleDismiss = useCallback(() => {
-    setIsVisible(false);
-    onDismiss?.();
-  }, [onDismiss]);
+  const typeClass = `cuiType${capitalize(type)}`;
+  const stateClass = `cuiState${capitalize(state)}`;
+  const sizeClass = `cuiSize${capitalize(size)}`;
 
   return isVisible ? (
     <div
-      className={clsx(styles.cuiWrapper, {
-        [styles.cuiDefault]: type === "default",
-        [styles.cuiBanner]: type === "banner",
-        [styles.cuiNeutral]: state === "neutral",
-        [styles.cuiSuccess]: state === "success",
-        [styles.cuiWarning]: state === "warning",
-        [styles.cuiDanger]: state === "danger",
-        [styles.cuiInfo]: state === "info",
-      })}
+      className={clsx(styles.cuiWrapper, styles[typeClass], styles[stateClass])}
       data-testid="click-alert"
+      data-cui-type={type}
+      data-cui-state={state}
+      data-cui-size={size}
       {...delegated}
     >
       {dismissible && type === "banner" && (
@@ -76,54 +71,26 @@ const Alert = ({
       )}
       {showIcon && (
         <div
-          className={clsx(styles.cuiIconWrapper, {
-            [styles.cuiDefault]: type === "default",
-            [styles.cuiBanner]: type === "banner",
-            [styles.cuiNeutral]: state === "neutral",
-            [styles.cuiSuccess]: state === "success",
-            [styles.cuiWarning]: state === "warning",
-            [styles.cuiDanger]: state === "danger",
-            [styles.cuiInfo]: state === "info",
-            [styles.cuiSmall]: size === "small",
-            [styles.cuiMedium]: size === "medium",
-          })}
+          className={clsx(
+            styles.cuiIconWrapper,
+            styles[typeClass],
+            styles[stateClass],
+            styles[sizeClass]
+          )}
         >
           <Icon
-            className={clsx(styles.cuiStyledIcon, {
-              [styles.cuiSmall]: size === "small",
-              [styles.cuiMedium]: size === "medium",
-            })}
+            className={
+              size === "small" ? styles.cuiStyledIconSmall : styles.cuiStyledIconMedium
+            }
             size="sm"
             aria-hidden
             name={customIcon || stateIconMap[state]}
-            disableDefaultSize
           />
         </div>
       )}
-      <div
-        className={clsx(styles.cuiTextWrapper, {
-          [styles.cuiSmall]: size === "small",
-          [styles.cuiMedium]: size === "medium",
-        })}
-      >
-        {title && (
-          <h6
-            className={clsx(styles.cuiTitle, {
-              [styles.cuiSmall]: size === "small",
-              [styles.cuiMedium]: size === "medium",
-            })}
-          >
-            {title}
-          </h6>
-        )}
-        <div
-          className={clsx(styles.cuiText, {
-            [styles.cuiSmall]: size === "small",
-            [styles.cuiMedium]: size === "medium",
-          })}
-        >
-          {text}
-        </div>
+      <div className={clsx(styles.cuiTextWrapper, styles[sizeClass])}>
+        {title && <h6 className={clsx(styles.cuiTitle, styles[sizeClass])}>{title}</h6>}
+        <div className={clsx(styles.cuiText, styles[sizeClass])}>{text}</div>
       </div>
       {dismissible && (
         <button

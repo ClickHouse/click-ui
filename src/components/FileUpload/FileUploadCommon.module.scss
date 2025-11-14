@@ -1,5 +1,20 @@
 // Shared styles for FileUpload components - exported as CSS classes
 
+// Icon styles with composes - overrides Icon's default size
+.iconSizeSm {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  width: var(--click-fileUpload-sm-icon-size-width);
+  height: var(--click-fileUpload-sm-icon-size-height);
+  color: var(--click-fileUpload-sm-color-icon-default);
+}
+
+.iconSizeMd {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  width: var(--click-fileUpload-md-icon-size-width);
+  height: var(--click-fileUpload-md-icon-size-height);
+  color: var(--click-fileUpload-md-color-icon-default);
+}
+
 // Base upload area styles
 .uploadAreaBase {
   background-color: var(--click-fileUpload-color-background-default);
@@ -39,20 +54,6 @@
 .uploadAreaError {
   background-color: var(--click-fileUpload-color-background-error);
   border: none;
-}
-
-// Icon sizing - small (applied to wrapper, increased specificity to override Icon defaults)
-.iconSizeSm.iconSizeSm {
-  width: var(--click-fileUpload-sm-icon-size-width);
-  height: var(--click-fileUpload-sm-icon-size-height);
-  color: var(--click-fileUpload-sm-color-icon-default);
-}
-
-// Icon sizing - medium (applied to wrapper, increased specificity to override Icon defaults)
-.iconSizeMd.iconSizeMd {
-  width: var(--click-fileUpload-md-icon-size-width);
-  height: var(--click-fileUpload-md-icon-size-height);
-  color: var(--click-fileUpload-md-color-icon-default);
 }
 
 // Typography styles
