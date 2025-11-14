@@ -12,9 +12,22 @@ import darkVariables from "@/theme/tokens/variables.dark.json";
 // Cached themes for better performance
 let BASE_THEMES: Record<BaseThemeName, Theme> | null = null;
 
-// Deep merge helper (defined below, but referenced here)
+/**
+ * Deep merge utility for merging theme objects
+ * Recursively merges nested objects, with source properties taking precedence
+ *
+ * @param target - The target object to merge into
+ * @param source - The source object to merge from
+ * @returns A new merged object
+ *
+ * @example
+ * ```typescript
+ * const result = deepMerge({ a: 1, b: { c: 2 } }, { b: { d: 3 } });
+ * // Result: { a: 1, b: { c: 2, d: 3 } }
+ * ```
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const deepMergeInternal = (target: any, source: any): any => {
+export const deepMerge = (target: any, source: any): any => {
   if (!source) return target;
 
   const output = { ...target };
@@ -22,7 +35,7 @@ const deepMergeInternal = (target: any, source: any): any => {
   Object.keys(source).forEach(key => {
     const sourceValue = source[key];
     if (sourceValue && typeof sourceValue === "object" && !Array.isArray(sourceValue)) {
-      output[key] = deepMergeInternal(output[key] || {}, sourceValue);
+      output[key] = deepMerge(output[key] || {}, sourceValue);
     } else {
       output[key] = sourceValue;
     }
@@ -37,8 +50,8 @@ const getBaseThemesCached = (): Record<BaseThemeName, Theme> => {
 
   // Merge base tokens with theme-specific colors
   BASE_THEMES = {
-    light: deepMergeInternal(baseVariables, lightVariables) as unknown as Theme,
-    dark: deepMergeInternal(baseVariables, darkVariables) as unknown as Theme,
+    light: deepMerge(baseVariables, lightVariables) as unknown as Theme,
+    dark: deepMerge(baseVariables, darkVariables) as unknown as Theme,
   };
 
   return BASE_THEMES;
@@ -82,26 +95,5 @@ export const getThemeValue = (theme: Theme | Record<string, any>, path: string):
 import type { ThemeConfig } from "./types";
 
 export const loadCustomConfig = async (): Promise<ThemeConfig | null> => {
-  // This function is kept for backwards compatibility
-  // but now only returns null since build-time config is the only supported method
-  // Build-time config is injected via __CLICK_UI_CONFIG__ by the plugin
   return null;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const deepMerge = (target: any, source: any): any => {
-  if (!source) return target;
-
-  const output = { ...target };
-
-  Object.keys(source).forEach(key => {
-    const sourceValue = source[key];
-    if (sourceValue && typeof sourceValue === "object" && !Array.isArray(sourceValue)) {
-      output[key] = deepMerge(output[key] || {}, sourceValue);
-    } else {
-      output[key] = sourceValue;
-    }
-  });
-
-  return output;
 };

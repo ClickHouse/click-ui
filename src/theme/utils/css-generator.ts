@@ -1,35 +1,33 @@
 import type { NestedJSONObject, Theme } from "../types";
 
-// Cache for color detection results
 const colorValueCache = new Map<string, boolean>();
 
 /**
- * Fast check if variable name suggests it's a color
- */
-const isColorVariable = (varName: string): boolean => {
-  const colorKeywords = ["color", "background", "bg", "stroke", "border", "fill", "shadow"];
-  return colorKeywords.some(keyword => varName.toLowerCase().includes(keyword));
-};
-
-/**
- * Checks if a value is a color using CSS.supports() with caching
- * Only available in browser context
+ * Checks if a value is a color
+ * Build-time only - uses pattern matching
  */
 const isColorValue = (value: string): boolean => {
-  if (typeof window === "undefined" || !value || typeof value !== "string") {
+  if (!value || typeof value !== "string") {
     return false;
   }
 
-  // Check cache first
   if (colorValueCache.has(value)) {
     return colorValueCache.get(value)!;
   }
 
-  // Test if the browser accepts this value as a color
-  // One check is enough - all CSS color properties accept the same color values
-  const isColor = CSS.supports("color", value);
+  // Pattern matching for color detection
+  const trimmed = value.trim();
+  const isColor = (
+    /^#[0-9A-Fa-f]{3,8}$/.test(trimmed) ||                    // Hex colors
+    /^rgba?\([^)]+\)$/.test(trimmed) ||                       // rgb/rgba with any content
+    /^hsla?\([^)]+\)$/.test(trimmed) ||                       // hsl/hsla with any content
+    /^(lch|lab|oklab|oklch)\([^)]+\)$/.test(trimmed) ||      // Modern color spaces
+    /^color\([^)]+\)$/.test(trimmed) ||                       // color() function
+    trimmed.startsWith("var(--") ||                           // CSS variables
+    // Named colors (basic set)
+    /^(transparent|currentColor|inherit|initial|unset)$/i.test(trimmed)
+  );
 
-  // Cache the result
   colorValueCache.set(value, isColor);
 
   return isColor;
@@ -37,81 +35,50 @@ const isColorValue = (value: string): boolean => {
 
 /**
  * Determines if a variable should use light-dark()
- * Uses fast name check first, then validates with CSS.supports()
+ * Only checks if BOTH values are colors - variable name doesn't matter
  */
 const shouldUseLightDark = (
-  varName: string,
+  _varName: string, // Not used - only value matters
   lightValue: string,
   darkValue: string
 ): boolean => {
-  // Fast path: check name first
-  if (!isColorVariable(varName)) {
-    // If name doesn't suggest color, still check value as fallback
-    // but only if we're in browser context
-    if (typeof window === "undefined") return false;
-    return isColorValue(lightValue) && isColorValue(darkValue);
-  }
-
-  // Name suggests color, verify with CSS.supports()
-  return isColorValue(lightValue) || isColorValue(darkValue);
+  // Use light-dark() only if BOTH values are colors
+  return isColorValue(lightValue) && isColorValue(darkValue);
 };
 
-export const generateCSSVariables = (obj: Theme | NestedJSONObject): string => {
-  let css = "";
-
-  const traverse = (current: Theme | NestedJSONObject, path: string[] = []) => {
-    Object.entries(current).forEach(([key, value]) => {
-      // Skip non-variable fields
-      if (key === "name" || key === "isSystem" || key === "resolvedTheme") {
-        return;
-      }
-
-      const varPath = [...path, key];
-
-      if (typeof value === "string" || typeof value === "number") {
-        const varName = `--${varPath.join("-")}`;
-        css += `  ${varName}: ${value};\n`;
-      } else if (Array.isArray(value)) {
-        // Handle arrays: convert each element to a CSS variable with index
-        // e.g., border.radii[0] -> --border-radii-0
-        value.forEach((item, index) => {
-          if (typeof item === "string" || typeof item === "number") {
-            const varName = `--${[...varPath, index].join("-")}`;
-            css += `  ${varName}: ${item};\n`;
-          }
-        });
-      } else if (typeof value === "object" && value !== null) {
-        traverse(value as Theme | NestedJSONObject, varPath);
-      }
-    });
-  };
-
-  traverse(obj);
-  return css;
-};
-
-// Helper to convert theme object to flat variable map
-export const themeToFlatVariables = (theme: Theme): Record<string, string> => {
+/**
+ * Core traverse function to convert nested theme object to flat variable map
+ * Used by generateCSSVariables, themeToFlatVariables, and build plugins to avoid duplication
+ *
+ * @param obj - Theme or nested JSON object to traverse
+ * @param prefix - Prefix for CSS variable names (default: "--")
+ * @param skipFields - Fields to skip during traversal (default: ["name", "isSystem", "resolvedTheme"])
+ * @returns Record of CSS variable names to their values
+ */
+export const traverseThemeObject = (
+  obj: Theme | NestedJSONObject,
+  prefix: string = "--",
+  skipFields: string[] = ["name", "isSystem", "resolvedTheme"]
+): Record<string, string> => {
   const vars: Record<string, string> = {};
 
   const traverse = (current: Theme | NestedJSONObject, path: string[] = []) => {
     Object.entries(current).forEach(([key, value]) => {
-      // Skip non-variable fields
-      if (key === "name" || key === "isSystem" || key === "resolvedTheme") {
+      if (skipFields.includes(key)) {
         return;
       }
 
       const varPath = [...path, key];
 
       if (typeof value === "string" || typeof value === "number") {
-        const varName = `--${varPath.join("-")}`;
+        const varName = `${prefix}${varPath.join("-")}`;
         vars[varName] = String(value);
       } else if (Array.isArray(value)) {
         // Handle arrays: convert each element to a CSS variable with index
         // e.g., border.radii[0] -> --border-radii-0
         value.forEach((item, index) => {
           if (typeof item === "string" || typeof item === "number") {
-            const varName = `--${[...varPath, index].join("-")}`;
+            const varName = `${prefix}${[...varPath, index].join("-")}`;
             vars[varName] = String(item);
           }
         });
@@ -121,8 +88,16 @@ export const themeToFlatVariables = (theme: Theme): Record<string, string> => {
     });
   };
 
-  traverse(theme);
+  traverse(obj);
   return vars;
+};
+
+/**
+ * Convert theme object to flat variable map
+ * Used for light-dark() generation and theme overrides
+ */
+const themeToFlatVariables = (theme: Theme): Record<string, string> => {
+  return traverseThemeObject(theme);
 };
 
 /**
@@ -134,19 +109,14 @@ const processVariable = (
   lightValue: string,
   darkValue: string
 ): string => {
-  // Optimization: if both values are identical, declare it once
   if (lightValue === darkValue) {
     return lightValue;
   }
 
-  // Only use light-dark() for color values
   if (shouldUseLightDark(varName, lightValue, darkValue)) {
     return `light-dark(${lightValue}, ${darkValue})`;
   }
 
-  // Non-color values: use light theme value
-  // Note: If you need different non-color values per theme,
-  // you'll need to handle them separately with [data-theme] selectors
   return lightValue;
 };
 
@@ -200,8 +170,9 @@ export const generateThemeOverrides = (
     const darkValue = darkVars[varName];
 
     if (darkValue && lightValue !== darkValue) {
-      // Skip if it's a color (already handled by light-dark())
-      if (!isColorVariable(varName)) {
+      // Skip if both values are colors (already handled by light-dark())
+      // Only add to overrides if they're non-color values that differ
+      if (!isColorValue(lightValue) || !isColorValue(darkValue)) {
         lightOverrides[varName] = lightValue;
         darkOverrides[varName] = darkValue;
       }
@@ -209,71 +180,4 @@ export const generateThemeOverrides = (
   });
 
   return { light: lightOverrides, dark: darkOverrides };
-};
-
-export const injectThemeStyles = (
-  theme: Theme,
-  resolvedTheme: string,
-  isSystem = false,
-  systemLightTheme?: Theme,
-  systemDarkTheme?: Theme,
-  lightTheme?: Theme,
-  darkTheme?: Theme
-): void => {
-  if (typeof window === "undefined") return;
-
-  const rootElement = document.documentElement;
-
-  // Always use light-dark() approach for efficient theme switching
-  let styleEl = document.getElementById("click-ui-theme-vars");
-  if (!styleEl) {
-    styleEl = document.createElement("style");
-    styleEl.id = "click-ui-theme-vars";
-    document.head.appendChild(styleEl);
-  }
-
-  // Use provided light/dark themes or fall back to system themes
-  const finalLightTheme = lightTheme || systemLightTheme || theme;
-  const finalDarkTheme = darkTheme || systemDarkTheme || theme;
-
-  const lightDarkVars = generateLightDarkVariables(finalLightTheme, finalDarkTheme);
-  const themeOverrides = generateThemeOverrides(finalLightTheme, finalDarkTheme);
-
-  // Generate CSS content with light-dark() for colors
-  const cssVars = Object.entries(lightDarkVars)
-    .map(([property, value]) => `  ${property}: ${value};`)
-    .join("\n");
-
-  let cssContent = `:root {\n${cssVars}\n}`;
-
-  // Add non-color overrides if they exist (for variables that differ between themes)
-  if (Object.keys(themeOverrides.light).length > 0 || Object.keys(themeOverrides.dark).length > 0) {
-    // Light theme overrides
-    if (Object.keys(themeOverrides.light).length > 0) {
-      const lightOverrideCss = Object.entries(themeOverrides.light)
-        .map(([property, value]) => `  ${property}: ${value};`)
-        .join("\n");
-      cssContent += `\n\n:root[data-theme="light"] {\n${lightOverrideCss}\n}`;
-    }
-
-    // Dark theme overrides
-    if (Object.keys(themeOverrides.dark).length > 0) {
-      const darkOverrideCss = Object.entries(themeOverrides.dark)
-        .map(([property, value]) => `  ${property}: ${value};`)
-        .join("\n");
-      cssContent += `\n\n:root[data-theme="dark"] {\n${darkOverrideCss}\n}`;
-    }
-  }
-
-  styleEl.textContent = cssContent;
-
-  // Update only the color-scheme property to switch themes
-  if (isSystem) {
-    rootElement.style.colorScheme = "light dark";
-    rootElement.removeAttribute("data-theme");
-  } else {
-    const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
-    rootElement.style.colorScheme = colorScheme;
-    rootElement.setAttribute("data-theme", resolvedTheme);
-  }
 };

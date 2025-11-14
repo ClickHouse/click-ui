@@ -11,13 +11,9 @@ import React, {
 import { Provider as TooltipProvider } from "@radix-ui/react-tooltip";
 import { ToastProvider } from "@/components/Toast/Toast";
 import { BaseThemeName } from "@/theme/types";
-import { getBaseTheme } from "@/theme/utils";
-import { getThemeConfig } from "@/theme/config";
-import { loadCustomConfig, deepMerge } from "@/theme/utils";
-import { injectThemeStyles } from "@/theme/utils/css-generator";
+import { getRuntimeConfig, getThemeValues } from "@/theme/config";
+import { setThemeAttribute } from "@/theme/utils/theme-attribute";
 import { useSystemColorSchemePreference } from "@/theme/hooks/useSystemColorSchemePreference";
-import "@/theme/global.scss";
-// Note: All CSS variables are dynamically injected via injectThemeStyles()
 import { ConfigThemeValues } from "@/theme/types";
 import { ThemeContext } from "./context";
 import type { ThemeName, ThemeContextValue } from "./context";
@@ -70,29 +66,6 @@ const useDebounce = <T extends (...args: Parameters<T>) => ReturnType<T>>(
   ) as T;
 };
 
-// Theme preloader
-const useThemePreloader = (themes: BaseThemeName[]) => {
-  useEffect(() => {
-    const preloadedThemes = new Set<BaseThemeName>();
-
-    themes.forEach(async themeName => {
-      if (preloadedThemes.has(themeName)) return;
-
-      try {
-        // Preload theme data
-        getBaseTheme(themeName);
-        preloadedThemes.add(themeName);
-
-        if (process.env.NODE_ENV === "development") {
-          console.log(`🎨 Preloaded theme: ${themeName}`);
-        }
-      } catch (error) {
-        console.warn(`Failed to preload theme: ${themeName}`, error);
-      }
-    });
-  }, [themes]);
-};
-
 // Main provider component
 export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   children,
@@ -114,44 +87,31 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   );
   const [isLoading, setIsLoading] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
-  const [customConfig, setCustomConfig] = useState<ClickUIConfig | null>(null);
 
-  // Load configurations
-  const buildTimeConfig = useMemo(() => getThemeConfig(), []);
-  const fileConfig = useMemo(() => {
-    try {
-      return (buildTimeConfig || {}) as ClickUIConfig;
-    } catch (error) {
-      console.warn("Failed to load theme config:", error);
-      return {} as ClickUIConfig;
-    }
-  }, [buildTimeConfig]);
+  // Load runtime configuration (storageKey, tooltipConfig, toastConfig)
+  const runtimeConfig = useMemo(() => getRuntimeConfig(), []);
 
-  // Merge all configurations
+  // Merge all configurations (runtime config + prop overrides)
   const config = useMemo<ClickUIConfig>(
     () => ({
       ...DEFAULT_CONFIG,
-      ...fileConfig,
-      ...customConfig,
+      ...runtimeConfig,
       tooltipConfig: {
         ...DEFAULT_CONFIG.tooltipConfig,
-        ...fileConfig.tooltipConfig,
+        ...runtimeConfig.tooltipConfig,
         ...propConfig?.tooltip,
       },
       toastConfig: {
         ...DEFAULT_CONFIG.toastConfig,
-        ...fileConfig.toastConfig,
+        ...runtimeConfig.toastConfig,
         ...propConfig?.toast,
       },
     }),
-    [fileConfig, customConfig, propConfig]
+    [runtimeConfig, propConfig]
   );
 
   // Detect system color scheme preference
   const systemTheme = useSystemColorSchemePreference();
-
-  // Theme preloading
-  useThemePreloader(config.preloadThemes || []);
 
   // Resolve current theme
   const resolvedTheme = useMemo<BaseThemeName>(() => {
@@ -177,16 +137,10 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
 
   // Initialize from localStorage and handle hydration
   useEffect(() => {
-    const initializeTheme = async () => {
+    const initializeTheme = () => {
       setIsLoading(true);
 
       try {
-        // Load custom config if needed
-        if (!fileConfig && !buildTimeConfig) {
-          const loadedConfig = await loadCustomConfig();
-          setCustomConfig(loadedConfig);
-        }
-
         // Only load from localStorage if no explicit theme prop is provided
         if (!initialTheme && typeof window !== "undefined") {
           const stored = localStorage.getItem(storageKey);
@@ -219,76 +173,15 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Build theme data with dark mode support
-  const { finalTheme, systemLightTheme, systemDarkTheme, lightTheme, darkTheme } = useMemo(() => {
-    const baseLightTheme = getBaseTheme("light");
-    const baseDarkTheme = getBaseTheme("dark");
-    const baseTheme = getBaseTheme(resolvedTheme);
-
-    let processedTheme = baseTheme;
-    let systemLight = null;
-    let systemDark = null;
-
-    // Prepare light theme: base light theme + theme config
-    const preparedLightTheme = config.theme
-      ? deepMerge(baseLightTheme, config.theme)
-      : baseLightTheme;
-
-    // Prepare dark theme: base dark theme + theme config + dark overrides
-    // If dark is not defined, theme values are used for dark mode too
-    const preparedDarkTheme = config.dark
-      ? deepMerge(
-          config.theme ? deepMerge(baseDarkTheme, config.theme) : baseDarkTheme,
-          config.dark
-        )
-      : config.theme
-      ? deepMerge(baseDarkTheme, config.theme)
-      : baseDarkTheme;
-
-    // Apply custom theme overrides to current theme
-    if (config.theme) {
-      processedTheme = deepMerge(processedTheme, config.theme);
-
-      // Also apply dark overrides if we're in dark mode
-      if (resolvedTheme === "dark" && config.dark) {
-        processedTheme = deepMerge(processedTheme, config.dark);
-      }
-    }
-
-    // Handle system mode - use prepared themes
-    if (currentTheme === "system") {
-      systemLight = preparedLightTheme;
-      systemDark = preparedDarkTheme;
-      processedTheme = resolvedTheme === "dark" ? systemDark : systemLight;
-    }
-
-    return {
-      finalTheme: processedTheme,
-      systemLightTheme: systemLight,
-      systemDarkTheme: systemDark,
-      lightTheme: preparedLightTheme,
-      darkTheme: preparedDarkTheme,
-    };
-  }, [resolvedTheme, currentTheme, config.theme, config.dark]);
-
-  // Extract breakpoints and sizes
+  // Extract breakpoints and sizes from config
+  // Theme CSS is pre-built, no need to load theme objects
   const breakpoints = useMemo(() => {
-    const themeBreakpoints = finalTheme?.breakpoint?.sizes;
-    const configBreakpoints = config.breakpoints;
-    return (configBreakpoints ||
-      (typeof themeBreakpoints === "object" && !Array.isArray(themeBreakpoints)
-        ? themeBreakpoints
-        : {})) as Record<string, string>;
-  }, [config, finalTheme]);
+    return (config.breakpoints || {}) as Record<string, string>;
+  }, [config.breakpoints]);
 
   const sizes = useMemo(() => {
-    const themeSizes = finalTheme?.sizes;
-    const configSizes = config.sizes;
-    return (configSizes ||
-      (typeof themeSizes === "object" && !Array.isArray(themeSizes)
-        ? themeSizes
-        : {})) as Record<string, string>;
-  }, [config, finalTheme]);
+    return (config.sizes || {}) as Record<string, string>;
+  }, [config.sizes]);
 
   // Theme update function with debouncing and validation
   const updateThemeInternal = useCallback(
@@ -337,22 +230,21 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     updateTheme(config.defaultTheme || "system");
   }, [updateTheme, config.defaultTheme]);
 
-  // CSS injection with transitions
+  // Apply theme switching with pre-built CSS
   useEffect(() => {
     if (!isHydrated) return;
 
     const isSystem = currentTheme === "system";
 
     try {
-      injectThemeStyles(
-        finalTheme,
-        resolvedTheme,
-        isSystem,
-        systemLightTheme || undefined,
-        systemDarkTheme || undefined,
-        lightTheme || undefined,
-        darkTheme || undefined
-      );
+      // Set theme attribute - CSS is pre-built and loaded via import
+      setThemeAttribute(resolvedTheme, isSystem);
+
+      if (enableDevTools) {
+        console.log(
+          `🎨 Theme switched to: ${resolvedTheme}${isSystem ? " (system)" : ""}`
+        );
+      }
 
       // Apply transitions if enabled
       if (enableTransitions && typeof document !== "undefined") {
@@ -370,20 +262,21 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
         }
       }
     } catch (error) {
-      console.error("Failed to inject theme styles:", error);
+      console.error("Failed to apply theme:", error);
     }
   }, [
-    finalTheme,
     resolvedTheme,
     currentTheme,
-    systemLightTheme,
-    systemDarkTheme,
-    lightTheme,
-    darkTheme,
     isHydrated,
     enableTransitions,
     transitionDuration,
+    enableDevTools,
   ]);
+
+  // Load merged theme values (base theme + config overrides)
+  const themeValues = useMemo(() => {
+    return getThemeValues(resolvedTheme);
+  }, [resolvedTheme]);
 
   // Create context value
   const contextValue = useMemo<ThemeContextValue>(() => {
@@ -398,13 +291,13 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
       toggleTheme,
       resetTheme,
 
-      // Theme data
-      theme: finalTheme as ConfigThemeValues,
+      // Theme data - includes base theme + config overrides
+      theme: themeValues,
       breakpoints,
       sizes,
 
       // Utility functions
-      utils: createThemeUtils(finalTheme as ConfigThemeValues, resolvedTheme),
+      utils: createThemeUtils(themeValues, resolvedTheme),
 
       // State indicators
       isLoading,
@@ -419,7 +312,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
     updateTheme,
     toggleTheme,
     resetTheme,
-    finalTheme,
+    themeValues,
     breakpoints,
     sizes,
     isLoading,
@@ -434,19 +327,11 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
         config,
         debug: {
           systemTheme,
-          buildTimeConfig,
-          fileConfig,
+          runtimeConfig,
         },
       };
     }
-  }, [
-    enableDevTools,
-    contextValue,
-    config,
-    systemTheme,
-    buildTimeConfig,
-    fileConfig,
-  ]);
+  }, [enableDevTools, contextValue, config, systemTheme, runtimeConfig]);
 
   // Render provider
   const content = (
