@@ -1,10 +1,5 @@
 export type NestedJSONObject = {
-  [key: string]:
-    | string
-    | number
-    | boolean
-    | NestedJSONObject
-    | (string | number)[];
+  [key: string]: string | number | NestedJSONObject | (string | number)[];
 };
 
 // Import the generated Theme interface from token types
@@ -42,12 +37,30 @@ type FlexibleTheme = NestedJSONObject;
 // Usage: const config: ThemeConfig = { theme: {...} as TypedTheme }
 export type TypedTheme = DeepPartial<Theme>;
 
-// Build-time config with light mode (theme) and dark mode overrides
-export interface ThemeConfig {
+// ═══════════════════════════════════════════════════════════════
+// BUILD-TIME CONFIG (Used by bundler plugins to generate CSS)
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Build-time theme tokens - processed by bundler plugin
+ * These are transformed into CSS variables at build time
+ */
+export interface BuildTimeThemeConfig {
   // Light mode theme - accepts partial theme objects and custom properties
   theme?: FlexibleTheme;
   // Dark mode overrides - if not defined, uses theme values for dark mode too
   dark?: FlexibleTheme;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RUNTIME CONFIG (Used by ClickUIProvider/ServerClickUIProvider)
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Runtime provider configuration
+ * These settings control provider behavior at runtime
+ */
+export interface RuntimeConfig {
   storageKey?: string;
   // Tooltip configuration
   tooltipConfig?: {
@@ -62,6 +75,16 @@ export interface ThemeConfig {
     swipeThreshold?: number;
   };
 }
+
+// ═══════════════════════════════════════════════════════════════
+// COMPLETE CONFIG (Combines both build-time and runtime)
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Complete configuration for click-ui.config.ts
+ * Combines both build-time theme tokens and runtime provider settings
+ */
+export interface ThemeConfig extends BuildTimeThemeConfig, RuntimeConfig {}
 
 export interface ThemeContextValue {
   themeName: ThemeName;

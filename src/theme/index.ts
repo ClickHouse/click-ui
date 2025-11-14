@@ -30,7 +30,7 @@ export {
 } from "./utils";
 
 // === CSS UTILITIES ===
-export { generateCSSVariables, injectThemeStyles } from "./utils/css-generator";
+export { setThemeAttribute } from "./utils/theme-attribute";
 
 // === CONFIGURATION ===
 export { getThemeConfig } from "./config";

@@ -1,6 +1,6 @@
 # ClickUI Theme System
 
-**Runtime Theme Usage** - Theme switching, hooks, CSS variables, and runtime configuration.
+**CSS Variable-Based Theming** - High performance theming with native CSS custom properties.
 
 > **See Also:**
 > - [Build-Time Configuration](../BUILD_TIME_CONFIG_CLICK_UI.md) - Theme config API reference for `click-ui.config.ts`
@@ -10,18 +10,20 @@
 
 ## Features
 
-- 🎨 **Theme Switching**: Programmatic theme switching with hooks
-- 📱 **System Theme Detection**: Automatic light/dark mode based on OS preferences
+- 🎨 **CSS Variables**: Native CSS custom properties for theming
+- 🚀 **Intelligent Loading**: Auto-detects build-time CSS vs runtime generation
+- 📦 **Optimized Bundle**: Minimal JavaScript footprint for theme switching
 - 🎯 **TypeScript Support**: Full type safety with intelligent autocomplete
-- 🔄 **Theme Persistence**: Automatic theme persistence in local storage
-- 🌐 **SSR Compatible**: Works with Next.js, Remix, and other SSR frameworks
-- ⚡ **Performance**: Lazy loading and optimized bundle size
+- 📱 **System Theme**: Automatic light/dark mode via `prefers-color-scheme`
+- 🔄 **Theme Persistence**: localStorage with SSR-safe hydration
+- 🌐 **SSR/SSG Ready**: Perfect hydration, works with all frameworks
+- ⚡ **Performance**: Build-time CSS compilation or runtime fallback
 
 ## Quick Start
 
 ```tsx
 import { ClickUIProvider } from '@clickhouse/click-ui';
-import '@clickhouse/click-ui/style.css';
+import '@clickhouse/click-ui/cui.css';
 
 function App() {
   return (
@@ -130,19 +132,69 @@ function CustomComponent() {
 }
 ```
 
+## How Theme Switching Works
+
+The theme system operates in two modes depending on your build configuration:
+
+### Runtime Mode (Automatic Fallback)
+```typescript
+// CSS generated at runtime
+// - Works without any build configuration
+// - Automatic backwards compatibility
+// - Generates CSS variables on initialization
+```
+
+### Build-Time Mode (Recommended)
+```typescript
+// CSS pre-compiled at build time
+// - Theme CSS loaded from static files
+// - Instant theme switching via HTML attributes
+// - Minimal runtime JavaScript
+// - Optimal performance and caching
+```
+
+The system automatically detects available CSS and selects the appropriate mode.
+
+### Component Styling
+
+Components use CSS modules with CSS variables for theming:
+
+```tsx
+// Component implementation
+import styles from './Button.module.scss';
+
+function Button() {
+  return <button className={styles.button}>Click me</button>;
+}
+```
+
+```scss
+// Button.module.scss
+.button {
+  background: var(--click-button-primary-background-default);
+  color: var(--click-button-primary-text-default);
+
+  &:hover {
+    background: var(--click-button-primary-background-hover);
+  }
+}
+```
+
 ## Troubleshooting
 
 **Hydration Issues?**
 - Use `ServerClickUIProvider` for SSR/RSC
 - Or add `suppressHydrationWarning={true}` to `ClickUIProvider`
 
-**Bundle Too Large?**
-- Ensure tree-shaking is enabled
-- Import only the components you need
+**Want Build-Time CSS?**
+- Add bundler plugin (see [config/README.md](../config/README.md))
+- Create `click-ui.config.ts` in your project root
+- Theme CSS will be compiled at build time
 
 **Theme Not Loading?**
 - Check that `ClickUIProvider` wraps your app
-- Verify CSS is imported: `import '@clickhouse/click-ui/style.css'`
+- Verify CSS is imported: `import '@clickhouse/click-ui/cui.css'`
+- Check browser console for mode: "Using build-time CSS" or "Using runtime CSS generation"
 
 ---
 
