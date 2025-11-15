@@ -994,9 +994,16 @@
           }
         },
         "space": {
-          "y": string,
-          "x": string,
-          "gap": string
+          "md": {
+            "y": string,
+            "x": string,
+            "gap": string
+          },
+          "sm": {
+            "y": string,
+            "x": string,
+            "gap": string
+          }
         },
         "default": {
           "color": {

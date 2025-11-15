@@ -16,7 +16,7 @@ export default {
 export const Playground = {
   args: {
     name: "aws",
-    width: "1rem",
-    height: "16px",
+    width: "32px",
+    height: "32px",
   },
 };
