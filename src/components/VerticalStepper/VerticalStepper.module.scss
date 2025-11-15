@@ -22,11 +22,11 @@
     row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
     column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
 
-    @include variants.variant('cuiStatusActive') {
+    @include variants.variant('cuiIsOpen') {
       padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-active);
     }
 
-    &:not(:where(.cuiStatusActive)) {
+    &:not(:where(.cuiIsOpen)) {
       padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-default);
     }
 
@@ -57,11 +57,11 @@
     row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
     column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
 
-    @include variants.variant('cuiStatusActive') {
+    @include variants.variant('cuiIsOpen') {
       padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-active);
     }
 
-    &:not(:where(.cuiStatusActive)) {
+    &:not(:where(.cuiIsOpen)) {
       padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-default);
     }
 

@@ -41,17 +41,16 @@ export const SidebarCollapsibleTitle = ({
       open={open}
       onOpenChange={onOpenChange}
     >
-      <Collapsible.Trigger>
-        <SidebarNavigationTitle
-          label={label}
-          icon={icon}
-          iconDir={iconDir}
-          selected={selected}
-          type={type}
-          collapsible={true}
-          {...props}
-        />
-      </Collapsible.Trigger>
+      <SidebarNavigationTitle
+        component={Collapsible.Trigger}
+        label={label}
+        icon={icon}
+        iconDir={iconDir}
+        selected={selected}
+        type={type}
+        collapsible={true}
+        {...props}
+      />
       <Collapsible.Content>{children}</Collapsible.Content>
     </Collapsible>
   );

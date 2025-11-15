@@ -269,20 +269,20 @@ export const FileUpload = ({
             </Button>
           </>
         ) : (
-          <div className={commonStyles.fileInfoContainer}>
-            <div className={commonStyles.fileInfoHeader}>
-              <Icon
-                name={"document"}
-                className={commonStyles.iconSizeSm}
-              />
-              <div className={commonStyles.fileDetails}>
+          <>
+            <Icon
+              name={"document"}
+              className={commonStyles.iconSizeSm}
+            />
+            <div className={commonStyles.fileInfoContainer}>
+              <div className={commonStyles.fileInfoHeader}>
                 <Text size={"md"}>{truncateFilename(file.name)}</Text>
-                {(showSuccess || showProgress) && (
+                {showProgress && !showSuccess && (
                   <Text
                     size={"md"}
                     color={"muted"}
                   >
-                    {formatFileSize(file.size)}
+                    {progress}%
                   </Text>
                 )}
                 {!showProgress && !showSuccess && (
@@ -301,43 +301,40 @@ export const FileUpload = ({
                   />
                 )}
               </div>
-
-              <div className={commonStyles.fileActions}>
-                {!showProgress && !showSuccess && (
-                  <IconButton
-                    size={"sm"}
-                    icon={"refresh"}
-                    type={"ghost"}
-                    onClick={handleRetryUpload}
-                  />
-                )}
-                <IconButton
-                  size={"sm"}
-                  icon={"cross"}
-                  type={"ghost"}
-                  onClick={handleRemoveFile}
-                />
-              </div>
-            </div>
-
-            {showProgress && (
-              <div className={commonStyles.progressContainer}>
-                <div className={commonStyles.progressBarContainer}>
+              {showProgress && !showSuccess && (
+                <div className={commonStyles.progressContainer}>
                   <ProgressBar
                     progress={progress}
                     type={"small"}
                   />
                 </div>
+              )}
+              {(showSuccess || !showProgress) && (
                 <Text
-                  size={"sm"}
+                  size={"md"}
                   color={"muted"}
-                  className={commonStyles.progressPercentage}
                 >
-                  {progress}%
+                  {formatFileSize(file.size)}
                 </Text>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+            <div className={commonStyles.fileActions}>
+              {!showProgress && !showSuccess && (
+                <IconButton
+                  size={"sm"}
+                  icon={"refresh"}
+                  type={"ghost"}
+                  onClick={handleRetryUpload}
+                />
+              )}
+              <IconButton
+                size={"sm"}
+                icon={"cross"}
+                type={"ghost"}
+                onClick={handleRemoveFile}
+              />
+            </div>
+          </>
         )}
       </div>
 

@@ -54,19 +54,20 @@ const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItem
         open={open}
         onOpenChange={onOpenChange}
       >
-        <Collapsible.Header>
-          <SidebarNavigationItem
-            ref={ref}
-            label={label}
-            icon={icon}
-            iconDir={iconDir}
-            level={level}
-            type={type}
-            selected={selected}
-            collapsible={true}
-            {...props}
-          />
-        </Collapsible.Header>
+        <SidebarNavigationItem
+          component={Collapsible.Header}
+          ref={ref}
+          label={label}
+          icon={icon}
+          iconDir={iconDir}
+          level={level}
+          type={type}
+          selected={selected}
+          collapsible={true}
+          indicatorDir={indicatorDir}
+          wrapInTrigger={type === "main"}
+          {...props}
+        />
         <Collapsible.Content indicatorDir={indicatorDir}>{children}</Collapsible.Content>
       </Collapsible>
     );

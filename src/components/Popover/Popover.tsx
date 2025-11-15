@@ -59,10 +59,14 @@ const PopoverContent = ({
       <RadixPopover.Content
         className={clsx(
           styles.cuiMenuPanel,
-          { [styles.cuiShowClose]: showClose }
+          {
+            [styles.cuiShowClose]: showClose,
+            [styles.cuiShowArrow]: showArrow
+          }
         )}
         sideOffset={4}
         data-cui-show-close={!!showClose}
+        data-cui-show-arrow={!!showArrow}
         {...props}
       >
         {showClose && (
@@ -77,6 +81,7 @@ const PopoverContent = ({
         )}
         {showArrow && (
           <RadixPopover.Arrow
+            className={styles.cuiPopoverArrow}
             width={20}
             height={10}
             asChild

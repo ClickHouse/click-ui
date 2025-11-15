@@ -67,24 +67,17 @@
   color: var(--click-fileUpload-color-description-default);
 }
 
-// File info container
+// File info container - holds all file content (header, progress, size)
 .fileInfoContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--click-fileUpload-hasFile-header-space-gap);
+  justify-content: center;
+  min-height: 24px;
   flex: 1;
 }
 
-// File info header
+// File info header - holds filename and status info horizontally
 .fileInfoHeader {
-  display: flex;
-  align-items: center;
-  gap: var(--click-fileUpload-sm-space-gap);
-  width: 100%;
-}
-
-// File details
-.fileDetails {
   display: flex;
   gap: var(--click-fileUpload-md-space-gap);
   border: none;
@@ -98,24 +91,8 @@
   gap: 0;
 }
 
-// Progress container
+// Progress bar wrapper - adds spacing around progress bar
 .progressContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-// Progress bar container
-.progressBarContainer {
-  width: 100%;
-  flex: 1;
-}
-
-// Progress percentage
-.progressPercentage {
-  min-width: var(--sizes-10);
-  text-align: right;
-  padding-right: var(--click-fileUpload-md-space-gap);
+  margin-top: var(--click-fileUpload-md-space-gap);
+  margin-bottom: 9px;
 }

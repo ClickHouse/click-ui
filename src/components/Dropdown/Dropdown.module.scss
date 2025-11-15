@@ -96,7 +96,23 @@
 
 /* Arrow styling */
 .cuiArrow {
-  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 4px 6px);
   fill: var(--click-genericMenu-panel-color-background-default);
   stroke: var(--click-genericMenu-panel-color-stroke-default);
+
+  /* Default shadow for bottom placement (arrow points up) */
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
+
+  /* Invert shadow when menu is on top (arrow points down) */
+  [data-side="top"] & {
+    filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Adjust shadow for left/right placements */
+  [data-side="left"] & {
+    filter: drop-shadow(-4px 0px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  [data-side="right"] & {
+    filter: drop-shadow(4px 0px 6px rgba(0, 0, 0, 0.1));
+  }
 }

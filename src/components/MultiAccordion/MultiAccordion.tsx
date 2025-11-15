@@ -177,26 +177,28 @@ const MultiAccordionItem = ({
             />
           ) : null}
         </div>
-        <Text
-          component="span"
-          size={customSize}
-          fillWidth={fillWidth}
-          className={styles.cuiAccordionItemTitle}
-        >
-          {title}
-        </Text>
-        {showCheck && (
-          <Icon
-            name={isCompleted ? "check-in-circle" : "circle"}
-            className={styles.cuiCustomIcon}
-            data-cui-completed={isCompleted ? "true" : undefined}
-            size={iconSize ?? customSize}
-            aria-label="accordion icon status"
-            onClick={onClickStatus}
-            data-icon="accordion-status"
-            data-testid="accordion-status-icon"
-          />
-        )}
+        <div className={styles.cuiAccordionContentWrapper}>
+          <Text
+            component="span"
+            size={customSize}
+            fillWidth={fillWidth}
+            className={styles.cuiAccordionItemTitle}
+          >
+            {title}
+          </Text>
+          {showCheck && (
+            <Icon
+              name={isCompleted ? "check-in-circle" : "circle"}
+              className={styles.cuiCustomIcon}
+              data-cui-completed={isCompleted ? "true" : undefined}
+              size={iconSize ?? customSize}
+              aria-label="accordion icon status"
+              onClick={onClickStatus}
+              data-icon="accordion-status"
+              data-testid="accordion-status-icon"
+            />
+          )}
+        </div>
       </RadixAccordion.Trigger>
       <RadixAccordion.Content
         className={clsx(styles.cuiAccordionContent, styles[paddingClass])}

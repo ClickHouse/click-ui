@@ -4,6 +4,26 @@
 .cuiSidebarItemWrapper {
   @include mixins.cuiSidebarItemBase;
 
+  // Global anchor styling - applies to all nested anchors via IconWrapper span
+  // Increased specificity to override Storybook's .sbdocs a styles
+  a,
+  a:link,
+  a:visited {
+    color: inherit !important;
+    cursor: pointer;
+    text-decoration: none !important;
+  }
+
+  a:hover,
+  a:focus {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a:active {
+    color: inherit !important;
+  }
+
   // Base item styles (level 0)
   &.cuiItem {
     @include variants.variant('cuiTypeMain') {
@@ -15,22 +35,12 @@
       background-color: var(--click-sidebar-main-navigation-item-color-background-default);
       color: var(--click-sidebar-main-navigation-item-color-text-default);
 
-      span a {
-        color: var(--click-sidebar-main-navigation-item-color-text-default);
-        cursor: pointer;
-        text-decoration: none;
-      }
-
       &:hover,
       &:focus {
         font: var(--click-sidebar-navigation-item-typography-hover);
         background-color: var(--click-sidebar-main-navigation-item-color-background-hover);
         color: var(--click-sidebar-main-navigation-item-color-text-hover);
         pointer-events: auto;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-item-color-text-hover);
-        }
       }
 
       &:active {
@@ -38,10 +48,6 @@
         background-color: var(--click-sidebar-main-navigation-item-color-background-active);
         color: var(--click-sidebar-main-navigation-item-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-item-color-text-active);
-        }
       }
 
       @include variants.variant('cuiSelected') {
@@ -49,22 +55,12 @@
         background-color: var(--click-sidebar-main-navigation-item-color-background-active);
         color: var(--click-sidebar-main-navigation-item-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-item-color-text-active);
-        }
       }
 
       @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-main-navigation-item-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-item-color-text-disabled);
-          cursor: not-allowed;
-          text-decoration: none;
-        }
 
         &:hover,
         &:focus,
@@ -109,22 +105,12 @@
       background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-default);
       color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-default);
 
-      span a {
-        color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-default);
-        cursor: pointer;
-        text-decoration: none;
-      }
-
       &:hover,
       &:focus {
         font: var(--click-sidebar-navigation-item-typography-hover);
         background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-hover);
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
         pointer-events: auto;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
-        }
       }
 
       &:active {
@@ -132,10 +118,6 @@
         background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
-        }
       }
 
       @include variants.variant('cuiSelected') {
@@ -143,22 +125,12 @@
         background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
-        }
       }
 
       @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
-          cursor: not-allowed;
-          text-decoration: none;
-        }
 
         &:hover,
         &:focus,
@@ -206,22 +178,12 @@
       background-color: var(--click-sidebar-main-navigation-subItem-color-background-default);
       color: var(--click-sidebar-main-navigation-subItem-color-text-default);
 
-      span a {
-        color: var(--click-sidebar-main-navigation-subItem-color-text-default);
-        cursor: pointer;
-        text-decoration: none;
-      }
-
       &:hover,
       &:focus {
         font: var(--click-sidebar-navigation-subItem-typography-hover);
         background-color: var(--click-sidebar-main-navigation-subItem-color-background-hover);
         color: var(--click-sidebar-main-navigation-subItem-color-text-hover);
         pointer-events: auto;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-subItem-color-text-hover);
-        }
       }
 
       &:active {
@@ -229,10 +191,6 @@
         background-color: var(--click-sidebar-main-navigation-subItem-color-background-active);
         color: var(--click-sidebar-main-navigation-subItem-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-subItem-color-text-active);
-        }
       }
 
       @include variants.variant('cuiSelected') {
@@ -240,22 +198,12 @@
         background-color: var(--click-sidebar-main-navigation-subItem-color-background-active);
         color: var(--click-sidebar-main-navigation-subItem-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-subItem-color-text-active);
-        }
       }
 
       @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
-
-        span a {
-          color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
-          cursor: not-allowed;
-          text-decoration: none;
-        }
 
         &:hover,
         &:focus,
@@ -300,22 +248,12 @@
       background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-default);
       color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-default);
 
-      span a {
-        color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-default);
-        cursor: pointer;
-        text-decoration: none;
-      }
-
       &:hover,
       &:focus {
         font: var(--click-sidebar-navigation-subItem-typography-hover);
         background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-hover);
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
         pointer-events: auto;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
-        }
       }
 
       &:active {
@@ -323,10 +261,6 @@
         background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
-        }
       }
 
       @include variants.variant('cuiSelected') {
@@ -334,22 +268,12 @@
         background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
         pointer-events: all;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
-        }
       }
 
       @include variants.variant('cuiDisabled') {
         color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
         pointer-events: none;
         cursor: not-allowed;
-
-        span a {
-          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
-          cursor: not-allowed;
-          text-decoration: none;
-        }
 
         &:hover,
         &:focus,

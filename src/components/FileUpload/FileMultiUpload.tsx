@@ -264,48 +264,44 @@ export const FileMultiUpload = ({
                 }
               )}
             >
+              <Icon
+                name={"document"}
+                className={commonStyles.iconSizeSm}
+              />
               <div className={commonStyles.fileInfoContainer}>
                 <div className={commonStyles.fileInfoHeader}>
-                  <Icon
-                    name={"document"}
-                    className={commonStyles.iconSizeSm}
-                  />
-                  <div className={commonStyles.fileDetails}>
-                    <Text size={"md"}>{truncateFilename(file.name)}</Text>
-                    {file.status === "uploading" && (
-                      <Text
-                        size={"md"}
-                        color={"muted"}
-                      >
-                        {file.progress}%
-                      </Text>
-                    )}
-                    {file.status === "error" && (
-                      <Text
-                        size={"md"}
-                        color={"danger"}
-                      >
-                        {file.errorMessage || "Upload failed"}
-                      </Text>
-                    )}
-                    {file.status === "success" && (
-                      <Icon
-                        size={"xs"}
-                        state={"success"}
-                        name={"check"}
-                      />
-                    )}
-                  </div>
+                  <Text size={"md"}>{truncateFilename(file.name)}</Text>
+                  {file.status === "uploading" && (
+                    <Text
+                      size={"md"}
+                      color={"muted"}
+                    >
+                      {file.progress}%
+                    </Text>
+                  )}
+                  {file.status === "error" && (
+                    <Text
+                      size={"md"}
+                      color={"danger"}
+                    >
+                      {file.errorMessage || "Upload failed"}
+                    </Text>
+                  )}
+                  {file.status === "success" && (
+                    <Icon
+                      size={"xs"}
+                      state={"success"}
+                      name={"check"}
+                    />
+                  )}
                 </div>
 
                 {file.status === "uploading" && (
                   <div className={commonStyles.progressContainer}>
-                    <div className={commonStyles.progressBarContainer}>
-                      <ProgressBar
-                        progress={file.progress}
-                        type={"small"}
-                      />
-                    </div>
+                    <ProgressBar
+                      progress={file.progress}
+                      type={"small"}
+                    />
                   </div>
                 )}
                 {(file.status === "success" || file.status === "error") && (
