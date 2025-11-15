@@ -11,6 +11,7 @@ const CardHorizontalExample = ({ ...props }) => {
         description={props.description}
         disabled={props.disabled}
         isSelected={props.isSelected}
+        size={props.size}
         badgeText={props.badgeText}
         badgeIcon={props.badgeIcon}
         badgeState={props.badgeState}
@@ -28,6 +29,12 @@ export default {
   tags: ["cardHorizontal", "autodocs"],
   argTypes: {
     icon: { control: "select", options: ICON_NAMES, description: "`IconName`" },
+    size: {
+      control: "radio",
+      options: ["sm", "md"],
+      description: "`sm` `md`",
+      defaultValue: { summary: "md" },
+    },
     badgeIcon: { control: "select", options: ICON_NAMES, description: "`IconName`" },
     badgeText: {
       control: "text",
@@ -70,6 +77,7 @@ export const Playground = {
     description: "A description very interesting that presumably relates to the card.",
     disabled: false,
     isSelected: false,
+    size: "md",
     badgeText: "",
     badgeIcon: null,
     badgeState: "default",

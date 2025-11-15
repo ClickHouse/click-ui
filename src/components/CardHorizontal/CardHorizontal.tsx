@@ -15,6 +15,7 @@ import { capitalize } from "@/utils/capitalize";
 import styles from "./CardHorizontal.module.scss";
 
 type CardColor = "default" | "muted";
+export type CardSize = "sm" | "md";
 
 export interface CardHorizontalProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -23,11 +24,14 @@ export interface CardHorizontalProps
   disabled?: boolean;
   description?: ReactNode;
   infoUrl?: string;
+  /** Shows and hides the button */
   infoText?: string;
   isSelected?: boolean;
   isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
+  size?: CardSize;
+  /** Shows and hides the badge */
   badgeText?: string;
   badgeState?: BadgeState;
   badgeIcon?: IconName;
@@ -46,6 +50,7 @@ export const CardHorizontal = ({
   isSelectable = infoText ? false : true,
   children,
   color = "default",
+  size = "md",
   badgeText,
   badgeState,
   badgeIcon,
@@ -64,12 +69,14 @@ export const CardHorizontal = ({
   };
 
   const colorClass = `cuiColor${capitalize(color)}`;
+  const sizeClass = `cuiSize${capitalize(size)}`;
   const selectedClass = isSelected ? "cuiSelected" : undefined;
   const disabledClass = disabled ? "cuiDisabled" : undefined;
 
   const wrapperClasses = clsx(
     styles.cuiWrapper,
     styles[colorClass],
+    styles[sizeClass],
     selectedClass && styles[selectedClass],
     disabledClass && styles[disabledClass],
     {
@@ -78,6 +85,11 @@ export const CardHorizontal = ({
     className
   );
 
+  const contentWrapperClasses = clsx(styles.cuiContentWrapper, styles[sizeClass]);
+  const iconTextContentWrapperClasses = clsx(
+    styles.cuiIconTextContentWrapper,
+    styles[sizeClass]
+  );
   const iconClasses = clsx(styles.cuiCardIcon);
 
   return (
@@ -86,12 +98,13 @@ export const CardHorizontal = ({
       onClick={handleClick}
       className={wrapperClasses}
       data-cui-color={color}
+      data-cui-size={size}
       data-cui-selected={isSelected ? "true" : undefined}
       data-cui-disabled={disabled ? "true" : undefined}
       {...props}
     >
-      <div className={styles.cuiContentWrapper}>
-        <div className={styles.cuiIconTextContentWrapper}>
+      <div className={contentWrapperClasses}>
+        <div className={iconTextContentWrapperClasses}>
           {icon && (
             <Icon
               name={icon}
