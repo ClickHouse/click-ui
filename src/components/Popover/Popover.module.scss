@@ -8,18 +8,67 @@
   cursor: pointer;
   font: inherit;
   width: fit-content;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .cuiMenuPanel {
+  // Inherits from GenericMenuPanel styles
+  outline: none;
+  overflow: hidden;
   display: block;
-  padding: var(--click-popover-space-y) var(--click-popover-space-x);
-  background-color: var(--click-popover-color-panel-background-default);
+  align-items: flex-start;
+  pointer-events: auto;
   border: 1px solid var(--click-popover-color-panel-stroke-default);
-  border-radius: var(--click-popover-radii-all);
+  background: var(--click-popover-color-panel-background-default);
   box-shadow: var(--click-popover-shadow-default);
+  border-radius: var(--click-popover-radii-all);
+  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  max-width: var(--radix-popover-content-available-width);
+  max-height: var(--radix-popover-content-available-height);
 
   @include variants.variant('cuiShowClose') {
     padding-top: 1rem;
+  }
+
+  // Arrow margin adjustments (from GenericMenuPanel cuiShowArrow variant)
+  @include variants.variant('cuiShowArrow') {
+    &[data-side="bottom"] {
+      margin-top: -1px;
+    }
+    &[data-side="top"] {
+      margin-bottom: 1px;
+    }
+    &[data-side="left"] {
+      margin-right: -1px;
+    }
+    &[data-side="right"] {
+      margin-left: -1px;
+    }
+  }
+}
+
+.cuiPopoverArrow {
+  fill: var(--click-popover-color-panel-background-default);
+  stroke: var(--click-popover-color-panel-stroke-default);
+
+  /* Default shadow for bottom placement (arrow points up) */
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
+
+  /* Invert shadow when popover is on top (arrow points down) */
+  [data-side="top"] & {
+    filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Adjust shadow for left/right placements */
+  [data-side="left"] & {
+    filter: drop-shadow(-4px 0px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  [data-side="right"] & {
+    filter: drop-shadow(4px 0px 6px rgba(0, 0, 0, 0.1));
   }
 }
 

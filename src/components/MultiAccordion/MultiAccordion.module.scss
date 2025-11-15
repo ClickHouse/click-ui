@@ -54,8 +54,8 @@
   @include mixins.cuiAccordionTriggerBase;
   width: 100%;
   border-radius: inherit;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  align-items: center;
 
   &[data-state="open"] {
     border-bottom-left-radius: 0px;
@@ -122,6 +122,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.cuiAccordionContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--click-container-gap-sm);
+  width: 100%;
+  overflow: hidden;
 }
 
 .cuiAccordionIconWrapper {

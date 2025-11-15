@@ -48,12 +48,21 @@
     padding-left: var(--click-image-sm-size-width);
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
+  // Anchor styling with increased specificity to override Storybook's .sbdocs a styles
+  a,
+  a:link,
+  a:visited {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
 
-    &:active {
-      color: inherit;
-    }
+  a:hover,
+  a:focus {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a:active {
+    color: inherit !important;
   }
 }
