@@ -272,12 +272,12 @@ export const FileMultiUpload = ({
                   />
                   <div className={commonStyles.fileDetails}>
                     <Text size={"md"}>{truncateFilename(file.name)}</Text>
-                    {(file.status === "success" || file.status === "uploading") && (
+                    {file.status === "uploading" && (
                       <Text
                         size={"md"}
                         color={"muted"}
                       >
-                        {formatFileSize(file.size)}
+                        {file.progress}%
                       </Text>
                     )}
                     {file.status === "error" && (
@@ -296,23 +296,6 @@ export const FileMultiUpload = ({
                       />
                     )}
                   </div>
-
-                  <div className={commonStyles.fileActions}>
-                    {file.status === "error" && (
-                      <IconButton
-                        size={"sm"}
-                        icon={"refresh"}
-                        type={"ghost"}
-                        onClick={() => handleRetryUpload(file.id)}
-                      />
-                    )}
-                    <IconButton
-                      size={"sm"}
-                      icon={"cross"}
-                      type={"ghost"}
-                      onClick={() => handleRemoveFile(file.id)}
-                    />
-                  </div>
                 </div>
 
                 {file.status === "uploading" && (
@@ -323,15 +306,33 @@ export const FileMultiUpload = ({
                         type={"small"}
                       />
                     </div>
-                    <Text
-                      size={"sm"}
-                      color={"muted"}
-                      className={commonStyles.progressPercentage}
-                    >
-                      {file.progress}%
-                    </Text>
                   </div>
                 )}
+                {(file.status === "success" || file.status === "error") && (
+                  <Text
+                    size={"md"}
+                    color={"muted"}
+                  >
+                    {formatFileSize(file.size)}
+                  </Text>
+                )}
+              </div>
+
+              <div className={commonStyles.fileActions}>
+                {file.status === "error" && (
+                  <IconButton
+                    size={"sm"}
+                    icon={"refresh"}
+                    type={"ghost"}
+                    onClick={() => handleRetryUpload(file.id)}
+                  />
+                )}
+                <IconButton
+                  size={"sm"}
+                  icon={"cross"}
+                  type={"ghost"}
+                  onClick={() => handleRemoveFile(file.id)}
+                />
               </div>
             </div>
           ))}

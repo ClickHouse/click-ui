@@ -10,15 +10,31 @@
   align-items: center;
   justify-content: flex-start;
   border-radius: var(--click-card-horizontal-radii-all);
-  padding: var(--click-card-horizontal-space-y) var(--click-card-horizontal-space-x);
-  gap: var(--click-card-horizontal-space-gap);
   transition: all 0.2s ease-in-out;
+
+  // Size variants
+  @include variants.variant('cuiSizeMd') {
+    padding: var(--click-card-horizontal-space-md-y) var(--click-card-horizontal-space-md-x);
+    gap: var(--click-card-horizontal-space-md-gap);
+
+    .cuiDescription {
+      gap: var(--click-card-horizontal-space-md-gap);
+    }
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    padding: var(--click-card-horizontal-space-sm-y) var(--click-card-horizontal-space-sm-x);
+    gap: var(--click-card-horizontal-space-sm-gap);
+
+    .cuiDescription {
+      gap: var(--click-card-horizontal-space-sm-gap);
+    }
+  }
 
   .cuiDescription {
     display: flex;
     flex-direction: column;
     align-self: start;
-    gap: var(--click-card-horizontal-space-gap);
     flex: 1;
     width: 100%;
   }
@@ -242,7 +258,14 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  gap: var(--click-card-horizontal-space-gap);
+
+  @include variants.variant('cuiSizeMd') {
+    gap: var(--click-card-horizontal-space-md-gap);
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    gap: var(--click-card-horizontal-space-sm-gap);
+  }
 
   @include mixins.cuiMobile {
     flex-direction: column;
@@ -254,5 +277,12 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  gap: var(--click-card-horizontal-space-gap);
+
+  @include variants.variant('cuiSizeMd') {
+    gap: var(--click-card-horizontal-space-md-gap);
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    gap: var(--click-card-horizontal-space-sm-gap);
+  }
 }
