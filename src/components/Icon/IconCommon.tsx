@@ -154,6 +154,7 @@ import { UserIcon } from "@/components/icons/UserIcon";
 import { UsersIcon } from "@/components/icons/UsersIcon";
 import WarningIcon from "@/components/icons/WarningIcon";
 import Waves from "@/components/icons/Waves";
+import SquareBoxes from "../icons/SquareBoxes";
 
 export const ICONS_MAP = {
   activity: Activity,
@@ -296,6 +297,7 @@ export const ICONS_MAP = {
   speaker: Speaker,
   speed: Speed,
   square: Square,
+  "square-boxes": SquareBoxes,
   star: Star,
   stop: Stop,
   support: Support,

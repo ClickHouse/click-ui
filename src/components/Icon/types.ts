@@ -148,6 +148,7 @@ export const ICON_NAMES = [
   "speaker",
   "speed",
   "square",
+  "square-boxes",
   "star",
   "stop",
   "support",
