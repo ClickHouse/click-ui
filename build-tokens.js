@@ -70,7 +70,7 @@ StyleDictionary.registerFormat({
 });
 
 StyleDictionary.extend({
-  source: [`./tokens/**/!(${themes.join("|*.")}).json`],
+  source: [`./tokens/**/*.json`],
   platforms: {
     css: {
       transforms: [...transforms, "name/cti/kebab"],

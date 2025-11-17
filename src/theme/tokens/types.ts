@@ -401,13 +401,13 @@
               "active": string,
               "disabled": string
             },
-            "stroke": {
+            "text": {
               "default": string,
               "hover": string,
               "active": string,
               "disabled": string
             },
-            "text": {
+            "stroke": {
               "default": string,
               "hover": string,
               "active": string,
@@ -435,13 +435,13 @@
             }
           },
           "danger": {
-            "text": {
+            "background": {
               "default": string,
               "hover": string,
               "active": string,
               "disabled": string
             },
-            "background": {
+            "text": {
               "default": string,
               "hover": string,
               "active": string,
@@ -628,12 +628,6 @@
           }
         },
         "primary": {
-          "divide": {
-            "default": string,
-            "active": string,
-            "hover": string,
-            "disabled": string
-          },
           "background": {
             "main": {
               "default": string,
@@ -655,6 +649,12 @@
             "disabled": string
           },
           "stroke": {
+            "default": string,
+            "hover": string,
+            "active": string,
+            "disabled": string
+          },
+          "divide": {
             "default": string,
             "hover": string,
             "active": string,
@@ -1082,7 +1082,7 @@
           }
         },
         "color": {
-          "background": {
+          "text": {
             "default": string,
             "hover": string,
             "active": string
@@ -1092,16 +1092,16 @@
             "hover": string,
             "active": string
           },
+          "background": {
+            "default": string,
+            "hover": string,
+            "active": string
+          },
           "stroke": {
             "default": string,
             "hover": string,
             "active": string,
             "focus": string
-          },
-          "text": {
-            "default": string,
-            "hover": string,
-            "active": string
           }
         }
       }
@@ -1141,6 +1141,12 @@
               "disabled": string
             },
             "check": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "label": {
               "default": string,
               "hover": string,
               "active": string,
@@ -1268,12 +1274,6 @@
             }
           }
         },
-        "check": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
-        },
         "background": {
           "default": string,
           "hover": string,
@@ -1281,6 +1281,18 @@
           "disabled": string
         },
         "stroke": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "check": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "label": {
           "default": string,
           "hover": string,
           "active": string,
@@ -1607,12 +1619,6 @@
         }
       },
       "color": {
-        "genericLabel": {
-          "default": string,
-          "hover": string,
-          "active": string,
-          "disabled": string
-        },
         "background": {
           "default": string,
           "hover": string,
@@ -1641,16 +1647,22 @@
           "disabled": string,
           "error": string
         },
-        "placeholder": {
-          "default": string,
-          "disabled": string
-        },
         "format": {
           "default": string,
           "hover": string,
           "active": string,
           "disabled": string,
           "error": string
+        },
+        "genericLabel": {
+          "default": string,
+          "hover": string,
+          "active": string,
+          "disabled": string
+        },
+        "placeholder": {
+          "default": string,
+          "disabled": string
         }
       }
     },
@@ -1822,6 +1834,9 @@
         "description": {
           "default": string
         },
+        "opaqueBackground": {
+          "default": string
+        },
         "stroke": {
           "default": string
         }
@@ -1881,14 +1896,15 @@
             "active": string,
             "disabled": string
           },
-          "stroke": {
-            "default": string
-          },
           "format": {
             "default": string,
             "hover": string,
             "active": string,
-            "disabled": string
+            "disabled": string,
+            "error": string
+          },
+          "stroke": {
+            "default": string
           },
           "subtext": {
             "default": string,
@@ -2475,9 +2491,9 @@
           "item": {
             "color": {
               "background": {
-                "default": string,
+                "active": string,
                 "hover": string,
-                "active": string
+                "default": string
               },
               "text": {
                 "default": string,
@@ -2503,15 +2519,15 @@
             "color": {
               "text": {
                 "default": string,
+                "disabled": string,
                 "hover": string,
-                "active": string,
-                "disabled": string
+                "active": string
               },
               "background": {
                 "default": string,
+                "disabled": string,
                 "hover": string,
-                "active": string,
-                "disabled": string
+                "active": string
               },
               "icon": {
                 "default": string,
@@ -2529,23 +2545,47 @@
         }
       },
       "sqlSidebar": {
+        "color": {
+          "background": {
+            "default": string
+          },
+          "stroke": {
+            "default": string
+          }
+        },
         "navigation": {
           "item": {
+            "color": {
+              "background": {
+                "active": string,
+                "hover": string,
+                "default": string
+              },
+              "text": {
+                "default": string,
+                "hover": string,
+                "active": string,
+                "muted": string,
+                "disabled": string
+              },
+              "icon": {
+                "default": string,
+                "disabled": string
+              }
+            }
+          },
+          "subItem": {
             "color": {
               "text": {
                 "disabled": string,
                 "default": string,
                 "hover": string,
-                "active": string,
-                "muted": string
+                "active": string
               },
               "background": {
                 "default": string,
                 "hover": string,
                 "active": string
-              },
-              "icon": {
-                "default": string
               }
             }
           },
@@ -2556,35 +2596,12 @@
               "active": string
             }
           },
-          "subItem": {
-            "color": {
-              "text": {
-                "default": string,
-                "hover": string,
-                "active": string,
-                "disabled": string
-              },
-              "background": {
-                "default": string,
-                "hover": string,
-                "active": string
-              }
-            }
-          },
           "dragControl": {
             "separator": {
               "color": {
                 "default": string
               }
             }
-          }
-        },
-        "color": {
-          "background": {
-            "default": string
-          },
-          "stroke": {
-            "default": string
           }
         }
       }
@@ -3130,11 +3147,6 @@
           }
         },
         "color": {
-          "background": {
-            "default": string,
-            "hover": string,
-            "selected": string
-          },
           "stroke": {
             "default": string,
             "hover": string,
@@ -3155,6 +3167,11 @@
             "stroke": {
               "default": string
             }
+          },
+          "background": {
+            "default": string,
+            "hover": string,
+            "selected": string
           },
           "icon": {
             "default": string,
@@ -3177,14 +3194,6 @@
     },
     "global": {
       "color": {
-        "stroke": {
-          "default": string,
-          "muted": string,
-          "intense": string
-        },
-        "accent": {
-          "default": string
-        },
         "background": {
           "default": string,
           "muted": string
@@ -3199,15 +3208,23 @@
           },
           "danger": string
         },
-        "title": {
+        "stroke": {
           "default": string,
-          "muted": string
+          "muted": string,
+          "intense": string
+        },
+        "accent": {
+          "default": string
         },
         "outline": {
           "default": string
         },
         "shadow": {
           "default": string
+        },
+        "title": {
+          "default": string,
+          "muted": string
         }
       }
     },
@@ -3242,6 +3259,21 @@
       }
     },
     "chart": {
+      "bars": {
+        "color": {
+          "blue": string,
+          "orange": string,
+          "green": string,
+          "fuchsia": string,
+          "yellow": string,
+          "violet": string,
+          "babyblue": string,
+          "red": string,
+          "teal": string,
+          "sunrise": string,
+          "slate": string
+        }
+      },
       "color": {
         "default": {
           "blue": string,
@@ -3259,21 +3291,6 @@
         "label": {
           "default": string,
           "deselected": string
-        }
-      },
-      "bars": {
-        "color": {
-          "blue": string,
-          "orange": string,
-          "green": string,
-          "fuchsia": string,
-          "yellow": string,
-          "violet": string,
-          "babyblue": string,
-          "red": string,
-          "teal": string,
-          "sunrise": string,
-          "slate": string
         }
       }
     },
@@ -3329,6 +3346,7 @@
       }
     }
   },
+  "name": string,
   "global": {
     "color": {
       "background": {
@@ -3338,15 +3356,6 @@
         "split": string,
         "muted_a": string
       },
-      "stroke": {
-        "default": string,
-        "muted": string,
-        "intense": string,
-        "split": string
-      },
-      "accent": {
-        "default": string
-      },
       "text": {
         "default": string,
         "muted": string,
@@ -3355,6 +3364,15 @@
           "default": string,
           "hover": string
         }
+      },
+      "stroke": {
+        "default": string,
+        "muted": string,
+        "intense": string,
+        "split": string
+      },
+      "accent": {
+        "default": string
       },
       "outline": {
         "default": string
@@ -3386,19 +3404,6 @@
         }
       },
       "chart": {
-        "default": {
-          "blue": string,
-          "orange": string,
-          "green": string,
-          "fuchsia": string,
-          "yellow": string,
-          "violet": string,
-          "babyblue": string,
-          "red": string,
-          "teal": string,
-          "sunrise": string,
-          "slate": string
-        },
         "bars": {
           "blue": string,
           "orange": string,
@@ -3407,10 +3412,25 @@
           "yellow": string,
           "violet": string,
           "babyblue": string,
-          "red": string,
+          "danger": string,
           "teal": string,
           "sunrise": string,
-          "slate": string
+          "slate": string,
+          "red": string
+        },
+        "default": {
+          "blue": string,
+          "orange": string,
+          "green": string,
+          "fuchsia": string,
+          "yellow": string,
+          "violet": string,
+          "babyblue": string,
+          "danger": string,
+          "teal": string,
+          "sunrise": string,
+          "slate": string,
+          "red": string
         },
         "label": {
           "default": string,
@@ -3432,7 +3452,6 @@
       }
     }
   },
-  "name": string,
   "palette": {
     "brand": {
       "50": string,
