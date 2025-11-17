@@ -100,8 +100,6 @@
 }
 
 .cuiSvgImageElement {
-  @include mixins.cuiSvgImageElement;
-
   @include variants.variant('cuiSizeXxs') {
     @include mixins.cuiIconSize(xxs);
   }

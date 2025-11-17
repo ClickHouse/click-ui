@@ -12,16 +12,20 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
   size?: IconSize;
 }
 
-const Logo = ({ name, theme: themeOverride, size = "md", ...props }: LogoProps) => {
+const Logo = ({
+  name,
+  theme: themeOverride,
+  size = "md",
+  className,
+  ...props
+}: LogoProps) => {
   const { resolvedTheme } = useCUITheme();
 
   // Resolve theme: use override if provided, otherwise use context theme
   const theme = themeOverride ?? resolvedTheme;
   const logoVariant = theme === "dark" ? "dark" : "light";
 
-  const Component = logoVariant === "light"
-    ? LogosLight[name]
-    : LogosDark[name];
+  const Component = logoVariant === "light" ? LogosLight[name] : LogosDark[name];
 
   if (!Component) {
     return null;
@@ -29,15 +33,22 @@ const Logo = ({ name, theme: themeOverride, size = "md", ...props }: LogoProps) 
 
   const style = themeOverride ? { colorScheme: theme } : undefined;
 
+  const { width, height, ...rest } = props;
+  const svgProps = {
+    ...(width ? { width } : {}),
+    ...(height ? { height } : {}),
+    ...rest,
+  };
   return (
     <SvgImageElement
-      size={size}
+      as={Component}
+      size={width || height ? undefined : size}
+      className={className}
+      style={style}
       role="img"
       aria-label={name}
-      style={style}
-    >
-      <Component {...props} />
-    </SvgImageElement>
+      {...svgProps}
+    />
   );
 };
 
