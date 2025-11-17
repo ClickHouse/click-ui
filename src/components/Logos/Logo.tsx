@@ -12,7 +12,7 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
   size?: IconSize;
 }
 
-const Logo = ({ name, theme: themeOverride, size, ...props }: LogoProps) => {
+const Logo = ({ name, theme: themeOverride, size = "md", ...props }: LogoProps) => {
   const { resolvedTheme } = useCUITheme();
 
   // Resolve theme: use override if provided, otherwise use context theme
@@ -27,12 +27,14 @@ const Logo = ({ name, theme: themeOverride, size, ...props }: LogoProps) => {
     return null;
   }
 
+  const style = themeOverride ? { colorScheme: theme } : undefined;
+
   return (
     <SvgImageElement
       size={size}
       role="img"
       aria-label={name}
-      style={{ colorScheme: theme }}
+      style={style}
     >
       <Component {...props} />
     </SvgImageElement>

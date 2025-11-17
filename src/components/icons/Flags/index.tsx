@@ -70,7 +70,7 @@ export const FlagList = {
   usa: UnitedStates,
 };
 
-const Flags = ({ name, size, ...props }: FlagProps) => {
+const Flags = ({ name, size = "md", ...props }: FlagProps) => {
   const Component = FlagList[name];
   if (Component === undefined) {
     return;
