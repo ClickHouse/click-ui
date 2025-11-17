@@ -99,7 +99,6 @@
     "sortablejs": "^1.15.0"
   },
   "devDependencies": {
-    "@radix-ui/react-switch": "^1.0.2",
     "@storybook/addon-a11y": "^10.0.7",
     "@storybook/addon-docs": "^10.0.7",
     "@storybook/addon-links": "^10.0.7",
@@ -125,11 +124,9 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-storybook": "^10.0.7",
     "jsdom": "^24.0.0",
-    "next": "^15.5.5",
     "prettier": "^3.6.2",
     "rollup": "^4.52.4",
     "sass-embedded": "^1.93.0",
-    "prop-types": "^15.8.1",
     "storybook": "^10.0.7",
     "storybook-addon-pseudo-states": "^10.0.7",
     "styled-components": "^6.1.11",
