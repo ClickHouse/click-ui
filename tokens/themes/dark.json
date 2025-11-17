@@ -5314,7 +5314,7 @@
             "value": "{palette.babyblue.400}",
             "type": "color"
           },
-          "danger": {
+          "red": {
             "value": "{palette.danger.400}",
             "type": "color"
           },
@@ -5360,8 +5360,12 @@
             "value": "{palette.babyblue.400}",
             "type": "color"
           },
-          "danger": {
+          "red": {
             "value": "{palette.danger.400}",
+            "type": "color"
+          },
+          "danger": {
+            "value": "#ff2323",
             "type": "color"
           },
           "teal": {
