@@ -35,7 +35,7 @@
   }
 
   &.cuiRed {
-    background-color: var(--global-color-chart-default-danger);
+    background-color: var(--global-color-chart-default-red);
   }
 
   &.cuiTeal {
@@ -47,6 +47,6 @@
   }
 
   &.cuiSlate {
-    background-color: #373439;
+    background-color: var(--global-color-chart-default-slate);
   }
 }
