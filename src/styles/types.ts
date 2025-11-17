@@ -3412,11 +3412,10 @@
           "yellow": string,
           "violet": string,
           "babyblue": string,
-          "danger": string,
+          "red": string,
           "teal": string,
           "sunrise": string,
-          "slate": string,
-          "red": string
+          "slate": string
         },
         "default": {
           "blue": string,
@@ -3426,11 +3425,11 @@
           "yellow": string,
           "violet": string,
           "babyblue": string,
+          "red": string,
           "danger": string,
           "teal": string,
           "sunrise": string,
-          "slate": string,
-          "red": string
+          "slate": string
         },
         "label": {
           "default": string,
