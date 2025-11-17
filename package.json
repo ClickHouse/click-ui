@@ -125,6 +125,7 @@
     "eslint-plugin-storybook": "^10.0.7",
     "jsdom": "^24.0.0",
     "prettier": "^3.6.2",
+    "recharts": "^3.4.1",
     "rollup": "^4.52.4",
     "sass-embedded": "^1.93.0",
     "storybook": "^10.0.7",
