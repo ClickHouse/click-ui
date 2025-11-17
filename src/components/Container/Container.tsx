@@ -67,6 +67,7 @@ const _Container = <T extends ElementType = "div">(
     minHeight,
     overflow,
     className,
+    style,
     ...props
   }: PolymorphicProps<T, ContainerProps<T>>,
   ref: PolymorphicRef<T>
@@ -109,7 +110,7 @@ const _Container = <T extends ElementType = "div">(
     maxHeight: maxHeight ?? undefined,
     minHeight: minHeight ?? undefined,
     overflow: overflow ?? undefined,
-    ...props.style,
+    ...style,
   };
 
   return (
