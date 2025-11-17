@@ -5364,6 +5364,10 @@
             "value": "{palette.danger.400}",
             "type": "color"
           },
+          "danger": {
+            "value": "{palette.danger.400}",
+            "type": "color"
+          },
           "teal": {
             "value": "{palette.teal.300}",
             "type": "color"
