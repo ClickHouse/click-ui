@@ -8,18 +8,22 @@ const FieldExample = ({
   disabled: boolean;
   error: boolean;
   text: string;
-}) => (
-  <GenericLabel
-    disabled={disabled}
-    htmlFor="test"
-  >
-    {text}
-    <input
-      id="test"
-      style={{ colorScheme: "light" }}
-    />
-  </GenericLabel>
-);
+}) => {
+  const inputStyle = { colorScheme: "light" as const };
+
+  return (
+    <GenericLabel
+      disabled={disabled}
+      htmlFor="test"
+    >
+      {text}
+      <input
+        id="test"
+        style={inputStyle}
+      />
+    </GenericLabel>
+  );
+};
 
 export default {
   component: FieldExample,

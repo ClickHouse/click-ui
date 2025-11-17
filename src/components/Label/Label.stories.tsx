@@ -9,19 +9,23 @@ const FieldExample = ({
   disabled: boolean;
   error: boolean;
   text: string;
-}) => (
-  <Label
-    disabled={disabled}
-    error={error}
-    htmlFor="test"
-  >
-    {text}
-    <input
-      id="test"
-      style={{ colorScheme: "light" }}
-    />
-  </Label>
-);
+}) => {
+  const inputStyle = { colorScheme: "light" as const };
+
+  return (
+    <Label
+      disabled={disabled}
+      error={error}
+      htmlFor="test"
+    >
+      {text}
+      <input
+        id="test"
+        style={inputStyle}
+      />
+    </Label>
+  );
+};
 
 export default {
   component: FieldExample,
