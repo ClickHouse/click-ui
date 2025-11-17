@@ -5365,7 +5365,7 @@
             "type": "color"
           },
           "danger": {
-            "value": "{palette.danger.400}",
+            "value": "#ff2323",
             "type": "color"
           },
           "teal": {
