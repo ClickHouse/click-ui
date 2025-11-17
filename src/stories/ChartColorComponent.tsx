@@ -3,7 +3,6 @@ import { ColorSwatchesChart } from "./chart-examples/ColorSwatchesChart";
 import { MultiLineChart } from "./chart-examples/MultiLineChart";
 import { GroupedBarChart } from "./chart-examples/GroupedBarChart";
 import { StackedAreaChart } from "./chart-examples/StackedAreaChart";
-import { PieChartDemo } from "./chart-examples/PieChartDemo";
 import { StackedBarChartDemo } from "./chart-examples/StackedBarChartDemo";
 
 export const ChartColorComponent = () => (
@@ -18,7 +17,6 @@ export const ChartColorComponent = () => (
     <MultiLineChart />
     <GroupedBarChart />
     <StackedAreaChart />
-    <PieChartDemo />
     <StackedBarChartDemo />
   </Container>
 );
