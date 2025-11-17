@@ -1819,10 +1819,10 @@
           "yellow": "#eef400",
           "violet": "#BB33FF",
           "babyblue": "#00CBEB",
+          "red": "#ff2323",
           "teal": "#089B83",
           "sunrise": "#FFC300",
-          "slate": "#9a9ea7",
-          "red": "#ff2323"
+          "slate": "#9a9ea7"
         },
         "default": {
           "blue": "#437EEF",
@@ -1832,10 +1832,10 @@
           "yellow": "#eef400",
           "violet": "#BB33FF",
           "babyblue": "#00CBEB",
+          "red": "#ff2323",
           "teal": "#089B83",
           "sunrise": "#FFC300",
-          "slate": "#9a9ea7",
-          "red": "#ff2323"
+          "slate": "#9a9ea7"
         },
         "label": {
           "default": "#161517",
