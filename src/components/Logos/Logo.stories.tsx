@@ -11,6 +11,10 @@ const meta: Meta<typeof Logo> = {
       options: Object.keys(LogosLight),
       control: { type: "select" },
     },
+    size: {
+      options: ["xs", "sm", "md", "lg", "xl", "xxl"],
+      control: { type: "select" },
+    },
   },
 };
 
@@ -21,7 +25,8 @@ type Story = StoryObj<typeof Logo>;
 export const Playground: Story = {
   args: {
     name: "aws",
-    width: "32px",
-    height: "32px",
+    width: "",
+    height: "",
+    size: "xl",
   },
 };

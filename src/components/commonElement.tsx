@@ -1,4 +1,9 @@
-import React, { HTMLAttributes, ButtonHTMLAttributes } from "react";
+import React, {
+  HTMLAttributes,
+  ButtonHTMLAttributes,
+  ComponentPropsWithoutRef,
+  ElementType,
+} from "react";
 import clsx from "clsx";
 import { IconSize } from "./Icon/types";
 import styles from "./commonElement.module.scss";
@@ -83,29 +88,34 @@ export const BaseButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   />
 );
 
-interface SvgImageElementProps extends HTMLAttributes<HTMLDivElement> {
+interface SvgImageElementProps<C extends ElementType = "div"> {
+  as?: C;
   size?: IconSize;
+  className?: string;
 }
 
-export const SvgImageElement: React.FC<SvgImageElementProps> = ({
+export const SvgImageElement = <C extends ElementType = "svg">({
+  as,
   size,
   className,
-  children,
   ...props
-}) => (
-  <div
-    className={clsx(
-      styles.cuiSvgImageElement,
-      {
-        [styles[`cuiSize${size ? capitalize(size) : ""}`]]: size,
-      },
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </div>
-);
+}: SvgImageElementProps<C> &
+  Omit<ComponentPropsWithoutRef<C>, keyof SvgImageElementProps<C>>) => {
+  const Component = as || "svg";
+
+  return (
+    <Component
+      className={clsx(
+        styles.cuiSvgImageElement,
+        {
+          [styles[`cuiSize${size ? capitalize(size) : ""}`]]: size,
+        },
+        className
+      )}
+      {...props}
+    />
+  );
+};
 
 export const FormElementContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({
   className,

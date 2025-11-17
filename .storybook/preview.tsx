@@ -62,11 +62,9 @@ const withTheme: Decorator = (StoryFn, context) => {
         logThemeChanges: true,
       }}
     >
-      <div style={{ minHeight: "100vh", width: "100%" }}>
-        <ThemeBlock fill>
-          <StoryFn />
-        </ThemeBlock>
-      </div>
+      <ThemeBlock fill>
+        <StoryFn />
+      </ThemeBlock>
     </ClickUIProvider>
   );
 };

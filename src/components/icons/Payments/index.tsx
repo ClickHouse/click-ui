@@ -26,10 +26,19 @@ const Payments = ({ name, size = "md", ...props }: PaymentProps) => {
   if (Component === undefined) {
     return;
   }
+  const { width, height, ...rest } = props;
+  const svgProps = {
+    ...(width ? { width } : {}),
+    ...(height ? { height } : {}),
+    ...rest,
+  };
+
   return (
-    <SvgImageElement size={size}>
-      <Component {...props} />
-    </SvgImageElement>
+    <SvgImageElement
+      as={Component}
+      size={width || height ? undefined : size}
+      {...svgProps}
+    />
   );
 };
 

@@ -284,19 +284,6 @@
   color: var(--click-icon-color-text-#{$color});
 }
 
-// SVG Image Element mixin - wrapper for SVG elements
-@mixin cuiSvgImageElement {
-  display: flex;
-  align-items: center;
-
-  // Child SVG inherits dimensions from wrapper
-  > svg {
-    width: inherit;
-    height: inherit;
-    display: block;
-  }
-}
-
 // Grid mixins
 @mixin cuiGridCellBase {
   display: block;
