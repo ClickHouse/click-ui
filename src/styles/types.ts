@@ -3426,6 +3426,7 @@
           "violet": string,
           "babyblue": string,
           "red": string,
+          "danger": string,
           "teal": string,
           "sunrise": string,
           "slate": string
