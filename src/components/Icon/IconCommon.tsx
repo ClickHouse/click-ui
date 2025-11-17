@@ -138,6 +138,7 @@ import Sparkle from "@/components/icons/Sparkle";
 import Speaker from "@/components/icons/Speaker";
 import Speed from "@/components/icons/Speed";
 import Square from "@/components/icons/Square";
+import SquareBoxes from "@/components/icons/SquareBoxes";
 import Star from "@/components/icons/Star";
 import Stop from "@/components/icons/Stop";
 import Support from "@/components/icons/Support";
@@ -154,7 +155,6 @@ import { UserIcon } from "@/components/icons/UserIcon";
 import { UsersIcon } from "@/components/icons/UsersIcon";
 import WarningIcon from "@/components/icons/WarningIcon";
 import Waves from "@/components/icons/Waves";
-import SquareBoxes from "../icons/SquareBoxes";
 
 export const ICONS_MAP = {
   activity: Activity,
