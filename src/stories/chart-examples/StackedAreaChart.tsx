@@ -1,4 +1,3 @@
-import { Container, Text } from "@/components";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -8,6 +7,11 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
+
+import { Container } from "@/components/Container/Container";
+import { Text } from "@/components/Typography/Text/Text";
+
+import { ChartTooltip } from "./ChartTooltip";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
 const areaData = [
@@ -37,9 +41,15 @@ export const StackedAreaChart = () => {
             strokeDasharray="3 3"
             opacity={0.3}
           />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+          <XAxis
+            dataKey="name"
+            tick={{ fontFamily: "Inter, sans-serif" }}
+          />
+          <YAxis tick={{ fontFamily: "Inter, sans-serif" }} />
+          <Tooltip
+            content={ChartTooltip}
+            wrapperStyle={{ fontFamily: "Inter, sans-serif" }}
+          />
           {chartColors.map((color, index) => (
             <Area
               key={index}
