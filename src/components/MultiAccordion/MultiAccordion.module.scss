@@ -145,14 +145,13 @@
 }
 
 .cuiCustomIcon {
-  &[data-cui-completed="true"] {
-    svg path {
-      stroke: var(--global-color-background-default) !important;
-      fill: var(--global-color-accent-default) !important;
+  // Target SVG directly via data attribute that gets passed through props
+  svg[data-cui-completed="true"] path {
+    stroke: var(--global-color-background-default) !important;
+    fill: var(--global-color-accent-default) !important;
 
-      &:first-of-type {
-        stroke: var(--global-color-accent-default) !important;
-      }
+    &:first-of-type {
+      stroke: var(--global-color-accent-default) !important;
     }
   }
 }
