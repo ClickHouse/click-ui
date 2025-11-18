@@ -1,6 +1,6 @@
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useCallback } from "react";
 import { styled } from "styled-components";
 
 type AlertType = "default" | "banner";
@@ -13,9 +13,18 @@ export type AlertProps = {
   size?: AlertSize;
   type?: AlertType;
   showIcon?: boolean;
-  dismissible?: boolean;
   customIcon?: IconName;
-};
+} & (
+  | {
+      dismissible: true;
+      /** Available for `dismissible == true` */
+      onDismiss?: () => void;
+    }
+  | {
+      dismissible?: false;
+      onDismiss?: never;
+    }
+);
 
 const stateIconMap: Record<AlertState, IconName> = {
   neutral: "information",
@@ -33,10 +42,16 @@ const Alert = ({
   type = "default",
   showIcon = true,
   dismissible,
+  onDismiss,
   customIcon,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
+
+  const handleDismiss = useCallback(() => {
+    setIsVisible(false);
+    onDismiss?.();
+  }, [onDismiss]);
 
   return isVisible ? (
     <Wrapper
@@ -71,7 +86,7 @@ const Alert = ({
       {dismissible && (
         <DismissWrapper
           data-testid="click-alert-dismiss-button"
-          onClick={() => setIsVisible(false)}
+          onClick={handleDismiss}
         >
           <Icon
             name="cross"
