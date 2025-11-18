@@ -1,31 +1,40 @@
-import { Theme } from "../styles/types";
-import merge from "lodash/merge";
-import * as classicTheme from "../styles/variables.classic.json";
-import * as darkTheme from "../styles/variables.dark.json";
-import * as lightTheme from "../styles/variables.light.json";
-import * as theme from "../styles/variables.json";
-import { useTheme } from "styled-components";
+// === CORE TYPES ===
+export type {
+  Theme,
+  ThemeName,
+  ThemeConfig,
+  ThemeContextValue,
+  BaseThemeName,
+  ResolvedThemeName,
+  DeepPartial,
+  TypedTheme,
+  NestedJSONObject,
+  ConfigThemeValues,
+} from "./types";
 
-export const themes: Record<ThemeName, Theme> = {
-  dark: merge({}, theme, darkTheme),
-  light: merge({}, theme, lightTheme),
-  classic: merge({}, theme, classicTheme),
-};
-type ThemeName = "dark" | "light" | "classic";
+// === CORE PROVIDERS ===
+export { ClickUIProvider, ServerClickUIProvider } from "./ClickUIProvider";
 
-declare module "styled-components" {
-  export interface DefaultTheme extends Theme {}
-}
-type CUIThemeType = Pick<Theme, "breakpoint" | "global" | "name" | "sizes">;
-const useCUITheme = (): CUIThemeType => {
-  const theme = useTheme();
-  return {
-    breakpoint: theme.breakpoint,
-    global: theme.global,
-    name: theme.name,
-    sizes: theme.sizes,
-  };
-};
+// === HOOKS ===
+export {
+  useCUITheme,
+  useCUITheme as useClickUITheme, // Alias for convenience
+} from "./ClickUIProvider";
 
-export type { ThemeName, CUIThemeType };
-export { useCUITheme };
+// === UTILITIES ===
+export {
+  getBaseTheme,
+  getThemeValue,
+  loadCustomConfig,
+  deepMerge,
+} from "./utils";
+
+// === CSS UTILITIES ===
+export { setThemeAttribute } from "./utils/theme-attribute";
+
+// === CONFIGURATION ===
+export { getThemeConfig } from "./config";
+
+// === RE-EXPORTS ===
+// For backward compatibility
+export type { ThemeName as ClickUIThemeName } from "./types";

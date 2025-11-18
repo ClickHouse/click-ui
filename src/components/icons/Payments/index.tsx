@@ -21,16 +21,23 @@ export interface PaymentProps extends SVGAttributes<SVGElement> {
   size?: IconSize;
 }
 
-const Payments = ({ name, size, ...props }: PaymentProps) => {
+const Payments = ({ name, size = "md", ...props }: PaymentProps) => {
   const Component = PaymentList[name];
   if (Component === undefined) {
     return;
   }
+  const { width, height, ...rest } = props;
+  const svgProps = {
+    ...(width ? { width } : {}),
+    ...(height ? { height } : {}),
+    ...rest,
+  };
+
   return (
     <SvgImageElement
       as={Component}
-      $size={size}
-      {...props}
+      size={width || height ? undefined : size}
+      {...svgProps}
     />
   );
 };

@@ -1,0 +1,288 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiWrapper {
+  @include mixins.cuiCardBase;
+
+  display: inline-flex;
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: var(--click-card-horizontal-radii-all);
+  transition: all 0.2s ease-in-out;
+
+  // Size variants
+  @include variants.variant('cuiSizeMd') {
+    padding: var(--click-card-horizontal-space-md-y) var(--click-card-horizontal-space-md-x);
+    gap: var(--click-card-horizontal-space-md-gap);
+
+    .cuiDescription {
+      gap: var(--click-card-horizontal-space-md-gap);
+    }
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    padding: var(--click-card-horizontal-space-sm-y) var(--click-card-horizontal-space-sm-x);
+    gap: var(--click-card-horizontal-space-sm-gap);
+
+    .cuiDescription {
+      gap: var(--click-card-horizontal-space-sm-gap);
+    }
+  }
+
+  .cuiDescription {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    flex: 1;
+    width: 100%;
+  }
+
+  // Color variant: default
+  @include variants.variant('cuiColorDefault') {
+    background: var(--click-card-horizontal-default-color-background-default);
+    color: var(--click-card-horizontal-default-color-title-default);
+    border: 1px solid var(--click-card-horizontal-default-color-stroke-default);
+    font: var(--click-card-horizontal-typography-title-default);
+
+    .cuiDescription {
+      color: var(--click-card-horizontal-default-color-description-default);
+      font: var(--click-card-horizontal-typography-description-default);
+    }
+
+    // Selectable hover state
+    &.cuiIsSelectable:hover {
+      background-color: var(--click-card-horizontal-default-color-background-hover);
+      color: var(--click-card-horizontal-default-color-title-hover);
+      border: 1px solid var(--click-card-horizontal-default-color-stroke-default);
+      cursor: pointer;
+      font: var(--click-card-horizontal-typography-title-hover);
+
+      .cuiDescription {
+        color: var(--click-card-horizontal-default-color-description-hover);
+        font: var(--click-card-horizontal-typography-description-hover);
+      }
+    }
+
+    // Selectable hover + selected
+    &.cuiIsSelectable:hover {
+      @include variants.variant('cuiSelected') {
+        border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+      }
+    }
+
+    // Selectable active/focus states
+    &.cuiIsSelectable:active,
+    &.cuiIsSelectable:focus,
+    &.cuiIsSelectable:focus-within {
+      background-color: var(--click-card-horizontal-default-color-background-active);
+      color: var(--click-card-horizontal-default-color-title-active);
+      border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+
+      .cuiDescription {
+        color: var(--click-card-horizontal-default-color-description-active);
+        font: var(--click-card-horizontal-typography-description-active);
+      }
+    }
+
+    // Selected state
+    @include variants.variant('cuiSelected') {
+      border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+
+      &:hover {
+        border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+      }
+    }
+
+    // Disabled state
+    @include variants.variant('cuiDisabled') {
+      pointer-events: none;
+      background-color: var(--click-card-horizontal-default-color-background-disabled);
+      color: var(--click-card-horizontal-default-color-title-disabled);
+      border: 1px solid var(--click-card-horizontal-default-color-stroke-disabled);
+      cursor: not-allowed;
+
+      .cuiDescription {
+        color: var(--click-card-horizontal-default-color-description-disabled);
+        font: var(--click-card-horizontal-typography-description-disabled);
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-within {
+        background-color: var(--click-card-horizontal-default-color-background-disabled);
+        color: var(--click-card-horizontal-default-color-title-disabled);
+        cursor: not-allowed;
+
+        .cuiDescription {
+          color: var(--click-card-horizontal-default-color-description-disabled);
+          font: var(--click-card-horizontal-typography-description-disabled);
+        }
+      }
+
+      @include variants.variant('cuiSelected') {
+        border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+
+        &:active,
+        &:focus,
+        &:focus-within {
+          border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+        }
+      }
+    }
+  }
+
+  // Color variant: muted
+  @include variants.variant('cuiColorMuted') {
+    background: var(--click-card-horizontal-muted-color-background-default);
+    color: var(--click-card-horizontal-muted-color-title-default);
+    border: 1px solid var(--click-card-horizontal-muted-color-stroke-default);
+    font: var(--click-card-horizontal-typography-title-default);
+
+    .cuiDescription {
+      color: var(--click-card-horizontal-muted-color-description-default);
+      font: var(--click-card-horizontal-typography-description-default);
+    }
+
+    // Selectable hover state
+    &.cuiIsSelectable:hover {
+      background-color: var(--click-card-horizontal-muted-color-background-hover);
+      color: var(--click-card-horizontal-muted-color-title-hover);
+      border: 1px solid var(--click-card-horizontal-muted-color-stroke-default);
+      cursor: pointer;
+      font: var(--click-card-horizontal-typography-title-hover);
+
+      .cuiDescription {
+        color: var(--click-card-horizontal-muted-color-description-hover);
+        font: var(--click-card-horizontal-typography-description-hover);
+      }
+    }
+
+    // Selectable hover + selected
+    &.cuiIsSelectable:hover {
+      @include variants.variant('cuiSelected') {
+        border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+      }
+    }
+
+    // Selectable active/focus states
+    &.cuiIsSelectable:active,
+    &.cuiIsSelectable:focus,
+    &.cuiIsSelectable:focus-within {
+      background-color: var(--click-card-horizontal-muted-color-background-active);
+      color: var(--click-card-horizontal-muted-color-title-active);
+      border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+
+      .cuiDescription {
+        color: var(--click-card-horizontal-muted-color-description-active);
+        font: var(--click-card-horizontal-typography-description-active);
+      }
+    }
+
+    // Selected state
+    @include variants.variant('cuiSelected') {
+      border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+
+      &:hover {
+        border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+      }
+    }
+
+    // Disabled state
+    @include variants.variant('cuiDisabled') {
+      pointer-events: none;
+      background-color: var(--click-card-horizontal-muted-color-background-disabled);
+      color: var(--click-card-horizontal-muted-color-title-disabled);
+      border: 1px solid var(--click-card-horizontal-muted-color-stroke-disabled);
+      cursor: not-allowed;
+
+      .cuiDescription {
+        color: var(--click-card-horizontal-muted-color-description-disabled);
+        font: var(--click-card-horizontal-typography-description-disabled);
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-within {
+        background-color: var(--click-card-horizontal-muted-color-background-disabled);
+        color: var(--click-card-horizontal-muted-color-title-disabled);
+        cursor: not-allowed;
+
+        .cuiDescription {
+          color: var(--click-card-horizontal-muted-color-description-disabled);
+          font: var(--click-card-horizontal-typography-description-disabled);
+        }
+      }
+
+      @include variants.variant('cuiSelected') {
+        border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+
+        &:active,
+        &:focus,
+        &:focus-within {
+          border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+        }
+      }
+    }
+  }
+}
+
+.cuiHeader {
+  max-width: 100%;
+  gap: inherit;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cuiDescription {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  gap: var(--click-card-horizontal-space-gap);
+  flex: 1;
+  width: 100%;
+}
+
+.cuiCardIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: var(--click-card-horizontal-icon-size-all);
+  width: var(--click-card-horizontal-icon-size-all);
+}
+
+.cuiContentWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  @include variants.variant('cuiSizeMd') {
+    gap: var(--click-card-horizontal-space-md-gap);
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    gap: var(--click-card-horizontal-space-sm-gap);
+  }
+
+  @include mixins.cuiMobile {
+    flex-direction: column;
+  }
+}
+
+.cuiIconTextContentWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  @include variants.variant('cuiSizeMd') {
+    gap: var(--click-card-horizontal-space-md-gap);
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    gap: var(--click-card-horizontal-space-sm-gap);
+  }
+}

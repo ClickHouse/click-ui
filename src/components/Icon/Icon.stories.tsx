@@ -1,19 +1,21 @@
-import LogosLight from "../Logos/LogosLight";
-import { FlagList } from "../icons/Flags";
-import { PaymentList } from "../icons/Payments";
-import { Icon } from "./Icon";
-import { IconName } from "../types";
+import LogosLight from "@/components/Logos/LogosLight";
+import { FlagList } from "@/components/icons/Flags";
+import { PaymentList } from "@/components/icons/Payments";
+import { IconName } from "@/components/types";
 import { ICONS_MAP } from "./IconCommon";
 import { IconProps } from "./types";
-import { Container } from "../Container/Container";
-import { styled } from "styled-components";
 import { useState } from "react";
-import { SearchField } from "../Input/SearchField";
-import { Title } from "../Typography/Title/Title";
-import { Panel } from "../Panel/Panel";
-import { Text } from "../Typography/Text/Text";
-import { GridContainer } from "../GridContainer/GridContainer";
-import { Spacer } from "../Spacer/Spacer";
+import styles from "./Icon.stories.module.scss";
+import {
+  Icon,
+  Container,
+  SearchField,
+  Title,
+  Panel,
+  Text,
+  GridContainer,
+  Spacer,
+} from "@/components";
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagList);
@@ -80,23 +82,17 @@ const IconGallery = ({ name }: IconGalleryProps) => (
   </Container>
 );
 
-const ResponsiveGridContainer = styled(GridContainer)`
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1em;
-
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-`;
+const ResponsiveGridContainer = ({
+  children,
+  ...props
+}: React.ComponentProps<typeof GridContainer>) => (
+  <GridContainer
+    className={styles.cuiResponsiveGridContainer}
+    {...props}
+  >
+    {children}
+  </GridContainer>
+);
 
 export const Icons = () => {
   const [query, setQuery] = useState("");

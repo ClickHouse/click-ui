@@ -1,7 +1,9 @@
-import { styled } from "styled-components";
+import React from "react";
+import clsx from "clsx";
 import { SelectionType } from "./types";
+import styles from "./StyledCell.module.scss";
 
-export const StyledCell = styled.div<{
+interface StyledCellProps extends React.HTMLAttributes<HTMLDivElement> {
   $isFocused: boolean;
   $selectionType: SelectionType;
   $isSelectedTop: boolean;
@@ -14,128 +16,88 @@ export const StyledCell = styled.div<{
   $type?: "body" | "header";
   $showBorder: boolean;
   $rowAutoHeight?: boolean;
-}>`
-  display: block;
-  text-align: left;
-  &[data-align="right"] {
-    text-align: right;
+}
+
+export const StyledCell = React.forwardRef<HTMLDivElement, StyledCellProps>(
+  (
+    {
+      $isFocused,
+      $selectionType,
+      $isSelectedTop,
+      $isSelectedLeft,
+      $isLastRow,
+      $isLastColumn,
+      $height,
+      $type = "body",
+      $showBorder,
+      $rowAutoHeight,
+      className,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
+    const shouldShowPseudoBorder =
+      $isSelectedTop ||
+      $isSelectedLeft ||
+      ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn)) ||
+      $rowAutoHeight;
+
+    const cellClassName = clsx(
+      styles.cuiStyledCell,
+      {
+        // Height variations
+        [styles.cuiHeightFixed]: !$rowAutoHeight,
+        [styles.cuiHeightAuto]: $rowAutoHeight,
+
+        // Type and selection
+        [styles.cuiTypeBody]: $type === "body",
+        [styles.cuiTypeHeader]: $type === "header",
+        [styles.cuiSelectionDefault]: $selectionType === "default",
+        [styles.cuiSelectionSelectIndirect]: $selectionType === "selectIndirect",
+        [styles.cuiSelectionSelectDirect]: $selectionType === "selectDirect",
+
+        // Focus state
+        [styles.cuiFocused]: $isFocused,
+
+        // Border management
+        [styles.cuiBorderNone]: $rowAutoHeight,
+        [styles.cuiBorderRightNone]: !$isLastColumn,
+        [styles.cuiBorderBottomNone]: !$isLastRow,
+
+        // Last row/column border colors
+        [styles.cuiLastRowBorder]: $isLastRow,
+        [styles.cuiLastColumnBorder]: $isLastColumn,
+
+        // Header specific border hiding
+        [styles.cuiHeaderNoBorder]: $type === "header" && !$showBorder,
+
+        // Pseudo-element borders
+        [styles.cuiPseudoBorder]: shouldShowPseudoBorder,
+        [styles.cuiSelectedTop]: $isSelectedTop,
+        [styles.cuiSelectedLeft]: $isSelectedLeft,
+        [styles.cuiSelectedBottomDirect]: $selectionType === "selectDirect" && $isLastRow,
+        [styles.cuiSelectedRightDirect]:
+          $selectionType === "selectDirect" && $isLastColumn,
+        [styles.cuiPseudoBorderNone]: $rowAutoHeight,
+      },
+      className
+    );
+
+    const cellStyle: React.CSSProperties = {
+      height: $rowAutoHeight ? "100%" : `${$height}px`,
+      ...style,
+    };
+
+    return (
+      <div
+        ref={ref}
+        className={cellClassName}
+        style={cellStyle}
+        {...rest}
+      />
+    );
   }
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: default;
-  width: 100%;
-  box-sizing: border-box;
-  ${({
-    theme,
-    $isFocused,
-    $isLastRow,
-    $isLastColumn,
-    $selectionType,
-    $height,
-    $type = "body",
-    $showBorder,
-    $rowAutoHeight,
-  }) => `
-    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
-    min-height: ${$rowAutoHeight ? "auto" : ""};
-    overflow-y: ${$rowAutoHeight ? "auto" : ""};
-    background: ${theme.click.grid[$type].cell.color.background[$selectionType]};
-    color: ${
-      $type === "header"
-        ? theme.click.grid.header.cell.color.title[$selectionType]
-        : theme.click.grid.body.cell.color.text[$selectionType]
-    };
-    font: ${theme.click.grid.cell.text.default};
-    padding: ${theme.click.grid[$type].cell.space.y} ${
-      theme.click.grid[$type].cell.space.x
-    };
-    border: 1px solid ${theme.click.grid[$type].cell.color.stroke.default};
-    ${
-      $type === "header" && !$showBorder
-        ? `
-      &[data-grid-row="-1"] {
-        border-top: none;
-      }
-      &[data-grid-column="-1"] {
-        border-left: none;
-      }
-    `
-        : ""
-    }
-    ${
-      $isFocused
-        ? `box-shadow: inset 0 0 0 1px ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
-        : ""
-    }
-    ${
-      $isLastRow
-        ? `
-        border-bottom-color: ${
-          theme.click.grid[$type].cell.color.stroke[
-            $isFocused ? "selectDirect" : $selectionType
-          ]
-        };
-    `
-        : "border-bottom: none;"
-    }
-    ${
-      $isLastColumn
-        ? `
-        border-right-color: ${
-          theme.click.grid[$type].cell.color.stroke[
-            $isFocused ? "selectDirect" : $selectionType
-          ]
-        };
-    `
-        : "border-right: none;"
-    }
-    ${$rowAutoHeight && "border: none;"}
-  `}
-  ${({
-    theme,
-    $isLastRow,
-    $isLastColumn,
-    $selectionType,
-    $type = "body",
-    $isSelectedTop,
-    $isSelectedLeft,
-    $rowAutoHeight,
-  }) =>
-    $isSelectedTop ||
-    $isSelectedLeft ||
-    ($selectionType === "selectDirect" && ($isLastRow || $isLastColumn)) ||
-    $rowAutoHeight
-      ? `
-          &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            ${
-              $isSelectedTop
-                ? `border-top: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
-                : ""
-            }
-            ${
-              $isSelectedLeft
-                ? `border-left: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
-                : ""
-            }
-            ${
-              $selectionType === "selectDirect" && $isLastRow
-                ? `border-bottom: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
-                : ""
-            }
-            ${
-              $selectionType === "selectDirect" && $isLastColumn
-                ? `border-right: 1px solid ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
-                : ""
-            }
-            ${$rowAutoHeight && "border: none;"}
-          }
-        `
-      : ""};
-`;
+);
+
+StyledCell.displayName = "StyledCell";

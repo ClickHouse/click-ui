@@ -1,24 +1,28 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
-import "../src/styles/variables.css";
+import "@/styles/cui-default-theme.css";
 import { Decorator } from "@storybook/react-vite";
-import styled from "styled-components";
 import { themes } from "storybook/theming";
-import ClickUIProvider from "../src/components/ClickUIProvider/ClickUIProvider";
+import { ClickUIProvider } from "@/theme/ClickUIProvider";
+import clsx from "clsx";
+import styles from "./preview.module.scss";
 
-const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
-  ({ $left, $bfill: fill, theme }) => `
-      position: absolute;
-      top: 0.5rem;
-      left: ${$left || fill ? 0 : "50vw"};
-      right: ${$left ? "50vw" : 0};
-      width: 96vw;
-      height: 100vh;
-      bottom: 0;
-      overflow: auto;
-      padding: 1rem;
-      background: ${theme.click.storybook.global.background};
-    `
+interface ThemeBlockProps {
+  left?: boolean;
+  fill?: boolean;
+  children: React.ReactNode;
+}
+
+const ThemeBlock: React.FC<ThemeBlockProps> = ({ left, fill, children }) => (
+  <div
+    className={clsx(styles.cuiThemeBlock, {
+      [styles.cuiLeft]: left || fill,
+      [styles.cuiRight]: !left && !fill,
+      [styles.cuiFill]: fill,
+    })}
+  >
+    {children}
+  </div>
 );
 
 export const globalTypes = {
@@ -27,28 +31,38 @@ export const globalTypes = {
     description: "Global theme for components",
     defaultValue: "dark",
     toolbar: {
-      // The icon for the toolbar item
       icon: "circlehollow",
-      // Array of options
       items: [
-        { value: "dark", icon: "moon", title: "dark" },
-        { value: "light", icon: "sun", title: "light" },
-        { value: "classic", icon: "circle", title: "classic" },
+        { value: "light", icon: "sun", title: "Light" },
+        { value: "dark", icon: "moon", title: "Dark" },
+        { value: "system", icon: "browser", title: "System" },
       ],
-      // Property that specifies if the name of the item will be displayed
       showName: true,
+      dynamicTitle: true,
     },
   },
 };
 const withTheme: Decorator = (StoryFn, context) => {
   const parameters = context.parameters;
-  const theme = parameters?.theme || context.globals.theme;
+  const theme = parameters?.theme || context.globals.theme || "light";
+
   return (
     <ClickUIProvider
-      theme={theme}
-      config={{ tooltip: { delayDuration: 0 } }}
+      key={`storybook-theme-${theme}`}
+      theme={theme as any}
+      defaultTheme="light"
+      enableTransitions={true}
+      transitionDuration={200}
+      enableDevTools={true}
+      fallbackTheme="light"
+      config={{
+        tooltip: { delayDuration: 100 },
+        toast: { duration: 3000 },
+        preloadThemes: ["light", "dark"],
+        logThemeChanges: true,
+      }}
     >
-      <ThemeBlock $left>
+      <ThemeBlock fill>
         <StoryFn />
       </ThemeBlock>
     </ClickUIProvider>
@@ -83,7 +97,24 @@ const preview: Preview = {
     },
     docs: {
       theme: themes.dark,
-      codePanel: true
+      codePanel: true,
+    },
+    backgrounds: {
+      default: "click-ui",
+      values: [
+        {
+          name: "click-ui",
+          value: "var(--click-storybook-global-background)",
+        },
+        {
+          name: "light",
+          value: "var(--click-storybook-global-background)",
+        },
+        {
+          name: "dark",
+          value: "var(--click-storybook-global-background)",
+        },
+      ],
     },
   },
 };

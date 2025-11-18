@@ -1,6 +1,6 @@
 import { TooltipProps } from "./Tooltip";
 import { Tooltip } from "./Tooltip";
-import { Text } from "..";
+import { Text } from "@/components";
 
 interface Props extends TooltipProps {
   showArrow?: boolean;

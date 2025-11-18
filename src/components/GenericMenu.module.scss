@@ -1,0 +1,91 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiGenericMenuPanel {
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: auto;
+  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
+  background: var(--click-genericMenu-panel-color-background-default);
+  box-shadow: var(--click-genericMenu-panel-shadow-default);
+  border-radius: var(--click-genericMenu-panel-radii-all);
+
+  @include variants.variant('cuiPopover') {
+    max-width: var(--radix-popover-content-available-width);
+    max-height: var(--radix-popover-content-available-height);
+  }
+
+  @include variants.variant('cuiDropdownMenu') {
+    max-width: var(--radix-dropdown-menu-content-available-width);
+    max-height: var(--radix-dropdown-menu-content-available-height);
+  }
+
+  @include variants.variant('cuiContextMenu') {
+    max-width: var(--radix-context-menu-content-available-width);
+    max-height: var(--radix-context-menu-content-available-height);
+  }
+
+  @include variants.variant('cuiShowArrow') {
+    &[data-side="bottom"] {
+      margin-top: -1px;
+    }
+    &[data-side="top"] {
+      margin-bottom: 1px;
+    }
+    &[data-side="left"] {
+      margin-right: -1px;
+    }
+    &[data-side="right"] {
+      margin-left: -1px;
+    }
+  }
+}
+
+.cuiGenericPopoverMenuPanel {
+  outline: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: auto;
+  z-index: 1;
+  overflow-y: auto;
+  min-width: var(--click-genericMenu-item-size-minWidth);
+}
+
+.cuiGenericMenuGroup {
+  width: 100%;
+  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+}
+
+.cuiGenericMenuSub {
+  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+}
+
+.cuiGenericMenuArrow {
+  fill: var(--click-genericMenu-panel-color-background-default);
+  stroke: var(--click-genericMenu-panel-color-stroke-default);
+
+  /* Default shadow for bottom placement (arrow points up) */
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
+
+  /* Invert shadow when menu is on top (arrow points down) */
+  [data-side="top"] & {
+    filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Adjust shadow for left/right placements */
+  [data-side="left"] & {
+    filter: drop-shadow(-4px 0px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  [data-side="right"] & {
+    filter: drop-shadow(4px 0px 6px rgba(0, 0, 0, 0.1));
+  }
+}
+
+.cuiGenericMenuItem {
+  @include mixins.cuiGenericMenuItem;
+}

@@ -1,6 +1,6 @@
 import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
 import { Preview } from "@storybook/react-vite";
-import { selectOptions } from "../Select/selectOptions";
+import { selectOptions } from "@/components/Select/selectOptions";
 import { useEffect, useState } from "react";
 interface Props extends Omit<AutoCompleteProps, "options" | "children"> {
   childrenType: "children" | "options";

@@ -1,17 +1,13 @@
-import { keyframes, styled } from "styled-components";
+import { SVGAttributes } from "react";
 import Loading from "./Loading";
+import clsx from "clsx";
+import styles from "./LoadingAnimated.module.scss";
 
-const spin = keyframes`
-  from {
-    transform: rotate(0deg) scaleX(-1);
-  }
-  to {
-    transform: rotate(360deg) scaleX(-1);
-  }
-`;
-
-const LoadingAnimated = styled(Loading)`
-  animation: ${spin} 1s infinite linear;
-`;
+const LoadingAnimated = (props: SVGAttributes<SVGElement>) => (
+  <Loading
+    {...props}
+    className={clsx(styles.cuiLoadingAnimated, props.className)}
+  />
+);
 
 export default LoadingAnimated;

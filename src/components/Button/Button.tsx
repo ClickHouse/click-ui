@@ -1,6 +1,9 @@
+"use client";
+
 import { Icon, IconName } from "@/components";
-import { styled } from "styled-components";
-import { BaseButton } from "../commonElement";
+import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
+import styles from "./Button.module.scss";
 import React from "react";
 
 export type ButtonType = "primary" | "secondary" | "empty" | "danger";
@@ -30,122 +33,67 @@ export const Button = ({
   loading = false,
   disabled,
   showLabelWithLoading = false,
+  className,
   ...delegated
-}: ButtonProps) => (
-  <StyledButton
-    $styleType={type}
-    $align={align}
-    $fillWidth={fillWidth}
-    disabled={disabled || loading}
-    role="button"
-    {...delegated}
-  >
+}: ButtonProps) => {
+  const typeClass = `cui${capitalize(type)}`;
+  const alignClass = `cuiAlign${capitalize(align)}`;
+
+  return (
+    <button
+      className={clsx(
+        styles.cuiButton,
+        styles[typeClass],
+        styles[alignClass],
+        {
+          [styles.cuiFillWidth]: fillWidth,
+        },
+        className
+      )}
+      disabled={disabled || loading}
+      role="button"
+      data-cui-type={type}
+      data-cui-align={align}
+      data-cui-loading={loading ? 'true' : undefined}
+      {...delegated}
+    >
+
     {!loading && (
       <>
         {iconLeft && (
-          <ButtonIcon
+          <Icon
             name={iconLeft}
             aria-hidden
             size="sm"
+            className={styles.cuiButtonIcon}
           />
         )}
 
         {label ?? children}
 
         {iconRight && (
-          <ButtonIcon
+          <Icon
             name={iconRight}
             aria-hidden
             size="sm"
+            className={styles.cuiButtonIcon}
           />
         )}
       </>
     )}
     {loading && (
-      <LoadingIconWrapper data-testid="click-ui-loading-icon-wrapper">
+      <div
+        className={styles.cuiLoadingIconWrapper}
+        data-testid="click-ui-loading-icon-wrapper"
+      >
         <Icon
           name="loading-animated"
           data-testid="click-ui-loading-icon"
           aria-label="loading"
-        ></Icon>
+        />
         {showLabelWithLoading ? (label ?? children) : ""}
-      </LoadingIconWrapper>
+      </div>
     )}
-  </StyledButton>
-);
-
-const LoadingIconWrapper = styled.div`
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-const StyledButton = styled(BaseButton)<{
-  $styleType: ButtonType;
-  $align?: Alignment;
-  $fillWidth?: boolean;
-}>`
-  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "revert")};
-  color: ${({ $styleType = "primary", theme }) =>
-    theme.click.button.basic.color[$styleType].text.default};
-  background-color: ${({ $styleType = "primary", theme }) =>
-    theme.click.button.basic.color[$styleType].background.default};
-  border: ${({ theme }) => theme.click.button.stroke} solid
-    ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].stroke.default};
-  font: ${({ theme }) => theme.click.button.basic.typography.label.default};
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
-  white-space: nowrap;
-
-  &:hover {
-    background-color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].background.hover};
-    border: ${({ theme }) => theme.click.button.stroke} solid
-      ${({ $styleType = "primary", theme }) =>
-        theme.click.button.basic.color[$styleType].stroke.hover};
-    transition: ${({ theme }) => theme.transition.default};
-    font: ${({ theme }) => theme.click.button.basic.typography.label.hover};
-  }
-
-  &:active,
-  &:focus {
-    background-color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].background.active};
-    border: 1px solid
-      ${({ $styleType = "primary", theme }) =>
-        theme.click.button.basic.color[$styleType].stroke.active};
-    font: ${({ theme }) => theme.click.button.basic.typography.label.active};
-  }
-
-  &:disabled,
-  &:disabled:hover,
-  &:disabled:active {
-    background-color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].background.disabled};
-    color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].text.disabled};
-    border: ${({ theme }) => theme.click.button.stroke} solid
-      ${({ $styleType = "primary", theme }) =>
-        theme.click.button.basic.color[$styleType].stroke.disabled};
-    font: ${({ theme }) => theme.click.button.basic.typography.label.disabled};
-  }
-`;
-
-const ButtonIcon = styled(Icon)`
-  height: ${({ theme }) => theme.click.button.basic.size.icon.all};
-  width: ${({ theme }) => theme.click.button.basic.size.icon.all};
-  svg {
-    height: ${({ theme }) => theme.click.button.basic.size.icon.all};
-    width: ${({ theme }) => theme.click.button.basic.size.icon.all};
-  }
-`;
+    </button>
+  );
+};

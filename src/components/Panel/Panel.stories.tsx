@@ -1,6 +1,6 @@
 import { Panel } from "./Panel";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Text } from "@/components/Typography/Text/Text";
+import { Title } from "@/components/Typography/Title/Title";
 
 export default {
   component: Panel,

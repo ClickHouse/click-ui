@@ -10,13 +10,18 @@ export default {
       options: Object.keys(LogosLight),
       control: { type: "select" },
     },
+    size: {
+      options: ["xs", "sm", "md", "lg", "xl", "xxl"],
+      control: { type: "select" },
+    },
   },
 };
 
 export const Playground = {
   args: {
     name: "aws",
-    width: "32px",
-    height: "32px",
+    width: "",
+    height: "",
+    size: "xl",
   },
 };

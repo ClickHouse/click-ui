@@ -1,0 +1,80 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Wrapper styles (equivalent to FormRoot)
+.cuiWrapper {
+  @include mixins.cuiFormRoot($align: center, $maxWidth: fit-content);
+
+  // Orientation variants - using :where() for low specificity
+  @include variants.variant('cuiOrientationHorizontal') {
+    flex-direction: row;
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: row-reverse;
+    }
+  }
+
+  @include variants.variant('cuiOrientationVertical') {
+    flex-direction: column;
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+// Switch root styles
+.cuiSwitchRoot {
+  width: var(--click-switch-size-width);
+  height: var(--click-switch-size-height);
+  border-radius: var(--click-switch-radii-all);
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+
+  // Default state
+  background-color: var(--click-switch-color-background-default);
+  border: 1px solid var(--click-switch-color-stroke-default);
+
+  // State variants - using :where() for low specificity
+  @include variants.variant('cuiChecked') {
+    background-color: var(--click-switch-color-background-active);
+    border: 1px solid var(--click-switch-color-stroke-active);
+  }
+
+  @include variants.variant('cuiDisabled') {
+    background-color: var(--click-switch-color-background-disabled);
+    border: 1px solid var(--click-switch-color-stroke-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// Switch thumb styles
+.cuiSwitchThumb {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--click-switch-radii-all);
+  transition: transform 100ms;
+  will-change: transform;
+
+  // Default position and color
+  transform: translateX(2px);
+  background-color: var(--click-switch-color-indicator-default);
+
+  // State variants - using :where() for low specificity
+  @include variants.variant('cuiChecked') {
+    transform: translateX(15px);
+    background-color: var(--click-switch-color-indicator-active);
+  }
+
+  @include variants.variant('cuiDisabled') {
+    background-color: var(--click-switch-color-indicator-disabled);
+
+    // Checked and disabled - nested variant
+    @include variants.variant('cuiChecked') {
+      transform: translateX(15px);
+      background-color: var(--click-switch-color-indicator-disabled);
+    }
+  }
+}

@@ -1,17 +1,10 @@
 import { GridContainer } from "./GridContainer";
-import { Text } from "..";
-import { styled } from "styled-components";
-
-const GridCenter = styled.div`
-  display: grid;
-  justify-items: center;
-  width: 100%;
-  height: 120px;
-`;
+import { Text } from "@/components";
+import styles from "./GridContainer.stories.module.scss";
 
 const ContainerExample = ({ ...props }) => {
   return (
-    <GridCenter>
+    <div className={styles.cuiGridCenter}>
       <GridContainer
         {...props}
         style={{ border: "1px solid grey" }}
@@ -27,7 +20,7 @@ const ContainerExample = ({ ...props }) => {
           <Text>Child</Text>
         </div>
       </GridContainer>
-    </GridCenter>
+    </div>
   );
 };
 

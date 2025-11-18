@@ -1,5 +1,6 @@
 import { SVGAttributes } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import styles from "./Loading.module.scss";
 
 const Loading = (props: SVGAttributes<SVGElement>) => (
   <svg
@@ -41,7 +42,11 @@ const Loading = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-const LoadingFlipped = styled(Loading)`
-  transform: scaleX(-1);
-`;
+const LoadingFlipped = (props: SVGAttributes<SVGElement>) => (
+  <Loading
+    {...props}
+    className={clsx(styles.cuiLoadingFlipped, props.className)}
+  />
+);
+
 export default LoadingFlipped;

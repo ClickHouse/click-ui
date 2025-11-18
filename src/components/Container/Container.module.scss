@@ -1,0 +1,228 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiContainer {
+  @include mixins.cuiContainerBase;
+
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+
+  // Orientation with variant mixins
+  @include variants.variant('cuiOrientationHorizontal') {
+    @include mixins.cuiContainerOrientation("horizontal");
+  }
+
+  @include variants.variant('cuiOrientationVertical') {
+    @include mixins.cuiContainerOrientation("vertical");
+  }
+
+  // Alignment with variant mixins
+  @include variants.variant('cuiAlignStart') {
+    align-items: flex-start;
+  }
+
+  @include variants.variant('cuiAlignCenter') {
+    align-items: center;
+  }
+
+  @include variants.variant('cuiAlignEnd') {
+    align-items: flex-end;
+  }
+
+  @include variants.variant('cuiAlignStretch') {
+    align-items: stretch;
+  }
+
+  // Justify content with variant mixins
+  @include variants.variant('cuiJustifyStart') {
+    justify-content: flex-start;
+  }
+
+  @include variants.variant('cuiJustifyCenter') {
+    justify-content: center;
+  }
+
+  @include variants.variant('cuiJustifyEnd') {
+    justify-content: flex-end;
+  }
+
+  @include variants.variant('cuiJustifySpaceBetween') {
+    justify-content: space-between;
+  }
+
+  @include variants.variant('cuiJustifySpaceAround') {
+    justify-content: space-around;
+  }
+
+  @include variants.variant('cuiJustifySpaceEvenly') {
+    justify-content: space-evenly;
+  }
+
+  @include variants.variant('cuiJustifyLeft') {
+    justify-content: left;
+  }
+
+  @include variants.variant('cuiJustifyRight') {
+    justify-content: right;
+  }
+
+// Width classes
+.cuiFillWidth {
+  width: 100%;
+}
+
+.cuiAutoWidth {
+  width: auto;
+}
+
+// Height classes
+.cuiFillHeight {
+  height: 100%;
+}
+
+  // Flex grow with variant mixins
+  @include variants.variant('cuiGrow0') {
+    flex-grow: 0;
+  }
+
+  @include variants.variant('cuiGrow1') {
+    flex-grow: 1;
+  }
+
+  @include variants.variant('cuiGrow2') {
+    flex-grow: 2;
+  }
+
+  @include variants.variant('cuiGrow3') {
+    flex-grow: 3;
+  }
+
+  @include variants.variant('cuiGrow4') {
+    flex-grow: 4;
+  }
+
+  @include variants.variant('cuiGrow5') {
+    flex-grow: 5;
+  }
+
+  @include variants.variant('cuiGrow6') {
+    flex-grow: 6;
+  }
+
+  // Flex shrink with variant mixins
+  @include variants.variant('cuiShrink0') {
+    flex-shrink: 0;
+  }
+
+  @include variants.variant('cuiShrink1') {
+    flex-shrink: 1;
+  }
+
+  @include variants.variant('cuiShrink2') {
+    flex-shrink: 2;
+  }
+
+  @include variants.variant('cuiShrink3') {
+    flex-shrink: 3;
+  }
+
+  @include variants.variant('cuiShrink4') {
+    flex-shrink: 4;
+  }
+
+  @include variants.variant('cuiShrink5') {
+    flex-shrink: 5;
+  }
+
+  @include variants.variant('cuiShrink6') {
+    flex-shrink: 6;
+  }
+
+  // Wrap with variant mixins
+  @include variants.variant('cuiWrapNowrap') {
+    flex-wrap: nowrap;
+  }
+
+  @include variants.variant('cuiWrapWrap') {
+    flex-wrap: wrap;
+  }
+
+  @include variants.variant('cuiWrapWrapReverse') {
+    flex-wrap: wrap-reverse;
+  }
+
+  // Gap with variant mixins
+  @include variants.variant('cuiGapNone') {
+    @include mixins.cuiContainerGap("none");
+  }
+
+  @include variants.variant('cuiGapXxs') {
+    @include mixins.cuiContainerGap("xxs");
+  }
+
+  @include variants.variant('cuiGapXs') {
+    @include mixins.cuiContainerGap("xs");
+  }
+
+  @include variants.variant('cuiGapSm') {
+    @include mixins.cuiContainerGap("sm");
+  }
+
+  @include variants.variant('cuiGapMd') {
+    @include mixins.cuiContainerGap("md");
+  }
+
+  @include variants.variant('cuiGapLg') {
+    @include mixins.cuiContainerGap("lg");
+  }
+
+  @include variants.variant('cuiGapXl') {
+    @include mixins.cuiContainerGap("xl");
+  }
+
+  @include variants.variant('cuiGapXxl') {
+    @include mixins.cuiContainerGap("xxl");
+  }
+
+  // Padding with variant mixins
+  @include variants.variant('cuiPaddingNone') {
+    padding: var(--click-container-space-none);
+  }
+
+  @include variants.variant('cuiPaddingXxs') {
+    padding: var(--click-container-space-xxs);
+  }
+
+  @include variants.variant('cuiPaddingXs') {
+    padding: var(--click-container-space-xs);
+  }
+
+  @include variants.variant('cuiPaddingSm') {
+    padding: var(--click-container-space-sm);
+  }
+
+  @include variants.variant('cuiPaddingMd') {
+    padding: var(--click-container-space-md);
+  }
+
+  @include variants.variant('cuiPaddingLg') {
+    padding: var(--click-container-space-lg);
+  }
+
+  @include variants.variant('cuiPaddingXl') {
+    padding: var(--click-container-space-xl);
+  }
+
+  @include variants.variant('cuiPaddingXxl') {
+    padding: var(--click-container-space-xxl);
+  }
+}
+
+// Responsive class
+.cuiResponsive {
+  @include mixins.cuiMobile {
+    width: 100% !important;
+    max-width: none !important;
+    flex-direction: column !important;
+  }
+}
