@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Alert, Container } from "@/components";
+import { Alert, Container, Link } from "@/components";
 import { ICON_NAMES } from "@/components/Icon/types";
 
 const meta: Meta<typeof Alert> = {
@@ -36,17 +36,22 @@ export const TitleWithLink: StoryObj<typeof Alert> = {
     title: (
       <>
         Important: Please review our{" "}
-        <a
+        <Link
           href={"https://clickhouse.com/docs"}
           target="_blank"
           rel="noopener noreferrer"
         >
           documentation
-        </a>{" "}
+        </Link>{" "}
         before progressing
       </>
     ),
-    text: "Example demos how you can pass react elements like links to the title prop",
+    text: (
+      <>
+        Example demos how you can pass react elements like links to the title prop, with{" "}
+        <Link href="https://clickhouse.com/docs">a link</Link>
+      </>
+    ),
     state: "info",
     size: "medium",
     type: "default",
