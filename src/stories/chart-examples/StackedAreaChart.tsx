@@ -14,7 +14,16 @@ import { Text } from "@/components/Typography/Text/Text";
 import { ChartTooltip } from "./ChartTooltip";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
-const areaData = [
+interface AreaDataPoint {
+  name: string;
+  series1: number;
+  series2: number;
+  series3: number;
+  series4: number;
+  series5: number;
+}
+
+const areaData: AreaDataPoint[] = [
   { name: "Week 1", series1: 25, series2: 30, series3: 28, series4: 35, series5: 22 },
   { name: "Week 2", series1: 35, series2: 40, series3: 38, series4: 45, series5: 32 },
   { name: "Week 3", series1: 30, series2: 35, series3: 42, series4: 40, series5: 38 },

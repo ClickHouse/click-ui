@@ -12,7 +12,16 @@ import {
 import { ChartTooltip } from "./ChartTooltip";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
-const stackedBarData = [
+interface StackedBarDataPoint {
+  date: string;
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+  e: number;
+}
+
+const stackedBarData: StackedBarDataPoint[] = [
   { date: "Oct 15", a: 0.03, b: 0, c: 0, d: 0, e: 0 },
   { date: "Oct 17", a: 0.05, b: 0, c: 0, d: 0, e: 0 },
   { date: "Oct 19", a: 0.06, b: 0, c: 0, d: 0, e: 0 },

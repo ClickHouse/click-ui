@@ -14,7 +14,16 @@ import {
 import { ChartTooltip } from "./ChartTooltip";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
-const barData = [
+interface BarDataPoint {
+  name: string;
+  series1: number;
+  series2: number;
+  series3: number;
+  series4: number;
+  series5: number;
+}
+
+const barData: BarDataPoint[] = [
   { name: "Q1", series1: 40, series2: 35, series3: 45, series4: 38, series5: 42 },
   { name: "Q2", series1: 30, series2: 42, series3: 38, series4: 45, series5: 35 },
   { name: "Q3", series1: 50, series2: 38, series3: 42, series4: 35, series5: 48 },

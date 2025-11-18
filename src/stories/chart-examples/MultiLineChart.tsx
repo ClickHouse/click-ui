@@ -14,7 +14,16 @@ import {
 import { ChartTooltip } from "./ChartTooltip";
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
-const multiSeriesData = [
+interface LineDataPoint {
+  name: string;
+  series1: number;
+  series2: number;
+  series3: number;
+  series4: number;
+  series5: number;
+}
+
+const multiSeriesData: LineDataPoint[] = [
   { name: "Jan", series1: 30, series2: 45, series3: 35, series4: 50, series5: 40 },
   { name: "Feb", series1: 45, series2: 38, series3: 42, series4: 55, series5: 35 },
   { name: "Mar", series1: 38, series2: 50, series3: 48, series4: 45, series5: 42 },

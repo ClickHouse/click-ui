@@ -1,6 +1,18 @@
 import { useCUITheme } from "@/theme/ClickUIProvider";
 
-export const ChartTooltip = props => {
+interface TooltipPayload {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface ChartTooltipProps {
+  active?: boolean;
+  payload?: readonly TooltipPayload[];
+  label?: string | number;
+}
+
+export const ChartTooltip = (props: ChartTooltipProps) => {
   const { active, payload, label } = props;
   const { theme } = useCUITheme();
   if (!active || !payload || payload.length === 0) return null;
