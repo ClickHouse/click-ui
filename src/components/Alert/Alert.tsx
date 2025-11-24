@@ -14,17 +14,10 @@ export type AlertProps = {
   type?: AlertType;
   showIcon?: boolean;
   customIcon?: IconName;
-} & (
-  | {
-      dismissible: true;
-      /** Available for `dismissible == true` */
-      onDismiss?: () => void;
-    }
-  | {
-      dismissible?: false;
-      onDismiss?: never;
-    }
-);
+  dismissible?: boolean;
+  /** Available for `dismissible == true` */
+  onDismiss?: () => void;
+};
 
 const stateIconMap: Record<AlertState, IconName> = {
   neutral: "information",
