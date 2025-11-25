@@ -61,6 +61,8 @@ export type {
 } from "./Grid/types";
 export type { StyledLinkProps } from "./Link/common";
 
+export type { DateRange } from "./DatePicker/utils";
+
 export type States = "default" | "active" | "disabled" | "error" | "hover";
 export type HorizontalDirection = "start" | "end";
 export type Orientation = "horizontal" | "vertical";
