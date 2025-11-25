@@ -1,6 +1,6 @@
 # Click UI
 
-The home of the ClickHouse design system and component library. Click UI is in very early development and subject to change, we do not recommend using it for production purposes.
+The home of the ClickHouse design system and component library.
 
 ## Using Click UI in an external app
 
