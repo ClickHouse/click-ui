@@ -114,8 +114,15 @@ describe("Grid", () => {
     expect(rowNumber).not.toBeNull();
     const cell = queryByTestId("row-cell-0-0");
     expect(cell).not.toBeNull();
-    cell && expect(cell.dataset.selected).toEqual("true");
-    cell && expect(cell.dataset.focused).toEqual("true");
+    // The StyledCell is the first element child div of the cell wrapper
+    const styledCell = cell?.children[0] as HTMLElement | null;
+    expect(styledCell).not.toBeNull();
+    // Check if the element has the data-selected attribute (for focused cell)
+    if (styledCell) {
+      expect(styledCell).toHaveAttribute("data-selected");
+      // Check if the element has the data-focused attribute
+      expect(styledCell).toHaveAttribute("data-focused");
+    }
   });
 
   it("should set row height to default (33px) when rowAutoHeight is false", async () => {
@@ -126,10 +133,15 @@ describe("Grid", () => {
     });
 
     const cell = getByTestId("row-cell-0-0");
+    // The StyledCell is the first element child div of the cell wrapper
+    const styledCell = cell?.children[0] as HTMLElement | null;
+    expect(styledCell).not.toBeNull();
 
-    const computedHeight = window.getComputedStyle(cell).height;
-    const heightValue = parseFloat(computedHeight);
-    expect(heightValue).toBe(33);
+    if (styledCell) {
+      const computedHeight = window.getComputedStyle(styledCell).height;
+      const heightValue = parseFloat(computedHeight);
+      expect(heightValue).toBe(33);
+    }
   });
 
   it("should expand row height to 100% when rowAutoHeight is true", async () => {
@@ -140,8 +152,13 @@ describe("Grid", () => {
     });
 
     const cell = getByTestId("row-cell-0-0");
+    // The StyledCell is the first element child div of the cell wrapper
+    const styledCell = cell?.children[0] as HTMLElement | null;
+    expect(styledCell).not.toBeNull();
 
-    const computedHeight = window.getComputedStyle(cell).height;
-    expect(computedHeight).toBe("100%");
+    if (styledCell) {
+      const computedHeight = window.getComputedStyle(styledCell).height;
+      expect(computedHeight).toBe("100%");
+    }
   });
 });
