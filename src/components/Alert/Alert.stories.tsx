@@ -1,8 +1,7 @@
 import { Alert } from "@/components/Alert/Alert";
 import { ICON_NAMES } from "@/components/Icon/types.ts";
-import { Container } from "@/components";
-import { Link } from "@/components/Link/Link";
-import type { Meta, StoryObj } from "@storybook/react";
+import { Container, Link } from "@/components";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof Alert> = {
   component: Alert,
