@@ -196,7 +196,9 @@ const CollapsipleContent = ({
     return;
   }
 
-  const indicatorDirClass = indicatorDir ? `cuiIndicatorDir${capitalize(indicatorDir)}` : undefined;
+  const indicatorDirClass = indicatorDir
+    ? `cuiIndicatorDir${capitalize(indicatorDir)}`
+    : undefined;
 
   return (
     <div

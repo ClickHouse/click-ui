@@ -31,11 +31,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 
     return (
       <div
-        className={clsx(
-          styles.cuiWrapper,
-          styles[orientationClass],
-          styles[dirClass]
-        )}
+        className={clsx(styles.cuiWrapper, styles[orientationClass], styles[dirClass])}
         data-cui-orientation={orientation}
         data-cui-dir={dir}
       >

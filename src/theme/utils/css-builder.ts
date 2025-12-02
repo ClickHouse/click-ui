@@ -33,11 +33,12 @@ export interface CSSBuildOptions {
  * });
  * ```
  */
-export const buildCSSOutput = (lightDarkVars: Record<string, string>, themeOverrides: { light: Record<string, string>; dark: Record<string, string> }, options: CSSBuildOptions = {}): string => {
-  const {
-    headerComment = "/* Click UI Theme */",
-    includeColorScheme = true
-  } = options;
+export const buildCSSOutput = (
+  lightDarkVars: Record<string, string>,
+  themeOverrides: { light: Record<string, string>; dark: Record<string, string> },
+  options: CSSBuildOptions = {}
+): string => {
+  const { headerComment = "/* Click UI Theme */", includeColorScheme = true } = options;
 
   // Build CSS variable entries
   const cssVars = Object.entries(lightDarkVars)

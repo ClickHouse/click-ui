@@ -247,9 +247,13 @@ export const FileUpload = ({
               ) : (
                 <Title
                   type="h1"
-                  className={clsx(commonStyles.fileUploadTitle, styles.cuiFileUploadTitle, {
-                    [styles.cuiNotSupported]: isNotSupported,
-                  })}
+                  className={clsx(
+                    commonStyles.fileUploadTitle,
+                    styles.cuiFileUploadTitle,
+                    {
+                      [styles.cuiNotSupported]: isNotSupported,
+                    }
+                  )}
                 >
                   {title}
                 </Title>

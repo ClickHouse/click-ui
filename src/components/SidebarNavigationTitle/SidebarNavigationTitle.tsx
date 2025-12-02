@@ -43,7 +43,10 @@ const _SidebarNavigationTitle = <T extends ElementType = "button">(
   const content = component ? (
     label
   ) : (
-    <IconWrapper icon={icon} iconDir={iconDir}>
+    <IconWrapper
+      icon={icon}
+      iconDir={iconDir}
+    >
       {label}
     </IconWrapper>
   );

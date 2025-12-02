@@ -15,7 +15,9 @@ export const NativeElementTest = () => (
     {/* Container as button - gets button props */}
     <Container
       component="button"
-      onClick={(e: React.MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.value)} // ✅ button events work
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+        console.log(e.currentTarget.value)
+      } // ✅ button events work
       disabled // ✅ button attributes work
       gap="md" // ✅ Container props work
     />
@@ -111,12 +113,19 @@ export const RefTest = () => {
   return (
     <>
       {/* ✅ Ref type matches component type */}
-      <Container component="button" ref={buttonRef} gap="md">
+      <Container
+        component="button"
+        ref={buttonRef}
+        gap="md"
+      >
         Button Container
       </Container>
 
       {/* ✅ Default ref type (div) */}
-      <Container ref={divRef} gap="md">
+      <Container
+        ref={divRef}
+        gap="md"
+      >
         Div Container
       </Container>
     </>
@@ -128,15 +137,35 @@ export const RefTest = () => {
 // ============================================================================
 
 export const RealWorldExample = () => (
-  <Container component="main" padding="lg" gap="xl" orientation="vertical">
-    <Container component="header" gap="md">
-      <Text component="h1" size="xl" weight="bold">
+  <Container
+    component="main"
+    padding="lg"
+    gap="xl"
+    orientation="vertical"
+  >
+    <Container
+      component="header"
+      gap="md"
+    >
+      <Text
+        component="h1"
+        size="xl"
+        weight="bold"
+      >
         Polymorphic Components with SCSS
       </Text>
     </Container>
 
-    <Container component="section" gap="md" orientation="vertical">
-      <Text component="h2" size="lg" weight="semibold">
+    <Container
+      component="section"
+      gap="md"
+      orientation="vertical"
+    >
+      <Text
+        component="h2"
+        size="lg"
+        weight="semibold"
+      >
         Features
       </Text>
 
@@ -145,23 +174,42 @@ export const RealWorldExample = () => (
         gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))"
         gap="md"
       >
-        <Text component="li" size="md">
+        <Text
+          component="li"
+          size="md"
+        >
           ✅ Full type safety
         </Text>
-        <Text component="li" size="md">
+        <Text
+          component="li"
+          size="md"
+        >
           ✅ SCSS modules support
         </Text>
-        <Text component="li" size="md">
+        <Text
+          component="li"
+          size="md"
+        >
           ✅ Native HTML props
         </Text>
-        <Text component="li" size="md">
+        <Text
+          component="li"
+          size="md"
+        >
           ✅ Custom component props
         </Text>
       </GridContainer>
     </Container>
 
-    <Container component="footer" gap="sm">
-      <Link component="a" href="https://example.com" size="sm">
+    <Container
+      component="footer"
+      gap="sm"
+    >
+      <Link
+        component="a"
+        href="https://example.com"
+        size="sm"
+      >
         Learn more
       </Link>
     </Container>

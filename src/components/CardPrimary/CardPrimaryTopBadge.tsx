@@ -26,10 +26,7 @@ export const CardPrimaryTopBadge = ({
   className,
   ...props
 }: CardPrimaryTopBadgeProps) => {
-  const badgeClasses = clsx(
-    styles.cuiCardPrimaryTopBadge,
-    className
-  );
+  const badgeClasses = clsx(styles.cuiCardPrimaryTopBadge, className);
 
   return (
     <Badge
