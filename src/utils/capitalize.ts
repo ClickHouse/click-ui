@@ -14,7 +14,7 @@ export const capitalize = (str: string): string => {
 
   // Convert kebab-case to PascalCase
   return str
-    .split('-')
+    .split("-")
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('');
+    .join("");
 };

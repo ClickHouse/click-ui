@@ -64,7 +64,7 @@ const VerticalStep = ({
 
   const typeClass = `cuiType${capitalize(type)}`;
   const statusClass = `cuiStatus${capitalize(status)}`;
-  const openClass = isOpen ? 'cuiIsOpen' : undefined;
+  const openClass = isOpen ? "cuiIsOpen" : undefined;
 
   return (
     <div

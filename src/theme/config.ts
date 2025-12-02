@@ -1,8 +1,8 @@
-import type { RuntimeConfig, ConfigThemeValues, BuildTimeThemeConfig } from './types';
-import { deepMerge } from './utils';
-import baseTheme from './tokens/variables.json';
-import baseThemeLight from './tokens/variables.light.json';
-import baseThemeDark from './tokens/variables.dark.json';
+import type { RuntimeConfig, ConfigThemeValues, BuildTimeThemeConfig } from "./types";
+import { deepMerge } from "./utils";
+import baseTheme from "./tokens/variables.json";
+import baseThemeLight from "./tokens/variables.light.json";
+import baseThemeDark from "./tokens/variables.dark.json";
 
 declare global {
   const __CLICK_UI_CONFIG__: RuntimeConfig & BuildTimeThemeConfig;
@@ -35,9 +35,9 @@ export const getRuntimeConfig = (): RuntimeConfig => {
  * @param mode - "light" or "dark"
  * @returns Merged theme object with all token values
  */
-export const getThemeValues = (mode: 'light' | 'dark'): ConfigThemeValues => {
+export const getThemeValues = (mode: "light" | "dark"): ConfigThemeValues => {
   // Start with merged base theme (contains all tokens from all themes)
-  const themeSpecific = mode === 'dark' ? baseThemeDark : baseThemeLight;
+  const themeSpecific = mode === "dark" ? baseThemeDark : baseThemeLight;
 
   // Merge: base (all tokens) + theme-specific overrides
   let mergedTheme = deepMerge(baseTheme as any, themeSpecific as any) as ConfigThemeValues;
@@ -48,7 +48,7 @@ export const getThemeValues = (mode: 'light' | 'dark'): ConfigThemeValues => {
 
     // For light mode: merge with custom theme config
     // For dark mode: merge with custom dark config (or theme if dark not specified)
-    const customOverrides = mode === 'dark' ? (dark || theme) : theme;
+    const customOverrides = mode === "dark" ? (dark || theme) : theme;
 
     if (customOverrides) {
       mergedTheme = deepMerge(mergedTheme as any, customOverrides) as ConfigThemeValues;

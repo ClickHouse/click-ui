@@ -33,38 +33,34 @@ export interface CSSBuildOptions {
  * });
  * ```
  */
-export function buildCSSOutput(
-  lightDarkVars: Record<string, string>,
-  themeOverrides: { light: Record<string, string>; dark: Record<string, string> },
-  options: CSSBuildOptions = {}
-): string {
+export const buildCSSOutput = (lightDarkVars: Record<string, string>, themeOverrides: { light: Record<string, string>; dark: Record<string, string> }, options: CSSBuildOptions = {}): string => {
   const {
-    headerComment = '/* Click UI Theme */',
+    headerComment = "/* Click UI Theme */",
     includeColorScheme = true
   } = options;
 
   // Build CSS variable entries
   const cssVars = Object.entries(lightDarkVars)
     .map(([property, value]) => `  ${property}: ${value};`)
-    .join('\n');
+    .join("\n");
 
   // Start with header comment
   let css = `${headerComment}\n`;
 
   // Add :root block with base variables
-  css += `:root {\n`;
+  css += ":root {\n";
   if (includeColorScheme) {
-    css += `  color-scheme: light dark;\n`;
+    css += "  color-scheme: light dark;\n";
   }
   css += `${cssVars}\n`;
-  css += `}\n`;
+  css += "}\n";
 
   // Add light theme non-color overrides if they exist
   if (Object.keys(themeOverrides.light).length > 0) {
     const lightOverrideCss = Object.entries(themeOverrides.light)
       .map(([property, value]) => `  ${property}: ${value};`)
-      .join('\n');
-    css += `\n/* Light theme non-color overrides */\n`;
+      .join("\n");
+    css += "\n/* Light theme non-color overrides */\n";
     css += `:root[data-theme="light"] {\n${lightOverrideCss}\n}\n`;
   }
 
@@ -72,10 +68,10 @@ export function buildCSSOutput(
   if (Object.keys(themeOverrides.dark).length > 0) {
     const darkOverrideCss = Object.entries(themeOverrides.dark)
       .map(([property, value]) => `  ${property}: ${value};`)
-      .join('\n');
-    css += `\n/* Dark theme non-color overrides */\n`;
+      .join("\n");
+    css += "\n/* Dark theme non-color overrides */\n";
     css += `:root[data-theme="dark"] {\n${darkOverrideCss}\n}\n`;
   }
 
   return css;
-}
+};

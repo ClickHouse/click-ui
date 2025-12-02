@@ -44,7 +44,7 @@ const _Link = <T extends ElementType = "a">(
 
   const sizeClass = `cui${capitalize(size)}`;
   const weightClass = weight !== "normal" ? `cuiWeight${capitalize(weight)}` : null;
-  const iconSizeClass = isSmallSize ? 'cuiSm' : 'cuiMd';
+  const iconSizeClass = isSmallSize ? "cuiSm" : "cuiMd";
 
   return (
     <Component

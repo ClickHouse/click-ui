@@ -110,7 +110,7 @@ export const SplitButton = ({
           className // User's className merged at top level
         )}
         data-cui-type={type}
-        data-cui-disabled={disabled ? 'true' : undefined}
+        data-cui-disabled={disabled ? "true" : undefined}
         ref={ref}
       >
         <BaseButton
