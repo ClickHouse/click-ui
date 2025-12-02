@@ -89,14 +89,9 @@ const Card = ({
     className
   );
 
-  const headerClasses = clsx(
-    styles.cuiHeader,
-    styles[sizeClass],
-    styles[alignClass],
-    {
-      [styles.cuiDisabled]: disabled,
-    }
-  );
+  const headerClasses = clsx(styles.cuiHeader, styles[sizeClass], styles[alignClass], {
+    [styles.cuiDisabled]: disabled,
+  });
 
   const contentClasses = clsx(styles.cuiContent, styles[sizeClass], styles[alignClass]);
 

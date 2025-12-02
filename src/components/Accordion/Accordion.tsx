@@ -69,44 +69,39 @@ const Accordion = ({
     >
       <RadixAccordion.Item value="item">
         <RadixAccordion.Trigger
-          className={clsx(
-            styles.cuiTrigger,
-            styles[sizeClass],
-            styles[colorClass],
-            {
-              [styles.cuiFillWidth]: fillWidth,
-            }
-          )}
+          className={clsx(styles.cuiTrigger, styles[sizeClass], styles[colorClass], {
+            [styles.cuiFillWidth]: fillWidth,
+          })}
         >
-        <div className={styles.cuiIconsWrapper}>
-          <div className={styles.cuiIconWrapper}>
-            <Icon
-              name="chevron-right"
-              size={iconSize || size}
-              aria-label="accordion icon"
-            />
+          <div className={styles.cuiIconsWrapper}>
+            <div className={styles.cuiIconWrapper}>
+              <Icon
+                name="chevron-right"
+                size={iconSize || size}
+                aria-label="accordion icon"
+              />
+            </div>
+            {icon ? (
+              <Icon
+                name={icon}
+                size={iconSize || size}
+              />
+            ) : null}
           </div>
-          {icon ? (
-            <Icon
-              name={icon}
-              size={iconSize || size}
-            />
-          ) : null}
-        </div>
-        <Text
-          component="div"
-          size={size}
-          fillWidth={fillWidth}
-        >
-          {title}
-        </Text>
-      </RadixAccordion.Trigger>
-      <RadixAccordion.Content className={styles.cuiContent}>
-        <Spacer size={gap} />
-        {children}
-      </RadixAccordion.Content>
-    </RadixAccordion.Item>
-  </RadixAccordion.Root>
+          <Text
+            component="div"
+            size={size}
+            fillWidth={fillWidth}
+          >
+            {title}
+          </Text>
+        </RadixAccordion.Trigger>
+        <RadixAccordion.Content className={styles.cuiContent}>
+          <Spacer size={gap} />
+          {children}
+        </RadixAccordion.Content>
+      </RadixAccordion.Item>
+    </RadixAccordion.Root>
   );
 };
 

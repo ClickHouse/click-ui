@@ -53,10 +53,14 @@ const TableHeader = ({
   };
   return (
     <th
-      className={clsx(styles.cuiHeader, {
-        [styles.cuiHeaderSm]: size === "sm",
-        [styles.cuiHeaderMd]: size === "md",
-      }, className)}
+      className={clsx(
+        styles.cuiHeader,
+        {
+          [styles.cuiHeaderSm]: size === "sm",
+          [styles.cuiHeaderMd]: size === "md",
+        },
+        className
+      )}
       {...delegated}
     >
       <div

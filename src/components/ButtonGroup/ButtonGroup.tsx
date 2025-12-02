@@ -47,15 +47,11 @@ export const ButtonGroup = ({
   const buttons = options.map(({ value, label, ...buttonProps }) => (
     <button
       key={value}
-      className={clsx(
-        styles.cuiButton,
-        styles[typeClass],
-        {
-          [styles.cuiActive]: value === selected,
-          [styles.cuiInactive]: value !== selected,
-          [styles.cuiFillWidth]: fillWidth,
-        }
-      )}
+      className={clsx(styles.cuiButton, styles[typeClass], {
+        [styles.cuiActive]: value === selected,
+        [styles.cuiInactive]: value !== selected,
+        [styles.cuiFillWidth]: fillWidth,
+      })}
       data-cui-type={type}
       onClick={() => onClick?.(value)}
       role="button"

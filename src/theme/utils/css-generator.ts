@@ -17,16 +17,15 @@ const isColorValue = (value: string): boolean => {
 
   // Pattern matching for color detection
   const trimmed = value.trim();
-  const isColor = (
-    /^#[0-9A-Fa-f]{3,8}$/.test(trimmed) ||                    // Hex colors
-    /^rgba?\([^)]+\)$/.test(trimmed) ||                       // rgb/rgba with any content
-    /^hsla?\([^)]+\)$/.test(trimmed) ||                       // hsl/hsla with any content
-    /^(lch|lab|oklab|oklch)\([^)]+\)$/.test(trimmed) ||      // Modern color spaces
-    /^color\([^)]+\)$/.test(trimmed) ||                       // color() function
-    trimmed.startsWith("var(--") ||                           // CSS variables
+  const isColor =
+    /^#[0-9A-Fa-f]{3,8}$/.test(trimmed) || // Hex colors
+    /^rgba?\([^)]+\)$/.test(trimmed) || // rgb/rgba with any content
+    /^hsla?\([^)]+\)$/.test(trimmed) || // hsl/hsla with any content
+    /^(lch|lab|oklab|oklch)\([^)]+\)$/.test(trimmed) || // Modern color spaces
+    /^color\([^)]+\)$/.test(trimmed) || // color() function
+    trimmed.startsWith("var(--") || // CSS variables
     // Named colors (basic set)
-    /^(transparent|currentColor|inherit|initial|unset)$/i.test(trimmed)
-  );
+    /^(transparent|currentColor|inherit|initial|unset)$/i.test(trimmed);
 
   colorValueCache.set(value, isColor);
 

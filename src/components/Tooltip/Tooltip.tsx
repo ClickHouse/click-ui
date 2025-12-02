@@ -51,10 +51,9 @@ const TooltipContent = ({
   return (
     <RadixTooltip.Portal>
       <RadixTooltip.Content
-        className={clsx(
-          styles.cuiTooltipContent,
-          { [styles.cuiTooltipContentWithMaxWidth]: !!maxWidth }
-        )}
+        className={clsx(styles.cuiTooltipContent, {
+          [styles.cuiTooltipContentWithMaxWidth]: !!maxWidth,
+        })}
         style={contentStyle}
         sideOffset={sideOffset}
         data-cui-has-max-width={!!maxWidth}

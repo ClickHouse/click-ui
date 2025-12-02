@@ -72,14 +72,10 @@ export const BigStat = ({
       data-cui-order={order}
       {...props}
     >
-      <div
-        className={clsx(styles.cuiLabel, styles[stateClass], styles[sizeClass])}
-      >
+      <div className={clsx(styles.cuiLabel, styles[stateClass], styles[sizeClass])}>
         {label}
       </div>
-      <div
-        className={clsx(styles.cuiTitle, styles[stateClass], styles[sizeClass])}
-      >
+      <div className={clsx(styles.cuiTitle, styles[stateClass], styles[sizeClass])}>
         {title}
       </div>
     </div>

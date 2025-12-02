@@ -43,7 +43,12 @@ export const Checkbox = ({
   const variantClass = `cuiVariant${capitalize(variant)}`;
   const orientationClass = `cuiOrientation${capitalize(orientation)}`;
   const dirClass = `cuiDir${capitalize(dir)}`;
-  const checkedClass = checked === true ? "cuiCheckedTrue" : checked === "indeterminate" ? "cuiCheckedIndeterminate" : "";
+  const checkedClass =
+    checked === true
+      ? "cuiCheckedTrue"
+      : checked === "indeterminate"
+        ? "cuiCheckedIndeterminate"
+        : "";
   const disabledClass = disabled ? "cuiDisabled" : "";
 
   return (
@@ -70,7 +75,13 @@ export const Checkbox = ({
           disabledClass && styles[disabledClass]
         )}
         data-cui-variant={variant}
-        data-cui-checked={checked === true ? "true" : checked === "indeterminate" ? "indeterminate" : undefined}
+        data-cui-checked={
+          checked === true
+            ? "true"
+            : checked === "indeterminate"
+              ? "indeterminate"
+              : undefined
+        }
         data-cui-disabled={disabled ? "true" : undefined}
         {...delegated}
       >

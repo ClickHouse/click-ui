@@ -115,13 +115,9 @@ export const SplitButton = ({
       >
         <BaseButton
           disabled={disabled}
-          className={clsx(
-            styles.cuiPrimaryButton,
-            styles[typeClass],
-            {
-              [styles.cuiFillWidth]: fillWidth,
-            }
-          )}
+          className={clsx(styles.cuiPrimaryButton, styles[typeClass], {
+            [styles.cuiFillWidth]: fillWidth,
+          })}
           {...props}
         >
           <div className={styles.cuiButtonData}>
@@ -139,10 +135,7 @@ export const SplitButton = ({
         >
           <BaseButton
             disabled={disabled}
-            className={clsx(
-              styles.cuiSecondaryButton,
-              styles[typeClass]
-            )}
+            className={clsx(styles.cuiSecondaryButton, styles[typeClass])}
           >
             <Icon
               name="chevron-down"

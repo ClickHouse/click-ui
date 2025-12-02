@@ -21,7 +21,14 @@ export interface AvatarProps extends RadixAvatarProps {
   srcSet?: string;
 }
 
-const Avatar = ({ text, textSize = "sm", src, srcSet, className, ...delegated }: AvatarProps) => {
+const Avatar = ({
+  text,
+  textSize = "sm",
+  src,
+  srcSet,
+  className,
+  ...delegated
+}: AvatarProps) => {
   const textSizeClass = `cuiTextSize${capitalize(textSize)}`;
 
   return (

@@ -125,7 +125,11 @@ export const linkStyles = (props: StyledLinkProps = {}): string => {
  * </Link>
  * ```
  */
-export const linkClasses = ({ size = "md", weight = "normal", className }: LinkStyleProps = {}): string => {
+export const linkClasses = ({
+  size = "md",
+  weight = "normal",
+  className,
+}: LinkStyleProps = {}): string => {
   const classes = ["cui-link"];
 
   // Size classes

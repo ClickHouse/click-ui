@@ -226,11 +226,15 @@ const Tab = ({
 
   return (
     <div
-      className={clsx(styles.cuiTabElement, {
-        [styles.cuiActive]: selectedIndex === index,
-        [styles.cuiPreview]: preview,
-        [styles.cuiDismissable]: true,
-      }, className)}
+      className={clsx(
+        styles.cuiTabElement,
+        {
+          [styles.cuiActive]: selectedIndex === index,
+          [styles.cuiPreview]: preview,
+          [styles.cuiDismissable]: true,
+        },
+        className
+      )}
       onMouseDown={onMouseDown}
       data-testid={testId ? `${testId}-${index}` : undefined}
       {...props}
@@ -274,11 +278,15 @@ export const FileTabElement = ({
 }: FileTabElementProps) => {
   return (
     <div
-      className={clsx(styles.cuiTabElement, {
-        [styles.cuiActive]: active,
-        [styles.cuiPreview]: preview,
-        [styles.cuiFixedTabElement]: true,
-      }, className)}
+      className={clsx(
+        styles.cuiTabElement,
+        {
+          [styles.cuiActive]: active,
+          [styles.cuiPreview]: preview,
+          [styles.cuiFixedTabElement]: true,
+        },
+        className
+      )}
       {...props}
     >
       {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}

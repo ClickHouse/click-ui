@@ -68,7 +68,12 @@ const VerticalStep = ({
 
   return (
     <div
-      className={clsx(styles.cuiStepItem, styles[typeClass], styles[statusClass], openClass && styles[openClass])}
+      className={clsx(
+        styles.cuiStepItem,
+        styles[typeClass],
+        styles[statusClass],
+        openClass && styles[openClass]
+      )}
       data-cui-type={type}
       data-cui-status={status}
     >

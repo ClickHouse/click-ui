@@ -27,14 +27,9 @@ const FormRoot = ({
 
   return (
     <div
-      className={clsx(
-        styles.cuiFormRoot,
-        styles[orientationClass],
-        styles[dirClass],
-        {
-          [styles.cuiLabelPadding]: addLabelPadding && orientation === "horizontal",
-        }
-      )}
+      className={clsx(styles.cuiFormRoot, styles[orientationClass], styles[dirClass], {
+        [styles.cuiLabelPadding]: addLabelPadding && orientation === "horizontal",
+      })}
       data-cui-orientation={orientation}
       data-cui-dir={dir}
       style={{ flexDirection: getFlexDirection() }}
@@ -124,13 +119,14 @@ export interface InputElementProps extends React.InputHTMLAttributes<HTMLInputEl
 
 export const InputElement = React.forwardRef<HTMLInputElement, InputElementProps>(
   ({ hasStartContent, hasEndContent, className, ...props }, ref) => {
-    const paddingType = hasStartContent && hasEndContent
-      ? "none"
-      : hasStartContent
-      ? "end"
-      : hasEndContent
-      ? "start"
-      : "both";
+    const paddingType =
+      hasStartContent && hasEndContent
+        ? "none"
+        : hasStartContent
+          ? "end"
+          : hasEndContent
+            ? "start"
+            : "both";
 
     const paddingClass = `cuiPadding${capitalize(paddingType)}`;
 
