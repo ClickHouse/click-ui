@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
 /**
  * Find Click UI config file in a directory
@@ -16,8 +16,8 @@ import * as path from 'path';
  * }
  * ```
  */
-export function findConfigFile(root: string): string | null {
-  const extensions = ['ts', 'js', 'mjs', 'cjs'];
+export const findConfigFile = (root: string): string | null => {
+  const extensions = ["ts", "js", "mjs", "cjs"];
 
   for (const ext of extensions) {
     const configPath = path.join(root, `click-ui.config.${ext}`);
@@ -27,4 +27,4 @@ export function findConfigFile(root: string): string | null {
   }
 
   return null;
-}
+};

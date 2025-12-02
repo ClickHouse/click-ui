@@ -54,7 +54,7 @@ export const Button = ({
       role="button"
       data-cui-type={type}
       data-cui-align={align}
-      data-cui-loading={loading ? 'true' : undefined}
+      data-cui-loading={loading ? "true" : undefined}
       {...delegated}
     >
 

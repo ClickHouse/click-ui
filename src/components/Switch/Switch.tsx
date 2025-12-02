@@ -26,8 +26,8 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 
     const orientationClass = `cuiOrientation${capitalize(orientation)}`;
     const dirClass = `cuiDir${capitalize(dir)}`;
-    const checkedClass = checked ? 'cuiChecked' : '';
-    const disabledClass = disabled ? 'cuiDisabled' : '';
+    const checkedClass = checked ? "cuiChecked" : "";
+    const disabledClass = disabled ? "cuiDisabled" : "";
 
     return (
       <div

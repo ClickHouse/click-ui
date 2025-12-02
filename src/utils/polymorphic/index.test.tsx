@@ -78,7 +78,7 @@ export const CustomComponentTest = () => (
     {/* Link as button */}
     <Link
       component="button"
-      onClick={(e) => console.log(e)} // ✅ button events work
+      onClick={e => console.log(e)} // ✅ button events work
       disabled // ✅ button attributes work
       size="lg" // ✅ Link props work
       weight="semibold" // ✅ Link props work

@@ -35,11 +35,11 @@ export const BigStat = ({
   style,
   ...props
 }: BigStatProps) => {
-  const stateClass = error ? 'cuiStateError' : `cuiState${capitalize(state)}`;
+  const stateClass = error ? "cuiStateError" : `cuiState${capitalize(state)}`;
   const sizeClass = `cuiSize${capitalize(size)}`;
   const spacingClass = `cuiSpacing${capitalize(spacing)}`;
   const orderClass = `cuiOrder${capitalize(order)}`;
-  const widthClass = fillWidth ? 'cuiWidthFill' : 'cuiWidthAuto';
+  const widthClass = fillWidth ? "cuiWidthFill" : "cuiWidthAuto";
 
   return (
     <div
@@ -56,7 +56,7 @@ export const BigStat = ({
         minHeight: height,
         maxWidth: maxWidth || "none",
       }}
-      data-cui-state={error ? 'error' : state}
+      data-cui-state={error ? "error" : state}
       data-cui-size={size}
       data-cui-spacing={spacing}
       data-cui-order={order}

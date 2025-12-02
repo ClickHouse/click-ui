@@ -1,4 +1,4 @@
-import { Alert, AlertProps } from "@/components/Alert/Alert";
+import { Alert } from "@/components/Alert/Alert";
 import { ICON_NAMES } from "@/components/Icon/types.ts";
 import { Container } from "@/components";
 
