@@ -20,6 +20,7 @@ export const getRuntimeConfig = (): RuntimeConfig => {
   // Check if plugin injected runtime config at build time
   if (typeof __CLICK_UI_CONFIG__ !== "undefined") {
     // Extract only runtime config (exclude theme/dark)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { theme, dark, ...runtimeConfig } = __CLICK_UI_CONFIG__;
     return runtimeConfig;
   }
@@ -40,7 +41,10 @@ export const getThemeValues = (mode: "light" | "dark"): ConfigThemeValues => {
   const themeSpecific = mode === "dark" ? baseThemeDark : baseThemeLight;
 
   // Merge: base (all tokens) + theme-specific overrides
-  let mergedTheme = deepMerge(baseTheme as any, themeSpecific as any) as ConfigThemeValues;
+  let mergedTheme = deepMerge(
+    baseTheme as ConfigThemeValues,
+    themeSpecific as ConfigThemeValues
+  ) as ConfigThemeValues;
 
   // Check if plugin injected custom theme config
   if (typeof __CLICK_UI_CONFIG__ !== "undefined") {
@@ -48,10 +52,13 @@ export const getThemeValues = (mode: "light" | "dark"): ConfigThemeValues => {
 
     // For light mode: merge with custom theme config
     // For dark mode: merge with custom dark config (or theme if dark not specified)
-    const customOverrides = mode === "dark" ? (dark || theme) : theme;
+    const customOverrides = mode === "dark" ? dark || theme : theme;
 
     if (customOverrides) {
-      mergedTheme = deepMerge(mergedTheme as any, customOverrides) as ConfigThemeValues;
+      mergedTheme = deepMerge(
+        mergedTheme as ConfigThemeValues,
+        customOverrides as ConfigThemeValues
+      ) as ConfigThemeValues;
     }
   }
 
