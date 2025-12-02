@@ -71,8 +71,8 @@ export const getBaseTheme = (themeName: BaseThemeName): Theme => {
  * getThemeValue(lightTheme, "click.button.primary.background.default")
  * // Returns: "#007bff"
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getThemeValue = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   theme: Theme | Record<string, any>,
   path: string
 ): unknown => {
