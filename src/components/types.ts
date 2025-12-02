@@ -120,6 +120,8 @@ export type {
   Rectangle,
 } from "@/components/Grid/types";
 
+export type { DateRange } from "@/components/DatePicker/utils";
+
 // Progress & Status
 export type { ProgressBarProps } from "@/components/ProgressBar/ProgressBar";
 

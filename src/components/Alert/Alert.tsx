@@ -3,7 +3,7 @@
 import { Icon } from "@/components";
 import { IconName } from "@/components/Icon/types";
 import { capitalize } from "@/utils/capitalize";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useCallback } from "react";
 import clsx from "clsx";
 import styles from "./Alert.module.scss";
 
@@ -17,8 +17,10 @@ export type AlertProps = {
   size?: AlertSize;
   type?: AlertType;
   showIcon?: boolean;
-  dismissible?: boolean;
   customIcon?: IconName;
+  dismissible?: boolean;
+  /** Available for `dismissible == true` */
+  onDismiss?: () => void;
 };
 
 const stateIconMap: Record<AlertState, IconName> = {
@@ -37,6 +39,7 @@ const Alert = ({
   type = "default",
   showIcon = true,
   dismissible,
+  onDismiss,
   customIcon,
   ...delegated
 }: AlertProps) => {
@@ -45,6 +48,11 @@ const Alert = ({
   const typeClass = `cuiType${capitalize(type)}`;
   const stateClass = `cuiState${capitalize(state)}`;
   const sizeClass = `cuiSize${capitalize(size)}`;
+
+  const handleDismiss = useCallback(() => {
+    setIsVisible(false);
+    onDismiss?.();
+  }, [onDismiss]);
 
   return isVisible ? (
     <div
@@ -60,37 +68,32 @@ const Alert = ({
       )}
       {showIcon && (
         <div
-          className={clsx(styles.cuiIconWrapper, styles[typeClass], styles[stateClass], styles[sizeClass])}
+          className={clsx(
+            styles.cuiIconWrapper,
+            styles[typeClass],
+            styles[stateClass],
+            styles[sizeClass]
+          )}
         >
           <Icon
-            className={size === "small" ? styles.cuiStyledIconSmall : styles.cuiStyledIconMedium}
+            className={
+              size === "small" ? styles.cuiStyledIconSmall : styles.cuiStyledIconMedium
+            }
             size="sm"
             aria-hidden
             name={customIcon || stateIconMap[state]}
           />
         </div>
       )}
-      <div
-        className={clsx(styles.cuiTextWrapper, styles[sizeClass])}
-      >
-        {title && (
-          <h6
-            className={clsx(styles.cuiTitle, styles[sizeClass])}
-          >
-            {title}
-          </h6>
-        )}
-        <div
-          className={clsx(styles.cuiText, styles[sizeClass])}
-        >
-          {text}
-        </div>
+      <div className={clsx(styles.cuiTextWrapper, styles[sizeClass])}>
+        {title && <h6 className={clsx(styles.cuiTitle, styles[sizeClass])}>{title}</h6>}
+        <div className={clsx(styles.cuiText, styles[sizeClass])}>{text}</div>
       </div>
       {dismissible && (
         <button
           className={styles.cuiDismissWrapper}
           data-testid="click-alert-dismiss-button"
-          onClick={() => setIsVisible(false)}
+          onClick={handleDismiss}
         >
           <Icon
             name="cross"
