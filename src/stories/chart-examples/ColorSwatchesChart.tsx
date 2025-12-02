@@ -7,7 +7,6 @@ import { useCUITheme } from "@/theme/ClickUIProvider";
 export const ColorSwatchesChart = () => {
   const { theme } = useCUITheme();
 
-  console.log(theme.global.color.chart.default);
   return (
     <Container
       gap="sm"
