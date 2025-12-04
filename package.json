@@ -70,7 +70,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "lodash": "^4.17.21",
     "react-sortablejs": "^6.1.4",
-    "react-syntax-highlighter": "^15.5.0",
+    "react-syntax-highlighter": "^16.1.0",
     "react-virtualized-auto-sizer": "^1.0.20",
     "react-window": "^1.8.9",
     "sortablejs": "^1.15.0"
