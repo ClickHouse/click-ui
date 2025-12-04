@@ -53,7 +53,7 @@
 // Error state
 .uploadAreaError {
   background-color: var(--click-fileUpload-color-background-error);
-  border: none;
+  border: 1px solid transparent;
 }
 
 // Typography styles
