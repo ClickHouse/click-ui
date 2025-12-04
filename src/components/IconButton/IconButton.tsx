@@ -19,7 +19,6 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         $styleType={type}
         $size={size}
         disabled={disabled}
-        aria-disabled={disabled}
         ref={ref}
         aria-label={iconName}
       >
@@ -54,18 +53,20 @@ const Button = styled.button<{
 
   color: ${theme.click.button.iconButton.color[$styleType].text.default};
 
-  &:hover:not([disabled]) {
-    background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
-    color: ${theme.click.button.iconButton.color[$styleType].text.hover};
-    border-color: ${theme.click.button.iconButton.color[$styleType].stroke.hover};
-  }
+  &:not([disabled]) {
+    &:hover {
+      background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
+      color: ${theme.click.button.iconButton.color[$styleType].text.hover};
+      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.hover};
+    }
 
-  &:focus, &:active, &:focus-within {
-    background-color: ${
-      theme.click.button.iconButton.color[$styleType].background.active
-    };
-    color: ${theme.click.button.iconButton.color[$styleType].text.active};
-    border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
+    &:focus, &:active, &:focus-within {
+      background-color: ${
+        theme.click.button.iconButton.color[$styleType].background.active
+      };
+      color: ${theme.click.button.iconButton.color[$styleType].text.active};
+      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
+    }
   }
 
   &:visited {
