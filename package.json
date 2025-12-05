@@ -97,6 +97,8 @@
     "@vitejs/plugin-react": "^4.2.1",
     "babel-plugin-styled-components": "^2.1.4",
     "chromatic": "^13.3.3",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.19",
     "eslint": "^8.57.0",
     "eslint-plugin-prefer-arrow-functions": "^3.3.2",
     "eslint-plugin-react-hooks": "^4.6.0",
