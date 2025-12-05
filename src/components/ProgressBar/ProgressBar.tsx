@@ -37,27 +37,66 @@ export type ProgressBarProps =
   | (DefaultProgressBar & (DismissableProgressBar | NonDismissableProgressBar))
   | SmallProgressBar;
 
+type Orientation = "horizontal" | "vertical";
+type Direction = "start" | "end";
+
+const getGradientDirection = (
+  orientation: Orientation,
+  dir: Direction
+): string => {
+  if (orientation === "vertical") {
+    return dir === "start" ? "to bottom" : "to top";
+  }
+  return dir === "start" ? "to right" : "to left";
+};
+
+const createGradient = (
+  gradientDir: string,
+  accentColor: string,
+  bgColor: string,
+  progress: number
+) =>
+  `linear-gradient(${gradientDir}, ${accentColor} 0%, ${accentColor} ${progress}%, ${bgColor} ${progress}%, ${bgColor} 100%)`;
+
 // The tokens are copied from dataloading page and may need to change on the new component creation in figma
 const ProgressContainer = styled.div<{
   $progress: number;
   $completed: boolean;
   $type: "small" | "default";
+  $orientation: Orientation;
+  $dir: Direction;
 }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
   transition: all 100ms ease-in-out;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
   min-height: 2px;
-  ${({ theme, $completed, $progress, $type }) => `
+  ${({ $orientation }) =>
+    $orientation === "vertical"
+      ? `
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+  `
+      : `
+    width: 100%;
+    width: -webkit-fill-available;
+    width: fill-available;
+    width: stretch;
+  `}
+  ${({ theme, $completed, $progress, $type, $orientation, $dir }) => {
+    const gradientDir = getGradientDirection($orientation, $dir);
+    return `
     background: ${
       $completed && $type === "default"
         ? theme.click.field.color.background.default
-        : `linear-gradient(to right, ${theme.global.color.accent.default} 0%, ${theme.global.color.accent.default} ${$progress}%, ${theme.click.field.color.background.default} ${$progress}%,  ${theme.click.field.color.background.default} 100%)`
+        : createGradient(
+            gradientDir,
+            theme.global.color.accent.default,
+            theme.click.field.color.background.default,
+            $progress
+          )
     };
     background-size: calc(100% + 2px);
     background-position: center;
@@ -73,7 +112,12 @@ const ProgressContainer = styled.div<{
       background: ${
         $completed
           ? theme.click.field.color.background.hover
-          : `linear-gradient(to right, ${theme.global.color.accent.default} 0%, ${theme.global.color.accent.default} ${$progress}%, ${theme.click.field.color.background.hover} ${$progress}%,  ${theme.click.field.color.background.hover} 100%)`
+          : createGradient(
+              gradientDir,
+              theme.global.color.accent.default,
+              theme.click.field.color.background.hover,
+              $progress
+            )
       };
       background-size: calc(100% + 2px);
       background-position: center;
@@ -83,12 +127,18 @@ const ProgressContainer = styled.div<{
       background: ${
         $completed
           ? theme.click.field.color.background.active
-          : `linear-gradient(to right, ${theme.global.color.accent.default} 0%, ${theme.global.color.accent.default} ${$progress}%, ${theme.click.field.color.background.active} ${$progress}%,  ${theme.click.field.color.background.active} 100%)`
+          : createGradient(
+              gradientDir,
+              theme.global.color.accent.default,
+              theme.click.field.color.background.active,
+              $progress
+            )
       };
       background-size: calc(100% + 2px);
       background-position: center;
     }
-  `};
+  `;
+  }};
 `;
 
 const ProgressText = styled.span<{ $completed: boolean }>`
@@ -109,6 +159,8 @@ export const ProgressBar = ({
   dismissable = false,
   onCancel,
   successMessage,
+  orientation = "horizontal",
+  dir = "start",
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
@@ -118,6 +170,8 @@ export const ProgressBar = ({
       $completed={completed}
       $progress={progress}
       $type={type}
+      $orientation={orientation}
+      $dir={dir}
       {...props}
     >
       {type === "default" && (
