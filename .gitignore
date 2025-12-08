@@ -7,3 +7,7 @@ storybook-static
 *.log
 **/.DS_Store
 vite.config.ts.timestamp*
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
