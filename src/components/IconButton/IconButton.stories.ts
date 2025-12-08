@@ -1,41 +1,39 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { IconButton } from "./IconButton";
 
-export default {
+const meta: Meta<typeof IconButton> = {
   component: IconButton,
   title: "Buttons/IconButton",
   tags: ["icon-button", "autodocs"],
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof IconButton>;
+
+export const Playground: Story = {
   args: {
     icon: "user",
     size: "default",
     disabled: false,
   },
-  argTypes: {
-    size: { control: "radio", options: ["default", "sm", "xs"] },
-    type: {
-      control: "select",
-      options: ["primary", "secondary", "ghost", "info", "danger"],
-    },
-  },
 };
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     disabled: true,
     icon: "user",
   },
 };
 
-export const Empty = {
+export const Empty: Story = {
   args: {
-    display: "empty",
+    type: "ghost",
     icon: "user",
   },
 };
 
-export const Small = {
+export const Small: Story = {
   args: {
     size: "sm",
     icon: "user",

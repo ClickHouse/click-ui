@@ -86,6 +86,10 @@ const preview: Preview = {
       codePanel: true
     },
   },
+  argTypes: {
+    // Hide children prop from docs table - it doesn't serialize well as a control
+    children: { table: { disable: true } },
+  },
 };
 
 export const decorators = [withTheme];

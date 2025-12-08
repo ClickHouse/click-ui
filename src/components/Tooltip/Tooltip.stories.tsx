@@ -1,13 +1,27 @@
-import { TooltipProps } from "./Tooltip";
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Tooltip } from "./Tooltip";
 import { Text } from "..";
 
-interface Props extends TooltipProps {
-  showArrow?: boolean;
-  side: "top" | "right" | "left" | "bottom";
-}
-const TooltipExample = ({ showArrow, side, ...props }: Props) => {
-  return (
+const meta: Meta<typeof Tooltip> = {
+  component: Tooltip,
+  subcomponents: {
+    "Tooltip.Trigger": Tooltip.Trigger as React.ComponentType<unknown>,
+    "Tooltip.Content": Tooltip.Content as React.ComponentType<unknown>,
+  },
+  title: "Display/Tooltip",
+  tags: ["form-field", "tooltip", "autodocs"],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Tooltip>;
+
+export const Playground: Story = {
+  args: {
+    disabled: false,
+  },
+  render: args => (
     <div
       style={{
         display: "grid",
@@ -16,37 +30,18 @@ const TooltipExample = ({ showArrow, side, ...props }: Props) => {
         height: "100%",
       }}
     >
-      <Tooltip {...props}>
+      <Tooltip {...args}>
         <Tooltip.Trigger>
           <Text>Tooltip Trigger(Hover)</Text>
         </Tooltip.Trigger>
 
         <Tooltip.Content
-          showArrow={showArrow}
-          side={side}
+          showArrow
+          side="bottom"
         >
           Tooltip content
         </Tooltip.Content>
       </Tooltip>
     </div>
-  );
-};
-export default {
-  component: TooltipExample,
-  title: "Display/Tooltip",
-  tags: ["form-field", "tooltip", "autodocs"],
-  argTypes: {
-    open: { control: "inline-radio", options: [undefined, true, false] },
-    defaultOpen: { control: "boolean" },
-    showArrow: { control: "boolean" },
-    side: { control: "select", options: ["top", "right", "left", "bottom"] },
-  },
-};
-
-export const Playground = {
-  args: {
-    side: "bottom",
-    showArrow: true,
-    disabled: false,
-  },
+  ),
 };

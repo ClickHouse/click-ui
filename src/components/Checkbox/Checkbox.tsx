@@ -14,9 +14,13 @@ export type CheckboxVariants =
   | "var6";
 
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
+  /** The label text displayed next to the checkbox */
   label?: ReactNode;
+  /** The orientation of the label relative to the checkbox */
   orientation?: "vertical" | "horizontal";
+  /** The color variant of the checkbox */
   variant?: CheckboxVariants;
+  /** The direction/position of the label - start places label before, end places label after */
   dir?: "start" | "end";
 }
 

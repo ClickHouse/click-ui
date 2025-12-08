@@ -24,23 +24,41 @@ export type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" |
 type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
 export interface ContainerProps<T extends ElementType = "div"> {
+  /** Custom component to render as */
   component?: T;
+  /** Alignment of items along the cross axis */
   alignItems?: AlignItemsOptions;
+  /** The content to display inside the container */
   children?: React.ReactNode;
+  /** Whether the container should fill the full width of its parent */
   fillWidth?: boolean;
+  /** The gap between child elements */
   gap?: GapOptions;
+  /** Flex grow value */
   grow?: GrowShrinkOptions;
+  /** Flex shrink value */
   shrink?: GrowShrinkOptions;
+  /** Whether the container should stack vertically on smaller screens */
   isResponsive?: boolean;
+  /** Alignment of items along the main axis */
   justifyContent?: JustifyContentOptions;
+  /** Maximum width of the container */
   maxWidth?: string;
+  /** Minimum width of the container */
   minWidth?: string;
+  /** The direction of content flow - horizontal or vertical */
   orientation?: Orientation;
+  /** The padding inside the container */
   padding?: PaddingOptions;
+  /** How flex items should wrap */
   wrap?: WrapOptions;
+  /** Whether the container should fill the full height of its parent */
   fillHeight?: boolean;
+  /** Maximum height of the container */
   maxHeight?: string;
+  /** Minimum height of the container */
   minHeight?: string;
+  /** CSS overflow behavior */
   overflow?: string;
 }
 

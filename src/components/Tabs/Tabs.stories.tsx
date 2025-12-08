@@ -1,11 +1,19 @@
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Spacer, Tabs, Text } from "@/components";
-import type { StoryObj } from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof Tabs> = {
   component: Tabs,
+  subcomponents: {
+    "Tabs.TriggersList": Tabs.TriggersList as React.ComponentType<unknown>,
+    "Tabs.Trigger": Tabs.Trigger as React.ComponentType<unknown>,
+    "Tabs.Content": Tabs.Content as React.ComponentType<unknown>,
+  },
   title: "Display/Tabs",
   tags: ["tabs", "autodocs"],
 };
+
+export default meta;
 
 type Story = StoryObj<typeof Tabs>;
 

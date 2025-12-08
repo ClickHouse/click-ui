@@ -3,8 +3,11 @@ import { styled } from "styled-components";
 import { Icon, IconName, Text } from "@/components";
 
 export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
+  /** The text label displayed in the promotion card */
   label: string;
+  /** The icon to display */
   icon: IconName;
+  /** Whether the card can be dismissed/closed */
   dismissible?: boolean;
 }
 const Background = styled.div`

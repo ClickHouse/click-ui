@@ -22,9 +22,13 @@ HoverCardTrigger.displayName = "HoverCardTrigger";
 HoverCard.Trigger = HoverCardTrigger;
 
 interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
+  /** Whether to show the arrow pointing to the trigger */
   showArrow?: boolean;
+  /** Whether to force mount the content */
   forceMount?: true;
+  /** Container element to portal the hover card into */
   container?: HTMLElement | null;
+  /** The content to display in the hover card */
   children: ReactNode;
 }
 

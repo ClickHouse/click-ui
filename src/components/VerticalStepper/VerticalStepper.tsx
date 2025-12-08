@@ -13,6 +13,7 @@ const StepperContext = createContext<ContextProps>({
 });
 
 export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
+  /** The type of stepper - numbered shows step numbers, bulleted shows dots */
   type?: StepperType;
 }
 
@@ -166,9 +167,13 @@ const StepContent = styled.div<{ $type: StepperType }>`
 `;
 
 export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
+  /** The status of this step - active, complete, or incomplete */
   status?: "active" | "complete" | "incomplete";
+  /** Whether the step content is collapsed */
   collapsed?: boolean;
+  /** The label text displayed for this step */
   label?: ReactNode;
+  /** Whether the step is disabled */
   disabled?: boolean;
 }
 

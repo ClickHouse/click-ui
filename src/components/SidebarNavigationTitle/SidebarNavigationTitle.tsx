@@ -4,10 +4,15 @@ import { HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 
 export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {
+  /** The label content to display */
   label: ReactNode;
+  /** Whether the title is currently selected */
   selected?: boolean;
+  /** Icon to display before the label */
   icon?: IconName;
+  /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
+  /** The sidebar style type */
   type?: "main" | "sqlSidebar";
 }
 

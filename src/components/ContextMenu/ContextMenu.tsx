@@ -160,7 +160,9 @@ const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
 ContextMenuSub.displayName = "ContextMenuSub";
 ContextMenu.Sub = ContextMenuSub;
 export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
+  /** Icon to display in the menu item */
   icon?: IconName;
+  /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
 }
 

@@ -17,18 +17,31 @@ import { styled } from "styled-components";
 
 export interface PaginationProps
   extends Omit<ContainerProps<"div">, "children" | "onChange"> {
+  /** Total number of pages available */
   totalPages?: number;
+  /** The currently selected page number */
   currentPage: number;
+  /** List of options for rows per page dropdown */
   maxRowsPerPageList?: Array<number>;
+  /** Total row count to display */
   rowCount?: number | string;
+  /** Callback when page number changes */
   onChange: (pageNumber: number) => void;
+  /** Callback when page size changes */
   onPageSizeChange?: (pageNumber: number) => void;
+  /** Current page size/rows per page */
   pageSize?: number;
+  /** Callback when next page button is clicked */
   onNextPageClick?: MouseEventHandler<HTMLButtonElement>;
+  /** Callback when previous page button is clicked */
   onPrevPageClick?: MouseEventHandler<HTMLButtonElement>;
+  /** Callback when page number input receives focus */
   onPageNumberFocus?: FocusEventHandler<HTMLInputElement>;
+  /** Callback when page number input loses focus */
   onPageNumberBlur?: FocusEventHandler<HTMLInputElement>;
+  /** Whether to disable the next page button */
   disableNextButton?: boolean;
+  /** Whether to show "All rows" option in the dropdown */
   allowAllRows?: boolean;
 }
 const CustomSelect = styled.div`

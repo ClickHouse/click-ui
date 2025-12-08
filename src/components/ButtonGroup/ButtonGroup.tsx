@@ -5,16 +5,23 @@ type ButtonGroupType = "default" | "borderless";
 
 export interface ButtonGroupElementProps
   extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
+  /** The unique value for this button */
   value: string;
+  /** The label text to display */
   label?: ReactNode;
 }
 
 export interface ButtonGroupProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onClick"> {
+  /** Array of button options to display */
   options: Array<ButtonGroupElementProps>;
+  /** The currently selected button value */
   selected?: string;
+  /** Callback when a button is clicked */
   onClick?: (value: string) => void;
+  /** Whether the button group should fill the full width */
   fillWidth?: boolean;
+  /** The style type of the button group */
   type?: ButtonGroupType;
 }
 

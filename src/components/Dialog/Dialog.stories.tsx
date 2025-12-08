@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Dialog } from "./Dialog";
@@ -11,21 +12,23 @@ import { Container } from "@/components/Container/Container";
 import { TextField } from "@/components/Input/TextField";
 import { Icon } from "@/components/Icon/Icon";
 
-const DialogComponent = ({
-  open,
-  title,
-  modal,
-  showClose,
-  forceMount,
-  reducePadding,
-}: {
+interface DialogExampleProps {
   open?: boolean;
   title?: string;
   modal: boolean;
   showClose: boolean;
   forceMount?: boolean;
   reducePadding?: boolean;
-}) => (
+}
+
+const DialogExample = ({
+  open,
+  title,
+  modal,
+  showClose,
+  forceMount,
+  reducePadding,
+}: DialogExampleProps) => (
   <GridCenter>
     <Dialog
       open={open}
@@ -61,8 +64,13 @@ const ActionArea = styled.div`
   gap: ${({ theme }) => theme.click.dialog.space.gap};
 `;
 
-export default {
-  component: DialogComponent,
+const meta: Meta<typeof DialogExample> = {
+  component: DialogExample,
+  subcomponents: {
+    "Dialog.Trigger": Dialog.Trigger as React.ComponentType<unknown>,
+    "Dialog.Content": Dialog.Content as React.ComponentType<unknown>,
+    "Dialog.Close": Dialog.Close as React.ComponentType<unknown>,
+  },
   title: "Display/Dialog",
   tags: ["autodocs", "dialog"],
   argTypes: {
@@ -73,14 +81,15 @@ export default {
   },
 };
 
-export const ModalDialog = {
+export default meta;
+
+type Story = StoryObj<typeof DialogExample>;
+
+export const ModalDialog: Story = {
   args: {
     title: "Example dialog title",
     showClose: true,
     open: true,
-    onOpenChange: () => {
-      console.log("ignored");
-    },
     reducePadding: false,
   },
   parameters: {
@@ -105,14 +114,11 @@ const TopNav = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.click.separator.color.stroke.default};
 `;
 
-export const ChatDialog = {
+export const ChatDialog: Story = {
   args: {
     title: "",
     showClose: false,
     open: false,
-    onOpenChange: () => {
-      console.log("ignored");
-    },
     reducePadding: true,
   },
   render: ({
@@ -121,13 +127,6 @@ export const ChatDialog = {
     showClose,
     forceMount,
     reducePadding,
-  }: {
-    open?: boolean;
-    title?: string;
-    modal: boolean;
-    showClose: boolean;
-    forceMount?: boolean;
-    reducePadding?: boolean;
   }) => {
     const [open, setOpen] = useState(true);
 

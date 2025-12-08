@@ -12,11 +12,17 @@ import { linkStyles } from "./common";
 import { TextSize, TextWeight } from "../commonTypes";
 
 export interface LinkProps<T extends ElementType = "a"> {
+  /** The font size of the link text */
   size?: TextSize;
+  /** The font weight of the link text */
   weight?: TextWeight;
+  /** Click event handler */
   onClick?: ReactEventHandler;
+  /** The content to display inside the link */
   children?: React.ReactNode;
+  /** Optional icon to display after the link text */
   icon?: IconName;
+  /** Custom component to render as the link element */
   component?: T;
 }
 

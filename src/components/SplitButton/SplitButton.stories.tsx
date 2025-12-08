@@ -1,3 +1,4 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Menu, SplitButton } from "./SplitButton";
 
 const menuItems: Array<Menu> = [
@@ -42,18 +43,17 @@ const menuItems: Array<Menu> = [
   },
 ];
 
-export default {
+const meta: Meta<typeof SplitButton> = {
   component: SplitButton,
   title: "Buttons/SplitButton",
   tags: ["split-button", "autodocs"],
-  argTypes: {
-    disabled: { control: "boolean" },
-    type: { control: "inline-radio", options: ["primary", "secondary"] },
-    side: { control: "select", options: ["top", "bottom"] },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof SplitButton>;
+
+export const Playground: Story = {
   args: {
     side: "bottom",
     type: "primary",

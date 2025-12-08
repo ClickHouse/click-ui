@@ -3,6 +3,7 @@ import { HTMLAttributes } from "react";
 import { styled } from "styled-components";
 
 export interface TooltipProps extends RadixTooltip.TooltipProps {
+  /** Whether the tooltip is disabled and should not appear */
   disabled?: boolean;
 }
 
@@ -27,7 +28,9 @@ const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
 TooltipTrigger.displayName = "TooltipTrigger";
 Tooltip.Trigger = TooltipTrigger;
 interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
+  /** Whether to show an arrow pointing to the trigger element */
   showArrow?: boolean;
+  /** Maximum width of the tooltip content */
   maxWidth?: string;
 }
 

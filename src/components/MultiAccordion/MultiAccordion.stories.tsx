@@ -1,27 +1,24 @@
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { MultiAccordion } from "./MultiAccordion";
 
-export default {
+const meta: Meta<typeof MultiAccordion> = {
   component: MultiAccordion,
+  subcomponents: {
+    "MultiAccordion.Item": MultiAccordion.Item as React.ComponentType<unknown>,
+  },
   title: "Accordion/MultiAccordion",
   tags: ["multi-accordion", "autodocs"],
   argTypes: {
-    gap: {
-      control: "select",
-      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
-    },
-    size: {
-      control: "radio",
-      options: ["none", "sm", "md", "lg"],
-    },
-    fillWidth: { control: "boolean" },
-    showBorder: { control: "boolean" },
-    showCheck: { control: "boolean" },
-    type: { control: "radio", options: ["single", "multiple"] },
-    collapsible: { control: "boolean", if: { arg: "type", eq: "single" } },
+    collapsible: { if: { arg: "type", eq: "single" } },
   },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof MultiAccordion>;
+
+export const Playground: Story = {
   args: {
     type: "single",
     collapsible: true,

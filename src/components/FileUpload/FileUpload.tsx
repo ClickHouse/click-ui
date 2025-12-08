@@ -14,16 +14,27 @@ interface FileInfo {
 }
 
 interface FileUploadProps {
+  /** The title text displayed in the upload area */
   title: string;
+  /** Array of supported file extensions (e.g., [".txt", ".csv"]) */
   supportedFileTypes?: string[];
+  /** The size variant of the upload component */
   size?: "sm" | "md";
+  /** Current upload progress (0-100) */
   progress?: number;
+  /** Whether to show success state */
   showSuccess?: boolean;
+  /** Whether to show the progress bar */
   showProgress?: boolean;
+  /** Message to display when upload fails */
   failureMessage?: string;
+  /** Callback when retry button is clicked */
   onRetry?: () => void;
+  /** Callback when a file is selected */
   onFileSelect?: (file: File) => void;
+  /** Callback when file selection fails */
   onFileFailure?: () => void;
+  /** Callback when the file is removed/closed */
   onFileClose?: () => void;
 }
 

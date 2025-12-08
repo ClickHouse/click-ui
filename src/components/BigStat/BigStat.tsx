@@ -6,15 +6,25 @@ export type bigStatSpacing = "sm" | "lg";
 export type bigStatState = "default" | "muted";
 
 export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Whether the component should fill the full width of its container */
   fillWidth?: boolean;
+  /** Maximum width of the component */
   maxWidth?: string;
+  /** Height of the component */
   height?: string;
+  /** The label text displayed below or above the title */
   label: React.ReactNode;
+  /** The order of title and label - titleTop shows title first, titleBottom shows label first */
   order?: bigStatOrder;
+  /** The size variant of the component */
   size?: bigStatSize;
+  /** The spacing between title and label */
   spacing?: bigStatSpacing;
+  /** The visual state of the component */
   state?: bigStatState;
+  /** The main title/value to display */
   title: React.ReactNode;
+  /** Whether to show an error state with danger border */
   error?: boolean;
 }
 

@@ -7,15 +7,23 @@ type AlertType = "default" | "banner";
 type AlertSize = "small" | "medium";
 type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
 export type AlertProps = {
+  /** The visual state/severity of the alert */
   state?: AlertState;
+  /** Optional title displayed above the text */
   title?: ReactNode;
+  /** The main message text of the alert */
   text: ReactNode;
+  /** The size variant of the alert */
   size?: AlertSize;
+  /** The type of alert (default or banner) */
   type?: AlertType;
+  /** Whether to show the state icon */
   showIcon?: boolean;
+  /** Custom icon to display instead of the default state icon */
   customIcon?: IconName;
+  /** Whether the alert can be dismissed */
   dismissible?: boolean;
-  /** Available for `dismissible == true` */
+  /** Callback when the alert is dismissed (requires dismissible=true) */
   onDismiss?: () => void;
 };
 

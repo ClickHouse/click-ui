@@ -5,15 +5,25 @@ import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
+  /** The label content to display */
   label: ReactNode;
+  /** The content to display when expanded */
   children: ReactNode;
+  /** Whether the item is expanded */
   open?: boolean;
+  /** Callback when the open state changes */
   onOpenChange?: (value: boolean) => void;
+  /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
+  /** Icon to display before the label */
   icon?: IconName;
+  /** The direction of the collapse indicator */
   indicatorDir?: HorizontalDirection;
+  /** Whether the item is currently selected */
   selected?: boolean;
+  /** Nesting level for indentation */
   level?: number;
+  /** The sidebar style type */
   type?: "main" | "sqlSidebar";
 }
 

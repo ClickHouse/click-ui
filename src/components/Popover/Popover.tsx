@@ -39,9 +39,13 @@ PopoverTrigger.displayName = "PopoverTrigger";
 Popover.Trigger = PopoverTrigger;
 
 interface PopoverContentProps extends RadixPopover.PopoverContentProps {
+  /** Whether to show an arrow pointing to the trigger element */
   showArrow?: boolean;
+  /** Whether to show a close button in the popover */
   showClose?: boolean;
+  /** Forces the popover to mount in the DOM even when closed */
   forceMount?: true;
+  /** Custom container element for the popover portal */
   container?: HTMLElement | null;
 }
 

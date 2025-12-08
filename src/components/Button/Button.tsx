@@ -7,15 +7,25 @@ export type ButtonType = "primary" | "secondary" | "empty" | "danger";
 type Alignment = "center" | "left";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  /** The visual style variant of the button */
   type?: ButtonType;
+  /** Whether the button is disabled */
   disabled?: boolean;
+  /** The text label to display in the button */
   label?: string;
+  /** Icon to display on the left side of the label */
   iconLeft?: IconName;
+  /** Icon to display on the right side of the label */
   iconRight?: IconName;
+  /** Alignment of the button content */
   align?: Alignment;
+  /** Whether the button should fill the full width of its container */
   fillWidth?: boolean;
+  /** Whether to show a loading spinner */
   loading?: boolean;
+  /** Whether the button should be focused on mount */
   autoFocus?: boolean;
+  /** Whether to show the label alongside the loading spinner */
   showLabelWithLoading?: boolean;
 }
 

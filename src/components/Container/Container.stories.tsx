@@ -1,3 +1,4 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Container } from "./Container";
 import { Text } from "..";
 import { styled } from "styled-components";
@@ -9,83 +10,17 @@ const GridCenter = styled.div`
   height: 100%;
 `;
 
-const ContainerExample = ({ ...props }) => {
-  return (
-    <GridCenter>
-      <Container
-        {...props}
-        style={{ border: "1px solid grey" }}
-      >
-        <Text>Parent container</Text>
-        <Container
-          {...props}
-          style={{ border: "1px solid grey" }}
-        >
-          <Text>Child</Text>
-        </Container>
-        <Container
-          {...props}
-          style={{ border: "1px solid grey" }}
-        >
-          <Text>Child</Text>
-        </Container>
-        <Container
-          {...props}
-          style={{ border: "1px solid grey" }}
-        >
-          <Text>Child</Text>
-        </Container>
-      </Container>
-    </GridCenter>
-  );
-};
-
-export default {
-  component: ContainerExample,
+const meta: Meta<typeof Container> = {
+  component: Container,
   title: "Layout/Container",
   tags: ["container", "autodocs"],
-  argTypes: {
-    alignItems: { control: "select", options: ["start", "center", "end", "stretch"] },
-    fillWidth: { control: "boolean" },
-    gap: {
-      control: "select",
-      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
-    },
-    grow: {
-      control: "select",
-      options: ["0", "1", "2", "3", "4", "5", "6"],
-    },
-    shrink: {
-      control: "select",
-      options: ["0", "1", "2", "3", "4", "5", "6"],
-    },
-    isResponsive: { control: "boolean" },
-    justifyContent: {
-      control: "select",
-      options: [
-        "center",
-        "space-between",
-        "space-around",
-        "space-evenly",
-        "start",
-        "end",
-        "left",
-        "right",
-      ],
-    },
-    orientation: { control: "radio", options: ["horizontal", "vertical"] },
-    padding: {
-      control: "select",
-      options: ["none", "xxs", "xs", "sm", "md", "lg", "xl", "xxl"],
-    },
-    wrap: {
-      control: "select",
-      options: ["nowrap", "wrap", "wrap-reverse"],
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Container>;
+
+export const Playground: Story = {
   args: {
     alignItems: "center",
     fillWidth: false,
@@ -100,4 +35,32 @@ export const Playground = {
     shrink: "0",
     wrap: "nowrap",
   },
+  render: args => (
+    <GridCenter>
+      <Container
+        {...args}
+        style={{ border: "1px solid grey" }}
+      >
+        <Text>Parent container</Text>
+        <Container
+          {...args}
+          style={{ border: "1px solid grey" }}
+        >
+          <Text>Child</Text>
+        </Container>
+        <Container
+          {...args}
+          style={{ border: "1px solid grey" }}
+        >
+          <Text>Child</Text>
+        </Container>
+        <Container
+          {...args}
+          style={{ border: "1px solid grey" }}
+        >
+          <Text>Child</Text>
+        </Container>
+      </Container>
+    </GridCenter>
+  ),
 };

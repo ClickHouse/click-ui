@@ -1,16 +1,16 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Pagination } from "./Pagination";
 
-export default {
+const meta: Meta<typeof Pagination> = {
   component: Pagination,
   title: "Display/Pagination",
   tags: ["pagination", "autodocs"],
-  argTypes: {
-    rowCount: {
-      control: { type: "number" },
-    },
-  },
 };
+
+export default meta;
+
+type Story = StoryObj<typeof Pagination>;
 
 const PaginationRenderer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -27,10 +27,9 @@ const PaginationRenderer = () => {
   );
 };
 
-export const Playground = {
+export const Playground: Story = {
   args: {
     currentPage: 1,
-    options: [250, 500],
   },
   render: () => <PaginationRenderer />,
 };

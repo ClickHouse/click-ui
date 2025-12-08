@@ -1,68 +1,21 @@
-import { Args } from "@storybook/react-vite";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { DateDetails } from "./DateDetails";
 
-export default {
-  argTypes: {
-    side: {
-      control: {
-        type: "select",
-      },
-      options: ["top", "right", "left", "bottom"],
-    },
-    date: {
-      control: "date",
-    },
-    systemTimeZone: {
-      options: [
-        "America/Denver",
-        "America/Los_Angeles",
-        "America/New_York",
-        "Asia/Shanghai",
-        "Asia/Tokyo",
-        "Europe/London",
-        "Europe/Berlin",
-        "Europe/Moscow",
-        "Europe/Rome",
-      ],
-      control: {
-        type: "select",
-      },
-    },
-    size: {
-      control: {
-        type: "select",
-      },
-      options: ["xs", "sm", "md", "lg"],
-    },
-    weight: {
-      control: {
-        type: "select",
-      },
-      options: ["normal", "medium", "semibold", "bold", "mono"],
-    },
-  },
+const meta: Meta<typeof DateDetails> = {
   component: DateDetails,
   title: "Display/DateDetails",
   tags: ["autodocs"],
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof DateDetails>;
+
+export const Playground: Story = {
   args: {
     date: new Date(),
     side: "top",
-    systemTimeZone: undefined,
-    title: "DateDetails",
-  },
-  render: (args: Args) => {
-    const date = args.date ? new Date(args.date) : new Date();
-    return (
-      <DateDetails
-        date={date}
-        side={args.side}
-        size={args.size}
-        systemTimeZone={args.systemTimeZone}
-        weight={args.weight}
-      />
-    );
+    size: "sm",
+    weight: "normal",
   },
 };

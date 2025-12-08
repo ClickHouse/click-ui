@@ -14,14 +14,21 @@ export const ToastContext = createContext<ToastContextProps>({
 export type ToastAlignment = "start" | "end";
 export type ToastType = "danger" | "warning" | "default" | "success";
 export interface ToastProps extends Omit<RadixUIToast.ToastProps, "type"> {
+  /** Unique identifier for the toast */
   id?: string;
+  /** The visual style type of the toast */
   type?: ToastType;
+  /** The type of toast for screen reader announcements */
   toastType?: "foreground" | "background";
+  /** The title text displayed in the toast */
   title: string;
+  /** Optional description content */
   description?: ReactNode;
   /** Time in milliseconds the toast will be visible */
   duration?: number;
+  /** Action buttons to display in the toast */
   actions?: Array<ButtonProps & { altText: string }>;
+  /** Horizontal alignment of the toast - start or end */
   align?: ToastAlignment;
 }
 

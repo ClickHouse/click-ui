@@ -22,30 +22,55 @@ type ContentOptions =
   | "right";
 
 export interface GridContainerProps<T extends ElementType = "div"> {
+  /** Custom component to render as */
   component?: T;
+  /** Alignment of items along the block axis */
   alignItems?: ItemsOptions;
+  /** Alignment of content along the block axis */
   alignContent?: ContentOptions;
+  /** The content to display inside the grid container */
   children?: React.ReactNode;
+  /** Gap between columns */
   columnGap?: GapOptions;
+  /** Gap between rows and columns */
   gap?: GapOptions;
+  /** Size of implicitly-created grid columns */
   gridAutoColumns?: string;
+  /** How auto-placed items flow into the grid */
   gridAutoFlow?: FlowOptions;
+  /** Size of implicitly-created grid rows */
   gridAutoRows?: string;
+  /** Named grid areas */
   gridTemplateAreas?: string;
+  /** Column track sizes */
   gridTemplateColumns?: string;
+  /** Row track sizes */
   gridTemplateRows?: string;
+  /** Shorthand for grid-template-rows, grid-template-columns, and grid-template-areas */
   gridTemplate?: string;
+  /** Whether to use inline-grid instead of grid */
   inline?: boolean;
+  /** Whether to collapse to single column on smaller screens */
   isResponsive?: boolean;
+  /** Alignment of content along the inline axis */
   justifyContent?: ContentOptions;
+  /** Alignment of items along the inline axis */
   justifyItems?: ItemsOptions;
+  /** Gap between rows */
   rowGap?: GapOptions;
+  /** Height of the container */
   height?: string;
+  /** Maximum height of the container */
   maxHeight?: string;
+  /** Minimum height of the container */
   minHeight?: string;
+  /** Whether the container should fill the full width of its parent */
   fillWidth?: boolean;
+  /** Maximum width of the container */
   maxWidth?: string;
+  /** Minimum width of the container */
   minWidth?: string;
+  /** CSS overflow behavior */
   overflow?: string;
 }
 

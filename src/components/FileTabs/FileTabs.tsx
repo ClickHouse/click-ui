@@ -65,22 +65,36 @@ export const TabContext = createContext<ContextProps>({
 });
 
 export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Callback when the tab is closed */
   onClose?: () => void;
+  /** Index of the tab in the list */
   index: number;
+  /** Status indicator for the tab */
   status?: FileTabStatusType;
+  /** Icon to display in the tab */
   icon?: IconName | ReactNode;
+  /** Text to display in the tab */
   text: string;
+  /** Test ID for testing */
   testId?: string;
+  /** Whether the tab is in preview mode (italic text) */
   preview?: boolean;
 }
 export interface FileTabsProps
   extends Omit<ReactSortableProps<ItemInterface>, "onSelect" | "list" | "setList"> {
+  /** Index of the currently selected tab */
   selectedIndex?: number;
+  /** The tab elements to render */
   children: ReactElement<FileTabProps> | Array<ReactElement<FileTabProps>>;
+  /** Callback when a tab is reordered via drag and drop */
   onReorderTab: (sourcePosition: number, destinationPosition: number) => void;
+  /** Callback when a tab is closed */
   onClose: (index: number) => void;
+  /** Callback when a tab is selected */
   onSelect: (index: number) => void;
+  /** List of items for sortable functionality */
   list?: Array<ItemInterface>;
+  /** Setter for the sortable list */
   setList?: (
     newState: Array<ItemInterface>,
     sortable: Sortable | null,

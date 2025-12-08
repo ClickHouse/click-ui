@@ -105,10 +105,15 @@ const formatTimezone = (date: Dayjs, timezone?: string): string => {
 export type ArrowPosition = "top" | "right" | "left" | "bottom";
 
 export interface DateDetailsProps {
+  /** The date to display */
   date: Date;
+  /** The side to show the popover */
   side?: ArrowPosition;
+  /** The font size of the trigger text */
   size?: TextSize;
+  /** Optional system timezone to display */
   systemTimeZone?: string;
+  /** The font weight of the trigger text */
   weight?: TextWeight;
 }
 

@@ -1,10 +1,11 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { GridCenter } from "../commonElement";
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
 } from "@/components/ConfirmationDialog/ConfirmationDialog";
 
-const ConfirmationDialogComponent = ({
+const ConfirmationDialogExample = ({
   disabled,
   loading,
   message,
@@ -32,8 +33,8 @@ const ConfirmationDialogComponent = ({
   </GridCenter>
 );
 
-export default {
-  component: ConfirmationDialogComponent,
+const meta: Meta<typeof ConfirmationDialogExample> = {
+  component: ConfirmationDialogExample,
   title: "Display/ConfirmationDialog",
   tags: ["autodocs", "confirmation dialog"],
   argTypes: {
@@ -44,7 +45,11 @@ export default {
   },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof ConfirmationDialogExample>;
+
+export const Playground: Story = {
   args: {
     title: "Example dialog title",
     disabled: false,

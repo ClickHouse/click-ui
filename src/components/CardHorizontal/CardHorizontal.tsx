@@ -15,23 +15,37 @@ export type CardSize = "sm" | "md";
 
 export interface CardHorizontalProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  /** The title text displayed in the card */
   title?: ReactNode;
+  /** Icon to display in the card */
   icon?: IconName;
+  /** Whether the card is disabled */
   disabled?: boolean;
+  /** The description content of the card */
   description?: ReactNode;
+  /** URL to navigate to when clicked */
   infoUrl?: string;
-  /** Shows and hides the button */
+  /** Text for the action button (shows/hides the button) */
   infoText?: string;
+  /** Whether the card is in a selected state */
   isSelected?: boolean;
+  /** Whether the card can be selected */
   isSelectable?: boolean;
+  /** Additional content to display in the card */
   children?: ReactNode;
+  /** Color variant of the card */
   color?: CardColor;
+  /** Size variant of the card */
   size?: CardSize;
-  /** Shows and hides the badge */
+  /** Text for the badge (shows/hides the badge) */
   badgeText?: string;
+  /** State/color variant of the badge */
   badgeState?: BadgeState;
+  /** Icon to display in the badge */
   badgeIcon?: IconName;
+  /** Direction of the badge icon */
   badgeIconDir?: HorizontalDirection;
+  /** Callback when the card button is clicked */
   onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 

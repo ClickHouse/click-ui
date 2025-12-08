@@ -1,17 +1,20 @@
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Dropdown } from "./Dropdown";
 import { GridCenter } from "../commonElement";
 import { Button } from "..";
 import { Key } from "react";
 
-interface Props extends DropdownMenuProps {
+interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
   side: "top" | "right" | "left" | "bottom";
   type: "text" | "button";
   itemCount: number;
 }
-const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: Props) => {
+
+const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: DropdownExampleProps) => {
   const items = Array.from({ length: itemCount }, (_, i) => `Item ${i + 1}`);
   return (
     <GridCenter>
@@ -92,8 +95,15 @@ const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: Pro
   );
 };
 
-export default {
+const meta: Meta<typeof DropdownExample> = {
   component: DropdownExample,
+  subcomponents: {
+    "Dropdown.Trigger": Dropdown.Trigger as React.ComponentType<unknown>,
+    "Dropdown.Content": Dropdown.Content as React.ComponentType<unknown>,
+    "Dropdown.Group": Dropdown.Group as React.ComponentType<unknown>,
+    "Dropdown.Sub": Dropdown.Sub as React.ComponentType<unknown>,
+    "Dropdown.Item": Dropdown.Item as React.ComponentType<unknown>,
+  },
   title: "Display/Dropdown",
   tags: ["form-field", "dropdown", "autodocs"],
   argTypes: {
@@ -109,7 +119,11 @@ export default {
   },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof DropdownExample>;
+
+export const Playground: Story = {
   args: {
     side: "bottom",
     itemCount: 0,

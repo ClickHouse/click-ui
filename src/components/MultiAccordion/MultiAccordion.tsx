@@ -18,12 +18,19 @@ type Color = "default" | "link";
 type MarkAsCompletedFunctionType = (value: string) => void | Promise<void>;
 
 interface MultiAccordionCommonProps {
+  /** The accordion items to render */
   children: React.ReactNode;
+  /** The size variant of the accordion */
   size?: Size;
+  /** Whether the accordion should fill the full width of its container */
   fillWidth?: boolean;
+  /** The gap between accordion items */
   gap?: GapOptions;
+  /** Whether to show a border around each accordion item */
   showBorder?: boolean;
+  /** Whether to show a check/completion indicator on items */
   showCheck?: boolean;
+  /** Callback function to mark an item as completed */
   markAsCompleted?: MarkAsCompletedFunctionType;
 }
 
@@ -80,11 +87,17 @@ export const MultiAccordion = ({
 };
 interface MultiAccordionItemProps
   extends Omit<RadixAccordion.AccordionItemProps, "title"> {
+  /** The title text or element displayed in the accordion item header */
   title: ReactNode;
+  /** The color variant of the item */
   color?: Color;
+  /** Optional icon to display next to the title */
   icon?: IconName;
+  /** Size of the optional icon */
   iconSize?: IconSize;
+  /** Gap size between the header and content */
   gap?: SpacerSizeType;
+  /** Whether this item is marked as completed */
   isCompleted?: boolean;
 }
 

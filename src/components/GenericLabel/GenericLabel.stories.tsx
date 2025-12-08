@@ -1,35 +1,25 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { GenericLabel } from "./GenericLabel";
 
-const FieldExample = ({
-  disabled,
-  text,
-}: {
-  disabled: boolean;
-  error: boolean;
-  text: string;
-}) => (
-  <GenericLabel
-    disabled={disabled}
-    htmlFor="test"
-  >
-    {text}
-    <input id="test" />
-  </GenericLabel>
-);
-
-export default {
-  component: FieldExample,
+const meta: Meta<typeof GenericLabel> = {
+  component: GenericLabel,
   title: "Forms/GenericLabel",
   tags: ["form-field", "generic-label", "autodocs"],
-  argTypes: {
-    disabled: { control: "boolean" },
-    text: { control: "string" },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof GenericLabel>;
+
+export const Playground: Story = {
   args: {
-    text: "Form Field generic label",
+    children: "Form Field generic label",
     disabled: false,
   },
+  render: args => (
+    <GenericLabel {...args}>
+      {args.children}
+      <input id="test" />
+    </GenericLabel>
+  ),
 };

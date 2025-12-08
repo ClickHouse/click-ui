@@ -1,22 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import Separator from "./Separator";
 
-export default {
+const meta: Meta<typeof Separator> = {
   component: Separator,
   title: "Display/Separator",
   tags: ["separator", "autodocs"],
-  argTypes: {
-    size: {
-      options: ["xs", "sm", "md", "lg", "xl", "xxl"],
-      control: { type: "radio" },
-    },
-    orientation: {
-      options: ["horizontal", "vertical"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Separator>;
+
+export const Playground: Story = {
   args: {
     size: "xs",
     orientation: "horizontal",

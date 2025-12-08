@@ -1,12 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { CardPrimary } from "./CardPrimary";
 
-export default {
+const meta: Meta<typeof CardPrimary> = {
   component: CardPrimary,
   title: "Cards/Primary Card",
   tags: ["cardPrimary", "autodocs"],
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof CardPrimary>;
+
+export const Playground: Story = {
   args: {
     icon: "building",
     title: "Card title",

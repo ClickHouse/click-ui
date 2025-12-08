@@ -3,9 +3,13 @@ import { HTMLAttributes, forwardRef } from "react";
 import { styled } from "styled-components";
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  /** The size of the icon button */
   size?: "default" | "sm" | "xs";
+  /** Whether the button is disabled */
   disabled?: boolean;
+  /** The visual style variant of the button */
   type?: "primary" | "secondary" | "ghost" | "danger" | "info";
+  /** The icon to display in the button */
   icon: IconName;
 }
 
