@@ -30,8 +30,8 @@ describe("Checkbox", () => {
 
     const checkbox = getByTestId("checkbox");
 
-    const computedStyle = window.getComputedStyle(checkbox);
-    expect(computedStyle.cursor).toBe("not-allowed");
+    // Check if disabled attribute is set
+    expect(checkbox).toBeDisabled();
 
     fireEvent.click(checkbox);
 

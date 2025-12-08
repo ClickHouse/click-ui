@@ -13,11 +13,7 @@ export interface EllipsisContentProps<T extends ElementType = "div">
   extends PolymorphicComponentProps<T> {}
 
 const _EllipsisContent = <T extends ElementType = "div">(
-  {
-    component,
-    className,
-    ...props
-  }: PolymorphicProps<T, EllipsisContentProps<T>>,
+  { component, className, ...props }: PolymorphicProps<T, EllipsisContentProps<T>>,
   ref: PolymorphicRef<T>
 ) => {
   const Component = component ?? "div";
@@ -38,4 +34,5 @@ const _EllipsisContent = <T extends ElementType = "div">(
   );
 };
 
-export const EllipsisContent: PolymorphicComponent<EllipsisContentProps> = forwardRef(_EllipsisContent);
+export const EllipsisContent: PolymorphicComponent<EllipsisContentProps> =
+  forwardRef(_EllipsisContent);

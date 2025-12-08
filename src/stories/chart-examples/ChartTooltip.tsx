@@ -35,25 +35,28 @@ export const ChartTooltip = (props: ChartTooltipProps) => {
       }}
     >
       {label && <div style={{ fontWeight: 600, marginBottom: 4 }}>{label}</div>}
-      {payload.map((entry, idx) => (
-        <div
-          key={idx}
-          style={{ display: "flex", alignItems: "center", gap: 8 }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              width: 12,
-              height: 12,
-              borderRadius: "50%",
-              background: entry.color,
-              marginRight: 6,
-            }}
-          />
-          <span style={{ fontWeight: 500 }}>{entry.name}:</span>
-          <span style={{ marginLeft: 4 }}>{entry.value}</span>
-        </div>
-      ))}
+      {payload.map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (entry: any, idx: number) => (
+          <div
+            key={idx}
+            style={{ display: "flex", alignItems: "center", gap: 8 }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: 12,
+                height: 12,
+                borderRadius: "50%",
+                background: entry.color,
+                marginRight: 6,
+              }}
+            />
+            <span style={{ fontWeight: 500 }}>{entry.name}:</span>
+            <span style={{ marginLeft: 4 }}>{entry.value}</span>
+          </div>
+        )
+      )}
     </div>
   );
 };

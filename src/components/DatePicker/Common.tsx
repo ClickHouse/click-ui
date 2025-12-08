@@ -232,7 +232,7 @@ export const CalendarRenderer = ({
       <table className={styles.cuiDateTable}>
         <thead>
           <tr>
-            {headers.weekDays.map(({ key, value: date }) => {
+            {headers?.weekDays?.map(({ key, value: date }) => {
               return (
                 <th
                   key={key}

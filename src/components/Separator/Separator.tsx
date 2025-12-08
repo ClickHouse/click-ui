@@ -21,7 +21,9 @@ const Separator = ({
   return (
     <div
       role={decorative ? "none" : "separator"}
-      aria-orientation={!decorative && orientation !== "horizontal" ? orientation : undefined}
+      aria-orientation={
+        !decorative && orientation !== "horizontal" ? orientation : undefined
+      }
       className={clsx(
         styles.cuiSeparator,
         styles[orientationClass],

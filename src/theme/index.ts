@@ -22,12 +22,7 @@ export {
 } from "./ClickUIProvider";
 
 // === UTILITIES ===
-export {
-  getBaseTheme,
-  getThemeValue,
-  loadCustomConfig,
-  deepMerge,
-} from "./utils";
+export { getBaseTheme, getThemeValue, loadCustomConfig, deepMerge } from "./utils";
 
 // === CSS UTILITIES ===
 export { setThemeAttribute } from "./utils/theme-attribute";

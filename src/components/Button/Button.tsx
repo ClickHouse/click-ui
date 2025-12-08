@@ -54,46 +54,45 @@ export const Button = ({
       role="button"
       data-cui-type={type}
       data-cui-align={align}
-      data-cui-loading={loading ? 'true' : undefined}
+      data-cui-loading={loading ? "true" : undefined}
       {...delegated}
     >
+      {!loading && (
+        <>
+          {iconLeft && (
+            <Icon
+              name={iconLeft}
+              aria-hidden
+              size="sm"
+              className={styles.cuiButtonIcon}
+            />
+          )}
 
-    {!loading && (
-      <>
-        {iconLeft && (
+          {label ?? children}
+
+          {iconRight && (
+            <Icon
+              name={iconRight}
+              aria-hidden
+              size="sm"
+              className={styles.cuiButtonIcon}
+            />
+          )}
+        </>
+      )}
+      {loading && (
+        <div
+          className={styles.cuiLoadingIconWrapper}
+          data-testid="click-ui-loading-icon-wrapper"
+        >
           <Icon
-            name={iconLeft}
-            aria-hidden
-            size="sm"
-            className={styles.cuiButtonIcon}
+            name="loading-animated"
+            data-testid="click-ui-loading-icon"
+            aria-label="loading"
           />
-        )}
-
-        {label ?? children}
-
-        {iconRight && (
-          <Icon
-            name={iconRight}
-            aria-hidden
-            size="sm"
-            className={styles.cuiButtonIcon}
-          />
-        )}
-      </>
-    )}
-    {loading && (
-      <div
-        className={styles.cuiLoadingIconWrapper}
-        data-testid="click-ui-loading-icon-wrapper"
-      >
-        <Icon
-          name="loading-animated"
-          data-testid="click-ui-loading-icon"
-          aria-label="loading"
-        />
-        {showLabelWithLoading ? (label ?? children) : ""}
-      </div>
-    )}
+          {showLabelWithLoading ? (label ?? children) : ""}
+        </div>
+      )}
     </button>
   );
 };

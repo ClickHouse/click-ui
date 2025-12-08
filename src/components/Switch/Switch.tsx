@@ -26,16 +26,12 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 
     const orientationClass = `cuiOrientation${capitalize(orientation)}`;
     const dirClass = `cuiDir${capitalize(dir)}`;
-    const checkedClass = checked ? 'cuiChecked' : '';
-    const disabledClass = disabled ? 'cuiDisabled' : '';
+    const checkedClass = checked ? "cuiChecked" : "";
+    const disabledClass = disabled ? "cuiDisabled" : "";
 
     return (
       <div
-        className={clsx(
-          styles.cuiWrapper,
-          styles[orientationClass],
-          styles[dirClass]
-        )}
+        className={clsx(styles.cuiWrapper, styles[orientationClass], styles[dirClass])}
         data-cui-orientation={orientation}
         data-cui-dir={dir}
       >

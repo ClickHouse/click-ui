@@ -71,8 +71,11 @@ export const getBaseTheme = (themeName: BaseThemeName): Theme => {
  * getThemeValue(lightTheme, "click.button.primary.background.default")
  * // Returns: "#007bff"
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getThemeValue = (theme: Theme | Record<string, any>, path: string): unknown => {
+export const getThemeValue = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  theme: Theme | Record<string, any>,
+  path: string
+): unknown => {
   const keys = path.split(".");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let value: any = theme;
@@ -87,7 +90,6 @@ export const getThemeValue = (theme: Theme | Record<string, any>, path: string):
 
   return value;
 };
-
 
 /**
  * Configuration loading utilities

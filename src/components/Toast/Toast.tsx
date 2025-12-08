@@ -49,7 +49,7 @@ export const Toast = ({
     iconName = "warning";
   }
 
-  const typeClass = type ? `cuiType${capitalize(type)}` : '';
+  const typeClass = type ? `cuiType${capitalize(type)}` : "";
 
   return (
     <RadixUIToast.Root

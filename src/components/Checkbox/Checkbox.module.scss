@@ -40,10 +40,6 @@
     background: var(--click-checkbox-color-variations-default-background-default);
     border-color: var(--click-checkbox-color-variations-default-stroke-default);
 
-    &:hover {
-      background: var(--click-checkbox-color-variations-default-background-hover);
-    }
-
     @include variants.variant('cuiCheckedTrue') {
       border-color: var(--click-checkbox-color-variations-default-stroke-active);
       background: var(--click-checkbox-color-variations-default-background-active);
@@ -188,7 +184,7 @@
 }
 
 .cuiCheckIconWrapper {
-  color: var(--click-checkbox-color-check-default);
+  color: var(--click-checkbox-color-check-active);
 
   @include variants.variant('cuiDisabled') {
     color: var(--click-checkbox-color-check-disabled);

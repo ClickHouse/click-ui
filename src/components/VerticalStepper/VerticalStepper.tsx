@@ -59,11 +59,16 @@ const VerticalStep = ({
 
   const typeClass = `cuiType${capitalize(type)}`;
   const statusClass = `cuiStatus${capitalize(status)}`;
-  const openClass = isOpen ? 'cuiIsOpen' : undefined;
+  const openClass = isOpen ? "cuiIsOpen" : undefined;
 
   return (
     <div
-      className={clsx(styles.cuiStepItem, styles[typeClass], styles[statusClass], openClass && styles[openClass])}
+      className={clsx(
+        styles.cuiStepItem,
+        styles[typeClass],
+        styles[statusClass],
+        openClass && styles[openClass]
+      )}
       data-cui-type={type}
       data-cui-status={status}
     >

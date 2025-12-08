@@ -58,7 +58,11 @@ export const ProgressBar = ({
 
   return (
     <div
-      className={clsx(styles.cuiProgressContainer, styles[typeClass], styles[statusClass])}
+      className={clsx(
+        styles.cuiProgressContainer,
+        styles[typeClass],
+        styles[statusClass]
+      )}
       data-cui-type={type}
       data-cui-status={completed ? "complete" : "incomplete"}
       style={

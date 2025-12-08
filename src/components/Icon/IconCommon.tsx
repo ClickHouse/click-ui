@@ -72,6 +72,7 @@ import EyeClosed from "@/components/icons/EyeClosed";
 import FilterIcon from "@/components/icons/FilterIcon";
 import Fire from "@/components/icons/Fire";
 import Flag from "@/components/icons/Flag";
+import Flash from "@/components/icons/Flash";
 import Flask from "@/components/icons/Flask";
 import FolderClosed from "@/components/icons/FolderClosed";
 import FolderOpen from "@/components/icons/FolderOpen";
@@ -102,6 +103,7 @@ import ListNumbered from "@/components/icons/ListNumbered";
 import Loading from "@/components/icons/Loading";
 import LoadingAnimated from "@/components/icons/LoadingAnimated";
 import Lock from "@/components/icons/Lock";
+import MapPin from "@/components/icons/MapPin";
 import Mcp from "@/components/icons/Mcp";
 import Metrics from "@/components/icons/Metrics";
 import MetricsAlt from "@/components/icons/MetricsAlt";
@@ -115,6 +117,7 @@ import PieChart from "@/components/icons/PieChart";
 import Pipe from "@/components/icons/Pipe";
 import Play from "@/components/icons/Play";
 import PlayInCircle from "@/components/icons/PlayInCircle";
+import Plug from "@/components/icons/Plug";
 import Plus from "@/components/icons/Plus";
 import Popout from "@/components/icons/Popout";
 import PuzzlePiece from "@/components/icons/PuzzlePiece";
@@ -131,6 +134,7 @@ import Settings from "@/components/icons/Settings";
 import Share from "@/components/icons/Share";
 import ShareArrow from "@/components/icons/ShareArrow";
 import ShareNetwork from "@/components/icons/ShareNetwork";
+import Sleep from "@/components/icons/Sleep";
 import SlideIn from "@/components/icons/SlideIn";
 import SlideOut from "@/components/icons/SlideOut";
 import SortAltIcon from "@/components/icons/SortAltIcon";
@@ -145,6 +149,8 @@ import Support from "@/components/icons/Support";
 import Table from "@/components/icons/Table";
 import Taxi from "@/components/icons/Taxi";
 import TextSlash from "@/components/icons/TextSlash";
+import ThumbsDown from "@/components/icons/ThumbsDown";
+import ThumbsUp from "@/components/icons/ThumbsUp";
 import Trash from "@/components/icons/Trash";
 import TreeStructure from "@/components/icons/TreeStructure";
 import Underline from "@/components/icons/Underline";
@@ -231,6 +237,7 @@ export const ICONS_MAP = {
   filter: FilterIcon,
   fire: Fire,
   flag: Flag,
+  flash: Flash,
   flask: Flask,
   "folder-closed": FolderClosed,
   "folder-open": FolderOpen,
@@ -261,6 +268,7 @@ export const ICONS_MAP = {
   loading: Loading,
   "loading-animated": LoadingAnimated,
   lock: Lock,
+  "map-pin": MapPin,
   mcp: Mcp,
   metrics: Metrics,
   "metrics-alt": MetricsAlt,
@@ -274,6 +282,7 @@ export const ICONS_MAP = {
   pipe: Pipe,
   play: Play,
   "play-in-circle": PlayInCircle,
+  plug: Plug,
   plus: Plus,
   popout: Popout,
   "puzzle-piece": PuzzlePiece,
@@ -290,6 +299,7 @@ export const ICONS_MAP = {
   share: Share,
   "share-arrow": ShareArrow,
   "share-network": ShareNetwork,
+  sleep: Sleep,
   "slide-in": SlideIn,
   "slide-out": SlideOut,
   "sort-alt": SortAltIcon,
@@ -304,6 +314,8 @@ export const ICONS_MAP = {
   table: Table,
   taxi: Taxi,
   "text-slash": TextSlash,
+  "thumbs-down": ThumbsDown,
+  "thumbs-up": ThumbsUp,
   trash: Trash,
   "tree-structure": TreeStructure,
   underline: Underline,

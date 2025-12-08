@@ -102,18 +102,14 @@ export const SplitButton = ({
           className // User's className merged at top level
         )}
         data-cui-type={type}
-        data-cui-disabled={disabled ? 'true' : undefined}
+        data-cui-disabled={disabled ? "true" : undefined}
         ref={ref}
       >
         <BaseButton
           disabled={disabled}
-          className={clsx(
-            styles.cuiPrimaryButton,
-            styles[typeClass],
-            {
-              [styles.cuiFillWidth]: fillWidth,
-            }
-          )}
+          className={clsx(styles.cuiPrimaryButton, styles[typeClass], {
+            [styles.cuiFillWidth]: fillWidth,
+          })}
           {...props}
         >
           <div className={styles.cuiButtonData}>
@@ -131,10 +127,7 @@ export const SplitButton = ({
         >
           <BaseButton
             disabled={disabled}
-            className={clsx(
-              styles.cuiSecondaryButton,
-              styles[typeClass]
-            )}
+            className={clsx(styles.cuiSecondaryButton, styles[typeClass])}
           >
             <Icon
               name="chevron-down"
