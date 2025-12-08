@@ -16,7 +16,6 @@ export const Playground: Story = {
     text: "experiment",
     state: "success",
     size: "md",
-    dismissible: false,
     type: "opaque",
   },
 };

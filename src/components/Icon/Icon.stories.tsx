@@ -49,7 +49,7 @@ export const Playground: Story = {
     size: "md",
     state: "default",
   },
-  render: args => <IconWrapper {...args} />,
+  render: args => <IconWrapper {...(args as IconProps)} />,
 };
 
 type IconGalleryProps = {
