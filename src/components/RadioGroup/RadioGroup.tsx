@@ -5,11 +5,17 @@ import { GenericLabel, Label } from "@/components";
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
 
 export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, "dir"> {
+  /** Whether to display radio items inline (horizontally) */
   inline?: boolean;
+  /** The orientation of the label relative to the radio group */
   orientation?: "vertical" | "horizontal";
+  /** The direction/position of the label - start places label before, end places label after */
   dir?: "start" | "end";
+  /** Text direction for radio items - ltr or rtl */
   itemDir?: "rtl" | "ltr";
+  /** The label text displayed next to the radio group */
   label?: ReactNode;
+  /** Error message to display below the radio group */
   error?: ReactNode;
 }
 
@@ -73,6 +79,7 @@ export const RadioGroup = ({
 };
 
 interface RadioGroupInputProps extends RadixRadioGroup.RadioGroupItemProps {
+  /** The label text displayed next to the radio item */
   label?: ReactNode;
 }
 

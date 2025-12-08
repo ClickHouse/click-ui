@@ -1,18 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Spacer } from "./Spacer";
 
-export default {
+const meta: Meta<typeof Spacer> = {
   component: Spacer,
   title: "Display/Spacer",
   tags: ["spacer", "autodocs"],
-  argTypes: {
-    size: {
-      options: ["xs", "sm", "md", "lg", "xl", "xxl"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Spacer>;
+
+export const Playground: Story = {
   args: {
     size: "xxl",
   },

@@ -1,45 +1,24 @@
-import { StoryFn } from "@storybook/react-vite";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { FileUpload } from "@/components/FileUpload/FileUpload.tsx";
 
-export default {
+const meta: Meta<typeof FileUpload> = {
   component: FileUpload,
   title: "Forms/FileUpload",
   tags: ["file-upload", "autodocs"],
   decorators: [
-    (Story: StoryFn) => (
+    Story => (
       <div style={{ width: "800px" }}>
         <Story />
       </div>
     ),
   ],
-  argTypes: {
-    size: {
-      options: ["sm", "md"],
-      control: { type: "radio" },
-    },
-    supportedFileTypes: {
-      control: "array",
-    },
-    progress: {
-      control: { type: "range", min: 0, max: 100, step: 1 },
-    },
-    showProgress: {
-      control: "boolean",
-    },
-    showSuccess: {
-      control: "boolean",
-    },
-    failureMessage: {
-      control: "text",
-    },
-    onFileSelect: { action: "file selected" },
-    onRetry: { action: "retry requested" },
-    onFileFailure: { action: "operation failed" },
-    onFileClose: { action: "operation dismissed" },
-  },
 };
 
-export const SmallSize = {
+export default meta;
+
+type Story = StoryObj<typeof FileUpload>;
+
+export const SmallSize: Story = {
   args: {
     title: "Upload file",
     supportedFileTypes: [".txt", ".csv"],
@@ -60,7 +39,7 @@ export const SmallSize = {
   },
 };
 
-export const MediumSize = {
+export const MediumSize: Story = {
   args: {
     title: "Upload file",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
@@ -79,7 +58,7 @@ export const MediumSize = {
   },
 };
 
-export const RestrictedFileTypes = {
+export const RestrictedFileTypes: Story = {
   args: {
     title: "Upload SQL files only",
     supportedFileTypes: [".sql"],

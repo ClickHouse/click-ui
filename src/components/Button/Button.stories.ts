@@ -1,22 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "./Button";
 
-export default {
-  title: "Buttons/Button",
+const meta: Meta<typeof Button> = {
   component: Button,
+  title: "Buttons/Button",
   tags: ["button", "autodocs"],
-  argTypes: {
-    type: {
-      options: ["primary", "secondary", "empty", "danger"],
-      control: { type: "radio" },
-    },
-    align: {
-      options: ["center", "left"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Button>;
+
+export const Playground: Story = {
   args: {
     type: "primary",
     disabled: false,

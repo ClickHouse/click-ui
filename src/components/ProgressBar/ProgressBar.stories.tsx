@@ -1,42 +1,54 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { ProgressBar } from "./ProgressBar";
 
-export default {
+const meta: Meta<typeof ProgressBar> = {
   component: ProgressBar,
   title: "Display/ProgressBar",
   tags: ["progressBar", "autodocs"],
   argTypes: {
-    type: {
-      options: ["default", "small"],
-      control: { type: "select" },
-    },
     dismissable: {
-      control: { type: "boolean" },
       if: { arg: "type", eq: "default" },
     },
     onCancel: {
       if: { arg: "dismissable", truthy: true },
     },
     successMessage: {
-      control: { type: "text" },
       if: { arg: "type", eq: "default" },
     },
   },
 };
 
-export const DefaultProgressBar = {
+export default meta;
+
+type Story = StoryObj<typeof ProgressBar>;
+
+export const Playground: Story = {
   args: {
-    progress: 100,
+    progress: 60,
     type: "default",
+    orientation: "horizontal",
+    dir: "start",
     dismissable: true,
     onCancel: () => console.log("onCancel clicked"),
     successMessage: "Progress completed",
   },
 };
 
-export const SmallProgressBar = {
+export const SmallProgressBar: Story = {
   args: {
-    progress: 100,
+    progress: 60,
     type: "small",
-    successMessage: "Progress completed",
+    orientation: "horizontal",
+    dir: "start",
+  },
+};
+
+export const VerticalProgressBar: Story = {
+  args: {
+    progress: 75,
+    type: "small",
+    orientation: "vertical",
+    dir: "start",
+    style: { height: "10rem" },
   },
 };

@@ -175,9 +175,13 @@ export const ICON_NAMES = [
 export type IconName = (typeof ICON_NAMES)[number];
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
+  /** The name of the icon to display */
   name: IconName;
+  /** The color of the icon */
   color?: string;
+  /** The size of the icon */
   size?: IconSize;
+  /** The visual state of the icon */
   state?: IconState;
 }
 

@@ -9,21 +9,34 @@ import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar } from "@/components";
 
 export interface FileUploadItem {
+  /** Unique identifier for the file */
   id: string;
+  /** Name of the file */
   name: string;
+  /** Size of the file in bytes */
   size: number;
+  /** Current upload status */
   status: "uploading" | "success" | "error";
+  /** Upload progress (0-100) */
   progress: number;
+  /** Error message when status is "error" */
   errorMessage?: string;
 }
 
 interface FileMultiUploadProps {
+  /** The title text displayed in the upload area */
   title: string;
+  /** Array of supported file extensions (e.g., [".txt", ".csv"]) */
   supportedFileTypes?: string[];
+  /** Array of files with their upload status */
   files: FileUploadItem[];
+  /** Callback when a file is selected */
   onFileSelect?: (file: File) => void;
+  /** Callback when retry is clicked for a file */
   onFileRetry?: (fileId: string) => void;
+  /** Callback when a file is removed */
   onFileRemove?: (fileId: string) => void;
+  /** Callback when file selection fails */
   onFileFailure?: () => void;
 }
 

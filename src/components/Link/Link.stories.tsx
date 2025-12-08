@@ -1,22 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Link } from "./Link";
 
-export default {
+const meta: Meta<typeof Link> = {
   component: Link,
   title: "Typography/Link",
   tags: ["link", "autodocs"],
-  argTypes: {
-    size: {
-      options: ["lg", "md", "sm", "xs"],
-      control: { type: "radio" },
-    },
-    weight: {
-      options: ["normal", "medium", "semibold", "bold"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Link>;
+
+export const Playground: Story = {
   args: {
     size: "md",
     weight: "normal",

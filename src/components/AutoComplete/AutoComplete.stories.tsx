@@ -1,11 +1,18 @@
+import React, { useEffect, useState } from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
-import { Preview } from "@storybook/react-vite";
 import { selectOptions } from "../Select/selectOptions";
-import { useEffect, useState } from "react";
-interface Props extends Omit<AutoCompleteProps, "options" | "children"> {
+
+interface AutoCompleteExampleProps
+  extends Omit<AutoCompleteProps, "options" | "children"> {
   childrenType: "children" | "options";
 }
-const SelectExample = ({ childrenType, value, ...props }: Props) => {
+
+const AutoCompleteExample = ({
+  childrenType,
+  value,
+  ...props
+}: AutoCompleteExampleProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
   useEffect(() => {
     setSelectedValue(value);
@@ -52,8 +59,12 @@ const SelectExample = ({ childrenType, value, ...props }: Props) => {
   );
 };
 
-export default {
-  component: SelectExample,
+const meta: Meta<typeof AutoCompleteExample> = {
+  component: AutoCompleteExample,
+  subcomponents: {
+    "AutoComplete.Group": AutoComplete.Group as React.ComponentType<unknown>,
+    "AutoComplete.Item": AutoComplete.Item as React.ComponentType<unknown>,
+  },
   title: "Display/AutoComplete",
   tags: ["form-field", "autocomplete", "autodocs"],
   argTypes: {
@@ -67,7 +78,11 @@ export default {
   },
 };
 
-export const Playground: Preview = {
+export default meta;
+
+type Story = StoryObj<typeof AutoCompleteExample>;
+
+export const Playground: Story = {
   args: {
     label: "Label",
     childrenType: "children",
@@ -75,7 +90,10 @@ export const Playground: Preview = {
   parameters: {
     docs: {
       source: {
-        transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
+        transform: (
+          _: string,
+          story: { args: AutoCompleteExampleProps; [x: string]: unknown }
+        ) => {
           const { childrenType, value, ...props } = story.args;
           return `<AutoComplete\n  value={${value}}\n${Object.entries(props)
             .flatMap(([key, value]) =>

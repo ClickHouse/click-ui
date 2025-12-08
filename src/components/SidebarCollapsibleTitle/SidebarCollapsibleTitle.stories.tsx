@@ -1,18 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { SidebarCollapsibleTitle, SidebarNavigationItem } from "@/components";
 
-export default {
+const meta: Meta<typeof SidebarCollapsibleTitle> = {
   component: SidebarCollapsibleTitle,
   title: "Sidebar/CollapsibleTitle",
   tags: ["sidebar", "collapsible-title", "autodocs"],
-  argTypes: {
-    type: {
-      options: ["main", "sqlSidebar"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof SidebarCollapsibleTitle>;
+
+export const Playground: Story = {
   args: {
     icon: "code",
     label: "Queries",

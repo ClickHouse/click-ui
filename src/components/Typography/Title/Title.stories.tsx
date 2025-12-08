@@ -1,30 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Title } from "./Title";
 
-export default {
+const meta: Meta<typeof Title> = {
   component: Title,
   title: "Typography/Title",
   tags: ["title", "autodocs"],
-  argTypes: {
-    size: {
-      options: ["xs", "sm", "md", "lg", "xl", "2xl"],
-      control: { type: "select" },
-    },
-    type: {
-      options: ["h1", "h2", "h3", "h4", "h5", "h6"],
-      control: { type: "select" },
-    },
-    family: {
-      options: ["product", "brand"],
-      control: { type: "radio" },
-    },
-    align: {
-      options: ["left", "center", "right"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Title>;
+
+export const Playground: Story = {
   args: {
     size: "md",
     type: "h1",

@@ -123,13 +123,21 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
 );
 
 export interface DialogContentProps extends RadixDialog.DialogContentProps {
+  /** The title text displayed in the dialog header */
   title?: string;
+  /** Whether to show the close button */
   showClose?: boolean;
+  /** Whether to force mount the dialog */
   forceMount?: true;
+  /** Container element to portal the dialog into */
   container?: HTMLElement | null;
+  /** The content to display in the dialog */
   children: ReactNode;
+  /** Callback when the dialog is closed */
   onClose?: () => void;
+  /** Whether to show the overlay backdrop */
   showOverlay?: boolean;
+  /** Whether to use reduced padding */
   reducePadding?: boolean;
 }
 

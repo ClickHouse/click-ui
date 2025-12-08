@@ -1,46 +1,38 @@
-import { RadioGroup, RadioGroupProps } from "./RadioGroup";
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { RadioGroup } from "./RadioGroup";
 
-const RadioGroupComponent = (props: RadioGroupProps) => {
-  return (
-    <RadioGroup {...props}>
-      <RadioGroup.Item
-        label="Radio Button1"
-        value="RadioButton1"
-      />
-      <RadioGroup.Item
-        label="Radio Button2"
-        value="RadioButton2"
-      />
-      <RadioGroup.Item
-        label="Radio Button3"
-        value="RadioButton3"
-      />
-    </RadioGroup>
-  );
-};
-export default {
-  component: RadioGroupComponent,
+const meta: Meta<typeof RadioGroup> = {
+  component: RadioGroup,
+  subcomponents: {
+    "RadioGroup.Item": RadioGroup.Item as React.ComponentType<unknown>,
+  },
   title: "Forms/RadioGroup",
   tags: ["radio", "autodocs"],
-  argTypes: {
-    label: { control: "text" },
-    error: { control: "text" },
-    disabled: { control: "boolean" },
-    required: { control: "boolean" },
-    inline: { control: "boolean" },
-    dir: { control: "inline-radio", options: ["start", "end"] },
-    itemDir: { control: "inline-radio", options: ["ltr", "rtl"] },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    loop: { control: "inline-radio", options: [undefined, true, false] },
-    value: {
-      control: "select",
-      options: [undefined, "RadioButton1", "RadioButton2", "RadioButton3"],
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof RadioGroup>;
+
+export const Playground: Story = {
   args: {
     disabled: false,
+    children: (
+      <>
+        <RadioGroup.Item
+          label="Radio Button1"
+          value="RadioButton1"
+        />
+        <RadioGroup.Item
+          label="Radio Button2"
+          value="RadioButton2"
+        />
+        <RadioGroup.Item
+          label="Radio Button3"
+          value="RadioButton3"
+        />
+      </>
+    ),
   },
 };

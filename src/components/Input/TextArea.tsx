@@ -8,10 +8,15 @@ export interface TextAreaFieldProps
       TextareaHTMLAttributes<HTMLTextAreaElement>,
       "children" | "type" | "value" | "onChange" | "dir"
     > {
+  /** Number of visible text rows */
   rows?: number;
+  /** The current value of the textarea */
   value?: string;
+  /** Callback when the textarea value changes */
   onChange: (inputValue: string, e?: ChangeEvent<HTMLTextAreaElement>) => void;
+  /** The orientation of the label relative to the input */
   orientation?: "vertical" | "horizontal";
+  /** The direction/position of the label - start places label before, end places label after */
   dir?: "start" | "end";
 }
 

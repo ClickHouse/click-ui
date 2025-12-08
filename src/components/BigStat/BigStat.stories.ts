@@ -1,33 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { BigStat } from "./BigStat";
 
-export default {
+const meta: Meta<typeof BigStat> = {
   component: BigStat,
   title: "Display/Big Stat",
   tags: ["big-stat", "autodocs"],
-  argTypes: {
-    order: {
-      options: ["titleTop", "titleBottom"],
-      control: { type: "radio" },
-    },
-    size: {
-      options: ["lg", "sm"],
-      control: { type: "radio" },
-    },
-    spacing: {
-      options: ["lg", "sm"],
-      control: { type: "radio" },
-    },
-    state: {
-      options: ["default", "muted"],
-      control: { type: "radio" },
-    },
-    error: {
-      control: { type: "boolean" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof BigStat>;
+
+export const Playground: Story = {
   args: {
     label: "Percentage complete",
     title: "100%",

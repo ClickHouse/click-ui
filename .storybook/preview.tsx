@@ -11,12 +11,12 @@ const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
       position: absolute;
       top: 0.5rem;
       left: ${$left || fill ? 0 : "50vw"};
-      right: ${$left ? "50vw" : 0};
-      width: 96vw;
-      height: 100vh;
+      right: 0;
+      height: fit-content;
       bottom: 0;
       overflow: auto;
       padding: 1rem;
+      box-sizing: border-box;
       background: ${theme.click.storybook.global.background};
     `
 );
@@ -85,6 +85,10 @@ const preview: Preview = {
       theme: themes.dark,
       codePanel: true
     },
+  },
+  argTypes: {
+    // Hide children prop from docs table - it doesn't serialize well as a control
+    children: { table: { disable: true } },
   },
 };
 

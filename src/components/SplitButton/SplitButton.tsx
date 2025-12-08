@@ -31,12 +31,19 @@ export type Menu = SubMenu | MenuGroup | MenuItem;
 export interface SplitButtonProps
   extends DropdownMenuProps,
     Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
+  /** The visual style variant of the button */
   type?: ButtonType;
+  /** Whether the button is disabled */
   disabled?: boolean;
+  /** Whether the button should fill the full width of its container */
   fillWidth?: boolean;
+  /** The menu items to display in the dropdown */
   menu: Array<Menu>;
+  /** Which side of the button to show the dropdown */
   side?: "top" | "bottom";
+  /** Optional icon to display in the main button */
   icon?: IconName;
+  /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
 }
 

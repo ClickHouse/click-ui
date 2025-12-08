@@ -12,13 +12,21 @@ export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
 
 export interface TextProps<T extends ElementType = "p"> {
+  /** The text content to display */
   children: ReactNode;
+  /** The text alignment */
   align?: TextAlignment;
+  /** The text color variant */
   color?: TextColor;
+  /** The font size of the text */
   size?: TextSize;
+  /** The font weight of the text */
   weight?: TextWeight;
+  /** Additional CSS class name */
   className?: string;
+  /** Custom component to render as */
   component?: T;
+  /** Whether the text should fill the full width of its container */
   fillWidth?: boolean;
 }
 

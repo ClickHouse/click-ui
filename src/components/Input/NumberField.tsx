@@ -4,11 +4,17 @@ import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";
 export interface NumberFieldProps
   extends Omit<WrapperProps, "id" | "children">,
     Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "dir"> {
+  /** The input type - always number for NumberField */
   type?: "number";
+  /** Whether to show a loading spinner */
   loading: boolean;
+  /** Callback when the input value changes */
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
+  /** The orientation of the label relative to the input */
   orientation?: "vertical" | "horizontal";
+  /** The direction/position of the label - start places label before, end places label after */
   dir?: "start" | "end";
+  /** Whether to hide the increment/decrement controls */
   hideControls?: boolean;
 }
 

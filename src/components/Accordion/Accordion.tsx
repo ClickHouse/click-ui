@@ -11,16 +11,24 @@ type Color = "default" | "link";
 export interface AccordionProps
   extends SizeProp,
     Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible" | "title"> {
+  /** The title text or element displayed in the accordion header */
   title: ReactNode;
+  /** The color variant of the accordion */
   color?: Color;
+  /** Optional icon to display next to the title */
   icon?: IconName;
+  /** Size of the optional icon */
   iconSize?: IconSize;
+  /** Gap size between the header and content */
   gap?: Gap;
+  /** The content to display when the accordion is expanded */
   children: React.ReactNode;
+  /** Whether the accordion should fill the full width of its container */
   fillWidth?: boolean;
 }
 
 interface SizeProp {
+  /** The size variant of the accordion */
   size?: Size;
 }
 

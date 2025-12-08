@@ -1,12 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { CodeBlock } from "./CodeBlock";
 
-export default {
-  title: "CodeBlocks/CodeBlock",
+const meta: Meta<typeof CodeBlock> = {
   component: CodeBlock,
+  title: "CodeBlocks/CodeBlock",
   tags: ["code-blocks", "code-block", "autodocs"],
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof CodeBlock>;
+
+export const Playground: Story = {
   args: {
     children: `SELECT
     customer_id,

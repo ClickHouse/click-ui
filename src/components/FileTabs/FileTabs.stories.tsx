@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { FileTabs as CUIFileTabs, FileTabElement, FileTabStatusType } from "./FileTabs";
 
 const options = [
@@ -16,13 +17,12 @@ const options = [
   "a12",
 ];
 
-const FileTabs = ({
-  selected: selectedProp,
-  status,
-}: {
+interface FileTabsExampleProps {
   selected: number;
   status: FileTabStatusType;
-}) => {
+}
+
+const FileTabsExample = ({ selected: selectedProp, status }: FileTabsExampleProps) => {
   const [selected, setSelected] = useState<number>(selectedProp);
   useEffect(() => {
     setSelected(selectedProp);
@@ -56,8 +56,12 @@ const FileTabs = ({
     </div>
   );
 };
-export default {
-  component: FileTabs,
+
+const meta: Meta<typeof FileTabsExample> = {
+  component: FileTabsExample,
+  subcomponents: {
+    "FileTabs.Tab": CUIFileTabs.Tab as React.ComponentType<unknown>,
+  },
   title: "Display/FileTabs",
   tags: ["tabs", "file-tabs", "autodocs"],
   argTypes: {
@@ -69,6 +73,13 @@ export default {
   },
 };
 
-export const Playground = {
-  args: {},
+export default meta;
+
+type Story = StoryObj<typeof FileTabsExample>;
+
+export const Playground: Story = {
+  args: {
+    selected: 0,
+    status: "neutral",
+  },
 };

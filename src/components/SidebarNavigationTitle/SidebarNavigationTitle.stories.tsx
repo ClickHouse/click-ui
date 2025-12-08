@@ -1,18 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { SidebarNavigationTitle } from "@/components";
 
-export default {
+const meta: Meta<typeof SidebarNavigationTitle> = {
   component: SidebarNavigationTitle,
   title: "Sidebar/NavigationTitle",
   tags: ["sidebar", "navigation-title", "autodocs"],
-  argTypes: {
-    type: {
-      options: ["main", "sqlSidebar"],
-      control: { type: "radio" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof SidebarNavigationTitle>;
+
+export const Playground: Story = {
   args: {
     icon: "table",
     selected: false,

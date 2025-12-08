@@ -1,7 +1,8 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Logo } from "./Logo";
 import LogosLight from "./LogosLight";
 
-export default {
+const meta: Meta<typeof Logo> = {
   component: Logo,
   title: "Display/Logo",
   tags: ["LOGO", "autodocs"],
@@ -13,7 +14,11 @@ export default {
   },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof Logo>;
+
+export const Playground: Story = {
   args: {
     name: "aws",
     width: "32px",

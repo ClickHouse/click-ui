@@ -7,8 +7,11 @@ import { LogoName } from "./types";
 import { SvgImageElement } from "../commonElement";
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
+  /** The name of the logo to display */
   name: LogoName;
+  /** The theme variant of the logo */
   theme?: "light" | "dark";
+  /** The size of the logo */
   size?: IconSize;
 }
 

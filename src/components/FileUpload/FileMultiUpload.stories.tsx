@@ -1,32 +1,28 @@
-import { StoryFn } from "@storybook/react-vite";
+import { Meta, StoryObj, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import {
   FileMultiUpload,
   FileUploadItem,
 } from "@/components/FileUpload/FileMultiUpload.tsx";
 
-export default {
+const meta: Meta<typeof FileMultiUpload> = {
   component: FileMultiUpload,
   title: "Forms/FileMultiUpload",
   tags: ["file-upload", "multi-upload", "autodocs"],
   decorators: [
-    (Story: StoryFn) => (
+    Story => (
       <div style={{ width: "800px" }}>
         <Story />
       </div>
     ),
   ],
-  argTypes: {
-    supportedFileTypes: {
-      control: "array",
-    },
-    onFileSelect: { action: "file selected" },
-    onFileRetry: { action: "retry requested" },
-    onFileRemove: { action: "file removed" },
-  },
 };
 
-export const EmptyState = {
+export default meta;
+
+type Story = StoryObj<typeof FileMultiUpload>;
+
+export const EmptyState: Story = {
   args: {
     title: "Upload multiple files",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
@@ -44,7 +40,7 @@ export const EmptyState = {
   },
 };
 
-export const WithUploadingFiles = {
+export const WithUploadingFiles: Story = {
   args: {
     title: "Upload multiple files",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
@@ -77,7 +73,7 @@ export const WithUploadingFiles = {
   },
 };
 
-export const WithSuccessFiles = {
+export const WithSuccessFiles: Story = {
   args: {
     title: "Upload multiple files",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
@@ -117,7 +113,7 @@ export const WithSuccessFiles = {
   },
 };
 
-export const WithErrorFiles = {
+export const WithErrorFiles: Story = {
   args: {
     title: "Upload multiple files",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
@@ -152,7 +148,7 @@ export const WithErrorFiles = {
   },
 };
 
-export const MixedStates = {
+export const MixedStates: Story = {
   args: {
     title: "Upload multiple files",
     supportedFileTypes: [".txt", ".csv", ".json", ".sql"],

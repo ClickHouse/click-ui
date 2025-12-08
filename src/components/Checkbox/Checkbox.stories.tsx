@@ -8,10 +8,6 @@ const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
   title: "Forms/Checkbox",
   tags: ["checkbox", "autodocs"],
-  argTypes: {
-    checked: { control: "radio", options: [true, false, "indeterminate"] },
-    defaultChecked: { control: "radio", options: [true, false, "indeterminate"] },
-  },
   render: ({ checked, ...props }) => {
     const [checkedState, setCheckedState] = useState(checked);
 
@@ -31,7 +27,9 @@ const meta: Meta<typeof Checkbox> = {
 
 export default meta;
 
-export const Playground: StoryObj<typeof Checkbox> = {
+type Story = StoryObj<typeof Checkbox>;
+
+export const Playground: Story = {
   args: {
     label: "Accept terms and conditions",
   },

@@ -23,21 +23,25 @@ export interface TextFieldProps
       InputHTMLAttributes<HTMLInputElement>,
       "children" | "type" | "value" | "onChange" | "dir"
     > {
+  /** The input type - text, email, tel, or url */
   type?: "text" | "email" | "tel" | "url";
+  /** Whether to show a loading spinner */
   loading?: boolean;
+  /** Custom color for the label */
   labelColor?: string;
+  /** The current value of the input */
   value?: string;
+  /** Whether to show a clear button when the input has content */
   clear?: boolean;
+  /** Callback when the input value changes */
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
+  /** The orientation of the label relative to the input */
   orientation?: "vertical" | "horizontal";
+  /** The direction/position of the label - start places label before, end places label after */
   dir?: "start" | "end";
-  /**
-   * Additional content to the left of the control
-   */
+  /** Additional content to the left of the control */
   startContent?: ReactNode;
-  /**
-   * Additional content to the right of the control
-   */
+  /** Additional content to the right of the control */
   endContent?: ReactNode;
 }
 

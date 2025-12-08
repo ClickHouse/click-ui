@@ -1,11 +1,20 @@
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Spacer, FullWidthTabs, Text } from "@/components";
-import type { StoryObj } from "@storybook/react-vite";
 
-export default {
+const meta: Meta<typeof FullWidthTabs> = {
   component: FullWidthTabs,
+  subcomponents: {
+    "FullWidthTabs.TriggersList":
+      FullWidthTabs.TriggersList as React.ComponentType<unknown>,
+    "FullWidthTabs.Trigger": FullWidthTabs.Trigger as React.ComponentType<unknown>,
+    "FullWidthTabs.Content": FullWidthTabs.Content as React.ComponentType<unknown>,
+  },
   title: "Display/FullWidthTabs",
   tags: ["tabs", "autodocs"],
 };
+
+export default meta;
 
 type Story = StoryObj<typeof FullWidthTabs>;
 

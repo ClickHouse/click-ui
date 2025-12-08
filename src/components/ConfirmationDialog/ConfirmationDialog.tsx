@@ -5,17 +5,29 @@ import { styled } from "styled-components";
 type DialogPrimaryAction = "primary" | "danger";
 
 export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> {
+  /** Custom content to display instead of the message */
   children?: ReactNode;
+  /** Whether the confirm button is disabled */
   disabled?: boolean;
+  /** Whether the confirm button shows a loading state */
   loading?: boolean;
+  /** The message text to display in the dialog */
   message?: string;
+  /** Callback when the dialog is cancelled */
   onCancel?: () => void;
+  /** Callback when the confirm button is clicked */
   onConfirm?: (() => void) | (() => Promise<void>);
+  /** Whether the dialog is open */
   open?: boolean;
+  /** Label for the primary action button */
   primaryActionLabel?: string;
+  /** Type of the primary action button */
   primaryActionType?: DialogPrimaryAction;
+  /** Label for the secondary (cancel) action button */
   secondaryActionLabel?: string;
+  /** Whether to show the close button */
   showClose?: boolean;
+  /** The title text displayed in the dialog header */
   title: string;
 }
 

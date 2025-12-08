@@ -161,7 +161,9 @@ DropdownSub.displayName = "DropdownSub";
 Dropdown.Sub = DropdownSub;
 
 interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
+  /** Icon to display in the menu item */
   icon?: IconName;
+  /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
 }
 const DropdownItem = ({ icon, iconDir, children, ...props }: DropdownItemProps) => {

@@ -1,7 +1,9 @@
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Button, Link, Text } from "..";
 import { Flyout, FlyoutProps } from "./Flyout";
 
-interface Props extends FlyoutProps {
+interface FlyoutExampleProps extends FlyoutProps {
   title: string;
   description?: string;
   alignBody: "default" | "top";
@@ -20,7 +22,7 @@ const FlyoutExample = ({
   width,
   align,
   ...props
-}: Props) => {
+}: FlyoutExampleProps) => {
   return (
     <Flyout {...props}>
       <Flyout.Trigger>
@@ -50,8 +52,18 @@ const FlyoutExample = ({
     </Flyout>
   );
 };
-export default {
+
+const meta: Meta<typeof FlyoutExample> = {
   component: FlyoutExample,
+  subcomponents: {
+    "Flyout.Trigger": Flyout.Trigger as React.ComponentType<unknown>,
+    "Flyout.Content": Flyout.Content as React.ComponentType<unknown>,
+    "Flyout.Header": Flyout.Header as React.ComponentType<unknown>,
+    "Flyout.Body": Flyout.Body as React.ComponentType<unknown>,
+    "Flyout.Element": Flyout.Element as React.ComponentType<unknown>,
+    "Flyout.Footer": Flyout.Footer as React.ComponentType<unknown>,
+    "Flyout.Close": Flyout.Close as React.ComponentType<unknown>,
+  },
   title: "Display/Flyout",
   tags: ["form-field", "select", "autodocs"],
   argTypes: {
@@ -60,13 +72,11 @@ export default {
     alignBody: {
       control: "radio",
       options: ["default", "top"],
-      defaultValue: "default",
       description: "Align the content inside the flyout",
     },
     align: {
       control: "radio",
       options: ["start", "end"],
-
       description: "Align the flyout",
     },
     size: { control: "select", options: ["default", "narrow", "wide", "widest"] },
@@ -75,18 +85,25 @@ export default {
   },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof FlyoutExample>;
+
+export const Playground: Story = {
   args: {
     title: "Title",
     description: "Description",
-    align: "default",
+    align: "end",
     size: "default",
     type: "default",
   },
   parameters: {
     docs: {
       source: {
-        transform: (_: string, story: { args: Props; [x: string]: unknown }) => {
+        transform: (
+          _: string,
+          story: { args: FlyoutExampleProps; [x: string]: unknown }
+        ) => {
           const { title, description, align, size, width, ...props } = story.args;
           return `<Flyout\n
           ${Object.entries(props)

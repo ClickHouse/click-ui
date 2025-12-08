@@ -56,13 +56,21 @@ type FlyoutType = "default" | "inline";
 
 type DialogContentAlignmentType = "start" | "end";
 export interface DialogContentProps extends RadixDialogContentProps {
+  /** Container element to portal the flyout into */
   container?: HTMLElement | null;
+  /** Whether to show the overlay backdrop */
   showOverlay?: boolean;
+  /** The size variant of the flyout */
   size?: FlyoutSizeType;
+  /** The type of flyout styling */
   type?: FlyoutType;
+  /** CSS position strategy */
   strategy?: Strategy;
+  /** Whether clicking outside closes the flyout */
   closeOnInteractOutside?: boolean;
+  /** Custom width for the flyout */
   width?: string;
+  /** Alignment of the flyout (start = left, end = right) */
   align?: DialogContentAlignmentType;
 }
 

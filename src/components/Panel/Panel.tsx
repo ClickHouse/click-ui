@@ -8,19 +8,33 @@ export type PanelRadii = "none" | "sm" | "md" | "lg";
 type AlignItemsOption = "start" | "center" | "end";
 
 export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
+  /** Alignment of items along the cross axis */
   alignItems?: AlignItemsOption;
+  /** The content to display inside the panel */
   children?: React.ReactNode;
+  /** The background color variant of the panel */
   color?: PanelColor;
+  /** The cursor style when hovering over the panel */
   cursor?: CursorOptions;
+  /** Whether the panel should fill the full height of its container */
   fillHeight?: boolean;
+  /** Whether the panel should fill the full width of its container */
   fillWidth?: boolean;
+  /** The gap between child elements */
   gap?: PanelPadding;
+  /** Whether to show a border around the panel */
   hasBorder?: boolean;
+  /** Whether to show a shadow on the panel */
   hasShadow?: boolean;
+  /** Fixed height of the panel */
   height?: string;
+  /** The orientation of content flow - horizontal or vertical */
   orientation?: Orientation;
+  /** The padding inside the panel */
   padding?: PanelPadding;
+  /** The border radius of the panel corners */
   radii?: PanelRadii;
+  /** Fixed width of the panel */
   width?: string;
 }
 

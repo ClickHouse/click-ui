@@ -8,10 +8,15 @@ export type TitleFamily = "product" | "brand";
 export type TitleType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  /** The text alignment of the title */
   align?: TitleAlignment;
+  /** The color variant of the title */
   color?: TitleColor;
+  /** The font size of the title */
   size?: TitleSize;
+  /** The font family to use - product or brand */
   family?: TitleFamily;
+  /** The heading level (h1-h6) */
   type: TitleType;
 }
 

@@ -1,18 +1,17 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { CardSecondary } from "./CardSecondary";
 
-export default {
+const meta: Meta<typeof CardSecondary> = {
   component: CardSecondary,
   title: "Cards/Secondary Card",
   tags: ["cardSecondary", "autodocs"],
-  argTypes: {
-    badgeState: {
-      options: ["default", "success", "neutral", "info", "warning", "danger", "disabled"],
-      control: { type: "select" },
-    },
-  },
 };
 
-export const Playground = {
+export default meta;
+
+type Story = StoryObj<typeof CardSecondary>;
+
+export const Playground: Story = {
   args: {
     title: "Card title",
     icon: "building",

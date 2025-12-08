@@ -1,28 +1,19 @@
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Panel } from "..";
 import { Accordion } from "./Accordion";
 import { Spacer } from "../Spacer/Spacer";
 import { Text } from "../Typography/Text/Text";
 import { Title } from "../Typography/Title/Title";
 
-export default {
+const meta: Meta<typeof Accordion> = {
   component: Accordion,
   title: "Accordion/Accordion",
   tags: ["accordion", "autodocs"],
-  argTypes: {
-    size: {
-      options: ["sm", "md", "lg"],
-      control: { type: "radio" },
-    },
-    gap: {
-      options: ["sm", "md", "lg"],
-      control: { type: "radio" },
-    },
-    color: {
-      options: ["default", "link"],
-      control: { type: "radio" },
-    },
-  },
 };
+
+export default meta;
+
+type Story = StoryObj<typeof Accordion>;
 
 const children = (
   <Panel color="muted">
@@ -38,7 +29,7 @@ const children = (
   </Panel>
 );
 
-export const Playground = {
+export const Playground: Story = {
   args: {
     title: "Accordion title",
     size: "md",
