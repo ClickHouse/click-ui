@@ -304,11 +304,11 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-plugin-prefer-arrow-functions: "npm:^3.3.2"
     eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-react-refresh: "npm:^0.4.7"
+    eslint-plugin-react-refresh: "npm:0.4.7"
     eslint-plugin-storybook: "npm:^10.0.7"
     jsdom: "npm:^24.0.0"
     lodash: "npm:^4.17.21"
-    prettier: "npm:^3.6.2"
+    prettier: "npm:3.6.2"
     prop-types: "npm:^15.8.1"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
@@ -4702,12 +4702,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-refresh@npm:^0.4.7":
-  version: 0.4.24
-  resolution: "eslint-plugin-react-refresh@npm:0.4.24"
+"eslint-plugin-react-refresh@npm:0.4.7":
+  version: 0.4.7
+  resolution: "eslint-plugin-react-refresh@npm:0.4.7"
   peerDependencies:
-    eslint: ">=8.40"
-  checksum: 10c0/7471a25663cdec2886b5aec53cff6319475a6704616f96db4eef7ada3cba1236abeb71b4c2db6396e48a3a8a3a416a0266b2eac06bb6ef77d8b5674604ece7fb
+    eslint: ">=7"
+  checksum: 10c0/78600fe6b10905e7a068a377a381f315c962e3cb7c0575ffcb2136a1fe3dd6936bdfabb56c8f053a581b322a8fbffd7b7ec4b6fa7e227e5470f38fbe9bb170ee
   languageName: node
   linkType: hard
 
@@ -6423,12 +6423,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.6.2":
-  version: 3.7.4
-  resolution: "prettier@npm:3.7.4"
+"prettier@npm:3.6.2":
+  version: 3.6.2
+  resolution: "prettier@npm:3.6.2"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/9675d2cd08eacb1faf1d1a2dbfe24bfab6a912b059fc9defdb380a408893d88213e794a40a2700bd29b140eb3172e0b07c852853f6e22f16f3374659a1a13389
+  checksum: 10c0/488cb2f2b99ec13da1e50074912870217c11edaddedeadc649b1244c749d15ba94e846423d062e2c4c9ae683e2d65f754de28889ba06e697ac4f988d44f45812
   languageName: node
   linkType: hard
 
