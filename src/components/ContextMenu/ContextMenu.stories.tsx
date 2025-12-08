@@ -21,7 +21,12 @@ const Trigger = styled(GridCenter)`
   border: 2px currentColor dashed;
 `;
 
-const ContextMenuExample = ({ showArrow, disabled, side, ...props }: ContextMenuExampleProps) => {
+const ContextMenuExample = ({
+  showArrow,
+  disabled,
+  side,
+  ...props
+}: ContextMenuExampleProps) => {
   return (
     <GridCenter>
       <ContextMenu {...props}>

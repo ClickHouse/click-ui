@@ -3,16 +3,20 @@ import { DefaultTheme, styled } from "styled-components";
 
 type ButtonGroupType = "default" | "borderless";
 
-export interface ButtonGroupElementProps
-  extends Omit<HTMLAttributes<HTMLButtonElement>, "children"> {
+export interface ButtonGroupElementProps extends Omit<
+  HTMLAttributes<HTMLButtonElement>,
+  "children"
+> {
   /** The unique value for this button */
   value: string;
   /** The label text to display */
   label?: ReactNode;
 }
 
-export interface ButtonGroupProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onClick"> {
+export interface ButtonGroupProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "onClick"
+> {
   /** Array of button options to display */
   options: Array<ButtonGroupElementProps>;
   /** The currently selected button value */

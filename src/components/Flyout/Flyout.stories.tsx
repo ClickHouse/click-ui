@@ -100,7 +100,10 @@ export const Playground: Story = {
   parameters: {
     docs: {
       source: {
-        transform: (_: string, story: { args: FlyoutExampleProps; [x: string]: unknown }) => {
+        transform: (
+          _: string,
+          story: { args: FlyoutExampleProps; [x: string]: unknown }
+        ) => {
           const { title, description, align, size, width, ...props } = story.args;
           return `<Flyout\n
           ${Object.entries(props)

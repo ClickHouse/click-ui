@@ -4,8 +4,10 @@ import { Icon, TextField } from "@/components";
 
 import { TextFieldProps } from "./TextField";
 
-export interface SearchFieldProps
-  extends Omit<TextFieldProps, "type" | "startContent" | "endContent"> {
+export interface SearchFieldProps extends Omit<
+  TextFieldProps,
+  "type" | "startContent" | "endContent"
+> {
   isFilter?: boolean;
 }
 

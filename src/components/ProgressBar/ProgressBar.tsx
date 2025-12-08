@@ -2,8 +2,10 @@ import { HTMLAttributes, ReactNode } from "react";
 import { styled } from "styled-components";
 import { IconButton } from "@/components";
 
-interface CommonProgressBarProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface CommonProgressBarProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   /** The current progress value (0-100) */
   progress: number;
   /** Optional label to display */
@@ -51,10 +53,7 @@ export type ProgressBarProps =
 type Orientation = "horizontal" | "vertical";
 type Direction = "start" | "end";
 
-const getGradientDirection = (
-  orientation: Orientation,
-  dir: Direction
-): string => {
+const getGradientDirection = (orientation: Orientation, dir: Direction): string => {
   if (orientation === "vertical") {
     return dir === "start" ? "to bottom" : "to top";
   }

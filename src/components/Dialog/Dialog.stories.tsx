@@ -121,13 +121,7 @@ export const ChatDialog: Story = {
     open: false,
     reducePadding: true,
   },
-  render: ({
-    title,
-    modal,
-    showClose,
-    forceMount,
-    reducePadding,
-  }) => {
+  render: ({ title, modal, showClose, forceMount, reducePadding }) => {
     const [open, setOpen] = useState(true);
 
     return (

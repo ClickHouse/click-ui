@@ -22,10 +22,7 @@ interface FileTabsExampleProps {
   status: FileTabStatusType;
 }
 
-const FileTabsExample = ({
-  selected: selectedProp,
-  status,
-}: FileTabsExampleProps) => {
+const FileTabsExample = ({ selected: selectedProp, status }: FileTabsExampleProps) => {
   const [selected, setSelected] = useState<number>(selectedProp);
   useEffect(() => {
     setSelected(selectedProp);

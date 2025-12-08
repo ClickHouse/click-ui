@@ -18,7 +18,8 @@ import {
 import { mergeRefs } from "@/utils/mergeRefs";
 
 export interface TextFieldProps
-  extends Omit<WrapperProps, "id" | "children">,
+  extends
+    Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
       "children" | "type" | "value" | "onChange" | "dir"

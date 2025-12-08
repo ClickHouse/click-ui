@@ -3,11 +3,18 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
 import { selectOptions } from "../Select/selectOptions";
 
-interface AutoCompleteExampleProps extends Omit<AutoCompleteProps, "options" | "children"> {
+interface AutoCompleteExampleProps extends Omit<
+  AutoCompleteProps,
+  "options" | "children"
+> {
   childrenType: "children" | "options";
 }
 
-const AutoCompleteExample = ({ childrenType, value, ...props }: AutoCompleteExampleProps) => {
+const AutoCompleteExample = ({
+  childrenType,
+  value,
+  ...props
+}: AutoCompleteExampleProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
   useEffect(() => {
     setSelectedValue(value);
@@ -85,7 +92,10 @@ export const Playground: Story = {
   parameters: {
     docs: {
       source: {
-        transform: (_: string, story: { args: AutoCompleteExampleProps; [x: string]: unknown }) => {
+        transform: (
+          _: string,
+          story: { args: AutoCompleteExampleProps; [x: string]: unknown }
+        ) => {
           const { childrenType, value, ...props } = story.args;
           return `<AutoComplete\n  value={${value}}\n${Object.entries(props)
             .flatMap(([key, value]) =>

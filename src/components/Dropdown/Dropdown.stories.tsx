@@ -14,7 +14,13 @@ interface DropdownExampleProps extends DropdownMenuProps {
   itemCount: number;
 }
 
-const DropdownExample = ({ showArrow, disabled, side, itemCount, ...props }: DropdownExampleProps) => {
+const DropdownExample = ({
+  showArrow,
+  disabled,
+  side,
+  itemCount,
+  ...props
+}: DropdownExampleProps) => {
   const items = Array.from({ length: itemCount }, (_, i) => `Item ${i + 1}`);
   return (
     <GridCenter>

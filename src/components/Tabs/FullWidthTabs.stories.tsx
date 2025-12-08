@@ -5,7 +5,8 @@ import { Spacer, FullWidthTabs, Text } from "@/components";
 const meta: Meta<typeof FullWidthTabs> = {
   component: FullWidthTabs,
   subcomponents: {
-    "FullWidthTabs.TriggersList": FullWidthTabs.TriggersList as React.ComponentType<unknown>,
+    "FullWidthTabs.TriggersList":
+      FullWidthTabs.TriggersList as React.ComponentType<unknown>,
     "FullWidthTabs.Trigger": FullWidthTabs.Trigger as React.ComponentType<unknown>,
     "FullWidthTabs.Content": FullWidthTabs.Content as React.ComponentType<unknown>,
   },
