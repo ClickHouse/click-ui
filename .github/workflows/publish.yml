@@ -43,16 +43,18 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm run test
-      - run: npm run build
-      - run: npm publish --access public
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - run: yarn test
+      - run: yarn build
+      - run: yarn npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: update package version
         run: |
-          npm i --package-lock-only
-          git add package.json package-lock.json
+          git add package.json yarn.lock
           git commit -m 'bump version to ${{ env.GITHUB_TAG }}'
           git push
       - name: Set tag from input
