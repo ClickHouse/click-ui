@@ -4,19 +4,27 @@ import { IconButton } from "@/components";
 
 interface CommonProgressBarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  /** The current progress value (0-100) */
   progress: number;
+  /** Optional label to display */
   label?: ReactNode;
+  /** Optional error message to display */
   error?: ReactNode;
+  /** The orientation of the progress bar - horizontal fills width, vertical fills height */
   orientation?: "vertical" | "horizontal";
+  /** The direction of progress fill - start fills from left/top, end fills from right/bottom */
   dir?: "start" | "end";
 }
 
 interface DefaultProgressBar extends CommonProgressBarProps {
+  /** The type of progress bar - "default" shows text and close button */
   type?: "default";
+  /** Message to display when progress reaches 100% */
   successMessage?: ReactNode;
 }
 
 interface SmallProgressBar extends CommonProgressBarProps {
+  /** The type of progress bar - "small" shows only the progress indicator */
   type: "small";
   successMessage?: never;
   dismissable?: never;
@@ -24,11 +32,14 @@ interface SmallProgressBar extends CommonProgressBarProps {
 }
 
 interface DismissableProgressBar {
+  /** When true, shows a close button to cancel the progress */
   dismissable: true;
+  /** Callback function when the close button is clicked */
   onCancel: () => void;
 }
 
 interface NonDismissableProgressBar {
+  /** When false or undefined, the close button is hidden */
   dismissable?: false;
   onCancel?: never;
 }
