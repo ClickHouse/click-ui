@@ -166,18 +166,19 @@ export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "ch
   label: ReactNode;
 }
 
-export interface GridProps extends Omit<
-  VariableSizeGridProps,
-  | "height"
-  | "width"
-  | "rowHeight"
-  | "children"
-  | "innerElementType"
-  | "innerRef"
-  | "outerElementType"
-  | "outerRef"
-  | "columnWidth"
-> {
+export interface GridProps
+  extends Omit<
+    VariableSizeGridProps,
+    | "height"
+    | "width"
+    | "rowHeight"
+    | "children"
+    | "innerElementType"
+    | "innerRef"
+    | "outerElementType"
+    | "outerRef"
+    | "columnWidth"
+  > {
   autoFocus?: boolean;
   autoHeight?: boolean;
   rowStart?: number;

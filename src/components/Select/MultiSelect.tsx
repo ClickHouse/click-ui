@@ -10,10 +10,11 @@ import {
   SelectItemDescription,
 } from "./common/InternalSelect";
 
-export interface MultiSelectProps extends Omit<
-  SelectContainerProps,
-  "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
-> {
+export interface MultiSelectProps
+  extends Omit<
+    SelectContainerProps,
+    "onChange" | "value" | "open" | "onOpenChange" | "onSelect"
+  > {
   defaultValue?: Array<string>;
   onSelect?: (
     value: Array<string>,

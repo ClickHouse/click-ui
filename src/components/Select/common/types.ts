@@ -5,10 +5,8 @@ import { NoAvailableOptionsFactoryProps } from "@/components/Select/common/Inter
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 
-interface SelectItemComponentProps extends Omit<
-  DivProps,
-  "disabled" | "onSelect" | "value" | "children"
-> {
+interface SelectItemComponentProps
+  extends Omit<DivProps, "disabled" | "onSelect" | "value" | "children"> {
   separator?: boolean;
   disabled?: boolean;
   onSelect?: (
@@ -35,28 +33,22 @@ type SelectItemLabel = {
 
 export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
-export interface SelectGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "heading"
-> {
+export interface SelectGroupProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "heading"> {
   heading: ReactNode;
   value?: never;
   onSelect?: never;
 }
-export interface SelectOptionItem extends Omit<
-  SelectItemProps,
-  "children" | "label" | "description"
-> {
+export interface SelectOptionItem
+  extends Omit<SelectItemProps, "children" | "label" | "description"> {
   heading?: never;
   label: ReactNode;
   description?: ReactNode;
   [key: `data-${string}`]: string;
 }
 
-export interface SelectGroupOptionItem extends Omit<
-  SelectGroupProps,
-  "children" | "label" | "description"
-> {
+export interface SelectGroupOptionItem
+  extends Omit<SelectGroupProps, "children" | "label" | "description"> {
   options: Array<SelectOptionItem>;
   label?: never;
   [key: `data-${string}`]: string;
@@ -77,8 +69,7 @@ type SelectChildrenType = {
 export type SelectionType = "custom" | "default";
 
 interface InternalSelectProps
-  extends
-    PopoverProps,
+  extends PopoverProps,
     Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
   onChange: (selectedValues: Array<string>) => void;
   onOpenChange: (open: boolean) => void;

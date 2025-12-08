@@ -51,10 +51,11 @@ interface RowNumberColumnProps {
   showBorder: boolean;
   rowAutoHeight?: boolean;
 }
-interface RowNumberProps extends Pick<
-  RowNumberColumnProps,
-  "rowHeight" | "getSelectionType" | "showBorder" | "rowStart"
-> {
+interface RowNumberProps
+  extends Pick<
+    RowNumberColumnProps,
+    "rowHeight" | "getSelectionType" | "showBorder" | "rowStart"
+  > {
   rowIndex: number;
   isLastRow: boolean;
   isFirstRow: boolean;

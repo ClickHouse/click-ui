@@ -30,16 +30,17 @@ const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props })
     </div>
   );
 };
-interface Props extends Omit<
-  GridProps,
-  | "cell"
-  | "rowCount"
-  | "columnCount"
-  | "columnWidth"
-  | "focus"
-  | "onFocusChange"
-  | "onColumnResize"
-> {
+interface Props
+  extends Omit<
+    GridProps,
+    | "cell"
+    | "rowCount"
+    | "columnCount"
+    | "columnWidth"
+    | "focus"
+    | "onFocusChange"
+    | "onColumnResize"
+  > {
   rowCount?: number;
   columnCount?: number;
   columnWidth?: (index: number) => number;

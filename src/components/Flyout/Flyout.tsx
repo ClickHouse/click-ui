@@ -199,10 +199,8 @@ const FlyoutElement = styled(Container)<{
   `}
 `;
 
-interface ElementProps extends Omit<
-  ContainerProps,
-  "component" | "padding" | "gap" | "orientation"
-> {
+interface ElementProps
+  extends Omit<ContainerProps, "component" | "padding" | "gap" | "orientation"> {
   type?: FlyoutType;
 }
 
@@ -219,17 +217,18 @@ const Element = ({ type, ...props }: ElementProps) => (
 Element.displayName = "Flyout.Element";
 Flyout.Element = Element;
 
-interface TitleHeaderProps extends Omit<
-  ContainerProps,
-  | "orientaion"
-  | "justifyContent"
-  | "alignItems"
-  | "component"
-  | "padding"
-  | "gap"
-  | "children"
-  | "fillWidth"
-> {
+interface TitleHeaderProps
+  extends Omit<
+    ContainerProps,
+    | "orientaion"
+    | "justifyContent"
+    | "alignItems"
+    | "component"
+    | "padding"
+    | "gap"
+    | "children"
+    | "fillWidth"
+  > {
   title: string;
   description?: string;
   type?: FlyoutType;
@@ -238,16 +237,17 @@ interface TitleHeaderProps extends Omit<
   showSeparator?: boolean;
 }
 
-interface ChildrenHeaderProps extends Omit<
-  ContainerProps,
-  | "orientaion"
-  | "justifyContent"
-  | "alignItems"
-  | "component"
-  | "padding"
-  | "gap"
-  | "fillWidth"
-> {
+interface ChildrenHeaderProps
+  extends Omit<
+    ContainerProps,
+    | "orientaion"
+    | "justifyContent"
+    | "alignItems"
+    | "component"
+    | "padding"
+    | "gap"
+    | "fillWidth"
+  > {
   title?: never;
   type?: FlyoutType;
   description?: never;
@@ -408,10 +408,11 @@ const Body = ({ align, ...props }: BodyProps) => (
 Body.displayName = "Flyout.Body";
 Flyout.Body = Body;
 
-export interface FlyoutFooterProps extends Omit<
-  ContainerProps<"div">,
-  "orientaion" | "justifyContent" | "component" | "padding" | "gap"
-> {
+export interface FlyoutFooterProps
+  extends Omit<
+    ContainerProps<"div">,
+    "orientaion" | "justifyContent" | "component" | "padding" | "gap"
+  > {
   type?: FlyoutType;
 }
 

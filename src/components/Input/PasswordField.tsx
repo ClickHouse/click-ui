@@ -8,8 +8,7 @@ import {
   WrapperProps,
 } from "./InputWrapper";
 export interface PasswordFieldProps
-  extends
-    Omit<WrapperProps, "id" | "children">,
+  extends Omit<WrapperProps, "id" | "children">,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
       "children" | "type" | "string" | "onChange" | "dir"

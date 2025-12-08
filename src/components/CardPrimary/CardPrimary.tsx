@@ -8,7 +8,8 @@ import { WithTopBadgeProps, withTopBadge } from "@/components/CardPrimary/withTo
 export type CardPrimarySize = "sm" | "md";
 type ContentAlignment = "start" | "center" | "end";
 export interface CardPrimaryProps
-  extends HTMLAttributes<HTMLDivElement>, WithTopBadgeProps {
+  extends HTMLAttributes<HTMLDivElement>,
+    WithTopBadgeProps {
   /** The title text displayed in the card */
   title?: string;
   /** Icon name to display in the card header */

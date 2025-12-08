@@ -13,10 +13,8 @@ import {
 type CardColor = "default" | "muted";
 export type CardSize = "sm" | "md";
 
-export interface CardHorizontalProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "title"
-> {
+export interface CardHorizontalProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** The title text displayed in the card */
   title?: ReactNode;
   /** Icon to display in the card */

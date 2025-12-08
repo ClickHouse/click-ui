@@ -15,10 +15,8 @@ import {
 } from "@/components";
 import { styled } from "styled-components";
 
-export interface PaginationProps extends Omit<
-  ContainerProps<"div">,
-  "children" | "onChange"
-> {
+export interface PaginationProps
+  extends Omit<ContainerProps<"div">, "children" | "onChange"> {
   /** Total number of pages available */
   totalPages?: number;
   /** The currently selected page number */
