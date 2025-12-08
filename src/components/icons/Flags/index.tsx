@@ -70,16 +70,24 @@ export const FlagList = {
   usa: UnitedStates,
 };
 
-const Flags = ({ name, size, ...props }: FlagProps) => {
+const Flags = ({ name, size = "md", ...props }: FlagProps) => {
   const Component = FlagList[name];
   if (Component === undefined) {
     return;
   }
+
+  const { width, height, ...rest } = props;
+  const svgProps = {
+    ...(width ? { width } : {}),
+    ...(height ? { height } : {}),
+    ...rest,
+  };
+
   return (
     <SvgImageElement
       as={Component}
-      $size={size}
-      {...props}
+      size={width || height ? undefined : size}
+      {...svgProps}
     />
   );
 };

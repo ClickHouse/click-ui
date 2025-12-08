@@ -1,4 +1,4 @@
-import { Text } from "..";
+import { Text } from "@/components";
 import VerticalStepper, { VerticalStepperProps } from "./VerticalStepper";
 const StepperExample = (props: VerticalStepperProps) => {
   return (

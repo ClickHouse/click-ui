@@ -1,130 +1,51 @@
-import { Error, FormElementContainer, FormRoot } from "../commonElement";
 import { Label } from "@/components";
-import { styled } from "styled-components";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import clsx from "clsx";
+import { capitalize } from "@/utils/capitalize";
+import styles from "./InputWrapper.module.scss";
 
-const Wrapper = styled.div<{
-  $error: boolean;
-  $resize: "none" | "vertical" | "horizontal" | "both";
-}>`
-  width: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
-
-  span:first-of-type {
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  ${({ theme, $error, $resize }) => `
-    gap: ${theme.click.field.space.gap};
-    border-radius: ${theme.click.field.radii.all};
-    font: ${theme.click.field.typography.fieldText.default};
-    color: ${theme.click.field.color.text.default};
-    border: 1px solid ${theme.click.field.color.stroke.default};
-    background: ${theme.click.field.color.background.default};
-
-    *:autofill,
-    *:-webkit-autofill  {
-      -webkit-box-shadow: 0 0 0px 50vh ${
-        theme.click.field.color.background.default
-      } inset;
-      -webkit-text-fill-color: ${theme.click.field.color.text.default};
-      caret-color: ${theme.click.field.color.text.default};
+const FormRoot = ({
+  children,
+  orientation = "vertical",
+  dir = "start",
+  addLabelPadding,
+}: {
+  children: ReactNode;
+  orientation?: "horizontal" | "vertical";
+  dir?: "start" | "end";
+  addLabelPadding?: boolean;
+}) => {
+  const getFlexDirection = () => {
+    if (orientation === "horizontal") {
+      return dir === "start" ? "row-reverse" : "row";
     }
+    return dir === "start" ? "column-reverse" : "column";
+  };
 
-    &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.hover};
-      background: ${theme.click.field.color.background.hover};
-      color: ${theme.click.field.color.text.hover};
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const dirClass = `cuiDir${capitalize(dir)}`;
 
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${
-          theme.click.field.color.background.hover
-        } inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.hover};
-        caret-color: ${theme.click.field.color.text.hover};
-      }
-    }
-    ${
-      $resize === "none"
-        ? ""
-        : `
-      resize: ${$resize};
-      overflow: auto;
-    `
-    }
-    ${
-      $error
-        ? `
-      font: ${theme.click.field.typography.fieldText.error};
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.error};
+  return (
+    <div
+      className={clsx(styles.cuiFormRoot, styles[orientationClass], styles[dirClass], {
+        [styles.cuiLabelPadding]: addLabelPadding && orientation === "horizontal",
+      })}
+      data-cui-orientation={orientation}
+      data-cui-dir={dir}
+      style={{ flexDirection: getFlexDirection() }}
+    >
+      {children}
+    </div>
+  );
+};
 
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.error} inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.error};
-        caret-color: ${theme.click.field.color.text.error};
-      }
+const FormElementContainer = ({ children }: { children: ReactNode }) => (
+  <div className={styles.cuiFormElementContainer}>{children}</div>
+);
 
-      &:hover {
-        border: 1px solid ${theme.click.field.color.stroke.error};
-        color: ${theme.click.field.color.text.error};
-        *:autofill,
-        *:-webkit-autofill {
-          -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.error} inset;
-          -webkit-text-fill-color: ${theme.click.field.color.text.error};
-          caret-color: ${theme.click.field.color.text.error};
-        }
-      }
-    `
-        : `
-    &:focus-within,
-    &[data-state="open"] {
-      font: ${theme.click.field.typography.fieldText.active};
-      border: 1px solid ${theme.click.field.color.stroke.active};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.active};
-
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.active} inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.active};
-        caret-color: ${theme.click.field.color.text.active};
-      }
-    }
-    `
-    };
-    &:disabled, &.disabled {
-      font: ${theme.click.field.typography.fieldText.disabled};
-      border: 1px solid ${theme.click.field.color.stroke.disabled};
-      background: ${theme.click.field.color.background.disabled};
-      color: ${theme.click.field.color.text.disabled};
-
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${
-          theme.click.field.color.background.disabled
-        } inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.disabled};
-        caret-color: ${theme.click.field.color.text.disabled};
-      }
-    }
-  `}
-`;
-
-const StyledLabel = styled(Label)<{ $labelColor?: string }>`
-  ${({ $labelColor }) => `
-    ${$labelColor ? `color: ${$labelColor};` : ""}
-  `}
-`;
+const Error = ({ children }: { children: ReactNode }) => (
+  <div className={styles.cuiErrorMessage}>{children}</div>
+);
 
 export interface WrapperProps {
   className?: string;
@@ -151,139 +72,139 @@ export const InputWrapper = ({
   dir,
   resize = "none",
 }: WrapperProps) => {
+  const resizeClass = resize !== "none" ? `cuiResize${capitalize(resize)}` : undefined;
+
   return (
     <FormRoot
-      $orientation={orientation}
-      $dir={dir}
-      $addLabelPadding
+      orientation={orientation}
+      dir={dir}
+      addLabelPadding
     >
       <FormElementContainer>
-        <Wrapper
-          $error={!!error}
-          $resize={resize}
-          data-resize={resize}
-          className={disabled ? `disabled ${className}` : className}
+        <div
+          className={clsx(
+            styles.cuiWrapper,
+            {
+              [styles.cuiError]: !!error,
+              [styles.cuiDisabled]: disabled,
+              [styles[resizeClass!]]: resizeClass,
+            },
+            className
+          )}
+          data-cui-resize={resize}
         >
           {children}
-        </Wrapper>
+        </div>
         {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
-        <StyledLabel
+        <Label
           htmlFor={id}
           disabled={disabled}
           error={!!error}
-          $labelColor={labelColor}
+          className={styles.cuiLabel}
+          style={labelColor ? { color: labelColor } : undefined}
         >
           {label}
-        </StyledLabel>
+        </Label>
       )}
     </FormRoot>
   );
 };
 
-export const InputElement = styled.input<{
-  $hasStartContent?: boolean;
-  $hasEndContent?: boolean;
-}>`
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  ${({ theme, $hasStartContent, $hasEndContent }) => `
-    padding: ${theme.click.field.space.y} 0;
-    padding-left: ${$hasStartContent ? "0" : theme.click.field.space.x};
-    padding-right: ${$hasEndContent ? "0" : theme.click.field.space.x};
-    &::placeholder {
-      color: ${theme.click.field.color.placeholder.default};
-    }
+export interface InputElementProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  hasStartContent?: boolean;
+  hasEndContent?: boolean;
+}
 
-    &:disabled, &.disabled {
-      &::placeholder {
-      color: ${theme.click.field.color.placeholder.disabled};
-    }
-  `}
-`;
+export const InputElement = React.forwardRef<HTMLInputElement, InputElementProps>(
+  ({ hasStartContent, hasEndContent, className, ...props }, ref) => {
+    const paddingType =
+      hasStartContent && hasEndContent
+        ? "none"
+        : hasStartContent
+          ? "end"
+          : hasEndContent
+            ? "start"
+            : "both";
 
-export const NumberInputElement = styled(InputElement)<{ $hideControls?: boolean }>`
-  ${({ $hideControls }) => `
-    ${
-      $hideControls
-        ? `
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+    const paddingClass = `cuiPadding${capitalize(paddingType)}`;
 
-    -moz-appearance: textfield;
-    `
-        : ""
-    }
-  `}
-`;
-
-export const TextAreaElement = styled.textarea`
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  resize: none;
-  ${({ theme }) => `
-    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
-    align-self: stretch;
-    &::placeholder {
-      color: ${theme.click.field.color.placeholder.default};
-    }
-  `}
-`;
-
-export const IconButton = styled.button`
-  background: transparent;
-  color: inherit;
-  border: none;
-  padding: 0;
-  outline: none;
-  &:not(:disabled) {
-    cursor: pointer;
+    return (
+      <input
+        className={clsx(styles.cuiInputElement, styles[paddingClass], className)}
+        data-cui-padding={paddingType}
+        ref={ref}
+        {...props}
+      />
+    );
   }
-  ${({ theme }) => `
-      padding: ${theme.click.field.space.y} 0;
-  `}
-`;
+);
 
-export const IconWrapper = styled.svg`
-  ${({ theme }) => `
-    &:first-of-type {
-      padding-left: ${theme.click.field.space.gap};
-    }
-    &:last-of-type {
-      padding-right: ${theme.click.field.space.x};
-    }
-  `}
-`;
+export interface NumberInputElementProps extends InputElementProps {
+  hideControls?: boolean;
+}
 
-export const InputStartContent = styled.div`
-  ${({ theme }) => `
-    padding-left: ${theme.click.field.space.x};
-    cursor: text;
-    gap: ${theme.click.field.space.gap};
-    display: flex;
-    align-self: stretch;
-    align-items: center;
-  `}
-`;
+export const NumberInputElement = React.forwardRef<
+  HTMLInputElement,
+  NumberInputElementProps
+>(({ hideControls, className, ...props }, ref) => (
+  <InputElement
+    {...props}
+    ref={ref}
+    type="number"
+    className={clsx(styles.cuiNumberInputElement, className, {
+      [styles.cuiHideNumberControls]: hideControls,
+    })}
+  />
+));
 
-export const InputEndContent = styled.div`
-  ${({ theme }) => `
-    padding-right: ${theme.click.field.space.x};
-    gap: ${theme.click.field.space.gap};
-    display: flex;
-    align-self: stretch;
-    align-items: center;
-  `}
-`;
+export interface TextAreaElementProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+export const TextAreaElement = React.forwardRef<
+  HTMLTextAreaElement,
+  TextAreaElementProps
+>(({ className, ...props }, ref) => (
+  <textarea
+    className={clsx(styles.cuiTextareaElement, className)}
+    ref={ref}
+    {...props}
+  />
+));
+
+export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export const IconButton = ({ className, ...props }: IconButtonProps) => (
+  <button
+    className={clsx(styles.cuiIconButton, className)}
+    {...props}
+  />
+);
+
+export interface IconWrapperProps extends React.SVGAttributes<SVGElement> {}
+
+export const IconWrapper = ({ className, ...props }: IconWrapperProps) => (
+  <svg
+    className={clsx(styles.cuiIconWrapper, className)}
+    {...props}
+  />
+);
+
+export interface InputStartContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const InputStartContent = ({ className, ...props }: InputStartContentProps) => (
+  <div
+    className={clsx(styles.cuiInputStartContent, className)}
+    {...props}
+  />
+);
+
+export interface InputEndContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const InputEndContent = ({ className, ...props }: InputEndContentProps) => (
+  <div
+    className={clsx(styles.cuiInputEndContent, className)}
+    {...props}
+  />
+);

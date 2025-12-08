@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NumberField as NumberFieldInput, NumberFieldProps } from "./NumberField";
-import { Container } from "../Container/Container";
+import { Container } from "@/components/Container/Container";
 
 const NumberField = ({
   value: valueProp,

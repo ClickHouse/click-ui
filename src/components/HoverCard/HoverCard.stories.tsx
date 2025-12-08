@@ -1,7 +1,7 @@
-import { Checkbox } from "../Checkbox/Checkbox";
-import { Spacer } from "../Spacer/Spacer";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { Text } from "@/components/Typography/Text/Text";
+import { Title } from "@/components/Typography/Title/Title";
 import { HoverCard } from "./HoverCard";
 
 const HoverCardComponent = ({

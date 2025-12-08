@@ -1,0 +1,28 @@
+@use "cui-mixins" as mixins;
+
+.cuiLabelContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  flex: 1;
+  gap: var(--click-sidebar-navigation-item-default-space-gap);
+  overflow: hidden;
+}
+
+.cuiEllipsisContainer {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: flex-start;
+  gap: inherit;
+  flex: 1;
+
+  & > *:not(button) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

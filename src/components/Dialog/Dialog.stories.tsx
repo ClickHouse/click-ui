@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { GridCenter } from "../commonElement";
-import { Text } from "../Typography/Text/Text";
+import { GridCenter } from "@/components/commonElement";
+import styles from "./Dialog.stories.module.scss";
+import { Text } from "@/components/Typography/Text/Text";
 import { Dialog } from "./Dialog";
-import Separator from "../Separator/Separator";
-import { Spacer } from "../Spacer/Spacer";
-import { Button } from "../Button/Button";
-import { styled } from "styled-components";
-import { Link } from "../Link/Link";
+import Separator from "@/components/Separator/Separator";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { Button } from "@/components/Button/Button";
+import { Link } from "@/components/Link/Link";
 import { Container } from "@/components/Container/Container";
 import { TextField } from "@/components/Input/TextField";
 import { Icon } from "@/components/Icon/Icon";
@@ -55,11 +55,9 @@ const DialogComponent = ({
   </GridCenter>
 );
 
-const ActionArea = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${({ theme }) => theme.click.dialog.space.gap};
-`;
+const ActionArea = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.cuiActionArea}>{children}</div>
+);
 
 export default {
   component: DialogComponent,
@@ -93,17 +91,9 @@ export const ModalDialog = {
   },
 };
 
-const TopNav = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-bottom: 1px solid ${({ theme }) => theme.click.separator.color.stroke.default};
-`;
+const TopNav = ({ children }: { children: React.ReactNode }) => (
+  <div className={styles.cuiTopNav}>{children}</div>
+);
 
 export const ChatDialog = {
   args: {

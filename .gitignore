@@ -8,6 +8,10 @@ storybook-static
 **/.DS_Store
 vite.config.ts.timestamp*
 
+# Generated TypeScript declaration files for SCSS modules
+**/*.scss.d.ts
+**/*.css.d.ts
+
 .yarn/*
 !.yarn/releases
 !.yarn/plugins

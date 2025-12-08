@@ -1,0 +1,13 @@
+@use "cui-variants" as variants;
+
+.cuiCheckIcon {
+  transition: opacity 0.2s ease;
+
+  @include variants.variant('cuiShowCheck') {
+    opacity: 1;
+  }
+
+  @include variants.variant('cuiHideCheck') {
+    opacity: 0;
+  }
+}

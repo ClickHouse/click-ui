@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FocusEventHandler,
   MouseEventHandler,
@@ -13,7 +15,7 @@ import {
   Select,
   Text,
 } from "@/components";
-import { styled } from "styled-components";
+import styles from "./Pagination.module.scss";
 
 export interface PaginationProps
   extends Omit<ContainerProps<"div">, "children" | "onChange"> {
@@ -31,9 +33,6 @@ export interface PaginationProps
   disableNextButton?: boolean;
   allowAllRows?: boolean;
 }
-const CustomSelect = styled.div`
-  width: 150px;
-`;
 
 export const Pagination = ({
   totalPages,
@@ -181,8 +180,8 @@ export const Pagination = ({
         />
       </Container>
       {maxRowsPerPageList.length > 0 && (
-        <CustomSelect
-          as={Select}
+        <Select
+          className={styles.cuiCustomSelect}
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
         >
@@ -195,7 +194,7 @@ export const Pagination = ({
               {option} rows
             </Select.Item>
           ))}
-        </CustomSelect>
+        </Select>
       )}
     </Container>
   );

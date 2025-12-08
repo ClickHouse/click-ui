@@ -1,11 +1,13 @@
-import { styled } from "styled-components";
+import { ElementType, forwardRef } from "react";
+import clsx from "clsx";
 import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  ReactNode,
-} from "react";
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
+import styles from "./GridContainer.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "unset";
@@ -21,8 +23,8 @@ type ContentOptions =
   | "left"
   | "right";
 
-export interface GridContainerProps<T extends ElementType = "div"> {
-  component?: T;
+export interface GridContainerProps<T extends ElementType = "div">
+  extends PolymorphicComponentProps<T> {
   alignItems?: ItemsOptions;
   alignContent?: ContentOptions;
   children?: React.ReactNode;
@@ -48,10 +50,6 @@ export interface GridContainerProps<T extends ElementType = "div"> {
   minWidth?: string;
   overflow?: string;
 }
-
-type GridContainerPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>
-) => ReactNode;
 
 const _GridContainer = <T extends ElementType = "div">(
   {
@@ -80,113 +78,61 @@ const _GridContainer = <T extends ElementType = "div">(
     minWidth,
     overflow,
     component,
+    className,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, GridContainerProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
+  const Component = component ?? "div";
+
+  const containerClassName = clsx(
+    styles.cuiGridContainer,
+    {
+      [styles.cuiInline]: inline,
+      [styles.cuiFillWidth]: fillWidth,
+      [styles.cuiWidthAuto]: !fillWidth,
+      [styles.cuiResponsive]: isResponsive,
+      [styles[`cuiAlignItems${capitalize(alignItems)}`]]: alignItems !== "stretch",
+      [styles[`cuiAlignContent${capitalize(alignContent)}`]]: alignContent !== "stretch",
+      [styles[`cuiJustifyContent${capitalize(justifyContent)}`]]:
+        justifyContent !== "stretch",
+      [styles[`cuiJustifyItems${capitalize(justifyItems)}`]]: justifyItems !== "stretch",
+      [styles[`cuiGap${gap ? capitalize(gap) : ""}`]]: gap,
+      [styles[`cuiColumnGap${columnGap ? capitalize(columnGap) : ""}`]]: columnGap,
+      [styles[`cuiRowGap${rowGap ? capitalize(rowGap) : ""}`]]: rowGap,
+    },
+    className
+  );
+
+  const containerStyle: React.CSSProperties = {
+    ...(gridAutoColumns && { gridAutoColumns }),
+    ...(gridAutoFlow && { gridAutoFlow }),
+    ...(gridAutoRows && { gridAutoRows }),
+    ...(gridTemplateAreas && { gridTemplateAreas }),
+    ...(gridTemplateColumns && { gridTemplateColumns }),
+    ...(gridTemplateRows && { gridTemplateRows }),
+    ...(gridTemplate && { gridTemplate }),
+    ...(height && { height }),
+    ...(maxHeight && { maxHeight }),
+    ...(minHeight && { minHeight }),
+    ...(maxWidth && { maxWidth }),
+    ...(minWidth && { minWidth }),
+    ...(overflow && { overflow }),
+    ...props.style,
+  };
+
   return (
-    <Wrapper
-      as={component ?? "div"}
-      $alignItems={alignItems}
-      $alignContent={alignContent}
-      $columnGap={columnGap}
-      $gap={gap}
-      $gridAutoColumns={gridAutoColumns}
-      $gridAutoFlow={gridAutoFlow}
-      $gridAutoRows={gridAutoRows}
-      $gridTemplateAreas={gridTemplateAreas}
-      $gridTemplateColumns={gridTemplateColumns}
-      $gridTemplateRows={gridTemplateRows}
-      $gridTemplate={gridTemplate}
-      $inline={inline}
-      $isResponsive={isResponsive}
-      $justifyContent={justifyContent}
-      $justifyItems={justifyItems}
-      $rowGap={rowGap}
-      $height={height}
-      $maxHeight={maxHeight}
-      $minHeight={minHeight}
-      $fillWidth={fillWidth}
-      $maxWidth={maxWidth}
-      $minWidth={minWidth}
-      $overflow={overflow}
+    <Component
+      {...props}
+      className={containerClassName}
+      style={containerStyle}
       data-testid="grid-container"
       ref={ref}
-      {...props}
     >
       {children}
-    </Wrapper>
+    </Component>
   );
 };
 
-const Wrapper = styled.div<{
-  $alignContent: ContentOptions;
-  $alignItems: ItemsOptions;
-  $columnGap?: GapOptions;
-  $gap?: GapOptions;
-  $gridAutoColumns?: string;
-  $gridAutoFlow?: FlowOptions;
-  $gridAutoRows?: string;
-  $gridTemplateAreas?: string;
-  $gridTemplateColumns?: string;
-  $gridTemplateRows?: string;
-  $gridTemplate?: string;
-  $inline: boolean;
-  $isResponsive: boolean;
-  $justifyContent: ContentOptions;
-  $justifyItems: ItemsOptions;
-  $rowGap?: GapOptions;
-  $height?: string;
-  $maxHeight?: string;
-  $minHeight?: string;
-  $fillWidth: boolean;
-  $maxWidth?: string;
-  $minWidth?: string;
-  $overflow?: string;
-}>`
-  align-items: ${({ $alignItems = "stretch" }) => $alignItems};
-  align-content: ${({ $alignContent = "stretch" }) => $alignContent};
-  display: ${({ $inline }) => ($inline === true ? "inline-grid" : "grid")};
-  ${({ $gridAutoColumns }) =>
-    $gridAutoColumns && `grid-auto-columns: ${$gridAutoColumns}`};
-  ${({ $gridAutoFlow }) => $gridAutoFlow && `grid-auto-flow: ${$gridAutoFlow}`};
-  ${({ $gridAutoRows }) => $gridAutoRows && `grid-auto-rows: ${$gridAutoRows}`};
-  ${({ $gridTemplateAreas }) =>
-    $gridTemplateAreas && `grid-template-area: ${$gridTemplateAreas}`};
-  ${({ $gridTemplateColumns }) =>
-    $gridTemplateColumns && `grid-template-columns: ${$gridTemplateColumns}`};
-  ${({ $gridTemplateRows }) =>
-    $gridTemplateRows && `grid-template-rows: ${$gridTemplateRows}`};
-  ${({ $gridTemplate }) => $gridTemplate && `grid-template:  ${$gridTemplate}`};
-  justify-content: ${({ $justifyContent = "stretch" }) => $justifyContent};
-  justify-items: ${({ $justifyItems = "stretch" }) => $justifyItems};
-  ${({ theme, $gap, $columnGap, $rowGap }) => `
-    gap: ${$gap ? theme.click.gridContainer.gap[$gap] : "inherit"};
-    ${$columnGap && `column-gap: ${theme.click.gridContainer.gap[$columnGap]}`};
-    ${$rowGap && `row-gap: ${theme.click.gridContainer.gap[$rowGap]}`};
-  `}
-
-  ${({ $fillWidth, $maxWidth, $minWidth }) => `
-    width: ${$fillWidth ? "100%" : "auto"};
-    ${typeof $maxWidth === "string" && `max-width: ${$maxWidth}`};
-    ${typeof $minWidth === "string" && `min-width: ${$minWidth}`};
-  `}
-  ${({ $height, $maxHeight, $minHeight }) => `
-    ${typeof $height === "string" && `height: ${$height}`};
-    ${typeof $maxHeight === "string" && `max-height: ${$maxHeight}`};
-    ${typeof $minHeight === "string" && `min-height: ${$minHeight}`};
-  `}
-  ${({ $overflow }) => `
-    ${typeof $overflow === "string" && `overflow: ${$overflow}`};
-  `}
-
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-    grid-template-columns: ${({ $isResponsive = true }) =>
-      $isResponsive === true
-        ? "1fr"
-        : ({ $gridTemplateColumns }) => $gridTemplateColumns || "auto"};
-  }
-`;
-
-export const GridContainer: GridContainerPolymorphicComponent =
+export const GridContainer: PolymorphicComponent<GridContainerProps> =
   forwardRef(_GridContainer);

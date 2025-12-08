@@ -1,0 +1,12 @@
+@use "cui-mixins" as mixins;
+
+.cuiSelectValueContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  cursor: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: inherit;
+}
