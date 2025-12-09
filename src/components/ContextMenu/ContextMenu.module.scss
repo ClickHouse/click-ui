@@ -61,3 +61,9 @@
   max-width: var(--radix-context-menu-content-available-width);
   max-height: var(--radix-context-menu-content-available-height);
 }
+
+.cuiArrow {
+  fill: var(--click-genericMenu-panel-color-background-default);
+  stroke: var(--click-genericMenu-panel-color-stroke-default);
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
+}

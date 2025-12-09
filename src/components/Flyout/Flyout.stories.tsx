@@ -79,7 +79,7 @@ export const Playground = {
   args: {
     title: "Title",
     description: "Description",
-    align: "default",
+    align: "end",
     size: "default",
     type: "default",
   },

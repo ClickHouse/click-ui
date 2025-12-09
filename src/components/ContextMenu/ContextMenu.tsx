@@ -6,6 +6,7 @@ import { IconWrapper } from "@/components";
 import { forwardRef } from "react";
 import clsx from "clsx";
 import styles from "./ContextMenu.module.scss";
+import PopoverArrow from "../icons/PopoverArrow";
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
@@ -95,10 +96,12 @@ const ContextMenuContent = ({
       >
         {showArrow && (
           <RightMenu.Arrow
-            className={styles.cuiArrow}
+            asChild
             width={20}
             height={10}
-          />
+          >
+            <PopoverArrow className={styles.cuiArrow} />
+          </RightMenu.Arrow>
         )}
         {children}
       </ContentElement>

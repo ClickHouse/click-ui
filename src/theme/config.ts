@@ -1,4 +1,9 @@
-import type { RuntimeConfig, ConfigThemeValues, BuildTimeThemeConfig } from "./types";
+import type {
+  RuntimeConfig,
+  ConfigThemeValues,
+  BuildTimeThemeConfig,
+  NestedJSONObject,
+} from "./types";
 import { deepMerge } from "./utils";
 import baseTheme from "./tokens/variables.json";
 import baseThemeLight from "./tokens/variables.light.json";
@@ -22,7 +27,7 @@ export const getRuntimeConfig = (): RuntimeConfig => {
     // Extract only runtime config (exclude theme/dark)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { theme, dark, ...runtimeConfig } = __CLICK_UI_CONFIG__;
-    return runtimeConfig;
+    return runtimeConfig as RuntimeConfig;
   }
 
   // Use defaults if no config provided
@@ -42,8 +47,8 @@ export const getThemeValues = (mode: "light" | "dark"): ConfigThemeValues => {
 
   // Merge: base (all tokens) + theme-specific overrides
   let mergedTheme = deepMerge(
-    baseTheme as ConfigThemeValues,
-    themeSpecific as ConfigThemeValues
+    baseTheme as NestedJSONObject,
+    themeSpecific as NestedJSONObject
   ) as ConfigThemeValues;
 
   // Check if plugin injected custom theme config
@@ -56,17 +61,11 @@ export const getThemeValues = (mode: "light" | "dark"): ConfigThemeValues => {
 
     if (customOverrides) {
       mergedTheme = deepMerge(
-        mergedTheme as ConfigThemeValues,
-        customOverrides as ConfigThemeValues
+        mergedTheme as NestedJSONObject,
+        customOverrides
       ) as ConfigThemeValues;
     }
   }
 
   return mergedTheme;
 };
-
-/**
- * @deprecated Use getRuntimeConfig() instead
- * This function is kept for backwards compatibility
- */
-export const getThemeConfig = getRuntimeConfig;

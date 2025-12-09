@@ -49,9 +49,10 @@ export type PolymorphicRef<T extends ElementType> = ComponentPropsWithRef<T>["re
  * This uses a mapped type to properly infer the element type
  */
 export type PolymorphicComponent<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TProps extends PolymorphicComponentProps<any>,
+  TProps extends PolymorphicComponentProps<ElementType>,
   TDefaultElement extends ElementType = "div",
 > = <T extends ElementType = TDefaultElement>(
-  props: PolymorphicProps<T, Omit<TProps, "component"> & { component?: T }>
+  props: PolymorphicProps<T, Omit<TProps, "component"> & { component?: T }> & {
+    ref?: PolymorphicRef<T>;
+  }
 ) => ReactNode;

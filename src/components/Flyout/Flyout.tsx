@@ -95,7 +95,7 @@ const Content = ({
 
   return (
     <DialogPortal container={container}>
-      {showOverlay && <DialogOverlay className="DialogOverlay" />}
+      {showOverlay && <DialogOverlay className={styles.cuiFlyoutOverlay} />}
       <DialogContent
         className={clsx(styles.cuiFlyoutContent, {
           [styles.cuiSizeDefault]: size === "default" && !width,
