@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: flex-start;
   counter-reset: vertical-stepper;
+  contain: style;
   width: 100%;
 }
 
