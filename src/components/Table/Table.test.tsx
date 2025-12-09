@@ -1,4 +1,4 @@
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import { Table, TableProps } from "./Table";
 import { renderCUI } from "@/utils/test-utils";
 
@@ -97,5 +97,142 @@ describe("Table", () => {
     expect(rowCheckbox).not.toBeNull();
     fireEvent.click(rowCheckbox);
     expect(onEdit).toBeCalledTimes(1);
+  });
+
+  describe("Column Visibility", () => {
+    const headersWithIds = [
+      { id: "company", label: "Company" },
+      { id: "contact", label: "Contact" },
+      { id: "country", label: "Country" },
+    ];
+
+    it("should render column visibility button and toggle columns", async () => {
+      const { queryByTestId, container } = renderCUI(
+        <Table
+          headers={headersWithIds}
+          rows={rows}
+          enableColumnVisibility={true}
+          tableId="test-table"
+          data-testid="table"
+        />
+      );
+
+      // Column visibility button should be present
+      expect(queryByTestId("column-visibility-button")).not.toBeNull();
+
+      // All columns should be visible by default
+      let headerCells = container.querySelectorAll("thead th");
+      expect(headerCells.length).toBe(4); // 3 columns + 1 settings column
+      expect(headerCells[0].textContent).toBe("Company");
+      expect(headerCells[1].textContent).toBe("Contact");
+      expect(headerCells[2].textContent).toBe("Country");
+
+      // Open popover and hide Contact column
+      const settingsButton = queryByTestId("column-visibility-button");
+      fireEvent.click(settingsButton!);
+
+      // Wait for popover to open and find checkboxes in the document (portal renders outside container)
+      await waitFor(() => {
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
+        expect(checkboxes.length).toBeGreaterThan(0);
+      });
+
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
+      const contactCheckbox = checkboxes[1];
+      fireEvent.click(contactCheckbox);
+
+      // Contact column should now be hidden
+      headerCells = container.querySelectorAll("thead th");
+      const headerTexts = Array.from(headerCells).map(cell => cell.textContent);
+      expect(headerTexts).toContain("Company");
+      expect(headerTexts).not.toContain("Contact");
+      expect(headerTexts).toContain("Country");
+    });
+
+    it("should not allow hiding mandatory columns", async () => {
+      const headersWithMandatory = [
+        { id: "company", label: "Company", mandatory: true },
+        { id: "contact", label: "Contact" },
+        { id: "country", label: "Country" },
+      ];
+
+      const { queryByTestId } = renderCUI(
+        <Table
+          headers={headersWithMandatory}
+          rows={rows}
+          enableColumnVisibility={true}
+          tableId="test-table-mandatory"
+          data-testid="table"
+        />
+      );
+
+      const settingsButton = queryByTestId("column-visibility-button");
+      fireEvent.click(settingsButton!);
+
+      // Wait for popover to open and find checkboxes in the document (portal renders outside container)
+      await waitFor(() => {
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
+        expect(checkboxes.length).toBeGreaterThan(0);
+      });
+
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
+      const companyCheckbox = checkboxes[0];
+
+      // Mandatory column checkbox should be disabled (Radix UI sets data-disabled="" when disabled)
+      expect(companyCheckbox.hasAttribute("data-disabled")).toBe(true);
+    });
+
+    it("should call onLoadColumnVisibility and onSaveColumnVisibility", async () => {
+      const onLoad = vi.fn(() => ({
+        company: true,
+        contact: false,
+        country: true,
+      }));
+      const onSave = vi.fn();
+
+      const { queryByTestId, container } = renderCUI(
+        <Table
+          headers={headersWithIds}
+          rows={rows}
+          enableColumnVisibility={true}
+          tableId="test-table-storage"
+          onLoadColumnVisibility={onLoad}
+          onSaveColumnVisibility={onSave}
+          data-testid="table"
+        />
+      );
+
+      // onLoad should be called on mount
+      expect(onLoad).toHaveBeenCalledWith("test-table-storage");
+
+      // Contact column should be hidden based on loaded state
+      const headerCells = container.querySelectorAll("thead th");
+      const headerTexts = Array.from(headerCells).map(cell => cell.textContent);
+      expect(headerTexts).not.toContain("Contact");
+
+      // Toggle Country column visibility
+      const settingsButton = queryByTestId("column-visibility-button");
+      fireEvent.click(settingsButton!);
+
+      // Wait for popover to open and find checkboxes in the document (portal renders outside container)
+      await waitFor(() => {
+        const checkboxes = document.querySelectorAll('[role="checkbox"]');
+        expect(checkboxes.length).toBeGreaterThan(0);
+      });
+
+      const checkboxes = document.querySelectorAll('[role="checkbox"]');
+      const countryCheckbox = checkboxes[2];
+      fireEvent.click(countryCheckbox);
+
+      // onSave should be called with updated visibility
+      expect(onSave).toHaveBeenCalled();
+      const lastCall = onSave.mock.calls[onSave.mock.calls.length - 1];
+      expect(lastCall[0]).toBe("test-table-storage");
+      expect(lastCall[1]).toMatchObject({
+        company: true,
+        contact: false,
+        country: false,
+      });
+    });
   });
 });
