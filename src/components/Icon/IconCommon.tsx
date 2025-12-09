@@ -123,6 +123,8 @@ import Popout from "@/components/icons/Popout";
 import PuzzlePiece from "@/components/icons/PuzzlePiece";
 import Query from "@/components/icons/Query";
 import Question from "@/components/icons/Question";
+import ResizeArrowsHorizontal from "@/components/icons/ResizeArrowsHorizontal";
+import ResizeArrowsVertical from "@/components/icons/ResizeArrowsVertical";
 import Refresh from "@/components/icons/Refresh";
 import Rocket from "@/components/icons/Rocket";
 import SandGlass from "@/components/icons/SandGlass";
@@ -289,6 +291,8 @@ export const ICONS_MAP = {
   query: Query,
   question: Question,
   refresh: Refresh,
+  "resize-arrows-horizontal": ResizeArrowsHorizontal,
+  "resize-arrows-vertical": ResizeArrowsVertical,
   rocket: Rocket,
   sandglass: SandGlass,
   search: Search,

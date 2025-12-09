@@ -133,6 +133,8 @@ export const ICON_NAMES = [
   "puzzle-piece",
   "query",
   "question",
+  "resize-arrows-horizontal",
+  "resize-arrows-vertical",
   "refresh",
   "rocket",
   "sandglass",

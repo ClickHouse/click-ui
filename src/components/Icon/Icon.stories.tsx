@@ -36,6 +36,10 @@ const meta: Meta<typeof Icon> = {
       options: [...IconNames, ...FlagNames, ...LogoNames, ...PaymentNames],
       control: { type: "select" },
     },
+    size: {
+      options: ["xs", "sm", "md", "lg", "xl", "xxl"],
+      control: { type: "select" },
+    },
   },
 };
 
