@@ -170,6 +170,8 @@
 
 /* Pseudo-element for additional borders */
 .cuiPseudoBorder {
+  position: relative;
+
   &::before {
     @include mixins.cuiAbsoluteFill;
     content: "";

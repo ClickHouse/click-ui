@@ -27,9 +27,6 @@ export { getBaseTheme, getThemeValue, loadCustomConfig, deepMerge } from "./util
 // === CSS UTILITIES ===
 export { setThemeAttribute } from "./utils/theme-attribute";
 
-// === CONFIGURATION ===
-export { getThemeConfig } from "./config";
-
 // === RE-EXPORTS ===
 // For backward compatibility
 export type { ThemeName as ClickUIThemeName } from "./types";
