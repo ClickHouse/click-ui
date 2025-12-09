@@ -3136,50 +3136,52 @@
     "genericMenu": {
       "item": {
         "color": {
-          "text": {
-            "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
+          "default": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.global.color.text.disabled}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
+              }
             },
-            "hover": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
+            "background": {
+              "default": {
+                "value": "{click.global.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.genericMenu.item.color.default.background.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.genericMenu.item.color.default.background.default}",
+                "type": "color"
+              }
             },
-            "active": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{click.global.color.text.disabled}",
-              "type": "color"
-            },
-            "muted": {
-              "value": "{click.global.color.text.muted}",
-              "type": "color"
-            }
-          },
-          "background": {
-            "default": {
-              "value": "{click.genericMenu.panel.color.background.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.genericMenu.item.color.background.default}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{click.genericMenu.item.color.background.default}",
-              "type": "color"
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke.default}",
+                "type": "color"
+              }
             }
           },
           "format": {
@@ -3225,6 +3227,44 @@
             "disabled": {
               "value": "{palette.neutral.300}",
               "type": "color"
+            }
+          },
+          "danger": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.global.color.text.disabled}",
+                "type": "color"
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{click.global.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.genericMenu.item.color.default.background.default}",
+                "type": "color"
+              }
             }
           }
         }
@@ -3283,7 +3323,7 @@
           },
           "background": {
             "default": {
-              "value": "{click.genericMenu.item.color.background.default}",
+              "value": "{click.genericMenu.item.color.default.background.default}",
               "type": "color"
             }
           },

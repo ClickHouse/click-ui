@@ -2696,53 +2696,61 @@
     "genericMenu": {
       "item": {
         "color": {
-          "text": {
-            "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.genericMenu.item.color.text.default}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.genericMenu.item.color.text.default}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{click.global.color.text.disabled}",
-              "type": "color"
-            },
-            "muted": {
-              "value": "{click.global.color.text.muted}",
-              "type": "color"
-            }
-          },
-          "background": {
-            "default": {
-              "value": "{click.genericMenu.panel.color.background.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.0875",
-                    "space": "srgb"
-                  }
-                }
+          "default": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.genericMenu.item.color.default.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.genericMenu.item.color.default.text.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.global.color.text.disabled}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
               }
             },
-            "active": {
-              "value": "{click.genericMenu.item.color.background.default}",
-              "type": "color"
+            "background": {
+              "default": {
+                "value": "{click.genericMenu.panel.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.0875",
+                      "space": "srgb"
+                    }
+                  }
+                }
+              },
+              "active": {
+                "value": "{click.genericMenu.item.color.default.background.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              }
             },
-            "disabled": {
-              "value": "{click.field.color.background.disabled}",
-              "type": "color"
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke.default}",
+                "type": "color"
+              }
             }
           },
           "format": {
@@ -2773,12 +2781,6 @@
             },
             "error": {
               "value": "{click.field.color.format.default}",
-              "type": "color"
-            }
-          },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
               "type": "color"
             }
           },
@@ -2834,7 +2836,7 @@
           },
           "background": {
             "default": {
-              "value": "{click.genericMenu.item.color.background.default}",
+              "value": "{click.genericMenu.item.color.default.background.default}",
               "type": "color"
             }
           },
