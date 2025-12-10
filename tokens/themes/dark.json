@@ -2801,6 +2801,59 @@
               "value": "{palette.neutral.300}",
               "type": "color"
             }
+          },
+          "danger": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.global.color.text.disabled}",
+                "type": "color"
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{click.genericMenu.panel.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.0875",
+                      "space": "srgb"
+                    }
+                  }
+                }
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "transparent",
+                "type": "color"
+              }
+            }
           }
         }
       },
