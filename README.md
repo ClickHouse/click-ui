@@ -50,3 +50,5 @@ Enjoy!
 New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
 
 To create a new release and publish a new version, follow the instructions in [publish.md](./docs/publish.md).
+
+test
