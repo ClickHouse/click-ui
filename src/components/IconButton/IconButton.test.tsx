@@ -23,4 +23,19 @@ describe("Button", () => {
 
     expect(counter).toEqual(1);
   });
+
+  it("should not execute action when disabled", () => {
+    let counter = 0;
+    const handleClick = () => (counter = 1);
+    const { getByRole } = renderButton({
+      onClick: handleClick,
+      icon: "user",
+      disabled: true,
+    });
+    const button = getByRole("button");
+    fireEvent.click(button);
+
+    expect(counter).toEqual(0);
+    expect(button).toBeDisabled();
+  });
 });
