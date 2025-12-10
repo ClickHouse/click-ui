@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
-import { ContextMenu } from "./ContextMenu";
+import { ContextMenu, ContextMenuItemProps } from "./ContextMenu";
 import { styled } from "styled-components";
 
 interface ContextMenuExampleProps extends ContextMenuProps {
@@ -63,6 +63,7 @@ const ContextMenuExample = ({
             Content2
           </ContextMenu.Item>
           <ContextMenu.Item disabled>Content3</ContextMenu.Item>
+          <ContextMenu.Item type="danger">Delete content</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu>
     </GridCenter>
@@ -77,7 +78,7 @@ const meta: Meta<typeof ContextMenuExample> = {
     "ContextMenu.SubTrigger": ContextMenu.SubTrigger as React.ComponentType<unknown>,
     "ContextMenu.Group": ContextMenu.Group as React.ComponentType<unknown>,
     "ContextMenu.Sub": ContextMenu.Sub as React.ComponentType<unknown>,
-    "ContextMenu.Item": ContextMenu.Item as React.ComponentType<unknown>,
+    "ContextMenu.Item": ContextMenu.Item as React.ComponentType<ContextMenuItemProps>,
   },
   title: "Display/ContextMenu",
   tags: ["form-field", "dropdown", "autodocs"],

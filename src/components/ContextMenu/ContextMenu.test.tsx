@@ -151,4 +151,27 @@ describe("ContextMenu", () => {
     expect(item).not.toBeNull();
     expect(queryByText("Content2")).not.toBeNull();
   });
+
+  it("should render item with danger type", () => {
+    const { getByText, queryByText } = renderCUI(
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div>ContextMenu Trigger</div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item type="default">Default Item</ContextMenu.Item>
+          <ContextMenu.Item type="danger">Danger Item</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
+    );
+
+    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    fireEvent.contextMenu(contextMenuTrigger);
+
+    const defaultItem = queryByText("Default Item");
+    const dangerItem = queryByText("Danger Item");
+
+    expect(defaultItem).not.toBeNull();
+    expect(dangerItem).not.toBeNull();
+  });
 });

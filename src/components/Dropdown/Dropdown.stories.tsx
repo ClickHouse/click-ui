@@ -5,6 +5,7 @@ import { Dropdown } from "./Dropdown";
 import { GridCenter } from "../commonElement";
 import { Button } from "..";
 import { Key } from "react";
+import type { DropdownItemProps } from "./Dropdown";
 
 interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;
@@ -56,9 +57,10 @@ const DropdownExample = ({
             icon="activity"
             iconDir="end"
           >
-            Content2
+            Activity
           </Dropdown.Item>
           <Dropdown.Item disabled>Content3</Dropdown.Item>
+          <Dropdown.Item type="danger">Delete content</Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
       <Dropdown {...props}>
@@ -95,6 +97,7 @@ const DropdownExample = ({
             Content2
           </Dropdown.Item>
           <Dropdown.Item disabled>Content3</Dropdown.Item>
+          <Dropdown.Item type="danger">Delete content</Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
     </GridCenter>
@@ -108,7 +111,7 @@ const meta: Meta<typeof DropdownExample> = {
     "Dropdown.Content": Dropdown.Content as React.ComponentType<unknown>,
     "Dropdown.Group": Dropdown.Group as React.ComponentType<unknown>,
     "Dropdown.Sub": Dropdown.Sub as React.ComponentType<unknown>,
-    "Dropdown.Item": Dropdown.Item as React.ComponentType<unknown>,
+    "Dropdown.Item": Dropdown.Item as React.ComponentType<DropdownItemProps>,
   },
   title: "Display/Dropdown",
   tags: ["form-field", "dropdown", "autodocs"],

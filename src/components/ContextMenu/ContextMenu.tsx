@@ -138,7 +138,7 @@ ContextMenu.Content = ContextMenuContent;
 const RightMenuGroup = styled(RightMenu.Group)`
   width: 100%;
   border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
+    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
 `;
 
 const ContextMenuGroup = (props: RightMenu.ContextMenuGroupProps) => {
@@ -150,7 +150,7 @@ ContextMenu.Group = ContextMenuGroup;
 
 const RightMenuSub = styled(RightMenu.Sub)`
   border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
+    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
 `;
 
 const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
@@ -164,12 +164,21 @@ export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
   icon?: IconName;
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
+  /** The type of the menu item */
+  type?: "default" | "danger";
 }
 
-const ContextMenuItem = ({ icon, iconDir, children, ...props }: ContextMenuItemProps) => {
+const ContextMenuItem = ({
+  icon,
+  iconDir,
+  type = "default",
+  children,
+  ...props
+}: ContextMenuItemProps) => {
   return (
     <GenericMenuItem
       as={RightMenu.Item}
+      $type={type}
       {...props}
     >
       <IconWrapper
