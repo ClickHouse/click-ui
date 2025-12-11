@@ -15,12 +15,18 @@ const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: "default" | "danger" 
   display: flex;
   min-height: 32px;
   &[data-state="open"] {
-    ${({ theme }) => `
+    ${({ theme, $type = "default" }) => {
+      const colorGroup =
+        theme?.click?.genericMenu?.item?.color?.[$type] ||
+        theme?.click?.genericMenu?.item?.color?.default;
+      if (!colorGroup || !theme?.click?.genericMenu?.item?.typography) return "";
+      return `
       font: ${theme.click.genericMenu.item.typography.label.hover};
-      background: ${theme.click.genericMenu.item.color.default.background.hover};
-      color: ${theme.click.genericMenu.item.color.default.text.hover};
+      background: ${colorGroup.background.hover};
+      color: ${colorGroup.text.hover};
       cursor: pointer;
-    `}
+    `;
+    }}
   }
 `;
 
