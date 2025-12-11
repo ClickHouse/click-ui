@@ -111,8 +111,8 @@ export type AutoCompleteProps = (SelectOptionType & Props) | (SelectChildrenType
 export const SelectPopoverRoot = styled(Root)`
   width: 100%;
   ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
-    background: ${theme.click.genericMenu.item.color.background.default};
+    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
+    background: ${theme.click.genericMenu.item.color.default.background.default};
     box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
       0px 1px 2px 0px rgba(16, 24, 40, 0.06);
     border-radius: 0.25rem;
@@ -147,7 +147,7 @@ const SelectGroupContainer = styled.div`
 
   ${({ theme }) => `
     font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-    color: ${theme.click.genericMenu.item.color.text.muted};
+    color: ${theme.click.genericMenu.item.color.default.text.muted};
   `};
   &[hidden] {
     display: none;
@@ -163,10 +163,10 @@ const SelectGroupName = styled.div`
   text-overflow: ellipsis;
   ${({ theme }) => `
      font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-     color: ${theme.click.genericMenu.item.color.text.muted};
+     color: ${theme.click.genericMenu.item.color.default.text.muted};
      padding: ${theme.click.genericMenu.sectionHeader.space.top} ${theme.click.genericMenu.item.space.x} ${theme.click.genericMenu.sectionHeader.space.bottom};
      gap: ${theme.click.genericMenu.item.space.gap};
-     border-bottom: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
+     border-bottom: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
    `}
 `;
 
@@ -248,8 +248,8 @@ const SelectList = styled.div`
   width: inherit;
   max-height: var(--radix-popover-content-available-height);
   ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.stroke.default};
-    background: ${theme.click.genericMenu.item.color.background.default};
+    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
+    background: ${theme.click.genericMenu.item.color.default.background.default};
     box-shadow: ${theme.click.genericMenu.panel.shadow.default};
     border-radius: 0.25rem;
   `}

@@ -69,7 +69,7 @@ export const Arrow = styled.svg`
   `};
 `;
 
-export const GenericMenuItem = styled.div`
+export const GenericMenuItem = styled.div<{ $type?: "default" | "danger" }>`
   display: flex;
   width: 100%;
   width: -moz-available;
@@ -87,35 +87,38 @@ export const GenericMenuItem = styled.div`
     outline: none;
   }
 
-  ${({ theme }) => `
+  ${({ theme, $type = "default" }) => {
+    const colorKey = $type === "danger" ? "danger" : "default";
+    return `
     padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
     gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.item.typography.label.default};
-    background: ${theme.click.genericMenu.item.color.background.default};
-    color: ${theme.click.genericMenu.item.color.text.default};
+    background: ${theme.click.genericMenu.item.color[colorKey].background.default};
+    color: ${theme.click.genericMenu.item.color[colorKey].text.default};
     &[data-highlighted] {
       font: ${theme.click.genericMenu.item.typography.label.hover};
-      background: ${theme.click.genericMenu.item.color.background.hover};
-      color:${theme.click.genericMenu.item.color.text.hover};
+      background: ${theme.click.genericMenu.item.color[colorKey].background.hover};
+      color:${theme.click.genericMenu.item.color[colorKey].text.hover};
       cursor: pointer;
     }
     &[data-state="open"], &[data-state="checked"], &[data-selected="true"]  {
-      background:${theme.click.genericMenu.item.color.background.active};
-      color:${theme.click.genericMenu.item.color.text.active};
+      background:${theme.click.genericMenu.item.color[colorKey].background.active};
+      color:${theme.click.genericMenu.item.color[colorKey].text.active};
       font: ${theme.click.genericMenu.item.typography.label.active};
     }
     &[data-disabled] {
-      color:${theme.click.genericMenu.item.color.text.disabled};
+      color:${theme.click.genericMenu.item.color[colorKey].text.disabled};
       font: ${theme.click.genericMenu.item.typography.label.disabled};
       pointer-events: none;
     }
     &:visited {
-      color: ${theme.click.genericMenu.item.color.text.default};
+      color: ${theme.click.genericMenu.item.color[colorKey].text.default};
       a {
-        color: ${theme.click.genericMenu.item.color.text.default};
+        color: ${theme.click.genericMenu.item.color[colorKey].text.default};
       }
     }
-  `};
+  `;
+  }};
   position: relative;
   &:hover .dropdown-arrow,
   &[data-state="open"] .dropdown-arrow {

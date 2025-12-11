@@ -2696,53 +2696,61 @@
     "genericMenu": {
       "item": {
         "color": {
-          "text": {
-            "default": {
-              "value": "{click.global.color.text.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.genericMenu.item.color.text.default}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{click.genericMenu.item.color.text.default}",
-              "type": "color"
-            },
-            "disabled": {
-              "value": "{click.global.color.text.disabled}",
-              "type": "color"
-            },
-            "muted": {
-              "value": "{click.global.color.text.muted}",
-              "type": "color"
-            }
-          },
-          "background": {
-            "default": {
-              "value": "{click.genericMenu.panel.color.background.default}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{click.global.color.background.muted}",
-              "type": "color",
-              "$extensions": {
-                "studio.tokens": {
-                  "modify": {
-                    "type": "lighten",
-                    "value": "0.0875",
-                    "space": "srgb"
-                  }
-                }
+          "default": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.genericMenu.item.color.default.text.default}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.genericMenu.item.color.default.text.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.global.color.text.disabled}",
+                "type": "color"
+              },
+              "muted": {
+                "value": "{click.global.color.text.muted}",
+                "type": "color"
               }
             },
-            "active": {
-              "value": "{click.genericMenu.item.color.background.default}",
-              "type": "color"
+            "background": {
+              "default": {
+                "value": "{click.genericMenu.panel.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.background.muted}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.0875",
+                      "space": "srgb"
+                    }
+                  }
+                }
+              },
+              "active": {
+                "value": "{click.genericMenu.item.color.default.background.default}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              }
             },
-            "disabled": {
-              "value": "{click.field.color.background.disabled}",
-              "type": "color"
+            "stroke": {
+              "default": {
+                "value": "{click.global.color.stroke.default}",
+                "type": "color"
+              }
             }
           },
           "format": {
@@ -2776,12 +2784,6 @@
               "type": "color"
             }
           },
-          "stroke": {
-            "default": {
-              "value": "{click.global.color.stroke.default}",
-              "type": "color"
-            }
-          },
           "subtext": {
             "default": {
               "value": "{click.global.color.text.muted}",
@@ -2798,6 +2800,59 @@
             "disabled": {
               "value": "{palette.neutral.300}",
               "type": "color"
+            }
+          },
+          "danger": {
+            "text": {
+              "default": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "active": {
+                "value": "{click.global.color.text.danger}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.global.color.text.disabled}",
+                "type": "color"
+              }
+            },
+            "background": {
+              "default": {
+                "value": "{click.genericMenu.panel.color.background.default}",
+                "type": "color"
+              },
+              "hover": {
+                "value": "{click.button.basic.color.danger.background.hover}",
+                "type": "color",
+                "$extensions": {
+                  "studio.tokens": {
+                    "modify": {
+                      "type": "lighten",
+                      "value": "0.0875",
+                      "space": "srgb"
+                    }
+                  }
+                }
+              },
+              "active": {
+                "value": "{click.button.basic.color.danger.background.active}",
+                "type": "color"
+              },
+              "disabled": {
+                "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "transparent",
+                "type": "color"
+              }
             }
           }
         }
@@ -2834,7 +2889,7 @@
           },
           "background": {
             "default": {
-              "value": "{click.genericMenu.item.color.background.default}",
+              "value": "{click.genericMenu.item.color.default.background.default}",
               "type": "color"
             }
           },

@@ -1027,18 +1027,23 @@
     "genericMenu": {
       "item": {
         "color": {
-          "text": {
-            "default": "#ffffff",
-            "hover": "#ffffff",
-            "active": "#ffffff",
-            "disabled": "#808080",
-            "muted": "#b3b6bd"
-          },
-          "background": {
-            "default": "#282828",
-            "hover": "rgb(23.1% 23.1% 23.1%)",
-            "active": "#282828",
-            "disabled": "#414141"
+          "default": {
+            "text": {
+              "default": "#ffffff",
+              "hover": "#ffffff",
+              "active": "#ffffff",
+              "disabled": "#808080",
+              "muted": "#b3b6bd"
+            },
+            "background": {
+              "default": "#282828",
+              "hover": "rgb(23.1% 23.1% 23.1%)",
+              "active": "#282828",
+              "disabled": "#414141"
+            },
+            "stroke": {
+              "default": "#323232"
+            }
           },
           "format": {
             "default": "lch(62.9 0 0)",
@@ -1047,14 +1052,28 @@
             "disabled": "#808080",
             "error": "rgb(60.2% 60.2% 60.2%)"
           },
-          "stroke": {
-            "default": "#323232"
-          },
           "subtext": {
             "default": "#b3b6bd",
             "hover": "#b3b6bd",
             "active": "#b3b6bd",
             "disabled": "#c0c0c0"
+          },
+          "danger": {
+            "text": {
+              "default": "#ffbaba",
+              "hover": "#ffbaba",
+              "active": "#ffbaba",
+              "disabled": "#808080"
+            },
+            "background": {
+              "default": "#282828",
+              "hover": "rgb(100% 21.3% 21.3% / 0.3)",
+              "active": "rgb(100% 13.7% 13.7% / 0.45)",
+              "disabled": "#414141"
+            },
+            "stroke": {
+              "default": "transparent"
+            }
           }
         }
       },

@@ -1883,18 +1883,23 @@
           "minWidth": string
         },
         "color": {
-          "text": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string,
-            "muted": string
-          },
-          "background": {
-            "default": string,
-            "hover": string,
-            "active": string,
-            "disabled": string
+          "default": {
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string,
+              "muted": string
+            },
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string
+            }
           },
           "format": {
             "default": string,
@@ -1903,14 +1908,28 @@
             "disabled": string,
             "error": string
           },
-          "stroke": {
-            "default": string
-          },
           "subtext": {
             "default": string,
             "hover": string,
             "active": string,
             "disabled": string
+          },
+          "danger": {
+            "text": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "background": {
+              "default": string,
+              "hover": string,
+              "active": string,
+              "disabled": string
+            },
+            "stroke": {
+              "default": string
+            }
           }
         }
       },

@@ -133,4 +133,25 @@ describe("Dropdown", () => {
     expect(item).not.toBeNull();
     expect(queryByText("Content2")).not.toBeNull();
   });
+
+  it("should render item with danger type", async () => {
+    const { getByText, queryByText } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item type="default">Default Item</Dropdown.Item>
+          <Dropdown.Item type="danger">Danger Item</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    const dropdownTrigger = getByText("Dropdown Trigger");
+    await userEvent.click(dropdownTrigger);
+
+    const defaultItem = queryByText("Default Item");
+    const dangerItem = queryByText("Danger Item");
+
+    expect(defaultItem).not.toBeNull();
+    expect(dangerItem).not.toBeNull();
+  });
 });

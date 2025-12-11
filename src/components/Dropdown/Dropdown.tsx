@@ -10,17 +10,23 @@ export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
 
-const DropdownMenuItem = styled(GenericMenuItem)`
+const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: "default" | "danger" }>`
   position: relative;
   display: flex;
   min-height: 32px;
   &[data-state="open"] {
-    ${({ theme }) => `
+    ${({ theme, $type = "default" }) => {
+      const colorGroup =
+        theme?.click?.genericMenu?.item?.color?.[$type] ||
+        theme?.click?.genericMenu?.item?.color?.default;
+      if (!colorGroup || !theme?.click?.genericMenu?.item?.typography) return "";
+      return `
       font: ${theme.click.genericMenu.item.typography.label.hover};
-      background: ${theme.click.genericMenu.item.color.background.hover};
-      color: ${theme.click.genericMenu.item.color.text.hover};
+      background: ${colorGroup.background.hover};
+      color: ${colorGroup.text.hover};
       cursor: pointer;
-    `}
+    `;
+    }}
   }
 `;
 
@@ -138,7 +144,7 @@ Dropdown.Content = DropdownContent;
 const DropdownMenuGroup = styled(DropdownMenu.Group)`
   width: 100%;
   border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
+    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
 `;
 
 const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
@@ -150,7 +156,7 @@ Dropdown.Group = DropdownGroup;
 
 const DropdownMenuSub = styled(DropdownMenu.Sub)`
   border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.stroke.default};
+    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
 `;
 
 const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
@@ -165,11 +171,22 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   icon?: IconName;
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
+  /** The type of the menu item */
+  type?: "default" | "danger";
 }
-const DropdownItem = ({ icon, iconDir, children, ...props }: DropdownItemProps) => {
+
+export type { DropdownItemProps };
+const DropdownItem = ({
+  icon,
+  iconDir,
+  type = "default",
+  children,
+  ...props
+}: DropdownItemProps) => {
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
+      $type={type}
       {...props}
     >
       <IconWrapper
