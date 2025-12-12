@@ -170,6 +170,7 @@ export const ProgressBar = ({
       $type={type}
       $orientation={orientation}
       $dir={dir}
+      // Using a CSS variable avoids generating a new styled-components class per progress value.
       style={
         {
           "--progress": `${progress}%`,
