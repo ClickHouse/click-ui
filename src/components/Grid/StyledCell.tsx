@@ -13,6 +13,7 @@ export const StyledCell = styled.div<{
   $height: number;
   $type?: "body" | "header";
   $showBorder: boolean;
+  $readOnly?: boolean;
   $rowAutoHeight?: boolean;
 }>`
   display: block;
@@ -35,6 +36,7 @@ export const StyledCell = styled.div<{
     $height,
     $type = "body",
     $showBorder,
+    $readOnly,
     $rowAutoHeight,
   }) => `
     height: ${$rowAutoHeight ? "100%" : `${$height}px`};
@@ -64,7 +66,7 @@ export const StyledCell = styled.div<{
         : ""
     }
     ${
-      $isFocused
+      $isFocused && !$readOnly
         ? `box-shadow: inset 0 0 0 1px ${theme.click.grid[$type].cell.color.stroke.selectDirect};`
         : ""
     }
@@ -84,7 +86,7 @@ export const StyledCell = styled.div<{
         ? `
         border-right-color: ${
           theme.click.grid[$type].cell.color.stroke[
-            $isFocused ? "selectDirect" : $selectionType
+            $isFocused && !$readOnly ? "selectDirect" : $selectionType
           ]
         };
     `

@@ -28,6 +28,7 @@ interface Props {
     column: number;
   };
   rowAutoHeight?: boolean;
+  readOnly?: boolean;
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
@@ -79,6 +80,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
           });
         }}
         getMenuOptions={getMenuOptions}
+        readOnly={props.readOnly}
         rowAutoHeight={props.rowAutoHeight}
         {...props}
       />
@@ -97,6 +99,7 @@ export const Playground = {
     rowCount: 120,
     columnCount: 200,
     rowStart: 0,
+    readOnly: false,
   },
   parameters: {
     docs: {
