@@ -58,17 +58,11 @@ const getGradientDirection = (orientation: Orientation, dir: Direction): string 
   return dir === "start" ? "to right" : "to left";
 };
 
-const createGradient = (
-  gradientDir: string,
-  accentColor: string,
-  bgColor: string,
-  progress: number
-) =>
-  `linear-gradient(${gradientDir}, ${accentColor} 0%, ${accentColor} ${progress}%, ${bgColor} ${progress}%, ${bgColor} 100%)`;
+const createGradient = (gradientDir: string, accentColor: string, bgColor: string) =>
+  `linear-gradient(${gradientDir}, ${accentColor} 0%, ${accentColor} var(--progress), ${bgColor} var(--progress), ${bgColor} 100%)`;
 
 // The tokens are copied from dataloading page and may need to change on the new component creation in figma
 const ProgressContainer = styled.div<{
-  $progress: number;
   $completed: boolean;
   $type: "small" | "default";
   $orientation: Orientation;
@@ -93,7 +87,7 @@ const ProgressContainer = styled.div<{
     width: fill-available;
     width: stretch;
   `}
-  ${({ theme, $completed, $progress, $type, $orientation, $dir }) => {
+  ${({ theme, $completed, $type, $orientation, $dir }) => {
     const gradientDir = getGradientDirection($orientation, $dir);
     return `
     background: ${
@@ -102,8 +96,7 @@ const ProgressContainer = styled.div<{
         : createGradient(
             gradientDir,
             theme.global.color.accent.default,
-            theme.click.field.color.background.default,
-            $progress
+            theme.click.field.color.background.default
           )
     };
     background-size: calc(100% + 2px);
@@ -123,8 +116,7 @@ const ProgressContainer = styled.div<{
           : createGradient(
               gradientDir,
               theme.global.color.accent.default,
-              theme.click.field.color.background.hover,
-              $progress
+              theme.click.field.color.background.hover
             )
       };
       background-size: calc(100% + 2px);
@@ -138,8 +130,7 @@ const ProgressContainer = styled.div<{
           : createGradient(
               gradientDir,
               theme.global.color.accent.default,
-              theme.click.field.color.background.active,
-              $progress
+              theme.click.field.color.background.active
             )
       };
       background-size: calc(100% + 2px);
@@ -176,10 +167,15 @@ export const ProgressBar = ({
   return (
     <ProgressContainer
       $completed={completed}
-      $progress={progress}
       $type={type}
       $orientation={orientation}
       $dir={dir}
+      // Using a CSS variable avoids generating a new styled-components class per progress value.
+      style={
+        {
+          "--progress": `${progress}%`,
+        } as React.CSSProperties
+      }
       {...props}
     >
       {type === "default" && (
