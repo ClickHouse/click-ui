@@ -14,7 +14,7 @@ export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ type = "primary", icon, size, ...props }, ref) => {
+  ({ type = "primary", icon, size, disabled, ...props }, ref) => {
     const iconName = icon ? icon.toString() : "unknown icon";
 
     return (
@@ -22,6 +22,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {...props}
         $styleType={type}
         $size={size}
+        disabled={disabled}
         ref={ref}
         role="button"
         aria-label={iconName}
@@ -56,21 +57,21 @@ const Button = styled.button<{
   background-color: ${theme.click.button.iconButton.color[$styleType].background.default};
 
   color: ${theme.click.button.iconButton.color[$styleType].text.default};
+  &:not([disabled]) {
+    &:hover {
+      background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
+      color: ${theme.click.button.iconButton.color[$styleType].text.hover};
+      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.hover};
+    }
 
-  &:hover {
-    background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
-    color: ${theme.click.button.iconButton.color[$styleType].text.hover};
-    border-color: ${theme.click.button.iconButton.color[$styleType].stroke.hover};
+    &:focus, &:active, &:focus-within {
+      background-color: ${
+        theme.click.button.iconButton.color[$styleType].background.active
+      };
+      color: ${theme.click.button.iconButton.color[$styleType].text.active};
+      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
+    }
   }
-
-  &:focus, &:active, &:focus-within {
-    background-color: ${
-      theme.click.button.iconButton.color[$styleType].background.active
-    };
-    color: ${theme.click.button.iconButton.color[$styleType].text.active};
-    border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
-  }
-
   &:visited {
     background-color: ${
       theme.click.button.iconButton.color[$styleType].background.default

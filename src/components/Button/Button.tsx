@@ -47,6 +47,7 @@ export const Button = ({
     $align={align}
     $fillWidth={fillWidth}
     disabled={disabled || loading}
+    aria-disabled={disabled || loading}
     role="button"
     {...delegated}
   >
