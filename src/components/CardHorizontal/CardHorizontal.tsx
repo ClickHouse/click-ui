@@ -240,6 +240,11 @@ export const CardHorizontal = ({
   ...props
 }: CardHorizontalProps) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+
     MouseEvent;
     if (typeof onButtonClick === "function") {
       onButtonClick(e);
@@ -255,7 +260,8 @@ export const CardHorizontal = ({
       $isSelectable={isSelectable}
       $color={color}
       $size={size}
-      tabIndex={0}
+      tabIndex={disabled ? -1 : 0}
+      aria-disabled={disabled}
       onClick={handleClick}
       {...props}
     >
@@ -320,6 +326,7 @@ export const CardHorizontal = ({
             <Button
               label={infoText}
               onClick={handleClick}
+              disabled={disabled}
               fillWidth
             />
           </Container>
