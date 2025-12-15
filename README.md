@@ -1,6 +1,6 @@
 # Click UI
 
-The home of the ClickHouse design system and component library.
+You can find the official docs for the Click IU design system and component library at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Using Click UI in an external app
 
@@ -14,6 +14,8 @@ Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems u
 
 ```typescript
 import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
+import '@clickhouse/click-ui/cui.css' // Don't forget the CSS!
+import { useState } from 'react'
 
 function App() {
   const [theme, setTheme] = useState<ThemeName>('dark')
@@ -24,7 +26,11 @@ function App() {
 
   return (
     <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch checked={theme === 'dark'} onClick={() => toggleTheme() } />
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
+        label="Dark mode"
+      />
 
       <Title type='h1'>Click UI Example</Title>
       <Text>Welcome to Click UI. Get started here.</Text>
