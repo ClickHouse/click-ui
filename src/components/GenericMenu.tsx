@@ -101,7 +101,13 @@ export const GenericMenuItem = styled.div<{ $type?: "default" | "danger" }>`
       color:${theme.click.genericMenu.item.color[colorKey].text.hover};
       cursor: pointer;
     }
-    &[data-state="open"], &[data-state="checked"], &[data-selected="true"]  {
+    &[data-state="open"] {
+      background:${theme.click.genericMenu.item.color[colorKey].background.hover};
+      color:${theme.click.genericMenu.item.color[colorKey].text.hover};
+      font: ${theme.click.genericMenu.item.typography.label.hover};
+      cursor: pointer;
+    }
+    &[data-state="checked"], &[data-selected="true"]  {
       background:${theme.click.genericMenu.item.color[colorKey].background.active};
       color:${theme.click.genericMenu.item.color[colorKey].text.active};
       font: ${theme.click.genericMenu.item.typography.label.active};

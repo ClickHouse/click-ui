@@ -14,20 +14,6 @@ const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: "default" | "danger" 
   position: relative;
   display: flex;
   min-height: 32px;
-  &[data-state="open"] {
-    ${({ theme, $type = "default" }) => {
-      const colorGroup =
-        theme?.click?.genericMenu?.item?.color?.[$type] ||
-        theme?.click?.genericMenu?.item?.color?.default;
-      if (!colorGroup || !theme?.click?.genericMenu?.item?.typography) return "";
-      return `
-      font: ${theme.click.genericMenu.item.typography.label.hover};
-      background: ${colorGroup.background.hover};
-      color: ${colorGroup.text.hover};
-      cursor: pointer;
-    `;
-    }}
-  }
 `;
 
 interface SubDropdownProps {
