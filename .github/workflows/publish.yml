@@ -60,15 +60,15 @@ jobs:
       - run: yarn build
       - name: Configure Yarn npm auth
         run: |
-          yarn config set npmAuthToken $NODE_AUTH_TOKEN
+          yarn config set 'npmRegistries["https://registry.npmjs.org"].npmAuthToken' "$NODE_AUTH_TOKEN"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Verify auth configuration
         run: |
-          yarn config get npmAuthToken
-          echo "Token is set: $(if [ -n "$YARN_NPM_AUTH_TOKEN" ]; then echo 'YES'; else echo 'NO'; fi)"
+          yarn config get 'npmRegistries["https://registry.npmjs.org"].npmAuthToken' | head -c 20
+          echo "... (token truncated)"
         env:
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Determine npm tag
         run: |
           if [[ "$GITHUB_TAG" == *"beta"* ]] || [[ "$GITHUB_TAG" == *"alpha"* ]] || [[ "$GITHUB_TAG" == *"rc"* ]]; then
