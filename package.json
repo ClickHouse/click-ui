@@ -40,7 +40,7 @@
     "chromatic": "npx chromatic",
     "dev": "vite",
     "generate-tokens": "node build-tokens.js",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "prettify": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "preview": "vite preview",
