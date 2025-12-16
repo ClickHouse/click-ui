@@ -54,4 +54,6 @@ export type LogoName =
   | "warpstream"
   | "cloudflare"
   | "databricks"
-  | "mariadb";
+  | "mariadb"
+  | "onelake"
+  | "nessie";
