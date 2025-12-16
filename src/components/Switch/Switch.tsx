@@ -1,4 +1,4 @@
-import { Theme } from "@/styles/types";
+import { Theme } from "@/theme/tokens/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import { ReactNode, forwardRef, useId } from "react";
 import { DefaultTheme, styled } from "styled-components";
