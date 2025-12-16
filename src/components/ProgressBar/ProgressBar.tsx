@@ -2,8 +2,10 @@ import { HTMLAttributes, ReactNode } from "react";
 import { styled } from "styled-components";
 import { IconButton } from "@/components";
 
-interface CommonProgressBarProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface CommonProgressBarProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   /** The current progress value (0-100) */
   progress: number;
   /** Optional label to display */

@@ -85,8 +85,10 @@ export const MultiAccordion = ({
     </AccordionRoot>
   );
 };
-interface MultiAccordionItemProps
-  extends Omit<RadixAccordion.AccordionItemProps, "title"> {
+interface MultiAccordionItemProps extends Omit<
+  RadixAccordion.AccordionItemProps,
+  "title"
+> {
   /** The title text or element displayed in the accordion item header */
   title: ReactNode;
   /** The color variant of the item */

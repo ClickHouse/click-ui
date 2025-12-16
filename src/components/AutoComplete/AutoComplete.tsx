@@ -32,8 +32,10 @@ import { getTextFromNodes } from "@/lib/getTextFromNodes";
 import AutoCompleteOptionList from "./AutoCompleteOptionList";
 
 type DivProps = HTMLAttributes<HTMLDivElement>;
-interface SelectItemComponentProps
-  extends Omit<DivProps, "disabled" | "onSelect" | "value" | "children"> {
+interface SelectItemComponentProps extends Omit<
+  DivProps,
+  "disabled" | "onSelect" | "value" | "children"
+> {
   separator?: boolean;
   disabled?: boolean;
   onSelect?: (value: string) => void;
@@ -51,8 +53,10 @@ type SelectItemLabel = {
   children?: never;
   label: ReactNode;
 };
-export interface SelectGroupProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "heading"> {
+export interface SelectGroupProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "heading"
+> {
   heading: ReactNode;
   value?: never;
   onSelect?: never;
@@ -86,8 +90,7 @@ type SelectChildrenType = {
 type SelectOptionProp = SelectOptionType | SelectChildrenType;
 
 interface Props
-  extends PopoverProps,
-    Omit<DivProps, "onChange" | "dir" | "onSelect" | "children"> {
+  extends PopoverProps, Omit<DivProps, "onChange" | "dir" | "onSelect" | "children"> {
   onSelect?: (value: string) => void;
   value?: string;
   placeholder?: string;
