@@ -245,7 +245,6 @@ export const CardHorizontal = ({
       return;
     }
 
-    MouseEvent;
     if (typeof onButtonClick === "function") {
       onButtonClick(e);
     }

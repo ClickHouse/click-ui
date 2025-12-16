@@ -69,7 +69,9 @@ export const ConfirmationDialog = ({
     <Dialog
       open={open}
       onOpenChange={(open: boolean) => {
-        !open && onCancel && onCancel();
+        if (!open && onCancel) {
+          onCancel();
+        }
       }}
     >
       <DialogContent
