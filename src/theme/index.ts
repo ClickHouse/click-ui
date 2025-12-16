@@ -5,7 +5,9 @@ import * as lightTheme from "../styles/variables.light.json";
 import * as theme from "../styles/variables.json";
 import { useTheme } from "styled-components";
 
-export const themes: Record<ThemeName, Theme> = {
+type ActiveThemeName = "dark" | "light";
+
+export const themes: Record<ActiveThemeName, Theme> = {
   dark: merge({}, theme, darkTheme),
   light: merge({}, theme, lightTheme),
 };
@@ -13,7 +15,7 @@ export const themes: Record<ThemeName, Theme> = {
 /**
  * @deprecated The 'classic' theme has been removed and will fallback to 'light'. Please use 'light' or 'dark' instead.
  */
-type ThemeName = "dark" | "light" | "classic";
+type ThemeName = ActiveThemeName | "classic";
 
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
