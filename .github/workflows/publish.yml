@@ -58,12 +58,6 @@ jobs:
         run: yarn install --immutable
       - run: yarn test
       - run: yarn build
-      - name: Configure npm authentication
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          yarn config set npmRegistries.//registry.npmjs.org/.npmAuthToken "${NODE_AUTH_TOKEN}"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Determine npm tag
         run: |
           if [[ "$GITHUB_TAG" == *"beta"* ]] || [[ "$GITHUB_TAG" == *"alpha"* ]] || [[ "$GITHUB_TAG" == *"rc"* ]]; then
