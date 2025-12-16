@@ -8,29 +8,38 @@ on:
         description: 'Release tag'
         required: true
         type: string
+      branch:
+        description: 'Branch to deploy from'
+        required: false
+        default: 'main'
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Set tag from input
+      - name: Set tag from input (manual trigger)
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "GITHUB_TAG=${{ github.event.inputs.tag }}" >> "$GITHUB_ENV"
-      - name: Set tag from REF
+      - name: Set tag from release (automatic trigger)
         if: github.event_name == 'release'
         run: |
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
-      - name: Checkout repository on release
+      - name: Checkout repository (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          token: ${{secrets.PAT_TOKEN}}
+          fetch-depth: 0
+      - name: Checkout repository (automatic release)
         if: github.event_name == 'release'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.target_commitish }}
           token: ${{secrets.PAT_TOKEN}}
           fetch-depth: 0
-      - name: Checkout repository on workflow_dispatch
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v4
       - name: Set up Git
         run: |
           git config user.email "actions@clickhouse.com"
@@ -49,7 +58,19 @@ jobs:
         run: yarn install --immutable
       - run: yarn test
       - run: yarn build
-      - run: yarn publish --access public
+      - name: Configure npm authentication
+        run: |
+          yarn config set npmAuthToken $NODE_AUTH_TOKEN
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+      - name: Determine npm tag
+        run: |
+          if [[ "$GITHUB_TAG" == *"beta"* ]] || [[ "$GITHUB_TAG" == *"alpha"* ]] || [[ "$GITHUB_TAG" == *"rc"* ]]; then
+            echo "NPM_TAG=beta" >> "$GITHUB_ENV"
+          else
+            echo "NPM_TAG=latest" >> "$GITHUB_ENV"
+          fi
+      - run: yarn publish --access public --tag $NPM_TAG
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: update package version
@@ -57,7 +78,7 @@ jobs:
           git add package.json yarn.lock
           git commit -m 'bump version to ${{ env.GITHUB_TAG }}'
           git push
-      - name: Set tag from input
+      - name: Create and push git tag (manual trigger only)
         if: github.event_name == 'workflow_dispatch'
         run: |
           git tag $GITHUB_TAG
