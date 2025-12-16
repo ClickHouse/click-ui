@@ -17,7 +17,7 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
 
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
-  const Component = ["light", "classic"].includes(theme ?? themeName)
+  const Component = (theme ?? themeName) === "light"
     ? LogosLight[name]
     : LogosDark[name];
 
