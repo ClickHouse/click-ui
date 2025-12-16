@@ -49,7 +49,7 @@ jobs:
         run: yarn install --immutable
       - run: yarn test
       - run: yarn build
-      - run: yarn npm publish --access public
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: update package version
@@ -63,4 +63,4 @@ jobs:
           git tag $GITHUB_TAG
           git push origin $GITHUB_TAG
 
-      
+
