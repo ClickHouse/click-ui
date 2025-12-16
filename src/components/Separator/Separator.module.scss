@@ -1,0 +1,55 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSeparator {
+  // Orientation variants - using :where() for low specificity
+  @include variants.variant('cuiHorizontal') {
+    width: 100%;
+    border-top: 0.0625rem solid var(--click-separator-color-stroke-default);
+
+    // Size variations for horizontal orientation
+    @include variants.variant('cuiSizeXs') {
+      margin: var(--click-separator-horizontal-space-y-xs) var(--click-separator-horizontal-space-x-all);
+    }
+    @include variants.variant('cuiSizeSm') {
+      margin: var(--click-separator-horizontal-space-y-sm) var(--click-separator-horizontal-space-x-all);
+    }
+    @include variants.variant('cuiSizeMd') {
+      margin: var(--click-separator-horizontal-space-y-md) var(--click-separator-horizontal-space-x-all);
+    }
+    @include variants.variant('cuiSizeLg') {
+      margin: var(--click-separator-horizontal-space-y-lg) var(--click-separator-horizontal-space-x-all);
+    }
+    @include variants.variant('cuiSizeXl') {
+      margin: var(--click-separator-horizontal-space-y-xl) var(--click-separator-horizontal-space-x-all);
+    }
+    @include variants.variant('cuiSizeXxl') {
+      margin: var(--click-separator-horizontal-space-y-xxl) var(--click-separator-horizontal-space-x-all);
+    }
+  }
+
+  @include variants.variant('cuiVertical') {
+    height: 100%;
+    border-right: 0.0625rem solid var(--click-separator-color-stroke-default);
+
+    // Size variations for vertical orientation
+    @include variants.variant('cuiSizeXs') {
+      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xs);
+    }
+    @include variants.variant('cuiSizeSm') {
+      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-sm);
+    }
+    @include variants.variant('cuiSizeMd') {
+      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-md);
+    }
+    @include variants.variant('cuiSizeLg') {
+      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-lg);
+    }
+    @include variants.variant('cuiSizeXl') {
+      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xl);
+    }
+    @include variants.variant('cuiSizeXxl') {
+      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xxl);
+    }
+  }
+}

@@ -1,0 +1,427 @@
+// Common SCSS mixins for Click UI components
+
+// Button mixins
+@mixin cuiButtonBase {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--click-button-basic-radii-default);
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--click-button-basic-transitions-all);
+  white-space: nowrap;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+@mixin cuiButtonSize($size) {
+  padding: var(--click-button-basic-#{$size}-space-y) var(--click-button-basic-#{$size}-space-x);
+  gap: var(--click-button-basic-#{$size}-space-gap);
+  font: var(--click-button-basic-#{$size}-typography-default);
+  min-height: var(--click-button-basic-#{$size}-size-height);
+}
+
+@mixin cuiButtonType($type, $state: "default") {
+  background-color: var(--click-button-basic-#{$type}-color-background-#{$state});
+  color: var(--click-button-basic-#{$type}-color-text-#{$state});
+  border: var(--click-button-basic-#{$type}-stroke-#{$state}) solid
+    var(--click-button-basic-#{$type}-color-stroke-#{$state});
+}
+
+// Container mixins
+@mixin cuiContainerBase {
+  display: flex;
+  box-sizing: border-box;
+}
+
+@mixin cuiContainerOrientation($orientation) {
+  @if $orientation == "horizontal" {
+    flex-direction: row;
+  } @else if $orientation == "vertical" {
+    flex-direction: column;
+  }
+}
+
+@mixin cuiContainerGap($gap) {
+  gap: var(--click-container-gap-#{$gap});
+}
+
+@mixin cuiContainerPadding($padding) {
+  padding: var(--click-container-padding-#{$padding});
+}
+
+/* Full-width stretch mixin - cross-browser support for width: stretch */
+@mixin cuiFullWidthStretch {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+}
+
+/* Full max-width stretch mixin - cross-browser support for max-width: stretch */
+@mixin cuiFullMaxWidthStretch {
+  max-width: 100%;
+  max-width: -moz-available;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+}
+
+/* Interactive container base - for clickable/hoverable items */
+@mixin cuiInteractiveContainer {
+  cursor: pointer;
+  pointer-events: all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Sidebar item base - common styles for sidebar navigation items */
+@mixin cuiSidebarItemBase {
+  display: flex;
+  align-items: center;
+  border: none;
+  @include cuiFullWidthStretch;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+// Form root mixin - base styles for form field containers
+@mixin cuiFormRoot($align: flex-start, $maxWidth: null) {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  gap: var(--click-field-space-gap);
+  align-items: $align;
+
+  @if $maxWidth {
+    max-width: $maxWidth;
+  }
+
+  /* Reset box-shadow and outline for all children */
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// Card mixins
+@mixin cuiCardBase {
+  display: flex;
+  border-radius: var(--click-card-radii-all);
+  background: var(--click-card-color-background-default);
+  border: var(--click-card-stroke-default) solid var(--click-card-color-stroke-default);
+  transition: var(--click-card-transitions-all);
+}
+
+@mixin cuiCardState($color, $state) {
+  background: var(--click-card-#{$color}-color-background-#{$state});
+  color: var(--click-card-#{$color}-color-title-#{$state});
+  border-color: var(--click-card-#{$color}-color-stroke-#{$state});
+}
+
+/* Input mixins - for custom input styling using click.input tokens */
+@mixin cuiInputBase {
+  display: flex;
+  align-items: center;
+  border-radius: var(--click-input-radii-default);
+  border: var(--click-input-stroke-default) solid var(--click-input-color-stroke-default);
+  background: var(--click-input-color-background-default);
+  transition: var(--click-input-transitions-all);
+  font: var(--click-input-typography-default);
+  color: var(--click-input-color-text-default);
+
+  &:focus-within {
+    border-color: var(--click-input-color-stroke-focus);
+    background: var(--click-input-color-background-focus);
+    color: var(--click-input-color-text-focus);
+  }
+
+  &:hover:not(:focus-within) {
+    border-color: var(--click-input-color-stroke-hover);
+    background: var(--click-input-color-background-hover);
+    color: var(--click-input-color-text-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    border-color: var(--click-input-color-stroke-disabled);
+    background: var(--click-input-color-background-disabled);
+    color: var(--click-input-color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+@mixin cuiInputSize($size) {
+  padding: var(--click-input-#{$size}-space-y) var(--click-input-#{$size}-space-x);
+  gap: var(--click-input-#{$size}-space-gap);
+  min-height: var(--click-input-#{$size}-size-height);
+}
+
+@mixin cuiInputState($state) {
+  border-color: var(--click-input-color-stroke-#{$state});
+  background: var(--click-input-color-background-#{$state});
+  color: var(--click-input-color-text-#{$state});
+}
+
+/* Input element mixin - for the actual input element inside wrapper */
+@mixin cuiInputElement {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  padding: var(--click-field-space-y) 0;
+
+  &::placeholder {
+    color: var(--click-field-color-placeholder-default);
+  }
+
+  &:disabled,
+  &.disabled {
+    &::placeholder {
+      color: var(--click-field-color-placeholder-disabled);
+    }
+  }
+}
+
+/* Generic menu item mixin - for menu items in ContextMenu, DropdownMenu, etc. */
+@mixin cuiGenericMenuItem {
+  display: flex;
+  @include cuiFullWidthStretch;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  outline: none;
+  position: relative;
+
+  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+  gap: var(--click-genericMenu-item-space-gap);
+  font: var(--click-genericMenu-item-typography-label-default);
+  background: var(--click-genericMenu-item-color-background-default);
+  color: var(--click-genericMenu-item-color-text-default);
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[data-highlighted] {
+    font: var(--click-genericMenu-item-typography-label-hover);
+    background: var(--click-genericMenu-item-color-background-hover);
+    color: var(--click-genericMenu-item-color-text-hover);
+    cursor: pointer;
+  }
+
+  &[data-state="open"],
+  &[data-state="checked"],
+  &[data-selected="true"] {
+    background: var(--click-genericMenu-item-color-background-active);
+    color: var(--click-genericMenu-item-color-text-active);
+    font: var(--click-genericMenu-item-typography-label-active);
+  }
+
+  &[data-disabled] {
+    color: var(--click-genericMenu-item-color-text-disabled);
+    font: var(--click-genericMenu-item-typography-label-disabled);
+    pointer-events: none;
+  }
+
+  &:visited {
+    color: var(--click-genericMenu-item-color-text-default);
+
+    a {
+      color: var(--click-genericMenu-item-color-text-default);
+    }
+  }
+
+  &:hover .dropdown-arrow,
+  &[data-state="open"] .dropdown-arrow {
+    left: 0.5rem;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Typography mixins
+@mixin cuiTextStyle($size) {
+  font: var(--typography-styles-text-#{$size});
+  color: var(--global-color-text-default);
+  margin: 0;
+}
+
+@mixin cuiTitleStyle($size) {
+  font: var(--typography-styles-titles-#{$size});
+  color: var(--global-color-text-default);
+  margin: 0;
+}
+
+// Icon mixins
+@mixin cuiIconSize($size) {
+  width: var(--click-image-#{$size}-size-width);
+  height: var(--click-image-#{$size}-size-height);
+}
+
+@mixin cuiIconColor($color) {
+  color: var(--click-icon-color-text-#{$color});
+}
+
+// Grid mixins
+@mixin cuiGridCellBase {
+  display: block;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@mixin cuiGridCellType($type, $selection: "default") {
+  background: var(--click-grid-#{$type}-cell-color-background-#{$selection});
+  color: var(--click-grid-#{$type}-cell-color-text-#{$selection});
+  font: var(--click-grid-cell-text-default);
+  padding: var(--click-grid-#{$type}-cell-space-y) var(--click-grid-#{$type}-cell-space-x);
+  border: 1px solid var(--click-grid-#{$type}-cell-color-stroke-default);
+}
+
+// Empty button mixin (for unstyled buttons)
+@mixin cuiEmptyButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// Base button mixin (for styled buttons with common base styles)
+@mixin cuiBaseButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  border-radius: var(--click-button-radii-all);
+  gap: var(--click-button-basic-space-gap);
+  font: var(--click-button-basic-typography-label-default);
+
+  &:hover {
+    font: var(--click-button-basic-typography-label-hover);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    font: var(--click-button-basic-typography-label-active);
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    font: var(--click-button-basic-typography-label-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// Accordion mixins
+@mixin cuiAccordionTriggerBase {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin cuiAccordionTriggerSize($size, $color: "default") {
+  gap: var(--click-accordion-#{$size}-space-gap);
+  color: var(--click-accordion-color-#{$color}-label-default);
+  font: var(--click-accordion-#{$size}-typography-label-default);
+
+  &:active {
+    color: var(--click-accordion-color-#{$color}-label-active);
+    font: var(--click-accordion-#{$size}-typography-label-active);
+  }
+
+  &:hover {
+    color: var(--click-accordion-color-#{$color}-label-hover);
+    font: var(--click-accordion-#{$size}-typography-label-hover);
+  }
+}
+
+// Utility mixins
+@mixin cuiFlexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin cuiAbsoluteFill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin cuiVisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Responsive mixins
+@mixin cuiMobile {
+  @media (max-width: var(--breakpoint-sizes-md)) {
+    @content;
+  }
+}
+
+@mixin cuiTablet {
+  @media (min-width: var(--breakpoint-sizes-md)) and (max-width: var(--breakpoint-sizes-lg)) {
+    @content;
+  }
+}
+
+@mixin cuiDesktop {
+  @media (min-width: var(--breakpoint-sizes-lg)) {
+    @content;
+  }
+}
