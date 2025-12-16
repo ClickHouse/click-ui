@@ -5,10 +5,10 @@ import StyleDictionary from "style-dictionary";
 registerTransforms(StyleDictionary);
 const themes = ["dark", "light"];
 
-function generateThemeFromDictionary(dictionary, valueFunc = (value) => value) {
+function generateThemeFromDictionary(dictionary, valueFunc = value => value) {
   const theme = {};
-  dictionary.allTokens.forEach((token) => {
-    _.setWith(theme, token.name, valueFunc(token.value), Object)
+  dictionary.allTokens.forEach(token => {
+    _.setWith(theme, token.name, valueFunc(token.value), Object);
   });
   return theme;
 }
@@ -22,7 +22,7 @@ StyleDictionary.registerTransform({
     } else {
       return token.path.join(".");
     }
-  }
+  },
 });
 
 StyleDictionary.registerFormat({
@@ -30,42 +30,29 @@ StyleDictionary.registerFormat({
   formatter: function ({ dictionary, platform, options, file }) {
     const theme = generateThemeFromDictionary(dictionary);
     return JSON.stringify(theme, null, 2);
-  }
+  },
 });
 
 StyleDictionary.registerFormat({
   name: "TypescriptFormat",
   formatter: function ({ dictionary, platform, options, file }) {
-    const theme = generateThemeFromDictionary(dictionary, (value) => typeof value);
+    const theme = generateThemeFromDictionary(dictionary, value => typeof value);
 
     // Convert the theme object to a TypeScript interface string
     // Prettier will format this automatically via the generate-tokens script
     let jsonString = JSON.stringify(theme, null, 2);
 
     // Replace type strings with TypeScript types
-    jsonString = jsonString.replaceAll('"string"', 'string');
-    jsonString = jsonString.replaceAll('"number"', 'number');
+    jsonString = jsonString.replaceAll('"string"', "string");
+    jsonString = jsonString.replaceAll('"number"', "number");
 
     return `export interface Theme ${jsonString}\n`;
-  }
+  },
 });
 
 StyleDictionary.extend({
   source: [`./tokens/**/!(${themes.join("|*.")}).json`],
   platforms: {
-    css: {
-      transforms: [...transforms, "name/cti/kebab"],
-      buildPath: "build/css/",
-      files: [
-        {
-          destination: "variables.css",
-          format: "css/variables",
-          options: {
-            outputReferences: true,
-          },
-        },
-      ],
-    },
     js: {
       transforms: [...transforms, "name/cti/dot"],
       buildPath: "src/theme/tokens/",
@@ -102,20 +89,6 @@ themes.forEach(theme =>
     include: [`./tokens/**/!(${themes.join("|*.")}).json`],
     source: [`./tokens/**/${theme}.json`],
     platforms: {
-      css: {
-        transforms: [...transforms, "name/cti/kebab"],
-        buildPath: "build/css/",
-        files: [
-          {
-            destination: `variables.${theme}.css`,
-            format: "css/variables",
-            filter: token => token.filePath.indexOf(`${theme}`) > -1,
-            options: {
-              outputReferences: true,
-            },
-          },
-        ],
-      },
       js: {
         transforms: [...transforms, "name/cti/dot"],
         buildPath: "src/theme/tokens/",
