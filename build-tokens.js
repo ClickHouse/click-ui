@@ -38,9 +38,15 @@ StyleDictionary.registerFormat({
   formatter: function ({ dictionary, platform, options, file }) {
     const theme = generateThemeFromDictionary(dictionary, (value) => typeof value);
 
-    return `
-      export interface Theme ${JSON.stringify(theme, null, 2).replaceAll("\"string\"", "string").replaceAll("\"number\"", "number")}
-    `
+    // Convert the theme object to a TypeScript interface string
+    // Prettier will format this automatically via the generate-tokens script
+    let jsonString = JSON.stringify(theme, null, 2);
+
+    // Replace type strings with TypeScript types
+    jsonString = jsonString.replaceAll('"string"', 'string');
+    jsonString = jsonString.replaceAll('"number"', 'number');
+
+    return `export interface Theme ${jsonString}\n`;
   }
 });
 
@@ -62,7 +68,7 @@ StyleDictionary.extend({
     },
     js: {
       transforms: [...transforms, "name/cti/dot"],
-      buildPath: "src/styles/",
+      buildPath: "src/theme/tokens/",
       files: [
         {
           destination: "variables.json",
@@ -75,7 +81,7 @@ StyleDictionary.extend({
     },
     ts: {
       transforms: [...transforms, "name/cti/dot"],
-      buildPath: "src/styles/",
+      buildPath: "src/theme/tokens/",
       files: [
         {
           destination: "types.ts",
@@ -112,7 +118,7 @@ themes.forEach(theme =>
       },
       js: {
         transforms: [...transforms, "name/cti/dot"],
-        buildPath: "src/styles/",
+        buildPath: "src/theme/tokens/",
         files: [
           {
             destination: `variables.${theme}.json`,

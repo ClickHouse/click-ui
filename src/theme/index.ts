@@ -12,9 +12,7 @@ export const themes: Record<ActiveThemeName, Theme> = {
   light: merge({}, theme, lightTheme),
 };
 
-/**
- * @deprecated The 'classic' theme has been removed and will fallback to 'light'. Please use 'light' or 'dark' instead.
- */
+// Note: "classic" theme is deprecated and will fallback to "light" with a console warning
 type ThemeName = ActiveThemeName | "classic";
 
 declare module "styled-components" {
