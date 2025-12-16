@@ -4,6 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import preferArrowFunctions from "eslint-plugin-prefer-arrow-functions";
 import storybook from "eslint-plugin-storybook";
+import globals from "globals";
 
 export default tseslint.config(
   {
@@ -23,8 +24,8 @@ export default tseslint.config(
         },
       },
       globals: {
-        browser: true,
-        es2020: true,
+        ...globals.browser,
+        ...globals.es2020,
       },
     },
     plugins: {
