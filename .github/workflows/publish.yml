@@ -60,7 +60,7 @@ jobs:
       - run: yarn build
       - name: Configure npm authentication
         run: |
-          yarn config set npmAuthToken $NODE_AUTH_TOKEN
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Determine npm tag
