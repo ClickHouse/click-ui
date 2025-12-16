@@ -44,7 +44,7 @@
     "prettify": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "preview": "vite preview",
-    "publish:click-ui": "yarn test && yarn build && yarn publish",
+    "publish:click-ui": "yarn test && yarn build && yarn npm publish",
     "storybook": "storybook dev -p 6006",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
@@ -133,5 +133,5 @@
     "@types/react": "18.3.2",
     "@types/react-dom": "18.3.0"
   },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  "packageManager": "yarn@4.5.3"
 }

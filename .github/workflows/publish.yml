@@ -61,6 +61,7 @@ jobs:
       - name: Configure npm authentication
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          yarn config set npmRegistries.//registry.npmjs.org/.npmAuthToken "${NODE_AUTH_TOKEN}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: Determine npm tag
@@ -70,9 +71,11 @@ jobs:
           else
             echo "NPM_TAG=latest" >> "$GITHUB_ENV"
           fi
-      - run: yarn publish --access public --tag $NPM_TAG
+      - run: yarn npm publish --access public --tag $NPM_TAG
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
       - name: update package version
         run: |
           git add package.json yarn.lock
