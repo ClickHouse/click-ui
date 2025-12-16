@@ -3,7 +3,8 @@ import { TextAreaElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
 export interface TextAreaFieldProps
-  extends Omit<WrapperProps, "id" | "children">,
+  extends
+    Omit<WrapperProps, "id" | "children">,
     Omit<
       TextareaHTMLAttributes<HTMLTextAreaElement>,
       "children" | "type" | "value" | "onChange" | "dir"

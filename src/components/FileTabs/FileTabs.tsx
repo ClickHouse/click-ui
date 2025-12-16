@@ -80,8 +80,10 @@ export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, "chil
   /** Whether the tab is in preview mode (italic text) */
   preview?: boolean;
 }
-export interface FileTabsProps
-  extends Omit<ReactSortableProps<ItemInterface>, "onSelect" | "list" | "setList"> {
+export interface FileTabsProps extends Omit<
+  ReactSortableProps<ItemInterface>,
+  "onSelect" | "list" | "setList"
+> {
   /** Index of the currently selected tab */
   selectedIndex?: number;
   /** The tab elements to render */

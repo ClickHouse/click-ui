@@ -29,8 +29,7 @@ type SubMenu = Omit<MenuItem, "type" | "items"> & {
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
 export interface SplitButtonProps
-  extends DropdownMenuProps,
-    Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
+  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */

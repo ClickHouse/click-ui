@@ -48,19 +48,18 @@ const ScrollableHeaderContainer = styled.div<{
   left: ${({ $left }) => $left}px;
 `;
 
-interface ColumnProps
-  extends Pick<
-    HeaderProps,
-    | "cell"
-    | "getSelectionType"
-    | "onColumnResize"
-    | "getColumnWidth"
-    | "height"
-    | "getResizerPosition"
-    | "showBorder"
-    | "getColumnHorizontalPosition"
-    | "resizingState"
-  > {
+interface ColumnProps extends Pick<
+  HeaderProps,
+  | "cell"
+  | "getSelectionType"
+  | "onColumnResize"
+  | "getColumnWidth"
+  | "height"
+  | "getResizerPosition"
+  | "showBorder"
+  | "getColumnHorizontalPosition"
+  | "resizingState"
+> {
   columnIndex: number;
   isFirstColumn: boolean;
   isLastColumn: boolean;

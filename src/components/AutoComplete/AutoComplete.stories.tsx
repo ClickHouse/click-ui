@@ -3,8 +3,10 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
 import { selectOptions } from "../Select/selectOptions";
 
-interface AutoCompleteExampleProps
-  extends Omit<AutoCompleteProps, "options" | "children"> {
+interface AutoCompleteExampleProps extends Omit<
+  AutoCompleteProps,
+  "options" | "children"
+> {
   childrenType: "children" | "options";
 }
 

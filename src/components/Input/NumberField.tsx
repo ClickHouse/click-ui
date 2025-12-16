@@ -2,7 +2,8 @@ import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
 import { Icon } from "@/components";
 import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";
 export interface NumberFieldProps
-  extends Omit<WrapperProps, "id" | "children">,
+  extends
+    Omit<WrapperProps, "id" | "children">,
     Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "dir"> {
   /** The input type - always number for NumberField */
   type?: "number";

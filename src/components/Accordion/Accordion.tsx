@@ -9,7 +9,8 @@ type Gap = "sm" | "md" | "lg";
 type Color = "default" | "link";
 
 export interface AccordionProps
-  extends SizeProp,
+  extends
+    SizeProp,
     Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible" | "title"> {
   /** The title text or element displayed in the accordion header */
   title: ReactNode;
