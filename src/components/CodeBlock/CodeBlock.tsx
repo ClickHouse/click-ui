@@ -46,7 +46,7 @@ const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   width: stretch;
   position: relative;
   ${({ theme, $theme }) => {
-    const themeName = (theme.name !== "classic" ? theme.name : "light") as CodeThemeType;
+    const themeName = theme.name as CodeThemeType;
 
     const codeTheme = theme.click.codeblock[`${!$theme ? themeName : $theme}Mode`].color;
     return `

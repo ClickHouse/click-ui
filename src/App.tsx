@@ -578,14 +578,6 @@ const App = () => {
         >
           Light
         </button>
-        <button
-          onClick={() => {
-            document.body.style.backgroundColor = "white";
-            setCurrentTheme("classic");
-          }}
-        >
-          Classic
-        </button>
 
         <Button
           type="primary"

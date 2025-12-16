@@ -5,7 +5,7 @@ import {
 import { ToastProvider, ToastProviderProps } from "@/components/Toast/Toast";
 import { ThemeName } from "@/theme";
 import { ThemeProvider } from "@/theme/theme";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface Props {
   config?: {
@@ -18,8 +18,19 @@ interface Props {
 
 const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
   const { toast = {}, tooltip = {} } = config;
+
+  useEffect(() => {
+    if (theme === "classic") {
+      console.warn(
+        "[Click UI] The 'classic' theme has been removed. Please use 'light' or 'dark' theme instead. Falling back to 'light' theme."
+      );
+    }
+  }, [theme]);
+
+  const safeTheme = theme === "classic" ? "light" : theme;
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={safeTheme}>
       <ToastProvider {...toast}>
         <TooltipProvider {...tooltip}>{children}</TooltipProvider>
       </ToastProvider>

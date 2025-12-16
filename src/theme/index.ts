@@ -1,17 +1,21 @@
 import { Theme } from "../styles/types";
 import merge from "lodash/merge";
-import * as classicTheme from "../styles/variables.classic.json";
 import * as darkTheme from "../styles/variables.dark.json";
 import * as lightTheme from "../styles/variables.light.json";
 import * as theme from "../styles/variables.json";
 import { useTheme } from "styled-components";
 
-export const themes: Record<ThemeName, Theme> = {
+type ActiveThemeName = "dark" | "light";
+
+export const themes: Record<ActiveThemeName, Theme> = {
   dark: merge({}, theme, darkTheme),
   light: merge({}, theme, lightTheme),
-  classic: merge({}, theme, classicTheme),
 };
-type ThemeName = "dark" | "light" | "classic";
+
+/**
+ * @deprecated The 'classic' theme has been removed and will fallback to 'light'. Please use 'light' or 'dark' instead.
+ */
+type ThemeName = ActiveThemeName | "classic";
 
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {}

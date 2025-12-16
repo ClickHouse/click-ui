@@ -17,11 +17,15 @@ const ThemeProvider = ({
 }: {
   theme: ThemeName;
   children: React.ReactNode;
-}) => (
-  <StyledThemeProvider theme={themes[name]}>
-    <GlobalStyle />
-    {children}
-  </StyledThemeProvider>
-);
+}) => {
+  // Handle fallback for deprecated "classic" theme
+  const resolvedTheme = name === "classic" ? "light" : name;
+  return (
+    <StyledThemeProvider theme={themes[resolvedTheme]}>
+      <GlobalStyle />
+      {children}
+    </StyledThemeProvider>
+  );
+};
 
 export { ThemeProvider };

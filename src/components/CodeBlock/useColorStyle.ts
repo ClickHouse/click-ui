@@ -3,9 +3,7 @@ import { CodeThemeType } from "./CodeBlock";
 
 const useColorStyle = (defaultTheme?: CodeThemeType) => {
   const theme = useTheme();
-  const inheritedThemeName = (
-    theme.name !== "classic" ? theme.name : "light"
-  ) as CodeThemeType;
+  const inheritedThemeName = theme.name as CodeThemeType;
   const themeName = !defaultTheme ? inheritedThemeName : defaultTheme;
   const codeTheme = theme.click.codeblock[`${themeName}Mode`].color;
 
