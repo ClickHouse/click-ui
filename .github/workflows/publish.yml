@@ -77,8 +77,12 @@ jobs:
           rm -f ~/.npmrc .npmrc
           npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
           # Verify OIDC token is available
+          echo "Checking OIDC environment..."
+          echo "npm version: $(npm --version)"
           if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
             echo "✓ OIDC token request URL is available"
+            echo "✓ ACTIONS_ID_TOKEN_REQUEST_URL is set"
+            echo "✓ ACTIONS_ID_TOKEN_REQUEST_TOKEN is set: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo 'yes' || echo 'no')"
           else
             echo "✗ OIDC token request URL is NOT available - check permissions"
           fi
@@ -102,7 +106,10 @@ jobs:
             echo "NPM_TAG=$GITHUB_TAG" >> "$GITHUB_ENV"
           fi
       - name: Publish to npm with OIDC
-        run: npm publish --access public --tag $NPM_TAG --provenance
+        run: |
+          echo "Publishing version: $(node -p "require('./package.json').version")"
+          echo "Publishing to tag: $NPM_TAG"
+          npm publish --access public --tag $NPM_TAG --provenance
       - name: update package version (for version inputs only)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
