@@ -24,6 +24,11 @@ const MIGRATED_COMPONENTS = [
   // Example: 'button', 'card', 'input', etc.
 ];
 
+// Always include these variables regardless of component migration
+const ALWAYS_INCLUDE = [
+  'storybook', // Storybook theme variables for preview
+];
+
 // Read the full CSS file
 const cssPath = join(__dirname, '../src/styles/cui-default-theme.css');
 const fullCSS = readFileSync(cssPath, 'utf-8');
@@ -53,7 +58,13 @@ for (let i = 0; i < lines.length; i++) {
       return line.includes(pattern);
     });
 
-    if (isRelevantVariable) {
+    // Check if this line contains an always-include variable
+    const isAlwaysIncluded = ALWAYS_INCLUDE.some(prefix => {
+      const pattern = `--click-${prefix}`;
+      return line.includes(pattern);
+    });
+
+    if (isRelevantVariable || isAlwaysIncluded) {
       filteredLines.push(line);
       foundVariables = true;
     }
@@ -89,6 +100,7 @@ const variableCount = filteredLines.filter(line => line.includes('--click-')).le
 
 console.log('✅ Generated filtered SCSS theme CSS');
 console.log(`📦 Migrated components: ${MIGRATED_COMPONENTS.join(', ')}`);
+console.log(`🔧 Always included: ${ALWAYS_INCLUDE.join(', ')}`);
 console.log(`🎯 Variables included: ${variableCount}`);
 console.log(`📁 Output: ${outputPath}`);
 

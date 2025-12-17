@@ -13,13 +13,22 @@ interface ThemeBlockProps {
   children: React.ReactNode;
 }
 
-const ThemeBlock: React.FC<ThemeBlockProps> = ({ left, fill, children }) => (
+const ThemeBlock: React.FC<ThemeBlockProps & { theme?: string }> = ({
+  left,
+  fill,
+  theme = "light",
+  children
+}) => (
   <div
     className={clsx(styles.cuiThemeBlock, {
       [styles.cuiLeft]: left || fill,
       [styles.cuiRight]: !left && !fill,
       [styles.cuiFill]: fill,
     })}
+    style={{
+      // Set color-scheme to make light-dark() CSS function work
+      colorScheme: theme,
+    }}
   >
     {children}
   </div>
@@ -54,7 +63,7 @@ const withTheme: Decorator = (StoryFn, context) => {
         toast: { duration: 3000 },
       }}
     >
-      <ThemeBlock fill>
+      <ThemeBlock fill theme={theme}>
         <StoryFn />
       </ThemeBlock>
     </ClickUIProvider>

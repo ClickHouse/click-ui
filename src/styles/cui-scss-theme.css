@@ -38,6 +38,7 @@
   --click-spacer-horizontal-space-y-xl: 1.5rem;
   --click-spacer-horizontal-space-y-xxl: 2rem;
   --click-spacer-horizontal-space-x-all: 0;
+  --click-storybook-global-background: light-dark(#ffffff, rgb(27,28,29));
 }
 
 /* Light theme non-color overrides */
