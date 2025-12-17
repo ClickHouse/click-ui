@@ -68,24 +68,16 @@ jobs:
           NEW_VERSION="${BASE_VERSION}-${GITHUB_TAG}.0"
           echo "Generated prerelease version: $NEW_VERSION"
           npm pkg set version=$NEW_VERSION --no-git-tag-version
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Clean npm config for OIDC
+          registry-url: 'https://registry.npmjs.org'
+      - name: Get OIDC token for npm authentication
+        id: oidc
         run: |
-          # Remove any existing npm auth config to ensure OIDC is used
-          rm -f ~/.npmrc .npmrc
-          npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
-          # Verify OIDC token is available
-          echo "Checking OIDC environment..."
-          echo "npm version: $(npm --version)"
-          if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
-            echo "✓ OIDC token request URL is available"
-            echo "✓ ACTIONS_ID_TOKEN_REQUEST_URL is set"
-            echo "✓ ACTIONS_ID_TOKEN_REQUEST_TOKEN is set: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo 'yes' || echo 'no')"
-          else
-            echo "✗ OIDC token request URL is NOT available - check permissions"
-          fi
+          OIDC_TOKEN=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm" | jq -r '.value')
+          echo "::add-mask::$OIDC_TOKEN"
+          echo "token=$OIDC_TOKEN" >> $GITHUB_OUTPUT
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
@@ -110,6 +102,8 @@ jobs:
           echo "Publishing version: $(node -p "require('./package.json').version")"
           echo "Publishing to tag: $NPM_TAG"
           npm publish --access public --tag $NPM_TAG --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}
       - name: Show npm error log on failure
         if: always()
         run: |
