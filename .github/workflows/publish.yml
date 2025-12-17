@@ -8,57 +8,102 @@ on:
         description: 'Release tag'
         required: true
         type: string
+      branch:
+        description: 'Branch to deploy from'
+        required: false
+        default: 'main'
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write      # For git push and tagging
+      id-token: write      # For OIDC trusted publishing to npm
     steps:
-      - name: Set tag from input
+      - name: Set tag from input (manual trigger)
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "GITHUB_TAG=${{ github.event.inputs.tag }}" >> "$GITHUB_ENV"
-      - name: Set tag from REF
+          # Check if input is a semantic version (e.g., 0.0.242) or a tag name (e.g., beta, scss-deprecation)
+          if [[ "${{ github.event.inputs.tag }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
+            echo "IS_VERSION_INPUT=true" >> "$GITHUB_ENV"
+          else
+            echo "IS_VERSION_INPUT=false" >> "$GITHUB_ENV"
+          fi
+      - name: Set tag from release (automatic trigger)
         if: github.event_name == 'release'
         run: |
           echo "GITHUB_TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_ENV"
-      - name: Checkout repository on release
+          echo "IS_VERSION_INPUT=true" >> "$GITHUB_ENV"
+      - name: Checkout repository (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          token: ${{secrets.PAT_TOKEN}}
+          fetch-depth: 0
+      - name: Checkout repository (automatic release)
         if: github.event_name == 'release'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.target_commitish }}
           token: ${{secrets.PAT_TOKEN}}
           fetch-depth: 0
-      - name: Checkout repository on workflow_dispatch
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v4
       - name: Set up Git
         run: |
           git config user.email "actions@clickhouse.com"
           git config user.name "GitHub Actions"
-      - name: Bump package version
+      - name: Bump package version (for version inputs)
+        if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
           npm pkg set version=$GITHUB_TAG
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - name: Generate prerelease version (for tag inputs)
+        if: ${{ env.IS_VERSION_INPUT == 'false' }}
+        run: |
+          # Get current version from package.json
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          # Extract base version (remove any existing prerelease suffix)
+          BASE_VERSION=$(echo $CURRENT_VERSION | cut -d'-' -f1)
+          # Generate prerelease version: base-tagname.0
+          NEW_VERSION="${BASE_VERSION}-${GITHUB_TAG}.0"
+          echo "Generated prerelease version: $NEW_VERSION"
+          npm pkg set version=$NEW_VERSION --no-git-tag-version
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: '22.x'  # Node 22 includes npm >= 11.5.1 with OIDC support
+      - name: Upgrade npm for OIDC support
+        run: |
+          npm install -g npm@latest
+          echo "npm version: $(npm --version)"
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
         run: yarn install --immutable
       - run: yarn test
       - run: yarn build
-      - run: yarn publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_CI_TOKEN }}
-      - name: update package version
+      - name: Determine npm tag
+        run: |
+          # If it's a version input (e.g., 0.0.242 or 0.0.242-beta.1), check for prerelease keywords
+          if [[ "$IS_VERSION_INPUT" == "true" ]]; then
+            if [[ "$GITHUB_TAG" == *"beta"* ]] || [[ "$GITHUB_TAG" == *"alpha"* ]] || [[ "$GITHUB_TAG" == *"rc"* ]]; then
+              echo "NPM_TAG=beta" >> "$GITHUB_ENV"
+            else
+              echo "NPM_TAG=latest" >> "$GITHUB_ENV"
+            fi
+          else
+            # If it's a tag name input (e.g., scss-deprecation), use it as the npm tag
+            echo "NPM_TAG=$GITHUB_TAG" >> "$GITHUB_ENV"
+          fi
+      - name: Publish to npm with OIDC
+        run: npm publish --access public --tag $NPM_TAG --provenance
+      - name: update package version (for version inputs only)
+        if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
           git add package.json yarn.lock
           git commit -m 'bump version to ${{ env.GITHUB_TAG }}'
           git push
-      - name: Set tag from input
-        if: github.event_name == 'workflow_dispatch'
+      - name: Create and push git tag (for version inputs only)
+        if: ${{ github.event_name == 'workflow_dispatch' && env.IS_VERSION_INPUT == 'true' }}
         run: |
           git tag $GITHUB_TAG
           git push origin $GITHUB_TAG
