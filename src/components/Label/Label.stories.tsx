@@ -20,7 +20,11 @@ export const Playground: Story = {
   render: args => (
     <Label {...args}>
       {args.children}
-      <input id="test" />
+
+      <input
+        id="test"
+        style={{ colorScheme: "light" }}
+      />
     </Label>
   ),
 };

@@ -1,32 +1,40 @@
-import { styled } from "styled-components";
-import * as RadixSeparator from "@radix-ui/react-separator";
-export interface SeparatorProps extends RadixSeparator.SeparatorProps {
-  /** The size/spacing of the separator */
-  size: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
-}
-const CUISeparator = styled(RadixSeparator.Root)<SeparatorProps>`
-  ${({ theme, size, orientation }) => `
-    &[data-orientation="horizontal"] {
-      width: 100%;
-      border-top: 0.0625rem solid ${theme.click.separator.color.stroke.default};
-    }
-    &[data-orientation="vertical"] {
-      height: 100%;
-      border-right: 0.0625rem solid ${theme.click.separator.color.stroke.default};
-    }
-    margin: ${
-      orientation === "horizontal"
-        ? `${theme.click.separator.horizontal.space.y[size]} ${theme.click.separator.horizontal.space.x.all}`
-        : `${theme.click.separator.vertical.space.y.all} ${theme.click.separator.vertical.space.x[size]}`
-    }
-  `}
-`;
+import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
+import styles from "./Separator.module.scss";
 
-const Separator = ({ orientation = "horizontal", ...props }: SeparatorProps) => (
-  <CUISeparator
-    orientation={orientation}
-    {...props}
-  />
-);
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  size: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+  orientation?: "horizontal" | "vertical";
+  decorative?: boolean;
+}
+
+const Separator = ({
+  orientation = "horizontal",
+  size,
+  className,
+  decorative = true,
+  ...props
+}: Props) => {
+  const orientationClass = `cui${capitalize(orientation)}`;
+  const sizeClass = `cuiSize${capitalize(size)}`;
+
+  return (
+    <div
+      role={decorative ? "none" : "separator"}
+      aria-orientation={
+        !decorative && orientation !== "horizontal" ? orientation : undefined
+      }
+      className={clsx(
+        styles.cuiSeparator,
+        styles[orientationClass],
+        styles[sizeClass],
+        className
+      )}
+      data-cui-orientation={orientation}
+      data-cui-size={size}
+      {...props}
+    />
+  );
+};
 
 export default Separator;

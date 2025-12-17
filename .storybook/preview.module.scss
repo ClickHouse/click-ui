@@ -1,0 +1,21 @@
+.cuiThemeBlock {
+  position: absolute;
+  inset: 0.5rem 0 0 0; // top, right, bottom, left
+  height: fit-content;
+  overflow: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: var(--click-storybook-global-background);
+
+  &.cuiLeft {
+    left: 0;
+  }
+
+  &.cuiRight {
+    left: 50vw;
+  }
+
+  &.cuiFill {
+    left: 0;
+  }
+}

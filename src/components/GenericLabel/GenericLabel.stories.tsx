@@ -19,7 +19,10 @@ export const Playground: Story = {
   render: args => (
     <GenericLabel {...args}>
       {args.children}
-      <input id="test" />
+      <input
+        id="test"
+        style={{ colorScheme: "light" }}
+      />
     </GenericLabel>
   ),
 };

@@ -4,6 +4,10 @@
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "files": [
     "dist"
   ],
@@ -17,7 +21,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/click-ui.bundled.es.js",
       "require": "./dist/click-ui.bundled.umd.js"
-    }
+    },
+    "./cui-theme.css": "./dist/cui-scss-theme.css"
   },
   "main": "./dist/click-ui.umd.js",
   "module": "./dist/click-ui.es.js",
@@ -39,7 +44,8 @@
     "build:watch": "watch 'yarn build' ./src",
     "chromatic": "npx chromatic",
     "dev": "vite",
-    "generate-tokens": "node build-tokens.js && prettier --write src/theme/tokens/types.ts",
+    "generate-tokens": "node build-tokens.js && prettier --write src/theme/tokens/types.ts && node scripts/generate-scss-theme.js",
+    "generate-scss-theme": "node scripts/generate-scss-theme.js",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "prettify": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
@@ -68,6 +74,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "react-sortablejs": "^6.1.4",
     "react-syntax-highlighter": "^15.5.0",
@@ -85,6 +92,7 @@
     "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^14.5.2",
     "@tokens-studio/sd-transforms": "^0.10.3",
+    "@types/lodash": "^4.17.21",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^24.10.1",
     "@types/react": "18.3.2",
@@ -111,6 +119,7 @@
     "prop-types": "^15.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "sass-embedded": "^1.97.0",
     "storybook": "^10.0.7",
     "storybook-addon-pseudo-states": "^10.0.7",
     "styled-components": "^6.1.11",

@@ -80,5 +80,8 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
-const Text: TextPolymorphicComponent = forwardRef(_Text);
+const Text: TextPolymorphicComponent = forwardRef(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _Text as any
+) as unknown as TextPolymorphicComponent;
 export { Text };
