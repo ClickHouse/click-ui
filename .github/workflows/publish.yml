@@ -68,11 +68,20 @@ jobs:
           NEW_VERSION="${BASE_VERSION}-${GITHUB_TAG}.0"
           echo "Generated prerelease version: $NEW_VERSION"
           npm pkg set version=$NEW_VERSION --no-git-tag-version
-      # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
+      - name: Clean npm config for OIDC
+        run: |
+          # Remove any existing npm auth config to ensure OIDC is used
+          rm -f ~/.npmrc .npmrc
+          npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
+          # Verify OIDC token is available
+          if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
+            echo "✓ OIDC token request URL is available"
+          else
+            echo "✗ OIDC token request URL is NOT available - check permissions"
+          fi
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
