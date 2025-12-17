@@ -1,17 +1,17 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactEventHandler,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, ReactEventHandler, forwardRef } from "react";
 import { Icon, IconName } from "@/components";
 import { styled } from "styled-components";
 import { linkStyles } from "./common";
 import { TextSize, TextWeight } from "../commonTypes";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 
-export interface LinkProps<T extends ElementType = "a"> {
+export interface LinkProps<T extends ElementType = "a">
+  extends PolymorphicComponentProps<T> {
   /** The font size of the link text */
   size?: TextSize;
   /** The font weight of the link text */
@@ -22,8 +22,6 @@ export interface LinkProps<T extends ElementType = "a"> {
   children?: React.ReactNode;
   /** Optional icon to display after the link text */
   icon?: IconName;
-  /** Custom component to render as the link element */
-  component?: T;
 }
 
 const CuiLink = styled.a<{ $size: TextSize; $weight: TextWeight }>`
@@ -43,10 +41,6 @@ const IconWrapper = styled.span<{ $size: TextSize }>`
   }
 `;
 
-type LinkPolymorphicComponent = <T extends ElementType = "a">(
-  props: Omit<ComponentProps<T>, keyof T> & LinkProps<T>
-) => ReactNode;
-
 /** Component for linking to other pages or sections from with body text */
 const _Link = <T extends ElementType = "a">(
   {
@@ -57,8 +51,8 @@ const _Link = <T extends ElementType = "a">(
     children,
     component,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & LinkProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, LinkProps<T>>,
+  ref: PolymorphicRef<T>
 ) => (
   <CuiLink
     ref={ref}
@@ -80,4 +74,4 @@ const _Link = <T extends ElementType = "a">(
     )}
   </CuiLink>
 );
-export const Link: LinkPolymorphicComponent = forwardRef(_Link);
+export const Link: PolymorphicComponent<LinkProps, "a"> = forwardRef(_Link);

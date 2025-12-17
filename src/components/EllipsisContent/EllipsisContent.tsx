@@ -1,12 +1,12 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, forwardRef } from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { styled } from "styled-components";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 
 const EllipsisContainer = styled.div`
   display: inline-block;
@@ -24,17 +24,12 @@ const EllipsisContainer = styled.div`
     text-overflow: ellipsis;
   }
 `;
-export interface EllipsisContentProps<T extends ElementType = "div"> {
-  component?: T;
-}
-
-type EllipsisPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
-) => ReactNode;
+export interface EllipsisContentProps<T extends ElementType = "div">
+  extends PolymorphicComponentProps<T> {}
 
 const _EllipsisContent = <T extends ElementType = "div">(
-  { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  { component, ...props }: PolymorphicProps<T, EllipsisContentProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
   return (
     <EllipsisContainer
@@ -52,4 +47,5 @@ const _EllipsisContent = <T extends ElementType = "div">(
   );
 };
 
-export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(_EllipsisContent);
+export const EllipsisContent: PolymorphicComponent<EllipsisContentProps> =
+  forwardRef(_EllipsisContent);

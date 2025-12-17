@@ -1,17 +1,18 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, ReactNode, forwardRef } from "react";
 import { styled } from "styled-components";
 import { TextSize, TextWeight } from "@/components/commonTypes";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
 
-export interface TextProps<T extends ElementType = "p"> {
+export interface TextProps<T extends ElementType = "p">
+  extends PolymorphicComponentProps<T> {
   /** The text content to display */
   children: ReactNode;
   /** The text alignment */
@@ -24,15 +25,9 @@ export interface TextProps<T extends ElementType = "p"> {
   weight?: TextWeight;
   /** Additional CSS class name */
   className?: string;
-  /** Custom component to render as */
-  component?: T;
   /** Whether the text should fill the full width of its container */
   fillWidth?: boolean;
 }
-
-type TextPolymorphicComponent = <T extends ElementType = "p">(
-  props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
-) => ReactNode;
 
 const _Text = <T extends ElementType = "p">(
   {
@@ -45,8 +40,8 @@ const _Text = <T extends ElementType = "p">(
     component,
     fillWidth,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, TextProps<T>>,
+  ref: PolymorphicRef<T>
 ) => (
   <CuiText
     as={component ?? "p"}
@@ -80,5 +75,5 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
-const Text: TextPolymorphicComponent = forwardRef(_Text);
+const Text: PolymorphicComponent<TextProps, "p"> = forwardRef(_Text);
 export { Text };
