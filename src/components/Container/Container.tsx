@@ -23,8 +23,9 @@ type JustifyContentOptions =
 export type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
-export interface ContainerProps<T extends ElementType = "div">
-  extends PolymorphicComponentProps<T> {
+export interface ContainerProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {
   /** Alignment of items along the cross axis */
   alignItems?: AlignItemsOptions;
   /** The content to display inside the container */

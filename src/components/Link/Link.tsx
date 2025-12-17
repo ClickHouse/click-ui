@@ -10,8 +10,9 @@ import {
   PolymorphicRef,
 } from "@/utils/polymorphic";
 
-export interface LinkProps<T extends ElementType = "a">
-  extends PolymorphicComponentProps<T> {
+export interface LinkProps<
+  T extends ElementType = "a",
+> extends PolymorphicComponentProps<T> {
   /** The font size of the link text */
   size?: TextSize;
   /** The font weight of the link text */

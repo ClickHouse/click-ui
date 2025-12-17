@@ -21,8 +21,9 @@ type ContentOptions =
   | "left"
   | "right";
 
-export interface GridContainerProps<T extends ElementType = "div">
-  extends PolymorphicComponentProps<T> {
+export interface GridContainerProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {
   /** Alignment of items along the block axis */
   alignItems?: ItemsOptions;
   /** Alignment of content along the block axis */

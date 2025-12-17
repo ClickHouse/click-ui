@@ -24,8 +24,9 @@ const EllipsisContainer = styled.div`
     text-overflow: ellipsis;
   }
 `;
-export interface EllipsisContentProps<T extends ElementType = "div">
-  extends PolymorphicComponentProps<T> {}
+export interface EllipsisContentProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {}
 
 const _EllipsisContent = <T extends ElementType = "div">(
   { component, ...props }: PolymorphicProps<T, EllipsisContentProps<T>>,

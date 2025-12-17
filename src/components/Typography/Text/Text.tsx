@@ -11,8 +11,9 @@ import {
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
 
-export interface TextProps<T extends ElementType = "p">
-  extends PolymorphicComponentProps<T> {
+export interface TextProps<
+  T extends ElementType = "p",
+> extends PolymorphicComponentProps<T> {
   /** The text content to display */
   children: ReactNode;
   /** The text alignment */
