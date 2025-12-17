@@ -93,7 +93,7 @@ jobs:
             echo "NPM_TAG=$GITHUB_TAG" >> "$GITHUB_ENV"
           fi
       - name: Publish to npm with OIDC
-        run: yarn npm publish --access public --tag $NPM_TAG --provenance
+        run: npm publish --access public --tag $NPM_TAG --provenance
       - name: update package version (for version inputs only)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
