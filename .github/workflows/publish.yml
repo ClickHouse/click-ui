@@ -70,14 +70,18 @@ jobs:
           npm pkg set version=$NEW_VERSION --no-git-tag-version
       - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Get OIDC token for npm authentication
-        id: oidc
+          node-version: '22.x'  # Node 22 includes npm >= 11.5.1 with OIDC support
+      - name: Verify npm version supports OIDC
         run: |
-          OIDC_TOKEN=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm" | jq -r '.value')
-          echo "::add-mask::$OIDC_TOKEN"
-          echo "token=$OIDC_TOKEN" >> $GITHUB_OUTPUT
+          echo "npm version: $(npm --version)"
+          NPM_VERSION=$(npm --version | cut -d. -f1)
+          if [ "$NPM_VERSION" -lt 11 ]; then
+            echo "⚠️  npm version is too old for OIDC. Upgrading npm..."
+            npm install -g npm@latest
+            echo "✓ npm upgraded to: $(npm --version)"
+          else
+            echo "✓ npm version supports OIDC tokenless publishing"
+          fi
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
@@ -97,13 +101,12 @@ jobs:
             # If it's a tag name input (e.g., scss-deprecation), use it as the npm tag
             echo "NPM_TAG=$GITHUB_TAG" >> "$GITHUB_ENV"
           fi
-      - name: Publish to npm with OIDC
+      - name: Publish to npm with OIDC (tokenless)
         run: |
           echo "Publishing version: $(node -p "require('./package.json').version")"
           echo "Publishing to tag: $NPM_TAG"
+          echo "Using OIDC tokenless publishing (npm >= 11.5.1)"
           npm publish --access public --tag $NPM_TAG --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}
       - name: Show npm error log on failure
         if: always()
         run: |
