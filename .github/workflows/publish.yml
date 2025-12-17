@@ -110,6 +110,15 @@ jobs:
           echo "Publishing version: $(node -p "require('./package.json').version")"
           echo "Publishing to tag: $NPM_TAG"
           npm publish --access public --tag $NPM_TAG --provenance
+      - name: Show npm error log on failure
+        if: always()
+        run: |
+          if ls ~/.npm/_logs/*-debug-*.log 1> /dev/null 2>&1; then
+            echo "=== NPM Error Log ==="
+            cat ~/.npm/_logs/*-debug-*.log
+          else
+            echo "No npm error log (publish succeeded or no log generated)"
+          fi
       - name: update package version (for version inputs only)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
