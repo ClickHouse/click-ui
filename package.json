@@ -97,7 +97,7 @@
     "@typescript-eslint/parser": "^8",
     "@vitejs/plugin-react": "^5.1.2",
     "babel-plugin-styled-components": "^2.1.4",
-    "chromatic": "^13.3.3",
+    "chromatic": "^13.3.4",
     "date-fns": "4.1.0",
     "dayjs": "1.11.13",
     "eslint": "^9",

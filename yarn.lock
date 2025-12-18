@@ -298,7 +298,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^8"
     "@vitejs/plugin-react": "npm:^5.1.2"
     babel-plugin-styled-components: "npm:^2.1.4"
-    chromatic: "npm:^13.3.3"
+    chromatic: "npm:^13.3.4"
     date-fns: "npm:4.1.0"
     dayjs: "npm:1.11.13"
     eslint: "npm:^9"
@@ -4490,7 +4490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:^13.3.3":
+"chromatic@npm:^13.3.4":
   version: 13.3.4
   resolution: "chromatic@npm:13.3.4"
   peerDependencies:
