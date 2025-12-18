@@ -24,6 +24,7 @@ if (!isBundledBuild) {
 }
 
 const buildOptions: BuildOptions = {
+  target: 'baseline-widely-available',
   emptyOutDir: false,
   minify: false,
   lib: {
@@ -42,6 +43,7 @@ const buildOptions: BuildOptions = {
         react: "React",
         "styled-components": "styled",
         "react-dom": "ReactDOM",
+        "react/jsx-runtime": "jsxRuntime",
       },
     },
   },
