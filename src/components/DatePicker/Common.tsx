@@ -6,9 +6,17 @@ import { Container } from '../Container/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '../IconButton/IconButton';
 import { Text } from '../Typography/Text/Text';
-import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
+import {
+  headerDateFormatter,
+  selectedDateFormatter,
+  selectedDateTimeDateFormatter,
+  selectedDateTimeFormatter,
+  timeFormatter,
+  weekdayFormatter,
+} from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 import { IconName } from '@/components/Icon/types';
+
 
 const explicitWidth = '250px';
 const TXT_ON_MONTH_SELECT = 'Month';
@@ -27,16 +35,20 @@ const VIEW_GRID_YEARS = {
 const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
 const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
 
-const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
-  ${({ $isActive, theme }) => {
+const HighlightedInputWrapper = styled(InputWrapper)<{
+  $isActive: boolean;
+  $width?: string;
+}>`
+  ${({ $isActive, $width, theme }) => {
     return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
       $isActive
         ? theme.click.datePicker.dateOption.color.stroke.active
         : theme.click.field.color.stroke.default
-    };`;
+    };
+    width: ${$width ? $width : explicitWidth};
+    ${$width && `min-width: ${explicitWidth};`}
+    `;
   }}
-
-  width: ${explicitWidth};
 }`;
 
 interface DatePickerInputProps {
@@ -134,7 +146,7 @@ export const DateRangePickerInput = ({
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)} –{' '}
+          {selectedDateFormatter.format(selectedStartDate)} –{" "}
           {selectedDateFormatter.format(selectedEndDate)}
         </span>
       );
@@ -166,6 +178,131 @@ export const DateRangePickerInput = ({
         $hasStartContent
         as="div"
         data-testid="daterangepicker-input"
+      >
+        {formattedValue}
+      </InputElement>
+    </HighlightedInputWrapper>
+  );
+};
+
+interface DateTimePickerInputProps {
+  isActive: boolean;
+  disabled: boolean;
+  endTimeIsSet: boolean;
+  id?: string;
+  placeholder?: string;
+  selectedEndDate?: Date;
+  selectedStartDate?: Date;
+  startTimeIsSet: boolean;
+}
+
+export const DateTimePickerInput = ({
+  isActive,
+  disabled,
+  endTimeIsSet,
+  id,
+  placeholder,
+  selectedEndDate,
+  selectedStartDate,
+  startTimeIsSet,
+}: DateTimePickerInputProps) => {
+  const defaultId = useId();
+
+  let formattedValue = (
+    <Text
+      color="muted"
+      component="span"
+    >
+      {placeholder ?? ""}
+    </Text>
+  );
+  if (selectedStartDate) {
+    if (selectedEndDate) {
+      if (endTimeIsSet) {
+        formattedValue = (
+          <span>
+            {selectedDateTimeFormatter
+              .format(selectedStartDate)
+              .replace("AM", "am")
+              .replace("PM", "pm")}{" "}
+            –{" "}
+            {selectedDateTimeFormatter
+              .format(selectedEndDate)
+              .replace("AM", "am")
+              .replace("PM", "pm")}
+          </span>
+        );
+      } else {
+        formattedValue = (
+          <span>
+            {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
+            {timeFormatter
+              .format(selectedStartDate)
+              .replace("AM", "am")
+              .replace("PM", "pm")}{" "}
+            – {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
+            <Text
+              color="muted"
+              component="span"
+            >
+              00:00
+            </Text>
+          </span>
+        );
+      }
+    } else {
+      if (startTimeIsSet) {
+        formattedValue = (
+          <span>
+            {selectedDateTimeFormatter
+              .format(selectedStartDate)
+              .replace("AM", "am")
+              .replace("PM", "pm")}{" "}
+            <Text
+              color="muted"
+              component="span"
+            >
+              – end date
+            </Text>
+          </span>
+        );
+      } else {
+        formattedValue = (
+          <span>
+            {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
+            <Text
+              color="muted"
+              component="span"
+            >
+              00:00
+            </Text>
+            <Text
+              color="muted"
+              component="span"
+            >
+              {" "}
+              – end date
+            </Text>
+          </span>
+        );
+      }
+    }
+  }
+
+  return (
+    <HighlightedInputWrapper
+      $isActive={isActive}
+      disabled={disabled}
+      id={id ?? defaultId}
+      $width="max-content"
+    >
+      <InputStartContent>
+        <Icon name="calendar" />
+      </InputStartContent>
+      <InputElement
+        $hasStartContent
+        as="div"
+        data-testid="datetimepicker-input"
       >
         {formattedValue}
       </InputElement>
