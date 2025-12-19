@@ -1,5 +1,5 @@
 import { Icon, IconName } from "@/components";
-import { styled } from "styled-components";
+import { styled, keyframes, css } from "styled-components";
 import { BaseButton } from "../commonElement";
 import React from "react";
 
@@ -21,12 +21,10 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   align?: Alignment;
   /** Whether the button should fill the full width of its container */
   fillWidth?: boolean;
-  /** Whether to show a loading spinner */
+  /** Whether to show a loading state */
   loading?: boolean;
   /** Whether the button should be focused on mount */
   autoFocus?: boolean;
-  /** Whether to show the label alongside the loading spinner */
-  showLabelWithLoading?: boolean;
 }
 
 export const Button = ({
@@ -39,69 +37,52 @@ export const Button = ({
   label,
   loading = false,
   disabled,
-  showLabelWithLoading = false,
   ...delegated
 }: ButtonProps) => (
   <StyledButton
     $styleType={type}
     $align={align}
     $fillWidth={fillWidth}
+    $loading={loading}
     disabled={disabled || loading}
     aria-disabled={disabled || loading}
     role="button"
     {...delegated}
   >
-    {!loading && (
-      <>
-        {iconLeft && (
-          <ButtonIcon
-            name={iconLeft}
-            aria-hidden
-            size="sm"
-          />
-        )}
-
-        {label ?? children}
-
-        {iconRight && (
-          <ButtonIcon
-            name={iconRight}
-            aria-hidden
-            size="sm"
-          />
-        )}
-      </>
+    {iconLeft && (
+      <ButtonIcon
+        name={iconLeft}
+        aria-hidden
+        size="sm"
+      />
     )}
-    {loading && (
-      <LoadingIconWrapper data-testid="click-ui-loading-icon-wrapper">
-        <Icon
-          name="loading-animated"
-          data-testid="click-ui-loading-icon"
-          aria-label="loading"
-        ></Icon>
-        {showLabelWithLoading ? (label ?? children) : ""}
-      </LoadingIconWrapper>
+
+    {label ?? children}
+
+    {iconRight && (
+      <ButtonIcon
+        name={iconRight}
+        aria-hidden
+        size="sm"
+      />
     )}
   </StyledButton>
 );
 
-const LoadingIconWrapper = styled.div`
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+const shimmer = keyframes`
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
 `;
 
 const StyledButton = styled(BaseButton)<{
   $styleType: ButtonType;
   $align?: Alignment;
   $fillWidth?: boolean;
+  $loading?: boolean;
 }>`
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "revert")};
   color: ${({ $styleType = "primary", theme }) =>
@@ -117,6 +98,32 @@ const StyledButton = styled(BaseButton)<{
   align-items: center;
   justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
   white-space: nowrap;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-size: 200px 100%;
+    opacity: 0;
+  }
+
+  ${({ $loading, $styleType, theme }) => {
+    if (!$loading) return "";
+
+    return css`
+      &::before {
+        background-image: ${theme.click.button.basic.color[$styleType].background
+          .loading};
+        animation: ${shimmer} 1.5s ease-in-out infinite;
+        opacity: 1;
+      }
+    `;
+  }}
 
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>
@@ -138,18 +145,56 @@ const StyledButton = styled(BaseButton)<{
     font: ${({ theme }) => theme.click.button.basic.typography.label.active};
   }
 
-  &:disabled,
-  &:disabled:hover,
-  &:disabled:active {
-    background-color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].background.disabled};
-    color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].text.disabled};
-    border: ${({ theme }) => theme.click.button.stroke} solid
-      ${({ $styleType = "primary", theme }) =>
-        theme.click.button.basic.color[$styleType].stroke.disabled};
-    font: ${({ theme }) => theme.click.button.basic.typography.label.disabled};
-  }
+  ${({ $loading, $styleType, theme }) => {
+    if ($loading) return "";
+
+    const bgDisabled = theme.click.button.basic.color[$styleType].background.disabled;
+    const textDisabled = theme.click.button.basic.color[$styleType].text.disabled;
+    const strokeDisabled = theme.click.button.basic.color[$styleType].stroke.disabled;
+    const stroke = theme.click.button.stroke;
+    const fontDisabled = theme.click.button.basic.typography.label.disabled;
+    const isPrimary = $styleType === "primary";
+
+    return css`
+      &:disabled,
+      &:disabled:hover,
+      &:disabled:active {
+        background-color: ${bgDisabled};
+        color: ${textDisabled};
+        border: ${stroke} solid ${strokeDisabled};
+        font: ${fontDisabled};
+        cursor: not-allowed;
+        ${isPrimary ? "opacity: 0.6;" : ""}
+      }
+    `;
+  }}
+
+  /* Loading state styling */
+  ${({ $loading, $styleType }) => {
+    if (!$loading) return "";
+
+    if ($styleType === "primary") {
+      // Primary: 60% opacity + shimmer animation
+      return css`
+        opacity: 0.6;
+        cursor: not-allowed;
+      `;
+    } else if ($styleType === "secondary" || $styleType === "empty") {
+      // Secondary & Empty: Full opacity during loading, shimmer only, text dimmed (70%)
+      return css`
+        opacity: 0.7;
+        cursor: not-allowed;
+      `;
+    } else if ($styleType === "danger") {
+      // Destructive: Full opacity during loading, shimmer only, text dimmed (70%)
+      return css`
+        opacity: 0.7;
+        cursor: not-allowed;
+      `;
+    }
+
+    return "";
+  }}
 `;
 
 const ButtonIcon = styled(Icon)`
