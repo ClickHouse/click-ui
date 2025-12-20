@@ -185,6 +185,7 @@ export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   size?: IconSize;
   /** The visual state of the icon */
   state?: IconState;
+  displayAs?: 'block' | 'inline'
 }
 
 type NoThemeType = {
