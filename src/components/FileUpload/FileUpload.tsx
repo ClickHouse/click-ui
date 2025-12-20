@@ -94,7 +94,7 @@ const UploadArea = styled.div<{
 
   p[class*="FileName"] {
     span:first-child {
-      padding-right: 0.5rem;
+      padding-right: 0.25rem;
     }
   }
 
@@ -235,18 +235,13 @@ const ProgressBarWrapper = styled.div`
   margin-bottom: 9px;
 `;
 
-const TruncatedReveal = styled.span<{ $isError?: boolean }>`
+const defaultTruncatedHoverDelay = '0.4s';
+const TruncatedReveal = styled.span<{ $isError?: boolean, $hoverDelay?: string }>`
   position: relative;
 
   span:nth-child(1),
   + [class*="Icon"] {
-    transition: opacity 0.2s ease;
-  }
-
-  &:hover span:nth-child(1),
-  &:hover + [class*="Icon"],
-  span:nth-child(2) {
-    opacity: 0;
+    transition: opacity 0s ${({ $hoverDelay }) => $hoverDelay || defaultTruncatedHoverDelay};
   }
 
   span:nth-child(2) {
@@ -254,26 +249,28 @@ const TruncatedReveal = styled.span<{ $isError?: boolean }>`
     top: -2px;
     left: 0;
     opacity: 0;
-    transition: opacity 0.2s ease;
     display: none;
     background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
+    transition: opacity 0s ${({ $hoverDelay }) => $hoverDelay || defaultTruncatedHoverDelay};
+    width: max-content;
+    display: inline-block;
 
     ${props =>
-      props.$isError &&
-      css`
+    props.$isError &&
+    css`
         background-color: transparent;
         border-color: transparent;
       `}
   }
 
-  &:hover span:nth-child(2) {
-    opacity: 1;
-  }
 
   @container uploadArea (width > 768px) {
-    span:nth-child(2) {
-      width: max-content;
-      display: inline-block;
+    &:hover span:nth-child(1),
+    &:hover + [class*="Icon"] {
+      opacity: 0;
+    }
+    &:hover span:nth-child(2) {
+      opacity: 1;
     }
   }
 `;
@@ -509,7 +506,7 @@ export const FileUpload = ({
               )}
               <FileDetails>
                 <FileName>
-                  <TruncatedReveal $isError={!showProgress && !showSuccess}>
+                  <TruncatedReveal $isError={!showProgress && !showSuccess} $hoverDelay="0.8s">
                     <span>{shortenMiddle(file.name)}</span>
                     <span>{file.name}</span>
                   </TruncatedReveal>
