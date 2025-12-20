@@ -15,6 +15,7 @@ const SVGIcon = ({
   state,
   className,
   size,
+  displayAs = 'block',
   ...props
 }: IconProps) => {
   const Component = ICONS_MAP[name];
@@ -23,8 +24,10 @@ const SVGIcon = ({
     return null;
   }
 
+  const Wrapper = displayAs === "inline" ? SVGWrapperSpan : SVGWrapper;
+
   return (
-    <SvgWrapper
+    <Wrapper
       $color={color}
       $width={width}
       $height={height}
@@ -33,18 +36,18 @@ const SVGIcon = ({
       state={state}
     >
       <Component {...props} />
-    </SvgWrapper>
+    </Wrapper>
   );
 };
 
-const SvgWrapper = styled.div<{
+const createSVGWrapper = (element: "div" | "span", displayType: "flex" | "inline-flex") => styled(element)<{
   $color?: string;
   $width?: number | string;
   $height?: number | string;
   $size?: IconSize;
   state?: IconState;
 }>`
-  display: flex;
+  display: ${displayType};
   align-items: center;
 
   ${({ theme, $color = "currentColor", $width, $height, $size }) => `
@@ -69,6 +72,11 @@ const SvgWrapper = styled.div<{
     color: ${state === "default" ? $color : theme.click.icon.color.text[state]};
   `}
 `;
+
+// The original SVG icon is set as block (can be deprecated?)
+// to prevent any breaking changes an inline version's provided
+const SVGWrapper = createSVGWrapper("div", "flex");
+const SVGWrapperSpan = createSVGWrapper("span", "inline-flex");
 
 const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
   if (Object.keys(FlagList).includes(name)) {
