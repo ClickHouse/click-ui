@@ -104,7 +104,7 @@ const UploadArea = styled.div<{
 
   @container uploadArea (width > 300px) {
     padding: ${({ theme }) =>
-      `${theme.click.fileUpload.md.space.y}`};
+    `${theme.click.fileUpload.md.space.y}`};
     gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
 
     p[class*="FileName"] {
@@ -144,6 +144,14 @@ const FileUploadDescription = styled(Text) <{ $isError?: boolean }>`
       ? theme.click.fileUpload.color.title.error
       : theme.click.fileUpload.color.description.default};
     margin-top: auto;
+`;
+
+const StatusDescription = styled.span<{ $isError?: boolean }>`
+  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+  color: ${({ theme, $isError }) =>
+    $isError
+      ? theme.click.fileUpload.color.title.error
+      : theme.click.fileUpload.color.description.default};
 `;
 
 const UploadProgress = styled(FileUploadDescription)`
@@ -225,6 +233,49 @@ const FileContentContainer = styled.div<{ $size: "sm" | "md" }>`
 const ProgressBarWrapper = styled.div`
   margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   margin-bottom: 9px;
+`;
+
+const TruncatedReveal = styled.span<{ $isError?: boolean }>`
+  position: relative;
+
+  span:nth-child(1),
+  + [class*="Icon"] {
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover span:nth-child(1),
+  &:hover + [class*="Icon"],
+  span:nth-child(2) {
+    opacity: 0;
+  }
+
+  span:nth-child(2) {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: none;
+    background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
+
+    ${props =>
+      props.$isError &&
+      css`
+        background-color: transparent;
+        border-color: transparent;
+      `}
+  }
+
+  &:hover span:nth-child(2) {
+    opacity: 1;
+  }
+
+  @container uploadArea (width > 768px) {
+    span:nth-child(2) {
+      width: max-content;
+      display: inline-block;
+    }
+  }
 `;
 
 const formatFileSize = (sizeInBytes: number): string => {
@@ -451,9 +502,17 @@ export const FileUpload = ({
           <>
             <ResponsiveIcon name="document" />
             <FileContentContainer $size={size}>
+              {!showProgress && !showSuccess && (
+                <StatusDescription $isError>
+                  {failureMessage}
+                </StatusDescription>
+              )}
               <FileDetails>
                 <FileName>
-                  <span>{shortenMiddle(file.name)}</span>
+                  <TruncatedReveal $isError={!showProgress && !showSuccess}>
+                    <span>{shortenMiddle(file.name)}</span>
+                    <span>{file.name}</span>
+                  </TruncatedReveal>
                   {!showProgress && !showSuccess && (
                     <InlineIcon
                       size={"xs"}
@@ -461,6 +520,7 @@ export const FileUpload = ({
                       name="cross"
                     />
                   )}
+
                   {showSuccess && (
                     <InlineIcon
                       size={"xs"}
