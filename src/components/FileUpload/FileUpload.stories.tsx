@@ -1,5 +1,15 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { FileUpload } from "@/components/FileUpload/FileUpload.tsx";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100%;
+  @media (min-width: 768px) {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
 
 const meta: Meta<typeof FileUpload> = {
   component: FileUpload,
@@ -7,9 +17,9 @@ const meta: Meta<typeof FileUpload> = {
   tags: ["file-upload", "autodocs"],
   decorators: [
     Story => (
-      <div style={{ width: "800px" }}>
+      <Wrapper>
         <Story />
-      </div>
+      </Wrapper>
     ),
   ],
 };
