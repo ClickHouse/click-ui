@@ -40,7 +40,10 @@ const SVGIcon = ({
   );
 };
 
-const createSVGWrapper = (element: "div" | "span", displayType: "flex" | "inline-flex") => styled(element)<{
+const createSVGWrapper = (
+  element: "div" | "span",
+  displayType: "flex" | "inline-flex"
+) => styled(element)<{
   $color?: string;
   $width?: number | string;
   $height?: number | string;

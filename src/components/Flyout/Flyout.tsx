@@ -106,8 +106,8 @@ const FlyoutContent = styled(DialogContent)<{
   --flyout-width: ${({ theme, $size = "default", $width }) =>
     $width || theme.click.flyout.size[$size].width};
   animation: ${({ $revealAnimation = "width" }) =>
-    $revealAnimation === "fade" ? animationFade : animationWidth
-  } 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      $revealAnimation === "fade" ? animationFade : animationWidth}
+    500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   ${({ theme, $strategy, $type = "default", $align }) => `
     ${$align === "start" ? "left" : "right"}: 0;
     max-width: 100%;

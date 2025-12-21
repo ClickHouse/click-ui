@@ -91,7 +91,7 @@ export const RestrictedFileTypes: Story = {
 };
 
 type InsideFlyoutArgs = FileUploadProps & {
-  revealAnimation: FlyoutRevealAnimation
+  revealAnimation: FlyoutRevealAnimation;
 };
 
 export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
@@ -100,9 +100,17 @@ export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
 
     return (
       <>
-        <Button type="secondary" onClick={() => setOpen(true)}>Open Flyout</Button>
+        <Button
+          type="secondary"
+          onClick={() => setOpen(true)}
+        >
+          Open Flyout
+        </Button>
 
-        <Flyout open={open} onOpenChange={setOpen}>
+        <Flyout
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Flyout.Content
             strategy="fixed"
             size="default"
@@ -158,7 +166,7 @@ export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
 type SimulatedUploadProps = FileUploadProps & {
   simulateProgressRateMs: number;
   simulateFailure: boolean;
-}
+};
 
 export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
   render: args => {

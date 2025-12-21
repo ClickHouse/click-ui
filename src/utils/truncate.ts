@@ -55,10 +55,11 @@ export const shortenMiddle = (filename: string, maxLen: number = DEFAULT_MAX_LEN
 
   const availableLength = maxLen - extension.length - DEFAULT_DELIMITER.length;
 
-  if (availableLength <= 0) return `${filename.slice(0, maxLen - DEFAULT_DELIMITER.length)}${DEFAULT_DELIMITER}`;
+  if (availableLength <= 0)
+    return `${filename.slice(0, maxLen - DEFAULT_DELIMITER.length)}${DEFAULT_DELIMITER}`;
 
   const frontChars = Math.ceil(availableLength / 2);
   const backChars = Math.floor(availableLength / 2);
 
   return `${name.slice(0, frontChars)}${DEFAULT_DELIMITER}${name.slice(-backChars)}${extension}`;
-}
+};

@@ -104,8 +104,7 @@ const UploadArea = styled.div<{
   }
 
   @container uploadArea (width > 300px) {
-    padding: ${({ theme }) =>
-    `${theme.click.fileUpload.md.space.y}`};
+    padding: ${({ theme }) => `${theme.click.fileUpload.md.space.y}`};
     gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
 
     p[class*="FileName"] {
@@ -115,17 +114,17 @@ const UploadArea = styled.div<{
 
   @container uploadArea (width > 768px) {
     gap: ${({ theme, $size }) =>
-    $size === "sm"
-      ? theme.click.fileUpload.sm.space.gap
-      : theme.click.fileUpload.md.space.gap};
+      $size === "sm"
+        ? theme.click.fileUpload.sm.space.gap
+        : theme.click.fileUpload.md.space.gap};
     padding: ${({ theme, $hasFile, $size }) =>
-    $hasFile || $size === "sm"
-      ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
-      : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
+      $hasFile || $size === "sm"
+        ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
+        : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   }
 `;
 
-const FileUploadTitle = styled(Title) <{ $isNotSupported: boolean }>`
+const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.title.default};
   color: ${({ theme, $isNotSupported }) =>
     $isNotSupported
@@ -138,13 +137,13 @@ const FileName = styled(Text)`
   color: ${({ theme }) => theme.click.fileUpload.color.title.default};
 `;
 
-const FileUploadDescription = styled(Text) <{ $isError?: boolean }>`
+const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme, $isError }) =>
     $isError
       ? theme.click.fileUpload.color.title.error
       : theme.click.fileUpload.color.description.default};
-    margin-top: auto;
+  margin-top: auto;
 `;
 
 const StatusDescription = styled.span<{ $isError?: boolean }>`
@@ -182,7 +181,7 @@ const InlineIcon = styled(Icon)`
 `;
 
 InlineIcon.defaultProps = {
-  displayAs: "inline"
+  displayAs: "inline",
 };
 
 const UploadText = styled.div<{ $size: "sm" | "md"; $hasFile: boolean }>`
@@ -237,12 +236,13 @@ const ProgressBarWrapper = styled.div`
 `;
 
 const defaultTruncatedHoverDelay = "0.4s";
-const TruncatedReveal = styled.span<{ $isError?: boolean, $hoverDelay?: string }>`
+const TruncatedReveal = styled.span<{ $isError?: boolean; $hoverDelay?: string }>`
   position: relative;
 
   span:nth-child(1),
   + [class*="Icon"] {
-    transition: opacity 0s ${({ $hoverDelay }) => $hoverDelay || defaultTruncatedHoverDelay};
+    transition: opacity 0s
+      ${({ $hoverDelay }) => $hoverDelay || defaultTruncatedHoverDelay};
   }
 
   span:nth-child(2) {
@@ -252,18 +252,18 @@ const TruncatedReveal = styled.span<{ $isError?: boolean, $hoverDelay?: string }
     opacity: 0;
     display: none;
     background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
-    transition: opacity 0s ${({ $hoverDelay }) => $hoverDelay || defaultTruncatedHoverDelay};
+    transition: opacity 0s
+      ${({ $hoverDelay }) => $hoverDelay || defaultTruncatedHoverDelay};
     width: max-content;
     display: inline-block;
 
     ${props =>
-    props.$isError &&
-    css`
+      props.$isError &&
+      css`
         background-color: transparent;
         border-color: transparent;
       `}
   }
-
 
   @container uploadArea (width > 768px) {
     &:hover span:nth-child(1),
@@ -501,13 +501,14 @@ export const FileUpload = ({
             <ResponsiveIcon name="document" />
             <FileContentContainer $size={size}>
               {!showProgress && !showSuccess && (
-                <StatusDescription $isError>
-                  {failureMessage}
-                </StatusDescription>
+                <StatusDescription $isError>{failureMessage}</StatusDescription>
               )}
               <FileDetails>
                 <FileName>
-                  <TruncatedReveal $isError={!showProgress && !showSuccess} $hoverDelay="0.8s">
+                  <TruncatedReveal
+                    $isError={!showProgress && !showSuccess}
+                    $hoverDelay="0.8s"
+                  >
                     <span>{shortenMiddle(file.name)}</span>
                     <span>{file.name}</span>
                   </TruncatedReveal>
