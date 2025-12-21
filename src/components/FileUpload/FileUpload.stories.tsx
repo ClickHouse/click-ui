@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { FileUpload } from "@/components/FileUpload/FileUpload.tsx";
+import { FileUpload, type FileUploadProps } from "@/components/FileUpload/FileUpload.tsx";
 import styled from "styled-components";
-import { Flyout } from '@/components/Flyout/Flyout';
+import { Flyout, type FlyoutRevealAnimation } from '@/components/Flyout/Flyout';
 import { Button } from "@/components/Button/Button";
 import { useState } from 'react';
 
@@ -90,7 +90,11 @@ export const RestrictedFileTypes: Story = {
   },
 };
 
-export const InsideFlyout: Story = {
+type InsideFlyoutArgs = FileUploadProps & {
+  revealAnimation: FlyoutRevealAnimation
+};
+
+export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
   render: (args) => {
     const [open, setOpen] = useState(false);
 
@@ -103,6 +107,7 @@ export const InsideFlyout: Story = {
             strategy="fixed"
             size="default"
             closeOnInteractOutside={true}
+            revealAnimation={args.revealAnimation}
           >
             <Flyout.Header
               title="Flyout"
@@ -129,9 +134,17 @@ export const InsideFlyout: Story = {
     progress: 75,
     showProgress: false,
     showSuccess: false,
+    revealAnimation: "fade",
     onRetry: () => console.log("File retried"),
     onFileFailure: () => console.log("File failed"),
     onFileClose: () => console.log("File dismissed"),
+  },
+  argTypes: {
+    revealAnimation: {
+      control: { type: 'inline-radio' },
+      options: ['width', 'fade'],
+      description: 'Animation type for revealing the flyout',
+    },
   },
   parameters: {
     docs: {
