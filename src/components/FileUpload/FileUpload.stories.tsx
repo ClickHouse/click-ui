@@ -157,6 +157,7 @@ export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
 
 type SimulatedUploadProps = FileUploadProps & {
   simulateProgressRateMs: number;
+  simulateFailure: boolean;
 }
 
 export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
@@ -175,6 +176,18 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
         countProgress += 10;
         setUploadProgress(countProgress);
 
+        if (args.simulateFailure && countProgress >= 60) {
+          clearInterval(interval);
+          setShowProgress(false);
+          setShowSuccess(false);
+
+          if (typeof args.onFileFailure === 'function') {
+            args.onFileFailure();
+          }
+
+          return;
+        }
+
         if (countProgress >= 100) {
           clearInterval(interval);
           setShowProgress(false);
@@ -183,7 +196,7 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
       }, args.simulateProgressRateMs);
     };
 
-    const { simulateProgressRateMs, ...fileUploadProps } = args;
+    const { simulateProgressRateMs, simulateFailure, ...fileUploadProps } = args;
 
     return (
       <FileUpload
@@ -200,9 +213,16 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
     supportedFileTypes: [".txt", ".csv"],
     size: "sm",
     simulateProgressRateMs: 400,
+    simulateFailure: false,
     onRetry: () => console.log("File retried"),
     onFileFailure: () => console.log("File failed"),
     onFileClose: () => console.log("File dismissed"),
+  },
+  argTypes: {
+    simulateFailure: {
+      control: 'boolean',
+      description: 'Simulates upload failure',
+    },
   },
   parameters: {
     docs: {
