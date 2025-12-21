@@ -154,3 +154,61 @@ export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
     },
   },
 };
+
+type SimulatedUploadProps = FileUploadProps & {
+  simulateProgressRateMs: number;
+}
+
+export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
+  render: (args) => {
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [showProgress, setShowProgress] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const onFileSelect = () => {
+      setShowProgress(true);
+      setShowSuccess(false);
+      setUploadProgress(0);
+
+      let countProgress = 0;
+      const interval = setInterval(() => {
+        countProgress += 10;
+        setUploadProgress(countProgress);
+
+        if (countProgress >= 100) {
+          clearInterval(interval);
+          setShowProgress(false);
+          setShowSuccess(true);
+        }
+      }, args.simulateProgressRateMs);
+    };
+
+    const { simulateProgressRateMs, ...fileUploadProps } = args;
+
+    return (
+      <FileUpload
+        {...fileUploadProps}
+        progress={uploadProgress}
+        showProgress={showProgress}
+        showSuccess={showSuccess}
+        onFileSelect={onFileSelect}
+      />
+    );
+  },
+  args: {
+    title: "Upload file",
+    supportedFileTypes: [".txt", ".csv"],
+    size: "sm",
+    simulateProgressRateMs: 400,
+    onRetry: () => console.log("File retried"),
+    onFileFailure: () => console.log("File failed"),
+    onFileClose: () => console.log("File dismissed"),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Shows the `FileUpload` component upload progress in action",
+      },
+    },
+  },
+};
