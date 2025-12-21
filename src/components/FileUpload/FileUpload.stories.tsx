@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { FileUpload } from "@/components/FileUpload/FileUpload.tsx";
 import styled from "styled-components";
+import { Flyout } from '@/components/Flyout/Flyout';
+import { Button } from "@/components/Button/Button";
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -82,6 +85,58 @@ export const RestrictedFileTypes: Story = {
       description: {
         story:
           "Shows the `FileUpload` component with restricted file types. Try dropping or selecting a non-SQL file to see the 'Unsupported file type' message.",
+      },
+    },
+  },
+};
+
+export const InsideFlyout: Story = {
+  render: (args) => {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <Button type="secondary" onClick={() => setOpen(true)}>Open Flyout</Button>
+
+        <Flyout open={open} onOpenChange={setOpen}>
+          <Flyout.Content
+            strategy="fixed"
+            size="default"
+            closeOnInteractOutside={true}
+          >
+            <Flyout.Header
+              title="Flyout"
+              description="The following showcases the upload file  in a flyout"
+            />
+            <Flyout.Body>
+              <Flyout.Element>
+                <FileUpload {...args} />
+              </Flyout.Element>
+            </Flyout.Body>
+            <Flyout.Footer>
+              <Flyout.Close label="Cancel" />
+              <Button>Confirm</Button>
+            </Flyout.Footer>
+          </Flyout.Content>
+        </Flyout>
+      </>
+    );
+  },
+  args: {
+    title: "Upload file",
+    supportedFileTypes: [".txt", ".csv"],
+    size: "sm",
+    progress: 75,
+    showProgress: false,
+    showSuccess: false,
+    onRetry: () => console.log("File retried"),
+    onFileFailure: () => console.log("File failed"),
+    onFileClose: () => console.log("File dismissed"),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Shows the `FileUpload` component nested within a `Flyout`",
       },
     },
   },

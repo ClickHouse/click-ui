@@ -41,6 +41,7 @@ interface FileUploadProps {
 const UploadAreaContainer = styled.div`
   container-type: inline-size;
   container-name: uploadArea;
+  width: 100%;
 `;
 
 const UploadArea = styled.div<{
