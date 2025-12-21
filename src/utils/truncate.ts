@@ -1,5 +1,5 @@
 const DEFAULT_MAX_LEN = 40;
-const DEFAULT_DELIMITER = '...';
+const DEFAULT_DELIMITER = "...";
 
 /**
  * truncateFilename
@@ -40,7 +40,7 @@ export const truncateFilename = (
 export const shortenMiddle = (filename: string, maxLen: number = DEFAULT_MAX_LEN) => {
   if (filename.length <= maxLen) return filename;
 
-  const lastDotIndex = filename.lastIndexOf('.');
+  const lastDotIndex = filename.lastIndexOf(".");
   const hasExtension = lastDotIndex > 0 && lastDotIndex < filename.length - 1;
 
   if (!hasExtension) {

@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { FileUpload, type FileUploadProps } from "@/components/FileUpload/FileUpload.tsx";
 import styled from "styled-components";
-import { Flyout, type FlyoutRevealAnimation } from '@/components/Flyout/Flyout';
+import { Flyout, type FlyoutRevealAnimation } from "@/components/Flyout/Flyout";
 import { Button } from "@/components/Button/Button";
-import { useState } from 'react';
+import { useState } from "react";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -95,7 +95,7 @@ type InsideFlyoutArgs = FileUploadProps & {
 };
 
 export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
-  render: (args) => {
+  render: args => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -141,9 +141,9 @@ export const InsideFlyout: StoryObj<InsideFlyoutArgs> = {
   },
   argTypes: {
     revealAnimation: {
-      control: { type: 'inline-radio' },
-      options: ['width', 'fade'],
-      description: 'Animation type for revealing the flyout',
+      control: { type: "inline-radio" },
+      options: ["width", "fade"],
+      description: "Animation type for revealing the flyout",
     },
   },
   parameters: {
@@ -161,7 +161,7 @@ type SimulatedUploadProps = FileUploadProps & {
 }
 
 export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
-  render: (args) => {
+  render: args => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [showProgress, setShowProgress] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -181,7 +181,7 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
           setShowProgress(false);
           setShowSuccess(false);
 
-          if (typeof args.onFileFailure === 'function') {
+          if (typeof args.onFileFailure === "function") {
             args.onFileFailure();
           }
 
@@ -196,6 +196,7 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
       }, args.simulateProgressRateMs);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { simulateProgressRateMs, simulateFailure, ...fileUploadProps } = args;
 
     return (
@@ -220,8 +221,8 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
   },
   argTypes: {
     simulateFailure: {
-      control: 'boolean',
-      description: 'Simulates upload failure',
+      control: "boolean",
+      description: "Simulates upload failure",
     },
   },
   parameters: {

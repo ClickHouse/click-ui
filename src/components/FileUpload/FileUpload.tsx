@@ -13,7 +13,7 @@ interface FileInfo {
   size: number;
 }
 
-interface FileUploadProps {
+export interface FileUploadProps {
   /** The title text displayed in the upload area */
   title: string;
   /** Array of supported file extensions (e.g., [".txt", ".csv"]) */
@@ -182,7 +182,7 @@ const InlineIcon = styled(Icon)`
 `;
 
 InlineIcon.defaultProps = {
-  displayAs: 'inline'
+  displayAs: "inline"
 };
 
 const UploadText = styled.div<{ $size: "sm" | "md"; $hasFile: boolean }>`
@@ -236,7 +236,7 @@ const ProgressBarWrapper = styled.div`
   margin-bottom: 9px;
 `;
 
-const defaultTruncatedHoverDelay = '0.4s';
+const defaultTruncatedHoverDelay = "0.4s";
 const TruncatedReveal = styled.span<{ $isError?: boolean, $hoverDelay?: string }>`
   position: relative;
 
@@ -573,5 +573,3 @@ export const FileUpload = ({
     </UploadAreaContainer>
   );
 };
-
-export type { FileUploadProps };

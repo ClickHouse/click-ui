@@ -53,7 +53,7 @@ Flyout.Trigger = Trigger;
 type FlyoutSizeType = "default" | "narrow" | "wide" | "widest";
 type Strategy = "relative" | "absolute" | "fixed";
 type FlyoutType = "default" | "inline";
-export type FlyoutRevealAnimation = 'width' | 'fade';
+export type FlyoutRevealAnimation = "width" | "fade";
 
 type DialogContentAlignmentType = "start" | "end";
 export interface DialogContentProps extends RadixDialogContentProps {
@@ -105,8 +105,8 @@ const FlyoutContent = styled(DialogContent)<{
   width: fit-content;
   --flyout-width: ${({ theme, $size = "default", $width }) =>
     $width || theme.click.flyout.size[$size].width};
-  animation: ${({ $revealAnimation = 'width' }) =>
-    $revealAnimation === 'fade' ? animationFade : animationWidth
+  animation: ${({ $revealAnimation = "width" }) =>
+    $revealAnimation === "fade" ? animationFade : animationWidth
   } 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   ${({ theme, $strategy, $type = "default", $align }) => `
     ${$align === "start" ? "left" : "right"}: 0;
@@ -168,7 +168,7 @@ const Content = ({
   width,
   align = "end",
   onInteractOutside,
-  revealAnimation = 'width',
+  revealAnimation = "width",
   ...props
 }: DialogContentProps) => {
   return (

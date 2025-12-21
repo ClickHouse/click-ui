@@ -15,7 +15,7 @@ const SVGIcon = ({
   state,
   className,
   size,
-  displayAs = 'block',
+  displayAs = "block",
   ...props
 }: IconProps) => {
   const Component = ICONS_MAP[name];
