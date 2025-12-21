@@ -205,6 +205,7 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
         showProgress={showProgress}
         showSuccess={showSuccess}
         onFileSelect={onFileSelect}
+        onRetry={onFileSelect}
       />
     );
   },
@@ -214,7 +215,6 @@ export const SimulatedUpload: StoryObj<SimulatedUploadProps> = {
     size: "sm",
     simulateProgressRateMs: 400,
     simulateFailure: false,
-    onRetry: () => console.log("File retried"),
     onFileFailure: () => console.log("File failed"),
     onFileClose: () => console.log("File dismissed"),
   },
