@@ -11,10 +11,10 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
@@ -33,17 +33,19 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: '20.x'
+          fetch-depth: 0  # Required for Chromatic to determine baseline commits
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
         run: yarn install --immutable
         # 👇 Adds Chromatic as a step in the workflow
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         # Chromatic GitHub Action options
         with:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
