@@ -194,7 +194,9 @@ const formatFileSize = (sizeInBytes: number): string => {
 };
 
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
-  if (!supportedTypes.length) return true;
+  if (!supportedTypes.length) {
+    return true;
+  }
 
   const extension = filename.toLowerCase().slice(filename.lastIndexOf("."));
   return supportedTypes.some(type => type.toLowerCase() === extension.toLowerCase());
