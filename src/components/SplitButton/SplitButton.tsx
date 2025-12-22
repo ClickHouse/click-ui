@@ -67,7 +67,9 @@ export const SplitButton = ({
 
   useEffect(() => {
     const targetDiv = ref.current;
-    if (!targetDiv) return;
+    if (!targetDiv) {
+      return;
+    }
 
     const resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
