@@ -115,10 +115,20 @@ const StyledButton = styled(BaseButton)<{
   ${({ $loading, $styleType, theme }) => {
     if (!$loading) return "";
 
+    // Create dynamic shimmer gradient using the button's background colors
+    const bgDefault = "rgba(255, 255, 255, 0)";
+    const bgHover = theme.click.button.basic.color[$styleType].background.hover;
+
+    const shimmerGradient = `linear-gradient(
+      90deg,
+      ${bgHover} 0%,
+      ${theme.global.color.background.default} 50%,
+      ${bgHover} 100%
+    )`;
+
     return css`
       &::before {
-        background-image: ${theme.click.button.basic.color[$styleType].background
-          .loading};
+        background: ${shimmerGradient} 0% 0% / 50% 100% no-repeat;
         animation: ${shimmer} 1.5s ease-in-out infinite;
         opacity: 1;
       }
@@ -176,20 +186,29 @@ const StyledButton = styled(BaseButton)<{
     if ($styleType === "primary") {
       // Primary: 60% opacity + shimmer animation
       return css`
-        opacity: 0.6;
         cursor: not-allowed;
+
+        &::before {
+          opacity: 0.6;
+        }
       `;
     } else if ($styleType === "secondary" || $styleType === "empty") {
       // Secondary & Empty: Full opacity during loading, shimmer only, text dimmed (70%)
       return css`
-        opacity: 0.7;
         cursor: not-allowed;
+
+        &::before {
+          opacity: 0.7;
+        }
       `;
     } else if ($styleType === "danger") {
       // Destructive: Full opacity during loading, shimmer only, text dimmed (70%)
       return css`
-        opacity: 0.7;
         cursor: not-allowed;
+
+        &::before {
+          opacity: 0.7;
+        }
       `;
     }
 
