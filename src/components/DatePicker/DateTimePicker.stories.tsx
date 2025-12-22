@@ -1,6 +1,7 @@
 import { Args, Meta, StoryObj } from "@storybook/react-vite";
 import { DateTimePicker } from "./DateTimePicker";
-import { getPredefinedTimePeriodsForDateTimePicker } from "./utils";
+import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from "./utils";
+import dayjs from "dayjs";
 
 const meta: Meta<typeof DateTimePicker> = {
   component: DateTimePicker,
@@ -20,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    predefinedDatesList: [],
+    predefinedTimesList: [],
   },
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
@@ -42,14 +43,11 @@ export const Default: Story = {
   },
 };
 
-export const DateRangeWithMaxRange: Story = {
-  args: {
-    maxRangeLength: 15,
-    predefinedDatesList: [],
-  },
+export const PredefinedTimesDefault: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
+    const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
 
     return (
       <DateTimePicker
@@ -61,86 +59,7 @@ export const DateRangeWithMaxRange: Story = {
         maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
-        startDate={startDate}
-      />
-    );
-  },
-};
-
-export const DateRangeFutureStartDatesDisabled: Story = {
-  args: {
-    futureStartDatesDisabled: true,
-    predefinedDatesList: [],
-  },
-};
-
-export const PredefinedDatesLastSixMonths: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getPredefinedTimePeriodsForDateTimePicker();
-
-    return (
-      <DateTimePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
-        startDate={startDate}
-      />
-    );
-  },
-};
-
-export const PredefinedDatesNextSixMonths: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getPredefinedTimePeriodsForDateTimePicker();
-
-    return (
-      <DateTimePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
-        startDate={startDate}
-      />
-    );
-  },
-};
-
-export const PredefinedDatesArbitraryDates: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = [
-      { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-      { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-      { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
-    ];
-
-    return (
-      <DateTimePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
+        predefinedTimesList={predefinedTimesList}
         startDate={startDate}
       />
     );
@@ -151,17 +70,99 @@ export const PredefinedDatesScrollable: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = [
-      { startDate: new Date("09/14/2024"), endDate: new Date("10/14/2024") },
-      { startDate: new Date("10/14/2024"), endDate: new Date("11/14/2024") },
-      { startDate: new Date("11/14/2024"), endDate: new Date("12/14/2024") },
-      { startDate: new Date("12/14/2024"), endDate: new Date("01/14/2025") },
-      { startDate: new Date("01/14/2025"), endDate: new Date("02/14/2025") },
-      { startDate: new Date("02/14/2025"), endDate: new Date("03/14/2025") },
-      { startDate: new Date("03/14/2025"), endDate: new Date("04/14/2025") },
-      { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-      { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-      { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
+    const now = dayjs();
+    const predefinedTimesList: Array<DateRangeListItem> = [
+      {
+      dateRange: {
+        startDate: now.subtract(15, "minute").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 15 minutes",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(30, "minute").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 30 minutes",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(1, "hour").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past hour",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(2, "hour").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 2 hours",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(6, "hour").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 6 hours",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(12, "hour").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 12 hours",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(1, "day").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past day",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(1, "week").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past week",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(2, "week").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 2 weeks",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(1, "month").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past month",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(3, "month").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 3 months",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(6, "month").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past 6 months",
+    },
+    {
+      dateRange: {
+        startDate: now.subtract(1, "year").toDate(),
+        endDate: now.toDate(),
+      },
+      label: "Past year",
+    }
     ];
 
     return (
@@ -174,9 +175,69 @@ export const PredefinedDatesScrollable: Story = {
         maxRangeLength={args.maxRangeLength}
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
+        predefinedTimesList={predefinedTimesList}
         startDate={startDate}
       />
     );
   },
 };
+
+export const DateTimeWithMaxRange: Story = {
+  args: {
+    maxRangeLength: 15,
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+    return (
+      <DateTimePicker
+        key="default"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={args.futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+      />
+    );
+  },
+};
+
+export const DateTimeFutureStartDatesDisabled: Story = {
+  args: {
+    futureStartDatesDisabled: true,
+    predefinedTimesList: [],
+  },
+};
+
+
+// export const PredefinedDatesArbitraryDates: Story = {
+//   render: (args: Args) => {
+//     const endDate = args.endDate ? new Date(args.endDate) : undefined;
+//     const startDate = args.startDate ? new Date(args.startDate) : undefined;
+//     const predefinedTimesList = [
+//       { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
+//       { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
+//       { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
+//     ];
+
+//     return (
+//       <DateTimePicker
+//         key="default"
+//         endDate={endDate}
+//         disabled={args.disabled}
+//         futureDatesDisabled={args.futureDatesDisabled}
+//         futureStartDatesDisabled={args.futureStartDatesDisabled}
+//         maxRangeLength={args.maxRangeLength}
+//         onSelectDateRange={args.onSelectDateRange}
+//         placeholder={args.placeholder}
+//         predefinedTimesList={predefinedTimesList}
+//         startDate={startDate}
+//       />
+//     );
+//   },
+// };

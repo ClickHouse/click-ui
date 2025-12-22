@@ -25,6 +25,11 @@ export const selectedDateTimeFormatter = new Intl.DateTimeFormat(locale, {
   minute: "2-digit"
 });
 
+export const timeFormatter = new Intl.DateTimeFormat(locale, {
+  hour: "2-digit",
+  minute: "2-digit"
+})
+
 export const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
 export const headerDateFormatter = new Intl.DateTimeFormat(locale, {
   month: "short",
