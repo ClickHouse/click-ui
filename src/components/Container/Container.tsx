@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, forwardRef } from "react";
 import { Orientation } from "@/components";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
 export type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
@@ -23,9 +23,9 @@ type JustifyContentOptions =
 export type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
 
-export interface ContainerProps<T extends ElementType = "div"> {
-  /** Custom component to render as */
-  component?: T;
+export interface ContainerProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {
   /** Alignment of items along the cross axis */
   alignItems?: AlignItemsOptions;
   /** The content to display inside the container */
@@ -62,10 +62,6 @@ export interface ContainerProps<T extends ElementType = "div"> {
   overflow?: string;
 }
 
-type ContainerPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>
-) => ReactNode;
-
 const _Container = <T extends ElementType = "div">(
   {
     component,
@@ -87,8 +83,8 @@ const _Container = <T extends ElementType = "div">(
     minHeight,
     overflow,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, ContainerProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
   return (
     <Wrapper
@@ -170,4 +166,4 @@ const Wrapper = styled.div<{
   }
 `;
 
-export const Container: ContainerPolymorphicComponent = forwardRef(_Container);
+export const Container: PolymorphicComponent<ContainerProps> = forwardRef(_Container);
