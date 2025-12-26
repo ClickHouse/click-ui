@@ -30,6 +30,11 @@ export const selectedDateTimeFormatter = new Intl.DateTimeFormat(locale, {
   minute: "2-digit",
 });
 
+export const selectedDateTimeDateFormatter = new Intl.DateTimeFormat(locale, {
+  day: "2-digit",
+  month: "short",
+});
+
 export const timeFormatter = new Intl.DateTimeFormat(locale, {
   hour: "2-digit",
   minute: "2-digit",
