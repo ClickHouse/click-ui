@@ -332,7 +332,7 @@ export const DateTimePicker = ({
   futureStartDatesDisabled = false,
   maxRangeLength = -1,
   onSelectDateRange,
-  placeholder = "start date - end date",
+  placeholder = "start date – end date",
   predefinedTimesList,
 }: DateTimePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
