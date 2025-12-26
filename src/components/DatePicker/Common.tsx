@@ -103,7 +103,7 @@ export const DateRangePickerInput = ({
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)} -{" "}
+          {selectedDateFormatter.format(selectedStartDate)} –{" "}
           {selectedDateFormatter.format(selectedEndDate)}
         </span>
       );
@@ -115,7 +115,7 @@ export const DateRangePickerInput = ({
             color="muted"
             component="span"
           >
-            - end date
+            – end date
           </Text>
         </span>
       );
@@ -182,7 +182,7 @@ export const DateTimePickerInput = ({
               .format(selectedStartDate)
               .replace("AM", "am")
               .replace("PM", "pm")}{" "}
-            -{" "}
+            –{" "}
             {selectedDateTimeFormatter
               .format(selectedEndDate)
               .replace("AM", "am")
@@ -197,7 +197,7 @@ export const DateTimePickerInput = ({
               .format(selectedStartDate)
               .replace("AM", "am")
               .replace("PM", "pm")}{" "}
-            - {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
+            – {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
             <Text
               color="muted"
               component="span"
@@ -219,7 +219,7 @@ export const DateTimePickerInput = ({
               color="muted"
               component="span"
             >
-              - end date
+              – end date
             </Text>
           </span>
         );
@@ -238,7 +238,7 @@ export const DateTimePickerInput = ({
               component="span"
             >
               {" "}
-              - end date
+              – end date
             </Text>
           </span>
         );

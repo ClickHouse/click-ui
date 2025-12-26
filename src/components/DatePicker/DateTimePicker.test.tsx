@@ -30,7 +30,7 @@ describe("DateTimePicker", () => {
     );
 
     expect(getByTestId("datetimepicker-input").textContent).toBe(
-      "Jul 04, 00:00 - end date"
+      "Jul 04, 00:00 – end date"
     );
   });
 
@@ -47,7 +47,7 @@ describe("DateTimePicker", () => {
     );
 
     expect(getByTestId("datetimepicker-input").textContent).toBe(
-      "Jul 04, 12:00 am - Jul 05, 00:00"
+      "Jul 04, 12:00 am – Jul 05, 00:00"
     );
   });
 
@@ -61,7 +61,7 @@ describe("DateTimePicker", () => {
       />
     );
 
-    expect(getByText("start date - end date")).toBeInTheDocument();
+    expect(getByText("start date – end date")).toBeInTheDocument();
   });
 
   describe("selecting dates", () => {
@@ -84,7 +84,7 @@ describe("DateTimePicker", () => {
       await userEvent.click(getByText("4"));
       await userEvent.click(getByText("4"));
 
-      expect(getByText("start date - end date")).toBeInTheDocument();
+      expect(getByText("start date – end date")).toBeInTheDocument();
     });
 
     it("calls onSelectDateRange when a date range is selected and passes in the selected date range", async () => {
@@ -118,7 +118,7 @@ describe("DateTimePicker", () => {
       await userEvent.click(getByText("10"));
 
       expect(getByTestId("datetimepicker-input").textContent).toBe(
-        "Jul 10, 00:00 - end date"
+        "Jul 10, 00:00 – end date"
       );
     });
 
@@ -142,7 +142,7 @@ describe("DateTimePicker", () => {
         await userEvent.click(getByText("4"));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 00:00 - end date"
+          "Jul 04, 00:00 – end date"
         );
       });
 
@@ -159,7 +159,7 @@ describe("DateTimePicker", () => {
         await userEvent.click(getByText("01:30 am"));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 01:30 am - end date"
+          "Jul 04, 01:30 am – end date"
         );
       });
 
@@ -176,7 +176,7 @@ describe("DateTimePicker", () => {
         await userEvent.click(getByText("11"));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 01:30 am - Jul 11, 00:00"
+          "Jul 04, 01:30 am – Jul 11, 00:00"
         );
       });
 
@@ -194,7 +194,7 @@ describe("DateTimePicker", () => {
         await userEvent.click(getByText("02:30 pm"));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 01:30 am - Jul 11, 02:30 pm"
+          "Jul 04, 01:30 am – Jul 11, 02:30 pm"
         );
       });
     });
@@ -309,7 +309,7 @@ describe("DateTimePicker", () => {
       await userEvent.click(getByText("Past 15 minutes"));
 
       expect(getByTestId("datetimepicker-input").textContent).toBe(
-        "Jul 04, 11:15 am - Jul 04, 11:30 am"
+        "Jul 04, 11:15 am – Jul 04, 11:30 am"
       );
     });
   });
