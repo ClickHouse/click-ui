@@ -160,6 +160,7 @@ export interface ItemDataType {
   rowAutoHeight?: boolean;
   updateRowHeight: (rowIndex: number, height: number) => void;
   getRowHeight: (index: number) => number;
+  readOnly?: boolean;
 }
 
 export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "children"> {
@@ -206,6 +207,7 @@ export interface GridProps extends Omit<
   onCopyCallback?: (copied: boolean) => void;
   onContextMenu?: MouseEventHandler<HTMLDivElement>;
   forwardedGridRef?: MutableRefObject<VariableSizeGrid>;
+  readOnly?: boolean;
   rowAutoHeight?: boolean;
 }
 
