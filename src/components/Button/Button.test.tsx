@@ -40,14 +40,83 @@ describe("Button", () => {
     expect(button).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("should have aria-disabled when loading", () => {
-    const { getByRole } = renderButton({
-      label: "Button",
-      loading: true,
-    });
-    const button = getByRole("button");
+  describe("Loading state", () => {
+    it("should have aria-disabled when loading", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        loading: true,
+      });
+      const button = getByRole("button");
 
-    expect(button).toBeDisabled();
-    expect(button).toHaveAttribute("aria-disabled", "true");
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute("aria-disabled", "true");
+    });
+
+    it("should not execute onClick when loading", () => {
+      let counter = 0;
+      const handleClick = () => (counter = 1);
+      const { getByRole } = renderButton({
+        onClick: handleClick,
+        label: "Button",
+        loading: true,
+      });
+      const button = getByRole("button");
+      fireEvent.click(button);
+
+      expect(counter).toEqual(0);
+    });
+
+    it("should still render the label when loading", () => {
+      const { getByText } = renderButton({
+        label: "Loading Button",
+        loading: true,
+      });
+
+      expect(getByText("Loading Button")).toBeInTheDocument();
+    });
+
+    it("should render loading state for primary button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "primary",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
+
+    it("should render loading state for secondary button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "secondary",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
+
+    it("should render loading state for danger button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "danger",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
+
+    it("should render loading state for empty button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "empty",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
   });
 });
