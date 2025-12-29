@@ -975,7 +975,7 @@
                 "value": "{click.button.basic.color.primary.background.disabled}",
                 "type": "color"
               },
-              "danger": {
+              "loading": {
                 "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
                 "type": "color"
               }
