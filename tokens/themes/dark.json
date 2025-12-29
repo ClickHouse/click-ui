@@ -788,6 +788,11 @@
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
                 "type": "color"
+              },
+              "loading": {
+                "value": "#",
+                "type": "color",
+                "description": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)\n"
               }
             },
             "text": {
@@ -853,6 +858,10 @@
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
                 "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
+                "type": "color"
               }
             },
             "stroke": {
@@ -899,6 +908,10 @@
                 "value": "{click.field.color.text.disabled}",
                 "type": "color"
               }
+            },
+            "loading": {
+              "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
+              "type": "color"
             }
           },
           "danger": {
@@ -935,6 +948,10 @@
               },
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
                 "type": "color"
               }
             },
@@ -1027,6 +1044,10 @@
               },
               "disabled": {
                 "value": "{click.button.basic.color.empty.background.default}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
                 "type": "color"
               }
             },
