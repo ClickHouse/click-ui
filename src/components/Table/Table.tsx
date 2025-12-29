@@ -408,6 +408,11 @@ interface CommonTableProps extends Omit<
   size?: TableSize;
   showHeader?: boolean;
   rowHeight?: string;
+  /**
+   * Apply `table-layout: fixed`, making table follow assigned dimensions strictly,
+   * at the expense of cutting off content that doesn't fit
+   */
+  fixedLayout?: boolean;
 }
 
 type SelectReturnValue = {
@@ -580,6 +585,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       size = "sm",
       showHeader = true,
       rowHeight,
+      fixedLayout = false,
       ...props
     },
     ref
@@ -633,6 +639,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         <TableWrapper>
           <StyledTable
             ref={ref}
+            $fixed={fixedLayout}
             {...props}
           >
             {showHeader && (
@@ -769,11 +776,15 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
   );
 };
 
-const StyledTable = styled.table`
+interface StyledTableProps {
+  $fixed: boolean;
+}
+
+const StyledTable = styled.table<StyledTableProps>`
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
-  table-layout: fixed;
+  ${({ $fixed }) => $fixed && "table-layout: fixed;"}
 
   @media (max-width: 768px) {
     border: none;
