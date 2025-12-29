@@ -39,7 +39,7 @@
     "build:watch": "watch 'yarn build' ./src",
     "chromatic": "npx chromatic",
     "dev": "vite",
-    "generate-tokens": "node build-tokens.js && prettier --write src/theme/tokens/*.ts",
+    "generate-tokens": "node build-tokens.js && prettier --write src/theme/tokens/*.ts && eslint --fix src/theme/tokens/*.ts",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "prettify": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
