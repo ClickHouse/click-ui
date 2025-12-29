@@ -172,7 +172,8 @@
               "default": "#FAFF69",
               "hover": "rgb(98.6% 100% 58.8%)",
               "active": "rgb(90.7% 92.5% 38.1%)",
-              "disabled": "#414141"
+              "disabled": "#414141",
+              "loading": "linear-gradient(\n  90deg,\n  rgba(250, 255, 105, 0.8) 0%,\n  rgba(255, 255, 255, 0.5) 50%,\n  rgba(250, 255, 105, 0.8) 100%\n)"
             },
             "stroke": {
               "default": "#FAFF69",
@@ -192,7 +193,8 @@
               "default": "#1F1F1C",
               "hover": "#282828",
               "active": "rgb(19.9% 19.9% 19.9%)",
-              "disabled": "#414141"
+              "disabled": "#414141",
+              "loading": "linear-gradient(\n  90deg,\n  rgb(31, 31, 28) 0%,\n  rgba(255, 255, 255, 0.2) 50%,\n  rgb(31, 31, 28) 100%\n)"
             },
             "stroke": {
               "default": "#414141",
@@ -218,7 +220,8 @@
               "default": "rgb(100% 13.7% 13.7% / 0.2)",
               "hover": "rgb(100% 13.7% 13.7% / 0.3)",
               "active": "rgb(100% 13.7% 13.7% / 0.45)",
-              "disabled": "#414141"
+              "disabled": "#414141",
+              "loading": "linear-gradient(\n  90deg,\n  rgb(76, 32, 29) 0%,\n  rgba(255, 255, 255, 0.25) 50%,\n  rgb(76, 32, 29) 100%\n)"
             },
             "stroke": {
               "default": "rgb(100% 22.3% 22.3% / 0.1)",
@@ -238,7 +241,8 @@
               "default": "rgba(0,0,0,0)",
               "hover": "#282828",
               "active": "rgba(0,0,0,0)",
-              "disabled": "rgba(0,0,0,0)"
+              "disabled": "rgba(0,0,0,0)",
+              "loading": "linear-gradient(\n  90deg,\n  rgba(250, 255, 105, 0.1) 0%,\n  rgba(250, 255, 105, 0.3) 50%,\n  rgba(250, 255, 105, 0.1) 100%\n)"
             },
             "stroke": {
               "default": "rgba(0,0,0,0)",

@@ -57,7 +57,7 @@ export const Button = ({
       />
     )}
 
-    {label ?? children}
+    <span>{label ?? children}</span>
 
     {iconRight && (
       <ButtonIcon
@@ -69,12 +69,21 @@ export const Button = ({
   </StyledButton>
 );
 
-const shimmer = keyframes`
+const shimmerFullWidth = keyframes`
   0% {
-    background-position: 100% 0;
+    background-position: -100% 0;
   }
   100% {
-    background-position: -100% 0;
+    background-position: 100% 0;
+  }
+`;
+
+const shimmerFixedWidth = keyframes`
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
   }
 `;
 
@@ -108,27 +117,29 @@ const StyledButton = styled(BaseButton)<{
     right: 0;
     bottom: 0;
     pointer-events: none;
-    background-size: 200% 100%;
+    background-size: ${({ $fillWidth }) => ($fillWidth ? "200% 100%" : "200px 100%")};
     opacity: 0;
+    z-index: 0;
   }
 
-  ${({ $loading, $styleType, theme }) => {
+  /* Ensure content stays above shimmer */
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  ${({ $loading, $fillWidth, $styleType, theme }) => {
     if (!$loading) return "";
 
-    const bgHover = theme.click.button.basic.color[$styleType].background.hover;
-
-    const shimmerGradient = `linear-gradient(
-      90deg,
-      ${bgHover} 0%,
-      transparent 50%,
-      ${bgHover} 100%
-    )`;
+    const shimmerGradient = theme.click.button.basic.color[$styleType].background.loading;
+    const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
+    const shimmerAnimation = $fillWidth ? shimmerFullWidth : shimmerFixedWidth;
 
     return css`
       &::before {
         background: ${shimmerGradient};
-        background-size: 200% 100%;
-        animation: ${shimmer} 1.5s ease-in-out infinite;
+        background-size: ${bgSize};
+        animation: ${shimmerAnimation} 1.5s ease-in-out infinite;
         opacity: 1;
       }
     `;
@@ -179,39 +190,17 @@ const StyledButton = styled(BaseButton)<{
   }}
 
   /* Loading state styling */
-  ${({ $loading, $styleType }) => {
+  ${({ $loading }) => {
     if (!$loading) return "";
 
-    if ($styleType === "primary") {
-      // Primary: 60% opacity + shimmer animation
-      return css`
-        cursor: not-allowed;
+    return css`
+      cursor: not-allowed;
 
-        &::before {
-          opacity: 0.6;
-        }
-      `;
-    } else if ($styleType === "secondary" || $styleType === "empty") {
-      // Secondary & Empty: Full opacity during loading, shimmer only, text dimmed (70%)
-      return css`
-        cursor: not-allowed;
-
-        &::before {
-          opacity: 0.7;
-        }
-      `;
-    } else if ($styleType === "danger") {
-      // Destructive: Full opacity during loading, shimmer only, text dimmed (70%)
-      return css`
-        cursor: not-allowed;
-
-        &::before {
-          opacity: 0.7;
-        }
-      `;
-    }
-
-    return "";
+      /* Dim text and icons to 70% */
+      > * {
+        opacity: 0.7;
+      }
+    `;
   }}
 `;
 

@@ -399,6 +399,7 @@ export interface Theme {
               hover: string;
               active: string;
               disabled: string;
+              loading: string;
             };
             stroke: {
               default: string;
@@ -419,6 +420,7 @@ export interface Theme {
               hover: string;
               active: string;
               disabled: string;
+              loading: string;
             };
             stroke: {
               default: string;
@@ -445,6 +447,7 @@ export interface Theme {
               hover: string;
               active: string;
               disabled: string;
+              loading: string;
             };
             stroke: {
               default: string;
@@ -465,6 +468,7 @@ export interface Theme {
               hover: string;
               active: string;
               disabled: string;
+              loading: string;
             };
             stroke: {
               default: string;
