@@ -790,9 +790,9 @@
                 "type": "color"
               },
               "loading": {
-                "value": "#",
+                "value": "linear-gradient(\n  90deg,\n  rgba(250, 255, 105, 0.8) 0%,\n  rgba(255, 255, 255, 0.5) 50%,\n  rgba(250, 255, 105, 0.8) 100%\n)",
                 "type": "color",
-                "description": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)\n"
+                "description": "linear-gradient(\n  90deg,\n  rgb(232, 233, 235) 0%,\n  rgba(255, 255, 255, 0.95) 50%,\n  rgb(232, 233, 235) 100%\n)"
               }
             },
             "text": {
@@ -860,7 +860,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
+                "value": "linear-gradient(\n  90deg,\n  rgb(31, 31, 28) 0%,\n  rgba(255, 255, 255, 0.2) 50%,\n  rgb(31, 31, 28) 100%\n)",
                 "type": "color"
               }
             },
@@ -908,10 +908,6 @@
                 "value": "{click.field.color.text.disabled}",
                 "type": "color"
               }
-            },
-            "loading": {
-              "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
-              "type": "color"
             }
           },
           "danger": {
@@ -951,7 +947,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
+                "value": "linear-gradient(\n  90deg,\n  rgb(76, 32, 29) 0%,\n  rgba(255, 255, 255, 0.25) 50%,\n  rgb(76, 32, 29) 100%\n)",
                 "type": "color"
               }
             },
@@ -1047,7 +1043,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(\n  90deg,\n  rgba(255, 35, 35, 0.05) 0%,\n  rgba(255, 255, 255, 0.8) 50%,\n  rgba(255, 35, 35, 0.05) 100%\n)",
+                "value": "linear-gradient(\n  90deg,\n  rgba(250, 255, 105, 0.1) 0%,\n  rgba(250, 255, 105, 0.3) 50%,\n  rgba(250, 255, 105, 0.1) 100%\n)",
                 "type": "color"
               }
             },
