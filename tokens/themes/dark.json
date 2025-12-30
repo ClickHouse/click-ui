@@ -790,7 +790,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(90deg, rgb(230, 240, 93) 0%, rgba(255, 255, 255, 0.3) 50%, rgb(230, 240, 93) 100%)",
+                "value": "linear-gradient(90deg, rgb(206, 211, 84, 0.1) 0%, rgb(206, 211, 84) 100%)",
                 "type": "color"
               }
             },
@@ -859,7 +859,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(90deg, rgb(31, 31, 28) 0%, rgba(255, 255, 255, 0.2) 50%, rgb(31, 31, 28) 100%)",
+                "value": "linear-gradient(90deg, rgb(48, 48, 43, 0.1) 0%, rgb(48, 48, 43) 100%)",
                 "type": "color"
               }
             },
@@ -946,7 +946,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(90deg, rgb(76, 32, 29) 0%, rgba(255, 255, 255, 0.25) 50%, rgb(76, 32, 29) 100%)",
+                "value": "linear-gradient(90deg, rgb(93, 45, 42, 0.1) 0%, rgb(93, 45, 42) 100%)",
                 "type": "color"
               }
             },
@@ -1042,7 +1042,7 @@
                 "type": "color"
               },
               "loading": {
-                "value": "linear-gradient(90deg, rgba(250, 255, 105, 0.1) 0%, rgba(250, 255, 105, 0.3) 50%, rgba(250, 255, 105, 0.1) 100%)",
+                "value": "linear-gradient(90deg, rgb(50, 51, 27, 0.1) 0%, rgb(50, 51, 27, 0.5) 100%)",
                 "type": "color"
               }
             },
