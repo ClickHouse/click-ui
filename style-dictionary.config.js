@@ -1,7 +1,6 @@
 import StyleDictionary from "style-dictionary";
 import { register } from "@tokens-studio/sd-transforms";
 import { fileHeader } from "style-dictionary/utils";
-import set from "lodash/set.js";
 
 await register(StyleDictionary);
 
@@ -131,7 +130,20 @@ StyleDictionary.registerFormat({
     const theme = {};
 
     dictionary.allTokens.forEach((token) => {
-      set(theme, token.path, token.value);
+      // Use custom path setting to preserve object structure
+      // lodash/set converts objects with numeric keys to arrays, which breaks "full"
+      let current = theme;
+      const path = token.path;
+
+      for (let i = 0; i < path.length - 1; i++) {
+        const key = path[i];
+        if (!current[key] || typeof current[key] !== 'object') {
+          current[key] = {};
+        }
+        current = current[key];
+      }
+
+      current[path[path.length - 1]] = token.value;
     });
 
     return `const theme = ${JSON.stringify(theme, null, 2)} as const;\n\nexport default theme;\n`;
