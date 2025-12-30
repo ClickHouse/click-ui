@@ -119,13 +119,6 @@ const StyledButton = styled(BaseButton)<{
     pointer-events: none;
     background-size: ${({ $fillWidth }) => ($fillWidth ? "200% 100%" : "200px 100%")};
     opacity: 0;
-    z-index: 0;
-  }
-
-  /* Ensure content stays above shimmer */
-  > * {
-    position: relative;
-    z-index: 1;
   }
 
   ${({ $loading, $fillWidth, $styleType, theme }) => {
@@ -134,11 +127,13 @@ const StyledButton = styled(BaseButton)<{
     const shimmerGradient = theme.click.button.basic.color[$styleType].background.loading;
     const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
     const shimmerAnimation = $fillWidth ? shimmerFullWidth : shimmerFixedWidth;
+    const bgRepeat = $fillWidth ? "repeat" : "no-repeat";
 
     return css`
       &::before {
         background: ${shimmerGradient};
         background-size: ${bgSize};
+        background-repeat: ${bgRepeat};
         animation: ${shimmerAnimation} 1.5s ease-in-out infinite;
         opacity: 1;
       }
@@ -190,15 +185,19 @@ const StyledButton = styled(BaseButton)<{
   }}
 
   /* Loading state styling */
-  ${({ $loading }) => {
+  ${({ $loading, $styleType }) => {
     if (!$loading) return "";
+
+    const isPrimary = $styleType === "primary";
+    const textOpacity = isPrimary ? 0.8 : 0.7;
 
     return css`
       cursor: not-allowed;
+      ${isPrimary ? "opacity: 0.6;" : ""}
 
-      /* Dim text and icons to 70% */
+      /* Dim text and icons */
       > * {
-        opacity: 0.7;
+        opacity: ${textOpacity};
       }
     `;
   }}
