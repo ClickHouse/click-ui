@@ -168,7 +168,6 @@ const StyledButton = styled(BaseButton)<{
     const strokeDisabled = theme.click.button.basic.color[$styleType].stroke.disabled;
     const stroke = theme.click.button.stroke;
     const fontDisabled = theme.click.button.basic.typography.label.disabled;
-    const isPrimary = $styleType === "primary";
 
     return css`
       &:disabled,
@@ -179,25 +178,20 @@ const StyledButton = styled(BaseButton)<{
         border: ${stroke} solid ${strokeDisabled};
         font: ${fontDisabled};
         cursor: not-allowed;
-        ${isPrimary ? "opacity: 0.6;" : ""}
       }
     `;
   }}
 
   /* Loading state styling */
-  ${({ $loading, $styleType }) => {
+  ${({ $loading }) => {
     if (!$loading) return "";
-
-    const isPrimary = $styleType === "primary";
-    const textOpacity = isPrimary ? 0.8 : 0.7;
 
     return css`
       cursor: not-allowed;
-      ${isPrimary ? "opacity: 0.6;" : ""}
 
       /* Dim text and icons */
       > * {
-        opacity: ${textOpacity};
+        opacity: 0.7;
       }
     `;
   }}
