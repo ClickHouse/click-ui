@@ -1,6 +1,5 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
-import "../src/styles/variables.css";
 import { Decorator } from "@storybook/react-vite";
 import styled from "styled-components";
 import { themes } from "storybook/theming";

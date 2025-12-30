@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 
 import "@/styles/globals.css";
-import "./styles/variables.css";
-import "./styles/variables.dark.css";
 
 import styles from "./App.module.css";
 import { ThemeName } from "./theme";

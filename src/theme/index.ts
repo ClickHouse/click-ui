@@ -1,25 +1,30 @@
-import { Theme } from "./tokens/types";
-import merge from "lodash/merge";
-import * as darkTheme from "./tokens/variables.dark.json";
-import * as lightTheme from "./tokens/variables.light.json";
-import * as theme from "./tokens/variables.json";
+import darkTheme from "./tokens/variables.dark";
+import lightTheme from "./tokens/variables.light";
 import { useTheme } from "styled-components";
+import type { Prettify, GetTypes } from "./tokens/types";
 
+export type ThemeName = "dark" | "light" | "classic";
 type ActiveThemeName = "dark" | "light";
 
-export const themes: Record<ActiveThemeName, Theme> = {
-  dark: merge({}, theme, darkTheme),
-  light: merge({}, theme, lightTheme),
+export type CUIThemeType = GetTypes<typeof lightTheme>;
+
+export type PublicTheme = Prettify<{
+  breakpoint: CUIThemeType["breakpoint"];
+  global: CUIThemeType["global"];
+  sizes: CUIThemeType["sizes"];
+  name?: ThemeName;
+}>;
+
+export const themes: Record<ActiveThemeName, CUIThemeType> = {
+  dark: darkTheme as unknown as CUIThemeType,
+  light: lightTheme as unknown as CUIThemeType,
 };
 
-// Note: "classic" theme is deprecated and will fallback to "light" with a console warning
-type ThemeName = ActiveThemeName | "classic";
-
 declare module "styled-components" {
-  export interface DefaultTheme extends Theme {}
+  export interface DefaultTheme extends CUIThemeType {}
 }
-type CUIThemeType = Pick<Theme, "breakpoint" | "global" | "name" | "sizes">;
-const useCUITheme = (): CUIThemeType => {
+
+const useCUITheme = () => {
   const theme = useTheme();
   return {
     breakpoint: theme.breakpoint,
@@ -29,5 +34,4 @@ const useCUITheme = (): CUIThemeType => {
   };
 };
 
-export type { ThemeName, CUIThemeType };
 export { useCUITheme };
