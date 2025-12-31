@@ -194,6 +194,7 @@ const StyledButton = styled(BaseButton)<{
 
     return css`
       cursor: not-allowed;
+      opacity: 0.7;
 
       /* Dim text and icons */
       > * {
