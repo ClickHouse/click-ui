@@ -122,7 +122,9 @@ const StyledButton = styled(BaseButton)<{
   }
 
   ${({ $loading, $fillWidth, $styleType, theme }) => {
-    if (!$loading) return "";
+    if (!$loading) {
+      return "";
+    }
 
     const shimmerGradient = theme.click.button.basic.color[$styleType].background.loading;
     const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
@@ -161,7 +163,9 @@ const StyledButton = styled(BaseButton)<{
   }
 
   ${({ $loading, $styleType, theme }) => {
-    if ($loading) return "";
+    if ($loading) {
+      return "";
+    }
 
     const bgDisabled = theme.click.button.basic.color[$styleType].background.disabled;
     const textDisabled = theme.click.button.basic.color[$styleType].text.disabled;
@@ -184,7 +188,9 @@ const StyledButton = styled(BaseButton)<{
 
   /* Loading state styling */
   ${({ $loading }) => {
-    if (!$loading) return "";
+    if (!$loading) {
+      return "";
+    }
 
     return css`
       cursor: not-allowed;
