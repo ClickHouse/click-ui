@@ -187,14 +187,16 @@ const StyledButton = styled(BaseButton)<{
   }}
 
   /* Loading state styling */
-  ${({ $loading }) => {
+  ${({ $loading, $styleType }) => {
     if (!$loading) {
       return "";
     }
 
+    const btnOpacity = $styleType === "empty" ? 0.9 : 0.7;
+
     return css`
       cursor: not-allowed;
-      opacity: 0.7;
+      opacity: ${btnOpacity};
 
       /* Dim text and icons */
       > * {
