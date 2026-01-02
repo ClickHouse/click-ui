@@ -47,6 +47,7 @@ export const Button = ({
     disabled={disabled || loading}
     aria-disabled={disabled || loading}
     role="button"
+    data-fill-width={fillWidth}
     {...delegated}
   >
     {iconLeft && (
@@ -69,23 +70,23 @@ export const Button = ({
   </StyledButton>
 );
 
-const shimmerFullWidth = keyframes`
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: -100% 0;
-  }
-`;
+const shimmerFullWidth = keyframes({
+  "0%": {
+    backgroundPosition: "100% 0",
+  },
+  "100%": {
+    backgroundPosition: "-100% 0",
+  },
+});
 
-const shimmerFixedWidth = keyframes`
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: 200px 0;
-  }
-`;
+const shimmerFixedWidth = keyframes({
+  "0%": {
+    backgroundPosition: "-200px 0",
+  },
+  "100%": {
+    backgroundPosition: "200px 0",
+  },
+});
 
 const StyledButton = styled(BaseButton)<{
   $styleType: ButtonType;
@@ -110,32 +111,26 @@ const StyledButton = styled(BaseButton)<{
   overflow: hidden;
 
   &::before {
-    content: "";
+    content: ${({ $loading }) => ($loading ? '""' : "none")};
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     pointer-events: none;
+    background: ${({ $styleType, theme }) =>
+      theme.click.button.basic.color[$styleType].background.loading};
     background-size: ${({ $fillWidth }) => ($fillWidth ? "200% 100%" : "200px 100%")};
-    opacity: 0;
-    ${({ $loading, $fillWidth, $styleType, theme }) => {
-      if (!$loading) {
-        return "";
-      }
-      const shimmerGradient =
-        theme.click.button.basic.color[$styleType].background.loading;
-      const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
-      const shimmerAnimation = $fillWidth ? shimmerFullWidth : shimmerFixedWidth;
-      const bgRepeat = $fillWidth ? "repeat" : "no-repeat";
-      return `
-        background: ${shimmerGradient};
-        background-size: ${bgSize};
-        background-repeat: ${bgRepeat};
-        animation: ${shimmerAnimation} 1.5s ease-in-out infinite;
-        opacity: 1;
-      `;
-    }}
+    background-repeat: ${({ $fillWidth }) => ($fillWidth ? "repeat" : "no-repeat")};
+  }
+
+  &[data-fill-width="true"]::before {
+    animation: ${shimmerFullWidth} 1.5s ease-in-out infinite;
+  }
+
+  &[data-fill-width="false"]::before,
+  &:not([data-fill-width])::before {
+    animation: ${shimmerFixedWidth} 1.5s ease-in-out infinite;
   }
 
   &:hover {

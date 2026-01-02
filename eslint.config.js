@@ -39,7 +39,7 @@ export default tseslint.config(
       curly: ['error', 'all'],
       "react-refresh/only-export-components": "warn",
       "no-multiple-empty-lines": "error",
-      quotes: ["error", "double"],
+      quotes: ["error", "double", { avoidEscape: true }],
       "arrow-parens": ["error", "as-needed"],
       "prefer-arrow-functions/prefer-arrow-functions": [
         "warn",
