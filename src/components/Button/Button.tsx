@@ -119,28 +119,24 @@ const StyledButton = styled(BaseButton)<{
     pointer-events: none;
     background-size: ${({ $fillWidth }) => ($fillWidth ? "200% 100%" : "200px 100%")};
     opacity: 0;
-  }
-
-  ${({ $loading, $fillWidth, $styleType, theme }) => {
-    if (!$loading) {
-      return "";
-    }
-
-    const shimmerGradient = theme.click.button.basic.color[$styleType].background.loading;
-    const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
-    const shimmerAnimation = $fillWidth ? shimmerFullWidth : shimmerFixedWidth;
-    const bgRepeat = $fillWidth ? "repeat" : "no-repeat";
-
-    return css`
-      &::before {
+    ${({ $loading, $fillWidth, $styleType, theme }) => {
+      if (!$loading) {
+        return "";
+      }
+      const shimmerGradient =
+        theme.click.button.basic.color[$styleType].background.loading;
+      const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
+      const shimmerAnimation = $fillWidth ? shimmerFullWidth : shimmerFixedWidth;
+      const bgRepeat = $fillWidth ? "repeat" : "no-repeat";
+      return css`
         background: ${shimmerGradient};
         background-size: ${bgSize};
         background-repeat: ${bgRepeat};
         animation: ${shimmerAnimation} 1.5s ease-in-out infinite;
         opacity: 1;
-      }
-    `;
-  }}
+      `;
+    }}
+  }
 
   &:hover {
     background-color: ${({ $styleType = "primary", theme }) =>
