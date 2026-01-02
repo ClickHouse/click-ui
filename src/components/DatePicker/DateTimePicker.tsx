@@ -16,6 +16,7 @@ import { Panel } from "../Panel/Panel";
 import { Icon } from "../Icon/Icon";
 import { DateRangeListItem, datesAreWithinMaxRange, Time, timeFormatter } from "./utils";
 import dayjs from "dayjs";
+import { Text } from "../Typography/Text/Text";
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -56,8 +57,19 @@ const ScrollableContainer = styled(Container)`
 `;
 
 const TimesDropdownItem = styled(StyledDropdownItem)`
-  background: ${({ theme }) =>
-    theme.click.datePicker.dateOption.color.background.default};
+  ${({ theme }) => `
+    background: ${theme.click.datePicker.dateOption.color.background.default};
+    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
+    border-radius: ${theme.click.datePicker.dateOption.radii.default};
+    padding: 4px 6px;
+  `};
+
+  &:hover {
+    ${({ theme }) => `
+      background: ${theme.click.datePicker.dateOption.color.background.default};
+      border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.hover};
+    `}
+  }
 `;
 
 // max height calculation: 210px height (matches calendar) + 15px padding top and bottom
@@ -296,10 +308,12 @@ const TimesList = ({ setSelectedTime }: TimesListProps) => {
             justifyContent="space-between"
             orientation="horizontal"
           >
-            {timeFormatter
-              .format(dayjsDate.toDate())
-              .replace("AM", "am")
-              .replace("PM", "pm")}
+            <Text size="sm">
+              {timeFormatter
+                .format(dayjsDate.toDate())
+                .replace("AM", "am")
+                .replace("PM", "pm")}
+            </Text>
           </Container>
         </TimesDropdownItem>
       );
@@ -432,7 +446,7 @@ export const DateTimePicker = ({
         return;
       }
 
-      // keep the calendar from closing when selecting anything but the end date's time
+      // prevent the calendar from closing when selecting anything but the end date's time
       event.preventDefault();
 
       if (selectedStartDate) {
