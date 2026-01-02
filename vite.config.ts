@@ -24,8 +24,9 @@ if (!isBundledBuild) {
 }
 
 const buildOptions: BuildOptions = {
+  target: 'baseline-widely-available',
   emptyOutDir: false,
-  minify: false,
+  minify: true,
   lib: {
     entry: resolve(__dirname, "src/index.ts"),
     name: "click-ui",
@@ -42,6 +43,7 @@ const buildOptions: BuildOptions = {
         react: "React",
         "styled-components": "styled",
         "react-dom": "ReactDOM",
+        "react/jsx-runtime": "jsxRuntime",
       },
     },
   },
