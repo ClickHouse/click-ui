@@ -1,5 +1,5 @@
 import { Icon, IconName } from "@/components";
-import { styled, keyframes, css } from "styled-components";
+import { styled, keyframes } from "styled-components";
 import { BaseButton } from "../commonElement";
 import React from "react";
 
@@ -128,7 +128,7 @@ const StyledButton = styled(BaseButton)<{
       const bgSize = $fillWidth ? "200% 100%" : "200px 100%";
       const shimmerAnimation = $fillWidth ? shimmerFullWidth : shimmerFixedWidth;
       const bgRepeat = $fillWidth ? "repeat" : "no-repeat";
-      return css`
+      return `
         background: ${shimmerGradient};
         background-size: ${bgSize};
         background-repeat: ${bgRepeat};
@@ -169,7 +169,7 @@ const StyledButton = styled(BaseButton)<{
     const stroke = theme.click.button.stroke;
     const fontDisabled = theme.click.button.basic.typography.label.disabled;
 
-    return css`
+    return `
       &:disabled,
       &:disabled:hover,
       &:disabled:active {
@@ -190,7 +190,7 @@ const StyledButton = styled(BaseButton)<{
 
     const btnOpacity = $styleType === "empty" ? 0.9 : 0.7;
 
-    return css`
+    return `
       cursor: not-allowed;
       opacity: ${btnOpacity};
 
