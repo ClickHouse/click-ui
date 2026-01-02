@@ -809,6 +809,10 @@
               "disabled": {
                 "value": "{palette.neutral.200}",
                 "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgb(76, 76, 76, 0.1) 0%, rgb(76, 76, 76) 100%)",
+                "type": "color"
               }
             },
             "stroke": {
@@ -873,6 +877,10 @@
               },
               "disabled": {
                 "value": "{palette.neutral.200}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgb(232, 233, 235, 0.1) 0%, rgb(232, 233, 235) 100%)",
                 "type": "color"
               }
             },
@@ -966,6 +974,10 @@
               "disabled": {
                 "value": "{click.button.basic.color.primary.background.disabled}",
                 "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgba(255, 211, 211, 0.1) 0%, rgb(255, 211, 211) 100%)",
+                "type": "color"
               }
             },
             "stroke": {
@@ -1048,6 +1060,10 @@
               },
               "disabled": {
                 "value": "{click.button.basic.color.empty.background.default}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgba(240, 242, 248, 0.1) 0%, rgb(240, 242, 248) 100%)",
                 "type": "color"
               }
             },

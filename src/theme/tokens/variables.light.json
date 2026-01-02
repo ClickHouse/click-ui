@@ -172,7 +172,8 @@
               "default": "#302e32",
               "hover": "lch(29.5 4.18 267)",
               "active": "#161517",
-              "disabled": "#dfdfdf"
+              "disabled": "#dfdfdf",
+              "loading": "linear-gradient(90deg, rgb(76, 76, 76, 0.1) 0%, rgb(76, 76, 76) 100%)"
             },
             "stroke": {
               "default": "#302e32",
@@ -192,7 +193,8 @@
               "default": "rgba(0,0,0,0)",
               "hover": "#f6f7fa",
               "active": "lch(95.3 1.54 272)",
-              "disabled": "#dfdfdf"
+              "disabled": "#dfdfdf",
+              "loading": "linear-gradient(90deg, rgb(232, 233, 235, 0.1) 0%, rgb(232, 233, 235) 100%)"
             },
             "stroke": {
               "default": "#e6e7e9",
@@ -218,7 +220,8 @@
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
               "hover": "rgb(100% 13.7% 13.7% / 0.2)",
               "active": "rgb(100% 13.7% 13.7% / 0.3)",
-              "disabled": "#dfdfdf"
+              "disabled": "#dfdfdf",
+              "loading": "linear-gradient(90deg, rgba(255, 211, 211, 0.1) 0%, rgb(255, 211, 211) 100%)"
             },
             "stroke": {
               "default": "rgb(100% 13.7% 13.7% / 0.1)",
@@ -238,7 +241,8 @@
               "default": "rgba(0,0,0,0)",
               "hover": "#f6f7fa",
               "active": "rgba(0,0,0,0)",
-              "disabled": "rgba(0,0,0,0)"
+              "disabled": "rgba(0,0,0,0)",
+              "loading": "linear-gradient(90deg, rgba(240, 242, 248, 0.1) 0%, rgb(240, 242, 248) 100%)"
             },
             "stroke": {
               "default": "rgba(0,0,0,0)",

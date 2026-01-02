@@ -19,6 +19,5 @@ export const Playground: Story = {
     align: "center",
     fillWidth: false,
     loading: false,
-    showLabelWithLoading: false,
   },
 };

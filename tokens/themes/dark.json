@@ -788,6 +788,10 @@
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
                 "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgb(206, 211, 84, 0.1) 0%, rgb(206, 211, 84) 100%)",
+                "type": "color"
               }
             },
             "text": {
@@ -852,6 +856,10 @@
               },
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgb(48, 48, 43, 0.1) 0%, rgb(48, 48, 43) 100%)",
                 "type": "color"
               }
             },
@@ -935,6 +943,10 @@
               },
               "disabled": {
                 "value": "{click.field.color.background.disabled}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgb(93, 45, 42, 0.1) 0%, rgb(93, 45, 42) 100%)",
                 "type": "color"
               }
             },
@@ -1027,6 +1039,10 @@
               },
               "disabled": {
                 "value": "{click.button.basic.color.empty.background.default}",
+                "type": "color"
+              },
+              "loading": {
+                "value": "linear-gradient(90deg, rgb(50, 51, 27, 0.1) 0%, rgb(50, 51, 27, 0.5) 100%)",
                 "type": "color"
               }
             },
