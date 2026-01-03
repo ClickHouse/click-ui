@@ -122,6 +122,10 @@
             "type": "spacing"
           },
           "gap": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          },
+          "banner": {
             "value": "{spaces.2}",
             "type": "spacing"
           }
@@ -158,10 +162,14 @@
             "type": "spacing"
           },
           "x": {
-            "value": "{spaces.2}",
+            "value": "{spaces.3}",
             "type": "spacing"
           },
           "gap": {
+            "value": "{spaces.0}",
+            "type": "spacing"
+          },
+          "banner": {
             "value": "{spaces.1}",
             "type": "spacing"
           }

@@ -88,6 +88,7 @@ export interface Theme {
           y: string;
           x: string;
           gap: string;
+          banner: string;
         };
         typography: {
           title: {
@@ -107,6 +108,7 @@ export interface Theme {
           y: string;
           x: string;
           gap: string;
+          banner: string;
         };
         icon: {
           height: string;
