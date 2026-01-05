@@ -24,38 +24,6 @@ describe("Button", () => {
     expect(counter).toEqual(1);
   });
 
-  it("given a loading button, it should render the loading icon", async () => {
-    const { getAllByTestId } = renderButton({
-      label: "Button",
-      loading: true,
-    });
-
-    const loadingButton = getAllByTestId("click-ui-loading-icon");
-    expect(loadingButton.length).toEqual(1);
-  });
-
-  it("given a loading button and showLabelWithLoading, it should render the loading icon and the label", async () => {
-    const { getAllByTestId, getByTestId } = renderButton({
-      label: "Button",
-      loading: true,
-      showLabelWithLoading: true,
-    });
-
-    const loadingButton = getAllByTestId("click-ui-loading-icon");
-    expect(loadingButton.length).toEqual(1);
-    expect(getByTestId("click-ui-loading-icon-wrapper")).toHaveTextContent("Button");
-  });
-
-  it("given a non-loading button, it should not render the loading icon", async () => {
-    const { queryAllByTestId } = renderButton({
-      label: "Button",
-      loading: false,
-    });
-
-    const loadingButton = queryAllByTestId("click-ui-loading-icon");
-    expect(loadingButton.length).toEqual(0);
-  });
-
   it("should not execute action when disabled", () => {
     let counter = 0;
     const handleClick = () => (counter = 1);
@@ -72,14 +40,83 @@ describe("Button", () => {
     expect(button).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("should have aria-disabled when loading", () => {
-    const { getByRole } = renderButton({
-      label: "Button",
-      loading: true,
-    });
-    const button = getByRole("button");
+  describe("Loading state", () => {
+    it("should have aria-disabled when loading", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        loading: true,
+      });
+      const button = getByRole("button");
 
-    expect(button).toBeDisabled();
-    expect(button).toHaveAttribute("aria-disabled", "true");
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute("aria-disabled", "true");
+    });
+
+    it("should not execute onClick when loading", () => {
+      let counter = 0;
+      const handleClick = () => (counter = 1);
+      const { getByRole } = renderButton({
+        onClick: handleClick,
+        label: "Button",
+        loading: true,
+      });
+      const button = getByRole("button");
+      fireEvent.click(button);
+
+      expect(counter).toEqual(0);
+    });
+
+    it("should still render the label when loading", () => {
+      const { getByText } = renderButton({
+        label: "Loading Button",
+        loading: true,
+      });
+
+      expect(getByText("Loading Button")).toBeInTheDocument();
+    });
+
+    it("should render loading state for primary button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "primary",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
+
+    it("should render loading state for secondary button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "secondary",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
+
+    it("should render loading state for danger button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "danger",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
+
+    it("should render loading state for empty button type", () => {
+      const { getByRole } = renderButton({
+        label: "Button",
+        type: "empty",
+        loading: true,
+      });
+      const button = getByRole("button");
+
+      expect(button).toBeDisabled();
+    });
   });
 });

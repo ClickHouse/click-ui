@@ -17,7 +17,7 @@ const ThemeBlock: React.FC<ThemeBlockProps & { theme?: string }> = ({
   left,
   fill,
   theme = "light",
-  children
+  children,
 }) => (
   <div
     className={clsx(styles.cuiThemeBlock, {
@@ -63,7 +63,10 @@ const withTheme: Decorator = (StoryFn, context) => {
         toast: { duration: 3000 },
       }}
     >
-      <ThemeBlock fill theme={theme}>
+      <ThemeBlock
+        fill
+        theme={theme}
+      >
         <StoryFn />
       </ThemeBlock>
     </ClickUIProvider>
