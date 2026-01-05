@@ -96,7 +96,8 @@ const theme = {
         space: {
           y: "0.75rem",
           x: "0.75rem",
-          gap: "0.5rem",
+          gap: "0",
+          banner: "0.5rem",
         },
         typography: {
           title: {
@@ -116,8 +117,9 @@ const theme = {
       small: {
         space: {
           y: "0.5rem",
-          x: "0.5rem",
-          gap: "0.25rem",
+          x: "0.75rem",
+          gap: "0",
+          banner: "0.25rem",
         },
         icon: {
           height: "1rem",
@@ -435,6 +437,8 @@ const theme = {
               hover: "rgb(98.627% 100% 58.824%)",
               active: "rgb(90.686% 92.5% 38.088%)",
               disabled: "#414141",
+              loading:
+                "linear-gradient(90deg, rgb(206, 211, 84, 0.1) 0%, rgb(206, 211, 84) 100%)",
             },
             text: {
               default: "#1f1f1c",
@@ -455,6 +459,8 @@ const theme = {
               hover: "#282828",
               active: "rgb(19.902% 19.902% 19.902%)",
               disabled: "#414141",
+              loading:
+                "linear-gradient(90deg, rgb(48, 48, 43, 0.1) 0%, rgb(48, 48, 43) 100%)",
             },
             stroke: {
               default: "#414141",
@@ -475,6 +481,8 @@ const theme = {
               hover: "rgb(100% 13.725% 13.725% / 0.3)",
               active: "rgb(100% 13.725% 13.725% / 0.45)",
               disabled: "#414141",
+              loading:
+                "linear-gradient(90deg, rgb(93, 45, 42, 0.1) 0%, rgb(93, 45, 42) 100%)",
             },
             text: {
               default: "#ffbaba",
@@ -501,6 +509,8 @@ const theme = {
               hover: "#282828",
               active: "rgba(0, 0, 0, 0)",
               disabled: "rgba(0, 0, 0, 0)",
+              loading:
+                "linear-gradient(90deg, rgb(50, 51, 27, 0.1) 0%, rgb(50, 51, 27, 0.5) 100%)",
             },
             stroke: {
               default: "rgba(0, 0, 0, 0)",
@@ -3514,6 +3524,14 @@ const theme = {
         stroke: {
           default: "rgb(23.627% 23.627% 23.627%)",
           hover: "rgb(27.446% 27.446% 27.446%)",
+        },
+      },
+    },
+    gareth: {
+      test: {
+        main: {
+          text: "#ffffff",
+          danger: "#ffbaba",
         },
       },
     },

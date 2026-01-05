@@ -96,7 +96,8 @@ const theme = {
         space: {
           y: "0.75rem",
           x: "0.75rem",
-          gap: "0.5rem",
+          gap: "0",
+          banner: "0.5rem",
         },
         typography: {
           title: {
@@ -116,8 +117,9 @@ const theme = {
       small: {
         space: {
           y: "0.5rem",
-          x: "0.5rem",
-          gap: "0.25rem",
+          x: "0.75rem",
+          gap: "0",
+          banner: "0.25rem",
         },
         icon: {
           height: "1rem",
@@ -435,6 +437,8 @@ const theme = {
               hover: "lch(29.47 4.1845 266.96)",
               active: "#161517",
               disabled: "#dfdfdf",
+              loading:
+                "linear-gradient(90deg, rgb(76, 76, 76, 0.1) 0%, rgb(76, 76, 76) 100%)",
             },
             stroke: {
               default: "#302e32",
@@ -455,6 +459,8 @@ const theme = {
               hover: "#f6f7fa",
               active: "lch(95.274 1.5364 271.98)",
               disabled: "#dfdfdf",
+              loading:
+                "linear-gradient(90deg, rgb(232, 233, 235, 0.1) 0%, rgb(232, 233, 235) 100%)",
             },
             stroke: {
               default: "#e6e7e9",
@@ -481,6 +487,8 @@ const theme = {
               hover: "rgb(100% 13.725% 13.725% / 0.2)",
               active: "rgb(100% 13.725% 13.725% / 0.3)",
               disabled: "#dfdfdf",
+              loading:
+                "linear-gradient(90deg, rgba(255, 211, 211, 0.1) 0%, rgb(255, 211, 211) 100%)",
             },
             stroke: {
               default: "rgb(100% 13.725% 13.725% / 0.1)",
@@ -501,6 +509,8 @@ const theme = {
               hover: "#f6f7fa",
               active: "rgba(0, 0, 0, 0)",
               disabled: "rgba(0, 0, 0, 0)",
+              loading:
+                "linear-gradient(90deg, rgba(240, 242, 248, 0.1) 0%, rgb(240, 242, 248) 100%)",
             },
             stroke: {
               default: "rgba(0, 0, 0, 0)",
@@ -3498,6 +3508,14 @@ const theme = {
         stroke: {
           default: "#e6e7e9",
           hover: "#cccfd3",
+        },
+      },
+    },
+    gareth: {
+      test: {
+        main: {
+          text: "#161517",
+          danger: "#c10000",
         },
       },
     },

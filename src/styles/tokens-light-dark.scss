@@ -36,14 +36,16 @@
   --click-accordion-color-link-icon-active: light-dark(#437eef, #faff69);
   --click-alert-medium-space-y: 0.75rem;
   --click-alert-medium-space-x: 0.75rem;
-  --click-alert-medium-space-gap: 0.5rem;
+  --click-alert-medium-space-gap: 0;
+  --click-alert-medium-space-banner: 0.5rem;
   --click-alert-medium-typography-title-default: 600 0.875rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;;
   --click-alert-medium-typography-text-default: 400 0.875rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;;
   --click-alert-medium-icon-height: 1.25rem;
   --click-alert-medium-icon-width: 1.25rem;
   --click-alert-small-space-y: 0.5rem;
-  --click-alert-small-space-x: 0.5rem;
-  --click-alert-small-space-gap: 0.25rem;
+  --click-alert-small-space-x: 0.75rem;
+  --click-alert-small-space-gap: 0;
+  --click-alert-small-space-banner: 0.25rem;
   --click-alert-small-icon-height: 1rem;
   --click-alert-small-icon-width: 1rem;
   --click-alert-small-typography-title-default: 600 0.75rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;;
@@ -188,6 +190,7 @@
   --click-button-basic-color-primary-background-hover: light-dark(lch(29.47 4.1845 266.96), rgb(98.627% 100% 58.824%));
   --click-button-basic-color-primary-background-active: light-dark(#161517, rgb(90.686% 92.5% 38.088%));
   --click-button-basic-color-primary-background-disabled: light-dark(#dfdfdf, #414141);
+  --click-button-basic-color-primary-background-loading: light-dark(linear-gradient(90deg, rgb(76, 76, 76, 0.1) 0%, rgb(76, 76, 76) 100%), linear-gradient(90deg, rgb(206, 211, 84, 0.1) 0%, rgb(206, 211, 84) 100%));
   --click-button-basic-color-primary-stroke-default: light-dark(#302e32, #faff69);
   --click-button-basic-color-primary-stroke-hover: light-dark(lch(29.47 4.1845 266.96), #faff69);
   --click-button-basic-color-primary-stroke-active: light-dark(#161517, rgb(82.978% 84.638% 34.851%));
@@ -200,6 +203,7 @@
   --click-button-basic-color-secondary-background-hover: light-dark(#f6f7fa, #282828);
   --click-button-basic-color-secondary-background-active: light-dark(lch(95.274 1.5364 271.98), rgb(19.902% 19.902% 19.902%));
   --click-button-basic-color-secondary-background-disabled: light-dark(#dfdfdf, #414141);
+  --click-button-basic-color-secondary-background-loading: light-dark(linear-gradient(90deg, rgb(232, 233, 235, 0.1) 0%, rgb(232, 233, 235) 100%), linear-gradient(90deg, rgb(48, 48, 43, 0.1) 0%, rgb(48, 48, 43) 100%));
   --click-button-basic-color-secondary-stroke-default: light-dark(#e6e7e9, #414141);
   --click-button-basic-color-secondary-stroke-hover: light-dark(#e6e7e9, #53575f);
   --click-button-basic-color-secondary-stroke-active: light-dark(#cccfd3, rgb(22.882% 22.137% 23.627%));
@@ -216,6 +220,7 @@
   --click-button-basic-color-danger-background-hover: light-dark(rgb(100% 13.725% 13.725% / 0.2), rgb(100% 13.725% 13.725% / 0.3));
   --click-button-basic-color-danger-background-active: light-dark(rgb(100% 13.725% 13.725% / 0.3), rgb(100% 13.725% 13.725% / 0.45));
   --click-button-basic-color-danger-background-disabled: light-dark(#dfdfdf, #414141);
+  --click-button-basic-color-danger-background-loading: light-dark(linear-gradient(90deg, rgba(255, 211, 211, 0.1) 0%, rgb(255, 211, 211) 100%), linear-gradient(90deg, rgb(93, 45, 42, 0.1) 0%, rgb(93, 45, 42) 100%));
   --click-button-basic-color-danger-stroke-default: light-dark(rgb(100% 13.725% 13.725% / 0.1), rgb(100% 22.353% 22.353% / 0.2));
   --click-button-basic-color-danger-stroke-hover: rgb(100% 13.725% 13.725% / 0.05);
   --click-button-basic-color-danger-stroke-active: rgb(100% 13.725% 13.725% / 0.05);
@@ -228,6 +233,7 @@
   --click-button-basic-color-empty-background-hover: light-dark(#f6f7fa, #282828);
   --click-button-basic-color-empty-background-active: rgba(0, 0, 0, 0);
   --click-button-basic-color-empty-background-disabled: rgba(0, 0, 0, 0);
+  --click-button-basic-color-empty-background-loading: light-dark(linear-gradient(90deg, rgba(240, 242, 248, 0.1) 0%, rgb(240, 242, 248) 100%), linear-gradient(90deg, rgb(50, 51, 27, 0.1) 0%, rgb(50, 51, 27, 0.5) 100%));
   --click-button-basic-color-empty-stroke-default: rgba(0, 0, 0, 0);
   --click-button-basic-color-empty-stroke-hover: rgba(0, 0, 0, 0);
   --click-button-basic-color-empty-stroke-active: rgba(0, 0, 0, 0);
@@ -1468,6 +1474,8 @@
   --click-serviceCard-color-background-hover: light-dark(#fbfcff, lch(19.053 0 none));
   --click-serviceCard-color-stroke-default: light-dark(#e6e7e9, rgb(23.627% 23.627% 23.627%));
   --click-serviceCard-color-stroke-hover: light-dark(#cccfd3, rgb(27.446% 27.446% 27.446%));
+  --click-gareth-test-main-text: light-dark(#161517, #ffffff);
+  --click-gareth-test-main-danger: light-dark(#c10000, #ffbaba);
   --transition-default: all 100ms ease-in 0ms;
   --transition-duration-slow: 300ms;
   --transition-duration-smooth: 150ms;
@@ -1836,6 +1844,7 @@ $clickAccordionColorLinkIconActive: var(--click-accordion-color-link-icon-active
 $clickAlertMediumSpaceY: var(--click-alert-medium-space-y) !default;
 $clickAlertMediumSpaceX: var(--click-alert-medium-space-x) !default;
 $clickAlertMediumSpaceGap: var(--click-alert-medium-space-gap) !default;
+$clickAlertMediumSpaceBanner: var(--click-alert-medium-space-banner) !default;
 $clickAlertMediumTypographyTitleDefault: var(--click-alert-medium-typography-title-default) !default;
 $clickAlertMediumTypographyTextDefault: var(--click-alert-medium-typography-text-default) !default;
 $clickAlertMediumIconHeight: var(--click-alert-medium-icon-height) !default;
@@ -1843,6 +1852,7 @@ $clickAlertMediumIconWidth: var(--click-alert-medium-icon-width) !default;
 $clickAlertSmallSpaceY: var(--click-alert-small-space-y) !default;
 $clickAlertSmallSpaceX: var(--click-alert-small-space-x) !default;
 $clickAlertSmallSpaceGap: var(--click-alert-small-space-gap) !default;
+$clickAlertSmallSpaceBanner: var(--click-alert-small-space-banner) !default;
 $clickAlertSmallIconHeight: var(--click-alert-small-icon-height) !default;
 $clickAlertSmallIconWidth: var(--click-alert-small-icon-width) !default;
 $clickAlertSmallTypographyTitleDefault: var(--click-alert-small-typography-title-default) !default;
@@ -1987,6 +1997,7 @@ $clickButtonBasicColorPrimaryBackgroundDefault: var(--click-button-basic-color-p
 $clickButtonBasicColorPrimaryBackgroundHover: var(--click-button-basic-color-primary-background-hover) !default;
 $clickButtonBasicColorPrimaryBackgroundActive: var(--click-button-basic-color-primary-background-active) !default;
 $clickButtonBasicColorPrimaryBackgroundDisabled: var(--click-button-basic-color-primary-background-disabled) !default;
+$clickButtonBasicColorPrimaryBackgroundLoading: var(--click-button-basic-color-primary-background-loading) !default;
 $clickButtonBasicColorPrimaryStrokeDefault: var(--click-button-basic-color-primary-stroke-default) !default;
 $clickButtonBasicColorPrimaryStrokeHover: var(--click-button-basic-color-primary-stroke-hover) !default;
 $clickButtonBasicColorPrimaryStrokeActive: var(--click-button-basic-color-primary-stroke-active) !default;
@@ -1999,6 +2010,7 @@ $clickButtonBasicColorSecondaryBackgroundDefault: var(--click-button-basic-color
 $clickButtonBasicColorSecondaryBackgroundHover: var(--click-button-basic-color-secondary-background-hover) !default;
 $clickButtonBasicColorSecondaryBackgroundActive: var(--click-button-basic-color-secondary-background-active) !default;
 $clickButtonBasicColorSecondaryBackgroundDisabled: var(--click-button-basic-color-secondary-background-disabled) !default;
+$clickButtonBasicColorSecondaryBackgroundLoading: var(--click-button-basic-color-secondary-background-loading) !default;
 $clickButtonBasicColorSecondaryStrokeDefault: var(--click-button-basic-color-secondary-stroke-default) !default;
 $clickButtonBasicColorSecondaryStrokeHover: var(--click-button-basic-color-secondary-stroke-hover) !default;
 $clickButtonBasicColorSecondaryStrokeActive: var(--click-button-basic-color-secondary-stroke-active) !default;
@@ -2015,6 +2027,7 @@ $clickButtonBasicColorDangerBackgroundDefault: var(--click-button-basic-color-da
 $clickButtonBasicColorDangerBackgroundHover: var(--click-button-basic-color-danger-background-hover) !default;
 $clickButtonBasicColorDangerBackgroundActive: var(--click-button-basic-color-danger-background-active) !default;
 $clickButtonBasicColorDangerBackgroundDisabled: var(--click-button-basic-color-danger-background-disabled) !default;
+$clickButtonBasicColorDangerBackgroundLoading: var(--click-button-basic-color-danger-background-loading) !default;
 $clickButtonBasicColorDangerStrokeDefault: var(--click-button-basic-color-danger-stroke-default) !default;
 $clickButtonBasicColorDangerStrokeHover: var(--click-button-basic-color-danger-stroke-hover) !default;
 $clickButtonBasicColorDangerStrokeActive: var(--click-button-basic-color-danger-stroke-active) !default;
@@ -2027,6 +2040,7 @@ $clickButtonBasicColorEmptyBackgroundDefault: var(--click-button-basic-color-emp
 $clickButtonBasicColorEmptyBackgroundHover: var(--click-button-basic-color-empty-background-hover) !default;
 $clickButtonBasicColorEmptyBackgroundActive: var(--click-button-basic-color-empty-background-active) !default;
 $clickButtonBasicColorEmptyBackgroundDisabled: var(--click-button-basic-color-empty-background-disabled) !default;
+$clickButtonBasicColorEmptyBackgroundLoading: var(--click-button-basic-color-empty-background-loading) !default;
 $clickButtonBasicColorEmptyStrokeDefault: var(--click-button-basic-color-empty-stroke-default) !default;
 $clickButtonBasicColorEmptyStrokeHover: var(--click-button-basic-color-empty-stroke-hover) !default;
 $clickButtonBasicColorEmptyStrokeActive: var(--click-button-basic-color-empty-stroke-active) !default;
@@ -3267,6 +3281,8 @@ $clickServiceCardColorBackgroundDefault: var(--click-serviceCard-color-backgroun
 $clickServiceCardColorBackgroundHover: var(--click-serviceCard-color-background-hover) !default;
 $clickServiceCardColorStrokeDefault: var(--click-serviceCard-color-stroke-default) !default;
 $clickServiceCardColorStrokeHover: var(--click-serviceCard-color-stroke-hover) !default;
+$clickGarethTestMainText: var(--click-gareth-test-main-text) !default;
+$clickGarethTestMainDanger: var(--click-gareth-test-main-danger) !default;
 $transitionDefault: var(--transition-default) !default;
 $transitionDurationSlow: var(--transition-duration-slow) !default;
 $transitionDurationSmooth: var(--transition-duration-smooth) !default;
