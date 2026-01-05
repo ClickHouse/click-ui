@@ -4994,6 +4994,20 @@
           }
         }
       }
+    },
+    "gareth": {
+      "test": {
+        "main": {
+          "text": {
+            "value": "{global.color.text.default}",
+            "type": "color"
+          },
+          "danger": {
+            "value": "{click.global.color.text.danger}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "global": {
