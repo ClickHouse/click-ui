@@ -1,0 +1,93 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiRadioGroupRoot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: tokens.$clickCheckboxSpaceGap;
+
+  @include variants.variant('cuiInline') {
+    flex-direction: row;
+  }
+
+  @include variants.variant('cuiVertical') {
+    flex-direction: column;
+  }
+
+  @include variants.variant('cuiError') {
+    label {
+      color: tokens.$clickFieldColorLabelError;
+    }
+  }
+}
+
+.cuiWrapper {
+  @include mixins.cuiFormRoot($align: center);
+  padding: tokens.$clickCheckboxSpaceAll;
+  gap: tokens.$clickCheckboxSpaceGap;
+  width: auto;
+}
+
+.cuiRadioInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  border-radius: tokens.$clickRadioRadiiAll;
+  width: 1rem;
+  height: 1rem;
+  background: tokens.$clickRadioColorBackgroundDefault;
+  border: 1px solid tokens.$clickRadioColorStrokeDefault;
+
+  &:hover {
+    background: tokens.$clickRadioColorBackgroundHover;
+  }
+
+  &[data-state="checked"] {
+    border-color: tokens.$clickRadioColorStrokeActive;
+    background: tokens.$clickRadioColorBackgroundActive;
+  }
+
+  &[data-disabled] {
+    background: tokens.$clickRadioColorBackgroundDisabled;
+    border-color: tokens.$clickRadioColorStrokeDisabled;
+  }
+}
+
+.cuiRadioGroupIndicator {
+  background: tokens.$clickRadioColorBackgroundDefault;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: tokens.$clickRadioColorIndicatorDefault;
+  }
+
+  &:hover {
+    background: tokens.$clickRadioColorBackgroundHover;
+
+    &::after {
+      background: tokens.$clickRadioColorIndicatorHover;
+    }
+  }
+
+  &[data-state="checked"] {
+    background: tokens.$clickRadioColorBackgroundActive;
+
+    &::after {
+      background: tokens.$clickRadioColorIndicatorActive;
+    }
+  }
+
+  &[data-disabled] {
+    background: tokens.$clickRadioColorBackgroundDisabled;
+
+    &::after {
+      background: tokens.$clickRadioColorIndicatorDisabled;
+    }
+  }
+}

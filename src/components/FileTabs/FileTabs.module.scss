@@ -1,0 +1,164 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiTabsContainer {
+  display: flex;
+  position: relative;
+  overflow: auto;
+  overscroll-behavior: none;
+  scrollbar-width: 0;
+  max-width: var(--dynamic-max-width);
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+}
+
+.cuiTabsSortableContainer {
+  display: flex;
+
+  & > div {
+    height: 100%;
+    outline: none;
+    min-width: 100px;
+    width: clamp(100px, 100%, 200px);
+
+    &.sortable-ghost {
+      opacity: 0;
+    }
+  }
+}
+
+.cuiTabElement {
+  display: grid;
+  justify-content: flex-start;
+  align-items: center;
+  outline: none;
+  @include mixins.cuiFullMaxWidthStretch;
+  border: none;
+  cursor: pointer;
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  padding: tokens.$clickTabsFileTabsSpaceY tokens.$clickTabsFileTabsSpaceX;
+  gap: tokens.$clickTabsFileTabsSpaceGap;
+  border-radius: tokens.$clickTabsFileTabsRadiiAll;
+  border-right: 1px solid tokens.$clickTabsFileTabsColorStrokeDefault;
+  background: tokens.$clickTabsFileTabsColorBackgroundDefault;
+  color: tokens.$clickTabsFileTabsColorTextDefault;
+  font: tokens.$clickTabsFileTabsTypographyLabelDefault;
+
+  svg,
+  [data-indicator] {
+    height: tokens.$clickTabsFileTabsIconSizeHeight;
+    width: tokens.$clickTabsFileTabsIconSizeWidth;
+  }
+
+  [data-type="close"] {
+    display: none;
+  }
+
+  [data-indicator] {
+    display: block;
+  }
+
+  &:hover {
+    [data-type="close"] {
+      display: block;
+    }
+
+    [data-indicator] {
+      display: none;
+    }
+  }
+
+  @include variants.variant('cuiActive') {
+    background: tokens.$clickTabsFileTabsColorBackgroundActive;
+    color: tokens.$clickTabsFileTabsColorTextActive;
+    font: tokens.$clickTabsFileTabsTypographyLabelActive;
+    border-right: 1px solid tokens.$clickTabsFileTabsColorStrokeActive;
+  }
+
+  &:not(.cuiActive):hover {
+    background: tokens.$clickTabsFileTabsColorBackgroundHover;
+    color: tokens.$clickTabsFileTabsColorTextHover;
+    font: tokens.$clickTabsFileTabsTypographyLabelHover;
+    border-right: 1px solid tokens.$clickTabsFileTabsColorStrokeHover;
+  }
+
+  @include variants.variant('cuiPreview') {
+    font-style: italic;
+  }
+
+  @include variants.variant('cuiDismissable') {
+    grid-template-columns: 1fr tokens.$clickTabsFileTabsIconSizeWidth;
+  }
+
+  @include variants.variant('cuiFixedTabElement') {
+    width: auto;
+  }
+}
+
+.cuiIndicator {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    left: 0.25rem;
+    top: 0.25rem;
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+  }
+
+  &.default::after {
+    background: transparent;
+  }
+
+  &.success::after {
+    background: tokens.$clickAlertColorTextSuccess;
+  }
+
+  &.neutral::after {
+    background: tokens.$clickAlertColorTextNeutral;
+  }
+
+  &.danger::after {
+    background: tokens.$clickAlertColorTextDanger;
+  }
+
+  &.warning::after {
+    background: tokens.$clickAlertColorTextWarning;
+  }
+
+  &.info::after {
+    background: tokens.$clickAlertColorTextInfo;
+  }
+}
+
+.cuiTabContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: tokens.$clickTabsFileTabsSpaceGap;
+}
+
+.cuiTabContentText {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cuiEmptyButton {
+  @include mixins.cuiEmptyButton;
+  background: tokens.$clickTabsFileTabsColorCloseButtonBackgroundDefault;
+
+  &:hover {
+    background: tokens.$clickTabsFileTabsColorCloseButtonBackgroundHover;
+  }
+}

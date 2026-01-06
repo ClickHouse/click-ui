@@ -1,0 +1,19 @@
+ "@/theme/tokens/types" as tokens;
+
+.cuiActionArea {
+  display: flex;
+  justify-content: flex-end;
+  gap: tokens.$clickDialogSpaceGap;
+}
+
+.cuiTopNav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1px solid tokens.$clickSeparatorColorStrokeDefault;
+}

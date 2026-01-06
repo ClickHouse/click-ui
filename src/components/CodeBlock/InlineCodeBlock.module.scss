@@ -1,0 +1,10 @@
+ "@/theme/tokens/types" as tokens;
+
+.cuiInlineContainer {
+  background: tokens.$clickCodeInlineColorBackgroundDefault;
+  color: tokens.$clickCodeInlineColorTextDefault;
+  border: 1px solid tokens.$clickCodeInlineColorStrokeDefault;
+  font: tokens.$clickCodeInlineTypographyTextDefault;
+  border-radius: tokens.$clickCodeInlineRadiiAll;
+  padding: 0 tokens.$clickCodeInlineSpaceX;
+}

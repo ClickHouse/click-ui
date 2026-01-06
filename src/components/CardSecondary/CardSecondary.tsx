@@ -1,9 +1,12 @@
-import { styled } from "styled-components";
+"use client";
+
 import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { IconSize } from "@/components/Icon/types";
 import { HTMLAttributes, ReactNode } from "react";
+import clsx from "clsx";
+import styles from "./CardSecondary.module.scss";
 
 export type BadgeState =
   | "default"
@@ -41,97 +44,6 @@ export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   infoIconSize?: IconSize;
 }
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const HeaderLeft = styled.div<{ $disabled?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.click.card.secondary.space.gap};
-
-  h3,
-  svg {
-    color: ${({ $disabled, theme }) =>
-      $disabled == true
-        ? theme.click.global.color.text.muted
-        : theme.click.global.color.text.default};
-  }
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
-const CustomIcon = styled.img`
-  height: ${({ theme }) => theme.click.image.lg.size.height};
-  width: ${({ theme }) => theme.click.image.lg.size.width};
-`;
-
-const InfoLink = styled.a`
-  display: flex;
-  align-items: center;
-  color: ${({ theme }) => theme.click.card.secondary.color.link.default};
-  gap: ${({ theme }) => theme.click.card.secondary.space.link.gap};
-  text-decoration: none;
-`;
-const LinkIconContainer = styled(Icon)`
-  color: ${({ theme }) => theme.click.card.secondary.color.link.default};
-  height: ${({ theme }) => theme.click.image.md.size.height};
-  width: ${({ theme }) => theme.click.image.md.size.width};
-`;
-
-const LinkText = styled(Text)``;
-const LinkIcon = styled(LinkIconContainer)``;
-
-const Wrapper = styled.div<{
-  $hasShadow?: boolean;
-}>`
-  background-color: ${({ theme }) => theme.click.card.secondary.color.background.default};
-  border-radius: ${({ theme }) => theme.click.card.secondary.radii.all};
-  border: ${({ theme }) =>
-    `1px solid ${theme.click.card.secondary.color.stroke.default}`};
-  max-width: 420px;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-  padding: ${({ theme }) => theme.click.card.secondary.space.all};
-  gap: ${({ theme }) => theme.click.card.secondary.space.gap};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
-
-  &:hover,
-  :focus {
-    background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
-    cursor: pointer;
-    ${LinkText},
-    ${LinkIcon} {
-      color: ${({ theme }) => theme.click.card.secondary.color.link.hover};
-    }
-  }
-
-  &[aria-disabled="true"],
-  &[aria-disabled="true"]:hover,
-  &[aria-disabled="true"]:focus,
-  &[aria-disabled="true"]:active {
-    pointer-events: none;
-    ${({ theme }) => `
-      background-color: ${theme.click.card.secondary.color.background.disabled};
-      color: ${theme.click.card.secondary.color.title.disabled};
-      border: 1px solid ${theme.click.card.secondary.color.stroke.disabled};
-      cursor: not-allowed;
-
-      ${LinkText},
-      ${LinkIcon} {
-        color: ${theme.click.card.secondary.color.link.disabled};
-      }
-    `}
-  }
-`;
-
 export const CardSecondary = ({
   title,
   icon,
@@ -145,19 +57,35 @@ export const CardSecondary = ({
   infoText,
   infoIcon = "chevron-right",
   infoIconSize = "md",
+  className,
   ...props
 }: CardSecondaryProps) => {
+  const InfoLinkComponent = disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a";
+
   return (
-    <Wrapper
+    <div
       aria-disabled={disabled}
       tabIndex={0}
-      $hasShadow={hasShadow}
       {...props}
+      className={clsx(
+        styles.cuiWrapper,
+        {
+          [styles.cuiHasShadow]: hasShadow,
+          [styles.cuiDisabled]: disabled,
+        },
+        className
+      )}
+      data-cui-disabled={disabled ? "true" : undefined}
     >
-      <Header>
-        <HeaderLeft $disabled={disabled}>
+      <div className={styles.cuiHeader}>
+        <div
+          className={clsx(styles.cuiHeaderLeft, {
+            [styles.cuiDisabled]: disabled,
+          })}
+        >
           {iconUrl ? (
-            <CustomIcon
+            <img
+              className={styles.cuiCustomIcon}
               src={iconUrl}
               alt="card icon"
               aria-hidden
@@ -172,30 +100,31 @@ export const CardSecondary = ({
             )
           )}
           <Title type="h3">{title}</Title>
-        </HeaderLeft>
+        </div>
         {badgeText && (
           <Badge
             text={badgeText}
             state={disabled == true ? "disabled" : badgeState}
           />
         )}
-      </Header>
+      </div>
 
-      <Content>
+      <div className={styles.cuiContent}>
         <Text color="muted">{description}</Text>
-      </Content>
+      </div>
       {(infoUrl || infoText) && (
-        <InfoLink
+        <InfoLinkComponent
+          className={styles.cuiInfoLink}
           href={disabled ? undefined : infoUrl}
-          as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
         >
-          <LinkText>{infoText}</LinkText>
-          <LinkIcon
+          <Text className={styles.cuiLinkText}>{infoText}</Text>
+          <Icon
+            className={styles.cuiLinkIcon}
             size={infoIconSize}
             name={infoIcon}
           />
-        </InfoLink>
+        </InfoLinkComponent>
       )}
-    </Wrapper>
+    </div>
   );
 };

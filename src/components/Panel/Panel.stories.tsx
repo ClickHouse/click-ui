@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { Panel } from "./Panel";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Text } from "@/components/Typography/Text/Text";
+import { Title } from "@/components/Typography/Title/Title";
 
 const meta: Meta<typeof Panel> = {
   component: Panel,

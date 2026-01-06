@@ -1,0 +1,93 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiTrigger {
+  padding: tokens.$clickTabsSpaceY tokens.$clickTabsSpaceX;
+  border-top-left-radius: tokens.$clickTabsRadiiAll;
+  border-top-right-radius: tokens.$clickTabsRadiiAll;
+  border: none;
+  border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeDefault;
+  background-color: tokens.$clickTabsBasicColorBackgroundDefault;
+  color: tokens.$clickTabsBasicColorTextDefault;
+  font: tokens.$clickTabsTypographyLabelDefault;
+  cursor: pointer;
+
+  /* Active state styles - using Radix UI's data-state attribute */
+  &[data-state="active"] {
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
+    color: tokens.$clickTabsBasicColorTextActive;
+    font: tokens.$clickTabsTypographyLabelActive;
+
+    &:hover {
+      font: tokens.$clickTabsTypographyLabelActive;
+    }
+  }
+
+  &:hover {
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeHover;
+    background-color: tokens.$clickTabsBasicColorBackgroundHover;
+    color: tokens.$clickTabsBasicColorTextHover;
+    font: tokens.$clickTabsTypographyLabelHover;
+  }
+
+  &:hover[data-state="active"] {
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
+  }
+}
+
+.cuiTriggersList {
+  border-bottom: 1px solid var(--global-color-stroke-default);
+  display: flex;
+}
+
+.cuiContent {
+  /* Content styles can be added here if needed */
+}
+
+.cuiFullWidthTabs {
+  width: 100%;
+}
+
+.cuiFullWidthTrigger {
+  padding: tokens.$clickTabsSpaceY tokens.$clickTabsSpaceX;
+  border-top-left-radius: tokens.$clickTabsRadiiAll;
+  border-top-right-radius: tokens.$clickTabsRadiiAll;
+  border: none;
+  border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeDefault;
+  background-color: tokens.$clickTabsBasicColorBackgroundDefault;
+  color: tokens.$clickTabsBasicColorTextDefault;
+  font: tokens.$clickTabsTypographyLabelDefault;
+  cursor: pointer;
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  /* Active state styles - using Radix UI's data-state attribute */
+  &[data-state="active"] {
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
+    color: tokens.$clickTabsBasicColorTextActive;
+    font: tokens.$clickTabsTypographyLabelActive;
+
+    &:hover {
+      font: tokens.$clickTabsTypographyLabelActive;
+    }
+  }
+
+  &:hover {
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeHover;
+    background-color: tokens.$clickTabsBasicColorBackgroundHover;
+    color: tokens.$clickTabsBasicColorTextHover;
+    font: tokens.$clickTabsTypographyLabelHover;
+  }
+
+  &:hover[data-state="active"] {
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
+  }
+
+  /* Custom width variant */
+  @include variants.variant('cuiCustomWidth') {
+    flex-basis: unset;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,80 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Wrapper styles (equivalent to FormRoot)
+.cuiWrapper {
+  @include mixins.cuiFormRoot($align: center, $maxWidth: fit-content);
+
+  // Orientation variants - using :where() for low specificity
+  @include variants.variant('cuiOrientationHorizontal') {
+    flex-direction: row;
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: row-reverse;
+    }
+  }
+
+  @include variants.variant('cuiOrientationVertical') {
+    flex-direction: column;
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+// Switch root styles
+.cuiSwitchRoot {
+  width: tokens.$clickSwitchSizeWidth;
+  height: tokens.$clickSwitchSizeHeight;
+  border-radius: tokens.$clickSwitchRadiiAll;
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+
+  // Default state
+  background-color: tokens.$clickSwitchColorBackgroundDefault;
+  border: 1px solid tokens.$clickSwitchColorStrokeDefault;
+
+  // State variants - using :where() for low specificity
+  @include variants.variant('cuiChecked') {
+    background-color: tokens.$clickSwitchColorBackgroundActive;
+    border: 1px solid tokens.$clickSwitchColorStrokeActive;
+  }
+
+  @include variants.variant('cuiDisabled') {
+    background-color: tokens.$clickSwitchColorBackgroundDisabled;
+    border: 1px solid tokens.$clickSwitchColorStrokeDisabled;
+    cursor: not-allowed;
+  }
+}
+
+// Switch thumb styles
+.cuiSwitchThumb {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: tokens.$clickSwitchRadiiAll;
+  transition: transform 100ms;
+  will-change: transform;
+
+  // Default position and color
+  transform: translateX(2px);
+  background-color: tokens.$clickSwitchColorIndicatorDefault;
+
+  // State variants - using :where() for low specificity
+  @include variants.variant('cuiChecked') {
+    transform: translateX(15px);
+    background-color: tokens.$clickSwitchColorIndicatorActive;
+  }
+
+  @include variants.variant('cuiDisabled') {
+    background-color: tokens.$clickSwitchColorIndicatorDisabled;
+
+    // Checked and disabled - nested variant
+    @include variants.variant('cuiChecked') {
+      transform: translateX(15px);
+      background-color: tokens.$clickSwitchColorIndicatorDisabled;
+    }
+  }
+}

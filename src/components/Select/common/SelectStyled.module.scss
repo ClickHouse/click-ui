@@ -1,0 +1,277 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSelectPopoverRoot {
+  width: 100%;
+}
+
+.cuiSelectValue {
+  text-align: left;
+  flex: 1;
+  gap: inherit;
+  color: inherit;
+  font: inherit;
+  overflow: hidden;
+}
+
+.cuiStyledSelectTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  min-height: tokens.$clickGenericMenuPanelSizeHeight;
+  border-radius: tokens.$clickFieldRadiiAll;
+  padding: tokens.$clickFieldSpaceY tokens.$clickFieldSpaceX;
+  gap: tokens.$clickFieldSpaceGap;
+  font: tokens.$clickFieldTypographyFieldTextDefault;
+  color: tokens.$clickFieldColorTextDefault;
+  border: 1px solid tokens.$clickFieldColorStrokeDefault;
+  background: tokens.$clickFieldColorBackgroundDefault;
+
+  span:first-of-type {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &:hover {
+    border: 1px solid tokens.$clickFieldColorStrokeHover;
+    background: tokens.$clickFieldColorBackgroundHover;
+    color: tokens.$clickFieldColorTextHover;
+  }
+
+  &:focus,
+  &[data-state="open"] {
+    font: tokens.$clickFieldTypographyFieldTextActive;
+    border: 1px solid tokens.$clickFieldColorStrokeActive;
+    background: tokens.$clickFieldColorBackgroundActive;
+    color: tokens.$clickFieldColorTextActive;
+
+    & ~ label {
+      color: tokens.$clickFieldColorLabelActive;
+      font: tokens.$clickFieldTypographyLabelActive;
+    }
+  }
+
+  &:disabled {
+    font: tokens.$clickFieldTypographyFieldTextDisabled;
+    border: 1px solid tokens.$clickFieldColorStrokeDisabled;
+    background: tokens.$clickFieldColorBackgroundDisabled;
+    color: tokens.$clickFieldColorTextDisabled;
+    cursor: not-allowed;
+  }
+
+  @include variants.variant('cuiError') {
+    font: tokens.$clickFieldTypographyFieldTextError;
+    border: 1px solid tokens.$clickFieldColorStrokeError;
+    background: tokens.$clickFieldColorBackgroundActive;
+    color: tokens.$clickFieldColorTextError;
+
+    &:hover {
+      border: 1px solid tokens.$clickFieldColorStrokeError;
+      color: tokens.$clickFieldColorTextError;
+    }
+
+    &:focus,
+    &[data-state="open"] {
+      font: tokens.$clickFieldTypographyFieldTextError;
+      border: 1px solid tokens.$clickFieldColorStrokeError;
+      background: tokens.$clickFieldColorBackgroundActive;
+      color: tokens.$clickFieldColorTextError;
+    }
+  }
+
+  [data-hide-in-trigger] {
+    display: none;
+  }
+}
+
+.cuiSelectPopoverContent {
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+  border-radius: 0.25rem;
+  pointer-events: auto;
+  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
+  box-shadow:
+    0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+
+  @include variants.variant('cuiUseFullWidthItems') {
+    min-width: var(--radix-popover-trigger-width);
+    width: 100%;
+
+    @include variants.variant('cuiHasCharacterLimit') {
+      max-width: var(--character-limit);
+    }
+  }
+}
+
+.cuiSearchBarContainer {
+  width: auto;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: tokens.$clickGenericMenuAutocompleteColorSearchTermDefault;
+  font: tokens.$clickGenericMenuAutocompleteTypographySearchTermDefault;
+
+  @include variants.variant('cuiShowSearch') {
+    padding: tokens.$clickGenericMenuItemSpaceY tokens.$clickGenericMenuItemSpaceX;
+    height: auto;
+  }
+
+  @include variants.variant('cuiHideSearch') {
+    padding: 0;
+    height: 0;
+  }
+}
+
+.cuiSearchBar {
+  background: transparent;
+  border: none;
+  width: 100%;
+  outline: none;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  font: tokens.$clickGenericMenuAutocompleteTypographySearchTermDefault;
+  color: tokens.$clickGenericMenuAutocompleteColorSearchTermDefault;
+
+  &::placeholder {
+    color: tokens.$clickGenericMenuAutocompleteColorPlaceholderDefault;
+    font: tokens.$clickGenericMenuAutocompleteTypographySearchPlaceholderDefault;
+  }
+
+  @include variants.variant('cuiShowSearch') {
+    min-height: 21px;
+    height: initial;
+    padding-right: 24px;
+    border-bottom: 2px solid tokens.$clickGenericMenuButtonColorStrokeDefault;
+  }
+
+  @include variants.variant('cuiHideSearch') {
+    min-height: 0;
+    height: 0;
+    padding: 0;
+    border-bottom: 0;
+  }
+}
+
+.cuiSearchClose {
+  position: absolute;
+  top: tokens.$clickGenericMenuItemSpaceY;
+  right: tokens.$clickGenericMenuItemSpaceX;
+
+  @include variants.variant('cuiShowClose') {
+    visibility: visible;
+  }
+
+  @include variants.variant('cuiHideClose') {
+    visibility: hidden;
+  }
+}
+
+.cuiSelectList {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  max-height: calc(var(--radix-popover-content-available-height) - 1rem);
+}
+
+.cuiSelectListContent {
+  width: inherit;
+  overflow: auto;
+  flex: 1;
+
+  @include variants.variant('cuiHasMaxHeight') {
+    max-height: var(--max-height);
+  }
+}
+
+.cuiHiddenSelectElement {
+  @include mixins.cuiVisuallyHidden;
+  height: 0;
+}
+
+.cuiSelectGroupContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include mixins.cuiFullWidthStretch;
+  overflow: hidden;
+  background: transparent;
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.cuiSelectGroupName {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
+  padding: tokens.$clickGenericMenuSectionHeaderSpaceTop tokens.$clickGenericMenuItemSpaceX
+    tokens.$clickGenericMenuSectionHeaderSpaceBottom;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+}
+
+.cuiSelectGroupContent {
+  width: inherit;
+}
+
+.cuiSelectNoDataContainer {
+  border: none;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font: tokens.$clickGenericMenuButtonTypographyLabelDefault;
+  padding: tokens.$clickGenericMenuButtonSpaceY tokens.$clickGenericMenuItemSpaceX;
+  background: tokens.$clickGenericMenuButtonColorBackgroundDefault;
+  color: tokens.$clickGenericMenuButtonColorLabelDefault;
+
+  &[hidden="true"] {
+    display: none;
+  }
+
+  @include variants.variant('cuiClickable') {
+    cursor: pointer;
+  }
+
+  @include variants.variant('cuiNonClickable') {
+    cursor: default;
+  }
+}
+
+.cuiSelectItemDescriptionText {
+  white-space: normal;
+
+  [data-disabled] &,
+  [disabled] & {
+    color: inherit;
+  }
+
+  .cuiStyledSelectTrigger & {
+    display: none;
+  }
+}

@@ -58,8 +58,8 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
         dir={dir}
       >
         <InputElement
-          $hasStartContent={false}
-          $hasEndContent={hasEndContent}
+          hasStartContent={false}
+          hasEndContent={hasEndContent}
           ref={ref}
           type={viewPassword ? "text" : "password"}
           id={id ?? defaultId}

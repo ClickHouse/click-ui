@@ -1,18 +1,21 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactNode,
-  forwardRef,
-} from "react";
-import { styled } from "styled-components";
+import { ElementType, ReactNode, forwardRef } from "react";
+import clsx from "clsx";
 import { TextSize, TextWeight } from "@/components/commonTypes";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
+import styles from "./Text.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 export type TextAlignment = "left" | "center" | "right";
 export type TextColor = "default" | "muted" | "danger" | "disabled";
 
-export interface TextProps<T extends ElementType = "p"> {
-  /** The text content to display */
+export interface TextProps<
+  T extends ElementType = "p",
+> extends PolymorphicComponentProps<T> {
   children: ReactNode;
   /** The text alignment */
   align?: TextAlignment;
@@ -24,61 +27,57 @@ export interface TextProps<T extends ElementType = "p"> {
   weight?: TextWeight;
   /** Additional CSS class name */
   className?: string;
-  /** Custom component to render as */
-  component?: T;
-  /** Whether the text should fill the full width of its container */
   fillWidth?: boolean;
 }
 
-type TextPolymorphicComponent = <T extends ElementType = "p">(
-  props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
-) => ReactNode;
-
 const _Text = <T extends ElementType = "p">(
   {
-    align,
-    color,
-    size,
-    weight,
+    align = "left",
+    color = "default",
+    size = "md",
+    weight = "normal",
     className,
     children,
     component,
     fillWidth,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
-) => (
-  <CuiText
-    as={component ?? "p"}
-    ref={ref}
-    $align={align}
-    $color={color}
-    $size={size}
-    $weight={weight}
-    $fillWidth={fillWidth}
-    className={className}
-    {...props}
-  >
-    {children}
-  </CuiText>
-);
+  }: PolymorphicProps<T, TextProps<T>>,
+  ref: PolymorphicRef<T>
+) => {
+  const Component = component ?? "p";
 
-const CuiText = styled.p<{
-  $align?: TextAlignment;
-  $color?: TextColor;
-  $size?: TextSize;
-  $weight?: TextWeight;
-  $fillWidth?: boolean;
-}>`
-  font: ${({ $size = "md", $weight = "normal", theme }) =>
-    theme.typography.styles.product.text[$weight][$size]};
-  color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
-  text-align: ${({ $align = "left" }) => $align};
-  margin: 0;
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
-`;
+  // Helper function to get font class based on size and weight
+  const getFontClass = (size: TextSize, weight: TextWeight) => {
+    const weightCapitalized = weight === "normal" ? "" : capitalize(weight);
+    return `cuiFontSize${capitalize(size)}${weightCapitalized}`;
+  };
+
+  const colorClass = `cuiColor${capitalize(color)}`;
+  const alignClass = `cuiAlign${capitalize(align)}`;
+
+  return (
+    <Component
+      ref={ref}
+      className={clsx(
+        styles.cuiText,
+        styles[getFontClass(size, weight)],
+        styles[colorClass],
+        styles[alignClass],
+        { [styles.cuiFillWidth]: fillWidth },
+        className
+      )}
+      data-cui-size={size}
+      data-cui-weight={weight}
+      data-cui-color={color}
+      data-cui-align={align}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};
 
 _Text.displayName = "Text";
 
-const Text: TextPolymorphicComponent = forwardRef(_Text);
+const Text: PolymorphicComponent<TextProps, "p"> = forwardRef(_Text);
 export { Text };

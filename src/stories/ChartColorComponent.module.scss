@@ -1,0 +1,54 @@
+ "@/theme/tokens/types" as tokens;
+
+.cuiColorBox {
+  border-radius: 4px;
+  box-sizing: unset;
+
+  &.cuiBlue {
+    background-color: var(--global-color-chart-default-blue);
+  }
+
+  &.cuiOrange {
+    background-color: var(--global-color-chart-default-orange);
+  }
+
+  &.cuiGreen {
+    background-color: var(--global-color-chart-default-green);
+  }
+
+  &.cuiFuchsia {
+    background-color: var(--global-color-chart-default-fuchsia);
+  }
+
+  &.cuiYellow {
+    background-color: var(--global-color-chart-default-yellow);
+  }
+
+  &.cuiViolet {
+    background-color: var(--global-color-chart-default-violet);
+  }
+
+  &.cuiBabyblue {
+    background-color: var(--global-color-chart-default-babyblue);
+  }
+
+  &.cuiDanger {
+    background-color: var(--global-color-chart-default-danger);
+  }
+
+  &.cuiRed {
+    background-color: var(--global-color-chart-default-red);
+  }
+
+  &.cuiTeal {
+    background-color: var(--global-color-chart-default-teal);
+  }
+
+  &.cuiSunrise {
+    background-color: var(--global-color-chart-default-sunrise);
+  }
+
+  &.cuiSlate {
+    background-color: var(--global-color-chart-default-slate);
+  }
+}

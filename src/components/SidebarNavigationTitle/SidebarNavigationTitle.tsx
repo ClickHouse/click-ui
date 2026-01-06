@@ -1,10 +1,20 @@
-import { HTMLAttributes, ReactNode } from "react";
-import { styled } from "styled-components";
-import { HorizontalDirection, IconName } from "@/components";
-import { IconWrapper } from "../Collapsible/IconWrapper";
+"use client";
 
-export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {
-  /** The label content to display */
+import { ElementType, ReactNode, forwardRef } from "react";
+import clsx from "clsx";
+import { HorizontalDirection, IconName } from "@/components";
+import { IconWrapper } from "@/components";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
+import styles from "./SidebarNavigationTitle.module.scss";
+
+export interface SidebarNavigationTitleProps<
+  T extends ElementType = "button",
+> extends PolymorphicComponentProps<T> {
   label: ReactNode;
   /** Whether the title is currently selected */
   selected?: boolean;
@@ -14,69 +24,63 @@ export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonEl
   iconDir?: HorizontalDirection;
   /** The sidebar style type */
   type?: "main" | "sqlSidebar";
+  collapsible?: boolean;
 }
 
-export const SidebarNavigationTitle = ({
-  label,
-  icon,
-  iconDir,
-  selected,
-  type = "main",
-  ...props
-}: SidebarNavigationTitleProps) => {
+const _SidebarNavigationTitle = <T extends ElementType = "button">(
+  {
+    component,
+    label,
+    icon,
+    iconDir,
+    selected,
+    type = "main",
+    collapsible = false,
+    className,
+    ...props
+  }: PolymorphicProps<T, SidebarNavigationTitleProps<T>>,
+  ref: PolymorphicRef<T>
+) => {
+  const Component = component ?? "button";
+
+  // Collapsible.Trigger already wraps children with IconWrapper, so pass icon props
+  // to the component and let it handle the wrapping to avoid double wrapping
+  const content = component ? (
+    label
+  ) : (
+    <IconWrapper
+      icon={icon}
+      iconDir={iconDir}
+    >
+      {label}
+    </IconWrapper>
+  );
+
   return (
-    <SidebarTitleWrapper
+    <Component
+      ref={ref}
       data-selected={selected}
-      $type={type}
+      data-cui-type={type}
+      data-cui-collapsible={collapsible || undefined}
+      icon={component ? icon : undefined}
+      iconDir={component ? iconDir : undefined}
+      className={clsx(
+        styles.cuiSidebarTitleWrapper,
+        {
+          [styles.cuiMain]: type === "main",
+          [styles.cuiSqlSidebar]: type === "sqlSidebar",
+          [styles.cuiCollapsible]: collapsible,
+        },
+        className
+      )}
       {...props}
     >
-      <IconWrapper
-        icon={icon}
-        iconDir={iconDir}
-      >
-        {label}
-      </IconWrapper>
-    </SidebarTitleWrapper>
+      {content}
+    </Component>
   );
 };
-export const SidebarTitleWrapper = styled.button<{
-  $collapsible?: boolean;
-  $type: "main" | "sqlSidebar";
-}>`
-  display: inline-flex;
-  align-items: center;
-  background: transparent;
-  border: none;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  white-space: nowrap;
-  overflow: hidden;
-  cursor: pointer;
-  ${({ theme, $collapsible = false, $type }) => `
-    padding: 0;
-    padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
-    font: ${theme.click.sidebar.navigation.title.typography.default};
-    color: ${theme.click.sidebar[$type].navigation.title.color.default};
 
-    &:hover {
-      font: ${theme.click.sidebar.navigation.title.typography.hover};
-      color: ${theme.click.sidebar[$type].navigation.title.color.hover};
-    }
-
-    &:active, &[data-state="open"], &[data-selected="true"] {
-      font: ${theme.click.sidebar.navigation.title.typography.active};
-      color: ${theme.click.sidebar[$type].navigation.title.color.active};
-    }
-  `}
-
-  a {
-    color: inherit;
-    text-decoration: none;
-
-    &:active {
-      color: inherit;
-    }
-  }
-`;
+export const SidebarNavigationTitle: PolymorphicComponent<
+  SidebarNavigationTitleProps,
+  "button"
+> = forwardRef(_SidebarNavigationTitle);

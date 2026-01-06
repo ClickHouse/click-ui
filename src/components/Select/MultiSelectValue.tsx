@@ -2,26 +2,8 @@ import { Badge, BadgeProps } from "@/components";
 import { DismissibleBadge, NonDismissibleBadge } from "@/components/Badge/Badge";
 import { MouseEvent, useEffect, useId, useState } from "react";
 import { ItemInterface, ReactSortable } from "react-sortablejs";
-import { styled } from "styled-components";
 import { SelectItemProps } from "./common/types";
-
-const BadgeList = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: inherit;
-  font: inherit;
-  color: inherit;
-`;
-
-const MultiSelectBadge = styled.div`
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  max-width: fit-content;
-`;
+import styles from "./MultiSelectValue.module.scss";
 
 interface MultiSelectValueProps {
   selectedValues: Array<string>;
@@ -60,8 +42,8 @@ export const MultiSelectValue = ({
   }
 
   return (
-    <BadgeList
-      as={ReactSortable}
+    <ReactSortable
+      className={styles.cuiBadgeList}
       disabled={!sortable}
       list={values}
       setList={setValues}
@@ -99,15 +81,18 @@ export const MultiSelectValue = ({
           } as DismissibleBadge;
         }
         return (
-          <MultiSelectBadge
-            as={Badge}
+          <div
+            className={styles.cuiMultiSelectBadge}
             key={`multi-select-${id}-${value}`}
-            size="sm"
-            state={disabled ? "disabled" : "default"}
-            {...otherProps}
-          />
+          >
+            <Badge
+              size="sm"
+              state={disabled ? "disabled" : "default"}
+              {...otherProps}
+            />
+          </div>
         );
       })}
-    </BadgeList>
+    </ReactSortable>
   );
 };

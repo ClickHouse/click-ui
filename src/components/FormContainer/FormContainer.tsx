@@ -1,5 +1,7 @@
+"use client";
+
 import { HTMLAttributes, ReactNode } from "react";
-import { Error, FormElementContainer, FormRoot } from "../commonElement";
+import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { HorizontalDirection, Label, Orientation } from "@/components";
 
 export interface FormContainerProps extends HTMLAttributes<HTMLDivElement> {
@@ -23,9 +25,9 @@ export const FormContainer = ({
   ...props
 }: FormContainerProps) => (
   <FormRoot
-    $orientation={orientation}
-    $dir={dir}
-    $addLabelPadding={addLabelPadding}
+    orientation={orientation}
+    dir={dir}
+    addLabelPadding={addLabelPadding}
     {...props}
   >
     <FormElementContainer>

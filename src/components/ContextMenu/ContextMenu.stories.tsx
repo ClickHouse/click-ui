@@ -1,37 +1,19 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
 import { ContextMenuProps } from "@radix-ui/react-context-menu";
-import { ContextMenu, ContextMenuItemProps } from "./ContextMenu";
-import { styled } from "styled-components";
+import { ContextMenu } from "./ContextMenu";
+import styles from "./ContextMenu.stories.module.scss";
 
-interface ContextMenuExampleProps extends ContextMenuProps {
+interface Props extends ContextMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
   side: "top" | "right" | "left" | "bottom";
 }
 
-const GridCenter = styled.div`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const Trigger = styled(GridCenter)`
-  border: 2px currentColor dashed;
-`;
-
-const ContextMenuExample = ({
-  showArrow,
-  disabled,
-  side,
-  ...props
-}: ContextMenuExampleProps) => {
+const ContextMenuExample = ({ showArrow, disabled, side, ...props }: Props) => {
   return (
-    <GridCenter>
+    <div className={styles.cuiGridCenter}>
       <ContextMenu {...props}>
         <ContextMenu.Trigger disabled={disabled}>
-          <Trigger>ContextMenu Trigger</Trigger>
+          <div className={styles.cuiTrigger}>ContextMenu Trigger</div>
         </ContextMenu.Trigger>
         <ContextMenu.Content
           showArrow={showArrow}
@@ -63,23 +45,13 @@ const ContextMenuExample = ({
             Content2
           </ContextMenu.Item>
           <ContextMenu.Item disabled>Content3</ContextMenu.Item>
-          <ContextMenu.Item type="danger">Delete content</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu>
-    </GridCenter>
+    </div>
   );
 };
-
-const meta: Meta<typeof ContextMenuExample> = {
+export default {
   component: ContextMenuExample,
-  subcomponents: {
-    "ContextMenu.Trigger": ContextMenu.Trigger as React.ComponentType<unknown>,
-    "ContextMenu.Content": ContextMenu.Content as React.ComponentType<unknown>,
-    "ContextMenu.SubTrigger": ContextMenu.SubTrigger as React.ComponentType<unknown>,
-    "ContextMenu.Group": ContextMenu.Group as React.ComponentType<unknown>,
-    "ContextMenu.Sub": ContextMenu.Sub as React.ComponentType<unknown>,
-    "ContextMenu.Item": ContextMenu.Item as React.ComponentType<ContextMenuItemProps>,
-  },
   title: "Display/ContextMenu",
   tags: ["form-field", "dropdown", "autodocs"],
   argTypes: {
@@ -89,11 +61,7 @@ const meta: Meta<typeof ContextMenuExample> = {
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof ContextMenuExample>;
-
-export const Playground: Story = {
+export const Playground = {
   args: {
     showArrow: true,
     side: "left",

@@ -1,0 +1,306 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+/* Table wrapper styles */
+.cuiTableOuterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.cuiTableWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border: tokens.$clickTableCellStroke solid tokens.$clickTableGlobalColorStrokeDefault;
+  border-radius: tokens.$clickTableRadiiAll;
+}
+
+.cuiTable {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  table-layout: fixed;
+
+  @include mixins.cuiMobile {
+    border: none;
+    table-layout: auto;
+  }
+}
+
+/* Header styles */
+.cuiHeader {
+  text-align: left;
+
+  @include variants.variant('cuiHeaderSm') {
+    padding: tokens.$clickTableHeaderCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+    font: tokens.$clickTableHeaderTitleDefault;
+    color: tokens.$clickTableHeaderColorTitleDefault;
+  }
+
+  @include variants.variant('cuiHeaderMd') {
+    padding: tokens.$clickTableHeaderCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
+    font: tokens.$clickTableHeaderTitleDefault;
+    color: tokens.$clickTableHeaderColorTitleDefault;
+  }
+}
+
+.cuiHeaderContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: inherit;
+
+  @include variants.variant('cuiInteractive') {
+    cursor: pointer;
+  }
+}
+
+.cuiSortIcon {
+  transition: all 200ms;
+
+  @include variants.variant('cuiSortDesc') {
+    transform: rotate(180deg);
+  }
+
+  @include variants.variant('cuiSortAsc') {
+    transform: rotate(0deg);
+  }
+}
+
+/* Column group and thead styles */
+.cuiColGroup {
+  @include mixins.cuiMobile {
+    display: none;
+  }
+}
+
+.cuiThead {
+  tr {
+    overflow: hidden;
+    background-color: tokens.$clickTableHeaderColorBackgroundDefault;
+    border-bottom: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
+  }
+
+  @include mixins.cuiMobile {
+    display: none;
+  }
+}
+
+.cuiTbody {
+  @include mixins.cuiMobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+/* Row styles */
+.cuiTableRow {
+  overflow: hidden;
+  background-color: tokens.$clickTableRowColorBackgroundDefault;
+  border-bottom: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
+
+  &:active {
+    background-color: tokens.$clickTableRowColorBackgroundActive;
+  }
+
+  &:hover {
+    background-color: tokens.$clickTableRowColorBackgroundHover;
+  }
+
+  &:last-of-type,
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @include variants.variant('cuiActive') {
+    background-color: tokens.$clickTableRowColorBackgroundActive;
+  }
+
+  @include variants.variants('cuiDeleted', 'cuiDisabled') {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include mixins.cuiMobile {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
+    border-radius: tokens.$clickTableRadiiAll;
+
+    @include variants.variant('cuiSelectable') {
+      padding-left: calc(
+        tokens.$clickTableBodyCellSpaceSmX + tokens.$clickTableBodyCellSpaceSmX +
+          tokens.$clickCheckboxSizeAll
+      );
+    }
+
+    @include variants.variant('cuiShowActions') {
+      padding-right: calc(
+        tokens.$clickTableBodyCellSpaceSmX + tokens.$clickTableBodyCellSpaceSmX +
+          tokens.$clickImageSmSizeWidth + tokens.$clickButtonIconButtonDefaultSpaceX +
+          tokens.$clickButtonIconButtonDefaultSpaceX
+      );
+    }
+  }
+}
+
+/* Cell styles */
+.cuiTableData {
+  overflow: hidden;
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
+
+  @include variants.variant('cuiDataSm') {
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+  }
+
+  @include variants.variant('cuiDataMd') {
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    min-width: 40%;
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+  }
+}
+
+.cuiSelectData {
+  overflow: hidden;
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
+
+  @include variants.variant('cuiSelectSm') {
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+  }
+
+  @include variants.variant('cuiSelectMd') {
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+    border-right: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
+  }
+}
+
+.cuiActionsList {
+  overflow: hidden;
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
+
+  @include variants.variant('cuiActionsSm') {
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+  }
+
+  @include variants.variant('cuiActionsMd') {
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    align-self: stretch;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+    border-left: 1px solid tokens.$clickTableRowColorStrokeDefault;
+  }
+}
+
+.cuiActionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  overflow: hidden;
+
+  @include mixins.cuiMobile {
+    flex-direction: column;
+    overflow: auto;
+    flex-wrap: nowrap;
+  }
+}
+
+/* Mobile specific styles */
+.cuiMobileHeader {
+  display: none;
+  color: tokens.$clickTableRowColorLabelDefault;
+  font: tokens.$clickTableCellLabelDefault;
+
+  @include mixins.cuiMobile {
+    display: block;
+  }
+}
+
+.cuiMobileActions {
+  display: none;
+
+  @include mixins.cuiMobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 tokens.$clickTableBodyCellSpaceSmX;
+  }
+}
+
+/* Custom table data for loading/no data */
+.cuiSpanedTableData {
+  text-align: center;
+  overflow: hidden;
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
+
+  @include variants.variant('cuiSpanedSm') {
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+  }
+
+  @include variants.variant('cuiSpanedMd') {
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
+  }
+
+  @include mixins.cuiMobile {
+    width: auto;
+    min-width: 40%;
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+  }
+}
+
+.cuiCustomTableDataMessage {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Button styles */
+.cuiEditButton {
+  &:disabled {
+    background: transparent;
+  }
+}
+
+.cuiTableRowCloseButton {
+  &:disabled {
+    background: transparent;
+  }
+
+  svg {
+    transition: transform 200ms;
+  }
+
+  @include variants.variant('cuiDeleted') {
+    svg {
+      transform: rotate(45deg);
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiResizeSpan {
+  z-index: 1;
+  position: absolute;
+  cursor: col-resize;
+  width: 4px;
+  overflow: auto;
+
+  &:hover,
+  &:active {
+    background: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+  }
+
+  @include variants.variant('cuiPressed') {
+    height: 100% !important;
+    position: fixed !important;
+  }
+}

@@ -1,0 +1,16 @@
+@use "cui-mixins" as mixins;
+
+.cuiEllipsisContainer {
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: text-bottom;
+  overflow: hidden;
+  justify-content: flex-start;
+  @include mixins.cuiFullWidthStretch;
+
+  & > *:not(button) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChangeEvent,
   InputHTMLAttributes,
@@ -102,8 +104,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         )}
 
         <InputElement
-          $hasStartContent={hasStartContent}
-          $hasEndContent={hasEndContent}
+          hasStartContent={hasStartContent}
+          hasEndContent={hasEndContent}
           ref={mergeRefs([inputRef, ref])}
           type={type}
           id={id ?? defaultId}

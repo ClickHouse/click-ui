@@ -1,9 +1,11 @@
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { HorizontalDirection } from "@/components";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { ImageName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
+import { capitalize } from "@/utils/capitalize";
+import styles from "./Badge.module.scss";
 
 export type BadgeState =
   | "default"
@@ -47,54 +49,6 @@ export interface NonDismissibleBadge extends CommonBadgeProps {
   onClose?: never;
 }
 
-const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize; $type?: BadgeType }>`
-  display: inline-flex;
-  ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
-    background-color: ${theme.click.badge[$type].color.background[$state]};
-    color: ${theme.click.badge[$type].color.text[$state]};
-    font: ${theme.click.badge.typography.label[$size].default};
-    border-radius: ${theme.click.badge.radii.all};
-    border: ${theme.click.badge.stroke} solid ${theme.click.badge[$type].color.stroke[$state]};
-    padding: ${theme.click.badge.space[$size].y} ${theme.click.badge.space[$size].x};
-  `}
-`;
-
-const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
-  max-width: 100%;
-  justify-content: flex-start;
-`;
-
-const SvgContainer = styled.svg<{
-  $state?: BadgeState;
-  $size?: BadgeSize;
-  $type?: BadgeType;
-}>`
-  ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
-    color: ${theme.click.badge[$type].color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
-  `}
-`;
-const BadgeContent = styled.div<{
-  $state?: BadgeState;
-  $size?: BadgeSize;
-  $type?: BadgeType;
-}>`
-  width: auto;
-  overflow: hidden;
-  svg {
-    ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
-    color: ${theme.click.badge[$type].color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
-    gap: inherit;
-  `}
-  }
-`;
-
 export type BadgeProps = NonDismissibleBadge | DismissibleBadge;
 
 export const Badge = ({
@@ -102,39 +56,54 @@ export const Badge = ({
   iconDir,
   text,
   state = "default",
-  size,
-  type,
+  size = "md",
+  type = "opaque",
   dismissible,
   onClose,
   ellipsisContent = true,
+  className,
   ...props
-}: BadgeProps) => (
-  <Wrapper
-    $state={state}
-    $size={size}
-    $type={type}
-    {...props}
-  >
-    <Content data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}>
-      <BadgeContent
-        as={IconWrapper}
-        icon={icon}
-        iconDir={iconDir}
-        size={size}
-        $state={state}
-        ellipsisContent={ellipsisContent}
-      >
-        {text}
-      </BadgeContent>
-      {dismissible && (
-        <SvgContainer
-          name="cross"
-          $state={state}
-          as={Icon}
-          onClick={onClose}
-          aria-label="close"
-        />
+}: BadgeProps) => {
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const typeClass = `cuiType${capitalize(type)}`;
+  const stateClass = `cuiState${capitalize(state)}`;
+
+  return (
+    <div
+      className={clsx(
+        styles.cuiWrapper,
+        styles[sizeClass],
+        styles[typeClass],
+        styles[stateClass],
+        className
       )}
-    </Content>
-  </Wrapper>
-);
+      data-cui-size={size}
+      data-cui-type={type}
+      data-cui-state={state}
+      {...props}
+    >
+      <div
+        className={styles.cuiContent}
+        data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}
+      >
+        <IconWrapper
+          className={styles.cuiBadgeContent}
+          icon={icon}
+          iconDir={iconDir}
+          size={size}
+          ellipsisContent={ellipsisContent}
+        >
+          {text}
+        </IconWrapper>
+        {dismissible && (
+          <Icon
+            name="cross"
+            className={styles.cuiCloseIcon}
+            onClick={onClose}
+            aria-label="close"
+          />
+        )}
+      </div>
+    </div>
+  );
+};

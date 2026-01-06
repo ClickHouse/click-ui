@@ -1,8 +1,10 @@
+"use client";
+
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import { HorizontalDirection, IconName } from "@/components";
 
-import { Collapsible } from "../Collapsible/Collapsible";
-import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
+import { Collapsible } from "@/components";
+import { SidebarNavigationItem } from "@/components";
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */
@@ -52,21 +54,20 @@ const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItem
         open={open}
         onOpenChange={onOpenChange}
       >
-        <SidebarItemWrapper
+        <SidebarNavigationItem
+          component={Collapsible.Header}
           ref={ref}
-          as={Collapsible.Header}
+          label={label}
           icon={icon}
           iconDir={iconDir}
+          level={level}
+          type={type}
+          selected={selected}
+          collapsible={true}
           indicatorDir={indicatorDir}
-          $collapsible
-          $level={level}
-          $type={type}
-          data-selected={selected}
           wrapInTrigger={type === "main"}
           {...props}
-        >
-          {label}
-        </SidebarItemWrapper>
+        />
         <Collapsible.Content indicatorDir={indicatorDir}>{children}</Collapsible.Content>
       </Collapsible>
     );

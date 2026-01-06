@@ -1,0 +1,288 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiWrapper {
+  @include mixins.cuiCardBase;
+
+  display: inline-flex;
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: tokens.$clickCardHorizontalRadiiAll;
+  transition: all 0.2s ease-in-out;
+
+  // Size variants
+  @include variants.variant('cuiSizeMd') {
+    padding: tokens.$clickCardHorizontalSpaceMdY tokens.$clickCardHorizontalSpaceMdX;
+    gap: tokens.$clickCardHorizontalSpaceMdGap;
+
+    .cuiDescription {
+      gap: tokens.$clickCardHorizontalSpaceMdGap;
+    }
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    padding: tokens.$clickCardHorizontalSpaceSmY tokens.$clickCardHorizontalSpaceSmX;
+    gap: tokens.$clickCardHorizontalSpaceSmGap;
+
+    .cuiDescription {
+      gap: tokens.$clickCardHorizontalSpaceSmGap;
+    }
+  }
+
+  .cuiDescription {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    flex: 1;
+    width: 100%;
+  }
+
+  // Color variant: default
+  @include variants.variant('cuiColorDefault') {
+    background: tokens.$clickCardHorizontalDefaultColorBackgroundDefault;
+    color: tokens.$clickCardHorizontalDefaultColorTitleDefault;
+    border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeDefault;
+    font: tokens.$clickCardHorizontalTypographyTitleDefault;
+
+    .cuiDescription {
+      color: tokens.$clickCardHorizontalDefaultColorDescriptionDefault;
+      font: tokens.$clickCardHorizontalTypographyDescriptionDefault;
+    }
+
+    // Selectable hover state
+    &.cuiIsSelectable:hover {
+      background-color: tokens.$clickCardHorizontalDefaultColorBackgroundHover;
+      color: tokens.$clickCardHorizontalDefaultColorTitleHover;
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeDefault;
+      cursor: pointer;
+      font: tokens.$clickCardHorizontalTypographyTitleHover;
+
+      .cuiDescription {
+        color: tokens.$clickCardHorizontalDefaultColorDescriptionHover;
+        font: tokens.$clickCardHorizontalTypographyDescriptionHover;
+      }
+    }
+
+    // Selectable hover + selected
+    &.cuiIsSelectable:hover {
+      @include variants.variant('cuiSelected') {
+        border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
+      }
+    }
+
+    // Selectable active/focus states
+    &.cuiIsSelectable:active,
+    &.cuiIsSelectable:focus,
+    &.cuiIsSelectable:focus-within {
+      background-color: tokens.$clickCardHorizontalDefaultColorBackgroundActive;
+      color: tokens.$clickCardHorizontalDefaultColorTitleActive;
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
+
+      .cuiDescription {
+        color: tokens.$clickCardHorizontalDefaultColorDescriptionActive;
+        font: tokens.$clickCardHorizontalTypographyDescriptionActive;
+      }
+    }
+
+    // Selected state
+    @include variants.variant('cuiSelected') {
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
+
+      &:hover {
+        border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
+      }
+    }
+
+    // Disabled state
+    @include variants.variant('cuiDisabled') {
+      pointer-events: none;
+      background-color: tokens.$clickCardHorizontalDefaultColorBackgroundDisabled;
+      color: tokens.$clickCardHorizontalDefaultColorTitleDisabled;
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeDisabled;
+      cursor: not-allowed;
+
+      .cuiDescription {
+        color: tokens.$clickCardHorizontalDefaultColorDescriptionDisabled;
+        font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-within {
+        background-color: tokens.$clickCardHorizontalDefaultColorBackgroundDisabled;
+        color: tokens.$clickCardHorizontalDefaultColorTitleDisabled;
+        cursor: not-allowed;
+
+        .cuiDescription {
+          color: tokens.$clickCardHorizontalDefaultColorDescriptionDisabled;
+          font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
+        }
+      }
+
+      @include variants.variant('cuiSelected') {
+        border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
+
+        &:active,
+        &:focus,
+        &:focus-within {
+          border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
+        }
+      }
+    }
+  }
+
+  // Color variant: muted
+  @include variants.variant('cuiColorMuted') {
+    background: tokens.$clickCardHorizontalMutedColorBackgroundDefault;
+    color: tokens.$clickCardHorizontalMutedColorTitleDefault;
+    border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeDefault;
+    font: tokens.$clickCardHorizontalTypographyTitleDefault;
+
+    .cuiDescription {
+      color: tokens.$clickCardHorizontalMutedColorDescriptionDefault;
+      font: tokens.$clickCardHorizontalTypographyDescriptionDefault;
+    }
+
+    // Selectable hover state
+    &.cuiIsSelectable:hover {
+      background-color: tokens.$clickCardHorizontalMutedColorBackgroundHover;
+      color: tokens.$clickCardHorizontalMutedColorTitleHover;
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeDefault;
+      cursor: pointer;
+      font: tokens.$clickCardHorizontalTypographyTitleHover;
+
+      .cuiDescription {
+        color: tokens.$clickCardHorizontalMutedColorDescriptionHover;
+        font: tokens.$clickCardHorizontalTypographyDescriptionHover;
+      }
+    }
+
+    // Selectable hover + selected
+    &.cuiIsSelectable:hover {
+      @include variants.variant('cuiSelected') {
+        border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
+      }
+    }
+
+    // Selectable active/focus states
+    &.cuiIsSelectable:active,
+    &.cuiIsSelectable:focus,
+    &.cuiIsSelectable:focus-within {
+      background-color: tokens.$clickCardHorizontalMutedColorBackgroundActive;
+      color: tokens.$clickCardHorizontalMutedColorTitleActive;
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
+
+      .cuiDescription {
+        color: tokens.$clickCardHorizontalMutedColorDescriptionActive;
+        font: tokens.$clickCardHorizontalTypographyDescriptionActive;
+      }
+    }
+
+    // Selected state
+    @include variants.variant('cuiSelected') {
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
+
+      &:hover {
+        border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
+      }
+    }
+
+    // Disabled state
+    @include variants.variant('cuiDisabled') {
+      pointer-events: none;
+      background-color: tokens.$clickCardHorizontalMutedColorBackgroundDisabled;
+      color: tokens.$clickCardHorizontalMutedColorTitleDisabled;
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeDisabled;
+      cursor: not-allowed;
+
+      .cuiDescription {
+        color: tokens.$clickCardHorizontalMutedColorDescriptionDisabled;
+        font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-within {
+        background-color: tokens.$clickCardHorizontalMutedColorBackgroundDisabled;
+        color: tokens.$clickCardHorizontalMutedColorTitleDisabled;
+        cursor: not-allowed;
+
+        .cuiDescription {
+          color: tokens.$clickCardHorizontalMutedColorDescriptionDisabled;
+          font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
+        }
+      }
+
+      @include variants.variant('cuiSelected') {
+        border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
+
+        &:active,
+        &:focus,
+        &:focus-within {
+          border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
+        }
+      }
+    }
+  }
+}
+
+.cuiHeader {
+  max-width: 100%;
+  gap: inherit;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cuiDescription {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  gap: tokens.$clickCardHorizontalSpaceGap;
+  flex: 1;
+  width: 100%;
+}
+
+.cuiCardIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: tokens.$clickCardHorizontalIconSizeAll;
+  width: tokens.$clickCardHorizontalIconSizeAll;
+}
+
+.cuiContentWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  @include variants.variant('cuiSizeMd') {
+    gap: tokens.$clickCardHorizontalSpaceMdGap;
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    gap: tokens.$clickCardHorizontalSpaceSmGap;
+  }
+
+  @include mixins.cuiMobile {
+    flex-direction: column;
+  }
+}
+
+.cuiIconTextContentWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  @include variants.variant('cuiSizeMd') {
+    gap: tokens.$clickCardHorizontalSpaceMdGap;
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    gap: tokens.$clickCardHorizontalSpaceSmGap;
+  }
+}

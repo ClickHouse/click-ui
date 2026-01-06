@@ -12,35 +12,39 @@ Click UI is the ClickHouse design system and component library. Our aim with Cli
 <br />
 ### Using Click UI in an external app
 Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
-1. Navigate to your app's route and run
-   `npm i @clickhouse/click-ui`
-   or
-   `yarn add @clickhouse/click-ui`
-2. Add styled-components and @types/react and @types/react-dom to package.json
-3. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
 
-```
-import { Switch, Text, ThemeName, ClickUIProvider, Title } from '@clickhouse/click-ui'
+1. **Install Click UI**
+   ```bash
+   npm install @clickhouse/click-ui
+   ```
 
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
+2. **Import the styles**
 
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
+   Add this import at the top of your main application file (before other styles):
 
-  return (
-    <ClickUIProvider theme={theme}>
-      <Switch checked={theme === 'dark'} onClick={() => toggleTheme() } />
+   ```typescript
+   import '@clickhouse/click-ui/style.css';
+   ```
 
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
+3. **Wrap your app with ClickUIProvider**
 
-export default App
-```
+   ```typescript
+   import '@clickhouse/click-ui/style.css';
+   import { ClickUIProvider, Text, Title } from '@clickhouse/click-ui'
+
+   function App() {
+     return (
+       <ClickUIProvider theme="system">
+         <Title type='h1'>Click UI Example</Title>
+         <Text>Welcome to Click UI!</Text>
+       </ClickUIProvider>
+     )
+   }
+
+   export default App
+   ```
+
+For theme customization and advanced configuration, see the [README](https://github.com/ClickHouse/click-ui/blob/main/README.md).
 
 
 

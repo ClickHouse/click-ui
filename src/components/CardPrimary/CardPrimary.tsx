@@ -1,9 +1,13 @@
-import { styled } from "styled-components";
+"use client";
+
+import clsx from "clsx";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text, TextAlignment } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
 import { WithTopBadgeProps, withTopBadge } from "@/components/CardPrimary/withTopBadge";
+import { capitalize } from "../../utils/capitalize";
+import styles from "./CardPrimary.module.scss";
 
 export type CardPrimarySize = "sm" | "md";
 type ContentAlignment = "start" | "center" | "end";
@@ -37,109 +41,6 @@ export interface CardPrimaryProps
   onButtonClick?: MouseEventHandler<HTMLElement>;
 }
 
-const Wrapper = styled.div<{
-  $size?: CardPrimarySize;
-  $hasShadow?: boolean;
-  $isSelected?: boolean;
-  $alignContent?: ContentAlignment;
-}>`
-  background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
-  border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
-  border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  text-align: ${({ $alignContent }) =>
-    $alignContent === "start" ? "left" : $alignContent === "end" ? "right" : "center"};
-  flex-direction: column;
-  padding: ${({ $size = "md", theme }) =>
-    `${theme.click.card.primary.space[$size].x} ${theme.click.card.primary.space[$size].y}`};
-  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
-
-  &:hover,
-  &:focus {
-    background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
-    cursor: pointer;
-    button {
-      background-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.background.hover};
-      border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.hover};
-      &:active {
-        background-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.background.active};
-        border-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.stroke.active};
-      }
-    }
-  }
-
-  &:active {
-    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
-  }
-
-  &[aria-disabled="true"],
-  &[aria-disabled="true"]:hover,
-  &[aria-disabled="true"]:focus,
-  &[aria-disabled="true"]:active {
-    pointer-events: none;
-    ${({ theme }) => `
-    background-color: ${theme.click.card.primary.color.background.disabled};
-    color: ${theme.click.card.primary.color.title.disabled};
-    border: 1px solid ${theme.click.card.primary.color.stroke.disabled};
-    cursor: not-allowed;
-
-    button {
-      background-color: ${theme.click.button.basic.color.primary.background.disabled};
-      border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
-      &:active {
-        background-color: ${theme.click.button.basic.color.primary.background.disabled};
-        border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
-      }
-    }`}
-  }
-
-  ${({ $isSelected, theme }) =>
-    $isSelected
-      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ""}
-`;
-
-const Header = styled.div<{
-  $size?: "sm" | "md";
-  $disabled?: boolean;
-  $alignContent?: ContentAlignment;
-}>`
-  display: flex;
-  flex-direction: column;
-  align-items: ${({ $alignContent = "center" }) =>
-    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
-
-  h3 {
-    color: ${({ $disabled, theme }) =>
-      $disabled == true
-        ? theme.click.global.color.text.muted
-        : theme.click.global.color.text.default};
-  }
-
-  svg,
-  img {
-    height: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
-    width: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
-  }
-`;
-
-const Content = styled.div<{ $size?: "sm" | "md"; $alignContent?: ContentAlignment }>`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-self: ${({ $alignContent = "center" }) =>
-    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
-  flex: 1;
-`;
-
 const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => {
   if (align === "center") {
     return "center";
@@ -148,7 +49,7 @@ const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => 
 };
 
 const Card = ({
-  alignContent,
+  alignContent = "center",
   title,
   icon,
   iconUrl,
@@ -156,11 +57,12 @@ const Card = ({
   description,
   infoUrl,
   infoText,
-  size,
+  size = "md",
   disabled = false,
   onButtonClick,
   isSelected,
   children,
+  className,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -172,56 +74,81 @@ const Card = ({
     }
   };
 
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const alignClass = `cuiAlign${capitalize(alignContent)}`;
+  const iconSizeClass = `cuiIcon${capitalize(size)}`;
+
+  const wrapperClasses = clsx(
+    styles.cuiWrapper,
+    styles[sizeClass],
+    styles[alignClass],
+    {
+      [styles.cuiHasShadow]: hasShadow,
+      [styles.cuiIsSelected]: isSelected,
+    },
+    className
+  );
+
+  const headerClasses = clsx(styles.cuiHeader, styles[sizeClass], styles[alignClass], {
+    [styles.cuiDisabled]: disabled,
+  });
+
+  const contentClasses = clsx(styles.cuiContent, styles[sizeClass], styles[alignClass]);
+
+  const iconClasses = styles[iconSizeClass];
+
   const Component = !!infoUrl || typeof onButtonClick === "function" ? Button : "div";
   return (
-    <Wrapper
-      $alignContent={alignContent}
-      $hasShadow={hasShadow}
-      $size={size}
+    <div
       aria-disabled={disabled}
-      $isSelected={isSelected}
       tabIndex={0}
       {...props}
+      className={wrapperClasses}
+      data-cui-size={size}
+      data-cui-align={alignContent}
     >
       {(icon || title) && (
-        <Header
-          $size={size}
-          $disabled={disabled}
-          $alignContent={alignContent}
+        <div
+          className={headerClasses}
+          data-cui-size={size}
+          data-cui-align={alignContent}
         >
           {iconUrl ? (
             <img
               src={iconUrl}
               alt="card icon"
               aria-hidden
+              className={iconClasses}
             />
           ) : (
             icon && (
               <Icon
                 name={icon}
                 aria-hidden
+                className={iconClasses}
               />
             )
           )}
           {title && <Title type="h3">{title}</Title>}
-        </Header>
+        </div>
       )}
 
       {(description || children) && (
-        <Content
-          $size={size}
-          $alignContent={alignContent}
+        <div
+          className={contentClasses}
+          data-cui-size={size}
+          data-cui-align={alignContent}
         >
           {description && (
             <Text
               color="muted"
-              align={convertCardAlignToTextAlign(alignContent ?? "start")}
+              align={convertCardAlignToTextAlign(alignContent)}
             >
               {description}
             </Text>
           )}
           {children}
-        </Content>
+        </div>
       )}
 
       {size == "sm" && <Spacer size="sm" />}
@@ -234,7 +161,7 @@ const Card = ({
           {infoText}
         </Component>
       )}
-    </Wrapper>
+    </div>
   );
 };
 

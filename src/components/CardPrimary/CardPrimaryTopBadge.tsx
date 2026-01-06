@@ -1,21 +1,39 @@
-import { Badge } from "@/components/Badge/Badge";
-import { Container } from "@/components/Container/Container";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import { Badge, CommonBadgeProps } from "@/components/Badge/Badge";
+import { Container, ContainerProps } from "@/components/Container/Container";
+import styles from "./CardPrimaryTopBadge.module.scss";
 
-export const TopBadgeWrapper = styled(Container)`
-  position: relative;
-`;
+interface TopBadgeWrapperProps extends ContainerProps {
+  className?: string;
+}
 
-export const CardPrimaryTopBadge = styled(Badge)<{ $isSelected?: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  ${({ $isSelected, theme }) =>
-    $isSelected
-      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ""}
-  div:active + & {
-    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
-  }
-`;
+export const TopBadgeWrapper = ({ className, ...props }: TopBadgeWrapperProps) => (
+  <Container
+    className={clsx(styles.cuiTopBadgeWrapper, className)}
+    {...props}
+  />
+);
+
+interface CardPrimaryTopBadgeProps extends CommonBadgeProps {
+  $isSelected?: boolean;
+  className?: string;
+  dismissible?: never;
+  onClose?: never;
+}
+
+export const CardPrimaryTopBadge = ({
+  $isSelected,
+  className,
+  ...props
+}: CardPrimaryTopBadgeProps) => {
+  const badgeClasses = clsx(styles.cuiCardPrimaryTopBadge, className);
+
+  return (
+    <Badge
+      className={badgeClasses}
+      data-cui-variant="card-top-badge"
+      data-cui-selected={$isSelected ? "true" : undefined}
+      {...props}
+    />
+  );
+};

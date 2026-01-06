@@ -1,0 +1,129 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiWrapper {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: tokens.$clickBigStatRadiiAll;
+  border: tokens.$clickBigStatStroke solid;
+  padding: tokens.$clickBigStatSpaceAll;
+
+  // State variants
+  @include variants.variant('cuiStateDefault') {
+    background-color: tokens.$clickBigStatColorBackgroundDefault;
+    color: tokens.$clickBigStatColorLabelDefault;
+    border-color: tokens.$clickBigStatColorStrokeDefault;
+  }
+
+  @include variants.variant('cuiStateMuted') {
+    background-color: tokens.$clickBigStatColorBackgroundMuted;
+    color: tokens.$clickBigStatColorLabelMuted;
+    border-color: tokens.$clickBigStatColorStrokeMuted;
+  }
+
+  @include variants.variant('cuiStateError') {
+    border-color: tokens.$clickBigStatColorStrokeDanger;
+  }
+
+  // Size variants
+  @include variants.variant('cuiSizeSm') {
+    font: tokens.$clickBigStatTypographySmLabelDefault;
+
+    @include variants.variant('cuiStateMuted') {
+      font: tokens.$clickBigStatTypographySmLabelMuted;
+    }
+  }
+
+  @include variants.variant('cuiSizeLg') {
+    font: tokens.$clickBigStatTypographyLgLabelDefault;
+
+    @include variants.variant('cuiStateMuted') {
+      font: tokens.$clickBigStatTypographyLgLabelMuted;
+    }
+  }
+
+  // Spacing variants
+  @include variants.variant('cuiSpacingSm') {
+    gap: tokens.$clickBigStatSpaceSmGap;
+  }
+
+  @include variants.variant('cuiSpacingLg') {
+    gap: tokens.$clickBigStatSpaceLgGap;
+  }
+
+  // Layout variants
+  @include variants.variant('cuiOrderTitleTop') {
+    flex-direction: column;
+  }
+
+  @include variants.variant('cuiOrderTitleBottom') {
+    flex-direction: column-reverse;
+  }
+
+  @include variants.variant('cuiWidthFill') {
+    width: 100%;
+  }
+
+  @include variants.variant('cuiWidthAuto') {
+    width: auto;
+  }
+}
+
+.cuiLabel {
+  // State variants
+  @include variants.variant('cuiStateDefault') {
+    color: tokens.$clickBigStatColorLabelDefault;
+
+    @include variants.variant('cuiSizeSm') {
+      font: tokens.$clickBigStatTypographySmLabelDefault;
+    }
+
+    @include variants.variant('cuiSizeLg') {
+      font: tokens.$clickBigStatTypographyLgLabelDefault;
+    }
+  }
+
+  @include variants.variant('cuiStateMuted') {
+    color: tokens.$clickBigStatColorLabelMuted;
+
+    @include variants.variant('cuiSizeSm') {
+      font: tokens.$clickBigStatTypographySmLabelMuted;
+    }
+
+    @include variants.variant('cuiSizeLg') {
+      font: tokens.$clickBigStatTypographyLgLabelMuted;
+    }
+  }
+
+  @include variants.variant('cuiStateError') {
+    color: tokens.$clickBigStatColorLabelDanger;
+  }
+}
+
+.cuiTitle {
+  // State variants
+  @include variants.variant('cuiStateDefault') {
+    color: tokens.$clickBigStatColorTitleDefault;
+
+    @include variants.variant('cuiSizeSm') {
+      font: tokens.$clickBigStatTypographySmTitleDefault;
+    }
+
+    @include variants.variant('cuiSizeLg') {
+      font: tokens.$clickBigStatTypographyLgTitleDefault;
+    }
+  }
+
+  @include variants.variant('cuiStateMuted') {
+    color: tokens.$clickBigStatColorTitleMuted;
+
+    @include variants.variant('cuiSizeSm') {
+      font: tokens.$clickBigStatTypographySmTitleMuted;
+    }
+
+    @include variants.variant('cuiSizeLg') {
+      font: tokens.$clickBigStatTypographyLgTitleMuted;
+    }
+  }
+}

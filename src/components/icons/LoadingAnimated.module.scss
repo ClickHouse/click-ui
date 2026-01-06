@@ -1,0 +1,14 @@
+ "@/theme/tokens/types" as tokens;
+
+@keyframes cuiSpin {
+  from {
+    transform: rotate(0deg) scaleX(-1);
+  }
+  to {
+    transform: rotate(360deg) scaleX(-1);
+  }
+}
+
+.cuiLoadingAnimated {
+  animation: cuiSpin 1s infinite linear;
+}

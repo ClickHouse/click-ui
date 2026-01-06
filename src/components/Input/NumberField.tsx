@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
 import { Icon } from "@/components";
 import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";
@@ -55,7 +57,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
           id={id ?? defaultId}
           disabled={disabled}
           onChange={onChange}
-          $hideControls={hideControls}
+          hideControls={hideControls}
           {...props}
         />
         {loading && (

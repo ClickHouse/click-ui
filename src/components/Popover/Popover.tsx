@@ -1,23 +1,16 @@
+"use client";
+
 import * as RadixPopover from "@radix-ui/react-popover";
-import { Arrow, GenericMenuPanel } from "../GenericMenu";
-import { styled } from "styled-components";
 import { ReactNode } from "react";
+import clsx from "clsx";
 import { Icon } from "@/components";
-import { EmptyButton } from "../commonElement";
-import PopoverArrow from "../icons/PopoverArrow";
+import PopoverArrow from "@/components/icons/PopoverArrow";
+import styles from "./Popover.module.scss";
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
 };
 
-const Trigger = styled(RadixPopover.Trigger)`
-  background: inherit;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  width: fit-content;
-`;
 interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
 }
@@ -25,12 +18,13 @@ interface TriggerProps extends RadixPopover.PopoverTriggerProps {
 const PopoverTrigger = ({ anchor, children, ...props }: TriggerProps) => {
   return (
     <>
-      <Trigger
+      <RadixPopover.Trigger
+        className={styles.cuiTrigger}
         asChild
         {...props}
       >
         <div>{children}</div>
-      </Trigger>
+      </RadixPopover.Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>
   );
@@ -49,26 +43,6 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
   container?: HTMLElement | null;
 }
 
-const MenuPanel = styled(GenericMenuPanel)<{ $showClose?: boolean }>`
-  display: block;
-  padding: ${({ theme }) => theme.click.popover.space.y}
-    ${({ theme }) => theme.click.popover.space.x};
-  background-color: ${({ theme }) => theme.click.popover.color.panel.background.default};
-  border: 1px solid ${({ theme }) => theme.click.popover.color.panel.stroke.default};
-  border-radius: ${({ theme }) => theme.click.popover.radii.all};
-  box-shadow: ${({ theme }) => theme.click.popover.shadow.default};
-
-  ${({ $showClose }) => ($showClose ? "padding-top: 1rem;" : "")};
-`;
-
-const CloseButton = styled(EmptyButton)`
-  position: absolute;
-  top: ${({ theme }) => theme.click.popover.space.y};
-  right: ${({ theme }) => theme.click.popover.space.x};
-  width: ${({ theme }) => theme.click.popover.icon.size.width};
-  height: ${({ theme }) => theme.click.popover.icon.size.height};
-`;
-
 const PopoverContent = ({
   children,
   showArrow,
@@ -82,34 +56,38 @@ const PopoverContent = ({
       forceMount={forceMount}
       container={container}
     >
-      <MenuPanel
-        as={RadixPopover.Content}
-        $type="popover"
-        $showClose={showClose}
-        $showArrow={showArrow}
+      <RadixPopover.Content
+        className={clsx(styles.cuiMenuPanel, {
+          [styles.cuiShowClose]: showClose,
+          [styles.cuiShowArrow]: showArrow,
+        })}
         sideOffset={4}
+        data-cui-show-close={!!showClose}
+        data-cui-show-arrow={!!showArrow}
         {...props}
       >
         {showClose && (
-          <CloseButton
-            as={RadixPopover.Close}
+          <RadixPopover.Close
+            className={styles.cuiCloseButton}
             asChild
           >
-            <Icon name="cross" />
-          </CloseButton>
+            <button>
+              <Icon name="cross" />
+            </button>
+          </RadixPopover.Close>
         )}
         {showArrow && (
-          <Arrow
-            asChild
-            as={RadixPopover.Arrow}
+          <RadixPopover.Arrow
+            className={styles.cuiPopoverArrow}
             width={20}
             height={10}
+            asChild
           >
             <PopoverArrow />
-          </Arrow>
+          </RadixPopover.Arrow>
         )}
         {children}
-      </MenuPanel>
+      </RadixPopover.Content>
     </RadixPopover.Portal>
   );
 };

@@ -1,27 +1,19 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
 import { ChangeEvent, useEffect, useState } from "react";
-import { TextAreaField, TextAreaFieldProps } from "./TextArea";
-import { Container } from "../Container/Container";
+import { TextAreaField as TextAreaFieldInput, TextAreaFieldProps } from "./TextArea";
+import { Container } from "@/components/Container/Container";
 
-const meta: Meta<typeof TextAreaField> = {
-  component: TextAreaField,
-  title: "Forms/Input/TextArea",
-  tags: ["form-field", "input", "autodocs"],
-  decorators: [
-    Story => (
-      <Container maxWidth="75%">
-        <Story />
-      </Container>
-    ),
-  ],
-  render: ({ value: valueProp, ...props }: Omit<TextAreaFieldProps, "onChange">) => {
-    const [value, setValue] = useState(valueProp);
-    useEffect(() => {
-      setValue(valueProp);
-    }, [valueProp]);
+const TextAreaField = ({
+  value: valueProp,
+  ...props
+}: Omit<TextAreaFieldProps, "onChange">) => {
+  const [value, setValue] = useState(valueProp);
+  useEffect(() => {
+    setValue(valueProp);
+  }, [valueProp]);
 
-    return (
-      <TextAreaField
+  return (
+    <Container maxWidth="75%">
+      <TextAreaFieldInput
         value={value}
         onChange={(inputValue: string, e?: ChangeEvent<HTMLTextAreaElement>) => {
           if (e) {
@@ -31,15 +23,31 @@ const meta: Meta<typeof TextAreaField> = {
         }}
         {...props}
       />
-    );
+    </Container>
+  );
+};
+
+export default {
+  component: TextAreaField,
+  title: "Forms/Input/TextArea",
+  tags: ["form-field", "input", "autodocs"],
+  argTypes: {
+    rows: {
+      control: "number",
+      default: 10,
+    },
+    value: { control: "text" },
+    label: { control: "text" },
+    error: { control: "text" },
+    disabled: { control: "boolean" },
+    placeholder: { control: "text" },
+    readOnly: { control: "boolean" },
+    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
+    dir: { control: "inline-radio", options: ["start", "end"] },
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof TextAreaField>;
-
-export const Playground: Story = {
+export const Playground = {
   args: {
     label: "Label",
     rows: 5,

@@ -1,42 +1,7 @@
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { SelectionTypeFn } from "./types";
 import { StyledCell } from "./StyledCell";
-const RowNumberColumnContainer = styled.div<{
-  $height: number;
-  $width: number;
-  $scrolledHorizontal: boolean;
-  $rowAutoHeight?: boolean;
-}>`
-  position: sticky;
-  left: 0;
-  ${({ $height, $width }) => `
-    top: ${$height}px;
-    width: ${$width}px;
-    height: 100%;
-  `}
-
-  ${({ $scrolledHorizontal, theme }) =>
-    $scrolledHorizontal
-      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ""}
-`;
-
-const RowNumberCell = styled.div<{
-  $height: number;
-  $rowNumber: number;
-  $rowAutoHeight?: boolean;
-}>`
-  position: absolute;
-  left: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  ${({ $height, $rowNumber, $rowAutoHeight }) => `
-    top: ${$height * $rowNumber}px;
-    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
-  `}
-`;
+import styles from "./RowNumberColumn.module.scss";
 interface RowNumberColumnProps {
   minRow: number;
   maxRow: number;
@@ -85,10 +50,14 @@ const RowNumber = ({
     topSelectionType !== selectionType;
 
   return (
-    <RowNumberCell
-      $rowNumber={rowIndex}
-      $height={rowHeight}
-      $rowAutoHeight={rowAutoHeight}
+    <div
+      className={clsx(styles.cuiRowNumberCell, {
+        [styles.cuiAutoHeight]: rowAutoHeight,
+      })}
+      style={{
+        top: `${rowHeight * rowIndex}px`,
+        height: rowAutoHeight ? "100%" : `${rowHeight}px`,
+      }}
     >
       <StyledCell
         $height={rowHeight}
@@ -111,7 +80,7 @@ const RowNumber = ({
       >
         {currentRowIndex}
       </StyledCell>
-    </RowNumberCell>
+    </div>
   );
 };
 
@@ -130,11 +99,14 @@ const RowNumberColumn = ({
   rowAutoHeight,
 }: RowNumberColumnProps) => {
   return (
-    <RowNumberColumnContainer
-      $height={headerHeight}
-      $width={rowWidth}
-      $scrolledHorizontal={scrolledHorizontal}
-      $rowAutoHeight={rowAutoHeight}
+    <div
+      className={clsx(styles.cuiRowNumberColumnContainer, {
+        [styles.cuiScrolledHorizontal]: scrolledHorizontal,
+      })}
+      style={{
+        top: `${headerHeight}px`,
+        width: `${rowWidth}px`,
+      }}
     >
       {Array.from({ length: maxRow - minRow + 1 }, (_, index) => minRow + index).map(
         rowIndex => (
@@ -151,7 +123,7 @@ const RowNumberColumn = ({
           />
         )
       )}
-    </RowNumberColumnContainer>
+    </div>
   );
 };
 

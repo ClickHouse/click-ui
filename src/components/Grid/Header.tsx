@@ -1,4 +1,5 @@
-import { styled } from "styled-components";
+import React from "react";
+import clsx from "clsx";
 import {
   CellProps,
   ColumnResizeFn,
@@ -8,6 +9,7 @@ import {
 import { StyledCell } from "./StyledCell";
 import ColumnResizer from "./ColumnResizer";
 import { ResizingState } from "./useResizingState";
+import styles from "./Header.module.scss";
 
 interface HeaderProps {
   showRowNumber: boolean;
@@ -28,26 +30,6 @@ interface HeaderProps {
   resizingState: ResizingState;
 }
 
-const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
-  position: sticky;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  height: ${({ $height }) => $height}px;
-  ${({ $scrolledVertical, theme }) =>
-    $scrolledVertical
-      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ""}
-`;
-
-const ScrollableHeaderContainer = styled.div<{
-  $left: number;
-}>`
-  position: relative;
-  left: ${({ $left }) => $left}px;
-`;
-
 interface ColumnProps extends Pick<
   HeaderProps,
   | "cell"
@@ -64,42 +46,6 @@ interface ColumnProps extends Pick<
   isFirstColumn: boolean;
   isLastColumn: boolean;
 }
-
-const HeaderCellContainer = styled.div<{
-  $width: string | number;
-  $height: number;
-  $columnPosition: number;
-}>`
-  position: absolute;
-  display: flex;
-  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
-  height: ${({ $height }) => $height}px;
-  left: ${({ $columnPosition }) => $columnPosition}px;
-  &:hover [data-resize] {
-    background: ${({ theme }) => theme.click.grid.header.cell.color.stroke.selectDirect};
-  }
-`;
-
-const RowColumnContainer = styled(HeaderCellContainer)<{
-  $width: string | number;
-  $scrolledHorizontal: boolean;
-}>`
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
-  text-align: right;
-  ${({ $scrolledHorizontal, theme }) =>
-    $scrolledHorizontal
-      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ""}
-`;
-
-const RowColumn = styled(StyledCell)`
-  width: 100%;
-  text-align: right;
-  overflow: hidden;
-`;
 
 const Column = ({
   columnIndex,
@@ -132,17 +78,17 @@ const Column = ({
 
   const columnWidth = getColumnWidth(columnIndex);
   return (
-    <HeaderCellContainer
-      $width={columnWidth}
-      $columnPosition={columnPosition}
-      $height={height}
+    <div
+      className={styles.cuiHeaderCellContainer}
+      style={{
+        width: typeof columnWidth === "string" ? columnWidth : `${columnWidth}px`,
+        height: `${height}px`,
+        left: `${columnPosition}px`,
+      }}
       data-header={columnIndex}
     >
       <StyledCell
         $type="header"
-        as={cell}
-        columnIndex={columnIndex}
-        type="header-cell"
         $isFirstColumn={isFirstColumn}
         $selectionType={selectionType}
         $isLastColumn={isLastColumn}
@@ -156,8 +102,13 @@ const Column = ({
         data-grid-column={columnIndex}
         data-selected={isSelected}
         $showBorder={showBorder}
-        width={columnWidth}
-      />
+      >
+        {React.createElement(cell, {
+          columnIndex,
+          type: "header-cell",
+          width: columnWidth,
+        })}
+      </StyledCell>
       <ColumnResizer
         height={height}
         onColumnResize={onColumnResize}
@@ -166,7 +117,7 @@ const Column = ({
         columnWidth={columnWidth}
         resizingState={resizingState}
       />
-    </HeaderCellContainer>
+    </div>
   );
 };
 
@@ -192,11 +143,16 @@ const Header = ({
     type: "all",
   });
   return (
-    <HeaderContainer
-      $height={height}
-      $scrolledVertical={scrolledVertical}
+    <div
+      className={clsx(styles.cuiHeaderContainer, {
+        [styles.cuiScrolledVertical]: scrolledVertical,
+      })}
+      style={{ height: `${height}px` }}
     >
-      <ScrollableHeaderContainer $left={rowNumberWidth}>
+      <div
+        className={styles.cuiScrollableHeaderContainer}
+        style={{ left: `${rowNumberWidth}px` }}
+      >
         {Array.from(
           { length: maxColumn - minColumn + 1 },
           (_, index) => minColumn + index
@@ -217,15 +173,21 @@ const Header = ({
             resizingState={resizingState}
           />
         ))}
-      </ScrollableHeaderContainer>
+      </div>
       {showRowNumber && (
-        <RowColumnContainer
-          $width={rowNumberWidth}
-          $height={height}
-          $columnPosition={0}
-          $scrolledHorizontal={scrolledHorizontal}
+        <div
+          className={clsx(styles.cuiRowColumnContainer, {
+            [styles.cuiScrolledHorizontal]: scrolledHorizontal,
+          })}
+          style={{
+            width:
+              typeof rowNumberWidth === "string" ? rowNumberWidth : `${rowNumberWidth}px`,
+            height: `${height}px`,
+            left: "0px",
+          }}
         >
-          <RowColumn
+          <StyledCell
+            className={styles.cuiRowColumn}
             data-selected={selectedAllType === "selectDirect"}
             $type="header"
             $isFirstRow
@@ -242,10 +204,10 @@ const Header = ({
             $showBorder={showBorder}
           >
             #
-          </RowColumn>
-        </RowColumnContainer>
+          </StyledCell>
+        </div>
       )}
-    </HeaderContainer>
+    </div>
   );
 };
 

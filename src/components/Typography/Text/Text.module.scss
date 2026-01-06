@@ -1,0 +1,142 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiText {
+  margin: 0;
+
+  /* Font styles using CSS custom properties */
+  @include variants.variant('cuiFontSizeXs') {
+    font: var(--typography-styles-product-text-normal-xs);
+  }
+
+  @include variants.variant('cuiFontSizeXsLight') {
+    font: var(--typography-styles-product-text-light-xs);
+  }
+
+  @include variants.variant('cuiFontSizeXsMedium') {
+    font: var(--typography-styles-product-text-medium-xs);
+  }
+
+  @include variants.variant('cuiFontSizeXsSemibold') {
+    font: var(--typography-styles-product-text-semibold-xs);
+  }
+
+  @include variants.variant('cuiFontSizeXsBold') {
+    font: var(--typography-styles-product-text-bold-xs);
+  }
+
+  @include variants.variant('cuiFontSizeSm') {
+    font: var(--typography-styles-product-text-normal-sm);
+  }
+
+  @include variants.variant('cuiFontSizeSmLight') {
+    font: var(--typography-styles-product-text-light-sm);
+  }
+
+  @include variants.variant('cuiFontSizeSmMedium') {
+    font: var(--typography-styles-product-text-medium-sm);
+  }
+
+  @include variants.variant('cuiFontSizeSmSemibold') {
+    font: var(--typography-styles-product-text-semibold-sm);
+  }
+
+  @include variants.variant('cuiFontSizeSmBold') {
+    font: var(--typography-styles-product-text-bold-sm);
+  }
+
+  @include variants.variant('cuiFontSizeMd') {
+    font: var(--typography-styles-product-text-normal-md);
+  }
+
+  @include variants.variant('cuiFontSizeMdLight') {
+    font: var(--typography-styles-product-text-light-md);
+  }
+
+  @include variants.variant('cuiFontSizeMdMedium') {
+    font: var(--typography-styles-product-text-medium-md);
+  }
+
+  @include variants.variant('cuiFontSizeMdSemibold') {
+    font: var(--typography-styles-product-text-semibold-md);
+  }
+
+  @include variants.variant('cuiFontSizeMdBold') {
+    font: var(--typography-styles-product-text-bold-md);
+  }
+
+  @include variants.variant('cuiFontSizeLg') {
+    font: var(--typography-styles-product-text-normal-lg);
+  }
+
+  @include variants.variant('cuiFontSizeLgLight') {
+    font: var(--typography-styles-product-text-light-lg);
+  }
+
+  @include variants.variant('cuiFontSizeLgMedium') {
+    font: var(--typography-styles-product-text-medium-lg);
+  }
+
+  @include variants.variant('cuiFontSizeLgSemibold') {
+    font: var(--typography-styles-product-text-semibold-lg);
+  }
+
+  @include variants.variant('cuiFontSizeLgBold') {
+    font: var(--typography-styles-product-text-bold-lg);
+  }
+
+  @include variants.variant('cuiFontSizeXl') {
+    font: var(--typography-styles-product-text-normal-xl);
+  }
+
+  @include variants.variant('cuiFontSizeXlLight') {
+    font: var(--typography-styles-product-text-light-xl);
+  }
+
+  @include variants.variant('cuiFontSizeXlMedium') {
+    font: var(--typography-styles-product-text-medium-xl);
+  }
+
+  @include variants.variant('cuiFontSizeXlSemibold') {
+    font: var(--typography-styles-product-text-semibold-xl);
+  }
+
+  @include variants.variant('cuiFontSizeXlBold') {
+    font: var(--typography-styles-product-text-bold-xl);
+  }
+
+  /* Text colors */
+  @include variants.variant('cuiColorDefault') {
+    color: tokens.$clickGlobalColorTextDefault;
+  }
+
+  @include variants.variant('cuiColorMuted') {
+    color: tokens.$clickGlobalColorTextMuted;
+  }
+
+  @include variants.variant('cuiColorDanger') {
+    color: tokens.$clickGlobalColorTextDanger;
+  }
+
+  @include variants.variant('cuiColorDisabled') {
+    color: tokens.$clickGlobalColorTextDisabled;
+  }
+
+  /* Text alignment */
+  @include variants.variant('cuiAlignLeft') {
+    text-align: left;
+  }
+
+  @include variants.variant('cuiAlignCenter') {
+    text-align: center;
+  }
+
+  @include variants.variant('cuiAlignRight') {
+    text-align: right;
+  }
+
+  /* Fill width */
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+}

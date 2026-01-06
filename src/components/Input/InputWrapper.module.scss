@@ -1,0 +1,295 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Wrapper for input fields with various states
+.cuiWrapper {
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: tokens.$clickFieldSpaceGap;
+  border-radius: tokens.$clickFieldRadiiAll;
+  font: tokens.$clickFieldTypographyFieldTextDefault;
+  color: tokens.$clickFieldColorTextDefault;
+  border: 1px solid tokens.$clickFieldColorStrokeDefault;
+  background: tokens.$clickFieldColorBackgroundDefault;
+
+  span:first-of-type {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  // Autofill styles
+  :global(*:autofill),
+  :global(*:-webkit-autofill) {
+    -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundDefault inset;
+    -webkit-text-fill-color: tokens.$clickFieldColorTextDefault;
+    caret-color: tokens.$clickFieldColorTextDefault;
+  }
+
+  &:hover {
+    border: 1px solid tokens.$clickFieldColorStrokeHover;
+    background: tokens.$clickFieldColorBackgroundHover;
+    color: tokens.$clickFieldColorTextHover;
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundHover inset;
+      -webkit-text-fill-color: tokens.$clickFieldColorTextHover;
+      caret-color: tokens.$clickFieldColorTextHover;
+    }
+  }
+
+  &:focus-within,
+  &[data-state="open"] {
+    font: tokens.$clickFieldTypographyFieldTextActive;
+    border: 1px solid tokens.$clickFieldColorStrokeActive;
+    background: tokens.$clickFieldColorBackgroundActive;
+    color: tokens.$clickFieldColorTextActive;
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundActive inset;
+      -webkit-text-fill-color: tokens.$clickFieldColorTextActive;
+      caret-color: tokens.$clickFieldColorTextActive;
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    font: tokens.$clickFieldTypographyFieldTextDisabled;
+    border: 1px solid tokens.$clickFieldColorStrokeDisabled;
+    background: tokens.$clickFieldColorBackgroundDisabled;
+    color: tokens.$clickFieldColorTextDisabled;
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundDisabled inset;
+      -webkit-text-fill-color: tokens.$clickFieldColorTextDisabled;
+      caret-color: tokens.$clickFieldColorTextDisabled;
+    }
+  }
+}
+
+// Error state styling
+.cuiError {
+  font: tokens.$clickFieldTypographyFieldTextError;
+  border: 1px solid tokens.$clickFieldColorStrokeError;
+  background: tokens.$clickFieldColorBackgroundActive;
+  color: tokens.$clickFieldColorTextError;
+
+  :global(*:autofill),
+  :global(*:-webkit-autofill) {
+    -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundError inset;
+    -webkit-text-fill-color: tokens.$clickFieldColorTextError;
+    caret-color: tokens.$clickFieldColorTextError;
+  }
+
+  &:hover {
+    border: 1px solid tokens.$clickFieldColorStrokeError;
+    color: tokens.$clickFieldColorTextError;
+
+    :global(*:autofill),
+    :global(*:-webkit-autofill) {
+      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundError inset;
+      -webkit-text-fill-color: tokens.$clickFieldColorTextError;
+      caret-color: tokens.$clickFieldColorTextError;
+    }
+  }
+
+  // Override focus styles for error state
+  &:focus-within,
+  &[data-state="open"] {
+    font: tokens.$clickFieldTypographyFieldTextError;
+    border: 1px solid tokens.$clickFieldColorStrokeError;
+    background: tokens.$clickFieldColorBackgroundActive;
+    color: tokens.$clickFieldColorTextError;
+  }
+}
+
+// Resize variants
+.cuiWrapper {
+  @include variants.variant('cuiResizeVertical') {
+    resize: vertical;
+    overflow: auto;
+  }
+
+  @include variants.variant('cuiResizeHorizontal') {
+    resize: horizontal;
+    overflow: auto;
+  }
+
+  @include variants.variant('cuiResizeBoth') {
+    resize: both;
+    overflow: auto;
+  }
+}
+
+// Form root container
+.cuiFormRoot {
+  @include mixins.cuiFormRoot();
+
+  // Orientation variants
+  @include variants.variant('cuiOrientationVertical') {
+    @include variants.variant('cuiDirEnd') {
+      flex-direction: column;
+    }
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: column-reverse;
+    }
+  }
+
+  @include variants.variant('cuiOrientationHorizontal') {
+    @include variants.variant('cuiDirEnd') {
+      flex-direction: row;
+    }
+
+    @include variants.variant('cuiDirStart') {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+// Label padding for horizontal layout
+.cuiLabelPadding {
+  label {
+    padding-top: calc(tokens.$clickFieldSpaceY + 1px);
+    line-height: 1lh;
+  }
+}
+
+// Form element container
+.cuiFormElementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @include mixins.cuiFullWidthStretch;
+  gap: tokens.$clickFieldSpaceGap;
+}
+
+// Error message styling
+.cuiErrorMessage {
+  font: tokens.$clickFieldTypographyLabelError;
+  color: tokens.$clickFieldColorLabelError;
+}
+
+// Label styling
+.cuiLabel {
+  // Base label styles will be inherited from Label component
+}
+
+.cuiLabelWithColor {
+  // Custom color will be applied via style prop
+}
+
+// Input element base
+.cuiInputElement {
+  @include mixins.cuiInputElement;
+}
+
+// Input padding variants
+.cuiInputElement {
+  @include variants.variant('cuiPaddingEnd') {
+    padding-left: 0;
+  }
+
+  @include variants.variant('cuiPaddingStart') {
+    padding-right: 0;
+  }
+
+  @include variants.variant('cuiPaddingNone') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @include variants.variant('cuiPaddingBoth') {
+    padding-left: tokens.$clickFieldSpaceX;
+    padding-right: tokens.$clickFieldSpaceX;
+  }
+}
+
+// Number input element
+.cuiNumberInputElement {
+  @extend .cuiInputElement;
+}
+
+// Hide number input controls
+.cuiHideNumberControls {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
+}
+
+// Textarea element
+.cuiTextareaElement {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  resize: none;
+  padding: tokens.$clickFieldSpaceY tokens.$clickFieldSpaceX;
+  align-self: stretch;
+
+  &::placeholder {
+    color: tokens.$clickFieldColorPlaceholderDefault;
+  }
+
+  &:disabled,
+  &.disabled {
+    &::placeholder {
+      color: tokens.$clickFieldColorPlaceholderDisabled;
+    }
+  }
+}
+
+// Icon button
+.cuiIconButton {
+  background: transparent;
+  color: inherit;
+  border: none;
+  padding: tokens.$clickFieldSpaceY 0;
+  outline: none;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+// Icon wrapper
+.cuiIconWrapper {
+  &:first-of-type {
+    padding-left: tokens.$clickFieldSpaceGap;
+  }
+
+  &:last-of-type {
+    padding-right: tokens.$clickFieldSpaceX;
+  }
+}
+
+// Input start content
+.cuiInputStartContent {
+  padding-left: tokens.$clickFieldSpaceX;
+  cursor: text;
+  gap: tokens.$clickFieldSpaceGap;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+}
+
+// Input end content
+.cuiInputEndContent {
+  padding-right: tokens.$clickFieldSpaceX;
+  gap: tokens.$clickFieldSpaceGap;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+}

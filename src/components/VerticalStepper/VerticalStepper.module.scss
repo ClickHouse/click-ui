@@ -1,0 +1,255 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiStepRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  counter-reset: vertical-stepper;
+  contain: style;
+  width: 100%;
+}
+
+.cuiStepItem {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  box-sizing: content-box;
+
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
+    row-gap: tokens.$clickStepperVerticalNumberedContentSpaceGapY;
+    column-gap: tokens.$clickStepperVerticalNumberedContentSpaceGapX;
+
+    @include variants.variant('cuiIsOpen') {
+      padding-bottom: tokens.$clickStepperVerticalNumberedContentSpaceBottomActive;
+    }
+
+    &:not(:where(.cuiIsOpen)) {
+      padding-bottom: tokens.$clickStepperVerticalNumberedContentSpaceBottomDefault;
+    }
+
+    &:not(:last-of-type)::before {
+      content: "";
+      position: absolute;
+      top: tokens.$clickStepperVerticalNumberedStepSizeHeight;
+      height: 100%;
+      left: calc(tokens.$clickStepperVerticalNumberedStepSizeWidth / 2);
+      width: tokens.$clickStepperVerticalNumberedConnectorSizeWidth;
+      box-sizing: content-box;
+    }
+
+    &:not(:last-of-type):where(.cuiStatusComplete)::before {
+      background: tokens.$clickStepperVerticalNumberedConnectorColorStrokeComplete;
+    }
+
+    &:not(:last-of-type):where(.cuiStatusActive)::before {
+      background: tokens.$clickStepperVerticalNumberedConnectorColorStrokeActive;
+    }
+
+    &:not(:last-of-type):where(.cuiStatusIncomplete)::before {
+      background: tokens.$clickStepperVerticalNumberedConnectorColorStrokeIncomplete;
+    }
+  }
+
+  @include variants.variant('cuiTypeBulleted') {
+    row-gap: tokens.$clickStepperVerticalBulletedContentSpaceGapY;
+    column-gap: tokens.$clickStepperVerticalBulletedContentSpaceGapX;
+
+    @include variants.variant('cuiIsOpen') {
+      padding-bottom: tokens.$clickStepperVerticalBulletedContentSpaceBottomActive;
+    }
+
+    &:not(:where(.cuiIsOpen)) {
+      padding-bottom: tokens.$clickStepperVerticalBulletedContentSpaceBottomDefault;
+    }
+
+    &:not(:last-of-type)::before {
+      content: "";
+      position: absolute;
+      top: tokens.$clickStepperVerticalBulletedStepSizeHeight;
+      height: 100%;
+      left: calc(tokens.$clickStepperVerticalBulletedStepSizeWidth / 2);
+      width: tokens.$clickStepperVerticalBulletedConnectorSizeWidth;
+      box-sizing: content-box;
+    }
+
+    &:not(:last-of-type):where(.cuiStatusComplete)::before {
+      background: tokens.$clickStepperVerticalBulletedConnectorColorStrokeComplete;
+    }
+
+    &:not(:last-of-type):where(.cuiStatusActive)::before {
+      background: tokens.$clickStepperVerticalBulletedConnectorColorStrokeActive;
+    }
+
+    &:not(:last-of-type):where(.cuiStatusIncomplete)::before {
+      background: tokens.$clickStepperVerticalBulletedConnectorColorStrokeIncomplete;
+    }
+  }
+}
+
+.cuiStepTrigger {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  gap: inherit;
+  flex-direction: row;
+
+  // Status variants - using :where() for low specificity
+  @include variants.variant('cuiStatusComplete') {
+    cursor: pointer;
+  }
+
+  @include variants.variant('cuiStatusActive') {
+    cursor: default;
+  }
+
+  @include variants.variant('cuiStatusIncomplete') {
+    cursor: not-allowed;
+  }
+}
+
+.cuiStepBubble {
+  display: grid;
+  place-items: center;
+  position: relative;
+  border-radius: tokens.$clickStepperVerticalNumberedStepRadiiDefault;
+  border-width: 2px;
+  border-style: solid;
+  font: tokens.$clickStepperVerticalNumberedStepTypographyNumberDefault;
+  counter-increment: vertical-stepper;
+  box-sizing: content-box;
+
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
+    width: tokens.$clickStepperVerticalNumberedStepSizeWidth;
+    height: tokens.$clickStepperVerticalNumberedStepSizeWidth;
+    border-radius: tokens.$clickStepperVerticalNumberedStepRadiiDefault;
+
+    @include variants.variant('cuiStatusComplete') {
+      background: tokens.$clickStepperVerticalNumberedStepColorBackgroundComplete;
+      border-color: tokens.$clickStepperVerticalNumberedStepColorStrokeComplete;
+      color: tokens.$clickStepperVerticalNumberedStepColorIconComplete;
+    }
+
+    @include variants.variant('cuiStatusActive') {
+      background: tokens.$clickStepperVerticalNumberedStepColorBackgroundActive;
+      border-color: tokens.$clickStepperVerticalNumberedStepColorStrokeActive;
+      color: tokens.$clickStepperVerticalNumberedStepColorIconActive;
+    }
+
+    @include variants.variant('cuiStatusIncomplete') {
+      background: tokens.$clickStepperVerticalNumberedStepColorBackgroundIncomplete;
+      border-color: tokens.$clickStepperVerticalNumberedStepColorStrokeIncomplete;
+      color: tokens.$clickStepperVerticalNumberedStepColorIconIncomplete;
+    }
+
+    &:not(:where(.cuiStatusComplete))::before {
+      box-sizing: content-box;
+      font: inherit;
+      color: inherit;
+      content: counter(vertical-stepper);
+    }
+  }
+
+  @include variants.variant('cuiTypeBulleted') {
+    width: tokens.$clickStepperVerticalBulletedStepSizeWidth;
+    height: tokens.$clickStepperVerticalBulletedStepSizeWidth;
+    border-radius: tokens.$clickStepperVerticalBulletedStepRadiiDefault;
+
+    @include variants.variant('cuiStatusComplete') {
+      background: tokens.$clickStepperVerticalBulletedStepColorBackgroundComplete;
+      border-color: tokens.$clickStepperVerticalBulletedStepColorStrokeComplete;
+      color: tokens.$clickStepperVerticalBulletedStepColorIconComplete;
+
+      &::after {
+        box-sizing: content-box;
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        border-radius: inherit;
+        background: tokens.$clickStepperVerticalBulletedStepColorIconComplete;
+      }
+    }
+
+    @include variants.variant('cuiStatusActive') {
+      background: tokens.$clickStepperVerticalBulletedStepColorBackgroundActive;
+      border-color: tokens.$clickStepperVerticalBulletedStepColorStrokeActive;
+      color: tokens.$clickStepperVerticalBulletedStepColorIconActive;
+    }
+
+    @include variants.variant('cuiStatusIncomplete') {
+      background: tokens.$clickStepperVerticalBulletedStepColorBackgroundIncomplete;
+      border-color: tokens.$clickStepperVerticalBulletedStepColorStrokeIncomplete;
+      color: tokens.$clickStepperVerticalBulletedStepColorIconIncomplete;
+    }
+  }
+}
+
+.cuiCheckIcon {
+  color: inherit;
+
+  path {
+    stroke-width: 3;
+  }
+}
+
+.cuiStepLabel {
+  display: flex;
+  flex-direction: column;
+  gap: inherit;
+
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
+    font: tokens.$clickStepperVerticalNumberedTypographyTitleDefault;
+
+    @include variants.variant('cuiStatusComplete') {
+      color: tokens.$clickStepperVerticalNumberedColorTitleComplete;
+    }
+
+    @include variants.variant('cuiStatusActive') {
+      color: tokens.$clickStepperVerticalNumberedColorTitleActive;
+    }
+
+    @include variants.variant('cuiStatusIncomplete') {
+      color: tokens.$clickStepperVerticalNumberedColorTitleIncomplete;
+    }
+  }
+
+  @include variants.variant('cuiTypeBulleted') {
+    font: tokens.$clickStepperVerticalBulletedTypographyTitleDefault;
+
+    @include variants.variant('cuiStatusComplete') {
+      color: tokens.$clickStepperVerticalBulletedColorTitleComplete;
+    }
+
+    @include variants.variant('cuiStatusActive') {
+      color: tokens.$clickStepperVerticalBulletedColorTitleActive;
+    }
+
+    @include variants.variant('cuiStatusIncomplete') {
+      color: tokens.$clickStepperVerticalBulletedColorTitleIncomplete;
+    }
+  }
+}
+
+.cuiStepContent {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiTypeNumbered') {
+    padding-left: tokens.$clickStepperVerticalNumberedContentSpaceLeft;
+  }
+
+  @include variants.variant('cuiTypeBulleted') {
+    padding-left: tokens.$clickStepperVerticalBulletedContentSpaceLeft;
+  }
+}

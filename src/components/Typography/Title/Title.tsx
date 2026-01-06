@@ -1,5 +1,7 @@
 import { HTMLAttributes, forwardRef } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import styles from "./Title.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
 export type TitleAlignment = "left" | "center" | "right";
 export type TitleColor = "default" | "muted";
@@ -22,42 +24,47 @@ export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
 
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
 export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
-  ({ align, size, family, type, color, children, ...props }, ref) => (
-    <CuiTitle
-      ref={ref}
-      $align={align}
-      $color={color}
-      $size={size}
-      $family={family}
-      as={type}
-      {...props}
-    >
-      {children}
-    </CuiTitle>
-  )
+  (
+    {
+      align = "left",
+      size = "md",
+      family = "product",
+      type,
+      color = "default",
+      children,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    // Helper function to get font class based on size and family
+    const getFontClass = (size: TitleSize, family: TitleFamily) => {
+      return `cuiFontSize${capitalize(family)}${capitalize(size)}`;
+    };
+
+    const colorClass = `cuiColor${capitalize(color)}`;
+    const alignClass = `cuiAlign${capitalize(align)}`;
+    const Component = type;
+
+    return (
+      <Component
+        ref={ref}
+        className={clsx(
+          styles.cuiTitle,
+          styles[getFontClass(size, family)],
+          styles[colorClass],
+          styles[alignClass],
+          className
+        )}
+        data-cui-type={type}
+        data-cui-size={size}
+        data-cui-family={family}
+        data-cui-color={color}
+        data-cui-align={align}
+        {...props}
+      >
+        {children}
+      </Component>
+    );
+  }
 );
-
-const CuiTitle = styled.div<{
-  $align?: TitleAlignment;
-  $color?: TitleColor;
-  $size?: TitleSize;
-  $family?: TitleFamily;
-}>`
-  font: ${({ $size = "md", $family = "product", theme }) =>
-    theme.typography.styles[$family].titles[$size]};
-  color: ${({ $color = "default", theme }) => theme.click.global.color.title[$color]};
-  margin: 0;
-  padding: 0;
-  font-style: inherit;
-  text-align: ${({ $align = "left" }) => $align};
-
-  a,
-  a:visited {
-    color: ${({ $color = "default", theme }) => theme.click.global.color.title[$color]};
-    cursor: pointer;
-  }
-
-  a:hover {
-    color: ${({ theme }) => theme.click.global.color.title.muted};
-  }
-`;

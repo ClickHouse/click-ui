@@ -1,0 +1,17 @@
+@use "cui-mixins" as mixins;
+
+.cuiActionsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: tokens.$clickDialogSpaceGap;
+
+  @include mixins.cuiMobile {
+    flex-direction: column;
+  }
+}
+
+.cuiDialogContent {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

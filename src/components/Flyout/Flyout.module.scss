@@ -1,0 +1,249 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+/* Animation keyframes */
+@keyframes animationWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: fit-content;
+  }
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cuiFlyoutOverlay {
+  background-color: tokens.$clickDialogColorOpaqueBackgroundDefault;
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cuiFlyoutContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  width: fit-content;
+  animation: animationWidth 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  max-width: 100%;
+
+  /* Size variants */
+  @include variants.variant('cuiSizeDefault') {
+    --flyout-width: tokens.$clickFlyoutSizeDefaultWidth;
+  }
+
+  @include variants.variant('cuiSizeNarrow') {
+    --flyout-width: tokens.$clickFlyoutSizeNarrowWidth;
+  }
+
+  @include variants.variant('cuiSizeWide') {
+    --flyout-width: tokens.$clickFlyoutSizeWideWidth;
+  }
+
+  @include variants.variant('cuiSizeWidest') {
+    --flyout-width: tokens.$clickFlyoutSizeWidestWidth;
+  }
+
+  @include variants.variant('cuiCustomWidth') {
+    /* Custom width will be set via CSS custom property */
+  }
+
+  /* Strategy variants */
+  @include variants.variant('cuiStrategyRelative') {
+    position: relative;
+    height: 100%;
+  }
+
+  @include variants.variant('cuiStrategyAbsolute') {
+    position: absolute;
+    height: auto;
+  }
+
+  @include variants.variant('cuiStrategyFixed') {
+    position: fixed;
+    height: auto;
+  }
+
+  /* Type variants */
+  @include variants.variant('cuiTypeDefault') {
+    padding: 0 tokens.$clickFlyoutSpaceDefaultX;
+    gap: tokens.$clickFlyoutSpaceDefaultGap;
+  }
+
+  @include variants.variant('cuiTypeInline') {
+    padding: 0 tokens.$clickFlyoutSpaceInlineX;
+    gap: tokens.$clickFlyoutSpaceInlineGap;
+  }
+
+  /* Alignment variants */
+  @include variants.variant('cuiAlignStart') {
+    left: 0;
+    box-shadow: tokens.$clickFlyoutShadowReverse;
+    border-right: 1px solid tokens.$clickFlyoutColorStrokeDefault;
+  }
+
+  @include variants.variant('cuiAlignEnd') {
+    right: 0;
+    box-shadow: tokens.$clickFlyoutShadowDefault;
+    border-left: 1px solid tokens.$clickFlyoutColorStrokeDefault;
+  }
+
+  background: tokens.$clickFlyoutColorBackgroundDefault;
+
+  @include mixins.cuiMobile {
+    @include variants.variant('cuiStrategyRelative') {
+      position: absolute !important;
+    }
+
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+
+    @include variants.variant('cuiAlignStart') {
+      transform: translateX(calc(50px - 100%));
+
+      &:hover,
+      &.active,
+      &:focus-within {
+        transform: translateX(0);
+        right: auto;
+      }
+    }
+
+    @include variants.variant('cuiAlignEnd') {
+      transform: translateX(calc(100% - 50px));
+
+      &:hover,
+      &.active,
+      &:focus-within {
+        transform: translateX(0);
+        left: auto;
+      }
+    }
+  }
+}
+
+.cuiFlyoutContainer {
+  display: flex;
+  gap: 0;
+  width: var(--flyout-width);
+  max-width: 100%;
+  flex-flow: column nowrap;
+  gap: inherit;
+}
+
+.cuiFlyoutElement {
+  @include mixins.cuiFullMaxWidthStretch;
+
+  @include variants.variant('cuiTypeDefault') {
+    gap: tokens.$clickFlyoutSpaceDefaultGap;
+    padding: 0 tokens.$clickFlyoutSpaceDefaultContentX;
+  }
+
+  @include variants.variant('cuiTypeInline') {
+    gap: tokens.$clickFlyoutSpaceInlineGap;
+    padding: 0 tokens.$clickFlyoutSpaceInlineContentX;
+  }
+}
+
+.cuiFlyoutHeaderContainer {
+  @include variants.variant('cuiTypeDefault') {
+    row-gap: tokens.$clickFlyoutSpaceDefaultContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultY 0
+      tokens.$clickFlyoutSpaceDefaultY;
+  }
+
+  @include variants.variant('cuiTypeInline') {
+    row-gap: tokens.$clickFlyoutSpaceInlineContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceInlineContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineY 0 tokens.$clickFlyoutSpaceInlineY;
+  }
+}
+
+.cuiFlyoutTitle {
+  margin: 0;
+  padding: 0;
+
+  @include variants.variant('cuiTypeDefault') {
+    color: tokens.$clickFlyoutColorTitleDefault;
+    font: tokens.$clickFlyoutTypographyDefaultTitleDefault;
+  }
+
+  @include variants.variant('cuiTypeInline') {
+    color: tokens.$clickFlyoutColorTitleDefault;
+    font: tokens.$clickFlyoutTypographyInlineTitleDefault;
+  }
+}
+
+.cuiFlyoutDescription {
+  margin: 0;
+  padding: 0;
+
+  @include variants.variant('cuiTypeDefault') {
+    color: tokens.$clickFlyoutColorDescriptionDefault;
+    font: tokens.$clickFlyoutTypographyDefaultDescriptionDefault;
+  }
+
+  @include variants.variant('cuiTypeInline') {
+    color: tokens.$clickFlyoutColorDescriptionDefault;
+    font: tokens.$clickFlyoutTypographyInlineDescriptionDefault;
+  }
+}
+
+.cuiFlyoutBody {
+  width: var(--flyout-width);
+  max-width: 100%;
+
+  @include variants.variant('cuiAlignTop') {
+    margin-top: -1rem;
+  }
+
+  @include variants.variant('cuiAlignDefault') {
+    margin-top: 0;
+  }
+}
+
+.cuiFlyoutFooter {
+  @include variants.variant('cuiTypeDefault') {
+    row-gap: tokens.$clickFlyoutSpaceDefaultContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultContentX;
+  }
+
+  @include variants.variant('cuiTypeInline') {
+    row-gap: tokens.$clickFlyoutSpaceInlineContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceInlineContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineContentX;
+  }
+}
+
+.cuiFooterContainer {
+  width: var(--flyout-width);
+  max-width: 100%;
+}
+
+.cuiCustomCodeBlock {
+  display: flex;
+  height: 100%;
+
+  pre {
+    flex: 1;
+    overflow-wrap: break-word;
+
+    code {
+      display: inline-block;
+      max-width: calc(100% - 1rem);
+    }
+  }
+}

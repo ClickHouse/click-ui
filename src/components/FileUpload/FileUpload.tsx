@@ -1,12 +1,15 @@
+"use client";
+
 import React, { useEffect } from "react";
-import styled from "styled-components";
-import { css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
+import clsx from "clsx";
 
 import { truncateFilename } from "@/utils/truncate.ts";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import styles from "./FileUpload.module.scss";
+import commonStyles from "./FileUploadCommon.module.scss";
 
 interface FileInfo {
   name: string;
@@ -14,172 +17,18 @@ interface FileInfo {
 }
 
 interface FileUploadProps {
-  /** The title text displayed in the upload area */
   title: string;
-  /** Array of supported file extensions (e.g., [".txt", ".csv"]) */
   supportedFileTypes?: string[];
-  /** The size variant of the upload component */
   size?: "sm" | "md";
-  /** Current upload progress (0-100) */
   progress?: number;
-  /** Whether to show success state */
   showSuccess?: boolean;
-  /** Whether to show the progress bar */
   showProgress?: boolean;
-  /** Message to display when upload fails */
   failureMessage?: string;
-  /** Callback when retry button is clicked */
   onRetry?: () => void;
-  /** Callback when a file is selected */
   onFileSelect?: (file: File) => void;
-  /** Callback when file selection fails */
   onFileFailure?: () => void;
-  /** Callback when the file is removed/closed */
   onFileClose?: () => void;
 }
-
-const UploadArea = styled.div<{
-  $isDragging: boolean;
-  $size: "sm" | "md";
-  $hasFile: boolean;
-  $isError?: boolean;
-}>`
-  background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
-  border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
-  border-radius: ${({ theme, $hasFile }) =>
-    $hasFile
-      ? `${theme.click.fileUpload.sm.radii.all}`
-      : `${theme.click.fileUpload.md.radii.all}`};
-  padding: ${({ theme, $hasFile, $size }) =>
-    $hasFile || $size === "sm"
-      ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
-      : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
-  min-height: ${({ theme, $size }) =>
-    $size === "sm"
-      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[6]})`
-      : "auto"};
-  display: flex;
-  flex-direction: ${props =>
-    props.$hasFile ? "row" : props.$size === "sm" ? "row" : "column"};
-  align-items: center;
-  justify-content: ${props =>
-    props.$hasFile ? "space-between" : props.$size === "sm" ? "space-between" : "center"};
-  gap: ${({ theme, $size }) =>
-    $size === "sm"
-      ? theme.click.fileUpload.sm.space.gap
-      : theme.click.fileUpload.md.space.gap};
-  cursor: ${props => (props.$hasFile ? "default" : "pointer")};
-  transition: ${({ theme }) => theme.click.fileUpload.transitions.all};
-
-  ${props =>
-    !props.$hasFile &&
-    css`
-      border-style: dashed;
-      border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.default};
-
-      ${props.$isDragging &&
-      css`
-        background-color: ${({ theme }) =>
-          theme.click.fileUpload.color.background.active};
-        border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.active};
-      `}
-    `}
-
-  ${props =>
-    props.$isError &&
-    css`
-      background-color: ${({ theme }) => theme.click.fileUpload.color.background.error};
-      border-color: transparent;
-    `}
-`;
-
-const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
-  font: ${({ theme }) => theme.click.fileUpload.typography.title.default};
-  color: ${({ theme, $isNotSupported }) =>
-    $isNotSupported
-      ? theme.click.fileUpload.color.title.error
-      : theme.click.fileUpload.color.title.default};
-`;
-
-const FileName = styled(Text)`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
-`;
-
-const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme, $isError }) =>
-    $isError
-      ? theme.click.fileUpload.color.title.error
-      : theme.click.fileUpload.color.description.default};
-`;
-
-const DocumentIcon = styled(Icon)`
-  svg {
-    width: ${({ theme }) => theme.click.fileUpload.md.icon.size.width};
-    height: ${({ theme }) => theme.click.fileUpload.md.icon.size.height};
-    color: ${({ theme }) => theme.click.fileUpload.md.color.icon.default};
-  }
-`;
-
-const UploadIcon = styled(Icon)`
-  svg {
-    width: ${({ theme }) => theme.click.fileUpload.md.icon.size.width};
-    height: ${({ theme }) => theme.click.fileUpload.md.icon.size.height};
-    color: ${({ theme }) => theme.click.fileUpload.md.color.icon.default};
-  }
-`;
-
-const UploadText = styled.div<{ $size: "sm" | "md"; $hasFile: boolean }>`
-  text-align: ${props => (props.$hasFile || props.$size === "sm" ? "left" : "center")};
-  ${props =>
-    (props.$hasFile || props.$size === "sm") &&
-    css`
-      flex: 1;
-    `}
-
-  ${props =>
-    !props.$hasFile &&
-    props.$size === "md" &&
-    css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    `}
-`;
-
-const FileInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: ${({ theme }) => theme.click.fileUpload.hasFile.header.space.gap};
-`;
-
-const FileDetails = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-  border: none;
-`;
-
-const FileActions = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  gap: 0;
-`;
-
-const FileContentContainer = styled.div<{ $size: "sm" | "md" }>`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: ${({ $size }) => ($size === "sm" ? "24px" : "auto")};
-`;
-
-const ProgressBarWrapper = styled.div`
-  margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-  margin-bottom: 9px;
-`;
 
 const formatFileSize = (sizeInBytes: number): string => {
   if (sizeInBytes < 1024) {
@@ -194,9 +43,7 @@ const formatFileSize = (sizeInBytes: number): string => {
 };
 
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
-  if (!supportedTypes.length) {
-    return true;
-  }
+  if (!supportedTypes.length) {return true;}
 
   const extension = filename.toLowerCase().slice(filename.lastIndexOf("."));
   return supportedTypes.some(type => type.toLowerCase() === extension.toLowerCase());
@@ -248,7 +95,6 @@ export const FileUpload = ({
 
     dragCounterRef.current -= 1;
 
-    // Only set to false when left the container
     if (dragCounterRef.current <= 0) {
       setIsDragging(false);
       dragCounterRef.current = 0;
@@ -260,7 +106,6 @@ export const FileUpload = ({
     e.stopPropagation();
   }, []);
 
-  // Reset state when drag ends anywhere in the document
   useEffect(() => {
     const handleDragEnd = () => {
       setIsDragging(false);
@@ -356,11 +201,20 @@ export const FileUpload = ({
 
   return (
     <>
-      <UploadArea
-        $isDragging={isDragging}
-        $size={size}
-        $hasFile={!!file}
-        $isError={!!file && !showSuccess && !showProgress}
+      <div
+        className={clsx(
+          styles.cuiUploadArea,
+          commonStyles.uploadAreaBase,
+          commonStyles.uploadAreaMd,
+          {
+            [commonStyles.uploadAreaSm]: !!file || size === "sm",
+            [commonStyles.uploadAreaDraggable]: !file,
+            [commonStyles.uploadAreaDragging]: isDragging && !file,
+            [commonStyles.uploadAreaError]: !!file && !showSuccess && !showProgress,
+            [styles.cuiHasFile]: !!file,
+            [styles.cuiSmall]: size === "sm",
+          }
+        )}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -369,30 +223,45 @@ export const FileUpload = ({
       >
         {!file ? (
           <>
-            <UploadIcon name="upload" />
-            <UploadText
-              $size={size}
-              $hasFile={false}
+            <Icon
+              name="upload"
+              className={commonStyles.iconSizeMd}
+            />
+            <div
+              className={clsx(styles.cuiUploadText, {
+                [styles.cuiSmall]: size === "sm",
+                [styles.cuiCentered]: size === "md",
+              })}
             >
               {isNotSupported ? (
-                <FileUploadTitle
-                  $isNotSupported
+                <Title
                   type="h1"
+                  className={clsx(
+                    commonStyles.fileUploadTitle,
+                    styles.cuiFileUploadTitle,
+                    styles.cuiNotSupported
+                  )}
                 >
                   Unsupported file type
-                </FileUploadTitle>
+                </Title>
               ) : (
-                <FileUploadTitle
-                  $isNotSupported={isNotSupported}
+                <Title
                   type="h1"
+                  className={clsx(
+                    commonStyles.fileUploadTitle,
+                    styles.cuiFileUploadTitle,
+                    {
+                      [styles.cuiNotSupported]: isNotSupported,
+                    }
+                  )}
                 >
                   {title}
-                </FileUploadTitle>
+                </Title>
               )}
-              <FileUploadDescription>
+              <Text className={commonStyles.fileUploadDescription}>
                 Files supported: {supportedFileTypes.join(", ")}
-              </FileUploadDescription>
-            </UploadText>
+              </Text>
+            </div>
             <Button
               type={"secondary"}
               onClick={e => {
@@ -405,15 +274,28 @@ export const FileUpload = ({
           </>
         ) : (
           <>
-            <DocumentIcon name={"document"} />
-            <FileContentContainer $size={size}>
-              <FileDetails>
-                <FileName>{truncateFilename(file.name)}</FileName>
+            <Icon
+              name={"document"}
+              className={commonStyles.iconSizeSm}
+            />
+            <div className={commonStyles.fileInfoContainer}>
+              <div className={commonStyles.fileInfoHeader}>
+                <Text size={"md"}>{truncateFilename(file.name)}</Text>
                 {showProgress && !showSuccess && (
-                  <FileUploadDescription>{progress}%</FileUploadDescription>
+                  <Text
+                    size={"md"}
+                    color={"muted"}
+                  >
+                    {progress}%
+                  </Text>
                 )}
                 {!showProgress && !showSuccess && (
-                  <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
+                  <Text
+                    size={"md"}
+                    color={"danger"}
+                  >
+                    {failureMessage}
+                  </Text>
                 )}
                 {showSuccess && (
                   <Icon
@@ -422,20 +304,25 @@ export const FileUpload = ({
                     name={"check"}
                   />
                 )}
-              </FileDetails>
+              </div>
               {showProgress && !showSuccess && (
-                <ProgressBarWrapper>
+                <div className={commonStyles.progressContainer}>
                   <ProgressBar
                     progress={progress}
                     type={"small"}
                   />
-                </ProgressBarWrapper>
+                </div>
               )}
               {(showSuccess || !showProgress) && (
-                <FileUploadDescription>{formatFileSize(file.size)}</FileUploadDescription>
+                <Text
+                  size={"md"}
+                  color={"muted"}
+                >
+                  {formatFileSize(file.size)}
+                </Text>
               )}
-            </FileContentContainer>
-            <FileActions>
+            </div>
+            <div className={commonStyles.fileActions}>
               {!showProgress && !showSuccess && (
                 <IconButton
                   size={"sm"}
@@ -450,10 +337,10 @@ export const FileUpload = ({
                 type={"ghost"}
                 onClick={handleRemoveFile}
               />
-            </FileActions>
+            </div>
           </>
         )}
-      </UploadArea>
+      </div>
 
       <input
         type="file"

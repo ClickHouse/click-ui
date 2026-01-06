@@ -1,0 +1,382 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Base wrapper styles - using variant mixins for modern CSS
+.cuiWrapper {
+  display: inline-flex;
+  border-radius: tokens.$clickBadgeRadiiAll;
+
+  // Size variants
+  @include variants.variant('cuiSizeSm') {
+    padding: tokens.$clickBadgeSpaceSmY tokens.$clickBadgeSpaceSmX;
+    font: tokens.$clickBadgeTypographyLabelSmDefault;
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    padding: tokens.$clickBadgeSpaceMdY tokens.$clickBadgeSpaceMdX;
+    font: tokens.$clickBadgeTypographyLabelMdDefault;
+  }
+
+  // Type and state combinations - opaque
+  @include variants.variant('cuiTypeOpaque') {
+    @include variants.variant('cuiStateDefault') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundDefault;
+      color: tokens.$clickBadgeOpaqueColorTextDefault;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeDefault;
+    }
+
+    @include variants.variant('cuiStateSuccess') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundSuccess;
+      color: tokens.$clickBadgeOpaqueColorTextSuccess;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeSuccess;
+    }
+
+    @include variants.variant('cuiStateNeutral') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundNeutral;
+      color: tokens.$clickBadgeOpaqueColorTextNeutral;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeNeutral;
+    }
+
+    @include variants.variant('cuiStateDanger') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundDanger;
+      color: tokens.$clickBadgeOpaqueColorTextDanger;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeDanger;
+    }
+
+    @include variants.variant('cuiStateDisabled') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundDisabled;
+      color: tokens.$clickBadgeOpaqueColorTextDisabled;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeDisabled;
+    }
+
+    @include variants.variant('cuiStateWarning') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundWarning;
+      color: tokens.$clickBadgeOpaqueColorTextWarning;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeWarning;
+    }
+
+    @include variants.variant('cuiStateInfo') {
+      background-color: tokens.$clickBadgeOpaqueColorBackgroundInfo;
+      color: tokens.$clickBadgeOpaqueColorTextInfo;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeOpaqueColorStrokeInfo;
+    }
+  }
+
+  // Type and state combinations - solid
+  @include variants.variant('cuiTypeSolid') {
+    @include variants.variant('cuiStateDefault') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundDefault;
+      color: tokens.$clickBadgeSolidColorTextDefault;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeDefault;
+    }
+
+    @include variants.variant('cuiStateSuccess') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundSuccess;
+      color: tokens.$clickBadgeSolidColorTextSuccess;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeSuccess;
+    }
+
+    @include variants.variant('cuiStateNeutral') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundNeutral;
+      color: tokens.$clickBadgeSolidColorTextNeutral;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeNeutral;
+    }
+
+    @include variants.variant('cuiStateDanger') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundDanger;
+      color: tokens.$clickBadgeSolidColorTextDanger;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeDanger;
+    }
+
+    @include variants.variant('cuiStateDisabled') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundDisabled;
+      color: tokens.$clickBadgeSolidColorTextDisabled;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeDisabled;
+    }
+
+    @include variants.variant('cuiStateWarning') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundWarning;
+      color: tokens.$clickBadgeSolidColorTextWarning;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeWarning;
+    }
+
+    @include variants.variant('cuiStateInfo') {
+      background-color: tokens.$clickBadgeSolidColorBackgroundInfo;
+      color: tokens.$clickBadgeSolidColorTextInfo;
+      border: tokens.$clickBadgeStroke solid tokens.$clickBadgeSolidColorStrokeInfo;
+    }
+  }
+}
+
+// Content container - inherits sizing from wrapper
+.cuiContent {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  justify-content: flex-start;
+}
+
+// Size-specific gap using parent class selectors
+.cuiWrapper {
+  @include variants.variant('cuiSizeSm') {
+    .cuiContent {
+      gap: tokens.$clickBadgeSpaceSmGap;
+    }
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    .cuiContent {
+      gap: tokens.$clickBadgeSpaceMdGap;
+    }
+  }
+}
+
+// Badge content wrapper
+.cuiBadgeContent {
+  width: auto;
+  overflow: hidden;
+
+  svg {
+    gap: inherit;
+  }
+}
+
+// Icon size and color variants using parent wrapper classes
+.cuiWrapper {
+  // Icon size variants
+  @include variants.variant('cuiSizeSm') {
+    .cuiBadgeContent svg {
+      height: tokens.$clickBadgeIconSmSizeHeight;
+      width: tokens.$clickBadgeIconSmSizeWidth;
+    }
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    .cuiBadgeContent svg {
+      height: tokens.$clickBadgeIconMdSizeHeight;
+      width: tokens.$clickBadgeIconMdSizeWidth;
+    }
+  }
+
+  // Icon color variants for opaque type
+  @include variants.variant('cuiTypeOpaque') {
+    @include variants.variant('cuiStateDefault') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextDefault;
+      }
+    }
+
+    @include variants.variant('cuiStateSuccess') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextSuccess;
+      }
+    }
+
+    @include variants.variant('cuiStateNeutral') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextNeutral;
+      }
+    }
+
+    @include variants.variant('cuiStateDanger') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextDanger;
+      }
+    }
+
+    @include variants.variant('cuiStateDisabled') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextDisabled;
+      }
+    }
+
+    @include variants.variant('cuiStateWarning') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextWarning;
+      }
+    }
+
+    @include variants.variant('cuiStateInfo') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeOpaqueColorTextInfo;
+      }
+    }
+  }
+
+  // Icon color variants for solid type
+  @include variants.variant('cuiTypeSolid') {
+    @include variants.variant('cuiStateDefault') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextDefault;
+      }
+    }
+
+    @include variants.variant('cuiStateSuccess') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextSuccess;
+      }
+    }
+
+    @include variants.variant('cuiStateNeutral') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextNeutral;
+      }
+    }
+
+    @include variants.variant('cuiStateDanger') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextDanger;
+      }
+    }
+
+    @include variants.variant('cuiStateDisabled') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextDisabled;
+      }
+    }
+
+    @include variants.variant('cuiStateWarning') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextWarning;
+      }
+    }
+
+    @include variants.variant('cuiStateInfo') {
+      .cuiBadgeContent svg {
+        color: tokens.$clickBadgeSolidColorTextInfo;
+      }
+    }
+  }
+}
+
+// Close icon container
+.cuiCloseIcon {
+  // Base styles only
+}
+
+// Close icon size and color variants using parent wrapper classes
+.cuiWrapper {
+  // Size variants
+  @include variants.variant('cuiSizeSm') {
+    .cuiCloseIcon {
+      height: tokens.$clickBadgeIconSmSizeHeight;
+      width: tokens.$clickBadgeIconSmSizeWidth;
+    }
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    .cuiCloseIcon {
+      height: tokens.$clickBadgeIconMdSizeHeight;
+      width: tokens.$clickBadgeIconMdSizeWidth;
+    }
+  }
+
+  // Color variants for opaque type
+  @include variants.variant('cuiTypeOpaque') {
+    @include variants.variant('cuiStateDefault') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextDefault;
+      }
+    }
+
+    @include variants.variant('cuiStateSuccess') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextSuccess;
+      }
+    }
+
+    @include variants.variant('cuiStateNeutral') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextNeutral;
+      }
+    }
+
+    @include variants.variant('cuiStateDanger') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextDanger;
+      }
+    }
+
+    @include variants.variant('cuiStateDisabled') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextDisabled;
+      }
+    }
+
+    @include variants.variant('cuiStateWarning') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextWarning;
+      }
+    }
+
+    @include variants.variant('cuiStateInfo') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeOpaqueColorTextInfo;
+      }
+    }
+  }
+
+  // Color variants for solid type
+  @include variants.variant('cuiTypeSolid') {
+    @include variants.variant('cuiStateDefault') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextDefault;
+      }
+    }
+
+    @include variants.variant('cuiStateSuccess') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextSuccess;
+      }
+    }
+
+    @include variants.variant('cuiStateNeutral') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextNeutral;
+      }
+    }
+
+    @include variants.variant('cuiStateDanger') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextDanger;
+      }
+    }
+
+    @include variants.variant('cuiStateDisabled') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextDisabled;
+      }
+    }
+
+    @include variants.variant('cuiStateWarning') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextWarning;
+      }
+    }
+
+    @include variants.variant('cuiStateInfo') {
+      .cuiCloseIcon {
+        color: tokens.$clickBadgeSolidColorTextInfo;
+      }
+    }
+  }
+}
+
+/* Variant-specific styles for card-top-badge */
+.cuiWrapper[data-cui-variant="card-top-badge"] {
+  /* Position the badge at the top center of the card */
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Selected state for card-top-badge */
+.cuiWrapper[data-cui-variant="card-top-badge"][data-cui-selected="true"] {
+  border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
+}
+
+/* Active state when the sibling div is active */
+div:active + .cuiWrapper[data-cui-variant="card-top-badge"] {
+  border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
+}

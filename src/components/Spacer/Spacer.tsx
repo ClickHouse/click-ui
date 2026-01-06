@@ -1,18 +1,21 @@
-import { styled } from "styled-components";
+import { capitalize } from "@/utils/capitalize";
+import clsx from "clsx";
+import styles from "./Spacer.module.scss";
 
 export type SizeType = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export interface SpacerProps {
   /** The size of the spacer */
   size?: SizeType;
+  className?: string;
 }
 
-const CUISpacer = styled.div<{
-  $size?: SizeType;
-}>`
-  background: transparent;
-  display: flex;
-  padding: ${({ theme, $size = "md" }) =>
-    `${theme.click.spacer.horizontal.space.y[$size]} ${theme.click.spacer.horizontal.space.x.all}`};
-`;
+export const Spacer = ({ size = "md", className }: SpacerProps) => {
+  const sizeClass = `cuiSize${capitalize(size)}`;
 
-export const Spacer = ({ size }: SpacerProps) => <CUISpacer $size={size} />;
+  return (
+    <div
+      className={clsx(styles.cuiSpacer, styles[sizeClass], className)}
+      data-cui-size={size}
+    />
+  );
+};

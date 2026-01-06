@@ -1,0 +1,109 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSelectPopoverRoot {
+  width: 100%;
+  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
+  box-shadow:
+    0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.cuiPopoverContent {
+  width: var(--radix-popover-trigger-width);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.cuiSelectGroupContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  @include mixins.cuiFullWidthStretch;
+  overflow: hidden;
+  background: transparent;
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.cuiSelectGroupName {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
+  padding: tokens.$clickGenericMenuSectionHeaderSpaceTop tokens.$clickGenericMenuItemSpaceX
+    tokens.$clickGenericMenuSectionHeaderSpaceBottom;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+}
+
+.cuiSelectGroupContent {
+  width: inherit;
+}
+
+.cuiSelectListContent {
+  width: inherit;
+  overflow: overlay;
+  flex: 1;
+}
+
+.cuiSelectNoDataContainer {
+  border: none;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  cursor: default;
+  font: tokens.$clickGenericMenuButtonTypographyLabelDefault;
+  padding: tokens.$clickGenericMenuButtonSpaceY tokens.$clickGenericMenuItemSpaceX;
+  background: tokens.$clickGenericMenuButtonColorBackgroundDefault;
+  color: tokens.$clickGenericMenuButtonColorLabelDefault;
+
+  &[hidden="true"] {
+    display: none;
+  }
+}
+
+.cuiSelectList {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  max-height: var(--radix-popover-content-available-height);
+  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
+  box-shadow: tokens.$clickGenericMenuPanelShadowDefault;
+  border-radius: 0.25rem;
+}
+
+.cuiCheckIcon {
+  @include variants.variant('cuiShowCheck') {
+    opacity: 1;
+  }
+
+  &:not(.cuiShowCheck) {
+    opacity: 0;
+  }
+}

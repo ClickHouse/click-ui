@@ -1,0 +1,163 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiIconButton {
+  border-radius: tokens.$clickButtonIconButtonRadiiAll;
+  border: tokens.$clickButtonStroke solid;
+  cursor: pointer;
+
+  &:hover {
+    border-color: tokens.$clickButtonIconButtonColorPrimaryStrokeHover;
+  }
+
+  &:focus,
+  &:active,
+  &:focus-within {
+    border-color: tokens.$clickButtonIconButtonColorPrimaryStrokeActive;
+  }
+
+  &:visited {
+    background-color: tokens.$clickButtonIconButtonColorPrimaryBackgroundDefault;
+  }
+
+  &:disabled {
+    background-color: tokens.$clickButtonIconButtonColorDisabledBackgroundDefault;
+    color: tokens.$clickButtonIconButtonColorDisabledTextDefault;
+    cursor: not-allowed;
+  }
+
+  // Size variants
+  @include variants.variant('cuiSizeDefault') {
+    padding: tokens.$clickButtonIconButtonDefaultSpaceY tokens.$clickButtonIconButtonDefaultSpaceX;
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    padding: tokens.$clickButtonIconButtonSmSpaceY tokens.$clickButtonIconButtonSmSpaceX;
+  }
+
+  @include variants.variant('cuiSizeXs') {
+    padding: tokens.$clickButtonIconButtonXsSpaceY tokens.$clickButtonIconButtonXsSpaceX;
+  }
+
+  // Type variants
+  @include variants.variant('cuiTypePrimary') {
+    border-color: tokens.$clickButtonIconButtonColorPrimaryStrokeDefault;
+    background-color: tokens.$clickButtonIconButtonColorPrimaryBackgroundDefault;
+    color: tokens.$clickButtonIconButtonColorPrimaryTextDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonIconButtonColorPrimaryBackgroundHover;
+      color: tokens.$clickButtonIconButtonColorPrimaryTextHover;
+      border-color: tokens.$clickButtonIconButtonColorPrimaryStrokeHover;
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: tokens.$clickButtonIconButtonColorPrimaryBackgroundActive;
+      color: tokens.$clickButtonIconButtonColorPrimaryTextActive;
+      border-color: tokens.$clickButtonIconButtonColorPrimaryStrokeActive;
+    }
+
+    &:visited {
+      background-color: tokens.$clickButtonIconButtonColorPrimaryBackgroundDefault;
+    }
+  }
+
+  @include variants.variant('cuiTypeSecondary') {
+    border-color: tokens.$clickButtonIconButtonColorSecondaryStrokeDefault;
+    background-color: tokens.$clickButtonIconButtonColorSecondaryBackgroundDefault;
+    color: tokens.$clickButtonIconButtonColorSecondaryTextDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonIconButtonColorSecondaryBackgroundHover;
+      color: tokens.$clickButtonIconButtonColorSecondaryTextHover;
+      border-color: tokens.$clickButtonIconButtonColorSecondaryStrokeHover;
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: tokens.$clickButtonIconButtonColorSecondaryBackgroundActive;
+      color: tokens.$clickButtonIconButtonColorSecondaryTextActive;
+      border-color: tokens.$clickButtonIconButtonColorSecondaryStrokeActive;
+    }
+
+    &:visited {
+      background-color: tokens.$clickButtonIconButtonColorSecondaryBackgroundDefault;
+    }
+  }
+
+  @include variants.variant('cuiTypeGhost') {
+    border-color: tokens.$clickButtonIconButtonColorGhostStrokeDefault;
+    background-color: tokens.$clickButtonIconButtonColorGhostBackgroundDefault;
+    color: tokens.$clickButtonIconButtonColorGhostTextDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonIconButtonColorGhostBackgroundHover;
+      color: tokens.$clickButtonIconButtonColorGhostTextHover;
+      border-color: tokens.$clickButtonIconButtonColorGhostStrokeHover;
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: tokens.$clickButtonIconButtonColorGhostBackgroundActive;
+      color: tokens.$clickButtonIconButtonColorGhostTextActive;
+      border-color: tokens.$clickButtonIconButtonColorGhostStrokeActive;
+    }
+
+    &:visited {
+      background-color: tokens.$clickButtonIconButtonColorGhostBackgroundDefault;
+    }
+  }
+
+  @include variants.variant('cuiTypeDanger') {
+    border-color: tokens.$clickButtonIconButtonColorDangerStrokeDefault;
+    background-color: tokens.$clickButtonIconButtonColorDangerBackgroundDefault;
+    color: tokens.$clickButtonIconButtonColorDangerTextDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonIconButtonColorDangerBackgroundHover;
+      color: tokens.$clickButtonIconButtonColorDangerTextHover;
+      border-color: tokens.$clickButtonIconButtonColorDangerStrokeHover;
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: tokens.$clickButtonIconButtonColorDangerBackgroundActive;
+      color: tokens.$clickButtonIconButtonColorDangerTextActive;
+      border-color: tokens.$clickButtonIconButtonColorDangerStrokeActive;
+    }
+
+    &:visited {
+      background-color: tokens.$clickButtonIconButtonColorDangerBackgroundDefault;
+    }
+  }
+
+  @include variants.variant('cuiTypeInfo') {
+    border-color: tokens.$clickButtonIconButtonColorInfoStrokeDefault;
+    background-color: tokens.$clickButtonIconButtonColorInfoBackgroundDefault;
+    color: tokens.$clickButtonIconButtonColorInfoTextDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonIconButtonColorInfoBackgroundHover;
+      color: tokens.$clickButtonIconButtonColorInfoTextHover;
+      border-color: tokens.$clickButtonIconButtonColorInfoStrokeHover;
+    }
+
+    &:focus,
+    &:active,
+    &:focus-within {
+      background-color: tokens.$clickButtonIconButtonColorInfoBackgroundActive;
+      color: tokens.$clickButtonIconButtonColorInfoTextActive;
+      border-color: tokens.$clickButtonIconButtonColorInfoStrokeActive;
+    }
+
+    &:visited {
+      background-color: tokens.$clickButtonIconButtonColorInfoBackgroundDefault;
+    }
+  }
+}
+

@@ -1,44 +1,26 @@
-import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  ReactNode,
-  forwardRef,
-} from "react";
+import { ElementType, forwardRef } from "react";
 import { mergeRefs } from "@/utils/mergeRefs";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
+import styles from "./EllipsisContent.module.scss";
 
-const EllipsisContainer = styled.div`
-  display: inline-block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  vertical-align: text-bottom;
-  overflow: hidden;
-  justify-content: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-export interface EllipsisContentProps<T extends ElementType = "div"> {
-  component?: T;
-}
-
-type EllipsisPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
-) => ReactNode;
+export interface EllipsisContentProps<T extends ElementType = "div">
+  extends PolymorphicComponentProps<T> {}
 
 const _EllipsisContent = <T extends ElementType = "div">(
-  { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  { component, className, ...props }: PolymorphicProps<T, EllipsisContentProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
+  const Component = component ?? "div";
+
   return (
-    <EllipsisContainer
-      as={component ?? "div"}
+    <Component
+      className={clsx(styles.cuiEllipsisContainer, className)}
       ref={mergeRefs([
         ref,
         node => {
@@ -52,4 +34,5 @@ const _EllipsisContent = <T extends ElementType = "div">(
   );
 };
 
-export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(_EllipsisContent);
+export const EllipsisContent: PolymorphicComponent<EllipsisContentProps> =
+  forwardRef(_EllipsisContent);

@@ -1,0 +1,90 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiAccordion {
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+}
+
+.cuiTrigger {
+  @include mixins.cuiAccordionTriggerBase;
+
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+
+  // Size + Color combination variants using :where() for low specificity
+  @include variants.variant('cuiSizeSm') {
+    @include variants.variant('cuiColorDefault') {
+      @include mixins.cuiAccordionTriggerSize(sm, default);
+    }
+    @include variants.variant('cuiColorLink') {
+      @include mixins.cuiAccordionTriggerSize(sm, link);
+    }
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    @include variants.variant('cuiColorDefault') {
+      @include mixins.cuiAccordionTriggerSize(md, default);
+    }
+    @include variants.variant('cuiColorLink') {
+      @include mixins.cuiAccordionTriggerSize(md, link);
+    }
+  }
+
+  @include variants.variant('cuiSizeLg') {
+    @include variants.variant('cuiColorDefault') {
+      @include mixins.cuiAccordionTriggerSize(lg, default);
+    }
+    @include variants.variant('cuiColorLink') {
+      @include mixins.cuiAccordionTriggerSize(lg, link);
+    }
+  }
+}
+
+.cuiIconsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cuiIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+
+  .cuiTrigger[data-state="open"] & {
+    transform: rotate(90deg);
+  }
+}
+
+.cuiContent {
+  // Content styles from RadixAccordion.Content - inherit default styles
+}
+
+// SidebarAccordion specific styles
+.cuiSidebarAccordion {
+  .cuiTrigger {
+    gap: tokens.$clickSidebarNavigationItemDefaultSpaceGap;
+  }
+
+  .cuiIconWrapper {
+    visibility: hidden;
+  }
+
+  &:hover .cuiIconWrapper,
+  &:active .cuiIconWrapper {
+    visibility: revert;
+  }
+
+  .cuiTrigger[data-state="open"] .cuiIconWrapper {
+    visibility: revert;
+  }
+
+  // Reset paragraph margins
+  p {
+    margin: 0;
+  }
+}

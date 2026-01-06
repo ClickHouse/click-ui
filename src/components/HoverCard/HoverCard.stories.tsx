@@ -1,28 +1,24 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Checkbox } from "../Checkbox/Checkbox";
-import { Spacer } from "../Spacer/Spacer";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { Text } from "@/components/Typography/Text/Text";
+import { Title } from "@/components/Typography/Title/Title";
 import { HoverCard } from "./HoverCard";
 
-interface HoverCardExampleProps {
-  open: "default" | "open" | "closed";
-  showArrow: boolean;
-  forceMount?: boolean;
-  title?: string;
-  openDelay?: number;
-  closeDelay?: number;
-}
-
-const HoverCardExample = ({
+const HoverCardComponent = ({
   open,
   showArrow,
   forceMount,
   title,
   openDelay,
   closeDelay,
-}: HoverCardExampleProps) => (
+}: {
+  open: "default" | "open" | "closed";
+  showArrow: boolean;
+  forceMount?: boolean;
+  title?: string;
+  openDelay?: number;
+  closeDelay?: number;
+}) => (
   <HoverCard
     open={open === "default" ? undefined : open === "open"}
     openDelay={openDelay}
@@ -49,12 +45,8 @@ const HoverCardExample = ({
   </HoverCard>
 );
 
-const meta: Meta<typeof HoverCardExample> = {
-  component: HoverCardExample,
-  subcomponents: {
-    "HoverCard.Trigger": HoverCard.Trigger as React.ComponentType<unknown>,
-    "HoverCard.Content": HoverCard.Content as React.ComponentType<unknown>,
-  },
+export default {
+  component: HoverCardComponent,
   title: "Display/HoverCard",
   tags: ["form-field", "hover-card", "autodocs"],
   argTypes: {
@@ -66,11 +58,7 @@ const meta: Meta<typeof HoverCardExample> = {
   },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof HoverCardExample>;
-
-export const Playground: Story = {
+export const Playground = {
   args: {
     open: "default",
   },

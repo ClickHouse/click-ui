@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Children,
   FunctionComponent,
@@ -22,14 +24,15 @@ import {
   SearchField,
   Separator,
 } from "@/components";
-import { styled } from "styled-components";
-import { GenericMenuItem } from "../GenericMenu";
+import clsx from "clsx";
+import { GenericMenuItem } from "@/components/GenericMenu";
 import { useOption, useSearch } from "./useOption";
-import IconWrapper from "../IconWrapper/IconWrapper";
+import { IconWrapper } from "@/components";
 import { OptionContext } from "./OptionContext";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { getTextFromNodes } from "@/lib/getTextFromNodes";
 import AutoCompleteOptionList from "./AutoCompleteOptionList";
+import styles from "./AutoComplete.module.scss";
 
 type DivProps = HTMLAttributes<HTMLDivElement>;
 interface SelectItemComponentProps extends Omit<
@@ -111,78 +114,6 @@ type SelectItemObject = {
 
 export type AutoCompleteProps = (SelectOptionType & Props) | (SelectChildrenType & Props);
 
-export const SelectPopoverRoot = styled(Root)`
-  width: 100%;
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-    background: ${theme.click.genericMenu.item.color.default.background.default};
-    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
-    border-radius: 0.25rem;
-  `}
-  overflow: hidden;
-  display: flex;
-  padding: 0.5rem 0rem;
-  align-items: flex-start;
-  gap: 0.625rem;
-`;
-
-const PopoverContent = styled(Content)`
-  width: var(--radix-popover-trigger-width);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-`;
-const SelectGroupContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  overflow: hidden;
-  background: transparent;
-  &[aria-selected] {
-    outline: none;
-  }
-
-  ${({ theme }) => `
-    font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-    color: ${theme.click.genericMenu.item.color.default.text.muted};
-  `};
-  &[hidden] {
-    display: none;
-  }
-`;
-
-const SelectGroupName = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  ${({ theme }) => `
-     font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-     color: ${theme.click.genericMenu.item.color.default.text.muted};
-     padding: ${theme.click.genericMenu.sectionHeader.space.top} ${theme.click.genericMenu.item.space.x} ${theme.click.genericMenu.sectionHeader.space.bottom};
-     gap: ${theme.click.genericMenu.item.space.gap};
-     border-bottom: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-   `}
-`;
-
-const SelectGroupContent = styled.div`
-  width: inherit;
-`;
-
-const SelectListContent = styled.div`
-  width: inherit;
-  overflow: overlay;
-  flex: 1;
-`;
-
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
 };
@@ -226,37 +157,6 @@ const childrenToComboboxItemArray = (
     return [];
   });
 };
-const SelectNoDataContainer = styled.div`
-  border: none;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: left;
-  cursor: default;
-  &[hidden="true"] {
-    display: none;
-  }
-  ${({ theme }) => `
-    font: ${theme.click.genericMenu.button.typography.label.default}
-    padding: ${theme.click.genericMenu.button.space.y} ${theme.click.genericMenu.item.space.x};
-    background: ${theme.click.genericMenu.button.color.background.default};
-    color: ${theme.click.genericMenu.button.color.label.default};
-  `}
-`;
-
-const SelectList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: inherit;
-  max-height: var(--radix-popover-content-available-height);
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-    background: ${theme.click.genericMenu.item.color.default.background.default};
-    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
-    border-radius: 0.25rem;
-  `}
-`;
 
 export const AutoComplete = ({
   onSelect: onSelectProp,
@@ -486,7 +386,7 @@ export const AutoComplete = ({
   };
 
   return (
-    <SelectPopoverRoot
+    <Root
       open={open}
       onOpenChange={onOpenChange}
     >
@@ -508,7 +408,8 @@ export const AutoComplete = ({
         </div>
       </Trigger>
       <Portal>
-        <PopoverContent
+        <Content
+          className={styles.cuiPopoverContent}
           sideOffset={5}
           onFocus={onFocus}
           onCloseAutoFocus={() => {
@@ -526,8 +427,8 @@ export const AutoComplete = ({
           }}
           onFocusOutside={onFocusOutside}
         >
-          <SelectList>
-            <SelectListContent>
+          <div className={styles.cuiSelectList}>
+            <div className={styles.cuiSelectListContent}>
               <OptionContext.Provider value={optionContextValue}>
                 {options && options.length > 0 ? (
                   <AutoCompleteOptionList
@@ -538,16 +439,19 @@ export const AutoComplete = ({
                   children
                 )}
               </OptionContext.Provider>
-            </SelectListContent>
+            </div>
             {visibleList.current.length === 0 && (
-              <SelectNoDataContainer {...props}>
+              <div
+                className={styles.cuiSelectNoDataContainer}
+                {...props}
+              >
                 No Options found{search.length > 0 ? ` for "${search}" ` : ""}
-              </SelectNoDataContainer>
+              </div>
             )}
-          </SelectList>
-        </PopoverContent>
+          </div>
+        </Content>
       </Portal>
-    </SelectPopoverRoot>
+    </Root>
   );
 };
 
@@ -555,7 +459,8 @@ export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
   ({ children, heading, ...props }, forwardedRef) => {
     useSearch();
     return (
-      <SelectGroupContainer
+      <div
+        className={styles.cuiSelectGroupContainer}
         {...props}
         ref={mergeRefs([
           forwardedRef,
@@ -570,18 +475,14 @@ export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
           },
         ])}
       >
-        <SelectGroupName>{heading}</SelectGroupName>
-        <SelectGroupContent>{children}</SelectGroupContent>
-      </SelectGroupContainer>
+        <div className={styles.cuiSelectGroupName}>{heading}</div>
+        <div className={styles.cuiSelectGroupContent}>{children}</div>
+      </div>
     );
   }
 );
 
 Group.displayName = "AutoComplete.Group";
-
-const CheckIcon = styled.svg<{ $showCheck: boolean }>`
-  opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
-`;
 
 export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
   (
@@ -642,11 +543,10 @@ export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
           >
             {label ?? children}
           </IconWrapper>
-          <CheckIcon
-            as={Icon}
+          <Icon
             name="check"
             size="sm"
-            $showCheck={isChecked}
+            className={clsx(styles.cuiCheckIcon, { [styles.cuiShowCheck]: isChecked })}
           />
         </GenericMenuItem>
         {separator && <Separator size="sm" />}

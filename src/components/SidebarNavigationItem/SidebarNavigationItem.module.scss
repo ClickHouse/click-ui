@@ -1,0 +1,351 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSidebarItemWrapper {
+  @include mixins.cuiSidebarItemBase;
+
+  // Global anchor styling - applies to all nested anchors via IconWrapper span
+  // Increased specificity to override Storybook's .sbdocs a styles
+  a,
+  a:link,
+  a:visited {
+    color: inherit !important;
+    cursor: pointer;
+    text-decoration: none !important;
+  }
+
+  a:hover,
+  a:focus {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a:active {
+    color: inherit !important;
+  }
+
+  // Base item styles (level 0)
+  &.cuiItem {
+    @include variants.variant('cuiTypeMain') {
+      padding: tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickSidebarNavigationItemDefaultSpaceRight tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationItemRadiiAll;
+      font: tokens.$clickSidebarNavigationItemTypographyDefault;
+      background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundDefault;
+      color: tokens.$clickSidebarMainNavigationItemColorTextDefault;
+
+      &:hover,
+      &:focus {
+        font: tokens.$clickSidebarNavigationItemTypographyHover;
+        background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundHover;
+        color: tokens.$clickSidebarMainNavigationItemColorTextHover;
+        pointer-events: auto;
+      }
+
+      &:active {
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiSelected') {
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiDisabled') {
+        color: tokens.$clickSidebarMainNavigationItemColorTextDisabled;
+        pointer-events: none;
+        cursor: not-allowed;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: tokens.$clickSidebarMainNavigationItemColorTextDisabled;
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: tokens.$clickSidebarMainNavigationItemColorTextDisabled;
+        }
+      }
+
+      @include mixins.cuiMobile {
+        gap: tokens.$clickSidebarNavigationItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickSidebarNavigationItemMobileSpaceRight tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationItemMobileTypographyDefault;
+
+        &:hover,
+        &:focus {
+          font: tokens.$clickSidebarNavigationItemMobileTypographyHover;
+        }
+
+        &:active {
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
+        }
+
+        @include variants.variant('cuiSelected') {
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
+        }
+      }
+    }
+
+    @include variants.variant('cuiTypeSqlSidebar') {
+      padding: tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickSidebarNavigationItemDefaultSpaceRight tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationItemRadiiAll;
+      font: tokens.$clickSidebarNavigationItemTypographyDefault;
+      background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundDefault;
+      color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDefault;
+
+      &:hover,
+      &:focus {
+        font: tokens.$clickSidebarNavigationItemTypographyHover;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundHover;
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextHover;
+        pointer-events: auto;
+      }
+
+      &:active {
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiSelected') {
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiDisabled') {
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDisabled;
+        pointer-events: none;
+        cursor: not-allowed;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDisabled;
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDisabled;
+        }
+      }
+
+      @include mixins.cuiMobile {
+        gap: tokens.$clickSidebarNavigationItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickSidebarNavigationItemMobileSpaceRight tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationItemMobileTypographyDefault;
+
+        &:hover,
+        &:focus {
+          font: tokens.$clickSidebarNavigationItemMobileTypographyHover;
+        }
+
+        &:active {
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
+        }
+
+        @include variants.variant('cuiSelected') {
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
+        }
+      }
+    }
+  }
+
+  // Sub-item styles (level > 0)
+  &.cuiSubItem {
+    @include variants.variant('cuiTypeMain') {
+      padding: tokens.$clickSidebarNavigationSubItemDefaultSpaceY
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceRight
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceY tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationSubItemRadiiAll;
+      font: tokens.$clickSidebarNavigationSubItemTypographyDefault;
+      background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundDefault;
+      color: tokens.$clickSidebarMainNavigationSubItemColorTextDefault;
+
+      &:hover,
+      &:focus {
+        font: tokens.$clickSidebarNavigationSubItemTypographyHover;
+        background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundHover;
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextHover;
+        pointer-events: auto;
+      }
+
+      &:active {
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiSelected') {
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiDisabled') {
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextDisabled;
+        pointer-events: none;
+        cursor: not-allowed;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: tokens.$clickSidebarMainNavigationSubItemColorTextDisabled;
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: tokens.$clickSidebarMainNavigationSubItemColorTextDisabled;
+        }
+      }
+
+      @include mixins.cuiMobile {
+        gap: tokens.$clickSidebarNavigationSubItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationSubItemMobileSpaceY
+          tokens.$clickSidebarNavigationSubItemMobileSpaceRight
+          tokens.$clickSidebarNavigationSubItemMobileSpaceY tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationSubItemMobileTypographyDefault;
+
+        &:hover,
+        &:focus {
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyHover;
+        }
+
+        &:active {
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
+        }
+
+        @include variants.variant('cuiSelected') {
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
+        }
+      }
+    }
+
+    @include variants.variant('cuiTypeSqlSidebar') {
+      padding: tokens.$clickSidebarNavigationSubItemDefaultSpaceY
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceRight
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceY tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationSubItemRadiiAll;
+      font: tokens.$clickSidebarNavigationSubItemTypographyDefault;
+      background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundDefault;
+      color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDefault;
+
+      &:hover,
+      &:focus {
+        font: tokens.$clickSidebarNavigationSubItemTypographyHover;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundHover;
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextHover;
+        pointer-events: auto;
+      }
+
+      &:active {
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiSelected') {
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextActive;
+        pointer-events: all;
+      }
+
+      @include variants.variant('cuiDisabled') {
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDisabled;
+        pointer-events: none;
+        cursor: not-allowed;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:focus-within {
+          color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDisabled;
+        }
+
+        @include variants.variant('cuiSelected') {
+          color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDisabled;
+        }
+      }
+
+      @include mixins.cuiMobile {
+        gap: tokens.$clickSidebarNavigationSubItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationSubItemMobileSpaceY
+          tokens.$clickSidebarNavigationSubItemMobileSpaceRight
+          tokens.$clickSidebarNavigationSubItemMobileSpaceY tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationSubItemMobileTypographyDefault;
+
+        &:hover,
+        &:focus {
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyHover;
+        }
+
+        &:active {
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
+        }
+
+        @include variants.variant('cuiSelected') {
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
+        }
+      }
+    }
+  }
+
+  // Collapsible padding adjustment
+  &.cuiCollapsible {
+    &.cuiItem {
+      @include variants.variant('cuiTypeMain') {
+        padding-left: tokens.$clickSidebarNavigationItemDefaultSpaceLeft;
+
+        @include mixins.cuiMobile {
+          padding-left: tokens.$clickSidebarNavigationItemMobileSpaceLeft;
+        }
+      }
+
+      @include variants.variant('cuiTypeSqlSidebar') {
+        padding-left: tokens.$clickSidebarNavigationItemDefaultSpaceLeft;
+
+        @include mixins.cuiMobile {
+          padding-left: tokens.$clickSidebarNavigationItemMobileSpaceLeft;
+        }
+      }
+    }
+
+    &.cuiSubItem {
+      @include variants.variant('cuiTypeMain') {
+        padding-left: tokens.$clickSidebarNavigationSubItemDefaultSpaceLeft;
+
+        @include mixins.cuiMobile {
+          padding-left: tokens.$clickSidebarNavigationSubItemMobileSpaceLeft;
+        }
+      }
+
+      @include variants.variant('cuiTypeSqlSidebar') {
+        padding-left: tokens.$clickSidebarNavigationSubItemDefaultSpaceLeft;
+
+        @include mixins.cuiMobile {
+          padding-left: tokens.$clickSidebarNavigationSubItemMobileSpaceLeft;
+        }
+      }
+    }
+  }
+}

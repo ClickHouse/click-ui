@@ -1,6 +1,9 @@
+"use client";
+
 import { Icon, IconName } from "@/components";
-import { styled, keyframes } from "styled-components";
-import { BaseButton } from "../commonElement";
+import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
+import styles from "./Button.module.scss";
 import React from "react";
 
 export type ButtonType = "primary" | "secondary" | "empty" | "danger";
@@ -23,6 +26,8 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   fillWidth?: boolean;
   /** Whether to show a loading state */
   loading?: boolean;
+  /** Whether to show the label text alongside the loading icon */
+  showLabelWithLoading?: boolean;
   /** Whether the button should be focused on mount */
   autoFocus?: boolean;
 }
@@ -37,171 +42,67 @@ export const Button = ({
   label,
   loading = false,
   disabled,
+  showLabelWithLoading = false,
+  className,
   ...delegated
-}: ButtonProps) => (
-  <StyledButton
-    $styleType={type}
-    $align={align}
-    $fillWidth={fillWidth}
-    $loading={loading}
-    disabled={disabled || loading}
-    aria-disabled={disabled || loading}
-    role="button"
-    data-fill-width={fillWidth}
-    {...delegated}
-  >
-    {iconLeft && (
-      <ButtonIcon
-        name={iconLeft}
-        aria-hidden
-        size="sm"
-      />
-    )}
+}: ButtonProps) => {
+  const typeClass = `cui${capitalize(type)}`;
+  const alignClass = `cuiAlign${capitalize(align)}`;
 
-    <span>{label ?? children}</span>
+  return (
+    <button
+      className={clsx(
+        styles.cuiButton,
+        styles[typeClass],
+        styles[alignClass],
+        {
+          [styles.cuiFillWidth]: fillWidth,
+        },
+        className
+      )}
+      disabled={disabled || loading}
+      role="button"
+      data-cui-type={type}
+      data-cui-align={align}
+      data-cui-loading={loading ? "true" : undefined}
+      {...delegated}
+    >
+      {!loading && (
+        <>
+          {iconLeft && (
+            <Icon
+              name={iconLeft}
+              aria-hidden
+              size="sm"
+              className={styles.cuiButtonIcon}
+            />
+          )}
 
-    {iconRight && (
-      <ButtonIcon
-        name={iconRight}
-        aria-hidden
-        size="sm"
-      />
-    )}
-  </StyledButton>
-);
+          {label ?? children}
 
-const shimmerFullWidth = keyframes({
-  "0%": {
-    backgroundPosition: "100% 0",
-  },
-  "100%": {
-    backgroundPosition: "-100% 0",
-  },
-});
-
-const shimmerFixedWidth = keyframes({
-  "0%": {
-    backgroundPosition: "-200px 0",
-  },
-  "100%": {
-    backgroundPosition: "200px 0",
-  },
-});
-
-const StyledButton = styled(BaseButton)<{
-  $styleType: ButtonType;
-  $align?: Alignment;
-  $fillWidth?: boolean;
-  $loading?: boolean;
-}>`
-  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "revert")};
-  color: ${({ $styleType = "primary", theme }) =>
-    theme.click.button.basic.color[$styleType].text.default};
-  background-color: ${({ $styleType = "primary", theme }) =>
-    theme.click.button.basic.color[$styleType].background.default};
-  border: ${({ theme }) => theme.click.button.stroke} solid
-    ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].stroke.default};
-  font: ${({ theme }) => theme.click.button.basic.typography.label.default};
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
-  white-space: nowrap;
-  overflow: hidden;
-
-  &::before {
-    content: ${({ $loading }) => ($loading ? '""' : "none")};
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    background: ${({ $styleType, theme }) =>
-      theme.click.button.basic.color[$styleType].background.loading};
-    background-size: ${({ $fillWidth }) => ($fillWidth ? "200% 100%" : "200px 100%")};
-    background-repeat: ${({ $fillWidth }) => ($fillWidth ? "repeat" : "no-repeat")};
-  }
-
-  &[data-fill-width="true"]::before {
-    animation: ${shimmerFullWidth} 1.5s ease-in-out infinite;
-  }
-
-  &[data-fill-width="false"]::before,
-  &:not([data-fill-width])::before {
-    animation: ${shimmerFixedWidth} 1.5s ease-in-out infinite;
-  }
-
-  &:hover {
-    background-color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].background.hover};
-    border: ${({ theme }) => theme.click.button.stroke} solid
-      ${({ $styleType = "primary", theme }) =>
-        theme.click.button.basic.color[$styleType].stroke.hover};
-    transition: ${({ theme }) => theme.transition.default};
-    font: ${({ theme }) => theme.click.button.basic.typography.label.hover};
-  }
-
-  &:active,
-  &:focus {
-    background-color: ${({ $styleType = "primary", theme }) =>
-      theme.click.button.basic.color[$styleType].background.active};
-    border: 1px solid
-      ${({ $styleType = "primary", theme }) =>
-        theme.click.button.basic.color[$styleType].stroke.active};
-    font: ${({ theme }) => theme.click.button.basic.typography.label.active};
-  }
-
-  ${({ $loading, $styleType, theme }) => {
-    if ($loading) {
-      return "";
-    }
-
-    const bgDisabled = theme.click.button.basic.color[$styleType].background.disabled;
-    const textDisabled = theme.click.button.basic.color[$styleType].text.disabled;
-    const strokeDisabled = theme.click.button.basic.color[$styleType].stroke.disabled;
-    const stroke = theme.click.button.stroke;
-    const fontDisabled = theme.click.button.basic.typography.label.disabled;
-
-    return `
-      &:disabled,
-      &:disabled:hover,
-      &:disabled:active {
-        background-color: ${bgDisabled};
-        color: ${textDisabled};
-        border: ${stroke} solid ${strokeDisabled};
-        font: ${fontDisabled};
-        cursor: not-allowed;
-      }
-    `;
-  }}
-
-  /* Loading state styling */
-  ${({ $loading, $styleType }) => {
-    if (!$loading) {
-      return "";
-    }
-
-    const btnOpacity = $styleType === "empty" ? 0.9 : 0.7;
-
-    return `
-      cursor: not-allowed;
-      opacity: ${btnOpacity};
-
-      /* Dim text and icons */
-      > * {
-        opacity: 0.7;
-      }
-    `;
-  }}
-`;
-
-const ButtonIcon = styled(Icon)`
-  height: ${({ theme }) => theme.click.button.basic.size.icon.all};
-  width: ${({ theme }) => theme.click.button.basic.size.icon.all};
-  svg {
-    height: ${({ theme }) => theme.click.button.basic.size.icon.all};
-    width: ${({ theme }) => theme.click.button.basic.size.icon.all};
-  }
-`;
+          {iconRight && (
+            <Icon
+              name={iconRight}
+              aria-hidden
+              size="sm"
+              className={styles.cuiButtonIcon}
+            />
+          )}
+        </>
+      )}
+      {loading && (
+        <div
+          className={styles.cuiLoadingIconWrapper}
+          data-testid="click-ui-loading-icon-wrapper"
+        >
+          <Icon
+            name="loading-animated"
+            data-testid="click-ui-loading-icon"
+            aria-label="loading"
+          />
+          {showLabelWithLoading ? (label ?? children) : ""}
+        </div>
+      )}
+    </button>
+  );
+};

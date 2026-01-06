@@ -1,5 +1,7 @@
+"use client";
+
 import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
 
@@ -12,6 +14,7 @@ import {
   IconButton,
   Text,
 } from "@/components";
+import styles from "./Table.module.scss";
 
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
@@ -25,29 +28,6 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   width?: string;
 }
 
-const StyledHeader = styled.th<{ $size: TableSize }>`
-  ${({ theme, $size }) => `
-    padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-    font: ${theme.click.table.header.title.default};
-    color: ${theme.click.table.header.color.title.default};
-  `}
-  text-align: left;
-`;
-
-const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: inherit;
-
-  ${({ $interactive }) => $interactive && "cursor: pointer;"}
-`;
-
-const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
-  transition: all 200ms;
-  transform: rotate(${({ $sortDir }) => ($sortDir === "desc" ? "180deg" : "0deg")});
-`;
-
 const TableHeader = ({
   label,
   sortDir,
@@ -56,6 +36,7 @@ const TableHeader = ({
   onSort,
   onClick,
   size,
+  className,
   ...delegated
 }: Omit<TableHeaderType, "width"> & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === "string";
@@ -71,33 +52,49 @@ const TableHeader = ({
     }
   };
   return (
-    <StyledHeader
-      $size={size}
+    <th
+      className={clsx(
+        styles.cuiHeader,
+        {
+          [styles.cuiHeaderSm]: size === "sm",
+          [styles.cuiHeaderMd]: size === "md",
+        },
+        className
+      )}
       {...delegated}
     >
-      <HeaderContentWrapper
+      <div
+        className={clsx(styles.cuiHeaderContentWrapper, {
+          [styles.cuiInteractive]: isInteractive,
+        })}
         onClick={onHeaderClick}
-        $interactive={isInteractive}
       >
         {isSorted && isSortable && sortPosition == "start" && (
-          <SortIcon
-            $sortDir={sortDir}
+          <Icon
+            className={clsx(styles.cuiSortIcon, {
+              [styles.cuiSortAsc]: sortDir === "asc",
+              [styles.cuiSortDesc]: sortDir === "desc",
+            })}
             name="arrow-down"
             size="sm"
           />
         )}
         {label}
         {isSorted && isSortable && sortPosition == "end" && (
-          <SortIcon
-            $sortDir={sortDir}
+          <Icon
+            className={clsx(styles.cuiSortIcon, {
+              [styles.cuiSortAsc]: sortDir === "asc",
+              [styles.cuiSortDesc]: sortDir === "desc",
+            })}
             name="arrow-down"
             size="sm"
           />
         )}
-      </HeaderContentWrapper>
-    </StyledHeader>
+      </div>
+    </th>
   );
 };
+
 interface TheadProps {
   headers: Array<TableHeaderType>;
   isSelectable?: boolean;
@@ -126,7 +123,7 @@ const Thead = ({
   };
   return (
     <>
-      <StyledColGroup>
+      <colgroup className={styles.cuiColGroup}>
         {isSelectable && <col width={48} />}
         {headers.map((headerProps, index) => (
           <col
@@ -135,12 +132,15 @@ const Thead = ({
           />
         ))}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
-      </StyledColGroup>
-      <StyledThead>
+      </colgroup>
+      <thead className={styles.cuiThead}>
         <tr>
           {isSelectable && (
-            <StyledHeader
-              $size={size}
+            <th
+              className={clsx(styles.cuiHeader, {
+                [styles.cuiHeaderSm]: size === "sm",
+                [styles.cuiHeaderMd]: size === "md",
+              })}
               aria-label="Select column"
             >
               <SelectAllCheckbox
@@ -148,7 +148,7 @@ const Thead = ({
                 rows={rows}
                 selectedIds={selectedIds}
               />
-            </StyledHeader>
+            </th>
           )}
           {headers.map(({ width, ...headerProps }, index) => (
             <TableHeader
@@ -159,232 +159,26 @@ const Thead = ({
             />
           ))}
           {actionsList.length > 0 && (
-            <StyledHeader
+            <th
+              className={clsx(styles.cuiHeader, {
+                [styles.cuiHeaderSm]: size === "sm",
+                [styles.cuiHeaderMd]: size === "md",
+              })}
               aria-label="Actions"
-              $size={size}
             />
           )}
         </tr>
-      </StyledThead>
+      </thead>
     </>
   );
 };
-interface TableRowProps {
-  $isSelectable?: boolean;
-  $isDeleted?: boolean;
-  $isDisabled?: boolean;
-  $isActive?: boolean;
-  $showActions?: boolean;
-  $rowHeight?: string;
-}
 
-const TableRow = styled.tr<TableRowProps>`
-  overflow: hidden;
-  ${({ theme, $isDeleted, $isDisabled, $isActive, $rowHeight }) => `
-    ${$rowHeight ? `height: ${$rowHeight};` : ""}
-    background-color: ${theme.click.table.row.color.background.default};
-    border-bottom: ${theme.click.table.cell.stroke} solid ${
-      theme.click.table.row.color.stroke.default
-    };
-
-    ${$isActive && `background-color: ${theme.click.table.row.color.background.active};`}
-
-    &:active {
-      background-color: ${theme.click.table.row.color.background.active};
-    }
-    &:hover {
-      background-color: ${theme.click.table.row.color.background.hover};
-    }
-    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
-    cursor: ${$isDeleted || $isDisabled ? "not-allowed" : "default"}
-  `}
-
-  &:last-of-type, &:last-child {
-    border-bottom: none;
-  }
-
-  @media (max-width: 768px) {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    ${({ theme, $isSelectable = false, $showActions = false }) => `
-      border: ${theme.click.table.cell.stroke} solid ${
-        theme.click.table.row.color.stroke.default
-      };
-      border-radius: ${theme.click.table.radii.all};
-      ${
-        $isSelectable
-          ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
-          : ""
-      }
-      ${
-        $showActions
-          ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
-          : ""
-      }
-    `}
-  }
-`;
-
-const TableData = styled.td<{ $size: TableSize }>`
-  overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
-    font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-  `}
-  @media (max-width: 768px) {
-    width: auto;
-    min-width: 40%;
-    ${({ theme }) => `
-      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-    `}
-  }
-`;
-
-const StyledColGroup = styled.colgroup`
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-const StyledThead = styled.thead`
-  tr {
-    overflow: hidden;
-    background-color: ${({ theme }) => theme.click.table.header.color.background.default};
-    ${({
-      theme,
-    }) => ` border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
-  `}
-  }
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const MobileHeader = styled.div`
-  display: none;
-  ${({ theme }) => `
-    color: ${theme.click.table.row.color.label.default};
-    font:  ${theme.click.table.cell.label.default};
-  `}
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
-const Tbody = styled.tbody`
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-`;
-
-const SelectData = styled.td<{ $size: TableSize }>`
-  overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
-    font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-  `}
-  @media (max-width: 768px) {
-    width: auto;
-    align-self: stretch;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    ${({ theme }) => `
-      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-      border-right: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
-    `}
-  }
-`;
-const ActionsList = styled.td<{ $size: TableSize }>`
-  overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
-    font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-  `}
-  @media (max-width: 768px) {
-    width: auto;
-    align-self: stretch;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    ${({ theme }) => `
-      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-      border-left: 1px solid ${theme.click.table.row.color.stroke.default};
-    `}
-  }
-`;
-
-const ActionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  overflow: hidden;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    overflow: auto;
-    flex-wrap: nowrap;
-  }
-`;
-
-const TableWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  ${({ theme }) => `
-  border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
-  border-radius: ${theme.click.table.radii.all}
-  `}
-`;
-
-const TableOuterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-`;
-
-const MobileActions = styled.div`
-  display: none;
-  @media (max-width: 768px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
-  }
-`;
-const EditButton = styled.button`
-  &:disabled {
-    background: transparent;
-  }
-`;
-interface TableRowCloseButtonProps {
-  $isDeleted?: boolean;
-}
-
-const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
-  svg {
-    transition: transform 200ms;
-    ${({ $isDeleted }) => `
-    ${$isDeleted ? "transform: rotate(45deg)" : ""};
-    `}
-  }
-  &:disabled {
-    background: transparent;
-  }
-`;
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
-export interface TableRowType extends Omit<
-  HTMLAttributes<HTMLTableRowElement>,
-  "onSelect" | "id"
-> {
+
+export interface TableRowType
+  extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
   id: string | number;
   items: Array<TableCellType>;
   isDisabled?: boolean;
@@ -394,10 +188,8 @@ export interface TableRowType extends Omit<
   isIndeterminate?: boolean;
 }
 
-interface CommonTableProps extends Omit<
-  HTMLAttributes<HTMLTableElement>,
-  "children" | "onSelect"
-> {
+interface CommonTableProps
+  extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
   headers: Array<TableHeaderType>;
   rows: Array<TableRowType>;
   onDelete?: (item: TableRowType, index: number) => void;
@@ -461,40 +253,57 @@ const TableBodyRow = ({
   const isDeletable = typeof onDelete === "function";
   const isEditable = typeof onEdit === "function";
   return (
-    <TableRow
-      $isSelectable={isSelectable}
-      $isDeleted={isDeleted}
-      $isDisabled={isDisabled}
-      $isActive={isActive}
-      $showActions={isDeletable || isEditable}
-      $rowHeight={rowHeight}
+    <tr
+      className={clsx(styles.cuiTableRow, {
+        [styles.cuiActive]: isActive,
+        [styles.cuiDeleted]: isDeleted,
+        [styles.cuiDisabled]: isDisabled,
+        [styles.cuiSelectable]: isSelectable,
+        [styles.cuiShowActions]: isDeletable || isEditable,
+      })}
+      style={{ height: rowHeight }}
       {...rowProps}
     >
       {isSelectable && (
-        <SelectData $size={size}>
+        <td
+          className={clsx(styles.cuiSelectData, {
+            [styles.cuiSelectSm]: size === "sm",
+            [styles.cuiSelectMd]: size === "md",
+          })}
+        >
           <Checkbox
             checked={isIndeterminate ? "indeterminate" : isSelected}
             onCheckedChange={onSelect}
             disabled={isDisabled || isDeleted}
           />
-        </SelectData>
+        </td>
       )}
       {items.map(({ label, ...cellProps }, cellIndex) => (
-        <TableData
-          $size={size}
+        <td
+          className={clsx(styles.cuiTableData, {
+            [styles.cuiDataSm]: size === "sm",
+            [styles.cuiDataMd]: size === "md",
+          })}
           key={`table-cell-${cellIndex}`}
           {...cellProps}
         >
-          {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
+          {headers[cellIndex] && (
+            <div className={styles.cuiMobileHeader}>{headers[cellIndex].label}</div>
+          )}
           <EllipsisContent component="div">{label}</EllipsisContent>
-        </TableData>
+        </td>
       ))}
       {actionsList.length > 0 && (
-        <ActionsList $size={size}>
-          <ActionsContainer>
+        <td
+          className={clsx(styles.cuiActionsList, {
+            [styles.cuiActionsSm]: size === "sm",
+            [styles.cuiActionsMd]: size === "md",
+          })}
+        >
+          <div className={styles.cuiActionsContainer}>
             {actionsList.includes("editAction") && (
-              <EditButton
-                as={IconButton}
+              <IconButton
+                className={styles.cuiEditButton}
                 type="ghost"
                 disabled={isDisabled || isDeleted || !isEditable}
                 icon="pencil"
@@ -503,31 +312,24 @@ const TableBodyRow = ({
               />
             )}
             {actionsList.includes("deleteAction") && (
-              <TableRowCloseButton
-                as={IconButton}
+              <IconButton
+                className={clsx(styles.cuiTableRowCloseButton, {
+                  [styles.cuiDeleted]: isDeleted,
+                })}
                 disabled={isDisabled || !isDeletable}
-                $isDeleted={isDeleted}
                 type="ghost"
                 icon="cross"
                 onClick={onDelete}
                 data-testid="table-row-delete"
               />
             )}
-          </ActionsContainer>
-        </ActionsList>
+          </div>
+        </td>
       )}
-    </TableRow>
+    </tr>
   );
 };
 
-const SpanedTableData = styled(TableData)`
-  text-align: center;
-`;
-const CustomTableDataMessage = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-`;
 const LoadingData = () => {
   return (
     <>
@@ -539,12 +341,14 @@ const LoadingData = () => {
     </>
   );
 };
+
 interface CustomTableRowProps {
   loading?: boolean;
   noDataMessage?: ReactNode;
   colSpan: number;
   size: TableSize;
 }
+
 const CustomTableRow = ({
   loading,
   noDataMessage,
@@ -552,18 +356,22 @@ const CustomTableRow = ({
   size,
 }: CustomTableRowProps) => {
   return (
-    <TableRow>
-      <SpanedTableData
-        $size={size}
+    <tr className={styles.cuiTableRow}>
+      <td
+        className={clsx(styles.cuiSpanedTableData, {
+          [styles.cuiSpanedSm]: size === "sm",
+          [styles.cuiSpanedMd]: size === "md",
+        })}
         colSpan={colSpan}
       >
-        <CustomTableDataMessage>
+        <div className={styles.cuiCustomTableDataMessage}>
           {loading ? <LoadingData /> : (noDataMessage ?? "No Data available")}
-        </CustomTableDataMessage>
-      </SpanedTableData>
-    </TableRow>
+        </div>
+      </td>
+    </tr>
   );
 };
+
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
     {
@@ -617,9 +425,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     }
 
     return (
-      <TableOuterContainer>
+      <div className={styles.cuiTableOuterContainer}>
         {hasRows && showHeader && (
-          <MobileActions>
+          <div className={styles.cuiMobileActions}>
             {isSelectable && (
               <SelectAllCheckbox
                 label="Select All"
@@ -628,10 +436,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 selectedIds={selectedIds}
               />
             )}
-          </MobileActions>
+          </div>
         )}
-        <TableWrapper>
-          <StyledTable
+        <div className={styles.cuiTableWrapper}>
+          <table
+            className={styles.cuiTable}
             ref={ref}
             {...props}
           >
@@ -647,7 +456,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 selectedIds={selectedIds}
               />
             )}
-            <Tbody>
+            <tbody className={styles.cuiTbody}>
               {(loading || !hasRows) && (
                 <CustomTableRow
                   colSpan={
@@ -685,10 +494,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   {...rowProps}
                 />
               ))}
-            </Tbody>
-          </StyledTable>
-        </TableWrapper>
-      </TableOuterContainer>
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   }
 );
@@ -768,17 +577,5 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
     />
   );
 };
-
-const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  overflow: hidden;
-  table-layout: fixed;
-
-  @media (max-width: 768px) {
-    border: none;
-    table-layout: auto;
-  }
-`;
 
 export { Table };

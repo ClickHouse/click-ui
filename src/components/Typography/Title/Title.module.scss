@@ -1,0 +1,91 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiTitle {
+  margin: 0;
+  padding: 0;
+  font-style: inherit;
+
+  a,
+  a:visited {
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: tokens.$clickGlobalColorTitleMuted;
+  }
+
+  /* Font styles for product family */
+  @include variants.variant('cuiFontSizeProductXs') {
+    font: var(--typography-styles-product-titles-xs);
+  }
+
+  @include variants.variant('cuiFontSizeProductSm') {
+    font: var(--typography-styles-product-titles-sm);
+  }
+
+  @include variants.variant('cuiFontSizeProductMd') {
+    font: var(--typography-styles-product-titles-md);
+  }
+
+  @include variants.variant('cuiFontSizeProductLg') {
+    font: var(--typography-styles-product-titles-lg);
+  }
+
+  @include variants.variant('cuiFontSizeProductXl') {
+    font: var(--typography-styles-product-titles-xl);
+  }
+
+  /* Font styles for brand family */
+  @include variants.variant('cuiFontSizeBrandXs') {
+    font: var(--typography-styles-brand-titles-xs);
+  }
+
+  @include variants.variant('cuiFontSizeBrandSm') {
+    font: var(--typography-styles-brand-titles-sm);
+  }
+
+  @include variants.variant('cuiFontSizeBrandMd') {
+    font: var(--typography-styles-brand-titles-md);
+  }
+
+  @include variants.variant('cuiFontSizeBrandLg') {
+    font: var(--typography-styles-brand-titles-lg);
+  }
+
+  @include variants.variant('cuiFontSizeBrandXl') {
+    font: var(--typography-styles-brand-titles-xl);
+  }
+
+  /* Title colors */
+  @include variants.variant('cuiColorDefault') {
+    color: tokens.$clickGlobalColorTitleDefault;
+
+    a,
+    a:visited {
+      color: tokens.$clickGlobalColorTitleDefault;
+    }
+  }
+
+  @include variants.variant('cuiColorMuted') {
+    color: tokens.$clickGlobalColorTitleMuted;
+
+    a,
+    a:visited {
+      color: tokens.$clickGlobalColorTitleMuted;
+    }
+  }
+
+  /* Text alignment */
+  @include variants.variant('cuiAlignLeft') {
+    text-align: left;
+  }
+
+  @include variants.variant('cuiAlignCenter') {
+    text-align: center;
+  }
+
+  @include variants.variant('cuiAlignRight') {
+    text-align: right;
+  }
+}

@@ -1,277 +1,235 @@
 import { Content, Root, Trigger } from "@radix-ui/react-popover";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import { forwardRef } from "react";
+import styles from "./SelectStyled.module.scss";
 
-export const SelectPopoverRoot = styled(Root)`
-  width: 100%;
-`;
+export const SelectPopoverRoot: React.FC<React.ComponentPropsWithoutRef<typeof Root>> = ({
+  ...props
+}) => <Root {...props} />;
 
-export const SelectValue = styled.div`
-  text-align: left;
-  flex: 1;
-  gap: inherit;
-  color: inherit;
-  font: inherit;
-  overflow: hidden;
-`;
+export const SelectValue = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(styles.cuiSelectValue, className)}
+    {...props}
+  />
+));
+SelectValue.displayName = "SelectValue";
 
-export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  min-height: ${({ theme }) => theme.click.genericMenu.panel.size.height};
+export const StyledSelectTrigger = forwardRef<
+  React.ElementRef<typeof Trigger>,
+  React.ComponentPropsWithoutRef<typeof Trigger> & { $error: boolean }
+>(({ className, $error, ...props }, ref) => (
+  <Trigger
+    ref={ref}
+    className={clsx(
+      styles.cuiStyledSelectTrigger,
+      {
+        [styles.cuiError]: $error,
+      },
+      className
+    )}
+    {...props}
+  />
+));
+StyledSelectTrigger.displayName = "StyledSelectTrigger";
 
-  span:first-of-type {
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+export const SelectPopoverContent = forwardRef<
+  React.ElementRef<typeof Content>,
+  React.ComponentPropsWithoutRef<typeof Content> & {
+    $useFullWidthItems: boolean;
+    $itemCharacterLimit?: string;
   }
+>(({ className, $useFullWidthItems, $itemCharacterLimit, style, ...props }, ref) => (
+  <Content
+    ref={ref}
+    className={clsx(
+      styles.cuiSelectPopoverContent,
+      {
+        [styles.cuiUseFullWidthItems]: $useFullWidthItems,
+        [styles.cuiHasCharacterLimit]: $useFullWidthItems && $itemCharacterLimit,
+      },
+      className
+    )}
+    style={{
+      ...style,
+      ...($itemCharacterLimit &&
+        ({ "--character-limit": $itemCharacterLimit } as React.CSSProperties)),
+    }}
+    {...props}
+  />
+));
+SelectPopoverContent.displayName = "SelectPopoverContent";
 
-  ${({ theme, $error }) => `
-    border-radius: ${theme.click.field.radii.all};
-    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
-    gap: ${theme.click.field.space.gap};
-    font: ${theme.click.field.typography.fieldText.default};
-    color: ${theme.click.field.color.text.default};
-    border: 1px solid ${theme.click.field.color.stroke.default};
-    background: ${theme.click.field.color.background.default};
-    &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.hover};
-      background: ${theme.click.field.color.background.hover};
-      color: ${theme.click.field.color.text.hover};
-    }
-    ${
-      $error
-        ? `
-      font: ${theme.click.field.typography.fieldText.error};
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.error};
-      &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      color: ${theme.click.field.color.text.error};
-      }
-    `
-        : `
-    &:focus,
-    &[data-state="open"] {
-      font: ${theme.click.field.typography.fieldText.active};
-      border: 1px solid ${theme.click.field.color.stroke.active};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.active};
-      & ~ label {
-        color: ${theme.click.field.color.label.active};
-        font: ${theme.click.field.typography.label.active};;
-      }
-    }
-    `
-    };
-    &:disabled {
-      font: ${theme.click.field.typography.fieldText.disabled};
-      border: 1px solid ${theme.click.field.color.stroke.disabled};
-      background: ${theme.click.field.color.background.disabled};
-      color: ${theme.click.field.color.text.disabled};
-      cursor: not-allowed;
-    }
-  `}
-  [data-hide-in-trigger] {
-    display: none;
-  }
-`;
+export const SearchBarContainer = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { $showSearch: boolean }
+>(({ className, $showSearch, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(
+      styles.cuiSearchBarContainer,
+      {
+        [styles.cuiShowSearch]: $showSearch,
+        [styles.cuiHideSearch]: !$showSearch,
+      },
+      className
+    )}
+    {...props}
+  />
+));
+SearchBarContainer.displayName = "SearchBarContainer";
 
-export const SelectPopoverContent = styled(Content)<{
-  $useFullWidthItems: boolean;
-  $itemCharacterLimit?: string;
-}>`
-  width: var(--radix-popover-trigger-width);
-  max-height: var(--radix-popover-content-available-height);
-  border-radius: 0.25rem;
-  pointer-events: auto;
+export const SearchBar = forwardRef<
+  HTMLInputElement,
+  React.InputHTMLAttributes<HTMLInputElement> & { $showSearch: boolean }
+>(({ className, $showSearch, ...props }, ref) => (
+  <input
+    ref={ref}
+    className={clsx(
+      styles.cuiSearchBar,
+      {
+        [styles.cuiShowSearch]: $showSearch,
+        [styles.cuiHideSearch]: !$showSearch,
+      },
+      className
+    )}
+    {...props}
+  />
+));
+SearchBar.displayName = "SearchBar";
 
-  ${({ $useFullWidthItems, $itemCharacterLimit }) => `
-    ${
-      $useFullWidthItems
-        ? `
-      max-width: ${$itemCharacterLimit};
-      min-width: var(--radix-popover-trigger-width);
-      width: 100%;
-    `
-        : "width: var(--radix-popover-trigger-width)"
-    };
-  `}
+export const SearchClose = forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { $showClose: boolean }
+>(({ className, $showClose, ...props }, ref) => (
+  <button
+    ref={ref}
+    className={clsx(
+      styles.cuiSearchClose,
+      {
+        [styles.cuiShowClose]: $showClose,
+        [styles.cuiHideClose]: !$showClose,
+      },
+      className
+    )}
+    {...props}
+  />
+));
+SearchClose.displayName = "SearchClose";
 
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-    background: ${theme.click.genericMenu.item.color.default.background.default};
-    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
-    border-radius: 0.25rem;
-  `}
-  overflow: hidden;
-  display: flex;
-  padding: 0.5rem 0rem;
-  align-items: flex-start;
-  gap: 0.625rem;
-`;
+export const SelectList = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(styles.cuiSelectList, className)}
+    {...props}
+  />
+));
+SelectList.displayName = "SelectList";
 
-export const SearchBarContainer = styled.div<{ $showSearch: boolean }>`
-  width: auto;
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  ${({ theme, $showSearch }) => `
-    padding: ${
-      $showSearch
-        ? `${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x}`
-        : 0
-    };
-    color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
-    font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
-    height: ${$showSearch ? "auto" : " 0"};
-  `}
-`;
+export const SelectListContent = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { $maxHeight?: string }
+>(({ className, $maxHeight, style, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(
+      styles.cuiSelectListContent,
+      {
+        [styles.cuiHasMaxHeight]: !!$maxHeight,
+      },
+      className
+    )}
+    style={{
+      ...style,
+      ...($maxHeight && ({ "--max-height": $maxHeight } as React.CSSProperties)),
+    }}
+    {...props}
+  />
+));
+SelectListContent.displayName = "SelectListContent";
 
-export const SearchBar = styled.input<{ $showSearch: boolean }>`
-  background: transparent;
-  border: none;
-  width: 100%;
-  outline: none;
-  ${({ theme, $showSearch }) => `
-    min-height: ${$showSearch ? "21px" : 0};
-    height: ${$showSearch ? "initial" : 0};
-    ${$showSearch ? "padding-right: 24px" : "padding:0"};
+export const HiddenSelectElement = forwardRef<
+  HTMLSelectElement,
+  React.SelectHTMLAttributes<HTMLSelectElement>
+>(({ className, ...props }, ref) => (
+  <select
+    ref={ref}
+    className={clsx(styles.cuiHiddenSelectElement, className)}
+    {...props}
+  />
+));
+HiddenSelectElement.displayName = "HiddenSelectElement";
 
-    gap: ${theme.click.genericMenu.item.space.gap};
-    font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
-    border-bottom: ${
-      $showSearch ? `2px solid ${theme.click.genericMenu.button.color.stroke.default}` : 0
-    };
-    color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
-    &::placeholder {
-      color: ${theme.click.genericMenu.autocomplete.color.placeholder.default};
-      font: ${theme.click.genericMenu.autocomplete.typography.search.placeholder.default};
-    }
-  `}
-`;
+export const SelectGroupContainer = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(styles.cuiSelectGroupContainer, className)}
+    {...props}
+  />
+));
+SelectGroupContainer.displayName = "SelectGroupContainer";
 
-export const SearchClose = styled.button<{ $showClose: boolean }>`
-  position: absolute;
-  ${({ theme }) => `
-    top: ${theme.click.genericMenu.item.space.y};
-    right: ${theme.click.genericMenu.item.space.x};
-  `}
-  visibility: ${({ $showClose }) => ($showClose ? "visible" : "hidden")};
-`;
+export const SelectGroupName = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(styles.cuiSelectGroupName, className)}
+    {...props}
+  />
+));
+SelectGroupName.displayName = "SelectGroupName";
 
-/*
-  Added the max-height with calc as the content should always be fit inside SelectPopoverContent
-  SelectPopoverContent has hardcoded padding and thats why we are using 1 rem instead of tokens
-  This makes sure that the content is always visible with the scrolling
-*/
-export const SelectList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: inherit;
-  max-height: calc(var(--radix-popover-content-available-height) - 1rem);
-`;
-export const SelectListContent = styled.div<{ $maxHeight?: string }>`
-  width: inherit;
-  overflow: auto;
-  flex: 1;
+export const SelectGroupContent = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(styles.cuiSelectGroupContent, className)}
+    {...props}
+  />
+));
+SelectGroupContent.displayName = "SelectGroupContent";
 
-  ${({ $maxHeight }) =>
-    $maxHeight &&
-    `
-      max-height: ${$maxHeight};
-    `}
-`;
+export const SelectNoDataContainer = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { $clickable: boolean }
+>(({ className, $clickable, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(
+      styles.cuiSelectNoDataContainer,
+      {
+        [styles.cuiClickable]: $clickable,
+        [styles.cuiNonClickable]: !$clickable,
+      },
+      className
+    )}
+    {...props}
+  />
+));
+SelectNoDataContainer.displayName = "SelectNoDataContainer";
 
-export const HiddenSelectElement = styled.select`
-  visibility: hidden;
-  position: absolute;
-  z-index: -1;
-  height: 0;
-`;
-
-export const SelectGroupContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  overflow: hidden;
-  background: transparent;
-  &[aria-selected] {
-    outline: none;
-  }
-
-  ${({ theme }) => `
-    font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-    color: ${theme.click.genericMenu.item.color.default.text.muted};
-  `};
-  &[hidden] {
-    display: none;
-  }
-`;
-
-export const SelectGroupName = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  ${({ theme }) => `
-     font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-     color: ${theme.click.genericMenu.item.color.default.text.muted};
-     padding: ${theme.click.genericMenu.sectionHeader.space.top} ${theme.click.genericMenu.item.space.x} ${theme.click.genericMenu.sectionHeader.space.bottom};
-     gap: ${theme.click.genericMenu.item.space.gap};
-     border-bottom: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-   `}
-`;
-
-export const SelectGroupContent = styled.div`
-  width: inherit;
-`;
-
-export const SelectNoDataContainer = styled.div<{ $clickable: boolean }>`
-  border: none;
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: left;
-
-  &[hidden="true"] {
-    display: none;
-  }
-  ${({ theme, $clickable }) => `
-    font: ${theme.click.genericMenu.button.typography.label.default}
-    padding: ${theme.click.genericMenu.button.space.y} ${
-      theme.click.genericMenu.item.space.x
-    };
-    background: ${theme.click.genericMenu.button.color.background.default};
-    color: ${theme.click.genericMenu.button.color.label.default};
-    cursor: ${$clickable ? "pointer" : "default"}
-  `}
-`;
-
-export const SelectItemDescriptionText = styled.div`
-  white-space: normal;
-
-  [data-disabled] &,
-  [disabled] & {
-    color: inherit;
-  }
-
-  // don't show description when item is rendered in the trigger
-  ${StyledSelectTrigger} & {
-    display: none;
-  }
-`;
+export const SelectItemDescriptionText = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={clsx(styles.cuiSelectItemDescriptionText, className)}
+    {...props}
+  />
+));
+SelectItemDescriptionText.displayName = "SelectItemDescriptionText";

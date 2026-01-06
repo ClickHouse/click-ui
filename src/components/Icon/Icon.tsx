@@ -1,20 +1,22 @@
-import { styled } from "styled-components";
-import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
+import clsx from "clsx";
+import { IconName, IconProps, ImageType } from "./types";
+import styles from "./Icon.module.scss";
 import { ICONS_MAP } from "@/components/Icon/IconCommon";
-import Flags, { FlagList, FlagName } from "../icons/Flags";
-import { Logo } from "../Logos/Logo";
-import LogosLight from "../Logos/LogosLight";
-import { LogoName } from "../Logos/types";
-import Payments, { PaymentList, PaymentName } from "../icons/Payments";
+import Flags, { FlagList, FlagName } from "@/components/icons/Flags";
+import { Logo } from "@/components/Logos/Logo";
+import LogosLight from "@/components/Logos/LogosLight";
+import { LogoName } from "@/components/Logos/types";
+import Payments, { PaymentList, PaymentName } from "@/components/icons/Payments";
+import { capitalize } from "@/utils/capitalize";
 
 const SVGIcon = ({
   name,
   color,
   width,
   height,
-  state,
+  state = "default",
   className,
-  size,
+  size = "md",
   ...props
 }: IconProps) => {
   const Component = ICONS_MAP[name];
@@ -23,52 +25,38 @@ const SVGIcon = ({
     return null;
   }
 
+  const style: React.CSSProperties = {};
+  if (color) {
+    style.color = color;
+  }
+  if (width) {
+    style.width = typeof width === "number" ? `${width}px` : width;
+  }
+  if (height) {
+    style.height = typeof height === "number" ? `${height}px` : height;
+  }
+
+  const sizeClass = `cuiSize${capitalize(size)}`;
+  const stateClass = `cuiState${capitalize(state)}`;
+
+  const iconClasses = clsx(
+    styles.cuiIconWrapper,
+    styles[sizeClass],
+    styles[stateClass],
+    className
+  );
+
   return (
-    <SvgWrapper
-      $color={color}
-      $width={width}
-      $height={height}
-      $size={size}
-      className={className}
-      state={state}
+    <div
+      className={iconClasses}
+      {...(Object.keys(style).length > 0 && { style })}
+      data-cui-size={size}
+      data-cui-state={state}
     >
       <Component {...props} />
-    </SvgWrapper>
+    </div>
   );
 };
-
-const SvgWrapper = styled.div<{
-  $color?: string;
-  $width?: number | string;
-  $height?: number | string;
-  $size?: IconSize;
-  state?: IconState;
-}>`
-  display: flex;
-  align-items: center;
-
-  ${({ theme, $color = "currentColor", $width, $height, $size }) => `
-    & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke], & circle[fill] {
-      stroke: ${$color};
-    }
-
-    & path[fill], & svg[fill]:not([fill="none"]), & rect[fill], & circle[fill] {
-      fill: ${$color};
-    }
-
-    & svg {
-      width: ${$width || theme.click.image[$size || "md"].size.width || "24px"};
-      height: ${$height || theme.click.image[$size || "md"].size.height || "24px"};
-    }
-  `}
-
-  ${({ theme, $color = "currentColor", state = "default", $size = "md" }) => `
-    background: ${theme.click.icon.color.background[state]};
-    border-radius: ${theme.border.radii.full};
-    padding: ${state === "default" ? "none" : theme.click.icon.space[$size].all};
-    color: ${state === "default" ? $color : theme.click.icon.color.text[state]};
-  `}
-`;
 
 const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
   if (Object.keys(FlagList).includes(name)) {

@@ -1,8 +1,11 @@
+"use client";
+
 import { GenericLabel, Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { ReactNode, useId } from "react";
-import { styled } from "styled-components";
-import { FormRoot } from "../commonElement";
+import clsx from "clsx";
+import { capitalize } from "../../utils/capitalize";
+import styles from "./Checkbox.module.scss";
 
 export type CheckboxVariants =
   | "default"
@@ -24,11 +27,6 @@ export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
   dir?: "start" | "end";
 }
 
-const Wrapper = styled(FormRoot)`
-  align-items: center;
-  max-width: fit-content;
-`;
-
 export const Checkbox = ({
   id,
   label,
@@ -37,30 +35,68 @@ export const Checkbox = ({
   orientation = "horizontal",
   dir = "end",
   checked,
+  className,
   ...delegated
 }: CheckboxProps) => {
   const defaultId = useId();
+
+  const variantClass = `cuiVariant${capitalize(variant)}`;
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const dirClass = `cuiDir${capitalize(dir)}`;
+  const checkedClass =
+    checked === true
+      ? "cuiCheckedTrue"
+      : checked === "indeterminate"
+        ? "cuiCheckedIndeterminate"
+        : "";
+  const disabledClass = disabled ? "cuiDisabled" : "";
+
   return (
-    <Wrapper
-      $orientation={orientation}
-      $dir={dir}
+    <div
+      className={clsx(
+        styles.cuiWrapper,
+        styles[orientationClass],
+        styles[dirClass],
+        className
+      )}
+      data-cui-orientation={orientation}
+      data-cui-dir={dir}
     >
-      <CheckInput
+      <RadixCheckbox.Root
         id={id ?? defaultId}
         data-testid="checkbox"
-        variant={variant}
         disabled={disabled}
         aria-label={`${label}`}
         checked={checked}
+        className={clsx(
+          styles.cuiCheckInput,
+          styles[variantClass],
+          checkedClass && styles[checkedClass],
+          disabledClass && styles[disabledClass]
+        )}
+        data-cui-variant={variant}
+        data-cui-checked={
+          checked === true
+            ? "true"
+            : checked === "indeterminate"
+              ? "indeterminate"
+              : undefined
+        }
+        data-cui-disabled={disabled ? "true" : undefined}
         {...delegated}
       >
-        <CheckIconWrapper>
+        <RadixCheckbox.Indicator
+          className={clsx(
+            styles.cuiCheckIconWrapper,
+            disabledClass && styles[disabledClass]
+          )}
+        >
           <Icon
             name={checked === "indeterminate" ? "minus" : "check"}
             size="sm"
           />
-        </CheckIconWrapper>
-      </CheckInput>
+        </RadixCheckbox.Indicator>
+      </RadixCheckbox.Root>
       {label && (
         <GenericLabel
           htmlFor={id ?? defaultId}
@@ -69,52 +105,6 @@ export const Checkbox = ({
           {label}
         </GenericLabel>
       )}
-    </Wrapper>
+    </div>
   );
 };
-
-const CheckInput = styled(RadixCheckbox.Root)<{
-  variant: CheckboxVariants;
-}>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-
-  ${({ theme, variant }) => `
-    border-radius: ${theme.click.checkbox.radii.all};
-    width: ${theme.click.checkbox.size.all};
-    height: ${theme.click.checkbox.size.all};
-    background: ${theme.click.checkbox.color.variations[variant].background.default};
-    border: 1px solid ${theme.click.checkbox.color.variations[variant].stroke.default};
-    cursor: pointer;
-
-    &:hover {
-      background: ${theme.click.checkbox.color.variations[variant].background.hover};
-    }
-    &[data-state="checked"],
-    &[data-state="indeterminate"] {
-      border-color: ${theme.click.checkbox.color.variations[variant].stroke.active};
-      background: ${theme.click.checkbox.color.variations[variant].background.active};
-    }
-    &[data-disabled] {
-      background: ${theme.click.checkbox.color.background.disabled};
-      border-color: ${theme.click.checkbox.color.stroke.disabled};
-      cursor: not-allowed;
-      &[data-state="checked"],
-      &[data-state="indeterminate"] {
-        background: ${theme.click.checkbox.color.background.disabled};
-        border-color: ${theme.click.checkbox.color.stroke.disabled};
-      }
-    }
-  `};
-`;
-
-const CheckIconWrapper = styled(RadixCheckbox.Indicator)`
-  ${({ theme }) => `
-    color: ${theme.click.checkbox.color.check.active};
-    &[data-disabled] {
-      color: ${theme.click.checkbox.color.check.disabled};
-    }
-  `}
-`;

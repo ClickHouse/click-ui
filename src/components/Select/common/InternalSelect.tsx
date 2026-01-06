@@ -28,7 +28,6 @@ import {
   CheckboxVariants,
   Container,
   Icon,
-  IconButton,
   Label,
   Separator,
   Text,
@@ -52,14 +51,15 @@ import {
   SelectItemDescriptionText,
 } from "./SelectStyled";
 import { OptionContext } from "./OptionContext";
-import { MultiSelectValue } from "../MultiSelectValue";
-import SingleSelectValue from "../SingleSelectValue";
+import { MultiSelectValue } from "@/components/Select/MultiSelectValue";
+import SingleSelectValue from "@/components/Select/SingleSelectValue";
 import { useOption, useSearch } from "./useOption";
 import { mergeRefs } from "@/utils/mergeRefs";
 import { GenericMenuItem } from "@/components/GenericMenu";
-import IconWrapper from "@/components/IconWrapper/IconWrapper";
-import { styled } from "styled-components";
+import { IconWrapper } from "@/components";
 import { getTextFromNodes } from "@/lib/getTextFromNodes";
+import clsx from "clsx";
+import styles from "./InternalSelect.module.scss";
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
@@ -409,9 +409,9 @@ export const InternalSelect = ({
 
   return (
     <FormRoot
-      $orientation={orientation}
-      $dir={dir}
-      $addLabelPadding
+      orientation={orientation}
+      dir={dir}
+      addLabelPadding
       {...props}
     >
       <FormElementContainer>
@@ -500,13 +500,15 @@ export const InternalSelect = ({
                     $showSearch={showSearch}
                   />
                   <SearchClose
-                    as={IconButton}
-                    icon="cross"
                     onClick={clearSearch}
                     data-testid="select-search-close"
                     $showClose={search.length > 0}
-                    size="xs"
-                  />
+                  >
+                    <Icon
+                      name="cross"
+                      size="xs"
+                    />
+                  </SearchClose>
                 </SearchBarContainer>
                 <SelectListContent $maxHeight={maxHeight}>
                   <OptionContext.Provider value={optionContextValue}>
@@ -616,9 +618,18 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
 
 SelectGroup.displayName = "Select.Group";
 
-const CheckIcon = styled.svg<{ $showCheck: boolean }>`
-  opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
-`;
+const CheckIcon: React.FC<{ showCheck: boolean } & React.ComponentProps<typeof Icon>> = ({
+  showCheck,
+  ...props
+}) => (
+  <Icon
+    className={clsx(styles.cuiCheckIcon, {
+      [styles.cuiShowCheck]: showCheck,
+      [styles.cuiHideCheck]: !showCheck,
+    })}
+    {...props}
+  />
+);
 
 export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   (
@@ -691,10 +702,9 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             )}
           </IconWrapper>
           <CheckIcon
-            as={Icon}
             name="check"
             size="sm"
-            $showCheck={isChecked}
+            showCheck={isChecked}
           />
         </GenericMenuItem>
         {separator && <Separator size="sm" />}

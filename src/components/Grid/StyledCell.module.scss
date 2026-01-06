@@ -1,0 +1,234 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiStyledCell {
+  @include mixins.cuiGridCellBase;
+
+  &[data-align="right"] {
+    text-align: right;
+  }
+}
+
+/* Height variations */
+.cuiHeightFixed {
+  overflow-y: hidden;
+}
+
+.cuiHeightAuto {
+  height: 100%;
+  min-height: auto;
+  overflow-y: auto;
+}
+
+/* Type and selection combinations - body */
+.cuiTypeBody {
+  @include variants.variant('cuiSelectionDefault') {
+    @include mixins.cuiGridCellType("body", "default");
+    color: tokens.$clickGridBodyCellColorTextDefault;
+  }
+
+  @include variants.variant('cuiSelectionSelectIndirect') {
+    @include mixins.cuiGridCellType("body", "selectIndirect");
+    color: tokens.$clickGridBodyCellColorTextSelectIndirect;
+  }
+
+  @include variants.variant('cuiSelectionSelectDirect') {
+    @include mixins.cuiGridCellType("body", "selectDirect");
+    color: tokens.$clickGridBodyCellColorTextSelectDirect;
+  }
+}
+
+/* Type and selection combinations - header */
+.cuiTypeHeader {
+  @include variants.variant('cuiSelectionDefault') {
+    @include mixins.cuiGridCellType("header", "default");
+    color: tokens.$clickGridHeaderCellColorTitleDefault;
+  }
+
+  @include variants.variant('cuiSelectionSelectIndirect') {
+    @include mixins.cuiGridCellType("header", "selectIndirect");
+    color: tokens.$clickGridHeaderCellColorTitleSelectIndirect;
+  }
+
+  @include variants.variant('cuiSelectionSelectDirect') {
+    @include mixins.cuiGridCellType("header", "selectDirect");
+    color: tokens.$clickGridHeaderCellColorTitleSelectDirect;
+  }
+}
+
+/* Focus state */
+.cuiFocused {
+  @include variants.variant('cuiTypeBody') {
+    box-shadow: inset 0 0 0 1px tokens.$clickGridBodyCellColorStrokeSelectDirect;
+  }
+
+  @include variants.variant('cuiTypeHeader') {
+    box-shadow: inset 0 0 0 1px tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+  }
+}
+
+/* Border management */
+.cuiBorderNone {
+  border: none;
+}
+
+.cuiBorderRightNone {
+  border-right: none;
+}
+
+.cuiBorderBottomNone {
+  border-bottom: none;
+}
+
+/* Last row/column border colors */
+.cuiLastRowBorder {
+  @include variants.variant('cuiTypeBody') {
+    @include variants.variant('cuiFocused') {
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeDefault;
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeSelectIndirect;
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+  }
+
+  @include variants.variant('cuiTypeHeader') {
+    @include variants.variant('cuiFocused') {
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeDefault;
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeSelectIndirect;
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+  }
+}
+
+.cuiLastColumnBorder {
+  @include variants.variant('cuiTypeBody') {
+    @include variants.variant('cuiFocused') {
+      border-right-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-right-color: tokens.$clickGridBodyCellColorStrokeDefault;
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-right-color: tokens.$clickGridBodyCellColorStrokeSelectIndirect;
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-right-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+  }
+
+  @include variants.variant('cuiTypeHeader') {
+    @include variants.variant('cuiFocused') {
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+
+    &.selectionDefault:not(.focused) {
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeDefault;
+    }
+
+    &.selectionSelectIndirect:not(.focused) {
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeSelectIndirect;
+    }
+
+    &.selectionSelectDirect:not(.focused) {
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+  }
+}
+
+/* Header specific border hiding when showBorder is false */
+.cuiHeaderNoBorder {
+  &[data-grid-row="-1"] {
+    border-top: none;
+  }
+
+  &[data-grid-column="-1"] {
+    border-left: none;
+  }
+}
+
+/* Pseudo-element for additional borders */
+.cuiPseudoBorder {
+  position: relative;
+
+  &::before {
+    @include mixins.cuiAbsoluteFill;
+    content: "";
+    pointer-events: none;
+  }
+}
+
+.cuiSelectedTop {
+  &::before {
+    @include variants.variant('cuiTypeBody') {
+      border-top: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+
+    @include variants.variant('cuiTypeHeader') {
+      border-top: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+  }
+}
+
+.cuiSelectedLeft {
+  &::before {
+    @include variants.variant('cuiTypeBody') {
+      border-left: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+
+    @include variants.variant('cuiTypeHeader') {
+      border-left: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+  }
+}
+
+.cuiSelectedBottomDirect {
+  &::before {
+    @include variants.variant('cuiTypeBody') {
+      border-bottom: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+
+    @include variants.variant('cuiTypeHeader') {
+      border-bottom: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+  }
+}
+
+.cuiSelectedRightDirect {
+  &::before {
+    @include variants.variant('cuiTypeBody') {
+      border-right: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
+    }
+
+    @include variants.variant('cuiTypeHeader') {
+      border-right: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
+    }
+  }
+}
+
+.cuiPseudoBorderNone {
+  &::before {
+    border: none;
+  }
+}

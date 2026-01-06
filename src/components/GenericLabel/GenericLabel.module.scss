@@ -1,0 +1,36 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiGenericLabel {
+  cursor: pointer;
+  color: tokens.$clickFieldColorGenericLabelDefault;
+  font: tokens.$clickFieldTypographyGenericLabelDefault;
+
+  &:hover {
+    color: tokens.$clickFieldColorGenericLabelHover;
+    font: tokens.$clickFieldTypographyGenericLabelHover;
+  }
+
+  &:focus,
+  &:focus-within {
+    color: tokens.$clickFieldColorGenericLabelActive;
+    font: tokens.$clickFieldTypographyGenericLabelActive;
+  }
+
+  @include variants.variant('cuiDisabled') {
+    color: tokens.$clickFieldColorGenericLabelDisabled;
+    font: tokens.$clickFieldTypographyGenericLabelDisabled;
+    cursor: not-allowed;
+
+    &:hover {
+      color: tokens.$clickFieldColorGenericLabelDisabled;
+      font: tokens.$clickFieldTypographyGenericLabelDisabled;
+    }
+
+    &:focus,
+    &:focus-within {
+      color: tokens.$clickFieldColorGenericLabelDisabled;
+      font: tokens.$clickFieldTypographyGenericLabelDisabled;
+    }
+  }
+}

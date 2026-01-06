@@ -1,0 +1,50 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiCollapsibleContainer {
+  @include mixins.cuiFullWidthStretch;
+
+  [data-trigger-icon] {
+    visibility: hidden;
+    transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
+
+    &[data-open="true"] {
+      transform: rotate(90deg);
+    }
+  }
+
+  [data-collapsible-header]:hover [data-trigger-icon] {
+    visibility: visible;
+  }
+}
+
+.cuiHeaderContainer {
+  display: flex;
+  align-items: center;
+  user-select: none;
+
+  @include variants.variant('cuiIndicatorDirStart') {
+    margin-left: 0;
+  }
+
+  @include variants.variant('cuiIndicatorDirEnd') {
+    margin-left: tokens.$clickImageSmSizeWidth;
+  }
+}
+
+.cuiTriggerButton {
+  @include mixins.cuiEmptyButton;
+  display: flex;
+  align-items: center;
+  cursor: inherit;
+}
+
+.cuiContentWrapper {
+  @include variants.variant('cuiIndicatorDirStart') {
+    margin-left: tokens.$clickImageSmSizeWidth;
+  }
+
+  @include variants.variant('cuiIndicatorDirEnd') {
+    margin-right: tokens.$clickImageSmSizeWidth;
+  }
+}

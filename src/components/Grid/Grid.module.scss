@@ -1,0 +1,61 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiGridContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  user-select: none;
+  overflow-anchor: none;
+}
+
+.cuiGridDataContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cuiContextMenuTrigger {
+  outline: none;
+  overflow: hidden;
+  width: 100%;
+  background: tokens.$clickGridBodyCellColorBackgroundDefault;
+
+  /* Height variants */
+  @include variants.variant('cuiAutoHeight') {
+    /* Height will be calculated dynamically */
+  }
+
+  @include variants.variant('cuiFixedHeight') {
+    height: 100%;
+  }
+
+  /* Rounded variants */
+  @include variants.variant('cuiRoundedNone') {
+    border-radius: tokens.$clickGridRadiiNone;
+  }
+
+  @include variants.variant('cuiRoundedSm') {
+    border-radius: tokens.$clickGridRadiiSm;
+  }
+
+  @include variants.variant('cuiRoundedMd') {
+    border-radius: tokens.$clickGridRadiiMd;
+  }
+
+  @include variants.variant('cuiRoundedLg') {
+    border-radius: tokens.$clickGridRadiiLg;
+  }
+
+  @include variants.variant('cuiRoundedXl') {
+    border-radius: tokens.$clickGridRadiiXl;
+  }
+
+  /* Border variants */
+  @include variants.variant('cuiShowBorder') {
+    border: 1px solid tokens.$clickGridHeaderCellColorStrokeDefault;
+  }
+
+  @include variants.variant('cuiHideBorder') {
+    border: none;
+  }
+}

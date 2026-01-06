@@ -1,6 +1,9 @@
+"use client";
+
 import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { HTMLAttributes } from "react";
-import { styled } from "styled-components";
+import { HTMLAttributes, CSSProperties } from "react";
+import clsx from "clsx";
+import styles from "./Tooltip.module.scss";
 
 export interface TooltipProps extends RadixTooltip.TooltipProps {
   /** Whether the tooltip is disabled and should not appear */
@@ -34,26 +37,6 @@ interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
   maxWidth?: string;
 }
 
-const RadixTooltipContent = styled(RadixTooltip.Content)<{ $maxWidth?: string }>`
-  display: flex;
-  align-items: flex-start;
-  ${({ theme, $maxWidth }) => `
-    padding: ${theme.click.tooltip.space.y} ${theme.click.tooltip.space.x};
-    color: ${theme.click.tooltip.color.label.default};
-    background: ${theme.click.tooltip.color.background.default};
-    border-radius: ${theme.click.tooltip.radii.all};
-    font: ${theme.click.tooltip.typography.label.default};
-    white-space: pre-wrap;
-    ${$maxWidth && `max-width: ${$maxWidth}`};
-  `}
-`;
-
-const Arrow = styled.svg`
-  ${({ theme }) => `
-    fill: ${theme.click.tooltip.color.background.default};
-  `};
-`;
-
 const TooltipContent = ({
   showArrow,
   children,
@@ -61,22 +44,30 @@ const TooltipContent = ({
   maxWidth,
   ...props
 }: TooltipContentProps) => {
+  const contentStyle: CSSProperties = maxWidth
+    ? ({ "--max-width": maxWidth } as CSSProperties)
+    : {};
+
   return (
     <RadixTooltip.Portal>
-      <RadixTooltipContent
+      <RadixTooltip.Content
+        className={clsx(styles.cuiTooltipContent, {
+          [styles.cuiTooltipContentWithMaxWidth]: !!maxWidth,
+        })}
+        style={contentStyle}
         sideOffset={sideOffset}
-        $maxWidth={maxWidth}
+        data-cui-has-max-width={!!maxWidth}
         {...props}
       >
         {showArrow && (
-          <Arrow
-            as={RadixTooltip.Arrow}
+          <RadixTooltip.Arrow
+            className={styles.cuiTooltipArrow}
             width={20}
             height={8}
           />
         )}
         {children}
-      </RadixTooltipContent>
+      </RadixTooltip.Content>
     </RadixTooltip.Portal>
   );
 };

@@ -1,0 +1,103 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiButtonGroupWrapper {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: tokens.$clickButtonGroupColorBackgroundPanel;
+  border-radius: tokens.$clickButtonGroupRadiiPanelAll;
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  // Type variants
+  @include variants.variant('cuiTypeDefault') {
+    padding: tokens.$clickButtonGroupSpacePanelDefaultX tokens.$clickButtonGroupSpacePanelDefaultY;
+    gap: tokens.$clickButtonGroupSpacePanelDefaultGap;
+    border: 1px solid tokens.$clickButtonGroupColorPanelStrokeDefault;
+  }
+
+  @include variants.variant('cuiTypeBorderless') {
+    padding: tokens.$clickButtonGroupSpacePanelBorderlessX tokens.$clickButtonGroupSpacePanelBorderlessY;
+    gap: tokens.$clickButtonGroupSpacePanelBorderlessGap;
+    border: none;
+  }
+}
+
+.cuiButton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: tokens.$clickButtonGroupColorTextDefault;
+  font: tokens.$clickButtonGroupTypographyLabelDefault;
+  cursor: pointer;
+  border: none;
+
+  &.cuiFillWidth {
+    flex: 1;
+  }
+
+  // Active/inactive background states
+  &.cuiActive {
+    background: tokens.$clickButtonGroupColorBackgroundActive;
+  }
+
+  &.cuiInactive {
+    background: tokens.$clickButtonGroupColorBackgroundDefault;
+  }
+
+  // Type variants
+  @include variants.variant('cuiTypeDefault') {
+    padding: tokens.$clickButtonGroupSpaceButtonDefaultY tokens.$clickButtonGroupSpaceButtonDefaultX;
+    border-radius: tokens.$clickButtonGroupRadiiButtonDefaultAll;
+  }
+
+  @include variants.variant('cuiTypeBorderless') {
+    padding: tokens.$clickButtonGroupSpaceButtonBorderlessY tokens.$clickButtonGroupSpaceButtonBorderlessX;
+    border-radius: tokens.$clickButtonGroupRadiiButtonBorderlessAll;
+  }
+
+  &:hover:not(:disabled) {
+    background: tokens.$clickButtonGroupColorBackgroundHover;
+    font: tokens.$clickButtonGroupTypographyLabelHover;
+    color: tokens.$clickButtonGroupColorTextHover;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    font: tokens.$clickButtonGroupTypographyLabelDisabled;
+    color: tokens.$clickButtonGroupColorTextDisabled;
+
+    &.cuiActive {
+      background: tokens.$clickButtonGroupColorBackgroundDisabledActive;
+    }
+
+    &.cuiInactive {
+      background: tokens.$clickButtonGroupColorBackgroundDisabled;
+    }
+
+    &:active,
+    &:focus,
+    &[aria-pressed="true"] {
+      color: tokens.$clickButtonGroupColorTextDisabled;
+    }
+  }
+
+  &:active:not(:disabled),
+  &:focus:not(:disabled),
+  &[aria-pressed="true"]:not(:disabled) {
+    background: tokens.$clickButtonGroupColorBackgroundActive;
+    font: tokens.$clickButtonGroupTypographyLabelActive;
+    color: tokens.$clickButtonGroupColorTextActive;
+
+    &:disabled {
+      background: tokens.$clickButtonGroupColorBackgroundDisabledActive;
+    }
+  }
+}

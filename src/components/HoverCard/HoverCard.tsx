@@ -1,22 +1,27 @@
+"use client";
+
 import * as RadixHoverCard from "@radix-ui/react-hover-card";
-import { Arrow, GenericPopoverMenuPanel } from "../GenericMenu";
-import { styled } from "styled-components";
+import { Arrow, GenericPopoverMenuPanel } from "@/components/GenericMenu";
 import { ReactNode } from "react";
-import PopoverArrow from "../icons/PopoverArrow";
+import PopoverArrow from "@/components/icons/PopoverArrow";
+import styles from "./HoverCard.module.scss";
 
 export const HoverCard = ({ children, ...props }: RadixHoverCard.HoverCardProps) => {
   return <RadixHoverCard.Root {...props}>{children}</RadixHoverCard.Root>;
 };
 
-const Trigger = styled(RadixHoverCard.Trigger)`
-  width: fit-content;
-`;
-
 const HoverCardTrigger = ({
   children,
   ...props
 }: RadixHoverCard.HoverCardTriggerProps) => {
-  return <Trigger {...props}>{children}</Trigger>;
+  return (
+    <RadixHoverCard.Trigger
+      className={styles.cuiTrigger}
+      {...props}
+    >
+      {children}
+    </RadixHoverCard.Trigger>
+  );
 };
 HoverCardTrigger.displayName = "HoverCardTrigger";
 HoverCard.Trigger = HoverCardTrigger;
@@ -45,15 +50,12 @@ const HoverCardContent = ({
       container={container}
     >
       <GenericPopoverMenuPanel
-        as={RadixHoverCard.Content}
-        $type="hover-card"
-        $showArrow={showArrow}
+        type="hover-card"
+        showArrow={showArrow}
         {...props}
       >
         {showArrow && (
           <Arrow
-            asChild
-            as={RadixHoverCard.Arrow}
             width={15}
             height={10}
           >

@@ -1,0 +1,21 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiTooltipContent {
+  display: flex;
+  align-items: flex-start;
+  padding: tokens.$clickTooltipSpaceY tokens.$clickTooltipSpaceX;
+  color: tokens.$clickTooltipColorLabelDefault;
+  background: tokens.$clickTooltipColorBackgroundDefault;
+  border-radius: tokens.$clickTooltipRadiiAll;
+  font: tokens.$clickTooltipTypographyLabelDefault;
+  white-space: pre-wrap;
+
+  @include variants.variant('cuiTooltipContentWithMaxWidth') {
+    max-width: var(--max-width);
+  }
+}
+
+.cuiTooltipArrow {
+  fill: tokens.$clickTooltipColorBackgroundDefault;
+}

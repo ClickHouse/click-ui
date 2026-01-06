@@ -1,0 +1,112 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiWrapper {
+  background-color: tokens.$clickCardSecondaryColorBackgroundDefault;
+  border-radius: tokens.$clickCardSecondaryRadiiAll;
+  border: 1px solid tokens.$clickCardSecondaryColorStrokeDefault;
+  max-width: 420px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  padding: tokens.$clickCardSecondarySpaceAll;
+  gap: tokens.$clickCardSecondarySpaceGap;
+
+  @include variants.variant('cuiHasShadow') {
+    box-shadow: var(--shadow-1);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: tokens.$clickCardSecondaryColorBackgroundHover;
+    cursor: pointer;
+
+    .cuiLinkText,
+    .cuiLinkIcon {
+      color: tokens.$clickCardSecondaryColorLinkHover;
+    }
+  }
+
+  @include variants.variant('cuiDisabled') {
+    pointer-events: none;
+    background-color: tokens.$clickCardSecondaryColorBackgroundDisabled;
+    color: tokens.$clickCardSecondaryColorTitleDisabled;
+    border: 1px solid tokens.$clickCardSecondaryColorStrokeDisabled;
+    cursor: not-allowed;
+
+    .cuiLinkText,
+    .cuiLinkIcon {
+      color: tokens.$clickCardSecondaryColorLinkDisabled;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      pointer-events: none;
+      background-color: tokens.$clickCardSecondaryColorBackgroundDisabled;
+      color: tokens.$clickCardSecondaryColorTitleDisabled;
+      border: 1px solid tokens.$clickCardSecondaryColorStrokeDisabled;
+      cursor: not-allowed;
+
+      .cuiLinkText,
+      .cuiLinkIcon {
+        color: tokens.$clickCardSecondaryColorLinkDisabled;
+      }
+    }
+  }
+}
+
+.cuiHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cuiHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: tokens.$clickCardSecondarySpaceGap;
+
+  h3,
+  svg {
+    color: var(--global-color-text-default);
+  }
+
+  @include variants.variant('cuiDisabled') {
+    h3,
+    svg {
+      color: var(--global-color-text-muted);
+    }
+  }
+}
+
+.cuiContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cuiCustomIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: tokens.$clickImageLgSizeHeight;
+  width: tokens.$clickImageLgSizeWidth;
+}
+
+.cuiInfoLink {
+  display: flex;
+  align-items: center;
+  color: tokens.$clickCardSecondaryColorLinkDefault;
+  gap: tokens.$clickCardSecondarySpaceLinkGap;
+  text-decoration: none;
+}
+
+.cuiLinkText {
+  color: tokens.$clickCardSecondaryColorLinkDefault;
+}
+
+.cuiLinkIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  color: tokens.$clickCardSecondaryColorLinkDefault;
+  height: tokens.$clickImageMdSizeHeight;
+  width: tokens.$clickImageMdSizeWidth;
+}

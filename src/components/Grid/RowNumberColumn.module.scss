@@ -1,0 +1,25 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiRowNumberColumnContainer {
+  position: sticky;
+  left: 0;
+  height: 100%;
+
+  @include variants.variant('cuiScrolledHorizontal') {
+    box-shadow: 0px 0 0px 1px tokens.$clickGridHeaderCellColorStrokeDefault;
+  }
+}
+
+.cuiRowNumberCell {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+
+  @include variants.variant('cuiAutoHeight') {
+    height: 100%;
+  }
+}

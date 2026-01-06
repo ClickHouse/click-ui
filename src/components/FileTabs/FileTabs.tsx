@@ -1,3 +1,5 @@
+"use client";
+
 import {
   HTMLAttributes,
   createContext,
@@ -11,9 +13,9 @@ import {
   WheelEvent,
   useRef,
 } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
 import { Icon, IconButton } from "@/components";
-import { IconName } from "../Icon/types";
+import { IconName } from "@/components/Icon/types";
 import {
   ItemInterface,
   ReactSortable,
@@ -21,6 +23,7 @@ import {
   Sortable,
   Store,
 } from "react-sortablejs";
+import styles from "./FileTabs.module.scss";
 
 export type FileTabStatusType =
   | "default"
@@ -29,30 +32,6 @@ export type FileTabStatusType =
   | "danger"
   | "warning"
   | "info";
-
-const TabsContainer = styled.div<{ $count: number }>`
-  display: flex;
-  position: relative;
-  overflow: auto;
-  overscroll-behavior: none;
-  scrollbar-width: 0;
-  max-width: ${({ $count }) => `${$count * 200}px`};
-  &::-webkit-scrollbar {
-    height: 0;
-  }
-`;
-const TabsSortableContainer = styled.div`
-  display: flex;
-  & > div {
-    height: 100%;
-    outline: none;
-    min-width: 100px;
-    width: clamp(100px, 100%, 200px);
-    &.sortable-ghost {
-      opacity: 0;
-    }
-  }
-`;
 
 interface ContextProps {
   selectedIndex?: number;
@@ -163,7 +142,7 @@ export const FileTabs = ({
   };
   return (
     <TabContext.Provider value={value}>
-      <TabsContainer
+      <div
         ref={ref}
         onWheel={onWheel}
         role="tablist"
@@ -171,10 +150,15 @@ export const FileTabs = ({
           e.preventDefault();
           e.stopPropagation();
         }}
-        $count={(listProp ?? list).length}
+        className={styles.cuiTabsContainer}
+        style={
+          {
+            "--dynamic-max-width": `${(listProp ?? list).length * 200}px`,
+          } as React.CSSProperties
+        }
       >
-        <TabsSortableContainer
-          as={ReactSortable}
+        <ReactSortable
+          className={styles.cuiTabsSortableContainer}
           direction={direction ?? "horizontal"}
           group={group ?? "tabbar"}
           list={listProp ?? list}
@@ -205,125 +189,11 @@ export const FileTabs = ({
               {child}
             </div>
           ))}
-        </TabsSortableContainer>
-      </TabsContainer>
+        </ReactSortable>
+      </div>
     </TabContext.Provider>
   );
 };
-
-const TabElement = styled.div<{
-  $active: boolean;
-  $preview?: boolean;
-  $dismissable: boolean;
-  $fixedTabElement?: boolean;
-}>`
-  display: grid;
-  justify-content: flex-start;
-  align-items: center;
-  outline: none;
-  max-width: 100%;
-  max-width: -webkit-fill-available;
-  max-width: fill-available;
-  max-width: stretch;
-  border: none;
-  cursor: pointer;
-  height: 100%;
-  max-height: 100%;
-  box-sizing: border-box;
-  ${({ theme, $active, $preview, $dismissable, $fixedTabElement }) => `
-    width:${$fixedTabElement ? "auto" : "100%"};
-    grid-template-columns: 1fr ${
-      $dismissable ? theme.click.tabs.fileTabs.icon.size.width : ""
-    };
-    padding: ${theme.click.tabs.fileTabs.space.y} ${theme.click.tabs.fileTabs.space.x};
-    gap: ${theme.click.tabs.fileTabs.space.gap};
-    border-radius: ${theme.click.tabs.fileTabs.radii.all};
-    border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.default};
-    background: ${theme.click.tabs.fileTabs.color.background.default};
-    color: ${theme.click.tabs.fileTabs.color.text.default};
-    font: ${theme.click.tabs.fileTabs.typography.label.default};
-    svg,
-    [data-indicator] {
-      height: ${theme.click.tabs.fileTabs.icon.size.height};
-      width: ${theme.click.tabs.fileTabs.icon.size.width};
-    }
-    ${
-      $active
-        ? `
-          background: ${theme.click.tabs.fileTabs.color.background.active};
-          color: ${theme.click.tabs.fileTabs.color.text.active};
-          font: ${theme.click.tabs.fileTabs.typography.label.active};
-          border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.active};
-        `
-        : `
-          &:hover {
-            background: ${theme.click.tabs.fileTabs.color.background.hover};
-            color: ${theme.click.tabs.fileTabs.color.text.hover};
-            font: ${theme.click.tabs.fileTabs.typography.label.hover};
-            border-right: 1px solid ${theme.click.tabs.fileTabs.color.stroke.hover};
-          }
-        `
-    }
-    ${$preview === true ? "font-style: italic;" : ""}
-  `}
-  [data-type="close"] {
-    display: none;
-  }
-  [data-indicator] {
-    display: block;
-  }
-  &:hover {
-    [data-type="close"] {
-      display: block;
-    }
-    [data-indicator] {
-      display: none;
-    }
-  }
-`;
-
-const Indicator = styled.div<{ $status: FileTabStatusType }>`
-  position: relative;
-  &::after {
-    position: absolute;
-    left: 0.25rem;
-    top: 0.25rem;
-    content: "";
-    width: 0.5rem;
-    height: 0.5rem;
-    ${({ theme, $status }) => `
-      background: ${
-        $status === "default" ? "transparent" : theme.click.alert.color.text[$status]
-      };
-      border-radius: 50%;
-  `}
-  }
-`;
-
-const TabContent = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  gap: ${({ theme }) => theme.click.tabs.fileTabs.space.gap};
-`;
-
-const TabContentText = styled.span`
-  display: inline-block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-`;
-
-const EmptyButton = styled.button`
-  padding: 0;
-  ${({ theme }) => theme.click.tabs.fileTabs.color.closeButton.background.default};
-  &:hover {
-    background: ${({ theme }) =>
-      theme.click.tabs.fileTabs.color.closeButton.background.hover};
-  }
-`;
 
 const Tab = ({
   text,
@@ -333,6 +203,7 @@ const Tab = ({
   status = "default",
   testId,
   preview,
+  className,
   ...props
 }: FileTabProps) => {
   const { selectedIndex, onClose: onCloseProp } = useSelect();
@@ -354,31 +225,37 @@ const Tab = ({
   };
 
   return (
-    <TabElement
-      $active={selectedIndex === index}
+    <div
+      className={clsx(
+        styles.cuiTabElement,
+        {
+          [styles.cuiActive]: selectedIndex === index,
+          [styles.cuiPreview]: preview,
+          [styles.cuiDismissable]: true,
+        },
+        className
+      )}
       onMouseDown={onMouseDown}
       data-testid={testId ? `${testId}-${index}` : undefined}
-      $preview={preview}
-      $dismissable
       {...props}
     >
-      <TabContent>
+      <div className={styles.cuiTabContent}>
         {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
-        <TabContentText>{text}</TabContentText>
-      </TabContent>
-      <EmptyButton
-        as={IconButton}
+        <span className={styles.cuiTabContentText}>{text}</span>
+      </div>
+      <IconButton
+        className={styles.cuiEmptyButton}
         icon="cross"
         onClick={onClose}
         data-type="close"
         data-testid={testId ? `${testId}-${index}-close` : undefined}
       />
-      <Indicator
-        $status={status}
+      <div
+        className={clsx(styles.cuiIndicator, styles[status])}
         data-indicator={status}
         data-testid={testId ? `${testId}-${index}-status` : undefined}
       />
-    </TabElement>
+    </div>
   );
 };
 
@@ -396,18 +273,24 @@ export const FileTabElement = ({
   children,
   active = false,
   preview,
+  className,
   ...props
 }: FileTabElementProps) => {
   return (
-    <TabElement
-      $active={active}
-      $preview={preview}
-      $dismissable={false}
-      $fixedTabElement
+    <div
+      className={clsx(
+        styles.cuiTabElement,
+        {
+          [styles.cuiActive]: active,
+          [styles.cuiPreview]: preview,
+          [styles.cuiFixedTabElement]: true,
+        },
+        className
+      )}
       {...props}
     >
       {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
-      {children && <TabContentText>{children}</TabContentText>}
-    </TabElement>
+      {children && <span className={styles.cuiTabContentText}>{children}</span>}
+    </div>
   );
 };

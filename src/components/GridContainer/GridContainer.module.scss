@@ -1,0 +1,242 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiGridContainer {
+  display: grid;
+
+  @include variants.variant('cuiInline') {
+    display: inline-grid;
+  }
+
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+
+  @include variants.variant('cuiWidthAuto') {
+    width: auto;
+  }
+
+  /* Alignment classes */
+  @include variants.variant('cuiAlignItemsStart') {
+    align-items: start;
+  }
+
+  @include variants.variant('cuiAlignItemsCenter') {
+    align-items: center;
+  }
+
+  @include variants.variant('cuiAlignItemsEnd') {
+    align-items: end;
+  }
+
+  @include variants.variant('cuiAlignItemsStretch') {
+    align-items: stretch;
+  }
+
+  @include variants.variant('cuiAlignContentCenter') {
+    align-content: center;
+  }
+
+  @include variants.variant('cuiAlignContentSpaceBetween') {
+    align-content: space-between;
+  }
+
+  @include variants.variant('cuiAlignContentSpaceAround') {
+    align-content: space-around;
+  }
+
+  @include variants.variant('cuiAlignContentSpaceEvenly') {
+    align-content: space-evenly;
+  }
+
+  @include variants.variant('cuiAlignContentStart') {
+    align-content: start;
+  }
+
+  @include variants.variant('cuiAlignContentStretch') {
+    align-content: stretch;
+  }
+
+  @include variants.variant('cuiAlignContentEnd') {
+    align-content: end;
+  }
+
+  @include variants.variant('cuiAlignContentLeft') {
+    align-content: left;
+  }
+
+  @include variants.variant('cuiAlignContentRight') {
+    align-content: right;
+  }
+
+  /* Justify content classes */
+  @include variants.variant('cuiJustifyContentCenter') {
+    justify-content: center;
+  }
+
+  @include variants.variant('cuiJustifyContentSpaceBetween') {
+    justify-content: space-between;
+  }
+
+  @include variants.variant('cuiJustifyContentSpaceAround') {
+    justify-content: space-around;
+  }
+
+  @include variants.variant('cuiJustifyContentSpaceEvenly') {
+    justify-content: space-evenly;
+  }
+
+  @include variants.variant('cuiJustifyContentStart') {
+    justify-content: start;
+  }
+
+  @include variants.variant('cuiJustifyContentStretch') {
+    justify-content: stretch;
+  }
+
+  @include variants.variant('cuiJustifyContentEnd') {
+    justify-content: end;
+  }
+
+  @include variants.variant('cuiJustifyContentLeft') {
+    justify-content: left;
+  }
+
+  @include variants.variant('cuiJustifyContentRight') {
+    justify-content: right;
+  }
+
+  /* Justify items classes */
+  @include variants.variant('cuiJustifyItemsStart') {
+    justify-items: start;
+  }
+
+  @include variants.variant('cuiJustifyItemsCenter') {
+    justify-items: center;
+  }
+
+  @include variants.variant('cuiJustifyItemsEnd') {
+    justify-items: end;
+  }
+
+  @include variants.variant('cuiJustifyItemsStretch') {
+    justify-items: stretch;
+  }
+
+  /* Gap classes */
+  @include variants.variant('cuiGapNone') {
+    gap: tokens.$clickGridContainerGapNone;
+  }
+
+  @include variants.variant('cuiGapXxs') {
+    gap: tokens.$clickGridContainerGapXxs;
+  }
+
+  @include variants.variant('cuiGapXs') {
+    gap: tokens.$clickGridContainerGapXs;
+  }
+
+  @include variants.variant('cuiGapSm') {
+    gap: tokens.$clickGridContainerGapSm;
+  }
+
+  @include variants.variant('cuiGapMd') {
+    gap: tokens.$clickGridContainerGapMd;
+  }
+
+  @include variants.variant('cuiGapLg') {
+    gap: tokens.$clickGridContainerGapLg;
+  }
+
+  @include variants.variant('cuiGapXl') {
+    gap: tokens.$clickGridContainerGapXl;
+  }
+
+  @include variants.variant('cuiGapXxl') {
+    gap: tokens.$clickGridContainerGapXxl;
+  }
+
+  @include variants.variant('cuiGapUnset') {
+    gap: unset;
+  }
+
+  /* Column gap classes */
+  @include variants.variant('cuiColumnGapNone') {
+    column-gap: tokens.$clickGridContainerGapNone;
+  }
+
+  @include variants.variant('cuiColumnGapXxs') {
+    column-gap: tokens.$clickGridContainerGapXxs;
+  }
+
+  @include variants.variant('cuiColumnGapXs') {
+    column-gap: tokens.$clickGridContainerGapXs;
+  }
+
+  @include variants.variant('cuiColumnGapSm') {
+    column-gap: tokens.$clickGridContainerGapSm;
+  }
+
+  @include variants.variant('cuiColumnGapMd') {
+    column-gap: tokens.$clickGridContainerGapMd;
+  }
+
+  @include variants.variant('cuiColumnGapLg') {
+    column-gap: tokens.$clickGridContainerGapLg;
+  }
+
+  @include variants.variant('cuiColumnGapXl') {
+    column-gap: tokens.$clickGridContainerGapXl;
+  }
+
+  @include variants.variant('cuiColumnGapXxl') {
+    column-gap: tokens.$clickGridContainerGapXxl;
+  }
+
+  @include variants.variant('cuiColumnGapUnset') {
+    column-gap: unset;
+  }
+
+  /* Row gap classes */
+  @include variants.variant('cuiRowGapNone') {
+    row-gap: tokens.$clickGridContainerGapNone;
+  }
+
+  @include variants.variant('cuiRowGapXxs') {
+    row-gap: tokens.$clickGridContainerGapXxs;
+  }
+
+  @include variants.variant('cuiRowGapXs') {
+    row-gap: tokens.$clickGridContainerGapXs;
+  }
+
+  @include variants.variant('cuiRowGapSm') {
+    row-gap: tokens.$clickGridContainerGapSm;
+  }
+
+  @include variants.variant('cuiRowGapMd') {
+    row-gap: tokens.$clickGridContainerGapMd;
+  }
+
+  @include variants.variant('cuiRowGapLg') {
+    row-gap: tokens.$clickGridContainerGapLg;
+  }
+
+  @include variants.variant('cuiRowGapXl') {
+    row-gap: tokens.$clickGridContainerGapXl;
+  }
+
+  @include variants.variant('cuiRowGapXxl') {
+    row-gap: tokens.$clickGridContainerGapXxl;
+  }
+
+  @include variants.variant('cuiRowGapUnset') {
+    row-gap: unset;
+  }
+
+  @media (max-width: var(--breakpoint-sizes-md)) {
+    @include variants.variant('cuiResponsive') {
+      grid-template-columns: 1fr;
+    }
+  }
+}

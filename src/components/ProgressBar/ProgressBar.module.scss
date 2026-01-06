@@ -1,0 +1,103 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiProgressContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  transition: all 100ms ease-in-out;
+  @include mixins.cuiFullWidthStretch;
+  min-height: 2px;
+  gap: tokens.$clickFieldSpaceGap;
+  border-radius: tokens.$clickFieldRadiiAll;
+  font: var(--typography-styles-product-text-normal-sm);
+  padding-right: 0;
+  color: var(--global-color-accent-default);
+  border: 1px solid tokens.$clickFieldColorStrokeDefault;
+  background-size: calc(100% + 2px);
+  background-position: center;
+
+  // Type styling with variant mixins
+  @include variants.variant('cuiTypeDefault') {
+    padding: 0.25rem tokens.$clickFieldSpaceX;
+  }
+
+  @include variants.variant('cuiTypeSmall') {
+    padding: 0;
+  }
+
+  // Progress background based on status
+  @include variants.variant('cuiStatusIncomplete') {
+    background: linear-gradient(
+      to right,
+      var(--global-color-accent-default) 0%,
+      var(--global-color-accent-default) var(--progress),
+      tokens.$clickFieldColorBackgroundDefault var(--progress),
+      tokens.$clickFieldColorBackgroundDefault 100%
+    );
+  }
+
+  @include variants.variant('cuiStatusComplete') {
+    @include variants.variant('cuiTypeDefault') {
+      background: tokens.$clickFieldColorBackgroundDefault;
+    }
+  }
+
+  &:hover {
+    border: 1px solid tokens.$clickFieldColorStrokeHover;
+    background-size: calc(100% + 2px);
+    background-position: center;
+
+    @include variants.variant('cuiStatusIncomplete') {
+      background: linear-gradient(
+        to right,
+        var(--global-color-accent-default) 0%,
+        var(--global-color-accent-default) var(--progress),
+        tokens.$clickFieldColorBackgroundHover var(--progress),
+        tokens.$clickFieldColorBackgroundHover 100%
+      );
+    }
+
+    @include variants.variant('cuiStatusComplete') {
+      background: tokens.$clickFieldColorBackgroundHover;
+    }
+  }
+
+  &:focus-within,
+  &:focus {
+    border: 1px solid tokens.$clickFieldColorStrokeActive;
+    background-size: calc(100% + 2px);
+    background-position: center;
+
+    @include variants.variant('cuiStatusIncomplete') {
+      background: linear-gradient(
+        to right,
+        var(--global-color-accent-default) 0%,
+        var(--global-color-accent-default) var(--progress),
+        tokens.$clickFieldColorBackgroundActive var(--progress),
+        tokens.$clickFieldColorBackgroundActive 100%
+      );
+    }
+
+    @include variants.variant('cuiStatusComplete') {
+      background: tokens.$clickFieldColorBackgroundActive;
+    }
+  }
+}
+
+.cuiProgressText {
+  width: 100%;
+  font: inherit;
+  mix-blend-mode: difference;
+}
+
+.cuiProgressCloseButton {
+  mix-blend-mode: difference;
+  border: 0;
+  visibility: hidden;
+
+  @include variants.variant('cuiVisible') {
+    visibility: visible;
+  }
+}

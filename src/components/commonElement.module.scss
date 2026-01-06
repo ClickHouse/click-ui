@@ -1,0 +1,154 @@
+@use "../styles/mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiFormRoot {
+  @include mixins.cuiFormRoot();
+
+  @include variants.variant('cuiOrientationHorizontal') {
+    @include variants.variant('cuiDirStart') {
+      flex-direction: row-reverse;
+    }
+
+    @include variants.variant('cuiDirEnd') {
+      flex-direction: row;
+    }
+
+    @include variants.variant('cuiAddLabelPadding') {
+      :global(label) {
+        padding-top: calc(tokens.$clickFieldSpaceY + 1px);
+        line-height: 1lh;
+      }
+    }
+  }
+
+  @include variants.variant('cuiOrientationVertical') {
+    @include variants.variant('cuiDirStart') {
+      flex-direction: column-reverse;
+    }
+
+    @include variants.variant('cuiDirEnd') {
+      flex-direction: column;
+    }
+  }
+}
+
+.cuiError {
+  font: tokens.$clickFieldTypographyLabelError;
+  color: tokens.$clickFieldColorLabelError;
+}
+
+.cuiEmptyButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.cuiCrossButton {
+  @extend .cuiEmptyButton;
+  padding: tokens.$clickButtonIconButtonSmSpaceY tokens.$clickButtonIconButtonSmSpaceX;
+  background: tokens.$clickButtonIconButtonColorPrimaryBackgroundDefault;
+  border-radius: tokens.$clickButtonIconButtonRadiiAll;
+
+  &:hover {
+    background: tokens.$clickButtonIconButtonColorPrimaryBackgroundHover;
+  }
+}
+
+.cuiGridCenter {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cuiBaseButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: tokens.$clickButtonBasicSpaceY tokens.$clickButtonBasicSpaceX;
+  border-radius: tokens.$clickButtonRadiiAll;
+  gap: tokens.$clickButtonBasicSpaceGap;
+  font: tokens.$clickButtonBasicTypographyLabelDefault;
+
+  &:hover {
+    font: tokens.$clickButtonBasicTypographyLabelHover;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    font: tokens.$clickButtonBasicTypographyLabelActive;
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    font: tokens.$clickButtonBasicTypographyLabelDisabled;
+    cursor: not-allowed;
+  }
+}
+
+.cuiSvgImageElement {
+  @include variants.variant('cuiSizeXxs') {
+    @include mixins.cuiIconSize(xxs);
+  }
+
+  @include variants.variant('cuiSizeXs') {
+    @include mixins.cuiIconSize(xs);
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    @include mixins.cuiIconSize(sm);
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    @include mixins.cuiIconSize(md);
+  }
+
+  @include variants.variant('cuiSizeLg') {
+    @include mixins.cuiIconSize(lg);
+  }
+
+  @include variants.variant('cuiSizeXl') {
+    @include mixins.cuiIconSize(xl);
+  }
+
+  @include variants.variant('cuiSizeXxl') {
+    @include mixins.cuiIconSize(xxl);
+  }
+}
+
+.cuiFormElementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  gap: tokens.$clickFieldSpaceGap;
+}
+
+.cuiEllipsisContainer {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: flex-end;
+  gap: inherit;
+
+  & > *:not(button) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

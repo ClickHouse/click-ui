@@ -19,12 +19,8 @@ const externalLibraries = [
   "react/jsx-runtime",
 ];
 
-if (!isBundledBuild) {
-  externalLibraries.push("styled-components");
-}
-
 const buildOptions: BuildOptions = {
-  target: 'baseline-widely-available',
+  target: "baseline-widely-available",
   emptyOutDir: false,
   minify: true,
   lib: {
@@ -36,40 +32,49 @@ const buildOptions: BuildOptions = {
   },
   rollupOptions: {
     // Add _all_ external dependencies here
-    external: externalLibraries,
+    external: id => {
+      // Mark all listed libraries as external
+      if (externalLibraries.some(lib => id === lib || id.startsWith(lib + "/"))) {
+        return true;
+      }
+      // Force ALL React imports to be external, even from dependencies
+      if (
+        id === "react" ||
+        id.startsWith("react/") ||
+        id === "react-dom" ||
+        id.startsWith("react-dom/")
+      ) {
+        return true;
+      }
+      return false;
+    },
     output: {
       globals: {
         dayjs: "dayjs",
         react: "React",
-        "styled-components": "styled",
         "react-dom": "ReactDOM",
         "react/jsx-runtime": "jsxRuntime",
       },
     },
   },
-  sourcemap: true,
+  sourcemap: process.env.NODE_ENV === "development",
 };
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: [["babel-plugin-styled-components", { displayName: false }]],
-
-        env: {
-          development: {
-            plugins: [["babel-plugin-styled-components", { displayName: true }]],
-          },
-        },
-      },
-    }),
+    react(),
     dts({
       include: ["src/"],
       exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     }),
   ],
   css: {
+    modules: {
+      // Use consistent class name generation for library builds
+      // Format: _className_hash where hash is deterministic
+      generateScopedName: "[local]_[hash:base64:5]",
+    },
     preprocessorOptions: {
       scss: {
         // Auto-inject tokens import in all SCSS files
@@ -81,12 +86,12 @@ export default defineConfig({
       plugins: [
         {
           // Wrap only CSS custom properties in @layer for easy consumer override
-          postcssPlugin: 'wrap-tokens-in-layer',
+          postcssPlugin: "wrap-tokens-in-layer",
           Once(root, { AtRule }) {
             // 1. Add layer declaration for tokens at the top
             const layerDeclaration = new AtRule({
-              name: 'layer',
-              params: 'click-ui.tokens',
+              name: "layer",
+              params: "click-ui.tokens",
             });
             root.prepend(layerDeclaration);
 
@@ -99,10 +104,10 @@ export default defineConfig({
                 return; // Skip the layer declaration itself
               }
 
-              if (node.type === 'rule' && node.selector === ':root') {
+              if (node.type === "rule" && node.selector === ":root") {
                 // Check if it contains CSS custom properties
                 const hasCustomProps = node.nodes?.some(
-                  child => child.type === 'decl' && child.prop.startsWith('--')
+                  child => child.type === "decl" && child.prop.startsWith("--")
                 );
                 if (hasCustomProps) {
                   tokenRules.push(node.clone());
@@ -118,8 +123,8 @@ export default defineConfig({
             // 3. Wrap tokens in @layer click-ui.tokens
             if (tokenRules.length > 0) {
               const tokensLayer = new AtRule({
-                name: 'layer',
-                params: 'click-ui.tokens',
+                name: "layer",
+                params: "click-ui.tokens",
               });
               tokenRules.forEach(rule => tokensLayer.append(rule));
               root.append(tokensLayer);
@@ -135,6 +140,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "cui-mixins": path.resolve(__dirname, "./src/styles/_mixins"),
+      "cui-variants": path.resolve(__dirname, "./src/styles/_cui-variants"),
     },
   },
   build: buildOptions,

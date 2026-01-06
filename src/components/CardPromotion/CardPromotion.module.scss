@@ -1,0 +1,62 @@
+@use "cui-mixins" as mixins;
+
+// Icon styles with composes - overrides Icon's default size
+.cuiCardIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: tokens.$clickCardPromotionIconSizeAll;
+  width: tokens.$clickCardPromotionIconSizeAll;
+  color: tokens.$clickCardPromotionColorIconDefault;
+}
+
+.cuiBackground {
+  background-image: tokens.$clickCardPromotionColorStrokeDefault;
+  padding: 1px;
+  border-radius: tokens.$clickCardPromotionRadiiAll;
+  box-shadow: tokens.$clickCardShadow;
+  display: flex;
+
+  &:focus {
+    background: tokens.$clickCardPromotionColorStrokeFocus;
+  }
+}
+
+.cuiWrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  background: tokens.$clickCardPromotionColorBackgroundDefault;
+  color: tokens.$clickCardPromotionColorTextDefault;
+  border-radius: tokens.$clickCardPromotionRadiiAll;
+  padding: tokens.$clickCardPromotionSpaceY tokens.$clickCardPromotionSpaceX;
+  gap: tokens.$clickCardPromotionSpaceGap;
+  transition: 0.2s ease-in-out all;
+
+  &:hover {
+    background: tokens.$clickCardPromotionColorBackgroundHover;
+    color: tokens.$clickCardPromotionColorTextHover;
+  }
+
+  &:active,
+  &:focus {
+    background: tokens.$clickCardPromotionColorBackgroundActive;
+    color: tokens.$clickCardPromotionColorTextActive;
+  }
+}
+
+.cuiCardIcon {
+  height: tokens.$clickCardPromotionIconSizeAll;
+  width: tokens.$clickCardPromotionIconSizeAll;
+  color: tokens.$clickCardPromotionColorIconDefault;
+}
+
+.cuiDismissWrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}

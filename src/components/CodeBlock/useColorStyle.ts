@@ -1,21 +1,21 @@
-import { useTheme } from "styled-components";
 import { CodeThemeType } from "./CodeBlock";
+import { useCUITheme } from "@/theme/ClickUIProvider";
 
-const useColorStyle = (defaultTheme?: CodeThemeType) => {
-  const theme = useTheme();
-  const inheritedThemeName = theme.name as CodeThemeType;
-  const themeName = !defaultTheme ? inheritedThemeName : defaultTheme;
-  const codeTheme = theme.click.codeblock[`${themeName}Mode`].color;
+const useColorStyle = (themeOverride?: CodeThemeType) => {
+  const { resolvedTheme } = useCUITheme();
+
+  // Use theme override if provided, otherwise use resolved theme from context
+  const themeName = themeOverride ?? (resolvedTheme === "dark" ? "dark" : "light");
 
   return {
     hljs: {
       display: "block",
       overflowX: "auto",
-      padding: `${theme.click.codeblock.space.y} ${theme.click.codeblock.space.x}`,
-      color: codeTheme.text.default,
-      background: codeTheme.background.default,
-      borderRadius: theme.click.codeblock.radii.all,
-      font: theme.click.codeblock.typography.text.default,
+      padding: "var(--click-codeblock-space-y) var(--click-codeblock-space-x)",
+      color: "var(--cui-codeblock-pre-text)",
+      background: "var(--cui-codeblock-pre-background)",
+      borderRadius: "var(--click-codeblock-radii-all)",
+      font: "var(--click-codeblock-typography-text-default)",
     },
     "hljs-comment": {
       color: themeName === "dark" ? "#999999" : "#656e77",

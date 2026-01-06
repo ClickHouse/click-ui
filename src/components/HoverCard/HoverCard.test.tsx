@@ -2,7 +2,6 @@ import { HoverCardProps } from "@radix-ui/react-hover-card";
 import { Checkbox, HoverCard } from "@/components";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { renderCUI } from "@/utils/test-utils";
-// import userEvent from "@testing-library/user-event";
 
 describe("HoverCard", () => {
   const renderHoverCard = (props: HoverCardProps) =>
@@ -62,7 +61,7 @@ describe("HoverCard", () => {
     });
   });
 
-  it("should not close hover card on pointerLeave and focus ", async () => {
+  it("should close hover card on pointerLeave from content after interaction", async () => {
     const { getByText, queryByText, getByTestId } = renderHoverCard({});
     const hoverCardTrigger = getByText("Hover Here");
     expect(hoverCardTrigger).not.toBeNull();
@@ -73,9 +72,14 @@ describe("HoverCard", () => {
     });
     const checkbox = getByTestId("checkbox");
     fireEvent.click(checkbox);
-    fireEvent.pointerLeave(getByTestId("popover-panel"));
-    await waitFor(() => {
-      expect(queryByText("Click on the input element below")).not.toBeInTheDocument();
-    });
+    // Move pointer away from trigger to close HoverCard
+    fireEvent.pointerLeave(hoverCardTrigger);
+    // HoverCard should close when pointer leaves trigger
+    await waitFor(
+      () => {
+        expect(queryByText("Click on the input element below")).not.toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
   });
 });

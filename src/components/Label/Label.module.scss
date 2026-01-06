@@ -1,0 +1,50 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiLabel {
+  color: tokens.$clickFieldColorLabelDefault;
+  font: tokens.$clickFieldTypographyLabelDefault;
+
+  &:hover {
+    color: tokens.$clickFieldColorLabelHover;
+    font: tokens.$clickFieldTypographyLabelHover;
+  }
+
+  &:focus,
+  &:focus-within {
+    color: tokens.$clickFieldColorLabelActive;
+    font: tokens.$clickFieldTypographyLabelActive;
+  }
+
+  @include variants.variant('cuiStateDisabled') {
+    color: tokens.$clickFieldColorLabelDisabled;
+    font: tokens.$clickFieldTypographyLabelDisabled;
+
+    &:hover {
+      color: tokens.$clickFieldColorLabelDisabled;
+      font: tokens.$clickFieldTypographyLabelDisabled;
+    }
+
+    &:focus,
+    &:focus-within {
+      color: tokens.$clickFieldColorLabelDisabled;
+      font: tokens.$clickFieldTypographyLabelDisabled;
+    }
+  }
+
+  @include variants.variant('cuiStateError') {
+    color: tokens.$clickFieldColorLabelError;
+    font: tokens.$clickFieldTypographyLabelError;
+
+    &:hover {
+      color: tokens.$clickFieldColorLabelError;
+      font: tokens.$clickFieldTypographyLabelError;
+    }
+
+    &:focus,
+    &:focus-within {
+      color: tokens.$clickFieldColorLabelError;
+      font: tokens.$clickFieldTypographyLabelError;
+    }
+  }
+}

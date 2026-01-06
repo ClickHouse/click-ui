@@ -1,0 +1,171 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSplitButtonTrigger {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  user-select: none;
+  border-radius: tokens.$clickButtonRadiiAll;
+
+  // Type variants - using :where() for low specificity
+  @include variants.variant('cuiPrimary') {
+    border: 1px solid tokens.$clickButtonSplitPrimaryStrokeDefault;
+
+    &:hover {
+      border-color: tokens.$clickButtonSplitPrimaryStrokeHover;
+    }
+
+    &:focus-within {
+      border-color: tokens.$clickButtonSplitPrimaryStrokeActive;
+    }
+
+    &.cuiDisabled {
+      cursor: not-allowed;
+      border-color: tokens.$clickButtonSplitPrimaryStrokeDisabled;
+    }
+  }
+
+  @include variants.variant('cuiSecondary') {
+    border: 1px solid tokens.$clickButtonSplitSecondaryStrokeDefault;
+
+    &:hover {
+      border-color: tokens.$clickButtonSplitSecondaryStrokeHover;
+    }
+
+    &:focus-within {
+      border-color: tokens.$clickButtonSplitSecondaryStrokeActive;
+    }
+
+    &.cuiDisabled {
+      cursor: not-allowed;
+      border-color: tokens.$clickButtonSplitSecondaryStrokeDisabled;
+    }
+  }
+
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+
+  &.cuiDisabled {
+    cursor: not-allowed;
+  }
+}
+
+.cuiPrimaryButton {
+  @include mixins.cuiBaseButton;
+  // Override BaseButton defaults for split button styling
+  border: none;
+  align-self: stretch;
+  border-radius: 0;
+  padding: tokens.$clickButtonSplitSpaceY tokens.$clickButtonSplitSpaceX;
+
+  @include variants.variant('cuiPrimary') {
+    background: tokens.$clickButtonSplitPrimaryBackgroundMainDefault;
+    color: tokens.$clickButtonSplitPrimaryTextDefault;
+    font: tokens.$clickButtonSplitTypographyLabelDefault;
+
+    &:hover {
+      background: tokens.$clickButtonSplitPrimaryBackgroundMainHover;
+      color: tokens.$clickButtonSplitPrimaryTextHover;
+      font: tokens.$clickButtonSplitTypographyLabelHover;
+    }
+
+    &:focus {
+      background: tokens.$clickButtonSplitPrimaryBackgroundMainActive;
+      color: tokens.$clickButtonSplitPrimaryTextActive;
+      font: tokens.$clickButtonSplitTypographyLabelActive;
+    }
+
+    &:disabled {
+      background: tokens.$clickButtonSplitPrimaryBackgroundMainDisabled;
+      color: tokens.$clickButtonSplitPrimaryTextDisabled;
+      font: tokens.$clickButtonSplitTypographyLabelDisabled;
+    }
+  }
+
+  @include variants.variant('cuiSecondary') {
+    background: tokens.$clickButtonSplitSecondaryBackgroundMainDefault;
+    color: tokens.$clickButtonSplitSecondaryTextDefault;
+    font: tokens.$clickButtonSplitTypographyLabelDefault;
+
+    &:hover {
+      background: tokens.$clickButtonSplitSecondaryBackgroundMainHover;
+      color: tokens.$clickButtonSplitSecondaryTextHover;
+      font: tokens.$clickButtonSplitTypographyLabelHover;
+    }
+
+    &:focus {
+      background: tokens.$clickButtonSplitSecondaryBackgroundMainActive;
+      color: tokens.$clickButtonSplitSecondaryTextActive;
+      font: tokens.$clickButtonSplitTypographyLabelActive;
+    }
+
+    &:disabled {
+      background: tokens.$clickButtonSplitSecondaryBackgroundMainDisabled;
+      color: tokens.$clickButtonSplitSecondaryTextDisabled;
+      font: tokens.$clickButtonSplitTypographyLabelDisabled;
+    }
+  }
+
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+}
+
+.cuiSecondaryButton {
+  @include mixins.cuiBaseButton;
+  // Override BaseButton defaults for split button styling
+  border: none;
+  align-self: stretch;
+  border-radius: 0;
+  padding: tokens.$clickButtonSplitIconSpaceY tokens.$clickButtonSplitIconSpaceX;
+
+  @include variants.variant('cuiPrimary') {
+    background: tokens.$clickButtonSplitPrimaryBackgroundActionDefault;
+    color: tokens.$clickButtonSplitPrimaryTextDefault;
+
+    &:hover {
+      background: tokens.$clickButtonSplitPrimaryBackgroundActionHover;
+      color: tokens.$clickButtonSplitPrimaryTextHover;
+    }
+
+    &:focus {
+      background: tokens.$clickButtonSplitPrimaryBackgroundActionActive;
+      color: tokens.$clickButtonSplitPrimaryTextActive;
+    }
+
+    &[data-disabled] {
+      background: tokens.$clickButtonSplitPrimaryBackgroundActionDisabled;
+      color: tokens.$clickButtonSplitPrimaryTextDisabled;
+    }
+  }
+
+  @include variants.variant('cuiSecondary') {
+    background: tokens.$clickButtonSplitSecondaryBackgroundActionDefault;
+    color: tokens.$clickButtonSplitSecondaryTextDefault;
+
+    &:hover {
+      background: tokens.$clickButtonSplitSecondaryBackgroundActionHover;
+      color: tokens.$clickButtonSplitSecondaryTextHover;
+    }
+
+    &:focus {
+      background: tokens.$clickButtonSplitSecondaryBackgroundActionActive;
+      color: tokens.$clickButtonSplitSecondaryTextActive;
+    }
+
+    &[data-disabled] {
+      background: tokens.$clickButtonSplitSecondaryBackgroundActionDisabled;
+      color: tokens.$clickButtonSplitSecondaryTextDisabled;
+    }
+  }
+}
+
+.cuiDropdownContent {
+  // Dynamic width will be applied via inline style
+}
+
+.cuiButtonData {
+  width: auto;
+}

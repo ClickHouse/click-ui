@@ -1,61 +1,85 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, Checkbox } from "..";
-import { GridCenter } from "../commonElement";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Button, Checkbox } from "@/components";
+import { GridCenter } from "@/components/commonElement";
+import { Text } from "@/components/Typography/Text/Text";
+import { Title } from "@/components/Typography/Title/Title";
 import { Popover } from "./Popover";
 
-const meta: Meta<typeof Popover> = {
-  component: Popover,
-  subcomponents: {
-    "Popover.Trigger": Popover.Trigger as React.ComponentType<unknown>,
-    "Popover.Content": Popover.Content as React.ComponentType<unknown>,
-  },
+const PopoverComponent = ({
+  open,
+  modal,
+  showArrow,
+  showClose,
+  forceMount,
+  side,
+}: {
+  open: "default" | "open" | "closed";
+  modal: boolean;
+  showArrow: boolean;
+  showClose: boolean;
+  forceMount?: boolean;
+  side: "top" | "right" | "left" | "bottom";
+}) => (
+  <GridCenter>
+    <Popover
+      open={open === "default" ? undefined : open === "open"}
+      modal={modal}
+    >
+      <Popover.Trigger>Click Here</Popover.Trigger>
+      <Popover.Content
+        side={side}
+        showArrow={showArrow}
+        showClose={showClose}
+        forceMount={forceMount ? true : undefined}
+      >
+        <Title type="h2">Content popover</Title>
+        <br />
+        <Text>Click on the input element below.</Text>
+        <br />
+        <Checkbox label="This is a sample data to experiment the popover" />
+      </Popover.Content>
+    </Popover>
+    <Popover
+      open={open === "default" ? undefined : open === "open"}
+      modal={modal}
+    >
+      <Popover.Trigger>
+        <Button>Click Here Button</Button>
+      </Popover.Trigger>
+      <Popover.Content
+        side={side}
+        showArrow={showArrow}
+        showClose={showClose}
+        forceMount={forceMount ? true : undefined}
+      >
+        <Title type="h2">Content popover</Title>
+        <br />
+        <Text>Click on the input element below.</Text>
+        <br />
+        <Checkbox label="This is a sample data to experiment the popover" />
+      </Popover.Content>
+    </Popover>
+  </GridCenter>
+);
+
+export default {
+  component: PopoverComponent,
   title: "Display/Popover",
   tags: ["autodocs", "form-field", "popover"],
+  argTypes: {
+    open: { control: "inline-radio", options: ["default", "open", "closed"] },
+    modal: { control: "boolean" },
+    showArrow: { control: "boolean" },
+    showClose: { control: "boolean" },
+    forceMount: { control: "boolean" },
+    side: { control: "select", options: ["top", "right", "left", "bottom"] },
+  },
 };
 
-export default meta;
-
-type Story = StoryObj<typeof Popover>;
-
-export const Playground: Story = {
+export const Playground = {
   args: {
-    modal: false,
+    open: "default",
+    showArrow: true,
+    showClose: true,
+    side: "bottom",
   },
-  render: args => (
-    <GridCenter>
-      <Popover {...args}>
-        <Popover.Trigger>Click Here</Popover.Trigger>
-        <Popover.Content
-          side="bottom"
-          showArrow
-          showClose
-        >
-          <Title type="h2">Content popover</Title>
-          <br />
-          <Text>Click on the input element below.</Text>
-          <br />
-          <Checkbox label="This is a sample data to experiment the popover" />
-        </Popover.Content>
-      </Popover>
-      <Popover {...args}>
-        <Popover.Trigger>
-          <Button>Click Here Button</Button>
-        </Popover.Trigger>
-        <Popover.Content
-          side="bottom"
-          showArrow
-          showClose
-        >
-          <Title type="h2">Content popover</Title>
-          <br />
-          <Text>Click on the input element below.</Text>
-          <br />
-          <Checkbox label="This is a sample data to experiment the popover" />
-        </Popover.Content>
-      </Popover>
-    </GridCenter>
-  ),
 };

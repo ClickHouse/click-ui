@@ -1,0 +1,70 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiCodeBlockContainer {
+  @include mixins.cuiFullWidthStretch;
+  position: relative;
+  --cui-codeblock-pre-background: light-dark(
+    tokens.$clickCodeblockLightModeColorBackgroundDefault,
+    tokens.$clickCodeblockDarkModeColorBackgroundDefault
+  );
+  --cui-codeblock-pre-text: light-dark(
+    tokens.$clickCodeblockLightModeColorTextDefault,
+    tokens.$clickCodeblockDarkModeColorTextDefault
+  );
+
+  color: light-dark(
+    tokens.$clickCodeblockLightModeColorNumbersDefault,
+    tokens.$clickCodeblockDarkModeColorNumbersDefault
+  );
+
+  :global(.linenumber) {
+    color: light-dark(
+      tokens.$clickCodeblockLightModeColorNumbersDefault,
+      tokens.$clickCodeblockDarkModeColorNumbersDefault
+    );
+  }
+
+  @include variants.variant('cuiLightMode') {
+    color-scheme: light;
+  }
+
+  @include variants.variant('cuiDarkMode') {
+    color-scheme: dark;
+  }
+}
+
+.cuiCodeButton {
+  @include mixins.cuiEmptyButton;
+
+  @include variants.variant('cuiCopied') {
+    color: tokens.$clickAlertColorTextSuccess;
+  }
+
+  @include variants.variant('cuiError') {
+    color: tokens.$clickAlertColorTextDanger;
+  }
+
+  @include variants.variant('cuiNormal') {
+    color: inherit;
+  }
+}
+
+.cuiHighlighter {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.cuiCodeContent {
+  font-family: inherit;
+  color: inherit;
+}
+
+.cuiButtonContainer {
+  position: absolute;
+  display: flex;
+  gap: 0.625rem;
+  top: tokens.$clickCodeblockSpaceY;
+  right: tokens.$clickCodeblockSpaceX;
+}

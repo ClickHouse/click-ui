@@ -1,0 +1,165 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiButton {
+  @include mixins.cuiBaseButton;
+  position: relative;
+  white-space: nowrap;
+
+  &:hover {
+    transition: var(--transition-default);
+  }
+
+  // Button type variants - using :where() for low specificity (0,0,1,0)
+  @include variants.variant('cuiPrimary') {
+    color: tokens.$clickButtonBasicColorPrimaryTextDefault;
+    background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
+    }
+
+    &:active,
+    &:focus {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorPrimaryStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
+    }
+
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorPrimaryTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
+    }
+  }
+
+  @include variants.variant('cuiSecondary') {
+    color: tokens.$clickButtonBasicColorSecondaryTextDefault;
+    background-color: tokens.$clickButtonBasicColorSecondaryBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
+    }
+
+    &:active,
+    &:focus {
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorSecondaryStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
+    }
+
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active {
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorSecondaryTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
+    }
+  }
+
+  @include variants.variant('cuiEmpty') {
+    color: tokens.$clickButtonBasicColorEmptyTextDefault;
+    background-color: tokens.$clickButtonBasicColorEmptyBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonBasicColorEmptyBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
+    }
+
+    &:active,
+    &:focus {
+      background-color: tokens.$clickButtonBasicColorEmptyBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorEmptyStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
+    }
+
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active {
+      background-color: tokens.$clickButtonBasicColorEmptyBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorEmptyTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
+    }
+  }
+
+  @include variants.variant('cuiDanger') {
+    color: tokens.$clickButtonBasicColorDangerTextDefault;
+    background-color: tokens.$clickButtonBasicColorDangerBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeDefault;
+
+    &:hover {
+      background-color: tokens.$clickButtonBasicColorDangerBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
+    }
+
+    &:active,
+    &:focus {
+      background-color: tokens.$clickButtonBasicColorDangerBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorDangerStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
+    }
+
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active {
+      background-color: tokens.$clickButtonBasicColorDangerBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorDangerTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
+    }
+  }
+
+  // Alignment variants - using :where() for low specificity
+  @include variants.variant('cuiAlignLeft') {
+    justify-content: flex-start;
+  }
+
+  @include variants.variant('cuiAlignCenter') {
+    justify-content: center;
+  }
+
+  // Fill width variant - using :where() for low specificity
+  @include variants.variant('cuiFillWidth') {
+    width: 100%;
+  }
+}
+
+// Loading icon wrapper
+.cuiLoadingIconWrapper {
+  background-color: inherit;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Button icon styling
+.cuiButtonIcon {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  height: tokens.$clickButtonBasicSizeIconAll;
+  width: tokens.$clickButtonBasicSizeIconAll;
+
+  svg {
+    height: tokens.$clickButtonBasicSizeIconAll;
+    width: tokens.$clickButtonBasicSizeIconAll;
+  }
+}

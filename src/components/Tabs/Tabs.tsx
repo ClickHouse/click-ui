@@ -1,90 +1,150 @@
+"use client";
+
 import * as RadixTabs from "@radix-ui/react-tabs";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import React, { forwardRef } from "react";
+import styles from "./Tabs.module.scss";
 
 export interface TabsProps extends RadixTabs.TabsProps {
   /** Accessible label for the tabs component */
   ariaLabel?: string;
 }
 
-const Trigger = styled(RadixTabs.Trigger)`
-  padding: ${props =>
-    `${props.theme.click.tabs.space.y} ${props.theme.click.tabs.space.x}`};
+interface TriggerProps extends RadixTabs.TabsTriggerProps {
+  className?: string;
+}
 
-  border-top-left-radius: ${props => props.theme.click.tabs.radii.all};
-  border-top-right-radius: ${props => props.theme.click.tabs.radii.all};
-  border: none;
-  border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.default};
-  background-color: ${props => props.theme.click.tabs.basic.color.background.default};
-  color: ${props => props.theme.click.tabs.basic.color.text.default};
-  font: ${props => props.theme.click.tabs.typography.label.default};
-  cursor: pointer;
-
-  &[data-state="active"] {
-    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};
-    color: ${props => props.theme.click.tabs.basic.color.text.active};
-    font: ${props => props.theme.click.tabs.typography.label.active};
-    &:hover {
-      font: ${props => props.theme.click.tabs.typography.label.active};
-    }
+const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <RadixTabs.Trigger
+        ref={ref}
+        className={clsx(styles.cuiTrigger, className)}
+        {...props}
+      />
+    );
   }
+);
 
-  &:hover {
-    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.hover};
-    background-color: ${props => props.theme.click.tabs.basic.color.background.hover};
-    color: ${props => props.theme.click.tabs.basic.color.text.hover};
-    font: ${props => props.theme.click.tabs.typography.label.hover};
+Trigger.displayName = "Trigger";
+
+const Content = forwardRef<HTMLDivElement, RadixTabs.TabsContentProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <RadixTabs.Content
+        ref={ref}
+        className={clsx(styles.cuiContent, className)}
+        {...props}
+      />
+    );
   }
+);
 
-  &:hover[data-state="active"] {
-    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};
+Content.displayName = "Content";
+
+const TriggersList = forwardRef<HTMLDivElement, RadixTabs.TabsListProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <RadixTabs.List
+        ref={ref}
+        className={clsx(styles.cuiTriggersList, className)}
+        {...props}
+      />
+    );
   }
-`;
+);
 
-const Content = styled(RadixTabs.Content)``;
+TriggersList.displayName = "TriggersList";
 
-const TriggersList = styled(RadixTabs.List)`
-  border-bottom: 1px solid ${props => props.theme.click.global.color.stroke.default};
-  display: flex;
-`;
+const TabsComponent = forwardRef<HTMLDivElement, TabsProps>(
+  (
+    { defaultValue, children, ariaLabel, onValueChange, className, ...delegated },
+    ref
+  ) => {
+    return (
+      <RadixTabs.Root
+        ref={ref}
+        aria-label={ariaLabel}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+        className={className}
+        {...delegated}
+      >
+        {children}
+      </RadixTabs.Root>
+    );
+  }
+);
 
-const Tabs = ({
-  defaultValue,
-  children,
-  ariaLabel,
-  onValueChange,
-  ...delegated
-}: TabsProps) => {
-  return (
-    <RadixTabs.Root
-      aria-label={ariaLabel}
-      defaultValue={defaultValue}
-      onValueChange={onValueChange}
-      {...delegated}
-    >
-      {children}
-    </RadixTabs.Root>
-  );
-};
+TabsComponent.displayName = "Tabs";
 
+interface TabsCompoundComponent
+  extends React.ForwardRefExoticComponent<
+    TabsProps & React.RefAttributes<HTMLDivElement>
+  > {
+  TriggersList: typeof TriggersList;
+  Trigger: typeof Trigger;
+  Content: typeof Content;
+}
+
+const Tabs = TabsComponent as TabsCompoundComponent;
 Tabs.TriggersList = TriggersList;
 Tabs.Trigger = Trigger;
 Tabs.Content = Content;
 
-const FullWidthTabs = styled(Tabs)`
-  width: 100%;
-`;
+interface FullWidthTabsProps extends TabsProps {}
 
-FullWidthTabs.Trigger = styled(Trigger)<{ width?: string }>`
-  ${props =>
-    props.width
-      ? `width: ${props.width};`
-      : `
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-  `};
-`;
+interface FullWidthTriggerProps extends RadixTabs.TabsTriggerProps {
+  width?: string;
+  className?: string;
+}
 
+const FullWidthTrigger = forwardRef<HTMLButtonElement, FullWidthTriggerProps>(
+  ({ className, width, ...props }, ref) => {
+    return (
+      <RadixTabs.Trigger
+        ref={ref}
+        className={clsx(
+          styles.cuiFullWidthTrigger,
+          { [styles.cuiCustomWidth]: width },
+          className
+        )}
+        style={width ? { width } : undefined}
+        data-cui-custom-width={!!width}
+        {...props}
+      />
+    );
+  }
+);
+
+FullWidthTrigger.displayName = "FullWidthTrigger";
+
+interface FullWidthTabsCompoundComponent
+  extends React.ForwardRefExoticComponent<
+    FullWidthTabsProps & React.RefAttributes<HTMLDivElement>
+  > {
+  TriggersList: typeof TriggersList;
+  Trigger: typeof FullWidthTrigger;
+  Content: typeof Content;
+}
+
+const FullWidthTabsComponent = forwardRef<HTMLDivElement, FullWidthTabsProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <Tabs
+        ref={ref}
+        className={clsx(styles.cuiFullWidthTabs, className)}
+        {...props}
+      />
+    );
+  }
+);
+
+FullWidthTabsComponent.displayName = "FullWidthTabs";
+
+const FullWidthTabs = FullWidthTabsComponent as FullWidthTabsCompoundComponent;
+FullWidthTabs.Trigger = FullWidthTrigger;
 FullWidthTabs.TriggersList = TriggersList;
+FullWidthTabs.Content = Content;
 
 export { Tabs, FullWidthTabs };

@@ -1,10 +1,21 @@
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
-import { styled } from "styled-components";
-import { HorizontalDirection, IconName } from "@/components";
-import { IconWrapper } from "../Collapsible/IconWrapper";
+"use client";
 
-export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
-  /** The label content to display */
+import { ElementType, ReactNode, forwardRef } from "react";
+import clsx from "clsx";
+import { HorizontalDirection, IconName } from "@/components";
+import { IconWrapper } from "@/components";
+import { capitalize } from "@/utils/capitalize";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
+import styles from "./SidebarNavigationItem.module.scss";
+
+export interface SidebarNavigationItemProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {
   label: ReactNode;
   /** Whether the item is currently selected */
   selected?: boolean;
@@ -18,128 +29,73 @@ export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElemen
   iconDir?: HorizontalDirection;
   /** The sidebar style type */
   type?: "main" | "sqlSidebar";
+  collapsible?: boolean;
 }
 
-const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
-  (
-    { label, level = 0, icon, selected, iconDir, disabled, type = "main", ...props },
-    ref
-  ) => {
-    return (
-      <SidebarItemWrapper
-        $level={level}
-        data-selected={selected}
-        $type={type}
-        ref={ref}
-        aria-disabled={disabled}
-        {...props}
-      >
-        <IconWrapper
-          icon={icon}
-          iconDir={iconDir}
-        >
-          {label}
-        </IconWrapper>
-      </SidebarItemWrapper>
-    );
-  }
-);
+const _SidebarNavigationItem = <T extends ElementType = "div">(
+  {
+    component,
+    label,
+    level = 0,
+    icon,
+    selected,
+    iconDir,
+    disabled,
+    type = "main",
+    collapsible = false,
+    className,
+    ...props
+  }: PolymorphicProps<T, SidebarNavigationItemProps<T>>,
+  ref: PolymorphicRef<T>
+) => {
+  const Component = component ?? "div";
+  const typeClass = `cuiType${capitalize(type)}`;
+  const selectedClass = selected ? "cuiSelected" : undefined;
+  const disabledClass = disabled ? "cuiDisabled" : undefined;
 
-export const SidebarItemWrapper = styled.div<{
-  $collapsible?: boolean;
-  $level: number;
-  $type: "main" | "sqlSidebar";
-}>`
-  display: flex;
-  align-items: center;
-  border: none;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  white-space: nowrap;
-  overflow: hidden;
-  flex-wrap: nowrap;
+  // Collapsible.Header already wraps children with IconWrapper, so pass icon props
+  // to the component and let it handle the wrapping to avoid double wrapping
+  const content = component ? (
+    label
+  ) : (
+    <IconWrapper
+      icon={icon}
+      iconDir={iconDir}
+    >
+      {label}
+    </IconWrapper>
+  );
 
-  ${({ theme, $collapsible = false, $level, $type }) => {
-    const itemType = $level === 0 ? "item" : "subItem";
-    return `
-    padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
-      theme.click.sidebar.navigation[itemType].default.space.right
-    } ${theme.click.sidebar.navigation[itemType].default.space.y} ${
-      $collapsible
-        ? theme.click.sidebar.navigation[itemType].default.space.left
-        : theme.click.image.sm.size.width
-    };
-    border-radius: ${theme.click.sidebar.navigation[itemType].radii.all};
-    font: ${theme.click.sidebar.navigation[itemType].typography.default};
-    background-color: ${
-      theme.click.sidebar[$type].navigation[itemType].color.background.default
-    };
-    color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
-    span a {
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.default};
-    cursor: pointer;
-      text-decoration: none;
-    }
-    cursor: pointer;
-    pointer-events: all;
+  return (
+    <Component
+      data-selected={selected}
+      ref={ref}
+      aria-disabled={disabled}
+      icon={component ? icon : undefined}
+      iconDir={component ? iconDir : undefined}
+      className={clsx(
+        styles.cuiSidebarItemWrapper,
+        styles[typeClass],
+        selectedClass && styles[selectedClass],
+        disabledClass && styles[disabledClass],
+        {
+          [styles.cuiItem]: level === 0,
+          [styles.cuiSubItem]: level > 0,
+          [styles.cuiCollapsible]: collapsible,
+        },
+        className
+      )}
+      data-cui-type={type}
+      data-cui-level={level}
+      data-cui-selected={selected ? "true" : undefined}
+      data-cui-disabled={disabled ? "true" : undefined}
+      data-cui-collapsible={collapsible || undefined}
+      {...props}
+    >
+      {content}
+    </Component>
+  );
+};
 
-    &:hover, &:focus {
-      font: ${theme.click.sidebar.navigation[itemType].typography.hover};
-      background-color: ${
-        theme.click.sidebar[$type].navigation[itemType].color.background.hover
-      };
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.hover};
-      pointer-events: auto;
-    }
-
-    &:active, &[data-selected="true"] {
-      font: ${theme.click.sidebar.navigation[itemType].typography.active};
-      background-color: ${
-        theme.click.sidebar[$type].navigation[itemType].color.background.active
-      };
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.active};
-      pointer-events: all;
-    }
-
-    &[aria-disabled=true],
-    &[aria-disabled=true]:hover,
-    &[aria-disabled=true]:focus,
-    &[aria-disabled=true]:active,
-    &[aria-disabled=true]:focus-within,
-    &[aria-disabled=true][data-selected="true"] {
-
-      color: ${theme.click.sidebar[$type].navigation[itemType].color.text.disabled};
-      pointer-events: none;
-
-      span a {
-        color: ${theme.click.sidebar[$type].navigation[itemType].color.text.disabled};
-        cursor: not-allowed;
-        text-decoration: none;
-      }
-      cursor: not-allowed;
-    }
-
-    @media (max-width: 640px) {
-      gap: ${theme.click.sidebar.navigation[itemType].mobile.space.gap};
-      padding: ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
-        theme.click.sidebar.navigation[itemType].mobile.space.right
-      } ${theme.click.sidebar.navigation[itemType].mobile.space.y} ${
-        $collapsible
-          ? theme.click.sidebar.navigation[itemType].mobile.space.left
-          : theme.click.image.sm.size.width
-      };
-      font: ${theme.click.sidebar.navigation[itemType].mobile.typography.default};
-      &:hover, &:focus {
-        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.hover};
-      }
-      &:active, &[data-selected="true"] {
-        font: ${theme.click.sidebar.navigation[itemType].mobile.typography.active};
-      }
-    }
-  `;
-  }}
-`;
-
-export { SidebarNavigationItem };
+export const SidebarNavigationItem: PolymorphicComponent<SidebarNavigationItemProps> =
+  forwardRef(_SidebarNavigationItem);

@@ -1,19 +1,20 @@
+"use client";
+
 import dayjs, { Dayjs } from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
-import duration from "dayjs/plugin/duration";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import relativeTime from "dayjs/plugin/relativeTime";
-import timezone from "dayjs/plugin/timezone";
-import updateLocale from "dayjs/plugin/updateLocale";
-import utc from "dayjs/plugin/utc";
-import { styled } from "styled-components";
+import advancedFormat from "dayjs/plugin/advancedFormat.js";
+import duration from "dayjs/plugin/duration.js";
+import localizedFormat from "dayjs/plugin/localizedFormat.js";
+import relativeTime from "dayjs/plugin/relativeTime.js";
+import timezone from "dayjs/plugin/timezone.js";
+import updateLocale from "dayjs/plugin/updateLocale.js";
+import utc from "dayjs/plugin/utc.js";
 
 import { Popover } from "@/components/Popover/Popover";
 import { Text } from "@/components/Typography/Text/Text";
-import { linkStyles, StyledLinkProps } from "@/components/Link/common";
 import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Container } from "@/components/Container/Container";
-import { TextSize, TextWeight } from "../commonTypes";
+import { TextSize, TextWeight } from "@/components/commonTypes";
+import styles from "./DateDetails.module.scss";
 
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
@@ -59,10 +60,6 @@ dayjs.updateLocale("en", {
     yy: "%d years",
   },
 });
-
-const UnderlinedTrigger = styled(Popover.Trigger)<StyledLinkProps>`
-  ${linkStyles}
-`;
 
 const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   const isCurrentYear = dayjs().year() === date.year();
@@ -137,17 +134,14 @@ export const DateDetails = ({
 
   return (
     <Popover>
-      <UnderlinedTrigger
-        $size="sm"
-        $weight="medium"
-      >
+      <Popover.Trigger className={styles.cuiUnderlinedTrigger}>
         <Text
           size={size}
           weight={weight}
         >
           {dayjs.utc(date).fromNow()}
         </Text>
-      </UnderlinedTrigger>
+      </Popover.Trigger>
       <Popover.Content
         side={side}
         showArrow

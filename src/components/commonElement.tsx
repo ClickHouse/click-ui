@@ -1,149 +1,138 @@
-import { styled } from "styled-components";
+import React, {
+  HTMLAttributes,
+  ButtonHTMLAttributes,
+  ComponentPropsWithoutRef,
+  ElementType,
+} from "react";
+import clsx from "clsx";
 import { IconSize } from "./Icon/types";
+import styles from "./commonElement.module.scss";
+import { capitalize } from "@/utils/capitalize";
 
-export const FormRoot = styled.div<{
-  $orientation?: "horizontal" | "vertical";
-  $dir?: "start" | "end";
-  $addLabelPadding?: boolean;
-}>`
-  display: flex;
-  width: 100%;
-  gap: ${({ theme }) => theme.click.field.space.gap};
-  ${({ theme, $orientation = "vertical", $dir = "start", $addLabelPadding = false }) => `
-    flex-direction: ${
-      $orientation === "horizontal"
-        ? $dir === "start"
-          ? "row-reverse"
-          : "row"
-        : $dir === "start"
-          ? "column-reverse"
-          : "column"
-    };
-    align-items: flex-start;
-    ${
-      $addLabelPadding && $orientation === "horizontal"
-        ? `
-    label {
-      padding-top: calc(${theme.click.field.space.y} + 1px);
-      line-height: 1lh;
-    }
-    `
-        : ""
-    }
-  `}
-  * {
-    box-shadow: none;
-    outline: none;
-  }
-`;
+interface FormRootProps extends HTMLAttributes<HTMLDivElement> {
+  orientation?: "horizontal" | "vertical";
+  dir?: "start" | "end";
+  addLabelPadding?: boolean;
+}
 
-export const Error = styled.div`
-  ${({ theme }) => `
-  font: ${theme.click.field.typography.label.error};
-  color: ${theme.click.field.color.label.error};
-`};
-`;
+export const FormRoot: React.FC<FormRootProps> = ({
+  orientation = "vertical",
+  dir = "start",
+  addLabelPadding = false,
+  className,
+  ...props
+}) => (
+  <div
+    className={clsx(
+      styles.cuiFormRoot,
+      {
+        [styles.cuiOrientationHorizontal]: orientation === "horizontal",
+        [styles.cuiOrientationVertical]: orientation === "vertical",
+        [styles.cuiDirStart]: dir === "start",
+        [styles.cuiDirEnd]: dir === "end",
+        [styles.cuiAddLabelPadding]: addLabelPadding && orientation === "horizontal",
+      },
+      className
+    )}
+    {...props}
+  />
+);
 
-export const EmptyButton = styled.button`
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  &:disabled {
-    cursor: not-allowed;
-  }
-`;
+export const Error: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={clsx(styles.cuiError, className)}
+    {...props}
+  />
+);
 
-export const CrossButton = styled(EmptyButton)`
-  padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}
-    ${({ theme }) => theme.click.button.iconButton.sm.space.x};
-  background: ${({ theme }) =>
-    theme.click.button.iconButton.color.primary.background.default};
-  border-radius: ${({ theme }) => theme.click.button.iconButton.radii.all};
+export const EmptyButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  className,
+  ...props
+}) => (
+  <button
+    className={clsx(styles.cuiEmptyButton, className)}
+    {...props}
+  />
+);
 
-  &:hover {
-    background: ${({ theme }) =>
-      theme.click.button.iconButton.color.primary.background.hover};
-  }
-`;
-export const GridCenter = styled.div`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-`;
+export const CrossButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  className,
+  ...props
+}) => (
+  <button
+    className={clsx(styles.cuiCrossButton, className)}
+    {...props}
+  />
+);
 
-export const BaseButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  ${({ theme }) => `
-    padding: ${theme.click.button.basic.space.y} ${theme.click.button.basic.space.x};
-    border-radius: ${theme.click.button.radii.all};
-    gap: ${theme.click.button.basic.space.gap};
-    font: ${theme.click.button.basic.typography.label.default};
-    &:hover {
-      font: ${theme.click.button.basic.typography.label.hover};
-    }
+export const GridCenter: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={clsx(styles.cuiGridCenter, className)}
+    {...props}
+  />
+);
 
-    &:active,
-    &:focus {
-      outline: none;
-      font: ${theme.click.button.basic.typography.label.active};
-    }
+export const BaseButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  className,
+  ...props
+}) => (
+  <button
+    className={clsx(styles.cuiBaseButton, className)}
+    {...props}
+  />
+);
 
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active {
-      font: ${theme.click.button.basic.typography.label.disabled};
-      cursor: not-allowed;
-    }
-    `}
-`;
+interface SvgImageElementProps<C extends ElementType = "div"> {
+  as?: C;
+  size?: IconSize;
+  className?: string;
+}
 
-export const SvgImageElement = styled.svg<{
-  $size?: IconSize;
-}>`
-  display: flex;
-  align-items: center;
+export const SvgImageElement = <C extends ElementType = "svg">({
+  as,
+  size,
+  className,
+  ...props
+}: SvgImageElementProps<C> &
+  Omit<ComponentPropsWithoutRef<C>, keyof SvgImageElementProps<C>>) => {
+  const Component = as || "svg";
 
-  ${({ theme, $size }) => `
-      ${
-        $size
-          ? `
-        width: ${theme.click.image[$size].size.width};
-        height: ${theme.click.image[$size].size.height};
-      `
-          : ""
-      }
-  `}
-`;
+  return (
+    <Component
+      className={clsx(
+        styles.cuiSvgImageElement,
+        {
+          [styles[`cuiSize${size ? capitalize(size) : ""}`]]: size,
+        },
+        className
+      )}
+      {...props}
+    />
+  );
+};
 
-export const FormElementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  gap: ${({ theme }) => theme.click.field.space.gap};
-`;
+export const FormElementContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={clsx(styles.cuiFormElementContainer, className)}
+    {...props}
+  />
+);
 
-export const EllipsisContainer = styled.span`
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  justify-content: flex-end;
-  gap: inherit;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
+export const EllipsisContainer: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
+  className,
+  ...props
+}) => (
+  <span
+    className={clsx(styles.cuiEllipsisContainer, className)}
+    {...props}
+  />
+);

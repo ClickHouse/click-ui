@@ -1,0 +1,189 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+// Icon styles with composes - overrides Icon's default size
+.cuiIconSm {
+  composes: cuiIconWrapper from "../Icon/Icon.module.scss";
+  width: tokens.$clickCardPrimarySizeIconSmAll;
+  height: tokens.$clickCardPrimarySizeIconSmAll;
+}
+
+.cuiIconMd {
+  composes: cuiIconWrapper from "../Icon/Icon.module.scss";
+  width: tokens.$clickCardPrimarySizeIconMdAll;
+  height: tokens.$clickCardPrimarySizeIconMdAll;
+}
+
+.cuiWrapper {
+  @include mixins.cuiCardBase;
+
+  background-color: tokens.$clickCardPrimaryColorBackgroundDefault;
+  border-radius: tokens.$clickCardPrimaryRadiiAll;
+  border: 1px solid tokens.$clickCardPrimaryColorStrokeDefault;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: column;
+  box-shadow: none;
+
+  &.cuiHasShadow {
+    box-shadow: var(--shadow-1);
+  }
+
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeSm") {
+    padding: tokens.$clickCardPrimarySpaceSmX tokens.$clickCardPrimarySpaceSmY;
+    gap: tokens.$clickCardPrimarySpaceSmGap;
+  }
+
+  @include variants.variant("cuiSizeMd") {
+    padding: tokens.$clickCardPrimarySpaceMdX tokens.$clickCardPrimarySpaceMdY;
+    gap: tokens.$clickCardPrimarySpaceMdGap;
+  }
+
+  // Align variants - using :where() for low specificity
+  @include variants.variant("cuiAlignStart") {
+    text-align: left;
+  }
+
+  @include variants.variant("cuiAlignCenter") {
+    text-align: center;
+  }
+
+  @include variants.variant("cuiAlignEnd") {
+    text-align: right;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: tokens.$clickCardSecondaryColorBackgroundHover;
+    cursor: pointer;
+
+    button {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundHover;
+      border-color: tokens.$clickButtonBasicColorPrimaryStrokeHover;
+
+      &:active {
+        background-color: tokens.$clickButtonBasicColorPrimaryBackgroundActive;
+        border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
+      }
+    }
+  }
+
+  &:active {
+    border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
+  }
+
+  &.cuiIsSelected {
+    border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
+  }
+
+  &[aria-disabled="true"],
+  &[aria-disabled="true"]:hover,
+  &[aria-disabled="true"]:focus,
+  &[aria-disabled="true"]:active {
+    pointer-events: none;
+    background-color: tokens.$clickCardPrimaryColorBackgroundDisabled;
+    color: tokens.$clickCardPrimaryColorTitleDisabled;
+    border: 1px solid tokens.$clickCardPrimaryColorStrokeDisabled;
+    cursor: not-allowed;
+
+    button {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
+      border-color: tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
+
+      &:active {
+        background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
+        border-color: tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
+      }
+    }
+  }
+}
+
+.cuiHeader {
+  display: flex;
+  flex-direction: column;
+
+  // Align variants - using :where() for low specificity
+  @include variants.variant("cuiAlignStart") {
+    align-items: flex-start;
+  }
+
+  @include variants.variant("cuiAlignCenter") {
+    align-items: center;
+  }
+
+  @include variants.variant("cuiAlignEnd") {
+    align-items: flex-end;
+  }
+
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeSm") {
+    gap: tokens.$clickCardPrimarySpaceSmGap;
+  }
+
+  @include variants.variant("cuiSizeMd") {
+    gap: tokens.$clickCardPrimarySpaceMdGap;
+  }
+
+  h3 {
+    color: var(--global-color-text-default);
+  }
+
+  &.cuiDisabled h3 {
+    color: var(--global-color-text-muted);
+  }
+
+  // Icon wrapper sizing (applies to Icon component wrapper)
+  .cuiSizeSm {
+    height: tokens.$clickCardPrimarySizeIconSmAll;
+    width: tokens.$clickCardPrimarySizeIconSmAll;
+  }
+
+  .cuiSizeMd {
+    height: tokens.$clickCardPrimarySizeIconMdAll;
+    width: tokens.$clickCardPrimarySizeIconMdAll;
+  }
+
+  // Direct img sizing (for iconUrl prop)
+  img {
+    &.cuiSizeSm {
+      height: tokens.$clickCardPrimarySizeIconSmAll;
+      width: tokens.$clickCardPrimarySizeIconSmAll;
+    }
+
+    &.cuiSizeMd {
+      height: tokens.$clickCardPrimarySizeIconMdAll;
+      width: tokens.$clickCardPrimarySizeIconMdAll;
+    }
+  }
+}
+
+.cuiContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  // Align variants - using :where() for low specificity
+  @include variants.variant("cuiAlignStart") {
+    align-self: flex-start;
+  }
+
+  @include variants.variant("cuiAlignCenter") {
+    align-self: center;
+  }
+
+  @include variants.variant("cuiAlignEnd") {
+    align-self: flex-end;
+  }
+
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeSm") {
+    gap: tokens.$clickCardPrimarySpaceSmGap;
+  }
+
+  @include variants.variant("cuiSizeMd") {
+    gap: tokens.$clickCardPrimarySpaceMdGap;
+  }
+}

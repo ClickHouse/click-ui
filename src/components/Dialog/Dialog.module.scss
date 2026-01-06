@@ -1,0 +1,89 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+@keyframes overlayShow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.cuiTrigger {
+  width: fit-content;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.cuiDialogOverlay {
+  background-color: tokens.$clickDialogColorOpaqueBackgroundDefault;
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cuiContentArea {
+  background: tokens.$clickDialogColorBackgroundDefault;
+  border-radius: tokens.$clickDialogRadiiAll;
+  box-shadow: tokens.$clickDialogShadowDefault;
+  border: 1px solid var(--global-color-stroke-default);
+  width: 75%;
+  max-width: 670px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-height: 75%;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+
+  @include variants.variant('cuiRegularPadding') {
+    padding-block: tokens.$clickDialogSpaceY;
+    padding-inline: tokens.$clickDialogSpaceX;
+  }
+
+  @include variants.variant('cuiReducedPadding') {
+    padding-block: var(--sizes-4);
+    padding-inline: var(--sizes-4);
+  }
+
+  @include mixins.cuiMobile {
+    max-height: 100%;
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
+.cuiTitleArea {
+  display: flex;
+  align-items: center;
+  min-height: var(--sizes-9); /* 32px */
+
+  @include variants.variant('cuiSpaceBetween') {
+    justify-content: space-between;
+  }
+
+  @include variants.variant('cuiFlexEnd') {
+    justify-content: flex-end;
+  }
+}
+
+.cuiTitle {
+  font: tokens.$clickDialogTypographyTitleDefault;
+  padding: 0;
+  margin: 0;
+}

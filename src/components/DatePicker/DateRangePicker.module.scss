@@ -1,0 +1,47 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiPredefinedCalendarContainer {
+  align-items: start;
+  background: tokens.$clickPanelColorBackgroundMuted;
+}
+
+.cuiPredefinedDatesContainer {
+  width: 275px;
+}
+
+// left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
+.cuiCalendarRendererContainer {
+  border: tokens.$clickDatePickerDateOptionStroke solid tokens.$clickDatePickerDateOptionColorBackgroundRange;
+  border-radius: tokens.$clickDatePickerDateOptionRadiiDefault;
+  box-shadow:
+    lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
+    lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
+  left: 276px;
+  position: absolute;
+  top: 0;
+}
+
+// Height of 221px is height the height the calendar needs to match the PredefinedDatesContainer
+.cuiStyledCalendarRenderer {
+  border-radius: tokens.$clickDatePickerDateOptionRadiiDefault;
+  min-height: 221px;
+}
+
+.cuiStyledDropdownItem {
+  min-height: 24px;
+}
+
+// max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
+.cuiScrollableContainer {
+  max-height: 210px;
+  overflow-y: auto;
+}
+
+.cuiDateRangeTableCell {
+  @include variants.variant('cuiShowRangeIndicator') {
+    background: tokens.$clickDatePickerDateOptionColorBackgroundRange;
+    border: tokens.$clickDatePickerDateOptionStroke solid tokens.$clickDatePickerDateOptionColorBackgroundRange;
+    border-radius: 0;
+  }
+}

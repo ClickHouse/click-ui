@@ -1,0 +1,68 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSidebarTitleWrapper {
+  @include mixins.cuiSidebarItemBase;
+  background: transparent;
+  padding: 0;
+  display: inline-flex;
+
+  /* Base styles for main type */
+  @include variants.variant('cuiMain') {
+    font: tokens.$clickSidebarNavigationTitleTypographyDefault;
+    color: tokens.$clickSidebarMainNavigationTitleColorDefault;
+
+    &:hover {
+      font: tokens.$clickSidebarNavigationTitleTypographyHover;
+      color: tokens.$clickSidebarMainNavigationTitleColorHover;
+    }
+
+    &:active,
+    &[data-selected="true"],
+    &[data-open="true"] {
+      font: tokens.$clickSidebarNavigationTitleTypographyActive;
+      color: tokens.$clickSidebarMainNavigationTitleColorActive;
+    }
+  }
+
+  /* Base styles for sqlSidebar type */
+  @include variants.variant('cuiSqlSidebar') {
+    font: tokens.$clickSidebarNavigationTitleTypographyDefault;
+    color: tokens.$clickSidebarSqlSidebarNavigationTitleColorDefault;
+
+    &:hover {
+      font: tokens.$clickSidebarNavigationTitleTypographyHover;
+      color: tokens.$clickSidebarSqlSidebarNavigationTitleColorHover;
+    }
+
+    &:active,
+    &[data-selected="true"],
+    &[data-open="true"] {
+      font: tokens.$clickSidebarNavigationTitleTypographyActive;
+      color: tokens.$clickSidebarSqlSidebarNavigationTitleColorActive;
+    }
+  }
+
+  /* Collapsible padding adjustment */
+  &:not(.cuiCollapsible) {
+    padding-left: tokens.$clickImageSmSizeWidth;
+  }
+
+  // Anchor styling with increased specificity to override Storybook's .sbdocs a styles
+  a,
+  a:link,
+  a:visited {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a:hover,
+  a:focus {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a:active {
+    color: inherit !important;
+  }
+}

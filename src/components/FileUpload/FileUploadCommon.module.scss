@@ -1,0 +1,100 @@
+ "@/theme/tokens/types" as tokens;
+
+// Shared styles for FileUpload components - exported as CSS classes
+
+// Icon styles with composes - overrides Icon's default size
+.iconSizeSm {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  width: tokens.$clickFileUploadSmIconSizeWidth;
+  height: tokens.$clickFileUploadSmIconSizeHeight;
+  color: tokens.$clickFileUploadSmColorIconDefault;
+}
+
+.iconSizeMd {
+  composes: cuiIconWrapper from '../Icon/Icon.module.scss';
+  width: tokens.$clickFileUploadMdIconSizeWidth;
+  height: tokens.$clickFileUploadMdIconSizeHeight;
+  color: tokens.$clickFileUploadMdColorIconDefault;
+}
+
+// Base upload area styles
+.uploadAreaBase {
+  background-color: tokens.$clickFileUploadColorBackgroundDefault;
+  border: 1px solid tokens.$clickFileUploadColorStrokeDefault;
+  display: flex;
+  align-items: center;
+  transition: tokens.$clickFileUploadTransitionsAll;
+}
+
+// Upload area with medium size
+.uploadAreaMd {
+  border-radius: tokens.$clickFileUploadMdRadiiAll;
+  padding: tokens.$clickFileUploadMdSpaceY tokens.$clickFileUploadMdSpaceX;
+  gap: tokens.$clickFileUploadMdSpaceGap;
+}
+
+// Upload area with small size
+.uploadAreaSm {
+  border-radius: tokens.$clickFileUploadSmRadiiAll;
+  padding: tokens.$clickFileUploadSmSpaceY tokens.$clickFileUploadSmSpaceX;
+  gap: tokens.$clickFileUploadSmSpaceGap;
+}
+
+// Draggable upload area
+.uploadAreaDraggable {
+  border-style: dashed;
+  border-color: tokens.$clickFileUploadColorStrokeDefault;
+}
+
+// Dragging state
+.uploadAreaDragging {
+  background-color: tokens.$clickFileUploadColorBackgroundActive;
+  border-color: tokens.$clickFileUploadColorStrokeActive;
+}
+
+// Error state
+.uploadAreaError {
+  background-color: tokens.$clickFileUploadColorBackgroundError;
+  border: 1px solid transparent;
+}
+
+// Typography styles
+.fileUploadTitle {
+  font: tokens.$clickFileUploadTypographyTitleDefault;
+  color: tokens.$clickFileUploadColorTitleDefault;
+}
+
+.fileUploadDescription {
+  font: tokens.$clickFileUploadTypographyDescriptionDefault;
+  color: tokens.$clickFileUploadColorDescriptionDefault;
+}
+
+// File info container - holds all file content (header, progress, size)
+.fileInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 24px;
+  flex: 1;
+}
+
+// File info header - holds filename and status info horizontally
+.fileInfoHeader {
+  display: flex;
+  gap: tokens.$clickFileUploadMdSpaceGap;
+  border: none;
+}
+
+// File actions container
+.fileActions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0;
+}
+
+// Progress bar wrapper - adds spacing around progress bar
+.progressContainer {
+  margin-top: tokens.$clickFileUploadMdSpaceGap;
+  margin-bottom: 9px;
+}

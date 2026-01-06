@@ -1,6 +1,9 @@
+"use client";
+
 import { Container, Dialog, Separator, Text } from "@/components";
 import { HTMLAttributes, ReactElement, ReactNode } from "react";
-import { styled } from "styled-components";
+import clsx from "clsx";
+import styles from "./ConfirmationDialog.module.scss";
 
 type DialogPrimaryAction = "primary" | "danger";
 
@@ -31,21 +34,6 @@ export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> 
   title: string;
 }
 
-const ActionsWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${props => props.theme.click.dialog.space.gap};
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.sm}) {
-    flex-direction: column;
-  }
-`;
-
-const DialogContent = styled.div`
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const ConfirmationDialog = ({
   children,
   disabled,
@@ -74,11 +62,11 @@ export const ConfirmationDialog = ({
         }
       }}
     >
-      <DialogContent
-        as={Dialog.Content}
+      <Dialog.Content
+        {...props}
+        className={clsx(styles.cuiDialogContent, props.className)}
         title={title}
         showClose={showClose}
-        {...props}
       >
         <Container
           overflow="auto"
@@ -88,7 +76,7 @@ export const ConfirmationDialog = ({
           {children ? children : <Text>{message}</Text>}
         </Container>
         <Separator size="xl" />
-        <ActionsWrapper>
+        <div className={styles.cuiActionsWrapper}>
           <Dialog.Close
             label={secondaryActionLabel}
             data-testid="cancel-action-button"
@@ -106,8 +94,8 @@ export const ConfirmationDialog = ({
             }}
             data-testid="confirm-action-button"
           />
-        </ActionsWrapper>
-      </DialogContent>
+        </div>
+      </Dialog.Content>
     </Dialog>
   );
 };

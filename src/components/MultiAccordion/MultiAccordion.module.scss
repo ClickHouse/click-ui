@@ -1,0 +1,186 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiAccordionRoot {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+
+  // Gap variants - using :where() for low specificity
+  @include variants.variant("cuiGapNone") {
+    gap: tokens.$clickContainerGapNone;
+  }
+
+  @include variants.variant("cuiGapXs") {
+    gap: tokens.$clickContainerGapXs;
+  }
+
+  @include variants.variant("cuiGapSm") {
+    gap: tokens.$clickContainerGapSm;
+  }
+
+  @include variants.variant("cuiGapMd") {
+    gap: tokens.$clickContainerGapMd;
+  }
+
+  @include variants.variant("cuiGapLg") {
+    gap: tokens.$clickContainerGapLg;
+  }
+
+  @include variants.variant("cuiGapXl") {
+    gap: tokens.$clickContainerGapXl;
+  }
+}
+
+.cuiAccordionItem {
+  border-radius: var(--border-radii-1);
+  background-color: var(--global-color-background-default);
+
+  &.cuiShowBorder {
+    border: 1px solid var(--global-color-stroke-default);
+  }
+
+  &.cuiFillWidth {
+    width: 100%;
+  }
+}
+
+.cuiAccordionTrigger {
+  @include mixins.cuiAccordionTriggerBase;
+  width: 100%;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+
+  &[data-state="open"] {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    [data-icon="accordion-status"] {
+      color: var(--global-color-accent-default);
+    }
+  }
+
+  [data-icon="accordion-status"] {
+    color: var(--global-color-stroke-intense);
+  }
+
+  &:hover {
+    background: var(--global-color-stroke-default);
+    cursor: pointer;
+  }
+
+  // Size variants - using :where() for low specificity
+  @include variants.variant("cuiSizeNone") {
+    @include mixins.cuiAccordionTriggerSize("sm");
+    padding: tokens.$clickContainerSpaceSm;
+  }
+
+  @include variants.variant("cuiSizeSm") {
+    @include mixins.cuiAccordionTriggerSize("sm");
+    padding: tokens.$clickContainerSpaceSm;
+  }
+
+  @include variants.variant("cuiSizeMd") {
+    @include mixins.cuiAccordionTriggerSize("md");
+    padding: tokens.$clickContainerSpaceMd;
+  }
+
+  @include variants.variant("cuiSizeLg") {
+    @include mixins.cuiAccordionTriggerSize("lg");
+    padding: tokens.$clickContainerSpaceLg;
+  }
+
+  // Color link variants with size combinations
+  @include variants.variant("cuiColorLink") {
+    @include mixins.cuiAccordionTriggerSize("md", "link");
+
+    @include variants.variant("cuiSizeNone") {
+      @include mixins.cuiAccordionTriggerSize("sm", "link");
+    }
+
+    @include variants.variant("cuiSizeSm") {
+      @include mixins.cuiAccordionTriggerSize("sm", "link");
+    }
+
+    @include variants.variant("cuiSizeMd") {
+      @include mixins.cuiAccordionTriggerSize("md", "link");
+    }
+
+    @include variants.variant("cuiSizeLg") {
+      @include mixins.cuiAccordionTriggerSize("lg", "link");
+    }
+  }
+}
+
+.cuiAccordionIconsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cuiAccordionContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: tokens.$clickContainerGapSm;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cuiAccordionIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+
+  .cuiAccordionTrigger[data-state="open"] & {
+    transform: rotate(90deg);
+  }
+}
+
+.cuiCustomIcon {
+  // Target SVG directly via data attribute that gets passed through props
+  svg[data-cui-completed="true"] path {
+    stroke: var(--global-color-background-default) !important;
+    fill: var(--global-color-accent-default) !important;
+
+    &:first-of-type {
+      stroke: var(--global-color-accent-default) !important;
+    }
+  }
+}
+
+.cuiAccordionContent {
+  padding-top: 0;
+
+  // Padding variants - using :where() for low specificity
+  @include variants.variant("cuiPaddingNone") {
+    padding: tokens.$clickContainerSpaceNone;
+    padding-top: 0;
+  }
+
+  @include variants.variant("cuiPaddingSm") {
+    padding: tokens.$clickContainerSpaceSm;
+    padding-top: 0;
+  }
+
+  @include variants.variant("cuiPaddingMd") {
+    padding: tokens.$clickContainerSpaceMd;
+    padding-top: 0;
+  }
+
+  @include variants.variant("cuiPaddingLg") {
+    padding: tokens.$clickContainerSpaceLg;
+    padding-top: 0;
+  }
+}
+
+.cuiAccordionItemTitle {
+  overflow: hidden;
+}

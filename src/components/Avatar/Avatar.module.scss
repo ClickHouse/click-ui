@@ -1,0 +1,65 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiAvatarRoot {
+  width: tokens.$clickAvatarSizeWidth;
+  height: tokens.$clickAvatarSizeHeight;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  overflow: hidden;
+  user-select: none;
+  background-color: tokens.$clickAvatarColorBackgroundDefault;
+  color: tokens.$clickAvatarColorTextDefault;
+  border-radius: tokens.$clickAvatarRadiiAll;
+
+  &:active {
+    background-color: tokens.$clickAvatarColorBackgroundActive;
+    color: tokens.$clickAvatarColorTextActive;
+  }
+
+  &:hover {
+    background-color: tokens.$clickAvatarColorBackgroundHover;
+    color: tokens.$clickAvatarColorTextHover;
+  }
+}
+
+.cuiAvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.cuiAvatarFallback {
+  width: tokens.$clickAvatarSizeLabelWidth;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // Text size variants - using :where() for low specificity
+  @include variants.variant('cuiTextSizeMd') {
+    font: tokens.$clickAvatarTypographyLabelMdDefault;
+
+    .cuiAvatarRoot:active & {
+      font: tokens.$clickAvatarTypographyLabelMdActive;
+    }
+
+    .cuiAvatarRoot:hover & {
+      font: tokens.$clickAvatarTypographyLabelMdHover;
+    }
+  }
+
+  @include variants.variant('cuiTextSizeSm') {
+    font: tokens.$clickAvatarTypographyLabelSmDefault;
+
+    .cuiAvatarRoot:active & {
+      font: tokens.$clickAvatarTypographyLabelSmActive;
+    }
+
+    .cuiAvatarRoot:hover & {
+      font: tokens.$clickAvatarTypographyLabelSmHover;
+    }
+  }
+}
