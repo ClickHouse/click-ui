@@ -135,14 +135,24 @@ const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = "DropdownSub";
 Dropdown.Sub = DropdownSub;
 
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
+export interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  /** The type of the menu item */
+  type?: "default" | "danger";
 }
-const DropdownItem = ({ icon, iconDir, children, ...props }: DropdownItemProps) => {
+const DropdownItem = ({
+  icon,
+  iconDir,
+  type = "default",
+  children,
+  ...props
+}: DropdownItemProps) => {
   return (
     <DropdownMenu.Item
-      className={styles.cuiMenuItem}
+      className={clsx(styles.cuiMenuItem, {
+        [styles.cuiMenuItemDanger]: type === "danger",
+      })}
       {...props}
     >
       <IconWrapper

@@ -1,41 +1,15 @@
-import { StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Label } from "./Label";
 
-const FieldExample = ({
-  disabled,
-  error,
-  text,
-}: {
-  disabled: boolean;
-  error: boolean;
-  text: string;
-}) => {
-  const inputStyle = { colorScheme: "light" as const };
-
-  return (
-    <Label
-      disabled={disabled}
-      error={error}
-      htmlFor="test"
-    >
-      {text}
-      <input
-        id="test"
-        style={inputStyle}
-      />
-    </Label>
-  );
-};
-
-export default {
-  component: FieldExample,
+const meta = {
+  component: Label,
   title: "Forms/Label",
   tags: ["form-field", "label", "autodocs"],
-};
+} satisfies Meta<typeof Label>;
 
 export default meta;
 
-type Story = StoryObj<typeof Label>;
+type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   args: {

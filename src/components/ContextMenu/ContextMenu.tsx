@@ -138,12 +138,22 @@ ContextMenu.Sub = ContextMenuSub;
 export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  /** The type of the menu item */
+  type?: "default" | "danger";
 }
 
-const ContextMenuItem = ({ icon, iconDir, children, ...props }: ContextMenuItemProps) => {
+const ContextMenuItem = ({
+  icon,
+  iconDir,
+  type = "default",
+  children,
+  ...props
+}: ContextMenuItemProps) => {
   return (
     <RightMenu.Item
-      className={styles.cuiGenericMenuItem}
+      className={clsx(styles.cuiGenericMenuItem, {
+        [styles.cuiGenericMenuItemDanger]: type === "danger",
+      })}
       {...props}
     >
       <IconWrapper
