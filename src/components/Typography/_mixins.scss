@@ -1,0 +1,17 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Typography mixins for Click UI Typography components
+
+// Text style mixin - uses dynamic CSS custom properties for size variants
+@mixin cuiTextStyle($size) {
+  font: var(--typography-styles-text-#{$size});
+  color: tokens.$clickGlobalColorTextDefault;
+  margin: 0;
+}
+
+// Title style mixin - uses dynamic CSS custom properties for size variants
+@mixin cuiTitleStyle($size) {
+  font: var(--typography-styles-titles-#{$size});
+  color: tokens.$clickGlobalColorTextDefault;
+  margin: 0;
+}

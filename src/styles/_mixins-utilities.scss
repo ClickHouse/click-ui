@@ -1,0 +1,51 @@
+@use "tokens-light-dark" as tokens;
+
+// Utility mixins for Click UI components
+
+// Flex center mixin - center content with flexbox
+@mixin cuiFlexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Absolute fill mixin - fill parent container absolutely
+@mixin cuiAbsoluteFill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// Visually hidden mixin - hide element visually but keep it accessible
+@mixin cuiVisuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Responsive mixins
+@mixin cuiMobile {
+  @media (max-width: var(--breakpoint-sizes-md)) {
+    @content;
+  }
+}
+
+@mixin cuiTablet {
+  @media (min-width: var(--breakpoint-sizes-md)) and (max-width: var(--breakpoint-sizes-lg)) {
+    @content;
+  }
+}
+
+@mixin cuiDesktop {
+  @media (min-width: var(--breakpoint-sizes-lg)) {
+    @content;
+  }
+}

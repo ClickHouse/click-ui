@@ -1,0 +1,88 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Button mixins for Click UI Button components
+
+// Base button mixin - minimal styling for button element
+@mixin cuiButtonBase {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: tokens.$clickButtonBasicRadiiDefault;
+  cursor: pointer;
+  text-decoration: none;
+  transition: tokens.$clickButtonBasicTransitionsAll;
+  white-space: nowrap;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+// Button size variants - uses dynamic CSS custom properties
+@mixin cuiButtonSize($size) {
+  padding: var(--click-button-basic-#{$size}-space-y) var(--click-button-basic-#{$size}-space-x);
+  gap: var(--click-button-basic-#{$size}-space-gap);
+  font: var(--click-button-basic-#{$size}-typography-default);
+  min-height: var(--click-button-basic-#{$size}-size-height);
+}
+
+// Button type/color variants - uses dynamic CSS custom properties
+@mixin cuiButtonType($type, $state: "default") {
+  background-color: var(--click-button-basic-#{$type}-color-background-#{$state});
+  color: var(--click-button-basic-#{$type}-color-text-#{$state});
+  border: var(--click-button-basic-#{$type}-stroke-#{$state}) solid
+    var(--click-button-basic-#{$type}-color-stroke-#{$state});
+}
+
+// Empty button mixin - for unstyled buttons
+@mixin cuiEmptyButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// Base button mixin - for styled buttons with common base styles
+@mixin cuiBaseButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: tokens.$clickButtonBasicSpaceY tokens.$clickButtonBasicSpaceX;
+  border-radius: tokens.$clickButtonRadiiAll;
+  gap: tokens.$clickButtonBasicSpaceGap;
+  font: tokens.$clickButtonBasicTypographyLabelDefault;
+
+  &:hover {
+    font: tokens.$clickButtonBasicTypographyLabelHover;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    font: tokens.$clickButtonBasicTypographyLabelActive;
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    font: tokens.$clickButtonBasicTypographyLabelDisabled;
+    cursor: not-allowed;
+  }
+}

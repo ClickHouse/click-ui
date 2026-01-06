@@ -1,0 +1,14 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Icon mixins for Click UI Icon components
+
+// Icon size mixin - uses dynamic CSS custom properties
+@mixin cuiIconSize($size) {
+  width: var(--click-image-#{$size}-size-width);
+  height: var(--click-image-#{$size}-size-height);
+}
+
+// Icon color mixin - uses dynamic CSS custom properties
+@mixin cuiIconColor($color) {
+  color: var(--click-icon-color-text-#{$color});
+}

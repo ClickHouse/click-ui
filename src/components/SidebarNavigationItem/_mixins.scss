@@ -1,0 +1,29 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Sidebar mixins for Click UI Sidebar components
+
+// Interactive container base - for clickable/hoverable items
+@mixin cuiInteractiveContainer {
+  cursor: pointer;
+  pointer-events: all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Sidebar item base - common styles for sidebar navigation items
+@mixin cuiSidebarItemBase {
+  display: flex;
+  align-items: center;
+  border: none;
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  cursor: pointer;
+  pointer-events: all;
+}

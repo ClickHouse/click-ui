@@ -1,0 +1,46 @@
+@use "tokens-light-dark" as tokens;
+
+// Layout mixins for Click UI components
+
+// Container base mixin - basic container styling
+@mixin cuiContainerBase {
+  display: flex;
+  box-sizing: border-box;
+}
+
+// Container orientation mixin - row or column layout
+@mixin cuiContainerOrientation($orientation) {
+  @if $orientation == "horizontal" {
+    flex-direction: row;
+  } @else if $orientation == "vertical" {
+    flex-direction: column;
+  }
+}
+
+// Container gap mixin - uses dynamic CSS custom properties
+@mixin cuiContainerGap($gap) {
+  gap: var(--click-container-gap-#{$gap});
+}
+
+// Container padding mixin - uses dynamic CSS custom properties
+@mixin cuiContainerPadding($padding) {
+  padding: var(--click-container-padding-#{$padding});
+}
+
+// Full-width stretch mixin - cross-browser support for width: stretch
+@mixin cuiFullWidthStretch {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+}
+
+// Full max-width stretch mixin - cross-browser support for max-width: stretch
+@mixin cuiFullMaxWidthStretch {
+  max-width: 100%;
+  max-width: -moz-available;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+}

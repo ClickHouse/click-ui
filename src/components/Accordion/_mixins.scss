@@ -1,0 +1,34 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Accordion mixins for Click UI Accordion components
+
+// Accordion trigger base mixin - common trigger styling
+@mixin cuiAccordionTriggerBase {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Accordion trigger size mixin - uses dynamic CSS custom properties
+@mixin cuiAccordionTriggerSize($size, $color: "default") {
+  gap: var(--click-accordion-#{$size}-space-gap);
+  color: var(--click-accordion-color-#{$color}-label-default);
+  font: var(--click-accordion-#{$size}-typography-label-default);
+
+  &:active {
+    color: var(--click-accordion-color-#{$color}-label-active);
+    font: var(--click-accordion-#{$size}-typography-label-active);
+  }
+
+  &:hover {
+    color: var(--click-accordion-color-#{$color}-label-hover);
+    font: var(--click-accordion-#{$size}-typography-label-hover);
+  }
+}

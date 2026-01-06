@@ -1,0 +1,90 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Form and input mixins for Click UI form components
+
+// Form root mixin - base styles for form field containers
+@mixin cuiFormRoot($align: flex-start, $maxWidth: null) {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  gap: tokens.$clickFieldSpaceGap;
+  align-items: $align;
+
+  @if $maxWidth {
+    max-width: $maxWidth;
+  }
+
+  /* Reset box-shadow and outline for all children */
+  * {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// Input base mixin - for custom input styling using click.input tokens
+@mixin cuiInputBase {
+  display: flex;
+  align-items: center;
+  border-radius: var(--click-input-radii-default);
+  border: var(--click-input-stroke-default) solid var(--click-input-color-stroke-default);
+  background: var(--click-input-color-background-default);
+  transition: var(--click-input-transitions-all);
+  font: var(--click-input-typography-default);
+  color: var(--click-input-color-text-default);
+
+  &:focus-within {
+    border-color: var(--click-input-color-stroke-focus);
+    background: var(--click-input-color-background-focus);
+    color: var(--click-input-color-text-focus);
+  }
+
+  &:hover:not(:focus-within) {
+    border-color: var(--click-input-color-stroke-hover);
+    background: var(--click-input-color-background-hover);
+    color: var(--click-input-color-text-hover);
+  }
+
+  &:disabled,
+  &.disabled {
+    border-color: var(--click-input-color-stroke-disabled);
+    background: var(--click-input-color-background-disabled);
+    color: var(--click-input-color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// Input size variants - uses dynamic CSS custom properties
+@mixin cuiInputSize($size) {
+  padding: var(--click-input-#{$size}-space-y) var(--click-input-#{$size}-space-x);
+  gap: var(--click-input-#{$size}-space-gap);
+  min-height: var(--click-input-#{$size}-size-height);
+}
+
+// Input state variants - uses dynamic CSS custom properties
+@mixin cuiInputState($state) {
+  border-color: var(--click-input-color-stroke-#{$state});
+  background: var(--click-input-color-background-#{$state});
+  color: var(--click-input-color-text-#{$state});
+}
+
+// Input element mixin - for the actual input element inside wrapper
+@mixin cuiInputElement {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  padding: tokens.$clickFieldSpaceY 0;
+
+  &::placeholder {
+    color: tokens.$clickFieldColorPlaceholderDefault;
+  }
+
+  &:disabled,
+  &.disabled {
+    &::placeholder {
+      color: tokens.$clickFieldColorPlaceholderDisabled;
+    }
+  }
+}

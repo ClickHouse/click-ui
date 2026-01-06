@@ -1,0 +1,24 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Grid mixins for Click UI Grid/Table components
+
+// Grid cell base mixin - common cell styling
+@mixin cuiGridCellBase {
+  display: block;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// Grid cell type mixin - uses dynamic CSS custom properties for type variants
+@mixin cuiGridCellType($type, $selection: "default") {
+  background: var(--click-grid-#{$type}-cell-color-background-#{$selection});
+  color: var(--click-grid-#{$type}-cell-color-text-#{$selection});
+  font: tokens.$clickGridCellTextDefault;
+  padding: var(--click-grid-#{$type}-cell-space-y) var(--click-grid-#{$type}-cell-space-x);
+  border: 1px solid var(--click-grid-#{$type}-cell-color-stroke-default);
+}

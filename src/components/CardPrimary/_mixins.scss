@@ -1,0 +1,19 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Card mixins for Click UI Card components
+
+// Card base mixin - common card styling
+@mixin cuiCardBase {
+  display: flex;
+  border-radius: var(--click-card-radii-all);
+  background: var(--click-card-color-background-default);
+  border: var(--click-card-stroke-default) solid var(--click-card-color-stroke-default);
+  transition: var(--click-card-transitions-all);
+}
+
+// Card state mixin - uses dynamic CSS custom properties for color variants
+@mixin cuiCardState($color, $state) {
+  background: var(--click-card-#{$color}-color-background-#{$state});
+  color: var(--click-card-#{$color}-color-title-#{$state});
+  border-color: var(--click-card-#{$color}-color-stroke-#{$state});
+}

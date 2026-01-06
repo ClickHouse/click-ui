@@ -1,0 +1,69 @@
+@use "../../styles/tokens-light-dark" as tokens;
+
+// Menu mixins for Click UI menu components (ContextMenu, Dropdown, etc.)
+
+// Generic menu item mixin - for menu items in ContextMenu, DropdownMenu, etc.
+@mixin cuiGenericMenuItem {
+  display: flex;
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  outline: none;
+  position: relative;
+
+  padding: tokens.$clickGenericMenuItemSpaceY tokens.$clickGenericMenuItemSpaceX;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  font: tokens.$clickGenericMenuItemTypographyLabelDefault;
+  background: tokens.$clickGenericMenuItemColorDefaultBackgroundDefault;
+  color: tokens.$clickGenericMenuItemColorDefaultTextDefault;
+
+  &[aria-selected] {
+    outline: none;
+  }
+
+  &[data-highlighted] {
+    font: tokens.$clickGenericMenuItemTypographyLabelHover;
+    background: tokens.$clickGenericMenuItemColorDefaultBackgroundHover;
+    color: tokens.$clickGenericMenuItemColorDefaultTextHover;
+    cursor: pointer;
+  }
+
+  &[data-state="open"],
+  &[data-state="checked"],
+  &[data-selected="true"] {
+    background: tokens.$clickGenericMenuItemColorDefaultBackgroundActive;
+    color: tokens.$clickGenericMenuItemColorDefaultTextActive;
+    font: tokens.$clickGenericMenuItemTypographyLabelActive;
+  }
+
+  &[data-disabled] {
+    color: tokens.$clickGenericMenuItemColorDefaultTextDisabled;
+    font: tokens.$clickGenericMenuItemTypographyLabelDisabled;
+    pointer-events: none;
+  }
+
+  &:visited {
+    color: tokens.$clickGenericMenuItemColorDefaultTextDefault;
+
+    a {
+      color: tokens.$clickGenericMenuItemColorDefaultTextDefault;
+    }
+  }
+
+  &:hover .dropdown-arrow,
+  &[data-state="open"] .dropdown-arrow {
+    left: 0.5rem;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
