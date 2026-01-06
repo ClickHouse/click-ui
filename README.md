@@ -1,6 +1,6 @@
 # Click UI
 
-You can find the official docs for the Click IU design system and component library at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
+You can find the official docs for the Click UI design system and component library at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Using Click UI in an external app
 
@@ -10,7 +10,7 @@ Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems u
    `npm i @clickhouse/click-ui`
    or
    `yarn add @clickhouse/click-ui`
-2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once thats done, you'll be able to import the individual components that you want to use on each page. Here's an example an `App.tsx` in NextJS.
+2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once that's done, you'll be able to import the individual components that you want to use on each page. Here's an example of an `App.tsx` in NextJS.
 
 ```typescript
 import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
@@ -46,7 +46,7 @@ export default App
 2. To install dependencies, run `npm i`
 3. To build the latest styles, run `npm run generate-tokens`
 4. To run ClickUI locally, run `npm run dev` and navigate to http://localhost:5173
-5. To run Storybook locally, run `npm run storybook` and navigate to https://localhost:6006
+5. To run Storybook locally, run `npm run storybook` and navigate to http://localhost:6006
 
 Enjoy!
 
