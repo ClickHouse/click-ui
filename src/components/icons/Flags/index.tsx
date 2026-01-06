@@ -77,7 +77,7 @@ export const FlagList = {
 };
 
 const Flags = ({ name, size, ...props }: FlagProps) => {
-  const Component = FlagList[name as FlagName];
+  const Component = FlagList[name];
   if (Component === undefined) {
     return;
   }
