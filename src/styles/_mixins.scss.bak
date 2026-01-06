@@ -1,5 +1,4 @@
 // Common SCSS mixins for Click UI components
-@use "tokens-light-dark" as tokens;
 
 // Button mixins
 @mixin cuiButtonBase {
@@ -7,10 +6,10 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: tokens.$clickButtonBasicRadiiDefault;
+  border-radius: var(--click-button-basic-radii-default);
   cursor: pointer;
   text-decoration: none;
-  transition: tokens.$clickButtonBasicTransitionsAll;
+  transition: var(--click-button-basic-transitions-all);
   white-space: nowrap;
   position: relative;
 
@@ -105,7 +104,7 @@
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  gap: tokens.$clickFieldSpaceGap;
+  gap: var(--click-field-space-gap);
   align-items: $align;
 
   @if $maxWidth {
@@ -186,16 +185,16 @@
   width: 100%;
   color: inherit;
   font: inherit;
-  padding: tokens.$clickFieldSpaceY 0;
+  padding: var(--click-field-space-y) 0;
 
   &::placeholder {
-    color: tokens.$clickFieldColorPlaceholderDefault;
+    color: var(--click-field-color-placeholder-default);
   }
 
   &:disabled,
   &.disabled {
     &::placeholder {
-      color: tokens.$clickFieldColorPlaceholderDisabled;
+      color: var(--click-field-color-placeholder-disabled);
     }
   }
 }
@@ -265,13 +264,13 @@
 // Typography mixins
 @mixin cuiTextStyle($size) {
   font: var(--typography-styles-text-#{$size});
-  color: tokens.$clickGlobalColorTextDefault;
+  color: var(--global-color-text-default);
   margin: 0;
 }
 
 @mixin cuiTitleStyle($size) {
   font: var(--typography-styles-titles-#{$size});
-  color: tokens.$clickGlobalColorTextDefault;
+  color: var(--global-color-text-default);
   margin: 0;
 }
 
@@ -329,7 +328,7 @@
   align-items: center;
   cursor: pointer;
   padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
-  border-radius: tokens.$clickButtonRadiiAll;
+  border-radius: var(--click-button-radii-all);
   gap: var(--click-button-basic-space-gap);
   font: var(--click-button-basic-typography-label-default);
 
