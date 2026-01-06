@@ -5,28 +5,27 @@
   background: transparent;
   display: flex;
 
-  // Size variations
   @include variants.variant('cuiSizeXs') {
-    padding: var(--click-spacer-horizontal-space-y-xs) var(--click-spacer-horizontal-space-x-all);
+    padding: tokens.$clickSpacerHorizontalSpaceYXs tokens.$clickSpacerHorizontalSpaceXAll;
   }
 
   @include variants.variant('cuiSizeSm') {
-    padding: var(--click-spacer-horizontal-space-y-sm) var(--click-spacer-horizontal-space-x-all);
+    padding: tokens.$clickSpacerHorizontalSpaceYSm tokens.$clickSpacerHorizontalSpaceXAll;
   }
 
   @include variants.variant('cuiSizeMd') {
-    padding: var(--click-spacer-horizontal-space-y-md) var(--click-spacer-horizontal-space-x-all);
+    padding: tokens.$clickSpacerHorizontalSpaceYMd tokens.$clickSpacerHorizontalSpaceXAll;
   }
 
   @include variants.variant('cuiSizeLg') {
-    padding: var(--click-spacer-horizontal-space-y-lg) var(--click-spacer-horizontal-space-x-all);
+    padding: tokens.$clickSpacerHorizontalSpaceYLg tokens.$clickSpacerHorizontalSpaceXAll;
   }
 
   @include variants.variant('cuiSizeXl') {
-    padding: var(--click-spacer-horizontal-space-y-xl) var(--click-spacer-horizontal-space-x-all);
+    padding: tokens.$clickSpacerHorizontalSpaceYXl tokens.$clickSpacerHorizontalSpaceXAll;
   }
 
   @include variants.variant('cuiSizeXxl') {
-    padding: var(--click-spacer-horizontal-space-y-xxl) var(--click-spacer-horizontal-space-x-all);
+    padding: tokens.$clickSpacerHorizontalSpaceYXxl tokens.$clickSpacerHorizontalSpaceXAll;
   }
 }

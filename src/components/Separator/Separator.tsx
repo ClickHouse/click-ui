@@ -30,6 +30,7 @@ const Separator = ({
         styles[sizeClass],
         className
       )}
+      data-cui="separator"
       data-cui-orientation={orientation}
       data-cui-size={size}
       {...props}

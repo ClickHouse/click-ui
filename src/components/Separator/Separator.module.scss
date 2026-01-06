@@ -2,54 +2,51 @@
 @use "cui-variants" as variants;
 
 .cuiSeparator {
-  // Orientation variants - using :where() for low specificity
   @include variants.variant('cuiHorizontal') {
     width: 100%;
-    border-top: 0.0625rem solid var(--click-separator-color-stroke-default);
+    border-top: 0.0625rem solid tokens.$clickSeparatorColorStrokeDefault;
 
-    // Size variations for horizontal orientation
     @include variants.variant('cuiSizeXs') {
-      margin: var(--click-separator-horizontal-space-y-xs) var(--click-separator-horizontal-space-x-all);
+      margin: tokens.$clickSeparatorHorizontalSpaceYXs tokens.$clickSeparatorHorizontalSpaceXAll;
     }
     @include variants.variant('cuiSizeSm') {
-      margin: var(--click-separator-horizontal-space-y-sm) var(--click-separator-horizontal-space-x-all);
+      margin: tokens.$clickSeparatorHorizontalSpaceYSm tokens.$clickSeparatorHorizontalSpaceXAll;
     }
     @include variants.variant('cuiSizeMd') {
-      margin: var(--click-separator-horizontal-space-y-md) var(--click-separator-horizontal-space-x-all);
+      margin: tokens.$clickSeparatorHorizontalSpaceYMd tokens.$clickSeparatorHorizontalSpaceXAll;
     }
     @include variants.variant('cuiSizeLg') {
-      margin: var(--click-separator-horizontal-space-y-lg) var(--click-separator-horizontal-space-x-all);
+      margin: tokens.$clickSeparatorHorizontalSpaceYLg tokens.$clickSeparatorHorizontalSpaceXAll;
     }
     @include variants.variant('cuiSizeXl') {
-      margin: var(--click-separator-horizontal-space-y-xl) var(--click-separator-horizontal-space-x-all);
+      margin: tokens.$clickSeparatorHorizontalSpaceYXl tokens.$clickSeparatorHorizontalSpaceXAll;
     }
     @include variants.variant('cuiSizeXxl') {
-      margin: var(--click-separator-horizontal-space-y-xxl) var(--click-separator-horizontal-space-x-all);
+      margin: tokens.$clickSeparatorHorizontalSpaceYXxl tokens.$clickSeparatorHorizontalSpaceXAll;
     }
   }
 
   @include variants.variant('cuiVertical') {
     height: 100%;
-    border-right: 0.0625rem solid var(--click-separator-color-stroke-default);
+    border-right: 0.0625rem solid tokens.$clickSeparatorColorStrokeDefault;
 
-    // Size variations for vertical orientation
     @include variants.variant('cuiSizeXs') {
-      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xs);
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXXs;
     }
     @include variants.variant('cuiSizeSm') {
-      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-sm);
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXSm;
     }
     @include variants.variant('cuiSizeMd') {
-      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-md);
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXMd;
     }
     @include variants.variant('cuiSizeLg') {
-      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-lg);
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXLg;
     }
     @include variants.variant('cuiSizeXl') {
-      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xl);
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXXl;
     }
     @include variants.variant('cuiSizeXxl') {
-      margin: var(--click-separator-vertical-space-y-all) var(--click-separator-vertical-space-x-xxl);
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXXxl;
     }
   }
 }

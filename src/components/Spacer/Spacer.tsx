@@ -14,6 +14,7 @@ export const Spacer = ({ size = "md", className }: SpacerProps) => {
   return (
     <div
       className={clsx(styles.cuiSpacer, styles[sizeClass], className)}
+      data-cui="spacer"
       data-cui-size={size}
     />
   );
