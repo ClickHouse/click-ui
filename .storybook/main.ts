@@ -37,8 +37,6 @@ const config: StorybookConfig = {
   },
 
   viteFinal: async (config, { configType }) => {
-    const { mergeConfig } = await import("vite");
-
     // Workaround for Storybook 10.0.7 bug where MDX files generate file:// imports
     // See: https://github.com/storybookjs/storybook/issues (mdx-react-shim resolution)
     config.plugins = config.plugins || [];
@@ -70,15 +68,9 @@ const config: StorybookConfig = {
       };
     }
 
-    return mergeConfig(config, {
-      css: {
-        preprocessorOptions: {
-          scss: {
-            api: "modern-compiler",
-          },
-        },
-      },
-    });
+    // Don't add SCSS config here - it should inherit from root vite.config.ts
+    // This prevents CSS injection order issues with styled-components
+    return config;
   },
 };
 export default config;
