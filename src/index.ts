@@ -47,9 +47,6 @@ export { default as Flags } from "@/components/icons/Flags";
 export { Grid } from "@/components/Grid/Grid";
 export { HoverCard } from "@/components/HoverCard/HoverCard";
 export { Link } from "@/components/Link/Link";
-// Link styling utilities
-export { linkStyles, linkClasses, LINK_CLASSES } from "@/components/Link/linkStyles";
-export type { StyledLinkProps, LinkStyleProps } from "@/components/Link/linkStyles";
 export { Logo } from "@/components/Logos/Logo";
 export { NumberField } from "@/components/Input/NumberField";
 export { PasswordField } from "@/components/Input/PasswordField";

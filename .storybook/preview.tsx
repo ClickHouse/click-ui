@@ -1,6 +1,5 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
-import "@/styles/cui-default-theme.css";
 import { Decorator } from "@storybook/react-vite";
 import { themes } from "storybook/theming";
 import { ClickUIProvider } from "@/theme/ClickUIProvider";
@@ -13,13 +12,22 @@ interface ThemeBlockProps {
   children: React.ReactNode;
 }
 
-const ThemeBlock: React.FC<ThemeBlockProps> = ({ left, fill, children }) => (
+const ThemeBlock: React.FC<ThemeBlockProps & { theme?: string }> = ({
+  left,
+  fill,
+  theme = "light",
+  children,
+}) => (
   <div
     className={clsx(styles.cuiThemeBlock, {
       [styles.cuiLeft]: left || fill,
       [styles.cuiRight]: !left && !fill,
       [styles.cuiFill]: fill,
     })}
+    style={{
+      // Set color-scheme to make light-dark() CSS function work
+      colorScheme: theme,
+    }}
   >
     {children}
   </div>
@@ -35,7 +43,6 @@ export const globalTypes = {
       items: [
         { value: "light", icon: "sun", title: "Light" },
         { value: "dark", icon: "moon", title: "Dark" },
-        { value: "system", icon: "browser", title: "System" },
       ],
       showName: true,
       dynamicTitle: true,
@@ -50,19 +57,15 @@ const withTheme: Decorator = (StoryFn, context) => {
     <ClickUIProvider
       key={`storybook-theme-${theme}`}
       theme={theme}
-      defaultTheme="light"
-      enableTransitions={true}
-      transitionDuration={200}
-      enableDevTools={true}
-      fallbackTheme="light"
       config={{
         tooltip: { delayDuration: 100 },
         toast: { duration: 3000 },
-        preloadThemes: ["light", "dark"],
-        logThemeChanges: true,
       }}
     >
-      <ThemeBlock fill>
+      <ThemeBlock
+        fill
+        theme={theme}
+      >
         <StoryFn />
       </ThemeBlock>
     </ClickUIProvider>
@@ -99,27 +102,6 @@ const preview: Preview = {
       theme: themes.dark,
       codePanel: true,
     },
-    backgrounds: {
-      default: "click-ui",
-      values: [
-        {
-          name: "click-ui",
-          value: "var(--click-storybook-global-background)",
-        },
-        {
-          name: "light",
-          value: "var(--click-storybook-global-background)",
-        },
-        {
-          name: "dark",
-          value: "var(--click-storybook-global-background)",
-        },
-      ],
-    },
-  },
-  argTypes: {
-    // Hide children prop from docs table - it doesn't serialize well as a control
-    children: { table: { disable: true } },
   },
 };
 

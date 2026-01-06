@@ -1,25 +1,23 @@
+@use "@/theme/tokens/types" as tokens;
+
 .cuiThemeBlock {
   position: absolute;
-  top: 0.5rem;
-  width: 96vw;
-  height: 100vh;
-  bottom: 0;
+  inset: 0.5rem 0 0 0;
+  height: fit-content;
   overflow: auto;
   padding: 1rem;
-  background: var(--click-storybook-global-background);
+  box-sizing: border-box;
+  background: tokens.$clickStorybookGlobalBackground;
 
   &.cuiLeft {
     left: 0;
-    right: 50vw;
   }
 
   &.cuiRight {
     left: 50vw;
-    right: 0;
   }
 
   &.cuiFill {
     left: 0;
-    right: 0;
   }
 }
