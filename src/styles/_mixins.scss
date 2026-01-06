@@ -213,42 +213,42 @@
   outline: none;
   position: relative;
 
-  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
-  gap: var(--click-genericMenu-item-space-gap);
-  font: var(--click-genericMenu-item-typography-label-default);
-  background: var(--click-genericMenu-item-color-background-default);
-  color: var(--click-genericMenu-item-color-text-default);
+  padding: tokens.$clickGenericMenuItemSpaceY tokens.$clickGenericMenuItemSpaceX;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  font: tokens.$clickGenericMenuItemTypographyLabelDefault;
+  background: tokens.$clickGenericMenuItemColorDefaultBackgroundDefault;
+  color: tokens.$clickGenericMenuItemColorDefaultTextDefault;
 
   &[aria-selected] {
     outline: none;
   }
 
   &[data-highlighted] {
-    font: var(--click-genericMenu-item-typography-label-hover);
-    background: var(--click-genericMenu-item-color-background-hover);
-    color: var(--click-genericMenu-item-color-text-hover);
+    font: tokens.$clickGenericMenuItemTypographyLabelHover;
+    background: tokens.$clickGenericMenuItemColorDefaultBackgroundHover;
+    color: tokens.$clickGenericMenuItemColorDefaultTextHover;
     cursor: pointer;
   }
 
   &[data-state="open"],
   &[data-state="checked"],
   &[data-selected="true"] {
-    background: var(--click-genericMenu-item-color-background-active);
-    color: var(--click-genericMenu-item-color-text-active);
-    font: var(--click-genericMenu-item-typography-label-active);
+    background: tokens.$clickGenericMenuItemColorDefaultBackgroundActive;
+    color: tokens.$clickGenericMenuItemColorDefaultTextActive;
+    font: tokens.$clickGenericMenuItemTypographyLabelActive;
   }
 
   &[data-disabled] {
-    color: var(--click-genericMenu-item-color-text-disabled);
-    font: var(--click-genericMenu-item-typography-label-disabled);
+    color: tokens.$clickGenericMenuItemColorDefaultTextDisabled;
+    font: tokens.$clickGenericMenuItemTypographyLabelDisabled;
     pointer-events: none;
   }
 
   &:visited {
-    color: var(--click-genericMenu-item-color-text-default);
+    color: tokens.$clickGenericMenuItemColorDefaultTextDefault;
 
     a {
-      color: var(--click-genericMenu-item-color-text-default);
+      color: tokens.$clickGenericMenuItemColorDefaultTextDefault;
     }
   }
 
@@ -300,7 +300,7 @@
 @mixin cuiGridCellType($type, $selection: "default") {
   background: var(--click-grid-#{$type}-cell-color-background-#{$selection});
   color: var(--click-grid-#{$type}-cell-color-text-#{$selection});
-  font: var(--click-grid-cell-text-default);
+  font: tokens.$clickGridCellTextDefault;
   padding: var(--click-grid-#{$type}-cell-space-y) var(--click-grid-#{$type}-cell-space-x);
   border: 1px solid var(--click-grid-#{$type}-cell-color-stroke-default);
 }
@@ -328,25 +328,25 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  padding: tokens.$clickButtonBasicSpaceY tokens.$clickButtonBasicSpaceX;
   border-radius: tokens.$clickButtonRadiiAll;
-  gap: var(--click-button-basic-space-gap);
-  font: var(--click-button-basic-typography-label-default);
+  gap: tokens.$clickButtonBasicSpaceGap;
+  font: tokens.$clickButtonBasicTypographyLabelDefault;
 
   &:hover {
-    font: var(--click-button-basic-typography-label-hover);
+    font: tokens.$clickButtonBasicTypographyLabelHover;
   }
 
   &:active,
   &:focus {
     outline: none;
-    font: var(--click-button-basic-typography-label-active);
+    font: tokens.$clickButtonBasicTypographyLabelActive;
   }
 
   &:disabled,
   &:disabled:hover,
   &:disabled:active {
-    font: var(--click-button-basic-typography-label-disabled);
+    font: tokens.$clickButtonBasicTypographyLabelDisabled;
     cursor: not-allowed;
   }
 }
