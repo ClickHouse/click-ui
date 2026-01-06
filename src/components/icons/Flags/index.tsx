@@ -21,6 +21,7 @@ import { IconSize } from "@/components/Icon/types";
 import { SvgImageElement } from "@/components/commonElement";
 import Switzerland from "@/components/icons/Flags/Switzerland.tsx";
 import HongKong from "./HongKong";
+import Indonesia from "./Indonesia";
 
 export type FlagName =
   | "ae"
@@ -32,6 +33,7 @@ export type FlagName =
   | "eu"
   | "gb"
   | "hk"
+  | "id"
   | "in"
   | "il"
   | "ie"
@@ -60,6 +62,7 @@ export const FlagList = {
   eu: EuropeanUnion,
   gb: GreatBritain,
   hk: HongKong,
+  id: Indonesia,
   ie: Ireland,
   il: Israel,
   in: India,
@@ -74,7 +77,7 @@ export const FlagList = {
 };
 
 const Flags = ({ name, size, ...props }: FlagProps) => {
-  const Component = FlagList[name];
+  const Component = FlagList[name as FlagName];
   if (Component === undefined) {
     return;
   }
