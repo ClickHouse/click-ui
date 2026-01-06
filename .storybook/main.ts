@@ -36,16 +36,9 @@ const config: StorybookConfig = {
     },
   },
 
-  async viteFinal(config, { configType }) {
-    if (config.css?.preprocessorOptions?.scss) {
-      config.css.preprocessorOptions.scss.api = "modern-compiler";
-    } else {
-      config.css = config.css || {};
-      config.css.preprocessorOptions = config.css.preprocessorOptions || {};
-      config.css.preprocessorOptions.scss = {
-        api: "modern-compiler",
-      };
-    }
+  viteFinal: async (config, { configType }) => {
+    const { mergeConfig } = await import("vite");
+
     // Workaround for Storybook 10.0.7 bug where MDX files generate file:// imports
     // See: https://github.com/storybookjs/storybook/issues (mdx-react-shim resolution)
     config.plugins = config.plugins || [];
@@ -66,12 +59,26 @@ const config: StorybookConfig = {
       config.build.rollupOptions = config.build.rollupOptions || {};
       const originalOnWarn = config.build.rollupOptions.onwarn;
       config.build.rollupOptions.onwarn = (warning, warn) => {
-        if (warning.message?.includes("mdx-react-shim")) return;
-        originalOnWarn ? originalOnWarn(warning, warn) : warn(warning);
+        if (warning.message?.includes("mdx-react-shim")) {
+          return;
+        }
+        if (originalOnWarn) {
+          originalOnWarn(warning, warn);
+        } else {
+          warn(warning);
+        }
       };
     }
 
-    return config;
+    return mergeConfig(config, {
+      css: {
+        preprocessorOptions: {
+          scss: {
+            api: "modern-compiler",
+          },
+        },
+      },
+    });
   },
 };
 export default config;

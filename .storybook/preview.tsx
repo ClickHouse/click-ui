@@ -56,7 +56,7 @@ const withTheme: Decorator = (StoryFn, context) => {
   return (
     <ClickUIProvider
       key={`storybook-theme-${theme}`}
-      theme={theme as any}
+      theme={theme}
       config={{
         tooltip: { delayDuration: 100 },
         toast: { duration: 3000 },
@@ -101,23 +101,6 @@ const preview: Preview = {
     docs: {
       theme: themes.dark,
       codePanel: true,
-    },
-    backgrounds: {
-      default: "click-ui",
-      values: [
-        {
-          name: "click-ui",
-          value: "var(--click-storybook-global-background)",
-        },
-        {
-          name: "light",
-          value: "var(--click-storybook-global-background)",
-        },
-        {
-          name: "dark",
-          value: "var(--click-storybook-global-background)",
-        },
-      ],
     },
   },
 };

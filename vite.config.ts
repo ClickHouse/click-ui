@@ -72,6 +72,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        api: "modern-compiler",
         // Auto-inject tokens import in all SCSS files
         // Components can directly use: tokens.$clickGlobalColorBackgroundDefault
         additionalData: `@use "@/styles/tokens-light-dark.scss" as tokens;\n`,

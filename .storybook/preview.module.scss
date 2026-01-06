@@ -1,11 +1,11 @@
 .cuiThemeBlock {
   position: absolute;
-  inset: 0.5rem 0 0 0; // top, right, bottom, left
+  inset: 0.5rem 0 0 0;
   height: fit-content;
   overflow: auto;
   padding: 1rem;
   box-sizing: border-box;
-  background: var(--click-storybook-global-background);
+  background: tokens.$clickStorybookGlobalBackground;
 
   &.cuiLeft {
     left: 0;
