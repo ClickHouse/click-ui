@@ -26,6 +26,8 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   fillWidth?: boolean;
   /** Whether to show a loading state */
   loading?: boolean;
+  /** Whether to show the label text alongside the loading icon */
+  showLabelWithLoading?: boolean;
   /** Whether the button should be focused on mount */
   autoFocus?: boolean;
 }

@@ -53,6 +53,11 @@ const Alert = ({
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
+  const handleDismiss = () => {
+    setIsVisible(false);
+    onDismiss?.();
+  };
+
   const typeClass = `cuiType${capitalize(type)}`;
   const stateClass = `cuiState${capitalize(state)}`;
   const sizeClass = `cuiSize${capitalize(size)}`;
