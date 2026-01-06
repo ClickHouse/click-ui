@@ -9,7 +9,7 @@ const Indonesia = (props: React.SVGAttributes<SVGElement>): React.ReactElement =
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_15665_475)">
+    <g clipPath="url(#clip0_15665_475)">
       <path
         d="M0 0H30V20H0V0Z"
         fill="white"
