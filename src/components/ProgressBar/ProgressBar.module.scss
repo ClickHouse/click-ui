@@ -13,7 +13,7 @@
   border-radius: tokens.$clickFieldRadiiAll;
   font: var(--typography-styles-product-text-normal-sm);
   padding-right: 0;
-  color: var(--global-color-accent-default);
+  color: tokens.$clickGlobalColorAccentDefault;
   border: 1px solid tokens.$clickFieldColorStrokeDefault;
   background-size: calc(100% + 2px);
   background-position: center;
@@ -31,8 +31,8 @@
   @include variants.variant('cuiStatusIncomplete') {
     background: linear-gradient(
       to right,
-      var(--global-color-accent-default) 0%,
-      var(--global-color-accent-default) var(--progress),
+      tokens.$clickGlobalColorAccentDefault 0%,
+      tokens.$clickGlobalColorAccentDefault var(--progress),
       tokens.$clickFieldColorBackgroundDefault var(--progress),
       tokens.$clickFieldColorBackgroundDefault 100%
     );
@@ -52,8 +52,8 @@
     @include variants.variant('cuiStatusIncomplete') {
       background: linear-gradient(
         to right,
-        var(--global-color-accent-default) 0%,
-        var(--global-color-accent-default) var(--progress),
+        tokens.$clickGlobalColorAccentDefault 0%,
+        tokens.$clickGlobalColorAccentDefault var(--progress),
         tokens.$clickFieldColorBackgroundHover var(--progress),
         tokens.$clickFieldColorBackgroundHover 100%
       );
@@ -73,8 +73,8 @@
     @include variants.variant('cuiStatusIncomplete') {
       background: linear-gradient(
         to right,
-        var(--global-color-accent-default) 0%,
-        var(--global-color-accent-default) var(--progress),
+        tokens.$clickGlobalColorAccentDefault 0%,
+        tokens.$clickGlobalColorAccentDefault var(--progress),
         tokens.$clickFieldColorBackgroundActive var(--progress),
         tokens.$clickFieldColorBackgroundActive 100%
       );

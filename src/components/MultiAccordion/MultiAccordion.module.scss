@@ -39,10 +39,10 @@
 
 .cuiAccordionItem {
   border-radius: var(--border-radii-1);
-  background-color: var(--global-color-background-default);
+  background-color: tokens.$clickGlobalColorBackgroundDefault;
 
   &.cuiShowBorder {
-    border: 1px solid var(--global-color-stroke-default);
+    border: 1px solid tokens.$clickGlobalColorStrokeDefault;
   }
 
   &.cuiFillWidth {
@@ -62,16 +62,16 @@
     border-bottom-right-radius: 0px;
 
     [data-icon="accordion-status"] {
-      color: var(--global-color-accent-default);
+      color: tokens.$clickGlobalColorAccentDefault;
     }
   }
 
   [data-icon="accordion-status"] {
-    color: var(--global-color-stroke-intense);
+    color: tokens.$clickGlobalColorStrokeIntense;
   }
 
   &:hover {
-    background: var(--global-color-stroke-default);
+    background: tokens.$clickGlobalColorStrokeDefault;
     cursor: pointer;
   }
 
@@ -147,11 +147,11 @@
 .cuiCustomIcon {
   // Target SVG directly via data attribute that gets passed through props
   svg[data-cui-completed="true"] path {
-    stroke: var(--global-color-background-default) !important;
-    fill: var(--global-color-accent-default) !important;
+    stroke: tokens.$clickGlobalColorBackgroundDefault !important;
+    fill: tokens.$clickGlobalColorAccentDefault !important;
 
     &:first-of-type {
-      stroke: var(--global-color-accent-default) !important;
+      stroke: tokens.$clickGlobalColorAccentDefault !important;
     }
   }
 }

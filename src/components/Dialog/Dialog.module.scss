@@ -39,7 +39,7 @@
   background: tokens.$clickDialogColorBackgroundDefault;
   border-radius: tokens.$clickDialogRadiiAll;
   box-shadow: tokens.$clickDialogShadowDefault;
-  border: 1px solid var(--global-color-stroke-default);
+  border: 1px solid tokens.$clickGlobalColorStrokeDefault;
   width: 75%;
   max-width: 670px;
   position: fixed;

@@ -125,7 +125,7 @@
 
   // Border styles
   &.cuiHasBorder {
-    border: 1px solid var(--global-color-stroke-default);
+    border: 1px solid tokens.$clickGlobalColorStrokeDefault;
   }
 
   &.cuiNoBorder {
@@ -134,7 +134,7 @@
 
   // Shadow styles
   &.cuiHasShadow {
-    box-shadow: var(--shadow-1);
+    box-shadow: tokens.$clickPanelShadowDefault;
   }
 
   &.cuiNoShadow {

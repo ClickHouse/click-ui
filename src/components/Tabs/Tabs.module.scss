@@ -36,7 +36,7 @@
 }
 
 .cuiTriggersList {
-  border-bottom: 1px solid var(--global-color-stroke-default);
+  border-bottom: 1px solid tokens.$clickGlobalColorStrokeDefault;
   display: flex;
 }
 

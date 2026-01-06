@@ -127,11 +127,11 @@
   }
 
   h3 {
-    color: var(--global-color-text-default);
+    color: tokens.$clickGlobalColorTextDefault;
   }
 
   &.cuiDisabled h3 {
-    color: var(--global-color-text-muted);
+    color: tokens.$clickGlobalColorTextMuted;
   }
 
   // Icon wrapper sizing (applies to Icon component wrapper)

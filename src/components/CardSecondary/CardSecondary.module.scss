@@ -69,13 +69,13 @@
 
   h3,
   svg {
-    color: var(--global-color-text-default);
+    color: tokens.$clickGlobalColorTextDefault;
   }
 
   @include variants.variant('cuiDisabled') {
     h3,
     svg {
-      color: var(--global-color-text-muted);
+      color: tokens.$clickGlobalColorTextMuted;
     }
   }
 }

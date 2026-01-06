@@ -39,7 +39,7 @@
   gap: tokens.$clickToastSpaceGap;
   border-radius: tokens.$clickToastRadiiAll;
   border: 1px solid tokens.$clickToastColorStrokeDefault;
-  background: var(--global-color-background-default);
+  background: tokens.$clickGlobalColorBackgroundDefault;
   box-shadow: tokens.$clickToastShadow;
 
   &[data-state="open"] {
