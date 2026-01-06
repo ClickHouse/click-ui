@@ -31,7 +31,9 @@ const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
 
   // Set color-scheme on document root to enable light-dark() CSS function
   useEffect(() => {
-    if (typeof document === "undefined") return;
+    if (typeof document === "undefined") {
+      return;
+    }
 
     const root = document.documentElement;
     root.style.colorScheme = safeTheme;

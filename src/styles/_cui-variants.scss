@@ -1,17 +1,12 @@
-// Modern CSS variant mixins for low-specificity styling
-// Uses :where() to keep specificity at 0,0,1,0 for easy consumer overrides
-
 @use "sass:list";
 @use "sass:string";
 
-// Single variant with low specificity
 @mixin variant($class-name) {
   &:where(.#{$class-name}) {
     @content;
   }
 }
 
-// Multiple variants with shared styles using :is()
 @mixin variants($class-names...) {
   $selector: ();
   @each $name in $class-names {
@@ -23,14 +18,12 @@
   }
 }
 
-// Variant with state (e.g., primary + hover)
 @mixin variant-state($class-name, $state) {
   &:where(.#{$class-name}):#{$state} {
     @content;
   }
 }
 
-// Multiple variants with state
 @mixin variants-state($class-names, $state) {
   $selector: ();
   @each $name in $class-names {
@@ -42,8 +35,6 @@
   }
 }
 
-// Generate multiple variants from a map
-// Usage: @include variant-map((primary: (bg: red), secondary: (bg: blue)))
 @mixin variant-map($variants-map) {
   @each $name, $styles in $variants-map {
     @include variant($name) {
@@ -54,7 +45,6 @@
   }
 }
 
-// Size variants helper
 @mixin size-variants($sizes-map) {
   @each $size-name, $size-value in $sizes-map {
     @include variant('cui' + string.to-upper-case(string.slice($size-name, 1, 1)) + string.slice($size-name, 2)) {

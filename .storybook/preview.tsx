@@ -1,6 +1,5 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
-import "@/styles/cui-scss-theme.css";
 import { Decorator } from "@storybook/react-vite";
 import { themes } from "storybook/theming";
 import { ClickUIProvider } from "@/theme/ClickUIProvider";

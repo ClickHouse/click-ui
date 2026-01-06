@@ -14,7 +14,7 @@ Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems u
 
 ```typescript
 import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import '@clickhouse/click-ui/cui.css' // Don't forget the CSS!
+import '@clickhouse/click-ui/cui.css' // Required for styled-components (legacy components)
 import { useState } from 'react'
 
 function App() {
@@ -26,9 +26,9 @@ function App() {
 
   return (
     <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
+      <Switch
+        checked={theme === 'dark'}
+        onCheckedChange={() => toggleTheme()}
         label="Dark mode"
       />
 
@@ -40,6 +40,8 @@ function App() {
 
 export default App
 ```
+
+**Note:** Some components (Separator, Spacer) have been migrated to SCSS modules and no longer require the CSS import. Their styles are automatically included when you import the component. As more components are migrated, the CSS import will eventually become optional.
 
 ## To develop this library locally 🚀
 
