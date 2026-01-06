@@ -4,10 +4,10 @@ import { Theme } from "@/theme/types";
 import { BaseThemeName } from "@/theme/types";
 
 // Import base variables containing all tokens
-import baseVariables from "@/theme/tokens/variables.json";
+import baseVariables from "@/theme/tokens/variables.light";
 // Import theme-specific color overrides
-import lightVariables from "@/theme/tokens/variables.light.json";
-import darkVariables from "@/theme/tokens/variables.dark.json";
+import lightVariables from "@/theme/tokens/variables.light";
+import darkVariables from "@/theme/tokens/variables.dark";
 
 // Cached themes for better performance
 let BASE_THEMES: Record<BaseThemeName, Theme> | null = null;
@@ -28,7 +28,7 @@ let BASE_THEMES: Record<BaseThemeName, Theme> | null = null;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const deepMerge = (target: any, source: any): any => {
-  if (!source) return target;
+  if (!source) {return target;}
 
   const output = { ...target };
 
@@ -46,7 +46,7 @@ export const deepMerge = (target: any, source: any): any => {
 
 // Synchronous version for immediate access (with fallback)
 const getBaseThemesCached = (): Record<BaseThemeName, Theme> => {
-  if (BASE_THEMES) return BASE_THEMES;
+  if (BASE_THEMES) {return BASE_THEMES;}
 
   // Merge base tokens with theme-specific colors
   BASE_THEMES = {

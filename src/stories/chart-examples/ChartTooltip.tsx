@@ -4,7 +4,7 @@ import { useCUITheme } from "@/theme/ClickUIProvider";
 export const ChartTooltip = (props: any) => {
   const { active, payload, label } = props;
   const { theme } = useCUITheme();
-  if (!active || !payload || payload.length === 0) return null;
+  if (!active || !payload || payload.length === 0) {return null;}
 
   const background = theme.click.tooltip.color.background.default;
   const color = theme.click.tooltip.color.label.default;

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { StoryObj } from "@storybook/react-vite";
 import { Label } from "./Label";
 
 const FieldExample = ({

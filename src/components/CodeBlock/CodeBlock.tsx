@@ -73,7 +73,7 @@ export const CodeBlock = ({
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       let message = "Unable to copy code";
-      if (error instanceof Error) message = error.message;
+      if (error instanceof Error) {message = error.message;}
       setErrorCopy(true);
       if (typeof onCopyError === "function") {
         onCopyError(message);

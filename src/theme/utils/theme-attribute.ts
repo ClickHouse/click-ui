@@ -13,7 +13,7 @@ export type ThemeMode = "light" | "dark";
  * @param isSystem - Whether system preference mode is active
  */
 export const setThemeAttribute = (theme: ThemeMode, isSystem: boolean = false): void => {
-  if (typeof document === "undefined") return;
+  if (typeof document === "undefined") {return;}
 
   const root = document.documentElement;
 

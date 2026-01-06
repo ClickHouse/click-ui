@@ -5,9 +5,9 @@ import type {
   NestedJSONObject,
 } from "./types";
 import { deepMerge } from "./utils";
-import baseTheme from "./tokens/variables.json";
-import baseThemeLight from "./tokens/variables.light.json";
-import baseThemeDark from "./tokens/variables.dark.json";
+import baseTheme from "./tokens/variables.light";
+import baseThemeLight from "./tokens/variables.light";
+import baseThemeDark from "./tokens/variables.dark";
 
 declare global {
   const __CLICK_UI_CONFIG__: RuntimeConfig & BuildTimeThemeConfig;

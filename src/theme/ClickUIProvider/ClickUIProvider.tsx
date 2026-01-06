@@ -115,7 +115,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
 
   // Resolve current theme
   const resolvedTheme = useMemo<BaseThemeName>(() => {
-    if (!isHydrated) return fallbackTheme;
+    if (!isHydrated) {return fallbackTheme;}
 
     switch (currentTheme) {
       case "system":
@@ -232,7 +232,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
 
   // Apply theme switching with pre-built CSS
   useEffect(() => {
-    if (!isHydrated) return;
+    if (!isHydrated) {return;}
 
     const isSystem = currentTheme === "system";
 
