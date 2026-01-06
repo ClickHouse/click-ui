@@ -6,8 +6,10 @@ import { capitalize } from "@/utils/capitalize";
 import { IconButton } from "@/components";
 import styles from "./ProgressBar.module.scss";
 
-interface CommonProgressBarProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+interface CommonProgressBarProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   progress: number;
   label?: ReactNode;
   error?: ReactNode;

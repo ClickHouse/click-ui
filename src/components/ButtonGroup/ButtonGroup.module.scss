@@ -75,7 +75,7 @@
     color: tokens.$clickButtonGroupColorTextDisabled;
 
     &.cuiActive {
-      background: tokens.$clickButtonGroupColorBackgroundDisabledActive;
+      background: tokens.$clickButtonGroupColorBackgroundDisabled;
     }
 
     &.cuiInactive {
@@ -97,7 +97,7 @@
     color: tokens.$clickButtonGroupColorTextActive;
 
     &:disabled {
-      background: tokens.$clickButtonGroupColorBackgroundDisabledActive;
+      background: tokens.$clickButtonGroupColorBackgroundDisabled;
     }
   }
 }

@@ -78,10 +78,9 @@ const TabsComponent = forwardRef<HTMLDivElement, TabsProps>(
 
 TabsComponent.displayName = "Tabs";
 
-interface TabsCompoundComponent
-  extends React.ForwardRefExoticComponent<
-    TabsProps & React.RefAttributes<HTMLDivElement>
-  > {
+interface TabsCompoundComponent extends React.ForwardRefExoticComponent<
+  TabsProps & React.RefAttributes<HTMLDivElement>
+> {
   TriggersList: typeof TriggersList;
   Trigger: typeof Trigger;
   Content: typeof Content;
@@ -119,10 +118,9 @@ const FullWidthTrigger = forwardRef<HTMLButtonElement, FullWidthTriggerProps>(
 
 FullWidthTrigger.displayName = "FullWidthTrigger";
 
-interface FullWidthTabsCompoundComponent
-  extends React.ForwardRefExoticComponent<
-    FullWidthTabsProps & React.RefAttributes<HTMLDivElement>
-  > {
+interface FullWidthTabsCompoundComponent extends React.ForwardRefExoticComponent<
+  FullWidthTabsProps & React.RefAttributes<HTMLDivElement>
+> {
   TriggersList: typeof TriggersList;
   Trigger: typeof FullWidthTrigger;
   Content: typeof Content;

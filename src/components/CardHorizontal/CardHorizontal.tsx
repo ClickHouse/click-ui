@@ -17,8 +17,10 @@ import styles from "./CardHorizontal.module.scss";
 type CardColor = "default" | "muted";
 export type CardSize = "sm" | "md";
 
-export interface CardHorizontalProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface CardHorizontalProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "title"
+> {
   title?: ReactNode;
   icon?: IconName;
   disabled?: boolean;

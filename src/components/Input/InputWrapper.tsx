@@ -159,8 +159,7 @@ export const NumberInputElement = React.forwardRef<
   />
 ));
 
-export interface TextAreaElementProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+export interface TextAreaElementProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 export const TextAreaElement = React.forwardRef<
   HTMLTextAreaElement,

@@ -1,4 +1,5 @@
- "@/theme/tokens/types" as tokens;
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiResponsiveGridContainer {
   grid-template-columns: repeat(6, 1fr);

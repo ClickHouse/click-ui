@@ -1,4 +1,5 @@
- "@/theme/tokens/types" as tokens;
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
 
 .cuiLoadingFlipped {
   transform: scaleX(-1);

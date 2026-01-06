@@ -10,7 +10,9 @@
  * capitalize('space-around') // 'SpaceAround'
  */
 export const capitalize = (str: string): string => {
-  if (!str) {return str;}
+  if (!str) {
+    return str;
+  }
 
   // Convert kebab-case to PascalCase
   return str

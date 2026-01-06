@@ -3,8 +3,8 @@
 
 .cuiSelectPopoverRoot {
   width: 100%;
-  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
-  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
+  border: 1px solid tokens.$clickGenericMenuItemColorDefaultStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorDefaultBackgroundDefault;
   box-shadow:
     0px 1px 3px 0px rgba(16, 24, 40, 0.1),
     0px 1px 2px 0px rgba(16, 24, 40, 0.06);
@@ -33,7 +33,7 @@
   overflow: hidden;
   background: transparent;
   font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
-  color: tokens.$clickGenericMenuItemColorTextMuted;
+  color: tokens.$clickGenericMenuItemColorDefaultTextMuted;
 
   &[aria-selected] {
     outline: none;
@@ -52,11 +52,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
-  color: tokens.$clickGenericMenuItemColorTextMuted;
+  color: tokens.$clickGenericMenuItemColorDefaultTextMuted;
   padding: tokens.$clickGenericMenuSectionHeaderSpaceTop tokens.$clickGenericMenuItemSpaceX
     tokens.$clickGenericMenuSectionHeaderSpaceBottom;
   gap: tokens.$clickGenericMenuItemSpaceGap;
-  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorDefaultStrokeDefault;
 }
 
 .cuiSelectGroupContent {
@@ -92,8 +92,8 @@
   flex-direction: column;
   width: inherit;
   max-height: var(--radix-popover-content-available-height);
-  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
-  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
+  border: 1px solid tokens.$clickGenericMenuItemColorDefaultStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorDefaultBackgroundDefault;
   box-shadow: tokens.$clickGenericMenuPanelShadowDefault;
   border-radius: 0.25rem;
 }

@@ -23,8 +23,8 @@
 
   &[data-state="open"] {
     font: tokens.$clickGenericMenuItemTypographyLabelHover;
-    background: tokens.$clickGenericMenuItemColorBackgroundHover;
-    color: tokens.$clickGenericMenuItemColorTextHover;
+    background: tokens.$clickGenericMenuItemColorDefaultBackgroundHover;
+    color: tokens.$clickGenericMenuItemColorDefaultTextHover;
     cursor: pointer;
   }
 }
@@ -86,12 +86,12 @@
 /* Menu group */
 .cuiMenuGroup {
   width: 100%;
-  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorDefaultStrokeDefault;
 }
 
 /* Menu sub */
 .cuiMenuSub {
-  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorDefaultStrokeDefault;
 }
 
 /* Arrow styling */

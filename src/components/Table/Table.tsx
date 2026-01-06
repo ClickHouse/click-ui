@@ -177,8 +177,10 @@ interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
 }
 
-export interface TableRowType
-  extends Omit<HTMLAttributes<HTMLTableRowElement>, "onSelect" | "id"> {
+export interface TableRowType extends Omit<
+  HTMLAttributes<HTMLTableRowElement>,
+  "onSelect" | "id"
+> {
   id: string | number;
   items: Array<TableCellType>;
   isDisabled?: boolean;
@@ -188,8 +190,10 @@ export interface TableRowType
   isIndeterminate?: boolean;
 }
 
-interface CommonTableProps
-  extends Omit<HTMLAttributes<HTMLTableElement>, "children" | "onSelect"> {
+interface CommonTableProps extends Omit<
+  HTMLAttributes<HTMLTableElement>,
+  "children" | "onSelect"
+> {
   headers: Array<TableHeaderType>;
   rows: Array<TableRowType>;
   onDelete?: (item: TableRowType, index: number) => void;

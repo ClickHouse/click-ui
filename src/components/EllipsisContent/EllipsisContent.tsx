@@ -9,8 +9,9 @@ import {
 } from "@/utils/polymorphic";
 import styles from "./EllipsisContent.module.scss";
 
-export interface EllipsisContentProps<T extends ElementType = "div">
-  extends PolymorphicComponentProps<T> {}
+export interface EllipsisContentProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {}
 
 const _EllipsisContent = <T extends ElementType = "div">(
   { component, className, ...props }: PolymorphicProps<T, EllipsisContentProps<T>>,

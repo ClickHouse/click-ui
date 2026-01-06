@@ -50,11 +50,8 @@
   },
   "homepage": "https://clickhouse.com",
   "scripts": {
-    "build": "npm run generate-theme-css && tsc && vite build && npm run build:bundled && npm run copy-css-files",
+    "build": "tsc && vite build && yarn build:bundled",
     "build:bundled": "vite build -- bundled",
-    "copy-css-files": "npm run rename-css && cp src/styles/cui-default-theme.css dist/ && npm run build-combined-css",
-    "rename-css": "mv dist/style.css dist/cui-components.css",
-    "build-combined-css": "echo '/* Click UI - Combined CSS */\n@import \"./cui-default-theme.css\";\n@import \"./cui-components.css\";' > dist/cui.css",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
     "chromatic": "npx chromatic",
