@@ -14,33 +14,33 @@
 
   /* Icon sizing - applied to wrapper using :where() for low specificity */
   @include variants.variant('cuiSizeXs') {
-    width: var(--click-image-xs-size-width, 12px);
-    height: var(--click-image-xs-size-height, 12px);
+    width: tokens.$clickImageXsSizeWidth;
+    height: tokens.$clickImageXsSizeHeight;
   }
 
   @include variants.variant('cuiSizeSm') {
-    width: var(--click-image-sm-size-width, 16px);
-    height: var(--click-image-sm-size-height, 16px);
+    width: tokens.$clickImageSmSizeWidth;
+    height: tokens.$clickImageSmSizeHeight;
   }
 
   @include variants.variant('cuiSizeMd') {
-    width: var(--click-image-md-size-width, 24px);
-    height: var(--click-image-md-size-height, 24px);
+    width: tokens.$clickImageMdSizeWidth;
+    height: tokens.$clickImageMdSizeHeight;
   }
 
   @include variants.variant('cuiSizeLg') {
-    width: var(--click-image-lg-size-width, 32px);
-    height: var(--click-image-lg-size-height, 32px);
+    width: tokens.$clickImageLgSizeWidth;
+    height: tokens.$clickImageLgSizeHeight;
   }
 
   @include variants.variant('cuiSizeXl') {
-    width: var(--click-image-xl-size-width, 48px);
-    height: var(--click-image-xl-size-height, 48px);
+    width: tokens.$clickImageXlSizeWidth;
+    height: tokens.$clickImageXlSizeHeight;
   }
 
   @include variants.variant('cuiSizeXxl') {
-    width: var(--click-image-xxl-size-width, 64px);
-    height: var(--click-image-xxl-size-height, 64px);
+    width: tokens.$clickImageXxlSizeWidth;
+    height: tokens.$clickImageXxlSizeHeight;
   }
 
   /* Icon states with background and padding using :where() for low specificity */
@@ -52,7 +52,7 @@
   @include variants.variant('cuiStateSuccess') {
     background: tokens.$clickIconColorBackgroundSuccess;
     color: tokens.$clickIconColorTextSuccess;
-    border-radius: var(--border-radii-full);
+    border-radius: 50%;
 
     @include variants.variant('cuiSizeXs') {
       padding: tokens.$clickIconSpaceXsAll;
@@ -82,7 +82,7 @@
   @include variants.variant('cuiStateWarning') {
     background: tokens.$clickIconColorBackgroundWarning;
     color: tokens.$clickIconColorTextWarning;
-    border-radius: var(--border-radii-full);
+    border-radius: 50%;
 
     @include variants.variant('cuiSizeXs') {
       padding: tokens.$clickIconSpaceXsAll;
@@ -112,7 +112,7 @@
   @include variants.variant('cuiStateDanger') {
     background: tokens.$clickIconColorBackgroundDanger;
     color: tokens.$clickIconColorTextDanger;
-    border-radius: var(--border-radii-full);
+    border-radius: 50%;
 
     @include variants.variant('cuiSizeXs') {
       padding: tokens.$clickIconSpaceXsAll;
@@ -142,7 +142,7 @@
   @include variants.variant('cuiStateInfo') {
     background: tokens.$clickIconColorBackgroundInfo;
     color: tokens.$clickIconColorTextInfo;
-    border-radius: var(--border-radii-full);
+    border-radius: 50%;
 
     @include variants.variant('cuiSizeXs') {
       padding: tokens.$clickIconSpaceXsAll;

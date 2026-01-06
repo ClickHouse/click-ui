@@ -3,35 +3,8 @@
 
 $explicit-width: 250px;
 
-/* DateRangePicker input customization variables */
-/* Override these to customize the DateRangePicker input appearance */
+/* DateRangePicker input wrapper */
 .cuiHighlightedInputWrapper {
-  /* Input CSS variables - fallback to field tokens if missing */
-  --click-input-radii-default: var(--click-field-radii-all, 0.25rem);
-  --click-input-stroke-default: 1px;
-  --click-input-typography-default: var(--click-field-typography-fieldText-default, 0.875rem);
-  --click-input-transitions-all: var(--transition-default, all 100ms ease-in);
-  --click-input-color-background-default: var(--click-field-color-background-default, #FBFCFF);
-  --click-input-color-text-default: var(--click-field-color-text-default, #302e32);
-  --click-input-color-stroke-default: var(--click-field-color-stroke-default, #e6e7e9);
-  --click-input-color-background-hover: var(--click-field-color-background-hover, #f6f7fa);
-  --click-input-color-text-hover: var(--click-field-color-text-hover, #302e32);
-  --click-input-color-stroke-hover: var(--click-field-color-stroke-hover, #cccfd3);
-  --click-input-color-background-focus: var(--click-field-color-background-active, #ffffff);
-  --click-input-color-text-focus: var(--click-field-color-text-active, #161517);
-  --click-input-color-stroke-focus: var(--click-field-color-stroke-active, #161517);
-  --click-input-color-background-disabled: var(--click-field-color-background-disabled, #dfdfdf);
-  --click-input-color-text-disabled: var(--click-field-color-text-disabled, #a0a0a0);
-  --click-input-color-stroke-disabled: var(--click-field-color-stroke-disabled, #dfdfdf);
-  --click-input-color-background-error: var(--click-field-color-background-error, #ffffff);
-  --click-input-color-text-error: var(--click-field-color-text-error, #c10000);
-  --click-input-color-stroke-error: var(--click-field-color-stroke-error, #c10000);
-  --click-input-md-space-x: var(--click-field-space-x, 0.75rem);
-  --click-input-md-space-y: var(--click-field-space-y, 0.281rem);
-  --click-input-md-space-gap: var(--click-field-space-gap, 0.5rem);
-  --click-input-md-size-height: 2.5rem;
-
-  /* Component styling */
   width: $explicit-width;
 
   @include variants.variant('cuiActive') {
@@ -65,7 +38,7 @@ $explicit-width: 250px;
 .cuiDateTable {
   border-collapse: separate;
   border-spacing: 0;
-  font: var(--typography-styles-product-text-normal-md);
+  font: tokens.$clickDatePickerDateOptionTypographyLabelDefault;
   table-layout: fixed;
   user-select: none;
   width: $explicit-width;

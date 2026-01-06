@@ -158,15 +158,15 @@
 
 .cuiFlyoutHeaderContainer {
   @include variants.variant('cuiTypeDefault') {
-    row-gap: tokens.$clickFlyoutSpaceDefaultContentRowGap;
-    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumnGap;
+    row-gap: tokens.$clickFlyoutSpaceDefaultContentRow-gap;
+    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultY 0
       tokens.$clickFlyoutSpaceDefaultY;
   }
 
   @include variants.variant('cuiTypeInline') {
-    row-gap: tokens.$clickFlyoutSpaceInlineContentRowGap;
-    column-gap: tokens.$clickFlyoutSpaceInlineContentColumnGap;
+    row-gap: tokens.$clickFlyoutSpaceInlineContentRow-gap;
+    column-gap: tokens.$clickFlyoutSpaceInlineContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineY 0 tokens.$clickFlyoutSpaceInlineY;
   }
 }
@@ -216,14 +216,14 @@
 
 .cuiFlyoutFooter {
   @include variants.variant('cuiTypeDefault') {
-    row-gap: tokens.$clickFlyoutSpaceDefaultContentRowGap;
-    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumnGap;
+    row-gap: tokens.$clickFlyoutSpaceDefaultContentRow-gap;
+    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultContentX;
   }
 
   @include variants.variant('cuiTypeInline') {
-    row-gap: tokens.$clickFlyoutSpaceInlineContentRowGap;
-    column-gap: tokens.$clickFlyoutSpaceInlineContentColumnGap;
+    row-gap: tokens.$clickFlyoutSpaceInlineContentRow-gap;
+    column-gap: tokens.$clickFlyoutSpaceInlineContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineContentX;
   }
 }
