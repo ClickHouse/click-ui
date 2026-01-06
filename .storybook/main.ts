@@ -68,8 +68,11 @@ const config: StorybookConfig = {
       };
     }
 
-    // Don't add SCSS config here - it should inherit from root vite.config.ts
-    // This prevents CSS injection order issues with styled-components
+    // Ensure styled-components styles are injected after CSS modules
+    // This fixes CSS specificity issues when components use polymorphic 'as' prop
+    config.build = config.build || {};
+    config.build.cssCodeSplit = false;
+
     return config;
   },
 };
