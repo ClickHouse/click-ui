@@ -4,7 +4,7 @@
 .cuiRadioGroupRoot {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--click-checkbox-space-gap);
+  gap: tokens.$clickCheckboxSpaceGap;
 
   @include variants.variant('cuiInline') {
     flex-direction: row;
@@ -16,15 +16,15 @@
 
   @include variants.variant('cuiError') {
     label {
-      color: var(--click-field-color-label-error);
+      color: tokens.$clickFieldColorLabelError;
     }
   }
 }
 
 .cuiWrapper {
   @include mixins.cuiFormRoot($align: center);
-  padding: var(--click-checkbox-space-all);
-  gap: var(--click-checkbox-space-gap);
+  padding: tokens.$clickCheckboxSpaceAll;
+  gap: tokens.$clickCheckboxSpaceGap;
   width: auto;
 }
 
@@ -34,29 +34,29 @@
   justify-content: center;
   outline: none;
   cursor: pointer;
-  border-radius: var(--click-radio-radii-all);
+  border-radius: tokens.$clickRadioRadiiAll;
   width: 1rem;
   height: 1rem;
-  background: var(--click-radio-color-background-default);
-  border: 1px solid var(--click-radio-color-stroke-default);
+  background: tokens.$clickRadioColorBackgroundDefault;
+  border: 1px solid tokens.$clickRadioColorStrokeDefault;
 
   &:hover {
-    background: var(--click-radio-color-background-hover);
+    background: tokens.$clickRadioColorBackgroundHover;
   }
 
   &[data-state="checked"] {
-    border-color: var(--click-radio-color-stroke-active);
-    background: var(--click-radio-color-background-active);
+    border-color: tokens.$clickRadioColorStrokeActive;
+    background: tokens.$clickRadioColorBackgroundActive;
   }
 
   &[data-disabled] {
-    background: var(--click-radio-color-background-disabled);
-    border-color: var(--click-radio-color-stroke-disabled);
+    background: tokens.$clickRadioColorBackgroundDisabled;
+    border-color: tokens.$clickRadioColorStrokeDisabled;
   }
 }
 
 .cuiRadioGroupIndicator {
-  background: var(--click-radio-color-background-default);
+  background: tokens.$clickRadioColorBackgroundDefault;
 
   &::after {
     content: "";
@@ -64,30 +64,30 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: var(--click-radio-color-indicator-default);
+    background-color: tokens.$clickRadioColorIndicatorDefault;
   }
 
   &:hover {
-    background: var(--click-radio-color-background-hover);
+    background: tokens.$clickRadioColorBackgroundHover;
 
     &::after {
-      background: var(--click-radio-color-indicator-hover);
+      background: tokens.$clickRadioColorIndicatorHover;
     }
   }
 
   &[data-state="checked"] {
-    background: var(--click-radio-color-background-active);
+    background: tokens.$clickRadioColorBackgroundActive;
 
     &::after {
-      background: var(--click-radio-color-indicator-active);
+      background: tokens.$clickRadioColorIndicatorActive;
     }
   }
 
   &[data-disabled] {
-    background: var(--click-radio-color-background-disabled);
+    background: tokens.$clickRadioColorBackgroundDisabled;
 
     &::after {
-      background: var(--click-radio-color-indicator-disabled);
+      background: tokens.$clickRadioColorIndicatorDisabled;
     }
   }
 }

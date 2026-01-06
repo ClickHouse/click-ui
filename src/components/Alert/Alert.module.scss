@@ -4,14 +4,14 @@
 // Icon styles with composes - overrides Icon's default size
 .cuiStyledIconSmall {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  height: var(--click-alert-small-icon-height);
-  width: var(--click-alert-small-icon-width);
+  height: tokens.$clickAlertSmallIconHeight;
+  width: tokens.$clickAlertSmallIconWidth;
 }
 
 .cuiStyledIconMedium {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  height: var(--click-alert-medium-icon-height);
-  width: var(--click-alert-medium-icon-width);
+  height: tokens.$clickAlertMediumIconHeight;
+  width: tokens.$clickAlertMediumIconWidth;
 }
 
 
@@ -22,7 +22,7 @@
 
   @include variants.variant('cuiTypeDefault') {
     justify-content: flex-start;
-    border-radius: var(--click-alert-radii-end);
+    border-radius: tokens.$clickAlertRadiiEnd;
   }
 
   @include variants.variant('cuiTypeBanner') {
@@ -32,28 +32,28 @@
 
   // State colors
   @include variants.variant('cuiStateNeutral') {
-    background-color: var(--click-alert-color-background-neutral);
-    color: var(--click-alert-color-text-neutral);
+    background-color: tokens.$clickAlertColorBackgroundNeutral;
+    color: tokens.$clickAlertColorTextNeutral;
   }
 
   @include variants.variant('cuiStateSuccess') {
-    background-color: var(--click-alert-color-background-success);
-    color: var(--click-alert-color-text-success);
+    background-color: tokens.$clickAlertColorBackgroundSuccess;
+    color: tokens.$clickAlertColorTextSuccess;
   }
 
   @include variants.variant('cuiStateWarning') {
-    background-color: var(--click-alert-color-background-warning);
-    color: var(--click-alert-color-text-warning);
+    background-color: tokens.$clickAlertColorBackgroundWarning;
+    color: tokens.$clickAlertColorTextWarning;
   }
 
   @include variants.variant('cuiStateDanger') {
-    background-color: var(--click-alert-color-background-danger);
-    color: var(--click-alert-color-text-danger);
+    background-color: tokens.$clickAlertColorBackgroundDanger;
+    color: tokens.$clickAlertColorTextDanger;
   }
 
   @include variants.variant('cuiStateInfo') {
-    background-color: var(--click-alert-color-background-info);
-    color: var(--click-alert-color-text-info);
+    background-color: tokens.$clickAlertColorBackgroundInfo;
+    color: tokens.$clickAlertColorTextInfo;
   }
 }
 
@@ -63,23 +63,23 @@
 
   @include variants.variant('cuiTypeDefault') {
     @include variants.variant('cuiStateNeutral') {
-      background-color: var(--click-alert-color-iconBackground-neutral);
+      background-color: tokens.$clickAlertColorIconBackgroundNeutral;
     }
 
     @include variants.variant('cuiStateSuccess') {
-      background-color: var(--click-alert-color-iconBackground-success);
+      background-color: tokens.$clickAlertColorIconBackgroundSuccess;
     }
 
     @include variants.variant('cuiStateWarning') {
-      background-color: var(--click-alert-color-iconBackground-warning);
+      background-color: tokens.$clickAlertColorIconBackgroundWarning;
     }
 
     @include variants.variant('cuiStateDanger') {
-      background-color: var(--click-alert-color-iconBackground-danger);
+      background-color: tokens.$clickAlertColorIconBackgroundDanger;
     }
 
     @include variants.variant('cuiStateInfo') {
-      background-color: var(--click-alert-color-iconBackground-info);
+      background-color: tokens.$clickAlertColorIconBackgroundInfo;
     }
   }
 
@@ -89,32 +89,32 @@
 
   // Icon colors for different states
   @include variants.variant('cuiStateNeutral') {
-    color: var(--click-alert-color-iconForeground-neutral);
+    color: tokens.$clickAlertColorIconForegroundNeutral;
   }
 
   @include variants.variant('cuiStateSuccess') {
-    color: var(--click-alert-color-iconForeground-success);
+    color: tokens.$clickAlertColorIconForegroundSuccess;
   }
 
   @include variants.variant('cuiStateWarning') {
-    color: var(--click-alert-color-iconForeground-warning);
+    color: tokens.$clickAlertColorIconForegroundWarning;
   }
 
   @include variants.variant('cuiStateDanger') {
-    color: var(--click-alert-color-iconForeground-danger);
+    color: tokens.$clickAlertColorIconForegroundDanger;
   }
 
   @include variants.variant('cuiStateInfo') {
-    color: var(--click-alert-color-iconForeground-info);
+    color: tokens.$clickAlertColorIconForegroundInfo;
   }
 
   // Size-based padding
   @include variants.variant('cuiSizeSmall') {
-    padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
+    padding: tokens.$clickAlertSmallSpaceY tokens.$clickAlertSmallSpaceX;
   }
 
   @include variants.variant('cuiSizeMedium') {
-    padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
+    padding: tokens.$clickAlertMediumSpaceY tokens.$clickAlertMediumSpaceX;
   }
 }
 
@@ -124,13 +124,13 @@
   word-break: break-word;
 
   @include variants.variant('cuiSizeSmall') {
-    gap: var(--click-alert-small-space-gap);
-    padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
+    gap: tokens.$clickAlertSmallSpaceGap;
+    padding: tokens.$clickAlertSmallSpaceY tokens.$clickAlertSmallSpaceX;
   }
 
   @include variants.variant('cuiSizeMedium') {
-    gap: var(--click-alert-medium-space-gap);
-    padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
+    gap: tokens.$clickAlertMediumSpaceGap;
+    padding: tokens.$clickAlertMediumSpaceY tokens.$clickAlertMediumSpaceX;
   }
 
   a {
@@ -144,11 +144,11 @@
   margin: 0;
 
   @include variants.variant('cuiSizeSmall') {
-    font: var(--click-alert-small-typography-title-default);
+    font: tokens.$clickAlertSmallTypographyTitleDefault;
   }
 
   @include variants.variant('cuiSizeMedium') {
-    font: var(--click-alert-medium-typography-title-default);
+    font: tokens.$clickAlertMediumTypographyTitleDefault;
   }
 }
 
@@ -156,11 +156,11 @@
   margin: 0;
 
   @include variants.variant('cuiSizeSmall') {
-    font: var(--click-alert-small-typography-text-default);
+    font: tokens.$clickAlertSmallTypographyTextDefault;
   }
 
   @include variants.variant('cuiSizeMedium') {
-    font: var(--click-alert-medium-typography-text-default);
+    font: tokens.$clickAlertMediumTypographyTextDefault;
   }
 }
 

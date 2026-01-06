@@ -2,36 +2,36 @@
 @use "cui-variants" as variants;
 
 .cuiTrigger {
-  padding: var(--click-tabs-space-y) var(--click-tabs-space-x);
-  border-top-left-radius: var(--click-tabs-radii-all);
-  border-top-right-radius: var(--click-tabs-radii-all);
+  padding: tokens.$clickTabsSpaceY tokens.$clickTabsSpaceX;
+  border-top-left-radius: tokens.$clickTabsRadiiAll;
+  border-top-right-radius: tokens.$clickTabsRadiiAll;
   border: none;
-  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-default);
-  background-color: var(--click-tabs-basic-color-background-default);
-  color: var(--click-tabs-basic-color-text-default);
-  font: var(--click-tabs-typography-label-default);
+  border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeDefault;
+  background-color: tokens.$clickTabsBasicColorBackgroundDefault;
+  color: tokens.$clickTabsBasicColorTextDefault;
+  font: tokens.$clickTabsTypographyLabelDefault;
   cursor: pointer;
 
   /* Active state styles - using Radix UI's data-state attribute */
   &[data-state="active"] {
-    border-bottom: 2px solid var(--click-tabs-basic-color-stroke-active);
-    color: var(--click-tabs-basic-color-text-active);
-    font: var(--click-tabs-typography-label-active);
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
+    color: tokens.$clickTabsBasicColorTextActive;
+    font: tokens.$clickTabsTypographyLabelActive;
 
     &:hover {
-      font: var(--click-tabs-typography-label-active);
+      font: tokens.$clickTabsTypographyLabelActive;
     }
   }
 
   &:hover {
-    border-bottom: 2px solid var(--click-tabs-basic-color-stroke-hover);
-    background-color: var(--click-tabs-basic-color-background-hover);
-    color: var(--click-tabs-basic-color-text-hover);
-    font: var(--click-tabs-typography-label-hover);
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeHover;
+    background-color: tokens.$clickTabsBasicColorBackgroundHover;
+    color: tokens.$clickTabsBasicColorTextHover;
+    font: tokens.$clickTabsTypographyLabelHover;
   }
 
   &:hover[data-state="active"] {
-    border-bottom: 2px solid var(--click-tabs-basic-color-stroke-active);
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
   }
 }
 
@@ -49,14 +49,14 @@
 }
 
 .cuiFullWidthTrigger {
-  padding: var(--click-tabs-space-y) var(--click-tabs-space-x);
-  border-top-left-radius: var(--click-tabs-radii-all);
-  border-top-right-radius: var(--click-tabs-radii-all);
+  padding: tokens.$clickTabsSpaceY tokens.$clickTabsSpaceX;
+  border-top-left-radius: tokens.$clickTabsRadiiAll;
+  border-top-right-radius: tokens.$clickTabsRadiiAll;
   border: none;
-  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-default);
-  background-color: var(--click-tabs-basic-color-background-default);
-  color: var(--click-tabs-basic-color-text-default);
-  font: var(--click-tabs-typography-label-default);
+  border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeDefault;
+  background-color: tokens.$clickTabsBasicColorBackgroundDefault;
+  color: tokens.$clickTabsBasicColorTextDefault;
+  font: tokens.$clickTabsTypographyLabelDefault;
   cursor: pointer;
   flex-basis: auto;
   flex-grow: 1;
@@ -64,24 +64,24 @@
 
   /* Active state styles - using Radix UI's data-state attribute */
   &[data-state="active"] {
-    border-bottom: 2px solid var(--click-tabs-basic-color-stroke-active);
-    color: var(--click-tabs-basic-color-text-active);
-    font: var(--click-tabs-typography-label-active);
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
+    color: tokens.$clickTabsBasicColorTextActive;
+    font: tokens.$clickTabsTypographyLabelActive;
 
     &:hover {
-      font: var(--click-tabs-typography-label-active);
+      font: tokens.$clickTabsTypographyLabelActive;
     }
   }
 
   &:hover {
-    border-bottom: 2px solid var(--click-tabs-basic-color-stroke-hover);
-    background-color: var(--click-tabs-basic-color-background-hover);
-    color: var(--click-tabs-basic-color-text-hover);
-    font: var(--click-tabs-typography-label-hover);
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeHover;
+    background-color: tokens.$clickTabsBasicColorBackgroundHover;
+    color: tokens.$clickTabsBasicColorTextHover;
+    font: tokens.$clickTabsTypographyLabelHover;
   }
 
   &:hover[data-state="active"] {
-    border-bottom: 2px solid var(--click-tabs-basic-color-stroke-active);
+    border-bottom: 2px solid tokens.$clickTabsBasicColorStrokeActive;
   }
 
   /* Custom width variant */

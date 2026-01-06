@@ -3,7 +3,7 @@
 
 .cuiPredefinedCalendarContainer {
   align-items: start;
-  background: var(--click-panel-color-background-muted);
+  background: tokens.$clickPanelColorBackgroundMuted;
 }
 
 .cuiPredefinedDatesContainer {
@@ -12,8 +12,8 @@
 
 // left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
 .cuiCalendarRendererContainer {
-  border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-background-range);
-  border-radius: var(--click-datePicker-dateOption-radii-default);
+  border: tokens.$clickDatePickerDateOptionStroke solid tokens.$clickDatePickerDateOptionColorBackgroundRange;
+  border-radius: tokens.$clickDatePickerDateOptionRadiiDefault;
   box-shadow:
     lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
     lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
@@ -24,7 +24,7 @@
 
 // Height of 221px is height the height the calendar needs to match the PredefinedDatesContainer
 .cuiStyledCalendarRenderer {
-  border-radius: var(--click-datePicker-dateOption-radii-default);
+  border-radius: tokens.$clickDatePickerDateOptionRadiiDefault;
   min-height: 221px;
 }
 
@@ -40,8 +40,8 @@
 
 .cuiDateRangeTableCell {
   @include variants.variant('cuiShowRangeIndicator') {
-    background: var(--click-datePicker-dateOption-color-background-range);
-    border: var(--click-datePicker-dateOption-stroke) solid var(--click-datePicker-dateOption-color-background-range);
+    background: tokens.$clickDatePickerDateOptionColorBackgroundRange;
+    border: tokens.$clickDatePickerDateOptionStroke solid tokens.$clickDatePickerDateOptionColorBackgroundRange;
     border-radius: 0;
   }
 }

@@ -27,38 +27,38 @@
   // Base item styles (level 0)
   &.cuiItem {
     @include variants.variant('cuiTypeMain') {
-      padding: var(--click-sidebar-navigation-item-default-space-y)
-        var(--click-sidebar-navigation-item-default-space-right) var(--click-sidebar-navigation-item-default-space-y)
-        var(--click-image-sm-size-width);
-      border-radius: var(--click-sidebar-navigation-item-radii-all);
-      font: var(--click-sidebar-navigation-item-typography-default);
-      background-color: var(--click-sidebar-main-navigation-item-color-background-default);
-      color: var(--click-sidebar-main-navigation-item-color-text-default);
+      padding: tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickSidebarNavigationItemDefaultSpaceRight tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationItemRadiiAll;
+      font: tokens.$clickSidebarNavigationItemTypographyDefault;
+      background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundDefault;
+      color: tokens.$clickSidebarMainNavigationItemColorTextDefault;
 
       &:hover,
       &:focus {
-        font: var(--click-sidebar-navigation-item-typography-hover);
-        background-color: var(--click-sidebar-main-navigation-item-color-background-hover);
-        color: var(--click-sidebar-main-navigation-item-color-text-hover);
+        font: tokens.$clickSidebarNavigationItemTypographyHover;
+        background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundHover;
+        color: tokens.$clickSidebarMainNavigationItemColorTextHover;
         pointer-events: auto;
       }
 
       &:active {
-        font: var(--click-sidebar-navigation-item-typography-active);
-        background-color: var(--click-sidebar-main-navigation-item-color-background-active);
-        color: var(--click-sidebar-main-navigation-item-color-text-active);
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiSelected') {
-        font: var(--click-sidebar-navigation-item-typography-active);
-        background-color: var(--click-sidebar-main-navigation-item-color-background-active);
-        color: var(--click-sidebar-main-navigation-item-color-text-active);
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiDisabled') {
-        color: var(--click-sidebar-main-navigation-item-color-text-disabled);
+        color: tokens.$clickSidebarMainNavigationItemColorTextDisabled;
         pointer-events: none;
         cursor: not-allowed;
 
@@ -66,69 +66,69 @@
         &:focus,
         &:active,
         &:focus-within {
-          color: var(--click-sidebar-main-navigation-item-color-text-disabled);
+          color: tokens.$clickSidebarMainNavigationItemColorTextDisabled;
         }
 
         @include variants.variant('cuiSelected') {
-          color: var(--click-sidebar-main-navigation-item-color-text-disabled);
+          color: tokens.$clickSidebarMainNavigationItemColorTextDisabled;
         }
       }
 
       @include mixins.cuiMobile {
-        gap: var(--click-sidebar-navigation-item-mobile-space-gap);
-        padding: var(--click-sidebar-navigation-item-mobile-space-y)
-          var(--click-sidebar-navigation-item-mobile-space-right) var(--click-sidebar-navigation-item-mobile-space-y)
-          var(--click-image-sm-size-width);
-        font: var(--click-sidebar-navigation-item-mobile-typography-default);
+        gap: tokens.$clickSidebarNavigationItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickSidebarNavigationItemMobileSpaceRight tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationItemMobileTypographyDefault;
 
         &:hover,
         &:focus {
-          font: var(--click-sidebar-navigation-item-mobile-typography-hover);
+          font: tokens.$clickSidebarNavigationItemMobileTypographyHover;
         }
 
         &:active {
-          font: var(--click-sidebar-navigation-item-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
         }
 
         @include variants.variant('cuiSelected') {
-          font: var(--click-sidebar-navigation-item-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
         }
       }
     }
 
     @include variants.variant('cuiTypeSqlSidebar') {
-      padding: var(--click-sidebar-navigation-item-default-space-y)
-        var(--click-sidebar-navigation-item-default-space-right) var(--click-sidebar-navigation-item-default-space-y)
-        var(--click-image-sm-size-width);
-      border-radius: var(--click-sidebar-navigation-item-radii-all);
-      font: var(--click-sidebar-navigation-item-typography-default);
-      background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-default);
-      color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-default);
+      padding: tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickSidebarNavigationItemDefaultSpaceRight tokens.$clickSidebarNavigationItemDefaultSpaceY
+        tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationItemRadiiAll;
+      font: tokens.$clickSidebarNavigationItemTypographyDefault;
+      background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundDefault;
+      color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDefault;
 
       &:hover,
       &:focus {
-        font: var(--click-sidebar-navigation-item-typography-hover);
-        background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-hover);
-        color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
+        font: tokens.$clickSidebarNavigationItemTypographyHover;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundHover;
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextHover;
         pointer-events: auto;
       }
 
       &:active {
-        font: var(--click-sidebar-navigation-item-typography-active);
-        background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
-        color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiSelected') {
-        font: var(--click-sidebar-navigation-item-typography-active);
-        background-color: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
-        color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
+        font: tokens.$clickSidebarNavigationItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiDisabled') {
-        color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
+        color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDisabled;
         pointer-events: none;
         cursor: not-allowed;
 
@@ -136,32 +136,32 @@
         &:focus,
         &:active,
         &:focus-within {
-          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
+          color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDisabled;
         }
 
         @include variants.variant('cuiSelected') {
-          color: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
+          color: tokens.$clickSidebarSqlSidebarNavigationItemColorTextDisabled;
         }
       }
 
       @include mixins.cuiMobile {
-        gap: var(--click-sidebar-navigation-item-mobile-space-gap);
-        padding: var(--click-sidebar-navigation-item-mobile-space-y)
-          var(--click-sidebar-navigation-item-mobile-space-right) var(--click-sidebar-navigation-item-mobile-space-y)
-          var(--click-image-sm-size-width);
-        font: var(--click-sidebar-navigation-item-mobile-typography-default);
+        gap: tokens.$clickSidebarNavigationItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickSidebarNavigationItemMobileSpaceRight tokens.$clickSidebarNavigationItemMobileSpaceY
+          tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationItemMobileTypographyDefault;
 
         &:hover,
         &:focus {
-          font: var(--click-sidebar-navigation-item-mobile-typography-hover);
+          font: tokens.$clickSidebarNavigationItemMobileTypographyHover;
         }
 
         &:active {
-          font: var(--click-sidebar-navigation-item-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
         }
 
         @include variants.variant('cuiSelected') {
-          font: var(--click-sidebar-navigation-item-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationItemMobileTypographyActive;
         }
       }
     }
@@ -170,38 +170,38 @@
   // Sub-item styles (level > 0)
   &.cuiSubItem {
     @include variants.variant('cuiTypeMain') {
-      padding: var(--click-sidebar-navigation-subItem-default-space-y)
-        var(--click-sidebar-navigation-subItem-default-space-right)
-        var(--click-sidebar-navigation-subItem-default-space-y) var(--click-image-sm-size-width);
-      border-radius: var(--click-sidebar-navigation-subItem-radii-all);
-      font: var(--click-sidebar-navigation-subItem-typography-default);
-      background-color: var(--click-sidebar-main-navigation-subItem-color-background-default);
-      color: var(--click-sidebar-main-navigation-subItem-color-text-default);
+      padding: tokens.$clickSidebarNavigationSubItemDefaultSpaceY
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceRight
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceY tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationSubItemRadiiAll;
+      font: tokens.$clickSidebarNavigationSubItemTypographyDefault;
+      background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundDefault;
+      color: tokens.$clickSidebarMainNavigationSubItemColorTextDefault;
 
       &:hover,
       &:focus {
-        font: var(--click-sidebar-navigation-subItem-typography-hover);
-        background-color: var(--click-sidebar-main-navigation-subItem-color-background-hover);
-        color: var(--click-sidebar-main-navigation-subItem-color-text-hover);
+        font: tokens.$clickSidebarNavigationSubItemTypographyHover;
+        background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundHover;
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextHover;
         pointer-events: auto;
       }
 
       &:active {
-        font: var(--click-sidebar-navigation-subItem-typography-active);
-        background-color: var(--click-sidebar-main-navigation-subItem-color-background-active);
-        color: var(--click-sidebar-main-navigation-subItem-color-text-active);
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiSelected') {
-        font: var(--click-sidebar-navigation-subItem-typography-active);
-        background-color: var(--click-sidebar-main-navigation-subItem-color-background-active);
-        color: var(--click-sidebar-main-navigation-subItem-color-text-active);
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarMainNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiDisabled') {
-        color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
+        color: tokens.$clickSidebarMainNavigationSubItemColorTextDisabled;
         pointer-events: none;
         cursor: not-allowed;
 
@@ -209,69 +209,69 @@
         &:focus,
         &:active,
         &:focus-within {
-          color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
+          color: tokens.$clickSidebarMainNavigationSubItemColorTextDisabled;
         }
 
         @include variants.variant('cuiSelected') {
-          color: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
+          color: tokens.$clickSidebarMainNavigationSubItemColorTextDisabled;
         }
       }
 
       @include mixins.cuiMobile {
-        gap: var(--click-sidebar-navigation-subItem-mobile-space-gap);
-        padding: var(--click-sidebar-navigation-subItem-mobile-space-y)
-          var(--click-sidebar-navigation-subItem-mobile-space-right)
-          var(--click-sidebar-navigation-subItem-mobile-space-y) var(--click-image-sm-size-width);
-        font: var(--click-sidebar-navigation-subItem-mobile-typography-default);
+        gap: tokens.$clickSidebarNavigationSubItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationSubItemMobileSpaceY
+          tokens.$clickSidebarNavigationSubItemMobileSpaceRight
+          tokens.$clickSidebarNavigationSubItemMobileSpaceY tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationSubItemMobileTypographyDefault;
 
         &:hover,
         &:focus {
-          font: var(--click-sidebar-navigation-subItem-mobile-typography-hover);
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyHover;
         }
 
         &:active {
-          font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
         }
 
         @include variants.variant('cuiSelected') {
-          font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
         }
       }
     }
 
     @include variants.variant('cuiTypeSqlSidebar') {
-      padding: var(--click-sidebar-navigation-subItem-default-space-y)
-        var(--click-sidebar-navigation-subItem-default-space-right)
-        var(--click-sidebar-navigation-subItem-default-space-y) var(--click-image-sm-size-width);
-      border-radius: var(--click-sidebar-navigation-subItem-radii-all);
-      font: var(--click-sidebar-navigation-subItem-typography-default);
-      background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-default);
-      color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-default);
+      padding: tokens.$clickSidebarNavigationSubItemDefaultSpaceY
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceRight
+        tokens.$clickSidebarNavigationSubItemDefaultSpaceY tokens.$clickImageSmSizeWidth;
+      border-radius: tokens.$clickSidebarNavigationSubItemRadiiAll;
+      font: tokens.$clickSidebarNavigationSubItemTypographyDefault;
+      background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundDefault;
+      color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDefault;
 
       &:hover,
       &:focus {
-        font: var(--click-sidebar-navigation-subItem-typography-hover);
-        background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-hover);
-        color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
+        font: tokens.$clickSidebarNavigationSubItemTypographyHover;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundHover;
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextHover;
         pointer-events: auto;
       }
 
       &:active {
-        font: var(--click-sidebar-navigation-subItem-typography-active);
-        background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
-        color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiSelected') {
-        font: var(--click-sidebar-navigation-subItem-typography-active);
-        background-color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
-        color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
+        font: tokens.$clickSidebarNavigationSubItemTypographyActive;
+        background-color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorBackgroundActive;
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextActive;
         pointer-events: all;
       }
 
       @include variants.variant('cuiDisabled') {
-        color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
+        color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDisabled;
         pointer-events: none;
         cursor: not-allowed;
 
@@ -279,32 +279,32 @@
         &:focus,
         &:active,
         &:focus-within {
-          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
+          color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDisabled;
         }
 
         @include variants.variant('cuiSelected') {
-          color: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
+          color: tokens.$clickSidebarSqlSidebarNavigationSubItemColorTextDisabled;
         }
       }
 
       @include mixins.cuiMobile {
-        gap: var(--click-sidebar-navigation-subItem-mobile-space-gap);
-        padding: var(--click-sidebar-navigation-subItem-mobile-space-y)
-          var(--click-sidebar-navigation-subItem-mobile-space-right)
-          var(--click-sidebar-navigation-subItem-mobile-space-y) var(--click-image-sm-size-width);
-        font: var(--click-sidebar-navigation-subItem-mobile-typography-default);
+        gap: tokens.$clickSidebarNavigationSubItemMobileSpaceGap;
+        padding: tokens.$clickSidebarNavigationSubItemMobileSpaceY
+          tokens.$clickSidebarNavigationSubItemMobileSpaceRight
+          tokens.$clickSidebarNavigationSubItemMobileSpaceY tokens.$clickImageSmSizeWidth;
+        font: tokens.$clickSidebarNavigationSubItemMobileTypographyDefault;
 
         &:hover,
         &:focus {
-          font: var(--click-sidebar-navigation-subItem-mobile-typography-hover);
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyHover;
         }
 
         &:active {
-          font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
         }
 
         @include variants.variant('cuiSelected') {
-          font: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+          font: tokens.$clickSidebarNavigationSubItemMobileTypographyActive;
         }
       }
     }
@@ -314,36 +314,36 @@
   &.cuiCollapsible {
     &.cuiItem {
       @include variants.variant('cuiTypeMain') {
-        padding-left: var(--click-sidebar-navigation-item-default-space-left);
+        padding-left: tokens.$clickSidebarNavigationItemDefaultSpaceLeft;
 
         @include mixins.cuiMobile {
-          padding-left: var(--click-sidebar-navigation-item-mobile-space-left);
+          padding-left: tokens.$clickSidebarNavigationItemMobileSpaceLeft;
         }
       }
 
       @include variants.variant('cuiTypeSqlSidebar') {
-        padding-left: var(--click-sidebar-navigation-item-default-space-left);
+        padding-left: tokens.$clickSidebarNavigationItemDefaultSpaceLeft;
 
         @include mixins.cuiMobile {
-          padding-left: var(--click-sidebar-navigation-item-mobile-space-left);
+          padding-left: tokens.$clickSidebarNavigationItemMobileSpaceLeft;
         }
       }
     }
 
     &.cuiSubItem {
       @include variants.variant('cuiTypeMain') {
-        padding-left: var(--click-sidebar-navigation-subItem-default-space-left);
+        padding-left: tokens.$clickSidebarNavigationSubItemDefaultSpaceLeft;
 
         @include mixins.cuiMobile {
-          padding-left: var(--click-sidebar-navigation-subItem-mobile-space-left);
+          padding-left: tokens.$clickSidebarNavigationSubItemMobileSpaceLeft;
         }
       }
 
       @include variants.variant('cuiTypeSqlSidebar') {
-        padding-left: var(--click-sidebar-navigation-subItem-default-space-left);
+        padding-left: tokens.$clickSidebarNavigationSubItemDefaultSpaceLeft;
 
         @include mixins.cuiMobile {
-          padding-left: var(--click-sidebar-navigation-subItem-mobile-space-left);
+          padding-left: tokens.$clickSidebarNavigationSubItemMobileSpaceLeft;
         }
       }
     }

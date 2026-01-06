@@ -50,122 +50,122 @@
   }
 
   @include variants.variant('cuiStateSuccess') {
-    background: var(--click-icon-color-background-success);
-    color: var(--click-icon-color-text-success);
+    background: tokens.$clickIconColorBackgroundSuccess;
+    color: tokens.$clickIconColorTextSuccess;
     border-radius: var(--border-radii-full);
 
     @include variants.variant('cuiSizeXs') {
-      padding: var(--click-icon-space-xs-all);
+      padding: tokens.$clickIconSpaceXsAll;
     }
 
     @include variants.variant('cuiSizeSm') {
-      padding: var(--click-icon-space-sm-all);
+      padding: tokens.$clickIconSpaceSmAll;
     }
 
     @include variants.variant('cuiSizeMd') {
-      padding: var(--click-icon-space-md-all);
+      padding: tokens.$clickIconSpaceMdAll;
     }
 
     @include variants.variant('cuiSizeLg') {
-      padding: var(--click-icon-space-lg-all);
+      padding: tokens.$clickIconSpaceLgAll;
     }
 
     @include variants.variant('cuiSizeXl') {
-      padding: var(--click-icon-space-xl-all);
+      padding: tokens.$clickIconSpaceXlAll;
     }
 
     @include variants.variant('cuiSizeXxl') {
-      padding: var(--click-icon-space-xxl-all);
+      padding: tokens.$clickIconSpaceXxlAll;
     }
   }
 
   @include variants.variant('cuiStateWarning') {
-    background: var(--click-icon-color-background-warning);
-    color: var(--click-icon-color-text-warning);
+    background: tokens.$clickIconColorBackgroundWarning;
+    color: tokens.$clickIconColorTextWarning;
     border-radius: var(--border-radii-full);
 
     @include variants.variant('cuiSizeXs') {
-      padding: var(--click-icon-space-xs-all);
+      padding: tokens.$clickIconSpaceXsAll;
     }
 
     @include variants.variant('cuiSizeSm') {
-      padding: var(--click-icon-space-sm-all);
+      padding: tokens.$clickIconSpaceSmAll;
     }
 
     @include variants.variant('cuiSizeMd') {
-      padding: var(--click-icon-space-md-all);
+      padding: tokens.$clickIconSpaceMdAll;
     }
 
     @include variants.variant('cuiSizeLg') {
-      padding: var(--click-icon-space-lg-all);
+      padding: tokens.$clickIconSpaceLgAll;
     }
 
     @include variants.variant('cuiSizeXl') {
-      padding: var(--click-icon-space-xl-all);
+      padding: tokens.$clickIconSpaceXlAll;
     }
 
     @include variants.variant('cuiSizeXxl') {
-      padding: var(--click-icon-space-xxl-all);
+      padding: tokens.$clickIconSpaceXxlAll;
     }
   }
 
   @include variants.variant('cuiStateDanger') {
-    background: var(--click-icon-color-background-danger);
-    color: var(--click-icon-color-text-danger);
+    background: tokens.$clickIconColorBackgroundDanger;
+    color: tokens.$clickIconColorTextDanger;
     border-radius: var(--border-radii-full);
 
     @include variants.variant('cuiSizeXs') {
-      padding: var(--click-icon-space-xs-all);
+      padding: tokens.$clickIconSpaceXsAll;
     }
 
     @include variants.variant('cuiSizeSm') {
-      padding: var(--click-icon-space-sm-all);
+      padding: tokens.$clickIconSpaceSmAll;
     }
 
     @include variants.variant('cuiSizeMd') {
-      padding: var(--click-icon-space-md-all);
+      padding: tokens.$clickIconSpaceMdAll;
     }
 
     @include variants.variant('cuiSizeLg') {
-      padding: var(--click-icon-space-lg-all);
+      padding: tokens.$clickIconSpaceLgAll;
     }
 
     @include variants.variant('cuiSizeXl') {
-      padding: var(--click-icon-space-xl-all);
+      padding: tokens.$clickIconSpaceXlAll;
     }
 
     @include variants.variant('cuiSizeXxl') {
-      padding: var(--click-icon-space-xxl-all);
+      padding: tokens.$clickIconSpaceXxlAll;
     }
   }
 
   @include variants.variant('cuiStateInfo') {
-    background: var(--click-icon-color-background-info);
-    color: var(--click-icon-color-text-info);
+    background: tokens.$clickIconColorBackgroundInfo;
+    color: tokens.$clickIconColorTextInfo;
     border-radius: var(--border-radii-full);
 
     @include variants.variant('cuiSizeXs') {
-      padding: var(--click-icon-space-xs-all);
+      padding: tokens.$clickIconSpaceXsAll;
     }
 
     @include variants.variant('cuiSizeSm') {
-      padding: var(--click-icon-space-sm-all);
+      padding: tokens.$clickIconSpaceSmAll;
     }
 
     @include variants.variant('cuiSizeMd') {
-      padding: var(--click-icon-space-md-all);
+      padding: tokens.$clickIconSpaceMdAll;
     }
 
     @include variants.variant('cuiSizeLg') {
-      padding: var(--click-icon-space-lg-all);
+      padding: tokens.$clickIconSpaceLgAll;
     }
 
     @include variants.variant('cuiSizeXl') {
-      padding: var(--click-icon-space-xl-all);
+      padding: tokens.$clickIconSpaceXlAll;
     }
 
     @include variants.variant('cuiSizeXxl') {
-      padding: var(--click-icon-space-xxl-all);
+      padding: tokens.$clickIconSpaceXxlAll;
     }
   }
 

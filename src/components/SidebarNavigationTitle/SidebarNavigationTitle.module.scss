@@ -9,43 +9,43 @@
 
   /* Base styles for main type */
   @include variants.variant('cuiMain') {
-    font: var(--click-sidebar-navigation-title-typography-default);
-    color: var(--click-sidebar-main-navigation-title-color-default);
+    font: tokens.$clickSidebarNavigationTitleTypographyDefault;
+    color: tokens.$clickSidebarMainNavigationTitleColorDefault;
 
     &:hover {
-      font: var(--click-sidebar-navigation-title-typography-hover);
-      color: var(--click-sidebar-main-navigation-title-color-hover);
+      font: tokens.$clickSidebarNavigationTitleTypographyHover;
+      color: tokens.$clickSidebarMainNavigationTitleColorHover;
     }
 
     &:active,
     &[data-selected="true"],
     &[data-open="true"] {
-      font: var(--click-sidebar-navigation-title-typography-active);
-      color: var(--click-sidebar-main-navigation-title-color-active);
+      font: tokens.$clickSidebarNavigationTitleTypographyActive;
+      color: tokens.$clickSidebarMainNavigationTitleColorActive;
     }
   }
 
   /* Base styles for sqlSidebar type */
   @include variants.variant('cuiSqlSidebar') {
-    font: var(--click-sidebar-navigation-title-typography-default);
-    color: var(--click-sidebar-sqlSidebar-navigation-title-color-default);
+    font: tokens.$clickSidebarNavigationTitleTypographyDefault;
+    color: tokens.$clickSidebarSqlSidebarNavigationTitleColorDefault;
 
     &:hover {
-      font: var(--click-sidebar-navigation-title-typography-hover);
-      color: var(--click-sidebar-sqlSidebar-navigation-title-color-hover);
+      font: tokens.$clickSidebarNavigationTitleTypographyHover;
+      color: tokens.$clickSidebarSqlSidebarNavigationTitleColorHover;
     }
 
     &:active,
     &[data-selected="true"],
     &[data-open="true"] {
-      font: var(--click-sidebar-navigation-title-typography-active);
-      color: var(--click-sidebar-sqlSidebar-navigation-title-color-active);
+      font: tokens.$clickSidebarNavigationTitleTypographyActive;
+      color: tokens.$clickSidebarSqlSidebarNavigationTitleColorActive;
     }
   }
 
   /* Collapsible padding adjustment */
   &:not(.cuiCollapsible) {
-    padding-left: var(--click-image-sm-size-width);
+    padding-left: tokens.$clickImageSmSizeWidth;
   }
 
   // Anchor styling with increased specificity to override Storybook's .sbdocs a styles

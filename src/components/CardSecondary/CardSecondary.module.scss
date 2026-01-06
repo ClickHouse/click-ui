@@ -2,15 +2,15 @@
 @use "cui-variants" as variants;
 
 .cuiWrapper {
-  background-color: var(--click-card-secondary-color-background-default);
-  border-radius: var(--click-card-secondary-radii-all);
-  border: 1px solid var(--click-card-secondary-color-stroke-default);
+  background-color: tokens.$clickCardSecondaryColorBackgroundDefault;
+  border-radius: tokens.$clickCardSecondaryRadiiAll;
+  border: 1px solid tokens.$clickCardSecondaryColorStrokeDefault;
   max-width: 420px;
   min-width: 320px;
   display: flex;
   flex-direction: column;
-  padding: var(--click-card-secondary-space-all);
-  gap: var(--click-card-secondary-space-gap);
+  padding: tokens.$clickCardSecondarySpaceAll;
+  gap: tokens.$clickCardSecondarySpaceGap;
 
   @include variants.variant('cuiHasShadow') {
     box-shadow: var(--shadow-1);
@@ -18,39 +18,39 @@
 
   &:hover,
   &:focus {
-    background-color: var(--click-card-secondary-color-background-hover);
+    background-color: tokens.$clickCardSecondaryColorBackgroundHover;
     cursor: pointer;
 
     .cuiLinkText,
     .cuiLinkIcon {
-      color: var(--click-card-secondary-color-link-hover);
+      color: tokens.$clickCardSecondaryColorLinkHover;
     }
   }
 
   @include variants.variant('cuiDisabled') {
     pointer-events: none;
-    background-color: var(--click-card-secondary-color-background-disabled);
-    color: var(--click-card-secondary-color-title-disabled);
-    border: 1px solid var(--click-card-secondary-color-stroke-disabled);
+    background-color: tokens.$clickCardSecondaryColorBackgroundDisabled;
+    color: tokens.$clickCardSecondaryColorTitleDisabled;
+    border: 1px solid tokens.$clickCardSecondaryColorStrokeDisabled;
     cursor: not-allowed;
 
     .cuiLinkText,
     .cuiLinkIcon {
-      color: var(--click-card-secondary-color-link-disabled);
+      color: tokens.$clickCardSecondaryColorLinkDisabled;
     }
 
     &:hover,
     &:focus,
     &:active {
       pointer-events: none;
-      background-color: var(--click-card-secondary-color-background-disabled);
-      color: var(--click-card-secondary-color-title-disabled);
-      border: 1px solid var(--click-card-secondary-color-stroke-disabled);
+      background-color: tokens.$clickCardSecondaryColorBackgroundDisabled;
+      color: tokens.$clickCardSecondaryColorTitleDisabled;
+      border: 1px solid tokens.$clickCardSecondaryColorStrokeDisabled;
       cursor: not-allowed;
 
       .cuiLinkText,
       .cuiLinkIcon {
-        color: var(--click-card-secondary-color-link-disabled);
+        color: tokens.$clickCardSecondaryColorLinkDisabled;
       }
     }
   }
@@ -65,7 +65,7 @@
 .cuiHeaderLeft {
   display: flex;
   align-items: center;
-  gap: var(--click-card-secondary-space-gap);
+  gap: tokens.$clickCardSecondarySpaceGap;
 
   h3,
   svg {
@@ -88,25 +88,25 @@
 
 .cuiCustomIcon {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  height: var(--click-image-lg-size-height);
-  width: var(--click-image-lg-size-width);
+  height: tokens.$clickImageLgSizeHeight;
+  width: tokens.$clickImageLgSizeWidth;
 }
 
 .cuiInfoLink {
   display: flex;
   align-items: center;
-  color: var(--click-card-secondary-color-link-default);
-  gap: var(--click-card-secondary-space-link-gap);
+  color: tokens.$clickCardSecondaryColorLinkDefault;
+  gap: tokens.$clickCardSecondarySpaceLinkGap;
   text-decoration: none;
 }
 
 .cuiLinkText {
-  color: var(--click-card-secondary-color-link-default);
+  color: tokens.$clickCardSecondaryColorLinkDefault;
 }
 
 .cuiLinkIcon {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  color: var(--click-card-secondary-color-link-default);
-  height: var(--click-image-md-size-height);
-  width: var(--click-image-md-size-width);
+  color: tokens.$clickCardSecondaryColorLinkDefault;
+  height: tokens.$clickImageMdSizeHeight;
+  width: tokens.$clickImageMdSizeWidth;
 }

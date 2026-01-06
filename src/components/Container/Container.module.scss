@@ -186,35 +186,35 @@
 
   // Padding with variant mixins
   @include variants.variant('cuiPaddingNone') {
-    padding: var(--click-container-space-none);
+    padding: tokens.$clickContainerSpaceNone;
   }
 
   @include variants.variant('cuiPaddingXxs') {
-    padding: var(--click-container-space-xxs);
+    padding: tokens.$clickContainerSpaceXxs;
   }
 
   @include variants.variant('cuiPaddingXs') {
-    padding: var(--click-container-space-xs);
+    padding: tokens.$clickContainerSpaceXs;
   }
 
   @include variants.variant('cuiPaddingSm') {
-    padding: var(--click-container-space-sm);
+    padding: tokens.$clickContainerSpaceSm;
   }
 
   @include variants.variant('cuiPaddingMd') {
-    padding: var(--click-container-space-md);
+    padding: tokens.$clickContainerSpaceMd;
   }
 
   @include variants.variant('cuiPaddingLg') {
-    padding: var(--click-container-space-lg);
+    padding: tokens.$clickContainerSpaceLg;
   }
 
   @include variants.variant('cuiPaddingXl') {
-    padding: var(--click-container-space-xl);
+    padding: tokens.$clickContainerSpaceXl;
   }
 
   @include variants.variant('cuiPaddingXxl') {
-    padding: var(--click-container-space-xxl);
+    padding: tokens.$clickContainerSpaceXxl;
   }
 }
 

@@ -3,34 +3,34 @@
 
 .cuiGenericLabel {
   cursor: pointer;
-  color: var(--click-field-color-genericLabel-default);
-  font: var(--click-field-typography-genericLabel-default);
+  color: tokens.$clickFieldColorGenericLabelDefault;
+  font: tokens.$clickFieldTypographyGenericLabelDefault;
 
   &:hover {
-    color: var(--click-field-color-genericLabel-hover);
-    font: var(--click-field-typography-genericLabel-hover);
+    color: tokens.$clickFieldColorGenericLabelHover;
+    font: tokens.$clickFieldTypographyGenericLabelHover;
   }
 
   &:focus,
   &:focus-within {
-    color: var(--click-field-color-genericLabel-active);
-    font: var(--click-field-typography-genericLabel-active);
+    color: tokens.$clickFieldColorGenericLabelActive;
+    font: tokens.$clickFieldTypographyGenericLabelActive;
   }
 
   @include variants.variant('cuiDisabled') {
-    color: var(--click-field-color-genericLabel-disabled);
-    font: var(--click-field-typography-genericLabel-disabled);
+    color: tokens.$clickFieldColorGenericLabelDisabled;
+    font: tokens.$clickFieldTypographyGenericLabelDisabled;
     cursor: not-allowed;
 
     &:hover {
-      color: var(--click-field-color-genericLabel-disabled);
-      font: var(--click-field-typography-genericLabel-disabled);
+      color: tokens.$clickFieldColorGenericLabelDisabled;
+      font: tokens.$clickFieldTypographyGenericLabelDisabled;
     }
 
     &:focus,
     &:focus-within {
-      color: var(--click-field-color-genericLabel-disabled);
-      font: var(--click-field-typography-genericLabel-disabled);
+      color: tokens.$clickFieldColorGenericLabelDisabled;
+      font: tokens.$clickFieldTypographyGenericLabelDisabled;
     }
   }
 }

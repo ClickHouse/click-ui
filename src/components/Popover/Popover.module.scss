@@ -21,11 +21,11 @@
   display: block;
   align-items: flex-start;
   pointer-events: auto;
-  border: 1px solid var(--click-popover-color-panel-stroke-default);
-  background: var(--click-popover-color-panel-background-default);
-  box-shadow: var(--click-popover-shadow-default);
-  border-radius: var(--click-popover-radii-all);
-  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  border: 1px solid tokens.$clickPopoverColorPanelStrokeDefault;
+  background: tokens.$clickPopoverColorPanelBackgroundDefault;
+  box-shadow: tokens.$clickPopoverShadowDefault;
+  border-radius: tokens.$clickPopoverRadiiAll;
+  padding: tokens.$clickPopoverSpaceY tokens.$clickPopoverSpaceX;
   max-width: var(--radix-popover-content-available-width);
   max-height: var(--radix-popover-content-available-height);
 
@@ -51,8 +51,8 @@
 }
 
 .cuiPopoverArrow {
-  fill: var(--click-popover-color-panel-background-default);
-  stroke: var(--click-popover-color-panel-stroke-default);
+  fill: tokens.$clickPopoverColorPanelBackgroundDefault;
+  stroke: tokens.$clickPopoverColorPanelStrokeDefault;
 
   /* Default shadow for bottom placement (arrow points up) */
   filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
@@ -75,8 +75,8 @@
 .cuiCloseButton {
   @include mixins.cuiEmptyButton;
   position: absolute;
-  top: var(--click-popover-space-y);
-  right: var(--click-popover-space-x);
-  width: var(--click-popover-icon-size-width);
-  height: var(--click-popover-icon-size-height);
+  top: tokens.$clickPopoverSpaceY;
+  right: tokens.$clickPopoverSpaceX;
+  width: tokens.$clickPopoverIconSizeWidth;
+  height: tokens.$clickPopoverIconSizeHeight;
 }

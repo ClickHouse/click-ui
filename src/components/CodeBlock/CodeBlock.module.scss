@@ -5,23 +5,23 @@
   @include mixins.cuiFullWidthStretch;
   position: relative;
   --cui-codeblock-pre-background: light-dark(
-    var(--click-codeblock-lightMode-color-background-default),
-    var(--click-codeblock-darkMode-color-background-default)
+    tokens.$clickCodeblockLightModeColorBackgroundDefault,
+    tokens.$clickCodeblockDarkModeColorBackgroundDefault
   );
   --cui-codeblock-pre-text: light-dark(
-    var(--click-codeblock-lightMode-color-text-default),
-    var(--click-codeblock-darkMode-color-text-default)
+    tokens.$clickCodeblockLightModeColorTextDefault,
+    tokens.$clickCodeblockDarkModeColorTextDefault
   );
 
   color: light-dark(
-    var(--click-codeblock-lightMode-color-numbers-default),
-    var(--click-codeblock-darkMode-color-numbers-default)
+    tokens.$clickCodeblockLightModeColorNumbersDefault,
+    tokens.$clickCodeblockDarkModeColorNumbersDefault
   );
 
   :global(.linenumber) {
     color: light-dark(
-      var(--click-codeblock-lightMode-color-numbers-default),
-      var(--click-codeblock-darkMode-color-numbers-default)
+      tokens.$clickCodeblockLightModeColorNumbersDefault,
+      tokens.$clickCodeblockDarkModeColorNumbersDefault
     );
   }
 
@@ -38,11 +38,11 @@
   @include mixins.cuiEmptyButton;
 
   @include variants.variant('cuiCopied') {
-    color: var(--click-alert-color-text-success);
+    color: tokens.$clickAlertColorTextSuccess;
   }
 
   @include variants.variant('cuiError') {
-    color: var(--click-alert-color-text-danger);
+    color: tokens.$clickAlertColorTextDanger;
   }
 
   @include variants.variant('cuiNormal') {
@@ -65,6 +65,6 @@
   position: absolute;
   display: flex;
   gap: 0.625rem;
-  top: var(--click-codeblock-space-y);
-  right: var(--click-codeblock-space-x);
+  top: tokens.$clickCodeblockSpaceY;
+  right: tokens.$clickCodeblockSpaceX;
 }

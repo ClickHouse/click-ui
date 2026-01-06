@@ -25,26 +25,26 @@
 
 // Switch root styles
 .cuiSwitchRoot {
-  width: var(--click-switch-size-width);
-  height: var(--click-switch-size-height);
-  border-radius: var(--click-switch-radii-all);
+  width: tokens.$clickSwitchSizeWidth;
+  height: tokens.$clickSwitchSizeHeight;
+  border-radius: tokens.$clickSwitchRadiiAll;
   position: relative;
   padding: 0;
   cursor: pointer;
 
   // Default state
-  background-color: var(--click-switch-color-background-default);
-  border: 1px solid var(--click-switch-color-stroke-default);
+  background-color: tokens.$clickSwitchColorBackgroundDefault;
+  border: 1px solid tokens.$clickSwitchColorStrokeDefault;
 
   // State variants - using :where() for low specificity
   @include variants.variant('cuiChecked') {
-    background-color: var(--click-switch-color-background-active);
-    border: 1px solid var(--click-switch-color-stroke-active);
+    background-color: tokens.$clickSwitchColorBackgroundActive;
+    border: 1px solid tokens.$clickSwitchColorStrokeActive;
   }
 
   @include variants.variant('cuiDisabled') {
-    background-color: var(--click-switch-color-background-disabled);
-    border: 1px solid var(--click-switch-color-stroke-disabled);
+    background-color: tokens.$clickSwitchColorBackgroundDisabled;
+    border: 1px solid tokens.$clickSwitchColorStrokeDisabled;
     cursor: not-allowed;
   }
 }
@@ -54,27 +54,27 @@
   display: block;
   width: 12px;
   height: 12px;
-  border-radius: var(--click-switch-radii-all);
+  border-radius: tokens.$clickSwitchRadiiAll;
   transition: transform 100ms;
   will-change: transform;
 
   // Default position and color
   transform: translateX(2px);
-  background-color: var(--click-switch-color-indicator-default);
+  background-color: tokens.$clickSwitchColorIndicatorDefault;
 
   // State variants - using :where() for low specificity
   @include variants.variant('cuiChecked') {
     transform: translateX(15px);
-    background-color: var(--click-switch-color-indicator-active);
+    background-color: tokens.$clickSwitchColorIndicatorActive;
   }
 
   @include variants.variant('cuiDisabled') {
-    background-color: var(--click-switch-color-indicator-disabled);
+    background-color: tokens.$clickSwitchColorIndicatorDisabled;
 
     // Checked and disabled - nested variant
     @include variants.variant('cuiChecked') {
       transform: translateX(15px);
-      background-color: var(--click-switch-color-indicator-disabled);
+      background-color: tokens.$clickSwitchColorIndicatorDisabled;
     }
   }
 }

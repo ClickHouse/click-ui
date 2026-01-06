@@ -20,72 +20,72 @@
 
   // Type variants - using :where() for low specificity
   @include variants.variant('cuiTypeNumbered') {
-    row-gap: var(--click-stepper-vertical-numbered-content-space-gap-y);
-    column-gap: var(--click-stepper-vertical-numbered-content-space-gap-x);
+    row-gap: tokens.$clickStepperVerticalNumberedContentSpaceGapY;
+    column-gap: tokens.$clickStepperVerticalNumberedContentSpaceGapX;
 
     @include variants.variant('cuiIsOpen') {
-      padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-active);
+      padding-bottom: tokens.$clickStepperVerticalNumberedContentSpaceBottomActive;
     }
 
     &:not(:where(.cuiIsOpen)) {
-      padding-bottom: var(--click-stepper-vertical-numbered-content-space-bottom-default);
+      padding-bottom: tokens.$clickStepperVerticalNumberedContentSpaceBottomDefault;
     }
 
     &:not(:last-of-type)::before {
       content: "";
       position: absolute;
-      top: var(--click-stepper-vertical-numbered-step-size-height);
+      top: tokens.$clickStepperVerticalNumberedStepSizeHeight;
       height: 100%;
-      left: calc(var(--click-stepper-vertical-numbered-step-size-width) / 2);
-      width: var(--click-stepper-vertical-numbered-connector-size-width);
+      left: calc(tokens.$clickStepperVerticalNumberedStepSizeWidth / 2);
+      width: tokens.$clickStepperVerticalNumberedConnectorSizeWidth;
       box-sizing: content-box;
     }
 
     &:not(:last-of-type):where(.cuiStatusComplete)::before {
-      background: var(--click-stepper-vertical-numbered-connector-color-stroke-complete);
+      background: tokens.$clickStepperVerticalNumberedConnectorColorStrokeComplete;
     }
 
     &:not(:last-of-type):where(.cuiStatusActive)::before {
-      background: var(--click-stepper-vertical-numbered-connector-color-stroke-active);
+      background: tokens.$clickStepperVerticalNumberedConnectorColorStrokeActive;
     }
 
     &:not(:last-of-type):where(.cuiStatusIncomplete)::before {
-      background: var(--click-stepper-vertical-numbered-connector-color-stroke-incomplete);
+      background: tokens.$clickStepperVerticalNumberedConnectorColorStrokeIncomplete;
     }
   }
 
   @include variants.variant('cuiTypeBulleted') {
-    row-gap: var(--click-stepper-vertical-bulleted-content-space-gap-y);
-    column-gap: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+    row-gap: tokens.$clickStepperVerticalBulletedContentSpaceGapY;
+    column-gap: tokens.$clickStepperVerticalBulletedContentSpaceGapX;
 
     @include variants.variant('cuiIsOpen') {
-      padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-active);
+      padding-bottom: tokens.$clickStepperVerticalBulletedContentSpaceBottomActive;
     }
 
     &:not(:where(.cuiIsOpen)) {
-      padding-bottom: var(--click-stepper-vertical-bulleted-content-space-bottom-default);
+      padding-bottom: tokens.$clickStepperVerticalBulletedContentSpaceBottomDefault;
     }
 
     &:not(:last-of-type)::before {
       content: "";
       position: absolute;
-      top: var(--click-stepper-vertical-bulleted-step-size-height);
+      top: tokens.$clickStepperVerticalBulletedStepSizeHeight;
       height: 100%;
-      left: calc(var(--click-stepper-vertical-bulleted-step-size-width) / 2);
-      width: var(--click-stepper-vertical-bulleted-connector-size-width);
+      left: calc(tokens.$clickStepperVerticalBulletedStepSizeWidth / 2);
+      width: tokens.$clickStepperVerticalBulletedConnectorSizeWidth;
       box-sizing: content-box;
     }
 
     &:not(:last-of-type):where(.cuiStatusComplete)::before {
-      background: var(--click-stepper-vertical-bulleted-connector-color-stroke-complete);
+      background: tokens.$clickStepperVerticalBulletedConnectorColorStrokeComplete;
     }
 
     &:not(:last-of-type):where(.cuiStatusActive)::before {
-      background: var(--click-stepper-vertical-bulleted-connector-color-stroke-active);
+      background: tokens.$clickStepperVerticalBulletedConnectorColorStrokeActive;
     }
 
     &:not(:last-of-type):where(.cuiStatusIncomplete)::before {
-      background: var(--click-stepper-vertical-bulleted-connector-color-stroke-incomplete);
+      background: tokens.$clickStepperVerticalBulletedConnectorColorStrokeIncomplete;
     }
   }
 }
@@ -118,35 +118,35 @@
   display: grid;
   place-items: center;
   position: relative;
-  border-radius: var(--click-stepper-vertical-numbered-step-radii-default);
+  border-radius: tokens.$clickStepperVerticalNumberedStepRadiiDefault;
   border-width: 2px;
   border-style: solid;
-  font: var(--click-stepper-vertical-numbered-step-typography-number-default);
+  font: tokens.$clickStepperVerticalNumberedStepTypographyNumberDefault;
   counter-increment: vertical-stepper;
   box-sizing: content-box;
 
   // Type variants - using :where() for low specificity
   @include variants.variant('cuiTypeNumbered') {
-    width: var(--click-stepper-vertical-numbered-step-size-width);
-    height: var(--click-stepper-vertical-numbered-step-size-width);
-    border-radius: var(--click-stepper-vertical-numbered-step-radii-default);
+    width: tokens.$clickStepperVerticalNumberedStepSizeWidth;
+    height: tokens.$clickStepperVerticalNumberedStepSizeWidth;
+    border-radius: tokens.$clickStepperVerticalNumberedStepRadiiDefault;
 
     @include variants.variant('cuiStatusComplete') {
-      background: var(--click-stepper-vertical-numbered-step-color-background-complete);
-      border-color: var(--click-stepper-vertical-numbered-step-color-stroke-complete);
-      color: var(--click-stepper-vertical-numbered-step-color-icon-complete);
+      background: tokens.$clickStepperVerticalNumberedStepColorBackgroundComplete;
+      border-color: tokens.$clickStepperVerticalNumberedStepColorStrokeComplete;
+      color: tokens.$clickStepperVerticalNumberedStepColorIconComplete;
     }
 
     @include variants.variant('cuiStatusActive') {
-      background: var(--click-stepper-vertical-numbered-step-color-background-active);
-      border-color: var(--click-stepper-vertical-numbered-step-color-stroke-active);
-      color: var(--click-stepper-vertical-numbered-step-color-icon-active);
+      background: tokens.$clickStepperVerticalNumberedStepColorBackgroundActive;
+      border-color: tokens.$clickStepperVerticalNumberedStepColorStrokeActive;
+      color: tokens.$clickStepperVerticalNumberedStepColorIconActive;
     }
 
     @include variants.variant('cuiStatusIncomplete') {
-      background: var(--click-stepper-vertical-numbered-step-color-background-incomplete);
-      border-color: var(--click-stepper-vertical-numbered-step-color-stroke-incomplete);
-      color: var(--click-stepper-vertical-numbered-step-color-icon-incomplete);
+      background: tokens.$clickStepperVerticalNumberedStepColorBackgroundIncomplete;
+      border-color: tokens.$clickStepperVerticalNumberedStepColorStrokeIncomplete;
+      color: tokens.$clickStepperVerticalNumberedStepColorIconIncomplete;
     }
 
     &:not(:where(.cuiStatusComplete))::before {
@@ -158,14 +158,14 @@
   }
 
   @include variants.variant('cuiTypeBulleted') {
-    width: var(--click-stepper-vertical-bulleted-step-size-width);
-    height: var(--click-stepper-vertical-bulleted-step-size-width);
-    border-radius: var(--click-stepper-vertical-bulleted-step-radii-default);
+    width: tokens.$clickStepperVerticalBulletedStepSizeWidth;
+    height: tokens.$clickStepperVerticalBulletedStepSizeWidth;
+    border-radius: tokens.$clickStepperVerticalBulletedStepRadiiDefault;
 
     @include variants.variant('cuiStatusComplete') {
-      background: var(--click-stepper-vertical-bulleted-step-color-background-complete);
-      border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-complete);
-      color: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
+      background: tokens.$clickStepperVerticalBulletedStepColorBackgroundComplete;
+      border-color: tokens.$clickStepperVerticalBulletedStepColorStrokeComplete;
+      color: tokens.$clickStepperVerticalBulletedStepColorIconComplete;
 
       &::after {
         box-sizing: content-box;
@@ -174,20 +174,20 @@
         width: 50%;
         height: 50%;
         border-radius: inherit;
-        background: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
+        background: tokens.$clickStepperVerticalBulletedStepColorIconComplete;
       }
     }
 
     @include variants.variant('cuiStatusActive') {
-      background: var(--click-stepper-vertical-bulleted-step-color-background-active);
-      border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-active);
-      color: var(--click-stepper-vertical-bulleted-step-color-icon-active);
+      background: tokens.$clickStepperVerticalBulletedStepColorBackgroundActive;
+      border-color: tokens.$clickStepperVerticalBulletedStepColorStrokeActive;
+      color: tokens.$clickStepperVerticalBulletedStepColorIconActive;
     }
 
     @include variants.variant('cuiStatusIncomplete') {
-      background: var(--click-stepper-vertical-bulleted-step-color-background-incomplete);
-      border-color: var(--click-stepper-vertical-bulleted-step-color-stroke-incomplete);
-      color: var(--click-stepper-vertical-bulleted-step-color-icon-incomplete);
+      background: tokens.$clickStepperVerticalBulletedStepColorBackgroundIncomplete;
+      border-color: tokens.$clickStepperVerticalBulletedStepColorStrokeIncomplete;
+      color: tokens.$clickStepperVerticalBulletedStepColorIconIncomplete;
     }
   }
 }
@@ -207,34 +207,34 @@
 
   // Type variants - using :where() for low specificity
   @include variants.variant('cuiTypeNumbered') {
-    font: var(--click-stepper-vertical-numbered-typography-title-default);
+    font: tokens.$clickStepperVerticalNumberedTypographyTitleDefault;
 
     @include variants.variant('cuiStatusComplete') {
-      color: var(--click-stepper-vertical-numbered-color-title-complete);
+      color: tokens.$clickStepperVerticalNumberedColorTitleComplete;
     }
 
     @include variants.variant('cuiStatusActive') {
-      color: var(--click-stepper-vertical-numbered-color-title-active);
+      color: tokens.$clickStepperVerticalNumberedColorTitleActive;
     }
 
     @include variants.variant('cuiStatusIncomplete') {
-      color: var(--click-stepper-vertical-numbered-color-title-incomplete);
+      color: tokens.$clickStepperVerticalNumberedColorTitleIncomplete;
     }
   }
 
   @include variants.variant('cuiTypeBulleted') {
-    font: var(--click-stepper-vertical-bulleted-typography-title-default);
+    font: tokens.$clickStepperVerticalBulletedTypographyTitleDefault;
 
     @include variants.variant('cuiStatusComplete') {
-      color: var(--click-stepper-vertical-bulleted-color-title-complete);
+      color: tokens.$clickStepperVerticalBulletedColorTitleComplete;
     }
 
     @include variants.variant('cuiStatusActive') {
-      color: var(--click-stepper-vertical-bulleted-color-title-active);
+      color: tokens.$clickStepperVerticalBulletedColorTitleActive;
     }
 
     @include variants.variant('cuiStatusIncomplete') {
-      color: var(--click-stepper-vertical-bulleted-color-title-incomplete);
+      color: tokens.$clickStepperVerticalBulletedColorTitleIncomplete;
     }
   }
 }
@@ -246,10 +246,10 @@
 
   // Type variants - using :where() for low specificity
   @include variants.variant('cuiTypeNumbered') {
-    padding-left: var(--click-stepper-vertical-numbered-content-space-left);
+    padding-left: tokens.$clickStepperVerticalNumberedContentSpaceLeft;
   }
 
   @include variants.variant('cuiTypeBulleted') {
-    padding-left: var(--click-stepper-vertical-bulleted-content-space-left);
+    padding-left: tokens.$clickStepperVerticalBulletedContentSpaceLeft;
   }
 }

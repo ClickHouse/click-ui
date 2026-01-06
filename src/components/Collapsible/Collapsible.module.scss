@@ -28,7 +28,7 @@
   }
 
   @include variants.variant('cuiIndicatorDirEnd') {
-    margin-left: var(--click-image-sm-size-width);
+    margin-left: tokens.$clickImageSmSizeWidth;
   }
 }
 
@@ -41,10 +41,10 @@
 
 .cuiContentWrapper {
   @include variants.variant('cuiIndicatorDirStart') {
-    margin-left: var(--click-image-sm-size-width);
+    margin-left: tokens.$clickImageSmSizeWidth;
   }
 
   @include variants.variant('cuiIndicatorDirEnd') {
-    margin-right: var(--click-image-sm-size-width);
+    margin-right: tokens.$clickImageSmSizeWidth;
   }
 }

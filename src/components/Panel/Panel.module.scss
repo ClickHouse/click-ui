@@ -45,82 +45,82 @@
 
   // Color variants
   @include variants.variant('cuiColorDefault') {
-    background-color: var(--click-panel-color-background-default);
+    background-color: tokens.$clickPanelColorBackgroundDefault;
   }
 
   @include variants.variant('cuiColorMuted') {
-    background-color: var(--click-panel-color-background-muted);
+    background-color: tokens.$clickPanelColorBackgroundMuted;
   }
 
   @include variants.variant('cuiColorTransparent') {
-    background-color: var(--click-panel-color-background-transparent);
+    background-color: tokens.$clickPanelColorBackgroundTransparent;
   }
 
   // Border radius styles
   @include variants.variant('cuiRadiiNone') {
-    border-radius: var(--click-panel-radii-none);
+    border-radius: tokens.$clickPanelRadiiNone;
   }
 
   @include variants.variant('cuiRadiiSm') {
-    border-radius: var(--click-panel-radii-sm);
+    border-radius: tokens.$clickPanelRadiiSm;
   }
 
   @include variants.variant('cuiRadiiMd') {
-    border-radius: var(--click-panel-radii-md);
+    border-radius: tokens.$clickPanelRadiiMd;
   }
 
   @include variants.variant('cuiRadiiLg') {
-    border-radius: var(--click-panel-radii-lg);
+    border-radius: tokens.$clickPanelRadiiLg;
   }
 
   // Padding styles
   @include variants.variant('cuiPaddingNone') {
-    padding: var(--click-panel-space-y-none);
+    padding: tokens.$clickPanelSpaceYNone;
   }
 
   @include variants.variant('cuiPaddingXs') {
-    padding: var(--click-panel-space-y-xs);
+    padding: tokens.$clickPanelSpaceYXs;
   }
 
   @include variants.variant('cuiPaddingSm') {
-    padding: var(--click-panel-space-y-sm);
+    padding: tokens.$clickPanelSpaceYSm;
   }
 
   @include variants.variant('cuiPaddingMd') {
-    padding: var(--click-panel-space-y-md);
+    padding: tokens.$clickPanelSpaceYMd;
   }
 
   @include variants.variant('cuiPaddingLg') {
-    padding: var(--click-panel-space-y-lg);
+    padding: tokens.$clickPanelSpaceYLg;
   }
 
   @include variants.variant('cuiPaddingXl') {
-    padding: var(--click-panel-space-y-xl);
+    padding: tokens.$clickPanelSpaceYXl;
   }
 
   // Gap styles
   @include variants.variant('cuiGapNone') {
-    gap: var(--click-panel-space-gap-none);
+    gap: tokens.$clickPanelSpaceGapNone;
   }
 
   @include variants.variant('cuiGapXs') {
-    gap: var(--click-panel-space-gap-xs);
+    gap: tokens.$clickPanelSpaceGapXs;
   }
 
   @include variants.variant('cuiGapSm') {
-    gap: var(--click-panel-space-gap-sm);
+    gap: tokens.$clickPanelSpaceGapSm;
   }
 
   @include variants.variant('cuiGapMd') {
-    gap: var(--click-panel-space-gap-md);
+    gap: tokens.$clickPanelSpaceGapMd;
   }
 
   @include variants.variant('cuiGapLg') {
-    gap: var(--click-panel-space-gap-lg);
+    gap: tokens.$clickPanelSpaceGapLg;
   }
 
   @include variants.variant('cuiGapXl') {
-    gap: var(--click-panel-space-gap-xl);
+    gap: tokens.$clickPanelSpaceGapXl;
   }
 
   // Border styles

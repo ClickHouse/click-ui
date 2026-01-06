@@ -29,16 +29,16 @@
 }
 
 .cuiDialogOverlay {
-  background-color: var(--click-dialog-color-opaqueBackground-default);
+  background-color: tokens.$clickDialogColorOpaqueBackgroundDefault;
   position: fixed;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cuiContentArea {
-  background: var(--click-dialog-color-background-default);
-  border-radius: var(--click-dialog-radii-all);
-  box-shadow: var(--click-dialog-shadow-default);
+  background: tokens.$clickDialogColorBackgroundDefault;
+  border-radius: tokens.$clickDialogRadiiAll;
+  box-shadow: tokens.$clickDialogShadowDefault;
   border: 1px solid var(--global-color-stroke-default);
   width: 75%;
   max-width: 670px;
@@ -52,8 +52,8 @@
   outline: none;
 
   @include variants.variant('cuiRegularPadding') {
-    padding-block: var(--click-dialog-space-y);
-    padding-inline: var(--click-dialog-space-x);
+    padding-block: tokens.$clickDialogSpaceY;
+    padding-inline: tokens.$clickDialogSpaceX;
   }
 
   @include variants.variant('cuiReducedPadding') {
@@ -83,7 +83,7 @@
 }
 
 .cuiTitle {
-  font: var(--click-dialog-typography-title-default);
+  font: tokens.$clickDialogTypographyTitleDefault;
   padding: 0;
   margin: 0;
 }

@@ -6,40 +6,40 @@
   align-items: center;
   overflow: hidden;
   user-select: none;
-  border-radius: var(--click-button-radii-all);
+  border-radius: tokens.$clickButtonRadiiAll;
 
   // Type variants - using :where() for low specificity
   @include variants.variant('cuiPrimary') {
-    border: 1px solid var(--click-button-split-primary-stroke-default);
+    border: 1px solid tokens.$clickButtonSplitPrimaryStrokeDefault;
 
     &:hover {
-      border-color: var(--click-button-split-primary-stroke-hover);
+      border-color: tokens.$clickButtonSplitPrimaryStrokeHover;
     }
 
     &:focus-within {
-      border-color: var(--click-button-split-primary-stroke-active);
+      border-color: tokens.$clickButtonSplitPrimaryStrokeActive;
     }
 
     &.cuiDisabled {
       cursor: not-allowed;
-      border-color: var(--click-button-split-primary-stroke-disabled);
+      border-color: tokens.$clickButtonSplitPrimaryStrokeDisabled;
     }
   }
 
   @include variants.variant('cuiSecondary') {
-    border: 1px solid var(--click-button-split-secondary-stroke-default);
+    border: 1px solid tokens.$clickButtonSplitSecondaryStrokeDefault;
 
     &:hover {
-      border-color: var(--click-button-split-secondary-stroke-hover);
+      border-color: tokens.$clickButtonSplitSecondaryStrokeHover;
     }
 
     &:focus-within {
-      border-color: var(--click-button-split-secondary-stroke-active);
+      border-color: tokens.$clickButtonSplitSecondaryStrokeActive;
     }
 
     &.cuiDisabled {
       cursor: not-allowed;
-      border-color: var(--click-button-split-secondary-stroke-disabled);
+      border-color: tokens.$clickButtonSplitSecondaryStrokeDisabled;
     }
   }
 
@@ -58,53 +58,53 @@
   border: none;
   align-self: stretch;
   border-radius: 0;
-  padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
+  padding: tokens.$clickButtonSplitSpaceY tokens.$clickButtonSplitSpaceX;
 
   @include variants.variant('cuiPrimary') {
-    background: var(--click-button-split-primary-background-main-default);
-    color: var(--click-button-split-primary-text-default);
-    font: var(--click-button-split-typography-label-default);
+    background: tokens.$clickButtonSplitPrimaryBackgroundMainDefault;
+    color: tokens.$clickButtonSplitPrimaryTextDefault;
+    font: tokens.$clickButtonSplitTypographyLabelDefault;
 
     &:hover {
-      background: var(--click-button-split-primary-background-main-hover);
-      color: var(--click-button-split-primary-text-hover);
-      font: var(--click-button-split-typography-label-hover);
+      background: tokens.$clickButtonSplitPrimaryBackgroundMainHover;
+      color: tokens.$clickButtonSplitPrimaryTextHover;
+      font: tokens.$clickButtonSplitTypographyLabelHover;
     }
 
     &:focus {
-      background: var(--click-button-split-primary-background-main-active);
-      color: var(--click-button-split-primary-text-active);
-      font: var(--click-button-split-typography-label-active);
+      background: tokens.$clickButtonSplitPrimaryBackgroundMainActive;
+      color: tokens.$clickButtonSplitPrimaryTextActive;
+      font: tokens.$clickButtonSplitTypographyLabelActive;
     }
 
     &:disabled {
-      background: var(--click-button-split-primary-background-main-disabled);
-      color: var(--click-button-split-primary-text-disabled);
-      font: var(--click-button-split-typography-label-disabled);
+      background: tokens.$clickButtonSplitPrimaryBackgroundMainDisabled;
+      color: tokens.$clickButtonSplitPrimaryTextDisabled;
+      font: tokens.$clickButtonSplitTypographyLabelDisabled;
     }
   }
 
   @include variants.variant('cuiSecondary') {
-    background: var(--click-button-split-secondary-background-main-default);
-    color: var(--click-button-split-secondary-text-default);
-    font: var(--click-button-split-typography-label-default);
+    background: tokens.$clickButtonSplitSecondaryBackgroundMainDefault;
+    color: tokens.$clickButtonSplitSecondaryTextDefault;
+    font: tokens.$clickButtonSplitTypographyLabelDefault;
 
     &:hover {
-      background: var(--click-button-split-secondary-background-main-hover);
-      color: var(--click-button-split-secondary-text-hover);
-      font: var(--click-button-split-typography-label-hover);
+      background: tokens.$clickButtonSplitSecondaryBackgroundMainHover;
+      color: tokens.$clickButtonSplitSecondaryTextHover;
+      font: tokens.$clickButtonSplitTypographyLabelHover;
     }
 
     &:focus {
-      background: var(--click-button-split-secondary-background-main-active);
-      color: var(--click-button-split-secondary-text-active);
-      font: var(--click-button-split-typography-label-active);
+      background: tokens.$clickButtonSplitSecondaryBackgroundMainActive;
+      color: tokens.$clickButtonSplitSecondaryTextActive;
+      font: tokens.$clickButtonSplitTypographyLabelActive;
     }
 
     &:disabled {
-      background: var(--click-button-split-secondary-background-main-disabled);
-      color: var(--click-button-split-secondary-text-disabled);
-      font: var(--click-button-split-typography-label-disabled);
+      background: tokens.$clickButtonSplitSecondaryBackgroundMainDisabled;
+      color: tokens.$clickButtonSplitSecondaryTextDisabled;
+      font: tokens.$clickButtonSplitTypographyLabelDisabled;
     }
   }
 
@@ -119,45 +119,45 @@
   border: none;
   align-self: stretch;
   border-radius: 0;
-  padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
+  padding: tokens.$clickButtonSplitIconSpaceY tokens.$clickButtonSplitIconSpaceX;
 
   @include variants.variant('cuiPrimary') {
-    background: var(--click-button-split-primary-background-action-default);
-    color: var(--click-button-split-primary-text-default);
+    background: tokens.$clickButtonSplitPrimaryBackgroundActionDefault;
+    color: tokens.$clickButtonSplitPrimaryTextDefault;
 
     &:hover {
-      background: var(--click-button-split-primary-background-action-hover);
-      color: var(--click-button-split-primary-text-hover);
+      background: tokens.$clickButtonSplitPrimaryBackgroundActionHover;
+      color: tokens.$clickButtonSplitPrimaryTextHover;
     }
 
     &:focus {
-      background: var(--click-button-split-primary-background-action-active);
-      color: var(--click-button-split-primary-text-active);
+      background: tokens.$clickButtonSplitPrimaryBackgroundActionActive;
+      color: tokens.$clickButtonSplitPrimaryTextActive;
     }
 
     &[data-disabled] {
-      background: var(--click-button-split-primary-background-action-disabled);
-      color: var(--click-button-split-primary-text-disabled);
+      background: tokens.$clickButtonSplitPrimaryBackgroundActionDisabled;
+      color: tokens.$clickButtonSplitPrimaryTextDisabled;
     }
   }
 
   @include variants.variant('cuiSecondary') {
-    background: var(--click-button-split-secondary-background-action-default);
-    color: var(--click-button-split-secondary-text-default);
+    background: tokens.$clickButtonSplitSecondaryBackgroundActionDefault;
+    color: tokens.$clickButtonSplitSecondaryTextDefault;
 
     &:hover {
-      background: var(--click-button-split-secondary-background-action-hover);
-      color: var(--click-button-split-secondary-text-hover);
+      background: tokens.$clickButtonSplitSecondaryBackgroundActionHover;
+      color: tokens.$clickButtonSplitSecondaryTextHover;
     }
 
     &:focus {
-      background: var(--click-button-split-secondary-background-action-active);
-      color: var(--click-button-split-secondary-text-active);
+      background: tokens.$clickButtonSplitSecondaryBackgroundActionActive;
+      color: tokens.$clickButtonSplitSecondaryTextActive;
     }
 
     &[data-disabled] {
-      background: var(--click-button-split-secondary-background-action-disabled);
-      color: var(--click-button-split-secondary-text-disabled);
+      background: tokens.$clickButtonSplitSecondaryBackgroundActionDisabled;
+      color: tokens.$clickButtonSplitSecondaryTextDisabled;
     }
   }
 }

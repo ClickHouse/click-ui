@@ -3,20 +3,20 @@
 // Icon styles with composes - overrides Icon's default size
 .cuiCardIcon {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  height: var(--click-card-promotion-icon-size-all);
-  width: var(--click-card-promotion-icon-size-all);
-  color: var(--click-card-promotion-color-icon-default);
+  height: tokens.$clickCardPromotionIconSizeAll;
+  width: tokens.$clickCardPromotionIconSizeAll;
+  color: tokens.$clickCardPromotionColorIconDefault;
 }
 
 .cuiBackground {
-  background-image: var(--click-card-promotion-color-stroke-default);
+  background-image: tokens.$clickCardPromotionColorStrokeDefault;
   padding: 1px;
-  border-radius: var(--click-card-promotion-radii-all);
-  box-shadow: var(--click-card-shadow);
+  border-radius: tokens.$clickCardPromotionRadiiAll;
+  box-shadow: tokens.$clickCardShadow;
   display: flex;
 
   &:focus {
-    background: var(--click-card-promotion-color-stroke-focus);
+    background: tokens.$clickCardPromotionColorStrokeFocus;
   }
 }
 
@@ -26,29 +26,29 @@
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
-  background: var(--click-card-promotion-color-background-default);
-  color: var(--click-card-promotion-color-text-default);
-  border-radius: var(--click-card-promotion-radii-all);
-  padding: var(--click-card-promotion-space-y) var(--click-card-promotion-space-x);
-  gap: var(--click-card-promotion-space-gap);
+  background: tokens.$clickCardPromotionColorBackgroundDefault;
+  color: tokens.$clickCardPromotionColorTextDefault;
+  border-radius: tokens.$clickCardPromotionRadiiAll;
+  padding: tokens.$clickCardPromotionSpaceY tokens.$clickCardPromotionSpaceX;
+  gap: tokens.$clickCardPromotionSpaceGap;
   transition: 0.2s ease-in-out all;
 
   &:hover {
-    background: var(--click-card-promotion-color-background-hover);
-    color: var(--click-card-promotion-color-text-hover);
+    background: tokens.$clickCardPromotionColorBackgroundHover;
+    color: tokens.$clickCardPromotionColorTextHover;
   }
 
   &:active,
   &:focus {
-    background: var(--click-card-promotion-color-background-active);
-    color: var(--click-card-promotion-color-text-active);
+    background: tokens.$clickCardPromotionColorBackgroundActive;
+    color: tokens.$clickCardPromotionColorTextActive;
   }
 }
 
 .cuiCardIcon {
-  height: var(--click-card-promotion-icon-size-all);
-  width: var(--click-card-promotion-icon-size-all);
-  color: var(--click-card-promotion-color-icon-default);
+  height: tokens.$clickCardPromotionIconSizeAll;
+  width: tokens.$clickCardPromotionIconSizeAll;
+  color: tokens.$clickCardPromotionColorIconDefault;
 }
 
 .cuiDismissWrapper {

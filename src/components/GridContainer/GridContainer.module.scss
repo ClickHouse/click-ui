@@ -125,35 +125,35 @@
 
   /* Gap classes */
   @include variants.variant('cuiGapNone') {
-    gap: var(--click-gridContainer-gap-none);
+    gap: tokens.$clickGridContainerGapNone;
   }
 
   @include variants.variant('cuiGapXxs') {
-    gap: var(--click-gridContainer-gap-xxs);
+    gap: tokens.$clickGridContainerGapXxs;
   }
 
   @include variants.variant('cuiGapXs') {
-    gap: var(--click-gridContainer-gap-xs);
+    gap: tokens.$clickGridContainerGapXs;
   }
 
   @include variants.variant('cuiGapSm') {
-    gap: var(--click-gridContainer-gap-sm);
+    gap: tokens.$clickGridContainerGapSm;
   }
 
   @include variants.variant('cuiGapMd') {
-    gap: var(--click-gridContainer-gap-md);
+    gap: tokens.$clickGridContainerGapMd;
   }
 
   @include variants.variant('cuiGapLg') {
-    gap: var(--click-gridContainer-gap-lg);
+    gap: tokens.$clickGridContainerGapLg;
   }
 
   @include variants.variant('cuiGapXl') {
-    gap: var(--click-gridContainer-gap-xl);
+    gap: tokens.$clickGridContainerGapXl;
   }
 
   @include variants.variant('cuiGapXxl') {
-    gap: var(--click-gridContainer-gap-xxl);
+    gap: tokens.$clickGridContainerGapXxl;
   }
 
   @include variants.variant('cuiGapUnset') {
@@ -162,35 +162,35 @@
 
   /* Column gap classes */
   @include variants.variant('cuiColumnGapNone') {
-    column-gap: var(--click-gridContainer-gap-none);
+    column-gap: tokens.$clickGridContainerGapNone;
   }
 
   @include variants.variant('cuiColumnGapXxs') {
-    column-gap: var(--click-gridContainer-gap-xxs);
+    column-gap: tokens.$clickGridContainerGapXxs;
   }
 
   @include variants.variant('cuiColumnGapXs') {
-    column-gap: var(--click-gridContainer-gap-xs);
+    column-gap: tokens.$clickGridContainerGapXs;
   }
 
   @include variants.variant('cuiColumnGapSm') {
-    column-gap: var(--click-gridContainer-gap-sm);
+    column-gap: tokens.$clickGridContainerGapSm;
   }
 
   @include variants.variant('cuiColumnGapMd') {
-    column-gap: var(--click-gridContainer-gap-md);
+    column-gap: tokens.$clickGridContainerGapMd;
   }
 
   @include variants.variant('cuiColumnGapLg') {
-    column-gap: var(--click-gridContainer-gap-lg);
+    column-gap: tokens.$clickGridContainerGapLg;
   }
 
   @include variants.variant('cuiColumnGapXl') {
-    column-gap: var(--click-gridContainer-gap-xl);
+    column-gap: tokens.$clickGridContainerGapXl;
   }
 
   @include variants.variant('cuiColumnGapXxl') {
-    column-gap: var(--click-gridContainer-gap-xxl);
+    column-gap: tokens.$clickGridContainerGapXxl;
   }
 
   @include variants.variant('cuiColumnGapUnset') {
@@ -199,35 +199,35 @@
 
   /* Row gap classes */
   @include variants.variant('cuiRowGapNone') {
-    row-gap: var(--click-gridContainer-gap-none);
+    row-gap: tokens.$clickGridContainerGapNone;
   }
 
   @include variants.variant('cuiRowGapXxs') {
-    row-gap: var(--click-gridContainer-gap-xxs);
+    row-gap: tokens.$clickGridContainerGapXxs;
   }
 
   @include variants.variant('cuiRowGapXs') {
-    row-gap: var(--click-gridContainer-gap-xs);
+    row-gap: tokens.$clickGridContainerGapXs;
   }
 
   @include variants.variant('cuiRowGapSm') {
-    row-gap: var(--click-gridContainer-gap-sm);
+    row-gap: tokens.$clickGridContainerGapSm;
   }
 
   @include variants.variant('cuiRowGapMd') {
-    row-gap: var(--click-gridContainer-gap-md);
+    row-gap: tokens.$clickGridContainerGapMd;
   }
 
   @include variants.variant('cuiRowGapLg') {
-    row-gap: var(--click-gridContainer-gap-lg);
+    row-gap: tokens.$clickGridContainerGapLg;
   }
 
   @include variants.variant('cuiRowGapXl') {
-    row-gap: var(--click-gridContainer-gap-xl);
+    row-gap: tokens.$clickGridContainerGapXl;
   }
 
   @include variants.variant('cuiRowGapXxl') {
-    row-gap: var(--click-gridContainer-gap-xxl);
+    row-gap: tokens.$clickGridContainerGapXxl;
   }
 
   @include variants.variant('cuiRowGapUnset') {

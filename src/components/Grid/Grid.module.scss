@@ -18,7 +18,7 @@
   outline: none;
   overflow: hidden;
   width: 100%;
-  background: var(--click-grid-body-cell-color-background-default);
+  background: tokens.$clickGridBodyCellColorBackgroundDefault;
 
   /* Height variants */
   @include variants.variant('cuiAutoHeight') {
@@ -31,28 +31,28 @@
 
   /* Rounded variants */
   @include variants.variant('cuiRoundedNone') {
-    border-radius: var(--click-grid-radii-none);
+    border-radius: tokens.$clickGridRadiiNone;
   }
 
   @include variants.variant('cuiRoundedSm') {
-    border-radius: var(--click-grid-radii-sm);
+    border-radius: tokens.$clickGridRadiiSm;
   }
 
   @include variants.variant('cuiRoundedMd') {
-    border-radius: var(--click-grid-radii-md);
+    border-radius: tokens.$clickGridRadiiMd;
   }
 
   @include variants.variant('cuiRoundedLg') {
-    border-radius: var(--click-grid-radii-lg);
+    border-radius: tokens.$clickGridRadiiLg;
   }
 
   @include variants.variant('cuiRoundedXl') {
-    border-radius: var(--click-grid-radii-xl);
+    border-radius: tokens.$clickGridRadiiXl;
   }
 
   /* Border variants */
   @include variants.variant('cuiShowBorder') {
-    border: 1px solid var(--click-grid-header-cell-color-stroke-default);
+    border: 1px solid tokens.$clickGridHeaderCellColorStrokeDefault;
   }
 
   @include variants.variant('cuiHideBorder') {

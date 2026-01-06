@@ -21,7 +21,7 @@
 }
 
 .cuiFlyoutOverlay {
-  background-color: var(--click-dialog-color-opaqueBackground-default);
+  background-color: tokens.$clickDialogColorOpaqueBackgroundDefault;
   position: fixed;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -40,19 +40,19 @@
 
   /* Size variants */
   @include variants.variant('cuiSizeDefault') {
-    --flyout-width: var(--click-flyout-size-default-width);
+    --flyout-width: tokens.$clickFlyoutSizeDefaultWidth;
   }
 
   @include variants.variant('cuiSizeNarrow') {
-    --flyout-width: var(--click-flyout-size-narrow-width);
+    --flyout-width: tokens.$clickFlyoutSizeNarrowWidth;
   }
 
   @include variants.variant('cuiSizeWide') {
-    --flyout-width: var(--click-flyout-size-wide-width);
+    --flyout-width: tokens.$clickFlyoutSizeWideWidth;
   }
 
   @include variants.variant('cuiSizeWidest') {
-    --flyout-width: var(--click-flyout-size-widest-width);
+    --flyout-width: tokens.$clickFlyoutSizeWidestWidth;
   }
 
   @include variants.variant('cuiCustomWidth') {
@@ -77,29 +77,29 @@
 
   /* Type variants */
   @include variants.variant('cuiTypeDefault') {
-    padding: 0 var(--click-flyout-space-default-x);
-    gap: var(--click-flyout-space-default-gap);
+    padding: 0 tokens.$clickFlyoutSpaceDefaultX;
+    gap: tokens.$clickFlyoutSpaceDefaultGap;
   }
 
   @include variants.variant('cuiTypeInline') {
-    padding: 0 var(--click-flyout-space-inline-x);
-    gap: var(--click-flyout-space-inline-gap);
+    padding: 0 tokens.$clickFlyoutSpaceInlineX;
+    gap: tokens.$clickFlyoutSpaceInlineGap;
   }
 
   /* Alignment variants */
   @include variants.variant('cuiAlignStart') {
     left: 0;
-    box-shadow: var(--click-flyout-shadow-reverse);
-    border-right: 1px solid var(--click-flyout-color-stroke-default);
+    box-shadow: tokens.$clickFlyoutShadowReverse;
+    border-right: 1px solid tokens.$clickFlyoutColorStrokeDefault;
   }
 
   @include variants.variant('cuiAlignEnd') {
     right: 0;
-    box-shadow: var(--click-flyout-shadow-default);
-    border-left: 1px solid var(--click-flyout-color-stroke-default);
+    box-shadow: tokens.$clickFlyoutShadowDefault;
+    border-left: 1px solid tokens.$clickFlyoutColorStrokeDefault;
   }
 
-  background: var(--click-flyout-color-background-default);
+  background: tokens.$clickFlyoutColorBackgroundDefault;
 
   @include mixins.cuiMobile {
     @include variants.variant('cuiStrategyRelative') {
@@ -146,28 +146,28 @@
   @include mixins.cuiFullMaxWidthStretch;
 
   @include variants.variant('cuiTypeDefault') {
-    gap: var(--click-flyout-space-default-gap);
-    padding: 0 var(--click-flyout-space-default-content-x);
+    gap: tokens.$clickFlyoutSpaceDefaultGap;
+    padding: 0 tokens.$clickFlyoutSpaceDefaultContentX;
   }
 
   @include variants.variant('cuiTypeInline') {
-    gap: var(--click-flyout-space-inline-gap);
-    padding: 0 var(--click-flyout-space-inline-content-x);
+    gap: tokens.$clickFlyoutSpaceInlineGap;
+    padding: 0 tokens.$clickFlyoutSpaceInlineContentX;
   }
 }
 
 .cuiFlyoutHeaderContainer {
   @include variants.variant('cuiTypeDefault') {
-    row-gap: var(--click-flyout-space-default-content-row-gap);
-    column-gap: var(--click-flyout-space-default-content-column-gap);
-    padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y) 0
-      var(--click-flyout-space-default-y);
+    row-gap: tokens.$clickFlyoutSpaceDefaultContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultY 0
+      tokens.$clickFlyoutSpaceDefaultY;
   }
 
   @include variants.variant('cuiTypeInline') {
-    row-gap: var(--click-flyout-space-inline-content-row-gap);
-    column-gap: var(--click-flyout-space-inline-content-column-gap);
-    padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-y) 0 var(--click-flyout-space-inline-y);
+    row-gap: tokens.$clickFlyoutSpaceInlineContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceInlineContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineY 0 tokens.$clickFlyoutSpaceInlineY;
   }
 }
 
@@ -176,13 +176,13 @@
   padding: 0;
 
   @include variants.variant('cuiTypeDefault') {
-    color: var(--click-flyout-color-title-default);
-    font: var(--click-flyout-typography-default-title-default);
+    color: tokens.$clickFlyoutColorTitleDefault;
+    font: tokens.$clickFlyoutTypographyDefaultTitleDefault;
   }
 
   @include variants.variant('cuiTypeInline') {
-    color: var(--click-flyout-color-title-default);
-    font: var(--click-flyout-typography-inline-title-default);
+    color: tokens.$clickFlyoutColorTitleDefault;
+    font: tokens.$clickFlyoutTypographyInlineTitleDefault;
   }
 }
 
@@ -191,13 +191,13 @@
   padding: 0;
 
   @include variants.variant('cuiTypeDefault') {
-    color: var(--click-flyout-color-description-default);
-    font: var(--click-flyout-typography-default-description-default);
+    color: tokens.$clickFlyoutColorDescriptionDefault;
+    font: tokens.$clickFlyoutTypographyDefaultDescriptionDefault;
   }
 
   @include variants.variant('cuiTypeInline') {
-    color: var(--click-flyout-color-description-default);
-    font: var(--click-flyout-typography-inline-description-default);
+    color: tokens.$clickFlyoutColorDescriptionDefault;
+    font: tokens.$clickFlyoutTypographyInlineDescriptionDefault;
   }
 }
 
@@ -216,15 +216,15 @@
 
 .cuiFlyoutFooter {
   @include variants.variant('cuiTypeDefault') {
-    row-gap: var(--click-flyout-space-default-content-row-gap);
-    column-gap: var(--click-flyout-space-default-content-column-gap);
-    padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-content-x);
+    row-gap: tokens.$clickFlyoutSpaceDefaultContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultContentX;
   }
 
   @include variants.variant('cuiTypeInline') {
-    row-gap: var(--click-flyout-space-inline-content-row-gap);
-    column-gap: var(--click-flyout-space-inline-content-column-gap);
-    padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-content-x);
+    row-gap: tokens.$clickFlyoutSpaceInlineContentRowGap;
+    column-gap: tokens.$clickFlyoutSpaceInlineContentColumnGap;
+    padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineContentX;
   }
 }
 

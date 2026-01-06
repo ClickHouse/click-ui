@@ -13,27 +13,27 @@
 
   // Gap variants - using :where() for low specificity
   @include variants.variant("cuiGapNone") {
-    gap: var(--click-container-gap-none);
+    gap: tokens.$clickContainerGapNone;
   }
 
   @include variants.variant("cuiGapXs") {
-    gap: var(--click-container-gap-xs);
+    gap: tokens.$clickContainerGapXs;
   }
 
   @include variants.variant("cuiGapSm") {
-    gap: var(--click-container-gap-sm);
+    gap: tokens.$clickContainerGapSm;
   }
 
   @include variants.variant("cuiGapMd") {
-    gap: var(--click-container-gap-md);
+    gap: tokens.$clickContainerGapMd;
   }
 
   @include variants.variant("cuiGapLg") {
-    gap: var(--click-container-gap-lg);
+    gap: tokens.$clickContainerGapLg;
   }
 
   @include variants.variant("cuiGapXl") {
-    gap: var(--click-container-gap-xl);
+    gap: tokens.$clickContainerGapXl;
   }
 }
 
@@ -78,22 +78,22 @@
   // Size variants - using :where() for low specificity
   @include variants.variant("cuiSizeNone") {
     @include mixins.cuiAccordionTriggerSize("sm");
-    padding: var(--click-container-space-sm);
+    padding: tokens.$clickContainerSpaceSm;
   }
 
   @include variants.variant("cuiSizeSm") {
     @include mixins.cuiAccordionTriggerSize("sm");
-    padding: var(--click-container-space-sm);
+    padding: tokens.$clickContainerSpaceSm;
   }
 
   @include variants.variant("cuiSizeMd") {
     @include mixins.cuiAccordionTriggerSize("md");
-    padding: var(--click-container-space-md);
+    padding: tokens.$clickContainerSpaceMd;
   }
 
   @include variants.variant("cuiSizeLg") {
     @include mixins.cuiAccordionTriggerSize("lg");
-    padding: var(--click-container-space-lg);
+    padding: tokens.$clickContainerSpaceLg;
   }
 
   // Color link variants with size combinations
@@ -128,7 +128,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--click-container-gap-sm);
+  gap: tokens.$clickContainerGapSm;
   width: 100%;
   overflow: hidden;
 }
@@ -161,22 +161,22 @@
 
   // Padding variants - using :where() for low specificity
   @include variants.variant("cuiPaddingNone") {
-    padding: var(--click-container-space-none);
+    padding: tokens.$clickContainerSpaceNone;
     padding-top: 0;
   }
 
   @include variants.variant("cuiPaddingSm") {
-    padding: var(--click-container-space-sm);
+    padding: tokens.$clickContainerSpaceSm;
     padding-top: 0;
   }
 
   @include variants.variant("cuiPaddingMd") {
-    padding: var(--click-container-space-md);
+    padding: tokens.$clickContainerSpaceMd;
     padding-top: 0;
   }
 
   @include variants.variant("cuiPaddingLg") {
-    padding: var(--click-container-space-lg);
+    padding: tokens.$clickContainerSpaceLg;
     padding-top: 0;
   }
 }

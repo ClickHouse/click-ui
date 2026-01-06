@@ -20,14 +20,14 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  min-height: var(--click-genericMenu-panel-size-height);
-  border-radius: var(--click-field-radii-all);
-  padding: var(--click-field-space-y) var(--click-field-space-x);
-  gap: var(--click-field-space-gap);
-  font: var(--click-field-typography-fieldText-default);
-  color: var(--click-field-color-text-default);
-  border: 1px solid var(--click-field-color-stroke-default);
-  background: var(--click-field-color-background-default);
+  min-height: tokens.$clickGenericMenuPanelSizeHeight;
+  border-radius: tokens.$clickFieldRadiiAll;
+  padding: tokens.$clickFieldSpaceY tokens.$clickFieldSpaceX;
+  gap: tokens.$clickFieldSpaceGap;
+  font: tokens.$clickFieldTypographyFieldTextDefault;
+  color: tokens.$clickFieldColorTextDefault;
+  border: 1px solid tokens.$clickFieldColorStrokeDefault;
+  background: tokens.$clickFieldColorBackgroundDefault;
 
   span:first-of-type {
     max-width: 100%;
@@ -37,49 +37,49 @@
   }
 
   &:hover {
-    border: 1px solid var(--click-field-color-stroke-hover);
-    background: var(--click-field-color-background-hover);
-    color: var(--click-field-color-text-hover);
+    border: 1px solid tokens.$clickFieldColorStrokeHover;
+    background: tokens.$clickFieldColorBackgroundHover;
+    color: tokens.$clickFieldColorTextHover;
   }
 
   &:focus,
   &[data-state="open"] {
-    font: var(--click-field-typography-fieldText-active);
-    border: 1px solid var(--click-field-color-stroke-active);
-    background: var(--click-field-color-background-active);
-    color: var(--click-field-color-text-active);
+    font: tokens.$clickFieldTypographyFieldTextActive;
+    border: 1px solid tokens.$clickFieldColorStrokeActive;
+    background: tokens.$clickFieldColorBackgroundActive;
+    color: tokens.$clickFieldColorTextActive;
 
     & ~ label {
-      color: var(--click-field-color-label-active);
-      font: var(--click-field-typography-label-active);
+      color: tokens.$clickFieldColorLabelActive;
+      font: tokens.$clickFieldTypographyLabelActive;
     }
   }
 
   &:disabled {
-    font: var(--click-field-typography-fieldText-disabled);
-    border: 1px solid var(--click-field-color-stroke-disabled);
-    background: var(--click-field-color-background-disabled);
-    color: var(--click-field-color-text-disabled);
+    font: tokens.$clickFieldTypographyFieldTextDisabled;
+    border: 1px solid tokens.$clickFieldColorStrokeDisabled;
+    background: tokens.$clickFieldColorBackgroundDisabled;
+    color: tokens.$clickFieldColorTextDisabled;
     cursor: not-allowed;
   }
 
   @include variants.variant('cuiError') {
-    font: var(--click-field-typography-fieldText-error);
-    border: 1px solid var(--click-field-color-stroke-error);
-    background: var(--click-field-color-background-active);
-    color: var(--click-field-color-text-error);
+    font: tokens.$clickFieldTypographyFieldTextError;
+    border: 1px solid tokens.$clickFieldColorStrokeError;
+    background: tokens.$clickFieldColorBackgroundActive;
+    color: tokens.$clickFieldColorTextError;
 
     &:hover {
-      border: 1px solid var(--click-field-color-stroke-error);
-      color: var(--click-field-color-text-error);
+      border: 1px solid tokens.$clickFieldColorStrokeError;
+      color: tokens.$clickFieldColorTextError;
     }
 
     &:focus,
     &[data-state="open"] {
-      font: var(--click-field-typography-fieldText-error);
-      border: 1px solid var(--click-field-color-stroke-error);
-      background: var(--click-field-color-background-active);
-      color: var(--click-field-color-text-error);
+      font: tokens.$clickFieldTypographyFieldTextError;
+      border: 1px solid tokens.$clickFieldColorStrokeError;
+      background: tokens.$clickFieldColorBackgroundActive;
+      color: tokens.$clickFieldColorTextError;
     }
   }
 
@@ -93,8 +93,8 @@
   max-height: var(--radix-popover-content-available-height);
   border-radius: 0.25rem;
   pointer-events: auto;
-  border: 1px solid var(--click-genericMenu-item-color-stroke-default);
-  background: var(--click-genericMenu-item-color-background-default);
+  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
   box-shadow:
     0px 1px 3px 0px rgba(16, 24, 40, 0.1),
     0px 1px 2px 0px rgba(16, 24, 40, 0.06);
@@ -120,11 +120,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
-  font: var(--click-genericMenu-autocomplete-typography-search-term-default);
+  color: tokens.$clickGenericMenuAutocompleteColorSearchTermDefault;
+  font: tokens.$clickGenericMenuAutocompleteTypographySearchTermDefault;
 
   @include variants.variant('cuiShowSearch') {
-    padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+    padding: tokens.$clickGenericMenuItemSpaceY tokens.$clickGenericMenuItemSpaceX;
     height: auto;
   }
 
@@ -139,20 +139,20 @@
   border: none;
   width: 100%;
   outline: none;
-  gap: var(--click-genericMenu-item-space-gap);
-  font: var(--click-genericMenu-autocomplete-typography-search-term-default);
-  color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  font: tokens.$clickGenericMenuAutocompleteTypographySearchTermDefault;
+  color: tokens.$clickGenericMenuAutocompleteColorSearchTermDefault;
 
   &::placeholder {
-    color: var(--click-genericMenu-autocomplete-color-placeholder-default);
-    font: var(--click-genericMenu-autocomplete-typography-search-placeholder-default);
+    color: tokens.$clickGenericMenuAutocompleteColorPlaceholderDefault;
+    font: tokens.$clickGenericMenuAutocompleteTypographySearchPlaceholderDefault;
   }
 
   @include variants.variant('cuiShowSearch') {
     min-height: 21px;
     height: initial;
     padding-right: 24px;
-    border-bottom: 2px solid var(--click-genericMenu-button-color-stroke-default);
+    border-bottom: 2px solid tokens.$clickGenericMenuButtonColorStrokeDefault;
   }
 
   @include variants.variant('cuiHideSearch') {
@@ -165,8 +165,8 @@
 
 .cuiSearchClose {
   position: absolute;
-  top: var(--click-genericMenu-item-space-y);
-  right: var(--click-genericMenu-item-space-x);
+  top: tokens.$clickGenericMenuItemSpaceY;
+  right: tokens.$clickGenericMenuItemSpaceX;
 
   @include variants.variant('cuiShowClose') {
     visibility: visible;
@@ -206,8 +206,8 @@
   @include mixins.cuiFullWidthStretch;
   overflow: hidden;
   background: transparent;
-  font: var(--click-genericMenu-item-typography-sectionHeader-default);
-  color: var(--click-genericMenu-item-color-text-muted);
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
 
   &[aria-selected] {
     outline: none;
@@ -225,12 +225,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font: var(--click-genericMenu-item-typography-sectionHeader-default);
-  color: var(--click-genericMenu-item-color-text-muted);
-  padding: var(--click-genericMenu-sectionHeader-space-top) var(--click-genericMenu-item-space-x)
-    var(--click-genericMenu-sectionHeader-space-bottom);
-  gap: var(--click-genericMenu-item-space-gap);
-  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
+  padding: tokens.$clickGenericMenuSectionHeaderSpaceTop tokens.$clickGenericMenuItemSpaceX
+    tokens.$clickGenericMenuSectionHeaderSpaceBottom;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
 }
 
 .cuiSelectGroupContent {
@@ -245,10 +245,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
-  font: var(--click-genericMenu-button-typography-label-default);
-  padding: var(--click-genericMenu-button-space-y) var(--click-genericMenu-item-space-x);
-  background: var(--click-genericMenu-button-color-background-default);
-  color: var(--click-genericMenu-button-color-label-default);
+  font: tokens.$clickGenericMenuButtonTypographyLabelDefault;
+  padding: tokens.$clickGenericMenuButtonSpaceY tokens.$clickGenericMenuItemSpaceX;
+  background: tokens.$clickGenericMenuButtonColorBackgroundDefault;
+  color: tokens.$clickGenericMenuButtonColorLabelDefault;
 
   &[hidden="true"] {
     display: none;

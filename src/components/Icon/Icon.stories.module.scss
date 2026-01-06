@@ -1,3 +1,5 @@
+ "@/theme/tokens/types" as tokens;
+
 .cuiResponsiveGridContainer {
   grid-template-columns: repeat(6, 1fr);
   gap: 1em;

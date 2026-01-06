@@ -9,7 +9,7 @@
   width: fill-available;
   width: stretch;
   flex: 1;
-  gap: var(--click-sidebar-navigation-item-default-space-gap);
+  gap: tokens.$clickSidebarNavigationItemDefaultSpaceGap;
   overflow: hidden;
 }
 

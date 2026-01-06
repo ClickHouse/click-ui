@@ -4,22 +4,22 @@
 // Icon styles with composes - overrides Icon's default size
 .cuiIconSm {
   composes: cuiIconWrapper from "../Icon/Icon.module.scss";
-  width: var(--click-card-primary-size-icon-sm-all);
-  height: var(--click-card-primary-size-icon-sm-all);
+  width: tokens.$clickCardPrimarySizeIconSmAll;
+  height: tokens.$clickCardPrimarySizeIconSmAll;
 }
 
 .cuiIconMd {
   composes: cuiIconWrapper from "../Icon/Icon.module.scss";
-  width: var(--click-card-primary-size-icon-md-all);
-  height: var(--click-card-primary-size-icon-md-all);
+  width: tokens.$clickCardPrimarySizeIconMdAll;
+  height: tokens.$clickCardPrimarySizeIconMdAll;
 }
 
 .cuiWrapper {
   @include mixins.cuiCardBase;
 
-  background-color: var(--click-card-primary-color-background-default);
-  border-radius: var(--click-card-primary-radii-all);
-  border: 1px solid var(--click-card-primary-color-stroke-default);
+  background-color: tokens.$clickCardPrimaryColorBackgroundDefault;
+  border-radius: tokens.$clickCardPrimaryRadiiAll;
+  border: 1px solid tokens.$clickCardPrimaryColorStrokeDefault;
   display: flex;
   width: 100%;
   max-width: 100%;
@@ -32,13 +32,13 @@
 
   // Size variants - using :where() for low specificity
   @include variants.variant("cuiSizeSm") {
-    padding: var(--click-card-primary-space-sm-x) var(--click-card-primary-space-sm-y);
-    gap: var(--click-card-primary-space-sm-gap);
+    padding: tokens.$clickCardPrimarySpaceSmX tokens.$clickCardPrimarySpaceSmY;
+    gap: tokens.$clickCardPrimarySpaceSmGap;
   }
 
   @include variants.variant("cuiSizeMd") {
-    padding: var(--click-card-primary-space-md-x) var(--click-card-primary-space-md-y);
-    gap: var(--click-card-primary-space-md-gap);
+    padding: tokens.$clickCardPrimarySpaceMdX tokens.$clickCardPrimarySpaceMdY;
+    gap: tokens.$clickCardPrimarySpaceMdGap;
   }
 
   // Align variants - using :where() for low specificity
@@ -56,26 +56,26 @@
 
   &:hover,
   &:focus {
-    background-color: var(--click-card-secondary-color-background-hover);
+    background-color: tokens.$clickCardSecondaryColorBackgroundHover;
     cursor: pointer;
 
     button {
-      background-color: var(--click-button-basic-color-primary-background-hover);
-      border-color: var(--click-button-basic-color-primary-stroke-hover);
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundHover;
+      border-color: tokens.$clickButtonBasicColorPrimaryStrokeHover;
 
       &:active {
-        background-color: var(--click-button-basic-color-primary-background-active);
-        border-color: var(--click-button-basic-color-primary-stroke-active);
+        background-color: tokens.$clickButtonBasicColorPrimaryBackgroundActive;
+        border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
       }
     }
   }
 
   &:active {
-    border-color: var(--click-button-basic-color-primary-stroke-active);
+    border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
   }
 
   &.cuiIsSelected {
-    border-color: var(--click-button-basic-color-primary-stroke-active);
+    border-color: tokens.$clickButtonBasicColorPrimaryStrokeActive;
   }
 
   &[aria-disabled="true"],
@@ -83,18 +83,18 @@
   &[aria-disabled="true"]:focus,
   &[aria-disabled="true"]:active {
     pointer-events: none;
-    background-color: var(--click-card-primary-color-background-disabled);
-    color: var(--click-card-primary-color-title-disabled);
-    border: 1px solid var(--click-card-primary-color-stroke-disabled);
+    background-color: tokens.$clickCardPrimaryColorBackgroundDisabled;
+    color: tokens.$clickCardPrimaryColorTitleDisabled;
+    border: 1px solid tokens.$clickCardPrimaryColorStrokeDisabled;
     cursor: not-allowed;
 
     button {
-      background-color: var(--click-button-basic-color-primary-background-disabled);
-      border-color: var(--click-button-basic-color-primary-stroke-disabled);
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
+      border-color: tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
 
       &:active {
-        background-color: var(--click-button-basic-color-primary-background-disabled);
-        border-color: var(--click-button-basic-color-primary-stroke-disabled);
+        background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
+        border-color: tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
       }
     }
   }
@@ -119,11 +119,11 @@
 
   // Size variants - using :where() for low specificity
   @include variants.variant("cuiSizeSm") {
-    gap: var(--click-card-primary-space-sm-gap);
+    gap: tokens.$clickCardPrimarySpaceSmGap;
   }
 
   @include variants.variant("cuiSizeMd") {
-    gap: var(--click-card-primary-space-md-gap);
+    gap: tokens.$clickCardPrimarySpaceMdGap;
   }
 
   h3 {
@@ -136,25 +136,25 @@
 
   // Icon wrapper sizing (applies to Icon component wrapper)
   .cuiSizeSm {
-    height: var(--click-card-primary-size-icon-sm-all);
-    width: var(--click-card-primary-size-icon-sm-all);
+    height: tokens.$clickCardPrimarySizeIconSmAll;
+    width: tokens.$clickCardPrimarySizeIconSmAll;
   }
 
   .cuiSizeMd {
-    height: var(--click-card-primary-size-icon-md-all);
-    width: var(--click-card-primary-size-icon-md-all);
+    height: tokens.$clickCardPrimarySizeIconMdAll;
+    width: tokens.$clickCardPrimarySizeIconMdAll;
   }
 
   // Direct img sizing (for iconUrl prop)
   img {
     &.cuiSizeSm {
-      height: var(--click-card-primary-size-icon-sm-all);
-      width: var(--click-card-primary-size-icon-sm-all);
+      height: tokens.$clickCardPrimarySizeIconSmAll;
+      width: tokens.$clickCardPrimarySizeIconSmAll;
     }
 
     &.cuiSizeMd {
-      height: var(--click-card-primary-size-icon-md-all);
-      width: var(--click-card-primary-size-icon-md-all);
+      height: tokens.$clickCardPrimarySizeIconMdAll;
+      width: tokens.$clickCardPrimarySizeIconMdAll;
     }
   }
 }
@@ -180,10 +180,10 @@
 
   // Size variants - using :where() for low specificity
   @include variants.variant("cuiSizeSm") {
-    gap: var(--click-card-primary-space-sm-gap);
+    gap: tokens.$clickCardPrimarySpaceSmGap;
   }
 
   @include variants.variant("cuiSizeMd") {
-    gap: var(--click-card-primary-space-md-gap);
+    gap: tokens.$clickCardPrimarySpaceMdGap;
   }
 }

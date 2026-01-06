@@ -7,8 +7,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: var(--click-button-group-color-background-panel);
-  border-radius: var(--click-button-group-radii-panel-all);
+  background: tokens.$clickButtonGroupColorBackgroundPanel;
+  border-radius: tokens.$clickButtonGroupRadiiPanelAll;
 
   &.cuiFillWidth {
     width: 100%;
@@ -16,14 +16,14 @@
 
   // Type variants
   @include variants.variant('cuiTypeDefault') {
-    padding: var(--click-button-group-space-panel-default-x) var(--click-button-group-space-panel-default-y);
-    gap: var(--click-button-group-space-panel-default-gap);
-    border: 1px solid var(--click-button-group-color-panel-stroke-default);
+    padding: tokens.$clickButtonGroupSpacePanelDefaultX tokens.$clickButtonGroupSpacePanelDefaultY;
+    gap: tokens.$clickButtonGroupSpacePanelDefaultGap;
+    border: 1px solid tokens.$clickButtonGroupColorPanelStrokeDefault;
   }
 
   @include variants.variant('cuiTypeBorderless') {
-    padding: var(--click-button-group-space-panel-borderless-x) var(--click-button-group-space-panel-borderless-y);
-    gap: var(--click-button-group-space-panel-borderless-gap);
+    padding: tokens.$clickButtonGroupSpacePanelBorderlessX tokens.$clickButtonGroupSpacePanelBorderlessY;
+    gap: tokens.$clickButtonGroupSpacePanelBorderlessGap;
     border: none;
   }
 }
@@ -34,8 +34,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: var(--click-button-group-color-text-default);
-  font: var(--click-button-group-typography-label-default);
+  color: tokens.$clickButtonGroupColorTextDefault;
+  font: tokens.$clickButtonGroupTypographyLabelDefault;
   cursor: pointer;
   border: none;
 
@@ -45,59 +45,59 @@
 
   // Active/inactive background states
   &.cuiActive {
-    background: var(--click-button-group-color-background-active);
+    background: tokens.$clickButtonGroupColorBackgroundActive;
   }
 
   &.cuiInactive {
-    background: var(--click-button-group-color-background-default);
+    background: tokens.$clickButtonGroupColorBackgroundDefault;
   }
 
   // Type variants
   @include variants.variant('cuiTypeDefault') {
-    padding: var(--click-button-group-space-button-default-y) var(--click-button-group-space-button-default-x);
-    border-radius: var(--click-button-group-radii-button-default-all);
+    padding: tokens.$clickButtonGroupSpaceButtonDefaultY tokens.$clickButtonGroupSpaceButtonDefaultX;
+    border-radius: tokens.$clickButtonGroupRadiiButtonDefaultAll;
   }
 
   @include variants.variant('cuiTypeBorderless') {
-    padding: var(--click-button-group-space-button-borderless-y) var(--click-button-group-space-button-borderless-x);
-    border-radius: var(--click-button-group-radii-button-borderless-all);
+    padding: tokens.$clickButtonGroupSpaceButtonBorderlessY tokens.$clickButtonGroupSpaceButtonBorderlessX;
+    border-radius: tokens.$clickButtonGroupRadiiButtonBorderlessAll;
   }
 
   &:hover:not(:disabled) {
-    background: var(--click-button-group-color-background-hover);
-    font: var(--click-button-group-typography-label-hover);
-    color: var(--click-button-group-color-text-hover);
+    background: tokens.$clickButtonGroupColorBackgroundHover;
+    font: tokens.$clickButtonGroupTypographyLabelHover;
+    color: tokens.$clickButtonGroupColorTextHover;
   }
 
   &:disabled {
     cursor: not-allowed;
-    font: var(--click-button-group-typography-label-disabled);
-    color: var(--click-button-group-color-text-disabled);
+    font: tokens.$clickButtonGroupTypographyLabelDisabled;
+    color: tokens.$clickButtonGroupColorTextDisabled;
 
     &.cuiActive {
-      background: var(--click-button-group-color-background-disabled-active);
+      background: tokens.$clickButtonGroupColorBackgroundDisabledActive;
     }
 
     &.cuiInactive {
-      background: var(--click-button-group-color-background-disabled);
+      background: tokens.$clickButtonGroupColorBackgroundDisabled;
     }
 
     &:active,
     &:focus,
     &[aria-pressed="true"] {
-      color: var(--click-button-group-color-text-disabled);
+      color: tokens.$clickButtonGroupColorTextDisabled;
     }
   }
 
   &:active:not(:disabled),
   &:focus:not(:disabled),
   &[aria-pressed="true"]:not(:disabled) {
-    background: var(--click-button-group-color-background-active);
-    font: var(--click-button-group-typography-label-active);
-    color: var(--click-button-group-color-text-active);
+    background: tokens.$clickButtonGroupColorBackgroundActive;
+    font: tokens.$clickButtonGroupTypographyLabelActive;
+    color: tokens.$clickButtonGroupColorTextActive;
 
     &:disabled {
-      background: var(--click-button-group-color-background-disabled-active);
+      background: tokens.$clickButtonGroupColorBackgroundDisabledActive;
     }
   }
 }

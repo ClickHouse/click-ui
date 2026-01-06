@@ -107,19 +107,19 @@
 
   /* Text colors */
   @include variants.variant('cuiColorDefault') {
-    color: var(--click-global-color-text-default);
+    color: tokens.$clickGlobalColorTextDefault;
   }
 
   @include variants.variant('cuiColorMuted') {
-    color: var(--click-global-color-text-muted);
+    color: tokens.$clickGlobalColorTextMuted;
   }
 
   @include variants.variant('cuiColorDanger') {
-    color: var(--click-global-color-text-danger);
+    color: tokens.$clickGlobalColorTextDanger;
   }
 
   @include variants.variant('cuiColorDisabled') {
-    color: var(--click-global-color-text-disabled);
+    color: tokens.$clickGlobalColorTextDisabled;
   }
 
   /* Text alignment */

@@ -21,7 +21,7 @@
 
 .cuiFileUploadTitle {
   @include variants.variant('cuiNotSupported') {
-    color: var(--click-fileUpload-color-title-error);
+    color: tokens.$clickFileUploadColorTitleError;
   }
 }
 

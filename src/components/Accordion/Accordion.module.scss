@@ -67,7 +67,7 @@
 // SidebarAccordion specific styles
 .cuiSidebarAccordion {
   .cuiTrigger {
-    gap: var(--click-sidebar-navigation-item-default-space-gap);
+    gap: tokens.$clickSidebarNavigationItemDefaultSpaceGap;
   }
 
   .cuiIconWrapper {

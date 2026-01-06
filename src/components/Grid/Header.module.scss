@@ -9,7 +9,7 @@
   flex-direction: row;
 
   @include variants.variant('cuiScrolledVertical') {
-    box-shadow: 0px 0 0px 1px var(--click-grid-header-cell-color-stroke-default);
+    box-shadow: 0px 0 0px 1px tokens.$clickGridHeaderCellColorStrokeDefault;
   }
 }
 
@@ -22,7 +22,7 @@
   display: flex;
 
   &:hover [data-resize] {
-    background: var(--click-grid-header-cell-color-stroke-selectDirect);
+    background: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
   }
 }
 
@@ -34,7 +34,7 @@
   text-align: right;
 
   @include variants.variant('cuiScrolledHorizontal') {
-    box-shadow: 0px 0 0px 1px var(--click-grid-header-cell-color-stroke-default);
+    box-shadow: 0px 0 0px 1px tokens.$clickGridHeaderCellColorStrokeDefault;
   }
 }
 

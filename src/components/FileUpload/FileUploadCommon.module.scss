@@ -1,70 +1,72 @@
+ "@/theme/tokens/types" as tokens;
+
 // Shared styles for FileUpload components - exported as CSS classes
 
 // Icon styles with composes - overrides Icon's default size
 .iconSizeSm {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  width: var(--click-fileUpload-sm-icon-size-width);
-  height: var(--click-fileUpload-sm-icon-size-height);
-  color: var(--click-fileUpload-sm-color-icon-default);
+  width: tokens.$clickFileUploadSmIconSizeWidth;
+  height: tokens.$clickFileUploadSmIconSizeHeight;
+  color: tokens.$clickFileUploadSmColorIconDefault;
 }
 
 .iconSizeMd {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  width: var(--click-fileUpload-md-icon-size-width);
-  height: var(--click-fileUpload-md-icon-size-height);
-  color: var(--click-fileUpload-md-color-icon-default);
+  width: tokens.$clickFileUploadMdIconSizeWidth;
+  height: tokens.$clickFileUploadMdIconSizeHeight;
+  color: tokens.$clickFileUploadMdColorIconDefault;
 }
 
 // Base upload area styles
 .uploadAreaBase {
-  background-color: var(--click-fileUpload-color-background-default);
-  border: 1px solid var(--click-fileUpload-color-stroke-default);
+  background-color: tokens.$clickFileUploadColorBackgroundDefault;
+  border: 1px solid tokens.$clickFileUploadColorStrokeDefault;
   display: flex;
   align-items: center;
-  transition: var(--click-fileUpload-transitions-all);
+  transition: tokens.$clickFileUploadTransitionsAll;
 }
 
 // Upload area with medium size
 .uploadAreaMd {
-  border-radius: var(--click-fileUpload-md-radii-all);
-  padding: var(--click-fileUpload-md-space-y) var(--click-fileUpload-md-space-x);
-  gap: var(--click-fileUpload-md-space-gap);
+  border-radius: tokens.$clickFileUploadMdRadiiAll;
+  padding: tokens.$clickFileUploadMdSpaceY tokens.$clickFileUploadMdSpaceX;
+  gap: tokens.$clickFileUploadMdSpaceGap;
 }
 
 // Upload area with small size
 .uploadAreaSm {
-  border-radius: var(--click-fileUpload-sm-radii-all);
-  padding: var(--click-fileUpload-sm-space-y) var(--click-fileUpload-sm-space-x);
-  gap: var(--click-fileUpload-sm-space-gap);
+  border-radius: tokens.$clickFileUploadSmRadiiAll;
+  padding: tokens.$clickFileUploadSmSpaceY tokens.$clickFileUploadSmSpaceX;
+  gap: tokens.$clickFileUploadSmSpaceGap;
 }
 
 // Draggable upload area
 .uploadAreaDraggable {
   border-style: dashed;
-  border-color: var(--click-fileUpload-color-stroke-default);
+  border-color: tokens.$clickFileUploadColorStrokeDefault;
 }
 
 // Dragging state
 .uploadAreaDragging {
-  background-color: var(--click-fileUpload-color-background-active);
-  border-color: var(--click-fileUpload-color-stroke-active);
+  background-color: tokens.$clickFileUploadColorBackgroundActive;
+  border-color: tokens.$clickFileUploadColorStrokeActive;
 }
 
 // Error state
 .uploadAreaError {
-  background-color: var(--click-fileUpload-color-background-error);
+  background-color: tokens.$clickFileUploadColorBackgroundError;
   border: 1px solid transparent;
 }
 
 // Typography styles
 .fileUploadTitle {
-  font: var(--click-fileUpload-typography-title-default);
-  color: var(--click-fileUpload-color-title-default);
+  font: tokens.$clickFileUploadTypographyTitleDefault;
+  color: tokens.$clickFileUploadColorTitleDefault;
 }
 
 .fileUploadDescription {
-  font: var(--click-fileUpload-typography-description-default);
-  color: var(--click-fileUpload-color-description-default);
+  font: tokens.$clickFileUploadTypographyDescriptionDefault;
+  color: tokens.$clickFileUploadColorDescriptionDefault;
 }
 
 // File info container - holds all file content (header, progress, size)
@@ -79,7 +81,7 @@
 // File info header - holds filename and status info horizontally
 .fileInfoHeader {
   display: flex;
-  gap: var(--click-fileUpload-md-space-gap);
+  gap: tokens.$clickFileUploadMdSpaceGap;
   border: none;
 }
 
@@ -93,6 +95,6 @@
 
 // Progress bar wrapper - adds spacing around progress bar
 .progressContainer {
-  margin-top: var(--click-fileUpload-md-space-gap);
+  margin-top: tokens.$clickFileUploadMdSpaceGap;
   margin-bottom: 9px;
 }

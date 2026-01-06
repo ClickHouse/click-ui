@@ -5,51 +5,51 @@
   display: flex;
   justify-content: center;
   box-sizing: border-box;
-  border-radius: var(--click-bigStat-radii-all);
-  border: var(--click-bigStat-stroke) solid;
-  padding: var(--click-bigStat-space-all);
+  border-radius: tokens.$clickBigStatRadiiAll;
+  border: tokens.$clickBigStatStroke solid;
+  padding: tokens.$clickBigStatSpaceAll;
 
   // State variants
   @include variants.variant('cuiStateDefault') {
-    background-color: var(--click-bigStat-color-background-default);
-    color: var(--click-bigStat-color-label-default);
-    border-color: var(--click-bigStat-color-stroke-default);
+    background-color: tokens.$clickBigStatColorBackgroundDefault;
+    color: tokens.$clickBigStatColorLabelDefault;
+    border-color: tokens.$clickBigStatColorStrokeDefault;
   }
 
   @include variants.variant('cuiStateMuted') {
-    background-color: var(--click-bigStat-color-background-muted);
-    color: var(--click-bigStat-color-label-muted);
-    border-color: var(--click-bigStat-color-stroke-muted);
+    background-color: tokens.$clickBigStatColorBackgroundMuted;
+    color: tokens.$clickBigStatColorLabelMuted;
+    border-color: tokens.$clickBigStatColorStrokeMuted;
   }
 
   @include variants.variant('cuiStateError') {
-    border-color: var(--click-bigStat-color-stroke-danger);
+    border-color: tokens.$clickBigStatColorStrokeDanger;
   }
 
   // Size variants
   @include variants.variant('cuiSizeSm') {
-    font: var(--click-bigStat-typography-sm-label-default);
+    font: tokens.$clickBigStatTypographySmLabelDefault;
 
     @include variants.variant('cuiStateMuted') {
-      font: var(--click-bigStat-typography-sm-label-muted);
+      font: tokens.$clickBigStatTypographySmLabelMuted;
     }
   }
 
   @include variants.variant('cuiSizeLg') {
-    font: var(--click-bigStat-typography-lg-label-default);
+    font: tokens.$clickBigStatTypographyLgLabelDefault;
 
     @include variants.variant('cuiStateMuted') {
-      font: var(--click-bigStat-typography-lg-label-muted);
+      font: tokens.$clickBigStatTypographyLgLabelMuted;
     }
   }
 
   // Spacing variants
   @include variants.variant('cuiSpacingSm') {
-    gap: var(--click-bigStat-space-sm-gap);
+    gap: tokens.$clickBigStatSpaceSmGap;
   }
 
   @include variants.variant('cuiSpacingLg') {
-    gap: var(--click-bigStat-space-lg-gap);
+    gap: tokens.$clickBigStatSpaceLgGap;
   }
 
   // Layout variants
@@ -73,57 +73,57 @@
 .cuiLabel {
   // State variants
   @include variants.variant('cuiStateDefault') {
-    color: var(--click-bigStat-color-label-default);
+    color: tokens.$clickBigStatColorLabelDefault;
 
     @include variants.variant('cuiSizeSm') {
-      font: var(--click-bigStat-typography-sm-label-default);
+      font: tokens.$clickBigStatTypographySmLabelDefault;
     }
 
     @include variants.variant('cuiSizeLg') {
-      font: var(--click-bigStat-typography-lg-label-default);
+      font: tokens.$clickBigStatTypographyLgLabelDefault;
     }
   }
 
   @include variants.variant('cuiStateMuted') {
-    color: var(--click-bigStat-color-label-muted);
+    color: tokens.$clickBigStatColorLabelMuted;
 
     @include variants.variant('cuiSizeSm') {
-      font: var(--click-bigStat-typography-sm-label-muted);
+      font: tokens.$clickBigStatTypographySmLabelMuted;
     }
 
     @include variants.variant('cuiSizeLg') {
-      font: var(--click-bigStat-typography-lg-label-muted);
+      font: tokens.$clickBigStatTypographyLgLabelMuted;
     }
   }
 
   @include variants.variant('cuiStateError') {
-    color: var(--click-bigStat-color-label-danger);
+    color: tokens.$clickBigStatColorLabelDanger;
   }
 }
 
 .cuiTitle {
   // State variants
   @include variants.variant('cuiStateDefault') {
-    color: var(--click-bigStat-color-title-default);
+    color: tokens.$clickBigStatColorTitleDefault;
 
     @include variants.variant('cuiSizeSm') {
-      font: var(--click-bigStat-typography-sm-title-default);
+      font: tokens.$clickBigStatTypographySmTitleDefault;
     }
 
     @include variants.variant('cuiSizeLg') {
-      font: var(--click-bigStat-typography-lg-title-default);
+      font: tokens.$clickBigStatTypographyLgTitleDefault;
     }
   }
 
   @include variants.variant('cuiStateMuted') {
-    color: var(--click-bigStat-color-title-muted);
+    color: tokens.$clickBigStatColorTitleMuted;
 
     @include variants.variant('cuiSizeSm') {
-      font: var(--click-bigStat-typography-sm-title-muted);
+      font: tokens.$clickBigStatTypographySmTitleMuted;
     }
 
     @include variants.variant('cuiSizeLg') {
-      font: var(--click-bigStat-typography-lg-title-muted);
+      font: tokens.$clickBigStatTypographyLgTitleMuted;
     }
   }
 }

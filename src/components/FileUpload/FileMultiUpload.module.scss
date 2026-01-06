@@ -10,7 +10,7 @@
 
 .cuiFileUploadTitle {
   @include variants.variant('cuiNotSupported') {
-    color: var(--click-fileUpload-color-title-error);
+    color: tokens.$clickFileUploadColorTitleError;
   }
 }
 
@@ -25,9 +25,9 @@
 .cuiFilesList {
   display: flex;
   flex-direction: column;
-  gap: var(--click-fileUpload-sm-space-gap);
+  gap: tokens.$clickFileUploadSmSpaceGap;
   width: 100%;
-  margin-top: var(--click-fileUpload-md-space-gap);
+  margin-top: tokens.$clickFileUploadMdSpaceGap;
 }
 
 .cuiFileItem {

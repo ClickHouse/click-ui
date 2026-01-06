@@ -24,17 +24,17 @@
 .cuiTypeBody {
   @include variants.variant('cuiSelectionDefault') {
     @include mixins.cuiGridCellType("body", "default");
-    color: var(--click-grid-body-cell-color-text-default);
+    color: tokens.$clickGridBodyCellColorTextDefault;
   }
 
   @include variants.variant('cuiSelectionSelectIndirect') {
     @include mixins.cuiGridCellType("body", "selectIndirect");
-    color: var(--click-grid-body-cell-color-text-selectIndirect);
+    color: tokens.$clickGridBodyCellColorTextSelectIndirect;
   }
 
   @include variants.variant('cuiSelectionSelectDirect') {
     @include mixins.cuiGridCellType("body", "selectDirect");
-    color: var(--click-grid-body-cell-color-text-selectDirect);
+    color: tokens.$clickGridBodyCellColorTextSelectDirect;
   }
 }
 
@@ -42,28 +42,28 @@
 .cuiTypeHeader {
   @include variants.variant('cuiSelectionDefault') {
     @include mixins.cuiGridCellType("header", "default");
-    color: var(--click-grid-header-cell-color-title-default);
+    color: tokens.$clickGridHeaderCellColorTitleDefault;
   }
 
   @include variants.variant('cuiSelectionSelectIndirect') {
     @include mixins.cuiGridCellType("header", "selectIndirect");
-    color: var(--click-grid-header-cell-color-title-selectIndirect);
+    color: tokens.$clickGridHeaderCellColorTitleSelectIndirect;
   }
 
   @include variants.variant('cuiSelectionSelectDirect') {
     @include mixins.cuiGridCellType("header", "selectDirect");
-    color: var(--click-grid-header-cell-color-title-selectDirect);
+    color: tokens.$clickGridHeaderCellColorTitleSelectDirect;
   }
 }
 
 /* Focus state */
 .cuiFocused {
   @include variants.variant('cuiTypeBody') {
-    box-shadow: inset 0 0 0 1px var(--click-grid-body-cell-color-stroke-selectDirect);
+    box-shadow: inset 0 0 0 1px tokens.$clickGridBodyCellColorStrokeSelectDirect;
   }
 
   @include variants.variant('cuiTypeHeader') {
-    box-shadow: inset 0 0 0 1px var(--click-grid-header-cell-color-stroke-selectDirect);
+    box-shadow: inset 0 0 0 1px tokens.$clickGridHeaderCellColorStrokeSelectDirect;
   }
 }
 
@@ -84,37 +84,37 @@
 .cuiLastRowBorder {
   @include variants.variant('cuiTypeBody') {
     @include variants.variant('cuiFocused') {
-      border-bottom-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
 
     &.selectionDefault:not(.focused) {
-      border-bottom-color: var(--click-grid-body-cell-color-stroke-default);
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeDefault;
     }
 
     &.selectionSelectIndirect:not(.focused) {
-      border-bottom-color: var(--click-grid-body-cell-color-stroke-selectIndirect);
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeSelectIndirect;
     }
 
     &.selectionSelectDirect:not(.focused) {
-      border-bottom-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-bottom-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
   }
 
   @include variants.variant('cuiTypeHeader') {
     @include variants.variant('cuiFocused') {
-      border-bottom-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
 
     &.selectionDefault:not(.focused) {
-      border-bottom-color: var(--click-grid-header-cell-color-stroke-default);
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeDefault;
     }
 
     &.selectionSelectIndirect:not(.focused) {
-      border-bottom-color: var(--click-grid-header-cell-color-stroke-selectIndirect);
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeSelectIndirect;
     }
 
     &.selectionSelectDirect:not(.focused) {
-      border-bottom-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-bottom-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
   }
 }
@@ -122,37 +122,37 @@
 .cuiLastColumnBorder {
   @include variants.variant('cuiTypeBody') {
     @include variants.variant('cuiFocused') {
-      border-right-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-right-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
 
     &.selectionDefault:not(.focused) {
-      border-right-color: var(--click-grid-body-cell-color-stroke-default);
+      border-right-color: tokens.$clickGridBodyCellColorStrokeDefault;
     }
 
     &.selectionSelectIndirect:not(.focused) {
-      border-right-color: var(--click-grid-body-cell-color-stroke-selectIndirect);
+      border-right-color: tokens.$clickGridBodyCellColorStrokeSelectIndirect;
     }
 
     &.selectionSelectDirect:not(.focused) {
-      border-right-color: var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-right-color: tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
   }
 
   @include variants.variant('cuiTypeHeader') {
     @include variants.variant('cuiFocused') {
-      border-right-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
 
     &.selectionDefault:not(.focused) {
-      border-right-color: var(--click-grid-header-cell-color-stroke-default);
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeDefault;
     }
 
     &.selectionSelectIndirect:not(.focused) {
-      border-right-color: var(--click-grid-header-cell-color-stroke-selectIndirect);
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeSelectIndirect;
     }
 
     &.selectionSelectDirect:not(.focused) {
-      border-right-color: var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-right-color: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
   }
 }
@@ -182,11 +182,11 @@
 .cuiSelectedTop {
   &::before {
     @include variants.variant('cuiTypeBody') {
-      border-top: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-top: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
 
     @include variants.variant('cuiTypeHeader') {
-      border-top: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-top: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
   }
 }
@@ -194,11 +194,11 @@
 .cuiSelectedLeft {
   &::before {
     @include variants.variant('cuiTypeBody') {
-      border-left: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-left: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
 
     @include variants.variant('cuiTypeHeader') {
-      border-left: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-left: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
   }
 }
@@ -206,11 +206,11 @@
 .cuiSelectedBottomDirect {
   &::before {
     @include variants.variant('cuiTypeBody') {
-      border-bottom: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-bottom: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
 
     @include variants.variant('cuiTypeHeader') {
-      border-bottom: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-bottom: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
   }
 }
@@ -218,11 +218,11 @@
 .cuiSelectedRightDirect {
   &::before {
     @include variants.variant('cuiTypeBody') {
-      border-right: 1px solid var(--click-grid-body-cell-color-stroke-selectDirect);
+      border-right: 1px solid tokens.$clickGridBodyCellColorStrokeSelectDirect;
     }
 
     @include variants.variant('cuiTypeHeader') {
-      border-right: 1px solid var(--click-grid-header-cell-color-stroke-selectDirect);
+      border-right: 1px solid tokens.$clickGridHeaderCellColorStrokeSelectDirect;
     }
   }
 }

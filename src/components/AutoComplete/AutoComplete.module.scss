@@ -3,8 +3,8 @@
 
 .cuiSelectPopoverRoot {
   width: 100%;
-  border: 1px solid var(--click-genericMenu-item-color-stroke-default);
-  background: var(--click-genericMenu-item-color-background-default);
+  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
   box-shadow:
     0px 1px 3px 0px rgba(16, 24, 40, 0.1),
     0px 1px 2px 0px rgba(16, 24, 40, 0.06);
@@ -32,8 +32,8 @@
   @include mixins.cuiFullWidthStretch;
   overflow: hidden;
   background: transparent;
-  font: var(--click-genericMenu-item-typography-sectionHeader-default);
-  color: var(--click-genericMenu-item-color-text-muted);
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
 
   &[aria-selected] {
     outline: none;
@@ -51,12 +51,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font: var(--click-genericMenu-item-typography-sectionHeader-default);
-  color: var(--click-genericMenu-item-color-text-muted);
-  padding: var(--click-genericMenu-sectionHeader-space-top) var(--click-genericMenu-item-space-x)
-    var(--click-genericMenu-sectionHeader-space-bottom);
-  gap: var(--click-genericMenu-item-space-gap);
-  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  font: tokens.$clickGenericMenuItemTypographySectionHeaderDefault;
+  color: tokens.$clickGenericMenuItemColorTextMuted;
+  padding: tokens.$clickGenericMenuSectionHeaderSpaceTop tokens.$clickGenericMenuItemSpaceX
+    tokens.$clickGenericMenuSectionHeaderSpaceBottom;
+  gap: tokens.$clickGenericMenuItemSpaceGap;
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
 }
 
 .cuiSelectGroupContent {
@@ -77,10 +77,10 @@
   text-overflow: ellipsis;
   text-align: left;
   cursor: default;
-  font: var(--click-genericMenu-button-typography-label-default);
-  padding: var(--click-genericMenu-button-space-y) var(--click-genericMenu-item-space-x);
-  background: var(--click-genericMenu-button-color-background-default);
-  color: var(--click-genericMenu-button-color-label-default);
+  font: tokens.$clickGenericMenuButtonTypographyLabelDefault;
+  padding: tokens.$clickGenericMenuButtonSpaceY tokens.$clickGenericMenuItemSpaceX;
+  background: tokens.$clickGenericMenuButtonColorBackgroundDefault;
+  color: tokens.$clickGenericMenuButtonColorLabelDefault;
 
   &[hidden="true"] {
     display: none;
@@ -92,9 +92,9 @@
   flex-direction: column;
   width: inherit;
   max-height: var(--radix-popover-content-available-height);
-  border: 1px solid var(--click-genericMenu-item-color-stroke-default);
-  background: var(--click-genericMenu-item-color-background-default);
-  box-shadow: var(--click-genericMenu-panel-shadow-default);
+  border: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
+  background: tokens.$clickGenericMenuItemColorBackgroundDefault;
+  box-shadow: tokens.$clickGenericMenuPanelShadowDefault;
   border-radius: 0.25rem;
 }
 

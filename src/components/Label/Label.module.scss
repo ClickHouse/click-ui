@@ -2,49 +2,49 @@
 @use "cui-variants" as variants;
 
 .cuiLabel {
-  color: var(--click-field-color-label-default);
-  font: var(--click-field-typography-label-default);
+  color: tokens.$clickFieldColorLabelDefault;
+  font: tokens.$clickFieldTypographyLabelDefault;
 
   &:hover {
-    color: var(--click-field-color-label-hover);
-    font: var(--click-field-typography-label-hover);
+    color: tokens.$clickFieldColorLabelHover;
+    font: tokens.$clickFieldTypographyLabelHover;
   }
 
   &:focus,
   &:focus-within {
-    color: var(--click-field-color-label-active);
-    font: var(--click-field-typography-label-active);
+    color: tokens.$clickFieldColorLabelActive;
+    font: tokens.$clickFieldTypographyLabelActive;
   }
 
   @include variants.variant('cuiStateDisabled') {
-    color: var(--click-field-color-label-disabled);
-    font: var(--click-field-typography-label-disabled);
+    color: tokens.$clickFieldColorLabelDisabled;
+    font: tokens.$clickFieldTypographyLabelDisabled;
 
     &:hover {
-      color: var(--click-field-color-label-disabled);
-      font: var(--click-field-typography-label-disabled);
+      color: tokens.$clickFieldColorLabelDisabled;
+      font: tokens.$clickFieldTypographyLabelDisabled;
     }
 
     &:focus,
     &:focus-within {
-      color: var(--click-field-color-label-disabled);
-      font: var(--click-field-typography-label-disabled);
+      color: tokens.$clickFieldColorLabelDisabled;
+      font: tokens.$clickFieldTypographyLabelDisabled;
     }
   }
 
   @include variants.variant('cuiStateError') {
-    color: var(--click-field-color-label-error);
-    font: var(--click-field-typography-label-error);
+    color: tokens.$clickFieldColorLabelError;
+    font: tokens.$clickFieldTypographyLabelError;
 
     &:hover {
-      color: var(--click-field-color-label-error);
-      font: var(--click-field-typography-label-error);
+      color: tokens.$clickFieldColorLabelError;
+      font: tokens.$clickFieldTypographyLabelError;
     }
 
     &:focus,
     &:focus-within {
-      color: var(--click-field-color-label-error);
-      font: var(--click-field-typography-label-error);
+      color: tokens.$clickFieldColorLabelError;
+      font: tokens.$clickFieldTypographyLabelError;
     }
   }
 }

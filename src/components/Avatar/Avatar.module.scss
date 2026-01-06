@@ -2,26 +2,26 @@
 @use "cui-variants" as variants;
 
 .cuiAvatarRoot {
-  width: var(--click-avatar-size-width);
-  height: var(--click-avatar-size-height);
+  width: tokens.$clickAvatarSizeWidth;
+  height: tokens.$clickAvatarSizeHeight;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  background-color: var(--click-avatar-color-background-default);
-  color: var(--click-avatar-color-text-default);
-  border-radius: var(--click-avatar-radii-all);
+  background-color: tokens.$clickAvatarColorBackgroundDefault;
+  color: tokens.$clickAvatarColorTextDefault;
+  border-radius: tokens.$clickAvatarRadiiAll;
 
   &:active {
-    background-color: var(--click-avatar-color-background-active);
-    color: var(--click-avatar-color-text-active);
+    background-color: tokens.$clickAvatarColorBackgroundActive;
+    color: tokens.$clickAvatarColorTextActive;
   }
 
   &:hover {
-    background-color: var(--click-avatar-color-background-hover);
-    color: var(--click-avatar-color-text-hover);
+    background-color: tokens.$clickAvatarColorBackgroundHover;
+    color: tokens.$clickAvatarColorTextHover;
   }
 }
 
@@ -33,33 +33,33 @@
 }
 
 .cuiAvatarFallback {
-  width: var(--click-avatar-size-label-width);
+  width: tokens.$clickAvatarSizeLabelWidth;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
   // Text size variants - using :where() for low specificity
   @include variants.variant('cuiTextSizeMd') {
-    font: var(--click-avatar-typography-label-md-default);
+    font: tokens.$clickAvatarTypographyLabelMdDefault;
 
     .cuiAvatarRoot:active & {
-      font: var(--click-avatar-typography-label-md-active);
+      font: tokens.$clickAvatarTypographyLabelMdActive;
     }
 
     .cuiAvatarRoot:hover & {
-      font: var(--click-avatar-typography-label-md-hover);
+      font: tokens.$clickAvatarTypographyLabelMdHover;
     }
   }
 
   @include variants.variant('cuiTextSizeSm') {
-    font: var(--click-avatar-typography-label-sm-default);
+    font: tokens.$clickAvatarTypographyLabelSmDefault;
 
     .cuiAvatarRoot:active & {
-      font: var(--click-avatar-typography-label-sm-active);
+      font: tokens.$clickAvatarTypographyLabelSmActive;
     }
 
     .cuiAvatarRoot:hover & {
-      font: var(--click-avatar-typography-label-sm-hover);
+      font: tokens.$clickAvatarTypographyLabelSmHover;
     }
   }
 }

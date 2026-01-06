@@ -9,18 +9,18 @@
   transition: all 100ms ease-in-out;
   @include mixins.cuiFullWidthStretch;
   min-height: 2px;
-  gap: var(--click-field-space-gap);
-  border-radius: var(--click-field-radii-all);
+  gap: tokens.$clickFieldSpaceGap;
+  border-radius: tokens.$clickFieldRadiiAll;
   font: var(--typography-styles-product-text-normal-sm);
   padding-right: 0;
   color: var(--global-color-accent-default);
-  border: 1px solid var(--click-field-color-stroke-default);
+  border: 1px solid tokens.$clickFieldColorStrokeDefault;
   background-size: calc(100% + 2px);
   background-position: center;
 
   // Type styling with variant mixins
   @include variants.variant('cuiTypeDefault') {
-    padding: 0.25rem var(--click-field-space-x);
+    padding: 0.25rem tokens.$clickFieldSpaceX;
   }
 
   @include variants.variant('cuiTypeSmall') {
@@ -33,19 +33,19 @@
       to right,
       var(--global-color-accent-default) 0%,
       var(--global-color-accent-default) var(--progress),
-      var(--click-field-color-background-default) var(--progress),
-      var(--click-field-color-background-default) 100%
+      tokens.$clickFieldColorBackgroundDefault var(--progress),
+      tokens.$clickFieldColorBackgroundDefault 100%
     );
   }
 
   @include variants.variant('cuiStatusComplete') {
     @include variants.variant('cuiTypeDefault') {
-      background: var(--click-field-color-background-default);
+      background: tokens.$clickFieldColorBackgroundDefault;
     }
   }
 
   &:hover {
-    border: 1px solid var(--click-field-color-stroke-hover);
+    border: 1px solid tokens.$clickFieldColorStrokeHover;
     background-size: calc(100% + 2px);
     background-position: center;
 
@@ -54,19 +54,19 @@
         to right,
         var(--global-color-accent-default) 0%,
         var(--global-color-accent-default) var(--progress),
-        var(--click-field-color-background-hover) var(--progress),
-        var(--click-field-color-background-hover) 100%
+        tokens.$clickFieldColorBackgroundHover var(--progress),
+        tokens.$clickFieldColorBackgroundHover 100%
       );
     }
 
     @include variants.variant('cuiStatusComplete') {
-      background: var(--click-field-color-background-hover);
+      background: tokens.$clickFieldColorBackgroundHover;
     }
   }
 
   &:focus-within,
   &:focus {
-    border: 1px solid var(--click-field-color-stroke-active);
+    border: 1px solid tokens.$clickFieldColorStrokeActive;
     background-size: calc(100% + 2px);
     background-position: center;
 
@@ -75,13 +75,13 @@
         to right,
         var(--global-color-accent-default) 0%,
         var(--global-color-accent-default) var(--progress),
-        var(--click-field-color-background-active) var(--progress),
-        var(--click-field-color-background-active) 100%
+        tokens.$clickFieldColorBackgroundActive var(--progress),
+        tokens.$clickFieldColorBackgroundActive 100%
       );
     }
 
     @include variants.variant('cuiStatusComplete') {
-      background: var(--click-field-color-background-active);
+      background: tokens.$clickFieldColorBackgroundActive;
     }
   }
 }

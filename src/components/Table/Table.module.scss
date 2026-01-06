@@ -13,8 +13,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  border: var(--click-table-cell-stroke) solid var(--click-table-global-color-stroke-default);
-  border-radius: var(--click-table-radii-all);
+  border: tokens.$clickTableCellStroke solid tokens.$clickTableGlobalColorStrokeDefault;
+  border-radius: tokens.$clickTableRadiiAll;
 }
 
 .cuiTable {
@@ -34,15 +34,15 @@
   text-align: left;
 
   @include variants.variant('cuiHeaderSm') {
-    padding: var(--click-table-header-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
-    font: var(--click-table-header-title-default);
-    color: var(--click-table-header-color-title-default);
+    padding: tokens.$clickTableHeaderCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+    font: tokens.$clickTableHeaderTitleDefault;
+    color: tokens.$clickTableHeaderColorTitleDefault;
   }
 
   @include variants.variant('cuiHeaderMd') {
-    padding: var(--click-table-header-cell-space-md-y) var(--click-table-body-cell-space-md-x);
-    font: var(--click-table-header-title-default);
-    color: var(--click-table-header-color-title-default);
+    padding: tokens.$clickTableHeaderCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
+    font: tokens.$clickTableHeaderTitleDefault;
+    color: tokens.$clickTableHeaderColorTitleDefault;
   }
 }
 
@@ -79,8 +79,8 @@
 .cuiThead {
   tr {
     overflow: hidden;
-    background-color: var(--click-table-header-color-background-default);
-    border-bottom: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+    background-color: tokens.$clickTableHeaderColorBackgroundDefault;
+    border-bottom: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
   }
 
   @include mixins.cuiMobile {
@@ -99,15 +99,15 @@
 /* Row styles */
 .cuiTableRow {
   overflow: hidden;
-  background-color: var(--click-table-row-color-background-default);
-  border-bottom: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+  background-color: tokens.$clickTableRowColorBackgroundDefault;
+  border-bottom: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
 
   &:active {
-    background-color: var(--click-table-row-color-background-active);
+    background-color: tokens.$clickTableRowColorBackgroundActive;
   }
 
   &:hover {
-    background-color: var(--click-table-row-color-background-hover);
+    background-color: tokens.$clickTableRowColorBackgroundHover;
   }
 
   &:last-of-type,
@@ -116,7 +116,7 @@
   }
 
   @include variants.variant('cuiActive') {
-    background-color: var(--click-table-row-color-background-active);
+    background-color: tokens.$clickTableRowColorBackgroundActive;
   }
 
   @include variants.variants('cuiDeleted', 'cuiDisabled') {
@@ -128,21 +128,21 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    border: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
-    border-radius: var(--click-table-radii-all);
+    border: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
+    border-radius: tokens.$clickTableRadiiAll;
 
     @include variants.variant('cuiSelectable') {
       padding-left: calc(
-        var(--click-table-body-cell-space-sm-x) + var(--click-table-body-cell-space-sm-x) +
-          var(--click-checkbox-size-all)
+        tokens.$clickTableBodyCellSpaceSmX + tokens.$clickTableBodyCellSpaceSmX +
+          tokens.$clickCheckboxSizeAll
       );
     }
 
     @include variants.variant('cuiShowActions') {
       padding-right: calc(
-        var(--click-table-body-cell-space-sm-x) + var(--click-table-body-cell-space-sm-x) +
-          var(--click-image-sm-size-width) + var(--click-button-iconButton-default-space-x) +
-          var(--click-button-iconButton-default-space-x)
+        tokens.$clickTableBodyCellSpaceSmX + tokens.$clickTableBodyCellSpaceSmX +
+          tokens.$clickImageSmSizeWidth + tokens.$clickButtonIconButtonDefaultSpaceX +
+          tokens.$clickButtonIconButtonDefaultSpaceX
       );
     }
   }
@@ -151,35 +151,35 @@
 /* Cell styles */
 .cuiTableData {
   overflow: hidden;
-  color: var(--click-table-row-color-text-default);
-  font: var(--click-table-cell-text-default);
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
 
   @include variants.variant('cuiDataSm') {
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
   }
 
   @include variants.variant('cuiDataMd') {
-    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
   }
 
   @include mixins.cuiMobile {
     width: auto;
     min-width: 40%;
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
   }
 }
 
 .cuiSelectData {
   overflow: hidden;
-  color: var(--click-table-row-color-text-default);
-  font: var(--click-table-cell-text-default);
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
 
   @include variants.variant('cuiSelectSm') {
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
   }
 
   @include variants.variant('cuiSelectMd') {
-    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
   }
 
   @include mixins.cuiMobile {
@@ -189,22 +189,22 @@
     left: 0;
     top: 0;
     bottom: 0;
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
-    border-right: var(--click-table-cell-stroke) solid var(--click-table-row-color-stroke-default);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+    border-right: tokens.$clickTableCellStroke solid tokens.$clickTableRowColorStrokeDefault;
   }
 }
 
 .cuiActionsList {
   overflow: hidden;
-  color: var(--click-table-row-color-text-default);
-  font: var(--click-table-cell-text-default);
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
 
   @include variants.variant('cuiActionsSm') {
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
   }
 
   @include variants.variant('cuiActionsMd') {
-    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
   }
 
   @include mixins.cuiMobile {
@@ -214,8 +214,8 @@
     right: 0;
     top: 0;
     bottom: 0;
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
-    border-left: 1px solid var(--click-table-row-color-stroke-default);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
+    border-left: 1px solid tokens.$clickTableRowColorStrokeDefault;
   }
 }
 
@@ -235,8 +235,8 @@
 /* Mobile specific styles */
 .cuiMobileHeader {
   display: none;
-  color: var(--click-table-row-color-label-default);
-  font: var(--click-table-cell-label-default);
+  color: tokens.$clickTableRowColorLabelDefault;
+  font: tokens.$clickTableCellLabelDefault;
 
   @include mixins.cuiMobile {
     display: block;
@@ -250,7 +250,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 var(--click-table-body-cell-space-sm-x);
+    padding: 0 tokens.$clickTableBodyCellSpaceSmX;
   }
 }
 
@@ -258,21 +258,21 @@
 .cuiSpanedTableData {
   text-align: center;
   overflow: hidden;
-  color: var(--click-table-row-color-text-default);
-  font: var(--click-table-cell-text-default);
+  color: tokens.$clickTableRowColorTextDefault;
+  font: tokens.$clickTableCellTextDefault;
 
   @include variants.variant('cuiSpanedSm') {
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
   }
 
   @include variants.variant('cuiSpanedMd') {
-    padding: var(--click-table-body-cell-space-md-y) var(--click-table-body-cell-space-md-x);
+    padding: tokens.$clickTableBodyCellSpaceMdY tokens.$clickTableBodyCellSpaceMdX;
   }
 
   @include mixins.cuiMobile {
     width: auto;
     min-width: 40%;
-    padding: var(--click-table-body-cell-space-sm-y) var(--click-table-body-cell-space-sm-x);
+    padding: tokens.$clickTableBodyCellSpaceSmY tokens.$clickTableBodyCellSpaceSmX;
   }
 }
 

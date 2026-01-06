@@ -4,11 +4,11 @@
 .cuiTooltipContent {
   display: flex;
   align-items: flex-start;
-  padding: var(--click-tooltip-space-y) var(--click-tooltip-space-x);
-  color: var(--click-tooltip-color-label-default);
-  background: var(--click-tooltip-color-background-default);
-  border-radius: var(--click-tooltip-radii-all);
-  font: var(--click-tooltip-typography-label-default);
+  padding: tokens.$clickTooltipSpaceY tokens.$clickTooltipSpaceX;
+  color: tokens.$clickTooltipColorLabelDefault;
+  background: tokens.$clickTooltipColorBackgroundDefault;
+  border-radius: tokens.$clickTooltipRadiiAll;
+  font: tokens.$clickTooltipTypographyLabelDefault;
   white-space: pre-wrap;
 
   @include variants.variant('cuiTooltipContentWithMaxWidth') {
@@ -17,5 +17,5 @@
 }
 
 .cuiTooltipArrow {
-  fill: var(--click-tooltip-color-background-default);
+  fill: tokens.$clickTooltipColorBackgroundDefault;
 }

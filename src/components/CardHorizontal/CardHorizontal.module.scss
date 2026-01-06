@@ -9,25 +9,25 @@
   max-width: 100%;
   align-items: center;
   justify-content: flex-start;
-  border-radius: var(--click-card-horizontal-radii-all);
+  border-radius: tokens.$clickCardHorizontalRadiiAll;
   transition: all 0.2s ease-in-out;
 
   // Size variants
   @include variants.variant('cuiSizeMd') {
-    padding: var(--click-card-horizontal-space-md-y) var(--click-card-horizontal-space-md-x);
-    gap: var(--click-card-horizontal-space-md-gap);
+    padding: tokens.$clickCardHorizontalSpaceMdY tokens.$clickCardHorizontalSpaceMdX;
+    gap: tokens.$clickCardHorizontalSpaceMdGap;
 
     .cuiDescription {
-      gap: var(--click-card-horizontal-space-md-gap);
+      gap: tokens.$clickCardHorizontalSpaceMdGap;
     }
   }
 
   @include variants.variant('cuiSizeSm') {
-    padding: var(--click-card-horizontal-space-sm-y) var(--click-card-horizontal-space-sm-x);
-    gap: var(--click-card-horizontal-space-sm-gap);
+    padding: tokens.$clickCardHorizontalSpaceSmY tokens.$clickCardHorizontalSpaceSmX;
+    gap: tokens.$clickCardHorizontalSpaceSmGap;
 
     .cuiDescription {
-      gap: var(--click-card-horizontal-space-sm-gap);
+      gap: tokens.$clickCardHorizontalSpaceSmGap;
     }
   }
 
@@ -41,34 +41,34 @@
 
   // Color variant: default
   @include variants.variant('cuiColorDefault') {
-    background: var(--click-card-horizontal-default-color-background-default);
-    color: var(--click-card-horizontal-default-color-title-default);
-    border: 1px solid var(--click-card-horizontal-default-color-stroke-default);
-    font: var(--click-card-horizontal-typography-title-default);
+    background: tokens.$clickCardHorizontalDefaultColorBackgroundDefault;
+    color: tokens.$clickCardHorizontalDefaultColorTitleDefault;
+    border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeDefault;
+    font: tokens.$clickCardHorizontalTypographyTitleDefault;
 
     .cuiDescription {
-      color: var(--click-card-horizontal-default-color-description-default);
-      font: var(--click-card-horizontal-typography-description-default);
+      color: tokens.$clickCardHorizontalDefaultColorDescriptionDefault;
+      font: tokens.$clickCardHorizontalTypographyDescriptionDefault;
     }
 
     // Selectable hover state
     &.cuiIsSelectable:hover {
-      background-color: var(--click-card-horizontal-default-color-background-hover);
-      color: var(--click-card-horizontal-default-color-title-hover);
-      border: 1px solid var(--click-card-horizontal-default-color-stroke-default);
+      background-color: tokens.$clickCardHorizontalDefaultColorBackgroundHover;
+      color: tokens.$clickCardHorizontalDefaultColorTitleHover;
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeDefault;
       cursor: pointer;
-      font: var(--click-card-horizontal-typography-title-hover);
+      font: tokens.$clickCardHorizontalTypographyTitleHover;
 
       .cuiDescription {
-        color: var(--click-card-horizontal-default-color-description-hover);
-        font: var(--click-card-horizontal-typography-description-hover);
+        color: tokens.$clickCardHorizontalDefaultColorDescriptionHover;
+        font: tokens.$clickCardHorizontalTypographyDescriptionHover;
       }
     }
 
     // Selectable hover + selected
     &.cuiIsSelectable:hover {
       @include variants.variant('cuiSelected') {
-        border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+        border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
       }
     }
 
@@ -76,59 +76,59 @@
     &.cuiIsSelectable:active,
     &.cuiIsSelectable:focus,
     &.cuiIsSelectable:focus-within {
-      background-color: var(--click-card-horizontal-default-color-background-active);
-      color: var(--click-card-horizontal-default-color-title-active);
-      border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+      background-color: tokens.$clickCardHorizontalDefaultColorBackgroundActive;
+      color: tokens.$clickCardHorizontalDefaultColorTitleActive;
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
 
       .cuiDescription {
-        color: var(--click-card-horizontal-default-color-description-active);
-        font: var(--click-card-horizontal-typography-description-active);
+        color: tokens.$clickCardHorizontalDefaultColorDescriptionActive;
+        font: tokens.$clickCardHorizontalTypographyDescriptionActive;
       }
     }
 
     // Selected state
     @include variants.variant('cuiSelected') {
-      border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
 
       &:hover {
-        border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+        border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
       }
     }
 
     // Disabled state
     @include variants.variant('cuiDisabled') {
       pointer-events: none;
-      background-color: var(--click-card-horizontal-default-color-background-disabled);
-      color: var(--click-card-horizontal-default-color-title-disabled);
-      border: 1px solid var(--click-card-horizontal-default-color-stroke-disabled);
+      background-color: tokens.$clickCardHorizontalDefaultColorBackgroundDisabled;
+      color: tokens.$clickCardHorizontalDefaultColorTitleDisabled;
+      border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeDisabled;
       cursor: not-allowed;
 
       .cuiDescription {
-        color: var(--click-card-horizontal-default-color-description-disabled);
-        font: var(--click-card-horizontal-typography-description-disabled);
+        color: tokens.$clickCardHorizontalDefaultColorDescriptionDisabled;
+        font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
       }
 
       &:hover,
       &:active,
       &:focus,
       &:focus-within {
-        background-color: var(--click-card-horizontal-default-color-background-disabled);
-        color: var(--click-card-horizontal-default-color-title-disabled);
+        background-color: tokens.$clickCardHorizontalDefaultColorBackgroundDisabled;
+        color: tokens.$clickCardHorizontalDefaultColorTitleDisabled;
         cursor: not-allowed;
 
         .cuiDescription {
-          color: var(--click-card-horizontal-default-color-description-disabled);
-          font: var(--click-card-horizontal-typography-description-disabled);
+          color: tokens.$clickCardHorizontalDefaultColorDescriptionDisabled;
+          font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
         }
       }
 
       @include variants.variant('cuiSelected') {
-        border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+        border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
 
         &:active,
         &:focus,
         &:focus-within {
-          border: 1px solid var(--click-card-horizontal-default-color-stroke-active);
+          border: 1px solid tokens.$clickCardHorizontalDefaultColorStrokeActive;
         }
       }
     }
@@ -136,34 +136,34 @@
 
   // Color variant: muted
   @include variants.variant('cuiColorMuted') {
-    background: var(--click-card-horizontal-muted-color-background-default);
-    color: var(--click-card-horizontal-muted-color-title-default);
-    border: 1px solid var(--click-card-horizontal-muted-color-stroke-default);
-    font: var(--click-card-horizontal-typography-title-default);
+    background: tokens.$clickCardHorizontalMutedColorBackgroundDefault;
+    color: tokens.$clickCardHorizontalMutedColorTitleDefault;
+    border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeDefault;
+    font: tokens.$clickCardHorizontalTypographyTitleDefault;
 
     .cuiDescription {
-      color: var(--click-card-horizontal-muted-color-description-default);
-      font: var(--click-card-horizontal-typography-description-default);
+      color: tokens.$clickCardHorizontalMutedColorDescriptionDefault;
+      font: tokens.$clickCardHorizontalTypographyDescriptionDefault;
     }
 
     // Selectable hover state
     &.cuiIsSelectable:hover {
-      background-color: var(--click-card-horizontal-muted-color-background-hover);
-      color: var(--click-card-horizontal-muted-color-title-hover);
-      border: 1px solid var(--click-card-horizontal-muted-color-stroke-default);
+      background-color: tokens.$clickCardHorizontalMutedColorBackgroundHover;
+      color: tokens.$clickCardHorizontalMutedColorTitleHover;
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeDefault;
       cursor: pointer;
-      font: var(--click-card-horizontal-typography-title-hover);
+      font: tokens.$clickCardHorizontalTypographyTitleHover;
 
       .cuiDescription {
-        color: var(--click-card-horizontal-muted-color-description-hover);
-        font: var(--click-card-horizontal-typography-description-hover);
+        color: tokens.$clickCardHorizontalMutedColorDescriptionHover;
+        font: tokens.$clickCardHorizontalTypographyDescriptionHover;
       }
     }
 
     // Selectable hover + selected
     &.cuiIsSelectable:hover {
       @include variants.variant('cuiSelected') {
-        border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+        border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
       }
     }
 
@@ -171,59 +171,59 @@
     &.cuiIsSelectable:active,
     &.cuiIsSelectable:focus,
     &.cuiIsSelectable:focus-within {
-      background-color: var(--click-card-horizontal-muted-color-background-active);
-      color: var(--click-card-horizontal-muted-color-title-active);
-      border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+      background-color: tokens.$clickCardHorizontalMutedColorBackgroundActive;
+      color: tokens.$clickCardHorizontalMutedColorTitleActive;
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
 
       .cuiDescription {
-        color: var(--click-card-horizontal-muted-color-description-active);
-        font: var(--click-card-horizontal-typography-description-active);
+        color: tokens.$clickCardHorizontalMutedColorDescriptionActive;
+        font: tokens.$clickCardHorizontalTypographyDescriptionActive;
       }
     }
 
     // Selected state
     @include variants.variant('cuiSelected') {
-      border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
 
       &:hover {
-        border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+        border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
       }
     }
 
     // Disabled state
     @include variants.variant('cuiDisabled') {
       pointer-events: none;
-      background-color: var(--click-card-horizontal-muted-color-background-disabled);
-      color: var(--click-card-horizontal-muted-color-title-disabled);
-      border: 1px solid var(--click-card-horizontal-muted-color-stroke-disabled);
+      background-color: tokens.$clickCardHorizontalMutedColorBackgroundDisabled;
+      color: tokens.$clickCardHorizontalMutedColorTitleDisabled;
+      border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeDisabled;
       cursor: not-allowed;
 
       .cuiDescription {
-        color: var(--click-card-horizontal-muted-color-description-disabled);
-        font: var(--click-card-horizontal-typography-description-disabled);
+        color: tokens.$clickCardHorizontalMutedColorDescriptionDisabled;
+        font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
       }
 
       &:hover,
       &:active,
       &:focus,
       &:focus-within {
-        background-color: var(--click-card-horizontal-muted-color-background-disabled);
-        color: var(--click-card-horizontal-muted-color-title-disabled);
+        background-color: tokens.$clickCardHorizontalMutedColorBackgroundDisabled;
+        color: tokens.$clickCardHorizontalMutedColorTitleDisabled;
         cursor: not-allowed;
 
         .cuiDescription {
-          color: var(--click-card-horizontal-muted-color-description-disabled);
-          font: var(--click-card-horizontal-typography-description-disabled);
+          color: tokens.$clickCardHorizontalMutedColorDescriptionDisabled;
+          font: tokens.$clickCardHorizontalTypographyDescriptionDisabled;
         }
       }
 
       @include variants.variant('cuiSelected') {
-        border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+        border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
 
         &:active,
         &:focus,
         &:focus-within {
-          border: 1px solid var(--click-card-horizontal-muted-color-stroke-active);
+          border: 1px solid tokens.$clickCardHorizontalMutedColorStrokeActive;
         }
       }
     }
@@ -243,15 +243,15 @@
   display: flex;
   flex-direction: column;
   align-self: start;
-  gap: var(--click-card-horizontal-space-gap);
+  gap: tokens.$clickCardHorizontalSpaceGap;
   flex: 1;
   width: 100%;
 }
 
 .cuiCardIcon {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  height: var(--click-card-horizontal-icon-size-all);
-  width: var(--click-card-horizontal-icon-size-all);
+  height: tokens.$clickCardHorizontalIconSizeAll;
+  width: tokens.$clickCardHorizontalIconSizeAll;
 }
 
 .cuiContentWrapper {
@@ -260,11 +260,11 @@
   width: 100%;
 
   @include variants.variant('cuiSizeMd') {
-    gap: var(--click-card-horizontal-space-md-gap);
+    gap: tokens.$clickCardHorizontalSpaceMdGap;
   }
 
   @include variants.variant('cuiSizeSm') {
-    gap: var(--click-card-horizontal-space-sm-gap);
+    gap: tokens.$clickCardHorizontalSpaceSmGap;
   }
 
   @include mixins.cuiMobile {
@@ -279,10 +279,10 @@
   width: 100%;
 
   @include variants.variant('cuiSizeMd') {
-    gap: var(--click-card-horizontal-space-md-gap);
+    gap: tokens.$clickCardHorizontalSpaceMdGap;
   }
 
   @include variants.variant('cuiSizeSm') {
-    gap: var(--click-card-horizontal-space-sm-gap);
+    gap: tokens.$clickCardHorizontalSpaceSmGap;
   }
 }

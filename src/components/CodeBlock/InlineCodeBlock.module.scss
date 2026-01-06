@@ -1,8 +1,10 @@
+ "@/theme/tokens/types" as tokens;
+
 .cuiInlineContainer {
-  background: var(--click-codeInline-color-background-default);
-  color: var(--click-codeInline-color-text-default);
-  border: 1px solid var(--click-codeInline-color-stroke-default);
-  font: var(--click-codeInline-typography-text-default);
-  border-radius: var(--click-codeInline-radii-all);
-  padding: 0 var(--click-codeInline-space-x);
+  background: tokens.$clickCodeInlineColorBackgroundDefault;
+  color: tokens.$clickCodeInlineColorTextDefault;
+  border: 1px solid tokens.$clickCodeInlineColorStrokeDefault;
+  font: tokens.$clickCodeInlineTypographyTextDefault;
+  border-radius: tokens.$clickCodeInlineRadiiAll;
+  padding: 0 tokens.$clickCodeInlineSpaceX;
 }

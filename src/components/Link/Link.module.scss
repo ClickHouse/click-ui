@@ -7,43 +7,43 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  color: var(--click-global-color-text-link-default);
+  color: tokens.$clickGlobalColorTextLinkDefault;
 
   &:hover,
   &:focus {
-    color: var(--click-global-color-text-link-hover);
+    color: tokens.$clickGlobalColorTextLinkHover;
     transition: var(--transition-default);
     text-decoration: underline;
     cursor: pointer;
   }
 
   &:visited {
-    color: var(--click-global-color-text-link-default);
+    color: tokens.$clickGlobalColorTextLinkDefault;
   }
 
   /* Size variants */
   @include variants.variants('cuiXs', 'cuiSm') {
     font: var(--typography-styles-product-text-normal-xs);
-    gap: var(--click-link-space-sm-gap);
-    margin-right: var(--click-link-space-sm-gap);
+    gap: tokens.$clickLinkSpaceSmGap;
+    margin-right: tokens.$clickLinkSpaceSmGap;
   }
 
   @include variants.variant('cuiMd') {
     font: var(--typography-styles-product-text-normal-md);
-    gap: var(--click-link-space-md-gap);
-    margin-right: var(--click-link-space-md-gap);
+    gap: tokens.$clickLinkSpaceMdGap;
+    margin-right: tokens.$clickLinkSpaceMdGap;
   }
 
   @include variants.variant('cuiLg') {
     font: var(--typography-styles-product-text-normal-lg);
-    gap: var(--click-link-space-md-gap);
-    margin-right: var(--click-link-space-md-gap);
+    gap: tokens.$clickLinkSpaceMdGap;
+    margin-right: tokens.$clickLinkSpaceMdGap;
   }
 
   @include variants.variant('cuiXl') {
     font: var(--typography-styles-product-text-normal-xl);
-    gap: var(--click-link-space-md-gap);
-    margin-right: var(--click-link-space-md-gap);
+    gap: tokens.$clickLinkSpaceMdGap;
+    margin-right: tokens.$clickLinkSpaceMdGap;
   }
 
   /* Weight variants with size combinations */
@@ -101,53 +101,53 @@
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    color: var(--click-global-color-text-link-default);
+    color: tokens.$clickGlobalColorTextLinkDefault;
 
     &:hover,
     &:focus {
-      color: var(--click-global-color-text-link-hover);
+      color: tokens.$clickGlobalColorTextLinkHover;
       transition: var(--transition-default);
       text-decoration: underline;
       cursor: pointer;
     }
 
     &:visited {
-      color: var(--click-global-color-text-link-default);
+      color: tokens.$clickGlobalColorTextLinkDefault;
     }
 
     /* Size: xs */
     &.cui-link-xs {
       font: var(--typography-styles-product-text-normal-xs);
-      gap: var(--click-link-space-sm-gap);
-      margin-right: var(--click-link-space-sm-gap);
+      gap: tokens.$clickLinkSpaceSmGap;
+      margin-right: tokens.$clickLinkSpaceSmGap;
     }
 
     /* Size: sm */
     &.cui-link-sm {
       font: var(--typography-styles-product-text-normal-sm);
-      gap: var(--click-link-space-sm-gap);
-      margin-right: var(--click-link-space-sm-gap);
+      gap: tokens.$clickLinkSpaceSmGap;
+      margin-right: tokens.$clickLinkSpaceSmGap;
     }
 
     /* Size: md (default) */
     &.cui-link-md {
       font: var(--typography-styles-product-text-normal-md);
-      gap: var(--click-link-space-md-gap);
-      margin-right: var(--click-link-space-md-gap);
+      gap: tokens.$clickLinkSpaceMdGap;
+      margin-right: tokens.$clickLinkSpaceMdGap;
     }
 
     /* Size: lg */
     &.cui-link-lg {
       font: var(--typography-styles-product-text-normal-lg);
-      gap: var(--click-link-space-md-gap);
-      margin-right: var(--click-link-space-md-gap);
+      gap: tokens.$clickLinkSpaceMdGap;
+      margin-right: tokens.$clickLinkSpaceMdGap;
     }
 
     /* Size: xl */
     &.cui-link-xl {
       font: var(--typography-styles-product-text-normal-xl);
-      gap: var(--click-link-space-md-gap);
-      margin-right: var(--click-link-space-md-gap);
+      gap: tokens.$clickLinkSpaceMdGap;
+      margin-right: tokens.$clickLinkSpaceMdGap;
     }
 
     /* Weight: bold */
@@ -206,13 +206,13 @@
 .cuiIconWrapper {
   .cuiExternalIcon {
     @include variants.variant('cuiSm') {
-      height: var(--click-link-icon-size-sm-height);
-      width: var(--click-link-icon-size-sm-width);
+      height: tokens.$clickLinkIconSizeSmHeight;
+      width: tokens.$clickLinkIconSizeSmWidth;
     }
 
     @include variants.variant('cuiMd') {
-      height: var(--click-link-icon-size-md-height);
-      width: var(--click-link-icon-size-md-width);
+      height: tokens.$clickLinkIconSizeMdHeight;
+      width: tokens.$clickLinkIconSizeMdWidth;
     }
   }
 }

@@ -41,18 +41,18 @@
   max-height: 100%;
   box-sizing: border-box;
   width: 100%;
-  padding: var(--click-tabs-fileTabs-space-y) var(--click-tabs-fileTabs-space-x);
-  gap: var(--click-tabs-fileTabs-space-gap);
-  border-radius: var(--click-tabs-fileTabs-radii-all);
-  border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-default);
-  background: var(--click-tabs-fileTabs-color-background-default);
-  color: var(--click-tabs-fileTabs-color-text-default);
-  font: var(--click-tabs-fileTabs-typography-label-default);
+  padding: tokens.$clickTabsFileTabsSpaceY tokens.$clickTabsFileTabsSpaceX;
+  gap: tokens.$clickTabsFileTabsSpaceGap;
+  border-radius: tokens.$clickTabsFileTabsRadiiAll;
+  border-right: 1px solid tokens.$clickTabsFileTabsColorStrokeDefault;
+  background: tokens.$clickTabsFileTabsColorBackgroundDefault;
+  color: tokens.$clickTabsFileTabsColorTextDefault;
+  font: tokens.$clickTabsFileTabsTypographyLabelDefault;
 
   svg,
   [data-indicator] {
-    height: var(--click-tabs-fileTabs-icon-size-height);
-    width: var(--click-tabs-fileTabs-icon-size-width);
+    height: tokens.$clickTabsFileTabsIconSizeHeight;
+    width: tokens.$clickTabsFileTabsIconSizeWidth;
   }
 
   [data-type="close"] {
@@ -74,17 +74,17 @@
   }
 
   @include variants.variant('cuiActive') {
-    background: var(--click-tabs-fileTabs-color-background-active);
-    color: var(--click-tabs-fileTabs-color-text-active);
-    font: var(--click-tabs-fileTabs-typography-label-active);
-    border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-active);
+    background: tokens.$clickTabsFileTabsColorBackgroundActive;
+    color: tokens.$clickTabsFileTabsColorTextActive;
+    font: tokens.$clickTabsFileTabsTypographyLabelActive;
+    border-right: 1px solid tokens.$clickTabsFileTabsColorStrokeActive;
   }
 
   &:not(.cuiActive):hover {
-    background: var(--click-tabs-fileTabs-color-background-hover);
-    color: var(--click-tabs-fileTabs-color-text-hover);
-    font: var(--click-tabs-fileTabs-typography-label-hover);
-    border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-hover);
+    background: tokens.$clickTabsFileTabsColorBackgroundHover;
+    color: tokens.$clickTabsFileTabsColorTextHover;
+    font: tokens.$clickTabsFileTabsTypographyLabelHover;
+    border-right: 1px solid tokens.$clickTabsFileTabsColorStrokeHover;
   }
 
   @include variants.variant('cuiPreview') {
@@ -92,7 +92,7 @@
   }
 
   @include variants.variant('cuiDismissable') {
-    grid-template-columns: 1fr var(--click-tabs-fileTabs-icon-size-width);
+    grid-template-columns: 1fr tokens.$clickTabsFileTabsIconSizeWidth;
   }
 
   @include variants.variant('cuiFixedTabElement') {
@@ -118,23 +118,23 @@
   }
 
   &.success::after {
-    background: var(--click-alert-color-text-success);
+    background: tokens.$clickAlertColorTextSuccess;
   }
 
   &.neutral::after {
-    background: var(--click-alert-color-text-neutral);
+    background: tokens.$clickAlertColorTextNeutral;
   }
 
   &.danger::after {
-    background: var(--click-alert-color-text-danger);
+    background: tokens.$clickAlertColorTextDanger;
   }
 
   &.warning::after {
-    background: var(--click-alert-color-text-warning);
+    background: tokens.$clickAlertColorTextWarning;
   }
 
   &.info::after {
-    background: var(--click-alert-color-text-info);
+    background: tokens.$clickAlertColorTextInfo;
   }
 }
 
@@ -144,7 +144,7 @@
   align-items: center;
   flex-wrap: nowrap;
   overflow: hidden;
-  gap: var(--click-tabs-fileTabs-space-gap);
+  gap: tokens.$clickTabsFileTabsSpaceGap;
 }
 
 .cuiTabContentText {
@@ -156,9 +156,9 @@
 
 .cuiEmptyButton {
   @include mixins.cuiEmptyButton;
-  background: var(--click-tabs-fileTabs-color-closeButton-background-default);
+  background: tokens.$clickTabsFileTabsColorCloseButtonBackgroundDefault;
 
   &:hover {
-    background: var(--click-tabs-fileTabs-color-closeButton-background-hover);
+    background: tokens.$clickTabsFileTabsColorCloseButtonBackgroundHover;
   }
 }

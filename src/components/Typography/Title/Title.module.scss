@@ -12,7 +12,7 @@
   }
 
   a:hover {
-    color: var(--click-global-color-title-muted);
+    color: tokens.$clickGlobalColorTitleMuted;
   }
 
   /* Font styles for product family */
@@ -59,20 +59,20 @@
 
   /* Title colors */
   @include variants.variant('cuiColorDefault') {
-    color: var(--click-global-color-title-default);
+    color: tokens.$clickGlobalColorTitleDefault;
 
     a,
     a:visited {
-      color: var(--click-global-color-title-default);
+      color: tokens.$clickGlobalColorTitleDefault;
     }
   }
 
   @include variants.variant('cuiColorMuted') {
-    color: var(--click-global-color-title-muted);
+    color: tokens.$clickGlobalColorTitleMuted;
 
     a,
     a:visited {
-      color: var(--click-global-color-title-muted);
+      color: tokens.$clickGlobalColorTitleMuted;
     }
   }
 

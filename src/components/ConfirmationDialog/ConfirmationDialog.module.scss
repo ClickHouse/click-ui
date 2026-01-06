@@ -3,7 +3,7 @@
 .cuiActionsWrapper {
   display: flex;
   justify-content: flex-end;
-  gap: var(--click-dialog-space-gap);
+  gap: tokens.$clickDialogSpaceGap;
 
   @include mixins.cuiMobile {
     flex-direction: column;

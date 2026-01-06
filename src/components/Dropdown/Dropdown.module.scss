@@ -22,9 +22,9 @@
   @extend .cuiMenuItem;
 
   &[data-state="open"] {
-    font: var(--click-genericMenu-item-typography-label-hover);
-    background: var(--click-genericMenu-item-color-background-hover);
-    color: var(--click-genericMenu-item-color-text-hover);
+    font: tokens.$clickGenericMenuItemTypographyLabelHover;
+    background: tokens.$clickGenericMenuItemColorBackgroundHover;
+    color: tokens.$clickGenericMenuItemColorTextHover;
     cursor: pointer;
   }
 }
@@ -36,16 +36,16 @@
   display: flex;
   align-items: flex-start;
   pointer-events: auto;
-  min-width: var(--click-genericMenu-item-size-minWidth);
+  min-width: tokens.$clickGenericMenuItemSizeMinWidth;
   flex-direction: column;
   z-index: 1;
   overflow-y: auto;
 
   /* Panel styles */
-  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
-  background: var(--click-genericMenu-panel-color-background-default);
-  box-shadow: var(--click-genericMenu-panel-shadow-default);
-  border-radius: var(--click-genericMenu-panel-radii-all);
+  border: 1px solid tokens.$clickGenericMenuPanelColorStrokeDefault;
+  background: tokens.$clickGenericMenuPanelColorBackgroundDefault;
+  box-shadow: tokens.$clickGenericMenuPanelShadowDefault;
+  border-radius: tokens.$clickGenericMenuPanelRadiiAll;
 
   /* Max width/height based on type */
   @include variants.variant('cuiDropdownMenu') {
@@ -86,18 +86,18 @@
 /* Menu group */
 .cuiMenuGroup {
   width: 100%;
-  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
 }
 
 /* Menu sub */
 .cuiMenuSub {
-  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
 }
 
 /* Arrow styling */
 .cuiArrow {
-  fill: var(--click-genericMenu-panel-color-background-default);
-  stroke: var(--click-genericMenu-panel-color-stroke-default);
+  fill: tokens.$clickGenericMenuPanelColorBackgroundDefault;
+  stroke: tokens.$clickGenericMenuPanelColorStrokeDefault;
 
   /* Default shadow for bottom placement (arrow points up) */
   filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));

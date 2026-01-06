@@ -12,114 +12,114 @@
 
   // Button type variants - using :where() for low specificity (0,0,1,0)
   @include variants.variant('cuiPrimary') {
-    color: var(--click-button-basic-color-primary-text-default);
-    background-color: var(--click-button-basic-color-primary-background-default);
-    border: var(--click-button-stroke) solid var(--click-button-basic-color-primary-stroke-default);
+    color: tokens.$clickButtonBasicColorPrimaryTextDefault;
+    background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeDefault;
 
     &:hover {
-      background-color: var(--click-button-basic-color-primary-background-hover);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-primary-stroke-hover);
-      font: var(--click-button-basic-typography-label-hover);
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
     }
 
     &:active,
     &:focus {
-      background-color: var(--click-button-basic-color-primary-background-active);
-      border: 1px solid var(--click-button-basic-color-primary-stroke-active);
-      font: var(--click-button-basic-typography-label-active);
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorPrimaryStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
     &:disabled,
     &:disabled:hover,
     &:disabled:active {
-      background-color: var(--click-button-basic-color-primary-background-disabled);
-      color: var(--click-button-basic-color-primary-text-disabled);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-primary-stroke-disabled);
-      font: var(--click-button-basic-typography-label-disabled);
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorPrimaryTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
     }
   }
 
   @include variants.variant('cuiSecondary') {
-    color: var(--click-button-basic-color-secondary-text-default);
-    background-color: var(--click-button-basic-color-secondary-background-default);
-    border: var(--click-button-stroke) solid var(--click-button-basic-color-secondary-stroke-default);
+    color: tokens.$clickButtonBasicColorSecondaryTextDefault;
+    background-color: tokens.$clickButtonBasicColorSecondaryBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeDefault;
 
     &:hover {
-      background-color: var(--click-button-basic-color-secondary-background-hover);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-secondary-stroke-hover);
-      font: var(--click-button-basic-typography-label-hover);
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
     }
 
     &:active,
     &:focus {
-      background-color: var(--click-button-basic-color-secondary-background-active);
-      border: 1px solid var(--click-button-basic-color-secondary-stroke-active);
-      font: var(--click-button-basic-typography-label-active);
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorSecondaryStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
     &:disabled,
     &:disabled:hover,
     &:disabled:active {
-      background-color: var(--click-button-basic-color-secondary-background-disabled);
-      color: var(--click-button-basic-color-secondary-text-disabled);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-secondary-stroke-disabled);
-      font: var(--click-button-basic-typography-label-disabled);
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorSecondaryTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
     }
   }
 
   @include variants.variant('cuiEmpty') {
-    color: var(--click-button-basic-color-empty-text-default);
-    background-color: var(--click-button-basic-color-empty-background-default);
-    border: var(--click-button-stroke) solid var(--click-button-basic-color-empty-stroke-default);
+    color: tokens.$clickButtonBasicColorEmptyTextDefault;
+    background-color: tokens.$clickButtonBasicColorEmptyBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeDefault;
 
     &:hover {
-      background-color: var(--click-button-basic-color-empty-background-hover);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-empty-stroke-hover);
-      font: var(--click-button-basic-typography-label-hover);
+      background-color: tokens.$clickButtonBasicColorEmptyBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
     }
 
     &:active,
     &:focus {
-      background-color: var(--click-button-basic-color-empty-background-active);
-      border: 1px solid var(--click-button-basic-color-empty-stroke-active);
-      font: var(--click-button-basic-typography-label-active);
+      background-color: tokens.$clickButtonBasicColorEmptyBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorEmptyStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
     &:disabled,
     &:disabled:hover,
     &:disabled:active {
-      background-color: var(--click-button-basic-color-empty-background-disabled);
-      color: var(--click-button-basic-color-empty-text-disabled);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-empty-stroke-disabled);
-      font: var(--click-button-basic-typography-label-disabled);
+      background-color: tokens.$clickButtonBasicColorEmptyBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorEmptyTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
     }
   }
 
   @include variants.variant('cuiDanger') {
-    color: var(--click-button-basic-color-danger-text-default);
-    background-color: var(--click-button-basic-color-danger-background-default);
-    border: var(--click-button-stroke) solid var(--click-button-basic-color-danger-stroke-default);
+    color: tokens.$clickButtonBasicColorDangerTextDefault;
+    background-color: tokens.$clickButtonBasicColorDangerBackgroundDefault;
+    border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeDefault;
 
     &:hover {
-      background-color: var(--click-button-basic-color-danger-background-hover);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-danger-stroke-hover);
-      font: var(--click-button-basic-typography-label-hover);
+      background-color: tokens.$clickButtonBasicColorDangerBackgroundHover;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeHover;
+      font: tokens.$clickButtonBasicTypographyLabelHover;
     }
 
     &:active,
     &:focus {
-      background-color: var(--click-button-basic-color-danger-background-active);
-      border: 1px solid var(--click-button-basic-color-danger-stroke-active);
-      font: var(--click-button-basic-typography-label-active);
+      background-color: tokens.$clickButtonBasicColorDangerBackgroundActive;
+      border: 1px solid tokens.$clickButtonBasicColorDangerStrokeActive;
+      font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
     &:disabled,
     &:disabled:hover,
     &:disabled:active {
-      background-color: var(--click-button-basic-color-danger-background-disabled);
-      color: var(--click-button-basic-color-danger-text-disabled);
-      border: var(--click-button-stroke) solid var(--click-button-basic-color-danger-stroke-disabled);
-      font: var(--click-button-basic-typography-label-disabled);
+      background-color: tokens.$clickButtonBasicColorDangerBackgroundDisabled;
+      color: tokens.$clickButtonBasicColorDangerTextDisabled;
+      border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeDisabled;
+      font: tokens.$clickButtonBasicTypographyLabelDisabled;
     }
   }
 
@@ -155,11 +155,11 @@
 // Button icon styling
 .cuiButtonIcon {
   composes: cuiIconWrapper from '../Icon/Icon.module.scss';
-  height: var(--click-button-basic-size-icon-all);
-  width: var(--click-button-basic-size-icon-all);
+  height: tokens.$clickButtonBasicSizeIconAll;
+  width: tokens.$clickButtonBasicSizeIconAll;
 
   svg {
-    height: var(--click-button-basic-size-icon-all);
-    width: var(--click-button-basic-size-icon-all);
+    height: tokens.$clickButtonBasicSizeIconAll;
+    width: tokens.$clickButtonBasicSizeIconAll;
   }
 }

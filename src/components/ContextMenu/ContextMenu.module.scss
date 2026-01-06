@@ -34,11 +34,11 @@
 
 .cuiRightMenuGroup {
   width: 100%;
-  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
 }
 
 .cuiRightMenuSub {
-  border-bottom: 1px solid var(--click-genericMenu-item-color-stroke-default);
+  border-bottom: 1px solid tokens.$clickGenericMenuItemColorStrokeDefault;
 }
 
 .cuiGenericMenuItem {
@@ -51,10 +51,10 @@
   display: flex;
   align-items: flex-start;
   pointer-events: auto;
-  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
-  background: var(--click-genericMenu-panel-color-background-default);
-  box-shadow: var(--click-genericMenu-panel-shadow-default);
-  border-radius: var(--click-genericMenu-panel-radii-all);
+  border: 1px solid tokens.$clickGenericMenuPanelColorStrokeDefault;
+  background: tokens.$clickGenericMenuPanelColorBackgroundDefault;
+  box-shadow: tokens.$clickGenericMenuPanelShadowDefault;
+  border-radius: tokens.$clickGenericMenuPanelRadiiAll;
 }
 
 .cuiContextMenu {
@@ -63,7 +63,7 @@
 }
 
 .cuiArrow {
-  fill: var(--click-genericMenu-panel-color-background-default);
-  stroke: var(--click-genericMenu-panel-color-stroke-default);
+  fill: tokens.$clickGenericMenuPanelColorBackgroundDefault;
+  stroke: tokens.$clickGenericMenuPanelColorStrokeDefault;
   filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.1));
 }

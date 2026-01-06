@@ -7,7 +7,7 @@
   height: 100%;
 
   @include variants.variant('cuiScrolledHorizontal') {
-    box-shadow: 0px 0 0px 1px var(--click-grid-header-cell-color-stroke-default);
+    box-shadow: 0px 0 0px 1px tokens.$clickGridHeaderCellColorStrokeDefault;
   }
 }
 

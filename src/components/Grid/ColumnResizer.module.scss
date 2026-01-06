@@ -10,7 +10,7 @@
 
   &:hover,
   &:active {
-    background: var(--click-grid-header-cell-color-stroke-selectDirect);
+    background: tokens.$clickGridHeaderCellColorStrokeSelectDirect;
   }
 
   @include variants.variant('cuiPressed') {

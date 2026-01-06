@@ -29,164 +29,164 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: var(--click-checkbox-radii-all);
-  width: var(--click-checkbox-size-all);
-  height: var(--click-checkbox-size-all);
+  border-radius: tokens.$clickCheckboxRadiiAll;
+  width: tokens.$clickCheckboxSizeAll;
+  height: tokens.$clickCheckboxSizeAll;
   cursor: pointer;
   border: 1px solid;
 
   // Variant styles using :where() for low specificity
   @include variants.variant('cuiVariantDefault') {
-    background: var(--click-checkbox-color-variations-default-background-default);
-    border-color: var(--click-checkbox-color-variations-default-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsDefaultBackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsDefaultStrokeDefault;
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-default-stroke-active);
-      background: var(--click-checkbox-color-variations-default-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsDefaultStrokeActive;
+      background: tokens.$clickCheckboxColorVariationsDefaultBackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-default-stroke-active);
-      background: var(--click-checkbox-color-variations-default-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsDefaultStrokeActive;
+      background: tokens.$clickCheckboxColorVariationsDefaultBackgroundActive;
     }
   }
 
   @include variants.variant('cuiVariantVar1') {
-    background: var(--click-checkbox-color-variations-var1-background-default);
-    border-color: var(--click-checkbox-color-variations-var1-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsVar1BackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsVar1StrokeDefault;
 
     &:hover {
-      background: var(--click-checkbox-color-variations-var1-background-hover);
+      background: tokens.$clickCheckboxColorVariationsVar1BackgroundHover;
     }
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-var1-stroke-active);
-      background: var(--click-checkbox-color-variations-var1-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar1StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar1BackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-var1-stroke-active);
-      background: var(--click-checkbox-color-variations-var1-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar1StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar1BackgroundActive;
     }
   }
 
   @include variants.variant('cuiVariantVar2') {
-    background: var(--click-checkbox-color-variations-var2-background-default);
-    border-color: var(--click-checkbox-color-variations-var2-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsVar2BackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsVar2StrokeDefault;
 
     &:hover {
-      background: var(--click-checkbox-color-variations-var2-background-hover);
+      background: tokens.$clickCheckboxColorVariationsVar2BackgroundHover;
     }
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-var2-stroke-active);
-      background: var(--click-checkbox-color-variations-var2-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar2StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar2BackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-var2-stroke-active);
-      background: var(--click-checkbox-color-variations-var2-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar2StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar2BackgroundActive;
     }
   }
 
   @include variants.variant('cuiVariantVar3') {
-    background: var(--click-checkbox-color-variations-var3-background-default);
-    border-color: var(--click-checkbox-color-variations-var3-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsVar3BackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsVar3StrokeDefault;
 
     &:hover {
-      background: var(--click-checkbox-color-variations-var3-background-hover);
+      background: tokens.$clickCheckboxColorVariationsVar3BackgroundHover;
     }
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-var3-stroke-active);
-      background: var(--click-checkbox-color-variations-var3-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar3StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar3BackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-var3-stroke-active);
-      background: var(--click-checkbox-color-variations-var3-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar3StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar3BackgroundActive;
     }
   }
 
   @include variants.variant('cuiVariantVar4') {
-    background: var(--click-checkbox-color-variations-var4-background-default);
-    border-color: var(--click-checkbox-color-variations-var4-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsVar4BackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsVar4StrokeDefault;
 
     &:hover {
-      background: var(--click-checkbox-color-variations-var4-background-hover);
+      background: tokens.$clickCheckboxColorVariationsVar4BackgroundHover;
     }
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-var4-stroke-active);
-      background: var(--click-checkbox-color-variations-var4-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar4StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar4BackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-var4-stroke-active);
-      background: var(--click-checkbox-color-variations-var4-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar4StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar4BackgroundActive;
     }
   }
 
   @include variants.variant('cuiVariantVar5') {
-    background: var(--click-checkbox-color-variations-var5-background-default);
-    border-color: var(--click-checkbox-color-variations-var5-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsVar5BackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsVar5StrokeDefault;
 
     &:hover {
-      background: var(--click-checkbox-color-variations-var5-background-hover);
+      background: tokens.$clickCheckboxColorVariationsVar5BackgroundHover;
     }
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-var5-stroke-active);
-      background: var(--click-checkbox-color-variations-var5-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar5StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar5BackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-var5-stroke-active);
-      background: var(--click-checkbox-color-variations-var5-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar5StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar5BackgroundActive;
     }
   }
 
   @include variants.variant('cuiVariantVar6') {
-    background: var(--click-checkbox-color-variations-var6-background-default);
-    border-color: var(--click-checkbox-color-variations-var6-stroke-default);
+    background: tokens.$clickCheckboxColorVariationsVar6BackgroundDefault;
+    border-color: tokens.$clickCheckboxColorVariationsVar6StrokeDefault;
 
     &:hover {
-      background: var(--click-checkbox-color-variations-var6-background-hover);
+      background: tokens.$clickCheckboxColorVariationsVar6BackgroundHover;
     }
 
     @include variants.variant('cuiCheckedTrue') {
-      border-color: var(--click-checkbox-color-variations-var6-stroke-active);
-      background: var(--click-checkbox-color-variations-var6-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar6StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar6BackgroundActive;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      border-color: var(--click-checkbox-color-variations-var6-stroke-active);
-      background: var(--click-checkbox-color-variations-var6-background-active);
+      border-color: tokens.$clickCheckboxColorVariationsVar6StrokeActive;
+      background: tokens.$clickCheckboxColorVariationsVar6BackgroundActive;
     }
   }
 
   // Disabled state using :where() for low specificity
   @include variants.variant('cuiDisabled') {
-    background: var(--click-checkbox-color-background-disabled);
-    border-color: var(--click-checkbox-color-stroke-disabled);
+    background: tokens.$clickCheckboxColorBackgroundDisabled;
+    border-color: tokens.$clickCheckboxColorStrokeDisabled;
     cursor: not-allowed;
 
     @include variants.variant('cuiCheckedTrue') {
-      background: var(--click-checkbox-color-background-disabled);
-      border-color: var(--click-checkbox-color-stroke-disabled);
+      background: tokens.$clickCheckboxColorBackgroundDisabled;
+      border-color: tokens.$clickCheckboxColorStrokeDisabled;
     }
 
     @include variants.variant('cuiCheckedIndeterminate') {
-      background: var(--click-checkbox-color-background-disabled);
-      border-color: var(--click-checkbox-color-stroke-disabled);
+      background: tokens.$clickCheckboxColorBackgroundDisabled;
+      border-color: tokens.$clickCheckboxColorStrokeDisabled;
     }
   }
 }
 
 .cuiCheckIconWrapper {
-  color: var(--click-checkbox-color-check-active);
+  color: tokens.$clickCheckboxColorCheckActive;
 
   @include variants.variant('cuiDisabled') {
-    color: var(--click-checkbox-color-check-disabled);
+    color: tokens.$clickCheckboxColorCheckDisabled;
   }
 }
