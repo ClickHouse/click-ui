@@ -50,5 +50,6 @@ export const Playground: StoryObj<typeof CardHorizontal> = {
     infoText: "",
     infoUrl: "",
     size: "md",
+    readOnly: false,
   },
 };

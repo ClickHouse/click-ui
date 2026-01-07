@@ -187,4 +187,16 @@ describe("CardHorizontal Component", () => {
     expect(windowOpenSpy).not.toHaveBeenCalled();
     windowOpenSpy.mockRestore();
   });
+
+  it("should render correctly when readOnly is true", () => {
+    const { container } = renderCard({
+      title: "Read-only Card",
+      description: "This is read-only",
+      readOnly: true,
+      isSelectable: true,
+    });
+
+    expect(container.firstChild).toBeDefined();
+    expect(screen.getByText("Read-only Card")).toBeDefined();
+  });
 });
