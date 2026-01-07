@@ -112,5 +112,53 @@ describe("BigStat Component", () => {
 
       expect(screen.getByText("Custom Height Title")).toBeDefined();
     });
+
+    it("should render with icon", () => {
+      const { getByTestId } = renderBigStat({
+        title: "Icon Title",
+        label: "Icon Label",
+        iconName: "user",
+      });
+
+      expect(screen.getByText("Icon Title")).toBeDefined();
+      expect(getByTestId("bigstat-icon-wrapper")).toBeDefined();
+    });
+
+    it("should not render icon when iconName is not provided", () => {
+      const { queryByTestId } = renderBigStat({
+        title: "No Icon Title",
+        label: "No Icon Label",
+      });
+
+      expect(queryByTestId("bigstat-icon-wrapper")).toBeNull();
+    });
+
+    it("should render with icon and custom icon size", () => {
+      const { getByTestId } = renderBigStat({
+        title: "Icon Size Title",
+        label: "Icon Size Label",
+        iconName: "database",
+        iconSize: "xl",
+      });
+
+      const iconWrapper = getByTestId("bigstat-icon-wrapper");
+      expect(iconWrapper).toBeDefined();
+      expect(iconWrapper.getAttribute("data-icon-size")).toBe("xl");
+
+      // Verify the Icon component is rendered within the wrapper
+      const iconElement = iconWrapper.querySelector("svg");
+      expect(iconElement).toBeDefined();
+    });
+
+    it("should use default icon size of lg when not specified", () => {
+      const { getByTestId } = renderBigStat({
+        title: "Default Icon Size",
+        label: "Default Size Label",
+        iconName: "user",
+      });
+
+      const iconWrapper = getByTestId("bigstat-icon-wrapper");
+      expect(iconWrapper.getAttribute("data-icon-size")).toBe("lg");
+    });
   });
 });
