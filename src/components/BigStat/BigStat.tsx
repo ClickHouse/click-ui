@@ -1,7 +1,10 @@
 import { HTMLAttributes } from "react";
 import { styled } from "styled-components";
+import { IconName } from "@/components/Icon/types";
+import { Icon } from "@/components";
 export type bigStatOrder = "titleTop" | "titleBottom";
 export type bigStatSize = "sm" | "lg";
+export type bigStatIconSize = "sm" | "lg" | "xl";
 export type bigStatSpacing = "sm" | "lg";
 export type bigStatState = "default" | "muted";
 
@@ -26,6 +29,10 @@ export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "titl
   title: React.ReactNode;
   /** Whether to show an error state with danger border */
   error?: boolean;
+  /** Icon to show to the left of label and title */
+  iconName?: IconName;
+  /** Size of the icon */
+  iconSize?: bigStatIconSize;
 }
 
 //* Use this component to highlight important pieces of information. */
@@ -40,32 +47,48 @@ export const BigStat = ({
   state = "default",
   title = "Title",
   error = false,
+  iconName,
+  iconSize = "lg",
   ...props
 }: BigStatProps) => (
   <Wrapper
     $height={height}
     $order={order}
     $size={size}
-    $spacing={spacing}
     $state={state}
     $fillWidth={fillWidth}
     $maxWidth={maxWidth}
     $error={error}
     {...props}
   >
-    <Label
-      $state={state}
-      $size={size}
-      $error={error}
-    >
-      {label}
-    </Label>
-    <Title
-      $state={state}
-      $size={size}
-    >
-      {title}
-    </Title>
+    <ContentWrapper>
+      {iconName && (
+        <IconWrapper>
+          <Icon
+            name={iconName}
+            size={iconSize}
+          />
+        </IconWrapper>
+      )}
+      <TextWrapper
+        $order={order}
+        $spacing={spacing}
+      >
+        <Label
+          $state={state}
+          $size={size}
+          $error={error}
+        >
+          {label}
+        </Label>
+        <Title
+          $state={state}
+          $size={size}
+        >
+          {title}
+        </Title>
+      </TextWrapper>
+    </ContentWrapper>
   </Wrapper>
 );
 
@@ -75,7 +98,6 @@ const Wrapper = styled.div<{
   $height?: string;
   $order?: bigStatOrder;
   $size?: bigStatSize;
-  $spacing?: bigStatSpacing;
   $state?: bigStatState;
   $error?: boolean;
 }>`
@@ -88,8 +110,6 @@ const Wrapper = styled.div<{
     $state = "default",
     $size = "lg",
     $height = "fixed",
-    $order,
-    $spacing = "sm",
     $error = false,
     theme,
   }) => `
@@ -102,10 +122,8 @@ const Wrapper = styled.div<{
         ? theme.click.bigStat.color.stroke.danger
         : theme.click.bigStat.color.stroke[$state]
     };
-  gap: ${theme.click.bigStat.space[$spacing].gap};
   padding: ${theme.click.bigStat.space.all};
   min-height: ${$height !== undefined ? `${$height}` : "auto"};
-  flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
   width: ${$fillWidth === true ? "100%" : "auto"};
   max-width: ${$maxWidth ? $maxWidth : "none"};
   `}
@@ -129,5 +147,31 @@ const Title = styled.div<{
   ${({ $state = "default", $size = "lg", theme }) => `
     color: ${theme.click.bigStat.color.title[$state]};
     font: ${theme.click.bigStat.typography[$size].title[$state]};
+  `}
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+`;
+
+const TextWrapper = styled.div<{
+  $order?: bigStatOrder;
+  $spacing?: bigStatSpacing;
+}>`
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  ${({ $order = "titleTop", $spacing = "sm", theme }) => `
+    flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
+    gap: ${theme.click.bigStat.space[$spacing].gap};
   `}
 `;
