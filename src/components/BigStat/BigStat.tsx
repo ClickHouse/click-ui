@@ -63,7 +63,10 @@ export const BigStat = ({
   >
     <ContentWrapper>
       {iconName && (
-        <IconWrapper>
+        <IconWrapper
+          data-testid="bigstat-icon-wrapper"
+          data-icon-size={iconSize}
+        >
           <Icon
             name={iconName}
             size={iconSize}
