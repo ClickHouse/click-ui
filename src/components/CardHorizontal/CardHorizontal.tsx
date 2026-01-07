@@ -49,8 +49,6 @@ export interface CardHorizontalProps extends Omit<
   badgeIconDir?: HorizontalDirection;
   /** Callback when the card button is clicked */
   onButtonClick?: MouseEventHandler<HTMLElement>;
-  /** Makes the card unactionable and read-only */
-  readOnly?: boolean;
 }
 
 const Header = styled.div`
@@ -74,7 +72,6 @@ const Wrapper = styled.div<{
   $isSelectable?: boolean;
   $color: CardColor;
   $size?: CardSize;
-  $readOnly?: boolean;
 }>`
   display: inline-flex;
   width: 100%;
@@ -82,7 +79,7 @@ const Wrapper = styled.div<{
   align-items: center;
   justify-content: flex-start;
 
-  ${({ theme, $color, $size, $isSelected, $isSelectable, $disabled, $readOnly }) => `
+  ${({ theme, $color, $size, $isSelected, $isSelectable, $disabled }) => `
     background: ${theme.click.card.horizontal[$color].color.background.default};
     color: ${theme.click.card.horizontal[$color].color.title.default};
     border-radius: ${theme.click.card.horizontal.radii.all};
@@ -104,30 +101,30 @@ const Wrapper = styled.div<{
     &:hover{
       background-color: ${
         theme.click.card.horizontal[$color].color.background[
-          $isSelectable && !$readOnly ? "hover" : "default"
+          $isSelectable ? "hover" : "default"
         ]
       };
       color: ${
         theme.click.card.horizontal[$color].color.title[
-          $isSelectable && !$readOnly ? "hover" : "default"
+          $isSelectable ? "hover" : "default"
         ]
       };
       border: 1px solid ${
         theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable && !$readOnly ? ($isSelected ? "active" : "default") : "default"
+          $isSelectable ? ($isSelected ? "active" : "default") : "default"
         ]
       };
-      cursor: ${$isSelectable && !$readOnly ? "pointer" : "default"};
+      cursor: ${$isSelectable ? "pointer" : "default"};
       font: ${theme.click.card.horizontal.typography.title.hover};
       ${Description} {
         color: ${
           theme.click.card.horizontal[$color].color.description[
-            $isSelectable && !$readOnly ? "hover" : "default"
+            $isSelectable ? "hover" : "default"
           ]
         };
         font: ${
           theme.click.card.horizontal.typography.description[
-            $isSelectable && !$readOnly ? "hover" : "default"
+            $isSelectable ? "hover" : "default"
           ]
         };
       }
@@ -242,11 +239,10 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
-  readOnly,
   ...props
 }: CardHorizontalProps) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (disabled) {
+    if (disabled || !isSelectable) {
       e.preventDefault();
       return;
     }
@@ -262,10 +258,9 @@ export const CardHorizontal = ({
     <Wrapper
       $disabled={disabled}
       $isSelected={isSelected}
-      $isSelectable={isSelectable && !readOnly}
+      $isSelectable={isSelectable}
       $color={color}
       $size={size}
-      $readOnly={readOnly}
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
       onClick={handleClick}

@@ -188,15 +188,17 @@ describe("CardHorizontal Component", () => {
     windowOpenSpy.mockRestore();
   });
 
-  it("should render correctly when readOnly is true", () => {
+  it("should not call onClick when isSelectable is false", () => {
+    const onClickMock = vitest.fn();
     const { container } = renderCard({
-      title: "Read-only Card",
-      description: "This is read-only",
-      readOnly: true,
-      isSelectable: true,
+      title: "Test Card",
+      isSelectable: false,
+      onButtonClick: onClickMock,
     });
 
-    expect(container.firstChild).toBeDefined();
-    expect(screen.getByText("Read-only Card")).toBeDefined();
+    const wrapper = container.firstChild as HTMLElement;
+    wrapper.click();
+
+    expect(onClickMock).not.toHaveBeenCalled();
   });
 });
