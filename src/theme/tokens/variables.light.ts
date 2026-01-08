@@ -3996,6 +3996,6 @@ const theme = {
     },
   },
   name: "light",
-} as const;
+};
 
 export default theme;

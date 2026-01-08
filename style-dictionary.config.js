@@ -146,7 +146,7 @@ StyleDictionary.registerFormat({
       current[path[path.length - 1]] = token.value;
     });
 
-    return `const theme = ${JSON.stringify(theme, null, 2)} as const;\n\nexport default theme;\n`;
+    return `const theme = ${JSON.stringify(theme, null, 2)};\n\nexport default theme;\n`;
   }
 });
 
