@@ -6,7 +6,7 @@ import type { Prettify, GetTypes } from "./tokens/types";
 export type ThemeName = "dark" | "light" | "classic";
 type ActiveThemeName = "dark" | "light";
 
-export type CUIThemeType = GetTypes<typeof lightTheme>;
+export type CUIThemeType = Prettify<GetTypes<typeof lightTheme>>;
 
 export type PublicTheme = Prettify<{
   breakpoint: CUIThemeType["breakpoint"];
@@ -24,12 +24,12 @@ declare module "styled-components" {
   export interface DefaultTheme extends CUIThemeType {}
 }
 
-const useCUITheme = () => {
+const useCUITheme = (): PublicTheme => {
   const theme = useTheme();
   return {
     breakpoint: theme.breakpoint,
     global: theme.global,
-    name: theme.name,
+    name: theme.name as ThemeName | undefined,
     sizes: theme.sizes,
   };
 };
