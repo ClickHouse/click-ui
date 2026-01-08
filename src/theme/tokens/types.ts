@@ -4,6 +4,34 @@
 // Utility types for working with design tokens and theme objects
 
 /**
+ * WidenLiteral - Converts literal types to their base types
+ * - string literals → string
+ * - number literals → number
+ * - boolean literals → boolean
+ * - preserves other types as-is
+ */
+type WidenLiteral<T> = T extends string
+  ? string
+  : T extends number
+    ? number
+    : T extends boolean
+      ? boolean
+      : T;
+
+/**
+ * GetTypes - Extracts TypeScript types and widens literals
+ * Recursively traverses the object and widens literal types
+ * Preserves readonly modifiers but widens string/number/boolean literals
+ */
+export type GetTypes<T> = {
+  [K in keyof T]: T[K] extends (infer U)[]
+    ? WidenLiteral<U>[]
+    : T[K] extends object
+      ? GetTypes<T[K]>
+      : WidenLiteral<T[K]>;
+};
+
+/**
  * Prettify - Expands object types in IDE tooltips for better readability
  * Recursively flattens intersection types to show the actual structure
  */
