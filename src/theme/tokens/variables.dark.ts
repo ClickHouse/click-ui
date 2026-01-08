@@ -4011,6 +4011,6 @@ const theme = {
     },
   },
   name: "dark",
-} as const;
+};
 
 export default theme;

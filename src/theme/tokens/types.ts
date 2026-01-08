@@ -11,41 +11,6 @@ export type Prettify<T> = {
   [K in keyof T]: T[K] extends object ? Prettify<T[K]> : T[K];
 } & {};
 
-/**
- * WidenLiteral - Converts literal types to their base types
- * - string literals → string
- * - number literals → number
- * - boolean literals → boolean
- * - preserves other types as-is
- */
-type WidenLiteral<T> = T extends string
-  ? string
-  : T extends number
-    ? number
-    : T extends boolean
-      ? boolean
-      : T;
-
-/**
- * GetTypes - Extracts TypeScript types from JSON token values
- * Recursively traverses the token object and infers proper types
- * Handles arrays and nested objects correctly
- * Widens literal types to their base types (string, number, boolean)
- */
-export type GetTypes<T> = Prettify<
-  T extends (infer U)[]
-    ? { [I in keyof T]: U extends object ? GetTypes<U> : WidenLiteral<U> }
-    : T extends object
-      ? {
-          [K in keyof T]: T[K] extends (infer U)[]
-            ? { [I in keyof T[K]]: U extends object ? GetTypes<U> : WidenLiteral<U> }
-            : T[K] extends object
-              ? GetTypes<T[K]>
-              : WidenLiteral<T[K]>;
-        }
-      : WidenLiteral<T>
->;
-
 // ============================================================================
 // THEME TYPES - Re-export from theme/index.ts
 // ============================================================================

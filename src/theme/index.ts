@@ -1,12 +1,12 @@
 import darkTheme from "./tokens/variables.dark";
 import lightTheme from "./tokens/variables.light";
 import { useTheme } from "styled-components";
-import type { Prettify, GetTypes } from "./tokens/types";
+import type { Prettify } from "./tokens/types";
 
 export type ThemeName = "dark" | "light" | "classic";
 type ActiveThemeName = "dark" | "light";
 
-export type CUIThemeType = Prettify<GetTypes<typeof lightTheme>>;
+export type CUIThemeType = Prettify<typeof lightTheme>;
 
 export type PublicTheme = Prettify<{
   breakpoint: CUIThemeType["breakpoint"];
