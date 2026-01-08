@@ -13,6 +13,16 @@ on:
         required: false
         default: 'main'
         type: string
+      version_bump:
+        description: 'Version bump type (none, patch, minor, major)'
+        required: false
+        default: 'none'
+        type: choice
+        options:
+          - none
+          - patch
+          - minor
+          - major
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -64,8 +74,56 @@ jobs:
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           # Extract base version (remove any existing prerelease suffix)
           BASE_VERSION=$(echo $CURRENT_VERSION | cut -d'-' -f1)
-          # Generate prerelease version: base-tagname.0
-          NEW_VERSION="${BASE_VERSION}-${GITHUB_TAG}.0"
+
+          # Apply version bump if requested
+          BUMP_TYPE="${{ github.event.inputs.version_bump || 'none' }}"
+          if [ "$BUMP_TYPE" != "none" ]; then
+            echo "Applying $BUMP_TYPE version bump to $BASE_VERSION"
+
+            # Split version into major.minor.patch
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$BASE_VERSION"
+
+            case "$BUMP_TYPE" in
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+            esac
+
+            BASE_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+            echo "New base version after bump: $BASE_VERSION"
+          fi
+
+          # Find the next available prerelease number
+          PRERELEASE_NUM=0
+          while true; do
+            TEST_VERSION="${BASE_VERSION}-${GITHUB_TAG}.${PRERELEASE_NUM}"
+
+            # Check if this version exists on npm
+            if npm view @clickhouse/click-ui@${TEST_VERSION} version 2>/dev/null; then
+              echo "Version ${TEST_VERSION} already exists, trying next number..."
+              PRERELEASE_NUM=$((PRERELEASE_NUM + 1))
+            else
+              # Version doesn't exist, we can use it
+              NEW_VERSION="${TEST_VERSION}"
+              break
+            fi
+
+            # Safety limit to prevent infinite loops
+            if [ $PRERELEASE_NUM -gt 100 ]; then
+              echo "Error: Too many prerelease versions (>100)"
+              exit 1
+            fi
+          done
+
           echo "Generated prerelease version: $NEW_VERSION"
           npm pkg set version=$NEW_VERSION --no-git-tag-version
       - uses: actions/setup-node@v4
