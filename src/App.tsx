@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 
-import "@/styles/globals.css";
-
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 import { ThemeName } from "./theme";
 import {
   Accordion,

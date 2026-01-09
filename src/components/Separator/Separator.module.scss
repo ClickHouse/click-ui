@@ -1,0 +1,52 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSeparator {
+  @include variants.variant('cuiHorizontal') {
+    width: 100%;
+    border-top: 0.0625rem solid tokens.$clickSeparatorColorStrokeDefault;
+
+    @include variants.variant('cuiSizeXs') {
+      margin: tokens.$clickSeparatorHorizontalSpaceYXs tokens.$clickSeparatorHorizontalSpaceXAll;
+    }
+    @include variants.variant('cuiSizeSm') {
+      margin: tokens.$clickSeparatorHorizontalSpaceYSm tokens.$clickSeparatorHorizontalSpaceXAll;
+    }
+    @include variants.variant('cuiSizeMd') {
+      margin: tokens.$clickSeparatorHorizontalSpaceYMd tokens.$clickSeparatorHorizontalSpaceXAll;
+    }
+    @include variants.variant('cuiSizeLg') {
+      margin: tokens.$clickSeparatorHorizontalSpaceYLg tokens.$clickSeparatorHorizontalSpaceXAll;
+    }
+    @include variants.variant('cuiSizeXl') {
+      margin: tokens.$clickSeparatorHorizontalSpaceYXl tokens.$clickSeparatorHorizontalSpaceXAll;
+    }
+    @include variants.variant('cuiSizeXxl') {
+      margin: tokens.$clickSeparatorHorizontalSpaceYXxl tokens.$clickSeparatorHorizontalSpaceXAll;
+    }
+  }
+
+  @include variants.variant('cuiVertical') {
+    height: 100%;
+    border-right: 0.0625rem solid tokens.$clickSeparatorColorStrokeDefault;
+
+    @include variants.variant('cuiSizeXs') {
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXXs;
+    }
+    @include variants.variant('cuiSizeSm') {
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXSm;
+    }
+    @include variants.variant('cuiSizeMd') {
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXMd;
+    }
+    @include variants.variant('cuiSizeLg') {
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXLg;
+    }
+    @include variants.variant('cuiSizeXl') {
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXXl;
+    }
+    @include variants.variant('cuiSizeXxl') {
+      margin: tokens.$clickSeparatorVerticalSpaceYAll tokens.$clickSeparatorVerticalSpaceXXxl;
+    }
+  }
+}

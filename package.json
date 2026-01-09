@@ -4,6 +4,10 @@
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "files": [
     "dist"
   ],
@@ -68,6 +72,7 @@
     "@radix-ui/react-tabs": "1.0.4",
     "@radix-ui/react-toast": "1.1.5",
     "@radix-ui/react-tooltip": "1.0.7",
+    "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "react-sortablejs": "^6.1.4",
     "react-syntax-highlighter": "^15.5.0",
@@ -111,6 +116,7 @@
     "prop-types": "^15.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "sass-embedded": "^1.97.0",
     "storybook": "^10.0.7",
     "storybook-addon-pseudo-states": "^10.0.7",
     "style-dictionary": "^5.0.0",

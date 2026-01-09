@@ -25,9 +25,9 @@ function App() {
 
   return (
     <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
+      <Switch
+        checked={theme === 'dark'}
+        onCheckedChange={() => toggleTheme()}
         label="Dark mode"
       />
 

@@ -1,23 +1,36 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
 import { Decorator } from "@storybook/react-vite";
-import styled from "styled-components";
 import { themes } from "storybook/theming";
-import ClickUIProvider from "../src/theme/ClickUIProvider/ClickUIProvider";
+import { ClickUIProvider } from "@/theme/ClickUIProvider";
+import clsx from "clsx";
+import styles from "./preview.module.scss";
 
-const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
-  ({ $left, $bfill: fill, theme }) => `
-      position: absolute;
-      top: 0.5rem;
-      left: ${$left || fill ? 0 : "50vw"};
-      right: 0;
-      height: fit-content;
-      bottom: 0;
-      overflow: auto;
-      padding: 1rem;
-      box-sizing: border-box;
-      background: ${theme.click.storybook.global.background};
-    `
+interface ThemeBlockProps {
+  left?: boolean;
+  fill?: boolean;
+  children: React.ReactNode;
+}
+
+const ThemeBlock: React.FC<ThemeBlockProps & { theme?: string }> = ({
+  left,
+  fill,
+  theme = "light",
+  children,
+}) => (
+  <div
+    className={clsx(styles.cuiThemeBlock, {
+      [styles.cuiLeft]: left || fill,
+      [styles.cuiRight]: !left && !fill,
+      [styles.cuiFill]: fill,
+    })}
+    style={{
+      // Set color-scheme to make light-dark() CSS function work
+      colorScheme: theme,
+    }}
+  >
+    {children}
+  </div>
 );
 
 export const globalTypes = {
@@ -26,27 +39,33 @@ export const globalTypes = {
     description: "Global theme for components",
     defaultValue: "dark",
     toolbar: {
-      // The icon for the toolbar item
       icon: "circlehollow",
-      // Array of options
       items: [
-        { value: "dark", icon: "moon", title: "dark" },
-        { value: "light", icon: "sun", title: "light" },
+        { value: "light", icon: "sun", title: "Light" },
+        { value: "dark", icon: "moon", title: "Dark" },
       ],
-      // Property that specifies if the name of the item will be displayed
       showName: true,
+      dynamicTitle: true,
     },
   },
 };
 const withTheme: Decorator = (StoryFn, context) => {
   const parameters = context.parameters;
-  const theme = parameters?.theme || context.globals.theme;
+  const theme = parameters?.theme || context.globals.theme || "light";
+
   return (
     <ClickUIProvider
+      key={`storybook-theme-${theme}`}
       theme={theme}
-      config={{ tooltip: { delayDuration: 0 } }}
+      config={{
+        tooltip: { delayDuration: 100 },
+        toast: { duration: 3000 },
+      }}
     >
-      <ThemeBlock $left>
+      <ThemeBlock
+        fill
+        theme={theme}
+      >
         <StoryFn />
       </ThemeBlock>
     </ClickUIProvider>
@@ -81,12 +100,8 @@ const preview: Preview = {
     },
     docs: {
       theme: themes.dark,
-      codePanel: true
+      codePanel: true,
     },
-  },
-  argTypes: {
-    // Hide children prop from docs table - it doesn't serialize well as a control
-    children: { table: { disable: true } },
   },
 };
 

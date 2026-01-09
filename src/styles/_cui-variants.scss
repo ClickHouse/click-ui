@@ -1,0 +1,54 @@
+@use "sass:list";
+@use "sass:string";
+
+@mixin variant($class-name) {
+  &:where(.#{$class-name}) {
+    @content;
+  }
+}
+
+@mixin variants($class-names...) {
+  $selector: ();
+  @each $name in $class-names {
+    $selector: list.append($selector, string.unquote('.#{$name}'), comma);
+  }
+
+  &:where(#{$selector}) {
+    @content;
+  }
+}
+
+@mixin variant-state($class-name, $state) {
+  &:where(.#{$class-name}):#{$state} {
+    @content;
+  }
+}
+
+@mixin variants-state($class-names, $state) {
+  $selector: ();
+  @each $name in $class-names {
+    $selector: list.append($selector, string.unquote('.#{$name}'), comma);
+  }
+
+  &:where(#{$selector}):#{$state} {
+    @content;
+  }
+}
+
+@mixin variant-map($variants-map) {
+  @each $name, $styles in $variants-map {
+    @include variant($name) {
+      @each $prop, $value in $styles {
+        #{$prop}: #{$value};
+      }
+    }
+  }
+}
+
+@mixin size-variants($sizes-map) {
+  @each $size-name, $size-value in $sizes-map {
+    @include variant('cui' + string.to-upper-case(string.slice($size-name, 1, 1)) + string.slice($size-name, 2)) {
+      @content($size-name, $size-value);
+    }
+  }
+}

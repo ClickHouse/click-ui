@@ -20,10 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     "types": ["@testing-library/jest-dom", "vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src/*", ".storybook/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,0 +1,31 @@
+@use "cui-mixins" as mixins;
+@use "cui-variants" as variants;
+
+.cuiSpacer {
+  background: transparent;
+  display: flex;
+
+  @include variants.variant('cuiSizeXs') {
+    padding: tokens.$clickSpacerHorizontalSpaceYXs tokens.$clickSpacerHorizontalSpaceXAll;
+  }
+
+  @include variants.variant('cuiSizeSm') {
+    padding: tokens.$clickSpacerHorizontalSpaceYSm tokens.$clickSpacerHorizontalSpaceXAll;
+  }
+
+  @include variants.variant('cuiSizeMd') {
+    padding: tokens.$clickSpacerHorizontalSpaceYMd tokens.$clickSpacerHorizontalSpaceXAll;
+  }
+
+  @include variants.variant('cuiSizeLg') {
+    padding: tokens.$clickSpacerHorizontalSpaceYLg tokens.$clickSpacerHorizontalSpaceXAll;
+  }
+
+  @include variants.variant('cuiSizeXl') {
+    padding: tokens.$clickSpacerHorizontalSpaceYXl tokens.$clickSpacerHorizontalSpaceXAll;
+  }
+
+  @include variants.variant('cuiSizeXxl') {
+    padding: tokens.$clickSpacerHorizontalSpaceYXxl tokens.$clickSpacerHorizontalSpaceXAll;
+  }
+}
