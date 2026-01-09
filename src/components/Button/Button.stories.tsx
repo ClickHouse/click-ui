@@ -81,17 +81,17 @@ export const FlexContainerTextClipping: Story = {
           </Select>
         </Container>
         {/* Button that gets clipped */}
-        <Button
-          {...args}
-          label="New service"
-          iconLeft="plus"
-          type="primary"
-        />
+        <Button {...args} />
       </Container>
     </Container>
   ),
   args: {
+    label: "New service",
+    iconLeft: "plus",
+    type: "primary",
     disabled: false,
     loading: false,
+    align: "center",
+    fillWidth: false,
   },
 };

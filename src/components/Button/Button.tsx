@@ -109,6 +109,7 @@ const StyledButton = styled(BaseButton)<{
   justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
   white-space: nowrap;
   overflow: hidden;
+  flex-shrink: 0;
 
   &::before {
     content: ${({ $loading }) => ($loading ? '""' : "none")};
