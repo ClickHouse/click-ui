@@ -1,7 +1,7 @@
 import React from "react";
 import type { Preview } from "@storybook/react-vite";
 import { Decorator } from "@storybook/react-vite";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { themes } from "storybook/theming";
 import ClickUIProvider from "../src/theme/ClickUIProvider/ClickUIProvider";
 
@@ -81,7 +81,7 @@ const preview: Preview = {
     },
     docs: {
       theme: themes.dark,
-      codePanel: true
+      codePanel: true,
     },
   },
   argTypes: {
