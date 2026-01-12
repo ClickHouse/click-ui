@@ -156,12 +156,12 @@ interface DateTimePickerInputProps {
 export const DateTimePickerInput = ({
   isActive,
   disabled,
-  endTimeIsSet,
+  // endTimeIsSet,
   id,
   placeholder,
   selectedEndDate,
   selectedStartDate,
-  startTimeIsSet,
+  // startTimeIsSet,
 }: DateTimePickerInputProps) => {
   const defaultId = useId();
 
@@ -175,7 +175,7 @@ export const DateTimePickerInput = ({
   );
   if (selectedStartDate) {
     if (selectedEndDate) {
-      if (endTimeIsSet) {
+
         formattedValue = (
           <span>
             {selectedDateTimeFormatter
@@ -189,26 +189,25 @@ export const DateTimePickerInput = ({
               .replace("PM", "pm")}
           </span>
         );
-      } else {
-        formattedValue = (
-          <span>
-            {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
-            {timeFormatter
-              .format(selectedStartDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}{" "}
-            – {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
-            <Text
-              color="muted"
-              component="span"
-            >
-              00:00
-            </Text>
-          </span>
-        );
-      }
+      // } else {
+      //   formattedValue = (
+      //     <span>
+      //       {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
+      //       {timeFormatter
+      //         .format(selectedStartDate)
+      //         .replace("AM", "am")
+      //         .replace("PM", "pm")}{" "}
+      //       – {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
+      //       <Text
+      //         color="muted"
+      //         component="span"
+      //       >
+      //         00:00
+      //       </Text>
+      //     </span>
+      //   );
+      // }
     } else {
-      if (startTimeIsSet) {
         formattedValue = (
           <span>
             {selectedDateTimeFormatter
@@ -223,26 +222,26 @@ export const DateTimePickerInput = ({
             </Text>
           </span>
         );
-      } else {
-        formattedValue = (
-          <span>
-            {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
-            <Text
-              color="muted"
-              component="span"
-            >
-              00:00
-            </Text>
-            <Text
-              color="muted"
-              component="span"
-            >
-              {" "}
-              – end date
-            </Text>
-          </span>
-        );
-      }
+      // } else {
+      //   formattedValue = (
+      //     <span>
+      //       {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
+      //       <Text
+      //         color="muted"
+      //         component="span"
+      //       >
+      //         00:00
+      //       </Text>
+      //       <Text
+      //         color="muted"
+      //         component="span"
+      //       >
+      //         {" "}
+      //         – end date
+      //       </Text>
+      //     </span>
+      //   );
+      // }
     }
   }
 
