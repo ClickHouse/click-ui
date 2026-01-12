@@ -18,6 +18,14 @@ import { DateRangeListItem, datesAreWithinMaxRange, Time, timeFormatter } from "
 import dayjs from "dayjs";
 import { Text } from "../Typography/Text/Text";
 import { Tabs } from "../Tabs/Tabs";
+import { TextField } from "../Input/TextField";
+import { ButtonGroup } from "../ButtonGroup/ButtonGroup";
+
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+
+const calendarFullWidth = '258px';
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -25,7 +33,7 @@ const PredefinedCalendarContainer = styled(Panel)`
 `;
 
 const PredefinedTimesContainer = styled(Container)`
-  width: 275px;
+  width: ${calendarFullWidth};
 `;
 
 // left value of 276px is the width of the PredefinedTimesContainer + 1 pixel for border
@@ -59,6 +67,10 @@ const StyledDropdownItem = styled(Dropdown.Item)`
 const ScrollableContainer = styled(Container)`
   max-height: 210px;
   overflow-y: auto;
+`;
+
+const TimeInputContainer = styled(Container)`
+  background: ${({ theme }) => theme.click.datePicker.dateOption.color.background.default};
 `;
 
 const TimesDropdownItem = styled(StyledDropdownItem)`
@@ -382,20 +394,151 @@ const PredefinedTimes = ({
 //   );
 // };
 
+interface TimeInputProps {
+  date: Date;
+  setDate: (date: Date) => void
+}
+
+const TimeInput = ({ date, setDate }: TimeInputProps) => {
+  let dayjsDate = dayjs(date);
+  if (!date) {
+    dayjsDate = dayjsDate.hour(12).minute(0);
+  }
+
+  const [dateString, setDateString] = useState<string>(dayjsDate.format('hh:mm'));
+  const [dateIsValid, setDateIsValid] = useState<boolean>(true);
+  const [meridiem, setMeridiem] = useState<string>()
+  const isEnabled = Boolean(date);
+
+  // useEffect(() => {
+  //   if (date) {
+  //     setDateString(dayjsDate.format('hh:mm'))
+  //     setMeridiem(dayjsDate.format('a'));
+  //   }
+  // }, [date, dayjsDate])
+
+  // console.log('TimeInput date', date);
+
+  const handleTimeChange = useCallback((newDateString: string) => {
+    setDateString(newDateString);
+
+    if (!date) {
+      return;
+    }
+
+    const trimmedDate = newDateString.trim();
+    if (!trimmedDate) {
+      // console.log('no trimmed date')
+      return;
+    }
+
+    const [hours, minutes] = trimmedDate.split(':');
+    // console.log('hours', hours, 'minutes', minutes);
+
+    const hoursAsNumber = parseInt(hours, 10);
+    if (Number.isNaN(hoursAsNumber)) {
+      setDateIsValid(false);
+      return;
+    }
+
+    let parsedDate;
+    if (!minutes) {
+      parsedDate = dayjs(hours, 'h');
+      // console.log('no minutes', parsedDate.isValid());
+    } else {
+      const minutesAsNumber = parseInt(minutes, 10);
+      if (Number.isNaN(minutesAsNumber)) {
+        setDateIsValid(false);
+        return;
+      }
+      parsedDate = dayjs(`${hours}:${minutes}`, 'h:mm')
+      // console.log('minutes exist', parsedDate.isValid())
+    }
+
+    // const parsedDate = dayjs(newDateString, 'h:m');
+    // console.log(newDateString, 'parsedDate', parsedDate.toDate(), parsedDate.isValid())
+    if (!parsedDate.isValid()) {
+      setDateIsValid(false);
+      return;
+    }
+
+    if (parsedDate.isValid()) {
+      setDateIsValid(true);
+
+      const newDate = dayjsDate.hour(parsedDate.hour()).minute(parsedDate.minute()).toDate();
+      setDate(newDate);
+    } else {
+      setDateIsValid(false);
+    }
+  }, [date])
+
+  const handleMeridiemChange = useCallback((meridiem: string) => {
+    console.log('date', date, dayjsDate.toDate());
+    setMeridiem(meridiem);
+    if (meridiem === 'pm' && dayjsDate.hour() < 12) {
+      const newDate = dayjsDate.hour(dayjsDate.hour() + 12).toDate();
+
+      setDate(newDate);
+      return;
+    }
+
+    if (meridiem === 'am' && dayjsDate.hour() >= 12) {
+      const newDate = dayjsDate.hour(dayjsDate.hour() - 12).toDate();
+
+      setDate(newDate);
+      return;
+    }
+
+    // const newDate = dayjsDate.toDate();
+    // setDate(newDate);
+
+    // console.log('newDate', newDate);
+
+  }, [date])
+
+  return (
+    <TimeInputContainer gap="sm" padding="xs" maxWidth={`${calendarFullWidth}`} orientation="horizontal">
+      <Container maxWidth="10%"><label><Text size="md">Time</Text></label></Container>
+      <Container gap="md" justifyContent="space-evenly" orientation="horizontal">
+        <Container maxWidth="45%" orientation="horizontal">
+          <TextField disabled={!isEnabled} error={dateIsValid ? null : true} onChange={handleTimeChange} value={dateString} />
+        </Container>
+        <Container maxWidth="45%">
+          <ButtonGroup
+            onClick={handleMeridiemChange}
+            options={[
+              {
+                label: "am",
+                value: "am",
+              },
+              {
+                label: "pm",
+                value: "pm",
+              },
+            ]}
+            selected={meridiem}
+            type="default"
+          />
+        </Container>
+      </Container>
+    </TimeInputContainer>
+  );
+};
+
 const TabbedCalendar = ({
   calendarOptions,
   closeDatePicker,
   futureDatesDisabled,
   futureStartDatesDisabled,
   maxRangeLength,
+  setEndDate,
   setSelectedDate,
-  selectedStartDate,
-  selectedEndDate,
+  setStartDate,
+  startDate,
+  endDate,
 }) => {
   return (
-    <Tabs
-      defaultValue="startDate"
-    >
+    <Tabs defaultValue="startDate">
       <StyledTriggerList>
         <Tabs.Trigger
           value="startDate"
@@ -420,10 +563,11 @@ const TabbedCalendar = ({
               futureStartDatesDisabled={futureStartDatesDisabled}
               maxRangeLength={maxRangeLength}
               setSelectedDate={setSelectedDate}
-              startDate={selectedStartDate}
+              startDate={startDate}
             />
           )}
         </StyledCalendarRenderer>
+        <TimeInput date={startDate} setDate={setStartDate} />
       </Tabs.Content>
       <Tabs.Content value="endDate">
         <StyledCalendarRenderer calendarOptions={calendarOptions}>
@@ -435,10 +579,11 @@ const TabbedCalendar = ({
               futureStartDatesDisabled={futureStartDatesDisabled}
               maxRangeLength={maxRangeLength}
               setSelectedDate={setSelectedDate}
-              endDate={selectedEndDate}
+              endDate={endDate}
             />
           )}
         </StyledCalendarRenderer>
+        <TimeInput date={endDate} setDate={setEndDate} />
       </Tabs.Content>
     </Tabs>
   );
@@ -508,6 +653,8 @@ export const DateTimePicker = ({
 
   const handleSelectDate = useCallback(
     (selectedDate: Date): void => {
+      selectedDate.setHours(12); // set the time to 12 noon
+
       // Start date and end date are selected, user clicks any date.
       // Set start date to the selected date, clear the end date.
       if (selectedStartDate && selectedEndDate) {
@@ -547,8 +694,7 @@ export const DateTimePicker = ({
         return;
       }
 
-      selectedDate.setHours(12);
-      console.log('selectedDate', selectedDate);
+      console.log("selectedDate", selectedDate);
       setSelectedStartDate(selectedDate);
     },
     [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
@@ -622,20 +768,20 @@ export const DateTimePicker = ({
 
               {shouldShowCustomRange && (
                 <CalendarRendererContainer>
-                  <Container orientation="horizontal">
-                    <TabbedCalendar
-                      calendarOptions={calendarOptions}
-                      closeDatepicker={closeDatePicker}
-                      futureDatesDisabled={futureDatesDisabled}
-                      futureStartDatesDisabled={futureStartDatesDisabled}
-                      maxRangeLength={maxRangeLength}
-                      setSelectedDate={handleSelectDate}
-                      startDate={selectedStartDate}
-                      endDate={selectedEndDate}
-                    />
+                  <TabbedCalendar
+                    calendarOptions={calendarOptions}
+                    closeDatepicker={closeDatePicker}
+                    futureDatesDisabled={futureDatesDisabled}
+                    futureStartDatesDisabled={futureStartDatesDisabled}
+                    maxRangeLength={maxRangeLength}
+                    setEndDate={setSelectedEndDate}
+                    setSelectedDate={handleSelectDate}
+                    setStartDate={setSelectedStartDate}
+                    startDate={selectedStartDate}
+                    endDate={selectedEndDate}
+                  />
 
-                    {/*<TimesList setSelectedTime={handleSelectTime} />*/}
-                  </Container>
+                  {/*<TimesList setSelectedTime={handleSelectTime} />*/}
                 </CalendarRendererContainer>
               )}
             </PredefinedCalendarContainer>
@@ -647,7 +793,9 @@ export const DateTimePicker = ({
                 futureDatesDisabled={futureDatesDisabled}
                 futureStartDatesDisabled={futureStartDatesDisabled}
                 maxRangeLength={maxRangeLength}
+                setEndDate={setSelectedEndDate}
                 setSelectedDate={handleSelectDate}
+                setStartDate={setSelectedStartDate}
                 startDate={selectedStartDate}
                 endDate={selectedEndDate}
               />
