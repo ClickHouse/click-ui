@@ -1,19 +1,17 @@
-import { styled } from "styled-components";
-import { InputElement, InputStartContent, InputWrapper } from "../Input/InputWrapper";
-import { ReactNode, useCallback, useId } from "react";
-import { Icon } from "../Icon/Icon";
-import { Container } from "../Container/Container";
-import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
-import { IconButton } from "../IconButton/IconButton";
-import { Text } from "../Typography/Text/Text";
+import { styled } from 'styled-components';
+import { InputElement, InputStartContent, InputWrapper } from '../Input/InputWrapper';
+import { ReactNode, useCallback, useId } from 'react';
+import { Icon } from '../Icon/Icon';
+import { Container } from '../Container/Container';
+import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
+import { IconButton } from '../IconButton/IconButton';
+import { Text } from '../Typography/Text/Text';
 import {
   headerDateFormatter,
   selectedDateFormatter,
-  selectedDateTimeDateFormatter,
   selectedDateTimeFormatter,
-  timeFormatter,
   weekdayFormatter,
-} from "./utils";
+} from './utils';
 
 const explicitWidth = '250px';
 
@@ -103,7 +101,7 @@ export const DateRangePickerInput = ({
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)} –{" "}
+          {selectedDateFormatter.format(selectedStartDate)} –{' '}
           {selectedDateFormatter.format(selectedEndDate)}
         </span>
       );
@@ -145,23 +143,19 @@ export const DateRangePickerInput = ({
 interface DateTimePickerInputProps {
   isActive: boolean;
   disabled: boolean;
-  endTimeIsSet: boolean;
   id?: string;
   placeholder?: string;
   selectedEndDate?: Date;
   selectedStartDate?: Date;
-  startTimeIsSet: boolean;
 }
 
 export const DateTimePickerInput = ({
   isActive,
   disabled,
-  endTimeIsSet,
   id,
   placeholder,
   selectedEndDate,
   selectedStartDate,
-  startTimeIsSet,
 }: DateTimePickerInputProps) => {
   const defaultId = useId();
 
@@ -170,80 +164,55 @@ export const DateTimePickerInput = ({
       color="muted"
       component="span"
     >
-      {placeholder ?? ""}
+      {placeholder ?? ''}
     </Text>
   );
   if (selectedStartDate) {
     if (selectedEndDate) {
-      if (endTimeIsSet) {
-        formattedValue = (
-          <span>
-            {selectedDateTimeFormatter
-              .format(selectedStartDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}{" "}
-            –{" "}
-            {selectedDateTimeFormatter
-              .format(selectedEndDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}
-          </span>
-        );
-      } else {
-        formattedValue = (
-          <span>
-            {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
-            {timeFormatter
-              .format(selectedStartDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}{" "}
-            – {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
-            <Text
-              color="muted"
-              component="span"
-            >
-              00:00
-            </Text>
-          </span>
-        );
-      }
+      formattedValue = (
+        <span>
+          {selectedDateTimeFormatter
+            .format(selectedStartDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}{' '}
+          –{' '}
+          {selectedDateTimeFormatter
+            .format(selectedEndDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}
+        </span>
+      );
     } else {
-      if (startTimeIsSet) {
-        formattedValue = (
-          <span>
-            {selectedDateTimeFormatter
-              .format(selectedStartDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}{" "}
-            <Text
-              color="muted"
-              component="span"
-            >
-              – end date
-            </Text>
-          </span>
-        );
-      } else {
-        formattedValue = (
-          <span>
-            {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
-            <Text
-              color="muted"
-              component="span"
-            >
-              00:00
-            </Text>
-            <Text
-              color="muted"
-              component="span"
-            >
-              {" "}
-              – end date
-            </Text>
-          </span>
-        );
-      }
+      formattedValue = (
+        <span>
+          {selectedDateTimeFormatter
+            .format(selectedStartDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}{' '}
+          <Text
+            color="muted"
+            component="span"
+          >
+            – end date
+          </Text>
+        </span>
+      );
     }
+  } else if (selectedEndDate) {
+    formattedValue = (
+      <span>
+        <Text
+          color="muted"
+          component="span"
+        >
+          start date –{' '}
+        </Text>
+        {selectedDateTimeFormatter
+          .format(selectedEndDate)
+          .replace('AM', 'am')
+          .replace('PM', 'pm')}
+      </span>
+    );
   }
 
   return (
@@ -334,7 +303,7 @@ export const DateTableCell = styled.td<{
   ${({ $isSelected, theme }) =>
     $isSelected &&
     `
-      background: ${theme.click.datePicker.dateOption.color.background.active};
+      background: ${theme.click.datePicker.dateOption.color.background.active} !important;
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
