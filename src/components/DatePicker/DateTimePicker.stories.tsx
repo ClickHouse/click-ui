@@ -1,18 +1,18 @@
-import { Args, Meta, StoryObj } from "@storybook/react-vite";
-import { DateTimePicker } from "./DateTimePicker";
-import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from "./utils";
-import dayjs from "dayjs";
+import { Args, Meta, StoryObj } from '@storybook/react-vite';
+import { DateTimePicker } from './DateTimePicker';
+import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from './utils';
+import dayjs from 'dayjs';
 
 const meta: Meta<typeof DateTimePicker> = {
   component: DateTimePicker,
   args: {
     maxRangeLength: undefined,
     onSelectDateRange: (startDate: Date, endDate: Date) => {
-      console.log("Date range selected: ", startDate, endDate);
+      console.log('Date range selected: ', startDate, endDate);
     },
   },
-  tags: ["autodocs"],
-  title: "Display/DateTimePicker",
+  tags: ['autodocs'],
+  title: 'Display/DateTimePicker',
 };
 
 export default meta;
@@ -74,94 +74,94 @@ export const PredefinedDatesScrollable: Story = {
     const predefinedTimesList: Array<DateRangeListItem> = [
       {
         dateRange: {
-          startDate: now.subtract(15, "minute").toDate(),
+          startDate: now.subtract(15, 'minute').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 15 minutes",
+        label: 'Past 15 minutes',
       },
       {
         dateRange: {
-          startDate: now.subtract(30, "minute").toDate(),
+          startDate: now.subtract(30, 'minute').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 30 minutes",
+        label: 'Past 30 minutes',
       },
       {
         dateRange: {
-          startDate: now.subtract(1, "hour").toDate(),
+          startDate: now.subtract(1, 'hour').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past hour",
+        label: 'Past hour',
       },
       {
         dateRange: {
-          startDate: now.subtract(2, "hour").toDate(),
+          startDate: now.subtract(2, 'hour').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 2 hours",
+        label: 'Past 2 hours',
       },
       {
         dateRange: {
-          startDate: now.subtract(6, "hour").toDate(),
+          startDate: now.subtract(6, 'hour').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 6 hours",
+        label: 'Past 6 hours',
       },
       {
         dateRange: {
-          startDate: now.subtract(12, "hour").toDate(),
+          startDate: now.subtract(12, 'hour').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 12 hours",
+        label: 'Past 12 hours',
       },
       {
         dateRange: {
-          startDate: now.subtract(1, "day").toDate(),
+          startDate: now.subtract(1, 'day').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past day",
+        label: 'Past day',
       },
       {
         dateRange: {
-          startDate: now.subtract(1, "week").toDate(),
+          startDate: now.subtract(1, 'week').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past week",
+        label: 'Past week',
       },
       {
         dateRange: {
-          startDate: now.subtract(2, "week").toDate(),
+          startDate: now.subtract(2, 'week').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 2 weeks",
+        label: 'Past 2 weeks',
       },
       {
         dateRange: {
-          startDate: now.subtract(1, "month").toDate(),
+          startDate: now.subtract(1, 'month').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past month",
+        label: 'Past month',
       },
       {
         dateRange: {
-          startDate: now.subtract(3, "month").toDate(),
+          startDate: now.subtract(3, 'month').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 3 months",
+        label: 'Past 3 months',
       },
       {
         dateRange: {
-          startDate: now.subtract(6, "month").toDate(),
+          startDate: now.subtract(6, 'month').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past 6 months",
+        label: 'Past 6 months',
       },
       {
         dateRange: {
-          startDate: now.subtract(1, "year").toDate(),
+          startDate: now.subtract(1, 'year').toDate(),
           endDate: now.toDate(),
         },
-        label: "Past year",
+        label: 'Past year',
       },
     ];
 

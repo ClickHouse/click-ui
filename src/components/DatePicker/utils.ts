@@ -32,8 +32,8 @@ export const selectedDateTimeFormatter = new Intl.DateTimeFormat(locale, {
 });
 
 export const selectedDateTimeDateFormatter = new Intl.DateTimeFormat(locale, {
-  day: "2-digit",
-  month: "short",
+  day: '2-digit',
+  month: 'short',
 });
 
 export const timeFormatter = new Intl.DateTimeFormat(locale, {
