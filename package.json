@@ -113,7 +113,7 @@
     "storybook": "^10.1.10",
     "storybook-addon-pseudo-states": "^10.1.10",
     "style-dictionary": "^5.0.0",
-    "styled-components": "^6.1.14",
+    "styled-components": "~6.1.11",
     "stylis": "^4.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.5.3",
