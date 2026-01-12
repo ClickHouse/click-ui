@@ -8,11 +8,13 @@ import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";
 import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
+import plaintext from "react-syntax-highlighter/dist/cjs/languages/hljs/plaintext";
 
 SyntaxHighlighter.registerLanguage("sql", sql);
 SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("json", json);
 SyntaxHighlighter.registerLanguage("tsx", tsx);
+SyntaxHighlighter.registerLanguage("plaintext", plaintext);
 
 export type CodeThemeType = "light" | "dark";
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {
