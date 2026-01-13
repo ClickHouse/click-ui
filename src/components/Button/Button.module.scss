@@ -1,13 +1,40 @@
 @use "cui-mixins" as mixins;
 @use "cui-variants" as variants;
 
+@keyframes shimmerFullWidth {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes shimmerFixedWidth {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
 .cuiButton {
   @include mixins.cuiBaseButton;
   position: relative;
   white-space: nowrap;
+  overflow: hidden;
+  flex-shrink: 0;
 
   &:hover {
     transition: var(--transition-default);
+  }
+
+  &::before {
+    content: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
   }
 
   // Button type variants - using :where() for low specificity (0,0,1,0)
@@ -29,13 +56,19 @@
       font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active {
+    &:disabled:not(.cuiLoading),
+    &:disabled:not(.cuiLoading):hover,
+    &:disabled:not(.cuiLoading):active {
       background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDisabled;
       color: tokens.$clickButtonBasicColorPrimaryTextDisabled;
       border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorPrimaryStrokeDisabled;
       font: tokens.$clickButtonBasicTypographyLabelDisabled;
+      cursor: not-allowed;
+    }
+
+    &.cuiLoading::before {
+      content: "";
+      background: tokens.$clickButtonBasicColorPrimaryBackgroundLoading;
     }
   }
 
@@ -57,13 +90,19 @@
       font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active {
+    &:disabled:not(.cuiLoading),
+    &:disabled:not(.cuiLoading):hover,
+    &:disabled:not(.cuiLoading):active {
       background-color: tokens.$clickButtonBasicColorSecondaryBackgroundDisabled;
       color: tokens.$clickButtonBasicColorSecondaryTextDisabled;
       border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorSecondaryStrokeDisabled;
       font: tokens.$clickButtonBasicTypographyLabelDisabled;
+      cursor: not-allowed;
+    }
+
+    &.cuiLoading::before {
+      content: "";
+      background: tokens.$clickButtonBasicColorSecondaryBackgroundLoading;
     }
   }
 
@@ -85,13 +124,28 @@
       font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active {
+    &:disabled:not(.cuiLoading),
+    &:disabled:not(.cuiLoading):hover,
+    &:disabled:not(.cuiLoading):active {
       background-color: tokens.$clickButtonBasicColorEmptyBackgroundDisabled;
       color: tokens.$clickButtonBasicColorEmptyTextDisabled;
       border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorEmptyStrokeDisabled;
       font: tokens.$clickButtonBasicTypographyLabelDisabled;
+      cursor: not-allowed;
+    }
+
+    &.cuiLoading {
+      cursor: not-allowed;
+      opacity: 0.9;
+
+      > * {
+        opacity: 0.7;
+      }
+
+      &::before {
+        content: "";
+        background: tokens.$clickButtonBasicColorEmptyBackgroundLoading;
+      }
     }
   }
 
@@ -113,13 +167,19 @@
       font: tokens.$clickButtonBasicTypographyLabelActive;
     }
 
-    &:disabled,
-    &:disabled:hover,
-    &:disabled:active {
+    &:disabled:not(.cuiLoading),
+    &:disabled:not(.cuiLoading):hover,
+    &:disabled:not(.cuiLoading):active {
       background-color: tokens.$clickButtonBasicColorDangerBackgroundDisabled;
       color: tokens.$clickButtonBasicColorDangerTextDisabled;
       border: tokens.$clickButtonStroke solid tokens.$clickButtonBasicColorDangerStrokeDisabled;
       font: tokens.$clickButtonBasicTypographyLabelDisabled;
+      cursor: not-allowed;
+    }
+
+    &.cuiLoading::before {
+      content: "";
+      background: tokens.$clickButtonBasicColorDangerBackgroundLoading;
     }
   }
 
@@ -136,20 +196,32 @@
   @include variants.variant('cuiFillWidth') {
     width: 100%;
   }
-}
 
-// Loading icon wrapper
-.cuiLoadingIconWrapper {
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  // Loading state
+  &.cuiLoading {
+    cursor: not-allowed;
+
+    // Default opacity for most button types
+    &:not(.cuiEmpty) {
+      opacity: 0.7;
+
+      > * {
+        opacity: 0.7;
+      }
+    }
+
+    &::before {
+      background-size: 200px 100%;
+      background-repeat: no-repeat;
+      animation: shimmerFixedWidth 1.5s ease-in-out infinite;
+    }
+
+    &.cuiFillWidth::before {
+      background-size: 200% 100%;
+      background-repeat: repeat;
+      animation: shimmerFullWidth 1.5s ease-in-out infinite;
+    }
+  }
 }
 
 // Button icon styling

@@ -1,13 +1,13 @@
 "use client";
 
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import clsx from "clsx";
 import { capitalize } from "@/utils/capitalize";
 import { IconButton } from "@/components";
 import styles from "./ProgressBar.module.scss";
 
 interface CommonProgressBarProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  ComponentPropsWithoutRef<"div">,
   "children"
 > {
   progress: number;
@@ -51,22 +51,30 @@ export const ProgressBar = ({
   dismissable = false,
   onCancel,
   successMessage,
+  orientation = "horizontal",
+  dir = "start",
   style,
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
   const typeClass = `cuiType${capitalize(type)}`;
   const statusClass = completed ? "cuiStatusComplete" : "cuiStatusIncomplete";
+  const orientationClass = `cuiOrientation${capitalize(orientation)}`;
+  const dirClass = `cuiDir${capitalize(dir)}`;
 
   return (
     <div
       className={clsx(
         styles.cuiProgressContainer,
         styles[typeClass],
-        styles[statusClass]
+        styles[statusClass],
+        styles[orientationClass],
+        styles[dirClass]
       )}
       data-cui-type={type}
       data-cui-status={completed ? "complete" : "incomplete"}
+      data-cui-orientation={orientation}
+      data-cui-dir={dir}
       style={
         {
           ...style,

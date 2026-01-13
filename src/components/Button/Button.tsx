@@ -9,7 +9,7 @@ import React from "react";
 export type ButtonType = "primary" | "secondary" | "empty" | "danger";
 type Alignment = "center" | "left";
 
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<React.ComponentPropsWithoutRef<"button">, "type"> {
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */
@@ -26,8 +26,6 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   fillWidth?: boolean;
   /** Whether to show a loading state */
   loading?: boolean;
-  /** Whether to show the label text alongside the loading icon */
-  showLabelWithLoading?: boolean;
   /** Whether the button should be focused on mount */
   autoFocus?: boolean;
 }
@@ -42,7 +40,6 @@ export const Button = ({
   label,
   loading = false,
   disabled,
-  showLabelWithLoading = false,
   className,
   ...delegated
 }: ButtonProps) => {
@@ -57,51 +54,34 @@ export const Button = ({
         styles[alignClass],
         {
           [styles.cuiFillWidth]: fillWidth,
+          [styles.cuiLoading]: loading,
         },
         className
       )}
       disabled={disabled || loading}
+      aria-disabled={disabled || loading}
       role="button"
-      data-cui-type={type}
-      data-cui-align={align}
-      data-cui-loading={loading ? "true" : undefined}
+      data-fill-width={fillWidth}
       {...delegated}
     >
-      {!loading && (
-        <>
-          {iconLeft && (
-            <Icon
-              name={iconLeft}
-              aria-hidden
-              size="sm"
-              className={styles.cuiButtonIcon}
-            />
-          )}
-
-          {label ?? children}
-
-          {iconRight && (
-            <Icon
-              name={iconRight}
-              aria-hidden
-              size="sm"
-              className={styles.cuiButtonIcon}
-            />
-          )}
-        </>
+      {iconLeft && (
+        <Icon
+          name={iconLeft}
+          aria-hidden
+          size="sm"
+          className={styles.cuiButtonIcon}
+        />
       )}
-      {loading && (
-        <div
-          className={styles.cuiLoadingIconWrapper}
-          data-testid="click-ui-loading-icon-wrapper"
-        >
-          <Icon
-            name="loading-animated"
-            data-testid="click-ui-loading-icon"
-            aria-label="loading"
-          />
-          {showLabelWithLoading ? (label ?? children) : ""}
-        </div>
+
+      <span>{label ?? children}</span>
+
+      {iconRight && (
+        <Icon
+          name={iconRight}
+          aria-hidden
+          size="sm"
+          className={styles.cuiButtonIcon}
+        />
       )}
     </button>
   );

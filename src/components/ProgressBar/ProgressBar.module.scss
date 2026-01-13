@@ -18,6 +18,20 @@
   background-size: calc(100% + 2px);
   background-position: center;
 
+  // Orientation variants
+  @include variants.variant('cuiOrientationHorizontal') {
+    width: 100%;
+    width: -webkit-fill-available;
+    width: fill-available;
+    width: stretch;
+  }
+
+  @include variants.variant('cuiOrientationVertical') {
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+  }
+
   // Type styling with variant mixins
   @include variants.variant('cuiTypeDefault') {
     padding: 0.25rem tokens.$clickFieldSpaceX;
@@ -27,15 +41,52 @@
     padding: 0;
   }
 
-  // Progress background based on status
+  // Progress background based on status and direction
   @include variants.variant('cuiStatusIncomplete') {
-    background: linear-gradient(
-      to right,
-      tokens.$clickGlobalColorAccentDefault 0%,
-      tokens.$clickGlobalColorAccentDefault var(--progress),
-      tokens.$clickFieldColorBackgroundDefault var(--progress),
-      tokens.$clickFieldColorBackgroundDefault 100%
-    );
+    // Default: horizontal, start (to right)
+    @include variants.variant('cuiOrientationHorizontal') {
+      @include variants.variant('cuiDirStart') {
+        background: linear-gradient(
+          to right,
+          tokens.$clickGlobalColorAccentDefault 0%,
+          tokens.$clickGlobalColorAccentDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault 100%
+        );
+      }
+
+      @include variants.variant('cuiDirEnd') {
+        background: linear-gradient(
+          to left,
+          tokens.$clickGlobalColorAccentDefault 0%,
+          tokens.$clickGlobalColorAccentDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault 100%
+        );
+      }
+    }
+
+    @include variants.variant('cuiOrientationVertical') {
+      @include variants.variant('cuiDirStart') {
+        background: linear-gradient(
+          to bottom,
+          tokens.$clickGlobalColorAccentDefault 0%,
+          tokens.$clickGlobalColorAccentDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault 100%
+        );
+      }
+
+      @include variants.variant('cuiDirEnd') {
+        background: linear-gradient(
+          to top,
+          tokens.$clickGlobalColorAccentDefault 0%,
+          tokens.$clickGlobalColorAccentDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault var(--progress),
+          tokens.$clickFieldColorBackgroundDefault 100%
+        );
+      }
+    }
   }
 
   @include variants.variant('cuiStatusComplete') {
@@ -50,13 +101,49 @@
     background-position: center;
 
     @include variants.variant('cuiStatusIncomplete') {
-      background: linear-gradient(
-        to right,
-        tokens.$clickGlobalColorAccentDefault 0%,
-        tokens.$clickGlobalColorAccentDefault var(--progress),
-        tokens.$clickFieldColorBackgroundHover var(--progress),
-        tokens.$clickFieldColorBackgroundHover 100%
-      );
+      @include variants.variant('cuiOrientationHorizontal') {
+        @include variants.variant('cuiDirStart') {
+          background: linear-gradient(
+            to right,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundHover var(--progress),
+            tokens.$clickFieldColorBackgroundHover 100%
+          );
+        }
+
+        @include variants.variant('cuiDirEnd') {
+          background: linear-gradient(
+            to left,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundHover var(--progress),
+            tokens.$clickFieldColorBackgroundHover 100%
+          );
+        }
+      }
+
+      @include variants.variant('cuiOrientationVertical') {
+        @include variants.variant('cuiDirStart') {
+          background: linear-gradient(
+            to bottom,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundHover var(--progress),
+            tokens.$clickFieldColorBackgroundHover 100%
+          );
+        }
+
+        @include variants.variant('cuiDirEnd') {
+          background: linear-gradient(
+            to top,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundHover var(--progress),
+            tokens.$clickFieldColorBackgroundHover 100%
+          );
+        }
+      }
     }
 
     @include variants.variant('cuiStatusComplete') {
@@ -71,13 +158,49 @@
     background-position: center;
 
     @include variants.variant('cuiStatusIncomplete') {
-      background: linear-gradient(
-        to right,
-        tokens.$clickGlobalColorAccentDefault 0%,
-        tokens.$clickGlobalColorAccentDefault var(--progress),
-        tokens.$clickFieldColorBackgroundActive var(--progress),
-        tokens.$clickFieldColorBackgroundActive 100%
-      );
+      @include variants.variant('cuiOrientationHorizontal') {
+        @include variants.variant('cuiDirStart') {
+          background: linear-gradient(
+            to right,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundActive var(--progress),
+            tokens.$clickFieldColorBackgroundActive 100%
+          );
+        }
+
+        @include variants.variant('cuiDirEnd') {
+          background: linear-gradient(
+            to left,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundActive var(--progress),
+            tokens.$clickFieldColorBackgroundActive 100%
+          );
+        }
+      }
+
+      @include variants.variant('cuiOrientationVertical') {
+        @include variants.variant('cuiDirStart') {
+          background: linear-gradient(
+            to bottom,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundActive var(--progress),
+            tokens.$clickFieldColorBackgroundActive 100%
+          );
+        }
+
+        @include variants.variant('cuiDirEnd') {
+          background: linear-gradient(
+            to top,
+            tokens.$clickGlobalColorAccentDefault 0%,
+            tokens.$clickGlobalColorAccentDefault var(--progress),
+            tokens.$clickFieldColorBackgroundActive var(--progress),
+            tokens.$clickFieldColorBackgroundActive 100%
+          );
+        }
+      }
     }
 
     @include variants.variant('cuiStatusComplete') {
