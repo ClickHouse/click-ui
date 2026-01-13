@@ -22,6 +22,7 @@ import { TextField } from "../Input/TextField";
 import { ButtonGroup } from "../ButtonGroup/ButtonGroup";
 
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { isBreakOrContinueStatement } from "typescript";
 
 dayjs.extend(customParseFormat);
 
@@ -160,19 +161,24 @@ const Calendar = ({
 };
 */
 
+type CalendarType = 'startDate' | 'endDate';
+type SetSelectedDate = (selectedDate: Date, calendarType: CalendarType) => void;
+
 interface CalendarProps {
   calendarBody: Body;
+  calendarType: CalendarType;
   closeDatepicker?: () => void;
   futureDatesDisabled: boolean;
   futureStartDatesDisabled: boolean;
   maxRangeLength: number;
-  setSelectedDate: (selectedDate: Date) => void;
+  setSelectedDate: (selectedDate: Date, calendarType: CalendarType) => void;
   startDate?: Date;
   endDate?: Date;
 }
 
 const Calendar = ({
   calendarBody,
+  calendarType,
   futureDatesDisabled,
   futureStartDatesDisabled,
   maxRangeLength,
@@ -194,10 +200,12 @@ const Calendar = ({
             (startDate && isSameDate(startDate, fullDate)) ||
             (endDate && isSameDate(endDate, fullDate));
 
+// if (isSelected) console.log('endDate', endDate, fullDate);
+
           const today = new Date();
 
           const isCurrentDate = isSameDate(today, fullDate);
-          const isBetweenStartAndEndDates = Boolean(
+           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
           );
 
@@ -218,11 +226,23 @@ const Calendar = ({
             isDisabled = true;
           }
 
+          if (calendarType === 'endDate' && startDate && startDate > fullDate && !isSameDate(startDate, fullDate)) {
+            isDisabled = true;
+          }
+
+          // console.log('shouldShowRangeIndicator', calendarType, endDate, Boolean(
+          //     startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
+          //   ))
           const shouldShowRangeIndicator =
             !endDate &&
+            calendarType !== 'startDate' &&
             Boolean(
               startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
             );
+
+// if (isSameDate(fullDate, startDate)) {
+//   console.log('full date is same as start date', isDisabled)
+// }
 
           const handleMouseEnter = () => {
             setHoveredDate(fullDate);
@@ -232,9 +252,9 @@ const Calendar = ({
             if (isDisabled) {
               return false;
             }
-            setSelectedDate(fullDate);
+            setSelectedDate(fullDate, calendarType);
 
-            // User has a date range selected and clicked a new date.
+            /*// User has a date range selected and clicked a new date.
             // This will cause the selected date to be reset, thus do not close the datepicker.
             if (startDate && endDate) {
               return;
@@ -243,12 +263,12 @@ const Calendar = ({
             // The user has selected a new start date, don't close
             if (startDate && fullDate < startDate) {
               return;
-            }
+            }*/
           };
           return (
             <DateRangeTableCell
               $shouldShowRangeIndicator={
-                !isSelected && (shouldShowRangeIndicator || isBetweenStartAndEndDates)
+                shouldShowRangeIndicator || isBetweenStartAndEndDates
               }
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
@@ -396,10 +416,11 @@ const PredefinedTimes = ({
 
 interface TimeInputProps {
   date: Date;
-  setDate: (date: Date) => void
+  onSetMeridiem?: () => void;
+  setDate: (date: Date) => void;
 }
 
-const TimeInput = ({ date, setDate }: TimeInputProps) => {
+const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
   let dayjsDate = dayjs(date);
   if (!date) {
     dayjsDate = dayjsDate.hour(12).minute(0);
@@ -410,12 +431,12 @@ const TimeInput = ({ date, setDate }: TimeInputProps) => {
   const [meridiem, setMeridiem] = useState<string>()
   const isEnabled = Boolean(date);
 
-  // useEffect(() => {
-  //   if (date) {
-  //     setDateString(dayjsDate.format('hh:mm'))
-  //     setMeridiem(dayjsDate.format('a'));
-  //   }
-  // }, [date, dayjsDate])
+  useEffect(() => {
+    if (date) {
+      // setDateString(dayjsDate.format('hh:mm'))
+      setMeridiem(dayjsDate.format('a'));
+    }
+  }, [date, dayjsDate])
 
   // console.log('TimeInput date', date);
 
@@ -465,27 +486,44 @@ const TimeInput = ({ date, setDate }: TimeInputProps) => {
     if (parsedDate.isValid()) {
       setDateIsValid(true);
 
-      const newDate = dayjsDate.hour(parsedDate.hour()).minute(parsedDate.minute()).toDate();
+      console.log('parsedDate.isValid()', meridiem);
+      let hour = parsedDate.hour();
+      if (meridiem === 'pm' && parsedDate.hour() < 12) {
+        hour = parsedDate.hour() + 12
+      }
+      if (meridiem === 'am' && parsedDate.hour() >= 12) {
+        hour = parsedDate.hour() - 12;
+      }
+
+      const newDate = dayjsDate.hour(hour).minute(parsedDate.minute()).toDate();
       setDate(newDate);
     } else {
       setDateIsValid(false);
     }
   }, [date])
 
-  const handleMeridiemChange = useCallback((meridiem: string) => {
+  const handleMeridiemChange = useCallback((newMeridiem: string) => {
     console.log('date', date, dayjsDate.toDate());
-    setMeridiem(meridiem);
-    if (meridiem === 'pm' && dayjsDate.hour() < 12) {
+    setMeridiem(newMeridiem);
+    if (newMeridiem === 'pm' && dayjsDate.hour() < 12) {
       const newDate = dayjsDate.hour(dayjsDate.hour() + 12).toDate();
 
       setDate(newDate);
+      if (onSetMeridiem) {
+        onSetMeridiem();
+      }
+
       return;
     }
 
-    if (meridiem === 'am' && dayjsDate.hour() >= 12) {
+    if (newMeridiem === 'am' && dayjsDate.hour() >= 12) {
       const newDate = dayjsDate.hour(dayjsDate.hour() - 12).toDate();
 
       setDate(newDate);
+      if (onSetMeridiem) {
+        onSetMeridiem();
+      }
+
       return;
     }
 
@@ -493,6 +531,10 @@ const TimeInput = ({ date, setDate }: TimeInputProps) => {
     // setDate(newDate);
 
     // console.log('newDate', newDate);
+
+    if (onSetMeridiem) {
+      onSetMeridiem();
+    }
 
   }, [date])
 
@@ -525,6 +567,8 @@ const TimeInput = ({ date, setDate }: TimeInputProps) => {
   );
 };
 
+type Tab = 'startDate' | 'endDate'
+
 const TabbedCalendar = ({
   calendarOptions,
   closeDatePicker,
@@ -537,8 +581,13 @@ const TabbedCalendar = ({
   startDate,
   endDate,
 }) => {
+  const [activeTab, setActiveTab] = useState<Tab>('startDate');
+  const handleTabChange = useCallback((newTab: string) => {
+    setActiveTab(newTab as Tab);
+  }, [])
+
   return (
-    <Tabs defaultValue="startDate">
+    <Tabs onValueChange={handleTabChange} value={activeTab}>
       <StyledTriggerList>
         <Tabs.Trigger
           value="startDate"
@@ -558,7 +607,9 @@ const TabbedCalendar = ({
           {(body: Body) => (
             <Calendar
               calendarBody={body}
+              calendarType='startDate'
               closeDatepicker={closeDatePicker}
+              endDate={endDate}
               futureDatesDisabled={futureDatesDisabled}
               futureStartDatesDisabled={futureStartDatesDisabled}
               maxRangeLength={maxRangeLength}
@@ -574,12 +625,14 @@ const TabbedCalendar = ({
           {(body: Body) => (
             <Calendar
               calendarBody={body}
+              calendarType='endDate'
               closeDatepicker={closeDatePicker}
+              endDate={endDate}
               futureDatesDisabled={futureDatesDisabled}
               futureStartDatesDisabled={futureStartDatesDisabled}
               maxRangeLength={maxRangeLength}
               setSelectedDate={setSelectedDate}
-              endDate={endDate}
+              startDate={startDate}
             />
           )}
         </StyledCalendarRenderer>
@@ -619,6 +672,9 @@ export const DateTimePicker = ({
   // const [startTimeIsSet, setStartTimeIsSet] = useState<boolean>(false);
   // const [endTimeIsSet, setEndTimeIsSet] = useState<boolean>(false);
 
+// console.log('selectedStartDate', selectedStartDate)
+// console.log('selectedEndDate', selectedEndDate)
+
   const calendarOptions: UseCalendarOptions = {};
 
   // If a start date is selected, open the calendar to that date
@@ -652,9 +708,10 @@ export const DateTimePicker = ({
   }, []);
 
   const handleSelectDate = useCallback(
-    (selectedDate: Date): void => {
+    (selectedDate: Date, calendarType: CalendarType): void => {
       selectedDate.setHours(12); // set the time to 12 noon
 
+      /*
       // Start date and end date are selected, user clicks any date.
       // Set start date to the selected date, clear the end date.
       if (selectedStartDate && selectedEndDate) {
@@ -696,6 +753,18 @@ export const DateTimePicker = ({
 
       console.log("selectedDate", selectedDate);
       setSelectedStartDate(selectedDate);
+      */
+
+      console.log("selectedDate", selectedDate);
+      if (calendarType === 'startDate') {
+        setSelectedStartDate(selectedDate);
+      }
+
+      if (calendarType === 'endDate') {
+        setSelectedEndDate(selectedDate);
+        onSelectDateRange(selectedStartDate, selectedDate);
+      }
+
     },
     [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
   );

@@ -145,23 +145,19 @@ export const DateRangePickerInput = ({
 interface DateTimePickerInputProps {
   isActive: boolean;
   disabled: boolean;
-  endTimeIsSet: boolean;
   id?: string;
   placeholder?: string;
   selectedEndDate?: Date;
   selectedStartDate?: Date;
-  startTimeIsSet: boolean;
 }
 
 export const DateTimePickerInput = ({
   isActive,
   disabled,
-  // endTimeIsSet,
   id,
   placeholder,
   selectedEndDate,
   selectedStartDate,
-  // startTimeIsSet,
 }: DateTimePickerInputProps) => {
   const defaultId = useId();
 
@@ -333,7 +329,7 @@ export const DateTableCell = styled.td<{
   ${({ $isSelected, theme }) =>
     $isSelected &&
     `
-      background: ${theme.click.datePicker.dateOption.color.background.active};
+      background: ${theme.click.datePicker.dateOption.color.background.active} !important;
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
