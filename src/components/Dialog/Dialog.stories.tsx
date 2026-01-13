@@ -173,3 +173,137 @@ export const ChatDialog = {
     },
   },
 };
+
+export const Variations = {
+  args: {
+    title: "Dialog Title",
+    showClose: true,
+    open: true,
+    modal: true,
+    reducePadding: false,
+  },
+  render: () => (
+    <div
+      style={{ display: "flex", flexDirection: "column", gap: "3rem", padding: "2rem" }}
+    >
+      <section>
+        <h3>Padding Variants</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dialog open={true}>
+            <Dialog.Content
+              title="Regular Padding"
+              showClose={true}
+              reducePadding={false}
+              forceMount={true}
+            >
+              <Text color="muted">
+                This dialog has regular padding for standard content presentation.
+              </Text>
+              <Spacer />
+              <Separator size="lg" />
+              <ActionArea>
+                <Dialog.Close label="Close" />
+                <Button iconRight="arrow-right">Continue</Button>
+              </ActionArea>
+            </Dialog.Content>
+          </Dialog>
+
+          <Dialog open={true}>
+            <Dialog.Content
+              title="Reduced Padding"
+              showClose={true}
+              reducePadding={true}
+              forceMount={true}
+            >
+              <Text color="muted">
+                This dialog has reduced padding for more compact layouts.
+              </Text>
+              <Spacer />
+              <Separator size="lg" />
+              <ActionArea>
+                <Dialog.Close label="Close" />
+                <Button iconRight="arrow-right">Continue</Button>
+              </ActionArea>
+            </Dialog.Content>
+          </Dialog>
+        </div>
+      </section>
+
+      <section>
+        <h3>Header Variants</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dialog open={true}>
+            <Dialog.Content
+              title="With Title and Close"
+              showClose={true}
+              forceMount={true}
+            >
+              <Text color="muted">Dialog with both title and close button.</Text>
+            </Dialog.Content>
+          </Dialog>
+
+          <Dialog open={true}>
+            <Dialog.Content
+              title="Title Only"
+              showClose={false}
+              forceMount={true}
+            >
+              <Text color="muted">Dialog with title but no close button.</Text>
+            </Dialog.Content>
+          </Dialog>
+
+          <Dialog open={true}>
+            <Dialog.Content
+              showClose={true}
+              forceMount={true}
+            >
+              <Text color="muted">Dialog with close button but no title.</Text>
+            </Dialog.Content>
+          </Dialog>
+        </div>
+      </section>
+
+      <section>
+        <h3>Overlay Variants</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dialog open={true}>
+            <Dialog.Content
+              title="With Overlay"
+              showClose={true}
+              showOverlay={true}
+              forceMount={true}
+            >
+              <Text color="muted">Dialog with dark overlay backdrop.</Text>
+            </Dialog.Content>
+          </Dialog>
+
+          <Dialog open={true}>
+            <Dialog.Content
+              title="Without Overlay"
+              showClose={true}
+              showOverlay={false}
+              forceMount={true}
+            >
+              <Text color="muted">Dialog without overlay backdrop.</Text>
+            </Dialog.Content>
+          </Dialog>
+        </div>
+      </section>
+    </div>
+  ),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: [".cuiContentArea", ".cuiTrigger"],
+      focus: [".cuiContentArea", ".cuiTrigger"],
+      focusVisible: [".cuiContentArea", ".cuiTrigger"],
+    },
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 1200,
+      },
+    },
+  },
+};

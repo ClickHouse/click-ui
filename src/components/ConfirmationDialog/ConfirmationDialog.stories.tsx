@@ -71,3 +71,117 @@ export const Playground = {
     },
   },
 };
+
+export const Variations = {
+  render: () => (
+    <div
+      style={{ display: "flex", flexDirection: "column", gap: "3rem", padding: "2rem" }}
+    >
+      <section>
+        <h3>Primary Action Types</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ConfirmationDialog
+            open={true}
+            title="Primary Action"
+            message="Confirmation dialog with primary action button type."
+            primaryActionType="primary"
+            primaryActionLabel="Confirm"
+            secondaryActionLabel="Cancel"
+          />
+
+          <ConfirmationDialog
+            open={true}
+            title="Danger Action"
+            message="Confirmation dialog with danger action button type for destructive actions."
+            primaryActionType="danger"
+            primaryActionLabel="Delete"
+            secondaryActionLabel="Cancel"
+          />
+        </div>
+      </section>
+
+      <section>
+        <h3>Button States</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ConfirmationDialog
+            open={true}
+            title="Default State"
+            message="Confirmation dialog with normal button state."
+            disabled={false}
+            loading={false}
+          />
+
+          <ConfirmationDialog
+            open={true}
+            title="Loading State"
+            message="Confirmation dialog with loading state on primary action."
+            loading={true}
+          />
+
+          <ConfirmationDialog
+            open={true}
+            title="Disabled State"
+            message="Confirmation dialog with disabled primary action."
+            disabled={true}
+          />
+        </div>
+      </section>
+
+      <section>
+        <h3>Header Variants</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ConfirmationDialog
+            open={true}
+            title="With Close Button"
+            message="Confirmation dialog with close button in header."
+            showClose={true}
+          />
+
+          <ConfirmationDialog
+            open={true}
+            title="Without Close Button"
+            message="Confirmation dialog without close button."
+            showClose={false}
+          />
+        </div>
+      </section>
+
+      <section>
+        <h3>Custom Labels</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ConfirmationDialog
+            open={true}
+            title="Save Changes?"
+            message="You have unsaved changes. Do you want to save them before leaving?"
+            primaryActionLabel="Save"
+            secondaryActionLabel="Don't Save"
+          />
+
+          <ConfirmationDialog
+            open={true}
+            title="Proceed with Action?"
+            message="This action will make permanent changes to your account."
+            primaryActionLabel="Yes, Proceed"
+            secondaryActionLabel="No, Go Back"
+            primaryActionType="danger"
+          />
+        </div>
+      </section>
+    </div>
+  ),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: [".cuiDialogContent"],
+      focus: [".cuiDialogContent"],
+      focusVisible: [".cuiDialogContent"],
+    },
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 1200,
+      },
+    },
+  },
+};

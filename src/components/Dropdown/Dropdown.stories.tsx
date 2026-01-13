@@ -138,3 +138,241 @@ export const Playground: Story = {
     itemCount: 0,
   },
 };
+
+export const Variations: Story = {
+  args: {
+    open: true,
+    defaultOpen: true,
+  },
+  render: () => (
+    <div
+      style={{ display: "flex", flexDirection: "column", gap: "3rem", padding: "2rem" }}
+    >
+      <section>
+        <h3>Item Types</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Default Items</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item type="default">Default Item 1</Dropdown.Item>
+              <Dropdown.Item type="default">Default Item 2</Dropdown.Item>
+              <Dropdown.Item type="default">Default Item 3</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Danger Items</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item>Regular Item</Dropdown.Item>
+              <Dropdown.Item type="danger">Delete</Dropdown.Item>
+              <Dropdown.Item type="danger">Remove</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+
+      <section>
+        <h3>Item States</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Item States</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item>Normal Item</Dropdown.Item>
+              <Dropdown.Item disabled>Disabled Item</Dropdown.Item>
+              <Dropdown.Item data-state="checked">Checked Item</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+
+      <section>
+        <h3>Items with Icons</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Icon Start</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item icon="activity">Activity</Dropdown.Item>
+              <Dropdown.Item icon="user">Profile</Dropdown.Item>
+              <Dropdown.Item icon="settings">Settings</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Icon End</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item
+                icon="activity"
+                iconDir="end"
+              >
+                Activity
+              </Dropdown.Item>
+              <Dropdown.Item
+                icon="user"
+                iconDir="end"
+              >
+                Profile
+              </Dropdown.Item>
+              <Dropdown.Item
+                icon="settings"
+                iconDir="end"
+              >
+                Settings
+              </Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+
+      <section>
+        <h3>Arrow Variants</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dropdown open={true}>
+            <Dropdown.Trigger>With Arrow</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Without Arrow</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={false}
+              side="bottom"
+            >
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+
+      <section>
+        <h3>Position Variants</h3>
+        <div
+          style={{
+            display: "flex",
+            gap: "2rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Top</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="top"
+            >
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Bottom</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Left</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="left"
+            >
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Right</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="right"
+            >
+              <Dropdown.Item>Item 1</Dropdown.Item>
+              <Dropdown.Item>Item 2</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+
+      <section>
+        <h3>With Sub-menus</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Nested Menu</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Item>Regular Item</Dropdown.Item>
+              <Dropdown.Sub>
+                <Dropdown.Trigger sub>More Options</Dropdown.Trigger>
+                <Dropdown.Content sub>
+                  <Dropdown.Item>Sub Item 1</Dropdown.Item>
+                  <Dropdown.Item>Sub Item 2</Dropdown.Item>
+                  <Dropdown.Item>Sub Item 3</Dropdown.Item>
+                </Dropdown.Content>
+              </Dropdown.Sub>
+              <Dropdown.Item type="danger">Delete</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+
+      <section>
+        <h3>With Groups</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <Dropdown open={true}>
+            <Dropdown.Trigger>Grouped Items</Dropdown.Trigger>
+            <Dropdown.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <Dropdown.Group>
+                <Dropdown.Item>Group 1 - Item 1</Dropdown.Item>
+                <Dropdown.Item>Group 1 - Item 2</Dropdown.Item>
+              </Dropdown.Group>
+              <Dropdown.Item>Ungrouped Item</Dropdown.Item>
+              <Dropdown.Item>Another Item</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </section>
+    </div>
+  ),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: [".cuiMenuItem", ".cuiSubTrigger", ".cuiTrigger"],
+      focus: [".cuiMenuItem", ".cuiSubTrigger", ".cuiTrigger"],
+      focusVisible: [".cuiMenuItem", ".cuiSubTrigger", ".cuiTrigger"],
+    },
+  },
+};

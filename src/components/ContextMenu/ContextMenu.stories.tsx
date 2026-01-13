@@ -67,3 +67,262 @@ export const Playground = {
     side: "left",
   },
 };
+
+export const Variations = {
+  render: () => (
+    <div
+      style={{ display: "flex", flexDirection: "column", gap: "3rem", padding: "2rem" }}
+    >
+      <section>
+        <h3>Item Types</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Default Items</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item type="default">Default Item 1</ContextMenu.Item>
+              <ContextMenu.Item type="default">Default Item 2</ContextMenu.Item>
+              <ContextMenu.Item type="default">Default Item 3</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Danger Items</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item>Regular Item</ContextMenu.Item>
+              <ContextMenu.Item type="danger">Delete</ContextMenu.Item>
+              <ContextMenu.Item type="danger">Remove</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+
+      <section>
+        <h3>Item States</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Item States</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item>Normal Item</ContextMenu.Item>
+              <ContextMenu.Item disabled>Disabled Item</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+
+      <section>
+        <h3>Items with Icons</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Icon Start</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item icon="activity">Activity</ContextMenu.Item>
+              <ContextMenu.Item icon="user">Profile</ContextMenu.Item>
+              <ContextMenu.Item icon="settings">Settings</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Icon End</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item
+                icon="activity"
+                iconDir="end"
+              >
+                Activity
+              </ContextMenu.Item>
+              <ContextMenu.Item
+                icon="user"
+                iconDir="end"
+              >
+                Profile
+              </ContextMenu.Item>
+              <ContextMenu.Item
+                icon="settings"
+                iconDir="end"
+              >
+                Settings
+              </ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+
+      <section>
+        <h3>Arrow Variants</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>With Arrow</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item>Item 1</ContextMenu.Item>
+              <ContextMenu.Item>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Without Arrow</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={false}
+              side="bottom"
+            >
+              <ContextMenu.Item>Item 1</ContextMenu.Item>
+              <ContextMenu.Item>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+
+      <section>
+        <h3>Position Variants</h3>
+        <div
+          style={{
+            display: "flex",
+            gap: "2rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Top</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="top"
+            >
+              <ContextMenu.Item>Item 1</ContextMenu.Item>
+              <ContextMenu.Item>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Bottom</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item>Item 1</ContextMenu.Item>
+              <ContextMenu.Item>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Left</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="left"
+            >
+              <ContextMenu.Item>Item 1</ContextMenu.Item>
+              <ContextMenu.Item>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Right</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="right"
+            >
+              <ContextMenu.Item>Item 1</ContextMenu.Item>
+              <ContextMenu.Item>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+
+      <section>
+        <h3>With Sub-menus</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Nested Menu</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Item>Regular Item</ContextMenu.Item>
+              <ContextMenu.Sub>
+                <ContextMenu.SubTrigger>More Options</ContextMenu.SubTrigger>
+                <ContextMenu.Content sub>
+                  <ContextMenu.Item>Sub Item 1</ContextMenu.Item>
+                  <ContextMenu.Item>Sub Item 2</ContextMenu.Item>
+                  <ContextMenu.Item>Sub Item 3</ContextMenu.Item>
+                </ContextMenu.Content>
+              </ContextMenu.Sub>
+              <ContextMenu.Item type="danger">Delete</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+
+      <section>
+        <h3>With Groups</h3>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+          <ContextMenu>
+            <ContextMenu.Trigger>
+              <div className={styles.cuiTrigger}>Grouped Items</div>
+            </ContextMenu.Trigger>
+            <ContextMenu.Content
+              showArrow={true}
+              side="bottom"
+            >
+              <ContextMenu.Group>
+                <ContextMenu.Item>Group 1 - Item 1</ContextMenu.Item>
+                <ContextMenu.Item>Group 1 - Item 2</ContextMenu.Item>
+              </ContextMenu.Group>
+              <ContextMenu.Item>Ungrouped Item</ContextMenu.Item>
+              <ContextMenu.Item>Another Item</ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
+        </div>
+      </section>
+    </div>
+  ),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: [".cuiGenericMenuItem"],
+      focus: [".cuiGenericMenuItem"],
+      focusVisible: [".cuiGenericMenuItem"],
+    },
+  },
+};

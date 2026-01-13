@@ -95,6 +95,129 @@ export const Selectable: StoryObj<typeof Table> = {
   },
 };
 
+export const Variations: StoryObj<typeof Table> = {
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: ".cuiTableRow",
+      focus: ".cuiTableRow",
+      active: ".cuiTableRow",
+    },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <section>
+        <h3>Basic Table</h3>
+        <Table
+          headers={headers}
+          rows={rows.slice(0, 3)}
+        />
+      </section>
+
+      <section>
+        <h3>Table Sizes</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div>
+            <span
+              style={{ fontSize: "0.75rem", display: "block", marginBottom: "0.5rem" }}
+            >
+              Small (sm)
+            </span>
+            <Table
+              headers={headers}
+              rows={rows.slice(0, 2)}
+              size="sm"
+            />
+          </div>
+          <div>
+            <span
+              style={{ fontSize: "0.75rem", display: "block", marginBottom: "0.5rem" }}
+            >
+              Medium (md)
+            </span>
+            <Table
+              headers={headers}
+              rows={rows.slice(0, 2)}
+              size="md"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3>Row States</h3>
+        <Table
+          headers={headers}
+          rows={rows}
+        />
+      </section>
+
+      <section>
+        <h3>Without Header</h3>
+        <Table
+          headers={headers}
+          rows={rows.slice(0, 3)}
+          showHeader={false}
+        />
+      </section>
+
+      <section>
+        <h3>Loading State</h3>
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+        />
+      </section>
+
+      <section>
+        <h3>No Data</h3>
+        <Table
+          headers={headers}
+          rows={[]}
+          noDataMessage="No items found"
+        />
+      </section>
+
+      <section>
+        <h3>Custom No Data Message</h3>
+        <Table
+          headers={headers}
+          rows={[]}
+          noDataMessage={
+            <div style={{ textAlign: "center", padding: "2rem" }}>
+              <strong>Custom empty state</strong>
+              <p style={{ margin: "0.5rem 0 0 0" }}>Add your first item to get started</p>
+            </div>
+          }
+        />
+      </section>
+
+      <section>
+        <h3>Custom Row Height</h3>
+        <Table
+          headers={headers}
+          rows={rows.slice(0, 3)}
+          rowHeight="60px"
+        />
+      </section>
+
+      <section>
+        <h3>With Column Widths</h3>
+        <Table
+          headers={[
+            { label: "Company", width: "40%" },
+            { label: "Contact", width: "30%" },
+            { label: "Country", width: "30%" },
+          ]}
+          rows={rows.slice(0, 3)}
+        />
+      </section>
+    </div>
+  ),
+};
+
 export const Sortable: StoryObj<typeof Table> = {
   args: {
     headers,

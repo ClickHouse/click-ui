@@ -4,6 +4,7 @@ import {
   GridContextMenuItemProps,
   SelectedRegion,
   SelectionFocus,
+  GridProps,
 } from "@/components";
 import { Grid as CUIGrid } from "./Grid";
 
@@ -25,15 +26,16 @@ const Cell: CellProps = ({
   );
 };
 
-interface Props {
-  columnCount: number;
-  rowCount: number;
-  focus: {
-    row: number;
-    column: number;
-  };
-  rowAutoHeight?: boolean;
-}
+interface Props extends Pick<
+  GridProps,
+  | "columnCount"
+  | "rowCount"
+  | "focus"
+  | "rowAutoHeight"
+  | "showRowNumber"
+  | "showHeader"
+  | "rowStart"
+> {}
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
   const [columnWidth, setColumnWidth] = useState<Array<number>>(
@@ -95,6 +97,89 @@ export default {
   component: Grid,
   title: "Display/Grid",
   tags: ["grid", "autodocs"],
+};
+
+export const Variations = {
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: ".cuiGridContainer",
+      focus: ".cuiGridContainer",
+      active: ".cuiGridContainer",
+    },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <section>
+        <h3>Basic Grid</h3>
+        <Grid
+          rowCount={10}
+          columnCount={5}
+          focus={{ row: 0, column: 0 }}
+        />
+      </section>
+
+      <section>
+        <h3>With Row Numbers</h3>
+        <Grid
+          rowCount={8}
+          columnCount={4}
+          focus={{ row: 0, column: 0 }}
+          showRowNumber={true}
+        />
+      </section>
+
+      <section>
+        <h3>Without Header</h3>
+        <Grid
+          rowCount={6}
+          columnCount={4}
+          focus={{ row: 0, column: 0 }}
+          showHeader={false}
+        />
+      </section>
+
+      <section>
+        <h3>Without Row Numbers</h3>
+        <Grid
+          rowCount={6}
+          columnCount={4}
+          focus={{ row: 0, column: 0 }}
+          showRowNumber={false}
+        />
+      </section>
+
+      <section>
+        <h3>Different Row Start</h3>
+        <Grid
+          rowCount={8}
+          columnCount={4}
+          focus={{ row: 100, column: 0 }}
+          rowStart={100}
+        />
+      </section>
+
+      <section>
+        <h3>More Columns</h3>
+        <Grid
+          rowCount={5}
+          columnCount={10}
+          focus={{ row: 0, column: 0 }}
+        />
+      </section>
+
+      <section>
+        <h3>Auto Height</h3>
+        <Grid
+          rowCount={5}
+          columnCount={4}
+          focus={{ row: 0, column: 0 }}
+          rowAutoHeight={true}
+        />
+      </section>
+    </div>
+  ),
 };
 
 export const Playground = {

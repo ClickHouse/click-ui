@@ -61,3 +61,136 @@ export const Playground: Story = {
     menu: menuItems,
   },
 };
+
+export const Variations: Story = {
+  render: () => (
+    <div
+      style={{ padding: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}
+    >
+      <section>
+        <h3>Type: Primary</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+          >
+            Primary Split Button
+          </SplitButton>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+            icon="code"
+          >
+            With Icon
+          </SplitButton>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+            icon="code"
+            iconDir="end"
+          >
+            Icon at End
+          </SplitButton>
+        </div>
+      </section>
+
+      <section>
+        <h3>Type: Secondary</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <SplitButton
+            type="secondary"
+            menu={menuItems}
+          >
+            Secondary Split Button
+          </SplitButton>
+          <SplitButton
+            type="secondary"
+            menu={menuItems}
+            icon="code"
+          >
+            With Icon
+          </SplitButton>
+          <SplitButton
+            type="secondary"
+            menu={menuItems}
+            icon="code"
+            iconDir="end"
+          >
+            Icon at End
+          </SplitButton>
+        </div>
+      </section>
+
+      <section>
+        <h3>Dropdown Side</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+            side="bottom"
+          >
+            Dropdown Bottom
+          </SplitButton>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+            side="top"
+          >
+            Dropdown Top
+          </SplitButton>
+        </div>
+      </section>
+
+      <section>
+        <h3>Disabled State</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+            disabled
+          >
+            Disabled Primary
+          </SplitButton>
+          <SplitButton
+            type="secondary"
+            menu={menuItems}
+            disabled
+          >
+            Disabled Secondary
+          </SplitButton>
+        </div>
+      </section>
+
+      <section>
+        <h3>Fill Width</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <SplitButton
+            type="primary"
+            menu={menuItems}
+            fillWidth
+          >
+            Fill Width Primary
+          </SplitButton>
+          <SplitButton
+            type="secondary"
+            menu={menuItems}
+            fillWidth
+          >
+            Fill Width Secondary
+          </SplitButton>
+        </div>
+      </section>
+    </div>
+  ),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: [".cuiPrimaryButton", ".cuiSecondaryButton"],
+      focus: [".cuiPrimaryButton", ".cuiSecondaryButton"],
+    },
+    chromatic: {
+      delay: 300,
+    },
+  },
+};
