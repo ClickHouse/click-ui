@@ -4,7 +4,7 @@ import { Badge, Icon, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { IconSize } from "@/components/Icon/types";
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./CardSecondary.module.scss";
 
@@ -17,7 +17,7 @@ export type BadgeState =
   | "warning"
   | "info";
 
-export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardSecondaryProps extends ComponentPropsWithoutRef<"div"> {
   /** The title text displayed in the card header */
   title: string;
   /** Icon name to display in the header */

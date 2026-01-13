@@ -1,10 +1,10 @@
 "use client";
 
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { HorizontalDirection, Label, Orientation } from "@/components";
 
-export interface FormContainerProps extends HTMLAttributes<HTMLDivElement> {
+export interface FormContainerProps extends ComponentPropsWithoutRef<"div"> {
   htmlFor: string;
   label?: ReactNode;
   orientation?: Orientation;

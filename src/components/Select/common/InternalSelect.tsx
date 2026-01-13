@@ -1,7 +1,7 @@
 import {
   Children,
+  ComponentPropsWithoutRef,
   FunctionComponent,
-  HTMLAttributes,
   KeyboardEvent,
   MouseEvent,
   ReactNode,
@@ -77,7 +77,7 @@ interface NoOptionsDisplayProps {
   noAvailableOptions: boolean | ((props: NoAvailableOptionsFactoryProps) => ReactNode);
   onCreateOption: (e: MouseEvent<HTMLDivElement>) => void;
   onOpenChange: (open: boolean) => void;
-  containerProps?: HTMLAttributes<HTMLDivElement>;
+  containerProps?: ComponentPropsWithoutRef<"div">;
 }
 
 const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({

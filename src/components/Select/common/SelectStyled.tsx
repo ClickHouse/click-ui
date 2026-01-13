@@ -9,7 +9,7 @@ export const SelectPopoverRoot: React.FC<React.ComponentPropsWithoutRef<typeof R
 
 export const SelectValue = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -66,7 +66,7 @@ SelectPopoverContent.displayName = "SelectPopoverContent";
 
 export const SearchBarContainer = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { $showSearch: boolean }
+  React.ComponentPropsWithoutRef<"div"> & { $showSearch: boolean }
 >(({ className, $showSearch, ...props }, ref) => (
   <div
     ref={ref}
@@ -85,7 +85,7 @@ SearchBarContainer.displayName = "SearchBarContainer";
 
 export const SearchBar = forwardRef<
   HTMLInputElement,
-  React.InputHTMLAttributes<HTMLInputElement> & { $showSearch: boolean }
+  React.ComponentPropsWithoutRef<"input"> & { $showSearch: boolean }
 >(({ className, $showSearch, ...props }, ref) => (
   <input
     ref={ref}
@@ -104,7 +104,7 @@ SearchBar.displayName = "SearchBar";
 
 export const SearchClose = forwardRef<
   HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { $showClose: boolean }
+  React.ComponentPropsWithoutRef<"button"> & { $showClose: boolean }
 >(({ className, $showClose, ...props }, ref) => (
   <button
     ref={ref}
@@ -123,7 +123,7 @@ SearchClose.displayName = "SearchClose";
 
 export const SelectList = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -135,7 +135,7 @@ SelectList.displayName = "SelectList";
 
 export const SelectListContent = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { $maxHeight?: string }
+  React.ComponentPropsWithoutRef<"div"> & { $maxHeight?: string }
 >(({ className, $maxHeight, style, ...props }, ref) => (
   <div
     ref={ref}
@@ -157,7 +157,7 @@ SelectListContent.displayName = "SelectListContent";
 
 export const HiddenSelectElement = forwardRef<
   HTMLSelectElement,
-  React.SelectHTMLAttributes<HTMLSelectElement>
+  React.ComponentPropsWithoutRef<"select">
 >(({ className, ...props }, ref) => (
   <select
     ref={ref}
@@ -169,7 +169,7 @@ HiddenSelectElement.displayName = "HiddenSelectElement";
 
 export const SelectGroupContainer = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -181,7 +181,7 @@ SelectGroupContainer.displayName = "SelectGroupContainer";
 
 export const SelectGroupName = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -193,7 +193,7 @@ SelectGroupName.displayName = "SelectGroupName";
 
 export const SelectGroupContent = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -205,7 +205,7 @@ SelectGroupContent.displayName = "SelectGroupContent";
 
 export const SelectNoDataContainer = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { $clickable: boolean }
+  React.ComponentPropsWithoutRef<"div"> & { $clickable: boolean }
 >(({ className, $clickable, ...props }, ref) => (
   <div
     ref={ref}
@@ -224,7 +224,7 @@ SelectNoDataContainer.displayName = "SelectNoDataContainer";
 
 export const SelectItemDescriptionText = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}

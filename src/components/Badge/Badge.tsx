@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { HorizontalDirection } from "@/components";
-import { HTMLAttributes, MouseEvent, ReactNode } from "react";
+import { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
 import { ImageName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";
 import IconWrapper from "@/components/IconWrapper/IconWrapper";
@@ -19,7 +19,7 @@ export type BadgeState =
 export type BadgeSize = "sm" | "md";
 export type BadgeType = "opaque" | "solid";
 
-export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
+export interface CommonBadgeProps extends ComponentPropsWithoutRef<"div"> {
   /** The text content to display in the badge */
   text: ReactNode;
   /** The visual state of the badge */

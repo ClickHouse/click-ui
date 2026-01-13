@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
+import { FC, ComponentPropsWithoutRef, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
 import clsx from "clsx";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
@@ -20,7 +20,7 @@ type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = "sm" | "md";
 
-export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderType extends ComponentPropsWithoutRef<"td"> {
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
@@ -173,12 +173,12 @@ const Thead = ({
   );
 };
 
-interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
+interface TableCellType extends ComponentPropsWithoutRef<"td"> {
   label: ReactNode;
 }
 
 export interface TableRowType extends Omit<
-  HTMLAttributes<HTMLTableRowElement>,
+  ComponentPropsWithoutRef<"tr">,
   "onSelect" | "id"
 > {
   id: string | number;
@@ -191,7 +191,7 @@ export interface TableRowType extends Omit<
 }
 
 interface CommonTableProps extends Omit<
-  HTMLAttributes<HTMLTableElement>,
+  ComponentPropsWithoutRef<"table">,
   "children" | "onSelect"
 > {
   headers: Array<TableHeaderType>;

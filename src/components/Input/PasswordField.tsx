@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from "react";
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from "react";
 import { Icon } from "@/components";
 import {
   IconButton,
@@ -11,7 +11,7 @@ export interface PasswordFieldProps
   extends
     Omit<WrapperProps, "id" | "children">,
     Omit<
-      InputHTMLAttributes<HTMLInputElement>,
+      ComponentPropsWithoutRef<"input">,
       "children" | "type" | "string" | "onChange" | "dir"
     > {
   type?: "password";

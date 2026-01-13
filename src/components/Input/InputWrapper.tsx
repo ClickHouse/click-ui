@@ -112,7 +112,7 @@ export const InputWrapper = ({
   );
 };
 
-export interface InputElementProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputElementProps extends React.ComponentPropsWithoutRef<"input"> {
   hasStartContent?: boolean;
   hasEndContent?: boolean;
 }
@@ -159,7 +159,7 @@ export const NumberInputElement = React.forwardRef<
   />
 ));
 
-export interface TextAreaElementProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+export interface TextAreaElementProps extends React.ComponentPropsWithoutRef<"textarea"> {}
 
 export const TextAreaElement = React.forwardRef<
   HTMLTextAreaElement,
@@ -172,7 +172,7 @@ export const TextAreaElement = React.forwardRef<
   />
 ));
 
-export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface IconButtonProps extends React.ComponentPropsWithoutRef<"button"> {}
 
 export const IconButton = ({ className, ...props }: IconButtonProps) => (
   <button
@@ -190,7 +190,7 @@ export const IconWrapper = ({ className, ...props }: IconWrapperProps) => (
   />
 );
 
-export interface InputStartContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface InputStartContentProps extends React.ComponentPropsWithoutRef<"div"> {}
 
 export const InputStartContent = ({ className, ...props }: InputStartContentProps) => (
   <div
@@ -199,7 +199,7 @@ export const InputStartContent = ({ className, ...props }: InputStartContentProp
   />
 );
 
-export interface InputEndContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface InputEndContentProps extends React.ComponentPropsWithoutRef<"div"> {}
 
 export const InputEndContent = ({ className, ...props }: InputEndContentProps) => (
   <div

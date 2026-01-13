@@ -6,7 +6,7 @@ import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
 import { Icon } from "@/components/Icon/Icon";
 import { IconSize } from "@/components/Icon/types";
 
-interface IconWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IconWrapperProps extends React.ComponentPropsWithoutRef<"div"> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   size?: IconSize;

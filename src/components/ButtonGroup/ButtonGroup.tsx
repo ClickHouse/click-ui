@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import clsx from "clsx";
 import { capitalize } from "@/utils/capitalize";
 import styles from "@/components/ButtonGroup/ButtonGroup.module.scss";
@@ -8,17 +8,19 @@ import styles from "@/components/ButtonGroup/ButtonGroup.module.scss";
 type ButtonGroupType = "default" | "borderless";
 
 export interface ButtonGroupElementProps extends Omit<
-  HTMLAttributes<HTMLButtonElement>,
+  ComponentPropsWithoutRef<"button">,
   "children"
 > {
   /** The unique value for this button */
   value: string;
   /** The label text to display */
   label?: ReactNode;
+  /** Whether the button is disabled */
+  disabled?: boolean;
 }
 
 export interface ButtonGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  ComponentPropsWithoutRef<"div">,
   "onClick"
 > {
   /** Array of button options to display */

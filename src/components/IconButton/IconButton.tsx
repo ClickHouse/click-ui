@@ -2,11 +2,11 @@
 
 import { Icon, IconName } from "@/components";
 import { capitalize } from "@/utils/capitalize";
-import { HTMLAttributes, forwardRef } from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import clsx from "clsx";
 import styles from "./IconButton.module.scss";
 
-export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps extends Omit<ComponentPropsWithoutRef<"button">, "type"> {
   size?: "default" | "sm" | "xs";
   disabled?: boolean;
   type?: "primary" | "secondary" | "ghost" | "danger" | "info";

@@ -1,4 +1,4 @@
-import { HTMLAttributes, forwardRef } from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import clsx from "clsx";
 import styles from "./Title.module.scss";
 import { capitalize } from "@/utils/capitalize";
@@ -9,7 +9,7 @@ export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type TitleFamily = "product" | "brand";
 export type TitleType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
+export interface TitleProps extends ComponentPropsWithoutRef<"h1"> {
   /** The text alignment of the title */
   align?: TitleAlignment;
   /** The color variant of the title */

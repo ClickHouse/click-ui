@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { SelectionType } from "./types";
 import styles from "./StyledCell.module.scss";
 
-interface StyledCellProps extends React.HTMLAttributes<HTMLDivElement> {
+interface StyledCellProps extends React.ComponentPropsWithoutRef<"div"> {
   $isFocused: boolean;
   $selectionType: SelectionType;
   $isSelectedTop: boolean;

@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
 import clsx from "clsx";
 import { IconButton } from "@/components";
@@ -19,7 +19,7 @@ SyntaxHighlighter.registerLanguage("json", json);
 SyntaxHighlighter.registerLanguage("tsx", tsx);
 
 export type CodeThemeType = "light" | "dark";
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {
+interface Props extends Omit<ComponentPropsWithoutRef<"div">, "children" | "onCopy"> {
   language?: string;
   children: string;
   theme?: CodeThemeType;
@@ -88,7 +88,7 @@ export const CodeBlock = ({
     setWrap(wrap => !wrap);
   };
 
-  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => (
+  const CodeWithRef = (props: ComponentPropsWithoutRef<"div">) => (
     <code
       {...props}
       className={styles.cuiCodeContent}

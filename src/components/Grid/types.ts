@@ -1,6 +1,6 @@
 import {
+  ComponentPropsWithoutRef,
   ComponentType,
-  HTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
   MutableRefObject,
@@ -9,7 +9,7 @@ import {
 import { VariableSizeGrid, VariableSizeGridProps } from "react-window";
 import { ContextMenuItemProps } from "@/components";
 
-interface CellCommonProps extends HTMLAttributes<HTMLElement> {
+interface CellCommonProps extends ComponentPropsWithoutRef<"div"> {
   columnIndex: number;
   isScrolling?: boolean;
 }

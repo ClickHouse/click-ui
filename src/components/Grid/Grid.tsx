@@ -1,5 +1,5 @@
 import {
-  HTMLAttributes,
+  ComponentPropsWithoutRef,
   KeyboardEventHandler,
   MouseEventHandler,
   PointerEventHandler,
@@ -71,7 +71,7 @@ const getRenderedCursor = (children: Array<ReactElement>) =>
     ]
   );
 
-interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
+interface InnerElementTypeTypes extends ComponentPropsWithoutRef<"div"> {
   children: Array<ReactElement>;
 }
 

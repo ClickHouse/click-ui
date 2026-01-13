@@ -1,9 +1,9 @@
-import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
+import { ComponentPropsWithoutRef, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { HorizontalDirection, IconName } from "@/components";
 import { PopoverProps } from "@radix-ui/react-popover";
 import { NoAvailableOptionsFactoryProps } from "@/components/Select/common/InternalSelect";
 
-declare type DivProps = HTMLAttributes<HTMLDivElement>;
+declare type DivProps = ComponentPropsWithoutRef<"div">;
 
 interface SelectItemComponentProps extends Omit<
   DivProps,
@@ -36,7 +36,7 @@ type SelectItemLabel = {
 export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
 export interface SelectGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  ComponentPropsWithoutRef<"div">,
   "heading"
 > {
   heading: ReactNode;
@@ -79,7 +79,7 @@ export type SelectionType = "custom" | "default";
 interface InternalSelectProps
   extends
     PopoverProps,
-    Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
+    Omit<ComponentPropsWithoutRef<"div">, "onChange" | "dir" | "onSelect" | "children"> {
   onChange: (selectedValues: Array<string>) => void;
   onOpenChange: (open: boolean) => void;
   onSelect: (

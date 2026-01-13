@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  HTMLAttributes,
+  ComponentPropsWithoutRef,
   createContext,
   useContext,
   ReactElement,
@@ -43,7 +43,7 @@ export const TabContext = createContext<ContextProps>({
   onClose: () => null,
 });
 
-export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface FileTabProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
   /** Callback when the tab is closed */
   onClose?: () => void;
   /** Index of the tab in the list */
@@ -263,7 +263,7 @@ Tab.displayName = "FileTab";
 
 FileTabs.Tab = Tab;
 
-interface FileTabElementProps extends HTMLAttributes<HTMLDivElement> {
+interface FileTabElementProps extends ComponentPropsWithoutRef<"div"> {
   icon?: IconName | ReactNode;
   active?: boolean;
   preview?: boolean;

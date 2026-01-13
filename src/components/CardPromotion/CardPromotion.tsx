@@ -1,11 +1,11 @@
 "use client";
 
-import { HTMLAttributes, useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 import clsx from "clsx";
 import { Icon, IconName, Text } from "@/components";
 import styles from "./CardPromotion.module.scss";
 
-export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardPromotionProps extends ComponentPropsWithoutRef<"div"> {
   /** The text label displayed in the promotion card */
   label: string;
   /** The icon to display */

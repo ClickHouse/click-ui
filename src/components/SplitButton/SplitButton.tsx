@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
+import { ComponentPropsWithoutRef, ReactNode, useEffect, useRef, useState } from "react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
 import { BaseButton } from "@/components/commonElement";
@@ -16,7 +16,7 @@ type MenuItem = {
   label: ReactNode;
   type?: "item";
   items?: never;
-} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect">;
+} & Omit<ComponentPropsWithoutRef<"div">, "onSelect">;
 
 type MenuGroup = {
   icon?: never;
@@ -33,7 +33,7 @@ type SubMenu = Omit<MenuItem, "type" | "items"> & {
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
 export interface SplitButtonProps
-  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
+  extends DropdownMenuProps, Omit<ComponentPropsWithoutRef<"button">, "dir" | "type"> {
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */

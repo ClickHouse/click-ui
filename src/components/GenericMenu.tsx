@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import styles from "./GenericMenu.module.scss";
 
-interface GenericMenuPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+interface GenericMenuPanelProps extends React.ComponentPropsWithoutRef<"div"> {
   type: "popover" | "dropdown-menu" | "context-menu";
   showArrow?: boolean;
   children: React.ReactNode;
@@ -37,7 +37,7 @@ export const GenericMenuPanel: React.FC<GenericMenuPanelProps> = ({
   );
 };
 
-interface GenericPopoverMenuPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+interface GenericPopoverMenuPanelProps extends React.ComponentPropsWithoutRef<"div"> {
   type: "popover" | "hover-card";
   showArrow?: boolean;
   children: React.ReactNode;
@@ -78,7 +78,7 @@ export const Arrow: React.FC<ArrowProps> = ({ className, ...props }) => {
   );
 };
 
-interface GenericMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface GenericMenuItemProps extends React.ComponentPropsWithoutRef<"div"> {
   children: React.ReactNode;
 }
 

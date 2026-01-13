@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import { ComponentPropsWithoutRef, MouseEventHandler, ReactNode } from "react";
 import clsx from "clsx";
 import {
   Badge,
@@ -18,7 +18,7 @@ type CardColor = "default" | "muted";
 export type CardSize = "sm" | "md";
 
 export interface CardHorizontalProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  ComponentPropsWithoutRef<"div">,
   "title"
 > {
   title?: ReactNode;

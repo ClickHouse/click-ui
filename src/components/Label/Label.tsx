@@ -1,8 +1,8 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import clsx from "clsx";
 import styles from "./Label.module.scss";
 
-export interface LabelProps extends HTMLAttributes<HTMLLabelElement> {
+export interface LabelProps extends ComponentPropsWithoutRef<"label"> {
   /** Whether the label is disabled */
   disabled?: boolean;
   /** Whether to show error styling */

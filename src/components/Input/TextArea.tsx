@@ -1,4 +1,4 @@
-import { ChangeEvent, TextareaHTMLAttributes, forwardRef, useId, useRef } from "react";
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useRef } from "react";
 import { TextAreaElement, InputWrapper, WrapperProps } from "./InputWrapper";
 import { mergeRefs } from "@/utils/mergeRefs";
 
@@ -6,7 +6,7 @@ export interface TextAreaFieldProps
   extends
     Omit<WrapperProps, "id" | "children">,
     Omit<
-      TextareaHTMLAttributes<HTMLTextAreaElement>,
+      ComponentPropsWithoutRef<"textarea">,
       "children" | "type" | "value" | "onChange" | "dir"
     > {
   /** Number of visible text rows */

@@ -1,7 +1,7 @@
 "use client";
 
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
-import { HTMLAttributes, ReactNode, useId } from "react";
+import { ComponentPropsWithoutRef, ReactNode, useId } from "react";
 import clsx from "clsx";
 import { GenericLabel, Label } from "@/components";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
@@ -76,7 +76,7 @@ interface RadioGroupInputProps extends RadixRadioGroup.RadioGroupItemProps {
 }
 
 export type RadioGroupItemProps = RadioGroupInputProps &
-  Omit<HTMLAttributes<HTMLDivElement>, "dir">;
+  Omit<ComponentPropsWithoutRef<"div">, "dir">;
 
 const RadioGroupItem = ({
   id,

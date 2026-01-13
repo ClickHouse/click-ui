@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { capitalize } from "../../utils/capitalize";
 import styles from "./Separator.module.scss";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+interface Props extends React.ComponentPropsWithoutRef<"div"> {
   size: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
   orientation?: "horizontal" | "vertical";
   decorative?: boolean;

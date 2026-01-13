@@ -1,12 +1,12 @@
 "use client";
 
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId } from "react";
 import { Icon } from "@/components";
 import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";
 export interface NumberFieldProps
   extends
     Omit<WrapperProps, "id" | "children">,
-    Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "dir"> {
+    Omit<ComponentPropsWithoutRef<"input">, "type" | "onChange" | "dir"> {
   /** The input type - always number for NumberField */
   type?: "number";
   /** Whether to show a loading spinner */

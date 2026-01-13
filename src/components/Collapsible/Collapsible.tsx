@@ -3,7 +3,7 @@
 import {
   createContext,
   useState,
-  HTMLAttributes,
+  ComponentPropsWithoutRef,
   MouseEvent,
   useContext,
   useEffect,
@@ -15,7 +15,7 @@ import { Icon, HorizontalDirection, IconName } from "@/components";
 import { IconWrapper } from "./IconWrapper";
 import styles from "./Collapsible.module.scss";
 
-export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
+export interface CollapsibleProps extends ComponentPropsWithoutRef<"div"> {
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
 }
@@ -65,7 +65,7 @@ export const Collapsible = ({
   );
 };
 
-interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
+interface CollapsipleHeaderProps extends ComponentPropsWithoutRef<"div"> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   indicatorDir?: HorizontalDirection;
@@ -123,7 +123,7 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
 CollapsipleHeader.displayName = "CollapsibleHeader";
 Collapsible.Header = CollapsipleHeader;
 
-interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
+interface CollapsipleTriggerProps extends ComponentPropsWithoutRef<"button"> {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   indicatorDir?: HorizontalDirection;
@@ -190,7 +190,7 @@ const CollapsipleContent = ({
   indicatorDir,
   className,
   ...props
-}: HTMLAttributes<HTMLDivElement> & { indicatorDir?: HorizontalDirection }) => {
+}: ComponentPropsWithoutRef<"div"> & { indicatorDir?: HorizontalDirection }) => {
   const { open } = useContext(NavContext);
   if (!open) {
     return;

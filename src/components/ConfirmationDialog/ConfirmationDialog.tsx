@@ -1,13 +1,13 @@
 "use client";
 
 import { Container, Dialog, Separator, Text } from "@/components";
-import { HTMLAttributes, ReactElement, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./ConfirmationDialog.module.scss";
 
 type DialogPrimaryAction = "primary" | "danger";
 
-export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> {
+export interface ConfirmationDialogProps extends ComponentPropsWithoutRef<"div"> {
   /** Custom content to display instead of the message */
   children?: ReactNode;
   /** Whether the confirm button is disabled */

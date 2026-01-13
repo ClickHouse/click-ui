@@ -1,6 +1,4 @@
 import React, {
-  HTMLAttributes,
-  ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
   ElementType,
 } from "react";
@@ -9,7 +7,7 @@ import { IconSize } from "./Icon/types";
 import styles from "./commonElement.module.scss";
 import { capitalize } from "@/utils/capitalize";
 
-interface FormRootProps extends HTMLAttributes<HTMLDivElement> {
+interface FormRootProps extends ComponentPropsWithoutRef<"div"> {
   orientation?: "horizontal" | "vertical";
   dir?: "start" | "end";
   addLabelPadding?: boolean;
@@ -38,7 +36,7 @@ export const FormRoot: React.FC<FormRootProps> = ({
   />
 );
 
-export const Error: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+export const Error: React.FC<ComponentPropsWithoutRef<"div">> = ({
   className,
   ...props
 }) => (
@@ -48,7 +46,7 @@ export const Error: React.FC<HTMLAttributes<HTMLDivElement>> = ({
   />
 );
 
-export const EmptyButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+export const EmptyButton: React.FC<ComponentPropsWithoutRef<"button">> = ({
   className,
   ...props
 }) => (
@@ -58,7 +56,7 @@ export const EmptyButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   />
 );
 
-export const CrossButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+export const CrossButton: React.FC<ComponentPropsWithoutRef<"button">> = ({
   className,
   ...props
 }) => (
@@ -68,7 +66,7 @@ export const CrossButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   />
 );
 
-export const GridCenter: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+export const GridCenter: React.FC<ComponentPropsWithoutRef<"div">> = ({
   className,
   ...props
 }) => (
@@ -78,7 +76,7 @@ export const GridCenter: React.FC<HTMLAttributes<HTMLDivElement>> = ({
   />
 );
 
-export const BaseButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+export const BaseButton: React.FC<ComponentPropsWithoutRef<"button">> = ({
   className,
   ...props
 }) => (
@@ -117,7 +115,7 @@ export const SvgImageElement = <C extends ElementType = "svg">({
   );
 };
 
-export const FormElementContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+export const FormElementContainer: React.FC<ComponentPropsWithoutRef<"div">> = ({
   className,
   ...props
 }) => (
@@ -127,7 +125,7 @@ export const FormElementContainer: React.FC<HTMLAttributes<HTMLDivElement>> = ({
   />
 );
 
-export const EllipsisContainer: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
+export const EllipsisContainer: React.FC<ComponentPropsWithoutRef<"span">> = ({
   className,
   ...props
 }) => (

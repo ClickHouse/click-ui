@@ -1,12 +1,12 @@
 "use client";
 
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from "react";
 import { HorizontalDirection, IconName } from "@/components";
 
 import { Collapsible } from "@/components";
 import { SidebarNavigationItem } from "@/components";
 
-export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface SidebarCollapsibleItemProps extends ComponentPropsWithoutRef<"div"> {
   /** The label content to display */
   label: ReactNode;
   /** The content to display when expanded */

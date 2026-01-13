@@ -3,7 +3,7 @@ import { HorizontalDirection, IconName } from "@/components";
 import { Collapsible } from "@/components";
 import { SidebarNavigationTitle } from "@/components";
 
-export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface SidebarCollapsibleTitleProps extends Omit<React.ComponentPropsWithoutRef<"button">, "type"> {
   /** The label content to display */
   label: ReactNode;
   /** The content to display when expanded */

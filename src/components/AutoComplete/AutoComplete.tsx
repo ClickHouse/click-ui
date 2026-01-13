@@ -2,8 +2,8 @@
 
 import {
   Children,
+  ComponentPropsWithoutRef,
   FunctionComponent,
-  HTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
   ReactNode,
@@ -34,7 +34,7 @@ import { getTextFromNodes } from "@/lib/getTextFromNodes";
 import AutoCompleteOptionList from "./AutoCompleteOptionList";
 import styles from "./AutoComplete.module.scss";
 
-type DivProps = HTMLAttributes<HTMLDivElement>;
+type DivProps = ComponentPropsWithoutRef<"div">;
 interface SelectItemComponentProps extends Omit<
   DivProps,
   "disabled" | "onSelect" | "value" | "children"
@@ -57,7 +57,7 @@ type SelectItemLabel = {
   label: ReactNode;
 };
 export interface SelectGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  ComponentPropsWithoutRef<"div">,
   "heading"
 > {
   heading: ReactNode;

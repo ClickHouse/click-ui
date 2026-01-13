@@ -1,7 +1,7 @@
 "use client";
 
 import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { HTMLAttributes, CSSProperties } from "react";
+import { ComponentPropsWithoutRef, CSSProperties } from "react";
 import clsx from "clsx";
 import styles from "./Tooltip.module.scss";
 
@@ -21,7 +21,7 @@ export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) =>
   );
 };
 
-const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
+const TooltipTrigger = (props: ComponentPropsWithoutRef<"div">) => {
   return (
     <RadixTooltip.Trigger asChild>
       <div {...props} />

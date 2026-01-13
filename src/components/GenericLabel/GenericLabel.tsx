@@ -1,8 +1,8 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import clsx from "clsx";
 import styles from "./GenericLabel.module.scss";
 
-export interface GenericLabelProps extends HTMLAttributes<HTMLLabelElement> {
+export interface GenericLabelProps extends ComponentPropsWithoutRef<"label"> {
   /** Whether the label is disabled */
   disabled?: boolean;
   /** The ID of the form element this label is for */

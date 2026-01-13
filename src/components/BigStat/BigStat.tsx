@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import { capitalize } from "@/utils/capitalize";
 import clsx from "clsx";
 import styles from "./BigStat.module.scss";
@@ -7,7 +7,7 @@ export type bigStatSize = "sm" | "lg";
 export type bigStatSpacing = "sm" | "lg";
 export type bigStatState = "default" | "muted";
 
-export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface BigStatProps extends Omit<ComponentPropsWithoutRef<"div">, "title"> {
   /** Whether the component should fill the full width of its container */
   fillWidth?: boolean;
   /** Maximum width of the component */

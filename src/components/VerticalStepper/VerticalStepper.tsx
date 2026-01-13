@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
+import { ComponentPropsWithoutRef, ReactNode, createContext, useContext } from "react";
 import clsx from "clsx";
 import { Icon } from "@/components";
 import { capitalize } from "../../utils/capitalize";
@@ -15,7 +15,7 @@ const StepperContext = createContext<ContextProps>({
   type: "numbered",
 });
 
-export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
+export interface VerticalStepperProps extends ComponentPropsWithoutRef<"div"> {
   /** The type of stepper - numbered shows step numbers, bulleted shows dots */
   type?: StepperType;
 }
@@ -39,7 +39,7 @@ const VerticalStepper = ({
   );
 };
 
-export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
+export interface VerticalStepProps extends ComponentPropsWithoutRef<"button"> {
   /** The status of this step - active, complete, or incomplete */
   status?: "active" | "complete" | "incomplete";
   /** Whether the step content is collapsed */

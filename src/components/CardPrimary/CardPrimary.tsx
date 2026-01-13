@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Button, Icon, Spacer, IconName } from "@/components";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text, TextAlignment } from "@/components/Typography/Text/Text";
-import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
+import { ComponentPropsWithoutRef, MouseEvent, MouseEventHandler, ReactNode } from "react";
 import { WithTopBadgeProps, withTopBadge } from "@/components/CardPrimary/withTopBadge";
 import { capitalize } from "../../utils/capitalize";
 import styles from "./CardPrimary.module.scss";
@@ -12,7 +12,7 @@ import styles from "./CardPrimary.module.scss";
 export type CardPrimarySize = "sm" | "md";
 type ContentAlignment = "start" | "center" | "end";
 export interface CardPrimaryProps
-  extends HTMLAttributes<HTMLDivElement>, WithTopBadgeProps {
+  extends ComponentPropsWithoutRef<"div">, WithTopBadgeProps {
   /** The title text displayed in the card */
   title?: string;
   /** Icon name to display in the card header */

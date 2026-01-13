@@ -2,7 +2,7 @@
 
 import {
   ChangeEvent,
-  InputHTMLAttributes,
+  ComponentPropsWithoutRef,
   ReactNode,
   forwardRef,
   useId,
@@ -23,7 +23,7 @@ export interface TextFieldProps
   extends
     Omit<WrapperProps, "id" | "children">,
     Omit<
-      InputHTMLAttributes<HTMLInputElement>,
+      ComponentPropsWithoutRef<"input">,
       "children" | "type" | "value" | "onChange" | "dir"
     > {
   /** The input type - text, email, tel, or url */

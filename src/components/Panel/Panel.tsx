@@ -1,5 +1,5 @@
 import { CursorOptions, Orientation } from "@/components";
-import { HTMLAttributes, CSSProperties } from "react";
+import { ComponentPropsWithoutRef, CSSProperties } from "react";
 import clsx from "clsx";
 import { capitalize } from "@/utils/capitalize";
 import styles from "./Panel.module.scss";
@@ -9,7 +9,7 @@ export type PanelColor = "default" | "muted" | "transparent";
 export type PanelRadii = "none" | "sm" | "md" | "lg";
 type AlignItemsOption = "start" | "center" | "end";
 
-export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
+export interface PanelProps extends ComponentPropsWithoutRef<"div"> {
   /** Alignment of items along the cross axis */
   alignItems?: AlignItemsOption;
   /** The content to display inside the panel */
