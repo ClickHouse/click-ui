@@ -8,12 +8,14 @@ const useColorStyle = (themeOverride?: CodeThemeType) => {
   const themeName = themeOverride ?? (resolvedTheme === "dark" ? "dark" : "light");
 
   // Get theme-specific colors
-  const bgColor = themeName === "dark"
-    ? theme.click.codeblock.darkMode.color.background.default
-    : theme.click.codeblock.lightMode.color.background.default;
-  const textColor = themeName === "dark"
-    ? theme.click.codeblock.darkMode.color.text.default
-    : theme.click.codeblock.lightMode.color.text.default;
+  const bgColor =
+    themeName === "dark"
+      ? theme.click.codeblock.darkMode.color.background.default
+      : theme.click.codeblock.lightMode.color.background.default;
+  const textColor =
+    themeName === "dark"
+      ? theme.click.codeblock.darkMode.color.text.default
+      : theme.click.codeblock.lightMode.color.text.default;
 
   return {
     hljs: {
