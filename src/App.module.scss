@@ -1,4 +1,4 @@
- "@/theme/tokens/types" as tokens;
+@use "@/styles/tokens-light-dark" as tokens;
 
 .cuiBackgroundWrapper {
   background: var(--global-color-background-default);

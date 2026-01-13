@@ -9,7 +9,7 @@
   flex-direction: row;
 
   @include variants.variant('cuiScrolledVertical') {
-    box-shadow: 0px 0 0px 1px tokens.$clickGridHeaderCellColorStrokeDefault;
+    box-shadow: 0 0 0 1px tokens.$clickGridHeaderCellColorStrokeDefault;
   }
 }
 
@@ -34,7 +34,7 @@
   text-align: right;
 
   @include variants.variant('cuiScrolledHorizontal') {
-    box-shadow: 0px 0 0px 1px tokens.$clickGridHeaderCellColorStrokeDefault;
+    box-shadow: 0 0 0 1px tokens.$clickGridHeaderCellColorStrokeDefault;
   }
 }
 

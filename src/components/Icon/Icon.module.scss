@@ -174,13 +174,13 @@
   svg[stroke]:not([stroke="none"]),
   rect[stroke]:not([stroke="none"]),
   circle[stroke]:not([stroke="none"]) {
-    stroke: currentColor;
+    stroke: currentcolor;
   }
 
   path[fill]:not([fill="none"]),
   svg[fill]:not([fill="none"]),
   rect[fill]:not([fill="none"]),
   circle[fill]:not([fill="none"]) {
-    fill: currentColor;
+    fill: currentcolor;
   }
 }

@@ -20,8 +20,7 @@
 
   // Type variants - using :where() for low specificity
   @include variants.variant('cuiTypeNumbered') {
-    row-gap: tokens.$clickStepperVerticalNumberedContentSpaceGapY;
-    column-gap: tokens.$clickStepperVerticalNumberedContentSpaceGapX;
+    gap: tokens.$clickStepperVerticalNumberedContentSpaceGapY tokens.$clickStepperVerticalNumberedContentSpaceGapX;
 
     @include variants.variant('cuiIsOpen') {
       padding-bottom: tokens.$clickStepperVerticalNumberedContentSpaceBottomActive;
@@ -55,8 +54,7 @@
   }
 
   @include variants.variant('cuiTypeBulleted') {
-    row-gap: tokens.$clickStepperVerticalBulletedContentSpaceGapY;
-    column-gap: tokens.$clickStepperVerticalBulletedContentSpaceGapX;
+    gap: tokens.$clickStepperVerticalBulletedContentSpaceGapY tokens.$clickStepperVerticalBulletedContentSpaceGapX;
 
     @include variants.variant('cuiIsOpen') {
       padding-bottom: tokens.$clickStepperVerticalBulletedContentSpaceBottomActive;

@@ -24,7 +24,7 @@
   // Autofill styles
   :global(*:autofill),
   :global(*:-webkit-autofill) {
-    -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundDefault inset;
+    box-shadow: 0 0 0 50vh tokens.$clickFieldColorBackgroundDefault inset;
     -webkit-text-fill-color: tokens.$clickFieldColorTextDefault;
     caret-color: tokens.$clickFieldColorTextDefault;
   }
@@ -36,7 +36,7 @@
 
     :global(*:autofill),
     :global(*:-webkit-autofill) {
-      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundHover inset;
+      box-shadow: 0 0 0 50vh tokens.$clickFieldColorBackgroundHover inset;
       -webkit-text-fill-color: tokens.$clickFieldColorTextHover;
       caret-color: tokens.$clickFieldColorTextHover;
     }
@@ -51,7 +51,7 @@
 
     :global(*:autofill),
     :global(*:-webkit-autofill) {
-      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundActive inset;
+      box-shadow: 0 0 0 50vh tokens.$clickFieldColorBackgroundActive inset;
       -webkit-text-fill-color: tokens.$clickFieldColorTextActive;
       caret-color: tokens.$clickFieldColorTextActive;
     }
@@ -66,7 +66,7 @@
 
     :global(*:autofill),
     :global(*:-webkit-autofill) {
-      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundDisabled inset;
+      box-shadow: 0 0 0 50vh tokens.$clickFieldColorBackgroundDisabled inset;
       -webkit-text-fill-color: tokens.$clickFieldColorTextDisabled;
       caret-color: tokens.$clickFieldColorTextDisabled;
     }
@@ -82,7 +82,7 @@
 
   :global(*:autofill),
   :global(*:-webkit-autofill) {
-    -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundError inset;
+    box-shadow: 0 0 0 50vh tokens.$clickFieldColorBackgroundError inset;
     -webkit-text-fill-color: tokens.$clickFieldColorTextError;
     caret-color: tokens.$clickFieldColorTextError;
   }
@@ -93,7 +93,7 @@
 
     :global(*:autofill),
     :global(*:-webkit-autofill) {
-      -webkit-box-shadow: 0 0 0px 50vh tokens.$clickFieldColorBackgroundError inset;
+      box-shadow: 0 0 0 50vh tokens.$clickFieldColorBackgroundError inset;
       -webkit-text-fill-color: tokens.$clickFieldColorTextError;
       caret-color: tokens.$clickFieldColorTextError;
     }
@@ -129,7 +129,7 @@
 
 // Form root container
 .cuiFormRoot {
-  @include mixins.cuiFormRoot();
+  @include mixins.cuiFormRoot;
 
   // Orientation variants
   @include variants.variant('cuiOrientationVertical') {
@@ -220,11 +220,11 @@
 .cuiHideNumberControls {
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
   }
 
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 // Textarea element

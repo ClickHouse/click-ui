@@ -25,26 +25,53 @@
   }
 }
 
-// Button size variants - uses dynamic CSS custom properties
+// Button size variants - uses direct SCSS tokens (no CSS variables)
 @mixin cuiButtonSize($size) {
-  padding: var(--click-button-basic-#{$size}-space-y) var(--click-button-basic-#{$size}-space-x);
-  gap: var(--click-button-basic-#{$size}-space-gap);
-  font: var(--click-button-basic-#{$size}-typography-default);
-  min-height: var(--click-button-basic-#{$size}-size-height);
+  padding: tokens.$clickButtonBasicSpaceY tokens.$clickButtonBasicSpaceX;
+  gap: tokens.$clickButtonBasicSpaceGap;
+  font: tokens.$clickButtonBasicTypographyLabelDefault;
+  min-height: tokens.$clickButtonBasicSizeIconHeight;
+
+  // Note: If you need size-specific tokens, they should be generated in the token system
+  // and called directly in the component module, not through a dynamic mixin parameter
 }
 
-// Button type/color variants - uses dynamic CSS custom properties
+// Button type/color variants - uses direct SCSS tokens (no CSS variables)
 @mixin cuiButtonType($type, $state: "default") {
-  background-color: var(--click-button-basic-#{$type}-color-background-#{$state});
-  color: var(--click-button-basic-#{$type}-color-text-#{$state});
-  border: var(--click-button-basic-#{$type}-stroke-#{$state}) solid
-    var(--click-button-basic-#{$type}-color-stroke-#{$state});
+  @if $type == 'primary' {
+    @if $state == 'default' {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundDefault;
+      color: tokens.$clickButtonBasicColorPrimaryTextDefault;
+      border: 1px solid tokens.$clickButtonBasicColorPrimaryStrokeDefault;
+    } @else if $state == 'hover' {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundHover;
+      color: tokens.$clickButtonBasicColorPrimaryTextHover;
+      border: 1px solid tokens.$clickButtonBasicColorPrimaryStrokeHover;
+    } @else if $state == 'active' {
+      background-color: tokens.$clickButtonBasicColorPrimaryBackgroundActive;
+      color: tokens.$clickButtonBasicColorPrimaryTextActive;
+      border: 1px solid tokens.$clickButtonBasicColorPrimaryStrokeActive;
+    }
+  } @else if $type == 'secondary' {
+    @if $state == 'default' {
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundDefault;
+      color: tokens.$clickButtonBasicColorSecondaryTextDefault;
+      border: 1px solid tokens.$clickButtonBasicColorSecondaryStrokeDefault;
+    } @else if $state == 'hover' {
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundHover;
+      color: tokens.$clickButtonBasicColorSecondaryTextHover;
+      border: 1px solid tokens.$clickButtonBasicColorSecondaryStrokeHover;
+    } @else if $state == 'active' {
+      background-color: tokens.$clickButtonBasicColorSecondaryBackgroundActive;
+      color: tokens.$clickButtonBasicColorSecondaryTextActive;
+      border: 1px solid tokens.$clickButtonBasicColorSecondaryStrokeActive;
+    }
+  }
 }
 
 // Empty button mixin - for unstyled buttons
 @mixin cuiEmptyButton {
   background: transparent;
-  border: none;
   cursor: pointer;
   outline: none;
   padding: 0;

@@ -1,9 +1,8 @@
-@use "@/theme/tokens/types" as tokens;
-
 .cuiThemeBlock {
   position: absolute;
-  inset: 0.5rem 0 0 0;
-  height: fit-content;
+  inset: 0;
+  min-height: fill-available;
+
   overflow: auto;
   padding: 1rem;
   box-sizing: border-box;

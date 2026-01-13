@@ -6,12 +6,12 @@
   border: 1px solid tokens.$clickGenericMenuItemColorDefaultStrokeDefault;
   background: tokens.$clickGenericMenuItemColorDefaultBackgroundDefault;
   box-shadow:
-    0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-    0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    0 1px 3px 0 rgb(16, 24, 40, 0.1),
+    0 1px 2px 0 rgb(16, 24, 40, 0.06);
   border-radius: 0.25rem;
   overflow: hidden;
   display: flex;
-  padding: 0.5rem 0rem;
+  padding: 0.5rem 0;
   align-items: flex-start;
   gap: 0.625rem;
 }
@@ -65,7 +65,7 @@
 
 .cuiSelectListContent {
   width: inherit;
-  overflow: overlay;
+  overflow: auto;
   flex: 1;
 }
 

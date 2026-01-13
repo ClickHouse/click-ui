@@ -58,9 +58,7 @@
   color: tokens.$clickTabsBasicColorTextDefault;
   font: tokens.$clickTabsTypographyLabelDefault;
   cursor: pointer;
-  flex-basis: auto;
-  flex-grow: 1;
-  flex-shrink: 1;
+  flex: 1 1 auto;
 
   /* Active state styles - using Radix UI's data-state attribute */
   &[data-state="active"] {

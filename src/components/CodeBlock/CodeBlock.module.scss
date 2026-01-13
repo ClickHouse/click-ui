@@ -4,6 +4,7 @@
 .cuiCodeBlockContainer {
   @include mixins.cuiFullWidthStretch;
   position: relative;
+
   --cui-codeblock-pre-background: light-dark(
     tokens.$clickCodeblockLightModeColorBackgroundDefault,
     tokens.$clickCodeblockDarkModeColorBackgroundDefault

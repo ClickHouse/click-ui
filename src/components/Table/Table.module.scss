@@ -226,9 +226,8 @@
   overflow: hidden;
 
   @include mixins.cuiMobile {
-    flex-direction: column;
+    flex-flow: column nowrap;
     overflow: auto;
-    flex-wrap: nowrap;
   }
 }
 

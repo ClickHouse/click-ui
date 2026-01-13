@@ -58,8 +58,8 @@
   align-items: center;
 
   &[data-state="open"] {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 
     [data-icon="accordion-status"] {
       color: tokens.$clickGlobalColorAccentDefault;

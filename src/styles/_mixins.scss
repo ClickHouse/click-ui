@@ -2,15 +2,15 @@
 // This allows components to import all mixins with: @use "cui-mixins" as mixins;
 
 // Component mixins
-@forward "../components/Accordion/mixins";
-@forward "../components/Button/mixins";
-@forward "../components/CardPrimary/mixins";
-@forward "../components/ContextMenu/mixins";
-@forward "../components/FormContainer/mixins";
-@forward "../components/Grid/mixins";
-@forward "../components/Icon/mixins";
-@forward "../components/SidebarNavigationItem/mixins";
-@forward "../components/Typography/mixins";
+@forward "../components/Accordion/_mixins";
+@forward "../components/Button/_mixins";
+@forward "../components/CardPrimary/_mixins";
+@forward "../components/ContextMenu/_mixins";
+@forward "../components/FormContainer/_mixins";
+@forward "../components/Grid/_mixins";
+@forward "../components/Icon/_mixins";
+@forward "../components/SidebarNavigationItem/_mixins";
+@forward "../components/Typography/_mixins";
 
 // Layout and utility mixins
 @forward "mixins-layout";

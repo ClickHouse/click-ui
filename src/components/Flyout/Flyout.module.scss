@@ -40,19 +40,19 @@
 
   /* Size variants */
   @include variants.variant('cuiSizeDefault') {
-    --flyout-width: tokens.$clickFlyoutSizeDefaultWidth;
+    --flyout-width: #{tokens.$clickFlyoutSizeDefaultWidth};
   }
 
   @include variants.variant('cuiSizeNarrow') {
-    --flyout-width: tokens.$clickFlyoutSizeNarrowWidth;
+    --flyout-width: #{tokens.$clickFlyoutSizeNarrowWidth};
   }
 
   @include variants.variant('cuiSizeWide') {
-    --flyout-width: tokens.$clickFlyoutSizeWideWidth;
+    --flyout-width: #{tokens.$clickFlyoutSizeWideWidth};
   }
 
   @include variants.variant('cuiSizeWidest') {
-    --flyout-width: tokens.$clickFlyoutSizeWidestWidth;
+    --flyout-width: #{tokens.$clickFlyoutSizeWidestWidth};
   }
 
   @include variants.variant('cuiCustomWidth') {
@@ -135,7 +135,6 @@
 
 .cuiFlyoutContainer {
   display: flex;
-  gap: 0;
   width: var(--flyout-width);
   max-width: 100%;
   flex-flow: column nowrap;
@@ -158,15 +157,13 @@
 
 .cuiFlyoutHeaderContainer {
   @include variants.variant('cuiTypeDefault') {
-    row-gap: tokens.$clickFlyoutSpaceDefaultContentRow-gap;
-    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumn-gap;
+    gap: tokens.$clickFlyoutSpaceDefaultContentRow-gap tokens.$clickFlyoutSpaceDefaultContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultY 0
       tokens.$clickFlyoutSpaceDefaultY;
   }
 
   @include variants.variant('cuiTypeInline') {
-    row-gap: tokens.$clickFlyoutSpaceInlineContentRow-gap;
-    column-gap: tokens.$clickFlyoutSpaceInlineContentColumn-gap;
+    gap: tokens.$clickFlyoutSpaceInlineContentRow-gap tokens.$clickFlyoutSpaceInlineContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineY 0 tokens.$clickFlyoutSpaceInlineY;
   }
 }
@@ -216,14 +213,12 @@
 
 .cuiFlyoutFooter {
   @include variants.variant('cuiTypeDefault') {
-    row-gap: tokens.$clickFlyoutSpaceDefaultContentRow-gap;
-    column-gap: tokens.$clickFlyoutSpaceDefaultContentColumn-gap;
+    gap: tokens.$clickFlyoutSpaceDefaultContentRow-gap tokens.$clickFlyoutSpaceDefaultContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceDefaultY tokens.$clickFlyoutSpaceDefaultContentX;
   }
 
   @include variants.variant('cuiTypeInline') {
-    row-gap: tokens.$clickFlyoutSpaceInlineContentRow-gap;
-    column-gap: tokens.$clickFlyoutSpaceInlineContentColumn-gap;
+    gap: tokens.$clickFlyoutSpaceInlineContentRow-gap tokens.$clickFlyoutSpaceInlineContentColumn-gap;
     padding: tokens.$clickFlyoutSpaceInlineY tokens.$clickFlyoutSpaceInlineContentX;
   }
 }
