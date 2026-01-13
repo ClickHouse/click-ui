@@ -1,0 +1,76 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "plugins": ["stylelint-scss"],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["use", "include", "mixin", "function", "return", "each", "if", "else"]
+      }
+    ],
+    "scss/dollar-variable-pattern": null,
+    "scss/at-mixin-pattern": null,
+    "scss/at-function-pattern": null,
+    "scss/percent-placeholder-pattern": null,
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "keyframes-name-pattern": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "no-descending-specificity": null,
+    "scss/load-no-partial-leading-underscore": null,
+    "color-function-notation": null,
+    "media-feature-range-notation": null,
+    "alpha-value-notation": null,
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": [
+          "tokens",
+          "var",
+          "calc",
+          "min",
+          "max",
+          "clamp",
+          "url",
+          "rgba",
+          "rgb",
+          "hsl",
+          "hsla",
+          "linear-gradient",
+          "radial-gradient"
+        ]
+      }
+    ],
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
+    "scss/operator-no-newline-after": null,
+    "scss/operator-no-unspaced": null,
+    "declaration-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "comment-empty-line-before": null,
+    "scss/double-slash-comment-empty-line-before": null,
+    "scss/comment-no-empty": null,
+    "no-invalid-position-at-import-rule": null,
+    "no-duplicate-selectors": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "property-no-deprecated": null,
+    "declaration-property-value-keyword-no-deprecated": null
+  }
+}

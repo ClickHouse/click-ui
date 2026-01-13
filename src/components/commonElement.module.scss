@@ -2,7 +2,7 @@
 @use "cui-variants" as variants;
 
 .cuiFormRoot {
-  @include mixins.cuiFormRoot();
+  @include mixins.cuiFormRoot;
 
   @include variants.variant('cuiOrientationHorizontal') {
     @include variants.variant('cuiDirStart') {
@@ -39,7 +39,6 @@
 
 .cuiEmptyButton {
   background: transparent;
-  border: none;
   cursor: pointer;
   outline: none;
   padding: 0;

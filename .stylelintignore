@@ -1,0 +1,10 @@
+# Ignore files not yet migrated
+src/App.module.scss
+src/theme/
+
+# Ignore third-party or generated files
+src/styles/tokens-light-dark.scss
+node_modules
+dist
+build
+*.min.css
