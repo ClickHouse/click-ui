@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
+import { ElementType, forwardRef } from "react";
 import {
-  ComponentProps,
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  ReactNode,
-} from "react";
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicProps,
+  PolymorphicRef,
+} from "@/utils/polymorphic";
 
 export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";
 type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "unset";
@@ -21,9 +21,9 @@ type ContentOptions =
   | "left"
   | "right";
 
-export interface GridContainerProps<T extends ElementType = "div"> {
-  /** Custom component to render as */
-  component?: T;
+export interface GridContainerProps<
+  T extends ElementType = "div",
+> extends PolymorphicComponentProps<T> {
   /** Alignment of items along the block axis */
   alignItems?: ItemsOptions;
   /** Alignment of content along the block axis */
@@ -74,10 +74,6 @@ export interface GridContainerProps<T extends ElementType = "div"> {
   overflow?: string;
 }
 
-type GridContainerPolymorphicComponent = <T extends ElementType = "div">(
-  props: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>
-) => ReactNode;
-
 const _GridContainer = <T extends ElementType = "div">(
   {
     alignItems = "stretch",
@@ -106,8 +102,8 @@ const _GridContainer = <T extends ElementType = "div">(
     overflow,
     component,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  }: PolymorphicProps<T, GridContainerProps<T>>,
+  ref: PolymorphicRef<T>
 ) => {
   return (
     <Wrapper
@@ -213,5 +209,5 @@ const Wrapper = styled.div<{
   }
 `;
 
-export const GridContainer: GridContainerPolymorphicComponent =
+export const GridContainer: PolymorphicComponent<GridContainerProps> =
   forwardRef(_GridContainer);
