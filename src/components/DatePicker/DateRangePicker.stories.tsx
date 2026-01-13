@@ -18,7 +18,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
     predefinedDatesList: [],
   },
@@ -42,141 +42,126 @@ export const Default: Story = {
   },
 };
 
-export const DateRangeWithMaxRange: Story = {
-  args: {
-    maxRangeLength: 15,
-    predefinedDatesList: [],
-  },
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+export const Variations: Story = {
+  render: () => (
+    <div
+      style={{ padding: "2rem", display: "flex", flexDirection: "column", gap: "2rem" }}
+    >
+      <section>
+        <h3>States</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>Default</h4>
+            <DateRangePicker
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Select date range"
+            />
+          </div>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+              With Selected Range
+            </h4>
+            <DateRangePicker
+              startDate={new Date("2024-12-01")}
+              endDate={new Date("2024-12-15")}
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+            />
+          </div>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>Disabled</h4>
+            <DateRangePicker
+              disabled
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Select date range"
+            />
+          </div>
+        </div>
+      </section>
 
-    return (
-      <DateRangePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        startDate={startDate}
-      />
-    );
-  },
-};
+      <section>
+        <h3>With Max Range Length</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>Max 7 Days</h4>
+            <DateRangePicker
+              maxRangeLength={7}
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Max 7 days"
+            />
+          </div>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>Max 15 Days</h4>
+            <DateRangePicker
+              maxRangeLength={15}
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Max 15 days"
+            />
+          </div>
+        </div>
+      </section>
 
-export const DateRangeFutureStartDatesDisabled: Story = {
-  args: {
-    futureStartDatesDisabled: true,
-    predefinedDatesList: [],
-  },
-};
+      <section>
+        <h3>Date Restrictions</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+              Future Dates Disabled
+            </h4>
+            <DateRangePicker
+              futureDatesDisabled
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Past dates only"
+            />
+          </div>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+              Future Start Dates Disabled
+            </h4>
+            <DateRangePicker
+              futureStartDatesDisabled
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Past start dates only"
+            />
+          </div>
+        </div>
+      </section>
 
-export const PredefinedDatesLastSixMonths: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(-6);
+      <section>
+        <h3>With Predefined Dates</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div>
+            <h4 style={{ fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+              Last 3 Months
+            </h4>
+            <DateRangePicker
+              predefinedDatesList={getPredefinedMonthsForDateRangePicker(-3)}
+              onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+              placeholder="Select from predefined"
+            />
+          </div>
+        </div>
+      </section>
 
-    return (
-      <DateRangePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
-        startDate={startDate}
-      />
-    );
-  },
-};
-
-export const PredefinedDatesNextSixMonths: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(6);
-
-    return (
-      <DateRangePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
-        startDate={startDate}
-      />
-    );
-  },
-};
-
-export const PredefinedDatesArbitraryDates: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = [
-      { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-      { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-      { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
-    ];
-
-    return (
-      <DateRangePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
-        startDate={startDate}
-      />
-    );
-  },
-};
-
-export const PredefinedDatesScrollable: Story = {
-  render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : undefined;
-    const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const predefinedDatesList = [
-      { startDate: new Date("09/14/2024"), endDate: new Date("10/14/2024") },
-      { startDate: new Date("10/14/2024"), endDate: new Date("11/14/2024") },
-      { startDate: new Date("11/14/2024"), endDate: new Date("12/14/2024") },
-      { startDate: new Date("12/14/2024"), endDate: new Date("01/14/2025") },
-      { startDate: new Date("01/14/2025"), endDate: new Date("02/14/2025") },
-      { startDate: new Date("02/14/2025"), endDate: new Date("03/14/2025") },
-      { startDate: new Date("03/14/2025"), endDate: new Date("04/14/2025") },
-      { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-      { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-      { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
-    ];
-
-    return (
-      <DateRangePicker
-        key="default"
-        endDate={endDate}
-        disabled={args.disabled}
-        futureDatesDisabled={args.futureDatesDisabled}
-        futureStartDatesDisabled={args.futureStartDatesDisabled}
-        maxRangeLength={args.maxRangeLength}
-        onSelectDateRange={args.onSelectDateRange}
-        placeholder={args.placeholder}
-        predefinedDatesList={predefinedDatesList}
-        startDate={startDate}
-      />
-    );
+      <section>
+        <h3>With Custom Placeholder</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <DateRangePicker
+            onSelectDateRange={(start, end) => console.log("Selected:", start, end)}
+            placeholder="Choose your date range"
+          />
+        </div>
+      </section>
+    </div>
+  ),
+  parameters: {
+    controls: { disable: true },
+    actions: { disable: true },
+    pseudo: {
+      hover: ['[data-testid="datepicker-input-container"]'],
+      focus: ['[data-testid="datepicker-input-container"]'],
+    },
+    chromatic: {
+      delay: 300,
+    },
   },
 };
