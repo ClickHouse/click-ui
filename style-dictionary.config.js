@@ -55,9 +55,8 @@ StyleDictionary.registerFormat({
       lightTokenMap.set(token.path.join('.'), token);
     });
 
-    // Generate SCSS variables AND CSS custom properties
+    // Generate SCSS variables with direct values (no CSS custom properties)
     const scssVarLines = [];
-    const cssCustomProps = [];
 
     for (const pathKey of allTokenPaths) {
       const lightToken = lightTokenMap.get(pathKey);
@@ -75,44 +74,41 @@ StyleDictionary.registerFormat({
         idx === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)
       ).join('');
 
-      // Convert path to kebab-case for CSS custom property
-      // e.g., "click.global.color.text" → "--click-global-color-text"
-      const cssVarName = '--' + pathKey.split('.').join('-');
+      // Clean values: remove trailing semicolons that may be in token source
+      const cleanValue = (val) => val ? String(val).replace(/;\s*$/, '') : val;
+      const cleanedLightValue = cleanValue(lightValue);
+      const cleanedDarkValue = cleanValue(darkValue);
 
       // Determine the value to use
       let value;
-      if (lightValue !== undefined && darkValue !== undefined) {
-        if (lightValue !== darkValue) {
+      if (cleanedLightValue !== undefined && cleanedDarkValue !== undefined) {
+        if (cleanedLightValue !== cleanedDarkValue) {
           // Both themes, different values → use light-dark()
-          value = `light-dark(${lightValue}, ${darkValue})`;
+          value = `light-dark(${cleanedLightValue}, ${cleanedDarkValue})`;
         } else {
           // Both themes, same value → use single value
-          value = lightValue;
+          value = cleanedLightValue;
         }
-      } else if (lightValue !== undefined) {
+      } else if (cleanedLightValue !== undefined) {
         // Only in light theme → use light value
-        value = lightValue;
+        value = cleanedLightValue;
       } else {
         // Only in dark theme → use dark value as fallback
-        value = darkValue;
+        value = cleanedDarkValue;
       }
 
-      // Generate SCSS variable that references CSS custom property
-      scssVarLines.push(`$${varName}: var(${cssVarName}) !default;`);
+      // Generate SCSS variable with direct value (no var() wrapper)
+      // Handle complex values (font stacks, etc.) properly without unquote()
+      const valueStr = String(value);
 
-      // Generate CSS custom property
-      cssCustomProps.push(`  ${cssVarName}: ${value};`);
+
+      scssVarLines.push(`$${varName}: ${valueStr} !default;`);
     }
 
-    // Output both CSS custom properties and SCSS variables
+    // Output only SCSS variables (no CSS custom properties block)
     const output = [
       header,
-      '// CSS Custom Properties (will be wrapped in @layer by Vite)',
-      ':root {',
-      ...cssCustomProps,
-      '}',
-      '',
-      '// SCSS Variables (reference CSS custom properties)',
+      '// SCSS Variables with light-dark() values (compile-time)',
       ...scssVarLines,
       ''
     ];

@@ -11,6 +11,12 @@ export interface ThemeContextValue {
   resolvedTheme: BaseThemeName;
   isSystemTheme: boolean;
 
+  /**
+   * Theme variation. Currently only "default" is supported.
+   * Future variations may include "contrast" for high-contrast themes.
+   */
+  variation: "default";
+
   // Theme management
   updateTheme: (theme: ThemeName) => void;
   toggleTheme: () => void;

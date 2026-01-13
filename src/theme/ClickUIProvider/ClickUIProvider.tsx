@@ -8,8 +8,6 @@ import React, {
   useRef,
   Suspense,
 } from "react";
-import { Provider as TooltipProvider } from "@radix-ui/react-tooltip";
-import { ToastProvider } from "@/components/Toast/Toast";
 import { BaseThemeName } from "@/theme/types";
 import { getRuntimeConfig, getThemeValues } from "@/theme/config";
 import { setThemeAttribute } from "@/theme/utils/theme-attribute";
@@ -19,6 +17,7 @@ import { ThemeContext } from "./context";
 import type { ThemeName, ThemeContextValue } from "./context";
 import type { ClickUIProviderProps, ClickUIConfig } from "./types";
 import { DEFAULT_CONFIG } from "./types";
+import { ClickUIProviders } from "./ClickUIProviders";
 
 // Enhanced theme utilities
 const createThemeUtils = (theme: ConfigThemeValues, resolvedTheme: BaseThemeName) => ({
@@ -72,6 +71,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   theme: initialTheme,
   defaultTheme = "system",
   storageKey = "click-ui-theme",
+  variation = "default",
   config: propConfig,
   enableTransitions = true,
   transitionDuration = 200,
@@ -289,6 +289,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
       themeName: currentTheme,
       resolvedTheme,
       isSystemTheme: currentTheme === "system",
+      variation,
 
       // Theme management
       updateTheme,
@@ -313,6 +314,7 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   }, [
     currentTheme,
     resolvedTheme,
+    variation,
     updateTheme,
     toggleTheme,
     resetTheme,
@@ -340,9 +342,12 @@ export const ClickUIProvider: React.FC<ClickUIProviderProps> = ({
   // Render provider
   const content = (
     <ThemeContext.Provider value={contextValue}>
-      <ToastProvider {...config.toastConfig}>
-        <TooltipProvider {...config.tooltipConfig}>{children}</TooltipProvider>
-      </ToastProvider>
+      <ClickUIProviders
+        tooltipConfig={config.tooltipConfig}
+        toastConfig={config.toastConfig}
+      >
+        {children}
+      </ClickUIProviders>
     </ThemeContext.Provider>
   );
 

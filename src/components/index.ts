@@ -74,7 +74,11 @@ export { TextAreaField } from "@/components/Input/TextArea";
 export { TextField } from "@/components/Input/TextField";
 export { Title } from "@/components/Typography/Title/Title";
 export { Tooltip } from "@/components/Tooltip/Tooltip";
-export { ClickUIProvider, ServerClickUIProvider } from "@/theme/ClickUIProvider";
+export {
+  ClickUIProvider,
+  ServerClickUIProvider,
+  ClickUIProviders,
+} from "@/theme/ClickUIProvider";
 export { useToast } from "@/components/Toast/useToast";
 export { createToast } from "@/components/Toast/toastEmitter";
 export { UserIcon as ProfileIcon } from "@/components/icons/UserIcon";

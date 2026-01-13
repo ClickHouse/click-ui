@@ -11,3 +11,6 @@ vite.config.ts.timestamp*
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
+# Temporary documentation and planning files
+.tmp/
+tmp/

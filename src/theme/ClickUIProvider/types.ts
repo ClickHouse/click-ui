@@ -41,9 +41,49 @@ export interface ClickUIProviderProps {
   defaultTheme?: ThemeName;
   storageKey?: string;
 
-  // UI configuration
+  /**
+   * Theme variation to use. Currently only "default" is supported.
+   * Future variations may include "contrast" for high-contrast themes.
+   * @default "default"
+   */
+  variation?: "default";
+
+  /**
+   * UI provider configuration
+   *
+   * @deprecated Since v0.1.0. Use ClickUIProviders component instead.
+   *
+   * Toast and Tooltip configuration has been separated to ClickUIProviders
+   * to enable true React Server Component support.
+   *
+   * @example
+   * ```tsx
+   * // Before (deprecated):
+   * <ClickUIProvider
+   *   theme="system"
+   *   config={{
+   *     tooltip: { delayDuration: 100 },
+   *     toast: { duration: 3000 }
+   *   }}
+   * >
+   *   {children}
+   * </ClickUIProvider>
+   *
+   * // After (recommended):
+   * <ClickUIProvider theme="system">
+   *   <ClickUIProviders
+   *     tooltipConfig={{ delayDuration: 100 }}
+   *     toastConfig={{ duration: 3000 }}
+   *   >
+   *     {children}
+   *   </ClickUIProviders>
+   * </ClickUIProvider>
+   * ```
+   */
   config?: {
+    /** @deprecated Use ClickUIProviders tooltipConfig prop instead */
     tooltip?: Omit<TooltipProviderProps, "children">;
+    /** @deprecated Use ClickUIProviders toastConfig prop instead */
     toast?: Omit<ToastProviderProps, "children">;
   };
 
