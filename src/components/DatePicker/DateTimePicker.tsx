@@ -37,7 +37,7 @@ const PredefinedTimesContainer = styled(Container)`
   width: ${calendarFullWidth};
 `;
 
-// left value of 276px is the width of the PredefinedTimesContainer + 1 pixel for border
+// left value of 259px is the width of the PredefinedTimesContainer + 1 pixel for border
 const CalendarRendererContainer = styled.div`
   border: ${({ theme }) =>
     `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
@@ -45,7 +45,7 @@ const CalendarRendererContainer = styled.div`
   box-shadow:
     lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
     lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  left: 276px;
+  left: 259px;
   position: absolute;
   top: 0;
 `;
@@ -214,7 +214,7 @@ const Calendar = ({
             isDisabled = true;
           }
 
-          if (futureStartDatesDisabled && !startDate && fullDate > today) {
+          if (futureStartDatesDisabled && calendarType === 'startDate' && fullDate > today) {
             isDisabled = true;
           }
 
@@ -226,19 +226,30 @@ const Calendar = ({
             isDisabled = true;
           }
 
+          // start date is selected, end date is not; disable anything before start date
           if (calendarType === 'endDate' && startDate && startDate > fullDate && !isSameDate(startDate, fullDate)) {
+            isDisabled = true;
+          }
+
+          // start date isn't selected, but end date is; disable anything after end date
+          if (calendarType === 'startDate' && !startDate && fullDate > endDate) {
             isDisabled = true;
           }
 
           // console.log('shouldShowRangeIndicator', calendarType, endDate, Boolean(
           //     startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
           //   ))
-          const shouldShowRangeIndicator =
+
+          const startDateSelectedAndIsSelectingEndDate = calendarType === 'endDate' &&
             !endDate &&
-            calendarType !== 'startDate' &&
             Boolean(
               startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
             );
+
+          const endDateSelectedAndIsSelectingStartDate = calendarType === 'startDate' && !startDate && Boolean(endDate && hoveredDate && fullDate < endDate && fullDate > hoveredDate)
+
+          const shouldShowRangeIndicator = startDateSelectedAndIsSelectingEndDate || endDateSelectedAndIsSelectingStartDate
+
 
 // if (isSameDate(fullDate, startDate)) {
 //   console.log('full date is same as start date', isDisabled)
@@ -570,7 +581,6 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
 type Tab = 'startDate' | 'endDate'
 
 const TabbedCalendar = ({
-  calendarOptions,
   closeDatePicker,
   futureDatesDisabled,
   futureStartDatesDisabled,
@@ -585,6 +595,19 @@ const TabbedCalendar = ({
   const handleTabChange = useCallback((newTab: string) => {
     setActiveTab(newTab as Tab);
   }, [])
+
+  const startDateCalendarOptions: UseCalendarOptions = {};
+  const endDateCalendarOptions: UseCalendarOptions = {};
+
+  // If a start date is selected, open the calendar to that date
+  if (startDate) {
+    startDateCalendarOptions.defaultDate = startDate;
+  }
+
+  // If an end date is selected, open the calendar to that date
+  if (endDate) {
+    endDateCalendarOptions.defaultDate = endDate;
+  }
 
   return (
     <Tabs onValueChange={handleTabChange} value={activeTab}>
@@ -603,7 +626,7 @@ const TabbedCalendar = ({
         </Tabs.Trigger>
       </StyledTriggerList>
       <Tabs.Content value="startDate">
-        <StyledCalendarRenderer calendarOptions={calendarOptions}>
+        <StyledCalendarRenderer calendarOptions={startDateCalendarOptions}>
           {(body: Body) => (
             <Calendar
               calendarBody={body}
@@ -621,7 +644,7 @@ const TabbedCalendar = ({
         <TimeInput date={startDate} setDate={setStartDate} />
       </Tabs.Content>
       <Tabs.Content value="endDate">
-        <StyledCalendarRenderer calendarOptions={calendarOptions}>
+        <StyledCalendarRenderer calendarOptions={endDateCalendarOptions}>
           {(body: Body) => (
             <Calendar
               calendarBody={body}
@@ -675,12 +698,12 @@ export const DateTimePicker = ({
 // console.log('selectedStartDate', selectedStartDate)
 // console.log('selectedEndDate', selectedEndDate)
 
-  const calendarOptions: UseCalendarOptions = {};
+  // const calendarOptions: UseCalendarOptions = {};
 
-  // If a start date is selected, open the calendar to that date
-  if (selectedStartDate) {
-    calendarOptions.defaultDate = selectedStartDate;
-  }
+  // // If a start date is selected, open the calendar to that date
+  // if (selectedStartDate) {
+  //   calendarOptions.defaultDate = selectedStartDate;
+  // }
 
   useEffect(() => {
     if (startDate) {
@@ -838,7 +861,6 @@ export const DateTimePicker = ({
               {shouldShowCustomRange && (
                 <CalendarRendererContainer>
                   <TabbedCalendar
-                    calendarOptions={calendarOptions}
                     closeDatepicker={closeDatePicker}
                     futureDatesDisabled={futureDatesDisabled}
                     futureStartDatesDisabled={futureStartDatesDisabled}
@@ -857,7 +879,6 @@ export const DateTimePicker = ({
           ) : (
             <>
               <TabbedCalendar
-                calendarOptions={calendarOptions}
                 closeDatepicker={closeDatePicker}
                 futureDatesDisabled={futureDatesDisabled}
                 futureStartDatesDisabled={futureStartDatesDisabled}

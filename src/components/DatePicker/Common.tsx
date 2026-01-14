@@ -239,6 +239,21 @@ export const DateTimePickerInput = ({
       //   );
       // }
     }
+  } else if (selectedEndDate) {
+    formattedValue = (
+          <span>
+            <Text
+              color="muted"
+              component="span"
+            >
+              start date –{" "}
+            </Text>
+            {selectedDateTimeFormatter
+              .format(selectedEndDate)
+              .replace("AM", "am")
+              .replace("PM", "pm")}
+          </span>
+        );
   }
 
   return (
