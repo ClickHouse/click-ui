@@ -47,8 +47,8 @@
     "publish:click-ui": "yarn test && yarn build && yarn npm publish",
     "storybook": "storybook dev -p 6006",
     "test": "vitest",
-    "typecheck": "tsc --noEmit",
-    "watch": "vitest --watch"
+    "test:watch": "DEBUG_PRINT_LIMIT=100000 vitest --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@h6s/calendar": "2.0.1",
