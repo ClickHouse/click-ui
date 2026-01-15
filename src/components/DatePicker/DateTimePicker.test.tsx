@@ -2,7 +2,6 @@ import { renderCUI } from "@/utils/test-utils";
 import { DateTimePicker } from "./DateTimePicker";
 import userEvent from "@testing-library/user-event";
 import { getPredefinedTimePeriodsForDateTimePicker } from "./utils";
-import { fireEvent } from "@testing-library/dom";
 
 describe("DateTimePicker", () => {
   it("opens the calendar on click", async () => {
@@ -30,7 +29,7 @@ describe("DateTimePicker", () => {
     );
 
     expect(getByTestId("datetimepicker-input").textContent).toBe(
-      "Jul 04, 00:00 – end date"
+      "Jul 04, 12:00 pm – end date"
     );
   });
 
@@ -47,21 +46,23 @@ describe("DateTimePicker", () => {
     );
 
     expect(getByTestId("datetimepicker-input").textContent).toBe(
-      "Jul 04, 12:00 am – Jul 05, 00:00"
+      "Jul 04, 12:00 pm – Jul 05, 12:00 pm"
     );
   });
 
-  it("does nothing if an end date is passed in but not a start date", () => {
+  it("handles only passing in end date, but not start date", () => {
     const handleSelectDate = vi.fn();
     const endDate = new Date("07-05-2020");
-    const { getByText } = renderCUI(
+    const { getByTestId } = renderCUI(
       <DateTimePicker
         endDate={endDate}
         onSelectDateRange={handleSelectDate}
       />
     );
 
-    expect(getByText("start date – end date")).toBeInTheDocument();
+    expect(getByTestId("datetimepicker-input").textContent).toBe(
+      "start date – Jul 05, 12:00 pm"
+    );
   });
 
   describe("selecting dates", () => {
@@ -73,7 +74,7 @@ describe("DateTimePicker", () => {
       vi.useRealTimers();
     });
 
-    it("allows clearing the start date by clicking the start date", async () => {
+    it("calls onSelectDateRange when an end date is selected and passes in the selected date range", async () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, getByText } = renderCUI(
@@ -81,27 +82,19 @@ describe("DateTimePicker", () => {
       );
 
       await userEvent.click(getByTestId("datetimepicker-input"));
+
+      await userEvent.click(getByText("Start date"));
       await userEvent.click(getByText("4"));
-      await userEvent.click(getByText("4"));
 
-      expect(getByText("start date – end date")).toBeInTheDocument();
-    });
+      expect(handleSelectDate).not.toHaveBeenCalled();
 
-    it("calls onSelectDateRange when a date range is selected and passes in the selected date range", async () => {
-      const handleSelectDate = vi.fn();
-
-      const { getByTestId, getByText } = renderCUI(
-        <DateTimePicker onSelectDateRange={handleSelectDate} />
-      );
-
-      await userEvent.click(getByTestId("datetimepicker-input"));
-      await userEvent.click(getByText("4"));
+      await userEvent.click(getByText("End date"));
       await userEvent.click(getByText("10"));
 
       const [startDate, endDate] = handleSelectDate.mock.lastCall ?? [];
 
-      expect(startDate).toEqual(new Date("2020-07-04 00:00.00"));
-      expect(endDate).toEqual(new Date("2020-07-10 00:00.00"));
+      expect(startDate).toEqual(new Date("2020-07-04 12:00.00"));
+      expect(endDate).toEqual(new Date("2020-07-10 12:00.00"));
     });
 
     it("allows setting a new start date by clicking any date", async () => {
@@ -112,13 +105,14 @@ describe("DateTimePicker", () => {
       );
 
       await userEvent.click(getByTestId("datetimepicker-input"));
+      await userEvent.click(getByText("Start date"));
+
       await userEvent.click(getByText("4"));
-      await userEvent.click(getByText("10"));
 
       await userEvent.click(getByText("10"));
 
       expect(getByTestId("datetimepicker-input").textContent).toBe(
-        "Jul 10, 00:00 – end date"
+        "Jul 10, 12:00 pm – end date"
       );
     });
 
@@ -131,7 +125,7 @@ describe("DateTimePicker", () => {
         vi.useRealTimers();
       });
 
-      it("selects the start date with a time of midnight", async () => {
+      it("selects the start date with a time of noon", async () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
@@ -142,79 +136,102 @@ describe("DateTimePicker", () => {
         await userEvent.click(getByText("4"));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 00:00 – end date"
+          "Jul 04, 12:00 pm – end date"
         );
       });
 
       it("sets the start date's time", async () => {
         const handleSelectDate = vi.fn();
 
-        const { getByTestId, getByText } = renderCUI(
+        const { getByRole, getByTestId, getByText } = renderCUI(
           <DateTimePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId("datetimepicker-input"));
         await userEvent.click(getByText("4"));
 
-        await userEvent.click(getByText("01:30 am"));
+        await userEvent.click(getByTestId("date-time-picker-time-input"));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard(
+          "{backspace}{backspace}{backspace}{backspace}{backspace}1:30"
+        );
+        await userEvent.click(getByRole("button", { name: "am" }));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
           "Jul 04, 01:30 am – end date"
         );
       });
 
-      it("selects the start date with a time of midnight", async () => {
+      it("selects the end date with a time of noon", async () => {
         const handleSelectDate = vi.fn();
 
-        const { getByTestId, getByText } = renderCUI(
+        const { getByRole, getByTestId, getByText } = renderCUI(
           <DateTimePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId("datetimepicker-input"));
         await userEvent.click(getByText("4"));
-        await userEvent.click(getByText("01:30 am"));
+        await userEvent.click(getByTestId("date-time-picker-time-input"));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard(
+          "{backspace}{backspace}{backspace}{backspace}{backspace}11:37"
+        );
+        await userEvent.click(getByRole("button", { name: "pm" }));
+
+        await userEvent.click(getByText("End date"));
         await userEvent.click(getByText("11"));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 01:30 am – Jul 11, 00:00"
+          "Jul 04, 11:37 pm – Jul 11, 12:00 pm"
         );
       });
 
       it("sets the end date's time", async () => {
         const handleSelectDate = vi.fn();
 
-        const { getByTestId, getByText } = renderCUI(
+        const { getByRole, getByTestId, getByText } = renderCUI(
           <DateTimePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId("datetimepicker-input"));
         await userEvent.click(getByText("4"));
-        await userEvent.click(getByText("01:30 am"));
+        await userEvent.click(getByTestId("date-time-picker-time-input"));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard(
+          "{backspace}{backspace}{backspace}{backspace}{backspace}2:37"
+        );
+        await userEvent.click(getByRole("button", { name: "pm" }));
+
+        await userEvent.click(getByText("End date"));
         await userEvent.click(getByText("11"));
-        await userEvent.click(getByText("02:30 pm"));
+        await userEvent.click(getByTestId("date-time-picker-time-input"));
+        await userEvent.keyboard(
+          "{backspace}{backspace}{backspace}{backspace}{backspace}8:15"
+        );
+        await userEvent.click(getByRole("button", { name: "am" }));
 
         expect(getByTestId("datetimepicker-input").textContent).toBe(
-          "Jul 04, 01:30 am – Jul 11, 02:30 pm"
+          "Jul 04, 02:37 pm – Jul 11, 08:15 am"
         );
       });
     });
   });
 
   describe("disabling dates", () => {
-    beforeAll(() => {
-      vi.useFakeTimers();
-      vi.setSystemTime(new Date("07-04-2020"));
+    beforeEach(() => {
+      vi.setSystemTime(new Date("07-04-2020 11:30 AM"));
     });
 
-    afterAll(() => {
-      vi.runOnlyPendingTimers();
+    afterEach(() => {
       vi.useRealTimers();
     });
 
     it("allows disabling selecting dates in the future", async () => {
-      const startDate = new Date("07-04-2020");
+      const startDate = new Date("07-04-2025");
       const handleSelectDate = vi.fn();
-      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
 
       const { getByTestId, findByText } = renderCUI(
         <DateTimePicker
@@ -224,8 +241,8 @@ describe("DateTimePicker", () => {
         />
       );
 
-      user.click(getByTestId("datetimepicker-input"));
-      user.click(await findByText("22"));
+      userEvent.click(getByTestId("datetimepicker-input"));
+      userEvent.click(await findByText("22"));
 
       expect(handleSelectDate).not.toHaveBeenCalled();
     });
@@ -233,9 +250,8 @@ describe("DateTimePicker", () => {
     it("allows restricting the max range length", async () => {
       const startDate = new Date("07-04-2020 11:30");
       const handleSelectDate = vi.fn();
-      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
 
-      const { getByTestId, findByText } = renderCUI(
+      const { getByTestId, getByText } = renderCUI(
         <DateTimePicker
           startDate={startDate}
           onSelectDateRange={handleSelectDate}
@@ -243,12 +259,14 @@ describe("DateTimePicker", () => {
         />
       );
 
-      user.click(getByTestId("datetimepicker-input"));
-      user.click(await findByText("25"));
+      await userEvent.click(getByTestId("datetimepicker-input"));
+      await userEvent.click(getByText("End date"));
+
+      await userEvent.click(getByText("25"));
 
       expect(handleSelectDate).not.toHaveBeenCalled();
 
-      fireEvent.click(await findByText("15"));
+      await userEvent.click(getByText("15"));
       expect(handleSelectDate).toHaveBeenCalled();
     });
   });

@@ -9,9 +9,7 @@ import { Text } from "../Typography/Text/Text";
 import {
   headerDateFormatter,
   selectedDateFormatter,
-  selectedDateTimeDateFormatter,
   selectedDateTimeFormatter,
-  timeFormatter,
   weekdayFormatter,
 } from "./utils";
 
@@ -171,89 +169,50 @@ export const DateTimePickerInput = ({
   );
   if (selectedStartDate) {
     if (selectedEndDate) {
-
-        formattedValue = (
-          <span>
-            {selectedDateTimeFormatter
-              .format(selectedStartDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}{" "}
-            –{" "}
-            {selectedDateTimeFormatter
-              .format(selectedEndDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}
-          </span>
-        );
-      // } else {
-      //   formattedValue = (
-      //     <span>
-      //       {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
-      //       {timeFormatter
-      //         .format(selectedStartDate)
-      //         .replace("AM", "am")
-      //         .replace("PM", "pm")}{" "}
-      //       – {selectedDateTimeDateFormatter.format(selectedEndDate)},{" "}
-      //       <Text
-      //         color="muted"
-      //         component="span"
-      //       >
-      //         00:00
-      //       </Text>
-      //     </span>
-      //   );
-      // }
+      formattedValue = (
+        <span>
+          {selectedDateTimeFormatter
+            .format(selectedStartDate)
+            .replace("AM", "am")
+            .replace("PM", "pm")}{" "}
+          –{" "}
+          {selectedDateTimeFormatter
+            .format(selectedEndDate)
+            .replace("AM", "am")
+            .replace("PM", "pm")}
+        </span>
+      );
     } else {
-        formattedValue = (
-          <span>
-            {selectedDateTimeFormatter
-              .format(selectedStartDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}{" "}
-            <Text
-              color="muted"
-              component="span"
-            >
-              – end date
-            </Text>
-          </span>
-        );
-      // } else {
-      //   formattedValue = (
-      //     <span>
-      //       {selectedDateTimeDateFormatter.format(selectedStartDate)},{" "}
-      //       <Text
-      //         color="muted"
-      //         component="span"
-      //       >
-      //         00:00
-      //       </Text>
-      //       <Text
-      //         color="muted"
-      //         component="span"
-      //       >
-      //         {" "}
-      //         – end date
-      //       </Text>
-      //     </span>
-      //   );
-      // }
+      formattedValue = (
+        <span>
+          {selectedDateTimeFormatter
+            .format(selectedStartDate)
+            .replace("AM", "am")
+            .replace("PM", "pm")}{" "}
+          <Text
+            color="muted"
+            component="span"
+          >
+            – end date
+          </Text>
+        </span>
+      );
     }
   } else if (selectedEndDate) {
     formattedValue = (
-          <span>
-            <Text
-              color="muted"
-              component="span"
-            >
-              start date –{" "}
-            </Text>
-            {selectedDateTimeFormatter
-              .format(selectedEndDate)
-              .replace("AM", "am")
-              .replace("PM", "pm")}
-          </span>
-        );
+      <span>
+        <Text
+          color="muted"
+          component="span"
+        >
+          start date –{" "}
+        </Text>
+        {selectedDateTimeFormatter
+          .format(selectedEndDate)
+          .replace("AM", "am")
+          .replace("PM", "pm")}
+      </span>
+    );
   }
 
   return (
