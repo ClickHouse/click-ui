@@ -64,13 +64,13 @@ export type ArrowProps = {
   showArrow?: boolean;
 };
 
-type ContextMenuContentProps = RightMenu.MenuContentProps & {
-  sub?: true;
-} & ArrowProps;
+type ContextMenuContentProps = RightMenu.ContextMenuContentProps &
+  { sub?: true }
+  & ArrowProps;
 
-type ContextMenuSubContentProps = RightMenu.MenuSubContentProps & {
-  sub?: never;
-} & ArrowProps;
+type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps &
+  { sub?: never }
+  & ArrowProps;
 
 const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
   flex-direction: column;
