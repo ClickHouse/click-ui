@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 
-import { BuildOptions, defineConfig } from "vite";
+import { BuildOptions, defineConfig, mergeConfig } from "vite";
+import { defineConfig as defineVitestConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path, { resolve } from "path";
 import dts from "vite-plugin-dts";
@@ -8,23 +9,20 @@ import dts from "vite-plugin-dts";
 const buildType = process.argv[4];
 const isBundledBuild = buildType === "bundled";
 
-const externalLibraries = [
-  "dayjs",
-  "react",
-  "react-dom",
-  "**/*.stories.ts",
-  "**/*.stories.tsx",
-  "**/*.test.ts",
-  "**/*.test.tsx",
-  "react/jsx-runtime",
-];
+const external = (id: string) => {
+  if (id === "react" || id.startsWith("react/")) return true;
+  if (id === "react-dom" || id.startsWith("react-dom/")) return true;
+  if (id.includes(".test.ts") || id.includes(".stories.ts")) return true;
 
-if (!isBundledBuild) {
-  externalLibraries.push("styled-components");
-}
+  if (id === "dayjs") return true;
+
+  if (!isBundledBuild && id === "styled-components") return true;
+
+  return false;
+};
 
 const buildOptions: BuildOptions = {
-  target: 'baseline-widely-available',
+  target: "baseline-widely-available",
   emptyOutDir: false,
   minify: true,
   lib: {
@@ -35,8 +33,7 @@ const buildOptions: BuildOptions = {
       isBundledBuild ? `click-ui.bundled.${format}.js` : `click-ui.${format}.js`,
   },
   rollupOptions: {
-    // Add _all_ external dependencies here
-    external: externalLibraries,
+    external,
     output: {
       globals: {
         dayjs: "dayjs",
@@ -50,8 +47,7 @@ const buildOptions: BuildOptions = {
   sourcemap: true,
 };
 
-// https://vitejs.dev/config/
-export default defineConfig({
+const viteConfig = defineConfig({
   plugins: [
     react({
       babel: {
@@ -81,12 +77,12 @@ export default defineConfig({
       plugins: [
         {
           // Wrap only CSS custom properties in @layer for easy consumer override
-          postcssPlugin: 'wrap-tokens-in-layer',
+          postcssPlugin: "wrap-tokens-in-layer",
           Once(root, { AtRule }) {
             // 1. Add layer declaration for tokens at the top
             const layerDeclaration = new AtRule({
-              name: 'layer',
-              params: 'click-ui.tokens',
+              name: "layer",
+              params: "click-ui.tokens",
             });
             root.prepend(layerDeclaration);
 
@@ -99,10 +95,10 @@ export default defineConfig({
                 return; // Skip the layer declaration itself
               }
 
-              if (node.type === 'rule' && node.selector === ':root') {
+              if (node.type === "rule" && node.selector === ":root") {
                 // Check if it contains CSS custom properties
                 const hasCustomProps = node.nodes?.some(
-                  child => child.type === 'decl' && child.prop.startsWith('--')
+                  child => child.type === "decl" && child.prop.startsWith("--")
                 );
                 if (hasCustomProps) {
                   tokenRules.push(node.clone());
@@ -118,8 +114,8 @@ export default defineConfig({
             // 3. Wrap tokens in @layer click-ui.tokens
             if (tokenRules.length > 0) {
               const tokensLayer = new AtRule({
-                name: 'layer',
-                params: 'click-ui.tokens',
+                name: "layer",
+                params: "click-ui.tokens",
               });
               tokenRules.forEach(rule => tokensLayer.append(rule));
               root.append(tokensLayer);
@@ -138,6 +134,9 @@ export default defineConfig({
     },
   },
   build: buildOptions,
+});
+
+const vitestConfig = defineVitestConfig({
   test: {
     environment: "jsdom",
     include: ["**/*.test.{ts,tsx}"],
@@ -147,3 +146,5 @@ export default defineConfig({
     setupFiles: ["@testing-library/jest-dom", "./setupTests.ts"],
   },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);
