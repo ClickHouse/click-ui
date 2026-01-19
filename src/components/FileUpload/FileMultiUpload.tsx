@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
-import { css } from "styled-components";
+import { styled, css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 
 import { truncateFilename } from "@/utils/truncate.ts";
@@ -178,7 +177,9 @@ const formatFileSize = (sizeInBytes: number): string => {
 };
 
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
-  if (!supportedTypes.length) return true;
+  if (!supportedTypes.length) {
+    return true;
+  }
 
   const extension = filename.toLowerCase().slice(filename.lastIndexOf("."));
   return supportedTypes.some(type => type.toLowerCase() === extension.toLowerCase());

@@ -126,7 +126,7 @@ const IconWrapper = styled.div<{
     $type === "banner" ? "none" : theme.click.alert.color.iconBackground[$state]};
   ${({ $state = "neutral", $size, theme }) => `
     color: ${theme.click.alert.color.iconForeground[$state]};
-    padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
+    padding: ${theme.click.alert[$size].space.y} 0 ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
   `}
 `;
 
