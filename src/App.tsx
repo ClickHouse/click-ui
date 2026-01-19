@@ -97,6 +97,11 @@ const App = () => {
       ],
     },
   ]);
+  const [theme, setTheme] = useState('dark');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   const onTableDelete = (row: TableRowType, index: number) => {
     setRows(rows => {
@@ -109,6 +114,11 @@ const App = () => {
       theme={currentTheme}
       config={{ tooltip: { delayDuration: 0 } }}
     >
+      <Switch
+        checked={theme === 'dark'}
+        onClick={toggleTheme}
+        label="toggle theme"
+      />
       <Button
         onClick={() => {
           createToast({
