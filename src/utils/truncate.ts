@@ -38,7 +38,9 @@ export const truncateFilename = (
 };
 
 export const shortenMiddle = (filename: string, maxLen: number = DEFAULT_MAX_LEN) => {
-  if (filename.length <= maxLen) return filename;
+  if (filename.length <= maxLen) {
+    return filename;
+  }
 
   const lastDotIndex = filename.lastIndexOf(".");
   const hasExtension = lastDotIndex > 0 && lastDotIndex < filename.length - 1;
@@ -55,8 +57,9 @@ export const shortenMiddle = (filename: string, maxLen: number = DEFAULT_MAX_LEN
 
   const availableLength = maxLen - extension.length - DEFAULT_DELIMITER.length;
 
-  if (availableLength <= 0)
+  if (availableLength <= 0) {
     return `${filename.slice(0, maxLen - DEFAULT_DELIMITER.length)}${DEFAULT_DELIMITER}`;
+  }
 
   const frontChars = Math.ceil(availableLength / 2);
   const backChars = Math.floor(availableLength / 2);
