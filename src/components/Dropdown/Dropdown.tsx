@@ -77,9 +77,9 @@ Dropdown.Trigger = DropdownTrigger;
 export type ArrowProps = {
   showArrow?: boolean;
 };
-type DropdownContentProps = DropdownMenu.MenuContentProps & SubDropdownProps & ArrowProps;
+type DropdownContentProps = DropdownMenu.DropdownMenuContentProps & SubDropdownProps & ArrowProps;
 
-type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
+type DropdownSubContentProps = DropdownMenu.DropdownMenuSubContentProps &
   MainDropdownProps &
   ArrowProps;
 
