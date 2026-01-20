@@ -4,7 +4,7 @@ import { HorizontalDirection, IconName } from "@/components";
 import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
 
-import { CSSPropertiesWithVars } from '@/components/types';
+import { CSSPropertiesWithVars } from "@/components/types";
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */

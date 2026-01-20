@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties } from "react";
 
 import { TooltipProps } from "./Tooltip/Tooltip";
 import { TitleProps } from "./Typography/Title/Title";

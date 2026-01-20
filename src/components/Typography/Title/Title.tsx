@@ -1,6 +1,6 @@
 import { HTMLAttributes, forwardRef } from "react";
 import { styled } from "styled-components";
-import { CSSPropertiesWithVars } from '@/components/types';
+import { CSSPropertiesWithVars } from "@/components/types";
 
 export type TitleAlignment = "left" | "center" | "right";
 export type TitleColor = "default" | "muted";
