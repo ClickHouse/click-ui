@@ -90,11 +90,7 @@ const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boole
   }
 };
 
-const getThumbVars = (
-  theme: Theme,
-  disabled: boolean | undefined,
-  checked: boolean
-) => {
+const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {

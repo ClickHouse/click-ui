@@ -27,7 +27,8 @@ interface MainDropdownProps {
   sub?: never;
 }
 
-type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps & SubDropdownProps;
+type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
+  SubDropdownProps;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
 const Trigger = styled(DropdownMenu.Trigger)`
@@ -87,7 +88,9 @@ interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubCont
 }
 
 type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
-type DropdownSubContentProps = StyledDropdownSubContentProps & MainDropdownProps & ArrowProps;
+type DropdownSubContentProps = StyledDropdownSubContentProps &
+  MainDropdownProps &
+  ArrowProps;
 
 const DropdownMenuContent = styled(GenericMenuPanel)`
   min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};

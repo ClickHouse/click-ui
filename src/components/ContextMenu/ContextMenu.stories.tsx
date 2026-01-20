@@ -31,9 +31,7 @@ const ContextMenuExample = ({
         <ContextMenu.Trigger disabled={disabled}>
           <Trigger>ContextMenu Trigger</Trigger>
         </ContextMenu.Trigger>
-        <ContextMenu.Content
-          showArrow={showArrow}
-        >
+        <ContextMenu.Content showArrow={showArrow}>
           <ContextMenu.Group>
             <ContextMenu.Item>Content0</ContextMenu.Item>
           </ContextMenu.Group>
