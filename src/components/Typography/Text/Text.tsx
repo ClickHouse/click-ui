@@ -46,7 +46,7 @@ const _Text = <T extends ElementType = "p">(
     fillWidth,
     ...props
   }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
-  ref?: ComponentPropsWithRef<T>["ref"]
+  ref: ComponentPropsWithRef<T>["ref"]
 ) => (
   <CuiText
     as={component ?? "p"}
