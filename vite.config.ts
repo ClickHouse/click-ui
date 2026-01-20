@@ -43,7 +43,7 @@ const buildOptions: BuildOptions = {
         "react/jsx-runtime": "jsxRuntime",
       },
       banner: chunk => {
-        if (chunk.name === "index" || chunk.facadeModuleId?.includes("ClickUIProvider")) {
+        if (chunk.name === "index") {
           return `'use client';`;
         }
         return "";
