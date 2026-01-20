@@ -42,6 +42,13 @@ const buildOptions: BuildOptions = {
         "react-dom": "ReactDOM",
         "react/jsx-runtime": "jsxRuntime",
       },
+      banner: chunk => {
+        if (chunk.name === "index" || chunk.facadeModuleId?.includes("ClickUIProvider")) {
+          return `'use client';`;
+        }
+        return "";
+      },
+      interop: "auto",
     },
   },
   sourcemap: true,
