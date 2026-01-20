@@ -1,6 +1,6 @@
 import { DateDetails } from "@/components/DateDetails/DateDetails";
 import { renderCUI } from "@/utils/test-utils";
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 
 describe("DateDetails", () => {
   const actualTZ = process.env.TZ;
@@ -38,10 +38,10 @@ describe("DateDetails", () => {
 
     fireEvent.click(trigger);
 
-    expect(screen.getByText(/Dec 24, 11:40 a\.m\..*(EST|GMT-5)/)).toBeInTheDocument();
-    expect(screen.getByText(/Dec 24, 8:40 a\.m\..*(PST|GMT-8)/)).toBeInTheDocument();
-    expect(screen.getByText("Dec 24, 4:40 p.m.")).toBeInTheDocument();
-    expect(screen.getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
+    expect(getByText(/Dec 24, 11:40 a\.m\..*(EST|GMT-5)/)).toBeInTheDocument();
+    expect(getByText(/Dec 24, 8:40 a\.m\..*(PST|GMT-8)/)).toBeInTheDocument();
+    expect(getByText("Dec 24, 4:40 p.m.")).toBeInTheDocument();
+    expect(getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
   });
 
   it("allows for not passing in a system timezone", () => {
@@ -55,10 +55,10 @@ describe("DateDetails", () => {
     const trigger = getByText("5 minutes ago");
     fireEvent.click(trigger);
 
-    expect(screen.getByText(/Dec 24, 11:40 a\.m\..*(EST|GMT-5)/)).toBeInTheDocument();
-    expect(screen.getByText("Dec 24, 4:40 p.m.")).toBeInTheDocument();
+    expect(getByText(/Dec 24, 11:40 a\.m\..*(EST|GMT-5)/)).toBeInTheDocument();
+    expect(getByText("Dec 24, 4:40 p.m.")).toBeInTheDocument();
     expect(queryByText("System")).not.toBeInTheDocument();
-    expect(screen.getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
+    expect(getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
   });
 
   it("only shows the date if the previous date isn't in this year", () => {
@@ -78,12 +78,10 @@ describe("DateDetails", () => {
     const trigger = getByText("1 year ago");
     fireEvent.click(trigger);
 
-    expect(screen.getByText("Feb 7, 2024, 4:45 p.m.")).toBeInTheDocument();
-    expect(
-      screen.getByText(/Feb 7, 2024, 11:45 a\.m\..*(EST|GMT-5)/)
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Feb 7, 2024, 8:45 a\.m\..*(PST|GMT-8)/)).toBeInTheDocument();
-    expect(screen.getByText(String(oneYearAgo.getTime() / 1000))).toBeInTheDocument();
+    expect(getByText("Feb 7, 2024, 4:45 p.m.")).toBeInTheDocument();
+    expect(getByText(/Feb 7, 2024, 11:45 a\.m\..*(EST|GMT-5)/)).toBeInTheDocument();
+    expect(getByText(/Feb 7, 2024, 8:45 a\.m\..*(PST|GMT-8)/)).toBeInTheDocument();
+    expect(getByText(String(oneYearAgo.getTime() / 1000))).toBeInTheDocument();
   });
 
   it("handles Daylight Savings Time", () => {
@@ -103,9 +101,9 @@ describe("DateDetails", () => {
     const trigger = getByText("5 minutes ago");
     fireEvent.click(trigger);
 
-    expect(screen.getByText(/Jul 4, 11:40 a\.m\..*(EDT|GMT-4)/)).toBeInTheDocument();
-    expect(screen.getByText(/Jul 4, 8:40 a\.m\..*(PDT|GMT-7)/)).toBeInTheDocument();
-    expect(screen.getByText("Jul 4, 3:40 p.m.")).toBeInTheDocument();
-    expect(screen.getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
+    expect(getByText(/Jul 4, 11:40 a\.m\..*(EDT|GMT-4)/)).toBeInTheDocument();
+    expect(getByText(/Jul 4, 8:40 a\.m\..*(PDT|GMT-7)/)).toBeInTheDocument();
+    expect(getByText("Jul 4, 3:40 p.m.")).toBeInTheDocument();
+    expect(getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
   });
 });
