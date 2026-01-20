@@ -37,19 +37,23 @@ export const ButtonGroup = ({
   type = "default",
   ...props
 }: ButtonGroupProps) => {
-  const buttons = options.map(({ value, label, ...props }) => (
-    <Button
-      key={value}
-      $active={value === selected}
-      $fillWidth={fillWidth}
-      $type={type}
-      onClick={() => onClick?.(value)}
-      role="button"
-      {...props}
-    >
-      {label}
-    </Button>
-  ));
+  const buttons = options.map(({ value, label, ...props }) => {
+    const isActive = value === selected;
+    return (
+      <Button
+        key={value}
+        $active={isActive}
+        aria-pressed={isActive}
+        $fillWidth={fillWidth}
+        $type={type}
+        onClick={() => onClick?.(value)}
+        role="button"
+        {...props}
+      >
+        {label}
+      </Button>
+    );
+  });
 
   return (
     <ButtonGroupWrapper
