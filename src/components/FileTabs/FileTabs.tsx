@@ -41,7 +41,8 @@ const TabsContainer = styled.div<{ $count: number }>`
     height: 0;
   }
 `;
-const TabsSortableContainer = styled.div`
+
+const TabsSortableContainer = styled(ReactSortable)`
   display: flex;
   & > div {
     height: 100%;
@@ -174,7 +175,6 @@ export const FileTabs = ({
         $count={(listProp ?? list).length}
       >
         <TabsSortableContainer
-          as={ReactSortable}
           direction={direction ?? "horizontal"}
           group={group ?? "tabbar"}
           list={listProp ?? list}

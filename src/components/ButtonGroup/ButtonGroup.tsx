@@ -1,5 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { DefaultTheme, styled } from "styled-components";
+import { styled } from "styled-components";
+import { CSSPropertiesWithVars } from "../types";
 
 type ButtonGroupType = "default" | "borderless";
 
@@ -27,6 +28,7 @@ export interface ButtonGroupProps extends Omit<
   fillWidth?: boolean;
   /** The style type of the button group */
   type?: ButtonGroupType;
+  style?: CSSPropertiesWithVars;
 }
 
 export const ButtonGroup = ({
@@ -80,22 +82,17 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupT
   width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "auto")};
 `;
 
-interface ButtonProps {
+const Button = styled.button<{
   $active: boolean;
-  theme: DefaultTheme;
   $fillWidth: boolean;
   $type: ButtonGroupType;
-}
-
-const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
-  "aria-pressed": props.$active,
-}))`
+}>`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: ${({ $active, theme }: ButtonProps) =>
+  background: ${({ $active, theme }) =>
     $active
       ? theme.click.button.group.color.background.active
       : theme.click.button.group.color.background.default};
@@ -108,6 +105,12 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
     theme.click.button.group.radii.button[$type].all};
   cursor: pointer;
   border: none;
+
+  &[aria-pressed="true"] {
+    background: ${({ theme }) => theme.click.button.group.color.background.active};
+    font: ${({ theme }) => theme.click.button.group.typography.label.active};
+    color: ${({ theme }) => theme.click.button.group.color.text.active};
+  }
 
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};

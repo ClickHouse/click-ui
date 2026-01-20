@@ -1,5 +1,6 @@
 import { HTMLAttributes, forwardRef } from "react";
 import { styled } from "styled-components";
+import { CSSPropertiesWithVars } from '@/components/types';
 
 export type TitleAlignment = "left" | "center" | "right";
 export type TitleColor = "default" | "muted";
@@ -18,6 +19,7 @@ export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
   family?: TitleFamily;
   /** The heading level (h1-h6) */
   type: TitleType;
+  style?: CSSPropertiesWithVars;
 }
 
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */

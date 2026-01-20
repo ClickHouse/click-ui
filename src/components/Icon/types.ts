@@ -3,6 +3,7 @@ import { LogoProps } from "../Logos/Logo";
 import { FlagName, FlagProps } from "../icons/Flags";
 import { LogoName } from "../Logos/types";
 import { PaymentName, PaymentProps } from "../icons/Payments";
+import { CSSPropertiesWithVars } from "../types";
 
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type IconState = "default" | "success" | "warning" | "danger" | "info";
@@ -185,6 +186,7 @@ export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   size?: IconSize;
   /** The visual state of the icon */
   state?: IconState;
+  style?: CSSPropertiesWithVars;
 }
 
 type NoThemeType = {

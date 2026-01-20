@@ -1,18 +1,20 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
+import { Icon, IconName, Dropdown, HorizontalDirection, CSSPropertiesWithVars } from "@/components";
 import { BaseButton } from "../commonElement";
 import IconWrapper from "../IconWrapper/IconWrapper";
 
 type ButtonType = "primary" | "secondary";
+
 type MenuItem = {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   label: ReactNode;
   type?: "item";
   items?: never;
-} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect">;
+  style?: CSSPropertiesWithVars;
+} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect" | "style">;
 
 type MenuGroup = {
   icon?: never;
@@ -20,16 +22,19 @@ type MenuGroup = {
   label?: never;
   type: "group";
   items: Array<MenuItem | SubMenu>;
+  style?: CSSPropertiesWithVars;
 };
 
 type SubMenu = Omit<MenuItem, "type" | "items"> & {
   items: Array<MenuGroup | MenuItem>;
   type: "sub-menu";
+  style?: CSSPropertiesWithVars;
 };
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
+
 export interface SplitButtonProps
-  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, "dir"> {
+  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, "dir" | "style"> {
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */
@@ -44,6 +49,7 @@ export interface SplitButtonProps
   icon?: IconName;
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
+  style?: CSSPropertiesWithVars;
 }
 
 export const SplitButton = ({
@@ -145,6 +151,7 @@ export const SplitButton = ({
     </Dropdown>
   );
 };
+
 const DropdownContent = styled.div<{ $width: number }>`
   min-width: ${({ $width }) => $width}px;
 `;

@@ -5,6 +5,7 @@ import Amex from "./Amex";
 import Paypal from "./Paypal";
 import { IconSize } from "@/components/Icon/types";
 import { SvgImageElement } from "@/components/commonElement";
+import { CSSPropertiesWithVars } from "@/components/types";
 
 export type PaymentName = "visa" | "mastercard" | "amex" | "paypal";
 
@@ -19,6 +20,7 @@ export const PaymentList = {
 export interface PaymentProps extends SVGAttributes<SVGElement> {
   name: PaymentName;
   size?: IconSize;
+  style?: CSSPropertiesWithVars;
 }
 
 const Payments = ({ name, size, ...props }: PaymentProps) => {

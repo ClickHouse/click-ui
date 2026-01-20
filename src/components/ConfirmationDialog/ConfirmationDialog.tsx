@@ -1,4 +1,4 @@
-import { Container, Dialog, Separator, Text } from "@/components";
+import { Container, CSSPropertiesWithVars, Dialog, Separator, Text } from "@/components";
 import { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { styled } from "styled-components";
 
@@ -29,6 +29,7 @@ export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> 
   showClose?: boolean;
   /** The title text displayed in the dialog header */
   title: string;
+  style?: CSSPropertiesWithVars;
 }
 
 const ActionsWrapper = styled.div`

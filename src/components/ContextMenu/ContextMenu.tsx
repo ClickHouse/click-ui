@@ -1,6 +1,6 @@
 import * as RightMenu from "@radix-ui/react-context-menu";
 import { styled } from "styled-components";
-import { HorizontalDirection, Icon, IconName } from "@/components";
+import { CSSPropertiesWithVars, HorizontalDirection, Icon, IconName } from "@/components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 import IconWrapper from "../IconWrapper/IconWrapper";
@@ -32,6 +32,7 @@ ContextMenu.Trigger = ContextMenuTrigger;
 interface ContextMenuSubTriggerProps extends RightMenu.ContextMenuSubTriggerProps {
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  style?: CSSPropertiesWithVars;
 }
 const ContextMenuSubTrigger = ({
   icon,
@@ -65,11 +66,11 @@ export type ArrowProps = {
 };
 
 type ContextMenuContentProps = RightMenu.ContextMenuContentProps &
-  { sub?: true }
+  { sub?: true; style?: CSSPropertiesWithVars; }
   & ArrowProps;
 
 type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps &
-  { sub?: never }
+  { sub?: never; style?: CSSPropertiesWithVars; }
   & ArrowProps;
 
 const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
@@ -166,6 +167,7 @@ export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
   type?: "default" | "danger";
+  style?: CSSPropertiesWithVars;
 }
 
 const ContextMenuItem = ({

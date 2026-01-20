@@ -1,10 +1,13 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { ReactNode } from "react";
 import { styled } from "styled-components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 import IconWrapper from "../IconWrapper/IconWrapper";
 import { HorizontalDirection, IconName } from "../types";
 import { Icon } from "../Icon/Icon";
+
+import { CSSPropertiesWithVars  } from "../types";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -26,10 +29,17 @@ interface MainDropdownProps {
   sub?: never;
 }
 
-type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
-  SubDropdownProps;
+interface StyledDropdownSubTriggerProps extends DropdownMenu.DropdownMenuSubTriggerProps {
+  style?: CSSPropertiesWithVars;
+}
 
-type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
+interface StyledDropdownTriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
+  style?: CSSPropertiesWithVars;
+}
+
+type DropdownSubTriggerProps = StyledDropdownSubTriggerProps & SubDropdownProps;
+type DropdownTriggerProps = StyledDropdownTriggerProps & MainDropdownProps;
+
 const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
   width: fit-content;
@@ -77,11 +87,19 @@ Dropdown.Trigger = DropdownTrigger;
 export type ArrowProps = {
   showArrow?: boolean;
 };
-type DropdownContentProps = DropdownMenu.DropdownMenuContentProps & SubDropdownProps & ArrowProps;
 
-type DropdownSubContentProps = DropdownMenu.DropdownMenuSubContentProps &
-  MainDropdownProps &
-  ArrowProps;
+interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
+  style?: CSSPropertiesWithVars;
+  children?: ReactNode;
+}
+
+interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
+  style?: CSSPropertiesWithVars;
+  children?: ReactNode;
+}
+
+type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownSubContentProps = StyledDropdownSubContentProps & MainDropdownProps & ArrowProps;
 
 const DropdownMenuContent = styled(GenericMenuPanel)`
   min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
@@ -159,9 +177,11 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
   type?: "default" | "danger";
+  style?: CSSPropertiesWithVars;
 }
 
 export type { DropdownItemProps };
+
 const DropdownItem = ({
   icon,
   iconDir,

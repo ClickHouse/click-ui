@@ -3,6 +3,8 @@ import { Icon, HorizontalDirection, IconName } from "@/components";
 import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarTitleWrapper } from "../SidebarNavigationTitle/SidebarNavigationTitle";
 
+import { CSSPropertiesWithVars } from '@/components/types';
+
 export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
   /** The label content to display */
   label: ReactNode;
@@ -20,6 +22,7 @@ export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLB
   selected?: boolean;
   /** The sidebar style type */
   type?: "main" | "sqlSidebar";
+  style?: CSSPropertiesWithVars;
 }
 
 export const SidebarCollapsibleTitle = ({

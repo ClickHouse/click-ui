@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 import { TooltipProps } from "./Tooltip/Tooltip";
 import { TitleProps } from "./Typography/Title/Title";
 import { TextProps } from "./Typography/Text/Text";
@@ -108,3 +110,7 @@ export type { TabsProps };
 export type { TextProps };
 export type { TitleProps };
 export type { TooltipProps };
+
+export type CSSPropertiesWithVars = CSSProperties & {
+  [key: `--${string}`]: string | number | undefined;
+};

@@ -80,5 +80,10 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
+// TODO: There's forwardRef issue related to polymorphism
+// check what's causing the issue or to look for a better solution
+// https://www.tsteele.dev/posts/react-polymorphic-forwardref
+// https://www.npmjs.com/package/react-polymorphed
+// @ts-expect-error
 const Text: TextPolymorphicComponent = forwardRef(_Text);
 export { Text };

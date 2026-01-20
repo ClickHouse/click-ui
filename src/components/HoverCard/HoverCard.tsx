@@ -3,6 +3,7 @@ import { Arrow, GenericPopoverMenuPanel } from "../GenericMenu";
 import { styled } from "styled-components";
 import { ReactNode } from "react";
 import PopoverArrow from "../icons/PopoverArrow";
+import { CSSPropertiesWithVars } from "../types";
 
 export const HoverCard = ({ children, ...props }: RadixHoverCard.HoverCardProps) => {
   return <RadixHoverCard.Root {...props}>{children}</RadixHoverCard.Root>;
@@ -30,6 +31,7 @@ interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
   container?: HTMLElement | null;
   /** The content to display in the hover card */
   children: ReactNode;
+  style?: CSSPropertiesWithVars;
 }
 
 const HoverCardContent = ({
