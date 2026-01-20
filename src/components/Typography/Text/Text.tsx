@@ -46,7 +46,7 @@ const _Text = <T extends ElementType = "p">(
     fillWidth,
     ...props
   }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  ref?: ComponentPropsWithRef<T>["ref"]
 ) => (
   <CuiText
     as={component ?? "p"}
@@ -80,10 +80,6 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
-// TODO: There's forwardRef issue related to polymorphism
-// check what's causing the issue or to look for a better solution
-// https://www.tsteele.dev/posts/react-polymorphic-forwardref
-// https://www.npmjs.com/package/react-polymorphed
-// @ts-expect-error
 const Text: TextPolymorphicComponent = forwardRef(_Text);
 export { Text };
+
