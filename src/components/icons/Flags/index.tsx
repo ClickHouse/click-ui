@@ -22,7 +22,6 @@ import { SvgImageElement } from "@/components/commonElement";
 import Switzerland from "@/components/icons/Flags/Switzerland.tsx";
 import HongKong from "./HongKong";
 import Indonesia from "./Indonesia";
-import { CSSPropertiesWithVars } from "@/components/types";
 
 export type FlagName =
   | "ae"
@@ -50,7 +49,6 @@ export type FlagName =
 export interface FlagProps extends Omit<SVGAttributes<SVGElement>, "size"> {
   name: FlagName;
   size?: IconSize;
-  style?: CSSPropertiesWithVars;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

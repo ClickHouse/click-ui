@@ -2,7 +2,7 @@ import * as RadixPopover from "@radix-ui/react-popover";
 import { Arrow, GenericMenuPanel } from "../GenericMenu";
 import { styled } from "styled-components";
 import { ReactNode } from "react";
-import { CSSPropertiesWithVars, Icon } from "@/components";
+import { Icon } from "@/components";
 import { EmptyButton } from "../commonElement";
 import PopoverArrow from "../icons/PopoverArrow";
 
@@ -47,7 +47,6 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
   forceMount?: true;
   /** Custom container element for the popover portal */
   container?: HTMLElement | null;
-  style?: CSSPropertiesWithVars;
 }
 
 const MenuPanel = styled(GenericMenuPanel)<{ $showClose?: boolean }>`

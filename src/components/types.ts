@@ -1,5 +1,3 @@
-import { CSSProperties } from "react";
-
 import { TooltipProps } from "./Tooltip/Tooltip";
 import { TitleProps } from "./Typography/Title/Title";
 import { TextProps } from "./Typography/Text/Text";
@@ -110,9 +108,3 @@ export type { TabsProps };
 export type { TextProps };
 export type { TitleProps };
 export type { TooltipProps };
-
-// Borrowed from styled-components which doesn't export it
-// TODO: On future iterations this can be removed from component custom types, e.g. remove style as CSSPRopertiesWithVars
-export type CSSPropertiesWithVars = CSSProperties & {
-  [key: `--${string}`]: string | number | undefined;
-};

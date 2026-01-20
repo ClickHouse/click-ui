@@ -1,6 +1,5 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { styled } from "styled-components";
-import { CSSPropertiesWithVars } from "../types";
 
 type ButtonGroupType = "default" | "borderless";
 
@@ -28,7 +27,6 @@ export interface ButtonGroupProps extends Omit<
   fillWidth?: boolean;
   /** The style type of the button group */
   type?: ButtonGroupType;
-  style?: CSSPropertiesWithVars;
 }
 
 export const ButtonGroup = ({

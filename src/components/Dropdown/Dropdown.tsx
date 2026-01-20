@@ -7,8 +7,6 @@ import IconWrapper from "../IconWrapper/IconWrapper";
 import { HorizontalDirection, IconName } from "../types";
 import { Icon } from "../Icon/Icon";
 
-import { CSSPropertiesWithVars  } from "../types";
-
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
@@ -29,16 +27,8 @@ interface MainDropdownProps {
   sub?: never;
 }
 
-interface StyledDropdownSubTriggerProps extends DropdownMenu.DropdownMenuSubTriggerProps {
-  style?: CSSPropertiesWithVars;
-}
-
-interface StyledDropdownTriggerProps extends DropdownMenu.DropdownMenuTriggerProps {
-  style?: CSSPropertiesWithVars;
-}
-
-type DropdownSubTriggerProps = StyledDropdownSubTriggerProps & SubDropdownProps;
-type DropdownTriggerProps = StyledDropdownTriggerProps & MainDropdownProps;
+type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps & SubDropdownProps;
+type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
 const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
@@ -89,12 +79,10 @@ export type ArrowProps = {
 };
 
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
-  style?: CSSPropertiesWithVars;
   children?: ReactNode;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
-  style?: CSSPropertiesWithVars;
   children?: ReactNode;
 }
 
@@ -177,7 +165,6 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
   type?: "default" | "danger";
-  style?: CSSPropertiesWithVars;
 }
 
 export type { DropdownItemProps };

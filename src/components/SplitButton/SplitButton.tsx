@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Icon, IconName, Dropdown, HorizontalDirection, CSSPropertiesWithVars } from "@/components";
+import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
 import { BaseButton } from "../commonElement";
 import IconWrapper from "../IconWrapper/IconWrapper";
 
@@ -13,8 +13,7 @@ type MenuItem = {
   label: ReactNode;
   type?: "item";
   items?: never;
-  style?: CSSPropertiesWithVars;
-} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect" | "style">;
+} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect">;
 
 type MenuGroup = {
   icon?: never;
@@ -22,13 +21,11 @@ type MenuGroup = {
   label?: never;
   type: "group";
   items: Array<MenuItem | SubMenu>;
-  style?: CSSPropertiesWithVars;
 };
 
 type SubMenu = Omit<MenuItem, "type" | "items"> & {
   items: Array<MenuGroup | MenuItem>;
   type: "sub-menu";
-  style?: CSSPropertiesWithVars;
 };
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
@@ -49,7 +46,6 @@ export interface SplitButtonProps
   icon?: IconName;
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
-  style?: CSSPropertiesWithVars;
 }
 
 export const SplitButton = ({

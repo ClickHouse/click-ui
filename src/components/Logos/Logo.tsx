@@ -5,7 +5,6 @@ import LogosDark from "./LogosDark";
 import { IconSize } from "@/components/Icon/types";
 import { LogoName } from "./types";
 import { SvgImageElement } from "../commonElement";
-import { CSSPropertiesWithVars } from "../types";
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
   /** The name of the logo to display */
@@ -14,7 +13,6 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
   theme?: "light" | "dark";
   /** The size of the logo */
   size?: IconSize;
-  style?: CSSPropertiesWithVars;
 }
 
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {

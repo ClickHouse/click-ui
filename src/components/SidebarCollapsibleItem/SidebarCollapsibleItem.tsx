@@ -4,8 +4,6 @@ import { HorizontalDirection, IconName } from "@/components";
 import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
 
-import { CSSPropertiesWithVars } from "@/components/types";
-
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */
   label: ReactNode;
@@ -27,7 +25,6 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   level?: number;
   /** The sidebar style type */
   type?: "main" | "sqlSidebar";
-  style?: CSSPropertiesWithVars;
 }
 
 const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItemProps>(

@@ -82,4 +82,3 @@ _Text.displayName = "Text";
 
 const Text: TextPolymorphicComponent = forwardRef(_Text);
 export { Text };
-
