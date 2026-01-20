@@ -667,7 +667,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8"
     "@typescript-eslint/parser": "npm:^8"
     "@vitejs/plugin-react": "npm:^5.1.2"
-    ajv: "npm:^8.17.1"
     babel-plugin-styled-components: "npm:^2.1.4"
     chromatic: "npm:^13.3.4"
     date-fns: "npm:4.1.0"
@@ -4278,7 +4277,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0, ajv@npm:^8.17.1":
+"ajv@npm:^8.0.0":
   version: 8.17.1
   resolution: "ajv@npm:8.17.1"
   dependencies:
