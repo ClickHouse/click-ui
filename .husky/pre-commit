@@ -1,0 +1,30 @@
+#!/bin/bash
+
+echo "🚑 Health check, please be patient..."
+echo
+
+if yarn test; then
+  echo "✅ Tests passed!"
+else
+  echo "👹 Oops, tests failed! Fix it before committing, please!"
+  exit 1
+fi
+
+if yarn prettier:check; then
+  echo "✅ Code format checked!"
+else
+  echo "⚠️ WARNING: Incorrect code format, fix it before committing, please!"
+  echo "💡 Use the command yarn prettify"
+  exit 1
+fi
+
+if yarn lint; then
+  echo "✅ Linter check is good!"
+else
+  echo "⚠️ WARNING: Linter found issues, fix them before committing, please!"
+  echo "💡 Use the command yarn lint:fix"
+  exit 1
+fi
+
+echo "👍 Health check completed."
+echo
