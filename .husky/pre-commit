@@ -26,5 +26,13 @@ else
   exit 1
 fi
 
+if yarn changeset:verify; then
+  echo "✅ Changeset file's included!"
+else
+  echo "⚠️ WARNING: You must include a changeset!"
+  echo "💡 Use the command yarn changeset:add"
+  exit 1
+fi
+
 echo "👍 Health check completed."
 echo
