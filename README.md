@@ -146,6 +146,16 @@ function App() {
 export default App
 ```
 
+## Changeset
+
+Manage the versioning of changelog entries.
+
+Declare an intent to release by executing the command and answering the wizard's questions:
+
+```sh
+yarn changeset:add
+```
+
 ## Releases and Versions
 
 New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
