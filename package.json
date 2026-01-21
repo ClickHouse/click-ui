@@ -37,7 +37,7 @@
     "build:bundled": "vite build -- bundled",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
-    "chromatic": "npx chromatic",
+    "chromatic": "yarn dlx chromatic",
     "dev": "vite",
     "generate-tokens": "node build-tokens.js && prettier --write \"src/theme/tokens/*.ts\" --config .prettierrc",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
