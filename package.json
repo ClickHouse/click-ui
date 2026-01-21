@@ -41,6 +41,7 @@
     "dev": "vite",
     "generate-tokens": "node build-tokens.js && prettier --write \"src/theme/tokens/*.ts\" --config .prettierrc",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --report-unused-disable-directives --max-warnings 0 --fix",
     "prettify": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
     "preview": "vite preview",
@@ -48,7 +49,8 @@
     "storybook": "storybook dev -p 6006",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
-    "watch": "vitest --watch"
+    "watch": "vitest --watch",
+    "prepare": "husky"
   },
   "dependencies": {
     "@h6s/calendar": "2.0.1",
@@ -105,6 +107,7 @@
     "eslint-plugin-react-refresh": "0.4.7",
     "eslint-plugin-storybook": "^10.1.10",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
     "jsdom": "^24.0.0",
     "prettier": "3.7.4",
     "prop-types": "^15.8.1",
