@@ -163,7 +163,7 @@ Make good use of this simple workflow to help us release new package versions mo
 
 When contributing, declare an intent or describe the changes you're making or adding to a release by executing the `changeset:add` command.
 
-The wizard will ask a few questions and generate an changelog entry for you:
+The wizard will ask a few questions and generate a changelog entry for you:
 
 ```sh
 yarn changeset:add
