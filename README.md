@@ -1,6 +1,69 @@
+<p align="center">
+  <a href="https://clickhouse.com" target="_blank">
+    <img
+      alt="Clickhouse logo"
+      src="./.repo/images/banner.jpg?202601211122"
+    />
+  </a>
+</p>
+
 # Click UI
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://conventionalcommits.org)
+
+Click UI is the ClickHouse design system and component library. Our aim with Click UI is to provide an accessible, theme-able, modern, and attractive interface with which to experience the speed and power of ClickHouse.
+
 You can find the official docs for the Click UI design system and component library at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
+
+## Requirements
+
+- Nodejs (>= 22.12.x) as runtime
+- Yarn (>= 4.5.3) for development, any other package manager in a host project
+
+## Development
+
+The project uses yarn package manager for development.
+
+After cloning the repository change to the work directory and install the dependencies:
+
+```sh
+yarn
+```
+
+### Generating design tokens
+
+Tokens are provided by a style directionary sourced from [tokens-studio](https://tokens.studio/).
+
+It's expected to have theme tokens provided externally, e.g. Figma tokens-studio output is stored in the repository and a PR's opened. The assets are stored in the directory [./tokens/themes].
+
+Once [./tokens/themes] files are updated, we must regenerate the tokens:
+
+```sh
+yarn generate-tokens
+```
+
+Learn more about tokens-studio [here](https://documentation.tokens.studio/).
+
+### Development server
+
+To run the Click UI development execute the command:
+
+```sh
+yarn dev
+```
+
+It'll default to the location [http://localhost:5173](http://localhost:5173), if port available.
+
+### Storybook
+
+To run Storybook locally run:
+
+```sh
+yarn storybook
+
+```
+
+It'll default to the location [http://localhost:6006](http://localhost:6006), if port available.
 
 ## Using Click UI in an external app
 
@@ -39,16 +102,6 @@ function App() {
 
 export default App
 ```
-
-## To develop this library locally 🚀
-
-1. Clone this repo, cd into the `click-ui` directory
-2. To install dependencies, run `npm i`
-3. To build the latest styles, run `npm run generate-tokens`
-4. To run ClickUI locally, run `npm run dev` and navigate to http://localhost:5173
-5. To run Storybook locally, run `npm run storybook` and navigate to http://localhost:6006
-
-Enjoy!
 
 ## Releases and Versions
 
