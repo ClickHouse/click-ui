@@ -15,6 +15,18 @@ Click UI is the ClickHouse design system and component library. Our aim with Cli
 
 You can find the official docs for the Click UI design system and component library at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
+## Overview
+
+* [Requirements](#requirements)
+* [Development](#development)
+  - [Generating design tokens](#generating-design-tokens)
+  - [Local development server](#local-development-server)
+* [Tests](#Tests)
+* [Storybook](#storybook)
+  - [Stories development server](#stories-development-server)
+  - [Public static site](#public-static-site)
+* [Releases and Versions](#releases-and-versions)
+
 ## Requirements
 
 - Nodejs (>= 22.12.x) as runtime
@@ -44,7 +56,7 @@ yarn generate-tokens
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
-### Development server
+### Local development server
 
 To run the Click UI development execute the command:
 
@@ -54,16 +66,47 @@ yarn dev
 
 It'll default to the location [http://localhost:5173](http://localhost:5173), if port available.
 
-### Storybook
+## Tests
 
-To run Storybook locally run:
+The package uses [vitest](https://vitest.dev/) and [react testing library](https://testing-library.com) for tests, e.g. functional tests.
+
+```sh
+yarn test
+```
+
+## Storybook
+
+The component library provides a collection of ready-to-use components. We use [Storybook](#storybook) to showcase and document our components.
+
+### Stories development server
+
+Start the storybook development server:
 
 ```sh
 yarn storybook
-
 ```
 
 It'll default to the location [http://localhost:6006](http://localhost:6006), if port available.
+
+### Build static site
+
+To build a static version:
+
+```sh
+yarn storybook:build
+```
+
+Once built, you can serve the static files by:
+
+```sh
+yarn storybook:serve
+```
+
+### Public static version
+
+The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
+
+Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Using Click UI in an external app
 
