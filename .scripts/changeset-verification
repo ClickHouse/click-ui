@@ -1,0 +1,19 @@
+#!/bin/bash
+
+changesetArtifactsRegex="\.changeset/.*\.md$"
+
+pendingChangesetList=$(find .changeset -type f -name "*.md" ! -name "README.md")
+
+if [[ -n "$pendingChangesetList" ]]; then
+  echo "⚠️ There are pending changeset files:"
+  echo "$pendingChangesetList"
+fi
+
+if ! echo "$pendingChangesetList" | grep -qE "$changesetArtifactsRegex"; then
+  echo "👹 Oops! Couldn't locate any changeset. Did you forget to include one?"
+  echo "💡 Run the command yarn changeset:add"
+
+  exit 1
+fi
+
+echo "✅ Changeset included!"

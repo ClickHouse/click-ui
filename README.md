@@ -146,6 +146,52 @@ function App() {
 export default App
 ```
 
+## Changeset
+
+Learn to manage the versioning of changelog entries.
+
+The following is a brief description of available commands to allow a person making a contribution make key decisions about their changes.
+
+It'll generate a changeset, which is effectively two key bits of information:
+
+- A version type which follows [semver](https://semver.org/)
+- Change information placed in a changelog
+
+Make good use of this simple workflow to help us release new package versions more confidently.
+
+### Add a new changeset
+
+When contributing, declare an intent or describe the changes you're making or adding to a release by executing the `changeset:add` command.
+
+The wizard will ask a few questions and generate a changelog entry for you:
+
+```sh
+yarn changeset:add
+```
+
+The changesets tool keeps track of all declared changes in the `.changeset` directory.
+
+Once completed, you must commit the changeset!
+
+### Checking the changeset status
+
+To check if your branch contains a changeset:
+
+```sh
+yarn changeset:status
+```
+
+### Create a new version and changelogs
+
+To consume all changesets, and update to the most appropriate semver version and write a friendly changelog based on those changesets, the following command is available:
+
+> [!IMPORTANT]
+> Consuming changesets is done automatically in the CI/CD environment. For this reason, you don't have to execute the command, as a contributor your single concern should be adding changesets to any relevant changes.
+
+```sh
+yarn changeset:version
+```
+
 ## Releases and Versions
 
 New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
