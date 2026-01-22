@@ -1,4 +1,5 @@
 name: publish
+
 on:
   release:
     types: [published]
@@ -13,6 +14,10 @@ on:
         required: false
         default: 'main'
         type: string
+
+env:
+  HUSKY: 0
+
 jobs:
   build:
     runs-on: ubuntu-latest
