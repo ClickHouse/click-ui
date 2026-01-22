@@ -15,6 +15,8 @@ import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Container } from "@/components/Container/Container";
 import { TextSize, TextWeight } from "../commonTypes";
 
+import { formatTimezone } from "@/utils/date";
+
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
@@ -89,17 +91,6 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
       .replace("pm", "p.m.");
   }
   return date.format(formatForPastYear).replace("am", "a.m.").replace("pm", "p.m.");
-};
-
-const formatTimezone = (date: Dayjs, timezone?: string): string => {
-  return (
-    new Intl.DateTimeFormat(undefined, {
-      timeZone: timezone,
-      timeZoneName: "short",
-    })
-      .formatToParts(date.toDate())
-      .find(part => part.type === "timeZoneName")?.value ?? date.format("z")
-  );
 };
 
 export type ArrowPosition = "top" | "right" | "left" | "bottom";
