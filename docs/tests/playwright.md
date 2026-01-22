@@ -91,6 +91,18 @@ To review test reports as HTML run:
 yarn test:visual:report
 ```
 
+### Configuration
+
+The Playwright configuration file contains default configuration values, which you can extend, modify or personalize.
+
+For example, you can modify the default number of workers:
+
+```sh
+  ...
+
+  workers: process.env.CI ? 4 : undefined,
+```
+
 ## Learn more
 
 - [Test snapshots](https://playwright.dev/docs/test-snapshots)
