@@ -808,9 +808,6 @@ export const MultiSelectCheckboxItem = forwardRef<
 
 MultiSelectCheckboxItem.displayName = "Select.Item";
 
-// TODO: There might be several cases where
-// forwardRef is used by author failed to pass ref
-// which will cause "forwardRef render functions accept exactly two parameters: props and ref. Did you forget to use the ref parameter?"
 export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
   ({ children, ...props }, ref) => {
     return (
@@ -818,7 +815,6 @@ export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
         ref={ref}
         component={SelectItemDescriptionText}
         color="muted"
-        ref={ref}
         {...props}
       >
         {children}
