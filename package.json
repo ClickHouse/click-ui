@@ -41,7 +41,6 @@
     "changeset:status": "yarn changeset status",
     "changeset:version": "yarn changeset version",
     "changeset:verify": ".scripts/changeset-verification",
-    "chromatic": "yarn dlx chromatic",
     "dev": "vite",
     "generate-tokens": "node build-tokens.js && prettier --write \"src/theme/tokens/*.ts\" --config .prettierrc",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
@@ -54,6 +53,8 @@
     "storybook:build": "storybook build -o .storybook/out",
     "storybook:serve": "yarn dlx http-server .storybook/out",
     "test": "vitest",
+    "test:chromatic": "yarn dlx chromatic",
+    "test:visual": "playwright test",
     "typecheck": "tsc --noEmit",
     "watch": "vitest --watch",
     "prepare": "husky"
@@ -85,6 +86,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
+    "@playwright/test": "^1.57.0",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",
