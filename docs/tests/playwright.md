@@ -103,6 +103,20 @@ For example, you can modify the default number of workers:
   workers: process.env.CI ? 4 : undefined,
 ```
 
+### Migration to Chromatic
+
+> [!NOTE]
+> At time of writing, there aren't any test source files for Chromatic. Should assume that these are based on Storybook stories: available properties/parameters and tests are not curated.
+
+Playwright tests can be easily migrated to Chromatic as currently (per the example provided), both leverage Storybook stories. Meaning that you can start with Playwright for local development and transition to Chromatic as collaboration or any requirements demand.
+
+Here's a quick example of migration switch:
+
+```ts
+import { test, expect } from "@playwright/test"; 
+import { test, expect } from "@chromatic-com/playwright"; 
+```
+
 ## Learn more
 
 - [Test snapshots](https://playwright.dev/docs/test-snapshots)
