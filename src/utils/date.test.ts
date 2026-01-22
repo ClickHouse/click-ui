@@ -8,7 +8,9 @@ describe("formatTimezone", () => {
   });
 
   it("should show PST for December in America/Los_Angeles", () => {
-    expect(formatTimezone(dayjs("2024-12-24T11:40:00"), "America/Los_Angeles")).toBe("PST");
+    expect(formatTimezone(dayjs("2024-12-24T11:40:00"), "America/Los_Angeles")).toBe(
+      "PST"
+    );
   });
 
   it("should show EDT for July in America/New_York", () => {
@@ -16,7 +18,9 @@ describe("formatTimezone", () => {
   });
 
   it("should show PDT for July in America/Los_Angeles", () => {
-    expect(formatTimezone(dayjs("2024-07-04T11:40:00"), "America/Los_Angeles")).toBe("PDT");
+    expect(formatTimezone(dayjs("2024-07-04T11:40:00"), "America/Los_Angeles")).toBe(
+      "PDT"
+    );
   });
 
   it("should show GMT+1 for July in Europe/London", () => {
