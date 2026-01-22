@@ -103,6 +103,14 @@ Once ready, you can run tests by:
 yarn test:chromatic
 ```
 
+> [!NOTE]
+> Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
+> - Build status, e.g. uploading or testing
+> - Link to the cloud runner or dashboard
+> - Exit code
+
+If you need quicker iteration feedback, or more testing control during local development, read [here](./docs/tests/playwright.md)
+
 ## Storybook
 
 The component library provides a collection of ready-to-use components. We use [Storybook](#storybook) to showcase and document our components.
