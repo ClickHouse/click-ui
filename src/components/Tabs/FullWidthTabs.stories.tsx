@@ -21,7 +21,7 @@ type Story = StoryObj<typeof FullWidthTabs>;
 export const Playground: Story = {
   args: {
     defaultValue: "tab2",
-    onValueChange: s => console.log(s),
+    onValueChange: (s: string) => console.log(s),
     ariaLabel: "a full width simple tab component",
     children: (
       <div style={{ width: "700px" }}>

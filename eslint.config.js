@@ -8,7 +8,7 @@ import globals from "globals";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "node_modules/**", "build/**", "coverage/**"],
+    ignores: ["dist/**", "node_modules/**", "build/**", "coverage/**", "**/*.d.ts"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -36,7 +36,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      curly: ['error', 'all'],
+      curly: ["error", "all"],
       "react-refresh/only-export-components": "warn",
       "no-multiple-empty-lines": "error",
       quotes: ["error", "double", { avoidEscape: true }],
