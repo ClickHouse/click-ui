@@ -125,7 +125,7 @@ describe("Dialog Component", () => {
   it("fails to render in case you provide both children and message props", () => {
     const children = <div>test</div>;
     const message = "this is a test message";
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     expect(() => renderDialog({ children, message, open: true })).toThrowError(
       "You can't pass children and message props at the same time"
