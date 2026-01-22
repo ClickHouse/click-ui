@@ -55,6 +55,9 @@
     "test": "vitest",
     "test:chromatic": "yarn dlx chromatic",
     "test:visual": "playwright test",
+    "test:visual:ui": "playwright test --ui",
+    "test:visual:update": "playwright test --update-snapshots",
+    "test:visual:report": "playwright show-report",
     "typecheck": "tsc --noEmit",
     "watch": "vitest --watch",
     "prepare": "husky"
