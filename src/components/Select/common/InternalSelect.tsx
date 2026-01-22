@@ -809,9 +809,10 @@ export const MultiSelectCheckboxItem = forwardRef<
 MultiSelectCheckboxItem.displayName = "Select.Item";
 
 export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
-  ({ children, ...props }) => {
+  ({ children, ...props }, ref) => {
     return (
       <Text
+        ref={ref}
         component={SelectItemDescriptionText}
         color="muted"
         {...props}
