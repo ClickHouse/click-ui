@@ -815,6 +815,7 @@ export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
   ({ children, ...props }, ref) => {
     return (
       <Text
+        ref={ref}
         component={SelectItemDescriptionText}
         color="muted"
         ref={ref}
