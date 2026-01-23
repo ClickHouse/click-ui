@@ -23,9 +23,10 @@ const buildOptions: BuildOptions = {
   },
   rollupOptions: {
     output: {
-      // preserveModules: true,
-      // preserveModulesRoot: "src",
+      preserveModules: true,
+      preserveModulesRoot: "src",
       entryFileNames: "[name].js",
+      chunkFileNames: "[name].js",
       banner: chunk => {
         if (chunk.name === "index") {
           return `'use client';`;
