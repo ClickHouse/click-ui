@@ -233,3 +233,12 @@
   gap: 10px;
   padding: 10px 0;
 }
+
+/* Global body styles from index.css */
+:global(body) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
