@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import dts from "vite-plugin-dts";
 import { glob } from "glob";
+import { resolveTsconfigPathsToRelative } from "./vite/plugins/resolve-tsconfig-paths-to-relative";
 
 const external = (id: string) => {
   if (id === "react" || id.startsWith("react/")) return true;
@@ -72,70 +73,7 @@ const viteConfig = defineConfig({
       include: ["src/"],
       exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     }),
-    {
-      name: "resolve-tsconfig-paths-to-relative",
-      enforce: "post",
-      apply: "build",
-      generateBundle(options, bundle) {
-        for (const fileName in bundle) {
-          const chunk = bundle[fileName];
-
-          if (chunk.type === "chunk" && chunk.code) {
-            // fileName is like: "components/Select/common/InternalSelect.js"
-            // We need to calculate relative path from this file to the target
-
-            chunk.code = chunk.code.replace(
-              /(from|import)\s+['"]@\/([^'"]+)['"]/g,
-              (match, keyword, importPath) => {
-                // Get the directory of the current file (relative to output root)
-                const currentFileDir = path.dirname(fileName);
-
-                // The target is relative to output root
-                const targetPath = importPath;
-
-                // Calculate relative path from current file to target
-                let relativePath = path.relative(currentFileDir, targetPath);
-
-                // Handle empty path (same directory)
-                if (relativePath === "") {
-                  // Extract the file name from importPath
-                  const targetFileName = path.basename(importPath);
-                  relativePath = "./" + targetFileName;
-                } else {
-                  // Normalize path separators for consistency
-                  relativePath = relativePath.split(path.sep).join("/");
-
-                  // Ensure it starts with ./ or ../
-                  if (!relativePath.startsWith(".")) {
-                    relativePath = "./" + relativePath;
-                  }
-                }
-
-                // Check if this path corresponds to a directory in the bundle
-                // by looking for an index.js file at that location
-                const potentialIndexPath = targetPath + "/index.js";
-                const hasIndexFile = Object.keys(bundle).some(
-                  f => f === potentialIndexPath
-                );
-
-                if (hasIndexFile) {
-                  // It's a directory with an index file, don't add .js
-                  // The path should point to the directory, and bundlers will resolve to index.js
-                  // We don't need to do anything special
-                } else {
-                  // Add .js extension if not already present and not a directory index
-                  if (!relativePath.endsWith(".js") && !relativePath.endsWith("/")) {
-                    relativePath += ".js";
-                  }
-                }
-
-                return `${keyword} '${relativePath}'`;
-              }
-            );
-          }
-        }
-      },
-    },
+    resolveTsconfigPathsToRelative(),
   ],
   css: {
     preprocessorOptions: {
