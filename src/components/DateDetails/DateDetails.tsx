@@ -159,8 +159,9 @@ export const DateDetails = ({
               {formatDateDetails(dayjsDate)} (
               {formatTimezone({
                 date: dayjsDate,
-                timezone: dayjs.tz.guess()
-              })})
+                timezone: dayjs.tz.guess(),
+              })}
+              )
             </Text>
           </Container>
 
@@ -179,7 +180,8 @@ export const DateDetails = ({
                   {formatTimezone({
                     date: systemTime,
                     timezone: systemTimeZone,
-                  })})
+                  })}
+                  )
                 </Text>
               </Container>
             </>
