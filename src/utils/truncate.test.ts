@@ -1,5 +1,5 @@
 import { expect } from "vitest";
-import { truncateFilename } from "@/utils/truncate.ts";
+import { truncateFilename } from "@/utils/truncate";
 
 describe("truncateFilename", () => {
   it("dotfile (short)", () => {
