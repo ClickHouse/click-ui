@@ -570,7 +570,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.5.2"
     "@tokens-studio/sd-transforms": "npm:^1.2.0"
     "@types/eslint-plugin-react-refresh": "npm:^0.4.0"
-    "@types/lodash-es": "npm:^4.17.7"
+    "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^24.10.1"
     "@types/react": "npm:18.3.1"
     "@types/react-dom": "npm:18.3.1"
@@ -583,7 +583,7 @@ __metadata:
     babel-plugin-styled-components: "npm:^2.1.4"
     chromatic: "npm:^13.3.4"
     date-fns: "npm:4.1.0"
-    dayjs: "npm:1.11.13"
+    dayjs: "npm:1.11.19"
     eslint: "npm:^9"
     eslint-import-resolver-typescript: "npm:^4.4.4"
     eslint-plugin-import: "npm:^2.32.0"
@@ -594,7 +594,7 @@ __metadata:
     globals: "npm:^16.5.0"
     husky: "npm:^9.1.7"
     jsdom: "npm:^24.0.0"
-    lodash: "npm:^4.17.21"
+    lodash-es: "npm:^4.17.23"
     prettier: "npm:3.7.4"
     prop-types: "npm:^15.8.1"
     react: "npm:18.3.1"
@@ -618,7 +618,6 @@ __metadata:
     vitest: "npm:^2.1.8"
     watch: "npm:^1.0.2"
   peerDependencies:
-    dayjs: ^1.11.13
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
     styled-components: ^6.1.11
@@ -3635,7 +3634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:^4.17.7":
+"@types/lodash-es@npm:^4.17.12":
   version: 4.17.12
   resolution: "@types/lodash-es@npm:4.17.12"
   dependencies:
@@ -5155,10 +5154,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.13":
-  version: 1.11.13
-  resolution: "dayjs@npm:1.11.13"
-  checksum: 10c0/a3caf6ac8363c7dade9d1ee797848ddcf25c1ace68d9fe8678ecf8ba0675825430de5d793672ec87b24a69bf04a1544b176547b2539982275d5542a7955f35b7
+"dayjs@npm:1.11.19":
+  version: 1.11.19
+  resolution: "dayjs@npm:1.11.19"
+  checksum: 10c0/7d8a6074a343f821f81ea284d700bd34ea6c7abbe8d93bce7aba818948957c1b7f56131702e5e890a5622cdfc05dcebe8aed0b8313bdc6838a594d7846b0b000
   languageName: node
   linkType: hard
 
@@ -7380,6 +7379,13 @@ __metadata:
   dependencies:
     p-locate: "npm:^5.0.0"
   checksum: 10c0/d3972ab70dfe58ce620e64265f90162d247e87159b6126b01314dd67be43d50e96a50b517bce2d9452a79409c7614054c277b5232377de50416564a77ac7aad3
+  languageName: node
+  linkType: hard
+
+"lodash-es@npm:^4.17.23":
+  version: 4.17.23
+  resolution: "lodash-es@npm:4.17.23"
+  checksum: 10c0/3150fb6660c14c7a6b5f23bd11597d884b140c0e862a17fdb415aaa5ef7741523182904a6b7929f04e5f60a11edb5a79499eb448734381c99ffb3c4734beeddd
   languageName: node
   linkType: hard
 

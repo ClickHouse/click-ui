@@ -6,21 +6,21 @@ import useColorStyle from "./useColorStyle";
 import { EmptyButton } from "../commonElement";
 
 // @ts-expect-error - no types for deep ESM import
-import sql from "react-syntax-highlighter/dist/esm/languages/hljs/sql.js";
-// @ts-expect-error - no types for deep ESM import
-import bash from "react-syntax-highlighter/dist/esm/languages/hljs/bash.js";
-// @ts-expect-error - no types for deep ESM import
-import json from "react-syntax-highlighter/dist/esm/languages/hljs/json.js";
-// @ts-expect-error - no types for deep ESM import
-import tsx from "react-syntax-highlighter/dist/esm/languages/hljs/typescript.js";
-// @ts-expect-error - no types for deep ESM import
-import plaintext from "react-syntax-highlighter/dist/esm/languages/hljs/plaintext.js";
+import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql.js";
+// @ts-expect-error - no types for deep cjs import
+import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash.js";
+// @ts-expect-error - no types for deep cjs import
+import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json.js";
+// @ts-expect-error - no types for deep cjs import
+import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js";
+// @ts-expect-error - no types for deep cjs import
+import plaintext from "react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js";
 
-SyntaxHighlighter.registerLanguage("sql", sql);
-SyntaxHighlighter.registerLanguage("bash", bash);
-SyntaxHighlighter.registerLanguage("json", json);
-SyntaxHighlighter.registerLanguage("tsx", tsx);
-SyntaxHighlighter.registerLanguage("plaintext", plaintext);
+SyntaxHighlighter.registerLanguage("sql", sql.default || sql);
+SyntaxHighlighter.registerLanguage("bash", bash.default || bash);
+SyntaxHighlighter.registerLanguage("json", json.default || json);
+SyntaxHighlighter.registerLanguage("tsx", tsx.default || tsx);
+SyntaxHighlighter.registerLanguage("plaintext", plaintext.default || plaintext);
 
 export type CodeThemeType = "light" | "dark";
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {

@@ -22,8 +22,8 @@ const buildOptions: BuildOptions = {
   },
   rollupOptions: {
     output: {
-      preserveModules: true,
-      preserveModulesRoot: "src",
+      // preserveModules: true,
+      // preserveModulesRoot: "src",
       entryFileNames: "[name].js",
       banner: chunk => {
         if (chunk.name === "index") {
@@ -33,12 +33,15 @@ const buildOptions: BuildOptions = {
       },
       interop: "auto",
     },
-    plugins: [],
   },
   sourcemap: true,
 };
 
 const viteConfig = defineConfig({
+  publicDir: false,
+  // resolve: {
+  //   extensions: [".ts", ".tsx", ".js", ".jsx"],
+  // },
   plugins: [
     react({
       babel: {
@@ -52,15 +55,21 @@ const viteConfig = defineConfig({
       },
     }),
     dts({
-      include: ["src/"],
-      exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
+      include: ["src/**/*"],
+      exclude: [
+        "**/*.stories.*",
+        "**/*.test.*",
+        "**/*.mdx",
+        "src/App.tsx",
+        "src/main.tsx",
+        "src/examples/**",
+        "src/assets/**",
+        "src/stories/**",
+      ],
     }),
     externalizeDeps({
       deps: true,
       devDeps: false,
-      // TODO: WIP still not working externally
-      // see https://paste.sh/X45tIloq#PRAy0JjdHKBZ0Ujq0hBsoSIH
-      except: [/^dayjs/],
       nodeBuiltins: true,
       optionalDeps: true,
       peerDeps: true,

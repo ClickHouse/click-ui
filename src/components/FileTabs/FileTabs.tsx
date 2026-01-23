@@ -14,13 +14,20 @@ import {
 import { styled } from "styled-components";
 import { Icon, IconButton } from "..";
 import { IconName } from "../Icon/types";
-import {
-  ItemInterface,
-  ReactSortable,
-  ReactSortableProps,
-  Sortable,
-  Store,
-} from "react-sortablejs";
+
+// TODO: Check if react-sortablejs has ESM version
+// import {
+//   ItemInterface,
+//   ReactSortable,
+//   ReactSortableProps,
+//   Sortable,
+//   Store,
+// } from "react-sortablejs";
+// import ReactSortableModule from "react-sortablejs";
+// const { ReactSortable, ItemInterface, Sortable, Store } = ReactSortableModule;
+import ReactSortableModule from "react-sortablejs/dist/index.js";
+import type { ItemInterface, Sortable, Store, ReactSortableProps } from "react-sortablejs";
+const { ReactSortable } = ReactSortableModule;
 
 export type FileTabStatusType =
   | "default"
