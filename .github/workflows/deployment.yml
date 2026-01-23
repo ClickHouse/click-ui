@@ -6,6 +6,9 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  HUSKY: 0
+
 # List of jobs
 jobs:
   unit-tests:
