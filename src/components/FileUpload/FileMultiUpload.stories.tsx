@@ -1,9 +1,6 @@
 import { Meta, StoryObj, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
-import {
-  FileMultiUpload,
-  FileUploadItem,
-} from "@/components/FileUpload/FileMultiUpload";
+import { FileMultiUpload, FileUploadItem } from "@/components/FileUpload/FileMultiUpload";
 
 const meta: Meta<typeof FileMultiUpload> = {
   component: FileMultiUpload,
