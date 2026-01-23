@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   FileMultiUpload,
   FileUploadItem,
-} from "@/components/FileUpload/FileMultiUpload.tsx";
+} from "@/components/FileUpload/FileMultiUpload";
 
 const meta: Meta<typeof FileMultiUpload> = {
   component: FileMultiUpload,
