@@ -11,40 +11,45 @@ const srcDir = path.resolve(__dirname, "src").replace(/\\/g, "/");
 
 const buildOptions: BuildOptions = {
   target: "esnext",
-  // WARNING: Do not empty to preserve typescript artifacts
-  emptyOutDir: false,
-  // WARNING: This is an unbundled build
-  // Do not minify unbundled builds, let the consumer do it
-  // otherwise, tree shaking will fail, bundling, etc.
+  emptyOutDir: true,
+  // WARNING: Do not minify unbundled builds
+  // Consumer will perform a final minification of app
+  // Minifiers often modify var names and collapse logic
+  // which makes static analysis challenging
   minify: false,
   lib: {
     entry: path.resolve(__dirname, "src/index.ts"),
-    formats: ["es"],
-    fileName: () => `[name].js`,
   },
   rollupOptions: {
-    output: {
-      preserveModules: true,
-      preserveModulesRoot: "src",
-      entryFileNames: "[name].js",
-      chunkFileNames: "[name].js",
-      banner: chunk => {
-        if (chunk.name === "index") {
-          return `'use client';`;
-        }
-        return "";
+    output: [
+      {
+        format: "es",
+        dir: "dist/esm",
+        preserveModules: true,
+        preserveModulesRoot: "src",
+        entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
+        banner: chunk => (chunk.name === "index" ? `'use client';` : ""),
+        interop: "auto",
       },
-      interop: "auto",
-    },
+      {
+        format: "cjs",
+        dir: "dist/cjs",
+        preserveModules: true,
+        preserveModulesRoot: "src",
+        entryFileNames: "[name].cjs",
+        chunkFileNames: "[name].cjs",
+        banner: chunk => (chunk.name === "index" ? `'use client';` : ""),
+        interop: "auto",
+        exports: "named",
+      },
+    ],
   },
   sourcemap: true,
 };
 
 const viteConfig = defineConfig({
   publicDir: false,
-  // resolve: {
-  //   extensions: [".ts", ".tsx", ".js", ".jsx"],
-  // },
   plugins: [
     react({
       babel: {
@@ -58,6 +63,7 @@ const viteConfig = defineConfig({
       },
     }),
     dts({
+      outDir: "dist/types",
       include: ["src/**/*"],
       exclude: [
         "**/*.stories.*",

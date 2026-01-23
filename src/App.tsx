@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 
 import "@/styles/globals.css";
 
-// TODO: Cannot find module './App.module.css' or its corresponding type
 import styles from "./App.module.css";
 import { ThemeName } from "./theme";
 import { Accordion } from "@/components/Accordion/Accordion";
