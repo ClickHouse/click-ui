@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
-import { Badge, Icon, IconName } from "@/components";
+import { Badge } from "@/components/Badge/Badge";
+import { Icon } from "@/components/Icon/Icon";
+import type { IconName } from "@/components/Icon/types";
 import { Title } from "@/components/Typography/Title/Title";
 import { Text } from "@/components/Typography/Text/Text";
 import { IconSize } from "@/components/Icon/types";

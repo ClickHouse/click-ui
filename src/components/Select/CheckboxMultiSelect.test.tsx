@@ -4,7 +4,8 @@ import {
   queryByText as queryByTestingText,
   screen,
 } from "@testing-library/react";
-import { CheckboxMultiSelect, CheckboxMultiSelectProps } from "@/components";
+import { CheckboxMultiSelect } from "@/components/Select/CheckboxMultiSelect";
+import type { CheckboxMultiSelectProps } from "@/components/Select/CheckboxMultiSelect";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "./selectOptions";

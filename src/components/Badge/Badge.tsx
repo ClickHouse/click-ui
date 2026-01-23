@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { HorizontalDirection } from "@/components";
+import type { HorizontalDirection } from "@/components/types";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import { ImageName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";

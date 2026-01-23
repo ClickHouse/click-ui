@@ -1,6 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { styled } from "styled-components";
-import { HorizontalDirection, IconName } from "@/components";
+import type { HorizontalDirection } from "@/components/types";
+import type { IconName } from "@/components/Icon/types";
 import { IconWrapper } from "../Collapsible/IconWrapper";
 
 export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {

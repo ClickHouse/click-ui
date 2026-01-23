@@ -1,4 +1,5 @@
-import { ProgressBar, ProgressBarProps } from "@/components";
+import { ProgressBar } from "@/components/ProgressBar/ProgressBar";
+import type { ProgressBarProps } from "@/components/ProgressBar/ProgressBar";
 import { fireEvent } from "@testing-library/react";
 import { renderCUI } from "@/utils/test-utils";
 

@@ -6,7 +6,7 @@ import {
   ReactNode,
   forwardRef,
 } from "react";
-import { Orientation } from "@/components";
+import type { Orientation } from "@/components/types";
 
 type AlignItemsOptions = "start" | "center" | "end" | "stretch";
 export type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";

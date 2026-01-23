@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
-import { HorizontalDirection, IconName } from "@/components";
+import type { HorizontalDirection } from "@/components/types";
+import type { IconName } from "@/components/Icon/types";
 import { Container, GapOptions } from "@/components/Container/Container";
 import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
 import { Icon } from "@/components/Icon/Icon";

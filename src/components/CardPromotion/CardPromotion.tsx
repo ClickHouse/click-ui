@@ -1,6 +1,8 @@
 import { HTMLAttributes, useState } from "react";
 import { styled } from "styled-components";
-import { Icon, IconName, Text } from "@/components";
+import { Icon } from "@/components/Icon/Icon";
+import type { IconName } from "@/components/Icon/types";
+import { Text } from "@/components/Typography/Text/Text";
 
 export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
   /** The text label displayed in the promotion card */

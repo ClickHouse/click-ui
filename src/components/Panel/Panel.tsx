@@ -1,4 +1,5 @@
-import { CursorOptions, Orientation } from "@/components";
+import type { CursorOptions } from "@/components/cursorOptions";
+import type { Orientation } from "@/components/types";
 import { HTMLAttributes } from "react";
 import { styled } from "styled-components";
 

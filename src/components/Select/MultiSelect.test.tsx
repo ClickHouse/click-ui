@@ -3,7 +3,8 @@ import {
   fireEvent,
   queryByText as queryByTestingText,
 } from "@testing-library/react";
-import { MultiSelect, MultiSelectProps } from "@/components";
+import { MultiSelect } from "@/components/Select/MultiSelect";
+import type { MultiSelectProps } from "@/components/Select/MultiSelect";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "./selectOptions";
