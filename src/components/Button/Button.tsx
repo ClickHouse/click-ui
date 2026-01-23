@@ -1,4 +1,6 @@
-import { Icon, IconName } from "@/components";
+import { Icon } from "@/components/Icon/Icon";
+import { IconName } from "@/components/Icon/types";
+
 import { styled, keyframes } from "styled-components";
 import { BaseButton } from "../commonElement";
 import React from "react";

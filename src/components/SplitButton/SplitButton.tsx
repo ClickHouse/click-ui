@@ -1,9 +1,13 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
+import { Dropdown } from "@/components/Dropdown/Dropdown";
+import { HorizontalDirection } from "@/components/types";
 import { BaseButton } from "../commonElement";
 import IconWrapper from "../IconWrapper/IconWrapper";
+
+import { Icon } from "@/components/Icon/Icon";
+import { IconName } from "@/components/Icon/types";
 
 type ButtonType = "primary" | "secondary";
 

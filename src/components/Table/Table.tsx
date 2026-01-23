@@ -3,15 +3,13 @@ import { styled } from "styled-components";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
 
-import {
-  Checkbox,
-  CheckboxProps,
-  EllipsisContent,
-  HorizontalDirection,
-  Icon,
-  IconButton,
-  Text,
-} from "@/components";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+import { Text } from "@/components/Typography/Text/Text";
+import { HorizontalDirection } from "@/components/types";
+import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { CheckboxProps } from "@/components/types";
 
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;

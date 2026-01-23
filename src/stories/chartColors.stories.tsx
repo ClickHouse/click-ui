@@ -1,4 +1,6 @@
-import { Container, Text } from "@/components";
+import { Container } from "@/components/Container/Container";
+import { Text } from "@/components/Typography/Text/Text";
+
 import { styled, useTheme } from "styled-components";
 
 const ColorBox = styled(Container)<{ $color: string }>`

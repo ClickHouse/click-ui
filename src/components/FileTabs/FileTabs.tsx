@@ -12,7 +12,9 @@ import {
   useRef,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, IconButton } from "@/components";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+
 import { IconName } from "../Icon/types";
 
 // TODO: Check if react-sortablejs has ESM version

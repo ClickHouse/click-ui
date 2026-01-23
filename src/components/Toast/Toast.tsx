@@ -1,8 +1,15 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import * as RadixUIToast from "@radix-ui/react-toast";
-import { Button, ButtonProps, Icon, IconButton, IconName } from "@/components";
 import { keyframes, styled } from "styled-components";
 import { toastsEventEmitter } from "./toastEmitter";
+
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+import { IconName } from "@/components/Icon/types";
+
+import { ButtonProps } from "@/components/Button/Button"
+import { Button } from "@/components/Button/Button"
+
 
 export interface ToastContextProps {
   createToast: (toast: ToastProps, align?: ToastAlignment) => void;

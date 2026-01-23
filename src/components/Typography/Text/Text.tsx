@@ -80,5 +80,4 @@ const CuiText = styled.p<{
 
 _Text.displayName = "Text";
 
-const Text: TextPolymorphicComponent = forwardRef(_Text);
-export { Text };
+export const Text: TextPolymorphicComponent = forwardRef(_Text);

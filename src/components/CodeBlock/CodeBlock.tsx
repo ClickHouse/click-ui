@@ -1,6 +1,8 @@
 import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
-import { IconButton } from "@/components";
+
+import { IconButton } from "@/components/IconButton/IconButton";
+
 import { styled } from "styled-components";
 import useColorStyle from "./useColorStyle";
 import { EmptyButton } from "../commonElement";

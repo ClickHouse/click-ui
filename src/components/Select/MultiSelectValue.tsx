@@ -1,4 +1,4 @@
-import { Badge, BadgeProps } from "@/components";
+import { Badge, BadgeProps } from "@/components/Badge/Badge";
 import { DismissibleBadge, NonDismissibleBadge } from "@/components/Badge/Badge";
 import { MouseEvent, useEffect, useId, useState } from "react";
 // import { ItemInterface, ReactSortable } from "react-sortablejs";

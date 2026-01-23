@@ -2,49 +2,42 @@ import { useRef, useState } from "react";
 
 import "@/styles/globals.css";
 
+// TODO: Cannot find module './App.module.css' or its corresponding type
 import styles from "./App.module.css";
 import { ThemeName } from "./theme";
-import {
-  Accordion,
-  Alert,
-  Avatar,
-  Badge,
-  Button,
-  ButtonGroup,
-  CardSecondary,
-  Checkbox,
-  DangerAlert,
-  Icon,
-  IconButton,
-  InfoAlert,
-  SidebarCollapsibleItem,
-  SidebarNavigationItem,
-  Spacer,
-  SuccessAlert,
-  Switch,
-  Panel,
-  Tabs,
-  WarningAlert,
-  CardPrimary,
-  Flyout,
-  Select,
-  Text,
-  EllipsisContent,
-  Table,
-  TableRowType,
-  TableHeaderType,
-  Title,
-  Tooltip,
-  Container,
-  InlineCodeBlock,
-  GridContainer,
-  TextField,
-  Label,
-  createToast,
-  ToastProvider,
-  Toast,
-} from "@/components";
-import { ClickUIProvider }from "./theme";
+import { Accordion } from "@/components/Accordion/Accordion";
+import { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "@/components/Alert/Alert";
+import { Avatar } from "@/components/Avatar/Avatar";
+import { Badge } from "@/components/Badge/Badge";
+import { Button } from "@/components/Button/Button";
+import { ButtonGroup } from "@/components/ButtonGroup/ButtonGroup";
+import { CardSecondary } from "@/components/CardSecondary/CardSecondary";
+import { CardPrimary } from "@/components/CardPrimary/CardPrimary";
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+import { SidebarCollapsibleItem } from "@/components/SidebarCollapsibleItem/SidebarCollapsibleItem";
+import { SidebarNavigationItem } from "@/components/SidebarNavigationItem/SidebarNavigationItem";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { Switch } from "@/components/Switch/Switch";
+import { Panel } from "@/components/Panel/Panel";
+import { Tabs } from "@/components/Tabs/Tabs";
+import { Flyout } from "@/components/Flyout/Flyout";
+import { Select } from "@/components/Select/SingleSelect";
+import { Text } from "@/components/Typography/Text/Text";
+import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
+import { Table } from "@/components/Table/Table";
+import type { TableRowType, TableHeaderType } from "@/components/types";
+import { Title } from "@/components/Typography/Title/Title";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { Container } from "@/components/Container/Container";
+import { InlineCodeBlock } from "@/components/CodeBlock/InlineCodeBlock";
+import { GridContainer } from "@/components/GridContainer/GridContainer";
+import { TextField } from "@/components/Input/TextField";
+import { Label } from "@/components/Label/Label";
+import { createToast } from "@/components/Toast/toastEmitter";
+import { ToastProvider, Toast } from "@/components/Toast/Toast";
+import { ClickUIProvider } from "./theme";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";

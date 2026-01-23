@@ -23,17 +23,16 @@ import {
 } from "./types";
 import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { Portal } from "@radix-ui/react-popover";
-import {
-  Checkbox,
-  CheckboxVariants,
-  Container,
-  Icon,
-  IconButton,
-  Label,
-  Separator,
-  Text,
-  TextProps,
-} from "@/components";
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import type { CheckboxVariants } from "@/components/Checkbox/Checkbox";
+import { Container } from "@/components/Container/Container";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+import { Label } from "@/components/Label/Label";
+import {Separator }from "@/components/Separator/Separator";
+import { Text } from "@/components/Typography/Text/Text";
+import type { TextProps } from "@/components/Typography/Text/Text";
+
 import {
   SelectPopoverContent,
   SearchBar,
