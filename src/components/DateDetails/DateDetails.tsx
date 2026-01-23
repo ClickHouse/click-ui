@@ -8,11 +8,11 @@ import updateLocale from "dayjs/plugin/updateLocale";
 import utc from "dayjs/plugin/utc";
 import { styled } from "styled-components";
 
-import { Popover } from "@/components/Popover/Popover";
-import { Text } from "@/components/Typography/Text/Text";
-import { linkStyles, StyledLinkProps } from "@/components/Link/common";
-import { GridContainer } from "@/components/GridContainer/GridContainer";
-import { Container } from "@/components/Container/Container";
+import { Popover } from "../Popover/Popover";
+import { Text } from "../Typography/Text/Text";
+import { linkStyles, StyledLinkProps } from "../Link/common";
+import { GridContainer } from "../GridContainer/GridContainer";
+import { Container } from "../Container/Container";
 import { TextSize, TextWeight } from "../commonTypes";
 
 import { formatTimezone } from "@/utils/date";
@@ -157,7 +157,10 @@ export const DateDetails = ({
           <Container justifyContent="end">
             <Text size="sm">
               {formatDateDetails(dayjsDate)} (
-              {formatTimezone(dayjsDate, dayjs.tz.guess())})
+              {formatTimezone({
+                date: dayjsDate,
+                timezone: dayjs.tz.guess()
+              })})
             </Text>
           </Container>
 
@@ -173,7 +176,10 @@ export const DateDetails = ({
               <Container justifyContent="end">
                 <Text size="sm">
                   {formatDateDetails(systemTime, systemTimeZone)} (
-                  {formatTimezone(systemTime, systemTimeZone)})
+                  {formatTimezone({
+                    date: systemTime,
+                    timezone: systemTimeZone,
+                  })})
                 </Text>
               </Container>
             </>
