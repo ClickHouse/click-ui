@@ -7,7 +7,13 @@ export { GenericLabel } from "@/components/GenericLabel/GenericLabel";
 export { Dropdown } from "@/components/Dropdown/Dropdown";
 
 export { Accordion } from "@/components/Accordion/Accordion";
-export { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "@/components/Alert/Alert";
+export {
+  Alert,
+  DangerAlert,
+  InfoAlert,
+  WarningAlert,
+  SuccessAlert,
+} from "@/components/Alert/Alert";
 export { AutoComplete } from "@/components/AutoComplete/AutoComplete";
 export { Avatar } from "@/components/Avatar/Avatar";
 export { Badge } from "@/components/Badge/Badge";

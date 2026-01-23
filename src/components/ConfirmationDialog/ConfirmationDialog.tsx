@@ -1,6 +1,6 @@
 import { Container } from "@/components/Container/Container";
 import { Dialog } from "@/components/Dialog/Dialog";
-import {Separator }from "@/components/Separator/Separator";
+import { Separator } from "@/components/Separator/Separator";
 import { Text } from "@/components/Typography/Text/Text";
 import { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { styled } from "styled-components";

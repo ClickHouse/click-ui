@@ -18,7 +18,7 @@ import { CodeBlock } from "@/components/CodeBlock/CodeBlock";
 import { Container } from "@/components/Container/Container";
 import type { ContainerProps } from "@/components/Container/Container";
 import { Icon } from "@/components/Icon/Icon";
-import {Separator }from "@/components/Separator/Separator";
+import { Separator } from "@/components/Separator/Separator";
 import { Spacer } from "@/components/Spacer/Spacer";
 import { styled } from "styled-components";
 import { CrossButton } from "../commonElement";

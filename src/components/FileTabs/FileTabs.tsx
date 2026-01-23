@@ -28,7 +28,12 @@ import { IconName } from "../Icon/types";
 // import ReactSortableModule from "react-sortablejs";
 // const { ReactSortable, ItemInterface, Sortable, Store } = ReactSortableModule;
 import ReactSortableModule from "react-sortablejs/dist/index.js";
-import type { ItemInterface, Sortable, Store, ReactSortableProps } from "react-sortablejs";
+import type {
+  ItemInterface,
+  Sortable,
+  Store,
+  ReactSortableProps,
+} from "react-sortablejs";
 const { ReactSortable } = ReactSortableModule;
 
 export type FileTabStatusType =

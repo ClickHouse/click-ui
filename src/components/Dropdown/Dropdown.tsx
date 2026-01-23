@@ -3,9 +3,10 @@ import { ReactNode } from "react";
 import { styled } from "styled-components";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
-import IconWrapper from "../IconWrapper/IconWrapper";
-import { HorizontalDirection, IconName } from "../types";
-import { Icon } from "../Icon/Icon";
+import { IconWrapper } from "../IconWrapper/IconWrapper";
+import { HorizontalDirection } from "@/components/types";
+import { Icon } from "@/components/Icon/Icon";
+import type { IconName } from "@/components/Icon/types";
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />

@@ -6,7 +6,7 @@ import { Icon } from "@/components/Icon/Icon";
 import type { IconName } from "@/components/Icon/types";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
-import IconWrapper from "../IconWrapper/IconWrapper";
+import { IconWrapper } from "../IconWrapper/IconWrapper";
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />

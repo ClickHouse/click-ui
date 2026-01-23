@@ -7,9 +7,8 @@ import { Icon } from "@/components/Icon/Icon";
 import { IconButton } from "@/components/IconButton/IconButton";
 import { IconName } from "@/components/Icon/types";
 
-import { ButtonProps } from "@/components/Button/Button"
-import { Button } from "@/components/Button/Button"
-
+import { ButtonProps } from "@/components/Button/Button";
+import { Button } from "@/components/Button/Button";
 
 export interface ToastContextProps {
   createToast: (toast: ToastProps, align?: ToastAlignment) => void;

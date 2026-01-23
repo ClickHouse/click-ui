@@ -6,7 +6,13 @@ import "@/styles/globals.css";
 import styles from "./App.module.css";
 import { ThemeName } from "./theme";
 import { Accordion } from "@/components/Accordion/Accordion";
-import { Alert, DangerAlert, InfoAlert, WarningAlert, SuccessAlert } from "@/components/Alert/Alert";
+import {
+  Alert,
+  DangerAlert,
+  InfoAlert,
+  WarningAlert,
+  SuccessAlert,
+} from "@/components/Alert/Alert";
 import { Avatar } from "@/components/Avatar/Avatar";
 import { Badge } from "@/components/Badge/Badge";
 import { Button } from "@/components/Button/Button";

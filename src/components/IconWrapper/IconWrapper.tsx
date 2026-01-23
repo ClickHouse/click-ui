@@ -18,7 +18,7 @@ interface IconWrapperProps {
   gap?: GapOptions;
 }
 
-const IconWrapper = ({
+export const IconWrapper = ({
   icon,
   iconDir = "start",
   size = "sm",
@@ -61,4 +61,3 @@ const IconWrapper = ({
     </Container>
   );
 };
-export default IconWrapper;
