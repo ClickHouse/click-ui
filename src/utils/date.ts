@@ -1,7 +1,15 @@
 import { Dayjs } from "dayjs";
 
-export const formatTimezone = (date: Dayjs, timezone?: string): string =>
-  new Intl.DateTimeFormat("en-US", {
+export const formatTimezone = ({
+  date,
+  timezone,
+  locales = "en-US",
+}: {
+  date: Dayjs;
+  timezone?: string;
+  locales?: string;
+}): string =>
+  new Intl.DateTimeFormat(locales, {
     timeZone: timezone,
     timeZoneName: "short",
   })
