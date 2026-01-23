@@ -1,4 +1,4 @@
-import { type ThemeName } from "../theme";
+import { type ThemeName } from "@/theme";
 import { render as renderTL } from "@testing-library/react";
 import { ClickUIProvider } from "..";
 

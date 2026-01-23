@@ -1,4 +1,4 @@
-import UnitedKingdom from "./UnitedKingdom";
+import UnitedKingdom from "@/components/icons/Flags/UnitedKingdom";
 
 const GreatBritain = UnitedKingdom;
 

@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
-import { SidebarCollapsibleItem } from "..";
-import { renderCUI } from "../../utils/test-utils";
+import { SidebarCollapsibleItem } from "@/components";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("SidebarCollapsibleItem", () => {
   it("should trigger toggle on clicking trigger type main", () => {

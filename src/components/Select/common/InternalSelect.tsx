@@ -21,7 +21,7 @@ import {
   SelectItemProps,
   SelectOptionListItem,
 } from "./types";
-import { Error, FormElementContainer, FormRoot } from "../../commonElement";
+import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
 import { Portal } from "@radix-ui/react-popover";
 import {
   Checkbox,
@@ -33,7 +33,7 @@ import {
   Separator,
   Text,
   TextProps,
-} from "../..";
+} from "@/components";
 import {
   SelectPopoverContent,
   SearchBar,
@@ -55,11 +55,11 @@ import { OptionContext } from "./OptionContext";
 import { MultiSelectValue } from "../MultiSelectValue";
 import SingleSelectValue from "../SingleSelectValue";
 import { useOption, useSearch } from "./useOption";
-import { mergeRefs } from "../../../utils/mergeRefs";
-import { GenericMenuItem } from "../../GenericMenu";
-import IconWrapper from "../../IconWrapper/IconWrapper";
+import { mergeRefs } from "@/utils/mergeRefs";
+import { GenericMenuItem } from "@/components/GenericMenu";
+import IconWrapper from "@/components/IconWrapper/IconWrapper";
 import { styled } from "styled-components";
-import { getTextFromNodes } from "../../../lib/getTextFromNodes";
+import { getTextFromNodes } from "@/lib/getTextFromNodes";
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;

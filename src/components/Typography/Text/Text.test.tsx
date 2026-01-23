@@ -1,5 +1,5 @@
 import { Text } from "./Text";
-import { renderCUI } from "../../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Text", () => {
   test("given a text, should render it", () => {

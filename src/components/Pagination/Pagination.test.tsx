@@ -1,5 +1,5 @@
-import { renderCUI } from "../../utils/test-utils";
-import { Pagination, PaginationProps } from "..";
+import { renderCUI } from "@/utils/test-utils";
+import { Pagination, PaginationProps } from "@/components";
 import { fireEvent } from "@testing-library/dom";
 
 describe("Pagination", () => {

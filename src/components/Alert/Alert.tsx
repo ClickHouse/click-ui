@@ -1,5 +1,5 @@
-import { Icon } from "..";
-import { IconName } from "../Icon/types";
+import { Icon } from "@/components";
+import { IconName } from "@/components/Icon/types";
 import { useState, ReactNode, useCallback } from "react";
 import { styled } from "styled-components";
 

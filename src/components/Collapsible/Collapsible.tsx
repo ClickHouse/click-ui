@@ -8,7 +8,7 @@ import {
   forwardRef,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, HorizontalDirection, IconName } from "..";
+import { Icon, HorizontalDirection, IconName } from "@/components";
 import { EmptyButton } from "../commonElement";
 import { IconWrapper } from "./IconWrapper";
 

@@ -1,7 +1,7 @@
 import { HoverCardProps } from "@radix-ui/react-hover-card";
-import { Checkbox, HoverCard } from "..";
+import { Checkbox, HoverCard } from "@/components";
 import { fireEvent, waitFor } from "@testing-library/react";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 // import userEvent from "@testing-library/user-event";
 
 describe("HoverCard", () => {

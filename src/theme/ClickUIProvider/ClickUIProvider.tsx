@@ -2,9 +2,9 @@ import {
   Provider as TooltipProvider,
   TooltipProviderProps,
 } from "@radix-ui/react-tooltip";
-import { ToastProvider, ToastProviderProps } from "../../components/Toast/Toast";
-import { ThemeName } from "..";
-import { ThemeProvider } from "../theme";
+import { ToastProvider, ToastProviderProps } from "@/components/Toast/Toast";
+import { ThemeName } from "@/theme";
+import { ThemeProvider } from "@/theme/theme";
 import { ReactNode, useEffect } from "react";
 
 interface Props {

@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import dts from "vite-plugin-dts";
 import { externalizeDeps } from "vite-plugin-externalize-deps";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const srcDir = path.resolve(__dirname, "src").replace(/\\/g, "/");
 
@@ -75,6 +76,7 @@ const viteConfig = defineConfig({
       peerDeps: true,
       useFile: path.join(process.cwd(), "package.json"),
     }),
+    tsconfigPaths(),
   ],
   css: {
     preprocessorOptions: {

@@ -1,4 +1,4 @@
-import { Icon, IconName } from "..";
+import { Icon, IconName } from "@/components";
 import { HTMLAttributes, forwardRef } from "react";
 import { styled } from "styled-components";
 

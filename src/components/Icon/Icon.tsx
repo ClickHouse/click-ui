@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
-import { ICONS_MAP } from "./IconCommon";
+import { ICONS_MAP } from "@/components/Icon/IconCommon";
 import Flags, { FlagList, FlagName } from "../icons/Flags";
 import { Logo } from "../Logos/Logo";
 import LogosLight from "../Logos/LogosLight";

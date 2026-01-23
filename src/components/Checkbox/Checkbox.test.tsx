@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react";
-import { Checkbox } from "..";
-import { CheckboxProps } from "./Checkbox";
-import { renderCUI } from "../../utils/test-utils";
+import { Checkbox } from "@/components";
+import { CheckboxProps } from "@/components/Checkbox/Checkbox";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Checkbox", () => {
   const renderCheckbox = (props: CheckboxProps) => renderCUI(<Checkbox {...props} />);

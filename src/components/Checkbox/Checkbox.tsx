@@ -1,4 +1,4 @@
-import { GenericLabel, Icon } from "..";
+import { GenericLabel, Icon } from "@/components";
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import { ReactNode, useId } from "react";
 import { styled } from "styled-components";

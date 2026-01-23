@@ -1,7 +1,7 @@
 import { Alert, AlertProps } from "./Alert";
 import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Alert", () => {
   const renderAlert = (props: AlertProps) => renderCUI(<Alert {...props} />);

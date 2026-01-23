@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Icon, HorizontalDirection, IconName } from "..";
+import { Icon, HorizontalDirection, IconName } from "@/components";
 import { Collapsible } from "../Collapsible/Collapsible";
 import { SidebarTitleWrapper } from "../SidebarNavigationTitle/SidebarNavigationTitle";
 

@@ -1,5 +1,5 @@
 import { Container, ContainerProps } from "./Container";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Container", () => {
   const renderContainer = (props: ContainerProps<"div">) =>

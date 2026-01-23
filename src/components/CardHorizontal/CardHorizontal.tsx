@@ -8,7 +8,7 @@ import {
   HorizontalDirection,
   Icon,
   IconName,
-} from "..";
+} from "@/components";
 
 type CardColor = "default" | "muted";
 export type CardSize = "sm" | "md";

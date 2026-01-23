@@ -1,7 +1,7 @@
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import { HTMLAttributes, ReactNode, useId } from "react";
 import { styled } from "styled-components";
-import { GenericLabel, Label } from "..";
+import { GenericLabel, Label } from "@/components";
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
 
 export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, "dir"> {

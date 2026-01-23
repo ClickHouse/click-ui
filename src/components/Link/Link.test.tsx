@@ -1,6 +1,6 @@
 import { IconName } from "..";
 import { Link } from "./Link";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 interface LinkProps {
   icon?: IconName;

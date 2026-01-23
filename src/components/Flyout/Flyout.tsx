@@ -21,7 +21,7 @@ import {
   Icon,
   Separator,
   Spacer,
-} from "..";
+} from "@/components";
 import { styled } from "styled-components";
 import { CrossButton } from "../commonElement";
 import { keyframes } from "styled-components";

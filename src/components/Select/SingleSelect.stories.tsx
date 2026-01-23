@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Select } from "./SingleSelect";
-import { selectOptions } from "./selectOptions";
-import { Container } from "../Container/Container";
-import { Text } from "../Typography/Text/Text";
-import { Panel } from "../Panel/Panel";
-import { Title } from "../Typography/Title/Title";
-import { Button } from "../Button/Button";
+import { Select } from "@/components/Select/SingleSelect";
+import { selectOptions } from "@/components/Select/selectOptions";
+import { Container } from "@/components/Container/Container";
+import { Text } from "@/components/Typography/Text/Text";
+import { Panel } from "@/components/Panel/Panel";
+import { Title } from "@/components/Typography/Title/Title";
+import { Button } from "@/components/Button/Button";
 import { ReactElement } from "react";
 
 const meta: Meta<typeof Select> = {

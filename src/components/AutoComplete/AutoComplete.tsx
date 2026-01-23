@@ -21,14 +21,14 @@ import {
   IconName,
   SearchField,
   Separator,
-} from "..";
+} from "@/components";
 import { styled } from "styled-components";
 import { GenericMenuItem } from "../GenericMenu";
 import { useOption, useSearch } from "./useOption";
 import IconWrapper from "../IconWrapper/IconWrapper";
 import { OptionContext } from "./OptionContext";
-import { mergeRefs } from "../../utils/mergeRefs";
-import { getTextFromNodes } from "../../lib/getTextFromNodes";
+import { mergeRefs } from "@/utils/mergeRefs";
+import { getTextFromNodes } from "@/lib/getTextFromNodes";
 import AutoCompleteOptionList from "./AutoCompleteOptionList";
 
 type DivProps = HTMLAttributes<HTMLDivElement>;

@@ -1,5 +1,5 @@
-import { GridContainer, GridContainerProps } from "..";
-import { renderCUI } from "../../utils/test-utils";
+import { GridContainer, GridContainerProps } from "@/components";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("GridContainer", () => {
   const renderContainer = (props: GridContainerProps) =>

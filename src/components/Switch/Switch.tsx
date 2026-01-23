@@ -1,9 +1,9 @@
-import { Theme } from "../../theme/tokens/types";
+import { Theme } from "@/theme/tokens/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import { ReactNode, forwardRef, useId } from "react";
 import { styled } from "styled-components";
 import { FormRoot } from "../commonElement";
-import { GenericLabel } from "..";
+import { GenericLabel } from "@/components";
 
 interface RootProps {
   /** Whether the switch is checked/on */

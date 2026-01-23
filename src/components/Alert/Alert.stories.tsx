@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Alert, Container, Link } from "..";
-import { ICON_NAMES } from "../Icon/types";
+import { Alert, Container, Link } from "@/components";
+import { ICON_NAMES } from "@/components/Icon/types";
 
 const meta: Meta<typeof Alert> = {
   component: Alert,

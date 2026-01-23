@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { styled } from "styled-components";
-import { IconButton } from "..";
+import { IconButton } from "@/components";
 
 interface CommonProgressBarProps extends Omit<
   HTMLAttributes<HTMLDivElement>,

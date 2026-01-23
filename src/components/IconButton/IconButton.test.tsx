@@ -1,6 +1,6 @@
 import { IconButton, IconButtonProps } from "./IconButton";
 import { fireEvent } from "@testing-library/react";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Button", () => {
   const renderButton = (props: IconButtonProps) => renderCUI(<IconButton {...props} />);

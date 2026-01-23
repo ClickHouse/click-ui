@@ -1,7 +1,7 @@
 import {
   CardPrimaryTopBadge,
   TopBadgeWrapper,
-} from "./CardPrimaryTopBadge";
+} from "@/components/CardPrimary/CardPrimaryTopBadge";
 import { ComponentType, FC } from "react";
 
 export interface WithTopBadgeProps {

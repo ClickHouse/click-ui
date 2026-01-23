@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { Dialog } from "./Dialog";
 import { fireEvent } from "@testing-library/react";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Dialog Component", () => {
   const renderDialog = (props: DialogProps) =>

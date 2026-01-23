@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { CardSecondary, CardSecondaryProps } from "./CardSecondary";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("CardSecondary Component", () => {
   const renderCard = (props: CardSecondaryProps) =>

@@ -1,6 +1,6 @@
 import { act, fireEvent } from "@testing-library/react";
-import { AutoComplete, AutoCompleteProps } from "..";
-import { renderCUI } from "../../utils/test-utils";
+import { AutoComplete, AutoCompleteProps } from "@/components";
+import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "../Select/selectOptions";
 describe("AutoComplete", () => {
   beforeAll(() => {

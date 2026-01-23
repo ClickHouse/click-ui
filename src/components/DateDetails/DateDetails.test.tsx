@@ -1,5 +1,5 @@
-import { DateDetails } from "./DateDetails";
-import { renderCUI } from "../../utils/test-utils";
+import { DateDetails } from "@/components/DateDetails/DateDetails";
+import { renderCUI } from "@/utils/test-utils";
 import { fireEvent } from "@testing-library/react";
 
 describe("DateDetails", () => {

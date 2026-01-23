@@ -2,7 +2,7 @@ import { TooltipProps } from "./Tooltip";
 import { Tooltip } from "..";
 import { waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 
 describe("Tooltip", () => {
   const renderTooltip = (props: TooltipProps) =>

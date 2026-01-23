@@ -6,7 +6,7 @@ import {
   ReactNode,
   forwardRef,
 } from "react";
-import { Icon, IconName } from "..";
+import { Icon, IconName } from "@/components";
 import { styled } from "styled-components";
 import { linkStyles } from "./common";
 import { TextSize, TextWeight } from "../commonTypes";

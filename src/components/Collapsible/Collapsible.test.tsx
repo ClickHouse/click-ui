@@ -1,4 +1,4 @@
-import { renderCUI } from "../../utils/test-utils";
+import { renderCUI } from "@/utils/test-utils";
 import { Collapsible } from "./Collapsible";
 import { fireEvent } from "@testing-library/react";
 
