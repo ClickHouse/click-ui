@@ -3,6 +3,8 @@ import lightTheme from "./tokens/variables.light";
 import { useTheme } from "styled-components";
 import type { Prettify, GetTypes } from "./tokens/types";
 
+export { default as ClickUIProvider } from "./ClickUIProvider";
+
 export type ThemeName = "dark" | "light" | "classic";
 type ActiveThemeName = "dark" | "light";
 

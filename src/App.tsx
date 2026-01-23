@@ -11,7 +11,6 @@ import {
   Badge,
   Button,
   ButtonGroup,
-  ClickUIProvider,
   CardSecondary,
   Checkbox,
   DangerAlert,
@@ -45,6 +44,7 @@ import {
   ToastProvider,
   Toast,
 } from "@/components";
+import { ClickUIProvider }from "./theme";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
