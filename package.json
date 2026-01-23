@@ -1,6 +1,6 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "0.0.251-rc.58",
+  "version": "0.0.251-rc.60",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
@@ -33,6 +33,7 @@
   "homepage": "https://clickhouse.com",
   "scripts": {
     "build": "vite build",
+    "build:analyze": "ANALYZE=true vite build",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
     "changeset:add": "yarn changeset",
@@ -122,6 +123,7 @@
     "prop-types": "^15.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "rollup-plugin-visualizer": "^6.0.5",
     "storybook": "^10.1.10",
     "storybook-addon-pseudo-states": "^10.1.10",
     "style-dictionary": "^5.0.0",

@@ -5,6 +5,7 @@ import path from "path";
 import dts from "vite-plugin-dts";
 import { externalizeDeps } from "vite-plugin-externalize-deps";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const srcDir = path.resolve(__dirname, "src").replace(/\\/g, "/");
 
@@ -78,6 +79,17 @@ const viteConfig = defineConfig({
       useFile: path.join(process.cwd(), "package.json"),
     }),
     tsconfigPaths(),
+    // WARNING: Keep the visualizer last
+    ...(process.env.ANALYZE === "true"
+      ? [
+          visualizer({
+            open: true,
+            gzipSize: true,
+            brotliSize: true,
+            filename: "./tmp/stats.html",
+          }),
+        ]
+      : []),
   ],
   css: {
     preprocessorOptions: {
