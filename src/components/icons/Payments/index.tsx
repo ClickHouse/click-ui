@@ -3,8 +3,8 @@ import Visa from "./Visa";
 import MasterCard from "./MasterCard";
 import Amex from "./Amex";
 import Paypal from "./Paypal";
-import { IconSize } from "@/components/Icon/types";
-import { SvgImageElement } from "@/components/commonElement";
+import { IconSize } from "../../Icon/types";
+import { SvgImageElement } from "../../commonElement";
 
 export type PaymentName = "visa" | "mastercard" | "amex" | "paypal";
 

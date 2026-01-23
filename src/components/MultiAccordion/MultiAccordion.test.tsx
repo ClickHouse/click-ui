@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import { MultiAccordion, MultiAccordionProps } from "./MultiAccordion";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 const children = (
   <>
     <MultiAccordion.Item

@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from "@testing-library/react";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
 import userEvent from "@testing-library/user-event";
-import { Menu, SplitButton } from "@/components";
-import { renderCUI } from "@/utils/test-utils";
+import { Menu, SplitButton } from "..";
+import { renderCUI } from "../../utils/test-utils";
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;

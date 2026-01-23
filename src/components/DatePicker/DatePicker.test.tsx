@@ -1,4 +1,4 @@
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 import { DatePicker } from "./DatePicker";
 import userEvent from "@testing-library/user-event";
 

@@ -12,7 +12,7 @@ import {
   NumberField,
   Select,
   Text,
-} from "@/components";
+} from "..";
 import { styled } from "styled-components";
 
 export interface PaginationProps extends Omit<

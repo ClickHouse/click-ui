@@ -1,5 +1,5 @@
-import { TextField } from "@/components/Input/TextField";
-import { renderCUI } from "@/utils/test-utils";
+import { TextField } from "./TextField";
+import { renderCUI } from "../../utils/test-utils";
 import { useState } from "react";
 
 const TextFieldWrapper = ({

@@ -1,6 +1,6 @@
 import * as RightMenu from "@radix-ui/react-context-menu";
 import { styled } from "styled-components";
-import { HorizontalDirection, Icon, IconName } from "@/components";
+import { HorizontalDirection, Icon, IconName } from "..";
 import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
 import PopoverArrow from "../icons/PopoverArrow";
 import IconWrapper from "../IconWrapper/IconWrapper";

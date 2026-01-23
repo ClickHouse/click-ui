@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/dom";
 import VerticalStepper from "./VerticalStepper";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 interface Props {
   activeIndex?: number;
   completed?: Array<number>;

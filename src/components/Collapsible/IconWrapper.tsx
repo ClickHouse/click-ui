@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { styled } from "styled-components";
-import { Icon, HorizontalDirection, IconName } from "@/components";
+import { Icon, HorizontalDirection, IconName } from "..";
 
 const LabelContainer = styled.span`
   display: flex;

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { SidebarNavigationTitle } from "@/components";
+import { SidebarNavigationTitle } from "..";
 
 const meta: Meta<typeof SidebarNavigationTitle> = {
   component: SidebarNavigationTitle,

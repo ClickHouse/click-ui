@@ -1,4 +1,4 @@
-import { Container, Dialog, Separator, Text } from "@/components";
+import { Container, Dialog, Separator, Text } from "..";
 import { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { styled } from "styled-components";
 

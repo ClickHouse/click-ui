@@ -34,9 +34,9 @@ import {
   onSelectFn,
 } from "./types";
 import { useSelectionActions } from "./useSelectionActions";
-import { mergeRefs } from "@/utils/mergeRefs";
+import { mergeRefs } from "../../utils/mergeRefs";
 import { Cell } from "./Cell";
-import { ContextMenu, createToast } from "@/components";
+import { ContextMenu, createToast } from "..";
 import copyGridElements from "./copyGridElements";
 import useColumns from "./useColumns";
 import useResizingState from "./useResizingState";

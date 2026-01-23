@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Icon, IconName, Dropdown, HorizontalDirection } from "@/components";
+import { Icon, IconName, Dropdown, HorizontalDirection } from "..";
 import { BaseButton } from "../commonElement";
 import IconWrapper from "../IconWrapper/IconWrapper";
 

@@ -1,8 +1,8 @@
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
-} from "@/components/ConfirmationDialog/ConfirmationDialog";
+} from "./ConfirmationDialog";
 import { fireEvent } from "@testing-library/dom";
 
 describe("Dialog Component", () => {

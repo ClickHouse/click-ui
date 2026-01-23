@@ -1,7 +1,7 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
-import { HorizontalDirection, IconName } from "@/components";
+import { HorizontalDirection, IconName } from "../..";
 import { PopoverProps } from "@radix-ui/react-popover";
-import { NoAvailableOptionsFactoryProps } from "@/components/Select/common/InternalSelect";
+import { NoAvailableOptionsFactoryProps } from "./InternalSelect";
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 

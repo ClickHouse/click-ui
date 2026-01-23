@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { Icon, TextField } from "@/components";
+import { Icon, TextField } from "..";
 
 import { TextFieldProps } from "./TextField";
 

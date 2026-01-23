@@ -3,7 +3,7 @@ import { GridCenter } from "../commonElement";
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
-} from "@/components/ConfirmationDialog/ConfirmationDialog";
+} from "./ConfirmationDialog";
 
 const ConfirmationDialogExample = ({
   disabled,

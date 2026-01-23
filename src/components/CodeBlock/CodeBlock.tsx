@@ -1,14 +1,20 @@
 import { HTMLAttributes, useState } from "react";
 import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
-import { IconButton } from "@/components";
+import { IconButton } from "..";
 import { styled } from "styled-components";
 import useColorStyle from "./useColorStyle";
 import { EmptyButton } from "../commonElement";
-import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql";
-import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
-import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
-import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
-import plaintext from "react-syntax-highlighter/dist/cjs/languages/hljs/plaintext";
+
+// @ts-expect-error - no types for deep ESM import
+import sql from "react-syntax-highlighter/dist/esm/languages/hljs/sql.js";
+// @ts-expect-error - no types for deep ESM import
+import bash from "react-syntax-highlighter/dist/esm/languages/hljs/bash.js";
+// @ts-expect-error - no types for deep ESM import
+import json from "react-syntax-highlighter/dist/esm/languages/hljs/json.js";
+// @ts-expect-error - no types for deep ESM import
+import tsx from "react-syntax-highlighter/dist/esm/languages/hljs/typescript.js";
+// @ts-expect-error - no types for deep ESM import
+import plaintext from "react-syntax-highlighter/dist/esm/languages/hljs/plaintext.js";
 
 SyntaxHighlighter.registerLanguage("sql", sql);
 SyntaxHighlighter.registerLanguage("bash", bash);

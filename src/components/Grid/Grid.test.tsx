@@ -1,5 +1,5 @@
-import { CellProps, Grid, GridProps } from "@/components";
-import { renderCUI } from "@/utils/test-utils";
+import { CellProps, Grid, GridProps } from "..";
+import { renderCUI } from "../../utils/test-utils";
 import { SelectionFocus } from "./types";
 import { ReactNode } from "react";
 

@@ -12,7 +12,7 @@ import {
   useRef,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, IconButton } from "@/components";
+import { Icon, IconButton } from "..";
 import { IconName } from "../Icon/types";
 import {
   ItemInterface,

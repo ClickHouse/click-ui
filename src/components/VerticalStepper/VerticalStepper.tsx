@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
 import { styled } from "styled-components";
-import { Icon } from "@/components";
+import { Icon } from "..";
 
 type StepperType = "numbered" | "bulleted";
 type StepStatus = "active" | "complete" | "incomplete";

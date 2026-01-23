@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
-import { Badge, Icon, IconName } from "@/components";
-import { Title } from "@/components/Typography/Title/Title";
-import { Text } from "@/components/Typography/Text/Text";
-import { IconSize } from "@/components/Icon/types";
+import { Badge, Icon, IconName } from "..";
+import { Title } from "../Typography/Title/Title";
+import { Text } from "../Typography/Text/Text";
+import { IconSize } from "../Icon/types";
 import { HTMLAttributes, ReactNode } from "react";
 
 export type BadgeState =

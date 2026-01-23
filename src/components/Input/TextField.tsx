@@ -6,7 +6,7 @@ import {
   useId,
   useRef,
 } from "react";
-import { Icon } from "@/components";
+import { Icon } from "..";
 import {
   IconButton,
   InputElement,
@@ -15,7 +15,7 @@ import {
   InputWrapper,
   WrapperProps,
 } from "./InputWrapper";
-import { mergeRefs } from "@/utils/mergeRefs";
+import { mergeRefs } from "../../utils/mergeRefs";
 
 export interface TextFieldProps
   extends

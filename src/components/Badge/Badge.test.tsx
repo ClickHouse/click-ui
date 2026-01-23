@@ -1,5 +1,5 @@
 import { Badge } from "./Badge";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 
 describe("Badge", () => {
   test("given a text, should render ellipsed badge", () => {

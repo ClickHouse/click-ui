@@ -1,6 +1,6 @@
-import { ProgressBar, ProgressBarProps } from "@/components";
+import { ProgressBar, ProgressBarProps } from "..";
 import { fireEvent } from "@testing-library/react";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 
 describe("Progress bar", () => {
   const renderPopover = (props: ProgressBarProps) =>

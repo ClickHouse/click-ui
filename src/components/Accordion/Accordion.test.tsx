@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import { Accordion } from "./Accordion";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 
 interface RenderAccordionProps {
   title: string;

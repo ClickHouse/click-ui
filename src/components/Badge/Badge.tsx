@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
-import { HorizontalDirection } from "@/components";
+import { HorizontalDirection } from "..";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
-import { ImageName } from "@/components/Icon/types";
-import { Icon } from "@/components/Icon/Icon";
-import IconWrapper from "@/components/IconWrapper/IconWrapper";
+import { ImageName } from "../Icon/types";
+import { Icon } from "../Icon/Icon";
+import IconWrapper from "../IconWrapper/IconWrapper";
 
 export type BadgeState =
   | "default"

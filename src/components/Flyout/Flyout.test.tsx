@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import { Flyout } from "./Flyout";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 import { Button } from "..";
 import { DialogProps } from "@radix-ui/react-dialog";
 

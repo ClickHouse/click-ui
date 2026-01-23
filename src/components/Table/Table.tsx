@@ -11,7 +11,7 @@ import {
   Icon,
   IconButton,
   Text,
-} from "@/components";
+} from "..";
 
 type SortDir = "asc" | "desc";
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import "@/styles/globals.css";
+import "./styles/globals.css";
 
 import styles from "./App.module.css";
 import { ThemeName } from "./theme";
@@ -43,10 +43,10 @@ import {
   createToast,
   ToastProvider,
   Toast,
-} from "@/components";
+} from "./components";
 import { ClickUIProvider }from "./theme";
-import { Dialog } from "@/components/Dialog/Dialog";
-import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
+import { Dialog } from "./components/Dialog/Dialog";
+import { ConfirmationDialog } from "./components/ConfirmationDialog/ConfirmationDialog";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
 import GridExample from "./examples/GridExample";
 import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";

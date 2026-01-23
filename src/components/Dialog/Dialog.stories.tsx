@@ -8,9 +8,9 @@ import { Spacer } from "../Spacer/Spacer";
 import { Button } from "../Button/Button";
 import { styled } from "styled-components";
 import { Link } from "../Link/Link";
-import { Container } from "@/components/Container/Container";
-import { TextField } from "@/components/Input/TextField";
-import { Icon } from "@/components/Icon/Icon";
+import { Container } from "../Container/Container";
+import { TextField } from "../Input/TextField";
+import { Icon } from "../Icon/Icon";
 
 interface DialogExampleProps {
   open?: boolean;

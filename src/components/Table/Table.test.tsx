@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import { Table, TableProps } from "./Table";
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from "../../utils/test-utils";
 
 const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
 

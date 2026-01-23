@@ -1,5 +1,5 @@
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
-import { Label } from "@/components";
+import { Label } from "..";
 import { styled } from "styled-components";
 import { ReactNode } from "react";
 

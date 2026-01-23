@@ -20,8 +20,8 @@ import Sweden from "./Sweden";
 import Switzerland from "./Switzerland";
 import HongKong from "./HongKong";
 import Indonesia from "./Indonesia";
-import { IconSize } from "@/components/Icon/types";
-import { SvgImageElement } from "@/components/commonElement";
+import { IconSize } from "../../Icon/types";
+import { SvgImageElement } from "../../commonElement";
 
 export type FlagName =
   | "ae"

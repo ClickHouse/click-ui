@@ -1,6 +1,6 @@
 import { ChangeEvent, TextareaHTMLAttributes, forwardRef, useId, useRef } from "react";
 import { TextAreaElement, InputWrapper, WrapperProps } from "./InputWrapper";
-import { mergeRefs } from "@/utils/mergeRefs";
+import { mergeRefs } from "../../utils/mergeRefs";
 
 export interface TextAreaFieldProps
   extends
