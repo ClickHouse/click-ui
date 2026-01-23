@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -n "$CI" ]]; then
+  echo "🦖 Skipped! Running in CI environment."
+  exit 0
+fi
+
 echo "🚑 Health check, please be patient..."
 echo
 
