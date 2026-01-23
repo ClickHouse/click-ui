@@ -25,7 +25,12 @@ You can find the official docs for the Click UI design system and component libr
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
-* [Releases and Versions](#releases-and-versions)
+* [Distribution](#distribution)
+  - [Build](#build)
+  - [Use Click UI](#use-click-ui)
+  - [Deep imports support](#deep-imports-support)
+  - [Examples](#examples)
+  - [Releases and Versions](#releases-and-versions)
 
 ## Requirements
 
@@ -108,44 +113,6 @@ The latest static version's built and deployed automatically when contributing t
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
-## Using Click UI in an external app
-
-Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
-
-1. Navigate to your app's route and run
-   `npm i @clickhouse/click-ui`
-   or
-   `yarn add @clickhouse/click-ui`
-2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once that's done, you'll be able to import the individual components that you want to use on each page. Here's an example of an `App.tsx` in NextJS.
-
-```typescript
-import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import { useState } from 'react'
-
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
-
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
-
-  return (
-    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
-        label="Dark mode"
-      />
-
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
-
-export default App
-```
-
 ## Changeset
 
 Learn to manage the versioning of changelog entries.
@@ -192,7 +159,108 @@ To consume all changesets, and update to the most appropriate semver version and
 yarn changeset:version
 ```
 
-## Releases and Versions
+## Distribution
+
+The package is distributed as ESM.
+
+### Build
+
+To build the distribution version of the package run:
+
+```sh
+yarn build
+```
+
+> [!NOTE]
+> Optimisations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+
+### Use Click UI
+
+Navigate to your app's work directory and add the package.
+
+Here, we use `yarn` but you can use your favourite package manager, e.g. pnpm.
+
+```sh
+yarn add @clickhouse/click-ui
+```
+> [!NOTE]
+> Click UI should be supported by react frameworks.
+> If you run into any issues consuming it in your react app, report it [here](https://github.com/ClickHouse/click-ui/issues/new). Provide all important details, including information on how to replicate the issue!
+
+Once installed, wrap the application with Click UI provider:
+
+```js
+import { ClickUIProvider } from '@clickhouse/click-ui'
+
+export default () => {
+  return (
+    <ClickUIProvider theme='light'>
+      <p>Hello world!</p>
+    </ClickUIProvider>
+  );
+}
+```
+
+After, you are able to import your favourite [Click UI components](https://clickhouse.design/click-ui).
+
+```js
+import { ClickUIProvider, Title } from '@clickhouse/click-ui'
+
+export default () => {
+  return (
+    <ClickUIProvider theme='light'>
+      <Title type='h1'>Click UI Example</Title>
+    </ClickUIProvider>
+  );
+}
+```
+
+To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
+
+### Deep imports support
+
+Deep imports are supported, you can import directly from path.
+
+> [!WARNING]
+> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
+
+```ts
+import { Button } from '@clickhouse/click-ui/Button';
+```
+
+### Examples
+
+Here's a quick copy and paste NextJS example with interactive components you can play:
+
+```ts
+import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
+import { useState } from 'react'
+
+function App() {
+  const [theme, setTheme] = useState<ThemeName>('dark')
+
+  const toggleTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark')
+  }
+
+  return (
+    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
+        label="Dark mode"
+      />
+
+      <Title type='h1'>Click UI Example</Title>
+      <Text>Welcome to Click UI. Get started here.</Text>
+    </ClickUIProvider>
+  )
+}
+
+export default App
+```
+
+### Releases and Versions
 
 New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
 
