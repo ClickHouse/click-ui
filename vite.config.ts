@@ -3,20 +3,9 @@ import { defineConfig as defineVitestConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import dts from "vite-plugin-dts";
-import { glob } from "glob";
-import { resolveTsconfigPathsToRelative } from "./vite/plugins/resolve-tsconfig-paths-to-relative";
+import { externalizeDeps } from "vite-plugin-externalize-deps";
 
-const external = (id: string) => {
-  if (id === "react" || id.startsWith("react/")) return true;
-  if (id === "react-dom" || id.startsWith("react-dom/")) return true;
-  if (id.includes(".test.ts") || id.includes(".stories.ts")) return true;
-  if (id === "dayjs") return true;
-  if (id === "styled-components") return true;
-
-  if (!id.startsWith(".") && !id.startsWith("/") && !id.startsWith("\0")) return true;
-
-  return false;
-};
+const srcDir = path.resolve(__dirname, "src").replace(/\\/g, "/");
 
 const buildOptions: BuildOptions = {
   target: "esnext",
@@ -26,20 +15,12 @@ const buildOptions: BuildOptions = {
   // Do not minify unbundled builds, let the consumer do it
   // otherwise, tree shaking will fail, bundling, etc.
   minify: false,
-  // lib: {
-  //   entry: path.resolve(__dirname, "src/index.ts"),
-  //   formats: ["es"],
-  //   fileName: () => `[name].js`,
-  // },
   lib: {
-    entry: glob.sync(path.resolve(__dirname, "src/**/*.{ts,tsx}"), {
-      ignore: ["**/*.test.{ts,tsx}", "**/*.stories.{ts,tsx}"],
-    }),
+    entry: path.resolve(__dirname, "src/index.ts"),
     formats: ["es"],
     fileName: () => `[name].js`,
   },
   rollupOptions: {
-    external,
     output: {
       preserveModules: true,
       preserveModulesRoot: "src",
@@ -52,6 +33,7 @@ const buildOptions: BuildOptions = {
       },
       interop: "auto",
     },
+    plugins: [],
   },
   sourcemap: true,
 };
@@ -73,14 +55,24 @@ const viteConfig = defineConfig({
       include: ["src/"],
       exclude: ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
     }),
-    resolveTsconfigPathsToRelative(),
+    externalizeDeps({
+      deps: true,
+      devDeps: false,
+      // TODO: WIP still not working externally
+      // see https://paste.sh/X45tIloq#PRAy0JjdHKBZ0Ujq0hBsoSIH
+      except: [/^dayjs/],
+      nodeBuiltins: true,
+      optionalDeps: true,
+      peerDeps: true,
+      useFile: path.join(process.cwd(), "package.json"),
+    }),
   ],
   css: {
     preprocessorOptions: {
       scss: {
         // Auto-inject tokens import in all SCSS files
         // Components can directly use: tokens.$clickGlobalColorBackgroundDefault
-        additionalData: `@use "@/styles/tokens-light-dark.scss" as tokens;\n`,
+        additionalData: `@use "${srcDir}/styles/tokens-light-dark.scss" as tokens;\n`,
       },
     },
     postcss: {
@@ -136,11 +128,6 @@ const viteConfig = defineConfig({
           },
         },
       ],
-    },
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
     },
   },
   build: buildOptions,
