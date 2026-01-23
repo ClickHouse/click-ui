@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { styled, css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 
-import { truncateFilename } from "@/utils/truncate.ts";
+import { truncateFilename } from "@/utils/truncate";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar } from "@/components";
