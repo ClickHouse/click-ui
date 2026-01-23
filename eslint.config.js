@@ -4,6 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import preferArrowFunctions from "eslint-plugin-prefer-arrow-functions";
 import storybook from "eslint-plugin-storybook";
+import importPlugin from "eslint-plugin-import";
 import globals from "globals";
 
 export default tseslint.config(
@@ -33,10 +34,17 @@ export default tseslint.config(
       "react-refresh": reactRefresh,
       "prefer-arrow-functions": preferArrowFunctions,
       storybook: storybook,
+      import: importPlugin,
+    },
+    settings: {
+      "import/resolver": {
+        typescript: true,
+        node: true,
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      curly: ['error', 'all'],
+      curly: ["error", "all"],
       "react-refresh/only-export-components": "warn",
       "no-multiple-empty-lines": "error",
       quotes: ["error", "double", { avoidEscape: true }],
@@ -57,6 +65,16 @@ export default tseslint.config(
         },
       ],
       "@typescript-eslint/no-empty-object-type": "off",
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          js: "never",
+          jsx: "never",
+          ts: "never",
+          tsx: "never",
+        },
+      ],
     },
   },
   // Special config for test files
