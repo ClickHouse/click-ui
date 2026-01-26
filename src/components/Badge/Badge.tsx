@@ -3,7 +3,7 @@ import type { HorizontalDirection } from "@/components/types";
 import { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import type { IconName } from "@/components/Icon/types";
 import { Icon } from "@/components/Icon/Icon";
-import {IconWrapper }from "@/components/IconWrapper/IconWrapper";
+import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
 
 export type BadgeState =
   | "default"
