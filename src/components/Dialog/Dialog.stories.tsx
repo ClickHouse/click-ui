@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { GridCenter } from "../commonElement";
 import { Text } from "../Typography/Text/Text";
 import { Dialog } from "./Dialog";
-import Separator from "../Separator/Separator";
+import { Separator } from "../Separator/Separator";
 import { Spacer } from "../Spacer/Spacer";
 import { Button } from "../Button/Button";
 import { styled } from "styled-components";
@@ -156,7 +156,7 @@ export const ChatDialog: Story = {
                 color="currentColor"
               />
               <TextField
-                onChange={() => {}}
+                onChange={() => { }}
                 placeholder="Ask our SQL assistant to build a query"
                 type="text"
               />
