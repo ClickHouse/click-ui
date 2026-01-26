@@ -3,13 +3,13 @@ import { Dayjs } from "dayjs";
 export const formatTimezone = ({
   date,
   timezone,
-  locales = "en-US",
+  locale = "en-US",
 }: {
   date: Dayjs;
   timezone?: string;
-  locales?: string;
+  locale?: string;
 }): string =>
-  new Intl.DateTimeFormat(locales, {
+  new Intl.DateTimeFormat(locale, {
     timeZone: timezone,
     timeZoneName: "short",
   })

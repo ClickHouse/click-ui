@@ -81,7 +81,7 @@ describe("formatTimezone", () => {
           formatTimezone({
             date: summerDate,
             timezone: "America/New_York",
-            locales: "en-UK",
+            locale: "en-UK",
           })
         ).toBe("GMT-4");
       });
@@ -91,7 +91,7 @@ describe("formatTimezone", () => {
           formatTimezone({
             date: winterDate,
             timezone: "America/New_York",
-            locales: "en-UK",
+            locale: "en-UK",
           })
         ).toBe("GMT-5");
       });
@@ -103,7 +103,7 @@ describe("formatTimezone", () => {
           formatTimezone({
             date: summerDate,
             timezone: "America/Los_Angeles",
-            locales: "en-UK",
+            locale: "en-UK",
           })
         ).toBe("GMT-7");
       });
@@ -113,7 +113,7 @@ describe("formatTimezone", () => {
           formatTimezone({
             date: winterDate,
             timezone: "America/Los_Angeles",
-            locales: "en-UK",
+            locale: "en-UK",
           })
         ).toBe("GMT-8");
       });
@@ -125,7 +125,7 @@ describe("formatTimezone", () => {
           formatTimezone({
             date: summerDate,
             timezone: "Europe/London",
-            locales: "en-UK",
+            locale: "en-UK",
           })
         ).toBe("BST");
       });
@@ -135,7 +135,7 @@ describe("formatTimezone", () => {
           formatTimezone({
             date: winterDate,
             timezone: "Europe/London",
-            locales: "en-UK",
+            locale: "en-UK",
           })
         ).toBe("GMT");
       });
@@ -144,13 +144,13 @@ describe("formatTimezone", () => {
     describe("for a user in Asia/Tokyo", () => {
       it("should show GMT+9 during July (summer)", () => {
         expect(
-          formatTimezone({ date: summerDate, timezone: "Asia/Tokyo", locales: "en-UK" })
+          formatTimezone({ date: summerDate, timezone: "Asia/Tokyo", locale: "en-UK" })
         ).toBe("GMT+9");
       });
 
       it("should show GMT+9 during January (winter)", () => {
         expect(
-          formatTimezone({ date: winterDate, timezone: "Asia/Tokyo", locales: "en-UK" })
+          formatTimezone({ date: winterDate, timezone: "Asia/Tokyo", locale: "en-UK" })
         ).toBe("GMT+9");
       });
     });
@@ -158,13 +158,13 @@ describe("formatTimezone", () => {
     describe("for UTC", () => {
       it("should show UTC during July (summer)", () => {
         expect(
-          formatTimezone({ date: summerDate, timezone: "UTC", locales: "en-UK" })
+          formatTimezone({ date: summerDate, timezone: "UTC", locale: "en-UK" })
         ).toBe("UTC");
       });
 
       it("should show UTC during January (winter)", () => {
         expect(
-          formatTimezone({ date: winterDate, timezone: "UTC", locales: "en-UK" })
+          formatTimezone({ date: winterDate, timezone: "UTC", locale: "en-UK" })
         ).toBe("UTC");
       });
     });
