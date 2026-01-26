@@ -10,6 +10,7 @@ on:
         options:
           - latest
           - rc
+          - test
         default: 'rc'
 
 jobs:
@@ -33,6 +34,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
+      # TODO: Best to have the whole pre-release logic
+      # as a localhost verifiable process. To help troubleshoot!
       - name: Check pre-release status
         id: check-prerelease
         run: |
@@ -52,7 +55,7 @@ jobs:
       - name: Switch release mode
         if: steps.check-prerelease.outputs.prerelease == 'true' && inputs.release_type == 'latest'
         run: |
-          echo "Must exist pre-release mode..."
+          echo "Must exit pre-release mode..."
 
           if ! yarn changeset pre exit; then
             echo "👹 Oops! Failed to exit pre-release mode for some reason..."
@@ -71,12 +74,19 @@ jobs:
             echo "✅ Already in ${{ inputs.release_type }} prerelease mode"
           fi
 
+      - name: Confirm production release
+        if: inputs.release_type == 'latest'
+        run: |
+          echo "⚠️WARNING: Creating a STABLE production release!"
+          echo "This will publish to npm with the 'latest' tag."
+          echo "Make sure you've reviewed all changes carefully, please!"
+
       - name: Version package
         id: version-package
         run: |
           echo "📦 Versioning packages..."
           if ! yarn changeset version; then
-            echo "👹 Oops! Failed to do changset versioning for some reason..."
+            echo "👹 Oops! Failed to do changeset versioning for some reason..."
             exit 1
           else
             echo "✅ Versioned package successfully!"
@@ -87,34 +97,54 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
 
-      - name: Determine PR title
-        id: pr-title
+      - name: Create release tag
         run: |
-          echo "title=chore: 🤖 release v${{ steps.get-version.outputs.version }} (${{ inputs.release_type }})" >> $GITHUB_OUTPUT
-          echo "branch=changeset-release/v${{ steps.get-version.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT
+          VERSION="${{ steps.version-package.outputs.version }}"
+          TAG="v$VERSION"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG (${{ inputs.release_type }})"
+
+          if git tag -l "$TAG" | grep -q "$TAG"; then
+            echo "✅ Created tag $TAG (will be pushed when PR is created)"
+          else
+            echo "❌ Failed to create tag $TAG"
+            exit 1
+          fi
+
+      - name: Determine PR details
+        id: pr-details
+        run: |
+          echo "title=chore: 🤖 release v${{ steps.version-package.outputs.version }} (${{ inputs.release_type }})" >> $GITHUB_OUTPUT
+          echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: ${{ steps.pr-title.outputs.title }}
-          branch: ${{ steps.pr-title.outputs.branch }}
+          commit-message: ${{ steps.pr-details.outputs.title }}
+          branch: ${{ steps.pr-details.outputs.branch }}
           delete-branch: true
-          title: ${{ steps.pr-title.outputs.title }}
-        body: |
-          ## Why?
+          title: ${{ steps.pr-details.outputs.title }}
+          body: |
+            ## Why?
 
-          To trigger a release of ${{ steps.get-version.outputs.version }} version ${{ steps.get-version.outputs.version }} (${{ inputs.release_type }}).
+            To trigger a release of ${{ steps.version-package.outputs.package_name }} version ${{ steps.version-package.outputs.version }} (${{ inputs.release_type }}).
 
-          ## Release checklist?
+            ## Release checklist?
 
-          Take this opportunity to ensure that the following checklist is verified to avoid disappointment.
+            Take this opportunity to ensure that the following checklist is verified to avoid disappointment.
 
-          - [ ] Version bump is correct
-          - [ ] Changelog entries are accurate
-          - [ ] All changesets have been consumed
-          - [ ] Ready to publish
+            - [ ] Version bump is correct
+            - [ ] Changelog entries are accurate
+            - [ ] All changesets have been consumed
+            - [ ] Ready to publish
 
-          ## Preview?
+            ## Preview?
 
-          Optionally, provide a demo or a preview url here
+            Optionally, provide a demo or a preview url here
+
+            ---
+
+            **Tag:** `v${{ steps.version-package.outputs.version }}` will be included in this PR
