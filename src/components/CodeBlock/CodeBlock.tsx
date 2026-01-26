@@ -7,16 +7,18 @@ import { styled } from "styled-components";
 import useColorStyle from "./useColorStyle";
 import { EmptyButton } from "../commonElement";
 
-// @ts-expect-error
+/* eslint-disable import/extensions */
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql.js";
-// @ts-expect-error
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash.js";
-// @ts-expect-error
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json.js";
-// @ts-expect-error
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js";
-// @ts-expect-error
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import plaintext from "react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js";
+/* eslint-enable import/extensions */
 
 SyntaxHighlighter.registerLanguage("sql", sql.default || sql);
 SyntaxHighlighter.registerLanguage("bash", bash.default || bash);
