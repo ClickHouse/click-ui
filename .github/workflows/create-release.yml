@@ -85,7 +85,7 @@ jobs:
         id: version-package
         run: |
           echo "📦 Versioning packages..."
-          if ! yarn changeset version; then
+          if ! yarn changeset:version; then
             echo "👹 Oops! Failed to do changeset versioning for some reason..."
             exit 1
           else
