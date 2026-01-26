@@ -1,5 +1,5 @@
 import { fireEvent } from "@testing-library/react";
-import { SidebarNavigationTitle } from "@/components";
+import { SidebarNavigationTitle } from "@/components/SidebarNavigationTitle/SidebarNavigationTitle";
 import { renderCUI } from "@/utils/test-utils";
 describe("SidebarNavigationTitle", () => {
   it("should trigger click", () => {

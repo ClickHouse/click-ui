@@ -1,9 +1,9 @@
 import { Theme } from "@/theme/tokens/types";
 import * as RadixSwitch from "@radix-ui/react-switch";
 import { ReactNode, forwardRef, useId } from "react";
-import { DefaultTheme, styled } from "styled-components";
+import { styled } from "styled-components";
 import { FormRoot } from "../commonElement";
-import { GenericLabel } from "@/components";
+import { GenericLabel } from "@/components/GenericLabel/GenericLabel";
 
 interface RootProps {
   /** Whether the switch is checked/on */
@@ -16,6 +16,7 @@ interface RootProps {
   dir?: "start" | "end";
   /** The label text displayed next to the switch */
   label?: ReactNode;
+  theme?: Theme;
 }
 
 type SwitchProps = RootProps & Omit<RadixSwitch.SwitchProps, "dir">;
@@ -23,6 +24,7 @@ type SwitchProps = RootProps & Omit<RadixSwitch.SwitchProps, "dir">;
 interface ThumbProps {
   $checked: boolean;
   $disabled?: boolean;
+  theme?: Theme;
 }
 
 const Wrapper = styled(FormRoot)`
@@ -88,11 +90,7 @@ const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boole
   }
 };
 
-const getThumbVars = (
-  theme: DefaultTheme,
-  disabled: boolean | undefined,
-  checked: boolean
-) => {
+const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {

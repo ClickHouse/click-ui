@@ -1,5 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from "react";
-import { Icon } from "@/components";
+import { Icon } from "@/components/Icon/Icon";
 import { InputWrapper, NumberInputElement, WrapperProps } from "./InputWrapper";
 export interface NumberFieldProps
   extends

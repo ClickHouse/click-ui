@@ -5,8 +5,10 @@ import { useState, useRef, useCallback } from "react";
 import { truncateFilename } from "@/utils/truncate";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar } from "@/components";
-
+import { Button } from "@/components/Button/Button";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+import { ProgressBar } from "@/components/ProgressBar/ProgressBar";
 export interface FileUploadItem {
   /** Unique identifier for the file */
   id: string;

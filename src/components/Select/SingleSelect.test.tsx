@@ -3,7 +3,8 @@ import {
   fireEvent,
   queryByText as queryByTestingText,
 } from "@testing-library/react";
-import { Select, SelectProps } from "@/components";
+import { Select } from "@/components/Select/SingleSelect";
+import type { SelectProps } from "@/components/Select/SingleSelect";
 import { ReactNode } from "react";
 import { renderCUI } from "@/utils/test-utils";
 import { selectOptions } from "./selectOptions";

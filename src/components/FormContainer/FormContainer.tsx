@@ -1,6 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { Error, FormElementContainer, FormRoot } from "../commonElement";
-import { HorizontalDirection, Label, Orientation } from "@/components";
+import type { HorizontalDirection, Orientation } from "@/components/types";
+import { Label } from "@/components/Label/Label";
 
 export interface FormContainerProps extends HTMLAttributes<HTMLDivElement> {
   htmlFor: string;

@@ -1,4 +1,5 @@
-import { GridContainer, GridContainerProps } from "@/components";
+import { GridContainer } from "@/components/GridContainer/GridContainer";
+import type { GridContainerProps } from "@/components/GridContainer/GridContainer";
 import { renderCUI } from "@/utils/test-utils";
 
 describe("GridContainer", () => {

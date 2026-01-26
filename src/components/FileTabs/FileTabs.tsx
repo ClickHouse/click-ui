@@ -12,15 +12,29 @@ import {
   useRef,
 } from "react";
 import { styled } from "styled-components";
-import { Icon, IconButton } from "@/components";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+
 import { IconName } from "../Icon/types";
-import {
+
+// TODO: Check if react-sortablejs has ESM version
+// import {
+//   ItemInterface,
+//   ReactSortable,
+//   ReactSortableProps,
+//   Sortable,
+//   Store,
+// } from "react-sortablejs";
+// import ReactSortableModule from "react-sortablejs";
+// const { ReactSortable, ItemInterface, Sortable, Store } = ReactSortableModule;
+import ReactSortableModule from "react-sortablejs/dist/index.js";
+import type {
   ItemInterface,
-  ReactSortable,
-  ReactSortableProps,
   Sortable,
   Store,
+  ReactSortableProps,
 } from "react-sortablejs";
+const { ReactSortable } = ReactSortableModule;
 
 export type FileTabStatusType =
   | "default"
@@ -41,7 +55,8 @@ const TabsContainer = styled.div<{ $count: number }>`
     height: 0;
   }
 `;
-const TabsSortableContainer = styled.div`
+
+const TabsSortableContainer = styled(ReactSortable)`
   display: flex;
   & > div {
     height: 100%;
@@ -174,7 +189,6 @@ export const FileTabs = ({
         $count={(listProp ?? list).length}
       >
         <TabsSortableContainer
-          as={ReactSortable}
           direction={direction ?? "horizontal"}
           group={group ?? "tabbar"}
           list={listProp ?? list}

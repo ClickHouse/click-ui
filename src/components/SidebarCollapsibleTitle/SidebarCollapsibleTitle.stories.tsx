@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { SidebarCollapsibleTitle, SidebarNavigationItem } from "@/components";
+import { SidebarCollapsibleTitle } from "@/components/SidebarCollapsibleTitle/SidebarCollapsibleTitle";
+import { SidebarNavigationItem } from "@/components/SidebarNavigationItem/SidebarNavigationItem";
 
 const meta: Meta<typeof SidebarCollapsibleTitle> = {
   component: SidebarCollapsibleTitle,

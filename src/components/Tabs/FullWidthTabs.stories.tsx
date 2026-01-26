@@ -1,6 +1,8 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Spacer, FullWidthTabs, Text } from "@/components";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { FullWidthTabs } from "@/components/Tabs/Tabs";
+import { Text } from "@/components/Typography/Text/Text";
 
 const meta: Meta<typeof FullWidthTabs> = {
   component: FullWidthTabs,
@@ -21,7 +23,7 @@ type Story = StoryObj<typeof FullWidthTabs>;
 export const Playground: Story = {
   args: {
     defaultValue: "tab2",
-    onValueChange: s => console.log(s),
+    onValueChange: (s: string) => console.log(s),
     ariaLabel: "a full width simple tab component",
     children: (
       <div style={{ width: "700px" }}>

@@ -4,47 +4,45 @@ import "@/styles/globals.css";
 
 import styles from "./App.module.css";
 import { ThemeName } from "./theme";
+import { Accordion } from "@/components/Accordion/Accordion";
 import {
-  Accordion,
   Alert,
-  Avatar,
-  Badge,
-  Button,
-  ButtonGroup,
-  ClickUIProvider,
-  CardSecondary,
-  Checkbox,
   DangerAlert,
-  Icon,
-  IconButton,
   InfoAlert,
-  SidebarCollapsibleItem,
-  SidebarNavigationItem,
-  Spacer,
-  SuccessAlert,
-  Switch,
-  Panel,
-  Tabs,
   WarningAlert,
-  CardPrimary,
-  Flyout,
-  Select,
-  Text,
-  EllipsisContent,
-  Table,
-  TableRowType,
-  TableHeaderType,
-  Title,
-  Tooltip,
-  Container,
-  InlineCodeBlock,
-  GridContainer,
-  TextField,
-  Label,
-  createToast,
-  ToastProvider,
-  Toast,
-} from "@/components";
+  SuccessAlert,
+} from "@/components/Alert/Alert";
+import { Avatar } from "@/components/Avatar/Avatar";
+import { Badge } from "@/components/Badge/Badge";
+import { Button } from "@/components/Button/Button";
+import { ButtonGroup } from "@/components/ButtonGroup/ButtonGroup";
+import { CardSecondary } from "@/components/CardSecondary/CardSecondary";
+import { CardPrimary } from "@/components/CardPrimary/CardPrimary";
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { Icon } from "@/components/Icon/Icon";
+import { IconButton } from "@/components/IconButton/IconButton";
+import { SidebarCollapsibleItem } from "@/components/SidebarCollapsibleItem/SidebarCollapsibleItem";
+import { SidebarNavigationItem } from "@/components/SidebarNavigationItem/SidebarNavigationItem";
+import { Spacer } from "@/components/Spacer/Spacer";
+import { Switch } from "@/components/Switch/Switch";
+import { Panel } from "@/components/Panel/Panel";
+import { Tabs } from "@/components/Tabs/Tabs";
+import { Flyout } from "@/components/Flyout/Flyout";
+import { Select } from "@/components/Select/SingleSelect";
+import { Text } from "@/components/Typography/Text/Text";
+import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
+import { Table } from "@/components/Table/Table";
+import type { TableRowType, TableHeaderType } from "@/components/types";
+import { Title } from "@/components/Typography/Title/Title";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { Container } from "@/components/Container/Container";
+import { InlineCodeBlock } from "@/components/CodeBlock/InlineCodeBlock";
+import { GridContainer } from "@/components/GridContainer/GridContainer";
+import { TextField } from "@/components/Input/TextField";
+import { Label } from "@/components/Label/Label";
+import { createToast } from "@/components/Toast/toastEmitter";
+import { ToastProvider, Toast } from "@/components/Toast/Toast";
+import { ClickUIProvider } from "./theme";
 import { Dialog } from "@/components/Dialog/Dialog";
 import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { ProgressBar } from "./components/ProgressBar/ProgressBar";
@@ -97,6 +95,11 @@ const App = () => {
       ],
     },
   ]);
+  const [theme, setTheme] = useState("dark");
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   const onTableDelete = (row: TableRowType, index: number) => {
     setRows(rows => {
@@ -109,6 +112,11 @@ const App = () => {
       theme={currentTheme}
       config={{ tooltip: { delayDuration: 0 } }}
     >
+      <Switch
+        checked={theme === "dark"}
+        onClick={toggleTheme}
+        label="toggle theme"
+      />
       <Button
         onClick={() => {
           createToast({
