@@ -25,7 +25,11 @@ You can find the official docs for the Click UI design system and component libr
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
-* [Releases and Versions](#releases-and-versions)
+* [Changesets](#changesets)
+  - [Add a new changeset](#add-a-new-changeset)
+  - [Checking the changeset status](#checking-the-changeset-status)
+  - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
+* [Release](#release)
 
 ## Requirements
 
@@ -146,7 +150,7 @@ function App() {
 export default App
 ```
 
-## Changeset
+## Changesets
 
 Learn to manage the versioning of changelog entries.
 
@@ -192,11 +196,13 @@ To consume all changesets, and update to the most appropriate semver version and
 yarn changeset:version
 ```
 
-## Releases and Versions
+## Release
 
-New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
+It's recommended to [create a new version](#create-a-new-version-and-changelogs), which will consume all changesets, and update to the most approriate semantic version (semver) based on those changesets; which also writes changelog entries for each consumed changeset file content.
 
-To create a new release and publish a new version, follow the instructions in [publish.md](./docs/publish.md).
+Assuming that you have reviewed both the changelog entries, the version changes; and you're confident that all these are correct, and have made any necessary tweaks to changelogs, you can publish the package.
+
+
 
 ## Conventional commits
 
