@@ -15,6 +15,8 @@ import { GridContainer } from "@/components/GridContainer/GridContainer";
 import { Container } from "@/components/Container/Container";
 import { TextSize, TextWeight } from "../commonTypes";
 
+import { formatTimezone } from "@/utils/date";
+
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
 dayjs.extend(localizedFormat);
@@ -91,17 +93,6 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   return date.format(formatForPastYear).replace("am", "a.m.").replace("pm", "p.m.");
 };
 
-const formatTimezone = (date: Dayjs, timezone?: string): string => {
-  return (
-    new Intl.DateTimeFormat(undefined, {
-      timeZone: timezone,
-      timeZoneName: "short",
-    })
-      .formatToParts(date.toDate())
-      .find(part => part.type === "timeZoneName")?.value ?? date.format("z")
-  );
-};
-
 export type ArrowPosition = "top" | "right" | "left" | "bottom";
 
 export interface DateDetailsProps {
@@ -166,7 +157,11 @@ export const DateDetails = ({
           <Container justifyContent="end">
             <Text size="sm">
               {formatDateDetails(dayjsDate)} (
-              {formatTimezone(dayjsDate, dayjs.tz.guess())})
+              {formatTimezone({
+                date: dayjsDate,
+                timezone: dayjs.tz.guess(),
+              })}
+              )
             </Text>
           </Container>
 
@@ -182,7 +177,11 @@ export const DateDetails = ({
               <Container justifyContent="end">
                 <Text size="sm">
                   {formatDateDetails(systemTime, systemTimeZone)} (
-                  {formatTimezone(systemTime, systemTimeZone)})
+                  {formatTimezone({
+                    date: systemTime,
+                    timezone: systemTimeZone,
+                  })}
+                  )
                 </Text>
               </Container>
             </>
