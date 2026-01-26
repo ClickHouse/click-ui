@@ -15,11 +15,11 @@ else
   exit 1
 fi
 
-if yarn prettier:check; then
+if yarn format; then
   echo "✅ Code format checked!"
 else
   echo "⚠️ WARNING: Incorrect code format, fix it before committing, please!"
-  echo "💡 Use the command yarn prettify"
+  echo "💡 Use the command yarn format:fix"
   exit 1
 fi
 
