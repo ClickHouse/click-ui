@@ -156,7 +156,7 @@ export const ChatDialog: Story = {
                 color="currentColor"
               />
               <TextField
-                onChange={() => { }}
+                onChange={() => {}}
                 placeholder="Ask our SQL assistant to build a query"
                 type="text"
               />
