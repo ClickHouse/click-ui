@@ -25,7 +25,7 @@ jobs:
       - name: Linter
         run: yarn lint
       - name: Formatter
-        run: yarn format:check
+        run: yarn format
       - name: unit tests
         run: yarn test
       - name: build
