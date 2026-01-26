@@ -24,8 +24,8 @@ jobs:
         run: yarn install --immutable
       - name: Linter
         run: yarn lint
-      - name: Prettier
-        run: yarn prettier:check
+      - name: Formatter
+        run: yarn format:check
       - name: unit tests
         run: yarn test
       - name: build
