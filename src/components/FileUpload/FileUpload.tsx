@@ -5,7 +5,7 @@ import { useState, useRef, useCallback } from "react";
 import { shortenMiddle } from "@/utils/truncate";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import { Button, Icon, IconButton, ProgressBar, Container } from "@/components";
 
 interface FileInfo {
   name: string;
@@ -415,11 +415,20 @@ export const FileUpload = ({
                   <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
                 )}
                 {showSuccess && (
-                  <Icon
-                    size={"xs"}
-                    state={"success"}
-                    name={"check"}
-                  />
+                  <Container
+                    display="inline-flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    shrink="0"
+                    fillWidth={false}
+                    isResponsive={false}
+                  >
+                    <Icon
+                      size={"xs"}
+                      state={"success"}
+                      name={"check"}
+                    />
+                  </Container>
                 )}
               </FileDetails>
               {showProgress && !showSuccess && (

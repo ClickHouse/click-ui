@@ -1,8 +1,18 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { styled } from "styled-components";
 import { FileUpload, type FileUploadProps } from "@/components/FileUpload/FileUpload";
 import { Flyout } from "@/components/Flyout/Flyout";
 import { Button } from "@/components/Button/Button";
 import { useState } from "react";
+
+const Wrapper = styled.div`
+  width: 100%;
+  @media (min-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
 
 const meta: Meta<typeof FileUpload> = {
   component: FileUpload,
@@ -10,9 +20,9 @@ const meta: Meta<typeof FileUpload> = {
   tags: ["file-upload", "autodocs"],
   decorators: [
     Story => (
-      <div style={{ width: "800px" }}>
+      <Wrapper>
         <Story />
-      </div>
+      </Wrapper>
     ),
   ],
 };
