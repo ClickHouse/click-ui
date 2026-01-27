@@ -42,8 +42,18 @@ const FilenameReveal = styled.span`
     display: none;
   }
 
-  span[data-truncated] {
+  span[data-truncated="s"] {
     display: inline-block;
+  }
+
+  @container uploadArea (width > ${({ theme }) => parseInt(theme.breakpoint.sizes.sm) / 1.5}px) {
+    span[data-truncated="s"] {
+      display: none;
+    }
+
+    span[data-truncated="m"] {
+      display: inline-block;
+    }
   }
 
   @container uploadArea (width > ${({ theme }) => theme.breakpoint.sizes.md}) {
@@ -361,7 +371,8 @@ export const FileUpload = ({
   }, [onRetry]);
 
   const acceptedFileTypes = supportedFileTypes.join(",");
-  const shortenFilename = useMemo(() => (file ? shortenMiddle(file.name) : ""), [file]);
+  const shortenMFilename = useMemo(() => (file ? shortenMiddle(file.name) : ""), [file]);
+  const shortenSFilename = useMemo(() => (file ? shortenMiddle(file.name, 20) : ""), [file]);
 
   return (
     <>
@@ -423,10 +434,16 @@ export const FileUpload = ({
                     aria-label={file.name}
                   >
                     <span
-                      data-truncated
+                      data-truncated="s"
                       aria-hidden="true"
                     >
-                      {shortenFilename}
+                      {shortenSFilename}
+                    </span>
+                    <span
+                      data-truncated="m"
+                      aria-hidden="true"
+                    >
+                      {shortenMFilename}
                     </span>
                     <span>{file.name}</span>
                   </FileName>
