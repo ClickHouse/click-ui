@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { styled, css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 
@@ -37,12 +37,33 @@ interface FileUploadProps {
   onFileClose?: () => void;
 }
 
+const FilenameReveal = styled.span`
+  span {
+    display: none;
+  }
+
+  span[data-truncated] {
+    display: inline-block;
+  }
+
+  @container uploadArea (width > ${({ theme }) => theme.breakpoint.sizes.md}) {
+    span {
+      display: inline-block;
+    }
+    span[data-truncated] {
+      display: none;
+    }
+  }
+`;
+
 const UploadArea = styled.div<{
   $isDragging: boolean;
   $size: "sm" | "md";
   $hasFile: boolean;
   $isError?: boolean;
 }>`
+  container-type: inline-size;
+  container-name: uploadArea;
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
   border-radius: ${({ theme, $hasFile }) =>
@@ -352,6 +373,10 @@ export const FileUpload = ({
   }, [onRetry]);
 
   const acceptedFileTypes = supportedFileTypes.join(",");
+  const shortenFilename = useMemo(
+    () => (file ? shortenMiddle(file.name) : ""),
+    [file?.name]
+  );
 
   return (
     <>
@@ -407,7 +432,20 @@ export const FileUpload = ({
             <DocumentIcon name={"document"} />
             <FileContentContainer $size={size}>
               <FileDetails>
-                <FileName>{shortenMiddle(file.name)}</FileName>
+                <FilenameReveal>
+                  <FileName
+                    title={file.name}
+                    aria-label={file.name}
+                  >
+                    <span
+                      data-truncated
+                      aria-hidden="true"
+                    >
+                      {shortenFilename}
+                    </span>
+                    <span>{file.name}</span>
+                  </FileName>
+                </FilenameReveal>
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
