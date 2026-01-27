@@ -375,7 +375,7 @@ export const FileUpload = ({
   const acceptedFileTypes = supportedFileTypes.join(",");
   const shortenFilename = useMemo(
     () => (file ? shortenMiddle(file.name) : ""),
-    [file?.name]
+    [file]
   );
 
   return (
