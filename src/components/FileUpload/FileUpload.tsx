@@ -180,18 +180,6 @@ const ProgressBarWrapper = styled.div`
   margin-bottom: 9px;
 `;
 
-const formatFileSize = (sizeInBytes: number): string => {
-  if (sizeInBytes < 1024) {
-    return `${sizeInBytes.toFixed(1)} B`;
-  } else if (sizeInBytes < 1024 * 1024) {
-    return `${(sizeInBytes / 1024).toFixed(1)} KB`;
-  } else if (sizeInBytes < 1024 * 1024 * 1024) {
-    return `${(sizeInBytes / (1024 * 1024)).toFixed(1)} MB`;
-  } else {
-    return `${(sizeInBytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-  }
-};
-
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
   if (!supportedTypes.length) {
     return true;
@@ -411,9 +399,6 @@ export const FileUpload = ({
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
-                {!showProgress && !showSuccess && (
-                  <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
-                )}
                 {showSuccess && (
                   <Container
                     display="inline-flex"
@@ -431,6 +416,9 @@ export const FileUpload = ({
                   </Container>
                 )}
               </FileDetails>
+              {!showProgress && !showSuccess && (
+                <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
+              )}
               {showProgress && !showSuccess && (
                 <ProgressBarWrapper>
                   <ProgressBar
@@ -438,9 +426,6 @@ export const FileUpload = ({
                     type={"small"}
                   />
                 </ProgressBarWrapper>
-              )}
-              {(showSuccess || !showProgress) && (
-                <FileUploadDescription>{formatFileSize(file.size)}</FileUploadDescription>
               )}
             </FileContentContainer>
             <FileActions>
