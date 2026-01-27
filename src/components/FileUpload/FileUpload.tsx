@@ -37,6 +37,13 @@ interface FileUploadProps {
   onFileClose?: () => void;
 }
 
+const IconContainer = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+`;
+
 const UploadArea = styled.div<{
   $isDragging: boolean;
   $size: "sm" | "md";
@@ -415,11 +422,13 @@ export const FileUpload = ({
                   <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
                 )}
                 {showSuccess && (
-                  <Icon
-                    size={"xs"}
-                    state={"success"}
-                    name={"check"}
-                  />
+                  <IconContainer>
+                    <Icon
+                      size={"xs"}
+                      state={"success"}
+                      name={"check"}
+                    />
+                  </IconContainer>
                 )}
               </FileDetails>
               {showProgress && !showSuccess && (
