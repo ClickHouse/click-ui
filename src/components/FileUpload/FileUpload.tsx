@@ -411,9 +411,6 @@ export const FileUpload = ({
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
-                {!showProgress && !showSuccess && (
-                  <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
-                )}
                 {showSuccess && (
                   <Icon
                     size={"xs"}
@@ -422,6 +419,9 @@ export const FileUpload = ({
                   />
                 )}
               </FileDetails>
+              {!showProgress && !showSuccess && (
+                <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
+              )}
               {showProgress && !showSuccess && (
                 <ProgressBarWrapper>
                   <ProgressBar
