@@ -53,7 +53,6 @@ Flyout.Trigger = Trigger;
 type FlyoutSizeType = "default" | "narrow" | "wide" | "widest";
 type Strategy = "relative" | "absolute" | "fixed";
 type FlyoutType = "default" | "inline";
-export type FlyoutRevealAnimation = "width" | "fade";
 
 type DialogContentAlignmentType = "start" | "end";
 export interface DialogContentProps extends RadixDialogContentProps {
@@ -73,7 +72,6 @@ export interface DialogContentProps extends RadixDialogContentProps {
   width?: string;
   /** Alignment of the flyout (start = left, end = right) */
   align?: DialogContentAlignmentType;
-  revealAnimation?: FlyoutRevealAnimation;
 }
 
 const animationWidth = () =>
@@ -82,19 +80,12 @@ const animationWidth = () =>
     to: { width: "fit-content" },
   });
 
-const animationFade = () =>
-  keyframes({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  });
-
 const FlyoutContent = styled(DialogContent)<{
   $size?: FlyoutSizeType;
   $type?: FlyoutType;
   $strategy: Strategy;
   $width?: string;
   $align: DialogContentAlignmentType;
-  $revealAnimation?: FlyoutRevealAnimation;
 }>`
   display: flex;
   flex-direction: column;
@@ -105,9 +96,7 @@ const FlyoutContent = styled(DialogContent)<{
   width: fit-content;
   --flyout-width: ${({ theme, $size = "default", $width }) =>
     $width || theme.click.flyout.size[$size].width};
-  animation: ${({ $revealAnimation = "width" }) =>
-      $revealAnimation === "fade" ? animationFade : animationWidth}
-    500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   ${({ theme, $strategy, $type = "default", $align }) => `
     ${$align === "start" ? "left" : "right"}: 0;
     max-width: 100%;
@@ -168,7 +157,6 @@ const Content = ({
   width,
   align = "end",
   onInteractOutside,
-  revealAnimation = "width",
   ...props
 }: DialogContentProps) => {
   return (
@@ -188,7 +176,6 @@ const Content = ({
         }}
         $width={width}
         $align={align}
-        $revealAnimation={revealAnimation}
         {...props}
       >
         {children}
