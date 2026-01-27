@@ -46,7 +46,8 @@ const FilenameReveal = styled.span`
     display: inline-block;
   }
 
-  @container uploadArea (width > ${({ theme }) => parseInt(theme.breakpoint.sizes.sm) / 1.5}px) {
+  @container uploadArea (width > ${({ theme }) =>
+    parseInt(theme.breakpoint.sizes.sm) / 1.5}px) {
     span[data-truncated="s"] {
       display: none;
     }
@@ -372,7 +373,10 @@ export const FileUpload = ({
 
   const acceptedFileTypes = supportedFileTypes.join(",");
   const shortenMFilename = useMemo(() => (file ? shortenMiddle(file.name) : ""), [file]);
-  const shortenSFilename = useMemo(() => (file ? shortenMiddle(file.name, 20) : ""), [file]);
+  const shortenSFilename = useMemo(
+    () => (file ? shortenMiddle(file.name, 20) : ""),
+    [file]
+  );
 
   return (
     <>
