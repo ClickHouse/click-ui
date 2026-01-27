@@ -5,7 +5,7 @@ import { useState, useRef, useCallback } from "react";
 import { truncateFilename } from "@/utils/truncate";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import { Button, Icon, IconButton, ProgressBar, Container } from "@/components";
 
 interface FileInfo {
   name: string;
@@ -36,13 +36,6 @@ interface FileUploadProps {
   /** Callback when the file is removed/closed */
   onFileClose?: () => void;
 }
-
-const IconContainer = styled.div`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-`;
 
 const UploadArea = styled.div<{
   $isDragging: boolean;
@@ -422,13 +415,20 @@ export const FileUpload = ({
                   <FileUploadDescription $isError>{failureMessage}</FileUploadDescription>
                 )}
                 {showSuccess && (
-                  <IconContainer>
+                  <Container
+                    display="inline-flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    shrink="0"
+                    fillWidth={false}
+                    isResponsive={false}
+                  >
                     <Icon
                       size={"xs"}
                       state={"success"}
                       name={"check"}
                     />
-                  </IconContainer>
+                  </Container>
                 )}
               </FileDetails>
               {showProgress && !showSuccess && (
