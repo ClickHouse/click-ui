@@ -27,7 +27,7 @@ export const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
         "[Click UI] Unknown theme! Please use 'light' or 'dark' theme instead. Falling back to 'light' theme."
       );
     }
-  }, [theme]);
+  }, [theme, hasValidTheme]);
 
   const safeTheme = getFallbackThemeName(theme);
 
