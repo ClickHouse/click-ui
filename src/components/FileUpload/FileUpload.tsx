@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { styled, css } from 'styled-components';
 import { useState, useRef, useCallback } from 'react';
 
-import { Text } from "@/components/Typography/Text/Text";
-import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar, Container } from "@/components";
-import { MiddleTruncator } from "../MiddleTruncator";
+import { Text } from '@/components/Typography/Text/Text';
+import { Title } from '@/components/Typography/Title/Title';
+import { Button, Icon, IconButton, ProgressBar, Container } from '@/components';
+import { MiddleTruncator } from '../MiddleTruncator';
 
 interface FileInfo {
   name: string;
