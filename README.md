@@ -18,6 +18,7 @@ You can find the official docs for the Click UI design system and component libr
 ## Overview
 
 * [Requirements](#requirements)
+* [Quick Start](#quick-start)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
   - [Local development](#local-development)
@@ -33,6 +34,31 @@ You can find the official docs for the Click UI design system and component libr
 
 - Nodejs (>= 22.12.x) as runtime
 - Yarn (>= 4.5.3) for development, any other package manager in a host project
+
+## Quick Start
+
+Install the package via npm or your favourite package manager:
+
+```sh
+npm i @clickhouse/click-ui@latest
+```
+
+To use Click UI, you must wrap your application in the provider. This ensures styles and themes are applied correctly across all components.
+
+```ts
+import { ClickUIProvider, Title, Text } from '@clickhouse/click-ui'
+
+function App() {
+  return (
+    <ClickUIProvider theme="dark">
+      <Title type="h1">Hello ClickHouse</Title>
+      <Text>Start building today!</Text>
+    </ClickUIProvider>
+  )
+}
+```
+
+For more examples, including theme switching and configuration, see the [How to](#how-to-use) use section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Development
 
@@ -151,7 +177,7 @@ The latest static version's built and deployed automatically when contributing t
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
-## Using Click UI in an external app
+## How-to use
 
 Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
 
