@@ -3,6 +3,7 @@ import {
   createGlobalStyle,
 } from 'styled-components';
 import { ThemeName, themes } from '.';
+import { isValidThemeName } from '@/utils/theme';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -18,8 +19,8 @@ const ThemeProvider = ({
   theme: ThemeName;
   children: React.ReactNode;
 }) => {
-  // Handle fallback for deprecated "classic" theme
-  const resolvedTheme = name === 'classic' ? 'light' : name;
+  const hasValidTheme = isValidThemeName(name);
+  const resolvedTheme = !hasValidTheme ? 'light' : name;
   return (
     <StyledThemeProvider theme={themes[resolvedTheme]}>
       <GlobalStyle />
