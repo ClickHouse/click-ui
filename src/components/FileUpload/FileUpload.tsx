@@ -5,6 +5,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
 import { Button, Icon, IconButton, ProgressBar, Container } from '@/components';
+import { MiddleTruncator } from '../MiddleTruncator';
 
 interface FileInfo {
   name: string;
@@ -35,50 +36,6 @@ interface FileUploadProps {
   /** Callback when the file is removed/closed */
   onFileClose?: () => void;
 }
-
-// TODO: Make it a component + story
-const TruncatorContainer = styled.div`
-  display: flex;
-  width: 100%;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
-`;
-
-const TruncatorStart = styled.span`
-  flex-shrink: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-const TruncatorEnd = styled.span`
-  flex-shrink: 0;
-  white-space: nowrap;
-`;
-
-const MiddleTruncator = ({
-  text,
-  trailingChars = 10,
-}: {
-  text: string;
-  trailingChars?: number;
-}) => {
-  const startText = text.slice(0, -trailingChars);
-  const endText = text.slice(-trailingChars);
-
-  return (
-    <TruncatorContainer
-      title={text}
-      aria-label={text}
-    >
-      <TruncatorStart>{startText}</TruncatorStart>
-      <TruncatorEnd>{endText}</TruncatorEnd>
-    </TruncatorContainer>
-  );
-};
 
 const UploadArea = styled.div<{
   $isDragging: boolean;
