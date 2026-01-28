@@ -88,6 +88,12 @@ Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
 We leverage Storybook as our primary development environment and documentation, see [Storybook](#storybook).
 
+You can start the Storybook development server by:
+
+```sh
+yarn dev
+```
+
 We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
 
 > [!IMPORTANT]
