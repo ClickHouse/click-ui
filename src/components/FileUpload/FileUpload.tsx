@@ -145,11 +145,6 @@ const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
       : theme.click.fileUpload.color.title.default};
 `;
 
-// const FileName = styled(Text)`
-//   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-//   color: ${({ theme }) => theme.click.fileUpload.color.title.default};
-// `;
-
 const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme, $isError }) =>
