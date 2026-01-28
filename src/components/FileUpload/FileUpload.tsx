@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { styled, css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 
-import { shortenMiddle } from "@/utils/truncate";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar, Container } from "@/components";
@@ -37,12 +36,58 @@ interface FileUploadProps {
   onFileClose?: () => void;
 }
 
+// TODO: Make it a component + story
+const TruncatorContainer = styled.div`
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
+`;
+
+const TruncatorStart = styled.span`
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const TruncatorEnd = styled.span`
+  flex-shrink: 0;
+  white-space: nowrap;
+`;
+
+const MiddleTruncator = ({
+  text,
+  trailingChars = 10,
+}: {
+  text: string;
+  trailingChars?: number;
+}) => {
+  const startText = text.slice(0, -trailingChars);
+  const endText = text.slice(-trailingChars);
+
+  return (
+    <TruncatorContainer
+      title={text}
+      aria-label={text}
+    >
+      <TruncatorStart>{startText}</TruncatorStart>
+      <TruncatorEnd>{endText}</TruncatorEnd>
+    </TruncatorContainer>
+  );
+};
+
 const UploadArea = styled.div<{
   $isDragging: boolean;
   $size: "sm" | "md";
   $hasFile: boolean;
   $isError?: boolean;
 }>`
+  container-type: inline-size;
+  container-name: uploadArea;
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
   border-radius: ${({ theme, $hasFile }) =>
@@ -100,11 +145,6 @@ const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
       : theme.click.fileUpload.color.title.default};
 `;
 
-const FileName = styled(Text)`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
-`;
-
 const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme, $isError }) =>
@@ -158,6 +198,7 @@ const FileDetails = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   border: none;
+  min-width: 0;
 `;
 
 const FileActions = styled.div`
@@ -173,6 +214,7 @@ const FileContentContainer = styled.div<{ $size: "sm" | "md" }>`
   flex-direction: column;
   justify-content: center;
   min-height: ${({ $size }) => ($size === "sm" ? "24px" : "auto")};
+  min-width: 0;
 `;
 
 const ProgressBarWrapper = styled.div`
@@ -395,7 +437,7 @@ export const FileUpload = ({
             <DocumentIcon name={"document"} />
             <FileContentContainer $size={size}>
               <FileDetails>
-                <FileName>{shortenMiddle(file.name)}</FileName>
+                <MiddleTruncator text={file.name} />
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
