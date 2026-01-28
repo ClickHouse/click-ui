@@ -59,7 +59,13 @@ const TruncatorEnd = styled.span`
   white-space: nowrap;
 `;
 
-const MiddleTruncator = ({ text, trailingChars = 10 }: { text: string; trailingChars?: number; }) => {
+const MiddleTruncator = ({
+  text,
+  trailingChars = 10,
+}: {
+  text: string;
+  trailingChars?: number;
+}) => {
   const startText = text.slice(0, -trailingChars);
   const endText = text.slice(-trailingChars);
 
