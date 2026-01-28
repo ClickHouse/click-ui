@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { styled, css } from "styled-components";
 import { useState, useRef, useCallback } from "react";
 
-import { shortenMiddle } from "@/utils/truncate";
 import { Text } from "@/components/Typography/Text/Text";
 import { Title } from "@/components/Typography/Title/Title";
 import { Button, Icon, IconButton, ProgressBar, Container } from "@/components";
@@ -37,35 +36,43 @@ interface FileUploadProps {
   onFileClose?: () => void;
 }
 
-const FilenameReveal = styled.span`
-  span {
-    display: none;
-  }
-
-  span[data-truncated="s"] {
-    display: inline-block;
-  }
-
-  @container uploadArea (width > ${({ theme }) =>
-    parseInt(theme.breakpoint.sizes.sm) / 1.5}px) {
-    span[data-truncated="s"] {
-      display: none;
-    }
-
-    span[data-truncated="m"] {
-      display: inline-block;
-    }
-  }
-
-  @container uploadArea (width > ${({ theme }) => theme.breakpoint.sizes.md}) {
-    span {
-      display: inline-block;
-    }
-    span[data-truncated] {
-      display: none;
-    }
-  }
+// TODO: Make it a component + story
+const TruncatorContainer = styled.div`
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
 `;
+
+const TruncatorStart = styled.span`
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const TruncatorEnd = styled.span`
+  flex-shrink: 0;
+  white-space: nowrap;
+`;
+
+const MiddleTruncator = ({ text, trailingChars = 10 }: { text: string; trailingChars?: number; }) => {
+  const startText = text.slice(0, -trailingChars);
+  const endText = text.slice(-trailingChars);
+
+  return (
+    <TruncatorContainer
+      title={text}
+      aria-label={text}
+    >
+      <TruncatorStart>{startText}</TruncatorStart>
+      <TruncatorEnd>{endText}</TruncatorEnd>
+    </TruncatorContainer>
+  );
+};
 
 const UploadArea = styled.div<{
   $isDragging: boolean;
@@ -132,10 +139,10 @@ const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
       : theme.click.fileUpload.color.title.default};
 `;
 
-const FileName = styled(Text)`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
-`;
+// const FileName = styled(Text)`
+//   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
+//   color: ${({ theme }) => theme.click.fileUpload.color.title.default};
+// `;
 
 const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
@@ -190,6 +197,7 @@ const FileDetails = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   border: none;
+  min-width: 0;
 `;
 
 const FileActions = styled.div`
@@ -205,6 +213,7 @@ const FileContentContainer = styled.div<{ $size: "sm" | "md" }>`
   flex-direction: column;
   justify-content: center;
   min-height: ${({ $size }) => ($size === "sm" ? "24px" : "auto")};
+  min-width: 0;
 `;
 
 const ProgressBarWrapper = styled.div`
@@ -372,11 +381,6 @@ export const FileUpload = ({
   }, [onRetry]);
 
   const acceptedFileTypes = supportedFileTypes.join(",");
-  const shortenMFilename = useMemo(() => (file ? shortenMiddle(file.name) : ""), [file]);
-  const shortenSFilename = useMemo(
-    () => (file ? shortenMiddle(file.name, 20) : ""),
-    [file]
-  );
 
   return (
     <>
@@ -432,26 +436,7 @@ export const FileUpload = ({
             <DocumentIcon name={"document"} />
             <FileContentContainer $size={size}>
               <FileDetails>
-                <FilenameReveal>
-                  <FileName
-                    title={file.name}
-                    aria-label={file.name}
-                  >
-                    <span
-                      data-truncated="s"
-                      aria-hidden="true"
-                    >
-                      {shortenSFilename}
-                    </span>
-                    <span
-                      data-truncated="m"
-                      aria-hidden="true"
-                    >
-                      {shortenMFilename}
-                    </span>
-                    <span>{file.name}</span>
-                  </FileName>
-                </FilenameReveal>
+                <MiddleTruncator text={file.name} />
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
                 )}
