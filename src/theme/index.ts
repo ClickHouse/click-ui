@@ -1,6 +1,11 @@
 import darkTheme from './tokens/variables.dark';
 import lightTheme from './tokens/variables.light';
 
+// TODO: Can the custom types be simplified
+// bye preferring to use the library provided
+// types for each required case? And where possible
+// can it be inferred instead?
+// Try to make it more readable
 type WidenLiteral<T> = T extends string
   ? string
   : T extends number
@@ -8,7 +13,6 @@ type WidenLiteral<T> = T extends string
     : T extends boolean
       ? boolean
       : T;
-
 
 type GetTypes<T> = {
   [K in keyof T]: T[K] extends (infer U)[]
@@ -27,7 +31,7 @@ export const THEMES = {
   Light: 'light',
 } as const;
 
-export type ThemeName = typeof THEMES[keyof typeof THEMES];
+export type ThemeName = (typeof THEMES)[keyof typeof THEMES];
 
 export type ActiveThemeName = ThemeName;
 
