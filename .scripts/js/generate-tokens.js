@@ -1,14 +1,14 @@
-import { registerTransforms, transforms } from '@tokens-studio/sd-transforms';
+import { register } from '@tokens-studio/sd-transforms';
 import StyleDictionary from 'style-dictionary';
 
 const themes = ['dark', 'light'];
 
-registerTransforms(StyleDictionary);
+await register(StyleDictionary);
 
 StyleDictionary.registerTransform({
   type: 'name',
   name: 'name/cti/dot',
-  transformer: (token, options) => {
+  transform: (token, options) => {
     if (options.prefix && options.prefix.length) {
       return [options.prefix].concat(token.path).join('.');
     } else {
@@ -19,7 +19,7 @@ StyleDictionary.registerTransform({
 
 StyleDictionary.registerFormat({
   name: 'typescript/es6-theme',
-  formatter: function ({ dictionary, file }) {
+  format: function ({ dictionary, file }) {
     const themeName = file.destination.replace('variables.', '').replace('.ts', '');
     const theme = {};
 
@@ -44,13 +44,17 @@ StyleDictionary.registerFormat({
   },
 });
 
-const themeDictionaries = themes.map(theme =>
-  StyleDictionary.extend({
-    include: [`./tokens/**/!(${themes.join('|*.')}).json`],
-    source: [`./tokens/**/${theme}.json`],
+for (const theme of themes) {
+  const sd = new StyleDictionary({
+    source: [
+      `./tokens/**/!(${themes.join('|')}).json`,
+      `./tokens/**/${theme}.json`,
+    ],
+    preprocessors: ['tokens-studio'],
     platforms: {
       ts: {
-        transforms: [...transforms, 'name/cti/dot'],
+        transformGroup: 'tokens-studio',
+        transforms: ['name/cti/dot'],
         buildPath: 'src/theme/tokens/',
         files: [
           {
@@ -60,10 +64,8 @@ const themeDictionaries = themes.map(theme =>
         ],
       },
     },
-  })
-);
+  });
 
-themeDictionaries.forEach(dict => {
-  dict.cleanAllPlatforms();
-  dict.buildAllPlatforms();
-});
+  await sd.cleanAllPlatforms();
+  await sd.buildAllPlatforms();
+}

@@ -42,7 +42,7 @@
     "changeset:version": "yarn changeset version",
     "changeset:verify": ".scripts/changeset-verification",
     "dev": "yarn storybook",
-    "generate-tokens": "node build-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
+    "generate-tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --report-unused-disable-directives --max-warnings 0 --fix",
     "format": ".scripts/format",
