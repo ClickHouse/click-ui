@@ -20,7 +20,7 @@ You can find the official docs for the Click UI design system and component libr
 * [Requirements](#requirements)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
-  - [Local development server](#local-development-server)
+  - [Local development](#local-development)
 * [Tests](#Tests)
   - [Functional tests](#functional-tests)
   - [Visual regression tests](#visual-regression-tests)
@@ -58,15 +58,21 @@ yarn generate-tokens
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
-### Local development server
+### Local development
 
-To run the Click UI development execute the command:
+We leverage Storybook as our primary development environment and documentation, see [Storybook](#storybook).
 
-```sh
-yarn dev
-```
+We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
 
-It'll default to the location [http://localhost:5173](http://localhost:5173), if port available.
+> [!IMPORTANT]
+> We operate collaboratively with the Product Design team. While stories reflect the current implementation (live), Figma files remain the source of truth for design research and decision-making. Changes are typically finalized in Figma before being implemented in code to ensure design-sync.
+
+By avoiding local preview files, we ensure that component experimentation happens in isolation; free from application side effects and providing a live look at component interfaces and usage examples at time of writing.
+
+> [!NOTE]
+> To ensure stability, we utilize Visual Regression and Unit Testing, see [tests](#tests). When contributing features or tweaks, you're expected to include or update the relevant tests to maintain stability, e.g. remember the components are consumed by a number of applications.
+
+To get started with the development playground, refer to the Storybook section [here](#storybook).
 
 ## Tests
 
