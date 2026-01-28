@@ -22,6 +22,8 @@ You can find the official docs for the Click UI design system and component libr
   - [Generating design tokens](#generating-design-tokens)
   - [Local development server](#local-development-server)
 * [Tests](#Tests)
+  - [Functional tests](#functional-tests)
+  - [Visual regression tests](#visual-regression-tests)
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
@@ -68,11 +70,46 @@ It'll default to the location [http://localhost:5173](http://localhost:5173), if
 
 ## Tests
 
+### Functional tests
+
 The package uses [vitest](https://vitest.dev/) and [react testing library](https://testing-library.com) for tests, e.g. functional tests.
 
 ```sh
 yarn test
 ```
+
+### Visual regression tests
+
+The project uses [Chromatic](https://www.chromatic.com/) for visual regression testing of UI components.
+
+It captures screenshots of Storybook and compares them across builds to detect unintended visual changes by:
+
+- Automated visual testing in GitHub CI/CD pipeline, e.g. storybook publish, UI tests
+- Leveraging storybook stories
+- Provides visual diff reviews and approval workflows
+- Helps catch UI bugs
+
+To setup, you must get a team member project token.
+
+Add the token as an environment variable to your environment preference or profile, e.g. `~/.zshrc`:
+
+```sh
+export CHROMATIC_PROJECT_TOKEN=<YOUR-TOKEN-HERE>
+```
+
+Once ready, you can run tests by:
+
+```sh
+yarn test:chromatic
+```
+
+> [!NOTE]
+> Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
+> - Build status, e.g. uploading or testing
+> - Link to the cloud runner or dashboard
+> - Exit code
+
+If you need quicker iteration feedback, or more testing control during local development, read [here](./docs/tests/playwright.md)
 
 ## Storybook
 
@@ -102,7 +139,7 @@ Once built, you can serve the static files by:
 yarn storybook:serve
 ```
 
-### Public static version
+### Public static site
 
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
