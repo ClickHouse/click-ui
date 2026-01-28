@@ -1,7 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { MiddleTruncator } from "./index";
 
-const meta: Meta<typeof MiddleTruncator> = {
+type StoryArgs = React.ComponentProps<typeof MiddleTruncator> & {
+  containerWidth: number;
+};
+
+const meta: Meta<StoryArgs> = {
   component: MiddleTruncator,
   title: "Display/MiddleTruncator",
   tags: ["autodocs"],
@@ -12,23 +16,25 @@ const meta: Meta<typeof MiddleTruncator> = {
     trailingChars: {
       control: { type: "number" },
     },
+    containerWidth: {
+      control: { type: "range", min: 0, max: 100, step: 1 },
+    },
   },
-  decorators: [
-    Story => (
-      <div style={{ width: "200px" }}>
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof MiddleTruncator>;
+type Story = StoryObj<StoryArgs>;
 
 export const Playground: Story = {
   args: {
     text: "console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv",
     trailingChars: 10,
+    containerWidth: 20,
   },
+  render: ({ containerWidth, ...args }) => (
+    <div style={{ width: `${containerWidth}%` }}>
+      <MiddleTruncator {...args} />
+    </div>
+  ),
 };
