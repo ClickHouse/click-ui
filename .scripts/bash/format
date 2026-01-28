@@ -17,7 +17,7 @@ MODE="${1:---check}"
 TARGET="${@:2}"
 
 if [[ -z "$TARGET" ]]; then
-  FILES="src/**/*.{js,jsx,ts,tsx}"
+  TARGET="src/**/*.{js,jsx,ts,tsx}"
 fi
 
 prettier "$MODE" $TARGET --config .prettierrc
