@@ -1,18 +1,18 @@
-import * as RadixRadioGroup from "@radix-ui/react-radio-group";
-import { HTMLAttributes, ReactNode, useId } from "react";
-import { styled } from "styled-components";
-import { GenericLabel, Label } from "@/components";
-import { Error, FormElementContainer, FormRoot } from "../commonElement";
+import * as RadixRadioGroup from '@radix-ui/react-radio-group';
+import { HTMLAttributes, ReactNode, useId } from 'react';
+import { styled } from 'styled-components';
+import { GenericLabel, Label } from '@/components';
+import { Error, FormElementContainer, FormRoot } from '../commonElement';
 
-export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, "dir"> {
+export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, 'dir'> {
   /** Whether to display radio items inline (horizontally) */
   inline?: boolean;
   /** The orientation of the label relative to the radio group */
-  orientation?: "vertical" | "horizontal";
+  orientation?: 'vertical' | 'horizontal';
   /** The direction/position of the label - start places label before, end places label after */
-  dir?: "start" | "end";
+  dir?: 'start' | 'end';
   /** Text direction for radio items - ltr or rtl */
-  itemDir?: "rtl" | "ltr";
+  itemDir?: 'rtl' | 'ltr';
   /** The label text displayed next to the radio group */
   label?: ReactNode;
   /** Error message to display below the radio group */
@@ -26,10 +26,10 @@ const RadioGroupRoot = styled(RadixRadioGroup.Root)<{
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.click.checkbox.space.gap};
-  flex-direction: ${({ $inline = true }) => ($inline === true ? "row" : "column")};
+  flex-direction: ${({ $inline = true }) => ($inline === true ? 'row' : 'column')};
   label {
     ${({ $error, theme }) =>
-      $error ? `color: ${theme.click.field.color.label.error};` : ""}
+      $error ? `color: ${theme.click.field.color.label.error};` : ''}
   }
 `;
 
@@ -53,7 +53,7 @@ export const RadioGroup = ({
     >
       <FormElementContainer>
         <RadioGroupRoot
-          orientation={inline ? "horizontal" : "vertical"}
+          orientation={inline ? 'horizontal' : 'vertical'}
           disabled={disabled}
           id={id}
           $error={!!error}
@@ -122,7 +122,7 @@ const RadioGroupItem = ({
   );
 };
 
-RadioGroupItem.displayName = "RadioGroupItem";
+RadioGroupItem.displayName = 'RadioGroupItem';
 RadioGroup.Item = RadioGroupItem;
 
 const Wrapper = styled(FormRoot)`

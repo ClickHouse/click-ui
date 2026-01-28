@@ -1,18 +1,18 @@
-import { styled } from "styled-components";
-import { Badge, Icon, IconName } from "@/components";
-import { Title } from "@/components/Typography/Title/Title";
-import { Text } from "@/components/Typography/Text/Text";
-import { IconSize } from "@/components/Icon/types";
-import { HTMLAttributes, ReactNode } from "react";
+import { styled } from 'styled-components';
+import { Badge, Icon, IconName } from '@/components';
+import { Title } from '@/components/Typography/Title/Title';
+import { Text } from '@/components/Typography/Text/Text';
+import { IconSize } from '@/components/Icon/types';
+import { HTMLAttributes, ReactNode } from 'react';
 
 export type BadgeState =
-  | "default"
-  | "success"
-  | "neutral"
-  | "danger"
-  | "disabled"
-  | "warning"
-  | "info";
+  | 'default'
+  | 'success'
+  | 'neutral'
+  | 'danger'
+  | 'disabled'
+  | 'warning'
+  | 'info';
 
 export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   /** The title text displayed in the card header */
@@ -101,7 +101,7 @@ const Wrapper = styled.div<{
   flex-direction: column;
   padding: ${({ theme }) => theme.click.card.secondary.space.all};
   gap: ${({ theme }) => theme.click.card.secondary.space.gap};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
+  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
 
   &:hover,
   :focus {
@@ -113,10 +113,10 @@ const Wrapper = styled.div<{
     }
   }
 
-  &[aria-disabled="true"],
-  &[aria-disabled="true"]:hover,
-  &[aria-disabled="true"]:focus,
-  &[aria-disabled="true"]:active {
+  &[aria-disabled='true'],
+  &[aria-disabled='true']:hover,
+  &[aria-disabled='true']:focus,
+  &[aria-disabled='true']:active {
     pointer-events: none;
     ${({ theme }) => `
       background-color: ${theme.click.card.secondary.color.background.disabled};
@@ -137,14 +137,14 @@ export const CardSecondary = ({
   icon,
   iconUrl,
   badgeState,
-  badgeText = "",
+  badgeText = '',
   hasShadow = false,
   disabled = false,
   description,
   infoUrl,
   infoText,
-  infoIcon = "chevron-right",
-  infoIconSize = "md",
+  infoIcon = 'chevron-right',
+  infoIconSize = 'md',
   ...props
 }: CardSecondaryProps) => {
   return (
@@ -176,7 +176,7 @@ export const CardSecondary = ({
         {badgeText && (
           <Badge
             text={badgeText}
-            state={disabled == true ? "disabled" : badgeState}
+            state={disabled == true ? 'disabled' : badgeState}
           />
         )}
       </Header>
@@ -187,7 +187,7 @@ export const CardSecondary = ({
       {(infoUrl || infoText) && (
         <InfoLink
           href={disabled ? undefined : infoUrl}
-          as={disabled || !infoUrl || infoUrl.length === 0 ? "div" : "a"}
+          as={disabled || !infoUrl || infoUrl.length === 0 ? 'div' : 'a'}
         >
           <LinkText>{infoText}</LinkText>
           <LinkIcon

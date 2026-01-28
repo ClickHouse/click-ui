@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
-import { SelectOptionProp, SelectionType } from "./common/types";
+import { SelectOptionProp, SelectionType } from './common/types';
 import {
   SelectGroup,
   InternalSelect,
   MultiSelectCheckboxItem,
   SelectItemDescription,
-} from "./common/InternalSelect";
+} from './common/InternalSelect';
 
-import { MultiSelectProps } from "..";
+import { MultiSelectProps } from '..';
 
 export interface CheckboxMultiSelectProps extends MultiSelectProps {
   selectLabel?: string;
@@ -32,7 +32,7 @@ export const CheckboxMultiSelect = ({
   const onOpenChange = useCallback(
     (open: boolean) => {
       setOpen(open);
-      if (typeof onOpenChangeProp === "function") {
+      if (typeof onOpenChangeProp === 'function') {
         onOpenChangeProp(open);
       }
     },
@@ -46,7 +46,7 @@ export const CheckboxMultiSelect = ({
   const onChange = useCallback(
     (values: Array<string>, type?: SelectionType) => {
       setSelectedValues(values);
-      if (typeof onSelectProp === "function") {
+      if (typeof onSelectProp === 'function') {
         onSelectProp(values, type);
       }
     },

@@ -1,5 +1,5 @@
-import { Container, Text } from "@/components";
-import { styled, useTheme } from "styled-components";
+import { Container, Text } from '@/components';
+import { styled, useTheme } from 'styled-components';
 
 const ColorBox = styled(Container)<{ $color: string }>`
   ${({ $color }) => `
@@ -38,8 +38,8 @@ const ChartColorsDemo = () => {
 };
 
 export default {
-  title: "Colors/Chart Colors",
-  tags: ["autodocs", "color", "chart"],
+  title: 'Colors/Chart Colors',
+  tags: ['autodocs', 'color', 'chart'],
   render: () => <ChartColorsDemo />,
 };
 

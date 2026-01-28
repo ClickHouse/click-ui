@@ -1,20 +1,20 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import LogosLight from "../Logos/LogosLight";
-import { FlagList } from "../icons/Flags";
-import { PaymentList } from "../icons/Payments";
-import { Icon } from "./Icon";
-import { IconName } from "../types";
-import { ICONS_MAP } from "./IconCommon";
-import { IconProps } from "./types";
-import { Container } from "../Container/Container";
-import { styled } from "styled-components";
-import { useState } from "react";
-import { SearchField } from "../Input/SearchField";
-import { Title } from "../Typography/Title/Title";
-import { Panel } from "../Panel/Panel";
-import { Text } from "../Typography/Text/Text";
-import { GridContainer } from "../GridContainer/GridContainer";
-import { Spacer } from "../Spacer/Spacer";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import LogosLight from '../Logos/LogosLight';
+import { FlagList } from '../icons/Flags';
+import { PaymentList } from '../icons/Payments';
+import { Icon } from './Icon';
+import { IconName } from '../types';
+import { ICONS_MAP } from './IconCommon';
+import { IconProps } from './types';
+import { Container } from '../Container/Container';
+import { styled } from 'styled-components';
+import { useState } from 'react';
+import { SearchField } from '../Input/SearchField';
+import { Title } from '../Typography/Title/Title';
+import { Panel } from '../Panel/Panel';
+import { Text } from '../Typography/Text/Text';
+import { GridContainer } from '../GridContainer/GridContainer';
+import { Spacer } from '../Spacer/Spacer';
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagList);
@@ -29,16 +29,16 @@ const IconWrapper = (props: IconProps) => (
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
-  title: "Display/Icon",
-  tags: ["icon", "autodocs"],
+  title: 'Display/Icon',
+  tags: ['icon', 'autodocs'],
   argTypes: {
     name: {
       options: [...IconNames, ...FlagNames, ...LogoNames, ...PaymentNames],
-      control: { type: "select" },
+      control: { type: 'select' },
     },
     size: {
-      options: ["xs", "sm", "md", "lg", "xl", "xxl"],
-      control: { type: "select" },
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      control: { type: 'select' },
     },
   },
 };
@@ -49,9 +49,9 @@ type Story = StoryObj<typeof Icon>;
 
 export const Playground: Story = {
   args: {
-    name: "users",
-    size: "md",
-    state: "default",
+    name: 'users',
+    size: 'md',
+    state: 'default',
   },
   render: args => <IconWrapper {...(args as IconProps)} />,
 };
@@ -100,13 +100,13 @@ const ResponsiveGridContainer = styled(GridContainer)`
 
 export const Icons: Story = {
   render: () => {
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState('');
     return (
       <Container
         orientation="vertical"
         gap="sm"
         maxWidth="1000px"
-        style={{ margin: "0 auto" }}
+        style={{ margin: '0 auto' }}
       >
         <Title
           type="h2"
@@ -128,7 +128,7 @@ export const Icons: Story = {
           <ResponsiveGridContainer>
             {Object.keys(ICONS_MAP)
               .filter(
-                key => query === "" || key.toLowerCase().includes(query.toLowerCase())
+                key => query === '' || key.toLowerCase().includes(query.toLowerCase())
               )
               .sort()
               .map(key => {

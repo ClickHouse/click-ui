@@ -1,6 +1,6 @@
-import { Badge } from "@/components/Badge/Badge";
-import { Container } from "@/components/Container/Container";
-import { styled } from "styled-components";
+import { Badge } from '@/components/Badge/Badge';
+import { Container } from '@/components/Container/Container';
+import { styled } from 'styled-components';
 
 export const TopBadgeWrapper = styled(Container)`
   position: relative;
@@ -14,7 +14,7 @@ export const CardPrimaryTopBadge = styled(Badge)<{ $isSelected?: boolean }>`
   ${({ $isSelected, theme }) =>
     $isSelected
       ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ""}
+      : ''}
   div:active + & {
     border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
   }

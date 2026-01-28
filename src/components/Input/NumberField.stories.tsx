@@ -1,12 +1,12 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { useEffect, useState } from "react";
-import { NumberField, NumberFieldProps } from "./NumberField";
-import { Container } from "../Container/Container";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { useEffect, useState } from 'react';
+import { NumberField, NumberFieldProps } from './NumberField';
+import { Container } from '../Container/Container';
 
 const meta: Meta<typeof NumberField> = {
   component: NumberField,
-  title: "Forms/Input/NumberField",
-  tags: ["form-field", "input", "autodocs"],
+  title: 'Forms/Input/NumberField',
+  tags: ['form-field', 'input', 'autodocs'],
   decorators: [
     Story => (
       <Container maxWidth="300px">
@@ -14,7 +14,7 @@ const meta: Meta<typeof NumberField> = {
       </Container>
     ),
   ],
-  render: ({ value: valueProp, ...props }: Omit<NumberFieldProps, "onChange">) => {
+  render: ({ value: valueProp, ...props }: Omit<NumberFieldProps, 'onChange'>) => {
     const [value, setValue] = useState(valueProp);
     useEffect(() => {
       setValue(valueProp);
@@ -38,9 +38,9 @@ type Story = StoryObj<typeof NumberField>;
 
 export const Playground: Story = {
   args: {
-    label: "Label",
+    label: 'Label',
     disabled: false,
-    placeholder: "Placeholder",
+    placeholder: 'Placeholder',
     loading: false,
   },
 };

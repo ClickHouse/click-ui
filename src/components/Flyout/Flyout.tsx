@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -11,7 +11,7 @@ import {
   DialogTrigger,
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
-} from "@radix-ui/react-dialog";
+} from '@radix-ui/react-dialog';
 import {
   Button,
   ButtonProps,
@@ -21,10 +21,10 @@ import {
   Icon,
   Separator,
   Spacer,
-} from "@/components";
-import { styled } from "styled-components";
-import { CrossButton } from "../commonElement";
-import { keyframes } from "styled-components";
+} from '@/components';
+import { styled } from 'styled-components';
+import { CrossButton } from '../commonElement';
+import { keyframes } from 'styled-components';
 
 export type FlyoutProps = DialogProps;
 
@@ -47,14 +47,14 @@ const Trigger = ({ children, ...props }: DialogTriggerProps) => {
     </DialogTrigger>
   );
 };
-Trigger.displayName = "Flyout.Trigger";
+Trigger.displayName = 'Flyout.Trigger';
 Flyout.Trigger = Trigger;
 
-type FlyoutSizeType = "default" | "narrow" | "wide" | "widest";
-type Strategy = "relative" | "absolute" | "fixed";
-type FlyoutType = "default" | "inline";
+type FlyoutSizeType = 'default' | 'narrow' | 'wide' | 'widest';
+type Strategy = 'relative' | 'absolute' | 'fixed';
+type FlyoutType = 'default' | 'inline';
 
-type DialogContentAlignmentType = "start" | "end";
+type DialogContentAlignmentType = 'start' | 'end';
 export interface DialogContentProps extends RadixDialogContentProps {
   /** Container element to portal the flyout into */
   container?: HTMLElement | null;
@@ -77,7 +77,7 @@ export interface DialogContentProps extends RadixDialogContentProps {
 const animationWidth = () =>
   keyframes({
     from: { width: 0 },
-    to: { width: "fit-content" },
+    to: { width: 'fit-content' },
   });
 
 const FlyoutContent = styled(DialogContent)<{
@@ -94,45 +94,45 @@ const FlyoutContent = styled(DialogContent)<{
   top: 0;
   bottom: 0;
   width: fit-content;
-  --flyout-width: ${({ theme, $size = "default", $width }) =>
+  --flyout-width: ${({ theme, $size = 'default', $width }) =>
     $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  ${({ theme, $strategy, $type = "default", $align }) => `
-    ${$align === "start" ? "left" : "right"}: 0;
+  ${({ theme, $strategy, $type = 'default', $align }) => `
+    ${$align === 'start' ? 'left' : 'right'}: 0;
     max-width: 100%;
     position: ${$strategy};
-    height: ${$strategy === "relative" ? "100%" : "auto"};
+    height: ${$strategy === 'relative' ? '100%' : 'auto'};
     padding: 0 ${theme.click.flyout.space[$type].x}
     gap: ${theme.click.flyout.space[$type].gap};
     box-shadow: ${
-      $align === "start"
+      $align === 'start'
         ? theme.click.flyout.shadow.reverse
         : theme.click.flyout.shadow.default
     };
-    border-${$align === "start" ? "right" : "left"}: 1px solid ${
+    border-${$align === 'start' ? 'right' : 'left'}: 1px solid ${
       theme.click.flyout.color.stroke.default
     };
     background: ${theme.click.flyout.color.background.default};
 
     @media (max-width: 1024px) {
       ${
-        $strategy === "relative"
+        $strategy === 'relative'
           ? `
             position: absolute !important;`
-          : ""
+          : ''
       }
       overflow: hidden;
       transform: ${
-        $align === "start"
-          ? "translateX(calc(50px - 100%))"
-          : "translateX(calc(100% - 50px))"
+        $align === 'start'
+          ? 'translateX(calc(50px - 100%))'
+          : 'translateX(calc(100% - 50px))'
       };
       transition: 0.3s ease-in-out;
       &:hover,
       &.active,
       &:focus-within {
         transform: translateX(0);
-        ${$align === "start" ? "right" : "left"}: auto;
+        ${$align === 'start' ? 'right' : 'left'}: auto;
       }
     }
   `}
@@ -150,12 +150,12 @@ const Content = ({
   showOverlay = false,
   children,
   container,
-  strategy = "relative",
+  strategy = 'relative',
   size,
-  type = "default",
+  type = 'default',
   closeOnInteractOutside = false,
   width,
-  align = "end",
+  align = 'end',
   onInteractOutside,
   ...props
 }: DialogContentProps) => {
@@ -170,7 +170,7 @@ const Content = ({
           if (!closeOnInteractOutside) {
             e.preventDefault();
           }
-          if (typeof onInteractOutside === "function") {
+          if (typeof onInteractOutside === 'function') {
             onInteractOutside(e);
           }
         }}
@@ -183,7 +183,7 @@ const Content = ({
     </DialogPortal>
   );
 };
-Content.displayName = "Flyout.Content";
+Content.displayName = 'Flyout.Content';
 Flyout.Content = Content;
 
 const FlyoutElement = styled(Container)<{
@@ -193,7 +193,7 @@ const FlyoutElement = styled(Container)<{
   max-width: -webkit-fill-available;
   max-width: fill-available;
   max-width: stretch;
-  ${({ theme, $type = "default" }) => `
+  ${({ theme, $type = 'default' }) => `
     gap: ${theme.click.flyout.space[$type].gap};
     padding: 0 ${theme.click.flyout.space[$type].content.x};
   `}
@@ -201,7 +201,7 @@ const FlyoutElement = styled(Container)<{
 
 interface ElementProps extends Omit<
   ContainerProps,
-  "component" | "padding" | "gap" | "orientation"
+  'component' | 'padding' | 'gap' | 'orientation'
 > {
   type?: FlyoutType;
 }
@@ -216,19 +216,19 @@ const Element = ({ type, ...props }: ElementProps) => (
   />
 );
 
-Element.displayName = "Flyout.Element";
+Element.displayName = 'Flyout.Element';
 Flyout.Element = Element;
 
 interface TitleHeaderProps extends Omit<
   ContainerProps,
-  | "orientaion"
-  | "justifyContent"
-  | "alignItems"
-  | "component"
-  | "padding"
-  | "gap"
-  | "children"
-  | "fillWidth"
+  | 'orientaion'
+  | 'justifyContent'
+  | 'alignItems'
+  | 'component'
+  | 'padding'
+  | 'gap'
+  | 'children'
+  | 'fillWidth'
 > {
   title: string;
   description?: string;
@@ -240,13 +240,13 @@ interface TitleHeaderProps extends Omit<
 
 interface ChildrenHeaderProps extends Omit<
   ContainerProps,
-  | "orientaion"
-  | "justifyContent"
-  | "alignItems"
-  | "component"
-  | "padding"
-  | "gap"
-  | "fillWidth"
+  | 'orientaion'
+  | 'justifyContent'
+  | 'alignItems'
+  | 'component'
+  | 'padding'
+  | 'gap'
+  | 'fillWidth'
 > {
   title?: never;
   type?: FlyoutType;
@@ -260,9 +260,9 @@ export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 const FlyoutHeaderContainer = styled(Container)<{
   $type?: FlyoutType;
 }>`
-  ${({ theme, $type = "default" }) => `
-    row-gap: ${theme.click.flyout.space[$type].content["row-gap"]};
-    column-gap: ${theme.click.flyout.space[$type].content["column-gap"]};
+  ${({ theme, $type = 'default' }) => `
+    row-gap: ${theme.click.flyout.space[$type].content['row-gap']};
+    column-gap: ${theme.click.flyout.space[$type].content['column-gap']};
     padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].y} 0 ${theme.click.flyout.space[$type].y} ;
   `}
 `;
@@ -270,7 +270,7 @@ const FlyoutHeaderContainer = styled(Container)<{
 const FlyoutTitle = styled(DialogTitle)<{
   $type?: FlyoutType;
 }>`
-  ${({ theme, $type = "default" }) => `
+  ${({ theme, $type = 'default' }) => `
     color: ${theme.click.flyout.color.title.default};
     font: ${theme.click.flyout.typography[$type].title.default};
     margin: 0;
@@ -281,7 +281,7 @@ const FlyoutTitle = styled(DialogTitle)<{
 const FlyoutDescription = styled(DialogDescription)<{
   $type?: FlyoutType;
 }>`
-  ${({ theme, $type = "default" }) => `
+  ${({ theme, $type = 'default' }) => `
     color: ${theme.click.flyout.color.description.default};
     font: ${theme.click.flyout.typography[$type].description.default};
     margin: 0;
@@ -324,7 +324,7 @@ const Header = ({
               <CrossButton data-testid="flyout-header-close-btn">
                 <Icon
                   name="cross"
-                  size={type === "inline" ? "md" : "lg"}
+                  size={type === 'inline' ? 'md' : 'lg'}
                 />
               </CrossButton>
             </DialogClose>
@@ -366,7 +366,7 @@ const Header = ({
             <CrossButton data-testid="flyout-header-close-btn">
               <Icon
                 name="cross"
-                size={type === "inline" ? "md" : "lg"}
+                size={type === 'inline' ? 'md' : 'lg'}
               />
             </CrossButton>
           </DialogClose>
@@ -381,14 +381,14 @@ const Header = ({
     </FlyoutContainer>
   );
 };
-Header.displayName = "Flyout.Header";
+Header.displayName = 'Flyout.Header';
 Flyout.Header = Header;
 
-type FlyoutAlign = "default" | "top";
+type FlyoutAlign = 'default' | 'top';
 const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
   width: var(--flyout-width);
   max-width: 100%;
-  margin-top: ${({ $align = "default" }) => ($align === "top" ? "-1rem" : 0)};
+  margin-top: ${({ $align = 'default' }) => ($align === 'top' ? '-1rem' : 0)};
 `;
 
 interface BodyProps extends ContainerProps {
@@ -405,12 +405,12 @@ const Body = ({ align, ...props }: BodyProps) => (
   />
 );
 
-Body.displayName = "Flyout.Body";
+Body.displayName = 'Flyout.Body';
 Flyout.Body = Body;
 
 export interface FlyoutFooterProps extends Omit<
-  ContainerProps<"div">,
-  "orientaion" | "justifyContent" | "component" | "padding" | "gap"
+  ContainerProps<'div'>,
+  'orientaion' | 'justifyContent' | 'component' | 'padding' | 'gap'
 > {
   type?: FlyoutType;
 }
@@ -418,14 +418,14 @@ export interface FlyoutFooterProps extends Omit<
 const FlyoutFooter = styled(Container)<{
   type?: FlyoutType;
 }>`
-  ${({ theme, type = "default" }) => `
-    row-gap: ${theme.click.flyout.space[type].content["row-gap"]};
-    column-gap: ${theme.click.flyout.space[type].content["column-gap"]};
+  ${({ theme, type = 'default' }) => `
+    row-gap: ${theme.click.flyout.space[type].content['row-gap']};
+    column-gap: ${theme.click.flyout.space[type].content['column-gap']};
     padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].content.x};
   `}
 `;
 
-interface FlyoutButtonProps extends Omit<ButtonProps, "children"> {
+interface FlyoutButtonProps extends Omit<ButtonProps, 'children'> {
   children?: never;
 }
 
@@ -444,7 +444,7 @@ const FlyoutClose = ({
     </DialogClose>
   );
 };
-FlyoutClose.displayName = "Flyout.Close";
+FlyoutClose.displayName = 'Flyout.Close';
 Flyout.Close = FlyoutClose;
 
 const FooterContainer = styled(Container)`
@@ -471,7 +471,7 @@ const Footer = (props: FlyoutFooterProps) => {
     </FooterContainer>
   );
 };
-Footer.displayName = "Flyout.Footer";
+Footer.displayName = 'Flyout.Footer';
 Flyout.Footer = Footer;
 
 const CustomCodeBlock = styled(CodeBlock)`

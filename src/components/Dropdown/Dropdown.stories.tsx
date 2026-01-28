@@ -1,17 +1,17 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Dropdown } from "./Dropdown";
-import { GridCenter } from "../commonElement";
-import { Button } from "..";
-import { Key } from "react";
-import type { DropdownItemProps } from "./Dropdown";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import { Dropdown } from './Dropdown';
+import { GridCenter } from '../commonElement';
+import { Button } from '..';
+import { Key } from 'react';
+import type { DropdownItemProps } from './Dropdown';
 
 interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
-  side: "top" | "right" | "left" | "bottom";
-  type: "text" | "button";
+  side: 'top' | 'right' | 'left' | 'bottom';
+  type: 'text' | 'button';
   itemCount: number;
 }
 
@@ -107,23 +107,23 @@ const DropdownExample = ({
 const meta: Meta<typeof DropdownExample> = {
   component: DropdownExample,
   subcomponents: {
-    "Dropdown.Trigger": Dropdown.Trigger as React.ComponentType<unknown>,
-    "Dropdown.Content": Dropdown.Content as React.ComponentType<unknown>,
-    "Dropdown.Group": Dropdown.Group as React.ComponentType<unknown>,
-    "Dropdown.Sub": Dropdown.Sub as React.ComponentType<unknown>,
-    "Dropdown.Item": Dropdown.Item as React.ComponentType<DropdownItemProps>,
+    'Dropdown.Trigger': Dropdown.Trigger as React.ComponentType<unknown>,
+    'Dropdown.Content': Dropdown.Content as React.ComponentType<unknown>,
+    'Dropdown.Group': Dropdown.Group as React.ComponentType<unknown>,
+    'Dropdown.Sub': Dropdown.Sub as React.ComponentType<unknown>,
+    'Dropdown.Item': Dropdown.Item as React.ComponentType<DropdownItemProps>,
   },
-  title: "Display/Dropdown",
-  tags: ["form-field", "dropdown", "autodocs"],
+  title: 'Display/Dropdown',
+  tags: ['form-field', 'dropdown', 'autodocs'],
   argTypes: {
-    disabled: { control: "boolean" },
-    open: { control: "inline-radio", options: [undefined, true, false] },
-    defaultOpen: { control: "boolean" },
-    showArrow: { control: "boolean" },
-    side: { control: "select", options: ["top", "right", "left", "bottom"] },
+    disabled: { control: 'boolean' },
+    open: { control: 'inline-radio', options: [undefined, true, false] },
+    defaultOpen: { control: 'boolean' },
+    showArrow: { control: 'boolean' },
+    side: { control: 'select', options: ['top', 'right', 'left', 'bottom'] },
     itemCount: {
-      control: { type: "number", min: 0, max: 100, step: 1 },
-      description: "Number of items to display",
+      control: { type: 'number', min: 0, max: 100, step: 1 },
+      description: 'Number of items to display',
     },
   },
 };
@@ -134,7 +134,7 @@ type Story = StoryObj<typeof DropdownExample>;
 
 export const Playground: Story = {
   args: {
-    side: "bottom",
+    side: 'bottom',
     itemCount: 0,
   },
 };

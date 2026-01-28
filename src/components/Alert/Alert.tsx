@@ -1,11 +1,11 @@
-import { Icon } from "@/components";
-import { IconName } from "@/components/Icon/types";
-import { useState, ReactNode, useCallback } from "react";
-import { styled } from "styled-components";
+import { Icon } from '@/components';
+import { IconName } from '@/components/Icon/types';
+import { useState, ReactNode, useCallback } from 'react';
+import { styled } from 'styled-components';
 
-type AlertType = "default" | "banner";
-type AlertSize = "small" | "medium";
-type AlertState = "neutral" | "success" | "warning" | "danger" | "info";
+type AlertType = 'default' | 'banner';
+type AlertSize = 'small' | 'medium';
+type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 export type AlertProps = {
   /** The visual state/severity of the alert */
   state?: AlertState;
@@ -28,19 +28,19 @@ export type AlertProps = {
 };
 
 const stateIconMap: Record<AlertState, IconName> = {
-  neutral: "information",
-  success: "check",
-  warning: "warning",
-  danger: "warning",
-  info: "information",
+  neutral: 'information',
+  success: 'check',
+  warning: 'warning',
+  danger: 'warning',
+  info: 'information',
 };
 
 const Alert = ({
   text,
-  title = "",
-  size = "small",
-  state = "neutral",
-  type = "default",
+  title = '',
+  size = 'small',
+  state = 'neutral',
+  type = 'default',
   showIcon = true,
   dismissible,
   onDismiss,
@@ -62,7 +62,7 @@ const Alert = ({
       data-testid="click-alert"
       {...delegated}
     >
-      {dismissible && type === "banner" && <DismissWrapper></DismissWrapper>}
+      {dismissible && type === 'banner' && <DismissWrapper></DismissWrapper>}
       {showIcon && (
         <IconWrapper
           $state={state}
@@ -106,12 +106,12 @@ const Wrapper = styled.div<{
 }>`
   display: flex;
   border-radius: ${({ $type, theme }) =>
-    $type === "banner" ? theme.sizes[0] : theme.click.alert.radii.end};
-  justify-content: ${({ $type }) => ($type === "banner" ? "center" : "start")};
+    $type === 'banner' ? theme.sizes[0] : theme.click.alert.radii.end};
+  justify-content: ${({ $type }) => ($type === 'banner' ? 'center' : 'start')};
   overflow: hidden;
-  background-color: ${({ $state = "neutral", theme }) =>
+  background-color: ${({ $state = 'neutral', theme }) =>
     theme.click.alert.color.background[$state]};
-  color: ${({ $state = "neutral", theme }) => theme.click.alert.color.text[$state]};
+  color: ${({ $state = 'neutral', theme }) => theme.click.alert.color.text[$state]};
   width: 100%;
 `;
 
@@ -122,9 +122,9 @@ const IconWrapper = styled.div<{
 }>`
   display: flex;
   align-items: center;
-  background-color: ${({ $state = "neutral", $type, theme }) =>
-    $type === "banner" ? "none" : theme.click.alert.color.iconBackground[$state]};
-  ${({ $state = "neutral", $size, theme }) => `
+  background-color: ${({ $state = 'neutral', $type, theme }) =>
+    $type === 'banner' ? 'none' : theme.click.alert.color.iconBackground[$state]};
+  ${({ $state = 'neutral', $size, theme }) => `
     color: ${theme.click.alert.color.iconForeground[$state]};
     padding: ${theme.click.alert[$size].space.y} 0 ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
   `}

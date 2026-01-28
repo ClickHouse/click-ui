@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Panel } from "../Panel/Panel";
-import { Text } from "../Typography/Text/Text";
+import { Panel } from '../Panel/Panel';
+import { Text } from '../Typography/Text/Text';
 
-import { CheckboxMultiSelect } from "./CheckboxMultiSelect";
-import { selectOptions, selectOptionsLong } from "./selectOptions";
-import { Spacer } from "../Spacer/Spacer";
+import { CheckboxMultiSelect } from './CheckboxMultiSelect';
+import { selectOptions, selectOptionsLong } from './selectOptions';
+import { Spacer } from '../Spacer/Spacer';
 
 const meta: Meta<typeof CheckboxMultiSelect> = {
   component: CheckboxMultiSelect,
-  title: "Forms/CheckboxMultiSelect",
-  tags: ["form-field", "select", "autodocs"],
+  title: 'Forms/CheckboxMultiSelect',
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export default meta;
 
 export const OptionsAsChildren: StoryObj<typeof CheckboxMultiSelect> = {
   args: {
-    label: "Label",
-    value: ["content1"],
+    label: 'Label',
+    value: ['content1'],
     showSearch: false,
-    selectLabel: "Columns",
+    selectLabel: 'Columns',
   },
   render: ({ value, ...props }) => {
     const [selectedValues, setSelectedValues] = useState(value);
@@ -68,10 +68,10 @@ export const OptionsAsChildren: StoryObj<typeof CheckboxMultiSelect> = {
 
 export const OptionsAsProp: StoryObj<typeof CheckboxMultiSelect> = {
   args: {
-    label: "Label",
-    value: ["content1"],
+    label: 'Label',
+    value: ['content1'],
     showSearch: false,
-    selectLabel: "Columns",
+    selectLabel: 'Columns',
   },
   render: ({ value, ...props }) => {
     const [selectedValues, setSelectedValues] = useState(value);
@@ -193,22 +193,22 @@ export const Showcase: StoryObj<typeof CheckboxMultiSelect> = {
           <CheckboxMultiSelect
             options={[
               {
-                value: "1",
-                label: "Option 1 (disabled)",
+                value: '1',
+                label: 'Option 1 (disabled)',
                 disabled: true,
               },
               {
-                value: "2",
-                label: "Option 2 (disabled)",
+                value: '2',
+                label: 'Option 2 (disabled)',
                 disabled: true,
               },
               {
-                value: "3",
-                label: "Option 3",
+                value: '3',
+                label: 'Option 3',
               },
               {
-                value: "4",
-                label: "Option 4",
+                value: '4',
+                label: 'Option 4',
               },
             ]}
           />

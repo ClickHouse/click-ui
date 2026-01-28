@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 const Sweden = (props: React.SVGAttributes<SVGElement>): React.ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

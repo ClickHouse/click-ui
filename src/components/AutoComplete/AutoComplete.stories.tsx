@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { AutoComplete, AutoCompleteProps } from "./AutoComplete";
-import { selectOptions } from "../Select/selectOptions";
+import React, { useEffect, useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { AutoComplete, AutoCompleteProps } from './AutoComplete';
+import { selectOptions } from '../Select/selectOptions';
 
 interface AutoCompleteExampleProps extends Omit<
   AutoCompleteProps,
-  "options" | "children"
+  'options' | 'children'
 > {
-  childrenType: "children" | "options";
+  childrenType: 'children' | 'options';
 }
 
 const AutoCompleteExample = ({
@@ -20,7 +20,7 @@ const AutoCompleteExample = ({
     setSelectedValue(value);
   }, [value]);
 
-  if (childrenType === "options") {
+  if (childrenType === 'options') {
     return (
       <AutoComplete
         value={selectedValue}
@@ -64,19 +64,19 @@ const AutoCompleteExample = ({
 const meta: Meta<typeof AutoCompleteExample> = {
   component: AutoCompleteExample,
   subcomponents: {
-    "AutoComplete.Group": AutoComplete.Group as React.ComponentType<unknown>,
-    "AutoComplete.Item": AutoComplete.Item as React.ComponentType<unknown>,
+    'AutoComplete.Group': AutoComplete.Group as React.ComponentType<unknown>,
+    'AutoComplete.Item': AutoComplete.Item as React.ComponentType<unknown>,
   },
-  title: "Display/AutoComplete",
-  tags: ["form-field", "autocomplete", "autodocs"],
+  title: 'Display/AutoComplete',
+  tags: ['form-field', 'autocomplete', 'autodocs'],
   argTypes: {
-    label: { control: "text" },
-    disabled: { control: "boolean" },
-    error: { control: "text" },
-    value: { control: "text" },
-    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
-    dir: { control: "inline-radio", options: ["start", "end"] },
-    childrenType: { control: "inline-radio", options: ["children", "options"] },
+    label: { control: 'text' },
+    disabled: { control: 'boolean' },
+    error: { control: 'text' },
+    value: { control: 'text' },
+    orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'] },
+    dir: { control: 'inline-radio', options: ['start', 'end'] },
+    childrenType: { control: 'inline-radio', options: ['children', 'options'] },
   },
 };
 
@@ -86,8 +86,8 @@ type Story = StoryObj<typeof AutoCompleteExample>;
 
 export const Playground: Story = {
   args: {
-    label: "Label",
-    childrenType: "children",
+    label: 'Label',
+    childrenType: 'children',
   },
   parameters: {
     docs: {
@@ -99,20 +99,20 @@ export const Playground: Story = {
           const { childrenType, value, ...props } = story.args;
           return `<AutoComplete\n  value={${value}}\n${Object.entries(props)
             .flatMap(([key, value]) =>
-              typeof value === "boolean"
+              typeof value === 'boolean'
                 ? value
                   ? `  ${key}`
                   : []
-                : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
+                : `  ${key}=${typeof value == 'string' ? `"${value}"` : `{${value}}`}`
             )
-            .join("\n")}
+            .join('\n')}
 ${
-  childrenType === "options"
+  childrenType === 'options'
     ? `options={${JSON.stringify(selectOptions, null, 2)}}\n/`
-    : ""
+    : ''
 }>
 ${
-  childrenType !== "options"
+  childrenType !== 'options'
     ? `
     <AutoComplete.Group heading="Group label">
       <AutoComplete.Item value="content0" icon="user>
@@ -131,7 +131,7 @@ ${
     <AutoComplete.Item value="content3">Content3</AutoComplete.Item>
 </AutoComplete>
 `
-    : ""
+    : ''
 }`;
         },
       },

@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from "..";
-import { Grid as CUIGrid } from "./Grid";
+import { useCallback, useEffect, useState } from 'react';
+import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from '..';
+import { Grid as CUIGrid } from './Grid';
 
 const Cell: CellProps = ({
   type,
@@ -52,7 +52,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   ): GridContextMenuItemProps[] => {
     return [
       {
-        label: "Console log elements",
+        label: 'Console log elements',
         onSelect: () => {
           console.log(selection, focus);
         },
@@ -61,7 +61,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   };
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
+    <div style={{ height: 500, width: '100%' }}>
       <CUIGrid
         columnCount={columnCount}
         rowCount={rowCount}
@@ -88,8 +88,8 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
 
 export default {
   component: Grid,
-  title: "Display/Grid",
-  tags: ["grid", "autodocs"],
+  title: 'Display/Grid',
+  tags: ['grid', 'autodocs'],
 };
 
 export const Playground = {
@@ -116,13 +116,13 @@ export const Playground = {
   onColumnResize={(columnIndex: number, newWidth: number): void => {}}// update columnWidth using this function on resize
   getMenuOptions={getMenuOptions}\n${Object.entries(props)
     .flatMap(([key, value]) =>
-      typeof value === "boolean"
+      typeof value === 'boolean'
         ? value
           ? `  ${key}`
           : []
-        : `  ${key}=${typeof value == "string" ? `"${value}"` : `{${value}}`}`
+        : `  ${key}=${typeof value == 'string' ? `"${value}"` : `{${value}}`}`
     )
-    .join("\n")}
+    .join('\n')}
 />
 `;
         },

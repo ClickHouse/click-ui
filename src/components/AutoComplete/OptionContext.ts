@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 type OptionContextProps = {
   search: string;
@@ -10,8 +10,8 @@ type OptionContextProps = {
 };
 
 export const OptionContext = createContext<OptionContextProps>({
-  search: "",
-  selectedValue: "",
+  search: '',
+  selectedValue: '',
   updateHighlighted: () => null,
   onSelect: () => null,
   isHidden: () => true,

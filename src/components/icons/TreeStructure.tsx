@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const TreeStructure = (props: SVGAttributes<SVGElement>) => (
   <svg

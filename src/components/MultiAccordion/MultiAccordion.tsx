@@ -1,19 +1,19 @@
-import * as RadixAccordion from "@radix-ui/react-accordion";
-import { styled } from "styled-components";
-import { IconSize } from "@/components/Icon/types";
-import { Container, Icon, IconName, Spacer, Text } from "@/components";
+import * as RadixAccordion from '@radix-ui/react-accordion';
+import { styled } from 'styled-components';
+import { IconSize } from '@/components/Icon/types';
+import { Container, Icon, IconName, Spacer, Text } from '@/components';
 import {
   createContext,
   MouseEventHandler,
   ReactElement,
   ReactNode,
   useContext,
-} from "react";
-import { GapOptions, PaddingOptions } from "../Container/Container";
-import { SizeType as SpacerSizeType } from "../Spacer/Spacer";
+} from 'react';
+import { GapOptions, PaddingOptions } from '../Container/Container';
+import { SizeType as SpacerSizeType } from '../Spacer/Spacer';
 
-type Size = "none" | "sm" | "md" | "lg";
-type Color = "default" | "link";
+type Size = 'none' | 'sm' | 'md' | 'lg';
+type Color = 'default' | 'link';
 
 type MarkAsCompletedFunctionType = (value: string) => void | Promise<void>;
 
@@ -36,8 +36,8 @@ interface MultiAccordionCommonProps {
 
 export type MultiAccordionProps = MultiAccordionCommonProps &
   (
-    | Omit<RadixAccordion.AccordionMultipleProps, "children">
-    | Omit<RadixAccordion.AccordionSingleProps, "children">
+    | Omit<RadixAccordion.AccordionMultipleProps, 'children'>
+    | Omit<RadixAccordion.AccordionSingleProps, 'children'>
   );
 
 interface MultiAccordionContextProps {
@@ -49,19 +49,19 @@ interface MultiAccordionContextProps {
 }
 
 const MultiAccordionContext = createContext<MultiAccordionContextProps>({
-  size: "md",
+  size: 'md',
   fillWidth: true,
   showBorder: true,
   showCheck: false,
 });
 
 export const MultiAccordion = ({
-  size = "md",
+  size = 'md',
   children,
   fillWidth = true,
   showCheck = false,
   showBorder = true,
-  gap = "md",
+  gap = 'md',
   markAsCompleted,
   ...delegated
 }: MultiAccordionProps) => {
@@ -87,7 +87,7 @@ export const MultiAccordion = ({
 };
 interface MultiAccordionItemProps extends Omit<
   RadixAccordion.AccordionItemProps,
-  "title"
+  'title'
 > {
   /** The title text or element displayed in the accordion item header */
   title: ReactNode;
@@ -119,12 +119,12 @@ const MultiAccordionItem = ({
 
   const onClickStatus: MouseEventHandler<HTMLOrSVGElement> = e => {
     e.preventDefault();
-    if (typeof markAsCompleted === "function") {
+    if (typeof markAsCompleted === 'function') {
       markAsCompleted(value);
     }
   };
 
-  const customSize = size === "none" ? "sm" : size;
+  const customSize = size === 'none' ? 'sm' : size;
 
   return (
     <AccordionItem
@@ -170,7 +170,7 @@ const MultiAccordionItem = ({
           </AccordionItemTitle>
           {showCheck && (
             <CustomIcon
-              name={isCompleted ? "check-in-circle" : "circle"}
+              name={isCompleted ? 'check-in-circle' : 'circle'}
               $isCompleted={isCompleted}
               size={iconSize ?? customSize}
               aria-label="accordion icon status"
@@ -189,7 +189,7 @@ const MultiAccordionItem = ({
   );
 };
 
-MultiAccordionItem.displayName = "MultiAccordion.Item";
+MultiAccordionItem.displayName = 'MultiAccordion.Item';
 MultiAccordion.Item = MultiAccordionItem;
 
 interface StyledAccordionRootProps {
@@ -203,7 +203,7 @@ const AccordionRoot = styled(RadixAccordion.Root)<StyledAccordionRootProps>`
   justify-content: start;
   align-items: start;
   gap: ${({ theme, $gap }) => theme.click.container.gap[$gap]};
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
+  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
 `;
 
 interface StyledAccordionItemProps {
@@ -214,12 +214,12 @@ interface StyledAccordionItemProps {
 const AccordionItem = styled(RadixAccordion.Item)<StyledAccordionItemProps>`
   ${({ theme, $showBorder }) => `
     border: ${
-      $showBorder ? `1px solid ${theme.click.global.color.stroke.default}` : "none"
+      $showBorder ? `1px solid ${theme.click.global.color.stroke.default}` : 'none'
     };
     border-radius: ${theme.border.radii[1]};
     background-color: ${theme.click.global.color.background.default};
   `};
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
+  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
 `;
 
 interface StyledAccordionTriggerProps {
@@ -234,8 +234,8 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<StyledAccordionTriggerPr
   background-color: transparent;
   display: flex;
   align-items: center;
-  ${({ theme, $size = "md", color = "default" }) => {
-    const size: Size = $size === "none" ? "sm" : $size;
+  ${({ theme, $size = 'md', color = 'default' }) => {
+    const size: Size = $size === 'none' ? 'sm' : $size;
 
     return `
     padding: ${theme.click.container.space[$size]};
@@ -261,10 +261,10 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<StyledAccordionTriggerPr
   `;
   }};
   border-radius: inherit;
-  &[data-state="open"] {
+  &[data-state='open'] {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
-    [data-icon="accordion-status"] {
+    [data-icon='accordion-status'] {
       color: ${({ theme }): string => theme.global.color.accent.default};
     }
   }

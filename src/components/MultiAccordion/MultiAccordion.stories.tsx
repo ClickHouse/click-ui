@@ -1,16 +1,16 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { MultiAccordion } from "./MultiAccordion";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { MultiAccordion } from './MultiAccordion';
 
 const meta: Meta<typeof MultiAccordion> = {
   component: MultiAccordion,
   subcomponents: {
-    "MultiAccordion.Item": MultiAccordion.Item as React.ComponentType<unknown>,
+    'MultiAccordion.Item': MultiAccordion.Item as React.ComponentType<unknown>,
   },
-  title: "Accordion/MultiAccordion",
-  tags: ["multi-accordion", "autodocs"],
+  title: 'Accordion/MultiAccordion',
+  tags: ['multi-accordion', 'autodocs'],
   argTypes: {
-    collapsible: { if: { arg: "type", eq: "single" } },
+    collapsible: { if: { arg: 'type', eq: 'single' } },
   },
 };
 
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof MultiAccordion>;
 
 export const Playground: Story = {
   args: {
-    type: "single",
+    type: 'single',
     collapsible: true,
     showBorder: true,
     showCheck: true,

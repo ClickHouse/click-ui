@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
 import {
   SelectionAction,
@@ -16,7 +16,7 @@ import {
   IsSelectedType,
   SelectionTypeFn,
   AllSelection,
-} from "./types";
+} from './types';
 
 interface Props {
   onCellSelect: onSelectFn;
@@ -43,7 +43,7 @@ interface SelectionActions {
 
 export const singleCellSelected = (selection: SelectedRegion): SelectionPos | null => {
   if (
-    selection.type === "rectangle" &&
+    selection.type === 'rectangle' &&
     selection.bounds.left === selection.bounds.right &&
     selection.bounds.top === selection.bounds.bottom
   ) {
@@ -73,21 +73,21 @@ export const cellRectSelected = (
 ): boolean => {
   const { left, right, top, bottom } = orderedRect(x1, y1, x2, y2);
   switch (selection.type) {
-    case "columns":
+    case 'columns':
       for (let i = left; i <= right; ++i) {
         if (!selection.columns.has(i)) {
           return false;
         }
       }
       return true;
-    case "rows":
+    case 'rows':
       for (let i = top; i <= bottom; ++i) {
         if (!selection.rows.has(i)) {
           return false;
         }
       }
       return true;
-    case "rectangle":
+    case 'rectangle':
       return (
         selection.bounds.left <= left &&
         selection.bounds.right >= right &&
@@ -100,7 +100,7 @@ export const cellRectSelected = (
 };
 
 const rowSelection = (rows: Iterable<number>, anchorRow: number): RowsSelection => ({
-  type: "rows",
+  type: 'rows',
   rows: new Set(rows),
   anchorRow,
 });
@@ -109,7 +109,7 @@ const columnSelection = (
   columns: Iterable<number>,
   anchorColumn: number
 ): ColumnsSelection => ({
-  type: "columns",
+  type: 'columns',
   columns: new Set(columns),
   anchorColumn,
 });
@@ -124,13 +124,13 @@ export const rectangleSelection = (
     return emptySelection();
   }
   return {
-    type: "rectangle",
+    type: 'rectangle',
     bounds: orderedRect(anchorColumn, anchorRow, focusColumn, focusRow),
     anchor: { column: anchorColumn, row: anchorRow },
   };
 };
 
-export const emptySelection = (): SelectedRegion => ({ type: "empty" });
+export const emptySelection = (): SelectedRegion => ({ type: 'empty' });
 
 export const columnIsSelected = (
   selection: SelectedRegion,
@@ -138,16 +138,16 @@ export const columnIsSelected = (
   bounds: Rectangle
 ): boolean => cellRectSelected(selection, column, bounds.top, column, bounds.bottom);
 const rowAnySelected = (selection: SelectedRegion, row: number): boolean =>
-  selection.type === "columns" ||
-  (selection.type === "rows" && selection.rows.has(row)) ||
-  (selection.type === "rectangle" &&
+  selection.type === 'columns' ||
+  (selection.type === 'rows' && selection.rows.has(row)) ||
+  (selection.type === 'rectangle' &&
     selection.bounds.top <= row &&
     selection.bounds.bottom >= row);
 
 const columnAnySelected = (selection: SelectedRegion, column: number): boolean =>
-  selection.type === "rows" ||
-  (selection.type === "columns" && selection.columns.has(column)) ||
-  (selection.type === "rectangle" &&
+  selection.type === 'rows' ||
+  (selection.type === 'columns' && selection.columns.has(column)) ||
+  (selection.type === 'rectangle' &&
     selection.bounds.left <= column &&
     selection.bounds.right >= column);
 
@@ -174,7 +174,7 @@ export const useSelectionActions = ({
   const allSelect = useCallback(
     (action: AllSelection) => {
       const newSelection: SelectedRegion = {
-        type: "rows",
+        type: 'rows',
         rows: new Set(rangeIndices(rowStart, rowCount + rowStart - 1)),
         anchorRow: 0,
       };
@@ -260,25 +260,25 @@ export const useSelectionActions = ({
   const onSelection = useCallback(
     (action: SelectionAction): void => {
       switch (action.type) {
-        case "all":
+        case 'all':
           allSelect(action);
           break;
-        case "normal":
+        case 'normal':
           cellSelect(action);
           break;
-        case "shiftSelection":
+        case 'shiftSelection':
           shiftSelect(action);
           break;
-        case "columnSelection":
+        case 'columnSelection':
           columnSelect(action);
           break;
-        case "shiftColumnSelection":
+        case 'shiftColumnSelection':
           shiftColumnSelect(action);
           break;
-        case "rowSelection":
+        case 'rowSelection':
           rowSelect(action);
           break;
-        case "shiftRowSelection":
+        case 'shiftRowSelection':
           shiftRowSelect(action);
           break;
         default:
@@ -310,21 +310,21 @@ export const useSelectionActions = ({
       let action: SelectionAction | null = null;
 
       if (moveAnchor) {
-        if (selection.type === "rows") {
+        if (selection.type === 'rows') {
           const row = clamp(selection.anchorRow + rowDiff, 0, rowCount + rowStart - 1);
-          action = { type: "shiftRowSelection", row, event };
-        } else if (selection.type === "columns") {
+          action = { type: 'shiftRowSelection', row, event };
+        } else if (selection.type === 'columns') {
           const column = clamp(selection.anchorColumn + columnDiff, 0, columnCount - 1);
-          action = { type: "shiftColumnSelection", column, event };
-        } else if (selection.type === "rectangle") {
+          action = { type: 'shiftColumnSelection', column, event };
+        } else if (selection.type === 'rectangle') {
           const row = clamp(selection.anchor.row + rowDiff, 0, rowCount + rowStart - 1);
           const column = clamp(selection.anchor.column + columnDiff, 0, columnCount - 1);
-          action = { type: "shiftSelection", row, column, event };
+          action = { type: 'shiftSelection', row, column, event };
         }
       } else {
         const row = clamp(focus.row + rowDiff, 0, rowCount + rowStart - 1);
         const column = clamp(focus.column + columnDiff, 0, columnCount - 1);
-        action = { type: "normal", row, column, event };
+        action = { type: 'normal', row, column, event };
       }
 
       if (action) {
@@ -338,7 +338,7 @@ export const useSelectionActions = ({
 
   const getSelectionType = useCallback(
     (args: IsSelectedType): SelectionType => {
-      if (args.type === "all") {
+      if (args.type === 'all') {
         const isSelected = cellRectSelected(
           selection,
           0,
@@ -346,10 +346,10 @@ export const useSelectionActions = ({
           columnCount - 1,
           rowCount + rowStart - 1
         );
-        return isSelected ? "selectDirect" : "default";
+        return isSelected ? 'selectDirect' : 'default';
       }
 
-      if (args.type === "column") {
+      if (args.type === 'column') {
         if (
           cellRectSelected(
             selection,
@@ -359,10 +359,10 @@ export const useSelectionActions = ({
             rowCount + rowStart
           )
         ) {
-          return "selectDirect";
+          return 'selectDirect';
         }
 
-        return columnAnySelected(selection, args.column) ? "selectIndirect" : "default";
+        return columnAnySelected(selection, args.column) ? 'selectIndirect' : 'default';
       }
 
       const isRowSelected = cellRectSelected(
@@ -375,19 +375,19 @@ export const useSelectionActions = ({
       const isRowAnySelected =
         focus.row === args.row || rowAnySelected(selection, args.row);
 
-      if (args.type === "cell" && args.column == -1) {
-        return "default";
+      if (args.type === 'cell' && args.column == -1) {
+        return 'default';
       }
 
       if (isRowSelected) {
-        return "selectDirect";
+        return 'selectDirect';
       }
 
       if (!isRowAnySelected) {
-        return "default";
+        return 'default';
       }
 
-      if (args.type === "cell") {
+      if (args.type === 'cell') {
         const { row, column } = args;
         if (
           row >= rowCount + rowStart ||
@@ -395,19 +395,19 @@ export const useSelectionActions = ({
           row < rowStart ||
           column < 0
         ) {
-          return "default";
+          return 'default';
         }
 
         if (cellRectSelected(selection, column, row, column, row)) {
-          return "selectDirect";
+          return 'selectDirect';
         }
       }
 
-      if (selection.type === "columns") {
-        return "default";
+      if (selection.type === 'columns') {
+        return 'default';
       }
 
-      return "selectIndirect";
+      return 'selectIndirect';
     },
     [columnCount, focus.row, rowCount, rowStart, selection]
   );
@@ -415,23 +415,23 @@ export const useSelectionActions = ({
   const mouseMoveCellSelect = useCallback(
     (row: number, column: number) => {
       const selectionType = selection.type;
-      const event = "click";
+      const event = 'click';
       if (row === -1 && column == -1) {
         return;
       }
 
-      if (selectionType === "columns") {
+      if (selectionType === 'columns') {
         onSelection({
-          type: "shiftColumnSelection",
+          type: 'shiftColumnSelection',
           column,
           event,
         });
         return;
       }
 
-      if (selectionType === "rows") {
+      if (selectionType === 'rows') {
         onSelection({
-          type: "shiftRowSelection",
+          type: 'shiftRowSelection',
           row,
           event,
         });
@@ -440,7 +440,7 @@ export const useSelectionActions = ({
 
       if (row === -1) {
         let row = focus.row;
-        if (selection.type !== "empty") {
+        if (selection.type !== 'empty') {
           const {
             bounds: { top, bottom },
           } = selection;
@@ -451,7 +451,7 @@ export const useSelectionActions = ({
           }
         }
         onSelection({
-          type: "shiftSelection",
+          type: 'shiftSelection',
           row,
           column,
           event,
@@ -460,7 +460,7 @@ export const useSelectionActions = ({
       }
       if (column === -1) {
         let column = focus.column;
-        if (selection.type !== "empty") {
+        if (selection.type !== 'empty') {
           const {
             bounds: { left, right },
           } = selection;
@@ -471,7 +471,7 @@ export const useSelectionActions = ({
           }
         }
         onSelection({
-          type: "shiftSelection",
+          type: 'shiftSelection',
           row,
           column,
           event,
@@ -480,7 +480,7 @@ export const useSelectionActions = ({
       }
 
       onSelection({
-        type: "shiftSelection",
+        type: 'shiftSelection',
         row,
         column,
         event,

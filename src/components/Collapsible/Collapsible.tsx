@@ -6,11 +6,11 @@ import {
   useContext,
   useEffect,
   forwardRef,
-} from "react";
-import { styled } from "styled-components";
-import { Icon, HorizontalDirection, IconName } from "@/components";
-import { EmptyButton } from "../commonElement";
-import { IconWrapper } from "./IconWrapper";
+} from 'react';
+import { styled } from 'styled-components';
+import { Icon, HorizontalDirection, IconName } from '@/components';
+import { EmptyButton } from '../commonElement';
+import { IconWrapper } from './IconWrapper';
 
 export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
@@ -31,7 +31,7 @@ const CollapsibleContainer = styled.div`
   [data-trigger-icon] {
     visibility: hidden;
     transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
-    &[data-open="true"] {
+    &[data-open='true'] {
       transform: rotate(90deg);
     }
   }
@@ -49,7 +49,7 @@ export const Collapsible = ({
   const [open, setOpen] = useState(openProp ?? false);
   const onOpenChange = () => {
     setOpen(open => {
-      if (typeof onOpenChangeProp === "function") {
+      if (typeof onOpenChangeProp === 'function') {
         onOpenChangeProp(!open);
       }
       return !open;
@@ -73,7 +73,7 @@ export const Collapsible = ({
 
 const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: HorizontalDirection }>`
   margin-left: ${({ theme, $indicatorDir }) =>
-    $indicatorDir === "start" ? 0 : theme.click.image.sm.size.width};
+    $indicatorDir === 'start' ? 0 : theme.click.image.sm.size.width};
   user-select: none;
 `;
 
@@ -87,7 +87,7 @@ interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
 const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
   (
     {
-      indicatorDir = "start",
+      indicatorDir = 'start',
       icon,
       iconDir,
       children,
@@ -103,17 +103,17 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
         $indicatorDir={indicatorDir}
         ref={ref}
         onClick={e => {
-          if (wrapInTrigger && typeof onOpenChange === "function") {
+          if (wrapInTrigger && typeof onOpenChange === 'function') {
             onOpenChange();
           }
-          if (typeof onClickProp === "function") {
+          if (typeof onClickProp === 'function') {
             onClickProp(e);
           }
         }}
         data-collapsible-header
         {...props}
       >
-        {indicatorDir === "start" && <Collapsible.Trigger />}
+        {indicatorDir === 'start' && <Collapsible.Trigger />}
         {children && (
           <IconWrapper
             icon={icon}
@@ -122,13 +122,13 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
             {children}
           </IconWrapper>
         )}
-        {indicatorDir === "end" && <Collapsible.Trigger />}
+        {indicatorDir === 'end' && <Collapsible.Trigger />}
       </CollapsipleHeaderContainer>
     );
   }
 );
 
-CollapsipleHeader.displayName = "CollapsibleHeader";
+CollapsipleHeader.displayName = 'CollapsibleHeader';
 Collapsible.Header = CollapsipleHeader;
 
 const CollapsipleTriggerButton = styled(EmptyButton)<{
@@ -149,9 +149,9 @@ interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
 const CollapsipleTrigger = ({
   onClick: onClickProp,
   children,
-  indicatorDir = "start",
+  indicatorDir = 'start',
   icon,
-  iconDir = "start",
+  iconDir = 'start',
   ...props
 }: CollapsipleTriggerProps) => {
   const { open, onOpenChange } = useContext(NavContext);
@@ -171,7 +171,7 @@ const CollapsipleTrigger = ({
       aria-label="trigger children"
       {...props}
     >
-      {indicatorDir === "start" && (
+      {indicatorDir === 'start' && (
         <Icon
           data-trigger-icon
           name="chevron-right"
@@ -187,7 +187,7 @@ const CollapsipleTrigger = ({
           {children}
         </IconWrapper>
       )}
-      {indicatorDir === "end" && (
+      {indicatorDir === 'end' && (
         <Icon
           data-trigger-icon
           name="chevron-right"
@@ -199,16 +199,16 @@ const CollapsipleTrigger = ({
   );
 };
 
-CollapsipleTrigger.displayName = "CollapsibleTrigger";
+CollapsipleTrigger.displayName = 'CollapsibleTrigger';
 Collapsible.Trigger = CollapsipleTrigger;
 
 const CollapsibleContentWrapper = styled.div<{ $indicatorDir?: HorizontalDirection }>`
   ${({ theme, $indicatorDir }) =>
     $indicatorDir
-      ? `${$indicatorDir === "start" ? "margin-left" : "margin-right"}: ${
+      ? `${$indicatorDir === 'start' ? 'margin-left' : 'margin-right'}: ${
           theme.click.image.sm.size.width
         }`
-      : ""}
+      : ''}
 `;
 
 const CollapsipleContent = ({
@@ -227,5 +227,5 @@ const CollapsipleContent = ({
   );
 };
 
-CollapsipleContent.displayName = "CollapsibleContent";
+CollapsipleContent.displayName = 'CollapsibleContent';
 Collapsible.Content = CollapsipleContent;

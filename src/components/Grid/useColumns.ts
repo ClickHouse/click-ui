@@ -1,6 +1,6 @@
-import { RefObject, useCallback, useRef, useState } from "react";
-import { ColumnResizeFn } from "./types";
-import { VariableSizeGrid } from "react-window";
+import { RefObject, useCallback, useRef, useState } from 'react';
+import { ColumnResizeFn } from './types';
+import { VariableSizeGrid } from 'react-window';
 
 const DEFAULT_WIDTH = 100;
 const MIN_COLUMN_WIDTH = 32;
@@ -71,7 +71,7 @@ const useColumns = ({
         return;
       }
       const getWidth = (index: number) => {
-        if (typeof columnWidthProp === "function") {
+        if (typeof columnWidthProp === 'function') {
           return columnWidthProp(index);
         }
         return newWidth;
@@ -99,7 +99,7 @@ const useColumns = ({
   const onColumnResize: ColumnResizeFn = useCallback(
     (columnIndex, newWidth, type) => {
       columnResized.current = true;
-      if (type === "auto") {
+      if (type === 'auto') {
         const widthIndex = autoWidthIndices.current.findIndex(
           index => index === columnIndex
         );
@@ -131,7 +131,7 @@ const useColumns = ({
         return [...columnHorizontalPosition];
       });
       gridRef.current?.resetAfterColumnIndex(columnIndex);
-      if (typeof onColumnResizeProp === "function") {
+      if (typeof onColumnResizeProp === 'function') {
         onColumnResizeProp(columnIndex, newWidth);
       }
     },

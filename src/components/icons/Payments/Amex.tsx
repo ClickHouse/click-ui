@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Amex = (props: SVGAttributes<SVGElement>) => (
   <svg

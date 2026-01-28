@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const AWS_S3 = (props: SVGAttributes<SVGElement>) => (
   <svg

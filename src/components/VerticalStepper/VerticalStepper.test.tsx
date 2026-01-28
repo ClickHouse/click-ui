@@ -1,6 +1,6 @@
-import { fireEvent } from "@testing-library/dom";
-import VerticalStepper from "./VerticalStepper";
-import { renderCUI } from "@/utils/test-utils";
+import { fireEvent } from '@testing-library/dom';
+import VerticalStepper from './VerticalStepper';
+import { renderCUI } from '@/utils/test-utils';
 interface Props {
   activeIndex?: number;
   completed?: Array<number>;
@@ -10,7 +10,7 @@ const label1Click = vi.fn();
 const label2Click = vi.fn();
 const label3Click = vi.fn();
 const label4Click = vi.fn();
-describe("VerticalStepper", () => {
+describe('VerticalStepper', () => {
   const renderVerticalStepper = ({
     activeIndex = 1,
     completed = [],
@@ -27,10 +27,10 @@ describe("VerticalStepper", () => {
           data-testid="stepper-1"
           status={
             activeIndex === 1
-              ? "active"
+              ? 'active'
               : completed.includes(1)
-                ? "complete"
-                : "incomplete"
+                ? 'complete'
+                : 'incomplete'
           }
           collapsed={!showItems.includes(1)}
         >
@@ -42,10 +42,10 @@ describe("VerticalStepper", () => {
           data-testid="stepper-2"
           status={
             activeIndex === 2
-              ? "active"
+              ? 'active'
               : completed.includes(2)
-                ? "complete"
-                : "incomplete"
+                ? 'complete'
+                : 'incomplete'
           }
           collapsed={!showItems.includes(2)}
         >
@@ -57,10 +57,10 @@ describe("VerticalStepper", () => {
           data-testid="stepper-3"
           status={
             activeIndex === 3
-              ? "active"
+              ? 'active'
               : completed.includes(3)
-                ? "complete"
-                : "incomplete"
+                ? 'complete'
+                : 'incomplete'
           }
           collapsed={!showItems.includes(3)}
         >
@@ -72,10 +72,10 @@ describe("VerticalStepper", () => {
           data-testid="stepper-4"
           status={
             activeIndex === 4
-              ? "active"
+              ? 'active'
               : completed.includes(4)
-                ? "complete"
-                : "incomplete"
+                ? 'complete'
+                : 'incomplete'
           }
           collapsed={!showItems.includes(4)}
         >
@@ -84,47 +84,47 @@ describe("VerticalStepper", () => {
       </VerticalStepper>
     );
 
-  test("renders Stepper", () => {
+  test('renders Stepper', () => {
     const { queryAllByTestId } = renderVerticalStepper({});
-    expect(queryAllByTestId("stepper")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-1")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-2")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-3")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-4")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-value-1")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-value-2")).toHaveLength(0);
-    expect(queryAllByTestId("stepper-value-3")).toHaveLength(0);
-    expect(queryAllByTestId("stepper-value-4")).toHaveLength(0);
+    expect(queryAllByTestId('stepper')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-1')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-2')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-3')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-4')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-value-1')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-value-2')).toHaveLength(0);
+    expect(queryAllByTestId('stepper-value-3')).toHaveLength(0);
+    expect(queryAllByTestId('stepper-value-4')).toHaveLength(0);
   });
 
-  test("inactive step is disabled", () => {
+  test('inactive step is disabled', () => {
     const { queryAllByTestId, getByTestId } = renderVerticalStepper({});
 
-    expect(queryAllByTestId("stepper-4")).toHaveLength(1);
-    fireEvent.click(getByTestId("stepper-4"));
+    expect(queryAllByTestId('stepper-4')).toHaveLength(1);
+    fireEvent.click(getByTestId('stepper-4'));
     expect(label4Click).not.toBeCalled();
   });
 
-  test("complete step is clickable", () => {
+  test('complete step is clickable', () => {
     const { queryAllByTestId, getByTestId } = renderVerticalStepper({
       activeIndex: 2,
       completed: [1],
     });
 
-    expect(queryAllByTestId("stepper-1")).toHaveLength(1);
-    fireEvent.click(getByTestId("stepper-1"));
+    expect(queryAllByTestId('stepper-1')).toHaveLength(1);
+    fireEvent.click(getByTestId('stepper-1'));
     expect(label1Click).toBeCalled();
   });
 
-  test("show items with collapsible false ", () => {
+  test('show items with collapsible false ', () => {
     const { queryAllByTestId } = renderVerticalStepper({
       activeIndex: 2,
       completed: [1],
       showItems: [1],
     });
 
-    expect(queryAllByTestId("stepper-value-1")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-value-2")).toHaveLength(1);
-    expect(queryAllByTestId("stepper-value-3")).toHaveLength(0);
+    expect(queryAllByTestId('stepper-value-1')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-value-2')).toHaveLength(1);
+    expect(queryAllByTestId('stepper-value-3')).toHaveLength(0);
   });
 });
