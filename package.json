@@ -41,7 +41,6 @@
     "changeset:status": "yarn changeset status",
     "changeset:version": "yarn changeset version",
     "changeset:verify": ".scripts/changeset-verification",
-    "dev": "vite",
     "generate-tokens": "node build-tokens.js && prettier --write \"src/theme/tokens/*.ts\" --config .prettierrc",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --report-unused-disable-directives --max-warnings 0 --fix",
