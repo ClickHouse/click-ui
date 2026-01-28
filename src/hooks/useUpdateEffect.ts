@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export const useUpdateEffect: typeof useEffect = (effect, deps) => {
   const isFirstMount = useRef(true);

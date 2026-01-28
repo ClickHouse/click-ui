@@ -4,7 +4,7 @@ import {
   ReactElement,
   useCallback,
   useRef,
-} from "react";
+} from 'react';
 import {
   Container,
   ContainerProps,
@@ -12,12 +12,12 @@ import {
   NumberField,
   Select,
   Text,
-} from "@/components";
-import { styled } from "styled-components";
+} from '@/components';
+import { styled } from 'styled-components';
 
 export interface PaginationProps extends Omit<
-  ContainerProps<"div">,
-  "children" | "onChange"
+  ContainerProps<'div'>,
+  'children' | 'onChange'
 > {
   /** Total number of pages available */
   totalPages?: number;
@@ -59,7 +59,7 @@ export const Pagination = ({
   onPageSizeChange: onPageSizeChangeProp,
   pageSize = -1,
   fillWidth = true,
-  gap = "md",
+  gap = 'md',
   justifyContent,
   onNextPageClick,
   onPrevPageClick,
@@ -69,10 +69,10 @@ export const Pagination = ({
   allowAllRows = true,
   ...props
 }: PaginationProps): ReactElement => {
-  const hasRowCount = ["number", "string"].includes(typeof rowCount);
+  const hasRowCount = ['number', 'string'].includes(typeof rowCount);
   const inputRef = useRef<HTMLInputElement>(null);
   const formatNumber = (value: number) => {
-    return new Intl.NumberFormat("en").format(value);
+    return new Intl.NumberFormat('en').format(value);
   };
   const leftButtonDisabled = currentPage <= 1;
   const rightButtonDisabled =
@@ -83,7 +83,7 @@ export const Pagination = ({
     if (
       sanitizedValue < 1 ||
       inputRef.current?.disabled ||
-      (typeof totalPages !== "undefined" ? sanitizedValue > totalPages : false)
+      (typeof totalPages !== 'undefined' ? sanitizedValue > totalPages : false)
     ) {
       return;
     }
@@ -92,7 +92,7 @@ export const Pagination = ({
   };
 
   const onPageSizeChange = (value: string) => {
-    if (typeof onPageSizeChangeProp === "function") {
+    if (typeof onPageSizeChangeProp === 'function') {
       onPageSizeChangeProp(Number(value));
     }
   };
@@ -104,7 +104,7 @@ export const Pagination = ({
       }
 
       onChangeProp(currentPage - 1);
-      if (typeof onPrevPageClick === "function") {
+      if (typeof onPrevPageClick === 'function') {
         onPrevPageClick(e);
       }
     },
@@ -118,7 +118,7 @@ export const Pagination = ({
       }
 
       onChangeProp(currentPage + 1);
-      if (typeof onNextPageClick === "function") {
+      if (typeof onNextPageClick === 'function') {
         onNextPageClick(e);
       }
     },
@@ -135,7 +135,7 @@ export const Pagination = ({
       gap={gap}
       justifyContent={
         justifyContent ??
-        (rowCount || maxRowsPerPageList.length > 0 ? "space-between" : "center")
+        (rowCount || maxRowsPerPageList.length > 0 ? 'space-between' : 'center')
       }
       fillWidth={fillWidth}
       {...props}
@@ -146,7 +146,7 @@ export const Pagination = ({
           color="muted"
           size="sm"
         >
-          {typeof rowCount === "number" ? formatNumber(rowCount) : rowCount} rows
+          {typeof rowCount === 'number' ? formatNumber(rowCount) : rowCount} rows
         </Text>
       )}
       <Container

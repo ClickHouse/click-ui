@@ -1,10 +1,10 @@
-import * as RadixPopover from "@radix-ui/react-popover";
-import { Arrow, GenericMenuPanel } from "../GenericMenu";
-import { styled } from "styled-components";
-import { ReactNode } from "react";
-import { Icon } from "@/components";
-import { EmptyButton } from "../commonElement";
-import PopoverArrow from "../icons/PopoverArrow";
+import * as RadixPopover from '@radix-ui/react-popover';
+import { Arrow, GenericMenuPanel } from '../GenericMenu';
+import { styled } from 'styled-components';
+import { ReactNode } from 'react';
+import { Icon } from '@/components';
+import { EmptyButton } from '../commonElement';
+import PopoverArrow from '../icons/PopoverArrow';
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
@@ -35,7 +35,7 @@ const PopoverTrigger = ({ anchor, children, ...props }: TriggerProps) => {
     </>
   );
 };
-PopoverTrigger.displayName = "PopoverTrigger";
+PopoverTrigger.displayName = 'PopoverTrigger';
 Popover.Trigger = PopoverTrigger;
 
 interface PopoverContentProps extends RadixPopover.PopoverContentProps {
@@ -58,7 +58,7 @@ const MenuPanel = styled(GenericMenuPanel)<{ $showClose?: boolean }>`
   border-radius: ${({ theme }) => theme.click.popover.radii.all};
   box-shadow: ${({ theme }) => theme.click.popover.shadow.default};
 
-  ${({ $showClose }) => ($showClose ? "padding-top: 1rem;" : "")};
+  ${({ $showClose }) => ($showClose ? 'padding-top: 1rem;' : '')};
 `;
 
 const CloseButton = styled(EmptyButton)`
@@ -113,5 +113,5 @@ const PopoverContent = ({
     </RadixPopover.Portal>
   );
 };
-PopoverContent.displayName = "PopoverContent";
+PopoverContent.displayName = 'PopoverContent';
 Popover.Content = PopoverContent;

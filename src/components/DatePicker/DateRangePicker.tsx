@@ -5,20 +5,20 @@ import {
   useCallback,
   useEffect,
   useState,
-} from "react";
-import { isSameDate, UseCalendarOptions } from "@h6s/calendar";
-import { styled } from "styled-components";
-import { Dropdown } from "../Dropdown/Dropdown";
-import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from "./Common";
-import { Container } from "../Container/Container";
-import { Panel } from "../Panel/Panel";
-import { Icon } from "../Icon/Icon";
+} from 'react';
+import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
+import { styled } from 'styled-components';
+import { Dropdown } from '../Dropdown/Dropdown';
+import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from './Common';
+import { Container } from '../Container/Container';
+import { Panel } from '../Panel/Panel';
+import { Icon } from '../Icon/Icon';
 import {
   DateRange,
   datesAreWithinMaxRange,
   isDateRangeTheWholeMonth,
   selectedDateFormatter,
-} from "./utils";
+} from './utils';
 
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
@@ -185,10 +185,10 @@ const Calendar = ({
   });
 };
 
-const locale = "en-US";
+const locale = 'en-US';
 const monthFormatter = new Intl.DateTimeFormat(locale, {
-  month: "short",
-  year: "numeric",
+  month: 'short',
+  year: 'numeric',
 });
 
 interface PredefinedDatesProps {
@@ -296,7 +296,7 @@ export const DateRangePicker = ({
   futureStartDatesDisabled = false,
   maxRangeLength = -1,
   onSelectDateRange,
-  placeholder = "start date – end date",
+  placeholder = 'start date – end date',
   predefinedDatesList,
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

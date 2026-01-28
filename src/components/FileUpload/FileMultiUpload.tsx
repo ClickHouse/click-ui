@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { styled, css } from "styled-components";
-import { useState, useRef, useCallback } from "react";
+import React, { useEffect } from 'react';
+import { styled, css } from 'styled-components';
+import { useState, useRef, useCallback } from 'react';
 
-import { shortenMiddle } from "@/utils/truncate";
-import { Text } from "@/components/Typography/Text/Text";
-import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar } from "@/components";
+import { shortenMiddle } from '@/utils/truncate';
+import { Text } from '@/components/Typography/Text/Text';
+import { Title } from '@/components/Typography/Title/Title';
+import { Button, Icon, IconButton, ProgressBar } from '@/components';
 
 export interface FileUploadItem {
   /** Unique identifier for the file */
@@ -15,7 +15,7 @@ export interface FileUploadItem {
   /** Size of the file in bytes */
   size: number;
   /** Current upload status */
-  status: "uploading" | "success" | "error";
+  status: 'uploading' | 'success' | 'error';
   /** Upload progress (0-100) */
   progress: number;
   /** Error message when status is "error" */
@@ -181,13 +181,13 @@ const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolea
     return true;
   }
 
-  const extension = filename.toLowerCase().slice(filename.lastIndexOf("."));
+  const extension = filename.toLowerCase().slice(filename.lastIndexOf('.'));
   return supportedTypes.some(type => type.toLowerCase() === extension.toLowerCase());
 };
 
 export const FileMultiUpload = ({
   title,
-  supportedFileTypes = [".txt", ".sql"],
+  supportedFileTypes = ['.txt', '.sql'],
   files,
   onFileSelect,
   onFileRetry,
@@ -245,14 +245,14 @@ export const FileMultiUpload = ({
       dragCounterRef.current = 0;
     };
 
-    window.addEventListener("dragend", handleDragEnd);
-    document.addEventListener("drop", handleDragEnd);
-    document.addEventListener("mouseleave", handleDragEnd);
+    window.addEventListener('dragend', handleDragEnd);
+    document.addEventListener('drop', handleDragEnd);
+    document.addEventListener('mouseleave', handleDragEnd);
 
     return () => {
-      window.removeEventListener("dragend", handleDragEnd);
-      document.removeEventListener("drop", handleDragEnd);
-      document.removeEventListener("mouseleave", handleDragEnd);
+      window.removeEventListener('dragend', handleDragEnd);
+      document.removeEventListener('drop', handleDragEnd);
+      document.removeEventListener('mouseleave', handleDragEnd);
     };
   }, []);
 
@@ -327,7 +327,7 @@ export const FileMultiUpload = ({
     [onFileRetry]
   );
 
-  const acceptedFileTypes = supportedFileTypes.join(",");
+  const acceptedFileTypes = supportedFileTypes.join(',');
 
   return (
     <>
@@ -357,11 +357,11 @@ export const FileMultiUpload = ({
             </FileUploadTitle>
           )}
           <FileUploadDescription>
-            Files supported: {supportedFileTypes.join(", ")}
+            Files supported: {supportedFileTypes.join(', ')}
           </FileUploadDescription>
         </UploadText>
         <Button
-          type={"secondary"}
+          type={'secondary'}
           onClick={e => {
             e.stopPropagation();
             handleBrowseClick();
@@ -376,55 +376,55 @@ export const FileMultiUpload = ({
           {files.map(file => (
             <FileItem
               key={file.id}
-              $isError={file.status === "error"}
+              $isError={file.status === 'error'}
             >
-              <DocumentIcon name={"document"} />
+              <DocumentIcon name={'document'} />
               <FileContentContainer>
                 <FileDetails>
                   <FileName>{shortenMiddle(file.name)}</FileName>
-                  {file.status === "uploading" && (
+                  {file.status === 'uploading' && (
                     <FileUploadDescription>{file.progress}%</FileUploadDescription>
                   )}
-                  {file.status === "error" && (
+                  {file.status === 'error' && (
                     <FileUploadDescription $isError>
-                      {file.errorMessage || "Upload failed"}
+                      {file.errorMessage || 'Upload failed'}
                     </FileUploadDescription>
                   )}
-                  {file.status === "success" && (
+                  {file.status === 'success' && (
                     <Icon
-                      size={"xs"}
-                      state={"success"}
-                      name={"check"}
+                      size={'xs'}
+                      state={'success'}
+                      name={'check'}
                     />
                   )}
                 </FileDetails>
-                {file.status === "uploading" && (
+                {file.status === 'uploading' && (
                   <ProgressBarWrapper>
                     <ProgressBar
                       progress={file.progress}
-                      type={"small"}
+                      type={'small'}
                     />
                   </ProgressBarWrapper>
                 )}
-                {(file.status === "success" || file.status === "error") && (
+                {(file.status === 'success' || file.status === 'error') && (
                   <FileUploadDescription>
                     {formatFileSize(file.size)}
                   </FileUploadDescription>
                 )}
               </FileContentContainer>
               <FileActions>
-                {file.status === "error" && (
+                {file.status === 'error' && (
                   <IconButton
-                    size={"sm"}
-                    icon={"refresh"}
-                    type={"ghost"}
+                    size={'sm'}
+                    icon={'refresh'}
+                    type={'ghost'}
                     onClick={() => handleRetryUpload(file.id)}
                   />
                 )}
                 <IconButton
-                  size={"sm"}
-                  icon={"cross"}
-                  type={"ghost"}
+                  size={'sm'}
+                  icon={'cross'}
+                  type={'ghost'}
                   onClick={() => handleRemoveFile(file.id)}
                 />
               </FileActions>
@@ -439,7 +439,7 @@ export const FileMultiUpload = ({
         accept={acceptedFileTypes}
         onChange={handleFileSelect}
         multiple
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       />
     </>
   );

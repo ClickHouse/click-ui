@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import { ResizerPosition } from "./types";
+import { useState, useCallback } from 'react';
+import { ResizerPosition } from './types';
 
 /**
  * Defines the type for pointer information used in resizing.
@@ -40,8 +40,8 @@ export interface ResizingState {
  * @type {ResizerPosition}
  */
 export const initialPosition = {
-  left: "calc(100% - 4px)",
-  top: "0",
+  left: 'calc(100% - 4px)',
+  top: '0',
 };
 
 /**

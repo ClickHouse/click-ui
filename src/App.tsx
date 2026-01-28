@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react';
 
-import "@/styles/globals.css";
+import '@/styles/globals.css';
 
-import styles from "./App.module.css";
-import { ThemeName } from "./theme";
+import styles from './App.module.css';
+import { ThemeName } from './theme';
 import {
   Accordion,
   Alert,
@@ -44,27 +44,27 @@ import {
   createToast,
   ToastProvider,
   Toast,
-} from "@/components";
-import { Dialog } from "@/components/Dialog/Dialog";
-import { ConfirmationDialog } from "@/components/ConfirmationDialog/ConfirmationDialog";
-import { ProgressBar } from "./components/ProgressBar/ProgressBar";
-import GridExample from "./examples/GridExample";
-import MultiAccordionDemo from "./components/MultiAccordion/MultiAccordionDemo";
-import { styled } from "styled-components";
+} from '@/components';
+import { Dialog } from '@/components/Dialog/Dialog';
+import { ConfirmationDialog } from '@/components/ConfirmationDialog/ConfirmationDialog';
+import { ProgressBar } from './components/ProgressBar/ProgressBar';
+import GridExample from './examples/GridExample';
+import MultiAccordionDemo from './components/MultiAccordion/MultiAccordionDemo';
+import { styled } from 'styled-components';
 
 const BackgroundWrapper = styled.div`
   background: ${({ theme }) => theme.global.color.background.default};
   padding: 6rem;
 `;
 const headers: Array<TableHeaderType> = [
-  { label: "Company", isSortable: true, sortDir: "asc" },
-  { label: "Contact", isSortable: true, sortDir: "desc", sortPosition: "start" },
-  { label: "Country" },
+  { label: 'Company', isSortable: true, sortDir: 'asc' },
+  { label: 'Contact', isSortable: true, sortDir: 'desc', sortPosition: 'start' },
+  { label: 'Country' },
 ];
 
 const App = () => {
-  const [currentTheme, setCurrentTheme] = useState<ThemeName>("dark");
-  const [selectedButton, setSelectedButton] = useState("center1");
+  const [currentTheme, setCurrentTheme] = useState<ThemeName>('dark');
+  const [selectedButton, setSelectedButton] = useState('center1');
   const [checked, setChecked] = useState(false);
   const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [disabled] = useState(false);
@@ -72,28 +72,28 @@ const App = () => {
   const ref = useRef(null);
   const [rows, setRows] = useState<Array<TableRowType>>([
     {
-      id: "row-1",
+      id: 'row-1',
       items: [
-        { label: "Alfreds Futterkiste" },
-        { label: "Maria Anders" },
-        { label: "Germany" },
+        { label: 'Alfreds Futterkiste' },
+        { label: 'Maria Anders' },
+        { label: 'Germany' },
       ],
     },
     {
-      id: "row-2",
+      id: 'row-2',
       items: [
-        { label: "Centro comercial Moctezuma" },
-        { label: "Francisco Chang" },
-        { label: "Mexico" },
+        { label: 'Centro comercial Moctezuma' },
+        { label: 'Francisco Chang' },
+        { label: 'Mexico' },
       ],
     },
     {
-      id: "row-3",
+      id: 'row-3',
       isDisabled: true,
       items: [
-        { label: "Centro comercial Moctezuma" },
-        { label: "Francisco Chang" },
-        { label: "Mexico" },
+        { label: 'Centro comercial Moctezuma' },
+        { label: 'Francisco Chang' },
+        { label: 'Mexico' },
       ],
     },
   ]);
@@ -112,21 +112,21 @@ const App = () => {
       <Button
         onClick={() => {
           createToast({
-            title: "Toast Title",
-            description: "This is a toast description",
-            type: "success",
+            title: 'Toast Title',
+            description: 'This is a toast description',
+            type: 'success',
             actions: [
               {
-                label: "Action 1",
-                altText: "Action 1 Alt Text",
-                onClick: () => console.log("Action 1 clicked"),
-                type: "secondary",
+                label: 'Action 1',
+                altText: 'Action 1 Alt Text',
+                onClick: () => console.log('Action 1 clicked'),
+                type: 'secondary',
               },
               {
-                label: "Action 2",
-                altText: "Action 2 Alt Text",
-                onClick: () => console.log("Action 2 clicked"),
-                type: "secondary",
+                label: 'Action 2',
+                altText: 'Action 2 Alt Text',
+                onClick: () => console.log('Action 2 clicked'),
+                type: 'secondary',
               },
             ],
           });
@@ -138,45 +138,45 @@ const App = () => {
         <Button
           onClick={() => {
             createToast({
-              title: "Toast Title with Align Start",
-              description: "This is a toast description   with align start",
-              type: "success",
+              title: 'Toast Title with Align Start',
+              description: 'This is a toast description   with align start',
+              type: 'success',
               actions: [
                 {
-                  label: "Action 1",
-                  altText: "Action 1 Alt Text",
-                  onClick: () => console.log("Action 1 clicked"),
+                  label: 'Action 1',
+                  altText: 'Action 1 Alt Text',
+                  onClick: () => console.log('Action 1 clicked'),
                 },
                 {
-                  label: "Action 2",
-                  altText: "Action 2 Alt Text",
-                  onClick: () => console.log("Action 2 clicked"),
+                  label: 'Action 2',
+                  altText: 'Action 2 Alt Text',
+                  onClick: () => console.log('Action 2 clicked'),
                 },
               ],
-              align: "start",
+              align: 'start',
             });
           }}
         >
           Show Toast with Align Start
         </Button>
         <Toast
-          onClose={() => console.log("Toast closed")}
+          onClose={() => console.log('Toast closed')}
           title="Toast Title with Align Start without Button"
           duration={5000}
           description="This is a toast description   with align start"
           type="success"
           actions={[
             {
-              label: "Action 1",
-              altText: "Action 1 Alt Text",
-              onClick: () => console.log("Action 1 clicked"),
-              type: "primary",
+              label: 'Action 1',
+              altText: 'Action 1 Alt Text',
+              onClick: () => console.log('Action 1 clicked'),
+              type: 'primary',
             },
             {
-              label: "Action 2",
-              altText: "Action 2 Alt Text",
-              onClick: () => console.log("Action 2 clicked"),
-              type: "secondary",
+              label: 'Action 2',
+              altText: 'Action 2 Alt Text',
+              onClick: () => console.log('Action 2 clicked'),
+              type: 'secondary',
             },
           ]}
         />
@@ -185,63 +185,63 @@ const App = () => {
         <ProgressBar
           progress={100}
           dismissable
-          onCancel={() => console.log("eee")}
+          onCancel={() => console.log('eee')}
           successMessage="Upload Complete"
         />
         <div className={styles.flexWrap}>
           <IconButton
             icon="user"
             size="xs"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
           <IconButton
             icon="user"
             size="xs"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
           <IconButton
             icon="user"
             size="xs"
             disabled
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
         </div>
         <div className={styles.flexWrap}>
           <IconButton
             icon="user"
             size="sm"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
           <IconButton
             icon="user"
             size="sm"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
           <IconButton
             icon="user"
             size="sm"
             disabled
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
         </div>
         <div className={styles.flexWrap}>
           <IconButton
             icon="user"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
           <IconButton
             icon="user"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
           <IconButton
             disabled
             icon="user"
-            onClick={() => console.log("click")}
+            onClick={() => console.log('click')}
           />
         </div>
         <div
           ref={ref}
-          style={{ position: "relative", minHeight: 200 }}
+          style={{ position: 'relative', minHeight: 200 }}
         >
           <Text>Flyout</Text>
           <div className={styles.flexWrap}>
@@ -249,7 +249,7 @@ const App = () => {
               <Flyout.Trigger>
                 <Button
                   iconLeft="user"
-                  onClick={() => console.log("click")}
+                  onClick={() => console.log('click')}
                 >
                   Flyout Relative
                 </Button>
@@ -281,7 +281,7 @@ const App = () => {
               <Flyout.Trigger>
                 <Button
                   iconLeft="user"
-                  onClick={() => console.log("click")}
+                  onClick={() => console.log('click')}
                 >
                   Flyout Absolute
                 </Button>
@@ -316,7 +316,7 @@ const App = () => {
               <Flyout.Trigger>
                 <Button
                   iconLeft="user"
-                  onClick={() => console.log("click")}
+                  onClick={() => console.log('click')}
                 >
                   Flyout Fixed
                 </Button>
@@ -350,22 +350,22 @@ const App = () => {
           </div>
         </div>
         <div className={styles.flexWrap}>
-          <Badge text={"default"}></Badge>
+          <Badge text={'default'}></Badge>
           <Badge
-            text={"success"}
-            state={"success"}
+            text={'success'}
+            state={'success'}
           ></Badge>
           <Badge
-            text={"neutral"}
-            state={"neutral"}
+            text={'neutral'}
+            state={'neutral'}
           ></Badge>
           <Badge
-            text={"danger"}
-            state={"danger"}
+            text={'danger'}
+            state={'danger'}
           ></Badge>
           <Badge
-            text={"disabled"}
-            state={"disabled"}
+            text={'disabled'}
+            state={'disabled'}
           ></Badge>
         </div>
         <Container>
@@ -458,7 +458,7 @@ const App = () => {
           </CardPrimary>
         </Container>
         <Spacer />
-        <div style={{ width: "300px" }}>
+        <div style={{ width: '300px' }}>
           <CardPrimary
             title="Development"
             alignContent="start"
@@ -480,11 +480,11 @@ const App = () => {
         >
           <ButtonGroup
             options={[
-              { label: "Left center", value: "leftEnd" },
-              { label: "Center", value: "center1" },
-              { label: "Center", value: "center2" },
-              { label: "Center", value: "center3" },
-              { label: "Right end", value: "rightEnd" },
+              { label: 'Left center', value: 'leftEnd' },
+              { label: 'Center', value: 'center1' },
+              { label: 'Center', value: 'center2' },
+              { label: 'Center', value: 'center3' },
+              { label: 'Right end', value: 'rightEnd' },
             ]}
             selected={selectedButton}
             onClick={setSelectedButton}
@@ -492,11 +492,11 @@ const App = () => {
 
           <ButtonGroup
             options={[
-              { label: "Left center", value: "leftEnd" },
-              { label: "Center", value: "center1" },
-              { label: "Center", value: "center2" },
-              { label: "Center", value: "center3" },
-              { label: "Right end", value: "rightEnd" },
+              { label: 'Left center', value: 'leftEnd' },
+              { label: 'Center', value: 'center1' },
+              { label: 'Center', value: 'center2' },
+              { label: 'Center', value: 'center3' },
+              { label: 'Right end', value: 'rightEnd' },
             ]}
             selected={selectedButton}
             onClick={setSelectedButton}
@@ -559,19 +559,19 @@ const App = () => {
           disabled={disabled}
           onCheckedChange={setChecked}
         />
-        <div style={{ color: "white" }}>disabled: {`${disabled}`}</div>
+        <div style={{ color: 'white' }}>disabled: {`${disabled}`}</div>
         <button
           onClick={() => {
-            document.body.style.backgroundColor = "black";
-            setCurrentTheme("dark");
+            document.body.style.backgroundColor = 'black';
+            setCurrentTheme('dark');
           }}
         >
           Dark
         </button>
         <button
           onClick={() => {
-            document.body.style.backgroundColor = "white";
-            setCurrentTheme("light");
+            document.body.style.backgroundColor = 'white';
+            setCurrentTheme('light');
           }}
         >
           Light
@@ -579,13 +579,13 @@ const App = () => {
 
         <Button
           type="primary"
-          onClick={() => alert("you clicked on the primary button")}
+          onClick={() => alert('you clicked on the primary button')}
         >
           Primary
         </Button>
         <Button
           type="secondary"
-          onClick={() => alert("you clicked on the secondary button")}
+          onClick={() => alert('you clicked on the secondary button')}
         >
           Secondary
         </Button>
@@ -601,7 +601,7 @@ const App = () => {
           }
           fillWidth
         >
-          I'm some content{" "}
+          I'm some content{' '}
         </Accordion>
         <SidebarNavigationItem
           icon="user"
@@ -664,7 +664,7 @@ const App = () => {
             onClose={() => setOpen(false)}
           >
             <Select
-              value={"no value"}
+              value={'no value'}
               onSelect={(value): void => {
                 alert(value);
               }}
@@ -684,12 +684,12 @@ const App = () => {
           onCancel={() => setConfirmationDialogOpen(false)}
           title="Confirmation Dialog Example"
           onConfirm={() => {
-            console.log("close");
+            console.log('close');
           }}
           showClose
         >
           <Text>This is a confirmation dialog with some content in it</Text>
-          <Select options={[{ label: "1", value: "1" }]} />
+          <Select options={[{ label: '1', value: '1' }]} />
         </ConfirmationDialog>
 
         <EllipsisContent
@@ -806,12 +806,12 @@ const App = () => {
           columnGap="lg"
           rowGap="sm"
         >
-          <div style={{ border: "1px solid red" }}>Child 1</div>
-          <div style={{ border: "1px solid blue" }}>Child 2</div>
-          <div style={{ border: "1px solid green" }}>Child 3</div>
-          <div style={{ border: "1px solid red" }}>Child 4</div>
-          <div style={{ border: "1px solid blue" }}>Child 5</div>
-          <div style={{ border: "1px solid green" }}>Child 6</div>
+          <div style={{ border: '1px solid red' }}>Child 1</div>
+          <div style={{ border: '1px solid blue' }}>Child 2</div>
+          <div style={{ border: '1px solid green' }}>Child 3</div>
+          <div style={{ border: '1px solid red' }}>Child 4</div>
+          <div style={{ border: '1px solid blue' }}>Child 5</div>
+          <div style={{ border: '1px solid green' }}>Child 6</div>
         </GridContainer>
         <Spacer />
         <GridExample />

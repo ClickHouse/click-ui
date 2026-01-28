@@ -1,11 +1,11 @@
-import { HTMLAttributes, forwardRef } from "react";
-import { styled } from "styled-components";
+import { HTMLAttributes, forwardRef } from 'react';
+import { styled } from 'styled-components';
 
-export type TitleAlignment = "left" | "center" | "right";
-export type TitleColor = "default" | "muted";
-export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl";
-export type TitleFamily = "product" | "brand";
-export type TitleType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+export type TitleAlignment = 'left' | 'center' | 'right';
+export type TitleColor = 'default' | 'muted';
+export type TitleSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TitleFamily = 'product' | 'brand';
+export type TitleType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
   /** The text alignment of the title */
@@ -43,17 +43,17 @@ const CuiTitle = styled.div<{
   $size?: TitleSize;
   $family?: TitleFamily;
 }>`
-  font: ${({ $size = "md", $family = "product", theme }) =>
+  font: ${({ $size = 'md', $family = 'product', theme }) =>
     theme.typography.styles[$family].titles[$size]};
-  color: ${({ $color = "default", theme }) => theme.click.global.color.title[$color]};
+  color: ${({ $color = 'default', theme }) => theme.click.global.color.title[$color]};
   margin: 0;
   padding: 0;
   font-style: inherit;
-  text-align: ${({ $align = "left" }) => $align};
+  text-align: ${({ $align = 'left' }) => $align};
 
   a,
   a:visited {
-    color: ${({ $color = "default", theme }) => theme.click.global.color.title[$color]};
+    color: ${({ $color = 'default', theme }) => theme.click.global.color.title[$color]};
     cursor: pointer;
   }
 

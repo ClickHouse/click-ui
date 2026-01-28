@@ -13,28 +13,28 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { Portal, PopoverProps, Content, Root, Trigger } from "@radix-ui/react-popover";
+} from 'react';
+import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
 import {
   HorizontalDirection,
   Icon,
   IconName,
   SearchField,
   Separator,
-} from "@/components";
-import { styled } from "styled-components";
-import { GenericMenuItem } from "../GenericMenu";
-import { useOption, useSearch } from "./useOption";
-import IconWrapper from "../IconWrapper/IconWrapper";
-import { OptionContext } from "./OptionContext";
-import { mergeRefs } from "@/utils/mergeRefs";
-import { getTextFromNodes } from "@/lib/getTextFromNodes";
-import AutoCompleteOptionList from "./AutoCompleteOptionList";
+} from '@/components';
+import { styled } from 'styled-components';
+import { GenericMenuItem } from '../GenericMenu';
+import { useOption, useSearch } from './useOption';
+import IconWrapper from '../IconWrapper/IconWrapper';
+import { OptionContext } from './OptionContext';
+import { mergeRefs } from '@/utils/mergeRefs';
+import { getTextFromNodes } from '@/lib/getTextFromNodes';
+import AutoCompleteOptionList from './AutoCompleteOptionList';
 
 type DivProps = HTMLAttributes<HTMLDivElement>;
 interface SelectItemComponentProps extends Omit<
   DivProps,
-  "disabled" | "onSelect" | "value" | "children"
+  'disabled' | 'onSelect' | 'value' | 'children'
 > {
   separator?: boolean;
   disabled?: boolean;
@@ -55,19 +55,19 @@ type SelectItemLabel = {
 };
 export interface SelectGroupProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
-  "heading"
+  'heading'
 > {
   heading: ReactNode;
   value?: never;
   onSelect?: never;
 }
-export interface SelectOptionItem extends Omit<SelectItemProps, "children" | "label"> {
+export interface SelectOptionItem extends Omit<SelectItemProps, 'children' | 'label'> {
   heading?: never;
   label: ReactNode;
   [key: `data-${string}`]: string;
 }
 
-interface SelectGroupOptionItem extends Omit<SelectGroupProps, "children" | "label"> {
+interface SelectGroupOptionItem extends Omit<SelectGroupProps, 'children' | 'label'> {
   options: Array<SelectOptionItem>;
   label?: never;
   [key: `data-${string}`]: string;
@@ -90,7 +90,7 @@ type SelectChildrenType = {
 type SelectOptionProp = SelectOptionType | SelectChildrenType;
 
 interface Props
-  extends PopoverProps, Omit<DivProps, "onChange" | "dir" | "onSelect" | "children"> {
+  extends PopoverProps, Omit<DivProps, 'onChange' | 'dir' | 'onSelect' | 'children'> {
   onSelect?: (value: string) => void;
   value?: string;
   placeholder?: string;
@@ -98,8 +98,8 @@ interface Props
   label?: ReactNode;
   error?: ReactNode;
   disabled?: boolean;
-  dir?: "start" | "end";
-  orientation?: "horizontal" | "vertical";
+  dir?: 'start' | 'end';
+  orientation?: 'horizontal' | 'vertical';
   allowCreateOption?: boolean;
 }
 type SelectItemObject = {
@@ -193,16 +193,16 @@ const childrenToComboboxItemArray = (
   heading?: string
 ): Array<SelectItemObject> => {
   return Children.toArray(children).flatMap(child => {
-    if (isValidElement(child) && child && typeof child === "object") {
+    if (isValidElement(child) && child && typeof child === 'object') {
       const type = child.type as FunctionComponent;
-      if (type.displayName === "AutoComplete.Group") {
+      if (type.displayName === 'AutoComplete.Group') {
         const groupChildren = child.props.children;
         return childrenToComboboxItemArray(
           groupChildren,
           callback,
           getTextFromNodes(child.props.heading).toLowerCase()
         );
-      } else if (type.displayName === "AutoComplete.Item") {
+      } else if (type.displayName === 'AutoComplete.Item') {
         const title = getTextFromNodes(child).toLowerCase();
         const value = child.props.value;
         const disabled = child.props.disabled;
@@ -219,7 +219,7 @@ const childrenToComboboxItemArray = (
           title,
           heading,
         };
-      } else if ("props" in child && child.props.children) {
+      } else if ('props' in child && child.props.children) {
         return childrenToComboboxItemArray(child.props.children, callback, heading);
       }
     }
@@ -234,7 +234,7 @@ const SelectNoDataContainer = styled.div`
   text-overflow: ellipsis;
   text-align: left;
   cursor: default;
-  &[hidden="true"] {
+  &[hidden='true'] {
     display: none;
   }
   ${({ theme }) => `
@@ -264,12 +264,12 @@ export const AutoComplete = ({
   children,
   onOpenChange: onOpenChangeProp,
   disabled,
-  value = "",
-  placeholder = "Search",
+  value = '',
+  placeholder = 'Search',
   ...props
 }: AutoCompleteProps) => {
   const defaultId = useId();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -299,7 +299,7 @@ export const AutoComplete = ({
     (open: boolean) => {
       const newOpen = open && !disabled;
       setOpen(newOpen);
-      if (typeof onOpenChangeProp === "function") {
+      if (typeof onOpenChangeProp === 'function') {
         onOpenChangeProp(newOpen);
       }
     },
@@ -309,7 +309,7 @@ export const AutoComplete = ({
   const onSelect = useCallback(
     (value: string) => {
       onOpenChange(false);
-      if (typeof onSelectProp === "function") {
+      if (typeof onSelectProp === 'function') {
         onSelectProp(value);
       }
     },
@@ -352,7 +352,7 @@ export const AutoComplete = ({
       if (options) {
         setList(
           options.flatMap(option => {
-            if ("options" in option) {
+            if ('options' in option) {
               const heading = getTextFromNodes(option.heading).toLowerCase();
               return (option.options ?? []).map(item => {
                 valueNode.current.set(item.value, item);
@@ -403,34 +403,34 @@ export const AutoComplete = ({
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
     if (!e.defaultPrevented) {
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         e.preventDefault();
         if (highlighted) {
           onSelect(highlighted);
         }
-      } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
+      } else if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
         e.preventDefault();
         let nextHighlightedValue = highlighted;
         const highlightedIndex = navigatable.current.findIndex(
           value => value === highlighted
         );
-        if (e.key === "ArrowUp") {
+        if (e.key === 'ArrowUp') {
           if (highlightedIndex === 0) {
             nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
           } else {
             nextHighlightedValue = navigatable.current[highlightedIndex - 1];
           }
-        } else if (e.key === "ArrowDown") {
+        } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           if (highlightedIndex === navigatable.current.length - 1) {
             nextHighlightedValue = navigatable.current[0];
           } else {
             nextHighlightedValue = navigatable.current[highlightedIndex + 1];
           }
-        } else if (e.key === "End") {
+        } else if (e.key === 'End') {
           e.preventDefault();
           nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
-        } else if (e.key === "Home") {
+        } else if (e.key === 'Home') {
           nextHighlightedValue = navigatable.current[0];
           e.preventDefault();
         }
@@ -440,7 +440,7 @@ export const AutoComplete = ({
   };
   const isHidden = useCallback(
     (value?: string) => {
-      return !visibleList.current.includes(value ?? "");
+      return !visibleList.current.includes(value ?? '');
     },
     [visibleList]
   );
@@ -475,9 +475,9 @@ export const AutoComplete = ({
       originalEvent: FocusEvent;
     }>
   ) => {
-    const contentElement = (e.target as HTMLElement)?.closest("[aria-haspopup=dialog]");
+    const contentElement = (e.target as HTMLElement)?.closest('[aria-haspopup=dialog]');
     const triggerElement = (e.target as HTMLElement)?.closest(
-      "[data-radix-popper-content-wrapper]"
+      '[data-radix-popper-content-wrapper]'
     );
 
     if (contentElement || triggerElement) {
@@ -512,7 +512,7 @@ export const AutoComplete = ({
           sideOffset={5}
           onFocus={onFocus}
           onCloseAutoFocus={() => {
-            onUpdateSearch("");
+            onUpdateSearch('');
             inputRef.current?.focus();
           }}
           onOpenAutoFocus={e => {
@@ -541,7 +541,7 @@ export const AutoComplete = ({
             </SelectListContent>
             {visibleList.current.length === 0 && (
               <SelectNoDataContainer {...props}>
-                No Options found{search.length > 0 ? ` for "${search}" ` : ""}
+                No Options found{search.length > 0 ? ` for "${search}" ` : ''}
               </SelectNoDataContainer>
             )}
           </SelectList>
@@ -560,13 +560,13 @@ export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
         ref={mergeRefs([
           forwardedRef,
           node => {
-            const hidden = node?.querySelectorAll("[cui-autocomplete-item]").length === 0;
+            const hidden = node?.querySelectorAll('[cui-autocomplete-item]').length === 0;
             if (hidden) {
-              node?.setAttribute("hidden", "");
+              node?.setAttribute('hidden', '');
             } else {
-              node?.removeAttribute("hidden");
+              node?.removeAttribute('hidden');
             }
-            node?.setAttribute("aria-hidden", hidden.toString());
+            node?.setAttribute('aria-hidden', hidden.toString());
           },
         ])}
       >
@@ -577,7 +577,7 @@ export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
   }
 );
 
-Group.displayName = "AutoComplete.Group";
+Group.displayName = 'AutoComplete.Group';
 
 const CheckIcon = styled.svg<{ $showCheck: boolean }>`
   opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
@@ -591,7 +591,7 @@ export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
       label,
       separator,
       onSelect: onSelectProp,
-      value = "",
+      value = '',
       icon,
       iconDir,
       onMouseOver: onMouseOverProp,
@@ -604,7 +604,7 @@ export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
     const onSelectValue = () => {
       if (!disabled) {
         onSelect(value);
-        if (typeof onSelectProp == "function") {
+        if (typeof onSelectProp == 'function') {
           onSelectProp(value);
         }
       }
@@ -631,9 +631,9 @@ export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
           ref={forwardedRef}
-          data-state={isChecked ? "checked" : "unchecked"}
+          data-state={isChecked ? 'checked' : 'unchecked'}
           data-disabled={disabled ? true : undefined}
-          data-highlighted={highlighted == value ? "true" : undefined}
+          data-highlighted={highlighted == value ? 'true' : undefined}
           cui-autocomplete-item=""
         >
           <IconWrapper
@@ -655,7 +655,7 @@ export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
   }
 );
 
-Item.displayName = "AutoComplete.Item";
+Item.displayName = 'AutoComplete.Item';
 
 AutoComplete.Group = Group;
 AutoComplete.Item = Item;

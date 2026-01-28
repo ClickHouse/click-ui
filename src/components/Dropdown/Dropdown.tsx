@@ -1,16 +1,16 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { styled } from "styled-components";
-import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
-import PopoverArrow from "../icons/PopoverArrow";
-import IconWrapper from "../IconWrapper/IconWrapper";
-import { HorizontalDirection, IconName } from "../types";
-import { Icon } from "../Icon/Icon";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { styled } from 'styled-components';
+import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
+import PopoverArrow from '../icons/PopoverArrow';
+import IconWrapper from '../IconWrapper/IconWrapper';
+import { HorizontalDirection, IconName } from '../types';
+import { Icon } from '../Icon/Icon';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
 
-const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: "default" | "danger" }>`
+const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: 'default' | 'danger' }>`
   position: relative;
   display: flex;
   min-height: 32px;
@@ -71,7 +71,7 @@ const DropdownTrigger = ({
   );
 };
 
-DropdownTrigger.displayName = "DropdownTrigger";
+DropdownTrigger.displayName = 'DropdownTrigger';
 Dropdown.Trigger = DropdownTrigger;
 
 export type ArrowProps = {
@@ -124,7 +124,7 @@ const DropdownContent = ({
   );
 };
 
-DropdownContent.displayName = "DropdownContent";
+DropdownContent.displayName = 'DropdownContent';
 Dropdown.Content = DropdownContent;
 
 const DropdownMenuGroup = styled(DropdownMenu.Group)`
@@ -137,7 +137,7 @@ const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
   return <DropdownMenuGroup {...props} />;
 };
 
-DropdownGroup.displayName = "DropdownGroup";
+DropdownGroup.displayName = 'DropdownGroup';
 Dropdown.Group = DropdownGroup;
 
 const DropdownMenuSub = styled(DropdownMenu.Sub)`
@@ -149,7 +149,7 @@ const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
   return <DropdownMenuSub {...props} />;
 };
 
-DropdownSub.displayName = "DropdownSub";
+DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
 interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
@@ -158,14 +158,14 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
-  type?: "default" | "danger";
+  type?: 'default' | 'danger';
 }
 
 export type { DropdownItemProps };
 const DropdownItem = ({
   icon,
   iconDir,
-  type = "default",
+  type = 'default',
   children,
   ...props
 }: DropdownItemProps) => {
@@ -185,7 +185,7 @@ const DropdownItem = ({
   );
 };
 
-DropdownItem.displayName = "DropdownItem";
+DropdownItem.displayName = 'DropdownItem';
 Dropdown.Item = DropdownItem;
 
 export default Dropdown;

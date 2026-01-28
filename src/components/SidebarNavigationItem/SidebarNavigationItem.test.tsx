@@ -1,9 +1,9 @@
-import { fireEvent } from "@testing-library/react";
-import { SidebarNavigationItem } from "@/components";
-import { renderCUI } from "@/utils/test-utils";
+import { fireEvent } from '@testing-library/react';
+import { SidebarNavigationItem } from '@/components';
+import { renderCUI } from '@/utils/test-utils';
 
-describe("SidebarNavigationItem", () => {
-  it("should trigger click", () => {
+describe('SidebarNavigationItem', () => {
+  it('should trigger click', () => {
     const onClick = vi.fn();
 
     const { queryByTestId } = renderCUI(
@@ -14,9 +14,9 @@ describe("SidebarNavigationItem", () => {
         label="Non-collapsible side-nav-item"
       />
     );
-    const collapsibleTrigger = queryByTestId("non-collapsible-side-nav-item");
+    const collapsibleTrigger = queryByTestId('non-collapsible-side-nav-item');
     expect(collapsibleTrigger).not.toBeNull();
-    expect(queryByTestId("collapsible-content")).toBeNull();
+    expect(queryByTestId('collapsible-content')).toBeNull();
     collapsibleTrigger && fireEvent.click(collapsibleTrigger);
     expect(onClick).toBeCalledTimes(1);
   });

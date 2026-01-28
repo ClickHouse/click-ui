@@ -1,11 +1,11 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Switch } from "./Switch";
-import { useState } from "react";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Switch } from './Switch';
+import { useState } from 'react';
 
 const meta: Meta<typeof Switch> = {
   component: Switch,
-  title: "Forms/Switch",
-  tags: ["switch", "autodocs"],
+  title: 'Forms/Switch',
+  tags: ['switch', 'autodocs'],
 };
 
 export default meta;
@@ -27,6 +27,6 @@ export const Playground: Story = {
   args: {
     checked: true,
     disabled: false,
-    label: "Switch label",
+    label: 'Switch label',
   },
 };

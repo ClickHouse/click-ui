@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const SouthAfrica = (props: React.SVGAttributes<SVGElement>): React.ReactElement => (
   <svg
@@ -20,7 +20,7 @@ const SouthAfrica = (props: React.SVGAttributes<SVGElement>): React.ReactElement
       />
       <mask
         id="mask0_3880_12429"
-        style={{ maskType: "luminance" }}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
@@ -40,7 +40,7 @@ const SouthAfrica = (props: React.SVGAttributes<SVGElement>): React.ReactElement
         />
         <mask
           id="mask1_3880_12429"
-          style={{ maskType: "luminance" }}
+          style={{ maskType: 'luminance' }}
           maskUnits="userSpaceOnUse"
           x="0"
           y="0"

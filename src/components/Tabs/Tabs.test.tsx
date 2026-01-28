@@ -1,24 +1,24 @@
-import { waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { Tabs, FullWidthTabs } from "./Tabs";
-import { TabsProps } from "@/components/Tabs/Tabs";
-import { renderCUI } from "@/utils/test-utils";
+import { waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Tabs, FullWidthTabs } from './Tabs';
+import { TabsProps } from '@/components/Tabs/Tabs';
+import { renderCUI } from '@/utils/test-utils';
 
-describe("Tabs", () => {
+describe('Tabs', () => {
   const renderTabs = (props: TabsProps) => renderCUI(<Tabs {...props} />);
 
-  it("should render the Tabs", () => {
+  it('should render the Tabs', () => {
     const { getByText } = renderTabs({
       children: <p>Common text</p>,
-      defaultValue: "1",
+      defaultValue: '1',
     });
-    expect(getByText("Common text").textContent).toBe("Common text");
+    expect(getByText('Common text').textContent).toBe('Common text');
   });
 
-  it("should switch between tabs", () => {
+  it('should switch between tabs', () => {
     const { getByText } = renderTabs({
-      defaultValue: "tab1",
-      ariaLabel: "Tabs",
+      defaultValue: 'tab1',
+      ariaLabel: 'Tabs',
       children: (
         <>
           <Tabs.TriggersList>
@@ -57,7 +57,7 @@ describe("Tabs", () => {
     });
   });
 
-  it("should execute callback on value change", async () => {
+  it('should execute callback on value change', async () => {
     let counter = 0;
     const { getByText } = renderTabs({
       onValueChange: () => counter++,
@@ -88,9 +88,9 @@ describe("Tabs", () => {
           <Tabs.Content value="tab3">Tab 3 content</Tabs.Content>
         </>
       ),
-      defaultValue: "tab1",
+      defaultValue: 'tab1',
     });
-    const tab = getByText("tab2");
+    const tab = getByText('tab2');
     userEvent.click(tab);
     await waitFor(() => {
       expect(counter).toEqual(1);
@@ -98,8 +98,8 @@ describe("Tabs", () => {
   });
 });
 
-describe("FullWidthTabs", () => {
-  it("should render the FullWidthTabs", () => {
+describe('FullWidthTabs', () => {
+  it('should render the FullWidthTabs', () => {
     const { getByText } = renderCUI(
       <FullWidthTabs>
         <FullWidthTabs.TriggersList>
@@ -127,6 +127,6 @@ describe("FullWidthTabs", () => {
         <FullWidthTabs.Content value="tab3">Tab 3 content</FullWidthTabs.Content>
       </FullWidthTabs>
     );
-    expect(getByText("Tab 1").textContent).toBe("Tab 1");
+    expect(getByText('Tab 1').textContent).toBe('Tab 1');
   });
 });

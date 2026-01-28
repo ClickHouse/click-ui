@@ -1,12 +1,12 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { ChangeEvent, useEffect, useState } from "react";
-import { TextAreaField, TextAreaFieldProps } from "./TextArea";
-import { Container } from "../Container/Container";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { TextAreaField, TextAreaFieldProps } from './TextArea';
+import { Container } from '../Container/Container';
 
 const meta: Meta<typeof TextAreaField> = {
   component: TextAreaField,
-  title: "Forms/Input/TextArea",
-  tags: ["form-field", "input", "autodocs"],
+  title: 'Forms/Input/TextArea',
+  tags: ['form-field', 'input', 'autodocs'],
   decorators: [
     Story => (
       <Container maxWidth="75%">
@@ -14,7 +14,7 @@ const meta: Meta<typeof TextAreaField> = {
       </Container>
     ),
   ],
-  render: ({ value: valueProp, ...props }: Omit<TextAreaFieldProps, "onChange">) => {
+  render: ({ value: valueProp, ...props }: Omit<TextAreaFieldProps, 'onChange'>) => {
     const [value, setValue] = useState(valueProp);
     useEffect(() => {
       setValue(valueProp);
@@ -41,9 +41,9 @@ type Story = StoryObj<typeof TextAreaField>;
 
 export const Playground: Story = {
   args: {
-    label: "Label",
+    label: 'Label',
     rows: 5,
     disabled: false,
-    placeholder: "Placeholder",
+    placeholder: 'Placeholder',
   },
 };

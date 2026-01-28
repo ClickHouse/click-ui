@@ -1,6 +1,6 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
-export type SizeType = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+export type SizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export interface SpacerProps {
   /** The size of the spacer */
   size?: SizeType;
@@ -11,7 +11,7 @@ const CUISpacer = styled.div<{
 }>`
   background: transparent;
   display: flex;
-  padding: ${({ theme, $size = "md" }) =>
+  padding: ${({ theme, $size = 'md' }) =>
     `${theme.click.spacer.horizontal.space.y[$size]} ${theme.click.spacer.horizontal.space.x.all}`};
 `;
 

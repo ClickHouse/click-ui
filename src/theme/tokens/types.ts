@@ -51,4 +51,4 @@ export type Prettify<T> = {
 // token values. This ensures types are always accurate and in sync.
 // ============================================================================
 
-export type { Theme, CUIThemeType, ThemeName, PublicTheme } from "../index";
+export type { Theme, CUIThemeType, ThemeName, PublicTheme } from '../index';

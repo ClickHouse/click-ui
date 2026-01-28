@@ -1,24 +1,24 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Select } from "@/components/Select/SingleSelect";
-import { selectOptions } from "@/components/Select/selectOptions";
-import { Container } from "@/components/Container/Container";
-import { Text } from "@/components/Typography/Text/Text";
-import { Panel } from "@/components/Panel/Panel";
-import { Title } from "@/components/Typography/Title/Title";
-import { Button } from "@/components/Button/Button";
-import { ReactElement } from "react";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Select } from '@/components/Select/SingleSelect';
+import { selectOptions } from '@/components/Select/selectOptions';
+import { Container } from '@/components/Container/Container';
+import { Text } from '@/components/Typography/Text/Text';
+import { Panel } from '@/components/Panel/Panel';
+import { Title } from '@/components/Typography/Title/Title';
+import { Button } from '@/components/Button/Button';
+import { ReactElement } from 'react';
 
 const meta: Meta<typeof Select> = {
   component: Select,
-  title: "Forms/Select",
-  tags: ["form-field", "select", "autodocs"],
+  title: 'Forms/Select',
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export default meta;
 
 export const OptionsAsChildren: StoryObj<typeof Select> = {
   args: {
-    label: "Label",
+    label: 'Label',
   },
   render: props => (
     <Select {...props}>
@@ -54,7 +54,7 @@ export const OptionsAsChildren: StoryObj<typeof Select> = {
 
 export const OptionsAsProp: StoryObj<typeof Select> = {
   args: {
-    label: "Label",
+    label: 'Label',
   },
   render: props => (
     <Select
@@ -121,7 +121,7 @@ export const UseFullWidth = {
       </Container>
     );
   },
-  tags: ["form-field", "select", "autodocs"],
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export const MaxHeight = {
@@ -145,12 +145,12 @@ export const MaxHeight = {
       </Container>
     );
   },
-  tags: ["form-field", "select", "autodocs"],
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export const NoOptions: StoryObj<typeof Select> = {
   // prettier-ignore
-  args: { label: "Label", customText: "No results for \"{search}\"" },
+  args: { label: 'Label', customText: 'No results for "{search}"' },
   render: ({ customText, ...rest }) => (
     <Container
       fillWidth
@@ -174,9 +174,9 @@ export const NoOptions: StoryObj<typeof Select> = {
         </Text>
         <Select
           options={[
-            { value: "apple", label: "Apple" },
-            { value: "banana", label: "Banana" },
-            { value: "cherry", label: "Cherry" },
+            { value: 'apple', label: 'Apple' },
+            { value: 'banana', label: 'Banana' },
+            { value: 'cherry', label: 'Cherry' },
           ]}
           customText={customText}
           {...rest}

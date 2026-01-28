@@ -1,5 +1,5 @@
-import { ReactElement } from "react";
-import { MultiAccordion } from "./MultiAccordion";
+import { ReactElement } from 'react';
+import { MultiAccordion } from './MultiAccordion';
 
 const MultiAccordionDemo = (): ReactElement => {
   return (
@@ -9,7 +9,7 @@ const MultiAccordionDemo = (): ReactElement => {
       showCheck
       fillWidth
       size="md"
-      markAsCompleted={value => console.log("Accordion status icon clicked", value)}
+      markAsCompleted={value => console.log('Accordion status icon clicked', value)}
       collapsible
       title="test"
     >

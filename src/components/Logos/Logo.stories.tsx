@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Logo } from "./Logo";
-import LogosLight from "./LogosLight";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Logo } from './Logo';
+import LogosLight from './LogosLight';
 
 const meta: Meta<typeof Logo> = {
   component: Logo,
-  title: "Display/Logo",
-  tags: ["LOGO", "autodocs"],
+  title: 'Display/Logo',
+  tags: ['LOGO', 'autodocs'],
   argTypes: {
     name: {
       options: Object.keys(LogosLight),
-      control: { type: "select" },
+      control: { type: 'select' },
     },
   },
 };
@@ -20,8 +20,8 @@ type Story = StoryObj<typeof Logo>;
 
 export const Playground: Story = {
   args: {
-    name: "aws",
-    width: "32px",
-    height: "32px",
+    name: 'aws',
+    width: '32px',
+    height: '32px',
   },
 };
