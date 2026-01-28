@@ -1,24 +1,24 @@
-import { Args } from "@storybook/react-vite";
-import { DatePicker } from "./DatePicker";
+import { Args } from '@storybook/react-vite';
+import { DatePicker } from './DatePicker';
 
 const defaultStory = {
   args: {
     onSelectDate: (date: Date) => {
-      console.log("Date selected: ", date);
+      console.log('Date selected: ', date);
     },
   },
   argTypes: {
     date: {
-      control: "date",
+      control: 'date',
     },
     futureDatesDisabled: {
-      control: "boolean",
+      control: 'boolean',
     },
     placeholder: {
-      control: "text",
+      control: 'text',
     },
     onSelectDate: {
-      control: "object",
+      control: 'object',
     },
   },
   component: DatePicker,
@@ -34,8 +34,8 @@ const defaultStory = {
       />
     );
   },
-  title: "Display/DatePicker",
-  tags: ["autodocs"],
+  title: 'Display/DatePicker',
+  tags: ['autodocs'],
 };
 
 export default defaultStory;

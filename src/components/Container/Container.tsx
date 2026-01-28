@@ -1,29 +1,29 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
   ReactNode,
   forwardRef,
-} from "react";
-import { Orientation } from "@/components";
+} from 'react';
+import { Orientation } from '@/components';
 
-type AlignItemsOptions = "start" | "center" | "end" | "stretch";
-export type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
-type GrowShrinkOptions = "0" | "1" | "2" | "3" | "4" | "5" | "6";
+type AlignItemsOptions = 'start' | 'center' | 'end' | 'stretch';
+export type GapOptions = 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+type GrowShrinkOptions = '0' | '1' | '2' | '3' | '4' | '5' | '6';
 type JustifyContentOptions =
-  | "center"
-  | "space-between"
-  | "space-around"
-  | "space-evenly"
-  | "start"
-  | "end"
-  | "left"
-  | "right";
-export type PaddingOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
-type WrapOptions = "nowrap" | "wrap" | "wrap-reverse";
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly'
+  | 'start'
+  | 'end'
+  | 'left'
+  | 'right';
+export type PaddingOptions = 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+type WrapOptions = 'nowrap' | 'wrap' | 'wrap-reverse';
 
-export interface ContainerProps<T extends ElementType = "div"> {
+export interface ContainerProps<T extends ElementType = 'div'> {
   /** Custom component to render as */
   component?: T;
   /** Alignment of items along the cross axis */
@@ -63,40 +63,40 @@ export interface ContainerProps<T extends ElementType = "div"> {
   display?: string;
 }
 
-type ContainerPolymorphicComponent = <T extends ElementType = "div">(
+type ContainerPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>
 ) => ReactNode;
 
-const _Container = <T extends ElementType = "div">(
+const _Container = <T extends ElementType = 'div'>(
   {
     component,
     alignItems,
     children,
     fillWidth = true,
-    gap = "none",
+    gap = 'none',
     grow,
     shrink,
     isResponsive,
-    justifyContent = "start",
+    justifyContent = 'start',
     maxWidth,
     minWidth,
-    orientation = "horizontal",
-    padding = "none",
-    wrap = "nowrap",
+    orientation = 'horizontal',
+    padding = 'none',
+    wrap = 'nowrap',
     fillHeight,
     maxHeight,
     minHeight,
     overflow,
-    display = "flex",
+    display = 'flex',
     ...props
   }: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (
     <Wrapper
       ref={ref}
-      as={component ?? "div"}
-      $alignItems={alignItems ?? (orientation === "vertical" ? "start" : "center")}
+      as={component ?? 'div'}
+      $alignItems={alignItems ?? (orientation === 'vertical' ? 'start' : 'center')}
       $fillWidth={fillWidth}
       $gapSize={gap}
       $grow={grow}
@@ -145,32 +145,32 @@ const Wrapper = styled.div<{
     ${$shrink && `flex-shrink: ${$shrink}`};
   `}
   ${({ $fillHeight, $maxHeight, $minHeight }) => `
-    ${$fillHeight && "height: 100%"};
+    ${$fillHeight && 'height: 100%'};
     ${$maxHeight && `max-height: ${$maxHeight}`};
     ${$minHeight && `min-height: ${$minHeight}`};
   `}
   ${({ $overflow }) => `
     ${$overflow && `overflow: ${$overflow}`};
   `}
-  flex-wrap: ${({ $wrap = "nowrap" }) => $wrap};
+  flex-wrap: ${({ $wrap = 'nowrap' }) => $wrap};
   gap: ${({ theme, $gapSize }) => theme.click.container.gap[$gapSize]};
-  max-width: ${({ $maxWidth }) => $maxWidth ?? "none"};
-  min-width: ${({ $minWidth }) => $minWidth ?? "auto"};
+  max-width: ${({ $maxWidth }) => $maxWidth ?? 'none'};
+  min-width: ${({ $minWidth }) => $minWidth ?? 'auto'};
   padding: ${({ theme, $paddingSize }) => theme.click.container.space[$paddingSize]};
-  width: ${({ $fillWidth = true }) => ($fillWidth === true ? "100%" : "auto")};
-  flex-direction: ${({ $orientation = "horizontal" }) =>
-    $orientation === "horizontal" ? "row" : "column"};
-  align-items: ${({ $alignItems = "center" }) => $alignItems};
-  justify-content: ${({ $justifyContent = "left" }) =>
-    $justifyContent === "start" ? "start" : `${$justifyContent}`};
+  width: ${({ $fillWidth = true }) => ($fillWidth === true ? '100%' : 'auto')};
+  flex-direction: ${({ $orientation = 'horizontal' }) =>
+    $orientation === 'horizontal' ? 'row' : 'column'};
+  align-items: ${({ $alignItems = 'center' }) => $alignItems};
+  justify-content: ${({ $justifyContent = 'left' }) =>
+    $justifyContent === 'start' ? 'start' : `${$justifyContent}`};
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     width: ${({ $isResponsive = true, $fillWidth = true }) =>
-      $isResponsive === true ? "100%" : $fillWidth === true ? "100%" : "auto"};
+      $isResponsive === true ? '100%' : $fillWidth === true ? '100%' : 'auto'};
     max-width: ${({ $isResponsive = true }) =>
-      $isResponsive === true ? "none" : "auto"};
+      $isResponsive === true ? 'none' : 'auto'};
     flex-direction: ${({ $isResponsive = true }) =>
-      $isResponsive === true ? "column" : "auto"};
+      $isResponsive === true ? 'column' : 'auto'};
   }
 `;
 

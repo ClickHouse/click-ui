@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { styled } from "styled-components";
-import { FileUpload, type FileUploadProps } from "@/components/FileUpload/FileUpload";
-import { Flyout } from "@/components/Flyout/Flyout";
-import { Button } from "@/components/Button/Button";
-import { useState } from "react";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { styled } from 'styled-components';
+import { FileUpload, type FileUploadProps } from '@/components/FileUpload/FileUpload';
+import { Flyout } from '@/components/Flyout/Flyout';
+import { Button } from '@/components/Button/Button';
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -16,8 +16,8 @@ const Wrapper = styled.div`
 
 const meta: Meta<typeof FileUpload> = {
   component: FileUpload,
-  title: "Forms/FileUpload",
-  tags: ["file-upload", "autodocs"],
+  title: 'Forms/FileUpload',
+  tags: ['file-upload', 'autodocs'],
   decorators: [
     Story => (
       <Wrapper>
@@ -33,20 +33,20 @@ type Story = StoryObj<typeof FileUpload>;
 
 export const SmallSize: Story = {
   args: {
-    title: "Upload file",
-    supportedFileTypes: [".txt", ".csv"],
-    size: "sm",
+    title: 'Upload file',
+    supportedFileTypes: ['.txt', '.csv'],
+    size: 'sm',
     progress: 75,
     showProgress: false,
     showSuccess: false,
-    onRetry: () => console.log("File retried"),
-    onFileFailure: () => console.log("File failed"),
-    onFileClose: () => console.log("File dismissed"),
+    onRetry: () => console.log('File retried'),
+    onFileFailure: () => console.log('File failed'),
+    onFileClose: () => console.log('File dismissed'),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileUpload` component in small size variant",
+        story: 'Shows the `FileUpload` component in small size variant',
       },
     },
   },
@@ -54,18 +54,18 @@ export const SmallSize: Story = {
 
 export const MediumSize: Story = {
   args: {
-    title: "Upload file",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    title: 'Upload file',
+    supportedFileTypes: ['.txt', '.csv', '.json', '.sql'],
     progress: 65,
-    size: "md",
-    onRetry: () => console.log("File retried"),
-    onFileFailure: () => console.log("File failed"),
-    onFileClose: () => console.log("File dismissed"),
+    size: 'md',
+    onRetry: () => console.log('File retried'),
+    onFileFailure: () => console.log('File failed'),
+    onFileClose: () => console.log('File dismissed'),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileUpload` component in medium size variant",
+        story: 'Shows the `FileUpload` component in medium size variant',
       },
     },
   },
@@ -73,12 +73,12 @@ export const MediumSize: Story = {
 
 export const RestrictedFileTypes: Story = {
   args: {
-    title: "Upload SQL files only",
-    supportedFileTypes: [".sql"],
-    size: "md",
-    onRetry: () => console.log("File retried"),
-    onFileFailure: () => console.log("File failed - unsupported type"),
-    onFileClose: () => console.log("File dismissed"),
+    title: 'Upload SQL files only',
+    supportedFileTypes: ['.sql'],
+    size: 'md',
+    onRetry: () => console.log('File retried'),
+    onFileFailure: () => console.log('File failed - unsupported type'),
+    onFileClose: () => console.log('File dismissed'),
   },
   parameters: {
     docs: {
@@ -131,20 +131,20 @@ export const InsideFlyout: StoryObj<FileUploadProps> = {
     );
   },
   args: {
-    title: "Upload file",
-    supportedFileTypes: [".txt", ".csv"],
-    size: "sm",
+    title: 'Upload file',
+    supportedFileTypes: ['.txt', '.csv'],
+    size: 'sm',
     progress: 75,
     showProgress: false,
     showSuccess: false,
-    onRetry: () => console.log("File retried"),
-    onFileFailure: () => console.log("File failed"),
-    onFileClose: () => console.log("File dismissed"),
+    onRetry: () => console.log('File retried'),
+    onFileFailure: () => console.log('File failed'),
+    onFileClose: () => console.log('File dismissed'),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileUpload` component nested within a `Flyout`",
+        story: 'Shows the `FileUpload` component nested within a `Flyout`',
       },
     },
   },

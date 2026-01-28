@@ -1,11 +1,11 @@
-import { styled } from "styled-components";
-import { IconName, IconProps, IconSize, IconState, ImageType } from "./types";
-import { ICONS_MAP } from "@/components/Icon/IconCommon";
-import Flags, { FlagList, FlagName } from "../icons/Flags";
-import { Logo } from "../Logos/Logo";
-import LogosLight from "../Logos/LogosLight";
-import { LogoName } from "../Logos/types";
-import Payments, { PaymentList, PaymentName } from "../icons/Payments";
+import { styled } from 'styled-components';
+import { IconName, IconProps, IconSize, IconState, ImageType } from './types';
+import { ICONS_MAP } from '@/components/Icon/IconCommon';
+import Flags, { FlagList, FlagName } from '../icons/Flags';
+import { Logo } from '../Logos/Logo';
+import LogosLight from '../Logos/LogosLight';
+import { LogoName } from '../Logos/types';
+import Payments, { PaymentList, PaymentName } from '../icons/Payments';
 
 const SVGIcon = ({
   name,
@@ -47,7 +47,7 @@ const SvgWrapper = styled.div<{
   display: flex;
   align-items: center;
 
-  ${({ theme, $color = "currentColor", $width, $height, $size }) => `
+  ${({ theme, $color = 'currentColor', $width, $height, $size }) => `
     & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke], & circle[fill] {
       stroke: ${$color};
     }
@@ -57,16 +57,16 @@ const SvgWrapper = styled.div<{
     }
 
     & svg {
-      width: ${$width || theme.click.image[$size || "md"].size.width || "24px"};
-      height: ${$height || theme.click.image[$size || "md"].size.height || "24px"};
+      width: ${$width || theme.click.image[$size || 'md'].size.width || '24px'};
+      height: ${$height || theme.click.image[$size || 'md'].size.height || '24px'};
     }
   `}
 
-  ${({ theme, $color = "currentColor", state = "default", $size = "md" }) => `
+  ${({ theme, $color = 'currentColor', state = 'default', $size = 'md' }) => `
     background: ${theme.click.icon.color.background[state]};
     border-radius: ${theme.border.radii.full};
-    padding: ${state === "default" ? "none" : theme.click.icon.space[$size].all};
-    color: ${state === "default" ? $color : theme.click.icon.color.text[state]};
+    padding: ${state === 'default' ? 'none' : theme.click.icon.space[$size].all};
+    color: ${state === 'default' ? $color : theme.click.icon.color.text[state]};
   `}
 `;
 
@@ -110,6 +110,6 @@ const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
   );
 };
 
-SvgImage.displayName = "Icon";
+SvgImage.displayName = 'Icon';
 
 export { SvgImage as Icon };

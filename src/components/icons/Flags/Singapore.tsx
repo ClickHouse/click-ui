@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Singapore = (props: React.SVGAttributes<SVGElement>): React.ReactElement => (
   <svg

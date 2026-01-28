@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 import {
   Grid,
   CellProps,
@@ -7,7 +7,7 @@ import {
   GridContextMenuItemProps,
   Pagination,
   Switch,
-} from "..";
+} from '..';
 
 const Cell: CellProps = ({
   type,
@@ -42,7 +42,7 @@ const GridExample = () => {
     (selection: SelectedRegion, focus: SelectionFocus): GridContextMenuItemProps[] => {
       return [
         {
-          label: "Console log elements",
+          label: 'Console log elements',
           onSelect: () => {
             console.log(selection, focus);
           },
@@ -71,7 +71,7 @@ const GridExample = () => {
 
   return (
     <div>
-      <div style={{ height: 500, width: "100%" }}>
+      <div style={{ height: 500, width: '100%' }}>
         <Grid
           rowStart={currentPage * rowCount}
           columnCount={columnCount}

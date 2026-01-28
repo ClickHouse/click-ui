@@ -1,7 +1,7 @@
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
-import { styled } from "styled-components";
-import { HorizontalDirection, IconName } from "@/components";
-import { IconWrapper } from "../Collapsible/IconWrapper";
+import { HTMLAttributes, ReactNode, forwardRef } from 'react';
+import { styled } from 'styled-components';
+import { HorizontalDirection, IconName } from '@/components';
+import { IconWrapper } from '../Collapsible/IconWrapper';
 
 export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */
@@ -17,12 +17,12 @@ export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElemen
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
   /** The sidebar style type */
-  type?: "main" | "sqlSidebar";
+  type?: 'main' | 'sqlSidebar';
 }
 
 const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
   (
-    { label, level = 0, icon, selected, iconDir, disabled, type = "main", ...props },
+    { label, level = 0, icon, selected, iconDir, disabled, type = 'main', ...props },
     ref
   ) => {
     return (
@@ -48,7 +48,7 @@ const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemPr
 export const SidebarItemWrapper = styled.div<{
   $collapsible?: boolean;
   $level: number;
-  $type: "main" | "sqlSidebar";
+  $type: 'main' | 'sqlSidebar';
 }>`
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ export const SidebarItemWrapper = styled.div<{
   flex-wrap: nowrap;
 
   ${({ theme, $collapsible = false, $level, $type }) => {
-    const itemType = $level === 0 ? "item" : "subItem";
+    const itemType = $level === 0 ? 'item' : 'subItem';
     return `
     padding: ${theme.click.sidebar.navigation[itemType].default.space.y} ${
       theme.click.sidebar.navigation[itemType].default.space.right

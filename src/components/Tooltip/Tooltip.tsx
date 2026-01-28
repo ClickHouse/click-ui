@@ -1,6 +1,6 @@
-import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { HTMLAttributes } from "react";
-import { styled } from "styled-components";
+import * as RadixTooltip from '@radix-ui/react-tooltip';
+import { HTMLAttributes } from 'react';
+import { styled } from 'styled-components';
 
 export interface TooltipProps extends RadixTooltip.TooltipProps {
   /** Whether the tooltip is disabled and should not appear */
@@ -25,7 +25,7 @@ const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
     </RadixTooltip.Trigger>
   );
 };
-TooltipTrigger.displayName = "TooltipTrigger";
+TooltipTrigger.displayName = 'TooltipTrigger';
 Tooltip.Trigger = TooltipTrigger;
 interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
   /** Whether to show an arrow pointing to the trigger element */
@@ -80,5 +80,5 @@ const TooltipContent = ({
     </RadixTooltip.Portal>
   );
 };
-TooltipContent.displayName = "TooltipContent";
+TooltipContent.displayName = 'TooltipContent';
 Tooltip.Content = TooltipContent;

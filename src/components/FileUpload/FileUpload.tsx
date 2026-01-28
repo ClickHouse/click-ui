@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { styled, css } from "styled-components";
-import { useState, useRef, useCallback } from "react";
+import React, { useEffect } from 'react';
+import { styled, css } from 'styled-components';
+import { useState, useRef, useCallback } from 'react';
 
-import { Text } from "@/components/Typography/Text/Text";
-import { Title } from "@/components/Typography/Title/Title";
-import { Button, Icon, IconButton, ProgressBar, Container } from "@/components";
+import { Text } from '@/components/Typography/Text/Text';
+import { Title } from '@/components/Typography/Title/Title';
+import { Button, Icon, IconButton, ProgressBar, Container } from '@/components';
 
 interface FileInfo {
   name: string;
@@ -17,7 +17,7 @@ interface FileUploadProps {
   /** Array of supported file extensions (e.g., [".txt", ".csv"]) */
   supportedFileTypes?: string[];
   /** The size variant of the upload component */
-  size?: "sm" | "md";
+  size?: 'sm' | 'md';
   /** Current upload progress (0-100) */
   progress?: number;
   /** Whether to show success state */
@@ -82,7 +82,7 @@ const MiddleTruncator = ({
 
 const UploadArea = styled.div<{
   $isDragging: boolean;
-  $size: "sm" | "md";
+  $size: 'sm' | 'md';
   $hasFile: boolean;
   $isError?: boolean;
 }>`
@@ -95,24 +95,24 @@ const UploadArea = styled.div<{
       ? `${theme.click.fileUpload.sm.radii.all}`
       : `${theme.click.fileUpload.md.radii.all}`};
   padding: ${({ theme, $hasFile, $size }) =>
-    $hasFile || $size === "sm"
+    $hasFile || $size === 'sm'
       ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
       : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   min-height: ${({ theme, $size }) =>
-    $size === "sm"
+    $size === 'sm'
       ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[6]})`
-      : "auto"};
+      : 'auto'};
   display: flex;
   flex-direction: ${props =>
-    props.$hasFile ? "row" : props.$size === "sm" ? "row" : "column"};
+    props.$hasFile ? 'row' : props.$size === 'sm' ? 'row' : 'column'};
   align-items: center;
   justify-content: ${props =>
-    props.$hasFile ? "space-between" : props.$size === "sm" ? "space-between" : "center"};
+    props.$hasFile ? 'space-between' : props.$size === 'sm' ? 'space-between' : 'center'};
   gap: ${({ theme, $size }) =>
-    $size === "sm"
+    $size === 'sm'
       ? theme.click.fileUpload.sm.space.gap
       : theme.click.fileUpload.md.space.gap};
-  cursor: ${props => (props.$hasFile ? "default" : "pointer")};
+  cursor: ${props => (props.$hasFile ? 'default' : 'pointer')};
   transition: ${({ theme }) => theme.click.fileUpload.transitions.all};
 
   ${props =>
@@ -169,17 +169,17 @@ const UploadIcon = styled(Icon)`
   }
 `;
 
-const UploadText = styled.div<{ $size: "sm" | "md"; $hasFile: boolean }>`
-  text-align: ${props => (props.$hasFile || props.$size === "sm" ? "left" : "center")};
+const UploadText = styled.div<{ $size: 'sm' | 'md'; $hasFile: boolean }>`
+  text-align: ${props => (props.$hasFile || props.$size === 'sm' ? 'left' : 'center')};
   ${props =>
-    (props.$hasFile || props.$size === "sm") &&
+    (props.$hasFile || props.$size === 'sm') &&
     css`
       flex: 1;
     `}
 
   ${props =>
     !props.$hasFile &&
-    props.$size === "md" &&
+    props.$size === 'md' &&
     css`
       display: flex;
       flex-direction: column;
@@ -208,12 +208,12 @@ const FileActions = styled.div`
   gap: 0;
 `;
 
-const FileContentContainer = styled.div<{ $size: "sm" | "md" }>`
+const FileContentContainer = styled.div<{ $size: 'sm' | 'md' }>`
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: ${({ $size }) => ($size === "sm" ? "24px" : "auto")};
+  min-height: ${({ $size }) => ($size === 'sm' ? '24px' : 'auto')};
   min-width: 0;
 `;
 
@@ -227,18 +227,18 @@ const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolea
     return true;
   }
 
-  const extension = filename.toLowerCase().slice(filename.lastIndexOf("."));
+  const extension = filename.toLowerCase().slice(filename.lastIndexOf('.'));
   return supportedTypes.some(type => type.toLowerCase() === extension.toLowerCase());
 };
 
 export const FileUpload = ({
   title,
-  supportedFileTypes = [".txt", ".sql"],
-  size = "sm",
+  supportedFileTypes = ['.txt', '.sql'],
+  size = 'sm',
   onFileSelect,
   onRetry,
   progress = 0,
-  failureMessage = "Upload failed",
+  failureMessage = 'Upload failed',
   showProgress = false,
   showSuccess = false,
   onFileFailure,
@@ -296,14 +296,14 @@ export const FileUpload = ({
       dragCounterRef.current = 0;
     };
 
-    window.addEventListener("dragend", handleDragEnd);
-    document.addEventListener("drop", handleDragEnd);
-    document.addEventListener("mouseleave", handleDragEnd);
+    window.addEventListener('dragend', handleDragEnd);
+    document.addEventListener('drop', handleDragEnd);
+    document.addEventListener('mouseleave', handleDragEnd);
 
     return () => {
-      window.removeEventListener("dragend", handleDragEnd);
-      document.removeEventListener("drop", handleDragEnd);
-      document.removeEventListener("mouseleave", handleDragEnd);
+      window.removeEventListener('dragend', handleDragEnd);
+      document.removeEventListener('drop', handleDragEnd);
+      document.removeEventListener('mouseleave', handleDragEnd);
     };
   }, []);
 
@@ -367,7 +367,7 @@ export const FileUpload = ({
   const handleRemoveFile = useCallback(() => {
     setFile(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
 
     if (onFileClose) {
@@ -381,7 +381,7 @@ export const FileUpload = ({
     }
   }, [onRetry]);
 
-  const acceptedFileTypes = supportedFileTypes.join(",");
+  const acceptedFileTypes = supportedFileTypes.join(',');
 
   return (
     <>
@@ -419,11 +419,11 @@ export const FileUpload = ({
                 </FileUploadTitle>
               )}
               <FileUploadDescription>
-                Files supported: {supportedFileTypes.join(", ")}
+                Files supported: {supportedFileTypes.join(', ')}
               </FileUploadDescription>
             </UploadText>
             <Button
-              type={"secondary"}
+              type={'secondary'}
               onClick={e => {
                 e.stopPropagation();
                 handleBrowseClick();
@@ -434,7 +434,7 @@ export const FileUpload = ({
           </>
         ) : (
           <>
-            <DocumentIcon name={"document"} />
+            <DocumentIcon name={'document'} />
             <FileContentContainer $size={size}>
               <FileDetails>
                 <MiddleTruncator text={file.name} />
@@ -451,9 +451,9 @@ export const FileUpload = ({
                     isResponsive={false}
                   >
                     <Icon
-                      size={"xs"}
-                      state={"success"}
-                      name={"check"}
+                      size={'xs'}
+                      state={'success'}
+                      name={'check'}
                     />
                   </Container>
                 )}
@@ -465,7 +465,7 @@ export const FileUpload = ({
                 <ProgressBarWrapper>
                   <ProgressBar
                     progress={progress}
-                    type={"small"}
+                    type={'small'}
                   />
                 </ProgressBarWrapper>
               )}
@@ -473,16 +473,16 @@ export const FileUpload = ({
             <FileActions>
               {!showProgress && !showSuccess && (
                 <IconButton
-                  size={"sm"}
-                  icon={"refresh"}
-                  type={"ghost"}
+                  size={'sm'}
+                  icon={'refresh'}
+                  type={'ghost'}
                   onClick={handleRetryUpload}
                 />
               )}
               <IconButton
-                size={"sm"}
-                icon={"cross"}
-                type={"ghost"}
+                size={'sm'}
+                icon={'cross'}
+                type={'ghost'}
                 onClick={handleRemoveFile}
               />
             </FileActions>
@@ -495,7 +495,7 @@ export const FileUpload = ({
         ref={fileInputRef}
         accept={acceptedFileTypes}
         onChange={handleFileSelect}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       />
     </>
   );

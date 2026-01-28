@@ -1,5 +1,5 @@
-import * as RadixTabs from "@radix-ui/react-tabs";
-import { styled } from "styled-components";
+import * as RadixTabs from '@radix-ui/react-tabs';
+import { styled } from 'styled-components';
 
 export interface TabsProps extends RadixTabs.TabsProps {
   /** Accessible label for the tabs component */
@@ -19,7 +19,7 @@ const Trigger = styled(RadixTabs.Trigger)`
   font: ${props => props.theme.click.tabs.typography.label.default};
   cursor: pointer;
 
-  &[data-state="active"] {
+  &[data-state='active'] {
     border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};
     color: ${props => props.theme.click.tabs.basic.color.text.active};
     font: ${props => props.theme.click.tabs.typography.label.active};
@@ -35,7 +35,7 @@ const Trigger = styled(RadixTabs.Trigger)`
     font: ${props => props.theme.click.tabs.typography.label.hover};
   }
 
-  &:hover[data-state="active"] {
+  &:hover[data-state='active'] {
     border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};
   }
 `;

@@ -1,9 +1,9 @@
-import { TextField } from "@/components/Input/TextField";
-import { renderCUI } from "@/utils/test-utils";
-import { useState } from "react";
+import { TextField } from '@/components/Input/TextField';
+import { renderCUI } from '@/utils/test-utils';
+import { useState } from 'react';
 
 const TextFieldWrapper = ({
-  initialText = "",
+  initialText = '',
   label,
   labelColor,
 }: {
@@ -24,11 +24,11 @@ const TextFieldWrapper = ({
   );
 };
 
-describe("TextField", () => {
-  describe("label color", () => {
-    it("is the default color when labelColor is not set", () => {
-      const label = "Hello there!";
-      const text = "General Kenobi";
+describe('TextField', () => {
+  describe('label color', () => {
+    it('is the default color when labelColor is not set', () => {
+      const label = 'Hello there!';
+      const text = 'General Kenobi';
 
       const { getByText } = renderCUI(
         <TextFieldWrapper
@@ -39,11 +39,11 @@ describe("TextField", () => {
 
       const labelElement = getByText(label);
       expect(labelElement).toBeInTheDocument();
-      expect(labelElement).toHaveStyle("color: rgb(179, 182, 189)");
+      expect(labelElement).toHaveStyle('color: rgb(179, 182, 189)');
     });
 
-    it("is the color of the passed in labelColor", () => {
-      const label = "Hello there!";
+    it('is the color of the passed in labelColor', () => {
+      const label = 'Hello there!';
 
       const { getByText } = renderCUI(
         <TextFieldWrapper
@@ -54,7 +54,7 @@ describe("TextField", () => {
 
       const labelElement = getByText(label);
       expect(labelElement).toBeInTheDocument();
-      expect(labelElement).toHaveStyle("color: #FF0000");
+      expect(labelElement).toHaveStyle('color: #FF0000');
     });
   });
 });

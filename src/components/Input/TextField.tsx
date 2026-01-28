@@ -5,8 +5,8 @@ import {
   forwardRef,
   useId,
   useRef,
-} from "react";
-import { Icon } from "@/components";
+} from 'react';
+import { Icon } from '@/components';
 import {
   IconButton,
   InputElement,
@@ -14,18 +14,18 @@ import {
   InputStartContent,
   InputWrapper,
   WrapperProps,
-} from "./InputWrapper";
-import { mergeRefs } from "@/utils/mergeRefs";
+} from './InputWrapper';
+import { mergeRefs } from '@/utils/mergeRefs';
 
 export interface TextFieldProps
   extends
-    Omit<WrapperProps, "id" | "children">,
+    Omit<WrapperProps, 'id' | 'children'>,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "value" | "onChange" | "dir"
+      'children' | 'type' | 'value' | 'onChange' | 'dir'
     > {
   /** The input type - text, email, tel, or url */
-  type?: "text" | "email" | "tel" | "url";
+  type?: 'text' | 'email' | 'tel' | 'url';
   /** Whether to show a loading spinner */
   loading?: boolean;
   /** Custom color for the label */
@@ -37,9 +37,9 @@ export interface TextFieldProps
   /** Callback when the input value changes */
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
   /** The orientation of the label relative to the input */
-  orientation?: "vertical" | "horizontal";
+  orientation?: 'vertical' | 'horizontal';
   /** The direction/position of the label - start places label before, end places label after */
-  dir?: "start" | "end";
+  dir?: 'start' | 'end';
   /** Additional content to the left of the control */
   startContent?: ReactNode;
   /** Additional content to the right of the control */
@@ -57,7 +57,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       error,
       id,
       loading,
-      value = "",
+      value = '',
       onChange: onChangeProp,
       orientation,
       dir,
@@ -73,7 +73,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       onChangeProp(e.target.value, e);
     };
     const clearInput = () => {
-      onChangeProp("");
+      onChangeProp('');
     };
 
     const handleStartContentClick: React.MouseEventHandler<HTMLDivElement> = () => {

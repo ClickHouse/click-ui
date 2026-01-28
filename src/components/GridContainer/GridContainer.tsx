@@ -1,27 +1,27 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
   forwardRef,
   ReactNode,
-} from "react";
+} from 'react';
 
-export type FlowOptions = "row" | "column" | "row-dense" | "column-dense";
-type GapOptions = "none" | "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "unset";
-type ItemsOptions = "start" | "center" | "end" | "stretch";
+export type FlowOptions = 'row' | 'column' | 'row-dense' | 'column-dense';
+type GapOptions = 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'unset';
+type ItemsOptions = 'start' | 'center' | 'end' | 'stretch';
 type ContentOptions =
-  | "center"
-  | "space-between"
-  | "space-around"
-  | "space-evenly"
-  | "start"
-  | "stretch"
-  | "end"
-  | "left"
-  | "right";
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly'
+  | 'start'
+  | 'stretch'
+  | 'end'
+  | 'left'
+  | 'right';
 
-export interface GridContainerProps<T extends ElementType = "div"> {
+export interface GridContainerProps<T extends ElementType = 'div'> {
   /** Custom component to render as */
   component?: T;
   /** Alignment of items along the block axis */
@@ -74,14 +74,14 @@ export interface GridContainerProps<T extends ElementType = "div"> {
   overflow?: string;
 }
 
-type GridContainerPolymorphicComponent = <T extends ElementType = "div">(
+type GridContainerPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>
 ) => ReactNode;
 
-const _GridContainer = <T extends ElementType = "div">(
+const _GridContainer = <T extends ElementType = 'div'>(
   {
-    alignItems = "stretch",
-    alignContent = "stretch",
+    alignItems = 'stretch',
+    alignContent = 'stretch',
     children,
     columnGap,
     gap,
@@ -94,8 +94,8 @@ const _GridContainer = <T extends ElementType = "div">(
     gridTemplate,
     inline = false,
     isResponsive = true,
-    justifyContent = "stretch",
-    justifyItems = "stretch",
+    justifyContent = 'stretch',
+    justifyItems = 'stretch',
     rowGap,
     height,
     maxHeight,
@@ -107,11 +107,11 @@ const _GridContainer = <T extends ElementType = "div">(
     component,
     ...props
   }: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (
     <Wrapper
-      as={component ?? "div"}
+      as={component ?? 'div'}
       $alignItems={alignItems}
       $alignContent={alignContent}
       $columnGap={columnGap}
@@ -169,9 +169,9 @@ const Wrapper = styled.div<{
   $minWidth?: string;
   $overflow?: string;
 }>`
-  align-items: ${({ $alignItems = "stretch" }) => $alignItems};
-  align-content: ${({ $alignContent = "stretch" }) => $alignContent};
-  display: ${({ $inline }) => ($inline === true ? "inline-grid" : "grid")};
+  align-items: ${({ $alignItems = 'stretch' }) => $alignItems};
+  align-content: ${({ $alignContent = 'stretch' }) => $alignContent};
+  display: ${({ $inline }) => ($inline === true ? 'inline-grid' : 'grid')};
   ${({ $gridAutoColumns }) =>
     $gridAutoColumns && `grid-auto-columns: ${$gridAutoColumns}`};
   ${({ $gridAutoFlow }) => $gridAutoFlow && `grid-auto-flow: ${$gridAutoFlow}`};
@@ -183,33 +183,33 @@ const Wrapper = styled.div<{
   ${({ $gridTemplateRows }) =>
     $gridTemplateRows && `grid-template-rows: ${$gridTemplateRows}`};
   ${({ $gridTemplate }) => $gridTemplate && `grid-template:  ${$gridTemplate}`};
-  justify-content: ${({ $justifyContent = "stretch" }) => $justifyContent};
-  justify-items: ${({ $justifyItems = "stretch" }) => $justifyItems};
+  justify-content: ${({ $justifyContent = 'stretch' }) => $justifyContent};
+  justify-items: ${({ $justifyItems = 'stretch' }) => $justifyItems};
   ${({ theme, $gap, $columnGap, $rowGap }) => `
-    gap: ${$gap ? theme.click.gridContainer.gap[$gap] : "inherit"};
+    gap: ${$gap ? theme.click.gridContainer.gap[$gap] : 'inherit'};
     ${$columnGap && `column-gap: ${theme.click.gridContainer.gap[$columnGap]}`};
     ${$rowGap && `row-gap: ${theme.click.gridContainer.gap[$rowGap]}`};
   `}
 
   ${({ $fillWidth, $maxWidth, $minWidth }) => `
-    width: ${$fillWidth ? "100%" : "auto"};
-    ${typeof $maxWidth === "string" && `max-width: ${$maxWidth}`};
-    ${typeof $minWidth === "string" && `min-width: ${$minWidth}`};
+    width: ${$fillWidth ? '100%' : 'auto'};
+    ${typeof $maxWidth === 'string' && `max-width: ${$maxWidth}`};
+    ${typeof $minWidth === 'string' && `min-width: ${$minWidth}`};
   `}
   ${({ $height, $maxHeight, $minHeight }) => `
-    ${typeof $height === "string" && `height: ${$height}`};
-    ${typeof $maxHeight === "string" && `max-height: ${$maxHeight}`};
-    ${typeof $minHeight === "string" && `min-height: ${$minHeight}`};
+    ${typeof $height === 'string' && `height: ${$height}`};
+    ${typeof $maxHeight === 'string' && `max-height: ${$maxHeight}`};
+    ${typeof $minHeight === 'string' && `min-height: ${$minHeight}`};
   `}
   ${({ $overflow }) => `
-    ${typeof $overflow === "string" && `overflow: ${$overflow}`};
+    ${typeof $overflow === 'string' && `overflow: ${$overflow}`};
   `}
 
   @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     grid-template-columns: ${({ $isResponsive = true }) =>
       $isResponsive === true
-        ? "1fr"
-        : ({ $gridTemplateColumns }) => $gridTemplateColumns || "auto"};
+        ? '1fr'
+        : ({ $gridTemplateColumns }) => $gridTemplateColumns || 'auto'};
   }
 `;
 

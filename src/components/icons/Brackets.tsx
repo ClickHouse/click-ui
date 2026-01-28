@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Brackets = (props: SVGAttributes<SVGElement>) => (
   <svg

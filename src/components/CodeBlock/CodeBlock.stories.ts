@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { CodeBlock } from "./CodeBlock";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { CodeBlock } from './CodeBlock';
 
 const meta: Meta<typeof CodeBlock> = {
   component: CodeBlock,
-  title: "CodeBlocks/CodeBlock",
-  tags: ["code-blocks", "code-block", "autodocs"],
+  title: 'CodeBlocks/CodeBlock',
+  tags: ['code-blocks', 'code-block', 'autodocs'],
 };
 
 export default meta;
@@ -34,7 +34,7 @@ ORDER BY
 LIMIT
     10;
     `,
-    language: "sql",
+    language: 'sql',
     showLineNumbers: true,
     showWrapButton: false,
     wrapLines: false,

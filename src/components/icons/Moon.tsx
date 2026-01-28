@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Moon = (props: SVGAttributes<SVGElement>) => (
   <svg

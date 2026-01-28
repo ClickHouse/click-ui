@@ -1,22 +1,22 @@
-import { renderCUI } from "@/utils/test-utils";
+import { renderCUI } from '@/utils/test-utils';
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
-} from "@/components/ConfirmationDialog/ConfirmationDialog";
-import { fireEvent } from "@testing-library/dom";
+} from '@/components/ConfirmationDialog/ConfirmationDialog';
+import { fireEvent } from '@testing-library/dom';
 
-describe("Dialog Component", () => {
+describe('Dialog Component', () => {
   const renderDialog = (
     {
-      title = "Dialog Title",
-      message = "Are you sure you want to proceed?",
+      title = 'Dialog Title',
+      message = 'Are you sure you want to proceed?',
       onConfirm = () => {
         void undefined;
       },
       onCancel,
       open,
-      primaryActionLabel = "Confirm",
-      secondaryActionLabel = "Cancel",
+      primaryActionLabel = 'Confirm',
+      secondaryActionLabel = 'Cancel',
       children,
     }: Partial<ConfirmationDialogProps> = {} as ConfirmationDialogProps
   ) =>
@@ -33,37 +33,37 @@ describe("Dialog Component", () => {
       />
     );
 
-  it("renders the dialog title", () => {
-    const title = "Test dialog";
+  it('renders the dialog title', () => {
+    const title = 'Test dialog';
     const { getByText } = renderDialog({ title, open: true });
 
     expect(getByText(title).textContent).toEqual(title);
   });
 
   it("doesn't render the dialog title when the open prop is false", () => {
-    const title = "Test dialog";
+    const title = 'Test dialog';
     const { queryAllByText } = renderDialog({ title, open: false });
 
     expect(queryAllByText(title).length).toEqual(0);
   });
 
-  it("renders the dialog message", () => {
-    const message = "this is a test message";
+  it('renders the dialog message', () => {
+    const message = 'this is a test message';
     const { getByText } = renderDialog({ message, open: true });
 
     expect(getByText(message).textContent).toEqual(message);
   });
 
-  it("renders the dialog primary action label", () => {
-    const primaryActionLabel = "Action";
+  it('renders the dialog primary action label', () => {
+    const primaryActionLabel = 'Action';
     const { getByText } = renderDialog({ primaryActionLabel, open: true });
 
     expect(getByText(primaryActionLabel).textContent).toEqual(primaryActionLabel);
   });
 
-  it("closes the dialog on primary action click", () => {
-    const title = "Dialog Title";
-    const primaryActionLabel = "PrimaryAction";
+  it('closes the dialog on primary action click', () => {
+    const title = 'Dialog Title';
+    const primaryActionLabel = 'PrimaryAction';
 
     let open = true;
     const { getByText, queryAllByText } = renderDialog({
@@ -79,10 +79,10 @@ describe("Dialog Component", () => {
     expect(open).toEqual(false);
   });
 
-  it("executes the primary action on primary action click", () => {
+  it('executes the primary action on primary action click', () => {
     let counter = 0;
-    const title = "Dialog Title";
-    const primaryActionLabel = "PrimaryAction";
+    const title = 'Dialog Title';
+    const primaryActionLabel = 'PrimaryAction';
     const onConfirm = () => counter++;
 
     const { getByText } = renderDialog({
@@ -97,16 +97,16 @@ describe("Dialog Component", () => {
     expect(counter).toEqual(1);
   });
 
-  it("renders the dialog secondary action label", () => {
-    const secondaryActionLabel = "SecondaryAction";
+  it('renders the dialog secondary action label', () => {
+    const secondaryActionLabel = 'SecondaryAction';
     const { getByText } = renderDialog({ secondaryActionLabel, open: true });
 
     expect(getByText(secondaryActionLabel).textContent).toEqual(secondaryActionLabel);
   });
 
-  it("closes the dialog on secondary action click", () => {
-    const title = "Dialog Title";
-    const secondaryActionLabel = "SecondaryAction";
+  it('closes the dialog on secondary action click', () => {
+    const title = 'Dialog Title';
+    const secondaryActionLabel = 'SecondaryAction';
 
     let open = true;
     const { getByText, queryAllByText } = renderDialog({
@@ -122,10 +122,10 @@ describe("Dialog Component", () => {
     expect(open).toEqual(false);
   });
 
-  it("fails to render in case you provide both children and message props", () => {
+  it('fails to render in case you provide both children and message props', () => {
     const children = <div>test</div>;
-    const message = "this is a test message";
-    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const message = 'this is a test message';
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     expect(() => renderDialog({ children, message, open: true })).toThrowError(
       "You can't pass children and message props at the same time"
@@ -134,15 +134,15 @@ describe("Dialog Component", () => {
     spy.mockRestore();
   });
 
-  it("focuses the confirm button when dialog opens", async () => {
+  it('focuses the confirm button when dialog opens', async () => {
     const { getByTestId } = renderDialog({ open: true });
-    const confirmButton = getByTestId("confirm-action-button");
+    const confirmButton = getByTestId('confirm-action-button');
 
     expect(document.activeElement).toBe(confirmButton);
   });
 
-  it("does not focus when dialog is closed", () => {
+  it('does not focus when dialog is closed', () => {
     const { queryByTestId } = renderDialog({ open: false });
-    expect(queryByTestId("confirm-action-button")).toBeNull();
+    expect(queryByTestId('confirm-action-button')).toBeNull();
   });
 });

@@ -1,7 +1,7 @@
-import { memo, useEffect, useRef } from "react";
-import { GridChildComponentProps, areEqual } from "react-window";
-import { ItemDataType } from "./types";
-import { StyledCell } from "./StyledCell";
+import { memo, useEffect, useRef } from 'react';
+import { GridChildComponentProps, areEqual } from 'react-window';
+import { ItemDataType } from './types';
+import { StyledCell } from './StyledCell';
 
 type CellProps = GridChildComponentProps<ItemDataType> & {
   width: number;
@@ -34,23 +34,23 @@ export const Cell = memo(
     const selectionType = getSelectionType({
       row: currentRowIndex,
       column: columnIndex,
-      type: "cell",
+      type: 'cell',
     });
     const rightSelection = getSelectionType({
       row: currentRowIndex,
       column: columnIndex - 1,
-      type: "cell",
+      type: 'cell',
     });
     const belowSelection = getSelectionType({
       row: currentRowIndex - 1,
       column: columnIndex,
-      type: "cell",
+      type: 'cell',
     });
     const rightOfSelectionBorder =
-      (selectionType === "selectDirect" || rightSelection === "selectDirect") &&
+      (selectionType === 'selectDirect' || rightSelection === 'selectDirect') &&
       selectionType !== rightSelection;
     const belowSelectionBorder =
-      (selectionType === "selectDirect" || belowSelection === "selectDirect") &&
+      (selectionType === 'selectDirect' || belowSelection === 'selectDirect') &&
       selectionType !== belowSelection;
 
     const selectionBorderLeft = rightOfSelectionBorder || rightOfFocus || isFocused;
@@ -68,7 +68,7 @@ export const Cell = memo(
 
     const styleWithHeight = {
       ...style,
-      height: "auto",
+      height: 'auto',
     };
 
     return (
@@ -83,7 +83,7 @@ export const Cell = memo(
           rowIndex={currentRowIndex}
           columnIndex={columnIndex}
           type="row-cell"
-          data-selected={isFocused || selectionType === "selectDirect"}
+          data-selected={isFocused || selectionType === 'selectDirect'}
           data-focused={isFocused}
           $isSelectedTop={selectionBorderTop}
           $isSelectedLeft={selectionBorderLeft}

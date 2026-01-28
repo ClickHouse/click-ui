@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { FileTabs as CUIFileTabs, FileTabElement, FileTabStatusType } from "./FileTabs";
+import React, { useEffect, useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { FileTabs as CUIFileTabs, FileTabElement, FileTabStatusType } from './FileTabs';
 
 const options = [
-  "a1",
-  "a2",
-  "a3",
-  "a4",
-  "a5",
-  "a6",
-  "a7",
-  "a8",
-  "a9",
-  "a10",
-  "a11",
-  "a12",
+  'a1',
+  'a2',
+  'a3',
+  'a4',
+  'a5',
+  'a6',
+  'a7',
+  'a8',
+  'a9',
+  'a10',
+  'a11',
+  'a12',
 ];
 
 interface FileTabsExampleProps {
@@ -30,7 +30,7 @@ const FileTabsExample = ({ selected: selectedProp, status }: FileTabsExampleProp
   const [tabs, setTabs] = useState(options);
 
   return (
-    <div style={{ display: "flex", height: "4rem" }}>
+    <div style={{ display: 'flex', height: '4rem' }}>
       <FileTabElement icon="home" />
       <CUIFileTabs
         onReorderTab={() => null}
@@ -60,15 +60,15 @@ const FileTabsExample = ({ selected: selectedProp, status }: FileTabsExampleProp
 const meta: Meta<typeof FileTabsExample> = {
   component: FileTabsExample,
   subcomponents: {
-    "FileTabs.Tab": CUIFileTabs.Tab as React.ComponentType<unknown>,
+    'FileTabs.Tab': CUIFileTabs.Tab as React.ComponentType<unknown>,
   },
-  title: "Display/FileTabs",
-  tags: ["tabs", "file-tabs", "autodocs"],
+  title: 'Display/FileTabs',
+  tags: ['tabs', 'file-tabs', 'autodocs'],
   argTypes: {
-    selected: { control: "select", options: options.map((_, index) => index) },
+    selected: { control: 'select', options: options.map((_, index) => index) },
     status: {
-      control: "radio",
-      options: ["success", "warning", "danger", "neutral", "info"],
+      control: 'radio',
+      options: ['success', 'warning', 'danger', 'neutral', 'info'],
     },
   },
 };
@@ -80,6 +80,6 @@ type Story = StoryObj<typeof FileTabsExample>;
 export const Playground: Story = {
   args: {
     selected: 0,
-    status: "neutral",
+    status: 'neutral',
   },
 };

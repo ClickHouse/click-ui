@@ -1,8 +1,8 @@
-import { renderHook } from "@testing-library/react";
-import { useUpdateEffect } from "./useUpdateEffect";
+import { renderHook } from '@testing-library/react';
+import { useUpdateEffect } from './useUpdateEffect';
 
-describe("useUpdateEffect", () => {
-  it("should not run the effect on the first render", () => {
+describe('useUpdateEffect', () => {
+  it('should not run the effect on the first render', () => {
     const effect = vi.fn();
 
     renderHook(() => useUpdateEffect(effect));
@@ -11,7 +11,7 @@ describe("useUpdateEffect", () => {
     expect(effect).not.toHaveBeenCalled();
   });
 
-  it("should run the effect on subsequent renders", () => {
+  it('should run the effect on subsequent renders', () => {
     const effect = vi.fn();
 
     const { rerender } = renderHook(() => {
@@ -24,27 +24,27 @@ describe("useUpdateEffect", () => {
     expect(effect).toHaveBeenCalledTimes(1);
   });
 
-  it("should run the effect when dependencies change", () => {
+  it('should run the effect when dependencies change', () => {
     const effect = vi.fn();
 
-    const { rerender } = renderHook((dependency: string = "initial_dependency") =>
+    const { rerender } = renderHook((dependency: string = 'initial_dependency') =>
       useUpdateEffect(effect, [dependency])
     );
 
-    rerender("updated_dependency");
+    rerender('updated_dependency');
 
     // The effect should have been called once
     expect(effect).toHaveBeenCalledTimes(1);
   });
 
-  it("should not run the effect if dependencies do not change", () => {
+  it('should not run the effect if dependencies do not change', () => {
     const effect = vi.fn();
 
-    const { rerender } = renderHook((dependency: string = "same_dependency") =>
+    const { rerender } = renderHook((dependency: string = 'same_dependency') =>
       useUpdateEffect(effect, [dependency])
     );
 
-    rerender("same_dependency");
+    rerender('same_dependency');
 
     // The effect should not have been called again
     expect(effect).toHaveBeenCalledTimes(0);

@@ -1,6 +1,6 @@
-import { CellProps, SelectedRegion, SelectionFocus } from "./types";
-import { RefObject, createElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
+import { CellProps, SelectedRegion, SelectionFocus } from './types';
+import { RefObject, createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 interface CopyGridElementsProps {
   cell: CellProps;
@@ -18,10 +18,10 @@ const addCellToRow = (
   rowIndex: number,
   columnIndex: number
 ) => {
-  const td = document.createElement("td");
+  const td = document.createElement('td');
   // const root = createRoot(td);
   const html = renderToStaticMarkup(
-    createElement(cell, { rowIndex, columnIndex, width: 1000, type: "row-cell" })
+    createElement(cell, { rowIndex, columnIndex, width: 1000, type: 'row-cell' })
   );
   td.innerHTML = html;
 
@@ -35,7 +35,7 @@ const columnListLoop = (
   cell: CellProps,
   rowIndex: number
 ) => {
-  const row = document.createElement("tr");
+  const row = document.createElement('tr');
   columnList.forEach(columnIndex => {
     addCellToRow(row, cell, rowIndex, columnIndex);
   });
@@ -52,20 +52,20 @@ const copyGridElements = async ({
   outerRef,
 }: CopyGridElementsProps): Promise<void> => {
   if (!outerRef.current) {
-    throw "Could not fetch selection";
+    throw 'Could not fetch selection';
   }
-  const table = document.createElement("table");
-  table.style.position = "absolute";
-  table.style.top = "-200px";
-  table.style.left = "-200px";
-  table.style.width = "0px";
-  table.style.height = "0px";
-  table.style.overflow = "hidden";
-  const thead = document.createElement("thead");
-  const tbody = document.createElement("tbody");
+  const table = document.createElement('table');
+  table.style.position = 'absolute';
+  table.style.top = '-200px';
+  table.style.left = '-200px';
+  table.style.width = '0px';
+  table.style.height = '0px';
+  table.style.overflow = 'hidden';
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
 
   switch (selection.type) {
-    case "rectangle":
+    case 'rectangle':
       Array.from(
         { length: selection.bounds.bottom + 1 - selection.bounds.top },
         (_, index) => selection.bounds.top + index
@@ -77,7 +77,7 @@ const copyGridElements = async ({
         columnListLoop(tbody, columnList, cell, rowIndex);
       });
       break;
-    case "columns":
+    case 'columns':
       Array.from({ length: rowCount }, (_, index) => pageStart + index).forEach(
         rowIndex => {
           const columnList = [...selection.columns].sort();
@@ -85,7 +85,7 @@ const copyGridElements = async ({
         }
       );
       break;
-    case "rows":
+    case 'rows':
       [...selection.rows].sort().forEach(rowIndex => {
         const columnList = Array.from(
           { length: columnCount },
@@ -94,11 +94,11 @@ const copyGridElements = async ({
         columnListLoop(tbody, columnList, cell, rowIndex);
       });
       break;
-    case "empty":
+    case 'empty':
       columnListLoop(tbody, [focus.column], cell, focus.row);
       break;
     default:
-      throw new Error("incorrect selection provided");
+      throw new Error('incorrect selection provided');
   }
 
   table.appendChild(thead);
@@ -117,7 +117,7 @@ const copyGridElements = async ({
 
     outerRef.current.removeChild(table);
   } else {
-    throw "Could not fetch selection";
+    throw 'Could not fetch selection';
   }
 };
 

@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Confluent = (props: SVGAttributes<SVGElement>) => (
   <svg

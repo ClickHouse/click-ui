@@ -1,10 +1,10 @@
-import { Icon, IconName } from "@/components";
-import { styled, keyframes } from "styled-components";
-import { BaseButton } from "../commonElement";
-import React from "react";
+import { Icon, IconName } from '@/components';
+import { styled, keyframes } from 'styled-components';
+import { BaseButton } from '../commonElement';
+import React from 'react';
 
-export type ButtonType = "primary" | "secondary" | "empty" | "danger";
-type Alignment = "center" | "left";
+export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';
+type Alignment = 'center' | 'left';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /** The visual style variant of the button */
@@ -28,10 +28,10 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = ({
-  type = "primary",
+  type = 'primary',
   iconLeft,
   iconRight,
-  align = "center",
+  align = 'center',
   children,
   fillWidth,
   label,
@@ -71,20 +71,20 @@ export const Button = ({
 );
 
 const shimmerFullWidth = keyframes({
-  "0%": {
-    backgroundPosition: "100% 0",
+  '0%': {
+    backgroundPosition: '100% 0',
   },
-  "100%": {
-    backgroundPosition: "-100% 0",
+  '100%': {
+    backgroundPosition: '-100% 0',
   },
 });
 
 const shimmerFixedWidth = keyframes({
-  "0%": {
-    backgroundPosition: "-200px 0",
+  '0%': {
+    backgroundPosition: '-200px 0',
   },
-  "100%": {
-    backgroundPosition: "200px 0",
+  '100%': {
+    backgroundPosition: '200px 0',
   },
 });
 
@@ -94,25 +94,25 @@ const StyledButton = styled(BaseButton)<{
   $fillWidth?: boolean;
   $loading?: boolean;
 }>`
-  width: ${({ $fillWidth }) => ($fillWidth ? "100%" : "revert")};
-  color: ${({ $styleType = "primary", theme }) =>
+  width: ${({ $fillWidth }) => ($fillWidth ? '100%' : 'revert')};
+  color: ${({ $styleType = 'primary', theme }) =>
     theme.click.button.basic.color[$styleType].text.default};
-  background-color: ${({ $styleType = "primary", theme }) =>
+  background-color: ${({ $styleType = 'primary', theme }) =>
     theme.click.button.basic.color[$styleType].background.default};
   border: ${({ theme }) => theme.click.button.stroke} solid
-    ${({ $styleType = "primary", theme }) =>
+    ${({ $styleType = 'primary', theme }) =>
       theme.click.button.basic.color[$styleType].stroke.default};
   font: ${({ theme }) => theme.click.button.basic.typography.label.default};
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
+  justify-content: ${({ $align }) => ($align === 'left' ? 'flex-start' : 'center')};
   white-space: nowrap;
   overflow: hidden;
   flex-shrink: 0;
 
   &::before {
-    content: ${({ $loading }) => ($loading ? '""' : "none")};
+    content: ${({ $loading }) => ($loading ? '""' : 'none')};
     position: absolute;
     top: 0;
     left: 0;
@@ -121,24 +121,24 @@ const StyledButton = styled(BaseButton)<{
     pointer-events: none;
     background: ${({ $styleType, theme }) =>
       theme.click.button.basic.color[$styleType].background.loading};
-    background-size: ${({ $fillWidth }) => ($fillWidth ? "200% 100%" : "200px 100%")};
-    background-repeat: ${({ $fillWidth }) => ($fillWidth ? "repeat" : "no-repeat")};
+    background-size: ${({ $fillWidth }) => ($fillWidth ? '200% 100%' : '200px 100%')};
+    background-repeat: ${({ $fillWidth }) => ($fillWidth ? 'repeat' : 'no-repeat')};
   }
 
-  &[data-fill-width="true"]::before {
+  &[data-fill-width='true']::before {
     animation: ${shimmerFullWidth} 1.5s ease-in-out infinite;
   }
 
-  &[data-fill-width="false"]::before,
+  &[data-fill-width='false']::before,
   &:not([data-fill-width])::before {
     animation: ${shimmerFixedWidth} 1.5s ease-in-out infinite;
   }
 
   &:hover {
-    background-color: ${({ $styleType = "primary", theme }) =>
+    background-color: ${({ $styleType = 'primary', theme }) =>
       theme.click.button.basic.color[$styleType].background.hover};
     border: ${({ theme }) => theme.click.button.stroke} solid
-      ${({ $styleType = "primary", theme }) =>
+      ${({ $styleType = 'primary', theme }) =>
         theme.click.button.basic.color[$styleType].stroke.hover};
     transition: ${({ theme }) => theme.transition.default};
     font: ${({ theme }) => theme.click.button.basic.typography.label.hover};
@@ -146,17 +146,17 @@ const StyledButton = styled(BaseButton)<{
 
   &:active,
   &:focus {
-    background-color: ${({ $styleType = "primary", theme }) =>
+    background-color: ${({ $styleType = 'primary', theme }) =>
       theme.click.button.basic.color[$styleType].background.active};
     border: 1px solid
-      ${({ $styleType = "primary", theme }) =>
+      ${({ $styleType = 'primary', theme }) =>
         theme.click.button.basic.color[$styleType].stroke.active};
     font: ${({ theme }) => theme.click.button.basic.typography.label.active};
   }
 
   ${({ $loading, $styleType, theme }) => {
     if ($loading) {
-      return "";
+      return '';
     }
 
     const bgDisabled = theme.click.button.basic.color[$styleType].background.disabled;
@@ -181,10 +181,10 @@ const StyledButton = styled(BaseButton)<{
   /* Loading state styling */
   ${({ $loading, $styleType }) => {
     if (!$loading) {
-      return "";
+      return '';
     }
 
-    const btnOpacity = $styleType === "empty" ? 0.9 : 0.7;
+    const btnOpacity = $styleType === 'empty' ? 0.9 : 0.7;
 
     return `
       cursor: not-allowed;

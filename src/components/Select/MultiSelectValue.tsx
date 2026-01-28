@@ -1,9 +1,9 @@
-import { Badge, BadgeProps } from "@/components";
-import { DismissibleBadge, NonDismissibleBadge } from "@/components/Badge/Badge";
-import { MouseEvent, useEffect, useId, useState } from "react";
-import { ItemInterface, ReactSortable } from "react-sortablejs";
-import { styled } from "styled-components";
-import { SelectItemProps } from "./common/types";
+import { Badge, BadgeProps } from '@/components';
+import { DismissibleBadge, NonDismissibleBadge } from '@/components/Badge/Badge';
+import { MouseEvent, useEffect, useId, useState } from 'react';
+import { ItemInterface, ReactSortable } from 'react-sortablejs';
+import { styled } from 'styled-components';
+import { SelectItemProps } from './common/types';
 
 const BadgeList = styled.div`
   display: flex;
@@ -68,8 +68,8 @@ export const MultiSelectValue = ({
       onEnd={e => {
         const { newDraggableIndex, oldDraggableIndex } = e;
         if (
-          typeof newDraggableIndex === "number" &&
-          typeof oldDraggableIndex === "number" &&
+          typeof newDraggableIndex === 'number' &&
+          typeof oldDraggableIndex === 'number' &&
           oldDraggableIndex !== newDraggableIndex
         ) {
           const temp = selectedValues[oldDraggableIndex];
@@ -103,7 +103,7 @@ export const MultiSelectValue = ({
             as={Badge}
             key={`multi-select-${id}-${value}`}
             size="sm"
-            state={disabled ? "disabled" : "default"}
+            state={disabled ? 'disabled' : 'default'}
             {...otherProps}
           />
         );
