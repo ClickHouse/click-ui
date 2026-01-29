@@ -1,11 +1,11 @@
-import { Container } from "@/components/Container/Container";
-import { Dialog } from "@/components/Dialog/Dialog";
-import { Separator } from "@/components/Separator/Separator";
-import { Text } from "@/components/Typography/Text/Text";
-import { HTMLAttributes, ReactElement, ReactNode } from "react";
-import { styled } from "styled-components";
+import { Container } from '@/components/Container/Container';
+import { Dialog } from '@/components/Dialog/Dialog';
+import { Separator } from '@/components/Separator/Separator';
+import { Text } from '@/components/Typography/Text/Text';
+import { HTMLAttributes, ReactElement, ReactNode } from 'react';
+import { styled } from 'styled-components';
 
-type DialogPrimaryAction = "primary" | "danger";
+type DialogPrimaryAction = 'primary' | 'danger';
 
 export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> {
   /** Custom content to display instead of the message */
@@ -57,9 +57,9 @@ export const ConfirmationDialog = ({
   onCancel,
   onConfirm,
   open,
-  primaryActionLabel = "Confirm",
-  primaryActionType = "primary",
-  secondaryActionLabel = "Cancel",
+  primaryActionLabel = 'Confirm',
+  primaryActionType = 'primary',
+  secondaryActionLabel = 'Cancel',
   showClose,
   title,
   ...props

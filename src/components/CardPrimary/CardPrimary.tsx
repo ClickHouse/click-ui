@@ -1,15 +1,15 @@
-import { styled } from "styled-components";
-import { Title } from "@/components/Typography/Title/Title";
-import { Text, TextAlignment } from "@/components/Typography/Text/Text";
-import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from "react";
-import { WithTopBadgeProps, withTopBadge } from "@/components/CardPrimary/withTopBadge";
-import { Button } from "@/components/Button/Button";
-import { Icon } from "@/components/Icon/Icon";
-import { Spacer } from "@/components/Spacer/Spacer";
-import type { IconName } from "@/components/Icon/types";
+import { styled } from 'styled-components';
+import { Title } from '@/components/Typography/Title/Title';
+import { Text, TextAlignment } from '@/components/Typography/Text/Text';
+import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from 'react';
+import { WithTopBadgeProps, withTopBadge } from '@/components/CardPrimary/withTopBadge';
+import { Button } from '@/components/Button/Button';
+import { Icon } from '@/components/Icon/Icon';
+import { Spacer } from '@/components/Spacer/Spacer';
+import type { IconName } from '@/components/Icon/types';
 
-export type CardPrimarySize = "sm" | "md";
-type ContentAlignment = "start" | "center" | "end";
+export type CardPrimarySize = 'sm' | 'md';
+type ContentAlignment = 'start' | 'center' | 'end';
 export interface CardPrimaryProps
   extends HTMLAttributes<HTMLDivElement>, WithTopBadgeProps {
   /** The title text displayed in the card */
@@ -53,12 +53,12 @@ const Wrapper = styled.div<{
   width: 100%;
   max-width: 100%;
   text-align: ${({ $alignContent }) =>
-    $alignContent === "start" ? "left" : $alignContent === "end" ? "right" : "center"};
+    $alignContent === 'start' ? 'left' : $alignContent === 'end' ? 'right' : 'center'};
   flex-direction: column;
-  padding: ${({ $size = "md", theme }) =>
+  padding: ${({ $size = 'md', theme }) =>
     `${theme.click.card.primary.space[$size].x} ${theme.click.card.primary.space[$size].y}`};
-  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : "none")};
+  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
+  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
 
   &:hover,
   &:focus {
@@ -81,10 +81,10 @@ const Wrapper = styled.div<{
     border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
   }
 
-  &[aria-disabled="true"],
-  &[aria-disabled="true"]:hover,
-  &[aria-disabled="true"]:focus,
-  &[aria-disabled="true"]:active {
+  &[aria-disabled='true'],
+  &[aria-disabled='true']:hover,
+  &[aria-disabled='true']:focus,
+  &[aria-disabled='true']:active {
     pointer-events: none;
     ${({ theme }) => `
     background-color: ${theme.click.card.primary.color.background.disabled};
@@ -105,19 +105,19 @@ const Wrapper = styled.div<{
   ${({ $isSelected, theme }) =>
     $isSelected
       ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ""}
+      : ''}
 `;
 
 const Header = styled.div<{
-  $size?: "sm" | "md";
+  $size?: 'sm' | 'md';
   $disabled?: boolean;
   $alignContent?: ContentAlignment;
 }>`
   display: flex;
   flex-direction: column;
-  align-items: ${({ $alignContent = "center" }) =>
-    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
+  align-items: ${({ $alignContent = 'center' }) =>
+    ['start', 'end'].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
+  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
 
   h3 {
     color: ${({ $disabled, theme }) =>
@@ -128,26 +128,26 @@ const Header = styled.div<{
 
   svg,
   img {
-    height: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
-    width: ${({ $size = "md", theme }) => theme.click.card.primary.size.icon[$size].all};
+    height: ${({ $size = 'md', theme }) => theme.click.card.primary.size.icon[$size].all};
+    width: ${({ $size = 'md', theme }) => theme.click.card.primary.size.icon[$size].all};
   }
 `;
 
-const Content = styled.div<{ $size?: "sm" | "md"; $alignContent?: ContentAlignment }>`
+const Content = styled.div<{ $size?: 'sm' | 'md'; $alignContent?: ContentAlignment }>`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-self: ${({ $alignContent = "center" }) =>
-    ["start", "end"].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = "md", theme }) => theme.click.card.primary.space[$size].gap};
+  align-self: ${({ $alignContent = 'center' }) =>
+    ['start', 'end'].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
+  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
   flex: 1;
 `;
 
 const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => {
-  if (align === "center") {
-    return "center";
+  if (align === 'center') {
+    return 'center';
   }
-  return align === "start" ? "left" : "right";
+  return align === 'start' ? 'left' : 'right';
 };
 
 const Card = ({
@@ -167,15 +167,15 @@ const Card = ({
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
-    if (typeof onButtonClick === "function") {
+    if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
     if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, "_blank");
+      window.open(infoUrl, '_blank');
     }
   };
 
-  const Component = !!infoUrl || typeof onButtonClick === "function" ? Button : "div";
+  const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
   return (
     <Wrapper
       $alignContent={alignContent}
@@ -218,7 +218,7 @@ const Card = ({
           {description && (
             <Text
               color="muted"
-              align={convertCardAlignToTextAlign(alignContent ?? "start")}
+              align={convertCardAlignToTextAlign(alignContent ?? 'start')}
             >
               {description}
             </Text>
@@ -227,7 +227,7 @@ const Card = ({
         </Content>
       )}
 
-      {size == "sm" && <Spacer size="sm" />}
+      {size == 'sm' && <Spacer size="sm" />}
 
       {infoText && (
         <Component

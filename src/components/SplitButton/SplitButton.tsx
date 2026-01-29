@@ -1,41 +1,41 @@
-import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
-import { styled } from "styled-components";
-import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu";
-import { Dropdown } from "@/components/Dropdown/Dropdown";
-import { HorizontalDirection } from "@/components/types";
-import { BaseButton } from "../commonElement";
-import { IconWrapper } from "../IconWrapper/IconWrapper";
+import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
+import { styled } from 'styled-components';
+import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import { Dropdown } from '@/components/Dropdown/Dropdown';
+import { HorizontalDirection } from '@/components/types';
+import { BaseButton } from '../commonElement';
+import { IconWrapper } from '../IconWrapper/IconWrapper';
 
-import { Icon } from "@/components/Icon/Icon";
-import { IconName } from "@/components/Icon/types";
+import { Icon } from '@/components/Icon/Icon';
+import { IconName } from '@/components/Icon/types';
 
-type ButtonType = "primary" | "secondary";
+type ButtonType = 'primary' | 'secondary';
 
 type MenuItem = {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   label: ReactNode;
-  type?: "item";
+  type?: 'item';
   items?: never;
-} & Omit<HTMLAttributes<HTMLDivElement>, "onSelect">;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>;
 
 type MenuGroup = {
   icon?: never;
   iconDir?: never;
   label?: never;
-  type: "group";
+  type: 'group';
   items: Array<MenuItem | SubMenu>;
 };
 
-type SubMenu = Omit<MenuItem, "type" | "items"> & {
+type SubMenu = Omit<MenuItem, 'type' | 'items'> & {
   items: Array<MenuGroup | MenuItem>;
-  type: "sub-menu";
+  type: 'sub-menu';
 };
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
 
 export interface SplitButtonProps
-  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, "dir" | "style"> {
+  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, 'dir' | 'style'> {
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */
@@ -45,7 +45,7 @@ export interface SplitButtonProps
   /** The menu items to display in the dropdown */
   menu: Array<Menu>;
   /** Which side of the button to show the dropdown */
-  side?: "top" | "bottom";
+  side?: 'top' | 'bottom';
   /** Optional icon to display in the main button */
   icon?: IconName;
   /** The direction of the icon relative to the label */
@@ -53,7 +53,7 @@ export interface SplitButtonProps
 }
 
 export const SplitButton = ({
-  type = "primary",
+  type = 'primary',
   disabled,
   menu,
   dir,
@@ -65,7 +65,7 @@ export const SplitButton = ({
   fillWidth,
   children,
   icon,
-  iconDir = "start",
+  iconDir = 'start',
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -158,14 +158,14 @@ const DropdownContent = styled.div<{ $width: number }>`
 
 const MenuContentItem = ({
   items = [],
-  type = "item",
+  type = 'item',
   label,
   icon,
-  iconDir = "start",
+  iconDir = 'start',
   parentKey,
   ...props
 }: Menu & { parentKey: string }) => {
-  if (type === "item") {
+  if (type === 'item') {
     return (
       <Dropdown.Item {...props}>
         <IconWrapper
@@ -177,7 +177,7 @@ const MenuContentItem = ({
       </Dropdown.Item>
     );
   }
-  if (type === "group") {
+  if (type === 'group') {
     return (
       <Dropdown.Group>
         {items.map((item, index) => (
@@ -190,7 +190,7 @@ const MenuContentItem = ({
       </Dropdown.Group>
     );
   }
-  if (type === "sub-menu") {
+  if (type === 'sub-menu') {
     return (
       <Dropdown.Sub>
         <Dropdown.Trigger
@@ -228,7 +228,7 @@ const SplitButtonTrigger = styled.div<{
   overflow: hidden;
   user-select: none;
   ${({ theme, $disabled = false, $type, $fillWidth }) => `
-    width: ${$fillWidth ? "100%" : "revert"};
+    width: ${$fillWidth ? '100%' : 'revert'};
     border-radius: ${theme.click.button.radii.all};
     border: 1px solid ${theme.click.button.split[$type].stroke.default};
     ${
@@ -260,7 +260,7 @@ const PrimaryButton = styled(BaseButton)<{
   padding: ${({ theme }) =>
     `${theme.click.button.split.space.y} ${theme.click.button.split.space.x}`};
   ${({ theme, $type, $fillWidth }) => `
-    width: ${$fillWidth ? "100%" : "revert"};
+    width: ${$fillWidth ? '100%' : 'revert'};
     justify-content: center;
     background: ${theme.click.button.split[$type].background.main.default};
     color: ${theme.click.button.split[$type].text.default};

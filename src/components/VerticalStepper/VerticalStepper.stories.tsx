@@ -1,15 +1,15 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Text } from "..";
-import VerticalStepper from "./VerticalStepper";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Text } from '..';
+import VerticalStepper from './VerticalStepper';
 
 const meta: Meta<typeof VerticalStepper> = {
   component: VerticalStepper,
   subcomponents: {
-    "VerticalStepper.Step": VerticalStepper.Step as React.ComponentType<unknown>,
+    'VerticalStepper.Step': VerticalStepper.Step as React.ComponentType<unknown>,
   },
-  title: "Display/VerticalStepper",
-  tags: ["spacer", "autodocs"],
+  title: 'Display/VerticalStepper',
+  tags: ['spacer', 'autodocs'],
 };
 
 export default meta;
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof VerticalStepper>;
 
 export const Playground: Story = {
   args: {
-    type: "bulleted",
+    type: 'bulleted',
     children: (
       <>
         <VerticalStepper.Step

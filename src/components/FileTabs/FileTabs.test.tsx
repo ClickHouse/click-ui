@@ -1,10 +1,10 @@
-import { fireEvent } from "@testing-library/react";
+import { fireEvent } from '@testing-library/react';
 
-import { FileTabs, FileTabStatusType } from "./FileTabs";
-import { renderCUI } from "@/utils/test-utils";
+import { FileTabs, FileTabStatusType } from './FileTabs';
+import { renderCUI } from '@/utils/test-utils';
 
-const tabs = ["tab1", "tab2", "tab3"];
-describe("FileTabs", () => {
+const tabs = ['tab1', 'tab2', 'tab3'];
+describe('FileTabs', () => {
   const onReorderTab = vi.fn();
   const onClose = vi.fn();
   const onSelect = vi.fn();
@@ -50,15 +50,15 @@ describe("FileTabs", () => {
       </FileTabs>
     );
 
-  it("should show all tabs", () => {
+  it('should show all tabs', () => {
     const { getAllByRole } = renderTabs({});
-    const tabElements = getAllByRole("tab");
+    const tabElements = getAllByRole('tab');
     expect(tabElements).toHaveLength(3);
   });
 
-  it("should call onSelect on clicking tab", () => {
+  it('should call onSelect on clicking tab', () => {
     const { getByTestId } = renderTabs({});
-    const tabElement = getByTestId("tab-element-0");
+    const tabElement = getByTestId('tab-element-0');
     fireEvent.click(tabElement);
     expect(onSelect).toBeCalledTimes(1);
   });

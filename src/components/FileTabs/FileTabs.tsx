@@ -10,12 +10,12 @@ import {
   ReactNode,
   WheelEvent,
   useRef,
-} from "react";
-import { styled } from "styled-components";
-import { Icon } from "@/components/Icon/Icon";
-import { IconButton } from "@/components/IconButton/IconButton";
+} from 'react';
+import { styled } from 'styled-components';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
 
-import { IconName } from "../Icon/types";
+import { IconName } from '../Icon/types';
 
 // TODO: Check if react-sortablejs has ESM version
 // import {
@@ -27,22 +27,22 @@ import { IconName } from "../Icon/types";
 // } from "react-sortablejs";
 // import ReactSortableModule from "react-sortablejs";
 // const { ReactSortable, ItemInterface, Sortable, Store } = ReactSortableModule;
-import ReactSortableModule from "react-sortablejs/dist/index.js";
+import ReactSortableModule from 'react-sortablejs/dist/index.js';
 import type {
   ItemInterface,
   Sortable,
   Store,
   ReactSortableProps,
-} from "react-sortablejs";
+} from 'react-sortablejs';
 const { ReactSortable } = ReactSortableModule;
 
 export type FileTabStatusType =
-  | "default"
-  | "success"
-  | "neutral"
-  | "danger"
-  | "warning"
-  | "info";
+  | 'default'
+  | 'success'
+  | 'neutral'
+  | 'danger'
+  | 'warning'
+  | 'info';
 
 const TabsContainer = styled.div<{ $count: number }>`
   display: flex;
@@ -79,7 +79,7 @@ export const TabContext = createContext<ContextProps>({
   onClose: () => null,
 });
 
-export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Callback when the tab is closed */
   onClose?: () => void;
   /** Index of the tab in the list */
@@ -97,7 +97,7 @@ export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, "chil
 }
 export interface FileTabsProps extends Omit<
   ReactSortableProps<ItemInterface>,
-  "onSelect" | "list" | "setList"
+  'onSelect' | 'list' | 'setList'
 > {
   /** Index of the currently selected tab */
   selectedIndex?: number;
@@ -122,7 +122,7 @@ export interface FileTabsProps extends Omit<
 const useSelect = () => {
   const result = useContext(TabContext);
   if (!result) {
-    throw new Error("Context used outside of its Provider!");
+    throw new Error('Context used outside of its Provider!');
   }
   return result;
 };
@@ -189,20 +189,20 @@ export const FileTabs = ({
         $count={(listProp ?? list).length}
       >
         <TabsSortableContainer
-          direction={direction ?? "horizontal"}
-          group={group ?? "tabbar"}
+          direction={direction ?? 'horizontal'}
+          group={group ?? 'tabbar'}
           list={listProp ?? list}
           setList={setListProp ?? setList}
           onEnd={(evt, sortable, store) => {
             const { newDraggableIndex, oldDraggableIndex } = evt;
             if (
-              typeof newDraggableIndex === "number" &&
-              typeof oldDraggableIndex === "number" &&
+              typeof newDraggableIndex === 'number' &&
+              typeof oldDraggableIndex === 'number' &&
               oldDraggableIndex !== newDraggableIndex
             ) {
               onReorderTab(oldDraggableIndex, newDraggableIndex);
             }
-            if (typeof onEnd === "function") {
+            if (typeof onEnd === 'function') {
               onEnd(evt, sortable, store);
             }
           }}
@@ -245,9 +245,9 @@ const TabElement = styled.div<{
   max-height: 100%;
   box-sizing: border-box;
   ${({ theme, $active, $preview, $dismissable, $fixedTabElement }) => `
-    width:${$fixedTabElement ? "auto" : "100%"};
+    width:${$fixedTabElement ? 'auto' : '100%'};
     grid-template-columns: 1fr ${
-      $dismissable ? theme.click.tabs.fileTabs.icon.size.width : ""
+      $dismissable ? theme.click.tabs.fileTabs.icon.size.width : ''
     };
     padding: ${theme.click.tabs.fileTabs.space.y} ${theme.click.tabs.fileTabs.space.x};
     gap: ${theme.click.tabs.fileTabs.space.gap};
@@ -278,7 +278,7 @@ const TabElement = styled.div<{
           }
         `
     }
-    ${$preview === true ? "font-style: italic;" : ""}
+    ${$preview === true ? 'font-style: italic;' : ''}
   `}
   [data-type="close"] {
     display: none;
@@ -287,7 +287,7 @@ const TabElement = styled.div<{
     display: block;
   }
   &:hover {
-    [data-type="close"] {
+    [data-type='close'] {
       display: block;
     }
     [data-indicator] {
@@ -302,12 +302,12 @@ const Indicator = styled.div<{ $status: FileTabStatusType }>`
     position: absolute;
     left: 0.25rem;
     top: 0.25rem;
-    content: "";
+    content: '';
     width: 0.5rem;
     height: 0.5rem;
     ${({ theme, $status }) => `
       background: ${
-        $status === "default" ? "transparent" : theme.click.alert.color.text[$status]
+        $status === 'default' ? 'transparent' : theme.click.alert.color.text[$status]
       };
       border-radius: 50%;
   `}
@@ -344,7 +344,7 @@ const Tab = ({
   index,
   icon,
   onMouseDown: onMouseDownProp,
-  status = "default",
+  status = 'default',
   testId,
   preview,
   ...props
@@ -352,11 +352,11 @@ const Tab = ({
   const { selectedIndex, onClose: onCloseProp } = useSelect();
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     e.currentTarget.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
     });
-    if (typeof onMouseDownProp === "function") {
+    if (typeof onMouseDownProp === 'function') {
       onMouseDownProp(e);
     }
   };
@@ -377,7 +377,7 @@ const Tab = ({
       {...props}
     >
       <TabContent>
-        {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
+        {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
         <TabContentText>{text}</TabContentText>
       </TabContent>
       <EmptyButton
@@ -396,7 +396,7 @@ const Tab = ({
   );
 };
 
-Tab.displayName = "FileTab";
+Tab.displayName = 'FileTab';
 
 FileTabs.Tab = Tab;
 
@@ -420,7 +420,7 @@ export const FileTabElement = ({
       $fixedTabElement
       {...props}
     >
-      {typeof icon === "string" ? <Icon name={icon as IconName} /> : icon}
+      {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
       {children && <TabContentText>{children}</TabContentText>}
     </TabElement>
   );

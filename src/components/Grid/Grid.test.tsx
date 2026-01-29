@@ -1,8 +1,8 @@
-import { Grid } from "@/components/Grid/Grid";
-import type { CellProps, GridProps } from "@/components/Grid/types";
-import { renderCUI } from "@/utils/test-utils";
-import { SelectionFocus } from "./types";
-import { ReactNode } from "react";
+import { Grid } from '@/components/Grid/Grid';
+import type { CellProps, GridProps } from '@/components/Grid/types';
+import { renderCUI } from '@/utils/test-utils';
+import { SelectionFocus } from './types';
+import { ReactNode } from 'react';
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   let content = `${rowIndex} ${columnIndex} - ${type}`;
@@ -25,7 +25,7 @@ const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props })
     <div
       data-scrolling={isScrolling}
       {...props}
-      data-testid={`${type}-${rowIndex ?? "x"}-${columnIndex ?? "x"}`}
+      data-testid={`${type}-${rowIndex ?? 'x'}-${columnIndex ?? 'x'}`}
     >
       {content}
     </div>
@@ -33,13 +33,13 @@ const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props })
 };
 interface Props extends Omit<
   GridProps,
-  | "cell"
-  | "rowCount"
-  | "columnCount"
-  | "columnWidth"
-  | "focus"
-  | "onFocusChange"
-  | "onColumnResize"
+  | 'cell'
+  | 'rowCount'
+  | 'columnCount'
+  | 'columnWidth'
+  | 'focus'
+  | 'onFocusChange'
+  | 'onColumnResize'
 > {
   rowCount?: number;
   columnCount?: number;
@@ -49,11 +49,11 @@ interface Props extends Omit<
   onColumnResize?: () => void;
   rowAutoHeight?: boolean;
 }
-type AutoSizerModule = typeof import("react-virtualized-auto-sizer");
+type AutoSizerModule = typeof import('react-virtualized-auto-sizer');
 
-vi.mock("react-virtualized-auto-sizer", async () => ({
+vi.mock('react-virtualized-auto-sizer', async () => ({
   __esModule: true,
-  ...(await vi.importActual<AutoSizerModule>("react-virtualized-auto-sizer")),
+  ...(await vi.importActual<AutoSizerModule>('react-virtualized-auto-sizer')),
   default: vi.fn().mockImplementation(({ children }) => {
     return (children as (size: { width: number; height: number }) => ReactNode)({
       width: 600,
@@ -62,7 +62,7 @@ vi.mock("react-virtualized-auto-sizer", async () => ({
   }),
 }));
 
-describe("Grid", () => {
+describe('Grid', () => {
   const onColumnResizeTestFn = vi.fn();
   const onFocusChangeTestFn = vi.fn();
   const getMenuOptions = vi.fn();
@@ -95,54 +95,54 @@ describe("Grid", () => {
       />
     );
 
-  it("should render", async () => {
+  it('should render', async () => {
     const { queryByTestId, getByText } = renderGrid({});
-    const rowNumber = getByText("1");
+    const rowNumber = getByText('1');
     expect(rowNumber).not.toBeNull();
-    const cell = queryByTestId("row-cell-0-0");
+    const cell = queryByTestId('row-cell-0-0');
     expect(cell).not.toBeNull();
-    const headerCell = queryByTestId("header-cell-x-0");
+    const headerCell = queryByTestId('header-cell-x-0');
     expect(headerCell).not.toBeNull();
-    const lastCell = queryByTestId("row-cell-0-19");
+    const lastCell = queryByTestId('row-cell-0-19');
     expect(lastCell).toBeNull();
-    const lastHeaderCell = queryByTestId("header-cell-x-19");
+    const lastHeaderCell = queryByTestId('header-cell-x-19');
     expect(lastHeaderCell).toBeNull();
   });
 
-  it("should render focused element", () => {
+  it('should render focused element', () => {
     const { queryByTestId, getByText } = renderGrid({});
-    const rowNumber = getByText("1");
+    const rowNumber = getByText('1');
     expect(rowNumber).not.toBeNull();
-    const cell = queryByTestId("row-cell-0-0");
+    const cell = queryByTestId('row-cell-0-0');
     expect(cell).not.toBeNull();
-    cell && expect(cell.dataset.selected).toEqual("true");
-    cell && expect(cell.dataset.focused).toEqual("true");
+    cell && expect(cell.dataset.selected).toEqual('true');
+    cell && expect(cell.dataset.focused).toEqual('true');
   });
 
-  it("should set row height to default (33px) when rowAutoHeight is false", async () => {
+  it('should set row height to default (33px) when rowAutoHeight is false', async () => {
     const { getByTestId } = renderGrid({
       rowCount: 10,
       columnCount: 10,
       rowAutoHeight: false,
     });
 
-    const cell = getByTestId("row-cell-0-0");
+    const cell = getByTestId('row-cell-0-0');
 
     const computedHeight = window.getComputedStyle(cell).height;
     const heightValue = parseFloat(computedHeight);
     expect(heightValue).toBe(33);
   });
 
-  it("should expand row height to 100% when rowAutoHeight is true", async () => {
+  it('should expand row height to 100% when rowAutoHeight is true', async () => {
     const { getByTestId } = renderGrid({
       rowCount: 1,
       columnCount: 1,
       rowAutoHeight: true,
     });
 
-    const cell = getByTestId("row-cell-0-0");
+    const cell = getByTestId('row-cell-0-0');
 
     const computedHeight = window.getComputedStyle(cell).height;
-    expect(computedHeight).toBe("100%");
+    expect(computedHeight).toBe('100%');
   });
 });

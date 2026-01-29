@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
-import type { HorizontalDirection } from "@/components/types";
-import type { IconName } from "@/components/Icon/types";
-import { Container, GapOptions } from "@/components/Container/Container";
-import { EllipsisContent } from "@/components/EllipsisContent/EllipsisContent";
-import { Icon } from "@/components/Icon/Icon";
-import { IconSize } from "@/components/Icon/types";
+import type { HorizontalDirection } from '@/components/types';
+import type { IconName } from '@/components/Icon/types';
+import { Container, GapOptions } from '@/components/Container/Container';
+import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
+import { Icon } from '@/components/Icon/Icon';
+import { IconSize } from '@/components/Icon/types';
 
 interface IconWrapperProps {
   icon?: IconName;
@@ -20,16 +20,16 @@ interface IconWrapperProps {
 
 export const IconWrapper = ({
   icon,
-  iconDir = "start",
-  size = "sm",
+  iconDir = 'start',
+  size = 'sm',
   width,
   height,
   children,
   ellipsisContent = true,
-  gap = "sm",
+  gap = 'sm',
   ...props
 }: IconWrapperProps) => {
-  const TextWrapper = ellipsisContent ? EllipsisContent : "div";
+  const TextWrapper = ellipsisContent ? EllipsisContent : 'div';
   return (
     <Container
       orientation="horizontal"
@@ -37,7 +37,7 @@ export const IconWrapper = ({
       overflow="hidden"
       {...props}
     >
-      {icon && iconDir === "start" && (
+      {icon && iconDir === 'start' && (
         <Icon
           name={icon}
           size={size}
@@ -46,11 +46,11 @@ export const IconWrapper = ({
         />
       )}
       <TextWrapper
-        data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-icon-wrapper-text`}
+        data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-icon-wrapper-text`}
       >
         {children}
       </TextWrapper>
-      {icon && iconDir === "end" && (
+      {icon && iconDir === 'end' && (
         <Icon
           name={icon}
           size={size}

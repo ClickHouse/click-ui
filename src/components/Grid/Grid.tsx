@@ -10,17 +10,17 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
+} from 'react';
 import {
   GridOnScrollProps,
   VariableSizeGrid,
   GridOnItemsRenderedProps,
   GridChildComponentProps,
-} from "react-window";
-import AutoSizer, { Size } from "react-virtualized-auto-sizer";
-import RowNumberColumn from "./RowNumberColumn";
-import Header from "./Header";
-import { styled } from "styled-components";
+} from 'react-window';
+import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
+import RowNumberColumn from './RowNumberColumn';
+import Header from './Header';
+import { styled } from 'styled-components';
 import {
   GetResizerPositionFn,
   GridContextMenuItemProps,
@@ -32,15 +32,15 @@ import {
   SelectionAction,
   SelectionFocus,
   onSelectFn,
-} from "./types";
-import { useSelectionActions } from "./useSelectionActions";
-import { mergeRefs } from "@/utils/mergeRefs";
-import { Cell } from "./Cell";
-import { ContextMenu } from "@/components/ContextMenu/ContextMenu";
-import { createToast } from "@/components/Toast/toastEmitter";
-import copyGridElements from "./copyGridElements";
-import useColumns from "./useColumns";
-import useResizingState from "./useResizingState";
+} from './types';
+import { useSelectionActions } from './useSelectionActions';
+import { mergeRefs } from '@/utils/mergeRefs';
+import { Cell } from './Cell';
+import { ContextMenu } from '@/components/ContextMenu/ContextMenu';
+import { createToast } from '@/components/Toast/toastEmitter';
+import copyGridElements from './copyGridElements';
+import useColumns from './useColumns';
+import useResizingState from './useResizingState';
 
 const NO_BUTTONS_PRESSED = 0;
 const LEFT_BUTTON_PRESSED = 1;
@@ -96,7 +96,7 @@ const ContextMenuTrigger = styled.div<{
 }>`
   outline: none;
   overflow: hidden;
-  height: ${({ $height }) => ($height ? `${$height}px` : "100%")};
+  height: ${({ $height }) => ($height ? `${$height}px` : '100%')};
   width: 100%;
   background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
   border-radius: ${({ theme, $rounded }) => theme.click.grid.radii[$rounded]};
@@ -125,7 +125,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       autoHeight = false,
       rowStart = 0,
       showRowNumber = true,
-      rounded = "none",
+      rounded = 'none',
       showHeader = true,
       focus: focusProp,
       useIsScrolling = true,
@@ -163,7 +163,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     );
     const [selection, setSelection] = useState<SelectedRegion>(
       selectionProp ?? {
-        type: "empty",
+        type: 'empty',
       }
     );
 
@@ -183,9 +183,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         }
         if (showToast) {
           createToast({
-            title: "Copied successfully",
-            description: "Now you can paste the content",
-            type: "success",
+            title: 'Copied successfully',
+            description: 'Now you can paste the content',
+            type: 'success',
           });
         }
       } catch (e) {
@@ -197,9 +197,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
         if (showToast) {
           createToast({
-            title: "Failed to copy",
-            description: "Encountered an error while copying. Try again after sometime",
-            type: "danger",
+            title: 'Failed to copy',
+            description: 'Encountered an error while copying. Try again after sometime',
+            type: 'danger',
           });
         }
       }
@@ -224,11 +224,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     }, [onCopyProp, selection, focus]);
 
     const onCopy: () => Promise<void> =
-      typeof onCopyProp === "function" ? customOnCopy : defaultOnCopy;
+      typeof onCopyProp === 'function' ? customOnCopy : defaultOnCopy;
 
     const defaultMenuOptions = [
       {
-        label: "Copy",
+        label: 'Copy',
         onSelect: onCopy,
       },
     ];
@@ -255,7 +255,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const onCellSelect: onSelectFn = useCallback(
       (action, selection, focus) => {
         setSelection(selection);
-        if (typeof onSelectProp === "function") {
+        if (typeof onSelectProp === 'function') {
           onSelectProp(action, selection, focus);
         }
       },
@@ -299,7 +299,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           row: row ?? focusProp?.row ?? focus.row,
           column: column ?? focusProp?.column ?? focus.column,
         }));
-        if (typeof onFocusChangeProp === "function") {
+        if (typeof onFocusChangeProp === 'function') {
           onFocusChangeProp(row, column);
         }
       },
@@ -334,10 +334,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
         const { scrollTop, scrollLeft } = outerRef.current;
         // this is for the test to perform correctly
-        if (typeof element?.scrollIntoView === "function") {
+        if (typeof element?.scrollIntoView === 'function') {
           element?.scrollIntoView({
-            block: "nearest",
-            inline: "nearest",
+            block: 'nearest',
+            inline: 'nearest',
           });
           // This is for the element to be available after the scroll.
           await new Promise(requestAnimationFrame);
@@ -395,10 +395,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const clearSelectionAndFocus = useCallback(
       (force: boolean) => {
         setSelection(selection => {
-          if (selection.type === "columns" && !force) {
+          if (selection.type === 'columns' && !force) {
             return selection;
           } else {
-            return { type: "empty" };
+            return { type: 'empty' };
           }
         });
         const newFocus = focusProp ?? focus;
@@ -448,7 +448,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         return (
           <GridContainer
             {...containerProps}
-            className={`sticky-grid__container grid-outer ${props.className ?? ""}`}
+            className={`sticky-grid__container grid-outer ${props.className ?? ''}`}
           >
             <GridDataContainer
               $top={showHeader ? headerHeight : 0}
@@ -507,11 +507,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const onMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       e => {
         containerRef.current?.focus();
-        if (typeof onMouseDownProp === "function" && e.buttons === LEFT_BUTTON_PRESSED) {
+        if (typeof onMouseDownProp === 'function' && e.buttons === LEFT_BUTTON_PRESSED) {
           onMouseDownProp(e);
         }
         const target = (e.target as HTMLElement).closest(
-          "[data-grid-row][data-grid-column]"
+          '[data-grid-row][data-grid-column]'
         ) as HTMLElement;
         if (
           !target ||
@@ -521,7 +521,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           return;
         }
 
-        if (e.buttons === RIGHT_BUTTON_PRESSED && target.dataset.selected === "true") {
+        if (e.buttons === RIGHT_BUTTON_PRESSED && target.dataset.selected === 'true') {
           return;
         }
 
@@ -529,16 +529,16 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         const row = parseInt(rowIndexString);
         const column = parseInt(columnIndexString);
         if (row === -1 && column === -1) {
-          onSelection({ type: "all" });
+          onSelection({ type: 'all' });
           return;
         }
         const shiftKeyPressed = e.shiftKey;
 
         if (row === -1) {
           onSelection({
-            type: shiftKeyPressed ? "shiftColumnSelection" : "columnSelection",
+            type: shiftKeyPressed ? 'shiftColumnSelection' : 'columnSelection',
             column,
-            event: "click",
+            event: 'click',
           });
           if (!shiftKeyPressed) {
             onFocusChange(rowStart, column);
@@ -547,9 +547,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         }
         if (column === -1) {
           onSelection({
-            type: shiftKeyPressed ? "shiftRowSelection" : "rowSelection",
+            type: shiftKeyPressed ? 'shiftRowSelection' : 'rowSelection',
             row,
-            event: "click",
+            event: 'click',
           });
           if (!shiftKeyPressed) {
             onFocusChange(row, 0);
@@ -557,10 +557,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           return;
         }
         onSelection({
-          type: shiftKeyPressed ? "shiftSelection" : "normal",
+          type: shiftKeyPressed ? 'shiftSelection' : 'normal',
           row,
           column,
-          event: "click",
+          event: 'click',
         });
         if (!shiftKeyPressed) {
           onFocusChange(row, column);
@@ -601,7 +601,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       async e => {
         e.preventDefault();
         e.stopPropagation();
-        if (typeof onMouseMoveProp === "function") {
+        if (typeof onMouseMoveProp === 'function') {
           onMouseMoveProp(e);
         }
         if (
@@ -624,15 +624,15 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
             elementBorderRef.current.right - elementBorderRef.current.scrollBarWidth
         ) {
           const scrollHorizontalDirection =
-            e.clientX <= elementBorderRef.current.left ? "left" : "right";
+            e.clientX <= elementBorderRef.current.left ? 'left' : 'right';
           if (
-            (scrollHorizontalDirection === "left" && e.movementX < 0) ||
-            (scrollHorizontalDirection === "right" && e.movementX > 0)
+            (scrollHorizontalDirection === 'left' && e.movementX < 0) ||
+            (scrollHorizontalDirection === 'right' && e.movementX > 0)
           ) {
-            horizontalSign = scrollHorizontalDirection === "left" ? -1 : 1;
+            horizontalSign = scrollHorizontalDirection === 'left' ? -1 : 1;
           }
           x =
-            scrollHorizontalDirection === "left"
+            scrollHorizontalDirection === 'left'
               ? elementBorderRef.current.left + rowNumberWidth + 10
               : elementBorderRef.current.right -
                 elementBorderRef.current.scrollBarWidth -
@@ -645,15 +645,15 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
             elementBorderRef.current.bottom - elementBorderRef.current.scrollBarHeight
         ) {
           const scrollVerticalDirection =
-            e.clientY <= elementBorderRef.current.top ? "top" : "bottom";
+            e.clientY <= elementBorderRef.current.top ? 'top' : 'bottom';
           if (
-            (scrollVerticalDirection === "top" && e.movementY < 0) ||
-            (scrollVerticalDirection === "bottom" && e.movementY > 0)
+            (scrollVerticalDirection === 'top' && e.movementY < 0) ||
+            (scrollVerticalDirection === 'bottom' && e.movementY > 0)
           ) {
-            verticalSign = scrollVerticalDirection === "top" ? -1 : 1;
+            verticalSign = scrollVerticalDirection === 'top' ? -1 : 1;
           }
           y =
-            scrollVerticalDirection === "top"
+            scrollVerticalDirection === 'top'
               ? elementBorderRef.current.top + headerHeight + 10
               : elementBorderRef.current.bottom -
                 elementBorderRef.current.scrollBarHeight -
@@ -711,7 +711,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
     const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
       async e => {
-        if (typeof onKeyDownProp === "function") {
+        if (typeof onKeyDownProp === 'function') {
           onKeyDownProp(e);
         }
         if (!e.defaultPrevented) {
@@ -723,40 +723,40 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
 
         const applyAction = (action: SelectionAction | null): void => {
           if (action) {
-            onSelection({ ...action, event: "keypress" });
+            onSelection({ ...action, event: 'keypress' });
           }
-          if (action?.type === "normal") {
+          if (action?.type === 'normal') {
             onFocusChange(action.row, action.column);
           }
         };
-        if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
           onCopy();
           return;
         }
 
         switch (e.key) {
-          case "ArrowLeft":
-            applyAction(moveSelection(-1, 0, moveAnchor, "keypress"));
+          case 'ArrowLeft':
+            applyAction(moveSelection(-1, 0, moveAnchor, 'keypress'));
             break;
-          case "ArrowRight":
-            applyAction(moveSelection(1, 0, moveAnchor, "keypress"));
+          case 'ArrowRight':
+            applyAction(moveSelection(1, 0, moveAnchor, 'keypress'));
             break;
-          case "ArrowUp":
-            applyAction(moveSelection(0, -1, moveAnchor, "keypress"));
+          case 'ArrowUp':
+            applyAction(moveSelection(0, -1, moveAnchor, 'keypress'));
             break;
-          case "ArrowDown":
-            applyAction(moveSelection(0, 1, moveAnchor, "keypress"));
+          case 'ArrowDown':
+            applyAction(moveSelection(0, 1, moveAnchor, 'keypress'));
             break;
-          case "Enter":
+          case 'Enter':
             onSelection({
-              type: "normal",
+              type: 'normal',
               row,
               column,
-              event: "keypress",
+              event: 'keypress',
             });
             onFocusChange(row, column);
             break;
-          case "Escape":
+          case 'Escape':
             clearSelectionAndFocus(true);
             break;
         }
@@ -776,10 +776,10 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     const onContextMenu: MouseEventHandler<HTMLDivElement> = e => {
       onMouseDown(e);
 
-      if (typeof onContextMenuProp === "function") {
+      if (typeof onContextMenuProp === 'function') {
         onContextMenuProp(e);
       }
-      if (typeof getMenuOptions === "function") {
+      if (typeof getMenuOptions === 'function') {
         const newOptions = getMenuOptions(selection, focusProp ?? focus);
         setMenuOptions([...defaultMenuOptions, ...newOptions]);
       }

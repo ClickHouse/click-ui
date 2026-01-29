@@ -1,8 +1,8 @@
-import { HTMLAttributes, ReactNode } from "react";
-import { styled } from "styled-components";
-import type { HorizontalDirection } from "@/components/types";
-import type { IconName } from "@/components/Icon/types";
-import { IconWrapper } from "../Collapsible/IconWrapper";
+import { HTMLAttributes, ReactNode } from 'react';
+import { styled } from 'styled-components';
+import type { HorizontalDirection } from '@/components/types';
+import type { IconName } from '@/components/Icon/types';
+import { IconWrapper } from '../Collapsible/IconWrapper';
 
 export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {
   /** The label content to display */
@@ -14,7 +14,7 @@ export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonEl
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
   /** The sidebar style type */
-  type?: "main" | "sqlSidebar";
+  type?: 'main' | 'sqlSidebar';
 }
 
 export const SidebarNavigationTitle = ({
@@ -22,7 +22,7 @@ export const SidebarNavigationTitle = ({
   icon,
   iconDir,
   selected,
-  type = "main",
+  type = 'main',
   ...props
 }: SidebarNavigationTitleProps) => {
   return (
@@ -42,7 +42,7 @@ export const SidebarNavigationTitle = ({
 };
 export const SidebarTitleWrapper = styled.button<{
   $collapsible?: boolean;
-  $type: "main" | "sqlSidebar";
+  $type: 'main' | 'sqlSidebar';
 }>`
   display: inline-flex;
   align-items: center;

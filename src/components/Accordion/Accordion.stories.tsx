@@ -1,14 +1,14 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Panel } from "..";
-import { Accordion } from "./Accordion";
-import { Spacer } from "../Spacer/Spacer";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Panel } from '..';
+import { Accordion } from './Accordion';
+import { Spacer } from '../Spacer/Spacer';
+import { Text } from '../Typography/Text/Text';
+import { Title } from '../Typography/Title/Title';
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
-  title: "Accordion/Accordion",
-  tags: ["accordion", "autodocs"],
+  title: 'Accordion/Accordion',
+  tags: ['accordion', 'autodocs'],
 };
 
 export default meta;
@@ -31,10 +31,10 @@ const children = (
 
 export const Playground: Story = {
   args: {
-    title: "Accordion title",
-    size: "md",
-    gap: "md",
-    color: "default",
+    title: 'Accordion title',
+    size: 'md',
+    gap: 'md',
+    color: 'default',
     fillWidth: false,
     children,
   },

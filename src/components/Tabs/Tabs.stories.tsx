@@ -1,18 +1,18 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Spacer } from "@/components/Spacer/Spacer";
-import { Tabs } from "@/components/Tabs/Tabs";
-import { Text } from "@/components/Typography/Text/Text";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Spacer } from '@/components/Spacer/Spacer';
+import { Tabs } from '@/components/Tabs/Tabs';
+import { Text } from '@/components/Typography/Text/Text';
 
 const meta: Meta<typeof Tabs> = {
   component: Tabs,
   subcomponents: {
-    "Tabs.TriggersList": Tabs.TriggersList as React.ComponentType<unknown>,
-    "Tabs.Trigger": Tabs.Trigger as React.ComponentType<unknown>,
-    "Tabs.Content": Tabs.Content as React.ComponentType<unknown>,
+    'Tabs.TriggersList': Tabs.TriggersList as React.ComponentType<unknown>,
+    'Tabs.Trigger': Tabs.Trigger as React.ComponentType<unknown>,
+    'Tabs.Content': Tabs.Content as React.ComponentType<unknown>,
   },
-  title: "Display/Tabs",
-  tags: ["tabs", "autodocs"],
+  title: 'Display/Tabs',
+  tags: ['tabs', 'autodocs'],
 };
 
 export default meta;
@@ -21,9 +21,9 @@ type Story = StoryObj<typeof Tabs>;
 
 export const Playground: Story = {
   args: {
-    defaultValue: "tab2",
+    defaultValue: 'tab2',
     onValueChange: s => console.log(s),
-    ariaLabel: "a simple tab component",
+    ariaLabel: 'a simple tab component',
     children: (
       <>
         <Tabs.TriggersList>

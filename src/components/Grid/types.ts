@@ -5,9 +5,9 @@ import {
   MouseEventHandler,
   MutableRefObject,
   ReactNode,
-} from "react";
-import { VariableSizeGrid, VariableSizeGridProps } from "react-window";
-import type { ContextMenuItemProps } from "@/components/ContextMenu/ContextMenu";
+} from 'react';
+import { VariableSizeGrid, VariableSizeGridProps } from 'react-window';
+import type { ContextMenuItemProps } from '@/components/ContextMenu/ContextMenu';
 
 interface CellCommonProps extends HTMLAttributes<HTMLElement> {
   columnIndex: number;
@@ -16,13 +16,13 @@ interface CellCommonProps extends HTMLAttributes<HTMLElement> {
 
 interface CellHeaderProps extends CellCommonProps {
   rowIndex?: never;
-  type: "header-cell";
+  type: 'header-cell';
   width: number;
 }
 
 interface CellBodyProps extends CellCommonProps {
   rowIndex: number;
-  type: "row-cell";
+  type: 'row-cell';
   width: number;
 }
 
@@ -30,24 +30,24 @@ type CellComponentProps = CellHeaderProps | CellBodyProps;
 
 export type CellProps = ComponentType<CellComponentProps>;
 export interface CellSelectionAction {
-  type: "normal" | "shiftSelection";
+  type: 'normal' | 'shiftSelection';
   row: number;
   column: number;
   event?: KeyEventType;
 }
 
 export interface AllSelection {
-  type: "all";
+  type: 'all';
   event?: KeyEventType;
 }
 export interface ColumnSelectionAction {
-  type: "columnSelection" | "shiftColumnSelection" | "ctrlColumnSelection";
+  type: 'columnSelection' | 'shiftColumnSelection' | 'ctrlColumnSelection';
   column: number;
   event?: KeyEventType;
 }
 
 export interface RowSelectionAction {
-  type: "rowSelection" | "shiftRowSelection" | "ctrlRowSelection";
+  type: 'rowSelection' | 'shiftRowSelection' | 'ctrlRowSelection';
   row: number;
   event?: KeyEventType;
 }
@@ -58,7 +58,7 @@ export type SelectionAction =
   | ColumnSelectionAction
   | RowSelectionAction;
 
-export type SelectionType = "default" | "selectIndirect" | "selectDirect";
+export type SelectionType = 'default' | 'selectIndirect' | 'selectDirect';
 
 export interface SelectionPos {
   column: number;
@@ -66,17 +66,17 @@ export interface SelectionPos {
 }
 
 export interface EmptySelection {
-  type: "empty";
+  type: 'empty';
 }
 
 export interface RowsSelection {
-  type: "rows";
+  type: 'rows';
   rows: Set<number>;
   anchorRow: number;
 }
 
 export interface ColumnsSelection {
-  type: "columns";
+  type: 'columns';
   columns: Set<number>;
   anchorColumn: number;
 }
@@ -89,7 +89,7 @@ export interface Rectangle {
 }
 
 export interface RectangleSelection {
-  type: "rectangle";
+  type: 'rectangle';
   bounds: Rectangle;
   anchor: SelectionPos;
 }
@@ -100,9 +100,9 @@ export type SelectedRegion =
   | ColumnsSelection
   | RectangleSelection;
 
-export type RoundedType = "none" | "lg" | "md" | "sm";
+export type RoundedType = 'none' | 'lg' | 'md' | 'sm';
 
-export type KeyEventType = "keypress" | "click";
+export type KeyEventType = 'keypress' | 'click';
 export type onSelectFn = (
   action: SelectionAction,
   selction: SelectedRegion,
@@ -110,21 +110,21 @@ export type onSelectFn = (
 ) => void;
 
 type IsAllSelectedType = {
-  type: "all";
+  type: 'all';
 };
 
 type IsRowSelectedType = {
-  type: "row";
+  type: 'row';
   row: number;
 };
 
 type IsColumnSelectedType = {
-  type: "column";
+  type: 'column';
   column: number;
 };
 
 type IsCellSelectedType = {
-  type: "cell";
+  type: 'cell';
   row: number;
   column: number;
 };
@@ -140,7 +140,7 @@ export type SelectionTypeFn = (props: IsSelectedType) => SelectionType;
 export type ColumnResizeFn = (
   columnIndex: number,
   newWidth: number,
-  type: "auto" | "manual"
+  type: 'auto' | 'manual'
 ) => void;
 
 export type SelectionFocus = { row: number; column: number };
@@ -162,21 +162,21 @@ export interface ItemDataType {
   getRowHeight: (index: number) => number;
 }
 
-export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, "children"> {
+export interface GridContextMenuItemProps extends Omit<ContextMenuItemProps, 'children'> {
   label: ReactNode;
 }
 
 export interface GridProps extends Omit<
   VariableSizeGridProps,
-  | "height"
-  | "width"
-  | "rowHeight"
-  | "children"
-  | "innerElementType"
-  | "innerRef"
-  | "outerElementType"
-  | "outerRef"
-  | "columnWidth"
+  | 'height'
+  | 'width'
+  | 'rowHeight'
+  | 'children'
+  | 'innerElementType'
+  | 'innerRef'
+  | 'outerElementType'
+  | 'outerRef'
+  | 'columnWidth'
 > {
   autoFocus?: boolean;
   autoHeight?: boolean;

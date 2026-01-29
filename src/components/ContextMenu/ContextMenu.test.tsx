@@ -1,14 +1,14 @@
-import { fireEvent, waitFor } from "@testing-library/react";
-import { ContextMenuProps } from "@radix-ui/react-context-menu";
-import userEvent from "@testing-library/user-event";
-import { ContextMenu } from "./ContextMenu";
-import { renderCUI } from "@/utils/test-utils";
+import { fireEvent, waitFor } from '@testing-library/react';
+import { ContextMenuProps } from '@radix-ui/react-context-menu';
+import userEvent from '@testing-library/user-event';
+import { ContextMenu } from './ContextMenu';
+import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends ContextMenuProps {
   disabled?: boolean;
 }
 
-describe("ContextMenu", () => {
+describe('ContextMenu', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
     global.ResizeObserver = vi.fn().mockImplementation(() => ({
@@ -59,100 +59,100 @@ describe("ContextMenu", () => {
       </ContextMenu>
     );
 
-  it("should open menu on rightclick", () => {
+  it('should open menu on rightclick', () => {
     const { getByText } = renderContextMenu({});
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     expect(contextMenuTrigger).not.toBeNull();
     fireEvent.contextMenu(contextMenuTrigger);
-    expect(getByText("Content0")).not.toBeNull();
+    expect(getByText('Content0')).not.toBeNull();
   });
 
-  it("should not open disabled contextMenu on pointer", () => {
+  it('should not open disabled contextMenu on pointer', () => {
     const { getByText, queryByText } = renderContextMenu({
       disabled: true,
     });
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     fireEvent.contextMenu(contextMenuTrigger);
-    expect(queryByText("Content0")).toBeNull();
+    expect(queryByText('Content0')).toBeNull();
   });
 
-  it("should close contextMenu on clicking outside content", async () => {
+  it('should close contextMenu on clicking outside content', async () => {
     const { getByText, queryByText } = renderContextMenu({});
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     fireEvent.contextMenu(contextMenuTrigger);
-    expect(queryByText("Content0")).not.toBeNull();
+    expect(queryByText('Content0')).not.toBeNull();
     fireEvent.click(document, {
       ctrlKey: false,
       button: 0,
     });
     await waitFor(() => {
-      expect(queryByText("Content1")).toBeNull();
+      expect(queryByText('Content1')).toBeNull();
     });
   });
 
-  it("should close contextMenu on selecting item", () => {
+  it('should close contextMenu on selecting item', () => {
     const { getByText, queryByText } = renderContextMenu({});
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     expect(contextMenuTrigger).not.toBeNull();
     fireEvent.contextMenu(contextMenuTrigger);
-    expect(getByText("Content0")).not.toBeNull();
-    const item = queryByText("Content0");
+    expect(getByText('Content0')).not.toBeNull();
+    const item = queryByText('Content0');
     expect(item).not.toBeNull();
     item && fireEvent.click(item);
     expect(item).not.toBeNull();
-    expect(queryByText("Content1")).toBeNull();
+    expect(queryByText('Content1')).toBeNull();
   });
 
-  it("should open submenu contextMenu on selecting item with subcontent", async () => {
+  it('should open submenu contextMenu on selecting item with subcontent', async () => {
     const { getByText, queryByText } = renderContextMenu({});
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     expect(contextMenuTrigger).not.toBeNull();
     fireEvent.contextMenu(contextMenuTrigger);
 
-    expect(queryByText("Content0")).not.toBeNull();
-    const item = getByText("Hover over");
+    expect(queryByText('Content0')).not.toBeNull();
+    const item = getByText('Hover over');
     expect(item).not.toBeNull();
     await userEvent.hover(item);
     await waitFor(() => {
-      expect(queryByText("SubContent0")).not.toBeNull();
+      expect(queryByText('SubContent0')).not.toBeNull();
     });
     expect(item).not.toBeNull();
   });
 
-  it("should close contextMenu on selecting sub item", async () => {
+  it('should close contextMenu on selecting sub item', async () => {
     const { getByText, queryByText } = renderContextMenu({});
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     fireEvent.contextMenu(contextMenuTrigger);
 
-    expect(queryByText("Content0")).not.toBeNull();
-    const item = queryByText("Hover over");
+    expect(queryByText('Content0')).not.toBeNull();
+    const item = queryByText('Hover over');
     item && (await userEvent.hover(item));
     await waitFor(() => {
-      expect(queryByText("SubContent0")).not.toBeNull();
+      expect(queryByText('SubContent0')).not.toBeNull();
     });
     expect(item).not.toBeNull();
-    const subItem = queryByText("SubContent0");
+    const subItem = queryByText('SubContent0');
     subItem && fireEvent.click(subItem);
     await waitFor(() => {
-      expect(queryByText("SubContent1")).toBeNull();
+      expect(queryByText('SubContent1')).toBeNull();
     });
-    expect(queryByText("Content0")).toBeNull();
+    expect(queryByText('Content0')).toBeNull();
   });
 
-  it("should not close contextMenu on selecting disabled item", () => {
+  it('should not close contextMenu on selecting disabled item', () => {
     const { getByText, queryByText } = renderContextMenu({});
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     fireEvent.contextMenu(contextMenuTrigger);
 
-    expect(queryByText("Content3")).not.toBeNull();
-    const item = queryByText("Content3");
+    expect(queryByText('Content3')).not.toBeNull();
+    const item = queryByText('Content3');
     expect(item).not.toBeNull();
     item && fireEvent.pointerDown(item);
     expect(item).not.toBeNull();
-    expect(queryByText("Content2")).not.toBeNull();
+    expect(queryByText('Content2')).not.toBeNull();
   });
 
-  it("should render item with danger type", () => {
+  it('should render item with danger type', () => {
     const { getByText, queryByText } = renderCUI(
       <ContextMenu>
         <ContextMenu.Trigger>
@@ -165,11 +165,11 @@ describe("ContextMenu", () => {
       </ContextMenu>
     );
 
-    const contextMenuTrigger = getByText("ContextMenu Trigger");
+    const contextMenuTrigger = getByText('ContextMenu Trigger');
     fireEvent.contextMenu(contextMenuTrigger);
 
-    const defaultItem = queryByText("Default Item");
-    const dangerItem = queryByText("Danger Item");
+    const defaultItem = queryByText('Default Item');
+    const dangerItem = queryByText('Danger Item');
 
     expect(defaultItem).not.toBeNull();
     expect(dangerItem).not.toBeNull();

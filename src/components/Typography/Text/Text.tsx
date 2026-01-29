@@ -4,14 +4,14 @@ import {
   ElementType,
   ReactNode,
   forwardRef,
-} from "react";
-import { styled } from "styled-components";
-import { TextSize, TextWeight } from "@/components/commonTypes";
+} from 'react';
+import { styled } from 'styled-components';
+import { TextSize, TextWeight } from '@/components/commonTypes';
 
-export type TextAlignment = "left" | "center" | "right";
-export type TextColor = "default" | "muted" | "danger" | "disabled";
+export type TextAlignment = 'left' | 'center' | 'right';
+export type TextColor = 'default' | 'muted' | 'danger' | 'disabled';
 
-export interface TextProps<T extends ElementType = "p"> {
+export interface TextProps<T extends ElementType = 'p'> {
   /** The text content to display */
   children: ReactNode;
   /** The text alignment */
@@ -30,11 +30,11 @@ export interface TextProps<T extends ElementType = "p"> {
   fillWidth?: boolean;
 }
 
-type TextPolymorphicComponent = <T extends ElementType = "p">(
+type TextPolymorphicComponent = <T extends ElementType = 'p'>(
   props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
 ) => ReactNode;
 
-const _Text = <T extends ElementType = "p">(
+const _Text = <T extends ElementType = 'p'>(
   {
     align,
     color,
@@ -46,10 +46,10 @@ const _Text = <T extends ElementType = "p">(
     fillWidth,
     ...props
   }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  ref: ComponentPropsWithRef<T>['ref']
 ) => (
   <CuiText
-    as={component ?? "p"}
+    as={component ?? 'p'}
     ref={ref}
     $align={align}
     $color={color}
@@ -70,14 +70,14 @@ const CuiText = styled.p<{
   $weight?: TextWeight;
   $fillWidth?: boolean;
 }>`
-  font: ${({ $size = "md", $weight = "normal", theme }) =>
+  font: ${({ $size = 'md', $weight = 'normal', theme }) =>
     theme.typography.styles.product.text[$weight][$size]};
-  color: ${({ $color = "default", theme }) => theme.click.global.color.text[$color]};
-  text-align: ${({ $align = "left" }) => $align};
+  color: ${({ $color = 'default', theme }) => theme.click.global.color.text[$color]};
+  text-align: ${({ $align = 'left' }) => $align};
   margin: 0;
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
+  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
 `;
 
-_Text.displayName = "Text";
+_Text.displayName = 'Text';
 
 export const Text: TextPolymorphicComponent = forwardRef(_Text);

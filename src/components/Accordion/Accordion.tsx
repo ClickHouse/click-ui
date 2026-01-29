@@ -1,20 +1,20 @@
-import * as RadixAccordion from "@radix-ui/react-accordion";
-import { styled } from "styled-components";
-import { IconSize } from "@/components/Icon/types";
-import { Icon } from "@/components/Icon/Icon";
-import { IconName } from "@/components/Icon/types";
-import { Spacer } from "@/components/Spacer/Spacer";
-import { Text } from "@/components/Typography/Text/Text";
-import { ReactNode } from "react";
+import * as RadixAccordion from '@radix-ui/react-accordion';
+import { styled } from 'styled-components';
+import { IconSize } from '@/components/Icon/types';
+import { Icon } from '@/components/Icon/Icon';
+import { IconName } from '@/components/Icon/types';
+import { Spacer } from '@/components/Spacer/Spacer';
+import { Text } from '@/components/Typography/Text/Text';
+import { ReactNode } from 'react';
 
-type Size = "sm" | "md" | "lg";
-type Gap = "sm" | "md" | "lg";
-type Color = "default" | "link";
+type Size = 'sm' | 'md' | 'lg';
+type Gap = 'sm' | 'md' | 'lg';
+type Color = 'default' | 'link';
 
 export interface AccordionProps
   extends
     SizeProp,
-    Omit<RadixAccordion.AccordionSingleProps, "type" | "collapsible" | "title"> {
+    Omit<RadixAccordion.AccordionSingleProps, 'type' | 'collapsible' | 'title'> {
   /** The title text or element displayed in the accordion header */
   title: ReactNode;
   /** The color variant of the accordion */
@@ -38,7 +38,7 @@ interface SizeProp {
 
 const Accordion = ({
   title,
-  size = "md",
+  size = 'md',
   color,
   icon,
   iconSize,
@@ -93,7 +93,7 @@ const Accordion = ({
 const AccordionRoot = styled(RadixAccordion.Root)<{
   $fillWidth: boolean;
 }>`
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
+  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
 `;
 
 const AccordionTrigger = styled(RadixAccordion.Trigger)<{
@@ -106,7 +106,7 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<{
   background-color: transparent;
   display: flex;
   align-items: center;
-  ${({ theme, $size = "md", color = "default" }) => `
+  ${({ theme, $size = 'md', color = 'default' }) => `
     gap: ${theme.click.accordion[$size].space.gap};
     color: ${theme.click.accordion.color[color].label.default};
     font: ${theme.click.accordion[$size].typography.label.default};
@@ -122,7 +122,7 @@ const AccordionTrigger = styled(RadixAccordion.Trigger)<{
       cursor: pointer;
     }
   `}
-  ${({ $fillWidth }) => $fillWidth && "width: 100%"};
+  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
 `;
 
 const AccordionIconWrapper = styled.div`

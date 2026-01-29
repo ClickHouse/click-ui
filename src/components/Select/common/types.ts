@@ -1,14 +1,14 @@
-import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from "react";
-import type { HorizontalDirection } from "@/components/types";
-import type { IconName } from "@/components/Icon/types";
-import { PopoverProps } from "@radix-ui/react-popover";
-import { NoAvailableOptionsFactoryProps } from "@/components/Select/common/InternalSelect";
+import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import type { HorizontalDirection } from '@/components/types';
+import type { IconName } from '@/components/Icon/types';
+import { PopoverProps } from '@radix-ui/react-popover';
+import { NoAvailableOptionsFactoryProps } from '@/components/Select/common/InternalSelect';
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 
 interface SelectItemComponentProps extends Omit<
   DivProps,
-  "disabled" | "onSelect" | "value" | "children"
+  'disabled' | 'onSelect' | 'value' | 'children'
 > {
   separator?: boolean;
   disabled?: boolean;
@@ -38,7 +38,7 @@ export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
 export interface SelectGroupProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
-  "heading"
+  'heading'
 > {
   heading: ReactNode;
   value?: never;
@@ -46,7 +46,7 @@ export interface SelectGroupProps extends Omit<
 }
 export interface SelectOptionItem extends Omit<
   SelectItemProps,
-  "children" | "label" | "description"
+  'children' | 'label' | 'description'
 > {
   heading?: never;
   label: ReactNode;
@@ -56,7 +56,7 @@ export interface SelectOptionItem extends Omit<
 
 export interface SelectGroupOptionItem extends Omit<
   SelectGroupProps,
-  "children" | "label" | "description"
+  'children' | 'label' | 'description'
 > {
   options: Array<SelectOptionItem>;
   label?: never;
@@ -75,12 +75,12 @@ type SelectChildrenType = {
   options?: never;
 };
 
-export type SelectionType = "custom" | "default";
+export type SelectionType = 'custom' | 'default';
 
 interface InternalSelectProps
   extends
     PopoverProps,
-    Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "dir" | "onSelect" | "children"> {
+    Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'dir' | 'onSelect' | 'children'> {
   onChange: (selectedValues: Array<string>) => void;
   onOpenChange: (open: boolean) => void;
   onSelect: (
@@ -94,7 +94,7 @@ interface InternalSelectProps
   checkbox?: boolean;
   container?: HTMLElement;
   customText?: string;
-  dir?: "start" | "end";
+  dir?: 'start' | 'end';
   disabled?: boolean;
   error?: ReactNode;
   form?: string;
@@ -110,7 +110,7 @@ interface InternalSelectProps
    * - ({ search: string, onClose: () => void }) => ReactNode: renders the returned node allowing dynamic content based on current search string
    */
   noAvailableOptions?: boolean | ((props: NoAvailableOptionsFactoryProps) => ReactNode);
-  orientation?: "horizontal" | "vertical";
+  orientation?: 'horizontal' | 'vertical';
   placeholder?: string;
   selectLabel?: string;
   showSearch?: boolean;

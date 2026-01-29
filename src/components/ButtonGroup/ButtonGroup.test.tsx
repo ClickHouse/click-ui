@@ -1,18 +1,18 @@
-import { fireEvent } from "@testing-library/react";
-import { ButtonGroup } from "@/components/ButtonGroup/ButtonGroup";
-import type { ButtonGroupProps } from "@/components/ButtonGroup/ButtonGroup";
-import { renderCUI } from "@/utils/test-utils";
+import { fireEvent } from '@testing-library/react';
+import { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
+import type { ButtonGroupProps } from '@/components/ButtonGroup/ButtonGroup';
+import { renderCUI } from '@/utils/test-utils';
 
-describe("ButtonGroup", () => {
+describe('ButtonGroup', () => {
   const renderButtonGroup = (props: ButtonGroupProps) =>
     renderCUI(<ButtonGroup {...props} />);
   const options = [
-    { label: "Option 1", value: "option1" },
-    { label: "Option 2", value: "option2" },
-    { label: "Option 3", value: "option3" },
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
   ];
 
-  it("renders buttons with labels correctly", () => {
+  it('renders buttons with labels correctly', () => {
     const { getByText } = renderButtonGroup({ options });
 
     options.forEach(option => {
@@ -20,7 +20,7 @@ describe("ButtonGroup", () => {
     });
   });
 
-  it("calls onClick handler when a button is clicked", () => {
+  it('calls onClick handler when a button is clicked', () => {
     let counter = 0;
     const handleClick = () => (counter = 1);
 
@@ -29,7 +29,7 @@ describe("ButtonGroup", () => {
       onClick: handleClick,
     });
 
-    fireEvent.click(getByText("Option 2"));
+    fireEvent.click(getByText('Option 2'));
 
     expect(counter).toEqual(1);
   });
@@ -37,12 +37,12 @@ describe("ButtonGroup", () => {
   it("adds 'aria-pressed' attr to the active/pressed button", () => {
     const { getByText } = renderButtonGroup({
       options,
-      selected: "option2",
+      selected: 'option2',
     });
 
-    const activeButton = getByText("Option 2");
-    expect(activeButton).toHaveAttribute("aria-pressed", "true");
-    const inactiveButton = getByText("Option 1");
-    expect(inactiveButton).toHaveAttribute("aria-pressed", "false");
+    const activeButton = getByText('Option 2');
+    expect(activeButton).toHaveAttribute('aria-pressed', 'true');
+    const inactiveButton = getByText('Option 1');
+    expect(inactiveButton).toHaveAttribute('aria-pressed', 'false');
   });
 });

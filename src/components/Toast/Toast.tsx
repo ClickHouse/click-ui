@@ -1,14 +1,14 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
-import * as RadixUIToast from "@radix-ui/react-toast";
-import { keyframes, styled } from "styled-components";
-import { toastsEventEmitter } from "./toastEmitter";
+import { ReactNode, createContext, useEffect, useState } from 'react';
+import * as RadixUIToast from '@radix-ui/react-toast';
+import { keyframes, styled } from 'styled-components';
+import { toastsEventEmitter } from './toastEmitter';
 
-import { Icon } from "@/components/Icon/Icon";
-import { IconButton } from "@/components/IconButton/IconButton";
-import { IconName } from "@/components/Icon/types";
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { IconName } from '@/components/Icon/types';
 
-import { ButtonProps } from "@/components/Button/Button";
-import { Button } from "@/components/Button/Button";
+import { ButtonProps } from '@/components/Button/Button';
+import { Button } from '@/components/Button/Button';
 
 export interface ToastContextProps {
   createToast: (toast: ToastProps, align?: ToastAlignment) => void;
@@ -17,15 +17,15 @@ export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
 
-export type ToastAlignment = "start" | "end";
-export type ToastType = "danger" | "warning" | "default" | "success";
-export interface ToastProps extends Omit<RadixUIToast.ToastProps, "type"> {
+export type ToastAlignment = 'start' | 'end';
+export type ToastType = 'danger' | 'warning' | 'default' | 'success';
+export interface ToastProps extends Omit<RadixUIToast.ToastProps, 'type'> {
   /** Unique identifier for the toast */
   id?: string;
   /** The visual style type of the toast */
   type?: ToastType;
   /** The type of toast for screen reader announcements */
-  toastType?: "foreground" | "background";
+  toastType?: 'foreground' | 'background';
   /** The title text displayed in the toast */
   title: string;
   /** Optional description content */
@@ -39,7 +39,7 @@ export interface ToastProps extends Omit<RadixUIToast.ToastProps, "type"> {
 }
 
 const ToastIcon = styled(Icon)<{ $type?: ToastType }>`
-  ${({ theme, $type = "default" }) => `
+  ${({ theme, $type = 'default' }) => `
   width: ${theme.click.toast.icon.size.width};
   height: ${theme.click.toast.icon.size.height};
   color: ${theme.click.toast.color.icon[$type]}
@@ -86,17 +86,17 @@ const ToastRoot = styled(RadixUIToast.Root)`
   &[data-state='open'] {
     animation: ${slideIn} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-  &[data-state="closed"] {
+  &[data-state='closed'] {
     animation: ${hide} 100ms ease-in;
   }
-  &[data-swipe="move"] {
+  &[data-swipe='move'] {
     transform: translateX(var(--radix-toast-swipe-move-x));
   }
-  &[data-swipe="cancel"] {
+  &[data-swipe='cancel'] {
     transform: translateX(0);
     transition: transform 200ms ease-out;
   }
-  &[data-swipe="end"] {
+  &[data-swipe='end'] {
     animation: ${swipeOut} 100ms ease-out;
   }
 `;
@@ -142,7 +142,7 @@ const Title = styled.div`
 
 export const Toast = ({
   type,
-  toastType = "foreground",
+  toastType = 'foreground',
   title,
   description,
   actions = [],
@@ -151,13 +151,13 @@ export const Toast = ({
 
   ...props
 }: ToastProps & { onClose: (open: boolean) => void }) => {
-  let iconName = "";
-  if (type === "default") {
-    iconName = "info-in-circle";
-  } else if (type === "success") {
-    iconName = "check";
-  } else if (type && ["danger", "warning"].includes(type)) {
-    iconName = "warning";
+  let iconName = '';
+  if (type === 'default') {
+    iconName = 'info-in-circle';
+  } else if (type === 'success') {
+    iconName = 'check';
+  } else if (type && ['danger', 'warning'].includes(type)) {
+    iconName = 'warning';
   }
   return (
     <ToastRoot
@@ -212,8 +212,8 @@ const Viewport = styled(RadixUIToast.Viewport)<{ $align: ToastAlignment }>`
   position: fixed;
   bottom: 0;
   ${({ $align }) => {
-    if ($align === "start") {
-      return "left: 0";
+    if ($align === 'start') {
+      return 'left: 0';
     }
     return `
       right: 0;
@@ -237,7 +237,7 @@ export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
 
 export const ToastProvider = ({
   children,
-  align = "end",
+  align = 'end',
   ...props
 }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<Record<ToastAlignment, Map<string, ToastProps>>>({
@@ -248,7 +248,7 @@ export const ToastProvider = ({
   useEffect(() => {
     const listener = (toast: ToastProps) => {
       setToasts(currentToasts => {
-        const alignment = toast.align ?? "end";
+        const alignment = toast.align ?? 'end';
         const newToasts = { ...currentToasts };
         const map = new Map(newToasts[alignment]);
         map.set(toast?.id ?? String(Date.now()), toast);
@@ -288,7 +288,7 @@ export const ToastProvider = ({
 
   return (
     <RadixUIToast.Provider
-      swipeDirection={align === "start" ? "left" : "right"}
+      swipeDirection={align === 'start' ? 'left' : 'right'}
       key={`toast-provider-${align}`}
       {...props}
     >

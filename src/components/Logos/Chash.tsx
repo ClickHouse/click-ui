@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const ChashLight = (props: SVGAttributes<SVGElement>) => (
   <svg

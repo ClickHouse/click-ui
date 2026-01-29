@@ -1,15 +1,15 @@
-import { HTMLAttributes, ReactNode, createContext, useContext } from "react";
-import { styled } from "styled-components";
-import { Icon } from "@/components/Icon/Icon";
+import { HTMLAttributes, ReactNode, createContext, useContext } from 'react';
+import { styled } from 'styled-components';
+import { Icon } from '@/components/Icon/Icon';
 
-type StepperType = "numbered" | "bulleted";
-type StepStatus = "active" | "complete" | "incomplete";
+type StepperType = 'numbered' | 'bulleted';
+type StepStatus = 'active' | 'complete' | 'incomplete';
 type ContextProps = {
   type: StepperType;
 };
 
 const StepperContext = createContext<ContextProps>({
-  type: "numbered",
+  type: 'numbered',
 });
 
 export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
@@ -27,7 +27,7 @@ const StepRoot = styled.div`
 
 const VerticalStepper = ({
   children,
-  type = "numbered",
+  type = 'numbered',
   ...props
 }: VerticalStepperProps) => {
   const value = {
@@ -54,7 +54,7 @@ const StepItem = styled.div<{
     column-gap: ${theme.click.stepper.vertical[$type].content.space.gap.x};
     padding-bottom: ${
       theme.click.stepper.vertical[$type].content.space.bottom[
-        $isOpen ? "active" : "default"
+        $isOpen ? 'active' : 'default'
       ]
     };
     box-sizing: content-box;
@@ -87,11 +87,11 @@ const StepTrigger = styled.button<{
     border: none;
     gap: inherit;
     cursor: ${
-      $status === "active"
-        ? "default"
-        : $status === "complete"
-          ? "pointer"
-          : "not-allowed"
+      $status === 'active'
+        ? 'default'
+        : $status === 'complete'
+          ? 'pointer'
+          : 'not-allowed'
     };
     flex-direction: row;
   `}
@@ -112,7 +112,7 @@ const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
     counter-increment: vertical-stepper;
     box-sizing: content-box;
     ${
-      $type === "numbered" && $status !== "complete"
+      $type === 'numbered' && $status !== 'complete'
         ? `
         &::before {
           box-sizing: content-box;
@@ -121,10 +121,10 @@ const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
           content: counter(vertical-stepper);
         }
     `
-        : ""
+        : ''
     }
       ${
-        $status == "complete" && $type === "bulleted"
+        $status == 'complete' && $type === 'bulleted'
           ? `
       &::after {
         box-sizing: content-box;
@@ -136,7 +136,7 @@ const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
         background: ${theme.click.stepper.vertical.bulleted.step.color.icon.complete}
       }
       `
-          : ""
+          : ''
       };
   `}
 `;
@@ -168,7 +168,7 @@ const StepContent = styled.div<{ $type: StepperType }>`
 
 export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
   /** The status of this step - active, complete, or incomplete */
-  status?: "active" | "complete" | "incomplete";
+  status?: 'active' | 'complete' | 'incomplete';
   /** Whether the step content is collapsed */
   collapsed?: boolean;
   /** The label text displayed for this step */
@@ -178,7 +178,7 @@ export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 const VerticalStep = ({
-  status = "incomplete",
+  status = 'incomplete',
   children,
   label,
   collapsed = true,
@@ -186,7 +186,7 @@ const VerticalStep = ({
   ...props
 }: VerticalStepProps) => {
   const { type } = useContext(StepperContext);
-  const isOpen = !collapsed || status === "active";
+  const isOpen = !collapsed || status === 'active';
   return (
     <StepItem
       $type={type}
@@ -195,14 +195,14 @@ const VerticalStep = ({
     >
       <StepTrigger
         $status={status}
-        disabled={status === "incomplete" || disabled}
+        disabled={status === 'incomplete' || disabled}
         {...props}
       >
         <StepBubble
           $type={type}
           $status={status}
         >
-          {type === "numbered" && status === "complete" ? (
+          {type === 'numbered' && status === 'complete' ? (
             <CheckIcon
               name="check"
               size="xs"
@@ -222,7 +222,7 @@ const VerticalStep = ({
     </StepItem>
   );
 };
-VerticalStep.displayName = "VerticalStepper.Step";
+VerticalStep.displayName = 'VerticalStepper.Step';
 VerticalStepper.Step = VerticalStep;
 
 export default VerticalStepper;

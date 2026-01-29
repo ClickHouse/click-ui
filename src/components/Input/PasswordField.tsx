@@ -1,24 +1,24 @@
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from "react";
-import { Icon } from "@/components/Icon/Icon";
+import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from 'react';
+import { Icon } from '@/components/Icon/Icon';
 import {
   IconButton,
   InputElement,
   InputEndContent,
   InputWrapper,
   WrapperProps,
-} from "./InputWrapper";
+} from './InputWrapper';
 export interface PasswordFieldProps
   extends
-    Omit<WrapperProps, "id" | "children">,
+    Omit<WrapperProps, 'id' | 'children'>,
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "children" | "type" | "string" | "onChange" | "dir"
+      'children' | 'type' | 'string' | 'onChange' | 'dir'
     > {
-  type?: "password";
+  type?: 'password';
   value?: string;
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
-  orientation?: "vertical" | "horizontal";
-  dir?: "start" | "end";
+  orientation?: 'vertical' | 'horizontal';
+  dir?: 'start' | 'end';
 }
 
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
@@ -28,7 +28,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
       label,
       error,
       id,
-      value = "",
+      value = '',
       onChange: onChangeProp,
       orientation,
       dir,
@@ -61,7 +61,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
           $hasStartContent={false}
           $hasEndContent={hasEndContent}
           ref={ref}
-          type={viewPassword ? "text" : "password"}
+          type={viewPassword ? 'text' : 'password'}
           id={id ?? defaultId}
           disabled={disabled}
           value={value}
@@ -75,7 +75,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
               onClick={togglePasswordViewer}
             >
               <Icon
-                name={viewPassword ? "eye-closed" : "eye"}
+                name={viewPassword ? 'eye-closed' : 'eye'}
                 size="md"
               />
             </IconButton>

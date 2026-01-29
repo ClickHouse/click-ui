@@ -1,6 +1,6 @@
-import type StyledComponent from "styled-components";
+import type StyledComponent from 'styled-components';
 
-declare module "styled-components" {
+declare module 'styled-components' {
   export interface DefaultTheme {
     typography: {
       styles: Record<string, any>;

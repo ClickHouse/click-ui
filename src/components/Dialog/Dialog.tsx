@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
-import * as RadixDialog from "@radix-ui/react-dialog";
-import { keyframes, styled } from "styled-components";
-import { Button } from "@/components/Button/Button";
-import { Icon } from "@/components/Icon/Icon";
-import { Spacer } from "@/components/Spacer/Spacer";
-import { CrossButton } from "../commonElement";
-import { ButtonProps } from "@/components/Button/Button";
+import { ReactNode } from 'react';
+import * as RadixDialog from '@radix-ui/react-dialog';
+import { keyframes, styled } from 'styled-components';
+import { Button } from '@/components/Button/Button';
+import { Icon } from '@/components/Icon/Icon';
+import { Spacer } from '@/components/Spacer/Spacer';
+import { CrossButton } from '../commonElement';
+import { ButtonProps } from '@/components/Button/Button';
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
@@ -39,10 +39,10 @@ const DialogTrigger = ({
   return <Trigger {...props}>{children}</Trigger>;
 };
 
-DialogTrigger.displayName = "DialogTrigger";
+DialogTrigger.displayName = 'DialogTrigger';
 Dialog.Trigger = DialogTrigger;
 
-const DialogClose = ({ label = "Close", type = "secondary", ...props }: ButtonProps) => (
+const DialogClose = ({ label = 'Close', type = 'secondary', ...props }: ButtonProps) => (
   <RadixDialog.Close asChild>
     <Button
       type={type}
@@ -52,18 +52,18 @@ const DialogClose = ({ label = "Close", type = "secondary", ...props }: ButtonPr
   </RadixDialog.Close>
 );
 
-DialogClose.displayName = "DialogClose";
+DialogClose.displayName = 'DialogClose';
 Dialog.Close = DialogClose;
 
 // Dialog Content
 const overlayShow = keyframes({
-  "0%": { opacity: 0 },
-  "100%": { opacity: 1 },
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1 },
 });
 
 const contentShow = keyframes({
-  "0%": { opacity: 0, transform: "translate(-50%, -48%) scale(.96)" },
-  "100%": { opacity: 1, transform: "translate(-50%, -50%) scale(1)" },
+  '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
+  '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
 });
 
 const DialogOverlay = styled(RadixDialog.Overlay)`
@@ -102,7 +102,7 @@ const ContentArea = styled(RadixDialog.Content)<{ $reducePadding?: boolean }>`
 
 const TitleArea = styled.div<{ $onlyClose?: boolean }>`
   display: flex;
-  justify-content: ${({ $onlyClose }) => ($onlyClose ? "flex-end" : "space-between")};
+  justify-content: ${({ $onlyClose }) => ($onlyClose ? 'flex-end' : 'space-between')};
   align-items: center;
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
@@ -186,5 +186,5 @@ const DialogContent = ({
   );
 };
 
-DialogContent.displayName = "DialogContent";
+DialogContent.displayName = 'DialogContent';
 Dialog.Content = DialogContent;

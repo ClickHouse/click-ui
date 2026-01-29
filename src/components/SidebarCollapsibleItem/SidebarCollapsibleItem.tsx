@@ -1,9 +1,9 @@
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
-import type { HorizontalDirection } from "@/components/types";
-import type { IconName } from "@/components/Icon/types";
+import { HTMLAttributes, ReactNode, forwardRef } from 'react';
+import type { HorizontalDirection } from '@/components/types';
+import type { IconName } from '@/components/Icon/types';
 
-import { Collapsible } from "../Collapsible/Collapsible";
-import { SidebarItemWrapper } from "../SidebarNavigationItem/SidebarNavigationItem";
+import { Collapsible } from '../Collapsible/Collapsible';
+import { SidebarItemWrapper } from '../SidebarNavigationItem/SidebarNavigationItem';
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */
@@ -25,7 +25,7 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   /** Nesting level for indentation */
   level?: number;
   /** The sidebar style type */
-  type?: "main" | "sqlSidebar";
+  type?: 'main' | 'sqlSidebar';
 }
 
 const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItemProps>(
@@ -35,12 +35,12 @@ const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItem
       children,
       open,
       onOpenChange,
-      iconDir = "start",
-      indicatorDir = "start",
+      iconDir = 'start',
+      indicatorDir = 'start',
       icon,
       level = 0,
       selected,
-      type = "main",
+      type = 'main',
       ...props
     },
     ref
@@ -63,7 +63,7 @@ const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItem
           $level={level}
           $type={type}
           data-selected={selected}
-          wrapInTrigger={type === "main"}
+          wrapInTrigger={type === 'main'}
           {...props}
         >
           {label}

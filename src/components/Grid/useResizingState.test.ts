@@ -1,8 +1,8 @@
-import { renderHook, act } from "@testing-library/react";
-import useResizingState, { initialPosition, PointerType } from "./useResizingState";
+import { renderHook, act } from '@testing-library/react';
+import useResizingState, { initialPosition, PointerType } from './useResizingState';
 
-describe("useResizingState hook", () => {
-  it("initializes with default values", () => {
+describe('useResizingState hook', () => {
+  it('initializes with default values', () => {
     const { result } = renderHook(() => useResizingState());
     expect(result.current.pointer).toBeNull();
     expect(result.current.getIsPressed(0)).toBe(false);
@@ -10,7 +10,7 @@ describe("useResizingState hook", () => {
     expect(result.current.lastPressedTimestamp).toBe(0);
   });
 
-  it("sets pointer correctly", () => {
+  it('sets pointer correctly', () => {
     const { result } = renderHook(() => useResizingState());
     const pointer: PointerType = { width: 100, pointerId: 1, initialClientX: 150 };
 
@@ -21,7 +21,7 @@ describe("useResizingState hook", () => {
     expect(result.current.pointer).toEqual(pointer);
   });
 
-  it("sets and retrieves pressed state for a column", () => {
+  it('sets and retrieves pressed state for a column', () => {
     const { result } = renderHook(() => useResizingState());
 
     act(() => {
@@ -38,7 +38,7 @@ describe("useResizingState hook", () => {
     expect(result.current.getIsPressed(1)).toBe(false);
   });
 
-  it("updates lastPressedTimestamp when a column is pressed", () => {
+  it('updates lastPressedTimestamp when a column is pressed', () => {
     const { result } = renderHook(() => useResizingState());
 
     const timestampBeforePress = Date.now();
@@ -51,9 +51,9 @@ describe("useResizingState hook", () => {
     );
   });
 
-  it("gets and sets position correctly", () => {
+  it('gets and sets position correctly', () => {
     const { result } = renderHook(() => useResizingState());
-    const customPosition = { left: "50px", top: "10px" };
+    const customPosition = { left: '50px', top: '10px' };
 
     act(() => {
       result.current.setIsPressed(1, true);
@@ -65,7 +65,7 @@ describe("useResizingState hook", () => {
     expect(result.current.getPosition(0)).toEqual(initialPosition);
   });
 
-  it("resets pressed column index when another column is pressed", () => {
+  it('resets pressed column index when another column is pressed', () => {
     const { result } = renderHook(() => useResizingState());
 
     act(() => {

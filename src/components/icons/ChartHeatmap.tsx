@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const ChartHeatmap = (props: SVGAttributes<SVGElement>) => (
   <svg

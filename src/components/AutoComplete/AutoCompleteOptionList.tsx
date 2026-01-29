@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Group, Item, AutoCompleteOptionListItem } from "./AutoComplete";
+import { ReactNode } from 'react';
+import { Group, Item, AutoCompleteOptionListItem } from './AutoComplete';
 
 interface Props {
   options: Array<AutoCompleteOptionListItem>;
@@ -7,7 +7,7 @@ interface Props {
 }
 const AutoCompleteOptionList = ({ options, id }: Props): ReactNode =>
   options.map((props, index) => {
-    if ("options" in props) {
+    if ('options' in props) {
       const { options: itemList = [], ...groupProps } = props;
       return (
         <Group

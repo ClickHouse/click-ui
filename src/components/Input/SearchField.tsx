@@ -1,13 +1,13 @@
-import { forwardRef } from "react";
+import { forwardRef } from 'react';
 
-import { TextField } from "@/components/Input/TextField";
-import { Icon } from "@/components/Icon/Icon";
+import { TextField } from '@/components/Input/TextField';
+import { Icon } from '@/components/Icon/Icon';
 
-import { TextFieldProps } from "./TextField";
+import { TextFieldProps } from './TextField';
 
 export interface SearchFieldProps extends Omit<
   TextFieldProps,
-  "type" | "startContent" | "endContent"
+  'type' | 'startContent' | 'endContent'
 > {
   isFilter?: boolean;
 }
@@ -18,7 +18,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
       <TextField
         startContent={
           <Icon
-            name={isFilter ? "filter" : "search"}
+            name={isFilter ? 'filter' : 'search'}
             size="sm"
           />
         }

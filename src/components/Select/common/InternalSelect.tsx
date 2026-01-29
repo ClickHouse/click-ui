@@ -13,25 +13,25 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
+} from 'react';
 import {
   SelectContainerProps,
   SelectGroupProps,
   SelectItemObject,
   SelectItemProps,
   SelectOptionListItem,
-} from "./types";
-import { Error, FormElementContainer, FormRoot } from "@/components/commonElement";
-import { Portal } from "@radix-ui/react-popover";
-import { Checkbox } from "@/components/Checkbox/Checkbox";
-import type { CheckboxVariants } from "@/components/Checkbox/Checkbox";
-import { Container } from "@/components/Container/Container";
-import { Icon } from "@/components/Icon/Icon";
-import { IconButton } from "@/components/IconButton/IconButton";
-import { Label } from "@/components/Label/Label";
-import { Separator } from "@/components/Separator/Separator";
-import { Text } from "@/components/Typography/Text/Text";
-import type { TextProps } from "@/components/Typography/Text/Text";
+} from './types';
+import { Error, FormElementContainer, FormRoot } from '@/components/commonElement';
+import { Portal } from '@radix-ui/react-popover';
+import { Checkbox } from '@/components/Checkbox/Checkbox';
+import type { CheckboxVariants } from '@/components/Checkbox/Checkbox';
+import { Container } from '@/components/Container/Container';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Label } from '@/components/Label/Label';
+import { Separator } from '@/components/Separator/Separator';
+import { Text } from '@/components/Typography/Text/Text';
+import type { TextProps } from '@/components/Typography/Text/Text';
 
 import {
   SelectPopoverContent,
@@ -49,16 +49,16 @@ import {
   SelectGroupContent,
   SelectNoDataContainer,
   SelectItemDescriptionText,
-} from "./SelectStyled";
-import { OptionContext } from "./OptionContext";
-import { MultiSelectValue } from "../MultiSelectValue";
-import SingleSelectValue from "../SingleSelectValue";
-import { useOption, useSearch } from "./useOption";
-import { mergeRefs } from "@/utils/mergeRefs";
-import { GenericMenuItem } from "@/components/GenericMenu";
-import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
-import { styled } from "styled-components";
-import { getTextFromNodes } from "@/lib/getTextFromNodes";
+} from './SelectStyled';
+import { OptionContext } from './OptionContext';
+import { MultiSelectValue } from '../MultiSelectValue';
+import SingleSelectValue from '../SingleSelectValue';
+import { useOption, useSearch } from './useOption';
+import { mergeRefs } from '@/utils/mergeRefs';
+import { GenericMenuItem } from '@/components/GenericMenu';
+import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
+import { styled } from 'styled-components';
+import { getTextFromNodes } from '@/lib/getTextFromNodes';
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
@@ -88,13 +88,13 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   onOpenChange,
   containerProps,
 }) => {
-  const getCustomTextWithSearch = (text: string) => text.replaceAll("{search}", search);
+  const getCustomTextWithSearch = (text: string) => text.replaceAll('{search}', search);
 
   const getDefaultMessage = () =>
-    `No Options found${search.length > 0 ? ` for "${search}" ` : ""}`;
+    `No Options found${search.length > 0 ? ` for "${search}" ` : ''}`;
 
   const getNoAvailableOptionsNode = (): ReactNode => {
-    if (typeof noAvailableOptions === "boolean") {
+    if (typeof noAvailableOptions === 'boolean') {
       return noAvailableOptions ? getDefaultMessage() : null;
     }
 
@@ -131,7 +131,7 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
     }
   };
 
-  const isCustomReactNode = typeof noAvailableOptions === "function";
+  const isCustomReactNode = typeof noAvailableOptions === 'function';
   if (isCustomReactNode) {
     return (
       <Container
@@ -160,16 +160,16 @@ const childrenToComboboxItemArray = (
   heading?: string
 ): Array<SelectItemObject> => {
   return Children.toArray(children).flatMap(child => {
-    if (isValidElement(child) && child && typeof child === "object") {
+    if (isValidElement(child) && child && typeof child === 'object') {
       const type = child.type as FunctionComponent;
-      if (type.displayName === "Select.Group") {
+      if (type.displayName === 'Select.Group') {
         const groupChildren = child.props.children;
         return childrenToComboboxItemArray(
           groupChildren,
           callback,
           getTextFromNodes(child.props.heading).toLowerCase()
         );
-      } else if (type.displayName === "Select.Item") {
+      } else if (type.displayName === 'Select.Item') {
         const title = getTextFromNodes(child).toLowerCase();
         const value = child.props.value;
         const disabled = child.props.disabled;
@@ -186,7 +186,7 @@ const childrenToComboboxItemArray = (
           title,
           heading,
         };
-      } else if ("props" in child && child.props.children) {
+      } else if ('props' in child && child.props.children) {
         return childrenToComboboxItemArray(child.props.children, callback, heading);
       }
     }
@@ -210,10 +210,10 @@ export const InternalSelect = ({
   name,
   form,
   allowCreateOption = false,
-  customText = "",
+  customText = '',
   options,
   sortable = false,
-  placeholder = "Select an option",
+  placeholder = 'Select an option',
   maxHeight,
   multiple,
   checkbox,
@@ -221,12 +221,12 @@ export const InternalSelect = ({
   showSearch = false,
   container,
   useFullWidthItems = false,
-  itemCharacterLimit = "64ch",
+  itemCharacterLimit = '64ch',
   noAvailableOptions = true,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState<string | undefined>();
   const visibleList = useRef<Array<string>>([]);
   const navigatable = useRef<Array<string>>([]);
@@ -281,7 +281,7 @@ export const InternalSelect = ({
       if (options) {
         setList(
           options.flatMap(option => {
-            if ("options" in option) {
+            if ('options' in option) {
               const heading = getTextFromNodes(option.heading).toLowerCase();
               return (option.options ?? []).map(item => {
                 valueNode.current.set(item.value, item);
@@ -338,41 +338,41 @@ export const InternalSelect = ({
   };
 
   const clearSearch = () => {
-    onUpdateSearch("");
+    onUpdateSearch('');
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (!e.defaultPrevented) {
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         e.preventDefault();
         if (highlighted) {
           onSelect(highlighted, undefined, e);
         } else if (visibleList.current.length === 0 && allowCreateOption) {
-          onSelect(search, "custom", e);
+          onSelect(search, 'custom', e);
         }
-      } else if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
+      } else if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
         e.preventDefault();
         let nextHighlightedValue = highlighted;
         const highlightedIndex = navigatable.current.findIndex(
           value => value === highlighted
         );
-        if (e.key === "ArrowUp") {
+        if (e.key === 'ArrowUp') {
           if (highlightedIndex === 0) {
             nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
           } else {
             nextHighlightedValue = navigatable.current[highlightedIndex - 1];
           }
-        } else if (e.key === "ArrowDown") {
+        } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           if (highlightedIndex === navigatable.current.length - 1) {
             nextHighlightedValue = navigatable.current[0];
           } else {
             nextHighlightedValue = navigatable.current[highlightedIndex + 1];
           }
-        } else if (e.key === "End") {
+        } else if (e.key === 'End') {
           e.preventDefault();
           nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
-        } else if (e.key === "Home") {
+        } else if (e.key === 'Home') {
           nextHighlightedValue = navigatable.current[0];
           e.preventDefault();
         }
@@ -382,7 +382,7 @@ export const InternalSelect = ({
   };
   const isHidden = useCallback(
     (value?: string) => {
-      return !visibleList.current.includes(value ?? "");
+      return !visibleList.current.includes(value ?? '');
     },
     [visibleList]
   );
@@ -402,7 +402,7 @@ export const InternalSelect = ({
     e.preventDefault();
     e.stopPropagation();
     if (allowCreateOption) {
-      onSelect(search, "custom", e);
+      onSelect(search, 'custom', e);
     }
   };
 
@@ -479,7 +479,7 @@ export const InternalSelect = ({
               sideOffset={5}
               onFocus={onFocus}
               onCloseAutoFocus={() => {
-                onUpdateSearch("");
+                onUpdateSearch('');
               }}
               onOpenAutoFocus={() => {
                 setHighlighted(visibleList.current[0]);
@@ -511,7 +511,7 @@ export const InternalSelect = ({
                   <OptionContext.Provider value={optionContextValue}>
                     {options && options.length > 0
                       ? options.map((props, index) => {
-                          if ("options" in props) {
+                          if ('options' in props) {
                             const { options: itemList = [], ...groupProps } = props;
                             return (
                               <SelectGroup
@@ -596,13 +596,13 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
         ref={mergeRefs([
           forwardedRef,
           node => {
-            const hidden = node?.querySelectorAll("[cui-select-item]").length === 0;
+            const hidden = node?.querySelectorAll('[cui-select-item]').length === 0;
             if (hidden) {
-              node?.setAttribute("hidden", "");
+              node?.setAttribute('hidden', '');
             } else {
-              node?.removeAttribute("hidden");
+              node?.removeAttribute('hidden');
             }
-            node?.setAttribute("aria-hidden", hidden.toString());
+            node?.setAttribute('aria-hidden', hidden.toString());
           },
         ])}
       >
@@ -613,7 +613,7 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
   }
 );
 
-SelectGroup.displayName = "Select.Group";
+SelectGroup.displayName = 'Select.Group';
 
 const CheckIcon = styled.svg<{ $showCheck: boolean }>`
   opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
@@ -628,7 +628,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       description,
       separator,
       onSelect: onSelectProp,
-      value = "",
+      value = '',
       icon,
       iconDir,
       onMouseOver: onMouseOverProp,
@@ -641,7 +641,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     const onSelectValue = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
         onSelect(value, undefined, evt);
-        if (typeof onSelectProp == "function") {
+        if (typeof onSelectProp == 'function') {
           onSelectProp(value, undefined, evt);
         }
       }
@@ -668,9 +668,9 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
           ref={forwardedRef}
-          data-state={isChecked ? "checked" : "unchecked"}
+          data-state={isChecked ? 'checked' : 'unchecked'}
           data-disabled={disabled ? true : undefined}
-          data-highlighted={highlighted == value ? "true" : undefined}
+          data-highlighted={highlighted == value ? 'true' : undefined}
           cui-select-item=""
         >
           <IconWrapper
@@ -706,7 +706,7 @@ export type MultiSelectCheckboxItemProps = SelectItemProps & {
   variant?: CheckboxVariants;
 };
 
-SelectItem.displayName = "Select.Item";
+SelectItem.displayName = 'Select.Item';
 
 export const MultiSelectCheckboxItem = forwardRef<
   HTMLDivElement,
@@ -717,13 +717,13 @@ export const MultiSelectCheckboxItem = forwardRef<
       disabled = false,
       children,
       icon,
-      iconDir = "end",
+      iconDir = 'end',
       label,
       description,
       onMouseOver: onMouseOverProp,
       onSelect: onSelectProp,
       separator,
-      value = "",
+      value = '',
       variant,
       ...props
     },
@@ -736,7 +736,7 @@ export const MultiSelectCheckboxItem = forwardRef<
       if (!disabled) {
         onSelect(value, undefined, evt);
 
-        if (typeof onSelectProp === "function") {
+        if (typeof onSelectProp === 'function') {
           onSelectProp(value, undefined, evt);
         }
       }
@@ -766,7 +766,7 @@ export const MultiSelectCheckboxItem = forwardRef<
           onMouseOver={handleMenuItemMouseOver}
           ref={forwardedRef}
           data-disabled={disabled ? true : undefined}
-          data-highlighted={highlighted == value ? "true" : undefined}
+          data-highlighted={highlighted == value ? 'true' : undefined}
           data-testid={`multi-select-checkbox-${value}`}
           cui-select-item=""
         >
@@ -779,7 +779,7 @@ export const MultiSelectCheckboxItem = forwardRef<
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
-              variant={variant ?? "default"}
+              variant={variant ?? 'default'}
             />
             <IconWrapper
               icon={icon}
@@ -805,7 +805,7 @@ export const MultiSelectCheckboxItem = forwardRef<
   }
 );
 
-MultiSelectCheckboxItem.displayName = "Select.Item";
+MultiSelectCheckboxItem.displayName = 'Select.Item';
 
 export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
   ({ children, ...props }, ref) => {
@@ -822,4 +822,4 @@ export const SelectItemDescription = forwardRef<HTMLDivElement, TextProps>(
   }
 );
 
-SelectItemDescription.displayName = "Select.ItemDescription";
+SelectItemDescription.displayName = 'Select.ItemDescription';

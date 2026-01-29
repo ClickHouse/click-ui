@@ -1,27 +1,27 @@
-import darkTheme from "./tokens/variables.dark";
-import lightTheme from "./tokens/variables.light";
-import { useTheme } from "styled-components";
-import type { Prettify, GetTypes } from "./tokens/types";
+import darkTheme from './tokens/variables.dark';
+import lightTheme from './tokens/variables.light';
+import { useTheme } from 'styled-components';
+import type { Prettify, GetTypes } from './tokens/types';
 
-export { default as ClickUIProvider } from "./ClickUIProvider";
+export { default as ClickUIProvider } from './ClickUIProvider';
 
-export type ThemeName = "dark" | "light" | "classic";
-type ActiveThemeName = "dark" | "light";
+export type ThemeName = 'dark' | 'light' | 'classic';
+type ActiveThemeName = 'dark' | 'light';
 
 type GeneralThemeType = typeof lightTheme;
 
 // Full theme type with all properties (internal use and DefaultTheme)
 export type Theme = Prettify<
-  Omit<GetTypes<GeneralThemeType>, "name"> & {
+  Omit<GetTypes<GeneralThemeType>, 'name'> & {
     name?: ThemeName;
   }
 >;
 
 // For backward compatibility: CUIThemeType is the public subset (like v0.0.244)
 export type CUIThemeType = Prettify<{
-  breakpoint: Theme["breakpoint"];
-  global: Theme["global"];
-  sizes: Theme["sizes"];
+  breakpoint: Theme['breakpoint'];
+  global: Theme['global'];
+  sizes: Theme['sizes'];
   name?: ThemeName;
 }>;
 
@@ -33,7 +33,7 @@ export const themes: Record<ActiveThemeName, Theme> = {
   light: lightTheme as unknown as Theme,
 };
 
-declare module "styled-components" {
+declare module 'styled-components' {
   export interface DefaultTheme extends Theme {}
 }
 

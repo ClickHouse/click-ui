@@ -1,29 +1,29 @@
-import { GenericLabel } from "@/components/GenericLabel/GenericLabel";
-import { Icon } from "@/components/Icon/Icon";
+import { GenericLabel } from '@/components/GenericLabel/GenericLabel';
+import { Icon } from '@/components/Icon/Icon';
 
-import * as RadixCheckbox from "@radix-ui/react-checkbox";
-import { ReactNode, useId } from "react";
-import { styled } from "styled-components";
-import { FormRoot } from "../commonElement";
+import * as RadixCheckbox from '@radix-ui/react-checkbox';
+import { ReactNode, useId } from 'react';
+import { styled } from 'styled-components';
+import { FormRoot } from '../commonElement';
 
 export type CheckboxVariants =
-  | "default"
-  | "var1"
-  | "var2"
-  | "var3"
-  | "var4"
-  | "var5"
-  | "var6";
+  | 'default'
+  | 'var1'
+  | 'var2'
+  | 'var3'
+  | 'var4'
+  | 'var5'
+  | 'var6';
 
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
   /** The label text displayed next to the checkbox */
   label?: ReactNode;
   /** The orientation of the label relative to the checkbox */
-  orientation?: "vertical" | "horizontal";
+  orientation?: 'vertical' | 'horizontal';
   /** The color variant of the checkbox */
   variant?: CheckboxVariants;
   /** The direction/position of the label - start places label before, end places label after */
-  dir?: "start" | "end";
+  dir?: 'start' | 'end';
 }
 
 const Wrapper = styled(FormRoot)`
@@ -34,10 +34,10 @@ const Wrapper = styled(FormRoot)`
 export const Checkbox = ({
   id,
   label,
-  variant = "default",
+  variant = 'default',
   disabled,
-  orientation = "horizontal",
-  dir = "end",
+  orientation = 'horizontal',
+  dir = 'end',
   checked,
   ...delegated
 }: CheckboxProps) => {
@@ -58,7 +58,7 @@ export const Checkbox = ({
       >
         <CheckIconWrapper>
           <Icon
-            name={checked === "indeterminate" ? "minus" : "check"}
+            name={checked === 'indeterminate' ? 'minus' : 'check'}
             size="sm"
           />
         </CheckIconWrapper>

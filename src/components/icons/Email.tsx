@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Email = (props: SVGAttributes<SVGElement>) => (
   <svg

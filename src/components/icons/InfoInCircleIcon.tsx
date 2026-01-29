@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const InfoInCircleIcon = (props: SVGAttributes<SVGElement>) => (
   <svg

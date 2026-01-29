@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { GridCenter } from "../commonElement";
-import { Text } from "../Typography/Text/Text";
-import { Dialog } from "./Dialog";
-import { Separator } from "../Separator/Separator";
-import { Spacer } from "../Spacer/Spacer";
-import { Button } from "../Button/Button";
-import { styled } from "styled-components";
-import { Link } from "../Link/Link";
-import { Container } from "@/components/Container/Container";
-import { TextField } from "@/components/Input/TextField";
-import { Icon } from "@/components/Icon/Icon";
+import React, { useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { GridCenter } from '../commonElement';
+import { Text } from '../Typography/Text/Text';
+import { Dialog } from './Dialog';
+import { Separator } from '../Separator/Separator';
+import { Spacer } from '../Spacer/Spacer';
+import { Button } from '../Button/Button';
+import { styled } from 'styled-components';
+import { Link } from '../Link/Link';
+import { Container } from '@/components/Container/Container';
+import { TextField } from '@/components/Input/TextField';
+import { Icon } from '@/components/Icon/Icon';
 
 interface DialogExampleProps {
   open?: boolean;
@@ -67,16 +67,16 @@ const ActionArea = styled.div`
 const meta: Meta<typeof DialogExample> = {
   component: DialogExample,
   subcomponents: {
-    "Dialog.Trigger": Dialog.Trigger as React.ComponentType<unknown>,
-    "Dialog.Content": Dialog.Content as React.ComponentType<unknown>,
-    "Dialog.Close": Dialog.Close as React.ComponentType<unknown>,
+    'Dialog.Trigger': Dialog.Trigger as React.ComponentType<unknown>,
+    'Dialog.Content': Dialog.Content as React.ComponentType<unknown>,
+    'Dialog.Close': Dialog.Close as React.ComponentType<unknown>,
   },
-  title: "Display/Dialog",
-  tags: ["autodocs", "dialog"],
+  title: 'Display/Dialog',
+  tags: ['autodocs', 'dialog'],
   argTypes: {
     open: {
       options: [true, false, undefined],
-      control: { type: "radio" },
+      control: { type: 'radio' },
     },
   },
 };
@@ -87,7 +87,7 @@ type Story = StoryObj<typeof DialogExample>;
 
 export const ModalDialog: Story = {
   args: {
-    title: "Example dialog title",
+    title: 'Example dialog title',
     showClose: true,
     open: true,
     reducePadding: false,
@@ -116,7 +116,7 @@ const TopNav = styled.div`
 
 export const ChatDialog: Story = {
   args: {
-    title: "",
+    title: '',
     showClose: false,
     open: false,
     reducePadding: true,
@@ -125,7 +125,7 @@ export const ChatDialog: Story = {
     const [open, setOpen] = useState(true);
 
     return (
-      <GridCenter style={{ position: "relative" }}>
+      <GridCenter style={{ position: 'relative' }}>
         <Dialog
           open={open}
           modal={modal}

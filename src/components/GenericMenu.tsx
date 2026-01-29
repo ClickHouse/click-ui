@@ -1,7 +1,7 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 export const GenericMenuPanel = styled.div<{
-  $type: "popover" | "dropdown-menu" | "context-menu";
+  $type: 'popover' | 'dropdown-menu' | 'context-menu';
   $showArrow?: boolean;
 }>`
   outline: none;
@@ -35,11 +35,11 @@ export const GenericMenuPanel = styled.div<{
         margin-left: -1px;
       }
   `
-      : ""};
+      : ''};
 `;
 
 export const GenericPopoverMenuPanel = styled.div<{
-  $type: "popover" | "hover-card";
+  $type: 'popover' | 'hover-card';
   $showArrow?: boolean;
 }>`
   outline: none;
@@ -58,7 +58,7 @@ export const GenericPopoverMenuPanel = styled.div<{
     border-radius: ${theme.click.popover.radii.all};
     box-shadow: ${theme.click.popover.shadow.default};
   `}
-  ${({ $showArrow }) => ($showArrow ? "margin: -1px 0;" : "")};
+  ${({ $showArrow }) => ($showArrow ? 'margin: -1px 0;' : '')};
 `;
 
 export const Arrow = styled.svg`
@@ -69,7 +69,7 @@ export const Arrow = styled.svg`
   `};
 `;
 
-export const GenericMenuItem = styled.div<{ $type?: "default" | "danger" }>`
+export const GenericMenuItem = styled.div<{ $type?: 'default' | 'danger' }>`
   display: flex;
   width: 100%;
   width: -moz-available;
@@ -87,8 +87,8 @@ export const GenericMenuItem = styled.div<{ $type?: "default" | "danger" }>`
     outline: none;
   }
 
-  ${({ theme, $type = "default" }) => {
-    const colorKey = $type === "danger" ? "danger" : "default";
+  ${({ theme, $type = 'default' }) => {
+    const colorKey = $type === 'danger' ? 'danger' : 'default';
     return `
     padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
     gap: ${theme.click.genericMenu.item.space.gap};
@@ -127,7 +127,7 @@ export const GenericMenuItem = styled.div<{ $type?: "default" | "danger" }>`
   }};
   position: relative;
   &:hover .dropdown-arrow,
-  &[data-state="open"] .dropdown-arrow {
+  &[data-state='open'] .dropdown-arrow {
     left: 0.5rem;
   }
   &[hidden] {

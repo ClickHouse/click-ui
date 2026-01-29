@@ -1,5 +1,5 @@
-import { Content, Root, Trigger } from "@radix-ui/react-popover";
-import { styled } from "styled-components";
+import { Content, Root, Trigger } from '@radix-ui/react-popover';
+import { styled } from 'styled-components';
 
 export const SelectPopoverRoot = styled(Root)`
   width: 100%;
@@ -99,7 +99,7 @@ export const SelectPopoverContent = styled(Content)<{
       min-width: var(--radix-popover-trigger-width);
       width: 100%;
     `
-        : "width: var(--radix-popover-trigger-width)"
+        : 'width: var(--radix-popover-trigger-width)'
     };
   `}
 
@@ -131,7 +131,7 @@ export const SearchBarContainer = styled.div<{ $showSearch: boolean }>`
     };
     color: ${theme.click.genericMenu.autocomplete.color.searchTerm.default};
     font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
-    height: ${$showSearch ? "auto" : " 0"};
+    height: ${$showSearch ? 'auto' : ' 0'};
   `}
 `;
 
@@ -141,9 +141,9 @@ export const SearchBar = styled.input<{ $showSearch: boolean }>`
   width: 100%;
   outline: none;
   ${({ theme, $showSearch }) => `
-    min-height: ${$showSearch ? "21px" : 0};
-    height: ${$showSearch ? "initial" : 0};
-    ${$showSearch ? "padding-right: 24px" : "padding:0"};
+    min-height: ${$showSearch ? '21px' : 0};
+    height: ${$showSearch ? 'initial' : 0};
+    ${$showSearch ? 'padding-right: 24px' : 'padding:0'};
 
     gap: ${theme.click.genericMenu.item.space.gap};
     font: ${theme.click.genericMenu.autocomplete.typography.search.term.default};
@@ -164,7 +164,7 @@ export const SearchClose = styled.button<{ $showClose: boolean }>`
     top: ${theme.click.genericMenu.item.space.y};
     right: ${theme.click.genericMenu.item.space.x};
   `}
-  visibility: ${({ $showClose }) => ($showClose ? "visible" : "hidden")};
+  visibility: ${({ $showClose }) => ($showClose ? 'visible' : 'hidden')};
 `;
 
 /*
@@ -248,7 +248,7 @@ export const SelectNoDataContainer = styled.div<{ $clickable: boolean }>`
   text-overflow: ellipsis;
   text-align: left;
 
-  &[hidden="true"] {
+  &[hidden='true'] {
     display: none;
   }
   ${({ theme, $clickable }) => `
@@ -258,7 +258,7 @@ export const SelectNoDataContainer = styled.div<{ $clickable: boolean }>`
     };
     background: ${theme.click.genericMenu.button.color.background.default};
     color: ${theme.click.genericMenu.button.color.label.default};
-    cursor: ${$clickable ? "pointer" : "default"}
+    cursor: ${$clickable ? 'pointer' : 'default'}
   `}
 `;
 

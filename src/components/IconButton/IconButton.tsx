@@ -1,23 +1,23 @@
-import { HTMLAttributes, forwardRef } from "react";
-import { styled } from "styled-components";
+import { HTMLAttributes, forwardRef } from 'react';
+import { styled } from 'styled-components';
 
-import { Icon } from "@/components/Icon/Icon";
-import { IconName } from "@/components/Icon/types";
+import { Icon } from '@/components/Icon/Icon';
+import { IconName } from '@/components/Icon/types';
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   /** The size of the icon button */
-  size?: "default" | "sm" | "xs";
+  size?: 'default' | 'sm' | 'xs';
   /** Whether the button is disabled */
   disabled?: boolean;
   /** The visual style variant of the button */
-  type?: "primary" | "secondary" | "ghost" | "danger" | "info";
+  type?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'info';
   /** The icon to display in the button */
   icon: IconName;
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ type = "primary", icon, size, disabled, ...props }, ref) => {
-    const iconName = icon ? icon.toString() : "unknown icon";
+  ({ type = 'primary', icon, size, disabled, ...props }, ref) => {
+    const iconName = icon ? icon.toString() : 'unknown icon';
 
     return (
       <Button
@@ -38,13 +38,13 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   }
 );
 
-IconButton.displayName = "IconButton";
+IconButton.displayName = 'IconButton';
 
 const Button = styled.button<{
-  $styleType?: "primary" | "secondary" | "ghost" | "danger" | "info";
-  $size?: "default" | "sm" | "xs";
+  $styleType?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'info';
+  $size?: 'default' | 'sm' | 'xs';
 }>`
-  ${({ theme, $size, $styleType = "primary" }) => `
+  ${({ theme, $size, $styleType = 'primary' }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
   border: ${theme.click.button.stroke} solid ${
     theme.click.button.iconButton.color[$styleType].stroke.default

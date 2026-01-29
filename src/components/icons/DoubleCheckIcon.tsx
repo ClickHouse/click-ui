@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const DoubleCheckIcon = (props: SVGAttributes<SVGElement>) => (
   <svg

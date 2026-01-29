@@ -1,33 +1,33 @@
-import { HTMLAttributes, useState } from "react";
-import { Light as SyntaxHighlighter, createElement } from "react-syntax-highlighter";
+import { HTMLAttributes, useState } from 'react';
+import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 
-import { IconButton } from "@/components/IconButton/IconButton";
+import { IconButton } from '@/components/IconButton/IconButton';
 
-import { styled } from "styled-components";
-import useColorStyle from "./useColorStyle";
-import { EmptyButton } from "../commonElement";
+import { styled } from 'styled-components';
+import useColorStyle from './useColorStyle';
+import { EmptyButton } from '../commonElement';
 
 /* eslint-disable import/extensions */
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import sql from "react-syntax-highlighter/dist/cjs/languages/hljs/sql.js";
+import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql.js';
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash.js";
+import bash from 'react-syntax-highlighter/dist/cjs/languages/hljs/bash.js';
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json.js";
+import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json.js';
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import tsx from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js";
+import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js';
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import plaintext from "react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js";
+import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js';
 /* eslint-enable import/extensions */
 
-SyntaxHighlighter.registerLanguage("sql", sql.default || sql);
-SyntaxHighlighter.registerLanguage("bash", bash.default || bash);
-SyntaxHighlighter.registerLanguage("json", json.default || json);
-SyntaxHighlighter.registerLanguage("tsx", tsx.default || tsx);
-SyntaxHighlighter.registerLanguage("plaintext", plaintext.default || plaintext);
+SyntaxHighlighter.registerLanguage('sql', sql.default || sql);
+SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
+SyntaxHighlighter.registerLanguage('json', json.default || json);
+SyntaxHighlighter.registerLanguage('tsx', tsx.default || tsx);
+SyntaxHighlighter.registerLanguage('plaintext', plaintext.default || plaintext);
 
-export type CodeThemeType = "light" | "dark";
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> {
+export type CodeThemeType = 'light' | 'dark';
+interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'> {
   language?: string;
   children: string;
   theme?: CodeThemeType;
@@ -39,7 +39,7 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "onCop
 }
 
 interface RendererNodeType {
-  type: "element" | "text";
+  type: 'element' | 'text';
   value?: string | number | undefined;
   tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
   properties?: { className: unknown[]; [key: string]: unknown };
@@ -77,7 +77,7 @@ const CodeButton = styled(EmptyButton)<{ $copied: boolean; $error: boolean }>`
         ? theme.click.alert.color.text.success
         : $error
           ? theme.click.alert.color.text.danger
-          : "inherit"
+          : 'inherit'
     };
     padding: 0;
     border: 0;
@@ -124,18 +124,18 @@ export const CodeBlock = ({
   const copyCodeToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(children);
-      if (typeof onCopy == "function") {
+      if (typeof onCopy == 'function') {
         onCopy(children);
       }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      let message = "Unable to copy code";
+      let message = 'Unable to copy code';
       if (error instanceof Error) {
         message = error.message;
       }
       setErrorCopy(true);
-      if (typeof onCopyError === "function") {
+      if (typeof onCopyError === 'function') {
         onCopyError(message);
       }
       setTimeout(() => setErrorCopy(false), 2000);
@@ -165,7 +165,7 @@ export const CodeBlock = ({
           as={IconButton}
           $copied={copied}
           $error={errorCopy}
-          icon={copied ? "check" : errorCopy ? "warning" : "copy"}
+          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
           onClick={copyCodeToClipboard}
         />
       </ButtonContainer>
@@ -190,8 +190,8 @@ export const CodeBlock = ({
                   properties: {
                     className: [],
                   },
-                  tagName: "span",
-                  type: "element",
+                  tagName: 'span',
+                  type: 'element',
                 },
               ];
             }

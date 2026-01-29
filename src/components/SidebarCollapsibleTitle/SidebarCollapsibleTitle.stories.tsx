@@ -1,11 +1,11 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { SidebarCollapsibleTitle } from "@/components/SidebarCollapsibleTitle/SidebarCollapsibleTitle";
-import { SidebarNavigationItem } from "@/components/SidebarNavigationItem/SidebarNavigationItem";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { SidebarCollapsibleTitle } from '@/components/SidebarCollapsibleTitle/SidebarCollapsibleTitle';
+import { SidebarNavigationItem } from '@/components/SidebarNavigationItem/SidebarNavigationItem';
 
 const meta: Meta<typeof SidebarCollapsibleTitle> = {
   component: SidebarCollapsibleTitle,
-  title: "Sidebar/CollapsibleTitle",
-  tags: ["sidebar", "collapsible-title", "autodocs"],
+  title: 'Sidebar/CollapsibleTitle',
+  tags: ['sidebar', 'collapsible-title', 'autodocs'],
 };
 
 export default meta;
@@ -14,8 +14,8 @@ type Story = StoryObj<typeof SidebarCollapsibleTitle>;
 
 export const Playground: Story = {
   args: {
-    icon: "code",
-    label: "Queries",
+    icon: 'code',
+    label: 'Queries',
     selected: false,
     children: (
       <>

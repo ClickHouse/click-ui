@@ -1,21 +1,21 @@
-import { styled } from "styled-components";
-import type { HorizontalDirection } from "@/components/types";
-import { HTMLAttributes, MouseEvent, ReactNode } from "react";
-import type { IconName } from "@/components/Icon/types";
-import { Icon } from "@/components/Icon/Icon";
-import { IconWrapper } from "@/components/IconWrapper/IconWrapper";
+import { styled } from 'styled-components';
+import type { HorizontalDirection } from '@/components/types';
+import { HTMLAttributes, MouseEvent, ReactNode } from 'react';
+import type { IconName } from '@/components/Icon/types';
+import { Icon } from '@/components/Icon/Icon';
+import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 
 export type BadgeState =
-  | "default"
-  | "success"
-  | "neutral"
-  | "danger"
-  | "disabled"
-  | "warning"
-  | "info";
+  | 'default'
+  | 'success'
+  | 'neutral'
+  | 'danger'
+  | 'disabled'
+  | 'warning'
+  | 'info';
 
-export type BadgeSize = "sm" | "md";
-export type BadgeType = "opaque" | "solid";
+export type BadgeSize = 'sm' | 'md';
+export type BadgeType = 'opaque' | 'solid';
 
 export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
   /** The text content to display in the badge */
@@ -49,7 +49,7 @@ export interface NonDismissibleBadge extends CommonBadgeProps {
 
 const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize; $type?: BadgeType }>`
   display: inline-flex;
-  ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
+  ${({ $state = 'default', $size = 'md', $type = 'opaque', theme }) => `
     background-color: ${theme.click.badge[$type].color.background[$state]};
     color: ${theme.click.badge[$type].color.text[$state]};
     font: ${theme.click.badge.typography.label[$size].default};
@@ -62,7 +62,7 @@ const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize; $type?: Bad
 const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
   display: inline-flex;
   align-items: center;
-  gap: ${({ $size = "md", theme }) => theme.click.badge.space[$size].gap};
+  gap: ${({ $size = 'md', theme }) => theme.click.badge.space[$size].gap};
   max-width: 100%;
   justify-content: flex-start;
 `;
@@ -72,7 +72,7 @@ const SvgContainer = styled.svg<{
   $size?: BadgeSize;
   $type?: BadgeType;
 }>`
-  ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
+  ${({ $state = 'default', $size = 'md', $type = 'opaque', theme }) => `
     color: ${theme.click.badge[$type].color.text[$state]};
     height: ${theme.click.badge.icon[$size].size.height};
     width: ${theme.click.badge.icon[$size].size.width};
@@ -86,7 +86,7 @@ const BadgeContent = styled(IconWrapper)<{
   width: auto;
   overflow: hidden;
   svg {
-    ${({ $state = "default", $size = "md", $type = "opaque", theme }) => `
+    ${({ $state = 'default', $size = 'md', $type = 'opaque', theme }) => `
     color: ${theme.click.badge[$type].color.text[$state]};
     height: ${theme.click.badge.icon[$size].size.height};
     width: ${theme.click.badge.icon[$size].size.width};
@@ -101,7 +101,7 @@ export const Badge = ({
   icon,
   iconDir,
   text,
-  state = "default",
+  state = 'default',
   size,
   type,
   dismissible,
@@ -115,7 +115,7 @@ export const Badge = ({
     $type={type}
     {...props}
   >
-    <Content data-testid={`${ellipsisContent ? "ellipsed" : "normal"}-badge-content`}>
+    <Content data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-badge-content`}>
       <BadgeContent
         icon={icon}
         iconDir={iconDir}
