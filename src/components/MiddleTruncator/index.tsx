@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 const TruncatorContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: auto;
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
