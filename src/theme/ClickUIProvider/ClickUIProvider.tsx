@@ -1,16 +1,16 @@
 import {
   Provider as TooltipProvider,
   TooltipProviderProps,
-} from "@radix-ui/react-tooltip";
-import { ToastProvider, ToastProviderProps } from "@/components/Toast/Toast";
-import { ThemeName } from "@/theme";
-import { ThemeProvider } from "@/theme/theme";
-import { ReactNode, useEffect } from "react";
+} from '@radix-ui/react-tooltip';
+import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
+import { ThemeName } from '@/theme';
+import { ThemeProvider } from '@/theme/theme';
+import { ReactNode, useEffect } from 'react';
 
 interface Props {
   config?: {
-    tooltip?: Omit<TooltipProviderProps, "children">;
-    toast?: Omit<ToastProviderProps, "children">;
+    tooltip?: Omit<TooltipProviderProps, 'children'>;
+    toast?: Omit<ToastProviderProps, 'children'>;
   };
   theme: ThemeName;
   children: ReactNode;
@@ -20,14 +20,14 @@ const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
   const { toast = {}, tooltip = {} } = config;
 
   useEffect(() => {
-    if (theme === "classic") {
+    if (theme === 'classic') {
       console.warn(
         "[Click UI] The 'classic' theme has been removed. Please use 'light' or 'dark' theme instead. Falling back to 'light' theme."
       );
     }
   }, [theme]);
 
-  const safeTheme = theme === "classic" ? "light" : theme;
+  const safeTheme = theme === 'classic' ? 'light' : theme;
 
   return (
     <ThemeProvider theme={safeTheme}>

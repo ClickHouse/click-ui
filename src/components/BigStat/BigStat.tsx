@@ -1,11 +1,11 @@
-import { HTMLAttributes } from "react";
-import { styled } from "styled-components";
-export type bigStatOrder = "titleTop" | "titleBottom";
-export type bigStatSize = "sm" | "lg";
-export type bigStatSpacing = "sm" | "lg";
-export type bigStatState = "default" | "muted";
+import { HTMLAttributes } from 'react';
+import { styled } from 'styled-components';
+export type bigStatOrder = 'titleTop' | 'titleBottom';
+export type bigStatSize = 'sm' | 'lg';
+export type bigStatSpacing = 'sm' | 'lg';
+export type bigStatState = 'default' | 'muted';
 
-export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   /** Whether the component should fill the full width of its container */
   fillWidth?: boolean;
   /** Maximum width of the component */
@@ -32,13 +32,13 @@ export interface BigStatProps extends Omit<HTMLAttributes<HTMLDivElement>, "titl
 export const BigStat = ({
   fillWidth = false,
   maxWidth,
-  height = "6rem",
-  label = "Label",
-  order = "titleTop",
+  height = '6rem',
+  label = 'Label',
+  order = 'titleTop',
   size,
-  spacing = "sm",
-  state = "default",
-  title = "Title",
+  spacing = 'sm',
+  state = 'default',
+  title = 'Title',
   error = false,
   ...props
 }: BigStatProps) => (
@@ -84,12 +84,12 @@ const Wrapper = styled.div<{
   box-sizing: border-box;
   ${({
     $fillWidth = false,
-    $maxWidth = "none",
-    $state = "default",
-    $size = "lg",
-    $height = "fixed",
+    $maxWidth = 'none',
+    $state = 'default',
+    $size = 'lg',
+    $height = 'fixed',
     $order,
-    $spacing = "sm",
+    $spacing = 'sm',
     $error = false,
     theme,
   }) => `
@@ -104,10 +104,10 @@ const Wrapper = styled.div<{
     };
   gap: ${theme.click.bigStat.space[$spacing].gap};
   padding: ${theme.click.bigStat.space.all};
-  min-height: ${$height !== undefined ? `${$height}` : "auto"};
-  flex-direction: ${$order === "titleBottom" ? "column-reverse" : "column"};
-  width: ${$fillWidth === true ? "100%" : "auto"};
-  max-width: ${$maxWidth ? $maxWidth : "none"};
+  min-height: ${$height !== undefined ? `${$height}` : 'auto'};
+  flex-direction: ${$order === 'titleBottom' ? 'column-reverse' : 'column'};
+  width: ${$fillWidth === true ? '100%' : 'auto'};
+  max-width: ${$maxWidth ? $maxWidth : 'none'};
   `}
 `;
 
@@ -116,7 +116,7 @@ const Label = styled.div<{
   $size?: bigStatSize;
   $error?: boolean;
 }>`
-  ${({ $state = "default", $size = "lg", $error = false, theme }) => `
+  ${({ $state = 'default', $size = 'lg', $error = false, theme }) => `
     color: ${$error ? theme.click.bigStat.color.label.danger : theme.click.bigStat.color.label[$state]};
     font: ${theme.click.bigStat.typography[$size].label[$state]};
   `}
@@ -126,7 +126,7 @@ const Title = styled.div<{
   $state?: bigStatState;
   $size?: bigStatSize;
 }>`
-  ${({ $state = "default", $size = "lg", theme }) => `
+  ${({ $state = 'default', $size = 'lg', theme }) => `
     color: ${theme.click.bigStat.color.title[$state]};
     font: ${theme.click.bigStat.typography[$size].title[$state]};
   `}

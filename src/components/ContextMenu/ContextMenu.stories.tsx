@@ -1,8 +1,8 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { ContextMenuProps } from "@radix-ui/react-context-menu";
-import { ContextMenu, ContextMenuItemProps } from "./ContextMenu";
-import { styled } from "styled-components";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { ContextMenuProps } from '@radix-ui/react-context-menu';
+import { ContextMenu, ContextMenuItemProps } from './ContextMenu';
+import { styled } from 'styled-components';
 
 interface ContextMenuExampleProps extends ContextMenuProps {
   disabled?: boolean;
@@ -68,18 +68,18 @@ const ContextMenuExample = ({
 const meta: Meta<typeof ContextMenuExample> = {
   component: ContextMenuExample,
   subcomponents: {
-    "ContextMenu.Trigger": ContextMenu.Trigger as React.ComponentType<unknown>,
-    "ContextMenu.Content": ContextMenu.Content as React.ComponentType<unknown>,
-    "ContextMenu.SubTrigger": ContextMenu.SubTrigger as React.ComponentType<unknown>,
-    "ContextMenu.Group": ContextMenu.Group as React.ComponentType<unknown>,
-    "ContextMenu.Sub": ContextMenu.Sub as React.ComponentType<unknown>,
-    "ContextMenu.Item": ContextMenu.Item as React.ComponentType<ContextMenuItemProps>,
+    'ContextMenu.Trigger': ContextMenu.Trigger as React.ComponentType<unknown>,
+    'ContextMenu.Content': ContextMenu.Content as React.ComponentType<unknown>,
+    'ContextMenu.SubTrigger': ContextMenu.SubTrigger as React.ComponentType<unknown>,
+    'ContextMenu.Group': ContextMenu.Group as React.ComponentType<unknown>,
+    'ContextMenu.Sub': ContextMenu.Sub as React.ComponentType<unknown>,
+    'ContextMenu.Item': ContextMenu.Item as React.ComponentType<ContextMenuItemProps>,
   },
-  title: "Display/ContextMenu",
-  tags: ["form-field", "dropdown", "autodocs"],
+  title: 'Display/ContextMenu',
+  tags: ['form-field', 'dropdown', 'autodocs'],
   argTypes: {
-    disabled: { control: "boolean" },
-    showArrow: { control: "boolean" },
+    disabled: { control: 'boolean' },
+    showArrow: { control: 'boolean' },
   },
 };
 

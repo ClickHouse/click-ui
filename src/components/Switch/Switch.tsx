@@ -1,9 +1,9 @@
-import { Theme } from "@/theme/tokens/types";
-import * as RadixSwitch from "@radix-ui/react-switch";
-import { ReactNode, forwardRef, useId } from "react";
-import { styled } from "styled-components";
-import { FormRoot } from "../commonElement";
-import { GenericLabel } from "@/components";
+import { Theme } from '@/theme/tokens/types';
+import * as RadixSwitch from '@radix-ui/react-switch';
+import { ReactNode, forwardRef, useId } from 'react';
+import { styled } from 'styled-components';
+import { FormRoot } from '../commonElement';
+import { GenericLabel } from '@/components';
 
 interface RootProps {
   /** Whether the switch is checked/on */
@@ -11,15 +11,15 @@ interface RootProps {
   /** Whether the switch is disabled */
   disabled?: boolean;
   /** The orientation of the label relative to the switch */
-  orientation?: "vertical" | "horizontal";
+  orientation?: 'vertical' | 'horizontal';
   /** The direction/position of the label - start places label before, end places label after */
-  dir?: "start" | "end";
+  dir?: 'start' | 'end';
   /** The label text displayed next to the switch */
   label?: ReactNode;
   theme?: Theme;
 }
 
-type SwitchProps = RootProps & Omit<RadixSwitch.SwitchProps, "dir">;
+type SwitchProps = RootProps & Omit<RadixSwitch.SwitchProps, 'dir'>;
 
 interface ThumbProps {
   $checked: boolean;
@@ -120,9 +120,9 @@ const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
     backgroundColor: vars.backgroundColor,
     border: vars.border,
     borderRadius: props.theme.click.switch.radii.all,
-    position: "relative",
+    position: 'relative',
     padding: 0,
-    cursor: props.disabled ? "not-allowed" : "pointer",
+    cursor: props.disabled ? 'not-allowed' : 'pointer',
   };
 });
 
@@ -130,13 +130,13 @@ const SwitchThumb = styled(RadixSwitch.Thumb)<ThumbProps>(props => {
   const vars = getThumbVars(props.theme, props.$disabled, props.$checked);
 
   return {
-    display: "block",
-    width: "12px",
-    height: "12px",
+    display: 'block',
+    width: '12px',
+    height: '12px',
     backgroundColor: vars.backgroundColor,
     borderRadius: props.theme.click.switch.radii.all,
-    transition: "transform 100ms",
-    transform: props.$checked ? "translateX(15px)" : "translateX(2px)",
-    willChange: "transform",
+    transition: 'transform 100ms',
+    transform: props.$checked ? 'translateX(15px)' : 'translateX(2px)',
+    willChange: 'transform',
   };
 });

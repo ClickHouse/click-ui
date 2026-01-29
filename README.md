@@ -18,10 +18,13 @@ You can find the official docs for the Click UI design system and component libr
 ## Overview
 
 * [Requirements](#requirements)
+* [Quick Start](#quick-start)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
-  - [Local development server](#local-development-server)
+  - [Local development](#local-development)
 * [Tests](#Tests)
+  - [Functional tests](#functional-tests)
+  - [Visual regression tests](#visual-regression-tests)
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
@@ -31,6 +34,31 @@ You can find the official docs for the Click UI design system and component libr
 
 - Nodejs (>= 22.12.x) as runtime
 - Yarn (>= 4.5.3) for development, any other package manager in a host project
+
+## Quick Start
+
+Install the package via npm or your favourite package manager:
+
+```sh
+npm i @clickhouse/click-ui@latest
+```
+
+To use Click UI, you must wrap your application in the provider. This ensures styles and themes are applied correctly across all components.
+
+```ts
+import { ClickUIProvider, Title, Text } from '@clickhouse/click-ui'
+
+function App() {
+  return (
+    <ClickUIProvider theme="dark">
+      <Title type="h1">Hello ClickHouse</Title>
+      <Text>Start building today!</Text>
+    </ClickUIProvider>
+  )
+}
+```
+
+For more examples, including theme switching and configuration, see the [How to](#how-to-use) use section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Development
 
@@ -56,23 +84,70 @@ yarn generate-tokens
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
-### Local development server
+### Local development
 
-To run the Click UI development execute the command:
+We leverage Storybook as our primary development environment and documentation, see [Storybook](#storybook).
+
+You can start the Storybook development server by:
 
 ```sh
 yarn dev
 ```
 
-It'll default to the location [http://localhost:5173](http://localhost:5173), if port available.
+We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
+
+> [!IMPORTANT]
+> We operate collaboratively with the Product Design team. While stories reflect the current implementation (live), Figma files remain the source of truth for design research and decision-making. Changes are typically finalized in Figma before being implemented in code to ensure design-sync.
+
+By avoiding local preview files, we ensure that component experimentation happens in isolation; free from application side effects and providing a live look at component interfaces and usage examples at time of writing.
+
+> [!NOTE]
+> To ensure stability, we utilize Visual Regression and Unit Testing, see [tests](#tests). When contributing features or tweaks, you're expected to include or update the relevant tests to maintain stability, e.g. remember the components are consumed by a number of applications.
+
+To get started with the development playground, refer to the Storybook section [here](#storybook).
 
 ## Tests
+
+### Functional tests
 
 The package uses [vitest](https://vitest.dev/) and [react testing library](https://testing-library.com) for tests, e.g. functional tests.
 
 ```sh
 yarn test
 ```
+
+### Visual regression tests
+
+The project uses [Chromatic](https://www.chromatic.com/) for visual regression testing of UI components.
+
+It captures screenshots of Storybook and compares them across builds to detect unintended visual changes by:
+
+- Automated visual testing in GitHub CI/CD pipeline, e.g. storybook publish, UI tests
+- Leveraging storybook stories
+- Provides visual diff reviews and approval workflows
+- Helps catch UI bugs
+
+To setup, you must get a team member project token.
+
+Add the token as an environment variable to your environment preference or profile, e.g. `~/.zshrc`:
+
+```sh
+export CHROMATIC_PROJECT_TOKEN=<YOUR-TOKEN-HERE>
+```
+
+Once ready, you can run tests by:
+
+```sh
+yarn test:chromatic
+```
+
+> [!NOTE]
+> Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
+> - Build status, e.g. uploading or testing
+> - Link to the cloud runner or dashboard
+> - Exit code
+
+If you need quicker iteration feedback, or more testing control during local development, read [here](./docs/tests/playwright.md)
 
 ## Storybook
 
@@ -102,13 +177,13 @@ Once built, you can serve the static files by:
 yarn storybook:serve
 ```
 
-### Public static version
+### Public static site
 
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
-## Using Click UI in an external app
+## How-to use
 
 Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
 

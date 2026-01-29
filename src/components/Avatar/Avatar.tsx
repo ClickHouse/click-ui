@@ -3,10 +3,10 @@ import {
   Fallback,
   Image,
   Root,
-} from "@radix-ui/react-avatar";
-import { styled } from "styled-components";
+} from '@radix-ui/react-avatar';
+import { styled } from 'styled-components';
 
-type TextSize = "md" | "sm";
+type TextSize = 'md' | 'sm';
 
 export interface AvatarProps extends RadixAvatarProps {
   /** The text to display as initials in the avatar fallback */
@@ -19,7 +19,7 @@ export interface AvatarProps extends RadixAvatarProps {
   srcSet?: string;
 }
 
-const Avatar = ({ text, textSize = "sm", src, srcSet, ...delegated }: AvatarProps) => (
+const Avatar = ({ text, textSize = 'sm', src, srcSet, ...delegated }: AvatarProps) => (
   <StyledRoot {...delegated}>
     <AvatarImage
       src={src}
@@ -32,7 +32,7 @@ const Avatar = ({ text, textSize = "sm", src, srcSet, ...delegated }: AvatarProp
     >
       {text
         .trim()
-        .replace(/(^.)([^ ]* )?(.).*/, "$1$3")
+        .replace(/(^.)([^ ]* )?(.).*/, '$1$3')
         .trim()
         .toUpperCase()}
     </StyledFallback>
@@ -76,7 +76,7 @@ const StyledFallback = styled(Fallback)<{ $textSize: TextSize }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  ${({ theme, $textSize = "sm" }) => `
+  ${({ theme, $textSize = 'sm' }) => `
     font: ${theme.click.avatar.typography.label[$textSize].default};
 
     &:active {

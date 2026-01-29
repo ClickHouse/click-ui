@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { Icon, HorizontalDirection, IconName } from "@/components";
-import { Collapsible } from "../Collapsible/Collapsible";
-import { SidebarTitleWrapper } from "../SidebarNavigationTitle/SidebarNavigationTitle";
+import { ReactNode } from 'react';
+import { Icon, HorizontalDirection, IconName } from '@/components';
+import { Collapsible } from '../Collapsible/Collapsible';
+import { SidebarTitleWrapper } from '../SidebarNavigationTitle/SidebarNavigationTitle';
 
 export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
   /** The label content to display */
@@ -19,7 +19,7 @@ export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLB
   /** Whether the title is currently selected */
   selected?: boolean;
   /** The sidebar style type */
-  type?: "main" | "sqlSidebar";
+  type?: 'main' | 'sqlSidebar';
 }
 
 export const SidebarCollapsibleTitle = ({
@@ -27,10 +27,10 @@ export const SidebarCollapsibleTitle = ({
   children,
   open,
   onOpenChange,
-  iconDir = "start",
+  iconDir = 'start',
   icon,
   selected,
-  type = "main",
+  type = 'main',
   ...props
 }: SidebarCollapsibleTitleProps) => {
   if (!label) {
@@ -49,14 +49,14 @@ export const SidebarCollapsibleTitle = ({
         $type={type}
         {...props}
       >
-        {icon && iconDir === "start" && (
+        {icon && iconDir === 'start' && (
           <Icon
             name={icon}
             size="sm"
           />
         )}
         {label}
-        {icon && iconDir === "end" && (
+        {icon && iconDir === 'end' && (
           <Icon
             name={icon}
             size="sm"

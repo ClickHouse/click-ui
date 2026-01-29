@@ -1,5 +1,5 @@
-import { createContext, KeyboardEvent, MouseEvent } from "react";
-import { SelectionType } from "./types";
+import { createContext, KeyboardEvent, MouseEvent } from 'react';
+import { SelectionType } from './types';
 
 type OptionContextProps = {
   search: string;
@@ -16,7 +16,7 @@ type OptionContextProps = {
 };
 
 export const OptionContext = createContext<OptionContextProps>({
-  search: "",
+  search: '',
   selectedValues: [],
   updateHighlighted: () => null,
   onSelect: () => null,

@@ -4,9 +4,8 @@ const config: StorybookConfig = {
     disableTelemetry: true
   },
   stories: [
-    "../src/Introduction.mdx",
-    "../src/components/icons/Icons.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)",
+    "./Introduction.mdx",
+    "../src/**/*.stories.@(ts|tsx)",
   ],
 
   addons: ["@storybook/addon-links", //"@storybook/addon-interactions",

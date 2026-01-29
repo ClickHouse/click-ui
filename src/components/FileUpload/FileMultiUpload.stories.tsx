@@ -1,17 +1,14 @@
-import { Meta, StoryObj, StoryFn } from "@storybook/react-vite";
-import { useState } from "react";
-import {
-  FileMultiUpload,
-  FileUploadItem,
-} from "@/components/FileUpload/FileMultiUpload.tsx";
+import { Meta, StoryObj, StoryFn } from '@storybook/react-vite';
+import { useState } from 'react';
+import { FileMultiUpload, FileUploadItem } from '@/components/FileUpload/FileMultiUpload';
 
 const meta: Meta<typeof FileMultiUpload> = {
   component: FileMultiUpload,
-  title: "Forms/FileMultiUpload",
-  tags: ["file-upload", "multi-upload", "autodocs"],
+  title: 'Forms/FileMultiUpload',
+  tags: ['file-upload', 'multi-upload', 'autodocs'],
   decorators: [
     Story => (
-      <div style={{ width: "800px" }}>
+      <div style={{ width: '800px' }}>
         <Story />
       </div>
     ),
@@ -24,17 +21,17 @@ type Story = StoryObj<typeof FileMultiUpload>;
 
 export const EmptyState: Story = {
   args: {
-    title: "Upload multiple files",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    title: 'Upload multiple files',
+    supportedFileTypes: ['.txt', '.csv', '.json', '.sql'],
     files: [],
-    onFileSelect: (file: File) => console.log("File selected:", file.name),
-    onFileRetry: (fileId: string) => console.log("Retry file:", fileId),
-    onFileRemove: (fileId: string) => console.log("Remove file:", fileId),
+    onFileSelect: (file: File) => console.log('File selected:', file.name),
+    onFileRetry: (fileId: string) => console.log('Retry file:', fileId),
+    onFileRemove: (fileId: string) => console.log('Remove file:', fileId),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileMultiUpload` component with no files uploaded",
+        story: 'Shows the `FileMultiUpload` component with no files uploaded',
       },
     },
   },
@@ -42,32 +39,32 @@ export const EmptyState: Story = {
 
 export const WithUploadingFiles: Story = {
   args: {
-    title: "Upload multiple files",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    title: 'Upload multiple files',
+    supportedFileTypes: ['.txt', '.csv', '.json', '.sql'],
     files: [
       {
-        id: "1",
-        name: "document1.txt",
+        id: '1',
+        name: 'document1.txt',
         size: 1024,
-        status: "uploading" as const,
+        status: 'uploading' as const,
         progress: 45,
       },
       {
-        id: "2",
-        name: "spreadsheet.csv",
+        id: '2',
+        name: 'spreadsheet.csv',
         size: 2048,
-        status: "uploading" as const,
+        status: 'uploading' as const,
         progress: 75,
       },
     ],
-    onFileSelect: (file: File) => console.log("File selected:", file.name),
-    onFileRetry: (fileId: string) => console.log("Retry file:", fileId),
-    onFileRemove: (fileId: string) => console.log("Remove file:", fileId),
+    onFileSelect: (file: File) => console.log('File selected:', file.name),
+    onFileRetry: (fileId: string) => console.log('Retry file:', fileId),
+    onFileRemove: (fileId: string) => console.log('Remove file:', fileId),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileMultiUpload` component with files currently uploading",
+        story: 'Shows the `FileMultiUpload` component with files currently uploading',
       },
     },
   },
@@ -75,39 +72,39 @@ export const WithUploadingFiles: Story = {
 
 export const WithSuccessFiles: Story = {
   args: {
-    title: "Upload multiple files",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    title: 'Upload multiple files',
+    supportedFileTypes: ['.txt', '.csv', '.json', '.sql'],
     files: [
       {
-        id: "1",
-        name: "document1.txt",
+        id: '1',
+        name: 'document1.txt',
         size: 1024,
-        status: "success" as const,
+        status: 'success' as const,
         progress: 100,
       },
       {
-        id: "2",
-        name: "spreadsheet.csv",
+        id: '2',
+        name: 'spreadsheet.csv',
         size: 2048,
-        status: "success" as const,
+        status: 'success' as const,
         progress: 100,
       },
       {
-        id: "3",
-        name: "config.json",
+        id: '3',
+        name: 'config.json',
         size: 512,
-        status: "success" as const,
+        status: 'success' as const,
         progress: 100,
       },
     ],
-    onFileSelect: (file: File) => console.log("File selected:", file.name),
-    onFileRetry: (fileId: string) => console.log("Retry file:", fileId),
-    onFileRemove: (fileId: string) => console.log("Remove file:", fileId),
+    onFileSelect: (file: File) => console.log('File selected:', file.name),
+    onFileRetry: (fileId: string) => console.log('Retry file:', fileId),
+    onFileRemove: (fileId: string) => console.log('Remove file:', fileId),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileMultiUpload` component with successfully uploaded files",
+        story: 'Shows the `FileMultiUpload` component with successfully uploaded files',
       },
     },
   },
@@ -115,34 +112,34 @@ export const WithSuccessFiles: Story = {
 
 export const WithErrorFiles: Story = {
   args: {
-    title: "Upload multiple files",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    title: 'Upload multiple files',
+    supportedFileTypes: ['.txt', '.csv', '.json', '.sql'],
     files: [
       {
-        id: "1",
-        name: "document1.txt",
+        id: '1',
+        name: 'document1.txt',
         size: 1024,
-        status: "error" as const,
+        status: 'error' as const,
         progress: 0,
-        errorMessage: "Upload failed",
+        errorMessage: 'Upload failed',
       },
       {
-        id: "2",
-        name: "large-file.csv",
+        id: '2',
+        name: 'large-file.csv',
         size: 5242880,
-        status: "error" as const,
+        status: 'error' as const,
         progress: 0,
-        errorMessage: "File too large",
+        errorMessage: 'File too large',
       },
     ],
-    onFileSelect: (file: File) => console.log("File selected:", file.name),
-    onFileRetry: (fileId: string) => console.log("Retry file:", fileId),
-    onFileRemove: (fileId: string) => console.log("Remove file:", fileId),
+    onFileSelect: (file: File) => console.log('File selected:', file.name),
+    onFileRetry: (fileId: string) => console.log('Retry file:', fileId),
+    onFileRemove: (fileId: string) => console.log('Remove file:', fileId),
   },
   parameters: {
     docs: {
       description: {
-        story: "Shows the `FileMultiUpload` component with files that failed to upload",
+        story: 'Shows the `FileMultiUpload` component with files that failed to upload',
       },
     },
   },
@@ -150,48 +147,48 @@ export const WithErrorFiles: Story = {
 
 export const MixedStates: Story = {
   args: {
-    title: "Upload multiple files",
-    supportedFileTypes: [".txt", ".csv", ".json", ".sql"],
+    title: 'Upload multiple files',
+    supportedFileTypes: ['.txt', '.csv', '.json', '.sql'],
     files: [
       {
-        id: "1",
-        name: "document1.txt",
+        id: '1',
+        name: 'document1.txt',
         size: 1024,
-        status: "success" as const,
+        status: 'success' as const,
         progress: 100,
       },
       {
-        id: "2",
-        name: "uploading-file.csv",
+        id: '2',
+        name: 'uploading-file.csv',
         size: 2048,
-        status: "uploading" as const,
+        status: 'uploading' as const,
         progress: 65,
       },
       {
-        id: "3",
-        name: "failed-file.json",
+        id: '3',
+        name: 'failed-file.json',
         size: 512,
-        status: "error" as const,
+        status: 'error' as const,
         progress: 0,
-        errorMessage: "Network error",
+        errorMessage: 'Network error',
       },
       {
-        id: "4",
-        name: "another-success.sql",
+        id: '4',
+        name: 'another-success.sql',
         size: 1536,
-        status: "success" as const,
+        status: 'success' as const,
         progress: 100,
       },
     ],
-    onFileSelect: (file: File) => console.log("File selected:", file.name),
-    onFileRetry: (fileId: string) => console.log("Retry file:", fileId),
-    onFileRemove: (fileId: string) => console.log("Remove file:", fileId),
+    onFileSelect: (file: File) => console.log('File selected:', file.name),
+    onFileRetry: (fileId: string) => console.log('Retry file:', fileId),
+    onFileRemove: (fileId: string) => console.log('Remove file:', fileId),
   },
   parameters: {
     docs: {
       description: {
         story:
-          "Shows the `FileMultiUpload` component with files in various states (success, uploading, error)",
+          'Shows the `FileMultiUpload` component with files in various states (success, uploading, error)',
       },
     },
   },
@@ -206,7 +203,7 @@ export const Interactive: StoryFn = () => {
       id: Date.now().toString(),
       name: file.name,
       size: file.size,
-      status: "uploading",
+      status: 'uploading',
       progress: 0,
     };
 
@@ -216,12 +213,12 @@ export const Interactive: StoryFn = () => {
     const interval = setInterval(() => {
       setFiles(prev =>
         prev.map(f => {
-          if (f.id === newFile.id && f.status === "uploading") {
+          if (f.id === newFile.id && f.status === 'uploading') {
             const newProgress = Math.min(f.progress + 10, 100);
             return {
               ...f,
               progress: newProgress,
-              status: newProgress === 100 ? "success" : "uploading",
+              status: newProgress === 100 ? 'success' : 'uploading',
             };
           }
           return f;
@@ -234,7 +231,7 @@ export const Interactive: StoryFn = () => {
 
   const handleFileRetry = (fileId: string) => {
     setFiles(prev =>
-      prev.map(f => (f.id === fileId ? { ...f, status: "uploading", progress: 0 } : f))
+      prev.map(f => (f.id === fileId ? { ...f, status: 'uploading', progress: 0 } : f))
     );
 
     // Simulate retry with potential failure
@@ -244,9 +241,9 @@ export const Interactive: StoryFn = () => {
           f.id === fileId
             ? {
                 ...f,
-                status: Math.random() > 0.5 ? "success" : "error",
+                status: Math.random() > 0.5 ? 'success' : 'error',
                 progress: Math.random() > 0.5 ? 100 : 0,
-                errorMessage: Math.random() > 0.5 ? undefined : "Retry failed",
+                errorMessage: Math.random() > 0.5 ? undefined : 'Retry failed',
               }
             : f
         )
@@ -261,7 +258,7 @@ export const Interactive: StoryFn = () => {
   return (
     <FileMultiUpload
       title="Upload multiple files"
-      supportedFileTypes={[".txt", ".csv", ".json", ".sql"]}
+      supportedFileTypes={['.txt', '.csv', '.json', '.sql']}
       files={files}
       onFileSelect={handleFileSelect}
       onFileRetry={handleFileRetry}
@@ -274,7 +271,7 @@ Interactive.parameters = {
   docs: {
     description: {
       story:
-        "Interactive example that simulates file upload behavior with progress and state management",
+        'Interactive example that simulates file upload behavior with progress and state management',
     },
   },
 };

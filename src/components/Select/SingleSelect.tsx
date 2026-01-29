@@ -1,18 +1,18 @@
-import { KeyboardEvent, MouseEvent, useCallback, useState } from "react";
+import { KeyboardEvent, MouseEvent, useCallback, useState } from 'react';
 
-import { useUpdateEffect } from "@/hooks";
+import { useUpdateEffect } from '@/hooks';
 
-import { SelectContainerProps, SelectOptionProp, SelectionType } from "./common/types";
+import { SelectContainerProps, SelectOptionProp, SelectionType } from './common/types';
 import {
   InternalSelect,
   SelectGroup,
   SelectItem,
   SelectItemDescription,
-} from "./common/InternalSelect";
+} from './common/InternalSelect';
 
 export interface SelectProps extends Omit<
   SelectContainerProps,
-  "onChange" | "value" | "sortable" | "open" | "onOpenChange" | "onSelect"
+  'onChange' | 'value' | 'sortable' | 'open' | 'onOpenChange' | 'onSelect'
 > {
   defaultValue?: string;
   onSelect?: (
@@ -37,9 +37,9 @@ export const Select = ({
   ...props
 }: SelectProps) => {
   const [selectedValues, setSelectedValues] = useState<Array<string>>(
-    typeof valueProp === "string"
+    typeof valueProp === 'string'
       ? [valueProp]
-      : typeof defaultValue === "string"
+      : typeof defaultValue === 'string'
         ? [defaultValue]
         : []
   );
@@ -48,7 +48,7 @@ export const Select = ({
   const onOpenChange = useCallback(
     (open: boolean) => {
       setOpen(open);
-      if (typeof onOpenChangeProp === "function") {
+      if (typeof onOpenChangeProp === 'function') {
         onOpenChangeProp(open);
       }
     },
@@ -68,7 +68,7 @@ export const Select = ({
         return values;
       });
       onOpenChange(false);
-      if (typeof onSelectProp === "function") {
+      if (typeof onSelectProp === 'function') {
         onSelectProp(value, type, evt);
       }
     },
@@ -85,7 +85,7 @@ export const Select = ({
   );
 
   useUpdateEffect(() => {
-    setSelectedValues(typeof valueProp === "string" ? [valueProp] : []);
+    setSelectedValues(typeof valueProp === 'string' ? [valueProp] : []);
   }, [valueProp]);
 
   const conditionalProps: Partial<SelectOptionProp> = {};
@@ -98,7 +98,7 @@ export const Select = ({
   return (
     <InternalSelect
       onChange={onChange}
-      value={typeof valueProp === "string" ? [valueProp] : selectedValues}
+      value={typeof valueProp === 'string' ? [valueProp] : selectedValues}
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}

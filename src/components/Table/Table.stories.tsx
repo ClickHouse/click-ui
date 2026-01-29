@@ -1,52 +1,52 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Table, TableRowType } from "./Table";
+import { Table, TableRowType } from './Table';
 
-const headers = [{ label: "Company" }, { label: "Contact" }, { label: "Country" }];
+const headers = [{ label: 'Company' }, { label: 'Contact' }, { label: 'Country' }];
 const rows: TableRowType[] = [
   {
-    id: "row-1",
+    id: 'row-1',
     items: [
-      { label: "Alfreds Futterkiste" },
-      { label: "Maria Anders" },
-      { label: "Germany" },
+      { label: 'Alfreds Futterkiste' },
+      { label: 'Maria Anders' },
+      { label: 'Germany' },
     ],
     isIndeterminate: true,
   },
   {
-    id: "row-2",
+    id: 'row-2',
     items: [
-      { label: "Centro comercial Moctezuma" },
-      { label: "Francisco Chang" },
-      { label: "Mexico" },
+      { label: 'Centro comercial Moctezuma' },
+      { label: 'Francisco Chang' },
+      { label: 'Mexico' },
     ],
   },
   {
-    id: "row-3",
+    id: 'row-3',
     isActive: true,
     items: [
-      { label: "Alfreds Futterkiste" },
-      { label: "Maria Anders" },
-      { label: "Germany" },
+      { label: 'Alfreds Futterkiste' },
+      { label: 'Maria Anders' },
+      { label: 'Germany' },
     ],
   },
   {
-    id: "row-4",
+    id: 'row-4',
     isDeleted: true,
     items: [
-      { label: "Centro comercial Moctezuma" },
-      { label: "Francisco Chang" },
-      { label: "Mexico" },
+      { label: 'Centro comercial Moctezuma' },
+      { label: 'Francisco Chang' },
+      { label: 'Mexico' },
     ],
   },
 ];
 
 const meta: Meta<typeof Table> = {
   component: Table,
-  title: "Display/Table",
-  tags: ["table", "autodocs"],
+  title: 'Display/Table',
+  tags: ['table', 'autodocs'],
 };
 
 export default meta;
@@ -101,7 +101,7 @@ export const Sortable: StoryObj<typeof Table> = {
     rows,
   },
   render: ({ rows, headers, ...props }) => {
-    const [sort, setSort] = useState<[number, "asc" | "desc"]>([0, "asc"]);
+    const [sort, setSort] = useState<[number, 'asc' | 'desc']>([0, 'asc']);
 
     const sortedHeaders = useMemo(
       () =>
@@ -117,10 +117,10 @@ export const Sortable: StoryObj<typeof Table> = {
       () =>
         [...rows].sort((a, b) => {
           const [cellIdx, sortDir] = sort;
-          const cellA = a.items[cellIdx]?.label?.toString() || "";
-          const cellB = b.items[cellIdx]?.label?.toString() || "";
-          const result = cellA.localeCompare(cellB, "en", { numeric: true });
-          return sortDir === "asc" ? result : -result;
+          const cellA = a.items[cellIdx]?.label?.toString() || '';
+          const cellB = b.items[cellIdx]?.label?.toString() || '';
+          const result = cellA.localeCompare(cellB, 'en', { numeric: true });
+          return sortDir === 'asc' ? result : -result;
         }),
       [rows, sort]
     );

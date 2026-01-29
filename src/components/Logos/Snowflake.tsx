@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Snowflake = (props: SVGAttributes<SVGElement>) => (
   <svg
@@ -12,7 +12,7 @@ const Snowflake = (props: SVGAttributes<SVGElement>) => (
     <g clipPath="url(#clip0_3281_13723)">
       <mask
         id="mask0_3281_13723"
-        style={{ maskType: "luminance" }}
+        style={{ maskType: 'luminance' }}
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"

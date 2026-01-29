@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { PasswordField } from "./PasswordField";
+import { PasswordField } from './PasswordField';
 
 const meta: Meta<typeof PasswordField> = {
   component: PasswordField,
-  title: "Forms/Input/PasswordField",
-  tags: ["form-field", "input", "autodocs"],
+  title: 'Forms/Input/PasswordField',
+  tags: ['form-field', 'input', 'autodocs'],
   render: ({ value: valueProp, ...props }) => {
     const [value, setValue] = useState(valueProp);
 
@@ -29,8 +29,8 @@ export default meta;
 
 export const Playground: StoryObj<typeof PasswordField> = {
   args: {
-    label: "Label",
+    label: 'Label',
     disabled: false,
-    placeholder: "Placeholder",
+    placeholder: 'Placeholder',
   },
 };

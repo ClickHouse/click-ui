@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { styled } from "styled-components";
-import { Icon, HorizontalDirection, IconName } from "@/components";
+import { ReactNode } from 'react';
+import { styled } from 'styled-components';
+import { Icon, HorizontalDirection, IconName } from '@/components';
 
 const LabelContainer = styled.span`
   display: flex;
@@ -30,7 +30,7 @@ const EllipsisContainer = styled.span`
 
 export const IconWrapper = ({
   icon,
-  iconDir = "start",
+  iconDir = 'start',
   children,
 }: {
   icon?: IconName;
@@ -39,14 +39,14 @@ export const IconWrapper = ({
 }) => {
   return (
     <LabelContainer>
-      {icon && iconDir === "start" && (
+      {icon && iconDir === 'start' && (
         <Icon
           name={icon}
           size="sm"
         />
       )}
       <EllipsisContainer>{children}</EllipsisContainer>
-      {icon && iconDir === "end" && (
+      {icon && iconDir === 'end' && (
         <Icon
           name={icon}
           size="sm"

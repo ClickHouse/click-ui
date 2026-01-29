@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { TextField } from "./TextField";
+import { TextField } from './TextField';
 
 const meta: Meta<typeof TextField> = {
   component: TextField,
-  title: "Forms/Input/TextField",
-  tags: ["form-field", "input", "autodocs"],
+  title: 'Forms/Input/TextField',
+  tags: ['form-field', 'input', 'autodocs'],
   render: ({ value: valueProp, ...props }) => {
     const [value, setValue] = useState(valueProp);
 
@@ -29,17 +29,17 @@ export default meta;
 
 export const Playground: StoryObj<typeof TextField> = {
   args: {
-    label: "Label",
-    type: "text",
-    placeholder: "Placeholder",
+    label: 'Label',
+    type: 'text',
+    placeholder: 'Placeholder',
   },
 };
 
 export const LabelColor: StoryObj<typeof TextField> = {
   args: {
-    label: "Label",
-    labelColor: "rgb(193, 0, 0)",
-    type: "text",
-    placeholder: "Placeholder",
+    label: 'Label',
+    labelColor: 'rgb(193, 0, 0)',
+    type: 'text',
+    placeholder: 'Placeholder',
   },
 };

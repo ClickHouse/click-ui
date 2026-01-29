@@ -1,13 +1,13 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 import {
   CellProps,
   ColumnResizeFn,
   GetResizerPositionFn,
   SelectionTypeFn,
-} from "./types";
-import { StyledCell } from "./StyledCell";
-import ColumnResizer from "./ColumnResizer";
-import { ResizingState } from "./useResizingState";
+} from './types';
+import { StyledCell } from './StyledCell';
+import ColumnResizer from './ColumnResizer';
+import { ResizingState } from './useResizingState';
 
 interface HeaderProps {
   showRowNumber: boolean;
@@ -38,7 +38,7 @@ const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean
   ${({ $scrolledVertical, theme }) =>
     $scrolledVertical
       ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ""}
+      : ''}
 `;
 
 const ScrollableHeaderContainer = styled.div<{
@@ -50,15 +50,15 @@ const ScrollableHeaderContainer = styled.div<{
 
 interface ColumnProps extends Pick<
   HeaderProps,
-  | "cell"
-  | "getSelectionType"
-  | "onColumnResize"
-  | "getColumnWidth"
-  | "height"
-  | "getResizerPosition"
-  | "showBorder"
-  | "getColumnHorizontalPosition"
-  | "resizingState"
+  | 'cell'
+  | 'getSelectionType'
+  | 'onColumnResize'
+  | 'getColumnWidth'
+  | 'height'
+  | 'getResizerPosition'
+  | 'showBorder'
+  | 'getColumnHorizontalPosition'
+  | 'resizingState'
 > {
   columnIndex: number;
   isFirstColumn: boolean;
@@ -72,7 +72,7 @@ const HeaderCellContainer = styled.div<{
 }>`
   position: absolute;
   display: flex;
-  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
+  width: ${({ $width }) => (typeof $width === 'string' ? $width : `${$width}px`)};
   height: ${({ $height }) => $height}px;
   left: ${({ $columnPosition }) => $columnPosition}px;
   &:hover [data-resize] {
@@ -87,12 +87,12 @@ const RowColumnContainer = styled(HeaderCellContainer)<{
   position: sticky;
   top: 0;
   left: 0;
-  width: ${({ $width }) => (typeof $width === "string" ? $width : `${$width}px`)};
+  width: ${({ $width }) => (typeof $width === 'string' ? $width : `${$width}px`)};
   text-align: right;
   ${({ $scrolledHorizontal, theme }) =>
     $scrolledHorizontal
       ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ""}
+      : ''}
 `;
 
 const RowColumn = styled(StyledCell)`
@@ -117,17 +117,17 @@ const Column = ({
 }: ColumnProps) => {
   const selectionType = getSelectionType({
     column: columnIndex,
-    type: "column",
+    type: 'column',
   });
   const leftSelectionType = getSelectionType({
     column: columnIndex - 1,
-    type: "column",
+    type: 'column',
   });
   const columnPosition = getColumnHorizontalPosition(columnIndex);
 
-  const isSelected = selectionType === "selectDirect";
+  const isSelected = selectionType === 'selectDirect';
   const isSelectedLeft =
-    (leftSelectionType === "selectDirect" || isSelected) &&
+    (leftSelectionType === 'selectDirect' || isSelected) &&
     leftSelectionType !== selectionType;
 
   const columnWidth = getColumnWidth(columnIndex);
@@ -189,7 +189,7 @@ const Header = ({
   resizingState,
 }: HeaderProps) => {
   const selectedAllType = getSelectionType({
-    type: "all",
+    type: 'all',
   });
   return (
     <HeaderContainer
@@ -226,7 +226,7 @@ const Header = ({
           $scrolledHorizontal={scrolledHorizontal}
         >
           <RowColumn
-            data-selected={selectedAllType === "selectDirect"}
+            data-selected={selectedAllType === 'selectDirect'}
             $type="header"
             $isFirstRow
             $isFirstColumn

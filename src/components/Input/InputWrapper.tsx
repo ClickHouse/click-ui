@@ -1,11 +1,11 @@
-import { Error, FormElementContainer, FormRoot } from "../commonElement";
-import { Label } from "@/components";
-import { styled } from "styled-components";
-import { ReactNode } from "react";
+import { Error, FormElementContainer, FormRoot } from '../commonElement';
+import { Label } from '@/components';
+import { styled } from 'styled-components';
+import { ReactNode } from 'react';
 
 const Wrapper = styled.div<{
   $error: boolean;
-  $resize: "none" | "vertical" | "horizontal" | "both";
+  $resize: 'none' | 'vertical' | 'horizontal' | 'both';
 }>`
   width: inherit;
   display: flex;
@@ -52,8 +52,8 @@ const Wrapper = styled.div<{
       }
     }
     ${
-      $resize === "none"
-        ? ""
+      $resize === 'none'
+        ? ''
         : `
       resize: ${$resize};
       overflow: auto;
@@ -122,7 +122,7 @@ const Wrapper = styled.div<{
 
 const StyledLabel = styled(Label)<{ $labelColor?: string }>`
   ${({ $labelColor }) => `
-    ${$labelColor ? `color: ${$labelColor};` : ""}
+    ${$labelColor ? `color: ${$labelColor};` : ''}
   `}
 `;
 
@@ -134,22 +134,22 @@ export interface WrapperProps {
   error?: ReactNode;
   disabled?: boolean;
   children: ReactNode;
-  orientation?: "vertical" | "horizontal";
-  dir?: "start" | "end";
-  resize?: "none" | "vertical" | "horizontal" | "both";
+  orientation?: 'vertical' | 'horizontal';
+  dir?: 'start' | 'end';
+  resize?: 'none' | 'vertical' | 'horizontal' | 'both';
 }
 
 export const InputWrapper = ({
   className,
   id,
-  label = "",
+  label = '',
   labelColor,
   error,
   disabled,
   children,
   orientation,
   dir,
-  resize = "none",
+  resize = 'none',
 }: WrapperProps) => {
   return (
     <FormRoot
@@ -194,8 +194,8 @@ export const InputElement = styled.input<{
   font: inherit;
   ${({ theme, $hasStartContent, $hasEndContent }) => `
     padding: ${theme.click.field.space.y} 0;
-    padding-left: ${$hasStartContent ? "0" : theme.click.field.space.x};
-    padding-right: ${$hasEndContent ? "0" : theme.click.field.space.x};
+    padding-left: ${$hasStartContent ? '0' : theme.click.field.space.x};
+    padding-right: ${$hasEndContent ? '0' : theme.click.field.space.x};
     &::placeholder {
       color: ${theme.click.field.color.placeholder.default};
     }
@@ -220,7 +220,7 @@ export const NumberInputElement = styled(InputElement)<{ $hideControls?: boolean
 
     -moz-appearance: textfield;
     `
-        : ""
+        : ''
     }
   `}
 `;

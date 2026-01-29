@@ -12,3 +12,8 @@ vite.config.ts.timestamp*
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
+
+**.ts-snapshots
+tests/**/*-actual.png
+tests/**/*-diff.png
+test-results

@@ -1,5 +1,5 @@
-import { keyframes, styled } from "styled-components";
-import Loading from "./Loading";
+import { keyframes, styled } from 'styled-components';
+import Loading from './Loading';
 
 const spin = keyframes`
   from {
