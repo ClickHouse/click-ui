@@ -164,18 +164,6 @@ const ProgressBarWrapper = styled.div`
   margin-bottom: 9px;
 `;
 
-const formatFileSize = (sizeInBytes: number): string => {
-  if (sizeInBytes < 1024) {
-    return `${sizeInBytes.toFixed(1)} B`;
-  } else if (sizeInBytes < 1024 * 1024) {
-    return `${(sizeInBytes / 1024).toFixed(1)} KB`;
-  } else if (sizeInBytes < 1024 * 1024 * 1024) {
-    return `${(sizeInBytes / (1024 * 1024)).toFixed(1)} MB`;
-  } else {
-    return `${(sizeInBytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-  }
-};
-
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
   if (!supportedTypes.length) {
     return true;
@@ -414,11 +402,6 @@ export const FileMultiUpload = ({
                       type={'small'}
                     />
                   </ProgressBarWrapper>
-                )}
-                {(file.status === 'success' || file.status === 'error') && (
-                  <FileUploadDescription>
-                    {formatFileSize(file.size)}
-                  </FileUploadDescription>
                 )}
               </FileContentContainer>
               <FileActions>
