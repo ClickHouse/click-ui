@@ -60,6 +60,7 @@ export interface ContainerProps<T extends ElementType = 'div'> {
   minHeight?: string;
   /** CSS overflow behavior */
   overflow?: string;
+  display?: string;
 }
 
 type ContainerPolymorphicComponent = <T extends ElementType = 'div'>(
@@ -86,6 +87,7 @@ const _Container = <T extends ElementType = 'div'>(
     maxHeight,
     minHeight,
     overflow,
+    display = 'flex',
     ...props
   }: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
@@ -110,6 +112,7 @@ const _Container = <T extends ElementType = 'div'>(
       $maxHeight={maxHeight}
       $minHeight={minHeight}
       $overflow={overflow}
+      $display={display}
       data-testid="container"
       {...props}
     >
@@ -134,8 +137,9 @@ const Wrapper = styled.div<{
   $minHeight?: string;
   $maxHeight?: string;
   $overflow?: string;
+  $display: string;
 }>`
-  display: flex;
+  display: ${({ $display }) => $display};
   ${({ $grow, $shrink }) => `
     ${$grow && `flex: ${$grow}`};
     ${$shrink && `flex-shrink: ${$shrink}`};
