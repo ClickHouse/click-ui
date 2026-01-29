@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
 import PopoverArrow from '../icons/PopoverArrow';
@@ -28,8 +29,8 @@ interface MainDropdownProps {
 
 type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
   SubDropdownProps;
-
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
+
 const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
   width: fit-content;
@@ -77,9 +78,17 @@ Dropdown.Trigger = DropdownTrigger;
 export type ArrowProps = {
   showArrow?: boolean;
 };
-type DropdownContentProps = DropdownMenu.MenuContentProps & SubDropdownProps & ArrowProps;
 
-type DropdownSubContentProps = DropdownMenu.MenuSubContentProps &
+interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
+  children?: ReactNode;
+}
+
+interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
+  children?: ReactNode;
+}
+
+type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownSubContentProps = StyledDropdownSubContentProps &
   MainDropdownProps &
   ArrowProps;
 
@@ -162,6 +171,7 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
 }
 
 export type { DropdownItemProps };
+
 const DropdownItem = ({
   icon,
   iconDir,

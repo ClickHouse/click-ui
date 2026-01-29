@@ -15,7 +15,7 @@ const BadgeList = styled.div`
   color: inherit;
 `;
 
-const MultiSelectBadge = styled.div`
+const MultiSelectBadge = styled(Badge)`
   width: 100%;
   width: -webkit-fill-available;
   width: fill-available;
@@ -100,7 +100,6 @@ export const MultiSelectValue = ({
         }
         return (
           <MultiSelectBadge
-            as={Badge}
             key={`multi-select-${id}-${value}`}
             size="sm"
             state={disabled ? 'disabled' : 'default'}

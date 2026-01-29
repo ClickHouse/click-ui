@@ -9,7 +9,7 @@ import globals from "globals";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "node_modules/**", "build/**", "coverage/**"],
+    ignores: ["dist/**", "node_modules/**", "build/**", "coverage/**", "**/*.d.ts"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
