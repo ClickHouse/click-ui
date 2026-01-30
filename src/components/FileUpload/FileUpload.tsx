@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
-import { Button, Icon, IconButton, ProgressBar, Container } from '@/components';
+import { Button, Icon, IconButton, ProgressBar } from '@/components';
 import { MiddleTruncator } from '../MiddleTruncator';
 
 interface FileInfo {
@@ -393,28 +393,18 @@ export const FileUpload = ({
           </>
         ) : (
           <>
-            <DocumentIcon name={'document'} />
+            {(showSuccess && (
+              <Icon
+                size={'xs'}
+                state={'success'}
+                name={'check'}
+              />
+            )) || <DocumentIcon name={'document'} />}
             <FileContentContainer $size={size}>
               <FileDetails>
                 <MiddleTruncator text={file.name} />
                 {showProgress && !showSuccess && (
                   <FileUploadDescription>{progress}%</FileUploadDescription>
-                )}
-                {showSuccess && (
-                  <Container
-                    display="inline-flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    shrink="0"
-                    fillWidth={false}
-                    isResponsive={false}
-                  >
-                    <Icon
-                      size={'xs'}
-                      state={'success'}
-                      name={'check'}
-                    />
-                  </Container>
                 )}
               </FileDetails>
               {!showProgress && !showSuccess && (
