@@ -1,12 +1,18 @@
+// TODO: The FileMultiUpload MUST want to re-use FileUpload
+// at time of writing, it seems to recreate FileUpload locally
+
 import React, { useEffect } from 'react';
 import { styled, css } from 'styled-components';
 import { useState, useRef, useCallback } from 'react';
 
-import { shortenMiddle } from '@/utils/truncate';
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
-import { Button, Icon, IconButton, ProgressBar } from '@/components';
-
+import { Button } from '@/components/Button/Button';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
+import { Container } from '@/components/Container/Container';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
 export interface FileUploadItem {
   /** Unique identifier for the file */
   id: string;
@@ -73,11 +79,6 @@ const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
       : theme.click.fileUpload.color.title.default};
 `;
 
-const FileName = styled(Text)`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.title.default};
-`;
-
 const FileUploadDescription = styled(Text)<{ $isError?: boolean }>`
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme, $isError }) =>
@@ -142,6 +143,7 @@ const FileDetails = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   border: none;
+  min-width: 0;
 `;
 
 const FileActions = styled.div`
@@ -157,24 +159,13 @@ const FileContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 24px;
+  min-width: 0;
 `;
 
 const ProgressBarWrapper = styled.div`
   margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   margin-bottom: 9px;
 `;
-
-const formatFileSize = (sizeInBytes: number): string => {
-  if (sizeInBytes < 1024) {
-    return `${sizeInBytes.toFixed(1)} B`;
-  } else if (sizeInBytes < 1024 * 1024) {
-    return `${(sizeInBytes / 1024).toFixed(1)} KB`;
-  } else if (sizeInBytes < 1024 * 1024 * 1024) {
-    return `${(sizeInBytes / (1024 * 1024)).toFixed(1)} MB`;
-  } else {
-    return `${(sizeInBytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-  }
-};
 
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
   if (!supportedTypes.length) {
@@ -381,23 +372,32 @@ export const FileMultiUpload = ({
               <DocumentIcon name={'document'} />
               <FileContentContainer>
                 <FileDetails>
-                  <FileName>{shortenMiddle(file.name)}</FileName>
+                  <MiddleTruncator text={file.name} />
                   {file.status === 'uploading' && (
                     <FileUploadDescription>{file.progress}%</FileUploadDescription>
                   )}
-                  {file.status === 'error' && (
-                    <FileUploadDescription $isError>
-                      {file.errorMessage || 'Upload failed'}
-                    </FileUploadDescription>
-                  )}
                   {file.status === 'success' && (
-                    <Icon
-                      size={'xs'}
-                      state={'success'}
-                      name={'check'}
-                    />
+                    <Container
+                      display="inline-flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      shrink="0"
+                      fillWidth={false}
+                      isResponsive={false}
+                    >
+                      <Icon
+                        size={'xs'}
+                        state={'success'}
+                        name={'check'}
+                      />
+                    </Container>
                   )}
                 </FileDetails>
+                {file.status === 'error' && (
+                  <FileUploadDescription $isError>
+                    {file.errorMessage || 'Upload failed'}
+                  </FileUploadDescription>
+                )}
                 {file.status === 'uploading' && (
                   <ProgressBarWrapper>
                     <ProgressBar
@@ -405,11 +405,6 @@ export const FileMultiUpload = ({
                       type={'small'}
                     />
                   </ProgressBarWrapper>
-                )}
-                {(file.status === 'success' || file.status === 'error') && (
-                  <FileUploadDescription>
-                    {formatFileSize(file.size)}
-                  </FileUploadDescription>
                 )}
               </FileContentContainer>
               <FileActions>
