@@ -1,10 +1,7 @@
 import { styled } from 'styled-components';
+import { Container } from '@/components/Container/Container';
 
-const TruncatorContainer = styled.div`
-  display: flex;
-  width: auto;
-  min-width: 0;
-  overflow: hidden;
+const TruncatorContainer = styled(Container)`
   white-space: nowrap;
   font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
   color: ${({ theme }) => theme.click.fileUpload.color.title.default};
@@ -36,6 +33,9 @@ export const MiddleTruncator = ({
     <TruncatorContainer
       title={text}
       aria-label={text}
+      fillWidth={false}
+      minWidth="0"
+      overflow="hidden"
     >
       <TruncatorStart>{startText}</TruncatorStart>
       <TruncatorEnd>{endText}</TruncatorEnd>
