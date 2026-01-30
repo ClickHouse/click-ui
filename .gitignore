@@ -8,6 +8,7 @@ storybook-static
 **/.DS_Store
 vite.config.ts.timestamp*
 .storybook/out
+tmp/*
 
 .yarn/*
 !.yarn/releases

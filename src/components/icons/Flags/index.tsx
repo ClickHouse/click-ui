@@ -17,11 +17,11 @@ import SouthKorea from './SouthKorea';
 import Brazil from './Brazil';
 import Canada from './Canada';
 import Sweden from './Sweden';
-import { IconSize } from '@/components/Icon/types';
-import { SvgImageElement } from '@/components/commonElement';
-import Switzerland from '@/components/icons/Flags/Switzerland';
+import Switzerland from './Switzerland';
 import HongKong from './HongKong';
 import Indonesia from './Indonesia';
+import { IconSize } from '@/components/Icon/types';
+import { SvgImageElement } from '@/components/commonElement';
 
 export type FlagName =
   | 'ae'

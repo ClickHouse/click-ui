@@ -4,8 +4,12 @@ import { useState, useRef, useCallback } from 'react';
 
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
-import { Button, Icon, IconButton, ProgressBar, Container } from '@/components';
-import { MiddleTruncator } from '../MiddleTruncator';
+import { Button } from '@/components/Button/Button';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
+import { Container } from '@/components/Container/Container';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
 
 interface FileInfo {
   name: string;

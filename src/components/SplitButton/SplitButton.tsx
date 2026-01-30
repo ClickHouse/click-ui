@@ -1,11 +1,16 @@
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-import { Icon, IconName, Dropdown, HorizontalDirection } from '@/components';
+import { Dropdown } from '@/components/Dropdown/Dropdown';
+import { HorizontalDirection } from '@/components/types';
 import { BaseButton } from '../commonElement';
-import IconWrapper from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper/IconWrapper';
+
+import { Icon } from '@/components/Icon/Icon';
+import { IconName } from '@/components/Icon/types';
 
 type ButtonType = 'primary' | 'secondary';
+
 type MenuItem = {
   icon?: IconName;
   iconDir?: HorizontalDirection;
@@ -28,8 +33,9 @@ type SubMenu = Omit<MenuItem, 'type' | 'items'> & {
 };
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
+
 export interface SplitButtonProps
-  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, 'dir'> {
+  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, 'dir' | 'style'> {
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */
@@ -145,6 +151,7 @@ export const SplitButton = ({
     </Dropdown>
   );
 };
+
 const DropdownContent = styled.div<{ $width: number }>`
   min-width: ${({ $width }) => $width}px;
 `;
