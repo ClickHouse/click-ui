@@ -6,6 +6,7 @@ import { shortenMiddle } from '@/utils/truncate';
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
 import { Button, Icon, IconButton, ProgressBar } from '@/components';
+import { formatFileSize } from '@/utils/file';
 
 export interface FileUploadItem {
   /** Unique identifier for the file */
@@ -163,18 +164,6 @@ const ProgressBarWrapper = styled.div`
   margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
   margin-bottom: 9px;
 `;
-
-const formatFileSize = (sizeInBytes: number): string => {
-  if (sizeInBytes < 1024) {
-    return `${sizeInBytes.toFixed(1)} B`;
-  } else if (sizeInBytes < 1024 * 1024) {
-    return `${(sizeInBytes / 1024).toFixed(1)} KB`;
-  } else if (sizeInBytes < 1024 * 1024 * 1024) {
-    return `${(sizeInBytes / (1024 * 1024)).toFixed(1)} MB`;
-  } else {
-    return `${(sizeInBytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
-  }
-};
 
 const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
   if (!supportedTypes.length) {
@@ -406,7 +395,7 @@ export const FileMultiUpload = ({
                     />
                   </ProgressBarWrapper>
                 )}
-                {(file.status === 'success' || file.status === 'error') && (
+                {file.status === 'success' && (
                   <FileUploadDescription>
                     {formatFileSize(file.size)}
                   </FileUploadDescription>
