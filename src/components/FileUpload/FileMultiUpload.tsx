@@ -11,7 +11,6 @@ import { Button } from '@/components/Button/Button';
 import { Icon } from '@/components/Icon/Icon';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
-import { Container } from '@/components/Container/Container';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
 import { formatFileSize } from '@/utils/file';
 
@@ -371,28 +370,19 @@ export const FileMultiUpload = ({
               key={file.id}
               $isError={file.status === 'error'}
             >
-              <DocumentIcon name={'document'} />
+              {(file.status === 'success' && (
+                <Icon
+                  size={'xs'}
+                  state={'success'}
+                  name={'check'}
+                />
+              )) || <DocumentIcon name={'document'} />}
+
               <FileContentContainer>
                 <FileDetails>
                   <MiddleTruncator text={file.name} />
                   {file.status === 'uploading' && (
                     <FileUploadDescription>{file.progress}%</FileUploadDescription>
-                  )}
-                  {file.status === 'success' && (
-                    <Container
-                      display="inline-flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      shrink="0"
-                      fillWidth={false}
-                      isResponsive={false}
-                    >
-                      <Icon
-                        size={'xs'}
-                        state={'success'}
-                        name={'check'}
-                      />
-                    </Container>
                   )}
                 </FileDetails>
                 {file.status === 'error' && (
