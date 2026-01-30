@@ -6,6 +6,7 @@ import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
 import { Button, Icon, IconButton, ProgressBar } from '@/components';
 import { MiddleTruncator } from '../MiddleTruncator';
+import { formatFileSize } from '@/utils/file';
 
 interface FileInfo {
   name: string;
@@ -417,6 +418,9 @@ export const FileUpload = ({
                     type={'small'}
                   />
                 </ProgressBarWrapper>
+              )}
+              {showSuccess && (
+                <FileUploadDescription>{formatFileSize(file.size)}</FileUploadDescription>
               )}
             </FileContentContainer>
             <FileActions>
