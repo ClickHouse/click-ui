@@ -3,15 +3,13 @@ import { styled } from 'styled-components';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
 
-import {
-  Checkbox,
-  CheckboxProps,
-  EllipsisContent,
-  HorizontalDirection,
-  Icon,
-  IconButton,
-  Text,
-} from '@/components';
+import { Checkbox, CheckboxProps } from '@/components/Checkbox/Checkbox';
+import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Text } from '@/components/Typography/Text/Text';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
+import type { HorizontalDirection } from '@/components/types';
 
 type SortDir = 'asc' | 'desc';
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
@@ -378,8 +376,15 @@ const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
     background: transparent;
   }
 `;
+
+// wrap: text breaks into multiple lines
+// truncate: text cuts at end with an ellipsis (...)
+// truncate-middle: text cuts in middle, shows start and end
+type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
+
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
+  overflowMode?: OverflowMode;
 }
 export interface TableRowType extends Omit<
   HTMLAttributes<HTMLTableRowElement>,
@@ -479,14 +484,17 @@ const TableBodyRow = ({
           />
         </SelectData>
       )}
-      {items.map(({ label, ...cellProps }, cellIndex) => (
+      {items.map(({ label, overflowMode, ...cellProps }, cellIndex) => (
         <TableData
           $size={size}
           key={`table-cell-${cellIndex}`}
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <EllipsisContent component="div">{label}</EllipsisContent>
+          <Cell
+            label={label}
+            overflowMode={overflowMode}
+          />
         </TableData>
       ))}
       {actionsList.length > 0 && (
@@ -767,6 +775,37 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
       {...checkboxProps}
     />
   );
+};
+
+const TextWrapped = styled.span`
+  overflow-wrap: break-word;
+  word-break: break-all;
+  display: inline-block;
+  max-width: 100%;
+`;
+
+const Cell = ({
+  label,
+  overflowMode,
+}: {
+  label: ReactNode;
+  overflowMode?: OverflowMode;
+}) => {
+  const isText = typeof label === 'string';
+
+  if (!isText) {
+    return <>{label}</>;
+  }
+
+  if (overflowMode === 'truncated') {
+    return <EllipsisContent component="div">{label}</EllipsisContent>;
+  }
+
+  if (overflowMode === 'truncate-middle') {
+    return <MiddleTruncator text={label} />;
+  }
+
+  return <TextWrapped>{label}</TextWrapped>;
 };
 
 const StyledTable = styled.table`
