@@ -138,7 +138,7 @@ export const Selectable: StoryObj<typeof Table> = {
 
 export const LongText: StoryObj<typeof Table> = {
   args: {
-    headers,
+    headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
     rows: rowsLongText,
   },
   render: ({ rows, headers, ...props }) => {
