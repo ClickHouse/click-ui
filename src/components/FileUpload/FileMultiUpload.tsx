@@ -13,6 +13,8 @@ import { IconButton } from '@/components/IconButton/IconButton';
 import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
 import { Container } from '@/components/Container/Container';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
+import { formatFileSize } from '@/utils/file';
+
 export interface FileUploadItem {
   /** Unique identifier for the file */
   id: string;
@@ -405,6 +407,11 @@ export const FileMultiUpload = ({
                       type={'small'}
                     />
                   </ProgressBarWrapper>
+                )}
+                {file.status === 'success' && (
+                  <FileUploadDescription>
+                    {formatFileSize(file.size)}
+                  </FileUploadDescription>
                 )}
               </FileContentContainer>
               <FileActions>

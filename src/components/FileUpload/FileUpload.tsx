@@ -6,6 +6,7 @@ import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
 import { Button, Icon, IconButton, ProgressBar, Container } from '@/components';
 import { MiddleTruncator } from '../MiddleTruncator';
+import { formatFileSize } from '@/utils/file';
 
 interface FileInfo {
   name: string;
@@ -45,6 +46,8 @@ const UploadArea = styled.div<{
 }>`
   container-type: inline-size;
   container-name: uploadArea;
+  box-sizing: border-box;
+  width: 100%;
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
   border-radius: ${({ theme, $hasFile }) =>
@@ -57,7 +60,7 @@ const UploadArea = styled.div<{
       : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   min-height: ${({ theme, $size }) =>
     $size === 'sm'
-      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[6]})`
+      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[8]})`
       : 'auto'};
   display: flex;
   flex-direction: ${props =>
@@ -425,6 +428,9 @@ export const FileUpload = ({
                     type={'small'}
                   />
                 </ProgressBarWrapper>
+              )}
+              {showSuccess && (
+                <FileUploadDescription>{formatFileSize(file.size)}</FileUploadDescription>
               )}
             </FileContentContainer>
             <FileActions>
