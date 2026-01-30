@@ -91,7 +91,7 @@ const rowsLongTextTruncated: TableRowType[] = [
       {
         label:
           'console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv',
-        overflowMode: 'truncated'
+        overflowMode: 'truncated',
       },
       { label: 'system.query_log' },
       { label: '2024-01-15 14:32:01' },
@@ -134,7 +134,7 @@ const rowsLongTextTruncatedMiddle: TableRowType[] = [
       {
         label:
           'console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv',
-        overflowMode: 'truncate-middle'
+        overflowMode: 'truncate-middle',
       },
       { label: 'system.query_log' },
       { label: '2024-01-15 14:32:01' },
