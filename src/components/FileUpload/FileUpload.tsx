@@ -45,6 +45,8 @@ const UploadArea = styled.div<{
 }>`
   container-type: inline-size;
   container-name: uploadArea;
+  box-sizing: border-box;
+  width: 100%;
   background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
   border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
   border-radius: ${({ theme, $hasFile }) =>
