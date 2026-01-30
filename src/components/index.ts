@@ -68,7 +68,7 @@ export { TextAreaField } from './Input/TextArea';
 export { TextField } from './Input/TextField';
 export { Title } from './Typography/Title/Title';
 export { Tooltip } from './Tooltip/Tooltip';
-export { default as ClickUIProvider } from '@/theme/ClickUIProvider';
+export { ClickUIProvider } from '@/theme/ClickUIProvider';
 export { useToast } from './Toast/useToast';
 export { createToast } from './Toast/toastEmitter';
 export { UserIcon as ProfileIcon } from './icons/UserIcon';
