@@ -99,7 +99,10 @@ const longTextRows: TableRowType[] = [
   {
     id: 'row-1',
     items: [
-      { label: 'console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv' },
+      {
+        label:
+          'console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv',
+      },
       { label: 'system.query_log' },
       { label: '2024-01-15 14:32:01' },
     ],
@@ -107,7 +110,10 @@ const longTextRows: TableRowType[] = [
   {
     id: 'row-2',
     items: [
-      { label: 'console.clickhouse.cloud_Export.15-03-2024.analytics-events-production-02.parquet' },
+      {
+        label:
+          'console.clickhouse.cloud_Export.15-03-2024.analytics-events-production-02.parquet',
+      },
       { label: 'default.events_local_v2_replica' },
       { label: '2024-01-15 14:28:45' },
     ],
@@ -115,18 +121,17 @@ const longTextRows: TableRowType[] = [
   {
     id: 'row-3',
     items: [
-      { label: 'console.clickhouse.cloud_Backup.28-02-2024.user-sessions-aggregated-daily-03.csv.gz' },
+      {
+        label:
+          'console.clickhouse.cloud_Backup.28-02-2024.user-sessions-aggregated-daily-03.csv.gz',
+      },
       { label: 'analytics.page_views_aggregated_daily_mv' },
       { label: '2024-01-15 14:25:12' },
     ],
   },
   {
     id: 'row-4',
-    items: [
-      { label: 'data.csv' },
-      { label: 'users' },
-      { label: '2024-01-15 14:20:00' },
-    ],
+    items: [{ label: 'data.csv' }, { label: 'users' }, { label: '2024-01-15 14:20:00' }],
   },
 ];
 
