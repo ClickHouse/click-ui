@@ -3,15 +3,13 @@ import { styled } from 'styled-components';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
 
-import {
-  Checkbox,
-  CheckboxProps,
-  EllipsisContent,
-  HorizontalDirection,
-  Icon,
-  IconButton,
-  Text,
-} from '@/components';
+import { Checkbox, CheckboxProps } from '@/components/Checkbox/Checkbox';
+import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Text } from '@/components/Typography/Text/Text';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
+import type { HorizontalDirection } from '@/components/types';
 
 type SortDir = 'asc' | 'desc';
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
@@ -486,7 +484,11 @@ const TableBodyRow = ({
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <EllipsisContent component="div">{label}</EllipsisContent>
+          {typeof label === 'string' ? (
+            <MiddleTruncator text={label} />
+          ) : (
+            <EllipsisContent component="div">{label}</EllipsisContent>
+          )}
         </TableData>
       ))}
       {actionsList.length > 0 && (
