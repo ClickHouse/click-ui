@@ -59,7 +59,7 @@ const UploadArea = styled.div<{
       : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
   min-height: ${({ theme, $size }) =>
     $size === 'sm'
-      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[6]})`
+      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[8]})`
       : 'auto'};
   display: flex;
   flex-direction: ${props =>
