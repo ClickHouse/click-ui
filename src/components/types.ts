@@ -42,10 +42,7 @@ export type { FileTabStatusType } from './FileTabs';
 export type { TableHeaderType, TableRowType, TableProps } from './Table';
 export type { BigStatProps } from './BigStat';
 export type { TextAreaFieldProps } from './Input/TextArea';
-export type {
-  VerticalStepperProps,
-  VerticalStepProps,
-} from './VerticalStepper';
+export type { VerticalStepperProps, VerticalStepProps } from './VerticalStepper';
 export type { CardHorizontalProps } from './CardHorizontal';
 export type { CardPromotionProps } from './CardPromotion';
 export type { ProgressBarProps } from './ProgressBar';
@@ -67,10 +64,7 @@ export type States = 'default' | 'active' | 'disabled' | 'error' | 'hover';
 export type HorizontalDirection = 'start' | 'end';
 export type Orientation = 'horizontal' | 'vertical';
 export type { FormContainerProps } from './FormContainer';
-export type {
-  AutoCompleteProps,
-  AutoCompleteOptionListItem,
-} from './AutoComplete';
+export type { AutoCompleteProps, AutoCompleteOptionListItem } from './AutoComplete';
 export type { PaginationProps } from './Pagination';
 export type { ContextMenuItemProps } from './ContextMenu';
 export type { GenericLabelProps } from './GenericLabel';

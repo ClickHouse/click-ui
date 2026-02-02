@@ -3,7 +3,7 @@ import { LogoProps } from '../Logos/Logo';
 import { FlagName, FlagProps } from '../icons/Flags';
 import { LogoName } from '../Logos/types';
 import { PaymentName, PaymentProps } from '../icons/Payments';
-import { ICON_NAMES } from './IconCommon'
+import { ICON_NAMES } from './IconCommon';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
