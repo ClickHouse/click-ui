@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Panel } from './Panel';
+import { Panel } from '@/components/Panel';
 import { Text } from '../Typography/Text/Text';
 import { Title } from '../Typography/Title/Title';
 

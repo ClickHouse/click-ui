@@ -1,10 +1,5 @@
-import { IconName } from '..';
-import { Link } from './Link';
+import { Link, type LinkProps } from '@/components/Link';
 import { renderCUI } from '@/utils/test-utils';
-
-interface LinkProps {
-  icon?: IconName;
-}
 
 describe('Link Component', () => {
   const text = 'text to render';

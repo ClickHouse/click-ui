@@ -1,6 +1,8 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
 import { styled } from 'styled-components';
-import { IconSize, IconName, Icon } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
+import type { IconSize, IconName } from '@/components/Icon/types';
+
 import { Container } from '@/components/Container';
 import { Spacer } from '@/components/Spacer';
 import { Text } from '@/components/Typography';
