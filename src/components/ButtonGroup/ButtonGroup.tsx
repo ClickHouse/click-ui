@@ -84,11 +84,13 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupT
   width: ${({ $fillWidth }) => ($fillWidth ? '100%' : 'auto')};
 `;
 
-const Button = styled.button<{
+const Button = styled.button.attrs<{
   $active: boolean;
   $fillWidth: boolean;
   $type: ButtonGroupType;
-}>`
+}>(props => ({
+  'aria-pressed': props.$active,
+}))`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;

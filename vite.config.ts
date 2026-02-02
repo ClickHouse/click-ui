@@ -1,16 +1,16 @@
-import { BuildOptions, defineConfig, mergeConfig } from "vite";
-import { defineConfig as defineVitestConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
-import path from "path";
-import dts from "vite-plugin-dts";
-import { externalizeDeps } from "vite-plugin-externalize-deps";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { visualizer } from "rollup-plugin-visualizer";
+import { BuildOptions, defineConfig, mergeConfig } from 'vite';
+import { defineConfig as defineVitestConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import dts from 'vite-plugin-dts';
+import { externalizeDeps } from 'vite-plugin-externalize-deps';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { visualizer } from 'rollup-plugin-visualizer';
 
-const srcDir = path.resolve(__dirname, "src").replace(/\\/g, "/");
+const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
 const buildOptions: BuildOptions = {
-  target: "esnext",
+  target: 'esnext',
   emptyOutDir: true,
   // WARNING: Do not minify unbundled builds
   // Consumer will perform a final minification of app
@@ -18,30 +18,30 @@ const buildOptions: BuildOptions = {
   // which makes static analysis challenging
   minify: false,
   lib: {
-    entry: path.resolve(__dirname, "src/index.ts"),
+    entry: path.resolve(__dirname, 'src/index.ts'),
   },
   rollupOptions: {
     output: [
       {
-        format: "es",
-        dir: "dist/esm",
+        format: 'es',
+        dir: 'dist/esm',
         preserveModules: true,
-        preserveModulesRoot: "src",
-        entryFileNames: "[name].js",
-        chunkFileNames: "[name].js",
-        banner: chunk => (chunk.name === "index" ? `'use client';` : ""),
-        interop: "auto",
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].js',
+        chunkFileNames: '[name].js',
+        banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
+        interop: 'auto',
       },
       {
-        format: "cjs",
-        dir: "dist/cjs",
+        format: 'cjs',
+        dir: 'dist/cjs',
         preserveModules: true,
-        preserveModulesRoot: "src",
-        entryFileNames: "[name].cjs",
-        chunkFileNames: "[name].cjs",
-        banner: chunk => (chunk.name === "index" ? `'use client';` : ""),
-        interop: "auto",
-        exports: "named",
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].cjs',
+        chunkFileNames: '[name].cjs',
+        banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
+        interop: 'auto',
+        exports: 'named',
       },
     ],
   },
@@ -53,27 +53,27 @@ const viteConfig = defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [["babel-plugin-styled-components", { displayName: false }]],
+        plugins: [['babel-plugin-styled-components', { displayName: false }]],
 
         env: {
           development: {
-            plugins: [["babel-plugin-styled-components", { displayName: true }]],
+            plugins: [['babel-plugin-styled-components', { displayName: true }]],
           },
         },
       },
     }),
     dts({
-      outDir: "dist/types",
-      include: ["src/**/*"],
+      outDir: 'dist/types',
+      include: ['src/**/*'],
       exclude: [
-        "**/*.stories.*",
-        "**/*.test.*",
-        "**/*.mdx",
-        "src/App.tsx",
-        "src/main.tsx",
-        "src/examples/**",
-        "src/assets/**",
-        "src/stories/**",
+        '**/*.stories.*',
+        '**/*.test.*',
+        '**/*.mdx',
+        'src/App.tsx',
+        'src/main.tsx',
+        'src/examples/**',
+        'src/assets/**',
+        'src/stories/**',
       ],
     }),
     externalizeDeps({
@@ -82,17 +82,17 @@ const viteConfig = defineConfig({
       nodeBuiltins: true,
       optionalDeps: true,
       peerDeps: true,
-      useFile: path.join(process.cwd(), "package.json"),
+      useFile: path.join(process.cwd(), 'package.json'),
     }),
     tsconfigPaths(),
     // WARNING: Keep the visualizer last
-    ...(process.env.ANALYZE === "true"
+    ...(process.env.ANALYZE === 'true'
       ? [
           visualizer({
             open: true,
             gzipSize: true,
             brotliSize: true,
-            filename: "./tmp/stats.html",
+            filename: './tmp/stats.html',
           }),
         ]
       : []),
@@ -109,12 +109,12 @@ const viteConfig = defineConfig({
       plugins: [
         {
           // Wrap only CSS custom properties in @layer for easy consumer override
-          postcssPlugin: "wrap-tokens-in-layer",
+          postcssPlugin: 'wrap-tokens-in-layer',
           Once(root, { AtRule }) {
             // 1. Add layer declaration for tokens at the top
             const layerDeclaration = new AtRule({
-              name: "layer",
-              params: "click-ui.tokens",
+              name: 'layer',
+              params: 'click-ui.tokens',
             });
             root.prepend(layerDeclaration);
 
@@ -127,10 +127,10 @@ const viteConfig = defineConfig({
                 return; // Skip the layer declaration itself
               }
 
-              if (node.type === "rule" && node.selector === ":root") {
+              if (node.type === 'rule' && node.selector === ':root') {
                 // Check if it contains CSS custom properties
                 const hasCustomProps = node.nodes?.some(
-                  child => child.type === "decl" && child.prop.startsWith("--")
+                  child => child.type === 'decl' && child.prop.startsWith('--')
                 );
                 if (hasCustomProps) {
                   tokenRules.push(node.clone());
@@ -146,8 +146,8 @@ const viteConfig = defineConfig({
             // 3. Wrap tokens in @layer click-ui.tokens
             if (tokenRules.length > 0) {
               const tokensLayer = new AtRule({
-                name: "layer",
-                params: "click-ui.tokens",
+                name: 'layer',
+                params: 'click-ui.tokens',
               });
               tokenRules.forEach(rule => tokensLayer.append(rule));
               root.append(tokensLayer);
@@ -165,12 +165,12 @@ const viteConfig = defineConfig({
 
 const vitestConfig = defineVitestConfig({
   test: {
-    environment: "jsdom",
-    include: ["**/*.test.{ts,tsx}"],
+    environment: 'jsdom',
+    include: ['**/*.test.{ts,tsx}'],
     globals: true,
     watch: false,
-    exclude: ["node_modules"],
-    setupFiles: ["@testing-library/jest-dom", "./setupTests.ts"],
+    exclude: ['node_modules'],
+    setupFiles: ['@testing-library/jest-dom', './setupTests.ts'],
   },
 });
 
