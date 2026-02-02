@@ -1,5 +1,5 @@
 ---
-"@clickhouse/click-ui": patch
+"@clickhouse/click-ui": minor
 ---
 
 The previous versions of click-ui (e.g., <= 0.0.250), break on the latest of Nextjs, Vitejs, any React >= 19 or RSC enabled builds. To mitigate it, this initial change provides the minimal setup required for it to work in such environments, e.g. when installing the package, it should run in dev and build processes.
