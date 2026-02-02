@@ -385,3 +385,102 @@ export const Sortable: StoryObj<typeof Table> = {
     );
   },
 };
+
+const rowsHeaderOverflow: TableRowType[] = [
+  {
+    id: 'row-1',
+    items: [
+      {
+        label:
+          'console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv',
+      },
+      { label: 'system.query_log_with_additional_long_table_name_suffix' },
+      { label: '2024-01-15 14:32:01' },
+    ],
+  },
+  {
+    id: 'row-2',
+    items: [
+      {
+        label:
+          'console.clickhouse.cloud_Export.15-03-2024.analytics-events-production-02.parquet',
+      },
+      { label: 'default.events_local_v2_replica_with_extended_name' },
+      { label: '2024-01-15 14:28:45' },
+    ],
+  },
+  {
+    id: 'row-3',
+    items: [
+      {
+        label:
+          'console.clickhouse.cloud_Backup.28-02-2024.user-sessions-aggregated-daily-03.csv.gz',
+        overflowMode: 'truncated',
+      },
+      { label: 'analytics.page_views_aggregated_daily_mv_extended' },
+      { label: '2024-01-15 14:25:12' },
+    ],
+  },
+  {
+    id: 'row-4',
+    items: [
+      { label: 'data.csv' },
+      { label: 'users' },
+      { label: '2024-01-15 14:20:00' },
+    ],
+  },
+];
+
+type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
+
+const overflowModeOptions: OverflowMode[] = ['truncated', 'truncate-middle', 'wrap'];
+
+interface HeaderOverflowModeArgs {
+  fileOverflowMode: OverflowMode;
+  tableOverflowMode: OverflowMode;
+  timestampOverflowMode: OverflowMode;
+  rows: TableRowType[];
+}
+
+export const ColumnLevelTruncation: StoryObj<HeaderOverflowModeArgs> = {
+  argTypes: {
+    fileOverflowMode: {
+      control: 'select',
+      options: overflowModeOptions,
+      description: 'Overflow mode for the File column',
+      table: { category: 'Column Overflow Modes' },
+    },
+    tableOverflowMode: {
+      control: 'select',
+      options: overflowModeOptions,
+      description: 'Overflow mode for the Table column',
+      table: { category: 'Column Overflow Modes' },
+    },
+    timestampOverflowMode: {
+      control: 'select',
+      options: overflowModeOptions,
+      description: 'Overflow mode for the Timestamp column',
+      table: { category: 'Column Overflow Modes' },
+    },
+  },
+  args: {
+    fileOverflowMode: 'truncate-middle',
+    tableOverflowMode: 'truncated',
+    timestampOverflowMode: 'wrap',
+    rows: rowsHeaderOverflow,
+  },
+  render: ({ fileOverflowMode, tableOverflowMode, timestampOverflowMode, rows }) => {
+    const headersWithOverflowMode = [
+      { label: 'File', overflowMode: fileOverflowMode },
+      { label: 'Table', overflowMode: tableOverflowMode },
+      { label: 'Timestamp', overflowMode: timestampOverflowMode },
+    ];
+
+    return (
+      <Table
+        headers={headersWithOverflowMode}
+        rows={rows}
+      />
+    );
+  },
+};
