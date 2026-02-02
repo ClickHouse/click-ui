@@ -3,12 +3,10 @@ import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
 
-import { Icon } from '@/components/Icon/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
 
-import { ButtonProps } from '@/components/Button/Button';
-import { Button } from '@/components/Button/Button';
+import { ButtonProps, Button } from '@/components/Button';
 
 export interface ToastContextProps {
   createToast: (toast: ToastProps, align?: ToastAlignment) => void;

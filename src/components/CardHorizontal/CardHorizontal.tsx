@@ -1,12 +1,10 @@
 import { HTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { Badge } from '@/components/Badge/Badge';
-import type { BadgeState } from '@/components/Badge/Badge';
-import { Button } from '@/components/Button/Button';
-import { Container } from '@/components/Container/Container';
+import { Badge, BadgeState } from '@/components/Badge';
+import { Button } from '@/components/Button';
+import { Container } from '@/components/Container';
 import type { HorizontalDirection } from '@/components/types';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 type CardColor = 'default' | 'muted';
 export type CardSize = 'sm' | 'md';

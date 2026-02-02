@@ -6,8 +6,8 @@ import {
   ReactNode,
   forwardRef,
 } from 'react';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
+import { Icon } from '@/components/Icon';
+import type { IconName } from '@/components/Icon';
 import { styled } from 'styled-components';
 import { linkStyles } from './common';
 import { TextSize, TextWeight } from '../commonTypes';

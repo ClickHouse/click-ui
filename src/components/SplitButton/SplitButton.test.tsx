@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
-import { SplitButton } from '@/components/SplitButton/SplitButton';
-import type { Menu } from '@/components/SplitButton/SplitButton';
+import { SplitButton } from '@/components/SplitButton';
+import type { Menu } from '@/components/SplitButton';
 import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {

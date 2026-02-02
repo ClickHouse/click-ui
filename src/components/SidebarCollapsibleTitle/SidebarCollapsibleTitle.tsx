@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
-import { Icon } from '@/components/Icon/Icon';
+import { Icon, IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
 import { Collapsible } from '../Collapsible/Collapsible';
 import { SidebarTitleWrapper } from '../SidebarNavigationTitle/SidebarNavigationTitle';
 

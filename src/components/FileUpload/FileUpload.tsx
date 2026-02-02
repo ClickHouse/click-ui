@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { styled, css } from 'styled-components';
 import { useState, useRef, useCallback } from 'react';
 
-import { Text } from '@/components/Typography/Text/Text';
-import { Title } from '@/components/Typography/Title/Title';
-import { Icon } from '@/components/Icon/Icon';
-import { Button } from '@/components/Button/Button';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
+import { Text, Title } from '@/components/Typography';
+import { Icon } from '@/components/Icon';
+import { Button } from '@/components/Button';
+import { IconButton } from '@/components/IconButton';
+import { ProgressBar } from '@/components/ProgressBar';
 import { MiddleTruncator } from '../MiddleTruncator';
 import { formatFileSize } from '@/utils/file';
 

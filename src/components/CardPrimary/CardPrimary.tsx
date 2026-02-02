@@ -1,12 +1,11 @@
 import { styled } from 'styled-components';
-import { Title } from '@/components/Typography/Title/Title';
-import { Text, TextAlignment } from '@/components/Typography/Text/Text';
+import { Title, Text, TextAlignment } from '@/components/Typography';
 import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from 'react';
-import { WithTopBadgeProps, withTopBadge } from '@/components/CardPrimary/withTopBadge';
-import { Button } from '@/components/Button/Button';
-import { Icon } from '@/components/Icon/Icon';
-import { Spacer } from '@/components/Spacer/Spacer';
-import type { IconName } from '@/components/Icon/types';
+import { WithTopBadgeProps, withTopBadge } from './withTopBadge';
+import { Button } from '@/components/Button';
+import { Icon } from '@/components/Icon';
+import { Spacer } from '@/components/Spacer';
+import type { IconName } from '@/components/Icon';
 
 export type CardPrimarySize = 'sm' | 'md';
 type ContentAlignment = 'start' | 'center' | 'end';

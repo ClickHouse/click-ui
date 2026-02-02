@@ -12,14 +12,14 @@ import {
   DialogTriggerProps,
   DialogContentProps as RadixDialogContentProps,
 } from '@radix-ui/react-dialog';
-import { Button } from '@/components/Button/Button';
-import type { ButtonProps } from '@/components/Button/Button';
-import { CodeBlock } from '@/components/CodeBlock/CodeBlock';
-import { Container } from '@/components/Container/Container';
-import type { ContainerProps } from '@/components/Container/Container';
-import { Icon } from '@/components/Icon/Icon';
-import { Separator } from '@/components/Separator/Separator';
-import { Spacer } from '@/components/Spacer/Spacer';
+import { Button } from '@/components/Button';
+import type { ButtonProps } from '@/components/Button';
+import { CodeBlock } from '@/components/CodeBlock';
+import { Container } from '@/components/Container';
+import type { ContainerProps } from '@/components/Container';
+import { Icon } from '@/components/Icon';
+import { Separator } from '@/components/Separator';
+import { Spacer } from '@/components/Spacer';
 import { styled } from 'styled-components';
 import { CrossButton } from '../commonElement';
 import { keyframes } from 'styled-components';

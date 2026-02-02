@@ -5,8 +5,7 @@ import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
 import PopoverArrow from '../icons/PopoverArrow';
 import { IconWrapper } from '../IconWrapper/IconWrapper';
 import { HorizontalDirection } from '@/components/types';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />

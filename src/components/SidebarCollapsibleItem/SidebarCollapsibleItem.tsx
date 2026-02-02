@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode, forwardRef } from 'react';
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
+import type { IconName } from '@/components/Icon';
 
 import { Collapsible } from '../Collapsible/Collapsible';
 import { SidebarItemWrapper } from '../SidebarNavigationItem/SidebarNavigationItem';

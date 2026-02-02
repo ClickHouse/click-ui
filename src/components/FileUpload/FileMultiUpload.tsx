@@ -5,12 +5,11 @@ import React, { useEffect } from 'react';
 import { styled, css } from 'styled-components';
 import { useState, useRef, useCallback } from 'react';
 
-import { Text } from '@/components/Typography/Text/Text';
-import { Title } from '@/components/Typography/Title/Title';
-import { Button } from '@/components/Button/Button';
-import { Icon } from '@/components/Icon/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
+import { Text, Title } from '@/components/Typography';
+import { Button } from '@/components/Button';
+import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
+import { ProgressBar } from '@/components/ProgressBar';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
 import { formatFileSize } from '@/utils/file';
 

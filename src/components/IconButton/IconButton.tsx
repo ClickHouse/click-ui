@@ -1,8 +1,7 @@
 import { HTMLAttributes, forwardRef } from 'react';
 import { styled } from 'styled-components';
 
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   /** The size of the icon button */

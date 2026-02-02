@@ -3,12 +3,12 @@ import { styled } from 'styled-components';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
 
-import { Icon } from '@/components/Icon/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { Text } from '@/components/Typography/Text/Text';
+import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
+import { Text } from '@/components/Typography';
 import { HorizontalDirection } from '@/components/types';
-import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
-import { Checkbox } from '@/components/Checkbox/Checkbox';
+import { EllipsisContent } from '@/components/EllipsisContent';
+import { Checkbox } from '@/components/Checkbox';
 import { CheckboxProps } from '@/components/types';
 
 type SortDir = 'asc' | 'desc';

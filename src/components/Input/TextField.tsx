@@ -6,7 +6,7 @@ import {
   useId,
   useRef,
 } from 'react';
-import { Icon } from '@/components/Icon/Icon';
+import { Icon } from '@/components/Icon';
 import {
   IconButton,
   InputElement,
