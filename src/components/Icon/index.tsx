@@ -7,6 +7,12 @@ import LogosLight from '../Logos/LogosLight';
 import { LogoName } from '../Logos/types';
 import Payments, { PaymentList, PaymentName } from '../icons/Payments';
 
+// TODO: This is a temporary proxy
+// There are several files importing from Icon
+// since before it used ./components/Icon/Icon
+// there are some orphanes which require modification
+// since these are non-obstructive and purely types
+// is not a priority but a nice-to improve
 export type { IconName, IconSize } from './types';
 
 const SVGIcon = ({
