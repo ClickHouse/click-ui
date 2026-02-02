@@ -6,6 +6,7 @@ import { BaseButton } from '../commonElement';
 import IconWrapper from '../IconWrapper/IconWrapper';
 
 type ButtonType = 'primary' | 'secondary';
+
 type MenuItem = {
   icon?: IconName;
   iconDir?: HorizontalDirection;
@@ -28,6 +29,7 @@ type SubMenu = Omit<MenuItem, 'type' | 'items'> & {
 };
 
 export type Menu = SubMenu | MenuGroup | MenuItem;
+
 export interface SplitButtonProps
   extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, 'dir'> {
   /** The visual style variant of the button */
@@ -145,6 +147,7 @@ export const SplitButton = ({
     </Dropdown>
   );
 };
+
 const DropdownContent = styled.div<{ $width: number }>`
   min-width: ${({ $width }) => $width}px;
 `;

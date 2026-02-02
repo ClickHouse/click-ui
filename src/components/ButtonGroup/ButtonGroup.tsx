@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import { DefaultTheme, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
 type ButtonGroupType = 'default' | 'borderless';
 
@@ -37,19 +37,23 @@ export const ButtonGroup = ({
   type = 'default',
   ...props
 }: ButtonGroupProps) => {
-  const buttons = options.map(({ value, label, ...props }) => (
-    <Button
-      key={value}
-      $active={value === selected}
-      $fillWidth={fillWidth}
-      $type={type}
-      onClick={() => onClick?.(value)}
-      role="button"
-      {...props}
-    >
-      {label}
-    </Button>
-  ));
+  const buttons = options.map(({ value, label, ...props }) => {
+    const isActive = value === selected;
+    return (
+      <Button
+        key={value}
+        $active={isActive}
+        aria-pressed={isActive}
+        $fillWidth={fillWidth}
+        $type={type}
+        onClick={() => onClick?.(value)}
+        role="button"
+        {...props}
+      >
+        {label}
+      </Button>
+    );
+  });
 
   return (
     <ButtonGroupWrapper
@@ -80,14 +84,11 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupT
   width: ${({ $fillWidth }) => ($fillWidth ? '100%' : 'auto')};
 `;
 
-interface ButtonProps {
+const Button = styled.button.attrs<{
   $active: boolean;
-  theme: DefaultTheme;
   $fillWidth: boolean;
   $type: ButtonGroupType;
-}
-
-const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
+}>(props => ({
   'aria-pressed': props.$active,
 }))`
   box-sizing: border-box;
@@ -95,7 +96,7 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: ${({ $active, theme }: ButtonProps) =>
+  background: ${({ $active, theme }) =>
     $active
       ? theme.click.button.group.color.background.active
       : theme.click.button.group.color.background.default};
@@ -108,6 +109,12 @@ const Button = styled.button.attrs<ButtonProps>((props: ButtonProps) => ({
     theme.click.button.group.radii.button[$type].all};
   cursor: pointer;
   border: none;
+
+  &[aria-pressed='true'] {
+    background: ${({ theme }) => theme.click.button.group.color.background.active};
+    font: ${({ theme }) => theme.click.button.group.typography.label.active};
+    color: ${({ theme }) => theme.click.button.group.color.text.active};
+  }
 
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};

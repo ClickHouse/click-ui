@@ -7,7 +7,6 @@ import { styled } from 'styled-components';
 interface ContextMenuExampleProps extends ContextMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
-  side: 'top' | 'right' | 'left' | 'bottom';
 }
 
 const GridCenter = styled.div`
@@ -24,7 +23,6 @@ const Trigger = styled(GridCenter)`
 const ContextMenuExample = ({
   showArrow,
   disabled,
-  side,
   ...props
 }: ContextMenuExampleProps) => {
   return (
@@ -33,10 +31,7 @@ const ContextMenuExample = ({
         <ContextMenu.Trigger disabled={disabled}>
           <Trigger>ContextMenu Trigger</Trigger>
         </ContextMenu.Trigger>
-        <ContextMenu.Content
-          showArrow={showArrow}
-          side={side}
-        >
+        <ContextMenu.Content showArrow={showArrow}>
           <ContextMenu.Group>
             <ContextMenu.Item>Content0</ContextMenu.Item>
           </ContextMenu.Group>
@@ -85,7 +80,6 @@ const meta: Meta<typeof ContextMenuExample> = {
   argTypes: {
     disabled: { control: 'boolean' },
     showArrow: { control: 'boolean' },
-    side: { control: 'select', options: ['top', 'right', 'left', 'bottom'] },
   },
 };
 
@@ -96,6 +90,5 @@ type Story = StoryObj<typeof ContextMenuExample>;
 export const Playground: Story = {
   args: {
     showArrow: true,
-    side: 'left',
   },
 };
