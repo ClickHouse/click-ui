@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { CardSecondary, CardSecondaryProps } from './CardSecondary';
+import { CardSecondary, CardSecondaryProps } from '@/components/CardSecondary';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('CardSecondary Component', () => {

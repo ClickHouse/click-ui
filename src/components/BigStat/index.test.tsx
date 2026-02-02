@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { BigStat, BigStatProps } from './BigStat';
+import { BigStat, BigStatProps } from '@/components/BigStat';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('BigStat Component', () => {

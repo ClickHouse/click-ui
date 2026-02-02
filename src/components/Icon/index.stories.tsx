@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import LogosLight from '../Logos/LogosLight';
 import { FlagList } from '../icons/Flags';
 import { PaymentList } from '../icons/Payments';
-import { Icon } from './Icon';
+import { Icon } from '@/components/Icon';
 import { IconName } from '../types';
 import { ICONS_MAP } from './IconCommon';
 import { IconProps } from './types';

@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { Alert } from '@/components/Alert';
 import { Container } from '@/components/Container';
 import { Link } from '@/components/Link';
-import { ICON_NAMES } from '@/components/Icon';
+import { ICON_NAMES } from '@/components/Icon/types';
 
 const meta: Meta<typeof Alert> = {
   component: Alert,

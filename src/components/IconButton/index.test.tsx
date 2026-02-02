@@ -1,4 +1,4 @@
-import { IconButton, IconButtonProps } from './IconButton';
+import { IconButton, IconButtonProps } from '@/components/IconButton';
 import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 

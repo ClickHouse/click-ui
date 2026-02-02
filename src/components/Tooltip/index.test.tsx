@@ -1,4 +1,4 @@
-import { TooltipProps } from './Tooltip';
+import { TooltipProps } from '@/components/Tooltip';
 import { Tooltip } from '..';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

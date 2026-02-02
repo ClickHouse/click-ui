@@ -7,6 +7,8 @@ import LogosLight from '../Logos/LogosLight';
 import { LogoName } from '../Logos/types';
 import Payments, { PaymentList, PaymentName } from '../icons/Payments';
 
+export type { IconName, IconSize } from './types';
+
 const SVGIcon = ({
   name,
   color,

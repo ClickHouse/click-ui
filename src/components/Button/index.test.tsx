@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from './Button';
+import { Button, ButtonProps } from '@/components/Button';
 import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 

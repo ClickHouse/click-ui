@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { FileTabs as CUIFileTabs, FileTabElement, FileTabStatusType } from './FileTabs';
+import { FileTabs as CUIFileTabs, FileTabElement, FileTabStatusType } from '@/components/FileTabs';
 
 const options = [
   'a1',

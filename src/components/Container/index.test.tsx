@@ -1,4 +1,4 @@
-import { Container, ContainerProps } from './Container';
+import { Container, ContainerProps } from '@/components/Container';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Container', () => {

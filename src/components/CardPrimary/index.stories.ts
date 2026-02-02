@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { CardPrimary } from './CardPrimary';
+import { CardPrimary } from '@/components/CardPrimary';
 
 const meta: Meta<typeof CardPrimary> = {
   component: CardPrimary,

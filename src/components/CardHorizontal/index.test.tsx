@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { CardHorizontal, CardHorizontalProps } from './CardHorizontal';
+import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('CardHorizontal Component', () => {

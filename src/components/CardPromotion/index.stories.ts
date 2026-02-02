@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { CardPromotion } from './CardPromotion';
+import { CardPromotion } from '@/components/CardPromotion';
 
 const meta: Meta<typeof CardPromotion> = {
   component: CardPromotion,

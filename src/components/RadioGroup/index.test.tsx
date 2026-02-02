@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import { RadioGroup } from '@/components/RadioGroup';
-import { RadioGroupProps } from './RadioGroup';
+import { RadioGroupProps } from '@/components/RadioGroup';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('RadioGroup', () => {

@@ -4,7 +4,7 @@ import { Checkbox } from '../Checkbox';
 import { Spacer } from '../Spacer';
 import { Text } from '../Typography/Text/Text';
 import { Title } from '../Typography/Title/Title';
-import { HoverCard } from './HoverCard';
+import { HoverCard } from '@/components/HoverCard';
 
 interface HoverCardExampleProps {
   open: 'default' | 'open' | 'closed';

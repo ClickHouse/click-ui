@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 import { ContextMenuProps } from '@radix-ui/react-context-menu';
 import userEvent from '@testing-library/user-event';
-import { ContextMenu } from './ContextMenu';
+import { ContextMenu } from '@/components/ContextMenu';
 import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends ContextMenuProps {

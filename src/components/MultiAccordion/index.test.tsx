@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { MultiAccordion, MultiAccordionProps } from './MultiAccordion';
+import { MultiAccordion, MultiAccordionProps } from '@/components/MultiAccordion';
 import { renderCUI } from '@/utils/test-utils';
 const children = (
   <>

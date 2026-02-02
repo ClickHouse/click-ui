@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { CardPromotion, CardPromotionProps } from './CardPromotion';
+import { CardPromotion, CardPromotionProps } from '@/components/CardPromotion';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('CardPromo Component', () => {

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Table, TableRowType } from './Table';
+import { Table, TableRowType } from '@/components/Table';
 
 const headers = [{ label: 'Company' }, { label: 'Contact' }, { label: 'Country' }];
 const rows: TableRowType[] = [

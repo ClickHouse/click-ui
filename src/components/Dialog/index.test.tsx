@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { DialogProps } from '@radix-ui/react-dialog';
-import { Dialog } from './Dialog';
+import { Dialog } from '@/components/Dialog';
 import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 

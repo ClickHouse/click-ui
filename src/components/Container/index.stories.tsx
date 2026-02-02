@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Container } from './Container';
+import { Container } from '@/components/Container';
 import { Text } from '..';
 import { styled } from 'styled-components';
 

@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { ICON_NAMES } from '../Icon/types';
 
-import { CardHorizontal } from './CardHorizontal';
+import { CardHorizontal } from '@/components/CardHorizontal';
 
 const GridCenter = styled.div`
   display: grid;

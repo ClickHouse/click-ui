@@ -1,5 +1,5 @@
 import { Args } from '@storybook/react-vite';
-import { DatePicker } from './DatePicker';
+import { DatePicker } from '@/components/DatePicker';
 
 const defaultStory = {
   args: {
