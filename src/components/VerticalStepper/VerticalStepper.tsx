@@ -25,7 +25,7 @@ const StepRoot = styled.div`
   width: 100%;
 `;
 
-const VerticalStepper = ({
+export const VerticalStepper = ({
   children,
   type = 'numbered',
   ...props
@@ -224,5 +224,3 @@ const VerticalStep = ({
 };
 VerticalStep.displayName = 'VerticalStepper.Step';
 VerticalStepper.Step = VerticalStep;
-
-export default VerticalStepper;

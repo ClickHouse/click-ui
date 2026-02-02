@@ -161,7 +161,7 @@ const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
+export interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   /** Icon to display in the menu item */
   icon?: IconName;
   /** The direction of the icon relative to the label */
@@ -169,8 +169,6 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   /** The type of the menu item */
   type?: 'default' | 'danger';
 }
-
-export type { DropdownItemProps };
 
 const DropdownItem = ({
   icon,
@@ -197,5 +195,3 @@ const DropdownItem = ({
 
 DropdownItem.displayName = 'DropdownItem';
 Dropdown.Item = DropdownItem;
-
-export default Dropdown;

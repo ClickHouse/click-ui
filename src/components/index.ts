@@ -77,6 +77,6 @@ export { Tooltip } from '@/components/Tooltip';
 export { useToast } from '@/components/Toast/useToast';
 export { createToast } from '@/components/Toast/toastEmitter';
 export { UserIcon as ProfileIcon } from '@/components/icons/UserIcon';
-export { default as VerticalStepper } from '@/components/VerticalStepper';
+export { VerticalStepper } from '@/components/VerticalStepper';
 export { MultiAccordion } from '@/components/MultiAccordion';
 export { ToastProvider, Toast } from '@/components/Toast';

@@ -15,7 +15,7 @@ interface FileInfo {
   size: number;
 }
 
-interface FileUploadProps {
+export interface FileUploadProps {
   /** The title text displayed in the upload area */
   title: string;
   /** Array of supported file extensions (e.g., [".txt", ".csv"]) */
@@ -455,5 +455,3 @@ export const FileUpload = ({
     </>
   );
 };
-
-export type { FileUploadProps };

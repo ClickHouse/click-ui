@@ -5,7 +5,8 @@ import { Dropdown } from '@/components/Dropdown';
 import { GridCenter } from '../commonElement';
 import { Button } from '..';
 import { Key } from 'react';
-import type { DropdownItemProps } from '@/components/Dropdown';
+
+import type { DropdownItemProps } from '@/components/Dropdown/Dropdown';
 
 interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;

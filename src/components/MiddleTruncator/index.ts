@@ -1,0 +1,1 @@
+export { MiddleTruncator } from './MiddleTruncator';

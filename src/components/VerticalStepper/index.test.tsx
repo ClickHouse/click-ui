@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/dom';
-import VerticalStepper from '@/components/VerticalStepper';
+import {VerticalStepper }from '@/components/VerticalStepper';
 import { renderCUI } from '@/utils/test-utils';
 interface Props {
   activeIndex?: number;

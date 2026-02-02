@@ -34,7 +34,7 @@ const stateIconMap: Record<AlertState, IconName> = {
   info: 'information',
 };
 
-const Alert = ({
+export const Alert = ({
   text,
   title = '',
   size = 'small',
@@ -173,32 +173,30 @@ const DismissWrapper = styled.button`
   cursor: pointer;
 `;
 
-const DangerAlert = (props: AlertProps) => (
+export const DangerAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="danger"
   />
 );
 
-const InfoAlert = (props: AlertProps) => (
+export const InfoAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="info"
   />
 );
 
-const SuccessAlert = (props: AlertProps) => (
+export const SuccessAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="success"
   />
 );
 
-const WarningAlert = (props: AlertProps) => (
+export const WarningAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="warning"
   />
 );
-
-export { Alert, DangerAlert, InfoAlert, SuccessAlert, WarningAlert };

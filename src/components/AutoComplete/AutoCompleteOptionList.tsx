@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Group, Item, AutoCompleteOptionListItem } from '@/components/AutoComplete';
+import { Group, Item, AutoCompleteOptionListItem } from './AutoComplete';
 
 interface Props {
   options: Array<AutoCompleteOptionListItem>;
