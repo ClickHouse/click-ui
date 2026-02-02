@@ -8,11 +8,11 @@ import {
 } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import { styled } from 'styled-components';
-import { Dropdown } from '../Dropdown/Dropdown';
+import { Dropdown } from '../Dropdown';
 import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from './Common';
-import { Container } from '../Container/Container';
-import { Panel } from '../Panel/Panel';
-import { Icon } from '../Icon/Icon';
+import { Container } from '../Container';
+import { Panel } from '../Panel';
+import { Icon } from '../Icon';
 import {
   DateRange,
   datesAreWithinMaxRange,

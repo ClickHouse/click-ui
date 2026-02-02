@@ -5,7 +5,7 @@ import type { HorizontalDirection } from '@/components/types';
 import { Icon, IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
 import PopoverArrow from '../icons/PopoverArrow';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />

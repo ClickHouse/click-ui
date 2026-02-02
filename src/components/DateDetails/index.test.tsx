@@ -1,4 +1,4 @@
-import { DateDetails } from '@/components/DateDetails/DateDetails';
+import { DateDetails } from '@/components/DateDetails';
 import { renderCUI } from '@/utils/test-utils';
 import { fireEvent } from '@testing-library/react';
 

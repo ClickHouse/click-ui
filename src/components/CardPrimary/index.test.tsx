@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
-import { CardPrimary, CardPrimaryProps } from '@/components/CardPrimary/CardPrimary';
+import { CardPrimary, CardPrimaryProps } from '@/components/CardPrimary';
 
 describe('CardPrimary Component', () => {
   describe('Primary card', () => {

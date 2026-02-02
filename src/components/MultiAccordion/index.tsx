@@ -11,8 +11,8 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { GapOptions, PaddingOptions } from '../Container/Container';
-import { SizeType as SpacerSizeType } from '../Spacer/Spacer';
+import { GapOptions, PaddingOptions } from '../Container';
+import { SizeType as SpacerSizeType } from '../Spacer';
 
 type Size = 'none' | 'sm' | 'md' | 'lg';
 type Color = 'default' | 'link';

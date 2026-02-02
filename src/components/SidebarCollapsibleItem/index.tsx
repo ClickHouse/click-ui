@@ -2,8 +2,8 @@ import { HTMLAttributes, ReactNode, forwardRef } from 'react';
 import type { HorizontalDirection } from '@/components/types';
 import type { IconName } from '@/components/Icon';
 
-import { Collapsible } from '../Collapsible/Collapsible';
-import { SidebarItemWrapper } from '../SidebarNavigationItem/SidebarNavigationItem';
+import { Collapsible } from '../Collapsible';
+import { SidebarItemWrapper } from '../SidebarNavigationItem';
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
   /** The label content to display */

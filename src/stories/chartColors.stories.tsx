@@ -1,4 +1,4 @@
-import { Container } from '@/components/Container/Container';
+import { Container } from '@/components/Container';
 import { Text } from '@/components/Typography/Text/Text';
 
 import { styled, useTheme } from 'styled-components';

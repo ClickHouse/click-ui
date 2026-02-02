@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Tabs, FullWidthTabs } from './Tabs';
-import { TabsProps } from '@/components/Tabs/Tabs';
+import { TabsProps } from '@/components/Tabs';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Tabs', () => {

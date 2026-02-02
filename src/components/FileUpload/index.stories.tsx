@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { styled } from 'styled-components';
-import { FileUpload, type FileUploadProps } from '@/components/FileUpload/FileUpload';
-import { Flyout } from '@/components/Flyout/Flyout';
-import { Button } from '@/components/Button/Button';
+import { FileUpload, type FileUploadProps } from '@/components/FileUpload';
+import { Flyout } from '@/components/Flyout';
+import { Button } from '@/components/Button';
 import { useState } from 'react';
 
 const Wrapper = styled.div`

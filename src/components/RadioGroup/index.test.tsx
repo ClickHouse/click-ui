@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { RadioGroup } from '@/components/RadioGroup/RadioGroup';
+import { RadioGroup } from '@/components/RadioGroup';
 import { RadioGroupProps } from './RadioGroup';
 import { renderCUI } from '@/utils/test-utils';
 

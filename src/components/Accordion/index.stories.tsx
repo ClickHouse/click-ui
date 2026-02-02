@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Panel } from '..';
 import { Accordion } from './Accordion';
-import { Spacer } from '../Spacer/Spacer';
+import { Spacer } from '../Spacer';
 import { Text } from '../Typography/Text/Text';
 import { Title } from '../Typography/Title/Title';
 
