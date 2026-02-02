@@ -15,12 +15,18 @@ type SortDir = 'asc' | 'desc';
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
 type TableSize = 'sm' | 'md';
 
+// wrap: text breaks into multiple lines
+// truncated: text cuts at end with an ellipsis (...)
+// truncate-middle: text cuts in middle, shows start and end
+type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
+
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
   width?: string;
+  overflowMode?: OverflowMode;
 }
 
 const StyledHeader = styled.th<{ $size: TableSize }>`
@@ -377,11 +383,6 @@ const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
   }
 `;
 
-// wrap: text breaks into multiple lines
-// truncate: text cuts at end with an ellipsis (...)
-// truncate-middle: text cuts in middle, shows start and end
-type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
-
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   overflowMode?: OverflowMode;
@@ -493,7 +494,7 @@ const TableBodyRow = ({
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
           <Cell
             label={label}
-            overflowMode={overflowMode}
+            overflowMode={overflowMode ?? headers[cellIndex]?.overflowMode}
           />
         </TableData>
       ))}
