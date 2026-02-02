@@ -18,15 +18,6 @@ import { IconButton } from '@/components/IconButton/IconButton';
 import { IconName } from '../Icon/types';
 
 // TODO: Check if react-sortablejs has ESM version
-// import {
-//   ItemInterface,
-//   ReactSortable,
-//   ReactSortableProps,
-//   Sortable,
-//   Store,
-// } from "react-sortablejs";
-// import ReactSortableModule from "react-sortablejs";
-// const { ReactSortable, ItemInterface, Sortable, Store } = ReactSortableModule;
 import ReactSortableModule from 'react-sortablejs/dist/index.js';
 import type {
   ItemInterface,
