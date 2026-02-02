@@ -423,11 +423,7 @@ const rowsHeaderOverflow: TableRowType[] = [
   },
   {
     id: 'row-4',
-    items: [
-      { label: 'data.csv' },
-      { label: 'users' },
-      { label: '2024-01-15 14:20:00' },
-    ],
+    items: [{ label: 'data.csv' }, { label: 'users' }, { label: '2024-01-15 14:20:00' }],
   },
 ];
 
