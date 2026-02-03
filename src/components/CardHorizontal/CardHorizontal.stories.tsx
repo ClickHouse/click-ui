@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { styled } from 'styled-components';
 
-import { ICON_NAMES } from '../Icon/types';
+import { ICON_NAMES } from '../Icon/IconCommon';
 
 import { CardHorizontal } from './CardHorizontal';
 

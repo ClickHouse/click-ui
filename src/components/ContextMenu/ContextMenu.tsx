@@ -64,11 +64,11 @@ export type ArrowProps = {
   showArrow?: boolean;
 };
 
-type ContextMenuContentProps = RightMenu.MenuContentProps & {
+type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
   sub?: true;
 } & ArrowProps;
 
-type ContextMenuSubContentProps = RightMenu.MenuSubContentProps & {
+type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
   sub?: never;
 } & ArrowProps;
 
