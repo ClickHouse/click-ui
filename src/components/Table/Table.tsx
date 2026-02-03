@@ -787,7 +787,7 @@ const TextWrapped = styled.span`
 
 const Cell = ({
   label,
-  overflowMode,
+  overflowMode = 'truncated',
 }: {
   label: ReactNode;
   overflowMode?: OverflowMode;
