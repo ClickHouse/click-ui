@@ -480,3 +480,21 @@ export const ColumnLevelTruncation: StoryObj<HeaderOverflowModeArgs> = {
     );
   },
 };
+
+export const resizableColumns: StoryObj<typeof Table> = {
+  args: {
+    headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
+    rows: rowsLongText,
+  },
+  render: ({ rows, headers, ...props }) => {
+
+    return (
+      <Table
+        {...props}
+        headers={headers}
+        rows={rows}
+        resizableColumns
+      />
+    );
+  },
+};
