@@ -1,4 +1,12 @@
-import { useState, useRef, useCallback, useEffect, type DragEvent, type RefObject, type ChangeEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  type DragEvent,
+  type RefObject,
+  type ChangeEvent,
+} from 'react';
 
 export interface UseDragAndDropOptions {
   onFilesProcessed: (files: File[]) => void;

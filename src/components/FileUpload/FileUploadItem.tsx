@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import { styled, css } from 'styled-components';
 import { Text } from '@/components/Typography/Text/Text';
-import { Icon  } from '@/components/Icon/Icon';
-import {  IconButton } from '@/components/IconButton/IconButton';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
 import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
 import { formatFileSize } from '@/utils/file';
@@ -37,7 +37,8 @@ const FileItemContainer = styled.div<{
     !props.$inline &&
     css`
       background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
-      border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
+      border: ${({ theme }) =>
+        `1px solid ${theme.click.fileUpload.color.stroke.default}`};
       border-radius: ${({ theme }) => theme.click.fileUpload.sm.radii.all};
       padding: ${({ theme }) =>
         `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`};
