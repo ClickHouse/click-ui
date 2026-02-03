@@ -27,15 +27,27 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   sortPosition?: HorizontalDirection;
   width?: string;
   overflowMode?: OverflowMode;
+  resizable?: boolean;
 }
 
-const StyledHeader = styled.th<{ $size: TableSize }>`
+const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
   ${({ theme, $size }) => `
     padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
   `}
   text-align: left;
+
+  ${({ $resizable }) =>
+    $resizable &&
+    `
+    overflow: hidden;
+    resize: horizontal;
+  `}
+
+  &:last-child {
+    resize: none;
+  }
 `;
 
 const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
@@ -60,6 +72,7 @@ const TableHeader = ({
   onSort,
   onClick,
   size,
+  resizable,
   ...delegated
 }: Omit<TableHeaderType, 'width'> & { onSort?: () => void; size: TableSize }) => {
   const isSorted = typeof sortDir === 'string';
@@ -77,6 +90,7 @@ const TableHeader = ({
   return (
     <StyledHeader
       $size={size}
+      $resizable={resizable}
       {...delegated}
     >
       <HeaderContentWrapper
@@ -111,6 +125,7 @@ interface TheadProps {
   size: TableSize;
   rows: TableRowType[];
   selectedIds: (number | string)[];
+  resizableColumns?: boolean;
 }
 
 const Thead = ({
@@ -122,6 +137,7 @@ const Thead = ({
   size,
   rows,
   selectedIds,
+  resizableColumns,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
@@ -154,11 +170,12 @@ const Thead = ({
               />
             </StyledHeader>
           )}
-          {headers.map(({ width, ...headerProps }, index) => (
+          {headers.map(({ width, resizable, ...headerProps }, index) => (
             <TableHeader
               key={`table-header-${index}-${width}`}
               onSort={onSort(headerProps, index)}
               size={size}
+              resizable={resizable ?? resizableColumns}
               {...headerProps}
             />
           ))}
@@ -414,6 +431,7 @@ interface CommonTableProps extends Omit<
   size?: TableSize;
   showHeader?: boolean;
   rowHeight?: string;
+  resizableColumns?: boolean;
 }
 
 type SelectReturnValue = {
@@ -589,6 +607,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       size = 'sm',
       showHeader = true,
       rowHeight,
+      resizableColumns,
       ...props
     },
     ref
@@ -654,6 +673,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 size={size}
                 rows={rows}
                 selectedIds={selectedIds}
+                resizableColumns={resizableColumns}
               />
             )}
             <Tbody>
