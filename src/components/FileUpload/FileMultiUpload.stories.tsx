@@ -1,7 +1,16 @@
 import { Meta, StoryObj, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
+import { styled } from 'styled-components';
 import { FileMultiUpload, FileUploadItem } from '@/components/FileUpload/FileMultiUpload';
-import { Wrapper } from './FileUpload.stories';
+
+const Wrapper = styled.div`
+  width: 100%;
+  @media (min-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
 
 const meta: Meta<typeof FileMultiUpload> = {
   component: FileMultiUpload,
