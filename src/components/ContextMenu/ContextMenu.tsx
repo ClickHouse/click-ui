@@ -2,11 +2,10 @@ import * as RightMenu from '@radix-ui/react-context-menu';
 import { styled } from 'styled-components';
 import { forwardRef } from 'react';
 import type { HorizontalDirection } from '@/components/types';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
 import PopoverArrow from '../icons/PopoverArrow';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />

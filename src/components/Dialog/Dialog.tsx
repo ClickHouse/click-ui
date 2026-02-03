@@ -1,11 +1,10 @@
 import { ReactNode } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { keyframes, styled } from 'styled-components';
-import { Button } from '@/components/Button/Button';
-import { Icon } from '@/components/Icon/Icon';
-import { Spacer } from '@/components/Spacer/Spacer';
+import { Button, ButtonProps } from '@/components/Button';
+import { Icon } from '@/components/Icon';
+import { Spacer } from '@/components/Spacer';
 import { CrossButton } from '../commonElement';
-import { ButtonProps } from '@/components/Button/Button';
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;

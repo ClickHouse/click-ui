@@ -3,10 +3,9 @@ import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
 import PopoverArrow from '../icons/PopoverArrow';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper';
 import { HorizontalDirection } from '@/components/types';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -162,7 +161,7 @@ const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
+export interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   /** Icon to display in the menu item */
   icon?: IconName;
   /** The direction of the icon relative to the label */
@@ -170,8 +169,6 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   /** The type of the menu item */
   type?: 'default' | 'danger';
 }
-
-export type { DropdownItemProps };
 
 const DropdownItem = ({
   icon,
@@ -198,5 +195,3 @@ const DropdownItem = ({
 
 DropdownItem.displayName = 'DropdownItem';
 Dropdown.Item = DropdownItem;
-
-export default Dropdown;

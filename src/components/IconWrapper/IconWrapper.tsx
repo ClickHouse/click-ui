@@ -1,11 +1,10 @@
 import { ReactNode } from 'react';
 
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
-import { Container, GapOptions } from '@/components/Container/Container';
-import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
-import { Icon } from '@/components/Icon/Icon';
-import { IconSize } from '@/components/Icon/types';
+import type { IconName, IconSize } from '@/components/Icon';
+import { Container, GapOptions } from '@/components/Container';
+import { EllipsisContent } from '@/components/EllipsisContent';
+import { Icon } from '@/components/Icon';
 
 interface IconWrapperProps {
   icon?: IconName;

@@ -12,8 +12,8 @@ import {
   useRef,
 } from 'react';
 import { styled } from 'styled-components';
-import { Icon } from '@/components/Icon/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
+import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
 
 import { IconName } from '../Icon/types';
 

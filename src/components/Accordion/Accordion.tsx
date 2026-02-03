@@ -1,10 +1,9 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
 import { styled } from 'styled-components';
-import { IconSize } from '@/components/Icon/types';
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
-import { Spacer } from '@/components/Spacer/Spacer';
-import { Text } from '@/components/Typography/Text/Text';
+import { IconSize, IconName } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
+import { Spacer } from '@/components/Spacer';
+import { Text } from '@/components/Typography';
 import { ReactNode } from 'react';
 
 type Size = 'sm' | 'md' | 'lg';

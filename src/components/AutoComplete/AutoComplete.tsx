@@ -17,17 +17,16 @@ import {
 import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
 import { HorizontalDirection } from '@/components/types';
 
-import { SearchField } from '@/components/Input/SearchField';
+import { SearchField } from '@/components/Input';
 
-import { Separator } from '@/components/Separator/Separator';
+import { Separator } from '@/components/Separator';
 
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 import { styled } from 'styled-components';
 import { GenericMenuItem } from '../GenericMenu';
 import { useOption, useSearch } from './useOption';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper';
 import { OptionContext } from './OptionContext';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
