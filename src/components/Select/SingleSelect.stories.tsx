@@ -22,13 +22,22 @@ export const CloudProvider: StoryObj<typeof Select> = {
   },
   render: props => (
     <Select {...props}>
-      <Select.Item value="aws" icon="aws">
+      <Select.Item
+        value="aws"
+        icon="aws"
+      >
         AWS
       </Select.Item>
-      <Select.Item value="gcp" icon="gcp">
+      <Select.Item
+        value="gcp"
+        icon="gcp"
+      >
         GCP
       </Select.Item>
-      <Select.Item value="azure" icon="azure">
+      <Select.Item
+        value="azure"
+        icon="azure"
+      >
         Azure
       </Select.Item>
     </Select>
