@@ -3,7 +3,7 @@ import {
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
 import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
-import { ThemeName } from '@/theme';
+import { ThemeName, THEMES } from '@/theme';
 import { ThemeProvider } from '@/theme/theme';
 import { ReactNode, useEffect } from 'react';
 import { isValidThemeName, getFallbackThemeName } from '@/utils/theme';
@@ -24,7 +24,7 @@ export const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
   useEffect(() => {
     if (!hasValidTheme) {
       console.warn(
-        "[Click UI] Unknown theme! Please use 'light' or 'dark' theme instead. Falling back to 'light' theme."
+        `[Click UI] Unknown theme! Please use one of ${Object.keys(THEMES).join(', ')} theme instead. Falling back to 'light' theme.`
       );
     }
   }, [theme, hasValidTheme]);
