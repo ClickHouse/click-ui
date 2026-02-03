@@ -1,25 +1,9 @@
-import type { DragEvent } from 'react';
+import type { DragEvent, FC, ReactNode } from 'react';
 import { styled, css } from 'styled-components';
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
 import { Icon } from '@/components/Icon/Icon';
 import { Button } from '@/components/Button/Button';
-
-export interface FileUploadAreaProps {
-  title: string;
-  supportedFileTypes: string[];
-  size?: 'sm' | 'md';
-  isDragging: boolean;
-  isNotSupported: boolean;
-  hasFile?: boolean;
-  multiple?: boolean;
-  onDragEnter: (e: DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
-  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
-  onDrop: (e: DragEvent<HTMLDivElement>) => void;
-  onClick?: () => void;
-  children?: React.ReactNode;
-}
 
 const UploadArea = styled.div<{
   $isDragging: boolean;
@@ -120,13 +104,31 @@ const UploadText = styled.div<{ $size: 'sm' | 'md'; $hasFile: boolean }>`
     `}
 `;
 
-export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
+export interface FileUploadAreaProps {
+  title: string;
+  supportedFileTypes: string[];
+  size?: 'sm' | 'md';
+  isDragging: boolean;
+  isNotSupported: boolean;
+  hasFile?: boolean;
+  isError?: boolean;
+  multiple?: boolean;
+  onDragEnter: (e: DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (e: DragEvent<HTMLDivElement>) => void;
+  onDragOver: (e: DragEvent<HTMLDivElement>) => void;
+  onDrop: (e: DragEvent<HTMLDivElement>) => void;
+  onClick?: () => void;
+  children?: ReactNode;
+}
+
+export const FileUploadArea: FC<FileUploadAreaProps> = ({
   title,
   supportedFileTypes,
   size = 'sm',
   isDragging,
   isNotSupported,
   hasFile = false,
+  isError = false,
   multiple = false,
   onDragEnter,
   onDragLeave,
@@ -140,7 +142,7 @@ export const FileUploadArea: React.FC<FileUploadAreaProps> = ({
       $isDragging={isDragging}
       $size={size}
       $hasFile={hasFile}
-      $isError={hasFile && !isNotSupported}
+      $isError={isError}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}

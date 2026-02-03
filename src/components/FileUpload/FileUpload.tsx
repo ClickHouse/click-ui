@@ -99,6 +99,7 @@ export const FileUpload = ({
         isDragging={isDragging}
         isNotSupported={isNotSupported}
         hasFile={!!file}
+        isError={!!file && !showSuccess && !showProgress}
         multiple={false}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
