@@ -331,3 +331,5 @@ export const ICONS_MAP = {
   warning: WarningIcon,
   waves: Waves,
 };
+
+export const ICON_NAMES = Object.keys(ICONS_MAP) as Array<keyof typeof ICONS_MAP>;

@@ -1,6 +1,5 @@
-/// <reference types="vitest" />
-
-import { BuildOptions, defineConfig } from 'vite';
+import { BuildOptions, defineConfig, mergeConfig } from 'vite';
+import { defineConfig as defineVitestConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path, { resolve } from 'path';
 import dts from 'vite-plugin-dts';
@@ -35,7 +34,6 @@ const buildOptions: BuildOptions = {
       isBundledBuild ? `click-ui.bundled.${format}.js` : `click-ui.${format}.js`,
   },
   rollupOptions: {
-    // Add _all_ external dependencies here
     external: externalLibraries,
     output: {
       globals: {
@@ -45,13 +43,19 @@ const buildOptions: BuildOptions = {
         'react-dom': 'ReactDOM',
         'react/jsx-runtime': 'jsxRuntime',
       },
+      banner: chunk => {
+        if (chunk.name === 'index') {
+          return `'use client';`;
+        }
+        return '';
+      },
+      interop: 'auto',
     },
   },
   sourcemap: true,
 };
 
-// https://vitejs.dev/config/
-export default defineConfig({
+const viteConfig = defineConfig({
   plugins: [
     react({
       babel: {
@@ -75,6 +79,9 @@ export default defineConfig({
     },
   },
   build: buildOptions,
+});
+
+const vitestConfig = defineVitestConfig({
   test: {
     environment: 'jsdom',
     include: ['**/*.test.{ts,tsx}'],
@@ -84,3 +91,5 @@ export default defineConfig({
     setupFiles: ['@testing-library/jest-dom', './setupTests.ts'],
   },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);
