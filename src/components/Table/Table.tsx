@@ -170,12 +170,12 @@ const Thead = ({
               />
             </StyledHeader>
           )}
-          {headers.map(({ width, resizable, ...headerProps }, index) => (
+          {headers.map(({ width, ...headerProps }, index) => (
             <TableHeader
               key={`table-header-${index}-${width}`}
               onSort={onSort(headerProps, index)}
               size={size}
-              resizable={resizable ?? resizableColumns}
+              resizable={resizableColumns}
               {...headerProps}
             />
           ))}
