@@ -28,7 +28,10 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   type?: 'main' | 'sqlSidebar';
 }
 
-export const SidebarCollapsibleItem = forwardRef<HTMLDivElement, SidebarCollapsibleItemProps>(
+export const SidebarCollapsibleItem = forwardRef<
+  HTMLDivElement,
+  SidebarCollapsibleItemProps
+>(
   (
     {
       label,

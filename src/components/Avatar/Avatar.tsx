@@ -19,7 +19,13 @@ export interface AvatarProps extends RadixAvatarProps {
   srcSet?: string;
 }
 
-export const Avatar = ({ text, textSize = 'sm', src, srcSet, ...delegated }: AvatarProps) => (
+export const Avatar = ({
+  text,
+  textSize = 'sm',
+  src,
+  srcSet,
+  ...delegated
+}: AvatarProps) => (
   <StyledRoot {...delegated}>
     <AvatarImage
       src={src}
