@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const CalendarWithTime = (props: SVGAttributes<SVGElement>) => (
   <svg

@@ -1,10 +1,10 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, useToast, ToastProps, Toast } from "@/components";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Button, useToast, ToastProps, Toast } from '@/components';
 
 const meta: Meta<typeof Toast> = {
   component: Toast,
-  title: "Display/Toast",
-  tags: ["form-field", "toast", "autodocs"],
+  title: 'Display/Toast',
+  tags: ['form-field', 'toast', 'autodocs'],
 };
 
 export default meta;
@@ -26,8 +26,8 @@ const ToastTrigger = (props: ToastProps) => {
 
 export const Playground: Story = {
   args: {
-    description: "description",
-    title: "title",
+    description: 'description',
+    title: 'title',
   },
   render: args => <ToastTrigger {...args} />,
 };

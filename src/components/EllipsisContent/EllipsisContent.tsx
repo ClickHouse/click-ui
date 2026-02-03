@@ -4,9 +4,9 @@ import {
   ElementType,
   ReactNode,
   forwardRef,
-} from "react";
-import { mergeRefs } from "@/utils/mergeRefs";
-import { styled } from "styled-components";
+} from 'react';
+import { mergeRefs } from '@/utils/mergeRefs';
+import { styled } from 'styled-components';
 
 const EllipsisContainer = styled.div`
   display: inline-block;
@@ -24,21 +24,21 @@ const EllipsisContainer = styled.div`
     text-overflow: ellipsis;
   }
 `;
-export interface EllipsisContentProps<T extends ElementType = "div"> {
+export interface EllipsisContentProps<T extends ElementType = 'div'> {
   component?: T;
 }
 
-type EllipsisPolymorphicComponent = <T extends ElementType = "div">(
+type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
 ) => ReactNode;
 
-const _EllipsisContent = <T extends ElementType = "div">(
+const _EllipsisContent = <T extends ElementType = 'div'>(
   { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
-  ref: ComponentPropsWithRef<T>["ref"]
+  ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (
     <EllipsisContainer
-      as={component ?? "div"}
+      as={component ?? 'div'}
       ref={mergeRefs([
         ref,
         node => {

@@ -1,22 +1,22 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { MultiSelect } from "./MultiSelect";
-import { selectOptions } from "./selectOptions";
-import { useEffect, useState } from "react";
-import { Container } from "../Container/Container";
-import { Panel } from "../Panel/Panel";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { MultiSelect } from './MultiSelect';
+import { selectOptions } from './selectOptions';
+import { useEffect, useState } from 'react';
+import { Container } from '../Container/Container';
+import { Panel } from '../Panel/Panel';
 
 const meta: Meta<typeof MultiSelect> = {
   component: MultiSelect,
-  title: "Forms/MultiSelect",
-  tags: ["form-field", "select", "autodocs"],
+  title: 'Forms/MultiSelect',
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export default meta;
 
 export const OptionsAsChildren: StoryObj<typeof MultiSelect> = {
   args: {
-    label: "Label",
-    value: ["content1"],
+    label: 'Label',
+    value: ['content1'],
     showSearch: true,
   },
   render: ({ value, ...props }) => {
@@ -60,8 +60,8 @@ export const OptionsAsChildren: StoryObj<typeof MultiSelect> = {
 
 export const OptionsAsProp: StoryObj<typeof MultiSelect> = {
   args: {
-    label: "Label",
-    value: ["content1"],
+    label: 'Label',
+    value: ['content1'],
     showSearch: true,
   },
   render: ({ value, ...props }) => {
@@ -102,5 +102,5 @@ export const MaxHeight = {
       </Container>
     );
   },
-  tags: ["form-field", "select", "autodocs"],
+  tags: ['form-field', 'select', 'autodocs'],
 };

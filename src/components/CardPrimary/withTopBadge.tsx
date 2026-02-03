@@ -1,8 +1,8 @@
 import {
   CardPrimaryTopBadge,
   TopBadgeWrapper,
-} from "@/components/CardPrimary/CardPrimaryTopBadge";
-import { ComponentType, FC } from "react";
+} from '@/components/CardPrimary/CardPrimaryTopBadge';
+import { ComponentType, FC } from 'react';
 
 export interface WithTopBadgeProps {
   topBadgeText?: string;

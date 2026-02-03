@@ -1,17 +1,17 @@
-import { Args, Meta, StoryObj } from "@storybook/react-vite";
-import { DateRangePicker } from "./DateRangePicker";
-import { getPredefinedMonthsForDateRangePicker } from "./utils";
+import { Args, Meta, StoryObj } from '@storybook/react-vite';
+import { DateRangePicker } from './DateRangePicker';
+import { getPredefinedMonthsForDateRangePicker } from './utils';
 
 const meta: Meta<typeof DateRangePicker> = {
   component: DateRangePicker,
   args: {
     maxRangeLength: undefined,
     onSelectDateRange: (startDate: Date, endDate: Date) => {
-      console.log("Date range selected: ", startDate, endDate);
+      console.log('Date range selected: ', startDate, endDate);
     },
   },
-  tags: ["autodocs"],
-  title: "Display/DateRangePicker",
+  tags: ['autodocs'],
+  title: 'Display/DateRangePicker',
 };
 
 export default meta;
@@ -125,9 +125,9 @@ export const PredefinedDatesArbitraryDates: Story = {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
     const predefinedDatesList = [
-      { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-      { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-      { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
+      { startDate: new Date('04/14/2025'), endDate: new Date('05/14/2025') },
+      { startDate: new Date('05/14/2025'), endDate: new Date('06/14/2025') },
+      { startDate: new Date('06/14/2025'), endDate: new Date('07/14/2025') },
     ];
 
     return (
@@ -152,16 +152,16 @@ export const PredefinedDatesScrollable: Story = {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
     const predefinedDatesList = [
-      { startDate: new Date("09/14/2024"), endDate: new Date("10/14/2024") },
-      { startDate: new Date("10/14/2024"), endDate: new Date("11/14/2024") },
-      { startDate: new Date("11/14/2024"), endDate: new Date("12/14/2024") },
-      { startDate: new Date("12/14/2024"), endDate: new Date("01/14/2025") },
-      { startDate: new Date("01/14/2025"), endDate: new Date("02/14/2025") },
-      { startDate: new Date("02/14/2025"), endDate: new Date("03/14/2025") },
-      { startDate: new Date("03/14/2025"), endDate: new Date("04/14/2025") },
-      { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-      { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-      { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
+      { startDate: new Date('09/14/2024'), endDate: new Date('10/14/2024') },
+      { startDate: new Date('10/14/2024'), endDate: new Date('11/14/2024') },
+      { startDate: new Date('11/14/2024'), endDate: new Date('12/14/2024') },
+      { startDate: new Date('12/14/2024'), endDate: new Date('01/14/2025') },
+      { startDate: new Date('01/14/2025'), endDate: new Date('02/14/2025') },
+      { startDate: new Date('02/14/2025'), endDate: new Date('03/14/2025') },
+      { startDate: new Date('03/14/2025'), endDate: new Date('04/14/2025') },
+      { startDate: new Date('04/14/2025'), endDate: new Date('05/14/2025') },
+      { startDate: new Date('05/14/2025'), endDate: new Date('06/14/2025') },
+      { startDate: new Date('06/14/2025'), endDate: new Date('07/14/2025') },
     ];
 
     return (

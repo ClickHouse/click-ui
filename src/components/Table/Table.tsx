@@ -1,21 +1,24 @@
-import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from "react";
-import { styled } from "styled-components";
+import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from 'react';
+import { styled } from 'styled-components';
 
-import { CheckedState } from "@radix-ui/react-checkbox";
+import { CheckedState } from '@radix-ui/react-checkbox';
 
-import {
-  Checkbox,
-  CheckboxProps,
-  EllipsisContent,
-  HorizontalDirection,
-  Icon,
-  IconButton,
-  Text,
-} from "@/components";
+import { Checkbox, CheckboxProps } from '@/components/Checkbox/Checkbox';
+import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Text } from '@/components/Typography/Text/Text';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
+import type { HorizontalDirection } from '@/components/types';
 
-type SortDir = "asc" | "desc";
+type SortDir = 'asc' | 'desc';
 type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
-type TableSize = "sm" | "md";
+type TableSize = 'sm' | 'md';
+
+// wrap: text breaks into multiple lines
+// truncated: text cuts at end with an ellipsis (...)
+// truncate-middle: text cuts in middle, shows start and end
+type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
 
 export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
@@ -23,6 +26,7 @@ export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
   width?: string;
+  overflowMode?: OverflowMode;
 }
 
 const StyledHeader = styled.th<{ $size: TableSize }>`
@@ -40,33 +44,33 @@ const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
   justify-content: start;
   gap: inherit;
 
-  ${({ $interactive }) => $interactive && "cursor: pointer;"}
+  ${({ $interactive }) => $interactive && 'cursor: pointer;'}
 `;
 
 const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transition: all 200ms;
-  transform: rotate(${({ $sortDir }) => ($sortDir === "desc" ? "180deg" : "0deg")});
+  transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
 const TableHeader = ({
   label,
   sortDir,
-  sortPosition = "end",
+  sortPosition = 'end',
   isSortable,
   onSort,
   onClick,
   size,
   ...delegated
-}: Omit<TableHeaderType, "width"> & { onSort?: () => void; size: TableSize }) => {
-  const isSorted = typeof sortDir === "string";
+}: Omit<TableHeaderType, 'width'> & { onSort?: () => void; size: TableSize }) => {
+  const isSorted = typeof sortDir === 'string';
   const isInteractive = Boolean(
-    typeof onClick === "function" || (isSortable && typeof onSort === "function")
+    typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
   );
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
-    if (typeof onClick === "function") {
+    if (typeof onClick === 'function') {
       onClick(e);
     }
-    if (typeof onSort === "function") {
+    if (typeof onSort === 'function') {
       onSort();
     }
   };
@@ -79,7 +83,7 @@ const TableHeader = ({
         onClick={onHeaderClick}
         $interactive={isInteractive}
       >
-        {isSorted && isSortable && sortPosition == "start" && (
+        {isSorted && isSortable && sortPosition == 'start' && (
           <SortIcon
             $sortDir={sortDir}
             name="arrow-down"
@@ -87,7 +91,7 @@ const TableHeader = ({
           />
         )}
         {label}
-        {isSorted && isSortable && sortPosition == "end" && (
+        {isSorted && isSortable && sortPosition == 'end' && (
           <SortIcon
             $sortDir={sortDir}
             name="arrow-down"
@@ -120,8 +124,8 @@ const Thead = ({
   selectedIds,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
-    if (typeof onSortProp === "function" && header.isSortable) {
-      onSortProp(header.sortDir === "asc" ? "desc" : "asc", header, headerIndex);
+    if (typeof onSortProp === 'function' && header.isSortable) {
+      onSortProp(header.sortDir === 'asc' ? 'desc' : 'asc', header, headerIndex);
     }
   };
   return (
@@ -181,7 +185,7 @@ interface TableRowProps {
 const TableRow = styled.tr<TableRowProps>`
   overflow: hidden;
   ${({ theme, $isDeleted, $isDisabled, $isActive, $rowHeight }) => `
-    ${$rowHeight ? `height: ${$rowHeight};` : ""}
+    ${$rowHeight ? `height: ${$rowHeight};` : ''}
     background-color: ${theme.click.table.row.color.background.default};
     border-bottom: ${theme.click.table.cell.stroke} solid ${
       theme.click.table.row.color.stroke.default
@@ -196,7 +200,7 @@ const TableRow = styled.tr<TableRowProps>`
       background-color: ${theme.click.table.row.color.background.hover};
     }
     opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
-    cursor: ${$isDeleted || $isDisabled ? "not-allowed" : "default"}
+    cursor: ${$isDeleted || $isDisabled ? 'not-allowed' : 'default'}
   `}
 
   &:last-of-type, &:last-child {
@@ -215,12 +219,12 @@ const TableRow = styled.tr<TableRowProps>`
       ${
         $isSelectable
           ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
-          : ""
+          : ''
       }
       ${
         $showActions
           ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
-          : ""
+          : ''
       }
     `}
   }
@@ -371,19 +375,21 @@ const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
   svg {
     transition: transform 200ms;
     ${({ $isDeleted }) => `
-    ${$isDeleted ? "transform: rotate(45deg)" : ""};
+    ${$isDeleted ? 'transform: rotate(45deg)' : ''};
     `}
   }
   &:disabled {
     background: transparent;
   }
 `;
+
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
+  overflowMode?: OverflowMode;
 }
 export interface TableRowType extends Omit<
   HTMLAttributes<HTMLTableRowElement>,
-  "onSelect" | "id"
+  'onSelect' | 'id'
 > {
   id: string | number;
   items: Array<TableCellType>;
@@ -396,7 +402,7 @@ export interface TableRowType extends Omit<
 
 interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
-  "children" | "onSelect"
+  'children' | 'onSelect'
 > {
   headers: Array<TableHeaderType>;
   rows: Array<TableRowType>;
@@ -429,7 +435,7 @@ interface NoSelectionType {
 
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
-interface TableBodyRowProps extends Omit<TableRowType, "id"> {
+interface TableBodyRowProps extends Omit<TableRowType, 'id'> {
   headers: Array<TableHeaderType>;
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
@@ -458,8 +464,8 @@ const TableBodyRow = ({
   rowHeight,
   ...rowProps
 }: TableBodyRowProps) => {
-  const isDeletable = typeof onDelete === "function";
-  const isEditable = typeof onEdit === "function";
+  const isDeletable = typeof onDelete === 'function';
+  const isEditable = typeof onEdit === 'function';
   return (
     <TableRow
       $isSelectable={isSelectable}
@@ -473,26 +479,29 @@ const TableBodyRow = ({
       {isSelectable && (
         <SelectData $size={size}>
           <Checkbox
-            checked={isIndeterminate ? "indeterminate" : isSelected}
+            checked={isIndeterminate ? 'indeterminate' : isSelected}
             onCheckedChange={onSelect}
             disabled={isDisabled || isDeleted}
           />
         </SelectData>
       )}
-      {items.map(({ label, ...cellProps }, cellIndex) => (
+      {items.map(({ label, overflowMode, ...cellProps }, cellIndex) => (
         <TableData
           $size={size}
           key={`table-cell-${cellIndex}`}
           {...cellProps}
         >
           {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <EllipsisContent component="div">{label}</EllipsisContent>
+          <Cell
+            label={label}
+            overflowMode={overflowMode ?? headers[cellIndex]?.overflowMode}
+          />
         </TableData>
       ))}
       {actionsList.length > 0 && (
         <ActionsList $size={size}>
           <ActionsContainer>
-            {actionsList.includes("editAction") && (
+            {actionsList.includes('editAction') && (
               <EditButton
                 as={IconButton}
                 type="ghost"
@@ -502,7 +511,7 @@ const TableBodyRow = ({
                 data-testid="table-row-edit"
               />
             )}
-            {actionsList.includes("deleteAction") && (
+            {actionsList.includes('deleteAction') && (
               <TableRowCloseButton
                 as={IconButton}
                 disabled={isDisabled || !isDeletable}
@@ -558,7 +567,7 @@ const CustomTableRow = ({
         colSpan={colSpan}
       >
         <CustomTableDataMessage>
-          {loading ? <LoadingData /> : (noDataMessage ?? "No Data available")}
+          {loading ? <LoadingData /> : (noDataMessage ?? 'No Data available')}
         </CustomTableDataMessage>
       </SpanedTableData>
     </TableRow>
@@ -577,20 +586,20 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onSort,
       loading,
       noDataMessage,
-      size = "sm",
+      size = 'sm',
       showHeader = true,
       rowHeight,
       ...props
     },
     ref
   ) => {
-    const isDeletable = typeof onDelete === "function";
-    const isEditable = typeof onEdit === "function";
+    const isDeletable = typeof onDelete === 'function';
+    const isEditable = typeof onEdit === 'function';
 
     const onRowSelect =
       (id: number | string) =>
       (checked: boolean): void => {
-        if (typeof onSelect == "function") {
+        if (typeof onSelect == 'function') {
           const selectedItems = rows.flatMap((row, index) => {
             if (
               (id === row.id && checked) ||
@@ -610,10 +619,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const hasRows = rows.length > 0;
     const actionsList: Array<string> = [];
     if (isDeletable) {
-      actionsList.push("deleteAction");
+      actionsList.push('deleteAction');
     }
     if (isEditable) {
-      actionsList.push("editAction");
+      actionsList.push('editAction');
     }
 
     return (
@@ -693,7 +702,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
   }
 );
 
-interface SelectAllCheckboxProps extends Omit<CheckboxProps, "onCheckedChange"> {
+interface SelectAllCheckboxProps extends Omit<CheckboxProps, 'onCheckedChange'> {
   onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
   selectedIds: (number | string)[];
   rows: TableRowType[];
@@ -720,7 +729,7 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
       }
 
       if (selectedIdSet.has(row.id)) {
-        maybeIndeterminate = "indeterminate";
+        maybeIndeterminate = 'indeterminate';
       } else {
         areAllChecked = false;
       }
@@ -733,7 +742,7 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
   }, [rows, selectedIdSet]);
 
   const handleCheckedChange = (checked: boolean) => {
-    if (typeof onCheckedChange !== "function") {
+    if (typeof onCheckedChange !== 'function') {
       return;
     }
 
@@ -767,6 +776,37 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
       {...checkboxProps}
     />
   );
+};
+
+const TextWrapped = styled.span`
+  overflow-wrap: break-word;
+  word-break: break-all;
+  display: inline-block;
+  max-width: 100%;
+`;
+
+const Cell = ({
+  label,
+  overflowMode,
+}: {
+  label: ReactNode;
+  overflowMode?: OverflowMode;
+}) => {
+  const isText = typeof label === 'string';
+
+  if (!isText) {
+    return <>{label}</>;
+  }
+
+  if (overflowMode === 'truncated') {
+    return <EllipsisContent component="div">{label}</EllipsisContent>;
+  }
+
+  if (overflowMode === 'truncate-middle') {
+    return <MiddleTruncator text={label} />;
+  }
+
+  return <TextWrapped>{label}</TextWrapped>;
 };
 
 const StyledTable = styled.table`

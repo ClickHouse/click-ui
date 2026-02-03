@@ -1,13 +1,12 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { ContextMenuProps } from "@radix-ui/react-context-menu";
-import { ContextMenu, ContextMenuItemProps } from "./ContextMenu";
-import { styled } from "styled-components";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { ContextMenuProps } from '@radix-ui/react-context-menu';
+import { ContextMenu, ContextMenuItemProps } from './ContextMenu';
+import { styled } from 'styled-components';
 
 interface ContextMenuExampleProps extends ContextMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
-  side: "top" | "right" | "left" | "bottom";
 }
 
 const GridCenter = styled.div`
@@ -24,7 +23,6 @@ const Trigger = styled(GridCenter)`
 const ContextMenuExample = ({
   showArrow,
   disabled,
-  side,
   ...props
 }: ContextMenuExampleProps) => {
   return (
@@ -33,10 +31,7 @@ const ContextMenuExample = ({
         <ContextMenu.Trigger disabled={disabled}>
           <Trigger>ContextMenu Trigger</Trigger>
         </ContextMenu.Trigger>
-        <ContextMenu.Content
-          showArrow={showArrow}
-          side={side}
-        >
+        <ContextMenu.Content showArrow={showArrow}>
           <ContextMenu.Group>
             <ContextMenu.Item>Content0</ContextMenu.Item>
           </ContextMenu.Group>
@@ -73,19 +68,18 @@ const ContextMenuExample = ({
 const meta: Meta<typeof ContextMenuExample> = {
   component: ContextMenuExample,
   subcomponents: {
-    "ContextMenu.Trigger": ContextMenu.Trigger as React.ComponentType<unknown>,
-    "ContextMenu.Content": ContextMenu.Content as React.ComponentType<unknown>,
-    "ContextMenu.SubTrigger": ContextMenu.SubTrigger as React.ComponentType<unknown>,
-    "ContextMenu.Group": ContextMenu.Group as React.ComponentType<unknown>,
-    "ContextMenu.Sub": ContextMenu.Sub as React.ComponentType<unknown>,
-    "ContextMenu.Item": ContextMenu.Item as React.ComponentType<ContextMenuItemProps>,
+    'ContextMenu.Trigger': ContextMenu.Trigger as React.ComponentType<unknown>,
+    'ContextMenu.Content': ContextMenu.Content as React.ComponentType<unknown>,
+    'ContextMenu.SubTrigger': ContextMenu.SubTrigger as React.ComponentType<unknown>,
+    'ContextMenu.Group': ContextMenu.Group as React.ComponentType<unknown>,
+    'ContextMenu.Sub': ContextMenu.Sub as React.ComponentType<unknown>,
+    'ContextMenu.Item': ContextMenu.Item as React.ComponentType<ContextMenuItemProps>,
   },
-  title: "Display/ContextMenu",
-  tags: ["form-field", "dropdown", "autodocs"],
+  title: 'Display/ContextMenu',
+  tags: ['form-field', 'dropdown', 'autodocs'],
   argTypes: {
-    disabled: { control: "boolean" },
-    showArrow: { control: "boolean" },
-    side: { control: "select", options: ["top", "right", "left", "bottom"] },
+    disabled: { control: 'boolean' },
+    showArrow: { control: 'boolean' },
   },
 };
 
@@ -96,6 +90,5 @@ type Story = StoryObj<typeof ContextMenuExample>;
 export const Playground: Story = {
   args: {
     showArrow: true,
-    side: "left",
   },
 };

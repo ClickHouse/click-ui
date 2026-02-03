@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { GridCenter } from "../commonElement";
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { GridCenter } from '../commonElement';
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
-} from "@/components/ConfirmationDialog/ConfirmationDialog";
+} from '@/components/ConfirmationDialog/ConfirmationDialog';
 
 const ConfirmationDialogExample = ({
   disabled,
@@ -35,12 +35,12 @@ const ConfirmationDialogExample = ({
 
 const meta: Meta<typeof ConfirmationDialogExample> = {
   component: ConfirmationDialogExample,
-  title: "Display/ConfirmationDialog",
-  tags: ["autodocs", "confirmation dialog"],
+  title: 'Display/ConfirmationDialog',
+  tags: ['autodocs', 'confirmation dialog'],
   argTypes: {
     open: {
       options: [true, false, undefined],
-      control: { type: "radio" },
+      control: { type: 'radio' },
     },
   },
 };
@@ -51,20 +51,20 @@ type Story = StoryObj<typeof ConfirmationDialogExample>;
 
 export const Playground: Story = {
   args: {
-    title: "Example dialog title",
+    title: 'Example dialog title',
     disabled: false,
     loading: false,
     message:
-      "This is a simple dialog that cab be used to ask a confirmation of the action requested",
+      'This is a simple dialog that cab be used to ask a confirmation of the action requested',
     open: true,
     onCancel: () => {
-      console.log("Cancel");
+      console.log('Cancel');
     },
     onConfirm: () => {
-      console.log("Click");
+      console.log('Click');
     },
-    primaryActionLabel: "Confirm",
-    secondaryActionLabel: "Cancel",
+    primaryActionLabel: 'Confirm',
+    secondaryActionLabel: 'Cancel',
     showClose: false,
   },
   parameters: {

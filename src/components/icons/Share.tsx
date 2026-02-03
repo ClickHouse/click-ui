@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 const Share = (props: SVGAttributes<SVGElement>) => (
   <svg

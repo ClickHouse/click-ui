@@ -1,19 +1,19 @@
-import React from "react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, Checkbox } from "..";
-import { GridCenter } from "../commonElement";
-import { Text } from "../Typography/Text/Text";
-import { Title } from "../Typography/Title/Title";
-import { Popover } from "./Popover";
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Button, Checkbox } from '..';
+import { GridCenter } from '../commonElement';
+import { Text } from '../Typography/Text/Text';
+import { Title } from '../Typography/Title/Title';
+import { Popover } from './Popover';
 
 const meta: Meta<typeof Popover> = {
   component: Popover,
   subcomponents: {
-    "Popover.Trigger": Popover.Trigger as React.ComponentType<unknown>,
-    "Popover.Content": Popover.Content as React.ComponentType<unknown>,
+    'Popover.Trigger': Popover.Trigger as React.ComponentType<unknown>,
+    'Popover.Content': Popover.Content as React.ComponentType<unknown>,
   },
-  title: "Display/Popover",
-  tags: ["autodocs", "form-field", "popover"],
+  title: 'Display/Popover',
+  tags: ['autodocs', 'form-field', 'popover'],
 };
 
 export default meta;

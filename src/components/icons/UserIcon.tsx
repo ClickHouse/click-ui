@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 export const UserIcon = (props: SVGAttributes<SVGElement>) => (
   <svg

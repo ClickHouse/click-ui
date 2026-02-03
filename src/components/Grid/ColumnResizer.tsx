@@ -1,8 +1,8 @@
-import { PointerEventHandler, useCallback, useEffect, useRef } from "react";
-import { styled } from "styled-components";
-import { ColumnResizeFn, GetResizerPositionFn } from "./types";
-import throttle from "lodash/throttle";
-import { initialPosition, ResizingState } from "./useResizingState";
+import { PointerEventHandler, useCallback, useEffect, useRef } from 'react';
+import { styled } from 'styled-components';
+import { ColumnResizeFn, GetResizerPositionFn } from './types';
+import throttle from 'lodash/throttle';
+import { initialPosition, ResizingState } from './useResizingState';
 
 const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
 
@@ -115,7 +115,7 @@ const ColumnResizer = ({
         // We keep track of the last click timestamp and check if it was a double-click.
         if (lastPressedTimestamp > Date.now() - DOUBLE_CLICK_THRESHOLD_MSEC) {
           // Auto-size the column on double click.
-          onColumnResize(columnIndex, 0, "auto");
+          onColumnResize(columnIndex, 0, 'auto');
         }
         setPointer({
           pointerId: e.pointerId,
@@ -174,7 +174,7 @@ const ColumnResizer = ({
         ) {
           const shouldCallResize = e.clientX !== pointer.initialClientX;
           if (shouldCallResize) {
-            onColumnResize(columnIndex, pointer.width, "manual");
+            onColumnResize(columnIndex, pointer.width, 'manual');
           }
           setPosition(initialPosition);
           setPointer(null);

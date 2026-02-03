@@ -1,5 +1,5 @@
-import { HTMLAttributes, MouseEventHandler, ReactNode } from "react";
-import { styled } from "styled-components";
+import { HTMLAttributes, MouseEventHandler, ReactNode } from 'react';
+import { styled } from 'styled-components';
 import {
   Badge,
   BadgeState,
@@ -8,14 +8,14 @@ import {
   HorizontalDirection,
   Icon,
   IconName,
-} from "@/components";
+} from '@/components';
 
-type CardColor = "default" | "muted";
-export type CardSize = "sm" | "md";
+type CardColor = 'default' | 'muted';
+export type CardSize = 'sm' | 'md';
 
 export interface CardHorizontalProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
-  "title"
+  'title'
 > {
   /** The title text displayed in the card */
   title?: ReactNode;
@@ -85,11 +85,11 @@ const Wrapper = styled.div<{
     border-radius: ${theme.click.card.horizontal.radii.all};
     border: 1px solid ${
       theme.click.card.horizontal[$color].color.stroke[
-        $isSelectable ? ($isSelected ? "active" : "hover") : "default"
+        $isSelectable ? ($isSelected ? 'active' : 'hover') : 'default'
       ]
     };
      padding: ${
-       $size === "md"
+       $size === 'md'
          ? `${theme.click.card.horizontal.space.md.y} ${theme.click.card.horizontal.space.md.x}`
          : `${theme.click.card.horizontal.space.sm.y} ${theme.click.card.horizontal.space.sm.x}`
      };
@@ -101,30 +101,30 @@ const Wrapper = styled.div<{
     &:hover{
       background-color: ${
         theme.click.card.horizontal[$color].color.background[
-          $isSelectable ? "hover" : "default"
+          $isSelectable ? 'hover' : 'default'
         ]
       };
       color: ${
         theme.click.card.horizontal[$color].color.title[
-          $isSelectable ? "hover" : "default"
+          $isSelectable ? 'hover' : 'default'
         ]
       };
       border: 1px solid ${
         theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable ? ($isSelected ? "active" : "default") : "default"
+          $isSelectable ? ($isSelected ? 'active' : 'default') : 'default'
         ]
       };
-      cursor: ${$isSelectable ? "pointer" : "default"};
+      cursor: ${$isSelectable ? 'pointer' : 'default'};
       font: ${theme.click.card.horizontal.typography.title.hover};
       ${Description} {
         color: ${
           theme.click.card.horizontal[$color].color.description[
-            $isSelectable ? "hover" : "default"
+            $isSelectable ? 'hover' : 'default'
           ]
         };
         font: ${
           theme.click.card.horizontal.typography.description[
-            $isSelectable ? "hover" : "default"
+            $isSelectable ? 'hover' : 'default'
           ]
         };
       }
@@ -133,28 +133,28 @@ const Wrapper = styled.div<{
     &:active, &:focus, &:focus-within {
       background-color: ${
         theme.click.card.horizontal[$color].color.background[
-          $isSelectable ? "active" : "default"
+          $isSelectable ? 'active' : 'default'
         ]
       };
       color: ${
         theme.click.card.horizontal[$color].color.title[
-          $isSelectable ? "active" : "default"
+          $isSelectable ? 'active' : 'default'
         ]
       };
       border: 1px solid ${
         theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable ? "active" : "default"
+          $isSelectable ? 'active' : 'default'
         ]
       };
       ${Description} {
         color: ${
           theme.click.card.horizontal[$color].color.description[
-            $isSelectable ? "active" : "default"
+            $isSelectable ? 'active' : 'default'
           ]
         };
         font: ${
           theme.click.card.horizontal.typography.description[
-            $isSelectable ? "active" : "default"
+            $isSelectable ? 'active' : 'default'
           ]
         };
       }
@@ -172,7 +172,7 @@ const Wrapper = styled.div<{
             color: ${theme.click.card.horizontal[$color].color.title.disabled};
             border: 1px solid ${
               theme.click.card.horizontal[$color].color.stroke[
-                $isSelected ? "active" : "disabled"
+                $isSelected ? 'active' : 'disabled'
               ]
             };
             cursor: not-allowed;
@@ -185,7 +185,7 @@ const Wrapper = styled.div<{
             border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
           }
         `
-        : ""
+        : ''
     }
   `}
 `;
@@ -202,7 +202,7 @@ const ContentWrapper = styled.div<{ $size: CardSize }>`
   flex-direction: row;
   width: 100%;
   gap: ${({ theme, $size }) =>
-    $size === "md"
+    $size === 'md'
       ? theme.click.card.horizontal.space.md.gap
       : theme.click.card.horizontal.space.sm.gap};
 
@@ -217,7 +217,7 @@ const IconTextContentWrapper = styled.div<{ $size: CardSize }>`
   align-items: center;
   width: 100%;
   gap: ${({ theme, $size }) =>
-    $size === "md"
+    $size === 'md'
       ? theme.click.card.horizontal.space.md.gap
       : theme.click.card.horizontal.space.sm.gap};
 `;
@@ -232,8 +232,8 @@ export const CardHorizontal = ({
   isSelected,
   isSelectable = infoText ? false : true,
   children,
-  color = "default",
-  size = "md",
+  color = 'default',
+  size = 'md',
   badgeText,
   badgeState,
   badgeIcon,
@@ -247,11 +247,11 @@ export const CardHorizontal = ({
       return;
     }
 
-    if (typeof onButtonClick === "function") {
+    if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
     if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, "_blank");
+      window.open(infoUrl, '_blank');
     }
   };
   return (

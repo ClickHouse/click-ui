@@ -1,9 +1,9 @@
-import { Dayjs } from "dayjs";
+import { Dayjs } from 'dayjs';
 
 export const formatTimezone = ({
   date,
   timezone,
-  locale = "en-US",
+  locale = 'en-US',
 }: {
   date: Dayjs;
   timezone?: string;
@@ -11,7 +11,7 @@ export const formatTimezone = ({
 }): string =>
   new Intl.DateTimeFormat(locale, {
     timeZone: timezone,
-    timeZoneName: "short",
+    timeZoneName: 'short',
   })
     .formatToParts(date.toDate())
-    .find(part => part.type === "timeZoneName")?.value ?? date.format("z");
+    .find(part => part.type === 'timeZoneName')?.value ?? date.format('z');

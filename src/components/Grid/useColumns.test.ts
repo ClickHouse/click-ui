@@ -1,9 +1,9 @@
-import { renderHook, act } from "@testing-library/react";
-import useColumns from "./useColumns";
-import { VariableSizeGrid, VariableSizeGridProps } from "react-window";
-import { ReactInstance, RefObject } from "react";
+import { renderHook, act } from '@testing-library/react';
+import useColumns from './useColumns';
+import { VariableSizeGrid, VariableSizeGridProps } from 'react-window';
+import { ReactInstance, RefObject } from 'react';
 
-describe("useColumns", () => {
+describe('useColumns', () => {
   let mockGridRef: RefObject<VariableSizeGrid>;
   let mockOuterGridRef: { current: HTMLDivElement };
 
@@ -24,7 +24,7 @@ describe("useColumns", () => {
         refs: {} as { [key: string]: ReactInstance },
       },
     };
-    mockOuterGridRef = { current: document.createElement("div") };
+    mockOuterGridRef = { current: document.createElement('div') };
     vi.clearAllMocks();
   });
 
@@ -38,8 +38,8 @@ describe("useColumns", () => {
       })
     );
 
-  describe("initColumnSize", () => {
-    it("initializes columns with default width and positions of 100px", () => {
+  describe('initColumnSize', () => {
+    it('initializes columns with default width and positions of 100px', () => {
       const { result } = renderColumnHook();
 
       act(() => {
@@ -53,7 +53,7 @@ describe("useColumns", () => {
       });
     });
 
-    it("returns default column width when the container is smaller than the sum of column widths", () => {
+    it('returns default column width when the container is smaller than the sum of column widths', () => {
       const columnCount = 5;
       const { result } = renderColumnHook({ columnCount: 5 });
 
@@ -67,13 +67,13 @@ describe("useColumns", () => {
     });
   });
 
-  describe("onColumnResize", () => {
-    it("handles manual column resizing after initialization", () => {
+  describe('onColumnResize', () => {
+    it('handles manual column resizing after initialization', () => {
       const { result } = renderColumnHook();
 
       act(() => {
         result.current.initColumnSize(300);
-        result.current.onColumnResize(1, 150, "manual");
+        result.current.onColumnResize(1, 150, 'manual');
       });
 
       const expectedPositions = [0, 100, 250];
@@ -84,7 +84,7 @@ describe("useColumns", () => {
       expect(result.current.columnWidth(1)).toBe(150);
     });
 
-    it("resizes columns using columnWidthProp", () => {
+    it('resizes columns using columnWidthProp', () => {
       const expectedWidths = [150, 200, 250];
       const columnWidthProp = (index: number) => expectedWidths[index] || 100;
       const { result } = renderColumnHook({
@@ -106,11 +106,11 @@ describe("useColumns", () => {
       expect(mockGridRef.current?.resetAfterColumnIndex).toHaveBeenCalledWith(0);
     });
 
-    it("handles auto-width resizing using measureColumnWidth", () => {
+    it('handles auto-width resizing using measureColumnWidth', () => {
       const mockCells = [
-        { style: { width: "" }, scrollWidth: 110 },
-        { style: { width: "" }, scrollWidth: 120 },
-        { style: { width: "" }, scrollWidth: 115 },
+        { style: { width: '' }, scrollWidth: 110 },
+        { style: { width: '' }, scrollWidth: 120 },
+        { style: { width: '' }, scrollWidth: 115 },
       ];
       const mockQuerySelector = vi.fn().mockReturnValue(mockCells);
       const customMockOuterGridRef = {
@@ -123,7 +123,7 @@ describe("useColumns", () => {
 
       act(() => {
         result.current.initColumnSize(300);
-        result.current.onColumnResize(1, 0, "auto");
+        result.current.onColumnResize(1, 0, 'auto');
       });
       expect(mockQuerySelector).toHaveBeenCalledWith('[data-grid-column="1"]');
       expect(result.current.columnWidth(1)).toBe(122);

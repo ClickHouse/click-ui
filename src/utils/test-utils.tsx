@@ -1,6 +1,6 @@
-import { type ThemeName } from "@/theme";
-import { render as renderTL } from "@testing-library/react";
-import { ClickUIProvider } from "..";
+import { type ThemeName } from '@/theme';
+import { render as renderTL } from '@testing-library/react';
+import { ClickUIProvider } from '..';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Wrapper = ({
@@ -18,7 +18,7 @@ const Wrapper = ({
   </ClickUIProvider>
 );
 
-const renderCUI = (children: React.ReactNode, theme: ThemeName = "dark") => {
+const renderCUI = (children: React.ReactNode, theme: ThemeName = 'dark') => {
   const rtlRenderResult = renderTL(<Wrapper theme={theme}>{children}</Wrapper>);
 
   return {

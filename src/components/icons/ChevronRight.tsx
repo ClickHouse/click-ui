@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { SVGAttributes } from 'react';
 
 export const ChevronRight = (props: SVGAttributes<SVGElement>) => (
   <svg

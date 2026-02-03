@@ -1,6 +1,6 @@
-import { styled } from "styled-components";
-import { SelectionTypeFn } from "./types";
-import { StyledCell } from "./StyledCell";
+import { styled } from 'styled-components';
+import { SelectionTypeFn } from './types';
+import { StyledCell } from './StyledCell';
 const RowNumberColumnContainer = styled.div<{
   $height: number;
   $width: number;
@@ -18,7 +18,7 @@ const RowNumberColumnContainer = styled.div<{
   ${({ $scrolledHorizontal, theme }) =>
     $scrolledHorizontal
       ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ""}
+      : ''}
 `;
 
 const RowNumberCell = styled.div<{
@@ -34,7 +34,7 @@ const RowNumberCell = styled.div<{
   width: 100%;
   ${({ $height, $rowNumber, $rowAutoHeight }) => `
     top: ${$height * $rowNumber}px;
-    height: ${$rowAutoHeight ? "100%" : `${$height}px`};
+    height: ${$rowAutoHeight ? '100%' : `${$height}px`};
   `}
 `;
 interface RowNumberColumnProps {
@@ -53,7 +53,7 @@ interface RowNumberColumnProps {
 }
 interface RowNumberProps extends Pick<
   RowNumberColumnProps,
-  "rowHeight" | "getSelectionType" | "showBorder" | "rowStart"
+  'rowHeight' | 'getSelectionType' | 'showBorder' | 'rowStart'
 > {
   rowIndex: number;
   isLastRow: boolean;
@@ -73,15 +73,15 @@ const RowNumber = ({
   const currentRowIndex = rowIndex + rowStart;
   const selectionType = getSelectionType({
     row: currentRowIndex,
-    type: "row",
+    type: 'row',
   });
-  const isSelected = selectionType === "selectDirect";
+  const isSelected = selectionType === 'selectDirect';
   const topSelectionType = getSelectionType({
     row: currentRowIndex - 1,
-    type: "row",
+    type: 'row',
   });
   const isSelectedTop =
-    (topSelectionType === "selectDirect" || isSelected) &&
+    (topSelectionType === 'selectDirect' || isSelected) &&
     topSelectionType !== selectionType;
 
   return (

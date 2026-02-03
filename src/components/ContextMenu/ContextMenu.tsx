@@ -1,10 +1,10 @@
-import * as RightMenu from "@radix-ui/react-context-menu";
-import { styled } from "styled-components";
-import { HorizontalDirection, Icon, IconName } from "@/components";
-import { Arrow, GenericMenuItem, GenericMenuPanel } from "../GenericMenu";
-import PopoverArrow from "../icons/PopoverArrow";
-import IconWrapper from "../IconWrapper/IconWrapper";
-import { forwardRef } from "react";
+import * as RightMenu from '@radix-ui/react-context-menu';
+import { styled } from 'styled-components';
+import { HorizontalDirection, Icon, IconName } from '@/components';
+import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
+import PopoverArrow from '../icons/PopoverArrow';
+import IconWrapper from '../IconWrapper/IconWrapper';
+import { forwardRef } from 'react';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
@@ -26,7 +26,7 @@ const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTrigg
   }
 );
 
-ContextMenuTrigger.displayName = "ContextMenuTrigger";
+ContextMenuTrigger.displayName = 'ContextMenuTrigger';
 ContextMenu.Trigger = ContextMenuTrigger;
 
 interface ContextMenuSubTriggerProps extends RightMenu.ContextMenuSubTriggerProps {
@@ -57,18 +57,18 @@ const ContextMenuSubTrigger = ({
   );
 };
 
-ContextMenuSubTrigger.displayName = "ContextMenuSubTrigger";
+ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 ContextMenu.SubTrigger = ContextMenuSubTrigger;
 
 export type ArrowProps = {
   showArrow?: boolean;
 };
 
-type ContextMenuContentProps = RightMenu.MenuContentProps & {
+type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
   sub?: true;
 } & ArrowProps;
 
-type ContextMenuSubContentProps = RightMenu.MenuSubContentProps & {
+type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
   sub?: never;
 } & ArrowProps;
 
@@ -98,7 +98,7 @@ const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
         }
       }
   `
-      : ""};
+      : ''};
 `;
 
 const ContextMenuContent = ({
@@ -132,7 +132,7 @@ const ContextMenuContent = ({
   );
 };
 
-ContextMenuContent.displayName = "ContextMenuContent";
+ContextMenuContent.displayName = 'ContextMenuContent';
 ContextMenu.Content = ContextMenuContent;
 
 const RightMenuGroup = styled(RightMenu.Group)`
@@ -145,7 +145,7 @@ const ContextMenuGroup = (props: RightMenu.ContextMenuGroupProps) => {
   return <RightMenuGroup {...props} />;
 };
 
-ContextMenuGroup.displayName = "ContextMenuGroup";
+ContextMenuGroup.displayName = 'ContextMenuGroup';
 ContextMenu.Group = ContextMenuGroup;
 
 const RightMenuSub = styled(RightMenu.Sub)`
@@ -157,7 +157,7 @@ const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
   return <RightMenuSub {...props} />;
 };
 
-ContextMenuSub.displayName = "ContextMenuSub";
+ContextMenuSub.displayName = 'ContextMenuSub';
 ContextMenu.Sub = ContextMenuSub;
 export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
   /** Icon to display in the menu item */
@@ -165,13 +165,13 @@ export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
   /** The direction of the icon relative to the label */
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
-  type?: "default" | "danger";
+  type?: 'default' | 'danger';
 }
 
 const ContextMenuItem = ({
   icon,
   iconDir,
-  type = "default",
+  type = 'default',
   children,
   ...props
 }: ContextMenuItemProps) => {
@@ -191,7 +191,7 @@ const ContextMenuItem = ({
   );
 };
 
-ContextMenuItem.displayName = "ContextMenuItem";
+ContextMenuItem.displayName = 'ContextMenuItem';
 ContextMenu.Item = ContextMenuItem;
 
 export default ContextMenu;

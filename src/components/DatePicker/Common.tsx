@@ -1,14 +1,14 @@
-import { styled } from "styled-components";
-import { InputElement, InputStartContent, InputWrapper } from "../Input/InputWrapper";
-import { ReactNode, useCallback, useId } from "react";
-import { Icon } from "../Icon/Icon";
-import { Container } from "../Container/Container";
-import { useCalendar, UseCalendarOptions } from "@h6s/calendar";
-import { IconButton } from "../IconButton/IconButton";
-import { Text } from "../Typography/Text/Text";
-import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from "./utils";
+import { styled } from 'styled-components';
+import { InputElement, InputStartContent, InputWrapper } from '../Input/InputWrapper';
+import { ReactNode, useCallback, useId } from 'react';
+import { Icon } from '../Icon/Icon';
+import { Container } from '../Container/Container';
+import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
+import { IconButton } from '../IconButton/IconButton';
+import { Text } from '../Typography/Text/Text';
+import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
 
-const explicitWidth = "250px";
+const explicitWidth = '250px';
 
 const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
@@ -39,7 +39,7 @@ export const DatePickerInput = ({
 }: DatePickerInputProps) => {
   const defaultId = useId();
   const formattedSelectedDate =
-    selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : "";
+    selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : '';
 
   return (
     <HighlightedInputWrapper
@@ -85,21 +85,21 @@ export const DateRangePickerInput = ({
       color="muted"
       component="span"
     >
-      {placeholder ?? ""}
+      {placeholder ?? ''}
     </Text>
   );
   if (selectedStartDate) {
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)} –{" "}
+          {selectedDateFormatter.format(selectedStartDate)} –{' '}
           {selectedDateFormatter.format(selectedEndDate)}
         </span>
       );
     } else {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)}{" "}
+          {selectedDateFormatter.format(selectedStartDate)}{' '}
           <Text
             color="muted"
             component="span"
@@ -221,7 +221,7 @@ export const DateTableCell = styled.td<{
   }
 `;
 
-export type Body = ReturnType<typeof useCalendar>["body"];
+export type Body = ReturnType<typeof useCalendar>['body'];
 
 interface CalendarRendererProps {
   calendarOptions?: UseCalendarOptions;

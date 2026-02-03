@@ -1,5 +1,5 @@
-import DotsHorizontal from "./DotsHorizontal";
-import { keyframes, styled } from "styled-components";
+import DotsHorizontal from './DotsHorizontal';
+import { keyframes, styled } from 'styled-components';
 
 const animationCircle1 = keyframes`
   0 {

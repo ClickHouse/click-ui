@@ -1,21 +1,21 @@
-import { css } from "styled-components";
-import { TextSize, TextWeight } from "../commonTypes";
+import { css } from 'styled-components';
+import { TextSize, TextWeight } from '../commonTypes';
 
 export type StyledLinkProps = { $size: TextSize; $weight: TextWeight };
 
 export const linkStyles = css<StyledLinkProps>`
-  font: ${({ $size, $weight = "normal", theme }) =>
+  font: ${({ $size, $weight = 'normal', theme }) =>
     theme.typography.styles.product.text[$weight][$size]};
   color: ${({ theme }) => theme.click.global.color.text.link.default};
   margin: 0;
   text-decoration: none;
   display: inline-flex;
   gap: ${({ $size, theme }) =>
-    $size === "xs" || $size === "sm"
+    $size === 'xs' || $size === 'sm'
       ? theme.click.link.space.sm.gap
       : theme.click.link.space.md.gap};
   margin-right: ${({ $size, theme }) =>
-    $size === "xs" || $size === "sm"
+    $size === 'xs' || $size === 'sm'
       ? theme.click.link.space.sm.gap
       : theme.click.link.space.md.gap};
   align-items: center;
