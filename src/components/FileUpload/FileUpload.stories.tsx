@@ -5,7 +5,7 @@ import { Flyout } from '@/components/Flyout/Flyout';
 import { Button } from '@/components/Button/Button';
 import { useState } from 'react';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   @media (min-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
     max-width: 1024px;

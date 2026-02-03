@@ -1,6 +1,7 @@
 import { Meta, StoryObj, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
 import { FileMultiUpload, FileUploadItem } from '@/components/FileUpload/FileMultiUpload';
+import { Wrapper } from './FileUpload.stories';
 
 const meta: Meta<typeof FileMultiUpload> = {
   component: FileMultiUpload,
@@ -8,9 +9,9 @@ const meta: Meta<typeof FileMultiUpload> = {
   tags: ['file-upload', 'multi-upload', 'autodocs'],
   decorators: [
     Story => (
-      <div style={{ width: '800px' }}>
+      <Wrapper>
         <Story />
-      </div>
+      </Wrapper>
     ),
   ],
 };
