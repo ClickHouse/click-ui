@@ -1,4 +1,15 @@
-import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from 'react';
+import {
+  FC,
+  HTMLAttributes,
+  MouseEvent,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { styled } from 'styled-components';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
@@ -41,13 +52,31 @@ const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
   ${({ $resizable }) =>
     $resizable &&
     `
+    position: relative;
     overflow: hidden;
-    resize: horizontal;
   `}
+`;
 
-  &:last-child {
-    resize: none;
+const Resizer = styled.div<{ $isResizing?: boolean }>`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 1;
+  background: #fc0;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.4);
   }
+
+  ${({ $isResizing, theme }) =>
+    $isResizing &&
+    `
+    background: ${theme.click.table.header.color.background.active ?? 'rgba(0, 0, 0, 0.2)'};
+  `}
 `;
 
 const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
@@ -64,6 +93,14 @@ const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
+interface TableHeaderInternalProps extends Omit<TableHeaderType, 'width'> {
+  onSort?: () => void;
+  size: TableSize;
+  showResizer?: boolean;
+  onResizeStart?: (e: React.MouseEvent) => void;
+  isResizing?: boolean;
+}
+
 const TableHeader = ({
   label,
   sortDir,
@@ -73,8 +110,11 @@ const TableHeader = ({
   onClick,
   size,
   resizable,
+  showResizer,
+  onResizeStart,
+  isResizing,
   ...delegated
-}: Omit<TableHeaderType, 'width'> & { onSort?: () => void; size: TableSize }) => {
+}: TableHeaderInternalProps) => {
   const isSorted = typeof sortDir === 'string';
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
@@ -113,6 +153,12 @@ const TableHeader = ({
           />
         )}
       </HeaderContentWrapper>
+      {showResizer && (
+        <Resizer
+          onMouseDown={onResizeStart}
+          $isResizing={isResizing}
+        />
+      )}
     </StyledHeader>
   );
 };
@@ -126,6 +172,9 @@ interface TheadProps {
   rows: TableRowType[];
   selectedIds: (number | string)[];
   resizableColumns?: boolean;
+  columnWidths?: number[];
+  onResizeStart?: (columnIndex: number) => (e: React.MouseEvent) => void;
+  resizingColumnIndex?: number | null;
 }
 
 const Thead = ({
@@ -138,6 +187,9 @@ const Thead = ({
   rows,
   selectedIds,
   resizableColumns,
+  columnWidths,
+  onResizeStart,
+  resizingColumnIndex,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
@@ -151,7 +203,11 @@ const Thead = ({
         {headers.map((headerProps, index) => (
           <col
             key={`header-col-${index}`}
-            width={headerProps.width}
+            width={
+              resizableColumns && columnWidths?.[index]
+                ? `${columnWidths[index]}px`
+                : headerProps.width
+            }
           />
         ))}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
@@ -176,6 +232,9 @@ const Thead = ({
               onSort={onSort(headerProps, index)}
               size={size}
               resizable={resizableColumns}
+              showResizer={resizableColumns && index < headers.length - 1}
+              onResizeStart={onResizeStart?.(index)}
+              isResizing={resizingColumnIndex === index}
               {...headerProps}
             />
           ))}
@@ -591,6 +650,18 @@ const CustomTableRow = ({
     </TableRow>
   );
 };
+interface ResizeState {
+  isResizing: boolean;
+  columnIndex: number | null;
+  nextColumnIndex: number | null;
+  startX: number;
+  startWidth: number;
+  nextStartWidth: number;
+}
+
+const MIN_COLUMN_WIDTH = 50;
+const DEFAULT_COLUMN_WIDTH = 150;
+
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
     {
@@ -614,6 +685,91 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
   ) => {
     const isDeletable = typeof onDelete === 'function';
     const isEditable = typeof onEdit === 'function';
+
+    const [columnWidths, setColumnWidths] = useState<number[]>(() =>
+      headers.map(header => {
+        if (header.width) {
+          const parsed = parseInt(header.width, 10);
+          return isNaN(parsed) ? DEFAULT_COLUMN_WIDTH : parsed;
+        }
+        return DEFAULT_COLUMN_WIDTH;
+      })
+    );
+
+    const [resizingColumnIndex, setResizingColumnIndex] = useState<number | null>(null);
+
+    const resizeStateRef = useRef<ResizeState>({
+      isResizing: false,
+      columnIndex: null,
+      nextColumnIndex: null,
+      startX: 0,
+      startWidth: 0,
+      nextStartWidth: 0,
+    });
+
+    const handleMouseMove = useCallback(
+      (e: globalThis.MouseEvent) => {
+        if (!resizeStateRef.current.isResizing) {return;}
+
+        const { columnIndex, nextColumnIndex, startX, startWidth, nextStartWidth } =
+          resizeStateRef.current;
+
+        if (columnIndex === null || nextColumnIndex === null) {return;}
+
+        const diff = e.clientX - startX;
+        const newWidth = startWidth + diff;
+        const newNextWidth = nextStartWidth - diff;
+
+        // Enforce minimum widths for both columns
+        if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
+          setColumnWidths(prev => {
+            const updated = [...prev];
+            updated[columnIndex] = newWidth;
+            updated[nextColumnIndex] = newNextWidth;
+            return updated;
+          });
+        }
+      },
+      []
+    );
+
+    const handleMouseUp = useCallback(() => {
+      resizeStateRef.current.isResizing = false;
+      setResizingColumnIndex(null);
+    }, []);
+
+    useEffect(() => {
+      if (!resizableColumns) {return;}
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }, [resizableColumns, handleMouseMove, handleMouseUp]);
+
+    const handleResizeStart = useCallback(
+      (columnIndex: number) => (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        const nextColumnIndex = columnIndex + 1;
+        if (nextColumnIndex >= headers.length) {return;}
+
+        resizeStateRef.current = {
+          isResizing: true,
+          columnIndex,
+          nextColumnIndex,
+          startX: e.clientX,
+          startWidth: columnWidths[columnIndex],
+          nextStartWidth: columnWidths[nextColumnIndex],
+        };
+
+        setResizingColumnIndex(columnIndex);
+      },
+      [headers.length, columnWidths]
+    );
 
     const onRowSelect =
       (id: number | string) =>
@@ -674,6 +830,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 rows={rows}
                 selectedIds={selectedIds}
                 resizableColumns={resizableColumns}
+                columnWidths={resizableColumns ? columnWidths : undefined}
+                onResizeStart={resizableColumns ? handleResizeStart : undefined}
+                resizingColumnIndex={resizingColumnIndex}
               />
             )}
             <Tbody>
