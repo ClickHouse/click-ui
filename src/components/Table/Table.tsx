@@ -765,7 +765,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     }, [resizableColumns, onMouseMove, onMouseUp]);
 
     const handleResizeStart = useCallback(
-      (columnIndex: number) => (e: React.MouseEvent) => {
+      (columnIndex: number) => (e: MouseEvent) => {
         e.preventDefault();
 
         if (!columnWidths) {
