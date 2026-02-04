@@ -109,7 +109,8 @@ const TableHeader = ({
   resizable,
   showResizer,
   onResizeStart,
-  ...delegated
+  overflowMode,
+  ...props
 }: TableHeaderProps) => {
   const isSorted = typeof sortDir === 'string';
   const isInteractive = Boolean(
@@ -127,7 +128,7 @@ const TableHeader = ({
     <StyledHeader
       $size={size}
       $resizable={resizable}
-      {...delegated}
+      {...props}
     >
       <HeaderContentWrapper
         onClick={onHeaderClick}
