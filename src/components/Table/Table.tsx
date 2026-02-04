@@ -645,8 +645,8 @@ const CustomTableRow = ({
 };
 interface ResizeState {
   isResizing: boolean;
-  columnIndex: number | null;
-  nextColumnIndex: number | null;
+  columnIndex: number;
+  nextColumnIndex: number;
   startX: number;
   startWidth: number;
   nextStartWidth: number;
@@ -711,8 +711,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
     const resizeStateRef = useRef<ResizeState>({
       isResizing: false,
-      columnIndex: null,
-      nextColumnIndex: null,
+      columnIndex: -1,
+      nextColumnIndex: -1,
       startX: 0,
       startWidth: 0,
       nextStartWidth: 0,
