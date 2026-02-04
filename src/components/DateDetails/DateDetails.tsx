@@ -1,11 +1,12 @@
 import dayjs, { Dayjs } from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import duration from 'dayjs/plugin/duration';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import updateLocale from 'dayjs/plugin/updateLocale';
-import utc from 'dayjs/plugin/utc';
+import advancedFormat from 'dayjs/plugin/advancedFormat.js';
+import duration from 'dayjs/plugin/duration.js';
+import localizedFormat from 'dayjs/plugin/localizedFormat.js';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
+import timezone from 'dayjs/plugin/timezone.js';
+import updateLocale from 'dayjs/plugin/updateLocale.js';
+import utc from 'dayjs/plugin/utc.js';
+
 import { styled } from 'styled-components';
 
 import { Popover } from '@/components/Popover/Popover';

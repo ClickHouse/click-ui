@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { Checkbox } from '@/components';
+import { Checkbox } from '@/components/Checkbox/Checkbox';
 import { CheckboxProps } from '@/components/Checkbox/Checkbox';
 import { renderCUI } from '@/utils/test-utils';
 

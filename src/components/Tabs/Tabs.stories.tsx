@@ -1,6 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Spacer, Tabs, Text } from '@/components';
+import { Spacer } from '@/components/Spacer/Spacer';
+import { Tabs } from '@/components/Tabs/Tabs';
+import { Text } from '@/components/Typography/Text/Text';
 
 const meta: Meta<typeof Tabs> = {
   component: Tabs,

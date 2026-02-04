@@ -1,5 +1,6 @@
 import { PopoverProps } from '@radix-ui/react-popover';
-import { Checkbox, Popover } from '@/components';
+import { Checkbox } from '@/components/Checkbox/Checkbox';
+import { Popover } from '@/components/Popover/Popover';
 import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 

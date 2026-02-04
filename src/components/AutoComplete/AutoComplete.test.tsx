@@ -1,5 +1,6 @@
 import { act, fireEvent } from '@testing-library/react';
-import { AutoComplete, AutoCompleteProps } from '@/components';
+import { AutoComplete } from '@/components/AutoComplete/AutoComplete';
+import type { AutoCompleteProps } from '@/components/AutoComplete/AutoComplete';
 import { renderCUI } from '@/utils/test-utils';
 import { selectOptions } from '../Select/selectOptions';
 describe('AutoComplete', () => {

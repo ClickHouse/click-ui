@@ -36,7 +36,8 @@ import {
 import { useSelectionActions } from './useSelectionActions';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { Cell } from './Cell';
-import { ContextMenu, createToast } from '@/components';
+import { ContextMenu } from '@/components/ContextMenu/ContextMenu';
+import { createToast } from '@/components/Toast/toastEmitter';
 import copyGridElements from './copyGridElements';
 import useColumns from './useColumns';
 import useResizingState from './useResizingState';
