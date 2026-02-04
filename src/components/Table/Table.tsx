@@ -741,7 +741,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       const newWidth = startWidth + diff;
       const newNextWidth = nextStartWidth - diff;
 
-      if (!!newWidth || !!newNextWidth) {
+      if (!newWidth || !newNextWidth) {
         console.warn('Unexpected computed values for resize width', {
           newWidth,
           newNextWidth,
