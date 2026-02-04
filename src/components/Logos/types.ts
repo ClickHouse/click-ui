@@ -47,6 +47,7 @@ export type LogoName =
   | 'hudi'
   | 'deltalake'
   | 'snowflake'
+  | 'supabase'
   | 'mongodb'
   | 'bigquery'
   | 'iceberg'

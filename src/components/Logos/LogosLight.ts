@@ -52,6 +52,7 @@ import Python from './Python';
 import Redpanda from './Redpanda';
 import Rust from './RustLight';
 import Snowflake from './Snowflake';
+import Supabase from './Supabase';
 import Superset from './Superset';
 import Tableau from './TableauLight';
 import Upstash from './Upstash';
@@ -113,6 +114,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   redpanda: Redpanda,
   rust: Rust,
   snowflake: Snowflake,
+  supabase: Supabase,
   superset: Superset,
   tableau: Tableau,
   upstash: Upstash,
