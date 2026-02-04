@@ -6,10 +6,11 @@ import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
-const buildOptions: BuildOptions = {
+const build: BuildOptions = {
   target: 'esnext',
   emptyOutDir: true,
   // WARNING: Do not minify unbundled builds
@@ -18,7 +19,7 @@ const buildOptions: BuildOptions = {
   // which makes static analysis challenging
   minify: false,
   lib: {
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: `${srcDir}/index.ts`,
   },
   rollupOptions: {
     output: [
@@ -85,6 +86,37 @@ const viteConfig = defineConfig({
       useFile: path.join(process.cwd(), 'package.json'),
     }),
     tsconfigPaths(),
+    // TODO: Copying CSS Module files to both esm and cjs dist directories should have the target names, e.g. esm, cjs shared with bundled target, so that they're automatically sync.
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'src/**/*.module.css',
+          dest: 'esm',
+          rename: (fileName: string, fileExt: string, srcPath: string) => {
+            const srcIndex = srcPath.indexOf('/src/');
+            const ext = fileExt.startsWith('.') ? fileExt : `.${fileExt}`;
+            if (srcIndex !== -1) {
+              const relativePath = srcPath.slice(srcIndex + 5, srcPath.lastIndexOf('/'));
+              return `${relativePath}/${fileName}${ext}`;
+            }
+            return `${fileName}${ext}`;
+          },
+        },
+        {
+          src: 'src/**/*.module.css',
+          dest: 'cjs',
+          rename: (fileName: string, fileExt: string, srcPath: string) => {
+            const srcIndex = srcPath.indexOf('/src/');
+            const ext = fileExt.startsWith('.') ? fileExt : `.${fileExt}`;
+            if (srcIndex !== -1) {
+              const relativePath = srcPath.slice(srcIndex + 5, srcPath.lastIndexOf('/'));
+              return `${relativePath}/${fileName}${ext}`;
+            }
+            return `${fileName}${ext}`;
+          },
+        },
+      ],
+    }),
     // WARNING: Keep the visualizer last
     ...(process.env.ANALYZE === 'true'
       ? [
@@ -97,70 +129,7 @@ const viteConfig = defineConfig({
         ]
       : []),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // Auto-inject tokens import in all SCSS files
-        // Components can directly use: tokens.$clickGlobalColorBackgroundDefault
-        additionalData: `@use "${srcDir}/styles/tokens-light-dark.scss" as tokens;\n`,
-      },
-    },
-    postcss: {
-      plugins: [
-        {
-          // Wrap only CSS custom properties in @layer for easy consumer override
-          postcssPlugin: 'wrap-tokens-in-layer',
-          Once(root, { AtRule }) {
-            // 1. Add layer declaration for tokens at the top
-            const layerDeclaration = new AtRule({
-              name: 'layer',
-              params: 'click-ui.tokens',
-            });
-            root.prepend(layerDeclaration);
-
-            // 2. Find and wrap only :root rules with CSS custom properties
-            const tokenRules = [];
-            const otherNodes = [];
-
-            root.each(node => {
-              if (node === layerDeclaration) {
-                return; // Skip the layer declaration itself
-              }
-
-              if (node.type === 'rule' && node.selector === ':root') {
-                // Check if it contains CSS custom properties
-                const hasCustomProps = node.nodes?.some(
-                  child => child.type === 'decl' && child.prop.startsWith('--')
-                );
-                if (hasCustomProps) {
-                  tokenRules.push(node.clone());
-                  node.remove();
-                  return;
-                }
-              }
-
-              // Keep all other nodes as-is (component classes stay unlayered)
-              otherNodes.push(node);
-            });
-
-            // 3. Wrap tokens in @layer click-ui.tokens
-            if (tokenRules.length > 0) {
-              const tokensLayer = new AtRule({
-                name: 'layer',
-                params: 'click-ui.tokens',
-              });
-              tokenRules.forEach(rule => tokensLayer.append(rule));
-              root.append(tokensLayer);
-            }
-
-            // 4. Component styles stay unlayered (normal priority)
-            // This allows consumers to override with regular CSS
-          },
-        },
-      ],
-    },
-  },
-  build: buildOptions,
+  build,
 });
 
 const vitestConfig = defineVitestConfig({
