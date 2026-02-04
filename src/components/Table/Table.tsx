@@ -58,26 +58,22 @@ const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
   `}
 `;
 
-const Resizer = styled.div<{ $isResizing?: boolean }>`
+const Resizer = styled.div`
   position: absolute;
-  top: 0;
+  top: 25%;
   right: 0;
-  width: 8px;
-  height: 100%;
+  width: 2px;
+  height: 50%;
   cursor: col-resize;
   user-select: none;
   z-index: 1;
-  background: #fc0;
+  background: ${({ theme }) => theme.click.table.header.color.checkbox.border.default};
+  transition: opacity 0.2s;
+  border-radius: 0.5rem;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.4);
+    opacity: 0.6;
   }
-
-  ${({ $isResizing, theme }) =>
-    $isResizing &&
-    `
-    background: ${theme.click.table.header.color.background.active ?? 'rgba(0, 0, 0, 0.2)'};
-  `}
 `;
 
 const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
@@ -157,7 +153,6 @@ const TableHeader = ({
       {showResizer && (
         <Resizer
           onMouseDown={onResizeStart}
-          $isResizing={isResizing}
         />
       )}
     </StyledHeader>
