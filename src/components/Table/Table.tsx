@@ -741,6 +741,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       const newWidth = startWidth + diff;
       const newNextWidth = nextStartWidth - diff;
 
+      if (!!newWidth || !!newNextWidth) {
+        console.warn('Unexpected computed values for resize width', {
+          newWidth,
+          newNextWidth,
+        });
+        return;
+      }
+
       if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
         setColumnWidths(prev => {
           if (!prev) {
