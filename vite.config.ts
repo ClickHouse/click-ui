@@ -10,6 +10,13 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
+// TODO: Find a solution for static files based on conf extensions
+const cssExternalPlugin = () => ({
+  name: 'css-external',
+  enforce: 'pre' as const,
+  resolveId: (id: string) => (id.endsWith('.module.css') ? { id, external: true } : null),
+});
+
 const build: BuildOptions = {
   target: 'esnext',
   emptyOutDir: true,
@@ -52,6 +59,7 @@ const build: BuildOptions = {
 const viteConfig = defineConfig({
   publicDir: false,
   plugins: [
+    cssExternalPlugin(),
     react({
       babel: {
         plugins: [['babel-plugin-styled-components', { displayName: false }]],
