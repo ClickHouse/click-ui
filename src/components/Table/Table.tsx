@@ -652,7 +652,8 @@ interface ResizeState {
   nextStartWidth: number;
 }
 
-const MIN_COLUMN_WIDTH = 50;
+// TODO: What is an acceptable minimum column width?
+const MIN_COLUMN_WIDTH = 120;
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
