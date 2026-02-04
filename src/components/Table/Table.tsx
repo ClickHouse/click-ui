@@ -25,7 +25,7 @@ import { MiddleTruncator } from '@/components/MiddleTruncator';
 import type { HorizontalDirection } from '@/components/types';
 
 type SortDir = 'asc' | 'desc';
-type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
+type SortFn = (sortDir: SortDir, header: TableColumnConfigProps, index: number) => void;
 type TableSize = 'sm' | 'md';
 
 // wrap: text breaks into multiple lines
@@ -33,7 +33,7 @@ type TableSize = 'sm' | 'md';
 // truncate-middle: text cuts in middle, shows start and end
 type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
 
-export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableColumnConfigProps extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
@@ -91,7 +91,7 @@ const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
-interface TableHeaderProps extends Omit<TableHeaderType, 'width'> {
+interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
   onSort?: () => void;
   size: TableSize;
   showResizer?: boolean;
@@ -161,7 +161,7 @@ const TableHeader = ({
   );
 };
 interface TheadProps {
-  headers: Array<TableHeaderType>;
+  headers: Array<TableColumnConfigProps>;
   isSelectable?: boolean;
   onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
   actionsList: Array<string>;
@@ -189,7 +189,7 @@ const Thead = ({
   onResizeStart,
   theadRef,
 }: TheadProps) => {
-  const onSort = (header: TableHeaderType, headerIndex: number) => () => {
+  const onSort = (header: TableColumnConfigProps, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
       onSortProp(header.sortDir === 'asc' ? 'desc' : 'asc', header, headerIndex);
     }
@@ -480,7 +480,7 @@ interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
 > {
-  headers: Array<TableHeaderType>;
+  headers: Array<TableColumnConfigProps>;
   rows: Array<TableRowType>;
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
@@ -513,7 +513,7 @@ interface NoSelectionType {
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
 interface TableBodyRowProps extends Omit<TableRowType, 'id'> {
-  headers: Array<TableHeaderType>;
+  headers: Array<TableColumnConfigProps>;
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
   isSelected: boolean;
