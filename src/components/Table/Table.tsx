@@ -10,6 +10,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type RefObject,
 } from 'react';
 import { styled } from 'styled-components';
 
@@ -94,7 +95,7 @@ interface TableHeaderInternalProps extends Omit<TableHeaderType, 'width'> {
   onSort?: () => void;
   size: TableSize;
   showResizer?: boolean;
-  onResizeStart?: (e: React.MouseEvent) => void;
+  onResizeStart?: (e: MouseEvent) => void;
 }
 
 const TableHeader = ({
@@ -163,8 +164,8 @@ interface TheadProps {
   selectedIds: (number | string)[];
   resizableColumns?: boolean;
   columnWidths?: number[] | null;
-  onResizeStart?: (columnIndex: number) => (e: React.MouseEvent) => void;
-  theadRef?: React.RefObject<HTMLTableSectionElement>;
+  onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
+  theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
 const Thead = ({
