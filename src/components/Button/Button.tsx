@@ -5,6 +5,8 @@ import { styled, keyframes } from 'styled-components';
 import { BaseButton } from '../commonElement';
 import React from 'react';
 
+import styles from './Button.module.css';
+
 export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';
 type Alignment = 'center' | 'left';
 
@@ -42,6 +44,7 @@ export const Button = ({
   ...delegated
 }: ButtonProps) => (
   <StyledButton
+    className={styles.demoCSSModuleSetupOnlyDeleteAfter}
     $styleType={type}
     $align={align}
     $fillWidth={fillWidth}
