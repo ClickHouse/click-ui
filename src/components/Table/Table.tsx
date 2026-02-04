@@ -95,7 +95,6 @@ interface TableHeaderInternalProps extends Omit<TableHeaderType, 'width'> {
   size: TableSize;
   showResizer?: boolean;
   onResizeStart?: (e: React.MouseEvent) => void;
-  isResizing?: boolean;
 }
 
 const TableHeader = ({
@@ -109,7 +108,6 @@ const TableHeader = ({
   resizable,
   showResizer,
   onResizeStart,
-  isResizing,
   ...delegated
 }: TableHeaderInternalProps) => {
   const isSorted = typeof sortDir === 'string';
@@ -150,11 +148,7 @@ const TableHeader = ({
           />
         )}
       </HeaderContentWrapper>
-      {showResizer && (
-        <Resizer
-          onMouseDown={onResizeStart}
-        />
-      )}
+      {showResizer && <Resizer onMouseDown={onResizeStart} />}
     </StyledHeader>
   );
 };
@@ -170,7 +164,6 @@ interface TheadProps {
   resizableColumns?: boolean;
   columnWidths?: number[] | null;
   onResizeStart?: (columnIndex: number) => (e: React.MouseEvent) => void;
-  resizingColumnIndex?: number | null;
   theadRef?: React.RefObject<HTMLTableSectionElement>;
 }
 
@@ -186,7 +179,6 @@ const Thead = ({
   resizableColumns,
   columnWidths,
   onResizeStart,
-  resizingColumnIndex,
   theadRef,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
@@ -202,7 +194,10 @@ const Thead = ({
           <col
             key={`header-col-${index}`}
             width={
-              resizableColumns && columnWidths && columnWidths[index] && index < headers.length - 1
+              resizableColumns &&
+              columnWidths &&
+              columnWidths[index] &&
+              index < headers.length - 1
                 ? `${columnWidths[index]}px`
                 : headerProps.width
             }
@@ -232,7 +227,6 @@ const Thead = ({
               resizable={resizableColumns}
               showResizer={resizableColumns && index < headers.length - 1}
               onResizeStart={onResizeStart?.(index)}
-              isResizing={resizingColumnIndex === index}
               {...headerProps}
             />
           ))}
@@ -684,11 +678,12 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const isEditable = typeof onEdit === 'function';
 
     const [columnWidths, setColumnWidths] = useState<number[] | null>(null);
-    const [resizingColumnIndex, setResizingColumnIndex] = useState<number | null>(null);
     const theadRef = useRef<HTMLTableSectionElement>(null);
 
     useLayoutEffect(() => {
-      if (!resizableColumns || columnWidths !== null || !theadRef.current) {return;}
+      if (!resizableColumns || columnWidths !== null || !theadRef.current) {
+        return;
+      }
 
       const headerCells = theadRef.current.querySelectorAll('th');
       const widths: number[] = [];
@@ -703,7 +698,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       if (widths.length === headers.length) {
         setColumnWidths(widths);
       }
-    }, [resizableColumns, columnWidths, headers.length, isSelectable, isDeletable, isEditable]);
+    }, [
+      resizableColumns,
+      columnWidths,
+      headers.length,
+      isSelectable,
+      isDeletable,
+      isEditable,
+    ]);
 
     const resizeStateRef = useRef<ResizeState>({
       isResizing: false,
@@ -714,39 +716,43 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       nextStartWidth: 0,
     });
 
-    const handleMouseMove = useCallback(
-      (e: globalThis.MouseEvent) => {
-        if (!resizeStateRef.current.isResizing) {return;}
+    const handleMouseMove = useCallback((e: globalThis.MouseEvent) => {
+      if (!resizeStateRef.current.isResizing) {
+        return;
+      }
 
-        const { columnIndex, nextColumnIndex, startX, startWidth, nextStartWidth } =
-          resizeStateRef.current;
+      const { columnIndex, nextColumnIndex, startX, startWidth, nextStartWidth } =
+        resizeStateRef.current;
 
-        if (columnIndex === null || nextColumnIndex === null) {return;}
+      if (columnIndex === null || nextColumnIndex === null) {
+        return;
+      }
 
-        const diff = e.clientX - startX;
-        const newWidth = startWidth + diff;
-        const newNextWidth = nextStartWidth - diff;
+      const diff = e.clientX - startX;
+      const newWidth = startWidth + diff;
+      const newNextWidth = nextStartWidth - diff;
 
-        if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
-          setColumnWidths(prev => {
-            if (!prev) {return prev;}
-            const updated = [...prev];
-            updated[columnIndex] = newWidth;
-            updated[nextColumnIndex] = newNextWidth;
-            return updated;
-          });
-        }
-      },
-      []
-    );
+      if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
+        setColumnWidths(prev => {
+          if (!prev) {
+            return prev;
+          }
+          const updated = [...prev];
+          updated[columnIndex] = newWidth;
+          updated[nextColumnIndex] = newNextWidth;
+          return updated;
+        });
+      }
+    }, []);
 
     const handleMouseUp = useCallback(() => {
       resizeStateRef.current.isResizing = false;
-      setResizingColumnIndex(null);
     }, []);
 
     useEffect(() => {
-      if (!resizableColumns) {return;}
+      if (!resizableColumns) {
+        return;
+      }
 
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
@@ -761,10 +767,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       (columnIndex: number) => (e: React.MouseEvent) => {
         e.preventDefault();
 
-        if (!columnWidths) {return;}
+        if (!columnWidths) {
+          return;
+        }
 
         const nextColumnIndex = columnIndex + 1;
-        if (nextColumnIndex >= headers.length) {return;}
+        if (nextColumnIndex >= headers.length) {
+          return;
+        }
 
         resizeStateRef.current = {
           isResizing: true,
@@ -774,8 +784,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           startWidth: columnWidths[columnIndex],
           nextStartWidth: columnWidths[nextColumnIndex],
         };
-
-        setResizingColumnIndex(columnIndex);
       },
       [headers.length, columnWidths]
     );
@@ -841,7 +849,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 resizableColumns={resizableColumns}
                 columnWidths={resizableColumns ? columnWidths : undefined}
                 onResizeStart={resizableColumns ? handleResizeStart : undefined}
-                resizingColumnIndex={resizingColumnIndex}
                 theadRef={theadRef}
               />
             )}
