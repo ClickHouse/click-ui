@@ -112,6 +112,12 @@ const TableHeader = ({
   overflowMode,
   ...props
 }: TableHeaderProps) => {
+  if (overflowMode === 'wrap' && resizable) {
+    console.warn(
+      '"Wrap" overflow mode doesn\'t work well with resizable table columns. Consider using truncation instead, please!'
+    );
+  }
+
   const isSorted = typeof sortDir === 'string';
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
