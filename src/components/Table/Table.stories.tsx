@@ -491,7 +491,7 @@ export const ResizableColumns: StoryObj<typeof Table> = {
       <Table
         {...props}
         headers={headers}
-        rows={rows}
+        rows={rowsLongText}
         resizableColumns
       />
     );
