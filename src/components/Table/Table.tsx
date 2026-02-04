@@ -6,6 +6,7 @@ import {
   forwardRef,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -172,9 +173,10 @@ interface TheadProps {
   rows: TableRowType[];
   selectedIds: (number | string)[];
   resizableColumns?: boolean;
-  columnWidths?: number[];
+  columnWidths?: number[] | null;
   onResizeStart?: (columnIndex: number) => (e: React.MouseEvent) => void;
   resizingColumnIndex?: number | null;
+  theadRef?: React.RefObject<HTMLTableSectionElement>;
 }
 
 const Thead = ({
@@ -190,6 +192,7 @@ const Thead = ({
   columnWidths,
   onResizeStart,
   resizingColumnIndex,
+  theadRef,
 }: TheadProps) => {
   const onSort = (header: TableHeaderType, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
@@ -204,7 +207,7 @@ const Thead = ({
           <col
             key={`header-col-${index}`}
             width={
-              resizableColumns && columnWidths?.[index]
+              resizableColumns && columnWidths && columnWidths[index] && index < headers.length - 1
                 ? `${columnWidths[index]}px`
                 : headerProps.width
             }
@@ -212,7 +215,7 @@ const Thead = ({
         ))}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
       </StyledColGroup>
-      <StyledThead>
+      <StyledThead ref={theadRef}>
         <tr>
           {isSelectable && (
             <StyledHeader
@@ -660,7 +663,6 @@ interface ResizeState {
 }
 
 const MIN_COLUMN_WIDTH = 50;
-const DEFAULT_COLUMN_WIDTH = 150;
 
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
@@ -686,17 +688,27 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const isDeletable = typeof onDelete === 'function';
     const isEditable = typeof onEdit === 'function';
 
-    const [columnWidths, setColumnWidths] = useState<number[]>(() =>
-      headers.map(header => {
-        if (header.width) {
-          const parsed = parseInt(header.width, 10);
-          return isNaN(parsed) ? DEFAULT_COLUMN_WIDTH : parsed;
-        }
-        return DEFAULT_COLUMN_WIDTH;
-      })
-    );
-
+    const [columnWidths, setColumnWidths] = useState<number[] | null>(null);
     const [resizingColumnIndex, setResizingColumnIndex] = useState<number | null>(null);
+    const theadRef = useRef<HTMLTableSectionElement>(null);
+
+    useLayoutEffect(() => {
+      if (!resizableColumns || columnWidths !== null || !theadRef.current) {return;}
+
+      const headerCells = theadRef.current.querySelectorAll('th');
+      const widths: number[] = [];
+
+      const startIndex = isSelectable ? 1 : 0;
+      const endIndex = headerCells.length - (isDeletable || isEditable ? 1 : 0);
+
+      for (let i = startIndex; i < endIndex; i++) {
+        widths.push(headerCells[i].getBoundingClientRect().width);
+      }
+
+      if (widths.length === headers.length) {
+        setColumnWidths(widths);
+      }
+    }, [resizableColumns, columnWidths, headers.length, isSelectable, isDeletable, isEditable]);
 
     const resizeStateRef = useRef<ResizeState>({
       isResizing: false,
@@ -720,9 +732,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         const newWidth = startWidth + diff;
         const newNextWidth = nextStartWidth - diff;
 
-        // Enforce minimum widths for both columns
         if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
           setColumnWidths(prev => {
+            if (!prev) {return prev;}
             const updated = [...prev];
             updated[columnIndex] = newWidth;
             updated[nextColumnIndex] = newNextWidth;
@@ -753,6 +765,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const handleResizeStart = useCallback(
       (columnIndex: number) => (e: React.MouseEvent) => {
         e.preventDefault();
+
+        if (!columnWidths) {return;}
 
         const nextColumnIndex = columnIndex + 1;
         if (nextColumnIndex >= headers.length) {return;}
@@ -833,6 +847,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 columnWidths={resizableColumns ? columnWidths : undefined}
                 onResizeStart={resizableColumns ? handleResizeStart : undefined}
                 resizingColumnIndex={resizingColumnIndex}
+                theadRef={theadRef}
               />
             )}
             <Tbody>
