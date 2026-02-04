@@ -717,7 +717,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       nextStartWidth: 0,
     });
 
-    const handleMouseMove = useCallback((e: globalThis.MouseEvent) => {
+    const onMouseMove = useCallback((e: globalThis.MouseEvent) => {
       if (!resizeStateRef.current.isResizing) {
         return;
       }
@@ -746,7 +746,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       }
     }, []);
 
-    const handleMouseUp = useCallback(() => {
+    const onMouseUp = useCallback(() => {
       resizeStateRef.current.isResizing = false;
     }, []);
 
@@ -755,14 +755,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         return;
       }
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
 
       return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
       };
-    }, [resizableColumns, handleMouseMove, handleMouseUp]);
+    }, [resizableColumns, onMouseMove, onMouseUp]);
 
     const handleResizeStart = useCallback(
       (columnIndex: number) => (e: React.MouseEvent) => {
