@@ -91,7 +91,7 @@ const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
-interface TableHeaderInternalProps extends Omit<TableHeaderType, 'width'> {
+interface TableHeaderProps extends Omit<TableHeaderType, 'width'> {
   onSort?: () => void;
   size: TableSize;
   showResizer?: boolean;
@@ -110,7 +110,7 @@ const TableHeader = ({
   showResizer,
   onResizeStart,
   ...delegated
-}: TableHeaderInternalProps) => {
+}: TableHeaderProps) => {
   const isSorted = typeof sortDir === 'string';
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
