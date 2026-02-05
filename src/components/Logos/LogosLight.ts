@@ -44,6 +44,7 @@ import Metabase from './Metabase';
 import Microsoft from './Microsoft';
 import MongoDb from './MongoDb';
 import MySQL from './MySQL';
+import NeonDB from './NeonDB';
 import Nessie from './Nessie';
 import NodeJs from './NodeJs';
 import OneLake from './OneLake';
@@ -107,6 +108,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   microsoft: Microsoft,
   mongodb: MongoDb,
   mysql: MySQL,
+  neondb: NeonDB,
   nessie: Nessie,
   nodejs: NodeJs,
   onelake: OneLake,

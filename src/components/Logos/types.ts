@@ -30,6 +30,7 @@ export type LogoName =
   | 'dbt'
   | 'jdbc'
   | 'mysql'
+  | 'neondb'
   | 'postgres'
   | 'google'
   | 'github'
