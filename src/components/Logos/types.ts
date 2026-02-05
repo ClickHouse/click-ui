@@ -7,6 +7,7 @@ export type LogoName =
   | 'aws-kinesis'
   | 'aws-redshift'
   | 'aws-msk'
+  | 'aws-aurora'
   | 'kafka'
   | 'digital_ocean'
   | 'feature_database'

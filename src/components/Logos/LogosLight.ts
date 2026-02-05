@@ -6,6 +6,7 @@ import AWSGlue from './AWSGlue';
 import AWSKinesis from './AWSKinesis';
 import AWSRedshift from './AWSRedshift';
 import AWSMsk from './AWSMsk';
+import AWSAurora from './AWSAurora';
 import AWSS3 from './AWS_S3';
 import Azure from './Azure';
 import AzureBlobStorage from './AzureBlobStorage';
@@ -70,6 +71,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   'aws-glue': AWSGlue,
   'aws-kinesis': AWSKinesis,
   'aws-msk': AWSMsk,
+  'aws-aurora': AWSAurora,
   'aws-redshift': AWSRedshift,
   'aws-s3': AWSS3,
   azure: Azure,

@@ -7,6 +7,7 @@ import AWSRedshift from './AWSRedshift';
 import AWSS3 from './AWS_S3';
 import AWSAthena from './AWSAthena';
 import AWSMsk from './AWSMsk';
+import AWSAurora from './AWSAurora';
 import Azure from './Azure';
 import AzureBlobStorage from './AzureBlobStorage';
 import AzureEventHub from './AzureEventHub';
@@ -70,6 +71,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   'aws-glue': AWSGlue,
   'aws-kinesis': AWSKinesis,
   'aws-msk': AWSMsk,
+  'aws-aurora': AWSAurora,
   'aws-redshift': AWSRedshift,
   'aws-s3': AWSS3,
   azure: Azure,
