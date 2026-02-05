@@ -76,7 +76,7 @@ const Resizer = styled.div`
   }
 
   &::before {
-    content: " ";
+    content: ' ';
     background: ${({ theme }) => theme.click.table.header.color.checkbox.border.default};
     display: inline-block;
     top: 25%;
