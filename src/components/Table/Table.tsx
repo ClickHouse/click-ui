@@ -55,20 +55,18 @@ const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
     $resizable &&
     `
     position: relative;
-    overflow: hidden;
   `}
 `;
 
 const Resizer = styled.div`
   position: absolute;
-  top: 25%;
-  right: 13px;
-  width: 2px;
-  height: 50%;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 100%;
   cursor: col-resize;
   user-select: none;
   z-index: 1;
-  background: ${({ theme }) => theme.click.table.header.color.checkbox.border.default};
   transition: opacity 0.2s;
   border-radius: 0.5rem;
 
@@ -78,8 +76,10 @@ const Resizer = styled.div`
 
   &::before {
     content: " ";
+    background: ${({ theme }) => theme.click.table.header.color.checkbox.border.default};
     display: inline-block;
-    width: 24px;
+    top: 25%;
+    width: 2px;
     height: 20px;
     position: relative;
     left: 50%;
@@ -166,7 +166,24 @@ const TableHeader = ({
           />
         )}
       </HeaderContentWrapper>
-      {showResizer && <Resizer onMouseDown={onResizeStart} />}
+      {showResizer && (
+        <Resizer
+          onMouseDown={onResizeStart}
+          role="separator"
+          aria-orientation="vertical"
+          aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
+          /*
+          // TODO: a11y tab and create handler key down
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              // TODO: Could implement keyboard-based resizing here?
+            }
+          }}
+          */
+        />
+      )}
     </StyledHeader>
   );
 };
