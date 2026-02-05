@@ -7,6 +7,8 @@ import AWSRedshift from './AWSRedshift';
 import AWSS3 from './AWS_S3';
 import AWSAthena from './AWSAthena';
 import AWSMsk from './AWSMsk';
+import AWSAurora from './AWSAurora';
+import AWSRds from './AWSRds';
 import Azure from './Azure';
 import AzureBlobStorage from './AzureBlobStorage';
 import AzureEventHub from './AzureEventHub';
@@ -15,6 +17,7 @@ import Chash from './Chash';
 import Clickhouse from './ClickhouseDark';
 import Cloudflare from './Cloudflare';
 import Confluent from './Confluent';
+import CrunchyBridge from './CrunchyBridge';
 import Databricks from './Databricks';
 import DataGrip from './DataGrip';
 import dBeaver from './dBeaver';
@@ -43,6 +46,7 @@ import Metabase from './Metabase';
 import Microsoft from './Microsoft';
 import MongoDb from './MongoDb';
 import MySQL from './MySQL';
+import NeonDB from './NeonDB';
 import Nessie from './Nessie';
 import NodeJs from './NodeJs';
 import OneLake from './OneLake';
@@ -52,8 +56,10 @@ import Python from './Python';
 import Redpanda from './Redpanda';
 import Rust from './RustDark';
 import Snowflake from './Snowflake';
+import Supabase from './Supabase';
 import Superset from './Superset';
 import Tableau from './TableauDark';
+import TigerData from './TigerData';
 import Upstash from './Upstash';
 import Vector from './Vector';
 import WarpStream from './WarpStream';
@@ -67,6 +73,8 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   'aws-glue': AWSGlue,
   'aws-kinesis': AWSKinesis,
   'aws-msk': AWSMsk,
+  'aws-aurora': AWSAurora,
+  'aws-rds': AWSRds,
   'aws-redshift': AWSRedshift,
   'aws-s3': AWSS3,
   azure: Azure,
@@ -76,6 +84,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   'c#': Chash,
   cloudflare: Cloudflare,
   confluent: Confluent,
+  'crunchy-bridge': CrunchyBridge,
   databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
@@ -104,6 +113,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   microsoft: Microsoft,
   mongodb: MongoDb,
   mysql: MySQL,
+  neondb: NeonDB,
   nessie: Nessie,
   nodejs: NodeJs,
   onelake: OneLake,
@@ -113,8 +123,10 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   redpanda: Redpanda,
   rust: Rust,
   snowflake: Snowflake,
+  supabase: Supabase,
   superset: Superset,
   tableau: Tableau,
+  tigerdata: TigerData,
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,

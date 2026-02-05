@@ -1028,7 +1028,7 @@ const TextWrapped = styled.span`
 
 const Cell = ({
   label,
-  overflowMode,
+  overflowMode = 'truncated',
 }: {
   label: ReactNode;
   overflowMode?: OverflowMode;
@@ -1039,15 +1039,15 @@ const Cell = ({
     return <>{label}</>;
   }
 
-  if (overflowMode === 'truncated') {
-    return <EllipsisContent component="div">{label}</EllipsisContent>;
-  }
-
   if (overflowMode === 'truncate-middle') {
     return <MiddleTruncator text={label} />;
   }
 
-  return <TextWrapped>{label}</TextWrapped>;
+  if (overflowMode === 'wrap') {
+    return <TextWrapped>{label}</TextWrapped>;
+  }
+
+  return <EllipsisContent component="div">{label}</EllipsisContent>;
 };
 
 const StyledTable = styled.table`

@@ -678,6 +678,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             icon={icon}
             iconDir={iconDir}
             gap="xxs"
+            isResponsive={false}
           >
             {label ? (
               <>
@@ -786,6 +787,7 @@ export const MultiSelectCheckboxItem = forwardRef<
               icon={icon}
               iconDir={iconDir}
               gap="xxs"
+              isResponsive={false}
             >
               {label ? (
                 <>
