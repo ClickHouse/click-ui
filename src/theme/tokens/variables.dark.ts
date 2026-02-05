@@ -2730,6 +2730,10 @@ const theme = {
                 hover: 'lch(19.05 0 none)',
                 active: 'rgba(0, 0, 0, 0)',
               },
+              icon: {
+                default: '#b3b6bd',
+                disabled: '#808080',
+              },
             },
           },
           dragControl: {
@@ -3918,6 +3922,7 @@ const theme = {
         muted: '#282828',
         sidebar: '#1f1f1c',
         split: '#282828',
+        muted_a: 'lch(49.809 30.506 276.77 / 0.06)',
       },
       text: {
         default: '#ffffff',
