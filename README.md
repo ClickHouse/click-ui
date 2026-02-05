@@ -28,6 +28,7 @@ You can find the official docs for the Click UI design system and component libr
 * [Distribution](#distribution)
   - [Build](#build)
   - [Use Click UI](#use-click-ui)
+  - [CSS Modules](#css-modules)
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
   - [Releases and Versions](#releases-and-versions)
@@ -216,6 +217,40 @@ export default () => {
 ```
 
 To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
+
+### CSS Modules
+
+This library uses [CSS Modules](https://github.com/css-modules/css-modules) for styling and is distributed unbundled, giving your application full control over bundling and optimizations. This means you only include what you actually use, resulting in smaller bundle sizes and better performance!
+
+Most modern React frameworks support CSS Modules out of the box, including Next.js, Vite, Create React App, and TanStack Start, with no configuration required.
+
+> [!NOTE]
+> We're currently migrating from Styled-Components to CSS Modules. Some components may still use Styled-Components during this transition period.
+
+#### Benefits
+
+CSS Modules align naturally with component-level imports. When you import a component like `Button`, its `Button.module.css` is automatically included. If you don't use the component, neither the JavaScript, or CSS will be bundled in your application's output. Only the necessary stylesheets will be included in the output bundle.
+
+#### Custom Build Configurations
+
+Although most modern React setups have CSS Modules built-in, if your build tool doesn't support it by default, you'll need to configure it.
+
+Let's assume you have an old Webpack setup. Here's an example of how that'd look like:
+
+```js
+{
+  test: /\.module\.css$/,
+  use: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: { modules: true }
+    }
+  ]
+}
+```
+
+For other bundlers, refer to their documentation on CSS Modules configuration.
 
 ### Deep imports support
 
