@@ -62,7 +62,7 @@ const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
 const Resizer = styled.div`
   position: absolute;
   top: 25%;
-  right: 0;
+  right: 13px;
   width: 2px;
   height: 50%;
   cursor: col-resize;
@@ -74,6 +74,16 @@ const Resizer = styled.div`
 
   &:hover {
     opacity: 0.6;
+  }
+
+  &::before {
+    content: " ";
+    display: inline-block;
+    width: 24px;
+    height: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
