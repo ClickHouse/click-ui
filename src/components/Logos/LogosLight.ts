@@ -7,6 +7,7 @@ import AWSKinesis from './AWSKinesis';
 import AWSRedshift from './AWSRedshift';
 import AWSMsk from './AWSMsk';
 import AWSAurora from './AWSAurora';
+import AWSRds from './AWSRds';
 import AWSS3 from './AWS_S3';
 import Azure from './Azure';
 import AzureBlobStorage from './AzureBlobStorage';
@@ -58,6 +59,7 @@ import Snowflake from './Snowflake';
 import Supabase from './Supabase';
 import Superset from './Superset';
 import Tableau from './TableauLight';
+import TigerData from './TigerData';
 import Upstash from './Upstash';
 import Vector from './Vector';
 import WarpStream from './WarpStream';
@@ -72,6 +74,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   'aws-kinesis': AWSKinesis,
   'aws-msk': AWSMsk,
   'aws-aurora': AWSAurora,
+  'aws-rds': AWSRds,
   'aws-redshift': AWSRedshift,
   'aws-s3': AWSS3,
   azure: Azure,
@@ -123,6 +126,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   supabase: Supabase,
   superset: Superset,
   tableau: Tableau,
+  tigerdata: TigerData,
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,

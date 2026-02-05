@@ -8,6 +8,7 @@ export type LogoName =
   | 'aws-redshift'
   | 'aws-msk'
   | 'aws-aurora'
+  | 'aws-rds'
   | 'kafka'
   | 'digital_ocean'
   | 'feature_database'
@@ -60,4 +61,5 @@ export type LogoName =
   | 'databricks'
   | 'mariadb'
   | 'onelake'
-  | 'nessie';
+  | 'nessie'
+  | 'tigerdata';
