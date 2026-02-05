@@ -69,6 +69,7 @@ const Resizer = styled.div`
   z-index: 1;
   transition: opacity 0.2s;
   border-radius: 0.5rem;
+  transform: translateX(50%);
 
   &:hover {
     opacity: 0.6;
