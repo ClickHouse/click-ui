@@ -172,13 +172,13 @@ yarn build
 ```
 
 > [!NOTE]
-> Optimisations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
 
 ### Use Click UI
 
 Navigate to your app's work directory and add the package.
 
-Here, we use `yarn` but you can use your favourite package manager, e.g. pnpm.
+Here, we use `yarn` but you can use your favorite package manager, e.g. pnpm.
 
 ```sh
 yarn add @clickhouse/click-ui
@@ -201,7 +201,7 @@ export default () => {
 }
 ```
 
-After, you are able to import your favourite [Click UI components](https://clickhouse.design/click-ui).
+After, you are able to import your favorite [Click UI components](https://clickhouse.design/click-ui).
 
 ```js
 import { ClickUIProvider, Title } from '@clickhouse/click-ui'
