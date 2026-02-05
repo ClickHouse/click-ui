@@ -13,6 +13,7 @@ export type LogoName =
   | 'feature_hexagon'
   | 'fivetran'
   | 'confluent'
+  | 'crunchy-bridge'
   | 'hex'
   | 'tableau'
   | 'grafana'

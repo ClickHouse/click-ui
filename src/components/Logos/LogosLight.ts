@@ -15,6 +15,7 @@ import Chash from './Chash';
 import Clickhouse from './ClickhouseLight';
 import Cloudflare from './Cloudflare';
 import Confluent from './Confluent';
+import CrunchyBridge from './CrunchyBridge';
 import DataGrip from './DataGrip';
 import Databricks from './Databricks';
 import dBeaver from './dBeaver';
@@ -77,6 +78,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   'c#': Chash,
   cloudflare: Cloudflare,
   confluent: Confluent,
+  'crunchy-bridge': CrunchyBridge,
   databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
