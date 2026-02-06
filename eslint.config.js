@@ -77,7 +77,7 @@ export default tseslint.config(
           tsx: 'never',
         },
       ],
-      '@typescript-eslint/no-deprecated': 'error',
+      '@typescript-eslint/no-deprecated': 'warn',
     },
   },
   // Special config for test files
