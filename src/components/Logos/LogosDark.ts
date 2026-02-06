@@ -65,7 +65,10 @@ import Vector from './Vector';
 import WarpStream from './WarpStream';
 import { LogoName } from './types';
 
-const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Element> = {
+const LogosDark: Record<
+  LogoName,
+  (props: SVGAttributes<SVGElement>) => React.JSX.Element
+> = {
   clickhouse: Clickhouse,
   airbyte: Airbyte,
   aws: AWSDark,

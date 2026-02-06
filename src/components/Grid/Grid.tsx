@@ -810,7 +810,9 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       }
     }, [rowStart, onItemsRendered]);
 
-    const CellWithWidth = (args: GridChildComponentProps<ItemDataType>): JSX.Element => {
+    const CellWithWidth = (
+      args: GridChildComponentProps<ItemDataType>
+    ): React.JSX.Element => {
       const width = columnWidth(args.columnIndex);
       return (
         <Cell

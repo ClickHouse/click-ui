@@ -56,7 +56,7 @@ interface Props {
 /**
  * Component for rendering a column resizer with pointer events and resizing state management.
  * @param {Props} props - Properties passed to the component.
- * @returns {JSX.Element} The ColumnResizer component.
+ * @returns {React.JSX.Element} The ColumnResizer component.
  */
 const ColumnResizer = ({
   height,
