@@ -69,15 +69,17 @@ type DeprecatedFields = {
   side?: string;
   /** @deprecated The align field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
   align?: string;
-}
+};
 
 type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
   sub?: true;
-} & ArrowProps & DeprecatedFields;
+} & ArrowProps &
+  DeprecatedFields;
 
 type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
   sub?: never;
-} & ArrowProps & DeprecatedFields;
+} & ArrowProps &
+  DeprecatedFields;
 
 const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
   flex-direction: column;
@@ -117,7 +119,9 @@ const ContextMenuContent = ({
   ...props
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {
   if (side || align) {
-    console.warn("The side and align fields have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24")
+    console.warn(
+      'The side and align fields have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24'
+    );
   }
   const ContentElement = sub ? RightMenu.SubContent : RightMenu.Content;
   return (

@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 import { IconButton } from '@/components';
 import { styled } from 'styled-components';
@@ -31,7 +31,7 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCop
 interface RendererNodeType {
   type: 'element' | 'text';
   value?: string | number | undefined;
-  tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
+  tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType | undefined;
   properties?: { className: unknown[]; [key: string]: unknown };
   children?: RendererNodeType[];
 }
