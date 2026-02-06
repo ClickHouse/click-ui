@@ -65,7 +65,9 @@ export type ArrowProps = {
 };
 
 type DeprecatedFields = {
+  /** @deprecated The side field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
   side?: string;
+  /** @deprecated The align field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
   align?: string;
 }
 
