@@ -656,8 +656,7 @@ __metadata:
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@types/react-window": "npm:^1.8.8"
     "@types/sortablejs": "npm:^1.15.2"
-    "@typescript-eslint/eslint-plugin": "npm:^8"
-    "@typescript-eslint/parser": "npm:^8"
+    "@typescript-eslint/eslint-plugin": "npm:^8.54.0"
     "@vitejs/plugin-react": "npm:^5.1.2"
     babel-plugin-styled-components: "npm:^2.1.4"
     chromatic: "npm:^13.3.4"
@@ -3699,7 +3698,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^8":
+"@typescript-eslint/eslint-plugin@npm:^8.54.0":
   version: 8.54.0
   resolution: "@typescript-eslint/eslint-plugin@npm:8.54.0"
   dependencies:
