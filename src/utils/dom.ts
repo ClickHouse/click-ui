@@ -1,7 +1,7 @@
-const THEME_ATTRIBUTE = 'data-cui-theme';
+import { ThemeName } from "@/theme";
+import { CUI_THEME_STORAGE_KEY } from "./localStorage";
 
-// TODO: This should not be hard-typed once PRs merged https://github.com/ClickHouse/click-ui/pull/784 replace it
-type Theme = 'dark' | 'light';
+const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
 
 const getDOMElement = (selector: string) => {
   const el = document.querySelector(selector) as HTMLElement | null;
@@ -12,20 +12,24 @@ const getDOMElement = (selector: string) => {
   }
 
   return el;
-}
+};
 
-export const setRootThemeAttribute = (theme: Theme) => {
+export const setRootThemeAttribute = (theme: ThemeName) => {
   const el = getDOMElement('html');
 
-  if (!el) return;
+  if (!el) {
+    return;
+  }
 
   el.setAttribute(THEME_ATTRIBUTE, theme);
-}
+};
 
 export const removeRootThemeAttribute = () => {
   const el = getDOMElement('html');
 
-  if (!el) return;
+  if (!el) {
+    return;
+  }
 
   el.removeAttribute(THEME_ATTRIBUTE);
-}
+};
