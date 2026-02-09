@@ -1,6 +1,6 @@
 import { THEME_ATTRIBUTE } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
-import { ThemeName  } from '@/theme';
+import { ThemeName } from '@/theme';
 
 export interface InitColorSchemeScriptProps {
   defaultTheme?: ThemeName;
