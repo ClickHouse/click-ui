@@ -9,6 +9,8 @@ export interface InitColorSchemeScriptProps {
   nonce?: string;
 }
 
+// TODO: Provide support for system prefers-color-scheme
+
 // TODO: This should not have dark light hard-typed
 // once PRs merged https://github.com/ClickHouse/click-ui/pull/784
 export const InitColorSchemeScript = ({
@@ -29,14 +31,6 @@ try {
   const light = 'light';
   let colorScheme = '';
 
-  if (theme === 'system') {
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-    if (mql.matches) {
-      colorScheme = dark;
-    } else {
-      colorScheme = light;
-    }
-  }
   if (theme === 'light') {
     colorScheme = light;
   }
