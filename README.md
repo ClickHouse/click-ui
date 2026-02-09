@@ -28,6 +28,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
+* [SSR](#ssr)
+  - [Prevent theme flash](#prevent-theme-flash)
 * [Releases and Versions](#releases-and-versions)
 
 ## Requirements
@@ -265,6 +267,29 @@ To consume all changesets, and update to the most appropriate semver version and
 
 ```sh
 yarn changeset:version
+```
+
+## SSR
+
+### Prevent theme flash
+
+To prevent flash due to incorrect theme, import the component InitColorSchemeScript and place it in the head of your app main html layout.
+
+```ts
+import { InitColorSchemeScript } from '@clickhouse/click-ui';
+```
+
+```jsx
+<html>
+  <head>
+    <InitColorSchemeScript theme="dark" />
+  </head>
+  <body>
+    <ClickUIProvider theme="dark">
+      {children}
+    </ClickUIProvider>
+  </body>
+</html>
 ```
 
 ## Releases and Versions
