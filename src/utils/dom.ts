@@ -1,7 +1,7 @@
-import { ThemeName } from "@/theme";
-import { CUI_THEME_STORAGE_KEY } from "./localStorage";
+import { ThemeName } from '@/theme';
+import { CUI_THEME_STORAGE_KEY } from './localStorage';
 
-const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
+export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
 
 const getDOMElement = (selector: string) => {
   const el = document.querySelector(selector) as HTMLElement | null;

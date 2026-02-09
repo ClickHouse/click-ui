@@ -1,21 +1,20 @@
-import { ThemeName } from '@/theme';
+import { THEME_ATTRIBUTE } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
+import { ThemeName  } from '@/theme';
 
 export interface InitColorSchemeScriptProps {
-  theme?: ThemeName;
+  defaultTheme?: ThemeName;
   storageKey?: string;
   attribute?: string;
   nonce?: string;
 }
 
-const defaultTheme = 'light';
-
 // TODO: This should not have dark light hard-typed
 // once PRs merged https://github.com/ClickHouse/click-ui/pull/784
 export const InitColorSchemeScript = ({
-  theme = defaultTheme,
+  defaultTheme = 'light',
   storageKey = CUI_THEME_STORAGE_KEY,
-  attribute = 'data-cui-theme',
+  attribute = THEME_ATTRIBUTE,
   nonce,
 }: InitColorSchemeScriptProps) => {
   return (
@@ -25,7 +24,7 @@ export const InitColorSchemeScript = ({
       dangerouslySetInnerHTML={{
         __html: `(function() {
 try {
-  const theme = localStorage.getItem('${storageKey}') || '${theme}';
+  const theme = localStorage.getItem('${storageKey}') || '${defaultTheme}';
   const dark = 'dark';
   const light = 'light';
   let colorScheme = '';
@@ -52,3 +51,5 @@ try {
     />
   );
 };
+
+export default InitColorSchemeScript;
