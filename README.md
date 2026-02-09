@@ -30,6 +30,7 @@ You can find the official docs for the Click UI design system and component libr
   - [Public static site](#public-static-site)
 * [SSR](#ssr)
   - [Prevent theme flash](#prevent-theme-flash)
+  - [Theme Persistence](#theme-persistence)
 * [Releases and Versions](#releases-and-versions)
 
 ## Requirements
@@ -273,24 +274,66 @@ yarn changeset:version
 
 ### Prevent theme flash
 
-To prevent flash due to incorrect theme, import the component InitColorSchemeScript and place it in the head of your app main html layout.
+To prevent flash of incorrect theme, import the `InitColorSchemeScript` component and place it in the `<head>` of your HTML.
+
+The script reads the theme from localStorage and applies it immediately before React hydration to prevent flashing.
 
 ```ts
 import { InitColorSchemeScript } from '@clickhouse/click-ui';
 ```
 
+Simple usage (no props needed):
+
 ```jsx
 <html>
   <head>
-    <InitColorSchemeScript theme="dark" />
+    <InitColorSchemeScript />
   </head>
   <body>
-    <ClickUIProvider theme="dark">
+    <ClickUIProvider theme={theme} persistTheme>
       {children}
     </ClickUIProvider>
   </body>
 </html>
 ```
+
+> [!NOTE]
+> On initial load, the component `InitColorSchemeScript` reads localStorage and applies the theme immediately before React hydration. When the theme changes the ClickUIProvider stores the new theme to localStorage (persistTheme must be enabled). Finally, when page loads/refreshes the process reads from the stored theme from localStorage.
+
+The process will check localStorage for a theme, e.g. in the key `cui-theme` and apply it immediately preventing flashing. Otherwise, if nothing's stored it'll fallback to the default value `light`.
+
+
+> [!IMPORTANT]
+> If you'd like to override the theme fallback when localStorage is empty, you can do it by setting a value for property `defaultTheme`, e.g. `dark`.
+
+### Theme Persistence
+
+To enable theme persistence across page reloads, enable `persistTheme` (default: `true`). The provider will automatically save theme changes to localStorage.
+
+Notice that we manage theme state in the consumer side:
+
+```tsx
+import { ClickUIProvider } from '@clickhouse/click-ui';
+import { useState } from 'react';
+
+export const App = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  return (
+    <ClickUIProvider 
+      theme={theme}
+      persistTheme
+    >
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+      </button>
+    </ClickUIProvider>
+  );
+}
+```
+
+> [!IMPORTANT]
+> You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
 
 ## Releases and Versions
 
