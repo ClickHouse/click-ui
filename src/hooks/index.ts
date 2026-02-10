@@ -1,1 +1,2 @@
-export * from './useUpdateEffect';
+export { useUpdateEffect } from './useUpdateEffect';
+export { useInitialTheme } from './useInitialTheme';
