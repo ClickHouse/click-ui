@@ -166,7 +166,9 @@ const viteConfig = defineConfig({
 const vitestConfig = defineVitestConfig({
   test: {
     environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.{ts,tsx}', 'tests/**/*.{test,spec}.{ts,tsx}'],
+    // TODO: Note that currently, the pw visual regression tests
+    // are kept separate, see ./tests
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
     exclude: ['node_modules', 'dist', 'build', 'storybook-static', '.storybook'],
     globals: true,
     watch: false,
