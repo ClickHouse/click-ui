@@ -423,7 +423,7 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
       orientation="horizontal"
     >
       <Container maxWidth="10%">
-        <label>
+        <label htmlFor="date-time-picker-time-input">
           <Text size="md">Time</Text>
         </label>
       </Container>
@@ -440,6 +440,7 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
             data-testid="date-time-picker-time-input"
             disabled={!isEnabled}
             error={dateIsValid ? null : true}
+            id="date-time-picker-time-input"
             onChange={handleTimeChange}
             value={dateString}
           />
