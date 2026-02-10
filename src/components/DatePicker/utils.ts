@@ -24,11 +24,20 @@ export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
 });
 
 export const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
+
 export const selectedDateTimeFormatter = new Intl.DateTimeFormat(locale, {
   day: '2-digit',
   month: 'short',
   hour: '2-digit',
   minute: '2-digit',
+});
+
+export const selectedDateTimeFormatterWithSeconds = new Intl.DateTimeFormat(locale, {
+  day: '2-digit',
+  month: 'short',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
 });
 
 export const selectedDateTimeDateFormatter = new Intl.DateTimeFormat(locale, {
