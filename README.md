@@ -33,6 +33,8 @@ You can find the official docs for the Click UI design system and component libr
   - [Checking the changeset status](#checking-the-changeset-status)
   - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
 * [Release](#release)
+  - [Required admin permissions](#required-admin-permissions)
+  - [Create a new release pull request](#create-a-new-release-pull-request)
 
 ## Requirements
 
@@ -278,6 +280,20 @@ yarn changeset:version
 You're expected to [create a new version](#create-a-new-version-and-changelogs), which will consume all changesets, and update to the most appropriate semantic version (semver) based on those changesets; which also writes changelog entries for each consumed changeset file content.
 
 Once the artifacts and version bump is completed, the package can be published to npm. Doing all of this manually can be tedious and prone to mistakes, as such, we have a GitHub action that creates a Pull request containing all of this for team review; And once approved, another GitHub action that publishes the package to npm and creates a GitHub release.
+
+### Required admin permissions
+
+The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub ascitons as a trusted publisher in NPM package settings.
+
+#### GitHub Workflow permissons
+
+Set the [workflow permissions](https://github.com/punkbit/demo-changeset-ci-workflow/settings/actions) as:
+- Select "Read and write" and "Read repository contents"
+- Check the box "Allow GitHub actions to create and approve pull requests"
+
+#### NPM Trusted publisher
+
+Add GitHub actions as a trusted publisher on [NPM package settings](https://www.npmjs.com/package/@clickhouse/click-ui). Make sure you select the provider "GitHub Actions", enter the repository "Clickhouse/click-ui" and finally the workflow name as "release-publisher.yml".
 
 ### Create a new release Pull Request
 
