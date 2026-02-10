@@ -1,2 +1,2 @@
-export { InitColorSchemeScript } from './InitColorSchemeScript';
-export type { InitColorSchemeScriptProps } from './InitColorSchemeScript';
+export { InitCUIThemeScript } from './InitCUIThemeScript';
+export type { InitCUIThemeScriptProps } from './InitCUIThemeScript';

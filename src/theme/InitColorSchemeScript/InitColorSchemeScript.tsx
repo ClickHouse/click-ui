@@ -2,7 +2,7 @@ import { THEME_ATTRIBUTE } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { ThemeName } from '@/theme';
 
-export interface InitColorSchemeScriptProps {
+export interface InitCUIThemeScriptProps {
   defaultTheme?: ThemeName;
   storageKey?: string;
   attribute?: string;
@@ -13,12 +13,12 @@ export interface InitColorSchemeScriptProps {
 
 // TODO: This should not have dark light hard-typed
 // once PRs merged https://github.com/ClickHouse/click-ui/pull/784
-export const InitColorSchemeScript = ({
+export const InitCUIThemeScript = ({
   defaultTheme = 'light',
   storageKey = CUI_THEME_STORAGE_KEY,
   attribute = THEME_ATTRIBUTE,
   nonce,
-}: InitColorSchemeScriptProps) => {
+}: InitCUIThemeScriptProps) => {
   return (
     <script
       suppressHydrationWarning
@@ -46,4 +46,4 @@ try {
   );
 };
 
-export default InitColorSchemeScript;
+export default InitCUIThemeScript;

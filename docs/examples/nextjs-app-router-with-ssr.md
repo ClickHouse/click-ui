@@ -41,14 +41,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
 ## App Layout Configuration
 
-Configure the root layout with `InitColorSchemeScript` in the `<head>` to prevent theme flash on initial load.
+Configure the root layout with `InitCUIThemeScript` in the `<head>` to prevent theme flash on initial load.
 
 Include `suppressHydrationWarning` on `<html>` and `<body>` elements to suppress warnings caused by theme switching:
 
 ```tsx
 import type { Metadata } from "next";
 import { ThemeProvider } from './ThemeProvider'
-import { InitColorSchemeScript } from '@clickhouse/click-ui';
+import { InitCUIThemeScript } from '@clickhouse/click-ui';
 
 export const metadata: Metadata = {
   title: "Next.js + Click UI",
@@ -63,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <InitColorSchemeScript defaultTheme="light" />
+        <InitCUIThemeScript defaultTheme="light" />
       </head>
       <body>
         <ThemeProvider>
@@ -138,4 +138,4 @@ export default function Home() {
 > The `useInitialTheme` hook handles the initial theme state from localStorage and prevents hydration mismatches by returning `mounted: false` until the client-side effect runs. This ensures the first render matches the server output.
 
 > [!TIP]
-> Enable `persistTheme` on `ClickUIProvider` to automatically save theme changes to localStorage. The `InitColorSchemeScript` reads this value and applies it immediately before React hydration to prevent theme flashing.
+> Enable `persistTheme` on `ClickUIProvider` to automatically save theme changes to localStorage. The `InitCUIThemeScript` reads this value and applies it immediately before React hydration to prevent theme flashing.

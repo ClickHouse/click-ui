@@ -309,12 +309,12 @@ Theming allows the end-user to select its preferred colour theme. You are respon
 
 ### Prevent theme flash
 
-To prevent flash of incorrect theme, import the `InitColorSchemeScript` component and place it in the `<head>` of your HTML.
+To prevent flash of incorrect theme, import the `InitCUIThemeScript` component and place it in the `<head>` of your HTML.
 
 The script reads the theme from localStorage and applies it immediately before React hydration to prevent flashing.
 
 ```ts
-import { InitColorSchemeScript } from '@clickhouse/click-ui';
+import { InitCUIThemeScript } from '@clickhouse/click-ui';
 ```
 
 Simple usage (no props needed):
@@ -322,7 +322,7 @@ Simple usage (no props needed):
 ```jsx
 <html>
   <head>
-    <InitColorSchemeScript />
+    <InitCUIThemeScript />
   </head>
   <body>
     <ClickUIProvider theme={theme} persistTheme>
@@ -333,7 +333,7 @@ Simple usage (no props needed):
 ```
 
 > [!NOTE]
-> On initial load, the component `InitColorSchemeScript` reads localStorage and applies the theme immediately before React hydration. When the theme changes the ClickUIProvider stores the new theme to localStorage (persistTheme must be enabled). Finally, when page loads/refreshes the process reads from the stored theme from localStorage.
+> On initial load, the component `InitCUIThemeScript` reads localStorage and applies the theme immediately before React hydration. When the theme changes the ClickUIProvider stores the new theme to localStorage (persistTheme must be enabled). Finally, when page loads/refreshes the process reads from the stored theme from localStorage.
 
 The process will check localStorage for a theme, e.g. in the key `cui-theme` and apply it immediately preventing flashing. Otherwise, if nothing's stored it'll fallback to the default value `light`.
 
