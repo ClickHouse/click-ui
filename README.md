@@ -33,7 +33,7 @@ You can find the official docs for the Click UI design system and component libr
   - [Use Click UI](#use-click-ui)
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
-* [SSR](#ssr)
+* [Themes](#themes)
   - [Prevent theme flash](#prevent-theme-flash)
   - [Theme Persistence](#theme-persistence)
 * [Releases and Versions](#releases-and-versions)
@@ -249,6 +249,9 @@ function App() {
 export default App
 ```
 
+> [!TIP]
+> An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md).
+
 To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
 
 ## Changeset
@@ -297,7 +300,12 @@ To consume all changesets, and update to the most appropriate semver version and
 yarn changeset:version
 ```
 
-## SSR
+## Themes
+
+Theming allows the end-user to select its preferred colour theme. You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
+
+> [!NOTE]
+> Currently, styling is done with css-in-js which might cause some flash since it has to compute the theme and apply it. We'll be moving from styled-components and this shall be changed and improved.
 
 ### Prevent theme flash
 
@@ -329,7 +337,6 @@ Simple usage (no props needed):
 
 The process will check localStorage for a theme, e.g. in the key `cui-theme` and apply it immediately preventing flashing. Otherwise, if nothing's stored it'll fallback to the default value `light`.
 
-
 > [!IMPORTANT]
 > If you'd like to override the theme fallback when localStorage is empty, you can do it by setting a value for property `defaultTheme`, e.g. `dark`.
 
@@ -359,8 +366,8 @@ export const App = () => {
 }
 ```
 
-> [!IMPORTANT]
-> You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
+> [!TIP]
+> An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md), where you can see how the root `data-cui-theme` is handled.
 
 ## Releases and Versions
 
