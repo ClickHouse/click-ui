@@ -4,11 +4,11 @@ import { useState, useRef, useCallback } from 'react';
 
 import { Text } from '@/components/Typography/Text/Text';
 import { Title } from '@/components/Typography/Title/Title';
-import { Icon } from '@/components/Icon/Icon';
 import { Button } from '@/components/Button/Button';
+import { Icon } from '@/components/Icon/Icon';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
-import { MiddleTruncator } from '../MiddleTruncator';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
 import { formatFileSize } from '@/utils/file';
 
 interface FileInfo {

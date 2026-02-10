@@ -166,10 +166,10 @@ const viteConfig = defineConfig({
 const vitestConfig = defineVitestConfig({
   test: {
     environment: 'jsdom',
-    include: ['**/*.test.{ts,tsx}'],
+    include: ['src/**/*.{test,spec}.{ts,tsx}', 'tests/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['node_modules', 'dist', 'build', 'storybook-static', '.storybook'],
     globals: true,
     watch: false,
-    exclude: ['node_modules'],
     setupFiles: ['@testing-library/jest-dom', './setupTests.ts'],
   },
 });
