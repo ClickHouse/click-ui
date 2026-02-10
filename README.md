@@ -18,10 +18,13 @@ You can find the official docs for the Click UI design system and component libr
 ## Overview
 
 * [Requirements](#requirements)
+* [Quick Start](#quick-start)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
-  - [Local development server](#local-development-server)
+  - [Local development](#local-development)
 * [Tests](#Tests)
+  - [Functional tests](#functional-tests)
+  - [Visual regression tests](#visual-regression-tests)
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
@@ -30,12 +33,40 @@ You can find the official docs for the Click UI design system and component libr
   - [Use Click UI](#use-click-ui)
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
-  - [Releases and Versions](#releases-and-versions)
+* [SSR](#ssr)
+  - [Prevent theme flash](#prevent-theme-flash)
+  - [Theme Persistence](#theme-persistence)
+* [Releases and Versions](#releases-and-versions)
 
 ## Requirements
 
 - Nodejs (>= 22.12.x) as runtime
 - Yarn (>= 4.5.3) for development, any other package manager in a host project
+
+## Quick Start
+
+Install the package via npm or your favourite package manager:
+
+```sh
+npm i @clickhouse/click-ui@latest
+```
+
+To use Click UI, you must wrap your application in the provider. This ensures styles and themes are applied correctly across all components.
+
+```ts
+import { ClickUIProvider, Title, Text } from '@clickhouse/click-ui'
+
+function App() {
+  return (
+    <ClickUIProvider theme="dark">
+      <Title type="h1">Hello ClickHouse</Title>
+      <Text>Start building today!</Text>
+    </ClickUIProvider>
+  )
+}
+```
+
+For more examples, including theme switching and configuration, see the [How to](#how-to-use) use section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Development
 
@@ -61,23 +92,70 @@ yarn generate-tokens
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
-### Local development server
+### Local development
 
-To run the Click UI development execute the command:
+We leverage Storybook as our primary development environment and documentation, see [Storybook](#storybook).
+
+You can start the Storybook development server by:
 
 ```sh
 yarn dev
 ```
 
-It'll default to the location [http://localhost:5173](http://localhost:5173), if port available.
+We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
+
+> [!IMPORTANT]
+> We operate collaboratively with the Product Design team. While stories reflect the current implementation (live), Figma files remain the source of truth for design research and decision-making. Changes are typically finalized in Figma before being implemented in code to ensure design-sync.
+
+By avoiding local preview files, we ensure that component experimentation happens in isolation; free from application side effects and providing a live look at component interfaces and usage examples at time of writing.
+
+> [!NOTE]
+> To ensure stability, we utilize Visual Regression and Unit Testing, see [tests](#tests). When contributing features or tweaks, you're expected to include or update the relevant tests to maintain stability, e.g. remember the components are consumed by a number of applications.
+
+To get started with the development playground, refer to the Storybook section [here](#storybook).
 
 ## Tests
+
+### Functional tests
 
 The package uses [vitest](https://vitest.dev/) and [react testing library](https://testing-library.com) for tests, e.g. functional tests.
 
 ```sh
 yarn test
 ```
+
+### Visual regression tests
+
+The project uses [Chromatic](https://www.chromatic.com/) for visual regression testing of UI components.
+
+It captures screenshots of Storybook and compares them across builds to detect unintended visual changes by:
+
+- Automated visual testing in GitHub CI/CD pipeline, e.g. storybook publish, UI tests
+- Leveraging storybook stories
+- Provides visual diff reviews and approval workflows
+- Helps catch UI bugs
+
+To setup, you must get a team member project token.
+
+Add the token as an environment variable to your environment preference or profile, e.g. `~/.zshrc`:
+
+```sh
+export CHROMATIC_PROJECT_TOKEN=<YOUR-TOKEN-HERE>
+```
+
+Once ready, you can run tests by:
+
+```sh
+yarn test:chromatic
+```
+
+> [!NOTE]
+> Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
+> - Build status, e.g. uploading or testing
+> - Link to the cloud runner or dashboard
+> - Exit code
+
+If you need quicker iteration feedback, or more testing control during local development, read [here](./docs/tests/playwright.md)
 
 ## Storybook
 
@@ -107,11 +185,71 @@ Once built, you can serve the static files by:
 yarn storybook:serve
 ```
 
-### Public static version
+### Public static site
 
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
+
+## Distribution
+
+The package is distributed as ESM.
+
+### Build
+
+To build the distribution version of the package run:
+
+```sh
+yarn build
+```
+
+> [!NOTE]
+> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+
+### Deep imports support
+
+Deep imports are supported, you can import directly from path.
+
+> [!WARNING]
+> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
+
+```ts
+import { Button } from '@clickhouse/click-ui/Button';
+```
+
+### Examples
+
+Here's a quick copy and paste NextJS example with interactive components you can play:
+
+```ts
+import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
+import { useState } from 'react'
+
+function App() {
+  const [theme, setTheme] = useState<ThemeName>('dark')
+
+  const toggleTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark')
+  }
+
+  return (
+    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
+        label="Dark mode"
+      />
+
+      <Title type='h1'>Click UI Example</Title>
+      <Text>Welcome to Click UI. Get started here.</Text>
+    </ClickUIProvider>
+  )
+}
+
+export default App
+```
+
+To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
 
 ## Changeset
 
@@ -159,108 +297,72 @@ To consume all changesets, and update to the most appropriate semver version and
 yarn changeset:version
 ```
 
-## Distribution
+## SSR
 
-The package is distributed as ESM.
+### Prevent theme flash
 
-### Build
+To prevent flash of incorrect theme, import the `InitColorSchemeScript` component and place it in the `<head>` of your HTML.
 
-To build the distribution version of the package run:
+The script reads the theme from localStorage and applies it immediately before React hydration to prevent flashing.
 
-```sh
-yarn build
+```ts
+import { InitColorSchemeScript } from '@clickhouse/click-ui';
+```
+
+Simple usage (no props needed):
+
+```jsx
+<html>
+  <head>
+    <InitColorSchemeScript />
+  </head>
+  <body>
+    <ClickUIProvider theme={theme} persistTheme>
+      {children}
+    </ClickUIProvider>
+  </body>
+</html>
 ```
 
 > [!NOTE]
-> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+> On initial load, the component `InitColorSchemeScript` reads localStorage and applies the theme immediately before React hydration. When the theme changes the ClickUIProvider stores the new theme to localStorage (persistTheme must be enabled). Finally, when page loads/refreshes the process reads from the stored theme from localStorage.
 
-### Use Click UI
+The process will check localStorage for a theme, e.g. in the key `cui-theme` and apply it immediately preventing flashing. Otherwise, if nothing's stored it'll fallback to the default value `light`.
 
-Navigate to your app's work directory and add the package.
 
-Here, we use `yarn` but you can use your favorite package manager, e.g. pnpm.
+> [!IMPORTANT]
+> If you'd like to override the theme fallback when localStorage is empty, you can do it by setting a value for property `defaultTheme`, e.g. `dark`.
 
-```sh
-yarn add @clickhouse/click-ui
-```
-> [!NOTE]
-> Click UI should be supported by react frameworks.
-> If you run into any issues consuming it in your react app, report it [here](https://github.com/ClickHouse/click-ui/issues/new). Provide all important details, including information on how to replicate the issue!
+### Theme Persistence
 
-Once installed, wrap the application with Click UI provider:
+To enable theme persistence across page reloads, enable `persistTheme` (default: `true`). The provider will automatically save theme changes to localStorage.
 
-```js
-import { ClickUIProvider } from '@clickhouse/click-ui'
+Notice that we manage theme state in the consumer side:
 
-export default () => {
+```tsx
+import { ClickUIProvider } from '@clickhouse/click-ui';
+import { useState } from 'react';
+
+export const App = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
   return (
-    <ClickUIProvider theme='light'>
-      <p>Hello world!</p>
+    <ClickUIProvider 
+      theme={theme}
+      persistTheme
+    >
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+      </button>
     </ClickUIProvider>
   );
 }
 ```
 
-After, you are able to import your favorite [Click UI components](https://clickhouse.design/click-ui).
+> [!IMPORTANT]
+> You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
 
-```js
-import { ClickUIProvider, Title } from '@clickhouse/click-ui'
-
-export default () => {
-  return (
-    <ClickUIProvider theme='light'>
-      <Title type='h1'>Click UI Example</Title>
-    </ClickUIProvider>
-  );
-}
-```
-
-To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
-
-### Deep imports support
-
-Deep imports are supported, you can import directly from path.
-
-> [!WARNING]
-> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
-
-```ts
-import { Button } from '@clickhouse/click-ui/Button';
-```
-
-### Examples
-
-Here's a quick copy and paste NextJS example with interactive components you can play:
-
-```ts
-import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import { useState } from 'react'
-
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
-
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
-
-  return (
-    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
-        label="Dark mode"
-      />
-
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
-
-export default App
-```
-
-### Releases and Versions
+## Releases and Versions
 
 New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
 
