@@ -79,7 +79,7 @@ It's expected to have theme tokens provided externally, e.g. Figma tokens-studio
 Once [./tokens/themes] files are updated, we must regenerate the tokens:
 
 ```sh
-yarn generate-tokens
+yarn generate:tokens
 ```
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
