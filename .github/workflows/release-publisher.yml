@@ -4,32 +4,86 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   publish-to-npm:
     name: Publish to NPM
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
+      pull-requests: read
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify release PR merge
+        id: verify-merge
+        run: |
+          COMMIT_SHA="${{ github.sha }}"
+
+          echo "🔍 Checking if commit $COMMIT_SHA is from a release PR merge..."
+
+          COMMIT_MSG=$(git log -1 --pretty=%B "$COMMIT_SHA")
+
+          if [[ ! "$COMMIT_MSG" =~ chore:\ 🤖\ release\ v[0-9]+\.[0-9]+\.[0-9]+.* ]]; then
+            echo "⚠️ This is not a release PR merge. Skipping release."
+            echo "is_release=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          VERSION=$(echo "$COMMIT_MSG" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?' | head -1 | sed 's/^v//')
+
+          if [[ -z "$VERSION" ]]; then
+            echo "⚠️ Could not extract version from commit message. Skipping release."
+            echo "is_release=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "✅ Detected release PR merge for version $VERSION"
+          echo "is_release=true" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Skip if not release
+        if: steps.verify-merge.outputs.is_release == 'false'
+        run: |
+          echo "⏭️ Not a release PR merge. Skip!"
+          exit 0
+
+      - name: Create and push tag
+        if: steps.verify-merge.outputs.is_release == 'true'
+        run: |
+          TAG="${{ steps.verify-merge.outputs.tag }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "⚠️ Tag $TAG already exists. Skipping tag creation."
+            exit 0
+          fi
+
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+
+          echo "✅ Created and pushed tag $TAG"
 
       - name: Setup Node.js
+        if: steps.verify-merge.outputs.is_release == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 23
           registry-url: 'https://registry.npmjs.org'
 
       - name: Upgrade npm for OIDC support
+        if: steps.verify-merge.outputs.is_release == 'true'
         run: |
           npm install -g npm@latest
           echo "npm version: $(npm --version)"
@@ -38,15 +92,18 @@ jobs:
         run: corepack enable
 
       - name: Install Dependencies
+        if: steps.verify-merge.outputs.is_release == 'true'
         run: yarn install --frozen-lockfile
 
       - name: Build package
+        if: steps.verify-merge.outputs.is_release == 'true'
         run: yarn build
 
       - name: Get package info
+        if: steps.verify-merge.outputs.is_release == 'true'
         id: package-info
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION="${{ steps.verify-merge.outputs.version }}"
           PKG_NAME=$(node -p "require('./package.json').name")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
@@ -64,13 +121,18 @@ jobs:
           echo "🏷️  npm tag: $TAG"
 
       - name: Publish to npm over OpenID Connect (OIDC)
-        run: yarn npm publish --access public --provenance
+        if: steps.verify-merge.outputs.is_release == 'true'
+        run: |
+          yarn npm publish \
+            --access public \
+            --provenance \
+            --tag ${{ steps.package-info.outputs.tag }}
 
       - name: Extract changelog
+        if: steps.verify-merge.outputs.is_release == 'true'
         id: changelog
         run: |
-          # TODO: Make local script to test and troubleshoot
-          VERSION="${{ steps.package-info.outputs.version }}"
+          VERSION="${{ steps.verify-merge.outputs.version }}"
 
           if [[ -f CHANGELOG.md ]]; then
             CHANGELOG=$(awk "/## $VERSION/,/## [0-9]/" CHANGELOG.md | sed '1d;$d' | sed '/^$/d')
@@ -82,14 +144,14 @@ jobs:
             CHANGELOG="No changelog available."
           fi
 
-          # Try persist multiple lines
           echo "$CHANGELOG" > /tmp/changelog.txt
 
       - name: Create GitHub Release
+        if: steps.verify-merge.outputs.is_release == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ steps.package-info.outputs.version }}
-          name: v${{ steps.package-info.outputs.version }}
+          tag_name: v${{ steps.verify-merge.outputs.version }}
+          name: v${{ steps.verify-merge.outputs.version }}
           body_path: /tmp/changelog.txt
           draft: false
           prerelease: ${{ steps.package-info.outputs.prerelease }}

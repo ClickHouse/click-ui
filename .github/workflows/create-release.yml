@@ -97,22 +97,6 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
 
-      - name: Create release tag
-        run: |
-          VERSION="${{ steps.version-package.outputs.version }}"
-          TAG="v$VERSION"
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "$TAG" -m "Release $TAG (${{ inputs.release_type }})"
-
-          if git tag -l "$TAG" | grep -q "$TAG"; then
-            echo "✅ Created tag $TAG (will be pushed when PR is created)"
-          else
-            echo "❌ Failed to create tag $TAG"
-            exit 1
-          fi
-
       - name: Determine PR details
         id: pr-details
         run: |
