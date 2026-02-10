@@ -4,6 +4,7 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
@@ -302,19 +303,30 @@ const PredefinedTimes = ({
   );
 };
 
+const validTimeRegex = /^\d{1,2}(:\d{1,2}(:\d{1,2})?)?$/;
+
 interface TimeInputProps {
   date: Date | undefined;
   onSetMeridiem?: () => void;
   setDate: (date: Date) => void;
+  shouldShowSeconds: boolean;
 }
 
-const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
+const TimeInput = ({
+  date,
+  onSetMeridiem,
+  setDate,
+  shouldShowSeconds,
+}: TimeInputProps) => {
   let dayjsDate = dayjs(date);
   if (!date) {
     dayjsDate = dayjsDate.hour(12).minute(0);
   }
 
-  const [dateString, setDateString] = useState<string>(dayjsDate.format('hh:mm'));
+  const formattedDate = shouldShowSeconds
+    ? dayjsDate.format('hh:mm:ss')
+    : dayjsDate.format('hh:mm');
+  const [dateString, setDateString] = useState<string>(formattedDate);
   const [dateIsValid, setDateIsValid] = useState<boolean>(true);
   const [meridiem, setMeridiem] = useState<string>();
   const isEnabled = Boolean(date);
@@ -338,10 +350,20 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
         return;
       }
 
-      const [hours, minutes] = trimmedDate.split(':');
+      if (!validTimeRegex.test(trimmedDate)) {
+        setDateIsValid(false);
+        return;
+      }
+
+      const [hours, minutes, seconds] = trimmedDate.split(':');
 
       const hoursAsNumber = parseInt(hours, 10);
       if (Number.isNaN(hoursAsNumber)) {
+        setDateIsValid(false);
+        return;
+      }
+
+      if (hoursAsNumber > 23 || hoursAsNumber < 0) {
         setDateIsValid(false);
         return;
       }
@@ -355,7 +377,29 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
           setDateIsValid(false);
           return;
         }
-        parsedDate = dayjs(`${hours}:${minutes}`, 'h:mm');
+
+        if (minutesAsNumber > 59 || minutesAsNumber < 0) {
+          setDateIsValid(false);
+          return;
+        }
+
+        if (!seconds) {
+          parsedDate = dayjs(`${hours}:${minutes}`, 'h:mm');
+        } else {
+          const secondsAsNumber = parseInt(seconds, 10);
+
+          if (Number.isNaN(secondsAsNumber)) {
+            setDateIsValid(false);
+            return;
+          }
+
+          if (secondsAsNumber > 59 || secondsAsNumber < 0) {
+            setDateIsValid(false);
+            return;
+          }
+
+          parsedDate = dayjs(`${hours}:${minutes}:${seconds}`, 'h:mm:ss');
+        }
       }
 
       if (!parsedDate.isValid()) {
@@ -363,22 +407,28 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
         return;
       }
 
-      if (parsedDate.isValid()) {
-        setDateIsValid(true);
-
-        let hour = parsedDate.hour();
-        if (meridiem === 'pm' && parsedDate.hour() < 12) {
-          hour = parsedDate.hour() + 12;
-        }
-        if (meridiem === 'am' && parsedDate.hour() >= 12) {
-          hour = parsedDate.hour() - 12;
-        }
-
-        const newDate = dayjsDate.hour(hour).minute(parsedDate.minute()).toDate();
-        setDate(newDate);
-      } else {
+      if (!parsedDate.isValid()) {
         setDateIsValid(false);
+        return;
       }
+      setDateIsValid(true);
+
+      let hour = parsedDate.hour();
+      if (meridiem === 'pm' && parsedDate.hour() < 12) {
+        hour = parsedDate.hour() + 12;
+      }
+      if (meridiem === 'am' && parsedDate.hour() >= 12) {
+        hour = parsedDate.hour() - 12;
+      }
+
+      const newDate = shouldShowSeconds
+        ? dayjsDate
+            .hour(hour)
+            .minute(parsedDate.minute())
+            .second(parsedDate.second())
+            .toDate()
+        : dayjsDate.hour(hour).minute(parsedDate.minute()).toDate();
+      setDate(newDate);
     },
     [date, meridiem]
   );
@@ -386,6 +436,7 @@ const TimeInput = ({ date, onSetMeridiem, setDate }: TimeInputProps) => {
   const handleMeridiemChange = useCallback(
     (newMeridiem: string) => {
       setMeridiem(newMeridiem);
+
       if (newMeridiem === 'pm' && dayjsDate.hour() < 12) {
         const newDate = dayjsDate.hour(dayjsDate.hour() + 12).toDate();
 
@@ -478,6 +529,7 @@ interface TabbedCalendarProps {
   setEndDate: (endDate: Date) => void;
   setSelectedDate: SetSelectedDate;
   setStartDate: (startDate: Date) => void;
+  shouldShowSeconds: boolean;
   startDate: Date | undefined;
 }
 
@@ -490,12 +542,27 @@ const TabbedCalendar = ({
   setEndDate,
   setSelectedDate,
   setStartDate,
+  shouldShowSeconds,
   startDate,
 }: TabbedCalendarProps) => {
   const [activeTab, setActiveTab] = useState<Tab>('startDate');
-  const handleTabChange = useCallback((newTab: string) => {
-    setActiveTab(newTab as Tab);
-  }, []);
+  const hasChangedTab = useRef<boolean>(false);
+
+  const handleTabChange = useCallback(
+    (newTab: string) => {
+      setActiveTab(newTab as Tab);
+      hasChangedTab.current = true;
+    },
+    [hasChangedTab]
+  );
+
+  const handleMeridiemChange = useCallback(() => {
+    // We only change to the end date tab after selecting meridiem if we haven't changed tabs yet
+    // i.e. it's the first time on start date
+    if (!hasChangedTab.current) {
+      handleTabChange('endDate');
+    }
+  }, [hasChangedTab]);
 
   const startDateCalendarOptions: UseCalendarOptions = {};
   const endDateCalendarOptions: UseCalendarOptions = {};
@@ -547,7 +614,9 @@ const TabbedCalendar = ({
         </StyledCalendarRenderer>
         <TimeInput
           date={startDate}
+          onSetMeridiem={handleMeridiemChange}
           setDate={setStartDate}
+          shouldShowSeconds={shouldShowSeconds}
         />
       </Tabs.Content>
       <Tabs.Content value="endDate">
@@ -569,6 +638,7 @@ const TabbedCalendar = ({
         <TimeInput
           date={endDate}
           setDate={setEndDate}
+          shouldShowSeconds={shouldShowSeconds}
         />
       </Tabs.Content>
     </Tabs>
@@ -584,6 +654,7 @@ export interface DateTimePickerProps {
   placeholder?: string;
   predefinedTimesList?: Array<DateRangeListItem>;
   maxRangeLength?: number;
+  shouldShowSeconds?: boolean;
   startDate?: Date;
 }
 
@@ -597,6 +668,7 @@ export const DateTimePicker = ({
   onSelectDateRange,
   placeholder = 'start date – end date',
   predefinedTimesList,
+  shouldShowSeconds,
 }: DateTimePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -666,6 +738,7 @@ export const DateTimePicker = ({
           placeholder={placeholder}
           selectedEndDate={selectedEndDate}
           selectedStartDate={selectedStartDate}
+          shouldShowSeconds={shouldShowSeconds}
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
@@ -698,6 +771,7 @@ export const DateTimePicker = ({
                     setEndDate={setSelectedEndDate}
                     setSelectedDate={handleSelectDate}
                     setStartDate={setSelectedStartDate}
+                    shouldShowSeconds={Boolean(shouldShowSeconds)}
                     startDate={selectedStartDate}
                   />
                 </CalendarRendererContainer>
@@ -714,6 +788,7 @@ export const DateTimePicker = ({
                 setEndDate={setSelectedEndDate}
                 setSelectedDate={handleSelectDate}
                 setStartDate={setSelectedStartDate}
+                shouldShowSeconds={Boolean(shouldShowSeconds)}
                 startDate={selectedStartDate}
               />
             </>

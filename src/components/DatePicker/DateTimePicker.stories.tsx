@@ -38,6 +38,7 @@ export const Default: Story = {
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
       />
     );
   },
@@ -61,6 +62,7 @@ export const PredefinedTimesDefault: Story = {
         placeholder={args.placeholder}
         predefinedTimesList={predefinedTimesList}
         startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
       />
     );
   },
@@ -177,6 +179,7 @@ export const PredefinedDatesScrollable: Story = {
         placeholder={args.placeholder}
         predefinedTimesList={predefinedTimesList}
         startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
       />
     );
   },
@@ -202,6 +205,7 @@ export const DateTimeWithMaxRange: Story = {
         onSelectDateRange={args.onSelectDateRange}
         placeholder={args.placeholder}
         startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
       />
     );
   },
@@ -213,30 +217,3 @@ export const DateTimeFutureStartDatesDisabled: Story = {
     predefinedTimesList: [],
   },
 };
-
-// export const PredefinedDatesArbitraryDates: Story = {
-//   render: (args: Args) => {
-//     const endDate = args.endDate ? new Date(args.endDate) : undefined;
-//     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-//     const predefinedTimesList = [
-//       { startDate: new Date("04/14/2025"), endDate: new Date("05/14/2025") },
-//       { startDate: new Date("05/14/2025"), endDate: new Date("06/14/2025") },
-//       { startDate: new Date("06/14/2025"), endDate: new Date("07/14/2025") },
-//     ];
-
-//     return (
-//       <DateTimePicker
-//         key="default"
-//         endDate={endDate}
-//         disabled={args.disabled}
-//         futureDatesDisabled={args.futureDatesDisabled}
-//         futureStartDatesDisabled={args.futureStartDatesDisabled}
-//         maxRangeLength={args.maxRangeLength}
-//         onSelectDateRange={args.onSelectDateRange}
-//         placeholder={args.placeholder}
-//         predefinedTimesList={predefinedTimesList}
-//         startDate={startDate}
-//       />
-//     );
-//   },
-// };

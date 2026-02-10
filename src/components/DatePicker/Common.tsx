@@ -10,6 +10,7 @@ import {
   headerDateFormatter,
   selectedDateFormatter,
   selectedDateTimeFormatter,
+  selectedDateTimeFormatterWithSeconds,
   weekdayFormatter,
 } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
@@ -189,6 +190,7 @@ interface DateTimePickerInputProps {
   placeholder?: string;
   selectedEndDate?: Date;
   selectedStartDate?: Date;
+  shouldShowSeconds?: boolean;
 }
 
 export const DateTimePickerInput = ({
@@ -198,8 +200,13 @@ export const DateTimePickerInput = ({
   placeholder,
   selectedEndDate,
   selectedStartDate,
+  shouldShowSeconds,
 }: DateTimePickerInputProps) => {
   const defaultId = useId();
+
+  const dateTimeFormatter = shouldShowSeconds
+    ? selectedDateTimeFormatterWithSeconds
+    : selectedDateTimeFormatter;
 
   let formattedValue = (
     <Text
@@ -213,12 +220,12 @@ export const DateTimePickerInput = ({
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateTimeFormatter
+          {dateTimeFormatter
             .format(selectedStartDate)
             .replace('AM', 'am')
             .replace('PM', 'pm')}{' '}
           –{' '}
-          {selectedDateTimeFormatter
+          {dateTimeFormatter
             .format(selectedEndDate)
             .replace('AM', 'am')
             .replace('PM', 'pm')}
@@ -227,7 +234,7 @@ export const DateTimePickerInput = ({
     } else {
       formattedValue = (
         <span>
-          {selectedDateTimeFormatter
+          {dateTimeFormatter
             .format(selectedStartDate)
             .replace('AM', 'am')
             .replace('PM', 'pm')}{' '}
@@ -249,7 +256,7 @@ export const DateTimePickerInput = ({
         >
           start date –{' '}
         </Text>
-        {selectedDateTimeFormatter
+        {dateTimeFormatter
           .format(selectedEndDate)
           .replace('AM', 'am')
           .replace('PM', 'pm')}
