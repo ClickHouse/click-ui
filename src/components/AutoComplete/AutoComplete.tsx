@@ -22,7 +22,7 @@ import { SearchField } from '@/components/Input/SearchField';
 import { Separator } from '@/components/Separator/Separator';
 
 import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
+import type { IconName } from '@/components/Icon/types';
 
 import { styled } from 'styled-components';
 import { GenericMenuItem } from '../GenericMenu';

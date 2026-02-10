@@ -8,7 +8,8 @@ import { ICON_NAMES } from './IconCommon';
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
-export type IconName = (typeof ICON_NAMES)[number];
+// TODO: There was concurrent type for Icon as ImageName VS IconName. But it wasn't found a reason why they were separate as Icon required FileName, etc? For the moment uses IconName for both.
+export type IconName = (typeof ICON_NAMES)[number] | LogoName | FlagName | PaymentName;
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   /** The name of the icon to display */
@@ -29,12 +30,11 @@ type NoColorType = {
   color?: never;
 };
 
-export type ImageName = IconName | LogoName | FlagName | PaymentName;
 export type ImageType = (
   | (Omit<IconProps, 'name'> & NoThemeType)
   | (Omit<LogoProps, 'name'> & NoColorType)
   | (Omit<FlagProps, 'name'> & NoThemeType & NoColorType)
   | (Omit<PaymentProps, 'name'> & NoThemeType & NoColorType)
 ) & {
-  name: ImageName;
+  name: IconName;
 };
