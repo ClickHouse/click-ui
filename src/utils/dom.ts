@@ -14,8 +14,18 @@ const getDOMElement = (selector: string) => {
   return el;
 };
 
-export const setRootThemeAttribute = (theme: ThemeName) => {
+export const getRootElement = () => {
   const el = getDOMElement('html');
+
+  if (!el) {
+    return;
+  }
+
+  return el;
+};
+
+export const setRootThemeAttribute = (theme: ThemeName) => {
+  const el = getRootElement();
 
   if (!el) {
     return;
