@@ -28,6 +28,13 @@ You can find the official docs for the Click UI design system and component libr
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
+* [Distribution](#distribution)
+  - [Build](#build)
+  - [Use Click UI](#use-click-ui)
+  - [Deep imports support](#deep-imports-support)
+  - [Examples](#examples)
+* [Assets Management](#assets-management)
+  - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
 * [Changesets](#changesets)
   - [Add a new changeset](#add-a-new-changeset)
   - [Checking the changeset status](#checking-the-changeset-status)
@@ -85,7 +92,7 @@ It's expected to have theme tokens provided externally, e.g. Figma tokens-studio
 Once [./tokens/themes] files are updated, we must regenerate the tokens:
 
 ```sh
-yarn generate-tokens
+yarn generate:tokens
 ```
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
@@ -99,6 +106,7 @@ You can start the Storybook development server by:
 ```sh
 yarn dev
 ```
+
 
 We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
 
@@ -146,7 +154,6 @@ Once ready, you can run tests by:
 ```sh
 yarn test:chromatic
 ```
-
 > [!NOTE]
 > Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
 > - Build status, e.g. uploading or testing
@@ -183,51 +190,13 @@ Once built, you can serve the static files by:
 yarn storybook:serve
 ```
 
-### Public static site
+### Public Static Site
 
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
-## How-to use
-
-Click UI has been tested in NextJS, Gatsby, and Vite. If you run into problems using it in your app, please create an issue and our team will try to answer.
-
-1. Navigate to your app's route and run
-   `npm i @clickhouse/click-ui`
-   or
-   `yarn add @clickhouse/click-ui`
-2. Make sure to wrap your application in the Click UI `ClickUIProvider`, without doing this, you may run into issues with styled-components. Once that's done, you'll be able to import the individual components that you want to use on each page. Here's an example of an `App.tsx` in NextJS.
-
-```typescript
-import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import { useState } from 'react'
-
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
-
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
-
-  return (
-    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
-        label="Dark mode"
-      />
-
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
-
-export default App
-```
-
-## Changesets
+## Changeset
 
 Learn to manage the versioning of changelog entries.
 
@@ -266,12 +235,146 @@ yarn changeset:status
 
 To consume all changesets, and update to the most appropriate semver version and write a friendly changelog based on those changesets, the following command is available:
 
-> [!WARNING]
+> [!IMPORTANT]
 > Consuming changesets is done automatically in the CI/CD environment. For this reason, you don't have to execute the command, as a contributor your single concern should be adding changesets to any relevant changes.
 
 ```sh
 yarn changeset:version
 ```
+
+## Distribution
+
+The package is distributed as ESM.
+
+### Build
+
+To build the distribution version of the package run:
+
+```sh
+yarn build
+```
+
+> [!NOTE]
+> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+
+### Use Click UI
+
+Navigate to your app's work directory and add the package.
+
+Here, we use `yarn` but you can use your favorite package manager, e.g. pnpm.
+
+```sh
+yarn add @clickhouse/click-ui
+```
+> [!NOTE]
+> Click UI should be supported by react frameworks.
+> If you run into any issues consuming it in your react app, report it [here](https://github.com/ClickHouse/click-ui/issues/new). Provide all important details, including information on how to replicate the issue!
+
+Once installed, wrap the application with Click UI provider:
+
+```js
+import { ClickUIProvider } from '@clickhouse/click-ui'
+
+export default () => {
+  return (
+    <ClickUIProvider theme='light'>
+      <p>Hello world!</p>
+    </ClickUIProvider>
+  );
+}
+```
+
+After, you are able to import your favorite [Click UI components](https://clickhouse.design/click-ui).
+
+```js
+import { ClickUIProvider, Title } from '@clickhouse/click-ui'
+
+export default () => {
+  return (
+    <ClickUIProvider theme='light'>
+      <Title type='h1'>Click UI Example</Title>
+    </ClickUIProvider>
+  );
+}
+```
+
+To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
+
+### Deep imports support
+
+Deep imports are supported, you can import directly from path.
+
+> [!WARNING]
+> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
+
+```ts
+import { Button } from '@clickhouse/click-ui/Button';
+```
+
+### Examples
+
+Here's a quick copy and paste NextJS example with interactive components you can play:
+
+```ts
+import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
+import { useState } from 'react'
+
+function App() {
+  const [theme, setTheme] = useState<ThemeName>('dark')
+
+  const toggleTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark')
+  }
+
+  return (
+    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
+        label="Dark mode"
+      />
+
+      <Title type='h1'>Click UI Example</Title>
+      <Text>Welcome to Click UI. Get started here.</Text>
+    </ClickUIProvider>
+  )
+}
+
+export default App
+```
+
+## Assets management
+
+The Click UI has image asset files, such as icons or logos.
+
+Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
+
+### Add new SVG logo or icon
+
+Here are some steps, to help you transform the Figma asset into a React Component:
+
+1) In Figma project, select and export the target image/icon, e.g. these are generally contained in a square container (64x64)
+2) Store the file in your local file system in a memorable location
+3) Use a tool to transform SVG to React JSX, e.g. [react-svgr](https://react-svgr.com/playground/)
+4) Create a new file in `src/components/Logos`, e.g. name it by the company name
+5) Modify the `<svg>` node, it should set the size to 64x64 as the original Figma container:
+
+> [!NOTE]
+> Notice the viewBox values, it should contain the same values from the sourced file 64x64, e.g. "0 0 64 64", if it hasn't make sure you are exporting it correctly, or the original file has the correct container width and height
+
+```tsx
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  {...props}
+>
+```
+
+6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
+7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
 
 ## Release
 
