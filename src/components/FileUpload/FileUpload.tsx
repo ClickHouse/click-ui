@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
+
 import { FileUploadArea } from './FileUploadArea';
 import { FileUploadItem } from './FileUploadItem';
 import { useDragAndDrop } from './useDragAndDrop';

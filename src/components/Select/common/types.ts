@@ -1,5 +1,6 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from 'react';
-import { HorizontalDirection, IconName } from '@/components';
+import type { HorizontalDirection } from '@/components/types';
+import type { ImageName } from '@/components/Icon/types';
 import { PopoverProps } from '@radix-ui/react-popover';
 import { NoAvailableOptionsFactoryProps } from '@/components/Select/common/InternalSelect';
 
@@ -17,7 +18,7 @@ interface SelectItemComponentProps extends Omit<
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   value: string;
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
 }
 
