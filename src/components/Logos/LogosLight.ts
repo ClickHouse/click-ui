@@ -1,4 +1,5 @@
 import { SVGAttributes } from 'react';
+import AlloyDB from './AlloyDB';
 import Airbyte from './Airbyte';
 import AWSLight from './AWSLight';
 import AWSAthena from './AWSAthena';
@@ -70,6 +71,7 @@ const LogosLight: Record<
   (props: SVGAttributes<SVGElement>) => React.JSX.Element
 > = {
   clickhouse: Clickhouse,
+  alloydb: AlloyDB,
   airbyte: Airbyte,
   aws: AWSLight,
   'aws-athena': AWSAthena,
