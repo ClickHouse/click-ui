@@ -23,17 +23,16 @@ import {
 } from './types';
 import { Error, FormElementContainer, FormRoot } from '@/components/commonElement';
 import { Portal } from '@radix-ui/react-popover';
-import {
-  Checkbox,
-  CheckboxVariants,
-  Container,
-  Icon,
-  IconButton,
-  Label,
-  Separator,
-  Text,
-  TextProps,
-} from '@/components';
+import { Checkbox } from '@/components/Checkbox/Checkbox';
+import type { CheckboxVariants } from '@/components/Checkbox/Checkbox';
+import { Container } from '@/components/Container/Container';
+import { Icon } from '@/components/Icon/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Label } from '@/components/Label/Label';
+import { Separator } from '@/components/Separator/Separator';
+import { Text } from '@/components/Typography/Text/Text';
+import type { TextProps } from '@/components/Typography/Text/Text';
+
 import {
   SelectPopoverContent,
   SearchBar,
@@ -57,7 +56,7 @@ import SingleSelectValue from '../SingleSelectValue';
 import { useOption, useSearch } from './useOption';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { GenericMenuItem } from '@/components/GenericMenu';
-import IconWrapper from '@/components/IconWrapper/IconWrapper';
+import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 import { styled } from 'styled-components';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 
@@ -678,6 +677,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             icon={icon}
             iconDir={iconDir}
             gap="xxs"
+            isResponsive={false}
           >
             {label ? (
               <>
@@ -786,6 +786,7 @@ export const MultiSelectCheckboxItem = forwardRef<
               icon={icon}
               iconDir={iconDir}
               gap="xxs"
+              isResponsive={false}
             >
               {label ? (
                 <>

@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { SidebarCollapsibleItem } from '@/components';
+import { SidebarCollapsibleItem } from '@/components/SidebarCollapsibleItem/SidebarCollapsibleItem';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('SidebarCollapsibleItem', () => {

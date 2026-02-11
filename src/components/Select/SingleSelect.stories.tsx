@@ -16,6 +16,34 @@ const meta: Meta<typeof Select> = {
 
 export default meta;
 
+export const CloudProvider: StoryObj<typeof Select> = {
+  args: {
+    label: 'Cloud provider',
+  },
+  render: props => (
+    <Select {...props}>
+      <Select.Item
+        value="aws"
+        icon="aws"
+      >
+        AWS
+      </Select.Item>
+      <Select.Item
+        value="gcp"
+        icon="gcp"
+      >
+        GCP
+      </Select.Item>
+      <Select.Item
+        value="azure"
+        icon="azure"
+      >
+        Azure
+      </Select.Item>
+    </Select>
+  ),
+};
+
 export const OptionsAsChildren: StoryObj<typeof Select> = {
   args: {
     label: 'Label',

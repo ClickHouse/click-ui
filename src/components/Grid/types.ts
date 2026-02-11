@@ -7,7 +7,7 @@ import {
   ReactNode,
 } from 'react';
 import { VariableSizeGrid, VariableSizeGridProps } from 'react-window';
-import { ContextMenuItemProps } from '@/components';
+import type { ContextMenuItemProps } from '@/components/ContextMenu/ContextMenu';
 
 interface CellCommonProps extends HTMLAttributes<HTMLElement> {
   columnIndex: number;

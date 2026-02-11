@@ -376,6 +376,7 @@ Here are some steps, to help you transform the Figma asset into a React Componen
 6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
 7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
 
+
 ## Release
 
 **TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.

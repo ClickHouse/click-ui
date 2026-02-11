@@ -93,7 +93,7 @@ jobs:
         run: |
           # If it's a version input (e.g., 0.0.242 or 0.0.242-beta.1), check for prerelease keywords
           if [[ "$IS_VERSION_INPUT" == "true" ]]; then
-            if [[ "$GITHUB_TAG" == *"beta"* ]] || [[ "$GITHUB_TAG" == *"alpha"* ]] || [[ "$GITHUB_TAG" == *"rc"* ]]; then
+            if [[ "$GITHUB_TAG" == *"beta"* ]] || [[ "$GITHUB_TAG" == *"alpha"* ]] || [[ "$GITHUB_TAG" == *"rc"* ]] || [[ "$GITHUB_TAG" == *"test"* ]]; then
               echo "NPM_TAG=beta" >> "$GITHUB_ENV"
             else
               echo "NPM_TAG=latest" >> "$GITHUB_ENV"
