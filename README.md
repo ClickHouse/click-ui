@@ -391,7 +391,7 @@ The repository administrator has to set correct permissions for changeset workfl
 
 #### GitHub Workflow permissons
 
-Set the [workflow permissions](https://github.com/punkbit/demo-changeset-ci-workflow/settings/actions) as:
+Set the [workflow permissions](https://github.com/Clickhouse/click-ui/settings/actions) as:
 - Select "Read and write" and "Read repository contents"
 - Check the box "Allow GitHub actions to create and approve pull requests"
 
