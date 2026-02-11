@@ -33,6 +33,9 @@ You can find the official docs for the Click UI design system and component libr
   - [Use Click UI](#use-click-ui)
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
+* [Themes](#themes)
+  - [Prevent theme flash](#prevent-theme-flash)
+  - [Theme Persistence](#theme-persistence)
 * [Assets Management](#assets-management)
   - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
 * [Releases and Versions](#releases-and-versions)
@@ -101,7 +104,6 @@ You can start the Storybook development server by:
 yarn dev
 ```
 
-
 We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
 
 > [!IMPORTANT]
@@ -148,6 +150,7 @@ Once ready, you can run tests by:
 ```sh
 yarn test:chromatic
 ```
+
 > [!NOTE]
 > Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
 > - Build status, e.g. uploading or testing
@@ -189,6 +192,69 @@ yarn storybook:serve
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
+
+## Distribution
+
+The package is distributed as ESM.
+
+### Build
+
+To build the distribution version of the package run:
+
+```sh
+yarn build
+```
+
+> [!NOTE]
+> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+
+### Deep imports support
+
+Deep imports are supported, you can import directly from path.
+
+> [!WARNING]
+> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
+
+```ts
+import { Button } from '@clickhouse/click-ui/Button';
+```
+
+### Examples
+
+Here's a quick copy and paste NextJS example with interactive components you can play:
+
+```ts
+import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
+import { useState } from 'react'
+
+function App() {
+  const [theme, setTheme] = useState<ThemeName>('dark')
+
+  const toggleTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark')
+  }
+
+  return (
+    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
+        label="Dark mode"
+      />
+
+      <Title type='h1'>Click UI Example</Title>
+      <Text>Welcome to Click UI. Get started here.</Text>
+    </ClickUIProvider>
+  )
+}
+
+export default App
+```
+
+> [!TIP]
+> An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md).
+
+To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
 
 ## Changeset
 
@@ -236,106 +302,74 @@ To consume all changesets, and update to the most appropriate semver version and
 yarn changeset:version
 ```
 
-## Distribution
+## Themes
 
-The package is distributed as ESM.
+Theming allows the end-user to select its preferred colour theme. You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
 
-### Build
+> [!NOTE]
+> Currently, styling is done with css-in-js which might cause some flash since it has to compute the theme and apply it. We'll be moving from styled-components and this shall be changed and improved.
 
-To build the distribution version of the package run:
+### Prevent theme flash
 
-```sh
-yarn build
+To prevent flash of incorrect theme, import the `InitCUIThemeScript` component and place it in the `<head>` of your HTML.
+
+The script reads the theme from localStorage and applies it immediately before React hydration to prevent flashing.
+
+```ts
+import { InitCUIThemeScript } from '@clickhouse/click-ui';
+```
+
+Simple usage (no props needed):
+
+```jsx
+<html>
+  <head>
+    <InitCUIThemeScript />
+  </head>
+  <body>
+    <ClickUIProvider theme={theme} persistTheme>
+      {children}
+    </ClickUIProvider>
+  </body>
+</html>
 ```
 
 > [!NOTE]
-> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+> On initial load, the component `InitCUIThemeScript` reads localStorage and applies the theme immediately before React hydration. When the theme changes the ClickUIProvider stores the new theme to localStorage (persistTheme must be enabled). Finally, when page loads/refreshes the process reads from the stored theme from localStorage.
 
-### Use Click UI
+The process will check localStorage for a theme, e.g. in the key `cui-theme` and apply it immediately preventing flashing. Otherwise, if nothing's stored it'll fallback to the default value `light`.
 
-Navigate to your app's work directory and add the package.
+> [!IMPORTANT]
+> If you'd like to override the theme fallback when localStorage is empty, you can do it by setting a value for property `defaultTheme`, e.g. `dark`.
 
-Here, we use `yarn` but you can use your favorite package manager, e.g. pnpm.
+### Theme Persistence
 
-```sh
-yarn add @clickhouse/click-ui
-```
-> [!NOTE]
-> Click UI should be supported by react frameworks.
-> If you run into any issues consuming it in your react app, report it [here](https://github.com/ClickHouse/click-ui/issues/new). Provide all important details, including information on how to replicate the issue!
+To enable theme persistence across page reloads, enable `persistTheme` (default: `true`). The provider will automatically save theme changes to localStorage.
 
-Once installed, wrap the application with Click UI provider:
+Notice that we manage theme state in the consumer side:
 
-```js
-import { ClickUIProvider } from '@clickhouse/click-ui'
+```tsx
+import { ClickUIProvider } from '@clickhouse/click-ui';
+import { useState } from 'react';
 
-export default () => {
+export const App = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
   return (
-    <ClickUIProvider theme='light'>
-      <p>Hello world!</p>
+    <ClickUIProvider 
+      theme={theme}
+      persistTheme
+    >
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+      </button>
     </ClickUIProvider>
   );
 }
 ```
 
-After, you are able to import your favorite [Click UI components](https://clickhouse.design/click-ui).
-
-```js
-import { ClickUIProvider, Title } from '@clickhouse/click-ui'
-
-export default () => {
-  return (
-    <ClickUIProvider theme='light'>
-      <Title type='h1'>Click UI Example</Title>
-    </ClickUIProvider>
-  );
-}
-```
-
-To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
-
-### Deep imports support
-
-Deep imports are supported, you can import directly from path.
-
-> [!WARNING]
-> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
-
-```ts
-import { Button } from '@clickhouse/click-ui/Button';
-```
-
-### Examples
-
-Here's a quick copy and paste NextJS example with interactive components you can play:
-
-```ts
-import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import { useState } from 'react'
-
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
-
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
-
-  return (
-    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
-        label="Dark mode"
-      />
-
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
-
-export default App
-```
+> [!TIP]
+> An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md), where you can see how the root `data-cui-theme` is handled.
 
 ## Assets management
 
@@ -355,7 +389,6 @@ Here are some steps, to help you transform the Figma asset into a React Componen
 
 > [!NOTE]
 > Notice the viewBox values, it should contain the same values from the sourced file 64x64, e.g. "0 0 64 64", if it hasn't make sure you are exporting it correctly, or the original file has the correct container width and height
-
 ```tsx
 <svg
   width="64"

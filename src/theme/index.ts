@@ -48,3 +48,6 @@ const useCUITheme = (): PublicTheme => {
 };
 
 export { useCUITheme };
+
+export { InitCUIThemeScript } from './InitCUIThemeScript';
+export type { InitCUIThemeScriptProps } from './InitCUIThemeScript';
