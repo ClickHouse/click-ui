@@ -40,7 +40,7 @@
     "build:watch": "watch 'yarn build' ./src",
     "changeset:add": "yarn changeset",
     "changeset:status": "yarn changeset status",
-    "changeset:verify": ".scripts/changeset-verification",
+    "changeset:verify": ".scripts/bash/changeset-verification",
     "changeset:version": "yarn changeset version",
     "dev": "yarn storybook",
     "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
