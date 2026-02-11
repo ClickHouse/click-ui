@@ -1,47 +1,29 @@
 import darkTheme from './tokens/variables.dark';
 import lightTheme from './tokens/variables.light';
+import { useTheme } from 'styled-components';
+import type { Prettify, GetTypes } from './tokens/types';
 
-// TODO: Can the custom types be simplified
-// bye preferring to use the library provided
-// types for each required case? And where possible
-// can it be inferred instead?
-// Try to make it more readable
-type WidenLiteral<T> = T extends string
-  ? string
-  : T extends number
-    ? number
-    : T extends boolean
-      ? boolean
-      : T;
-
-type GetTypes<T> = {
-  [K in keyof T]: T[K] extends (infer U)[]
-    ? WidenLiteral<U>[]
-    : T[K] extends object
-      ? GetTypes<T[K]>
-      : WidenLiteral<T[K]>;
-};
-
-type Prettify<T> = {
-  [K in keyof T]: T[K] extends object ? Prettify<T[K]> : T[K];
-} & {};
-
-export const THEMES = {
-  Dark: 'dark',
-  Light: 'light',
-} as const;
-
-export type ThemeName = (typeof THEMES)[keyof typeof THEMES];
-
-export type ActiveThemeName = ThemeName;
+export { default as ClickUIProvider } from './ClickUIProvider';
 
 type GeneralThemeType = typeof lightTheme;
 
+// Full theme type with all properties (internal use and DefaultTheme)
 export type Theme = Prettify<
   Omit<GetTypes<GeneralThemeType>, 'name'> & {
     name?: ThemeName;
   }
 >;
+
+// For backward compatibility: CUIThemeType is the public subset (like v0.0.244)
+export type CUIThemeType = Prettify<{
+  breakpoint: Theme['breakpoint'];
+  global: Theme['global'];
+  sizes: Theme['sizes'];
+  name?: ThemeName;
+}>;
+
+// Alias for consistency
+export type PublicTheme = CUIThemeType;
 
 export const themes: Record<ActiveThemeName, Theme> = {
   dark: darkTheme as unknown as Theme,
@@ -51,3 +33,22 @@ export const themes: Record<ActiveThemeName, Theme> = {
 declare module 'styled-components' {
   export interface DefaultTheme extends Theme {}
 }
+
+export const useCUITheme = (): PublicTheme => {
+  const theme = useTheme();
+  return {
+    breakpoint: theme.breakpoint,
+    global: theme.global,
+    name: theme.name as ThemeName | undefined,
+    sizes: theme.sizes,
+  };
+};
+
+export const THEMES = {
+  Dark: 'dark',
+  Light: 'light',
+} as const;
+
+export type ThemeName = (typeof THEMES)[keyof typeof THEMES];
+
+export type ActiveThemeName = ThemeName;

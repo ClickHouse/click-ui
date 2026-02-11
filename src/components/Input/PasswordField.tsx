@@ -1,5 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId, useState } from 'react';
-import { Icon } from '@/components';
+import { Icon } from '@/components/Icon/Icon';
 import {
   IconButton,
   InputElement,

@@ -1,27 +1,28 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "0.0.251-rc.64",
+  "version": "0.0.251-test.67",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
   "files": [
     "dist"
   ],
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/click-ui.es.js",
-      "require": "./dist/click-ui.umd.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
     },
-    "./bundled": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/click-ui.bundled.es.js",
-      "require": "./dist/click-ui.bundled.umd.js"
+    "./*": {
+      "types": "./dist/types/*.d.ts",
+      "import": "./dist/esm/*.js",
+      "require": "./dist/cjs/*.cjs"
     }
   },
-  "main": "./dist/click-ui.umd.js",
-  "module": "./dist/click-ui.es.js",
-  "types": "./dist/index.d.ts",
   "keywords": [
     "click-ui",
     "clickhouse",
@@ -29,24 +30,26 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ClickHouse/click-ui.git"
+    "url": "git+https://github.com/ClickHouse/click-ui.git"
   },
   "homepage": "https://clickhouse.com",
   "scripts": {
-    "build": "tsc && vite build && yarn build:bundled",
-    "build:bundled": "vite build -- bundled",
+    "build": "yarn typecheck && vite build",
+    "build:analyze": "ANALYZE=true vite build",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
     "changeset:add": "yarn changeset",
     "changeset:status": "yarn changeset status",
+    "changeset:verify": ".scripts/changeset-verification",
     "changeset:version": "yarn changeset version",
-    "changeset:verify": ".scripts/bash/changeset-verification",
     "dev": "yarn storybook",
-    "generate-tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
+    "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
+    "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" --config .prettierrc",
+    "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --report-unused-disable-directives --max-warnings 0 --fix",
-    "format": ".scripts/bash/format",
-    "format:fix": ".scripts/bash/format --write",
+    "prepare": "husky",
+    "prettify": "yarn format:fix",
     "preview": "vite preview",
     "publish:click-ui": "yarn test && yarn build && yarn npm publish",
     "storybook": "storybook dev -p 6006",
@@ -55,12 +58,11 @@
     "test": "vitest",
     "test:chromatic": "yarn dlx chromatic",
     "test:visual": "playwright test",
+    "test:visual:report": "playwright show-report",
     "test:visual:ui": "playwright test --ui",
     "test:visual:update": "playwright test --update-snapshots",
-    "test:visual:report": "playwright show-report",
-    "typecheck": "tsc --noEmit",
-    "watch": "vitest --watch",
-    "prepare": "husky"
+    "test:watch": "DEBUG_PRINT_LIMIT=100000 vitest --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@h6s/calendar": "2.0.1",
@@ -80,7 +82,8 @@
     "@radix-ui/react-tabs": "1.1.1",
     "@radix-ui/react-toast": "1.2.2",
     "@radix-ui/react-tooltip": "1.1.2",
-    "lodash": "^4.17.21",
+    "dayjs": "1.11.19",
+    "lodash-es": "^4.17.23",
     "react-sortablejs": "^6.1.4",
     "react-syntax-highlighter": "^16.1.0",
     "react-virtualized-auto-sizer": "^1.0.20",
@@ -101,7 +104,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@tokens-studio/sd-transforms": "^1.2.0",
     "@types/eslint-plugin-react-refresh": "^0.4.0",
-    "@types/lodash-es": "^4.17.7",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^24.10.1",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.1",
@@ -114,7 +117,6 @@
     "babel-plugin-styled-components": "^2.1.4",
     "chromatic": "^13.3.4",
     "date-fns": "4.1.0",
-    "dayjs": "1.11.13",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
@@ -129,6 +131,7 @@
     "prop-types": "^15.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "rollup-plugin-visualizer": "^6.0.5",
     "storybook": "^10.1.10",
     "storybook-addon-pseudo-states": "^10.1.10",
     "style-dictionary": "^5.0.0",
@@ -138,6 +141,8 @@
     "typescript-eslint": "^8",
     "vite": "^7.3.0",
     "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-externalize-deps": "^0.10.0",
+    "vite-tsconfig-paths": "^6.0.5",
     "vitest": "^2.1.8",
     "watch": "^1.0.2"
   },
