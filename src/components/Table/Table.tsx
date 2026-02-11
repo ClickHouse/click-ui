@@ -43,6 +43,10 @@ export interface TableColumnConfigProps extends HTMLAttributes<HTMLTableCellElem
   resizable?: boolean;
 }
 
+// TODO: Delete `TableHeaderType` (deprecation warn at v0.0.251-test.67)
+/** @deprecated The TableHeaderType field have been deprecated to favour TableColumnConfigProps */
+export type TableHeaderType = TableColumnConfigProps;
+
 const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
   ${({ theme, $size }) => `
     padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
