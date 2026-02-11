@@ -6,20 +6,30 @@ import { Container } from '../Container/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton } from '../IconButton/IconButton';
 import { Text } from '../Typography/Text/Text';
-import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
+import {
+  headerDateFormatter,
+  selectedDateFormatter,
+  selectedDateTimeFormatter,
+  selectedDateTimeFormatterWithSeconds,
+  weekdayFormatter,
+} from './utils';
 
 const explicitWidth = '250px';
 
-const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
-  ${({ $isActive, theme }) => {
+const HighlightedInputWrapper = styled(InputWrapper)<{
+  $isActive: boolean;
+  $width?: string;
+}>`
+  ${({ $isActive, $width, theme }) => {
     return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
       $isActive
         ? theme.click.datePicker.dateOption.color.stroke.active
         : theme.click.field.color.stroke.default
-    };`;
+    };
+    width: ${$width ? $width : explicitWidth};
+    ${$width && `min-width: ${explicitWidth};`}
+    `;
   }}
-
-  width: ${explicitWidth};
 }`;
 
 interface DatePickerInputProps {
@@ -131,6 +141,108 @@ export const DateRangePickerInput = ({
   );
 };
 
+interface DateTimePickerInputProps {
+  isActive: boolean;
+  disabled: boolean;
+  id?: string;
+  placeholder?: string;
+  selectedEndDate?: Date;
+  selectedStartDate?: Date;
+  shouldShowSeconds?: boolean;
+}
+
+export const DateTimePickerInput = ({
+  isActive,
+  disabled,
+  id,
+  placeholder,
+  selectedEndDate,
+  selectedStartDate,
+  shouldShowSeconds,
+}: DateTimePickerInputProps) => {
+  const defaultId = useId();
+
+  const dateTimeFormatter = shouldShowSeconds
+    ? selectedDateTimeFormatterWithSeconds
+    : selectedDateTimeFormatter;
+
+  let formattedValue = (
+    <Text
+      color="muted"
+      component="span"
+    >
+      {placeholder ?? ''}
+    </Text>
+  );
+  if (selectedStartDate) {
+    if (selectedEndDate) {
+      formattedValue = (
+        <span>
+          {dateTimeFormatter
+            .format(selectedStartDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}{' '}
+          –{' '}
+          {dateTimeFormatter
+            .format(selectedEndDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}
+        </span>
+      );
+    } else {
+      formattedValue = (
+        <span>
+          {dateTimeFormatter
+            .format(selectedStartDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}{' '}
+          <Text
+            color="muted"
+            component="span"
+          >
+            – end date
+          </Text>
+        </span>
+      );
+    }
+  } else if (selectedEndDate) {
+    formattedValue = (
+      <span>
+        <Text
+          color="muted"
+          component="span"
+        >
+          start date –{' '}
+        </Text>
+        {dateTimeFormatter
+          .format(selectedEndDate)
+          .replace('AM', 'am')
+          .replace('PM', 'pm')}
+      </span>
+    );
+  }
+
+  return (
+    <HighlightedInputWrapper
+      $isActive={isActive}
+      disabled={disabled}
+      id={id ?? defaultId}
+      $width="max-content"
+    >
+      <InputStartContent>
+        <Icon name="calendar" />
+      </InputStartContent>
+      <InputElement
+        $hasStartContent
+        as="div"
+        data-testid="datetimepicker-input"
+      >
+        {formattedValue}
+      </InputElement>
+    </HighlightedInputWrapper>
+  );
+};
+
 const DatePickerContainer = styled(Container)`
   background: ${({ theme }) =>
     theme.click.datePicker.dateOption.color.background.default};
@@ -198,7 +310,7 @@ export const DateTableCell = styled.td<{
   ${({ $isSelected, theme }) =>
     $isSelected &&
     `
-      background: ${theme.click.datePicker.dateOption.color.background.active};
+      background: ${theme.click.datePicker.dateOption.color.background.active} !important;
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 

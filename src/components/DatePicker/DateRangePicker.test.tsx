@@ -209,7 +209,7 @@ describe('DateRangePicker', () => {
 
       await userEvent.click(getByTestId('daterangepicker-input'));
 
-      expect(getByText('Jul 01, 2020 - Jul 04, 2020')).toBeInTheDocument();
+      expect(getByText('Jul 01, 2020 – Jul 04, 2020')).toBeInTheDocument();
       expect(getByText('Jun 2020')).toBeInTheDocument();
       expect(getByText('May 2020')).toBeInTheDocument();
       expect(getByText('Apr 2020')).toBeInTheDocument();
@@ -315,7 +315,7 @@ describe('DateRangePicker', () => {
 
       await userEvent.click(getByTestId('daterangepicker-input'));
 
-      await userEvent.click(getByTestId('Jul 01, 2020 - Jul 04, 2020'));
+      await userEvent.click(getByTestId('Jul 01, 2020 – Jul 04, 2020'));
       expect(getByText('Jul 01, 2020 – Jul 04, 2020')).toBeInTheDocument();
     });
 
@@ -374,7 +374,7 @@ describe('DateRangePicker', () => {
 
       await userEvent.click(getByTestId('daterangepicker-input'));
 
-      expect(getByText('Mar 01, 2020 - Mar 04, 2020')).toBeInTheDocument();
+      expect(getByText('Mar 01, 2020 – Mar 04, 2020')).toBeInTheDocument();
       expect(getByText('Feb 2020')).toBeInTheDocument();
       expect(getByText('Jan 2020')).toBeInTheDocument();
       expect(getByText('Dec 2019')).toBeInTheDocument();
