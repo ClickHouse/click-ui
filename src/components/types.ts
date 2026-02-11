@@ -40,6 +40,9 @@ export type { DialogProps, DialogTriggerProps } from '@radix-ui/react-dialog';
 export type { ConfirmationDialogProps } from './ConfirmationDialog/ConfirmationDialog';
 export type { FileTabStatusType } from './FileTabs/FileTabs';
 export type { TableColumnConfigProps, TableRowType, TableProps } from './Table/Table';
+// TODO: Delete `TableHeaderType` (deprecation warn at v0.0.251-test.67)
+/** @deprecated The TableHeaderType field have been deprecated to favour TableColumnConfigProps */
+export type { TableColumnConfigProps as TableHeaderType } from './Table/Table';
 export type { BigStatProps } from './BigStat/BigStat';
 export type { TextAreaFieldProps } from './Input/TextArea';
 export type {
