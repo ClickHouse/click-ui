@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  KeyboardEvent,
   MouseEvent,
   SetStateAction,
   useCallback,
@@ -14,14 +15,14 @@ import { Body, CalendarRenderer, DateTimePickerInput, DateTableCell } from './Co
 import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
-import { DateRangeListItem, datesAreWithinMaxRange } from './utils';
-import dayjs from 'dayjs';
-import { Text } from '../Typography/Text/Text';
+import { DateRangeListItem, datesAreWithinMaxRange, Meridiem } from './utils';
+import dayjs, { Dayjs } from 'dayjs';
 import { Tabs } from '../Tabs/Tabs';
 import { TextField } from '../Input/TextField';
 import { ButtonGroup } from '../ButtonGroup/ButtonGroup';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { Label } from '../Label/Label';
 
 dayjs.extend(customParseFormat);
 
@@ -92,7 +93,7 @@ type SetSelectedDate = (selectedDate: Date, calendarType: CalendarType) => void;
 interface CalendarProps {
   calendarBody: Body;
   calendarType: CalendarType;
-  closeDatepicker?: () => void;
+  closeDatePicker?: () => void;
   futureDatesDisabled: boolean;
   futureStartDatesDisabled: boolean;
   maxRangeLength: number;
@@ -196,10 +197,26 @@ const Calendar = ({
           };
 
           const handleClick = () => {
-            console.log('click', fullDate);
             if (isDisabled) {
               return false;
             }
+
+            // If the user selects a start date and changes the start date
+            // use any hours, minutes, seconds they've already set
+            if (calendarType === 'startDate' && startDate) {
+              fullDate.setHours(startDate.getHours());
+              fullDate.setMinutes(startDate.getMinutes());
+              fullDate.setSeconds(startDate.getSeconds());
+            }
+
+            // If the user selects an end date and changes the end date
+            // use any hours, minutes, seconds they've already set
+            if (calendarType === 'endDate' && endDate) {
+              fullDate.setHours(endDate.getHours());
+              fullDate.setMinutes(endDate.getMinutes());
+              fullDate.setSeconds(endDate.getSeconds());
+            }
+
             setSelectedDate(fullDate, calendarType);
           };
 
@@ -303,6 +320,65 @@ const PredefinedTimes = ({
   );
 };
 
+const parseTimeString = (
+  timeString: string
+): { isValid: boolean; parsedDate?: Dayjs } => {
+  if (!validTimeRegex.test(timeString)) {
+    return { isValid: false };
+  }
+
+  const [hours, minutes, seconds] = timeString.split(':');
+
+  const hoursAsNumber = parseInt(hours, 10);
+  if (Number.isNaN(hoursAsNumber)) {
+    return { isValid: false };
+  }
+
+  if (hoursAsNumber > 23 || hoursAsNumber < 0) {
+    return { isValid: false };
+  }
+
+  let parsedDate;
+  if (!minutes) {
+    parsedDate = dayjs(hours, 'h');
+  } else {
+    const minutesAsNumber = parseInt(minutes, 10);
+    if (Number.isNaN(minutesAsNumber)) {
+      return { isValid: false };
+    }
+
+    if (minutesAsNumber > 59 || minutesAsNumber < 0) {
+      return { isValid: false };
+    }
+
+    if (!seconds) {
+      parsedDate = dayjs(`${hours}:${minutes}`, 'h:mm');
+    } else {
+      const secondsAsNumber = parseInt(seconds, 10);
+
+      if (Number.isNaN(secondsAsNumber)) {
+        return { isValid: false };
+      }
+
+      if (secondsAsNumber > 59 || secondsAsNumber < 0) {
+        return { isValid: false };
+      }
+
+      parsedDate = dayjs(`${hours}:${minutes}:${seconds}`, 'h:mm:ss');
+    }
+  }
+
+  if (!parsedDate.isValid()) {
+    return { isValid: false };
+  }
+
+  if (!parsedDate.isValid()) {
+    return { isValid: false };
+  }
+
+  return { isValid: true, parsedDate };
+};
+
 const validTimeRegex = /^\d{1,2}(:\d{1,2}(:\d{1,2})?)?$/;
 
 interface TimeInputProps {
@@ -326,99 +402,56 @@ const TimeInput = ({
   const formattedDate = shouldShowSeconds
     ? dayjsDate.format('hh:mm:ss')
     : dayjsDate.format('hh:mm');
-  const [dateString, setDateString] = useState<string>(formattedDate);
+  const [timeString, setTimeString] = useState<string>(formattedDate);
   const [dateIsValid, setDateIsValid] = useState<boolean>(true);
-  const [meridiem, setMeridiem] = useState<string>();
+  const [meridiem, setMeridiem] = useState<Meridiem>();
   const isEnabled = Boolean(date);
 
   useEffect(() => {
     if (date) {
-      setMeridiem(dayjsDate.format('a'));
+      setMeridiem(dayjsDate.format('a') as Meridiem);
     }
   }, [date, dayjsDate]);
 
   const handleTimeChange = useCallback(
-    (newDateString: string) => {
-      setDateString(newDateString);
+    (newTimeString: string) => {
+      setTimeString(newTimeString);
 
       if (!date) {
         return;
       }
 
-      const trimmedDate = newDateString.trim();
-      if (!trimmedDate) {
+      const trimmedTime = newTimeString.trim();
+      if (!trimmedTime) {
         return;
       }
 
-      if (!validTimeRegex.test(trimmedDate)) {
+      const { isValid, parsedDate } = parseTimeString(trimmedTime);
+
+      if (!isValid) {
         setDateIsValid(false);
         return;
       }
 
-      const [hours, minutes, seconds] = trimmedDate.split(':');
-
-      const hoursAsNumber = parseInt(hours, 10);
-      if (Number.isNaN(hoursAsNumber)) {
+      if (!parsedDate) {
         setDateIsValid(false);
         return;
       }
 
-      if (hoursAsNumber > 23 || hoursAsNumber < 0) {
-        setDateIsValid(false);
-        return;
-      }
-
-      let parsedDate;
-      if (!minutes) {
-        parsedDate = dayjs(hours, 'h');
-      } else {
-        const minutesAsNumber = parseInt(minutes, 10);
-        if (Number.isNaN(minutesAsNumber)) {
-          setDateIsValid(false);
-          return;
-        }
-
-        if (minutesAsNumber > 59 || minutesAsNumber < 0) {
-          setDateIsValid(false);
-          return;
-        }
-
-        if (!seconds) {
-          parsedDate = dayjs(`${hours}:${minutes}`, 'h:mm');
-        } else {
-          const secondsAsNumber = parseInt(seconds, 10);
-
-          if (Number.isNaN(secondsAsNumber)) {
-            setDateIsValid(false);
-            return;
-          }
-
-          if (secondsAsNumber > 59 || secondsAsNumber < 0) {
-            setDateIsValid(false);
-            return;
-          }
-
-          parsedDate = dayjs(`${hours}:${minutes}:${seconds}`, 'h:mm:ss');
-        }
-      }
-
-      if (!parsedDate.isValid()) {
-        setDateIsValid(false);
-        return;
-      }
-
-      if (!parsedDate.isValid()) {
-        setDateIsValid(false);
-        return;
-      }
       setDateIsValid(true);
 
       let hour = parsedDate.hour();
-      if (meridiem === 'pm' && parsedDate.hour() < 12) {
-        hour = parsedDate.hour() + 12;
+
+      // If the meridiem is set to am and the user enters a time greater than 12,
+      // e.g. 18:00, it's a pretty clear indication they mean afternoon, so set the
+      // meridiem to pm
+      if (meridiem === 'am' && hour >= 12) {
+        setMeridiem('pm');
       }
-      if (meridiem === 'am' && parsedDate.hour() >= 12) {
-        hour = parsedDate.hour() - 12;
+      // It's not as easy to infer that a user intended 8:00 to mean 08:00 when the meridiem
+      // is set to pm, so don't change the meridiem in that case
+      if (meridiem === 'pm' && hour < 12) {
+        hour = parsedDate.hour() + 12;
       }
 
       const newDate = shouldShowSeconds
@@ -428,14 +461,15 @@ const TimeInput = ({
             .second(parsedDate.second())
             .toDate()
         : dayjsDate.hour(hour).minute(parsedDate.minute()).toDate();
+
       setDate(newDate);
     },
-    [date, meridiem]
+    [date, dayjsDate, meridiem, setDate, shouldShowSeconds]
   );
 
   const handleMeridiemChange = useCallback(
     (newMeridiem: string) => {
-      setMeridiem(newMeridiem);
+      setMeridiem(newMeridiem as Meridiem);
 
       if (newMeridiem === 'pm' && dayjsDate.hour() < 12) {
         const newDate = dayjsDate.hour(dayjsDate.hour() + 12).toDate();
@@ -463,7 +497,34 @@ const TimeInput = ({
         onSetMeridiem();
       }
     },
-    [date]
+    [dayjsDate, onSetMeridiem, setDate]
+  );
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') {
+        const { isValid, parsedDate } = parseTimeString(timeString);
+
+        if (!isValid) {
+          return;
+        }
+
+        if (!parsedDate) {
+          return;
+        }
+
+        const newDate = shouldShowSeconds
+          ? dayjsDate
+              .hour(parsedDate.hour())
+              .minute(parsedDate.minute())
+              .second(parsedDate.second())
+              .toDate()
+          : dayjsDate.hour(parsedDate.hour()).minute(parsedDate.minute()).toDate();
+
+        setDate(newDate);
+      }
+    },
+    [dayjsDate, setDate, shouldShowSeconds, timeString]
   );
 
   return (
@@ -474,9 +535,7 @@ const TimeInput = ({
       orientation="horizontal"
     >
       <Container maxWidth="10%">
-        <label htmlFor="date-time-picker-time-input">
-          <Text size="md">Time</Text>
-        </label>
+        <Label htmlFor="date-time-picker-time-input">Time</Label>
       </Container>
       <Container
         gap="md"
@@ -493,7 +552,8 @@ const TimeInput = ({
             error={dateIsValid ? null : true}
             id="date-time-picker-time-input"
             onChange={handleTimeChange}
-            value={dateString}
+            onKeyDown={handleKeyDown}
+            value={timeString}
           />
         </Container>
         <Container maxWidth="45%">
@@ -562,7 +622,7 @@ const TabbedCalendar = ({
     if (!hasChangedTab.current) {
       handleTabChange('endDate');
     }
-  }, [hasChangedTab]);
+  }, [hasChangedTab, handleTabChange]);
 
   const startDateCalendarOptions: UseCalendarOptions = {};
   const endDateCalendarOptions: UseCalendarOptions = {};
@@ -602,7 +662,7 @@ const TabbedCalendar = ({
             <Calendar
               calendarBody={body}
               calendarType="startDate"
-              closeDatepicker={closeDatePicker}
+              closeDatePicker={closeDatePicker}
               endDate={endDate}
               futureDatesDisabled={futureDatesDisabled}
               futureStartDatesDisabled={futureStartDatesDisabled}
@@ -625,7 +685,7 @@ const TabbedCalendar = ({
             <Calendar
               calendarBody={body}
               calendarType="endDate"
-              closeDatepicker={closeDatePicker}
+              closeDatePicker={closeDatePicker}
               endDate={endDate}
               futureDatesDisabled={futureDatesDisabled}
               futureStartDatesDisabled={futureStartDatesDisabled}
@@ -763,7 +823,7 @@ export const DateTimePicker = ({
               {shouldShowCustomRange && (
                 <CalendarRendererContainer>
                   <TabbedCalendar
-                    closeDatepicker={closeDatePicker}
+                    closeDatePicker={closeDatePicker}
                     endDate={selectedEndDate}
                     futureDatesDisabled={futureDatesDisabled}
                     futureStartDatesDisabled={futureStartDatesDisabled}
@@ -780,7 +840,7 @@ export const DateTimePicker = ({
           ) : (
             <>
               <TabbedCalendar
-                closeDatepicker={closeDatePicker}
+                closeDatePicker={closeDatePicker}
                 endDate={selectedEndDate}
                 futureDatesDisabled={futureDatesDisabled}
                 futureStartDatesDisabled={futureStartDatesDisabled}

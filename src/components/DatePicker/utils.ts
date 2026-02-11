@@ -7,6 +7,8 @@ export interface DateRange {
 
 const locale = 'en-US';
 
+export type Meridiem = 'am' | 'pm';
+
 export interface Time {
   hour: number;
   minutes: number;
