@@ -77,6 +77,23 @@ export default tseslint.config(
           tsx: 'never',
         },
       ],
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: '@/components',
+              message:
+                'Do not import from the components barrel inside the library. Import from leaf modules (e.g., ../Icon/Icon) to avoid cycles.',
+            },
+            {
+              name: '@/index',
+              message:
+                'Do not import from the package entry internally. Import from leaf modules instead.',
+            },
+          ],
+        },
+      ],
       '@typescript-eslint/no-deprecated': 'warn',
     },
   },
