@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const AllowDBIcon = (props: SVGAttributes<SVGElement>) => (
+const AlloyDBIcon = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const AllowDBIcon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AllowDBIcon;
+export default AlloyDBIcon;
