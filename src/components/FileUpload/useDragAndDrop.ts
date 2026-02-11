@@ -100,7 +100,7 @@ export const useDragAndDrop = ({
     return () => {
       window.removeEventListener('dragend', handleDragEnd);
       document.removeEventListener('drop', handleDragEnd);
-      document.removeEventListener('mousele', handleDragEnd);
+      document.removeEventListener('mouseleave', handleDragEnd);
     };
   }, []);
 
