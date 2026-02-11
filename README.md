@@ -28,6 +28,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
+* [Assets Management](#assets-management)
+  - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
 * [Releases and Versions](#releases-and-versions)
 
 ## Requirements
@@ -266,6 +268,39 @@ To consume all changesets, and update to the most appropriate semver version and
 ```sh
 yarn changeset:version
 ```
+
+## Assets management
+
+The Click UI has image asset files, such as icons or logos.
+
+Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
+
+### Add new SVG logo or icon
+
+Here are some steps, to help you transform the Figma asset into a React Component:
+
+1) In Figma project, select and export the target image/icon, e.g. these are generally contained in a square container (64x64)
+2) Store the file in your local file system in a memorable location
+3) Use a tool to transform SVG to React JSX, e.g. [react-svgr](https://react-svgr.com/playground/)
+4) Create a new file in `src/components/Logos`, e.g. name it by the company name
+5) Modify the `<svg>` node, it should set the size to 64x64 as the original Figma container:
+
+> [!NOTE]
+> Notice the viewBox values, it should contain the same values from the sourced file 64x64, e.g. "0 0 64 64", if it hasn't make sure you are exporting it correctly, or the original file has the correct container width and height
+
+```tsx
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  {...props}
+>
+```
+
+6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
+7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
 
 ## Releases and Versions
 
