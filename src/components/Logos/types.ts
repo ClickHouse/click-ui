@@ -1,5 +1,6 @@
 export type LogoName =
   | 'clickhouse'
+  | 'alloydb'
   | 'airbyte'
   | 'aws-s3'
   | 'aws-athena'
