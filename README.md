@@ -29,7 +29,7 @@ You can find the official docs for the Click UI design system and component libr
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
 * [Assets Management](#assets-management)
-  - [Add a new logo or icon](#add-new-logo-or-icon)
+  - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
 * [Releases and Versions](#releases-and-versions)
 
 ## Requirements
@@ -275,7 +275,7 @@ The Click UI has image asset files, such as icons or logos.
 
 Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
 
-### Add new logo or icon
+### Add new SVG logo or icon
 
 Here are some steps, to help you transform the Figma asset into a React Component:
 
