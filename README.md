@@ -185,7 +185,7 @@ Once built, you can serve the static files by:
 yarn storybook:serve
 ```
 
-### Public static site
+### Public Static Site
 
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
