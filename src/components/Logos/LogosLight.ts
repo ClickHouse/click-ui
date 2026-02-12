@@ -56,6 +56,7 @@ import Rust from './RustLight';
 import Snowflake from './Snowflake';
 import Superset from './Superset';
 import Tableau from './TableauLight';
+import TigerData from './TigerData';
 import Upstash from './Upstash';
 import Vector from './Vector';
 import WarpStream from './WarpStream';
@@ -119,6 +120,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   snowflake: Snowflake,
   superset: Superset,
   tableau: Tableau,
+  tigerdata: TigerData,
   upstash: Upstash,
   vector: Vector,
   warpstream: WarpStream,
