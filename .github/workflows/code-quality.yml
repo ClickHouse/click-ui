@@ -1,0 +1,29 @@
+name: 🚑 Code quality checks
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  HUSKY: 0
+
+jobs:
+  code-quality-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'latest'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Linter
+        run: yarn lint
+
+      - name: Formatter
+        run: yarn format
