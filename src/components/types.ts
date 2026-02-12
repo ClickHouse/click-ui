@@ -39,7 +39,12 @@ export type { DialogContentProps } from './Dialog/Dialog';
 export type { DialogProps, DialogTriggerProps } from '@radix-ui/react-dialog';
 export type { ConfirmationDialogProps } from './ConfirmationDialog/ConfirmationDialog';
 export type { FileTabStatusType } from './FileTabs/FileTabs';
-export type { TableHeaderType, TableRowType, TableProps } from './Table/Table';
+export type {
+  TableColumnConfigProps,
+  TableRowType,
+  TableProps,
+  TableHeaderType,
+} from './Table/Table';
 export type { BigStatProps } from './BigStat/BigStat';
 export type { TextAreaFieldProps } from './Input/TextArea';
 export type {

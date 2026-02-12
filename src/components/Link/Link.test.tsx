@@ -1,4 +1,4 @@
-import { IconName } from '..';
+import { IconName } from '@/components/Icon/types';
 import { Link } from './Link';
 import { renderCUI } from '@/utils/test-utils';
 

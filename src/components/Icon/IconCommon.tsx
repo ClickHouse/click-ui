@@ -25,9 +25,11 @@ import Cards from '@/components/icons/Cards';
 import CellTower from '@/components/icons/CellTower';
 import ChartArea from '@/components/icons/ChartArea';
 import ChartBarHorizontal from '@/components/icons/ChartBarHorizontal';
+import ChartCloud from '@/components/icons/ChartCloud';
 import ChartDonut from '@/components/icons/ChartDonut';
 import ChartHeatmap from '@/components/icons/ChartHeatmap';
 import ChartScatter from '@/components/icons/ChartScatter';
+import ChartSquare from '@/components/icons/ChartSquare';
 import ChartStackedHorizontal from '@/components/icons/ChartStackedHorizontal';
 import ChartStackedVertical from '@/components/icons/ChartStackedVertical';
 import ChatIcon from '@/components/icons/ChatIcon';
@@ -193,9 +195,11 @@ export const ICONS_MAP = {
   chat: ChatIcon,
   'chart-area': ChartArea,
   'chart-bar-horizontal': ChartBarHorizontal,
+  'chart-cloud': ChartCloud,
   'chart-donut': ChartDonut,
   'chart-heatmap': ChartHeatmap,
   'chart-scatter': ChartScatter,
+  'chart-square': ChartSquare,
   'chart-stacked-horizontal': ChartStackedHorizontal,
   'chart-stacked-vertical': ChartStackedVertical,
   check: CheckIcon,
@@ -331,3 +335,5 @@ export const ICONS_MAP = {
   warning: WarningIcon,
   waves: Waves,
 };
+
+export const ICON_NAMES = Object.keys(ICONS_MAP) as Array<keyof typeof ICONS_MAP>;

@@ -1,3 +1,6 @@
+import { SVGAttributes } from 'react';
+import { ThemeName } from '@/theme';
+
 export type LogoName =
   | 'clickhouse'
   | 'alloydb'
@@ -8,12 +11,15 @@ export type LogoName =
   | 'aws-kinesis'
   | 'aws-redshift'
   | 'aws-msk'
+  | 'aws-aurora'
+  | 'aws-rds'
   | 'kafka'
   | 'digital_ocean'
   | 'feature_database'
   | 'feature_hexagon'
   | 'fivetran'
   | 'confluent'
+  | 'crunchy-bridge'
   | 'hex'
   | 'tableau'
   | 'grafana'
@@ -30,6 +36,7 @@ export type LogoName =
   | 'dbt'
   | 'jdbc'
   | 'mysql'
+  | 'neondb'
   | 'postgres'
   | 'google'
   | 'github'
@@ -48,6 +55,7 @@ export type LogoName =
   | 'hudi'
   | 'deltalake'
   | 'snowflake'
+  | 'supabase'
   | 'mongodb'
   | 'bigquery'
   | 'iceberg'
@@ -57,4 +65,10 @@ export type LogoName =
   | 'databricks'
   | 'mariadb'
   | 'onelake'
-  | 'nessie';
+  | 'nessie'
+  | 'tigerdata'
+  | 'ovh';
+
+export type LogoThemeProps = SVGAttributes<SVGElement> & {
+  theme?: ThemeName;
+};

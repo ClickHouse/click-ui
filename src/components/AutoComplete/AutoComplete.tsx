@@ -15,17 +15,19 @@ import {
   useState,
 } from 'react';
 import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
-import {
-  HorizontalDirection,
-  Icon,
-  IconName,
-  SearchField,
-  Separator,
-} from '@/components';
+import { HorizontalDirection } from '@/components/types';
+
+import { SearchField } from '@/components/Input/SearchField';
+
+import { Separator } from '@/components/Separator/Separator';
+
+import { Icon } from '@/components/Icon/Icon';
+import type { ImageName } from '@/components/Icon/types';
+
 import { styled } from 'styled-components';
 import { GenericMenuItem } from '../GenericMenu';
 import { useOption, useSearch } from './useOption';
-import IconWrapper from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper/IconWrapper';
 import { OptionContext } from './OptionContext';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
@@ -40,7 +42,7 @@ interface SelectItemComponentProps extends Omit<
   disabled?: boolean;
   onSelect?: (value: string) => void;
   value: string;
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
 }
 
