@@ -66,13 +66,22 @@ export type ArrowProps = {
   showArrow?: boolean;
 };
 
+type DeprecatedFields = {
+  /** @deprecated The side field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
+  side?: string;
+  /** @deprecated The align field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
+  align?: string;
+};
+
 type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
   sub?: true;
-} & ArrowProps;
+} & ArrowProps &
+  DeprecatedFields;
 
 type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
   sub?: never;
-} & ArrowProps;
+} & ArrowProps &
+  DeprecatedFields;
 
 const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
   flex-direction: column;
@@ -107,6 +116,11 @@ const ContextMenuContent = ({
   sub,
   children,
   showArrow,
+  // TODO: remove deprecated side and align
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  side,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  align,
   ...props
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {
   const ContentElement = sub ? RightMenu.SubContent : RightMenu.Content;
