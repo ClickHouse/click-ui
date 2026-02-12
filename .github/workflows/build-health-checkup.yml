@@ -1,4 +1,4 @@
-name: 🔧 Build (dry-run)
+name: 🏗️ Build Health Checkup
 
 on:
   workflow_dispatch:
