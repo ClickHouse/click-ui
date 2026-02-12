@@ -47,6 +47,7 @@ import MySQL from './MySQL';
 import Nessie from './Nessie';
 import NodeJs from './NodeJs';
 import OneLake from './OneLake';
+import { OVHDark as OVH } from './OVH';
 import Postgres from './Postgres';
 import Prequel from './Prequel';
 import Python from './Python';
@@ -109,6 +110,7 @@ const LogosDark: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Elem
   nessie: Nessie,
   nodejs: NodeJs,
   onelake: OneLake,
+  ovh: OVH,
   postgres: Postgres,
   prequel: Prequel,
   python: Python,

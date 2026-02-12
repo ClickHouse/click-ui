@@ -1,3 +1,6 @@
+import { SVGAttributes } from 'react';
+import { ThemeName } from '@/theme';
+
 export type LogoName =
   | 'clickhouse'
   | 'alloydb'
@@ -57,4 +60,10 @@ export type LogoName =
   | 'databricks'
   | 'mariadb'
   | 'onelake'
-  | 'nessie';
+  | 'nessie'
+  | 'tigerdata'
+  | 'ovh';
+
+export type LogoThemeProps = SVGAttributes<SVGElement> & {
+  theme?: ThemeName;
+};
