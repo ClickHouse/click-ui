@@ -51,7 +51,6 @@
     "prepare": "husky",
     "prettify": "yarn format:fix",
     "preview": "vite preview",
-    "publish:click-ui": "yarn test && yarn build && yarn npm publish",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build -o .storybook/out",
     "storybook:serve": "yarn dlx http-server .storybook/out",

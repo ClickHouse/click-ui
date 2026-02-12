@@ -35,7 +35,13 @@ You can find the official docs for the Click UI design system and component libr
   - [Examples](#examples)
 * [Assets Management](#assets-management)
   - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
-* [Releases and Versions](#releases-and-versions)
+* [Changesets](#changesets)
+  - [Add a new changeset](#add-a-new-changeset)
+  - [Checking the changeset status](#checking-the-changeset-status)
+  - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
+* [Release](#release)
+  - [Required admin permissions](#required-admin-permissions)
+  - [Create a new release pull request](#create-a-new-release-pull-request)
 
 ## Requirements
 
@@ -370,11 +376,51 @@ Here are some steps, to help you transform the Figma asset into a React Componen
 6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
 7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
 
-## Releases and Versions
 
-New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
+## Release
 
-To create a new release and publish a new version, follow the instructions in [publish.md](./docs/publish.md).
+**TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
+
+You're expected to [create a new version](#create-a-new-version-and-changelogs), which will consume all changesets, and update to the most appropriate semantic version (semver) based on those changesets; which also writes changelog entries for each consumed changeset file content.
+
+Once the artifacts and version bump is completed, the package can be published to npm. Doing all of this manually can be tedious and prone to mistakes, as such, we have a GitHub action that creates a Pull request containing all of this for team review; And once approved, another GitHub action that publishes the package to npm and creates a GitHub release.
+
+### Required admin permissions
+
+The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub ascitons as a trusted publisher in NPM package settings.
+
+#### GitHub Workflow permissons
+
+Set the [workflow permissions](https://github.com/Clickhouse/click-ui/settings/actions) as:
+- Select "Read and write" and "Read repository contents"
+- Check the box "Allow GitHub actions to create and approve pull requests"
+
+#### NPM Trusted publisher
+
+Add GitHub actions as a trusted publisher on [NPM package settings](https://www.npmjs.com/package/@clickhouse/click-ui). Make sure you select the provider "GitHub Actions", enter the repository "Clickhouse/click-ui" and finally the workflow name as "release-publisher.yml".
+
+### Create a new release Pull Request
+
+Consuming changesets is done automatically in the CI/CD environmment.
+
+To create a new release, locate the [create release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) and use the interface to select the release type, e.g. release candidate (rc), testing, or latest.
+
+It'll create a new Pull request for review, e.g. changelog, version bump, etc. There, you have the opportunity to make any further tweaks, refinements and check if everything's correct.
+
+You can find the pull requests in the GitHub tab [Pull Request](https://github.com/ClickHouse/click-ui/pulls). E.g. let's say you're about to release v0.1.0-rc.1, you'd find `chore: 🤖 release v0.1.0-rc.1 (rc)`.
+
+> [!WARNING]
+> Only choose "latest" if you're certain that your package release is stable, e.g. you've tested and gathered feedback from other user or consumers.
+
+### Publish
+
+Assuming that you have reviewed both the changelog entries, the version changes, adddressed any [Pull Request](#create-a-new-release-pull-request) comments and suggestions; and you're confident that all these are correct, and have made any necessary tweaks to changelogs, you can go ahead and squash and merge the pull request.
+
+After the pull request is merged to main, the [release publisher](https://github.com/ClickHouse/click-ui/actions/workflows/release-publisher.yml) should be triggered automatically and publish the package to npm.
+
+If successful, you should see the new package version listed in npm [@clickhouse/click-ui](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions) versions tab.
+
+Consequently, a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) should exist containing all the generated release assets.
 
 ## Conventional commits
 
