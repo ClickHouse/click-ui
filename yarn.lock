@@ -661,7 +661,7 @@ __metadata:
     babel-plugin-styled-components: "npm:^2.1.4"
     chromatic: "npm:^13.3.4"
     date-fns: "npm:4.1.0"
-    dayjs: "npm:1.11.19"
+    dayjs: "npm:^1.11.19"
     eslint: "npm:^9"
     eslint-import-resolver-typescript: "npm:^4.4.4"
     eslint-plugin-import: "npm:^2.32.0"
@@ -698,7 +698,7 @@ __metadata:
     vitest: "npm:^2.1.8"
     watch: "npm:^1.0.2"
   peerDependencies:
-    dayjs: ^1.11.13
+    dayjs: ^1.11.19
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
     styled-components: ^6.1.11
@@ -5296,7 +5296,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.19":
+"dayjs@npm:^1.11.19":
   version: 1.11.19
   resolution: "dayjs@npm:1.11.19"
   checksum: 10c0/7d8a6074a343f821f81ea284d700bd34ea6c7abbe8d93bce7aba818948957c1b7f56131702e5e890a5622cdfc05dcebe8aed0b8313bdc6838a594d7846b0b000
