@@ -1,0 +1,27 @@
+name: 🔧 Build (dry-run)
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  build-dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'latest'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn build
+
+      - name: Build output health check
+        run: yarn build:health_check
