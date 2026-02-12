@@ -34,7 +34,7 @@
   },
   "homepage": "https://clickhouse.com",
   "scripts": {
-    "build": "yarn typecheck && vite build && yarn build:health_check",
+    "build": ".scripts/build",
     "build:analyze": "ANALYZE=true vite build",
     "build:health_check": ".scripts/build_output_health_check",
     "build-storybook": "storybook build",

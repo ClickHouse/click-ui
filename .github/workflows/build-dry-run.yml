@@ -5,6 +5,9 @@ on:
   push:
   pull_request:
 
+env:
+  HUSKY: 0
+
 jobs:
   build-dry-run:
     runs-on: ubuntu-latest
