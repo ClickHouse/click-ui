@@ -8,7 +8,7 @@ env:
   HUSKY: 0
 
 jobs:
-  build-dry-run:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
