@@ -71,4 +71,4 @@ export type LogoName =
 
 export type LogoThemeProps = SVGAttributes<SVGElement> & {
   theme?: ThemeName;
-}
+};

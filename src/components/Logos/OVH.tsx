@@ -20,13 +20,26 @@ const OVHBase = ({ theme, ...props }: LogoThemeProps) => (
     </g>
     <defs>
       <clipPath id="a">
-        <path fill="#fff" d="M1.719 14.207h60v36.21h-60z" />
+        <path
+          fill="#fff"
+          d="M1.719 14.207h60v36.21h-60z"
+        />
       </clipPath>
     </defs>
   </svg>
 );
 
-export const OVHDark = (props: SVGAttributes<SVGElement>) => <OVHBase theme="dark" {...props} />
-export const OVHLight = (props: SVGAttributes<SVGElement>) => <OVHBase theme="light" {...props} />
+export const OVHDark = (props: SVGAttributes<SVGElement>) => (
+  <OVHBase
+    theme="dark"
+    {...props}
+  />
+);
+export const OVHLight = (props: SVGAttributes<SVGElement>) => (
+  <OVHBase
+    theme="light"
+    {...props}
+  />
+);
 
 export default OVHLight;
