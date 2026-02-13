@@ -201,13 +201,14 @@ const typesPath = path.join(SYSTEM_DIR, 'types.ts');
 const lightFile = path.join(SYSTEM_DIR, 'LogosLight.ts');
 const darkFile = path.join(SYSTEM_DIR, 'LogosDark.ts');
 
-console.log(`🍩 Baking ${componentName}...\n`)
+console.log(`🍩 Baking ${componentName}...`)
 
 convertSvgToComponent(svgPath, componentName, outputPath);
 generateLogoNameType();
 regenerateLogosRegistry();
-cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
+console.log(`🧹 Cleaning ${componentName}...\n`)
+cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
 console.log(`\n👍 Done! Created ${componentName}`);
 
