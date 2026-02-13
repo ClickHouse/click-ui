@@ -22,10 +22,11 @@ const toPascalCase = (str) => {
 };
 
 const toKebabCase = (str) => {
-  return str
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[A-Z]+/g, match => match.toLowerCase())
-    .toLowerCase();
+  // Simple conversion: underscores to dashes, lowercase
+  // AWS_ATHENA → aws-athena
+  // Azure_Blob_Storage → azure-blob-storage
+  // dBeaver → dbeaver
+  return str.replace(/_/g, '-').toLowerCase();
 };
 
 const getLogoFiles = () => {
