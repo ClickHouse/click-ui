@@ -14,6 +14,7 @@ const __dirname = path.dirname(__filename);
 
 const LOGOS_DIR = path.join(__dirname, '..', 'src', 'components', 'Logos');
 const SYSTEM_DIR = path.join(LOGOS_DIR, 'system');
+const WARNING_AUTO_GENERATED_FILE = '/* WARNING: Auto-generated file! Do NOT modify it, you changes will be lost! */'
 
 const toPascalCase = (str) => {
   return str
@@ -22,10 +23,6 @@ const toPascalCase = (str) => {
 };
 
 const toKebabCase = (str) => {
-  // Simple conversion: underscores to dashes, lowercase
-  // AWS_ATHENA → aws-athena
-  // Azure_Blob_Storage → azure-blob-storage
-  // dBeaver → dbeaver
   return str.replace(/_/g, '-').toLowerCase();
 };
 
@@ -81,7 +78,9 @@ const regenerateLogosRegistry = () => {
     .map(({ kebab, name }) => `  '${kebab}': ${name},`)
     .join('\n');
 
-  const lightContent = `import { SVGAttributes } from 'react';
+  const lightContent = `${WARNING_AUTO_GENERATED_FILE}
+
+import { SVGAttributes } from 'react';
 ${lightImports}
 import { LogoName } from './types';
 
@@ -95,7 +94,9 @@ ${lightExports}
 export default LogosLight;
 `;
 
-  const darkContent = `import { SVGAttributes } from 'react';
+  const darkContent = `${WARNING_AUTO_GENERATED_FILE}
+
+import { SVGAttributes } from 'react';
 ${darkImports}
 import { LogoName } from './types';
 
