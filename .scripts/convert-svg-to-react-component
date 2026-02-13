@@ -37,10 +37,12 @@ const getLogoFiles = () => {
 
 const generateLogoNameType = () => {
   const logoFiles = getLogoFiles();
-  const logoNames = logoFiles.map(name => {
-    const kebab = toKebabCase(name);
-    return `  | '${kebab}'`;
-  });
+  const logoNames = logoFiles
+    .map(name => {
+      const kebab = toKebabCase(name);
+      return `  | '${kebab}'`;
+    })
+    .sort();
 
   const typesContent = `import { SVGAttributes } from 'react';
 import { ThemeName } from '@/theme';
@@ -67,6 +69,12 @@ const convertSvgToComponent = (svgPath, componentName, outputPath) => {
     console.error(`Failed to convert ${svgPath}:`, error.message);
     process.exit(1);
   }
+
+  output = output.replace(
+    /(import \{ LogoThemeProps \} from ["'][^"']+["'];)/,
+    // NOTE: Keep new line, separate the import and component pls
+    '$1\n'
+  );
 
   output = output.replace(
     /const (\w+) = \(([^)]*)\)/,
