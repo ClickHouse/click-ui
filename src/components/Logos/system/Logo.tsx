@@ -16,7 +16,7 @@ const LOGO_DEPRECATED_ALIASES: Record<string, LogoName> = {
 
 const resolveLogoName = (name: string): LogoName => {
   return LOGO_DEPRECATED_ALIASES[name] ?? (name as LogoName);
-}
+};
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
   name: LogoName | keyof typeof LOGO_DEPRECATED_ALIASES;
@@ -27,20 +27,24 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const resolvedTheme = theme ?? themeName;
-  const Component = (resolvedTheme) === 'light'
-    ? LogosLight[resolvedName]
-    : LogosDark[resolvedName];
+  const resolvedTheme = theme ?? themeName ?? 'light';
+  const Component =
+    resolvedTheme === 'light' ? LogosLight[resolvedName] : LogosDark[resolvedName];
 
   if (!Component) {
     return null;
   }
 
-  const ThemeComponent = () => <Component theme={resolvedTheme} {...props} />;
+  const ThemedLogo = (svgProps: SVGAttributes<SVGElement>) => (
+    <Component
+      theme={resolvedTheme}
+      {...svgProps}
+    />
+  );
 
   return (
     <SvgImageElement
-      as={ThemeComponent}
+      as={ThemedLogo}
       $size={size}
       role="img"
       aria-label={resolvedName}

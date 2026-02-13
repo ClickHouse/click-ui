@@ -86,13 +86,12 @@ const regenerateLogosRegistry = () => {
 
   const lightContent = `${WARNING_AUTO_GENERATED_FILE}
 
-import { SVGAttributes } from 'react';
 ${lightImports}
-import { LogoName } from './types';
+import { LogoName, LogoThemeProps } from './types';
 
 const LogosLight: Record<
   LogoName,
-  (props: SVGAttributes<SVGElement>) => React.JSX.Element
+  (props: LogoThemeProps) => React.JSX.Element
 > = {
 ${lightExports}
 };
@@ -102,13 +101,12 @@ export default LogosLight;
 
   const darkContent = `${WARNING_AUTO_GENERATED_FILE}
 
-import { SVGAttributes } from 'react';
 ${darkImports}
-import { LogoName } from './types';
+import { LogoName, LogoThemeProps } from './types';
 
 const LogosDark: Record<
   LogoName,
-  (props: SVGAttributes<SVGElement>) => React.JSX.Element
+  (props: LogoThemeProps) => React.JSX.Element
 > = {
 ${darkExports}
 };

@@ -3,7 +3,7 @@ import { LogoThemeProps } from './system/types';
 // TODO: Can this logo have a base and extend it?
 // Check this separatily, see OVH.tsx
 
-export const AWSLight = (props: LogoThemeProps) => (
+const AWSDark = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -31,7 +31,7 @@ export const AWSLight = (props: LogoThemeProps) => (
   </svg>
 );
 
-export const AWSDark = (props: LogoThemeProps) => (
+const AWSLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -60,7 +60,7 @@ export const AWSDark = (props: LogoThemeProps) => (
 );
 
 const AWS = ({ theme, ...props }: LogoThemeProps) => {
-  if (theme === 'dark') return <AWSDark {...props} />;
+  if (theme === 'dark') {return <AWSDark {...props} />;}
 
   return <AWSLight {...props} />;
 }
