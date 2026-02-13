@@ -124,20 +124,27 @@ const XYZBase = ({ theme, ...props }: LogoThemeProps) => (
   </svg>
 );
 
-export const XYZDark = (props: SVGAttributes<SVGElement>) => (
-  <OVHBase
+const XYZDark = (props: SVGAttributes<SVGElement>) => (
+  <XYZBase
     theme="dark"
     {...props}
   />
 );
-export const XYZLight = (props: SVGAttributes<SVGElement>) => (
-  <OVHBase
+
+const XYZLight = (props: SVGAttributes<SVGElement>) => (
+  <XYZBase
     theme="light"
     {...props}
   />
 );
 
-export default XYZLight;
+export const XYZ = ({ theme, ...props }: LogoThemeProps) => {
+  if (theme === 'dark') {return <XYZDark {...props} />;}
+
+  return <XYZLight {...props} />;
+}
+
+export default XYZ;
 ```
 
 You'd have to update the exportables registries, e.g. [LogosLight](../src/components/Logos/system/LogosLight.ts) and [LogosDark](../src/components/Logos/system/LogosDark.ts).
