@@ -42,6 +42,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Release](#release)
   - [Required admin permissions](#required-admin-permissions)
   - [Create a new release pull request](#create-a-new-release-pull-request)
+* [Contributing](#contributing)
+  - [Conventional commits](#conventional-commits)
 
 ## Requirements
 
@@ -349,33 +351,28 @@ The Click UI has image asset files, such as icons or logos.
 
 Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
 
-### Add new SVG logo or icon
-
-Here are some steps, to help you transform the Figma asset into a React Component:
-
-1) In Figma project, select and export the target image/icon, e.g. these are generally contained in a square container (64x64)
-2) Store the file in your local file system in a memorable location
-3) Use a tool to transform SVG to React JSX, e.g. [react-svgr](https://react-svgr.com/playground/)
-4) Create a new file in `src/components/Logos`, e.g. name it by the company name
-5) Modify the `<svg>` node, it should set the size to 64x64 as the original Figma container:
-
 > [!NOTE]
-> Notice the viewBox values, it should contain the same values from the sourced file 64x64, e.g. "0 0 64 64", if it hasn't make sure you are exporting it correctly, or the original file has the correct container width and height
+> At time of writing the convertion is only supported for logos. Support for both SVG icon and logo convertions will come in future versions.
 
-```tsx
-<svg
-  width="64"
-  height="64"
-  viewBox="0 0 64 64"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  {...props}
->
+### Add new SVG logo
+
+We provide an automated tool to convert SVG files to React components.
+
+Let's assume that you are a macOS user and have stored the SVG file in your home **Downloads** directory, e.g. **/Users/MyUsername/Downloads**.
+
+In the root of Click UI repository, you'd run:
+
+```sh
+yarn convert:logo ~/Downloads/click-ui.svg
 ```
 
-6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
-7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
+Or provide explicit component name:
 
+```sh
+yarn convert:logo ~/Downloads/click-ui.svg ClickUI
+```
+
+For more detailed instructions, see [converting SVG to React Components](./docs/converting-svg-to-react-components).
 
 ## Release
 
@@ -422,7 +419,9 @@ If successful, you should see the new package version listed in npm [@clickhouse
 
 Consequently, a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) should exist containing all the generated release assets.
 
-## Conventional commits
+## Contributing
+
+### Conventional commits
 
 We prefer to commit our work following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) conventions. Conventional Commits are a simple way to write commit messages that both people and computers can understand. It help us keep track fo changes in a consistent manner, making it easier to see what was added, changed, or fixed in each commit or update.
 
