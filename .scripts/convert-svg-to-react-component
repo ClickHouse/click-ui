@@ -212,4 +212,4 @@ cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
 console.log(`\n👍 Done! Created ${componentName}`);
 
-console.log('💡 Test it and if happy, remember to commit your changes!');
+console.log('💡 Test it! When happy, remember to commit your changes');
