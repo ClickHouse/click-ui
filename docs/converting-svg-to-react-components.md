@@ -29,6 +29,18 @@ To test, start [storybook](/README.md#storybook) and open the logo playground [h
 
 Once happy, commit your work following our [contribution guideline](/README.md#contributing).
 
+## Naming conventions
+
+The auto-converter has to respect naming conventions to reduce the need for configuration on the user side.
+
+For example, given a convertion of a filename, it converts underscores to dashes, e.g. AWS_ATHENA becomes 'aws-athena' and Azure_Blog_Storage becomes 'azure-blog-storage'.
+
+> [!WARNING]
+> If you decide to rename a Logo filename, the converter will follow the naming convention rules. It might cause breaking changes on the consumer side, e.g. let's say that you rename src/components/Logos/AWS_S3.tsx to AWSS3.tsx, it'll cause it to be accessible as 'awss3' not 'aws-s3'.
+
+> [!NOTE]
+> If you need to override names, e.g. you have renamed a logo but would like to keep retro support, you must define the previous name mapped onto the new name it in the [src/components/Logos/system/Logo.tsx](./src/components/Logos/system/Logo.tsx).
+
 ## Naming components (optional)
 
 Override the auto-detected name by providing it as the second argument:
