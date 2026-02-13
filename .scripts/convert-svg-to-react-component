@@ -135,15 +135,21 @@ const updateLogosRegistry = (componentName, logoKey, isLight, isDark) => {
   }
 };
 
-const cleanUp = () => {
-  ['yarn lint:fix', 'yarn format:fix'].forEach(cmd => {
-    try {
-      execSync(cmd, { encoding: 'utf8', stdio: 'inherit' });
-    } catch (error) {
-      console.error(`Failed to run ${cmd}:`, error.message);
-    }
-  });
-}
+const cleanUp = (files) => {
+  try {
+    const eslintCmd = `npx eslint --fix --report-unused-disable-directives ${files.join(' ')}`;
+    execSync(eslintCmd, { encoding: 'utf8', stdio: 'inherit' });
+  } catch (error) {
+    console.error('ESLint fix failed:', error.message);
+  }
+
+  try {
+    const prettierCmd = `npx prettier --write --config .prettierrc ${files.join(' ')}`;
+    execSync(prettierCmd, { encoding: 'utf8', stdio: 'inherit' });
+  } catch (error) {
+    console.error('Prettier fix failed:', error.message);
+  }
+};
 
 const args = process.argv.slice(2);
 
@@ -167,10 +173,13 @@ if (!componentName.match(/^[A-Z][a-zA-Z0-9]*$/)) {
 
 const logoKey = toKebabCase(componentName);
 const outputPath = path.join(LOGOS_DIR, `${componentName}.tsx`);
+const typesPath = path.join(SYSTEM_DIR, 'types.ts');
+const lightFile = path.join(SYSTEM_DIR, 'LogosLight.ts');
+const darkFile = path.join(SYSTEM_DIR, 'LogosDark.ts');
 
 convertSvgToComponent(svgPath, componentName, outputPath);
 updateLogosRegistry(componentName, logoKey, true, true);
 generateLogoNameType();
-cleanUp();
+cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
 console.log(`✅ Logo conversion completed! Created ${componentName}.tsx`);
