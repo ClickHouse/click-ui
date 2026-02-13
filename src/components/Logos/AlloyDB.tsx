@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AlloyDBIcon = (props: SVGAttributes<SVGElement>) => (
+const AlloyDBIcon = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

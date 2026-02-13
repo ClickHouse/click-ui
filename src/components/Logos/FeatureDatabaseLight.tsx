@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const FeatureDatabaseLight = (props: SVGAttributes<SVGElement>) => (
+const FeatureDatabaseLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

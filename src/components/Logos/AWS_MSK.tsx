@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSMsk = (props: SVGAttributes<SVGElement>) => (
+const AWS_MSK = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const AWSMsk = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AWSMsk;
+export default AWS_MSK;

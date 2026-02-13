@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const ChashLight = (props: SVGAttributes<SVGElement>) => (
+const C_SHARP = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -44,4 +44,4 @@ const ChashLight = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default ChashLight;
+export default C_SHARP;

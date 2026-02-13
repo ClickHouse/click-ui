@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Prequel = (props: SVGAttributes<SVGElement>) => (
+const Prequel = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

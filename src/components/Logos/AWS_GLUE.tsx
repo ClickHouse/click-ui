@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSGlue = (props: SVGAttributes<SVGElement>) => (
+const AWS_GLUE = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const AWSGlue = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AWSGlue;
+export default AWS_GLUE;

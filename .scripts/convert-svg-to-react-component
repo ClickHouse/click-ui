@@ -1,0 +1,222 @@
+#!/usr/bin/env node
+
+// TODO: Move to .scripts/js once https://github.com/ClickHouse/click-ui/pull/784 is merged, or create a new PR while waiting for approval to introduce the file architecture change earliest
+
+// TODO: rename scripts? decide if dashes or _ for script naming, maybe best _
+
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const LOGOS_DIR = path.join(__dirname, '..', 'src', 'components', 'Logos');
+const SYSTEM_DIR = path.join(LOGOS_DIR, 'system');
+const WARNING_AUTO_GENERATED_FILE = `
+/*
+ ** WARNING: Auto-generated file!
+ ** Do NOT modify it, you changes will be lost!
+ ** If you\'re finding need to modify manually
+ ** report the issue immediately.
+ */`;
+
+const toPascalCase = (str) => {
+  return str
+    .replace(/[-_](.)/g, (_, char) => char.toUpperCase())
+    .replace(/^(.)/, (_, char) => char.toUpperCase());
+};
+
+const toKebabCase = (str) => {
+  return str.replace(/_/g, '-').toLowerCase();
+};
+
+const getLogoFiles = () => {
+  const files = fs.readdirSync(LOGOS_DIR);
+  return files
+    .filter(file => file.endsWith('.tsx') && file !== 'index.ts')
+    .map(file => path.basename(file, '.tsx'));
+};
+
+const generateLogoNameType = () => {
+  const logoFiles = getLogoFiles();
+  const sortedLogos = logoFiles
+    .map(name => ({ name, kebab: toKebabCase(name) }))
+    .sort((a, b) => a.kebab.localeCompare(b.kebab));
+
+  const logoNames = sortedLogos.map(({ kebab }) => `  | '${kebab}'`);
+
+  const typesContent = `import { SVGAttributes } from 'react';
+import { ThemeName } from '@/theme';
+
+export type LogoName =
+${logoNames.join('\n')};
+
+export type LogoThemeProps = SVGAttributes<SVGElement> & {
+  theme?: ThemeName;
+};
+`;
+
+  fs.writeFileSync(path.join(SYSTEM_DIR, 'types.ts'), typesContent);
+};
+
+const regenerateLogosRegistry = () => {
+  const logoFiles = getLogoFiles();
+
+  const sortedLogos = logoFiles
+    .map(name => ({ name, kebab: toKebabCase(name) }))
+    .sort((a, b) => a.kebab.localeCompare(b.kebab));
+
+  const lightImports = sortedLogos
+    .map(({ name }) => `import ${name} from '../${name}';`)
+    .join('\n');
+
+  const darkImports = sortedLogos
+    .map(({ name }) => `import ${name} from '../${name}';`)
+    .join('\n');
+
+  const lightExports = sortedLogos
+    .map(({ kebab, name }) => `  '${kebab}': ${name},`)
+    .join('\n');
+
+  const darkExports = sortedLogos
+    .map(({ kebab, name }) => `  '${kebab}': ${name},`)
+    .join('\n');
+
+  const lightContent = `${WARNING_AUTO_GENERATED_FILE}
+
+${lightImports}
+import { LogoName, LogoThemeProps } from './types';
+
+const LogosLight: Record<
+  LogoName,
+  (props: LogoThemeProps) => React.JSX.Element
+> = {
+${lightExports}
+};
+
+export default LogosLight;
+`;
+
+  const darkContent = `${WARNING_AUTO_GENERATED_FILE}
+
+${darkImports}
+import { LogoName, LogoThemeProps } from './types';
+
+const LogosDark: Record<
+  LogoName,
+  (props: LogoThemeProps) => React.JSX.Element
+> = {
+${darkExports}
+};
+
+export default LogosDark;
+`;
+
+  fs.writeFileSync(path.join(SYSTEM_DIR, 'LogosLight.ts'), lightContent);
+  fs.writeFileSync(path.join(SYSTEM_DIR, 'LogosDark.ts'), darkContent);
+};
+
+const convertSvgToComponent = (svgPath, componentName, outputPath) => {
+  const svgrConfig = path.join(__dirname, '..', '.svgrrc.mjs');
+  const cmd = `npx @svgr/cli --config-file "${svgrConfig}" --typescript "${svgPath}"`;
+
+  let output;
+  try {
+    output = execSync(cmd, { encoding: 'utf8' });
+  } catch (error) {
+    console.error(`👹 Oops! Failed to convert ${svgPath}:`, error.message);
+    process.exit(1);
+  }
+
+  output = output.replace(
+    /(import \{ LogoThemeProps \} from ["'][^"']+["'];)/,
+    // NOTE: Keep new line, separate the import and component pls
+    '$1\n'
+  );
+
+  output = output.replace(
+    /const (\w+) = \(([^)]*)\)/,
+    `const ${componentName} = (props: LogoThemeProps)`
+  );
+
+  output = output.replace(
+    /export default (\w+);$/m,
+    `export default ${componentName};`
+  );
+
+  output = output.replace(/<svg([^>]*)>/, (match, attrs) => {
+    let newAttrs = attrs
+      .replace(/width="[^"]*"/, 'width="64"')
+      .replace(/height="[^"]*"/, 'height="64"');
+    if (!newAttrs.includes('width=')) newAttrs += ' width="64"';
+    if (!newAttrs.includes('height=')) newAttrs += ' height="64"';
+    return `<svg${newAttrs}>`;
+  });
+
+  fs.writeFileSync(outputPath, output);
+};
+
+const cleanUp = (files) => {
+  let countErrors = 0;
+
+  try {
+    const eslintCmd = `npx eslint --fix --report-unused-disable-directives ${files.join(' ')}`;
+    execSync(eslintCmd, { encoding: 'utf8', stdio: 'inherit' });
+  } catch (error) {
+    console.warn('⚠️ Lint fix failed due to', error.message);
+    countErrors++;
+  }
+
+  try {
+    const prettierCmd = `npx prettier --write --config .prettierrc ${files.join(' ')}`;
+    execSync(prettierCmd, { encoding: 'utf8', stdio: 'inherit' });
+  } catch (error) {
+    console.error('⚠️Code format fix failed due to:', error.message);
+    countErrors++;
+  }
+
+  if (countErrors > 0) {
+    console.log('💡 Found some issues! In any case, you can test the component and make any further amends manually. If you find hard to troubleshoot report it immediately, please!');
+  }
+};
+
+const args = process.argv.slice(2);
+
+if (args.length < 1) {
+  console.error('👹 Oops! The SVG file path is required');
+  process.exit(1);
+}
+
+const svgPath = args[0];
+let componentName = args[1];
+
+if (!componentName) {
+  const basename = path.basename(svgPath, '.svg');
+  componentName = toPascalCase(basename);
+}
+
+if (!componentName.match(/^[A-Z][a-zA-Z0-9_-]*$/)) {
+  console.error('👹 Oops! The Logo component name must start with uppercase and use only letters, numbers, hyphens, or underscores.');
+
+  process.exit(1);
+}
+
+const outputPath = path.join(LOGOS_DIR, `${componentName}.tsx`);
+const typesPath = path.join(SYSTEM_DIR, 'types.ts');
+const lightFile = path.join(SYSTEM_DIR, 'LogosLight.ts');
+const darkFile = path.join(SYSTEM_DIR, 'LogosDark.ts');
+
+console.log(`🍩 Baking ${componentName}...`)
+
+convertSvgToComponent(svgPath, componentName, outputPath);
+generateLogoNameType();
+regenerateLogosRegistry();
+
+console.log(`🧹 Cleaning ${componentName}...\n`)
+cleanUp([outputPath, typesPath, lightFile, darkFile]);
+
+console.log(`\n👍 Done! Created ${componentName}`);
+
+console.log('💡 Test it! When happy, remember to commit your changes');

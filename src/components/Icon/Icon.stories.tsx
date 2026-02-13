@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import LogosLight from '../Logos/LogosLight';
+import LogosLight from '../Logos/system/LogosLight';
 import { FlagList } from '../icons/Flags';
 import { PaymentList } from '../icons/Payments';
 import { Icon } from './Icon';

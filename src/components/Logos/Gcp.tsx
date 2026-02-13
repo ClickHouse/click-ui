@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Gcp = (props: SVGAttributes<SVGElement>) => (
+const Gcp = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

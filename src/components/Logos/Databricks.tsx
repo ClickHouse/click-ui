@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Databricks = (props: SVGAttributes<SVGElement>) => (
+const Databricks = (props: LogoThemeProps) => (
   <svg
     width="56"
     height="56"

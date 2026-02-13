@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSRds = (props: SVGAttributes<SVGElement>) => (
+const AWS_RDS = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -33,4 +33,4 @@ const AWSRds = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AWSRds;
+export default AWS_RDS;

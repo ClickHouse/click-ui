@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSRedshift = (props: SVGAttributes<SVGElement>) => (
+const AWS_REDSHIFT = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const AWSRedshift = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AWSRedshift;
+export default AWS_REDSHIFT;

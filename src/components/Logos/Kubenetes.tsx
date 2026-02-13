@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Kubenetes = (props: SVGAttributes<SVGElement>) => (
+const Kubenetes = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

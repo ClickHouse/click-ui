@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const DeltaLake = (props: SVGAttributes<SVGElement>) => (
+const DeltaLake = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

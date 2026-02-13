@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const GoLang = (props: SVGAttributes<SVGElement>) => (
+const GoLang = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

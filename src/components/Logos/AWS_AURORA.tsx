@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSAurora = (props: SVGAttributes<SVGElement>) => (
+const AWS_AURORA = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -34,4 +34,4 @@ const AWSAurora = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default AWSAurora;
+export default AWS_AURORA;

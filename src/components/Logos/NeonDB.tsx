@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const NeonDB = (props: SVGAttributes<SVGElement>) => (
+const NeonDB = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

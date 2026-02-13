@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Iceberg = (props: SVGAttributes<SVGElement>) => (
+const Iceberg = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

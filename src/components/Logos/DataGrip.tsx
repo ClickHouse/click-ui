@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const DataGrip = (props: SVGAttributes<SVGElement>) => (
+const DataGrip = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
