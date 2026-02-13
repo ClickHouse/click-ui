@@ -62,9 +62,11 @@ const AWSLight = (props: LogoThemeProps) => (
 );
 
 const AWS = ({ theme, ...props }: LogoThemeProps) => {
-  if (theme === 'dark') {return <AWSDark {...props} />;}
+  if (theme === 'dark') {
+    return <AWSDark {...props} />;
+  }
 
   return <AWSLight {...props} />;
-}
+};
 
 export default AWS;

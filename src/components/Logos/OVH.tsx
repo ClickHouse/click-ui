@@ -46,9 +46,11 @@ const OVHLight = (props: SVGAttributes<SVGElement>) => (
 );
 
 const OVH = ({ theme, ...props }: LogoThemeProps) => {
-  if (theme === 'dark') {return <OVHDark {...props} />;}
+  if (theme === 'dark') {
+    return <OVHDark {...props} />;
+  }
 
   return <OVHLight {...props} />;
-}
+};
 
 export default OVH;
