@@ -29,17 +29,24 @@ const OVHBase = ({ theme, ...props }: LogoThemeProps) => (
   </svg>
 );
 
-export const OVHDark = (props: SVGAttributes<SVGElement>) => (
+const OVHDark = (props: SVGAttributes<SVGElement>) => (
   <OVHBase
     theme="dark"
     {...props}
   />
 );
-export const OVHLight = (props: SVGAttributes<SVGElement>) => (
+
+const OVHLight = (props: SVGAttributes<SVGElement>) => (
   <OVHBase
     theme="light"
     {...props}
   />
 );
 
-export default OVHLight;
+const OVH = ({ theme, ...props }: LogoThemeProps) => {
+  if (theme === 'dark') return <OVHDark {...props} />;
+
+  return <OVHLight {...props} />;
+}
+
+export default OVH;

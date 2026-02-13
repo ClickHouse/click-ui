@@ -5,7 +5,6 @@
  ** report the issue immediately.
  */
 
-import { SVGAttributes } from 'react';
 import Airbyte from '../Airbyte';
 import AlloyDB from '../AlloyDB';
 import AWS from '../AWS';
@@ -79,11 +78,11 @@ import TigerData from '../TigerData';
 import Upstash from '../Upstash';
 import Vector from '../Vector';
 import WarpStream from '../WarpStream';
-import { LogoName } from './types';
+import { LogoName, LogoThemeProps } from './types';
 
 const LogosLight: Record<
   LogoName,
-  (props: SVGAttributes<SVGElement>) => React.JSX.Element
+  (props: LogoThemeProps) => React.JSX.Element
 > = {
   airbyte: Airbyte,
   alloydb: AlloyDB,

@@ -27,7 +27,8 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const Component = (theme ?? themeName) === 'light'
+  const resolvedTheme = theme ?? themeName;
+  const Component = (resolvedTheme) === 'light'
     ? LogosLight[resolvedName]
     : LogosDark[resolvedName];
 
@@ -35,9 +36,11 @@ const Logo = ({ name, theme, size, ...props }: LogoProps) => {
     return null;
   }
 
+  const ThemeComponent = () => <Component theme={resolvedTheme} {...props} />;
+
   return (
     <SvgImageElement
-      as={Component}
+      as={ThemeComponent}
       $size={size}
       role="img"
       aria-label={resolvedName}
