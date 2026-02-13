@@ -17,10 +17,9 @@ export default {
   },
   template: (variables, { tpl }) => {
     return tpl`
-${variables.imports};
 import { LogoThemeProps } from './system/types';
 
-const ${variables.componentName} = (${variables.props}) => (
+const ${variables.componentName} = (props: LogoThemeProps) => (
   ${variables.jsx}
 );
 

@@ -73,6 +73,11 @@ const convertSvgToComponent = (svgPath, componentName, outputPath) => {
     `const ${componentName} = (props: LogoThemeProps)`
   );
 
+  output = output.replace(
+    /export default (\w+);$/m,
+    `export default ${componentName};`
+  );
+
   output = output.replace(/<svg([^>]*)>/, (match, attrs) => {
     let newAttrs = attrs
       .replace(/width="[^"]*"/, 'width="64"')
@@ -125,10 +130,9 @@ const updateLogosRegistry = (componentName, logoKey, isLight, isDark) => {
 const cleanUp = () => {
   ['yarn lint:fix', 'yarn format:fix'].forEach(cmd => {
     try {
-      output = execSync(cmd, { encoding: 'utf8' });
+      execSync(cmd, { encoding: 'utf8', stdio: 'inherit' });
     } catch (error) {
-      console.error(`Failed to convert ${svgPath}:`, error.message);
-      process.exit(1);
+      console.error(`Failed to run ${cmd}:`, error.message);
     }
   });
 }
