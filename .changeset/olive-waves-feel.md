@@ -10,6 +10,4 @@ While this helps standardise the introduction of logos consistently, there's sti
 
 # What has changed?
 
-The logos API remains the same, you can update Click UI without any further changes. Although, the logo name `c#` was renamed to `c-sharp` due to need to use valid javascript identifiers during the auto-conversation process.
-
-For this reason, you're advised to use the name `c-sharp`, as you will NOT find the term `c#` listed.
+The logos API remains the same, you can update Click UI without any further changes. Although, the logo name `c#` was renamed to `c-sharp` due to need to use valid javascript identifiers during the auto-conversation process and usage of `c#` is NOT recommended as its being dropped to favour `c-sharp`.
