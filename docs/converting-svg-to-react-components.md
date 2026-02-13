@@ -33,6 +33,8 @@ Once happy, commit your work following our [contribution guideline](/README.md#c
 
 The auto-converter has to respect naming conventions to reduce the need for configuration on the user side.
 
+Names use only letters, numbers, hyphens, or underscores.
+
 For example, given a convertion of a filename, it converts underscores to dashes, e.g. AWS_ATHENA becomes 'aws-athena' and Azure_Blog_Storage becomes 'azure-blog-storage'.
 
 > [!WARNING]
@@ -50,6 +52,14 @@ yarn convert:logo ~/Downloads/click-ui.svg CustomClickUILogo
 ```
 
 It'll create `src/components/Logos/CustomClickUILogo.tsx`.
+
+As introduced in [naming conventions](#naming-conventions), the names must start with uppercase and use only letters, numbers, hyphens, or underscores.
+
+```sh
+yarn convert:logo ~/Downloads/clickhouse.svg Clickhouse-Logo
+```
+
+It'd create `src/components/Logos/Clickhouse_logo.tsx`.
 
 ## How does it work?
 
