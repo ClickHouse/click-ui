@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const FeatureHexagonLight = (props: SVGAttributes<SVGElement>) => (
+const FeatureHexagonLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const GithubDark = (props: SVGAttributes<SVGElement>) => (
+const GithubDark = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

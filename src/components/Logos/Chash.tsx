@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const ChashLight = (props: SVGAttributes<SVGElement>) => (
+const ChashLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

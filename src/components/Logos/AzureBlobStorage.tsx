@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AzureBlobStorage = (props: SVGAttributes<SVGElement>) => (
+const AzureBlobStorage = (props: LogoThemeProps) => (
   <svg
     width="62"
     height="50"

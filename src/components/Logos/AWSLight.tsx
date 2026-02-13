@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSLight = (props: SVGAttributes<SVGElement>) => (
+const AWSLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

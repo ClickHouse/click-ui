@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSAthena = (props: SVGAttributes<SVGElement>) => (
+const AWSAthena = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

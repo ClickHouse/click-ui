@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const KafkaLight = (props: SVGAttributes<SVGElement>) => (
+const KafkaLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

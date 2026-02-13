@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const MongoDb = (props: SVGAttributes<SVGElement>) => (
+const MongoDb = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

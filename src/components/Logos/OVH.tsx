@@ -1,4 +1,4 @@
-import { LogoThemeProps } from './types';
+import { LogoThemeProps } from './system/types';
 import { SVGAttributes } from 'react';
 
 const OVHBase = ({ theme, ...props }: LogoThemeProps) => (

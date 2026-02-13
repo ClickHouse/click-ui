@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Postgres = (props: SVGAttributes<SVGElement>) => (
+const Postgres = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

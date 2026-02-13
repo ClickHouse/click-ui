@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Confluent = (props: SVGAttributes<SVGElement>) => (
+const Confluent = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

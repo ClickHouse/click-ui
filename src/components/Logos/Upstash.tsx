@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Upstash = (props: SVGAttributes<SVGElement>) => (
+const Upstash = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

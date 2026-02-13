@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const CrunchyBridge = (props: SVGAttributes<SVGElement>) => (
+const CrunchyBridge = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

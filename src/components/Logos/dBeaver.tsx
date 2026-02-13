@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const dBeaver = (props: SVGAttributes<SVGElement>) => (
+const dBeaver = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

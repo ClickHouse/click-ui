@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Supabase = (props: SVGAttributes<SVGElement>) => (
+const Supabase = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const AWSMsk = (props: SVGAttributes<SVGElement>) => (
+const AWSMsk = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

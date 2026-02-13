@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Snowflake = (props: SVGAttributes<SVGElement>) => (
+const Snowflake = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

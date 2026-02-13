@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Redpanda = (props: SVGAttributes<SVGElement>) => (
+const Redpanda = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

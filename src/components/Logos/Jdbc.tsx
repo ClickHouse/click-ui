@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Jdbc = (props: SVGAttributes<SVGElement>) => (
+const Jdbc = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

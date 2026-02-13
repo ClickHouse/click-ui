@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Hex = (props: SVGAttributes<SVGElement>) => (
+const Hex = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"

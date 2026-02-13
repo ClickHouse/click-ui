@@ -46,7 +46,7 @@ export { Grid } from '@/components/Grid/Grid';
 export { HoverCard } from '@/components/HoverCard/HoverCard';
 export { Link } from '@/components/Link/Link';
 export { linkStyles } from '@/components/Link/common';
-export { Logo } from '@/components/Logos/Logo';
+export { Logo } from '@/components/Logos/system/Logo';
 export { NumberField } from '@/components/Input/NumberField';
 export { PasswordField } from '@/components/Input/PasswordField';
 export { Popover } from '@/components/Popover/Popover';

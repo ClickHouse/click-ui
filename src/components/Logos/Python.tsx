@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const Python = (props: SVGAttributes<SVGElement>) => (
+const Python = (props: LogoThemeProps) => (
   <svg
     width="65"
     height="64"

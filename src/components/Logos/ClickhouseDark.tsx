@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { LogoThemeProps } from './system/types';
 
-const ClickhouseLight = (props: SVGAttributes<SVGElement>) => (
+const ClickhouseLight = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
