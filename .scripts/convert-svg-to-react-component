@@ -209,3 +209,5 @@ regenerateLogosRegistry();
 cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
 console.log(`👍 Done! Created ${componentName}`);
+
+console.log('💡 Test it and if happy, remember to commit your changes!');
