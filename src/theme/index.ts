@@ -5,9 +5,6 @@ import type { Prettify, GetTypes } from './tokens/types';
 
 export { default as ClickUIProvider } from './ClickUIProvider';
 
-export type ThemeName = 'dark' | 'light' | 'classic';
-type ActiveThemeName = 'dark' | 'light';
-
 type GeneralThemeType = typeof lightTheme;
 
 // Full theme type with all properties (internal use and DefaultTheme)
@@ -37,7 +34,7 @@ declare module 'styled-components' {
   export interface DefaultTheme extends Theme {}
 }
 
-const useCUITheme = (): PublicTheme => {
+export const useCUITheme = (): PublicTheme => {
   const theme = useTheme();
   return {
     breakpoint: theme.breakpoint,
@@ -47,4 +44,11 @@ const useCUITheme = (): PublicTheme => {
   };
 };
 
-export { useCUITheme };
+export const THEMES = {
+  Dark: 'dark',
+  Light: 'light',
+} as const;
+
+export type ThemeName = (typeof THEMES)[keyof typeof THEMES];
+
+export type ActiveThemeName = ThemeName;

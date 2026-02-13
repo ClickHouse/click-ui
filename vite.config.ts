@@ -18,7 +18,7 @@ const buildOptions: BuildOptions = {
   // which makes static analysis challenging
   minify: false,
   lib: {
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: path.resolve(srcDir, 'index.ts'),
   },
   rollupOptions: {
     output: [
@@ -97,72 +97,9 @@ const viteConfig = defineConfig({
         ]
       : []),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // Auto-inject tokens import in all SCSS files
-        // Components can directly use: tokens.$clickGlobalColorBackgroundDefault
-        additionalData: `@use "${srcDir}/styles/tokens-light-dark.scss" as tokens;\n`,
-      },
-    },
-    postcss: {
-      plugins: [
-        {
-          // Wrap only CSS custom properties in @layer for easy consumer override
-          postcssPlugin: 'wrap-tokens-in-layer',
-          Once(root, { AtRule }) {
-            // 1. Add layer declaration for tokens at the top
-            const layerDeclaration = new AtRule({
-              name: 'layer',
-              params: 'click-ui.tokens',
-            });
-            root.prepend(layerDeclaration);
-
-            // 2. Find and wrap only :root rules with CSS custom properties
-            const tokenRules = [];
-            const otherNodes = [];
-
-            root.each(node => {
-              if (node === layerDeclaration) {
-                return; // Skip the layer declaration itself
-              }
-
-              if (node.type === 'rule' && node.selector === ':root') {
-                // Check if it contains CSS custom properties
-                const hasCustomProps = node.nodes?.some(
-                  child => child.type === 'decl' && child.prop.startsWith('--')
-                );
-                if (hasCustomProps) {
-                  tokenRules.push(node.clone());
-                  node.remove();
-                  return;
-                }
-              }
-
-              // Keep all other nodes as-is (component classes stay unlayered)
-              otherNodes.push(node);
-            });
-
-            // 3. Wrap tokens in @layer click-ui.tokens
-            if (tokenRules.length > 0) {
-              const tokensLayer = new AtRule({
-                name: 'layer',
-                params: 'click-ui.tokens',
-              });
-              tokenRules.forEach(rule => tokensLayer.append(rule));
-              root.append(tokensLayer);
-            }
-
-            // 4. Component styles stay unlayered (normal priority)
-            // This allows consumers to override with regular CSS
-          },
-        },
-      ],
-    },
-  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': srcDir,
     },
   },
   build: buildOptions,
