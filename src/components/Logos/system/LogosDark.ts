@@ -67,6 +67,8 @@ import Vector from '../Vector';
 import WarpStream from '../WarpStream';
 import { LogoName } from './types';
 
+// TODO: The use of keys as "text" to allow dashes block us from having the ability to order these alphabetically? If changed, then consumer app will have to rename each hard-typed value.
+
 const LogosDark: Record<
   LogoName,
   (props: SVGAttributes<SVGElement>) => React.JSX.Element
