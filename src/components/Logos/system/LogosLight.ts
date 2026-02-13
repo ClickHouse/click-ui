@@ -1,38 +1,42 @@
 import { SVGAttributes } from 'react';
-import AlloyDB from '../AlloyDB';
 import Airbyte from '../Airbyte';
-import AWSLight from '../AWSLight';
-import AWSAthena from '../AWSAthena';
-import AWSGlue from '../AWSGlue';
-import AWSKinesis from '../AWSKinesis';
-import AWSRedshift from '../AWSRedshift';
-import AWSMsk from '../AWSMsk';
-import AWSAurora from '../AWSAurora';
-import AWSRds from '../AWSRds';
-import AWSS3 from '../AWS_S3';
+import AlloyDB from '../AlloyDB';
+import AWS from '../AWS';
+import AWS_ATHENA from '../AWS_ATHENA';
+import AWS_AURORA from '../AWS_AURORA';
+import AWS_GLUE from '../AWS_GLUE';
+import AWS_KINESIS from '../AWS_KINESIS';
+import AWS_MSK from '../AWS_MSK';
+import AWS_RDS from '../AWS_RDS';
+import AWS_REDSHIFT from '../AWS_REDSHIFT';
+import AWS_S3 from '../AWS_S3';
 import Azure from '../Azure';
-import AzureBlobStorage from '../AzureBlobStorage';
-import AzureEventHub from '../AzureEventHub';
+import Azure_Blob_Storage from '../Azure_Blob_Storage';
+import Azure_Event_Hub from '../Azure_Event_Hub';
 import BigQuery from '../BigQuery';
-import Chash from '../Chash';
-import Clickhouse from '../ClickhouseLight';
+import C_SHARP from '../C_SHARP';
+import ClickhouseDark from '../ClickhouseDark';
+import ClickhouseLight from '../ClickhouseLight';
 import Cloudflare from '../Cloudflare';
 import Confluent from '../Confluent';
-import CrunchyBridge from '../CrunchyBridge';
-import DataGrip from '../DataGrip';
+import Crunchy_Bridge from '../Crunchy_Bridge';
 import Databricks from '../Databricks';
+import DataGrip from '../DataGrip';
 import dBeaver from '../dBeaver';
 import Dbt from '../Dbt';
 import Decodeable from '../Decodeable';
 import DeepNote from '../DeepNote';
 import DeltaLake from '../DeltaLake';
 import DigitalOcean from '../DigitalOcean';
+import FeatureDatabaseDark from '../FeatureDatabaseDark';
 import FeatureDatabaseLight from '../FeatureDatabaseLight';
+import FeatureHexagonDark from '../FeatureHexagonDark';
 import FeatureHexagonLight from '../FeatureHexagonLight';
 import Fivetran from '../Fivetran';
 import Gcp from '../Gcp';
-import Gcs from '../GCS';
-import Github from '../GithubLight';
+import GCS from '../GCS';
+import GithubDark from '../GithubDark';
+import GithubLight from '../GithubLight';
 import GoLang from '../GoLang';
 import Google from '../Google';
 import Grafana from '../Grafana';
@@ -40,7 +44,8 @@ import Hex from '../Hex';
 import Hudi from '../Hudi';
 import Iceberg from '../Iceberg';
 import Jdbc from '../Jdbc';
-import Kafka from '../KafkaLight';
+import KafkaDark from '../KafkaDark';
+import KafkaLight from '../KafkaLight';
 import Kubenetes from '../Kubenetes';
 import MariaDB from '../MariaDB';
 import Metabase from '../Metabase';
@@ -51,48 +56,49 @@ import NeonDB from '../NeonDB';
 import Nessie from '../Nessie';
 import NodeJs from '../NodeJs';
 import OneLake from '../OneLake';
-import { OVHLight as OVH } from '../OVH';
+import OVH from '../OVH';
 import Postgres from '../Postgres';
 import Prequel from '../Prequel';
 import Python from '../Python';
 import Redpanda from '../Redpanda';
-import Rust from '../RustLight';
+import RustDark from '../RustDark';
+import RustLight from '../RustLight';
 import Snowflake from '../Snowflake';
 import Supabase from '../Supabase';
 import Superset from '../Superset';
-import Tableau from '../TableauLight';
+import TableauDark from '../TableauDark';
+import TableauLight from '../TableauLight';
 import TigerData from '../TigerData';
 import Upstash from '../Upstash';
 import Vector from '../Vector';
 import WarpStream from '../WarpStream';
 import { LogoName } from './types';
 
-// TODO: The use of keys as "text" to allow dashes block us from having the ability to order these alphabetically? If changed, then consumer app will have to rename each hard-typed value.
-
 const LogosLight: Record<
   LogoName,
   (props: SVGAttributes<SVGElement>) => React.JSX.Element
 > = {
-  clickhouse: Clickhouse,
-  alloydb: AlloyDB,
   airbyte: Airbyte,
-  aws: AWSLight,
-  'aws-athena': AWSAthena,
-  'aws-glue': AWSGlue,
-  'aws-kinesis': AWSKinesis,
-  'aws-msk': AWSMsk,
-  'aws-aurora': AWSAurora,
-  'aws-rds': AWSRds,
-  'aws-redshift': AWSRedshift,
-  'aws-s3': AWSS3,
+  alloydb: AlloyDB,
+  aws: AWS,
+  'aws-athena': AWS_ATHENA,
+  'aws-aurora': AWS_AURORA,
+  'aws-glue': AWS_GLUE,
+  'aws-kinesis': AWS_KINESIS,
+  'aws-msk': AWS_MSK,
+  'aws-rds': AWS_RDS,
+  'aws-redshift': AWS_REDSHIFT,
+  'aws-s3': AWS_S3,
   azure: Azure,
-  'azure-blob-storage': AzureBlobStorage,
-  'azure-event-hub': AzureEventHub,
+  'azure-blob-storage': Azure_Blob_Storage,
+  'azure-event-hub': Azure_Event_Hub,
   bigquery: BigQuery,
-  'c#': Chash,
+  'c-sharp': C_SHARP,
+  clickhousedark: ClickhouseDark,
+  clickhouselight: ClickhouseLight,
   cloudflare: Cloudflare,
   confluent: Confluent,
-  'crunchy-bridge': CrunchyBridge,
+  'crunchy-bridge': Crunchy_Bridge,
   databricks: Databricks,
   datagrip: DataGrip,
   dbeaver: dBeaver,
@@ -100,13 +106,16 @@ const LogosLight: Record<
   decodeable: Decodeable,
   deepnote: DeepNote,
   deltalake: DeltaLake,
-  digital_ocean: DigitalOcean,
-  feature_database: FeatureDatabaseLight,
-  feature_hexagon: FeatureHexagonLight,
+  digitalocean: DigitalOcean,
+  featuredatabasedark: FeatureDatabaseDark,
+  featuredatabaselight: FeatureDatabaseLight,
+  featurehexagondark: FeatureHexagonDark,
+  featurehexagonlight: FeatureHexagonLight,
   fivetran: Fivetran,
   gcp: Gcp,
-  gcs: Gcs,
-  github: Github,
+  gcs: GCS,
+  githubdark: GithubDark,
+  githublight: GithubLight,
   golang: GoLang,
   google: Google,
   grafana: Grafana,
@@ -114,7 +123,8 @@ const LogosLight: Record<
   hudi: Hudi,
   iceberg: Iceberg,
   jdbc: Jdbc,
-  kafka: Kafka,
+  kafkadark: KafkaDark,
+  kafkalight: KafkaLight,
   kubenetes: Kubenetes,
   mariadb: MariaDB,
   metabase: Metabase,
@@ -130,11 +140,13 @@ const LogosLight: Record<
   prequel: Prequel,
   python: Python,
   redpanda: Redpanda,
-  rust: Rust,
+  rustdark: RustDark,
+  rustlight: RustLight,
   snowflake: Snowflake,
   supabase: Supabase,
   superset: Superset,
-  tableau: Tableau,
+  tableaudark: TableauDark,
+  tableaulight: TableauLight,
   tigerdata: TigerData,
   upstash: Upstash,
   vector: Vector,
