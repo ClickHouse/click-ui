@@ -3,7 +3,7 @@
 import { LogoThemeProps } from './system/types';
 
 // TODO: Can this logo have a base and extend it?
-// Check this separatily, see OVH.tsx
+// Check this separately, see OVH.tsx
 
 const AWSDark = (props: LogoThemeProps) => (
   <svg
