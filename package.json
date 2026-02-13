@@ -81,7 +81,7 @@
     "@radix-ui/react-tabs": "1.1.1",
     "@radix-ui/react-toast": "1.2.2",
     "@radix-ui/react-tooltip": "1.1.2",
-    "dayjs": "1.11.19",
+    "dayjs": "^1.11.19",
     "lodash-es": "^4.17.23",
     "react-sortablejs": "^6.1.4",
     "react-syntax-highlighter": "^16.1.0",
@@ -145,7 +145,7 @@
     "watch": "^1.0.2"
   },
   "peerDependencies": {
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.19",
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0",
     "styled-components": "^6.1.11"
