@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const AWSKinesis = (props: LogoThemeProps) => (
+const AWS_KINESIS = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -44,4 +44,4 @@ const AWSKinesis = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default AWSKinesis;
+export default AWS_KINESIS;

@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const AzureEventHub = (props: LogoThemeProps) => (
+const Azure_Event_Hub = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -32,4 +32,4 @@ const AzureEventHub = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default AzureEventHub;
+export default Azure_Event_Hub;

@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const AWSGlue = (props: LogoThemeProps) => (
+const AWS_GLUE = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const AWSGlue = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default AWSGlue;
+export default AWS_GLUE;

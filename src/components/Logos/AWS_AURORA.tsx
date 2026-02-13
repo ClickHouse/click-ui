@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const AWSAurora = (props: LogoThemeProps) => (
+const AWS_AURORA = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -34,4 +34,4 @@ const AWSAurora = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default AWSAurora;
+export default AWS_AURORA;

@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const AWSRds = (props: LogoThemeProps) => (
+const AWS_RDS = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -33,4 +33,4 @@ const AWSRds = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default AWSRds;
+export default AWS_RDS;

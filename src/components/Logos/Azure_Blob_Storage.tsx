@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const AzureBlobStorage = (props: LogoThemeProps) => (
+const Azure_Blob_Storage = (props: LogoThemeProps) => (
   <svg
     width="62"
     height="50"
@@ -52,4 +52,4 @@ const AzureBlobStorage = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default AzureBlobStorage;
+export default Azure_Blob_Storage;

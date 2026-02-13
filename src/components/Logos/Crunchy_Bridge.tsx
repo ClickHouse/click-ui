@@ -1,6 +1,6 @@
 import { LogoThemeProps } from './system/types';
 
-const CrunchyBridge = (props: LogoThemeProps) => (
+const Crunchy_Bridge = (props: LogoThemeProps) => (
   <svg
     width="64"
     height="64"
@@ -65,4 +65,4 @@ const CrunchyBridge = (props: LogoThemeProps) => (
   </svg>
 );
 
-export default CrunchyBridge;
+export default Crunchy_Bridge;
