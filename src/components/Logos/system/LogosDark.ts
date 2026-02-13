@@ -1,3 +1,10 @@
+/*
+ ** WARNING: Auto-generated file!
+ ** Do NOT modify it, you changes will be lost!
+ ** If you're finding need to modify manually
+ ** report the issue immediately.
+ */
+
 import { SVGAttributes } from 'react';
 import Airbyte from '../Airbyte';
 import AlloyDB from '../AlloyDB';
