@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+
 import { LogoThemeProps } from './system/types';
 import { SVGAttributes } from 'react';
 

@@ -93,6 +93,8 @@ You can create theme based logos by providing a base component, customise the pr
 Here's an example for `XYZ.tsx`:
 
 ```tsx
+/* eslint-disable react-refresh/only-export-components */
+
 import { LogoThemeProps } from './system/types';
 import { SVGAttributes } from 'react';
 

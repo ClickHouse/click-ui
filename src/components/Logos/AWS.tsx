@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+
 import { LogoThemeProps } from './system/types';
 
 // TODO: Can this logo have a base and extend it?
