@@ -37,12 +37,11 @@ const getLogoFiles = () => {
 
 const generateLogoNameType = () => {
   const logoFiles = getLogoFiles();
-  const logoNames = logoFiles
-    .map(name => {
-      const kebab = toKebabCase(name);
-      return `  | '${kebab}'`;
-    })
-    .sort();
+  const sortedLogos = logoFiles
+    .map(name => ({ name, kebab: toKebabCase(name) }))
+    .sort((a, b) => a.kebab.localeCompare(b.kebab));
+
+  const logoNames = sortedLogos.map(({ kebab }) => `  | '${kebab}'`);
 
   const typesContent = `import { SVGAttributes } from 'react';
 import { ThemeName } from '@/theme';
@@ -56,6 +55,61 @@ export type LogoThemeProps = SVGAttributes<SVGElement> & {
 `;
 
   fs.writeFileSync(path.join(SYSTEM_DIR, 'types.ts'), typesContent);
+};
+
+const regenerateLogosRegistry = () => {
+  const logoFiles = getLogoFiles();
+
+  const sortedLogos = logoFiles
+    .map(name => ({ name, kebab: toKebabCase(name) }))
+    .sort((a, b) => a.kebab.localeCompare(b.kebab));
+
+  const lightImports = sortedLogos
+    .map(({ name }) => `import ${name} from '../${name}';`)
+    .join('\n');
+
+  const darkImports = sortedLogos
+    .map(({ name }) => `import ${name} from '../${name}';`)
+    .join('\n');
+
+  const lightExports = sortedLogos
+    .map(({ kebab, name }) => `  '${kebab}': ${name},`)
+    .join('\n');
+
+  const darkExports = sortedLogos
+    .map(({ kebab, name }) => `  '${kebab}': ${name},`)
+    .join('\n');
+
+  const lightContent = `import { SVGAttributes } from 'react';
+${lightImports}
+import { LogoName } from './types';
+
+const LogosLight: Record<
+  LogoName,
+  (props: SVGAttributes<SVGElement>) => React.JSX.Element
+> = {
+${lightExports}
+};
+
+export default LogosLight;
+`;
+
+  const darkContent = `import { SVGAttributes } from 'react';
+${darkImports}
+import { LogoName } from './types';
+
+const LogosDark: Record<
+  LogoName,
+  (props: SVGAttributes<SVGElement>) => React.JSX.Element
+> = {
+${darkExports}
+};
+
+export default LogosDark;
+`;
+
+  fs.writeFileSync(path.join(SYSTEM_DIR, 'LogosLight.ts'), lightContent);
+  fs.writeFileSync(path.join(SYSTEM_DIR, 'LogosDark.ts'), darkContent);
 };
 
 const convertSvgToComponent = (svgPath, componentName, outputPath) => {
@@ -96,43 +150,6 @@ const convertSvgToComponent = (svgPath, componentName, outputPath) => {
   });
 
   fs.writeFileSync(outputPath, output);
-};
-
-const updateLogosRegistry = (componentName, logoKey, isLight, isDark) => {
-  const lightFile = path.join(SYSTEM_DIR, 'LogosLight.ts');
-  const darkFile = path.join(SYSTEM_DIR, 'LogosDark.ts');
-
-  if (isLight) {
-    let content = fs.readFileSync(lightFile, 'utf8');
-    const importLine = `import ${componentName} from '../${componentName}';`;
-    if (!content.includes(importLine)) {
-      content = content.replace(
-        /(import { LogoName } from '\.\/types';)/,
-        `${importLine}\n$1`
-      );
-      content = content.replace(
-        /(};\s*export default LogosLight;)/,
-        `  '${logoKey}': ${componentName},\n$1`
-      );
-      fs.writeFileSync(lightFile, content);
-    }
-  }
-
-  if (isDark) {
-    let content = fs.readFileSync(darkFile, 'utf8');
-    const importLine = `import ${componentName} from '../${componentName}';`;
-    if (!content.includes(importLine)) {
-      content = content.replace(
-        /(import { LogoName } from '\.\/types';)/,
-        `${importLine}\n$1`
-      );
-      content = content.replace(
-        /(};\s*export default LogosDark;)/,
-        `  '${logoKey}': ${componentName},\n$1`
-      );
-      fs.writeFileSync(darkFile, content);
-    }
-  }
 };
 
 const cleanUp = (files) => {
@@ -178,8 +195,8 @@ const lightFile = path.join(SYSTEM_DIR, 'LogosLight.ts');
 const darkFile = path.join(SYSTEM_DIR, 'LogosDark.ts');
 
 convertSvgToComponent(svgPath, componentName, outputPath);
-updateLogosRegistry(componentName, logoKey, true, true);
 generateLogoNameType();
+regenerateLogosRegistry();
 cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
 console.log(`✅ Logo conversion completed! Created ${componentName}.tsx`);
