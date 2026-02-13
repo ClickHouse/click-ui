@@ -153,18 +153,26 @@ const convertSvgToComponent = (svgPath, componentName, outputPath) => {
 };
 
 const cleanUp = (files) => {
+  let countErrors = 0;
+
   try {
     const eslintCmd = `npx eslint --fix --report-unused-disable-directives ${files.join(' ')}`;
     execSync(eslintCmd, { encoding: 'utf8', stdio: 'inherit' });
   } catch (error) {
-    console.error('👹 Oops! Lint fix failed due to', error.message);
+    console.warn('⚠️ Lint fix failed due to', error.message);
+    countErrors++;
   }
 
   try {
     const prettierCmd = `npx prettier --write --config .prettierrc ${files.join(' ')}`;
     execSync(prettierCmd, { encoding: 'utf8', stdio: 'inherit' });
   } catch (error) {
-    console.error('👹 Oops! Code format fix failed due to:', error.message);
+    console.error('⚠️Code format fix failed due to:', error.message);
+    countErrors++;
+  }
+
+  if (countErrors > 0) {
+    console.log('💡 Found some errors! In any case, you can test the component and make any further amends manually. If you find hard to troubleshoot report it immediately, please!');
   }
 };
 
