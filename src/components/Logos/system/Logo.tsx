@@ -8,18 +8,20 @@ import { SvgImageElement } from '../../commonElement';
 
 // TODO: This is introducing complexity and more to maintain
 // might be best to just deprecate (break change) instead of
-// keeping deprecated names
-// It's small find and replace on package update
-const LOGO_DEPRECATED_ALIASES: Record<string, LogoName> = {
-  'c#': 'c-sharp',
-} as const;
-
+// keeping deprecated names, it's small find and replace.
 const resolveLogoName = (name: string): LogoName => {
-  return LOGO_DEPRECATED_ALIASES[name] ?? (name as LogoName);
+  if (name === 'c#') {
+    console.warn('Logo name "c#" is deprecated, use "c-sharp" instead');
+    return 'c-sharp' as LogoName;
+  }
+  return name as LogoName;
 };
 
+/** @deprecated Use 'c-sharp' instead of 'c#' */
+type DeprecatedLogoName = 'c#';
+
 export interface LogoProps extends SVGAttributes<SVGElement> {
-  name: LogoName | keyof typeof LOGO_DEPRECATED_ALIASES;
+  name: LogoName | DeprecatedLogoName;
   theme?: 'light' | 'dark';
   size?: IconSize;
 }
