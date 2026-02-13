@@ -6,15 +6,30 @@ import { IconSize } from '@/components/Icon/types';
 import { LogoName } from './types';
 import { SvgImageElement } from '../../commonElement';
 
+// TODO: This is introducing complexity and more to maintain
+// might be best to just deprecate (break change) instead of
+// keeping deprecated names
+// It's small find and replace on package update
+const LOGO_DEPRECATED_ALIASES: Record<string, LogoName> = {
+  'c#': 'c-sharp',
+} as const;
+
+const resolveLogoName = (name: string): LogoName => {
+  return LOGO_DEPRECATED_ALIASES[name] ?? (name as LogoName);
+}
+
 export interface LogoProps extends SVGAttributes<SVGElement> {
-  name: LogoName;
+  name: LogoName | keyof typeof LOGO_DEPRECATED_ALIASES;
   theme?: 'light' | 'dark';
   size?: IconSize;
 }
 
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
-  const Component = (theme ?? themeName) === 'light' ? LogosLight[name] : LogosDark[name];
+  const resolvedName = resolveLogoName(name);
+  const Component = (theme ?? themeName) === 'light'
+    ? LogosLight[resolvedName]
+    : LogosDark[resolvedName];
 
   if (!Component) {
     return null;
@@ -25,7 +40,7 @@ const Logo = ({ name, theme, size, ...props }: LogoProps) => {
       as={Component}
       $size={size}
       role="img"
-      aria-label={name}
+      aria-label={resolvedName}
       {...props}
     />
   );
