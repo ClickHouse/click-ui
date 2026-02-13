@@ -199,8 +199,9 @@ if (!componentName) {
   componentName = toPascalCase(basename);
 }
 
-if (!componentName.match(/^[A-Z][a-zA-Z0-9]*$/)) {
-  console.error('👹 Oops! Component name must be PascalCase');
+if (!componentName.match(/^[A-Z][a-zA-Z0-9_-]*$/)) {
+  console.error('👹 Oops! The Logo component name must start with uppercase and use only letters, numbers, hyphens, or underscores.');
+
   process.exit(1);
 }
 
