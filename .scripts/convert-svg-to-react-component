@@ -172,7 +172,7 @@ const cleanUp = (files) => {
   }
 
   if (countErrors > 0) {
-    console.log('💡 Found some errors! In any case, you can test the component and make any further amends manually. If you find hard to troubleshoot report it immediately, please!');
+    console.log('💡 Found some issues! In any case, you can test the component and make any further amends manually. If you find hard to troubleshoot report it immediately, please!');
   }
 };
 
