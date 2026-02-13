@@ -120,7 +120,7 @@ const convertSvgToComponent = (svgPath, componentName, outputPath) => {
   try {
     output = execSync(cmd, { encoding: 'utf8' });
   } catch (error) {
-    console.error(`Failed to convert ${svgPath}:`, error.message);
+    console.error(`👹 Oops! Failed to convert ${svgPath}:`, error.message);
     process.exit(1);
   }
 
@@ -157,21 +157,21 @@ const cleanUp = (files) => {
     const eslintCmd = `npx eslint --fix --report-unused-disable-directives ${files.join(' ')}`;
     execSync(eslintCmd, { encoding: 'utf8', stdio: 'inherit' });
   } catch (error) {
-    console.error('ESLint fix failed:', error.message);
+    console.error('👹 Oops! Lint fix failed due to', error.message);
   }
 
   try {
     const prettierCmd = `npx prettier --write --config .prettierrc ${files.join(' ')}`;
     execSync(prettierCmd, { encoding: 'utf8', stdio: 'inherit' });
   } catch (error) {
-    console.error('Prettier fix failed:', error.message);
+    console.error('👹 Oops! Code format fix failed due to:', error.message);
   }
 };
 
 const args = process.argv.slice(2);
 
 if (args.length < 1) {
-  console.error('Error: SVG file path required');
+  console.error('👹 Oops! The SVG file path is required');
   process.exit(1);
 }
 
@@ -184,19 +184,20 @@ if (!componentName) {
 }
 
 if (!componentName.match(/^[A-Z][a-zA-Z0-9]*$/)) {
-  console.error('Error: Component name must be PascalCase');
+  console.error('👹 Oops! Component name must be PascalCase');
   process.exit(1);
 }
 
-const logoKey = toKebabCase(componentName);
 const outputPath = path.join(LOGOS_DIR, `${componentName}.tsx`);
 const typesPath = path.join(SYSTEM_DIR, 'types.ts');
 const lightFile = path.join(SYSTEM_DIR, 'LogosLight.ts');
 const darkFile = path.join(SYSTEM_DIR, 'LogosDark.ts');
+
+console.log(`🍩 Baking ${componentName}...`)
 
 convertSvgToComponent(svgPath, componentName, outputPath);
 generateLogoNameType();
 regenerateLogosRegistry();
 cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
-console.log(`✅ Logo conversion completed! Created ${componentName}.tsx`);
+console.log(`👍 Done! Created ${componentName}`);
