@@ -240,7 +240,7 @@ export const CardHorizontal = ({
   ...props
 }: CardHorizontalProps) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (disabled) {
+    if (disabled || !isSelectable) {
       e.preventDefault();
       return;
     }
