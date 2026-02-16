@@ -479,6 +479,9 @@ To keep active development moving while ensuring you can apply critical fixes wh
 
 This lets us experiment and iterate freely on Click UI while giving you or your team a quick path to deploy urgent fixes without waiting for the next major release cycle.
 
+> [!WARNING]
+> Always use `chore/vX.X.X` branches for maintenance work, not `changeset-release/v*` branches. The `changeset-release` branches are auto-generated during publishing, e.g. `changeset-release/v0.2.0-test.0`) and not meant for direct updates. All version-specific changes should go through `chore/vX.X.X` branches where the full commit history is tracked.
+
 ## Conventional commits
 
 We prefer to commit our work following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) conventions. Conventional Commits are a simple way to write commit messages that both people and computers can understand. It help us keep track fo changes in a consistent manner, making it easier to see what was added, changed, or fixed in each commit or update.
