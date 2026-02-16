@@ -446,6 +446,9 @@ Here's how it works:
 
 New features and improvements land in `main`, while critical bugs and security fixes get backported to whichever maintenance branch you're using.
 
+> [!NOTE]
+> While some changes might only make sense for a specific version, it's best practice to source fixes from `main` whenever possible. This keeps versions aligned and reduces diversion over time.
+
 Let's say that you need something specific for an older version, you can work in version isolation without pulling in changes from active development.
 
 Each release gets tagged and lives on its own version branch, e.g. `v1.5.0` making it easy to apply patches without forcing you to upgrade to the latest version.
