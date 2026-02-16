@@ -112,6 +112,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: ${{ steps.pr-details.outputs.title }}
           branch: ${{ steps.pr-details.outputs.branch }}
+          base: ${{ github.ref_name }}
           delete-branch: true
           title: ${{ steps.pr-details.outputs.title }}
           body: |
