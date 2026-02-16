@@ -42,6 +42,10 @@ You can find the official docs for the Click UI design system and component libr
 * [Release](#release)
   - [Required admin permissions](#required-admin-permissions)
   - [Create a new release pull request](#create-a-new-release-pull-request)
+  - [Publish](#publish)
+  - [Maintaining Multiple Versions](#maintaining-multiple-versions)
+  - [Release Cycle](#release-cycle)
+  - [Applying Fixes to Stable Versions](#applying-fixes-to-stable-versions)
 
 ## Requirements
 
@@ -413,6 +417,10 @@ You can find the pull requests in the GitHub tab [Pull Request](https://github.c
 > You will not have the ability to release "latest", if you haven't released a "pre-release" version, such as "test" or "rc (release candidate)". This is to help us improve quality!
 > Only choose "latest" if you're certain that your package release is stable, e.g. you've tested and gathered feedback from other user or consumers.
 
+Once the pull request is approved and merged, it'll trigger the release of a new version to [npm registry](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions).
+
+The process will also create a branch for long lived version maintenance support, e.g. `chore/v0.5.0-rc.1`.
+
 ### Publish
 
 Assuming that you have reviewed both the changelog entries, the version changes, adddressed any [Pull Request](#create-a-new-release-pull-request) comments and suggestions; and you're confident that all these are correct, and have made any necessary tweaks to changelogs, you can go ahead and squash and merge the pull request.
@@ -422,6 +430,54 @@ After the pull request is merged to main, the [release publisher](https://github
 If successful, you should see the new package version listed in npm [@clickhouse/click-ui](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions) versions tab.
 
 Consequently, a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) should exist containing all the generated release assets.
+
+### Maintaining Multiple Versions
+
+We maintain long-lived branches for each version, so you can get fixes without upgrading:
+
+```sh
+main → active development (the latest features)
+├── chore/v2.2.x → maintenance for v2.2.x releases
+├── chore/v1.x.x → maintenance for v1.x.x releases
+└── chore/v0.5.x → maintenance for v0.5.x releases
+```
+
+Here's how it works:
+
+New features and improvements land in `main`, while critical bugs and security fixes get backported to whichever maintenance branch you're using.
+
+Let's say that you need something specific for an older version, you can work in version isolation without pulling in changes from active development.
+
+Each release gets tagged and lives on its own version branch, e.g. `v1.5.0` making it easy to apply patches without forcing you to upgrade to the latest version.
+
+#### Release Cycle
+
+Our releases start from the `main` branch and go through a simple two-step process to help ensure quality:
+
+**Pre-release (test/rc)**
+
+1. Create a pre-release pull request, e.g. a test or release candidate (rc)
+2. The team reviews and provides feedback
+3. Once approved and merged, our release publisher pushes it to npm, e.g. `1.2.5-test.1`
+4. You can find all pre-release versions in the [npm package versions tab](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions)
+
+**Production release (latest)**
+
+1. Once a pre-release has been tested and available on stage, you can promote it to production
+2. Create a "latest" release PR for team review
+3. After approval and merge, the publisher strips the pre-release suffix and publishes the final version, e.g. `1.2.5-test.1` becomes `1.2.5`
+
+This workflow lets us test changes at any time before they reach production while keeping the process simple, inclusive and collaborative!
+
+#### Applying Fixes to Stable Versions
+
+To keep active development moving while ensuring you can apply critical fixes when needed, the Click UI team recommends the following approach:
+
+1. Choose the version needing a fix (e.g. `chore/v0.5.0`)
+2. Apply your changes, like backporting a security fix or updating a design token
+3. Create a new release from that branch
+
+This lets us experiment and iterate freely on Click UI while giving you or your team a quick path to deploy urgent fixes without waiting for the next major release cycle.
 
 ## Conventional commits
 
