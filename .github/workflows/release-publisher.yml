@@ -179,3 +179,50 @@ jobs:
           prerelease: ${{ steps.package-info.outputs.prerelease }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create or update maintenance branch
+        if: steps.verify-merge.outputs.is_release == 'true'
+        run: |
+          VERSION="${{ steps.verify-merge.outputs.version }}"
+          COMMIT_SHA="${{ github.sha }}"
+
+          BASE_VERSION=$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
+
+          echo "🔧 Creating or updating maintenance branch..."
+          echo "🤖 Version is $VERSION"
+          echo "🤖 Base version is $BASE_VERSION"
+          echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
+            echo "📋 Maintenance branch '$MAINTENANCE_BRANCH' already exists"
+            echo "🔄 Updating branch with new release commit..."
+
+            git fetch origin "$MAINTENANCE_BRANCH:$MAINTENANCE_BRANCH"
+
+            git checkout "$MAINTENANCE_BRANCH"
+
+            echo "➡️  Attempting to merge $COMMIT_SHA into $MAINTENANCE_BRANCH..."
+
+            if git merge "$COMMIT_SHA" -m "chore: merge release v$VERSION into $MAINTENANCE_BRANCH"; then
+              echo "✅ Successfully merged release v$VERSION"
+
+              git push origin "$MAINTENANCE_BRANCH"
+              echo "✅ Updated maintenance branch '$MAINTENANCE_BRANCH'"
+            else
+              echo "👹 Oops! Merge failed, conflicts detected..."
+              echo "💡 Please manually resolve the conflicts and push to $MAINTENANCE_BRANCH and try again..."
+              exit 1
+            fi
+          else
+            echo "📋 Maintenance branch '$MAINTENANCE_BRANCH' does not exist"
+            echo "🆕 Creating new maintenance branch from commit $COMMIT_SHA..."
+
+            git checkout -b "$MAINTENANCE_BRANCH" "$COMMIT_SHA"
+
+            git push origin "$MAINTENANCE_BRANCH"
+            echo "✅ Created maintenance branch '$MAINTENANCE_BRANCH'"
+          fi
