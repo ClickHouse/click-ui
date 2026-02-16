@@ -50,6 +50,29 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Maintenance branch safeguard check
+        if: steps.verify-merge.outputs.is_release == 'true'
+        run: |
+          VERSION="${{ steps.verify-merge.outputs.version }}"
+          CURRENT_BRANCH="${{ github.ref_name }}"
+
+          BASE_VERSION=$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
+
+          echo "🔍 Checking maintenance branch safeguard..."
+          echo "🤖 Current branch is $CURRENT_BRANCH"
+          echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
+
+          if [[ "$CURRENT_BRANCH" == "main" ]]; then
+            if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
+              echo "👹 Oops! Maintenance branch '$MAINTENANCE_BRANCH' already exists."
+              echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance, please!"
+              exit 1
+            fi
+          fi
+
+          echo "✅ Maintenance branch safeguard passed"
+
       - name: Skip if not release
         if: steps.verify-merge.outputs.is_release == 'false'
         run: |
