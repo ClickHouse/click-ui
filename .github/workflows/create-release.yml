@@ -84,6 +84,13 @@ jobs:
           echo "🤖 Entering ${{ inputs.release_type }} prerelease mode"
           yarn changeset pre enter ${{ inputs.release_type }}
 
+      - name: Validate latest release eligibility
+        if: inputs.release_type == 'latest' && steps.check-prerelease.outputs.prerelease != 'true'
+        run: |
+          echo "👹 Oops! Cannot release 'latest' without a pre-release version first..."
+          echo "💡 You must release through 'test' or 'rc' before creating a stable release."
+          exit 1
+
       - name: Confirm production release
         if: inputs.release_type == 'latest'
         run: |
