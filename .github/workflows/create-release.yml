@@ -34,6 +34,13 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
+      - name: Generate GitHub workflow token
+        id: gh-workflow-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
@@ -109,7 +116,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.gh-workflow-token.outputs.token }}
           commit-message: ${{ steps.pr-details.outputs.title }}
           branch: ${{ steps.pr-details.outputs.branch }}
           delete-branch: true
