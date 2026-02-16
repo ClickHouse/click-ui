@@ -21,7 +21,8 @@ import { SearchField } from '@/components/Input';
 
 import { Separator } from '@/components/Separator';
 
-import { Icon, IconName } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
+import type { ImageName } from '@/components/Icon/types';
 
 import { styled } from 'styled-components';
 import { GenericMenuItem } from '../GenericMenu';
@@ -41,7 +42,7 @@ interface SelectItemComponentProps extends Omit<
   disabled?: boolean;
   onSelect?: (value: string) => void;
   value: string;
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
 }
 
