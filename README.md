@@ -389,11 +389,13 @@ Once the artifacts and version bump is completed, the package can be published t
 
 The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub ascitons as a trusted publisher in NPM package settings.
 
-#### GitHub Workflow permissons
+#### GitHub Workflow Permissions
 
-Set the [workflow permissions](https://github.com/Clickhouse/click-ui/settings/actions) as:
-- Select "Read and write" and "Read repository contents"
-- Check the box "Allow GitHub actions to create and approve pull requests"
+This workflow requires permissions to "Create pull requests", which can be configured in [workflow permissions](https://github.com/Clickhouse/click-ui/settings/actions).
+
+If you don't have permission to change these settings, you can use workflow authentication to generate a GitHub token as described [here](https://github.com/apps/workflow-authentication-public). This will generate a short-lived access token that grants the workflow "create pull requests" permission.
+
+For more detailed information about `actions/create-github-app-token`, see the documentation [here](https://github.com/actions/create-github-app-token).
 
 #### NPM Trusted publisher
 
