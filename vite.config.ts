@@ -160,16 +160,23 @@ const viteConfig = defineConfig({
       ],
     },
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   build: buildOptions,
 });
 
 const vitestConfig = defineVitestConfig({
   test: {
     environment: 'jsdom',
-    include: ['**/*.test.{ts,tsx}'],
+    // TODO: Note that currently, the pw visual regression tests
+    // are kept separate, see ./tests
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['node_modules', 'dist', 'build', 'storybook-static', '.storybook'],
     globals: true,
     watch: false,
-    exclude: ['node_modules'],
     setupFiles: ['@testing-library/jest-dom', './setupTests.ts'],
   },
 });

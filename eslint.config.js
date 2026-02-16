@@ -20,6 +20,8 @@ export default tseslint.config(
       sourceType: 'module',
       parser: tseslint.parser,
       parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },
@@ -113,6 +115,7 @@ export default tseslint.config(
         },
       ],
       'import/no-self-import': 'error',
+      '@typescript-eslint/no-deprecated': 'warn',
     },
   },
   // Special config for test files

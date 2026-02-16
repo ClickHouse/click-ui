@@ -36,7 +36,7 @@ export { getPredefinedMonthsForDateRangePicker } from '@/components/DatePicker/u
 export { Dialog } from '@/components/Dialog';
 export { EllipsisContent } from '@/components/EllipsisContent';
 export { FileUpload } from '@/components/FileUpload';
-export { FileMultiUpload } from '@/components/FileUpload/FileMultiUpload';
+export { FileMultiUpload } from '@/components/FileUpload';
 export { Flyout } from '@/components/Flyout';
 export { FormContainer } from '@/components/FormContainer';
 export { GridContainer } from '@/components/GridContainer';

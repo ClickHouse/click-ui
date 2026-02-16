@@ -18,10 +18,13 @@ You can find the official docs for the Click UI design system and component libr
 ## Overview
 
 * [Requirements](#requirements)
+* [Quick Start](#quick-start)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
-  - [Local development server](#local-development-server)
+  - [Local development](#local-development)
 * [Tests](#Tests)
+  - [Functional tests](#functional-tests)
+  - [Visual regression tests](#visual-regression-tests)
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
@@ -30,12 +33,45 @@ You can find the official docs for the Click UI design system and component libr
   - [Use Click UI](#use-click-ui)
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
-  - [Releases and Versions](#releases-and-versions)
+* [Assets Management](#assets-management)
+  - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
+* [Changesets](#changesets)
+  - [Add a new changeset](#add-a-new-changeset)
+  - [Checking the changeset status](#checking-the-changeset-status)
+  - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
+* [Release](#release)
+  - [Required admin permissions](#required-admin-permissions)
+  - [Create a new release pull request](#create-a-new-release-pull-request)
 
 ## Requirements
 
 - Nodejs (>= 22.12.x) as runtime
 - Yarn (>= 4.5.3) for development, any other package manager in a host project
+
+## Quick Start
+
+Install the package via npm or your favourite package manager:
+
+```sh
+npm i @clickhouse/click-ui@latest
+```
+
+To use Click UI, you must wrap your application in the provider. This ensures styles and themes are applied correctly across all components.
+
+```ts
+import { ClickUIProvider, Title, Text } from '@clickhouse/click-ui'
+
+function App() {
+  return (
+    <ClickUIProvider theme="dark">
+      <Title type="h1">Hello ClickHouse</Title>
+      <Text>Start building today!</Text>
+    </ClickUIProvider>
+  )
+}
+```
+
+For more examples, including theme switching and configuration, see the [How to](#how-to-use) use section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Development
 
@@ -56,28 +92,75 @@ It's expected to have theme tokens provided externally, e.g. Figma tokens-studio
 Once [./tokens/themes] files are updated, we must regenerate the tokens:
 
 ```sh
-yarn generate-tokens
+yarn generate:tokens
 ```
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
-### Local development server
+### Local development
 
-To run the Click UI development execute the command:
+We leverage Storybook as our primary development environment and documentation, see [Storybook](#storybook).
+
+You can start the Storybook development server by:
 
 ```sh
 yarn dev
 ```
 
-It'll default to the location [http://localhost:5173](http://localhost:5173), if port available.
+
+We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
+
+> [!IMPORTANT]
+> We operate collaboratively with the Product Design team. While stories reflect the current implementation (live), Figma files remain the source of truth for design research and decision-making. Changes are typically finalized in Figma before being implemented in code to ensure design-sync.
+
+By avoiding local preview files, we ensure that component experimentation happens in isolation; free from application side effects and providing a live look at component interfaces and usage examples at time of writing.
+
+> [!NOTE]
+> To ensure stability, we utilize Visual Regression and Unit Testing, see [tests](#tests). When contributing features or tweaks, you're expected to include or update the relevant tests to maintain stability, e.g. remember the components are consumed by a number of applications.
+
+To get started with the development playground, refer to the Storybook section [here](#storybook).
 
 ## Tests
+
+### Functional tests
 
 The package uses [vitest](https://vitest.dev/) and [react testing library](https://testing-library.com) for tests, e.g. functional tests.
 
 ```sh
 yarn test
 ```
+
+### Visual regression tests
+
+The project uses [Chromatic](https://www.chromatic.com/) for visual regression testing of UI components.
+
+It captures screenshots of Storybook and compares them across builds to detect unintended visual changes by:
+
+- Automated visual testing in GitHub CI/CD pipeline, e.g. storybook publish, UI tests
+- Leveraging storybook stories
+- Provides visual diff reviews and approval workflows
+- Helps catch UI bugs
+
+To setup, you must get a team member project token.
+
+Add the token as an environment variable to your environment preference or profile, e.g. `~/.zshrc`:
+
+```sh
+export CHROMATIC_PROJECT_TOKEN=<YOUR-TOKEN-HERE>
+```
+
+Once ready, you can run tests by:
+
+```sh
+yarn test:chromatic
+```
+> [!NOTE]
+> Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
+> - Build status, e.g. uploading or testing
+> - Link to the cloud runner or dashboard
+> - Exit code
+
+If you need quicker iteration feedback, or more testing control during local development, read [here](./docs/tests/playwright.md)
 
 ## Storybook
 
@@ -107,7 +190,7 @@ Once built, you can serve the static files by:
 yarn storybook:serve
 ```
 
-### Public static version
+### Public Static Site
 
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
@@ -172,13 +255,13 @@ yarn build
 ```
 
 > [!NOTE]
-> Optimisations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
 
 ### Use Click UI
 
 Navigate to your app's work directory and add the package.
 
-Here, we use `yarn` but you can use your favourite package manager, e.g. pnpm.
+Here, we use `yarn` but you can use your favorite package manager, e.g. pnpm.
 
 ```sh
 yarn add @clickhouse/click-ui
@@ -201,7 +284,7 @@ export default () => {
 }
 ```
 
-After, you are able to import your favourite [Click UI components](https://clickhouse.design/click-ui).
+After, you are able to import your favorite [Click UI components](https://clickhouse.design/click-ui).
 
 ```js
 import { ClickUIProvider, Title } from '@clickhouse/click-ui'
@@ -260,11 +343,84 @@ function App() {
 export default App
 ```
 
-### Releases and Versions
+## Assets management
 
-New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
+The Click UI has image asset files, such as icons or logos.
 
-To create a new release and publish a new version, follow the instructions in [publish.md](./docs/publish.md).
+Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
+
+### Add new SVG logo or icon
+
+Here are some steps, to help you transform the Figma asset into a React Component:
+
+1) In Figma project, select and export the target image/icon, e.g. these are generally contained in a square container (64x64)
+2) Store the file in your local file system in a memorable location
+3) Use a tool to transform SVG to React JSX, e.g. [react-svgr](https://react-svgr.com/playground/)
+4) Create a new file in `src/components/Logos`, e.g. name it by the company name
+5) Modify the `<svg>` node, it should set the size to 64x64 as the original Figma container:
+
+> [!NOTE]
+> Notice the viewBox values, it should contain the same values from the sourced file 64x64, e.g. "0 0 64 64", if it hasn't make sure you are exporting it correctly, or the original file has the correct container width and height
+
+```tsx
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  {...props}
+>
+```
+
+6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
+7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
+
+
+## Release
+
+**TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
+
+You're expected to [create a new version](#create-a-new-version-and-changelogs), which will consume all changesets, and update to the most appropriate semantic version (semver) based on those changesets; which also writes changelog entries for each consumed changeset file content.
+
+Once the artifacts and version bump is completed, the package can be published to npm. Doing all of this manually can be tedious and prone to mistakes, as such, we have a GitHub action that creates a Pull request containing all of this for team review; And once approved, another GitHub action that publishes the package to npm and creates a GitHub release.
+
+### Required admin permissions
+
+The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub ascitons as a trusted publisher in NPM package settings.
+
+#### GitHub Workflow permissons
+
+Set the [workflow permissions](https://github.com/Clickhouse/click-ui/settings/actions) as:
+- Select "Read and write" and "Read repository contents"
+- Check the box "Allow GitHub actions to create and approve pull requests"
+
+#### NPM Trusted publisher
+
+Add GitHub actions as a trusted publisher on [NPM package settings](https://www.npmjs.com/package/@clickhouse/click-ui). Make sure you select the provider "GitHub Actions", enter the repository "Clickhouse/click-ui" and finally the workflow name as "release-publisher.yml".
+
+### Create a new release Pull Request
+
+Consuming changesets is done automatically in the CI/CD environmment.
+
+To create a new release, locate the [create release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) and use the interface to select the release type, e.g. release candidate (rc), testing, or latest.
+
+It'll create a new Pull request for review, e.g. changelog, version bump, etc. There, you have the opportunity to make any further tweaks, refinements and check if everything's correct.
+
+You can find the pull requests in the GitHub tab [Pull Request](https://github.com/ClickHouse/click-ui/pulls). E.g. let's say you're about to release v0.1.0-rc.1, you'd find `chore: 🤖 release v0.1.0-rc.1 (rc)`.
+
+> [!WARNING]
+> Only choose "latest" if you're certain that your package release is stable, e.g. you've tested and gathered feedback from other user or consumers.
+
+### Publish
+
+Assuming that you have reviewed both the changelog entries, the version changes, adddressed any [Pull Request](#create-a-new-release-pull-request) comments and suggestions; and you're confident that all these are correct, and have made any necessary tweaks to changelogs, you can go ahead and squash and merge the pull request.
+
+After the pull request is merged to main, the [release publisher](https://github.com/ClickHouse/click-ui/actions/workflows/release-publisher.yml) should be triggered automatically and publish the package to npm.
+
+If successful, you should see the new package version listed in npm [@clickhouse/click-ui](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions) versions tab.
+
+Consequently, a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) should exist containing all the generated release assets.
 
 ## Conventional commits
 
