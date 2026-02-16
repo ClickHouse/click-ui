@@ -67,14 +67,15 @@ jobs:
             echo "✅ Exited pre-release mode"
           fi
 
-      - name: Enter prerelease mode
-        if: inputs.release_type != 'latest'
+      - name: Switch prerelease mode
+        if: steps.check-prerelease.outputs.prerelease == 'true' && steps.check-prerelease.outputs.current_tag != inputs.release_type && inputs.release_type != 'latest'
         run: |
-          if [[ ! -f .changeset/pre.json ]] || [[ "${{ steps.check-prerelease.outputs.current_tag }}" != "${{ inputs.release_type }}" ]]; then
-            echo "🤖 Entering ${{ inputs.release_type }} prerelease mode"
-            yarn changeset pre enter ${{ inputs.release_type }}
+          echo "🔄 Switching from ${{ steps.check-prerelease.outputs.current_tag }} to ${{ inputs.release_type }} prerelease mode"
+          if ! yarn changeset pre exit; then
+            echo "👹 Oops! Failed to exit current prerelease mode for some reason..."
+            exit 1
           else
-            echo "✅ Already in ${{ inputs.release_type }} prerelease mode"
+            echo "✅ Exited ${{ steps.check-prerelease.outputs.current_tag }} prerelease mode"
           fi
 
       - name: Confirm production release
