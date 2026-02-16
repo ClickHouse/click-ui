@@ -78,6 +78,12 @@ jobs:
             echo "✅ Exited ${{ steps.check-prerelease.outputs.current_tag }} prerelease mode"
           fi
 
+      - name: Enter prerelease mode
+        if: inputs.release_type != 'latest' && (steps.check-prerelease.outputs.prerelease != 'true' || steps.check-prerelease.outputs.current_tag != inputs.release_type)
+        run: |
+          echo "🤖 Entering ${{ inputs.release_type }} prerelease mode"
+          yarn changeset pre enter ${{ inputs.release_type }}
+
       - name: Confirm production release
         if: inputs.release_type == 'latest'
         run: |
