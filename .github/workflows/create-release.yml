@@ -8,10 +8,10 @@ on:
         required: true
         type: choice
         options:
-          - latest
-          - rc
           - test
-        default: 'rc'
+          - rc
+          - latest
+        default: 'test'
 
 jobs:
   create-release-pr:

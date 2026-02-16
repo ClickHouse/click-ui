@@ -410,6 +410,7 @@ It'll create a new Pull request for review, e.g. changelog, version bump, etc. T
 You can find the pull requests in the GitHub tab [Pull Request](https://github.com/ClickHouse/click-ui/pulls). E.g. let's say you're about to release v0.1.0-rc.1, you'd find `chore: 🤖 release v0.1.0-rc.1 (rc)`.
 
 > [!WARNING]
+> You will not have the ability to release "latest", if you haven't released a "pre-release" version, such as "test" or "rc (release candidate)". This is to help us improve quality!
 > Only choose "latest" if you're certain that your package release is stable, e.g. you've tested and gathered feedback from other user or consumers.
 
 ### Publish
