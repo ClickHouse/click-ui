@@ -19,7 +19,7 @@ In the root of Click UI repository, you'd run:
 yarn convert:logo ~/Downloads/click-ui.svg
 ```
 
-Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flags` or `convert:icons`.
+Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flag` or `convert:icon`.
 
 The component name is auto-detected from filename (converted to PascalCase), e.g. `my-logo.svg` becomes `MyLogo.tsx` and `aws-s3.svg` becomes `AwsS3.tsx`.
 

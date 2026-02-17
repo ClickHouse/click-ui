@@ -369,7 +369,7 @@ Or provide explicit component name:
 yarn convert:logo ~/Downloads/click-ui.svg Click_UI
 ```
 
-Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flags` or `convert:icons`.
+Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flag` or `convert:icon`.
 
 For more detailed instructions, see [converting SVG to React Components](./docs/converting-svg-to-react-components).
 
