@@ -211,6 +211,18 @@ if (!componentName.match(/^[A-Z][a-zA-Z0-9_-]*$/)) {
   process.exit(1);
 }
 
+if (type === 'icons' && componentName.length > 1) {
+  const hasMultipleWords = componentName.includes('-');
+  const isCamelCase = componentName.match(/[a-z][A-Z]/);
+
+  if (isCamelCase && !hasMultipleWords) {
+    console.error(`👹 Icon name "${componentName}" must use dashes to separate words (e.g., Arrow-Down not ArrowDown).`);
+    console.error(`   This ensures consistent kebab-case registry keys (e.g., 'arrow-down').`);
+    console.error(`   Suggested name: ${componentName.replace(/([a-z])([A-Z])/g, '$1-$2')}`);
+    process.exit(1);
+  }
+}
+
 const outputPath = path.join(config.dir, `${componentName}.tsx`);
 const systemDir = path.join(config.dir, 'system');
 const typesPath = path.join(systemDir, 'types.ts');
