@@ -42,9 +42,9 @@ import Chart_Stacked_Vertical from '../Chart-Stacked-Vertical';
 import Chat from '../Chat';
 import Check from '../Check';
 import Check_In_Circle from '../Check-In-Circle';
-import { Chevron_Down } from '../Chevron-Down';
+import Chevron_Down from '../Chevron-Down';
 import Chevron_Left from '../Chevron-Left';
-import { Chevron_Right } from '../Chevron-Right';
+import Chevron_Right from '../Chevron-Right';
 import Chevron_Up from '../Chevron-Up';
 import Circle from '../Circle';
 import Clock from '../Clock';
@@ -160,6 +160,7 @@ import Stop from '../Stop';
 import Support from '../Support';
 import Table from '../Table';
 import Taxi from '../Taxi';
+import Test from '../Test';
 import Text_Slash from '../Text-Slash';
 import Thumbs_Down from '../Thumbs-Down';
 import Thumbs_Up from '../Thumbs-Up';
@@ -169,8 +170,8 @@ import Underline from '../Underline';
 import Upgrade from '../Upgrade';
 import Upload from '../Upload';
 import Url from '../Url';
-import { User } from '../User';
-import { Users } from '../Users';
+import User from '../User';
+import Users from '../Users';
 import Warning from '../Warning';
 import Waves from '../Waves';
 import { IconName, IconThemeProps } from './types';
@@ -334,6 +335,7 @@ const IconsDark: Record<
   'support': Support,
   'table': Table,
   'taxi': Taxi,
+  'test': Test,
   'text-slash': Text_Slash,
   'thumbs-down': Thumbs_Down,
   'thumbs-up': Thumbs_Up,

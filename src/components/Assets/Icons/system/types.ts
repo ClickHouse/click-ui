@@ -157,6 +157,7 @@ export type IconName =
   | 'support'
   | 'table'
   | 'taxi'
+  | 'test'
   | 'text-slash'
   | 'thumbs-down'
   | 'thumbs-up'

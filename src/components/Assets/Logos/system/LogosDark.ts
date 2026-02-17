@@ -1,7 +1,7 @@
 /*
  ** WARNING: Auto-generated file!
- ** Do NOT modify it, you changes will be lost!
- ** If you're finding need to modify manually
+ ** Do NOT modify it, your changes will be lost!
+ ** If you find need to modify manually,
  ** report the issue immediately.
  */
 
@@ -26,9 +26,9 @@ import ClickhouseLight from '../ClickhouseLight';
 import Cloudflare from '../Cloudflare';
 import Confluent from '../Confluent';
 import Crunchy_Bridge from '../Crunchy_Bridge';
-import Databricks from '../Databricks';
-import DataGrip from '../DataGrip';
 import dBeaver from '../dBeaver';
+import DataGrip from '../DataGrip';
+import Databricks from '../Databricks';
 import Dbt from '../Dbt';
 import Decodeable from '../Decodeable';
 import DeepNote from '../DeepNote';
@@ -74,16 +74,20 @@ import Supabase from '../Supabase';
 import Superset from '../Superset';
 import TableauDark from '../TableauDark';
 import TableauLight from '../TableauLight';
+import TestFlag from '../TestFlag';
 import TigerData from '../TigerData';
 import Upstash from '../Upstash';
 import Vector from '../Vector';
 import WarpStream from '../WarpStream';
 import { LogoName, LogoThemeProps } from './types';
 
-const LogosDark: Record<LogoName, (props: LogoThemeProps) => React.JSX.Element> = {
-  airbyte: Airbyte,
-  alloydb: AlloyDB,
-  aws: AWS,
+const LogosDark: Record<
+  LogoName,
+  (props: LogoThemeProps) => React.JSX.Element
+> = {
+  'airbyte': Airbyte,
+  'alloy-db': AlloyDB,
+  'aws': AWS,
   'aws-athena': AWS_ATHENA,
   'aws-aurora': AWS_AURORA,
   'aws-glue': AWS_GLUE,
@@ -92,68 +96,69 @@ const LogosDark: Record<LogoName, (props: LogoThemeProps) => React.JSX.Element> 
   'aws-rds': AWS_RDS,
   'aws-redshift': AWS_REDSHIFT,
   'aws-s3': AWS_S3,
-  azure: Azure,
+  'azure': Azure,
   'azure-blob-storage': Azure_Blob_Storage,
   'azure-event-hub': Azure_Event_Hub,
-  bigquery: BigQuery,
+  'big-query': BigQuery,
   'c-sharp': C_SHARP,
-  clickhousedark: ClickhouseDark,
-  clickhouselight: ClickhouseLight,
-  cloudflare: Cloudflare,
-  confluent: Confluent,
+  'clickhouse-dark': ClickhouseDark,
+  'clickhouse-light': ClickhouseLight,
+  'cloudflare': Cloudflare,
+  'confluent': Confluent,
   'crunchy-bridge': Crunchy_Bridge,
-  databricks: Databricks,
-  datagrip: DataGrip,
-  dbeaver: dBeaver,
-  dbt: Dbt,
-  decodeable: Decodeable,
-  deepnote: DeepNote,
-  deltalake: DeltaLake,
-  digitalocean: DigitalOcean,
-  featuredatabasedark: FeatureDatabaseDark,
-  featuredatabaselight: FeatureDatabaseLight,
-  featurehexagondark: FeatureHexagonDark,
-  featurehexagonlight: FeatureHexagonLight,
-  fivetran: Fivetran,
-  gcp: Gcp,
-  gcs: GCS,
-  githubdark: GithubDark,
-  githublight: GithubLight,
-  golang: GoLang,
-  google: Google,
-  grafana: Grafana,
-  hex: Hex,
-  hudi: Hudi,
-  iceberg: Iceberg,
-  jdbc: Jdbc,
-  kafkadark: KafkaDark,
-  kafkalight: KafkaLight,
-  kubenetes: Kubenetes,
-  mariadb: MariaDB,
-  metabase: Metabase,
-  microsoft: Microsoft,
-  mongodb: MongoDb,
-  mysql: MySQL,
-  neondb: NeonDB,
-  nessie: Nessie,
-  nodejs: NodeJs,
-  onelake: OneLake,
-  ovh: OVH,
-  postgres: Postgres,
-  prequel: Prequel,
-  python: Python,
-  redpanda: Redpanda,
-  rustdark: RustDark,
-  rustlight: RustLight,
-  snowflake: Snowflake,
-  supabase: Supabase,
-  superset: Superset,
-  tableaudark: TableauDark,
-  tableaulight: TableauLight,
-  tigerdata: TigerData,
-  upstash: Upstash,
-  vector: Vector,
-  warpstream: WarpStream,
+  'd-beaver': dBeaver,
+  'data-grip': DataGrip,
+  'databricks': Databricks,
+  'dbt': Dbt,
+  'decodeable': Decodeable,
+  'deep-note': DeepNote,
+  'delta-lake': DeltaLake,
+  'digital-ocean': DigitalOcean,
+  'feature-database-dark': FeatureDatabaseDark,
+  'feature-database-light': FeatureDatabaseLight,
+  'feature-hexagon-dark': FeatureHexagonDark,
+  'feature-hexagon-light': FeatureHexagonLight,
+  'fivetran': Fivetran,
+  'gcp': Gcp,
+  'gcs': GCS,
+  'github-dark': GithubDark,
+  'github-light': GithubLight,
+  'go-lang': GoLang,
+  'google': Google,
+  'grafana': Grafana,
+  'hex': Hex,
+  'hudi': Hudi,
+  'iceberg': Iceberg,
+  'jdbc': Jdbc,
+  'kafka-dark': KafkaDark,
+  'kafka-light': KafkaLight,
+  'kubenetes': Kubenetes,
+  'maria-db': MariaDB,
+  'metabase': Metabase,
+  'microsoft': Microsoft,
+  'mongo-db': MongoDb,
+  'my-sql': MySQL,
+  'neon-db': NeonDB,
+  'nessie': Nessie,
+  'node-js': NodeJs,
+  'one-lake': OneLake,
+  'ovh': OVH,
+  'postgres': Postgres,
+  'prequel': Prequel,
+  'python': Python,
+  'redpanda': Redpanda,
+  'rust-dark': RustDark,
+  'rust-light': RustLight,
+  'snowflake': Snowflake,
+  'supabase': Supabase,
+  'superset': Superset,
+  'tableau-dark': TableauDark,
+  'tableau-light': TableauLight,
+  'test-flag': TestFlag,
+  'tiger-data': TigerData,
+  'upstash': Upstash,
+  'vector': Vector,
+  'warp-stream': WarpStream,
 };
 
 export default LogosDark;

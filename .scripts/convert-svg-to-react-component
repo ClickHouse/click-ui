@@ -49,12 +49,7 @@ const ASSET_TYPES = {
 };
 
 const getAssetType = (args) => {
-  const typeFlag = args.find(arg => arg.startsWith('--type='));
-
-  if (!typeFlag) {
-    console.error(`👹 Oops! Missing asset type...`);
-    process.exit(1);
-  }
+  const typeFlag = args.find(arg => arg && arg.startsWith('--type='));
 
   const type = typeFlag.replace('--type=', '');
 
@@ -198,9 +193,17 @@ const cleanUp = (files) => {
   }
 };
 
-const args = process.argv.slice(2);
+let args = process.argv.slice(2);
 
-if (args.length < 1 || args[0].startsWith('--')) {
+// WARN: Do not change as this extracts and removes the --type flag from args if present, to allow args in package.json scripts
+const typeFlagIndex = args.findIndex(arg => arg.startsWith('--type='));
+let typeFlag = null;
+if (typeFlagIndex !== -1) {
+  typeFlag = args[typeFlagIndex];
+  args = args.filter((_, i) => i !== typeFlagIndex);
+}
+
+if (args.length < 1) {
   console.error('👹 Oops! The SVG file path is required');
   console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
   process.exit(1);
@@ -208,7 +211,8 @@ if (args.length < 1 || args[0].startsWith('--')) {
 
 const svgPath = args[0];
 let componentName = args[1];
-const { type, config } = getAssetType(args);
+
+const { type, config } = getAssetType(typeFlag ? [typeFlag] : []);
 
 if (!componentName) {
   const basename = path.basename(svgPath, '.svg');
