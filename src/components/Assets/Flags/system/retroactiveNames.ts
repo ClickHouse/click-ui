@@ -46,6 +46,7 @@ export const FLAG_NAME_RETRO_MAP: Record<string, FlagName> = {
   UnitedStates: 'united-states',
 };
 
+/** @deprecated Use lower case kebab naming, e.g. 'my-country-name' instead */
 export type DeprecatedFlagName = keyof typeof FLAG_NAME_RETRO_MAP;
 
 export const resolveFlagName = (name: string): FlagName => {
