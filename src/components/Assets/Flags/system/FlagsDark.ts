@@ -8,7 +8,6 @@
 import Australia from '../Australia';
 import Brazil from '../Brazil';
 import Canada from '../Canada';
-import Carrot_super_logo from '../Carrot_super_logo';
 import European_Union from '../European-Union';
 import Germany from '../Germany';
 import Great_Britain from '../Great-Britain';
@@ -31,29 +30,25 @@ import { FlagName } from './types';
 import type { SVGAssetProps } from '../../types';
 import type { ComponentType } from 'react';
 
-const FlagsLight: Record<
-  FlagName,
-  ComponentType<SVGAssetProps>
-> = {
-  'australia': Australia,
-  'brazil': Brazil,
-  'canada': Canada,
-  'carrot-super-logo': Carrot_super_logo,
+const FlagsLight: Record<FlagName, ComponentType<SVGAssetProps>> = {
+  australia: Australia,
+  brazil: Brazil,
+  canada: Canada,
   'european-union': European_Union,
-  'germany': Germany,
+  germany: Germany,
   'great-britain': Great_Britain,
   'hong-kong': Hong_Kong,
-  'india': India,
-  'indonesia': Indonesia,
-  'ireland': Ireland,
-  'israel': Israel,
-  'japan': Japan,
-  'netherlands': Netherlands,
-  'singapore': Singapore,
+  india: India,
+  indonesia: Indonesia,
+  ireland: Ireland,
+  israel: Israel,
+  japan: Japan,
+  netherlands: Netherlands,
+  singapore: Singapore,
   'south-africa': South_Africa,
   'south-korea': South_Korea,
-  'sweden': Sweden,
-  'switzerland': Switzerland,
+  sweden: Sweden,
+  switzerland: Switzerland,
   'united-arab-emirates': United_Arab_Emirates,
   'united-kingdom': United_Kingdom,
   'united-states': United_States,

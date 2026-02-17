@@ -4,7 +4,6 @@ export type FlagName =
   | 'australia'
   | 'brazil'
   | 'canada'
-  | 'carrot-super-logo'
   | 'european-union'
   | 'germany'
   | 'great-britain'
