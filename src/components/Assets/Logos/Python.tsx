@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Python = (props: LogoThemeProps) => (
+const Python = (props: SVGAssetProps) => (
   <svg
     width="65"
     height="64"

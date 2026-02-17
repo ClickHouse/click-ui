@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Chat = (props: SVGAttributes<SVGElement>) => (
+const Chat = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

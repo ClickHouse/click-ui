@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Moon = (props: SVGAttributes<SVGElement>) => (
+const Moon = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

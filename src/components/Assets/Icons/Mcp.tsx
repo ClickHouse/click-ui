@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Mcp = (props: SVGAttributes<SVGElement>) => (
+const Mcp = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Minus = (props: SVGAttributes<SVGElement>) => (
+const Minus = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

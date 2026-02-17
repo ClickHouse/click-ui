@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Tree_Structure = (props: SVGAttributes<SVGElement>) => (
+const Tree_Structure = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

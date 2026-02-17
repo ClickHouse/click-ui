@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Upgrade = (props: SVGAttributes<SVGElement>) => (
+const Upgrade = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

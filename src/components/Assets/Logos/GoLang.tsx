@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const GoLang = (props: LogoThemeProps) => (
+const GoLang = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Info_In_Circle = (props: SVGAttributes<SVGElement>) => (
+const Info_In_Circle = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

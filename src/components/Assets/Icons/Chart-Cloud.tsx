@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Chart_Cloud = (props: SVGAttributes<SVGElement>) => (
+const Chart_Cloud = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

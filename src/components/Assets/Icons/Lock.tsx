@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Lock = (props: SVGAttributes<SVGElement>) => (
+const Lock = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

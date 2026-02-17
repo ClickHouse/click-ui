@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Chart_Scatter = (props: SVGAttributes<SVGElement>) => (
+const Chart_Scatter = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

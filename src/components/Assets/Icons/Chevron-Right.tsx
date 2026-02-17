@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-export const Chevron_Right = (props: SVGAttributes<SVGElement>) => (
+export const Chevron_Right = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

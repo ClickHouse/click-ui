@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Bold = (props: SVGAttributes<SVGElement>) => (
+const Bold = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Italic = (props: SVGAttributes<SVGElement>) => (
+const Italic = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

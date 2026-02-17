@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Dots_Triangle = (props: SVGAttributes<SVGElement>) => (
+const Dots_Triangle = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

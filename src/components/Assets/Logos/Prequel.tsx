@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Prequel = (props: LogoThemeProps) => (
+const Prequel = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

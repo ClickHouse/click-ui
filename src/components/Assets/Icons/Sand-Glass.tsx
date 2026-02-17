@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Sand_Glass = (props: SVGAttributes<SVGElement>) => (
+const Sand_Glass = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

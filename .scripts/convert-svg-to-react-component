@@ -28,21 +28,18 @@ const ASSET_TYPES = {
   logos: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Logos'),
     typeName: 'LogoName',
-    themePropsType: 'LogoThemeProps',
     registryName: 'LogosLight',
     defaultSize: 64,
   },
   icons: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Icons'),
     typeName: 'IconName',
-    themePropsType: 'IconThemeProps',
     registryName: 'IconsLight',
     defaultSize: 24,
   },
   flags: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Flags'),
     typeName: 'FlagName',
-    themePropsType: 'FlagThemeProps',
     registryName: 'FlagsLight',
     defaultSize: 30,
   },
@@ -143,13 +140,8 @@ const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) 
   }
 
   output = output.replace(
-    /(import \{ (LogoThemeProps|IconThemeProps|FlagThemeProps) \} from ["'][^"']+["'];)/,
-    '$1\n'
-  );
-
-  output = output.replace(
     /const (\w+) = \(([^)]*)\)/,
-    `const ${componentName} = (props: ${config.themePropsType})`
+    `const ${componentName} = (props: SVGAssetProps)`
   );
 
   output = output.replace(

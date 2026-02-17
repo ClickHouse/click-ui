@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Chart_Bar_Horizontal = (props: SVGAttributes<SVGElement>) => (
+const Chart_Bar_Horizontal = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

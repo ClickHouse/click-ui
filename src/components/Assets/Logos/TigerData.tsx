@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const TigerData = (props: LogoThemeProps) => (
+const TigerData = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Credit_Card = (props: SVGAttributes<SVGElement>) => (
+const Credit_Card = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

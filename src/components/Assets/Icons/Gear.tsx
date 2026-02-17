@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Gear = (props: SVGAttributes<SVGElement>) => {
+const Gear = (props: SVGAssetProps) => {
   return (
     <svg
       width="24"

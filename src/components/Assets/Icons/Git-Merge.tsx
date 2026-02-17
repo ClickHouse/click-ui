@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Git_Merge = (props: SVGAttributes<SVGElement>) => (
+const Git_Merge = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

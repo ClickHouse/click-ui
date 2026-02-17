@@ -1,10 +1,10 @@
-import { SVGAttributes } from 'react';
-import { ThemeName } from '@/theme';
+import { SVGAssetProps } from '../../types';
 
 export type FlagName =
   | 'australia'
   | 'brazil'
   | 'canada'
+  | 'carrot-super-logo'
   | 'european-union'
   | 'germany'
   | 'great-britain'
@@ -24,6 +24,4 @@ export type FlagName =
   | 'united-kingdom'
   | 'united-states';
 
-export type FlagThemeProps = SVGAttributes<SVGElement> & {
-  theme?: ThemeName;
-};
+export type { SVGAssetProps };

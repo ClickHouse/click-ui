@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Databricks = (props: LogoThemeProps) => (
+const Databricks = (props: SVGAssetProps) => (
   <svg
     width="56"
     height="56"

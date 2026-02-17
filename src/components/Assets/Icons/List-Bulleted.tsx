@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const List_Bulleted = (props: SVGAttributes<SVGElement>) => (
+const List_Bulleted = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

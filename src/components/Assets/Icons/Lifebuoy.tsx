@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Lifebuoy = (props: SVGAttributes<SVGElement>) => (
+const Lifebuoy = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

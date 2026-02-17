@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Alarm = (props: SVGAttributes<SVGElement>) => {
+const Alarm = (props: SVGAssetProps) => {
   return (
     <svg
       width="24"

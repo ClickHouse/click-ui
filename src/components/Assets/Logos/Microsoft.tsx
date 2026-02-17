@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Microsoft = (props: LogoThemeProps) => (
+const Microsoft = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

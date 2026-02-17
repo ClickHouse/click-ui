@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Text_Slash = (props: SVGAttributes<SVGElement>) => (
+const Text_Slash = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

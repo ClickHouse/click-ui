@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const AWS_ATHENA = (props: LogoThemeProps) => (
+const AWS_ATHENA = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

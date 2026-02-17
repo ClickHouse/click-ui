@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-export const User = (props: SVGAttributes<SVGElement>) => (
+export const User = (props: SVGAssetProps) => (
   <svg
     width={props.width}
     height={props.height}

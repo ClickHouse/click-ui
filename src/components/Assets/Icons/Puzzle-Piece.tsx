@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Puzzle_Piece = (props: SVGAttributes<SVGElement>) => {
+const Puzzle_Piece = (props: SVGAssetProps) => {
   return (
     <svg
       width="24"

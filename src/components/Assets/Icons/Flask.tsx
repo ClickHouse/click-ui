@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Flask = (props: SVGAttributes<SVGElement>) => (
+const Flask = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

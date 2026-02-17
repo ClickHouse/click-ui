@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Chart_Donut = (props: SVGAttributes<SVGElement>) => (
+const Chart_Donut = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

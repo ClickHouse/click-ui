@@ -1,5 +1,4 @@
-import { SVGAttributes } from 'react';
-import { ThemeName } from '@/theme';
+import { SVGAssetProps } from '../../types';
 
 export type LogoName =
   | 'airbyte'
@@ -76,6 +75,4 @@ export type LogoName =
   | 'vector'
   | 'warp-stream';
 
-export type LogoThemeProps = SVGAttributes<SVGElement> & {
-  theme?: ThemeName;
-};
+export type { SVGAssetProps };

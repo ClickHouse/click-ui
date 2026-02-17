@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Arrow_Down = (props: SVGAttributes<SVGElement>) => (
+const Arrow_Down = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

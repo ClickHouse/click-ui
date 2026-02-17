@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Google = (props: LogoThemeProps) => (
+const Google = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

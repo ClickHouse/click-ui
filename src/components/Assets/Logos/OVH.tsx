@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 import { SVGAttributes } from 'react';
 
-const OVHBase = ({ theme, ...props }: LogoThemeProps) => (
+const OVHBase = ({ theme, ...props }: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -45,7 +45,7 @@ const OVHLight = (props: SVGAttributes<SVGElement>) => (
   />
 );
 
-const OVH = ({ theme, ...props }: LogoThemeProps) => {
+const OVH = ({ theme, ...props }: SVGAssetProps) => {
   if (theme === 'dark') {
     return <OVHDark {...props} />;
   }

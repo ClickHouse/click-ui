@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Supabase = (props: LogoThemeProps) => (
+const Supabase = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

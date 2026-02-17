@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Popover_Arrow = (props: SVGAttributes<SVGElement>) => {
+const Popover_Arrow = (props: SVGAssetProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

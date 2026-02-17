@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Grafana = (props: LogoThemeProps) => (
+const Grafana = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

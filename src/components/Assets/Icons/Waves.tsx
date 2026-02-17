@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Waves = (props: SVGAttributes<SVGElement>) => (
+const Waves = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

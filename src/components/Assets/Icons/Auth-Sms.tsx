@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Auth_Sms = (props: SVGAttributes<SVGElement>) => (
+const Auth_Sms = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="38"

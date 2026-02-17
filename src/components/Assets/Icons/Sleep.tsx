@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Sleep = (props: SVGAttributes<SVGElement>) => (
+const Sleep = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

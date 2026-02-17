@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Resize_Arrows_Horizontal = (props: SVGAttributes<SVGElement>) => (
+const Resize_Arrows_Horizontal = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}

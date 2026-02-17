@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Calendar = (props: SVGAttributes<SVGElement>) => (
+const Calendar = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

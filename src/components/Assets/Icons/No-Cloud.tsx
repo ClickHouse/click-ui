@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const No_Cloud = (props: SVGAttributes<SVGElement>) => (
+const No_Cloud = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

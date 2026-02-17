@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const WarpStream = (props: LogoThemeProps) => (
+const WarpStream = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

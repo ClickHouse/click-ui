@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const Azure_Event_Hub = (props: LogoThemeProps) => (
+const Azure_Event_Hub = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

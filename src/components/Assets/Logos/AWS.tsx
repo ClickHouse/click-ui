@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
 // TODO: Can this logo have a base and extend it?
 // Check this separately, see OVH.tsx
 
-const AWSDark = (props: LogoThemeProps) => (
+const AWSDark = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -33,7 +33,7 @@ const AWSDark = (props: LogoThemeProps) => (
   </svg>
 );
 
-const AWSLight = (props: LogoThemeProps) => (
+const AWSLight = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -61,7 +61,7 @@ const AWSLight = (props: LogoThemeProps) => (
   </svg>
 );
 
-const AWS = ({ theme, ...props }: LogoThemeProps) => {
+const AWS = ({ theme, ...props }: SVGAssetProps) => {
   if (theme === 'dark') {
     return <AWSDark {...props} />;
   }

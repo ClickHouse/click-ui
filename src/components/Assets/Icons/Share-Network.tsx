@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Share_Network = (props: SVGAttributes<SVGElement>) => (
+const Share_Network = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const C_SHARP = (props: LogoThemeProps) => (
+const C_SHARP = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

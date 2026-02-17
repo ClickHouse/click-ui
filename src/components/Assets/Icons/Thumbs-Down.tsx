@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Thumbs_Down = (props: SVGAttributes<SVGElement>) => (
+const Thumbs_Down = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

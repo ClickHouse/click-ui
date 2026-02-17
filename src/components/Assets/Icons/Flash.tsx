@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Flash = (props: SVGAttributes<SVGElement>) => (
+const Flash = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

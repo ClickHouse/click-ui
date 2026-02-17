@@ -48,15 +48,12 @@ export const sortComponentsByKebabName = files => {
 export const generateTypesContent = (sortedComponents, config) => {
   const names = sortedComponents.map(({ kebab }) => `  | '${kebab}'`);
 
-  return `import { SVGAttributes } from 'react';
-import { ThemeName } from '${config.importPath}';
+  return `import { SVGAssetProps } from '../../types';
 
 export type ${config.typeName} =
 ${names.join('\n')};
 
-export type ${config.themePropsType} = SVGAttributes<SVGElement> & {
-  theme?: ThemeName;
-};
+export type { SVGAssetProps };
 `;
 };
 
@@ -82,11 +79,13 @@ export const generateRegistryContent = (sortedComponents, config, iconFiles, isD
   return `${WARNING_AUTO_GENERATED_FILE}
 
 ${imports}
-import { ${config.typeName}, ${config.themePropsType} } from './types';
+import { ${config.typeName} } from './types';
+import type { SVGAssetProps } from '../../types';
+import type { ComponentType } from 'react';
 
 const ${config.registryName}: Record<
   ${config.typeName},
-  (props: ${config.themePropsType}) => React.JSX.Element
+  ComponentType<SVGAssetProps>
 > = {
 ${exports}
 };

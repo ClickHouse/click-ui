@@ -1,6 +1,6 @@
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 
-const ClickhouseLight = (props: LogoThemeProps) => (
+const ClickhouseLight = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"

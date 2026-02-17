@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Light_Bulb_On = (props: SVGAttributes<SVGElement>) => (
+const Light_Bulb_On = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

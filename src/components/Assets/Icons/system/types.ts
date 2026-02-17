@@ -1,5 +1,4 @@
-import { SVGAttributes } from 'react';
-import { ThemeName } from '@/theme';
+import { SVGAssetProps } from '../../types';
 
 export type IconName =
   | 'activity'
@@ -171,6 +170,4 @@ export type IconName =
   | 'warning'
   | 'waves';
 
-export type IconThemeProps = SVGAttributes<SVGElement> & {
-  theme?: ThemeName;
-};
+export type { SVGAssetProps };

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const List_Numbered = (props: SVGAttributes<SVGElement>) => (
+const List_Numbered = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"

@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Underline = (props: SVGAttributes<SVGElement>) => (
+const Underline = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"
