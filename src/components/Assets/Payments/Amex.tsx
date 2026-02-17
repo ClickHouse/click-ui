@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Amex = (props: SVGAttributes<SVGElement>) => (
+const Amex = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
@@ -39,4 +39,5 @@ const Amex = (props: SVGAttributes<SVGElement>) => (
     </defs>
   </svg>
 );
+
 export default Amex;

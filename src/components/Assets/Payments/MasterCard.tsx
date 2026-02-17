@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const MasterCard = (props: SVGAttributes<SVGElement>) => (
+const MasterCard = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
@@ -39,4 +39,5 @@ const MasterCard = (props: SVGAttributes<SVGElement>) => (
     </defs>
   </svg>
 );
+
 export default MasterCard;

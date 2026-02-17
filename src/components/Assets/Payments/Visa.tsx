@@ -1,6 +1,6 @@
-import { SVGAttributes } from 'react';
+import { SVGAssetProps } from './system/types';
 
-const Visa = (props: SVGAttributes<SVGElement>) => (
+const Visa = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
@@ -35,4 +35,5 @@ const Visa = (props: SVGAttributes<SVGElement>) => (
     />
   </svg>
 );
+
 export default Visa;

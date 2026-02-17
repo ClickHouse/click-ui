@@ -44,6 +44,12 @@ const ASSET_TYPES = {
     registryName: 'FlagsLight',
     defaultSize: 30,
   },
+  payments: {
+    dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Payments'),
+    typeName: 'PaymentName',
+    registryName: 'PaymentsLight',
+    defaultSize: 30,
+  },
 };
 
 const getAssetType = (args) => {
