@@ -46,6 +46,10 @@ export const FLAG_NAME_RETRO_MAP: Record<string, FlagName> = {
   UnitedStates: 'united-states',
 };
 
+// TODO: Retroactive support for simple name cases
+// causes unwanted complexity. Isn't it best to make it
+// a breaking change? A find and replace solves it quick
+
 /** @deprecated Use lower case kebab naming, e.g. 'my-country-name' instead */
 export type DeprecatedFlagName = keyof typeof FLAG_NAME_RETRO_MAP;
 
