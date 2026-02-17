@@ -10,6 +10,7 @@ import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import {
   filenameToKebabCase,
+  filenameToComponentName,
   getComponentFiles,
   generateTypesContent,
   generateRegistryContent,
@@ -139,14 +140,16 @@ const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) 
     process.exit(1);
   }
 
+  const constName = filenameToComponentName(componentName);
+
   output = output.replace(
     /const (\w+) = \(([^)]*)\)/,
-    `const ${componentName} = (props: SVGAssetProps)`
+    `const ${constName} = (props: SVGAssetProps)`
   );
 
   output = output.replace(
     /export default (\w+);$/m,
-    `export default ${componentName};`
+    `export default ${constName};`
   );
 
   output = output.replace(
