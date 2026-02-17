@@ -59,7 +59,7 @@ const getAssetType = (args) => {
     console.error(`👹 Unknown type: ${type}. Use: logos, icons, or flags`);
     process.exit(1);
   }
-  // Default to logos for backward compatibility
+
   return { type: 'logos', config: ASSET_TYPES.logos };
 };
 
