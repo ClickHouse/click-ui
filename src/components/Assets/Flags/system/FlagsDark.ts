@@ -23,7 +23,6 @@ import South_Africa from '../South-Africa';
 import South_Korea from '../South-Korea';
 import Sweden from '../Sweden';
 import Switzerland from '../Switzerland';
-import Test_Flag from '../Test_Flag';
 import United_Arab_Emirates from '../United-Arab-Emirates';
 import United_Kingdom from '../United-Kingdom';
 import United_States from '../United-States';
@@ -51,7 +50,6 @@ const FlagsDark: Record<
   'south-korea': South_Korea,
   'sweden': Sweden,
   'switzerland': Switzerland,
-  'test-flag': Test_Flag,
   'united-arab-emirates': United_Arab_Emirates,
   'united-kingdom': United_Kingdom,
   'united-states': United_States,

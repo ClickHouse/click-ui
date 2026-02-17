@@ -71,7 +71,6 @@ export type LogoName =
   | 'superset'
   | 'tableau-dark'
   | 'tableau-light'
-  | 'test-flag'
   | 'tiger-data'
   | 'upstash'
   | 'vector'

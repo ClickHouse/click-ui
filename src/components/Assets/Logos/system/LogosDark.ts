@@ -74,7 +74,6 @@ import Supabase from '../Supabase';
 import Superset from '../Superset';
 import TableauDark from '../TableauDark';
 import TableauLight from '../TableauLight';
-import TestFlag from '../TestFlag';
 import TigerData from '../TigerData';
 import Upstash from '../Upstash';
 import Vector from '../Vector';
@@ -154,7 +153,6 @@ const LogosDark: Record<
   'superset': Superset,
   'tableau-dark': TableauDark,
   'tableau-light': TableauLight,
-  'test-flag': TestFlag,
   'tiger-data': TigerData,
   'upstash': Upstash,
   'vector': Vector,

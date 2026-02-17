@@ -20,7 +20,6 @@ export type FlagName =
   | 'south-korea'
   | 'sweden'
   | 'switzerland'
-  | 'test-flag'
   | 'united-arab-emirates'
   | 'united-kingdom'
   | 'united-states';
