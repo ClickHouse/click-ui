@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Database_Icon = (props: SVGAttributes<SVGElement>) => (
+const Database = (props: SVGAttributes<SVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -28,4 +28,4 @@ const Database_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Database_Icon;
+export default Database;

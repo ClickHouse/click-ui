@@ -1,4 +1,4 @@
-import DotsHorizontal from './DotsHorizontal';
+import Dots_Horizontal from './Dots-Horizontal';
 import { keyframes, styled } from 'styled-components';
 
 const animationCircle1 = keyframes`
@@ -47,7 +47,7 @@ const animationCircle3 = keyframes`
   }
 `;
 
-const Horizontal_Loading = styled(DotsHorizontal)`
+const Horizontal_Loading = styled(Dots_Horizontal)`
   circle {
     animation-name: horizontal-loading;
     animation-duration: 1.5s;

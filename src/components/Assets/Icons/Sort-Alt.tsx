@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Sort_Alt_Icon = (props: SVGAttributes<SVGElement>) => (
+const Sort_Alt = (props: SVGAttributes<SVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -19,4 +19,4 @@ const Sort_Alt_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Sort_Alt_Icon;
+export default Sort_Alt;

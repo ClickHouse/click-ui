@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Info_In_Circle_Icon = (props: SVGAttributes<SVGElement>) => (
+const Info_In_Circle = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="24"
     height="24"
@@ -34,4 +34,4 @@ const Info_In_Circle_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Info_In_Circle_Icon;
+export default Info_In_Circle;

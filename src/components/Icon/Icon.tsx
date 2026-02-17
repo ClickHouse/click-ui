@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
 import { IconName, IconProps, IconSize, IconState, ImageType } from './types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
-import Flags, { FlagList, FlagName } from '../icons/Flags';
+import { Flag } from '@/components/Assets/Flags/system/Flag';
+import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
+import { FlagName } from '@/components/Assets/Flags/system/types';
 import { Logo } from '@/components/Assets/Logos/system/Logo';
 import LogosLight from '@/components/Assets/Logos/system/LogosLight';
 import { LogoName } from '@/components/Assets/Logos/system/types';
@@ -71,9 +73,9 @@ const SvgWrapper = styled.div<{
 `;
 
 const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
-  if (Object.keys(FlagList).includes(name)) {
+  if (Object.keys(FlagsLight).includes(name)) {
     return (
-      <Flags
+      <Flag
         name={name as FlagName}
         size={size}
         {...props}

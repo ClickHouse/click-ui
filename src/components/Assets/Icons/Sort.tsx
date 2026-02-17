@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Sort_Icon = (props: SVGAttributes<SVGElement>) => {
+const Sort = (props: SVGAttributes<SVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,4 @@ const Sort_Icon = (props: SVGAttributes<SVGElement>) => {
   );
 };
 
-export default Sort_Icon;
+export default Sort;

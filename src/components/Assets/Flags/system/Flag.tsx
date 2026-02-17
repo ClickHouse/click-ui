@@ -2,6 +2,7 @@ import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import { IconSize } from '@/components/Icon/types';
 import { FlagName } from './types';
+export type { FlagName, FlagThemeProps } from './types';
 import { resolveFlagName, DeprecatedFlagName } from './retroactiveNames';
 import FlagsLight from './FlagsLight';
 import FlagsDark from './FlagsDark';

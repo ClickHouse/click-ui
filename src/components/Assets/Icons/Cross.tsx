@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Check_Icon = (props: SVGAttributes<SVGElement>) => (
+const Cross = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="24"
     height="24"
@@ -10,12 +10,20 @@ const Check_Icon = (props: SVGAttributes<SVGElement>) => (
     {...props}
   >
     <path
-      d="M20 6.5L9 17.5L4 12.5"
+      d="M8 8L16 16"
       stroke="#161517"
-      strokeWidth="2"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M16 8L8 16"
+      stroke="#161517"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
 );
-export default Check_Icon;
+
+export default Cross;

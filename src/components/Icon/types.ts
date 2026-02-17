@@ -1,7 +1,7 @@
 import { SVGAttributes } from 'react';
-import { LogoProps } from '../Logos/system/Logo';
-import { FlagName, FlagProps } from '../icons/Flags';
-import { LogoName } from '../Logos/system/types';
+import { LogoProps } from '@/components/Assets/Logos/system/Logo';
+import { FlagName, FlagProps } from '@/components/Assets/Flags/system/Flag';
+import { LogoName } from '@/components/Assets/Logos/system/types';
 import { PaymentName, PaymentProps } from '../icons/Payments';
 import { ICON_NAMES } from './IconCommon';
 

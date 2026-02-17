@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Information_Icon = (props: SVGAttributes<SVGElement>) => (
+const Information = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="24"
     height="24"
@@ -31,4 +31,4 @@ const Information_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Information_Icon;
+export default Information;

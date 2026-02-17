@@ -39,8 +39,8 @@ import Chart_Scatter from '../Chart-Scatter';
 import Chart_Square from '../Chart-Square';
 import Chart_Stacked_Horizontal from '../Chart-Stacked-Horizontal';
 import Chart_Stacked_Vertical from '../Chart-Stacked-Vertical';
-import Chat_Icon from '../Chat-Icon';
-import Check_Icon from '../Check-Icon';
+import Chat from '../Chat';
+import Check from '../Check';
 import Check_In_Circle from '../Check-In-Circle';
 import { Chevron_Down } from '../Chevron-Down';
 import Chevron_Left from '../Chevron-Left';
@@ -58,10 +58,10 @@ import Console from '../Console';
 import Copy from '../Copy';
 import Cpu from '../Cpu';
 import Credit_Card from '../Credit-Card';
-import Cross_Icon from '../Cross-Icon';
+import Cross from '../Cross';
 import Data from '../Data';
 import Data_Lakes from '../Data-Lakes';
-import Database_Icon from '../Database-Icon';
+import Database from '../Database';
 import Disk from '../Disk';
 import Display from '../Display';
 import Document from '../Document';
@@ -70,7 +70,7 @@ import Dots_Horizontal from '../Dots-Horizontal';
 import Dots_Triangle from '../Dots-Triangle';
 import Dots_Vertical from '../Dots-Vertical';
 import Dots_Vertical_Double from '../Dots-Vertical-Double';
-import Double_Check_Icon from '../Double-Check-Icon';
+import Double_Check from '../Double-Check';
 import Download from '../Download';
 import Download_In_Circle from '../Download-In-Circle';
 import Email from '../Email';
@@ -78,7 +78,7 @@ import Empty from '../Empty';
 import Enter from '../Enter';
 import Eye from '../Eye';
 import Eye_Closed from '../Eye-Closed';
-import Filter_Icon from '../Filter-Icon';
+import Filter from '../Filter';
 import Fire from '../Fire';
 import Flag from '../Flag';
 import Flash from '../Flash';
@@ -90,14 +90,14 @@ import Gift from '../Gift';
 import Git_Merge from '../Git-Merge';
 import Globe from '../Globe';
 import Hexagon from '../Hexagon';
-import History_Icon from '../History-Icon';
+import History from '../History';
 import Home from '../Home';
 import Horizontal_Loading from '../Horizontal-Loading';
 import Http from '../Http';
 import Http_Monitoring from '../Http-Monitoring';
-import Info_In_Circle_Icon from '../Info-In-Circle-Icon';
-import Information_Icon from '../Information-Icon';
-import Insert_Row_Icon from '../Insert-Row-Icon';
+import Info_In_Circle from '../Info-In-Circle';
+import Information from '../Information';
+import Insert_Row from '../Insert-Row';
 import Integrations from '../Integrations';
 import Italic from '../Italic';
 import Key from '../Key';
@@ -149,8 +149,8 @@ import Share_Network from '../Share-Network';
 import Sleep from '../Sleep';
 import Slide_In from '../Slide-In';
 import Slide_Out from '../Slide-Out';
-import Sort_Alt_Icon from '../Sort-Alt-Icon';
-import Sort_Icon from '../Sort-Icon';
+import Sort from '../Sort';
+import Sort_Alt from '../Sort-Alt';
 import Sparkle from '../Sparkle';
 import Speaker from '../Speaker';
 import Speed from '../Speed';
@@ -169,9 +169,9 @@ import Underline from '../Underline';
 import Upgrade from '../Upgrade';
 import Upload from '../Upload';
 import Url from '../Url';
-import { User_Icon } from '../User-Icon';
-import { Users_Icon } from '../Users-Icon';
-import Warning_Icon from '../Warning-Icon';
+import { User } from '../User';
+import { Users } from '../Users';
+import Warning from '../Warning';
 import Waves from '../Waves';
 import { IconName, IconThemeProps } from './types';
 
@@ -213,8 +213,8 @@ const IconsLight: Record<
   'chart-square': Chart_Square,
   'chart-stacked-horizontal': Chart_Stacked_Horizontal,
   'chart-stacked-vertical': Chart_Stacked_Vertical,
-  'chat-icon': Chat_Icon,
-  'check-icon': Check_Icon,
+  'chat': Chat,
+  'check': Check,
   'check-in-circle': Check_In_Circle,
   'chevron-down': Chevron_Down,
   'chevron-left': Chevron_Left,
@@ -232,10 +232,10 @@ const IconsLight: Record<
   'copy': Copy,
   'cpu': Cpu,
   'credit-card': Credit_Card,
-  'cross-icon': Cross_Icon,
+  'cross': Cross,
   'data': Data,
   'data-lakes': Data_Lakes,
-  'database-icon': Database_Icon,
+  'database': Database,
   'disk': Disk,
   'display': Display,
   'document': Document,
@@ -244,7 +244,7 @@ const IconsLight: Record<
   'dots-triangle': Dots_Triangle,
   'dots-vertical': Dots_Vertical,
   'dots-vertical-double': Dots_Vertical_Double,
-  'double-check-icon': Double_Check_Icon,
+  'double-check': Double_Check,
   'download': Download,
   'download-in-circle': Download_In_Circle,
   'email': Email,
@@ -252,7 +252,7 @@ const IconsLight: Record<
   'enter': Enter,
   'eye': Eye,
   'eye-closed': Eye_Closed,
-  'filter-icon': Filter_Icon,
+  'filter': Filter,
   'fire': Fire,
   'flag': Flag,
   'flash': Flash,
@@ -264,14 +264,14 @@ const IconsLight: Record<
   'git-merge': Git_Merge,
   'globe': Globe,
   'hexagon': Hexagon,
-  'history-icon': History_Icon,
+  'history': History,
   'home': Home,
   'horizontal-loading': Horizontal_Loading,
   'http': Http,
   'http-monitoring': Http_Monitoring,
-  'info-in-circle-icon': Info_In_Circle_Icon,
-  'information-icon': Information_Icon,
-  'insert-row-icon': Insert_Row_Icon,
+  'info-in-circle': Info_In_Circle,
+  'information': Information,
+  'insert-row': Insert_Row,
   'integrations': Integrations,
   'italic': Italic,
   'key': Key,
@@ -323,8 +323,8 @@ const IconsLight: Record<
   'sleep': Sleep,
   'slide-in': Slide_In,
   'slide-out': Slide_Out,
-  'sort-alt-icon': Sort_Alt_Icon,
-  'sort-icon': Sort_Icon,
+  'sort': Sort,
+  'sort-alt': Sort_Alt,
   'sparkle': Sparkle,
   'speaker': Speaker,
   'speed': Speed,
@@ -343,9 +343,9 @@ const IconsLight: Record<
   'upgrade': Upgrade,
   'upload': Upload,
   'url': Url,
-  'user-icon': User_Icon,
-  'users-icon': Users_Icon,
-  'warning-icon': Warning_Icon,
+  'user': User,
+  'users': Users,
+  'warning': Warning,
   'waves': Waves,
 };
 

@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Chat_Icon = (props: SVGAttributes<SVGElement>) => (
+const Chat = (props: SVGAttributes<SVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -19,4 +19,4 @@ const Chat_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Chat_Icon;
+export default Chat;

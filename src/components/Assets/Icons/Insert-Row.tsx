@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Insert_Row_Icon = (props: SVGAttributes<SVGElement>) => (
+const Insert_Row = (props: SVGAttributes<SVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -31,4 +31,4 @@ const Insert_Row_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Insert_Row_Icon;
+export default Insert_Row;

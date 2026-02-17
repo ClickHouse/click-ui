@@ -1,5 +1,5 @@
-import UnitedKingdom from '@/components/icons/Flags/UnitedKingdom';
+import United_Kingdom from './United-Kingdom';
 
-const GreatBritain = UnitedKingdom;
+const Great_Britain = United_Kingdom;
 
-export default GreatBritain;
+export default Great_Britain;

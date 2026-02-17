@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Filter_Icon = (props: SVGAttributes<SVGElement>) => (
+const Filter = (props: SVGAttributes<SVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -34,4 +34,4 @@ const Filter_Icon = (props: SVGAttributes<SVGElement>) => (
   </svg>
 );
 
-export default Filter_Icon;
+export default Filter;

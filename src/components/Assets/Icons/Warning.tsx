@@ -1,12 +1,12 @@
 import { SVGAttributes } from 'react';
 
-const History_Icon = (props: SVGAttributes<SVGElement>) => (
+const Warning = (props: SVGAttributes<SVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
     viewBox="0 0 24 24"
     fill="none"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
@@ -14,15 +14,17 @@ const History_Icon = (props: SVGAttributes<SVGElement>) => (
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
-      d="M12 4.997H4.997M12 4.997A8.003 8.003 0 1 1 3.997 13M7.998 1.996l-3 3.001M7.998 7.998l-3-3"
+      d="M12 13.12V9.38M11.999 16.125a.25.25 0 1 0 .002.5.25.25 0 0 0-.002-.5"
     />
     <path
       stroke="#161517"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}
-      d="M15.001 13.75h-3.81V9.834"
+      d="m14.029 4.14 7.659 13.403c.89 1.558-.235 3.497-2.03 3.497H4.342c-1.795 0-2.92-1.939-2.03-3.497L9.972 4.14c.897-1.57 3.16-1.57 4.058 0Z"
+      clipRule="evenodd"
     />
   </svg>
 );
-export default History_Icon;
+
+export default Warning;

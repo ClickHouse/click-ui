@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 
-const Double_Check_Icon = (props: SVGAttributes<SVGElement>) => (
+const Double_Check = (props: SVGAttributes<SVGElement>) => (
   <svg
     width="24"
     height="24"
@@ -39,4 +39,4 @@ const Double_Check_Icon = (props: SVGAttributes<SVGElement>) => (
     />
   </svg>
 );
-export default Double_Check_Icon;
+export default Double_Check;
