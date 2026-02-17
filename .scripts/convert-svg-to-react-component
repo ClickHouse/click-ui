@@ -9,7 +9,6 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import {
-  WARNING_AUTO_GENERATED_FILE,
   filenameToKebabCase,
   getComponentFiles,
   generateTypesContent,
@@ -51,16 +50,20 @@ const ASSET_TYPES = {
 
 const getAssetType = (args) => {
   const typeFlag = args.find(arg => arg.startsWith('--type='));
-  if (typeFlag) {
-    const type = typeFlag.replace('--type=', '');
-    if (ASSET_TYPES[type]) {
-      return { type, config: ASSET_TYPES[type] };
-    }
-    console.error(`👹 Unknown type: ${type}. Use: logos, icons, or flags`);
+
+  if (!typeFlag) {
+    console.error(`👹 Oops! Missing asset type...`);
     process.exit(1);
   }
 
-  return { type: 'logos', config: ASSET_TYPES.logos };
+  const type = typeFlag.replace('--type=', '');
+
+  if (typeof ASSET_TYPES[type] === 'undefined') {
+    console.error(`👹 Oops! Unknown type: ${type}. Use logos, icons, or flags`);
+    process.exit(1);
+  }
+
+  return { type, config: ASSET_TYPES[type] };
 };
 
 const generateAssetTypes = (config) => {
@@ -108,6 +111,9 @@ const regenerateAssetRegistry = (config) => {
   const darkContent = generateRegistryContent(
     sorted,
     {
+      // TODO: The Light and dark theme should not be hard typed
+      // once https://github.com/ClickHouse/click-ui/pull/784
+      // is merged, update it
       registryName: config.registryName.replace('Light', 'Dark'),
       typeName: config.typeName,
       themePropsType: config.themePropsType,
@@ -121,6 +127,9 @@ const regenerateAssetRegistry = (config) => {
     lightContent
   );
   fs.writeFileSync(
+    // TODO: The Light and dark theme should not be hard typed
+    // once https://github.com/ClickHouse/click-ui/pull/784
+    // is merged, update it
     path.join(systemDir, `${config.registryName.replace('Light', 'Dark')}.ts`),
     darkContent
   );
@@ -180,7 +189,7 @@ const cleanUp = (files) => {
     const prettierCmd = `npx prettier --write --config .prettierrc ${files.join(' ')}`;
     execSync(prettierCmd, { encoding: 'utf8', stdio: 'inherit' });
   } catch (error) {
-    console.error('⚠️Code format fix failed due to:', error.message);
+    console.warn('⚠️Code format fix failed due to:', error.message);
     countErrors++;
   }
 
@@ -193,7 +202,7 @@ const args = process.argv.slice(2);
 
 if (args.length < 1 || args[0].startsWith('--')) {
   console.error('👹 Oops! The SVG file path is required');
-  console.error('Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
+  console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
   process.exit(1);
 }
 
@@ -216,9 +225,8 @@ if (type === 'icons' && componentName.length > 1) {
   const isCamelCase = componentName.match(/[a-z][A-Z]/);
 
   if (isCamelCase && !hasMultipleWords) {
-    console.error(`👹 Icon name "${componentName}" must use dashes to separate words (e.g., Arrow-Down not ArrowDown).`);
-    console.error(`   This ensures consistent kebab-case registry keys (e.g., 'arrow-down').`);
-    console.error(`   Suggested name: ${componentName.replace(/([a-z])([A-Z])/g, '$1-$2')}`);
+    console.error(`👹 Icon name "${componentName}" must use dashes to separate words, e.g., Arrow-Down not ArrowDown.`);
+    console.log(`💡 This ensures consistent kebab-case registry keys, e.g., 'arrow-down').`);
     process.exit(1);
   }
 }
