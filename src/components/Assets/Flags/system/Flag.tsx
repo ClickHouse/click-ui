@@ -9,6 +9,9 @@ import { SvgImageElement } from '@/components/commonElement';
 
 export interface FlagProps extends SVGAttributes<SVGElement> {
   name: FlagName | DeprecatedFlagName;
+  // TODO: The Light and dark theme should not be hard typed
+  // once https://github.com/ClickHouse/click-ui/pull/784
+  // is merged, update it
   theme?: 'light' | 'dark';
   size?: IconSize;
 }
