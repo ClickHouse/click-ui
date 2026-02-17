@@ -2,9 +2,9 @@ import { styled } from 'styled-components';
 import { IconName, IconProps, IconSize, IconState, ImageType } from './types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import Flags, { FlagList, FlagName } from '../icons/Flags';
-import { Logo } from '../Logos/system/Logo';
-import LogosLight from '../Logos/system/LogosLight';
-import { LogoName } from '../Logos/system/types';
+import { Logo } from '@/components/Assets/Logos/system/Logo';
+import LogosLight from '@/components/Assets/Logos/system/LogosLight';
+import { LogoName } from '@/components/Assets/Logos/system/types';
 import Payments, { PaymentList, PaymentName } from '../icons/Payments';
 
 const SVGIcon = ({

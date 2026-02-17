@@ -4,7 +4,7 @@ import LogosLight from './LogosLight';
 import LogosDark from './LogosDark';
 import { IconSize } from '@/components/Icon/types';
 import { LogoName } from './types';
-import { SvgImageElement } from '../../commonElement';
+import { SvgImageElement } from '@/components/commonElement';
 
 // TODO: This is introducing complexity and more to maintain
 // might be best to just deprecate (break change) instead of
