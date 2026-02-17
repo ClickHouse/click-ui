@@ -25,7 +25,6 @@ export type IconName =
   | 'calendar'
   | 'calendar-with-time'
   | 'cards'
-  | 'carrot-super-logo'
   | 'cell-tower'
   | 'chart-area'
   | 'chart-bar-horizontal'

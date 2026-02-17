@@ -29,7 +29,6 @@ import Burger_Menu from '../Burger-Menu';
 import Calendar from '../Calendar';
 import Calendar_With_Time from '../Calendar-With-Time';
 import Cards from '../Cards';
-import Carrot_super_logo from '../Carrot_super_logo';
 import Cell_Tower from '../Cell-Tower';
 import Chart_Area from '../Chart-Area';
 import Chart_Bar_Horizontal from '../Chart-Bar-Horizontal';
@@ -203,7 +202,6 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   calendar: Calendar,
   'calendar-with-time': Calendar_With_Time,
   cards: Cards,
-  'carrot-super-logo': Carrot_super_logo,
   'cell-tower': Cell_Tower,
   'chart-area': Chart_Area,
   'chart-bar-horizontal': Chart_Bar_Horizontal,
