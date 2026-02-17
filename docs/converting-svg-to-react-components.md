@@ -1,6 +1,6 @@
 # Converting SVG to React components
 
-This guide explains how to convert SVG to React components for Flags, Icons and Logos in the Click UI component library by using the automated conversion tool.
+This guide explains how to convert SVG to React components for Flags, Icons, Logos and Payments in the Click UI component library by using the automated conversion tool.
 
 ## Prerequisites
 
@@ -189,7 +189,7 @@ src/components/Assets
 │   └── system
 │       ├── Flag.tsx
 │       ├── FlagsDark.ts
-│   ...
+│       ...
 │       ├── FlagsLight.ts
 │       ├── index.ts
 │       ├── retroactiveNames.ts
@@ -219,6 +219,16 @@ src/components/Assets
 │       ├── LogosLight.ts
 │       ├── index.ts
 │       └── types.ts
+├── Payments
+├── MasterCard.tsx
+│   ...
+├── Visa.tsx
+├── system
+│   ├── Payment.tsx
+│   ├── PaymentsDark.ts
+│   ├── PaymentsLight.ts
+│   ├── index.ts
+│   └── types.ts
 └── types.ts
 
 7 directories, 281 files
@@ -226,7 +236,7 @@ src/components/Assets
 
 ## Removing assets
 
-We'll use logos as an example of how to remove an asset, the same principle applies for Flags, Icons and Logos.
+We'll use logos as an example of how to remove an asset, the same principle applies for Flags, Icons, Logos and Payments.
 
 Delete the file from `src/components/Assets/Logos`.
 
