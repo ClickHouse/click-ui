@@ -34,7 +34,7 @@ You can find the official docs for the Click UI design system and component libr
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
 * [Assets Management](#assets-management)
-  - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
+  - [Convert SVG to React Component](#convert-svg-to-react-component)
 * [Changesets](#changesets)
   - [Add a new changeset](#add-a-new-changeset)
   - [Checking the changeset status](#checking-the-changeset-status)
@@ -347,18 +347,15 @@ export default App
 
 ## Assets management
 
-The Click UI has image asset files, such as icons or logos.
+The Click UI has image asset files, such as Flags, Icons and Logos.
 
 Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
 
-> [!NOTE]
-> At time of writing the convertion is only supported for logos. Support for both SVG icon and logo convertions will come in future versions.
+### Convert SVG to React Component
 
-### Add new SVG logo
+We provide an automated tool to convert SVG files to React components for Flags, Icons ands Logos.
 
-We provide an automated tool to convert SVG files to React components.
-
-Let's assume that you are a macOS user and have stored the SVG file in your home **Downloads** directory, e.g. **/Users/MyUsername/Downloads**.
+Let's assume that you want to add a new logo. You are a macOS user and have stored the logo SVG file in your home **Downloads** directory, e.g. **/Users/MyUsername/Downloads**.
 
 In the root of Click UI repository, you'd run:
 
@@ -369,8 +366,10 @@ yarn convert:logo ~/Downloads/click-ui.svg
 Or provide explicit component name:
 
 ```sh
-yarn convert:logo ~/Downloads/click-ui.svg ClickUI
+yarn convert:logo ~/Downloads/click-ui.svg Click_UI
 ```
+
+Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flags` or `convert:icons`.
 
 For more detailed instructions, see [converting SVG to React Components](./docs/converting-svg-to-react-components).
 

@@ -1,15 +1,12 @@
 # Converting SVG to React components
 
-This guide explains how to add new SVG logos to the Click UI component library using the automated conversion tool.
-
-> [!NOTE]
-> At time of writing the convertion is only supported for logos. Support for both SVG icon and logo convertions will come in future versions.
+This guide explains how to convert SVG to React components for Flags, Icons and Logos in the Click UI component library by using the automated conversion tool.
 
 ## Prerequisites
 
-Before adding a logo, make sure that:
+Before converting an SVG to React Components, make sure that:
 
-- You export from Figma at 64x64 pixels
+- You export from Figma, e.g. Logos at 64x64 pixels
 - You know where the file is located or stored in your file system
 
 ## Quick Start
@@ -21,11 +18,14 @@ In the root of Click UI repository, you'd run:
 ```sh
 yarn convert:logo ~/Downloads/click-ui.svg
 ```
+
+Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flags` or `convert:icons`.
+
 The component name is auto-detected from filename (converted to PascalCase), e.g. `my-logo.svg` becomes `MyLogo.tsx` and `aws-s3.svg` becomes `AwsS3.tsx`.
 
 You can override the name by providing as a second argument.
 
-To test, start [storybook](/README.md#storybook) and open the logo playground [here](http://localhost:6006/?path=/story/display-logo--playground).
+To test, start [storybook](/README.md#storybook) and open the icons or logo. For example, here's the logo playground [here](http://localhost:6006/?path=/story/display-logo--playground).
 
 Once happy, commit your work following our [contribution guideline](/README.md#contributing).
 
@@ -41,17 +41,17 @@ For example, given a convertion of a filename, it converts underscores to dashes
 > If you decide to rename a Logo filename, the converter will follow the naming convention rules. It might cause breaking changes on the consumer side, e.g. let's say that you rename src/components/Logos/AWS_S3.tsx to AWSS3.tsx, it'll cause it to be accessible as 'awss3' not 'aws-s3'.
 
 > [!NOTE]
-> If you need to override names, e.g. you have renamed a logo but would like to keep retro support, you must define the previous name mapped onto the new name it in the [src/components/Logos/system/Logo.tsx](./src/components/Logos/system/Logo.tsx).
+> If you need to override names, e.g. you have renamed a logo but would like to keep retro support, you must define the previous name mapped onto the new name it in the [src/components/Logos/system/Logo.tsx](./src/components/Assets/Logos/system/Logo.tsx).
 
 ## Naming components (optional)
 
 Override the auto-detected name by providing it as the second argument:
 
 ```sh
-yarn convert:logo ~/Downloads/click-ui.svg CustomClickUILogo
+yarn convert:logo ~/Downloads/click-ui.svg Custom_Click_UI_Logo
 ```
 
-It'll create `src/components/Logos/CustomClickUILogo.tsx`.
+It'll create `src/components/Logos/Custom_Click_UI_Logo.tsx`.
 
 As introduced in [naming conventions](#naming-conventions), the names must start with uppercase and use only letters, numbers, hyphens, or underscores.
 
@@ -67,38 +67,40 @@ When you run the conversion command:
 
 - It uses [React SVGR](https://react-svgr.com) to transform your target SVG file to React
 - Assigns a custom prop type, e.g. `LogoThemeProps`
-- Sets default dimensions, e.g. `64w x 64h` in pixels
-- Updates the exportables LogosLight and LogosDark
+- Sets default dimensions, e.g. for logos that'll be `64w x 64h` in pixels
+- Updates the exportables, e.g. for logos LogosLight and LogosDark
 - Updates the typescript types with the aditional component name
 - Lints and formats the component automatically
 
 > [!IMPORTANT]
-> The exports registry LogosLight and LogosDark will change in the next versions.
+> The exports registry <Type>Light and <Type>Dark will change in the next versions.
 
 ## How to test?
 
 After conversion:
 
-- Check the generated component in `src/components/Logos/`
-- Verify the logo appears in Storybook
+- Check the generated component, e.g. for logos `src/components/Logos/`
+- Verify the asset appears in Storybook, e.g. category logos
 - Test both light and dark themes (switch theme in Storybook)
-- Ensure the logo key appears in type hints when using the `Logo` component
+- Ensure the asset key appears in type hints when using the logo or icon component
 
 For example, start [storybook](/README.md#storybook) and open the logo playground [here](http://localhost:6006/?path=/story/display-logo--playground).
 
-## How to create a theme based logo variant?
+## How to create a theme based variant?
 
-You can create theme based logos by providing a base component, customise the property you want computed based in theme prop, e.g. `fill={theme === 'dark' ? '#FFFFFF' : '#000000' }`.
+You can create theme based component by providing a base component, customise the property you want computed based in theme prop, e.g. `fill={theme === 'dark' ? '#FFFFFF' : '#000000' }`.
 
-Here's an example for `XYZ.tsx`:
+Here's an example for a logo but the process is similar for Flags and Icons.
+
+Let's call it `XYZ.tsx`:
 
 ```tsx
 /* eslint-disable react-refresh/only-export-components */
 
-import { LogoThemeProps } from './system/types';
+import { SVGAssetProps } from './system/types';
 import { SVGAttributes } from 'react';
 
-const XYZBase = ({ theme, ...props }: LogoThemeProps) => (
+const XYZBase = ({ theme, ...props }: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -140,7 +142,7 @@ const XYZLight = (props: SVGAttributes<SVGElement>) => (
   />
 );
 
-export const XYZ = ({ theme, ...props }: LogoThemeProps) => {
+export const XYZ = ({ theme, ...props }: SVGAssetProps) => {
   if (theme === 'dark') {return <XYZDark {...props} />;}
 
   return <XYZLight {...props} />;
@@ -149,9 +151,9 @@ export const XYZ = ({ theme, ...props }: LogoThemeProps) => {
 export default XYZ;
 ```
 
-You'd have to update the exportables registries, e.g. [LogosLight](../src/components/Logos/system/LogosLight.ts) and [LogosDark](../src/components/Logos/system/LogosDark.ts).
+You'd have to update the exportables registries, e.g. [LogosLight](../src/components/Assets/Logos/system/LogosLight.ts) and [LogosDark](../src/components/Assets/Logos/system/LogosDark.ts).
 
-Given our `XYZ.tsx` example, we'd have have it in the [LogosLight](../src/components/Logos/system/LogosLight.ts) as:
+Given our `XYZ.tsx` example, we'd have have it in the [LogosLight](../src/components/Assets/Logos/system/LogosLight.ts) as:
 
 ```tsx
 import { XYZLight as XYZ } from '../XYZ';
@@ -174,30 +176,65 @@ export default LogosLight;
 > We use `...` to keep it short (omit information), you don't have to type it.
 
 > [!IMPORTANT]
-> You MUST update both Logo [LogosLight](../src/components/Logos/system/LogosLight.ts) and [LogosDark](../src/components/Logos/system/LogosDark.ts). Bear in mind that this registry setup, need for two separate files, will likely change in the next versions.
+> You MUST update both theme type, e.g. for logos that'd be [LogosLight](../src/components/Assets/Logos/system/LogosLight.ts) and [LogosDark](../src/components/Assets/Logos/system/LogosDark.ts). Bear in mind that this registry setup, need for two separate files, will likely change in the next versions.
 
 ## File structure
 
 ```sh
-src/components/Logos/
-├── system/
-│   ├── types.ts          # LogoName union (auto-generated)
-│   ├── Logo.tsx          # Main Logo component
-│   ├── LogosLight.ts     # Light theme registry
-│   └── LogosDark.ts      # Dark theme registry
-├── YourNewLKogo.tsx       # Your new logo
-└── ... (other logos)
+src/components/Assets
+├── Flags
+│   ├── Australia.tsx
+   ├── United-Kingdom.tsx
+│   ├── United-States.tsx
+│   └── system
+│       ├── Flag.tsx
+│       ├── FlagsDark.ts
+│   ...
+│       ├── FlagsLight.ts
+│       ├── index.ts
+│       ├── retroactiveNames.ts
+│       └── types.ts
+├── Icons
+│   ├── Activity.tsx
+│   ...
+│   ├── Warning.tsx
+│   ├── Waves.tsx
+│   └── system
+│       ├── Icon.tsx
+│       ├── IconsDark.ts
+│       ├── IconsLight.ts
+│       ├── index.ts
+│       ├── retroactiveNames.ts
+│       └── types.ts
+├── Logos
+│   ├── AWS.tsx
+│   ├── AWS_ATHENA.tsx
+│   ...
+│   ├── WarpStream.tsx
+│   ├── dBeaver.tsx
+│   └── system
+│       ├── Logo.stories.tsx
+│       ├── Logo.tsx
+│       ├── LogosDark.ts
+│       ├── LogosLight.ts
+│       ├── index.ts
+│       └── types.ts
+└── types.ts
+
+7 directories, 281 files
 ```
 
-## Removing logos
+## Removing assets
 
-Delete the file from `src/components/Logos`.
+We'll use logos as an example of how to remove an asset, the same principle applies for Flags, Icons and Logos.
+
+Delete the file from `src/components/Assets/Logos`.
 
 Remove the logo references from:
 
-- [LogosLight](../src/components/Logos/system/LogosLight.ts)
-- [LogosDark](../src/components/Logos/system/LogosDark.ts)
-- [Types](../src/components/Logos/system/types.ts)
+- [LogosLight](../src/components/Assets/Logos/system/LogosLight.ts)
+- [LogosDark](../src/components/Assets/Logos/system/LogosDark.ts)
+- [Types](../src/components/Assets/Logos/system/types.ts)
 
 Once complete, commit your changes!
 
