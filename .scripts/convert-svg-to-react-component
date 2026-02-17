@@ -149,6 +149,11 @@ const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) 
     `export default ${componentName};`
   );
 
+  output = output.replace(
+    /(import \{ SVGAssetProps \} from ['"]\.\.\/types['"];)\n(const [^(]+ = )/,
+    "import { SVGAssetProps } from './system/types';\n\n$2"
+  );
+
   output = output.replace(/<svg([^>]*)>/, (match, attrs) => {
     let newAttrs = attrs
       .replace(/width="[^"]*"/, `width="${defaultSize}"`)
