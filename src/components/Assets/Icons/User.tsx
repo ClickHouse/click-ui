@@ -15,3 +15,5 @@ export const User = (props: SVGAttributes<SVGElement>) => (
     />
   </svg>
 );
+
+export default User;

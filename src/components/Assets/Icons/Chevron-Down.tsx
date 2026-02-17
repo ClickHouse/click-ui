@@ -18,3 +18,5 @@ export const Chevron_Down = (props: SVGAttributes<SVGElement>) => (
     />
   </svg>
 );
+
+export default Chevron_Down;
