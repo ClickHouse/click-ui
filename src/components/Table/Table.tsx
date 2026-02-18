@@ -922,7 +922,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           const nextWidth = columnWidths[nextColumnIndex];
           const newWidth = currentWidth + diff;
           const newNextWidth = nextWidth - diff;
-          const shouldUpdateColumnWidth = newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH;
+          const shouldUpdateColumnWidth =
+            newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH;
 
           if (!shouldUpdateColumnWidth) {
             return;
