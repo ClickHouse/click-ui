@@ -4,10 +4,11 @@ import { ReactNode, useCallback, useId, useState } from 'react';
 import { Icon } from '../Icon/Icon';
 import { Container } from '../Container/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
-import { IconButton } from '../IconButton/IconButton';
+import { IconButton, IconButtonSize } from '../IconButton/IconButton';
 import { Text } from '../Typography/Text/Text';
 import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
+import { IconName } from '@/components/Icon/types';
 
 const explicitWidth = '250px';
 const TXT_ON_MONTH_SELECT = 'Select Month';
@@ -25,13 +26,12 @@ const VIEW_GRID_YEARS = {
 const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
 const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
 
-const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
+const HighlightedInputWrapper = styled(InputWrapper) <{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
-    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-      $isActive
+    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${$isActive
         ? theme.click.datePicker.dateOption.color.stroke.active
         : theme.click.field.color.stroke.default
-    };`;
+      };`;
   }}
 
   width: ${explicitWidth};
@@ -166,7 +166,7 @@ const ClickableTitle = styled.button`
 
   &:hover {
     background: ${({ theme }) =>
-      theme.click.datePicker.dateOption.color.background.hover};
+    theme.click.datePicker.dateOption.color.background.hover};
   }
 `;
 
@@ -281,11 +281,10 @@ export const DateTableCell = styled.td<{
 
   &:hover {
     ${({ $isDisabled, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-        $isDisabled
-          ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
-      };
+    `border: ${theme.click.datePicker.dateOption.stroke} solid ${$isDisabled
+      ? theme.click.datePicker.dateOption.color.stroke.disabled
+      : theme.click.datePicker.dateOption.color.stroke.hover
+    };
 
 
     border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
@@ -302,6 +301,38 @@ interface CalendarRendererProps {
 const monthAbbreviations = getMonthNames('short');
 
 type DateViewOption = 'days' | 'months' | 'years';
+
+const EmptyDateSelectNav = styled(IconButton)`
+  visibility: hidden;
+  pointer-events: none;
+`;
+
+const DateSelectNav = ({
+  id,
+  icon,
+  onClick,
+  view,
+  size = 'sm',
+}: {
+  id: string;
+  icon: Extract<IconName, 'chevron-left' | 'chevron-right'>;
+  onClick: () => void;
+  view: DateViewOption;
+  size?: IconButtonSize;
+}) => {
+  if (view === MONTHS) {
+    return <EmptyDateSelectNav icon={icon} size={size} type="ghost" />;
+  }
+  return (
+    <IconButton
+      data-testid={id}
+      icon={icon}
+      onClick={onClick}
+      size={size}
+      type="ghost"
+    />
+  );
+};
 
 export const CalendarRenderer = ({
   calendarOptions = {},
@@ -363,7 +394,7 @@ export const CalendarRenderer = ({
   headerDate.setMonth(month);
   headerDate.setFullYear(year);
 
-  const getHeaderTitle = () => {
+  const getHeaderTitle = (view: DateViewOption) => {
     if (view === MONTHS) {
       return TXT_ON_MONTH_SELECT;
     }
@@ -471,29 +502,27 @@ export const CalendarRenderer = ({
         justifyContent="space-between"
         orientation="horizontal"
       >
-        <IconButton
-          data-testid="calendar-previous-month"
-          icon="chevron-left"
-          onClick={onPreviousClick}
-          size="sm"
-          type="ghost"
+        <DateSelectNav
+            id="calendar-previous-month"
+            icon="chevron-left"
+            onClick={onPreviousClick}
+            view={view}
         />
         {view === DAYS ? (
           <ClickableTitle
             onClick={onTitleClick}
             data-testid="calendar-title"
           >
-            {getHeaderTitle()}
+            {getHeaderTitle(view)}
           </ClickableTitle>
         ) : (
-          <UnselectableTitle>{getHeaderTitle()}</UnselectableTitle>
+          <UnselectableTitle>{getHeaderTitle(view)}</UnselectableTitle>
         )}
-        <IconButton
-          data-testid="calendar-next-month"
-          icon="chevron-right"
-          onClick={onNextClick}
-          size="sm"
-          type="ghost"
+        <DateSelectNav
+            id="calendar-next-month"
+            icon="chevron-right"
+            onClick={onNextClick}
+            view={view}
         />
       </Container>
       <DateTable>{renderTableContent()}</DateTable>
