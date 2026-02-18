@@ -23,6 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Generate GitHub workflow token
+        id: gh-workflow-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -79,6 +86,7 @@ jobs:
 
             Built from commit: `${{ github.sha }}`
           message-id: storybook-preview
+          repo-token: ${{ steps.gh-workflow-token.outputs.token }}
 
       # TODO: Production builds should be gated
       # behind a successful package release.
