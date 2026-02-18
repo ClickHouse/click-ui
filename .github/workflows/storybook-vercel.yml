@@ -11,7 +11,6 @@ permissions:
 env:
   HUSKY: 0
   STORYBOOK_BUILD_DIR: .storybook/out
-  # TODO: Request admin to setup the following vercel env vars
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
