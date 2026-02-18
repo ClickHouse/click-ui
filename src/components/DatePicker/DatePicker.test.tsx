@@ -80,4 +80,99 @@ describe('DatePicker', () => {
       expect(handleSelectDate).not.toHaveBeenCalled();
     });
   });
+
+  describe('two phased date selection', () => {
+    it('selects 4th August 1986 using month and year selection', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('month-cell-7'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('calendar-previous-month'));
+      await userEvent.click(getByTestId('calendar-previous-month'));
+      await userEvent.click(getByTestId('calendar-previous-month'));
+      await userEvent.click(getByTestId('calendar-previous-month'));
+
+      await userEvent.click(getByTestId('year-cell-1986'));
+
+      await userEvent.click(getByText('4'));
+
+      const selectedDate = onSelectDate.mock.lastCall?.[0];
+      expect(selectedDate).toEqual(new Date('1986-08-04 00:00.00'));
+    });
+
+    it('selects 18th February 2026 using month and year selection', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('month-cell-1'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('calendar-next-month'));
+
+      await userEvent.click(getByTestId('year-cell-2026'));
+
+      await userEvent.click(getByText('18'));
+
+      const selectedDate = onSelectDate.mock.lastCall?.[0];
+      expect(selectedDate).toEqual(new Date('2026-02-18 00:00.00'));
+    });
+
+    it('selects 28th December 2032 using month and year selection', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('month-cell-11'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('calendar-next-month'));
+
+      await userEvent.click(getByTestId('year-cell-2032'));
+
+      await userEvent.click(getByText('28'));
+
+      const selectedDate = onSelectDate.mock.lastCall?.[0];
+      expect(selectedDate).toEqual(new Date('2032-12-28 00:00.00'));
+    });
+  });
 });
