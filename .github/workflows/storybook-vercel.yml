@@ -40,8 +40,10 @@ jobs:
         if: github.ref != 'refs/heads/main'
         run: |
           vercel deploy \
-          --prebuilt \
-          --token=${{ secrets.VERCEL_TOKEN }}
+          --yes \
+          --token=${{ secrets.VERCEL_TOKEN }} \
+          > deployment-url.txt
+          echo "Preview URL: $(cat deployment-url.txt)"
         working-directory: ${{ env.STORYBOOK_BUILD_DIR }}
 
       # TODO: Production builds should be gated
