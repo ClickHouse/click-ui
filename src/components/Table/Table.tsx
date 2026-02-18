@@ -922,18 +922,21 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           const nextWidth = columnWidths[nextColumnIndex];
           const newWidth = currentWidth + diff;
           const newNextWidth = nextWidth - diff;
+          const shouldUpdateColumnWidth = newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH;
 
-          if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
-            setColumnWidths(prev => {
-              if (!prev) {
-                return prev;
-              }
-              const updated = [...prev];
-              updated[columnIndex] = newWidth;
-              updated[nextColumnIndex] = newNextWidth;
-              return updated;
-            });
+          if (!shouldUpdateColumnWidth) {
+            return;
           }
+
+          setColumnWidths(prev => {
+            if (!prev) {
+              return prev;
+            }
+            const updated = [...prev];
+            updated[columnIndex] = newWidth;
+            updated[nextColumnIndex] = newNextWidth;
+            return updated;
+          });
         },
       [columnWidths, headers.length]
     );
