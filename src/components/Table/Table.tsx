@@ -90,6 +90,12 @@ const Resizer = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
+    opacity: 1;
+  }
 `;
 
 const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
@@ -447,7 +453,7 @@ const ActionsContainer = styled.div`
 const TableWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
   ${({ theme }) => `
   border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
   border-radius: ${theme.click.table.radii.all}
@@ -1057,7 +1063,7 @@ const Cell = ({
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  overflow: hidden;
+  overflow: visible;
   table-layout: fixed;
 
   @media (max-width: 768px) {
