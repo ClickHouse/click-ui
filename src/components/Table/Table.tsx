@@ -145,6 +145,7 @@ const TableHeader = ({
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
   );
+  const resizerRef = useRef<HTMLDivElement>(null);
 
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === 'function') {
@@ -169,12 +170,8 @@ const TableHeader = ({
       case 'ArrowRight':
         onKeyboardResize(e, 'right');
         break;
-      case 'Enter':
-      case ' ':
-        // TODO: Should? setIsFocused(prev => !prev);
-        break;
       case 'Escape':
-        // TODO: Should? setIsFocused(false);
+        resizerRef.current?.blur();
         break;
     }
   };
@@ -207,6 +204,7 @@ const TableHeader = ({
       </HeaderContentWrapper>
       {showResizer && (
         <Resizer
+          ref={resizerRef}
           onMouseDown={onResizeStart}
           role="separator"
           aria-orientation="vertical"
