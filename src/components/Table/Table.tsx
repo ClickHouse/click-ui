@@ -157,7 +157,9 @@ const TableHeader = ({
   };
 
   const onResizerKeyDown = (e: React.KeyboardEvent) => {
-    if (!onKeyboardResize) return;
+    if (!onKeyboardResize) {
+      return;
+    }
 
     if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
       e.preventDefault();
@@ -228,7 +230,9 @@ interface TheadProps {
   resizableColumns?: boolean;
   columnWidths?: number[] | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
-  onKeyboardResize?: (columnIndex: number) => (e: React.KeyboardEvent, direction: 'left' | 'right') => void;
+  onKeyboardResize?: (
+    columnIndex: number
+  ) => (e: React.KeyboardEvent, direction: 'left' | 'right') => void;
   theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
@@ -893,33 +897,38 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       actionsList.push('editAction');
     }
 
-   const onKeyboardResize = useCallback(
-      (columnIndex: number) =>
-        (_e: React.KeyboardEvent, direction: 'left' | 'right') => {
-          if (!columnWidths) return;
+    const onKeyboardResize = useCallback(
+      (columnIndex: number) => (_e: React.KeyboardEvent, direction: 'left' | 'right') => {
+        if (!columnWidths) {
+          return;
+        }
 
-          const nextColumnIndex = columnIndex + 1;
-          if (nextColumnIndex >= headers.length) return;
+        const nextColumnIndex = columnIndex + 1;
+        if (nextColumnIndex >= headers.length) {
+          return;
+        }
 
-          const increment = 2;
-          const multiplier = direction === 'right' ? 1 : -1;
-          const diff = increment * multiplier;
+        const increment = 2;
+        const multiplier = direction === 'right' ? 1 : -1;
+        const diff = increment * multiplier;
 
-          const currentWidth = columnWidths[columnIndex];
-          const nextWidth = columnWidths[nextColumnIndex];
-          const newWidth = currentWidth + diff;
-          const newNextWidth = nextWidth - diff;
+        const currentWidth = columnWidths[columnIndex];
+        const nextWidth = columnWidths[nextColumnIndex];
+        const newWidth = currentWidth + diff;
+        const newNextWidth = nextWidth - diff;
 
-          if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
-            setColumnWidths(prev => {
-              if (!prev) return prev;
-              const updated = [...prev];
-              updated[columnIndex] = newWidth;
-              updated[nextColumnIndex] = newNextWidth;
-              return updated;
-            });
-          }
-        },
+        if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
+          setColumnWidths(prev => {
+            if (!prev) {
+              return prev;
+            }
+            const updated = [...prev];
+            updated[columnIndex] = newWidth;
+            updated[nextColumnIndex] = newNextWidth;
+            return updated;
+          });
+        }
+      },
       [columnWidths, headers.length]
     );
 
