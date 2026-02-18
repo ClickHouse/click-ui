@@ -18,6 +18,10 @@ export const formatTimezone = ({
     .formatToParts(date.toDate())
     .find(part => part.type === 'timeZoneName')?.value ?? date.format('z');
 
+export const DAYS = 'days';
+export const MONTHS = 'months';
+export const YEARS = 'years';
+
 type MonthNamesFormat = 'short' | 'long';
 
 export const getMonthNames = (format: MonthNamesFormat = 'long') =>
