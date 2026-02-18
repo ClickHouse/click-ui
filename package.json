@@ -61,7 +61,11 @@
     "test:visual:ui": "playwright test --ui",
     "test:visual:update": "playwright test --update-snapshots",
     "test:watch": "DEBUG_PRINT_LIMIT=100000 vitest --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "convert:logo": ".scripts/convert-svg-to-react-component --type=logos",
+    "convert:icon": ".scripts/convert-svg-to-react-component --type=icons",
+    "convert:flag": ".scripts/convert-svg-to-react-component --type=flags",
+    "convert:payment": ".scripts/convert-svg-to-react-component --type=payments"
   },
   "dependencies": {
     "@h6s/calendar": "2.0.1",
@@ -97,6 +101,7 @@
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",
     "@storybook/react-vite": "^10.1.10",
+    "@svgr/cli": "^8.1.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.1.0",

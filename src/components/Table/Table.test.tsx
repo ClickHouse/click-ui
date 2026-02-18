@@ -98,4 +98,30 @@ describe('Table', () => {
     fireEvent.click(rowCheckbox);
     expect(onEdit).toBeCalledTimes(1);
   });
+
+  it('should resize column width on ArrowRight key press', () => {
+    const { queryAllByRole } = renderTable({
+      resizableColumns: true,
+    });
+
+    const resizers = queryAllByRole('separator');
+    expect(resizers.length).toBe(2);
+    expect(resizers[0]).toHaveAttribute('tabIndex', '0');
+
+    resizers[0].focus();
+    fireEvent.keyDown(resizers[0], { key: 'ArrowRight' });
+  });
+
+  it('should resize column width on ArrowLeft key press', () => {
+    const { queryAllByRole } = renderTable({
+      resizableColumns: true,
+    });
+
+    const resizers = queryAllByRole('separator');
+    expect(resizers.length).toBe(2);
+    expect(resizers[0]).toHaveAttribute('tabIndex', '0');
+
+    resizers[0].focus();
+    fireEvent.keyDown(resizers[0], { key: 'ArrowLeft' });
+  });
 });
