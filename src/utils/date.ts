@@ -22,6 +22,8 @@ export const DAYS = 'days';
 export const MONTHS = 'months';
 export const YEARS = 'years';
 
+export const DAYS_IN_WEEK = 7;
+
 type MonthNamesFormat = 'short' | 'long';
 
 export const getMonthNames = (format: MonthNamesFormat = 'long') =>
