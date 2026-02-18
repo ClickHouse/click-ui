@@ -112,12 +112,17 @@ const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
+type OnKeyboardResizerDirection = 'left' | 'right';
+
 interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
   onSort?: () => void;
   size: TableSize;
   showResizer?: boolean;
   onResizeStart?: (e: MouseEvent) => void;
-  onKeyboardResize?: (e: React.KeyboardEvent, direction: 'left' | 'right') => void;
+  onKeyboardResize?: (
+    e: React.KeyboardEvent,
+    direction: OnKeyboardResizerDirection
+  ) => void;
 }
 
 const TableHeader = ({
@@ -232,7 +237,7 @@ interface TheadProps {
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
     columnIndex: number
-  ) => (e: React.KeyboardEvent, direction: 'left' | 'right') => void;
+  ) => (e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
   theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
@@ -898,37 +903,38 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     }
 
     const onKeyboardResize = useCallback(
-      (columnIndex: number) => (_e: React.KeyboardEvent, direction: 'left' | 'right') => {
-        if (!columnWidths) {
-          return;
-        }
+      (columnIndex: number) =>
+        (_e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => {
+          if (!columnWidths) {
+            return;
+          }
 
-        const nextColumnIndex = columnIndex + 1;
-        if (nextColumnIndex >= headers.length) {
-          return;
-        }
+          const nextColumnIndex = columnIndex + 1;
+          if (nextColumnIndex >= headers.length) {
+            return;
+          }
 
-        const increment = 2;
-        const multiplier = direction === 'right' ? 1 : -1;
-        const diff = increment * multiplier;
+          const increment = 2;
+          const multiplier = direction === 'right' ? 1 : -1;
+          const diff = increment * multiplier;
 
-        const currentWidth = columnWidths[columnIndex];
-        const nextWidth = columnWidths[nextColumnIndex];
-        const newWidth = currentWidth + diff;
-        const newNextWidth = nextWidth - diff;
+          const currentWidth = columnWidths[columnIndex];
+          const nextWidth = columnWidths[nextColumnIndex];
+          const newWidth = currentWidth + diff;
+          const newNextWidth = nextWidth - diff;
 
-        if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
-          setColumnWidths(prev => {
-            if (!prev) {
-              return prev;
-            }
-            const updated = [...prev];
-            updated[columnIndex] = newWidth;
-            updated[nextColumnIndex] = newNextWidth;
-            return updated;
-          });
-        }
-      },
+          if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
+            setColumnWidths(prev => {
+              if (!prev) {
+                return prev;
+              }
+              const updated = [...prev];
+              updated[columnIndex] = newWidth;
+              updated[nextColumnIndex] = newNextWidth;
+              return updated;
+            });
+          }
+        },
       [columnWidths, headers.length]
     );
 
