@@ -26,12 +26,13 @@ const VIEW_GRID_YEARS = {
 const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
 const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
 
-const HighlightedInputWrapper = styled(InputWrapper) <{ $isActive: boolean }>`
+const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
-    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${$isActive
+    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+      $isActive
         ? theme.click.datePicker.dateOption.color.stroke.active
         : theme.click.field.color.stroke.default
-      };`;
+    };`;
   }}
 
   width: ${explicitWidth};
@@ -166,7 +167,7 @@ const ClickableTitle = styled.button`
 
   &:hover {
     background: ${({ theme }) =>
-    theme.click.datePicker.dateOption.color.background.hover};
+      theme.click.datePicker.dateOption.color.background.hover};
   }
 `;
 
@@ -183,7 +184,7 @@ const UnselectableTitle = styled.h2`
 
 const GridContainer = styled.div`
   display: grid;
-  padding: .25rem 0 0;
+  padding: 0.25rem 0 0;
 
   ${({ theme }) => `
     gap: ${theme.click.datePicker.space.gap} * 2;
@@ -286,10 +287,11 @@ export const DateTableCell = styled.td<{
 
   &:hover {
     ${({ $isDisabled, theme }) =>
-    `border: ${theme.click.datePicker.dateOption.stroke} solid ${$isDisabled
-      ? theme.click.datePicker.dateOption.color.stroke.disabled
-      : theme.click.datePicker.dateOption.color.stroke.hover
-    };
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+        $isDisabled
+          ? theme.click.datePicker.dateOption.color.stroke.disabled
+          : theme.click.datePicker.dateOption.color.stroke.hover
+      };
 
 
     border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
@@ -326,7 +328,13 @@ const DateSelectNav = ({
   size?: IconButtonSize;
 }) => {
   if (view === MONTHS) {
-    return <EmptyDateSelectNav icon={icon} size={size} type="ghost" />;
+    return (
+      <EmptyDateSelectNav
+        icon={icon}
+        size={size}
+        type="ghost"
+      />
+    );
   }
   return (
     <IconButton
@@ -371,7 +379,9 @@ export const CalendarRenderer = ({
   }, [navigation, view]);
 
   const onTitleClick = useCallback(() => {
-    if (view !== DAYS) return;
+    if (view !== DAYS) {
+      return;
+    }
 
     setView(MONTHS);
   }, [view]);
@@ -383,7 +393,8 @@ export const CalendarRenderer = ({
 
   const onYearSelection = useCallback(
     (selectedYear: number) => {
-      const finalMonth = typeof selectedMonthIndex === 'number' ? selectedMonthIndex : month;
+      const finalMonth =
+        typeof selectedMonthIndex === 'number' ? selectedMonthIndex : month;
       const newDate = new Date(selectedYear, finalMonth, 1);
 
       navigation.setDate(newDate);
@@ -508,10 +519,10 @@ export const CalendarRenderer = ({
         orientation="horizontal"
       >
         <DateSelectNav
-            id="calendar-previous-month"
-            icon="chevron-left"
-            onClick={onPreviousClick}
-            view={view}
+          id="calendar-previous-month"
+          icon="chevron-left"
+          onClick={onPreviousClick}
+          view={view}
         />
         {view === DAYS ? (
           <ClickableTitle
@@ -524,10 +535,10 @@ export const CalendarRenderer = ({
           <UnselectableTitle>{getHeaderTitle(view)}</UnselectableTitle>
         )}
         <DateSelectNav
-            id="calendar-next-month"
-            icon="chevron-right"
-            onClick={onNextClick}
-            view={view}
+          id="calendar-next-month"
+          icon="chevron-right"
+          onClick={onNextClick}
+          view={view}
         />
       </Container>
       <DateTable>{renderTableContent()}</DateTable>
