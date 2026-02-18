@@ -176,6 +176,8 @@ const UnselectableTitle = styled.h2`
     font: ${theme.click.datePicker.typography.title.default};
   `}
 
+  margin: 0;
+  padding: 0;
   user-select: none;
 `;
 
