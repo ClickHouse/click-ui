@@ -4,6 +4,10 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   HUSKY: 0
   STORYBOOK_BUILD_DIR: .storybook/out
