@@ -233,6 +233,7 @@ interface TheadProps {
   resizableColumns?: boolean;
   columnWidths?: number[] | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
+  onKeyboardResize?: (columnIndex: number) => (e: React.KeyboardEvent, direction: 'left' | 'right', shift: boolean) => void;
   theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
@@ -249,6 +250,7 @@ const Thead = ({
   columnWidths,
   onResizeStart,
   theadRef,
+  onKeyboardResize,
 }: TheadProps) => {
   const onSort = (header: TableColumnConfigProps, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
@@ -296,6 +298,7 @@ const Thead = ({
               resizable={resizableColumns}
               showResizer={resizableColumns && index < headers.length - 1}
               onResizeStart={onResizeStart?.(index)}
+              onKeyboardResize={onKeyboardResize?.(index)}
               {...headerProps}
             />
           ))}
@@ -895,6 +898,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       actionsList.push('editAction');
     }
 
+   const onKeyboardResize = () => console.log('[debug] onKeyboardResize');
+
     return (
       <TableOuterContainer>
         {hasRows && showHeader && (
@@ -928,6 +933,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 columnWidths={resizableColumns ? columnWidths : undefined}
                 onResizeStart={resizableColumns ? handleResizeStart : undefined}
                 theadRef={theadRef}
+                onKeyboardResize={resizableColumns ? onKeyboardResize : undefined}
               />
             )}
             <Tbody>
