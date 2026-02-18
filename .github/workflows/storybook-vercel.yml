@@ -2,6 +2,7 @@ name: 📚 Storybook to Vercel
 
 on:
   push:
+  workflow_dispatch:
 
 env:
   HUSKY: 0
