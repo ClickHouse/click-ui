@@ -117,6 +117,7 @@ interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
   size: TableSize;
   showResizer?: boolean;
   onResizeStart?: (e: MouseEvent) => void;
+  onKeyboardResize?: (e: React.KeyboardEvent, direction: 'left' | 'right', shift: boolean) => void;
 }
 
 const TableHeader = ({
@@ -130,6 +131,7 @@ const TableHeader = ({
   resizable,
   showResizer,
   onResizeStart,
+  onKeyboardResize,
   overflowMode,
   ...props
 }: TableHeaderProps) => {
@@ -143,6 +145,7 @@ const TableHeader = ({
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
   );
+
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e);
@@ -151,6 +154,34 @@ const TableHeader = ({
       onSort();
     }
   };
+
+  const onResizerKeyDown = (e: React.KeyboardEvent) => {
+    console.log('[debug] e', e.key)
+    if (!onKeyboardResize) return;
+
+    const { key, shiftKey } = e;
+
+    if (['ArrowLeft', 'ArrowRight'].includes(key)) {
+      e.preventDefault();
+    }
+
+    switch (key) {
+      case 'ArrowLeft':
+        onKeyboardResize(e, 'left', shiftKey);
+        break;
+      case 'ArrowRight':
+        onKeyboardResize(e, 'right', shiftKey);
+        break;
+      case 'Enter':
+      case ' ':
+        // TODO: Should? setIsFocused(prev => !prev);
+        break;
+      case 'Escape':
+        // TODO: Should? setIsFocused(false);
+        break;
+    }
+  };
+
   return (
     <StyledHeader
       $size={size}
@@ -183,16 +214,8 @@ const TableHeader = ({
           role="separator"
           aria-orientation="vertical"
           aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
-          /*
-          // TODO: a11y tab and create handler key down
           tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              // TODO: Could implement keyboard-based resizing here?
-            }
-          }}
-          */
+          onKeyDown={onResizerKeyDown}
         />
       )}
     </StyledHeader>
