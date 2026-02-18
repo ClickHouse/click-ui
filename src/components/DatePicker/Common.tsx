@@ -183,8 +183,11 @@ const UnselectableTitle = styled.h2`
 
 const GridContainer = styled.div`
   display: grid;
-  gap: 4px;
-  padding: 4px 0;
+  padding: .25rem 0 0;
+
+  ${({ theme }) => `
+    gap: ${theme.click.datePicker.space.gap} * 2;
+  `}
 `;
 
 const MonthsGrid = styled(GridContainer)`
