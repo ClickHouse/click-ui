@@ -12,6 +12,7 @@ import { IconName } from '@/components/Icon/types';
 
 const explicitWidth = '250px';
 const TXT_ON_MONTH_SELECT = 'Select Month';
+const TXT_ON_YEAR_SELECT = 'Select Year';
 
 const VIEW_GRID_MONTHS = {
   columns: 4,
@@ -416,10 +417,7 @@ export const CalendarRenderer = ({
     }
 
     if (view === YEARS) {
-      const startYear = year + yearOffset - VIEW_NAVIGATION_OFFSET_YEARS;
-      const endYear = year + yearOffset + VIEW_NAVIGATION_OFFSET_YEARS;
-
-      return `${startYear} - ${endYear}`;
+      return TXT_ON_YEAR_SELECT;
     }
 
     return headerDateFormatter.format(headerDate);
