@@ -186,13 +186,13 @@ const GridContainer = styled.div`
 `;
 
 const MonthsGrid = styled(GridContainer)`
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(${VIEW_GRID_MONTHS.columns}, 1fr);
+  grid-template-rows: repeat(${VIEW_GRID_MONTHS.rows}, 1fr);
 `;
 
 const YearsGrid = styled(GridContainer)`
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(${VIEW_GRID_YEARS.columns}, 1fr);
+  grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
 `;
 
 const GridCell = styled.div`
