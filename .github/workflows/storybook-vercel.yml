@@ -64,28 +64,17 @@ jobs:
           echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
           echo "Preview deployed to: $DEPLOYMENT_URL"
 
-      - name: Find Comment
+      - name: Comment PR with Preview URL
         if: github.ref != 'refs/heads/main'
-        uses: peter-evans/find-comment@v3
-        id: fc
+        uses: mshick/add-pr-comment@v2
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: 'Storybook Preview Deployed'
-
-      - name: Create or update comment
-        if: github.ref != 'refs/heads/main'
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
+          message: |
             ## 📚 Storybook Preview Deployed
 
             ✅ Preview URL: ${{ steps.deploy.outputs.url }}
 
             Built from commit: `${{ github.sha }}`
-          edit-mode: replace
+          message-id: storybook-preview
 
       # TODO: Production builds should be gated
       # behind a successful package release.
