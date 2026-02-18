@@ -38,7 +38,10 @@ jobs:
 
       - name: Deploy to Vercel (Preview)
         if: github.ref != 'refs/heads/main'
-        run: vercel deploy --prebuilt
+        run: |
+          vercel deploy \
+          --prebuilt \
+          --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: ${{ env.STORYBOOK_BUILD_DIR }}
 
       # TODO: Production builds should be gated
