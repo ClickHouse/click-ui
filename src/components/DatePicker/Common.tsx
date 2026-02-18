@@ -319,7 +319,7 @@ export const CalendarRenderer = ({
 
   const onNextClick = useCallback(() => {
     if (view === YEARS) {
-      setYearOffset(prev => prev + 9);
+      setYearOffset(prev => prev + VIEW_TOTAL_YEARS);
     } else {
       navigation.toNext();
     }
@@ -327,7 +327,7 @@ export const CalendarRenderer = ({
 
   const onPreviousClick = useCallback(() => {
     if (view === YEARS) {
-      setYearOffset(prev => prev - 9);
+      setYearOffset(prev => prev - VIEW_TOTAL_YEARS);
       return;
     }
 
@@ -369,8 +369,8 @@ export const CalendarRenderer = ({
     }
 
     if (view === YEARS) {
-      const startYear = year + yearOffset - 4;
-      const endYear = year + yearOffset + 4;
+      const startYear = year + yearOffset - VIEW_NAVIGATION_OFFSET_YEARS;
+      const endYear = year + yearOffset + VIEW_NAVIGATION_OFFSET_YEARS;
 
       return `${startYear} - ${endYear}`;
     }
@@ -398,19 +398,20 @@ export const CalendarRenderer = ({
     const years = [];
     const baseYear = year + yearOffset;
 
-    for (let i = -4; i <= 4; i++) {
+    // Note: Try to keep the current year in the middle
+    for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
       years.push(baseYear + i);
     }
 
     return (
       <YearsGrid data-testid="years-grid">
-        {years.map(y => (
+        {years.map(currYear => (
           <GridCell
-            key={y}
-            onClick={() => onYearSelection(y)}
-            data-testid={`year-cell-${y}`}
+            key={currYear}
+            onClick={() => onYearSelection(currYear)}
+            data-testid={`year-cell-${currYear}`}
           >
-            {y}
+            {currYear}
           </GridCell>
         ))}
       </YearsGrid>
@@ -422,7 +423,7 @@ export const CalendarRenderer = ({
       return (
         <tbody>
           <tr>
-            <td colSpan={7}>{renderMonthsGrid()}</td>
+            <td colSpan={DAYS_IN_WEEK}>{renderMonthsGrid()}</td>
           </tr>
         </tbody>
       );
@@ -432,7 +433,7 @@ export const CalendarRenderer = ({
       return (
         <tbody>
           <tr>
-            <td colSpan={7}>{renderYearsGrid()}</td>
+            <td colSpan={DAYS_IN_WEEK}>{renderYearsGrid()}</td>
           </tr>
         </tbody>
       );
