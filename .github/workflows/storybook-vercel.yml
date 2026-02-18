@@ -94,7 +94,6 @@ jobs:
       # to support concurrent versions running simultaneously.
       # For now, content-hashed URLs are acceptable,
       # as seen in "Deploy to Vercel (Preview)
-      # https://linear.app/clickhouse/issue/CUI-95/storybook-production-builds-should-be-gated-behind-package-release
 
       # - name: Deploy to Vercel (Production)
       #   if: github.ref == 'refs/heads/main'
