@@ -7,10 +7,23 @@ import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton } from '../IconButton/IconButton';
 import { Text } from '../Typography/Text/Text';
 import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
-import { getMonthNames, DAYS, MONTHS, YEARS } from '@/utils/date';
+import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 
 const explicitWidth = '250px';
-const TXT_ON_MONTH_SELECT = 'Select Month'
+const TXT_ON_MONTH_SELECT = 'Select Month';
+
+const VIEW_GRID_MONTHS = {
+  columns: 4,
+  rows: 3,
+} as const;
+
+const VIEW_GRID_YEARS = {
+  columns: 3,
+  rows: 3,
+} as const;
+
+const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
+const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
 
 const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
