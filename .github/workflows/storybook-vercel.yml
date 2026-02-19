@@ -87,15 +87,23 @@ jobs:
           message-id: storybook-preview
           repo-token: ${{ steps.gh-workflow-token.outputs.token }}
 
-      # TODO: Production builds should be gated
-      # behind a successful package release.
-      # Each build must be versioned and accessible
-      # by its package version,
-      # to support concurrent versions running simultaneously.
-      # For now, content-hashed URLs are acceptable,
-      # as seen in "Deploy to Vercel (Preview)
+      - name: Deploy to Vercel (Production)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          commit_msg=$(git log -1 --pretty=%B)
 
-      # - name: Deploy to Vercel (Production)
-      #   if: github.ref == 'refs/heads/main'
-      #   run: vercel deploy --prebuilt --prod
-      #   working-directory: ${{ env.STORYBOOK_BUILD_DIR }}
+          # TODO: Find a way to make the expected format
+          # reusable across the storybook publisher
+          # and also the release publisher. For example, changing
+          # the release version shouldn't break it here.
+          if [[ ! "$commit_msg" =~ ^chore:.*release[[:space:]]+v[0-9]+\.[0-9]+\.[0-9]+[[:space:]]+\(latest\) ]]; then
+            echo "🦖 Skip! Commit message does not match release format"
+            exit 0
+          fi
+
+          DEPLOYMENT_URL=$(vercel deploy \
+            --prebuilt \
+            --yes \
+            --prod \
+            --token=${{ secrets.VERCEL_TOKEN }})
+          echo "🚀 Deployed to $DEPLOYMENT_URL"
