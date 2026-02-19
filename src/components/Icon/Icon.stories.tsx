@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import LogosLight from '../Logos/LogosLight';
-import { FlagList } from '../icons/Flags';
-import { PaymentList } from '../icons/Payments';
+import LogosLight from '@/components/Assets/Logos/system/LogosLight';
+import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
+import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
 import { Icon } from './Icon';
-import { IconName } from '../types';
+import { IconName } from './types';
 import { ICONS_MAP } from './IconCommon';
 import { IconProps } from './types';
 import { Container } from '../Container/Container';
@@ -17,9 +17,9 @@ import { GridContainer } from '../GridContainer/GridContainer';
 import { Spacer } from '../Spacer/Spacer';
 
 const IconNames = Object.keys(ICONS_MAP);
-const FlagNames = Object.keys(FlagList);
+const FlagNames = Object.keys(FlagsLight);
 const LogoNames = Object.keys(LogosLight);
-const PaymentNames = Object.keys(PaymentList);
+const PaymentNames = Object.keys(PaymentsLight);
 
 const IconWrapper = (props: IconProps) => (
   <Container>
@@ -152,7 +152,7 @@ export const Icons: Story = {
         </Title>
 
         <ResponsiveGridContainer>
-          {Object.keys(FlagList).map(key => (
+          {Object.keys(FlagsLight).map(key => (
             <IconGallery
               key={key}
               name={key as IconName}
@@ -170,7 +170,7 @@ export const Icons: Story = {
         </Title>
 
         <ResponsiveGridContainer>
-          {Object.keys(PaymentList).map(key => (
+          {Object.keys(PaymentsLight).map(key => (
             <IconGallery
               key={key}
               name={key as IconName}

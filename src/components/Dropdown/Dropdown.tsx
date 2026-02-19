@@ -2,7 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
-import PopoverArrow from '../icons/PopoverArrow';
+import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '../IconWrapper/IconWrapper';
 import { HorizontalDirection } from '@/components/types';
 import { Icon } from '@/components/Icon/Icon';
@@ -125,7 +125,7 @@ const DropdownContent = ({
             width={20}
             height={10}
           >
-            <PopoverArrow />
+            <Popover_Arrow />
           </Arrow>
         )}
         {children}
