@@ -45,7 +45,7 @@
     "convert:logo": ".scripts/convert-svg-to-react-component --type=logos",
     "convert:icon": ".scripts/convert-svg-to-react-component --type=icons",
     "convert:flag": ".scripts/convert-svg-to-react-component --type=flags",
-    "convert:payment": ".scripts/convert-svg-to-react-component --type=payments"
+    "convert:payment": ".scripts/convert-svg-to-react-component --type=payments",
     "dev": "yarn storybook",
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
@@ -65,7 +65,7 @@
     "test:visual:ui": "playwright test --ui",
     "test:visual:update": "playwright test --update-snapshots",
     "test:watch": "DEBUG_PRINT_LIMIT=100000 vitest --watch",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@h6s/calendar": "2.0.1",
