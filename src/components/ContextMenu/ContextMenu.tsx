@@ -8,6 +8,15 @@ import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMe
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 
+export interface ArrowProps {
+  showArrow?: boolean;
+}
+
+export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
+  icon?: IconName;
+  iconDir?: HorizontalDirection;
+}
+
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
@@ -61,10 +70,6 @@ const ContextMenuSubTrigger = ({
 
 ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 ContextMenu.SubTrigger = ContextMenuSubTrigger;
-
-export type ArrowProps = {
-  showArrow?: boolean;
-};
 
 type DeprecatedFields = {
   /** @deprecated The side field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */

@@ -1,43 +1,12 @@
 import { styled } from 'styled-components';
 import { Title, Text, TextAlignment } from '@/components/Typography';
-import { HTMLAttributes, MouseEvent, MouseEventHandler, ReactNode } from 'react';
-import { WithTopBadgeProps, withTopBadge } from './withTopBadge';
+import { withTopBadge } from './withTopBadge';
 import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
-import type { IconName } from '@/components/Icon';
+import { CardPrimaryProps, CardPrimarySize } from './CardPrimary.types';
 
-export type CardPrimarySize = 'sm' | 'md';
 type ContentAlignment = 'start' | 'center' | 'end';
-export interface CardPrimaryProps
-  extends HTMLAttributes<HTMLDivElement>, WithTopBadgeProps {
-  /** The title text displayed in the card */
-  title?: string;
-  /** Icon name to display in the card header */
-  icon?: IconName;
-  /** URL to a custom icon image */
-  iconUrl?: string;
-  /** Whether to show a shadow on the card */
-  hasShadow?: boolean;
-  /** Whether the card is disabled */
-  disabled?: boolean;
-  /** The description content of the card */
-  description?: ReactNode;
-  /** URL to navigate to when clicked */
-  infoUrl?: string;
-  /** Text to display on the action button */
-  infoText?: string;
-  /** The size variant of the card */
-  size?: CardPrimarySize;
-  /** Whether the card is in a selected state */
-  isSelected?: boolean;
-  /** Additional content to display in the card */
-  children?: ReactNode;
-  /** Content alignment within the card */
-  alignContent?: ContentAlignment;
-  /** Callback when the card button is clicked */
-  onButtonClick?: MouseEventHandler<HTMLElement>;
-}
 
 const Wrapper = styled.div<{
   $size?: CardPrimarySize;
@@ -165,7 +134,7 @@ const Card = ({
   children,
   ...props
 }: CardPrimaryProps) => {
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }

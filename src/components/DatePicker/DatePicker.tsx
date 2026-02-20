@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import { Dropdown } from '@/components/Dropdown';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
+import { DatePickerProps } from './DatePicker.types';
 
 interface CalendarProps {
   calendarBody: Body;
@@ -51,13 +52,7 @@ const Calendar = ({
       </tr>
     );
   });
-};
-
-export interface DatePickerProps {
-  date?: Date;
-  disabled?: boolean;
-  futureDatesDisabled?: boolean;
-  onSelectDate: (selectedDate: Date) => void;
+}
   placeholder?: string;
 }
 
