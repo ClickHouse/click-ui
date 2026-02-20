@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
-import { HorizontalDirection } from '@/components';
+import type { HorizontalDirection } from '@/components/types';
 import { HTMLAttributes, MouseEvent, ReactNode } from 'react';
-import { ImageName } from '@/components/Icon/types';
+import type { IconName } from '@/components/Icon/types';
 import { Icon } from '@/components/Icon/Icon';
-import IconWrapper from '@/components/IconWrapper/IconWrapper';
+import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 
 export type BadgeState =
   | 'default'
@@ -27,7 +27,7 @@ export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
   /** The type/style of the badge - opaque has a lighter background, solid has a filled background */
   type?: BadgeType;
   /** Optional icon to display alongside the text */
-  icon?: ImageName;
+  icon?: IconName;
   /** The direction of the icon relative to the text */
   iconDir?: HorizontalDirection;
   /** Whether to truncate content with ellipsis when it overflows */
@@ -78,7 +78,7 @@ const SvgContainer = styled.svg<{
     width: ${theme.click.badge.icon[$size].size.width};
   `}
 `;
-const BadgeContent = styled.div<{
+const BadgeContent = styled(IconWrapper)<{
   $state?: BadgeState;
   $size?: BadgeSize;
   $type?: BadgeType;
@@ -117,7 +117,6 @@ export const Badge = ({
   >
     <Content data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-badge-content`}>
       <BadgeContent
-        as={IconWrapper}
         icon={icon}
         iconDir={iconDir}
         size={size}

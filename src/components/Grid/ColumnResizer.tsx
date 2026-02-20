@@ -1,17 +1,11 @@
 import { PointerEventHandler, useCallback, useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
 import { ColumnResizeFn, GetResizerPositionFn } from './types';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash-es';
 import { initialPosition, ResizingState } from './useResizingState';
 
 const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
 
-/**
- * Styled component for the resizer span element.
- * @type {StyledComponent}
- * @param {number} $height - Height of the resizer element in pixels.
- * @param {boolean} $isPressed - Indicates if the resizer is currently pressed.
- */
 const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
   top: ${initialPosition.top};
   left: ${initialPosition.left};
@@ -34,16 +28,6 @@ const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
     `}
 `;
 
-/**
- * Properties for the ColumnResizer component.
- * @typedef {Object} Props
- * @property {number} height - Height of the resizer.
- * @property {ColumnResizeFn} onColumnResize - Function to handle column resize.
- * @property {number} columnIndex - Index of the column being resized.
- * @property {GetResizerPositionFn} getResizerPosition - Function to get the position of the resizer.
- * @property {number} columnWidth - Initial width of the column.
- * @property {ResizingState} resizingState - State management object for resizing interactions.
- */
 interface Props {
   height: number;
   onColumnResize: ColumnResizeFn;
@@ -53,11 +37,6 @@ interface Props {
   resizingState: ResizingState;
 }
 
-/**
- * Component for rendering a column resizer with pointer events and resizing state management.
- * @param {Props} props - Properties passed to the component.
- * @returns {JSX.Element} The ColumnResizer component.
- */
 const ColumnResizer = ({
   height,
   onColumnResize: onColumnResizeProp,

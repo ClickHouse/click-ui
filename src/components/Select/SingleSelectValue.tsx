@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { SelectItemProps } from './common/types';
-import IconWrapper from '../IconWrapper/IconWrapper';
+import { IconWrapper } from '../IconWrapper/IconWrapper';
 
 const SelectValueContainer = styled.div`
   display: flex;
@@ -32,6 +32,7 @@ const SingleSelectValue = ({
         icon={icon}
         iconDir={iconDir}
         gap="xxs"
+        isResponsive={false}
       >
         {label ?? children ?? value}
       </IconWrapper>

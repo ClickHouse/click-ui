@@ -1,8 +1,8 @@
 import { SVGAttributes } from 'react';
-import { LogoProps } from '../Logos/Logo';
-import { FlagName, FlagProps } from '../icons/Flags';
-import { LogoName } from '../Logos/types';
-import { PaymentName, PaymentProps } from '../icons/Payments';
+import { LogoProps } from '@/components/Assets/Logos/system/Logo';
+import { FlagName, FlagProps } from '@/components/Assets/Flags/system/Flag';
+import { LogoName } from '@/components/Assets/Logos/system/types';
+import { PaymentName, PaymentProps } from '@/components/Assets/Payments/system';
 import { ICON_NAMES } from './IconCommon';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';

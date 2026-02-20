@@ -5,14 +5,12 @@ import {
   useCallback,
   useRef,
 } from 'react';
-import {
-  Container,
-  ContainerProps,
-  IconButton,
-  NumberField,
-  Select,
-  Text,
-} from '@/components';
+import { Container } from '@/components/Container/Container';
+import type { ContainerProps } from '@/components/Container/Container';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { NumberField } from '@/components/Input/NumberField';
+import { Select } from '@/components/Select/SingleSelect';
+import { Text } from '@/components/Typography/Text/Text';
 import { styled } from 'styled-components';
 
 export interface PaginationProps extends Omit<

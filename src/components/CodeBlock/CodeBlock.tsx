@@ -1,20 +1,30 @@
-import { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
-import { IconButton } from '@/components';
+
+import { IconButton } from '@/components/IconButton/IconButton';
+
 import { styled } from 'styled-components';
 import useColorStyle from './useColorStyle';
 import { EmptyButton } from '../commonElement';
-import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql';
-import bash from 'react-syntax-highlighter/dist/cjs/languages/hljs/bash';
-import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json';
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript';
-import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext';
 
-SyntaxHighlighter.registerLanguage('sql', sql);
-SyntaxHighlighter.registerLanguage('bash', bash);
-SyntaxHighlighter.registerLanguage('json', json);
-SyntaxHighlighter.registerLanguage('tsx', tsx);
-SyntaxHighlighter.registerLanguage('plaintext', plaintext);
+/* eslint-disable import/extensions */
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql.js';
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import bash from 'react-syntax-highlighter/dist/cjs/languages/hljs/bash.js';
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json.js';
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js';
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js';
+/* eslint-enable import/extensions */
+
+SyntaxHighlighter.registerLanguage('sql', sql.default || sql);
+SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
+SyntaxHighlighter.registerLanguage('json', json.default || json);
+SyntaxHighlighter.registerLanguage('tsx', tsx.default || tsx);
+SyntaxHighlighter.registerLanguage('plaintext', plaintext.default || plaintext);
 
 export type CodeThemeType = 'light' | 'dark';
 interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'> {
@@ -31,7 +41,7 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCop
 interface RendererNodeType {
   type: 'element' | 'text';
   value?: string | number | undefined;
-  tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
+  tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType | undefined;
   properties?: { className: unknown[]; [key: string]: unknown };
   children?: RendererNodeType[];
 }
