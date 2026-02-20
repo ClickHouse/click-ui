@@ -12,6 +12,8 @@ import { Icon } from '@/components/Icon';
 import type { HorizontalDirection } from '@/components/types';
 import type { IconName } from '@/components/Icon';
 import { EmptyButton } from '../commonElement';
+// TODO: What is the difference between this local IconWrapper
+// and the src/components/IconWrapper?
 import { IconWrapper } from './IconWrapper';
 
 export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {

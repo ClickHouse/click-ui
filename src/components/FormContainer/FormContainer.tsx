@@ -1,5 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import { Error, FormElementContainer, FormRoot } from '../commonElement';
+// TODO: Improve api for Common components, types, etc
+import { Error, FormElementContainer, FormRoot } from '@/components/commonElement';
 import type { HorizontalDirection, Orientation } from '@/components/types';
 import { Label } from '@/components/Label';
 

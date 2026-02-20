@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { Icon, IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/components/types';
-import { Collapsible } from '../Collapsible';
-import { SidebarTitleWrapper } from '../SidebarNavigationTitle';
+import { Collapsible } from '@/components/Collapsible';
+import { SidebarTitleWrapper } from '@/components/SidebarNavigationTitle';
 
 export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
   /** The label content to display */

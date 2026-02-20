@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
-import { InputElement, InputStartContent, InputWrapper } from '../Input/InputWrapper';
+import { InputElement, InputStartContent, InputWrapper } from '@/components/Input/InputWrapper';
 import { ReactNode, useCallback, useId } from 'react';
-import { Icon } from '../Icon';
-import { Container } from '../Container';
+import { Icon } from '@/components/Icon';
+import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
-import { IconButton } from '../IconButton';
-import { Text } from '../Typography/Text/Text';
+import { IconButton } from '@/components/IconButton';
+import { Text } from '@/components/Typography';
 import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
 
 const explicitWidth = '250px';

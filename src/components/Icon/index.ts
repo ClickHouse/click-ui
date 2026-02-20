@@ -1,2 +1,3 @@
 export { Icon } from './Icon';
-export type { IconName, IconSize } from './types';
+// TODO: Do all of these have to be exported?
+export type { IconName, IconSize, IconState, IconProps, ImageName, ImageType } from './types';

@@ -4,7 +4,8 @@ import { keyframes, styled } from 'styled-components';
 import { Button, ButtonProps } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
-import { CrossButton } from '../commonElement';
+// TODO: Improve api for Common components, types, etc
+import { CrossButton } from '@/components/commonElement';
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;

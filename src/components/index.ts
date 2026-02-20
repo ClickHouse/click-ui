@@ -59,6 +59,8 @@ export { Select } from '@/components/Select/SingleSelect';
 export { MultiSelect } from '@/components/Select/MultiSelect';
 export { CheckboxMultiSelect } from '@/components/Select/CheckboxMultiSelect';
 export { Separator } from '@/components/Separator/Separator';
+// TODO: Sidebar elements can be in the ns Sidebar
+// there's no need to keep it separate
 export { SidebarNavigationItem } from '@/components/SidebarNavigationItem';
 export { SidebarCollapsibleItem } from '@/components/SidebarCollapsibleItem';
 export { SidebarNavigationTitle } from '@/components/SidebarNavigationTitle';
@@ -69,11 +71,9 @@ export { Switch } from '@/components/Switch';
 export { Tabs, FullWidthTabs } from '@/components/Tabs';
 export { FileTabs, FileTabElement } from '@/components/FileTabs';
 export { Table } from '@/components/Table/Table';
-// TODO: Solve redundancy
-export { Text } from '@/components/Typography/Text/Text';
+export { Text, Title } from '@/components/Typography';
 export { TextAreaField } from '@/components/Input/TextArea';
 export { TextField } from '@/components/Input/TextField';
-export { Title } from '@/components/Typography/Title/Title';
 export { Tooltip } from '@/components/Tooltip/Tooltip';
 export { useToast } from '@/components/Toast/useToast';
 export { createToast } from '@/components/Toast/toastEmitter';

@@ -3,8 +3,9 @@ import { styled } from 'styled-components';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import { Dropdown } from '@/components/Dropdown';
 import { HorizontalDirection } from '@/components/types';
-import { BaseButton } from '../commonElement';
-import { IconWrapper } from '../IconWrapper';
+// TODO: Improve api for Common components, types, etc
+import { BaseButton } from '@/components/commonElement';
+import { IconWrapper } from '@/components/IconWrapper';
 
 import { Icon, IconName } from '@/components/Icon';
 

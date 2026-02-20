@@ -2,7 +2,8 @@ import { Theme } from '@/theme/tokens/types';
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { ReactNode, forwardRef, useId } from 'react';
 import { styled } from 'styled-components';
-import { FormRoot } from '../commonElement';
+// TODO: Improve api for Common components, types, etc
+import { FormRoot } from '@/components/commonElement';
 import { GenericLabel } from '@/components/GenericLabel';
 
 interface RootProps {
