@@ -52,7 +52,7 @@ const Calendar = ({
       </tr>
     );
   });
-}
+};
 
 export const DatePicker = ({
   date,
