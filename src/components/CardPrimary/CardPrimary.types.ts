@@ -5,7 +5,7 @@ export type CardPrimarySize = 'sm' | 'md';
 type ContentAlignment = 'start' | 'center' | 'end';
 
 interface WithTopBadgeProps {
-  topBadge?: ReactNode;
+  topBadgeText?: string;
 }
 
 export interface CardPrimaryProps
