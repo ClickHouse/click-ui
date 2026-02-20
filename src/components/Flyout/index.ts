@@ -4,4 +4,4 @@ export type {
   DialogContentProps,
   FlyoutHeaderProps,
   FlyoutFooterProps,
-} from './Flyout';
+} from './Flyout.types';

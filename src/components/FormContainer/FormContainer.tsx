@@ -1,18 +1,6 @@
-import { HTMLAttributes, ReactNode } from 'react';
-// TODO: Improve api for Common components, types, etc
-import { Error, FormElementContainer, FormRoot } from '@/components/commonElement';
-import type { HorizontalDirection, Orientation } from '@/components/types';
+import { Error, FormElementContainer, FormRoot } from '@/components/Common';
 import { Label } from '@/components/Label';
-
-export interface FormContainerProps extends HTMLAttributes<HTMLDivElement> {
-  htmlFor: string;
-  label?: ReactNode;
-  orientation?: Orientation;
-  dir?: HorizontalDirection;
-  error?: ReactNode;
-  children: ReactNode;
-  addLabelPadding?: boolean;
-}
+import { FormContainerProps } from './FormContainer.types';
 
 export const FormContainer = ({
   id,
