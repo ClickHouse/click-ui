@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { FormRoot } from '@/components/Common';
 import { GenericLabel } from '@/components/GenericLabel';
 import { SwitchProps } from './Switch.types';
+import { Theme } from '@/theme/tokens/types';
 
 interface ThumbProps {
   $checked: boolean;
@@ -49,7 +50,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   }
 );
 
-const getRootVars = (theme: any, disabled: boolean | undefined, checked: boolean) => {
+const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {
@@ -73,7 +74,7 @@ const getRootVars = (theme: any, disabled: boolean | undefined, checked: boolean
   }
 };
 
-const getThumbVars = (theme: any, disabled: boolean | undefined, checked: boolean) => {
+const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {
