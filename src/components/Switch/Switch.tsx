@@ -8,7 +8,6 @@ import { SwitchProps } from './Switch.types';
 interface ThumbProps {
   $checked: boolean;
   $disabled?: boolean;
-  theme?: Theme;
 }
 
 const Wrapper = styled(FormRoot)`
@@ -50,7 +49,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   }
 );
 
-const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
+const getRootVars = (theme: any, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {
@@ -74,7 +73,7 @@ const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boole
   }
 };
 
-const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
+const getThumbVars = (theme: any, disabled: boolean | undefined, checked: boolean) => {
   const baseVars = {};
 
   if (disabled) {
@@ -95,8 +94,8 @@ const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: bool
   }
 };
 
-const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
-  const vars = getRootVars(props.theme, props.disabled, props.checked);
+const SwitchRoot = styled(RadixSwitch.Root)(props => {
+  const vars = getRootVars(props.theme, props.disabled ?? false, props.checked ?? false);
 
   return {
     width: props.theme.click.switch.size.width,

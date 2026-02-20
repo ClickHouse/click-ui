@@ -14,7 +14,6 @@ import { Text } from '@/components/Typography';
 import { linkStyles, StyledLinkProps } from '@/components/Link/common';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';
-import { TextSize, TextWeight } from '@/components/Common';
 
 import { formatTimezone } from '@/utils/date';
 
@@ -192,7 +191,7 @@ export const DateDetails = ({
             Unix
           </Text>
           <Container justifyContent="end">
-            <Text size="sm">{Math.round(date.getTime() / 1000)}</Text>
+            <Text size="sm">{Math.round(dayjsDate.valueOf() / 1000)}</Text>
           </Container>
         </GridContainer>
       </Popover.Content>

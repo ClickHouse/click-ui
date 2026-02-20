@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { keyframes, styled } from 'styled-components';
 import { Button, ButtonProps } from '@/components/Button';

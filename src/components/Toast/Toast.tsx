@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
-import { Icon } from '@/components/Icon';
+import { Icon, IconName } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { Button } from '@/components/Button';
 import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';

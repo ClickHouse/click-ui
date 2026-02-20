@@ -3,4 +3,6 @@ export type {
   SelectGroupProps,
   SelectOptionItem,
   AutoCompleteProps,
-} from './AutoComplete.types';
+  AutoCompleteOptionListItem,
+  SelectItemProps,
+} from './AutoComplete';

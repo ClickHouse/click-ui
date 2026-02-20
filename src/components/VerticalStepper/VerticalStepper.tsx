@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, HTMLAttributes, ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { VerticalStepperProps, StepperType, StepStatus } from './VerticalStepper.types';

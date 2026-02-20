@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
 import type { TextSize, TextWeight } from '@/components/Common';
 
-export type ArrowPosition = 'left' | 'right' | 'center';
+export type ArrowPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface DateDetailsProps {
   date: Dayjs | Date | string | number;

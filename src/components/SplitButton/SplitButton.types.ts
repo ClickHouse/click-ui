@@ -3,7 +3,7 @@ import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import type { HorizontalDirection } from '@/components/types';
 import type { IconName } from '@/components/Icon';
 
-type ButtonType = 'primary' | 'secondary';
+export type ButtonType = 'primary' | 'secondary';
 
 type MenuItem = {
   icon?: IconName;
@@ -36,4 +36,5 @@ export interface SplitButtonProps
   menu: Array<Menu>;
   side?: 'top' | 'bottom';
   icon?: IconName;
+  iconDir?: HorizontalDirection;
 }

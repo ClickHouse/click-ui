@@ -4,7 +4,7 @@ import { IconSize } from '@/components/Icon/types';
 import { PaymentName } from './types';
 import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
-import { SvgImageElement } from '@/components/commonElement';
+import { SvgImageElement } from '@/components/Common';
 
 export interface PaymentProps extends SVGAttributes<SVGElement> {
   name: PaymentName;

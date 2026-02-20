@@ -72,7 +72,7 @@ describe('CardPrimary Component', () => {
     it('should render the top badge', () => {
       const topBadgeText = 'TopBadge';
       const { queryAllByText } = renderCard({
-        topBadgeText,
+        topBadge: topBadgeText,
         icon: 'warning',
         title: '',
         onButtonClick: () => null,

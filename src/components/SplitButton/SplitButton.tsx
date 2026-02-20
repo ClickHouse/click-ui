@@ -4,10 +4,7 @@ import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Common';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
-import { SplitButtonProps } from './SplitButton.types';
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-}
+import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
 
 export const SplitButton = ({
   type = 'primary',

@@ -53,8 +53,6 @@ const Calendar = ({
     );
   });
 }
-  placeholder?: string;
-}
 
 export const DatePicker = ({
   date,

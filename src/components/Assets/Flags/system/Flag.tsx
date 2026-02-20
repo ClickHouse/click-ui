@@ -6,7 +6,7 @@ export type { FlagName, SVGAssetProps } from './types';
 import { resolveFlagName, DeprecatedFlagName } from './retroactiveNames';
 import FlagsLight from './FlagsLight';
 import FlagsDark from './FlagsDark';
-import { SvgImageElement } from '@/components/commonElement';
+import { SvgImageElement } from '@/components/Common';
 
 export interface FlagProps extends SVGAttributes<SVGElement> {
   name: FlagName | DeprecatedFlagName;
