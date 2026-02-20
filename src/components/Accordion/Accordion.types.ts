@@ -2,9 +2,9 @@ import * as RadixAccordion from '@radix-ui/react-accordion';
 import { ReactNode } from 'react';
 import { IconSize, IconName } from '@/components/Icon';
 
-type Size = 'sm' | 'md' | 'lg';
-type Gap = 'sm' | 'md' | 'lg';
-type Color = 'default' | 'link';
+export type Size = 'sm' | 'md' | 'lg';
+export type Gap = 'sm' | 'md' | 'lg';
+export type Color = 'default' | 'link';
 
 interface SizeProp {
   size?: Size;

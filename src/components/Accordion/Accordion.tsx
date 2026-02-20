@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
 import { Text } from '@/components/Typography';
-import { AccordionProps } from './Accordion.types';
+import { AccordionProps, Size, Color } from './Accordion.types';
 
 const Accordion = ({
   title,
@@ -64,9 +64,6 @@ const AccordionRoot = styled(RadixAccordion.Root)<{
 }>`
   ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
 `;
-
-type Size = 'sm' | 'md' | 'lg';
-type Color = 'default' | 'link';
 
 const AccordionTrigger = styled(RadixAccordion.Trigger)<{
   $size?: Size;
