@@ -8,10 +8,12 @@ import {
   forwardRef,
 } from 'react';
 import { styled } from 'styled-components';
-import { Icon } from '@/components/Icon';
+
+import { Icon, type IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon';
-import { EmptyButton } from '../commonElement';
+// TODO: Improve api for Common components, types, etc
+import { EmptyButton } from '@/components/commonElement';
+
 // TODO: What is the difference between this local IconWrapper
 // and the src/components/IconWrapper?
 import { IconWrapper } from './IconWrapper';
