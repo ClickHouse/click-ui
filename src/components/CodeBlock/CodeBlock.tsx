@@ -1,11 +1,11 @@
 import React, { HTMLAttributes, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 
+import { EmptyButton } from '@/components/Common';
 import { IconButton } from '@/components/IconButton';
 
 import { styled } from 'styled-components';
 import useColorStyle from './useColorStyle';
-import { EmptyButton } from '../commonElement';
 
 /* eslint-disable import/extensions */
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension

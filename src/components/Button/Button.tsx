@@ -1,7 +1,7 @@
 import { Icon, IconName } from '@/components/Icon';
 
 import { styled, keyframes } from 'styled-components';
-import { BaseButton } from '../commonElement';
+import { BaseButton } from '@/components/Common';
 import React from 'react';
 
 export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';

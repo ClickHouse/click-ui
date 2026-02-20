@@ -14,7 +14,7 @@ import { Text } from '@/components/Typography';
 import { linkStyles, StyledLinkProps } from '@/components/Link/common';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';
-import { TextSize, TextWeight } from '../commonTypes';
+import { TextSize, TextWeight } from '@/components/Common';
 
 import { formatTimezone } from '@/utils/date';
 

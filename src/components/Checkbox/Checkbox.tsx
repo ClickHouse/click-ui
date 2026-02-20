@@ -4,7 +4,7 @@ import { Icon } from '@/components/Icon';
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import { ReactNode, useId } from 'react';
 import { styled } from 'styled-components';
-import { FormRoot } from '../commonElement';
+import { FormRoot } from '@/components/Common';
 
 export type CheckboxVariants =
   | 'default'

@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { TextSize, TextWeight } from '../commonTypes';
+import { TextSize, TextWeight } from '../Common';
 
 export type StyledLinkProps = { $size: TextSize; $weight: TextWeight };
 
