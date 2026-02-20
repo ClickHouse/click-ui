@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
-import { InputElement, InputStartContent, InputWrapper } from '@/components/Input/InputWrapper';
+import {
+  InputElement,
+  InputStartContent,
+  InputWrapper,
+} from '@/components/Input/InputWrapper';
 import { ReactNode, useCallback, useId } from 'react';
 import { Icon } from '@/components/Icon';
 import { Container } from '@/components/Container';
