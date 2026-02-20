@@ -1,9 +1,6 @@
 import { styled } from 'styled-components';
 import * as RadixSeparator from '@radix-ui/react-separator';
-export interface SeparatorProps extends RadixSeparator.SeparatorProps {
-  /** The size/spacing of the separator */
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-}
+import { SeparatorProps } from './Separator.types';
 const CUISeparator = styled(RadixSeparator.Root)<SeparatorProps>`
   ${({ theme, size, orientation }) => `
     &[data-orientation="horizontal"] {
