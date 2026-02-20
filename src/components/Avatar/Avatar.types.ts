@@ -1,6 +1,6 @@
 import { AvatarProps as RadixAvatarProps } from '@radix-ui/react-avatar';
 
-type TextSize = 'md' | 'sm';
+export type TextSize = 'md' | 'sm';
 
 export interface AvatarProps extends RadixAvatarProps {
   text: string;

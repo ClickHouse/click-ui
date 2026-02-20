@@ -1,6 +1,6 @@
 import { Fallback, Image, Root } from '@radix-ui/react-avatar';
 import { styled } from 'styled-components';
-import { AvatarProps } from './Avatar.types';
+import { AvatarProps, TextSize } from './Avatar.types';
 
 export const Avatar = ({
   text,
@@ -59,8 +59,6 @@ const AvatarImage = styled(Image)`
   object-fit: cover;
   border-radius: inherit;
 `;
-
-type TextSize = 'md' | 'sm';
 
 const StyledFallback = styled(Fallback)<{ $textSize: TextSize }>`
   width: ${props => props.theme.click.avatar.size.label.width};
