@@ -1,25 +1,25 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import LogosLight from '../Logos/LogosLight';
-import { FlagList } from '../icons/Flags';
-import { PaymentList } from '../icons/Payments';
+import LogosLight from '@/components/Assets/Logos/system/LogosLight';
+import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
+import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
 import { Icon } from '@/components/Icon';
-import { IconName } from '../types';
-import { ICONS_MAP } from './IconCommon';
-import { IconProps } from './types';
-import { Container } from '../Container';
+import { IconName } from '@/components/Icon/types';
+import { ICONS_MAP } from '@/components/Icon/IconCommon';
+import { IconProps } from '@/components/Icon/types';
+import { Container } from '@/components/Container';
 import { styled } from 'styled-components';
 import { useState } from 'react';
-import { SearchField } from '../Input/SearchField';
-import { Title } from '../Typography/Title/Title';
-import { Panel } from '../Panel';
-import { Text } from '../Typography/Text/Text';
-import { GridContainer } from '../GridContainer';
-import { Spacer } from '../Spacer';
+import { SearchField } from '@/components/Input/SearchField';
+import { Title } from '@/components/Typography/Title/Title';
+import { Panel } from '@/components/Panel';
+import { Text } from '@/components/Typography/Text/Text';
+import { GridContainer } from '../GridContainer/';
+import { Spacer } from '@/components/Spacer';
 
 const IconNames = Object.keys(ICONS_MAP);
-const FlagNames = Object.keys(FlagList);
+const FlagNames = Object.keys(FlagsLight);
 const LogoNames = Object.keys(LogosLight);
-const PaymentNames = Object.keys(PaymentList);
+const PaymentNames = Object.keys(PaymentsLight);
 
 const IconWrapper = (props: IconProps) => (
   <Container>
@@ -152,7 +152,7 @@ export const Icons: Story = {
         </Title>
 
         <ResponsiveGridContainer>
-          {Object.keys(FlagList).map(key => (
+          {Object.keys(FlagsLight).map(key => (
             <IconGallery
               key={key}
               name={key as IconName}
@@ -170,7 +170,7 @@ export const Icons: Story = {
         </Title>
 
         <ResponsiveGridContainer>
-          {Object.keys(PaymentList).map(key => (
+          {Object.keys(PaymentsLight).map(key => (
             <IconGallery
               key={key}
               name={key as IconName}

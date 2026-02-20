@@ -1,11 +1,15 @@
 import { styled } from 'styled-components';
-import type { IconName, IconProps, IconSize, IconState, ImageType } from './types';
-import { ICONS_MAP } from './IconCommon';
-import Flags, { FlagList, FlagName } from '../icons/Flags';
-import { Logo } from '../Logos/Logo';
-import LogosLight from '../Logos/LogosLight';
-import { LogoName } from '../Logos/types';
-import Payments, { PaymentList, PaymentName } from '../icons/Payments';
+import { IconName, IconProps, IconSize, IconState, ImageType } from './types';
+import { ICONS_MAP } from '@/components/Icon/IconCommon';
+import { Flag } from '@/components/Assets/Flags/system/Flag';
+import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
+import { FlagName } from '@/components/Assets/Flags/system/types';
+import { Logo } from '@/components/Assets/Logos/system/Logo';
+import LogosLight from '@/components/Assets/Logos/system/LogosLight';
+import { LogoName } from '@/components/Assets/Logos/system/types';
+import { Payment } from '@/components/Assets/Payments/system/Payment';
+import { PaymentName } from '@/components/Assets/Payments/system/types';
+import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
 
 const SVGIcon = ({
   name,
@@ -71,9 +75,9 @@ const SvgWrapper = styled.div<{
 `;
 
 const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
-  if (Object.keys(FlagList).includes(name)) {
+  if (Object.keys(FlagsLight).includes(name)) {
     return (
-      <Flags
+      <Flag
         name={name as FlagName}
         size={size}
         {...props}
@@ -90,9 +94,9 @@ const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
       />
     );
   }
-  if (Object.keys(PaymentList).includes(name)) {
+  if (Object.keys(PaymentsLight).includes(name)) {
     return (
-      <Payments
+      <Payment
         name={name as PaymentName}
         size={size}
         {...props}

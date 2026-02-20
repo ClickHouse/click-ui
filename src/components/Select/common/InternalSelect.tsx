@@ -223,6 +223,7 @@ export const InternalSelect = ({
   useFullWidthItems = false,
   itemCharacterLimit = '64ch',
   noAvailableOptions = true,
+  triggerProps,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
@@ -424,6 +425,7 @@ export const InternalSelect = ({
             $error={!!error}
             disabled={disabled}
             data-testid="select-trigger"
+            {...triggerProps}
           >
             {isInitialized && (
               <SelectValue>
