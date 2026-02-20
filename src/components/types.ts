@@ -70,7 +70,7 @@ export type { ContextMenuItemProps } from './ContextMenu';
 export type { GenericLabelProps } from './GenericLabel';
 export type { MultiAccordionProps } from './MultiAccordion';
 export type { CheckboxVariants } from './Checkbox';
-export type { CursorOptions } from './cursorOptions';
+export type { CursorOptions } from './Common';
 export type { SelectGroupOptionItem, SelectOptionItem } from './Select/common/types';
 
 export type { IconButtonProps };
