@@ -5,8 +5,6 @@ import { FlagName, FlagProps } from '@/components/Assets/Flags/system/types';
 import { PaymentName, PaymentProps } from '@/components/Assets/Payments/system/types';
 import { ICON_NAMES } from './IconCommon';
 
-export type { IconSize };
-
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
 export type IconName = (typeof ICON_NAMES)[number];
