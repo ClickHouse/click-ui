@@ -1,5 +1,6 @@
 export { Icon } from './Icon';
 export { SvgImageElement } from './SvgImageElement';
+export type { SVGAssetProps } from '@/types';
 export type {
   IconName,
   IconProps,
@@ -7,5 +8,4 @@ export type {
   IconState,
   ImageName,
   ImageType,
-  SVGAssetProps,
 } from './Icon.types';

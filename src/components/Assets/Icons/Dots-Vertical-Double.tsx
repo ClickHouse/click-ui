@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from './system/types';
+import type { SVGAssetProps } from '@/types';
 
 const Dots_Vertical_Double = (props: SVGAssetProps) => (
   <svg

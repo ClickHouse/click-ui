@@ -1,7 +1,3 @@
-import type { SVGAssetProps } from '@/types';
-
-export type { SVGAssetProps };
-
 export type IconName =
   | 'activity'
   | 'alarm'

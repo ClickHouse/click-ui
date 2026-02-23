@@ -1,7 +1,5 @@
 import type { SVGAttributes } from 'react';
-import type { IconSize, SVGAssetProps } from '@/types';
-
-export type { IconSize, SVGAssetProps };
+import type { IconSize } from '@/types';
 
 /** @deprecated Use lower case kebab naming, e.g. 'my-country-name' instead */
 type DeprecatedFlagName =
