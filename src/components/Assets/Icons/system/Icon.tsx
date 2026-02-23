@@ -6,6 +6,7 @@ import { resolveIconName, DeprecatedIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
 import IconsDark from './IconsDark';
 import { SvgImageElement } from '@/components/commonElement';
+import type { ThemeName } from '@/theme/core';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;
@@ -16,7 +17,7 @@ export interface IconProps extends SVGAttributes<SVGElement> {
 const Icon = ({ name, theme, size, ...props }: IconProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveIconName(name);
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme: ThemeName = (theme ?? themeName ?? 'light') as ThemeName;
   const Component =
     resolvedTheme === 'light' ? IconsLight[resolvedName] : IconsDark[resolvedName];
 

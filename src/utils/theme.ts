@@ -1,4 +1,4 @@
-import { ThemeName, THEMES } from '@/theme';
+import { ThemeName, THEMES } from '@/theme/core';
 
 // TODO: The theme should not be hard-typed
 // find locations where hard-typing might be happening

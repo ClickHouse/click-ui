@@ -1,4 +1,4 @@
-import { ThemeName } from '@/theme';
+import { ThemeName } from '@/theme/core';
 import { CUI_THEME_STORAGE_KEY } from './localStorage';
 
 export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
