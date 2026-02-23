@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/components/Common';
 import type { ImageName, IconSize } from '@/components/Icon/types';
 import type { GapOptions } from '@/components/Container';
 

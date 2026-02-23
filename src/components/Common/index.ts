@@ -7,4 +7,12 @@ export { BaseButton } from './BaseButton';
 export { SvgImageElement } from './SvgImageElement';
 export { FormElementContainer } from './FormElementContainer';
 export { EllipsisContainer } from './EllipsisContainer';
-export type { TextSize, TextWeight, CursorOptions } from './Common.types';
+export type {
+  TextSize,
+  TextWeight,
+  CursorOptions,
+  IconSize,
+  States,
+  HorizontalDirection,
+  Orientation,
+} from './Common.types';

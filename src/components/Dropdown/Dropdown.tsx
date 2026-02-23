@@ -6,7 +6,7 @@ import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 import { Icon } from '@/components/Icon/Icon';
 import type { IconName } from '@/components/Icon/types';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/components/Common';
 
 export type ArrowProps = {
   showArrow?: boolean;

@@ -15,6 +15,7 @@ import {
   useState,
 } from 'react';
 import {
+  NoAvailableOptionsFactoryProps,
   SelectContainerProps,
   SelectGroupProps,
   SelectItemObject,
@@ -63,11 +64,6 @@ import { getTextFromNodes } from '@/lib/getTextFromNodes';
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
 };
-
-export interface NoAvailableOptionsFactoryProps {
-  search: string;
-  close: () => void;
-}
 
 interface NoOptionsDisplayProps {
   allowCreateOption: boolean;

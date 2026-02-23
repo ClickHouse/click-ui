@@ -1,4 +1,10 @@
-import { SVGAssetProps } from '../../types';
+import type { SVGAttributes } from 'react';
+import type { IconSize } from '@/components/Common';
+
+/** @deprecated Use lower case kebab naming, e.g. 'my-country-name' instead */
+type DeprecatedFlagName =
+  | 'ae' | 'au' | 'br' | 'ca' | 'ch' | 'de' | 'eu' | 'gb' | 'hk' | 'id' | 'ie' | 'il' | 'in' | 'jp' | 'nl' | 'sg' | 'kr' | 'sw' | 'uk' | 'usa' | 'za'
+  | 'Australia' | 'Brazil' | 'Canada' | 'EuropeanUnion' | 'Germany' | 'GreatBritain' | 'HongKong' | 'India' | 'Indonesia' | 'Ireland' | 'Israel' | 'Japan' | 'Netherlands' | 'Singapore' | 'SouthAfrica' | 'SouthKorea' | 'Sweden' | 'Switzerland' | 'UnitedArabEmirates' | 'UnitedKingdom' | 'UnitedStates';
 
 export type FlagName =
   | 'australia'
@@ -23,4 +29,10 @@ export type FlagName =
   | 'united-kingdom'
   | 'united-states';
 
-export type { SVGAssetProps };
+export interface FlagProps extends SVGAttributes<SVGElement> {
+  name: FlagName | DeprecatedFlagName;
+  theme?: 'light' | 'dark';
+  size?: IconSize;
+}
+
+export type { SVGAssetProps } from '../../types';

@@ -1,5 +1,5 @@
 import { EventEmitter } from '@/lib/EventEmitter';
-import type { ToastProps } from '..';
+import type { ToastProps } from './Toast.types';
 
 export const toastsEventEmitter = new EventEmitter<ToastProps>();
 

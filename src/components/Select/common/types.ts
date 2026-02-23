@@ -1,8 +1,12 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from 'react';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/components/Common';
 import type { ImageName } from '@/components/Icon/types';
 import { PopoverProps } from '@radix-ui/react-popover';
-import { NoAvailableOptionsFactoryProps } from '@/components/Select/common/InternalSelect';
+
+export interface NoAvailableOptionsFactoryProps {
+  search: string;
+  close: () => void;
+}
 
 declare type DivProps = HTMLAttributes<HTMLDivElement>;
 

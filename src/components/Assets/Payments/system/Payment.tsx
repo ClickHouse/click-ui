@@ -1,16 +1,10 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { IconSize } from '@/components/Icon/types';
-import { PaymentName } from './types';
+import { SvgImageElement } from '@/components/Common';
+import { PaymentProps } from './types';
+export type { PaymentProps };
 import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
-import { SvgImageElement } from '@/components/Common';
-
-export interface PaymentProps extends SVGAttributes<SVGElement> {
-  name: PaymentName;
-  theme?: 'light' | 'dark';
-  size?: IconSize;
-}
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();

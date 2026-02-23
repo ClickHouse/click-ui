@@ -54,4 +54,5 @@ export type Prettify<T> = {
 // TODO: Most of this file is deleted if not the whole file
 // in a pending PR https://github.com/ClickHouse/click-ui/pull/787
 // once merged double check
-export type { Theme, CUIThemeType, ThemeName, PublicTheme } from '@/theme';
+// Re-exports kept for backward compatibility - import from @/theme directly
+export type { ThemeName } from '@/theme/theme.types';

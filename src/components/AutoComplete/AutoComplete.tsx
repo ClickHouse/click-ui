@@ -17,7 +17,7 @@ import {
 import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 
-import { HorizontalDirection } from '@/components/types';
+import { HorizontalDirection } from '@/components/Common';
 import { SearchField } from '@/components/Input';
 import { Separator } from '@/components/Separator';
 import { Icon, type ImageName } from '@/components/Icon';
@@ -26,7 +26,6 @@ import { IconWrapper } from '@/components/IconWrapper';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 import { mergeRefs } from '@/utils/mergeRefs';
 
-import AutoCompleteOptionList from './AutoCompleteOptionList';
 import { useOption, useSearch } from './useOption';
 import { OptionContext } from './OptionContext';
 
@@ -528,14 +527,35 @@ export const AutoComplete = ({
           <SelectList>
             <SelectListContent>
               <OptionContext.Provider value={optionContextValue}>
-                {options && options.length > 0 ? (
-                  <AutoCompleteOptionList
-                    options={options}
-                    id={defaultId}
-                  />
-                ) : (
-                  children
-                )}
+                {options && options.length > 0
+                  ? options.map((optionProps, index) => {
+                      if ('options' in optionProps) {
+                        const { options: itemList = [], ...groupProps } = optionProps;
+                        return (
+                          <Group
+                            key={`autocomplete-${defaultId}-group-${index}`}
+                            {...groupProps}
+                          >
+                            {itemList.map(({ label, ...itemProps }, itemIndex: number) => (
+                              <Item
+                                key={`autocomplete-${defaultId}-group-${index}-item-${itemIndex}`}
+                                {...itemProps}
+                              >
+                                {label}
+                              </Item>
+                            ))}
+                          </Group>
+                        );
+                      } else {
+                        return (
+                          <Item
+                            key={`autocomplete-${defaultId}-item-${index}`}
+                            {...optionProps}
+                          />
+                        );
+                      }
+                    })
+                  : children}
               </OptionContext.Provider>
             </SelectListContent>
             {visibleList.current.length === 0 && (

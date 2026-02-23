@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/components/Common';
 import type { IconName } from '@/components/Icon';
 
 const LabelContainer = styled.span`

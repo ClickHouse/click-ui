@@ -65,9 +65,7 @@ export type { StyledLinkProps } from './Link/common';
 
 export type { DateRange } from './DatePicker/utils';
 
-export type States = 'default' | 'active' | 'disabled' | 'error' | 'hover';
-export type HorizontalDirection = 'start' | 'end';
-export type Orientation = 'horizontal' | 'vertical';
+export type { States, HorizontalDirection, Orientation } from './Common';
 export type { FormContainerProps } from './FormContainer';
 export type {
   AutoCompleteProps,
