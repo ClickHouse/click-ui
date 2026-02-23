@@ -18,8 +18,6 @@ const createEntryFileNames = (ext: 'js' | 'cjs') => {
       // NOTE: Solve import name redundancy for better API
       // by preferring default build name as index
       // e.g. Button/Button -> Button
-      // Alternatively, could prevent tree shaking
-      // to keep the component-level index re-export
       if (fileName === dirName) {
         parts[parts.length - 1] = 'index';
         return `${parts.join('/')}.${ext}`;
