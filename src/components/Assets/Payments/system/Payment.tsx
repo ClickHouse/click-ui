@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { SvgImageElement } from '@/components/Common';
+import { SvgImageElement } from '@/components/Assets/SvgImageElement';
 import { PaymentProps } from './types';
 export type { PaymentProps };
 import PaymentsLight from './PaymentsLight';

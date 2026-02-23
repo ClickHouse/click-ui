@@ -5,7 +5,7 @@ import { IconName } from './types';
 import { resolveIconName, DeprecatedIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
 import IconsDark from './IconsDark';
-import { SvgImageElement } from '@/components/Common';
+import { SvgImageElement } from '@/components/Assets/SvgImageElement';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;

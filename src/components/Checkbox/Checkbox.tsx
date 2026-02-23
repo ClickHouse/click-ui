@@ -4,7 +4,7 @@ import { Icon } from '@/components/Icon';
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import { useId } from 'react';
 import { styled } from 'styled-components';
-import { FormRoot } from '@/components/Common';
+import { FormRoot } from '@/components/FormContainer/FormRoot';
 import { CheckboxProps, CheckboxVariants } from './Checkbox.types';
 
 const Wrapper = styled(FormRoot)`

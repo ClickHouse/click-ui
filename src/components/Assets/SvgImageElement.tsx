@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import type { IconSize } from './Common.types';
+import type { IconSize } from '@/components/Common';
 
 export const SvgImageElement = styled.svg<{
   $size?: IconSize;

@@ -2,7 +2,7 @@ import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import LogosLight from './LogosLight';
 import LogosDark from './LogosDark';
-import { SvgImageElement } from '@/components/Common';
+import { SvgImageElement } from '@/components/Assets/SvgImageElement';
 import { LogoName, LogoProps } from './types';
 export type { LogoProps };
 

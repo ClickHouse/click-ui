@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { SvgImageElement } from '@/components/Common';
+import { SvgImageElement } from '@/components/Assets/SvgImageElement';
 import { FlagName, FlagProps } from './types';
 export type { FlagName, FlagProps };
 import { resolveFlagName } from './retroactiveNames';

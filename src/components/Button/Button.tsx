@@ -1,7 +1,7 @@
 import { Icon } from '@/components/Icon';
 
 import { styled, keyframes } from 'styled-components';
-import { BaseButton } from '@/components/Common';
+import { BaseButton } from './BaseButton';
 import { ButtonProps, ButtonType } from './Button.types';
 
 type Alignment = 'center' | 'left';
