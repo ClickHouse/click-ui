@@ -1,13 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * Deep Nested HMR (Hot Module Replacement) Benchmark for @clickhouse/click-ui
- *
  * Measures hot reload speed when modifying deeply nested source files.
  * Tests HMR performance with a 10+ layer component dependency graph.
  * Modifies Icon.tsx at depth ~12 to trigger full graph traversal.
- *
- * Usage: node benchmarks/hmr-deep-nested-benchmark.mjs
  */
 
 import { spawn } from 'child_process';
@@ -26,12 +22,6 @@ const PLAYGROUND_DIR = path.join(__dirname, 'playground-deep');
 
 const MODIFICATION_MARKER = '// HMR_DEEP_TEST_MARKER_';
 
-// Deeply nested component hierarchy (12 layers):
-// App (0) -> Container (1) -> Flyout (2) -> Flyout.Content (3) -> Flyout.Body (4)
-//   -> Container (5) -> Table (6) -> TableBodyRow (7) -> Cell (8) -> EllipsisContent (9)
-//   -> Text (10) -> Icon (11) <- MODIFY THIS
-
-// Test configurations - different import patterns from source
 const configs = [
   {
     name: 'Main Barrel (src/index.ts)',
@@ -317,7 +307,6 @@ async function setupPlayground() {
 
   await fs.mkdir(path.join(PLAYGROUND_DIR, 'src'), { recursive: true });
 
-  // Vite config will be written per-test by writeViteConfig
   console.log('[OK] Playground structure created\n');
 }
 
@@ -346,9 +335,6 @@ async function writeAppFile(config) {
 }
 
 async function writeViteConfig() {
-  // Symlink approach: Only use @ alias for internal imports
-  // Note: @clickhouse/click-ui/* subpaths will NOT work with HMR properly
-  // because they resolve to dist/ files. Use @/components/* instead for HMR tests.
   const rootPath = PLAYGROUND_PATH_TO_ROOT;
   const viteConfig = `import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -447,9 +433,7 @@ async function clearViteCache() {
   }
 }
 
-// Strip ANSI escape codes from text
 function stripAnsi(text) {
-  // eslint-disable-next-line no-control-regex
   return text.replace(/\x1B\[[0-9;]*[mGKH]/g, '');
 }
 
@@ -503,7 +487,6 @@ function startDevServer() {
   });
 }
 
-// Preload modules by making HTTP requests to Vite
 async function preloadModules() {
   try {
     await fetch('http://localhost:5175/');
@@ -547,7 +530,6 @@ async function measureHMR(devServer, targetFile, iteration) {
 
       const output = stripAnsi(rawOutput);
 
-      // Vite stdout: "[vite] (client) hmr update /path/to/file"
       if (output.match(/\(client\)\s*hmr\s+update/i)) {
         hmrTime = Date.now() - startTime;
         detectedType = 'HMR update';
@@ -556,7 +538,6 @@ async function measureHMR(devServer, targetFile, iteration) {
         return true;
       }
 
-      // Vite stdout: "[vite] (client) page reload /path/to/file"
       if (output.match(/\(client\)\s*page\s*reload/i)) {
         hmrTime = Date.now() - startTime;
         detectedType = 'Page reload';
@@ -565,7 +546,6 @@ async function measureHMR(devServer, targetFile, iteration) {
         return true;
       }
 
-      // Vite debug stderr: "vite:hmr [file change]"
       if (output.match(/vite:hmr.*\[file\s+change\]/i)) {
         if (!fileChangeDetected) {
           fileChangeDetected = true;
@@ -766,7 +746,6 @@ async function main() {
   );
   console.log('   Original content will be automatically restored after testing.\n');
 
-  // Check for root-level symlink
   const rootSymlink = path.join(ROOT_DIR, 'node_modules', '@clickhouse', 'click-ui');
   try {
     await fs.access(rootSymlink);
@@ -781,7 +760,6 @@ async function main() {
   try {
     await setupPlayground();
     await installDependencies();
-    // Note: Using Vite resolve aliases instead of symlinks for package exports
 
     const results = [];
 
