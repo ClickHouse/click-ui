@@ -1,5 +1,5 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from 'react';
-import type { HorizontalDirection } from '@/components/Common';
+import type { HorizontalDirection } from '@/types';
 import type { ImageName } from '@/components/Icon';
 import { PopoverProps } from '@radix-ui/react-popover';
 

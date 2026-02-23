@@ -1,4 +1,4 @@
-import type { HorizontalDirection } from '@/components/Common';
+import type { HorizontalDirection } from '@/types';
 import { HTMLAttributes, MouseEvent, ReactNode } from 'react';
 import type { IconName } from '@/components/Icon';
 

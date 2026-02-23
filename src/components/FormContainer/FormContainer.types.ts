@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import type { HorizontalDirection, Orientation } from '@/components/Common';
+import type { HorizontalDirection, Orientation } from '@/types';
 
 export interface FormContainerProps extends HTMLAttributes<HTMLDivElement> {
   htmlFor: string;

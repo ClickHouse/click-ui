@@ -94,7 +94,7 @@ export type { CheckboxProps, CheckboxVariants } from './Checkbox';
 export type { ConfirmationDialogProps } from './ConfirmationDialog';
 export type { ContainerProps } from './Container';
 export type { ContextMenuItemProps } from './ContextMenu';
-export type { HorizontalDirection, Orientation, States } from './Common';
+export type { HorizontalDirection, Orientation, States } from '@/types';
 export type { DateRange } from './DatePicker/utils';
 export type { DialogContentProps } from './Dialog';
 export type { FileTabStatusType } from './FileTabs';

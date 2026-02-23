@@ -1,4 +1,4 @@
-import type { Orientation } from '@/components/Common';
+import type { Orientation } from '@/types';
 import type { CursorOptions } from './Panel.types';
 import { HTMLAttributes } from 'react';
 import { styled } from 'styled-components';

@@ -1,5 +1,5 @@
 import { ElementType } from 'react';
-import type { Orientation } from '@/components/Common';
+import type { Orientation } from '@/types';
 
 type AlignItemsOptions = 'start' | 'center' | 'end' | 'stretch';
 export type GapOptions = 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';

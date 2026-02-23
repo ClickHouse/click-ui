@@ -6,7 +6,7 @@ import {
   ReactNode,
   forwardRef,
 } from 'react';
-import type { Orientation } from '@/components/Common';
+import type { Orientation } from '@/types';
 import { ContainerProps, GapOptions, PaddingOptions } from './Container.types';
 
 type AlignItemsOptions = 'start' | 'center' | 'end' | 'stretch';
