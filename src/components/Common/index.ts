@@ -1,6 +1,1 @@
-export type {
-  CursorOptions,
-  HorizontalDirection,
-  Orientation,
-  States,
-} from './Common.types';
+export type { HorizontalDirection, Orientation, States } from './Common.types';
