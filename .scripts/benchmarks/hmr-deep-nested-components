@@ -1,0 +1,819 @@
+#!/usr/bin/env node
+
+/**
+ * Deep Nested HMR (Hot Module Replacement) Benchmark for @clickhouse/click-ui
+ *
+ * Measures hot reload speed when modifying deeply nested source files.
+ * Tests HMR performance with a 10+ layer component dependency graph.
+ * Modifies Icon.tsx at depth ~12 to trigger full graph traversal.
+ *
+ * Usage: node benchmarks/hmr-deep-nested-benchmark.mjs
+ */
+
+import { spawn } from 'child_process';
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const PATH_TO_ROOT = ['..', '..'];
+const PLAYGROUND_PATH_TO_ROOT = '../../..';
+
+const ROOT_DIR = path.resolve(__dirname, ...PATH_TO_ROOT);
+const PLAYGROUND_DIR = path.join(__dirname, 'playground-deep');
+
+const MODIFICATION_MARKER = '// HMR_DEEP_TEST_MARKER_';
+
+// Deeply nested component hierarchy (12 layers):
+// App (0) -> Container (1) -> Flyout (2) -> Flyout.Content (3) -> Flyout.Body (4)
+//   -> Container (5) -> Table (6) -> TableBodyRow (7) -> Cell (8) -> EllipsisContent (9)
+//   -> Text (10) -> Icon (11) <- MODIFY THIS
+
+// Test configurations - different import patterns from source
+const configs = [
+  {
+    name: 'Main Barrel (src/index.ts)',
+    description: 'Import from main barrel file',
+    getCode: () => `
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Container, Flyout, Table, Icon } from '@/components'
+import { Text } from '@/components/Typography'
+
+function App() {
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>Deep Nested HMR Test - Main Barrel (12 layers)</h1>
+      <Container orientation="vertical" gap="lg">
+        <Flyout open={true}>
+          <Flyout.Content strategy="fixed" align="end">
+            <Flyout.Body>
+              <Container orientation="vertical" padding="md">
+                <Container gap="sm" orientation="horizontal">
+                  <Icon name="check" size="md" />
+                  <Text>Icon Component at depth 12</Text>
+                </Container>
+                <Table
+                  headers={[
+                    { label: 'Column 1', isSortable: true },
+                    { label: 'Column 2', isSortable: true },
+                    { label: <Text>Column with Icon <Icon name="info" size="sm" /></Text> }
+                  ]}
+                  rows={[
+                    {
+                      id: 1,
+                      items: [
+                        { label: 'Row 1 Cell 1' },
+                        { label: 'Row 1 Cell 2' },
+                        { label: <><Icon name="check" size="sm" /> <Text>With Icon</Text></> }
+                      ]
+                    },
+                    {
+                      id: 2,
+                      items: [
+                        { label: 'Row 2 Cell 1' },
+                        { label: 'Row 2 Cell 2' },
+                        { label: <><Icon name="activity" size="sm" /> <Text>Another Icon</Text></> }
+                      ]
+                    }
+                  ]}
+                />
+              </Container>
+            </Flyout.Body>
+          </Flyout.Content>
+        </Flyout>
+      </Container>
+    </div>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+`,
+    targetFile: path.join(ROOT_DIR, 'src', 'components', 'Icon', 'Icon.tsx'),
+  },
+  {
+    name: 'Components Barrel (src/components/index.ts)',
+    description: 'Import from components barrel',
+    getCode: () => `
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Container } from '@/components/Container'
+import { Flyout } from '@/components/Flyout'
+import { Table } from '@/components/Table'
+import { Icon } from '@/components/Icon'
+import { Text } from '@/components/Typography'
+
+function App() {
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>Deep Nested HMR Test - Components Barrel (12 layers)</h1>
+      <Container orientation="vertical" gap="lg">
+        <Flyout open={true}>
+          <Flyout.Content strategy="fixed" align="end">
+            <Flyout.Body>
+              <Container orientation="vertical" padding="md">
+                <Container gap="sm" orientation="horizontal">
+                  <Icon name="check" size="md" />
+                  <Text>Icon Component at depth 12</Text>
+                </Container>
+                <Table
+                  headers={[
+                    { label: 'Column 1', isSortable: true },
+                    { label: 'Column 2', isSortable: true },
+                    { label: <Text>Column with Icon <Icon name="info" size="sm" /></Text> }
+                  ]}
+                  rows={[
+                    {
+                      id: 1,
+                      items: [
+                        { label: 'Row 1 Cell 1' },
+                        { label: 'Row 1 Cell 2' },
+                        { label: <><Icon name="check" size="sm" /> <Text>With Icon</Text></> }
+                      ]
+                    },
+                    {
+                      id: 2,
+                      items: [
+                        { label: 'Row 2 Cell 1' },
+                        { label: 'Row 2 Cell 2' },
+                        { label: <><Icon name="activity" size="sm" /> <Text>Another Icon</Text></> }
+                      ]
+                    }
+                  ]}
+                />
+              </Container>
+            </Flyout.Body>
+          </Flyout.Content>
+        </Flyout>
+      </Container>
+    </div>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+`,
+    targetFile: path.join(ROOT_DIR, 'src', 'components', 'Icon', 'Icon.tsx'),
+  },
+  {
+    name: 'Direct Source Imports',
+    description:
+      'Import directly from source files (simulating package exports with source maps)',
+    getCode: () => `
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Container } from '@/components/Container'
+import { Flyout } from '@/components/Flyout'
+import { Table } from '@/components/Table'
+import { Icon } from '@/components/Icon'
+import { Text } from '@/components/Typography'
+
+function App() {
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>Deep Nested HMR Test - Direct Source (12 layers)</h1>
+      <Container orientation="vertical" gap="lg">
+        <Flyout open={true}>
+          <Flyout.Content strategy="fixed" align="end">
+            <Flyout.Body>
+              <Container orientation="vertical" padding="md">
+                <Container gap="sm" orientation="horizontal">
+                  <Icon name="check" size="md" />
+                  <Text>Icon Component at depth 12</Text>
+                </Container>
+                <Table
+                  headers={[
+                    { label: 'Column 1', isSortable: true },
+                    { label: 'Column 2', isSortable: true },
+                    { label: <Text>Column with Icon <Icon name="info" size="sm" /></Text> }
+                  ]}
+                  rows={[
+                    {
+                      id: 1,
+                      items: [
+                        { label: 'Row 1 Cell 1' },
+                        { label: 'Row 1 Cell 2' },
+                        { label: <><Icon name="check" size="sm" /> <Text>With Icon</Text></> }
+                      ]
+                    },
+                    {
+                      id: 2,
+                      items: [
+                        { label: 'Row 2 Cell 1' },
+                        { label: 'Row 2 Cell 2' },
+                        { label: <><Icon name="activity" size="sm" /> <Text>Another Icon</Text></> }
+                      ]
+                    }
+                  ]}
+                />
+              </Container>
+            </Flyout.Body>
+          </Flyout.Content>
+        </Flyout>
+      </Container>
+    </div>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+`,
+    targetFile: path.join(ROOT_DIR, 'src', 'components', 'Icon', 'Icon.tsx'),
+  },
+];
+
+const originalContents = new Map();
+
+async function setupPlayground() {
+  console.log('[SETUP] Setting up deep nested HMR test playground...\n');
+
+  await fs.mkdir(PLAYGROUND_DIR, { recursive: true });
+
+  const packageJson = {
+    name: 'click-ui-hmr-deep-benchmark',
+    private: true,
+    type: 'module',
+    scripts: { dev: 'vite --port 5175 --host' },
+    dependencies: {
+      react: '^18.3.1',
+      'react-dom': '^18.3.1',
+      'styled-components': '^6.1.11',
+      dayjs: '^1.11.19',
+    },
+    devDependencies: {
+      '@types/react': '^18.3.1',
+      '@types/react-dom': '^18.3.1',
+      '@types/styled-components': '^5.1.34',
+      '@vitejs/plugin-react': '^5.1.2',
+      typescript: '^5.5.3',
+      vite: '^7.3.0',
+      'vite-tsconfig-paths': '^6.0.5',
+    },
+  };
+
+  await fs.writeFile(
+    path.join(PLAYGROUND_DIR, 'package.json'),
+    JSON.stringify(packageJson, null, 2)
+  );
+
+  const indexHtml = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Click UI Deep Nested HMR Benchmark</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+`;
+  await fs.writeFile(path.join(PLAYGROUND_DIR, 'index.html'), indexHtml);
+
+  const tsConfig = {
+    compilerOptions: {
+      target: 'ES2020',
+      useDefineForClassFields: true,
+      lib: ['ES2020', 'DOM', 'DOM.Iterable'],
+      module: 'ESNext',
+      skipLibCheck: true,
+      moduleResolution: 'bundler',
+      allowImportingTsExtensions: true,
+      resolveJsonModule: true,
+      isolatedModules: true,
+      noEmit: true,
+      jsx: 'react-jsx',
+      strict: true,
+      noUnusedLocals: true,
+      noUnusedParameters: true,
+      noFallthroughCasesInSwitch: true,
+      baseUrl: '.',
+      paths: {
+        '@/*': [`${PLAYGROUND_PATH_TO_ROOT}/src/*`],
+        '@/components': [`${PLAYGROUND_PATH_TO_ROOT}/src/components`],
+        '@/index': [`${PLAYGROUND_PATH_TO_ROOT}/src/index.ts`],
+      },
+    },
+    include: ['src/**/*', `${PLAYGROUND_PATH_TO_ROOT}/src/**/*`],
+  };
+
+  await fs.writeFile(
+    path.join(PLAYGROUND_DIR, 'tsconfig.json'),
+    JSON.stringify(tsConfig, null, 2)
+  );
+
+  await fs.mkdir(path.join(PLAYGROUND_DIR, 'src'), { recursive: true });
+
+  // Vite config will be written per-test by writeViteConfig
+  console.log('[OK] Playground structure created\n');
+}
+
+async function installDependencies() {
+  console.log('[INSTALL] Installing dependencies...');
+
+  return new Promise((resolve, reject) => {
+    const child = spawn('npm', ['install'], {
+      cwd: PLAYGROUND_DIR,
+      stdio: 'pipe',
+    });
+
+    child.on('close', code => {
+      if (code === 0) {
+        console.log('[OK] Dependencies installed\n');
+        resolve();
+      } else {
+        reject(new Error(`npm install exited with code ${code}`));
+      }
+    });
+  });
+}
+
+async function writeAppFile(config) {
+  await fs.writeFile(path.join(PLAYGROUND_DIR, 'src', 'main.tsx'), config.getCode());
+}
+
+async function writeViteConfig() {
+  // Symlink approach: Only use @ alias for internal imports
+  // Note: @clickhouse/click-ui/* subpaths will NOT work with HMR properly
+  // because they resolve to dist/ files. Use @/components/* instead for HMR tests.
+  const rootPath = PLAYGROUND_PATH_TO_ROOT;
+  const viteConfig = `import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
+
+const ROOT_PATH = '${rootPath}'
+const parentSrcDir = path.resolve(__dirname, ROOT_PATH, 'src')
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tsconfigPaths({
+      projects: [path.resolve(__dirname, ROOT_PATH, 'tsconfig.json')]
+    }),
+    {
+      name: 'watch-external-src',
+      configureServer(server) {
+        server.watcher.add(parentSrcDir)
+      }
+    }
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, ROOT_PATH, 'src'),
+    }
+  },
+  server: {
+    open: false,
+    port: 5175,
+    hmr: true,
+    fs: {
+      allow: ['..', ROOT_PATH, \`\${ROOT_PATH}/src\`, \`\${ROOT_PATH}/node_modules/@clickhouse\`]
+    },
+    watch: {
+      usePolling: true,
+      interval: 100
+    }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'styled-components'],
+    exclude: ['@clickhouse/click-ui']
+  }
+})
+`;
+  await fs.writeFile(path.join(PLAYGROUND_DIR, 'vite.config.ts'), viteConfig);
+}
+
+async function backupOriginalFile(filePath) {
+  if (!originalContents.has(filePath)) {
+    const content = await fs.readFile(filePath, 'utf-8');
+    originalContents.set(filePath, content);
+  }
+}
+
+async function restoreOriginalFiles() {
+  console.log('\n[RESTORE] Restoring original source files...');
+
+  for (const [filePath, content] of originalContents) {
+    try {
+      await fs.writeFile(filePath, content);
+      console.log(`  [OK] Restored: ${path.relative(ROOT_DIR, filePath)}`);
+    } catch (err) {
+      console.warn(`  [WARN] Failed to restore: ${path.relative(ROOT_DIR, filePath)}`);
+    }
+  }
+
+  originalContents.clear();
+}
+
+async function modifySourceFile(filePath, iteration) {
+  await backupOriginalFile(filePath);
+
+  let content = await fs.readFile(filePath, 'utf-8');
+  const lines = content.split('\n');
+  const cleanedLines = lines.filter(line => !line.includes(MODIFICATION_MARKER));
+  cleanedLines.push(`${MODIFICATION_MARKER}${iteration}`);
+
+  await fs.writeFile(filePath, cleanedLines.join('\n'));
+
+  console.log(`  [MODIFY] ${path.relative(ROOT_DIR, filePath)} (marker: ${iteration})`);
+}
+
+async function clearViteCache() {
+  const cachesToClear = [
+    path.join(PLAYGROUND_DIR, 'node_modules', '.vite'),
+    path.join(ROOT_DIR, 'node_modules', '.vite'),
+  ];
+
+  for (const cachePath of cachesToClear) {
+    try {
+      await fs.rm(cachePath, { recursive: true, force: true });
+    } catch (err) {
+      // Cache might not exist
+    }
+  }
+}
+
+// Strip ANSI escape codes from text
+function stripAnsi(text) {
+  // eslint-disable-next-line no-control-regex
+  return text.replace(/\x1B\[[0-9;]*[mGKH]/g, '');
+}
+
+function startDevServer() {
+  return new Promise((resolve, reject) => {
+    const child = spawn('npm', ['run', 'dev'], {
+      cwd: PLAYGROUND_DIR,
+      stdio: 'pipe',
+      env: {
+        ...process.env,
+        FORCE_COLOR: '0',
+        NO_COLOR: '1',
+        DEBUG: 'vite:hmr',
+      },
+    });
+
+    let isReady = false;
+    const timeout = setTimeout(() => {
+      child.kill('SIGTERM');
+      reject(new Error('Dev server startup timeout (60s)'));
+    }, 60000);
+
+    child.stdout.on('data', data => {
+      const output = data.toString();
+
+      if (
+        !isReady &&
+        (output.includes('ready') || output.includes('5175') || output.includes('Local:'))
+      ) {
+        isReady = true;
+        clearTimeout(timeout);
+        resolve(child);
+      }
+    });
+
+    child.stderr.on('data', data => {
+      const output = data.toString();
+      if (output.toLowerCase().includes('fatal') && !isReady) {
+        clearTimeout(timeout);
+        child.kill('SIGTERM');
+        reject(new Error(`Dev server error: ${output.substring(0, 200)}`));
+      }
+    });
+
+    child.on('error', reject);
+    child.on('close', code => {
+      if (!isReady) {
+        reject(new Error(`Dev server exited with code ${code}`));
+      }
+    });
+  });
+}
+
+// Preload modules by making HTTP requests to Vite
+async function preloadModules() {
+  try {
+    await fetch('http://localhost:5175/');
+    await fetch('http://localhost:5175/src/main.tsx');
+    console.log('  [OK] Modules preloaded');
+  } catch (e) {
+    console.log('  [WARN] Module preload warning:', e.message);
+  }
+}
+
+async function measureHMR(devServer, targetFile, iteration) {
+  return new Promise(resolve => {
+    const startTime = Date.now();
+    let hmrTime = null;
+    let detectedType = null;
+    const debugOutput = [];
+    let fileChangeDetected = false;
+
+    const timeout = setTimeout(() => {
+      cleanup();
+      console.log(`  [WARN] Debug output (last 10 lines):`);
+      debugOutput
+        .slice(-10)
+        .forEach(line => console.log(`    > ${line.substring(0, 100)}`));
+      resolve({
+        success: false,
+        error: fileChangeDetected
+          ? 'HMR timeout (5s) - file change detected but no HMR/reload completed'
+          : 'HMR timeout (5s) - file change not detected by Vite',
+      });
+    }, 5000);
+
+    const cleanup = () => {
+      clearTimeout(timeout);
+      devServer.stdout.removeListener('data', onData);
+      devServer.stderr.removeListener('data', onError);
+    };
+
+    const checkForHmrCompletion = rawOutput => {
+      if (hmrTime) return false;
+
+      const output = stripAnsi(rawOutput);
+
+      // Vite stdout: "[vite] (client) hmr update /path/to/file"
+      if (output.match(/\(client\)\s*hmr\s+update/i)) {
+        hmrTime = Date.now() - startTime;
+        detectedType = 'HMR update';
+        cleanup();
+        resolve({ success: true, hmrTime, type: detectedType });
+        return true;
+      }
+
+      // Vite stdout: "[vite] (client) page reload /path/to/file"
+      if (output.match(/\(client\)\s*page\s*reload/i)) {
+        hmrTime = Date.now() - startTime;
+        detectedType = 'Page reload';
+        cleanup();
+        resolve({ success: true, hmrTime, type: detectedType });
+        return true;
+      }
+
+      // Vite debug stderr: "vite:hmr [file change]"
+      if (output.match(/vite:hmr.*\[file\s+change\]/i)) {
+        if (!fileChangeDetected) {
+          fileChangeDetected = true;
+          console.log(`  [INFO] File change detected by Vite...`);
+        }
+      }
+
+      return false;
+    };
+
+    const onData = data => {
+      const output = data.toString();
+      const lines = output.split('\n').filter(l => l.trim());
+      lines.forEach(line => {
+        if (line.trim()) debugOutput.push(stripAnsi(line.trim()));
+      });
+      if (debugOutput.length > 50) debugOutput.splice(0, debugOutput.length - 50);
+
+      if (checkForHmrCompletion(output)) return;
+    };
+
+    const onError = data => {
+      const output = data.toString();
+      const lines = output.split('\n').filter(l => l.trim());
+      lines.forEach(line => {
+        if (line.trim()) debugOutput.push('ERR: ' + stripAnsi(line.trim()));
+      });
+
+      if (checkForHmrCompletion(output)) return;
+    };
+
+    devServer.stdout.on('data', onData);
+    devServer.stderr.on('data', onError);
+
+    setTimeout(() => {
+      modifySourceFile(targetFile, iteration).catch(err => {
+        cleanup();
+        resolve({ success: false, error: `Failed to modify file: ${err.message}` });
+      });
+    }, 100);
+  });
+}
+
+async function runBenchmarkWithServer(config) {
+  console.log(`\n[BENCHMARK] ${config.name}`);
+  console.log(`   ${config.description}`);
+
+  await writeViteConfig();
+  await writeAppFile(config);
+  await clearViteCache();
+
+  console.log('  [START] Starting dev server...');
+  let devServer;
+
+  try {
+    devServer = await startDevServer();
+    console.log('  [OK] Dev server ready');
+  } catch (error) {
+    console.log(`  [FAIL] Failed to start dev server: ${error.message}`);
+    return null;
+  }
+
+  const results = [];
+  const hmrTypes = [];
+  // count
+  const iterations = 100;
+
+  await new Promise(r => setTimeout(r, 2000));
+  await preloadModules();
+  await new Promise(r => setTimeout(r, 1000));
+
+  try {
+    for (let i = 1; i <= iterations; i++) {
+      console.log(`  [TEST] HMR test ${i}/${iterations}`);
+
+      const result = await measureHMR(devServer, config.targetFile, i);
+
+      if (result.success) {
+        results.push(result.hmrTime);
+        hmrTypes.push(result.type || 'HMR');
+        console.log(`  [OK] ${result.type || 'HMR'} time: ${result.hmrTime}ms`);
+      } else {
+        console.log(`  [FAIL] HMR failed: ${result.error}`);
+      }
+
+      // if (i < iterations) {
+      //   await new Promise(r => setTimeout(r, 1000));
+      // }
+    }
+  } finally {
+    console.log('  [STOP] Stopping dev server...');
+    devServer.kill('SIGTERM');
+    await new Promise(r => setTimeout(r, 1000));
+  }
+
+  if (results.length === 0) {
+    return null;
+  }
+
+  const avg = Math.round(results.reduce((a, b) => a + b, 0) / results.length);
+  const min = Math.min(...results);
+  const max = Math.max(...results);
+  const median = results.sort((a, b) => a - b)[Math.floor(results.length / 2)];
+
+  const typeCounts = {};
+  hmrTypes.forEach(t => (typeCounts[t] = (typeCounts[t] || 0) + 1));
+  const predominantType =
+    Object.entries(typeCounts).sort(([, a], [, b]) => b - a)[0]?.[0] || 'unknown';
+
+  return {
+    name: config.name,
+    description: config.description,
+    avgTime: avg,
+    minTime: min,
+    maxTime: max,
+    medianTime: median,
+    hmrType: predominantType,
+    results,
+  };
+}
+
+function printResults(results) {
+  console.log('\n' + '='.repeat(90));
+  console.log('DEEP NESTED HMR (HOT MODULE REPLACEMENT) BENCHMARK RESULTS');
+  console.log('   Measuring reload speed when modifying Icon.tsx (depth ~12)');
+  console.log(
+    '   Component graph: App → Container → Flyout → Flyout.Content → Flyout.Body'
+  );
+  console.log(
+    '                   → Container → Table → TableBodyRow → Cell → EllipsisContent'
+  );
+  console.log('                   → Text → Icon (modified)');
+  console.log('='.repeat(90));
+
+  console.log('\n' + '-'.repeat(90));
+  console.log(
+    `${'Configuration'.padEnd(35)} | ` +
+      `${'Avg'.padStart(8)} | ` +
+      `${'Median'.padStart(8)} | ` +
+      `${'Min'.padStart(8)} | ` +
+      `${'Max'.padStart(8)} | ` +
+      `${'Type'.padStart(10)}`
+  );
+  console.log('-'.repeat(90));
+
+  for (const result of results) {
+    if (result) {
+      const hmrType = result.hmrType || 'mixed';
+      console.log(
+        `${result.name.padEnd(35)} | ` +
+          `${(result.avgTime + 'ms').padStart(8)} | ` +
+          `${(result.medianTime + 'ms').padStart(8)} | ` +
+          `${(result.minTime + 'ms').padStart(8)} | ` +
+          `${(result.maxTime + 'ms').padStart(8)} | ` +
+          `${hmrType.padStart(10)}`
+      );
+    }
+  }
+
+  console.log('-'.repeat(90));
+
+  const validResults = results.filter(r => r !== null && r !== undefined);
+  if (validResults.length > 1) {
+    const fastest = validResults.reduce((min, r) => (r.avgTime < min.avgTime ? r : min));
+    const slowest = validResults.reduce((max, r) => (r.avgTime > max.avgTime ? r : max));
+
+    console.log('\nSummary:');
+    console.log(`  Fastest HMR: ${fastest.name} (${fastest.avgTime}ms avg)`);
+    console.log(`  Slowest HMR: ${slowest.name} (${slowest.avgTime}ms avg)`);
+    console.log(
+      `  Difference: ${slowest.avgTime - fastest.avgTime}ms (${((slowest.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%)`
+    );
+  }
+
+  console.log('\n' + '='.repeat(90));
+}
+
+async function cleanup() {
+  console.log('\n[CLEANUP] Cleaning up...');
+  await restoreOriginalFiles();
+
+  try {
+    await fs.rm(PLAYGROUND_DIR, { recursive: true, force: true });
+    console.log('[OK] Cleanup complete');
+  } catch (err) {
+    console.warn('[WARN] Cleanup warning:', err.message);
+  }
+}
+
+async function main() {
+  console.log('='.repeat(78));
+  console.log('     Click UI - Deep Nested HMR (Hot Module Replacement) Benchmark');
+  console.log('     Tests reload speed with 12-layer component dependency graph');
+  console.log('     Target: Icon.tsx at depth ~12 (forces full graph traversal)');
+  console.log('='.repeat(78));
+  console.log(
+    '\n[WARN] This benchmark will temporarily modify source files in src/components/'
+  );
+  console.log('   Original content will be automatically restored after testing.\n');
+
+  // Check for root-level symlink
+  const rootSymlink = path.join(ROOT_DIR, 'node_modules', '@clickhouse', 'click-ui');
+  try {
+    await fs.access(rootSymlink);
+    console.log('[CHECK] Root-level symlink exists: node_modules/@clickhouse/click-ui');
+  } catch (err) {
+    console.log('[WARN] Root-level symlink not found: node_modules/@clickhouse/click-ui');
+    console.log(
+      '[INFO] Run "npm install" or "yarn install" to create the symlink via the prepare script.\n'
+    );
+  }
+
+  try {
+    await setupPlayground();
+    await installDependencies();
+    // Note: Using Vite resolve aliases instead of symlinks for package exports
+
+    const results = [];
+
+    for (const config of configs) {
+      const result = await runBenchmarkWithServer(config);
+      results.push(result);
+
+      if (config !== configs[configs.length - 1]) {
+        await new Promise(r => setTimeout(r, 2000));
+      }
+    }
+
+    printResults(results);
+  } catch (error) {
+    console.error('\n[ERROR] Benchmark failed:', error.message);
+    console.error(error.stack);
+    process.exit(1);
+  } finally {
+    await cleanup();
+  }
+}
+
+process.on('SIGINT', async () => {
+  console.log('\n\n[WARN] Interrupted, cleaning up...');
+  await cleanup();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  console.log('\n\n[WARN] Terminated, cleaning up...');
+  await cleanup();
+  process.exit(0);
+});
+
+main();
