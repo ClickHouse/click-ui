@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check default files
+# format
+
+# Format default files
+# format --write
+
+# Check specific path
+# format --check "src/components/**/*.ts"
+
+# Format specific path
+# format --write "src/components/**/*.ts"
+
+MODE="${1:---check}"
+
+TARGET="${@:2}"
+
+if [[ -z "$TARGET" ]]; then
+  TARGET="src/**/*.{js,jsx,ts,tsx}"
+fi
+
+prettier "$MODE" $TARGET --config .prettierrc

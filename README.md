@@ -91,11 +91,15 @@ Tokens are provided by a style directionary sourced from [tokens-studio](https:/
 
 It's expected to have theme tokens provided externally, e.g. Figma tokens-studio output is stored in the repository and a PR's opened. The assets are stored in the directory [./tokens/themes].
 
-Once [./tokens/themes] files are updated, we must regenerate the tokens:
+Once [./tokens/themes] files are updated or provided from exernal source, e.g. Figma, we must regenerate the tokens for consumption in the project.
+
+Run the command to generate tokens in the path `./src/theme/tokens/`:
 
 ```sh
 yarn generate:tokens
 ```
+
+Once done, you must commit the changes.
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
