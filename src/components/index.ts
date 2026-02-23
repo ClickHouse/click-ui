@@ -1,11 +1,5 @@
 export { Accordion } from './Accordion';
-export {
-  Alert,
-  DangerAlert,
-  InfoAlert,
-  SuccessAlert,
-  WarningAlert,
-} from './Alert';
+export { Alert, DangerAlert, InfoAlert, SuccessAlert, WarningAlert } from './Alert';
 export { AutoComplete } from './AutoComplete';
 export { Avatar } from './Avatar';
 export { Badge } from './Badge';

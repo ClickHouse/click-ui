@@ -536,14 +536,16 @@ export const AutoComplete = ({
                             key={`autocomplete-${defaultId}-group-${index}`}
                             {...groupProps}
                           >
-                            {itemList.map(({ label, ...itemProps }, itemIndex: number) => (
-                              <Item
-                                key={`autocomplete-${defaultId}-group-${index}-item-${itemIndex}`}
-                                {...itemProps}
-                              >
-                                {label}
-                              </Item>
-                            ))}
+                            {itemList.map(
+                              ({ label, ...itemProps }, itemIndex: number) => (
+                                <Item
+                                  key={`autocomplete-${defaultId}-group-${index}-item-${itemIndex}`}
+                                  {...itemProps}
+                                >
+                                  {label}
+                                </Item>
+                              )
+                            )}
                           </Group>
                         );
                       } else {
