@@ -1,5 +1,5 @@
 import { SVGAttributes } from 'react';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
 import { LogoName, LogoProps } from '@/components/Assets/Logos/system/types';
 import { FlagName, FlagProps } from '@/components/Assets/Flags/system/types';
 import { PaymentName, PaymentProps } from '@/components/Assets/Payments/system/types';
@@ -15,7 +15,7 @@ export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   /** The color of the icon */
   color?: string;
   /** The size of the icon */
-  size?: IconSize;
+  size?: AssetSize;
   /** The visual state of the icon */
   state?: IconState;
 }

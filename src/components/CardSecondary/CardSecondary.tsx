@@ -107,7 +107,7 @@ export const CardSecondary = ({
   infoUrl,
   infoText,
   infoIcon = 'chevron-right',
-  infoIconSize = 'md',
+  infoAssetSize = 'md',
   ...props
 }: CardSecondaryProps) => {
   return (
@@ -154,7 +154,7 @@ export const CardSecondary = ({
         >
           <LinkText>{infoText}</LinkText>
           <LinkIcon
-            size={infoIconSize}
+            size={infoAssetSize}
             name={infoIcon}
           />
         </InfoLink>

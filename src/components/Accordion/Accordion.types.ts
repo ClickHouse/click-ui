@@ -1,6 +1,6 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
 import { ReactNode } from 'react';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
 import type { IconName } from '@/components/Icon';
 
 export type Size = 'sm' | 'md' | 'lg';
@@ -18,7 +18,7 @@ export interface AccordionProps
   title: ReactNode;
   color?: Color;
   icon?: IconName;
-  iconSize?: IconSize;
+  iconSize?: AssetSize;
   gap?: Gap;
   children: React.ReactNode;
   fillWidth?: boolean;

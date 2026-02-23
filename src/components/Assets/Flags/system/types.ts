@@ -1,5 +1,5 @@
 import type { SVGAttributes } from 'react';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
 
 /** @deprecated Use lower case kebab naming, e.g. 'my-country-name' instead */
 type DeprecatedFlagName =
@@ -72,5 +72,5 @@ export type FlagName =
 export interface FlagProps extends SVGAttributes<SVGElement> {
   name: FlagName | DeprecatedFlagName;
   theme?: 'light' | 'dark';
-  size?: IconSize;
+  size?: AssetSize;
 }

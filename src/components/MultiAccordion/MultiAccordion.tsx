@@ -1,6 +1,6 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
 import { styled } from 'styled-components';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
 import { Icon, type IconName } from '@/components/Icon';
 
 import { Container } from '@/components/Container';
@@ -100,7 +100,7 @@ interface MultiAccordionItemProps extends Omit<
   /** Optional icon to display next to the title */
   icon?: IconName;
   /** Size of the optional icon */
-  iconSize?: IconSize;
+  iconSize?: AssetSize;
   /** Gap size between the header and content */
   gap?: SpacerSizeType;
   /** Whether this item is marked as completed */

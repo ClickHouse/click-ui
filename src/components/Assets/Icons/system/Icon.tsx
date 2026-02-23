@@ -6,12 +6,12 @@ import IconsDark from './IconsDark';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 
 import type { IconName } from './types';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;
   theme?: 'light' | 'dark';
-  size?: IconSize;
+  size?: AssetSize;
 }
 
 const Icon = ({ name, theme, size, ...props }: IconProps) => {

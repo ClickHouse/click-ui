@@ -1,13 +1,13 @@
 import { ReactNode } from 'react';
 
-import type { HorizontalDirection, IconSize } from '@/types';
+import type { HorizontalDirection, AssetSize } from '@/types';
 import type { ImageName } from '@/components/Icon';
 import type { GapOptions } from '@/components/Container';
 
 export interface IconWrapperProps {
   icon?: ImageName;
   iconDir?: HorizontalDirection;
-  size?: IconSize;
+  size?: AssetSize;
   width?: number | string;
   height?: number | string;
   children: ReactNode;

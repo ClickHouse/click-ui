@@ -113,7 +113,7 @@ export type {
   SelectionPos,
 } from './Grid/types';
 export type { IconButtonProps } from './IconButton';
-export type { IconSize } from '@/types';
+export type { AssetSize } from '@/types';
 export type { ImageName as IconName } from './Icon/Icon.types';
 export type { LabelProps } from './Label';
 export type { Menu, SplitButtonProps } from './SplitButton';
