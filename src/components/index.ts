@@ -118,7 +118,7 @@ export type {
   SelectionPos,
 } from './Grid/types';
 export type { IconButtonProps } from './IconButton';
-export type { IconSize, ImageName as IconName } from './Icon/types';
+export type { IconSize, ImageName as IconName } from './Icon/Icon.types';
 export type { LabelProps } from './Label';
 export type { Menu, SplitButtonProps } from './SplitButton';
 export type { MultiAccordionProps } from './MultiAccordion';

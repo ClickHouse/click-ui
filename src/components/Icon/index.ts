@@ -7,4 +7,4 @@ export type {
   IconProps,
   ImageName,
   ImageType,
-} from './types';
+} from './Icon.types';
