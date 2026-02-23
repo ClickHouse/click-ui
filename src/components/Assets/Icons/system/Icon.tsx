@@ -6,7 +6,7 @@ import IconsDark from './IconsDark';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 
 import type { IconName } from './types';
-import type { IconSize } from '@/components/Icon';
+import type { IconSize } from '@/types';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;

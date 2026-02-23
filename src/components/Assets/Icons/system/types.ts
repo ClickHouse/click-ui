@@ -1,3 +1,7 @@
+import type { SVGAssetProps } from '@/types';
+
+export type { SVGAssetProps };
+
 export type IconName =
   | 'activity'
   | 'alarm'
@@ -167,5 +171,3 @@ export type IconName =
   | 'users'
   | 'warning'
   | 'waves';
-
-export type { SVGAssetProps } from '@/components/Icon';
