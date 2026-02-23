@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import type { Preview } from "@storybook/react-vite";
 import { Decorator } from "@storybook/react-vite";
 import { styled } from "styled-components";

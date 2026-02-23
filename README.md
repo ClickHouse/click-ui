@@ -37,8 +37,16 @@ You can find the official docs for the Click UI design system and component libr
   - [Prevent theme flash](#prevent-theme-flash)
   - [Theme Persistence](#theme-persistence)
 * [Assets Management](#assets-management)
-  - [Add a new SVG logo or icon](#add-new-svg-logo-or-icon)
-* [Releases and Versions](#releases-and-versions)
+  - [Convert SVG to React Component](#convert-svg-to-react-component)
+* [Changesets](#changesets)
+  - [Add a new changeset](#add-a-new-changeset)
+  - [Checking the changeset status](#checking-the-changeset-status)
+  - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
+* [Release](#release)
+  - [Required admin permissions](#required-admin-permissions)
+  - [Create a new release pull request](#create-a-new-release-pull-request)
+* [Contributing](#contributing)
+  - [Conventional commits](#conventional-commits)
 
 ## Requirements
 
@@ -86,11 +94,15 @@ Tokens are provided by a style directionary sourced from [tokens-studio](https:/
 
 It's expected to have theme tokens provided externally, e.g. Figma tokens-studio output is stored in the repository and a PR's opened. The assets are stored in the directory [./tokens/themes].
 
-Once [./tokens/themes] files are updated, we must regenerate the tokens:
+Once [./tokens/themes] files are updated or provided from exernal source, e.g. Figma, we must regenerate the tokens for consumption in the project.
+
+Run the command to generate tokens in the path `./src/theme/tokens/`:
 
 ```sh
 yarn generate:tokens
 ```
+
+Once done, you must commit the changes.
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
@@ -103,6 +115,7 @@ You can start the Storybook development server by:
 ```sh
 yarn dev
 ```
+
 
 We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
 
@@ -150,7 +163,6 @@ Once ready, you can run tests by:
 ```sh
 yarn test:chromatic
 ```
-
 > [!NOTE]
 > Chromatic does NOT generate a report in the terminal due to its cloud nature, which only outputs:
 > - Build status, e.g. uploading or testing
@@ -192,69 +204,6 @@ yarn storybook:serve
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
-
-## Distribution
-
-The package is distributed as ESM.
-
-### Build
-
-To build the distribution version of the package run:
-
-```sh
-yarn build
-```
-
-> [!NOTE]
-> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
-
-### Deep imports support
-
-Deep imports are supported, you can import directly from path.
-
-> [!WARNING]
-> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
-
-```ts
-import { Button } from '@clickhouse/click-ui/Button';
-```
-
-### Examples
-
-Here's a quick copy and paste NextJS example with interactive components you can play:
-
-```ts
-import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
-import { useState } from 'react'
-
-function App() {
-  const [theme, setTheme] = useState<ThemeName>('dark')
-
-  const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
-  }
-
-  return (
-    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch 
-        checked={theme === 'dark'} 
-        onCheckedChange={() => toggleTheme()} 
-        label="Dark mode"
-      />
-
-      <Title type='h1'>Click UI Example</Title>
-      <Text>Welcome to Click UI. Get started here.</Text>
-    </ClickUIProvider>
-  )
-}
-
-export default App
-```
-
-> [!TIP]
-> An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md).
-
-To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
 
 ## Changeset
 
@@ -300,6 +249,107 @@ To consume all changesets, and update to the most appropriate semver version and
 
 ```sh
 yarn changeset:version
+```
+
+## Distribution
+
+The package is distributed as ESM.
+
+### Build
+
+To build the distribution version of the package run:
+
+```sh
+yarn build
+```
+
+> [!NOTE]
+> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+
+### Use Click UI
+
+Navigate to your app's work directory and add the package.
+
+Here, we use `yarn` but you can use your favorite package manager, e.g. pnpm.
+
+```sh
+yarn add @clickhouse/click-ui
+```
+> [!NOTE]
+> Click UI should be supported by react frameworks.
+> If you run into any issues consuming it in your react app, report it [here](https://github.com/ClickHouse/click-ui/issues/new). Provide all important details, including information on how to replicate the issue!
+
+Once installed, wrap the application with Click UI provider:
+
+```js
+import { ClickUIProvider } from '@clickhouse/click-ui'
+
+export default () => {
+  return (
+    <ClickUIProvider theme='light'>
+      <p>Hello world!</p>
+    </ClickUIProvider>
+  );
+}
+```
+
+After, you are able to import your favorite [Click UI components](https://clickhouse.design/click-ui).
+
+```js
+import { ClickUIProvider, Title } from '@clickhouse/click-ui'
+
+export default () => {
+  return (
+    <ClickUIProvider theme='light'>
+      <Title type='h1'>Click UI Example</Title>
+    </ClickUIProvider>
+  );
+}
+```
+
+To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
+
+### Deep imports support
+
+Deep imports are supported, you can import directly from path.
+
+> [!WARNING]
+> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
+
+```ts
+import { Button } from '@clickhouse/click-ui/Button';
+```
+
+### Examples
+
+Here's a quick copy and paste NextJS example with interactive components you can play:
+
+```ts
+import { ClickUIProvider, Text, ThemeName, Title, Switch } from '@clickhouse/click-ui'
+import { useState } from 'react'
+
+function App() {
+  const [theme, setTheme] = useState<ThemeName>('dark')
+
+  const toggleTheme = () => {
+    theme === 'dark' ? setTheme('light') : setTheme('dark')
+  }
+
+  return (
+    <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
+        label="Dark mode"
+      />
+
+      <Title type='h1'>Click UI Example</Title>
+      <Text>Welcome to Click UI. Get started here.</Text>
+    </ClickUIProvider>
+  )
+}
+
+export default App
 ```
 
 ## Themes
@@ -365,7 +415,7 @@ export const App = () => {
       </button>
     </ClickUIProvider>
   );
-}
+};
 ```
 
 > [!TIP]
@@ -373,43 +423,80 @@ export const App = () => {
 
 ## Assets management
 
-The Click UI has image asset files, such as icons or logos.
+The Click UI has image asset files, such as Flags, Icons, Logos and Payments.
 
 Files are originally curated in the context of the design system Figma project. Once exported/sourced from the Figma project file these have to be transformed into the Click UI desired format, e.g. an SVG as a React Component.
 
-### Add new SVG logo or icon
+### Convert SVG to React Component
 
-Here are some steps, to help you transform the Figma asset into a React Component:
+We provide an automated tool to convert SVG files to React components for Flags, Icons, Logos and Payments.
 
-1) In Figma project, select and export the target image/icon, e.g. these are generally contained in a square container (64x64)
-2) Store the file in your local file system in a memorable location
-3) Use a tool to transform SVG to React JSX, e.g. [react-svgr](https://react-svgr.com/playground/)
-4) Create a new file in `src/components/Logos`, e.g. name it by the company name
-5) Modify the `<svg>` node, it should set the size to 64x64 as the original Figma container:
+Let's assume that you want to add a new logo. You are a macOS user and have stored the logo SVG file in your home **Downloads** directory, e.g. **/Users/MyUsername/Downloads**.
 
-> [!NOTE]
-> Notice the viewBox values, it should contain the same values from the sourced file 64x64, e.g. "0 0 64 64", if it hasn't make sure you are exporting it correctly, or the original file has the correct container width and height
-```tsx
-<svg
-  width="64"
-  height="64"
-  viewBox="0 0 64 64"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  {...props}
->
+In the root of Click UI repository, you'd run:
+
+```sh
+yarn convert:logo ~/Downloads/click-ui.svg
 ```
 
-6) Declare the new logo/icon in the Logos dark and light exporte files, e.g. `src/components/Logos/LogosDark.ts` and `src/components/Logos/LogosLight.ts`
-7) Finally, introduce the new icon/logo name in the types file located at `src/components/Logos/types.ts`
+Or provide explicit component name:
 
-## Releases and Versions
+```sh
+yarn convert:logo ~/Downloads/click-ui.svg Click_UI
+```
 
-New versions and release notes are available at [GitHub Releases](https://github.com/ClickHouse/click-ui/releases).
+Alternatively, you can replace `logo` in the command by the remaining assets types, e.g. `convert:flag` or `convert:icon`.
 
-To create a new release and publish a new version, follow the instructions in [publish.md](./docs/publish.md).
+For more detailed instructions, see [converting SVG to React Components](./docs/converting-svg-to-react-components).
 
-## Conventional commits
+## Release
+
+**TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
+
+You're expected to [create a new version](#create-a-new-version-and-changelogs), which will consume all changesets, and update to the most appropriate semantic version (semver) based on those changesets; which also writes changelog entries for each consumed changeset file content.
+
+Once the artifacts and version bump is completed, the package can be published to npm. Doing all of this manually can be tedious and prone to mistakes, as such, we have a GitHub action that creates a Pull request containing all of this for team review; And once approved, another GitHub action that publishes the package to npm and creates a GitHub release.
+
+### Required admin permissions
+
+The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub ascitons as a trusted publisher in NPM package settings.
+
+#### GitHub Workflow permissons
+
+Set the [workflow permissions](https://github.com/Clickhouse/click-ui/settings/actions) as:
+- Select "Read and write" and "Read repository contents"
+- Check the box "Allow GitHub actions to create and approve pull requests"
+
+#### NPM Trusted publisher
+
+Add GitHub actions as a trusted publisher on [NPM package settings](https://www.npmjs.com/package/@clickhouse/click-ui). Make sure you select the provider "GitHub Actions", enter the repository "Clickhouse/click-ui" and finally the workflow name as "release-publisher.yml".
+
+### Create a new release Pull Request
+
+Consuming changesets is done automatically in the CI/CD environmment.
+
+To create a new release, locate the [create release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) and use the interface to select the release type, e.g. release candidate (rc), testing, or latest.
+
+It'll create a new Pull request for review, e.g. changelog, version bump, etc. There, you have the opportunity to make any further tweaks, refinements and check if everything's correct.
+
+You can find the pull requests in the GitHub tab [Pull Request](https://github.com/ClickHouse/click-ui/pulls). E.g. let's say you're about to release v0.1.0-rc.1, you'd find `chore: 🤖 release v0.1.0-rc.1 (rc)`.
+
+> [!WARNING]
+> Only choose "latest" if you're certain that your package release is stable, e.g. you've tested and gathered feedback from other user or consumers.
+
+### Publish
+
+Assuming that you have reviewed both the changelog entries, the version changes, adddressed any [Pull Request](#create-a-new-release-pull-request) comments and suggestions; and you're confident that all these are correct, and have made any necessary tweaks to changelogs, you can go ahead and squash and merge the pull request.
+
+After the pull request is merged to main, the [release publisher](https://github.com/ClickHouse/click-ui/actions/workflows/release-publisher.yml) should be triggered automatically and publish the package to npm.
+
+If successful, you should see the new package version listed in npm [@clickhouse/click-ui](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions) versions tab.
+
+Consequently, a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) should exist containing all the generated release assets.
+
+## Contributing
+
+### Conventional commits
 
 We prefer to commit our work following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) conventions. Conventional Commits are a simple way to write commit messages that both people and computers can understand. It help us keep track fo changes in a consistent manner, making it easier to see what was added, changed, or fixed in each commit or update.
 

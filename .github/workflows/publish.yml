@@ -1,3 +1,6 @@
+# TODO: Once changeset based release workflow completed and tested
+# delete this file and the docs/publish.yml
+
 name: publish
 
 on:

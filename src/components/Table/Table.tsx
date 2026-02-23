@@ -43,6 +43,10 @@ export interface TableColumnConfigProps extends HTMLAttributes<HTMLTableCellElem
   resizable?: boolean;
 }
 
+// TODO: Delete `TableHeaderType` (deprecation warn at v0.0.251-test.67)
+/** @deprecated The TableHeaderType field have been deprecated to favour TableColumnConfigProps */
+export type TableHeaderType = TableColumnConfigProps;
+
 const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
   ${({ theme, $size }) => `
     padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
@@ -86,6 +90,12 @@ const Resizer = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
+    opacity: 1;
+  }
 `;
 
 const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
@@ -102,11 +112,17 @@ const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
+type OnKeyboardResizerDirection = 'left' | 'right';
+
 interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
   onSort?: () => void;
   size: TableSize;
   showResizer?: boolean;
   onResizeStart?: (e: MouseEvent) => void;
+  onKeyboardResize?: (
+    e: React.KeyboardEvent,
+    direction: OnKeyboardResizerDirection
+  ) => void;
 }
 
 const TableHeader = ({
@@ -120,6 +136,7 @@ const TableHeader = ({
   resizable,
   showResizer,
   onResizeStart,
+  onKeyboardResize,
   overflowMode,
   ...props
 }: TableHeaderProps) => {
@@ -133,6 +150,8 @@ const TableHeader = ({
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
   );
+  const resizerRef = useRef<HTMLDivElement>(null);
+
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e);
@@ -141,6 +160,29 @@ const TableHeader = ({
       onSort();
     }
   };
+
+  const onResizerKeyDown = (e: React.KeyboardEvent) => {
+    if (!onKeyboardResize) {
+      return;
+    }
+
+    if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft':
+        onKeyboardResize(e, 'left');
+        break;
+      case 'ArrowRight':
+        onKeyboardResize(e, 'right');
+        break;
+      case 'Escape':
+        resizerRef.current?.blur();
+        break;
+    }
+  };
+
   return (
     <StyledHeader
       $size={size}
@@ -169,20 +211,13 @@ const TableHeader = ({
       </HeaderContentWrapper>
       {showResizer && (
         <Resizer
+          ref={resizerRef}
           onMouseDown={onResizeStart}
           role="separator"
           aria-orientation="vertical"
           aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
-          /*
-          // TODO: a11y tab and create handler key down
           tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              // TODO: Could implement keyboard-based resizing here?
-            }
-          }}
-          */
+          onKeyDown={onResizerKeyDown}
         />
       )}
     </StyledHeader>
@@ -200,6 +235,9 @@ interface TheadProps {
   resizableColumns?: boolean;
   columnWidths?: number[] | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
+  onKeyboardResize?: (
+    columnIndex: number
+  ) => (e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
   theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
@@ -216,6 +254,7 @@ const Thead = ({
   columnWidths,
   onResizeStart,
   theadRef,
+  onKeyboardResize,
 }: TheadProps) => {
   const onSort = (header: TableColumnConfigProps, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
@@ -263,6 +302,7 @@ const Thead = ({
               resizable={resizableColumns}
               showResizer={resizableColumns && index < headers.length - 1}
               onResizeStart={onResizeStart?.(index)}
+              onKeyboardResize={onKeyboardResize?.(index)}
               {...headerProps}
             />
           ))}
@@ -443,7 +483,7 @@ const ActionsContainer = styled.div`
 const TableWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
   ${({ theme }) => `
   border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
   border-radius: ${theme.click.table.radii.all}
@@ -862,6 +902,46 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       actionsList.push('editAction');
     }
 
+    const onKeyboardResize = useCallback(
+      (columnIndex: number) =>
+        (_e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => {
+          if (!columnWidths) {
+            return;
+          }
+
+          const nextColumnIndex = columnIndex + 1;
+          if (nextColumnIndex >= headers.length) {
+            return;
+          }
+
+          const increment = 2;
+          const multiplier = direction === 'right' ? 1 : -1;
+          const diff = increment * multiplier;
+
+          const currentWidth = columnWidths[columnIndex];
+          const nextWidth = columnWidths[nextColumnIndex];
+          const newWidth = currentWidth + diff;
+          const newNextWidth = nextWidth - diff;
+          const shouldUpdateColumnWidth =
+            newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH;
+
+          if (!shouldUpdateColumnWidth) {
+            return;
+          }
+
+          setColumnWidths(prev => {
+            if (!prev) {
+              return prev;
+            }
+            const updated = [...prev];
+            updated[columnIndex] = newWidth;
+            updated[nextColumnIndex] = newNextWidth;
+            return updated;
+          });
+        },
+      [columnWidths, headers.length]
+    );
+
     return (
       <TableOuterContainer>
         {hasRows && showHeader && (
@@ -895,6 +975,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 columnWidths={resizableColumns ? columnWidths : undefined}
                 onResizeStart={resizableColumns ? handleResizeStart : undefined}
                 theadRef={theadRef}
+                onKeyboardResize={resizableColumns ? onKeyboardResize : undefined}
               />
             )}
             <Tbody>
@@ -1053,7 +1134,7 @@ const Cell = ({
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  overflow: hidden;
+  overflow: visible;
   table-layout: fixed;
 
   @media (max-width: 768px) {

@@ -1,0 +1,101 @@
+name: 📚 Storybook to Vercel
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  HUSKY: 0
+  STORYBOOK_BUILD_DIR: .storybook/out
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Generate GitHub workflow token
+        id: gh-workflow-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '23.x'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Build Storybook
+        run: yarn storybook:build
+
+      - name: Pull Vercel Environment Information
+        run: |
+          vercel pull \
+            --yes \
+            --environment=preview \
+            --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Create Vercel Build Output
+        run: |
+          mkdir -p .vercel/output/static
+          cp -r ${{ env.STORYBOOK_BUILD_DIR }}/* .vercel/output/static/
+          cat > .vercel/output/config.json << EOF
+          {
+            "version": 3
+          }
+          EOF
+
+      - name: Deploy to Vercel (Preview)
+        if: github.ref != 'refs/heads/main'
+        id: deploy
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy \
+            --prebuilt \
+            --yes \
+            --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          echo "Preview deployed to: $DEPLOYMENT_URL"
+
+      - name: Comment PR with Preview URL
+        if: github.ref != 'refs/heads/main'
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            ## 📚 Storybook Preview Deployed
+
+            ✅ Preview URL: ${{ steps.deploy.outputs.url }}
+
+            Built from commit: `${{ github.sha }}`
+          message-id: storybook-preview
+          repo-token: ${{ steps.gh-workflow-token.outputs.token }}
+
+      # TODO: Production builds should be gated
+      # behind a successful package release.
+      # Each build must be versioned and accessible
+      # by its package version,
+      # to support concurrent versions running simultaneously.
+      # For now, content-hashed URLs are acceptable,
+      # as seen in "Deploy to Vercel (Preview)
+
+      # - name: Deploy to Vercel (Production)
+      #   if: github.ref == 'refs/heads/main'
+      #   run: vercel deploy --prebuilt --prod
+      #   working-directory: ${{ env.STORYBOOK_BUILD_DIR }}

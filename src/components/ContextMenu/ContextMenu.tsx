@@ -5,7 +5,7 @@ import type { HorizontalDirection } from '@/components/types';
 import { Icon } from '@/components/Icon/Icon';
 import type { IconName } from '@/components/Icon/types';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
-import PopoverArrow from '../icons/PopoverArrow';
+import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '../IconWrapper/IconWrapper';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
@@ -66,13 +66,22 @@ export type ArrowProps = {
   showArrow?: boolean;
 };
 
+type DeprecatedFields = {
+  /** @deprecated The side field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
+  side?: string;
+  /** @deprecated The align field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
+  align?: string;
+};
+
 type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
   sub?: true;
-} & ArrowProps;
+} & ArrowProps &
+  DeprecatedFields;
 
 type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
   sub?: never;
-} & ArrowProps;
+} & ArrowProps &
+  DeprecatedFields;
 
 const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
   flex-direction: column;
@@ -107,6 +116,11 @@ const ContextMenuContent = ({
   sub,
   children,
   showArrow,
+  // TODO: remove deprecated side and align
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  side,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  align,
   ...props
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {
   const ContentElement = sub ? RightMenu.SubContent : RightMenu.Content;
@@ -125,7 +139,7 @@ const ContextMenuContent = ({
             width={20}
             height={10}
           >
-            <PopoverArrow className="popover-arrow" />
+            <Popover_Arrow className="popover-arrow" />
           </Arrow>
         )}
         {children}

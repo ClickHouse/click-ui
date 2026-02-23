@@ -115,6 +115,7 @@ interface InternalSelectProps
   selectLabel?: string;
   showSearch?: boolean;
   sortable?: boolean;
+  triggerProps?: HTMLAttributes<HTMLButtonElement>;
   useFullWidthItems?: boolean;
 }
 
