@@ -15,7 +15,7 @@ import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 
-import { IconName } from '@/components/Icon/Icon.types';
+import { IconName } from '@/components/Icon';
 
 // TODO: Check if react-sortablejs has ESM version
 import ReactSortableModule from 'react-sortablejs/dist/index.js';

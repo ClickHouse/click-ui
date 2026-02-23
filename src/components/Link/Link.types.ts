@@ -1,5 +1,5 @@
 import { ElementType, ReactEventHandler } from 'react';
-import type { IconName } from '@/components/Icon/Icon.types';
+import type { IconName } from '@/components/Icon';
 import type { TextSize, TextWeight } from '@/components/Common';
 
 export interface LinkProps<T extends ElementType = 'a'> {

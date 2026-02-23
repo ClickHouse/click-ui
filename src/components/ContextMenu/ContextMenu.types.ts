@@ -1,6 +1,6 @@
 import * as RightMenu from '@radix-ui/react-context-menu';
 import type { HorizontalDirection } from '@/components/Common';
-import type { IconName } from '@/components/Icon/Icon.types';
+import type { IconName } from '@/components/Icon';
 
 export interface ArrowProps {
   showArrow?: boolean;

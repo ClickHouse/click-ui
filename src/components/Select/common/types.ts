@@ -1,6 +1,6 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { HorizontalDirection } from '@/components/Common';
-import type { ImageName } from '@/components/Icon/Icon.types';
+import type { ImageName } from '@/components/Icon';
 import { PopoverProps } from '@radix-ui/react-popover';
 
 export interface NoAvailableOptionsFactoryProps {

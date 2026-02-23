@@ -1,5 +1,5 @@
 import type { SVGAttributes } from 'react';
-import type { IconSize } from '@/components/Icon/Icon.types';
+import type { IconSize } from '@/components/Icon';
 
 /** @deprecated Use lower case kebab naming, e.g. 'my-country-name' instead */
 type DeprecatedFlagName =

@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { IconSize } from '@/components/Icon/Icon.types';
+import { IconSize } from '@/components/Icon';
 import { IconName } from './types';
 import { resolveIconName, DeprecatedIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
