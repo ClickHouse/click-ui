@@ -10,7 +10,7 @@ import { styled } from 'styled-components';
 
 import { Icon, type IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/components/Common';
-import { EmptyButton } from '@/components/Common';
+import { EmptyButton } from '@/components/EmptyButton/EmptyButton';
 
 import { IconWrapper } from './IconWrapper';
 import { CollapsibleProps } from './Collapsible.types';

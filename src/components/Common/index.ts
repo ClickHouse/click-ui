@@ -1,6 +1,3 @@
-export { EmptyButton } from './EmptyButton';
-export { CrossButton } from './CrossButton';
-export { GridCenter } from './GridCenter';
 export type {
   TextSize,
   TextWeight,
