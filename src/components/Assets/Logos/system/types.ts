@@ -1,5 +1,5 @@
 import type { SVGAttributes } from 'react';
-import type { IconSize } from '@/components/Common';
+import type { IconSize } from '@/components/Icon/types';
 
 export type LogoName =
   | 'airbyte'

@@ -1,9 +1,8 @@
 export type {
-  TextSize,
-  TextWeight,
   CursorOptions,
-  IconSize,
-  States,
   HorizontalDirection,
   Orientation,
+  States,
+  TextSize,
+  TextWeight,
 } from './Common.types';

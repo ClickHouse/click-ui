@@ -1,6 +1,5 @@
 export type TextSize = 'xs' | 'sm' | 'md' | 'lg';
 export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold' | 'mono';
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type States = 'default' | 'active' | 'disabled' | 'error' | 'hover';
 export type HorizontalDirection = 'start' | 'end';
 export type Orientation = 'horizontal' | 'vertical';
