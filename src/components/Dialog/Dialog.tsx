@@ -3,7 +3,7 @@ import { keyframes, styled } from 'styled-components';
 import { Button, ButtonProps } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
-import { CrossButton } from '@/components/CrossButton/CrossButton';
+import { CrossButton } from '@/components/CrossButton';
 import { DialogContentProps } from './Dialog.types';
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {

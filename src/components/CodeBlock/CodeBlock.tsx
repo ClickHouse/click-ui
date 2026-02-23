@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 
-import { EmptyButton } from '@/components/EmptyButton/EmptyButton';
+import { EmptyButton } from '@/components/EmptyButton';
 import { IconButton } from '@/components/IconButton';
 
 import { styled } from 'styled-components';

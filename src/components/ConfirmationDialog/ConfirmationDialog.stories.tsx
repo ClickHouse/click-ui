@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { GridCenter } from '@/components/GridCenter/GridCenter';
+import { GridCenter } from '@/components/GridCenter';
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
