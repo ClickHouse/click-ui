@@ -3,6 +3,4 @@ export type {
   HorizontalDirection,
   Orientation,
   States,
-  TextSize,
-  TextWeight,
 } from './Common.types';
