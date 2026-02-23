@@ -1,10 +1,9 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import LogosLight from './LogosLight';
-import LogosDark from './LogosDark';
 import { SvgImageElement } from '@/components/Assets/SvgImageElement';
 import { LogoName, LogoProps } from './types';
-export type { LogoProps };
+import LogosDark from './LogosDark';
+import LogosLight from './LogosLight';
 
 // TODO: This is introducing complexity and more to maintain
 // might be best to just deprecate (break change) instead of

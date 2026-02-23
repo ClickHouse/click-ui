@@ -2,9 +2,8 @@ import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import { SvgImageElement } from '@/components/Assets/SvgImageElement';
 import { PaymentProps } from './types';
-export type { PaymentProps };
-import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
+import PaymentsLight from './PaymentsLight';
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();

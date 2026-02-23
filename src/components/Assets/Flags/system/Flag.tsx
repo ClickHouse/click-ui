@@ -1,11 +1,10 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import { SvgImageElement } from '@/components/Assets/SvgImageElement';
-import { FlagName, FlagProps } from './types';
-export type { FlagName, FlagProps };
+import { FlagProps } from './types';
 import { resolveFlagName } from './retroactiveNames';
-import FlagsLight from './FlagsLight';
 import FlagsDark from './FlagsDark';
+import FlagsLight from './FlagsLight';
 
 const Flag = ({ name, theme, size, ...props }: FlagProps) => {
   const { name: themeName } = useTheme();
