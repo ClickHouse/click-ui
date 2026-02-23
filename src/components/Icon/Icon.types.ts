@@ -1,8 +1,13 @@
 import { SVGAttributes } from 'react';
+import type { ThemeName } from '@/theme/theme.types';
 import { LogoName, LogoProps } from '@/components/Assets/Logos/system/types';
 import { FlagName, FlagProps } from '@/components/Assets/Flags/system/types';
 import { PaymentName, PaymentProps } from '@/components/Assets/Payments/system/types';
 import { ICON_NAMES } from './IconCommon';
+
+export type SVGAssetProps = SVGAttributes<SVGElement> & {
+  theme?: ThemeName;
+};
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';

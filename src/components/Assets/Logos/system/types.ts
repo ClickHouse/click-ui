@@ -85,4 +85,4 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
   size?: IconSize;
 }
 
-export type { SVGAssetProps } from '../../types';
+export type { SVGAssetProps } from '@/components/Icon';

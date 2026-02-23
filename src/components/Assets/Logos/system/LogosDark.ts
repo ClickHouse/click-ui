@@ -79,7 +79,7 @@ import Upstash from '../Upstash';
 import Vector from '../Vector';
 import WarpStream from '../WarpStream';
 import { LogoName } from './types';
-import type { SVGAssetProps } from '../../types';
+import type { SVGAssetProps } from '@/components/Icon';
 import type { ComponentType } from 'react';
 
 const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {

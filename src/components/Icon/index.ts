@@ -1,10 +1,10 @@
 export { Icon } from './Icon';
-// TODO: Do all of these have to be exported?
 export type {
   IconName,
+  IconProps,
   IconSize,
   IconState,
-  IconProps,
   ImageName,
   ImageType,
+  SVGAssetProps,
 } from './Icon.types';
