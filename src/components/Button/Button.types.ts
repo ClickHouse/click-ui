@@ -1,4 +1,4 @@
-import { IconName } from '@/components/Icon';
+import type { IconName } from '@/components/Icon';
 
 export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';
 type Alignment = 'center' | 'left';

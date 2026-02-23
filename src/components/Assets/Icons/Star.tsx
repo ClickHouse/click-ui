@@ -1,4 +1,4 @@
-import { SVGAssetProps } from './system/types';
+import type { SVGAssetProps } from './system/types';
 
 const Star = (props: SVGAssetProps) => (
   <svg

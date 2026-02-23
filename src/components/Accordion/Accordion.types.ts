@@ -1,6 +1,6 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
 import { ReactNode } from 'react';
-import { IconSize, IconName } from '@/components/Icon';
+import type { IconSize, IconName } from '@/components/Icon';
 
 export type Size = 'sm' | 'md' | 'lg';
 export type Gap = 'sm' | 'md' | 'lg';

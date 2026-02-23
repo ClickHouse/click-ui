@@ -173,7 +173,7 @@ import User from '../User';
 import Users from '../Users';
 import Warning from '../Warning';
 import Waves from '../Waves';
-import { IconName } from './types';
+import type { IconName } from './types';
 import type { SVGAssetProps } from '@/components/Icon';
 import type { ComponentType } from 'react';
 

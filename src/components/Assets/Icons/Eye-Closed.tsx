@@ -1,4 +1,4 @@
-import { SVGAssetProps } from './system/types';
+import type { SVGAssetProps } from './system/types';
 
 const Eye_Closed = (props: SVGAssetProps) => (
   <svg

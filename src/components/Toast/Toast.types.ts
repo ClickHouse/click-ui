@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
-import { ButtonProps } from '@/components/Button/Button.types';
+import type { ButtonProps } from '@/components/Button/Button.types';
 
 export interface ToastContextProps {
   createToast: (toast: ToastProps, align?: ToastAlignment) => void;

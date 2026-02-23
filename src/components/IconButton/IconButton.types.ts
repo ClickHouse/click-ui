@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react';
-import { IconName } from '@/components/Icon';
+import type { IconName } from '@/components/Icon';
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   size?: 'default' | 'sm' | 'xs';
