@@ -11,20 +11,47 @@ on:
           - test
           - rc
           - latest
+          - stable
         default: 'test'
+
 
 jobs:
   create-release-pr:
     name: Create Release PR
+    # IMPORTANT: maintenance branches cannot release type "latest"
+    if: github.ref_name == 'main' || (github.ref_name != 'main' && inputs.release_type != 'latest')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
+
+      - name: Maintenance branch safeguard check
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          CURRENT_BRANCH="${{ github.ref_name }}"
+
+          BASE_VERSION=$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
+
+          echo "🔍 Checking maintenance branch safeguard..."
+          echo "🤖 Current branch is $CURRENT_BRANCH"
+          echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
+
+          if [[ "$CURRENT_BRANCH" == "main" ]]; then
+            if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
+              echo "⚠️ WARNING: Maintenance branch '$MAINTENANCE_BRANCH' already exists. Are you trying to update an older or pre-release version?"
+              echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance, please!"
+              exit 1
+            fi
+          fi
+
+          echo "✅ Maintenance branch safeguard passed"
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -37,8 +64,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      # TODO: Best to have the whole pre-release logic
-      # as a localhost verifiable process. To help troubleshoot!
       - name: Check pre-release status
         id: check-prerelease
         run: |
@@ -56,7 +81,7 @@ jobs:
           echo "💡 Current tag is $CURRENT_TAG"
 
       - name: Switch release mode
-        if: steps.check-prerelease.outputs.prerelease == 'true' && inputs.release_type == 'latest'
+        if: steps.check-prerelease.outputs.prerelease == 'true' && (inputs.release_type == 'latest' || inputs.release_type == 'stable')
         run: |
           echo "Must exit pre-release mode..."
 
@@ -68,7 +93,7 @@ jobs:
           fi
 
       - name: Switch prerelease mode
-        if: steps.check-prerelease.outputs.prerelease == 'true' && steps.check-prerelease.outputs.current_tag != inputs.release_type && inputs.release_type != 'latest'
+        if: steps.check-prerelease.outputs.prerelease == 'true' && steps.check-prerelease.outputs.current_tag != inputs.release_type && inputs.release_type != 'latest' && inputs.release_type != 'stable'
         run: |
           echo "🔄 Switching from ${{ steps.check-prerelease.outputs.current_tag }} to ${{ inputs.release_type }} prerelease mode"
           if ! yarn changeset pre exit; then
@@ -79,13 +104,13 @@ jobs:
           fi
 
       - name: Enter prerelease mode
-        if: inputs.release_type != 'latest' && (steps.check-prerelease.outputs.prerelease != 'true' || steps.check-prerelease.outputs.current_tag != inputs.release_type)
+        if: inputs.release_type != 'latest' && inputs.release_type != 'stable' && (steps.check-prerelease.outputs.prerelease != 'true' || steps.check-prerelease.outputs.current_tag != inputs.release_type)
         run: |
           echo "🤖 Entering ${{ inputs.release_type }} prerelease mode"
           yarn changeset pre enter ${{ inputs.release_type }}
 
       - name: Validate latest release eligibility
-        if: inputs.release_type == 'latest' && steps.check-prerelease.outputs.prerelease != 'true'
+        if: (inputs.release_type == 'latest' || inputs.release_type == 'stable') && steps.check-prerelease.outputs.prerelease != 'true'
         run: |
           echo "👹 Oops! Cannot release 'latest' without a pre-release version first..."
           echo "💡 You must release through 'test' or 'rc' before creating a stable release."
@@ -117,7 +142,11 @@ jobs:
       - name: Determine PR details
         id: pr-details
         run: |
-          echo "title=chore: 🤖 release v${{ steps.version-package.outputs.version }} (${{ inputs.release_type }})" >> $GITHUB_OUTPUT
+          # WARNING: This is coupled with a verify release commit
+          # if you need to modify, apply the changes accordingly
+          COMMIT_TITLE=$(.scripts/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
+
+          echo "title=$COMMIT_TITLE" >> $GITHUB_OUTPUT
           echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
@@ -125,8 +154,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: ${{ steps.pr-details.outputs.title }}
-          branch: ${{ steps.pr-details.outputs.branch }}
           base: ${{ github.ref_name }}
+          branch: ${{ steps.pr-details.outputs.branch }}
           delete-branch: true
           title: ${{ steps.pr-details.outputs.title }}
           body: |
