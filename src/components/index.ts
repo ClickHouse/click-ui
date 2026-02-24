@@ -72,8 +72,7 @@ export { User as ProfileIcon } from './Assets/Icons/User';
 export { useToast } from './Toast/useToast';
 export { VerticalStepper } from './VerticalStepper';
 
-// TODO: Having both ClickUIProvider and ThemeProvider exported is confusing.
-// Consider consolidating to a single public provider API.
+// TODO: Having both ClickUIProvider and ThemeProvider exported is confusing. Consider consolidating to a single public provider API. For example, have ThemeProvider only!
 export { ClickUIProvider, ThemeProvider } from '@/providers';
 
 export type { AlertProps } from './Alert';
