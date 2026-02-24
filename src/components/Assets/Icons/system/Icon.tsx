@@ -1,5 +1,7 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
+import { ThemeName } from '@/theme';
+import { getFallbackThemeName } from '@/utils/theme';
 import { resolveIconName, type DeprecatedIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
 import IconsDark from './IconsDark';
@@ -10,14 +12,14 @@ import type { IconSize } from '@/types';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;
-  theme?: 'light' | 'dark';
+  theme?: ThemeName;
   size?: IconSize;
 }
 
 const Icon = ({ name, theme, size, ...props }: IconProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveIconName(name);
-  const resolvedTheme = (theme ?? themeName ?? 'light') as 'light' | 'dark';
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component =
     resolvedTheme === 'light' ? IconsLight[resolvedName] : IconsDark[resolvedName];
 

@@ -1,5 +1,6 @@
 import type { SVGAttributes } from 'react';
 import type { IconSize } from '@/types';
+import type { ThemeName } from '@/theme';
 import type { SVGAssetProps } from '../../types';
 
 export type FlagName =
@@ -27,7 +28,7 @@ export type FlagName =
 
 export interface FlagProps extends SVGAttributes<SVGElement> {
   name: FlagName;
-  theme?: 'light' | 'dark';
+  theme?: ThemeName;
   size?: IconSize;
 }
 
