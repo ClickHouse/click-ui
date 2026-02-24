@@ -1,5 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
+import { getFallbackThemeName } from '@/utils/theme';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { PaymentProps } from './types';
 import PaymentsDark from './PaymentsDark';
@@ -7,7 +8,7 @@ import PaymentsLight from './PaymentsLight';
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();
-  const resolvedTheme = (theme ?? themeName ?? 'light') as 'light' | 'dark';
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component = resolvedTheme === 'light' ? PaymentsLight[name] : PaymentsDark[name];
 
   if (!Component) {

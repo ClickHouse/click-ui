@@ -1,5 +1,6 @@
 import type { SVGAttributes } from 'react';
 import type { IconSize } from '@/types';
+import type { ThemeName } from '@/theme';
 import type { SVGAssetProps } from '../../types';
 
 export type LogoName =
@@ -82,7 +83,7 @@ type DeprecatedLogoName = 'c#';
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
   name: LogoName | DeprecatedLogoName;
-  theme?: 'light' | 'dark';
+  theme?: ThemeName;
   size?: IconSize;
 }
 
