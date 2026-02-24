@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { type ThemeName } from '@/theme';
+import { type ThemeName, THEMES } from '@/theme';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { THEME_ATTRIBUTE, getRootElement } from '@/utils/dom';
 
@@ -28,10 +28,7 @@ export const useInitialTheme = ({
 
       const attr = el.getAttribute(attribute);
 
-      // TODO: This should not be hard typed
-      // once https://github.com/ClickHouse/click-ui/pull/773
-      // is merged update here
-      if (attr === 'light' || attr === 'dark') {
+      if (attr === THEMES.Light || attr === THEMES.Dark) {
         return attr;
       }
     }
@@ -46,10 +43,7 @@ export const useInitialTheme = ({
     try {
       const stored = localStorage.getItem(storageKey);
 
-      // TODO: This should not be hard typed
-      // once https://github.com/ClickHouse/click-ui/pull/773
-      // is merged update here
-      if (stored && (stored === 'light' || stored === 'dark') && stored !== theme) {
+      if (stored && (stored === THEMES.Light || stored === THEMES.Dark) && stored !== theme) {
         setTheme(stored);
       }
     } catch {
