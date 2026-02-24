@@ -3,14 +3,13 @@ name: 🚀 Release Publisher (NPM)
 on:
   push:
     branches:
-      - main
+      - '**'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   publish-to-npm:
     name: Publish to NPM
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -18,66 +17,89 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # TODO: Make reusable action as used with create-release
       - name: Verify release PR merge
         id: verify-merge
         run: |
           COMMIT_SHA="${{ github.sha }}"
-
+          
           echo "🔍 Checking if commit $COMMIT_SHA is from a release PR merge..."
-
-          COMMIT_MSG=$(git log -1 --pretty=%B "$COMMIT_SHA")
-
-          if [[ ! "$COMMIT_MSG" =~ chore:\ 🤖\ release\ v[0-9]+\.[0-9]+\.[0-9]+.* ]]; then
+          
+          COMMIT_MSG=$(git log -1 --format=%s "$COMMIT_SHA")
+          
+          # WARNING: This is coupled with generate release commit
+          # if you need to modify, apply the changes accordingly
+          # Script outputs "VERSION RELEASE_TYPE" on success (e.g., "1.2.3 latest")
+          if OUTPUT=$(.scripts/verify-release-commit "$COMMIT_MSG"); then
+            VERSION=$(echo "$OUTPUT" | awk '{print $1}')
+            RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
+            echo "✅ Detected release PR merge for version $VERSION ($RELEASE_TYPE)"
+            echo "is_release=true" >> $GITHUB_OUTPUT
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+            echo "release_type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
+          else
             echo "⚠️ This is not a release PR merge. Skipping release."
             echo "is_release=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
-          VERSION=$(echo "$COMMIT_MSG" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?' | head -1 | sed 's/^v//')
+      - name: Maintenance branch safeguard check
+        if: steps.verify-merge.outputs.is_release == 'true'
+        run: |
+          VERSION="${{ steps.verify-merge.outputs.version }}"
+          CURRENT_BRANCH="${{ github.ref_name }}"
 
-          if [[ -z "$VERSION" ]]; then
-            echo "⚠️ Could not extract version from commit message. Skipping release."
-            echo "is_release=false" >> $GITHUB_OUTPUT
-            exit 0
+          BASE_VERSION=$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
+
+          echo "🔍 Checking maintenance branch safeguard..."
+          echo "🤖 Current branch is $CURRENT_BRANCH"
+          echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
+
+          if [[ "$CURRENT_BRANCH" == "main" ]]; then
+            if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
+              echo "⚠️ WARNING: Maintenance branch '$MAINTENANCE_BRANCH' already exists. Are you trying to update an existing pre-release version?"
+              echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance, please!"
+              exit 1
+            fi
           fi
 
-          echo "✅ Detected release PR merge for version $VERSION"
-          echo "is_release=true" >> $GITHUB_OUTPUT
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "✅ Maintenance branch safeguard passed"
 
       - name: Skip if not release
         if: steps.verify-merge.outputs.is_release == 'false'
         run: |
-          echo "⏭️ Not a release PR merge. Skip!"
+          echo "⏭️ Not a release PR merge. Stopping here."
           exit 0
 
       - name: Create and push tag
         if: steps.verify-merge.outputs.is_release == 'true'
         run: |
           TAG="${{ steps.verify-merge.outputs.tag }}"
-
+          
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
+          
+          # Check if tag already exists
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "⚠️ Tag $TAG already exists. Skipping tag creation."
             exit 0
           fi
-
+          
           git tag -a "$TAG" -m "Release $TAG"
           git push origin "$TAG"
-
+          
           echo "✅ Created and pushed tag $TAG"
 
       - name: Setup Node.js
         if: steps.verify-merge.outputs.is_release == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '23.x'
           registry-url: 'https://registry.npmjs.org'
@@ -89,6 +111,7 @@ jobs:
           echo "npm version: $(npm --version)"
 
       - name: Enable Corepack
+        if: steps.verify-merge.outputs.is_release == 'true'
         run: corepack enable
 
       - name: Install Dependencies
@@ -104,26 +127,27 @@ jobs:
         id: package-info
         run: |
           VERSION="${{ steps.verify-merge.outputs.version }}"
+          RELEASE_TYPE="${{ steps.verify-merge.outputs.release_type }}"
           PKG_NAME=$(node -p "require('./package.json').name")
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
+          echo "tag=$RELEASE_TYPE" >> $GITHUB_OUTPUT
 
-          if [[ -f .changeset/pre.json ]]; then
-            TAG=$(node -p "require('./.changeset/pre.json').tag")
+          if [[ "$RELEASE_TYPE" == "rc" || "$RELEASE_TYPE" == "test" ]]; then
             echo "prerelease=true" >> $GITHUB_OUTPUT
-            echo "tag=$TAG" >> $GITHUB_OUTPUT
           else
             echo "prerelease=false" >> $GITHUB_OUTPUT
-            echo "tag=latest" >> $GITHUB_OUTPUT
           fi
 
           echo "📦 Package: $PKG_NAME@$VERSION"
-          echo "🏷️  npm tag: $TAG"
+          echo "🏷️  npm tag: $RELEASE_TYPE"
 
       - name: Publish to npm over OpenID Connect (OIDC)
         if: steps.verify-merge.outputs.is_release == 'true'
         run: |
-          yarn npm publish \
+          # WARNING: It's preferred NPM for publishing
+          npm publish \
             --access public \
             --provenance \
             --tag ${{ steps.package-info.outputs.tag }}
@@ -144,6 +168,7 @@ jobs:
             CHANGELOG="No changelog available."
           fi
 
+          # Try persist multiple lines
           echo "$CHANGELOG" > /tmp/changelog.txt
 
       - name: Create GitHub Release
@@ -157,3 +182,63 @@ jobs:
           prerelease: ${{ steps.package-info.outputs.prerelease }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create or update maintenance branch
+        if: steps.verify-merge.outputs.is_release == 'true'
+        run: |
+          VERSION="${{ steps.verify-merge.outputs.version }}"
+          COMMIT_SHA="${{ github.sha }}"
+          CURRENT_BRANCH="${{ github.ref_name }}"
+
+          BASE_VERSION=$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
+
+          echo "🔧 Creating or updating maintenance branch..."
+          echo "🤖 Version is $VERSION"
+          echo "🤖 Base version is $BASE_VERSION"
+          echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
+            echo "📋 Maintenance branch '$MAINTENANCE_BRANCH' already exists"
+            echo "🔄 Updating branch with new release commit..."
+
+            if [[ "$CURRENT_BRANCH" == "$MAINTENANCE_BRANCH" ]]; then
+              echo "✅ Already on maintenance branch, merging release commit..."
+
+              if git merge "$COMMIT_SHA" -m "chore: merge release v$VERSION into $MAINTENANCE_BRANCH"; then
+                echo "✅ Successfully merged release v$VERSION"
+                git push origin "$MAINTENANCE_BRANCH"
+                echo "✅ Updated maintenance branch '$MAINTENANCE_BRANCH'"
+              else
+                echo "👹 Oops! Merge failed, conflicts detected..."
+                echo "💡 Please manually resolve the conflicts and push to $MAINTENANCE_BRANCH and try again..."
+                exit 1
+              fi
+            else
+              git fetch origin "$MAINTENANCE_BRANCH:$MAINTENANCE_BRANCH"
+              git checkout "$MAINTENANCE_BRANCH"
+
+              echo "➡️  Attempting to merge $COMMIT_SHA into $MAINTENANCE_BRANCH..."
+
+              if git merge "$COMMIT_SHA" -m "chore: merge release v$VERSION into $MAINTENANCE_BRANCH"; then
+                echo "✅ Successfully merged release v$VERSION"
+                git push origin "$MAINTENANCE_BRANCH"
+                echo "✅ Updated maintenance branch '$MAINTENANCE_BRANCH'"
+              else
+                echo "👹 Oops! Merge failed, conflicts detected..."
+                echo "💡 Please manually resolve the conflicts and push to $MAINTENANCE_BRANCH and try again..."
+                exit 1
+              fi
+            fi
+          else
+            echo "📋 Maintenance branch '$MAINTENANCE_BRANCH' does not exist"
+            echo "🆕 Creating new maintenance branch from commit $COMMIT_SHA..."
+
+            git checkout -b "$MAINTENANCE_BRANCH" "$COMMIT_SHA"
+
+            git push origin "$MAINTENANCE_BRANCH"
+            echo "✅ Created maintenance branch '$MAINTENANCE_BRANCH'"
+          fi

@@ -51,23 +51,18 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 );
 
 const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
-  const baseVars = {};
-
   if (disabled) {
     return {
-      ...baseVars,
       backgroundColor: theme.click.switch.color.background.disabled,
       border: `1px solid ${theme.click.switch.color.stroke.disabled}`,
     };
   } else if (checked) {
     return {
-      ...baseVars,
       backgroundColor: theme.click.switch.color.background.active,
       border: `1px solid ${theme.click.switch.color.stroke.active}`,
     };
   } else {
     return {
-      ...baseVars,
       backgroundColor: theme.click.switch.color.background.default,
       border: `1px solid ${theme.click.switch.color.stroke.default}`,
     };
@@ -75,21 +70,16 @@ const getRootVars = (theme: Theme, disabled: boolean | undefined, checked: boole
 };
 
 const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: boolean) => {
-  const baseVars = {};
-
   if (disabled) {
     return {
-      ...baseVars,
       backgroundColor: theme.click.switch.color.indicator.disabled,
     };
   } else if (checked) {
     return {
-      ...baseVars,
       backgroundColor: theme.click.switch.color.indicator.active,
     };
   } else {
     return {
-      ...baseVars,
       backgroundColor: theme.click.switch.color.indicator.default,
     };
   }
