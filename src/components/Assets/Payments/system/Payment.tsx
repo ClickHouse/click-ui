@@ -1,5 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
+import { ThemeName } from '@/theme';
 import { IconSize } from '@/components/Icon/types';
 import { PaymentName } from './types';
 import PaymentsLight from './PaymentsLight';
@@ -8,13 +9,13 @@ import { SvgImageElement } from '@/components/Common';
 
 export interface PaymentProps extends SVGAttributes<SVGElement> {
   name: PaymentName;
-  theme?: 'light' | 'dark';
+  theme?: ThemeName;
   size?: IconSize;
 }
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme = (theme ?? themeName ?? 'light') as ThemeName;
   const Component = resolvedTheme === 'light' ? PaymentsLight[name] : PaymentsDark[name];
 
   if (!Component) {

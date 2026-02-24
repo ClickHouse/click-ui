@@ -1,5 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
+import { ThemeName } from '@/theme';
 import LogosLight from './LogosLight';
 import LogosDark from './LogosDark';
 import { IconSize } from '@/components/Icon/types';
@@ -22,14 +23,14 @@ type DeprecatedLogoName = 'c#';
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
   name: LogoName | DeprecatedLogoName;
-  theme?: 'light' | 'dark';
+  theme?: ThemeName;
   size?: IconSize;
 }
 
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme = (theme ?? themeName ?? 'light') as ThemeName;
   const Component =
     resolvedTheme === 'light' ? LogosLight[resolvedName] : LogosDark[resolvedName];
 

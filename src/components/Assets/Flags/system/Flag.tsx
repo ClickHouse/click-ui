@@ -1,5 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
+import { ThemeName } from '@/theme';
 import { IconSize } from '@/components/Icon/types';
 import { FlagName } from './types';
 export type { FlagName, SVGAssetProps } from './types';
@@ -10,17 +11,14 @@ import { SvgImageElement } from '@/components/Common';
 
 export interface FlagProps extends SVGAttributes<SVGElement> {
   name: FlagName | DeprecatedFlagName;
-  // TODO: The Light and dark theme should not be hard typed
-  // once https://github.com/ClickHouse/click-ui/pull/784
-  // is merged, update it
-  theme?: 'light' | 'dark';
+  theme?: ThemeName;
   size?: IconSize;
 }
 
 const Flag = ({ name, theme, size, ...props }: FlagProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveFlagName(name);
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme = (theme ?? themeName ?? 'light') as ThemeName;
   const Component =
     resolvedTheme === 'light' ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
 
