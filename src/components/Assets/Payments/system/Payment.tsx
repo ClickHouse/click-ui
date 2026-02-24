@@ -6,6 +6,7 @@ import { PaymentName } from './types';
 import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
 import { SvgImageElement } from '@/components/Common';
+import { getFallbackThemeName } from '@/utils/theme';
 
 export interface PaymentProps extends SVGAttributes<SVGElement> {
   name: PaymentName;
@@ -15,7 +16,7 @@ export interface PaymentProps extends SVGAttributes<SVGElement> {
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();
-  const resolvedTheme = (theme ?? themeName ?? 'light') as ThemeName;
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component = resolvedTheme === 'light' ? PaymentsLight[name] : PaymentsDark[name];
 
   if (!Component) {
