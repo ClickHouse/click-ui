@@ -3,8 +3,8 @@ import {
   createGlobalStyle,
 } from 'styled-components';
 import { THEMES, type ThemeName } from '@/theme/theme.types';
-import { themes } from '@/theme/themes';
-import { isValidThemeName } from '@/theme/utils';
+import { themes } from '@/theme/theme.core';
+import { isValidThemeName } from '@/theme/theme.utils';
 
 const GlobalStyle = createGlobalStyle`
   body{

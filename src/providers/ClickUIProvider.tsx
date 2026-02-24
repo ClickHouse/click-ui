@@ -6,7 +6,7 @@ import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
 import { ThemeName, THEMES } from '@/theme/theme.types';
 import { ThemeProvider } from './ThemeProvider';
 import { ReactNode, useEffect } from 'react';
-import { isValidThemeName, getFallbackThemeName } from '@/theme/utils';
+import { isValidThemeName, getFallbackThemeName } from '@/theme/theme.utils';
 
 interface Props {
   config?: {

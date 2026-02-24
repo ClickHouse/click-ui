@@ -1,7 +1,7 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import type { ThemeName } from '@/theme/theme.types';
-import { getFallbackThemeName } from '@/theme/utils';
+import { getFallbackThemeName } from '@/theme/theme.utils';
 import { resolveIconName, type DeprecatedIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
 import IconsDark from './IconsDark';
