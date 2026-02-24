@@ -36,6 +36,7 @@ You can find the official docs for the Click UI design system and component libr
 * [Themes](#themes)
   - [Prevent theme flash](#prevent-theme-flash)
   - [Theme Persistence](#theme-persistence)
+  - [Custom styling with CSS](#custom-styling-with-css)
 * [Assets Management](#assets-management)
   - [Convert SVG to React Component](#convert-svg-to-react-component)
 * [Changesets](#changesets)
@@ -420,6 +421,29 @@ export const App = () => {
 
 > [!TIP]
 > An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md), where you can see how the root `data-cui-theme` is handled.
+
+### Custom Styling with CSS
+
+The `InitCUIThemeScript` applies a `data-cui-theme` attribute to the root `<html>` element, allowing you to style custom elements with vanilla CSS.
+
+For example, edit your consumer app `stylesheet` and introduce custom styles as follows:
+
+```css
+[data-cui-theme="light"] {
+  --my-app-bg: #ffffff;
+  --my-app-text: #1a1a1a;
+}
+
+[data-cui-theme="dark"] {
+  --my-app-bg: #0a0a0a;
+  --my-app-text: #f5f5f5;
+}
+
+.my-custom-component {
+  background: var(--my-app-bg);
+  color: var(--my-app-text);
+}
+```
 
 ## Assets management
 
