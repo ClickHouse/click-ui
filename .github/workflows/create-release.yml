@@ -13,7 +13,14 @@ on:
           - stable
           - latest
         default: 'test'
-
+      confirm_release_type:
+        description: 'Type the release type to confirm (e.g., "test")'
+        required: true
+        type: string
+      confirm_branch:
+        description: 'For stable/latest: type the branch name to confirm (e.g., "main")'
+        required: false
+        type: string
 
 jobs:
   create-release-pr:
@@ -31,27 +38,48 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Maintenance branch safeguard check
+      - name: Validate release confirmation
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          echo "🔐 Validating release confirmation..."
+
+          RELEASE_TYPE="${{ inputs.release_type }}"
+          CONFIRM_TYPE="${{ inputs.confirm_release_type }}"
+          CONFIRM_BRANCH="${{ inputs.confirm_branch }}"
           CURRENT_BRANCH="${{ github.ref_name }}"
 
-          BASE_VERSION=$(echo "$VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
-          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
-
-          echo "🔍 Checking maintenance branch safeguard..."
-          echo "🤖 Current branch is $CURRENT_BRANCH"
-          echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
-
-          if [[ "$CURRENT_BRANCH" == "main" ]]; then
-            if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
-              echo "⚠️ WARNING: Maintenance branch '$MAINTENANCE_BRANCH' already exists. Are you trying to update an older or pre-release version?"
-              echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance, please!"
-              exit 1
-            fi
+          if [[ "$RELEASE_TYPE" != "$CONFIRM_TYPE" ]]; then
+            echo "❌ Release type confirmation mismatch!"
+            echo "   Selected: '$RELEASE_TYPE'"
+            echo "   Typed: '$CONFIRM_TYPE'"
+            echo ""
+            echo "💡 Please type the exact release type to confirm your selection."
+            exit 1
           fi
 
-          echo "✅ Maintenance branch safeguard passed"
+          echo "✅ Release type confirmed: $RELEASE_TYPE"
+
+          if [[ "$RELEASE_TYPE" == "stable" || "$RELEASE_TYPE" == "latest" ]]; then
+            if [[ -z "$CONFIRM_BRANCH" ]]; then
+              echo "❌ Branch confirmation required for production releases!"
+              echo "   Current branch: '$CURRENT_BRANCH'"
+              echo ""
+              echo "💡 Please type the branch name in 'confirm_branch' to proceed with a $RELEASE_TYPE release."
+              exit 1
+            fi
+
+            if [[ "$CURRENT_BRANCH" != "$CONFIRM_BRANCH" ]]; then
+              echo "❌ Branch confirmation mismatch!"
+              echo "   Current branch: '$CURRENT_BRANCH'"
+              echo "   Typed: '$CONFIRM_BRANCH'"
+              echo ""
+              echo "💡 Please type the exact branch name to confirm."
+              exit 1
+            fi
+
+            echo "✅ Branch confirmed: $CURRENT_BRANCH"
+          fi
+
+          echo "🚀 Release confirmation passed! Proceeding with $RELEASE_TYPE release on $CURRENT_BRANCH"
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -138,6 +166,29 @@ jobs:
           PKG_NAME=$(node -p "require('./package.json').name")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
+
+      - name: Maintenance branch safeguard check
+        run: |
+          TARGET_VERSION="${{ steps.version-package.outputs.version }}"
+          CURRENT_BRANCH="${{ github.ref_name }}"
+
+          BASE_VERSION=$(echo "$TARGET_VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          MAINTENANCE_BRANCH="chore/v${BASE_VERSION}"
+
+          echo "🔍 Checking maintenance branch safeguard..."
+          echo "🤖 Current branch is $CURRENT_BRANCH"
+          echo "🤖 Target version is $TARGET_VERSION"
+          echo "🤖 Maintenance branch would be $MAINTENANCE_BRANCH"
+
+          if [[ "$CURRENT_BRANCH" == "main" ]]; then
+            if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
+              echo "⚠️ WARNING: Maintenance branch '$MAINTENANCE_BRANCH' already exists for version $BASE_VERSION."
+              echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance."
+              exit 1
+            fi
+          fi
+
+          echo "✅ Maintenance branch safeguard passed"
 
       - name: Determine PR details
         id: pr-details
