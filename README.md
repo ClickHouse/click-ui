@@ -403,15 +403,15 @@ Add GitHub actions as a trusted publisher on [NPM package settings](https://www.
 
 Consuming changesets is done automatically in the CI/CD environmment.
 
-To create a new release, locate the [create release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) and use the interface to select the release type, e.g. release candidate (rc), testing, or latest.
+To create a new release, locate the [create release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) and use the interface to select the release type, e.g. release candidate (rc), testing, stable or latest.
 
 It'll create a new Pull request for review, e.g. changelog, version bump, etc. There, you have the opportunity to make any further tweaks, refinements and check if everything's correct.
 
 You can find the pull requests in the GitHub tab [Pull Request](https://github.com/ClickHouse/click-ui/pulls). E.g. let's say you're about to release v0.1.0-rc.1, you'd find `chore: 🤖 release v0.1.0-rc.1 (rc)`.
 
 > [!WARNING]
-> You will not have the ability to release "latest", if you haven't released a "pre-release" version, such as "test" or "rc (release candidate)". This is to help us improve quality!
-> Only choose "latest" if you're certain that your package release is stable, e.g. you've tested and gathered feedback from other user or consumers.
+> Releasing a "stable" or "latest" version requires that you have previously published a pre-release version (e.g. test or rc / release candidate). This process exists to help us maintain quality standards.
+> Only promote a release to "stable" or "latest" when you are confident it is production-ready, e.g., after thorough testing and gathering feedback from users or consumers. Take extra caution with "latest" in particular, as it becomes the default version installed by users.
 
 Once the pull request is approved and merged, it'll trigger the release of a new version to [npm registry](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions).
 
@@ -419,20 +419,16 @@ The process will also create a branch for long lived version maintenance support
 
 ### Publish
 
-Assuming that you have reviewed both the changelog entries, the version changes, adddressed any [Pull Request](#create-a-new-release-pull-request) comments and suggestions; and you're confident that all these are correct, and have made any necessary tweaks to changelogs, you can go ahead and squash and merge the pull request.
+Once you've reviewed the changelog entries and version changes, addressed all [Pull Request](#create-a-new-release-pull-request) comments and suggestions, and are confident everything looks correct, go ahead and **squash and merge** the pull request.
 
-After the pull request is merged to main, the [release publisher](https://github.com/ClickHouse/click-ui/actions/workflows/release-publisher.yml) should be triggered automatically and publish the package to npm.
-
-If successful, you should see the new package version listed in npm [@clickhouse/click-ui](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions) versions tab.
-
-Consequently, a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) should exist containing all the generated release assets.
+Merging to `main` will automatically trigger the [release publisher](https://github.com/ClickHouse/click-ui/actions/workflows/release-publisher.yml), which will publish the package to npm. If successful, the new version will appear under the [@clickhouse/click-ui](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions) versions tab on npm, and a new [GitHub release](https://github.com/ClickHouse/click-ui/releases) will be created containing all generated release assets.
 
 ### Maintaining Multiple Versions
 
 We maintain long-lived branches for each version, so you can get fixes without upgrading:
 
 ```sh
-main → active development (the latest features)
+main → active development (latest features)
 ├── chore/v2.2.x → maintenance for v2.2.x releases
 ├── chore/v1.x.x → maintenance for v1.x.x releases
 └── chore/v0.5.x → maintenance for v0.5.x releases
@@ -440,10 +436,10 @@ main → active development (the latest features)
 
 Here's how it works:
 
-New features and improvements land in `main`, while critical bugs and security fixes get backported to whichever maintenance branch you're using.
+New features and improvements land in main, while critical bugs and security fixes are backported to the relevant maintenance branch. We recommend tracking changes against a base minor branch (e.g. chore/v1.1.x rather than chore/v1.1.1) so that all patches within a minor version are consolidated in one place. Note that the branch naming convention may change in the future (e.g. to v1 or v1.x), but this is the current approach at the time of writing.
 
 > [!NOTE]
-> While some changes might only make sense for a specific version, it's best practice to source fixes from `main` whenever possible. This keeps versions aligned and reduces diversion over time.
+> While some changes might only make sense for a specific version, it's best practice to source fixes from `main` whenever possible. This keeps versions aligned and reduces diversion over time. Otherwise, you must make sure that your changes are put in the main development branch.
 
 Let's say that you need something specific for an older version, you can work in version isolation without pulling in changes from active development.
 
