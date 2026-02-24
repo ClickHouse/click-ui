@@ -291,7 +291,7 @@ export type { HorizontalDirection, Orientation, States, AssetSize } from './type
 // prefer click ui props instead
 
 // ================================================
-// Radix UI Types (Re-exported for convenience)
+// Radix UI Types
 // ================================================
 
 export type { ContextMenuProps } from '@radix-ui/react-context-menu';
