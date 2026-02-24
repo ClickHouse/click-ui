@@ -10,8 +10,8 @@ on:
         options:
           - test
           - rc
-          - latest
           - stable
+          - latest
         default: 'test'
 
 
