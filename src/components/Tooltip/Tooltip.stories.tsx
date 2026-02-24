@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Tooltip } from '@/components/Tooltip';
-import { Text } from '../Typography/Text/Text';
+import { Text } from '@/components/Typography/Text/Text';
 
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,

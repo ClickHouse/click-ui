@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Panel } from '../Panel';
-import { Text } from '../Typography/Text/Text';
+import { Panel } from '@/components/Panel';
+import { Text } from '@/components/Typography/Text/Text';
 
 import { CheckboxMultiSelect } from './CheckboxMultiSelect';
 import { selectOptions, selectOptionsLong } from './selectOptions';
-import { Spacer } from '../Spacer';
+import { Spacer } from '@/components/Spacer';
 
 const meta: Meta<typeof CheckboxMultiSelect> = {
   component: CheckboxMultiSelect,

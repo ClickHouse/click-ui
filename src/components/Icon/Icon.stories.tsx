@@ -12,7 +12,7 @@ import { SearchField } from '@/components/Input/SearchField';
 import { Title } from '@/components/Typography/Title/Title';
 import { Panel } from '@/components/Panel';
 import { Text } from '@/components/Typography/Text/Text';
-import { GridContainer } from '../GridContainer/';
+import { GridContainer } from '@/components/GridContainer';
 import { Spacer } from '@/components/Spacer';
 
 const IconNames = Object.keys(ICONS_MAP);
