@@ -43,7 +43,11 @@ export const useInitialTheme = ({
     try {
       const stored = localStorage.getItem(storageKey);
 
-      if (stored && (stored === THEMES.Light || stored === THEMES.Dark) && stored !== theme) {
+      if (
+        stored &&
+        (stored === THEMES.Light || stored === THEMES.Dark) &&
+        stored !== theme
+      ) {
         setTheme(stored);
       }
     } catch {

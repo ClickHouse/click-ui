@@ -117,6 +117,29 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 > [!NOTE]
 > Currently, styling is done with css-in-js which might cause some flash since it has to compute the theme and apply it. We'll be moving from styled-components and this shall be changed and improved.
 
+## Custom Styling with CSS
+
+The `data-cui-theme` attribute on the root `<html>` element allows you to extend theming to your own components with vanilla CSS or CSS modules:
+
+```css
+[data-cui-theme="light"] {
+  --custom-bg: #fff;
+  --custom-border: #e5e5e5;
+}
+
+[data-cui-theme="dark"] {
+  --custom-bg: #121212;
+  --custom-border: #333;
+}
+
+.my-card {
+  background: var(--custom-bg);
+  border: 1px solid var(--custom-border);
+}
+```
+
+This works immediately on page load without flash because `InitCUIThemeScript` sets the attribute before React hydration.
+
 ## Using Components
 
 Use Click UI components in both server and client components:
