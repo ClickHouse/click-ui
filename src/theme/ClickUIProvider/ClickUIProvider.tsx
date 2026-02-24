@@ -3,7 +3,8 @@ import {
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
 import { ToastProvider, ToastProviderProps } from '@/components/Toast';
-import { ThemeName, THEMES } from '@/theme';
+import { ThemeName } from '@/theme/theme.types';
+import { THEMES } from '@/theme/themes';
 import { ThemeProvider } from '@/theme/theme';
 import { ReactNode, useEffect } from 'react';
 import { isValidThemeName, getFallbackThemeName } from '@/utils/theme';
