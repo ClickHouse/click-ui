@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { getFallbackThemeName } from '@/utils/theme';
+import { getFallbackThemeName } from '@/theme/utils';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { LogoName, LogoProps } from './types';
 import LogosDark from './LogosDark';

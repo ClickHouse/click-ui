@@ -72,6 +72,10 @@ export { User as ProfileIcon } from './Assets/Icons/User';
 export { useToast } from './Toast/useToast';
 export { VerticalStepper } from './VerticalStepper';
 
+// TODO: Having both ClickUIProvider and ThemeProvider exported is confusing.
+// Consider consolidating to a single public provider API.
+export { ClickUIProvider, ThemeProvider } from '@/providers';
+
 export type { AlertProps } from './Alert';
 export type {
   AutoCompleteOptionListItem,

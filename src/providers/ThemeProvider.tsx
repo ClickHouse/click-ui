@@ -2,9 +2,9 @@ import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
 } from 'styled-components';
-import { THEMES, type ThemeName } from './theme.types';
-import { themes } from './themes';
-import { isValidThemeName } from '@/utils/theme';
+import { THEMES, type ThemeName } from '@/theme/theme.types';
+import { themes } from '@/theme/themes';
+import { isValidThemeName } from '@/theme/utils';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ThemeProvider = ({
+export const ThemeProvider = ({
   theme: name,
   children,
 }: {
@@ -29,5 +29,3 @@ const ThemeProvider = ({
     </StyledThemeProvider>
   );
 };
-
-export { ThemeProvider };
