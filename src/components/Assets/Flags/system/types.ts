@@ -1,4 +1,6 @@
-import { SVGAssetProps } from '../../types';
+import type { SVGAttributes } from 'react';
+import type { IconSize } from '@/types';
+import type { SVGAssetProps } from '../../types';
 
 export type FlagName =
   | 'australia'
@@ -22,5 +24,11 @@ export type FlagName =
   | 'united-arab-emirates'
   | 'united-kingdom'
   | 'united-states';
+
+export interface FlagProps extends SVGAttributes<SVGElement> {
+  name: FlagName;
+  theme?: 'light' | 'dark';
+  size?: IconSize;
+}
 
 export type { SVGAssetProps };

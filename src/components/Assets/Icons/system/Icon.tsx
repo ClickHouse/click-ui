@@ -1,24 +1,23 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { ThemeName } from '@/theme';
-import { IconSize } from '@/components/Icon/types';
-import { IconName } from './types';
-import { resolveIconName, DeprecatedIconName } from './retroactiveNames';
+import { resolveIconName, type DeprecatedIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
 import IconsDark from './IconsDark';
-import { SvgImageElement } from '@/components/Common';
-import { getFallbackThemeName } from '@/utils/theme';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+
+import type { IconName } from './types';
+import type { IconSize } from '@/types';
 
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;
-  theme?: ThemeName;
+  theme?: 'light' | 'dark';
   size?: IconSize;
 }
 
 const Icon = ({ name, theme, size, ...props }: IconProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveIconName(name);
-  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
+  const resolvedTheme = (theme ?? themeName ?? 'light') as 'light' | 'dark';
   const Component =
     resolvedTheme === 'light' ? IconsLight[resolvedName] : IconsDark[resolvedName];
 

@@ -1,5 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import type { IconName, IconSize } from '@/components/Icon';
+import type { IconName } from '@/components/Icon';
+import type { IconSize } from '@/types';
 
 export type BadgeState =
   | 'default'

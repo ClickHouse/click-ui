@@ -1,12 +1,9 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { ThemeName } from '@/theme';
-import LogosLight from './LogosLight';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+import { LogoName, LogoProps } from './types';
 import LogosDark from './LogosDark';
-import { IconSize } from '@/components/Icon/types';
-import { LogoName } from './types';
-import { SvgImageElement } from '@/components/Common';
-import { getFallbackThemeName } from '@/utils/theme';
+import LogosLight from './LogosLight';
 
 // TODO: This is introducing complexity and more to maintain
 // might be best to just deprecate (break change) instead of
@@ -19,19 +16,10 @@ const resolveLogoName = (name: string): LogoName => {
   return name as LogoName;
 };
 
-/** @deprecated Use 'c-sharp' instead of 'c#' */
-type DeprecatedLogoName = 'c#';
-
-export interface LogoProps extends SVGAttributes<SVGElement> {
-  name: LogoName | DeprecatedLogoName;
-  theme?: ThemeName;
-  size?: IconSize;
-}
-
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
+  const resolvedTheme = (theme ?? themeName ?? 'light') as 'light' | 'dark';
   const Component =
     resolvedTheme === 'light' ? LogosLight[resolvedName] : LogosDark[resolvedName];
 

@@ -1,25 +1,15 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { ThemeName } from '@/theme';
-import { IconSize } from '@/components/Icon/types';
-import { FlagName } from './types';
-export type { FlagName, SVGAssetProps } from './types';
-import { resolveFlagName, DeprecatedFlagName } from './retroactiveNames';
-import FlagsLight from './FlagsLight';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+import { FlagProps } from './types';
+import { resolveFlagName } from './retroactiveNames';
 import FlagsDark from './FlagsDark';
-import { SvgImageElement } from '@/components/Common';
-import { getFallbackThemeName } from '@/utils/theme';
-
-export interface FlagProps extends SVGAttributes<SVGElement> {
-  name: FlagName | DeprecatedFlagName;
-  theme?: ThemeName;
-  size?: IconSize;
-}
+import FlagsLight from './FlagsLight';
 
 const Flag = ({ name, theme, size, ...props }: FlagProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveFlagName(name);
-  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
+  const resolvedTheme = (theme ?? themeName ?? 'light') as 'light' | 'dark';
   const Component =
     resolvedTheme === 'light' ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
 

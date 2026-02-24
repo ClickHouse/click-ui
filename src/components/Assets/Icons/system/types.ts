@@ -1,4 +1,4 @@
-import { SVGAssetProps } from '../../types';
+import type { SVGAssetProps } from '../../types';
 
 export type IconName =
   | 'activity'

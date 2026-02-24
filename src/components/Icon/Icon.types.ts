@@ -1,12 +1,10 @@
 import { SVGAttributes } from 'react';
-import { LogoProps } from '@/components/Assets/Logos/system/Logo';
-import { FlagName, FlagProps } from '@/components/Assets/Flags/system/Flag';
-import { LogoName } from '@/components/Assets/Logos/system/types';
-import { PaymentProps } from '@/components/Assets/Payments/system/Payment';
-import { PaymentName } from '@/components/Assets/Payments/system/types';
+import { LogoProps, LogoName } from '@/components/Assets/Logos/system/types';
+import { FlagName, FlagProps } from '@/components/Assets/Flags/system/types';
+import { PaymentProps, PaymentName } from '@/components/Assets/Payments/system/types';
+import { IconSize } from '@/types';
 import { ICON_NAMES } from './IconCommon';
 
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
 export type IconName = (typeof ICON_NAMES)[number];

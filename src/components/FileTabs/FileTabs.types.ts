@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactElement, MouseEvent } from 'react';
-import type { IconName } from '@/components/Icon/types';
+import type { IconName } from '@/components/Icon/Icon.types';
 
 export type FileTabStatusType =
   | 'default'

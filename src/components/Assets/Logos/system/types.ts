@@ -1,4 +1,6 @@
-import { SVGAssetProps } from '../../types';
+import type { SVGAttributes } from 'react';
+import type { IconSize } from '@/types';
+import type { SVGAssetProps } from '../../types';
 
 export type LogoName =
   | 'airbyte'
@@ -74,5 +76,14 @@ export type LogoName =
   | 'upstash'
   | 'vector'
   | 'warp-stream';
+
+/** @deprecated Use 'c-sharp' instead of 'c#' */
+type DeprecatedLogoName = 'c#';
+
+export interface LogoProps extends SVGAttributes<SVGElement> {
+  name: LogoName | DeprecatedLogoName;
+  theme?: 'light' | 'dark';
+  size?: IconSize;
+}
 
 export type { SVGAssetProps };
