@@ -3,7 +3,7 @@ import type { Preview } from '@storybook/react-vite';
 import { Decorator } from '@storybook/react-vite';
 import { styled } from 'styled-components';
 import { themes } from 'storybook/theming';
-import ClickUIProvider from '../src/providers/ClickUIProvider';
+import { ClickUIProvider } from '@/providers';
 
 const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
   ({ $left, $bfill: fill, theme }) => `
