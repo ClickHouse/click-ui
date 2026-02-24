@@ -46,6 +46,7 @@ You can find the official docs for the Click UI design system and component libr
   - [Maintaining Multiple Versions](#maintaining-multiple-versions)
   - [Release Cycle](#release-cycle)
   - [Applying Fixes to Stable Versions](#applying-fixes-to-stable-versions)
+  - [Switching Release Modes](#switching-release-modes)
 * [Contributing](#contributing)
   - [Conventional commits](#conventional-commits)
 
@@ -476,6 +477,24 @@ This lets us experiment and iterate freely on Click UI while giving you or your 
 
 > [!WARNING]
 > Always use `chore/vX.X.X` branches for maintenance work, not `changeset-release/v*` branches. The `changeset-release` branches are auto-generated during publishing, e.g. `changeset-release/v0.2.0-test.0`) and not meant for direct updates. All version-specific changes should go through `chore/vX.X.X` branches where the full commit history is tracked.
+
+#### Switching Release Modes
+
+A new changeset is required before switching between release modes.
+
+Changesets are how the release pipeline determines whether anything has actually changed between versions. Without one, promoting a release from one mode to another (for example, from `test` to `rc`) would produce a package that is identical in content but with a different version label, which is meaningless and potentially confusing.
+
+Here's what changes in package.json:
+
+```sh
+{
+  "name": "@clickhouse/click-ui",
+-  "version": "1.1.0-test.1",
++  "version": "1.1.0-rc.1",
+  ...
+}
+```
+Always include a changeset to ensure each promotion reflects real, trackable changes.
 
 ### Conventional commits
 
