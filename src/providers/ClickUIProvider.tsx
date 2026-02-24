@@ -17,7 +17,7 @@ interface Props {
   children: ReactNode;
 }
 
-const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
+export const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
   const { toast = {}, tooltip = {} } = config;
   const hasValidTheme = isValidThemeName(theme);
 
@@ -39,5 +39,3 @@ const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
     </ThemeProvider>
   );
 };
-
-export default ClickUIProvider;

@@ -3,5 +3,5 @@
 // theme, toast, and tooltip providers. ThemeProvider is the lower-level styled-components
 // theme provider. Consider deprecating one or making ThemeProvider internal only.
 
-export { default as ClickUIProvider } from './ClickUIProvider';
+export { ClickUIProvider } from './ClickUIProvider';
 export { ThemeProvider } from './ThemeProvider';
