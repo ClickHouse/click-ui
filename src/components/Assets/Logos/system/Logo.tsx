@@ -1,5 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
+import { getFallbackThemeName } from '@/utils/theme';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { LogoName, LogoProps } from './types';
 import LogosDark from './LogosDark';
@@ -19,7 +20,7 @@ const resolveLogoName = (name: string): LogoName => {
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component =
     resolvedTheme === 'light' ? LogosLight[resolvedName] : LogosDark[resolvedName];
 

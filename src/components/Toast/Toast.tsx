@@ -2,16 +2,21 @@ import { createContext, useEffect, useState } from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
-import { Icon, type IconName } from '@/components/Icon';
-import { IconButton } from '@/components/IconButton';
-import { Button } from '@/components/Button';
+import { Icon, type IconName, type IconProps } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Button } from '@/components/Button/Button';
 import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
 
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
 
-const ToastIcon = styled(Icon)<{ $type?: ToastType }>`
+// Lazy wrapper to avoid circular dependency issues at module load time
+const ToastIconWrapper = (props: IconProps & { $type?: ToastType }) => (
+  <Icon {...props} />
+);
+
+const ToastIcon = styled(ToastIconWrapper)<{ $type?: ToastType }>`
   ${({ theme, $type = 'default' }) => `
   width: ${theme.click.toast.icon.size.width};
   height: ${theme.click.toast.icon.size.height};

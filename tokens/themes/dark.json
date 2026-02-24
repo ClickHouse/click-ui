@@ -3156,6 +3156,16 @@
                   "value": "{palette.utility.transparent}",
                   "type": "color"
                 }
+              },
+              "icon": {
+                "default": {
+                  "value": "{click.global.color.text.muted}",
+                  "type": "color"
+                },
+                "disabled": {
+                  "value": "{click.sidebar.main.navigation.item.color.text.disabled}",
+                  "type": "color"
+                }
               }
             }
           },
@@ -5241,6 +5251,10 @@
         },
         "split": {
           "value": "{click.global.color.background.muted}",
+          "type": "color"
+        },
+        "muted_a": {
+          "value": "{palette.slate.50a}",
           "type": "color"
         }
       },
