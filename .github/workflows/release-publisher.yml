@@ -1,7 +1,8 @@
 name: 🚀 Release Publisher (NPM)
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - '**'
 
@@ -27,11 +28,11 @@ jobs:
         id: verify-merge
         run: |
           COMMIT_SHA="${{ github.sha }}"
-          
+
           echo "🔍 Checking if commit $COMMIT_SHA is from a release PR merge..."
-          
+
           COMMIT_MSG=$(git log -1 --format=%s "$COMMIT_SHA")
-          
+
           # WARNING: This is coupled with generate release commit
           # if you need to modify, apply the changes accordingly
           # Script outputs "VERSION RELEASE_TYPE" on success (e.g., "1.2.3 latest")
@@ -82,19 +83,19 @@ jobs:
         if: steps.verify-merge.outputs.is_release == 'true'
         run: |
           TAG="${{ steps.verify-merge.outputs.tag }}"
-          
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Check if tag already exists
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "⚠️ Tag $TAG already exists. Skipping tag creation."
             exit 0
           fi
-          
+
           git tag -a "$TAG" -m "Release $TAG"
           git push origin "$TAG"
-          
+
           echo "✅ Created and pushed tag $TAG"
 
       - name: Setup Node.js
