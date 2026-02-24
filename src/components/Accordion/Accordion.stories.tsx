@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Panel } from '..';
+import { Panel } from '../Panel';
 import { Accordion } from '@/components/Accordion';
 import { Spacer } from '../Spacer';
 import { Text } from '../Typography/Text/Text';

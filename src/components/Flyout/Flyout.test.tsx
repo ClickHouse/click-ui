@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react';
 import { Flyout } from '@/components/Flyout';
 import { renderCUI } from '@/utils/test-utils';
-import { Button } from '..';
+import { Button } from '../Button';
 import { DialogProps } from '@radix-ui/react-dialog';
 
 interface Props extends DialogProps {
