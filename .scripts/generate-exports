@@ -39,7 +39,8 @@ const extractComponentNames = (filePath) => {
   return Array.from(componentNames).sort();
 };
 
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf-8');
+const packageJson = JSON.parse(packageJsonContent);
 
 const exports = {
   '.': {
@@ -61,8 +62,15 @@ for (const component of components) {
 
 packageJson.exports = exports;
 
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+const updatedContent = JSON.stringify(packageJson, null, 2) + '\n';
+const hasChanges = packageJsonContent !== updatedContent;
+
+fs.writeFileSync(packageJsonPath, updatedContent);
 
 console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
 
 components.forEach(name => console.log(`✔ ${name}`));
+
+if (hasChanges) {
+  console.log('\n⚠️ WARNING: The package.json was modified. Remember to commit your changes!');
+}
