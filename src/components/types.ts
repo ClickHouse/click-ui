@@ -61,8 +61,6 @@ export type {
   GridContextMenuItemProps,
   Rectangle,
 } from './Grid/types';
-export type { StyledLinkProps } from './Link/common';
-
 export type { DateRange } from './DatePicker/utils';
 
 export type States = 'default' | 'active' | 'disabled' | 'error' | 'hover';

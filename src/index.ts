@@ -156,7 +156,6 @@ export { Link } from './components/Link';
 // TODO: This linkStyles require investigation
 export { linkStyles } from './components/Link/common';
 export type { LabelProps } from './components/Label';
-export type { StyledLinkProps } from './components/Link/common';
 
 // Multi Accordion
 export { MultiAccordion } from './components/MultiAccordion';
