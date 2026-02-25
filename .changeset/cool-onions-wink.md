@@ -16,7 +16,7 @@ The consumer apps can migrate by:
 - Removing the CuiStyledLink styled component definition
 - Using <Link component={RouterLink} size="md" weight="normal" ...> directly
 
-Current Consumer Pattern (using internal styling APIs)
+Current common consumer pattern uses leaked internal styling APIs:
 
 ```tsx
 import { Link } from 'react-router-dom';
