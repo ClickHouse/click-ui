@@ -1,5 +1,15 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.69
+
+### Minor Changes
+
+- e8593d6: Extended the build process to include a build output health check. The health check occurs locally and as a separate step in the CI.
+
+### Patch Changes
+
+- 1a2cb02: Build error due to assets wrong type for theme name
+
 ## 0.1.0-rc.68
 
 ### Minor Changes
