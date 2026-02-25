@@ -52,6 +52,7 @@ import Nessie from './Nessie';
 import NodeJs from './NodeJs';
 import OneLake from './OneLake';
 import { OVHLight as OVH } from './OVH';
+import PlanetScale from './PlanetScale';
 import Postgres from './Postgres';
 import Prequel from './Prequel';
 import Python from './Python';
@@ -121,6 +122,7 @@ const LogosLight: Record<LogoName, (props: SVGAttributes<SVGElement>) => JSX.Ele
   nodejs: NodeJs,
   onelake: OneLake,
   ovh: OVH,
+  planetscale: PlanetScale,
   postgres: Postgres,
   prequel: Prequel,
   python: Python,

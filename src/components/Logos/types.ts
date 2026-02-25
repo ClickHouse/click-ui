@@ -67,7 +67,8 @@ export type LogoName =
   | 'onelake'
   | 'nessie'
   | 'tigerdata'
-  | 'ovh';
+  | 'ovh'
+  | 'planetscale';
 
 export type LogoThemeProps = SVGAttributes<SVGElement> & {
   theme?: ThemeName;
