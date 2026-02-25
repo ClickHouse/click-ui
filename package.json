@@ -314,7 +314,7 @@
   },
   "homepage": "https://clickhouse.com",
   "scripts": {
-    "build": "yarn typecheck && vite build && .scripts/generate-exports",
+    "build": "yarn typecheck && vite build && yarn generate:exports",
     "build:analyze": "ANALYZE=true vite build",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
@@ -329,6 +329,7 @@
     "dev": "yarn storybook",
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
+    "generate:exports": ".scripts/generate-exports",
     "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",
