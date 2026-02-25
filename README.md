@@ -31,7 +31,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Distribution](#distribution)
   - [Build](#build)
   - [Use Click UI](#use-click-ui)
-  - [Deep imports support](#deep-imports-support)
+  - [Component-level imports](#component-level-imports)
+  - [Public API](#public-api)
   - [Examples](#examples)
 * [Assets Management](#assets-management)
   - [Convert SVG to React Component](#convert-svg-to-react-component)
@@ -311,16 +312,61 @@ export default () => {
 
 To learn more about individual components, visit [Click UI components](https://clickhouse.design/click-ui).
 
-### Deep imports support
+### Component-level imports
 
-Deep imports are supported, you can import directly from path.
-
-> [!WARNING]
-> At time of writing, there are components that consume from theme provider, which means that these will fail when unwrapped. This will change in future versions.
+Components can be imported directly by name, providing a succinct import syntax.
 
 ```ts
 import { Button } from '@clickhouse/click-ui/Button';
 ```
+
+The exports map is auto-generated from the public API defined in `src/index.ts`, learn to manage by reading the [Public API](#public-api) section.
+
+> [!WARNING]
+> Some components depend on the theme provider. These will fail if used outside of `ClickUIProvider`. In next versions, this will change and consumer apps will have the ability to use them without the provider wrapping.
+
+### Public API
+
+The public API is controlled through the main barrel file at `src/index.ts`. This file serves as the single source of truth for all components, types, and utilities exported by the package.
+
+Maintainers can add or remove components from the public API by updating the exports in this file. Each export should include both the component and its associated types to ensure consumers have full type support.
+
+Here's an example of `src/index.ts`:
+
+```ts
+// Adding a new component to the public API
+export { Button } from './components/Button';
+export type { ButtonProps } from './components/Button';
+
+// Removing a component (simply delete)
+```
+
+After, you must run the `generate:exports` to update the component-level exports in the package.json file:
+
+```sh
+yarn generate:exports
+```
+
+Once complete, commit your changes.
+
+#### Breaking change support
+
+When introducing breaking changes or deprecating types, maintainers can provide retroactive support by creating custom type aliases. This allows consumers to migrate gradually while maintaining backwards compatibility.
+
+```ts
+// Backwards compatibility: export legacy type name
+// that maps to the new type
+export type { NewComponentProps as LegacyComponentProps } from './components/NewComponent';
+
+// Or create a custom type for transition periods
+export type DeprecatedProps = NewProps & {
+  /** @deprecated Use `newProp` instead */
+  oldProp?: string;
+};
+```
+
+> [!NOTE]
+> When deprecating types or components, consider adding JSDoc `@deprecated` annotations to guide consumers towards the updated API. This provides clear migration paths and IDE warnings.
 
 ### Examples
 
