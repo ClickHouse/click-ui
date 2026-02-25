@@ -424,10 +424,6 @@ Once the pull request is approved and merged, it'll trigger the release of a new
 
 The process will also create a branch for long lived version maintenance support, e.g. `chore/v0.5.0-rc.1`.
 
-Once the pull request is approved and merged, it'll trigger the release of a new version to [npm registry](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions).
-
-The process will also create a branch for long lived version maintenance support, e.g. `chore/v0.5.0-rc.1`.
-
 ### Publish
 
 Once you've reviewed the changelog entries and version changes, addressed all [Pull Request](#create-a-new-release-pull-request) comments and suggestions, and are confident everything looks correct, go ahead and **squash and merge** the pull request.
