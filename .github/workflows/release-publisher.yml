@@ -244,14 +244,6 @@ jobs:
             echo "✅ Created maintenance branch '$MAINTENANCE_BRANCH'"
           fi
 
-      - name: Join Slack channel
-        if: steps.verify-merge.outputs.is_release == 'true'
-        run: |
-          curl -s -X POST https://slack.com/api/conversations.join \
-            -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"channel": "${{ secrets.SLACK_CHANNEL }}"}'
-
       - name: Notify Slack about new release
         if: steps.verify-merge.outputs.is_release == 'true'
         uses: slackapi/slack-github-action@v2.1.1
