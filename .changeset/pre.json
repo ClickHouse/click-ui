@@ -1,0 +1,40 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@clickhouse/click-ui": "0.0.251-test.67"
+  },
+  "changesets": [
+    "add-chart-icons",
+    "add-planetscale-logo",
+    "breezy-nails-remain",
+    "chatty-chairs-drop",
+    "chubby-items-arrive",
+    "common-llamas-bow",
+    "common-meteors-hammer",
+    "cuddly-rocks-sleep",
+    "cute-cats-behave",
+    "dark-pigs-visit",
+    "deep-wolves-guess",
+    "dull-pets-watch",
+    "famous-pillows-double",
+    "hot-tigers-fold",
+    "large-hats-type",
+    "neat-toys-smoke",
+    "ninety-windows-melt",
+    "olive-waves-feel",
+    "shy-beds-move",
+    "silly-sheep-press",
+    "silly-zoos-grow",
+    "six-drinks-call",
+    "sparkly-eagles-trade",
+    "strict-months-flash",
+    "tall-corners-go",
+    "tame-rooms-roll",
+    "thick-nights-teach",
+    "tiny-queens-film",
+    "warm-apples-shop",
+    "wet-rockets-laugh",
+    "witty-goats-kiss"
+  ]
+}
