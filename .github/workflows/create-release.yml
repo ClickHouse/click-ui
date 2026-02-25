@@ -289,7 +289,7 @@ jobs:
           curl -s -X POST https://slack.com/api/conversations.join \
             -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d '{"channel": "#click-ui"}'
+            -d '{"channel": ${{ secrets.SLACK_CHANNEL }}}'
 
       - name: Notify Slack about release PR
         if: ${{ steps.create-pr.outputs.pull-request-url }}
@@ -298,5 +298,5 @@ jobs:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
-            channel: "#click-ui"
+            channel: ${{ secrets.SLACK_CHANNEL }}
             text: "===\n📦 *New Release PR Created*\n\n*Package:* ${{ steps.version-package.outputs.package_name }}\n*Version:* ${{ steps.version-package.outputs.version }}\n*Type:* ${{ inputs.release_type }}\n*Branch:* ${{ github.ref_name }}\n\n<${{ steps.create-pr.outputs.pull-request-url }}|View Pull Request>\n==="
