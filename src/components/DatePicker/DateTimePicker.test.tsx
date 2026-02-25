@@ -217,6 +217,57 @@ describe('DateTimePicker', () => {
           'Jul 04, 02:37 pm – Jul 11, 08:15 am'
         );
       });
+
+      it('automatically switches to end date the first time meridiem is set on start date', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByRole, getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('4'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 04, 12:00 pm – end date'
+        );
+
+        await userEvent.click(getByRole('button', { name: 'pm' }));
+
+        const endDateButton = getByTestId('tabbed-calendar-trigger-end');
+
+        expect(endDateButton).toHaveAttribute('data-state', 'active');
+      });
+
+      it('does not switch to end date if start date is switched back to from end date', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByRole, getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('4'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 04, 12:00 pm – end date'
+        );
+
+        await userEvent.click(getByRole('button', { name: 'pm' }));
+
+        const endDateButton = getByTestId('tabbed-calendar-trigger-end');
+
+        expect(endDateButton).toHaveAttribute('data-state', 'active');
+
+        const startDateButton = getByTestId('tabbed-calendar-trigger-start');
+
+        await userEvent.click(startDateButton);
+
+        await userEvent.click(getByRole('button', { name: 'pm' }));
+
+        expect(startDateButton).toHaveAttribute('data-state', 'active');
+        expect(endDateButton).not.toHaveAttribute('data-state', 'active');
+      });
     });
   });
 
