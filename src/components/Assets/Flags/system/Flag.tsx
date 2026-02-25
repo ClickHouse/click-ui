@@ -7,6 +7,7 @@ import { resolveFlagName, DeprecatedFlagName } from './retroactiveNames';
 import FlagsLight from './FlagsLight';
 import FlagsDark from './FlagsDark';
 import { SvgImageElement } from '@/components/commonElement';
+import type { ThemeName } from '@/theme';
 
 export interface FlagProps extends SVGAttributes<SVGElement> {
   name: FlagName | DeprecatedFlagName;
@@ -20,7 +21,7 @@ export interface FlagProps extends SVGAttributes<SVGElement> {
 const Flag = ({ name, theme, size, ...props }: FlagProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveFlagName(name);
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? 'light';
   const Component =
     resolvedTheme === 'light' ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
 
