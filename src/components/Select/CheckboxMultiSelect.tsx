@@ -8,7 +8,7 @@ import {
   SelectItemDescription,
 } from './common/InternalSelect';
 
-import { MultiSelectProps } from '..';
+import { MultiSelectProps } from './MultiSelect';
 
 export interface CheckboxMultiSelectProps extends MultiSelectProps {
   selectLabel?: string;

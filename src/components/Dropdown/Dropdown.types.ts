@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/types';
 import type { IconName } from '@/components/Icon/Icon.types';
 
 export interface ArrowProps {

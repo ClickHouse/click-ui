@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/types';
 import type { IconName } from '@/components/Icon';
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {

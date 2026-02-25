@@ -17,7 +17,7 @@ import {
 import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 
-import { HorizontalDirection } from '@/components/types';
+import { HorizontalDirection } from '@/types';
 import { SearchField } from '@/components/Input';
 import { Separator } from '@/components/Separator';
 import { Icon, type ImageName } from '@/components/Icon';

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/types';
 import type { IconName } from '@/components/Icon';
 
 export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
