@@ -63,4 +63,6 @@ packageJson.exports = exports;
 
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
-console.log(`Generated exports for ${components.length} components`);
+console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
+
+components.forEach(name => console.log(`✔ ${name}`));
