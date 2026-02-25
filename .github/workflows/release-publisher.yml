@@ -1,7 +1,8 @@
 name: 🚀 Release Publisher (NPM)
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - '**'
 
@@ -42,6 +43,7 @@ jobs:
             echo "is_release=true" >> $GITHUB_OUTPUT
             echo "version=$VERSION" >> $GITHUB_OUTPUT
             echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+            echo "release_type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
           else
             echo "⚠️ This is not a release PR merge. Skipping release."
             echo "is_release=false" >> $GITHUB_OUTPUT
@@ -126,24 +128,21 @@ jobs:
         id: package-info
         run: |
           VERSION="${{ steps.verify-merge.outputs.version }}"
+          RELEASE_TYPE="${{ steps.verify-merge.outputs.release_type }}"
           PKG_NAME=$(node -p "require('./package.json').name")
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
+          echo "tag=$RELEASE_TYPE" >> $GITHUB_OUTPUT
 
-          if [[ -f .changeset/pre.json ]]; then
-            TAG=$(node -p "require('./.changeset/pre.json').tag")
+          if [[ "$RELEASE_TYPE" == "rc" || "$RELEASE_TYPE" == "test" ]]; then
             echo "prerelease=true" >> $GITHUB_OUTPUT
-            echo "tag=$TAG" >> $GITHUB_OUTPUT
-          elif [[ "$CURRENT_BRANCH" == "main" ]]; then
-            echo "prerelease=false" >> $GITHUB_OUTPUT
-            echo "tag=latest" >> $GITHUB_OUTPUT
           else
             echo "prerelease=false" >> $GITHUB_OUTPUT
-            echo "tag=maintenance" >> $GITHUB_OUTPUT
           fi
 
           echo "📦 Package: $PKG_NAME@$VERSION"
-          echo "🏷️  npm tag: $TAG"
+          echo "🏷️  npm tag: $RELEASE_TYPE"
 
       - name: Publish to npm over OpenID Connect (OIDC)
         if: steps.verify-merge.outputs.is_release == 'true'
