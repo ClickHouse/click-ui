@@ -153,8 +153,6 @@ export type { ImageName as IconName } from './components/Icon/Icon.types';
 // Label & Link
 export { Label } from './components/Label';
 export { Link } from './components/Link';
-// TODO: This linkStyles require investigation
-export { linkStyles } from './components/Link/common';
 export type { LabelProps } from './components/Label';
 
 // Multi Accordion
