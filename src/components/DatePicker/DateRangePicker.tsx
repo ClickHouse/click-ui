@@ -101,13 +101,12 @@ const Calendar = ({
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-          const isSelected =
-            (startDate && isSameDate(startDate, fullDate)) ||
-            (endDate && isSameDate(endDate, fullDate));
-
           const today = new Date();
+          const isSelected = startDate
+            ? (startDate && isSameDate(startDate, fullDate)) ||
+              (endDate && isSameDate(endDate, fullDate))
+            : isSameDate(today, fullDate);
 
-          const isCurrentDate = isSameDate(today, fullDate);
           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
           );
@@ -170,7 +169,6 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isCurrentDate}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}

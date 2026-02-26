@@ -1,9 +1,11 @@
 import { Dayjs } from 'dayjs';
 
+const DEFAULT_DATE_LOCALE = 'en-US';
+
 export const formatTimezone = ({
   date,
   timezone,
-  locale = 'en-US',
+  locale = DEFAULT_DATE_LOCALE,
 }: {
   date: Dayjs;
   timezone?: string;
@@ -15,3 +17,16 @@ export const formatTimezone = ({
   })
     .formatToParts(date.toDate())
     .find(part => part.type === 'timeZoneName')?.value ?? date.format('z');
+
+export const DAYS = 'days';
+export const MONTHS = 'months';
+export const YEARS = 'years';
+
+export const DAYS_IN_WEEK = 7;
+
+type MonthNamesFormat = 'short' | 'long';
+
+export const getMonthNames = (format: MonthNamesFormat = 'long') =>
+  Array.from({ length: 12 }, (_, i) =>
+    new Date(1970, i).toLocaleString(DEFAULT_DATE_LOCALE, { month: format })
+  );
