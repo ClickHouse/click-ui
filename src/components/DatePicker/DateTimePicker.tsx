@@ -386,17 +386,11 @@ const validTimeRegex = /^\d{1,2}(:\d{1,2}(:\d{1,2})?)?$/;
 
 interface TimeInputProps {
   date: Date | undefined;
-  onSetMeridiem?: () => void;
   setDate: (date: Date) => void;
   shouldShowSeconds: boolean;
 }
 
-const TimeInput = ({
-  date,
-  onSetMeridiem,
-  setDate,
-  shouldShowSeconds,
-}: TimeInputProps) => {
+const TimeInput = ({ date, setDate, shouldShowSeconds }: TimeInputProps) => {
   let dayjsDate = dayjs(date);
   if (!date) {
     dayjsDate = dayjsDate.hour(12).minute(0);
@@ -478,9 +472,6 @@ const TimeInput = ({
         const newDate = dayjsDate.hour(dayjsDate.hour() + 12).toDate();
 
         setDate(newDate);
-        if (onSetMeridiem) {
-          onSetMeridiem();
-        }
 
         return;
       }
@@ -489,18 +480,11 @@ const TimeInput = ({
         const newDate = dayjsDate.hour(dayjsDate.hour() - 12).toDate();
 
         setDate(newDate);
-        if (onSetMeridiem) {
-          onSetMeridiem();
-        }
 
         return;
       }
-
-      if (onSetMeridiem) {
-        onSetMeridiem();
-      }
     },
-    [dayjsDate, onSetMeridiem, setDate]
+    [dayjsDate, setDate]
   );
 
   const handleKeyDown = useCallback(
@@ -609,23 +593,10 @@ const TabbedCalendar = ({
   startDate,
 }: TabbedCalendarProps) => {
   const [activeTab, setActiveTab] = useState<Tab>('startDate');
-  const hasChangedTab = useRef<boolean>(false);
 
-  const handleTabChange = useCallback(
-    (newTab: string) => {
-      setActiveTab(newTab as Tab);
-      hasChangedTab.current = true;
-    },
-    [hasChangedTab]
-  );
-
-  const handleMeridiemChange = useCallback(() => {
-    // We only change to the end date tab after selecting meridiem if we haven't changed tabs yet
-    // i.e. it's the first time on start date
-    if (!hasChangedTab.current) {
-      handleTabChange('endDate');
-    }
-  }, [hasChangedTab, handleTabChange]);
+  const handleTabChange = useCallback((newTab: string) => {
+    setActiveTab(newTab as Tab);
+  }, []);
 
   const startDateCalendarOptions: UseCalendarOptions = {};
   const endDateCalendarOptions: UseCalendarOptions = {};
@@ -677,7 +648,6 @@ const TabbedCalendar = ({
         </StyledCalendarRenderer>
         <TimeInput
           date={startDate}
-          onSetMeridiem={handleMeridiemChange}
           setDate={setStartDate}
           shouldShowSeconds={shouldShowSeconds}
         />
