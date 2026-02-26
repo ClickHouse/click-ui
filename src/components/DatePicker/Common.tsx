@@ -271,18 +271,15 @@ const GridCell = styled.button<{ $isActive?: boolean }>`
 
   &:focus {
     outline: none;
-    border-color: ${({ $isActive, theme }) =>
-      $isActive
-        ? theme.click.button.basic.color.primary.stroke.active
-        : theme.click.datePicker.dateOption.color.stroke.hover};
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
   }
 
   &:focus-visible {
     outline: none;
-    border-color: ${({ $isActive, theme }) =>
-      $isActive
-        ? theme.click.button.basic.color.primary.stroke.active
-        : theme.click.datePicker.dateOption.color.stroke.hover};
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+    background: ${({ theme }) =>
+      theme.click.datePicker.dateOption.color.background.default};
+    color: ${({ theme }) => theme.click.datePicker.dateOption.color.label.default};
   }
 `;
 
@@ -345,7 +342,7 @@ export const DateTableCell = styled.td<{
   text-align: center;
   outline: none;
 
-  ${({ $isDisabled, $isSelected, theme }) => `
+  ${({ $isDisabled, theme }) => `
     &:hover {
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
@@ -359,9 +356,7 @@ export const DateTableCell = styled.td<{
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : $isSelected
-            ? theme.click.button.basic.color.primary.stroke.active
-            : theme.click.datePicker.dateOption.color.stroke.hover
+          : theme.click.datePicker.dateOption.color.stroke.hover
       };
     }
 
@@ -369,13 +364,10 @@ export const DateTableCell = styled.td<{
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : $isSelected
-            ? theme.click.button.basic.color.primary.stroke.active
-            : theme.click.datePicker.dateOption.color.stroke.hover
+          : theme.click.datePicker.dateOption.color.stroke.hover
       };
-    }
-            : theme.click.datePicker.dateOption.color.stroke.hover
-      };
+      background: ${theme.click.datePicker.dateOption.color.background.default};
+      color: ${theme.click.datePicker.dateOption.color.label.default};
     }
   `}
 `;
