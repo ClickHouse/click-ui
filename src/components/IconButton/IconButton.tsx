@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { Icon, IconName } from '@/components/Icon';
 
-type IconButtonSize = 'default' | 'sm' | 'xs';
+export type IconButtonSize = 'default' | 'sm' | 'xs';
 
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   /** The size of the icon button */
