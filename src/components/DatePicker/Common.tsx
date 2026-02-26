@@ -405,31 +405,44 @@ const DateSelectNav = ({
   id,
   icon,
   onClick,
+  onKeyDown,
   view,
   size = 'sm',
+  tabIndex,
+  buttonRef,
 }: {
   id: string;
   icon: Extract<IconName, 'chevron-left' | 'chevron-right'>;
   onClick: () => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLButtonElement>) => void;
   view: DateViewOption;
   size?: IconButtonSize;
+  tabIndex?: number;
+  buttonRef?: (el: HTMLButtonElement | null) => void;
 }) => {
   if (view === MONTHS) {
     return (
       <EmptyDateSelectNav
+        ref={buttonRef}
+        data-testid={id}
         icon={icon}
         size={size}
         type="ghost"
+        tabIndex={tabIndex}
+        onKeyDown={onKeyDown}
       />
     );
   }
   return (
     <PickerNavControl
+      ref={buttonRef}
       data-testid={id}
       icon={icon}
       onClick={onClick}
+      onKeyDown={onKeyDown}
       size={size}
       type="ghost"
+      tabIndex={tabIndex}
     />
   );
 };
@@ -454,6 +467,7 @@ export const CalendarRenderer = ({
 
   const monthGridRef = useRef<(HTMLButtonElement | null)[]>([]);
   const yearGridRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const headerNavRefs = useRef<(HTMLButtonElement | null)[]>([null, null, null]);
 
   useEffect(() => {
     if (view === YEARS) {
@@ -487,6 +501,30 @@ export const CalendarRenderer = ({
 
     setView(YEARS);
   }, [view]);
+
+  const onHeaderNavKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
+    const validRefs = headerNavRefs.current.filter(ref => {
+      if (!ref) return false;
+      return (
+        ref.offsetParent !== null ||
+        (!ref.hasAttribute('hidden') && ref.getAttribute('aria-hidden') !== 'true')
+      );
+    });
+
+    const currentValidIndex = validRefs.indexOf(e.currentTarget);
+    if (currentValidIndex === -1 || validRefs.length <= 1) return;
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const nextValidIndex = (currentValidIndex + 1) % validRefs.length;
+      validRefs[nextValidIndex]?.focus();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prevValidIndex =
+        (currentValidIndex - 1 + validRefs.length) % validRefs.length;
+      validRefs[prevValidIndex]?.focus();
+    }
+  }, []);
 
   const onYearSelection = useCallback(
     (yearValue: number) => {
@@ -724,12 +762,26 @@ export const CalendarRenderer = ({
           id="calendar-previous-month"
           icon="chevron-left"
           onClick={onPreviousClick}
+          onKeyDown={onHeaderNavKeyDown}
           view={view}
+          tabIndex={view === MONTHS ? -1 : 0}
+          buttonRef={el => {
+            if (view !== MONTHS) {
+              headerNavRefs.current[0] = el;
+            } else {
+              headerNavRefs.current[0] = null;
+            }
+          }}
         />
         {view === DAYS ? (
           <ClickableTitle
+            ref={el => {
+              headerNavRefs.current[1] = el as HTMLButtonElement;
+            }}
             onClick={onTitleClick}
+            onKeyDown={onHeaderNavKeyDown}
             data-testid="calendar-title"
+            tabIndex={0}
           >
             {getHeaderTitle(view)}
           </ClickableTitle>
@@ -740,7 +792,16 @@ export const CalendarRenderer = ({
           id="calendar-next-month"
           icon="chevron-right"
           onClick={onNextClick}
+          onKeyDown={onHeaderNavKeyDown}
           view={view}
+          tabIndex={view === MONTHS ? -1 : 0}
+          buttonRef={el => {
+            if (view !== MONTHS) {
+              headerNavRefs.current[2] = el;
+            } else {
+              headerNavRefs.current[2] = null;
+            }
+          }}
         />
       </Container>
       <DateTable>{renderTableContent()}</DateTable>

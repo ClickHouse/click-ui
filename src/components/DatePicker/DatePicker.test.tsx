@@ -377,5 +377,104 @@ describe('DatePicker', () => {
       const selectedDate = onSelectDate.mock.lastCall?.[0];
       expect(selectedDate.getDate()).toBe(5);
     });
+
+    it('supports horizontal arrow key navigation between chevron buttons and title in days view', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+
+      const prevButton = getByTestId('calendar-previous-month');
+      const title = getByTestId('calendar-title');
+      const nextButton = getByTestId('calendar-next-month');
+
+      prevButton.focus();
+      expect(document.activeElement).toBe(prevButton);
+
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(title);
+
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(nextButton);
+
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(prevButton);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(document.activeElement).toBe(nextButton);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(document.activeElement).toBe(title);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(document.activeElement).toBe(prevButton);
+    });
+
+    it('supports horizontal arrow key navigation between chevron buttons in years view', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+
+      const prevButton = getByTestId('calendar-previous-month');
+      const nextButton = getByTestId('calendar-next-month');
+
+      prevButton.focus();
+      expect(document.activeElement).toBe(prevButton);
+
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(nextButton);
+
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(prevButton);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(document.activeElement).toBe(nextButton);
+    });
+
+    it('supports horizontal arrow key navigation between chevron buttons in months view', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+      await userEvent.click(getByTestId('year-cell-2020'));
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+
+      const prevButton = getByTestId('calendar-previous-month');
+      const nextButton = getByTestId('calendar-next-month');
+
+      expect(prevButton).toBeInTheDocument();
+      expect(nextButton).toBeInTheDocument();
+
+      const firstMonthCell = getByTestId('month-cell-0');
+      firstMonthCell.focus();
+      expect(document.activeElement).toBe(firstMonthCell);
+    });
   });
 });
