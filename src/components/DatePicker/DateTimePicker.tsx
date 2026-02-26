@@ -5,6 +5,7 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -37,15 +38,17 @@ const PredefinedTimesContainer = styled(Container)`
   width: ${calendarFullWidth};
 `;
 
+type OpenDirection = 'left' | 'right';
+
 // left value of 259px is the width of the PredefinedTimesContainer + 1 pixel for border
-const CalendarRendererContainer = styled.div`
+const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>`
   border: ${({ theme }) =>
     `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
   box-shadow:
     lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
     lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  left: 259px;
+  ${({ $openDirection }) => ($openDirection === 'left' ? 'right: 100%;' : 'left: 259px;')}
   position: absolute;
   top: 0;
 `;
@@ -711,6 +714,7 @@ export interface DateTimePickerProps {
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
+  openDirection?: OpenDirection;
   placeholder?: string;
   predefinedTimesList?: Array<DateRangeListItem>;
   maxRangeLength?: number;
@@ -726,6 +730,7 @@ export const DateTimePicker = ({
   futureStartDatesDisabled = false,
   maxRangeLength = -1,
   onSelectDateRange,
+  openDirection = 'right',
   placeholder = 'start date – end date',
   predefinedTimesList,
   shouldShowSeconds,
@@ -734,6 +739,9 @@ export const DateTimePicker = ({
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
   const [selectedEndDate, setSelectedEndDate] = useState<Date>();
   const [shouldShowCustomRange, setShouldShowCustomRange] = useState<boolean>(false);
+  const [calendarOpenDirection, setCalendarOpenDirection] =
+    useState<OpenDirection>(openDirection);
+  const calendarContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (startDate) {
@@ -753,9 +761,20 @@ export const DateTimePicker = ({
     }
   }, [endDate]);
 
+  useLayoutEffect(() => {
+    if (shouldShowCustomRange && calendarContainerRef.current) {
+      const rect = calendarContainerRef.current.getBoundingClientRect();
+
+      if (rect.right > window.innerWidth) {
+        setCalendarOpenDirection('left');
+      }
+    }
+  }, [shouldShowCustomRange]);
+
   const closeDatePicker = useCallback((): void => {
     setIsOpen(false);
     setShouldShowCustomRange(false);
+    setCalendarOpenDirection('right');
   }, []);
 
   const handleOpenChange = useCallback((isOpen: boolean): void => {
@@ -763,6 +782,7 @@ export const DateTimePicker = ({
 
     if (!isOpen) {
       setShouldShowCustomRange(false);
+      setCalendarOpenDirection('right');
     }
   }, []);
 
@@ -821,7 +841,10 @@ export const DateTimePicker = ({
               />
 
               {shouldShowCustomRange && (
-                <CalendarRendererContainer>
+                <CalendarRendererContainer
+                  $openDirection={calendarOpenDirection}
+                  ref={calendarContainerRef}
+                >
                   <TabbedCalendar
                     closeDatePicker={closeDatePicker}
                     endDate={selectedEndDate}

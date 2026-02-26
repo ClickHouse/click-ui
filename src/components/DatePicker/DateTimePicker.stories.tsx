@@ -44,6 +44,33 @@ export const Default: Story = {
   },
 };
 
+export const DateTimePickerLeftSide: Story = {
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+    const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+
+    return (
+      <div style={{ alignItems: 'end', float: 'right' }}>
+        <DateTimePicker
+          key="default"
+          endDate={endDate}
+          disabled={args.disabled}
+          futureDatesDisabled={args.futureDatesDisabled}
+          futureStartDatesDisabled={args.futureStartDatesDisabled}
+          maxRangeLength={args.maxRangeLength}
+          onSelectDateRange={args.onSelectDateRange}
+          openDirection="left"
+          placeholder={args.placeholder}
+          predefinedTimesList={predefinedTimesList}
+          startDate={startDate}
+          shouldShowSeconds={args.shouldShowSeconds}
+        />
+      </div>
+    );
+  },
+};
+
 export const PredefinedTimesDefault: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
