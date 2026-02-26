@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { InputElement, InputStartContent, InputWrapper } from '../Input/InputWrapper';
-import { ReactNode, useCallback, useId, useState } from 'react';
+import { KeyboardEvent, ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Icon } from '../Icon/Icon';
 import { Container } from '../Container/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
@@ -227,12 +227,13 @@ const YearsGrid = styled(GridContainer)`
   grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
 `;
 
-const GridCell = styled.div<{ $isActive?: boolean }>`
+const GridCell = styled.button.attrs({ type: 'button' })<{ $isActive?: boolean }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
     border-radius: ${theme.click.datePicker.dateOption.radii.default};
     font: ${theme.click.datePicker.dateOption.typography.label.default};
     color: ${theme.click.datePicker.dateOption.color.label.default};
+    background: ${theme.click.datePicker.dateOption.color.background.default};
   `}
 
   ${({ $isActive, theme }) =>
@@ -252,6 +253,16 @@ const GridCell = styled.div<{ $isActive?: boolean }>`
 
   &:hover {
     border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+    outline: none;
+  }
+
+  &:focus-visible {
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+    outline: none;
   }
 `;
 
@@ -393,6 +404,19 @@ export const CalendarRenderer = ({
   const [view, setView] = useState<DateViewOption>(DAYS);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [yearOffset, setYearOffset] = useState(0);
+  const [focusedMonthIndex, setFocusedMonthIndex] = useState(month);
+  const [focusedYearIndex, setFocusedYearIndex] = useState(VIEW_NAVIGATION_OFFSET_YEARS);
+
+  const monthGridRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const yearGridRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    if (view === YEARS) {
+      yearGridRef.current[focusedYearIndex]?.focus();
+    } else if (view === MONTHS) {
+      monthGridRef.current[focusedMonthIndex]?.focus();
+    }
+  }, [view, focusedYearIndex, focusedMonthIndex]);
 
   const onNextClick = useCallback(() => {
     if (view === YEARS) {
@@ -443,6 +467,82 @@ export const CalendarRenderer = ({
     [selectedYear, year, navigation, onMonthSelect]
   );
 
+  const onMonthGridKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+      const columns = VIEW_GRID_MONTHS.columns;
+      const totalItems = 12;
+      let newIndex = index;
+
+      switch (e.key) {
+        case 'ArrowRight':
+          e.preventDefault();
+          newIndex = (index + 1) % totalItems;
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          newIndex = (index - 1 + totalItems) % totalItems;
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          newIndex = (index + columns) % totalItems;
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          newIndex = (index - columns + totalItems) % totalItems;
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          onMonthSelection(index);
+          return;
+        default:
+          return;
+      }
+
+      setFocusedMonthIndex(newIndex);
+      monthGridRef.current[newIndex]?.focus();
+    },
+    [onMonthSelection]
+  );
+
+  const onYearGridKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLButtonElement>, index: number, yearValue: number) => {
+      const columns = VIEW_GRID_YEARS.columns;
+      const totalItems = VIEW_TOTAL_YEARS;
+      let newIndex = index;
+
+      switch (e.key) {
+        case 'ArrowRight':
+          e.preventDefault();
+          newIndex = (index + 1) % totalItems;
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          newIndex = (index - 1 + totalItems) % totalItems;
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          newIndex = (index + columns) % totalItems;
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          newIndex = (index - columns + totalItems) % totalItems;
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          onYearSelection(yearValue);
+          return;
+        default:
+          return;
+      }
+
+      setFocusedYearIndex(newIndex);
+      yearGridRef.current[newIndex]?.focus();
+    },
+    [onYearSelection]
+  );
+
   const headerDate = new Date();
   headerDate.setMonth(month);
   headerDate.setFullYear(year);
@@ -461,13 +561,19 @@ export const CalendarRenderer = ({
 
   const renderMonthsGrid = () => {
     return (
-      <MonthsGrid data-testid="months-grid">
+      <MonthsGrid data-testid="months-grid" role="grid" aria-label="Select month">
         {monthAbbreviations.map((abbr, index) => (
           <GridCell
             key={abbr}
+            ref={el => {
+              monthGridRef.current[index] = el;
+            }}
             $isActive={index === month}
             onClick={() => onMonthSelection(index)}
+            onKeyDown={e => onMonthGridKeyDown(e, index)}
             data-testid={`month-cell-${index}`}
+            tabIndex={index === focusedMonthIndex ? 0 : -1}
+            aria-label={abbr}
           >
             {abbr}
           </GridCell>
@@ -477,22 +583,27 @@ export const CalendarRenderer = ({
   };
 
   const renderYearsGrid = () => {
-    const years = [];
+    const years: number[] = [];
     const baseYear = year + yearOffset;
 
-    // Note: Try to keep the current year in the middle
     for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
       years.push(baseYear + i);
     }
 
     return (
-      <YearsGrid data-testid="years-grid">
-        {years.map(currYear => (
+      <YearsGrid data-testid="years-grid" role="grid" aria-label="Select year">
+        {years.map((currYear, index) => (
           <GridCell
             key={currYear}
+            ref={el => {
+              yearGridRef.current[index] = el;
+            }}
             $isActive={currYear === year}
             onClick={() => onYearSelection(currYear)}
+            onKeyDown={e => onYearGridKeyDown(e, index, currYear)}
             data-testid={`year-cell-${currYear}`}
+            tabIndex={index === focusedYearIndex ? 0 : -1}
+            aria-label={String(currYear)}
           >
             {currYear}
           </GridCell>

@@ -1,7 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
-import { Dropdown } from '../Dropdown/Dropdown';
+import * as Popover from '@radix-ui/react-popover';
+import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
+
+const PopoverTrigger = styled(Popover.Trigger)`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: fit-content;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+`;
+
+const PopoverContent = styled(Popover.Content)`
+  z-index: 1;
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 interface CalendarProps {
   calendarBody: Body;
@@ -126,11 +152,11 @@ export const DatePicker = ({
   }, []);
 
   return (
-    <Dropdown
+    <Popover.Root
       onOpenChange={onOpenChange}
       open={isOpen}
     >
-      <Dropdown.Trigger disabled={disabled}>
+      <PopoverTrigger disabled={disabled}>
         <DatePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
@@ -140,24 +166,26 @@ export const DatePicker = ({
           placeholder={placeholder}
           selectedDate={selectedDate}
         />
-      </Dropdown.Trigger>
-      <Dropdown.Content align="start">
-        <CalendarRenderer
-          calendarOptions={calendarOptions}
-          onYearSelect={onYearSelect}
-          onMonthSelect={onMonthSelect}
-        >
-          {body => (
-            <Calendar
-              calendarBody={body}
-              closeDatepicker={onCloseDatePicker}
-              futureDatesDisabled={futureDatesDisabled}
-              selectedDate={selectedDate}
-              setSelectedDate={onDateSelect}
-            />
-          )}
-        </CalendarRenderer>
-      </Dropdown.Content>
-    </Dropdown>
+      </PopoverTrigger>
+      <Popover.Portal>
+        <PopoverContent align="start" sideOffset={4}>
+          <CalendarRenderer
+            calendarOptions={calendarOptions}
+            onYearSelect={onYearSelect}
+            onMonthSelect={onMonthSelect}
+          >
+            {body => (
+              <Calendar
+                calendarBody={body}
+                closeDatepicker={onCloseDatePicker}
+                futureDatesDisabled={futureDatesDisabled}
+                selectedDate={selectedDate}
+                setSelectedDate={onDateSelect}
+              />
+            )}
+          </CalendarRenderer>
+        </PopoverContent>
+      </Popover.Portal>
+    </Popover.Root>
   );
 };

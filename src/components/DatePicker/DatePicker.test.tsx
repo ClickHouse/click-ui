@@ -223,5 +223,146 @@ describe('DatePicker', () => {
       const selectedDate = onSelectDate.mock.lastCall?.[0];
       expect(selectedDate).toEqual(new Date('2032-12-28 00:00.00'));
     });
+
+    it('year grid cells are focusable and respond to Enter key', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByDisplayValue } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      const yearCell = getByTestId('year-cell-2020');
+      expect(yearCell).toBeInTheDocument();
+
+      // Year cell should be focusable (tabIndex >= 0)
+      expect(yearCell.getAttribute('tabindex')).not.toBe('-1');
+
+      // Focus and press Enter to select
+      yearCell.focus();
+      expect(document.activeElement).toBe(yearCell);
+
+      await userEvent.keyboard('{Enter}');
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+      expect(getByDisplayValue('2020')).toBeInTheDocument();
+    });
+
+    it('year grid supports arrow key navigation', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      const yearCell2020 = getByTestId('year-cell-2020');
+      yearCell2020.focus();
+
+      // Press ArrowRight - should move focus to next year
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(getByTestId('year-cell-2021'));
+
+      // Press ArrowLeft - should move focus back
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(document.activeElement).toBe(getByTestId('year-cell-2020'));
+
+      // Press ArrowDown - should move down by column count (3)
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).toBe(getByTestId('year-cell-2023'));
+    });
+
+    it('month grid cells are focusable and respond to Space key', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByDisplayValue } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+      await userEvent.click(getByTestId('year-cell-2020'));
+
+      const monthCell = getByTestId('month-cell-0');
+      expect(monthCell).toBeInTheDocument();
+
+      // Month cell should be focusable
+      monthCell.focus();
+      expect(document.activeElement).toBe(monthCell);
+
+      // Press Space to select
+      await userEvent.keyboard(' ');
+
+      expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
+    });
+
+    it('month grid supports arrow key navigation', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+      await userEvent.click(getByTestId('year-cell-2020'));
+
+      const janCell = getByTestId('month-cell-0');
+      janCell.focus();
+
+      // Press ArrowRight - should move to Feb
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(getByTestId('month-cell-1'));
+
+      // Press ArrowDown - should move down by column count (4) to May
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).toBe(getByTestId('month-cell-5'));
+
+      // Press ArrowUp - should move back to Feb
+      await userEvent.keyboard('{ArrowUp}');
+      expect(document.activeElement).toBe(getByTestId('month-cell-1'));
+    });
+
+    it('calendar title is keyboard accessible', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+
+      const title = getByTestId('calendar-title');
+      title.focus();
+      expect(document.activeElement).toBe(title);
+
+      // Press Enter on title should open year selection
+      await userEvent.keyboard('{Enter}');
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+    });
   });
 });
