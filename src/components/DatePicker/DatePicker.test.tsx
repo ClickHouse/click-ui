@@ -82,6 +82,55 @@ describe('DatePicker', () => {
   });
 
   describe('two phased date selection', () => {
+    it('shows progressive input updates during year and month selection', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByDisplayValue } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      await userEvent.click(getByTestId('year-cell-2020'));
+
+      expect(getByDisplayValue('2020')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('month-cell-0'));
+
+      expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
+    });
+
+    it('reverts input to selected date when picker closes without completing selection', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByDisplayValue } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      await userEvent.click(getByTestId('year-cell-2020'));
+      expect(getByDisplayValue('2020')).toBeInTheDocument();
+
+      await userEvent.keyboard('{Escape}');
+
+      expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+    });
+
     it('selects 4th August 1986 using year and month selection', async () => {
       const onSelectDate = vi.fn();
       const date = new Date('07-04-2020');
