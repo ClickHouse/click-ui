@@ -243,3 +243,13 @@ jobs:
             git push origin "$MAINTENANCE_BRANCH"
             echo "✅ Created maintenance branch '$MAINTENANCE_BRANCH'"
           fi
+
+      - name: Notify Slack about new release
+        if: steps.verify-merge.outputs.is_release == 'true'
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: "${{ secrets.SLACK_CHANNEL }}"
+            text: "===\n🚀 *Click UI ${{ steps.verify-merge.outputs.version }} has launched!* 🎉\n\n📦 <https://www.npmjs.com/package/@clickhouse/click-ui/v/${{ steps.verify-merge.outputs.version }}|View on npm>\n📋 <https://github.com/ClickHouse/click-ui/blob/${{ steps.verify-merge.outputs.tag }}/CHANGELOG.md|View Changelog>\n\n_Release type: ${{ steps.package-info.outputs.tag }}_\n==="

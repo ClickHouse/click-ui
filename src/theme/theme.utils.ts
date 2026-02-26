@@ -1,4 +1,5 @@
-import { ThemeName, THEMES } from '@/theme/theme.types';
+import type { ThemeName } from '@/theme/theme.types';
+import { THEMES } from '@/theme/theme.core';
 
 export const isValidThemeName = (theme: string | undefined): theme is ThemeName =>
   theme !== undefined && ([THEMES.Dark, THEMES.Light] as string[]).includes(theme);

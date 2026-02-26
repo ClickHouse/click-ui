@@ -3,44 +3,13 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import ts from 'typescript';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
-const indexPath = path.join(rootDir, 'src/index.ts');
+const componentsDir = path.join(rootDir, 'dist/esm/components');
 const packageJsonPath = path.join(rootDir, 'package.json');
 
-const extractComponentNames = (filePath) => {
-  const sourceCode = fs.readFileSync(filePath, 'utf-8');
-  const sourceFile = ts.createSourceFile(
-    filePath,
-    sourceCode,
-    ts.ScriptTarget.Latest,
-    true
-  );
-
-  const componentNames = new Set();
-  const componentsPrefix = './components/';
-
-  const visit = (node) => {
-    if (ts.isExportDeclaration(node) && node.moduleSpecifier) {
-      const modulePath = node.moduleSpecifier.getText(sourceFile).slice(1, -1);
-
-      if (modulePath.startsWith(componentsPrefix)) {
-        const pathAfterComponents = modulePath.slice(componentsPrefix.length);
-        const componentFolder = pathAfterComponents.split('/')[0];
-        componentNames.add(componentFolder);
-      }
-    }
-    ts.forEachChild(node, visit);
-  };
-
-  visit(sourceFile);
-  return Array.from(componentNames).sort();
-};
-
-const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf-8');
-const packageJson = JSON.parse(packageJsonContent);
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
 const exports = {
   '.': {
@@ -50,27 +19,33 @@ const exports = {
   },
 };
 
-const components = extractComponentNames(indexPath);
+try {
+  const components = fs.readdirSync(componentsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
 
-for (const component of components) {
-  exports[`./${component}`] = {
-    types: `./dist/types/components/${component}/index.d.ts`,
-    import: `./dist/esm/components/${component}/index.js`,
-    require: `./dist/cjs/components/${component}/index.cjs`,
-  };
-}
+  for (const component of components) {
+    const esmPath = `./dist/esm/components/${component}/index.js`;
+    const cjsPath = `./dist/cjs/components/${component}/index.cjs`;
+    const typesPath = `./dist/types/components/${component}/index.d.ts`;
 
-packageJson.exports = exports;
+    if (fs.existsSync(path.join(rootDir, esmPath))) {
+      exports[`./${component}`] = {
+        types: typesPath,
+        import: esmPath,
+        require: cjsPath,
+      };
+    }
+  }
 
-const updatedContent = JSON.stringify(packageJson, null, 2) + '\n';
-const hasChanges = packageJsonContent !== updatedContent;
+  packageJson.exports = exports;
 
-fs.writeFileSync(packageJsonPath, updatedContent);
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
-console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
+  console.log(`Generated exports for ${Object.keys(exports).length - 2} components`);
 
-components.forEach(name => console.log(`✔ ${name}`));
-
-if (hasChanges) {
-  console.log('\n⚠️ WARNING: The package.json was modified. Remember to commit your changes!');
+  process.exit(0);
+} catch (err) {
+  console.error(err);
+  process.exit(1);
 }

@@ -268,9 +268,8 @@ export { ClickUIProvider, ThemeProvider } from './providers';
 // Theme
 // ================================================
 
-export { THEMES } from './theme/theme.types';
+export { THEMES, themes } from './theme/theme.core';
 export type { ThemeName, Theme } from './theme/theme.types';
-export { themes } from './theme/theme.core';
 export {
   isValidThemeName,
   getFallbackThemeName,
