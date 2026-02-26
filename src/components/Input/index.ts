@@ -1,3 +1,5 @@
+// TODO: The components listed here can be separated
+// investigate
 export { TextField } from './TextField';
 export { PasswordField } from './PasswordField';
 export { NumberField } from './NumberField';
