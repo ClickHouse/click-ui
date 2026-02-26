@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 import { styled } from 'styled-components';
-
 import { Icon } from '@/components/Icon';
 import { IconButtonProps } from './IconButton.types';
 
