@@ -504,7 +504,9 @@ export const CalendarRenderer = ({
 
   const onHeaderNavKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
     const validRefs = headerNavRefs.current.filter(ref => {
-      if (!ref) return false;
+      if (!ref) {
+        return false;
+      }
       return (
         ref.offsetParent !== null ||
         (!ref.hasAttribute('hidden') && ref.getAttribute('aria-hidden') !== 'true')
@@ -512,7 +514,9 @@ export const CalendarRenderer = ({
     });
 
     const currentValidIndex = validRefs.indexOf(e.currentTarget);
-    if (currentValidIndex === -1 || validRefs.length <= 1) return;
+    if (currentValidIndex === -1 || validRefs.length <= 1) {
+      return;
+    }
 
     if (e.key === 'ArrowRight') {
       e.preventDefault();
