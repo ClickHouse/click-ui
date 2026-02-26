@@ -385,7 +385,7 @@ const monthAbbreviations = getMonthNames('short');
 
 type DateViewOption = 'days' | 'months' | 'years';
 
-const StyledIconButton = styled(IconButton)`
+const PickerNavControl = styled(IconButton)`
   && {
     &:focus,
     &:focus-visible {
@@ -396,7 +396,7 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
-const EmptyDateSelectNav = styled(StyledIconButton)`
+const EmptyDateSelectNav = styled(PickerNavControl)`
   visibility: hidden;
   pointer-events: none;
 `;
@@ -424,7 +424,7 @@ const DateSelectNav = ({
     );
   }
   return (
-    <StyledIconButton
+    <PickerNavControl
       data-testid={id}
       icon={icon}
       onClick={onClick}
