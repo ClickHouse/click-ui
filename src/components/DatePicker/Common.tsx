@@ -314,7 +314,6 @@ export const DateTableCell = styled.td<{
 
   text-align: center;
 
-
   &:hover {
     ${({ $isDisabled, theme }) =>
       `border: ${theme.click.datePicker.dateOption.stroke} solid ${
