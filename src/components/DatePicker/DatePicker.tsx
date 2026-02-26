@@ -74,7 +74,12 @@ const Calendar = ({
   }, []);
 
   const onDayKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLTableCellElement>, index: number, fullDate: Date, isDisabled: boolean) => {
+    (
+      e: KeyboardEvent<HTMLTableCellElement>,
+      index: number,
+      fullDate: Date,
+      isDisabled: boolean
+    ) => {
       let newIndex = index;
 
       switch (e.key) {
@@ -246,7 +251,10 @@ export const DatePicker = ({
         />
       </PopoverTrigger>
       <Popover.Portal>
-        <PopoverContent align="start" sideOffset={4}>
+        <PopoverContent
+          align="start"
+          sideOffset={4}
+        >
           <CalendarRenderer
             calendarOptions={calendarOptions}
             onYearSelect={onYearSelect}
