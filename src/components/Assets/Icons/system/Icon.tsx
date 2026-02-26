@@ -1,21 +1,11 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { ThemeName } from '@/theme/theme.types';
 import { getFallbackThemeName } from '@/utils/theme';
-import { resolveIconName, type DeprecatedIconName } from './retroactiveNames';
+import { resolveIconName } from './retroactiveNames';
 import IconsLight from './IconsLight';
 import IconsDark from './IconsDark';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
-
-import type { IconName } from './types';
-import type { IconSize } from '@/types';
-
-// TODO: Move to types
-export interface IconProps extends SVGAttributes<SVGElement> {
-  name: IconName | DeprecatedIconName;
-  theme?: ThemeName;
-  size?: IconSize;
-}
+import { IconProps } from './types';
 
 const Icon = ({ name, theme, size, ...props }: IconProps) => {
   const { name: themeName } = useTheme();

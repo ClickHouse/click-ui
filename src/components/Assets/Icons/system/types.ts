@@ -1,4 +1,8 @@
+import type { SVGAttributes } from 'react';
 import type { SVGAssetProps } from '../../types';
+import { ThemeName } from '@/theme/theme.types';
+import { type DeprecatedIconName } from './retroactiveNames';
+import type { IconSize } from '@/types';
 
 export type IconName =
   | 'activity'
@@ -169,5 +173,11 @@ export type IconName =
   | 'users'
   | 'warning'
   | 'waves';
+
+export interface IconProps extends SVGAttributes<SVGElement> {
+  name: IconName | DeprecatedIconName;
+  theme?: ThemeName;
+  size?: IconSize;
+}
 
 export type { SVGAssetProps };
