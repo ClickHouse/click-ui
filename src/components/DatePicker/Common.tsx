@@ -188,7 +188,7 @@ const GridContainer = styled.div`
   padding: 0.25rem 0 0;
 
   ${({ theme }) => `
-    gap: ${theme.click.datePicker.space.gap} * 2;
+    gap: calc(${theme.click.datePicker.space.gap} * 2);
   `}
 `;
 
