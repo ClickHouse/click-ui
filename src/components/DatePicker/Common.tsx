@@ -43,20 +43,45 @@ interface DatePickerInputProps {
   isActive: boolean;
   disabled: boolean;
   id?: string;
+  partialMonth?: number;
+  partialYear?: number;
   placeholder?: string;
   selectedDate?: Date;
 }
+
+const formatPartialDate = (
+  selectedDate?: Date,
+  partialYear?: number,
+  partialMonth?: number
+): string => {
+  if (typeof partialYear === 'number' && typeof partialMonth === 'number') {
+    const date = new Date(partialYear, partialMonth, 1);
+    return headerDateFormatter.format(date);
+  }
+  if (typeof partialYear === 'number') {
+    return String(partialYear);
+  }
+  if (selectedDate instanceof Date) {
+    return selectedDateFormatter.format(selectedDate);
+  }
+  return '';
+};
 
 export const DatePickerInput = ({
   isActive,
   disabled,
   id,
+  partialMonth,
+  partialYear,
   placeholder,
   selectedDate,
 }: DatePickerInputProps) => {
   const defaultId = useId();
-  const formattedSelectedDate =
-    selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : '';
+  const formattedSelectedDate = formatPartialDate(
+    selectedDate,
+    partialYear,
+    partialMonth
+  );
 
   return (
     <HighlightedInputWrapper
@@ -308,6 +333,8 @@ export type Body = ReturnType<typeof useCalendar>['body'];
 interface CalendarRendererProps {
   calendarOptions?: UseCalendarOptions;
   children: (body: Body) => ReactNode;
+  onYearSelect?: (year: number) => void;
+  onMonthSelect?: (year: number, month: number) => void;
 }
 
 const monthAbbreviations = getMonthNames('short');
@@ -355,6 +382,8 @@ const DateSelectNav = ({
 export const CalendarRenderer = ({
   calendarOptions = {},
   children,
+  onYearSelect,
+  onMonthSelect,
   ...props
 }: CalendarRendererProps) => {
   const { body, headers, month, navigation, year } = useCalendar({
@@ -391,10 +420,14 @@ export const CalendarRenderer = ({
     setView(YEARS);
   }, [view]);
 
-  const onYearSelection = useCallback((yearValue: number) => {
-    setSelectedYear(yearValue);
-    setView(MONTHS);
-  }, []);
+  const onYearSelection = useCallback(
+    (yearValue: number) => {
+      setSelectedYear(yearValue);
+      setView(MONTHS);
+      onYearSelect?.(yearValue);
+    },
+    [onYearSelect]
+  );
 
   const onMonthSelection = useCallback(
     (monthIndex: number) => {
@@ -402,12 +435,13 @@ export const CalendarRenderer = ({
       const newDate = new Date(finalYear, monthIndex, 1);
 
       navigation.setDate(newDate);
+      onMonthSelect?.(finalYear, monthIndex);
 
       setView(DAYS);
       setSelectedYear(null);
       setYearOffset(0);
     },
-    [selectedYear, year, navigation]
+    [selectedYear, year, navigation, onMonthSelect]
   );
 
   const headerDate = new Date();
