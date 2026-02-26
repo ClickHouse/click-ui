@@ -1,0 +1,107 @@
+name: 🐛 Bug report
+description: Something's not looking or behaving right in the component library
+title: "[Bug]: "
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this! The more detail you can share, the faster we can fix it. 🙏
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect to see, and what did you get instead?
+      placeholder: "Expected: the Button renders with correct padding. Actual: padding is missing on the left side."
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component(s) affected
+      description: Which component(s) is this related to?
+      placeholder: "e.g. Button, Modal, Tooltip"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: Step-by-step instructions to reproduce the issue. A CodeSandbox or StackBlitz link is super helpful here!
+      placeholder: |
+        1. Render `<Button variant="primary" />`
+        2. Resize the viewport to mobile
+        3. See the layout shift
+    validations:
+      required: true
+
+  - type: input
+    id: library-version
+    attributes:
+      label: Click UI Version
+      placeholder: "e.g. 0.250.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Browser(s)
+      description: Which browsers are you seeing this in?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "e.g. macOS 14, Windows 11, iOS 17"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Is this a regression?
+      description: Did this work in a previous version?
+      options:
+        - "Yes, it worked before"
+        - "No, never worked as far as I know"
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: last-working-version
+    attributes:
+      label: Last working version (if regression)
+      placeholder: "e.g. 2.1.0"
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recording
+      description: |
+        Visual bugs are much easier to diagnose with a screenshot or screen recording. Drop one in here if you can!
+        Tip: you can paste images directly into this field.
+
+  - type: checkboxes
+    id: visual-checklist
+    attributes:
+      label: Visual / UX checklist
+      options:
+        - label: Checked in both light and dark mode (if applicable)
+        - label: Checked at different viewport sizes (if applicable)
+        - label: Checked with keyboard navigation (if applicable)
+        - label: Checked for visual regressions in related components
