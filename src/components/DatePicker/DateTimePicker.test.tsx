@@ -218,6 +218,62 @@ describe('DateTimePicker', () => {
         );
       });
 
+      it("retains the start date's time if time is set and date is changed", async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('4'));
+        await userEvent.click(getByTestId('date-time-picker-time-input'));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard(
+          '{backspace}{backspace}{backspace}{backspace}{backspace}2:37'
+        );
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 04, 02:37 pm – end date'
+        );
+
+        await userEvent.click(getByText('5'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 05, 02:37 pm – end date'
+        );
+      });
+
+      it("retains the end date's time if time is set and date is changed", async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+
+        await userEvent.click(getByText('4'));
+        await userEvent.click(getByTestId('date-time-picker-time-input'));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard(
+          '{backspace}{backspace}{backspace}{backspace}{backspace}3:15'
+        );
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'start date – Jul 04, 03:15 pm'
+        );
+
+        await userEvent.click(getByText('10'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'start date – Jul 10, 03:15 pm'
+        );
+      });
+
       it('automatically switches to end date the first time meridiem is set on start date', async () => {
         const handleSelectDate = vi.fn();
 

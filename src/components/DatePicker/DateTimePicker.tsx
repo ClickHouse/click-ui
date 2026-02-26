@@ -788,7 +788,13 @@ export const DateTimePicker = ({
 
   const handleSelectDate = useCallback(
     (selectedDate: Date, calendarType: CalendarType): void => {
-      selectedDate.setHours(12); // set the time to 12 noon
+      if (
+        selectedDate.getHours() === 0 &&
+        selectedDate.getMinutes() === 0 &&
+        selectedDate.getSeconds() === 0
+      ) {
+        selectedDate.setHours(12); // set the time to 12 noon if time hasn't been set yet
+      }
 
       if (calendarType === 'startDate') {
         setSelectedStartDate(selectedDate);
