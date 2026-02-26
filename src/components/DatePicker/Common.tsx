@@ -182,18 +182,24 @@ const ClickableTitle = styled.button`
   ${({ theme }) => `
     color: ${theme.click.datePicker.color.title.default};
     font: ${theme.click.datePicker.typography.title.default};
+    border: 1px solid transparent;
   `}
 
   background: transparent;
-  border: none;
   cursor: pointer;
   user-select: none;
   padding: 0.25rem 0.5rem;
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
+  outline: none;
 
   &:hover {
     background: ${({ theme }) =>
       theme.click.datePicker.dateOption.color.background.hover};
+  }
+
+  &:focus,
+  &:focus-visible {
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
   }
 `;
 
@@ -322,39 +328,35 @@ export const DateTableCell = styled.td<{
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
-
   text-align: center;
+  outline: none;
 
-  &:hover {
-    ${({ $isDisabled, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+  ${({ $isDisabled, theme }) => `
+    &:hover {
+      border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
+      border-radius: ${theme.click.datePicker.dateOption.radii.default};
+    }
 
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
-  }
-
-  &:focus {
-    ${({ $isDisabled, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+    &:focus {
+      border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-    outline: none;`};
-  }
+    }
 
-  &:focus-visible {
-    ${({ $isDisabled, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+    &:focus-visible {
+      border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-    outline: none;`};
-  }
+    }
+  `}
 `;
 
 export type Body = ReturnType<typeof useCalendar>['body'];
@@ -370,7 +372,15 @@ const monthAbbreviations = getMonthNames('short');
 
 type DateViewOption = 'days' | 'months' | 'years';
 
-const EmptyDateSelectNav = styled(IconButton)`
+const StyledIconButton = styled(IconButton)`
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+  }
+`;
+
+const EmptyDateSelectNav = styled(StyledIconButton)`
   visibility: hidden;
   pointer-events: none;
 `;
@@ -398,7 +408,7 @@ const DateSelectNav = ({
     );
   }
   return (
-    <IconButton
+    <StyledIconButton
       data-testid={id}
       icon={icon}
       onClick={onClick}
