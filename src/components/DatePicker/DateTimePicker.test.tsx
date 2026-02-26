@@ -268,6 +268,24 @@ describe('DateTimePicker', () => {
         expect(startDateButton).toHaveAttribute('data-state', 'active');
         expect(endDateButton).not.toHaveAttribute('data-state', 'active');
       });
+
+      it('can select an end date before a start date is selected', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+
+        await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+
+        await userEvent.click(getByText('4'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'start date – Jul 04, 12:00 pm'
+        );
+      });
     });
   });
 

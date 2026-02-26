@@ -792,14 +792,21 @@ export const DateTimePicker = ({
 
       if (calendarType === 'startDate') {
         setSelectedStartDate(selectedDate);
+
+        if (selectedEndDate) {
+          onSelectDateRange(selectedDate, selectedEndDate);
+        }
       }
 
-      if (calendarType === 'endDate' && selectedStartDate) {
+      if (calendarType === 'endDate') {
         setSelectedEndDate(selectedDate);
-        onSelectDateRange(selectedStartDate, selectedDate);
+
+        if (selectedStartDate) {
+          onSelectDateRange(selectedStartDate, selectedDate);
+        }
       }
     },
-    [onSelectDateRange, selectedStartDate]
+    [onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
   const shouldShowPredefinedTimes =
