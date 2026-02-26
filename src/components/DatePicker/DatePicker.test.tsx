@@ -49,8 +49,6 @@ describe('DatePicker', () => {
   });
 
   describe('disabling dates', () => {
-    // this test was throwing an error if `vi.useFakeTimers` was called outside
-    // of beforeAll, so it needed to be put in here
     beforeAll(() => {
       vi.useFakeTimers();
       vi.setSystemTime(new Date(2020, 6, 5));
@@ -241,10 +239,8 @@ describe('DatePicker', () => {
       const yearCell = getByTestId('year-cell-2020');
       expect(yearCell).toBeInTheDocument();
 
-      // Year cell should be focusable (tabIndex >= 0)
       expect(yearCell.getAttribute('tabindex')).not.toBe('-1');
 
-      // Focus and press Enter to select
       yearCell.focus();
       expect(document.activeElement).toBe(yearCell);
 
@@ -271,15 +267,12 @@ describe('DatePicker', () => {
       const yearCell2020 = getByTestId('year-cell-2020');
       yearCell2020.focus();
 
-      // Press ArrowRight - should move focus to next year
       await userEvent.keyboard('{ArrowRight}');
       expect(document.activeElement).toBe(getByTestId('year-cell-2021'));
 
-      // Press ArrowLeft - should move focus back
       await userEvent.keyboard('{ArrowLeft}');
       expect(document.activeElement).toBe(getByTestId('year-cell-2020'));
 
-      // Press ArrowDown - should move down by column count (3)
       await userEvent.keyboard('{ArrowDown}');
       expect(document.activeElement).toBe(getByTestId('year-cell-2023'));
     });
@@ -302,11 +295,9 @@ describe('DatePicker', () => {
       const monthCell = getByTestId('month-cell-0');
       expect(monthCell).toBeInTheDocument();
 
-      // Month cell should be focusable
       monthCell.focus();
       expect(document.activeElement).toBe(monthCell);
 
-      // Press Space to select
       await userEvent.keyboard(' ');
 
       expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
@@ -330,15 +321,12 @@ describe('DatePicker', () => {
       const janCell = getByTestId('month-cell-0');
       janCell.focus();
 
-      // Press ArrowRight - should move to Feb
       await userEvent.keyboard('{ArrowRight}');
       expect(document.activeElement).toBe(getByTestId('month-cell-1'));
 
-      // Press ArrowDown - should move down by column count (4) to May
       await userEvent.keyboard('{ArrowDown}');
       expect(document.activeElement).toBe(getByTestId('month-cell-5'));
 
-      // Press ArrowUp - should move back to Feb
       await userEvent.keyboard('{ArrowUp}');
       expect(document.activeElement).toBe(getByTestId('month-cell-1'));
     });
@@ -360,7 +348,6 @@ describe('DatePicker', () => {
       title.focus();
       expect(document.activeElement).toBe(title);
 
-      // Press Enter on title should open year selection
       await userEvent.keyboard('{Enter}');
       expect(getByTestId('years-grid')).toBeInTheDocument();
     });
@@ -378,16 +365,13 @@ describe('DatePicker', () => {
 
       await userEvent.click(getByTestId('datepicker-input'));
 
-      // Focus the selected day (4) manually since auto-focus may not work in test
       const day4 = getByText('4');
       day4.focus();
       expect(document.activeElement).toBe(day4);
 
-      // Press ArrowRight - should move to day 5
       await userEvent.keyboard('{ArrowRight}');
       expect(document.activeElement).toBe(getByText('5'));
 
-      // Press Enter to select day 5
       await userEvent.keyboard('{Enter}');
 
       const selectedDate = onSelectDate.mock.lastCall?.[0];
