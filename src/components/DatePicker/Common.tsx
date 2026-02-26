@@ -1,6 +1,14 @@
 import { styled } from 'styled-components';
 import { InputElement, InputStartContent, InputWrapper } from '../Input/InputWrapper';
-import { KeyboardEvent, ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
+import {
+  KeyboardEvent,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
 import { Icon } from '../Icon/Icon';
 import { Container } from '../Container/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
@@ -373,10 +381,13 @@ const monthAbbreviations = getMonthNames('short');
 type DateViewOption = 'days' | 'months' | 'years';
 
 const StyledIconButton = styled(IconButton)`
-  &:focus,
-  &:focus-visible {
-    outline: none;
-    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+  && {
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      border: ${({ theme }) => theme.click.datePicker.dateOption.stroke} solid
+        ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+    }
   }
 `;
 
@@ -590,7 +601,11 @@ export const CalendarRenderer = ({
 
   const renderMonthsGrid = () => {
     return (
-      <MonthsGrid data-testid="months-grid" role="grid" aria-label="Select month">
+      <MonthsGrid
+        data-testid="months-grid"
+        role="grid"
+        aria-label="Select month"
+      >
         {monthAbbreviations.map((abbr, index) => (
           <GridCell
             key={abbr}
@@ -621,7 +636,11 @@ export const CalendarRenderer = ({
     }
 
     return (
-      <YearsGrid data-testid="years-grid" role="grid" aria-label="Select year">
+      <YearsGrid
+        data-testid="years-grid"
+        role="grid"
+        aria-label="Select year"
+      >
         {years.map((currYear, index) => (
           <GridCell
             key={currYear}
