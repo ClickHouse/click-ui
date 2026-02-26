@@ -53,11 +53,9 @@ const Calendar = ({
   selectedDate,
   setSelectedDate,
 }: CalendarProps) => {
-  // Flatten the calendar body into a single array for easier index-based navigation
   const allDays = calendarBody.value.flatMap(week => week.value);
   const totalDays = allDays.length;
 
-  // Find the index of the selected date or today
   const today = new Date();
   const initialFocusIndex = allDays.findIndex(day =>
     selectedDate ? isSameDate(selectedDate, day.value) : isSameDate(today, day.value)
@@ -68,7 +66,6 @@ const Calendar = ({
   );
   const dayRefs = useRef<(HTMLTableCellElement | null)[]>([]);
 
-  // Auto-focus the first focusable day when calendar opens
   useEffect(() => {
     dayRefs.current[focusedDayIndex]?.focus();
   }, []);
@@ -184,7 +181,6 @@ export const DatePicker = ({
 
   const calendarOptions: UseCalendarOptions = {};
 
-  // If a date is selected, open the calendar to that date
   if (selectedDate) {
     calendarOptions.defaultDate = selectedDate;
   }
