@@ -167,6 +167,7 @@ const Calendar = ({
               $shouldShowRangeIndicator={
                 !isSelected && (shouldShowRangeIndicator || isBetweenStartAndEndDates)
               }
+              $hasSelection={!!startDate}
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}

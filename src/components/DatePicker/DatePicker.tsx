@@ -37,6 +37,7 @@ const Calendar = ({
 
           return (
             <DateTableCell
+              $hasSelection={!!selectedDate}
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
