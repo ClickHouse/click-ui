@@ -440,6 +440,7 @@ export const CalendarRenderer = ({
         {monthAbbreviations.map((abbr, index) => (
           <GridCell
             key={abbr}
+            $isActive={index === month}
             onClick={() => onMonthSelection(index)}
             data-testid={`month-cell-${index}`}
           >
