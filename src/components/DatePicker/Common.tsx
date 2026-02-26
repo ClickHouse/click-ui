@@ -11,8 +11,8 @@ import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 import { IconName } from '@/components/Icon/types';
 
 const explicitWidth = '250px';
-const TXT_ON_MONTH_SELECT = 'Select Month';
-const TXT_ON_YEAR_SELECT = 'Select Year';
+const TXT_ON_MONTH_SELECT = 'Month';
+const TXT_ON_YEAR_SELECT = 'Year';
 
 const VIEW_GRID_MONTHS = {
   columns: 4,
@@ -359,7 +359,7 @@ export const CalendarRenderer = ({
   });
 
   const [view, setView] = useState<DateViewOption>(DAYS);
-  const [selectedMonthIndex, setSelectedMonthIndex] = useState<number | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [yearOffset, setYearOffset] = useState(0);
 
   const onNextClick = useCallback(() => {
@@ -384,27 +384,26 @@ export const CalendarRenderer = ({
       return;
     }
 
-    setView(MONTHS);
+    setView(YEARS);
   }, [view]);
 
-  const onMonthSelection = useCallback((monthIndex: number) => {
-    setSelectedMonthIndex(monthIndex);
-    setView(YEARS);
+  const onYearSelection = useCallback((yearValue: number) => {
+    setSelectedYear(yearValue);
+    setView(MONTHS);
   }, []);
 
-  const onYearSelection = useCallback(
-    (selectedYear: number) => {
-      const finalMonth =
-        typeof selectedMonthIndex === 'number' ? selectedMonthIndex : month;
-      const newDate = new Date(selectedYear, finalMonth, 1);
+  const onMonthSelection = useCallback(
+    (monthIndex: number) => {
+      const finalYear = typeof selectedYear === 'number' ? selectedYear : year;
+      const newDate = new Date(finalYear, monthIndex, 1);
 
       navigation.setDate(newDate);
 
       setView(DAYS);
-      setSelectedMonthIndex(null);
+      setSelectedYear(null);
       setYearOffset(0);
     },
-    [selectedMonthIndex, month, navigation]
+    [selectedYear, year, navigation]
   );
 
   const headerDate = new Date();
