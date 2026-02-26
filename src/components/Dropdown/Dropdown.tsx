@@ -115,7 +115,7 @@ const DropdownContent = ({
         as={ContentElement}
         sideOffset={4}
         loop
-        collisionPadding={100}
+        avoidCollisions={false}
         {...props}
       >
         {showArrow && (
