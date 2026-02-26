@@ -291,7 +291,12 @@ export const DateTableCell = styled.td<{
   text-align: center;
 
   ${({ $isToday, theme }) =>
-    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
+    $isToday &&
+    `
+    background: ${theme.click.datePicker.dateOption.color.background.active};
+    color: ${theme.click.datePicker.dateOption.color.label.active};
+    font: ${theme.click.datePicker.dateOption.typography.label.active};
+  `}
 
   &:hover {
     ${({ $isDisabled, theme }) =>
