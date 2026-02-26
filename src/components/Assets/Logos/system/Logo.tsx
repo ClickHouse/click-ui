@@ -5,6 +5,7 @@ import LogosDark from './LogosDark';
 import { IconSize } from '@/components/Icon/types';
 import { LogoName } from './types';
 import { SvgImageElement } from '@/components/commonElement';
+import type { ThemeName } from '@/theme';
 
 // TODO: This is introducing complexity and more to maintain
 // might be best to just deprecate (break change) instead of
@@ -29,7 +30,7 @@ export interface LogoProps extends SVGAttributes<SVGElement> {
 const Logo = ({ name, theme, size, ...props }: LogoProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const resolvedTheme = theme ?? themeName ?? 'light';
+  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? 'light';
   const Component =
     resolvedTheme === 'light' ? LogosLight[resolvedName] : LogosDark[resolvedName];
 

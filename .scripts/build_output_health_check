@@ -1,0 +1,47 @@
+#!/bin/bash
+
+
+DIST_DIR="dist"
+MIN_SIZE_KB="100"
+
+echo "🚑 Build $DIST_DIR output health check..."
+
+dirExists() {
+  if [[ ! -d "$1" ]]; then
+    echo "👹 Oops! Couldn't find the directory $1"
+
+    if [[ "$1" != "$DIST_DIR" ]]; then
+      echo "💡 Have you modified the distribution file architecture and forgot to update this checkup?"
+    fi
+
+    exit 1;
+  fi
+}
+
+dirExists "$DIST_DIR"
+
+for dir in cjs esm types; do
+  full_path="$DIST_DIR/$dir"
+
+  dirExists "$full_path"
+
+  file_count=$(find "$full_path" -type f | wc -l)
+  file_count=$(echo "$file_count" | xargs)
+
+  if [[ "$file_count" -eq 0 ]]; then
+    echo "👹 Oops! The directory $full_path has $file_count files. Is this expected?"
+
+    exit 1;
+  fi
+
+  dir_size=$(du -sk "$full_path" | cut -f1)
+
+  if [[ "$dir_size" -lt "$MIN_SIZE_KB" ]]; then
+    echo "👹 Oops! The directory $full_path size is smaller than minimum expected size of $MIN_SIZE_KB KB"
+
+    exit 1;
+  fi
+done
+
+echo "👍 Done! Build $DIST_DIR output health check completed."
+exit 0
