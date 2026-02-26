@@ -270,13 +270,15 @@ const GridCell = styled.button<{ $isActive?: boolean }>`
   }
 
   &:focus {
-    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
     outline: none;
+    border-color: ${({ $isActive, theme }) =>
+      $isActive ? '#0066CC' : theme.click.datePicker.dateOption.color.stroke.hover};
   }
 
   &:focus-visible {
-    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
     outline: none;
+    border-color: ${({ $isActive, theme }) =>
+      $isActive ? '#0066CC' : theme.click.datePicker.dateOption.color.stroke.hover};
   }
 `;
 
@@ -339,7 +341,7 @@ export const DateTableCell = styled.td<{
   text-align: center;
   outline: none;
 
-  ${({ $isDisabled, theme }) => `
+  ${({ $isDisabled, $isSelected, theme }) => `
     &:hover {
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
@@ -353,7 +355,9 @@ export const DateTableCell = styled.td<{
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
+          : $isSelected
+            ? '#0066CC'
+            : theme.click.datePicker.dateOption.color.stroke.hover
       };
     }
 
@@ -361,7 +365,9 @@ export const DateTableCell = styled.td<{
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
+          : $isSelected
+            ? '#0066CC'
+            : theme.click.datePicker.dateOption.color.stroke.hover
       };
     }
   `}
