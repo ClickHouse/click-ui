@@ -364,5 +364,34 @@ describe('DatePicker', () => {
       await userEvent.keyboard('{Enter}');
       expect(getByTestId('years-grid')).toBeInTheDocument();
     });
+
+    it('day grid supports keyboard navigation and Enter to select', async () => {
+      const onSelectDate = vi.fn();
+      const date = new Date('07-04-2020');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={onSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+
+      // Focus the selected day (4) manually since auto-focus may not work in test
+      const day4 = getByText('4');
+      day4.focus();
+      expect(document.activeElement).toBe(day4);
+
+      // Press ArrowRight - should move to day 5
+      await userEvent.keyboard('{ArrowRight}');
+      expect(document.activeElement).toBe(getByText('5'));
+
+      // Press Enter to select day 5
+      await userEvent.keyboard('{Enter}');
+
+      const selectedDate = onSelectDate.mock.lastCall?.[0];
+      expect(selectedDate.getDate()).toBe(5);
+    });
   });
 });

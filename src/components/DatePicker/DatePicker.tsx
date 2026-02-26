@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import * as Popover from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
+
+const DAYS_IN_WEEK = 7;
 
 const PopoverTrigger = styled(Popover.Trigger)`
   background: none;
@@ -51,15 +53,77 @@ const Calendar = ({
   selectedDate,
   setSelectedDate,
 }: CalendarProps) => {
+  // Flatten the calendar body into a single array for easier index-based navigation
+  const allDays = calendarBody.value.flatMap(week => week.value);
+  const totalDays = allDays.length;
+
+  // Find the index of the selected date or today
+  const today = new Date();
+  const initialFocusIndex = allDays.findIndex(day =>
+    selectedDate ? isSameDate(selectedDate, day.value) : isSameDate(today, day.value)
+  );
+
+  const [focusedDayIndex, setFocusedDayIndex] = useState(
+    initialFocusIndex >= 0 ? initialFocusIndex : 0
+  );
+  const dayRefs = useRef<(HTMLTableCellElement | null)[]>([]);
+
+  // Auto-focus the first focusable day when calendar opens
+  useEffect(() => {
+    dayRefs.current[focusedDayIndex]?.focus();
+  }, []);
+
+  const onDayKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTableCellElement>, index: number, fullDate: Date, isDisabled: boolean) => {
+      let newIndex = index;
+
+      switch (e.key) {
+        case 'ArrowRight':
+          e.preventDefault();
+          newIndex = (index + 1) % totalDays;
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          newIndex = (index - 1 + totalDays) % totalDays;
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          newIndex = (index + DAYS_IN_WEEK) % totalDays;
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          newIndex = (index - DAYS_IN_WEEK + totalDays) % totalDays;
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          if (!isDisabled) {
+            setSelectedDate(fullDate);
+            closeDatepicker();
+          }
+          return;
+        default:
+          return;
+      }
+
+      setFocusedDayIndex(newIndex);
+      dayRefs.current[newIndex]?.focus();
+    },
+    [totalDays, setSelectedDate, closeDatepicker]
+  );
+
+  let dayIndex = 0;
+
   return calendarBody.value.map(({ key: weekKey, value: week }) => {
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-          const today = new Date();
           const isSelected = selectedDate
             ? isSameDate(selectedDate, fullDate)
             : isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
+          const currentIndex = dayIndex;
+          dayIndex++;
 
           const handleClick = () => {
             if (isDisabled) {
@@ -71,11 +135,18 @@ const Calendar = ({
 
           return (
             <DateTableCell
+              ref={el => {
+                dayRefs.current[currentIndex] = el;
+              }}
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
               key={dayKey}
               onClick={handleClick}
+              onKeyDown={e => onDayKeyDown(e, currentIndex, fullDate, isDisabled)}
+              tabIndex={currentIndex === focusedDayIndex ? 0 : -1}
+              role="gridcell"
+              aria-label={fullDate.toDateString()}
             >
               {date}
             </DateTableCell>

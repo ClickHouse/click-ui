@@ -333,8 +333,27 @@ export const DateTableCell = styled.td<{
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
 
-
     border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
+  }
+
+  &:focus {
+    ${({ $isDisabled, theme }) =>
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+        $isDisabled
+          ? theme.click.datePicker.dateOption.color.stroke.disabled
+          : theme.click.datePicker.dateOption.color.stroke.hover
+      };
+    outline: none;`};
+  }
+
+  &:focus-visible {
+    ${({ $isDisabled, theme }) =>
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
+        $isDisabled
+          ? theme.click.datePicker.dateOption.color.stroke.disabled
+          : theme.click.datePicker.dateOption.color.stroke.hover
+      };
+    outline: none;`};
   }
 `;
 
