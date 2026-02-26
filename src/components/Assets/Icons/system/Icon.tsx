@@ -10,6 +10,7 @@ import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import type { IconName } from './types';
 import type { IconSize } from '@/types';
 
+// TODO: Move to types
 export interface IconProps extends SVGAttributes<SVGElement> {
   name: IconName | DeprecatedIconName;
   theme?: ThemeName;

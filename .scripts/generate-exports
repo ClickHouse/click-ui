@@ -19,26 +19,33 @@ const exports = {
   },
 };
 
-const components = fs.readdirSync(componentsDir, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory())
-  .map(dirent => dirent.name);
+try {
+  const components = fs.readdirSync(componentsDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
 
-for (const component of components) {
-  const esmPath = `./dist/esm/components/${component}/index.js`;
-  const cjsPath = `./dist/cjs/components/${component}/index.cjs`;
-  const typesPath = `./dist/types/components/${component}/index.d.ts`;
+  for (const component of components) {
+    const esmPath = `./dist/esm/components/${component}/index.js`;
+    const cjsPath = `./dist/cjs/components/${component}/index.cjs`;
+    const typesPath = `./dist/types/components/${component}/index.d.ts`;
 
-  if (fs.existsSync(path.join(rootDir, esmPath))) {
-    exports[`./${component}`] = {
-      types: typesPath,
-      import: esmPath,
-      require: cjsPath,
-    };
+    if (fs.existsSync(path.join(rootDir, esmPath))) {
+      exports[`./${component}`] = {
+        types: typesPath,
+        import: esmPath,
+        require: cjsPath,
+      };
+    }
   }
+
+  packageJson.exports = exports;
+
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+
+  console.log(`Generated exports for ${Object.keys(exports).length - 2} components`);
+
+  process.exit(0);
+} catch (err) {
+  console.error(err);
+  process.exit(1);
 }
-
-packageJson.exports = exports;
-
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
-
-console.log(`Generated exports for ${Object.keys(exports).length - 2} components`);
