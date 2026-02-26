@@ -227,7 +227,7 @@ const YearsGrid = styled(GridContainer)`
   grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
 `;
 
-const GridCell = styled.button.attrs({ type: 'button' })<{ $isActive?: boolean }>`
+const GridCell = styled.button<{ $isActive?: boolean }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
     border-radius: ${theme.click.datePicker.dateOption.radii.default};
@@ -565,6 +565,7 @@ export const CalendarRenderer = ({
         {monthAbbreviations.map((abbr, index) => (
           <GridCell
             key={abbr}
+            type="button"
             ref={el => {
               monthGridRef.current[index] = el;
             }}
@@ -595,6 +596,7 @@ export const CalendarRenderer = ({
         {years.map((currYear, index) => (
           <GridCell
             key={currYear}
+            type="button"
             ref={el => {
               yearGridRef.current[index] = el;
             }}

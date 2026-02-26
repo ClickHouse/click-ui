@@ -24,6 +24,13 @@ const PopoverContent = styled(Popover.Content)`
   z-index: 1;
   outline: none;
 
+  ${({ theme }) => `
+    border: 1px solid ${theme.click.genericMenu.panel.color.stroke.default};
+    background: ${theme.click.genericMenu.panel.color.background.default};
+    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
+    border-radius: ${theme.click.genericMenu.panel.radii.all};
+  `}
+
   &:focus {
     outline: none;
   }
