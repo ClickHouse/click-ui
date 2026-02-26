@@ -202,12 +202,19 @@ const YearsGrid = styled(GridContainer)`
   grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
 `;
 
-const GridCell = styled.div`
+const GridCell = styled.div<{ $isActive?: boolean }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
     border-radius: ${theme.click.datePicker.dateOption.radii.default};
     font: ${theme.click.datePicker.dateOption.typography.label.default};
     color: ${theme.click.datePicker.dateOption.color.label.default};
+  `}
+
+  ${({ $isActive, theme }) =>
+    $isActive &&
+    `
+    background: ${theme.click.datePicker.dateOption.color.background.active};
+    color: ${theme.click.datePicker.dateOption.color.label.active};
   `}
 
   display: flex;
@@ -452,6 +459,7 @@ export const CalendarRenderer = ({
         {years.map(currYear => (
           <GridCell
             key={currYear}
+            $isActive={currYear === year}
             onClick={() => onYearSelection(currYear)}
             data-testid={`year-cell-${currYear}`}
           >
