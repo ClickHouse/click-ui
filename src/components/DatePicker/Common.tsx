@@ -272,13 +272,17 @@ const GridCell = styled.button<{ $isActive?: boolean }>`
   &:focus {
     outline: none;
     border-color: ${({ $isActive, theme }) =>
-      $isActive ? '#0066CC' : theme.click.datePicker.dateOption.color.stroke.hover};
+      $isActive
+        ? theme.click.button.basic.color.primary.stroke.active
+        : theme.click.datePicker.dateOption.color.stroke.hover};
   }
 
   &:focus-visible {
     outline: none;
     border-color: ${({ $isActive, theme }) =>
-      $isActive ? '#0066CC' : theme.click.datePicker.dateOption.color.stroke.hover};
+      $isActive
+        ? theme.click.button.basic.color.primary.stroke.active
+        : theme.click.datePicker.dateOption.color.stroke.hover};
   }
 `;
 
@@ -356,7 +360,7 @@ export const DateTableCell = styled.td<{
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : $isSelected
-            ? '#0066CC'
+            ? theme.click.button.basic.color.primary.stroke.active
             : theme.click.datePicker.dateOption.color.stroke.hover
       };
     }
@@ -366,7 +370,10 @@ export const DateTableCell = styled.td<{
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : $isSelected
-            ? '#0066CC'
+            ? theme.click.button.basic.color.primary.stroke.active
+            : theme.click.datePicker.dateOption.color.stroke.hover
+      };
+    }
             : theme.click.datePicker.dateOption.color.stroke.hover
       };
     }
