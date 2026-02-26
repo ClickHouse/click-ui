@@ -4,15 +4,32 @@ import {
   InputStartContent,
   InputWrapper,
 } from '@/components/Input/InputWrapper';
-import { ReactNode, useCallback, useId } from 'react';
-import { Icon } from '@/components/Icon';
+import { ReactNode, useCallback, useId, useState } from 'react';
+import { Icon, IconName } from '@/components/Icon';
 import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
-import { IconButton } from '@/components/IconButton';
+import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Typography';
+
 import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
+import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 
 const explicitWidth = '250px';
+const TXT_ON_MONTH_SELECT = 'Month';
+const TXT_ON_YEAR_SELECT = 'Year';
+
+const VIEW_GRID_MONTHS = {
+  columns: 4,
+  rows: 3,
+} as const;
+
+const VIEW_GRID_YEARS = {
+  columns: 3,
+  rows: 3,
+} as const;
+
+const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
+const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
 
 const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
   ${({ $isActive, theme }) => {
@@ -30,20 +47,45 @@ interface DatePickerInputProps {
   isActive: boolean;
   disabled: boolean;
   id?: string;
+  partialMonth?: number;
+  partialYear?: number;
   placeholder?: string;
   selectedDate?: Date;
 }
+
+const formatPartialDate = (
+  selectedDate?: Date,
+  partialYear?: number,
+  partialMonth?: number
+): string => {
+  if (typeof partialYear === 'number' && typeof partialMonth === 'number') {
+    const date = new Date(partialYear, partialMonth, 1);
+    return headerDateFormatter.format(date);
+  }
+  if (typeof partialYear === 'number') {
+    return String(partialYear);
+  }
+  if (selectedDate instanceof Date) {
+    return selectedDateFormatter.format(selectedDate);
+  }
+  return '';
+};
 
 export const DatePickerInput = ({
   isActive,
   disabled,
   id,
+  partialMonth,
+  partialYear,
   placeholder,
   selectedDate,
 }: DatePickerInputProps) => {
   const defaultId = useId();
-  const formattedSelectedDate =
-    selectedDate instanceof Date ? selectedDateFormatter.format(selectedDate) : '';
+  const formattedSelectedDate = formatPartialDate(
+    selectedDate,
+    partialYear,
+    partialMonth
+  );
 
   return (
     <HighlightedInputWrapper
@@ -140,13 +182,81 @@ const DatePickerContainer = styled(Container)`
     theme.click.datePicker.dateOption.color.background.default};
 `;
 
+const ClickableTitle = styled.button`
+  ${({ theme }) => `
+    color: ${theme.click.datePicker.color.title.default};
+    font: ${theme.click.datePicker.typography.title.default};
+  `}
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
+
+  &:hover {
+    background: ${({ theme }) =>
+      theme.click.datePicker.dateOption.color.background.hover};
+  }
+`;
+
 const UnselectableTitle = styled.h2`
   ${({ theme }) => `
     color: ${theme.click.datePicker.color.title.default};
     font: ${theme.click.datePicker.typography.title.default};
   `}
 
+  margin: 0;
+  padding: 0;
   user-select: none;
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  padding: 0.25rem 0 0;
+
+  ${({ theme }) => `
+    gap: calc(${theme.click.datePicker.space.gap} * 2);
+  `}
+`;
+
+const MonthsGrid = styled(GridContainer)`
+  grid-template-columns: repeat(${VIEW_GRID_MONTHS.columns}, 1fr);
+  grid-template-rows: repeat(${VIEW_GRID_MONTHS.rows}, 1fr);
+`;
+
+const YearsGrid = styled(GridContainer)`
+  grid-template-columns: repeat(${VIEW_GRID_YEARS.columns}, 1fr);
+  grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
+`;
+
+const GridCell = styled.div<{ $isActive?: boolean }>`
+  ${({ theme }) => `
+    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
+    border-radius: ${theme.click.datePicker.dateOption.radii.default};
+    font: ${theme.click.datePicker.dateOption.typography.label.default};
+    color: ${theme.click.datePicker.dateOption.color.label.default};
+  `}
+
+  ${({ $isActive, theme }) =>
+    $isActive &&
+    `
+    background: ${theme.click.datePicker.dateOption.color.background.active};
+    color: ${theme.click.datePicker.dateOption.color.label.active};
+  `}
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  cursor: pointer;
+  text-align: center;
+  min-height: 26px;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+  }
 `;
 
 const DateTable = styled.table`
@@ -184,7 +294,6 @@ export const DateTableCell = styled.td<{
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
-  $isToday?: boolean;
 }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
@@ -209,9 +318,6 @@ export const DateTableCell = styled.td<{
 
   text-align: center;
 
-  ${({ $isToday, theme }) =>
-    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
-
   &:hover {
     ${({ $isDisabled, theme }) =>
       `border: ${theme.click.datePicker.dateOption.stroke} solid ${
@@ -230,11 +336,57 @@ export type Body = ReturnType<typeof useCalendar>['body'];
 interface CalendarRendererProps {
   calendarOptions?: UseCalendarOptions;
   children: (body: Body) => ReactNode;
+  onYearSelect?: (year: number) => void;
+  onMonthSelect?: (year: number, month: number) => void;
 }
+
+const monthAbbreviations = getMonthNames('short');
+
+type DateViewOption = 'days' | 'months' | 'years';
+
+const EmptyDateSelectNav = styled(IconButton)`
+  visibility: hidden;
+  pointer-events: none;
+`;
+
+const DateSelectNav = ({
+  id,
+  icon,
+  onClick,
+  view,
+  size = 'sm',
+}: {
+  id: string;
+  icon: Extract<IconName, 'chevron-left' | 'chevron-right'>;
+  onClick: () => void;
+  view: DateViewOption;
+  size?: IconButtonSize;
+}) => {
+  if (view === MONTHS) {
+    return (
+      <EmptyDateSelectNav
+        icon={icon}
+        size={size}
+        type="ghost"
+      />
+    );
+  }
+  return (
+    <IconButton
+      data-testid={id}
+      icon={icon}
+      onClick={onClick}
+      size={size}
+      type="ghost"
+    />
+  );
+};
 
 export const CalendarRenderer = ({
   calendarOptions = {},
   children,
+  onYearSelect,
+  onMonthSelect,
   ...props
 }: CalendarRendererProps) => {
   const { body, headers, month, navigation, year } = useCalendar({
@@ -242,17 +394,155 @@ export const CalendarRenderer = ({
     ...calendarOptions,
   });
 
-  const handleNextClick = useCallback((): void => {
-    navigation.toNext();
-  }, [navigation]);
+  const [view, setView] = useState<DateViewOption>(DAYS);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [yearOffset, setYearOffset] = useState(0);
 
-  const handlePreviousClick = useCallback((): void => {
+  const onNextClick = useCallback(() => {
+    if (view === YEARS) {
+      setYearOffset(prev => prev + VIEW_TOTAL_YEARS);
+    } else {
+      navigation.toNext();
+    }
+  }, [navigation, view]);
+
+  const onPreviousClick = useCallback(() => {
+    if (view === YEARS) {
+      setYearOffset(prev => prev - VIEW_TOTAL_YEARS);
+      return;
+    }
+
     navigation.toPrev();
-  }, [navigation]);
+  }, [navigation, view]);
+
+  const onTitleClick = useCallback(() => {
+    if (view !== DAYS) {
+      return;
+    }
+
+    setView(YEARS);
+  }, [view]);
+
+  const onYearSelection = useCallback(
+    (yearValue: number) => {
+      setSelectedYear(yearValue);
+      setView(MONTHS);
+      onYearSelect?.(yearValue);
+    },
+    [onYearSelect]
+  );
+
+  const onMonthSelection = useCallback(
+    (monthIndex: number) => {
+      const finalYear = typeof selectedYear === 'number' ? selectedYear : year;
+      const newDate = new Date(finalYear, monthIndex, 1);
+
+      navigation.setDate(newDate);
+      onMonthSelect?.(finalYear, monthIndex);
+
+      setView(DAYS);
+      setSelectedYear(null);
+      setYearOffset(0);
+    },
+    [selectedYear, year, navigation, onMonthSelect]
+  );
 
   const headerDate = new Date();
   headerDate.setMonth(month);
   headerDate.setFullYear(year);
+
+  const getHeaderTitle = (view: DateViewOption) => {
+    if (view === MONTHS) {
+      return TXT_ON_MONTH_SELECT;
+    }
+
+    if (view === YEARS) {
+      return TXT_ON_YEAR_SELECT;
+    }
+
+    return headerDateFormatter.format(headerDate);
+  };
+
+  const renderMonthsGrid = () => {
+    return (
+      <MonthsGrid data-testid="months-grid">
+        {monthAbbreviations.map((abbr, index) => (
+          <GridCell
+            key={abbr}
+            $isActive={index === month}
+            onClick={() => onMonthSelection(index)}
+            data-testid={`month-cell-${index}`}
+          >
+            {abbr}
+          </GridCell>
+        ))}
+      </MonthsGrid>
+    );
+  };
+
+  const renderYearsGrid = () => {
+    const years = [];
+    const baseYear = year + yearOffset;
+
+    // Note: Try to keep the current year in the middle
+    for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
+      years.push(baseYear + i);
+    }
+
+    return (
+      <YearsGrid data-testid="years-grid">
+        {years.map(currYear => (
+          <GridCell
+            key={currYear}
+            $isActive={currYear === year}
+            onClick={() => onYearSelection(currYear)}
+            data-testid={`year-cell-${currYear}`}
+          >
+            {currYear}
+          </GridCell>
+        ))}
+      </YearsGrid>
+    );
+  };
+
+  const renderTableContent = () => {
+    if (view === MONTHS) {
+      return (
+        <tbody>
+          <tr>
+            <td colSpan={DAYS_IN_WEEK}>{renderMonthsGrid()}</td>
+          </tr>
+        </tbody>
+      );
+    }
+
+    if (view === YEARS) {
+      return (
+        <tbody>
+          <tr>
+            <td colSpan={DAYS_IN_WEEK}>{renderYearsGrid()}</td>
+          </tr>
+        </tbody>
+      );
+    }
+
+    return (
+      <>
+        <thead>
+          <tr>
+            {headers.weekDays.map(({ key, value: date }) => {
+              return (
+                <DateTableHeader key={key}>
+                  {weekdayFormatter.format(date)}
+                </DateTableHeader>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>{children(body)}</tbody>
+      </>
+    );
+  };
 
   return (
     <DatePickerContainer
@@ -268,36 +558,30 @@ export const CalendarRenderer = ({
         justifyContent="space-between"
         orientation="horizontal"
       >
-        <IconButton
-          data-testid="calendar-previous-month"
+        <DateSelectNav
+          id="calendar-previous-month"
           icon="chevron-left"
-          onClick={handlePreviousClick}
-          size="sm"
-          type="ghost"
+          onClick={onPreviousClick}
+          view={view}
         />
-        <UnselectableTitle>{headerDateFormatter.format(headerDate)}</UnselectableTitle>
-        <IconButton
-          data-testid="calendar-next-month"
+        {view === DAYS ? (
+          <ClickableTitle
+            onClick={onTitleClick}
+            data-testid="calendar-title"
+          >
+            {getHeaderTitle(view)}
+          </ClickableTitle>
+        ) : (
+          <UnselectableTitle>{getHeaderTitle(view)}</UnselectableTitle>
+        )}
+        <DateSelectNav
+          id="calendar-next-month"
           icon="chevron-right"
-          onClick={handleNextClick}
-          size="sm"
-          type="ghost"
+          onClick={onNextClick}
+          view={view}
         />
       </Container>
-      <DateTable>
-        <thead>
-          <tr>
-            {headers.weekDays.map(({ key, value: date }) => {
-              return (
-                <DateTableHeader key={key}>
-                  {weekdayFormatter.format(date)}
-                </DateTableHeader>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>{children(body)}</tbody>
-      </DateTable>
+      <DateTable>{renderTableContent()}</DateTable>
     </DatePickerContainer>
   );
 };
