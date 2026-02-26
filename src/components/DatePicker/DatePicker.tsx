@@ -22,9 +22,10 @@ const Calendar = ({
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-          const isSelected = selectedDate ? isSameDate(selectedDate, fullDate) : false;
           const today = new Date();
-          const isCurrentDate = isSameDate(today, fullDate);
+          const isSelected = selectedDate
+            ? isSameDate(selectedDate, fullDate)
+            : isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
           const handleClick = () => {
@@ -37,11 +38,9 @@ const Calendar = ({
 
           return (
             <DateTableCell
-              $hasSelection={!!selectedDate}
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isCurrentDate}
               key={dayKey}
               onClick={handleClick}
             >

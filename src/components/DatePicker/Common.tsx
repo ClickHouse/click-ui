@@ -262,11 +262,9 @@ const DateTableHeader = styled.th`
 `;
 
 export const DateTableCell = styled.td<{
-  $hasSelection?: boolean;
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
-  $isToday?: boolean;
 }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
@@ -291,14 +289,6 @@ export const DateTableCell = styled.td<{
 
   text-align: center;
 
-  ${({ $hasSelection, $isToday, theme }) =>
-    $isToday &&
-    !$hasSelection &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.active};
-    color: ${theme.click.datePicker.dateOption.color.label.active};
-    font: ${theme.click.datePicker.dateOption.typography.label.active};
-  `}
 
   &:hover {
     ${({ $isDisabled, theme }) =>
