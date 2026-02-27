@@ -254,7 +254,11 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
   min-height: 26px;
 
   &:hover {
-    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+    ${({ theme }) => `
+      border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
+      background: transparent;
+      color: ${theme.click.datePicker.dateOption.color.label.default};
+    `}
   }
 `;
 
