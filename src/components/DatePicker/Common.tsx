@@ -227,7 +227,7 @@ const YearsGrid = styled(GridContainer)`
   grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
 `;
 
-const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
+const GridCell = styled.div<{ $isActive?: boolean; $isPresent?: boolean }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
     border-radius: ${theme.click.datePicker.dateOption.radii.default};
@@ -242,8 +242,8 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
     color: ${theme.click.datePicker.dateOption.color.label.active};
   `}
 
-  ${({ $isActive, $isToday, theme }) =>
-    $isToday &&
+  ${({ $isActive, $isPresent, theme }) =>
+    $isPresent &&
     !$isActive &&
     `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
@@ -256,9 +256,9 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
   min-height: 26px;
 
   &:hover {
-    ${({ $isToday, theme }) => `
+    ${({ $isPresent, theme }) => `
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-      background: ${$isToday ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
+      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
       color: ${theme.click.datePicker.dateOption.color.label.default};
     `}
   }
@@ -299,7 +299,7 @@ export const DateTableCell = styled.td<{
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
-  $isToday?: boolean;
+  $isPresent?: boolean;
 }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
@@ -321,21 +321,21 @@ export const DateTableCell = styled.td<{
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
-  ${({ $isSelected, $isToday, theme }) =>
-    $isToday &&
+  ${({ $isSelected, $isPresent, theme }) =>
+    $isPresent &&
     !$isSelected &&
     `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
   text-align: center;
 
   &:hover {
-    ${({ $isDisabled, $isToday, theme }) =>
+    ${({ $isDisabled, $isPresent, theme }) =>
       `border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-      background: ${$isToday ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
+      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
       color: ${theme.click.datePicker.dateOption.color.label.default};
       border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
   }
@@ -490,7 +490,7 @@ export const CalendarRenderer = ({
           <GridCell
             key={abbr}
             $isActive={selectedDate && index === selectedMonth && year === selectedYear}
-            $isToday={index === todayMonth && year === todayYear}
+            $isPresent={index === todayMonth && year === todayYear}
             onClick={() => onMonthSelection(index)}
             data-testid={`month-cell-${index}`}
           >
@@ -518,7 +518,7 @@ export const CalendarRenderer = ({
           <GridCell
             key={currYear}
             $isActive={selectedDate && currYear === selectedYear}
-            $isToday={currYear === todayYear}
+            $isPresent={currYear === todayYear}
             onClick={() => onYearSelection(currYear)}
             data-testid={`year-cell-${currYear}`}
           >

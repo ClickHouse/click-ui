@@ -105,7 +105,7 @@ const Calendar = ({
           const isSelected =
             (startDate && isSameDate(startDate, fullDate)) ||
             (endDate && isSameDate(endDate, fullDate));
-          const isToday = isSameDate(today, fullDate);
+          const isPresent = isSameDate(today, fullDate);
 
           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
@@ -169,7 +169,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isToday}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}

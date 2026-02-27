@@ -24,7 +24,7 @@ const Calendar = ({
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const today = new Date();
           const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
-          const isToday = isSameDate(today, fullDate);
+          const isPresent = isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
           const handleClick = () => {
@@ -40,7 +40,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isToday}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
             >
