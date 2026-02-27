@@ -59,6 +59,7 @@ export interface DatePickerProps {
   futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
   placeholder?: string;
+  responsivePositioning?: boolean;
 }
 
 export const DatePicker = ({
@@ -67,6 +68,7 @@ export const DatePicker = ({
   futureDatesDisabled = false,
   onSelectDate,
   placeholder,
+  responsivePositioning = true,
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -141,7 +143,10 @@ export const DatePicker = ({
           selectedDate={selectedDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={responsivePositioning}
+      >
         <CalendarRenderer
           calendarOptions={calendarOptions}
           onYearSelect={onYearSelect}

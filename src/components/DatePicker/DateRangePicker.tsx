@@ -284,6 +284,7 @@ export interface DateRangePickerProps {
   predefinedDatesList?: Array<DateRange>;
   maxRangeLength?: number;
   startDate?: Date;
+  responsivePositioning?: boolean;
 }
 
 export const DateRangePicker = ({
@@ -296,6 +297,7 @@ export const DateRangePicker = ({
   onSelectDateRange,
   placeholder = 'start date – end date',
   predefinedDatesList,
+  responsivePositioning = true,
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -394,7 +396,10 @@ export const DateRangePicker = ({
           selectedStartDate={selectedStartDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={responsivePositioning}
+      >
         {shouldShowPredefinedDates ? (
           <PredefinedCalendarContainer
             gap="none"
