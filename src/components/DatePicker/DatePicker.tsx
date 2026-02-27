@@ -68,7 +68,7 @@ const Calendar = ({
 
   useEffect(() => {
     dayRefs.current[focusedDayIndex]?.focus();
-  }, []);
+  }, [focusedDayIndex]);
 
   const onDayKeyDown = useCallback(
     (
