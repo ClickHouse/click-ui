@@ -243,8 +243,8 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
     color: ${theme.click.datePicker.dateOption.color.label.active};
   `}
 
-  ${({ $isToday, theme }) =>
-    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
+  ${({ $isToday }) =>
+    $isToday && `background: #333;`}
 
   display: flex;
   align-items: center;
@@ -316,8 +316,8 @@ export const DateTableCell = styled.td<{
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
-  ${({ $isToday, theme }) =>
-    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
+  ${({ $isToday }) =>
+    $isToday && `background: #333;`}
 
   text-align: center;
 
