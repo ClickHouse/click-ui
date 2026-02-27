@@ -102,10 +102,10 @@ const Calendar = ({
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const today = new Date();
-          const isSelected = startDate
-            ? (startDate && isSameDate(startDate, fullDate)) ||
-              (endDate && isSameDate(endDate, fullDate))
-            : isSameDate(today, fullDate);
+          const isSelected =
+            (startDate && isSameDate(startDate, fullDate)) ||
+            (endDate && isSameDate(endDate, fullDate));
+          const isToday = isSameDate(today, fullDate);
 
           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
@@ -169,6 +169,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
+              $isToday={isToday}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
@@ -414,7 +415,11 @@ export const DateRangePicker = ({
 
             {shouldShowCustomRange && (
               <CalendarRendererContainer>
-                <StyledCalendarRenderer calendarOptions={calendarOptions}>
+                <StyledCalendarRenderer
+                  calendarOptions={calendarOptions}
+                  disableYearMonthSelection
+                  selectedDate={selectedStartDate}
+                >
                   {(body: Body) => (
                     <Calendar
                       calendarBody={body}
@@ -432,7 +437,11 @@ export const DateRangePicker = ({
             )}
           </PredefinedCalendarContainer>
         ) : (
-          <CalendarRenderer calendarOptions={calendarOptions}>
+          <CalendarRenderer
+            calendarOptions={calendarOptions}
+            disableYearMonthSelection
+            selectedDate={selectedStartDate}
+          >
             {(body: Body) => (
               <Calendar
                 calendarBody={body}
