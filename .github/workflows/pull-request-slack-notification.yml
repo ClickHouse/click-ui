@@ -1,0 +1,19 @@
+name: 🔔 Pull Request Slack notification
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Prepare PR description
+        id: prepare
+        run: |
+          DESC=$(.scripts/pull-request-truncate-body "${{ github.event.pull_request.body }}")
+
+          echo "description=$DESC" >> $GITHUB_OUTPUT
+
