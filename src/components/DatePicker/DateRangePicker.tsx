@@ -417,6 +417,7 @@ export const DateRangePicker = ({
               <CalendarRendererContainer>
                 <StyledCalendarRenderer
                   calendarOptions={calendarOptions}
+                  disableYearMonthSelection
                   selectedDate={selectedStartDate}
                 >
                   {(body: Body) => (
@@ -438,6 +439,7 @@ export const DateRangePicker = ({
         ) : (
           <CalendarRenderer
             calendarOptions={calendarOptions}
+            disableYearMonthSelection
             selectedDate={selectedStartDate}
           >
             {(body: Body) => (
