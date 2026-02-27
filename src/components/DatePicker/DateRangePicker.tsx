@@ -415,7 +415,10 @@ export const DateRangePicker = ({
 
             {shouldShowCustomRange && (
               <CalendarRendererContainer>
-                <StyledCalendarRenderer calendarOptions={calendarOptions} selectedDate={selectedStartDate}>
+                <StyledCalendarRenderer
+                  calendarOptions={calendarOptions}
+                  selectedDate={selectedStartDate}
+                >
                   {(body: Body) => (
                     <Calendar
                       calendarBody={body}
@@ -433,7 +436,10 @@ export const DateRangePicker = ({
             )}
           </PredefinedCalendarContainer>
         ) : (
-          <CalendarRenderer calendarOptions={calendarOptions} selectedDate={selectedStartDate}>
+          <CalendarRenderer
+            calendarOptions={calendarOptions}
+            selectedDate={selectedStartDate}
+          >
             {(body: Body) => (
               <Calendar
                 calendarBody={body}

@@ -243,7 +243,9 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
   `}
 
   ${({ $isActive, $isToday, theme }) =>
-    $isToday && !$isActive && `background: ${theme.click.datePicker.dateOption.color.background.range};`}
+    $isToday &&
+    !$isActive &&
+    `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
   display: flex;
   align-items: center;
@@ -320,7 +322,8 @@ export const DateTableCell = styled.td<{
     `}
 
   ${({ $isToday, theme }) =>
-    $isToday && `background: ${theme.click.datePicker.dateOption.color.background.range};`}
+    $isToday &&
+    `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
   text-align: center;
 
