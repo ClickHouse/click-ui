@@ -252,6 +252,7 @@ jobs:
           echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
+        id: create-pr
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ steps.gh-workflow-token.outputs.token }}
@@ -281,3 +282,13 @@ jobs:
             ---
 
             **Tag:** `v${{ steps.version-package.outputs.version }}` will be included in this PR
+
+      - name: Notify Slack about release PR
+        if: ${{ steps.create-pr.outputs.pull-request-url }}
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: "${{ secrets.SLACK_CHANNEL }}"
+            text: "===\n📦 *New Release PR Created*\n\n*Package:* ${{ steps.version-package.outputs.package_name }}\n*Version:* ${{ steps.version-package.outputs.version }}\n*Type:* ${{ inputs.release_type }}\n*Branch:* ${{ github.ref_name }}\n\n<${{ steps.create-pr.outputs.pull-request-url }}|View Pull Request>\n==="

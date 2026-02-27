@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import { Dropdown } from '../Dropdown/Dropdown';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
@@ -22,9 +22,10 @@ const Calendar = ({
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-          const isSelected = selectedDate ? isSameDate(selectedDate, fullDate) : false;
           const today = new Date();
-          const isCurrentDate = isSameDate(today, fullDate);
+          const isSelected = selectedDate
+            ? isSameDate(selectedDate, fullDate)
+            : isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
           const handleClick = () => {
@@ -40,7 +41,6 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isCurrentDate}
               key={dayKey}
               onClick={handleClick}
             >
@@ -72,6 +72,8 @@ export const DatePicker = ({
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [partialYear, setPartialYear] = useState<number>();
+  const [partialMonth, setPartialMonth] = useState<number>();
 
   const calendarOptions: UseCalendarOptions = {};
 
@@ -86,18 +88,48 @@ export const DatePicker = ({
     }
   }, [date]);
 
-  const closeDatePicker = () => {
-    setIsOpen(false);
-  };
+  const resetPartialState = useCallback(() => {
+    setPartialYear(undefined);
+    setPartialMonth(undefined);
+  }, []);
 
-  const handleSelectDate = (selectedDate: Date): void => {
-    setSelectedDate(selectedDate);
-    onSelectDate(selectedDate);
-  };
+  const onOpenChange = useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      if (!open) {
+        resetPartialState();
+      }
+    },
+    [resetPartialState]
+  );
+
+  const onCloseDatePicker = useCallback(() => {
+    setIsOpen(false);
+    resetPartialState();
+  }, [resetPartialState]);
+
+  const onDateSelect = useCallback(
+    (date: Date): void => {
+      setSelectedDate(date);
+      onSelectDate(date);
+      resetPartialState();
+    },
+    [onSelectDate, resetPartialState]
+  );
+
+  const onYearSelect = useCallback((year: number) => {
+    setPartialYear(year);
+    setPartialMonth(undefined);
+  }, []);
+
+  const onMonthSelect = useCallback((year: number, month: number) => {
+    setPartialYear(year);
+    setPartialMonth(month);
+  }, []);
 
   return (
     <Dropdown
-      onOpenChange={setIsOpen}
+      onOpenChange={onOpenChange}
       open={isOpen}
     >
       <Dropdown.Trigger disabled={disabled}>
@@ -105,6 +137,8 @@ export const DatePicker = ({
           data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
+          partialMonth={partialMonth}
+          partialYear={partialYear}
           placeholder={placeholder}
           selectedDate={selectedDate}
         />
@@ -113,14 +147,18 @@ export const DatePicker = ({
         align="start"
         responsivePositioning={responsivePositioning}
       >
-        <CalendarRenderer calendarOptions={calendarOptions}>
+        <CalendarRenderer
+          calendarOptions={calendarOptions}
+          onYearSelect={onYearSelect}
+          onMonthSelect={onMonthSelect}
+        >
           {body => (
             <Calendar
               calendarBody={body}
-              closeDatepicker={closeDatePicker}
+              closeDatepicker={onCloseDatePicker}
               futureDatesDisabled={futureDatesDisabled}
               selectedDate={selectedDate}
-              setSelectedDate={handleSelectDate}
+              setSelectedDate={onDateSelect}
             />
           )}
         </CalendarRenderer>
