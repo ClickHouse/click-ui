@@ -331,9 +331,9 @@ export const DateTableCell = styled.td<{
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-
-
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
+      background: transparent;
+      color: ${theme.click.datePicker.dateOption.color.label.default};
+      border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
   }
 `;
 
