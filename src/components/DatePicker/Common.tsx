@@ -346,7 +346,7 @@ export type Body = ReturnType<typeof useCalendar>['body'];
 interface CalendarRendererProps {
   calendarOptions?: UseCalendarOptions;
   children: (body: Body) => ReactNode;
-  disableYearMonthSelection?: boolean;
+  allowYearMonthSelection?: boolean;
   onYearSelect?: (year: number) => void;
   onMonthSelect?: (year: number, month: number) => void;
   selectedDate?: Date;
@@ -397,7 +397,7 @@ const DateSelectNav = ({
 export const CalendarRenderer = ({
   calendarOptions = {},
   children,
-  disableYearMonthSelection = false,
+  allowYearMonthSelection = true,
   onYearSelect,
   onMonthSelect,
   selectedDate,
@@ -588,7 +588,7 @@ export const CalendarRenderer = ({
           onClick={onPreviousClick}
           view={view}
         />
-        {view === DAYS && !disableYearMonthSelection ? (
+        {view === DAYS && allowYearMonthSelection ? (
           <ClickableTitle
             onClick={onTitleClick}
             data-testid="calendar-title"
