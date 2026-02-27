@@ -10,10 +10,15 @@ jobs:
     permissions:
       pull-requests: read
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
       - name: Prepare PR description
         id: prepare
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
-          DESC=$(.scripts/pull-request-truncate-body "${{ github.event.pull_request.body }}")
+          DESC=$(.scripts/pull-request-truncate-body "$PR_BODY")
 
           echo "description=$DESC" >> $GITHUB_OUTPUT
 
