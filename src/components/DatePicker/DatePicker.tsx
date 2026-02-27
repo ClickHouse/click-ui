@@ -146,6 +146,7 @@ export const DatePicker = ({
           calendarOptions={calendarOptions}
           onYearSelect={onYearSelect}
           onMonthSelect={onMonthSelect}
+          selectedDate={selectedDate}
         >
           {body => (
             <Calendar

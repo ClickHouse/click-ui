@@ -235,16 +235,15 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
     color: ${theme.click.datePicker.dateOption.color.label.default};
   `}
 
-  ${({ $isActive, $isToday, theme }) =>
+  ${({ $isActive, theme }) =>
     $isActive &&
-    !$isToday &&
     `
     background: ${theme.click.datePicker.dateOption.color.background.active};
     color: ${theme.click.datePicker.dateOption.color.label.active};
   `}
 
-  ${({ $isToday, theme }) =>
-    $isToday && `background: ${theme.click.datePicker.dateOption.color.background.range};`}
+  ${({ $isActive, $isToday, theme }) =>
+    $isToday && !$isActive && `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
   display: flex;
   align-items: center;
@@ -341,6 +340,7 @@ interface CalendarRendererProps {
   children: (body: Body) => ReactNode;
   onYearSelect?: (year: number) => void;
   onMonthSelect?: (year: number, month: number) => void;
+  selectedDate?: Date;
 }
 
 const monthAbbreviations = getMonthNames('short');
@@ -390,6 +390,7 @@ export const CalendarRenderer = ({
   children,
   onYearSelect,
   onMonthSelect,
+  selectedDate,
   ...props
 }: CalendarRendererProps) => {
   const { body, headers, month, navigation, year } = useCalendar({
@@ -470,13 +471,15 @@ export const CalendarRenderer = ({
     const today = new Date();
     const todayMonth = today.getMonth();
     const todayYear = today.getFullYear();
+    const selectedMonth = selectedDate?.getMonth();
+    const selectedYear = selectedDate?.getFullYear();
 
     return (
       <MonthsGrid data-testid="months-grid">
         {monthAbbreviations.map((abbr, index) => (
           <GridCell
             key={abbr}
-            $isActive={index === month}
+            $isActive={selectedDate && index === selectedMonth && year === selectedYear}
             $isToday={index === todayMonth && year === todayYear}
             onClick={() => onMonthSelection(index)}
             data-testid={`month-cell-${index}`}
@@ -492,6 +495,7 @@ export const CalendarRenderer = ({
     const years = [];
     const baseYear = year + yearOffset;
     const todayYear = new Date().getFullYear();
+    const selectedYear = selectedDate?.getFullYear();
 
     // Note: Try to keep the current year in the middle
     for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
@@ -503,7 +507,7 @@ export const CalendarRenderer = ({
         {years.map(currYear => (
           <GridCell
             key={currYear}
-            $isActive={currYear === year}
+            $isActive={selectedDate && currYear === selectedYear}
             $isToday={currYear === todayYear}
             onClick={() => onYearSelection(currYear)}
             data-testid={`year-cell-${currYear}`}
