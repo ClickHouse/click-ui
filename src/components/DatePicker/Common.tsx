@@ -296,7 +296,6 @@ const DateTableHeader = styled.th`
 `;
 
 export const DateTableCell = styled.td<{
-  // TODO: isCurrentMonth can be replaced by isPresent?
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;

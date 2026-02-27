@@ -37,7 +37,6 @@ const Calendar = ({
 
           return (
             <DateTableCell
-              // TODO: isCurrentMonth can be replaced by isPresent?
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
