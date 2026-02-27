@@ -2,6 +2,9 @@ name: 📚 Storybook to Vercel
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -64,7 +67,7 @@ jobs:
           EOF
 
       - name: Deploy to Vercel (Preview)
-        if: github.ref != 'refs/heads/main'
+        if: github.event_name == 'pull_request'
         id: deploy
         run: |
           DEPLOYMENT_URL=$(vercel deploy \
@@ -75,7 +78,7 @@ jobs:
           echo "Preview deployed to: $DEPLOYMENT_URL"
 
       - name: Comment PR with Preview URL
-        if: github.ref != 'refs/heads/main'
+        if: github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
         with:
           message: |
@@ -88,7 +91,7 @@ jobs:
           repo-token: ${{ steps.gh-workflow-token.outputs.token }}
 
       - name: Deploy to Vercel (Production)
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           COMMIT_MSG=$(git log -1 --format=%s)
 
