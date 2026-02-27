@@ -82,10 +82,12 @@ export type ArrowProps = {
 
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
+  responsivePositioning?: boolean;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
   children?: ReactNode;
+  responsivePositioning?: boolean;
 }
 
 type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
@@ -104,6 +106,7 @@ const DropdownContent = ({
   sub,
   children,
   showArrow,
+  responsivePositioning = true,
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
@@ -115,7 +118,8 @@ const DropdownContent = ({
         as={ContentElement}
         sideOffset={4}
         loop
-        avoidCollisions={false}
+        avoidCollisions={responsivePositioning}
+        collisionPadding={responsivePositioning ? 100 : undefined}
         {...props}
       >
         {showArrow && (

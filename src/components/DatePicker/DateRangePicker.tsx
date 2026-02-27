@@ -396,7 +396,10 @@ export const DateRangePicker = ({
           selectedStartDate={selectedStartDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={true}
+      >
         {shouldShowPredefinedDates ? (
           <PredefinedCalendarContainer
             gap="none"

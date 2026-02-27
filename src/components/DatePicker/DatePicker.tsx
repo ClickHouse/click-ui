@@ -107,7 +107,10 @@ export const DatePicker = ({
           selectedDate={selectedDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={true}
+      >
         <CalendarRenderer calendarOptions={calendarOptions}>
           {body => (
             <Calendar
