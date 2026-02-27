@@ -290,6 +290,7 @@ export const DateTableCell = styled.td<{
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
+  $isToday?: boolean;
 }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
@@ -311,6 +312,8 @@ export const DateTableCell = styled.td<{
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
+  ${({ $isToday, theme }) =>
+    $isToday && `font: ${theme.click.datePicker.dateOption.typography.label.active};`}
 
   text-align: center;
 
