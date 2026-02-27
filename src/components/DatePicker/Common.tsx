@@ -256,9 +256,9 @@ const GridCell = styled.div<{ $isActive?: boolean; $isToday?: boolean }>`
   min-height: 26px;
 
   &:hover {
-    ${({ $isToday, theme }) => `
+    ${({ $isActive, $isToday, theme }) => `
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-      background: ${$isToday ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
+      background: ${$isToday && !$isActive ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
       color: ${theme.click.datePicker.dateOption.color.label.default};
     `}
   }
@@ -321,20 +321,21 @@ export const DateTableCell = styled.td<{
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
-  ${({ $isToday, theme }) =>
+  ${({ $isSelected, $isToday, theme }) =>
     $isToday &&
+    !$isSelected &&
     `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
   text-align: center;
 
   &:hover {
-    ${({ $isDisabled, $isToday, theme }) =>
+    ${({ $isDisabled, $isSelected, $isToday, theme }) =>
       `border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-      background: ${$isToday ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
+      background: ${$isToday && !$isSelected ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
       color: ${theme.click.datePicker.dateOption.color.label.default};
       border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
   }
