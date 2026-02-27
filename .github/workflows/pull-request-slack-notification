@@ -1,0 +1,6 @@
+name: 🔔 Pull Request Slack notification
+
+on:
+  pull_request:
+    types: [opened]
+
