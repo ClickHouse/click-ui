@@ -34,6 +34,80 @@ describe('ButtonGroup', () => {
     expect(counter).toEqual(1);
   });
 
+  it('calls onClick with correct arguments in single mode', () => {
+    let receivedValue: string | null = null;
+    let receivedSet: Set<string> | null = null;
+    const handleClick = (value: string, selected: Set<string>) => {
+      receivedValue = value;
+      receivedSet = selected;
+    };
+
+    const { getByText } = renderButtonGroup({
+      options,
+      onClick: handleClick,
+    });
+
+    fireEvent.click(getByText('Option 2'));
+
+    expect(receivedValue).toBe('option2');
+    expect(receivedSet).toEqual(new Set(['option2']));
+  });
+
+  it('calls onClick with correct arguments in multi mode', () => {
+    let receivedValue: string | null = null;
+    let receivedSet: Set<string> | null = null;
+    const handleClick = (value: string, selected: Set<string>) => {
+      receivedValue = value;
+      receivedSet = selected;
+    };
+
+    const { getByText } = renderButtonGroup({
+      options,
+      onClick: handleClick,
+      multiple: true,
+      selected: new Set(['option1']),
+    });
+
+    fireEvent.click(getByText('Option 2'));
+
+    expect(receivedValue).toBe('option2');
+    expect(receivedSet).toEqual(new Set(['option1', 'option2']));
+  });
+
+  it('toggles selection in multi mode', () => {
+    let receivedSet: Set<string> | null = null;
+    const handleClick = (_value: string, selected: Set<string>) => {
+      receivedSet = selected;
+    };
+
+    const { getByText } = renderButtonGroup({
+      options,
+      onClick: handleClick,
+      multiple: true,
+      selected: new Set(['option1', 'option2']),
+    });
+
+    fireEvent.click(getByText('Option 2'));
+
+    expect(receivedSet).toEqual(new Set(['option1']));
+  });
+
+  it('allows multiple selections in multi mode', () => {
+    const { getByText } = renderButtonGroup({
+      options,
+      multiple: true,
+      selected: new Set(['option1', 'option3']),
+    });
+
+    const option1 = getByText('Option 1');
+    const option2 = getByText('Option 2');
+    const option3 = getByText('Option 3');
+
+    expect(option1).toHaveAttribute('aria-pressed', 'true');
+    expect(option2).toHaveAttribute('aria-pressed', 'false');
+    expect(option3).toHaveAttribute('aria-pressed', 'true');
+  });
+
   it("adds 'aria-pressed' attr to the active/pressed button", () => {
     const { getByText } = renderButtonGroup({
       options,
@@ -44,5 +118,113 @@ describe('ButtonGroup', () => {
     expect(activeButton).toHaveAttribute('aria-pressed', 'true');
     const inactiveButton = getByText('Option 1');
     expect(inactiveButton).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  describe('Uncontrolled Mode', () => {
+    it('uses defaultSelected for initial selection in single mode', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        defaultSelected: 'option2',
+      });
+
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'true');
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'false');
+    });
+
+    it('uses defaultSelected for initial selection in multi mode', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        multiple: true,
+        defaultSelected: new Set(['option1', 'option3']),
+      });
+
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'true');
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'false');
+      expect(getByText('Option 3')).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('manages internal state in single mode without onClick', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        defaultSelected: 'option1',
+      });
+
+      fireEvent.click(getByText('Option 2'));
+
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'false');
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('manages internal state in multi mode without onClick', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        multiple: true,
+        defaultSelected: new Set(['option1']),
+      });
+
+      fireEvent.click(getByText('Option 2'));
+
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'true');
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('toggles selections in multi uncontrolled mode', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        multiple: true,
+        defaultSelected: new Set(['option1', 'option2']),
+      });
+
+      fireEvent.click(getByText('Option 2'));
+
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'true');
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'false');
+    });
+
+    it('calls onClick with updated state in uncontrolled mode', () => {
+      let receivedValue: string | null = null;
+      let receivedSet: Set<string> | null = null;
+      const handleClick = (value: string, selected: Set<string>) => {
+        receivedValue = value;
+        receivedSet = selected;
+      };
+
+      const { getByText } = renderButtonGroup({
+        options,
+        defaultSelected: 'option1',
+        onClick: handleClick,
+      });
+
+      fireEvent.click(getByText('Option 2'));
+
+      expect(receivedValue).toBe('option2');
+      expect(receivedSet).toEqual(new Set(['option2']));
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'true');
+    });
+  });
+
+  describe('Controlled Mode', () => {
+    it('respects selected prop over defaultSelected', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        selected: 'option3',
+        defaultSelected: 'option1',
+      });
+
+      expect(getByText('Option 3')).toHaveAttribute('aria-pressed', 'true');
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'false');
+    });
+
+    it('does not change selection when clicked in controlled mode without parent update', () => {
+      const { getByText } = renderButtonGroup({
+        options,
+        selected: 'option1',
+      });
+
+      fireEvent.click(getByText('Option 2'));
+
+      expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'true');
+      expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'false');
+    });
   });
 });
