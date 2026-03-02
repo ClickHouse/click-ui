@@ -242,7 +242,7 @@ const PredefinedDates = ({
             ? monthFormatter.format(startDate)
             : `${selectedDateFormatter.format(
                 startDate
-              )} - ${selectedDateFormatter.format(endDate)}`.trim();
+              )} – ${selectedDateFormatter.format(endDate)}`.trim();
 
           return (
             <StyledDropdownItem
