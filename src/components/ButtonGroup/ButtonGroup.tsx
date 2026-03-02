@@ -53,8 +53,11 @@ export const ButtonGroup = ({
     normalizeToSet(defaultSelected)
   );
 
-  // Use `selected` if the parent needs to own or sync the selection state management (controlled by consumer app)
-  // Use `defaultSelected` if the component can manage its own state independently (uncontrolled)
+  // Use `selected` if the parent needs to own
+  // or sync the selection state management (controlled
+  // by consumer app)
+  // Use `defaultSelected` if the component can manage
+  // its own state independently (uncontrolled)
   const isControlled = selected !== undefined;
   const currentSelection = isControlled ? normalizeToSet(selected) : internalSelection;
 
