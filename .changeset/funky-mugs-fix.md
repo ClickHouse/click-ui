@@ -2,7 +2,7 @@
 '@clickhouse/click-ui': minor
 ---
 
-Add multiple selection support to ButtonGroup component with controlled and uncontrolled modes.
+Extend ButtonGroup with multi-selection support, offering both controlled and uncontrolled modes so consumers can manage state themselves or delegate it to the component when only the resulting selection is required.
 
 **What changed?**
 
