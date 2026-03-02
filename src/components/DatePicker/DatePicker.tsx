@@ -23,9 +23,8 @@ const Calendar = ({
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const today = new Date();
-          const isSelected = selectedDate
-            ? isSameDate(selectedDate, fullDate)
-            : isSameDate(today, fullDate);
+          const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
+          const isPresent = isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
           const handleClick = () => {
@@ -41,6 +40,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
             >
@@ -151,6 +151,7 @@ export const DatePicker = ({
           calendarOptions={calendarOptions}
           onYearSelect={onYearSelect}
           onMonthSelect={onMonthSelect}
+          selectedDate={selectedDate}
         >
           {body => (
             <Calendar
