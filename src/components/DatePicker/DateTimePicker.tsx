@@ -91,7 +91,10 @@ const DateRangeTableCell = styled(DateTableCell)<{
 `;
 
 type CalendarType = 'startDate' | 'endDate';
+
 type SetSelectedDate = (selectedDate: Date, calendarType: CalendarType) => void;
+
+type SetDate = (date: Date) => void;
 
 interface CalendarProps {
   calendarBody: Body;
@@ -573,9 +576,9 @@ interface TabbedCalendarProps {
   futureDatesDisabled: boolean;
   futureStartDatesDisabled: boolean;
   maxRangeLength: number;
-  setEndDate: (endDate: Date) => void;
+  setEndDate: SetDate;
   setSelectedDate: SetSelectedDate;
-  setStartDate: (startDate: Date) => void;
+  setStartDate: SetDate;
   shouldShowSeconds: boolean;
   startDate: Date | undefined;
 }
@@ -597,6 +600,24 @@ const TabbedCalendar = ({
   const handleTabChange = useCallback((newTab: string) => {
     setActiveTab(newTab as Tab);
   }, []);
+
+  const handleSetStartDate = useCallback(
+    (startDate: Date) => {
+      setStartDate(startDate);
+
+      setSelectedDate(startDate, 'startDate');
+    },
+    [setSelectedDate, setStartDate]
+  );
+
+  const handleSetEndDate = useCallback(
+    (endDate: Date) => {
+      setEndDate(endDate);
+
+      setSelectedDate(endDate, 'endDate');
+    },
+    [setEndDate, setSelectedDate]
+  );
 
   const startDateCalendarOptions: UseCalendarOptions = {};
   const endDateCalendarOptions: UseCalendarOptions = {};
@@ -648,7 +669,7 @@ const TabbedCalendar = ({
         </StyledCalendarRenderer>
         <TimeInput
           date={startDate}
-          setDate={setStartDate}
+          setDate={handleSetStartDate}
           shouldShowSeconds={shouldShowSeconds}
         />
       </Tabs.Content>
@@ -670,7 +691,7 @@ const TabbedCalendar = ({
         </StyledCalendarRenderer>
         <TimeInput
           date={endDate}
-          setDate={setEndDate}
+          setDate={handleSetEndDate}
           shouldShowSeconds={shouldShowSeconds}
         />
       </Tabs.Content>

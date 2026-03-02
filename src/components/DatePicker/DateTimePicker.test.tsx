@@ -291,6 +291,57 @@ describe('DateTimePicker', () => {
           'start date – Jul 04, 12:00 pm'
         );
       });
+
+      it("calls handleSelectDate when changing the end date's time if start date is set", async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('4'));
+
+        await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+        await userEvent.click(getByText('10'));
+
+        expect(handleSelectDate).toHaveBeenCalledOnce();
+
+        await userEvent.click(getByTestId('date-time-picker-time-input'));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard('{backspace}1');
+
+        // called when deleting the first digit (time is 12:0), then when typing the digit (time is 12:01)
+        expect(handleSelectDate).toHaveBeenCalledTimes(3);
+      });
+
+      it("calls handleSelectDate when changing the start date's time if end date is set", async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+        await userEvent.click(getByText('10'));
+
+        await userEvent.click(getByTestId('tabbed-calendar-trigger-start'));
+        await userEvent.click(getByText('4'));
+
+        expect(handleSelectDate).toHaveBeenCalledOnce();
+
+        await userEvent.click(getByTestId('date-time-picker-time-input'));
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard('{backspace}{backspace}15');
+
+        // called when deleting the first digit (time is 12:0),
+        // the second digit (time is 12:) and invalid, so not called
+        // then when typing the digits (time is 12:1), then 12:15
+        expect(handleSelectDate).toHaveBeenCalledTimes(4);
+      });
     });
   });
 
