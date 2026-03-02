@@ -102,10 +102,10 @@ const Calendar = ({
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const today = new Date();
-          const isSelected = startDate
-            ? (startDate && isSameDate(startDate, fullDate)) ||
-              (endDate && isSameDate(endDate, fullDate))
-            : isSameDate(today, fullDate);
+          const isSelected =
+            (startDate && isSameDate(startDate, fullDate)) ||
+            (endDate && isSameDate(endDate, fullDate));
+          const isPresent = isSameDate(today, fullDate);
 
           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
@@ -169,6 +169,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
@@ -284,6 +285,7 @@ export interface DateRangePickerProps {
   predefinedDatesList?: Array<DateRange>;
   maxRangeLength?: number;
   startDate?: Date;
+  responsivePositioning?: boolean;
 }
 
 export const DateRangePicker = ({
@@ -296,6 +298,7 @@ export const DateRangePicker = ({
   onSelectDateRange,
   placeholder = 'start date – end date',
   predefinedDatesList,
+  responsivePositioning = true,
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -394,7 +397,10 @@ export const DateRangePicker = ({
           selectedStartDate={selectedStartDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={responsivePositioning}
+      >
         {shouldShowPredefinedDates ? (
           <PredefinedCalendarContainer
             gap="none"
@@ -414,7 +420,11 @@ export const DateRangePicker = ({
 
             {shouldShowCustomRange && (
               <CalendarRendererContainer>
-                <StyledCalendarRenderer calendarOptions={calendarOptions}>
+                <StyledCalendarRenderer
+                  calendarOptions={calendarOptions}
+                  allowYearMonthSelection={false}
+                  selectedDate={selectedStartDate}
+                >
                   {(body: Body) => (
                     <Calendar
                       calendarBody={body}
@@ -432,7 +442,11 @@ export const DateRangePicker = ({
             )}
           </PredefinedCalendarContainer>
         ) : (
-          <CalendarRenderer calendarOptions={calendarOptions}>
+          <CalendarRenderer
+            calendarOptions={calendarOptions}
+            allowYearMonthSelection={false}
+            selectedDate={selectedStartDate}
+          >
             {(body: Body) => (
               <Calendar
                 calendarBody={body}

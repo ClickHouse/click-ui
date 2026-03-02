@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+  echo "👹 Oops! Missing description body"
+  exit 1
+fi
+
+MAX_COUNT=400
+DESC="$1"
+
+if [[ -z "$DESC" ]]; then
+  DESC="No description provided"
+else
+  DESC=$(echo "$DESC" | tr '\n' ' ' | cut -c1-"$MAX_COUNT")
+  if [[ ${#DESC} -eq "$MAX_COUNT" ]]; then
+    DESC="${DESC}..."
+  fi
+fi
+
+echo "$DESC"

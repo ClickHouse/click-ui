@@ -1,0 +1,35 @@
+name: 🔔 Pull Request Slack notification
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Prepare PR description
+        id: prepare
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          DESC=$(.scripts/pull-request-truncate-body "$PR_BODY")
+
+          echo "description=$DESC" >> $GITHUB_OUTPUT
+
+      - name: Notify Slack about new PR
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          # TODO: Maybe create a script version with templates
+          # as notifications at the moment are inline
+          # and hard to confirm output without CI/CD runtime
+          payload: |
+            channel: "${{ secrets.SLACK_CHANNEL }}"
+            text: "===\n🔔 ${{ secrets.SLACK_GROUP_TAG_NAME_FOR_CUI_NOTIFICATIONS }} *New Pull Request Opened*\n\n*Title:* ${{ github.event.pull_request.title }}\n*Author:* @${{ github.event.pull_request.user.login }}\n*Branch:* ${{ github.event.pull_request.head.ref }} → ${{ github.event.pull_request.base.ref }}\n\n*Description:*\n${{ steps.prepare.outputs.description }}\n\n<${{ github.event.pull_request.html_url }}|View Pull Request>\n==="
