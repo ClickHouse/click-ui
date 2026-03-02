@@ -58,7 +58,10 @@ export const ConsumerControlledStateSingle: StoryObj<typeof ButtonGroup> = {
       <ButtonGroup
         {...args}
         selected={selected}
-        onClick={value => setSelected(value)}
+        onClick={(value, selected) => {
+          console.log('🔎 Selected:', [...selected]);
+          setSelected(value);
+        }}
       />
     );
   },
@@ -82,7 +85,10 @@ export const ConsumerControlledStateMulti: StoryObj<typeof ButtonGroup> = {
       <ButtonGroup
         {...args}
         selected={selected}
-        onClick={(_value, newSelection) => setSelected(newSelection)}
+        onClick={(_value, newSelection) => {
+          console.log('🔎 Selected:', [...newSelection]);
+          setSelected(newSelection);
+        }}
       />
     );
   },
