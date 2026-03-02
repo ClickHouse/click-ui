@@ -35,6 +35,9 @@ export const MultiSelect: StoryObj<typeof ButtonGroup> = {
     type: 'default',
     multiple: true,
     defaultSelected: new Set(['option1', 'option3']),
+    onClick: (_value, selected) => {
+      console.log('🔎 Selected:', [...selected]);
+    },
   },
 };
 
