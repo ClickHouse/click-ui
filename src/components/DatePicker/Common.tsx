@@ -258,7 +258,7 @@ const GridCell = styled.div<{ $isActive?: boolean; $isPresent?: boolean }>`
   &:hover {
     ${({ theme }) => `
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-    `}
+    `},
   }
 `;
 
