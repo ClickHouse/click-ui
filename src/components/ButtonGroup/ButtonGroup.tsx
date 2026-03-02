@@ -26,8 +26,12 @@ export interface ButtonGroupProps extends Omit<
 }
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
-  if (value === undefined) return new Set();
-  if (value instanceof Set) return new Set(value);
+  if (value === undefined) {
+    return new Set();
+  }
+  if (value instanceof Set) {
+    return new Set(value);
+  }
   return new Set([value]);
 };
 

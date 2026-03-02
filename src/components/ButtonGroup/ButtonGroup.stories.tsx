@@ -52,7 +52,7 @@ export const ConsumerControlledStateSingle: StoryObj<typeof ButtonGroup> = {
     type: 'default',
     selected: 'option2',
   },
-  render: function Render(args) {
+  render: args => {
     const [selected, setSelected] = useState(args.selected);
     return (
       <ButtonGroup
@@ -79,7 +79,7 @@ export const ConsumerControlledStateMulti: StoryObj<typeof ButtonGroup> = {
     multiple: true,
     selected: new Set(['option2']),
   },
-  render: function Render(args) {
+  render: args => {
     const [selected, setSelected] = useState(args.selected);
     return (
       <ButtonGroup
