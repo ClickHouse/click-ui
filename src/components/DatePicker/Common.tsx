@@ -256,10 +256,8 @@ const GridCell = styled.div<{ $isActive?: boolean; $isPresent?: boolean }>`
   min-height: 26px;
 
   &:hover {
-    ${({ $isPresent, theme }) => `
+    ${({ theme }) => `
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
     `}
   }
 `;
@@ -335,8 +333,7 @@ export const DateTableCell = styled.td<{
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
+      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : ''};
       border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
   }
 `;
