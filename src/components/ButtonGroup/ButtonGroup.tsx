@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode, useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 
 type ButtonGroupType = 'default' | 'borderless';
-type SelectionValue = string | Set<string>;
+export type SelectionValue = string | Set<string>;
 
 export interface ButtonGroupElementProps extends Omit<
   HTMLAttributes<HTMLButtonElement>,
@@ -19,7 +19,7 @@ export interface ButtonGroupProps extends Omit<
   options: Array<ButtonGroupElementProps>;
   selected?: SelectionValue;
   defaultSelected?: SelectionValue;
-  onClick?: (value: string, selected: Set<string>) => void;
+  onClick?: (value: string, selected: SelectionValue) => void;
   fillWidth?: boolean;
   type?: ButtonGroupType;
   multiple?: boolean;
@@ -73,7 +73,9 @@ export const ButtonGroup = ({
         setInternalSelection(newSelection);
       }
 
-      onClick?.(value, newSelection);
+      // WARN: Single mode returns string
+      // while multiple mode returns Set (DS)
+      onClick?.(value, multiple ? newSelection : value);
     },
     [currentSelection, multiple, isControlled, onClick]
   );

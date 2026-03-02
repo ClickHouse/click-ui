@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
-import type { ButtonGroupProps } from '@/components/ButtonGroup/ButtonGroup';
+import type { ButtonGroupProps, SelectionValue } from '@/components/ButtonGroup/ButtonGroup';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('ButtonGroup', () => {
@@ -36,10 +36,10 @@ describe('ButtonGroup', () => {
 
   it('calls onClick with correct arguments in single mode', () => {
     let receivedValue: string | null = null;
-    let receivedSet: Set<string> | null = null;
-    const handleClick = (value: string, selected: Set<string>) => {
+    let receivedSelected: SelectionValue | null = null;
+    const handleClick = (value: string, selected: SelectionValue) => {
       receivedValue = value;
-      receivedSet = selected;
+      receivedSelected = selected;
     };
 
     const { getByText } = renderButtonGroup({
@@ -50,15 +50,15 @@ describe('ButtonGroup', () => {
     fireEvent.click(getByText('Option 2'));
 
     expect(receivedValue).toBe('option2');
-    expect(receivedSet).toEqual(new Set(['option2']));
+    expect(receivedSelected).toBe('option2');
   });
 
   it('calls onClick with correct arguments in multi mode', () => {
     let receivedValue: string | null = null;
-    let receivedSet: Set<string> | null = null;
-    const handleClick = (value: string, selected: Set<string>) => {
+    let receivedSelected: SelectionValue | null = null;
+    const handleClick = (value: string, selected: SelectionValue) => {
       receivedValue = value;
-      receivedSet = selected;
+      receivedSelected = selected;
     };
 
     const { getByText } = renderButtonGroup({
@@ -71,13 +71,13 @@ describe('ButtonGroup', () => {
     fireEvent.click(getByText('Option 2'));
 
     expect(receivedValue).toBe('option2');
-    expect(receivedSet).toEqual(new Set(['option1', 'option2']));
+    expect(receivedSelected).toEqual(new Set(['option1', 'option2']));
   });
 
   it('toggles selection in multi mode', () => {
-    let receivedSet: Set<string> | null = null;
-    const handleClick = (_value: string, selected: Set<string>) => {
-      receivedSet = selected;
+    let receivedSelected: SelectionValue | null = null;
+    const handleClick = (_value: string, selected: SelectionValue) => {
+      receivedSelected = selected;
     };
 
     const { getByText } = renderButtonGroup({
@@ -89,7 +89,7 @@ describe('ButtonGroup', () => {
 
     fireEvent.click(getByText('Option 2'));
 
-    expect(receivedSet).toEqual(new Set(['option1']));
+    expect(receivedSelected).toEqual(new Set(['option1']));
   });
 
   it('allows multiple selections in multi mode', () => {
@@ -183,10 +183,10 @@ describe('ButtonGroup', () => {
 
     it('calls onClick with updated state in uncontrolled mode', () => {
       let receivedValue: string | null = null;
-      let receivedSet: Set<string> | null = null;
-      const handleClick = (value: string, selected: Set<string>) => {
+      let receivedSelected: SelectionValue | null = null;
+      const handleClick = (value: string, selected: SelectionValue) => {
         receivedValue = value;
-        receivedSet = selected;
+        receivedSelected = selected;
       };
 
       const { getByText } = renderButtonGroup({
@@ -198,7 +198,7 @@ describe('ButtonGroup', () => {
       fireEvent.click(getByText('Option 2'));
 
       expect(receivedValue).toBe('option2');
-      expect(receivedSet).toEqual(new Set(['option2']));
+      expect(receivedSelected).toBe('option2');
       expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'true');
     });
   });

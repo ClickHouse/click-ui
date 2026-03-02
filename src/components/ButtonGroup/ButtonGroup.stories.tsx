@@ -59,7 +59,7 @@ export const ConsumerControlledStateSingle: StoryObj<typeof ButtonGroup> = {
         {...args}
         selected={selected}
         onClick={(value, selected) => {
-          console.log('🔎 Selected:', [...selected]);
+          console.log('🔎 Selected:', selected);
           setSelected(value);
         }}
       />
