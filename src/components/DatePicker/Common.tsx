@@ -593,9 +593,9 @@ export const CalendarRenderer = ({
   const [focusedMonthIndex, setFocusedMonthIndex] = useState(month);
   const [focusedYearIndex, setFocusedYearIndex] = useState(VIEW_NAVIGATION_OFFSET_YEARS);
 
-  const monthGridRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const yearGridRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const headerNavRefs = useRef<(HTMLButtonElement | null)[]>([null, null, null]);
+  const monthGridRef = useRef<Array<HTMLButtonElement | null>>([]);
+  const yearGridRef = useRef<Array<HTMLButtonElement | null>>([]);
+  const headerNavRefs = useRef<Array<HTMLButtonElement | null>>([null, null, null]);
 
   useEffect(() => {
     if (view === YEARS) {
@@ -812,7 +812,7 @@ export const CalendarRenderer = ({
   };
 
   const renderYearsGrid = () => {
-    const years: number[] = [];
+    const years: Array<number> = [];
     const baseYear = year + yearOffset;
     const todayYear = new Date().getFullYear();
     const selectedYear = selectedDate?.getFullYear();

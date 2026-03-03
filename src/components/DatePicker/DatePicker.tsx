@@ -64,7 +64,7 @@ const Calendar = ({
   const [focusedDayIndex, setFocusedDayIndex] = useState<number>(
     initialFocusIndex >= 0 ? initialFocusIndex : 0
   );
-  const dayRefs = useRef<(HTMLTableCellElement | null)[]>([]);
+  const dayRefs = useRef<Array<HTMLTableCellElement | null>>([]);
 
   useEffect(() => {
     dayRefs.current[focusedDayIndex]?.focus();
