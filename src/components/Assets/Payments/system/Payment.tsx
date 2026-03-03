@@ -5,7 +5,7 @@ import { PaymentName } from './types';
 import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
 import { SvgImageElement } from '@/components/commonElement';
-import type { ThemeName } from '@/theme/core';
+import type { ThemeName } from '@/theme';
 
 export interface PaymentProps extends SVGAttributes<SVGElement> {
   name: PaymentName;
@@ -15,7 +15,7 @@ export interface PaymentProps extends SVGAttributes<SVGElement> {
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();
-  const resolvedTheme: ThemeName = (theme ?? themeName ?? 'light') as ThemeName;
+  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? 'light';
   const Component = resolvedTheme === 'light' ? PaymentsLight[name] : PaymentsDark[name];
 
   if (!Component) {

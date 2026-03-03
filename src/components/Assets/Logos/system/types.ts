@@ -59,6 +59,7 @@ export type LogoName =
   | 'node-js'
   | 'one-lake'
   | 'ovh'
+  | 'planet-scale'
   | 'postgres'
   | 'prequel'
   | 'python'
