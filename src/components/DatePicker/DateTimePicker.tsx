@@ -806,6 +806,16 @@ export const DateTimePicker = ({
     [onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
+  const onTriggerKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        setIsOpen(true);
+      }
+    },
+    []
+  );
+
   const shouldShowPredefinedTimes =
     predefinedTimesList !== undefined && predefinedTimesList.length > 0;
 
@@ -814,7 +824,7 @@ export const DateTimePicker = ({
       onOpenChange={handleOpenChange}
       open={isOpen}
     >
-      <Dropdown.Trigger disabled={disabled}>
+      <Dropdown.Trigger disabled={disabled} onKeyDown={onTriggerKeyDown}>
         <DateTimePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
