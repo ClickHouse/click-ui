@@ -3,9 +3,11 @@ import {
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
 import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
-import { ThemeName, THEMES } from '@/theme';
+import { ThemeName, THEMES } from '@/theme/core';
 import { ThemeProvider } from '@/theme/theme';
 import { ReactNode, useEffect } from 'react';
+import { setRootThemeAttribute, removeRootThemeAttribute } from '@/utils/dom';
+import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { isValidThemeName, getFallbackThemeName } from '@/utils/theme';
 
 interface Props {
@@ -15,11 +17,20 @@ interface Props {
   };
   theme: ThemeName;
   children: ReactNode;
+  persistTheme?: boolean;
+  storageKey?: string;
 }
 
-const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
+const ClickUIProvider = ({
+  children,
+  theme,
+  config = {},
+  persistTheme = true,
+  storageKey = CUI_THEME_STORAGE_KEY,
+}: Props) => {
   const { toast = {}, tooltip = {} } = config;
   const hasValidTheme = isValidThemeName(theme);
+  const safeTheme = getFallbackThemeName(theme);
 
   useEffect(() => {
     if (!hasValidTheme) {
@@ -29,7 +40,25 @@ const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
     }
   }, [theme, hasValidTheme]);
 
-  const safeTheme = getFallbackThemeName(theme);
+  useEffect(() => {
+    setRootThemeAttribute(safeTheme);
+
+    return () => {
+      removeRootThemeAttribute();
+    };
+  }, [safeTheme]);
+
+  useEffect(() => {
+    if (!persistTheme) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(storageKey, safeTheme);
+    } catch {
+      console.warn('LocalStorage is not available!');
+    }
+  }, [safeTheme, persistTheme, storageKey]);
 
   return (
     <ThemeProvider theme={safeTheme}>
