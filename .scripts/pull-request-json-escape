@@ -1,11 +1,6 @@
 #!/bin/bash
 
-if [[ -z "$1" ]]; then
-  echo "👹 Oops! Missing input argument to escape..."
-  exit 1
-fi
-
-INPUT="$1"
+INPUT="${1:-N/A}"
 
 INPUT=$(echo "$INPUT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g')
 
