@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+  echo "👹 Oops! Missing input argument to escape..."
+  exit 1
+fi
+
+INPUT="$1"
+
+INPUT=$(echo "$INPUT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g')
+
+echo "$INPUT"

@@ -13,14 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Prepare PR description
+      - name: Prepare PR metadata
         id: prepare
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           DESC=$(.scripts/pull-request-truncate-body "$PR_BODY")
+          TITLE=$(.scripts/pull-request-json-escape "$PR_TITLE")
 
           echo "description=$DESC" >> $GITHUB_OUTPUT
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
 
       - name: Notify Slack about new PR
         uses: slackapi/slack-github-action@v2.1.1
