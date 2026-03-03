@@ -49,7 +49,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const getMenuOptions = (
     selection: SelectedRegion,
     focus: SelectionFocus
-  ): GridContextMenuItemProps[] => {
+  ): Array<GridContextMenuItemProps> => {
     return [
       {
         label: 'Console log elements',

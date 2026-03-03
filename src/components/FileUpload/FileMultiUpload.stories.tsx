@@ -197,7 +197,7 @@ export const MixedStates: Story = {
 
 // Interactive example that demonstrates state management
 export const Interactive: StoryFn = () => {
-  const [files, setFiles] = useState<FileUploadItem[]>([]);
+  const [files, setFiles] = useState<Array<FileUploadItem>>([]);
 
   const handleFileSelect = (file: File) => {
     const newFile: FileUploadItem = {
