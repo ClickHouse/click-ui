@@ -121,7 +121,7 @@ const Calendar = ({
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
-          const isToday = isSameDate(today, fullDate);
+          const isPresent = isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
           const currentIndex = dayIndex;
           dayIndex++;
@@ -142,7 +142,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isToday}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onKeyDown={e => onDayKeyDown(e, currentIndex, fullDate, isDisabled)}
