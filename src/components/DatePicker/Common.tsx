@@ -382,25 +382,19 @@ const GridCell = styled.button<{ $isActive?: boolean; $isPresent?: boolean }>`
   text-align: center;
   min-height: 26px;
 
-  ${({ $isPresent, theme }) => `
+  ${({ theme }) => `
     &:hover {
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
     }
 
     &:focus {
       outline: none;
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
     }
 
     &:focus-visible {
       outline: none;
       border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
     }
   `}
 `;
@@ -470,38 +464,36 @@ export const DateTableCell = styled.td<{
   text-align: center;
   outline: none;
 
-  ${({ $isDisabled, $isPresent, theme }) => `
-    &:hover {
-      border: ${theme.click.datePicker.dateOption.stroke} solid ${
+  &:hover {
+    ${({ $isDisabled, $isPresent, theme }) =>
+      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
-      border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    }
+      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : ''};
+      border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
+  }
 
-    &:focus {
+  &:focus {
+    ${({ $isDisabled, theme }) =>
+      `outline: none;
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
-      };
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
-    }
+      };`};
+  }
 
-    &:focus-visible {
+  &:focus-visible {
+    ${({ $isDisabled, theme }) =>
+      `outline: none;
       border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
-      };
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : 'transparent'};
-      color: ${theme.click.datePicker.dateOption.color.label.default};
-    }
-  `}
+      };`};
+  }
 `;
 
 export type Body = ReturnType<typeof useCalendar>['body'];
