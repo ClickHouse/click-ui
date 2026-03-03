@@ -8,7 +8,7 @@ The process will provide control for the consumer's main html, e.g. data-cui-the
 
 It also provides documentation explaining how to use it in the consumer application.
 
-## How to use?
+**How to use?**
 
 The `InitCUIThemeScript` applies a `data-cui-theme` attribute to the root `<html>` element, allowing you to style custom elements with vanilla CSS.
 
