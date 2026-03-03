@@ -61,7 +61,7 @@ const Calendar = ({
     selectedDate ? isSameDate(selectedDate, day.value) : isSameDate(today, day.value)
   );
 
-  const [focusedDayIndex, setFocusedDayIndex] = useState(
+  const [focusedDayIndex, setFocusedDayIndex] = useState<number>(
     initialFocusIndex >= 0 ? initialFocusIndex : 0
   );
   const dayRefs = useRef<(HTMLTableCellElement | null)[]>([]);

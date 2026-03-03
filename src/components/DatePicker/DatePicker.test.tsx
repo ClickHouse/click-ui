@@ -49,6 +49,8 @@ describe('DatePicker', () => {
   });
 
   describe('disabling dates', () => {
+    // this test was throwing an error if `vi.useFakeTimers` was called outside
+    // of beforeAll, so it needed to be put in here
     beforeAll(() => {
       vi.useFakeTimers();
       vi.setSystemTime(new Date(2020, 6, 5));
@@ -331,7 +333,7 @@ describe('DatePicker', () => {
       expect(document.activeElement).toBe(getByTestId('month-cell-1'));
     });
 
-    it('calendar title is keyboard accessible', async () => {
+    it('allows accessing the calendar title by keyboard', async () => {
       const onSelectDate = vi.fn();
       const date = new Date('07-04-2020');
 
@@ -352,30 +354,32 @@ describe('DatePicker', () => {
       expect(getByTestId('years-grid')).toBeInTheDocument();
     });
 
-    it('day grid supports keyboard navigation and Enter to select', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
+    describe('the day grid', () => {
+      it('supports keyboard navigation and selects with Enter', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
 
-      const { getByTestId, getByText } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
+        const { getByTestId, getByText } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
 
-      await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('datepicker-input'));
 
-      const day4 = getByText('4');
-      day4.focus();
-      expect(document.activeElement).toBe(day4);
+        const day4 = getByText('4');
+        day4.focus();
+        expect(document.activeElement).toBe(day4);
 
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(getByText('5'));
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(getByText('5'));
 
-      await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard('{Enter}');
 
-      const selectedDate = onSelectDate.mock.lastCall?.[0];
-      expect(selectedDate.getDate()).toBe(5);
+        const selectedDate = onSelectDate.mock.lastCall?.[0];
+        expect(selectedDate.getDate()).toBe(5);
+      });
     });
 
     it('supports horizontal arrow key navigation between chevron buttons and title in days view', async () => {

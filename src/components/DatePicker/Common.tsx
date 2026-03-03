@@ -779,7 +779,7 @@ export const CalendarRenderer = ({
     const todayMonth = today.getMonth();
     const todayYear = today.getFullYear();
     const selectedMonth = selectedDate?.getMonth();
-    const selectedYearValue = selectedDate?.getFullYear();
+    const selectedYear = selectedDate?.getFullYear();
 
     return (
       <MonthsGrid
@@ -795,7 +795,7 @@ export const CalendarRenderer = ({
               monthGridRef.current[index] = el;
             }}
             $isActive={
-              selectedDate && index === selectedMonth && year === selectedYearValue
+              selectedDate && index === selectedMonth && year === selectedYear
             }
             $isPresent={index === todayMonth && year === todayYear}
             onClick={() => onMonthSelection(index)}
@@ -815,7 +815,7 @@ export const CalendarRenderer = ({
     const years: number[] = [];
     const baseYear = year + yearOffset;
     const todayYear = new Date().getFullYear();
-    const selectedYearValue = selectedDate?.getFullYear();
+    const selectedYear = selectedDate?.getFullYear();
 
     for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
       years.push(baseYear + i);
@@ -834,7 +834,7 @@ export const CalendarRenderer = ({
             ref={el => {
               yearGridRef.current[index] = el;
             }}
-            $isActive={selectedDate && currYear === selectedYearValue}
+            $isActive={selectedDate && currYear === selectedYear}
             $isPresent={currYear === todayYear}
             onClick={() => onYearSelection(currYear)}
             onKeyDown={e => onYearGridKeyDown(e, index, currYear)}
