@@ -794,9 +794,7 @@ export const CalendarRenderer = ({
             ref={el => {
               monthGridRef.current[index] = el;
             }}
-            $isActive={
-              selectedDate && index === selectedMonth && year === selectedYear
-            }
+            $isActive={selectedDate && index === selectedMonth && year === selectedYear}
             $isPresent={index === todayMonth && year === todayYear}
             onClick={() => onMonthSelection(index)}
             onKeyDown={e => onMonthGridKeyDown(e, index)}

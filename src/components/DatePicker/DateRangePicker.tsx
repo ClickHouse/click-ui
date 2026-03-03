@@ -403,15 +403,12 @@ export const DateRangePicker = ({
     [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
-  const onTriggerKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        setIsOpen(true);
-      }
-    },
-    []
-  );
+  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setIsOpen(true);
+    }
+  }, []);
 
   const shouldShowPredefinedDates =
     predefinedDatesList !== undefined && predefinedDatesList.length > 0;
@@ -421,7 +418,10 @@ export const DateRangePicker = ({
       onOpenChange={handleOpenChange}
       open={isOpen}
     >
-      <Dropdown.Trigger disabled={disabled} onKeyDown={onTriggerKeyDown}>
+      <Dropdown.Trigger
+        disabled={disabled}
+        onKeyDown={onTriggerKeyDown}
+      >
         <DateRangePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}

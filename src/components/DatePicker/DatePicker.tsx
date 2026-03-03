@@ -230,22 +230,22 @@ export const DatePicker = ({
     setPartialMonth(month);
   }, []);
 
-  const onTriggerKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLButtonElement>) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        setIsOpen(true);
-      }
-    },
-    []
-  );
+  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setIsOpen(true);
+    }
+  }, []);
 
   return (
     <Popover.Root
       onOpenChange={onOpenChange}
       open={isOpen}
     >
-      <PopoverTrigger disabled={disabled} onKeyDown={onTriggerKeyDown}>
+      <PopoverTrigger
+        disabled={disabled}
+        onKeyDown={onTriggerKeyDown}
+      >
         <DatePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
