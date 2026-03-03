@@ -151,10 +151,10 @@ const columnAnySelected = (selection: SelectedRegion, column: number): boolean =
     selection.bounds.left <= column &&
     selection.bounds.right >= column);
 
-export const rangeIndices = (a: number, b: number): number[] => {
+export const rangeIndices = (a: number, b: number): Array<number> => {
   const low = Math.min(a, b);
   const high = Math.max(a, b);
-  const indices: number[] = [];
+  const indices: Array<number> = [];
   for (let i = low; i <= high; ++i) {
     indices.push(i);
   }

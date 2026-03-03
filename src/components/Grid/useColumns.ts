@@ -20,7 +20,7 @@ const measureColumnWidth = (columnIndex: number, outerGrid: HTMLDivElement): num
   );
 
   // Store the original widths and temporarily set cells to minimum width
-  const originalWidths: string[] = [];
+  const originalWidths: Array<string> = [];
   cells.forEach(cell => {
     originalWidths.push(cell.style.width);
     cell.style.width = `${MIN_COLUMN_WIDTH}px`;
