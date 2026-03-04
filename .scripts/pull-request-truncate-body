@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [[ -z "$1" ]]; then
-  echo "👹 Oops! Missing description body"
-  exit 1
-fi
-
 MAX_COUNT=400
 DESC="$1"
 
@@ -16,5 +11,7 @@ else
     DESC="${DESC}..."
   fi
 fi
+
+DESC=$(.scripts/pull-request-json-escape "$DESC")
 
 echo "$DESC"
