@@ -93,7 +93,7 @@ export interface FileTabsProps extends Omit<
   /** Index of the currently selected tab */
   selectedIndex?: number;
   /** The tab elements to render */
-  children: ReactElement<FileTabProps> | Array<ReactElement<FileTabProps>>;
+  children: ReactElement<FileTabProps> | ReactElement<FileTabProps>[];
   /** Callback when a tab is reordered via drag and drop */
   onReorderTab: (sourcePosition: number, destinationPosition: number) => void;
   /** Callback when a tab is closed */
@@ -101,10 +101,10 @@ export interface FileTabsProps extends Omit<
   /** Callback when a tab is selected */
   onSelect: (index: number) => void;
   /** List of items for sortable functionality */
-  list?: Array<ItemInterface>;
+  list?: ItemInterface[];
   /** Setter for the sortable list */
   setList?: (
-    newState: Array<ItemInterface>,
+    newState: ItemInterface[],
     sortable: Sortable | null,
     store: Store
   ) => void;
@@ -132,7 +132,7 @@ export const FileTabs = ({
   ...props
 }: FileTabsProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [list, setList] = useState<Array<ItemInterface>>(
+  const [list, setList] = useState<ItemInterface[]>(
     Children.map(children, (_, index) => ({
       id: `tab-element-${index}`,
     }))

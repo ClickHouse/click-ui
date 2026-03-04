@@ -22,7 +22,7 @@ export interface PaginationProps extends Omit<
   /** The currently selected page number */
   currentPage: number;
   /** List of options for rows per page dropdown */
-  maxRowsPerPageList?: Array<number>;
+  maxRowsPerPageList?: number[];
   /** Total row count to display */
   rowCount?: number | string;
   /** Callback when page number changes */

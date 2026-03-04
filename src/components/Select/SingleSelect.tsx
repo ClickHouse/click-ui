@@ -36,7 +36,7 @@ export const Select = ({
   onOpenChange: onOpenChangeProp,
   ...props
 }: SelectProps) => {
-  const [selectedValues, setSelectedValues] = useState<Array<string>>(
+  const [selectedValues, setSelectedValues] = useState<string[]>(
     typeof valueProp === 'string'
       ? [valueProp]
       : typeof defaultValue === 'string'
@@ -76,7 +76,7 @@ export const Select = ({
   );
 
   const onChange = useCallback(
-    (values: Array<string>) => {
+    (values: string[]) => {
       if (values[0] !== selectedValues[0]) {
         onSelect(values[0]);
       }

@@ -20,7 +20,7 @@ const measureColumnWidth = (columnIndex: number, outerGrid: HTMLDivElement): num
   );
 
   // Store the original widths and temporarily set cells to minimum width
-  const originalWidths: Array<string> = [];
+  const originalWidths: string[] = [];
   cells.forEach(cell => {
     originalWidths.push(cell.style.width);
     cell.style.width = `${MIN_COLUMN_WIDTH}px`;
@@ -55,9 +55,9 @@ const useColumns = ({
 }: Props) => {
   const columnResized = useRef(false);
   const prevWidth = useRef<Record<string, number>>({});
-  const columnWidthRefs = useRef<Array<number>>([]);
-  const autoWidthIndices = useRef<Array<number>>([]);
-  const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<Array<number>>(
+  const columnWidthRefs = useRef<number[]>([]);
+  const autoWidthIndices = useRef<number[]>([]);
+  const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<number[]>(
     []
   );
 

@@ -31,7 +31,7 @@ interface Props {
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
-  const [columnWidth, setColumnWidth] = useState<Array<number>>(
+  const [columnWidth, setColumnWidth] = useState<number[]>(
     Array.from({ length: columnCount }, () => 100)
   );
 
@@ -49,7 +49,7 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const getMenuOptions = (
     selection: SelectedRegion,
     focus: SelectionFocus
-  ): Array<GridContextMenuItemProps> => {
+  ): GridContextMenuItemProps[] => {
     return [
       {
         label: 'Console log elements',
