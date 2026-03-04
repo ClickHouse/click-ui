@@ -37,6 +37,8 @@ jobs:
             Please use the project's `.llm/CONVENTIONS.md`, CHANGELOG.md as your guide and focus on
             what actually matters for a shared UI library used by many teams.
 
+            IMPORTANT: Only flag what affects the PR's goal. Skip nitpicks, obvious issues, and unnecessary explanations.
+
             ---
 
             ## 🔍 What to look for
