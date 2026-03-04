@@ -23,9 +23,8 @@ const Calendar = ({
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const today = new Date();
-          const isSelected = selectedDate
-            ? isSameDate(selectedDate, fullDate)
-            : isSameDate(today, fullDate);
+          const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
+          const isPresent = isSameDate(today, fullDate);
           const isDisabled = futureDatesDisabled ? fullDate > today : false;
 
           const handleClick = () => {
@@ -41,6 +40,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
             >
@@ -59,6 +59,7 @@ export interface DatePickerProps {
   futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
   placeholder?: string;
+  responsivePositioning?: boolean;
 }
 
 export const DatePicker = ({
@@ -67,6 +68,7 @@ export const DatePicker = ({
   futureDatesDisabled = false,
   onSelectDate,
   placeholder,
+  responsivePositioning = true,
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -141,11 +143,15 @@ export const DatePicker = ({
           selectedDate={selectedDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={responsivePositioning}
+      >
         <CalendarRenderer
           calendarOptions={calendarOptions}
           onYearSelect={onYearSelect}
           onMonthSelect={onMonthSelect}
+          selectedDate={selectedDate}
         >
           {body => (
             <Calendar

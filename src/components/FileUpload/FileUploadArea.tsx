@@ -105,7 +105,7 @@ const UploadText = styled.div<{ $size: 'sm' | 'md'; $hasFile: boolean }>`
 
 export interface FileUploadAreaProps {
   title: string;
-  supportedFileTypes: string[];
+  supportedFileTypes: Array<string>;
   size?: 'sm' | 'md';
   isDragging: boolean;
   isNotSupported: boolean;

@@ -15,8 +15,8 @@ export interface FileUploadItem {
 
 export interface FileMultiUploadProps {
   title: string;
-  supportedFileTypes?: string[];
-  files: FileUploadItem[];
+  supportedFileTypes?: Array<string>;
+  files: Array<FileUploadItem>;
   onFileSelect?: (file: File) => void;
   onFileRetry?: (fileId: string) => void;
   onFileRemove?: (fileId: string) => void;
@@ -41,7 +41,7 @@ export const FileMultiUpload = ({
   onFileFailure,
 }: FileMultiUploadProps) => {
   const handleFilesProcessed = useCallback(
-    (processedFiles: File[]) => {
+    (processedFiles: Array<File>) => {
       processedFiles.forEach(file => {
         if (onFileSelect) {
           onFileSelect(file);

@@ -227,14 +227,14 @@ const TableHeader = ({
 interface TheadProps {
   headers: Array<TableColumnConfigProps>;
   isSelectable?: boolean;
-  onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
+  onSelectAll?: (selectedValues: Array<SelectReturnValue>) => void;
   actionsList: Array<string>;
   onSort?: SortFn;
   size: TableSize;
-  rows: TableRowType[];
-  selectedIds: (number | string)[];
+  rows: Array<TableRowType>;
+  selectedIds: Array<number | string>;
   resizableColumns?: boolean;
-  columnWidths?: number[] | null;
+  columnWidths?: Array<number> | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
     columnIndex: number
@@ -755,7 +755,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const isDeletable = typeof onDelete === 'function';
     const isEditable = typeof onEdit === 'function';
 
-    const [columnWidths, setColumnWidths] = useState<number[] | null>(null);
+    const [columnWidths, setColumnWidths] = useState<Array<number> | null>(null);
     const theadRef = useRef<HTMLTableSectionElement>(null);
 
     useLayoutEffect(() => {
@@ -764,7 +764,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       }
 
       const headerCells = theadRef.current.querySelectorAll('th');
-      const widths: number[] = [];
+      const widths: Array<number> = [];
 
       const startIndex = isSelectable ? 1 : 0;
       const endIndex = headerCells.length - (isDeletable || isEditable ? 1 : 0);
@@ -1027,8 +1027,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
 interface SelectAllCheckboxProps extends Omit<CheckboxProps, 'onCheckedChange'> {
   onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
-  selectedIds: (number | string)[];
-  rows: TableRowType[];
+  selectedIds: Array<number | string>;
+  rows: Array<TableRowType>;
 }
 
 const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
@@ -1071,7 +1071,7 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
 
     // disabled items should not change their selected state because of user interaction
 
-    const newSelectedRows = rows.reduce((acc: SelectReturnValue[], row, index) => {
+    const newSelectedRows = rows.reduce((acc: Array<SelectReturnValue>, row, index) => {
       const isDisabled = row.isDisabled || row.isDeleted;
 
       const shouldBeSelected = checked

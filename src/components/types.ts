@@ -24,7 +24,7 @@ import { BadgeProps } from './Badge';
 import { AvatarProps } from './Avatar';
 import { AlertProps } from './Alert';
 import { IconButtonProps } from './IconButton';
-export type { ImageName as IconName } from './Icon/types';
+export type { IconName, ImageName } from './Icon/types';
 import { SidebarNavigationTitleProps } from './SidebarNavigationTitle';
 import { SidebarCollapsibleItemProps } from './SidebarCollapsibleItem';
 import { SidebarCollapsibleTitleProps } from './SidebarCollapsibleTitle';

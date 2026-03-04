@@ -33,6 +33,10 @@ You can find the official docs for the Click UI design system and component libr
   - [Use Click UI](#use-click-ui)
   - [Deep imports support](#deep-imports-support)
   - [Examples](#examples)
+* [Themes](#themes)
+  - [Prevent theme flash](#prevent-theme-flash)
+  - [Theme Persistence](#theme-persistence)
+  - [Custom styling with CSS](#custom-styling-with-css)
 * [Assets Management](#assets-management)
   - [Convert SVG to React Component](#convert-svg-to-react-component)
 * [Changesets](#changesets)
@@ -352,6 +356,98 @@ function App() {
 }
 
 export default App
+```
+
+## Themes
+
+Theming allows the end-user to select its preferred colour theme. You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
+
+> [!NOTE]
+> Currently, styling is done with css-in-js which might cause some flash since it has to compute the theme and apply it. We'll be moving from styled-components and this shall be changed and improved.
+
+### Prevent theme flash
+
+To prevent flash of incorrect theme, import the `InitCUIThemeScript` component and place it in the `<head>` of your HTML.
+
+The script reads the theme from localStorage and applies it immediately before React hydration to prevent flashing.
+
+```ts
+import { InitCUIThemeScript } from '@clickhouse/click-ui';
+```
+
+Simple usage (no props needed):
+
+```jsx
+<html>
+  <head>
+    <InitCUIThemeScript />
+  </head>
+  <body>
+    <ClickUIProvider theme={theme} persistTheme>
+      {children}
+    </ClickUIProvider>
+  </body>
+</html>
+```
+
+> [!NOTE]
+> On initial load, the component `InitCUIThemeScript` reads localStorage and applies the theme immediately before React hydration. When the theme changes the ClickUIProvider stores the new theme to localStorage (persistTheme must be enabled). Finally, when page loads/refreshes the process reads from the stored theme from localStorage.
+
+The process will check localStorage for a theme, e.g. in the key `cui-theme` and apply it immediately preventing flashing. Otherwise, if nothing's stored it'll fallback to the default value `light`.
+
+> [!IMPORTANT]
+> If you'd like to override the theme fallback when localStorage is empty, you can do it by setting a value for property `defaultTheme`, e.g. `dark`.
+
+### Theme Persistence
+
+To enable theme persistence across page reloads, enable `persistTheme` (default: `true`). The provider will automatically save theme changes to localStorage.
+
+Notice that we manage theme state in the consumer side:
+
+```tsx
+import { ClickUIProvider } from '@clickhouse/click-ui';
+import { useState } from 'react';
+
+export const App = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  return (
+    <ClickUIProvider 
+      theme={theme}
+      persistTheme
+    >
+      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        Switch to {theme === 'dark' ? 'Light' : 'Dark'} Mode
+      </button>
+    </ClickUIProvider>
+  );
+};
+```
+
+> [!TIP]
+> An example of NextJS with Server Side Rendering (SSR) is available [here](/docs/examples/nextjs-app-router-with-ssr.md), where you can see how the root `data-cui-theme` is handled.
+
+### Custom Styling with CSS
+
+The `InitCUIThemeScript` applies a `data-cui-theme` attribute to the root `<html>` element, allowing you to style custom elements with vanilla CSS.
+
+For example, edit your consumer app `stylesheet` and introduce custom styles as follows:
+
+```css
+[data-cui-theme="light"] {
+  --my-app-bg: #ffffff;
+  --my-app-text: #1a1a1a;
+}
+
+[data-cui-theme="dark"] {
+  --my-app-bg: #0a0a0a;
+  --my-app-text: #f5f5f5;
+}
+
+.my-custom-component {
+  background: var(--my-app-bg);
+  color: var(--my-app-text);
+}
 ```
 
 ## Assets management
