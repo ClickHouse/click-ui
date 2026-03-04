@@ -103,11 +103,7 @@ export interface FileTabsProps extends Omit<
   /** List of items for sortable functionality */
   list?: ItemInterface[];
   /** Setter for the sortable list */
-  setList?: (
-    newState: ItemInterface[],
-    sortable: Sortable | null,
-    store: Store
-  ) => void;
+  setList?: (newState: ItemInterface[], sortable: Sortable | null, store: Store) => void;
 }
 
 const useSelect = () => {

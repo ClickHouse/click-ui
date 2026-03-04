@@ -57,9 +57,7 @@ const useColumns = ({
   const prevWidth = useRef<Record<string, number>>({});
   const columnWidthRefs = useRef<number[]>([]);
   const autoWidthIndices = useRef<number[]>([]);
-  const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<number[]>(
-    []
-  );
+  const [columnHorizontalPosition, setColumnHorizontalPosition] = useState<number[]>([]);
 
   const initColumnSize = useCallback(
     (containerWidth: number) => {

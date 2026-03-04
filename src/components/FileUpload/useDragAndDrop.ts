@@ -27,10 +27,7 @@ export interface UseDragAndDropReturn {
   handleBrowseClick: () => void;
 }
 
-const isFiletypeSupported = (
-  filename: string,
-  supportedTypes: string[]
-): boolean => {
+const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
   if (!supportedTypes.length) {
     return true;
   }
