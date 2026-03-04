@@ -24,11 +24,11 @@ type MenuGroup = {
   iconDir?: never;
   label?: never;
   type: 'group';
-  items: Array<MenuItem | SubMenu>;
+  items: (MenuItem | SubMenu)[];
 };
 
 type SubMenu = Omit<MenuItem, 'type' | 'items'> & {
-  items: Array<MenuGroup | MenuItem>;
+  items: (MenuGroup | MenuItem)[];
   type: 'sub-menu';
 };
 
@@ -43,7 +43,7 @@ export interface SplitButtonProps
   /** Whether the button should fill the full width of its container */
   fillWidth?: boolean;
   /** The menu items to display in the dropdown */
-  menu: Array<Menu>;
+  menu: Menu[];
   /** Which side of the button to show the dropdown */
   side?: 'top' | 'bottom';
   /** Optional icon to display in the main button */

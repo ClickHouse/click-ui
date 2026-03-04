@@ -95,7 +95,6 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-deprecated': 'warn',
-      '@typescript-eslint/array-type': ['error', { default: 'generic' }],
     },
   },
   // Special config for test files

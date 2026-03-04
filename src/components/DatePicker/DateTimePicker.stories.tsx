@@ -100,7 +100,7 @@ export const PredefinedDatesScrollable: Story = {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
     const now = dayjs();
-    const predefinedTimesList: Array<DateRangeListItem> = [
+    const predefinedTimesList: DateRangeListItem[] = [
       {
         dateRange: {
           startDate: now.subtract(15, 'minute').toDate(),
