@@ -404,7 +404,7 @@ export const DateRangePicker = ({
   );
 
   const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setIsOpen(true);
     }

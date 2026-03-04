@@ -231,7 +231,7 @@ export const DatePicker = ({
   }, []);
 
   const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setIsOpen(true);
     }
