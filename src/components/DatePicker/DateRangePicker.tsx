@@ -199,7 +199,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, {
 
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedDatesList: Array<DateRange>;
+  predefinedDatesList: DateRange[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -290,7 +290,7 @@ export interface DateRangePickerProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedDatesList?: Array<DateRange>;
+  predefinedDatesList?: DateRange[];
   maxRangeLength?: number;
   startDate?: Date;
   responsivePositioning?: boolean;

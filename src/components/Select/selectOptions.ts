@@ -1,6 +1,6 @@
 import { SelectOptionListItem } from './common/types';
 
-export const selectOptions: Array<SelectOptionListItem> = [
+export const selectOptions: SelectOptionListItem[] = [
   {
     heading: 'Group label',
     options: [
@@ -33,7 +33,7 @@ export const selectOptions: Array<SelectOptionListItem> = [
   },
 ];
 
-export const selectOptionsLong: Array<SelectOptionListItem> = [
+export const selectOptionsLong: SelectOptionListItem[] = [
   {
     value: '1',
     label:

@@ -9,8 +9,8 @@ import {
 } from 'react';
 
 export interface UseDragAndDropOptions {
-  onFilesProcessed: (files: Array<File>) => void;
-  supportedFileTypes: Array<string>;
+  onFilesProcessed: (files: File[]) => void;
+  supportedFileTypes: string[];
   onFileFailure?: () => void;
   multiple?: boolean;
 }
@@ -27,10 +27,7 @@ export interface UseDragAndDropReturn {
   handleBrowseClick: () => void;
 }
 
-const isFiletypeSupported = (
-  filename: string,
-  supportedTypes: Array<string>
-): boolean => {
+const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
   if (!supportedTypes.length) {
     return true;
   }
@@ -108,8 +105,8 @@ export const useDragAndDrop = ({
   }, []);
 
   const processFiles = useCallback(
-    (files: Array<File>) => {
-      const validFiles: Array<File> = [];
+    (files: File[]) => {
+      const validFiles: File[] = [];
       let hasInvalidFile = false;
 
       files.forEach(file => {
