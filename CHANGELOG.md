@@ -1,5 +1,130 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.70
+
+### Minor Changes
+
+- b797f89: Provides control to fix the the Date picker content misalignment on smaller viewports or resizing.
+
+  **What changed?**
+  - Exposed `responsivePositioning` prop on `DatePicker` and `DateRangePicker` components (default: `true`)
+  - When enabled, dropdowns automatically adjust position to stay within viewport with 100px padding
+  - This fixes the Date picker dropdown becoming misaligned on resize and smaller viewports
+
+  **How to use?**
+
+  All dropdowns now automatically adjust to stay within viewport by default.
+
+  To disable this behavior use the `responsivePositioning` prop:
+
+  ```tsx
+  // Disable responsive positioning on Dropdown
+  <Dropdown>
+    <Dropdown.Trigger>Open</Dropdown.Trigger>
+    <Dropdown.Content responsivePositioning={false}>
+      <Dropdown.Item>Item</Dropdown.Item>
+    </Dropdown.Content>
+  </Dropdown>
+
+  // Disable on DatePicker
+  <DatePicker
+    onSelectDate={handleSelect}
+    responsivePositioning={false}
+  />
+
+  // Disable on DateRangePicker
+  <DateRangePicker
+    onSelectDateRange={handleRange}
+    responsivePositioning={false}
+  />
+  ```
+
+- ae7584f: Introduced a new date-range picker using a simple two-phase process for year and month selection to make the date selection user experience more elegant.
+
+  Currently, jumping through many years requires multiple clicks and scrolls, making the whole process tiring. The issue was originally reported in reported issue [#752](https://github.com/ClickHouse/click-ui/issues/752).
+
+  **How to use?**
+
+  To quickly navigate to a different month and year in the Datepicker:
+  1. Click the header showing the current month and year (e.g., "Feb 2026")
+  2. Select your desired year from the grid (current year is highlighted)
+  3. Select the month from the grid (current month is highlighted)
+  4. Select the day from the calendar
+
+  This allows you to jump to any date without clicking through months one at a time.
+
+  **Progressive input display**
+
+  As you progress through the two-phase selection, the input field updates to reflect your choices:
+  - After selecting a year: displays "2026"
+  - After selecting a month: displays "Feb 2026"
+  - After selecting a day: displays the full date "Feb 26, 2026"
+
+  If the picker is dismissed before completing the selection, the input reverts to the previously selected date.
+
+  **Visual improvements**
+  - Current day, month, and year are highlighted with an active background
+  - When a date is selected, only the selected date shows the active highlight (not today)
+
+- 450e947: Extend ButtonGroup with multi-selection support, offering both controlled and uncontrolled modes so consumers can manage state themselves or delegate it to the component when only the resulting selection is required.
+
+  **What changed?**
+  - Added `multiple` prop to enable multi-selection mode
+  - `onClick` callback returns `string` in single mode (backward compatible) and `Set<string>` in multiple mode
+  - Exported `SelectionValue` type for consumers
+
+  **How to use?**
+
+  Single selection (default) - backward compatible:
+
+  ```tsx
+  <ButtonGroup
+    options={[
+      { label: 'A', value: 'a' },
+      { label: 'B', value: 'b' },
+    ]}
+    defaultSelected="a"
+    onClick={(value, selected) => console.log(selected)}
+  />
+  ```
+
+  Multiple selection which state is provided internally by component
+
+  ```tsx
+  <ButtonGroup
+    multiple
+    options={[
+      { label: 'A', value: 'a' },
+      { label: 'B', value: 'b' },
+    ]}
+    defaultSelected={new Set(['a'])}
+    onClick={(value, selected) => console.log([...selected])}
+  />
+  ```
+
+  Multiple selection which state's controlled by consumer app
+
+  ```tsx
+  const [selected, setSelected] = useState<Set<string>>(new Set(['a']));
+  <ButtonGroup
+    multiple
+    options={[
+      { label: 'A', value: 'a' },
+      { label: 'B', value: 'b' },
+    ]}
+    selected={selected}
+    onClick={(_, newSelection) => setSelected(newSelection as Set<string>)}
+  />;
+  ```
+
+- 3c0312e: Improve current date visibility in the date picker. Previously, the current date used a subtle font weight increase that was barely noticeable depending on OS and browser font rendering. Now it uses a background highlight for better contrast.
+
+  **How it works?**
+  - Adds `$isToday` styling with a subtle background to day, month, and year cells
+  - `$isActive` (yellow background) only applies when a date is actually selected
+  - Hover state resets to yellow border with transparent background across all states
+  - Year/month selection via title click is disabled for DateRangePicker
+
 ## 0.1.0-rc.69
 
 ### Minor Changes
