@@ -6,7 +6,7 @@ import { Table, TableRowType } from '@/components/Table';
 
 const headers = [{ label: 'Company' }, { label: 'Contact' }, { label: 'Country' }];
 
-const rows: TableRowType[] = [
+const rows: Array<TableRowType> = [
   {
     id: 'row-1',
     items: [
@@ -44,7 +44,7 @@ const rows: TableRowType[] = [
   },
 ];
 
-const rowsLongText: TableRowType[] = [
+const rowsLongText: Array<TableRowType> = [
   {
     id: 'row-1',
     items: [
@@ -84,7 +84,7 @@ const rowsLongText: TableRowType[] = [
   },
 ];
 
-const rowsLongTextTruncated: TableRowType[] = [
+const rowsLongTextTruncated: Array<TableRowType> = [
   {
     id: 'row-1',
     items: [
@@ -127,7 +127,7 @@ const rowsLongTextTruncated: TableRowType[] = [
   },
 ];
 
-const rowsLongTextTruncatedMiddle: TableRowType[] = [
+const rowsLongTextTruncatedMiddle: Array<TableRowType> = [
   {
     id: 'row-1',
     items: [
@@ -386,7 +386,7 @@ export const Sortable: StoryObj<typeof Table> = {
   },
 };
 
-const rowsHeaderOverflow: TableRowType[] = [
+const rowsHeaderOverflow: Array<TableRowType> = [
   {
     id: 'row-1',
     items: [
@@ -429,13 +429,13 @@ const rowsHeaderOverflow: TableRowType[] = [
 
 type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
 
-const overflowModeOptions: OverflowMode[] = ['truncated', 'truncate-middle', 'wrap'];
+const overflowModeOptions: Array<OverflowMode> = ['truncated', 'truncate-middle', 'wrap'];
 
 interface HeaderOverflowModeArgs {
   fileOverflowMode: OverflowMode;
   tableOverflowMode: OverflowMode;
   timestampOverflowMode: OverflowMode;
-  rows: TableRowType[];
+  rows: Array<TableRowType>;
 }
 
 export const ColumnLevelTruncation: StoryObj<HeaderOverflowModeArgs> = {

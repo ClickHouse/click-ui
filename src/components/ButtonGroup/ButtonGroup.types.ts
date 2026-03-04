@@ -1,6 +1,7 @@
 import { HTMLAttributes, ReactNode } from 'react';
 
 export type ButtonGroupType = 'default' | 'borderless';
+export type SelectionValue = string | Set<string>;
 
 export interface ButtonGroupElementProps extends Omit<
   HTMLAttributes<HTMLButtonElement>,
@@ -15,8 +16,10 @@ export interface ButtonGroupProps extends Omit<
   'onClick'
 > {
   options: Array<ButtonGroupElementProps>;
-  selected?: string;
-  onClick?: (value: string) => void;
+  selected?: SelectionValue;
+  defaultSelected?: SelectionValue;
+  onClick?: (value: string, selected: SelectionValue) => void;
   fillWidth?: boolean;
   type?: ButtonGroupType;
+  multiple?: boolean;
 }

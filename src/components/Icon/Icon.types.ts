@@ -7,6 +7,7 @@ import { ICON_NAMES } from './IconCommon';
 
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
+// TODO: Concurrent type for Icon as ImageName VS IconName. Investigate
 export type IconName = (typeof ICON_NAMES)[number];
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
@@ -28,6 +29,8 @@ type NoColorType = {
   color?: never;
 };
 
+// TODO: This is used as the type for "Icon" in several components
+// the name "ImageName" is NOT correct.
 export type ImageName = IconName | LogoName | FlagName | PaymentName;
 export type ImageType = (
   | (Omit<IconProps, 'name'> & NoThemeType)

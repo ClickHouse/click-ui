@@ -7,6 +7,18 @@ export interface DateRange {
 
 const locale = 'en-US';
 
+export type Meridiem = 'am' | 'pm';
+
+export interface Time {
+  hour: number;
+  minutes: number;
+}
+
+export interface DateRangeListItem {
+  dateRange: DateRange;
+  label: string;
+}
+
 export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
   day: '2-digit',
   month: 'short',
@@ -14,6 +26,32 @@ export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
 });
 
 export const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
+
+export const selectedDateTimeFormatter = new Intl.DateTimeFormat(locale, {
+  day: '2-digit',
+  month: 'short',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+export const selectedDateTimeFormatterWithSeconds = new Intl.DateTimeFormat(locale, {
+  day: '2-digit',
+  month: 'short',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+});
+
+export const selectedDateTimeDateFormatter = new Intl.DateTimeFormat(locale, {
+  day: '2-digit',
+  month: 'short',
+});
+
+export const timeFormatter = new Intl.DateTimeFormat(locale, {
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
 export const headerDateFormatter = new Intl.DateTimeFormat(locale, {
   month: 'short',
   year: 'numeric',
@@ -50,6 +88,64 @@ export const getPredefinedMonthsForDateRangePicker = (
   }
 
   return nextSixMonths;
+};
+
+export const getPredefinedTimePeriodsForDateTimePicker = (): Array<DateRangeListItem> => {
+  const now = dayjs();
+
+  const fifteenMinutesAgo = now.subtract(15, 'minute');
+  const thirtyMinutesAgo = now.subtract(30, 'minute');
+  const oneHourAgo = now.subtract(1, 'hour');
+  const sixHoursAgo = now.subtract(6, 'hour');
+  const oneDayAgo = now.subtract(1, 'day');
+  const oneMonthAgo = now.subtract(1, 'month');
+
+  const dateRangeList: Array<DateRangeListItem> = [
+    {
+      dateRange: {
+        startDate: fifteenMinutesAgo.toDate(),
+        endDate: now.toDate(),
+      },
+      label: 'Past 15 minutes',
+    },
+    {
+      dateRange: {
+        startDate: thirtyMinutesAgo.toDate(),
+        endDate: now.toDate(),
+      },
+      label: 'Past 30 minutes',
+    },
+    {
+      dateRange: {
+        startDate: oneHourAgo.toDate(),
+        endDate: now.toDate(),
+      },
+      label: 'Past hour',
+    },
+    {
+      dateRange: {
+        startDate: sixHoursAgo.toDate(),
+        endDate: now.toDate(),
+      },
+      label: 'Past 6 hours',
+    },
+    {
+      dateRange: {
+        startDate: oneDayAgo.toDate(),
+        endDate: now.toDate(),
+      },
+      label: 'Past day',
+    },
+    {
+      dateRange: {
+        startDate: oneMonthAgo.toDate(),
+        endDate: now.toDate(),
+      },
+      label: 'Past month',
+    },
+  ];
+
+  return dateRangeList;
 };
 
 export const datesAreWithinMaxRange = (
