@@ -225,16 +225,16 @@ const TableHeader = ({
   );
 };
 interface TheadProps {
-  headers: Array<TableColumnConfigProps>;
+  headers: TableColumnConfigProps[];
   isSelectable?: boolean;
-  onSelectAll?: (selectedValues: Array<SelectReturnValue>) => void;
-  actionsList: Array<string>;
+  onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
+  actionsList: string[];
   onSort?: SortFn;
   size: TableSize;
-  rows: Array<TableRowType>;
-  selectedIds: Array<number | string>;
+  rows: TableRowType[];
+  selectedIds: (number | string)[];
   resizableColumns?: boolean;
-  columnWidths?: Array<number> | null;
+  columnWidths?: number[] | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
     columnIndex: number
@@ -537,7 +537,7 @@ export interface TableRowType extends Omit<
   'onSelect' | 'id'
 > {
   id: string | number;
-  items: Array<TableCellType>;
+  items: TableCellType[];
   isDisabled?: boolean;
   isDeleted?: boolean;
   isActive?: boolean;
@@ -549,8 +549,8 @@ interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
 > {
-  headers: Array<TableColumnConfigProps>;
-  rows: Array<TableRowType>;
+  headers: TableColumnConfigProps[];
+  rows: TableRowType[];
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
@@ -569,8 +569,8 @@ type SelectReturnValue = {
 
 interface SelectionType {
   isSelectable?: boolean;
-  selectedIds?: Array<number | string>;
-  onSelect?: (selectedValues: Array<SelectReturnValue>) => void;
+  selectedIds?: (number | string)[];
+  onSelect?: (selectedValues: SelectReturnValue[]) => void;
 }
 
 interface NoSelectionType {
@@ -582,13 +582,13 @@ interface NoSelectionType {
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
 interface TableBodyRowProps extends Omit<TableRowType, 'id'> {
-  headers: Array<TableColumnConfigProps>;
+  headers: TableColumnConfigProps[];
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
   isSelected: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
-  actionsList: Array<string>;
+  actionsList: string[];
   size: TableSize;
   rowHeight?: string;
 }
@@ -755,7 +755,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const isDeletable = typeof onDelete === 'function';
     const isEditable = typeof onEdit === 'function';
 
-    const [columnWidths, setColumnWidths] = useState<Array<number> | null>(null);
+    const [columnWidths, setColumnWidths] = useState<number[] | null>(null);
     const theadRef = useRef<HTMLTableSectionElement>(null);
 
     useLayoutEffect(() => {
@@ -764,7 +764,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       }
 
       const headerCells = theadRef.current.querySelectorAll('th');
-      const widths: Array<number> = [];
+      const widths: number[] = [];
 
       const startIndex = isSelectable ? 1 : 0;
       const endIndex = headerCells.length - (isDeletable || isEditable ? 1 : 0);
@@ -895,7 +895,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
       };
     const hasRows = rows.length > 0;
-    const actionsList: Array<string> = [];
+    const actionsList: string[] = [];
     if (isDeletable) {
       actionsList.push('deleteAction');
     }
@@ -1026,9 +1026,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 );
 
 interface SelectAllCheckboxProps extends Omit<CheckboxProps, 'onCheckedChange'> {
-  onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
-  selectedIds: Array<number | string>;
-  rows: Array<TableRowType>;
+  onCheckedChange?: (selectedValues: SelectReturnValue[]) => void;
+  selectedIds: (number | string)[];
+  rows: TableRowType[];
 }
 
 const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
@@ -1071,7 +1071,7 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
 
     // disabled items should not change their selected state because of user interaction
 
-    const newSelectedRows = rows.reduce((acc: Array<SelectReturnValue>, row, index) => {
+    const newSelectedRows = rows.reduce((acc: SelectReturnValue[], row, index) => {
       const isDisabled = row.isDisabled || row.isDeleted;
 
       const shouldBeSelected = checked

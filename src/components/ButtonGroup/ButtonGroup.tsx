@@ -16,7 +16,7 @@ export interface ButtonGroupProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'onClick'
 > {
-  options: Array<ButtonGroupElementProps>;
+  options: ButtonGroupElementProps[];
   selected?: SelectionValue;
   defaultSelected?: SelectionValue;
   onClick?: (value: string, selected: SelectionValue) => void;

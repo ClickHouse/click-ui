@@ -42,11 +42,11 @@ interface RendererNodeType {
   type: 'element' | 'text';
   value?: string | number | undefined;
   tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType | undefined;
-  properties?: { className: Array<unknown>; [key: string]: unknown };
-  children?: Array<RendererNodeType>;
+  properties?: { className: unknown[]; [key: string]: unknown };
+  children?: RendererNodeType[];
 }
 interface CustomRendererProps {
-  rows: Array<RendererNodeType>;
+  rows: RendererNodeType[];
   stylesheet: { [key: string]: React.CSSProperties };
   useInlineStyles: boolean;
 }
