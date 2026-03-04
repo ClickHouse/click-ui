@@ -251,7 +251,7 @@ const Calendar = ({
 
 interface PredefinedTimesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedTimesList: Array<DateRangeListItem>;
+  predefinedTimesList: DateRangeListItem[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -707,7 +707,7 @@ export interface DateTimePickerProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedTimesList?: Array<DateRangeListItem>;
+  predefinedTimesList?: DateRangeListItem[];
   maxRangeLength?: number;
   shouldShowSeconds?: boolean;
   startDate?: Date;

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Group, Item, AutoCompleteOptionListItem } from './AutoComplete';
 
 interface Props {
-  options: Array<AutoCompleteOptionListItem>;
+  options: AutoCompleteOptionListItem[];
   id: string;
 }
 const AutoCompleteOptionList = ({ options, id }: Props): ReactNode =>

@@ -59,11 +59,11 @@ export const headerDateFormatter = new Intl.DateTimeFormat(locale, {
 
 export const getPredefinedMonthsForDateRangePicker = (
   numberOfMonths: number
-): Array<DateRange> => {
+): DateRange[] => {
   const now = dayjs();
 
   if (numberOfMonths < 0) {
-    const lastSixMonths: Array<DateRange> = [];
+    const lastSixMonths: DateRange[] = [];
     for (let i = 0; i < Math.abs(numberOfMonths); i++) {
       const date = now.subtract(i, 'month');
       if (date.date() === 1 && date.month() === now.month()) {
@@ -78,7 +78,7 @@ export const getPredefinedMonthsForDateRangePicker = (
     return lastSixMonths.reverse();
   }
 
-  const nextSixMonths: Array<DateRange> = [];
+  const nextSixMonths: DateRange[] = [];
   for (let i = 0; i < numberOfMonths; i++) {
     const date = now.add(i, 'month');
     nextSixMonths.push({
@@ -90,7 +90,7 @@ export const getPredefinedMonthsForDateRangePicker = (
   return nextSixMonths;
 };
 
-export const getPredefinedTimePeriodsForDateTimePicker = (): Array<DateRangeListItem> => {
+export const getPredefinedTimePeriodsForDateTimePicker = (): DateRangeListItem[] => {
   const now = dayjs();
 
   const fifteenMinutesAgo = now.subtract(15, 'minute');
@@ -100,7 +100,7 @@ export const getPredefinedTimePeriodsForDateTimePicker = (): Array<DateRangeList
   const oneDayAgo = now.subtract(1, 'day');
   const oneMonthAgo = now.subtract(1, 'month');
 
-  const dateRangeList: Array<DateRangeListItem> = [
+  const dateRangeList: DateRangeListItem[] = [
     {
       dateRange: {
         startDate: fifteenMinutesAgo.toDate(),

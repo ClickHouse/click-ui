@@ -14,13 +14,13 @@ export interface MultiSelectProps extends Omit<
   SelectContainerProps,
   'onChange' | 'value' | 'open' | 'onOpenChange' | 'onSelect'
 > {
-  defaultValue?: Array<string>;
+  defaultValue?: string[];
   onSelect?: (
-    value: Array<string>,
+    value: string[],
     type?: SelectionType,
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
-  value?: Array<string>;
+  value?: string[];
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -34,7 +34,7 @@ export const MultiSelect = ({
   onOpenChange: onOpenChangeProp,
   ...props
 }: MultiSelectProps) => {
-  const [selectedValues, setSelectedValues] = useState<Array<string>>(
+  const [selectedValues, setSelectedValues] = useState<string[]>(
     valueProp ?? defaultValue ?? []
   );
   const [open, setOpen] = useState(false);
@@ -54,7 +54,7 @@ export const MultiSelect = ({
   }, [valueProp]);
 
   const onChange = useCallback(
-    (values: Array<string>, type?: SelectionType, evt?: KeyboardEvent<HTMLElement>) => {
+    (values: string[], type?: SelectionType, evt?: KeyboardEvent<HTMLElement>) => {
       setSelectedValues(values);
       if (typeof onSelectProp === 'function') {
         onSelectProp(values, type, evt);
