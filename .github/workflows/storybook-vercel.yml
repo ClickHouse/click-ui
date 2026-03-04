@@ -89,6 +89,7 @@ jobs:
             Built from commit: `${{ github.sha }}`
           message-id: storybook-preview
           repo-token: ${{ steps.gh-workflow-token.outputs.token }}
+          refresh-message-position: true
 
       - name: Deploy to Vercel (Production)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
