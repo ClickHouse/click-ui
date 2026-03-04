@@ -4,4 +4,5 @@ export interface DatePickerProps {
   futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
   placeholder?: string;
+  responsivePositioning?: boolean;
 }
