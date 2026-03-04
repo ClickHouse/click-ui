@@ -31,7 +31,7 @@ const addCellToRow = (
 
 const columnListLoop = (
   tbody: HTMLTableSectionElement,
-  columnList: Array<number>,
+  columnList: number[],
   cell: CellProps,
   rowIndex: number
 ) => {

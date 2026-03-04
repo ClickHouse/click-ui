@@ -1,0 +1,17 @@
+#!/bin/bash
+
+MAX_COUNT=400
+DESC="$1"
+
+if [[ -z "$DESC" ]]; then
+  DESC="No description provided"
+else
+  DESC=$(echo "$DESC" | tr '\n' ' ' | cut -c1-"$MAX_COUNT")
+  if [[ ${#DESC} -eq "$MAX_COUNT" ]]; then
+    DESC="${DESC}..."
+  fi
+fi
+
+DESC=$(.scripts/pull-request-json-escape "$DESC")
+
+echo "$DESC"
