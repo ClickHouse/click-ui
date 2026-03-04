@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Menu, SplitButton } from '@/components/SplitButton';
 
-const menuItems: Array<Menu> = [
+const menuItems: Menu[] = [
   {
     type: 'group',
     items: [

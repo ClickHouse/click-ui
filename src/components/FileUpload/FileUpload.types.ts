@@ -1,6 +1,6 @@
 export interface FileUploadProps {
   title: string;
-  supportedFileTypes?: string[];
+  supportedFileTypes?: Array<string>;
   size?: 'sm' | 'md';
   progress?: number;
   showSuccess?: boolean;

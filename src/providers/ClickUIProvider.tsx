@@ -7,6 +7,8 @@ import type { ThemeName } from '@/theme/theme.types';
 import { THEMES } from '@/theme/theme.core';
 import { ThemeProvider } from './ThemeProvider';
 import { ReactNode, useEffect } from 'react';
+import { setRootThemeAttribute, removeRootThemeAttribute } from '@/utils/dom';
+import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { isValidThemeName, getFallbackThemeName } from '@/theme/theme.utils';
 
 interface Props {
@@ -16,11 +18,20 @@ interface Props {
   };
   theme: ThemeName;
   children: ReactNode;
+  persistTheme?: boolean;
+  storageKey?: string;
 }
 
-export const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
+export const ClickUIProvider = ({
+  children,
+  theme,
+  config = {},
+  persistTheme = true,
+  storageKey = CUI_THEME_STORAGE_KEY,
+}: Props) => {
   const { toast = {}, tooltip = {} } = config;
   const hasValidTheme = isValidThemeName(theme);
+  const safeTheme = getFallbackThemeName(theme);
 
   useEffect(() => {
     if (!hasValidTheme) {
@@ -30,7 +41,25 @@ export const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
     }
   }, [theme, hasValidTheme]);
 
-  const safeTheme = getFallbackThemeName(theme);
+  useEffect(() => {
+    setRootThemeAttribute(safeTheme);
+
+    return () => {
+      removeRootThemeAttribute();
+    };
+  }, [safeTheme]);
+
+  useEffect(() => {
+    if (!persistTheme) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(storageKey, safeTheme);
+    } catch {
+      console.warn('LocalStorage is not available!');
+    }
+  }, [safeTheme, persistTheme, storageKey]);
 
   return (
     <ThemeProvider theme={safeTheme}>

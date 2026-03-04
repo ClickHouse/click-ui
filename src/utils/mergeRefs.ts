@@ -1,6 +1,6 @@
 export const mergeRefs =
   <T = HTMLElement>(
-    refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>
+    refs: (React.MutableRefObject<T> | React.LegacyRef<T>)[]
   ): React.RefCallback<T> =>
   value => {
     refs.forEach(ref => {
