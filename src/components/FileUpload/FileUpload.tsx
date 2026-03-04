@@ -11,7 +11,7 @@ interface FileInfo {
 export interface FileUploadProps {
   /** The title text displayed in the upload area */
   title: string;
-  supportedFileTypes?: Array<string>;
+  supportedFileTypes?: string[];
   size?: 'sm' | 'md';
   progress?: number;
   showSuccess?: boolean;
@@ -39,7 +39,7 @@ export const FileUpload = ({
   const [file, setFile] = useState<FileInfo | null>(null);
 
   const handleFilesProcessed = useCallback(
-    (files: Array<File>) => {
+    (files: File[]) => {
       const selectedFile = files[0];
       const newFile: FileInfo = {
         name: selectedFile.name,
