@@ -24,7 +24,7 @@ export const CheckboxMultiSelect = ({
   selectLabel,
   ...props
 }: CheckboxMultiSelectProps) => {
-  const [selectedValues, setSelectedValues] = useState<Array<string>>(
+  const [selectedValues, setSelectedValues] = useState<string[]>(
     valueProp ?? defaultValue ?? []
   );
   const [open, setOpen] = useState(false);
@@ -44,7 +44,7 @@ export const CheckboxMultiSelect = ({
   }, [valueProp]);
 
   const onChange = useCallback(
-    (values: Array<string>, type?: SelectionType) => {
+    (values: string[], type?: SelectionType) => {
       setSelectedValues(values);
       if (typeof onSelectProp === 'function') {
         onSelectProp(values, type);

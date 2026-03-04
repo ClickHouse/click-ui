@@ -9,7 +9,7 @@ interface Props extends DropdownMenuProps {
   disabled?: boolean;
 }
 
-const menuItems: Array<Menu> = [
+const menuItems: Menu[] = [
   {
     type: 'group',
     items: [

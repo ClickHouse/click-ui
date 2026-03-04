@@ -3,14 +3,20 @@ import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
-import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
+import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon/Icon';
 import type { IconName } from '@/components/Icon/Icon.types';
 import type { HorizontalDirection } from '@/types';
 
-export type ArrowProps = {
-  showArrow?: boolean;
-};
+export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
+  <DropdownMenu.Root {...props} />
+);
+
+const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: 'default' | 'danger' }>`
+  position: relative;
+  display: flex;
+  min-height: 32px;
+`;
 
 interface SubDropdownProps {
   sub?: true;
@@ -26,25 +32,6 @@ type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
   SubDropdownProps;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
-interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
-  children?: ReactNode;
-}
-
-interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
-  children?: ReactNode;
-}
-
-type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
-type DropdownSubContentProps = StyledDropdownSubContentProps &
-  MainDropdownProps &
-  ArrowProps;
-
-export interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
-  icon?: IconName;
-  iconDir?: HorizontalDirection;
-  type?: 'default' | 'danger';
-}
-
 const Trigger = styled(DropdownMenu.Trigger)`
   cursor: pointer;
   width: fit-content;
@@ -52,28 +39,6 @@ const Trigger = styled(DropdownMenu.Trigger)`
     cursor: not-allowed;
   }
 `;
-
-const DropdownMenuContent = styled(GenericMenuPanel)`
-  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
-  flex-direction: column;
-  z-index: 1;
-  overflow-y: auto;
-`;
-
-const DropdownMenuGroup = styled(DropdownMenu.Group)`
-  width: 100%;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-const DropdownMenuSub = styled(DropdownMenu.Sub)`
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
-  <DropdownMenu.Root {...props} />
-);
 
 const DropdownTrigger = ({
   sub,
@@ -83,7 +48,7 @@ const DropdownTrigger = ({
   if (sub) {
     const { icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
     return (
-      <GenericMenuItem
+      <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
         {...menuProps}
       >
@@ -94,7 +59,7 @@ const DropdownTrigger = ({
           {children}
         </IconWrapper>
         <Icon name="chevron-right" />
-      </GenericMenuItem>
+      </DropdownMenuItem>
     );
   }
 
@@ -111,10 +76,37 @@ const DropdownTrigger = ({
 DropdownTrigger.displayName = 'DropdownTrigger';
 Dropdown.Trigger = DropdownTrigger;
 
+export type ArrowProps = {
+  showArrow?: boolean;
+};
+
+interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
+  children?: ReactNode;
+  responsivePositioning?: boolean;
+}
+
+interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
+  children?: ReactNode;
+  responsivePositioning?: boolean;
+}
+
+type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownSubContentProps = StyledDropdownSubContentProps &
+  MainDropdownProps &
+  ArrowProps;
+
+const DropdownMenuContent = styled(GenericMenuPanel)`
+  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
+  flex-direction: column;
+  z-index: 1;
+  overflow-y: auto;
+`;
+
 const DropdownContent = ({
   sub,
   children,
   showArrow,
+  responsivePositioning = true,
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
@@ -126,7 +118,8 @@ const DropdownContent = ({
         as={ContentElement}
         sideOffset={4}
         loop
-        collisionPadding={100}
+        avoidCollisions={responsivePositioning}
+        collisionPadding={responsivePositioning ? 100 : undefined}
         {...props}
       >
         {showArrow && (
@@ -148,6 +141,12 @@ const DropdownContent = ({
 DropdownContent.displayName = 'DropdownContent';
 Dropdown.Content = DropdownContent;
 
+const DropdownMenuGroup = styled(DropdownMenu.Group)`
+  width: 100%;
+  border-bottom: 1px solid
+    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
+`;
+
 const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
   return <DropdownMenuGroup {...props} />;
 };
@@ -155,12 +154,28 @@ const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownGroup.displayName = 'DropdownGroup';
 Dropdown.Group = DropdownGroup;
 
+const DropdownMenuSub = styled(DropdownMenu.Sub)`
+  border-bottom: 1px solid
+    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
+`;
+
 const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
   return <DropdownMenuSub {...props} />;
 };
 
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
+
+interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
+  /** Icon to display in the menu item */
+  icon?: IconName;
+  /** The direction of the icon relative to the label */
+  iconDir?: HorizontalDirection;
+  /** The type of the menu item */
+  type?: 'default' | 'danger';
+}
+
+export type { DropdownItemProps };
 
 const DropdownItem = ({
   icon,
@@ -170,7 +185,7 @@ const DropdownItem = ({
   ...props
 }: DropdownItemProps) => {
   return (
-    <GenericMenuItem
+    <DropdownMenuItem
       as={DropdownMenu.Item}
       $type={type}
       {...props}
@@ -181,7 +196,7 @@ const DropdownItem = ({
       >
         {children}
       </IconWrapper>
-    </GenericMenuItem>
+    </DropdownMenuItem>
   );
 };
 

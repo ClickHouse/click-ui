@@ -10,8 +10,13 @@ import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Typography';
-
-import { headerDateFormatter, selectedDateFormatter, weekdayFormatter } from './utils';
+import {
+  headerDateFormatter,
+  selectedDateFormatter,
+  selectedDateTimeFormatter,
+  selectedDateTimeFormatterWithSeconds,
+  weekdayFormatter,
+} from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 
 const explicitWidth = '250px';
@@ -31,16 +36,20 @@ const VIEW_GRID_YEARS = {
 const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
 const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
 
-const HighlightedInputWrapper = styled(InputWrapper)<{ $isActive: boolean }>`
-  ${({ $isActive, theme }) => {
+const HighlightedInputWrapper = styled(InputWrapper)<{
+  $isActive: boolean;
+  $width?: string;
+}>`
+  ${({ $isActive, $width, theme }) => {
     return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
       $isActive
         ? theme.click.datePicker.dateOption.color.stroke.active
         : theme.click.field.color.stroke.default
-    };`;
+    };
+    width: ${$width ? $width : explicitWidth};
+    ${$width && `min-width: ${explicitWidth};`}
+    `;
   }}
-
-  width: ${explicitWidth};
 }`;
 
 interface DatePickerInputProps {
@@ -177,6 +186,108 @@ export const DateRangePickerInput = ({
   );
 };
 
+interface DateTimePickerInputProps {
+  isActive: boolean;
+  disabled: boolean;
+  id?: string;
+  placeholder?: string;
+  selectedEndDate?: Date;
+  selectedStartDate?: Date;
+  shouldShowSeconds?: boolean;
+}
+
+export const DateTimePickerInput = ({
+  isActive,
+  disabled,
+  id,
+  placeholder,
+  selectedEndDate,
+  selectedStartDate,
+  shouldShowSeconds,
+}: DateTimePickerInputProps) => {
+  const defaultId = useId();
+
+  const dateTimeFormatter = shouldShowSeconds
+    ? selectedDateTimeFormatterWithSeconds
+    : selectedDateTimeFormatter;
+
+  let formattedValue = (
+    <Text
+      color="muted"
+      component="span"
+    >
+      {placeholder ?? ''}
+    </Text>
+  );
+  if (selectedStartDate) {
+    if (selectedEndDate) {
+      formattedValue = (
+        <span>
+          {dateTimeFormatter
+            .format(selectedStartDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}{' '}
+          –{' '}
+          {dateTimeFormatter
+            .format(selectedEndDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}
+        </span>
+      );
+    } else {
+      formattedValue = (
+        <span>
+          {dateTimeFormatter
+            .format(selectedStartDate)
+            .replace('AM', 'am')
+            .replace('PM', 'pm')}{' '}
+          <Text
+            color="muted"
+            component="span"
+          >
+            – end date
+          </Text>
+        </span>
+      );
+    }
+  } else if (selectedEndDate) {
+    formattedValue = (
+      <span>
+        <Text
+          color="muted"
+          component="span"
+        >
+          start date –{' '}
+        </Text>
+        {dateTimeFormatter
+          .format(selectedEndDate)
+          .replace('AM', 'am')
+          .replace('PM', 'pm')}
+      </span>
+    );
+  }
+
+  return (
+    <HighlightedInputWrapper
+      $isActive={isActive}
+      disabled={disabled}
+      id={id ?? defaultId}
+      $width="max-content"
+    >
+      <InputStartContent>
+        <Icon name="calendar" />
+      </InputStartContent>
+      <InputElement
+        $hasStartContent
+        as="div"
+        data-testid="datetimepicker-input"
+      >
+        {formattedValue}
+      </InputElement>
+    </HighlightedInputWrapper>
+  );
+};
+
 const DatePickerContainer = styled(Container)`
   background: ${({ theme }) =>
     theme.click.datePicker.dateOption.color.background.default};
@@ -231,7 +342,7 @@ const YearsGrid = styled(GridContainer)`
   grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
 `;
 
-const GridCell = styled.div<{ $isActive?: boolean }>`
+const GridCell = styled.div<{ $isActive?: boolean; $isPresent?: boolean }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
     border-radius: ${theme.click.datePicker.dateOption.radii.default};
@@ -246,6 +357,11 @@ const GridCell = styled.div<{ $isActive?: boolean }>`
     color: ${theme.click.datePicker.dateOption.color.label.active};
   `}
 
+  ${({ $isActive, $isPresent, theme }) =>
+    $isPresent &&
+    !$isActive &&
+    `background: ${theme.click.datePicker.dateOption.color.background.range};`}
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -255,7 +371,9 @@ const GridCell = styled.div<{ $isActive?: boolean }>`
   min-height: 26px;
 
   &:hover {
-    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
+    ${({ theme }) => `
+      border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
+    `},
   }
 `;
 
@@ -294,6 +412,7 @@ export const DateTableCell = styled.td<{
   $isCurrentMonth?: boolean;
   $isDisabled?: boolean;
   $isSelected?: boolean;
+  $isPresent?: boolean;
 }>`
   ${({ theme }) => `
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
@@ -311,23 +430,26 @@ export const DateTableCell = styled.td<{
   ${({ $isSelected, theme }) =>
     $isSelected &&
     `
-      background: ${theme.click.datePicker.dateOption.color.background.active};
+      background: ${theme.click.datePicker.dateOption.color.background.active} !important;
       color: ${theme.click.datePicker.dateOption.color.label.active};
     `}
 
+  ${({ $isSelected, $isPresent, theme }) =>
+    $isPresent &&
+    !$isSelected &&
+    `background: ${theme.click.datePicker.dateOption.color.background.range};`}
 
   text-align: center;
 
   &:hover {
-    ${({ $isDisabled, theme }) =>
+    ${({ $isDisabled, $isPresent, theme }) =>
       `border: ${theme.click.datePicker.dateOption.stroke} solid ${
         $isDisabled
           ? theme.click.datePicker.dateOption.color.stroke.disabled
           : theme.click.datePicker.dateOption.color.stroke.hover
       };
-
-
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
+      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : ''};
+      border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
   }
 `;
 
@@ -336,8 +458,10 @@ export type Body = ReturnType<typeof useCalendar>['body'];
 interface CalendarRendererProps {
   calendarOptions?: UseCalendarOptions;
   children: (body: Body) => ReactNode;
+  allowYearMonthSelection?: boolean;
   onYearSelect?: (year: number) => void;
   onMonthSelect?: (year: number, month: number) => void;
+  selectedDate?: Date;
 }
 
 const monthAbbreviations = getMonthNames('short');
@@ -385,8 +509,10 @@ const DateSelectNav = ({
 export const CalendarRenderer = ({
   calendarOptions = {},
   children,
+  allowYearMonthSelection = true,
   onYearSelect,
   onMonthSelect,
+  selectedDate,
   ...props
 }: CalendarRendererProps) => {
   const { body, headers, month, navigation, year } = useCalendar({
@@ -464,12 +590,19 @@ export const CalendarRenderer = ({
   };
 
   const renderMonthsGrid = () => {
+    const today = new Date();
+    const todayMonth = today.getMonth();
+    const todayYear = today.getFullYear();
+    const selectedMonth = selectedDate?.getMonth();
+    const selectedYear = selectedDate?.getFullYear();
+
     return (
       <MonthsGrid data-testid="months-grid">
         {monthAbbreviations.map((abbr, index) => (
           <GridCell
             key={abbr}
-            $isActive={index === month}
+            $isActive={selectedDate && index === selectedMonth && year === selectedYear}
+            $isPresent={index === todayMonth && year === todayYear}
             onClick={() => onMonthSelection(index)}
             data-testid={`month-cell-${index}`}
           >
@@ -483,6 +616,8 @@ export const CalendarRenderer = ({
   const renderYearsGrid = () => {
     const years = [];
     const baseYear = year + yearOffset;
+    const todayYear = new Date().getFullYear();
+    const selectedYear = selectedDate?.getFullYear();
 
     // Note: Try to keep the current year in the middle
     for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
@@ -494,7 +629,8 @@ export const CalendarRenderer = ({
         {years.map(currYear => (
           <GridCell
             key={currYear}
-            $isActive={currYear === year}
+            $isActive={selectedDate && currYear === selectedYear}
+            $isPresent={currYear === todayYear}
             onClick={() => onYearSelection(currYear)}
             data-testid={`year-cell-${currYear}`}
           >
@@ -564,7 +700,7 @@ export const CalendarRenderer = ({
           onClick={onPreviousClick}
           view={view}
         />
-        {view === DAYS ? (
+        {view === DAYS && allowYearMonthSelection ? (
           <ClickableTitle
             onClick={onTitleClick}
             data-testid="calendar-title"

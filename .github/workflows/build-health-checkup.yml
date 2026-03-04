@@ -3,6 +3,9 @@ name: 🏗️ Build Health Checkup
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+  pull_request:
 
 env:
   HUSKY: 0
