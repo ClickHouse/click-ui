@@ -3,27 +3,32 @@ import { useTheme } from 'styled-components';
 import { IconSize } from '@/components/Icon/types';
 import { FlagName } from './types';
 export type { FlagName, SVGAssetProps } from './types';
-import { resolveFlagName, DeprecatedFlagName } from './retroactiveNames';
 import FlagsLight from './FlagsLight';
 import FlagsDark from './FlagsDark';
 import { SvgImageElement } from '@/components/commonElement';
-import type { ThemeName } from '@/theme';
+import { type ThemeName, THEMES } from '@/theme';
+import {
+  createAssetResolver,
+  type AssetAlias,
+  type AssetDeprecatedName,
+} from '@/components/Assets/config';
+
+const resolveFlagName = createAssetResolver<FlagName>();
+
+export { resolveFlagName };
 
 export interface FlagProps extends SVGAttributes<SVGElement> {
-  name: FlagName | DeprecatedFlagName;
-  // TODO: The Light and dark theme should not be hard typed
-  // once https://github.com/ClickHouse/click-ui/pull/784
-  // is merged, update it
-  theme?: 'light' | 'dark';
+  name: FlagName | AssetAlias | AssetDeprecatedName;
+  theme?: ThemeName;
   size?: IconSize;
 }
 
 const Flag = ({ name, theme, size, ...props }: FlagProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveFlagName(name);
-  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? 'light';
+  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? THEMES.Light;
   const Component =
-    resolvedTheme === 'light' ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
+    resolvedTheme === THEMES.Dark ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
 
   if (!Component) {
     return null;
