@@ -17,6 +17,50 @@ describe('DatePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('opens the calendar and focuses the selected date when pressing Enter', async () => {
+    const handleSelectDate = vi.fn();
+    const date = new Date('01-12-2026');
+
+    const { getByTestId, queryByTestId, getByText } = renderCUI(
+      <DatePicker
+        date={date}
+        onSelectDate={handleSelectDate}
+      />
+    );
+
+    expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+
+    getByTestId('datepicker-input').focus();
+    await userEvent.keyboard('{Enter}');
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+
+    const day = getByText('12');
+    expect(document.activeElement).toBe(day);
+  });
+
+  it('opens the calendar and focuses the selected date when pressing Space', async () => {
+    const handleSelectDate = vi.fn();
+    const date = new Date('02-11-2026');
+
+    const { getByTestId, queryByTestId, getByText } = renderCUI(
+      <DatePicker
+        date={date}
+        onSelectDate={handleSelectDate}
+      />
+    );
+
+    expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+
+    getByTestId('datepicker-input').focus();
+    await userEvent.keyboard(' ');
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+
+    const day = getByText('11');
+    expect(document.activeElement).toBe(day);
+  });
+
   it('sets the value of the DatePicker input to the date passed in', () => {
     const handleSelectDate = vi.fn();
     const date = new Date('07-04-2020');
