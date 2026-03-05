@@ -17,6 +17,11 @@ export {
 export { AutoComplete } from '@/components/AutoComplete/AutoComplete';
 export { Avatar } from '@/components/Avatar/Avatar';
 export { Badge } from '@/components/Badge/Badge';
+export {
+  Breadcrumbs,
+  BreadcrumbItem,
+  BreadcrumbSeparator,
+} from '@/components/Breadcrumbs/Breadcrumbs';
 export { BigStat } from '@/components/BigStat/BigStat';
 export { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
 export { Button } from '@/components/Button/Button';
