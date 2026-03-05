@@ -222,3 +222,17 @@ export const ASSET_NAME_MAPPINGS = {
     UnitedStates: 'united-states',
   } as AssetAliasMap,
 } as const;
+
+export const resolveAssetName = (name: string): string => {
+  if (ASSET_NAME_MAPPINGS.aliases[name]) {
+    return ASSET_NAME_MAPPINGS.aliases[name];
+  }
+
+  if (ASSET_NAME_MAPPINGS.deprecated[name]) {
+    console.warn(`Asset name "${name}" is deprecated, use "${ASSET_NAME_MAPPINGS.deprecated[name]}" instead`);
+
+    return ASSET_NAME_MAPPINGS.deprecated[name];
+  }
+
+  return name;
+};
