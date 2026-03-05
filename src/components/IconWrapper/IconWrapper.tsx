@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
 
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
+import type { ImageName } from '@/components/Icon/types';
 import { Container, GapOptions } from '@/components/Container/Container';
 import { EllipsisContent } from '@/components/EllipsisContent/EllipsisContent';
 import { Icon } from '@/components/Icon/Icon';
 import { IconSize } from '@/components/Icon/types';
 
 interface IconWrapperProps {
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
   size?: IconSize;
   width?: number | string;
@@ -16,6 +16,7 @@ interface IconWrapperProps {
   children: ReactNode;
   ellipsisContent?: boolean;
   gap?: GapOptions;
+  isResponsive?: boolean;
 }
 
 export const IconWrapper = ({
@@ -27,6 +28,7 @@ export const IconWrapper = ({
   children,
   ellipsisContent = true,
   gap = 'sm',
+  isResponsive = true,
   ...props
 }: IconWrapperProps) => {
   const TextWrapper = ellipsisContent ? EllipsisContent : 'div';
@@ -35,6 +37,7 @@ export const IconWrapper = ({
       orientation="horizontal"
       gap={gap}
       overflow="hidden"
+      isResponsive={isResponsive}
       {...props}
     >
       {icon && iconDir === 'start' && (

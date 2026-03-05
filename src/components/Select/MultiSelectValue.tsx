@@ -1,7 +1,6 @@
 import { Badge, BadgeProps } from '@/components/Badge/Badge';
 import { DismissibleBadge, NonDismissibleBadge } from '@/components/Badge/Badge';
 import { MouseEvent, useEffect, useId, useState } from 'react';
-// import { ItemInterface, ReactSortable } from "react-sortablejs";
 import ReactSortableModule from 'react-sortablejs/dist/index.js';
 import type { ItemInterface } from 'react-sortablejs';
 const { ReactSortable } = ReactSortableModule;
@@ -28,9 +27,9 @@ const MultiSelectBadge = styled(Badge)`
 `;
 
 interface MultiSelectValueProps {
-  selectedValues: Array<string>;
+  selectedValues: string[];
   valueNode: Map<string, SelectItemProps>;
-  onChange: (selectedValues: Array<string>) => void;
+  onChange: (selectedValues: string[]) => void;
   onSelect: (selectedValue: string) => void;
   sortable: boolean;
   disabled: boolean;
@@ -45,7 +44,7 @@ export const MultiSelectValue = ({
   disabled,
 }: MultiSelectValueProps) => {
   const id = useId();
-  const [values, setValues] = useState<Array<ItemInterface>>(
+  const [values, setValues] = useState<ItemInterface[]>(
     selectedValues.map(value => ({
       id: `multi-select-${id}-${value}`,
       value,

@@ -1,6 +1,6 @@
 import { HTMLAttributes, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
+import type { ImageName } from '@/components/Icon/types';
 import { PopoverProps } from '@radix-ui/react-popover';
 import { NoAvailableOptionsFactoryProps } from '@/components/Select/common/InternalSelect';
 
@@ -18,7 +18,7 @@ interface SelectItemComponentProps extends Omit<
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   value: string;
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
 }
 
@@ -58,7 +58,7 @@ export interface SelectGroupOptionItem extends Omit<
   SelectGroupProps,
   'children' | 'label' | 'description'
 > {
-  options: Array<SelectOptionItem>;
+  options: SelectOptionItem[];
   label?: never;
   [key: `data-${string}`]: string;
 }
@@ -66,7 +66,7 @@ export interface SelectGroupOptionItem extends Omit<
 export type SelectOptionListItem = SelectGroupOptionItem | SelectOptionItem;
 
 type SelectOptionType = {
-  options: Array<SelectOptionListItem>;
+  options: SelectOptionListItem[];
   children?: never;
 };
 
@@ -81,7 +81,7 @@ interface InternalSelectProps
   extends
     PopoverProps,
     Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'dir' | 'onSelect' | 'children'> {
-  onChange: (selectedValues: Array<string>) => void;
+  onChange: (selectedValues: string[]) => void;
   onOpenChange: (open: boolean) => void;
   onSelect: (
     value: string,
@@ -89,7 +89,7 @@ interface InternalSelectProps
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   open: boolean;
-  value: Array<string>;
+  value: string[];
   allowCreateOption?: boolean;
   checkbox?: boolean;
   container?: HTMLElement;
@@ -115,6 +115,7 @@ interface InternalSelectProps
   selectLabel?: string;
   showSearch?: boolean;
   sortable?: boolean;
+  triggerProps?: HTMLAttributes<HTMLButtonElement>;
   useFullWidthItems?: boolean;
 }
 

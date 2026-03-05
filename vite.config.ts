@@ -17,7 +17,7 @@ const cssExternalPlugin = () => ({
   resolveId: (id: string) => (id.endsWith('.module.css') ? { id, external: true } : null),
 });
 
-const build: BuildOptions = {
+const buildOptions: BuildOptions = {
   target: 'esnext',
   emptyOutDir: true,
   // WARNING: Do not minify unbundled builds
@@ -26,7 +26,7 @@ const build: BuildOptions = {
   // which makes static analysis challenging
   minify: false,
   lib: {
-    entry: `${srcDir}/index.ts`,
+    entry: path.resolve(srcDir, 'index.ts'),
   },
   rollupOptions: {
     output: [
@@ -137,16 +137,23 @@ const viteConfig = defineConfig({
         ]
       : []),
   ],
-  build,
+  resolve: {
+    alias: {
+      '@': srcDir,
+    },
+  },
+  build: buildOptions,
 });
 
 const vitestConfig = defineVitestConfig({
   test: {
     environment: 'jsdom',
-    include: ['**/*.test.{ts,tsx}'],
+    // TODO: Note that currently, the pw visual regression tests
+    // are kept separate, see ./tests
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['node_modules', 'dist', 'build', 'storybook-static', '.storybook'],
     globals: true,
     watch: false,
-    exclude: ['node_modules'],
     setupFiles: ['@testing-library/jest-dom', './setupTests.ts'],
   },
 });

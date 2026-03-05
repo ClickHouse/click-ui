@@ -16,6 +16,34 @@ const meta: Meta<typeof Select> = {
 
 export default meta;
 
+export const CloudProvider: StoryObj<typeof Select> = {
+  args: {
+    label: 'Cloud provider',
+  },
+  render: props => (
+    <Select {...props}>
+      <Select.Item
+        value="aws"
+        icon="aws"
+      >
+        AWS
+      </Select.Item>
+      <Select.Item
+        value="gcp"
+        icon="gcp"
+      >
+        GCP
+      </Select.Item>
+      <Select.Item
+        value="azure"
+        icon="azure"
+      >
+        Azure
+      </Select.Item>
+    </Select>
+  ),
+};
+
 export const OptionsAsChildren: StoryObj<typeof Select> = {
   args: {
     label: 'Label',
@@ -50,6 +78,35 @@ export const OptionsAsChildren: StoryObj<typeof Select> = {
       />
     </Select>
   ),
+};
+
+export const CustomTriggerProps: StoryObj<typeof Select> = {
+  argTypes: {
+    triggerProps: {
+      control: 'object',
+    },
+  },
+  args: {
+    label: 'Custom Cloud provider',
+    triggerProps: {
+      className: 'custom-trigger',
+      style: {
+        border: '2px dashed #00f',
+        borderRadius: '8px',
+        maxWidth: '200px',
+      },
+      onFocus: () => console.log('🤖 Trigger focused!'),
+      onMouseEnter: () => console.log('👀 Mouse entered trigger!'),
+    },
+  },
+  render: props => (
+    <Select {...props}>
+      <Select.Item value="aws">AWS</Select.Item>
+      <Select.Item value="gcp">GCP</Select.Item>
+      <Select.Item value="azure">Azure</Select.Item>
+    </Select>
+  ),
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export const OptionsAsProp: StoryObj<typeof Select> = {

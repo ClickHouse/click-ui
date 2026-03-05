@@ -2,7 +2,7 @@ import * as RadixHoverCard from '@radix-ui/react-hover-card';
 import { Arrow, GenericPopoverMenuPanel } from '../GenericMenu';
 import { styled } from 'styled-components';
 import { ReactNode } from 'react';
-import PopoverArrow from '../icons/PopoverArrow';
+import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 
 export const HoverCard = ({ children, ...props }: RadixHoverCard.HoverCardProps) => {
   return <RadixHoverCard.Root {...props}>{children}</RadixHoverCard.Root>;
@@ -57,7 +57,7 @@ const HoverCardContent = ({
             width={15}
             height={10}
           >
-            <PopoverArrow />
+            <Popover_Arrow />
           </Arrow>
         )}
         {children}

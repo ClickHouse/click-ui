@@ -1,4 +1,17 @@
-import { FC, HTMLAttributes, MouseEvent, ReactNode, forwardRef, useMemo } from 'react';
+import {
+  FC,
+  HTMLAttributes,
+  MouseEvent,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react';
 import { styled } from 'styled-components';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
@@ -12,7 +25,7 @@ import { MiddleTruncator } from '@/components/MiddleTruncator';
 import type { HorizontalDirection } from '@/components/types';
 
 type SortDir = 'asc' | 'desc';
-type SortFn = (sortDir: SortDir, header: TableHeaderType, index: number) => void;
+type SortFn = (sortDir: SortDir, header: TableColumnConfigProps, index: number) => void;
 type TableSize = 'sm' | 'md';
 
 // wrap: text breaks into multiple lines
@@ -20,22 +33,69 @@ type TableSize = 'sm' | 'md';
 // truncate-middle: text cuts in middle, shows start and end
 type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
 
-export interface TableHeaderType extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableColumnConfigProps extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
   sortPosition?: HorizontalDirection;
   width?: string;
   overflowMode?: OverflowMode;
+  resizable?: boolean;
 }
 
-const StyledHeader = styled.th<{ $size: TableSize }>`
+// TODO: Delete `TableHeaderType` (deprecation warn at v0.0.251-test.67)
+/** @deprecated The TableHeaderType field have been deprecated to favour TableColumnConfigProps */
+export type TableHeaderType = TableColumnConfigProps;
+
+const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
   ${({ theme, $size }) => `
     padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
     font: ${theme.click.table.header.title.default};
     color: ${theme.click.table.header.color.title.default};
   `}
   text-align: left;
+
+  ${({ $resizable }) =>
+    $resizable &&
+    `
+    position: relative;
+  `}
+`;
+
+const Resizer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 1;
+  transition: opacity 0.2s;
+  border-radius: 0.5rem;
+  transform: translateX(50%);
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &::before {
+    content: ' ';
+    background: ${({ theme }) => theme.click.table.header.color.checkbox.border.default};
+    display: inline-block;
+    top: 25%;
+    width: 2px;
+    height: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
+    opacity: 1;
+  }
 `;
 
 const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
@@ -52,6 +112,19 @@ const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
   transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
 `;
 
+type OnKeyboardResizerDirection = 'left' | 'right';
+
+interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
+  onSort?: () => void;
+  size: TableSize;
+  showResizer?: boolean;
+  onResizeStart?: (e: MouseEvent) => void;
+  onKeyboardResize?: (
+    e: React.KeyboardEvent,
+    direction: OnKeyboardResizerDirection
+  ) => void;
+}
+
 const TableHeader = ({
   label,
   sortDir,
@@ -60,12 +133,25 @@ const TableHeader = ({
   onSort,
   onClick,
   size,
-  ...delegated
-}: Omit<TableHeaderType, 'width'> & { onSort?: () => void; size: TableSize }) => {
+  resizable,
+  showResizer,
+  onResizeStart,
+  onKeyboardResize,
+  overflowMode,
+  ...props
+}: TableHeaderProps) => {
+  if (overflowMode === 'wrap' && resizable) {
+    console.warn(
+      '"Wrap" overflow mode doesn\'t work well with resizable table columns. Consider using truncation instead, please!'
+    );
+  }
+
   const isSorted = typeof sortDir === 'string';
   const isInteractive = Boolean(
     typeof onClick === 'function' || (isSortable && typeof onSort === 'function')
   );
+  const resizerRef = useRef<HTMLDivElement>(null);
+
   const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e);
@@ -74,10 +160,34 @@ const TableHeader = ({
       onSort();
     }
   };
+
+  const onResizerKeyDown = (e: React.KeyboardEvent) => {
+    if (!onKeyboardResize) {
+      return;
+    }
+
+    if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+    }
+
+    switch (e.key) {
+      case 'ArrowLeft':
+        onKeyboardResize(e, 'left');
+        break;
+      case 'ArrowRight':
+        onKeyboardResize(e, 'right');
+        break;
+      case 'Escape':
+        resizerRef.current?.blur();
+        break;
+    }
+  };
+
   return (
     <StyledHeader
       $size={size}
-      {...delegated}
+      $resizable={resizable}
+      {...props}
     >
       <HeaderContentWrapper
         onClick={onHeaderClick}
@@ -99,18 +209,36 @@ const TableHeader = ({
           />
         )}
       </HeaderContentWrapper>
+      {showResizer && (
+        <Resizer
+          ref={resizerRef}
+          onMouseDown={onResizeStart}
+          role="separator"
+          aria-orientation="vertical"
+          aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
+          tabIndex={0}
+          onKeyDown={onResizerKeyDown}
+        />
+      )}
     </StyledHeader>
   );
 };
 interface TheadProps {
-  headers: Array<TableHeaderType>;
+  headers: TableColumnConfigProps[];
   isSelectable?: boolean;
   onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
-  actionsList: Array<string>;
+  actionsList: string[];
   onSort?: SortFn;
   size: TableSize;
   rows: TableRowType[];
   selectedIds: (number | string)[];
+  resizableColumns?: boolean;
+  columnWidths?: number[] | null;
+  onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
+  onKeyboardResize?: (
+    columnIndex: number
+  ) => (e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
+  theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
 const Thead = ({
@@ -122,8 +250,13 @@ const Thead = ({
   size,
   rows,
   selectedIds,
+  resizableColumns,
+  columnWidths,
+  onResizeStart,
+  theadRef,
+  onKeyboardResize,
 }: TheadProps) => {
-  const onSort = (header: TableHeaderType, headerIndex: number) => () => {
+  const onSort = (header: TableColumnConfigProps, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
       onSortProp(header.sortDir === 'asc' ? 'desc' : 'asc', header, headerIndex);
     }
@@ -135,12 +268,19 @@ const Thead = ({
         {headers.map((headerProps, index) => (
           <col
             key={`header-col-${index}`}
-            width={headerProps.width}
+            width={
+              resizableColumns &&
+              columnWidths &&
+              columnWidths[index] &&
+              index < headers.length - 1
+                ? `${columnWidths[index]}px`
+                : headerProps.width
+            }
           />
         ))}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
       </StyledColGroup>
-      <StyledThead>
+      <StyledThead ref={theadRef}>
         <tr>
           {isSelectable && (
             <StyledHeader
@@ -159,6 +299,10 @@ const Thead = ({
               key={`table-header-${index}-${width}`}
               onSort={onSort(headerProps, index)}
               size={size}
+              resizable={resizableColumns}
+              showResizer={resizableColumns && index < headers.length - 1}
+              onResizeStart={onResizeStart?.(index)}
+              onKeyboardResize={onKeyboardResize?.(index)}
               {...headerProps}
             />
           ))}
@@ -339,7 +483,7 @@ const ActionsContainer = styled.div`
 const TableWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
   ${({ theme }) => `
   border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
   border-radius: ${theme.click.table.radii.all}
@@ -392,7 +536,7 @@ export interface TableRowType extends Omit<
   'onSelect' | 'id'
 > {
   id: string | number;
-  items: Array<TableCellType>;
+  items: TableCellType[];
   isDisabled?: boolean;
   isDeleted?: boolean;
   isActive?: boolean;
@@ -404,8 +548,8 @@ interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
 > {
-  headers: Array<TableHeaderType>;
-  rows: Array<TableRowType>;
+  headers: TableColumnConfigProps[];
+  rows: TableRowType[];
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
@@ -414,6 +558,7 @@ interface CommonTableProps extends Omit<
   size?: TableSize;
   showHeader?: boolean;
   rowHeight?: string;
+  resizableColumns?: boolean;
 }
 
 type SelectReturnValue = {
@@ -423,8 +568,8 @@ type SelectReturnValue = {
 
 interface SelectionType {
   isSelectable?: boolean;
-  selectedIds?: Array<number | string>;
-  onSelect?: (selectedValues: Array<SelectReturnValue>) => void;
+  selectedIds?: (number | string)[];
+  onSelect?: (selectedValues: SelectReturnValue[]) => void;
 }
 
 interface NoSelectionType {
@@ -436,13 +581,13 @@ interface NoSelectionType {
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
 interface TableBodyRowProps extends Omit<TableRowType, 'id'> {
-  headers: Array<TableHeaderType>;
+  headers: TableColumnConfigProps[];
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
   isSelected: boolean;
   onDelete?: () => void;
   onEdit?: () => void;
-  actionsList: Array<string>;
+  actionsList: string[];
   size: TableSize;
   rowHeight?: string;
 }
@@ -573,6 +718,18 @@ const CustomTableRow = ({
     </TableRow>
   );
 };
+interface ResizeState {
+  isResizing: boolean;
+  columnIndex: number;
+  nextColumnIndex: number;
+  startX: number;
+  startWidth: number;
+  nextStartWidth: number;
+}
+
+// TODO: What is an acceptable minimum column width?
+const MIN_COLUMN_WIDTH = 120;
+
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
     {
@@ -589,12 +746,132 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       size = 'sm',
       showHeader = true,
       rowHeight,
+      resizableColumns,
       ...props
     },
     ref
   ) => {
     const isDeletable = typeof onDelete === 'function';
     const isEditable = typeof onEdit === 'function';
+
+    const [columnWidths, setColumnWidths] = useState<number[] | null>(null);
+    const theadRef = useRef<HTMLTableSectionElement>(null);
+
+    useLayoutEffect(() => {
+      if (!resizableColumns || columnWidths !== null || !theadRef.current) {
+        return;
+      }
+
+      const headerCells = theadRef.current.querySelectorAll('th');
+      const widths: number[] = [];
+
+      const startIndex = isSelectable ? 1 : 0;
+      const endIndex = headerCells.length - (isDeletable || isEditable ? 1 : 0);
+
+      for (let i = startIndex; i < endIndex; i++) {
+        widths.push(headerCells[i].getBoundingClientRect().width);
+      }
+
+      if (widths.length === headers.length) {
+        setColumnWidths(widths);
+      }
+    }, [
+      resizableColumns,
+      columnWidths,
+      headers.length,
+      isSelectable,
+      isDeletable,
+      isEditable,
+    ]);
+
+    const resizeStateRef = useRef<ResizeState>({
+      isResizing: false,
+      columnIndex: -1,
+      nextColumnIndex: -1,
+      startX: 0,
+      startWidth: 0,
+      nextStartWidth: 0,
+    });
+
+    const onMouseMove = useCallback((e: globalThis.MouseEvent) => {
+      if (!resizeStateRef.current.isResizing) {
+        return;
+      }
+
+      const { columnIndex, nextColumnIndex, startX, startWidth, nextStartWidth } =
+        resizeStateRef.current;
+
+      if (columnIndex === null || nextColumnIndex === null) {
+        return;
+      }
+
+      const diff = e.clientX - startX;
+      const newWidth = startWidth + diff;
+      const newNextWidth = nextStartWidth - diff;
+
+      if (!newWidth || !newNextWidth) {
+        console.warn('Unexpected computed values for resize width', {
+          newWidth,
+          newNextWidth,
+        });
+        return;
+      }
+
+      if (newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH) {
+        setColumnWidths(prev => {
+          if (!prev) {
+            return prev;
+          }
+          const updated = [...prev];
+          updated[columnIndex] = newWidth;
+          updated[nextColumnIndex] = newNextWidth;
+          return updated;
+        });
+      }
+    }, []);
+
+    const onMouseUp = useCallback(() => {
+      resizeStateRef.current.isResizing = false;
+    }, []);
+
+    useEffect(() => {
+      if (!resizableColumns) {
+        return;
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+
+      return () => {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      };
+    }, [resizableColumns, onMouseMove, onMouseUp]);
+
+    const handleResizeStart = useCallback(
+      (columnIndex: number) => (e: MouseEvent) => {
+        e.preventDefault();
+
+        if (!columnWidths) {
+          return;
+        }
+
+        const nextColumnIndex = columnIndex + 1;
+        if (nextColumnIndex >= headers.length) {
+          return;
+        }
+
+        resizeStateRef.current = {
+          isResizing: true,
+          columnIndex,
+          nextColumnIndex,
+          startX: e.clientX,
+          startWidth: columnWidths[columnIndex],
+          nextStartWidth: columnWidths[nextColumnIndex],
+        };
+      },
+      [headers.length, columnWidths]
+    );
 
     const onRowSelect =
       (id: number | string) =>
@@ -617,13 +894,53 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
       };
     const hasRows = rows.length > 0;
-    const actionsList: Array<string> = [];
+    const actionsList: string[] = [];
     if (isDeletable) {
       actionsList.push('deleteAction');
     }
     if (isEditable) {
       actionsList.push('editAction');
     }
+
+    const onKeyboardResize = useCallback(
+      (columnIndex: number) =>
+        (_e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => {
+          if (!columnWidths) {
+            return;
+          }
+
+          const nextColumnIndex = columnIndex + 1;
+          if (nextColumnIndex >= headers.length) {
+            return;
+          }
+
+          const increment = 2;
+          const multiplier = direction === 'right' ? 1 : -1;
+          const diff = increment * multiplier;
+
+          const currentWidth = columnWidths[columnIndex];
+          const nextWidth = columnWidths[nextColumnIndex];
+          const newWidth = currentWidth + diff;
+          const newNextWidth = nextWidth - diff;
+          const shouldUpdateColumnWidth =
+            newWidth >= MIN_COLUMN_WIDTH && newNextWidth >= MIN_COLUMN_WIDTH;
+
+          if (!shouldUpdateColumnWidth) {
+            return;
+          }
+
+          setColumnWidths(prev => {
+            if (!prev) {
+              return prev;
+            }
+            const updated = [...prev];
+            updated[columnIndex] = newWidth;
+            updated[nextColumnIndex] = newNextWidth;
+            return updated;
+          });
+        },
+      [columnWidths, headers.length]
+    );
 
     return (
       <TableOuterContainer>
@@ -654,6 +971,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 size={size}
                 rows={rows}
                 selectedIds={selectedIds}
+                resizableColumns={resizableColumns}
+                columnWidths={resizableColumns ? columnWidths : undefined}
+                onResizeStart={resizableColumns ? handleResizeStart : undefined}
+                theadRef={theadRef}
+                onKeyboardResize={resizableColumns ? onKeyboardResize : undefined}
               />
             )}
             <Tbody>
@@ -703,7 +1025,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 );
 
 interface SelectAllCheckboxProps extends Omit<CheckboxProps, 'onCheckedChange'> {
-  onCheckedChange?: (selectedValues: Array<SelectReturnValue>) => void;
+  onCheckedChange?: (selectedValues: SelectReturnValue[]) => void;
   selectedIds: (number | string)[];
   rows: TableRowType[];
 }
@@ -787,7 +1109,7 @@ const TextWrapped = styled.span`
 
 const Cell = ({
   label,
-  overflowMode,
+  overflowMode = 'truncated',
 }: {
   label: ReactNode;
   overflowMode?: OverflowMode;
@@ -798,21 +1120,21 @@ const Cell = ({
     return <>{label}</>;
   }
 
-  if (overflowMode === 'truncated') {
-    return <EllipsisContent component="div">{label}</EllipsisContent>;
-  }
-
   if (overflowMode === 'truncate-middle') {
     return <MiddleTruncator text={label} />;
   }
 
-  return <TextWrapped>{label}</TextWrapped>;
+  if (overflowMode === 'wrap') {
+    return <TextWrapped>{label}</TextWrapped>;
+  }
+
+  return <EllipsisContent component="div">{label}</EllipsisContent>;
 };
 
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  overflow: hidden;
+  overflow: visible;
   table-layout: fixed;
 
   @media (max-width: 768px) {

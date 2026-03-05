@@ -24,7 +24,7 @@ import { BadgeProps } from './Badge/Badge';
 import { AvatarProps } from './Avatar/Avatar';
 import { AlertProps } from './Alert/Alert';
 import { IconButtonProps } from './IconButton/IconButton';
-export type { ImageName as IconName } from './Icon/types';
+export type { IconName, ImageName } from './Icon/types';
 import { SidebarNavigationTitleProps } from './SidebarNavigationTitle/SidebarNavigationTitle';
 import { SidebarCollapsibleItemProps } from './SidebarCollapsibleItem/SidebarCollapsibleItem';
 import { SidebarCollapsibleTitleProps } from './SidebarCollapsibleTitle/SidebarCollapsibleTitle';
@@ -39,7 +39,12 @@ export type { DialogContentProps } from './Dialog/Dialog';
 export type { DialogProps, DialogTriggerProps } from '@radix-ui/react-dialog';
 export type { ConfirmationDialogProps } from './ConfirmationDialog/ConfirmationDialog';
 export type { FileTabStatusType } from './FileTabs/FileTabs';
-export type { TableHeaderType, TableRowType, TableProps } from './Table/Table';
+export type {
+  TableColumnConfigProps,
+  TableRowType,
+  TableProps,
+  TableHeaderType,
+} from './Table/Table';
 export type { BigStatProps } from './BigStat/BigStat';
 export type { TextAreaFieldProps } from './Input/TextArea';
 export type {

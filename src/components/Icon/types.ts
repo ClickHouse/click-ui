@@ -1,13 +1,14 @@
 import { SVGAttributes } from 'react';
-import { LogoProps } from '../Logos/Logo';
-import { FlagName, FlagProps } from '../icons/Flags';
-import { LogoName } from '../Logos/types';
-import { PaymentName, PaymentProps } from '../icons/Payments';
+import { LogoProps } from '@/components/Assets/Logos/system/Logo';
+import { FlagName, FlagProps } from '@/components/Assets/Flags/system/Flag';
+import { LogoName } from '@/components/Assets/Logos/system/types';
+import { PaymentName, PaymentProps } from '@/components/Assets/Payments/system';
 import { ICON_NAMES } from './IconCommon';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
 
+// TODO: Concurrent type for Icon as ImageName VS IconName. Investigate
 export type IconName = (typeof ICON_NAMES)[number];
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
@@ -29,6 +30,8 @@ type NoColorType = {
   color?: never;
 };
 
+// TODO: This is used as the type for "Icon" in several components
+// the name "ImageName" is NOT correct.
 export type ImageName = IconName | LogoName | FlagName | PaymentName;
 export type ImageType = (
   | (Omit<IconProps, 'name'> & NoThemeType)

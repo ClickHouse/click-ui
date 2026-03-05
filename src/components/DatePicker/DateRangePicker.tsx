@@ -1,9 +1,12 @@
 import {
   Dispatch,
+  KeyboardEvent,
   MouseEvent,
   SetStateAction,
   useCallback,
   useEffect,
+  useLayoutEffect,
+  useRef,
   useState,
 } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
@@ -20,24 +23,28 @@ import {
   selectedDateFormatter,
 } from './utils';
 
+type OpenDirection = 'left' | 'right';
+
+const calendarWidth = 275;
+
 const PredefinedCalendarContainer = styled(Panel)`
   align-items: start;
   background: ${({ theme }) => theme.click.panel.color.background.muted};
 `;
 
 const PredefinedDatesContainer = styled(Container)`
-  width: 275px;
+  width: ${calendarWidth}px;
 `;
 
 // left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
-const CalendarRendererContainer = styled.div`
+const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>`
   border: ${({ theme }) =>
     `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
   box-shadow:
     lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
     lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  left: 276px;
+  ${({ $openDirection }) => ($openDirection === 'left' ? 'right: 100%;' : 'left: 276px;')}
   position: absolute;
   top: 0;
 `;
@@ -101,13 +108,12 @@ const Calendar = ({
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
+          const today = new Date();
           const isSelected =
             (startDate && isSameDate(startDate, fullDate)) ||
             (endDate && isSameDate(endDate, fullDate));
+          const isPresent = isSameDate(today, fullDate);
 
-          const today = new Date();
-
-          const isCurrentDate = isSameDate(today, fullDate);
           const isBetweenStartAndEndDates = Boolean(
             startDate && endDate && fullDate > startDate && fullDate < endDate
           );
@@ -170,7 +176,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isCurrentDate}
+              $isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
@@ -193,7 +199,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, {
 
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedDatesList: Array<DateRange>;
+  predefinedDatesList: DateRange[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -243,7 +249,7 @@ const PredefinedDates = ({
             ? monthFormatter.format(startDate)
             : `${selectedDateFormatter.format(
                 startDate
-              )} - ${selectedDateFormatter.format(endDate)}`.trim();
+              )} – ${selectedDateFormatter.format(endDate)}`.trim();
 
           return (
             <StyledDropdownItem
@@ -282,10 +288,12 @@ export interface DateRangePickerProps {
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
+  openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedDatesList?: Array<DateRange>;
+  predefinedDatesList?: DateRange[];
   maxRangeLength?: number;
   startDate?: Date;
+  responsivePositioning?: boolean;
 }
 
 export const DateRangePicker = ({
@@ -296,13 +304,18 @@ export const DateRangePicker = ({
   futureStartDatesDisabled = false,
   maxRangeLength = -1,
   onSelectDateRange,
+  openDirection = 'right',
   placeholder = 'start date – end date',
   predefinedDatesList,
+  responsivePositioning = true,
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
   const [selectedEndDate, setSelectedEndDate] = useState<Date>();
   const [shouldShowCustomRange, setShouldShowCustomRange] = useState<boolean>(false);
+  const [calendarOpenDirection, setCalendarOpenDirection] =
+    useState<OpenDirection>(openDirection);
+  const calendarContainerRef = useRef<HTMLDivElement>(null);
 
   const calendarOptions: UseCalendarOptions = {};
 
@@ -323,16 +336,28 @@ export const DateRangePicker = ({
     }
   }, [endDate]);
 
+  useLayoutEffect(() => {
+    if (shouldShowCustomRange && calendarContainerRef.current) {
+      if (
+        calendarContainerRef.current.getBoundingClientRect().right > window.innerWidth
+      ) {
+        setCalendarOpenDirection('left');
+      }
+    }
+  }, [shouldShowCustomRange]);
+
   const closeDatePicker = useCallback((): void => {
     setIsOpen(false);
     setShouldShowCustomRange(false);
-  }, []);
+    setCalendarOpenDirection(openDirection);
+  }, [openDirection]);
 
   const handleOpenChange = (isOpen: boolean): void => {
     setIsOpen(isOpen);
 
     if (!isOpen) {
       setShouldShowCustomRange(false);
+      setCalendarOpenDirection(openDirection);
     }
   };
 
@@ -378,6 +403,13 @@ export const DateRangePicker = ({
     [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
+  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setIsOpen(true);
+    }
+  }, []);
+
   const shouldShowPredefinedDates =
     predefinedDatesList !== undefined && predefinedDatesList.length > 0;
 
@@ -386,7 +418,10 @@ export const DateRangePicker = ({
       onOpenChange={handleOpenChange}
       open={isOpen}
     >
-      <Dropdown.Trigger disabled={disabled}>
+      <Dropdown.Trigger
+        disabled={disabled}
+        onKeyDown={onTriggerKeyDown}
+      >
         <DateRangePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
@@ -396,7 +431,10 @@ export const DateRangePicker = ({
           selectedStartDate={selectedStartDate}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <Dropdown.Content
+        align="start"
+        responsivePositioning={responsivePositioning}
+      >
         {shouldShowPredefinedDates ? (
           <PredefinedCalendarContainer
             gap="none"
@@ -415,8 +453,15 @@ export const DateRangePicker = ({
             />
 
             {shouldShowCustomRange && (
-              <CalendarRendererContainer>
-                <StyledCalendarRenderer calendarOptions={calendarOptions}>
+              <CalendarRendererContainer
+                $openDirection={calendarOpenDirection}
+                ref={calendarContainerRef}
+              >
+                <StyledCalendarRenderer
+                  calendarOptions={calendarOptions}
+                  allowYearMonthSelection={false}
+                  selectedDate={selectedStartDate}
+                >
                   {(body: Body) => (
                     <Calendar
                       calendarBody={body}
@@ -434,7 +479,11 @@ export const DateRangePicker = ({
             )}
           </PredefinedCalendarContainer>
         ) : (
-          <CalendarRenderer calendarOptions={calendarOptions}>
+          <CalendarRenderer
+            calendarOptions={calendarOptions}
+            allowYearMonthSelection={false}
+            selectedDate={selectedStartDate}
+          >
             {(body: Body) => (
               <Calendar
                 calendarBody={body}

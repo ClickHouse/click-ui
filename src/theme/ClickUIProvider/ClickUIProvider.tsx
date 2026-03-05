@@ -3,9 +3,12 @@ import {
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
 import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
-import { ThemeName } from '@/theme';
+import { ThemeName, THEMES } from '@/theme/core';
 import { ThemeProvider } from '@/theme/theme';
 import { ReactNode, useEffect } from 'react';
+import { setRootThemeAttribute, removeRootThemeAttribute } from '@/utils/dom';
+import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
+import { isValidThemeName, getFallbackThemeName } from '@/utils/theme';
 
 interface Props {
   config?: {
@@ -14,20 +17,48 @@ interface Props {
   };
   theme: ThemeName;
   children: ReactNode;
+  persistTheme?: boolean;
+  storageKey?: string;
 }
 
-const ClickUIProvider = ({ children, theme, config = {} }: Props) => {
+const ClickUIProvider = ({
+  children,
+  theme,
+  config = {},
+  persistTheme = true,
+  storageKey = CUI_THEME_STORAGE_KEY,
+}: Props) => {
   const { toast = {}, tooltip = {} } = config;
+  const hasValidTheme = isValidThemeName(theme);
+  const safeTheme = getFallbackThemeName(theme);
 
   useEffect(() => {
-    if (theme === 'classic') {
+    if (!hasValidTheme) {
       console.warn(
-        "[Click UI] The 'classic' theme has been removed. Please use 'light' or 'dark' theme instead. Falling back to 'light' theme."
+        `[Click UI] Unknown theme! Please use one of ${Object.keys(THEMES).join(', ')} theme instead. Falling back to 'light' theme.`
       );
     }
-  }, [theme]);
+  }, [theme, hasValidTheme]);
 
-  const safeTheme = theme === 'classic' ? 'light' : theme;
+  useEffect(() => {
+    setRootThemeAttribute(safeTheme);
+
+    return () => {
+      removeRootThemeAttribute();
+    };
+  }, [safeTheme]);
+
+  useEffect(() => {
+    if (!persistTheme) {
+      return;
+    }
+
+    try {
+      localStorage.setItem(storageKey, safeTheme);
+    } catch {
+      console.warn('LocalStorage is not available!');
+    }
+  }, [safeTheme, persistTheme, storageKey]);
 
   return (
     <ThemeProvider theme={safeTheme}>

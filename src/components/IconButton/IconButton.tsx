@@ -4,9 +4,11 @@ import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon/Icon';
 import { IconName } from '@/components/Icon/types';
 
+export type IconButtonSize = 'default' | 'sm' | 'xs';
+
 export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   /** The size of the icon button */
-  size?: 'default' | 'sm' | 'xs';
+  size?: IconButtonSize;
   /** Whether the button is disabled */
   disabled?: boolean;
   /** The visual style variant of the button */

@@ -158,7 +158,7 @@ const childrenToComboboxItemArray = (
   children: ReactNode,
   callback: (props: CallbackProps) => void,
   heading?: string
-): Array<SelectItemObject> => {
+): SelectItemObject[] => {
   return Children.toArray(children).flatMap(child => {
     if (isValidElement(child) && child && typeof child === 'object') {
       const type = child.type as FunctionComponent;
@@ -223,16 +223,17 @@ export const InternalSelect = ({
   useFullWidthItems = false,
   itemCharacterLimit = '64ch',
   noAvailableOptions = true,
+  triggerProps,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
   const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState<string | undefined>();
-  const visibleList = useRef<Array<string>>([]);
-  const navigatable = useRef<Array<string>>([]);
+  const visibleList = useRef<string[]>([]);
+  const navigatable = useRef<string[]>([]);
   const valueNode = useRef<Map<string, SelectItemProps>>(new Map());
   const [isInitialized, setInitialized] = useState(false);
-  const [list, setList] = useState<Array<SelectItemObject>>([]);
+  const [list, setList] = useState<SelectItemObject[]>([]);
   const updateElements = useCallback(
     ({ disabled, value, title, heading, nodeProps }: CallbackProps) => {
       if (title.includes(search) || heading?.includes(search)) {
@@ -249,8 +250,8 @@ export const InternalSelect = ({
     (search: string) => {
       setSearch(search);
       let hasHighlightedValue = false;
-      const visibleItemsList: Array<string> = [];
-      const navigatableList: Array<string> = [];
+      const visibleItemsList: string[] = [];
+      const navigatableList: string[] = [];
       const searchLowerCase = search.toLowerCase();
       list.forEach(item => {
         if (
@@ -276,7 +277,7 @@ export const InternalSelect = ({
   );
 
   const updateList = useCallback(
-    (children?: ReactNode, options?: Array<SelectOptionListItem>) => {
+    (children?: ReactNode, options?: SelectOptionListItem[]) => {
       const lowerCasedSearch = search.toLowerCase();
       if (options) {
         setList(
@@ -424,6 +425,7 @@ export const InternalSelect = ({
             $error={!!error}
             disabled={disabled}
             data-testid="select-trigger"
+            {...triggerProps}
           >
             {isInitialized && (
               <SelectValue>
@@ -677,6 +679,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             icon={icon}
             iconDir={iconDir}
             gap="xxs"
+            isResponsive={false}
           >
             {label ? (
               <>
@@ -785,6 +788,7 @@ export const MultiSelectCheckboxItem = forwardRef<
               icon={icon}
               iconDir={iconDir}
               gap="xxs"
+              isResponsive={false}
             >
               {label ? (
                 <>

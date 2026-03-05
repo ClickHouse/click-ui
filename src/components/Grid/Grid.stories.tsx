@@ -31,7 +31,7 @@ interface Props {
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
-  const [columnWidth, setColumnWidth] = useState<Array<number>>(
+  const [columnWidth, setColumnWidth] = useState<number[]>(
     Array.from({ length: columnCount }, () => 100)
   );
 
