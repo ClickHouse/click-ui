@@ -1,35 +1,33 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { getFallbackThemeName } from '@/theme/theme.utils';
-import { SvgImageElement } from '@/components/Icon/SvgImageElement';
-import { PaymentProps } from './types';
+import { IconSize } from '@/components/Icon/types';
+import { PaymentName } from './types';
+import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
 import { SvgImageElement } from '@/components/commonElement';
-import type { ThemeName } from '@/theme';
-import { resolveAssetName, type AssetAlias, type AssetDeprecatedName } from '@/components/Assets/config';
+import { type ThemeName, THEMES } from '@/theme';
+import {
+  createAssetResolver,
+  type AssetAlias,
+  type AssetDeprecatedName,
+} from '@/components/Assets/config';
 
-// TODO: This can be a generic see retroactiveNames.ts
-// e.g. /Icons/system/retroactiveNames.ts
-const resolvePaymentName = (name: string): PaymentName => {
-  return resolveAssetName(name) as PaymentName;
-};
+const resolvePaymentName = createAssetResolver<PaymentName>();
 
-// TODO: Where required, can't import directly from the config?
-export type PaymentAliasName = AssetAlias;
-export type DeprecatedPaymentName = AssetDeprecatedName;
+export { resolvePaymentName };
 
 export interface PaymentProps extends SVGAttributes<SVGElement> {
-  name: PaymentName | PaymentAliasName | DeprecatedPaymentName;
-  theme?: 'light' | 'dark';
+  name: PaymentName | AssetAlias | AssetDeprecatedName;
+  theme?: ThemeName;
   size?: IconSize;
 }
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolvePaymentName(name);
-  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? 'light';
+  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? THEMES.Light;
   const Component =
-    resolvedTheme === 'light' ? PaymentsLight[resolvedName] : PaymentsDark[resolvedName];
+    resolvedTheme === THEMES.Light ? PaymentsLight[resolvedName] : PaymentsDark[resolvedName];
 
   if (!Component) {
     return null;
