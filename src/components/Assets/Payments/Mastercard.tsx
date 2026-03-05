@@ -1,6 +1,6 @@
 import { SVGAssetProps } from './system/types';
 
-const MasterCard = (props: SVGAssetProps) => (
+const Mastercard = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
@@ -40,4 +40,4 @@ const MasterCard = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default MasterCard;
+export default Mastercard;
