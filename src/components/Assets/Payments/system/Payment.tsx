@@ -6,17 +6,30 @@ import PaymentsLight from './PaymentsLight';
 import PaymentsDark from './PaymentsDark';
 import { SvgImageElement } from '@/components/commonElement';
 import type { ThemeName } from '@/theme';
+import { resolveAssetName, type AssetAlias, type AssetDeprecatedName } from '@/components/Assets/config';
+
+// TODO: This can be a generic see retroactiveNames.ts
+// e.g. /Icons/system/retroactiveNames.ts
+const resolvePaymentName = (name: string): PaymentName => {
+  return resolveAssetName(name) as PaymentName;
+};
+
+// TODO: Where required, can't import directly from the config?
+export type PaymentAliasName = AssetAlias;
+export type DeprecatedPaymentName = AssetDeprecatedName;
 
 export interface PaymentProps extends SVGAttributes<SVGElement> {
-  name: PaymentName;
+  name: PaymentName | PaymentAliasName | DeprecatedPaymentName;
   theme?: 'light' | 'dark';
   size?: IconSize;
 }
 
 const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
   const { name: themeName } = useTheme();
+  const resolvedName = resolvePaymentName(name);
   const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? 'light';
-  const Component = resolvedTheme === 'light' ? PaymentsLight[name] : PaymentsDark[name];
+  const Component =
+    resolvedTheme === 'light' ? PaymentsLight[resolvedName] : PaymentsDark[resolvedName];
 
   if (!Component) {
     return null;
@@ -34,7 +47,7 @@ const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
       as={ThemedPayment}
       $size={size}
       role="img"
-      aria-label={name}
+      aria-label={resolvedName}
       {...props}
     />
   );
