@@ -229,10 +229,16 @@ export const resolveAssetName = (name: string): string => {
   }
 
   if (ASSET_NAME_MAPPINGS.deprecated[name]) {
-    console.warn(`Asset name "${name}" is deprecated, use "${ASSET_NAME_MAPPINGS.deprecated[name]}" instead`);
+    console.warn(
+      `Asset name "${name}" is deprecated, use "${ASSET_NAME_MAPPINGS.deprecated[name]}" instead`
+    );
 
     return ASSET_NAME_MAPPINGS.deprecated[name];
   }
 
   return name;
+};
+
+export const createAssetResolver = <T extends string>() => {
+  return (name: string): T => resolveAssetName(name) as T;
 };
