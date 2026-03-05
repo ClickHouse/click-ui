@@ -78,11 +78,8 @@ export type LogoName =
   | 'vector'
   | 'warp-stream';
 
-/** @deprecated Use 'c-sharp' instead of 'c#' */
-type DeprecatedLogoName = 'c#';
-
 export interface LogoProps extends SVGAttributes<SVGElement> {
-  name: LogoName | DeprecatedLogoName;
+  name: LogoName;
   theme?: ThemeName;
   size?: AssetSize;
 }

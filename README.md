@@ -53,6 +53,7 @@ You can find the official docs for the Click UI design system and component libr
   - [Applying Fixes to Stable Versions](#applying-fixes-to-stable-versions)
   - [Switching Release Modes](#switching-release-modes)
 * [Contributing](#contributing)
+  - [Component RFC](#component-rfc)
   - [Conventional commits](#conventional-commits)
 
 ## Requirements
@@ -643,6 +644,25 @@ Here's what changes in package.json:
 }
 ```
 Always include a changeset to ensure each promotion reflects real, trackable changes.
+
+### Component RFC
+
+To propose a new component, open an RFC using the [Component RFC template](https://github.com/ClickHouse/click-ui/compare/main...branchName?template=component_rfc.md).
+
+> [!NOTE]
+> Replace the <branchName> in the Component RFC template URL by your branch name.
+
+For example, to open a Component RFC for branch name `feat/slider`, you'd open the URL:
+
+```sh
+https://github.com/ClickHouse/click-ui/compare/main...feat/slider?template=component_rfc.md
+```
+
+For GitHub CLI users:
+
+```sh
+gh pr create --template component_rfc.md
+```
 
 ### Conventional commits
 
