@@ -268,113 +268,177 @@ describe('DatePicker', () => {
       expect(selectedDate).toEqual(new Date('2032-12-28 00:00.00'));
     });
 
-    it('year grid cells are focusable and respond to Enter key', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
+    describe('the year grid', () => {
+      it('cells are focusable and respond to Enter key', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
 
-      const { getByTestId, getByDisplayValue } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
+        const { getByTestId, getByDisplayValue } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
 
-      await userEvent.click(getByTestId('datepicker-input'));
-      await userEvent.click(getByTestId('calendar-title'));
+        await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('calendar-title'));
 
-      const yearCell = getByTestId('year-cell-2020');
-      expect(yearCell).toBeInTheDocument();
+        const yearCell = getByTestId('year-cell-2020');
+        expect(yearCell).toBeInTheDocument();
 
-      expect(yearCell.getAttribute('tabindex')).not.toBe('-1');
+        expect(yearCell.getAttribute('tabindex')).not.toBe('-1');
 
-      yearCell.focus();
-      expect(document.activeElement).toBe(yearCell);
+        yearCell.focus();
+        expect(document.activeElement).toBe(yearCell);
 
-      await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard('{Enter}');
 
-      expect(getByTestId('months-grid')).toBeInTheDocument();
-      expect(getByDisplayValue('2020')).toBeInTheDocument();
+        expect(getByTestId('months-grid')).toBeInTheDocument();
+        expect(getByDisplayValue('2020')).toBeInTheDocument();
+      });
+
+      it('supports arrow key navigation', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
+
+        const { getByTestId } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('calendar-title'));
+
+        const yearCell2020 = getByTestId('year-cell-2020');
+        yearCell2020.focus();
+
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(getByTestId('year-cell-2021'));
+
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(document.activeElement).toBe(getByTestId('year-cell-2020'));
+
+        await userEvent.keyboard('{ArrowDown}');
+        expect(document.activeElement).toBe(getByTestId('year-cell-2023'));
+      });
+
+      it('supports horizontal arrow key navigation between chevron buttons', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
+
+        const { getByTestId } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('calendar-title'));
+
+        expect(getByTestId('years-grid')).toBeInTheDocument();
+
+        const prevButton = getByTestId('calendar-previous-month');
+        const nextButton = getByTestId('calendar-next-month');
+
+        prevButton.focus();
+        expect(document.activeElement).toBe(prevButton);
+
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(nextButton);
+
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(prevButton);
+
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(document.activeElement).toBe(nextButton);
+      });
     });
 
-    it('year grid supports arrow key navigation', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
+    describe('the month grid', () => {
+      it('cells are focusable and respond to Space key', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
 
-      const { getByTestId } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
+        const { getByTestId, getByDisplayValue } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
 
-      await userEvent.click(getByTestId('datepicker-input'));
-      await userEvent.click(getByTestId('calendar-title'));
+        await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('calendar-title'));
+        await userEvent.click(getByTestId('year-cell-2020'));
 
-      const yearCell2020 = getByTestId('year-cell-2020');
-      yearCell2020.focus();
+        const monthCell = getByTestId('month-cell-0');
+        expect(monthCell).toBeInTheDocument();
 
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(getByTestId('year-cell-2021'));
+        monthCell.focus();
+        expect(document.activeElement).toBe(monthCell);
 
-      await userEvent.keyboard('{ArrowLeft}');
-      expect(document.activeElement).toBe(getByTestId('year-cell-2020'));
+        await userEvent.keyboard(' ');
 
-      await userEvent.keyboard('{ArrowDown}');
-      expect(document.activeElement).toBe(getByTestId('year-cell-2023'));
-    });
+        expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
+      });
 
-    it('month grid cells are focusable and respond to Space key', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
+      it('supports arrow key navigation', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
 
-      const { getByTestId, getByDisplayValue } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
+        const { getByTestId } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
 
-      await userEvent.click(getByTestId('datepicker-input'));
-      await userEvent.click(getByTestId('calendar-title'));
-      await userEvent.click(getByTestId('year-cell-2020'));
+        await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('calendar-title'));
+        await userEvent.click(getByTestId('year-cell-2020'));
 
-      const monthCell = getByTestId('month-cell-0');
-      expect(monthCell).toBeInTheDocument();
+        const janCell = getByTestId('month-cell-0');
+        janCell.focus();
 
-      monthCell.focus();
-      expect(document.activeElement).toBe(monthCell);
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(getByTestId('month-cell-1'));
 
-      await userEvent.keyboard(' ');
+        await userEvent.keyboard('{ArrowDown}');
+        expect(document.activeElement).toBe(getByTestId('month-cell-5'));
 
-      expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
-    });
+        await userEvent.keyboard('{ArrowUp}');
+        expect(document.activeElement).toBe(getByTestId('month-cell-1'));
+      });
 
-    it('month grid supports arrow key navigation', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
+      it('supports horizontal arrow key navigation between chevron buttons', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
 
-      const { getByTestId } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
+        const { getByTestId } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
 
-      await userEvent.click(getByTestId('datepicker-input'));
-      await userEvent.click(getByTestId('calendar-title'));
-      await userEvent.click(getByTestId('year-cell-2020'));
+        await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('calendar-title'));
+        await userEvent.click(getByTestId('year-cell-2020'));
 
-      const janCell = getByTestId('month-cell-0');
-      janCell.focus();
+        expect(getByTestId('months-grid')).toBeInTheDocument();
 
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(getByTestId('month-cell-1'));
+        const prevButton = getByTestId('calendar-previous-month');
+        const nextButton = getByTestId('calendar-next-month');
 
-      await userEvent.keyboard('{ArrowDown}');
-      expect(document.activeElement).toBe(getByTestId('month-cell-5'));
+        expect(prevButton).toBeInTheDocument();
+        expect(nextButton).toBeInTheDocument();
 
-      await userEvent.keyboard('{ArrowUp}');
-      expect(document.activeElement).toBe(getByTestId('month-cell-1'));
+        const firstMonthCell = getByTestId('month-cell-0');
+        firstMonthCell.focus();
+        expect(document.activeElement).toBe(firstMonthCell);
+      });
     });
 
     it('allows accessing the calendar title by keyboard', async () => {
@@ -424,105 +488,45 @@ describe('DatePicker', () => {
         const selectedDate = onSelectDate.mock.lastCall?.[0];
         expect(selectedDate.getDate()).toBe(5);
       });
-    });
 
-    it('supports horizontal arrow key navigation between chevron buttons and title in days view', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
+      it('supports horizontal arrow key navigation between chevron buttons and title', async () => {
+        const onSelectDate = vi.fn();
+        const date = new Date('07-04-2020');
 
-      const { getByTestId } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
+        const { getByTestId } = renderCUI(
+          <DatePicker
+            date={date}
+            onSelectDate={onSelectDate}
+          />
+        );
 
-      await userEvent.click(getByTestId('datepicker-input'));
+        await userEvent.click(getByTestId('datepicker-input'));
 
-      const prevButton = getByTestId('calendar-previous-month');
-      const title = getByTestId('calendar-title');
-      const nextButton = getByTestId('calendar-next-month');
+        const prevButton = getByTestId('calendar-previous-month');
+        const title = getByTestId('calendar-title');
+        const nextButton = getByTestId('calendar-next-month');
 
-      prevButton.focus();
-      expect(document.activeElement).toBe(prevButton);
+        prevButton.focus();
+        expect(document.activeElement).toBe(prevButton);
 
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(title);
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(title);
 
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(nextButton);
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(nextButton);
 
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(prevButton);
+        await userEvent.keyboard('{ArrowRight}');
+        expect(document.activeElement).toBe(prevButton);
 
-      await userEvent.keyboard('{ArrowLeft}');
-      expect(document.activeElement).toBe(nextButton);
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(document.activeElement).toBe(nextButton);
 
-      await userEvent.keyboard('{ArrowLeft}');
-      expect(document.activeElement).toBe(title);
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(document.activeElement).toBe(title);
 
-      await userEvent.keyboard('{ArrowLeft}');
-      expect(document.activeElement).toBe(prevButton);
-    });
-
-    it('supports horizontal arrow key navigation between chevron buttons in years view', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
-
-      const { getByTestId } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
-
-      await userEvent.click(getByTestId('datepicker-input'));
-      await userEvent.click(getByTestId('calendar-title'));
-
-      expect(getByTestId('years-grid')).toBeInTheDocument();
-
-      const prevButton = getByTestId('calendar-previous-month');
-      const nextButton = getByTestId('calendar-next-month');
-
-      prevButton.focus();
-      expect(document.activeElement).toBe(prevButton);
-
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(nextButton);
-
-      await userEvent.keyboard('{ArrowRight}');
-      expect(document.activeElement).toBe(prevButton);
-
-      await userEvent.keyboard('{ArrowLeft}');
-      expect(document.activeElement).toBe(nextButton);
-    });
-
-    it('supports horizontal arrow key navigation between chevron buttons in months view', async () => {
-      const onSelectDate = vi.fn();
-      const date = new Date('07-04-2020');
-
-      const { getByTestId } = renderCUI(
-        <DatePicker
-          date={date}
-          onSelectDate={onSelectDate}
-        />
-      );
-
-      await userEvent.click(getByTestId('datepicker-input'));
-      await userEvent.click(getByTestId('calendar-title'));
-      await userEvent.click(getByTestId('year-cell-2020'));
-
-      expect(getByTestId('months-grid')).toBeInTheDocument();
-
-      const prevButton = getByTestId('calendar-previous-month');
-      const nextButton = getByTestId('calendar-next-month');
-
-      expect(prevButton).toBeInTheDocument();
-      expect(nextButton).toBeInTheDocument();
-
-      const firstMonthCell = getByTestId('month-cell-0');
-      firstMonthCell.focus();
-      expect(document.activeElement).toBe(firstMonthCell);
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(document.activeElement).toBe(prevButton);
+      });
     });
   });
 });
