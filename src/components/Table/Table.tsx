@@ -315,26 +315,28 @@ const TableRow = styled.tr<TableRowProps>`
     border-bottom: none;
   }
 
-  @media (max-width: 768px) {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    ${({ theme, $isSelectable = false, $showActions = false }) => `
-      border: ${theme.click.table.cell.stroke} solid ${
-        theme.click.table.row.color.stroke.default
-      };
-      border-radius: ${theme.click.table.radii.all};
-      ${
-        $isSelectable
-          ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
-          : ''
-      }
-      ${
-        $showActions
-          ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
-          : ''
-      }
-    `}
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      ${({ theme, $isSelectable = false, $showActions = false }) => `
+        border: ${theme.click.table.cell.stroke} solid ${
+          theme.click.table.row.color.stroke.default
+        };
+        border-radius: ${theme.click.table.radii.all};
+        ${
+          $isSelectable
+            ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
+            : ''
+        }
+        ${
+          $showActions
+            ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
+            : ''
+        }
+      `}
+    }
   }
 `;
 
@@ -345,18 +347,22 @@ const TableData = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  @media (max-width: 768px) {
-    width: auto;
-    min-width: 40%;
-    ${({ theme }) => `
-      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-    `}
+  [data-responsive-mode="list"] & {
+    @media (max-width: 768px) {
+      width: auto;
+      min-width: 40%;
+      ${({ theme }) => `
+        padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+      `}
+    }
   }
 `;
 
 const StyledColGroup = styled.colgroup`
-  @media (max-width: 768px) {
-    display: none;
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 const StyledThead = styled.thead`
@@ -368,8 +374,10 @@ const StyledThead = styled.thead`
     }) => ` border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
   `}
   }
-  @media (max-width: 768px) {
-    display: none;
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
@@ -379,15 +387,19 @@ const MobileHeader = styled.div`
     color: ${theme.click.table.row.color.label.default};
     font:  ${theme.click.table.cell.label.default};
   `}
-  @media (max-width: 768px) {
-    display: block;
+  [data-responsive-mode="list"] & {
+    @media (max-width: 768px) {
+      display: block;
+    }
   }
 `;
 const Tbody = styled.tbody`
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
   }
 `;
 
@@ -398,17 +410,19 @@ const SelectData = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  @media (max-width: 768px) {
-    width: auto;
-    align-self: stretch;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    ${({ theme }) => `
-      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-      border-right: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
-    `}
+  [data-responsive-mode="list"] & {
+    @media (max-width: 768px) {
+      width: auto;
+      align-self: stretch;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      ${({ theme }) => `
+        padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+        border-right: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
+      `}
+    }
   }
 `;
 const ActionsList = styled.td<{ $size: TableSize }>`
@@ -418,17 +432,19 @@ const ActionsList = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  @media (max-width: 768px) {
-    width: auto;
-    align-self: stretch;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    ${({ theme }) => `
-      padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-      border-left: 1px solid ${theme.click.table.row.color.stroke.default};
-    `}
+  [data-responsive-mode="list"] & {
+    @media (max-width: 768px) {
+      width: auto;
+      align-self: stretch;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      ${({ theme }) => `
+        padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
+        border-left: 1px solid ${theme.click.table.row.color.stroke.default};
+      `}
+    }
   }
 `;
 
@@ -437,10 +453,12 @@ const ActionsContainer = styled.div`
   flex-wrap: wrap;
   gap: 0.5rem;
   overflow: hidden;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    overflow: auto;
-    flex-wrap: nowrap;
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      flex-direction: column;
+      overflow: auto;
+      flex-wrap: nowrap;
+    }
   }
 `;
 
@@ -463,11 +481,13 @@ const TableOuterContainer = styled.div`
 
 const MobileActions = styled.div`
   display: none;
-  @media (max-width: 768px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
+    }
   }
 `;
 const EditButton = styled.button`
@@ -523,6 +543,8 @@ interface CommonTableProps extends Omit<
   showHeader?: boolean;
   rowHeight?: string;
   resizableColumns?: boolean;
+  /** Disables mobile list view on narrow screens. When true, table uses horizontal scroll instead. Default: false */
+  disableMobileListView?: boolean;
 }
 
 type SelectReturnValue = {
@@ -711,6 +733,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       showHeader = true,
       rowHeight,
       resizableColumns,
+      disableMobileListView = false,
       ...props
     },
     ref
@@ -867,7 +890,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     }
 
     return (
-      <TableOuterContainer>
+      <TableOuterContainer
+        data-responsive-mode={disableMobileListView ? 'scroll' : 'list'}
+      >
         {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
@@ -1060,9 +1085,11 @@ const StyledTable = styled.table`
   overflow: hidden;
   table-layout: fixed;
 
-  @media (max-width: 768px) {
-    border: none;
-    table-layout: auto;
+  [data-responsive-mode='list'] & {
+    @media (max-width: 768px) {
+      border: none;
+      table-layout: auto;
+    }
   }
 `;
 
