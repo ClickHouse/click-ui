@@ -18,10 +18,13 @@ You can find the official docs for the Click UI design system and component libr
 ## Overview
 
 * [Requirements](#requirements)
+* [Quick Start](#quick-start)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
-  - [Local development server](#local-development-server)
+  - [Local development](#local-development)
 * [Tests](#Tests)
+  - [Functional tests](#functional-tests)
+  - [Visual regression tests](#visual-regression-tests)
 * [Storybook](#storybook)
   - [Stories development server](#stories-development-server)
   - [Public static site](#public-static-site)
@@ -58,6 +61,31 @@ You can find the official docs for the Click UI design system and component libr
 - Nodejs (>= 22.12.x) as runtime
 - Yarn (>= 4.5.3) for development, any other package manager in a host project
 
+## Quick Start
+
+Install the package via npm or your favourite package manager:
+
+```sh
+npm i @clickhouse/click-ui@latest
+```
+
+To use Click UI, you must wrap your application in the provider. This ensures styles and themes are applied correctly across all components.
+
+```ts
+import { ClickUIProvider, Title, Text } from '@clickhouse/click-ui'
+
+function App() {
+  return (
+    <ClickUIProvider theme="dark">
+      <Title type="h1">Hello ClickHouse</Title>
+      <Text>Start building today!</Text>
+    </ClickUIProvider>
+  )
+}
+```
+
+For more examples, including theme switching and configuration, see the [How to](#how-to-use) use section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
+
 ## Development
 
 The project uses yarn package manager for development.
@@ -86,9 +114,11 @@ Once done, you must commit the changes.
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
-### Local development server
+### Local development
 
-To run the Click UI development execute the command:
+We leverage Storybook as our primary development environment and documentation, see [Storybook](#storybook).
+
+You can start the Storybook development server by:
 
 ```sh
 yarn dev
@@ -108,6 +138,8 @@ By avoiding local preview files, we ensure that component experimentation happen
 To get started with the development playground, refer to the Storybook section [here](#storybook).
 
 ## Tests
+
+### Functional tests
 
 The package uses [vitest](https://vitest.dev/) and [react testing library](https://testing-library.com) for tests, e.g. functional tests.
 
@@ -293,7 +325,6 @@ Most modern React frameworks support CSS Modules out of the box, including Next.
 
 > [!NOTE]
 > We're currently migrating from Styled-Components to CSS Modules. Some components may still use Styled-Components during this transition period.
-
 #### Benefits
 
 CSS Modules align naturally with component-level imports. When you import a component like `Button`, its `Button.module.css` is automatically included. If you don't use the component, neither the JavaScript, or CSS will be bundled in your application's output. Only the necessary stylesheets will be included in the output bundle.
@@ -347,9 +378,9 @@ function App() {
 
   return (
     <ClickUIProvider theme={theme} config={{tooltip:{ delayDuration: 0 }}}>
-      <Switch
-        checked={theme === 'dark'}
-        onCheckedChange={() => toggleTheme()}
+      <Switch 
+        checked={theme === 'dark'} 
+        onCheckedChange={() => toggleTheme()} 
         label="Dark mode"
       />
 
@@ -416,7 +447,7 @@ export const App = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   return (
-    <ClickUIProvider
+    <ClickUIProvider 
       theme={theme}
       persistTheme
     >
