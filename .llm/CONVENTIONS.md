@@ -89,10 +89,9 @@ src/components/
 
 1. **API Stability**: No breaking changes to exported props/types without migration note
 2. **Type Safety**: All public APIs fully typed, no `any`
-3. **Security**: No `dangerouslySetInnerHTML` with user content, XSS prevention
-4. **Theme Compliance**: All visual values from `theme.click.*` tokens
-5. **Bundle Impact**: New deps must be tree-shakeable or justified
-6. **Documentation**: Storybook stories for all component states
+3. **Theme Compliance**: All visual values from `theme.click.*` tokens
+4. **Bundle Impact**: New deps must be tree-shakeable or justified
+5. **Documentation**: Storybook stories for all component states
 
 ## Anti-Patterns
 
