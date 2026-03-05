@@ -59,11 +59,13 @@ const ItemWrapper = styled.li<{ $active?: boolean }>`
 `;
 
 const StyledLink = styled.a`
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
+  && {
+    text-decoration: none;
+    color: ${({ theme }) => theme.click.global.color.text.muted};
+    cursor: pointer;
+  }
 
-  &:hover {
+  &&:hover {
     text-decoration: underline;
   }
 `;
