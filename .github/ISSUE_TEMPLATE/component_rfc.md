@@ -1,5 +1,5 @@
 ---
-name: Component RFC
+name: 🎁 Component RFC
 about: Propose a new component or significant change to an existing one
 title: '[RFC] '
 labels: 'rfc'
