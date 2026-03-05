@@ -21,7 +21,7 @@ describe('DatePicker', () => {
     const handleSelectDate = vi.fn();
     const date = new Date('01-12-2026');
 
-    const { getByTestId, queryByTestId, getByText } = renderCUI(
+    const { getByTestId, queryByTestId, getByRole } = renderCUI(
       <DatePicker
         date={date}
         onSelectDate={handleSelectDate}
@@ -35,15 +35,15 @@ describe('DatePicker', () => {
 
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
 
-    const day = getByText('12');
-    expect(document.activeElement).toBe(day);
+    const dayCell = getByRole('gridcell', { name: date.toDateString() });
+    expect(document.activeElement).toBe(dayCell);
   });
 
   it('opens the calendar and focuses the selected date when pressing Space', async () => {
     const handleSelectDate = vi.fn();
     const date = new Date('02-11-2026');
 
-    const { getByTestId, queryByTestId, getByText } = renderCUI(
+    const { getByTestId, queryByTestId, getByRole } = renderCUI(
       <DatePicker
         date={date}
         onSelectDate={handleSelectDate}
@@ -57,8 +57,8 @@ describe('DatePicker', () => {
 
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
 
-    const day = getByText('11');
-    expect(document.activeElement).toBe(day);
+    const dayCell = getByRole('gridcell', { name: date.toDateString() });
+    expect(document.activeElement).toBe(dayCell);
   });
 
   it('sets the value of the DatePicker input to the date passed in', () => {
