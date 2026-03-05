@@ -1,15 +1,7 @@
----
-name: 🎁 Component RFC
-about: Propose a new component or significant change to an existing one
-title: '[RFC] '
-labels: 'rfc'
-assignees: ''
----
-
 # Component RFC — [Component Name]
 
 > Use this template when proposing a **new component** or a **significant change** to an existing one.
-> Fill in every section and check each box as you go. The checklist acts as the acceptance criteria for the proposal.
+> Fill in every section and check each box as you go. The checklist acts as the acceptance criteria for the PR.
 
 ---
 
