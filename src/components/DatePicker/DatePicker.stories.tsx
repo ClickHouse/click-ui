@@ -31,7 +31,6 @@ const defaultStory = {
         futureDatesDisabled={args.futureDatesDisabled}
         onSelectDate={args.onSelectDate}
         placeholder={args.placeholder}
-        responsivePositioning={false}
       />
     );
   },
