@@ -2,7 +2,7 @@
 '@clickhouse/click-ui': minor
 ---
 
-Enable keyboard date range picker selection
+Enable keyboard date picker selection
 
 Added keyboard navigation support to the DatePicker component, allowing users to select dates without using a mouse. This improves accessibility and provides a faster workflow for power users.
 
