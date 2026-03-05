@@ -44,6 +44,7 @@ interface CalendarProps {
   futureDatesDisabled: boolean;
   selectedDate?: Date;
   setSelectedDate: (selectedDate: Date) => void;
+  autoFocus?: boolean;
 }
 
 const Calendar = ({
@@ -52,6 +53,7 @@ const Calendar = ({
   futureDatesDisabled,
   selectedDate,
   setSelectedDate,
+  autoFocus = false,
 }: CalendarProps) => {
   const allDays = calendarBody.value.flatMap(week => week.value);
   const totalDays = allDays.length;
@@ -69,6 +71,15 @@ const Calendar = ({
   useEffect(() => {
     dayRefs.current[focusedDayIndex]?.focus();
   }, [focusedDayIndex]);
+
+  useEffect(() => {
+    if (autoFocus && initialFocusIndex >= 0) {
+      const timeoutId = setTimeout(() => {
+        dayRefs.current[initialFocusIndex]?.focus();
+      }, 0);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [autoFocus, initialFocusIndex]);
 
   const onDayKeyDown = useCallback(
     (
@@ -178,6 +189,7 @@ export const DatePicker = ({
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [partialYear, setPartialYear] = useState<number>();
   const [partialMonth, setPartialMonth] = useState<number>();
+  const [autoFocusCalendar, setAutoFocusCalendar] = useState<boolean>(false);
 
   const calendarOptions: UseCalendarOptions = {};
 
@@ -201,6 +213,7 @@ export const DatePicker = ({
       setIsOpen(open);
       if (!open) {
         resetPartialState();
+        setAutoFocusCalendar(false);
       }
     },
     [resetPartialState]
@@ -234,6 +247,7 @@ export const DatePicker = ({
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setIsOpen(true);
+      setAutoFocusCalendar(true);
     }
   }, []);
 
@@ -269,6 +283,7 @@ export const DatePicker = ({
           >
             {body => (
               <Calendar
+                autoFocus={autoFocusCalendar}
                 calendarBody={body}
                 closeDatepicker={onCloseDatePicker}
                 futureDatesDisabled={futureDatesDisabled}
