@@ -3,21 +3,23 @@ import { useTheme } from 'styled-components';
 import { getFallbackThemeName } from '@/theme/theme.utils';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { LogoName, LogoProps } from './types';
+import {
+  createAssetResolver,
+  type AssetAlias,
+  type AssetDeprecatedName,
+} from '@/components/Assets/config';
 import LogosDark from './LogosDark';
 import LogosLight from './LogosLight';
 
-// TODO: This is introducing complexity and more to maintain
-// might be best to just deprecate (break change) instead of
-// keeping deprecated names, it's small find and replace.
-const resolveLogoName = (name: string): LogoName => {
-  if (name === 'c#') {
-    console.warn('Logo name "c#" is deprecated, use "c-sharp" instead');
-    return 'c-sharp' as LogoName;
-  }
-  return name as LogoName;
-};
+const resolveLogoName = createAssetResolver<LogoName>();
 
-const Logo = ({ name, theme, size, ...props }: LogoProps) => {
+export { resolveLogoName };
+
+export interface LogoPropsWithAliases extends Omit<LogoProps, 'name'> {
+  name: LogoName | AssetAlias | AssetDeprecatedName;
+}
+
+const Logo = ({ name, theme, size, ...props }: LogoPropsWithAliases) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
   const resolvedTheme = getFallbackThemeName(theme ?? themeName);
