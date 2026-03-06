@@ -335,7 +335,7 @@ The exports map is auto-generated from the public API defined in `src/index.ts`,
 The public API is controlled through the main barrel file at `src/index.ts`. This file serves as the single source of truth for all components, types, and utilities exported by the package.
 
 > [!NOTE]
-> The `generate:exports` script reads from the compiled output (`dist/esm/components/`) rather than parsing `src/index.ts` directly. Since `dist/` is derived from `src/index.ts` during the build process, the source file remains the ultimate source of truth. The build step ensures the exports reflect exactly what was compiled from your source changes.
+> The `generate:exports` script uses the TypeScript Compiler API to parse `src/index.ts` directly and extract only the components that are explicitly exported. This ensures that only public API components get subpath exports in `package.json`, while internal components remain inaccessible via direct imports.
 
 Maintainers can add or remove components from the public API by updating the exports in this file. Each export should include both the component and its associated types to ensure consumers have full type support.
 
@@ -350,9 +350,6 @@ export type { ButtonProps } from './components/Button';
 ```
 
 After, you must run the `generate:exports` to update the component-level exports in the package.json file:
-
-> [!IMPORTANT]
-> This script requires a prior build step, as it reads from `dist/esm/components/` (the compiled output). When executing generate:exports the build step is executed for you.
 
 ```sh
 yarn generate:exports
