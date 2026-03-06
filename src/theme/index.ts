@@ -1,5 +1,5 @@
-export { THEMES, type ThemeName, type ActiveThemeName, type Theme, themes } from './core';
-
-export { default as ClickUIProvider } from './ClickUIProvider';
+export { ClickUIProvider } from './ClickUIProvider';
+export { THEMES, themes } from './core';
+export type { ThemeName, ActiveThemeName, Theme } from './core';
 export { InitCUIThemeScript } from './InitCUIThemeScript';
 export type { InitCUIThemeScriptProps } from './InitCUIThemeScript';

@@ -9,11 +9,11 @@ import utc from 'dayjs/plugin/utc.js';
 
 import { styled } from 'styled-components';
 
-import { Popover } from '@/components/Popover/Popover';
-import { Text } from '@/components/Typography/Text/Text';
+import { Popover } from '@/components/Popover';
+import { Text } from '@/components/Typography';
 import { linkStyles, StyledLinkProps } from '@/components/Link/common';
-import { GridContainer } from '@/components/GridContainer/GridContainer';
-import { Container } from '@/components/Container/Container';
+import { GridContainer } from '@/components/GridContainer';
+import { Container } from '@/components/Container';
 import { TextSize, TextWeight } from '../commonTypes';
 
 import { formatTimezone } from '@/utils/date';

@@ -1,11 +1,10 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
 import { styled } from 'styled-components';
-import { IconSize } from '@/components/Icon/types';
-import { Container } from '@/components/Container/Container';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
-import { Spacer } from '@/components/Spacer/Spacer';
-import { Text } from '@/components/Typography/Text/Text';
+import { Icon, type IconSize, type IconName } from '@/components/Icon';
+
+import { Container } from '@/components/Container';
+import { Spacer } from '@/components/Spacer';
+import { Text } from '@/components/Typography';
 import {
   createContext,
   MouseEventHandler,
@@ -13,8 +12,8 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { GapOptions, PaddingOptions } from '../Container/Container';
-import { SizeType as SpacerSizeType } from '../Spacer/Spacer';
+import { GapOptions, PaddingOptions } from '@/components/Container';
+import { SizeType as SpacerSizeType } from '@/components/Spacer';
 
 type Size = 'none' | 'sm' | 'md' | 'lg';
 type Color = 'default' | 'link';

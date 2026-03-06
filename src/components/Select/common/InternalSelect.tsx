@@ -23,15 +23,15 @@ import {
 } from './types';
 import { Error, FormElementContainer, FormRoot } from '@/components/commonElement';
 import { Portal } from '@radix-ui/react-popover';
-import { Checkbox } from '@/components/Checkbox/Checkbox';
-import type { CheckboxVariants } from '@/components/Checkbox/Checkbox';
-import { Container } from '@/components/Container/Container';
-import { Icon } from '@/components/Icon/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { Label } from '@/components/Label/Label';
-import { Separator } from '@/components/Separator/Separator';
-import { Text } from '@/components/Typography/Text/Text';
-import type { TextProps } from '@/components/Typography/Text/Text';
+import { Checkbox } from '@/components/Checkbox';
+import type { CheckboxVariants } from '@/components/Checkbox';
+import { Container } from '@/components/Container';
+import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
+import { Label } from '@/components/Label';
+import { Separator } from '@/components/Separator';
+import { Text } from '@/components/Typography';
+import type { TextProps } from '@/components/Typography';
 
 import {
   SelectPopoverContent,
@@ -56,7 +56,7 @@ import SingleSelectValue from '../SingleSelectValue';
 import { useOption, useSearch } from './useOption';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { GenericMenuItem } from '@/components/GenericMenu';
-import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
+import { IconWrapper } from '@/components/IconWrapper';
 import { styled } from 'styled-components';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 

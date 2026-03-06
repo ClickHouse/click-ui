@@ -1,5 +1,4 @@
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 import { styled, keyframes } from 'styled-components';
 import { BaseButton } from '../commonElement';

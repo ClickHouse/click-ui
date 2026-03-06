@@ -1,9 +1,8 @@
 import type { DragEvent, FC, ReactNode } from 'react';
 import { styled, css } from 'styled-components';
-import { Text } from '@/components/Typography/Text/Text';
-import { Title } from '@/components/Typography/Title/Title';
-import { Icon } from '@/components/Icon/Icon';
-import { Button } from '@/components/Button/Button';
+import { Text, Title } from '@/components/Typography';
+import { Icon } from '@/components/Icon';
+import { Button } from '@/components/Button';
 
 const UploadArea = styled.div<{
   $isDragging: boolean;

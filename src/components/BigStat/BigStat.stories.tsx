@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { BigStat } from './BigStat';
+import { BigStat } from '@/components/BigStat';
 
 const meta: Meta<typeof BigStat> = {
   component: BigStat,

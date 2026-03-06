@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Tooltip } from './Tooltip';
+import { Tooltip } from '@/components/Tooltip';
 import { Text } from '..';
 
 const meta: Meta<typeof Tooltip> = {

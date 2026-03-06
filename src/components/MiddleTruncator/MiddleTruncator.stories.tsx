@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { MiddleTruncator } from './index';
+import { MiddleTruncator } from '@/components/MiddleTruncator';
 
 type StoryArgs = React.ComponentProps<typeof MiddleTruncator> & {
   containerWidth: number;

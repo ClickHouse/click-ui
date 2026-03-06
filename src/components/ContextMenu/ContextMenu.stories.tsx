@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { ContextMenuProps } from '@radix-ui/react-context-menu';
-import { ContextMenu, ContextMenuItemProps } from './ContextMenu';
+import { ContextMenu, ContextMenuItemProps } from '@/components/ContextMenu';
 import { styled } from 'styled-components';
 
 interface ContextMenuExampleProps extends ContextMenuProps {

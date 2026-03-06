@@ -1,8 +1,7 @@
 import { HTMLAttributes, forwardRef } from 'react';
 import { styled } from 'styled-components';
 
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 
 export type IconButtonSize = 'default' | 'sm' | 'xs';
 

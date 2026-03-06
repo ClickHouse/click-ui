@@ -92,8 +92,29 @@ export default tseslint.config(
                 'Do not import from the package entry internally. Import from leaf modules instead.',
             },
           ],
+          patterns: [
+            {
+              group: ['**/index', '**/index.ts', '**/index.tsx'],
+              message:
+                "Do not import from index files within the same component directory. Import directly from source files (e.g., './Button' instead of './index').",
+            },
+            {
+              group: ['../**/index', '../**/index.ts', '../**/index.tsx'],
+              message:
+                "Do not import from sibling component index files. Import directly from the source file (e.g., '../Button/Button' instead of '../Button').",
+            },
+          ],
         },
       ],
+      'import/no-cycle': [
+        'error',
+        {
+          maxDepth: 10,
+          ignoreExternal: true,
+          allowUnsafeDynamicCyclicDependency: false,
+        },
+      ],
+      'import/no-self-import': 'error',
       '@typescript-eslint/no-deprecated': 'warn',
     },
   },

@@ -4,7 +4,7 @@ import { Button, Checkbox } from '..';
 import { GridCenter } from '../commonElement';
 import { Text } from '../Typography/Text/Text';
 import { Title } from '../Typography/Title/Title';
-import { Popover } from './Popover';
+import { Popover } from '@/components/Popover';
 
 const meta: Meta<typeof Popover> = {
   component: Popover,

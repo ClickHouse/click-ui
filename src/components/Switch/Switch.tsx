@@ -2,8 +2,9 @@ import { Theme } from '@/theme';
 import * as RadixSwitch from '@radix-ui/react-switch';
 import { ReactNode, forwardRef, useId } from 'react';
 import { styled } from 'styled-components';
-import { FormRoot } from '../commonElement';
-import { GenericLabel } from '@/components/GenericLabel/GenericLabel';
+// TODO: Improve api for Common components, types, etc
+import { FormRoot } from '@/components/commonElement';
+import { GenericLabel } from '@/components/GenericLabel';
 
 interface RootProps {
   /** Whether the switch is checked/on */
