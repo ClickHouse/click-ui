@@ -1,5 +1,5 @@
 ---
-'@clickhouse/click-ui': minor
+'@clickhouse/click-ui': patch
 ---
 
 Add circular dependency check to prevent and detect circular import cycles that can cause build issues, runtime errors, and bundle size problems.

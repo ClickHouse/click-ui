@@ -8,7 +8,7 @@ echo "🔍 Checking for circular dependencies in $ENTRY_POINT..."
 echo ""
 
 TEMP_OUTPUT=$(mktemp)
-trap "rm -f $TEMP_OUTPUT" EXIT
+trap 'rm -f "$TEMP_OUTPUT"' EXIT
 
 if command -v yarn &> /dev/null; then
   yarn exec skott "$ENTRY_POINT" \
