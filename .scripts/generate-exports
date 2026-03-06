@@ -3,11 +3,41 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import ts from 'typescript';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
-const componentsDir = path.join(rootDir, 'dist/esm/components');
+const indexPath = path.join(rootDir, 'src/index.ts');
 const packageJsonPath = path.join(rootDir, 'package.json');
+
+const extractComponentNames = (filePath) => {
+  const sourceCode = fs.readFileSync(filePath, 'utf-8');
+  const sourceFile = ts.createSourceFile(
+    filePath,
+    sourceCode,
+    ts.ScriptTarget.Latest,
+    true
+  );
+
+  const componentNames = new Set();
+  const componentsPrefix = './components/';
+
+  const visit = (node) => {
+    if (ts.isExportDeclaration(node) && node.moduleSpecifier) {
+      const modulePath = node.moduleSpecifier.getText(sourceFile).slice(1, -1);
+
+      if (modulePath.startsWith(componentsPrefix)) {
+        const pathAfterComponents = modulePath.slice(componentsPrefix.length);
+        const componentFolder = pathAfterComponents.split('/')[0];
+        componentNames.add(componentFolder);
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+
+  visit(sourceFile);
+  return Array.from(componentNames).sort();
+};
 
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
@@ -19,33 +49,20 @@ const exports = {
   },
 };
 
-try {
-  const components = fs.readdirSync(componentsDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
+const components = extractComponentNames(indexPath);
 
-  for (const component of components) {
-    const esmPath = `./dist/esm/components/${component}/index.js`;
-    const cjsPath = `./dist/cjs/components/${component}/index.cjs`;
-    const typesPath = `./dist/types/components/${component}/index.d.ts`;
-
-    if (fs.existsSync(path.join(rootDir, esmPath))) {
-      exports[`./${component}`] = {
-        types: typesPath,
-        import: esmPath,
-        require: cjsPath,
-      };
-    }
-  }
-
-  packageJson.exports = exports;
-
-  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
-
-  console.log(`Generated exports for ${Object.keys(exports).length - 1} components`);
-
-  process.exit(0);
-} catch (err) {
-  console.error(err);
-  process.exit(1);
+for (const component of components) {
+  exports[`./${component}`] = {
+    types: `./dist/types/components/${component}/index.d.ts`,
+    import: `./dist/esm/components/${component}/index.js`,
+    require: `./dist/cjs/components/${component}/index.cjs`,
+  };
 }
+
+packageJson.exports = exports;
+
+fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+
+console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
+
+components.forEach(name => console.log(`✔ ${name}`));
