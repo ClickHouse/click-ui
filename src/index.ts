@@ -153,10 +153,8 @@ export type { ImageName as IconName } from './components/Icon/Icon.types';
 // Label & Link
 export { Label } from './components/Label';
 export { Link } from './components/Link';
-// TODO: This linkStyles require investigation
-export { linkStyles } from './components/Link/common';
 export type { LabelProps } from './components/Label';
-export type { StyledLinkProps } from './components/Link/common';
+export type { LinkProps } from './components/Link';
 
 // Multi Accordion
 export { MultiAccordion } from './components/MultiAccordion';
@@ -299,3 +297,22 @@ export type { ContextMenuProps } from '@radix-ui/react-context-menu';
 export type { DialogProps, DialogTriggerProps } from '@radix-ui/react-dialog';
 export type { HoverCardProps } from '@radix-ui/react-hover-card';
 export type { PopoverProps } from '@radix-ui/react-popover';
+
+// ================================================
+// Deprecated Exports
+// These exports are deprecated and will be removed in a future version.
+// They are kept here temporarily for backward compatibility.
+// ================================================
+
+/**
+ * @deprecated Use the `Link` component with the `component` prop instead.
+ * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
+ */
+export { linkStyles } from './components/Link/common';
+
+/**
+ * @deprecated Use the `Link` component with the `component` prop instead.
+ * This type exposes internal styled-components implementation details.
+ * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
+ */
+export type { StyledLinkProps } from './components/Link/common';
