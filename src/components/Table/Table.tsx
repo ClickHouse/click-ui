@@ -501,7 +501,7 @@ const ActionsContainer = styled.div`
 const TableWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: visible;
+  overflow-x: auto;
   ${({ theme }) => `
   border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
   border-radius: ${theme.click.table.radii.all}

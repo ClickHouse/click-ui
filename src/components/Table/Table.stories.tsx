@@ -544,11 +544,8 @@ export const Responsive: StoryObj<typeof Table> = {
     },
   },
   render: ({ rows, headers, isResponsive, ...props }) => {
-    const maxWidth = isResponsive ? 'none' : '400px';
-    const overflow = isResponsive ? 'visible' : 'auto';
-
     return (
-      <div style={{ maxWidth, overflow }}>
+      <div style={{ maxWidth: isResponsive ? 'none' : '400px' }}>
         <Table
           {...props}
           headers={headers}
