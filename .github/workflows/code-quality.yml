@@ -30,3 +30,6 @@ jobs:
 
       - name: Formatter
         run: yarn format
+
+      - name: Circular Dependencies
+        run: yarn circular-dependency:check

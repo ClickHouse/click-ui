@@ -1,0 +1,42 @@
+#!/bin/bash
+
+ENTRY_POINT="${1:-src}"
+
+IGNORE_PATTERNS="node_modules/**,**/*.stories.tsx,**/*.stories.ts,**/*.test.ts,**/*.test.tsx"
+
+echo "🔍 Checking for circular dependencies in $ENTRY_POINT..."
+echo ""
+
+TEMP_OUTPUT=$(mktemp)
+trap 'rm -f "$TEMP_OUTPUT"' EXIT
+
+if command -v yarn &> /dev/null; then
+  yarn exec skott "$ENTRY_POINT" \
+    --displayMode=file-tree \
+    --showCircularDependencies \
+    --ignorePattern="$IGNORE_PATTERNS" \
+    --exitCodeOnCircularDependencies=1 > "$TEMP_OUTPUT" 2>&1 || true
+else
+  echo "👹 Oops! The package skott is missing, have you installed the project dependencies?"
+
+  exit 1
+fi
+
+if grep -q "✖.*circular dependencies found" "$TEMP_OUTPUT"; then
+  echo "❌ Circular dependencies detected!"
+  echo ""
+  grep -A 1000 "✖.*circular dependencies found" "$TEMP_OUTPUT" | head -100
+  echo ""
+  echo "💡 To fix these issues, review the files listed above."
+
+  exit 1
+elif grep -q "✓.*no circular dependencies found" "$TEMP_OUTPUT"; then
+  echo "✅ No circular dependencies found!"
+
+  exit 0
+else
+  echo "⚠️  Warning: Could not determine circular dependency status from skott output"
+  cat "$TEMP_OUTPUT"
+
+  exit 1
+fi
