@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Link, Text } from '..';
-import { Flyout, FlyoutProps } from './Flyout';
+import { Flyout, FlyoutProps } from '@/components/Flyout';
 
 interface FlyoutExampleProps extends FlyoutProps {
   title: string;

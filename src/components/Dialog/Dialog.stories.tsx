@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { GridCenter } from '../commonElement';
-import { Text } from '../Typography/Text/Text';
-import { Dialog } from './Dialog';
-import { Separator } from '../Separator/Separator';
-import { Spacer } from '../Spacer/Spacer';
-import { Button } from '../Button/Button';
+import { Text } from '@/components/Typography';
+import { Dialog } from '@/components/Dialog';
+import { Separator } from '@/components/Separator';
+import { Spacer } from '@/components/Spacer';
+import { Button } from '@/components/Button';
 import { styled } from 'styled-components';
-import { Link } from '../Link/Link';
-import { Container } from '@/components/Container/Container';
-import { TextField } from '@/components/Input/TextField';
-import { Icon } from '@/components/Icon/Icon';
+import { Link } from '@/components/Link';
+import { Container } from '@/components/Container';
+import { TextField } from '@/components/Input';
+import { Icon } from '@/components/Icon';
 
 interface DialogExampleProps {
   open?: boolean;

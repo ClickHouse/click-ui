@@ -9,6 +9,24 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
+const createEntryFileNames = (ext: 'js' | 'cjs') => {
+  return (chunkInfo: { name: string }) => {
+    const parts = chunkInfo.name.split('/');
+    if (parts.length >= 2) {
+      const fileName = parts[parts.length - 1];
+      const dirName = parts[parts.length - 2];
+      // NOTE: Solve import name redundancy for better API
+      // by preferring default build name as index
+      // e.g. Button/Button -> Button
+      if (fileName === dirName) {
+        parts[parts.length - 1] = 'index';
+        return `${parts.join('/')}.${ext}`;
+      }
+    }
+    return `${chunkInfo.name}.${ext}`;
+  };
+};
+
 const buildOptions: BuildOptions = {
   target: 'esnext',
   emptyOutDir: true,
@@ -27,7 +45,7 @@ const buildOptions: BuildOptions = {
         dir: 'dist/esm',
         preserveModules: true,
         preserveModulesRoot: 'src',
-        entryFileNames: '[name].js',
+        entryFileNames: createEntryFileNames('js'),
         chunkFileNames: '[name].js',
         banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
         interop: 'auto',
@@ -37,7 +55,7 @@ const buildOptions: BuildOptions = {
         dir: 'dist/cjs',
         preserveModules: true,
         preserveModulesRoot: 'src',
-        entryFileNames: '[name].cjs',
+        entryFileNames: createEntryFileNames('cjs'),
         chunkFileNames: '[name].cjs',
         banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
         interop: 'auto',

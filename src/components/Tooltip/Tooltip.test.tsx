@@ -1,4 +1,4 @@
-import { TooltipProps } from './Tooltip';
+import { TooltipProps } from '@/components/Tooltip';
 import { Tooltip } from '..';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,11 +14,11 @@ describe('Tooltip', () => {
     );
 
   it('should open tooltip on hover', async () => {
-    const { getAllByText } = renderTooltip({});
+    const { getAllByText, findAllByText } = renderTooltip({});
     const TooltipTrigger = getAllByText('Hover Here');
     expect(TooltipTrigger.length).toEqual(1);
     await userEvent.hover(TooltipTrigger[0]);
-    expect(getAllByText('Tooltip content')).not.toBeNull();
+    expect(await findAllByText('Tooltip content')).not.toBeNull();
   });
 
   it('should show the tooltip if the open prop is true', async () => {
@@ -35,11 +35,11 @@ describe('Tooltip', () => {
   });
 
   it('should close hover card on pointerLeave', async () => {
-    const { getByText, getAllByText, getByTestId } = renderTooltip({});
+    const { getByText, findAllByText, getByTestId } = renderTooltip({});
     const TooltipTrigger = getByText('Hover Here');
     expect(TooltipTrigger).not.toBeNull();
     await userEvent.hover(TooltipTrigger);
-    expect(getAllByText('Tooltip content')).not.toBeNull();
+    expect(await findAllByText('Tooltip content')).not.toBeNull();
     await userEvent.unhover(TooltipTrigger);
     waitFor(() => {
       expect(getByTestId('tooltip-content')).toBeNull();

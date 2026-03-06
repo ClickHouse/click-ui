@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
-import { InputElement, InputStartContent, InputWrapper } from '../Input/InputWrapper';
+import {
+  InputElement,
+  InputStartContent,
+  InputWrapper,
+} from '@/components/Input/InputWrapper';
 import {
   KeyboardEvent,
   ReactNode,
@@ -9,11 +13,11 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Icon } from '../Icon/Icon';
-import { Container } from '../Container/Container';
+import { Icon } from '@/components/Icon';
+import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
-import { IconButton, IconButtonSize } from '../IconButton/IconButton';
-import { Text } from '../Typography/Text/Text';
+import { IconButton, IconButtonSize } from '@/components/IconButton';
+import { Text } from '@/components/Typography';
 import {
   headerDateFormatter,
   selectedDateFormatter,

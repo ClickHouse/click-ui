@@ -1,5 +1,5 @@
 import { renderCUI } from '@/utils/test-utils';
-import { DatePicker } from './DatePicker';
+import { DatePicker } from '@/components/DatePicker';
 import userEvent from '@testing-library/user-event';
 
 describe('DatePicker', () => {

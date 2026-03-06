@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { styled, css } from 'styled-components';
-import { Text } from '@/components/Typography/Text/Text';
-import { Icon } from '@/components/Icon/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
+import { Text } from '@/components/Typography';
+import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
+import { ProgressBar } from '@/components/ProgressBar';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
 import { formatFileSize } from '@/utils/file';
 

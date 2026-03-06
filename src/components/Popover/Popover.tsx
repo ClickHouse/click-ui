@@ -1,9 +1,10 @@
 import * as RadixPopover from '@radix-ui/react-popover';
-import { Arrow, GenericMenuPanel } from '../GenericMenu';
+import { Arrow, GenericMenuPanel } from '@/components/GenericMenu';
 import { styled } from 'styled-components';
 import { ReactNode } from 'react';
-import { Icon } from '@/components/Icon/Icon';
-import { EmptyButton } from '../commonElement';
+import { Icon } from '@/components/Icon';
+// TODO: Improve api for Common components, types, etc
+import { EmptyButton } from '@/components/commonElement';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {

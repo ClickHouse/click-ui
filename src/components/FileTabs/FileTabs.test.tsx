@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 
-import { FileTabs, FileTabStatusType } from './FileTabs';
+import { FileTabs, FileTabStatusType } from '@/components/FileTabs';
 import { renderCUI } from '@/utils/test-utils';
 
 const tabs = ['tab1', 'tab2', 'tab3'];

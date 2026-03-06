@@ -2,9 +2,8 @@ import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
 } from 'styled-components';
-import { ThemeName, themes } from './core';
+import { ThemeName, themes, THEMES } from './core';
 import { isValidThemeName } from '@/utils/theme';
-import { THEMES } from './core';
 
 const GlobalStyle = createGlobalStyle`
   body{

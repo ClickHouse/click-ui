@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { ButtonGroup } from './ButtonGroup';
+import { ButtonGroup } from '@/components/ButtonGroup';
 
 const meta: Meta<typeof ButtonGroup> = {
   component: ButtonGroup,

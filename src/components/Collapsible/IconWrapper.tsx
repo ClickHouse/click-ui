@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { Icon } from '@/components/Icon/Icon';
+import { Icon } from '@/components/Icon';
 import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
+import type { IconName } from '@/components/Icon';
 
 const LabelContainer = styled.span`
   display: flex;

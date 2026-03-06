@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { DateDetails } from './DateDetails';
+import { DateDetails } from '@/components/DateDetails';
 
 const meta: Meta<typeof DateDetails> = {
   component: DateDetails,
