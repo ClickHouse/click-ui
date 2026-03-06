@@ -1,33 +1,30 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { IconSize } from '@/components/Icon/types';
-import { PaymentName } from './types';
-import PaymentsLight from './PaymentsLight';
-import PaymentsDark from './PaymentsDark';
-import { SvgImageElement } from '@/components/commonElement';
-import { type ThemeName, THEMES } from '@/theme';
+import { getFallbackThemeName } from '@/theme/theme.utils';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+import { PaymentName, PaymentProps } from './types';
 import {
   createAssetResolver,
   type AssetAlias,
   type AssetDeprecatedName,
 } from '@/components/Assets/config';
+import PaymentsDark from './PaymentsDark';
+import PaymentsLight from './PaymentsLight';
 
 const resolvePaymentName = createAssetResolver<PaymentName>();
 
 export { resolvePaymentName };
 
-export interface PaymentProps extends SVGAttributes<SVGElement> {
+export interface PaymentPropsWithAliases extends Omit<PaymentProps, 'name'> {
   name: PaymentName | AssetAlias | AssetDeprecatedName;
-  theme?: ThemeName;
-  size?: IconSize;
 }
 
-const Payment = ({ name, theme, size, ...props }: PaymentProps) => {
+const Payment = ({ name, theme, size, ...props }: PaymentPropsWithAliases) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolvePaymentName(name);
-  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? THEMES.Light;
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component =
-    resolvedTheme === THEMES.Light ? PaymentsLight[resolvedName] : PaymentsDark[resolvedName];
+    resolvedTheme === 'light' ? PaymentsLight[resolvedName] : PaymentsDark[resolvedName];
 
   if (!Component) {
     return null;

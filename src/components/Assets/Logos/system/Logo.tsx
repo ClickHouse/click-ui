@@ -1,33 +1,30 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { IconSize } from '@/components/Icon/types';
-import { LogoName } from './types';
-import { SvgImageElement } from '@/components/commonElement';
-import { type ThemeName, THEMES } from '@/theme';
+import { getFallbackThemeName } from '@/theme/theme.utils';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+import { LogoName, LogoProps } from './types';
 import {
   createAssetResolver,
   type AssetAlias,
   type AssetDeprecatedName,
 } from '@/components/Assets/config';
-import LogosLight from './LogosLight';
 import LogosDark from './LogosDark';
+import LogosLight from './LogosLight';
 
 const resolveLogoName = createAssetResolver<LogoName>();
 
 export { resolveLogoName };
 
-export interface LogoProps extends SVGAttributes<SVGElement> {
+export interface LogoPropsWithAliases extends Omit<LogoProps, 'name'> {
   name: LogoName | AssetAlias | AssetDeprecatedName;
-  theme?: ThemeName;
-  size?: IconSize;
 }
 
-const Logo = ({ name, theme, size, ...props }: LogoProps) => {
+const Logo = ({ name, theme, size, ...props }: LogoPropsWithAliases) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveLogoName(name);
-  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? THEMES.Light;
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component =
-    resolvedTheme === THEMES.Light ? LogosLight[resolvedName] : LogosDark[resolvedName];
+    resolvedTheme === 'light' ? LogosLight[resolvedName] : LogosDark[resolvedName];
 
   if (!Component) {
     return null;

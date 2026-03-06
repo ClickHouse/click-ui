@@ -1,34 +1,30 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { IconSize } from '@/components/Icon/types';
-import { FlagName } from './types';
-export type { FlagName, SVGAssetProps } from './types';
-import FlagsLight from './FlagsLight';
-import FlagsDark from './FlagsDark';
-import { SvgImageElement } from '@/components/commonElement';
-import { type ThemeName, THEMES } from '@/theme';
+import { getFallbackThemeName } from '@/theme/theme.utils';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+import { FlagName, FlagProps } from './types';
 import {
   createAssetResolver,
   type AssetAlias,
   type AssetDeprecatedName,
 } from '@/components/Assets/config';
+import FlagsDark from './FlagsDark';
+import FlagsLight from './FlagsLight';
 
 const resolveFlagName = createAssetResolver<FlagName>();
 
 export { resolveFlagName };
 
-export interface FlagProps extends SVGAttributes<SVGElement> {
+export interface FlagPropsWithAliases extends Omit<FlagProps, 'name'> {
   name: FlagName | AssetAlias | AssetDeprecatedName;
-  theme?: ThemeName;
-  size?: IconSize;
 }
 
-const Flag = ({ name, theme, size, ...props }: FlagProps) => {
+const Flag = ({ name, theme, size, ...props }: FlagPropsWithAliases) => {
   const { name: themeName } = useTheme();
   const resolvedName = resolveFlagName(name);
-  const resolvedTheme: ThemeName = theme ?? (themeName as ThemeName) ?? THEMES.Light;
+  const resolvedTheme = getFallbackThemeName(theme ?? themeName);
   const Component =
-    resolvedTheme === THEMES.Dark ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
+    resolvedTheme === 'light' ? FlagsLight[resolvedName] : FlagsDark[resolvedName];
 
   if (!Component) {
     return null;
