@@ -1,11 +1,7 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { HTMLAttributes } from 'react';
 import { styled } from 'styled-components';
-
-export interface TooltipProps extends RadixTooltip.TooltipProps {
-  /** Whether the tooltip is disabled and should not appear */
-  disabled?: boolean;
-}
+import { TooltipProps } from './Tooltip.types';
 
 export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) => {
   return (

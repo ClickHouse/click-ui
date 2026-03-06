@@ -13,7 +13,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Icon } from '@/components/Icon';
+import { Icon, IconName } from '@/components/Icon';
 import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
@@ -26,7 +26,6 @@ import {
   weekdayFormatter,
 } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
-import { IconName } from '@/components/Icon/types';
 
 const explicitWidth = '250px';
 const TXT_ON_MONTH_SELECT = 'Month';

@@ -1,16 +1,8 @@
-import { HTMLAttributes, useState } from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
-import { Icon, IconName } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
 import { Text } from '@/components/Typography';
-
-export interface CardPromotionProps extends HTMLAttributes<HTMLDivElement> {
-  /** The text label displayed in the promotion card */
-  label: string;
-  /** The icon to display */
-  icon: IconName;
-  /** Whether the card can be dismissed/closed */
-  dismissible?: boolean;
-}
+import { CardPromotionProps } from './CardPromotion.types';
 const Background = styled.div`
   ${({ theme }) => `
     background-image: ${theme.click.card.promotion.color.stroke.default};

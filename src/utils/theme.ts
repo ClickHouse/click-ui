@@ -1,9 +1,7 @@
-import { ThemeName, THEMES } from '@/theme/core';
+import { ThemeName, THEMES } from '@/theme/theme.types';
 
-// TODO: The theme should not be hard-typed
-// find locations where hard-typing might be happening
-export const isValidThemeName = (theme: ThemeName) =>
-  [THEMES.Dark, THEMES.Light].includes(theme);
+export const isValidThemeName = (theme: string | undefined): theme is ThemeName =>
+  theme !== undefined && ([THEMES.Dark, THEMES.Light] as Array<string>).includes(theme);
 
-export const getFallbackThemeName = (theme: ThemeName) =>
+export const getFallbackThemeName = (theme: string | undefined): ThemeName =>
   isValidThemeName(theme) ? theme : THEMES.Light;

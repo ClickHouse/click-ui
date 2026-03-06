@@ -1,2 +1,2 @@
 export { DateDetails } from './DateDetails';
-export type { ArrowPosition, DateDetailsProps } from './DateDetails';
+export type { ArrowPosition, DateDetailsProps } from './DateDetails.types';

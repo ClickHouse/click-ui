@@ -1,3 +1,8 @@
-export type { TableHeaderType, TableRowType, TableProps } from './Table';
+export type {
+  TableHeaderType,
+  TableRowType,
+  TableProps,
+  TableColumnConfigProps,
+} from './Table';
 
 export { Table } from './Table';

@@ -14,7 +14,6 @@ import { Text } from '@/components/Typography';
 import { linkStyles, StyledLinkProps } from '@/components/Link/common';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';
-import { TextSize, TextWeight } from '../commonTypes';
 
 import { formatTimezone } from '@/utils/date';
 
@@ -94,20 +93,7 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   return date.format(formatForPastYear).replace('am', 'a.m.').replace('pm', 'p.m.');
 };
 
-export type ArrowPosition = 'top' | 'right' | 'left' | 'bottom';
-
-export interface DateDetailsProps {
-  /** The date to display */
-  date: Date;
-  /** The side to show the popover */
-  side?: ArrowPosition;
-  /** The font size of the trigger text */
-  size?: TextSize;
-  /** Optional system timezone to display */
-  systemTimeZone?: string;
-  /** The font weight of the trigger text */
-  weight?: TextWeight;
-}
+import { DateDetailsProps } from './DateDetails.types';
 
 export const DateDetails = ({
   date,
@@ -205,7 +191,7 @@ export const DateDetails = ({
             Unix
           </Text>
           <Container justifyContent="end">
-            <Text size="sm">{Math.round(date.getTime() / 1000)}</Text>
+            <Text size="sm">{Math.round(dayjsDate.valueOf() / 1000)}</Text>
           </Container>
         </GridContainer>
       </Popover.Content>

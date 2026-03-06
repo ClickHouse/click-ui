@@ -2,7 +2,6 @@ import {
   createContext,
   useState,
   HTMLAttributes,
-  MouseEvent,
   useContext,
   useEffect,
   forwardRef,
@@ -10,18 +9,11 @@ import {
 import { styled } from 'styled-components';
 
 import { Icon, type IconName } from '@/components/Icon';
-import type { HorizontalDirection } from '@/components/types';
-// TODO: Improve api for Common components, types, etc
-import { EmptyButton } from '@/components/commonElement';
+import type { HorizontalDirection } from '@/types';
+import { EmptyButton } from '@/components/Common';
 
-// TODO: What is the difference between this local IconWrapper
-// and the src/components/IconWrapper?
 import { IconWrapper } from './IconWrapper';
-
-export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
-  open?: boolean;
-  onOpenChange?: (value: boolean) => void;
-}
+import { CollapsibleProps } from './Collapsible.types';
 
 type ContextProps = {
   open: boolean;
@@ -161,7 +153,7 @@ const CollapsipleTrigger = ({
   ...props
 }: CollapsipleTriggerProps) => {
   const { open, onOpenChange } = useContext(NavContext);
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (onClickProp) {

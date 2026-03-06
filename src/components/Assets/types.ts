@@ -1,6 +1,8 @@
 import type { SVGAttributes } from 'react';
-import type { ThemeName } from '@/theme/core';
+import type { IconSize } from '@/types';
+import type { ThemeName } from '@/theme/theme.types';
 
 export type SVGAssetProps = SVGAttributes<SVGElement> & {
   theme?: ThemeName;
+  size?: IconSize;
 };

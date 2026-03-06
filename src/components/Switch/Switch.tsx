@@ -1,31 +1,14 @@
-import { Theme } from '@/theme';
 import * as RadixSwitch from '@radix-ui/react-switch';
-import { ReactNode, forwardRef, useId } from 'react';
+import { forwardRef, useId } from 'react';
 import { styled } from 'styled-components';
-// TODO: Improve api for Common components, types, etc
-import { FormRoot } from '@/components/commonElement';
+import { FormRoot } from '@/components/Common';
 import { GenericLabel } from '@/components/GenericLabel';
-
-interface RootProps {
-  /** Whether the switch is checked/on */
-  checked: boolean;
-  /** Whether the switch is disabled */
-  disabled?: boolean;
-  /** The orientation of the label relative to the switch */
-  orientation?: 'vertical' | 'horizontal';
-  /** The direction/position of the label - start places label before, end places label after */
-  dir?: 'start' | 'end';
-  /** The label text displayed next to the switch */
-  label?: ReactNode;
-  theme?: Theme;
-}
-
-type SwitchProps = RootProps & Omit<RadixSwitch.SwitchProps, 'dir'>;
+import { SwitchProps } from './Switch.types';
+import { Theme } from '@/theme';
 
 interface ThumbProps {
   $checked: boolean;
   $disabled?: boolean;
-  theme?: Theme;
 }
 
 const Wrapper = styled(FormRoot)`
@@ -102,8 +85,8 @@ const getThumbVars = (theme: Theme, disabled: boolean | undefined, checked: bool
   }
 };
 
-const SwitchRoot = styled(RadixSwitch.Root)<RootProps>(props => {
-  const vars = getRootVars(props.theme, props.disabled, props.checked);
+const SwitchRoot = styled(RadixSwitch.Root)(props => {
+  const vars = getRootVars(props.theme, props.disabled ?? false, props.checked ?? false);
 
   return {
     width: props.theme.click.switch.size.width,

@@ -1,14 +1,7 @@
-import { HTMLAttributes } from 'react';
 import { styled } from 'styled-components';
+import { GenericLabelProps } from './GenericLabel.types';
 
-export interface GenericLabelProps extends HTMLAttributes<HTMLLabelElement> {
-  /** Whether the label is disabled */
-  disabled?: boolean;
-  /** The ID of the form element this label is for */
-  htmlFor?: string;
-}
-
-interface FormFieldLableProps extends HTMLAttributes<HTMLLabelElement> {
+interface FormFieldLableProps {
   disabled?: boolean;
   htmlFor?: string;
 }

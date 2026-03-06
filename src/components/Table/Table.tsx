@@ -19,10 +19,9 @@ import { CheckedState } from '@radix-ui/react-checkbox';
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { Text } from '@/components/Typography';
-import { HorizontalDirection } from '@/components/types';
+import { HorizontalDirection } from '@/types';
 import { EllipsisContent } from '@/components/EllipsisContent';
-import { Checkbox } from '@/components/Checkbox';
-import { CheckboxProps } from '@/components/types';
+import { Checkbox, CheckboxProps } from '@/components/Checkbox';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
 
 type SortDir = 'asc' | 'desc';

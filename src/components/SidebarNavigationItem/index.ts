@@ -1,3 +1,3 @@
 export { SidebarItemWrapper, SidebarNavigationItem } from './SidebarNavigationItem';
 
-export type { SidebarNavigationItemProps } from './SidebarNavigationItem';
+export type { SidebarNavigationItemProps } from './SidebarNavigationItem.types';

@@ -1,5 +1,5 @@
 // TODO: Improve api for Common components, types, etc
-import { Error, FormElementContainer, FormRoot } from '@/components/commonElement';
+import { Error, FormElementContainer, FormRoot } from '@/components/Common';
 import { Label } from '@/components/Label';
 import { styled } from 'styled-components';
 import { ReactNode } from 'react';
