@@ -501,3 +501,19 @@ export const ResizableColumns: StoryObj<typeof Table> = {
     );
   },
 };
+
+export const Responsive: StoryObj<typeof Table> = {
+  args: {
+    headers,
+    rows,
+    isResponsive: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When `isResponsive` is set to `true`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view.',
+      },
+    },
+  },
+};

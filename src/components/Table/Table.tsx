@@ -768,7 +768,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       showHeader = true,
       rowHeight,
       resizableColumns,
-      isResponsive = false,
+      isResponsive = true,
       ...props
     },
     ref
@@ -965,7 +965,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
 
     return (
-      <TableOuterContainer data-responsive-mode={isResponsive ? 'scroll' : 'list'}>
+      <TableOuterContainer data-responsive-mode={isResponsive ? 'list' : 'scroll'}>
         {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
