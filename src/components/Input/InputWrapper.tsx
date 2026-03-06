@@ -1,4 +1,4 @@
-import { Error, FormElementContainer, FormRoot } from '@/components/Common';
+import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
 import { Label } from '@/components/Label';
 import { styled } from 'styled-components';
 import { ReactNode } from 'react';
