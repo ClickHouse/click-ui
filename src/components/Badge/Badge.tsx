@@ -1,50 +1,7 @@
 import { styled } from 'styled-components';
-import type { HorizontalDirection } from '@/components/types';
-import { HTMLAttributes, MouseEvent, ReactNode } from 'react';
-import { Icon, type IconName } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
 import { IconWrapper } from '@/components/IconWrapper';
-
-export type BadgeState =
-  | 'default'
-  | 'success'
-  | 'neutral'
-  | 'danger'
-  | 'disabled'
-  | 'warning'
-  | 'info';
-
-export type BadgeSize = 'sm' | 'md';
-export type BadgeType = 'opaque' | 'solid';
-
-export interface CommonBadgeProps extends HTMLAttributes<HTMLDivElement> {
-  /** The text content to display in the badge */
-  text: ReactNode;
-  /** The visual state of the badge */
-  state?: BadgeState;
-  /** The size of the badge */
-  size?: BadgeSize;
-  /** The type/style of the badge - opaque has a lighter background, solid has a filled background */
-  type?: BadgeType;
-  /** Optional icon to display alongside the text */
-  icon?: IconName;
-  /** The direction of the icon relative to the text */
-  iconDir?: HorizontalDirection;
-  /** Whether to truncate content with ellipsis when it overflows */
-  ellipsisContent?: boolean;
-}
-
-export interface DismissibleBadge extends CommonBadgeProps {
-  /** When true, displays a close button on the badge */
-  dismissible: true;
-  /** Callback function when the close button is clicked */
-  onClose: (e: MouseEvent<HTMLOrSVGElement>) => void;
-}
-
-export interface NonDismissibleBadge extends CommonBadgeProps {
-  /** When false or undefined, the close button is hidden */
-  dismissible?: never;
-  onClose?: never;
-}
+import { BadgeProps, BadgeState, BadgeSize, BadgeType } from './Badge.types';
 
 const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize; $type?: BadgeType }>`
   display: inline-flex;
@@ -93,8 +50,6 @@ const BadgeContent = styled(IconWrapper)<{
   `}
   }
 `;
-
-export type BadgeProps = NonDismissibleBadge | DismissibleBadge;
 
 export const Badge = ({
   icon,

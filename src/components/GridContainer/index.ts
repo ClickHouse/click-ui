@@ -1,2 +1,2 @@
 export { GridContainer } from './GridContainer';
-export type { FlowOptions, GridContainerProps } from './GridContainer';
+export type { FlowOptions, GridContainerProps } from './GridContainer.types';

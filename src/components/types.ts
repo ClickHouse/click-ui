@@ -24,7 +24,7 @@ import { BadgeProps } from './Badge';
 import { AvatarProps } from './Avatar';
 import { AlertProps } from './Alert';
 import { IconButtonProps } from './IconButton';
-export type { IconName, ImageName } from './Icon/types';
+export type { IconName, ImageName } from './Icon/Icon.types';
 import { SidebarNavigationTitleProps } from './SidebarNavigationTitle';
 import { SidebarCollapsibleItemProps } from './SidebarCollapsibleItem';
 import { SidebarCollapsibleTitleProps } from './SidebarCollapsibleTitle';
@@ -39,7 +39,12 @@ export type { DialogContentProps } from './Dialog';
 export type { DialogProps, DialogTriggerProps } from '@radix-ui/react-dialog';
 export type { ConfirmationDialogProps } from './ConfirmationDialog';
 export type { FileTabStatusType } from './FileTabs';
-export type { TableHeaderType, TableRowType, TableProps } from './Table';
+export type {
+  TableHeaderType,
+  TableRowType,
+  TableProps,
+  TableColumnConfigProps,
+} from './Table';
 export type { BigStatProps } from './BigStat';
 export type { TextAreaFieldProps } from './Input/TextArea';
 export type { VerticalStepperProps, VerticalStepProps } from './VerticalStepper';
@@ -64,14 +69,20 @@ export type States = 'default' | 'active' | 'disabled' | 'error' | 'hover';
 export type HorizontalDirection = 'start' | 'end';
 export type Orientation = 'horizontal' | 'vertical';
 export type { FormContainerProps } from './FormContainer';
-export type { AutoCompleteProps, AutoCompleteOptionListItem } from './AutoComplete';
+export type {
+  AutoCompleteProps,
+  AutoCompleteOptionListItem,
+  SelectOptionItem,
+  SelectItemProps,
+  SelectGroupProps,
+} from './AutoComplete';
 export type { PaginationProps } from './Pagination';
 export type { ContextMenuItemProps } from './ContextMenu';
 export type { GenericLabelProps } from './GenericLabel';
 export type { MultiAccordionProps } from './MultiAccordion';
 export type { CheckboxVariants } from './Checkbox';
-export type { CursorOptions } from './cursorOptions';
-export type { SelectGroupOptionItem, SelectOptionItem } from './Select/common/types';
+export type { CursorOptions } from './Common';
+export type { SelectGroupOptionItem } from './Select/common/types';
 
 export type { IconButtonProps };
 export type { AlertProps };

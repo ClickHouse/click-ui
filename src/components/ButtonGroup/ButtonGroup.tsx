@@ -1,29 +1,6 @@
-import { HTMLAttributes, ReactNode, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
-
-type ButtonGroupType = 'default' | 'borderless';
-export type SelectionValue = string | Set<string>;
-
-export interface ButtonGroupElementProps extends Omit<
-  HTMLAttributes<HTMLButtonElement>,
-  'children'
-> {
-  value: string;
-  label?: ReactNode;
-}
-
-export interface ButtonGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  'onClick'
-> {
-  options: ButtonGroupElementProps[];
-  selected?: SelectionValue;
-  defaultSelected?: SelectionValue;
-  onClick?: (value: string, selected: SelectionValue) => void;
-  fillWidth?: boolean;
-  type?: ButtonGroupType;
-  multiple?: boolean;
-}
+import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
   if (value === undefined) {
@@ -116,6 +93,8 @@ export const ButtonGroup = ({
     </ButtonGroupWrapper>
   );
 };
+
+import { ButtonGroupType } from './ButtonGroup.types';
 
 const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
   display: inline-flex;

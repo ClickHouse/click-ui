@@ -1,23 +1,6 @@
-import { HTMLAttributes, ReactNode } from 'react';
 import { styled } from 'styled-components';
-import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon';
-// TODO: What's the difference between this local IconWrapper
-// and components/IconWrapper?
 import { IconWrapper } from '@/components/Collapsible/IconWrapper';
-
-export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {
-  /** The label content to display */
-  label: ReactNode;
-  /** Whether the title is currently selected */
-  selected?: boolean;
-  /** Icon to display before the label */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The sidebar style type */
-  type?: 'main' | 'sqlSidebar';
-}
+import { SidebarNavigationTitleProps } from './SidebarNavigationTitle.types';
 
 export const SidebarNavigationTitle = ({
   label,

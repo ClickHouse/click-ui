@@ -1,2 +1,2 @@
 export { CardPromotion } from './CardPromotion';
-export type { CardPromotionProps } from './CardPromotion';
+export type { CardPromotionProps } from './CardPromotion.types';

@@ -1,10 +1,5 @@
 import { styled } from 'styled-components';
-
-export type SizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-export interface SpacerProps {
-  /** The size of the spacer */
-  size?: SizeType;
-}
+import { SpacerProps, SizeType } from './Spacer.types';
 
 const CUISpacer = styled.div<{
   $size?: SizeType;

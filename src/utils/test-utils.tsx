@@ -1,6 +1,5 @@
-import { type ThemeName } from '@/theme/core';
+import { type ThemeName, ClickUIProvider } from '@/theme';
 import { render as renderTL } from '@testing-library/react';
-import { ClickUIProvider } from '..';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Wrapper = ({

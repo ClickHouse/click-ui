@@ -24,7 +24,10 @@ describe('MultiAccordion', () => {
     renderCUI(<MultiAccordion {...props} />);
 
   it('should render the multi accordion type single', () => {
-    const { getByText, queryByText } = renderAccordion({ type: 'single', children });
+    const { getByText, queryByText } = renderAccordion({
+      type: 'single',
+      children,
+    } as MultiAccordionProps);
     const trigger1 = getByText('Option 1');
     const trigger2 = getByText('Option 2');
     expect(trigger1).toBeTruthy();
@@ -43,7 +46,7 @@ describe('MultiAccordion', () => {
       type: 'single',
       collapsible: true,
       children,
-    });
+    } as MultiAccordionProps);
     const trigger1 = getByText('Option 1');
     const trigger2 = getByText('Option 2');
     expect(trigger1).toBeTruthy();
@@ -59,7 +62,10 @@ describe('MultiAccordion', () => {
   });
 
   it('should render the multi accordion type multiple', () => {
-    const { getByText, queryByText } = renderAccordion({ type: 'multiple', children });
+    const { getByText, queryByText } = renderAccordion({
+      type: 'multiple',
+      children,
+    } as MultiAccordionProps);
     const trigger1 = getByText('Option 1');
     const trigger2 = getByText('Option 2');
     expect(trigger1).toBeTruthy();
@@ -78,7 +84,7 @@ describe('MultiAccordion', () => {
       type: 'single',
       showCheck: true,
       children,
-    });
+    } as MultiAccordionProps);
     expect(getByText('Option 1')).toBeTruthy();
     expect(getByText('Option 2')).toBeTruthy();
     expect(getAllByTestId('accordion-status-icon')).toHaveLength(2);
@@ -91,7 +97,7 @@ describe('MultiAccordion', () => {
       showCheck: true,
       markAsCompleted,
       children,
-    });
+    } as MultiAccordionProps);
     expect(getByText('Option 1')).toBeTruthy();
     expect(getByText('Option 2')).toBeTruthy();
     const statusIcons = getAllByTestId('accordion-status-icon');

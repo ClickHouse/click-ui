@@ -5,4 +5,4 @@ export type {
   ToastType,
   ToastProps,
   ToastProviderProps,
-} from './Toast';
+} from './Toast.types';

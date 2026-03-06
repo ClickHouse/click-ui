@@ -1,10 +1,6 @@
 import * as RadixTabs from '@radix-ui/react-tabs';
 import { styled } from 'styled-components';
-
-export interface TabsProps extends RadixTabs.TabsProps {
-  /** Accessible label for the tabs component */
-  ariaLabel?: string;
-}
+import { TabsProps } from './Tabs.types';
 
 const Trigger = styled(RadixTabs.Trigger)`
   padding: ${props =>

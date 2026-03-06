@@ -1,9 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Checkbox } from '..';
-import { GridCenter } from '../commonElement';
-import { Text } from '../Typography/Text/Text';
-import { Title } from '../Typography/Title/Title';
+import { GridCenter } from '../Common';
+import { Text, Title } from '@/components/Typography';
 import { Popover } from '@/components/Popover';
 
 const meta: Meta<typeof Popover> = {

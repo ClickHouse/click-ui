@@ -5,4 +5,4 @@ export type {
   bigStatSpacing,
   bigStatState,
   BigStatProps,
-} from './BigStat';
+} from './BigStat.types';

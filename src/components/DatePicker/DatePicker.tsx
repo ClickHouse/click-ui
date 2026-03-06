@@ -3,6 +3,7 @@ import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import * as Popover from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
+import { DatePickerProps } from './DatePicker.types';
 
 const DAYS_IN_WEEK = 7;
 
@@ -169,14 +170,6 @@ const Calendar = ({
     );
   });
 };
-
-export interface DatePickerProps {
-  date?: Date;
-  disabled?: boolean;
-  futureDatesDisabled?: boolean;
-  onSelectDate: (selectedDate: Date) => void;
-  placeholder?: string;
-}
 
 export const DatePicker = ({
   date,

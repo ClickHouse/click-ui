@@ -1,25 +1,7 @@
-import { HTMLAttributes, ReactNode, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { styled } from 'styled-components';
-import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon';
 import { IconWrapper } from '@/components/Collapsible/IconWrapper';
-
-export interface SidebarNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
-  /** The label content to display */
-  label: ReactNode;
-  /** Whether the item is currently selected */
-  selected?: boolean;
-  /** Whether the item is disabled */
-  disabled?: boolean;
-  /** Nesting level for indentation */
-  level?: number;
-  /** Icon to display before the label */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The sidebar style type */
-  type?: 'main' | 'sqlSidebar';
-}
+import { SidebarNavigationItemProps } from './SidebarNavigationItem.types';
 
 const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
   (

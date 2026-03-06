@@ -6,11 +6,9 @@ import {
   DialogDescription,
   DialogOverlay,
   DialogPortal,
-  DialogProps,
   DialogTitle,
   DialogTrigger,
   DialogTriggerProps,
-  DialogContentProps as RadixDialogContentProps,
 } from '@radix-ui/react-dialog';
 import { Button } from '@/components/Button';
 import type { ButtonProps } from '@/components/Button';
@@ -22,10 +20,18 @@ import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
 import { styled } from 'styled-components';
 // TODO: Improve api for Common components, types, etc
-import { CrossButton } from '@/components/commonElement';
+import { CrossButton } from '@/components/Common';
 import { keyframes } from 'styled-components';
-
-export type FlyoutProps = DialogProps;
+import type {
+  FlyoutProps,
+  FlyoutSizeType,
+  Strategy,
+  FlyoutType,
+  DialogContentAlignmentType,
+  DialogContentProps,
+  FlyoutHeaderProps,
+  FlyoutFooterProps,
+} from './Flyout.types';
 
 export const Flyout = ({ modal = false, ...props }: FlyoutProps) => {
   return (
@@ -48,30 +54,6 @@ const Trigger = ({ children, ...props }: DialogTriggerProps) => {
 };
 Trigger.displayName = 'Flyout.Trigger';
 Flyout.Trigger = Trigger;
-
-type FlyoutSizeType = 'default' | 'narrow' | 'wide' | 'widest';
-type Strategy = 'relative' | 'absolute' | 'fixed';
-type FlyoutType = 'default' | 'inline';
-
-type DialogContentAlignmentType = 'start' | 'end';
-export interface DialogContentProps extends RadixDialogContentProps {
-  /** Container element to portal the flyout into */
-  container?: HTMLElement | null;
-  /** Whether to show the overlay backdrop */
-  showOverlay?: boolean;
-  /** The size variant of the flyout */
-  size?: FlyoutSizeType;
-  /** The type of flyout styling */
-  type?: FlyoutType;
-  /** CSS position strategy */
-  strategy?: Strategy;
-  /** Whether clicking outside closes the flyout */
-  closeOnInteractOutside?: boolean;
-  /** Custom width for the flyout */
-  width?: string;
-  /** Alignment of the flyout (start = left, end = right) */
-  align?: DialogContentAlignmentType;
-}
 
 const animationWidth = () =>
   keyframes({
@@ -217,44 +199,6 @@ const Element = ({ type, ...props }: ElementProps) => (
 
 Element.displayName = 'Flyout.Element';
 Flyout.Element = Element;
-
-interface TitleHeaderProps extends Omit<
-  ContainerProps,
-  | 'orientaion'
-  | 'justifyContent'
-  | 'alignItems'
-  | 'component'
-  | 'padding'
-  | 'gap'
-  | 'children'
-  | 'fillWidth'
-> {
-  title: string;
-  description?: string;
-  type?: FlyoutType;
-  children?: never;
-  showClose?: boolean;
-  showSeparator?: boolean;
-}
-
-interface ChildrenHeaderProps extends Omit<
-  ContainerProps,
-  | 'orientaion'
-  | 'justifyContent'
-  | 'alignItems'
-  | 'component'
-  | 'padding'
-  | 'gap'
-  | 'fillWidth'
-> {
-  title?: never;
-  type?: FlyoutType;
-  description?: never;
-  showClose?: boolean;
-  showSeparator?: boolean;
-}
-
-export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
 const FlyoutHeaderContainer = styled(Container)<{
   $type?: FlyoutType;
@@ -406,13 +350,6 @@ const Body = ({ align, ...props }: BodyProps) => (
 
 Body.displayName = 'Flyout.Body';
 Flyout.Body = Body;
-
-export interface FlyoutFooterProps extends Omit<
-  ContainerProps<'div'>,
-  'orientaion' | 'justifyContent' | 'component' | 'padding' | 'gap'
-> {
-  type?: FlyoutType;
-}
 
 const FlyoutFooter = styled(Container)<{
   type?: FlyoutType;

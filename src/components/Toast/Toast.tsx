@@ -1,40 +1,15 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
-
 import { Icon, IconName } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
+import { Button } from '@/components/Button';
+import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
 
-import { ButtonProps, Button } from '@/components/Button';
-
-export interface ToastContextProps {
-  createToast: (toast: ToastProps, align?: ToastAlignment) => void;
-}
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
-
-export type ToastAlignment = 'start' | 'end';
-export type ToastType = 'danger' | 'warning' | 'default' | 'success';
-export interface ToastProps extends Omit<RadixUIToast.ToastProps, 'type'> {
-  /** Unique identifier for the toast */
-  id?: string;
-  /** The visual style type of the toast */
-  type?: ToastType;
-  /** The type of toast for screen reader announcements */
-  toastType?: 'foreground' | 'background';
-  /** The title text displayed in the toast */
-  title: string;
-  /** Optional description content */
-  description?: ReactNode;
-  /** Time in milliseconds the toast will be visible */
-  duration?: number;
-  /** Action buttons to display in the toast */
-  actions?: (ButtonProps & { altText: string })[];
-  /** Horizontal alignment of the toast - start or end */
-  align?: ToastAlignment;
-}
 
 const ToastIcon = styled(Icon)<{ $type?: ToastType }>`
   ${({ theme, $type = 'default' }) => `

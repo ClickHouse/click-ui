@@ -2,29 +2,10 @@ import { GenericLabel } from '@/components/GenericLabel';
 import { Icon } from '@/components/Icon';
 
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
-import { ReactNode, useId } from 'react';
+import { useId } from 'react';
 import { styled } from 'styled-components';
-import { FormRoot } from '../commonElement';
-
-export type CheckboxVariants =
-  | 'default'
-  | 'var1'
-  | 'var2'
-  | 'var3'
-  | 'var4'
-  | 'var5'
-  | 'var6';
-
-export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
-  /** The label text displayed next to the checkbox */
-  label?: ReactNode;
-  /** The orientation of the label relative to the checkbox */
-  orientation?: 'vertical' | 'horizontal';
-  /** The color variant of the checkbox */
-  variant?: CheckboxVariants;
-  /** The direction/position of the label - start places label before, end places label after */
-  dir?: 'start' | 'end';
-}
+import { FormRoot } from '@/components/Common';
+import { CheckboxProps, CheckboxVariants } from './Checkbox.types';
 
 const Wrapper = styled(FormRoot)`
   align-items: center;

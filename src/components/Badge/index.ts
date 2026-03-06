@@ -7,4 +7,4 @@ export type {
   DismissibleBadge,
   NonDismissibleBadge,
   BadgeProps,
-} from './Badge';
+} from './Badge.types';
