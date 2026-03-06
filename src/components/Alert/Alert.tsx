@@ -1,31 +1,11 @@
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
-import { useState, ReactNode, useCallback } from 'react';
+import { Icon, IconName } from '@/components/Icon';
+import { useState, useCallback } from 'react';
 import { styled } from 'styled-components';
+import { AlertProps } from './Alert.types';
 
 type AlertType = 'default' | 'banner';
 type AlertSize = 'small' | 'medium';
 type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
-export type AlertProps = {
-  /** The visual state/severity of the alert */
-  state?: AlertState;
-  /** Optional title displayed above the text */
-  title?: ReactNode;
-  /** The main message text of the alert */
-  text: ReactNode;
-  /** The size variant of the alert */
-  size?: AlertSize;
-  /** The type of alert (default or banner) */
-  type?: AlertType;
-  /** Whether to show the state icon */
-  showIcon?: boolean;
-  /** Custom icon to display instead of the default state icon */
-  customIcon?: IconName;
-  /** Whether the alert can be dismissed */
-  dismissible?: boolean;
-  /** Callback when the alert is dismissed (requires dismissible=true) */
-  onDismiss?: () => void;
-};
 
 const stateIconMap: Record<AlertState, IconName> = {
   neutral: 'information',
@@ -35,7 +15,7 @@ const stateIconMap: Record<AlertState, IconName> = {
   info: 'information',
 };
 
-const Alert = ({
+export const Alert = ({
   text,
   title = '',
   size = 'small',
@@ -174,32 +154,30 @@ const DismissWrapper = styled.button`
   cursor: pointer;
 `;
 
-const DangerAlert = (props: AlertProps) => (
+export const DangerAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="danger"
   />
 );
 
-const InfoAlert = (props: AlertProps) => (
+export const InfoAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="info"
   />
 );
 
-const SuccessAlert = (props: AlertProps) => (
+export const SuccessAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="success"
   />
 );
 
-const WarningAlert = (props: AlertProps) => (
+export const WarningAlert = (props: AlertProps) => (
   <Alert
     {...props}
     state="warning"
   />
 );
-
-export { Alert, DangerAlert, InfoAlert, SuccessAlert, WarningAlert };

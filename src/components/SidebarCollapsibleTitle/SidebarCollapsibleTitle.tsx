@@ -1,28 +1,7 @@
-import { ReactNode } from 'react';
-import { Icon } from '@/components/Icon/Icon';
-import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
-import { Collapsible } from '../Collapsible/Collapsible';
-import { SidebarTitleWrapper } from '../SidebarNavigationTitle/SidebarNavigationTitle';
-
-export interface SidebarCollapsibleTitleProps extends React.HTMLAttributes<HTMLButtonElement> {
-  /** The label content to display */
-  label: ReactNode;
-  /** The content to display when expanded */
-  children: React.ReactNode;
-  /** Whether the title section is expanded */
-  open?: boolean;
-  /** Callback when the open state changes */
-  onOpenChange?: (value: boolean) => void;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** Icon to display before the label */
-  icon?: IconName;
-  /** Whether the title is currently selected */
-  selected?: boolean;
-  /** The sidebar style type */
-  type?: 'main' | 'sqlSidebar';
-}
+import { Icon } from '@/components/Icon';
+import { Collapsible } from '@/components/Collapsible';
+import { SidebarTitleWrapper } from '@/components/SidebarNavigationTitle';
+import { SidebarCollapsibleTitleProps } from './SidebarCollapsibleTitle.types';
 
 export const SidebarCollapsibleTitle = ({
   label,

@@ -36,7 +36,7 @@ import {
 import { useSelectionActions } from './useSelectionActions';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { Cell } from './Cell';
-import { ContextMenu } from '@/components/ContextMenu/ContextMenu';
+import { ContextMenu } from '@/components/ContextMenu';
 import { createToast } from '@/components/Toast/toastEmitter';
 import copyGridElements from './copyGridElements';
 import useColumns from './useColumns';
@@ -53,7 +53,7 @@ const GridContainer = styled.div`
   overflow-anchor: none;
 `;
 
-const getRenderedCursor = (children: Array<ReactElement>) =>
+const getRenderedCursor = (children: ReactElement[]) =>
   children.reduce(
     ([minRow, maxRow, minColumn, maxColumn], { props: { columnIndex, rowIndex } }) => {
       if (rowIndex < minRow) {
@@ -106,7 +106,7 @@ const ContextMenuTrigger = styled.div<{
 `;
 
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
-  children: Array<ReactElement>;
+  children: ReactElement[];
 }
 
 const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
@@ -234,7 +234,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
     ];
 
     const [menuOptions, setMenuOptions] =
-      useState<Array<GridContextMenuItemProps>>(defaultMenuOptions);
+      useState<GridContextMenuItemProps[]>(defaultMenuOptions);
     const [contextMenuOpen, setContextMenuOpen] = useState(false);
     const [scrolledVertical, setScrolledVertical] = useState(false);
     const [scrolledHorizontal, setScrolledHorizontal] = useState(false);

@@ -1,21 +1,6 @@
-import { HTMLAttributes, ReactNode } from 'react';
 import { styled } from 'styled-components';
-import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
-import { IconWrapper } from '../Collapsible/IconWrapper';
-
-export interface SidebarNavigationTitleProps extends HTMLAttributes<HTMLButtonElement> {
-  /** The label content to display */
-  label: ReactNode;
-  /** Whether the title is currently selected */
-  selected?: boolean;
-  /** Icon to display before the label */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The sidebar style type */
-  type?: 'main' | 'sqlSidebar';
-}
+import { IconWrapper } from '@/components/Collapsible/IconWrapper';
+import { SidebarNavigationTitleProps } from './SidebarNavigationTitle.types';
 
 export const SidebarNavigationTitle = ({
   label,

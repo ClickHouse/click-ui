@@ -1,47 +1,8 @@
 import { styled } from 'styled-components';
-import { Badge } from '@/components/Badge/Badge';
-import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
-import { Title } from '@/components/Typography/Title/Title';
-import { Text } from '@/components/Typography/Text/Text';
-import { IconSize } from '@/components/Icon/types';
-import { HTMLAttributes, ReactNode } from 'react';
-
-export type BadgeState =
-  | 'default'
-  | 'success'
-  | 'neutral'
-  | 'danger'
-  | 'disabled'
-  | 'warning'
-  | 'info';
-
-export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
-  /** The title text displayed in the card header */
-  title: string;
-  /** Icon name to display in the header */
-  icon?: IconName;
-  /** URL to a custom icon image */
-  iconUrl?: string;
-  /** The visual state of the badge */
-  badgeState?: BadgeState;
-  /** Whether to show a shadow on the card */
-  hasShadow?: boolean;
-  /** Whether the card is disabled */
-  disabled?: boolean;
-  /** Text to display in the badge */
-  badgeText?: string;
-  /** The description content of the card */
-  description: ReactNode;
-  /** URL for the info link */
-  infoUrl?: string;
-  /** Text to display in the info link */
-  infoText?: string;
-  /** Icon to display in the info link */
-  infoIcon?: IconName;
-  /** Size of the info link icon */
-  infoIconSize?: IconSize;
-}
+import { Badge } from '@/components/Badge';
+import { Icon } from '@/components/Icon';
+import { Title, Text } from '@/components/Typography';
+import { CardSecondaryProps } from './CardSecondary.types';
 
 const Header = styled.div`
   display: flex;

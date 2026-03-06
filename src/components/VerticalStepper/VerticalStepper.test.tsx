@@ -1,10 +1,10 @@
 import { fireEvent } from '@testing-library/dom';
-import VerticalStepper from './VerticalStepper';
+import { VerticalStepper } from '@/components/VerticalStepper';
 import { renderCUI } from '@/utils/test-utils';
 interface Props {
   activeIndex?: number;
-  completed?: Array<number>;
-  showItems?: Array<number>;
+  completed?: number[];
+  showItems?: number[];
 }
 const label1Click = vi.fn();
 const label2Click = vi.fn();

@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
-import { CardPrimary, CardPrimaryProps } from '@/components/CardPrimary/CardPrimary';
+import { CardPrimary, CardPrimaryProps } from '@/components/CardPrimary';
 
 describe('CardPrimary Component', () => {
   describe('Primary card', () => {
@@ -72,7 +72,7 @@ describe('CardPrimary Component', () => {
     it('should render the top badge', () => {
       const topBadgeText = 'TopBadge';
       const { queryAllByText } = renderCard({
-        topBadgeText,
+        topBadgeText: topBadgeText,
         icon: 'warning',
         title: '',
         onButtonClick: () => null,

@@ -1,17 +1,6 @@
-import { HTMLAttributes, ReactNode } from 'react';
-import { Error, FormElementContainer, FormRoot } from '../commonElement';
-import type { HorizontalDirection, Orientation } from '@/components/types';
-import { Label } from '@/components/Label/Label';
-
-export interface FormContainerProps extends HTMLAttributes<HTMLDivElement> {
-  htmlFor: string;
-  label?: ReactNode;
-  orientation?: Orientation;
-  dir?: HorizontalDirection;
-  error?: ReactNode;
-  children: ReactNode;
-  addLabelPadding?: boolean;
-}
+import { Error, FormElementContainer, FormRoot } from '@/components/Common';
+import { Label } from '@/components/Label';
+import { FormContainerProps } from './FormContainer.types';
 
 export const FormContainer = ({
   id,

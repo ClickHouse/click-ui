@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { MultiAccordion } from './MultiAccordion';
+import { MultiAccordion } from '@/components/MultiAccordion';
 
 const meta: Meta<typeof MultiAccordion> = {
   component: MultiAccordion,

@@ -1,12 +1,12 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
-import PopoverArrow from '../icons/PopoverArrow';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
-import { HorizontalDirection } from '@/components/types';
+import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
+import type { IconName } from '@/components/Icon/Icon.types';
+import type { HorizontalDirection } from '@/types';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -82,10 +82,12 @@ export type ArrowProps = {
 
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
+  responsivePositioning?: boolean;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
   children?: ReactNode;
+  responsivePositioning?: boolean;
 }
 
 type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
@@ -104,6 +106,7 @@ const DropdownContent = ({
   sub,
   children,
   showArrow,
+  responsivePositioning = true,
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
@@ -115,7 +118,8 @@ const DropdownContent = ({
         as={ContentElement}
         sideOffset={4}
         loop
-        collisionPadding={100}
+        avoidCollisions={responsivePositioning}
+        collisionPadding={responsivePositioning ? 100 : undefined}
         {...props}
       >
         {showArrow && (
@@ -125,7 +129,7 @@ const DropdownContent = ({
             width={20}
             height={10}
           >
-            <PopoverArrow />
+            <Popover_Arrow />
           </Arrow>
         )}
         {children}

@@ -1,44 +1,72 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
+import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
 
-type ButtonGroupType = 'default' | 'borderless';
+const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
+  if (value === undefined) {
+    return new Set();
+  }
+  if (value instanceof Set) {
+    return new Set(value);
+  }
+  return new Set([value]);
+};
 
-export interface ButtonGroupElementProps extends Omit<
-  HTMLAttributes<HTMLButtonElement>,
-  'children'
-> {
-  /** The unique value for this button */
-  value: string;
-  /** The label text to display */
-  label?: ReactNode;
-}
-
-export interface ButtonGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  'onClick'
-> {
-  /** Array of button options to display */
-  options: Array<ButtonGroupElementProps>;
-  /** The currently selected button value */
-  selected?: string;
-  /** Callback when a button is clicked */
-  onClick?: (value: string) => void;
-  /** Whether the button group should fill the full width */
-  fillWidth?: boolean;
-  /** The style type of the button group */
-  type?: ButtonGroupType;
-}
+const isValueSelected = (value: string, selection: Set<string>): boolean => {
+  return selection.has(value);
+};
 
 export const ButtonGroup = ({
   options,
   selected,
+  defaultSelected,
   fillWidth = false,
   onClick,
   type = 'default',
+  multiple = false,
   ...props
 }: ButtonGroupProps) => {
-  const buttons = options.map(({ value, label, ...props }) => {
-    const isActive = value === selected;
+  const [internalSelection, setInternalSelection] = useState<Set<string>>(() =>
+    normalizeToSet(defaultSelected)
+  );
+
+  // Use `selected` if the parent needs to own
+  // or sync the selection state management (controlled
+  // by consumer app)
+  // Use `defaultSelected` if the component can manage
+  // its own state independently (uncontrolled)
+  const isControlled = selected !== undefined;
+  const currentSelection = isControlled ? normalizeToSet(selected) : internalSelection;
+
+  const onButtonGroupClickCommonHandler = useCallback(
+    (value: string) => {
+      let newSelection: Set<string>;
+
+      if (multiple) {
+        newSelection = new Set(currentSelection);
+        if (newSelection.has(value)) {
+          newSelection.delete(value);
+        } else {
+          newSelection.add(value);
+        }
+      } else {
+        newSelection = new Set([value]);
+      }
+
+      if (!isControlled) {
+        setInternalSelection(newSelection);
+      }
+
+      // WARN: Single mode returns string
+      // while multiple mode returns Set (DS)
+      onClick?.(value, multiple ? newSelection : value);
+    },
+    [currentSelection, multiple, isControlled, onClick]
+  );
+
+  const buttons = options.map(({ value, label, ...buttonProps }) => {
+    const isActive = isValueSelected(value, currentSelection);
+
     return (
       <Button
         key={value}
@@ -46,9 +74,9 @@ export const ButtonGroup = ({
         aria-pressed={isActive}
         $fillWidth={fillWidth}
         $type={type}
-        onClick={() => onClick?.(value)}
+        onClick={() => onButtonGroupClickCommonHandler(value)}
         role="button"
-        {...props}
+        {...buttonProps}
       >
         {label}
       </Button>
@@ -65,6 +93,8 @@ export const ButtonGroup = ({
     </ButtonGroupWrapper>
   );
 };
+
+import { ButtonGroupType } from './ButtonGroup.types';
 
 const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
   display: inline-flex;
@@ -136,8 +166,6 @@ const Button = styled.button<{
     }
   }
 
-  &:active,
-  &:focus,
   &[aria-pressed='true'] {
     background: ${({ theme }) => theme.click.button.group.color.background.active};
     font: ${({ theme }) => theme.click.button.group.typography.label.active};

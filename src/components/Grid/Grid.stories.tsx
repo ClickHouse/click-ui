@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from '..';
-import { Grid as CUIGrid } from './Grid';
+import { Grid as CUIGrid } from '@/components/Grid';
 
 const Cell: CellProps = ({
   type,
@@ -31,7 +31,7 @@ interface Props {
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
-  const [columnWidth, setColumnWidth] = useState<Array<number>>(
+  const [columnWidth, setColumnWidth] = useState<number[]>(
     Array.from({ length: columnCount }, () => 100)
   );
 

@@ -1,5 +1,5 @@
-import { Badge } from '@/components/Badge/Badge';
-import { Container } from '@/components/Container/Container';
+import { Badge } from '@/components/Badge';
+import { Container } from '@/components/Container';
 import { styled } from 'styled-components';
 
 export const TopBadgeWrapper = styled(Container)`

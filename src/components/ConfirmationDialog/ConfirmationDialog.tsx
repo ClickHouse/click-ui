@@ -1,38 +1,10 @@
-import { Container } from '@/components/Container/Container';
-import { Dialog } from '@/components/Dialog/Dialog';
-import { Separator } from '@/components/Separator/Separator';
-import { Text } from '@/components/Typography/Text/Text';
-import { HTMLAttributes, ReactElement, ReactNode } from 'react';
+import { Container } from '@/components/Container';
+import { Dialog } from '@/components/Dialog';
+import { Separator } from '@/components/Separator';
+import { Text } from '@/components/Typography';
+import { ReactElement } from 'react';
 import { styled } from 'styled-components';
-
-type DialogPrimaryAction = 'primary' | 'danger';
-
-export interface ConfirmationDialogProps extends HTMLAttributes<HTMLDivElement> {
-  /** Custom content to display instead of the message */
-  children?: ReactNode;
-  /** Whether the confirm button is disabled */
-  disabled?: boolean;
-  /** Whether the confirm button shows a loading state */
-  loading?: boolean;
-  /** The message text to display in the dialog */
-  message?: string;
-  /** Callback when the dialog is cancelled */
-  onCancel?: () => void;
-  /** Callback when the confirm button is clicked */
-  onConfirm?: (() => void) | (() => Promise<void>);
-  /** Whether the dialog is open */
-  open?: boolean;
-  /** Label for the primary action button */
-  primaryActionLabel?: string;
-  /** Type of the primary action button */
-  primaryActionType?: DialogPrimaryAction;
-  /** Label for the secondary (cancel) action button */
-  secondaryActionLabel?: string;
-  /** Whether to show the close button */
-  showClose?: boolean;
-  /** The title text displayed in the dialog header */
-  title: string;
-}
+import { ConfirmationDialogProps } from './ConfirmationDialog.types';
 
 const ActionsWrapper = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { SidebarNavigationItem } from '@/components/SidebarNavigationItem/SidebarNavigationItem';
+import { SidebarNavigationItem } from '@/components/SidebarNavigationItem';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('SidebarNavigationItem', () => {

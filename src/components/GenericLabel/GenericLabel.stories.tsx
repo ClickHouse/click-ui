@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { GenericLabel } from './GenericLabel';
+import { GenericLabel } from '@/components/GenericLabel';
 
 const meta: Meta<typeof GenericLabel> = {
   component: GenericLabel,

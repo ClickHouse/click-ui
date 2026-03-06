@@ -1,12 +1,13 @@
 import * as RightMenu from '@radix-ui/react-context-menu';
 import { styled } from 'styled-components';
 import { forwardRef } from 'react';
-import type { HorizontalDirection } from '@/components/types';
+import type { HorizontalDirection } from '@/types';
 import { Icon } from '@/components/Icon/Icon';
-import type { IconName } from '@/components/Icon/types';
-import { Arrow, GenericMenuItem, GenericMenuPanel } from '../GenericMenu';
-import PopoverArrow from '../icons/PopoverArrow';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
+import type { IconName } from '@/components/Icon/Icon.types';
+import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
+import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
@@ -61,10 +62,6 @@ const ContextMenuSubTrigger = ({
 
 ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 ContextMenu.SubTrigger = ContextMenuSubTrigger;
-
-export type ArrowProps = {
-  showArrow?: boolean;
-};
 
 type DeprecatedFields = {
   /** @deprecated The side field have been deprecated. See https://github.com/ClickHouse/click-ui/pull/756/files#diff-801534275d6fc19b60543371f1055838e7d60942fa4005c3ab1623293e10fb7fR24 */
@@ -139,7 +136,7 @@ const ContextMenuContent = ({
             width={20}
             height={10}
           >
-            <PopoverArrow className="popover-arrow" />
+            <Popover_Arrow className="popover-arrow" />
           </Arrow>
         )}
         {children}
@@ -175,14 +172,6 @@ const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
 
 ContextMenuSub.displayName = 'ContextMenuSub';
 ContextMenu.Sub = ContextMenuSub;
-export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
-  /** Icon to display in the menu item */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The type of the menu item */
-  type?: 'default' | 'danger';
-}
 
 const ContextMenuItem = ({
   icon,

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { FileUpload, type FileUploadProps } from '@/components/FileUpload/FileUpload';
-import { Flyout } from '@/components/Flyout/Flyout';
-import { Button } from '@/components/Button/Button';
+import { Flyout } from '@/components/Flyout';
+import { Button } from '@/components/Button';
 import { useState } from 'react';
 import { Wrapper } from './FileUpload.stories-common';
 

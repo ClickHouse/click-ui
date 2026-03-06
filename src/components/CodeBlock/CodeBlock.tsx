@@ -1,11 +1,12 @@
 import React, { HTMLAttributes, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 
-import { IconButton } from '@/components/IconButton/IconButton';
+import { EmptyButton } from '@/components/Common';
+import { IconButton } from '@/components/IconButton';
 
 import { styled } from 'styled-components';
 import useColorStyle from './useColorStyle';
-import { EmptyButton } from '../commonElement';
+import { CodeBlockProps, CodeThemeType } from './CodeBlock.types';
 
 /* eslint-disable import/extensions */
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
@@ -25,18 +26,6 @@ SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
 SyntaxHighlighter.registerLanguage('json', json.default || json);
 SyntaxHighlighter.registerLanguage('tsx', tsx.default || tsx);
 SyntaxHighlighter.registerLanguage('plaintext', plaintext.default || plaintext);
-
-export type CodeThemeType = 'light' | 'dark';
-interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'> {
-  language?: string;
-  children: string;
-  theme?: CodeThemeType;
-  showLineNumbers?: boolean;
-  showWrapButton?: boolean;
-  wrapLines?: boolean;
-  onCopy?: (value: string) => void | Promise<void>;
-  onCopyError?: (error: string) => void | Promise<void>;
-}
 
 interface RendererNodeType {
   type: 'element' | 'text';
@@ -115,7 +104,7 @@ export const CodeBlock = ({
   onCopy,
   onCopyError,
   ...props
-}: Props) => {
+}: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);

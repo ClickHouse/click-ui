@@ -1,11 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Select } from '@/components/Select/SingleSelect';
-import { selectOptions } from '@/components/Select/selectOptions';
-import { Container } from '@/components/Container/Container';
-import { Text } from '@/components/Typography/Text/Text';
-import { Panel } from '@/components/Panel/Panel';
-import { Title } from '@/components/Typography/Title/Title';
-import { Button } from '@/components/Button/Button';
+import { Select } from './SingleSelect';
+import { selectOptions } from './selectOptions';
+import { Container } from '@/components/Container';
+import { Text, Title } from '@/components/Typography';
+import { Panel } from '@/components/Panel';
+import { Button } from '@/components/Button';
 import { ReactElement } from 'react';
 
 const meta: Meta<typeof Select> = {
@@ -78,6 +77,35 @@ export const OptionsAsChildren: StoryObj<typeof Select> = {
       />
     </Select>
   ),
+};
+
+export const CustomTriggerProps: StoryObj<typeof Select> = {
+  argTypes: {
+    triggerProps: {
+      control: 'object',
+    },
+  },
+  args: {
+    label: 'Custom Cloud provider',
+    triggerProps: {
+      className: 'custom-trigger',
+      style: {
+        border: '2px dashed #00f',
+        borderRadius: '8px',
+        maxWidth: '200px',
+      },
+      onFocus: () => console.log('🤖 Trigger focused!'),
+      onMouseEnter: () => console.log('👀 Mouse entered trigger!'),
+    },
+  },
+  render: props => (
+    <Select {...props}>
+      <Select.Item value="aws">AWS</Select.Item>
+      <Select.Item value="gcp">GCP</Select.Item>
+      <Select.Item value="azure">Azure</Select.Item>
+    </Select>
+  ),
+  tags: ['form-field', 'select', 'autodocs'],
 };
 
 export const OptionsAsProp: StoryObj<typeof Select> = {

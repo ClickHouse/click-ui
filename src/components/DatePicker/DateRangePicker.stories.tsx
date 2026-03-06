@@ -42,6 +42,36 @@ export const Default: Story = {
   },
 };
 
+export const DateRangePickerLeftSide: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(-6);
+
+    return (
+      <div style={{ alignItems: 'end', float: 'right' }}>
+        <DateRangePicker
+          key="default"
+          endDate={endDate}
+          disabled={args.disabled}
+          futureDatesDisabled={args.futureDatesDisabled}
+          futureStartDatesDisabled={args.futureStartDatesDisabled}
+          maxRangeLength={args.maxRangeLength}
+          onSelectDateRange={args.onSelectDateRange}
+          openDirection="left"
+          placeholder={args.placeholder}
+          predefinedDatesList={predefinedDatesList}
+          startDate={startDate}
+        />
+      </div>
+    );
+  },
+};
+
 export const DateRangeWithMaxRange: Story = {
   args: {
     maxRangeLength: 15,

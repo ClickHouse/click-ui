@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { GridCenter } from '../commonElement';
+import { GridCenter } from '@/components/Common';
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
-} from '@/components/ConfirmationDialog/ConfirmationDialog';
+} from '@/components/ConfirmationDialog';
 
 const ConfirmationDialogExample = ({
   disabled,

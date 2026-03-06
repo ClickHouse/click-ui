@@ -2,22 +2,18 @@ import {
   createContext,
   useState,
   HTMLAttributes,
-  MouseEvent,
   useContext,
   useEffect,
   forwardRef,
 } from 'react';
 import { styled } from 'styled-components';
-import { Icon } from '@/components/Icon/Icon';
-import type { HorizontalDirection } from '@/components/types';
-import type { IconName } from '@/components/Icon/types';
-import { EmptyButton } from '../commonElement';
-import { IconWrapper } from './IconWrapper';
 
-export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
-  open?: boolean;
-  onOpenChange?: (value: boolean) => void;
-}
+import { Icon, type IconName } from '@/components/Icon';
+import type { HorizontalDirection } from '@/types';
+import { EmptyButton } from '@/components/Common';
+
+import { IconWrapper } from './IconWrapper';
+import { CollapsibleProps } from './Collapsible.types';
 
 type ContextProps = {
   open: boolean;
@@ -157,7 +153,7 @@ const CollapsipleTrigger = ({
   ...props
 }: CollapsipleTriggerProps) => {
   const { open, onOpenChange } = useContext(NavContext);
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (onClickProp) {

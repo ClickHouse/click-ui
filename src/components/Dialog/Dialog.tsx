@@ -1,11 +1,10 @@
-import { ReactNode } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { keyframes, styled } from 'styled-components';
-import { Button } from '@/components/Button/Button';
-import { Icon } from '@/components/Icon/Icon';
-import { Spacer } from '@/components/Spacer/Spacer';
-import { CrossButton } from '../commonElement';
-import { ButtonProps } from '@/components/Button/Button';
+import { Button, ButtonProps } from '@/components/Button';
+import { Icon } from '@/components/Icon';
+import { Spacer } from '@/components/Spacer';
+import { CrossButton } from '@/components/Common';
+import { DialogContentProps } from './Dialog.types';
 
 export const Dialog = ({ children, ...props }: RadixDialog.DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
@@ -123,25 +122,6 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
     </CrossButton>
   </RadixDialog.Close>
 );
-
-export interface DialogContentProps extends RadixDialog.DialogContentProps {
-  /** The title text displayed in the dialog header */
-  title?: string;
-  /** Whether to show the close button */
-  showClose?: boolean;
-  /** Whether to force mount the dialog */
-  forceMount?: true;
-  /** Container element to portal the dialog into */
-  container?: HTMLElement | null;
-  /** The content to display in the dialog */
-  children: ReactNode;
-  /** Callback when the dialog is closed */
-  onClose?: () => void;
-  /** Whether to show the overlay backdrop */
-  showOverlay?: boolean;
-  /** Whether to use reduced padding */
-  reducePadding?: boolean;
-}
 
 const DialogContent = ({
   title,

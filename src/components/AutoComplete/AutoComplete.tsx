@@ -15,23 +15,20 @@ import {
   useState,
 } from 'react';
 import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
-import { HorizontalDirection } from '@/components/types';
-
-import { SearchField } from '@/components/Input/SearchField';
-
-import { Separator } from '@/components/Separator/Separator';
-
-import { Icon } from '@/components/Icon/Icon';
-import type { ImageName } from '@/components/Icon/types';
-
 import { styled } from 'styled-components';
-import { GenericMenuItem } from '../GenericMenu';
-import { useOption, useSearch } from './useOption';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
-import { OptionContext } from './OptionContext';
-import { mergeRefs } from '@/utils/mergeRefs';
+
+import { HorizontalDirection } from '@/types';
+import { SearchField } from '@/components/Input';
+import { Separator } from '@/components/Separator';
+import { Icon, type ImageName } from '@/components/Icon';
+import { GenericMenuItem } from '@/components/GenericMenu';
+import { IconWrapper } from '@/components/IconWrapper';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
+import { mergeRefs } from '@/utils/mergeRefs';
+
 import AutoCompleteOptionList from './AutoCompleteOptionList';
+import { useOption, useSearch } from './useOption';
+import { OptionContext } from './OptionContext';
 
 type DivProps = HTMLAttributes<HTMLDivElement>;
 interface SelectItemComponentProps extends Omit<
@@ -70,7 +67,7 @@ export interface SelectOptionItem extends Omit<SelectItemProps, 'children' | 'la
 }
 
 interface SelectGroupOptionItem extends Omit<SelectGroupProps, 'children' | 'label'> {
-  options: Array<SelectOptionItem>;
+  options: SelectOptionItem[];
   label?: never;
   [key: `data-${string}`]: string;
 }
@@ -80,7 +77,7 @@ export type AutoCompleteOptionListItem = SelectGroupOptionItem | SelectOptionIte
 export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
 type SelectOptionType = {
-  options: Array<AutoCompleteOptionListItem>;
+  options: AutoCompleteOptionListItem[];
   children?: never;
 };
 
@@ -193,7 +190,7 @@ const childrenToComboboxItemArray = (
   children: ReactNode,
   callback: (props: CallbackProps) => void,
   heading?: string
-): Array<SelectItemObject> => {
+): SelectItemObject[] => {
   return Children.toArray(children).flatMap(child => {
     if (isValidElement(child) && child && typeof child === 'object') {
       const type = child.type as FunctionComponent;
@@ -276,10 +273,10 @@ export const AutoComplete = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [highlighted, setHighlighted] = useState<string | undefined>();
-  const visibleList = useRef<Array<string>>([]);
-  const navigatable = useRef<Array<string>>([]);
+  const visibleList = useRef<string[]>([]);
+  const navigatable = useRef<string[]>([]);
   const valueNode = useRef<Map<string, SelectItemProps>>(new Map());
-  const [list, setList] = useState<Array<SelectItemObject>>([]);
+  const [list, setList] = useState<SelectItemObject[]>([]);
   const updateElements = useCallback(
     ({ disabled, value, title, heading, nodeProps }: CallbackProps) => {
       if (title.includes(search) || heading?.includes(search)) {
@@ -322,8 +319,8 @@ export const AutoComplete = ({
     (search: string) => {
       setSearch(search);
       let hasHighlightedValue = false;
-      const visibleItemsList: Array<string> = [];
-      const navigatableList: Array<string> = [];
+      const visibleItemsList: string[] = [];
+      const navigatableList: string[] = [];
       const searchLowerCase = search.toLowerCase();
       list.forEach(item => {
         if (
@@ -349,7 +346,7 @@ export const AutoComplete = ({
   );
 
   const updateList = useCallback(
-    (children?: ReactNode, options?: Array<AutoCompleteOptionListItem>) => {
+    (children?: ReactNode, options?: AutoCompleteOptionListItem[]) => {
       const lowerCasedSearch = search.toLowerCase();
       if (options) {
         setList(

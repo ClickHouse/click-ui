@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { Accordion } from './Accordion';
+import { Accordion } from '@/components/Accordion';
 import { renderCUI } from '@/utils/test-utils';
 
 interface RenderAccordionProps {

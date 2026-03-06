@@ -1,11 +1,12 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-import { Dropdown } from './Dropdown';
-import { GridCenter } from '../commonElement';
-import { Button } from '..';
+import { Dropdown } from '@/components/Dropdown';
+import { GridCenter } from '@/components/Common';
+import { Button } from '@/components/Button';
 import { Key } from 'react';
-import type { DropdownItemProps } from './Dropdown';
+
+import type { DropdownItemProps } from '@/components/Dropdown/Dropdown';
 
 interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;

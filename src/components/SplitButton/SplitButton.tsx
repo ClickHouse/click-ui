@@ -1,56 +1,10 @@
-import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-import { Dropdown } from '@/components/Dropdown/Dropdown';
-import { HorizontalDirection } from '@/components/types';
-import { BaseButton } from '../commonElement';
-import { IconWrapper } from '../IconWrapper/IconWrapper';
-
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
-
-type ButtonType = 'primary' | 'secondary';
-
-type MenuItem = {
-  icon?: IconName;
-  iconDir?: HorizontalDirection;
-  label: ReactNode;
-  type?: 'item';
-  items?: never;
-} & Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>;
-
-type MenuGroup = {
-  icon?: never;
-  iconDir?: never;
-  label?: never;
-  type: 'group';
-  items: Array<MenuItem | SubMenu>;
-};
-
-type SubMenu = Omit<MenuItem, 'type' | 'items'> & {
-  items: Array<MenuGroup | MenuItem>;
-  type: 'sub-menu';
-};
-
-export type Menu = SubMenu | MenuGroup | MenuItem;
-
-export interface SplitButtonProps
-  extends DropdownMenuProps, Omit<HTMLAttributes<HTMLButtonElement>, 'dir' | 'style'> {
-  /** The visual style variant of the button */
-  type?: ButtonType;
-  /** Whether the button is disabled */
-  disabled?: boolean;
-  /** Whether the button should fill the full width of its container */
-  fillWidth?: boolean;
-  /** The menu items to display in the dropdown */
-  menu: Array<Menu>;
-  /** Which side of the button to show the dropdown */
-  side?: 'top' | 'bottom';
-  /** Optional icon to display in the main button */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-}
+import { Dropdown } from '@/components/Dropdown';
+import { BaseButton } from '@/components/Common';
+import { IconWrapper } from '@/components/IconWrapper';
+import { Icon } from '@/components/Icon';
+import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
 
 export const SplitButton = ({
   type = 'primary',

@@ -1,9 +1,8 @@
-import { HTMLAttributes, ReactNode, createContext, useContext } from 'react';
+import { createContext, useContext, HTMLAttributes, ReactNode } from 'react';
 import { styled } from 'styled-components';
-import { Icon } from '@/components/Icon/Icon';
+import { Icon } from '@/components/Icon';
+import { VerticalStepperProps, StepperType, StepStatus } from './VerticalStepper.types';
 
-type StepperType = 'numbered' | 'bulleted';
-type StepStatus = 'active' | 'complete' | 'incomplete';
 type ContextProps = {
   type: StepperType;
 };
@@ -11,11 +10,6 @@ type ContextProps = {
 const StepperContext = createContext<ContextProps>({
   type: 'numbered',
 });
-
-export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
-  /** The type of stepper - numbered shows step numbers, bulleted shows dots */
-  type?: StepperType;
-}
 
 const StepRoot = styled.div`
   display: flex;
@@ -25,7 +19,7 @@ const StepRoot = styled.div`
   width: 100%;
 `;
 
-const VerticalStepper = ({
+export const VerticalStepper = ({
   children,
   type = 'numbered',
   ...props
@@ -224,5 +218,3 @@ const VerticalStep = ({
 };
 VerticalStep.displayName = 'VerticalStepper.Step';
 VerticalStepper.Step = VerticalStep;
-
-export default VerticalStepper;

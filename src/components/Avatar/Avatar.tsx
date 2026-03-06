@@ -1,25 +1,14 @@
-import {
-  AvatarProps as RadixAvatarProps,
-  Fallback,
-  Image,
-  Root,
-} from '@radix-ui/react-avatar';
+import { Fallback, Image, Root } from '@radix-ui/react-avatar';
 import { styled } from 'styled-components';
+import { AvatarProps, TextSize } from './Avatar.types';
 
-type TextSize = 'md' | 'sm';
-
-export interface AvatarProps extends RadixAvatarProps {
-  /** The text to display as initials in the avatar fallback */
-  text: string;
-  /** The font size of the text */
-  textSize?: TextSize;
-  /** The image source URL */
-  src?: string;
-  /** The image srcSet for responsive images */
-  srcSet?: string;
-}
-
-const Avatar = ({ text, textSize = 'sm', src, srcSet, ...delegated }: AvatarProps) => (
+export const Avatar = ({
+  text,
+  textSize = 'sm',
+  src,
+  srcSet,
+  ...delegated
+}: AvatarProps) => (
   <StyledRoot {...delegated}>
     <AvatarImage
       src={src}
@@ -88,5 +77,3 @@ const StyledFallback = styled(Fallback)<{ $textSize: TextSize }>`
       }
   `}
 `;
-
-export { Avatar };

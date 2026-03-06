@@ -1,4 +1,4 @@
-import { Alert, AlertProps } from './Alert';
+import { Alert, AlertProps } from '@/components/Alert';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';

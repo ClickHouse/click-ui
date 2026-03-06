@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-
 import { FileUploadArea } from './FileUploadArea';
 import { FileUploadItem } from './FileUploadItem';
 import { useDragAndDrop } from './useDragAndDrop';
@@ -10,6 +9,7 @@ interface FileInfo {
 }
 
 export interface FileUploadProps {
+  /** The title text displayed in the upload area */
   title: string;
   supportedFileTypes?: string[];
   size?: 'sm' | 'md';
