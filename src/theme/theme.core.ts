@@ -2,7 +2,7 @@ import darkTheme from './tokens/variables.dark';
 import lightTheme from './tokens/variables.light';
 import type { Theme, ThemeName } from './theme.types';
 
-export const THEMES: Record<'Dark' | 'Light', ThemeName> = {
+export const THEMES: Record<Capitalize<ThemeName>, ThemeName> = {
   Dark: 'dark',
   Light: 'light',
 };
