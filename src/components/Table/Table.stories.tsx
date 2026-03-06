@@ -504,8 +504,35 @@ export const ResizableColumns: StoryObj<typeof Table> = {
 
 export const Responsive: StoryObj<typeof Table> = {
   args: {
-    headers,
-    rows,
+    headers: [
+      { label: 'File', width: '200px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+      { label: 'Size', width: '100px' },
+      { label: 'Status', width: '120px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+          { label: '1.2 GB' },
+          { label: 'Completed' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+          { label: '856 MB' },
+          { label: 'In Progress' },
+        ],
+      },
+    ],
     isResponsive: true,
   },
   parameters: {
@@ -515,5 +542,19 @@ export const Responsive: StoryObj<typeof Table> = {
           'When `isResponsive` is set to `true`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view.',
       },
     },
+  },
+  render: ({ rows, headers, isResponsive, ...props }) => {
+    const maxWidth = isResponsive ? 'none' : '400px';
+
+    return (
+      <div style={{ maxWidth, overflow: 'auto' }}>
+        <Table
+          {...props}
+          headers={headers}
+          rows={rows}
+          isResponsive={isResponsive}
+        />
+      </div>
+    );
   },
 };
