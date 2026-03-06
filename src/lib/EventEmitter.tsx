@@ -8,7 +8,7 @@ export interface Disposable {
 
 /** passes through events as they happen. You will not get events from before you start listening */
 export class EventEmitter<T> {
-  private listeners: Array<Listener<T>> = [];
+  private listeners: Listener<T>[] = [];
 
   on = (listener: Listener<T>): Disposable => {
     this.listeners.push(listener);

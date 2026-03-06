@@ -33,7 +33,7 @@ export interface ToastProps extends Omit<RadixUIToast.ToastProps, 'type'> {
   /** Time in milliseconds the toast will be visible */
   duration?: number;
   /** Action buttons to display in the toast */
-  actions?: Array<ButtonProps & { altText: string }>;
+  actions?: (ButtonProps & { altText: string })[];
   /** Horizontal alignment of the toast - start or end */
   align?: ToastAlignment;
 }

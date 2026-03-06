@@ -1,0 +1,7 @@
+#!/bin/bash
+
+INPUT="${1:-N/A}"
+
+INPUT=$(echo "$INPUT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g')
+
+echo "$INPUT"

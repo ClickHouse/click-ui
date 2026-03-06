@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  KeyboardEvent,
   MouseEvent,
   SetStateAction,
   useCallback,
@@ -198,7 +199,7 @@ const monthFormatter = new Intl.DateTimeFormat(locale, {
 
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedDatesList: Array<DateRange>;
+  predefinedDatesList: DateRange[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -289,7 +290,7 @@ export interface DateRangePickerProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedDatesList?: Array<DateRange>;
+  predefinedDatesList?: DateRange[];
   maxRangeLength?: number;
   startDate?: Date;
   responsivePositioning?: boolean;
@@ -402,6 +403,13 @@ export const DateRangePicker = ({
     [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
+  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setIsOpen(true);
+    }
+  }, []);
+
   const shouldShowPredefinedDates =
     predefinedDatesList !== undefined && predefinedDatesList.length > 0;
 
@@ -410,7 +418,10 @@ export const DateRangePicker = ({
       onOpenChange={handleOpenChange}
       open={isOpen}
     >
-      <Dropdown.Trigger disabled={disabled}>
+      <Dropdown.Trigger
+        disabled={disabled}
+        onKeyDown={onTriggerKeyDown}
+      >
         <DateRangePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}

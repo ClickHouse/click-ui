@@ -251,7 +251,7 @@ const Calendar = ({
 
 interface PredefinedTimesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedTimesList: Array<DateRangeListItem>;
+  predefinedTimesList: DateRangeListItem[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -707,7 +707,7 @@ export interface DateTimePickerProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedTimesList?: Array<DateRangeListItem>;
+  predefinedTimesList?: DateRangeListItem[];
   maxRangeLength?: number;
   shouldShowSeconds?: boolean;
   startDate?: Date;
@@ -806,6 +806,13 @@ export const DateTimePicker = ({
     [onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
+  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setIsOpen(true);
+    }
+  }, []);
+
   const shouldShowPredefinedTimes =
     predefinedTimesList !== undefined && predefinedTimesList.length > 0;
 
@@ -814,7 +821,10 @@ export const DateTimePicker = ({
       onOpenChange={handleOpenChange}
       open={isOpen}
     >
-      <Dropdown.Trigger disabled={disabled}>
+      <Dropdown.Trigger
+        disabled={disabled}
+        onKeyDown={onTriggerKeyDown}
+      >
         <DateTimePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}

@@ -97,7 +97,7 @@ export const CheckboxMultiSelectVariants: StoryObj<typeof CheckboxMultiSelect> =
 
     const label = `Selected (${selectedCount})`;
 
-    const handleSelect = (selectedVariants: Array<string>) => {
+    const handleSelect = (selectedVariants: string[]) => {
       setSetlectedCount(selectedVariants.length);
     };
 
