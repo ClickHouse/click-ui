@@ -40,4 +40,4 @@ import { Link } from '@clickhouse/click-ui';
 to="/path">text</Link>
 ```
 
-**Note:** These deprecated APIs will be removed in a future minor release. Please migrate before then to avoid breaking changes.
+**Note:** These deprecated APIs will be removed in a future major release. Please migrate before then to avoid breaking changes.

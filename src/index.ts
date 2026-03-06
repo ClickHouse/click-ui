@@ -154,6 +154,7 @@ export type { ImageName as IconName } from './components/Icon/Icon.types';
 export { Label } from './components/Label';
 export { Link } from './components/Link';
 export type { LabelProps } from './components/Label';
+export type { LinkProps } from './components/Link';
 
 // Multi Accordion
 export { MultiAccordion } from './components/MultiAccordion';
