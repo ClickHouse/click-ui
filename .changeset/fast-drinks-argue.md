@@ -32,3 +32,7 @@ import { CrossButton } from '@clickhouse/click-ui';
 // or for internal use:
 import { CrossButton } from '@/components/Common';
 ```
+
+**Bug fix:**
+
+Fixed a broken type export in `src/components/Common/index.ts` that was referencing a deleted file (`Common.types.ts`). The `TextSize`, `TextWeight`, and `CursorOptions` types are now correctly exported from their respective source files (`Typography` and `Panel`).
