@@ -355,7 +355,7 @@ After, you must run the `generate:exports` to update the component-level exports
 > This script requires a prior build step, as it reads from `dist/esm/components/` (the compiled output). When executing generate:exports the build step is executed for you.
 
 ```sh
-yarn build && yarn generate:exports
+yarn generate:exports
 ```
 
 Once complete, commit your changes.
