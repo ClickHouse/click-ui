@@ -18,7 +18,7 @@ import { Icon } from '@/components/Icon';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
 import { styled } from 'styled-components';
-import { CrossButton } from '@/components/Common';
+import { CrossButton } from '@/components/CrossButton';
 import { keyframes } from 'styled-components';
 import type {
   FlyoutProps,
