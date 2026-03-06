@@ -3,7 +3,6 @@ import { HTMLAttributes, ReactNode, useId } from 'react';
 import { styled } from 'styled-components';
 import { GenericLabel } from '@/components/GenericLabel';
 import { Label } from '@/components/Label';
-// TODO: Improve api for Common components, types, etc
 import { Error, FormElementContainer, FormRoot } from '@/components/Common';
 
 export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, 'dir'> {

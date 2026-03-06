@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Checkbox } from '../Checkbox';
-import { Spacer } from '../Spacer';
-import { Text } from '../Typography/Text/Text';
-import { Title } from '../Typography/Title/Title';
+import { Checkbox } from '@/components/Checkbox';
+import { Spacer } from '@/components/Spacer';
+import { Text } from '@/components/Typography/Text';
+import { Title } from '@/components/Typography/Title';
 import { HoverCard } from '@/components/HoverCard';
 
 interface HoverCardExampleProps {

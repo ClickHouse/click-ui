@@ -5,7 +5,7 @@ import {
   useCallback,
   useRef,
 } from 'react';
-import { Container, ContainerProps } from '@/components/Container';
+import { Container, type ContainerProps } from '@/components/Container';
 import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/Input';
 import { Select } from '@/components/Select';

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, Checkbox } from '..';
-import { GridCenter } from '../Common';
+import { Button } from '@/components/Button';
+import { Checkbox } from '@/components/Checkbox';
+import { GridCenter } from '@/components/Common';
 import { Text, Title } from '@/components/Typography';
 import { Popover } from '@/components/Popover';
 

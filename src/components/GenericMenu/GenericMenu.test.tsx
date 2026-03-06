@@ -6,7 +6,7 @@ import {
   GenericPopoverMenuPanel,
   GenericMenuItem,
 } from './GenericMenu';
-import { themes } from '@/theme';
+import { themes } from '@/theme/theme.core';
 
 const renderWithTheme = (component: React.ReactNode) => {
   return render(<ThemeProvider theme={themes.dark}>{component}</ThemeProvider>);

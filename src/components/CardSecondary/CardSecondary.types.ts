@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import type { IconName } from '@/components/Icon';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
+import type { IconName } from '@/components/Icon/Icon.types';
 
 export type BadgeState =
   | 'default'
@@ -23,5 +23,5 @@ export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   infoUrl?: string;
   infoText?: string;
   infoIcon?: IconName;
-  infoIconSize?: IconSize;
+  infoAssetSize?: AssetSize;
 }

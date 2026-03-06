@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { type ThemeName, THEMES } from '@/theme';
+import { THEMES } from '@/theme/theme.core';
+import type { ThemeName } from '@/theme/theme.types';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { THEME_ATTRIBUTE, getRootElement } from '@/utils/dom';
 

@@ -19,7 +19,6 @@ import { Icon } from '@/components/Icon';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
 import { styled } from 'styled-components';
-// TODO: Improve api for Common components, types, etc
 import { CrossButton } from '@/components/Common';
 import { keyframes } from 'styled-components';
 import type {
