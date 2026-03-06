@@ -39,43 +39,52 @@ const extractComponentNames = (filePath) => {
   return Array.from(componentNames).sort();
 };
 
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+try {
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-const exports = {
-  '.': {
-    types: './dist/types/index.d.ts',
-    import: './dist/esm/index.js',
-    require: './dist/cjs/index.cjs',
-  },
-};
-
-const componentsDir = path.join(rootDir, 'src/components');
-const candidateComponents = extractComponentNames(indexPath);
-
-const components = candidateComponents.filter(component => {
-  const indexFile = path.join(componentsDir, component, 'index.ts');
-  return fs.existsSync(indexFile);
-});
-
-const skipped = candidateComponents.filter(c => !components.includes(c));
-
-for (const component of components) {
-  exports[`./${component}`] = {
-    types: `./dist/types/components/${component}/index.d.ts`,
-    import: `./dist/esm/components/${component}/index.js`,
-    require: `./dist/cjs/components/${component}/index.cjs`,
+  const exports = {
+    '.': {
+      types: './dist/types/index.d.ts',
+      import: './dist/esm/index.js',
+      require: './dist/cjs/index.cjs',
+    },
   };
-}
 
-packageJson.exports = exports;
+  const componentsDir = path.join(rootDir, 'src/components');
+  const candidateComponents = extractComponentNames(indexPath);
 
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+  const components = candidateComponents.filter(component => {
+    const indexFile = path.join(componentsDir, component, 'index.ts');
+    return fs.existsSync(indexFile);
+  });
 
-console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
+  const skipped = candidateComponents.filter(c => !components.includes(c));
 
-components.forEach(name => console.log(`✔ ${name}`));
+  for (const component of components) {
+    exports[`./${component}`] = {
+      types: `./dist/types/components/${component}/index.d.ts`,
+      import: `./dist/esm/components/${component}/index.js`,
+      require: `./dist/cjs/components/${component}/index.cjs`,
+    };
+  }
 
-if (skipped.length > 0) {
-  console.log(`\n⚠ Skipped ${skipped.length} paths (no index.ts barrel export):\n`);
-  skipped.forEach(name => console.log(`  - ${name}`));
+  packageJson.exports = exports;
+
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+
+  console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
+
+  components.forEach(name => console.log(`✔ ${name}`));
+
+  if (skipped.length > 0) {
+    console.log(`\n⚠ Skipped ${skipped.length} paths (no index.ts barrel export):\n`);
+    skipped.forEach(name => console.log(`  - ${name}`));
+  }
+
+  process.exit(0);
+} catch (err) {
+  console.error('\n👹 Oops! Failed to generate exports:\n');
+
+  console.error(err.message);
+  process.exit(1);
 }
