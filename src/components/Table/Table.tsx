@@ -383,7 +383,7 @@ const TableData = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  [data-responsive-mode="list"] & {
+  [data-responsive-mode='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       min-width: 40%;
@@ -423,7 +423,7 @@ const MobileHeader = styled.div`
     color: ${theme.click.table.row.color.label.default};
     font:  ${theme.click.table.cell.label.default};
   `}
-  [data-responsive-mode="list"] & {
+  [data-responsive-mode='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: block;
     }
@@ -446,7 +446,7 @@ const SelectData = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  [data-responsive-mode="list"] & {
+  [data-responsive-mode='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       align-self: stretch;
@@ -468,7 +468,7 @@ const ActionsList = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  [data-responsive-mode="list"] & {
+  [data-responsive-mode='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       align-self: stretch;
