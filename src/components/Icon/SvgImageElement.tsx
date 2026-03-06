@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
-import type { IconSize } from '@/types';
+import type { AssetSize } from '@/types';
 
 export const SvgImageElement = styled.svg<{
-  $size?: IconSize;
+  $size?: AssetSize;
 }>`
   display: flex;
   align-items: center;

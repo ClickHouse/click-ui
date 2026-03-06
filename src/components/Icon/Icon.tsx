@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
+import type { AssetSize } from '@/types';
 import { IconName, IconProps, IconState, ImageType } from './Icon.types';
-import { IconSize } from '@/types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Flag } from '@/components/Assets/Flags/system/Flag';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
@@ -46,7 +46,7 @@ const SvgWrapper = styled.div<{
   $color?: string;
   $width?: number | string;
   $height?: number | string;
-  $size?: IconSize;
+  $size?: AssetSize;
   state?: IconState;
 }>`
   display: flex;

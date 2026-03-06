@@ -1,5 +1,5 @@
 import { FocusEventHandler, MouseEventHandler } from 'react';
-import { ContainerProps } from '@/components/Container';
+import type { ContainerProps } from '@/components/Container';
 
 export interface PaginationProps extends Omit<
   ContainerProps<'div'>,

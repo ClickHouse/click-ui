@@ -1,6 +1,7 @@
 import { THEME_ATTRIBUTE } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
-import { ThemeName, THEMES } from '@/theme/core';
+import { THEMES } from '@/theme/theme.core';
+import type { ThemeName } from '@/theme/theme.types';
 
 export interface InitCUIThemeScriptProps {
   defaultTheme?: ThemeName;

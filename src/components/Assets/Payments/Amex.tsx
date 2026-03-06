@@ -1,4 +1,4 @@
-import { SVGAssetProps } from './system/types';
+import type { SVGAssetProps } from '@/types';
 
 const Amex = (props: SVGAssetProps) => (
   <svg

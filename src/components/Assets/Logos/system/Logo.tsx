@@ -1,11 +1,10 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { getFallbackThemeName } from '@/utils/theme';
-import { LogoProps } from './types';
+import { getFallbackThemeName } from '@/theme/theme.utils';
+import { SvgImageElement } from '@/components/Icon/SvgImageElement';
+import { LogoName, LogoProps } from './types';
 import LogosDark from './LogosDark';
 import LogosLight from './LogosLight';
-import { LogoName } from './types';
-import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 
 // TODO: This is introducing complexity and more to maintain
 // might be best to just deprecate (break change) instead of

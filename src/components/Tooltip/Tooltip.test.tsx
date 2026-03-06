@@ -1,5 +1,5 @@
 import { TooltipProps } from '@/components/Tooltip';
-import { Tooltip } from '..';
+import { Tooltip } from './Tooltip';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';

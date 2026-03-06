@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Text } from '..';
+import { Text } from '@/components/Typography/Text';
 import { VerticalStepper } from '@/components/VerticalStepper';
 
 const meta: Meta<typeof VerticalStepper> = {

@@ -1,5 +1,5 @@
 import { useTheme } from 'styled-components';
-import { CodeThemeType } from '@/components/CodeBlock';
+import { CodeThemeType } from './CodeBlock.types';
 
 const useColorStyle = (defaultTheme?: CodeThemeType) => {
   const theme = useTheme();

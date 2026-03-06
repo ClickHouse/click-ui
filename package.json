@@ -157,6 +157,11 @@
       "import": "./dist/esm/components/GenericLabel/index.js",
       "require": "./dist/cjs/components/GenericLabel/index.cjs"
     },
+    "./GenericMenu": {
+      "types": "./dist/types/components/GenericMenu/index.d.ts",
+      "import": "./dist/esm/components/GenericMenu/index.js",
+      "require": "./dist/cjs/components/GenericMenu/index.cjs"
+    },
     "./Grid": {
       "types": "./dist/types/components/Grid/index.d.ts",
       "import": "./dist/esm/components/Grid/index.js",
@@ -325,6 +330,7 @@
     "dev": "yarn storybook",
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
+    "generate:exports": "yarn build && .scripts/generate-exports",
     "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",

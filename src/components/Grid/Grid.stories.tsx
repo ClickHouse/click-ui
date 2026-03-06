@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { CellProps, GridContextMenuItemProps, SelectedRegion, SelectionFocus } from '..';
+import {
+  CellProps,
+  GridContextMenuItemProps,
+  SelectedRegion,
+  SelectionFocus,
+} from './types';
 import { Grid as CUIGrid } from '@/components/Grid';
 
 const Cell: CellProps = ({

@@ -10,7 +10,7 @@ import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon/Icon.types';
 import { styled } from 'styled-components';
 import { linkStyles } from './common';
-import { TextSize, TextWeight } from '@/components/Common';
+import type { TextSize, TextWeight } from '@/components/Typography';
 
 export interface LinkProps<T extends ElementType = 'a'> {
   /** The font size of the link text */

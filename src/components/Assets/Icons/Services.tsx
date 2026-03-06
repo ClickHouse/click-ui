@@ -1,4 +1,4 @@
-import { SVGAssetProps } from './system/types';
+import type { SVGAssetProps } from '@/types';
 
 const Services = (props: SVGAssetProps) => (
   <svg
