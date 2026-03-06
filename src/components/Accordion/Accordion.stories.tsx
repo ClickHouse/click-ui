@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { Panel } from '..';
+import { Panel } from '@/components/Panel';
 import { Accordion } from '@/components/Accordion';
-import { Spacer } from '../Spacer';
-import { Text } from '../Typography/Text/Text';
-import { Title } from '../Typography/Title/Title';
+import { Spacer } from '@/components/Spacer';
+import { Text } from '@/components/Typography/Text';
+import { Title } from '@/components/Typography/Title';
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,

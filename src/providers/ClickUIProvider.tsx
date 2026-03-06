@@ -2,13 +2,14 @@ import {
   Provider as TooltipProvider,
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
-import { ToastProvider, ToastProviderProps } from '@/components/Toast';
-import { ThemeName, THEMES } from '@/theme/theme.types';
-import { ThemeProvider } from '@/theme/theme';
+import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
+import { THEMES } from '@/theme/theme.core';
+import type { ThemeName } from '@/theme/theme.types';
+import { ThemeProvider } from './ThemeProvider';
 import { ReactNode, useEffect } from 'react';
 import { setRootThemeAttribute, removeRootThemeAttribute } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
-import { isValidThemeName, getFallbackThemeName } from '@/utils/theme';
+import { isValidThemeName, getFallbackThemeName } from '@/theme/theme.utils';
 
 interface Props {
   config?: {
@@ -21,7 +22,7 @@ interface Props {
   storageKey?: string;
 }
 
-const ClickUIProvider = ({
+export const ClickUIProvider = ({
   children,
   theme,
   config = {},
@@ -68,5 +69,3 @@ const ClickUIProvider = ({
     </ThemeProvider>
   );
 };
-
-export default ClickUIProvider;

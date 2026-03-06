@@ -1,6 +1,6 @@
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
 import { ReactNode } from 'react';
-import { Arrow, GenericPopoverMenuPanel } from '../GenericMenu';
+import { Arrow, GenericPopoverMenuPanel } from '@/components/GenericMenu';
 import { styled } from 'styled-components';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 

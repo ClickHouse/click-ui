@@ -1,7 +1,6 @@
 import { Icon } from '@/components/Icon';
-
 import { styled, keyframes } from 'styled-components';
-import { BaseButton } from '@/components/Common';
+import { BaseButton } from './BaseButton';
 import { Alignment, ButtonProps, ButtonType } from './Button.types';
 
 export const Button = ({
@@ -175,7 +174,12 @@ const StyledButton = styled(BaseButton)<{
   }}
 `;
 
-const ButtonIcon = styled(Icon)`
+// Lazy wrapper to avoid circular dependency issues at module load time
+const ButtonIconWrapper = (props: React.ComponentProps<typeof Icon>) => (
+  <Icon {...props} />
+);
+
+const ButtonIcon = styled(ButtonIconWrapper)`
   height: ${({ theme }) => theme.click.button.basic.size.icon.all};
   width: ${({ theme }) => theme.click.button.basic.size.icon.all};
   svg {

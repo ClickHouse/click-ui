@@ -6,4 +6,5 @@ export { GridCenter } from './GridCenter';
 export { BaseButton } from './BaseButton';
 export { FormElementContainer } from './FormElementContainer';
 export { EllipsisContainer } from './EllipsisContainer';
-export type { TextSize, TextWeight, CursorOptions } from './Common.types';
+export type { TextSize, TextWeight } from '@/components/Typography';
+export type { CursorOptions } from '@/components/Panel/Panel.types';

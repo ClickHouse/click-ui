@@ -1,4 +1,4 @@
-import { Icon, IconName } from '@/components/Icon';
+import { Icon, type IconName } from '@/components/Icon';
 import { useState, useCallback } from 'react';
 import { styled } from 'styled-components';
 import { AlertProps } from './Alert.types';
