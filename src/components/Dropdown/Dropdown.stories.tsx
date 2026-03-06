@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import { Dropdown } from '@/components/Dropdown';
-import { GridCenter } from '@/components/GridCenter';
+import { GridCenter } from '@/components/Common';
 import { Button } from '@/components/Button';
 import { Key } from 'react';
 

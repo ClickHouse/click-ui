@@ -3,9 +3,7 @@ import { HTMLAttributes, ReactNode, useId } from 'react';
 import { styled } from 'styled-components';
 import { GenericLabel } from '@/components/GenericLabel';
 import { Label } from '@/components/Label';
-import { Error } from '@/components/FormContainer/Error';
-import { FormElementContainer } from '@/components/FormContainer/FormElementContainer';
-import { FormRoot } from '@/components/FormContainer/FormRoot';
+import { Error, FormElementContainer, FormRoot } from '@/components/Common';
 
 export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, 'dir'> {
   /** Whether to display radio items inline (horizontally) */
