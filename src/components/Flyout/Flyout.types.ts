@@ -1,33 +1,33 @@
-import {
-  DialogProps,
-  DialogContentProps as RadixDialogContentProps,
-} from '@radix-ui/react-dialog';
+import { HTMLAttributes, ReactNode } from 'react';
 import type { ContainerProps } from '@/components/Container';
+import type { DialogProps } from '@/components/Dialog';
 
 export type FlyoutProps = DialogProps;
 
-export type FlyoutSizeType = 'default' | 'narrow' | 'wide' | 'widest';
-export type Strategy = 'relative' | 'absolute' | 'fixed';
-export type FlyoutType = 'default' | 'inline';
-export type DialogContentAlignmentType = 'start' | 'end';
+export interface FlyoutTriggerProps extends HTMLAttributes<HTMLDivElement> {
+  /** The content of the trigger */
+  children: ReactNode;
+}
 
-export interface DialogContentProps extends RadixDialogContentProps {
-  /** Container element to portal the flyout into */
+export type FlyoutSizeType = 'default' | 'narrow' | 'wide' | 'widest';
+export type FlyoutStrategy = 'relative' | 'absolute' | 'fixed';
+export type FlyoutType = 'default' | 'inline';
+export type FlyoutAlignmentType = 'start' | 'end';
+
+export interface FlyoutContentProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
   container?: HTMLElement | null;
-  /** Whether to show the overlay backdrop */
   showOverlay?: boolean;
-  /** The size variant of the flyout */
   size?: FlyoutSizeType;
-  /** The type of flyout styling */
   type?: FlyoutType;
-  /** CSS position strategy */
-  strategy?: Strategy;
-  /** Whether clicking outside closes the flyout */
+  strategy?: FlyoutStrategy;
   closeOnInteractOutside?: boolean;
-  /** Custom width for the flyout */
   width?: string;
-  /** Alignment of the flyout (start = left, end = right) */
-  align?: DialogContentAlignmentType;
+  align?: FlyoutAlignmentType;
+  onInteractOutside?: (event: CustomEvent) => void;
+  onEscapeKeyDown?: (event: KeyboardEvent) => void;
+  onPointerDownOutside?: (event: CustomEvent) => void;
+  onFocusOutside?: (event: CustomEvent) => void;
 }
 
 interface TitleHeaderProps extends Omit<
