@@ -2,10 +2,10 @@ import darkTheme from './tokens/variables.dark';
 import lightTheme from './tokens/variables.light';
 import type { Theme, ThemeName } from './theme.types';
 
-export const THEMES = {
+export const THEMES: Record<'Dark' | 'Light', ThemeName> = {
   Dark: 'dark',
   Light: 'light',
-} as const;
+};
 
 // Note: darkTheme and lightTheme have different
 // token values but compatible structures.
