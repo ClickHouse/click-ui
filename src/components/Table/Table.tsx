@@ -352,7 +352,7 @@ const TableRow = styled.tr<TableRowProps>`
   }
 
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       position: relative;
       display: flex;
       flex-wrap: wrap;
@@ -384,7 +384,7 @@ const TableData = styled.td<{ $size: TableSize }>`
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
   [data-responsive-mode="list"] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       min-width: 40%;
       ${({ theme }) => `
@@ -396,7 +396,7 @@ const TableData = styled.td<{ $size: TableSize }>`
 
 const StyledColGroup = styled.colgroup`
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: none;
     }
   }
@@ -411,7 +411,7 @@ const StyledThead = styled.thead`
   `}
   }
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: none;
     }
   }
@@ -424,14 +424,14 @@ const MobileHeader = styled.div`
     font:  ${theme.click.table.cell.label.default};
   `}
   [data-responsive-mode="list"] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: block;
     }
   }
 `;
 const Tbody = styled.tbody`
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
@@ -447,7 +447,7 @@ const SelectData = styled.td<{ $size: TableSize }>`
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
   [data-responsive-mode="list"] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       align-self: stretch;
       position: absolute;
@@ -469,7 +469,7 @@ const ActionsList = styled.td<{ $size: TableSize }>`
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
   [data-responsive-mode="list"] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       align-self: stretch;
       position: absolute;
@@ -490,7 +490,7 @@ const ActionsContainer = styled.div`
   gap: 0.5rem;
   overflow: hidden;
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       flex-direction: column;
       overflow: auto;
       flex-wrap: nowrap;
@@ -518,7 +518,7 @@ const TableOuterContainer = styled.div`
 const MobileActions = styled.div`
   display: none;
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1163,7 +1163,7 @@ const StyledTable = styled.table`
   table-layout: fixed;
 
   [data-responsive-mode='list'] & {
-    @media (max-width: 768px) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       border: none;
       table-layout: auto;
     }
