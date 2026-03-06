@@ -8,6 +8,16 @@ For example, third-party APIs like the primitive components provided by Radix UI
 
 With these changes in place, core maintainers can now manage the Public API through a clear and friendlier interface.
 
+## Removed Paths
+
+The following subpath exports have been removed as they were intended as internal implementation details:
+
+- `@clickhouse/click-ui/Collapsible`
+- `@clickhouse/click-ui/IconWrapper`
+- `@clickhouse/click-ui/MiddleTruncator`
+
+If you were importing from these paths, please migrate to the public API exports from the main entry point (`@clickhouse/click-ui`).
+
 ## How to use?
 
 The public API is controlled through the main barrel file at `src/index.ts`. This file serves as the single source of truth for all components, types, and utilities exported by the package.
