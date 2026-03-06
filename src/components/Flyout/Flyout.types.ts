@@ -32,7 +32,7 @@ export interface DialogContentProps extends RadixDialogContentProps {
 
 interface TitleHeaderProps extends Omit<
   ContainerProps,
-  | 'orientaion'
+  | 'orientation'
   | 'justifyContent'
   | 'alignItems'
   | 'component'
@@ -51,7 +51,7 @@ interface TitleHeaderProps extends Omit<
 
 interface ChildrenHeaderProps extends Omit<
   ContainerProps,
-  | 'orientaion'
+  | 'orientation'
   | 'justifyContent'
   | 'alignItems'
   | 'component'
@@ -70,7 +70,7 @@ export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
 export interface FlyoutFooterProps extends Omit<
   ContainerProps<'div'>,
-  'orientaion' | 'justifyContent' | 'component' | 'padding' | 'gap'
+  'orientation' | 'justifyContent' | 'component' | 'padding' | 'gap'
 > {
   type?: FlyoutType;
 }
