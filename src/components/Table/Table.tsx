@@ -579,6 +579,8 @@ interface CommonTableProps extends Omit<
   showHeader?: boolean;
   rowHeight?: string;
   resizableColumns?: boolean;
+  // TODO: Should this be renamed to mobileLayout?: 'list' | 'scroll' instead for clarity?
+  /** When false, disables mobile list view and uses horizontal scroll instead. Defaults to true (list view enabled). */
   isResponsive?: boolean;
 }
 
