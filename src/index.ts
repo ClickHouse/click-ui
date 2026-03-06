@@ -112,7 +112,11 @@ export type { DateRange } from './components/DatePicker/utils';
 
 // Dialog
 export { Dialog } from './components/Dialog';
-export type { DialogContentProps } from './components/Dialog';
+export type {
+  DialogContentProps,
+  DialogProps,
+  DialogTriggerProps,
+} from './components/Dialog';
 
 // Dropdown
 export { Dropdown } from './components/Dropdown';
@@ -128,9 +132,15 @@ export type { FileTabStatusType } from './components/FileTabs';
 // Flyout
 export { Flyout } from './components/Flyout';
 export type {
+  FlyoutAlignmentType,
+  FlyoutContentProps,
   FlyoutFooterProps,
   FlyoutHeaderProps,
   FlyoutProps,
+  FlyoutSizeType,
+  FlyoutStrategy,
+  FlyoutTriggerProps,
+  FlyoutType,
 } from './components/Flyout';
 
 // Form Container
@@ -286,16 +296,39 @@ export type { InitCUIThemeScriptProps } from './theme/InitCUIThemeScript/InitCUI
 
 export type { HorizontalDirection, Orientation, States, AssetSize } from './types';
 
-// TODO: These should NOT be exposed
-// prefer click ui props instead
-
 // ================================================
-// Radix UI Types
+// Deprecated Radix UI Types
+// These re-export third-party types directly. Use click-ui's own types instead.
 // ================================================
 
+/**
+ * @deprecated Import from '@radix-ui/react-context-menu' directly if needed.
+ * Consider using click-ui's ContextMenu component API instead.
+ */
 export type { ContextMenuProps } from '@radix-ui/react-context-menu';
-export type { DialogProps, DialogTriggerProps } from '@radix-ui/react-dialog';
+
+/**
+ * @deprecated Use click-ui's DialogProps from './components/Dialog' instead.
+ * This re-export will be removed in a future version.
+ */
+export type { DialogProps as RadixDialogProps } from '@radix-ui/react-dialog';
+
+/**
+ * @deprecated Use click-ui's DialogTriggerProps from './components/Dialog' instead.
+ * This re-export will be removed in a future version.
+ */
+export type { DialogTriggerProps as RadixDialogTriggerProps } from '@radix-ui/react-dialog';
+
+/**
+ * @deprecated Import from '@radix-ui/react-hover-card' directly if needed.
+ * Consider using click-ui's HoverCard component API instead.
+ */
 export type { HoverCardProps } from '@radix-ui/react-hover-card';
+
+/**
+ * @deprecated Import from '@radix-ui/react-popover' directly if needed.
+ * Consider using click-ui's Popover component API instead.
+ */
 export type { PopoverProps } from '@radix-ui/react-popover';
 
 // ================================================
