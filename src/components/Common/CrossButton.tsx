@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { EmptyButton } from '@/components/EmptyButton';
+import { EmptyButton } from './EmptyButton';
 
 export const CrossButton = styled(EmptyButton)`
   padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}

@@ -2,8 +2,8 @@ import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
 } from 'styled-components';
-import type { ThemeName } from '@/theme/theme.types';
 import { THEMES } from '@/theme/theme.core';
+import type { ThemeName } from '@/theme/theme.types';
 import { themes } from '@/theme/theme.core';
 import { isValidThemeName } from '@/theme/theme.utils';
 

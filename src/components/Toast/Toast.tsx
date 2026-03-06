@@ -3,8 +3,8 @@ import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
 import { Icon, type IconName, type IconProps } from '@/components/Icon';
-import { IconButton } from '@/components/IconButton/IconButton';
-import { Button } from '@/components/Button/Button';
+import { IconButton } from '@/components/IconButton';
+import { Button } from '@/components/Button';
 import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
 
 export const ToastContext = createContext<ToastContextProps>({

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { GridCenter } from '@/components/GridCenter';
+import { GridCenter } from '@/components/Common';
 import { Text } from '@/components/Typography';
 import { Dialog } from '@/components/Dialog';
 import { Separator } from '@/components/Separator';

@@ -276,6 +276,8 @@ export {
   getDefaultThemeName,
   getAvailableThemeNames,
 } from './theme/theme.utils';
+export { InitCUIThemeScript } from './theme/InitCUIThemeScript/InitCUIThemeScript';
+export type { InitCUIThemeScriptProps } from './theme/InitCUIThemeScript/InitCUIThemeScript';
 
 // ================================================
 // Global Types
