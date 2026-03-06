@@ -49,7 +49,15 @@ const exports = {
   },
 };
 
-const components = extractComponentNames(indexPath);
+const componentsDir = path.join(rootDir, 'src/components');
+const candidateComponents = extractComponentNames(indexPath);
+
+const components = candidateComponents.filter(component => {
+  const indexFile = path.join(componentsDir, component, 'index.ts');
+  return fs.existsSync(indexFile);
+});
+
+const skipped = candidateComponents.filter(c => !components.includes(c));
 
 for (const component of components) {
   exports[`./${component}`] = {
@@ -66,3 +74,8 @@ fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 console.log(`\n🤖 Generated exports for ${components.length} components:\n`);
 
 components.forEach(name => console.log(`✔ ${name}`));
+
+if (skipped.length > 0) {
+  console.log(`\n⚠ Skipped ${skipped.length} paths (no index.ts barrel export):\n`);
+  skipped.forEach(name => console.log(`  - ${name}`));
+}
