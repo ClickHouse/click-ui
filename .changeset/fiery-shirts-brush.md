@@ -12,6 +12,8 @@ With these changes in place, core maintainers can now manage the Public API thro
 
 The public API is controlled through the main barrel file at `src/index.ts`. This file serves as the single source of truth for all components, types, and utilities exported by the package.
 
+> **Note:** The `generate:exports` script reads from the compiled output (`dist/esm/components/`) rather than parsing `src/index.ts` directly. Since `dist/` is derived from `src/index.ts` during the build process, the source file remains the ultimate source of truth.
+
 Maintainers can add or remove components from the public API by updating the exports in this file. Each export should include both the component and its associated types to ensure consumers have full type support.
 
 Here's an example of `src/index.ts`:
