@@ -7,10 +7,7 @@ import type { IconName } from '@/components/Icon/Icon.types';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
-
-export interface ArrowProps {
-  showArrow?: boolean;
-}
+import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
@@ -175,14 +172,6 @@ const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
 
 ContextMenuSub.displayName = 'ContextMenuSub';
 ContextMenu.Sub = ContextMenuSub;
-export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
-  /** Icon to display in the menu item */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The type of the menu item */
-  type?: 'default' | 'danger';
-}
 
 const ContextMenuItem = ({
   icon,
