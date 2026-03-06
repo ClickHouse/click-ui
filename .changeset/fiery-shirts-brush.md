@@ -22,7 +22,7 @@ If you were importing from these paths, please migrate to the public API exports
 
 The public API is controlled through the main barrel file at `src/index.ts`. This file serves as the single source of truth for all components, types, and utilities exported by the package.
 
-> **Note:** The `generate:exports` script reads from the compiled output (`dist/esm/components/`) rather than parsing `src/index.ts` directly. Since `dist/` is derived from `src/index.ts` during the build process, the source file remains the ultimate source of truth.
+> **Note:** The `generate:exports` script uses the TypeScript Compiler API to parse `src/index.ts` directly and extract only the components that are explicitly exported. This ensures that only public API components get subpath exports in `package.json`, while internal components remain inaccessible via direct imports.
 
 Maintainers can add or remove components from the public API by updating the exports in this file. Each export should include both the component and its associated types to ensure consumers have full type support.
 
