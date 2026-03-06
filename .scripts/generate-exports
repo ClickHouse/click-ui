@@ -58,7 +58,8 @@ try {
     return fs.existsSync(indexFile);
   });
 
-  const skipped = candidateComponents.filter(c => !components.includes(c));
+  const componentsSet = new Set(components);
+  const skipped = candidateComponents.filter(c => !componentsSet.has(c));
 
   for (const component of components) {
     exports[`./${component}`] = {
