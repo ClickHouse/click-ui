@@ -9,7 +9,7 @@ Add circular dependency check to prevent and detect circular import cycles that 
 Run the circular dependency check:
 
 ```sh
-yarn circular-deps:check
+yarn circular-dependency:check
 ```
 
 The command analyzes the source code starting from the `src` directory and reports any circular dependencies found.
@@ -17,7 +17,7 @@ The command analyzes the source code starting from the `src` directory and repor
 To check a specific entry point:
 
 ```sh
-yarn circular-deps:check src/components
+yarn circular-dependency:check src/components
 ```
 
 If circular dependencies are detected, the output will show the file paths involved in the cycle, helping you identify which imports need to be refactored to break the dependency chain.
