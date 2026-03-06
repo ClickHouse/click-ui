@@ -1,7 +1,7 @@
 import { IconName } from '@/components/Icon';
 
 export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';
-type Alignment = 'center' | 'left';
+export type Alignment = 'center' | 'left';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: ButtonType;
