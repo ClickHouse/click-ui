@@ -579,8 +579,7 @@ interface CommonTableProps extends Omit<
   showHeader?: boolean;
   rowHeight?: string;
   resizableColumns?: boolean;
-  /** Disables mobile list view on narrow screens. When true, table uses horizontal scroll instead. Default: false */
-  disableMobileListView?: boolean;
+  isResponsive?: boolean;
 }
 
 type SelectReturnValue = {
@@ -769,7 +768,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       showHeader = true,
       rowHeight,
       resizableColumns,
-      disableMobileListView = false,
+      isResponsive = false,
       ...props
     },
     ref
@@ -967,7 +966,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
     return (
       <TableOuterContainer
-        data-responsive-mode={disableMobileListView ? 'scroll' : 'list'}
+        data-responsive-mode={isResponsive ? 'scroll' : 'list'}
       >
         {hasRows && showHeader && (
           <MobileActions>
