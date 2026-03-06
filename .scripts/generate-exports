@@ -42,7 +42,7 @@ try {
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
-  console.log(`Generated exports for ${Object.keys(exports).length - 2} components`);
+  console.log(`Generated exports for ${Object.keys(exports).length - 1} components`);
 
   process.exit(0);
 } catch (err) {
