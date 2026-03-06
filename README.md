@@ -22,6 +22,7 @@ You can find the official docs for the Click UI design system and component libr
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
   - [Local development](#local-development)
+  - [Circular dependency check](#circular-dependency-check)
 * [Tests](#Tests)
   - [Functional tests](#functional-tests)
   - [Visual regression tests](#visual-regression-tests)
@@ -95,6 +96,16 @@ After cloning the repository change to the work directory and install the depend
 ```sh
 yarn
 ```
+
+### Circular dependency check
+
+Check for circular dependencies that can cause build and runtime issues:
+
+```sh
+yarn circular-dependency:check
+```
+
+If circular dependencies are found it'll exit with a report showing the affeced files which require your attention.
 
 ### Generating design tokens
 
