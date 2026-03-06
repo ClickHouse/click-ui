@@ -2,4 +2,12 @@
 '@clickhouse/click-ui': patch
 ---
 
-Help correct bad merge conflict decisions/resolutions caused by squash-merging chained branches and loss of base context. Public API changes from PR #845 had leaked into PR #841, resulting in incorrect decisions when merging main back to the target branch.
+Restore changes lost in PR 841-845 merge conflict resolution.
+
+**What changed:**
+
+- Removed the `Common/` barrel-export directory that was causing circular dependency issues
+- Split shared components into their own directories: `CrossButton`, `EmptyButton`, `GridCenter`, `FormContainer`
+- Updated imports across components to use direct paths instead of `@/components/Common`
+
+This is an internal refactoring with no public API changes.
