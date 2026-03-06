@@ -11,7 +11,7 @@ TEMP_OUTPUT=$(mktemp)
 trap "rm -f $TEMP_OUTPUT" EXIT
 
 if command -v yarn &> /dev/null; then
-  yarn dlx skott "$ENTRY_POINT" \
+  yarn exec skott "$ENTRY_POINT" \
     --displayMode=file-tree \
     --showCircularDependencies \
     --ignorePattern="$IGNORE_PATTERNS" \
