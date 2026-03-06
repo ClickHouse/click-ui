@@ -533,7 +533,7 @@ export const Responsive: StoryObj<typeof Table> = {
         ],
       },
     ],
-    isResponsive: false,
+    isResponsive: true,
   },
   parameters: {
     docs: {
