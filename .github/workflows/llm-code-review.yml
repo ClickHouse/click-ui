@@ -19,13 +19,13 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 'latest'
+          node-version: lts/jod
 
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           track_progress: true
-          allowed_bots: cursor,cursor[bot],claude,claude[bot]
+          allowed_bots: claude,claude[bot]
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             REPO: ${{ github.repository }}
