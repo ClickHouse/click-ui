@@ -348,8 +348,11 @@ export type { ButtonProps } from './components/Button';
 
 After, you must run the `generate:exports` to update the component-level exports in the package.json file:
 
+> [!IMPORTANT]
+> This script requires a prior build step, as it reads from `dist/esm/components/` (the compiled output). When executing generate:exports the build step is executed for you.
+
 ```sh
-yarn generate:exports
+yarn build && yarn generate:exports
 ```
 
 Once complete, commit your changes.

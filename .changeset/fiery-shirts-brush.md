@@ -24,10 +24,6 @@ export type { ButtonProps } from './components/Button';
 // Removing a component (simply delete)
 ```
 
-After, you must run the `generate:exports` to update the component-level exports in the package.json file:
-
-```sh
-yarn generate:exports
-```
+After, you must run the `generate:exports` to update the component-level exports in the package.json file.
 
 Once complete, commit your changes.

@@ -330,7 +330,7 @@
     "dev": "yarn storybook",
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
-    "generate:exports": ".scripts/generate-exports",
+    "generate:exports": "yarn build && .scripts/generate-exports",
     "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",
