@@ -533,19 +533,19 @@ export const Responsive: StoryObj<typeof Table> = {
         ],
       },
     ],
-    isResponsive: true,
+    isResponsive: false,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'When `isResponsive` is set to `true`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view.',
+          'When `isResponsive` is set to `false`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view. The default (`isResponsive={true}`) preserves the responsive mobile list view behavior.',
       },
     },
   },
   render: ({ rows, headers, isResponsive, ...props }) => {
     const maxWidth = isResponsive ? 'none' : '400px';
-    const overflow = isResponsive ? 'none' : 'auto';
+    const overflow = isResponsive ? 'visible' : 'auto';
 
     return (
       <div style={{ maxWidth, overflow }}>
