@@ -17,3 +17,18 @@ import { InitCUIThemeScript } from '@clickhouse/click-ui/theme';
 // After
 import { InitCUIThemeScript } from '@clickhouse/click-ui';
 ```
+
+
+**Additional cleanup:**
+
+Removed orphaned subpath exports for `CrossButton`, `EmptyButton`, and `GridCenter`. These components were moved to `@/components/Common` in a previous refactor but duplicate directories were left behind. They are now exclusively available via the Common module:
+
+```tsx
+// Before
+import { CrossButton } from '@clickhouse/click-ui/CrossButton';
+
+// After
+import { CrossButton } from '@clickhouse/click-ui';
+// or for internal use:
+import { CrossButton } from '@/components/Common';
+```

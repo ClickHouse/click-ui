@@ -107,11 +107,6 @@
       "import": "./dist/esm/components/ContextMenu/index.js",
       "require": "./dist/cjs/components/ContextMenu/index.cjs"
     },
-    "./CrossButton": {
-      "types": "./dist/types/components/CrossButton/index.d.ts",
-      "import": "./dist/esm/components/CrossButton/index.js",
-      "require": "./dist/cjs/components/CrossButton/index.cjs"
-    },
     "./DateDetails": {
       "types": "./dist/types/components/DateDetails/index.d.ts",
       "import": "./dist/esm/components/DateDetails/index.js",
@@ -136,11 +131,6 @@
       "types": "./dist/types/components/EllipsisContent/index.d.ts",
       "import": "./dist/esm/components/EllipsisContent/index.js",
       "require": "./dist/cjs/components/EllipsisContent/index.cjs"
-    },
-    "./EmptyButton": {
-      "types": "./dist/types/components/EmptyButton/index.d.ts",
-      "import": "./dist/esm/components/EmptyButton/index.js",
-      "require": "./dist/cjs/components/EmptyButton/index.cjs"
     },
     "./FileTabs": {
       "types": "./dist/types/components/FileTabs/index.d.ts",
