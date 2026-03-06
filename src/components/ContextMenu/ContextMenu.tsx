@@ -12,11 +12,6 @@ export interface ArrowProps {
   showArrow?: boolean;
 }
 
-export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
-  icon?: IconName;
-  iconDir?: HorizontalDirection;
-}
-
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
