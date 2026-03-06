@@ -21,11 +21,3 @@ export interface FlyoutHeaderProps extends ContainerProps<'div'> {
 export interface FlyoutFooterProps {
   children: ReactNode;
 }
-
-export interface FlyoutHeaderProps extends ContainerProps<'div'> {
-  title: string;
-}
-
-export interface FlyoutFooterProps {
-  children: ReactNode;
-}
