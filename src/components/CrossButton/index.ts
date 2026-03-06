@@ -1,1 +1,0 @@
-export { CrossButton } from './CrossButton';

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Container } from '@/components/Container';
-import { Text } from '@/components/Typography/Text/Text';
+import { Text } from '@/components/Typography/Text';
 import { styled } from 'styled-components';
 
 const GridCenter = styled.div`

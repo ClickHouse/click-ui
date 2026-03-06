@@ -9,4 +9,5 @@ export interface ArrowProps {
 export interface ContextMenuItemProps extends RightMenu.ContextMenuItemProps {
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  type?: 'default' | 'danger';
 }

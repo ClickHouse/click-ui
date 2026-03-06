@@ -9,9 +9,9 @@ import { Container } from '@/components/Container';
 import { styled } from 'styled-components';
 import { useState } from 'react';
 import { SearchField } from '@/components/Input/SearchField';
-import { Title } from '@/components/Typography/Title/Title';
+import { Title } from '@/components/Typography/Title';
 import { Panel } from '@/components/Panel';
-import { Text } from '@/components/Typography/Text/Text';
+import { Text } from '@/components/Typography/Text';
 import { GridContainer } from '@/components/GridContainer';
 import { Spacer } from '@/components/Spacer';
 
