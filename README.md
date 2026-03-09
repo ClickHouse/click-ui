@@ -536,7 +536,7 @@ For more detailed instructions, see [converting SVG to React Components](./docs/
 
 Releases are automated via GitHub Actions. A workflow creates a PR with version bumps and changelogs for review. Once merged, the package is published to npm and a GitHub release is created.
 
-Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for a quick automated process.
+Use the [Create a new release Pull Request](./docs/package-release.md#create-a-new-release-pull-request) for a quick automated process.
 
 See [Package Release](./docs/package-release.md) for detailed instructions, including use-cases.
 
