@@ -542,7 +542,13 @@ export const ColumnLevelTruncation: StoryObj<ColumnLevelTruncationArgs> = {
     rows: rowsHeaderOverflow,
     mobileLayout: 'list',
   },
-  render: ({ fileOverflowMode, tableOverflowMode, timestampOverflowMode, rows, mobileLayout }) => {
+  render: ({
+    fileOverflowMode,
+    tableOverflowMode,
+    timestampOverflowMode,
+    rows,
+    mobileLayout,
+  }) => {
     const headersWithOverflowMode = [
       { label: 'File', overflowMode: fileOverflowMode },
       { label: 'Table', overflowMode: tableOverflowMode },
