@@ -2,7 +2,9 @@
 '@clickhouse/click-ui': minor
 ---
 
-Replaces the `isResponsive` boolean prop with a more explicit `mobileLayout` prop on the Table component.
+Replaces the `isResponsive` boolean prop with a more explicit `mobileLayout` prop on the Table component. It clearly states the behavior, while isResponsive requires knowing what "responsive" means here and both are technically "responsive".
+
+The mobile layout version's more extensible, e.g. a new mode can be easily introduced such as `compact` without breaking changes.
 
 **Migration guide:**
 
