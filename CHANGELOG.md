@@ -1,5 +1,565 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.72
+
+### Minor Changes
+
+- a54b59d: Adds a new `DateTimePicker` component for selecting date and time ranges with precision control. This component combines calendar-based date selection with time input fields, supporting both predefined time ranges and custom selections.
+
+  ## What has changed?
+  - New `DateTimePicker` component for selecting date-time ranges
+  - Support for predefined time periods (e.g., "Past 15 minutes", "Past hour")
+  - Custom date range selection with start/end calendars
+  - Time input with hours, minutes, and optional seconds
+  - AM/PM meridiem toggle for 12-hour format
+  - Calendar can open to the left or right via `openDirection` prop
+  - Time selection is retained when changing dates
+  - Support for disabling future dates
+  - Maximum range length constraint support
+  - Helper function "predefined time periods for DateTimePicker" for common time ranges
+
+  ## How to use?
+
+  Basic usage with custom date range selection:
+
+  ```tsx
+  import { DateTimePicker } from '@clickhouse/click-ui';
+
+  <DateTimePicker
+    onSelectDateRange={(startDate, endDate) => {
+      console.log('Selected range:', startDate, endDate);
+    }}
+    placeholder="Select date range"
+  />;
+  ```
+
+  With predefined time periods:
+
+  ```tsx
+  import {
+    DateTimePicker,
+    getPredefinedTimePeriodsForDateTimePicker,
+  } from '@clickhouse/click-ui';
+
+  <DateTimePicker
+    predefinedTimesList={getPredefinedTimePeriodsForDateTimePicker()}
+    onSelectDateRange={(startDate, endDate) => {
+      console.log('Selected range:', startDate, endDate);
+    }}
+  />;
+  ```
+
+  With all options:
+
+  ```tsx
+  <DateTimePicker
+    startDate={new Date()}
+    endDate={new Date()}
+    disabled={false}
+    futureDatesDisabled={true}
+    futureStartDatesDisabled={false}
+    maxRangeLength={30}
+    onSelectDateRange={(startDate, endDate) => handleRangeChange(startDate, endDate)}
+    openDirection="left"
+    placeholder="start date – end date"
+    predefinedTimesList={customPredefinedList}
+    shouldShowSeconds={true}
+  />
+  ```
+
+- b797f89: Provides control to fix the the Date picker content misalignment on smaller viewports or resizing.
+
+  **What changed?**
+  - Exposed `responsivePositioning` prop on `DatePicker` and `DateRangePicker` components (default: `true`)
+  - When enabled, dropdowns automatically adjust position to stay within viewport with 100px padding
+  - This fixes the Date picker dropdown becoming misaligned on resize and smaller viewports
+
+  **How to use?**
+
+  All dropdowns now automatically adjust to stay within viewport by default.
+
+  To disable this behavior use the `responsivePositioning` prop:
+
+  ```tsx
+  // Disable responsive positioning on Dropdown
+  <Dropdown>
+    <Dropdown.Trigger>Open</Dropdown.Trigger>
+    <Dropdown.Content responsivePositioning={false}>
+      <Dropdown.Item>Item</Dropdown.Item>
+    </Dropdown.Content>
+  </Dropdown>
+
+  // Disable on DatePicker
+  <DatePicker
+    onSelectDate={handleSelect}
+    responsivePositioning={false}
+  />
+
+  // Disable on DateRangePicker
+  <DateRangePicker
+    onSelectDateRange={handleRange}
+    responsivePositioning={false}
+  />
+  ```
+
+- ae7584f: Introduced a new date-range picker using a simple two-phase process for year and month selection to make the date selection user experience more elegant.
+
+  Currently, jumping through many years requires multiple clicks and scrolls, making the whole process tiring. The issue was originally reported in reported issue [#752](https://github.com/ClickHouse/click-ui/issues/752).
+
+  **How to use?**
+
+  To quickly navigate to a different month and year in the Datepicker:
+  1. Click the header showing the current month and year (e.g., "Feb 2026")
+  2. Select your desired year from the grid (current year is highlighted)
+  3. Select the month from the grid (current month is highlighted)
+  4. Select the day from the calendar
+
+  This allows you to jump to any date without clicking through months one at a time.
+
+  **Progressive input display**
+
+  As you progress through the two-phase selection, the input field updates to reflect your choices:
+  - After selecting a year: displays "2026"
+  - After selecting a month: displays "Feb 2026"
+  - After selecting a day: displays the full date "Feb 26, 2026"
+
+  If the picker is dismissed before completing the selection, the input reverts to the previously selected date.
+
+  **Visual improvements**
+  - Current day, month, and year are highlighted with an active background
+  - When a date is selected, only the selected date shows the active highlight (not today)
+
+- 02a4854: The Click-UI source code has several circular dependencies that must be resolved.
+
+  During the resolution of component path redundancies and public API encapsulation in #798, several circular dependencies were exposed. There, some quick basic fixes were applied to allow to progress, but it was found that a separate PR was needed to resolve them.
+
+  **What changed?**
+
+  The `InitCUIThemeScript` component and `InitCUIThemeScriptProps` type were previously exported via `src/theme/index.ts` (which has been removed). They are now explicitly exported from the main entry point (`src/index.ts`). Consumers using SSR theme injection must update their imports:
+
+  ```tsx
+  // Before
+  import { InitCUIThemeScript } from '@clickhouse/click-ui/theme';
+
+  // After
+  import { InitCUIThemeScript } from '@clickhouse/click-ui';
+  ```
+
+  **Additional cleanup:**
+
+  Removed orphaned subpath exports for `CrossButton`, `EmptyButton`, and `GridCenter`. These components were moved to `@/components/Common` in a previous refactor but duplicate directories were left behind. They are now exclusively available via the Common module:
+
+  ```tsx
+  // Before
+  import { CrossButton } from '@clickhouse/click-ui/CrossButton';
+
+  // After
+  import { CrossButton } from '@clickhouse/click-ui';
+  // or for internal use:
+  import { CrossButton } from '@/components/Common';
+  ```
+
+  **Bug fix:**
+
+  Fixed a broken type export in `src/components/Common/index.ts` that was referencing a deleted file (`Common.types.ts`). The `TextSize`, `TextWeight`, and `CursorOptions` types are now correctly exported from their respective source files (`Typography` and `Panel`).
+
+- 7dad1bb: The team should have full control over the Public API to manage which resources are available for use in consumer applications. Previously, consumer applications had unrestricted access to internal resources, which is undesirable.
+
+  For example, third-party APIs like the primitive components provided by Radix UI were directly exposed, meaning that if those primitives were ever swapped out, any consumer applications depending on them would break due to tight coupling.
+
+  With these changes in place, core maintainers can now manage the Public API through a clear and friendlier interface.
+
+  ## Removed Paths
+
+  The following subpath exports have been removed as they were intended as internal implementation details:
+  - `@clickhouse/click-ui/Collapsible`
+  - `@clickhouse/click-ui/IconWrapper`
+  - `@clickhouse/click-ui/MiddleTruncator`
+
+  If you were importing from these paths, please migrate to the public API exports from the main entry point (`@clickhouse/click-ui`).
+
+  ## How to use?
+
+  The public API is controlled through the main barrel file at `src/index.ts`. This file serves as the single source of truth for all components, types, and utilities exported by the package.
+
+  > **Note:** The `generate:exports` script uses the TypeScript Compiler API to parse `src/index.ts` directly and extract only the components that are explicitly exported. This ensures that only public API components get subpath exports in `package.json`, while internal components remain inaccessible via direct imports.
+
+  Maintainers can add or remove components from the public API by updating the exports in this file. Each export should include both the component and its associated types to ensure consumers have full type support.
+
+  Here's an example of `src/index.ts`:
+
+  ```ts
+  // Adding a new component to the public API
+  export { Button } from './components/Button';
+  export type { ButtonProps } from './components/Button';
+
+  // Removing a component (simply delete)
+  ```
+
+  After, you must run the `generate:exports` to update the component-level exports in the package.json file.
+
+  Once complete, commit your changes.
+
+- f071983: Given the request [813](https://github.com/ClickHouse/click-ui/issues/813), the following provides support for root colour theme attributes.
+
+  The process will provide control for the consumer's main html, e.g. data-cui-theme. It'll get preferred theme from localStorage (if available), to prevent theme flashing, e.g. due to SSR vs browser runtime. Note that there'll be further changes once the set of PRs are merged (see https://github.com/ClickHouse/click-ui/pulls/punkbit).
+
+  It also provides documentation explaining how to use it in the consumer application.
+
+  **How to use?**
+
+  The `InitCUIThemeScript` applies a `data-cui-theme` attribute to the root `<html>` element, allowing you to style custom elements with vanilla CSS.
+
+  For example, edit your consumer app `stylesheet` and introduce custom styles as follows:
+
+  ```css
+  [data-cui-theme='light'] {
+    --my-app-bg: #ffffff;
+    --my-app-text: #1a1a1a;
+  }
+
+  [data-cui-theme='dark'] {
+    --my-app-bg: #0a0a0a;
+    --my-app-text: #f5f5f5;
+  }
+
+  .my-custom-component {
+    background: var(--my-app-bg);
+    color: var(--my-app-text);
+  }
+  ```
+
+- 450e947: Extend ButtonGroup with multi-selection support, offering both controlled and uncontrolled modes so consumers can manage state themselves or delegate it to the component when only the resulting selection is required.
+
+  **What changed?**
+  - Added `multiple` prop to enable multi-selection mode
+  - `onClick` callback returns `string` in single mode (backward compatible) and `Set<string>` in multiple mode
+  - Exported `SelectionValue` type for consumers
+
+  **How to use?**
+
+  Single selection (default) - backward compatible:
+
+  ```tsx
+  <ButtonGroup
+    options={[
+      { label: 'A', value: 'a' },
+      { label: 'B', value: 'b' },
+    ]}
+    defaultSelected="a"
+    onClick={(value, selected) => console.log(selected)}
+  />
+  ```
+
+  Multiple selection which state is provided internally by component
+
+  ```tsx
+  <ButtonGroup
+    multiple
+    options={[
+      { label: 'A', value: 'a' },
+      { label: 'B', value: 'b' },
+    ]}
+    defaultSelected={new Set(['a'])}
+    onClick={(value, selected) => console.log([...selected])}
+  />
+  ```
+
+  Multiple selection which state's controlled by consumer app
+
+  ```tsx
+  const [selected, setSelected] = useState<Set<string>>(new Set(['a']));
+  <ButtonGroup
+    multiple
+    options={[
+      { label: 'A', value: 'a' },
+      { label: 'B', value: 'b' },
+    ]}
+    selected={selected}
+    onClick={(_, newSelection) => setSelected(newSelection as Set<string>)}
+  />;
+  ```
+
+- 0f32e3f: Adds a new `isResponsive` prop to the Table component.
+
+  The default behavior (`isResponsive={true}`) remains unchanged, preserving the responsive mobile list view conversion.
+
+  When set to `false`, the table maintains its standard layout with horizontal scroll on narrow screens instead of automatically converting to a mobile list view.
+
+  **How to use?**
+
+  To disable the mobile list view and keep the table layout with horizontal scroll:
+
+  ```tsx
+  <Table isResponsive={false}>{/* Table content */}</Table>
+  ```
+
+  If you don't define isResponsive it'll default to default behaviour:
+
+  ```tsx
+  <Table>{/* Table content */}</Table>
+  ```
+
+- 61b90a5: Enable keyboard date picker selection
+
+  Added keyboard navigation support to the DatePicker component, allowing users to select dates without using a mouse. This improves accessibility and provides a faster workflow for power users.
+
+  **Keyboard Navigation**
+  - Arrow keys (Up/Down/Left/Right) to navigate between days
+  - Arrow keys (Left/Right) to navigate between header controls (chevron buttons and title)
+  - Enter or Space to select a date
+  - Tab to navigate to previous/next month chevrons
+  - Current day, month, or year temporarily reverts to default styling when keyboard focused to make the yellow focus ring clearly visible
+
+  **How to use?**
+
+  To select a date using only your keyboard:
+  1. Tab to the date picker input and press Enter to open the calendar
+  2. Use Arrow keys to navigate to your desired day:
+     - Left/Right arrows move between days
+     - Up/Down arrows move between weeks
+  3. Press Enter or Space to select the highlighted date
+  4. The calendar will close automatically upon selection
+
+  To navigate months and years:
+  1. Tab to the month/year header and press Enter to open the year/month selector
+  2. Use Arrow keys to navigate the year grid
+  3. Press Enter to select a year
+  4. Use Arrow keys to navigate the month grid
+  5. Press Enter to select a month
+  6. Navigate days and press Enter to select the final date
+
+  To navigate header controls:
+  1. When focused on a chevron button or the title, use Left/Right arrow keys to cycle between them
+  2. In days view: navigate between prev chevron → title → next chevron
+  3. In years view: navigate between the two visible chevron buttons
+
+  **Implementation Changes**
+  - Replaced Dropdown with Popover component for better focus management
+  - Added focus management with refs to track keyboard position
+  - Implemented keyboard event handlers for Arrow keys, Enter, and Space
+  - Added horizontal navigation for header controls (chevron buttons and title)
+  - Active elements (today's date, selected date) temporarily revert to default styling when keyboard focused to ensure the yellow focus ring is always visible
+
+- 3c0312e: Improve current date visibility in the date picker. Previously, the current date used a subtle font weight increase that was barely noticeable depending on OS and browser font rendering. Now it uses a background highlight for better contrast.
+
+  **How it works?**
+  - Adds `$isToday` styling with a subtle background to day, month, and year cells
+  - `$isActive` (yellow background) only applies when a date is actually selected
+  - Hover state resets to yellow border with transparent background across all states
+  - Year/month selection via title click is disabled for DateRangePicker
+
+- 65a573d: Enforce generic type annotation style for arrays via ESLint
+  - Added `@typescript-eslint/array-type` ESLint rule with `'generic'` option to enforce `Array<Type>` notation over `Type[]`
+  - Auto-fixed all 36 existing array type violations across the codebase
+
+- d45c526: Provide an elegant file architecture pattern inspired by major component libraries. It has a main component, whose name serves as a namespace for types, styles, tests, stories (storybook) and a public export file. This is a first pass; further passes and iterations will be required, which is done to lower the risk of breaking changes.
+
+  **What has changed?**
+
+  It aims to provide the following:
+
+  ```
+  components/
+  ├── Button/
+  │   ├── Button.tsx          # Main component (namespace)
+  │   ├── Button.types.ts     # TypeScript types
+  │   ├── Button.styles.ts    # Styles
+  │   ├── Button.test.tsx     # Tests
+  │   ├── Button.stories.tsx  # Storybook stories
+  │   └── index.ts            # Component-level exports
+  ├── Input/
+  │   ├── Input.tsx
+  │   ├── index.ts
+  │   └── ...
+  └── index.ts                # Exports
+  ```
+
+  **Fixes**
+  - ContextMenu.types.ts: Added missing `type?: 'default' | 'danger'` prop to exported `ContextMenuItemProps`
+  - ContextMenu.tsx: Removed duplicate `ArrowProps` and `ContextMenuItemProps` exports, now imports from `./ContextMenu.types`
+  - Button.tsx: Removed duplicate `Alignment` type (already defined in Button.types.ts)
+  - Flyout.types.ts: Replaced stale type definitions with correct types from Flyout.tsx (`DialogContentProps`, `FlyoutHeaderProps`, `FlyoutFooterProps`)
+  - Flyout.types.ts: Fixed `'orientaion'` typo to `'orientation'` in `Omit` calls
+
+- 71fb216: Introduces click-ui's own `DialogProps` and `DialogTriggerProps` types, replacing direct Radix UI type re-exports. This decouples the public API from internal implementation details.
+
+  **What's new:**
+  - `DialogProps`, `DialogTriggerProps` - click-ui's own types with the same API you're used to
+  - `FlyoutContentProps`, `FlyoutTriggerProps` - for advanced use cases (e.g., creating typed wrapper components)
+
+  **Example**
+
+  ```tsx
+  import { Flyout, FlyoutContentProps, FlyoutTriggerProps } from '@clickhouse/click-ui';
+
+  const MyTrigger = (props: FlyoutTriggerProps) => <Flyout.Trigger {...props} />;
+  const MyContent = (props: FlyoutContentProps) => <Flyout.Content {...props} />;
+  ```
+
+  **How to migrate?**
+
+  For most users, no changes needed! `DialogProps` works exactly as before.
+
+  If you were importing Radix types directly from click-ui (`HoverCardProps`, `PopoverProps`, `ContextMenuProps`), import from Radix instead:
+
+  ```tsx
+  // Before
+  import { HoverCardProps } from '@clickhouse/click-ui';
+
+  // After
+  import { HoverCardProps } from '@radix-ui/react-hover-card';
+  ```
+
+- 74feae1: Adds an `openDirection` prop to `DateRangePicker` that controls which side the custom date range calendar opens. This is useful when the component is positioned near the right edge of the viewport, allowing the calendar to open on the left side to prevent overflow.
+
+  ## What has changed?
+  - New `openDirection` prop accepts `'left'` or `'right'` (defaults to `'right'`)
+  - Automatic viewport detection, if the calendar would overflow the right side of the viewport, it automatically opens on the left
+  - Calendar direction resets to the configured `openDirection` when the picker is closed
+
+  ## How to use?
+
+  Default behavior (opens to the right):
+
+  ```tsx
+  import { DateRangePicker } from '@clickhouse/click-ui';
+
+  <DateRangePicker
+    onSelectDateRange={(startDate, endDate) => {
+      console.log('Selected range:', startDate, endDate);
+    }}
+  />;
+  ```
+
+  Open calendar on the left (useful when positioned on the right side of the page):
+
+  ```tsx
+  <DateRangePicker
+    openDirection="left"
+    predefinedDatesList={predefinedDatesList}
+    onSelectDateRange={(startDate, endDate) => {
+      console.log('Selected range:', startDate, endDate);
+    }}
+  />
+  ```
+
+- 29c6bc5: Resolve component path redundancy and allow public API encapsulation.
+
+  As work progressed on reducing import path verbosity, several deeper issues surfaced that were addressed as part of this PR. Component import statements previously required the component name twice, e.g. clickhouse/click-ui/components/EllipsisContent/EllipsisContent, which was unnecessary. Beyond that, the original version inadvertently exposed internal implementation details, allowing consumers to directly access and depend on third-party APIs such as Radix UI components and types. This has led to applications incorrectly coupling themselves to these internals rather than the library's intended public API, a problem that now requires careful, incremental cleanup using @deprecated warnings.
+
+  While addressing the above, circular dependencies were discovered throughout the source code. These were not anticipated but were resolved as part of this PR, and new ESLint rules have been introduced to prevent them from reappearing as the library grows.
+
+  Finally, after #773 (distribute unbundled) was merged, which solved critical distribution size issues, could now confirm that tree-shaking works correctly under the revised conditions and both import strategies, e.g. top-package level and component-level.
+
+  ### API improvements
+  1. Elegant import statements with zero performance cost, e.g. gets rid of redundant component name on import, such as `@clickhouse/click-ui/components/EllipsisContent/EllipsisContent`
+
+  ```tsx
+  import { EllipsisContent } from '@clickhouse/click-ui/EllipsisContent';
+  ```
+
+  2. Decoupling consumers from the underlying implementation and improving the long-term maintainability of the library, e.g. The original version exposes internal implementation details, allowing consumers to directly access and depend on third-party APIs such as Radix UI elements/types. This has led to applications incorrectly coupling themselves to these internals rather than the library's intended public API, which now requires a lot of unwanted work as we have to rely on `@deprecated` warnings to remove them gradually! The PR addresses this by encapsulating these details, ensuring only the deliberate public API surface is accessible.
+
+  ### Build output size improvements
+
+  The [original production version](https://www.npmjs.com/package/@clickhouse/click-ui/v/0.0.250) of the Click UI library had a critical bundling issue, producing a build output of 1,216.21 kB with chunks exceeding the 500 kB threshold after minification.
+  To benchmark the improvements, a baseline Vite app without Click UI was measured at 193.30 kB. After integrating the updated PR version of Click UI, the results were as follows:
+
+  Importing a component via the main barrel file / public API produced a build output of 223.70 kB, an overhead of just ~30 kB over the baseline. Importing directly from the component-specific export path (e.g. @clickhouse/click-ui/Button) brought this down marginally further to 223.09 kB.
+
+  Both approaches represent a dramatic reduction from the original, with the PR version adding less than 30 kB over a bare Vite app regardless of import strategy.
+
+  This is made possible by several changes to resolve component paths and, of course, by the introduction of #773, which makes the package distribution unbundled and moves optimisation responsibility to the consumer side. Before, the consumer always had an unscalable bundled/unoptimizable package of 1,216.21 kB.
+
+### Patch Changes
+
+- 736477b: Removes the ESLint/TSLint rule that enforced arrays to be typed using generic syntax (Array<T>) instead of the shorthand array syntax (T[]).
+
+  The generic array annotation style (Array<T>) adds verbosity without meaningful benefit. Removing this lint rule allows developers to use idiomatic TypeScript, such as the more concise T[] shorthand, which reduces friction and improves readability, e.g., TypeScript docs, LSP will show T[] and not Array<T>.
+
+- 5831d60: Deprecated StyledLinkProps and linkStyles in the public API. These will be removed in a future release to prevent leaking styled-components implementation details, e.g. $size and $weight transient props in the Public API
+
+  ## Migration Guide (Recommended)
+
+  The Link component already:
+  - Accepts a component prop to render as any element type
+  - Accepts size and weight props
+  - Passes through all other props, e.g. onClick, etc.
+
+  We recommend migrating away from the deprecated APIs:
+  - Replace StyledLinkProps and linkStyles usage
+  - Remove the CuiStyledLink styled component definition
+  - Use `<Link component={RouterLink} size="md" weight="normal" ...>` directly
+
+  Current common consumer pattern uses the deprecated internal styling APIs:
+
+  ```tsx
+  import { Link } from 'react-router-dom';
+  import { linkStyles, StyledLinkProps } from '@clickhouse/click-ui';
+
+  const CuiStyledLink = styled(Link)<StyledLinkProps>`
+    ${linkStyles}
+  `;
+
+  <CuiStyledLink
+    $size="md"
+    $weight="normal"
+    to="/path"
+  >
+    text
+  </CuiStyledLink>;
+  ```
+
+  Recommended Pattern:
+
+  ```tsx
+  import { Link as RouterLink } from 'react-router-dom';
+  import { Link } from '@clickhouse/click-ui';
+
+  <Link
+    component={RouterLink}
+    size="md"
+    weight="normal"
+    to="/path"
+  >
+    text
+  </Link>;
+  ```
+
+  **Note:** These deprecated APIs will be removed in a future major release. Please migrate before then to avoid breaking changes.
+
+- d4624f1: Restore changes lost in PR 841-845 merge conflict resolution.
+
+  **What changed:**
+  - Removed the `Common/` barrel-export directory that was causing circular dependency issues
+  - Split shared components into their own directories: `CrossButton`, `EmptyButton`, `GridCenter`, `FormContainer`
+  - Updated imports across components to use direct paths instead of `@/components/Common`
+
+  This is an internal refactoring with no public API changes.
+
+- b061496: Add circular dependency check to prevent and detect circular import cycles that can cause build issues, runtime errors, and bundle size problems.
+
+  ## How to use?
+
+  Run the circular dependency check:
+
+  ```sh
+  yarn circular-dependency:check
+  ```
+
+  The command analyzes the source code starting from the `src` directory and reports any circular dependencies found.
+
+  To check a specific entry point:
+
+  ```sh
+  yarn circular-dependency:check src/components
+  ```
+
+  If circular dependencies are detected, the output will show the file paths involved in the cycle, helping you identify which imports need to be refactored to break the dependency chain.
+
+- a984177: Remove package linker from postinstall hook in package.json
+
 ## 0.1.0-rc.69
 
 ### Minor Changes
