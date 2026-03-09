@@ -349,3 +349,15 @@ export { linkStyles } from './components/Link/common';
  * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
  */
 export type { StyledLinkProps } from './components/Link/common';
+
+/**
+ * @deprecated This hook is deprecated and will be removed in a future version.
+ * Use CSS variables for theming instead (e.g., `var(--click-global-color-text-default)`), which will be available.
+ * For theme name, use the `useInitialTheme` hook or access the theme context directly.
+ */
+export { useCUITheme } from './hooks/useCUITheme';
+
+/**
+ * @deprecated This type is deprecated and will be removed in a future version.
+ */
+export type { CUIThemeType } from './hooks/useCUITheme';
