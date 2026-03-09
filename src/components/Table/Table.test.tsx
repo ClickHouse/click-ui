@@ -125,15 +125,15 @@ describe('Table', () => {
     fireEvent.keyDown(resizers[0], { key: 'ArrowLeft' });
   });
 
-  it('should default to responsive list mode', () => {
+  it('should default to list mobile layout', () => {
     const { container } = renderTable({});
-    const outerContainer = container.querySelector('[data-responsive-mode]');
-    expect(outerContainer).toHaveAttribute('data-responsive-mode', 'list');
+    const outerContainer = container.querySelector('[data-mobile-layout]');
+    expect(outerContainer).toHaveAttribute('data-mobile-layout', 'list');
   });
 
-  it('should set scroll mode when isResponsive is false', () => {
-    const { container } = renderTable({ isResponsive: false });
-    const outerContainer = container.querySelector('[data-responsive-mode]');
-    expect(outerContainer).toHaveAttribute('data-responsive-mode', 'scroll');
+  it('should set scroll mode when mobileLayout is scroll', () => {
+    const { container } = renderTable({ mobileLayout: 'scroll' });
+    const outerContainer = container.querySelector('[data-mobile-layout]');
+    expect(outerContainer).toHaveAttribute('data-mobile-layout', 'scroll');
   });
 });

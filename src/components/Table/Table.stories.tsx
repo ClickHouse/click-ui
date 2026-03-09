@@ -4,46 +4,6 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Table, TableRowType } from '@/components/Table';
 
-const headers = [{ label: 'Company' }, { label: 'Contact' }, { label: 'Country' }];
-
-const rows: TableRowType[] = [
-  {
-    id: 'row-1',
-    items: [
-      { label: 'Alfreds Futterkiste' },
-      { label: 'Maria Anders' },
-      { label: 'Germany' },
-    ],
-    isIndeterminate: true,
-  },
-  {
-    id: 'row-2',
-    items: [
-      { label: 'Centro comercial Moctezuma' },
-      { label: 'Francisco Chang' },
-      { label: 'Mexico' },
-    ],
-  },
-  {
-    id: 'row-3',
-    isActive: true,
-    items: [
-      { label: 'Alfreds Futterkiste' },
-      { label: 'Maria Anders' },
-      { label: 'Germany' },
-    ],
-  },
-  {
-    id: 'row-4',
-    isDeleted: true,
-    items: [
-      { label: 'Centro comercial Moctezuma' },
-      { label: 'Francisco Chang' },
-      { label: 'Mexico' },
-    ],
-  },
-];
-
 const rowsLongText: TableRowType[] = [
   {
     id: 'row-1',
@@ -180,19 +140,86 @@ export default meta;
 
 export const Playground: StoryObj<typeof Table> = {
   args: {
-    headers,
-    rows,
+    headers: [
+      { label: 'File', width: '200px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+      { label: 'Size', width: '100px' },
+      { label: 'Status', width: '120px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+          { label: '1.2 GB' },
+          { label: 'Completed' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+          { label: '856 MB' },
+          { label: 'In Progress' },
+        ],
+      },
+    ],
+    mobileLayout: 'list',
+  },
+  render: ({ mobileLayout, ...props }) => {
+    return (
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          mobileLayout={mobileLayout}
+        />
+      </div>
+    );
   },
 };
 
 export const Selectable: StoryObj<typeof Table> = {
   args: {
-    headers,
-    rows,
+    headers: [
+      { label: 'File', width: '200px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+      { label: 'Size', width: '100px' },
+      { label: 'Status', width: '120px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+          { label: '1.2 GB' },
+          { label: 'Completed' },
+        ],
+        isIndeterminate: true,
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+          { label: '856 MB' },
+          { label: 'In Progress' },
+        ],
+      },
+    ],
     isSelectable: true,
     selectedIds: [],
+    mobileLayout: 'list',
   },
-  render: ({ selectedIds, rows: rowsProp, ...props }) => {
+  render: ({ selectedIds, rows: rowsProp, mobileLayout, ...props }) => {
     const [rows, setRows] = useState(rowsProp);
     const [selectedRows, setSelectedRows] = useState(selectedIds);
 
@@ -210,14 +237,17 @@ export const Selectable: StoryObj<typeof Table> = {
     }, [selectedRows]);
 
     return (
-      <Table
-        {...props}
-        rows={rows}
-        selectedIds={selectedRows}
-        onSelect={selectedItems => {
-          setSelectedRows(selectedItems.map(({ item: { id } }) => id));
-        }}
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          rows={rows}
+          selectedIds={selectedRows}
+          mobileLayout={mobileLayout}
+          onSelect={selectedItems => {
+            setSelectedRows(selectedItems.map(({ item: { id } }) => id));
+          }}
+        />
+      </div>
     );
   },
 };
@@ -226,8 +256,9 @@ export const LongText: StoryObj<typeof Table> = {
   args: {
     headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
     rows: rowsLongText,
+    mobileLayout: 'list',
   },
-  render: ({ rows, headers, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     const [sort, setSort] = useState<[number, 'asc' | 'desc']>([0, 'asc']);
 
     const sortedHeaders = useMemo(
@@ -253,12 +284,15 @@ export const LongText: StoryObj<typeof Table> = {
     );
 
     return (
-      <Table
-        {...props}
-        headers={sortedHeaders}
-        rows={sortedRows}
-        onSort={(dir, _, idx) => void setSort([idx, dir])}
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          headers={sortedHeaders}
+          rows={sortedRows}
+          mobileLayout={mobileLayout}
+          onSort={(dir, _, idx) => void setSort([idx, dir])}
+        />
+      </div>
     );
   },
 };
@@ -267,8 +301,9 @@ export const LongTextTruncated: StoryObj<typeof Table> = {
   args: {
     headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
     rows: rowsLongTextTruncated,
+    mobileLayout: 'list',
   },
-  render: ({ rows, headers, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     const [sort, setSort] = useState<[number, 'asc' | 'desc']>([0, 'asc']);
 
     const sortedHeaders = useMemo(
@@ -294,12 +329,15 @@ export const LongTextTruncated: StoryObj<typeof Table> = {
     );
 
     return (
-      <Table
-        {...props}
-        headers={sortedHeaders}
-        rows={sortedRows}
-        onSort={(dir, _, idx) => void setSort([idx, dir])}
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          headers={sortedHeaders}
+          rows={sortedRows}
+          mobileLayout={mobileLayout}
+          onSort={(dir, _, idx) => void setSort([idx, dir])}
+        />
+      </div>
     );
   },
 };
@@ -308,8 +346,9 @@ export const LongTextTruncatedMiddle: StoryObj<typeof Table> = {
   args: {
     headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
     rows: rowsLongTextTruncatedMiddle,
+    mobileLayout: 'list',
   },
-  render: ({ rows, headers, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     const [sort, setSort] = useState<[number, 'asc' | 'desc']>([0, 'asc']);
 
     const sortedHeaders = useMemo(
@@ -335,22 +374,53 @@ export const LongTextTruncatedMiddle: StoryObj<typeof Table> = {
     );
 
     return (
-      <Table
-        {...props}
-        headers={sortedHeaders}
-        rows={sortedRows}
-        onSort={(dir, _, idx) => void setSort([idx, dir])}
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          headers={sortedHeaders}
+          rows={sortedRows}
+          mobileLayout={mobileLayout}
+          onSort={(dir, _, idx) => void setSort([idx, dir])}
+        />
+      </div>
     );
   },
 };
 
 export const Sortable: StoryObj<typeof Table> = {
   args: {
-    headers,
-    rows,
+    headers: [
+      { label: 'File', width: '200px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+      { label: 'Size', width: '100px' },
+      { label: 'Status', width: '120px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+          { label: '1.2 GB' },
+          { label: 'Completed' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+          { label: '856 MB' },
+          { label: 'In Progress' },
+        ],
+      },
+    ],
+    mobileLayout: 'list',
   },
-  render: ({ rows, headers, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     const [sort, setSort] = useState<[number, 'asc' | 'desc']>([0, 'asc']);
 
     const sortedHeaders = useMemo(
@@ -376,12 +446,15 @@ export const Sortable: StoryObj<typeof Table> = {
     );
 
     return (
-      <Table
-        {...props}
-        headers={sortedHeaders}
-        rows={sortedRows}
-        onSort={(dir, _, idx) => void setSort([idx, dir])}
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          headers={sortedHeaders}
+          rows={sortedRows}
+          mobileLayout={mobileLayout}
+          onSort={(dir, _, idx) => void setSort([idx, dir])}
+        />
+      </div>
     );
   },
 };
@@ -431,14 +504,17 @@ type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
 
 const overflowModeOptions: OverflowMode[] = ['truncated', 'truncate-middle', 'wrap'];
 
-interface HeaderOverflowModeArgs {
+type MobileLayoutProp = 'list' | 'scroll';
+
+interface ColumnLevelTruncationArgs {
   fileOverflowMode: OverflowMode;
   tableOverflowMode: OverflowMode;
   timestampOverflowMode: OverflowMode;
   rows: TableRowType[];
+  mobileLayout: MobileLayoutProp;
 }
 
-export const ColumnLevelTruncation: StoryObj<HeaderOverflowModeArgs> = {
+export const ColumnLevelTruncation: StoryObj<ColumnLevelTruncationArgs> = {
   argTypes: {
     fileOverflowMode: {
       control: 'select',
@@ -464,8 +540,15 @@ export const ColumnLevelTruncation: StoryObj<HeaderOverflowModeArgs> = {
     tableOverflowMode: 'truncated',
     timestampOverflowMode: 'wrap',
     rows: rowsHeaderOverflow,
+    mobileLayout: 'list',
   },
-  render: ({ fileOverflowMode, tableOverflowMode, timestampOverflowMode, rows }) => {
+  render: ({
+    fileOverflowMode,
+    tableOverflowMode,
+    timestampOverflowMode,
+    rows,
+    mobileLayout,
+  }) => {
     const headersWithOverflowMode = [
       { label: 'File', overflowMode: fileOverflowMode },
       { label: 'Table', overflowMode: tableOverflowMode },
@@ -473,10 +556,13 @@ export const ColumnLevelTruncation: StoryObj<HeaderOverflowModeArgs> = {
     ];
 
     return (
-      <Table
-        headers={headersWithOverflowMode}
-        rows={rows}
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          headers={headersWithOverflowMode}
+          rows={rows}
+          mobileLayout={mobileLayout}
+        />
+      </div>
     );
   },
 };
@@ -489,20 +575,24 @@ export const ResizableColumns: StoryObj<typeof Table> = {
       { label: 'Timestamp', overflowMode: 'truncated' },
     ],
     rows: rowsLongText,
+    mobileLayout: 'list',
   },
-  render: ({ rows, headers, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     return (
-      <Table
-        {...props}
-        headers={headers}
-        rows={rows}
-        resizableColumns
-      />
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          headers={headers}
+          rows={rows}
+          mobileLayout={mobileLayout}
+          resizableColumns
+        />
+      </div>
     );
   },
 };
 
-export const Responsive: StoryObj<typeof Table> = {
+export const MobileLayout: StoryObj<typeof Table> = {
   args: {
     headers: [
       { label: 'File', width: '200px' },
@@ -533,24 +623,24 @@ export const Responsive: StoryObj<typeof Table> = {
         ],
       },
     ],
-    isResponsive: false,
+    mobileLayout: 'scroll',
   },
   parameters: {
     docs: {
       description: {
         story:
-          'When `isResponsive` is set to `false`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view. The default (`isResponsive={true}`) preserves the responsive mobile list view behavior.',
+          'When `mobileLayout` is set to `"scroll"`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view. The default (`mobileLayout="list"`) preserves the responsive mobile list view behavior.',
       },
     },
   },
-  render: ({ rows, headers, isResponsive, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     return (
-      <div style={{ maxWidth: isResponsive ? 'none' : '400px' }}>
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
         <Table
           {...props}
           headers={headers}
           rows={rows}
-          isResponsive={isResponsive}
+          mobileLayout={mobileLayout}
         />
       </div>
     );
