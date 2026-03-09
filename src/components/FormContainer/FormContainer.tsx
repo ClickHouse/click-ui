@@ -1,4 +1,6 @@
-import { Error, FormElementContainer, FormRoot } from '@/components/Common';
+import { Error } from './Error';
+import { FormElementContainer } from './FormElementContainer';
+import { FormRoot } from './FormRoot';
 import { Label } from '@/components/Label';
 import { FormContainerProps } from './FormContainer.types';
 

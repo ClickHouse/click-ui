@@ -8,7 +8,6 @@ import {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-  DialogTriggerProps,
 } from '@radix-ui/react-dialog';
 import { Button } from '@/components/Button';
 import type { ButtonProps } from '@/components/Button';
@@ -19,17 +18,18 @@ import { Icon } from '@/components/Icon';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
 import { styled } from 'styled-components';
-import { CrossButton } from '@/components/Common';
+import { CrossButton } from '@/components/CrossButton';
 import { keyframes } from 'styled-components';
 import type {
   FlyoutProps,
-  FlyoutSizeType,
-  Strategy,
-  FlyoutType,
-  DialogContentAlignmentType,
-  DialogContentProps,
+  FlyoutTriggerProps,
+  FlyoutContentProps,
   FlyoutHeaderProps,
   FlyoutFooterProps,
+  FlyoutSizeType,
+  FlyoutStrategy,
+  FlyoutType,
+  FlyoutAlignmentType,
 } from './Flyout.types';
 
 export const Flyout = ({ modal = false, ...props }: FlyoutProps) => {
@@ -41,13 +41,10 @@ export const Flyout = ({ modal = false, ...props }: FlyoutProps) => {
   );
 };
 
-const Trigger = ({ children, ...props }: DialogTriggerProps) => {
+const Trigger = ({ children, ...props }: FlyoutTriggerProps) => {
   return (
-    <DialogTrigger
-      asChild
-      {...props}
-    >
-      <div>{children}</div>
+    <DialogTrigger asChild>
+      <div {...props}>{children}</div>
     </DialogTrigger>
   );
 };
@@ -63,9 +60,9 @@ const animationWidth = () =>
 const FlyoutContent = styled(DialogContent)<{
   $size?: FlyoutSizeType;
   $type?: FlyoutType;
-  $strategy: Strategy;
+  $strategy: FlyoutStrategy;
   $width?: string;
-  $align: DialogContentAlignmentType;
+  $align: FlyoutAlignmentType;
 }>`
   display: flex;
   flex-direction: column;
@@ -138,7 +135,7 @@ const Content = ({
   align = 'end',
   onInteractOutside,
   ...props
-}: DialogContentProps) => {
+}: FlyoutContentProps) => {
   return (
     <DialogPortal container={container}>
       {showOverlay && <DialogOverlay className="DialogOverlay" />}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { Dropdown } from '@/components/Dropdown';
-import { BaseButton } from '@/components/Common';
+import { BaseButton } from '@/components/Button/BaseButton';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
 import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';

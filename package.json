@@ -87,11 +87,6 @@
       "import": "./dist/esm/components/CodeBlock/index.js",
       "require": "./dist/cjs/components/CodeBlock/index.cjs"
     },
-    "./Collapsible": {
-      "types": "./dist/types/components/Collapsible/index.d.ts",
-      "import": "./dist/esm/components/Collapsible/index.js",
-      "require": "./dist/cjs/components/Collapsible/index.cjs"
-    },
     "./ConfirmationDialog": {
       "types": "./dist/types/components/ConfirmationDialog/index.d.ts",
       "import": "./dist/esm/components/ConfirmationDialog/index.js",
@@ -157,11 +152,6 @@
       "import": "./dist/esm/components/GenericLabel/index.js",
       "require": "./dist/cjs/components/GenericLabel/index.cjs"
     },
-    "./GenericMenu": {
-      "types": "./dist/types/components/GenericMenu/index.d.ts",
-      "import": "./dist/esm/components/GenericMenu/index.js",
-      "require": "./dist/cjs/components/GenericMenu/index.cjs"
-    },
     "./Grid": {
       "types": "./dist/types/components/Grid/index.d.ts",
       "import": "./dist/esm/components/Grid/index.js",
@@ -187,10 +177,10 @@
       "import": "./dist/esm/components/IconButton/index.js",
       "require": "./dist/cjs/components/IconButton/index.cjs"
     },
-    "./IconWrapper": {
-      "types": "./dist/types/components/IconWrapper/index.d.ts",
-      "import": "./dist/esm/components/IconWrapper/index.js",
-      "require": "./dist/cjs/components/IconWrapper/index.cjs"
+    "./Input": {
+      "types": "./dist/types/components/Input/index.d.ts",
+      "import": "./dist/esm/components/Input/index.js",
+      "require": "./dist/cjs/components/Input/index.cjs"
     },
     "./Label": {
       "types": "./dist/types/components/Label/index.d.ts",
@@ -201,11 +191,6 @@
       "types": "./dist/types/components/Link/index.d.ts",
       "import": "./dist/esm/components/Link/index.js",
       "require": "./dist/cjs/components/Link/index.cjs"
-    },
-    "./MiddleTruncator": {
-      "types": "./dist/types/components/MiddleTruncator/index.d.ts",
-      "import": "./dist/esm/components/MiddleTruncator/index.js",
-      "require": "./dist/cjs/components/MiddleTruncator/index.cjs"
     },
     "./MultiAccordion": {
       "types": "./dist/types/components/MultiAccordion/index.d.ts",
@@ -236,6 +221,11 @@
       "types": "./dist/types/components/RadioGroup/index.d.ts",
       "import": "./dist/esm/components/RadioGroup/index.js",
       "require": "./dist/cjs/components/RadioGroup/index.cjs"
+    },
+    "./Select": {
+      "types": "./dist/types/components/Select/index.d.ts",
+      "import": "./dist/esm/components/Select/index.js",
+      "require": "./dist/cjs/components/Select/index.cjs"
     },
     "./Separator": {
       "types": "./dist/types/components/Separator/index.d.ts",
@@ -297,6 +287,11 @@
       "import": "./dist/esm/components/Tooltip/index.js",
       "require": "./dist/cjs/components/Tooltip/index.cjs"
     },
+    "./Typography": {
+      "types": "./dist/types/components/Typography/index.d.ts",
+      "import": "./dist/esm/components/Typography/index.js",
+      "require": "./dist/cjs/components/Typography/index.cjs"
+    },
     "./VerticalStepper": {
       "types": "./dist/types/components/VerticalStepper/index.d.ts",
       "import": "./dist/esm/components/VerticalStepper/index.js",
@@ -322,6 +317,7 @@
     "changeset:add": "yarn changeset",
     "changeset:status": "yarn changeset status",
     "changeset:verify": ".scripts/bash/changeset-verification",
+    "circular-dependency:check": ".scripts/bash/circular-dependency-check",
     "changeset:version": "yarn changeset version",
     "convert:logo": ".scripts/convert-svg-to-react-component --type=logos",
     "convert:icon": ".scripts/convert-svg-to-react-component --type=icons",
@@ -330,7 +326,7 @@
     "dev": "yarn storybook",
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
-    "generate:exports": "yarn build && .scripts/generate-exports",
+    "generate:exports": ".scripts/generate-exports",
     "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",
@@ -418,6 +414,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "rollup-plugin-visualizer": "^6.0.5",
+    "skott": "^0.35.4",
     "storybook": "^10.1.10",
     "storybook-addon-pseudo-states": "^10.1.10",
     "style-dictionary": "^5.0.0",
