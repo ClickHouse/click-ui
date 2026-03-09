@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const MySQL = (props: SVGAssetProps) => (
+const Mysql = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const MySQL = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default MySQL;
+export default Mysql;

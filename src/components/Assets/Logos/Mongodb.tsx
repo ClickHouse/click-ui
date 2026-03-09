@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const MongoDb = (props: SVGAssetProps) => (
+const Mongodb = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -28,4 +28,4 @@ const MongoDb = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default MongoDb;
+export default Mongodb;

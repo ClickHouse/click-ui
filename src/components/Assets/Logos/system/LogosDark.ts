@@ -39,7 +39,7 @@ import Fivetran from '../Fivetran';
 import Gcp from '../Gcp';
 import GCS from '../GCS';
 import Github from '../Github';
-import GoLang from '../GoLang';
+import Golang from '../Golang';
 import Google from '../Google';
 import Grafana from '../Grafana';
 import Hex from '../Hex';
@@ -51,11 +51,11 @@ import Kubenetes from '../Kubenetes';
 import MariaDB from '../MariaDB';
 import Metabase from '../Metabase';
 import Microsoft from '../Microsoft';
-import MongoDb from '../MongoDb';
-import MySQL from '../MySQL';
+import Mongodb from '../Mongodb';
+import Mysql from '../Mysql';
 import NeonDB from '../NeonDB';
 import Nessie from '../Nessie';
-import NodeJs from '../NodeJs';
+import Nodejs from '../Nodejs';
 import OneLake from '../OneLake';
 import OVH from '../OVH';
 import PlanetScale from '../PlanetScale';
@@ -111,7 +111,7 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   gcp: Gcp,
   gcs: GCS,
   github: Github,
-  'go-lang': GoLang,
+  golang: Golang,
   google: Google,
   grafana: Grafana,
   hex: Hex,
@@ -123,11 +123,11 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   'maria-db': MariaDB,
   metabase: Metabase,
   microsoft: Microsoft,
-  'mongo-db': MongoDb,
-  'my-sql': MySQL,
+  mongodb: Mongodb,
+  mysql: Mysql,
   'neon-db': NeonDB,
   nessie: Nessie,
-  'node-js': NodeJs,
+  nodejs: Nodejs,
   'one-lake': OneLake,
   ovh: OVH,
   'planet-scale': PlanetScale,
