@@ -19,7 +19,10 @@ const GithubBase = ({ theme, ...props }: SVGAssetProps) => (
 );
 
 const Github = ({ theme, ...props }: SVGAssetProps) => (
-  <GithubBase theme={theme ?? 'light'} {...props} />
+  <GithubBase
+    theme={theme ?? 'light'}
+    {...props}
+  />
 );
 
 export default Github;

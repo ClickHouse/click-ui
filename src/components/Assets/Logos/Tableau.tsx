@@ -29,7 +29,10 @@ const TableauBase = ({ theme, ...props }: SVGAssetProps) => (
 );
 
 const Tableau = ({ theme, ...props }: SVGAssetProps) => (
-  <TableauBase theme={theme ?? 'light'} {...props} />
+  <TableauBase
+    theme={theme ?? 'light'}
+    {...props}
+  />
 );
 
 export default Tableau;

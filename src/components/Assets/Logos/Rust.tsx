@@ -299,7 +299,10 @@ const RustBase = ({ theme, ...props }: SVGAssetProps) => {
 };
 
 const Rust = ({ theme, ...props }: SVGAssetProps) => (
-  <RustBase theme={theme ?? 'light'} {...props} />
+  <RustBase
+    theme={theme ?? 'light'}
+    {...props}
+  />
 );
 
 export default Rust;

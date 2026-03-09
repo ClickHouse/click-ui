@@ -29,7 +29,10 @@ const KafkaBase = ({ theme, ...props }: SVGAssetProps) => (
 );
 
 const Kafka = ({ theme, ...props }: SVGAssetProps) => (
-  <KafkaBase theme={theme ?? 'light'} {...props} />
+  <KafkaBase
+    theme={theme ?? 'light'}
+    {...props}
+  />
 );
 
 export default Kafka;
