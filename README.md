@@ -46,13 +46,6 @@ You can find the official docs for the Click UI design system and component libr
   - [Checking the changeset status](#checking-the-changeset-status)
   - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
 * [Release](#release)
-  - [Required admin permissions](#required-admin-permissions)
-  - [Create a new release pull request](#create-a-new-release-pull-request)
-  - [Publish](#publish)
-  - [Maintaining Multiple Versions](#maintaining-multiple-versions)
-  - [Release Cycle](#release-cycle)
-  - [Applying Fixes to Stable Versions](#applying-fixes-to-stable-versions)
-  - [Switching Release Modes](#switching-release-modes)
 * [Contributing](#contributing)
   - [Component RFC](#component-rfc)
   - [Conventional commits](#conventional-commits)
@@ -541,11 +534,11 @@ For more detailed instructions, see [converting SVG to React Components](./docs/
 
 ## Release
 
-Use the [Create a new release Pull Request](#create-a-new-release-pull-request) to prepare a new package release, e.g. it'll automatically compute all changesets, update to the most appropriate semantic version based on those changsets; which also writes changelog entries for each changeset file content.
+Releases are automated via GitHub Actions. A workflow creates a PR with version bumps and changelogs for review. Once merged, the package is published to npm and a GitHub release is created.
 
-Once the artifacts and version bump is completed, the package can be published to npm. Doing all of this manually can be tedious and prone to mistakes, as such, we have a GitHub action that creates a Pull request containing all of this for team review; And once approved, another GitHub action that publishes the package to npm and creates a GitHub release.
+Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for a quick automated process.
 
-Read the [Package Release](./docs/package-release.yml) documentation for more details and use-cases.
+See [Package Release](./docs/package-release.md) for detailed instructions, including use-cases.
 
 ### Component RFC
 

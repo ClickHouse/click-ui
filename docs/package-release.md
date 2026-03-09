@@ -1,5 +1,21 @@
 # Package Release
 
+## Overview
+
+* [Overview](#package-release)
+* [Required Admin Permissions](#required-admin-permissions)
+  - [GitHub Workflow Permissions](#github-workflow-permissions)
+  - [NPM Trusted Publisher](#npm-trusted-publisher)
+* [Create a New Release Pull Request](#create-a-new-release-pull-request)
+* [Publish](#publish)
+* [Maintaining Multiple Versions](#maintaining-multiple-versions)
+  - [Release Cycle](#release-cycle)
+  - [Applying Fixes to Stable Versions](#applying-fixes-to-stable-versions)
+  - [Switching Release Modes](#switching-release-modes)
+* [Use-Cases](#use-cases)
+  - [Create a new release](#create-a-new-release)
+  - [Updating a pending release version](#updating-a-pending-release-version)
+
 **TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
 
 You're expected to [create a new version](#create-a-new-version-and-changelogs), which will consume all changesets, and update to the most appropriate semantic version (semver) based on those changesets; which also writes changelog entries for each consumed changeset file content.
@@ -117,3 +133,77 @@ Here's what changes in package.json:
 }
 ```
 Always include a changeset to ensure each promotion reflects real, trackable changes.
+
+## Use-Cases
+
+### Create a new release
+
+Follow these steps to create a new release:
+
+1. Go to [Actions > Create Release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml)
+2. Click **Run workflow**
+3. Select the target branch (usually `main`)
+4. Choose the release type (`test`, `rc`, `stable`, or `latest`)
+5. Type the release type to confirm (e.g., `test`)
+6. For `stable` or `latest`, also type the branch name to confirm
+7. Click **Run workflow**
+8. Wait for the workflow to create a Pull Request
+9. Review the PR (version bump, changelog entries)
+10. Address any feedback or make necessary tweaks
+11. **Squash and merge** when ready
+12. The [release publisher](https://github.com/ClickHouse/click-ui/actions/workflows/release-publisher.yml) will automatically publish to [npm](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions)
+
+### Updating a pending release version
+
+When a maintenance branch already exists for a version, the workflow will fail with:
+
+```
+⚠️ WARNING: Maintenance branch 'chore/vX.X.X' already exists for version X.X.X.
+💡 Please checkout the branch chore/vX.X.X and create the release from there to ensure proper version line maintenance.
+```
+
+Or, some cases like:
+
+```
+🔍 Checking if @clickhouse/click-ui@0.1.0-rc.70 already exists on NPM...
+0.1.0-rc.70
+👹 Oops! Version 0.1.0-rc.70 of @clickhouse/click-ui is already published on NPM!
+💡 This typically means the release was already published, or a previous workflow run completed it. It may also occur if you're trying to promote a pre-release without any actual changes, e.g., promoting 2.0.1-test.0 (test) → 2.0.1-test.0 (rc) without a version bump which would make 2.0.1-rc.1 (rc). If that's the case, make sure to include a new changeset before retrying.
+Error: Process completed with exit code 1.
+```
+
+This happens when a pre-release (e.g., `v1.0.0-test.1`) was created but not yet promoted to `stable` or `latest`, and you need to include additional changes.
+
+Follow these steps:
+
+1. Checkout the corresponding maintenance branch:
+
+```sh
+git checkout chore/v1.0.0
+git pull origin chore/v1.0.0
+```
+
+2. Cherry-pick or merge the desired changes from `main`:
+
+```sh
+# Cherry-pick specific commits
+git cherry-pick <commit-sha>
+
+# Or merge a branch, e.g. main
+git merge origin/main --no-commit
+```
+
+3. Resolve any conflicts and commit
+
+4. Push the updated branch:
+
+```sh
+git push origin chore/v1.0.0
+```
+
+5. Create a Pull Request with **base branch set to `chore/v1.0.0`** (not `main`)
+
+6. Once reviewed and merged, run the [Create Release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) workflow from the `chore/v1.0.0` branch
+
+> [!NOTE]
+> This workflow ensures version consistency. Changes to a pending release go through the maintenance branch, keeping `main` free for new development.
