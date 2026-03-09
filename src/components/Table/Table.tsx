@@ -564,7 +564,7 @@ export interface TableRowType extends Omit<
   isIndeterminate?: boolean;
 }
 
-type MobileLayoutProp = 'list' | 'scroll';
+export type MobileLayoutProp = 'list' | 'scroll';
 
 interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
