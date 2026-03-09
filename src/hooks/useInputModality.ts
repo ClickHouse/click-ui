@@ -32,12 +32,20 @@ if (typeof document !== 'undefined') {
     },
     true
   );
-  document.addEventListener('pointerdown', () => {
-    lastGlobalModality = 'pointer';
-  }, true);
-  document.addEventListener('pointermove', () => {
-    lastGlobalModality = 'pointer';
-  }, true);
+  document.addEventListener(
+    'pointerdown',
+    () => {
+      lastGlobalModality = 'pointer';
+    },
+    true
+  );
+  document.addEventListener(
+    'pointermove',
+    () => {
+      lastGlobalModality = 'pointer';
+    },
+    true
+  );
 }
 
 export function useInputModality() {

@@ -4,7 +4,12 @@ import { useInputModality } from './useInputModality';
 
 function TestContainer() {
   const props = useInputModality();
-  return <div data-testid="container" {...props} />;
+  return (
+    <div
+      data-testid="container"
+      {...props}
+    />
+  );
 }
 
 describe('useInputModality', () => {
