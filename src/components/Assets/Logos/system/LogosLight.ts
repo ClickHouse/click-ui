@@ -58,7 +58,7 @@ import Nessie from '../Nessie';
 import Nodejs from '../Nodejs';
 import OneLake from '../OneLake';
 import OVH from '../OVH';
-import PlanetScale from '../PlanetScale';
+import Planetscale from '../Planetscale';
 import Postgres from '../Postgres';
 import Prequel from '../Prequel';
 import Python from '../Python';
@@ -130,7 +130,7 @@ const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
   nodejs: Nodejs,
   'one-lake': OneLake,
   ovh: OVH,
-  'planet-scale': PlanetScale,
+  planetscale: Planetscale,
   postgres: Postgres,
   prequel: Prequel,
   python: Python,
