@@ -246,7 +246,7 @@ git merge origin/chore/v1.0.0
 ```sh
 git add .
 git commit -m "chore: 🤖 sync stable release v1.0.0 to main"
-git push origin main
+git push origin chore/sync-v1.0.0-changes-back-to-main
 ```
 
 > [!IMPORTANT]
