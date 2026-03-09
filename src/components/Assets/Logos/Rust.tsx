@@ -1,5 +1,4 @@
 import type { SVGAssetProps } from '@/types';
-import { SVGAttributes } from 'react';
 
 const RustBase = ({ theme, ...props }: SVGAssetProps) => {
   const color = theme === 'dark' ? 'white' : '#161517';
@@ -299,26 +298,8 @@ const RustBase = ({ theme, ...props }: SVGAssetProps) => {
   );
 };
 
-const RustDark = (props: SVGAttributes<SVGElement>) => (
-  <RustBase
-    theme="dark"
-    {...props}
-  />
+const Rust = ({ theme, ...props }: SVGAssetProps) => (
+  <RustBase theme={theme ?? 'light'} {...props} />
 );
-
-const RustLight = (props: SVGAttributes<SVGElement>) => (
-  <RustBase
-    theme="light"
-    {...props}
-  />
-);
-
-const Rust = ({ theme, ...props }: SVGAssetProps) => {
-  if (theme === 'dark') {
-    return <RustDark {...props} />;
-  }
-
-  return <RustLight {...props} />;
-};
 
 export default Rust;

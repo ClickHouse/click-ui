@@ -1,5 +1,4 @@
 import type { SVGAssetProps } from '@/types';
-import { SVGAttributes } from 'react';
 
 const KafkaBase = ({ theme, ...props }: SVGAssetProps) => (
   <svg
@@ -29,26 +28,8 @@ const KafkaBase = ({ theme, ...props }: SVGAssetProps) => (
   </svg>
 );
 
-const KafkaDark = (props: SVGAttributes<SVGElement>) => (
-  <KafkaBase
-    theme="dark"
-    {...props}
-  />
+const Kafka = ({ theme, ...props }: SVGAssetProps) => (
+  <KafkaBase theme={theme ?? 'light'} {...props} />
 );
-
-const KafkaLight = (props: SVGAttributes<SVGElement>) => (
-  <KafkaBase
-    theme="light"
-    {...props}
-  />
-);
-
-const Kafka = ({ theme, ...props }: SVGAssetProps) => {
-  if (theme === 'dark') {
-    return <KafkaDark {...props} />;
-  }
-
-  return <KafkaLight {...props} />;
-};
 
 export default Kafka;

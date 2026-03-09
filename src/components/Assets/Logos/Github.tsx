@@ -1,5 +1,4 @@
 import type { SVGAssetProps } from '@/types';
-import { SVGAttributes } from 'react';
 
 const GithubBase = ({ theme, ...props }: SVGAssetProps) => (
   <svg
@@ -19,26 +18,8 @@ const GithubBase = ({ theme, ...props }: SVGAssetProps) => (
   </svg>
 );
 
-const GithubDark = (props: SVGAttributes<SVGElement>) => (
-  <GithubBase
-    theme="dark"
-    {...props}
-  />
+const Github = ({ theme, ...props }: SVGAssetProps) => (
+  <GithubBase theme={theme ?? 'light'} {...props} />
 );
-
-const GithubLight = (props: SVGAttributes<SVGElement>) => (
-  <GithubBase
-    theme="light"
-    {...props}
-  />
-);
-
-const Github = ({ theme, ...props }: SVGAssetProps) => {
-  if (theme === 'dark') {
-    return <GithubDark {...props} />;
-  }
-
-  return <GithubLight {...props} />;
-};
 
 export default Github;

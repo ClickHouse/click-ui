@@ -1,5 +1,4 @@
 import type { SVGAssetProps } from '@/types';
-import { SVGAttributes } from 'react';
 
 const TableauBase = ({ theme, ...props }: SVGAssetProps) => (
   <svg
@@ -29,26 +28,8 @@ const TableauBase = ({ theme, ...props }: SVGAssetProps) => (
   </svg>
 );
 
-const TableauDark = (props: SVGAttributes<SVGElement>) => (
-  <TableauBase
-    theme="dark"
-    {...props}
-  />
+const Tableau = ({ theme, ...props }: SVGAssetProps) => (
+  <TableauBase theme={theme ?? 'light'} {...props} />
 );
-
-const TableauLight = (props: SVGAttributes<SVGElement>) => (
-  <TableauBase
-    theme="light"
-    {...props}
-  />
-);
-
-const Tableau = ({ theme, ...props }: SVGAssetProps) => {
-  if (theme === 'dark') {
-    return <TableauDark {...props} />;
-  }
-
-  return <TableauLight {...props} />;
-};
 
 export default Tableau;
