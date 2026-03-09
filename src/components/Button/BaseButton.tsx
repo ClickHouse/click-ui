@@ -17,8 +17,12 @@ export const BaseButton = styled.button`
 
     &:active,
     &:focus {
-      outline: none;
       font: ${theme.click.button.basic.typography.label.active};
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${theme.click.global.color.outline.default};
+      outline-offset: 2px;
     }
 
     &:disabled,
