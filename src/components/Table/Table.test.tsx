@@ -124,4 +124,16 @@ describe('Table', () => {
     resizers[0].focus();
     fireEvent.keyDown(resizers[0], { key: 'ArrowLeft' });
   });
+
+  it('should default to responsive list mode', () => {
+    const { container } = renderTable({});
+    const outerContainer = container.querySelector('[data-responsive-mode]');
+    expect(outerContainer).toHaveAttribute('data-responsive-mode', 'list');
+  });
+
+  it('should set scroll mode when isResponsive is false', () => {
+    const { container } = renderTable({ isResponsive: false });
+    const outerContainer = container.querySelector('[data-responsive-mode]');
+    expect(outerContainer).toHaveAttribute('data-responsive-mode', 'scroll');
+  });
 });
