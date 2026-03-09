@@ -180,8 +180,46 @@ export default meta;
 
 export const Playground: StoryObj<typeof Table> = {
   args: {
-    headers,
-    rows,
+    headers: [
+      { label: 'File', width: '200px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+      { label: 'Size', width: '100px' },
+      { label: 'Status', width: '120px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+          { label: '1.2 GB' },
+          { label: 'Completed' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+          { label: '856 MB' },
+          { label: 'In Progress' },
+        ],
+      },
+    ],
+    mobileLayout: 'list',
+  },
+  render: ({ mobileLayout, ...props }) => {
+    return (
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          mobileLayout={mobileLayout}
+        />
+      </div>
+    );
   },
 };
 
