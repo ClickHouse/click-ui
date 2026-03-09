@@ -564,6 +564,8 @@ export interface TableRowType extends Omit<
   isIndeterminate?: boolean;
 }
 
+type MobileLayoutProp = 'list' | 'scroll';
+
 interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
@@ -579,9 +581,7 @@ interface CommonTableProps extends Omit<
   showHeader?: boolean;
   rowHeight?: string;
   resizableColumns?: boolean;
-  // TODO: Should this be renamed to mobileLayout?: 'list' | 'scroll' instead for clarity?
-  /** When false, disables mobile list view and uses horizontal scroll instead. Defaults to true (list view enabled). */
-  isResponsive?: boolean;
+  mobileLayout?: MobileLayoutProp;
 }
 
 type SelectReturnValue = {
@@ -770,7 +770,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       showHeader = true,
       rowHeight,
       resizableColumns,
-      isResponsive = true,
+      mobileLayout = 'list',
       ...props
     },
     ref
@@ -967,7 +967,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
 
     return (
-      <TableOuterContainer data-responsive-mode={isResponsive ? 'list' : 'scroll'}>
+      <TableOuterContainer data-responsive-mode={mobileLayout}>
         {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
