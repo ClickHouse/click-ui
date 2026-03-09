@@ -12,7 +12,13 @@ import {
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import { styled } from 'styled-components';
 import { Dropdown } from '@/components/Dropdown';
-import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from './Common';
+import {
+  Body,
+  CalendarRenderer,
+  DateRangePickerInput,
+  DateTableCell,
+  StyledDropdownItem,
+} from './Common';
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';
 import { Icon } from '@/components/Icon';
@@ -53,10 +59,6 @@ const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>
 const StyledCalendarRenderer = styled(CalendarRenderer)`
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
   min-height: 221px;
-`;
-
-const StyledDropdownItem = styled(Dropdown.Item)`
-  min-height: 24px;
 `;
 
 // max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
