@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import { useInputModality } from '@/hooks';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
@@ -110,9 +111,11 @@ const DropdownContent = ({
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
+  const inputModalityProps = useInputModality();
   return (
     <DropdownMenu.Portal>
       <DropdownMenuContent
+        {...inputModalityProps}
         $type="dropdown-menu"
         $showArrow={showArrow}
         as={ContentElement}

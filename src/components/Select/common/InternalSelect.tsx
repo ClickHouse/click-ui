@@ -58,6 +58,7 @@ import { useOption, useSearch } from './useOption';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
+import { useInputModality } from '@/hooks';
 import { styled } from 'styled-components';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 
@@ -329,6 +330,7 @@ export const InternalSelect = ({
   }, [children, options, updateList]);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputModalityProps = useInputModality();
 
   const onFocus = () => {
     inputRef.current?.focus();
@@ -474,6 +476,7 @@ export const InternalSelect = ({
           )}
           <Portal container={container}>
             <SelectPopoverContent
+              {...inputModalityProps}
               sideOffset={5}
               onFocus={onFocus}
               onCloseAutoFocus={() => {
