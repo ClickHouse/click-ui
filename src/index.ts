@@ -106,7 +106,11 @@ export { DateDetails } from './components/DateDetails';
 
 // Date Picker
 export { DatePicker } from './components/DatePicker';
+export type { DatePickerProps } from './components/DatePicker';
 export { DateRangePicker } from './components/DatePicker/DateRangePicker';
+export type { DateRangePickerProps } from './components/DatePicker/DateRangePicker';
+export { DateTimeRangePicker } from './components/DatePicker/DateTimeRangePicker';
+export type { DateTimeRangePickerProps } from './components/DatePicker/DateTimeRangePicker';
 export { getPredefinedMonthsForDateRangePicker } from './components/DatePicker/utils';
 export type { DateRange } from './components/DatePicker/utils';
 
@@ -158,7 +162,7 @@ export { HoverCard } from './components/HoverCard';
 export { Icon } from './components/Icon';
 export { IconButton } from './components/IconButton';
 export type { IconButtonProps } from './components/IconButton';
-export type { ImageName as IconName } from './components/Icon/Icon.types';
+export type { IconName, ImageName } from './components/Icon/Icon.types';
 
 // Label & Link
 export { Label } from './components/Label';
@@ -350,3 +354,15 @@ export { linkStyles } from './components/Link/common';
  * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
  */
 export type { StyledLinkProps } from './components/Link/common';
+
+/**
+ * @deprecated This hook is deprecated and will be removed in a future version.
+ * Use CSS variables for theming instead (e.g., `var(--click-global-color-text-default)`), which will be available.
+ * For theme name, use the `useInitialTheme` hook or access the theme context directly.
+ */
+export { useCUITheme } from './hooks/useCUITheme';
+
+/**
+ * @deprecated This type is deprecated and will be removed in a future version.
+ */
+export type { CUIThemeType } from './hooks/useCUITheme';
