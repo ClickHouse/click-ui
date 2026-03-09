@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const C_SHARP = (props: SVGAssetProps) => (
+const Csharp = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -44,4 +44,4 @@ const C_SHARP = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default C_SHARP;
+export default Csharp;

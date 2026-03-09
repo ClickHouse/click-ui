@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const DeltaLake = (props: SVGAssetProps) => (
+const Deltalake = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -18,4 +18,4 @@ const DeltaLake = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default DeltaLake;
+export default Deltalake;

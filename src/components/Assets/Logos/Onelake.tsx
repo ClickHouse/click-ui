@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const NodeJs = (props: SVGAssetProps) => (
+const Onelake = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -156,4 +156,4 @@ const NodeJs = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default NodeJs;
+export default Onelake;

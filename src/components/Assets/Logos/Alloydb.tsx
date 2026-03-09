@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const AlloyDBIcon = (props: SVGAssetProps) => (
+const Alloydb = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -40,4 +40,4 @@ const AlloyDBIcon = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default AlloyDBIcon;
+export default Alloydb;

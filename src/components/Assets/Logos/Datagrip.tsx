@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const DataGrip = (props: SVGAssetProps) => (
+const Datagrip = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -141,4 +141,4 @@ const DataGrip = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default DataGrip;
+export default Datagrip;
