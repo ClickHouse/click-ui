@@ -228,6 +228,7 @@ export { Switch } from './components/Switch';
 // Table
 export { Table } from './components/Table';
 export type {
+  MobileLayoutProp,
   TableColumnConfigProps,
   TableHeaderType,
   TableProps,
