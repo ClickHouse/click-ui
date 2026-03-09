@@ -5,10 +5,8 @@ export type AssetDeprecatedName = keyof typeof ASSET_NAME_MAPPINGS.deprecated;
 export const ASSET_NAME_MAPPINGS = {
   aliases: {
     'c#': 'c-sharp',
-    clickhouse: 'clickhouse-light',
     digital_ocean: 'digital-ocean',
     golang: 'go-lang',
-    kafka: 'kafka-light',
     mongodb: 'mongo-db',
     mysql: 'my-sql',
     nodejs: 'node-js',
