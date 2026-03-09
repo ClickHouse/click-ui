@@ -110,6 +110,7 @@ export { DateRangePicker } from './components/DatePicker/DateRangePicker';
 export { DateTimeRangePicker } from './components/DatePicker/DateTimeRangePicker';
 export { getPredefinedMonthsForDateRangePicker } from './components/DatePicker/utils';
 export type { DateTimeRangePickerProps } from './components/DatePicker/DateTimeRangePicker';
+export type { DatePickerProps } from './components/DatePicker';
 export type { DateRange } from './components/DatePicker/utils';
 export type { DateRangePickerProps } from './components/DatePicker/DateRangePicker';
 
