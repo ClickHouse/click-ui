@@ -40,7 +40,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isCurrentDate}
+              $isPresent={isCurrentDate}
               key={dayKey}
               onClick={handleClick}
             >
