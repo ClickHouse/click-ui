@@ -1,14 +1,14 @@
 import { renderCUI } from '@/utils/test-utils';
-import { DateTimePicker } from './DateTimePicker';
+import { DateTimeRangePicker } from './DateTimeRangePicker';
 import userEvent from '@testing-library/user-event';
 import { getPredefinedTimePeriodsForDateTimePicker } from './utils';
 
-describe('DateTimePicker', () => {
+describe('DateTimeRangePicker', () => {
   it('opens the calendar on click', async () => {
     const handleSelectDate = vi.fn();
 
     const { getByTestId, queryByTestId } = renderCUI(
-      <DateTimePicker onSelectDateRange={handleSelectDate} />
+      <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
     );
 
     expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
@@ -22,7 +22,7 @@ describe('DateTimePicker', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');
     const { getByTestId } = renderCUI(
-      <DateTimePicker
+      <DateTimeRangePicker
         startDate={startDate}
         onSelectDateRange={handleSelectDate}
       />
@@ -38,7 +38,7 @@ describe('DateTimePicker', () => {
     const startDate = new Date('07-04-2020');
     const endDate = new Date('07-05-2020');
     const { getByTestId } = renderCUI(
-      <DateTimePicker
+      <DateTimeRangePicker
         startDate={startDate}
         endDate={endDate}
         onSelectDateRange={handleSelectDate}
@@ -54,7 +54,7 @@ describe('DateTimePicker', () => {
     const handleSelectDate = vi.fn();
     const endDate = new Date('07-05-2020');
     const { getByTestId } = renderCUI(
-      <DateTimePicker
+      <DateTimeRangePicker
         endDate={endDate}
         onSelectDateRange={handleSelectDate}
       />
@@ -78,7 +78,7 @@ describe('DateTimePicker', () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, getByText } = renderCUI(
-        <DateTimePicker onSelectDateRange={handleSelectDate} />
+        <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
       );
 
       await userEvent.click(getByTestId('datetimepicker-input'));
@@ -101,7 +101,7 @@ describe('DateTimePicker', () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, getByText } = renderCUI(
-        <DateTimePicker onSelectDateRange={handleSelectDate} />
+        <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
       );
 
       await userEvent.click(getByTestId('datetimepicker-input'));
@@ -129,7 +129,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -144,7 +144,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByRole, getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -167,7 +167,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByRole, getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -192,7 +192,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByRole, getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -222,7 +222,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -249,7 +249,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -278,7 +278,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -296,7 +296,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -320,7 +320,7 @@ describe('DateTimePicker', () => {
         const handleSelectDate = vi.fn();
 
         const { getByTestId, getByText } = renderCUI(
-          <DateTimePicker onSelectDateRange={handleSelectDate} />
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
         );
 
         await userEvent.click(getByTestId('datetimepicker-input'));
@@ -359,7 +359,7 @@ describe('DateTimePicker', () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, findByText } = renderCUI(
-        <DateTimePicker
+        <DateTimeRangePicker
           startDate={startDate}
           futureDatesDisabled={true}
           onSelectDateRange={handleSelectDate}
@@ -377,7 +377,7 @@ describe('DateTimePicker', () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, getByText } = renderCUI(
-        <DateTimePicker
+        <DateTimeRangePicker
           startDate={startDate}
           onSelectDateRange={handleSelectDate}
           maxRangeLength={15}
@@ -409,7 +409,7 @@ describe('DateTimePicker', () => {
       const handleSelectDate = vi.fn();
 
       const { getByTestId, queryByTestId } = renderCUI(
-        <DateTimePicker onSelectDateRange={handleSelectDate} />
+        <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
       );
 
       await userEvent.click(getByTestId('datetimepicker-input'));
@@ -422,7 +422,7 @@ describe('DateTimePicker', () => {
 
       const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
       const { getByTestId, getByText, queryByTestId } = renderCUI(
-        <DateTimePicker
+        <DateTimeRangePicker
           onSelectDateRange={handleSelectDate}
           predefinedTimesList={predefinedTimesList}
         />
@@ -441,7 +441,7 @@ describe('DateTimePicker', () => {
 
       const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
       const { getByTestId, getByText } = renderCUI(
-        <DateTimePicker
+        <DateTimeRangePicker
           onSelectDateRange={handleSelectDate}
           predefinedTimesList={predefinedTimesList}
         />
