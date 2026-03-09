@@ -351,7 +351,7 @@ const TableRow = styled.tr<TableRowProps>`
     border-bottom: none;
   }
 
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       position: relative;
       display: flex;
@@ -383,7 +383,7 @@ const TableData = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       min-width: 40%;
@@ -395,7 +395,7 @@ const TableData = styled.td<{ $size: TableSize }>`
 `;
 
 const StyledColGroup = styled.colgroup`
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: none;
     }
@@ -410,7 +410,7 @@ const StyledThead = styled.thead`
     }) => ` border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
   `}
   }
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: none;
     }
@@ -423,14 +423,14 @@ const MobileHeader = styled.div`
     color: ${theme.click.table.row.color.label.default};
     font:  ${theme.click.table.cell.label.default};
   `}
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: block;
     }
   }
 `;
 const Tbody = styled.tbody`
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: flex;
       flex-direction: column;
@@ -446,7 +446,7 @@ const SelectData = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       align-self: stretch;
@@ -468,7 +468,7 @@ const ActionsList = styled.td<{ $size: TableSize }>`
     font: ${theme.click.table.cell.text.default};
     padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
   `}
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       width: auto;
       align-self: stretch;
@@ -489,7 +489,7 @@ const ActionsContainer = styled.div`
   flex-wrap: wrap;
   gap: 0.5rem;
   overflow: hidden;
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       flex-direction: column;
       overflow: auto;
@@ -517,7 +517,7 @@ const TableOuterContainer = styled.div`
 
 const MobileActions = styled.div`
   display: none;
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       display: flex;
       justify-content: space-between;
@@ -967,7 +967,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
 
     return (
-      <TableOuterContainer data-responsive-mode={mobileLayout}>
+      <TableOuterContainer data-mobile-layout={mobileLayout}>
         {hasRows && showHeader && (
           <MobileActions>
             {isSelectable && (
@@ -1161,7 +1161,7 @@ const StyledTable = styled.table`
   overflow: visible;
   table-layout: fixed;
 
-  [data-responsive-mode='list'] & {
+  [data-mobile-layout='list'] & {
     @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
       border: none;
       table-layout: auto;
