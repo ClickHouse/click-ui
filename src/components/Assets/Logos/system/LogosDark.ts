@@ -33,10 +33,8 @@ import Decodeable from '../Decodeable';
 import DeepNote from '../DeepNote';
 import DeltaLake from '../DeltaLake';
 import DigitalOcean from '../DigitalOcean';
-import FeatureDatabaseDark from '../FeatureDatabaseDark';
-import FeatureDatabaseLight from '../FeatureDatabaseLight';
-import FeatureHexagonDark from '../FeatureHexagonDark';
-import FeatureHexagonLight from '../FeatureHexagonLight';
+import FeatureDatabase from '../FeatureDatabase';
+import FeatureHexagon from '../FeatureHexagon';
 import Fivetran from '../Fivetran';
 import Gcp from '../Gcp';
 import GCS from '../GCS';
@@ -107,10 +105,8 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   'deep-note': DeepNote,
   'delta-lake': DeltaLake,
   'digital-ocean': DigitalOcean,
-  'feature-database-dark': FeatureDatabaseDark,
-  'feature-database-light': FeatureDatabaseLight,
-  'feature-hexagon-dark': FeatureHexagonDark,
-  'feature-hexagon-light': FeatureHexagonLight,
+  'feature-database': FeatureDatabase,
+  'feature-hexagon': FeatureHexagon,
   fivetran: Fivetran,
   gcp: Gcp,
   gcs: GCS,
