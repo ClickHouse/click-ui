@@ -2048,6 +2048,7 @@ const theme = {
             },
             stroke: {
               default: '#323232',
+              focus: '#faff69',
             },
           },
           format: {
@@ -2078,6 +2079,7 @@ const theme = {
             },
             stroke: {
               default: 'rgba(0, 0, 0, 0)',
+              focus: '#faff69',
             },
           },
         },
