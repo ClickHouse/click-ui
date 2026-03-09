@@ -15,6 +15,7 @@
 * [Use-Cases](#use-cases)
   - [Create a new release](#create-a-new-release)
   - [Updating a pending release version](#updating-a-pending-release-version)
+  - [Promoting to stable release](#promoting-to-stable-release)
 
 **TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
 
@@ -207,3 +208,46 @@ git push origin chore/v1.0.0
 
 > [!NOTE]
 > This workflow ensures version consistency. Changes to a pending release go through the maintenance branch, keeping `main` free for new development.
+
+### Promoting to stable release
+
+Stable releases are created from `chore/v*` branches. Once a stable release is published, the pre-release mode is switched off and `main` must be updated to reflect the version bump and exit from pre-release mode.
+
+Follow these steps:
+
+1. Ensure your pre-release has been tested and is ready for production
+
+2. Run the [Create Release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) workflow from the `chore/v*` branch:
+   - Select the maintenance branch (e.g., `chore/v1.0.0`)
+   - Choose `stable` as the release type
+   - Confirm the release type and branch name
+
+3. Review and merge the release PR into the maintenance branch
+
+4. After the stable version is published, sync the changes back to `main`:
+
+```sh
+git checkout main
+git pull origin main
+git checkout -b chore/sync-v1.0.0-changes-back-to-main
+git merge origin/chore/v1.0.0
+```
+
+> [!IMPORTANT]
+> You'll have to create a pull request, get it approved to merge these to the main branch.
+
+5. Resolve any conflicts, paying attention to:
+   - `package.json` version bump
+   - `.changeset/pre.json` removal (pre-release mode off)
+   - `CHANGELOG.md` entries
+
+6. Commit and push:
+
+```sh
+git add .
+git commit -m "chore: 🤖 sync stable release v1.0.0 to main"
+git push origin main
+```
+
+> [!IMPORTANT]
+> This step is critical. The `main` branch must reflect the stable release state to ensure future pre-releases start from the correct version baseline.
