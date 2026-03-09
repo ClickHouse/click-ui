@@ -1,5 +1,90 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.73
+
+### Minor Changes
+
+- 0a11bf7: Introduces a centralised asset configuration with unified aliases and deprecated name mappings. This provides a single source of truth for asset name resolution across all asset types (Icons, Logos, Flags, and Payments), helping to resolve circular dependencies while offering a flexible aliasing system.
+
+  ### Why aliases?
+
+  Asset naming conventions use kebab-case (e.g., `c-sharp`, `arrow-down`) to facilitate file organisation and ensure valid JavaScript identifiers. However, users may prefer more intuitive names that don't follow these conventions. Aliases bridge this gap.
+
+  For example, `c#` contains a `#` character which is not a valid JavaScript identifier, but users might still prefer using `c#` over `c-sharp`.
+
+  ### How to use aliases
+
+  Aliases are defined in `src/components/Assets/config.ts` under `ASSET_NAME_MAPPINGS.aliases`:
+
+  ```tsx
+  export const ASSET_NAME_MAPPINGS = {
+    aliases: {
+      'c#': 'c-sharp',
+      // Add more aliases as needed
+    } as AssetAliasMap,
+    // ...
+  };
+  ```
+
+  The alias is then automatically resolved when using any asset component:
+
+  ```tsx
+  // Both of these work identically:
+  <Logo name="c#" />
+  <Logo name="c-sharp" />
+  ```
+
+- 1caeabb: Replaces the `isResponsive` boolean prop with a more explicit `mobileLayout` prop on the Table component. It clearly states the behavior, while isResponsive requires knowing what "responsive" means here and both are technically "responsive".
+
+  The mobile layout version's more extensible, e.g. a new mode can be easily introduced such as `compact` without breaking changes.
+
+  **Migration guide:**
+
+  ```tsx
+  // Before
+  <Table isResponsive={true} />
+  <Table isResponsive={false} />
+
+  // After
+  <Table mobileLayout="list" /> // or use just <Table />
+  <Table mobileLayout="scroll" />
+  ```
+
+  The new `mobileLayout` prop accepts:
+  - `"list"` (default): Converts to mobile list view on narrow screens
+  - `"scroll"`: Maintains table layout with horizontal scroll on narrow screens
+
+  **Data attribute change:**
+
+  The `data-responsive-mode` attribute has been renamed to `data-mobile-layout`. If you have custom CSS targeting `[data-responsive-mode='list']` or `[data-responsive-mode='scroll']`, update to `[data-mobile-layout='list']` or `[data-mobile-layout='scroll']`.
+
+- 93149dd: Expose `DateTimeRangePicker` component and related types to the public API.
+
+  **What's new:**
+  - `DateTimeRangePicker` - A date/time range picker component for selecting date and time ranges
+  - `DateTimeRangePickerProps` - TypeScript props for the DateTimeRangePicker component
+  - `DateRangePickerProps` - TypeScript props for the DateRangePicker component
+  - `DatePickerProps` - TypeScript props for the DatePicker component
+
+  **How to use?**
+
+  ```tsx
+  import { DateTimeRangePicker, DateTimeRangePickerProps } from '@clickhouse/click-ui';
+
+  const MyComponent = () => (
+    <DateTimeRangePicker onChange={range => console.log(range)} />
+  );
+  ```
+
+### Patch Changes
+
+- 2e1438f: Restore useCUITheme while flagging it as deprecated.
+- e861899: Fix incorrect type export: `ImageName` (which includes icons, logos, flags, and payments) was incorrectly exported only as `IconName`. Now exports both `IconName` and `ImageName` types.
+
+  **What changed?**
+
+  This fix introduces a potential subtle breaking change. Previously, consumers importing `IconName` were actually getting `ImageName` (i.e., `IconName | LogoName | FlagName | PaymentName`). After this fix, `IconName` becomes the narrower type (icons only). If you were passing logo, flag, or payment names into a variable typed as `IconName`, you may now see TypeScript errors. Update those usages to use `ImageName` instead.
+
 ## 0.1.0-rc.72
 
 ### Minor Changes
