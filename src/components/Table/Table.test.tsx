@@ -131,8 +131,8 @@ describe('Table', () => {
     expect(outerContainer).toHaveAttribute('data-responsive-mode', 'list');
   });
 
-  it('should set scroll mode when isResponsive is false', () => {
-    const { container } = renderTable({ isResponsive: false });
+  it('should set scroll mode when mobileLayout is scroll', () => {
+    const { container } = renderTable({ mobileLayout: 'scroll' });
     const outerContainer = container.querySelector('[data-responsive-mode]');
     expect(outerContainer).toHaveAttribute('data-responsive-mode', 'scroll');
   });

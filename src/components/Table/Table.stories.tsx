@@ -502,7 +502,7 @@ export const ResizableColumns: StoryObj<typeof Table> = {
   },
 };
 
-export const Responsive: StoryObj<typeof Table> = {
+export const MobileLayout: StoryObj<typeof Table> = {
   args: {
     headers: [
       { label: 'File', width: '200px' },
@@ -533,24 +533,24 @@ export const Responsive: StoryObj<typeof Table> = {
         ],
       },
     ],
-    isResponsive: false,
+    mobileLayout: 'scroll',
   },
   parameters: {
     docs: {
       description: {
         story:
-          'When `isResponsive` is set to `false`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view. The default (`isResponsive={true}`) preserves the responsive mobile list view behavior.',
+          'When `mobileLayout` is set to `"scroll"`, the table maintains its standard layout with horizontal scroll on narrow screens instead of converting to a mobile list view. The default (`mobileLayout="list"`) preserves the responsive mobile list view behavior.',
       },
     },
   },
-  render: ({ rows, headers, isResponsive, ...props }) => {
+  render: ({ rows, headers, mobileLayout, ...props }) => {
     return (
-      <div style={{ maxWidth: isResponsive ? 'none' : '400px' }}>
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
         <Table
           {...props}
           headers={headers}
           rows={rows}
-          isResponsive={isResponsive}
+          mobileLayout={mobileLayout}
         />
       </div>
     );
