@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const TigerData = (props: SVGAssetProps) => (
+const Tigerdata = (props: SVGAssetProps) => (
   <svg
     width="24"
     height="24"
@@ -44,4 +44,4 @@ const TigerData = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default TigerData;
+export default Tigerdata;

@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const NeonDB = (props: SVGAssetProps) => (
+const Neondb = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -77,4 +77,4 @@ const NeonDB = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default NeonDB;
+export default Neondb;

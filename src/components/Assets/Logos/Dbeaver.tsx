@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const dBeaver = (props: SVGAssetProps) => (
+const Dbeaver = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -34,4 +34,4 @@ const dBeaver = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default dBeaver;
+export default Dbeaver;

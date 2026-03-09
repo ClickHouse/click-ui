@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const PlanetScale = (props: SVGAssetProps) => (
+const Planetscale = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -16,4 +16,4 @@ const PlanetScale = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default PlanetScale;
+export default Planetscale;

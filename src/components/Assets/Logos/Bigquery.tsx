@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const BigQueryLight = (props: SVGAssetProps) => (
+const Bigquery = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -36,4 +36,4 @@ const BigQueryLight = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default BigQueryLight;
+export default Bigquery;

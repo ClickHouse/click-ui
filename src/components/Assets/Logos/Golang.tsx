@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const GoLang = (props: SVGAssetProps) => (
+const Golang = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -32,4 +32,4 @@ const GoLang = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default GoLang;
+export default Golang;
