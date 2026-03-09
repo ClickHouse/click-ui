@@ -11,7 +11,13 @@ import {
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import { styled } from 'styled-components';
 import { Dropdown } from '../Dropdown/Dropdown';
-import { Body, CalendarRenderer, DateRangePickerInput, DateTableCell } from './Common';
+import {
+  Body,
+  CalendarRenderer,
+  DateRangePickerInput,
+  DateTableCell,
+  StyledDropdownItem,
+} from './Common';
 import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
@@ -52,10 +58,6 @@ const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>
 const StyledCalendarRenderer = styled(CalendarRenderer)`
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
   min-height: 221px;
-`;
-
-const StyledDropdownItem = styled(Dropdown.Item)`
-  min-height: 24px;
 `;
 
 // max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
@@ -176,7 +178,7 @@ const Calendar = ({
               $isCurrentMonth={isCurrentMonth}
               $isDisabled={isDisabled}
               $isSelected={isSelected}
-              $isToday={isCurrentDate}
+              $isPresent={isCurrentDate}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}

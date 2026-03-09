@@ -17,6 +17,7 @@ import {
   CalendarRenderer,
   DateTimeRangePickerInput,
   DateTableCell,
+  StyledDropdownItem,
 } from './Common';
 import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
@@ -66,10 +67,6 @@ const StyledCalendarRenderer = styled(CalendarRenderer)`
 
 const StyledTriggerList = styled(Tabs.TriggersList)`
   justify-content: space-around;
-`;
-
-const StyledDropdownItem = styled(Dropdown.Item)`
-  min-height: 24px;
 `;
 
 // max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
