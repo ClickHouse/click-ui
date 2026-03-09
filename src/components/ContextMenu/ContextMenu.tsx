@@ -126,11 +126,11 @@ const ContextMenuContent = ({
   return (
     <RightMenu.Portal>
       <RightMenuContent
-        {...inputModalityProps}
+        {...props}
         $type="context-menu"
         $showArrow={showArrow}
         as={ContentElement}
-        {...props}
+        {...inputModalityProps}
       >
         {showArrow && (
           <Arrow

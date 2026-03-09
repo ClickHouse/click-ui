@@ -115,7 +115,7 @@ const DropdownContent = ({
   return (
     <DropdownMenu.Portal>
       <DropdownMenuContent
-        {...inputModalityProps}
+        {...props}
         $type="dropdown-menu"
         $showArrow={showArrow}
         as={ContentElement}
@@ -123,7 +123,7 @@ const DropdownContent = ({
         loop
         avoidCollisions={responsivePositioning}
         collisionPadding={responsivePositioning ? 100 : undefined}
-        {...props}
+        {...inputModalityProps}
       >
         {showArrow && (
           <Arrow
