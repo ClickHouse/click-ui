@@ -158,7 +158,7 @@ export { HoverCard } from './components/HoverCard';
 export { Icon } from './components/Icon';
 export { IconButton } from './components/IconButton';
 export type { IconButtonProps } from './components/IconButton';
-export type { ImageName as IconName } from './components/Icon/Icon.types';
+export type { IconName, ImageName } from './components/Icon/Icon.types';
 
 // Label & Link
 export { Label } from './components/Label';
