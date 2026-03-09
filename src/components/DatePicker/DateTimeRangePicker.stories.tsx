@@ -1,10 +1,10 @@
 import { Args, Meta, StoryObj } from '@storybook/react-vite';
-import { DateTimePicker } from './DateTimePicker';
+import { DateTimeRangePicker } from './DateTimeRangePicker';
 import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from './utils';
 import dayjs from 'dayjs';
 
-const meta: Meta<typeof DateTimePicker> = {
-  component: DateTimePicker,
+const meta: Meta<typeof DateTimeRangePicker> = {
+  component: DateTimeRangePicker,
   args: {
     maxRangeLength: undefined,
     onSelectDateRange: (startDate: Date, endDate: Date) => {
@@ -12,7 +12,7 @@ const meta: Meta<typeof DateTimePicker> = {
     },
   },
   tags: ['autodocs'],
-  title: 'Display/DateTimePicker',
+  title: 'Display/DateTimeRangePicker',
 };
 
 export default meta;
@@ -28,7 +28,7 @@ export const Default: Story = {
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
 
     return (
-      <DateTimePicker
+      <DateTimeRangePicker
         key="default"
         endDate={endDate}
         disabled={args.disabled}
@@ -44,7 +44,7 @@ export const Default: Story = {
   },
 };
 
-export const DateTimePickerLeftSide: Story = {
+export const DateTimeRangePickerLeftSide: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
@@ -52,7 +52,7 @@ export const DateTimePickerLeftSide: Story = {
 
     return (
       <div style={{ alignItems: 'end', float: 'right' }}>
-        <DateTimePicker
+        <DateTimeRangePicker
           key="default"
           endDate={endDate}
           disabled={args.disabled}
@@ -78,7 +78,7 @@ export const PredefinedTimesDefault: Story = {
     const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
 
     return (
-      <DateTimePicker
+      <DateTimeRangePicker
         key="default"
         endDate={endDate}
         disabled={args.disabled}
@@ -195,7 +195,7 @@ export const PredefinedDatesScrollable: Story = {
     ];
 
     return (
-      <DateTimePicker
+      <DateTimeRangePicker
         key="default"
         endDate={endDate}
         disabled={args.disabled}
@@ -222,7 +222,7 @@ export const DateTimeWithMaxRange: Story = {
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
 
     return (
-      <DateTimePicker
+      <DateTimeRangePicker
         key="default"
         endDate={endDate}
         disabled={args.disabled}

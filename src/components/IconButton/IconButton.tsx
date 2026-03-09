@@ -1,4 +1,5 @@
-import { Icon, IconName } from '@/components';
+import { Icon } from '../Icon/Icon';
+import { IconName } from '../types';
 import { HTMLAttributes, forwardRef } from 'react';
 import { styled } from 'styled-components';
 
@@ -12,6 +13,8 @@ export interface IconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   /** The icon to display in the button */
   icon: IconName;
 }
+
+export type IconButtonSize = 'default' | 'sm' | 'xs';
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ type = 'primary', icon, size, disabled, ...props }, ref) => {
