@@ -26,6 +26,8 @@ export type { AlertProps } from './components/Alert';
 export { Flag as Flags } from './components/Assets/Flags/system/Flag';
 export { Logo } from './components/Assets/Logos/system/Logo';
 export { User as ProfileIcon } from './components/Assets/Icons/User';
+export type { FlagName, FlagProps } from './components/Assets/Flags/system/types';
+export type { LogoName, LogoProps } from './components/Assets/Logos/system/types';
 
 // AutoComplete
 export { AutoComplete } from './components/AutoComplete';
@@ -249,6 +251,7 @@ export type { NumberFieldProps } from './components/Input/NumberField';
 export type { PasswordFieldProps } from './components/Input/PasswordField';
 export type { SearchFieldProps } from './components/Input/SearchField';
 export type { TextAreaFieldProps } from './components/Input/TextArea';
+export type { TextFieldProps } from './components/Input/TextField';
 
 // Toast
 export { Toast, ToastProvider } from './components/Toast';
