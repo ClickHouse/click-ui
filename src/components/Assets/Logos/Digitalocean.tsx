@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const DigitalOcean = (props: SVGAssetProps) => (
+const Digitalocean = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -32,4 +32,4 @@ const DigitalOcean = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default DigitalOcean;
+export default Digitalocean;

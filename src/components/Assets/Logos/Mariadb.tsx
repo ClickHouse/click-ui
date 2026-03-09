@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const MariaDB = (props: SVGAssetProps) => (
+const Mariadb = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -16,4 +16,4 @@ const MariaDB = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default MariaDB;
+export default Mariadb;

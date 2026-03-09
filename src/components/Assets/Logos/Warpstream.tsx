@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const WarpStream = (props: SVGAssetProps) => (
+const Warpstream = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -44,4 +44,4 @@ const WarpStream = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default WarpStream;
+export default Warpstream;

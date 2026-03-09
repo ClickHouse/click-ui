@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const Kubenetes = (props: SVGAssetProps) => (
+const Kubernetes = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -20,4 +20,4 @@ const Kubenetes = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default Kubenetes;
+export default Kubernetes;

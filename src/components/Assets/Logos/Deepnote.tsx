@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const DeepNote = (props: SVGAssetProps) => (
+const Deepnote = (props: SVGAssetProps) => (
   <svg
     width="64"
     height="64"
@@ -48,4 +48,4 @@ const DeepNote = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default DeepNote;
+export default Deepnote;
