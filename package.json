@@ -330,7 +330,6 @@
     "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",
-    "postinstall": ".scripts/package-linker",
     "prepare": "husky",
     "prettify": "yarn format:fix",
     "preview": "vite preview",
