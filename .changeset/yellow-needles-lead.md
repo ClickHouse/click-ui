@@ -6,7 +6,7 @@ Refactors themed logos to use single theme-aware components and adds simple alia
 
 **Theme-aware logos**
 
-Logos with light/dark variants (`kafka`, `github`, `clickhouse`, `rust`, `tableau`) are now consolidated into single components that automatically switch based on the current theme. This follows the existing pattern used by `OVH` and `AWS` logos.
+Logos with light/dark variants (`kafka`, `github`, `clickhouse`, `rust`, `tableau`, `feature-database`, `feature-hexagon`) are now consolidated into single components that automatically switch based on the current theme. This follows the existing pattern used by `OVH` and `AWS` logos.
 
 Before:
 ```tsx
