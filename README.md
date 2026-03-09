@@ -549,7 +549,7 @@ Once the artifacts and version bump is completed, the package can be published t
 
 ### Required admin permissions
 
-The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub ascitons as a trusted publisher in NPM package settings.
+The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub actions as a trusted publisher in NPM package settings.
 
 #### GitHub Workflow Permissions
 
