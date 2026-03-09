@@ -2,4 +2,4 @@
 '@clickhouse/click-ui': patch
 ---
 
-Expose useCUITheme but @deprecated
+Restore useCUITheme while flagging it as deprecated.
