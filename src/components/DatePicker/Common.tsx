@@ -194,7 +194,7 @@ export const DateRangePickerInput = ({
   );
 };
 
-interface DateTimePickerInputProps {
+interface DateTimeRangePickerInputProps {
   isActive: boolean;
   disabled: boolean;
   id?: string;
@@ -204,7 +204,7 @@ interface DateTimePickerInputProps {
   shouldShowSeconds?: boolean;
 }
 
-export const DateTimePickerInput = ({
+export const DateTimeRangePickerInput = ({
   isActive,
   disabled,
   id,
@@ -212,7 +212,7 @@ export const DateTimePickerInput = ({
   selectedEndDate,
   selectedStartDate,
   shouldShowSeconds,
-}: DateTimePickerInputProps) => {
+}: DateTimeRangePickerInputProps) => {
   const defaultId = useId();
 
   const dateTimeFormatter = shouldShowSeconds

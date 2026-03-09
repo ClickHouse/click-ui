@@ -12,7 +12,12 @@ import {
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import { styled } from 'styled-components';
 import { Dropdown } from '../Dropdown/Dropdown';
-import { Body, CalendarRenderer, DateTimePickerInput, DateTableCell } from './Common';
+import {
+  Body,
+  CalendarRenderer,
+  DateTimeRangePickerInput,
+  DateTableCell,
+} from './Common';
 import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
@@ -699,7 +704,7 @@ const TabbedCalendar = ({
   );
 };
 
-export interface DateTimePickerProps {
+export interface DateTimeRangePickerProps {
   endDate?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
@@ -713,7 +718,7 @@ export interface DateTimePickerProps {
   startDate?: Date;
 }
 
-export const DateTimePicker = ({
+export const DateTimeRangePicker = ({
   endDate,
   startDate,
   disabled = false,
@@ -725,7 +730,7 @@ export const DateTimePicker = ({
   placeholder = 'start date – end date',
   predefinedTimesList,
   shouldShowSeconds,
-}: DateTimePickerProps) => {
+}: DateTimeRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
   const [selectedEndDate, setSelectedEndDate] = useState<Date>();
@@ -825,7 +830,7 @@ export const DateTimePicker = ({
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >
-        <DateTimePickerInput
+        <DateTimeRangePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
