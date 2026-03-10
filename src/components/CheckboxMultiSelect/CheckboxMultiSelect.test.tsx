@@ -4,11 +4,10 @@ import {
   queryByText as queryByTestingText,
   screen,
 } from '@testing-library/react';
-import { CheckboxMultiSelect } from '@/components/Select/CheckboxMultiSelect';
-import type { CheckboxMultiSelectProps } from '@/components/Select/CheckboxMultiSelect';
+import { CheckboxMultiSelect, type CheckboxMultiSelectProps } from '@/components/CheckboxMultiSelect';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from './selectOptions';
+import { selectOptions } from '@/components/Select';
 
 interface Props extends Omit<CheckboxMultiSelectProps, 'children' | 'label'> {
   nodata?: ReactNode;

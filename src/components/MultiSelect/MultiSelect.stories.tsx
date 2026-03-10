@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { MultiSelect } from './MultiSelect';
-import { selectOptions } from './selectOptions';
+import { selectOptions } from '../Select/selectOptions';
 import { useEffect, useState } from 'react';
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';

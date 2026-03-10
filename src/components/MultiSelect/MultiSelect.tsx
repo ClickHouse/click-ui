@@ -1,29 +1,26 @@
-import { useCallback, useEffect, useState } from 'react';
+import { KeyboardEvent, useCallback, useState } from 'react';
 
-import { SelectOptionProp, SelectionType } from './common/types';
+import { useUpdateEffect } from '@/hooks';
+
 import {
+  SelectOptionProp,
+  SelectionType,
   SelectGroup,
+  SelectItem,
   InternalSelect,
-  MultiSelectCheckboxItem,
   SelectItemDescription,
-} from './common/InternalSelect';
+} from '@/components/Select';
+import { MultiSelectProps } from './MultiSelect.types';
 
-import { MultiSelectProps } from './MultiSelect';
-
-export interface CheckboxMultiSelectProps extends MultiSelectProps {
-  selectLabel?: string;
-}
-
-export const CheckboxMultiSelect = ({
+export const MultiSelect = ({
   value: valueProp,
   defaultValue,
   onSelect: onSelectProp,
   options,
   children,
   onOpenChange: onOpenChangeProp,
-  selectLabel,
   ...props
-}: CheckboxMultiSelectProps) => {
+}: MultiSelectProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>(
     valueProp ?? defaultValue ?? []
   );
@@ -39,15 +36,15 @@ export const CheckboxMultiSelect = ({
     [onOpenChangeProp]
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setSelectedValues(valueProp ?? []);
   }, [valueProp]);
 
   const onChange = useCallback(
-    (values: string[], type?: SelectionType) => {
+    (values: string[], type?: SelectionType, evt?: KeyboardEvent<HTMLElement>) => {
       setSelectedValues(values);
       if (typeof onSelectProp === 'function') {
-        onSelectProp(values, type);
+        onSelectProp(values, type, evt);
       }
     },
     [onSelectProp]
@@ -77,18 +74,17 @@ export const CheckboxMultiSelect = ({
   return (
     <InternalSelect
       onChange={onChange}
-      value={selectedValues}
+      value={valueProp ?? selectedValues}
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
-      checkbox={true}
-      selectLabel={selectLabel}
+      multiple
       {...conditionalProps}
       {...props}
     />
   );
 };
 
-CheckboxMultiSelect.Group = SelectGroup;
-CheckboxMultiSelect.Item = MultiSelectCheckboxItem;
-CheckboxMultiSelect.ItemDescription = SelectItemDescription;
+MultiSelect.Group = SelectGroup;
+MultiSelect.Item = SelectItem;
+MultiSelect.ItemDescription = SelectItemDescription;

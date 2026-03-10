@@ -3,11 +3,9 @@ import {
   fireEvent,
   queryByText as queryByTestingText,
 } from '@testing-library/react';
-import { Select } from '@/components/Select/SingleSelect';
-import type { SelectProps } from '@/components/Select/SingleSelect';
+import { Select, selectOptions, type SelectProps } from '@/components/Select';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from './selectOptions';
 interface Props extends Omit<SelectProps, 'children' | 'label'> {
   nodata?: ReactNode;
   showSearch?: boolean;

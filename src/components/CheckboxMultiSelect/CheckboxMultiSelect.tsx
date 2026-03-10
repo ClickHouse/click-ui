@@ -1,39 +1,24 @@
-import { KeyboardEvent, MouseEvent, useCallback, useState } from 'react';
-
-import { useUpdateEffect } from '@/hooks';
-
-import { SelectContainerProps, SelectOptionProp, SelectionType } from './common/types';
+import { useCallback, useEffect, useState } from 'react';
 import {
   SelectGroup,
-  SelectItem,
   InternalSelect,
+  MultiSelectCheckboxItem,
   SelectItemDescription,
-} from './common/InternalSelect';
+} from '@/components/Select';
 
-export interface MultiSelectProps extends Omit<
-  SelectContainerProps,
-  'onChange' | 'value' | 'open' | 'onOpenChange' | 'onSelect'
-> {
-  defaultValue?: string[];
-  onSelect?: (
-    value: string[],
-    type?: SelectionType,
-    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
-  ) => void;
-  value?: string[];
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
+import type { SelectOptionProp, SelectionType } from '@/components/Select';
+import type { CheckboxMultiSelectProps } from '@/components/MultiSelect';
 
-export const MultiSelect = ({
+export const CheckboxMultiSelect = ({
   value: valueProp,
   defaultValue,
   onSelect: onSelectProp,
   options,
   children,
   onOpenChange: onOpenChangeProp,
+  selectLabel,
   ...props
-}: MultiSelectProps) => {
+}: CheckboxMultiSelectProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>(
     valueProp ?? defaultValue ?? []
   );
@@ -49,15 +34,15 @@ export const MultiSelect = ({
     [onOpenChangeProp]
   );
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setSelectedValues(valueProp ?? []);
   }, [valueProp]);
 
   const onChange = useCallback(
-    (values: string[], type?: SelectionType, evt?: KeyboardEvent<HTMLElement>) => {
+    (values: string[], type?: SelectionType) => {
       setSelectedValues(values);
       if (typeof onSelectProp === 'function') {
-        onSelectProp(values, type, evt);
+        onSelectProp(values, type);
       }
     },
     [onSelectProp]
@@ -87,17 +72,18 @@ export const MultiSelect = ({
   return (
     <InternalSelect
       onChange={onChange}
-      value={valueProp ?? selectedValues}
+      value={selectedValues}
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
-      multiple
+      checkbox={true}
+      selectLabel={selectLabel}
       {...conditionalProps}
       {...props}
     />
   );
 };
 
-MultiSelect.Group = SelectGroup;
-MultiSelect.Item = SelectItem;
-MultiSelect.ItemDescription = SelectItemDescription;
+CheckboxMultiSelect.Group = SelectGroup;
+CheckboxMultiSelect.Item = MultiSelectCheckboxItem;
+CheckboxMultiSelect.ItemDescription = SelectItemDescription;

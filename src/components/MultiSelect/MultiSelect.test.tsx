@@ -3,11 +3,11 @@ import {
   fireEvent,
   queryByText as queryByTestingText,
 } from '@testing-library/react';
-import { MultiSelect } from '@/components/Select/MultiSelect';
-import type { MultiSelectProps } from '@/components/Select/MultiSelect';
+import { MultiSelect } from '@/components/MultiSelect/MultiSelect';
+import type { MultiSelectProps } from '@/components/MultiSelect/MultiSelect';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from './selectOptions';
+import { selectOptions } from '../Select/selectOptions';
 
 interface Props extends Omit<MultiSelectProps, 'children' | 'label'> {
   nodata?: ReactNode;

@@ -6,7 +6,7 @@ import { Panel } from '@/components/Panel';
 import { Text } from '@/components/Typography/Text';
 
 import { CheckboxMultiSelect } from './CheckboxMultiSelect';
-import { selectOptions, selectOptionsLong } from './selectOptions';
+import { selectOptions, selectOptionsLong } from '@/components/Select';
 import { Spacer } from '@/components/Spacer';
 
 const meta: Meta<typeof CheckboxMultiSelect> = {
