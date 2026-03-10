@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Table, TableRowType } from '@/components/Table';
+import { Table, TableRowType, TableColumnConfigProps } from '@/components/Table';
 
 const rowsLongText: TableRowType[] = [
   {
@@ -591,6 +591,108 @@ export const ResizableColumns: StoryObj<typeof Table> = {
     );
   },
 };
+
+interface ResizableColumnsWithReorderingArgs {
+  showName: boolean;
+  showEmail: boolean;
+  showRole: boolean;
+  showDepartment: boolean;
+  headers: TableColumnConfigProps[];
+  rows: TableRowType[];
+  mobileLayout: 'list' | 'scroll';
+  resizableColumns: boolean;
+}
+
+export const ResizableColumnsWithReordering: StoryObj<ResizableColumnsWithReorderingArgs> =
+  {
+    argTypes: {
+      showName: { control: 'boolean' },
+      showEmail: { control: 'boolean' },
+      showRole: { control: 'boolean' },
+      showDepartment: { control: 'boolean' },
+    },
+    args: {
+      headers: [
+        { label: 'Name', overflowMode: 'truncated' },
+        { label: 'Email', overflowMode: 'truncated' },
+        { label: 'Role', overflowMode: 'truncated' },
+        { label: 'Department', overflowMode: 'truncated' },
+      ],
+      rows: [
+        {
+          id: 'row-1',
+          items: [
+            { label: 'Alice Johnson' },
+            { label: 'alice@company.com' },
+            { label: 'Admin' },
+            { label: 'Engineering' },
+          ],
+        },
+        {
+          id: 'row-2',
+          items: [
+            { label: 'Bob Smith' },
+            { label: 'bob@company.com' },
+            { label: 'User' },
+            { label: 'Marketing' },
+          ],
+        },
+      ],
+      mobileLayout: 'list',
+      resizableColumns: true,
+      showName: true,
+      showEmail: true,
+      showRole: true,
+      showDepartment: true,
+    },
+    render: ({
+      rows,
+      headers,
+      mobileLayout,
+      showName,
+      showEmail,
+      showRole,
+      showDepartment,
+    }) => {
+      const visibleColumnLabels = useMemo(() => {
+        const labels: string[] = [];
+        if (showName) labels.push('Name');
+        if (showEmail) labels.push('Email');
+        if (showRole) labels.push('Role');
+        if (showDepartment) labels.push('Department');
+        return labels;
+      }, [showName, showEmail, showRole, showDepartment]);
+
+      const visibleHeaders = useMemo(() => {
+        return visibleColumnLabels
+          .map(label => headers.find(h => h.label === label))
+          .filter(Boolean) as typeof headers;
+      }, [visibleColumnLabels, headers]);
+
+      const visibleRows = useMemo(() => {
+        return rows.map(row => {
+          const newItems = visibleColumnLabels
+            .map(label => {
+              const index = headers.findIndex(h => h.label === label);
+              return row.items[index];
+            })
+            .filter(Boolean);
+          return { ...row, items: newItems };
+        });
+      }, [rows, visibleColumnLabels, headers]);
+
+      return (
+        <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+          <Table
+            headers={visibleHeaders}
+            rows={visibleRows}
+            mobileLayout={mobileLayout}
+            resizableColumns
+          />
+        </div>
+      );
+    },
+  };
 
 export const MobileLayout: StoryObj<typeof Table> = {
   args: {
