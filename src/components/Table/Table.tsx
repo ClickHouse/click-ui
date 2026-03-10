@@ -951,6 +951,11 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
           const currentWidth = columnWidths[columnIndex];
           const nextWidth = columnWidths[nextColumnIndex];
+
+          if (currentWidth === undefined || nextWidth === undefined) {
+            return;
+          }
+
           const newWidth = currentWidth + diff;
           const newNextWidth = nextWidth - diff;
           const shouldUpdateColumnWidth =
