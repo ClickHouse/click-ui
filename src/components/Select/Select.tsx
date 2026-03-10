@@ -4,8 +4,16 @@ import { useUpdateEffect } from '@/hooks';
 
 import type {
   SelectOptionListItem,
-  SelectProps, SelectOptionProp, SelectionType } from '@/components/Select';
-import { InternalSelect, SelectGroup, SelectItem, SelectItemDescription } from '@/components/Select';
+  SelectProps,
+  SelectOptionProp,
+  SelectionType,
+} from './Select.types';
+import {
+  InternalSelect,
+  SelectGroup,
+  SelectItem,
+  SelectItemDescription,
+} from '@/components/Select';
 
 export const selectOptions: SelectOptionListItem[] = [
   {

@@ -7,7 +7,7 @@ import {
 } from '@/components/Select';
 
 import type { SelectOptionProp, SelectionType } from '@/components/Select';
-import type { CheckboxMultiSelectProps } from '@/components/MultiSelect';
+import type { CheckboxMultiSelectProps } from './CheckboxMultiSelect.types';
 
 export const CheckboxMultiSelect = ({
   value: valueProp,

@@ -4,10 +4,10 @@ import {
   queryByText as queryByTestingText,
 } from '@testing-library/react';
 import { MultiSelect } from '@/components/MultiSelect/MultiSelect';
-import type { MultiSelectProps } from '@/components/MultiSelect/MultiSelect';
+import type { MultiSelectProps } from '@/components/MultiSelect';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from '../Select/selectOptions';
+import { selectOptions } from '@/components/Select';
 
 interface Props extends Omit<MultiSelectProps, 'children' | 'label'> {
   nodata?: ReactNode;

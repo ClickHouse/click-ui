@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Select } from './Select';
-import { selectOptions } from './selectOptions';
+import { selectOptions } from '@/components/Select';
 import { Container } from '@/components/Container';
 import { Text, Title } from '@/components/Typography';
 import { Panel } from '@/components/Panel';
