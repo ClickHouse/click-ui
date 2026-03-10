@@ -14,7 +14,3 @@ export interface MultiSelectProps extends Omit<
   value?: string[];
   onOpenChange?: (open: boolean) => void;
 }
-
-export interface CheckboxMultiSelectProps extends MultiSelectProps {
-  selectLabel?: string;
-}
