@@ -1,7 +1,6 @@
 export { Select } from './Select';
 
 export type {
-  SelectContainerProps,
   SelectProps,
   SelectOptionProp,
   SelectionType,
