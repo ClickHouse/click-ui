@@ -1,5 +1,5 @@
 ---
-'@clickhouse/click-ui': minor
+'@clickhouse/click-ui': patch
 ---
 
-Guard against undefined values that would cause NaN in resize calculations
+Fix Table column resize producing NaN width values when columnWidths array is not fully initialized.
