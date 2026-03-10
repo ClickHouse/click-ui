@@ -50,6 +50,6 @@ import type { MultiSelectProps } from '@clickhouse/click-ui/MultiSelect';
 ```
 
 ### Breaking Changes
-- `SingleSelect` component renamed to `Select` for clarity (old name still works via deprecation)
+
 - Internal import paths changed from `@/components/Select/*` to `@/components/[ComponentName]`
 - No breaking changes for public API consumers using main exports

@@ -1,4 +1,5 @@
-export { Select, selectOptions, selectOptionsLong } from './Select';
+export { Select } from './Select';
+export { selectOptions, selectOptionsLong } from './Select.fixtures';
 export {
   SelectGroup,
   InternalSelect,
@@ -7,5 +8,11 @@ export {
   SelectItem,
 } from './common/InternalSelect';
 
-export type { SelectContainerProps, SelectProps, SelectOptionProp, SelectionType, SelectGroupOptionItem, SelectOptionListItem } from './Select.types';
-
+export type {
+  SelectContainerProps,
+  SelectProps,
+  SelectOptionProp,
+  SelectionType,
+  SelectGroupOptionItem,
+  SelectOptionListItem,
+} from './Select.types';
