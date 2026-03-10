@@ -1,11 +1,4 @@
 export { Select } from './Select';
-export {
-  SelectGroup,
-  InternalSelect,
-  MultiSelectCheckboxItem,
-  SelectItemDescription,
-  SelectItem,
-} from './common/InternalSelect';
 
 export type {
   SelectContainerProps,
