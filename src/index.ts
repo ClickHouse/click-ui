@@ -213,6 +213,7 @@ export type {
   SelectGroupOptionItem,
   SelectOptionListItem,
   SelectProps,
+  SelectionType,
 } from './components/Select';
 export type { MultiSelectProps } from './components/MultiSelect';
 export type { CheckboxMultiSelectProps } from './components/CheckboxMultiSelect';
