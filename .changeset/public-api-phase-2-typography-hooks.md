@@ -47,4 +47,3 @@ import { Title } from '@/components/Title';
 ### Breaking Changes
 
 - Internal import paths changed from `@/components/Typography/*` to `@/components/Text` and `@/components/Title`
-- No breaking changes for public API consumers
