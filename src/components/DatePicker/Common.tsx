@@ -1,9 +1,5 @@
 import { styled } from 'styled-components';
-import {
-  InputElement,
-  InputStartContent,
-  InputWrapper,
-} from '@/components/Input/InputWrapper';
+import { InputElement, InputStartContent, InputWrapper } from '@/components/InputWrapper';
 import {
   KeyboardEvent,
   ReactNode,
