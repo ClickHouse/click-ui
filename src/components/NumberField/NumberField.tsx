@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from 'react';
 import { Icon } from '@/components/Icon';
-import { InputWrapper, NumberInputElement, WrapperProps } from './InputWrapper';
+import { InputWrapper, NumberInputElement, WrapperProps } from '@/components/InputWrapper';
 export interface NumberFieldProps
   extends
     Omit<WrapperProps, 'id' | 'children'>,
