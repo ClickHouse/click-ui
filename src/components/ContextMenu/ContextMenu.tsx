@@ -14,6 +14,13 @@ export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
 
+const TriggerDiv = styled.div`
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
+  }
+`;
+
 const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTriggerProps>(
   ({ disabled, ...props }, ref) => {
     return (
@@ -21,7 +28,7 @@ const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTrigg
         asChild
         disabled={disabled}
       >
-        <div
+        <TriggerDiv
           ref={ref}
           {...props}
         />

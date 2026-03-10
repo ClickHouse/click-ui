@@ -6,7 +6,7 @@
  */
 
 import Airbyte from '../Airbyte';
-import AlloyDB from '../AlloyDB';
+import Alloydb from '../Alloydb';
 import AWS from '../AWS';
 import AWS_ATHENA from '../AWS_ATHENA';
 import AWS_AURORA from '../AWS_AURORA';
@@ -19,73 +19,66 @@ import AWS_S3 from '../AWS_S3';
 import Azure from '../Azure';
 import Azure_Blob_Storage from '../Azure_Blob_Storage';
 import Azure_Event_Hub from '../Azure_Event_Hub';
-import BigQuery from '../BigQuery';
-import C_SHARP from '../C_SHARP';
-import ClickhouseDark from '../ClickhouseDark';
-import ClickhouseLight from '../ClickhouseLight';
+import Bigquery from '../Bigquery';
+import Csharp from '../Csharp';
+import Clickhouse from '../Clickhouse';
 import Cloudflare from '../Cloudflare';
 import Confluent from '../Confluent';
 import Crunchy_Bridge from '../Crunchy_Bridge';
-import dBeaver from '../dBeaver';
-import DataGrip from '../DataGrip';
+import Dbeaver from '../Dbeaver';
+import Datagrip from '../Datagrip';
 import Databricks from '../Databricks';
 import Dbt from '../Dbt';
 import Decodeable from '../Decodeable';
-import DeepNote from '../DeepNote';
-import DeltaLake from '../DeltaLake';
-import DigitalOcean from '../DigitalOcean';
-import FeatureDatabaseDark from '../FeatureDatabaseDark';
-import FeatureDatabaseLight from '../FeatureDatabaseLight';
-import FeatureHexagonDark from '../FeatureHexagonDark';
-import FeatureHexagonLight from '../FeatureHexagonLight';
+import Deepnote from '../Deepnote';
+import Deltalake from '../Deltalake';
+import Digitalocean from '../Digitalocean';
+import FeatureDatabase from '../FeatureDatabase';
+import FeatureHexagon from '../FeatureHexagon';
 import Fivetran from '../Fivetran';
 import Gcp from '../Gcp';
 import GCS from '../GCS';
-import GithubDark from '../GithubDark';
-import GithubLight from '../GithubLight';
-import GoLang from '../GoLang';
+import Github from '../Github';
+import Golang from '../Golang';
 import Google from '../Google';
 import Grafana from '../Grafana';
 import Hex from '../Hex';
 import Hudi from '../Hudi';
 import Iceberg from '../Iceberg';
 import Jdbc from '../Jdbc';
-import KafkaDark from '../KafkaDark';
-import KafkaLight from '../KafkaLight';
-import Kubenetes from '../Kubenetes';
-import MariaDB from '../MariaDB';
+import Kafka from '../Kafka';
+import Kubernetes from '../Kubernetes';
+import Mariadb from '../Mariadb';
 import Metabase from '../Metabase';
 import Microsoft from '../Microsoft';
-import MongoDb from '../MongoDb';
-import MySQL from '../MySQL';
-import NeonDB from '../NeonDB';
+import Mongodb from '../Mongodb';
+import Mysql from '../Mysql';
+import Neondb from '../Neondb';
 import Nessie from '../Nessie';
-import NodeJs from '../NodeJs';
-import OneLake from '../OneLake';
+import Nodejs from '../Nodejs';
+import Onelake from '../Onelake';
 import OVH from '../OVH';
-import PlanetScale from '../PlanetScale';
+import Planetscale from '../Planetscale';
 import Postgres from '../Postgres';
 import Prequel from '../Prequel';
 import Python from '../Python';
 import Redpanda from '../Redpanda';
-import RustDark from '../RustDark';
-import RustLight from '../RustLight';
+import Rust from '../Rust';
 import Snowflake from '../Snowflake';
 import Supabase from '../Supabase';
 import Superset from '../Superset';
-import TableauDark from '../TableauDark';
-import TableauLight from '../TableauLight';
-import TigerData from '../TigerData';
+import Tableau from '../Tableau';
+import Tigerdata from '../Tigerdata';
 import Upstash from '../Upstash';
 import Vector from '../Vector';
-import WarpStream from '../WarpStream';
+import Warpstream from '../Warpstream';
 import { LogoName } from './types';
 import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
 const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   airbyte: Airbyte,
-  'alloy-db': AlloyDB,
+  alloydb: Alloydb,
   aws: AWS,
   'aws-athena': AWS_ATHENA,
   'aws-aurora': AWS_AURORA,
@@ -98,66 +91,59 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   azure: Azure,
   'azure-blob-storage': Azure_Blob_Storage,
   'azure-event-hub': Azure_Event_Hub,
-  'big-query': BigQuery,
-  'c-sharp': C_SHARP,
-  'clickhouse-dark': ClickhouseDark,
-  'clickhouse-light': ClickhouseLight,
+  bigquery: Bigquery,
+  csharp: Csharp,
+  clickhouse: Clickhouse,
   cloudflare: Cloudflare,
   confluent: Confluent,
   'crunchy-bridge': Crunchy_Bridge,
-  'd-beaver': dBeaver,
-  'data-grip': DataGrip,
+  dbeaver: Dbeaver,
+  datagrip: Datagrip,
   databricks: Databricks,
   dbt: Dbt,
   decodeable: Decodeable,
-  'deep-note': DeepNote,
-  'delta-lake': DeltaLake,
-  'digital-ocean': DigitalOcean,
-  'feature-database-dark': FeatureDatabaseDark,
-  'feature-database-light': FeatureDatabaseLight,
-  'feature-hexagon-dark': FeatureHexagonDark,
-  'feature-hexagon-light': FeatureHexagonLight,
+  deepnote: Deepnote,
+  deltalake: Deltalake,
+  digitalocean: Digitalocean,
+  'feature-database': FeatureDatabase,
+  'feature-hexagon': FeatureHexagon,
   fivetran: Fivetran,
   gcp: Gcp,
   gcs: GCS,
-  'github-dark': GithubDark,
-  'github-light': GithubLight,
-  'go-lang': GoLang,
+  github: Github,
+  golang: Golang,
   google: Google,
   grafana: Grafana,
   hex: Hex,
   hudi: Hudi,
   iceberg: Iceberg,
   jdbc: Jdbc,
-  'kafka-dark': KafkaDark,
-  'kafka-light': KafkaLight,
-  kubenetes: Kubenetes,
-  'maria-db': MariaDB,
+  kafka: Kafka,
+  kubernetes: Kubernetes,
+  mariadb: Mariadb,
   metabase: Metabase,
   microsoft: Microsoft,
-  'mongo-db': MongoDb,
-  'my-sql': MySQL,
-  'neon-db': NeonDB,
+  mongodb: Mongodb,
+  mysql: Mysql,
+  neondb: Neondb,
   nessie: Nessie,
-  'node-js': NodeJs,
-  'one-lake': OneLake,
+  nodejs: Nodejs,
+  onelake: Onelake,
   ovh: OVH,
-  'planet-scale': PlanetScale,
+  planetscale: Planetscale,
   postgres: Postgres,
   prequel: Prequel,
   python: Python,
   redpanda: Redpanda,
-  'rust-dark': RustDark,
-  'rust-light': RustLight,
+  rust: Rust,
   snowflake: Snowflake,
   supabase: Supabase,
   superset: Superset,
-  'tableau-dark': TableauDark,
-  'tableau-light': TableauLight,
-  'tiger-data': TigerData,
+  tableau: Tableau,
+  tigerdata: Tigerdata,
   upstash: Upstash,
   vector: Vector,
-  'warp-stream': WarpStream,
+  warpstream: Warpstream,
 };
 
 export default LogosDark;

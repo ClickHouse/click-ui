@@ -69,6 +69,10 @@ export const StyledSelectTrigger = styled(Trigger)<{ $error: boolean }>`
     }
     `
     };
+    &:focus-visible {
+      outline: 2px solid ${theme.click.global.color.outline.default};
+      outline-offset: 2px;
+    }
     &:disabled {
       font: ${theme.click.field.typography.fieldText.disabled};
       border: 1px solid ${theme.click.field.color.stroke.disabled};

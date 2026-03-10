@@ -26,6 +26,7 @@ import {
   weekdayFormatter,
 } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
+import { Dropdown } from '@/components/Dropdown';
 
 const explicitWidth = '250px';
 const TXT_ON_MONTH_SELECT = 'Month';
@@ -194,7 +195,7 @@ export const DateRangePickerInput = ({
   );
 };
 
-interface DateTimePickerInputProps {
+interface DateTimeRangePickerInputProps {
   isActive: boolean;
   disabled: boolean;
   id?: string;
@@ -204,7 +205,7 @@ interface DateTimePickerInputProps {
   shouldShowSeconds?: boolean;
 }
 
-export const DateTimePickerInput = ({
+export const DateTimeRangePickerInput = ({
   isActive,
   disabled,
   id,
@@ -212,7 +213,7 @@ export const DateTimePickerInput = ({
   selectedEndDate,
   selectedStartDate,
   shouldShowSeconds,
-}: DateTimePickerInputProps) => {
+}: DateTimeRangePickerInputProps) => {
   const defaultId = useId();
 
   const dateTimeFormatter = shouldShowSeconds
@@ -497,6 +498,11 @@ export const DateTableCell = styled.td<{
           : theme.click.datePicker.dateOption.color.stroke.hover
       };`};
   }
+`;
+
+export const StyledDropdownItem = styled(Dropdown.Item)`
+  box-sizing: content-box;
+  min-height: 24px;
 `;
 
 export type Body = ReturnType<typeof useCalendar>['body'];
