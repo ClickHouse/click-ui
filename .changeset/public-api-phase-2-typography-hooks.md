@@ -30,7 +30,7 @@ For consumers wanting granular imports:
 ```typescript
 import { Text } from '@clickhouse/click-ui/Text';
 import { Title } from '@clickhouse/click-ui/Title';
-import { useToast } from '@clickhouse/click-ui/hooks';
+import { useToast } from '@clickhouse/click-ui';
 ```
 
 For internal development:
