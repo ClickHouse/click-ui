@@ -177,10 +177,10 @@
       "import": "./dist/esm/components/IconButton/index.js",
       "require": "./dist/cjs/components/IconButton/index.cjs"
     },
-    "./Input": {
-      "types": "./dist/types/components/Input/index.d.ts",
-      "import": "./dist/esm/components/Input/index.js",
-      "require": "./dist/cjs/components/Input/index.cjs"
+    "./InputWrapper": {
+      "types": "./dist/types/components/InputWrapper/index.d.ts",
+      "import": "./dist/esm/components/InputWrapper/index.js",
+      "require": "./dist/cjs/components/InputWrapper/index.cjs"
     },
     "./Label": {
       "types": "./dist/types/components/Label/index.d.ts",
@@ -197,6 +197,11 @@
       "import": "./dist/esm/components/MultiAccordion/index.js",
       "require": "./dist/cjs/components/MultiAccordion/index.cjs"
     },
+    "./NumberField": {
+      "types": "./dist/types/components/NumberField/index.d.ts",
+      "import": "./dist/esm/components/NumberField/index.js",
+      "require": "./dist/cjs/components/NumberField/index.cjs"
+    },
     "./Pagination": {
       "types": "./dist/types/components/Pagination/index.d.ts",
       "import": "./dist/esm/components/Pagination/index.js",
@@ -206,6 +211,11 @@
       "types": "./dist/types/components/Panel/index.d.ts",
       "import": "./dist/esm/components/Panel/index.js",
       "require": "./dist/cjs/components/Panel/index.cjs"
+    },
+    "./PasswordField": {
+      "types": "./dist/types/components/PasswordField/index.d.ts",
+      "import": "./dist/esm/components/PasswordField/index.js",
+      "require": "./dist/cjs/components/PasswordField/index.cjs"
     },
     "./Popover": {
       "types": "./dist/types/components/Popover/index.d.ts",
@@ -221,6 +231,11 @@
       "types": "./dist/types/components/RadioGroup/index.d.ts",
       "import": "./dist/esm/components/RadioGroup/index.js",
       "require": "./dist/cjs/components/RadioGroup/index.cjs"
+    },
+    "./SearchField": {
+      "types": "./dist/types/components/SearchField/index.d.ts",
+      "import": "./dist/esm/components/SearchField/index.js",
+      "require": "./dist/cjs/components/SearchField/index.cjs"
     },
     "./Select": {
       "types": "./dist/types/components/Select/index.d.ts",
@@ -276,6 +291,16 @@
       "types": "./dist/types/components/Tabs/index.d.ts",
       "import": "./dist/esm/components/Tabs/index.js",
       "require": "./dist/cjs/components/Tabs/index.cjs"
+    },
+    "./TextAreaField": {
+      "types": "./dist/types/components/TextAreaField/index.d.ts",
+      "import": "./dist/esm/components/TextAreaField/index.js",
+      "require": "./dist/cjs/components/TextAreaField/index.cjs"
+    },
+    "./TextField": {
+      "types": "./dist/types/components/TextField/index.d.ts",
+      "import": "./dist/esm/components/TextField/index.js",
+      "require": "./dist/cjs/components/TextField/index.cjs"
     },
     "./Toast": {
       "types": "./dist/types/components/Toast/index.d.ts",
