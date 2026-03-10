@@ -38,6 +38,10 @@ const Trigger = styled(DropdownMenu.Trigger)`
   &[disabled] {
     cursor: not-allowed;
   }
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
+  }
 `;
 
 const DropdownTrigger = ({
