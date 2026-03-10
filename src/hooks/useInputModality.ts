@@ -48,7 +48,7 @@ if (typeof document !== 'undefined') {
   );
 }
 
-export function useInputModality() {
+export const useInputModality = () => {
   const onKeyDownCapture = useCallback((e: KeyboardEvent<HTMLElement>) => {
     if (!MODIFIER_KEYS.has(e.key)) {
       e.currentTarget.dataset.inputModality = 'keyboard';
@@ -68,4 +68,4 @@ export function useInputModality() {
   }, []);
 
   return { onKeyDownCapture, onPointerMove, onPointerDown, onFocusCapture };
-}
+};

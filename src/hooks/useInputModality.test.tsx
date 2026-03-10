@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { fireEvent } from '@testing-library/dom';
 import { useInputModality } from './useInputModality';
 
-function TestContainer() {
+const TestContainer = () => {
   const props = useInputModality();
   return (
     <div
@@ -10,13 +10,13 @@ function TestContainer() {
       {...props}
     />
   );
-}
+};
 
 describe('useInputModality', () => {
-  function setup() {
+  const setup = () => {
     const { getByTestId } = render(<TestContainer />);
     return getByTestId('container') as HTMLElement;
-  }
+  };
 
   it('sets keyboard modality for navigation keys', () => {
     const el = setup();
