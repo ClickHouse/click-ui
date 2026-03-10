@@ -1,5 +1,18 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.75
+
+### Minor Changes
+
+- ab8d42c: Rename the asset filenames to be more inline with branding styled
+
+### Patch Changes
+
+- 53a03d7: Add `:focus-visible` outline ring to Button, Select trigger, Dropdown trigger, and ContextMenu trigger for WCAG SC 2.4.7 (Focus Visible) compliance.
+- 68685c0: Add visible keyboard focus ring to menu items (Dropdown, Select, ContextMenu) for WCAG SC 2.4.7 and SC 1.4.11 compliance. Introduces `useInputModality` hook and `stroke.focus` theme tokens.
+- 62a0cb7: Remove unnecessary aliases due to asset name normalisation.
+- 455f94b: Fix Table column resize producing NaN width values when columnWidths array is not fully initialized.
+
 ## 0.1.0-rc.74
 
 ### Minor Changes
