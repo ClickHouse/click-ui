@@ -5,7 +5,7 @@ import { Icon, type IconName } from '@/components/Icon';
 
 import { Container } from '@/components/Container';
 import { Spacer } from '@/components/Spacer';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import {
   createContext,
   MouseEventHandler,

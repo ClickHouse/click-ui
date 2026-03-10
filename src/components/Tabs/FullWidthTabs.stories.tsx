@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Spacer } from '@/components/Spacer';
 import { FullWidthTabs } from '@/components/Tabs';
-import { Text } from '@/components/Typography/Text';
+import { Text } from '@/components/Text';
 
 const meta: Meta<typeof FullWidthTabs> = {
   component: FullWidthTabs,

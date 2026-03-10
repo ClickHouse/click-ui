@@ -1,7 +1,7 @@
 import { Container } from '@/components/Container';
 import { Dialog } from '@/components/Dialog';
 import { Separator } from '@/components/Separator';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { ReactElement } from 'react';
 import { styled } from 'styled-components';
 import { ConfirmationDialogProps } from './ConfirmationDialog.types';

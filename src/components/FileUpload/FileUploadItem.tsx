@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { styled, css } from 'styled-components';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { ProgressBar } from '@/components/ProgressBar';
