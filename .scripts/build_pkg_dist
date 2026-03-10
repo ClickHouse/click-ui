@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ -d ./dist ]]; then
+  if ! rm -rf ./dist; then
+    echo "⚠️Failed to delete dist directory"
+  fi
+fi
+
 if ! yarn typecheck; then
   echo "👹 Oops! Found typescript issues..."
 
