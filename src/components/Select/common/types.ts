@@ -127,6 +127,22 @@ export type SelectOptionProp = SelectOptionType | SelectChildrenType;
 
 export type SelectContainerProps = SelectOptionProp & InternalSelectProps;
 
+/** Base props shared between MultiSelect and CheckboxMultiSelect */
+export interface BaseMultiSelectProps extends Omit<
+  SelectContainerProps,
+  'onChange' | 'value' | 'open' | 'onOpenChange' | 'onSelect'
+> {
+  defaultValue?: string[];
+  onSelect?: (
+    value: string[],
+    type?: SelectionType,
+    evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
+  ) => void;
+  value?: string[];
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
 export type SelectItemObject = {
   disabled?: boolean;
   value: string;
