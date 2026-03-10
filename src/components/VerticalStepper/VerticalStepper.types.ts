@@ -7,10 +7,9 @@ export interface VerticalStepperProps extends HTMLAttributes<HTMLDivElement> {
   type?: StepperType;
 }
 
-export interface VerticalStepProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  children?: ReactNode;
+export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
   status?: StepStatus;
-  isOpen?: boolean;
-  onClick?: () => void;
+  collapsed?: boolean;
+  label?: ReactNode;
+  disabled?: boolean;
 }

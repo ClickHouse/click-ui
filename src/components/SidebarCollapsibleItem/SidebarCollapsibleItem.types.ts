@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
 import type { HorizontalDirection } from '@/types';
-import type { IconName } from '@/components/Icon';
+import type { ImageName } from '@/components/Icon';
 
 export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
@@ -8,7 +8,9 @@ export interface SidebarCollapsibleItemProps extends HTMLAttributes<HTMLDivEleme
   open?: boolean;
   onOpenChange?: (value: boolean) => void;
   iconDir?: HorizontalDirection;
-  icon?: IconName;
+  // TODO: The consumer app seem to expect to use other assets
+  // this needs to be investigated why it had type IconName
+  icon?: ImageName;
   indicatorDir?: HorizontalDirection;
   selected?: boolean;
   level?: number;

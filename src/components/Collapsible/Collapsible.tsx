@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { styled } from 'styled-components';
 
-import { Icon, type IconName } from '@/components/Icon';
+import { Icon, type ImageName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { EmptyButton } from '@/components/EmptyButton';
 
@@ -76,7 +76,7 @@ const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: HorizontalDirecti
 `;
 
 interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
   indicatorDir?: HorizontalDirection;
   wrapInTrigger?: boolean;
@@ -139,7 +139,7 @@ const CollapsipleTriggerButton = styled(EmptyButton)<{
   cursor: inherit;
 `;
 interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
-  icon?: IconName;
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
   indicatorDir?: HorizontalDirection;
 }
