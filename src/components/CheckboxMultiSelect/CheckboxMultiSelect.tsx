@@ -5,9 +5,9 @@ import {
   InternalSelect,
   MultiSelectCheckboxItem,
   SelectItemDescription,
-} from '@/components/Select';
+} from '@/components/Select/common/InternalSelect';
 
-import type { SelectOptionProp, SelectionType } from '@/components/Select';
+import type { SelectOptionProp, SelectionType } from '@/components/Select/common/types';
 import type { CheckboxMultiSelectProps } from './CheckboxMultiSelect.types';
 
 export const CheckboxMultiSelect = ({

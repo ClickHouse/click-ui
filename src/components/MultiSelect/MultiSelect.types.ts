@@ -1,5 +1,8 @@
 import type { KeyboardEvent, MouseEvent } from 'react';
-import type { SelectContainerProps, SelectionType } from '@/components/Select';
+import type {
+  SelectContainerProps,
+  SelectionType,
+} from '@/components/Select/common/types';
 
 export interface MultiSelectProps extends Omit<
   SelectContainerProps,

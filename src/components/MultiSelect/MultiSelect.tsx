@@ -2,7 +2,7 @@ import { KeyboardEvent, useCallback, useState } from 'react';
 
 import { useUpdateEffect } from '@/hooks';
 
-import { SelectOptionProp, SelectionType } from '@/components/Select';
+import type { SelectOptionProp, SelectionType } from '@/components/Select/common/types';
 import {
   SelectGroup,
   SelectItem,

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { MultiSelectProps } from '@/components/MultiSelect';
+import type { MultiSelectProps } from '../MultiSelect/MultiSelect.types';
 
 export interface CheckboxMultiSelectProps extends MultiSelectProps {
   selectLabel?: string;
