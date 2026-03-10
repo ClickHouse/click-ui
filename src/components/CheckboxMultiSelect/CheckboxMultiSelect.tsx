@@ -73,7 +73,7 @@ export const CheckboxMultiSelect = ({
   return (
     <InternalSelect
       onChange={onChange}
-      value={valueProp ?? selectedValues}
+      value={selectedValues}
       open={open}
       onOpenChange={onOpenChange}
       onSelect={onSelect}
