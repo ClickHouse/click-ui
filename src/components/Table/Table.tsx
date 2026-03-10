@@ -799,14 +799,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       if (widths.length === headers.length) {
         setColumnWidths(widths);
       }
-    }, [
-      resizableColumns,
-      columnWidths,
-      headers.length,
-      isSelectable,
-      isDeletable,
-      isEditable,
-    ]);
+    }, [resizableColumns, columnWidths, headers, isSelectable, isDeletable, isEditable]);
 
     const resizeStateRef = useRef<ResizeState>({
       isResizing: false,
@@ -825,7 +818,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       const { columnIndex, nextColumnIndex, startX, startWidth, nextStartWidth } =
         resizeStateRef.current;
 
-      if (columnIndex === null || nextColumnIndex === null) {
+      if (columnIndex < 0 || nextColumnIndex < 0) {
         return;
       }
 
@@ -901,7 +894,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           nextStartWidth,
         };
       },
-      [headers.length, columnWidths]
+      [headers.length, columnWidths, isSelectable]
     );
 
     const onRowSelect =
@@ -975,7 +968,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             return updated;
           });
         },
-      [columnWidths, headers.length]
+      [columnWidths, headers.length, isSelectable]
     );
 
     return (
