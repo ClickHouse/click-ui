@@ -13,7 +13,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectItemDescription,
-} from '@/components/Select';
+} from './common/InternalSelect';
 
 export const selectOptions: SelectOptionListItem[] = [
   {

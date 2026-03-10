@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useUpdateEffect } from '@/hooks';
 import {
   SelectGroup,
   InternalSelect,
@@ -34,7 +35,7 @@ export const CheckboxMultiSelect = ({
     [onOpenChangeProp]
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setSelectedValues(valueProp ?? []);
   }, [valueProp]);
 

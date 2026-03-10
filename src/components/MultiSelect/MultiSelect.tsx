@@ -2,14 +2,13 @@ import { KeyboardEvent, useCallback, useState } from 'react';
 
 import { useUpdateEffect } from '@/hooks';
 
+import { SelectOptionProp, SelectionType } from '@/components/Select';
 import {
-  SelectOptionProp,
-  SelectionType,
   SelectGroup,
   SelectItem,
   InternalSelect,
   SelectItemDescription,
-} from '@/components/Select';
+} from '@/components/Select/common/InternalSelect';
 import { MultiSelectProps } from './MultiSelect.types';
 
 export const MultiSelect = ({
