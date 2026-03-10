@@ -127,7 +127,6 @@ export type SelectOptionProp = SelectOptionType | SelectChildrenType;
 
 export type SelectContainerProps = SelectOptionProp & InternalSelectProps;
 
-/** Base props shared between MultiSelect and CheckboxMultiSelect */
 export interface BaseMultiSelectProps extends Omit<
   SelectContainerProps,
   'onChange' | 'value' | 'open' | 'onOpenChange' | 'onSelect'
