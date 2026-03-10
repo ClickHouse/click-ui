@@ -7,6 +7,7 @@ import type { IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
+import { useInputModality } from '@/hooks';
 import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
@@ -128,13 +129,15 @@ const ContextMenuContent = ({
   ...props
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {
   const ContentElement = sub ? RightMenu.SubContent : RightMenu.Content;
+  const inputModalityProps = useInputModality();
   return (
     <RightMenu.Portal>
       <RightMenuContent
+        {...props}
         $type="context-menu"
         $showArrow={showArrow}
         as={ContentElement}
-        {...props}
+        {...inputModalityProps}
       >
         {showArrow && (
           <Arrow

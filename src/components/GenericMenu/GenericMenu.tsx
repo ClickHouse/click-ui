@@ -82,8 +82,7 @@ export const GenericMenuItem = styled.div<{ $type?: 'default' | 'danger' }>`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  outline: none;
-  &[aria-selected] {
+  &:focus {
     outline: none;
   }
 
@@ -100,6 +99,10 @@ export const GenericMenuItem = styled.div<{ $type?: 'default' | 'danger' }>`
       background: ${theme.click.genericMenu.item.color[colorKey].background.hover};
       color:${theme.click.genericMenu.item.color[colorKey].text.hover};
       cursor: pointer;
+    }
+    [data-input-modality="keyboard"] &[data-highlighted] {
+      outline: 2px solid ${theme.click.genericMenu.item.color[colorKey].stroke.focus};
+      outline-offset: -2px;
     }
     &[data-state="open"] {
       background:${theme.click.genericMenu.item.color[colorKey].background.hover};
