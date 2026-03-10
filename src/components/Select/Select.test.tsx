@@ -3,7 +3,8 @@ import {
   fireEvent,
   queryByText as queryByTestingText,
 } from '@testing-library/react';
-import { Select, selectOptions, type SelectProps } from '@/components/Select';
+import { Select, type SelectProps } from '@/components/Select';
+import { selectOptions } from '@/components/Select/Select.fixtures';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
 interface Props extends Omit<SelectProps, 'children' | 'label'> {

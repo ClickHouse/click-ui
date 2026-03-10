@@ -7,7 +7,7 @@ import {
 import { CheckboxMultiSelect, type CheckboxMultiSelectProps } from '@/components/CheckboxMultiSelect';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from '@/components/Select';
+import { selectOptions } from '@/components/Select/Select.fixtures';
 
 interface Props extends Omit<CheckboxMultiSelectProps, 'children' | 'label'> {
   nodata?: ReactNode;

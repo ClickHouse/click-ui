@@ -2,7 +2,7 @@ import { act, fireEvent } from '@testing-library/react';
 import { AutoComplete } from '@/components/AutoComplete';
 import type { AutoCompleteProps } from '@/components/AutoComplete';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from '@/components/Select';
+import { selectOptions } from '@/components/Select/Select.fixtures';
 
 describe('AutoComplete', () => {
   beforeAll(() => {

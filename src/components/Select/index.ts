@@ -1,5 +1,4 @@
 export { Select } from './Select';
-export { selectOptions, selectOptionsLong } from './Select.fixtures';
 export {
   SelectGroup,
   InternalSelect,
