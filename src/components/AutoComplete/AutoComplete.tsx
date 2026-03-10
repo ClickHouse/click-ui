@@ -18,7 +18,7 @@ import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-po
 import { styled } from 'styled-components';
 
 import { HorizontalDirection } from '@/types';
-import { SearchField } from '@/components/Input';
+import { SearchField } from '@/components/SearchField';
 import { Separator } from '@/components/Separator';
 import { Icon, type ImageName } from '@/components/Icon';
 import { GenericMenuItem } from '@/components/GenericMenu';

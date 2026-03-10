@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
 
-import { TextField } from './TextField';
+import { TextField } from '@/components/TextField';
 import { Icon } from '@/components/Icon';
 
-import { TextFieldProps } from './TextField';
+import type { TextFieldProps } from '@/components/TextField';
 
 export interface SearchFieldProps extends Omit<
   TextFieldProps,

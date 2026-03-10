@@ -9,7 +9,7 @@ import { Button } from '@/components/Button';
 import { styled } from 'styled-components';
 import { Link } from '@/components/Link';
 import { Container } from '@/components/Container';
-import { TextField } from '@/components/Input';
+import { TextField } from '@/components/TextField';
 import { Icon } from '@/components/Icon';
 
 interface DialogExampleProps {
