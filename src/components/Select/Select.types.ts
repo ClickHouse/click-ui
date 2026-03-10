@@ -1,10 +1,13 @@
 // TODO: Can we get rid of common now? revise
 
-
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { SelectContainerProps, SelectionType } from './common/types';
 
-export type { SelectOptionProp, SelectContainerProps, SelectionType } from './common/types';
+export type {
+  SelectOptionProp,
+  SelectContainerProps,
+  SelectionType,
+} from './common/types';
 
 export interface SelectProps extends Omit<
   SelectContainerProps,

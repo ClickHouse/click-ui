@@ -4,7 +4,10 @@ import {
   queryByText as queryByTestingText,
   screen,
 } from '@testing-library/react';
-import { CheckboxMultiSelect, type CheckboxMultiSelectProps } from '@/components/CheckboxMultiSelect';
+import {
+  CheckboxMultiSelect,
+  type CheckboxMultiSelectProps,
+} from '@/components/CheckboxMultiSelect';
 import { ReactNode } from 'react';
 import { renderCUI } from '@/utils/test-utils';
 import { selectOptions } from '@/components/Select/Select.fixtures';
