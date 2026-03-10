@@ -256,6 +256,7 @@ export type { TextFieldProps } from './components/Input/TextField';
 // Toast
 export { Toast, ToastProvider } from './components/Toast';
 export { createToast } from './components/Toast/toastEmitter';
+export { useToast } from './hooks';
 export type { ToastProps } from './components/Toast';
 
 // Tooltip
