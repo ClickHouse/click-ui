@@ -885,13 +885,20 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           return;
         }
 
+        const startWidth = columnWidths[columnIndex];
+        const nextStartWidth = columnWidths[nextColumnIndex];
+
+        if (startWidth === undefined || nextStartWidth === undefined) {
+          return;
+        }
+
         resizeStateRef.current = {
           isResizing: true,
           columnIndex,
           nextColumnIndex,
           startX: e.clientX,
-          startWidth: columnWidths[columnIndex],
-          nextStartWidth: columnWidths[nextColumnIndex],
+          startWidth,
+          nextStartWidth,
         };
       },
       [headers.length, columnWidths]
