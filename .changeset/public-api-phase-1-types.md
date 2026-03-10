@@ -1,5 +1,5 @@
 ---
-"@clickhouse/click-ui": patch
+"@clickhouse/click-ui": minor
 ---
 
 Improved TypeScript type exports for better support and consumer app integration:
