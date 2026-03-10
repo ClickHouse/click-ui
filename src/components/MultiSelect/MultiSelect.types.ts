@@ -12,5 +12,6 @@ export interface MultiSelectProps extends Omit<
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   value?: string[];
+  defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
 }

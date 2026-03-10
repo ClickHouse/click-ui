@@ -17,13 +17,14 @@ export const MultiSelect = ({
   onSelect: onSelectProp,
   options,
   children,
+  defaultOpen,
   onOpenChange: onOpenChangeProp,
   ...props
 }: MultiSelectProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>(
     valueProp ?? defaultValue ?? []
   );
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen ?? false);
 
   const onOpenChange = useCallback(
     (open: boolean) => {
