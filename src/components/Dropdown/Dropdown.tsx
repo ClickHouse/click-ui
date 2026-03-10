@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import { useInputModality } from '@/hooks';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
@@ -37,6 +38,10 @@ const Trigger = styled(DropdownMenu.Trigger)`
   width: fit-content;
   &[disabled] {
     cursor: not-allowed;
+  }
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
   }
 `;
 
@@ -110,9 +115,11 @@ const DropdownContent = ({
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
+  const inputModalityProps = useInputModality();
   return (
     <DropdownMenu.Portal>
       <DropdownMenuContent
+        {...props}
         $type="dropdown-menu"
         $showArrow={showArrow}
         as={ContentElement}
@@ -120,7 +127,7 @@ const DropdownContent = ({
         loop
         avoidCollisions={responsivePositioning}
         collisionPadding={responsivePositioning ? 100 : undefined}
-        {...props}
+        {...inputModalityProps}
       >
         {showArrow && (
           <Arrow

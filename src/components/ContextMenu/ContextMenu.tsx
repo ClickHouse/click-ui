@@ -7,11 +7,19 @@ import type { IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
+import { useInputModality } from '@/hooks';
 import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
+
+const TriggerDiv = styled.div`
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
+    outline-offset: 2px;
+  }
+`;
 
 const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTriggerProps>(
   ({ disabled, ...props }, ref) => {
@@ -20,7 +28,7 @@ const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTrigg
         asChild
         disabled={disabled}
       >
-        <div
+        <TriggerDiv
           ref={ref}
           {...props}
         />
@@ -121,13 +129,15 @@ const ContextMenuContent = ({
   ...props
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {
   const ContentElement = sub ? RightMenu.SubContent : RightMenu.Content;
+  const inputModalityProps = useInputModality();
   return (
     <RightMenu.Portal>
       <RightMenuContent
+        {...props}
         $type="context-menu"
         $showArrow={showArrow}
         as={ContentElement}
-        {...props}
+        {...inputModalityProps}
       >
         {showArrow && (
           <Arrow
