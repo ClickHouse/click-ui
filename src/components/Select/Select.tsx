@@ -3,7 +3,6 @@ import { KeyboardEvent, MouseEvent, useCallback, useState } from 'react';
 import { useUpdateEffect } from '@/hooks';
 
 import type {
-  SelectOptionListItem,
   SelectProps,
   SelectOptionProp,
   SelectionType,
