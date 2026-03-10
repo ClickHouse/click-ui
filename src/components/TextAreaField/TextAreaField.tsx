@@ -59,6 +59,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>
           id={id ?? defaultId}
           disabled={disabled}
           value={value}
+          // TODO: Still uses onInput={onChange}. All other field components use onChange. This will silently break React Hook Form and Formik integrations, and consumers can't override it via ...props since onChange is already omitted from the spread type.
           onInput={onChange}
           {...props}
         />
