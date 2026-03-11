@@ -1,7 +1,6 @@
 import type { Plugin, ResolvedConfig } from 'vite';
 import fs from 'fs/promises';
 import path from 'path';
-import postcss, { Rule, AtRule } from 'postcss';
 import MagicString from 'magic-string';
 
 interface RegularCssImport {
@@ -14,16 +13,27 @@ interface OutputFormat {
   ext: string;
 }
 
+const VIRTUAL_PREFIX = 'virtual:css-module:';
+// Store mappings from virtual module IDs to JSON file paths
+const cssModuleMapping = new Map<string, string>();
+
+function getTempDir(config: ResolvedConfig): string {
+  return path.resolve(config.root, '.temp', 'css-modules');
+}
+
 /**
- * Vite plugin that co-locates precompiled CSS with components.
+ * Vite plugin that handles pre-processed CSS modules.
  *
- * After Vite's build, this plugin:
- * 1. Finds all CSS module JS files (e.g., Button.module.css.js)
- * 2. Extracts the hashed class names from each
- * 3. Extracts the corresponding CSS rules from the bundled click-ui.css
- * 4. Writes a co-located CSS file (e.g., Button.css)
- * 5. Injects a side-effect CSS import into the component's index.js
- * 6. Handles regular CSS imports by copying them and fixing imports
+ * This plugin assumes CSS modules have been pre-processed by the
+ * preprocess-css-modules script into .temp/css-modules/, which generates:
+ * - .css files with hashed class names
+ * - .module.json files with class name mappings
+ *
+ * The plugin:
+ * 1. Intercepts .module.css imports and returns JSON mappings as JS
+ * 2. Copies pre-generated .css files from .temp/css-modules/ to dist
+ * 3. Injects CSS import statements into component JS files
+ * 4. Handles regular CSS imports
  */
 export const cssColocatePlugin = (): Plugin => {
   let config: ResolvedConfig;
@@ -32,11 +42,74 @@ export const cssColocatePlugin = (): Plugin => {
   return {
     name: 'vite-plugin-css-colocate',
     apply: 'build',
+    enforce: 'pre', // Run before Vite's default CSS handling
 
     configResolved(resolvedConfig) {
       config = resolvedConfig;
     },
 
+    /**
+     * Intercept .module.css imports and redirect to virtual module
+     */
+    async resolveId(id, importer) {
+      // Only handle .module.css imports
+      if (!id.endsWith('.module.css')) return null;
+
+      // Check if pre-generated JSON exists in temp directory
+      if (!importer) return null;
+
+      const resolvedPath = path.resolve(path.dirname(importer), id);
+      const relativeToSrc = path.relative(path.join(config.root, 'src'), resolvedPath);
+      const jsonPath = path.join(
+        getTempDir(config),
+        relativeToSrc.replace('.module.css', '.module.json')
+      );
+
+      try {
+        await fs.access(jsonPath);
+        // Create a unique virtual module ID using counter
+        const virtualId = VIRTUAL_PREFIX + cssModuleMapping.size;
+        cssModuleMapping.set(virtualId, jsonPath);
+        return virtualId;
+      } catch {
+        // JSON doesn't exist, let Vite handle it normally
+        return null;
+      }
+    },
+
+    /**
+     * Load CSS module mappings as JavaScript
+     */
+    async load(id) {
+      // Only handle our virtual modules
+      if (!id.startsWith(VIRTUAL_PREFIX)) return null;
+
+      const jsonPath = cssModuleMapping.get(id);
+      if (!jsonPath) return null;
+
+      try {
+        const json = await fs.readFile(jsonPath, 'utf-8');
+        const parsed = JSON.parse(json);
+
+        // Convert to ES module exports
+        const exports = Object.entries(parsed)
+          .map(([key, value]) => {
+            return `"${key}": "${value}"`;
+          })
+          .join(',\n  ');
+
+        return `export default {\n  ${exports}\n};`;
+      } catch (error) {
+        this.error(
+          `Failed to load CSS module mappings from ${jsonPath}: ${error.message}`
+        );
+        return null;
+      }
+    },
+
+    /**
+     * Track regular CSS imports (not modules) for processing
+     */
     transform(code, id) {
       if (id.includes('node_modules') || !/\.(ts|tsx|js|jsx)$/.test(id)) {
         return null;
@@ -50,6 +123,9 @@ export const cssColocatePlugin = (): Plugin => {
       return null;
     },
 
+    /**
+     * After build: copy CSS files and inject imports
+     */
     async closeBundle() {
       const outputs: OutputFormat[] = [
         { format: 'esm', ext: 'js' },
@@ -70,6 +146,7 @@ function extractRegularCssImports(code: string): string[] {
 
   while ((match = regex.exec(code)) !== null) {
     const cssPath = match[1];
+    // Only include regular CSS (not .module.css which we handle separately)
     if (!cssPath.endsWith('.module.css')) {
       imports.push(cssPath);
     }
@@ -85,128 +162,75 @@ async function processOutputFormat(
   regularCssImports: RegularCssImport[]
 ): Promise<void> {
   const distDir = path.resolve(config.root, 'dist', format);
-  const bundledCssPath = path.join(distDir, 'click-ui.css');
+  const tempDir = getTempDir(config);
+  const srcDir = path.resolve(config.root, 'src');
 
-  let bundledCss: string;
-  try {
-    bundledCss = await fs.readFile(bundledCssPath, 'utf-8');
-  } catch {
-    return;
+  // Copy pre-generated CSS files from temp directory to dist
+  const cssFiles = await findFiles(tempDir, /\.css$/);
+
+  for (const cssFile of cssFiles) {
+    const relativeToTemp = path.relative(tempDir, cssFile);
+    const outputPath = path.join(distDir, relativeToTemp);
+
+    await fs.mkdir(path.dirname(outputPath), { recursive: true });
+    await fs.copyFile(cssFile, outputPath);
   }
 
-  const cssModuleJsFiles = await findFiles(
-    distDir,
-    new RegExp(`\\.module\\.css\\.${ext}$`)
-  );
+  // Also copy regular CSS files from src
+  const regularCssFiles = await findFiles(srcDir, /\.css$/);
 
-  for (const jsMapFile of cssModuleJsFiles) {
-    await processCssModule(jsMapFile, bundledCss, distDir, format, ext);
+  for (const cssFile of regularCssFiles) {
+    // Skip original .module.css files and pre-generated files (already in temp)
+    if (cssFile.endsWith('.module.css')) continue;
+
+    const relativeToSrc = path.relative(srcDir, cssFile);
+    const outputPath = path.join(distDir, relativeToSrc);
+
+    await fs.mkdir(path.dirname(outputPath), { recursive: true });
+    await fs.copyFile(cssFile, outputPath);
   }
 
+  // Inject CSS imports into component JS files
+  const jsModuleFiles = await findFiles(distDir, new RegExp(`index\.${ext}$`));
+
+  for (const jsFile of jsModuleFiles) {
+    const dir = path.dirname(jsFile);
+    const baseName = path.basename(dir);
+    const cssFileName = `${baseName}.css`;
+    const cssFilePath = path.join(dir, cssFileName);
+
+    // Check if there's a corresponding CSS file
+    if (await fileExists(cssFilePath)) {
+      await injectCssImport(jsFile, cssFileName, format);
+    }
+  }
+
+  // Process regular CSS imports
   await processRegularCssImports(regularCssImports, distDir, format, ext, config.root);
-
-  await fs.unlink(bundledCssPath);
 }
 
-async function processCssModule(
-  jsMapFile: string,
-  bundledCss: string,
-  distDir: string,
-  format: 'esm' | 'cjs',
-  ext: string
+async function injectCssImport(
+  jsFilePath: string,
+  cssFileName: string,
+  format: 'esm' | 'cjs'
 ): Promise<void> {
-  const jsContent = await fs.readFile(jsMapFile, 'utf-8');
-  const classMap = extractClassMap(jsContent);
+  const content = await fs.readFile(jsFilePath, 'utf-8');
 
-  if (Object.keys(classMap).length === 0) return;
+  if (content.includes(cssFileName)) return;
 
-  const hashedClasses = Object.values(classMap);
-  const componentCss = await extractComponentCss(bundledCss, hashedClasses);
+  const importStatement =
+    format === 'esm' ? `import "./${cssFileName}";\n` : `require("./${cssFileName}");\n`;
 
-  if (!componentCss.trim()) return;
+  const ms = new MagicString(content);
 
-  const dir = path.dirname(jsMapFile);
-  const basename = path.basename(jsMapFile, `.module.css.${ext}`);
-  const outputCssPath = path.join(dir, `${basename}.css`);
-
-  await fs.writeFile(outputCssPath, componentCss);
-
-  const indexJsPath = path.join(dir, `index.${ext}`);
-  if (await fileExists(indexJsPath)) {
-    await injectCssImport(indexJsPath, `${basename}.css`, format);
-  }
-}
-
-function extractClassMap(jsContent: string): Record<string, string> {
-  const classMap: Record<string, string> = {};
-  const patterns = [
-    /"([^"]+)":\s*"([^"]+)"/g,
-    /["']?(\w[\w-]*)["']?:\s*["']([^"']+)["']/g,
-    /(?:const|var|let)\s+(\w+)\s*=\s*["']([^"']+)["']/g,
-  ];
-
-  for (const pattern of patterns) {
-    let match: RegExpExecArray | null;
-    while ((match = pattern.exec(jsContent)) !== null) {
-      const [, key, value] = match;
-      if (value && /^[_a-zA-Z][\w-]*$/.test(value) && value.length <= 12) {
-        classMap[key] = value;
-      }
-    }
+  if (content.startsWith("'use client'")) {
+    const insertPos = content.indexOf(';', content.indexOf("'use client'")) + 1;
+    ms.appendLeft(insertPos, '\n' + importStatement);
+  } else {
+    ms.prepend(importStatement);
   }
 
-  return classMap;
-}
-
-async function extractComponentCss(
-  bundledCss: string,
-  classNames: string[]
-): Promise<string> {
-  if (classNames.length === 0) return '';
-
-  const root = postcss.parse(bundledCss);
-  const usedKeyframes = new Set<string>();
-  const resultRules: postcss.Node[] = [];
-
-  // First pass: find keyframes used by our classes
-  root.walkRules(rule => {
-    const ruleText = rule.toString();
-    const hasOurClass = classNames.some(cn =>
-      new RegExp(`\\.${escapeRegex(cn)}(?:[^\\w-]|$)`).test(rule.selector)
-    );
-
-    if (hasOurClass) {
-      const animationMatch = ruleText.match(/animation(?:-name)?:\s*([\w-]+)/);
-      if (animationMatch) {
-        usedKeyframes.add(animationMatch[1]);
-      }
-    }
-  });
-
-  // Second pass: collect matching rules
-  root.walk(node => {
-    if (node.type === 'rule') {
-      const hasOurClass = classNames.some(cn =>
-        new RegExp(`\\.${escapeRegex(cn)}(?:[^\\w-]|$)`).test((node as Rule).selector)
-      );
-      if (hasOurClass) {
-        resultRules.push(node);
-      }
-    } else if (node.type === 'atrule') {
-      const atRule = node as AtRule;
-      const keyframesMatch =
-        atRule.name === 'keyframes' && usedKeyframes.has(atRule.params);
-      const isMediaWithOurClass =
-        atRule.name === 'media' &&
-        classNames.some(cn => atRule.toString().includes(`.${cn}`));
-
-      if (keyframesMatch || isMediaWithOurClass) {
-        resultRules.push(node);
-      }
-    }
-  });
-
-  return resultRules.map(rule => rule.toString()).join('\n\n');
+  await fs.writeFile(jsFilePath, ms.toString());
 }
 
 async function processRegularCssImports(
@@ -256,30 +280,6 @@ function resolveCssPath(
   return null;
 }
 
-async function injectCssImport(
-  jsFilePath: string,
-  cssFileName: string,
-  format: 'esm' | 'cjs'
-): Promise<void> {
-  const content = await fs.readFile(jsFilePath, 'utf-8');
-
-  if (content.includes(cssFileName)) return;
-
-  const importStatement =
-    format === 'esm' ? `import "./${cssFileName}";\n` : `require("./${cssFileName}");\n`;
-
-  const ms = new MagicString(content);
-
-  if (content.startsWith("'use client'")) {
-    const insertPos = content.indexOf(';', content.indexOf("'use client'")) + 1;
-    ms.appendLeft(insertPos, '\n' + importStatement);
-  } else {
-    ms.prepend(importStatement);
-  }
-
-  await fs.writeFile(jsFilePath, ms.toString());
-}
-
 async function replaceEmptyCssComment(
   jsFilePath: string,
   cssRelativePath: string,
@@ -305,25 +305,24 @@ async function findFiles(dir: string, pattern: RegExp): Promise<string[]> {
   const results: string[] = [];
 
   async function walk(currentDir: string) {
-    const entries = await fs.readdir(currentDir, { withFileTypes: true });
+    try {
+      const entries = await fs.readdir(currentDir, { withFileTypes: true });
 
-    for (const entry of entries) {
-      const fullPath = path.join(currentDir, entry.name);
+      for (const entry of entries) {
+        const fullPath = path.join(currentDir, entry.name);
 
-      if (entry.isDirectory()) {
-        await walk(fullPath);
-      } else if (entry.isFile() && pattern.test(entry.name)) {
-        results.push(fullPath);
+        if (entry.isDirectory()) {
+          await walk(fullPath);
+        } else if (entry.isFile() && pattern.test(entry.name)) {
+          results.push(fullPath);
+        }
       }
+    } catch {
+      // Directory doesn't exist or can't be read
     }
   }
 
-  try {
-    await walk(dir);
-  } catch {
-    // Directory doesn't exist
-  }
-
+  await walk(dir);
   return results;
 }
 
@@ -334,10 +333,6 @@ async function fileExists(filePath: string): Promise<boolean> {
   } catch {
     return false;
   }
-}
-
-function escapeRegex(str: string): string {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 export default cssColocatePlugin;

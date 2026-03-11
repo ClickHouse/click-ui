@@ -1,6 +1,7 @@
 build
 dist
 node_modules
+.temp
 .idea
 storybook-static
 .env
