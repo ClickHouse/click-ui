@@ -75,6 +75,10 @@ try {
     require: './dist/cjs/hooks/index.cjs',
   };
 
+  // Warn: Explicitly block internal hooks from being imported
+  // e.g. modern bundlers should error and no types declared for path (typescript)
+  exports['./hooks/internal'] = null;
+
   packageJson.exports = exports;
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
