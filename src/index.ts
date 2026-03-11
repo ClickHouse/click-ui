@@ -258,8 +258,28 @@ export type { TextFieldProps } from './components/TextField';
 // Toast
 export { Toast, ToastProvider } from './components/Toast';
 export { createToast } from './components/Toast/toastEmitter';
-export { useToast } from './hooks';
 export type { ToastProps } from './components/Toast';
+
+// ================================================
+// Hooks
+// ================================================
+
+export {
+  useInitialTheme,
+  useToast
+} from './hooks';
+/**
+ * @deprecated This hook is deprecated and will be removed in a future ve
+rsion.
+ * Use CSS variables for theming instead (e.g., `var(--click-global-color-text-default)`), which will be available.
+ * For theme name, use the `useInitialTheme` hook or access the theme context directly.
+ */
+export { useCUITheme } from './hooks/useCUITheme';
+
+/**
+ * @deprecated This type is deprecated and will be removed in a future version.
+ */
+export type { CUIThemeType } from './hooks/useCUITheme';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
@@ -362,15 +382,3 @@ export { linkStyles } from './components/Link/common';
  * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
  */
 export type { StyledLinkProps } from './components/Link/common';
-
-/**
- * @deprecated This hook is deprecated and will be removed in a future version.
- * Use CSS variables for theming instead (e.g., `var(--click-global-color-text-default)`), which will be available.
- * For theme name, use the `useInitialTheme` hook or access the theme context directly.
- */
-export { useCUITheme } from './hooks/useCUITheme';
-
-/**
- * @deprecated This type is deprecated and will be removed in a future version.
- */
-export type { CUIThemeType } from './hooks/useCUITheme';
