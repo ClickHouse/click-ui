@@ -246,7 +246,6 @@ if (isRegenerate) {
   process.exit(0);
 }
 
-// Normal conversion mode (existing code)
 if (args.length < 1) {
   console.error('👹 Oops! The SVG file path is required');
   console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
