@@ -813,14 +813,16 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       }
     }, [resizableColumns, columnWidths, headers, isSelectable, isDeletable, isEditable]);
 
-    // Reset widths when header labels change (covers add/remove/rename, not just reorder)
+    const headerKey = useMemo(
+      () =>
+        headers
+          .map((h, i) => (typeof h.label === 'string' ? h.label : `__index_${i}`))
+          .join(','),
+      [headers]
+    );
     useEffect(() => {
       setColumnWidths(null);
-    }, [
-      headers
-        .map((h, i) => (typeof h.label === 'string' ? h.label : `__index_${i}`))
-        .join(','),
-    ]);
+    }, [headerKey]);
 
     const resizeStateRef = useRef<ResizeState>({
       isResizing: false,
