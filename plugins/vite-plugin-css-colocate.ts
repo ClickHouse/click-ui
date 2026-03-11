@@ -11,12 +11,15 @@ import path from 'path';
  * 3. Extracts the corresponding CSS rules from the bundled click-ui.css
  * 4. Writes a co-located CSS file (e.g., Button.css)
  * 5. Injects a side-effect CSS import into the component's index.js
+ * 6. Handles regular CSS imports (non-module) by copying them and fixing imports
  *
  * This enables "zero-config" CSS for consumers - importing a component
  * automatically includes its styles.
  */
 export const cssColocatePlugin = (): Plugin => {
   let config: ResolvedConfig;
+  // Track regular CSS imports: sourceFile -> [cssImportPaths]
+  const regularCssImports = new Map<string, string[]>();
 
   return {
     name: 'vite-plugin-css-colocate',
@@ -24,6 +27,35 @@ export const cssColocatePlugin = (): Plugin => {
 
     configResolved(resolvedConfig) {
       config = resolvedConfig;
+    },
+
+    /**
+     * Track regular CSS imports before Vite processes them.
+     * Vite replaces these with "/* empty css *\/" in the output.
+     */
+    transform(code, id) {
+      // Only process JS/TS source files
+      if (id.includes('node_modules')) return null;
+      if (!/\.(ts|tsx|js|jsx)$/.test(id)) return null;
+
+      // Find CSS imports (not module CSS)
+      const cssImportRegex = /import\s+['"]([^'"]+\.css)['"];?/g;
+      const imports: string[] = [];
+      let match;
+
+      while ((match = cssImportRegex.exec(code)) !== null) {
+        const cssPath = match[1];
+        // Skip .module.css - handled separately
+        if (!cssPath.endsWith('.module.css')) {
+          imports.push(cssPath);
+        }
+      }
+
+      if (imports.length > 0) {
+        regularCssImports.set(id, imports);
+      }
+
+      return null; // Let Vite handle normally
     },
 
     closeBundle() {
@@ -79,6 +111,51 @@ export const cssColocatePlugin = (): Plugin => {
           console.log(`[css-colocate] Created ${path.relative(distDir, outputCssPath)}`);
         }
 
+        // Handle regular CSS imports (non-module CSS like token files)
+        const srcDir = path.resolve(config.root, 'src');
+        for (const [sourceFile, cssImportPaths] of regularCssImports) {
+          for (const cssImportPath of cssImportPaths) {
+            // Resolve the CSS file path (handle @/ alias)
+            let cssSourcePath: string;
+            if (cssImportPath.startsWith('@/')) {
+              cssSourcePath = path.resolve(srcDir, cssImportPath.slice(2));
+            } else if (cssImportPath.startsWith('./') || cssImportPath.startsWith('../')) {
+              cssSourcePath = path.resolve(path.dirname(sourceFile), cssImportPath);
+            } else {
+              // Skip node_modules imports
+              continue;
+            }
+
+            if (!fs.existsSync(cssSourcePath)) {
+              console.warn(`[css-colocate] CSS file not found: ${cssSourcePath}`);
+              continue;
+            }
+
+            // Determine output location (preserve directory structure relative to src)
+            const relativeToCss = path.relative(srcDir, cssSourcePath);
+            const outputCssPath = path.join(distDir, relativeToCss);
+
+            // Copy CSS file to dist (create directories if needed)
+            fs.mkdirSync(path.dirname(outputCssPath), { recursive: true });
+            fs.copyFileSync(cssSourcePath, outputCssPath);
+            console.log(`[css-colocate] Copied ${relativeToCss}`);
+
+            // Find the corresponding output JS file
+            const relativeToJs = path.relative(srcDir, sourceFile);
+            // Replace .tsx/.ts with .js/.cjs
+            const jsOutputRelative = relativeToJs.replace(/\.tsx?$/, `.${ext}`);
+            const jsOutputPath = path.join(distDir, jsOutputRelative);
+
+            if (fs.existsSync(jsOutputPath)) {
+              // Calculate relative path from JS file to CSS file
+              const jsDir = path.dirname(jsOutputPath);
+              const cssRelativeToJs = path.relative(jsDir, outputCssPath);
+              replaceEmptyCssComment(jsOutputPath, cssRelativeToJs, format);
+              console.log(`[css-colocate] Fixed CSS import in ${jsOutputRelative}`);
+            }
+          }
+        }
+
         // Remove the bundled CSS since it's now split into per-component files
         fs.unlinkSync(bundledCssPath);
         console.log(`[css-colocate] Removed bundled ${path.relative(distDir, bundledCssPath)}`);
@@ -101,7 +178,7 @@ function extractClassMapFromJs(jsContent: string): Record<string, string> {
   ];
 
   for (const pattern of patterns) {
-    let match;
+    let match: RegExpExecArray | null;
     while ((match = pattern.exec(jsContent)) !== null) {
       const [, key, value] = match;
       // Only include if value looks like a hashed class name (starts with letter or underscore)
@@ -131,7 +208,7 @@ function extractComponentCss(bundledCss: string, hashedClassNames: string[]): st
       `\\.${escapeRegex(className)}[^{]*\\{([^}]*)\\}`,
       'g'
     );
-    let match;
+    let match: RegExpExecArray | null;
     while ((match = classRuleRegex.exec(bundledCss)) !== null) {
       const animationMatch = match[1].match(/animation(?:-name)?:\s*([\w-]+)/);
       if (animationMatch) {
@@ -250,6 +327,32 @@ function injectCssImport(
   }
 
   fs.writeFileSync(jsFilePath, content);
+}
+
+/**
+ * Replace /* empty css *\/ comment with actual CSS import.
+ * Vite outputs these placeholders when CSS is bundled.
+ */
+function replaceEmptyCssComment(
+  jsFilePath: string,
+  cssRelativePath: string,
+  format: 'esm' | 'cjs'
+): void {
+  let content = fs.readFileSync(jsFilePath, 'utf-8');
+
+  // Normalize path separators for the import
+  const normalizedPath = cssRelativePath.replace(/\\/g, '/');
+  const importPath = normalizedPath.startsWith('.') ? normalizedPath : `./${normalizedPath}`;
+
+  const importStatement =
+    format === 'esm' ? `import "${importPath}"` : `require("${importPath}")`;
+
+  // Replace first /* empty css */ comment (with variable whitespace) with actual import
+  const emptyCssRegex = /\/\*\s*empty css\s*\*\//;
+  if (emptyCssRegex.test(content)) {
+    content = content.replace(emptyCssRegex, importStatement);
+    fs.writeFileSync(jsFilePath, content);
+  }
 }
 
 function escapeRegex(str: string): string {
