@@ -136,4 +136,59 @@ describe('Table', () => {
     const outerContainer = container.querySelector('[data-mobile-layout]');
     expect(outerContainer).toHaveAttribute('data-mobile-layout', 'scroll');
   });
+
+  it('should handle column reordering with resizable columns without NaN values', () => {
+    const { rerender, queryAllByRole } = renderTable({
+      resizableColumns: true,
+    });
+
+    let resizers = queryAllByRole('separator');
+    expect(resizers.length).toBe(2);
+
+    const reorderedHeaders = [
+      { label: 'Country' },
+      { label: 'Company' },
+      { label: 'Contact' },
+    ];
+
+    const reorderedRows = [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'Germany' },
+          { label: 'Alfreds Futterkiste' },
+          { label: 'Maria Anders' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'Mexico' },
+          { label: 'Centro comercial Moctezuma' },
+          { label: 'Francisco Chang' },
+        ],
+      },
+    ];
+
+    rerender(
+      <Table
+        headers={reorderedHeaders}
+        rows={reorderedRows}
+        data-testid="table"
+        resizableColumns
+      />
+    );
+
+    resizers = queryAllByRole('separator');
+    expect(resizers.length).toBe(2);
+
+    resizers[0].focus();
+
+    expect(() => {
+      fireEvent.keyDown(resizers[0], { key: 'ArrowRight' });
+    }).not.toThrow();
+
+    expect(resizers[0]).toHaveAttribute('tabIndex', '0');
+    expect(resizers[1]).toHaveAttribute('tabIndex', '0');
+  });
 });

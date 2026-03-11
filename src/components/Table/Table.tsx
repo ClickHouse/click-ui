@@ -233,7 +233,7 @@ interface TheadProps {
   rows: TableRowType[];
   selectedIds: (number | string)[];
   resizableColumns?: boolean;
-  columnWidths?: number[] | null;
+  columnWidths?: Map<string, number> | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
     columnIndex: number
@@ -265,19 +265,23 @@ const Thead = ({
     <>
       <StyledColGroup>
         {isSelectable && <col width={48} />}
-        {headers.map((headerProps, index) => (
-          <col
-            key={`header-col-${index}`}
-            width={
-              resizableColumns &&
-              columnWidths &&
-              columnWidths[index] &&
-              index < headers.length - 1
-                ? `${columnWidths[index]}px`
-                : headerProps.width
-            }
-          />
-        ))}
+        {headers.map((headerProps, index) => {
+          const headerLabel =
+            typeof headerProps.label === 'string'
+              ? headerProps.label
+              : `__index_${index}`;
+          const widthFromMap = columnWidths?.get(headerLabel);
+          return (
+            <col
+              key={`header-col-${index}`}
+              width={
+                resizableColumns && widthFromMap && index < headers.length - 1
+                  ? `${widthFromMap}px`
+                  : headerProps.width
+              }
+            />
+          );
+        })}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
       </StyledColGroup>
       <StyledThead ref={theadRef}>
@@ -294,9 +298,9 @@ const Thead = ({
               />
             </StyledHeader>
           )}
-          {headers.map(({ width, ...headerProps }, index) => (
+          {headers.map((headerProps, index) => (
             <TableHeader
-              key={`table-header-${index}-${width}`}
+              key={`table-header-${index}`}
               onSort={onSort(headerProps, index)}
               size={size}
               resizable={resizableColumns}
@@ -743,8 +747,8 @@ const CustomTableRow = ({
 };
 interface ResizeState {
   isResizing: boolean;
-  columnIndex: number;
-  nextColumnIndex: number;
+  columnLabel: string | null;
+  nextColumnLabel: string | null;
   startX: number;
   startWidth: number;
   nextStartWidth: number;
@@ -778,7 +782,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     const isDeletable = typeof onDelete === 'function';
     const isEditable = typeof onEdit === 'function';
 
-    const [columnWidths, setColumnWidths] = useState<number[] | null>(null);
+    const [columnWidths, setColumnWidths] = useState<Map<string, number> | null>(null);
     const theadRef = useRef<HTMLTableSectionElement>(null);
 
     useLayoutEffect(() => {
@@ -787,31 +791,43 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       }
 
       const headerCells = theadRef.current.querySelectorAll('th');
-      const widths: number[] = [];
+      const widths = new Map<string, number>();
 
+      // Skip select column (index 0 if isSelectable) and actions column (last if present)
       const startIndex = isSelectable ? 1 : 0;
       const endIndex = headerCells.length - (isDeletable || isEditable ? 1 : 0);
 
+      let headerIndex = 0;
       for (let i = startIndex; i < endIndex; i++) {
-        widths.push(headerCells[i].getBoundingClientRect().width);
+        const header = headers[headerIndex];
+        if (header) {
+          const key =
+            typeof header.label === 'string' ? header.label : `__index_${headerIndex}`;
+          widths.set(key, headerCells[i].getBoundingClientRect().width);
+        }
+        headerIndex++;
       }
 
-      if (widths.length === headers.length) {
+      if (widths.size === headers.length) {
         setColumnWidths(widths);
       }
-    }, [
-      resizableColumns,
-      columnWidths,
-      headers.length,
-      isSelectable,
-      isDeletable,
-      isEditable,
-    ]);
+    }, [resizableColumns, columnWidths, isSelectable, isDeletable, isEditable]);
+
+    const headerKey = useMemo(
+      () =>
+        headers
+          .map((h, i) => (typeof h.label === 'string' ? h.label : `__index_${i}`))
+          .join(','),
+      [headers]
+    );
+    useEffect(() => {
+      setColumnWidths(null);
+    }, [headerKey]);
 
     const resizeStateRef = useRef<ResizeState>({
       isResizing: false,
-      columnIndex: -1,
-      nextColumnIndex: -1,
+      columnLabel: null,
+      nextColumnLabel: null,
       startX: 0,
       startWidth: 0,
       nextStartWidth: 0,
@@ -822,10 +838,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         return;
       }
 
-      const { columnIndex, nextColumnIndex, startX, startWidth, nextStartWidth } =
+      const { columnLabel, nextColumnLabel, startX, startWidth, nextStartWidth } =
         resizeStateRef.current;
 
-      if (columnIndex === null || nextColumnIndex === null) {
+      if (!columnLabel || !nextColumnLabel) {
         return;
       }
 
@@ -833,7 +849,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       const newWidth = startWidth + diff;
       const newNextWidth = nextStartWidth - diff;
 
-      if (!newWidth || !newNextWidth) {
+      if (Number.isNaN(newWidth) || Number.isNaN(newNextWidth)) {
         console.warn('Unexpected computed values for resize width', {
           newWidth,
           newNextWidth,
@@ -846,9 +862,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           if (!prev) {
             return prev;
           }
-          const updated = [...prev];
-          updated[columnIndex] = newWidth;
-          updated[nextColumnIndex] = newNextWidth;
+          const updated = new Map(prev);
+          updated.set(columnLabel, newWidth);
+          updated.set(nextColumnLabel, newNextWidth);
           return updated;
         });
       }
@@ -880,13 +896,24 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           return;
         }
 
-        const nextColumnIndex = columnIndex + 1;
-        if (nextColumnIndex >= headers.length) {
+        const currentHeader = headers[columnIndex];
+        const nextHeader = headers[columnIndex + 1];
+
+        if (!currentHeader || !nextHeader) {
           return;
         }
 
-        const startWidth = columnWidths[columnIndex];
-        const nextStartWidth = columnWidths[nextColumnIndex];
+        const currentLabel =
+          typeof currentHeader.label === 'string'
+            ? currentHeader.label
+            : `__index_${columnIndex}`;
+        const nextLabel =
+          typeof nextHeader.label === 'string'
+            ? nextHeader.label
+            : `__index_${columnIndex + 1}`;
+
+        const startWidth = columnWidths.get(currentLabel);
+        const nextStartWidth = columnWidths.get(nextLabel);
 
         if (startWidth === undefined || nextStartWidth === undefined) {
           return;
@@ -894,14 +921,14 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
         resizeStateRef.current = {
           isResizing: true,
-          columnIndex,
-          nextColumnIndex,
+          columnLabel: currentLabel,
+          nextColumnLabel: nextLabel,
           startX: e.clientX,
           startWidth,
           nextStartWidth,
         };
       },
-      [headers.length, columnWidths]
+      [headers, columnWidths]
     );
 
     const onRowSelect =
@@ -940,17 +967,28 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             return;
           }
 
-          const nextColumnIndex = columnIndex + 1;
-          if (nextColumnIndex >= headers.length) {
+          const currentHeader = headers[columnIndex];
+          const nextHeader = headers[columnIndex + 1];
+
+          if (!currentHeader || !nextHeader) {
             return;
           }
+
+          const currentLabel =
+            typeof currentHeader.label === 'string'
+              ? currentHeader.label
+              : `__index_${columnIndex}`;
+          const nextLabel =
+            typeof nextHeader.label === 'string'
+              ? nextHeader.label
+              : `__index_${columnIndex + 1}`;
 
           const increment = 2;
           const multiplier = direction === 'right' ? 1 : -1;
           const diff = increment * multiplier;
 
-          const currentWidth = columnWidths[columnIndex];
-          const nextWidth = columnWidths[nextColumnIndex];
+          const currentWidth = columnWidths.get(currentLabel);
+          const nextWidth = columnWidths.get(nextLabel);
 
           if (currentWidth === undefined || nextWidth === undefined) {
             return;
@@ -969,13 +1007,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             if (!prev) {
               return prev;
             }
-            const updated = [...prev];
-            updated[columnIndex] = newWidth;
-            updated[nextColumnIndex] = newNextWidth;
+            const updated = new Map(prev);
+            updated.set(currentLabel, newWidth);
+            updated.set(nextLabel, newNextWidth);
             return updated;
           });
         },
-      [columnWidths, headers.length]
+      [columnWidths, headers]
     );
 
     return (
