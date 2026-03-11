@@ -206,16 +206,17 @@ export { RadioGroup } from './components/RadioGroup';
 export type { RadioGroupItemProps, RadioGroupProps } from './components/RadioGroup';
 
 // Select
-export { CheckboxMultiSelect } from './components/Select/CheckboxMultiSelect';
-export { MultiSelect } from './components/Select/MultiSelect';
-export { Select } from './components/Select/SingleSelect';
-export type { CheckboxMultiSelectProps } from './components/Select/CheckboxMultiSelect';
-export type { MultiSelectProps } from './components/Select/MultiSelect';
+export { Select } from './components/Select';
+export { MultiSelect } from './components/MultiSelect';
+export { CheckboxMultiSelect } from './components/CheckboxMultiSelect';
 export type {
   SelectGroupOptionItem,
   SelectOptionListItem,
-} from './components/Select/common/types';
-export type { SelectProps } from './components/Select/SingleSelect';
+  SelectProps,
+  SelectionType,
+} from './components/Select';
+export type { MultiSelectProps } from './components/MultiSelect';
+export type { CheckboxMultiSelectProps } from './components/CheckboxMultiSelect';
 
 // Separator
 export { Separator } from './components/Separator';

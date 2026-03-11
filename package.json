@@ -82,6 +82,11 @@
       "import": "./dist/esm/components/Checkbox/index.js",
       "require": "./dist/cjs/components/Checkbox/index.cjs"
     },
+    "./CheckboxMultiSelect": {
+      "types": "./dist/types/components/CheckboxMultiSelect/index.d.ts",
+      "import": "./dist/esm/components/CheckboxMultiSelect/index.js",
+      "require": "./dist/cjs/components/CheckboxMultiSelect/index.cjs"
+    },
     "./CodeBlock": {
       "types": "./dist/types/components/CodeBlock/index.d.ts",
       "import": "./dist/esm/components/CodeBlock/index.js",
@@ -196,6 +201,11 @@
       "types": "./dist/types/components/MultiAccordion/index.d.ts",
       "import": "./dist/esm/components/MultiAccordion/index.js",
       "require": "./dist/cjs/components/MultiAccordion/index.cjs"
+    },
+    "./MultiSelect": {
+      "types": "./dist/types/components/MultiSelect/index.d.ts",
+      "import": "./dist/esm/components/MultiSelect/index.js",
+      "require": "./dist/cjs/components/MultiSelect/index.cjs"
     },
     "./NumberField": {
       "types": "./dist/types/components/NumberField/index.d.ts",

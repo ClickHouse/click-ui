@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { AutoComplete, AutoCompleteProps } from '@/components/AutoComplete';
-import { selectOptions } from '../Select/selectOptions';
+import { selectOptions } from '@/components/Select/Select.fixtures';
 
 interface AutoCompleteExampleProps extends Omit<
   AutoCompleteProps,
