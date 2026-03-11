@@ -3,7 +3,7 @@ import path from 'path';
 import { preprocessCssModules } from './css-preprocess';
 import { resolveCssModule, loadCssModule } from './virtual-modules';
 import { copyCssFiles } from './css-operations';
-import { injectComponentCss } from './import-inject';
+import { injectComponentCss, injectRegularCssImports } from './import-inject';
 
 interface RegularCssImport {
   sourceFile: string;
@@ -63,6 +63,7 @@ export const cssColocatePlugin = (): Plugin => {
       for (const { format, ext } of outputs) {
         await copyCssFiles(config, format);
         await injectComponentCss(path.join(config.root, 'dist', format), format, ext);
+        await injectRegularCssImports(regularImports, config, format, ext);
       }
     },
   };
