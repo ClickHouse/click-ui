@@ -981,10 +981,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               ? nextHeader.label
               : `__index_${columnIndex + 1}`;
 
-          if (!currentLabel || !nextLabel) {
-            return;
-          }
-
           const increment = 2;
           const multiplier = direction === 'right' ? 1 : -1;
           const diff = increment * multiplier;
