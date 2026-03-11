@@ -122,7 +122,7 @@ Let's call it `XYZ.tsx`:
 ```tsx
 /* eslint-disable react-refresh/only-export-components */
 
-import { SVGAssetProps } from './system/types';
+import type { SVGAssetProps } from '@/types';
 import { SVGAttributes } from 'react';
 
 const XYZBase = ({ theme, ...props }: SVGAssetProps) => (
