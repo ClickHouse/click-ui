@@ -1,5 +1,200 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.77
+
+### Minor Changes
+
+- d936174: Add `convert:regenerate` command to regenerate asset types (logos, icons, flags, payments) without adding new components. This allows refreshing types.ts and registry files (Light/Dark) when the converter script is updated or when imports need to be standardized.
+
+  **How to use?**
+
+  Regenerate all asset types:
+
+  ```
+  yarn convert:regenerate
+  ```
+
+  Regenerate a specific asset type only:
+
+  ```
+  yarn convert:regenerate --type=icons
+  ```
+
+  Supported values for `--type`: `logos`, `icons`, `flags`, `payments`
+
+- 3616770: Improved TypeScript type exports for better support and consumer app integration:
+  - **CardHorizontal**: Enhanced type definitions with proper ReactNode and event handler types
+  - **CardSecondary**: Added explicit type exports for card states and sizes
+  - **Collapsible**: Updated IconWrapper component types for better accessibility
+  - **IconButton**: Refined type definitions for button states and sizes
+  - **Sidebar components**: Improved type safety for navigation items and collapsible sections
+  - **VerticalStepper**: Extracted VerticalStepProps to dedicated types file for reusability
+
+- bc2821d: ### What's Changed
+
+  Typography Split (breaking for internal imports only):
+  - Split monolithic `Typography/` folder into atomic `Text/` and `Title/` components
+  - Each component now has dedicated folder with stories, tests, and exports
+  - Enables granular imports: `import { Text } from '@clickhouse/click-ui/Text'`
+
+  Hooks Organization:
+  - Moved `useToast` from `components/Toast/` to `hooks/` for consistent hook exports
+  - All hooks now centralized in `src/hooks/` directory
+
+  Build Improvements:
+  - Added dist directory cleanup before builds to prevent stale artifacts
+
+  ### Migration Guide
+
+  For consumers using main index imports:
+
+  ```typescript
+  // No changes needed - these continue to work:
+  import { Text, Title } from '@clickhouse/click-ui';
+  ```
+
+  For consumers wanting granular imports:
+
+  ```typescript
+  import { Text } from '@clickhouse/click-ui/Text';
+  import { Title } from '@clickhouse/click-ui/Title';
+  import { useToast } from '@clickhouse/click-ui';
+  ```
+
+  For internal development:
+
+  ```typescript
+  // Old paths (removed):
+  import { Text } from '@/components/Typography/Text';
+
+  // New paths:
+  import { Text } from '@/components/Text';
+  import { Title } from '@/components/Title';
+  ```
+
+  ### Breaking Changes
+  - Internal import paths changed from `@/components/Typography/*` to `@/components/Text` and `@/components/Title`
+
+- 7b25a0e: ### What's Changed
+
+  Split the monolithic `Input/` component folder into 6 separate atomic components, each with dedicated exports:
+  - **InputWrapper** - Shared form element primitives (Wrapper, InputElement, NumberInputElement, etc.)
+  - **TextField** - Standard text input with label and error support
+  - **NumberField** - Numeric input with increment/decrement controls
+  - **PasswordField** - Secure text input with visibility toggle
+  - **SearchField** - Search-optimized input with clear button
+  - **TextAreaField** - Multiline text input (renamed from TextArea for consistency)
+
+  ### Migration Guide
+
+  For consumers using main index imports:
+
+  ```typescript
+  // No changes needed - these continue to work:
+  import {
+    TextField,
+    NumberField,
+    PasswordField,
+    SearchField,
+    TextAreaField,
+    InputWrapper,
+  } from '@clickhouse/click-ui';
+  ```
+
+  For consumers wanting granular imports:
+
+  ```typescript
+  // New atomic imports available:
+  import { TextField } from '@clickhouse/click-ui/TextField';
+  import { NumberField } from '@clickhouse/click-ui/NumberField';
+  import { PasswordField } from '@clickhouse/click-ui/PasswordField';
+  import { SearchField } from '@clickhouse/click-ui/SearchField';
+  import { TextAreaField } from '@clickhouse/click-ui/TextAreaField';
+  import { InputWrapper } from '@clickhouse/click-ui/InputWrapper';
+  ```
+
+  Type imports:
+
+  ```typescript
+  import type {
+    TextFieldProps,
+    NumberFieldProps,
+    PasswordFieldProps,
+  } from '@clickhouse/click-ui';
+
+  // Or granular:
+  import type { TextFieldProps } from '@clickhouse/click-ui/TextField';
+  ```
+
+  ### Breaking Changes
+  - Internal import paths changed from `@/components/Input/*` to `@/components/[ComponentName]`
+  - `TextArea` renamed to `TextAreaField` for naming consistency
+  - No breaking changes for public API consumers using main exports
+
+- bd0f4f3: ### What's Changed
+
+  Restructured Select components into atomic exports with dedicated type files:
+  - **Select** - Single-select dropdown (renamed from SingleSelect for clarity)
+  - **MultiSelect** - Multi-select dropdown with tag-style values
+  - **CheckboxMultiSelect** - Multi-select with checkbox interface
+
+  Each component now has:
+  - Dedicated folder with index.ts exports
+  - Separate `.types.ts` file for clean type exports
+  - Stories and tests co-located with component
+
+  ### Migration Guide
+
+  For consumers using main index imports:
+
+  ```typescript
+  // No changes needed - these continue to work:
+  import { Select, MultiSelect, CheckboxMultiSelect } from '@clickhouse/click-ui';
+  ```
+
+  For consumers wanting granular imports:
+
+  ```typescript
+  // New atomic imports available:
+  import { Select } from '@clickhouse/click-ui/Select';
+  import { MultiSelect } from '@clickhouse/click-ui/MultiSelect';
+  import { CheckboxMultiSelect } from '@clickhouse/click-ui/CheckboxMultiSelect';
+  ```
+
+  Type imports:
+
+  ```typescript
+  import type {
+    SelectProps,
+    MultiSelectProps,
+    CheckboxMultiSelectProps,
+    SelectOptionListItem,
+    SelectionType,
+  } from '@clickhouse/click-ui';
+
+  // Or granular:
+  import type { SelectProps } from '@clickhouse/click-ui/Select';
+  import type { MultiSelectProps } from '@clickhouse/click-ui/MultiSelect';
+  ```
+
+  ### Breaking Changes
+  - Internal import paths changed from `@/components/Select/*` to `@/components/[ComponentName]`
+  - No breaking changes for public API consumers using main exports
+
+### Patch Changes
+
+- 5ca8259: Add a new logo asset for Apache Iceberg
+
+  **How to use?**
+
+  ```tsx
+  import { Logo } from '@clickhouse/click-ui';
+
+  <Logo name="apache-iceberg" />;
+  ```
+
+- bfd8666: Fix SVG converter script to generate proper Props interfaces (LogoProps, IconProps, FlagProps, PaymentProps) in asset type files. Previously, the `propsTypeName` configuration was missing, causing Props interfaces to be absent from generated types.
+
 ## 0.1.0-rc.76
 
 ### Minor Changes
