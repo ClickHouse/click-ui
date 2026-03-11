@@ -9,7 +9,7 @@ Enable consumers to import hooks directly via `@clickhouse/click-ui/hooks` follo
 Import hooks from the new dedicated path:
 
 ```tsx
-import { useCUITheme, useToast, useInitialTheme } from '@`clickhouse/click-ui/hooks';
+import { useCUITheme, useToast, useInitialTheme } from '@clickhouse/click-ui/hooks';
 ```
 
 Main entry point still works:
