@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
-import { Title, Text, TextAlignment } from '@/components/Typography';
+import { Title } from '@/components/Title';
+import { Text, type TextAlignment } from '@/components/Text';
 import { withTopBadge } from './withTopBadge';
 import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';

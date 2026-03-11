@@ -47,22 +47,29 @@ export const sortComponentsByKebabName = files => {
 
 export const generateTypesContent = (sortedComponents, config) => {
   const names = sortedComponents.map(({ kebab }) => `  | '${kebab}'`);
+  const propsName = config.propsTypeName || config.typeName.replace('Name', 'Props');
 
-  return `import { SVGAssetProps } from '../../types';
+  return `import type { SVGAttributes } from 'react';
+import type { AssetSize } from '@/types';
+import type { ThemeName } from '@/theme/theme.types';
 
 export type ${config.typeName} =
 ${names.join('\n')};
 
-export type { SVGAssetProps };
+export interface ${propsName} extends SVGAttributes<SVGElement> {
+  name: ${config.typeName};
+  theme?: ThemeName;
+  size?: AssetSize;
+}
 `;
 };
 
-export const generateRegistryContent = (sortedComponents, config, iconFiles, isDark) => {
+export const generateRegistryContent = (sortedComponents, config, assetFiles, isDark) => {
   const imports = sortedComponents
     .map(({ name }) => {
-      const iconInfo = iconFiles.find(f => f.filename === name);
+      const assetInfo = assetFiles.find(f => f.filename === name);
       const componentName = filenameToComponentName(name);
-      if (iconInfo && iconInfo.exportType === 'named') {
+      if (assetInfo && assetInfo.exportType === 'named') {
         return `import { ${componentName} } from '../${name}';`;
       }
       return `import ${componentName} from '../${name}';`;
@@ -80,7 +87,7 @@ export const generateRegistryContent = (sortedComponents, config, iconFiles, isD
 
 ${imports}
 import { ${config.typeName} } from './types';
-import type { SVGAssetProps } from '../../types';
+import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
 const ${config.registryName}: Record<
@@ -99,14 +106,14 @@ export const writeTypesFile = (systemDir, sortedComponents, config) => {
   fs.writeFileSync(path.join(systemDir, 'types.ts'), content);
 };
 
-export const writeRegistryFiles = (systemDir, sortedComponents, config, iconFiles) => {
+export const writeRegistryFiles = (systemDir, sortedComponents, config, assetFiles) => {
   const lightContent = generateRegistryContent(
     sortedComponents,
     config,
-    iconFiles,
+    assetFiles,
     false
   );
-  const darkContent = generateRegistryContent(sortedComponents, config, iconFiles, true);
+  const darkContent = generateRegistryContent(sortedComponents, config, assetFiles, true);
 
   fs.writeFileSync(path.join(systemDir, `${config.registryName}.ts`), lightContent);
   fs.writeFileSync(
@@ -121,11 +128,12 @@ export const regenerateAssetType = config => {
 
   writeTypesFile(config.systemDir, sorted, {
     typeName: config.typeName,
+    propsTypeName: config.propsTypeName,
     themePropsType: config.themePropsType,
     importPath: config.themeImportPath,
   });
 
-  const iconFiles = sorted.map(({ name, kebab }) => ({
+  const assetFiles = sorted.map(({ name, kebab }) => ({
     filename: name,
     componentName: filenameToComponentName(name),
     kebab,
@@ -140,6 +148,6 @@ export const regenerateAssetType = config => {
       typeName: config.typeName,
       themePropsType: config.themePropsType,
     },
-    iconFiles
+    assetFiles
   );
 };

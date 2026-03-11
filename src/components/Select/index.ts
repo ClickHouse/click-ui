@@ -1,3 +1,9 @@
-export * from './SingleSelect';
-export * from './MultiSelect';
-export * from './CheckboxMultiSelect';
+export { Select } from './Select';
+
+export type {
+  SelectProps,
+  SelectOptionProp,
+  SelectionType,
+  SelectGroupOptionItem,
+  SelectOptionListItem,
+} from './Select.types';

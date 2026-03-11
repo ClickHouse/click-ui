@@ -29,24 +29,28 @@ const ASSET_TYPES = {
   logos: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Logos'),
     typeName: 'LogoName',
+    propsTypeName: 'LogoProps',
     registryName: 'LogosLight',
     defaultSize: 64,
   },
   icons: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Icons'),
     typeName: 'IconName',
+    propsTypeName: 'IconProps',
     registryName: 'IconsLight',
     defaultSize: 24,
   },
   flags: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Flags'),
     typeName: 'FlagName',
+    propsTypeName: 'FlagProps',
     registryName: 'FlagsLight',
     defaultSize: 30,
   },
   payments: {
     dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Payments'),
     typeName: 'PaymentName',
+    propsTypeName: 'PaymentProps',
     registryName: 'PaymentsLight',
     defaultSize: 30,
   },
@@ -73,6 +77,7 @@ const generateAssetTypes = (config) => {
 
   const content = generateTypesContent(sorted, {
     typeName: config.typeName,
+    propsTypeName: config.propsTypeName,
     themePropsType: config.themePropsType,
     importPath: '@/theme',
   });
@@ -89,7 +94,7 @@ const regenerateAssetRegistry = (config) => {
 
   const systemDir = path.join(config.dir, 'system');
 
-  const iconFiles = sorted.map(({ name, kebab }) => ({
+  const assetFiles = sorted.map(({ name, kebab }) => ({
     filename: name,
     componentName: name,
     kebab,
@@ -103,21 +108,18 @@ const regenerateAssetRegistry = (config) => {
       typeName: config.typeName,
       themePropsType: config.themePropsType,
     },
-    iconFiles,
+    assetFiles,
     false
   );
 
   const darkContent = generateRegistryContent(
     sorted,
     {
-      // TODO: The Light and dark theme should not be hard typed
-      // once https://github.com/ClickHouse/click-ui/pull/784
-      // is merged, update it
       registryName: config.registryName.replace('Light', 'Dark'),
       typeName: config.typeName,
       themePropsType: config.themePropsType,
     },
-    iconFiles,
+    assetFiles,
     true
   );
 
@@ -160,7 +162,7 @@ const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) 
 
   output = output.replace(
     /(import \{ SVGAssetProps \} from ['"]\.\.\/types['"];)\n(const [^(]+ = )/,
-    "import { SVGAssetProps } from './system/types';\n\n$2"
+    "import type { SVGAssetProps } from '@/types';\n\n$2"
   );
 
   output = output.replace(/<svg([^>]*)>/, (match, attrs) => {
@@ -201,6 +203,8 @@ const cleanUp = (files) => {
 
 let args = process.argv.slice(2);
 
+const isRegenerate = args.includes('--regenerate');
+
 // WARN: Do not change as this extracts and removes the --type flag from args if present, to allow args in package.json scripts
 const typeFlagIndex = args.findIndex(arg => arg.startsWith('--type='));
 let typeFlag = null;
@@ -209,9 +213,52 @@ if (typeFlagIndex !== -1) {
   args = args.filter((_, i) => i !== typeFlagIndex);
 }
 
+if (isRegenerate) {
+  let typesToRegenerate;
+  let titleMessage;
+
+  if (typeFlag) {
+    const { type, config } = getAssetType([typeFlag]);
+    typesToRegenerate = { [type]: config };
+    titleMessage = `🔄 Regenerating ${type}...\n`;
+  } else {
+    typesToRegenerate = ASSET_TYPES;
+    titleMessage = '🔄 Regenerating all asset types...\n';
+  }
+
+  console.log(titleMessage);
+
+  const filesToCleanup = [];
+
+  for (const [type, config] of Object.entries(typesToRegenerate)) {
+    console.log(`📝 Regenerating types for ${type}...`);
+    generateAssetTypes(config);
+    console.log(`✅ types.ts updated for ${type}`);
+
+    console.log(`📝 Regenerating registry for ${type}...`);
+    regenerateAssetRegistry(config);
+    console.log(`✅ ${config.registryName}.ts and ${config.registryName.replace('Light', 'Dark')}.ts updated\n`);
+
+    const systemDir = path.join(config.dir, 'system');
+    filesToCleanup.push(
+      path.join(systemDir, 'types.ts'),
+      path.join(systemDir, `${config.registryName}.ts`),
+      path.join(systemDir, `${config.registryName.replace('Light', 'Dark')}.ts`)
+    );
+  }
+
+  console.log('🧹 Cleaning up...\n');
+  cleanUp(filesToCleanup);
+
+  console.log('\n✨ Done! Asset types regenerated.');
+  console.log('💡 Remember to commit your changes');
+  process.exit(0);
+}
+
 if (args.length < 1) {
   console.error('👹 Oops! The SVG file path is required');
   console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
+  console.error('💡 Or use: convert-svg-to-react-component --regenerate [--type=logos|icons|flags|payments]');
   process.exit(1);
 }
 
