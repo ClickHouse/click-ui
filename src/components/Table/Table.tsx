@@ -298,7 +298,7 @@ const Thead = ({
               />
             </StyledHeader>
           )}
-          {headers.map(({ width, ...headerProps }, index) => (
+          {headers.map((headerProps, index) => (
             <TableHeader
               key={`table-header-${index}`}
               onSort={onSort(headerProps, index)}
