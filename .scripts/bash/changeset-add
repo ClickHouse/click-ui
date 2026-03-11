@@ -1,0 +1,37 @@
+#!/bin/bash
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+filename=$(echo "$branch_name" | sed 's/\//-/g' | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9._-]//g' | tr '[:upper:]' '[:lower:]')
+
+if [[ -z "$filename" ]]; then
+  echo "👹 Oops! Could not generate a valid filename from branch name: $branch_name"
+  exit 1
+fi
+
+changeset_path=".changeset/${filename}.md"
+
+if ! yarn changeset; then
+  echo "👹 Oops! Failed to create changest"
+  exit 1
+fi
+
+untracked_changesets=$(git ls-files --others --exclude-standard ".changeset/*.md")
+untracked_count=$(echo "$untracked_changesets" | grep -c .)
+
+if [[ "$untracked_count" -gt 1 ]]; then
+  echo "⚠️Warning! Found $untracked_count untracked changeset files will proceed and use the first one!"
+fi
+
+new_changeset=$(echo "$untracked_changesets" | head -1)
+
+if [[ ! -n "$new_changeset" ]]; then
+  echo "👹 Oops! This is embarassing but couldn't locate the expeccted generated changeset file..."
+  exit 1
+fi
+
+if ! mv "$new_changeset" "$changeset_path"; then
+  echo "👹 Oops! Failed to rename changeset filename (from $new_changeset to $changeset_path)"
+  exit 1
+fi
+
+echo "👍 Done! Changeset created: $changeset_path"

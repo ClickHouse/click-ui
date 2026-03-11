@@ -360,7 +360,7 @@
     "build:health_check": ".scripts/build_output_health_check",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
-    "changeset:add": "yarn changeset",
+    "changeset:add": ".scripts/bash/changeset-add",
     "changeset:status": "yarn changeset status",
     "changeset:verify": ".scripts/bash/changeset-verification",
     "circular-dependency:check": ".scripts/bash/circular-dependency-check",
