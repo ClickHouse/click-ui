@@ -7,6 +7,7 @@
 
 import Airbyte from '../Airbyte';
 import Alloydb from '../Alloydb';
+import ApacheIceberg from '../ApacheIceberg';
 import AWS from '../AWS';
 import AWS_ATHENA from '../AWS_ATHENA';
 import AWS_AURORA from '../AWS_AURORA';
@@ -20,14 +21,14 @@ import Azure from '../Azure';
 import Azure_Blob_Storage from '../Azure_Blob_Storage';
 import Azure_Event_Hub from '../Azure_Event_Hub';
 import Bigquery from '../Bigquery';
-import Csharp from '../Csharp';
 import Clickhouse from '../Clickhouse';
 import Cloudflare from '../Cloudflare';
 import Confluent from '../Confluent';
 import Crunchy_Bridge from '../Crunchy_Bridge';
-import Dbeaver from '../Dbeaver';
-import Datagrip from '../Datagrip';
+import Csharp from '../Csharp';
 import Databricks from '../Databricks';
+import Datagrip from '../Datagrip';
+import Dbeaver from '../Dbeaver';
 import Dbt from '../Dbt';
 import Decodeable from '../Decodeable';
 import Deepnote from '../Deepnote';
@@ -73,12 +74,13 @@ import Upstash from '../Upstash';
 import Vector from '../Vector';
 import Warpstream from '../Warpstream';
 import { LogoName } from './types';
-import type { SVGAssetProps } from '@/types';
+import type { SVGAssetProps } from '../../types';
 import type { ComponentType } from 'react';
 
 const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   airbyte: Airbyte,
   alloydb: Alloydb,
+  'apache-iceberg': ApacheIceberg,
   aws: AWS,
   'aws-athena': AWS_ATHENA,
   'aws-aurora': AWS_AURORA,
@@ -92,14 +94,14 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   'azure-blob-storage': Azure_Blob_Storage,
   'azure-event-hub': Azure_Event_Hub,
   bigquery: Bigquery,
-  csharp: Csharp,
   clickhouse: Clickhouse,
   cloudflare: Cloudflare,
   confluent: Confluent,
   'crunchy-bridge': Crunchy_Bridge,
-  dbeaver: Dbeaver,
-  datagrip: Datagrip,
+  csharp: Csharp,
   databricks: Databricks,
+  datagrip: Datagrip,
+  dbeaver: Dbeaver,
   dbt: Dbt,
   decodeable: Decodeable,
   deepnote: Deepnote,

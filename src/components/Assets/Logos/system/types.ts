@@ -1,10 +1,9 @@
-import type { SVGAttributes } from 'react';
-import type { AssetSize } from '@/types';
-import type { ThemeName } from '@/theme/theme.types';
+import { SVGAssetProps } from '../../types';
 
 export type LogoName =
   | 'airbyte'
   | 'alloydb'
+  | 'apache-iceberg'
   | 'aws'
   | 'aws-athena'
   | 'aws-aurora'
@@ -18,14 +17,14 @@ export type LogoName =
   | 'azure-blob-storage'
   | 'azure-event-hub'
   | 'bigquery'
-  | 'csharp'
   | 'clickhouse'
   | 'cloudflare'
   | 'confluent'
   | 'crunchy-bridge'
-  | 'dbeaver'
-  | 'datagrip'
+  | 'csharp'
   | 'databricks'
+  | 'datagrip'
+  | 'dbeaver'
   | 'dbt'
   | 'decodeable'
   | 'deepnote'
@@ -71,8 +70,4 @@ export type LogoName =
   | 'vector'
   | 'warpstream';
 
-export interface LogoProps extends SVGAttributes<SVGElement> {
-  name: LogoName;
-  theme?: ThemeName;
-  size?: AssetSize;
-}
+export type { SVGAssetProps };
