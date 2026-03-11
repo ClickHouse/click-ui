@@ -94,7 +94,7 @@ const regenerateAssetRegistry = (config) => {
 
   const systemDir = path.join(config.dir, 'system');
 
-  const iconFiles = sorted.map(({ name, kebab }) => ({
+  const assetFiles = sorted.map(({ name, kebab }) => ({
     filename: name,
     componentName: name,
     kebab,
@@ -108,21 +108,18 @@ const regenerateAssetRegistry = (config) => {
       typeName: config.typeName,
       themePropsType: config.themePropsType,
     },
-    iconFiles,
+    assetFiles,
     false
   );
 
   const darkContent = generateRegistryContent(
     sorted,
     {
-      // TODO: The Light and dark theme should not be hard typed
-      // once https://github.com/ClickHouse/click-ui/pull/784
-      // is merged, update it
       registryName: config.registryName.replace('Light', 'Dark'),
       typeName: config.typeName,
       themePropsType: config.themePropsType,
     },
-    iconFiles,
+    assetFiles,
     true
   );
 
