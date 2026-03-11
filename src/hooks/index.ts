@@ -1,5 +1,6 @@
 export { useToast } from './useToast';
 export { useInitialTheme } from './useInitialTheme';
+export type { UseThemeParams } from './useInitialTheme';
 
 /**
  * @deprecated This hook is deprecated and will be removed in a future version.

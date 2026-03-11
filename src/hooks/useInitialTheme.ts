@@ -6,7 +6,7 @@ import type { ThemeName } from '@/theme/theme.types';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { THEME_ATTRIBUTE, getRootElement } from '@/utils/dom';
 
-interface UseThemeParams {
+export interface UseThemeParams {
   defaultTheme?: ThemeName;
   storageKey?: string;
   attribute?: string;
