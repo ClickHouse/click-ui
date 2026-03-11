@@ -1,7 +1,8 @@
 import { styled } from 'styled-components';
 import { Badge } from '@/components/Badge';
 import { Icon } from '@/components/Icon';
-import { Title, Text } from '@/components/Typography';
+import { Title } from '@/components/Title';
+import { Text } from '@/components/Text';
 import { CardSecondaryProps } from './CardSecondary.types';
 
 const Header = styled.div`

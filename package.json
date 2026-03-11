@@ -302,6 +302,16 @@
       "import": "./dist/esm/components/TextField/index.js",
       "require": "./dist/cjs/components/TextField/index.cjs"
     },
+    "./Text": {
+      "types": "./dist/types/components/Text/index.d.ts",
+      "import": "./dist/esm/components/Text/index.js",
+      "require": "./dist/cjs/components/Text/index.cjs"
+    },
+    "./Title": {
+      "types": "./dist/types/components/Title/index.d.ts",
+      "import": "./dist/esm/components/Title/index.js",
+      "require": "./dist/cjs/components/Title/index.cjs"
+    },
     "./Toast": {
       "types": "./dist/types/components/Toast/index.d.ts",
       "import": "./dist/esm/components/Toast/index.js",
@@ -311,11 +321,6 @@
       "types": "./dist/types/components/Tooltip/index.d.ts",
       "import": "./dist/esm/components/Tooltip/index.js",
       "require": "./dist/cjs/components/Tooltip/index.cjs"
-    },
-    "./Typography": {
-      "types": "./dist/types/components/Typography/index.d.ts",
-      "import": "./dist/esm/components/Typography/index.js",
-      "require": "./dist/cjs/components/Typography/index.cjs"
     },
     "./VerticalStepper": {
       "types": "./dist/types/components/VerticalStepper/index.d.ts",

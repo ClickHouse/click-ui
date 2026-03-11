@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { CardPromotionProps } from './CardPromotion.types';
 const Background = styled.div`
   ${({ theme }) => `

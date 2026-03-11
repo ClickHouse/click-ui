@@ -257,17 +257,20 @@ export type { TextFieldProps } from './components/TextField';
 // Toast
 export { Toast, ToastProvider } from './components/Toast';
 export { createToast } from './components/Toast/toastEmitter';
-export { useToast } from './components/Toast/useToast';
+export { useToast } from './hooks';
 export type { ToastProps } from './components/Toast';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 
-// Typography
-export { Text, Title } from './components/Typography';
-export type { TextProps } from './components/Typography/Text/Text';
-export type { TitleProps } from './components/Typography/Title/Title';
+// Text
+export { Text } from './components/Text';
+export type { TextProps } from './components/Text';
+
+// Title
+export { Title } from './components/Title';
+export type { TitleProps } from './components/Title';
 
 // Vertical Stepper
 export { VerticalStepper } from './components/VerticalStepper';

@@ -1,5 +1,5 @@
 import { HTMLAttributes, MouseEventHandler, ReactNode } from 'react';
-import type { IconName } from '@/components/Icon';
+import type { IconName, ImageName } from '@/components/Icon';
 import type { BadgeState } from '@/components/Badge';
 
 export type CardColor = 'default' | 'muted';
@@ -10,7 +10,9 @@ export interface CardHorizontalProps extends Omit<
   'title'
 > {
   title?: ReactNode;
-  icon?: IconName;
+  // TODO: The consumer app seem to expect to use Logos
+  // this needs to be investigated why its called icon
+  icon?: ImageName;
   disabled?: boolean;
   description?: ReactNode;
   infoUrl?: string;

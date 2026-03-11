@@ -9,7 +9,7 @@ import { Container, type ContainerProps } from '@/components/Container';
 import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
 import { Select } from '@/components/Select';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { styled } from 'styled-components';
 
 export interface PaginationProps extends Omit<
