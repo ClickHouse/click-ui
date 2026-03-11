@@ -29,6 +29,23 @@ To test, start [storybook](/README.md#storybook) and open the icons or logo. For
 
 Once happy, commit your work following our [contribution guideline](/README.md#contributing).
 
+## Regenerating Asset Types
+
+If you need to regenerate all asset types (logos, icons, flags, payments) without adding new components, e.g., when the converter script has been updated or when standardizing imports across all registry files, use the regenerate command:
+
+```sh
+yarn convert:regenerate
+```
+
+This will:
+- Regenerate `types.ts` with Props interfaces for all asset types
+- Regenerate registry files (Light and Dark themes) for all asset types
+- Ensure all imports use `@/types` instead of relative paths
+- Run lint and format on all generated files
+
+> [!NOTE]
+> This command does not add new assets, it only regenerates the types and registry files based on existing components.
+
 ## Naming conventions
 
 The auto-converter has to respect naming conventions to reduce the need for configuration on the user side.
