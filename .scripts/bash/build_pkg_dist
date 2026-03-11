@@ -12,12 +12,6 @@ if ! yarn typecheck; then
   exit 1
 fi
 
-if ! .scripts/js/preprocess-css-modules; then
-  echo "👹 Oops! Failed to pre-process CSS modules..."
-
-  exit 1
-fi
-
 if ! vite build; then
   echo "👹 Oops! Failed to build the package..."
 
