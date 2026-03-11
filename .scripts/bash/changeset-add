@@ -15,7 +15,14 @@ if ! yarn changeset; then
   exit 1
 fi
 
-new_changeset=$(git ls-files --others --exclude-standard ".changeset/*.md" | head -1)
+untracked_changesets=$(git ls-files --others --exclude-standard ".changeset/*.md")
+untracked_count=$(echo "$untracked_changesets" | grep -c .)
+
+if [[ "$untracked_count" -gt 1 ]]; then
+  echo "⚠️Warning! Found $untracked_count untracked changeset files will proceed and use the first one!"
+fi
+
+new_changeset=$(echo "$untracked_changesets" | head -1)
 
 if [[ ! -n "$new_changeset" ]]; then
   echo "👹 Oops! This is embarassing but couldn't locate the expeccted generated changeset file..."
