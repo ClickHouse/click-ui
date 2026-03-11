@@ -243,31 +243,35 @@ export { Tabs, FullWidthTabs } from './components/Tabs';
 export type { TabsProps } from './components/Tabs';
 
 // Text Field & Related Inputs
-export { NumberField } from './components/Input/NumberField';
-export { PasswordField } from './components/Input/PasswordField';
-export { SearchField } from './components/Input/SearchField';
-export { TextField } from './components/Input/TextField';
-export { TextAreaField } from './components/Input/TextArea';
-export type { NumberFieldProps } from './components/Input/NumberField';
-export type { PasswordFieldProps } from './components/Input/PasswordField';
-export type { SearchFieldProps } from './components/Input/SearchField';
-export type { TextAreaFieldProps } from './components/Input/TextArea';
-export type { TextFieldProps } from './components/Input/TextField';
+export { InputWrapper } from './components/InputWrapper';
+export { NumberField } from './components/NumberField';
+export { PasswordField } from './components/PasswordField';
+export { SearchField } from './components/SearchField';
+export { TextAreaField } from './components/TextAreaField';
+export { TextField } from './components/TextField';
+export type { NumberFieldProps } from './components/NumberField';
+export type { PasswordFieldProps } from './components/PasswordField';
+export type { SearchFieldProps } from './components/SearchField';
+export type { TextAreaFieldProps } from './components/TextAreaField';
+export type { TextFieldProps } from './components/TextField';
 
 // Toast
 export { Toast, ToastProvider } from './components/Toast';
 export { createToast } from './components/Toast/toastEmitter';
-export { useToast } from './components/Toast/useToast';
+export { useToast } from './hooks';
 export type { ToastProps } from './components/Toast';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
 
-// Typography
-export { Text, Title } from './components/Typography';
-export type { TextProps } from './components/Typography/Text/Text';
-export type { TitleProps } from './components/Typography/Title/Title';
+// Text
+export { Text } from './components/Text';
+export type { TextProps } from './components/Text';
+
+// Title
+export { Title } from './components/Title';
+export type { TitleProps } from './components/Title';
 
 // Vertical Stepper
 export { VerticalStepper } from './components/VerticalStepper';

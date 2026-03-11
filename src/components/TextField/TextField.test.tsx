@@ -1,4 +1,4 @@
-import { TextField } from '@/components/Input/TextField';
+import { TextField } from '@/components/TextField';
 import { renderCUI } from '@/utils/test-utils';
 import { useState } from 'react';
 

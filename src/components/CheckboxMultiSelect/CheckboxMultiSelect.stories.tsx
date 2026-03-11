@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Panel } from '@/components/Panel';
-import { Text } from '@/components/Typography/Text';
+import { Text } from '@/components/Text';
 
 import { CheckboxMultiSelect } from './CheckboxMultiSelect';
 import { selectOptions, selectOptionsLong } from '@/components/Select/Select.fixtures';

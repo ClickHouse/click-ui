@@ -2,7 +2,7 @@ import * as RadixAccordion from '@radix-ui/react-accordion';
 import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { AccordionProps, Size, Color } from './Accordion.types';
 
 const Accordion = ({

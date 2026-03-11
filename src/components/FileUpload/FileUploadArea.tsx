@@ -1,6 +1,7 @@
 import type { DragEvent, FC, ReactNode } from 'react';
 import { styled, css } from 'styled-components';
-import { Text, Title } from '@/components/Typography';
+import { Text } from '@/components/Text';
+import { Title } from '@/components/Title';
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
 

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
-import type { IconName } from '@/components/Icon';
+import type { ImageName } from '@/components/Icon';
 
 const LabelContainer = styled.span`
   display: flex;
@@ -35,7 +35,9 @@ export const IconWrapper = ({
   iconDir = 'start',
   children,
 }: {
-  icon?: IconName;
+  // TODO: The consumer app seem to expect to use other assets
+  // this needs to be investigated why it had type IconName
+  icon?: ImageName;
   iconDir?: HorizontalDirection;
   children: ReactNode;
 }) => {

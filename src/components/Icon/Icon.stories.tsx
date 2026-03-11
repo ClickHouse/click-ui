@@ -8,10 +8,10 @@ import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
 import { styled } from 'styled-components';
 import { useState } from 'react';
-import { SearchField } from '@/components/Input/SearchField';
-import { Title } from '@/components/Typography/Title';
+import { SearchField } from '@/components/SearchField';
+import { Title } from '@/components/Title';
 import { Panel } from '@/components/Panel';
-import { Text } from '@/components/Typography/Text';
+import { Text } from '@/components/Text';
 import { GridContainer } from '@/components/GridContainer';
 import { Spacer } from '@/components/Spacer';
 

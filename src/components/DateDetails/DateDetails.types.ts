@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import type { TextSize, TextWeight } from '@/components/Typography';
+import type { TextSize, TextWeight } from '@/components/Text';
 
 export type ArrowPosition = 'top' | 'right' | 'bottom' | 'left';
 

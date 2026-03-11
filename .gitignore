@@ -18,3 +18,5 @@ tmp/*
 tests/**/*-actual.png
 tests/**/*-diff.png
 test-results
+
+.install

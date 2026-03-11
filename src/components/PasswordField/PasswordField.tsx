@@ -6,7 +6,7 @@ import {
   InputEndContent,
   InputWrapper,
   WrapperProps,
-} from './InputWrapper';
+} from '@/components/InputWrapper';
 export interface PasswordFieldProps
   extends
     Omit<WrapperProps, 'id' | 'children'>,

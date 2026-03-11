@@ -14,7 +14,7 @@ import {
   InputStartContent,
   InputWrapper,
   WrapperProps,
-} from './InputWrapper';
+} from '@/components/InputWrapper';
 import { mergeRefs } from '@/utils/mergeRefs';
 
 export interface TextFieldProps

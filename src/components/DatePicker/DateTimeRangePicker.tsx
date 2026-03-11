@@ -25,7 +25,7 @@ import { Icon } from '../Icon/Icon';
 import { DateRangeListItem, datesAreWithinMaxRange, Meridiem } from './utils';
 import dayjs, { Dayjs } from 'dayjs';
 import { Tabs } from '../Tabs/Tabs';
-import { TextField } from '../Input/TextField';
+import { TextField } from '@/components/TextField';
 import { ButtonGroup } from '../ButtonGroup/ButtonGroup';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat';

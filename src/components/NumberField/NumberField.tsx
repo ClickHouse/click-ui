@@ -1,6 +1,10 @@
 import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from 'react';
 import { Icon } from '@/components/Icon';
-import { InputWrapper, NumberInputElement, WrapperProps } from './InputWrapper';
+import {
+  InputWrapper,
+  NumberInputElement,
+  WrapperProps,
+} from '@/components/InputWrapper';
 export interface NumberFieldProps
   extends
     Omit<WrapperProps, 'id' | 'children'>,
@@ -8,7 +12,7 @@ export interface NumberFieldProps
   /** The input type - always number for NumberField */
   type?: 'number';
   /** Whether to show a loading spinner */
-  loading: boolean;
+  loading?: boolean;
   /** Callback when the input value changes */
   onChange: (inputValue: string, e?: ChangeEvent<HTMLInputElement>) => void;
   /** The orientation of the label relative to the input */
