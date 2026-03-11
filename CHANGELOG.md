@@ -1,5 +1,11 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.76
+
+### Minor Changes
+
+- 11a8c47: The `useLayoutEffect` watching `headers.length` wasn't triggered when headers were reordered (e.g., in sysadmin EntitiesTable with column selection), causing Column widths to be misaligned after reordering, NaN values appearing during resize operations and an incorrect null check (`-1 !== null`) that was always true.
+
 ## 0.1.0-rc.75
 
 ### Minor Changes
