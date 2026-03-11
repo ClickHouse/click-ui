@@ -47,13 +47,20 @@ export const sortComponentsByKebabName = files => {
 
 export const generateTypesContent = (sortedComponents, config) => {
   const names = sortedComponents.map(({ kebab }) => `  | '${kebab}'`);
+  const propsName = config.propsTypeName || config.typeName.replace('Name', 'Props');
 
-  return `import { SVGAssetProps } from '../../types';
+  return `import type { SVGAttributes } from 'react';
+import type { AssetSize } from '@/types';
+import type { ThemeName } from '@/theme/theme.types';
 
 export type ${config.typeName} =
 ${names.join('\n')};
 
-export type { SVGAssetProps };
+export interface ${propsName} extends SVGAttributes<SVGElement> {
+  name: ${config.typeName};
+  theme?: ThemeName;
+  size?: AssetSize;
+}
 `;
 };
 
@@ -80,7 +87,7 @@ export const generateRegistryContent = (sortedComponents, config, iconFiles, isD
 
 ${imports}
 import { ${config.typeName} } from './types';
-import type { SVGAssetProps } from '../../types';
+import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
 const ${config.registryName}: Record<
@@ -121,6 +128,7 @@ export const regenerateAssetType = config => {
 
   writeTypesFile(config.systemDir, sorted, {
     typeName: config.typeName,
+    propsTypeName: config.propsTypeName,
     themePropsType: config.themePropsType,
     importPath: config.themeImportPath,
   });
