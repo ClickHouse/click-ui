@@ -206,6 +206,8 @@ const cleanUp = (files) => {
 
 let args = process.argv.slice(2);
 
+const isRegenerate = args.includes('--regenerate');
+
 // WARN: Do not change as this extracts and removes the --type flag from args if present, to allow args in package.json scripts
 const typeFlagIndex = args.findIndex(arg => arg.startsWith('--type='));
 let typeFlag = null;
@@ -214,9 +216,41 @@ if (typeFlagIndex !== -1) {
   args = args.filter((_, i) => i !== typeFlagIndex);
 }
 
+if (isRegenerate) {
+  console.log('🔄 Regenerating all asset types...\n');
+
+  const filesToCleanup = [];
+
+  for (const [type, config] of Object.entries(ASSET_TYPES)) {
+    console.log(`📝 Regenerating types for ${type}...`);
+    generateAssetTypes(config);
+    console.log(`✅ types.ts updated for ${type}`);
+
+    console.log(`📝 Regenerating registry for ${type}...`);
+    regenerateAssetRegistry(config);
+    console.log(`✅ ${config.registryName}.ts and ${config.registryName.replace('Light', 'Dark')}.ts updated\n`);
+
+    const systemDir = path.join(config.dir, 'system');
+    filesToCleanup.push(
+      path.join(systemDir, 'types.ts'),
+      path.join(systemDir, `${config.registryName}.ts`),
+      path.join(systemDir, `${config.registryName.replace('Light', 'Dark')}.ts`)
+    );
+  }
+
+  console.log('🧹 Cleaning up...\n');
+  cleanUp(filesToCleanup);
+
+  console.log('\n✨ Done! All asset types regenerated.');
+  console.log('💡 Remember to commit your changes');
+  process.exit(0);
+}
+
+// Normal conversion mode (existing code)
 if (args.length < 1) {
   console.error('👹 Oops! The SVG file path is required');
   console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
+  console.error('💡 Or use: convert-svg-to-react-component --regenerate [--type=logos|icons|flags|payments]');
   process.exit(1);
 }
 
