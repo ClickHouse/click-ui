@@ -8,7 +8,7 @@ import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
 import { styled } from 'styled-components';
 import { useState } from 'react';
-import { SearchField } from '@/components/Input/SearchField';
+import { SearchField } from '@/components/SearchField';
 import { Title } from '@/components/Title';
 import { Panel } from '@/components/Panel';
 import { Text } from '@/components/Text';

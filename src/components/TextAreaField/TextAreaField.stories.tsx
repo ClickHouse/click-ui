@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { TextAreaField, TextAreaFieldProps } from './TextArea';
+import { TextAreaField, TextAreaFieldProps } from './TextAreaField';
 import { Container } from '@/components/Container';
 
 const meta: Meta<typeof TextAreaField> = {

@@ -242,16 +242,17 @@ export { Tabs, FullWidthTabs } from './components/Tabs';
 export type { TabsProps } from './components/Tabs';
 
 // Text Field & Related Inputs
-export { NumberField } from './components/Input/NumberField';
-export { PasswordField } from './components/Input/PasswordField';
-export { SearchField } from './components/Input/SearchField';
-export { TextField } from './components/Input/TextField';
-export { TextAreaField } from './components/Input/TextArea';
-export type { NumberFieldProps } from './components/Input/NumberField';
-export type { PasswordFieldProps } from './components/Input/PasswordField';
-export type { SearchFieldProps } from './components/Input/SearchField';
-export type { TextAreaFieldProps } from './components/Input/TextArea';
-export type { TextFieldProps } from './components/Input/TextField';
+export { InputWrapper } from './components/InputWrapper';
+export { NumberField } from './components/NumberField';
+export { PasswordField } from './components/PasswordField';
+export { SearchField } from './components/SearchField';
+export { TextAreaField } from './components/TextAreaField';
+export { TextField } from './components/TextField';
+export type { NumberFieldProps } from './components/NumberField';
+export type { PasswordFieldProps } from './components/PasswordField';
+export type { SearchFieldProps } from './components/SearchField';
+export type { TextAreaFieldProps } from './components/TextAreaField';
+export type { TextFieldProps } from './components/TextField';
 
 // Toast
 export { Toast, ToastProvider } from './components/Toast';
