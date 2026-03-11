@@ -79,9 +79,9 @@ export const cssColocatePlugin = (): Plugin => {
           console.log(`[css-colocate] Created ${path.relative(distDir, outputCssPath)}`);
         }
 
-        // Optionally remove the bundled CSS since it's now split
-        // fs.unlinkSync(bundledCssPath);
-        // console.log(`[css-colocate] Removed ${path.relative(distDir, bundledCssPath)}`);
+        // Remove the bundled CSS since it's now split into per-component files
+        fs.unlinkSync(bundledCssPath);
+        console.log(`[css-colocate] Removed bundled ${path.relative(distDir, bundledCssPath)}`);
       }
     },
   };
