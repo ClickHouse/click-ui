@@ -7,6 +7,7 @@ import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { cssColocatePlugin } from './plugins/css-colocate';
+import { generateScopedName } from './plugins/css-colocate/utils';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
@@ -81,10 +82,7 @@ const viteConfig = defineConfig({
   css: {
     modules: {
       // Generate predictable class names for debugging in dev
-      generateScopedName:
-        process.env.NODE_ENV === 'production'
-          ? '[hash:base64:8]'
-          : '[name]__[local]__[hash:base64:5]',
+      generateScopedName,
     },
   },
   plugins: [

@@ -2,6 +2,12 @@ import fs from 'fs-extra';
 import { glob } from 'glob';
 import path from 'path';
 
+/**
+ * Shared CSS modules scoped name pattern.
+ * Used by both Vite config and CSS preprocessing to ensure consistency.
+ */
+export const generateScopedName = '[local]__[hash:base64:5]';
+
 export const fileExists = async (filePath: string): Promise<boolean> => {
   try {
     await fs.access(filePath);
