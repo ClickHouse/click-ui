@@ -7,7 +7,7 @@ import type { IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
-import { useInputModality } from '@/hooks';
+import { useInputModality } from '@/hooks/internal';
 import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
