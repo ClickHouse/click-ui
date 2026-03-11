@@ -267,8 +267,10 @@ const Thead = ({
         {isSelectable && <col width={48} />}
         {headers.map((headerProps, index) => {
           const headerLabel =
-            typeof headerProps.label === 'string' ? headerProps.label : null;
-          const widthFromMap = headerLabel && columnWidths?.get(headerLabel);
+            typeof headerProps.label === 'string'
+              ? headerProps.label
+              : `__index_${index}`;
+          const widthFromMap = columnWidths?.get(headerLabel);
           return (
             <col
               key={`header-col-${index}`}
@@ -798,8 +800,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       let headerIndex = 0;
       for (let i = startIndex; i < endIndex; i++) {
         const header = headers[headerIndex];
-        if (header && typeof header.label === 'string') {
-          widths.set(header.label, headerCells[i].getBoundingClientRect().width);
+        if (header) {
+          const key =
+            typeof header.label === 'string' ? header.label : `__index_${headerIndex}`;
+          widths.set(key, headerCells[i].getBoundingClientRect().width);
         }
         headerIndex++;
       }
@@ -889,8 +893,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
 
         const currentLabel =
-          typeof currentHeader.label === 'string' ? currentHeader.label : null;
-        const nextLabel = typeof nextHeader.label === 'string' ? nextHeader.label : null;
+          typeof currentHeader.label === 'string'
+            ? currentHeader.label
+            : `__index_${columnIndex}`;
+        const nextLabel =
+          typeof nextHeader.label === 'string'
+            ? nextHeader.label
+            : `__index_${columnIndex + 1}`;
 
         if (!currentLabel || !nextLabel) {
           return;
@@ -959,9 +968,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           }
 
           const currentLabel =
-            typeof currentHeader.label === 'string' ? currentHeader.label : null;
+            typeof currentHeader.label === 'string'
+              ? currentHeader.label
+              : `__index_${columnIndex}`;
           const nextLabel =
-            typeof nextHeader.label === 'string' ? nextHeader.label : null;
+            typeof nextHeader.label === 'string'
+              ? nextHeader.label
+              : `__index_${columnIndex + 1}`;
 
           if (!currentLabel || !nextLabel) {
             return;
