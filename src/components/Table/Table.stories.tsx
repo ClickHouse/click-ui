@@ -592,7 +592,7 @@ export const ResizableColumns: StoryObj<typeof Table> = {
   },
 };
 
-interface ResizableColumnsWithReorderingArgs {
+interface ResizableColumnsWithColumnSelectionArgs {
   showName: boolean;
   showEmail: boolean;
   showRole: boolean;
@@ -603,7 +603,7 @@ interface ResizableColumnsWithReorderingArgs {
   resizableColumns: boolean;
 }
 
-export const ResizableColumnsWithReordering: StoryObj<ResizableColumnsWithReorderingArgs> =
+export const ResizableColumnsWithColumnSelection: StoryObj<ResizableColumnsWithColumnSelectionArgs> =
   {
     argTypes: {
       showName: { control: 'boolean' },
