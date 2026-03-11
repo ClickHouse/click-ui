@@ -1,0 +1,14 @@
+#!/bin/bash
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+filename=$(echo "$branch_name" | sed 's/\//-/g' | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9._-]//g' | tr '[:upper:]' '[:lower:]')
+
+if [[ -z "$filename" ]]; then
+  echo "👹 Oops! Could not generate a valid filename from branch name: $branch_name"
+  exit 1
+fi
+
+changeset_path=".changeset/${filename}.md"
+
+echo "[debug] $changeset_path"
+
