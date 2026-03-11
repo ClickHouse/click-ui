@@ -323,6 +323,7 @@
     "convert:icon": ".scripts/convert-svg-to-react-component --type=icons",
     "convert:flag": ".scripts/convert-svg-to-react-component --type=flags",
     "convert:payment": ".scripts/convert-svg-to-react-component --type=payments",
+    "convert:regenerate": ".scripts/convert-svg-to-react-component --regenerate",
     "dev": "yarn storybook",
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
