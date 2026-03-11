@@ -12,6 +12,6 @@ else
   fi
 fi
 
-DESC=$(.scripts/pull-request-json-escape "$DESC")
+DESC=$(.scripts/bash/pull-request-json-escape "$DESC")
 
 echo "$DESC"

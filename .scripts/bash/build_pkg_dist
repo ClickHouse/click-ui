@@ -18,7 +18,7 @@ if ! vite build; then
   exit 1
 fi
 
-if ! .scripts/generate-exports; then
+if ! .scripts/js/generate-exports; then
   echo "👹 Oops! Failed to generate exports..."
 
   exit 1

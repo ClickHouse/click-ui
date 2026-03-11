@@ -36,7 +36,7 @@ jobs:
           # WARNING: This is coupled with generate release commit
           # if you need to modify, apply the changes accordingly
           # Script outputs "VERSION RELEASE_TYPE" on success (e.g., "1.2.3 latest")
-          if OUTPUT=$(.scripts/verify-release-commit "$COMMIT_MSG"); then
+          if OUTPUT=$(.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
             VERSION=$(echo "$OUTPUT" | awk '{print $1}')
             RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
             echo "✅ Detected release PR merge for version $VERSION ($RELEASE_TYPE)"
