@@ -264,10 +264,7 @@ export type { ToastProps } from './components/Toast';
 // Hooks
 // ================================================
 
-export {
-  useInitialTheme,
-  useToast
-} from './hooks';
+export { useInitialTheme, useToast } from './hooks';
 /**
  * @deprecated This hook is deprecated and will be removed in a future ve
 rsion.
