@@ -811,7 +811,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       if (widths.size === headers.length) {
         setColumnWidths(widths);
       }
-    }, [resizableColumns, columnWidths, headers, isSelectable, isDeletable, isEditable]);
+    }, [resizableColumns, columnWidths, isSelectable, isDeletable, isEditable]);
 
     const headerKey = useMemo(
       () =>
