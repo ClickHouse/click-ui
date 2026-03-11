@@ -2,9 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import postcss from 'postcss';
 import postcssModules from 'postcss-modules';
-import { getTempDir, findFiles } from './utils';
-
-const generateScopedName = '[hash:base64:8]_[local]';
+import { getTempDir, findFiles, generateScopedName } from './utils';
 
 export async function preprocessCssModules(rootDir: string): Promise<void> {
   const srcDir = path.join(rootDir, 'src');
