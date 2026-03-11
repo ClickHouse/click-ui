@@ -49,6 +49,7 @@ import Iceberg from '../Iceberg';
 import Jdbc from '../Jdbc';
 import Kafka from '../Kafka';
 import Kubernetes from '../Kubernetes';
+import Lakekeeper from '../Lakekeeper';
 import Mariadb from '../Mariadb';
 import Metabase from '../Metabase';
 import Microsoft from '../Microsoft';
@@ -122,6 +123,7 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   jdbc: Jdbc,
   kafka: Kafka,
   kubernetes: Kubernetes,
+  lakekeeper: Lakekeeper,
   mariadb: Mariadb,
   metabase: Metabase,
   microsoft: Microsoft,
