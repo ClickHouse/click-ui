@@ -1,6 +1,6 @@
 import { KeyboardEvent, useCallback, useState } from 'react';
 
-import { useUpdateEffect } from '@/hooks';
+import { useUpdateEffect } from '@/hooks/internal';
 
 import type { SelectOptionProp, SelectionType } from '@/components/Select/common/types';
 import {
