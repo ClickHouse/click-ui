@@ -6,7 +6,7 @@ import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { cssColocatePlugin } from './plugins/vite-plugin-css-colocate';
+import { cssColocatePlugin } from './plugins/css-colocate';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
