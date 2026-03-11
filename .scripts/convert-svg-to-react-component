@@ -162,7 +162,7 @@ const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) 
 
   output = output.replace(
     /(import \{ SVGAssetProps \} from ['"]\.\.\/types['"];)\n(const [^(]+ = )/,
-    "import { SVGAssetProps } from './system/types';\n\n$2"
+    "import type { SVGAssetProps } from '@/types';\n\n$2"
   );
 
   output = output.replace(/<svg([^>]*)>/, (match, attrs) => {
