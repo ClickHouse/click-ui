@@ -47,6 +47,7 @@ export type LogoName =
   | 'jdbc'
   | 'kafka'
   | 'kubernetes'
+  | 'lakekeeper'
   | 'mariadb'
   | 'metabase'
   | 'microsoft'
