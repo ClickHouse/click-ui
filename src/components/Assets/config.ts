@@ -1,5 +1,9 @@
 export type AssetAliasMap = Record<string, string>;
 export type AssetAlias = keyof typeof ASSET_NAME_MAPPINGS.aliases;
+
+/**
+ * @deprecated Use the kebab-case name instead (e.g., 'activity' instead of 'Activity')
+ */
 export type AssetDeprecatedName = keyof typeof ASSET_NAME_MAPPINGS.deprecated;
 
 export const ASSET_NAME_MAPPINGS = {

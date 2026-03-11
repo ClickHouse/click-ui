@@ -87,7 +87,7 @@ export const generateRegistryContent = (sortedComponents, config, iconFiles, isD
 
 ${imports}
 import { ${config.typeName} } from './types';
-import type { SVGAssetProps } from '../../types';
+import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
 const ${config.registryName}: Record<

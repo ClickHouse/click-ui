@@ -173,8 +173,8 @@ import User from '../User';
 import Users from '../Users';
 import Warning from '../Warning';
 import Waves from '../Waves';
-import type { IconName } from './types';
-import type { SVGAssetProps } from '@/types';
+import { IconName } from './types';
+import type { SVGAssetProps } from '../../types';
 import type { ComponentType } from 'react';
 
 const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {

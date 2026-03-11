@@ -27,7 +27,7 @@ import United_Arab_Emirates from '../United-Arab-Emirates';
 import United_Kingdom from '../United-Kingdom';
 import United_States from '../United-States';
 import { FlagName } from './types';
-import type { SVGAssetProps } from '@/types';
+import type { SVGAssetProps } from '../../types';
 import type { ComponentType } from 'react';
 
 const FlagsLight: Record<FlagName, ComponentType<SVGAssetProps>> = {
