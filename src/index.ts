@@ -264,19 +264,12 @@ export type { ToastProps } from './components/Toast';
 // Hooks
 // ================================================
 
-export { useInitialTheme, useToast } from './hooks';
-/**
- * @deprecated This hook is deprecated and will be removed in a future ve
-rsion.
- * Use CSS variables for theming instead (e.g., `var(--click-global-color-text-default)`), which will be available.
- * For theme name, use the `useInitialTheme` hook or access the theme context directly.
- */
-export { useCUITheme } from './hooks/useCUITheme';
-
-/**
- * @deprecated This type is deprecated and will be removed in a future version.
- */
-export type { CUIThemeType } from './hooks/useCUITheme';
+export {
+  useInitialTheme,
+  useToast,
+  useCUITheme,
+} from './hooks';
+export type { CUIThemeType, UseThemeParams } from './hooks';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
