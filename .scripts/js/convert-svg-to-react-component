@@ -27,28 +27,28 @@ const toPascalCase = (str) => {
 
 const ASSET_TYPES = {
   logos: {
-    dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Logos'),
+    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Logos'),
     typeName: 'LogoName',
     propsTypeName: 'LogoProps',
     registryName: 'LogosLight',
     defaultSize: 64,
   },
   icons: {
-    dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Icons'),
+    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Icons'),
     typeName: 'IconName',
     propsTypeName: 'IconProps',
     registryName: 'IconsLight',
     defaultSize: 24,
   },
   flags: {
-    dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Flags'),
+    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Flags'),
     typeName: 'FlagName',
     propsTypeName: 'FlagProps',
     registryName: 'FlagsLight',
     defaultSize: 30,
   },
   payments: {
-    dir: path.join(__dirname, '..', 'src', 'components', 'Assets', 'Payments'),
+    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Payments'),
     typeName: 'PaymentName',
     propsTypeName: 'PaymentProps',
     registryName: 'PaymentsLight',
@@ -137,7 +137,7 @@ const regenerateAssetRegistry = (config) => {
 };
 
 const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) => {
-  const svgrConfig = path.join(__dirname, '..', '.svgrrc.mjs');
+  const svgrConfig = path.join(__dirname, '../..', '.svgrrc.mjs');
   const cmd = `npx @svgr/cli --config-file "${svgrConfig}" --typescript "${svgPath}"`;
 
   let output;
