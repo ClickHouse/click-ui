@@ -7,7 +7,6 @@
 
 import Airbyte from '../Airbyte';
 import Alloydb from '../Alloydb';
-import ApacheIceberg from '../ApacheIceberg';
 import AWS from '../AWS';
 import AWS_ATHENA from '../AWS_ATHENA';
 import AWS_AURORA from '../AWS_AURORA';
@@ -80,7 +79,6 @@ import type { ComponentType } from 'react';
 const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   airbyte: Airbyte,
   alloydb: Alloydb,
-  'apache-iceberg': ApacheIceberg,
   aws: AWS,
   'aws-athena': AWS_ATHENA,
   'aws-aurora': AWS_AURORA,

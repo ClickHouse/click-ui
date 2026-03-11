@@ -5,7 +5,6 @@ import type { ThemeName } from '@/theme/theme.types';
 export type LogoName =
   | 'airbyte'
   | 'alloydb'
-  | 'apache-iceberg'
   | 'aws'
   | 'aws-athena'
   | 'aws-aurora'
