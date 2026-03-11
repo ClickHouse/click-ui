@@ -74,7 +74,7 @@ import Upstash from '../Upstash';
 import Vector from '../Vector';
 import Warpstream from '../Warpstream';
 import { LogoName } from './types';
-import type { SVGAssetProps } from '../../types';
+import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
 const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
