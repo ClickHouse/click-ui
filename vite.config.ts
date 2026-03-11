@@ -36,7 +36,10 @@ const buildOptions: BuildOptions = {
   // which makes static analysis challenging
   minify: false,
   lib: {
-    entry: path.resolve(srcDir, 'index.ts'),
+    entry: {
+      index: path.resolve(srcDir, 'index.ts'),
+      'hooks/index': path.resolve(srcDir, 'hooks/index.ts'),
+    },
   },
   rollupOptions: {
     output: [
