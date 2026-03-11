@@ -31,7 +31,7 @@ Once happy, commit your work following our [contribution guideline](/README.md#c
 
 ## Regenerating Asset Types
 
-If you need to regenerate all asset types (logos, icons, flags, payments) without adding new components, e.g., when the converter script has been updated or when standardizing imports across all registry files, use the regenerate command:
+If you need to regenerate asset types (logos, icons, flags, payments) without adding new components, e.g., when the converter script has been updated or when standardizing imports across all registry files, use the regenerate command:
 
 ```sh
 yarn convert:regenerate
@@ -42,6 +42,14 @@ This will:
 - Regenerate registry files (Light and Dark themes) for all asset types
 - Ensure all imports use `@/types` instead of relative paths
 - Run lint and format on all generated files
+
+To regenerate only a specific asset type, use the `--type` flag:
+
+```sh
+yarn convert:regenerate --type=icons
+```
+
+Supported values for `--type` are: `logos`, `icons`, `flags`, `payments`.
 
 > [!NOTE]
 > This command does not add new assets, it only regenerates the types and registry files based on existing components.
