@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { GridCenter } from '@/components/GridCenter';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { Dialog } from '@/components/Dialog';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';

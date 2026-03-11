@@ -1,5 +1,5 @@
 import { Container } from '@/components/Container';
-import { Text } from '@/components/Typography/Text';
+import { Text } from '@/components/Text';
 
 import { styled, useTheme } from 'styled-components';
 

@@ -17,7 +17,7 @@ import { Icon, IconName } from '@/components/Icon';
 import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import {
   headerDateFormatter,
   selectedDateFormatter,
