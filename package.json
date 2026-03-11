@@ -336,7 +336,13 @@
       "types": "./dist/types/components/VerticalStepper/index.d.ts",
       "import": "./dist/esm/components/VerticalStepper/index.js",
       "require": "./dist/cjs/components/VerticalStepper/index.cjs"
-    }
+    },
+    "./hooks": {
+      "types": "./dist/types/hooks/index.d.ts",
+      "import": "./dist/esm/hooks/index.js",
+      "require": "./dist/cjs/hooks/index.cjs"
+    },
+    "./hooks/internal": null
   },
   "keywords": [
     "click-ui",
