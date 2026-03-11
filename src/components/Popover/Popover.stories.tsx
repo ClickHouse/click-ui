@@ -3,7 +3,8 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/Checkbox';
 import { GridCenter } from '@/components/GridCenter';
-import { Text, Title } from '@/components/Typography';
+import { Text } from '@/components/Text';
+import { Title } from '@/components/Title';
 import { Popover } from '@/components/Popover';
 
 const meta: Meta<typeof Popover> = {

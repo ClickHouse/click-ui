@@ -10,7 +10,7 @@ import utc from 'dayjs/plugin/utc.js';
 import { styled } from 'styled-components';
 
 import { Popover } from '@/components/Popover';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { linkStyles, StyledLinkProps } from '@/components/Link/common';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';

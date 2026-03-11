@@ -2,7 +2,8 @@ import { act, fireEvent } from '@testing-library/react';
 import { AutoComplete } from '@/components/AutoComplete';
 import type { AutoCompleteProps } from '@/components/AutoComplete';
 import { renderCUI } from '@/utils/test-utils';
-import { selectOptions } from '../Select/selectOptions';
+import { selectOptions } from '@/components/Select/Select.fixtures';
+
 describe('AutoComplete', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();

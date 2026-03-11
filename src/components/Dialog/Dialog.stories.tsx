@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { GridCenter } from '@/components/GridCenter';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { Dialog } from '@/components/Dialog';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
@@ -9,7 +9,7 @@ import { Button } from '@/components/Button';
 import { styled } from 'styled-components';
 import { Link } from '@/components/Link';
 import { Container } from '@/components/Container';
-import { TextField } from '@/components/Input';
+import { TextField } from '@/components/TextField';
 import { Icon } from '@/components/Icon';
 
 interface DialogExampleProps {

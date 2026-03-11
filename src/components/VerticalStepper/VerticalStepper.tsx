@@ -1,7 +1,12 @@
-import { createContext, useContext, HTMLAttributes, ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
-import { VerticalStepperProps, StepperType, StepStatus } from './VerticalStepper.types';
+import {
+  VerticalStepperProps,
+  VerticalStepProps,
+  StepperType,
+  StepStatus,
+} from './VerticalStepper.types';
 
 type ContextProps = {
   type: StepperType;
@@ -159,17 +164,6 @@ const StepContent = styled.div<{ $type: StepperType }>`
     padding-left: ${theme.click.stepper.vertical[$type].content.space.left};
   `}
 `;
-
-export interface VerticalStepProps extends HTMLAttributes<HTMLButtonElement> {
-  /** The status of this step - active, complete, or incomplete */
-  status?: 'active' | 'complete' | 'incomplete';
-  /** Whether the step content is collapsed */
-  collapsed?: boolean;
-  /** The label text displayed for this step */
-  label?: ReactNode;
-  /** Whether the step is disabled */
-  disabled?: boolean;
-}
 
 const VerticalStep = ({
   status = 'incomplete',

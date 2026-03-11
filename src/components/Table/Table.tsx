@@ -18,7 +18,7 @@ import { CheckedState } from '@radix-ui/react-checkbox';
 
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
-import { Text } from '@/components/Typography';
+import { Text } from '@/components/Text';
 import { HorizontalDirection } from '@/types';
 import { EllipsisContent } from '@/components/EllipsisContent';
 import { Checkbox, CheckboxProps } from '@/components/Checkbox';

@@ -31,8 +31,8 @@ import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { Label } from '@/components/Label';
 import { Separator } from '@/components/Separator';
-import { Text } from '@/components/Typography';
-import type { TextProps } from '@/components/Typography';
+import { Text } from '@/components/Text';
+import type { TextProps } from '@/components/Text';
 
 import {
   SelectPopoverContent,
