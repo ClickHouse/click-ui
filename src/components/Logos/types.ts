@@ -49,6 +49,7 @@ export type LogoName =
   | 'datagrip'
   | 'vector'
   | 'kubenetes'
+  | 'lakekeeper'
   | 'c#'
   | 'redpanda'
   | 'rust'
