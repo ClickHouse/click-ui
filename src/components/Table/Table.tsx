@@ -300,7 +300,7 @@ const Thead = ({
           )}
           {headers.map(({ width, ...headerProps }, index) => (
             <TableHeader
-              key={`table-header-${index}-${width}`}
+              key={`table-header-${index}`}
               onSort={onSort(headerProps, index)}
               size={size}
               resizable={resizableColumns}
@@ -847,7 +847,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       const newWidth = startWidth + diff;
       const newNextWidth = nextStartWidth - diff;
 
-      if (!newWidth || !newNextWidth) {
+      if (Number.isNaN(newWidth) || Number.isNaN(newNextWidth)) {
         console.warn('Unexpected computed values for resize width', {
           newWidth,
           newNextWidth,
