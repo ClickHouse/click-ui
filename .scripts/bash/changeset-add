@@ -14,3 +14,17 @@ if ! yarn changeset; then
   echo "👹 Oops! Failed to create changest"
   exit 1
 fi
+
+new_changeset=$(git ls-files --others --exclude-standard ".changeset/*.md" | head -1)
+
+if [[ ! -n "$new_changeset" ]]; then
+  echo "👹 Oops! This is embarassing but couldn't locate the expeccted generated changeset file..."
+  exit 1
+fi
+
+if ! mv "$new_changeset" "$changeset_path"; then
+  echo "👹 Oops! Failed to rename changeset filename (from $new_changeset to $changeset_path)"
+  exit 1
+fi
+
+echo "👍 Done! Changeset created: $changeset_path"
