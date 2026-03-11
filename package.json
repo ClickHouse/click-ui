@@ -302,6 +302,11 @@
       "import": "./dist/esm/components/Tabs/index.js",
       "require": "./dist/cjs/components/Tabs/index.cjs"
     },
+    "./Text": {
+      "types": "./dist/types/components/Text/index.d.ts",
+      "import": "./dist/esm/components/Text/index.js",
+      "require": "./dist/cjs/components/Text/index.cjs"
+    },
     "./TextAreaField": {
       "types": "./dist/types/components/TextAreaField/index.d.ts",
       "import": "./dist/esm/components/TextAreaField/index.js",
@@ -311,11 +316,6 @@
       "types": "./dist/types/components/TextField/index.d.ts",
       "import": "./dist/esm/components/TextField/index.js",
       "require": "./dist/cjs/components/TextField/index.cjs"
-    },
-    "./Text": {
-      "types": "./dist/types/components/Text/index.d.ts",
-      "import": "./dist/esm/components/Text/index.js",
-      "require": "./dist/cjs/components/Text/index.cjs"
     },
     "./Title": {
       "types": "./dist/types/components/Title/index.d.ts",
