@@ -341,7 +341,8 @@
       "types": "./dist/types/hooks/index.d.ts",
       "import": "./dist/esm/hooks/index.js",
       "require": "./dist/cjs/hooks/index.cjs"
-    }
+    },
+    "./hooks/internal": null
   },
   "keywords": [
     "click-ui",
