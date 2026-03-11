@@ -292,9 +292,9 @@ async function replaceEmptyCssComment(
     : `./${normalizedPath}`;
 
   const importStatement =
-    format === 'esm' ? `import "${importPath}"` : `require("${importPath}")`;
+    format === 'esm' ? `import "${importPath}";` : `require("${importPath}");`;
 
-  const emptyCssRegex = /\/\*\s*empty css\s*\*/;
+  const emptyCssRegex = /\/\*\s*empty css\s*\*\//;
   if (!emptyCssRegex.test(content)) return;
 
   const newContent = content.replace(emptyCssRegex, importStatement);
