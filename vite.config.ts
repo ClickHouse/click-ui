@@ -50,7 +50,10 @@ const buildOptions: BuildOptions = {
         preserveModulesRoot: 'src',
         entryFileNames: createEntryFileNames('js'),
         chunkFileNames: '[name].js',
-        banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
+        banner: chunk =>
+          chunk.name === 'index' || chunk.name === 'hooks/index'
+            ? `'use client';`
+            : '',
         interop: 'auto',
       },
       {
@@ -60,7 +63,10 @@ const buildOptions: BuildOptions = {
         preserveModulesRoot: 'src',
         entryFileNames: createEntryFileNames('cjs'),
         chunkFileNames: '[name].cjs',
-        banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
+        banner: chunk =>
+          chunk.name === 'index' || chunk.name === 'hooks/index'
+            ? `'use client';`
+            : '',
         interop: 'auto',
         exports: 'named',
       },
