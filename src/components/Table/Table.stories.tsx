@@ -656,10 +656,18 @@ export const ResizableColumnsWithReordering: StoryObj<ResizableColumnsWithReorde
     }) => {
       const visibleColumnLabels = useMemo(() => {
         const labels: string[] = [];
-        if (showName) labels.push('Name');
-        if (showEmail) labels.push('Email');
-        if (showRole) labels.push('Role');
-        if (showDepartment) labels.push('Department');
+        if (showName) {
+          labels.push('Name');
+        }
+        if (showEmail) {
+          labels.push('Email');
+        }
+        if (showRole) {
+          labels.push('Role');
+        }
+        if (showDepartment) {
+          labels.push('Department');
+        }
         return labels;
       }, [showName, showEmail, showRole, showDepartment]);
 
