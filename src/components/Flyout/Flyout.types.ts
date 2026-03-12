@@ -28,6 +28,8 @@ export interface FlyoutContentProps extends HTMLAttributes<HTMLDivElement> {
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
   onPointerDownOutside?: (event: CustomEvent) => void;
   onFocusOutside?: (event: CustomEvent) => void;
+  onOpenAutoFocus?: (event: Event) => void;
+  onCloseAutoFocus?: (event: Event) => void;
 }
 
 interface TitleHeaderProps extends Omit<
