@@ -1,5 +1,38 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.79
+
+### Minor Changes
+
+- 1869f03: Removes `react-dom/server` `renderToStaticMarkup` from copy grid elements of `Grid` to favour the recommended `createRoot` approach suggested by React's official documentation.
+
+  According to React [renderToStaticMarkup](https://react.dev/reference/react-dom/server/renderToStaticMarkup#caveats) "The renderToStaticMarkup works in the browser, but using it in the client code is not recommended. If you need to render a component to HTML in the browser" and React [renderToString](https://react.dev/reference/react-dom/server/renderToString) "Importing react-dom/server on the client unnecessarily increases your bundle size and should be avoided. If you need to render some component to HTML in the browser, use createRoot and read HTML from the DOM".
+
+### Patch Changes
+
+- 3fbefc6: Restore `onOpenAutoFocus` and `onCloseAutoFocus` props to `FlyoutContentProps`.
+
+  These focus management props were inadvertently removed during the decoupling from Radix UI types. They are now explicitly added back to provide parity with the `Dialog` component and support common accessibility use cases.
+
+  Note: These props are optional and only needed when customizing default focus behavior.
+
+  **How to use?**
+
+  ```tsx
+  <Flyout.Content
+    onOpenAutoFocus={e => {
+      // Prevent default focus behavior
+      e.preventDefault();
+      // Implement custom focus logic
+    }}
+    onCloseAutoFocus={() => {
+      // Handle focus when flyout closes
+    }}
+  >
+    {children}
+  </Flyout.Content>
+  ```
+
 ## 0.1.0-rc.78
 
 ### Minor Changes
