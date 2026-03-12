@@ -6,6 +6,7 @@
   },
   "changesets": [
     "add-chart-icons",
+    "add-lakekeeper-logo",
     "add-planetscale-logo",
     "add-regenerate-command",
     "all-adults-enter",
@@ -44,6 +45,7 @@
     "neat-toys-smoke",
     "nine-queens-allow",
     "ninety-windows-melt",
+    "olive-lions-hope",
     "olive-waves-feel",
     "open-hounds-join",
     "pretty-tips-decide",
