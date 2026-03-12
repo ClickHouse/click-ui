@@ -293,5 +293,5 @@ jobs:
           # as notifications at the moment are inline
           # and hard to confirm output without CI/CD runtime
           payload: |
-            channel: "${{ secrets.SLACK_CHANNEL }}"
+            channel: "${{ secrets.SLACK_CHANNEL_FOR_PR }}"
             text: "===\n📦 *New Release PR Created*\n\n*Package:* ${{ steps.version-package.outputs.package_name }}\n*Version:* ${{ steps.version-package.outputs.version }}\n*Type:* ${{ inputs.release_type }}\n*Branch:* ${{ github.ref_name }}\n\n<${{ steps.create-pr.outputs.pull-request-url }}|View Pull Request>\n==="

@@ -254,5 +254,5 @@ jobs:
           # as notifications at the moment are inline
           # and hard to confirm output without CI/CD runtime
           payload: |
-            channel: "${{ secrets.SLACK_CHANNEL }}"
+            channel: "${{ secrets.SLACK_CHANNEL_FOR_GENERAL }}"
             text: "===\n🚀 *Click UI ${{ steps.verify-merge.outputs.version }} has launched!* 🎉\n\n📦 <https://www.npmjs.com/package/@clickhouse/click-ui/v/${{ steps.verify-merge.outputs.version }}|View on npm>\n📋 <https://github.com/ClickHouse/click-ui/blob/${{ steps.verify-merge.outputs.tag }}/CHANGELOG.md|View Changelog>\n\n_Release type: ${{ steps.package-info.outputs.tag }}_\n==="
