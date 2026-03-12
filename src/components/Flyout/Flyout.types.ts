@@ -32,18 +32,17 @@ export interface FlyoutContentProps extends HTMLAttributes<HTMLDivElement> {
   onCloseAutoFocus?: (event: Event) => void;
 }
 
-interface TitleHeaderProps
-  extends Omit<
-    ContainerProps,
-    | 'orientation'
-    | 'justifyContent'
-    | 'alignItems'
-    | 'component'
-    | 'padding'
-    | 'gap'
-    | 'children'
-    | 'fillWidth'
-  > {
+interface TitleHeaderProps extends Omit<
+  ContainerProps,
+  | 'orientation'
+  | 'justifyContent'
+  | 'alignItems'
+  | 'component'
+  | 'padding'
+  | 'gap'
+  | 'children'
+  | 'fillWidth'
+> {
   title: string;
   description?: string;
   type?: FlyoutType;
@@ -52,17 +51,16 @@ interface TitleHeaderProps
   showSeparator?: boolean;
 }
 
-interface ChildrenHeaderProps
-  extends Omit<
-    ContainerProps,
-    | 'orientation'
-    | 'justifyContent'
-    | 'alignItems'
-    | 'component'
-    | 'padding'
-    | 'gap'
-    | 'fillWidth'
-  > {
+interface ChildrenHeaderProps extends Omit<
+  ContainerProps,
+  | 'orientation'
+  | 'justifyContent'
+  | 'alignItems'
+  | 'component'
+  | 'padding'
+  | 'gap'
+  | 'fillWidth'
+> {
   title?: never;
   type?: FlyoutType;
   description?: never;
@@ -72,10 +70,9 @@ interface ChildrenHeaderProps
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
 
-export interface FlyoutFooterProps
-  extends Omit<
-    ContainerProps<'div'>,
-    'orientation' | 'justifyContent' | 'component' | 'padding' | 'gap'
-  > {
+export interface FlyoutFooterProps extends Omit<
+  ContainerProps<'div'>,
+  'orientation' | 'justifyContent' | 'component' | 'padding' | 'gap'
+> {
   type?: FlyoutType;
 }
