@@ -1,6 +1,7 @@
 import { CellProps, SelectedRegion, SelectionFocus } from './types';
 import { RefObject, createElement } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { createRoot } from 'react-dom/client';
+import { flushSync } from 'react-dom';
 
 interface CopyGridElementsProps {
   cell: CellProps;
@@ -19,14 +20,19 @@ const addCellToRow = (
   columnIndex: number
 ) => {
   const td = document.createElement('td');
-  // const root = createRoot(td);
-  const html = renderToStaticMarkup(
-    createElement(cell, { rowIndex, columnIndex, width: 1000, type: 'row-cell' })
-  );
-  td.innerHTML = html;
+  const container = document.createElement('div');
+  const root = createRoot(container);
+
+  flushSync(() => {
+    root.render(
+      createElement(cell, { rowIndex, columnIndex, width: 1000, type: 'row-cell' })
+    );
+  });
+
+  td.innerHTML = container.innerHTML;
+  root.unmount();
 
   row.appendChild(td);
-  // root.unmount();
 };
 
 const columnListLoop = (
