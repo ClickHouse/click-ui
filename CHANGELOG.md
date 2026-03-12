@@ -1,5 +1,35 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.78
+
+### Minor Changes
+
+- 4c4105f: Add Lakekeeper logo
+
+  **How to use?**
+
+  ```tsx
+  import { Logo } from '@clickhouse/click-ui';
+
+  <Logo name="lakekeeper" />;
+  ```
+
+- 96ab2a9: Enable consumers to import hooks directly via `@clickhouse/click-ui/hooks` following the same pattern as component imports.
+
+  **How to use?**
+
+  Import hooks from the new dedicated path:
+
+  ```tsx
+  import { useToast, useInitialTheme } from '@clickhouse/click-ui/hooks';
+  ```
+
+  Main entry point still works:
+
+  ```tsx
+  import { useToast, useInitialTheme } from '@clickhouse/click-ui';
+  ```
+
 ## 0.1.0-rc.77
 
 ### Minor Changes
