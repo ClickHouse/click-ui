@@ -34,9 +34,7 @@ const Button = styled.button<{
 }>`
   ${({ theme, $size, $styleType = 'primary' }) => `
   border-radius: ${theme.click.button.iconButton.radii.all};
-  border: ${theme.click.button.stroke} solid ${
-    theme.click.button.iconButton.color[$styleType].stroke.default
-  };
+  border: none;
   cursor: pointer;
   padding: ${
     $size
@@ -51,7 +49,6 @@ const Button = styled.button<{
     &:hover {
       background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
       color: ${theme.click.button.iconButton.color[$styleType].text.hover};
-      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.hover};
     }
 
     &:focus, &:active, &:focus-within {
@@ -59,7 +56,6 @@ const Button = styled.button<{
         theme.click.button.iconButton.color[$styleType].background.active
       };
       color: ${theme.click.button.iconButton.color[$styleType].text.active};
-      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
     }
   }
   &:visited {
