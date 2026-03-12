@@ -39,7 +39,7 @@ jobs:
           exit 1
 
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -97,6 +97,9 @@ jobs:
 
       - name: Generate GitHub workflow token
         id: gh-workflow-token
+        # NOTE: Upgrade v3 due to gh node20 deprecation
+        # at time of writing there's only "v3.0.0-beta.2"
+        # see https://github.com/actions/create-github-app-token/releases
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
@@ -253,7 +256,7 @@ jobs:
 
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.gh-workflow-token.outputs.token }}
           commit-message: ${{ steps.pr-details.outputs.title }}
