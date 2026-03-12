@@ -246,7 +246,7 @@ jobs:
         run: |
           # WARNING: This is coupled with a verify release commit
           # if you need to modify, apply the changes accordingly
-          COMMIT_TITLE=$(.scripts/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
+          COMMIT_TITLE=$(.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
 
           echo "title=$COMMIT_TITLE" >> $GITHUB_OUTPUT
           echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT

@@ -19,8 +19,8 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          DESC=$(.scripts/pull-request-truncate-body "$PR_BODY")
-          TITLE=$(.scripts/pull-request-json-escape "$PR_TITLE")
+          DESC=$(.scripts/bash/pull-request-truncate-body "$PR_BODY")
+          TITLE=$(.scripts/bash/pull-request-json-escape "$PR_TITLE")
 
           echo "description=$DESC" >> $GITHUB_OUTPUT
           echo "title=$TITLE" >> $GITHUB_OUTPUT

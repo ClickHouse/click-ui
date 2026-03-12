@@ -58,7 +58,7 @@ import { useOption, useSearch } from './useOption';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
-import { useInputModality } from '@/hooks';
+import { useInputModality } from '@/hooks/internal';
 import { styled } from 'styled-components';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 

@@ -36,7 +36,10 @@ const buildOptions: BuildOptions = {
   // which makes static analysis challenging
   minify: false,
   lib: {
-    entry: path.resolve(srcDir, 'index.ts'),
+    entry: {
+      index: path.resolve(srcDir, 'index.ts'),
+      'hooks/index': path.resolve(srcDir, 'hooks/index.ts'),
+    },
   },
   rollupOptions: {
     output: [
@@ -47,7 +50,10 @@ const buildOptions: BuildOptions = {
         preserveModulesRoot: 'src',
         entryFileNames: createEntryFileNames('js'),
         chunkFileNames: '[name].js',
-        banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
+        banner: chunk =>
+          chunk.name === 'index' || chunk.name === 'hooks/index'
+            ? `'use client';`
+            : '',
         interop: 'auto',
       },
       {
@@ -57,7 +63,10 @@ const buildOptions: BuildOptions = {
         preserveModulesRoot: 'src',
         entryFileNames: createEntryFileNames('cjs'),
         chunkFileNames: '[name].cjs',
-        banner: chunk => (chunk.name === 'index' ? `'use client';` : ''),
+        banner: chunk =>
+          chunk.name === 'index' || chunk.name === 'hooks/index'
+            ? `'use client';`
+            : '',
         interop: 'auto',
         exports: 'named',
       },

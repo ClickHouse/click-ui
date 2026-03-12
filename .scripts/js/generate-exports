@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import ts from 'typescript';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.resolve(__dirname, '..');
+const rootDir = path.resolve(__dirname, '../..');
 const indexPath = path.join(rootDir, 'src/index.ts');
 const packageJsonPath = path.join(rootDir, 'package.json');
 
@@ -68,6 +68,16 @@ try {
       require: `./dist/cjs/components/${component}/index.cjs`,
     };
   }
+
+  exports['./hooks'] = {
+    types: './dist/types/hooks/index.d.ts',
+    import: './dist/esm/hooks/index.js',
+    require: './dist/cjs/hooks/index.cjs',
+  };
+
+  // Warn: Explicitly block internal hooks from being imported
+  // e.g. modern bundlers should error and no types declared for path (typescript)
+  exports['./hooks/internal'] = null;
 
   packageJson.exports = exports;
 

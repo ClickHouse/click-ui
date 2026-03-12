@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useUpdateEffect } from '@/hooks';
+import { useUpdateEffect } from '@/hooks/internal';
 import {
   SelectGroup,
   InternalSelect,
