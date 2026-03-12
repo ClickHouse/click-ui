@@ -74,9 +74,12 @@ const Resizer = styled.div`
   transition: opacity 0.2s;
   border-radius: 0.5rem;
   transform: translateX(50%);
+  background-color: ${({ theme }) => theme.click.table.header.color.background.default};
 
   &:hover {
-    opacity: 0.6;
+    &::before {
+      opacity: 0.6;
+    }
   }
 
   &::before {
