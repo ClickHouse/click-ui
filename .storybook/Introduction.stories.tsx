@@ -1,5 +1,9 @@
+// NOTE: Using `tsx` instead of `mdx` due to an error
+// The Storybook MDX plugin doesn't set moduleType
+// which Roldown requires.
+// Can revisit and put back mdx later once plugin updated
+
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 
 const DocsPage = () => (
   <>
