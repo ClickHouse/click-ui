@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
@@ -41,7 +40,7 @@ const buildOptions: BuildOptions = {
       'hooks/index': path.resolve(srcDir, 'hooks/index.ts'),
     },
   },
-  rollupOptions: {
+  rolldownOptions: {
     output: [
       {
         format: 'es',
@@ -54,7 +53,6 @@ const buildOptions: BuildOptions = {
           chunk.name === 'index' || chunk.name === 'hooks/index'
             ? `'use client';`
             : '',
-        interop: 'auto',
       },
       {
         format: 'cjs',
@@ -67,7 +65,6 @@ const buildOptions: BuildOptions = {
           chunk.name === 'index' || chunk.name === 'hooks/index'
             ? `'use client';`
             : '',
-        interop: 'auto',
         exports: 'named',
       },
     ],
@@ -111,7 +108,6 @@ const viteConfig = defineConfig({
       peerDeps: true,
       useFile: path.join(process.cwd(), 'package.json'),
     }),
-    tsconfigPaths(),
     // WARNING: Keep the visualizer last
     ...(process.env.ANALYZE === 'true'
       ? [
@@ -128,6 +124,7 @@ const viteConfig = defineConfig({
     alias: {
       '@': srcDir,
     },
+    tsconfigPaths: true,
   },
   build: buildOptions,
 });
