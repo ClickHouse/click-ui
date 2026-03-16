@@ -1,1 +1,223 @@
-.demoCSSModuleSetupOnlyDeleteAfter {}
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  border-radius: var(--click-button-radii-all);
+  gap: var(--click-button-basic-space-gap);
+  font: var(--click-button-basic-typography-label-default);
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+  transition: font var(--click-transition-default);
+}
+
+.button--align-center {
+  justify-content: center;
+}
+
+.button--align-left {
+  justify-content: flex-start;
+}
+
+.button--fill {
+  width: 100%;
+}
+
+.button--primary {
+  background-color: var(--click-button-basic-color-primary-background-default);
+  color: var(--click-button-basic-color-primary-text-default);
+  border-color: var(--click-button-basic-color-primary-stroke-default);
+}
+
+.button--primary:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-primary-background-hover);
+  border-color: var(--click-button-basic-color-primary-stroke-hover);
+  font: var(--click-button-basic-typography-label-hover);
+  transition: var(--click-transition-default);
+}
+
+.button--primary:active:not(:disabled),
+.button--primary:focus:not(:disabled) {
+  background-color: var(--click-button-basic-color-primary-background-active);
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: none;
+}
+
+.button--primary:disabled {
+  background-color: var(--click-button-basic-color-primary-background-disabled);
+  color: var(--click-button-basic-color-primary-text-disabled);
+  border-color: var(--click-button-basic-color-primary-stroke-disabled);
+  font: var(--click-button-basic-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.button--secondary {
+  background-color: var(--click-button-basic-color-secondary-background-default);
+  color: var(--click-button-basic-color-secondary-text-default);
+  border-color: var(--click-button-basic-color-secondary-stroke-default);
+}
+
+.button--secondary:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-secondary-background-hover);
+  border-color: var(--click-button-basic-color-secondary-stroke-hover);
+  font: var(--click-button-basic-typography-label-hover);
+  transition: var(--click-transition-default);
+}
+
+.button--secondary:active:not(:disabled),
+.button--secondary:focus:not(:disabled) {
+  background-color: var(--click-button-basic-color-secondary-background-active);
+  border-color: var(--click-button-basic-color-secondary-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: none;
+}
+
+.button--secondary:disabled {
+  background-color: var(--click-button-basic-color-secondary-background-disabled);
+  color: var(--click-button-basic-color-secondary-text-disabled);
+  border-color: var(--click-button-basic-color-secondary-stroke-disabled);
+  font: var(--click-button-basic-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.button--empty {
+  background-color: var(--click-button-basic-color-empty-background-default);
+  color: var(--click-button-basic-color-empty-text-default);
+  border-color: var(--click-button-basic-color-empty-stroke-default);
+}
+
+.button--empty:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-empty-background-hover);
+  border-color: var(--click-button-basic-color-empty-stroke-hover);
+  font: var(--click-button-basic-typography-label-hover);
+  transition: var(--click-transition-default);
+}
+
+.button--empty:active:not(:disabled),
+.button--empty:focus:not(:disabled) {
+  background-color: var(--click-button-basic-color-empty-background-active);
+  border-color: var(--click-button-basic-color-empty-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: none;
+}
+
+.button--empty:disabled {
+  background-color: var(--click-button-basic-color-empty-background-disabled);
+  color: var(--click-button-basic-color-empty-text-disabled);
+  border-color: var(--click-button-basic-color-empty-stroke-disabled);
+  font: var(--click-button-basic-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.button--danger {
+  background-color: var(--click-button-basic-color-danger-background-default);
+  color: var(--click-button-basic-color-danger-text-default);
+  border-color: var(--click-button-basic-color-danger-stroke-default);
+}
+
+.button--danger:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-danger-background-hover);
+  border-color: var(--click-button-basic-color-danger-stroke-hover);
+  font: var(--click-button-basic-typography-label-hover);
+  transition: var(--click-transition-default);
+}
+
+.button--danger:active:not(:disabled),
+.button--danger:focus:not(:disabled) {
+  background-color: var(--click-button-basic-color-danger-background-active);
+  border-color: var(--click-button-basic-color-danger-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: none;
+}
+
+.button--danger:disabled {
+  background-color: var(--click-button-basic-color-danger-background-disabled);
+  color: var(--click-button-basic-color-danger-text-disabled);
+  border-color: var(--click-button-basic-color-danger-stroke-disabled);
+  font: var(--click-button-basic-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.button--loading {
+  cursor: not-allowed;
+}
+
+.button--loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.button--primary.button--loading,
+.button--secondary.button--loading,
+.button--danger.button--loading {
+  opacity: 0.7;
+}
+
+.button--empty.button--loading {
+  opacity: 0.9;
+}
+
+.button--loading > * {
+  opacity: 0.7;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.button--primary.button--loading::before {
+  background: var(--click-button-basic-color-primary-background-loading);
+  background-size: 200% 100%;
+}
+
+.button--secondary.button--loading::before {
+  background: var(--click-button-basic-color-secondary-background-loading);
+  background-size: 200% 100%;
+}
+
+.button--empty.button--loading::before {
+  background: var(--click-button-basic-color-empty-background-loading);
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+}
+
+.button--danger.button--loading::before {
+  background: var(--click-button-basic-color-danger-background-loading);
+  background-size: 200% 100%;
+}
+
+.buttonIcon {
+  height: var(--click-button-basic-size-icon-all);
+  width: var(--click-button-basic-size-icon-all);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonIcon svg {
+  height: var(--click-button-basic-size-icon-all);
+  width: var(--click-button-basic-size-icon-all);
+}
+
+.button > span {
+  display: inline-flex;
+  align-items: center;
+}
