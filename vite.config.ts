@@ -85,6 +85,8 @@ const viteConfig = defineConfig({
   plugins: [
     ...(isTest ? [] : [cssExternalPlugin()]),
     react({
+      // TODO: On styled-components migration completion
+      // remove styled-components babel plugins
       babel: {
         plugins: [['babel-plugin-styled-components', { displayName: false }]],
 
