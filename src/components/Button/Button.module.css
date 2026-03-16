@@ -43,11 +43,19 @@
 }
 
 .button--primary:active:not(:disabled),
-.button--primary:focus:not(:disabled) {
+.button--primary:focus:not(:focus-visible):not(:disabled) {
   background-color: var(--click-button-basic-color-primary-background-active);
   border-color: var(--click-button-basic-color-primary-stroke-active);
   font: var(--click-button-basic-typography-label-active);
   outline: none;
+}
+
+.button--primary:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-primary-background-active);
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-primary-stroke-active);
+  outline-offset: 2px;
 }
 
 .button--primary:disabled {
@@ -72,11 +80,19 @@
 }
 
 .button--secondary:active:not(:disabled),
-.button--secondary:focus:not(:disabled) {
+.button--secondary:focus:not(:focus-visible):not(:disabled) {
   background-color: var(--click-button-basic-color-secondary-background-active);
   border-color: var(--click-button-basic-color-secondary-stroke-active);
   font: var(--click-button-basic-typography-label-active);
   outline: none;
+}
+
+.button--secondary:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-secondary-background-active);
+  border-color: var(--click-button-basic-color-secondary-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-secondary-stroke-active);
+  outline-offset: 2px;
 }
 
 .button--secondary:disabled {
@@ -101,11 +117,19 @@
 }
 
 .button--empty:active:not(:disabled),
-.button--empty:focus:not(:disabled) {
+.button--empty:focus:not(:focus-visible):not(:disabled) {
   background-color: var(--click-button-basic-color-empty-background-active);
   border-color: var(--click-button-basic-color-empty-stroke-active);
   font: var(--click-button-basic-typography-label-active);
   outline: none;
+}
+
+.button--empty:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-empty-background-active);
+  border-color: var(--click-button-basic-color-empty-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-primary-stroke-active);
+  outline-offset: 2px;
 }
 
 .button--empty:disabled {
@@ -130,11 +154,19 @@
 }
 
 .button--danger:active:not(:disabled),
-.button--danger:focus:not(:disabled) {
+.button--danger:focus:not(:focus-visible):not(:disabled) {
   background-color: var(--click-button-basic-color-danger-background-active);
   border-color: var(--click-button-basic-color-danger-stroke-active);
   font: var(--click-button-basic-typography-label-active);
   outline: none;
+}
+
+.button--danger:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-danger-background-active);
+  border-color: var(--click-button-basic-color-danger-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-danger-stroke-active);
+  outline-offset: 2px;
 }
 
 .button--danger:disabled {
