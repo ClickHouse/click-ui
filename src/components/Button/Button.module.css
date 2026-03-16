@@ -128,7 +128,7 @@
   background-color: var(--click-button-basic-color-empty-background-active);
   border-color: var(--click-button-basic-color-empty-stroke-active);
   font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-primary-stroke-active);
+  outline: 2px solid var(--click-button-basic-color-empty-stroke-active);
   outline-offset: 2px;
 }
 
