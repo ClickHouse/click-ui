@@ -6,7 +6,7 @@ export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';
 type Alignment = 'center' | 'left';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
- // TODO: The type prop ('primary' | 'secondary' | 'empty' | 'danger') shadows the native <button type="submit|reset|button"> attribute. Since type is destructured before ...delegated, consumers can never pass type="submit" for form submission. Consider renaming the visual variant prop to variant (consistent with the CSS class names button--primary etc.). This is a public API problem!
+  // TODO: The type prop ('primary' | 'secondary' | 'empty' | 'danger') shadows the native <button type="submit|reset|button"> attribute. Since type is destructured before ...delegated, consumers can never pass type="submit" for form submission. Consider renaming the visual variant prop to variant (consistent with the CSS class names button--primary etc.). This is a public API problem!
   /** The visual style variant of the button */
   type?: ButtonType;
   /** Whether the button is disabled */
