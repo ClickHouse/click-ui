@@ -32,9 +32,12 @@ const config: StorybookConfig = {
   },
 
   async viteFinal(config, { configType }) {
-    // Workaround for Storybook 10.0.7 bug where MDX files generate file:// imports
-    // See: https://github.com/storybookjs/storybook/issues (mdx-react-shim resolution)
-    config.plugins = config.plugins || [];
+    // TODO: Alternatively, use an env var in the vite side
+    // e.g. vitest example
+    config.plugins = (config.plugins || []).filter((plugin) => {
+      const pluginName = plugin && typeof plugin === 'object' && 'name' in plugin ? plugin.name : null;
+      return pluginName !== 'css-external';
+    });
     config.plugins.push({
       name: 'fix-storybook-mdx-shim',
       resolveId(source) {

@@ -9,6 +9,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
+const isTest = process.env.VITEST === 'true';
 
 // TODO: Find a solution for static files based on conf extensions
 const cssExternalPlugin = () => ({
@@ -82,7 +83,7 @@ const buildOptions: BuildOptions = {
 const viteConfig = defineConfig({
   publicDir: false,
   plugins: [
-    cssExternalPlugin(),
+    ...(isTest ? [] : [cssExternalPlugin()]),
     react({
       babel: {
         plugins: [['babel-plugin-styled-components', { displayName: false }]],
