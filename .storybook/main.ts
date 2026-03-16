@@ -32,8 +32,6 @@ const config: StorybookConfig = {
   },
 
   async viteFinal(config, { configType }) {
-    // TODO: Alternatively, use an env var in the vite side
-    // e.g. vitest example
     config.plugins = (config.plugins || []).filter((plugin) => {
       const pluginName = plugin && typeof plugin === 'object' && 'name' in plugin ? plugin.name : null;
       return pluginName !== 'css-external';
