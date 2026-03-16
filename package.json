@@ -444,6 +444,8 @@
     "@vitejs/plugin-react": "^5.1.2",
     "babel-plugin-styled-components": "^2.1.4",
     "chromatic": "^13.3.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "date-fns": "4.1.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.4.4",
