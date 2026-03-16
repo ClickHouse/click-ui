@@ -27,6 +27,25 @@ export interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
 - Use transient props (prefixed with `$`) for styled-component internal state
 - Use `data-*` attributes for styling hooks instead of generated class names
 
+### CSS Modules (BEM Naming)
+
+When using CSS Modules (migration in progress from styled-components):
+
+- **Follow BEM naming convention**:
+  - `.button` - Block (component root)
+  - `.button__icon` - Element (child of block, use double underscore)
+  - `.button--primary` - Modifier (variant/state, use double dash)
+  - `.button--primary:hover` - State pseudo-classes
+- **Example structure**:
+  ```css
+  .button { /* base styles */ }
+  .button__icon { /* icon element */ }
+  .button--primary { /* primary variant */ }
+  .button--primary:focus-visible { /* keyboard focus state */ }
+  ```
+- Use CSS custom properties from theme tokens: `var(--click-button-basic-color-primary-background-default)`
+- Always include `:focus-visible` styles for keyboard accessibility, never use `outline: none` without replacement
+
 ### Accessibility (Mandatory)
 
 - Interactive elements need `role`, `aria-label`, `aria-describedby`
