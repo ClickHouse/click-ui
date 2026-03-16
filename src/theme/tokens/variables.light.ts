@@ -2033,7 +2033,6 @@ const theme = {
             },
             stroke: {
               default: '#e6e7e9',
-              focus: '#437eef',
             },
           },
           format: {
@@ -2060,10 +2059,6 @@ const theme = {
               hover: 'rgb(100% 13.725% 13.725% / 0.2)',
               active: 'rgb(100% 13.725% 13.725% / 0.3)',
               disabled: '#ffffff',
-            },
-            stroke: {
-              default: 'rgba(0, 0, 0, 0)',
-              focus: '#437eef',
             },
           },
         },
