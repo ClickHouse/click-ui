@@ -68,7 +68,7 @@ export const Button = ({
     className={buttonVariants({ type, align, fillWidth, loading })}
     disabled={disabled || loading}
     aria-disabled={disabled || loading}
-    role="button"
+    aria-busy={loading}
     {...delegated}
   >
     {iconLeft && (
