@@ -1,9 +1,9 @@
 import { register } from '@tokens-studio/sd-transforms';
 import StyleDictionary from 'style-dictionary';
-import { CUI_THEME_STORAGE_KEY } from '../../src/utils/constants.js';
+import config from '../../src/theme/theme.config.json' with { type: 'json' };
 
 const themes = ['dark', 'light'];
-const THEME_DATA_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
+const THEME_DATA_ATTRIBUTE = `data-${config.storageKey}`;
 
 await register(StyleDictionary);
 
