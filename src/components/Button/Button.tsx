@@ -2,6 +2,7 @@ import { Icon } from '@/components/Icon';
 import { styled, keyframes } from 'styled-components';
 import { BaseButton } from './BaseButton';
 import { Alignment, ButtonProps, ButtonType } from './Button.types';
+import styles from './Button.module.css';
 
 export const Button = ({
   type = 'primary',
@@ -16,6 +17,7 @@ export const Button = ({
   ...delegated
 }: ButtonProps) => (
   <StyledButton
+    className={styles.demoCSSModuleSetupOnlyDeleteAfter}
     $styleType={type}
     $align={align}
     $fillWidth={fillWidth}
