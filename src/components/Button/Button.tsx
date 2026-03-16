@@ -1,5 +1,6 @@
 import { Icon, IconName } from '@/components/Icon';
 import { cva } from '@/lib/cva';
+import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
 export type ButtonType = 'primary' | 'secondary' | 'empty' | 'danger';
@@ -52,45 +53,53 @@ const buttonVariants = cva(styles.button, {
   },
 });
 
-export const Button = ({
-  type = 'primary',
-  iconLeft,
-  iconRight,
-  align = 'center',
-  children,
-  fillWidth,
-  label,
-  loading = false,
-  disabled,
-  ...delegated
-}: ButtonProps) => (
-  <button
-    className={buttonVariants({ type, align, fillWidth, loading })}
-    disabled={disabled || loading}
-    aria-disabled={disabled || loading}
-    aria-busy={loading}
-    {...delegated}
-  >
-    {iconLeft && (
-      <span className={styles.buttonIcon}>
-        <Icon
-          name={iconLeft}
-          aria-hidden
-          size="sm"
-        />
-      </span>
-    )}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      type = 'primary',
+      iconLeft,
+      iconRight,
+      align = 'center',
+      children,
+      fillWidth,
+      label,
+      loading = false,
+      disabled,
+      ...delegated
+    },
+    ref
+  ) => (
+    <button
+      ref={ref}
+      className={buttonVariants({ type, align, fillWidth, loading })}
+      disabled={disabled || loading}
+      aria-disabled={disabled || loading}
+      aria-busy={loading}
+      {...delegated}
+    >
+      {iconLeft && (
+        <span className={styles.buttonIcon}>
+          <Icon
+            name={iconLeft}
+            aria-hidden
+            size="sm"
+          />
+        </span>
+      )}
 
-    <span>{label ?? children}</span>
+      <span>{label ?? children}</span>
 
-    {iconRight && (
-      <span className={styles.buttonIcon}>
-        <Icon
-          name={iconRight}
-          aria-hidden
-          size="sm"
-        />
-      </span>
-    )}
-  </button>
+      {iconRight && (
+        <span className={styles.buttonIcon}>
+          <Icon
+            name={iconRight}
+            aria-hidden
+            size="sm"
+          />
+        </span>
+      )}
+    </button>
+  )
 );
+
+Button.displayName = 'Button';
