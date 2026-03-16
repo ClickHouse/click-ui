@@ -195,7 +195,7 @@
 
 .button--empty.button--loading::before {
   background: var(--click-button-basic-color-empty-background-loading);
-  background-size: 200px 100%;
+  background-size: 200% 100%;
   background-repeat: no-repeat;
 }
 
