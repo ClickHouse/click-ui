@@ -38,7 +38,8 @@ StyleDictionary.registerFormat({
     const tokens = dictionary.allTokens
       .map(token => {
         const varName = token.path.join('-');
-        return `  --${varName}: ${token.value};`;
+        const cleanValue = String(token.value).replace(/;+$/, '');
+        return `  --${varName}: ${cleanValue};`;
       })
       .join('\n');
 
