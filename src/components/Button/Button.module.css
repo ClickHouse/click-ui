@@ -249,7 +249,7 @@
   width: var(--click-button-basic-size-icon-all);
 }
 
-.button > span {
+.button__label {
   display: inline-flex;
   align-items: center;
 }
