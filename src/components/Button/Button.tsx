@@ -79,7 +79,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       {...delegated}
     >
       {iconLeft && (
-        <span className={styles.buttonIcon}>
+        <span className={styles.button__icon}>
           <Icon
             name={iconLeft}
             aria-hidden
@@ -91,7 +91,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <span>{label ?? children}</span>
 
       {iconRight && (
-        <span className={styles.buttonIcon}>
+        <span className={styles.button__icon}>
           <Icon
             name={iconRight}
             aria-hidden
