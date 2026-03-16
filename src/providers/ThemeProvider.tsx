@@ -7,6 +7,9 @@ import type { ThemeName } from '@/theme/theme.types';
 import { themes } from '@/theme/theme.core';
 import { isValidThemeName } from '@/theme/theme.utils';
 
+import '@/theme/styles/tokens-light.css';
+import '@/theme/styles/tokens-dark.css';
+
 const GlobalStyle = createGlobalStyle`
   body{
     color: ${props => props.theme.click.global.color.text.default};
