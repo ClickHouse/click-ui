@@ -1,5 +1,4 @@
-import { Icon } from '@/components/Icon/Icon';
-import { IconName } from '@/components/Icon/types';
+import { Icon, IconName } from '@/components/Icon';
 import { cva } from '@/lib/cva';
 import styles from './Button.module.css';
 
