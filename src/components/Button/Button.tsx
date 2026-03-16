@@ -1,5 +1,5 @@
 import { Icon, IconName } from '@/components/Icon';
-import { cva } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
@@ -65,13 +65,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       label,
       loading = false,
       disabled,
+      className,
       ...delegated
     },
     ref
   ) => (
     <button
       ref={ref}
-      className={buttonVariants({ type, align, fillWidth, loading })}
+      className={cn(buttonVariants({ type, align, fillWidth, loading }), className)}
       disabled={disabled || loading}
       aria-disabled={disabled || loading}
       aria-busy={loading}
