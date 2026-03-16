@@ -187,4 +187,18 @@ describe('CardHorizontal Component', () => {
     expect(windowOpenSpy).not.toHaveBeenCalled();
     windowOpenSpy.mockRestore();
   });
+
+  it("should not call onClick when isSelectable is false", () => {
+    const onClickMock = vitest.fn();
+    const { container } = renderCard({
+      title: "Test Card",
+      isSelectable: false,
+      onButtonClick: onClickMock,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    wrapper.click();
+
+    expect(onClickMock).not.toHaveBeenCalled();
+  });
 });
