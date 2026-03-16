@@ -88,7 +88,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         </span>
       )}
 
-      <span>{label ?? children}</span>
+      <span className={styles.button__label}>{label ?? children}</span>
 
       {iconRight && (
         <span className={styles.button__icon}>
