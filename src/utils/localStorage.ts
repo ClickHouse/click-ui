@@ -1,1 +1,1 @@
-export const CUI_THEME_STORAGE_KEY = 'cui-theme';
+export { CUI_THEME_STORAGE_KEY } from './constants.js';
