@@ -11,11 +11,17 @@ Use Playwright when you need to:
 > [!TIP]
 > Use Playwright for rapid local development, (e.g. if you need fast feedback loop) and Chromatic for team reviews and CI/CD.
 
+## Requirements
+
+- [Docker](http://docker.com/)
+
 ## Visual regression testing locally
 
 Visual regression tests are operating system dependent.
 
 Screenshots generated on macOS will differ from Linux or Windows due to font rendering, anti-aliasing, and browser engine differences.
+
+To mitigate differences across operating systems, our visual regression tests are Dockerized for consistent visual regression testing.
 
 ### Docker (Ubuntu Linux)
 
