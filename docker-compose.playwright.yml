@@ -4,9 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile.playwright
     volumes:
+      - ./src:/app/src
       - ./tests:/app/tests
       - ./playwright-report:/app/playwright-report
       - ./test-results:/app/test-results
+      - ./.storybook:/app/.storybook
     environment:
       - CI=true
     shm_size: 1gb
