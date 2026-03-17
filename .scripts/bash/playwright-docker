@@ -2,7 +2,7 @@
 
 COMMAND="${1:-test}"
 
-PORT="8082"
+PORT="8282"
 DOCKER_INSTANCE_NAME="click-ui-ui"
 
 if [[ "$COMMAND" = "update" ]]; then
