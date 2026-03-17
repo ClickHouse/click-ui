@@ -2,9 +2,9 @@ import { test as it, expect } from '@playwright/test';
 
 const { describe, beforeEach, afterEach } = it;
 
-const getStory = (id: string) => ({
+const getStory = (id: string, theme: 'light' | 'dark' = 'light') => ({
   id,
-  pathname: `/iframe.html?path=/story/${id}`,
+  pathname: `/iframe.html?path=/story/${id}&globals=theme:${theme}`,
 });
 
 describe('Buttons', () => {
@@ -79,4 +79,3 @@ describe('Buttons', () => {
     });
   });
 });
-
