@@ -1,0 +1,42 @@
+name: 🎭 Visual regression tests
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  HUSKY: 0
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'latest'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      # NOTE: The tests path is located in playwright.config.ts
+      # e.g. ./tests
+      - name: Run visual regression tests
+        run: npx playwright test
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30
