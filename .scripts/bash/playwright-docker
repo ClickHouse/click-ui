@@ -1,0 +1,45 @@
+#!/bin/bash
+
+COMMAND="${1:-test}"
+
+PORT="8082"
+DOCKER_INSTANCE_NAME="click-ui-ui"
+
+if [[ "$COMMAND" = "update" ]]; then
+  docker compose \
+    -f docker-compose.playwright.yml \
+    run \
+    --rm update-snapshots
+elif [[ "$COMMAND" = "ui" ]]; then
+  docker stop \
+    $(docker ps \
+        -q \
+        --filter "ancestor=$DOCKER_INSTANCE_NAME"
+    ) 2>/dev/null
+
+  docker rm \
+    -f playwright-ui 2>/dev/null
+
+  echo "🎭 Starting Playwright UI at http://localhost:$PORT..."
+
+  (
+    sleep 3
+    && open "http://localhost:$PORT" 2>/dev/null
+    || xdg-open "http://localhost:$PORT" 2>/dev/null
+  )
+  & docker compose \
+      -f docker-compose.playwright.yml \
+      run \
+      --rm \
+      --service-ports \
+      --name playwright-ui \
+      ui
+elif [[ "$COMMAND" = "report" ]]; then
+  npx playwright show-report
+else
+  docker compose \
+    -f docker-compose.playwright.yml \
+    run \
+    --rm \
+    test
+fi
