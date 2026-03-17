@@ -3,7 +3,6 @@
 COMMAND="${1:-test}"
 
 PORT="8282"
-DOCKER_INSTANCE_NAME="click-ui-ui"
 
 if [[ "$COMMAND" = "update" ]]; then
   docker compose \
@@ -11,14 +10,7 @@ if [[ "$COMMAND" = "update" ]]; then
     run \
     --rm update-snapshots
 elif [[ "$COMMAND" = "ui" ]]; then
-  docker stop \
-    $(docker ps \
-        -q \
-        --filter "ancestor=$DOCKER_INSTANCE_NAME"
-    ) 2>/dev/null
-
-  docker rm \
-    -f playwright-ui 2>/dev/null
+  docker rm -f playwright-ui 2>/dev/null
 
   echo "🎭 Starting Playwright UI at http://localhost:$PORT..."
 
