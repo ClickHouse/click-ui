@@ -36,6 +36,7 @@ When using CSS Modules (migration in progress from styled-components):
   - `.button__icon` - Element (child of block, use double underscore)
   - `.button--primary` - Modifier (variant/state, use double dash)
   - `.button--primary:hover` - State pseudo-classes
+
 - **Example structure**:
   ```css
   .button { /* base styles */ }
