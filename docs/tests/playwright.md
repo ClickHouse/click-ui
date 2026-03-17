@@ -59,7 +59,7 @@ You MUST generate the snapshots you want to compare against. At time of writing,
 > If you are reading this document, you should be aware that this provides you with custom control for advanced needs only! It does not provide you with the setup for cross-operating system, e.g. docker linux.
 > This workflow does NOT expect you to store your favourite OS image/snapshots in the repository, it's for your own usage, or fast feedback loop only!
 
-To generate snapshots, you'll have to manually checkout/switch to the target commit in history and run the `test:visual` to generate it and return back to your ongoing feature branch. Alternatively, you can store snapshots separatily and place them at your need.
+To generate snapshots, you'll have to manually checkout/switch to the target commit in history and run the `test:visual` to generate it and return back to your ongoing feature branch. Alternatively, you can store snapshots separately and place them at your need.
 
 Hypothetically, you could use the following workflow to facilitate:
 
