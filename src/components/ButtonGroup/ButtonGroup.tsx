@@ -85,9 +85,10 @@ export const ButtonGroup = ({
 
   return (
     <ButtonGroupWrapper
+      {...props}
       $fillWidth={fillWidth}
       $type={type}
-      {...props}
+      role="group"
     >
       {buttons}
     </ButtonGroupWrapper>

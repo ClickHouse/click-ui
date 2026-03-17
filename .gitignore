@@ -14,10 +14,11 @@ tmp/*
 !.yarn/releases
 !.yarn/plugins
 
-**.ts-snapshots
 tests/**/*-actual.png
 tests/**/*-diff.png
+tests/**/*-darwin.png
 test-results
+playwright-report
 
 .install
 .vscode

@@ -1,0 +1,31 @@
+services:
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+      - ./.storybook:/app/.storybook
+    environment:
+      - CI=true
+    shm_size: 1gb
+
+  test:
+    extends: playwright
+    command: yarn test:visual
+
+  update-snapshots:
+    extends: playwright
+    command: yarn test:visual:update
+
+  ui:
+    extends: playwright
+    ports:
+      # NOTE: Match port number of `playwright-docker` script
+      - "8282:8282"
+    environment:
+      - CI=false
+    command: npx playwright test --ui-host=0.0.0.0 --ui-port=8282

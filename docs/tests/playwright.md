@@ -11,11 +11,33 @@ Use Playwright when you need to:
 > [!TIP]
 > Use Playwright for rapid local development, (e.g. if you need fast feedback loop) and Chromatic for team reviews and CI/CD.
 
+## Requirements
+
+- [Docker](http://docker.com/)
+
 ## Visual regression testing locally
 
 Visual regression tests are operating system dependent.
 
 Screenshots generated on macOS will differ from Linux or Windows due to font rendering, anti-aliasing, and browser engine differences.
+
+To mitigate differences across operating systems, our visual regression tests are Dockerized for consistent visual regression testing.
+
+### Docker (Ubuntu Linux)
+
+All visual tests run in Docker (Ubuntu Linux) by default for consistency with CI:
+
+```sh
+yarn test:visual          # Run tests
+yarn test:visual:update   # Update snapshots
+yarn test:visual:ui       # UI mode (opens at http://localhost:8282)
+yarn test:visual:report   # View HTML report
+```
+
+> [!NOTE]
+> The port number is declared in the Docker compose and playwright-docker bash script, which should be in sync.
+
+Snapshots are saved with `-linux` suffix to match CI environments.
 
 For this reason at time of writing, the following snaptshots are ignored:
 
@@ -37,7 +59,7 @@ You MUST generate the snapshots you want to compare against. At time of writing,
 > If you are reading this document, you should be aware that this provides you with custom control for advanced needs only! It does not provide you with the setup for cross-operating system, e.g. docker linux.
 > This workflow does NOT expect you to store your favourite OS image/snapshots in the repository, it's for your own usage, or fast feedback loop only!
 
-To generate snapshots, you'll have to manually checkout/switch to the target commit in history and run the `test:visual` to generate it and return back to your ongoing feature branch. Alternatively, you can store snapshots separatily and place them at your need.
+To generate snapshots, you'll have to manually checkout/switch to the target commit in history and run the `test:visual` to generate it and return back to your ongoing feature branch. Alternatively, you can store snapshots separately and place them at your need.
 
 Hypothetically, you could use the following workflow to facilitate:
 

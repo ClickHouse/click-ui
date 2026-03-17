@@ -2,9 +2,9 @@ import { test as it, expect } from '@playwright/test';
 
 const { describe, beforeEach, afterEach } = it;
 
-const getStory = (id: string) => ({
+const getStory = (id: string, theme: 'light' | 'dark' = 'light') => ({
   id,
-  pathname: `/iframe.html?path=/story/${id}`,
+  pathname: `/iframe.html?path=/story/${id}&globals=theme:${theme}`,
 });
 
 describe('Buttons', () => {
@@ -45,7 +45,7 @@ describe('Buttons', () => {
     });
 
     it(`should render ${id}`, async ({ page }) => {
-      const button = page.locator('[class*="ButtonGroupWrapper"]');
+      const button = page.getByRole('group');
 
       await expect(button).toBeVisible({ timeout: 10_000 });
 
@@ -79,4 +79,3 @@ describe('Buttons', () => {
     });
   });
 });
-
