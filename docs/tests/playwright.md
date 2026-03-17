@@ -17,6 +17,22 @@ Visual regression tests are operating system dependent.
 
 Screenshots generated on macOS will differ from Linux or Windows due to font rendering, anti-aliasing, and browser engine differences.
 
+### Docker (Ubuntu Linux)
+
+All visual tests run in Docker (Ubuntu Linux) by default for consistency with CI:
+
+```sh
+yarn test:visual          # Run tests
+yarn test:visual:update   # Update snapshots
+yarn test:visual:ui       # UI mode (opens at http://localhost:8282)
+yarn test:visual:report   # View HTML report
+```
+
+> [!NOTE]
+> The port number is declared in the Docker compose and playwright-docker bash script, which should be in sync.
+
+Snapshots are saved with `-linux` suffix to match CI environments.
+
 For this reason at time of writing, the following snaptshots are ignored:
 
 ```sh
