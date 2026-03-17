@@ -253,3 +253,9 @@
   display: inline-flex;
   align-items: center;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .button--loading::before {
+    animation: none;
+  }
+}
