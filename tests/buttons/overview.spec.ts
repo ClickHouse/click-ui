@@ -45,7 +45,7 @@ describe('Buttons', () => {
     });
 
     it(`should render ${id}`, async ({ page }) => {
-      const button = page.locator('[class*="ButtonGroupWrapper"]');
+      const button = page.getByRole('group');
 
       await expect(button).toBeVisible({ timeout: 10_000 });
 
