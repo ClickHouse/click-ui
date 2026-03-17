@@ -74,8 +74,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       className={cn(buttonVariants({ type, align, fillWidth, loading }), className)}
       disabled={disabled || loading}
-      aria-disabled={disabled || loading}
-      aria-busy={loading}
+      aria-disabled={disabled || loading ? 'true' : undefined}
+      aria-busy={loading ? 'true' : undefined}
       {...delegated}
     >
       {iconLeft && (
