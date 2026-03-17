@@ -60,6 +60,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-primary-loading-light.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
 
@@ -71,6 +72,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-secondary-loading-light.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
 
@@ -82,6 +84,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-empty-loading-light.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
 
@@ -93,6 +96,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-danger-loading-light.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
     });
@@ -311,6 +315,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-primary-loading-dark.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
 
@@ -322,6 +327,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-secondary-loading-dark.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
 
@@ -333,6 +339,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-empty-loading-dark.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
 
@@ -344,6 +351,7 @@ describe('Button Visual Regression', () => {
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-danger-loading-dark.png', {
           maxDiffPixels: 100,
+          animations: 'disabled',
         });
       });
     });
