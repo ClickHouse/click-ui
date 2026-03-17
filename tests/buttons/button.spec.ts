@@ -244,15 +244,16 @@ describe('Button Visual Regression', () => {
         const button = page.getByRole('button');
         await expect(button).toBeVisible({ timeout: 10000 });
         const box = await button.boundingBox();
-        if (box) {
-          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-          await page.mouse.down();
-          await page.waitForTimeout(100);
-          await expect(button).toHaveScreenshot('button-primary-active-light.png', {
-            maxDiffPixels: 100,
-          });
-          await page.mouse.up();
+        if (!box) {
+          throw new Error('Button bounding box is null - element may not be in viewport');
         }
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await page.mouse.down();
+        await page.waitForTimeout(100);
+        await expect(button).toHaveScreenshot('button-primary-active-light.png', {
+          maxDiffPixels: 100,
+        });
+        await page.mouse.up();
       });
     });
   });
@@ -499,15 +500,16 @@ describe('Button Visual Regression', () => {
         const button = page.getByRole('button');
         await expect(button).toBeVisible({ timeout: 10000 });
         const box = await button.boundingBox();
-        if (box) {
-          await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-          await page.mouse.down();
-          await page.waitForTimeout(100);
-          await expect(button).toHaveScreenshot('button-primary-active-dark.png', {
-            maxDiffPixels: 100,
-          });
-          await page.mouse.up();
+        if (!box) {
+          throw new Error('Button bounding box is null - element may not be in viewport');
         }
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await page.mouse.down();
+        await page.waitForTimeout(100);
+        await expect(button).toHaveScreenshot('button-primary-active-dark.png', {
+          maxDiffPixels: 100,
+        });
+        await page.mouse.up();
       });
     });
   });
