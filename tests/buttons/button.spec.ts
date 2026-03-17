@@ -531,6 +531,7 @@ describe('Button Visual Regression', () => {
       const button = page.getByRole('button');
       await expect(button).toBeDisabled();
       await expect(button).toHaveAttribute('aria-disabled', 'true');
+      await expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
     it('keyboard navigation works', async ({ page }) => {
