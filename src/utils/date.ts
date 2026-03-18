@@ -1,4 +1,11 @@
 import dayjs, { Dayjs } from 'dayjs';
+// NOTE: Explicit `.js` extension in dayjs
+// to ensure strict ESM compatibility for
+// consumers using "type": "module".
+// E.g. if the package doesn’t define subpaths
+// in exports resolution would fail in ESM environments
+// TODO: Maybe create a vite plugin to detect
+// if a package has missing exports and add extension
 import advancedFormat from 'dayjs/plugin/advancedFormat.js';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import duration from 'dayjs/plugin/duration.js';
