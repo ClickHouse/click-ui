@@ -23,15 +23,11 @@ import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
 import { DateRangeListItem, datesAreWithinMaxRange, Meridiem } from './utils';
-import dayjs, { Dayjs } from 'dayjs';
+import { dayjs, Dayjs } from '@/utils/date';
 import { Tabs } from '../Tabs/Tabs';
 import { TextField } from '@/components/TextField';
 import { ButtonGroup } from '../ButtonGroup/ButtonGroup';
-
-import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Label } from '../Label/Label';
-
-dayjs.extend(customParseFormat);
 
 const calendarFullWidth = '258px';
 

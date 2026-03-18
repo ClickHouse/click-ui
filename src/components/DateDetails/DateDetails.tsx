@@ -1,12 +1,3 @@
-import dayjs, { Dayjs } from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat.js';
-import duration from 'dayjs/plugin/duration.js';
-import localizedFormat from 'dayjs/plugin/localizedFormat.js';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
-import timezone from 'dayjs/plugin/timezone.js';
-import updateLocale from 'dayjs/plugin/updateLocale.js';
-import utc from 'dayjs/plugin/utc.js';
-
 import { styled } from 'styled-components';
 
 import { Popover } from '@/components/Popover';
@@ -15,52 +6,7 @@ import { linkStyles, StyledLinkProps } from '@/components/Link/common';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';
 
-import { formatTimezone } from '@/utils/date';
-
-dayjs.extend(advancedFormat);
-dayjs.extend(duration);
-dayjs.extend(localizedFormat);
-dayjs.extend(timezone);
-dayjs.extend(updateLocale);
-dayjs.extend(utc);
-
-const thresholds = [
-  { l: 's', r: 1, d: 'second' },
-  { l: 'ss', r: 56, d: 'second' },
-  { l: 'm', r: 90, d: 'second' },
-  { l: 'mm', r: 55, d: 'minute' },
-  { l: 'h', r: 90, d: 'minute' },
-  { l: 'hh', r: 22, d: 'hour' },
-  { l: 'd', r: 40, d: 'hour' },
-  { l: 'dd', r: 31, d: 'day' },
-  { l: 'M', r: 45, d: 'day' },
-  { l: 'MM', r: 11, d: 'month' },
-  { l: 'y', r: 17, d: 'month' },
-  { l: 'yy', r: 2, d: 'year' },
-];
-
-dayjs.extend(relativeTime, { thresholds });
-
-dayjs.updateLocale('en', {
-  relativeTime: {
-    future: 'In %s',
-    past: '%s ago',
-    s: 'a few seconds',
-    ss: '%d seconds',
-    m: '1 minute',
-    mm: '%d minutes',
-    h: '1 hour',
-    hh: '%d hours',
-    d: '1 day',
-    dd: '%d days',
-    w: '1 week',
-    ww: '%d weeks',
-    M: '1 month',
-    MM: '%d months',
-    y: '1 year',
-    yy: '%d years',
-  },
-});
+import { dayjs, Dayjs, formatTimezone } from '@/utils/date';
 
 const UnderlinedTrigger = styled(Popover.Trigger)<StyledLinkProps>`
   ${linkStyles}
