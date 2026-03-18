@@ -1,5 +1,11 @@
 # @clickhouse/click-ui
 
+## 0.1.0-rc.80
+
+### Patch Changes
+
+- 56cb7f4: Consolidate dayjs imports and plugin configuration into `src/utils/date.ts`. The dayjs package does not declare exports for its plugins, requiring explicit `.js` extensions in ESM environments. Centralizing these imports ensures consistent usage across components.
+
 ## 0.1.0-rc.79
 
 ### Minor Changes
