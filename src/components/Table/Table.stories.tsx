@@ -130,6 +130,53 @@ const rowsLongTextTruncatedMiddle: TableRowType[] = [
   },
 ];
 
+const rowsLongTextWrap: TableRowType[] = [
+  {
+    id: 'row-1',
+    items: [
+      {
+        label:
+          'console.clickhouse.cloud_Archive.01-01-1975.lorem-ipsum-a-very-long-filename-01.csv',
+        overflowMode: 'truncated',
+      },
+      { label: 'system.query_log' },
+      { label: '2024-01-15 14:32:01' },
+    ],
+  },
+  {
+    id: 'row-2',
+    items: [
+      {
+        label:
+          'console.clickhouse.cloud_Export.15-03-2024.analytics-events-production-02.parquet',
+        overflowMode: 'wrap',
+      },
+      { label: 'default.events_local_v2_replica' },
+      { label: '2024-01-15 14:28:45' },
+    ],
+  },
+  {
+    id: 'row-3',
+    items: [
+      {
+        label:
+          'console.clickhouse.cloud_Backup.28-02-2024.user-sessions-aggregated-daily-03.csv.gz',
+        overflowMode: 'wrap',
+      },
+      { label: 'analytics.page_views_aggregated_daily_mv' },
+      { label: '2024-01-15 14:25:12' },
+    ],
+  },
+  {
+    id: 'row-4',
+    items: [
+      { label: 'data.csv', overflowMode: 'wrap' },
+      { label: 'users' },
+      { label: '2024-01-15 14:20:00' },
+    ],
+  },
+];
+
 const meta: Meta<typeof Table> = {
   component: Table,
   title: 'Display/Table',
@@ -256,6 +303,51 @@ export const LongText: StoryObj<typeof Table> = {
   args: {
     headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
     rows: rowsLongText,
+    mobileLayout: 'list',
+  },
+  render: ({ rows, headers, mobileLayout, ...props }) => {
+    const [sort, setSort] = useState<[number, 'asc' | 'desc']>([0, 'asc']);
+
+    const sortedHeaders = useMemo(
+      () =>
+        headers.map((header, headerIndex) => ({
+          ...header,
+          isSortable: true,
+          sortDir: sort[0] === headerIndex ? sort[1] : undefined,
+        })),
+      [headers, sort]
+    );
+
+    const sortedRows = useMemo(
+      () =>
+        [...rows].sort((a, b) => {
+          const [cellIdx, sortDir] = sort;
+          const cellA = a.items[cellIdx]?.label?.toString() || '';
+          const cellB = b.items[cellIdx]?.label?.toString() || '';
+          const result = cellA.localeCompare(cellB, 'en', { numeric: true });
+          return sortDir === 'asc' ? result : -result;
+        }),
+      [rows, sort]
+    );
+
+    return (
+      <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+        <Table
+          {...props}
+          headers={sortedHeaders}
+          rows={sortedRows}
+          mobileLayout={mobileLayout}
+          onSort={(dir, _, idx) => void setSort([idx, dir])}
+        />
+      </div>
+    );
+  },
+};
+
+export const LongTextWrap: StoryObj<typeof Table> = {
+  args: {
+    headers: [{ label: 'File' }, { label: 'Table' }, { label: 'Timestamp' }],
+    rows: rowsLongTextWrap,
     mobileLayout: 'list',
   },
   render: ({ rows, headers, mobileLayout, ...props }) => {
