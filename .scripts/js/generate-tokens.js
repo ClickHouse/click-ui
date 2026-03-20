@@ -1,7 +1,9 @@
 import { register } from '@tokens-studio/sd-transforms';
 import StyleDictionary from 'style-dictionary';
+import config from '../../src/theme/theme.config.json' with { type: 'json' };
 
 const themes = ['dark', 'light'];
+const THEME_DATA_ATTRIBUTE = `data-${config.storageKey}`;
 
 await register(StyleDictionary);
 
@@ -13,6 +15,38 @@ StyleDictionary.registerTransform({
       return [options.prefix].concat(token.path).join('.');
     } else {
       return token.path.join('.');
+    }
+  },
+});
+
+StyleDictionary.registerTransform({
+  type: 'name',
+  name: 'name/cti/kebab',
+  transform: (token, options) => {
+    if (options.prefix && options.prefix.length) {
+      return [options.prefix].concat(token.path).join('-');
+    } else {
+      return token.path.join('-');
+    }
+  },
+});
+
+StyleDictionary.registerFormat({
+  name: 'css/themed-variables',
+  format: function ({ dictionary, file }) {
+    const themeName = file.destination.replace('tokens-', '').replace('.css', '');
+    const tokens = dictionary.allTokens
+      .map(token => {
+        const varName = token.path.join('-');
+        const cleanValue = String(token.value).replace(/;+$/, '');
+        return `  --${varName}: ${cleanValue};`;
+      })
+      .join('\n');
+
+    if (themeName === 'light') {
+      return `:root,\n[${THEME_DATA_ATTRIBUTE}="light"] {\n${tokens}\n}`;
+    } else {
+      return `[${THEME_DATA_ATTRIBUTE}="dark"] {\n${tokens}\n}`;
     }
   },
 });
@@ -46,10 +80,7 @@ StyleDictionary.registerFormat({
 
 for (const theme of themes) {
   const sd = new StyleDictionary({
-    source: [
-      `./tokens/**/!(${themes.join('|')}).json`,
-      `./tokens/**/${theme}.json`,
-    ],
+    source: [`./tokens/**/!(${themes.join('|')}).json`, `./tokens/**/${theme}.json`],
     preprocessors: ['tokens-studio'],
     platforms: {
       ts: {
@@ -60,6 +91,17 @@ for (const theme of themes) {
           {
             destination: `variables.${theme}.ts`,
             format: 'typescript/es6-theme',
+          },
+        ],
+      },
+      css: {
+        transformGroup: 'tokens-studio',
+        transforms: ['name/cti/kebab'],
+        buildPath: 'src/theme/styles/',
+        files: [
+          {
+            destination: `tokens-${theme}.css`,
+            format: 'css/themed-variables',
           },
         ],
       },

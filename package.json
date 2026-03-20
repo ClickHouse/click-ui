@@ -10,7 +10,7 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": ["**/*.css", "**/*.module.css"],
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -410,6 +410,8 @@
     "@radix-ui/react-tabs": "1.1.1",
     "@radix-ui/react-toast": "1.2.2",
     "@radix-ui/react-tooltip": "1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
     "lodash-es": "^4.17.23",
     "react-sortablejs": "^6.1.4",
@@ -471,6 +473,7 @@
     "vite": "^7.3.0",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-externalize-deps": "^0.10.0",
+    "vite-plugin-static-copy": "^3.2.0",
     "vite-tsconfig-paths": "^6.0.5",
     "vitest": "^2.1.8",
     "watch": "^1.0.2"
