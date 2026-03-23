@@ -46,6 +46,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Build icons package
+        working-directory: packages/icons
+        run: yarn build
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
