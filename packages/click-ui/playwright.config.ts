@@ -5,6 +5,7 @@ const webServer = {
   url: "http://localhost:6006",
   reuseExistingServer: !process.env.CI,
   timeout: 120000,
+  cwd: import.meta.dirname,
 };
 
 export default defineConfig({

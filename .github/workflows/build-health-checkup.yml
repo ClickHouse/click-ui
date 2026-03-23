@@ -26,7 +26,9 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
+        working-directory: packages/click-ui
         run: yarn build
 
       - name: Build output health check
+        working-directory: packages/click-ui
         run: yarn build:health_check
