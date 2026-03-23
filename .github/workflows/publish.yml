@@ -89,6 +89,9 @@ jobs:
         run: corepack enable
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Build icons package
+        working-directory: packages/icons
+        run: yarn build
       - run: yarn test
         working-directory: packages/click-ui
       - run: yarn build

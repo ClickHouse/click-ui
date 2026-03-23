@@ -23,6 +23,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Build icons package
+        working-directory: packages/icons
+        run: yarn build
+
       - name: unit tests
         working-directory: packages/click-ui
         run: yarn test
