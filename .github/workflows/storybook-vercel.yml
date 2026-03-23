@@ -13,7 +13,7 @@ permissions:
 
 env:
   HUSKY: 0
-  STORYBOOK_BUILD_DIR: .storybook/out
+  STORYBOOK_BUILD_DIR: packages/click-ui/.storybook/out
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -50,6 +50,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Build Storybook
+        working-directory: packages/click-ui
         run: yarn storybook:build
 
       - name: Pull Vercel Environment Information
@@ -99,7 +100,7 @@ jobs:
         run: |
           COMMIT_MSG=$(git log -1 --format=%s)
 
-          if OUTPUT=$(.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
+          if OUTPUT=$(packages/click-ui/.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
             VERSION=$(echo "$OUTPUT" | awk '{print $1}')
             RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
             echo "🤖 Detected release commit for version $VERSION ($RELEASE_TYPE) will deploy..."
