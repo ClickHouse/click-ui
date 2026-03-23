@@ -10,6 +10,10 @@ vite.config.ts.timestamp*
 .storybook/out
 tmp/*
 
+# Workspace patterns
+packages/*/.storybook/out
+packages/*/dist
+
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
