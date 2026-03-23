@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Resize_Arrows_Vertical = (props: SVGAssetProps) => (
   <svg

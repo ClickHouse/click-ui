@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const List_Numbered = (props: SVGAssetProps) => (
   <svg

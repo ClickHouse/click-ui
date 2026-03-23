@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Crunchy_Bridge = (props: SVGAssetProps) => (
   <svg

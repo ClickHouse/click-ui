@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 export const Chevron_Right = (props: SVGAssetProps) => (
   <svg

@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const AWS_AURORA = (props: SVGAssetProps) => (
   <svg
