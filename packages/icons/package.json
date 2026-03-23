@@ -54,11 +54,11 @@
   "scripts": {
     "build": "vite build",
     "typecheck": "tsc --noEmit",
-    "convert:icon": ".scripts/convert-svg-to-react-component --type=icons",
-    "convert:logo": ".scripts/convert-svg-to-react-component --type=logos",
-    "convert:flag": ".scripts/convert-svg-to-react-component --type=flags",
-    "convert:payment": ".scripts/convert-svg-to-react-component --type=payments",
-    "convert:regenerate": ".scripts/convert-svg-to-react-component --regenerate"
+    "convert:icon": ".scripts/js/convert-svg-to-react-component --type=icons",
+    "convert:logo": ".scripts/js/convert-svg-to-react-component --type=logos",
+    "convert:flag": ".scripts/js/convert-svg-to-react-component --type=flags",
+    "convert:payment": ".scripts/js/convert-svg-to-react-component --type=payments",
+    "convert:regenerate": ".scripts/js/convert-svg-to-react-component --regenerate"
   },
   "peerDependencies": {
     "react": "^18.3.1 || ^19.0.0"
