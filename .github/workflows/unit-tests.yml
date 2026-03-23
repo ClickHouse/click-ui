@@ -24,4 +24,5 @@ jobs:
         run: yarn install --immutable
 
       - name: unit tests
+        working-directory: packages/click-ui
         run: yarn test
