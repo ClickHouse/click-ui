@@ -1,7 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import LogosLight from '@/components/Assets/Logos/system/LogosLight';
-import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
-import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
+import { LogosLight, FlagsLight, PaymentsLight } from '@clickhouse/icons';
 import { Icon } from '@/components/Icon';
 import { IconName, IconProps } from '@/components/Icon/Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';

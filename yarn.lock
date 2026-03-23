@@ -764,6 +764,7 @@ __metadata:
   resolution: "@clickhouse/click-ui@workspace:packages/click-ui"
   dependencies:
     "@changesets/cli": "npm:^2.29.8"
+    "@clickhouse/icons": "workspace:*"
     "@h6s/calendar": "npm:2.0.1"
     "@playwright/test": "npm:^1.57.0"
     "@radix-ui/react-accordion": "npm:1.2.12"
@@ -845,6 +846,20 @@ __metadata:
     react: ^18.3.1 || ^19.0.0
     react-dom: ^18.3.1 || ^19.0.0
     styled-components: ^6.1.11
+  languageName: unknown
+  linkType: soft
+
+"@clickhouse/icons@workspace:*, @clickhouse/icons@workspace:packages/icons":
+  version: 0.0.0-use.local
+  resolution: "@clickhouse/icons@workspace:packages/icons"
+  dependencies:
+    "@svgr/cli": "npm:^8.1.0"
+    "@types/react": "npm:18.3.1"
+    typescript: "npm:^5.5.3"
+    vite: "npm:^7.3.0"
+    vite-plugin-dts: "npm:^4.3.0"
+  peerDependencies:
+    react: ^18.3.1 || ^19.0.0
   languageName: unknown
   linkType: soft
 
