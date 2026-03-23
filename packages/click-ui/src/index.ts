@@ -32,6 +32,7 @@ export type {
   LogoProps,
   IconName,
   PaymentName,
+  PaymentProps,
 } from '@clickhouse/icons';
 
 // Re-export from @clickhouse/icons
