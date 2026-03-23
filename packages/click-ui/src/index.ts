@@ -25,7 +25,14 @@ export type { AlertProps } from './components/Alert';
 // Assets (Flags, Logos, Icons)
 export { Flag as Flags } from './components/Assets/Flags/system/Flag';
 export { Logo } from './components/Assets/Logos/system/Logo';
-export type { FlagName, FlagProps, LogoName, LogoProps, IconName, PaymentName } from '@clickhouse/icons';
+export type {
+  FlagName,
+  FlagProps,
+  LogoName,
+  LogoProps,
+  IconName,
+  PaymentName,
+} from '@clickhouse/icons';
 
 // Re-export from @clickhouse/icons
 export {
@@ -41,7 +48,13 @@ export {
   createAssetResolver,
   ASSET_NAME_MAPPINGS,
 } from '@clickhouse/icons';
-export type { ThemeName, AssetSize, SVGAssetProps, AssetAlias, AssetDeprecatedName } from '@clickhouse/icons';
+export type {
+  ThemeName,
+  AssetSize,
+  SVGAssetProps,
+  AssetAlias,
+  AssetDeprecatedName,
+} from '@clickhouse/icons';
 
 // AutoComplete
 export { AutoComplete } from './components/AutoComplete';
