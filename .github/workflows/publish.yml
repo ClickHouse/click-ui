@@ -63,10 +63,12 @@ jobs:
           git config user.name "GitHub Actions"
       - name: Bump package version (for version inputs)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
+        working-directory: packages/click-ui
         run: |
           npm pkg set version=$GITHUB_TAG
       - name: Generate prerelease version (for tag inputs)
         if: ${{ env.IS_VERSION_INPUT == 'false' }}
+        working-directory: packages/click-ui
         run: |
           # Get current version from package.json
           CURRENT_VERSION=$(node -p "require('./package.json').version")
@@ -110,7 +112,7 @@ jobs:
       - name: update package version (for version inputs only)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
-          git add package.json yarn.lock
+          git add packages/click-ui/package.json yarn.lock
           git commit -m 'bump version to ${{ env.GITHUB_TAG }}'
           git push
       - name: Create and push git tag (for version inputs only)
