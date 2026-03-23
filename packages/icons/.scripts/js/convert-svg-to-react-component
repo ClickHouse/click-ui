@@ -58,7 +58,10 @@ const ASSET_TYPES = {
 
 const getAssetType = (args) => {
   const typeFlag = args.find(arg => arg && arg.startsWith('--type='));
-
+  if (!typeFlag) {
+    console.error('👹 Oops! --type=<logos|icons|flags|payments> is required');
+    process.exit(1);
+  }
   const type = typeFlag.replace('--type=', '');
 
   if (typeof ASSET_TYPES[type] === 'undefined') {
