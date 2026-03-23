@@ -9,13 +9,13 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "build": "yarn workspaces foreach -A run build",
-    "test": "yarn workspaces foreach -A run test",
-    "lint": "yarn workspaces foreach -A run lint",
-    "lint:fix": "yarn workspaces foreach -A run lint:fix",
-    "format": "yarn workspaces foreach -A run format",
-    "format:fix": "yarn workspaces foreach -A run format:fix",
-    "typecheck": "yarn workspaces foreach -A run typecheck",
+    "build": "yarn workspaces foreach -A --topological run build",
+    "test": "yarn workspaces foreach -A --topological run test",
+    "lint": "yarn workspaces foreach -A --topological run lint",
+    "lint:fix": "yarn workspaces foreach -A --topological run lint:fix",
+    "format": "yarn workspaces foreach -A --topological run format",
+    "format:fix": "yarn workspaces foreach -A --topological run format:fix",
+    "typecheck": "yarn workspaces foreach -A --topological run typecheck",
     "prepare": "husky"
   },
   "devDependencies": {
