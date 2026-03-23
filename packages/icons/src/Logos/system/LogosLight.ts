@@ -150,4 +150,4 @@ const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
   warpstream: Warpstream,
 };
 
-export default LogosLight;
+export { LogosLight };

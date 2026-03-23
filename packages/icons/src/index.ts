@@ -9,20 +9,20 @@ export type { PaymentName, PaymentProps } from './Payments/system/types';
 export { default as Popover_Arrow } from './Icons/Popover-Arrow';
 
 // Icon registries
-export { default as IconsLight } from './Icons/system/IconsLight';
-export { default as IconsDark } from './Icons/system/IconsDark';
+export { IconsLight } from './Icons/system/IconsLight';
+export { IconsDark } from './Icons/system/IconsDark';
 
 // Logo registries
-export { default as LogosLight } from './Logos/system/LogosLight';
-export { default as LogosDark } from './Logos/system/LogosDark';
+export { LogosLight } from './Logos/system/LogosLight';
+export { LogosDark } from './Logos/system/LogosDark';
 
 // Flag registries
-export { default as FlagsLight } from './Flags/system/FlagsLight';
-export { default as FlagsDark } from './Flags/system/FlagsDark';
+export { FlagsLight } from './Flags/system/FlagsLight';
+export { FlagsDark } from './Flags/system/FlagsDark';
 
 // Payment registries
-export { default as PaymentsLight } from './Payments/system/PaymentsLight';
-export { default as PaymentsDark } from './Payments/system/PaymentsDark';
+export { PaymentsLight } from './Payments/system/PaymentsLight';
+export { PaymentsDark } from './Payments/system/PaymentsDark';
 
 // Config utilities
 export {
