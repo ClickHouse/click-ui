@@ -1,0 +1,77 @@
+{
+  "name": "@clickhouse/icons",
+  "version": "0.1.0",
+  "description": "ClickHouse SVG icons, logos, flags, and payment icons",
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./icons": {
+      "types": "./dist/types/Icons/index.d.ts",
+      "import": "./dist/esm/Icons/index.js",
+      "require": "./dist/cjs/Icons/index.cjs"
+    },
+    "./logos": {
+      "types": "./dist/types/Logos/index.d.ts",
+      "import": "./dist/esm/Logos/index.js",
+      "require": "./dist/cjs/Logos/index.cjs"
+    },
+    "./flags": {
+      "types": "./dist/types/Flags/index.d.ts",
+      "import": "./dist/esm/Flags/index.js",
+      "require": "./dist/cjs/Flags/index.cjs"
+    },
+    "./payments": {
+      "types": "./dist/types/Payments/index.d.ts",
+      "import": "./dist/esm/Payments/index.js",
+      "require": "./dist/cjs/Payments/index.cjs"
+    }
+  },
+  "keywords": [
+    "clickhouse",
+    "icons",
+    "logos",
+    "svg",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClickHouse/click-ui.git",
+    "directory": "packages/icons"
+  },
+  "homepage": "https://clickhouse.com",
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "convert:icon": ".scripts/js/convert-svg-to-react-component --type=icons",
+    "convert:logo": ".scripts/js/convert-svg-to-react-component --type=logos",
+    "convert:flag": ".scripts/js/convert-svg-to-react-component --type=flags",
+    "convert:payment": ".scripts/js/convert-svg-to-react-component --type=payments",
+    "convert:regenerate": ".scripts/js/convert-svg-to-react-component --regenerate"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@svgr/cli": "^8.1.0",
+    "@types/react": "18.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^7.3.0",
+    "vite-plugin-dts": "^4.3.0"
+  },
+  "packageManager": "yarn@4.5.3",
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
