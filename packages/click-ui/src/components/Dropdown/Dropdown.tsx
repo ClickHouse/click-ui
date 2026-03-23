@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { useInputModality } from '@/hooks/internal';
-import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { Popover_Arrow } from '@clickhouse/icons';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';

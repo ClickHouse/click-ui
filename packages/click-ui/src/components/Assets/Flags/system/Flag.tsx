@@ -2,14 +2,15 @@ import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import { getFallbackThemeName } from '@/theme/theme.utils';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
-import { FlagName, FlagProps } from './types';
 import {
+  FlagsLight,
+  FlagsDark,
   createAssetResolver,
+  type FlagName,
+  type FlagProps,
   type AssetAlias,
   type AssetDeprecatedName,
-} from '@/components/Assets/config';
-import FlagsDark from './FlagsDark';
-import FlagsLight from './FlagsLight';
+} from '@clickhouse/icons';
 
 const resolveFlagName = createAssetResolver<FlagName>();
 

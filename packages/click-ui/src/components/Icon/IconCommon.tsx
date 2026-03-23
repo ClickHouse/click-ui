@@ -1,4 +1,4 @@
-import IconsLight from '@/components/Assets/Icons/system/IconsLight';
+import { IconsLight } from '@clickhouse/icons';
 
 export const ICON_NAMES = Object.keys(IconsLight) as (keyof typeof IconsLight)[];
 

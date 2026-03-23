@@ -2,14 +2,15 @@ import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
 import { getFallbackThemeName } from '@/theme/theme.utils';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
-import { PaymentName, PaymentProps } from './types';
 import {
+  PaymentsLight,
+  PaymentsDark,
   createAssetResolver,
+  type PaymentName,
+  type PaymentProps,
   type AssetAlias,
   type AssetDeprecatedName,
-} from '@/components/Assets/config';
-import PaymentsDark from './PaymentsDark';
-import PaymentsLight from './PaymentsLight';
+} from '@clickhouse/icons';
 
 const resolvePaymentName = createAssetResolver<PaymentName>();
 

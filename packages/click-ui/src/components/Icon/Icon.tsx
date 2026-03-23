@@ -3,14 +3,16 @@ import type { AssetSize } from '@/types';
 import { IconName, IconProps, IconState, ImageType } from './Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Flag } from '@/components/Assets/Flags/system/Flag';
-import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
-import { FlagName } from '@/components/Assets/Flags/system/types';
 import { Logo } from '@/components/Assets/Logos/system/Logo';
-import LogosLight from '@/components/Assets/Logos/system/LogosLight';
-import { LogoName } from '@/components/Assets/Logos/system/types';
 import { Payment } from '@/components/Assets/Payments/system/Payment';
-import { PaymentName } from '@/components/Assets/Payments/system/types';
-import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
+import {
+  FlagsLight,
+  LogosLight,
+  PaymentsLight,
+  type FlagName,
+  type LogoName,
+  type PaymentName,
+} from '@clickhouse/icons';
 
 const SVGIcon = ({
   name,
