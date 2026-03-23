@@ -62,4 +62,26 @@ describe('FileTabs', () => {
     fireEvent.click(tabElement);
     expect(onSelect).toBeCalledTimes(1);
   });
+
+  it('Close Button should only be visible on hover', () => {
+    const { getByTestId } = renderTabs({});
+    const closeButton = getByTestId('tab-element-0-close');
+    expect(closeButton).toHaveAttribute('data-type', 'close');
+  });
+
+  it('The indicator disappears on hover', () => {
+    const { getByTestId } = renderTabs({ status: 'warning' });
+    const indicator = getByTestId('tab-element-0-status');
+    expect(indicator).toHaveAttribute('data-indicator', 'warning');
+  });
+
+  it('Close btn calls the onClose correctly', () => {
+    const { getByTestId } = renderTabs({});
+    const closeButton = getByTestId('tab-element-1-close');
+
+    fireEvent.click(closeButton);
+
+    expect(onClose).toBeCalledTimes(1);
+    expect(onClose).toBeCalledWith(1);
+  });
 });
