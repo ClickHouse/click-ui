@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 // TODO: Can this logo have a base and extend it?
 // Check this separately, see OVH.tsx

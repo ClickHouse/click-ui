@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Mastercard = (props: SVGAssetProps) => (
   <svg

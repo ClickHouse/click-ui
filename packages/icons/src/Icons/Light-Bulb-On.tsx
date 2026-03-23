@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Light_Bulb_On = (props: SVGAssetProps) => (
   <svg

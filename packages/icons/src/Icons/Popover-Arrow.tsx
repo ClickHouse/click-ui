@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Popover_Arrow = (props: SVGAssetProps) => {
   return (

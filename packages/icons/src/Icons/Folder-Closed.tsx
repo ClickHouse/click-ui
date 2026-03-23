@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Folder_Closed = (props: SVGAssetProps) => (
   <svg

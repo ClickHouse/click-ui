@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Code_In_Square = (props: SVGAssetProps) => (
   <svg

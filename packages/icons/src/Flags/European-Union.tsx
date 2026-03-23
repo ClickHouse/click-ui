@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const EuropeanUnion = (props: SVGAssetProps): React.ReactElement => (
   <svg

@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const RustBase = ({ theme, ...props }: SVGAssetProps) => {
   const color = theme === 'dark' ? 'white' : '#161517';

@@ -1,4 +1,4 @@
-import type { SVGAssetProps } from '../types';
+import type { SVGAssetProps } from '@/types';
 
 const Lifebuoy = (props: SVGAssetProps) => (
   <svg
