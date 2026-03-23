@@ -88,7 +88,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - run: yarn test
+        working-directory: packages/click-ui
       - run: yarn build
+        working-directory: packages/click-ui
       - name: Determine npm tag
         run: |
           # If it's a version input (e.g., 0.0.242 or 0.0.242-beta.1), check for prerelease keywords
@@ -103,6 +105,7 @@ jobs:
             echo "NPM_TAG=$GITHUB_TAG" >> "$GITHUB_ENV"
           fi
       - name: Publish to npm with OIDC
+        working-directory: packages/click-ui
         run: npm publish --access public --tag $NPM_TAG --provenance
       - name: update package version (for version inputs only)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
