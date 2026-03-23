@@ -152,4 +152,4 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   warpstream: Warpstream,
 };
 
-export default LogosDark;
+export { LogosDark };

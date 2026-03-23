@@ -20,4 +20,4 @@ const PaymentsDark: Record<PaymentName, ComponentType<SVGAssetProps>> = {
   visa: Visa,
 };
 
-export default PaymentsDark;
+export { PaymentsDark };

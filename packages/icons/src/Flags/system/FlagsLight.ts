@@ -54,4 +54,4 @@ const FlagsLight: Record<FlagName, ComponentType<SVGAssetProps>> = {
   'united-states': United_States,
 };
 
-export default FlagsLight;
+export { FlagsLight };
