@@ -18,6 +18,7 @@ You can find the official docs for the Click UI design system and component libr
 ## Overview
 
 * [Requirements](#requirements)
+* [Browser Support](#browser-support)
 * [Quick Start](#quick-start)
 * [Development](#development)
   - [Generating design tokens](#generating-design-tokens)
@@ -55,6 +56,30 @@ You can find the official docs for the Click UI design system and component libr
 
 - Nodejs (>= 22.12.x) as runtime
 - Yarn (>= 4.5.3) for development, any other package manager in a host project
+
+## Browser Support
+
+Click UI targets modern browsers from the last 4 years with significant market share (>0.5%). This ensures broad compatibility while allowing the use of modern CSS features.
+
+| Browser | Minimum Version |
+|---------|-----------------|
+| Chrome | 100+ |
+| Edge | 100+ |
+| Firefox | 99+ |
+| Safari | 15.5+ |
+| iOS Safari | 15.5+ |
+| Samsung Internet | 17+ |
+| Opera | 86+ |
+
+The following browsers are explicitly **not supported** due to limited CSS feature support:
+- QQ Browser
+- Baidu Browser
+- UC Browser
+- KaiOS Browser
+- Opera Mini
+
+> [!NOTE]
+> The browser support list is defined in `.browserslistrc` and enforced via CSS linting during development. CSS features that aren't supported by the target browsers will trigger linting errors.
 
 ## Quick Start
 
