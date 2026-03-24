@@ -1,5 +1,2 @@
-# Browsers from 2020 and later
-Chrome >= 80
-Firefox >= 73
-Safari >= 13
-Edge >= 80
+# NOTE: Percentage's to avoid very obscure browsers
+last 4 years, > 0.5%
