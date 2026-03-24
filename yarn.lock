@@ -634,6 +634,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@clickhouse/design-tokens@workspace:packages/design-tokens":
+  version: 0.0.0-use.local
+  resolution: "@clickhouse/design-tokens@workspace:packages/design-tokens"
+  languageName: unknown
+  linkType: soft
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
