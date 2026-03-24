@@ -11,7 +11,7 @@
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://conventionalcommits.org)
 
-This is the official monorepo for Click UI, the ClickHouse design system and component library.
+This is the official monorepo for Click UI, the ClickHouse design system's component library.
 
 You can find the official docs for the Click UI design system and component library at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
@@ -49,6 +49,20 @@ click-ui/
 
 ## Quick Start
 
+### Development
+
+The project uses yarn package manager for development.
+
+After cloning the repository change to the work directory and install the dependencies:
+
+```sh
+yarn
+```
+
+For detailed development instructions, see [libs/click-ui/README.md](./libs/click-ui/README.md#development).
+
+### Consumer Apps
+
 Install the package via npm or your favourite package manager:
 
 ```sh
@@ -71,18 +85,6 @@ function App() {
 ```
 
 For more examples, including theme switching and configuration, see [libs/click-ui/README.md](./libs/click-ui/README.md#quick-start).
-
-## Development
-
-The project uses yarn package manager for development.
-
-After cloning the repository change to the work directory and install the dependencies:
-
-```sh
-yarn
-```
-
-For detailed development instructions, see [libs/click-ui/README.md](./libs/click-ui/README.md#development).
 
 ## Contributing
 
