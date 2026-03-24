@@ -14,7 +14,6 @@
   font: var(--click-button-basic-typography-label-default);
   white-space: nowrap;
   cursor: pointer;
-  transition: font var(--click-transition-default);
 }
 
 .button--align-center {
