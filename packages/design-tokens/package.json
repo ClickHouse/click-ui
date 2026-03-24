@@ -20,8 +20,8 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/tokens.css",
-      "require": "./dist/tokens.css"
+      "style": "./dist/tokens.css",
+      "default": "./dist/tokens.css"
     }
   }
 }
