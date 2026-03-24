@@ -21,6 +21,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Project Structure](#project-structure)
 * [Packages](#packages)
 * [Quick Start](#quick-start)
+  - [Development](#development)
+  - [Consumer apps](#consumer-apps)
 * [Development](#development)
 * [Contributing](#contributing)
 * [Monorepo Architecture](#monorepo-architecture)
