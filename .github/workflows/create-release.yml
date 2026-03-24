@@ -114,8 +114,8 @@ jobs:
           CURRENT_TAG="N/A"
           IS_PRERELEASE="false"
 
-          if [[ -f packages/click-ui/.changeset/pre.json ]]; then
-            CURRENT_TAG=$(node -p "require('./packages/click-ui/.changeset/pre.json').tag")
+          if [[ -f libs/click-ui/.changeset/pre.json ]]; then
+            CURRENT_TAG=$(node -p "require('./libs/click-ui/.changeset/pre.json').tag")
             IS_PRERELEASE="true"
             echo "prerelease=true" >> $GITHUB_OUTPUT
             echo "current_tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
@@ -131,7 +131,7 @@ jobs:
       - name: Prevent promotion without changes
         if: steps.check-prerelease.outputs.prerelease == 'true' && steps.check-prerelease.outputs.current_tag != inputs.release_type
         run: |
-          CHANGESET_COUNT=$(find packages/click-ui/.changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
+          CHANGESET_COUNT=$(find libs/click-ui/.changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
           echo "🔍 Debug: changeset_count=$CHANGESET_COUNT"
 
           if [[ "$CHANGESET_COUNT" -eq 0 ]]; then
@@ -201,8 +201,8 @@ jobs:
             exit 1
           fi
 
-          VERSION=$(node -p "require('./packages/click-ui/package.json').version")
-          PKG_NAME=$(node -p "require('./packages/click-ui/package.json').name")
+          VERSION=$(node -p "require('./libs/click-ui/package.json').version")
+          PKG_NAME=$(node -p "require('./libs/click-ui/package.json').name")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
 
@@ -249,7 +249,7 @@ jobs:
         run: |
           # WARNING: This is coupled with a verify release commit
           # if you need to modify, apply the changes accordingly
-          COMMIT_TITLE=$(packages/click-ui/.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
+          COMMIT_TITLE=$(libs/click-ui/.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
 
           echo "title=$COMMIT_TITLE" >> $GITHUB_OUTPUT
           echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT

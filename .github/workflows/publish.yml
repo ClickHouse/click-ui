@@ -63,12 +63,12 @@ jobs:
           git config user.name "GitHub Actions"
       - name: Bump package version (for version inputs)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: |
           npm pkg set version=$GITHUB_TAG
       - name: Generate prerelease version (for tag inputs)
         if: ${{ env.IS_VERSION_INPUT == 'false' }}
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: |
           # Get current version from package.json
           CURRENT_VERSION=$(node -p "require('./package.json').version")
@@ -93,9 +93,9 @@ jobs:
         working-directory: packages/icons
         run: yarn build
       - run: yarn test
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
       - run: yarn build
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
       - name: Determine npm tag
         run: |
           # If it's a version input (e.g., 0.0.242 or 0.0.242-beta.1), check for prerelease keywords
@@ -110,12 +110,12 @@ jobs:
             echo "NPM_TAG=$GITHUB_TAG" >> "$GITHUB_ENV"
           fi
       - name: Publish to npm with OIDC
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: npm publish --access public --tag $NPM_TAG --provenance
       - name: update package version (for version inputs only)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
-          git add packages/click-ui/package.json yarn.lock
+          git add libs/click-ui/package.json yarn.lock
           git commit -m 'bump version to ${{ env.GITHUB_TAG }}'
           git push
       - name: Create and push git tag (for version inputs only)

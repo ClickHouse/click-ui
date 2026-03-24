@@ -27,17 +27,17 @@ jobs:
         run: yarn build
 
       - name: Typecheck
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn typecheck
 
       - name: Linter
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn lint
 
       - name: Formatter
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn format
 
       - name: Circular Dependencies
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn circular-dependency:check

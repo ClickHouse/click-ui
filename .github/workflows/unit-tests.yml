@@ -28,5 +28,5 @@ jobs:
         run: yarn build
 
       - name: unit tests
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn test
