@@ -46,9 +46,6 @@ You can find the official docs for the Click UI design system and component libr
   - [Checking the changeset status](#checking-the-changeset-status)
   - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
 * [Release](#release)
-* [Contributing](#contributing)
-  - [Component RFC](#component-rfc)
-  - [Conventional commits](#conventional-commits)
 
 ## Requirements
 
@@ -542,43 +539,3 @@ Releases are automated via GitHub Actions. A workflow creates a PR with version 
 Use the [Create a new release Pull Request](./docs/package-release.md#create-a-new-release-pull-request) for a quick automated process.
 
 See [Package Release](./docs/package-release.md) for detailed instructions, including use-cases.
-
-### Component RFC
-
-To propose a new component, open an RFC using the [Component RFC template](https://github.com/ClickHouse/click-ui/compare/main...branchName?template=component_rfc.md).
-
-> [!NOTE]
-> Replace the <branchName> in the Component RFC template URL by your branch name.
-
-For example, to open a Component RFC for branch name `feat/slider`, you'd open the URL:
-
-```sh
-https://github.com/ClickHouse/click-ui/compare/main...feat/slider?template=component_rfc.md
-```
-
-For GitHub CLI users:
-
-```sh
-gh pr create --template component_rfc.md
-```
-
-### Conventional commits
-
-We prefer to commit our work following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) conventions. Conventional Commits are a simple way to write commit messages that both people and computers can understand. It help us keep track fo changes in a consistent manner, making it easier to see what was added, changed, or fixed in each commit or update.
-
-The commit messages are formatted as **[type]/[scope]**
-The **type** is a short descriptor indicating the nature of the work (e.g., feat, fix, docs, style, refactor, test, chore). This follows the conventional commit types.
-
-The **scope** is a more detailed description of the feature or fix. This could be the component or part of the codebase affected by the change.
-
-Here's an example of different conventional commits messages that you must follow:
-
-```txt
-test: 💍 Adding missing tests
-feat: 🎸 A new feature
-fix: 🐛 A bug fix
-chore: 🤖 Build process or auxiliary tool changes
-docs: 📝 Documentation only changes
-refactor: 💡 A code change that neither fixes a bug or adds a feature
-style: 💄 Markup, white-space, formatting, missing semi-colons...
-```
