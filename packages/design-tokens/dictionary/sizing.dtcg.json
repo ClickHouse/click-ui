@@ -1,0 +1,70 @@
+{
+  "sizing": {
+    "icon": {
+      "xs": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "12px, icon-xs, extra-small, 0.75rem, tiny-icon, micro"
+      },
+      "sm": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "16px, icon-sm, small, 1rem, compact-icon, dense"
+      },
+      "md": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "20px, icon-md, medium, 1.25rem, standard-icon, default"
+      },
+      "lg": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "24px, icon-lg, large, 1.5rem, prominent-icon, spacious"
+      },
+      "xl": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "32px, icon-xl, extra-large, 2rem, feature-icon, large"
+      }
+    },
+    "component": {
+      "xs": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "24px, comp-xs, component-xs, extra-small, 1.5rem, tiny-component, micro"
+      },
+      "sm": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "32px, comp-sm, component-sm, small, 2rem, compact-component, tight"
+      },
+      "md": {
+        "$type": "number",
+        "$value": 40,
+        "$description": "40px, comp-md, component-md, medium, 2.5rem, standard-component, default"
+      },
+      "lg": {
+        "$type": "number",
+        "$value": 48,
+        "$description": "48px, comp-lg, component-lg, large, 3rem, roomy-component, relaxed"
+      },
+      "xl": {
+        "$type": "number",
+        "$value": 64,
+        "$description": "64px, comp-xl, component-xl, extra-large, 4rem, spacious-component, generous"
+      }
+    },
+    "stroke": {
+      "default": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "1px, default stroke/border width"
+      },
+      "emphasis": {
+        "$type": "number",
+        "$value": 2,
+        "$description": "2px, emphasis, strong, selected"
+      }
+    }
+  }
+}
