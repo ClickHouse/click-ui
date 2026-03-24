@@ -23,5 +23,13 @@
       "style": "./dist/tokens.css",
       "default": "./dist/tokens.css"
     }
+  },
+  "scripts": {
+    "tokens:build": "tz build",
+    "tokens:watch": "tz build --watch"
+  },
+  "devDependencies": {
+    "@terrazzo/cli": "^2.0.0",
+    "@terrazzo/plugin-css": "^2.0.0"
   }
 }
