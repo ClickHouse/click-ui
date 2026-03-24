@@ -29,7 +29,7 @@ export default {
         ],
       },
     ],
-    // NOTE: Browser compatibility warnings for 2020 browsers
+    // NOTE: Browser compatibility warnings (see .browserlistrc)
     'plugin/no-unsupported-browser-features': [
       true,
       {
