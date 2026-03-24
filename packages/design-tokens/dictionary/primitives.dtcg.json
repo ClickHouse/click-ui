@@ -1,0 +1,924 @@
+{
+  "color": {
+    "white": {
+      "$type": "color",
+      "$value": "#ffffff",
+      "$description": "Pure white"
+    },
+    "transparent": {
+      "$type": "color",
+      "$value": "rgba(0,0,0,0)",
+      "$description": "Fully transparent"
+    },
+    "gray": {
+      "50": {
+        "$type": "color",
+        "$value": "#f6f7fa",
+        "$description": "Subtle surface"
+      },
+      "75": {
+        "$type": "color",
+        "$value": "#eaebee",
+        "$description": "Gray 75 - muted border light"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#e6e7e9",
+        "$description": "Default border"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#cccfd3",
+        "$description": "Active / strong border"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#dfdfdf",
+        "$description": "Disabled background"
+      },
+      "350": {
+        "$type": "color",
+        "$value": "#c0c0c0",
+        "$description": "Disabled border (checkbox)"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#a0a0a0",
+        "$description": "Disabled text"
+      },
+      "450": {
+        "$type": "color",
+        "$value": "#9a9ea7",
+        "$description": "Placeholder text"
+      },
+      "470": {
+        "$type": "color",
+        "$value": "#808691",
+        "$description": "Table checkbox border"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#696e79",
+        "$description": "Subtle text, muted icons"
+      },
+      "550": {
+        "$type": "color",
+        "$value": "#53575f",
+        "$description": "Neutral / muted text"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#505050",
+        "$description": "Button group text"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#606060",
+        "$description": "Neutral badge solid bg"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#b3b6bd",
+        "$description": "Muted border variant"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#302e32",
+        "$description": "Primary action background"
+      },
+      "805": {
+        "$type": "color",
+        "$value": "#2a2830",
+        "$description": "Gray 805 - hover state dark (lch normalized)"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#282828",
+        "$description": "Codeblock dark bg (fixed, not theme-aware)"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#1f1f1c",
+        "$description": "Stepper complete / active stroke (warm near-black)"
+      },
+      "950": {
+        "$type": "color",
+        "$value": "#161517",
+        "$description": "Primary text, near-black"
+      },
+      "1000": {
+        "$type": "color",
+        "$value": "#151515",
+        "$description": "Card / horizontal active stroke"
+      },
+      "1025": {
+        "$type": "color",
+        "$value": "#1c1c1e",
+        "$description": "Gray 1025 - darkest surface tone"
+      },
+      "1050": {
+        "$type": "color",
+        "$value": "#1e1e20",
+        "$description": "Gray 1050 - dark surface tone"
+      },
+      "1100": {
+        "$type": "color",
+        "$value": "#232325",
+        "$description": "Gray 1100 - dark surface tone"
+      },
+      "1150": {
+        "$type": "color",
+        "$value": "#2a2a2c",
+        "$description": "Gray 1150 - dark surface tone"
+      },
+      "1200": {
+        "$type": "color",
+        "$value": "#2f2f31",
+        "$description": "Gray 1200 - dark surface tone"
+      },
+      "1250": {
+        "$type": "color",
+        "$value": "#333335",
+        "$description": "Gray 1250 - dark surface tone"
+      },
+      "1300": {
+        "$type": "color",
+        "$value": "#3a3a3c",
+        "$description": "Gray 1300 - border tone for dark mode"
+      },
+      "1350": {
+        "$type": "color",
+        "$value": "#4a4a4c",
+        "$description": "Gray 1350 - border tone for dark mode"
+      },
+      "1500": {
+        "$type": "color",
+        "$value": "#e8e7ea",
+        "$description": "Gray 1500 - light text tone for dark mode"
+      },
+      "1550": {
+        "$type": "color",
+        "$value": "#e0dfe4",
+        "$description": "Gray 1550 - light text tone for dark mode"
+      },
+      "1600": {
+        "$type": "color",
+        "$value": "#c8c7cc",
+        "$description": "Gray 1600 - light text tone for dark mode"
+      },
+      "1650": {
+        "$type": "color",
+        "$value": "#b0afb4",
+        "$description": "Gray 1650 - light text tone for dark mode"
+      },
+      "1700": {
+        "$type": "color",
+        "$value": "#9a9ea7",
+        "$description": "Gray 1700 - light text tone for dark mode"
+      },
+      "1750": {
+        "$type": "color",
+        "$value": "#808388",
+        "$description": "Gray 1750 - light text tone for dark mode"
+      },
+      "1800": {
+        "$type": "color",
+        "$value": "#6e7178",
+        "$description": "Gray 1800 - light text tone for dark mode"
+      },
+      "1850": {
+        "$type": "color",
+        "$value": "#606060",
+        "$description": "Gray 1850 - light text tone for dark mode"
+      }
+    },
+    "off-white": {
+      "$type": "color",
+      "$value": "#fbfcff",
+      "$description": "Input field off-white background"
+    },
+    "format": {
+      "$type": "color",
+      "$value": "#a8b2c4",
+      "$description": "Field / menu format indicator (lch(71.998…) normalised)"
+    },
+    "blue": {
+      "50": {
+        "$type": "color",
+        "$value": "rgba(67,126,239,0.10)",
+        "$description": "Info / interactive tinted bg"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#d0dffb",
+        "$description": "Info hover background"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#a1bef7",
+        "$description": "Info active background"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#437eef",
+        "$description": "Accent / link / info text"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#104ec6",
+        "$description": "Accent hover / link hover"
+      },
+      "select": {
+        "$type": "color",
+        "$value": "#e7effd",
+        "$description": "Data grid / table selection tint (solid)"
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#6fa0f4",
+        "$description": "Blue light - for dark mode visibility"
+      },
+      "lighter": {
+        "$type": "color",
+        "$value": "#437eef",
+        "$description": "Blue lighter - for dark mode visibility"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": "rgba(67,126,239,0.15)",
+          "$description": "Blue 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": "rgba(67,126,239,0.20)",
+          "$description": "Blue 20% opacity"
+        }
+      }
+    },
+    "red": {
+      "30": {
+        "$type": "color",
+        "$value": "rgba(193,0,0,0.05)",
+        "$description": "Danger very subtle stroke"
+      },
+      "50": {
+        "$type": "color",
+        "$value": "rgba(193,0,0,0.10)",
+        "$description": "Danger tinted bg"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "rgba(193,0,0,0.20)",
+        "$description": "Danger hover bg"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "rgba(193,0,0,0.30)",
+        "$description": "Danger active bg"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#c10000",
+        "$description": "Danger text, icon, solid bg"
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#e85555",
+        "$description": "Red light - for dark mode error text"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": "rgba(193,0,0,0.15)",
+          "$description": "Red 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": "rgba(193,0,0,0.20)",
+          "$description": "Red 20% opacity"
+        },
+        "25": {
+          "$type": "color",
+          "$value": "rgba(193,0,0,0.25)",
+          "$description": "Red 25% opacity"
+        },
+        "35": {
+          "$type": "color",
+          "$value": "rgba(193,0,0,0.35)",
+          "$description": "Red 35% opacity"
+        }
+      }
+    },
+    "green": {
+      "50": {
+        "$type": "color",
+        "$value": "rgba(0,138,11,0.10)",
+        "$description": "Success tinted bg"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#008a0b",
+        "$description": "Success text"
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#00b30e",
+        "$description": "Green light - for dark mode success text"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": "rgba(0,138,11,0.15)",
+          "$description": "Green 15% opacity"
+        }
+      }
+    },
+    "orange": {
+      "50": {
+        "$type": "color",
+        "$value": "rgba(214,79,0,0.10)",
+        "$description": "Warning tinted bg"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#d64f00",
+        "$description": "Warning solid badge bg"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#a33c00",
+        "$description": "Warning text"
+      },
+      "light": {
+        "$type": "color",
+        "$value": "#ff6a1a",
+        "$description": "Orange light - for dark mode warning"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": "rgba(214,79,0,0.15)",
+          "$description": "Orange 15% opacity"
+        }
+      }
+    },
+    "neutral": {
+      "50": {
+        "$type": "color",
+        "$value": "rgba(105,110,121,0.10)",
+        "$description": "Neutral tinted bg"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": "rgba(105,110,121,0.15)",
+          "$description": "Neutral 15% opacity"
+        }
+      }
+    },
+    "shadow": {
+      "default": {
+        "$type": "color",
+        "$value": "rgba(0,0,0,0.15)",
+        "$description": "Box shadow colour"
+      },
+      "opacity": {
+        "30": {
+          "$type": "color",
+          "$value": "rgba(0,0,0,0.30)",
+          "$description": "Shadow 30% opacity"
+        },
+        "80": {
+          "$type": "color",
+          "$value": "rgba(0,0,0,0.80)",
+          "$description": "Shadow 80% opacity"
+        },
+        "90": {
+          "$type": "color",
+          "$value": "rgba(0,0,0,0.90)",
+          "$description": "Shadow 90% opacity"
+        }
+      }
+    },
+    "scrim": {
+      "heavy": {
+        "$type": "color",
+        "$value": "rgba(0,0,0,0.75)",
+        "$description": "Dialog overlay scrim"
+      },
+      "tooltip": {
+        "$type": "color",
+        "$value": "rgba(0,0,0,0.85)",
+        "$description": "Tooltip dark scrim bg"
+      }
+    },
+    "format-light": {
+      "$type": "color",
+      "$value": "#6e7a8a",
+      "$description": "Format color for dark backgrounds"
+    },
+    "brand": {
+      "50": {
+        "$type": "color",
+        "$value": "#ffffe8",
+        "$description": "Brand lightest, yellow-50"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FEFFC2",
+        "$description": "Brand light, yellow-100"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#fdffa3",
+        "$description": "Brand light-medium, yellow-200"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#FAFF69",
+        "$description": "Brand medium-light, yellow-300"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#eef400",
+        "$description": "Brand vibrant, yellow-400"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#C7CC00",
+        "$description": "Brand medium, yellow-500"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#959900",
+        "$description": "Brand medium-dark, yellow-600"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#686B00",
+        "$description": "Brand dark, yellow-700"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#3C4601",
+        "$description": "Brand darker, yellow-800"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#333300",
+        "$description": "Brand darkest, yellow-900"
+      },
+      "base": {
+        "$type": "color",
+        "$value": "#fbff46",
+        "$description": "ClickHouse signature brand yellow"
+      }
+    },
+    "indigo": {
+      "50": {
+        "$type": "color",
+        "$value": "#f4f1fc",
+        "$description": "Indigo lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#e4e2e9",
+        "$description": "Indigo light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#c8c5d3",
+        "$description": "Indigo light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#ada8bd",
+        "$description": "Indigo medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#918ba7",
+        "$description": "Indigo medium"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#766e91",
+        "$description": "Indigo medium-dark"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#5e5874",
+        "$description": "Indigo dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#474257",
+        "$description": "Indigo darker"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#23212c",
+        "$description": "Indigo deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#18161d",
+        "$description": "Indigo darkest"
+      },
+      "base": {
+        "$type": "color",
+        "$value": "#2f2c3a",
+        "$description": "Indigo base"
+      }
+    },
+    "teal": {
+      "50": {
+        "$type": "color",
+        "$value": "#E6FEFA",
+        "$description": "Teal lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#CFFCF4",
+        "$description": "Teal light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#A3FAEC",
+        "$description": "Teal light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#6DF8E1",
+        "$description": "Teal medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#0CEDC8",
+        "$description": "Teal vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#0BD0AF",
+        "$description": "Teal medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#089B83",
+        "$description": "Teal medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#067462",
+        "$description": "Teal dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#045245",
+        "$description": "Teal darker"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#004237",
+        "$description": "Teal deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#03352D",
+        "$description": "Teal darkest"
+      }
+    },
+    "violet": {
+      "50": {
+        "$type": "color",
+        "$value": "#F6E5FF",
+        "$description": "Violet lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#EECCFF",
+        "$description": "Violet light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#DD99FF",
+        "$description": "Violet light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#CC66FF",
+        "$description": "Violet medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#BB33FF",
+        "$description": "Violet vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#AA00FF",
+        "$description": "Violet medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#8800CC",
+        "$description": "Violet medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#660099",
+        "$description": "Violet dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#440066",
+        "$description": "Violet darker"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#33004D",
+        "$description": "Violet deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#220033",
+        "$description": "Violet darkest"
+      }
+    },
+    "fuchsia": {
+      "50": {
+        "$type": "color",
+        "$value": "#FBEFF8",
+        "$description": "Fuchsia lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FBC9EF",
+        "$description": "Fuchsia light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FB97E2",
+        "$description": "Fuchsia light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#FB64D6",
+        "$description": "Fuchsia medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#FB32C9",
+        "$description": "Fuchsia vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#FB00BC",
+        "$description": "Fuchsia medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#CC0099",
+        "$description": "Fuchsia medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#990073",
+        "$description": "Fuchsia dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#66004D",
+        "$description": "Fuchsia darker"
+      },
+      "850": {
+        "$type": "color",
+        "$value": "#4D0039",
+        "$description": "Fuchsia deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#330026",
+        "$description": "Fuchsia darkest"
+      }
+    },
+    "sunrise": {
+      "50": {
+        "$type": "color",
+        "$value": "#FFF3CC",
+        "$description": "Sunrise lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFE799",
+        "$description": "Sunrise light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FFDB66",
+        "$description": "Sunrise light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#FFCF33",
+        "$description": "Sunrise medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#FFC300",
+        "$description": "Sunrise vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#E0AC00",
+        "$description": "Sunrise medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#B28800",
+        "$description": "Sunrise medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#8A6900",
+        "$description": "Sunrise dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#574200",
+        "$description": "Sunrise darker"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#332700",
+        "$description": "Sunrise darkest"
+      }
+    },
+    "babyblue": {
+      "50": {
+        "$type": "color",
+        "$value": "#DBFAFF",
+        "$description": "Babyblue lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#BDF6FF",
+        "$description": "Babyblue light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#8AEFFF",
+        "$description": "Babyblue light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#33E4FF",
+        "$description": "Babyblue medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#00CBEB",
+        "$description": "Babyblue vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#00B5D1",
+        "$description": "Babyblue medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#008599",
+        "$description": "Babyblue medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#006170",
+        "$description": "Babyblue dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#00424D",
+        "$description": "Babyblue darker"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#002C33",
+        "$description": "Babyblue darkest"
+      }
+    }
+  },
+  "chart": {
+    "orange": {
+      "$type": "color",
+      "$value": "#ff7729",
+      "$description": "Chart series — orange"
+    },
+    "green": {
+      "$type": "color",
+      "$value": "#00e513",
+      "$description": "Chart series — green"
+    },
+    "fuchsia": {
+      "$type": "color",
+      "$value": "#fb32c9",
+      "$description": "Chart series — fuchsia"
+    },
+    "yellow": {
+      "$type": "color",
+      "$value": "#eef400",
+      "$description": "Chart series — yellow"
+    },
+    "violet": {
+      "$type": "color",
+      "$value": "#bb33ff",
+      "$description": "Chart series — violet"
+    },
+    "babyblue": {
+      "$type": "color",
+      "$value": "#00cbeb",
+      "$description": "Chart series — babyblue"
+    },
+    "red": {
+      "$type": "color",
+      "$value": "#ff2323",
+      "$description": "Chart series — red"
+    },
+    "teal": {
+      "$type": "color",
+      "$value": "#089b83",
+      "$description": "Chart series — teal"
+    },
+    "sunrise": {
+      "$type": "color",
+      "$value": "#ffc300",
+      "$description": "Chart series — sunrise"
+    }
+  },
+  "checkbox": {
+    "variation": {
+      "green": {
+        "stroke": {
+          "$type": "color",
+          "$value": "#62de85",
+          "$description": "Checkbox var1 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#00e513",
+          "$description": "Checkbox var1 active bg"
+        }
+      },
+      "blue": {
+        "stroke": {
+          "$type": "color",
+          "$value": "#6d9bf3",
+          "$description": "Checkbox var2 stroke"
+        }
+      },
+      "pink": {
+        "stroke": {
+          "$type": "color",
+          "$value": "#fb64d6",
+          "$description": "Checkbox var3 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#fb32c9",
+          "$description": "Checkbox var3 active bg"
+        }
+      },
+      "orange": {
+        "stroke": {
+          "$type": "color",
+          "$value": "#ff9457",
+          "$description": "Checkbox var4 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#ff7729",
+          "$description": "Checkbox var4 active bg"
+        }
+      },
+      "teal": {
+        "stroke": {
+          "$type": "color",
+          "$value": "#089b83",
+          "$description": "Checkbox var5 stroke + active"
+        }
+      },
+      "purple": {
+        "stroke": {
+          "$type": "color",
+          "$value": "#cc66ff",
+          "$description": "Checkbox var6 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#bb33ff",
+          "$description": "Checkbox var6 active bg"
+        }
+      }
+    }
+  }
+}

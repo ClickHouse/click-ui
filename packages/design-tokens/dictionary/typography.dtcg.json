@@ -1,0 +1,85 @@
+{
+  "font": {
+    "size": {
+      "50": {
+        "$type": "number",
+        "$value": 10,
+        "$description": "10px, 0.625rem, xs, tiny"
+      },
+      "75": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "12px, 0.75rem, sm, small"
+      },
+      "100": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "14px, 0.875rem, md, body-sm"
+      },
+      "200": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "16px, 1rem, base, body"
+      },
+      "300": {
+        "$type": "number",
+        "$value": 18,
+        "$description": "18px, 1.125rem, lg"
+      },
+      "400": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "20px, 1.25rem, xl, title-sm"
+      },
+      "500": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "32px, 2rem, 2xl, heading"
+      }
+    },
+    "lineHeight": {
+      "100": {
+        "$type": "number",
+        "$value": 1.3,
+        "$description": "130%, tight, headings"
+      },
+      "200": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "150%, relaxed, body-text"
+      },
+      "300": {
+        "$type": "number",
+        "$value": 1.6,
+        "$description": "160%, comfortable"
+      },
+      "400": {
+        "$type": "number",
+        "$value": 1.7,
+        "$description": "170%, spacious"
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "number",
+        "$value": 400,
+        "$description": "400, normal, body text"
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 500,
+        "$description": "500, emphasis"
+      },
+      "semibold": {
+        "$type": "number",
+        "$value": 600,
+        "$description": "600, titles"
+      },
+      "bold": {
+        "$type": "number",
+        "$value": 700,
+        "$description": "700, headings"
+      }
+    }
+  }
+}
