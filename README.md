@@ -23,7 +23,6 @@ You can find the official docs for the Click UI design system and component libr
 * [Quick Start](#quick-start)
   - [Development](#development)
   - [Consumer apps](#consumer-apps)
-* [Development](#development)
 * [Monorepo Architecture](#monorepo-architecture)
 * [Contributing](#contributing)
   - [Component RFC](#component-rfc)
