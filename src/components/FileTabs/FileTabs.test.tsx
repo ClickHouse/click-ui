@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/react';
+import 'jest-styled-components';
 
 import { FileTabs, FileTabStatusType } from '@/components/FileTabs';
 import { renderCUI } from '@/utils/test-utils';
@@ -65,14 +66,26 @@ describe('FileTabs', () => {
 
   it('Close Button should only be visible on hover', () => {
     const { getByTestId } = renderTabs({});
-    const closeButton = getByTestId('tab-element-0-close');
-    expect(closeButton).toHaveAttribute('data-type', 'close');
+    const tabElement = getByTestId('tab-element-0');
+
+    expect(tabElement).toHaveStyleRule('display', 'none', {
+      modifier: "& [data-type='close']",
+    });
+    expect(tabElement).toHaveStyleRule('display', 'block', {
+      modifier: "&:hover [data-type='close']",
+    });
   });
 
   it('The indicator disappears on hover', () => {
     const { getByTestId } = renderTabs({ status: 'warning' });
-    const indicator = getByTestId('tab-element-0-status');
-    expect(indicator).toHaveAttribute('data-indicator', 'warning');
+    const tabElement = getByTestId('tab-element-0');
+
+    expect(tabElement).toHaveStyleRule('display', 'block', {
+      modifier: '& [data-indicator]',
+    });
+    expect(tabElement).toHaveStyleRule('display', 'none', {
+      modifier: '&:hover [data-indicator]',
+    });
   });
 
   it('Close btn calls the onClose correctly', () => {
