@@ -64,6 +64,7 @@ describe('FileTabs', () => {
     expect(onSelect).toBeCalledTimes(1);
   });
 
+  // TODO: Move to visual regression test instead, JSDOM (used by Vitest/Jest) does not evaluate CSS :hover pseudo-class rules — it fires the mouseenter/mouseover events but doesn't apply the associated stylesheet rules. This means toHaveStyle({ display: 'block' }) after userEvent.hover() will not reflect the CSS hover state and these two tests are likely to fail or give false results. To make hover tests meaningful, the component needs to manage visibility via JS state (e.g., onMouseEnter/onMouseLeave handlers toggling a state variable, then using inline styles or data-* attributes that get asserted).
   describe('On hover interactions', () => {
     describe('Close button', () => {
       it('should be hidden by default', () => {
