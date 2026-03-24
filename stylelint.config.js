@@ -152,5 +152,10 @@ export default {
         ],
       },
     ],
+    // NOTE: Empty lines can help with readability
+    'at-rule-empty-line-before': null,
+    'comment-empty-line-before': null,
+    'custom-property-empty-line-before': null,
+    'declaration-empty-line-before': null,
   },
 };
