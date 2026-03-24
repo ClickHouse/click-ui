@@ -26,6 +26,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Development](#development)
 * [Monorepo Architecture](#monorepo-architecture)
 * [Contributing](#contributing)
+  - [Component RFC](#component-rfc)
+  - [Conventional Commits](#conventional-commits)
 
 ## Requirements
 
@@ -88,6 +90,24 @@ function App() {
 
 For more examples, including theme switching and configuration, see [libs/click-ui/README.md](./libs/click-ui/README.md#quick-start).
 
+## Monorepo Architecture
+
+This monorepo uses a two-directory structure to semantically distinguish between the core component library and supporting packages, or tooling:
+
+| Directory | Purpose | Published |
+|-----------|---------|-----------|
+| `libs/` | Core libraries for external consumption | Yes |
+| `packages/` | tools and utilities | Yes |
+
+### Creating a New Internal Package
+
+1. Create the package directory under `packages/`
+2. Initialize with a `package.json` (no npm scope needed)
+3. Add internal documentation as needed
+4. Reference from the consuming library's build scripts
+
+## Contributing
+
 ### Component RFC
 
 To propose a new component, open an RFC using the [Component RFC template](https://github.com/ClickHouse/click-ui/compare/main...branchName?template=component_rfc.md).
@@ -106,24 +126,6 @@ For GitHub CLI users:
 ```sh
 gh pr create --template component_rfc.md
 ```
-
-## Monorepo Architecture
-
-This monorepo uses a two-directory structure to semantically distinguish between the core component library and supporting packages, or tooling:
-
-| Directory | Purpose | Published |
-|-----------|---------|-----------|
-| `libs/` | Core libraries for external consumption | Yes |
-| `packages/` | tools and utilities | Yes |
-
-### Creating a New Internal Package
-
-1. Create the package directory under `packages/`
-2. Initialize with a `package.json` (no npm scope needed)
-3. Add internal documentation as needed
-4. Reference from the consuming library's build scripts
-
-## Contributing
 
 ### Conventional commits
 
