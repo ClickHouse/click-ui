@@ -2,6 +2,7 @@
   "name": "click-ui-monorepo",
   "private": true,
   "workspaces": [
+    "libs/*",
     "packages/*"
   ],
   "packageManager": "yarn@4.5.3",
