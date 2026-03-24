@@ -44,6 +44,8 @@ export default {
           'css3-cursors',
           // NOTE: overflow: clip has fallback behavior with hidden
           'css-overflow',
+          // NOTE: inset shorthand (logical props) has good support (QQ Browser is edge case)
+          'css-logical-props',
         ],
       },
     ],
