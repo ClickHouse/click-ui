@@ -1,0 +1,27 @@
+{
+  "name": "@clickhouse/design-tokens",
+  "version": "0.0.0",
+  "description": "ClickHouse Design System Tokens",
+  "homepage": "https://clickhouse.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClickHouse/click-ui.git",
+    "directory": "packages/design-tokens"
+  },
+  "keywords": [
+    "design-tokens",
+    "clickhouse",
+    "design-system"
+  ],
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/tokens.css",
+      "require": "./dist/tokens.css"
+    }
+  }
+}
