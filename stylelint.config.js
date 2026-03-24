@@ -38,6 +38,12 @@ export default {
           // NOTE: The css nesting can be ignored
           // it'll be transpiled by transformer
           'css-nesting',
+          // NOTE: :focus-visible has :focus fallback in place
+          'css-focus-visible',
+          // NOTE: iOS doesn't support cursors (touch devices), not applicable
+          'css3-cursors',
+          // NOTE: overflow: clip has fallback behavior with hidden
+          'css-overflow',
         ],
       },
     ],
