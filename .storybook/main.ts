@@ -4,7 +4,7 @@ const config: StorybookConfig = {
     disableTelemetry: true
   },
   stories: [
-    "./Introduction.mdx",
+    "./Introduction.stories.tsx",
     "../src/**/*.stories.@(ts|tsx)",
   ],
 
@@ -31,31 +31,17 @@ const config: StorybookConfig = {
     },
   },
 
-  async viteFinal(config, { configType }) {
-    // Workaround for Storybook 10.0.7 bug where MDX files generate file:// imports
-    // See: https://github.com/storybookjs/storybook/issues (mdx-react-shim resolution)
+  async viteFinal(config) {
     config.plugins = config.plugins || [];
-    config.plugins.push({
-      name: 'fix-storybook-mdx-shim',
-      resolveId(source) {
-        // Intercept the malformed file:// URL and resolve to the correct package
-        if (source.includes('mdx-react-shim')) {
-          return this.resolve('@mdx-js/react', undefined, { skipSelf: true });
-        }
-        return null;
-      },
-    });
 
-    // Suppress Rollup warnings for production builds
-    if (configType === 'PRODUCTION') {
-      config.build = config.build || {};
-      config.build.rollupOptions = config.build.rollupOptions || {};
-      const originalOnWarn = config.build.rollupOptions.onwarn;
-      config.build.rollupOptions.onwarn = (warning, warn) => {
-        if (warning.message?.includes('mdx-react-shim')) return;
-        originalOnWarn ? originalOnWarn(warning, warn) : warn(warning);
-      };
-    }
+    // NOTE: Vite 8 workaround: Remove vite-plugin-externalize-deps from Storybook builds due to plugin use of function externals which Rolldown doesn't support
+    config.plugins = config.plugins.filter(
+      (plugin): plugin is NonNullable<typeof plugin> =>
+        plugin != null &&
+        typeof plugin === 'object' &&
+        'name' in plugin &&
+        plugin.name !== 'vite-plugin-externalize-deps'
+    );
 
     return config;
   },
