@@ -60,7 +60,6 @@ export default {
         'grid-template-columns',
         'grid-template-rows',
         'grid-template-areas',
-        'grid-gap',
         'grid-column',
         'grid-row',
         // Border
