@@ -35,19 +35,19 @@
   border-color: var(--click-button-basic-color-primary-stroke-default);
 }
 
+.button--primary:disabled {
+  background-color: var(--click-button-basic-color-primary-background-disabled);
+  color: var(--click-button-basic-color-primary-text-disabled);
+  border-color: var(--click-button-basic-color-primary-stroke-disabled);
+  font: var(--click-button-basic-typography-label-disabled);
+  cursor: not-allowed;
+}
+
 .button--primary:hover:not(:disabled) {
   background-color: var(--click-button-basic-color-primary-background-hover);
   border-color: var(--click-button-basic-color-primary-stroke-hover);
   font: var(--click-button-basic-typography-label-hover);
   transition: var(--click-transition-default);
-}
-
-.button--primary:active:not(:disabled),
-.button--primary:focus:not(:focus-visible):not(:disabled) {
-  background-color: var(--click-button-basic-color-primary-background-active);
-  border-color: var(--click-button-basic-color-primary-stroke-active);
-  font: var(--click-button-basic-typography-label-active);
-  outline: none;
 }
 
 .button--primary:focus-visible:not(:disabled) {
@@ -58,41 +58,18 @@
   outline-offset: 2px;
 }
 
-.button--primary:disabled {
-  background-color: var(--click-button-basic-color-primary-background-disabled);
-  color: var(--click-button-basic-color-primary-text-disabled);
-  border-color: var(--click-button-basic-color-primary-stroke-disabled);
-  font: var(--click-button-basic-typography-label-disabled);
-  cursor: not-allowed;
+.button--primary:active:not(:disabled),
+.button--primary:focus:not(:focus-visible, :disabled) {
+  background-color: var(--click-button-basic-color-primary-background-active);
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: none;
 }
 
 .button--secondary {
   background-color: var(--click-button-basic-color-secondary-background-default);
   color: var(--click-button-basic-color-secondary-text-default);
   border-color: var(--click-button-basic-color-secondary-stroke-default);
-}
-
-.button--secondary:hover:not(:disabled) {
-  background-color: var(--click-button-basic-color-secondary-background-hover);
-  border-color: var(--click-button-basic-color-secondary-stroke-hover);
-  font: var(--click-button-basic-typography-label-hover);
-  transition: var(--click-transition-default);
-}
-
-.button--secondary:active:not(:disabled),
-.button--secondary:focus:not(:focus-visible):not(:disabled) {
-  background-color: var(--click-button-basic-color-secondary-background-active);
-  border-color: var(--click-button-basic-color-secondary-stroke-active);
-  font: var(--click-button-basic-typography-label-active);
-  outline: none;
-}
-
-.button--secondary:focus-visible:not(:disabled) {
-  background-color: var(--click-button-basic-color-secondary-background-active);
-  border-color: var(--click-button-basic-color-secondary-stroke-active);
-  font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-secondary-stroke-active);
-  outline-offset: 2px;
 }
 
 .button--secondary:disabled {
@@ -103,33 +80,33 @@
   cursor: not-allowed;
 }
 
-.button--empty {
-  background-color: var(--click-button-basic-color-empty-background-default);
-  color: var(--click-button-basic-color-empty-text-default);
-  border-color: var(--click-button-basic-color-empty-stroke-default);
-}
-
-.button--empty:hover:not(:disabled) {
-  background-color: var(--click-button-basic-color-empty-background-hover);
-  border-color: var(--click-button-basic-color-empty-stroke-hover);
+.button--secondary:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-secondary-background-hover);
+  border-color: var(--click-button-basic-color-secondary-stroke-hover);
   font: var(--click-button-basic-typography-label-hover);
   transition: var(--click-transition-default);
 }
 
-.button--empty:active:not(:disabled),
-.button--empty:focus:not(:focus-visible):not(:disabled) {
-  background-color: var(--click-button-basic-color-empty-background-active);
-  border-color: var(--click-button-basic-color-empty-stroke-active);
+.button--secondary:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-secondary-background-active);
+  border-color: var(--click-button-basic-color-secondary-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-secondary-stroke-active);
+  outline-offset: 2px;
+}
+
+.button--secondary:active:not(:disabled),
+.button--secondary:focus:not(:focus-visible, :disabled) {
+  background-color: var(--click-button-basic-color-secondary-background-active);
+  border-color: var(--click-button-basic-color-secondary-stroke-active);
   font: var(--click-button-basic-typography-label-active);
   outline: none;
 }
 
-.button--empty:focus-visible:not(:disabled) {
-  background-color: var(--click-button-basic-color-empty-background-active);
-  border-color: var(--click-button-basic-color-empty-stroke-active);
-  font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-empty-stroke-active);
-  outline-offset: 2px;
+.button--empty {
+  background-color: var(--click-button-basic-color-empty-background-default);
+  color: var(--click-button-basic-color-empty-text-default);
+  border-color: var(--click-button-basic-color-empty-stroke-default);
 }
 
 .button--empty:disabled {
@@ -140,33 +117,33 @@
   cursor: not-allowed;
 }
 
-.button--danger {
-  background-color: var(--click-button-basic-color-danger-background-default);
-  color: var(--click-button-basic-color-danger-text-default);
-  border-color: var(--click-button-basic-color-danger-stroke-default);
-}
-
-.button--danger:hover:not(:disabled) {
-  background-color: var(--click-button-basic-color-danger-background-hover);
-  border-color: var(--click-button-basic-color-danger-stroke-hover);
+.button--empty:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-empty-background-hover);
+  border-color: var(--click-button-basic-color-empty-stroke-hover);
   font: var(--click-button-basic-typography-label-hover);
   transition: var(--click-transition-default);
 }
 
-.button--danger:active:not(:disabled),
-.button--danger:focus:not(:focus-visible):not(:disabled) {
-  background-color: var(--click-button-basic-color-danger-background-active);
-  border-color: var(--click-button-basic-color-danger-stroke-active);
+.button--empty:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-empty-background-active);
+  border-color: var(--click-button-basic-color-empty-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-empty-stroke-active);
+  outline-offset: 2px;
+}
+
+.button--empty:active:not(:disabled),
+.button--empty:focus:not(:focus-visible, :disabled) {
+  background-color: var(--click-button-basic-color-empty-background-active);
+  border-color: var(--click-button-basic-color-empty-stroke-active);
   font: var(--click-button-basic-typography-label-active);
   outline: none;
 }
 
-.button--danger:focus-visible:not(:disabled) {
-  background-color: var(--click-button-basic-color-danger-background-active);
-  border-color: var(--click-button-basic-color-danger-stroke-active);
-  font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-danger-stroke-active);
-  outline-offset: 2px;
+.button--danger {
+  background-color: var(--click-button-basic-color-danger-background-default);
+  color: var(--click-button-basic-color-danger-text-default);
+  border-color: var(--click-button-basic-color-danger-stroke-default);
 }
 
 .button--danger:disabled {
@@ -177,6 +154,29 @@
   cursor: not-allowed;
 }
 
+.button--danger:hover:not(:disabled) {
+  background-color: var(--click-button-basic-color-danger-background-hover);
+  border-color: var(--click-button-basic-color-danger-stroke-hover);
+  font: var(--click-button-basic-typography-label-hover);
+  transition: var(--click-transition-default);
+}
+
+.button--danger:focus-visible:not(:disabled) {
+  background-color: var(--click-button-basic-color-danger-background-active);
+  border-color: var(--click-button-basic-color-danger-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: 2px solid var(--click-button-basic-color-danger-stroke-active);
+  outline-offset: 2px;
+}
+
+.button--danger:active:not(:disabled),
+.button--danger:focus:not(:focus-visible, :disabled) {
+  background-color: var(--click-button-basic-color-danger-background-active);
+  border-color: var(--click-button-basic-color-danger-stroke-active);
+  font: var(--click-button-basic-typography-label-active);
+  outline: none;
+}
+
 .button--loading {
   cursor: not-allowed;
 }
@@ -184,10 +184,7 @@
 .button--loading::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   pointer-events: none;
   animation: shimmer 1.5s ease-in-out infinite;
 }
@@ -210,6 +207,7 @@
   0% {
     background-position: 100% 0;
   }
+
   100% {
     background-position: -100% 0;
   }
