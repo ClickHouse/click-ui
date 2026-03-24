@@ -2,12 +2,12 @@
   <a href="https://clickhouse.com" target="_blank">
     <img
       alt="Clickhouse logo"
-      src="./.repo/images/banner.jpg?202601211122"
+      src="../../.repo/images/banner.jpg?202601211122"
     />
   </a>
 </p>
 
-# Click UI
+# Click UI (Core)
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://conventionalcommits.org)
 
