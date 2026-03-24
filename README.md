@@ -67,9 +67,6 @@ Click UI targets modern browsers from the last 4 years with significant market s
 | Edge | 100+ |
 | Firefox | 99+ |
 | Safari | 15.5+ |
-| iOS Safari | 15.5+ |
-| Samsung Internet | 17+ |
-| Opera | 86+ |
 
 The following browsers are explicitly **not supported** due to limited CSS feature support:
 - QQ Browser
