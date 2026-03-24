@@ -1,9 +1,116 @@
 // Find rules at https://stylelint.io/user-guide/rules
 export default {
   extends: ['stylelint-config-standard'],
-  plugins: ['stylelint-no-unsupported-browser-features'],
+  plugins: ['stylelint-no-unsupported-browser-features', 'stylelint-order'],
   ignoreFiles: ['src/theme/styles/**/*.css'],
   rules: {
+    // NOTE: Property ordering by logical groups
+    'order/properties-order': [
+      [
+        // Content & display
+        'content',
+        'display',
+        'visibility',
+        'opacity',
+        // Positioning
+        'position',
+        'z-index',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'inset',
+        // Box model
+        'box-sizing',
+        'width',
+        'min-width',
+        'max-width',
+        'height',
+        'min-height',
+        'max-height',
+        'margin',
+        'margin-top',
+        'margin-right',
+        'margin-bottom',
+        'margin-left',
+        'padding',
+        'padding-top',
+        'padding-right',
+        'padding-bottom',
+        'padding-left',
+        'overflow',
+        'overflow-x',
+        'overflow-y',
+        // Flexbox
+        'flex',
+        'flex-grow',
+        'flex-shrink',
+        'flex-basis',
+        'flex-direction',
+        'flex-wrap',
+        'justify-content',
+        'align-items',
+        'align-content',
+        'align-self',
+        'order',
+        'gap',
+        // Grid
+        'grid',
+        'grid-template',
+        'grid-template-columns',
+        'grid-template-rows',
+        'grid-template-areas',
+        'grid-gap',
+        'grid-column',
+        'grid-row',
+        // Border
+        'border',
+        'border-width',
+        'border-style',
+        'border-color',
+        'border-top',
+        'border-right',
+        'border-bottom',
+        'border-left',
+        'border-radius',
+        // Background
+        'background',
+        'background-color',
+        'background-image',
+        'background-position',
+        'background-size',
+        'background-repeat',
+        // Typography
+        'color',
+        'font',
+        'font-family',
+        'font-size',
+        'font-weight',
+        'font-style',
+        'line-height',
+        'letter-spacing',
+        'text-align',
+        'text-decoration',
+        'text-transform',
+        'white-space',
+        'word-break',
+        'word-wrap',
+        // Visual
+        'outline',
+        'outline-width',
+        'outline-style',
+        'outline-color',
+        'outline-offset',
+        'box-shadow',
+        'cursor',
+        'pointer-events',
+        // Animation
+        'transition',
+        'transform',
+        'animation',
+      ],
+      { unspecified: 'bottomAlphabetical' },
+    ],
     // NOTE: BEM naming convention (block__element--modifier)
     'selector-class-pattern': [
       '^[a-z][a-z0-9]*(__[a-z][a-z0-9]*)?(-{1,2}[a-z][a-z0-9]*)*$',
@@ -29,14 +136,13 @@ export default {
         ],
       },
     ],
-    // NOTE: Browser compatibility warnings (see .browserlistrc)
+    // NOTE: Browser compatibility warnings (see .browserslistrc)
     'plugin/no-unsupported-browser-features': [
       true,
       {
         severity: 'error',
         ignore: [
-          // NOTE: The css nesting can be ignored
-          // it'll be transpiled by transformer
+          // NOTE: CSS nesting is transpiled by the build toolchain
           'css-nesting',
           // NOTE: :focus-visible has :focus fallback in place
           'css-focus-visible',
@@ -44,8 +150,6 @@ export default {
           'css3-cursors',
           // NOTE: overflow: clip has fallback behavior with hidden
           'css-overflow',
-          // NOTE: inset shorthand (logical props) has good support (QQ Browser is edge case)
-          'css-logical-props',
         ],
       },
     ],
