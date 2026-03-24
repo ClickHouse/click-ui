@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { FileTabs, FileTabStatusType } from '@/components/FileTabs';
 import { renderCUI } from '@/utils/test-utils';
@@ -61,5 +62,47 @@ describe('FileTabs', () => {
     const tabElement = getByTestId('tab-element-0');
     fireEvent.click(tabElement);
     expect(onSelect).toBeCalledTimes(1);
+  });
+
+  describe('On hover interactions', () => {
+    describe('Close button', () => {
+      it('should be hidden by default', () => {
+        const { getByTestId } = renderTabs({});
+        const closeButton = getByTestId('tab-element-0-close');
+
+        expect(closeButton).toHaveAttribute('data-type', 'close');
+        expect(closeButton).toHaveStyle({ display: 'none' });
+      });
+
+      it('should become visible when tab is hovered', async () => {
+        const { getByTestId } = renderTabs({});
+        const tabElement = getByTestId('tab-element-0');
+        const closeButton = getByTestId('tab-element-0-close');
+
+        await userEvent.hover(tabElement);
+
+        expect(closeButton).toHaveStyle({ display: 'block' });
+      });
+    });
+
+    describe('Status indicator', () => {
+      it('should be visible by default', () => {
+        const { getByTestId } = renderTabs({ status: 'warning' });
+        const indicator = getByTestId('tab-element-0-status');
+
+        expect(indicator).toHaveAttribute('data-indicator', 'warning');
+        expect(indicator).toHaveStyle({ display: 'block' });
+      });
+
+      it('should be hidden when tab is hovered', async () => {
+        const { getByTestId } = renderTabs({ status: 'warning' });
+        const tabElement = getByTestId('tab-element-0');
+        const indicator = getByTestId('tab-element-0-status');
+
+        await userEvent.hover(tabElement);
+
+        expect(indicator).toHaveStyle({ display: 'none' });
+      });
+    });
   });
 });
