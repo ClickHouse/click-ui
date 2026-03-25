@@ -426,7 +426,7 @@
       },
       "100": {
         "$type": "color",
-        "$value": "#FEFFC2",
+        "$value": "#feffc2",
         "$description": "Brand light, yellow-100"
       },
       "200": {
@@ -436,7 +436,7 @@
       },
       "300": {
         "$type": "color",
-        "$value": "#FAFF69",
+        "$value": "#faff69",
         "$description": "Brand medium-light, yellow-300"
       },
       "400": {
@@ -446,7 +446,7 @@
       },
       "500": {
         "$type": "color",
-        "$value": "#C7CC00",
+        "$value": "#c7cc00",
         "$description": "Brand medium, yellow-500"
       },
       "600": {
@@ -456,12 +456,12 @@
       },
       "700": {
         "$type": "color",
-        "$value": "#686B00",
+        "$value": "#686b00",
         "$description": "Brand dark, yellow-700"
       },
       "800": {
         "$type": "color",
-        "$value": "#3C4601",
+        "$value": "#3c4601",
         "$description": "Brand darker, yellow-800"
       },
       "900": {
@@ -535,37 +535,37 @@
     "teal": {
       "50": {
         "$type": "color",
-        "$value": "#E6FEFA",
+        "$value": "#e6fefa",
         "$description": "Teal lightest"
       },
       "100": {
         "$type": "color",
-        "$value": "#CFFCF4",
+        "$value": "#cffcf4",
         "$description": "Teal light"
       },
       "200": {
         "$type": "color",
-        "$value": "#A3FAEC",
+        "$value": "#a3faec",
         "$description": "Teal light-medium"
       },
       "300": {
         "$type": "color",
-        "$value": "#6DF8E1",
+        "$value": "#6df8e1",
         "$description": "Teal medium-light"
       },
       "400": {
         "$type": "color",
-        "$value": "#0CEDC8",
+        "$value": "#0cedc8",
         "$description": "Teal vibrant"
       },
       "500": {
         "$type": "color",
-        "$value": "#0BD0AF",
+        "$value": "#0bd0af",
         "$description": "Teal medium"
       },
       "600": {
         "$type": "color",
-        "$value": "#089B83",
+        "$value": "#089b83",
         "$description": "Teal medium-dark"
       },
       "700": {
@@ -585,44 +585,44 @@
       },
       "900": {
         "$type": "color",
-        "$value": "#03352D",
+        "$value": "#03352d",
         "$description": "Teal darkest"
       }
     },
     "violet": {
       "50": {
         "$type": "color",
-        "$value": "#F6E5FF",
+        "$value": "#f6e5ff",
         "$description": "Violet lightest"
       },
       "100": {
         "$type": "color",
-        "$value": "#EECCFF",
+        "$value": "#eeccff",
         "$description": "Violet light"
       },
       "200": {
         "$type": "color",
-        "$value": "#DD99FF",
+        "$value": "#dd99ff",
         "$description": "Violet light-medium"
       },
       "300": {
         "$type": "color",
-        "$value": "#CC66FF",
+        "$value": "#cc66ff",
         "$description": "Violet medium-light"
       },
       "400": {
         "$type": "color",
-        "$value": "#BB33FF",
+        "$value": "#bb33ff",
         "$description": "Violet vibrant"
       },
       "500": {
         "$type": "color",
-        "$value": "#AA00FF",
+        "$value": "#aa00ff",
         "$description": "Violet medium"
       },
       "600": {
         "$type": "color",
-        "$value": "#8800CC",
+        "$value": "#8800cc",
         "$description": "Violet medium-dark"
       },
       "700": {
@@ -637,7 +637,7 @@
       },
       "850": {
         "$type": "color",
-        "$value": "#33004D",
+        "$value": "#33004d",
         "$description": "Violet deep"
       },
       "900": {
@@ -649,37 +649,37 @@
     "fuchsia": {
       "50": {
         "$type": "color",
-        "$value": "#FBEFF8",
+        "$value": "#fbeff8",
         "$description": "Fuchsia lightest"
       },
       "100": {
         "$type": "color",
-        "$value": "#FBC9EF",
+        "$value": "#fbc9ef",
         "$description": "Fuchsia light"
       },
       "200": {
         "$type": "color",
-        "$value": "#FB97E2",
+        "$value": "#fb97e2",
         "$description": "Fuchsia light-medium"
       },
       "300": {
         "$type": "color",
-        "$value": "#FB64D6",
+        "$value": "#fb64d6",
         "$description": "Fuchsia medium-light"
       },
       "400": {
         "$type": "color",
-        "$value": "#FB32C9",
+        "$value": "#fb32c9",
         "$description": "Fuchsia vibrant"
       },
       "500": {
         "$type": "color",
-        "$value": "#FB00BC",
+        "$value": "#fb00bc",
         "$description": "Fuchsia medium"
       },
       "600": {
         "$type": "color",
-        "$value": "#CC0099",
+        "$value": "#cc0099",
         "$description": "Fuchsia medium-dark"
       },
       "700": {
@@ -689,12 +689,12 @@
       },
       "800": {
         "$type": "color",
-        "$value": "#66004D",
+        "$value": "#66004d",
         "$description": "Fuchsia darker"
       },
       "850": {
         "$type": "color",
-        "$value": "#4D0039",
+        "$value": "#4d0039",
         "$description": "Fuchsia deep"
       },
       "900": {
@@ -706,42 +706,42 @@
     "sunrise": {
       "50": {
         "$type": "color",
-        "$value": "#FFF3CC",
+        "$value": "#fff3cc",
         "$description": "Sunrise lightest"
       },
       "100": {
         "$type": "color",
-        "$value": "#FFE799",
+        "$value": "#ffe799",
         "$description": "Sunrise light"
       },
       "200": {
         "$type": "color",
-        "$value": "#FFDB66",
+        "$value": "#ffdb66",
         "$description": "Sunrise light-medium"
       },
       "300": {
         "$type": "color",
-        "$value": "#FFCF33",
+        "$value": "#ffcf33",
         "$description": "Sunrise medium-light"
       },
       "400": {
         "$type": "color",
-        "$value": "#FFC300",
+        "$value": "#ffc300",
         "$description": "Sunrise vibrant"
       },
       "500": {
         "$type": "color",
-        "$value": "#E0AC00",
+        "$value": "#e0ac00",
         "$description": "Sunrise medium"
       },
       "600": {
         "$type": "color",
-        "$value": "#B28800",
+        "$value": "#b28800",
         "$description": "Sunrise medium-dark"
       },
       "700": {
         "$type": "color",
-        "$value": "#8A6900",
+        "$value": "#8a6900",
         "$description": "Sunrise dark"
       },
       "800": {
@@ -758,32 +758,32 @@
     "babyblue": {
       "50": {
         "$type": "color",
-        "$value": "#DBFAFF",
+        "$value": "#dbfaff",
         "$description": "Babyblue lightest"
       },
       "100": {
         "$type": "color",
-        "$value": "#BDF6FF",
+        "$value": "#bdf6ff",
         "$description": "Babyblue light"
       },
       "200": {
         "$type": "color",
-        "$value": "#8AEFFF",
+        "$value": "#8aefff",
         "$description": "Babyblue light-medium"
       },
       "300": {
         "$type": "color",
-        "$value": "#33E4FF",
+        "$value": "#33e4ff",
         "$description": "Babyblue medium-light"
       },
       "400": {
         "$type": "color",
-        "$value": "#00CBEB",
+        "$value": "#00cbeb",
         "$description": "Babyblue vibrant"
       },
       "500": {
         "$type": "color",
-        "$value": "#00B5D1",
+        "$value": "#00b5d1",
         "$description": "Babyblue medium"
       },
       "600": {
@@ -798,12 +798,12 @@
       },
       "800": {
         "$type": "color",
-        "$value": "#00424D",
+        "$value": "#00424d",
         "$description": "Babyblue darker"
       },
       "900": {
         "$type": "color",
-        "$value": "#002C33",
+        "$value": "#002c33",
         "$description": "Babyblue darkest"
       }
     }
