@@ -1,17 +1,8 @@
 import { defineConfig } from "@terrazzo/cli";
 import css from "@terrazzo/plugin-css";
+import { CSS_VAR_PREFIX, DICTIONARY_PATH, TOKEN_FILES } from "./config.js";
 
-const DICTIONARY_PATH = './dictionary';
-const CSS_VAR_PREFIX = process.env.DESIGN_TOKENS_PREFIX || "cui";
-
-const tokens = [
-  'primitives',
-  'semantic',
-  'spacing',
-  'radius',
-  'sizing',
-  'typography',
-].map(v => `${DICTIONARY_PATH}/${v}.dtcg.json`);
+const tokens = TOKEN_FILES.map((v) => `${DICTIONARY_PATH}/${v}.dtcg.json`);
 
 export default defineConfig({
   tokens,
