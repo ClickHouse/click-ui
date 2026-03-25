@@ -18,6 +18,43 @@ Build tokens for consumer apps:
 yarn tokens:build
 ```
 
+## Token Specification
+
+This package follows the [DTCG (Design Tokens Community Group)](https://www.designtokens.org) standard. The specification defines naming conventions, token categories, and metadata strategies for consistent design token usage across Figma and code.
+
+### Token Categories
+
+| Category | Naming Convention | Example |
+|----------|-------------------|---------|
+| **Color** | Primitives: `color/{palette}/{step}`, Semantic: `color/{category}/{subcategory}/{hierarchy}/{state}` | `color/gray/50`, `color/background/interactive/primary/default` |
+| **Spacing** | Percentage-based with 8px base unit | `space/100` (8px), `space/200` (16px) |
+| **Radius** | Percentage-based scale | `radius/50` (4px), `radius/100` (8px) |
+| **Sizing** | T-shirt sizes by type | `sizing/icon/md` (20px), `sizing/component/lg` (48px) |
+| **Typography** | `font/{property}/{scale}` | `font/size/200` (16px), `font/weight/semibold` (600) |
+
+### Usage Examples
+
+```css
+/* Semantic color tokens */
+.button {
+  background: var(--cui-color-background-interactive-primary-default);
+  color: var(--cui-color-foreground-default);
+}
+
+/* Spacing tokens */
+.card {
+  padding: var(--cui-space-200);  /* 16px */
+  gap: var(--cui-space-100);      /* 8px */
+}
+
+/* Sizing tokens */
+.icon {
+  width: var(--cui-sizing-icon-md);  /* 20px */
+}
+```
+
+For complete details on naming conventions, metadata strategies, and implementation guidelines, see [SPECIFICATION.md](./SPECIFICATION.md).
+
 # References
 
 - [DTCG](https://www.designtokens.org)
