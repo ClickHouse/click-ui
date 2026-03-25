@@ -35,15 +35,15 @@ To customize the prefix, modify `CSS_VAR_PREFIX` in `config.js` and rebuild.
 Semantic color tokens support light and dark mode variants. The build outputs CSS that applies:
 
 - **Light mode**: `:root` and `[data-theme='light']`
-- **Dark mode**: `[data-theme='dark']`
+- **Dark mode**: `@media (prefers-color-scheme: dark)` and `[data-theme='dark']`
 
-To enable dark mode, set the `data-theme` attribute on a parent element:
+Dark mode activates automatically via OS preference (no JS required), or explicitly via attribute:
 
 ```html
 <html data-theme="dark">
 ```
 
-Tokens automatically switch values based on the active theme. No additional CSS is required.
+The `data-theme` attribute takes precedence, allowing users to override their OS preference.
 
 ## Token Specification
 
