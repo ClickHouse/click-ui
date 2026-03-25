@@ -38,7 +38,7 @@ Examples:
 {
   "$type": "color",
   "$value": "#ffffff",
-  "$description": "8px, base, space.100, 0.5rem, standard"
+  "$description": "white, base, color.white, #ffffff"
 }
 ```
 
