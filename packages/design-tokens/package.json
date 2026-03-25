@@ -20,7 +20,6 @@
   ],
   "exports": {
     ".": {
-      "style": "./dist/tokens.css",
       "default": "./dist/tokens.css"
     }
   },
