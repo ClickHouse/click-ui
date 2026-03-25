@@ -38,6 +38,10 @@
           "danger": {
             "value": "{click.button.basic.color.danger.text.default}",
             "type": "color"
+          },
+          "warning": {
+            "value": "{click.feedback.color.warning.foreground}",
+            "type": "color"
           }
         },
         "stroke": {
