@@ -278,18 +278,20 @@ Automatic Figma scope inference based on token path and file type:
 
 **For Semantic Tokens** (all other files):
 
-| Path Pattern         | Scope               |
-| -------------------- | ------------------- |
-| `color/background/*` | `["ALL_FILLS"]`     |
-| `color/border/*`     | `["STROKE_COLOR"]`  |
-| `color/shadow/*`     | `["EFFECT_COLOR"]`  |
-| `space/*`            | `["GAP"]`           |
-| `radius/*`           | `["CORNER_RADIUS"]` |
-| `sizing/*`           | `["WIDTH_HEIGHT"]`  |
-| `sizing/stroke/*`    | `["STROKE_FLOAT"]`  |
-| `font/size/*`        | `["FONT_SIZE"]`     |
-| `font/lineHeight/*`  | `["LINE_HEIGHT"]`   |
-| `font/weight/*`      | `["FONT_WEIGHT"]`   |
+| Path Pattern             | Scope               |
+| ------------------------ | ------------------- |
+| `color/background/*`     | `["ALL_FILLS"]`     |
+| `color/border/*`         | `["STROKE_COLOR"]`  |
+| `utility/color/shadow/*` | `["EFFECT_COLOR"]`  |
+| `utility/color/scrim/*`  | `["EFFECT_COLOR"]`  |
+| `color/foreground/*`     | `["TEXT_FILL"]`     |
+| `space/*`                | `["GAP"]`           |
+| `radius/*`               | `["CORNER_RADIUS"]` |
+| `sizing/*`               | `["WIDTH_HEIGHT"]`  |
+| `sizing/stroke/*`        | `["STROKE_FLOAT"]`  |
+| `font/size/*`            | `["FONT_SIZE"]`     |
+| `font/lineHeight/*`      | `["LINE_HEIGHT"]`   |
+| `font/weight/*`          | `["FONT_WEIGHT"]`   |
 
 **Note on Sizing:** The sizing check is performed **before** spacing to ensure "sizing" doesn't accidentally match the "space" substring check.
 
