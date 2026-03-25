@@ -517,7 +517,7 @@ Primitives are hidden from designers but exposed to developers. This asymmetry i
 **Recommended Guardrails:**
 
 > [!WARNING]
-> Avoid "Design system theater" where there are rules for designers and chaos for developers by advising linting rules to prevent misuage of tokens.
+> Avoid "Design system theater" where there are rules for designers and chaos for developers by advising linting rules to prevent misuse of tokens.
 
 - Stylelint/ESLint rules to warn on primitive usage in component CSS
 - Code review to catch direct primitive usage
