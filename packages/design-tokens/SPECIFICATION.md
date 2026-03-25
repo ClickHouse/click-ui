@@ -130,7 +130,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 - Icon sizes: 12px, 16px, 20px, 24px, 32px (specific UI sizes)
 - Component sizes: 24px, 32px, 40px, 48px, 64px (specific use cases)
 - Stroke widths: 1px (default), 2px (emphasis)
-- Designers think: "small icon" not "icon size 050"
+- Designers think: "small icon" not "icon size 50"
 
 **Icon Sizes:** xs (12px), sm (16px), md (20px), lg (24px), xl (32px)
 **Component Sizes:** xs (24px), sm (32px), md (40px), lg (48px), xl (64px)
@@ -431,7 +431,7 @@ token.setValueForMode(targetModeId, value);
 
 **Breaking Changes:**
 
-- `spaces.1` → `space.050`
+- `spaces.1` → `space.50`
 - `spaces.2` → `space.100`
 - etc.
 
