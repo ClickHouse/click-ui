@@ -18,6 +18,18 @@ Build tokens for consumer apps:
 yarn tokens:build
 ```
 
+## CSS Variable Prefix
+
+All generated CSS variables use the `--cui-` prefix (Click UI). This prefix is defined in `config.js` to ensure consistent namespace variable names across all consumer client applications.
+
+```css
+--cui-color-background-base
+--cui-space-100
+--cui-radius-50
+```
+
+To customize the prefix, modify `CSS_VAR_PREFIX` in `config.js` and rebuild.
+
 ## Token Specification
 
 This package follows the [DTCG (Design Tokens Community Group)](https://www.designtokens.org) standard. The specification defines naming conventions, token categories, and metadata strategies for consistent design token usage across Figma and code.
