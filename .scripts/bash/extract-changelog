@@ -38,9 +38,6 @@ done < "$CHANGELOG_FILE"
 
 CHANGELOG="${CHANGELOG%$'\n'}"
 
-# NOTE: Filter out any version headers that might have been captured
-CHANGELOG=$(echo "$CHANGELOG" | grep -v '^## [0-9]')
-
 if [[ -z "$CHANGELOG" ]]; then
   echo "No changelog content found for version $VERSION" >&2
   exit 1
