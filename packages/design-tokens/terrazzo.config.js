@@ -7,6 +7,7 @@ const CSS_VAR_PREFIX = process.env.DESIGN_TOKENS_PREFIX || "cui";
 // TODO: Create subpath private and public under ./dictionary
 // read the files from nodejs fs and automate it
 const tokens = [
+  'primitives',
   'semantic',
   'spacing',
   'radius',

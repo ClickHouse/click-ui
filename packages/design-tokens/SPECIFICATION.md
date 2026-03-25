@@ -478,41 +478,46 @@ Second import: "Primitives"  ← Different name, creates new variables!
 - Different collection name = different variable (even with same token name)
 - Consistent naming enables update mode instead of duplicate creation
 
-**Update Mode Behavior:**
+---
 
-The plugin now uses the **async Figma Plugin API** for reliable collection detection:
+## Distribution Strategy
 
-1. ✅ **Checks for existing collections** using `getLocalVariableCollectionsAsync()`
-2. ✅ **Reuses existing collection** if found (by name match)
-3. ✅ **Updates token values** using existing variable's mode ID
-4. ✅ **Updates descriptions** if `$description` changed in JSON
-5. ✅ **Updates scopes** if scope inference logic changed
-6. ✅ **Preserves component assignments** - no need to re-link
+### CSS Output for Consumer Apps
 
-**Technical Implementation:**
+All tokens (primitives + semantic) are output to a single `./dist/tokens.css` file. This aligns with how major component libraries distribute tokens.
 
-```typescript
-// Collection reuse
-const existingCollections =
-  await figma.variables.getLocalVariableCollectionsAsync();
-const existingCollection = existingCollections.find((c) => c.name === name);
+**Why expose primitives to consumers?**
 
-if (existingCollection) {
-  // Use existing collection and its mode
-  return {
-    collection: existingCollection,
-    modeId: existingCollection.modes[0].modeId,
-  };
-}
+| Context | Primitives Visibility | Reason |
+|---------|----------------------|--------|
+| **Figma** | Hidden (`scopes: []`) | Designers should use semantic tokens only |
+| **CSS/Code** | Exposed | Theming, devtools debugging, variable resolution |
 
-// Token update with existing mode ID
-const existingModeIds = Object.keys(token.valuesByMode);
-const targetModeId = existingModeIds[0];
-token.setValueForMode(targetModeId, value); // Uses existing mode, not new collection's mode
-```
+Semantic tokens reference primitives via `var(--cui-color-gray-50)`. Consumers need access to:
+- Override primitives for custom themes
+- Enable dark/light mode switching
+- Debug resolved values in browser devtools
 
-**Why order matters:**
+### Designer vs Developer Governance
 
-- Semantic tokens reference primitive tokens via aliases (e.g., `{color.white}`)
-- Primitives must exist before semantic tokens can reference them
-- The plugin handles this automatically by checking existing variables
+Primitives are hidden from designers but exposed to developers. This asymmetry is intentional:
+
+| Role | Access | Rationale |
+|------|--------|-----------|
+| **Designers** | Semantic only | Express intent ("error color"), not implementation ("red-500") |
+| **Developers** | All tokens | Need primitives for theming, debugging, edge cases |
+
+**Developer Usage Guidelines:**
+
+- **Components**: Use semantic tokens (`--cui-color-text-secondary`)
+- **Theming**: Use primitives to override base values (`--cui-color-gray-500`)
+- **Avoid**: Using primitives directly in component styles
+
+**Recommended Guardrails:**
+
+> [!WARNING]
+> Avoid "Design system theater" where there are rules for designers and chaos for developers by advising linting rules to prevent misuage of tokens.
+
+- Stylelint/ESLint rules to warn on primitive usage in component CSS
+- Code review to catch direct primitive usage
+- Clear naming: primitives use palette names, semantics describe purpose
