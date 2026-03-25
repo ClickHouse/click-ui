@@ -18,6 +18,10 @@ export default defineConfig({
     css({
       filename: "tokens.css",
       variableName: (token) => `--${CSS_VAR_PREFIX}-${token.id.replace(/\./g, "-")}`,
+      modeSelectors: [
+        { mode: "light", selectors: [":root", "[data-theme='light']"] },
+        { mode: "dark", selectors: ["[data-theme='dark']"] },
+      ],
     }),
   ],
 });
