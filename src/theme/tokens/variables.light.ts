@@ -1184,7 +1184,7 @@ const theme = {
             default: 'linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)',
             hover: 'linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)',
             active: 'linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)',
-            focus: '#437eef',
+            focus: '#151515',
           },
           text: {
             default: '#161517',
