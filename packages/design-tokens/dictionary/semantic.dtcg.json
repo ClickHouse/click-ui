@@ -532,7 +532,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.700}",
-              "dark": "{color.gray.1300}"
+              "dark": "{color.gray.1200}"
             }
           }
         },
