@@ -4,6 +4,20 @@
 
 ClickHouse Design System token definitions for colors, spacing, typography and more, following the DTCG standard.
 
+## Quick Start
+
+Install dependencies:
+
+```sh
+yarn
+```
+
+Build tokens for consumer apps:
+
+```sh
+yarn tokens:build
+```
+
 # References
 
 - [DTCG](https://www.designtokens.org)
