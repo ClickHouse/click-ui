@@ -30,6 +30,21 @@ All generated CSS variables use the `--cui-` prefix (Click UI). This prefix is d
 
 To customize the prefix, modify `CSS_VAR_PREFIX` in `config.js` and rebuild.
 
+## Dark Mode
+
+Semantic color tokens support light and dark mode variants. The build outputs CSS that applies:
+
+- **Light mode**: `:root` and `[data-theme='light']`
+- **Dark mode**: `[data-theme='dark']`
+
+To enable dark mode, set the `data-theme` attribute on a parent element:
+
+```html
+<html data-theme="dark">
+```
+
+Tokens automatically switch values based on the active theme. No additional CSS is required.
+
 ## Token Specification
 
 This package follows the [DTCG (Design Tokens Community Group)](https://www.designtokens.org) standard. The specification defines naming conventions, token categories, and metadata strategies for consistent design token usage across Figma and code.
