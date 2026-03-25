@@ -53,6 +53,47 @@ This package follows the [DTCG (Design Tokens Community Group)](https://www.desi
 }
 ```
 
+### Lint Rules
+
+To prevent inappropriate use of tokens (e.g., using primitives directly in component styles), configure lint rules:
+
+**Stylelint**
+
+Warn on primitive token usage:
+
+```json
+{
+  "rules": {
+    "declaration-property-value-disallowed-list": {
+      "/color|background|border/": ["/--cui-color-(white|black|gray|blue|green|red|yellow|orange)-/"]
+    }
+  }
+}
+```
+
+**ESLint**
+
+For CSS-in-JS (e.g., styled-components):
+
+```json
+{
+  "rules": {
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/--cui-color-(white|black|gray|blue|green|red|yellow|orange)-/]",
+        "message": "Use semantic tokens instead of primitive color tokens"
+      }
+    ]
+  }
+}
+```
+
+**Guideline**
+
+> [!WARNING]
+> Components should use semantic tokens (`--cui-color-background-*`). Primitives (`--cui-color-gray-*`) are exposed for theming and debugging but should not appear in component styles.
+
 For complete details on naming conventions, metadata strategies, and implementation guidelines, see [SPECIFICATION.md](./SPECIFICATION.md).
 
 # References
