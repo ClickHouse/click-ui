@@ -25,9 +25,11 @@
   },
   "scripts": {
     "build": "yarn tokens:build",
+    "format": "echo '🦖 Skip format check!'",
+    "format:fix": "tz format",
     "tokens:build": "tz build",
     "tokens:watch": "tz build --watch",
-    "lint": "tz check",
+    "lint": "tz lint",
     "test": "echo 'TODO: Setup test'"
   },
   "devDependencies": {
