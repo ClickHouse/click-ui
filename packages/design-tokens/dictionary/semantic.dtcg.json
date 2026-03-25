@@ -83,7 +83,7 @@
           },
           "hover": {
             "$type": "color",
-            "$value": "{color.gray.805}",
+            "$value": "{color.gray.800}",
             "$extensions": {
               "org.terrazzo.resolver": {
                 "modes": {
@@ -92,7 +92,7 @@
                 }
               }
             },
-            "$description": "Primary button hover (lch(29.47…) normalised)"
+            "$description": "Primary button hover"
           },
           "active": {
             "$type": "color",
@@ -137,7 +137,7 @@
           },
           "hover": {
             "$type": "color",
-            "$value": "{color.gray.805}",
+            "$value": "{color.gray.800}",
             "$extensions": {
               "org.terrazzo.resolver": {
                 "modes": {
@@ -146,7 +146,7 @@
                 }
               }
             },
-            "$description": "Secondary button hover (lch(29.47…) normalised)"
+            "$description": "Secondary button hover"
           },
           "active": {
             "$type": "color",
