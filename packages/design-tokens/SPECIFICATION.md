@@ -51,6 +51,18 @@ Examples:
 
 **File:** `spacing.dtcg.json`
 
+**Type:** `$type: "dimension"` with DTCG object format:
+
+```json
+{
+  "$type": "dimension",
+  "$value": {
+    "value": 8,
+    "unit": "px"
+  }
+}
+```
+
 **Naming:** Percentage-based index following 8px base unit (no leading zeros)
 
 ```
@@ -87,6 +99,8 @@ Examples: `space.25` (2px), `space.100` (8px), `space.400` (32px)
 
 **File:** `radius.dtcg.json`
 
+**Type:** `$type: "dimension"` with DTCG object format `{ "value": 8, "unit": "px" }`
+
 **Naming:** Percentage-based following continuous scale (no leading zeros)
 
 ```
@@ -117,6 +131,8 @@ Examples: `radius.25` (2px), `radius.100` (8px), `radius.999` (full)
 
 **File:** `sizing.dtcg.json`
 
+**Type:** `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
+
 **Naming:** Categorical/T-shirt sizes
 
 ```
@@ -144,6 +160,11 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 > The Typography tokens are inspired in [Atlassian-style scale](https://atlassian.design/foundations/tokens/design-tokens)
 
 **File:** `typography.dtcg.json`
+
+**Types:**
+- Font sizes: `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
+- Line heights: `$type: "number"` with unitless values (e.g., `1.5`, `1.3`)
+- Font weights: `$type: "number"` with integer values (e.g., `400`, `700`)
 
 **Naming:** `font/{property}/{scale-or-semantic}`
 
@@ -396,8 +417,11 @@ token.setValueForMode(targetModeId, value);
 
 **Required Fields:**
 
-- `$type`: "color" | "number"
-- `$value`: Hex string (color) | Number (spacing/radius/sizing)
+- `$type`: "color" | "dimension" | "number"
+- `$value`: 
+  - Hex string or color object for colors
+  - Object with numeric `value` and `unit` for dimensions: `{ "value": 8, "unit": "px" }`
+  - Number for unitless values (e.g., line-heights, font-weights)
 
 **Optional Fields:**
 
@@ -410,8 +434,11 @@ token.setValueForMode(targetModeId, value);
 {
   "space": {
     "100": {
-      "$type": "number",
-      "$value": 8,
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
       "$description": "8px, base, space.100, 0.5rem, spacing, standard"
     }
   }
@@ -449,10 +476,10 @@ token.setValueForMode(targetModeId, value);
 
 1. `primitives.dtcg.json` (color base values) - Creates primitives with NO scope
 2. `semantic.dtcg.json` (color semantic aliases) - References primitives, gets appropriate scopes
-3. `spacing.dtcg.json` (number tokens with GAP scope)
-4. `radius.dtcg.json` (number tokens with CORNER_RADIUS scope)
-5. `sizing.dtcg.json` (number tokens with WIDTH_HEIGHT scope)
-6. `typography.dtcg.json`
+3. `spacing.dtcg.json` (dimension tokens with GAP scope)
+4. `radius.dtcg.json` (dimension tokens with CORNER_RADIUS scope)
+5. `sizing.dtcg.json` (dimension tokens with WIDTH_HEIGHT scope)
+6. `typography.dtcg.json` (dimension and number tokens for font properties)
 7. `component.dtcg.json` (component-specific overrides)
 
 **Collection Name Consistency (CRITICAL for Updates):**
