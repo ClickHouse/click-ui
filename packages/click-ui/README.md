@@ -41,10 +41,6 @@ You can find the official docs for the Click UI design system and component libr
   - [Custom styling with CSS](#custom-styling-with-css)
 * [Assets Management](#assets-management)
   - [Convert SVG to React Component](#convert-svg-to-react-component)
-* [Changesets](#changesets)
-  - [Add a new changeset](#add-a-new-changeset)
-  - [Checking the changeset status](#checking-the-changeset-status)
-  - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
 * [Release](#release)
 * [Contributing](#contributing)
   - [Component RFC](#component-rfc)
@@ -216,52 +212,6 @@ yarn storybook:serve
 The latest static version's built and deployed automatically when contributing to `main` of [Click UI](https://github.com/ClickHouse/click-ui).
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
-
-## Changeset
-
-Learn to manage the versioning of changelog entries.
-
-The following is a brief description of available commands to allow a person making a contribution make key decisions about their changes.
-
-It'll generate a changeset, which is effectively two key bits of information:
-
-- A version type which follows [semver](https://semver.org/)
-- Change information placed in a changelog
-
-Make good use of this simple workflow to help us release new package versions more confidently.
-
-### Add a new changeset
-
-When contributing, declare an intent or describe the changes you're making or adding to a release by executing the `changeset:add` command.
-
-The wizard will ask a few questions and generate a changelog entry for you:
-
-```sh
-yarn changeset:add
-```
-
-The changesets tool keeps track of all declared changes in the `.changeset` directory.
-
-Once completed, you must commit the changeset!
-
-### Checking the changeset status
-
-To check if your branch contains a changeset:
-
-```sh
-yarn changeset:status
-```
-
-### Create a new version and changelogs
-
-To consume all changesets, and update to the most appropriate semver version and write a friendly changelog based on those changesets, the following command is available:
-
-> [!IMPORTANT]
-> Consuming changesets is done automatically in the CI/CD environment. For this reason, you don't have to execute the command, as a contributor your single concern should be adding changesets to any relevant changes.
-
-```sh
-yarn changeset:version
-```
 
 ## Distribution
 

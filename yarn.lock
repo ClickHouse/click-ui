@@ -355,7 +355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/cli@npm:^2.29.8":
+"@changesets/cli@npm:^2.30.0":
   version: 2.30.0
   resolution: "@changesets/cli@npm:2.30.0"
   dependencies:
@@ -548,7 +548,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@clickhouse/click-ui@workspace:packages/click-ui"
   dependencies:
-    "@changesets/cli": "npm:^2.29.8"
     "@h6s/calendar": "npm:2.0.1"
     "@playwright/test": "npm:^1.57.0"
     "@radix-ui/react-accordion": "npm:1.2.12"
@@ -5381,6 +5380,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "click-ui-monorepo@workspace:."
   dependencies:
+    "@changesets/cli": "npm:^2.30.0"
     husky: "npm:^9.1.7"
   languageName: unknown
   linkType: soft
