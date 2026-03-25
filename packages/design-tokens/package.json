@@ -27,7 +27,9 @@
   "scripts": {
     "build": "yarn tokens:build",
     "tokens:build": "tz build",
-    "tokens:watch": "tz build --watch"
+    "tokens:watch": "tz build --watch",
+    "lint": "echo 'TODO: Lint'",
+    "test": "echo 'TODO: Setup test'"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
