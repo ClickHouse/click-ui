@@ -27,7 +27,7 @@
     "build": "yarn tokens:build",
     "tokens:build": "tz build",
     "tokens:watch": "tz build --watch",
-    "lint": "echo 'TODO: Lint'",
+    "lint": "tz check",
     "test": "echo 'TODO: Setup test'"
   },
   "devDependencies": {
