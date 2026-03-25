@@ -10,7 +10,7 @@ import { styled } from 'styled-components';
 export type TextSize = 'xs' | 'sm' | 'md' | 'lg';
 export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold' | 'mono';
 export type TextAlignment = 'left' | 'center' | 'right';
-export type TextColor = 'default' | 'muted' | 'danger' | 'disabled';
+export type TextColor = 'default' | 'muted' | 'danger' | 'disabled' | 'warning';
 
 export interface TextProps<T extends ElementType = 'p'> {
   /** The text content to display */

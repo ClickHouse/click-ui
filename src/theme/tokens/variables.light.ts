@@ -3425,6 +3425,7 @@ const theme = {
             hover: '#104ec6',
           },
           danger: '#c10000',
+          warning: '#a33c00',
         },
         title: {
           default: 'lch(11.126 1.374 305.43)',

@@ -3434,6 +3434,7 @@ const theme = {
             hover: '#feffc2',
           },
           danger: '#ffbaba',
+          warning: '#ffb88f',
         },
         stroke: {
           default: '#323232',
