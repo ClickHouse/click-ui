@@ -27,4 +27,10 @@ Initial release of the design-tokens package. Provides DTCG-compliant design tok
 
 **Building:** Run `yarn tokens:build` to generate `packages/design-tokens/dist/tokens.css`.
 
+**Configuration:** `packages/design-tokens/config.js` contains build settings:
+
+- `CSS_VAR_PREFIX` - CSS variable prefix (default: `cui` → `--cui-*`)
+- `DICTIONARY_PATH` - Token dictionary location
+- `TOKEN_FILES` - Token files and import order
+
 See `packages/design-tokens/SPECIFICATION.md` for naming conventions and detailed guidelines.
