@@ -137,29 +137,29 @@
           },
           "hover": {
             "$type": "color",
-            "$value": "{color.gray.800}",
+            "$value": "{color.gray.50}",
             "$extensions": {
               "org.terrazzo.resolver": {
                 "modes": {
-                  "light": "{color.gray.800}",
-                  "dark": "{color.gray.1600}"
+                  "light": "{color.gray.50}",
+                  "dark": "{color.gray.1100}"
                 }
               }
             },
-            "$description": "Secondary button hover"
+            "$description": "Secondary button hover — subtle tint"
           },
           "active": {
             "$type": "color",
-            "$value": "{color.gray.950}",
+            "$value": "{color.gray.100}",
             "$extensions": {
               "org.terrazzo.resolver": {
                 "modes": {
-                  "light": "{color.gray.950}",
-                  "dark": "{color.gray.1650}"
+                  "light": "{color.gray.100}",
+                  "dark": "{color.gray.1150}"
                 }
               }
             },
-            "$description": "Secondary button pressed"
+            "$description": "Secondary button pressed — subtle tint, stronger than hover"
           },
           "disabled": {
             "$type": "color",
