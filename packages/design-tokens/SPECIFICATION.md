@@ -141,7 +141,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 ### 5. Typography Tokens
 
 > [!INFO]
-> The Typograhy tokens are inspired in [Atlassian-style scale](https://atlassian.design/foundations/tokens/design-tokens)
+> The Typography tokens are inspired in [Atlassian-style scale](https://atlassian.design/foundations/tokens/design-tokens)
 
 **File:** `typography.dtcg.json`
 
