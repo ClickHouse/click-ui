@@ -452,7 +452,8 @@ token.setValueForMode(targetModeId, value);
 3. `spacing.dtcg.json` (number tokens with GAP scope)
 4. `radius.dtcg.json` (number tokens with CORNER_RADIUS scope)
 5. `sizing.dtcg.json` (number tokens with WIDTH_HEIGHT scope)
-6. `component.dtcg.json` (component-specific overrides)
+6. `typography.dtcg.json`
+7. `component.dtcg.json` (component-specific overrides)
 
 **Collection Name Consistency (CRITICAL for Updates):**
 
