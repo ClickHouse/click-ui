@@ -3199,7 +3199,7 @@
                 "type": "color"
               },
               "focus": {
-                "value": "#437eef",
+                "value": "{click.global.color.outline.default}",
                 "type": "color"
               }
             }
@@ -3292,7 +3292,7 @@
                 "type": "color"
               },
               "focus": {
-                "value": "#437eef",
+                "value": "{click.global.color.outline.default}",
                 "type": "color"
               }
             }
