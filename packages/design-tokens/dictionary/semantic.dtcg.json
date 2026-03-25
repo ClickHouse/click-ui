@@ -146,7 +146,7 @@
                 }
               }
             },
-            "$description": "Primary button hover (lch(29.47…) normalised)"
+            "$description": "Secondary button hover (lch(29.47…) normalised)"
           },
           "press": {
             "$type": "color",
@@ -159,7 +159,7 @@
                 }
               }
             },
-            "$description": "Primary button pressed"
+            "$description": "Secondary button pressed"
           },
           "disabled": {
             "$type": "color",
@@ -172,7 +172,7 @@
                 }
               }
             },
-            "$description": "Primary button disabled"
+            "$description": "Secondary button disabled"
           }
         }
       },
