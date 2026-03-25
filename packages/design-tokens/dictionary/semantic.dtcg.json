@@ -648,8 +648,7 @@
           "$description": "Solid default bg — badge.solid"
         }
       }
-    },
-    "icon": {}
+    }
   },
   "utility": {
     "color": {
