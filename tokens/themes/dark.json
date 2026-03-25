@@ -2768,7 +2768,7 @@
                 "type": "color"
               },
               "focus": {
-                "value": "{click.global.color.accent.default}",
+                "value": "{click.global.color.outline.default}",
                 "type": "color"
               }
             }
@@ -2874,7 +2874,7 @@
                 "type": "color"
               },
               "focus": {
-                "value": "{click.global.color.accent.default}",
+                "value": "{click.global.color.outline.default}",
                 "type": "color"
               }
             }
