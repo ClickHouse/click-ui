@@ -2228,10 +2228,10 @@
               "value": "{click.card.promotion.color.stroke.default}",
               "type": "color"
             },
-              "focus": {
-                "value": "#151515",
-                "type": "color"
-              }
+            "focus": {
+              "value": "{click.global.color.accent.default}",
+              "type": "color"
+            }
           },
           "text": {
             "default": {
