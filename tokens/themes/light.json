@@ -3197,6 +3197,10 @@
               "default": {
                 "value": "{click.global.color.stroke.default}",
                 "type": "color"
+              },
+              "focus": {
+                "value": "{click.global.color.outline.default}",
+                "type": "color"
               }
             }
           },
@@ -3279,6 +3283,16 @@
               },
               "disabled": {
                 "value": "{click.genericMenu.item.color.default.background.default}",
+                "type": "color"
+              }
+            },
+            "stroke": {
+              "default": {
+                "value": "transparent",
+                "type": "color"
+              },
+              "focus": {
+                "value": "{click.global.color.outline.default}",
                 "type": "color"
               }
             }
