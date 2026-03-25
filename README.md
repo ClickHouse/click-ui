@@ -1,11 +1,3 @@
-# Click UI Monorepo
-
-This is the monorepo for ClickHouse's Click UI design system and component library.
-
-## Packages
-
-- [`@clickhouse/click-ui`](./packages/click-ui) - The official ClickHouse design system React component library
-
 ## Changeset
 
 We use [Changesets](https://github.com/changesets/changesets) to manage versioning and changelogs.
@@ -46,7 +38,3 @@ yarn changeset:version
 ## Release
 
 See [Package Release](./packages/click-ui/docs/package-release.md) for detailed release instructions.
-
-## Contributing
-
-See the [Click UI package README](./packages/click-ui/README.md) for development guidelines and contribution instructions.
