@@ -1,53 +1,83 @@
 {
   "radius": {
     "0": {
-      "$type": "number",
-      "$value": 0,
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
       "$description": "0px, none, square, sharp, angular, no-radius, corner-none"
     },
     "25": {
-      "$type": "number",
-      "$value": 2,
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
       "$description": "2px, tiny, subtle, 0.125rem, radius.25, xs, micro-corner, slight"
     },
     "50": {
-      "$type": "number",
-      "$value": 4,
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
       "$description": "4px, extra-small, small, 0.25rem, radius.50, xs, sm, input, field, subtle-round"
     },
     "75": {
-      "$type": "number",
-      "$value": 6,
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
       "$description": "6px, small, 0.375rem, radius.75, sm, button-small, chip, tag, soft-round"
     },
     "100": {
-      "$type": "number",
-      "$value": 8,
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
       "$description": "8px, base, standard, 0.5rem, radius.100, md, button, card, default-round, moderate"
     },
     "150": {
-      "$type": "number",
-      "$value": 12,
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
       "$description": "12px, medium, 0.75rem, radius.150, md-lg, panel, section, rounded, relaxed"
     },
     "200": {
-      "$type": "number",
-      "$value": 16,
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
       "$description": "16px, large, 1rem, radius.200, lg, container, modal, dialog, well-rounded"
     },
     "300": {
-      "$type": "number",
-      "$value": 24,
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
       "$description": "24px, extra-large, 1.5rem, radius.300, xl, large-card, feature, very-rounded"
     },
     "400": {
-      "$type": "number",
-      "$value": 32,
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
       "$description": "32px, 2xl, 2rem, radius.400, pill-like, bubble, heavily-rounded"
     },
     "999": {
-      "$type": "number",
-      "$value": 999,
+      "$type": "dimension",
+      "$value": {
+        "value": 999,
+        "unit": "px"
+      },
       "$description": "999px, full, pill, capsule, circular, radius.999, rounded-full, completely-round"
     }
   }

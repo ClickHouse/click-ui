@@ -1,73 +1,115 @@
 {
   "space": {
     "0": {
-      "$type": "number",
-      "$value": 0,
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
       "$description": "0px, none, 0rem, zero, no-gap, compact, reset"
     },
     "25": {
-      "$type": "number",
-      "$value": 2,
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
       "$description": "2px, tiny, 0.125rem, space.25, xs, minimal, micro"
     },
     "50": {
-      "$type": "number",
-      "$value": 4,
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
       "$description": "4px, extra-small, 0.25rem, space.50, xs, icon-gap, tight, dense"
     },
     "75": {
-      "$type": "number",
-      "$value": 6,
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
       "$description": "6px, small, 0.375rem, space.75, sm, inline-gap, snug"
     },
     "100": {
-      "$type": "number",
-      "$value": 8,
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
       "$description": "8px, base, 0.5rem, space.100, base-unit, standard, default-gap, comfortable"
     },
     "150": {
-      "$type": "number",
-      "$value": 12,
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
       "$description": "12px, small-medium, 0.75rem, space.150, sm-md, component-gap, relaxed"
     },
     "200": {
-      "$type": "number",
-      "$value": 16,
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
       "$description": "16px, medium, 1rem, space.200, md, card-padding, section-gap, normal"
     },
     "250": {
-      "$type": "number",
-      "$value": 20,
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
       "$description": "20px, medium-large, 1.25rem, space.250, md-lg, relaxed, loose"
     },
     "300": {
-      "$type": "number",
-      "$value": 24,
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
       "$description": "24px, large, 1.5rem, space.300, lg, container-gap, roomy, generous"
     },
     "400": {
-      "$type": "number",
-      "$value": 32,
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
       "$description": "32px, extra-large, 2rem, space.400, xl, layout-gap, spacious, wide"
     },
     "500": {
-      "$type": "number",
-      "$value": 40,
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
       "$description": "40px, 2xl, 2.5rem, space.500, layout-section, major-gap, expansive"
     },
     "600": {
-      "$type": "number",
-      "$value": 48,
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
       "$description": "48px, 3xl, 3rem, space.600, section-break, substantial, vast"
     },
     "800": {
-      "$type": "number",
-      "$value": 64,
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
       "$description": "64px, 4xl, 4rem, space.800, layout-major, significant, extensive"
     },
     "1000": {
-      "$type": "number",
-      "$value": 80,
+      "$type": "dimension",
+      "$value": {
+        "value": 80,
+        "unit": "px"
+      },
       "$description": "80px, 5xl, 5rem, space.1000, layout-block, major-section, expansive"
     }
   }

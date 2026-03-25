@@ -2,38 +2,59 @@
   "font": {
     "size": {
       "50": {
-        "$type": "number",
-        "$value": 10,
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
         "$description": "10px, 0.625rem, xs, tiny"
       },
       "75": {
-        "$type": "number",
-        "$value": 12,
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
         "$description": "12px, 0.75rem, sm, small"
       },
       "100": {
-        "$type": "number",
-        "$value": 14,
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
         "$description": "14px, 0.875rem, md, body-sm"
       },
       "200": {
-        "$type": "number",
-        "$value": 16,
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
         "$description": "16px, 1rem, base, body"
       },
       "300": {
-        "$type": "number",
-        "$value": 18,
+        "$type": "dimension",
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        },
         "$description": "18px, 1.125rem, lg"
       },
       "400": {
-        "$type": "number",
-        "$value": 20,
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
         "$description": "20px, 1.25rem, xl, title-sm"
       },
       "500": {
-        "$type": "number",
-        "$value": 32,
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
         "$description": "32px, 2rem, 2xl, heading"
       }
     },
