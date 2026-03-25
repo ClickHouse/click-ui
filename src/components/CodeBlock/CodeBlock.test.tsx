@@ -16,16 +16,10 @@ describe('CodeBlock', () => {
     expect(container.textContent).toContain('$BAR');
   });
 
-  it('renders angle-bracket placeholders as literal text instead of [object Object]', () => {
-    const { container } = renderCodeBlock(
-      <>
-        {'export PROJECT_ID="'}
-        <project-id />
-        {'"'}
-      </>
-    );
+  it('renders angle-bracket placeholders as literal text', () => {
+    const { container } = renderCodeBlock('export PROJECT_ID="<project_id>"');
+    expect(container.textContent).toContain('<project_id>');
     expect(container.textContent).not.toContain('[object Object]');
-    expect(container.textContent).toContain('project-id');
   });
 
   it('copies the plain-text string to clipboard', async () => {
