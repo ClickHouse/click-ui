@@ -20,10 +20,10 @@ import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintex
 /* eslint-enable import/extensions */
 
 const nodeToString = (node: ReactNode): string => {
-  if (node === null || node === undefined || typeof node === 'boolean') return '';
-  if (typeof node === 'string') return node;
-  if (typeof node === 'number') return String(node);
-  if (Array.isArray(node)) return node.map(nodeToString).join('');
+  if (node === null || node === undefined || typeof node === 'boolean') { return ''; }
+  if (typeof node === 'string') { return node; }
+  if (typeof node === 'number') { return String(node); }
+  if (Array.isArray(node)) { return node.map(nodeToString).join(''); }
   if (React.isValidElement(node)) {
     const element = node as React.ReactElement<{ children?: ReactNode }>;
     const tagName = typeof element.type === 'string' ? element.type : '';
