@@ -25,6 +25,7 @@
     }
   },
   "scripts": {
+    "build": "yarn tokens:build",
     "tokens:build": "tz build",
     "tokens:watch": "tz build --watch"
   },
