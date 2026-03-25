@@ -11,7 +11,7 @@ fi
 changeset_path=".changeset/${filename}.md"
 
 if ! yarn changeset; then
-  echo "👹 Oops! Failed to create changest"
+  echo "👹 Oops! Failed to create changeset"
   exit 1
 fi
 
