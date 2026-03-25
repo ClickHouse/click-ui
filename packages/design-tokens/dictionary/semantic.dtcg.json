@@ -698,7 +698,7 @@
       "border": {
         "muted": {
           "$type": "color",
-          "$value": "{color.gray.75}",
+          "$value": "{color.gray.100}",
           "$extensions": {
             "org.terrazzo.resolver": {
               "modes": {
