@@ -148,7 +148,7 @@
             },
             "$description": "Secondary button hover (lch(29.47…) normalised)"
           },
-          "press": {
+          "active": {
             "$type": "color",
             "$value": "{color.gray.950}",
             "$extensions": {
