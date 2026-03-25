@@ -30,7 +30,7 @@
     "tokens:build": "tz build",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
-    "test": "echo 'TODO: Setup test'"
+    "test": "echo '🦖 Skip test!'"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
