@@ -16,9 +16,25 @@ This specification defines the structure, naming conventions, and metadata strat
 
 ```
 color/{palette}/{step}
+color/{palette}-{mode}/{step}           # For mode-specific palettes
+color/{palette}-{mode}/{category}/{step} # For categorized mode palettes
 ```
 
-Examples: `color/white`, `color/gray/50`, `color/blue/400`
+Examples: `color/white`, `color/gray/50`, `color/blue/400`, `color/charcoal/surface/200`
+
+**Gray Color Palettes:**
+
+| Pattern | Purpose | Example |
+|---------|---------|---------|
+| `color/gray/{step}` | Standard gray scale (50-950) | `color/gray/50` = #f6f7fa |
+| `color/charcoal/surface/{step}` | Deep surface tones (50-450) | `color/charcoal/surface/50` = #151515 |
+| `color/charcoal/text/{step}` | Light text for dark backgrounds (50-400) | `color/charcoal/text/50` = #e8e7ea |
+
+**Rationale:** The `gray` + `charcoal` naming:
+- `gray` = standard gray scale for typical UI needs
+- `charcoal` = deep tones grouped by purpose (surface vs text)
+- Avoids "light/dark" terminology which implies theme modes
+- Makes intent clear: `charcoal.surface` for dark backgrounds, `charcoal.text` for light text on dark
 
 **Semantic Naming:**
 
@@ -251,11 +267,13 @@ Files named `primitives.dtcg.json` (case-insensitive) are automatically detected
 **Collection Structure:**
 
 ```
-Primitives (NO scope - hidden)     Semantic (Public - visible)
-├── color/white   ←────────────── color/background/base
-├── color/gray/50  ←────────────── color/foreground/subtle
-├── space/100     ←────────────── Layout/Card-Padding
-└── space/200     ←────────────── Layout/Section-Gap
+Primitives (NO scope - hidden)          Semantic (Public - visible)
+├── color/white               ←──────── color/background/base (light)
+├── color/gray/50             ←──────── color/background/subtle (light)
+├── color/charcoal/surface/50 ←──────── color/background/base (dark)
+├── color/charcoal/text/50    ←──────── color/foreground/default (dark)
+├── space/100                 ←──────── Layout/Card-Padding
+└── space/200                 ←──────── Layout/Section-Gap
 ```
 
 **Import Order:**
@@ -523,10 +541,26 @@ All tokens (primitives + semantic) are output to a single `./dist/tokens.css` fi
 | **Figma** | Hidden (`scopes: []`) | Designers should use semantic tokens only |
 | **CSS/Code** | Exposed | Theming, devtools debugging, variable resolution |
 
-Semantic tokens reference primitives via `var(--cui-color-gray-50)`. Consumers need access to:
+Semantic tokens reference primitives via CSS variables like `var(--cui-color-gray-50)` or `var(--cui-color-charcoal-surface-200)`. Consumers need access to:
 - Override primitives for custom themes
 - Enable dark/light mode switching
 - Debug resolved values in browser devtools
+
+**CSS Variable Examples:**
+
+```css
+/* Standard grays */
+--cui-color-gray-50: rgb(96.471% 96.863% 98.039%);
+--cui-color-gray-950: rgb(8.6275% 8.2353% 9.0196%);
+
+/* Charcoal surfaces (deep tones for dark backgrounds) */
+--cui-color-charcoal-surface-50: rgb(8.2353% 8.2353% 8.2353%);
+--cui-color-charcoal-surface-200: rgb(13.725% 13.725% 14.51%);
+
+/* Charcoal text (light text for dark backgrounds) */
+--cui-color-charcoal-text-50: rgb(90.98% 90.588% 91.765%);
+--cui-color-charcoal-text-300: rgb(50.196% 51.373% 53.333%);
+```
 
 ### Designer vs Developer Governance
 
@@ -539,8 +573,8 @@ Primitives are hidden from designers but exposed to developers. This asymmetry i
 
 **Developer Usage Guidelines:**
 
-- **Components**: Use semantic tokens (`--cui-color-text-secondary`)
-- **Theming**: Use primitives to override base values (`--cui-color-gray-500`)
+- **Components**: Use semantic tokens (`--cui-color-foreground-subtle`)
+- **Theming**: Use primitives to override base values (`--cui-color-gray-500`, `--cui-color-charcoal-surface-200`)
 - **Avoid**: Using primitives directly in component styles
 
 **Recommended Guardrails:**

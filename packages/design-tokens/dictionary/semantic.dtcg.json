@@ -8,7 +8,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.white}",
-              "dark": "{color.gray.1000}"
+              "dark": "{color.charcoal.surface.50}"
             }
           }
         },
@@ -21,7 +21,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.50}",
-              "dark": "{color.gray.1100}"
+              "dark": "{color.charcoal.surface.200}"
             }
           }
         },
@@ -34,7 +34,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.300}",
-              "dark": "{color.gray.1150}"
+              "dark": "{color.charcoal.surface.250}"
             }
           }
         },
@@ -60,7 +60,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.off-white}",
-              "dark": "{color.gray.1050}"
+              "dark": "{color.charcoal.surface.150}"
             }
           }
         },
@@ -75,7 +75,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.800}",
-                  "dark": "{color.gray.1550}"
+                  "dark": "{color.charcoal.text.100}"
                 }
               }
             },
@@ -88,7 +88,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.805}",
-                  "dark": "{color.gray.1600}"
+                  "dark": "{color.charcoal.text.150}"
                 }
               }
             },
@@ -101,7 +101,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.950}",
-                  "dark": "{color.gray.1650}"
+                  "dark": "{color.charcoal.text.200}"
                 }
               }
             },
@@ -114,7 +114,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.300}",
-                  "dark": "{color.gray.1200}"
+                  "dark": "{color.charcoal.surface.300}"
                 }
               }
             },
@@ -142,7 +142,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.50}",
-                  "dark": "{color.gray.1100}"
+                  "dark": "{color.charcoal.surface.200}"
                 }
               }
             },
@@ -155,7 +155,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.100}",
-                  "dark": "{color.gray.1150}"
+                  "dark": "{color.charcoal.surface.250}"
                 }
               }
             },
@@ -168,7 +168,7 @@
               "org.terrazzo.resolver": {
                 "modes": {
                   "light": "{color.gray.300}",
-                  "dark": "{color.gray.1200}"
+                  "dark": "{color.charcoal.surface.300}"
                 }
               }
             },
@@ -303,7 +303,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.950}",
-              "dark": "{color.gray.1500}"
+              "dark": "{color.charcoal.text.50}"
             }
           }
         },
@@ -316,7 +316,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.500}",
-              "dark": "{color.gray.1700}"
+              "dark": "{color.charcoal.text.250}"
             }
           }
         },
@@ -329,7 +329,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.550}",
-              "dark": "{color.gray.1750}"
+              "dark": "{color.charcoal.text.300}"
             }
           }
         },
@@ -342,7 +342,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.450}",
-              "dark": "{color.gray.1800}"
+              "dark": "{color.charcoal.text.350}"
             }
           }
         },
@@ -355,7 +355,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.400}",
-              "dark": "{color.gray.1850}"
+              "dark": "{color.charcoal.text.400}"
             }
           }
         },
@@ -464,7 +464,7 @@
             "org.terrazzo.resolver": {
               "modes": {
                 "light": "{color.gray.550}",
-                "dark": "{color.gray.1750}"
+                "dark": "{color.charcoal.text.300}"
               }
             }
           },
@@ -493,7 +493,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.100}",
-              "dark": "{color.gray.1300}"
+              "dark": "{color.charcoal.surface.400}"
             }
           }
         },
@@ -506,7 +506,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.200}",
-              "dark": "{color.gray.1350}"
+              "dark": "{color.charcoal.surface.450}"
             }
           }
         },
@@ -519,7 +519,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.300}",
-              "dark": "{color.gray.1250}"
+              "dark": "{color.charcoal.surface.350}"
             }
           }
         },
@@ -532,7 +532,7 @@
           "org.terrazzo.resolver": {
             "modes": {
               "light": "{color.gray.700}",
-              "dark": "{color.gray.1200}"
+              "dark": "{color.charcoal.surface.300}"
             }
           }
         },
@@ -628,7 +628,7 @@
             "org.terrazzo.resolver": {
               "modes": {
                 "light": "{color.gray.650}",
-                "dark": "{color.gray.1750}"
+                "dark": "{color.charcoal.text.300}"
               }
             }
           },
@@ -641,7 +641,7 @@
             "org.terrazzo.resolver": {
               "modes": {
                 "light": "{color.gray.400}",
-                "dark": "{color.gray.1850}"
+                "dark": "{color.charcoal.text.400}"
               }
             }
           },
@@ -703,7 +703,7 @@
             "org.terrazzo.resolver": {
               "modes": {
                 "light": "{color.gray.100}",
-                "dark": "{color.gray.1150}"
+                "dark": "{color.charcoal.surface.250}"
               }
             }
           },
