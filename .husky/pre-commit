@@ -48,8 +48,7 @@ if [[ -n "$RUN_DEPS_CHECK" ]]; then
     exit 1
   fi
 else
-  echo "🦖 Skipped circular dependency check! To enable
-  set RUN_DEPS_CHECK=1"
+  echo "🦖 Skipped circular dependency check! To enable set RUN_DEPS_CHECK=1"
 fi
 
 echo "👍 Health check completed."
