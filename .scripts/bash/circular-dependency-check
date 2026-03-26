@@ -15,7 +15,7 @@ if command -v yarn &> /dev/null; then
     --displayMode=file-tree \
     --showCircularDependencies \
     --ignorePattern="$IGNORE_PATTERNS" \
-    --exitCodeOnCircularDependencies=1 > "$TEMP_OUTPUT" 2>&1 || true
+    --exitCodeOnCircularDependencies=1 < /dev/null > "$TEMP_OUTPUT" 2>&1 || true
 else
   echo "👹 Oops! The package skott is missing, have you installed the project dependencies?"
 
