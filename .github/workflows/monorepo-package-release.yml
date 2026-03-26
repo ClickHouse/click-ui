@@ -1,0 +1,236 @@
+name: 🎯 Monorepo Package Publisher (NPM)
+
+# TODO: This is a concurrent NPM publisher  to
+# the original changeset based workflow for Click UI
+# which is much stricter with a very particular
+# release cycle: test or release-candidate -> stable -> latest
+# The "Monorepo Package Publisher" initial version is not strict
+# and relies on the user managing the changeset state
+# e.g.
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to release'
+        required: true
+        type: choice
+        options:
+          # NOTE: Declare the package names
+          # that can be published to NPM registry
+          - design-tokens
+      release_type:
+        description: 'Release type'
+        required: true
+        type: choice
+        options:
+          - test
+          - rc
+          - stable
+          - latest
+        default: 'test'
+      confirm_package:
+        description: 'Type the package name to confirm (e.g., "design-tokens")'
+        required: true
+        type: string
+      confirm_branch:
+        description: 'For stable releases: type the branch name (e.g., "main")'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run (e.g., skip publish, github release, and slack notification)'
+        required: true
+        type: boolean
+        default: true
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  HUSKY: 0
+
+jobs:
+  monorepo-release-package:
+    name: Monorepo Release Package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Validate package confirmation
+        run: |
+          if [[ "${{ inputs.package }}" != "${{ inputs.confirm_package }}" ]]; then
+            echo "👹 Oops! Package confirmation mismatch!"
+            echo "   Selected: '${{ inputs.package }}'"
+            echo "   Typed: '${{ inputs.confirm_package }}'"
+            echo ""
+            echo "💡 Please type the exact package name to confirm."
+            exit 1
+          fi
+          echo "✅ Package confirmed: ${{ inputs.package }}"
+
+      - name: Validate branch for stable release
+        if: inputs.release_type == 'stable'
+        run: |
+          CURRENT_BRANCH="${{ github.ref_name }}"
+          CONFIRM_BRANCH="${{ inputs.confirm_branch }}"
+
+          if [[ -z "$CONFIRM_BRANCH" ]]; then
+            echo "👹 Oops! Branch confirmation required for stable releases!"
+            echo "   Current branch: '$CURRENT_BRANCH'"
+            echo ""
+            echo "💡 Please type the branch name in 'confirm_branch' to proceed."
+            exit 1
+          fi
+
+          if [[ "$CURRENT_BRANCH" != "$CONFIRM_BRANCH" ]]; then
+            echo "👹 Oops! Branch confirmation mismatch!"
+            echo "   Current branch: '$CURRENT_BRANCH'"
+            echo "   Typed: '$CONFIRM_BRANCH'"
+            echo ""
+            echo "💡 Please type the exact branch name to confirm."
+            exit 1
+          fi
+
+          if [[ "$CURRENT_BRANCH" != "main" ]]; then
+            echo "👹 Oops! Stable releases must be from 'main' branch!"
+            echo "   Current branch: '$CURRENT_BRANCH'"
+            exit 1
+          fi
+
+          echo "✅ Branch confirmed: $CURRENT_BRANCH"
+
+      - name: Generate GitHub workflow token
+        if: ${{ !inputs.dry_run }}
+        id: gh-workflow-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '23.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Upgrade npm for OIDC support
+        run: |
+          npm install -g npm@latest
+          echo "npm version: $(npm --version)"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Load package configuration
+        id: package-config
+        run: |
+          PKG_DIR="packages/${{ inputs.package }}"
+
+          if [[ ! -f "$PKG_DIR/package.json" ]]; then
+            echo "👹 Oops! No package.json found at $PKG_DIR"
+            exit 1
+          fi
+
+          PKG_NAME=$(node -p "require('./$PKG_DIR/package.json').name")
+          echo "package_name=$PKG_NAME" >> $GITHUB_OUTPUT
+          echo "package_path=$PKG_DIR" >> $GITHUB_OUTPUT
+          echo "changelog_file=CHANGELOG.md" >> $GITHUB_OUTPUT
+
+          echo "✅ Loaded config for $PKG_NAME ($PKG_DIR)"
+
+      - name: Build package
+        working-directory: ${{ steps.package-config.outputs.package_path }}
+        run: yarn build
+
+      - name: Get version from package.json
+        id: package-version
+        working-directory: ${{ steps.package-config.outputs.package_path }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Package version: $VERSION"
+
+      - name: Check version on npm
+        if: ${{ !inputs.dry_run }}
+        run: |
+          PKG_NAME="${{ steps.package-config.outputs.package_name }}"
+          VERSION="${{ steps.package-version.outputs.version }}"
+
+          echo "🔍 Checking if $PKG_NAME@$VERSION already exists on NPM..."
+
+          if npm view "$PKG_NAME@$VERSION" version 2>/dev/null; then
+            echo "👹 Oops! Version $VERSION of $PKG_NAME is already published on NPM!"
+            echo "💡 Please bump the version via changesets and try again."
+            exit 1
+          fi
+
+          echo "✅ Version $VERSION is not yet published, safe to proceed."
+
+      - name: Publish to npm over OpenID Connect (OIDC)
+        working-directory: ${{ steps.package-config.outputs.package_path }}
+        run: |
+          if [[ "${{ inputs.dry_run }}" == "true" ]]; then
+            echo "🧪 Dry run mode — publishing with --dry-run"
+            npm publish \
+              --access public \
+              --provenance \
+              --tag ${{ inputs.release_type }} \
+              --dry-run
+          else
+            npm publish \
+              --access public \
+              --provenance \
+              --tag ${{ inputs.release_type }}
+          fi
+
+      - name: Extract changelog
+        if: ${{ !inputs.dry_run }}
+        id: changelog
+        run: |
+          VERSION="${{ steps.package-version.outputs.version }}"
+          PKG_PATH="${{ steps.package-config.outputs.package_path }}"
+          CHANGELOG_FILE="${{ steps.package-config.outputs.changelog_file }}"
+          CHANGELOG_PATH="${PKG_PATH}/${CHANGELOG_FILE}"
+
+          if [[ -f "$CHANGELOG_PATH" ]]; then
+            CHANGELOG=$(awk "/## $VERSION/,/## [0-9]/" "$CHANGELOG_PATH" | sed '1d;$d' | sed '/^$/d')
+
+            if [[ -z "$CHANGELOG" ]]; then
+              CHANGELOG="📝 See [CHANGELOG.md](./$CHANGELOG_FILE) for details."
+            fi
+          else
+            CHANGELOG="No changelog available."
+          fi
+
+          echo "$CHANGELOG" > /tmp/changelog.txt
+          echo "📄 Extracted changelog"
+
+      - name: Create GitHub release
+        if: ${{ !inputs.dry_run }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.package-config.outputs.package_name }}@v${{ steps.package-version.outputs.version }}
+          name: "${{ inputs.package }} v${{ steps.package-version.outputs.version }}"
+          body_path: /tmp/changelog.txt
+          prerelease: ${{ inputs.release_type != 'stable' }}
+        env:
+          GITHUB_TOKEN: ${{ steps.gh-workflow-token.outputs.token }}
+
+      - name: Notify Slack about new release
+        if: ${{ !inputs.dry_run && secrets.SLACK_BOT_TOKEN != '' }}
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: "${{ secrets.SLACK_CHANNEL_FOR_GENERAL }}"
+            text: "===\n🚀 *${{ steps.package-config.outputs.package_name }}* v${{ steps.package-version.outputs.version }} released to npm!\n\n📦 <https://www.npmjs.com/package/${{ steps.package-config.outputs.package_name }}/v/${{ steps.package-version.outputs.version }}|View on npm>\n🏷️ Tag: `${{ inputs.release_type }}`\n==="
