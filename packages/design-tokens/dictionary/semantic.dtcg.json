@@ -5,11 +5,9 @@
         "$type": "color",
         "$value": "{color.white}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.white}",
               "dark": "{color.charcoal.surface.50}"
-            }
           }
         },
         "$description": "Default page / card / dialog surface"
@@ -18,11 +16,9 @@
         "$type": "color",
         "$value": "{color.gray.50}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.50}",
               "dark": "{color.charcoal.surface.200}"
-            }
           }
         },
         "$description": "Hover surface, muted card, secondary bg"
@@ -31,11 +27,9 @@
         "$type": "color",
         "$value": "{color.gray.300}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.300}",
               "dark": "{color.charcoal.surface.250}"
-            }
           }
         },
         "$description": "Disabled background across all components"
@@ -44,11 +38,9 @@
         "$type": "color",
         "$value": "{color.transparent}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.transparent}",
               "dark": "{color.transparent}"
-            }
           }
         },
         "$description": "Ghost / empty state — no fill"
@@ -57,11 +49,9 @@
         "$type": "color",
         "$value": "{color.off-white}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.off-white}",
               "dark": "{color.charcoal.surface.150}"
-            }
           }
         },
         "$description": "Input field background"
@@ -72,12 +62,10 @@
             "$type": "color",
             "$value": "{color.gray.800}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.800}",
                   "dark": "{color.charcoal.text.100}"
                 }
-              }
             },
             "$description": "Primary filled button / icon button secondary"
           },
@@ -85,12 +73,10 @@
             "$type": "color",
             "$value": "{color.gray.805}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.805}",
                   "dark": "{color.charcoal.text.150}"
                 }
-              }
             },
             "$description": "Primary button hover"
           },
@@ -98,12 +84,10 @@
             "$type": "color",
             "$value": "{color.gray.950}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.950}",
                   "dark": "{color.charcoal.text.200}"
                 }
-              }
             },
             "$description": "Primary button pressed"
           },
@@ -111,12 +95,10 @@
             "$type": "color",
             "$value": "{color.gray.300}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.300}",
                   "dark": "{color.charcoal.surface.300}"
                 }
-              }
             },
             "$description": "Primary button disabled"
           }
@@ -126,12 +108,10 @@
             "$type": "color",
             "$value": "{color.transparent}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.transparent}",
                   "dark": "{color.transparent}"
                 }
-              }
             },
             "$description": "Secondary button (ghost/outline) default — transparent"
           },
@@ -139,12 +119,10 @@
             "$type": "color",
             "$value": "{color.gray.50}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.50}",
                   "dark": "{color.charcoal.surface.200}"
                 }
-              }
             },
             "$description": "Secondary button hover — subtle tint"
           },
@@ -152,12 +130,10 @@
             "$type": "color",
             "$value": "{color.gray.100}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.100}",
                   "dark": "{color.charcoal.surface.250}"
                 }
-              }
             },
             "$description": "Secondary button pressed — subtle tint, stronger than hover"
           },
@@ -165,12 +141,10 @@
             "$type": "color",
             "$value": "{color.gray.300}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.gray.300}",
                   "dark": "{color.charcoal.surface.300}"
                 }
-              }
             },
             "$description": "Secondary button disabled"
           }
@@ -182,12 +156,10 @@
             "$type": "color",
             "$value": "{color.red.50}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.red.50}",
                   "dark": "{color.red.opacity.15}"
                 }
-              }
             },
             "$description": "Danger tinted bg — button, badge, alert, icon"
           },
@@ -195,12 +167,10 @@
             "$type": "color",
             "$value": "{color.red.100}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.red.100}",
                   "dark": "{color.red.opacity.25}"
                 }
-              }
             },
             "$description": "Danger hover bg"
           },
@@ -208,12 +178,10 @@
             "$type": "color",
             "$value": "{color.red.200}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.red.200}",
                   "dark": "{color.red.opacity.35}"
                 }
-              }
             },
             "$description": "Danger active / pressed bg"
           }
@@ -223,12 +191,10 @@
             "$type": "color",
             "$value": "{color.green.50}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.green.50}",
                   "dark": "{color.green.opacity.15}"
                 }
-              }
             },
             "$description": "Success tinted bg — alert, badge"
           }
@@ -238,12 +204,10 @@
             "$type": "color",
             "$value": "{color.orange.50}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.orange.50}",
                   "dark": "{color.orange.opacity.15}"
                 }
-              }
             },
             "$description": "Warning tinted bg — alert, badge"
           }
@@ -253,12 +217,10 @@
             "$type": "color",
             "$value": "{color.blue.50}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.blue.50}",
                   "dark": "{color.blue.opacity.15}"
                 }
-              }
             },
             "$description": "Info tinted bg — alert, badge, iconButton"
           }
@@ -268,12 +230,10 @@
             "$type": "color",
             "$value": "{color.neutral.50}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.neutral.50}",
                   "dark": "{color.neutral.opacity.15}"
                 }
-              }
             },
             "$description": "Neutral tinted bg — alert, badge"
           }
@@ -284,12 +244,10 @@
           "$type": "color",
           "$value": "{color.blue.50}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.blue.50}",
                 "dark": "{color.blue.opacity.15}"
               }
-            }
           },
           "$description": "Selection highlight — grid row, table row, list item"
         }
@@ -300,11 +258,9 @@
         "$type": "color",
         "$value": "{color.gray.950}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.950}",
               "dark": "{color.charcoal.text.50}"
-            }
           }
         },
         "$description": "Primary text on any light surface"
@@ -313,11 +269,9 @@
         "$type": "color",
         "$value": "{color.gray.500}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.500}",
               "dark": "{color.charcoal.text.250}"
-            }
           }
         },
         "$description": "Secondary / muted text, icons"
@@ -326,11 +280,9 @@
         "$type": "color",
         "$value": "{color.gray.550}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.550}",
               "dark": "{color.charcoal.text.300}"
-            }
           }
         },
         "$description": "Neutral label text"
@@ -339,11 +291,9 @@
         "$type": "color",
         "$value": "{color.gray.450}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.450}",
               "dark": "{color.charcoal.text.350}"
-            }
           }
         },
         "$description": "Input placeholder text"
@@ -352,11 +302,9 @@
         "$type": "color",
         "$value": "{color.gray.400}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.400}",
               "dark": "{color.charcoal.text.400}"
-            }
           }
         },
         "$description": "Disabled text across all components"
@@ -366,12 +314,10 @@
           "$type": "color",
           "$value": "{color.white}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.white}",
                 "dark": "{color.gray.950}"
               }
-            }
           },
           "$description": "Text / icon on dark primary surface"
         },
@@ -380,12 +326,10 @@
             "$type": "color",
             "$value": "{color.blue.400}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.blue.400}",
                   "dark": "{color.blue.light}"
                 }
-              }
             },
             "$description": "Link, empty button, info text"
           },
@@ -393,12 +337,10 @@
             "$type": "color",
             "$value": "{color.blue.600}",
             "$extensions": {
-              "org.terrazzo.resolver": {
-                "modes": {
+              "mode": {
                   "light": "{color.blue.600}",
                   "dark": "{color.blue.lighter}"
                 }
-              }
             },
             "$description": "Link / empty button hover"
           }
@@ -409,12 +351,10 @@
           "$type": "color",
           "$value": "{color.red.600}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.red.600}",
                 "dark": "{color.red.light}"
               }
-            }
           },
           "$description": "Danger text — alert, badge, button, field"
         },
@@ -422,12 +362,10 @@
           "$type": "color",
           "$value": "{color.green.600}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.green.600}",
                 "dark": "{color.green.light}"
               }
-            }
           },
           "$description": "Success text — alert, badge, icon"
         },
@@ -435,12 +373,10 @@
           "$type": "color",
           "$value": "{color.orange.700}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.orange.700}",
                 "dark": "{color.orange.light}"
               }
-            }
           },
           "$description": "Warning text — alert, badge, icon"
         },
@@ -448,12 +384,10 @@
           "$type": "color",
           "$value": "{color.blue.400}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.blue.400}",
                 "dark": "{color.blue.light}"
               }
-            }
           },
           "$description": "Info text — alert, badge (same as link.default)"
         },
@@ -461,12 +395,10 @@
           "$type": "color",
           "$value": "{color.gray.550}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.gray.550}",
                 "dark": "{color.charcoal.text.300}"
               }
-            }
           },
           "$description": "Neutral variant text — alert, badge"
         }
@@ -475,11 +407,9 @@
         "$type": "color",
         "$value": "{color.format}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.format}",
               "dark": "{color.format-light}"
-            }
           }
         },
         "$description": "Field / menu chevron / format indicator"
@@ -490,11 +420,9 @@
         "$type": "color",
         "$value": "{color.gray.100}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.100}",
               "dark": "{color.charcoal.surface.400}"
-            }
           }
         },
         "$description": "Default border — card, field, badge, button, table"
@@ -503,11 +431,9 @@
         "$type": "color",
         "$value": "{color.gray.200}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.200}",
               "dark": "{color.charcoal.surface.450}"
-            }
           }
         },
         "$description": "Active / strong border — button active, field hover"
@@ -516,11 +442,9 @@
         "$type": "color",
         "$value": "{color.gray.300}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.300}",
               "dark": "{color.charcoal.surface.350}"
-            }
           }
         },
         "$description": "Disabled border"
@@ -529,11 +453,9 @@
         "$type": "color",
         "$value": "{color.gray.700}",
         "$extensions": {
-          "org.terrazzo.resolver": {
-            "modes": {
+          "mode": {
               "light": "{color.gray.700}",
               "dark": "{color.charcoal.surface.300}"
-            }
           }
         },
         "$description": "Muted border — checkbox default stroke"
@@ -543,12 +465,10 @@
           "$type": "color",
           "$value": "{color.red.50}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.red.50}",
                 "dark": "{color.red.opacity.20}"
               }
-            }
           },
           "$description": "Danger bordered elements"
         },
@@ -556,12 +476,10 @@
           "$type": "color",
           "$value": "{color.blue.50}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.blue.50}",
                 "dark": "{color.blue.opacity.20}"
               }
-            }
           },
           "$description": "Info bordered elements"
         }
@@ -573,12 +491,10 @@
           "$type": "color",
           "$value": "{color.red.600}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.red.600}",
                 "dark": "{color.red.light}"
               }
-            }
           },
           "$description": "Solid danger bg — badge.solid"
         },
@@ -586,12 +502,10 @@
           "$type": "color",
           "$value": "{color.green.600}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.green.600}",
                 "dark": "{color.green.light}"
               }
-            }
           },
           "$description": "Solid success bg — badge.solid"
         },
@@ -599,12 +513,10 @@
           "$type": "color",
           "$value": "{color.orange.600}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.orange.600}",
                 "dark": "{color.orange.light}"
               }
-            }
           },
           "$description": "Solid warning bg — badge.solid"
         },
@@ -612,12 +524,10 @@
           "$type": "color",
           "$value": "{color.blue.600}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.blue.600}",
                 "dark": "{color.blue.lighter}"
               }
-            }
           },
           "$description": "Solid info bg — badge.solid"
         },
@@ -625,12 +535,10 @@
           "$type": "color",
           "$value": "{color.gray.650}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.gray.650}",
                 "dark": "{color.charcoal.text.300}"
               }
-            }
           },
           "$description": "Solid neutral bg — badge.solid"
         },
@@ -638,12 +546,10 @@
           "$type": "color",
           "$value": "{color.gray.400}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.gray.400}",
                 "dark": "{color.charcoal.text.400}"
               }
-            }
           },
           "$description": "Solid default bg — badge.solid"
         }
@@ -657,12 +563,10 @@
           "$type": "color",
           "$value": "{color.shadow.default}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.shadow.default}",
                 "dark": "{color.shadow.opacity.30}"
               }
-            }
           },
           "$description": "Box shadow colour"
         }
@@ -672,12 +576,10 @@
           "$type": "color",
           "$value": "{color.scrim.heavy}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.scrim.heavy}",
                 "dark": "{color.shadow.opacity.80}"
               }
-            }
           },
           "$description": "Dialog overlay scrim"
         },
@@ -685,12 +587,10 @@
           "$type": "color",
           "$value": "{color.scrim.tooltip}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.scrim.tooltip}",
                 "dark": "{color.shadow.opacity.90}"
               }
-            }
           },
           "$description": "Tooltip dark bg"
         }
@@ -700,12 +600,10 @@
           "$type": "color",
           "$value": "{color.gray.100}",
           "$extensions": {
-            "org.terrazzo.resolver": {
-              "modes": {
+            "mode": {
                 "light": "{color.gray.100}",
                 "dark": "{color.charcoal.surface.250}"
               }
-            }
           },
           "$description": "Muted stroke utility — global, sidebar hover base"
         }
