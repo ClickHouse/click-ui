@@ -14,97 +14,119 @@
       "50": {
         "$type": "color",
         "$value": "#f6f7fa",
-        "$description": "Subtle surface"
+        "$description": "Subtle surface (slate.50)"
       },
       "75": {
         "$type": "color",
         "$value": "#eaebee",
-        "$description": "Gray 75 - muted border light"
+        "$description": "Muted border light (interpolated)"
       },
       "100": {
         "$type": "color",
         "$value": "#e6e7e9",
-        "$description": "Default border"
+        "$description": "Default border (slate.100)"
       },
       "200": {
         "$type": "color",
         "$value": "#cccfd3",
-        "$description": "Active / strong border"
+        "$description": "Active / strong border (slate.200)"
       },
       "300": {
         "$type": "color",
-        "$value": "#dfdfdf",
-        "$description": "Disabled background"
-      },
-      "350": {
-        "$type": "color",
-        "$value": "#c0c0c0",
-        "$description": "Disabled border (checkbox)"
+        "$value": "#b3b6bd",
+        "$description": "Muted border variant (slate.300)"
       },
       "400": {
         "$type": "color",
-        "$value": "#a0a0a0",
-        "$description": "Disabled text"
-      },
-      "450": {
-        "$type": "color",
         "$value": "#9a9ea7",
-        "$description": "Placeholder text"
-      },
-      "470": {
-        "$type": "color",
-        "$value": "#808691",
-        "$description": "Table checkbox border"
+        "$description": "Placeholder text (slate.400)"
       },
       "500": {
         "$type": "color",
-        "$value": "#696e79",
-        "$description": "Subtle text, muted icons"
-      },
-      "550": {
-        "$type": "color",
-        "$value": "#53575f",
-        "$description": "Neutral / muted text"
+        "$value": "#808691",
+        "$description": "Table checkbox border (slate.500)"
       },
       "600": {
         "$type": "color",
-        "$value": "#505050",
-        "$description": "Button group text"
-      },
-      "650": {
-        "$type": "color",
-        "$value": "#606060",
-        "$description": "Neutral badge solid bg"
+        "$value": "#696e79",
+        "$description": "Subtle text, muted icons (slate.600)"
       },
       "700": {
         "$type": "color",
-        "$value": "#b3b6bd",
-        "$description": "Muted border variant"
+        "$value": "#53575f",
+        "$description": "Neutral / muted text (slate.700)"
       },
       "800": {
         "$type": "color",
         "$value": "#302e32",
-        "$description": "Primary action background"
-      },
-      "805": {
-        "$type": "color",
-        "$value": "#2a2830",
-        "$description": "Gray 805 - hover state dark (lch normalized)"
+        "$description": "Primary action background (slate.800)"
       },
       "850": {
         "$type": "color",
-        "$value": "#282828",
-        "$description": "Codeblock dark bg (fixed, not theme-aware)"
+        "$value": "#232125",
+        "$description": "Hover state dark (interpolated)"
       },
       "900": {
         "$type": "color",
-        "$value": "#1f1f1c",
-        "$description": "Stepper complete / active stroke (warm near-black)"
+        "$value": "#1c1a1e",
+        "$description": "Deep dark (interpolated)"
       },
       "950": {
         "$type": "color",
         "$value": "#161517",
-        "$description": "Primary text, near-black"
+        "$description": "Primary text, near-black (slate.900)"
+      }
+    },
+    "neutral": {
+      "100": {
+        "$type": "color",
+        "$value": "#f9f9f9",
+        "$description": "Pure neutral light (neutral.100)"
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#dfdfdf",
+        "$description": "Disabled background (neutral.200)"
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#c0c0c0",
+        "$description": "Disabled border (neutral.300)"
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#a0a0a0",
+        "$description": "Disabled text (neutral.400)"
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#808080",
+        "$description": "Mid gray (neutral.500)"
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#606060",
+        "$description": "Neutral badge solid bg (neutral.600)"
+      },
+      "650": {
+        "$type": "color",
+        "$value": "#505050",
+        "$description": "Button group text (neutral.650)"
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#414141",
+        "$description": "Dark neutral (neutral.700)"
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#282828",
+        "$description": "Codeblock dark bg (neutral.725)"
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#151515",
+        "$description": "Near black (neutral.900)"
       }
     },
     "charcoal": {
