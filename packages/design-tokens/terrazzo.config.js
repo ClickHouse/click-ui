@@ -16,6 +16,7 @@ export default defineConfig({
   },
   plugins: [
     css({
+      legacyHex: true,
       filename: "tokens.css",
       variableName: (token) => `--${CSS_VAR_PREFIX}-${token.id.replace(/\./g, "-")}`,
       modeSelectors: [
