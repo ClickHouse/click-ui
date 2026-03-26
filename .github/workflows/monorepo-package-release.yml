@@ -1,12 +1,11 @@
 name: 🎯 Monorepo Package Publisher (NPM)
 
-# TODO: This is a concurrent NPM publisher  to
-# the original changeset based workflow for Click UI
+# TODO: Create release workflow as this is a concurrent NPM publisher  to the original changeset based workflow for Click UI
 # which is much stricter with a very particular
 # release cycle: test or release-candidate -> stable -> latest
 # The "Monorepo Package Publisher" initial version is not strict
 # and relies on the user managing the changeset state
-# e.g.
+# e.g. enter/leave pre-release mode as needed (`yarn workspace @clickhouse/design-tokens changeset pre enter <tag>` / `changeset pre exit`), run `yarn workspace @clickhouse/design-tokens changeset version` to bump the version and generate the changelog, ensure the version bump and changelog are committed in the branch/commit you intend to release
 
 on:
   workflow_dispatch:
