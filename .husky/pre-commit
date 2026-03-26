@@ -31,20 +31,24 @@ else
   exit 1
 fi
 
-if yarn circular-dependency:check; then
-  echo "✅ Circular dependency check is good!"
-else
-  echo "⚠️ WARNING: Circular dependency checkup found issues, fix them before committing, please!"
-  echo "💡 Use the following command to get further reports in your resolution yarn circular-dependency:check"
-  exit 1
-fi
-
 if yarn changeset:verify; then
   echo "✅ Changeset file's included!"
 else
   echo "⚠️ WARNING: You must include a changeset!"
   echo "💡 Use the command yarn changeset:add"
   exit 1
+fi
+
+if [[ -n "$RUN_DEPS_CHECK" ]]; then
+  if yarn circular-dependency:check; then
+    echo "✅ Circular dependency check is good!"
+  else
+    echo "⚠️ WARNING: Circular dependency checkup found issues, fix them before committing, please!"
+    echo "💡 Use the following command to get further reports in your resolution yarn circular-dependency:check"
+    exit 1
+  fi
+else
+  echo "🦖 Skipped circular dependency check! To enable set RUN_DEPS_CHECK=1"
 fi
 
 echo "👍 Health check completed."

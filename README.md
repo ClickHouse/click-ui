@@ -98,6 +98,9 @@ Check for circular dependencies that can cause build and runtime issues:
 yarn circular-dependency:check
 ```
 
+> [!TIP]
+> Set RUN_DEPS_CHECK=1 to run circular dependency checks automatically on commit.
+
 If circular dependencies are found it'll exit with a report showing the affeced files which require your attention.
 
 ### Generating design tokens
