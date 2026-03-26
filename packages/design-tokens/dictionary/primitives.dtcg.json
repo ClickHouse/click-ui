@@ -105,91 +105,97 @@
         "$type": "color",
         "$value": "#161517",
         "$description": "Primary text, near-black"
+      }
+    },
+    "charcoal": {
+      "surface": {
+        "50": {
+          "$type": "color",
+          "$value": "#151515",
+          "$description": "Base surface (darkest)"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#1c1c1e",
+          "$description": "Darkest surface tone"
+        },
+        "150": {
+          "$type": "color",
+          "$value": "#1e1e20",
+          "$description": "Field background"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#232325",
+          "$description": "Subtle/hover surface"
+        },
+        "250": {
+          "$type": "color",
+          "$value": "#2a2a2c",
+          "$description": "Muted/active surface"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#2f2f31",
+          "$description": "Disabled surface"
+        },
+        "350": {
+          "$type": "color",
+          "$value": "#333335",
+          "$description": "Disabled border"
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#3a3a3c",
+          "$description": "Default border"
+        },
+        "450": {
+          "$type": "color",
+          "$value": "#4a4a4c",
+          "$description": "Strong border"
+        }
       },
-      "1000": {
-        "$type": "color",
-        "$value": "#151515",
-        "$description": "Card / horizontal active stroke"
-      },
-      "1025": {
-        "$type": "color",
-        "$value": "#1c1c1e",
-        "$description": "Gray 1025 - darkest surface tone"
-      },
-      "1050": {
-        "$type": "color",
-        "$value": "#1e1e20",
-        "$description": "Gray 1050 - dark surface tone"
-      },
-      "1100": {
-        "$type": "color",
-        "$value": "#232325",
-        "$description": "Gray 1100 - dark surface tone"
-      },
-      "1150": {
-        "$type": "color",
-        "$value": "#2a2a2c",
-        "$description": "Gray 1150 - dark surface tone"
-      },
-      "1200": {
-        "$type": "color",
-        "$value": "#2f2f31",
-        "$description": "Gray 1200 - dark surface tone"
-      },
-      "1250": {
-        "$type": "color",
-        "$value": "#333335",
-        "$description": "Gray 1250 - dark surface tone"
-      },
-      "1300": {
-        "$type": "color",
-        "$value": "#3a3a3c",
-        "$description": "Gray 1300 - border tone for dark mode"
-      },
-      "1350": {
-        "$type": "color",
-        "$value": "#4a4a4c",
-        "$description": "Gray 1350 - border tone for dark mode"
-      },
-      "1500": {
-        "$type": "color",
-        "$value": "#e8e7ea",
-        "$description": "Gray 1500 - light text tone for dark mode"
-      },
-      "1550": {
-        "$type": "color",
-        "$value": "#e0dfe4",
-        "$description": "Gray 1550 - light text tone for dark mode"
-      },
-      "1600": {
-        "$type": "color",
-        "$value": "#c8c7cc",
-        "$description": "Gray 1600 - light text tone for dark mode"
-      },
-      "1650": {
-        "$type": "color",
-        "$value": "#b0afb4",
-        "$description": "Gray 1650 - light text tone for dark mode"
-      },
-      "1700": {
-        "$type": "color",
-        "$value": "#9a9ea7",
-        "$description": "Gray 1700 - light text tone for dark mode"
-      },
-      "1750": {
-        "$type": "color",
-        "$value": "#808388",
-        "$description": "Gray 1750 - light text tone for dark mode"
-      },
-      "1800": {
-        "$type": "color",
-        "$value": "#6e7178",
-        "$description": "Gray 1800 - light text tone for dark mode"
-      },
-      "1850": {
-        "$type": "color",
-        "$value": "#606060",
-        "$description": "Gray 1850 - light text tone for dark mode"
+      "text": {
+        "50": {
+          "$type": "color",
+          "$value": "#e8e7ea",
+          "$description": "Primary text (lightest)"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#e0dfe4",
+          "$description": "Interactive primary"
+        },
+        "150": {
+          "$type": "color",
+          "$value": "#c8c7cc",
+          "$description": "Interactive hover"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#b0afb4",
+          "$description": "Interactive active"
+        },
+        "250": {
+          "$type": "color",
+          "$value": "#9a9ea7",
+          "$description": "Subtle text"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#808388",
+          "$description": "Muted text"
+        },
+        "350": {
+          "$type": "color",
+          "$value": "#6e7178",
+          "$description": "Placeholder"
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#606060",
+          "$description": "Disabled text (darkest)"
+        }
       }
     },
     "off-white": {
