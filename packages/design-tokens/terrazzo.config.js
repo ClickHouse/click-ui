@@ -19,14 +19,15 @@ export default defineConfig({
       legacyHex: true,
       filename: "tokens.css",
       variableName: (token) => `--${CSS_VAR_PREFIX}-${token.id.replace(/\./g, "-")}`,
-      modeSelectors: [
-        { mode: "light", selectors: [":root", "[data-theme='light']"] },
+      permutations: [
         {
-          mode: "dark",
-          selectors: [
-            "@media (prefers-color-scheme: dark)",
-            "[data-theme='dark']",
-          ],
+          input: { tzMode: "light" },
+          prepare: (contents) => `:root, [data-theme='light'] {\n${contents}\n}`,
+        },
+        {
+          input: { tzMode: "dark" },
+          prepare: (contents) =>
+            `@media (prefers-color-scheme: dark) {\n  :root {\n${contents}\n  }\n}\n\n[data-theme='dark'] {\n${contents}\n}`,
         },
       ],
     }),
