@@ -27,7 +27,7 @@
     "build": "yarn tokens:build",
     "format": "echo '🦖 Skip format check!'",
     "format:fix": "tz format",
-    "tokens:build": "tz build",
+    "tokens:build": "rm -rf ./dist && tz build",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
     "test": "echo '🦖 Skip test!'"
