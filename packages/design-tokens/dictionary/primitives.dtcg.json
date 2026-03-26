@@ -127,6 +127,18 @@
         "$type": "color",
         "$value": "#151515",
         "$description": "Near black (neutral.900)"
+      },
+      "opacity": {
+        "10": {
+          "$type": "color",
+          "$value": "rgba(105,110,121,0.10)",
+          "$description": "Neutral 10% opacity (tinted bg)"
+        },
+        "15": {
+          "$type": "color",
+          "$value": "rgba(105,110,121,0.15)",
+          "$description": "Neutral 15% opacity"
+        }
       }
     },
     "charcoal": {
@@ -388,20 +400,6 @@
           "$type": "color",
           "$value": "rgba(214,79,0,0.15)",
           "$description": "Orange 15% opacity"
-        }
-      }
-    },
-    "neutral": {
-      "50": {
-        "$type": "color",
-        "$value": "rgba(105,110,121,0.10)",
-        "$description": "Neutral tinted bg"
-      },
-      "opacity": {
-        "15": {
-          "$type": "color",
-          "$value": "rgba(105,110,121,0.15)",
-          "$description": "Neutral 15% opacity"
         }
       }
     },

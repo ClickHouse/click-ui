@@ -228,10 +228,10 @@
         "neutral": {
           "subtle": {
             "$type": "color",
-            "$value": "{color.neutral.50}",
+            "$value": "{color.neutral.opacity.10}",
             "$extensions": {
               "mode": {
-                  "light": "{color.neutral.50}",
+                  "light": "{color.neutral.opacity.10}",
                   "dark": "{color.neutral.opacity.15}"
                 }
             },
