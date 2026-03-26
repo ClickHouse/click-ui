@@ -14,7 +14,7 @@
       "50": {
         "$type": "color",
         "$value": "#f6f7fa",
-        "$description": "Subtle surface (slate.50)"
+        "$description": "Subtle surface (gray.50)"
       },
       "75": {
         "$type": "color",
@@ -24,42 +24,42 @@
       "100": {
         "$type": "color",
         "$value": "#e6e7e9",
-        "$description": "Default border (slate.100)"
+        "$description": "Default border (gray.100)"
       },
       "200": {
         "$type": "color",
         "$value": "#cccfd3",
-        "$description": "Active / strong border (slate.200)"
+        "$description": "Active / strong border (gray.200)"
       },
       "300": {
         "$type": "color",
         "$value": "#b3b6bd",
-        "$description": "Muted border variant (slate.300)"
+        "$description": "Muted border variant (gray.300)"
       },
       "400": {
         "$type": "color",
         "$value": "#9a9ea7",
-        "$description": "Placeholder text (slate.400)"
+        "$description": "Placeholder text (gray.400)"
       },
       "500": {
         "$type": "color",
         "$value": "#808691",
-        "$description": "Table checkbox border (slate.500)"
+        "$description": "Table checkbox border (gray.500)"
       },
       "600": {
         "$type": "color",
         "$value": "#696e79",
-        "$description": "Subtle text, muted icons (slate.600)"
+        "$description": "Subtle text, muted icons (gray.600)"
       },
       "700": {
         "$type": "color",
         "$value": "#53575f",
-        "$description": "Neutral / muted text (slate.700)"
+        "$description": "Neutral / muted text (gray.700)"
       },
       "800": {
         "$type": "color",
         "$value": "#302e32",
-        "$description": "Primary action background (slate.800)"
+        "$description": "Primary action background (gray.800)"
       },
       "850": {
         "$type": "color",
@@ -74,7 +74,7 @@
       "950": {
         "$type": "color",
         "$value": "#161517",
-        "$description": "Primary text, near-black (slate.900)"
+        "$description": "Primary text, near-black (gray.900)"
       }
     },
     "neutral": {
@@ -121,7 +121,7 @@
       "800": {
         "$type": "color",
         "$value": "#282828",
-        "$description": "Codeblock dark bg (neutral.725)"
+        "$description": "Codeblock dark bg (neutral.800)"
       },
       "900": {
         "$type": "color",
