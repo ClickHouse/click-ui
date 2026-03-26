@@ -533,10 +533,10 @@
         },
         "neutral": {
           "$type": "color",
-          "$value": "{color.gray.650}",
+          "$value": "{color.neutral.650}",
           "$extensions": {
             "mode": {
-                "light": "{color.gray.650}",
+                "light": "{color.neutral.650}",
                 "dark": "{color.charcoal.text.300}"
               }
           },
