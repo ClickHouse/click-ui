@@ -25,8 +25,8 @@
   },
   "scripts": {
     "build": "yarn tokens:build",
-    "format": "prettier --check . --config ../../.prettierrc --ignore-path ../../.prettierignore",
-    "format:fix": "prettier --write . --config ../../.prettierrc --ignore-path ../../.prettierignore",
+    "format": "yarn run -T prettier --check . --config ../../.prettierrc --ignore-path ../../.prettierignore",
+    "format:fix": "yarn run -T prettier --write . --config ../../.prettierrc --ignore-path ../../.prettierignore",
     "tokens:build": "rm -rf ./dist && tz build",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
