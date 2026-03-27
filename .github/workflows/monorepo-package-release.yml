@@ -33,7 +33,7 @@ on:
         required: true
         type: string
       confirm_branch:
-        description: 'For stable releases: type the branch name (e.g., "main")'
+        description: 'For stable and latest releases: type the branch name (e.g., "main")'
         required: false
         type: string
       dry_run:
@@ -70,14 +70,15 @@ jobs:
           fi
           echo "✅ Package confirmed: $INPUT_PACKAGE"
 
-      - name: Validate branch for stable release
-        if: inputs.release_type == 'stable'
+      - name: Validate branch for stable and latest release
+        if: inputs.release_type == 'stable' || inputs.release_type == 'latest'
         env:
+          INPUT_RELEASE_TYPE: ${{ inputs.release_type }}
           INPUT_CONFIRM_BRANCH: ${{ inputs.confirm_branch }}
           CURRENT_BRANCH: ${{ github.ref_name }}
         run: |
           if [[ -z "$INPUT_CONFIRM_BRANCH" ]]; then
-            echo "👹 Oops! Branch confirmation required for stable releases!"
+            echo "👹 Oops! Branch confirmation required for $INPUT_RELEASE_TYPE releases!"
             echo "   Current branch: '$CURRENT_BRANCH'"
             echo ""
             echo "💡 Please type the branch name in 'confirm_branch' to proceed."
@@ -94,7 +95,7 @@ jobs:
           fi
 
           if [[ "$CURRENT_BRANCH" != "main" ]]; then
-            echo "👹 Oops! Stable releases must be from 'main' branch!"
+            echo "👹 Oops! $INPUT_RELEASE_TYPE releases must be from 'main' branch!"
             echo "   Current branch: '$CURRENT_BRANCH'"
             exit 1
           fi
@@ -225,7 +226,7 @@ jobs:
           tag_name: ${{ steps.package-config.outputs.package_name }}@v${{ steps.package-version.outputs.version }}
           name: "${{ inputs.package }} v${{ steps.package-version.outputs.version }}"
           body_path: /tmp/changelog.txt
-          prerelease: ${{ inputs.release_type != 'stable' }}
+          prerelease: ${{ inputs.release_type == 'test' || inputs.release_type == 'rc' }}
         env:
           GITHUB_TOKEN: ${{ steps.gh-workflow-token.outputs.token }}
 
