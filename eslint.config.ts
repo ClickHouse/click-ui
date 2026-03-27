@@ -13,6 +13,7 @@ import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
 import storybook from 'eslint-plugin-storybook';
 import importPlugin from 'eslint-plugin-import';
 import globals from 'globals';
+import type { Linter } from 'eslint';
 
 export const ignores = {
   ignores: [
@@ -49,7 +50,7 @@ export const sharedLanguageOptions = {
   },
 };
 
-export const sharedRules: Record<string, unknown> = {
+export const sharedRules: Linter.RulesRecord = {
   ...reactHooks.configs.recommended.rules,
   curly: ['error', 'all'],
   'react-refresh/only-export-components': 'warn',
@@ -94,7 +95,7 @@ export const sharedRules: Record<string, unknown> = {
   '@typescript-eslint/no-deprecated': 'warn',
 };
 
-export const testFileRules = {
+export const testFileRules: Linter.RulesRecord = {
   '@typescript-eslint/no-unused-expressions': 'off',
 };
 
