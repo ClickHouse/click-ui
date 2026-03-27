@@ -620,7 +620,6 @@ __metadata:
     globals: "npm:^16.5.0"
     jsdom: "npm:^24.0.0"
     lodash-es: "npm:^4.17.23"
-    prettier: "npm:3.7.4"
     prop-types: "npm:^15.8.1"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
@@ -5656,6 +5655,7 @@ __metadata:
   resolution: "click-ui-monorepo@workspace:."
   dependencies:
     husky: "npm:^9.1.7"
+    prettier: "npm:3.7.4"
   languageName: unknown
   linkType: soft
 

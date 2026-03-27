@@ -25,8 +25,8 @@
   },
   "scripts": {
     "build": "yarn tokens:build",
-    "format": "echo '🦖 Skip format check!'",
-    "format:fix": "tz format",
+    "format": "prettier --check . --ignore-path ../../.prettierignore",
+    "format:fix": "prettier --write . --ignore-path ../../.prettierignore",
     "tokens:build": "rm -rf ./dist && tz build",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
