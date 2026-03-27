@@ -406,12 +406,12 @@ The order of scope checks matters:
 
 ```typescript
 // Check sizing BEFORE spacing to avoid "sizing" matching "space" substring
-if (name.includes('sizing') || name.includes('size')) {
-  return ['WIDTH_HEIGHT'];
+if (name.includes("sizing") || name.includes("size")) {
+  return ["WIDTH_HEIGHT"];
 }
 // Then check spacing
-if (name.includes('space') || name.includes('gap')) {
-  return ['GAP'];
+if (name.includes("space") || name.includes("gap")) {
+  return ["GAP"];
 }
 ```
 
@@ -453,7 +453,7 @@ Critical for updating existing tokens without breaking component assignments:
 ```typescript
 // Use async API to check for existing collections
 const existingCollections = await figma.variables.getLocalVariableCollectionsAsync();
-const existingCollection = existingCollections.find(c => c.name === name);
+const existingCollection = existingCollections.find((c) => c.name === name);
 
 if (existingCollection) {
   // Reuse existing collection
