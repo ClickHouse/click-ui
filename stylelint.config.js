@@ -110,12 +110,14 @@ export default {
       ],
       { unspecified: 'bottomAlphabetical' },
     ],
-    // NOTE: BEM naming convention (block__element--modifier)
+    // TODO: Maybe create an utility or test to make sure
+    // its computed correctly
+    // NOTE: BEM naming convention (block-name__elem-name_mod-name_mod-val) per naming convention https://en.bem.info/methodology/naming-convention/#two-dashes-style
     'selector-class-pattern': [
-      '^[a-z][a-z0-9]*(__[a-z][a-z0-9]*)?(-{1,2}[a-z][a-z0-9]*)*$',
+      '^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z][a-z0-9]*(-[a-z0-9]+)*)?(_[a-z][a-z0-9]*(-[a-z0-9]+)*)?(_[a-z][a-z0-9]*(-[a-z0-9]+)*)?$',
       {
         message:
-          'Expected class selector to follow BEM convention (block__element--modifier)',
+          'Expected class selector to follow BEM convention (block-name__elem-name_mod-name_mod-val)',
       },
     ],
     // NOTE: Disable value-keyword-case for font family names (they are case-sensitive)
