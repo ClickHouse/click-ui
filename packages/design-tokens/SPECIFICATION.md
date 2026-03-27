@@ -24,51 +24,52 @@ Examples: `color/white`, `color/gray/50`, `color/blue/400`, `color/charcoal/surf
 
 **Gray Color Palettes:**
 
-| Pattern | Purpose | Example |
-|---------|---------|---------|
-| `color/gray/{step}` | Cool gray scale with blue undertone (50-950) | `color/gray/50` = #f6f7fa |
-| `color/neutral/{step}` | Pure neutral gray scale (100-900) | `color/neutral/200` = #dfdfdf |
-| `color/charcoal/surface/{step}` | Deep surface tones (50-450) | `color/charcoal/surface/50` = #151515 |
-| `color/charcoal/text/{step}` | Light text for dark backgrounds (50-400) | `color/charcoal/text/50` = #e8e7ea |
+| Pattern                         | Purpose                                      | Example                               |
+| ------------------------------- | -------------------------------------------- | ------------------------------------- |
+| `color/gray/{step}`             | Cool gray scale with blue undertone (50-950) | `color/gray/50` = #f6f7fa             |
+| `color/neutral/{step}`          | Pure neutral gray scale (100-900)            | `color/neutral/200` = #dfdfdf         |
+| `color/charcoal/surface/{step}` | Deep surface tones (50-450)                  | `color/charcoal/surface/50` = #151515 |
+| `color/charcoal/text/{step}`    | Light text for dark backgrounds (50-400)     | `color/charcoal/text/50` = #e8e7ea    |
 
 **Gray Scale (slate-based, monotonic):**
 
 The `gray` palette follows the original slate palette with cool blue undertones. Steps progress monotonically from light (50) to dark (950):
 
-| Step | Value | Description |
-|------|-------|-------------|
-| 50 | #f6f7fa | Subtle surface |
-| 75 | #eaebee | Muted border light |
-| 100 | #e6e7e9 | Default border |
-| 200 | #cccfd3 | Active / strong border |
-| 300 | #b3b6bd | Muted border variant |
-| 400 | #9a9ea7 | Placeholder text |
-| 500 | #808691 | Table checkbox border |
-| 600 | #696e79 | Subtle text, muted icons |
-| 700 | #53575f | Neutral / muted text |
-| 800 | #302e32 | Primary action background |
-| 850 | #232125 | Hover state dark |
-| 900 | #1c1a1e | Deep dark |
-| 950 | #161517 | Primary text, near-black |
+| Step | Value   | Description               |
+| ---- | ------- | ------------------------- |
+| 50   | #f6f7fa | Subtle surface            |
+| 75   | #eaebee | Muted border light        |
+| 100  | #e6e7e9 | Default border            |
+| 200  | #cccfd3 | Active / strong border    |
+| 300  | #b3b6bd | Muted border variant      |
+| 400  | #9a9ea7 | Placeholder text          |
+| 500  | #808691 | Table checkbox border     |
+| 600  | #696e79 | Subtle text, muted icons  |
+| 700  | #53575f | Neutral / muted text      |
+| 800  | #302e32 | Primary action background |
+| 850  | #232125 | Hover state dark          |
+| 900  | #1c1a1e | Deep dark                 |
+| 950  | #161517 | Primary text, near-black  |
 
 **Neutral Scale (pure grays, monotonic):**
 
 The `neutral` palette provides pure grays without color tint, used for disabled states and specific UI elements:
 
-| Step | Value | Description |
-|------|-------|-------------|
-| 100 | #f9f9f9 | Pure neutral light |
-| 200 | #dfdfdf | Disabled background |
-| 300 | #c0c0c0 | Disabled border |
-| 400 | #a0a0a0 | Disabled text |
-| 500 | #808080 | Mid gray |
-| 600 | #606060 | Neutral badge solid bg |
-| 650 | #505050 | Button group text |
-| 700 | #414141 | Dark neutral |
-| 800 | #282828 | Codeblock dark bg |
-| 900 | #151515 | Near black |
+| Step | Value   | Description            |
+| ---- | ------- | ---------------------- |
+| 100  | #f9f9f9 | Pure neutral light     |
+| 200  | #dfdfdf | Disabled background    |
+| 300  | #c0c0c0 | Disabled border        |
+| 400  | #a0a0a0 | Disabled text          |
+| 500  | #808080 | Mid gray               |
+| 600  | #606060 | Neutral badge solid bg |
+| 650  | #505050 | Button group text      |
+| 700  | #414141 | Dark neutral           |
+| 800  | #282828 | Codeblock dark bg      |
+| 900  | #151515 | Near black             |
 
 **Rationale:** The `gray` + `neutral` + `charcoal` naming:
+
 - `gray` = cool gray scale (slate-based) for typical UI needs, monotonically progressing light to dark
 - `neutral` = pure grays without color tint, for disabled states and colorless elements
 - `charcoal` = deep tones grouped by purpose (surface vs text) for dark mode
@@ -76,6 +77,7 @@ The `neutral` palette provides pure grays without color tint, used for disabled 
 - Makes intent clear: `charcoal.surface` for dark backgrounds, `charcoal.text` for light text on dark
 
 **When to use each palette:**
+
 - **gray**: Default choice for borders, text hierarchy, and interactive states (has subtle cool tint)
 - **neutral**: Disabled states, colorless badges, code blocks (pure gray, no tint)
 - **charcoal**: Dark mode surfaces and text on dark backgrounds
@@ -222,6 +224,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 **File:** `typography.dtcg.json`
 
 **Types:**
+
 - Font sizes: `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
 - Line heights: `$type: "number"` with unitless values (e.g., `1.5`, `1.3`)
 - Font weights: `$type: "number"` with integer values (e.g., `400`, `700`)
@@ -449,8 +452,7 @@ Critical for updating existing tokens without breaking component assignments:
 
 ```typescript
 // Use async API to check for existing collections
-const existingCollections =
-  await figma.variables.getLocalVariableCollectionsAsync();
+const existingCollections = await figma.variables.getLocalVariableCollectionsAsync();
 const existingCollection = existingCollections.find((c) => c.name === name);
 
 if (existingCollection) {
@@ -482,7 +484,7 @@ token.setValueForMode(targetModeId, value);
 **Required Fields:**
 
 - `$type`: "color" | "dimension" | "number"
-- `$value`: 
+- `$value`:
   - Hex string or color object for colors
   - Object with numeric `value` and `unit` for dimensions: `{ "value": 8, "unit": "px" }`
   - Number for unitless values (e.g., line-heights, font-weights)
@@ -580,12 +582,13 @@ All tokens (primitives + semantic) are output to a single `./dist/tokens.css` fi
 
 **Why expose primitives to consumers?**
 
-| Context | Primitives Visibility | Reason |
-|---------|----------------------|--------|
-| **Figma** | Hidden (`scopes: []`) | Designers should use semantic tokens only |
-| **CSS/Code** | Exposed | Theming, devtools debugging, variable resolution |
+| Context      | Primitives Visibility | Reason                                           |
+| ------------ | --------------------- | ------------------------------------------------ |
+| **Figma**    | Hidden (`scopes: []`) | Designers should use semantic tokens only        |
+| **CSS/Code** | Exposed               | Theming, devtools debugging, variable resolution |
 
 Semantic tokens reference primitives via CSS variables like `var(--cui-color-gray-50)` or `var(--cui-color-charcoal-surface-200)`. Consumers need access to:
+
 - Override primitives for custom themes
 - Enable dark/light mode switching
 - Debug resolved values in browser devtools
@@ -610,10 +613,10 @@ Semantic tokens reference primitives via CSS variables like `var(--cui-color-gra
 
 Primitives are hidden from designers but exposed to developers. This asymmetry is intentional:
 
-| Role | Access | Rationale |
-|------|--------|-----------|
-| **Designers** | Semantic only | Express intent ("error color"), not implementation ("red-500") |
-| **Developers** | All tokens | Need primitives for theming, debugging, edge cases |
+| Role           | Access        | Rationale                                                      |
+| -------------- | ------------- | -------------------------------------------------------------- |
+| **Designers**  | Semantic only | Express intent ("error color"), not implementation ("red-500") |
+| **Developers** | All tokens    | Need primitives for theming, debugging, edge cases             |
 
 **Developer Usage Guidelines:**
 
