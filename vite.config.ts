@@ -6,8 +6,17 @@ import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
+const isTest = process.env.VITEST === 'true';
+
+// TODO: Find a solution for static files based on conf extensions
+const cssExternalPlugin = () => ({
+  name: 'css-external',
+  enforce: 'pre' as const,
+  resolveId: (id: string) => (id.endsWith('.module.css') ? { id, external: true } : null),
+});
 
 const createEntryFileNames = (ext: 'js' | 'cjs') => {
   return (chunkInfo: { name: string }) => {
@@ -51,9 +60,7 @@ const buildOptions: BuildOptions = {
         entryFileNames: createEntryFileNames('js'),
         chunkFileNames: '[name].js',
         banner: chunk =>
-          chunk.name === 'index' || chunk.name === 'hooks/index'
-            ? `'use client';`
-            : '',
+          chunk.name === 'index' || chunk.name === 'hooks/index' ? `'use client';` : '',
         interop: 'auto',
       },
       {
@@ -64,9 +71,7 @@ const buildOptions: BuildOptions = {
         entryFileNames: createEntryFileNames('cjs'),
         chunkFileNames: '[name].cjs',
         banner: chunk =>
-          chunk.name === 'index' || chunk.name === 'hooks/index'
-            ? `'use client';`
-            : '',
+          chunk.name === 'index' || chunk.name === 'hooks/index' ? `'use client';` : '',
         interop: 'auto',
         exports: 'named',
       },
@@ -78,7 +83,10 @@ const buildOptions: BuildOptions = {
 const viteConfig = defineConfig({
   publicDir: false,
   plugins: [
+    ...(isTest ? [] : [cssExternalPlugin()]),
     react({
+      // TODO: On styled-components migration completion
+      // remove styled-components babel plugins
       babel: {
         plugins: [['babel-plugin-styled-components', { displayName: false }]],
 
@@ -112,6 +120,21 @@ const viteConfig = defineConfig({
       useFile: path.join(process.cwd(), 'package.json'),
     }),
     tsconfigPaths(),
+    viteStaticCopy({
+      targets: ['cjs', 'esm'].map(dest => ({
+        src: 'src/**/*.module.css',
+        dest,
+        rename: (fileName: string, fileExt: string, srcPath: string) => {
+          const srcIndex = srcPath.indexOf('/src/');
+          const ext = fileExt.startsWith('.') ? fileExt : `.${fileExt}`;
+          if (srcIndex !== -1) {
+            const relativePath = srcPath.slice(srcIndex + 5, srcPath.lastIndexOf('/'));
+            return `${relativePath}/${fileName}${ext}`;
+          }
+          return `${fileName}${ext}`;
+        },
+      })),
+    }),
     // WARNING: Keep the visualizer last
     ...(process.env.ANALYZE === 'true'
       ? [

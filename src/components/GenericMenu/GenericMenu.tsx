@@ -101,7 +101,7 @@ export const GenericMenuItem = styled.div<{ $type?: 'default' | 'danger' }>`
       cursor: pointer;
     }
     [data-input-modality="keyboard"] &[data-highlighted] {
-      outline: 2px solid ${theme.click.genericMenu.item.color[colorKey].stroke.focus};
+      outline: 2px solid ${theme.click.global.color.accent.default};
       outline-offset: -2px;
     }
     &[data-state="open"] {
