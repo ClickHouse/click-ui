@@ -20,15 +20,11 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@types/eslint-plugin-react-refresh": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prefer-arrow-functions": "^3.3.2",
-    "eslint-plugin-react-hooks": "^5",
-    "eslint-plugin-react-refresh": "0.4.7",
-    "eslint-plugin-storybook": "^10.1.10",
     "globals": "^16.5.0",
     "husky": "^9.1.7",
     "jiti": "^2.4.0",
