@@ -5,9 +5,11 @@ import {
   sharedLanguageOptions,
   sharedRules,
   testFileRules,
-  storybookConfigs,
   tseslint,
 } from '../../eslint.config.ts';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import storybook from 'eslint-plugin-storybook';
 
 export default tseslint.config(
   ignores,
@@ -22,7 +24,12 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins,
+    plugins: {
+      ...plugins,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      storybook: storybook,
+    },
     settings: {
       'import/resolver': {
         typescript: {
@@ -33,6 +40,15 @@ export default tseslint.config(
     },
     rules: {
       ...sharedRules,
+      // React-specific rules
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': 'warn',
+      'react-hooks/exhaustive-deps': [
+        'warn',
+        {
+          additionalHooks: '(useUpdateEffect)',
+        },
+      ],
       // click-ui specific: restrict barrel imports to prevent circular dependencies
       'no-restricted-imports': [
         'error',
@@ -69,5 +85,5 @@ export default tseslint.config(
     files: ['src/**/*.test.{ts,tsx}', 'src/**/*.spec.{ts,tsx}'],
     rules: testFileRules,
   },
-  ...storybookConfigs
+  ...storybook.configs['flat/recommended']
 );
