@@ -43,7 +43,7 @@ export const cssColocatePlugin = (): Plugin => {
     },
 
     async load(id) {
-      return loadCssModule(id, this);
+      return loadCssModule(id, this, config.root);
     },
 
     transform(code, id) {
