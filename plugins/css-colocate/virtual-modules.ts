@@ -4,7 +4,6 @@ import path from 'path';
 import { getTempDir } from './utils';
 
 const VIRTUAL_PREFIX = 'virtual:css-module:';
-const mappings = new Map<string, string>();
 
 export async function resolveCssModule(
   id: string,
@@ -22,19 +21,21 @@ export async function resolveCssModule(
 
   if (!(await fs.pathExists(jsonPath))) return null;
 
-  const virtualId = VIRTUAL_PREFIX + mappings.size;
-  mappings.set(virtualId, jsonPath);
-  return virtualId;
+  return VIRTUAL_PREFIX + relative;
 }
 
 export async function loadCssModule(
   id: string,
-  ctx: PluginContext
+  ctx: PluginContext,
+  rootDir: string
 ): Promise<string | null> {
   if (!id.startsWith(VIRTUAL_PREFIX)) return null;
 
-  const jsonPath = mappings.get(id);
-  if (!jsonPath) return null;
+  const relative = id.slice(VIRTUAL_PREFIX.length);
+  const jsonPath = path.join(
+    getTempDir(rootDir),
+    relative.replace('.module.css', '.module.json')
+  );
 
   try {
     const json = await fs.readJson(jsonPath);
