@@ -40,7 +40,6 @@ export default tseslint.config(
     },
     rules: {
       ...sharedRules,
-      // React-specific rules
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': 'warn',
       'react-hooks/exhaustive-deps': [
@@ -49,7 +48,6 @@ export default tseslint.config(
           additionalHooks: '(useUpdateEffect)',
         },
       ],
-      // click-ui specific: restrict barrel imports to prevent circular dependencies
       'no-restricted-imports': [
         'error',
         {
