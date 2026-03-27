@@ -30,10 +30,12 @@
     "tokens:build": "rm -rf ./dist && tz build",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
-    "test": "echo '🦖 Skip test!'"
+    "test": "echo '🦖 Skip test!'",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
-    "@terrazzo/plugin-css": "^2.0.0"
+    "@terrazzo/plugin-css": "^2.0.0",
+    "typescript": "^5.0.0"
   }
 }
