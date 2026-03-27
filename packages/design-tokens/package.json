@@ -36,7 +36,6 @@
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
     "@terrazzo/plugin-css": "^2.0.0",
-    "prettier": "^3.0.0",
     "typescript": "^5.0.0"
   }
 }
