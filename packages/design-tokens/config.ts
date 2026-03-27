@@ -9,4 +9,4 @@ export const TOKEN_FILES = [
   "radius",
   "sizing",
   "typography",
-];
+] as const;
