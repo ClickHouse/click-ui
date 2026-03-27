@@ -25,8 +25,8 @@
   },
   "scripts": {
     "build": "yarn tokens:build",
-    "format": "echo '🦖 Skip format check!'",
-    "format:fix": "tz format",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "tokens:build": "rm -rf ./dist && tz build",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
     "@terrazzo/plugin-css": "^2.0.0",
+    "prettier": "^3.0.0",
     "typescript": "^5.0.0"
   }
 }

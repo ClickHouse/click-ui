@@ -40,7 +40,7 @@ Semantic color tokens support light and dark mode variants. The build outputs CS
 Dark mode activates automatically via OS preference (no JS required), or explicitly via attribute:
 
 ```html
-<html data-theme="dark">
+<html data-theme="dark"></html>
 ```
 
 The `data-theme` attribute takes precedence, allowing users to override their OS preference.
@@ -51,13 +51,13 @@ This package follows the [DTCG (Design Tokens Community Group)](https://www.desi
 
 ### Token Categories
 
-| Category | Naming Convention | Example |
-|----------|-------------------|---------|
-| **Color** | Primitives: `color/{palette}/{step}`, Semantic: `color/{category}/{subcategory}/{hierarchy}/{state}` | `color/gray/50`, `color/background/interactive/primary/default` |
-| **Spacing** | Percentage-based with 8px base unit | `space/100` (8px), `space/200` (16px) |
-| **Radius** | Percentage-based scale | `radius/50` (4px), `radius/100` (8px) |
-| **Sizing** | T-shirt sizes by type | `sizing/icon/md` (20px), `sizing/component/lg` (48px) |
-| **Typography** | `font/{property}/{scale}` | `font/size/200` (16px), `font/weight/semibold` (600) |
+| Category       | Naming Convention                                                                                    | Example                                                         |
+| -------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Color**      | Primitives: `color/{palette}/{step}`, Semantic: `color/{category}/{subcategory}/{hierarchy}/{state}` | `color/gray/50`, `color/background/interactive/primary/default` |
+| **Spacing**    | Percentage-based with 8px base unit                                                                  | `space/100` (8px), `space/200` (16px)                           |
+| **Radius**     | Percentage-based scale                                                                               | `radius/50` (4px), `radius/100` (8px)                           |
+| **Sizing**     | T-shirt sizes by type                                                                                | `sizing/icon/md` (20px), `sizing/component/lg` (48px)           |
+| **Typography** | `font/{property}/{scale}`                                                                            | `font/size/200` (16px), `font/weight/semibold` (600)            |
 
 ### Usage Examples
 
@@ -70,13 +70,13 @@ This package follows the [DTCG (Design Tokens Community Group)](https://www.desi
 
 /* Spacing tokens */
 .card {
-  padding: var(--cui-space-200);  /* 16px */
-  gap: var(--cui-space-100);      /* 8px */
+  padding: var(--cui-space-200); /* 16px */
+  gap: var(--cui-space-100); /* 8px */
 }
 
 /* Sizing tokens */
 .icon {
-  width: var(--cui-sizing-icon-md);  /* 20px */
+  width: var(--cui-sizing-icon-md); /* 20px */
 }
 ```
 
@@ -92,7 +92,9 @@ Warn on primitive token usage:
 {
   "rules": {
     "declaration-property-value-disallowed-list": {
-      "/color|background|border/": ["/--cui-color-(white|black|gray|blue|green|red|yellow|orange)-/"]
+      "/color|background|border/": [
+        "/--cui-color-(white|black|gray|blue|green|red|yellow|orange)-/"
+      ]
     }
   }
 }
