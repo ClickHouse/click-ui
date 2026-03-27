@@ -1,8 +1,9 @@
 /**
  * Shared ESLint configuration for TypeScript packages.
  *
- * Packages should create their own eslint.config.ts that imports and extends this.
- * React/Storybook-specific plugins and rules should be added at the package level.
+ * Important:
+ * - Packages should create their own eslint.config.ts that imports and extends this.
+ * - React/Storybook-specific plugins and rules should be added at the package level.
  *
  * Excluded packages (using alternative linters):
  *   - design-tokens: uses Terrazzo's linter (tz lint)
