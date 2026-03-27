@@ -31,20 +31,20 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 const buttonVariants = cva(styles.button, {
   variants: {
     type: {
-      primary: styles['button--primary'],
-      secondary: styles['button--secondary'],
-      empty: styles['button--empty'],
-      danger: styles['button--danger'],
+      primary: styles['button_primary'],
+      secondary: styles['button_secondary'],
+      empty: styles['button_empty'],
+      danger: styles['button_danger'],
     },
     align: {
-      center: styles['button--align-center'],
-      left: styles['button--align-left'],
+      center: styles['button_align-center'],
+      left: styles['button_align-left'],
     },
     fillWidth: {
-      true: styles['button--fill'],
+      true: styles['button_fill'],
     },
     loading: {
-      true: styles['button--loading'],
+      true: styles['button_loading'],
     },
   },
   defaultVariants: {
