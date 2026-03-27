@@ -263,7 +263,7 @@ git push origin chore/sync-v1.0.0-changes-back-to-main
 
 ### Monorepo Package Release
 
-The [monorepo package publisher](https://github.com/ClickHouse/click-ui/actions/workflows/monorepo-package-publisher.yml) is a simplified workflow for releasing packages under `./packages/*` that support click-ui (e.g. `design-tokens`) and can be published independently.
+The [monorepo package publisher](https://github.com/ClickHouse/click-ui/actions/workflows/monorepo-package-release.yml) is a simplified workflow for releasing packages under `./packages/*` that support click-ui (e.g. `design-tokens`) and can be published independently.
 
 > [!IMPORTANT]
 > This workflow does **not** automate the changeset cycle. You are responsible for preparing the version and changelog before triggering a release. Specifically:
@@ -276,7 +276,7 @@ The [monorepo package publisher](https://github.com/ClickHouse/click-ui/actions/
 
 To release a monorepo package:
 
-1. Go to [Actions > Monorepo Package Publisher](https://github.com/ClickHouse/click-ui/actions/workflows/monorepo-package-publisher.yml)
+1. Go to [Actions > Monorepo Package Publisher](https://github.com/ClickHouse/click-ui/actions/workflows/monorepo-package-release.yml)
 2. Click **Run workflow**
 3. Select the package to release
 4. Choose the release type (`test`, `rc`, `stable`, `latest`)
