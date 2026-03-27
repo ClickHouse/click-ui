@@ -1,9 +1,7 @@
-import React, { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes, ReactNode, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
-
 import { EmptyButton } from '@/components/EmptyButton';
 import { IconButton } from '@/components/IconButton';
-
 import { styled } from 'styled-components';
 import useColorStyle from './useColorStyle';
 import { CodeBlockProps, CodeThemeType } from './CodeBlock.types';
@@ -20,6 +18,23 @@ import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js'
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js';
 /* eslint-enable import/extensions */
+
+const nodeToString = (node: ReactNode): string => {
+  if (node === null || node === undefined || typeof node === 'boolean') { return ''; }
+  if (typeof node === 'string') { return node; }
+  if (typeof node === 'number') { return String(node); }
+  if (Array.isArray(node)) { return node.map(nodeToString).join(''); }
+  if (React.isValidElement(node)) {
+    const element = node as React.ReactElement<{ children?: ReactNode }>;
+    const tagName = typeof element.type === 'string' ? element.type : '';
+    const children = element.props.children;
+    if (children !== undefined && children !== null) {
+      return `<${tagName}>${nodeToString(children)}</${tagName}>`;
+    }
+    return `<${tagName}>`;
+  }
+  return String(node);
+};
 
 SyntaxHighlighter.registerLanguage('sql', sql.default || sql);
 SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
@@ -109,12 +124,13 @@ export const CodeBlock = ({
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
   const customStyle = useColorStyle(theme);
+  const codeString = nodeToString(children);
 
   const copyCodeToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(children);
+      await navigator.clipboard.writeText(codeString);
       if (typeof onCopy == 'function') {
-        onCopy(children);
+        onCopy(codeString);
       }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -197,7 +213,7 @@ export const CodeBlock = ({
         wrapLines={wrap || wrapLines}
         wrapLongLines={wrap || wrapLines}
       >
-        {children}
+        {codeString}
       </Highlighter>
     </CodeBlockContainer>
   );
