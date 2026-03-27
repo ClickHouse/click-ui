@@ -56,24 +56,27 @@ jobs:
       id-token: write
     steps:
       - name: Validate package confirmation
+        env:
+          INPUT_PACKAGE: ${{ inputs.package }}
+          INPUT_CONFIRM_PACKAGE: ${{ inputs.confirm_package }}
         run: |
-          if [[ "${{ inputs.package }}" != "${{ inputs.confirm_package }}" ]]; then
+          if [[ "$INPUT_PACKAGE" != "$INPUT_CONFIRM_PACKAGE" ]]; then
             echo "👹 Oops! Package confirmation mismatch!"
-            echo "   Selected: '${{ inputs.package }}'"
-            echo "   Typed: '${{ inputs.confirm_package }}'"
+            echo "   Selected: '$INPUT_PACKAGE'"
+            echo "   Typed: '$INPUT_CONFIRM_PACKAGE'"
             echo ""
             echo "💡 Please type the exact package name to confirm."
             exit 1
           fi
-          echo "✅ Package confirmed: ${{ inputs.package }}"
+          echo "✅ Package confirmed: $INPUT_PACKAGE"
 
       - name: Validate branch for stable release
         if: inputs.release_type == 'stable'
+        env:
+          INPUT_CONFIRM_BRANCH: ${{ inputs.confirm_branch }}
+          CURRENT_BRANCH: ${{ github.ref_name }}
         run: |
-          CURRENT_BRANCH="${{ github.ref_name }}"
-          CONFIRM_BRANCH="${{ inputs.confirm_branch }}"
-
-          if [[ -z "$CONFIRM_BRANCH" ]]; then
+          if [[ -z "$INPUT_CONFIRM_BRANCH" ]]; then
             echo "👹 Oops! Branch confirmation required for stable releases!"
             echo "   Current branch: '$CURRENT_BRANCH'"
             echo ""
@@ -81,10 +84,10 @@ jobs:
             exit 1
           fi
 
-          if [[ "$CURRENT_BRANCH" != "$CONFIRM_BRANCH" ]]; then
+          if [[ "$CURRENT_BRANCH" != "$INPUT_CONFIRM_BRANCH" ]]; then
             echo "👹 Oops! Branch confirmation mismatch!"
             echo "   Current branch: '$CURRENT_BRANCH'"
-            echo "   Typed: '$CONFIRM_BRANCH'"
+            echo "   Typed: '$INPUT_CONFIRM_BRANCH'"
             echo ""
             echo "💡 Please type the exact branch name to confirm."
             exit 1
@@ -131,8 +134,10 @@ jobs:
 
       - name: Load package configuration
         id: package-config
+        env:
+          INPUT_PACKAGE: ${{ inputs.package }}
         run: |
-          PKG_DIR="packages/${{ inputs.package }}"
+          PKG_DIR="packages/$INPUT_PACKAGE"
 
           if [[ ! -f "$PKG_DIR/package.json" ]]; then
             echo "👹 Oops! No package.json found at $PKG_DIR"
