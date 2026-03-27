@@ -47,6 +47,8 @@ For more detailed information about `actions/create-github-app-token`, see the d
 
 Add GitHub actions as a trusted publisher on [NPM package settings](https://www.npmjs.com/package/@clickhouse/click-ui). Make sure you select the provider "GitHub Actions", enter the repository "Clickhouse/click-ui" and finally the workflow name as "release-publisher.yml".
 
+For monorepo packages published via the [monorepo package release](#monorepo-package-release) workflow (e.g. `@clickhouse/design-tokens`), you must also register `monorepo-package-release.yml` as a trusted publisher on that package's [NPM settings](https://www.npmjs.com/package/@clickhouse/design-tokens) with the same provider and repository. Otherwise OIDC-authenticated publishes will fail, e.g. error 403.
+
 ### Create a new release Pull Request
 
 Consuming changesets is done automatically in the CI/CD environmment.
