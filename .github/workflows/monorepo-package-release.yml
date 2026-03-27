@@ -166,10 +166,10 @@ jobs:
 
       - name: Check version on npm
         if: ${{ !inputs.dry_run }}
+        env:
+          PKG_NAME: ${{ steps.package-config.outputs.package_name }}
+          VERSION: ${{ steps.package-version.outputs.version }}
         run: |
-          PKG_NAME="${{ steps.package-config.outputs.package_name }}"
-          VERSION="${{ steps.package-version.outputs.version }}"
-
           echo "🔍 Checking if $PKG_NAME@$VERSION already exists on NPM..."
 
           if npm view "$PKG_NAME@$VERSION" version 2>/dev/null; then
@@ -200,10 +200,11 @@ jobs:
       - name: Extract changelog
         if: ${{ !inputs.dry_run }}
         id: changelog
+        env:
+          VERSION: ${{ steps.package-version.outputs.version }}
+          PKG_PATH: ${{ steps.package-config.outputs.package_path }}
+          CHANGELOG_FILE: ${{ steps.package-config.outputs.changelog_file }}
         run: |
-          VERSION="${{ steps.package-version.outputs.version }}"
-          PKG_PATH="${{ steps.package-config.outputs.package_path }}"
-          CHANGELOG_FILE="${{ steps.package-config.outputs.changelog_file }}"
           CHANGELOG_PATH="${PKG_PATH}/${CHANGELOG_FILE}"
 
           if [[ -f "$CHANGELOG_PATH" ]]; then
