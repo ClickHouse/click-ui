@@ -37,4 +37,6 @@ yarn changeset:version
 
 ## Release
 
-See [Package Release](./packages/click-ui/docs/package-release.md) for detailed release instructions.
+See [Package Release](./packages/click-ui/docs/package-release.md) for detailed release instructions for Click UI.
+
+For releasing supporting monorepo packages (e.g. `design-tokens`), see the [Monorepo Package Release](./packages/click-ui/docs/package-release.md#monorepo-package-release) section.
