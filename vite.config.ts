@@ -6,17 +6,10 @@ import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { cssColocatePlugin } from './plugins/css-colocate';
+import { generateScopedName } from './plugins/css-colocate/utils';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
-const isTest = process.env.VITEST === 'true';
-
-// TODO: Find a solution for static files based on conf extensions
-const cssExternalPlugin = () => ({
-  name: 'css-external',
-  enforce: 'pre' as const,
-  resolveId: (id: string) => (id.endsWith('.module.css') ? { id, external: true } : null),
-});
 
 const createEntryFileNames = (ext: 'js' | 'cjs') => {
   return (chunkInfo: { name: string }) => {
@@ -59,6 +52,7 @@ const buildOptions: BuildOptions = {
         preserveModulesRoot: 'src',
         entryFileNames: createEntryFileNames('js'),
         chunkFileNames: '[name].js',
+        // NOTE: assetFileNames is set at build level (Vite requires same pattern for all outputs)
         banner: chunk =>
           chunk.name === 'index' || chunk.name === 'hooks/index' ? `'use client';` : '',
         interop: 'auto',
@@ -70,20 +64,28 @@ const buildOptions: BuildOptions = {
         preserveModulesRoot: 'src',
         entryFileNames: createEntryFileNames('cjs'),
         chunkFileNames: '[name].cjs',
+        // NOTE: assetFileNames is set at build level (Vite requires same pattern for all outputs)
         banner: chunk =>
           chunk.name === 'index' || chunk.name === 'hooks/index' ? `'use client';` : '',
         interop: 'auto',
         exports: 'named',
       },
     ],
+    // CSS is bundled into a single file per output format by Vite
+    // The file will be named click-ui.css (derived from lib name)
   },
   sourcemap: true,
 };
 
 const viteConfig = defineConfig({
   publicDir: false,
+  css: {
+    modules: {
+      // Generate predictable class names for debugging in dev
+      generateScopedName,
+    },
+  },
   plugins: [
-    ...(isTest ? [] : [cssExternalPlugin()]),
     react({
       // TODO: On styled-components migration completion
       // remove styled-components babel plugins
@@ -120,21 +122,7 @@ const viteConfig = defineConfig({
       useFile: path.join(process.cwd(), 'package.json'),
     }),
     tsconfigPaths(),
-    viteStaticCopy({
-      targets: ['cjs', 'esm'].map(dest => ({
-        src: 'src/**/*.module.css',
-        dest,
-        rename: (fileName: string, fileExt: string, srcPath: string) => {
-          const srcIndex = srcPath.indexOf('/src/');
-          const ext = fileExt.startsWith('.') ? fileExt : `.${fileExt}`;
-          if (srcIndex !== -1) {
-            const relativePath = srcPath.slice(srcIndex + 5, srcPath.lastIndexOf('/'));
-            return `${relativePath}/${fileName}${ext}`;
-          }
-          return `${fileName}${ext}`;
-        },
-      })),
-    }),
+    cssColocatePlugin(),
     // WARNING: Keep the visualizer last
     ...(process.env.ANALYZE === 'true'
       ? [
