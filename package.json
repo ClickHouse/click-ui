@@ -10,7 +10,10 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
-  "sideEffects": ["**/*.css", "**/*.module.css"],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.module.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -375,8 +378,12 @@
     "format:fix": ".scripts/bash/format --write",
     "generate:exports": ".scripts/js/generate-exports",
     "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
-    "lint": "eslint src --report-unused-disable-directives",
-    "lint:fix": "eslint src --report-unused-disable-directives --fix",
+    "lint": "yarn lint:code && yarn lint:css",
+    "lint:fix": "yarn lint:code:fix && yarn lint:css:fix",
+    "lint:code": "eslint src --report-unused-disable-directives",
+    "lint:code:fix": "eslint src --report-unused-disable-directives --fix",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
     "prepare": "husky",
     "prettify": "yarn format:fix",
     "preview": "vite preview",
@@ -466,6 +473,10 @@
     "storybook": "^10.1.10",
     "storybook-addon-pseudo-states": "^10.1.10",
     "style-dictionary": "^5.0.0",
+    "stylelint": "^17.5.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-no-unsupported-browser-features": "^8.1.1",
+    "stylelint-order": "^8.1.1",
     "stylis": "^4.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.5.3",

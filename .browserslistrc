@@ -1,0 +1,8 @@
+# NOTE: Modern browsers from the last 4 years with >0.5% market share, but explicitly exclude obscure browsers that have limited CSS feature support
+last 4 years
+> 0.5%
+not and_qq > 0
+not baidu > 0
+not and_uc > 0
+not kaios > 0
+not op_mini all
