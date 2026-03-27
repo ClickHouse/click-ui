@@ -1,6 +1,7 @@
 {
   "name": "click-ui-monorepo",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
