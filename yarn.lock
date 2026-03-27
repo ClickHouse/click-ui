@@ -5634,7 +5634,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^10.1.10"
     globals: "npm:^16.5.0"
     husky: "npm:^9.1.7"
-    prettier: "npm:3.7.4"
+    prettier: "npm:^3.7.4"
     typescript-eslint: "npm:^8"
   languageName: unknown
   linkType: soft
@@ -9900,15 +9900,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.7.4":
-  version: 3.7.4
-  resolution: "prettier@npm:3.7.4"
-  bin:
-    prettier: bin/prettier.cjs
-  checksum: 10c0/9675d2cd08eacb1faf1d1a2dbfe24bfab6a912b059fc9defdb380a408893d88213e794a40a2700bd29b140eb3172e0b07c852853f6e22f16f3374659a1a13389
-  languageName: node
-  linkType: hard
-
 "prettier@npm:^2.7.1, prettier@npm:^2.8.7":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
@@ -9918,7 +9909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.3.3":
+"prettier@npm:^3.3.3, prettier@npm:^3.7.4":
   version: 3.8.1
   resolution: "prettier@npm:3.8.1"
   bin:
