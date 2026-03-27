@@ -9,5 +9,6 @@
       "@/*": ["packages/click-ui/src/*"]
     }
   },
-  "include": ["packages/click-ui/src"]
+  "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.tsx"],
+  "exclude": ["node_modules", "**/dist/**", "packages/design-tokens"]
 }

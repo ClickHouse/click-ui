@@ -1,3 +1,10 @@
+/**
+ * ESLint configuration for TypeScript packages.
+ *
+ * New packages are automatically included via tsconfig.eslint.json.
+ * Excluded packages (using alternative linters):
+ *   - design-tokens: uses Terrazzo's linter (tz lint)
+ */
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import reactHooks from 'eslint-plugin-react-hooks';
