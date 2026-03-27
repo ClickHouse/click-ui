@@ -20,6 +20,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@types/eslint-plugin-react-refresh": "^0.4.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.4.4",

@@ -4174,7 +4174,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:1.0.8, @types/estree@npm:^1.0.0, @types/estree@npm:^1.0.6":
+"@types/eslint-plugin-react-refresh@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@types/eslint-plugin-react-refresh@npm:0.4.0"
+  dependencies:
+    "@types/eslint": "npm:*"
+  checksum: 10c0/a0552d13a8cf242ab68f48ac0388d2011a53f95db83a52cac809763c970ba7e2bdbf50259d1dc25a8bfd3d47f5e2fae2bd6eea5d88d4918c9c49b22886ec89d4
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:*":
+  version: 9.6.1
+  resolution: "@types/eslint@npm:9.6.1"
+  dependencies:
+    "@types/estree": "npm:*"
+    "@types/json-schema": "npm:*"
+  checksum: 10c0/69ba24fee600d1e4c5abe0df086c1a4d798abf13792d8cfab912d76817fe1a894359a1518557d21237fbaf6eda93c5ab9309143dee4c59ef54336d1b3570420e
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:*, @types/estree@npm:1.0.8, @types/estree@npm:^1.0.0, @types/estree@npm:^1.0.6":
   version: 1.0.8
   resolution: "@types/estree@npm:1.0.8"
   checksum: 10c0/39d34d1afaa338ab9763f37ad6066e3f349444f9052b9676a7cc0252ef9485a41c6d81c9c4e0d26e9077993354edf25efc853f3224dd4b447175ef62bdcc86a5
@@ -4190,7 +4209,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:^7.0.15":
+"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.15":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: 10c0/a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -5624,6 +5643,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "click-ui-monorepo@workspace:."
   dependencies:
+    "@types/eslint-plugin-react-refresh": "npm:^0.4.0"
     "@typescript-eslint/eslint-plugin": "npm:^8.54.0"
     eslint: "npm:^9"
     eslint-import-resolver-typescript: "npm:^4.4.4"
