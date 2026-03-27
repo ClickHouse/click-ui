@@ -26,7 +26,7 @@ export default tseslint.config(
       sourceType: 'module',
       parser: tseslint.parser,
       parserOptions: {
-        project: './packages/click-ui/tsconfig.json',
+        project: './tsconfig.eslint.json',
         tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
@@ -47,7 +47,7 @@ export default tseslint.config(
     settings: {
       'import/resolver': {
         typescript: {
-          project: './packages/click-ui/tsconfig.json',
+          project: './tsconfig.eslint.json',
         },
         node: true,
       },

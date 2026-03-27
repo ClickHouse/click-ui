@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowImportingTsExtensions": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["packages/click-ui/src/*"]
+    }
+  },
+  "include": ["packages/click-ui/src"],
+  "references": [
+    { "path": "packages/click-ui" },
+    { "path": "packages/design-tokens" }
+  ]
+}
