@@ -53,6 +53,7 @@ export const cssColocatePlugin = (): Plugin => {
       const cssImports: string[] = [];
       let match: RegExpExecArray | null;
 
+      REGULAR_CSS_IMPORT_REGEX.lastIndex = 0;
       while ((match = REGULAR_CSS_IMPORT_REGEX.exec(code)) !== null) {
         if (!match[1].endsWith('.module.css')) {
           cssImports.push(match[1]);
