@@ -7,7 +7,7 @@ import {
   testFileRules,
   storybookConfigs,
   tseslint,
-} from '../../eslint.config.js';
+} from '../../eslint.config.ts';
 
 export default tseslint.config(
   ignores,

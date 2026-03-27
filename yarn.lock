@@ -5654,6 +5654,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^10.1.10"
     globals: "npm:^16.5.0"
     husky: "npm:^9.1.7"
+    jiti: "npm:^2.4.0"
     prettier: "npm:^3.7.4"
     typescript-eslint: "npm:^8"
   languageName: unknown
@@ -8395,6 +8396,15 @@ __metadata:
   version: 4.0.0
   resolution: "isexe@npm:4.0.0"
   checksum: 10c0/5884815115bceac452877659a9c7726382531592f43dc29e5d48b7c4100661aed54018cb90bd36cb2eaeba521092570769167acbb95c18d39afdccbcca06c5ce
+  languageName: node
+  linkType: hard
+
+"jiti@npm:^2.4.0":
+  version: 2.6.1
+  resolution: "jiti@npm:2.6.1"
+  bin:
+    jiti: lib/jiti-cli.mjs
+  checksum: 10c0/79b2e96a8e623f66c1b703b98ec1b8be4500e1d217e09b09e343471bbb9c105381b83edbb979d01cef18318cc45ce6e153571b6c83122170eefa531c64b6789b
   languageName: node
   linkType: hard
 
