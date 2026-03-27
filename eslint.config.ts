@@ -35,8 +35,8 @@ export const plugins = {
 };
 
 export const sharedLanguageOptions = {
-  ecmaVersion: 'latest',
-  sourceType: 'module',
+  ecmaVersion: 'latest' as const,
+  sourceType: 'module' as const,
   parser: tseslint.parser,
   parserOptions: {
     ecmaFeatures: {
@@ -49,7 +49,7 @@ export const sharedLanguageOptions = {
   },
 };
 
-export const sharedRules = {
+export const sharedRules: Record<string, unknown> = {
   ...reactHooks.configs.recommended.rules,
   curly: ['error', 'all'],
   'react-refresh/only-export-components': 'warn',
