@@ -596,7 +596,6 @@ __metadata:
     "@testing-library/react": "npm:^16.1.0"
     "@testing-library/user-event": "npm:^14.5.2"
     "@tokens-studio/sd-transforms": "npm:^1.2.0"
-    "@types/eslint-plugin-react-refresh": "npm:^0.4.0"
     "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^24.10.1"
     "@types/react": "npm:18.3.1"
@@ -604,20 +603,11 @@ __metadata:
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@types/react-window": "npm:^1.8.8"
     "@types/sortablejs": "npm:^1.15.2"
-    "@typescript-eslint/eslint-plugin": "npm:^8.54.0"
     "@vitejs/plugin-react": "npm:^5.1.2"
     babel-plugin-styled-components: "npm:^2.1.4"
     chromatic: "npm:^13.3.4"
     date-fns: "npm:4.1.0"
     dayjs: "npm:^1.11.19"
-    eslint: "npm:^9"
-    eslint-import-resolver-typescript: "npm:^4.4.4"
-    eslint-plugin-import: "npm:^2.32.0"
-    eslint-plugin-prefer-arrow-functions: "npm:^3.3.2"
-    eslint-plugin-react-hooks: "npm:^5"
-    eslint-plugin-react-refresh: "npm:0.4.7"
-    eslint-plugin-storybook: "npm:^10.1.10"
-    globals: "npm:^16.5.0"
     jsdom: "npm:^24.0.0"
     lodash-es: "npm:^4.17.23"
     prop-types: "npm:^15.8.1"
@@ -637,7 +627,6 @@ __metadata:
     stylis: "npm:^4.3.0"
     ts-node: "npm:^10.9.1"
     typescript: "npm:^5.5.3"
-    typescript-eslint: "npm:^8"
     vite: "npm:^7.3.0"
     vite-plugin-dts: "npm:^4.3.0"
     vite-plugin-externalize-deps: "npm:^0.10.0"
@@ -4185,26 +4174,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint-plugin-react-refresh@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@types/eslint-plugin-react-refresh@npm:0.4.0"
-  dependencies:
-    "@types/eslint": "npm:*"
-  checksum: 10c0/a0552d13a8cf242ab68f48ac0388d2011a53f95db83a52cac809763c970ba7e2bdbf50259d1dc25a8bfd3d47f5e2fae2bd6eea5d88d4918c9c49b22886ec89d4
-  languageName: node
-  linkType: hard
-
-"@types/eslint@npm:*":
-  version: 9.6.1
-  resolution: "@types/eslint@npm:9.6.1"
-  dependencies:
-    "@types/estree": "npm:*"
-    "@types/json-schema": "npm:*"
-  checksum: 10c0/69ba24fee600d1e4c5abe0df086c1a4d798abf13792d8cfab912d76817fe1a894359a1518557d21237fbaf6eda93c5ab9309143dee4c59ef54336d1b3570420e
-  languageName: node
-  linkType: hard
-
-"@types/estree@npm:*, @types/estree@npm:1.0.8, @types/estree@npm:^1.0.0, @types/estree@npm:^1.0.6":
+"@types/estree@npm:1.0.8, @types/estree@npm:^1.0.0, @types/estree@npm:^1.0.6":
   version: 1.0.8
   resolution: "@types/estree@npm:1.0.8"
   checksum: 10c0/39d34d1afaa338ab9763f37ad6066e3f349444f9052b9676a7cc0252ef9485a41c6d81c9c4e0d26e9077993354edf25efc853f3224dd4b447175ef62bdcc86a5
@@ -4220,7 +4190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.15":
+"@types/json-schema@npm:^7.0.15":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: 10c0/a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -5654,8 +5624,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "click-ui-monorepo@workspace:."
   dependencies:
+    "@typescript-eslint/eslint-plugin": "npm:^8.54.0"
+    eslint: "npm:^9"
+    eslint-import-resolver-typescript: "npm:^4.4.4"
+    eslint-plugin-import: "npm:^2.32.0"
+    eslint-plugin-prefer-arrow-functions: "npm:^3.3.2"
+    eslint-plugin-react-hooks: "npm:^5"
+    eslint-plugin-react-refresh: "npm:0.4.7"
+    eslint-plugin-storybook: "npm:^10.1.10"
+    globals: "npm:^16.5.0"
     husky: "npm:^9.1.7"
     prettier: "npm:3.7.4"
+    typescript-eslint: "npm:^8"
   languageName: unknown
   linkType: soft
 

@@ -19,8 +19,18 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "eslint": "^9",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prefer-arrow-functions": "^3.3.2",
+    "eslint-plugin-react-hooks": "^5",
+    "eslint-plugin-react-refresh": "0.4.7",
+    "eslint-plugin-storybook": "^10.1.10",
+    "globals": "^16.5.0",
     "husky": "^9.1.7",
-    "prettier": "3.7.4"
+    "prettier": "3.7.4",
+    "typescript-eslint": "^8"
   },
   "resolutions": {
     "@types/react": "18.3.1",
