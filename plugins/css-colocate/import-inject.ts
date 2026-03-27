@@ -1,5 +1,4 @@
 import fs from 'fs-extra';
-import MagicString from 'magic-string';
 import path from 'path';
 import { glob } from 'glob';
 import { fileExists, createImportStatement } from './utils';
@@ -114,16 +113,9 @@ export const injectComponentCss = async (
     if (content.includes(`${component}.css`)) continue;
 
     const importStmt = createImportStatement(`./${component}.css`, format) + '\n';
-    const ms = new MagicString(content);
+    const updated = insertAtTop(content, importStmt);
 
-    if (content.startsWith("'use client'")) {
-      const pos = content.indexOf(';', content.indexOf("'use client'")) + 1;
-      ms.appendLeft(pos, '\n' + importStmt);
-    } else {
-      ms.prepend(importStmt);
-    }
-
-    await fs.writeFile(jsFile, ms.toString());
+    await fs.writeFile(jsFile, updated);
   }
 };
 
