@@ -826,6 +826,20 @@
           },
           "$description": "Blue 20% opacity"
         }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            60,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#e4edfd"
+        },
+        "$description": "Info/selection background - solid subtle (replaces alpha .50)"
       }
     },
     "red": {
@@ -985,6 +999,20 @@
         },
         "$description": "Danger border - solid light red"
       },
+      "150": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            55,
+            29
+          ],
+          "alpha": 1,
+          "hex": "#702523"
+        },
+        "$description": "Danger border / stroke - dark red"
+      },
       "200": {
         "$type": "color",
         "$value": {
@@ -998,6 +1026,48 @@
           "hex": "#f9cccc"
         },
         "$description": "Danger border dark - solid muted red"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            60,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#f5d6d6"
+        },
+        "$description": "Danger background - solid subtle (replaces alpha .50)"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            50,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#f0b3b3"
+        },
+        "$description": "Danger hover bg - solid (replaces alpha .100)"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            40,
+            85
+          ],
+          "alpha": 1,
+          "hex": "#e69999"
+        },
+        "$description": "Danger active bg - solid (replaces alpha .200)"
       }
     },
     "green": {
@@ -1100,6 +1170,20 @@
           "hex": "#255E27"
         },
         "$description": "Success border dark - solid green"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            40,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#eaf7eb"
+        },
+        "$description": "Success background - solid subtle (replaces alpha .50)"
       }
     },
     "orange": {
@@ -1216,6 +1300,20 @@
           "hex": "#f9d1c1"
         },
         "$description": "Warning border dark - solid muted orange"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            80,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#fde5d9"
+        },
+        "$description": "Warning background - solid subtle (replaces alpha .50)"
       }
     },
     "shadow": {
