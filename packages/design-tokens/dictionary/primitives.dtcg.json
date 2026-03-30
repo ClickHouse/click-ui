@@ -755,21 +755,21 @@
         },
         "$description": "Accent hover / link hover"
       },
-      "select": {
+      "300": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
           "components": [
-            218,
+            219,
             85,
             95
           ],
           "alpha": 1,
           "hex": "#e7effd"
         },
-        "$description": "Data grid / table selection tint (solid)"
+        "$description": "Info/selection background light"
       },
-      "light": {
+      "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
@@ -782,20 +782,6 @@
           "hex": "#71a1f4"
         },
         "$description": "Blue light - for dark mode visibility"
-      },
-      "lighter": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [
-            219,
-            84,
-            60
-          ],
-          "alpha": 1,
-          "hex": "#437fef"
-        },
-        "$description": "Blue lighter - for dark mode visibility"
       },
       "opacity": {
         "15": {
@@ -927,7 +913,7 @@
         },
         "$description": "Danger text, icon, solid bg"
       },
-      "light": {
+      "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
@@ -1113,7 +1099,7 @@
         },
         "$description": "Success text"
       },
-      "light": {
+      "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
@@ -1257,7 +1243,7 @@
         },
         "$description": "Warning text"
       },
-      "light": {
+      "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
