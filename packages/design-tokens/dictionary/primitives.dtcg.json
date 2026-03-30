@@ -833,13 +833,27 @@
           "colorSpace": "hsl",
           "components": [
             219,
-            60,
+            85,
             95
           ],
           "alpha": 1,
-          "hex": "#e4edfd"
+          "hex": "#e7effd"
         },
-        "$description": "Info/selection background - solid subtle (replaces alpha .50)"
+        "$description": "Info/selection background subtle - computed from alpha .10 on white"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            220,
+            82,
+            33
+          ],
+          "alpha": 1,
+          "hex": "#0d3e9b"
+        },
+        "$description": "Info/selection background dark - computed from alpha .15 on dark"
       }
     },
     "red": {
@@ -1033,13 +1047,13 @@
           "colorSpace": "hsl",
           "components": [
             0,
-            60,
-            95
+            100,
+            93
           ],
           "alpha": 1,
-          "hex": "#f5d6d6"
+          "hex": "#ffdddd"
         },
-        "$description": "Danger background - solid subtle (replaces alpha .50)"
+        "$description": "Danger background subtle - computed from alpha .10 on white"
       },
       "400": {
         "$type": "color",
@@ -1047,13 +1061,13 @@
           "colorSpace": "hsl",
           "components": [
             0,
-            50,
-            90
+            100,
+            19
           ],
           "alpha": 1,
-          "hex": "#f0b3b3"
+          "hex": "#610000"
         },
-        "$description": "Danger hover bg - solid (replaces alpha .100)"
+        "$description": "Danger background dark - computed from alpha .15 on dark"
       },
       "500": {
         "$type": "color",
@@ -1177,13 +1191,27 @@
           "colorSpace": "hsl",
           "components": [
             125,
-            40,
+            100,
             95
           ],
           "alpha": 1,
-          "hex": "#eaf7eb"
+          "hex": "#e5ffe8"
         },
-        "$description": "Success background - solid subtle (replaces alpha .50)"
+        "$description": "Success background subtle - computed from alpha .10 on white"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            100,
+            13
+          ],
+          "alpha": 1,
+          "hex": "#004206"
+        },
+        "$description": "Success background dark - computed from alpha .15 on dark"
       }
     },
     "orange": {
@@ -1307,13 +1335,27 @@
           "colorSpace": "hsl",
           "components": [
             22,
-            80,
-            95
+            100,
+            91
           ],
           "alpha": 1,
-          "hex": "#fde5d9"
+          "hex": "#ffe2d1"
         },
-        "$description": "Warning background - solid subtle (replaces alpha .50)"
+        "$description": "Warning background subtle - computed from alpha .10 on white"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            24
+          ],
+          "alpha": 1,
+          "hex": "#7a2d00"
+        },
+        "$description": "Warning background dark - computed from alpha .15 on dark"
       }
     },
     "shadow": {

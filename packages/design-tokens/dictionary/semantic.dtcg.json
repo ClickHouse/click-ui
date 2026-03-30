@@ -169,18 +169,18 @@
             "$extensions": {
               "mode": {
                 "light": "{color.red.400}",
-                "dark": "{color.red.500}"
+                "dark": "{color.red.100}"
               }
             },
             "$description": "Danger hover bg"
           },
           "active": {
             "$type": "color",
-            "$value": "{color.red.500}",
+            "$value": "{color.red.100}",
             "$extensions": {
               "mode": {
-                "light": "{color.red.500}",
-                "dark": "{color.red.100}"
+                "light": "{color.red.100}",
+                "dark": "{color.red.200}"
               }
             },
             "$description": "Danger active / pressed bg"
@@ -193,7 +193,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.green.300}",
-                "dark": "{color.green.300}"
+                "dark": "{color.green.400}"
               }
             },
             "$description": "Success tinted bg — alert, badge"
@@ -206,7 +206,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.orange.300}",
-                "dark": "{color.orange.300}"
+                "dark": "{color.orange.400}"
               }
             },
             "$description": "Warning tinted bg — alert, badge"
@@ -219,7 +219,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.blue.300}",
-                "dark": "{color.blue.300}"
+                "dark": "{color.blue.400}"
               }
             },
             "$description": "Info tinted bg — alert, badge, iconButton"
@@ -228,11 +228,11 @@
         "neutral": {
           "subtle": {
             "$type": "color",
-            "$value": "{color.neutral.300}",
+            "$value": "{color.gray.50}",
             "$extensions": {
               "mode": {
-                "light": "{color.neutral.300}",
-                "dark": "{color.neutral.300}"
+                "light": "{color.gray.50}",
+                "dark": "{color.charcoal.surface.100}"
               }
             },
             "$description": "Neutral tinted bg — alert, badge"
@@ -242,11 +242,11 @@
       "select": {
         "default": {
           "$type": "color",
-          "$value": "{color.blue.select}",
+          "$value": "{color.blue.300}",
           "$extensions": {
             "mode": {
-              "light": "{color.blue.select}",
-              "dark": "{color.blue.select}"
+              "light": "{color.blue.300}",
+              "dark": "{color.blue.400}"
             }
           },
           "$description": "Selection highlight — grid row, table row, list item"
@@ -463,22 +463,22 @@
       "feedback": {
         "error": {
           "$type": "color",
-          "$value": "{color.red.100}",
+          "$value": "{color.red.300}",
           "$extensions": {
             "mode": {
-              "light": "{color.red.100}",
-              "dark": "{color.red.150}"
+              "light": "{color.red.300}",
+              "dark": "{color.red.400}"
             }
           },
           "$description": "Danger bordered elements"
         },
         "info": {
           "$type": "color",
-          "$value": "{color.blue.100}",
+          "$value": "{color.blue.300}",
           "$extensions": {
             "mode": {
-              "light": "{color.blue.100}",
-              "dark": "{color.blue.200}"
+              "light": "{color.blue.300}",
+              "dark": "{color.blue.400}"
             }
           },
           "$description": "Info bordered elements"
