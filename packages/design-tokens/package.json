@@ -1,0 +1,42 @@
+{
+  "name": "@clickhouse/design-tokens",
+  "version": "0.0.0",
+  "description": "ClickHouse Design System Tokens",
+  "homepage": "https://clickhouse.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClickHouse/click-ui.git",
+    "directory": "packages/design-tokens"
+  },
+  "keywords": [
+    "design-tokens",
+    "clickhouse",
+    "design-system"
+  ],
+  "type": "module",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist/tokens.css"
+    }
+  },
+  "scripts": {
+    "build": "yarn tokens:build",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "tokens:build": "rm -rf ./dist && tz build",
+    "tokens:watch": "tz build --watch",
+    "lint": "tz lint",
+    "test": "echo '🦖 Skip test!'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@terrazzo/cli": "^2.0.0",
+    "@terrazzo/plugin-css": "^2.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}

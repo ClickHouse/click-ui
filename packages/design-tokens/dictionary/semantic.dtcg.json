@@ -1,0 +1,871 @@
+{
+  "color": {
+    "background": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.white}",
+            "dark": "{color.charcoal.50}"
+          }
+        },
+        "$description": "Default page / card / dialog surface"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.gray.50}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.50}",
+            "dark": "{color.charcoal.200}"
+          }
+        },
+        "$description": "Hover surface, muted card, secondary bg"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.300}",
+            "dark": "{color.charcoal.250}"
+          }
+        },
+        "$description": "Disabled background across all components"
+      },
+      "transparent": {
+        "$type": "color",
+        "$value": "{color.transparent}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.transparent}",
+            "dark": "{color.transparent}"
+          }
+        },
+        "$description": "Ghost / empty state — no fill"
+      },
+      "field": {
+        "$type": "color",
+        "$value": "{color.gray.25}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.25}",
+            "dark": "{color.charcoal.150}"
+          }
+        },
+        "$description": "Input field background"
+      },
+      "interactive": {
+        "primary": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.gray.800}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.800}",
+                "dark": "{color.charcoal.550}"
+              }
+            },
+            "$description": "Primary filled button / icon button secondary"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.gray.850}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.850}",
+                "dark": "{color.charcoal.600}"
+              }
+            },
+            "$description": "Primary button hover"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{color.gray.950}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.950}",
+                "dark": "{color.charcoal.650}"
+              }
+            },
+            "$description": "Primary button pressed"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{color.gray.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.300}",
+                "dark": "{color.charcoal.300}"
+              }
+            },
+            "$description": "Primary button disabled"
+          }
+        },
+        "secondary": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.transparent}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.transparent}",
+                "dark": "{color.transparent}"
+              }
+            },
+            "$description": "Secondary button (ghost/outline) default — transparent"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.gray.50}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.50}",
+                "dark": "{color.charcoal.200}"
+              }
+            },
+            "$description": "Secondary button hover — subtle tint"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{color.gray.100}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.100}",
+                "dark": "{color.charcoal.250}"
+              }
+            },
+            "$description": "Secondary button pressed — subtle tint, stronger than hover"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{color.gray.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.300}",
+                "dark": "{color.charcoal.300}"
+              }
+            },
+            "$description": "Secondary button disabled"
+          }
+        }
+      },
+      "feedback": {
+        "error": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.red.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.red.300}",
+                "dark": "{color.red.400}"
+              }
+            },
+            "$description": "Danger tinted bg — button, badge, alert, icon"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.red.400}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.red.400}",
+                "dark": "{color.red.100}"
+              }
+            },
+            "$description": "Danger hover bg"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{color.red.100}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.red.100}",
+                "dark": "{color.red.200}"
+              }
+            },
+            "$description": "Danger active / pressed bg"
+          }
+        },
+        "success": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.green.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.green.300}",
+                "dark": "{color.green.400}"
+              }
+            },
+            "$description": "Success tinted bg — alert, badge"
+          }
+        },
+        "warning": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.orange.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.orange.300}",
+                "dark": "{color.orange.400}"
+              }
+            },
+            "$description": "Warning tinted bg — alert, badge"
+          }
+        },
+        "info": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.blue.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.blue.300}",
+                "dark": "{color.blue.400}"
+              }
+            },
+            "$description": "Info tinted bg — alert, badge, iconButton"
+          }
+        },
+        "neutral": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.gray.50}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.50}",
+                "dark": "{color.charcoal.100}"
+              }
+            },
+            "$description": "Neutral tinted bg — alert, badge"
+          }
+        }
+      },
+      "select": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.blue.300}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.300}",
+              "dark": "{color.blue.400}"
+            }
+          },
+          "$description": "Selection highlight — grid row, table row, list item"
+        }
+      }
+    },
+    "foreground": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.gray.950}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.950}",
+            "dark": "{color.charcoal.500}"
+          }
+        },
+        "$description": "Primary text on any light surface"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.gray.500}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.500}",
+            "dark": "{color.charcoal.700}"
+          }
+        },
+        "$description": "Secondary / muted text, icons"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.700}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.700}",
+            "dark": "{color.charcoal.750}"
+          }
+        },
+        "$description": "Neutral label text"
+      },
+      "placeholder": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.400}",
+            "dark": "{color.charcoal.800}"
+          }
+        },
+        "$description": "Input placeholder text"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.400}",
+            "dark": "{color.charcoal.850}"
+          }
+        },
+        "$description": "Disabled text across all components"
+      },
+      "interactive": {
+        "on-primary": {
+          "$type": "color",
+          "$value": "{color.white}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.white}",
+              "dark": "{color.gray.950}"
+            }
+          },
+          "$description": "Text / icon on dark primary surface"
+        },
+        "accent": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.blue.400}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.blue.400}",
+                "dark": "{color.blue.500}"
+              }
+            },
+            "$description": "Link, empty button, info text"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.blue.600}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.blue.600}",
+                "dark": "{color.blue.400}"
+              }
+            },
+            "$description": "Link / empty button hover"
+          }
+        }
+      },
+      "feedback": {
+        "error": {
+          "$type": "color",
+          "$value": "{color.red.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.600}",
+              "dark": "{color.red.500}"
+            }
+          },
+          "$description": "Danger text — alert, badge, button, field"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.600}",
+              "dark": "{color.green.500}"
+            }
+          },
+          "$description": "Success text — alert, badge, icon"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.700}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.700}",
+              "dark": "{color.orange.500}"
+            }
+          },
+          "$description": "Warning text — alert, badge, icon"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.blue.400}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.400}",
+              "dark": "{color.blue.500}"
+            }
+          },
+          "$description": "Info text — alert, badge (same as link.default)"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.gray.700}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.gray.700}",
+              "dark": "{color.charcoal.750}"
+            }
+          },
+          "$description": "Neutral variant text — alert, badge"
+        }
+      },
+      "format": {
+        "$type": "color",
+        "$value": "#a7b1c3",
+        "$extensions": {
+          "mode": {
+            "light": "#a7b1c3",
+            "dark": "#6f7b8b"
+          }
+        },
+        "$description": "Field / menu chevron / format indicator"
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.100}",
+            "dark": "{color.charcoal.400}"
+          }
+        },
+        "$description": "Default border — card, field, badge, button, table"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.200}",
+            "dark": "{color.charcoal.450}"
+          }
+        },
+        "$description": "Active / strong border — button active, field hover"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.300}",
+            "dark": "{color.charcoal.350}"
+          }
+        },
+        "$description": "Disabled border"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.700}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.700}",
+            "dark": "{color.charcoal.300}"
+          }
+        },
+        "$description": "Muted border — checkbox default stroke"
+      },
+      "feedback": {
+        "error": {
+          "$type": "color",
+          "$value": "{color.red.300}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.300}",
+              "dark": "{color.red.400}"
+            }
+          },
+          "$description": "Danger bordered elements"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.blue.300}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.300}",
+              "dark": "{color.blue.400}"
+            }
+          },
+          "$description": "Info bordered elements"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.100}",
+              "dark": "{color.green.200}"
+            }
+          },
+          "$description": "Success bordered elements"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.100}",
+              "dark": "{color.orange.200}"
+            }
+          },
+          "$description": "Warning bordered elements"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.neutral.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.neutral.100}",
+              "dark": "{color.neutral.200}"
+            }
+          },
+          "$description": "Neutral bordered elements"
+        }
+      }
+    },
+    "feedback": {
+      "solid": {
+        "error": {
+          "$type": "color",
+          "$value": "{color.red.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.600}",
+              "dark": "{color.red.500}"
+            }
+          },
+          "$description": "Solid danger bg — badge.solid"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.600}",
+              "dark": "{color.green.500}"
+            }
+          },
+          "$description": "Solid success bg — badge.solid"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.600}",
+              "dark": "{color.orange.500}"
+            }
+          },
+          "$description": "Solid warning bg — badge.solid"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.blue.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.600}",
+              "dark": "{color.blue.400}"
+            }
+          },
+          "$description": "Solid info bg — badge.solid"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.neutral.650}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.neutral.650}",
+              "dark": "{color.charcoal.750}"
+            }
+          },
+          "$description": "Solid neutral bg — badge.solid"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{color.gray.400}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.gray.400}",
+              "dark": "{color.charcoal.850}"
+            }
+          },
+          "$description": "Solid default bg — badge.solid"
+        }
+      }
+    }
+  },
+  "utility": {
+    "color": {
+      "shadow": {
+        "default": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [0, 0, 0],
+            "alpha": 0.15,
+            "hex": "#000000"
+          },
+          "$extensions": {
+            "mode": {
+              "light": {
+                "colorSpace": "hsl",
+                "components": [0, 0, 0],
+                "alpha": 0.15,
+                "hex": "#000000"
+              },
+              "dark": {
+                "colorSpace": "hsl",
+                "components": [0, 0, 0],
+                "alpha": 0.3,
+                "hex": "#000000"
+              }
+            }
+          },
+          "$description": "Box shadow colour"
+        }
+      },
+      "scrim": {
+        "dialog": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [0, 0, 0],
+            "alpha": 0.75,
+            "hex": "#000000"
+          },
+          "$extensions": {
+            "mode": {
+              "light": {
+                "colorSpace": "hsl",
+                "components": [0, 0, 0],
+                "alpha": 0.75,
+                "hex": "#000000"
+              },
+              "dark": {
+                "colorSpace": "hsl",
+                "components": [0, 0, 0],
+                "alpha": 0.8,
+                "hex": "#000000"
+              }
+            }
+          },
+          "$description": "Dialog overlay scrim"
+        },
+        "tooltip": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [0, 0, 0],
+            "alpha": 0.85,
+            "hex": "#000000"
+          },
+          "$extensions": {
+            "mode": {
+              "light": {
+                "colorSpace": "hsl",
+                "components": [0, 0, 0],
+                "alpha": 0.85,
+                "hex": "#000000"
+              },
+              "dark": {
+                "colorSpace": "hsl",
+                "components": [0, 0, 0],
+                "alpha": 0.9,
+                "hex": "#000000"
+              }
+            }
+          },
+          "$description": "Tooltip dark bg"
+        }
+      },
+      "border": {
+        "muted": {
+          "$type": "color",
+          "$value": "{color.gray.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.gray.100}",
+              "dark": "{color.charcoal.250}"
+            }
+          },
+          "$description": "Muted stroke utility — global, sidebar hover base"
+        }
+      }
+    }
+  },
+  "component": {
+    "chart": {
+      "orange": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [22, 100, 58],
+          "alpha": 1,
+          "hex": "#ff7729"
+        },
+        "$description": "Chart series — orange"
+      },
+      "green": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [125, 100, 45],
+          "alpha": 1,
+          "hex": "#00e613"
+        },
+        "$description": "Chart series — green"
+      },
+      "fuchsia": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [315, 96, 59],
+          "alpha": 1,
+          "hex": "#fb32c9"
+        },
+        "$description": "Chart series — fuchsia"
+      },
+      "yellow": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [61, 100, 48],
+          "alpha": 1,
+          "hex": "#f1f500"
+        },
+        "$description": "Chart series — yellow"
+      },
+      "violet": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [280, 100, 60],
+          "alpha": 1,
+          "hex": "#bb33ff"
+        },
+        "$description": "Chart series — violet"
+      },
+      "babyblue": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [188, 100, 57],
+          "alpha": 1,
+          "hex": "#24d1ff"
+        },
+        "$description": "Chart series — babyblue"
+      },
+      "red": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [0, 100, 57],
+          "alpha": 1,
+          "hex": "#ff2424"
+        },
+        "$description": "Chart series — red"
+      },
+      "teal": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [170, 90, 32],
+          "alpha": 1,
+          "hex": "#089b83"
+        },
+        "$description": "Chart series — teal"
+      },
+      "sunrise": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [46, 100, 50],
+          "alpha": 1,
+          "hex": "#ffc400"
+        },
+        "$description": "Chart series — sunrise"
+      }
+    },
+    "checkbox": {
+      "variation": {
+        "green": {
+          "stroke": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [137, 65, 63],
+              "alpha": 1,
+              "hex": "#63de86"
+            },
+            "$description": "Checkbox var1 stroke"
+          },
+          "active": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [125, 100, 45],
+              "alpha": 1,
+              "hex": "#00e613"
+            },
+            "$description": "Checkbox var1 active bg"
+          }
+        },
+        "blue": {
+          "stroke": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [219, 85, 69],
+              "alpha": 1,
+              "hex": "#6d9cf3"
+            },
+            "$description": "Checkbox var2 stroke"
+          }
+        },
+        "pink": {
+          "stroke": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [315, 95, 69],
+              "alpha": 1,
+              "hex": "#fb65d5"
+            },
+            "$description": "Checkbox var3 stroke"
+          }
+        },
+        "orange": {
+          "stroke": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [28, 100, 67],
+              "alpha": 1,
+              "hex": "#ffab66"
+            },
+            "$description": "Checkbox var4 stroke"
+          }
+        },
+        "teal": {
+          "stroke": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [170, 90, 59],
+              "alpha": 1,
+              "hex": "#5cd6c0"
+            },
+            "$description": "Checkbox var5 stroke"
+          }
+        },
+        "purple": {
+          "stroke": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "hsl",
+              "components": [280, 100, 76],
+              "alpha": 1,
+              "hex": "#c87aff"
+            },
+            "$description": "Checkbox var6 stroke"
+          }
+        }
+      }
+    }
+  }
+}
