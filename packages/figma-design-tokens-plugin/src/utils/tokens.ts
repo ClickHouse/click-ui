@@ -286,10 +286,18 @@ export function createToken(
     scopes,
     `scopes.length: ${scopes?.length}`,
   );
+  console.log(
+    `DEBUG createToken - existingVariables is:`,
+    existingVariables ? `defined (${Object.keys(existingVariables).length} vars)` : "undefined",
+  );
 
 
 
   if (existingVariables) {
+    console.log(
+      `DEBUG createToken - Looking for "${name}" in existingVariables:`,
+      existingVariables[name] ? "FOUND" : "NOT FOUND",
+    );
 
     if (existingVariables[name]) {
       console.log(
@@ -303,14 +311,36 @@ export function createToken(
         `DEBUG createToken - Existing modes for "${name}":`,
         existingModeIds,
       );
+      console.log(
+        `DEBUG createToken - Current import modeId: ${modeId}`,
+      );
 
 
       if (existingModeIds.length > 0) {
-        const targetModeId = existingModeIds[0]!;
+        const targetModeId = existingModeIds.includes(modeId) ? modeId : existingModeIds[0]!;
         console.log(
           `DEBUG createToken - Updating value for mode ${targetModeId}`,
         );
-        token.setValueForMode(targetModeId, value);
+        
+        // Handle mode values (light/dark) when updating existing tokens
+        if (modeIds && modeValues) {
+          console.log(`DEBUG createToken - Has modeIds and modeValues, updating both modes`);
+          if (modeValues.light !== undefined && existingModeIds.includes(modeIds.light)) {
+            console.log(`DEBUG createToken - Setting light mode (${modeIds.light}) to:`, modeValues.light);
+            token.setValueForMode(modeIds.light, modeValues.light);
+          } else {
+            console.log(`DEBUG createToken - Setting light mode (${modeIds.light}) to base value:`, value);
+            token.setValueForMode(modeIds.light, value);
+          }
+          
+          if (modeIds.dark && modeValues.dark !== undefined && existingModeIds.includes(modeIds.dark)) {
+            console.log(`DEBUG createToken - Setting dark mode (${modeIds.dark}) to:`, modeValues.dark);
+            token.setValueForMode(modeIds.dark, modeValues.dark);
+          }
+        } else {
+          // No mode values, just update the single mode
+          token.setValueForMode(targetModeId, value);
+        }
       } else {
         console.error(
           `DEBUG createToken - No modes found for existing token "${name}"`,
@@ -365,14 +395,36 @@ export function createToken(
         `DEBUG createToken - Existing modes for "${dotName}":`,
         existingModeIds,
       );
+      console.log(
+        `DEBUG createToken - Current import modeId: ${modeId}`,
+      );
 
 
       if (existingModeIds.length > 0) {
-        const targetModeId = existingModeIds[0]!;
+        const targetModeId = existingModeIds.includes(modeId) ? modeId : existingModeIds[0]!;
         console.log(
           `DEBUG createToken - Updating value for mode ${targetModeId}`,
         );
-        token.setValueForMode(targetModeId, value);
+        
+        // Handle mode values (light/dark) when updating existing tokens
+        if (modeIds && modeValues) {
+          console.log(`DEBUG createToken - Has modeIds and modeValues, updating both modes`);
+          if (modeValues.light !== undefined && existingModeIds.includes(modeIds.light)) {
+            console.log(`DEBUG createToken - Setting light mode (${modeIds.light}) to:`, modeValues.light);
+            token.setValueForMode(modeIds.light, modeValues.light);
+          } else {
+            console.log(`DEBUG createToken - Setting light mode (${modeIds.light}) to base value:`, value);
+            token.setValueForMode(modeIds.light, value);
+          }
+          
+          if (modeIds.dark && modeValues.dark !== undefined && existingModeIds.includes(modeIds.dark)) {
+            console.log(`DEBUG createToken - Setting dark mode (${modeIds.dark}) to:`, modeValues.dark);
+            token.setValueForMode(modeIds.dark, modeValues.dark);
+          }
+        } else {
+          // No mode values, just update the single mode
+          token.setValueForMode(targetModeId, value);
+        }
       } else {
         console.error(
           `DEBUG createToken - No modes found for existing token "${dotName}"`,
@@ -488,6 +540,7 @@ export function createVariableAlias(
   scopes?: string[],
   modeIds?: ModeIds,
   modeValues?: ModeValues,
+  existingVariables?: Record<string, Variable>,
 ): Variable {
   const token = allTokens[valueKey]!;
 
@@ -504,7 +557,7 @@ export function createVariableAlias(
     },
     scopes,
     undefined,
-    undefined,
+    existingVariables,
     modeIds,
     modeValues,
   );
@@ -673,6 +726,7 @@ export function traverseToken({
               lightValue && darkValue
                 ? { light: lightValue, dark: darkValue }
                 : undefined,
+              existingVariables,
             );
           }
         } else {
@@ -683,6 +737,9 @@ export function traverseToken({
             valueKey,
             allTokens,
             scopes,
+            undefined,
+            undefined,
+            existingVariables,
           );
         }
       } else {
@@ -907,6 +964,7 @@ export async function processAliases({
           scopes,
           modeIds,
           resolvedModeValues,
+          existingVariables,
         );
         tokens[key] = newToken;
         allTokens[key] = newToken;
