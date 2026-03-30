@@ -463,55 +463,55 @@
       "feedback": {
         "error": {
           "$type": "color",
-          "$value": "{color.red.50}",
+          "$value": "{color.red.100}",
           "$extensions": {
             "mode": {
-              "light": "{color.red.50}",
-              "dark": "{color.red.opacity.20}"
+              "light": "{color.red.100}",
+              "dark": "{color.red.200}"
             }
           },
           "$description": "Danger bordered elements"
         },
         "info": {
           "$type": "color",
-          "$value": "{color.blue.50}",
+          "$value": "{color.blue.100}",
           "$extensions": {
             "mode": {
-              "light": "{color.blue.50}",
-              "dark": "{color.blue.opacity.20}"
+              "light": "{color.blue.100}",
+              "dark": "{color.blue.200}"
             }
           },
           "$description": "Info bordered elements"
         },
         "success": {
           "$type": "color",
-          "$value": "{color.green.50}",
+          "$value": "{color.green.100}",
           "$extensions": {
             "mode": {
-              "light": "{color.green.50}",
-              "dark": "{color.green.opacity.20}"
+              "light": "{color.green.100}",
+              "dark": "{color.green.200}"
             }
           },
           "$description": "Success bordered elements"
         },
         "warning": {
           "$type": "color",
-          "$value": "{color.orange.50}",
+          "$value": "{color.orange.100}",
           "$extensions": {
             "mode": {
-              "light": "{color.orange.50}",
-              "dark": "{color.orange.opacity.20}"
+              "light": "{color.orange.100}",
+              "dark": "{color.orange.200}"
             }
           },
           "$description": "Warning bordered elements"
         },
         "neutral": {
           "$type": "color",
-          "$value": "{color.neutral.opacity.10}",
+          "$value": "{color.neutral.100}",
           "$extensions": {
             "mode": {
-              "light": "{color.neutral.opacity.10}",
-              "dark": "{color.neutral.opacity.15}"
+              "light": "{color.neutral.100}",
+              "dark": "{color.neutral.200}"
             }
           },
           "$description": "Neutral bordered elements"

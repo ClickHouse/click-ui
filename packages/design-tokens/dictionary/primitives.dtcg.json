@@ -382,6 +382,34 @@
           },
           "$description": "Neutral 15% opacity"
         }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            221,
+            7,
+            94
+          ],
+          "alpha": 1,
+          "hex": "#eceeef"
+        },
+        "$description": "Neutral border - solid light gray"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            221,
+            5,
+            88
+          ],
+          "alpha": 1,
+          "hex": "#dadddf"
+        },
+        "$description": "Neutral border dark - solid muted gray"
       }
     },
     "charcoal": {
@@ -942,6 +970,34 @@
           },
           "$description": "Red 35% opacity"
         }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            70,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#fce5e5"
+        },
+        "$description": "Danger border - solid light red"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            70,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#f9cccc"
+        },
+        "$description": "Danger border dark - solid muted red"
       }
     },
     "green": {
@@ -1001,7 +1057,49 @@
             "hex": "#008a0b"
           },
           "$description": "Green 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              125,
+              100,
+              27
+            ],
+            "alpha": 0.2,
+            "hex": "#008a0b"
+          },
+          "$description": "Green 20% opacity"
         }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            42,
+            26
+          ],
+          "alpha": 1,
+          "hex": "#255E27"
+        },
+        "$description": "Success border - solid green"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            42,
+            26
+          ],
+          "alpha": 1,
+          "hex": "#255E27"
+        },
+        "$description": "Success border dark - solid green"
       }
     },
     "orange": {
@@ -1075,7 +1173,49 @@
             "hex": "#d64f00"
           },
           "$description": "Orange 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              22,
+              100,
+              42
+            ],
+            "alpha": 0.2,
+            "hex": "#d64f00"
+          },
+          "$description": "Orange 20% opacity"
         }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#fdeee5"
+        },
+        "$description": "Warning border - solid light orange"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            60,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#f9d1c1"
+        },
+        "$description": "Warning border dark - solid muted orange"
       }
     },
     "shadow": {
