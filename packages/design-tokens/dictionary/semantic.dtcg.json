@@ -328,7 +328,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.blue.400}",
-                "dark": "{color.blue.light}"
+                "dark": "{color.blue.500}"
               }
             },
             "$description": "Link, empty button, info text"
@@ -339,7 +339,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.blue.600}",
-                "dark": "{color.blue.lighter}"
+                "dark": "{color.blue.400}"
               }
             },
             "$description": "Link / empty button hover"
@@ -353,7 +353,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.red.600}",
-              "dark": "{color.red.light}"
+              "dark": "{color.red.500}"
             }
           },
           "$description": "Danger text — alert, badge, button, field"
@@ -364,7 +364,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.green.600}",
-              "dark": "{color.green.light}"
+              "dark": "{color.green.500}"
             }
           },
           "$description": "Success text — alert, badge, icon"
@@ -375,7 +375,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.orange.700}",
-              "dark": "{color.orange.light}"
+              "dark": "{color.orange.500}"
             }
           },
           "$description": "Warning text — alert, badge, icon"
@@ -386,7 +386,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.blue.400}",
-              "dark": "{color.blue.light}"
+              "dark": "{color.blue.500}"
             }
           },
           "$description": "Info text — alert, badge (same as link.default)"
@@ -526,7 +526,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.red.600}",
-              "dark": "{color.red.light}"
+              "dark": "{color.red.500}"
             }
           },
           "$description": "Solid danger bg — badge.solid"
@@ -537,7 +537,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.green.600}",
-              "dark": "{color.green.light}"
+              "dark": "{color.green.500}"
             }
           },
           "$description": "Solid success bg — badge.solid"
@@ -548,7 +548,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.orange.600}",
-              "dark": "{color.orange.light}"
+              "dark": "{color.orange.500}"
             }
           },
           "$description": "Solid warning bg — badge.solid"
@@ -559,7 +559,7 @@
           "$extensions": {
             "mode": {
               "light": "{color.blue.600}",
-              "dark": "{color.blue.lighter}"
+              "dark": "{color.blue.400}"
             }
           },
           "$description": "Solid info bg — badge.solid"
