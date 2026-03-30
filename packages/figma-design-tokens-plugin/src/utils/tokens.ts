@@ -50,6 +50,32 @@ export function inferScopes(
       `DEBUG inferScopes - Checking FLOAT/number: "${normalizedName}"`,
     );
 
+    // Check for typography scopes FIRST (before generic "size" match)
+    if (normalizedName.includes("font/size") || normalizedName.includes("font.size")) {
+      console.log(
+        `DEBUG inferScopes - Matched FONT_SIZE for "${normalizedName}"`,
+      );
+      return ["FONT_SIZE"];
+    }
+    
+    if (normalizedName.includes("font/weight") || normalizedName.includes("font.weight")) {
+      console.log(
+        `DEBUG inferScopes - Matched FONT_WEIGHT for "${normalizedName}"`,
+      );
+      return ["FONT_WEIGHT"];
+    }
+    
+    if (
+      normalizedName.includes("lineheight") ||
+      normalizedName.includes("line_height") ||
+      normalizedName.includes("line-height")
+    ) {
+      console.log(
+        `DEBUG inferScopes - Matched LINE_HEIGHT for "${normalizedName}"`,
+      );
+      return ["LINE_HEIGHT"];
+    }
+
     if (
       normalizedName.includes("radius") ||
       normalizedName.includes("corner")
