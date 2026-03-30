@@ -482,6 +482,39 @@
             }
           },
           "$description": "Info bordered elements"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.50}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.50}",
+              "dark": "{color.green.opacity.20}"
+            }
+          },
+          "$description": "Success bordered elements"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.50}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.50}",
+              "dark": "{color.orange.opacity.20}"
+            }
+          },
+          "$description": "Warning bordered elements"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.neutral.opacity.10}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.neutral.opacity.10}",
+              "dark": "{color.neutral.opacity.15}"
+            }
+          },
+          "$description": "Neutral bordered elements"
         }
       }
     },
