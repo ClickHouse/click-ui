@@ -20,6 +20,7 @@ import AWS_S3 from '../AWS_S3';
 import Azure from '../Azure';
 import Azure_Blob_Storage from '../Azure_Blob_Storage';
 import Azure_Event_Hub from '../Azure_Event_Hub';
+import Biglake_Metastore from '../Biglake-Metastore';
 import Bigquery from '../Bigquery';
 import Clickhouse from '../Clickhouse';
 import Cloudflare from '../Cloudflare';
@@ -94,6 +95,7 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   azure: Azure,
   'azure-blob-storage': Azure_Blob_Storage,
   'azure-event-hub': Azure_Event_Hub,
+  'biglake-metastore': Biglake_Metastore,
   bigquery: Bigquery,
   clickhouse: Clickhouse,
   cloudflare: Cloudflare,
