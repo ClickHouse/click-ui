@@ -383,7 +383,7 @@
           "$description": "Neutral 15% opacity"
         }
       },
-      "100": {
+      "150": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
@@ -397,7 +397,7 @@
         },
         "$description": "Neutral border - solid light gray"
       },
-      "200": {
+      "250": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
@@ -841,7 +841,7 @@
         },
         "$description": "Info/selection background subtle - computed from alpha .10 on white"
       },
-      "400": {
+      "450": {
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
@@ -884,34 +884,6 @@
           "hex": "#c20000"
         },
         "$description": "Danger tinted bg"
-      },
-      "100": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [
-            0,
-            100,
-            38
-          ],
-          "alpha": 0.2,
-          "hex": "#c20000"
-        },
-        "$description": "Danger hover bg"
-      },
-      "200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [
-            0,
-            100,
-            38
-          ],
-          "alpha": 0.3,
-          "hex": "#c20000"
-        },
-        "$description": "Danger active bg"
       },
       "600": {
         "$type": "color",
