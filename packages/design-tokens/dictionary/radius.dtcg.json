@@ -1,84 +1,60 @@
 {
   "radius": {
-    "0": {
+    "none": {
       "$type": "dimension",
       "$value": {
         "value": 0,
         "unit": "px"
       },
-      "$description": "0px, none, square, sharp, angular, no-radius, corner-none"
+      "$description": "0px, sharp, square, angular, no-radius, corner-none"
     },
-    "25": {
+    "minimal": {
       "$type": "dimension",
       "$value": {
         "value": 2,
         "unit": "px"
       },
-      "$description": "2px, tiny, subtle, 0.125rem, radius.25, xs, micro-corner, slight"
+      "$description": "2px, tiny, subtle, micro-corner, slight-rounding"
     },
-    "50": {
+    "sm": {
       "$type": "dimension",
       "$value": {
         "value": 4,
         "unit": "px"
       },
-      "$description": "4px, extra-small, small, 0.25rem, radius.50, xs, sm, input, field, subtle-round"
+      "$description": "4px, small, input, field, chip, tag, compact"
     },
-    "75": {
-      "$type": "dimension",
-      "$value": {
-        "value": 6,
-        "unit": "px"
-      },
-      "$description": "6px, small, 0.375rem, radius.75, sm, button-small, chip, tag, soft-round"
-    },
-    "100": {
+    "md": {
       "$type": "dimension",
       "$value": {
         "value": 8,
         "unit": "px"
       },
-      "$description": "8px, base, standard, 0.5rem, radius.100, md, button, card, default-round, moderate"
+      "$description": "8px, base, standard, button, card, default"
     },
-    "150": {
-      "$type": "dimension",
-      "$value": {
-        "value": 12,
-        "unit": "px"
-      },
-      "$description": "12px, medium, 0.75rem, radius.150, md-lg, panel, section, rounded, relaxed"
-    },
-    "200": {
+    "lg": {
       "$type": "dimension",
       "$value": {
         "value": 16,
         "unit": "px"
       },
-      "$description": "16px, large, 1rem, radius.200, lg, container, modal, dialog, well-rounded"
+      "$description": "16px, large, container, modal, dialog, panel"
     },
-    "300": {
+    "xl": {
       "$type": "dimension",
       "$value": {
         "value": 24,
         "unit": "px"
       },
-      "$description": "24px, extra-large, 1.5rem, radius.300, xl, large-card, feature, very-rounded"
+      "$description": "24px, extra-large, feature, large-card, prominent"
     },
-    "400": {
-      "$type": "dimension",
-      "$value": {
-        "value": 32,
-        "unit": "px"
-      },
-      "$description": "32px, 2xl, 2rem, radius.400, pill-like, bubble, heavily-rounded"
-    },
-    "999": {
+    "all": {
       "$type": "dimension",
       "$value": {
         "value": 999,
         "unit": "px"
       },
-      "$description": "999px, full, pill, capsule, circular, radius.999, rounded-full, completely-round"
+      "$description": "999px, full, pill, capsule, circular, completely-round"
     }
   }
 }
