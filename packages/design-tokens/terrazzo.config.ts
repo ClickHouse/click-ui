@@ -9,9 +9,7 @@ export default defineConfig({
   outDir: "./dist",
   lint: {
     rules: {
-      // TODO: Pick colour space
-      // Disable the color format validation to allow hex colors
-      "core/valid-color": "off",
+      "core/valid-color": "error",
     },
   },
   plugins: [
