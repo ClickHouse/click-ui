@@ -18,6 +18,7 @@
   "files": [
     "dist"
   ],
+  "access": "public",
   "exports": {
     ".": {
       "default": "./dist/tokens.css"
