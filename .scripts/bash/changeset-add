@@ -25,7 +25,7 @@ fi
 new_changeset=$(echo "$untracked_changesets" | head -1)
 
 if [[ ! -n "$new_changeset" ]]; then
-  echo "👹 Oops! This is embarassing but couldn't locate the expected generated changeset file..."
+  echo "👹 Oops! This is embarrassing but couldn't locate the expected generated changeset file..."
   exit 1
 fi
 
