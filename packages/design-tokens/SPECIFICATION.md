@@ -154,35 +154,51 @@ Examples: `space.25` (2px), `space.100` (8px), `space.400` (32px)
 
 ---
 
-### 3. Radius Tokens (Atlassian Convention)
+### 3. Radius Tokens (Semantic Exception)
 
 > [!INFO]
-> The Radius tokens are based in [Atlassian Conventions](https://atlassian.design/foundations/tokens/design-tokens)
+> The Radius tokens are NOT based in Atlassian Conventions. It's a semantic exception as its easier to reason in T-Shirt sizes because radius is categorical and not mathematically continuous.
 
 **File:** `radius.dtcg.json`
 
 **Type:** `$type: "dimension"` with DTCG object format `{ "value": 8, "unit": "px" }`
 
-**Naming:** Percentage-based following continuous scale (no leading zeros)
+**Naming:** Categorical/T-shirt sizes
 
 ```
-radius/{percentage}
+radius/{size}
 ```
 
-Examples: `radius.25` (2px), `radius.100` (8px), `radius.999` (full)
+Examples: `radius.none`, `radius.sm`, `radius.all`
 
-**Values:**
+**Rationale:** Radius is categorical, not continuous:
 
-- `radius.0` = 0px (none, square)
-- `radius.25` = 2px (tiny, subtle)
-- `radius.50` = 4px (extra-small, input)
-- `radius.75` = 6px (small, button-small)
-- `radius.100` = 8px (base, standard)
-- `radius.150` = 12px (medium, panel)
-- `radius.200` = 16px (large, container)
-- `radius.300` = 24px (extra-large, feature)
-- `radius.400` = 32px (2xl, pill-like)
-- `radius.999` = 999px (full, pill, capsule)
+- `none` = 0px (square, sharp corners)
+- `minimal` = 2px (micro rounding, data tables)
+- `sm` = 4px (input fields, chips, tags)
+- `md` = 8px (standard buttons, cards)
+- `lg` = 16px (containers, modals, dialogs)
+- `xl` = 24px (large cards, feature sections)
+- `all` = 999px (fully rounded, pills, capsules)
+
+Designers think: "small radius for inputs" not "radius.50 is half of radius.100"
+
+**Consolidated Scale (7 values):**
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `radius.none` | 0px | Square corners, angular elements |
+| `radius.minimal` | 2px | Subtle rounding, data tables, micro UI |
+| `radius.sm` | 4px | Input fields, chips, tags, small buttons |
+| `radius.md` | 8px | Standard buttons, cards, default components |
+| `radius.lg` | 16px | Containers, modals, dialogs, panels |
+| `radius.xl` | 24px | Large cards, feature sections, prominent |
+| `radius.all` | 999px | Fully rounded, pills, capsules, circular |
+
+**Note:** Values consolidated from 10 to 7 by merging adjacent similar sizes:
+- 6px (radius.75) → merged into `sm` (4px)
+- 12px (radius.150) → merged into `lg` (16px)
+- 32px (radius.400) → merged into `xl` (24px)
 
 ---
 
@@ -531,7 +547,7 @@ token.setValueForMode(targetModeId, value);
 **New Additions:**
 
 - 5 spacing values (2px, 6px, 20px, 48px, 80px)
-- 10 radius values (all new category)
+- 7 radius values - consolidated to t-shirt sizes (none, minimal, sm, md, lg, xl, all)
 - 10 sizing values (all new category)
 
 ---
