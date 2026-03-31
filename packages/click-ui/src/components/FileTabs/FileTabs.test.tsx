@@ -1,8 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-<<<<<<< HEAD
 import userEvent from '@testing-library/user-event';
-=======
->>>>>>> f2f4338a (chore: 🤖 move click-ui into packages/click-ui)
 
 import { FileTabs, FileTabStatusType } from '@/components/FileTabs';
 import { renderCUI } from '@/utils/test-utils';
@@ -66,7 +63,6 @@ describe('FileTabs', () => {
     fireEvent.click(tabElement);
     expect(onSelect).toBeCalledTimes(1);
   });
-<<<<<<< HEAD
 
   // TODO: Move to visual regression test instead, JSDOM (used by Vitest/Jest) does not evaluate CSS :hover pseudo-class rules — it fires the mouseenter/mouseover events but doesn't apply the associated stylesheet rules. This means toHaveStyle({ display: 'block' }) after userEvent.hover() will not reflect the CSS hover state and these two tests are likely to fail or give false results. To make hover tests meaningful, the component needs to manage visibility via JS state (e.g., onMouseEnter/onMouseLeave handlers toggling a state variable, then using inline styles or data-* attributes that get asserted).
   describe('On hover interactions', () => {
@@ -110,6 +106,4 @@ describe('FileTabs', () => {
       });
     });
   });
-=======
->>>>>>> f2f4338a (chore: 🤖 move click-ui into packages/click-ui)
 });
