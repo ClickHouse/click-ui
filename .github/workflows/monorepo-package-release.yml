@@ -217,7 +217,7 @@ jobs:
 
       - name: Create GitHub release
         if: ${{ !inputs.dry_run }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.package-config.outputs.package_name }}@v${{ steps.package-version.outputs.version }}
           name: "${{ inputs.package }} v${{ steps.package-version.outputs.version }}"
