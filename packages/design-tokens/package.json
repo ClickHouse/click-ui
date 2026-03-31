@@ -18,7 +18,9 @@
   "files": [
     "dist"
   ],
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "default": "./dist/tokens.css"
@@ -28,7 +30,7 @@
     "build": "yarn tokens:build",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "tokens:build": "rm -rf ./dist && tz build",
+    "tokens:build": "rm -rf ./dist && tz build && cat ./dist/tokens-primitives.css ./dist/tokens-semantic.css > ./dist/tokens.css && rm ./dist/tokens-primitives.css ./dist/tokens-semantic.css",
     "tokens:watch": "tz build --watch",
     "lint": "tz lint",
     "test": "echo '🦖 Skip test!'",
