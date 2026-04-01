@@ -2782,5 +2782,15 @@
         }
       }
     }
+  },
+  "font": {
+    "root": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "16px (1rem), root font-size base. Consumer apps should set: html { font-size: var(--cui-font-root, 16px) }"
+    }
   }
 }
