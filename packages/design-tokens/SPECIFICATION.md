@@ -154,51 +154,66 @@ Examples: `space.25` (2px), `space.100` (8px), `space.400` (32px)
 
 ---
 
-### 3. Radius Tokens (Semantic Exception)
+### 3. Radius Tokens
 
 > [!INFO]
-> The Radius tokens are NOT based in Atlassian Conventions. It's a semantic exception as its easier to reason in T-Shirt sizes because radius is categorical and not mathematically continuous.
+> The Radius tokens are based on [Atlassian Conventions](https://atlassian.design/foundations/radius) with a two-tier system: primitives (numeric) and semantic (categorical).
 
-**File:** `radius.dtcg.json`
+**Files:** `radius.dtcg.json` (primitives), `semantic.dtcg.json` (semantic aliases)
 
 **Type:** `$type: "dimension"` with DTCG object format `{ "value": 8, "unit": "px" }`
 
-**Naming:** Categorical/T-shirt sizes
+**Primitives Naming:**
+
+```
+radius/{index}
+```
+
+Examples: `radius.0`, `radius.50`, `radius.100`, `radius.999`
+
+**Semantic Naming:**
 
 ```
 radius/{size}
 ```
 
-Examples: `radius.none`, `radius.sm`, `radius.all`
+Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
 
-**Rationale:** Radius is categorical, not continuous:
+**Scale:**
 
-- `none` = 0px (square, sharp corners)
-- `minimal` = 2px (micro rounding, data tables)
-- `sm` = 4px (input fields, chips, tags)
-- `md` = 8px (standard buttons, cards)
-- `lg` = 16px (containers, modals, dialogs)
-- `xl` = 24px (large cards, feature sections)
-- `all` = 999px (fully rounded, pills, capsules)
+| Primitive | Value | Semantic Token | Use Case |
+|-----------|-------|----------------|----------|
+| `radius.0` | 0px | `radius.none` | Square corners, sharp, angular elements |
+| `radius.25` | 2px | `radius.minimal` | Subtle rounding — data tables, micro UI |
+| `radius.50` | 4px | `radius.sm` | Input fields, chips, tags, compact elements |
+| `radius.75` | 6px | — | (Unused intermediate) |
+| `radius.100` | 8px | `radius.md` | Standard buttons, cards, default components |
+| `radius.150` | 12px | — | (Unused intermediate) |
+| `radius.200` | 16px | `radius.lg` | Containers, modals, dialogs, panels |
+| `radius.300` | 24px | `radius.xl` | Large cards, feature sections, prominent |
+| `radius.400` | 32px | — | (Unused intermediate) |
+| `radius.999` | 999px | `radius.all` | Fully rounded — pills, capsules, circular |
 
-Designers think: "small radius for inputs" not "radius.50 is half of radius.100"
+**Semantic Aliases:**
 
-**Consolidated Scale (7 values):**
+```json
+{
+  "radius": {
+    "sm": {
+      "$type": "dimension",
+      "$value": "{radius.50}",
+      "$description": "Small radius — input fields, chips, tags"
+    }
+  }
+}
+```
 
-| Token | Value | Use Case |
-|-------|-------|----------|
-| `radius.none` | 0px | Square corners, angular elements |
-| `radius.minimal` | 2px | Subtle rounding, data tables, micro UI |
-| `radius.sm` | 4px | Input fields, chips, tags, small buttons |
-| `radius.md` | 8px | Standard buttons, cards, default components |
-| `radius.lg` | 16px | Containers, modals, dialogs, panels |
-| `radius.xl` | 24px | Large cards, feature sections, prominent |
-| `radius.all` | 999px | Fully rounded, pills, capsules, circular |
+**Rationale:** Following Atlassian's approach with a two-tier system:
+- **Primitives** (numeric): Hidden from Figma UI, used as base values for theming
+- **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
+- Allows overriding radius primitives for custom themes while maintaining semantic consistency
 
-**Note:** Values consolidated from 10 to 7 by merging adjacent similar sizes:
-- 6px (radius.75) → merged into `sm` (4px)
-- 12px (radius.150) → merged into `lg` (16px)
-- 32px (radius.400) → merged into `xl` (24px)
+Designers use semantic names like "small radius for inputs" while developers can theme via primitives.
 
 ---
 
@@ -336,7 +351,10 @@ Primitives (NO scope - hidden)          Semantic (Public - visible)
 ├── color/charcoal/surface/50 ←──────── color/background/base (dark)
 ├── color/charcoal/text/50    ←──────── color/foreground/default (dark)
 ├── space/100                 ←──────── Layout/Card-Padding
-└── space/200                 ←──────── Layout/Section-Gap
+├── space/200                 ←──────── Layout/Section-Gap
+├── radius/0                  ←──────── radius/none
+├── radius/50                 ←──────── radius/sm
+└── radius/999                ←──────── radius/all
 ```
 
 **Import Order:**
@@ -547,7 +565,8 @@ token.setValueForMode(targetModeId, value);
 **New Additions:**
 
 - 5 spacing values (2px, 6px, 20px, 48px, 80px)
-- 7 radius values - consolidated to t-shirt sizes (none, minimal, sm, md, lg, xl, all)
+- 10 radius primitive values (0, 25, 50, 75, 100, 150, 200, 300, 400, 999)
+- 7 radius semantic aliases (none, minimal, sm, md, lg, xl, all) referencing primitives
 - 10 sizing values (all new category)
 
 ---
@@ -557,9 +576,9 @@ token.setValueForMode(targetModeId, value);
 **Important:** Import primitives FIRST, then semantic tokens. This ensures aliases can resolve properly.
 
 1. `primitives.dtcg.json` (color base values) - Creates primitives with NO scope
-2. `semantic.dtcg.json` (color semantic aliases) - References primitives, gets appropriate scopes
-3. `spacing.dtcg.json` (dimension tokens with GAP scope)
-4. `radius.dtcg.json` (dimension tokens with CORNER_RADIUS scope)
+2. `radius.dtcg.json` (radius base values) - Creates radius primitives with NO scope  
+3. `semantic.dtcg.json` (color + radius semantic aliases) - References primitives, gets appropriate scopes
+4. `spacing.dtcg.json` (dimension tokens with GAP scope)
 5. `sizing.dtcg.json` (dimension tokens with WIDTH_HEIGHT scope)
 6. `typography.dtcg.json` (dimension and number tokens for font properties)
 7. `component.dtcg.json` (component-specific overrides)

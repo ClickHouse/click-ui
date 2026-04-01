@@ -642,5 +642,42 @@
         }
       }
     }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "{radius.0}",
+      "$description": "Square corners, sharp, angular elements"
+    },
+    "minimal": {
+      "$type": "dimension",
+      "$value": "{radius.25}",
+      "$description": "Minimal rounding — data tables, micro UI, badges"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "{radius.50}",
+      "$description": "Small radius — input fields, chips, tags, compact elements"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "{radius.100}",
+      "$description": "Medium radius — standard buttons, cards, default components"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "{radius.200}",
+      "$description": "Large radius — containers, modals, dialogs, panels"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "{radius.300}",
+      "$description": "Extra-large radius — feature cards, prominent sections"
+    },
+    "all": {
+      "$type": "dimension",
+      "$value": "{radius.999}",
+      "$description": "Fully rounded — pills, capsules, circular elements"
+    }
   }
 }
