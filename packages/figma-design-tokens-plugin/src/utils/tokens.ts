@@ -668,9 +668,12 @@ export function traverseToken({
   existingVariables,
   isPrimitivesFile = false,
 }: TraverseTokenParams): void {
+  console.log(`DEBUG traverseToken - ENTER: key="${key}", hasValue=${object.$value !== undefined}, type=${object.$type || type}, isPrimitivesFile=${isPrimitivesFile}`);
+  
   const resolvedType = (type || object.$type) as DTCGTokenType | undefined;
 
   if (key.charAt(0) === "$") {
+    console.log(`DEBUG traverseToken - SKIPPING key starting with $: "${key}"`);
     return;
   }
 
@@ -681,6 +684,7 @@ export function traverseToken({
   const modeExtensions = object.$extensions?.mode;
 
   if (object.$value !== undefined) {
+    console.log(`DEBUG traverseToken - Processing token with $value: "${finalKey}"`);
     const value = object.$value;
 
     if (isAlias(value)) {
@@ -691,6 +695,7 @@ export function traverseToken({
         .replace(/[{}]/g, "");
 
       const allTokens = { ...existingVariables, ...tokens };
+      console.log(`DEBUG traverseToken - Alias check: "${finalKey}" -> "${valueKey}", found=${!!allTokens[valueKey]}`);
 
       if (allTokens[valueKey]) {
 
@@ -746,6 +751,7 @@ export function traverseToken({
               },
             };
           } else {
+            console.log(`DEBUG traverseToken - Creating mode-aware alias token: "${finalKey}"`);
             tokens[finalKey] = createVariableAlias(
               collection,
               modeId,
@@ -759,8 +765,11 @@ export function traverseToken({
                 : undefined,
               existingVariables,
             );
+            console.log(`DEBUG traverseToken - SUCCESS: Created mode-aware alias token "${finalKey}"`);
           }
         } else {
+          // Token is mode-agnostic but collection has modes - pass modeIds to set value for ALL modes
+          console.log(`DEBUG traverseToken - Creating mode-agnostic alias token: "${finalKey}" with modeIds`);
           tokens[finalKey] = createVariableAlias(
             collection,
             modeId,
@@ -768,12 +777,14 @@ export function traverseToken({
             valueKey,
             allTokens,
             scopes,
-            undefined,
+            modeIds,  // Pass modeIds even without modeExtensions
             undefined,
             existingVariables,
           );
+          console.log(`DEBUG traverseToken - SUCCESS: Created mode-agnostic alias token "${finalKey}"`);
         }
       } else {
+        console.log(`DEBUG traverseToken - Adding to aliases: "${finalKey}" -> "${valueKey}" (target not found yet)`);
         aliases[finalKey] = {
           key: finalKey,
           type: resolvedType,
@@ -830,6 +841,7 @@ export function traverseToken({
         }
       }
 
+      console.log(`DEBUG traverseToken - Creating color token: "${finalKey}"`);
       tokens[finalKey] = createToken(
         collection,
         modeId,
@@ -842,6 +854,7 @@ export function traverseToken({
         modeIds,
         colorModeValues,
       );
+      console.log(`DEBUG traverseToken - SUCCESS: Created color token "${finalKey}"`);
     } else if (resolvedType === "number" || resolvedType === "dimension") {
 
 
@@ -883,6 +896,7 @@ export function traverseToken({
         }
       }
 
+      console.log(`DEBUG traverseToken - Creating number/dimension token: "${finalKey}" with value ${numericValue}`);
       tokens[finalKey] = createToken(
         collection,
         modeId,
@@ -895,10 +909,13 @@ export function traverseToken({
         modeIds,
         numberModeValues,
       );
+      console.log(`DEBUG traverseToken - SUCCESS: Created number/dimension token "${finalKey}"`);
     } else {
-      console.log("unsupported type", resolvedType, object);
+      console.log(`DEBUG traverseToken - unsupported type for "${finalKey}":`, resolvedType, object);
     }
   } else if (typeof object === "object" && object !== null) {
+    const childKeys = Object.keys(object).filter(k => !k.startsWith('$'));
+    console.log(`DEBUG traverseToken - Recursing into "${finalKey}" with ${childKeys.length} children: ${childKeys.slice(0, 5).join(', ')}${childKeys.length > 5 ? '...' : ''}`);
     Object.entries(object).forEach(([key2, object2]) => {
       if (key2.charAt(0) !== "$") {
         const newKey = finalKey ? `${finalKey}/${key2}` : key2;
@@ -916,7 +933,10 @@ export function traverseToken({
         });
       }
     });
+  } else {
+    console.log(`DEBUG traverseToken - SKIPPING "${finalKey}": not an object and no $value`);
   }
+  console.log(`DEBUG traverseToken - EXIT: "${finalKey}"`);
 }
 
 export async function processAliases({
