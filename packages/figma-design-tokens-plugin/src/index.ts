@@ -52,12 +52,14 @@ async function importJSONFile({
 
   const json = JSON.parse(body) as DTCGToken;
   console.log("JSON structure keys:", Object.keys(json));
+  console.log("DEBUG - JSON top-level non-$ keys:", Object.keys(json).filter(k => !k.startsWith('$')));
 
 
   const { collection, modeId, modeIds } = await createCollection(
     fileName,
     isSemanticFile,
   );
+  console.log("DEBUG - Collection created, modeId:", modeId, "modeIds:", modeIds);
   const aliases: Record<string, AliasEntry> = {};
   const tokens: Record<string, Variable> = {};
 
