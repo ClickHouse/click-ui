@@ -2,6 +2,11 @@ name: Test Slack Notification
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - chore/tias-slack-notification-output-response
+    paths:
+      - .github/workflows/test-slack-notification.yml
 
 jobs:
   notify-slack:
