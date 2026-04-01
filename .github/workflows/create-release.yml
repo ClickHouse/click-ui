@@ -289,6 +289,7 @@ jobs:
       - name: Notify Slack about release PR
         if: ${{ steps.create-pr.outputs.pull-request-url }}
         uses: slackapi/slack-github-action@v2.1.1
+        id: slack
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -298,3 +299,7 @@ jobs:
           payload: |
             channel: "${{ secrets.SLACK_CHANNEL_FOR_PR }}"
             text: "===\n📦 *New Release PR Created*\n\n*Package:* ${{ steps.version-package.outputs.package_name }}\n*Version:* ${{ steps.version-package.outputs.version }}\n*Type:* ${{ inputs.release_type }}\n*Branch:* ${{ github.ref_name }}\n\n<${{ steps.create-pr.outputs.pull-request-url }}|View Pull Request>\n==="
+
+      - name: Check Slack response
+        run: |
+          echo "🤖 Slack response: ${{ steps.slack.outputs.response }}"
