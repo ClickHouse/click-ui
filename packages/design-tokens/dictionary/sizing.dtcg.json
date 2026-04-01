@@ -1,105 +1,105 @@
 {
   "sizing": {
     "icon": {
-      "xs": {
+      "150": {
         "$type": "dimension",
         "$value": {
           "value": 12,
           "unit": "px"
         },
-        "$description": "12px, icon-xs, extra-small, 0.75rem, tiny-icon, micro"
+        "$description": "12px, 1.5× base, icon-xs, extra-small, 0.75rem, tiny-icon, micro"
       },
-      "sm": {
+      "200": {
         "$type": "dimension",
         "$value": {
           "value": 16,
           "unit": "px"
         },
-        "$description": "16px, icon-sm, small, 1rem, compact-icon, dense"
+        "$description": "16px, 2× base, icon-sm, small, 1rem, compact-icon, dense"
       },
-      "md": {
+      "250": {
         "$type": "dimension",
         "$value": {
           "value": 20,
           "unit": "px"
         },
-        "$description": "20px, icon-md, medium, 1.25rem, standard-icon, default"
+        "$description": "20px, 2.5× base, icon-md, medium, 1.25rem, standard-icon, default"
       },
-      "lg": {
+      "300": {
         "$type": "dimension",
         "$value": {
           "value": 24,
           "unit": "px"
         },
-        "$description": "24px, icon-lg, large, 1.5rem, prominent-icon, spacious"
+        "$description": "24px, 3× base, icon-lg, large, 1.5rem, prominent-icon, spacious"
       },
-      "xl": {
+      "400": {
         "$type": "dimension",
         "$value": {
           "value": 32,
           "unit": "px"
         },
-        "$description": "32px, icon-xl, extra-large, 2rem, feature-icon, large"
+        "$description": "32px, 4× base, icon-xl, extra-large, 2rem, feature-icon, large"
       }
     },
     "component": {
-      "xs": {
+      "300": {
         "$type": "dimension",
         "$value": {
           "value": 24,
           "unit": "px"
         },
-        "$description": "24px, comp-xs, component-xs, extra-small, 1.5rem, tiny-component, micro"
+        "$description": "24px, 3× base, comp-xs, component-xs, extra-small, 1.5rem, tiny-component, micro"
       },
-      "sm": {
+      "400": {
         "$type": "dimension",
         "$value": {
           "value": 32,
           "unit": "px"
         },
-        "$description": "32px, comp-sm, component-sm, small, 2rem, compact-component, tight"
+        "$description": "32px, 4× base, comp-sm, component-sm, small, 2rem, compact-component, tight"
       },
-      "md": {
+      "500": {
         "$type": "dimension",
         "$value": {
           "value": 40,
           "unit": "px"
         },
-        "$description": "40px, comp-md, component-md, medium, 2.5rem, standard-component, default"
+        "$description": "40px, 5× base, comp-md, component-md, medium, 2.5rem, standard-component, default"
       },
-      "lg": {
+      "600": {
         "$type": "dimension",
         "$value": {
           "value": 48,
           "unit": "px"
         },
-        "$description": "48px, comp-lg, component-lg, large, 3rem, roomy-component, relaxed"
+        "$description": "48px, 6× base, comp-lg, component-lg, large, 3rem, roomy-component, relaxed"
       },
-      "xl": {
+      "800": {
         "$type": "dimension",
         "$value": {
           "value": 64,
           "unit": "px"
         },
-        "$description": "64px, comp-xl, component-xl, extra-large, 4rem, spacious-component, generous"
+        "$description": "64px, 8× base, comp-xl, component-xl, extra-large, 4rem, spacious-component, generous"
       }
     },
     "stroke": {
-      "default": {
+      "13": {
         "$type": "dimension",
         "$value": {
           "value": 1,
           "unit": "px"
         },
-        "$description": "1px, default stroke/border width"
+        "$description": "1px, 0.125× base, stroke-default, default, thin, border, hairline"
       },
-      "emphasis": {
+      "25": {
         "$type": "dimension",
         "$value": {
           "value": 2,
           "unit": "px"
         },
-        "$description": "2px, emphasis, strong, selected"
+        "$description": "2px, 0.25× base, stroke-emphasis, emphasis, strong, selected, thick"
       }
     }
   }
