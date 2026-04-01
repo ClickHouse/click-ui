@@ -57,14 +57,14 @@ export function inferScopes(
       );
       return ["FONT_SIZE"];
     }
-    
+
     if (normalizedName.includes("font/weight") || normalizedName.includes("font.weight")) {
       console.log(
         `DEBUG inferScopes - Matched FONT_WEIGHT for "${normalizedName}"`,
       );
       return ["FONT_WEIGHT"];
     }
-    
+
     if (
       normalizedName.includes("lineheight") ||
       normalizedName.includes("line_height") ||
@@ -347,7 +347,7 @@ export function createToken(
         console.log(
           `DEBUG createToken - Updating value for mode ${targetModeId}`,
         );
-        
+
         // Handle mode values (light/dark) when updating existing tokens
         if (modeIds && modeValues) {
           console.log(`DEBUG createToken - Has modeIds and modeValues, updating both modes`);
@@ -358,7 +358,7 @@ export function createToken(
             console.log(`DEBUG createToken - Setting light mode (${modeIds.light}) to base value:`, value);
             token.setValueForMode(modeIds.light, value);
           }
-          
+
           if (modeIds.dark && modeValues.dark !== undefined && existingModeIds.includes(modeIds.dark)) {
             console.log(`DEBUG createToken - Setting dark mode (${modeIds.dark}) to:`, modeValues.dark);
             token.setValueForMode(modeIds.dark, modeValues.dark);
@@ -431,7 +431,7 @@ export function createToken(
         console.log(
           `DEBUG createToken - Updating value for mode ${targetModeId}`,
         );
-        
+
         // Handle mode values (light/dark) when updating existing tokens
         if (modeIds && modeValues) {
           console.log(`DEBUG createToken - Has modeIds and modeValues, updating both modes`);
@@ -442,7 +442,7 @@ export function createToken(
             console.log(`DEBUG createToken - Setting light mode (${modeIds.light}) to base value:`, value);
             token.setValueForMode(modeIds.light, value);
           }
-          
+
           if (modeIds.dark && modeValues.dark !== undefined && existingModeIds.includes(modeIds.dark)) {
             console.log(`DEBUG createToken - Setting dark mode (${modeIds.dark}) to:`, modeValues.dark);
             token.setValueForMode(modeIds.dark, modeValues.dark);
@@ -549,6 +549,11 @@ export function createToken(
 
     if (modeIds.dark && modeValues.dark !== undefined) {
       token.setValueForMode(modeIds.dark, modeValues.dark);
+    }
+  } else if (modeIds) {
+    token.setValueForMode(modeIds.light, value);
+    if (modeIds.dark) {
+      token.setValueForMode(modeIds.dark, value);
     }
   } else {
     token.setValueForMode(modeId, value);
