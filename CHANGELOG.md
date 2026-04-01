@@ -1,5 +1,34 @@
 # @clickhouse/click-ui
 
+## 0.2.0-rc.0
+
+### Minor Changes
+
+- b307591: Add BigLake Metastore logo
+
+  Added the `BigLakeMetastore` logo to the logo library:
+  - New `Biglake-Metastore.tsx` SVG component under `src/components/Assets/Logos/`
+  - Registered in both `LogosDark` and `LogosLight` system files
+  - Added `BigLakeMetastore` to the logo types
+
+### Patch Changes
+
+- 8936ef2: Fix missing focus tokens in theme configuration
+
+  Added missing `focus` tokens to the design token source files to prevent them from being removed during token generation:
+  - Added `card.promotion.color.stroke.focus` with semantic reference `{click.global.color.accent.default}` (resolves to `#151515` in light theme and `#faff69` in dark theme)
+  - Added `genericMenu.item.color.default.stroke.focus` with value `#437eef` (light theme) and `#faff69` (dark theme)
+  - Added `genericMenu.item.color.danger.stroke.focus` with value `#437eef` (light theme) and `#faff69` (dark theme)
+
+  These tokens are required by the GenericMenu and CardPromotion components for keyboard focus outlines and were previously being lost when regenerating the theme tokens.
+
+- 5cda186: Add missing 'warning' color option to TextColor type and design tokens.
+
+  The `warning` value was available in theme tokens but missing from the `TextColor` type definition, causing TypeScript errors when using `<Text color="warning">`. This fix:
+  - Adds `'warning'` to the `TextColor` type union in `Text.tsx`
+  - Adds warning color tokens to both light (`#a33c00`) and dark (`#ffb88f`) theme variables
+  - Adds warning token definitions to `light.json` and `dark.json` design token files
+
 ## 0.1.0
 
 ### Minor Changes
