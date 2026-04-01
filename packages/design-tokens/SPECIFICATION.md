@@ -109,9 +109,9 @@ Examples:
 ### 2. Spacing Tokens
 
 > [!INFO]
-> The Spacing tokens are based in [Atlassian Conventions](https://atlassian.design/foundations/tokens/design-tokens)
+> The Spacing tokens are based on [Atlassian Conventions](https://atlassian.design/foundations/tokens/design-tokens) with a two-tier system: primitives (numeric percentage-based indices) and semantic (T-shirt sizes).
 
-**File:** `spacing.dtcg.json`
+**Files:** `spacing.dtcg.json` (primitives), `semantic.dtcg.json` (semantic aliases)
 
 **Type:** `$type: "dimension"` with DTCG object format:
 
@@ -125,32 +125,58 @@ Examples:
 }
 ```
 
-**Naming:** Percentage-based index following 8px base unit (no leading zeros)
+**Primitives Naming:**
 
 ```
 space/{percentage}
 ```
 
-Examples: `space.25` (2px), `space.100` (8px), `space.400` (32px)
+Where `index` is percentage of 8px base unit:
+- `space.100` = 8px (8 × 1)
+- `space.200` = 16px (8 × 2)
+- `space.400` = 32px (8 × 4)
 
-**Rationale:** Continuous scale (0px → 80px) with mathematical progression. Designers understand `space.200` = 2× `space.100`.
+**Semantic Naming (Consolidated T-shirt sizes):**
 
-**Values:**
+```
+space/{size}
+```
 
-- `space.0` = 0px
-- `space.25` = 2px
-- `space.50` = 4px
-- `space.75` = 6px
-- `space.100` = 8px (base)
-- `space.150` = 12px
-- `space.200` = 16px
-- `space.250` = 20px
-- `space.300` = 24px
-- `space.400` = 32px
-- `space.500` = 40px
-- `space.600` = 48px
-- `space.800` = 64px
-- `space.1000` = 80px
+**Scale:**
+
+| Primitive | Value | Semantic | Use Case |
+|-----------|-------|----------|----------|
+| `space.0` | 0px | `space.none` | No spacing, reset, compact |
+| `space.50` | 4px | `space.xs` | Extra-small gaps, icon spacing |
+| `space.100` | 8px | `space.sm` | Small gaps, base unit, inline |
+| `space.150` | 12px | `space.md` | Medium gaps, component padding |
+| `space.200` | 16px | `space.lg` | Large gaps, card padding |
+| `space.300` | 24px | `space.xl` | Extra-large, container gaps |
+| `space.400` | 32px | `space.2xl` | 2x large, layout sections |
+| `space.600` | 48px | `space.3xl` | 3x large, major layout gaps |
+| `space.1000` | 80px | `space.4xl` | 4x large, page sections |
+
+**Skipped Values:** 25 (2px), 75 (6px), 250 (20px), 500 (40px), 800 (64px) — consolidated into adjacent semantic sizes.
+
+**Semantic Aliases:**
+
+```json
+{
+  "space": {
+    "sm": {
+      "$type": "dimension",
+      "$value": "{space.100}",
+      "$description": "Small spacing — 8px, base unit, standard gaps"
+    }
+  }
+}
+```
+
+**Rationale:** Following Atlassian's two-tier approach:
+- **Primitives** (numeric): Hidden from Figma UI, continuous mathematical scale (8px base)
+- **Semantic** (T-shirt): Public-facing tokens designers use, consolidated to 9 essential sizes
+- Continuous primitives allow fine-grained theming; semantic aliases provide designer-friendly names
+- 8px base unit makes mental math easy: `space.200` = 2× `space.100` = 16px
 
 ---
 
@@ -374,7 +400,7 @@ The import script generates descriptions combining:
 
 **Automatic Detection:**
 
-Files named `primitives.dtcg.json`, `radius.dtcg.json`, or `sizing.dtcg.json` (case-insensitive) are automatically detected. All tokens within get **NO scope** (`scopes: []`), which hides them from Figma's variable pickers while keeping them referenceable via aliases.
+Files named `primitives.dtcg.json`, `radius.dtcg.json`, `sizing.dtcg.json`, or `spacing.dtcg.json` (case-insensitive) are automatically detected. All tokens within get **NO scope** (`scopes: []`), which hides them from Figma's variable pickers while keeping them referenceable via aliases.
 
 **How It Works:**
 
@@ -391,8 +417,10 @@ Primitives (NO scope - hidden)          Semantic (Public - visible)
 ├── color/gray/50             ←──────── color/background/subtle (light)
 ├── color/charcoal/surface/50 ←──────── color/background/base (dark)
 ├── color/charcoal/text/50    ←──────── color/foreground/default (dark)
-├── space/100                 ←──────── Layout/Card-Padding
-├── space/200                 ←──────── Layout/Section-Gap
+├── space/0                   ←──────── space/none
+├── space/50                  ←──────── space/xs
+├── space/100                 ←──────── space/sm
+├── space/200                 ←──────── space/lg
 ├── radius/0                  ←──────── radius/none
 ├── radius/50                 ←──────── radius/sm
 ├── radius/999                ←──────── radius/all
@@ -609,7 +637,8 @@ token.setValueForMode(targetModeId, value);
 
 **New Additions:**
 
-- 5 spacing values (2px, 6px, 20px, 48px, 80px)
+- 14 spacing primitive values (0, 25, 50, 75, 100, 150, 200, 250, 300, 400, 500, 600, 800, 1000)
+- 9 spacing semantic aliases (none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl) referencing primitives — consolidated from 14 to 9 values
 - 10 radius primitive values (0, 25, 50, 75, 100, 150, 200, 300, 400, 999)
 - 7 radius semantic aliases (none, minimal, sm, md, lg, xl, all) referencing primitives
 - 12 sizing primitive values (icon/150-400, component/300-800, stroke/13-25)
@@ -624,8 +653,8 @@ token.setValueForMode(targetModeId, value);
 1. `primitives.dtcg.json` (color base values) - Creates color primitives with NO scope
 2. `radius.dtcg.json` (radius base values) - Creates radius primitives with NO scope
 3. `sizing.dtcg.json` (sizing base values) - Creates sizing primitives with NO scope  
-4. `spacing.dtcg.json` (dimension tokens with GAP scope) - Standalone, no semantic layer
-5. `semantic.dtcg.json` (color + radius + sizing semantic aliases) - References primitives, gets appropriate scopes
+4. `spacing.dtcg.json` (spacing base values) - Creates spacing primitives with NO scope
+5. `semantic.dtcg.json` (color + radius + sizing + spacing semantic aliases) - References primitives, gets appropriate scopes
 6. `typography.dtcg.json` (dimension and number tokens for font properties) - Standalone, no semantic layer
 7. `component.dtcg.json` (component-specific overrides) - References semantic tokens
 
