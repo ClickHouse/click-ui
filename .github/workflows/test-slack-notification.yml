@@ -1,0 +1,24 @@
+name: Test Slack Notification
+
+on:
+  workflow_dispatch:
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v2.1.1
+        id: slack
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            {
+              "channel": "${{ secrets.SLACK_CHANNEL_FOR_PR }}",
+              "text": "🧪 Test notification from GitHub Actions\n\n*Triggered by:* @${{ github.actor }}\n*Repository:* ${{ github.repository }}\n*Branch:* ${{ github.ref_name }}"
+            }
+
+      - name: Check Slack response
+        run: |
+          echo "🤖 Slack response: ${{ steps.slack.outputs.response }}"
