@@ -679,5 +679,73 @@
       "$value": "{radius.999}",
       "$description": "Fully rounded — pills, capsules, circular elements"
     }
+  },
+  "sizing": {
+    "icon": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "{sizing/icon/150}",
+        "$description": "Extra-small icon — 12px, tiny icons, micro UI"
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{sizing/icon/200}",
+        "$description": "Small icon — 16px, compact icons, dense UI"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{sizing/icon/250}",
+        "$description": "Medium icon — 20px, standard icons, default"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{sizing/icon/300}",
+        "$description": "Large icon — 24px, prominent icons, spacious"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{sizing/icon/400}",
+        "$description": "Extra-large icon — 32px, feature icons, large"
+      }
+    },
+    "component": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "{sizing/component/300}",
+        "$description": "Extra-small component — 24px, tiny buttons, micro inputs"
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{sizing/component/400}",
+        "$description": "Small component — 32px, compact buttons, tight inputs"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{sizing/component/500}",
+        "$description": "Medium component — 40px, standard buttons, default inputs"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{sizing/component/600}",
+        "$description": "Large component — 48px, roomy buttons, relaxed inputs"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{sizing/component/800}",
+        "$description": "Extra-large component — 64px, spacious buttons, generous inputs"
+      }
+    },
+    "stroke": {
+      "default": {
+        "$type": "dimension",
+        "$value": "{sizing/stroke/13}",
+        "$description": "Default stroke width — 1px, thin borders, standard outlines"
+      },
+      "emphasis": {
+        "$type": "dimension",
+        "$value": "{sizing/stroke/25}",
+        "$description": "Emphasis stroke width — 2px, strong borders, selected states, focus rings"
+      }
+    }
   }
 }

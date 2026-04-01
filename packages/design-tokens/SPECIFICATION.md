@@ -220,30 +220,71 @@ Designers use semantic names like "small radius for inputs" while developers can
 ### 4. Sizing Tokens
 
 > [!INFO]
-> The Sizing tokens are NOT based in Atlassian Conventions. It's a semantic exception as its easier to reason in T-Shirt sizes because sizing is categorical and not mathematically continuous.
+> The Sizing tokens follow [Atlassian Conventions](https://atlassian.design/foundations/tokens/design-tokens) with a two-tier system: primitives (percentage-based indices following 8px base unit) and semantic (categorical T-shirt sizes).
 
-**File:** `sizing.dtcg.json`
+**Files:** `sizing.dtcg.json` (primitives), `semantic.dtcg.json` (semantic aliases)
 
 **Type:** `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
 
-**Naming:** Categorical/T-shirt sizes
+**Primitives Naming:**
 
 ```
-sizing/{type}/{size}
+sizing/{category}/{index}
+```
+
+Where `index` is percentage of 8px base unit:
+- `sizing/icon/150` = 12px (8 × 1.5)
+- `sizing/icon/200` = 16px (8 × 2)
+- `sizing/stroke/13` = 1px (8 × 0.125)
+- `sizing/stroke/25` = 2px (8 × 0.25)
+
+**Semantic Naming:**
+
+```
+sizing/{category}/{size}
 ```
 
 Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 
-**Rationale:** Sizing is categorical, not continuous:
+**Scale:**
 
-- Icon sizes: 12px, 16px, 20px, 24px, 32px (specific UI sizes)
-- Component sizes: 24px, 32px, 40px, 48px, 64px (specific use cases)
-- Stroke widths: 1px (default), 2px (emphasis)
-- Designers think: "small icon" not "icon size 50"
+| Category | Primitive | Value | Semantic | Use Case |
+|----------|-----------|-------|----------|----------|
+| **Icon** | `icon/150` | 12px | `icon/xs` | Extra-small icons, micro UI |
+| | `icon/200` | 16px | `icon/sm` | Small icons, compact UI |
+| | `icon/250` | 20px | `icon/md` | Medium icons, default |
+| | `icon/300` | 24px | `icon/lg` | Large icons, prominent |
+| | `icon/400` | 32px | `icon/xl` | Extra-large icons, feature |
+| **Component** | `component/300` | 24px | `component/xs` | Tiny buttons, micro inputs |
+| | `component/400` | 32px | `component/sm` | Compact buttons, tight inputs |
+| | `component/500` | 40px | `component/md` | Standard buttons, default inputs |
+| | `component/600` | 48px | `component/lg` | Roomy buttons, relaxed inputs |
+| | `component/800` | 64px | `component/xl` | Spacious buttons, generous inputs |
+| **Stroke** | `stroke/13` | 1px | `stroke/default` | Default borders, thin outlines |
+| | `stroke/25` | 2px | `stroke/emphasis` | Strong borders, selected states |
 
-**Icon Sizes:** xs (12px), sm (16px), md (20px), lg (24px), xl (32px)
-**Component Sizes:** xs (24px), sm (32px), md (40px), lg (48px), xl (64px)
-**Stroke Widths:** default (1px), emphasis (2px)
+**Semantic Aliases:**
+
+```json
+{
+  "sizing": {
+    "icon": {
+      "sm": {
+        "$type": "dimension",
+        "$value": "{sizing/icon/200}",
+        "$description": "Small icon — 16px, compact icons, dense UI"
+      }
+    }
+  }
+}
+```
+
+**Rationale:** Following Atlassian's two-tier approach:
+- **Primitives** (percentage-based): Hidden from Figma UI, aligned to 8px base unit for mathematical consistency
+- **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
+- Icon and component sizes are specific UI sizes that don't follow simple doubling
+- Stroke widths are small values (1px, 2px) represented as fractions of the base unit
+- Allows theming via primitives while designers work with intuitive T-shirt sizes
 
 ---
 
@@ -333,7 +374,7 @@ The import script generates descriptions combining:
 
 **Automatic Detection:**
 
-Files named `primitives.dtcg.json` (case-insensitive) are automatically detected. All tokens within get **NO scope** (`scopes: []`), which hides them from Figma's variable pickers while keeping them referenceable via aliases.
+Files named `primitives.dtcg.json`, `radius.dtcg.json`, or `sizing.dtcg.json` (case-insensitive) are automatically detected. All tokens within get **NO scope** (`scopes: []`), which hides them from Figma's variable pickers while keeping them referenceable via aliases.
 
 **How It Works:**
 
@@ -354,7 +395,11 @@ Primitives (NO scope - hidden)          Semantic (Public - visible)
 ├── space/200                 ←──────── Layout/Section-Gap
 ├── radius/0                  ←──────── radius/none
 ├── radius/50                 ←──────── radius/sm
-└── radius/999                ←──────── radius/all
+├── radius/999                ←──────── radius/all
+├── sizing/icon/150           ←──────── sizing/icon/xs
+├── sizing/icon/200           ←──────── sizing/icon/sm
+├── sizing/component/500      ←──────── sizing/component/md
+└── sizing/stroke/13          ←──────── sizing/stroke/default
 ```
 
 **Import Order:**
@@ -567,7 +612,8 @@ token.setValueForMode(targetModeId, value);
 - 5 spacing values (2px, 6px, 20px, 48px, 80px)
 - 10 radius primitive values (0, 25, 50, 75, 100, 150, 200, 300, 400, 999)
 - 7 radius semantic aliases (none, minimal, sm, md, lg, xl, all) referencing primitives
-- 10 sizing values (all new category)
+- 12 sizing primitive values (icon/150-400, component/300-800, stroke/13-25)
+- 12 sizing semantic aliases (icon/xs-xl, component/xs-xl, stroke/default-emphasis) referencing primitives
 
 ---
 
@@ -575,13 +621,13 @@ token.setValueForMode(targetModeId, value);
 
 **Important:** Import primitives FIRST, then semantic tokens. This ensures aliases can resolve properly.
 
-1. `primitives.dtcg.json` (color base values) - Creates primitives with NO scope
-2. `radius.dtcg.json` (radius base values) - Creates radius primitives with NO scope  
-3. `semantic.dtcg.json` (color + radius semantic aliases) - References primitives, gets appropriate scopes
-4. `spacing.dtcg.json` (dimension tokens with GAP scope)
-5. `sizing.dtcg.json` (dimension tokens with WIDTH_HEIGHT scope)
-6. `typography.dtcg.json` (dimension and number tokens for font properties)
-7. `component.dtcg.json` (component-specific overrides)
+1. `primitives.dtcg.json` (color base values) - Creates color primitives with NO scope
+2. `radius.dtcg.json` (radius base values) - Creates radius primitives with NO scope
+3. `sizing.dtcg.json` (sizing base values) - Creates sizing primitives with NO scope  
+4. `spacing.dtcg.json` (dimension tokens with GAP scope) - Standalone, no semantic layer
+5. `semantic.dtcg.json` (color + radius + sizing semantic aliases) - References primitives, gets appropriate scopes
+6. `typography.dtcg.json` (dimension and number tokens for font properties) - Standalone, no semantic layer
+7. `component.dtcg.json` (component-specific overrides) - References semantic tokens
 
 **Collection Name Consistency (CRITICAL for Updates):**
 
