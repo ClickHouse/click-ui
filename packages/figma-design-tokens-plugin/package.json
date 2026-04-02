@@ -7,10 +7,10 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "rm -rf ./dist && vite build",
-    "lint": "echo 'Skip lint!'",
-    "lint:fix": "echo 'Skip lint!'",
-    "format": "echo 'Skip format!'",
-    "format:fix": "echo 'Skip format!'",
+    "lint": "tsc --noEmit",
+    "lint:fix": "echo 'No auto-fix available for type errors'",
+    "format": "echo 'Prettier not configured in this package'",
+    "format:fix": "echo 'Prettier not configured in this package'",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"

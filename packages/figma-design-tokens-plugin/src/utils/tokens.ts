@@ -10,7 +10,7 @@ import type {
   TraverseTokenParams,
 } from "./types";
 
-type VariableWithScopes = Variable & { scopes: string[] };
+type VariableWithScopes = Variable & { scopes: VariableScope[] };
 
 export function inferScopes(
   name: string,
@@ -389,7 +389,7 @@ export function createToken(
           JSON.stringify(scopes.sort());
         if (scopesChanged) {
           try {
-            (token as VariableWithScopes).scopes = scopes;
+            (token as VariableWithScopes).scopes = scopes as VariableScope[];
             console.log(
               `DEBUG createToken - Updated scopes for "${name}" to:`,
               scopes,
@@ -473,7 +473,7 @@ export function createToken(
           JSON.stringify(scopes.sort());
         if (scopesChanged) {
           try {
-            (token as VariableWithScopes).scopes = scopes;
+            (token as VariableWithScopes).scopes = scopes as VariableScope[];
             console.log(
               `DEBUG createToken - Updated scopes for "${dotName}" to:`,
               scopes,
@@ -518,7 +518,7 @@ export function createToken(
 
     console.log(`DEBUG createToken - Setting scopes to:`, scopes);
     try {
-      (token as VariableWithScopes).scopes = scopes;
+      (token as VariableWithScopes).scopes = scopes as VariableScope[];
       console.log(
         `DEBUG createToken - Successfully set scopes, now:`,
         (token as VariableWithScopes).scopes,
