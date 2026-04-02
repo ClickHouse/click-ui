@@ -1,5 +1,6 @@
 import { SVGAttributes } from 'react';
 import type {
+  IconName,
   LogoProps,
   LogoName,
   FlagName,
@@ -8,12 +9,10 @@ import type {
   PaymentName,
 } from '@clickhouse/icons';
 import type { AssetSize } from '@/types';
-import { ICON_NAMES } from './IconCommon';
+
+export type { IconName } from '@clickhouse/icons';
 
 export type IconState = 'default' | 'success' | 'warning' | 'danger' | 'info';
-
-// TODO: Concurrent type for Icon as ImageName VS IconName. Investigate
-export type IconName = (typeof ICON_NAMES)[number];
 
 export interface IconProps extends SVGAttributes<HTMLOrSVGElement> {
   /** The name of the icon to display */
