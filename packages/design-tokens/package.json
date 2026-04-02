@@ -30,8 +30,8 @@
     "build": "yarn tokens:build",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "tokens:build": "rm -rf ./dist && tz build && cat ./dist/tokens-primitives.css ./dist/tokens-semantic.css > ./dist/tokens.css && rm ./dist/tokens-primitives.css ./dist/tokens-semantic.css",
-    "tokens:watch": "tz build --watch",
+    "tokens:build": ".scripts/bash/tokens-build",
+    "tokens:build:watch": ".scripts/bash/tokens-build watch",
     "lint": "tz lint",
     "test": "echo '🦖 Skip test!'",
     "typecheck": "tsc --noEmit"
