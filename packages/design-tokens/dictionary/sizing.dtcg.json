@@ -4,102 +4,102 @@
       "150": {
         "$type": "dimension",
         "$value": {
-          "value": 0.75,
-          "unit": "rem"
+          "value": 12,
+          "unit": "px"
         },
-        "$description": "0.75rem (12px), 1.5x base, icon-xs, extra-small, tiny-icon, micro"
+        "$description": "12px, 1.5x base, icon-xs, extra-small, tiny-icon, micro"
       },
       "200": {
         "$type": "dimension",
         "$value": {
-          "value": 1,
-          "unit": "rem"
+          "value": 16,
+          "unit": "px"
         },
-        "$description": "1rem (16px), 2x base, icon-sm, small, compact-icon, dense"
+        "$description": "16px, 2x base, icon-sm, small, compact-icon, dense"
       },
       "250": {
         "$type": "dimension",
         "$value": {
-          "value": 1.25,
-          "unit": "rem"
+          "value": 20,
+          "unit": "px"
         },
-        "$description": "1.25rem (20px), 2.5x base, icon-md, medium, standard-icon, default"
+        "$description": "20px, 2.5x base, icon-md, medium, standard-icon, default"
       },
       "300": {
         "$type": "dimension",
         "$value": {
-          "value": 1.5,
-          "unit": "rem"
+          "value": 24,
+          "unit": "px"
         },
-        "$description": "1.5rem (24px), 3x base, icon-lg, large, prominent-icon, spacious"
+        "$description": "24px, 3x base, icon-lg, large, prominent-icon, spacious"
       },
       "400": {
         "$type": "dimension",
         "$value": {
-          "value": 2,
-          "unit": "rem"
+          "value": 32,
+          "unit": "px"
         },
-        "$description": "2rem (32px), 4x base, icon-xl, extra-large, feature-icon, large"
+        "$description": "32px, 4x base, icon-xl, extra-large, feature-icon, large"
       }
     },
     "component": {
       "300": {
         "$type": "dimension",
         "$value": {
-          "value": 1.5,
-          "unit": "rem"
+          "value": 24,
+          "unit": "px"
         },
-        "$description": "1.5rem (24px), 3x base, comp-xs, component-xs, extra-small, tiny-component, micro"
+        "$description": "24px, 3x base, comp-xs, component-xs, extra-small, tiny-component, micro"
       },
       "400": {
         "$type": "dimension",
         "$value": {
-          "value": 2,
-          "unit": "rem"
+          "value": 32,
+          "unit": "px"
         },
-        "$description": "2rem (32px), 4x base, comp-sm, component-sm, small, compact-component, tight"
+        "$description": "32px, 4x base, comp-sm, component-sm, small, compact-component, tight"
       },
       "500": {
         "$type": "dimension",
         "$value": {
-          "value": 2.5,
-          "unit": "rem"
+          "value": 40,
+          "unit": "px"
         },
-        "$description": "2.5rem (40px), 5x base, comp-md, component-md, medium, standard-component, default"
+        "$description": "40px, 5x base, comp-md, component-md, medium, standard-component, default"
       },
       "600": {
         "$type": "dimension",
         "$value": {
-          "value": 3,
-          "unit": "rem"
+          "value": 48,
+          "unit": "px"
         },
-        "$description": "3rem (48px), 6x base, comp-lg, component-lg, large, roomy-component, relaxed"
+        "$description": "48px, 6x base, comp-lg, component-lg, large, roomy-component, relaxed"
       },
       "800": {
         "$type": "dimension",
         "$value": {
-          "value": 4,
-          "unit": "rem"
+          "value": 64,
+          "unit": "px"
         },
-        "$description": "4rem (64px), 8x base, comp-xl, component-xl, extra-large, spacious-component, generous"
+        "$description": "64px, 8x base, comp-xl, component-xl, extra-large, spacious-component, generous"
       }
     },
     "stroke": {
       "13": {
         "$type": "dimension",
         "$value": {
-          "value": 0.0625,
-          "unit": "rem"
+          "value": 1,
+          "unit": "px"
         },
-        "$description": "0.0625rem (1px), 0.125x base, stroke-default, default, thin, border, hairline"
+        "$description": "1px, 0.125x base, stroke-default, default, thin, border, hairline"
       },
       "25": {
         "$type": "dimension",
         "$value": {
-          "value": 0.125,
-          "unit": "rem"
+          "value": 2,
+          "unit": "px"
         },
-        "$description": "0.125rem (2px), 0.25x base, stroke-emphasis, emphasis, strong, selected, thick"
+        "$description": "2px, 0.25x base, stroke-emphasis, emphasis, strong, selected, thick"
       }
     }
   }
