@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rm -rf ./dist
+
+if [[ "$1" == "watch" ]]; then
+  tz build --watch
+else
+  tz build
+fi
+
+cat ./dist/tokens-primitives.css ./dist/tokens-semantic.css > ./dist/tokens.css && rm ./dist/tokens-primitives.css ./dist/tokens-semantic.css
