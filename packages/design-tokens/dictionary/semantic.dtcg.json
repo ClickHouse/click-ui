@@ -1,0 +1,798 @@
+{
+  "color": {
+    "background": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.white}",
+            "dark": "{color.charcoal.surface.50}"
+          }
+        },
+        "$description": "Default page / card / dialog surface"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.gray.50}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.50}",
+            "dark": "{color.charcoal.surface.200}"
+          }
+        },
+        "$description": "Hover surface, muted card, secondary bg"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.300}",
+            "dark": "{color.charcoal.surface.250}"
+          }
+        },
+        "$description": "Disabled background across all components"
+      },
+      "transparent": {
+        "$type": "color",
+        "$value": "{color.transparent}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.transparent}",
+            "dark": "{color.transparent}"
+          }
+        },
+        "$description": "Ghost / empty state — no fill"
+      },
+      "field": {
+        "$type": "color",
+        "$value": "{color.off-white}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.off-white}",
+            "dark": "{color.charcoal.surface.150}"
+          }
+        },
+        "$description": "Input field background"
+      },
+      "interactive": {
+        "primary": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.gray.800}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.800}",
+                "dark": "{color.charcoal.text.100}"
+              }
+            },
+            "$description": "Primary filled button / icon button secondary"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.gray.850}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.850}",
+                "dark": "{color.charcoal.text.150}"
+              }
+            },
+            "$description": "Primary button hover"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{color.gray.950}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.950}",
+                "dark": "{color.charcoal.text.200}"
+              }
+            },
+            "$description": "Primary button pressed"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{color.gray.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.300}",
+                "dark": "{color.charcoal.surface.300}"
+              }
+            },
+            "$description": "Primary button disabled"
+          }
+        },
+        "secondary": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.transparent}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.transparent}",
+                "dark": "{color.transparent}"
+              }
+            },
+            "$description": "Secondary button (ghost/outline) default — transparent"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.gray.50}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.50}",
+                "dark": "{color.charcoal.surface.200}"
+              }
+            },
+            "$description": "Secondary button hover — subtle tint"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{color.gray.100}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.100}",
+                "dark": "{color.charcoal.surface.250}"
+              }
+            },
+            "$description": "Secondary button pressed — subtle tint, stronger than hover"
+          },
+          "disabled": {
+            "$type": "color",
+            "$value": "{color.gray.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.300}",
+                "dark": "{color.charcoal.surface.300}"
+              }
+            },
+            "$description": "Secondary button disabled"
+          }
+        }
+      },
+      "feedback": {
+        "error": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.red.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.red.300}",
+                "dark": "{color.red.400}"
+              }
+            },
+            "$description": "Danger tinted bg — button, badge, alert, icon"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.red.400}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.red.400}",
+                "dark": "{color.red.100}"
+              }
+            },
+            "$description": "Danger hover bg"
+          },
+          "active": {
+            "$type": "color",
+            "$value": "{color.red.100}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.red.100}",
+                "dark": "{color.red.200}"
+              }
+            },
+            "$description": "Danger active / pressed bg"
+          }
+        },
+        "success": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.green.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.green.300}",
+                "dark": "{color.green.400}"
+              }
+            },
+            "$description": "Success tinted bg — alert, badge"
+          }
+        },
+        "warning": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.orange.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.orange.300}",
+                "dark": "{color.orange.400}"
+              }
+            },
+            "$description": "Warning tinted bg — alert, badge"
+          }
+        },
+        "info": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.blue.300}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.blue.300}",
+                "dark": "{color.blue.400}"
+              }
+            },
+            "$description": "Info tinted bg — alert, badge, iconButton"
+          }
+        },
+        "neutral": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{color.gray.50}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.gray.50}",
+                "dark": "{color.charcoal.surface.100}"
+              }
+            },
+            "$description": "Neutral tinted bg — alert, badge"
+          }
+        }
+      },
+      "select": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.blue.300}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.300}",
+              "dark": "{color.blue.400}"
+            }
+          },
+          "$description": "Selection highlight — grid row, table row, list item"
+        }
+      }
+    },
+    "foreground": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.gray.950}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.950}",
+            "dark": "{color.charcoal.text.50}"
+          }
+        },
+        "$description": "Primary text on any light surface"
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.gray.500}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.500}",
+            "dark": "{color.charcoal.text.250}"
+          }
+        },
+        "$description": "Secondary / muted text, icons"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.700}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.700}",
+            "dark": "{color.charcoal.text.300}"
+          }
+        },
+        "$description": "Neutral label text"
+      },
+      "placeholder": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.400}",
+            "dark": "{color.charcoal.text.350}"
+          }
+        },
+        "$description": "Input placeholder text"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.400}",
+            "dark": "{color.charcoal.text.400}"
+          }
+        },
+        "$description": "Disabled text across all components"
+      },
+      "interactive": {
+        "on-primary": {
+          "$type": "color",
+          "$value": "{color.white}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.white}",
+              "dark": "{color.gray.950}"
+            }
+          },
+          "$description": "Text / icon on dark primary surface"
+        },
+        "accent": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.blue.400}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.blue.400}",
+                "dark": "{color.blue.light}"
+              }
+            },
+            "$description": "Link, empty button, info text"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.blue.600}",
+            "$extensions": {
+              "mode": {
+                "light": "{color.blue.600}",
+                "dark": "{color.blue.lighter}"
+              }
+            },
+            "$description": "Link / empty button hover"
+          }
+        }
+      },
+      "feedback": {
+        "error": {
+          "$type": "color",
+          "$value": "{color.red.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.600}",
+              "dark": "{color.red.light}"
+            }
+          },
+          "$description": "Danger text — alert, badge, button, field"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.600}",
+              "dark": "{color.green.light}"
+            }
+          },
+          "$description": "Success text — alert, badge, icon"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.700}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.700}",
+              "dark": "{color.orange.light}"
+            }
+          },
+          "$description": "Warning text — alert, badge, icon"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.blue.400}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.400}",
+              "dark": "{color.blue.light}"
+            }
+          },
+          "$description": "Info text — alert, badge (same as link.default)"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.gray.700}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.gray.700}",
+              "dark": "{color.charcoal.text.300}"
+            }
+          },
+          "$description": "Neutral variant text — alert, badge"
+        }
+      },
+      "format": {
+        "$type": "color",
+        "$value": "{color.format}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.format}",
+            "dark": "{color.format-light}"
+          }
+        },
+        "$description": "Field / menu chevron / format indicator"
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.100}",
+            "dark": "{color.charcoal.surface.400}"
+          }
+        },
+        "$description": "Default border — card, field, badge, button, table"
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.200}",
+            "dark": "{color.charcoal.surface.450}"
+          }
+        },
+        "$description": "Active / strong border — button active, field hover"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.300}",
+            "dark": "{color.charcoal.surface.350}"
+          }
+        },
+        "$description": "Disabled border"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.gray.700}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.700}",
+            "dark": "{color.charcoal.surface.300}"
+          }
+        },
+        "$description": "Muted border — checkbox default stroke"
+      },
+      "feedback": {
+        "error": {
+          "$type": "color",
+          "$value": "{color.red.300}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.300}",
+              "dark": "{color.red.400}"
+            }
+          },
+          "$description": "Danger bordered elements"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.blue.300}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.300}",
+              "dark": "{color.blue.400}"
+            }
+          },
+          "$description": "Info bordered elements"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.100}",
+              "dark": "{color.green.200}"
+            }
+          },
+          "$description": "Success bordered elements"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.100}",
+              "dark": "{color.orange.200}"
+            }
+          },
+          "$description": "Warning bordered elements"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.neutral.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.neutral.100}",
+              "dark": "{color.neutral.200}"
+            }
+          },
+          "$description": "Neutral bordered elements"
+        }
+      }
+    },
+    "feedback": {
+      "solid": {
+        "error": {
+          "$type": "color",
+          "$value": "{color.red.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.600}",
+              "dark": "{color.red.light}"
+            }
+          },
+          "$description": "Solid danger bg — badge.solid"
+        },
+        "success": {
+          "$type": "color",
+          "$value": "{color.green.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.green.600}",
+              "dark": "{color.green.light}"
+            }
+          },
+          "$description": "Solid success bg — badge.solid"
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.orange.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.orange.600}",
+              "dark": "{color.orange.light}"
+            }
+          },
+          "$description": "Solid warning bg — badge.solid"
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.blue.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.600}",
+              "dark": "{color.blue.lighter}"
+            }
+          },
+          "$description": "Solid info bg — badge.solid"
+        },
+        "neutral": {
+          "$type": "color",
+          "$value": "{color.neutral.650}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.neutral.650}",
+              "dark": "{color.charcoal.text.300}"
+            }
+          },
+          "$description": "Solid neutral bg — badge.solid"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{color.gray.400}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.gray.400}",
+              "dark": "{color.charcoal.text.400}"
+            }
+          },
+          "$description": "Solid default bg — badge.solid"
+        }
+      }
+    }
+  },
+  "utility": {
+    "color": {
+      "shadow": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.shadow.default}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.shadow.default}",
+              "dark": "{color.shadow.opacity.30}"
+            }
+          },
+          "$description": "Box shadow colour"
+        }
+      },
+      "scrim": {
+        "dialog": {
+          "$type": "color",
+          "$value": "{color.scrim.heavy}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.scrim.heavy}",
+              "dark": "{color.shadow.opacity.80}"
+            }
+          },
+          "$description": "Dialog overlay scrim"
+        },
+        "tooltip": {
+          "$type": "color",
+          "$value": "{color.scrim.tooltip}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.scrim.tooltip}",
+              "dark": "{color.shadow.opacity.90}"
+            }
+          },
+          "$description": "Tooltip dark bg"
+        }
+      },
+      "border": {
+        "muted": {
+          "$type": "color",
+          "$value": "{color.gray.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.gray.100}",
+              "dark": "{color.charcoal.surface.250}"
+            }
+          },
+          "$description": "Muted stroke utility — global, sidebar hover base"
+        }
+      }
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "{radius.0}",
+      "$description": "Square corners, sharp, angular elements"
+    },
+    "minimal": {
+      "$type": "dimension",
+      "$value": "{radius.25}",
+      "$description": "Minimal rounding — data tables, micro UI, badges"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "{radius.50}",
+      "$description": "Small radius — input fields, chips, tags, compact elements"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "{radius.100}",
+      "$description": "Medium radius — standard buttons, cards, default components"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "{radius.200}",
+      "$description": "Large radius — containers, modals, dialogs, panels"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "{radius.300}",
+      "$description": "Extra-large radius — feature cards, prominent sections"
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": "{radius.999}",
+      "$description": "Fully rounded — pills, capsules, circular elements"
+    }
+  },
+  "sizing": {
+    "icon": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "{sizing.icon.150}",
+        "$description": "Extra-small icon — 12px, tiny icons, micro UI"
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{sizing.icon.200}",
+        "$description": "Small icon — 16px, compact icons, dense UI"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{sizing.icon.250}",
+        "$description": "Medium icon — 20px, standard icons, default"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{sizing.icon.300}",
+        "$description": "Large icon — 24px, prominent icons, spacious"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{sizing.icon.400}",
+        "$description": "Extra-large icon — 32px, feature icons, large"
+      }
+    },
+    "component": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "{sizing.component.300}",
+        "$description": "Extra-small component — 24px, tiny buttons, micro inputs"
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "{sizing.component.400}",
+        "$description": "Small component — 32px, compact buttons, tight inputs"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "{sizing.component.500}",
+        "$description": "Medium component — 40px, standard buttons, default inputs"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "{sizing.component.600}",
+        "$description": "Large component — 48px, roomy buttons, relaxed inputs"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "{sizing.component.800}",
+        "$description": "Extra-large component — 64px, spacious buttons, generous inputs"
+      }
+    },
+    "stroke": {
+      "default": {
+        "$type": "dimension",
+        "$value": "{sizing.stroke.13}",
+        "$description": "Default stroke width — 1px, thin borders, standard outlines"
+      },
+      "emphasis": {
+        "$type": "dimension",
+        "$value": "{sizing.stroke.25}",
+        "$description": "Emphasis stroke width — 2px, strong borders, selected states, focus rings"
+      }
+    }
+  },
+  "space": {
+    "none": {
+      "$type": "dimension",
+      "$value": "{space.0}",
+      "$description": "No spacing — 0px, reset, compact, zero-gap"
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "{space.50}",
+      "$description": "Extra-small spacing — 4px, tiny gaps, icon-spacing, tight"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "{space.100}",
+      "$description": "Small spacing — 8px, base unit, standard gaps, inline elements"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "{space.150}",
+      "$description": "Medium spacing — 12px, component gaps, relaxed padding"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "{space.200}",
+      "$description": "Large spacing — 16px, card padding, section gaps"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "{space.300}",
+      "$description": "Extra-large spacing — 24px, container gaps, generous padding"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "{space.400}",
+      "$description": "2x large spacing — 32px, layout gaps, spacious sections"
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "{space.600}",
+      "$description": "3x large spacing — 48px, major layout gaps, section breaks"
+    },
+    "4xl": {
+      "$type": "dimension",
+      "$value": "{space.1000}",
+      "$description": "4x large spacing — 80px, page sections, major layout divisions"
+    }
+  }
+}

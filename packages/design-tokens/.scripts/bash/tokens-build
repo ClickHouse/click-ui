@@ -1,0 +1,19 @@
+#!/bin/bash
+
+build_tokens() {
+  rm -rf ./dist
+  tz build
+  cat ./dist/tokens-primitives.css ./dist/tokens-semantic.css > ./dist/tokens.css
+  rm ./dist/tokens-primitives.css ./dist/tokens-semantic.css
+  echo "✓ Built tokens.css"
+}
+
+if [[ "$1" == "watch" ]]; then
+  echo "👀 Watching dictionary files for changes..."
+
+  build_tokens
+
+  chokidar "dictionary/**/*.json" -c "$(pwd)/.scripts/bash/tokens-build" --initial=false
+else
+  build_tokens
+fi

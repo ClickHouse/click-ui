@@ -1,0 +1,2786 @@
+{
+  "color": {
+    "white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          0,
+          0,
+          100
+        ],
+        "alpha": 1,
+        "hex": "#ffffff"
+      },
+      "$description": "Pure white"
+    },
+    "transparent": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 0,
+        "hex": "#000000"
+      },
+      "$description": "Fully transparent"
+    },
+    "gray": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            225,
+            29,
+            97
+          ],
+          "alpha": 1,
+          "hex": "#f5f6fa"
+        },
+        "$description": "Subtle surface (gray.50)"
+      },
+      "75": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            225,
+            11,
+            93
+          ],
+          "alpha": 1,
+          "hex": "#ebecef"
+        },
+        "$description": "Muted border light (interpolated)"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            220,
+            6,
+            91
+          ],
+          "alpha": 1,
+          "hex": "#e7e8e9"
+        },
+        "$description": "Default border (gray.100)"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            214,
+            7,
+            81
+          ],
+          "alpha": 1,
+          "hex": "#cbced2"
+        },
+        "$description": "Active / strong border (gray.200)"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            222,
+            7,
+            72
+          ],
+          "alpha": 1,
+          "hex": "#b3b6bd"
+        },
+        "$description": "Muted border variant (gray.300)"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            222,
+            7,
+            63
+          ],
+          "alpha": 1,
+          "hex": "#9a9ea7"
+        },
+        "$description": "Placeholder text (gray.400)"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            7,
+            54
+          ],
+          "alpha": 1,
+          "hex": "#818792"
+        },
+        "$description": "Table checkbox border (gray.500)"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            221,
+            7,
+            44
+          ],
+          "alpha": 1,
+          "hex": "#686d78"
+        },
+        "$description": "Subtle text, muted icons (gray.600)"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            220,
+            7,
+            35
+          ],
+          "alpha": 1,
+          "hex": "#53575f"
+        },
+        "$description": "Neutral / muted text (gray.700)"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            270,
+            4,
+            19
+          ],
+          "alpha": 1,
+          "hex": "#302f32"
+        },
+        "$description": "Primary action background (gray.800)"
+      },
+      "850": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            270,
+            6,
+            14
+          ],
+          "alpha": 1,
+          "hex": "#242226"
+        },
+        "$description": "Hover state dark (interpolated)"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            270,
+            7,
+            11
+          ],
+          "alpha": 1,
+          "hex": "#1c1a1e"
+        },
+        "$description": "Deep dark (interpolated)"
+      },
+      "950": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            270,
+            5,
+            9
+          ],
+          "alpha": 1,
+          "hex": "#171618"
+        },
+        "$description": "Primary text, near-black (gray.900)"
+      }
+    },
+    "neutral": {
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            98
+          ],
+          "alpha": 1,
+          "hex": "#fafafa"
+        },
+        "$description": "Pure neutral light (neutral.100)"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            87
+          ],
+          "alpha": 1,
+          "hex": "#dedede"
+        },
+        "$description": "Disabled background (neutral.200)"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            75
+          ],
+          "alpha": 1,
+          "hex": "#bfbfbf"
+        },
+        "$description": "Disabled border (neutral.300)"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            63
+          ],
+          "alpha": 1,
+          "hex": "#a1a1a1"
+        },
+        "$description": "Disabled text (neutral.400)"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            50
+          ],
+          "alpha": 1,
+          "hex": "#808080"
+        },
+        "$description": "Mid gray (neutral.500)"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            38
+          ],
+          "alpha": 1,
+          "hex": "#616161"
+        },
+        "$description": "Neutral badge solid bg (neutral.600)"
+      },
+      "650": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            31
+          ],
+          "alpha": 1,
+          "hex": "#4f4f4f"
+        },
+        "$description": "Button group text (neutral.650)"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            25
+          ],
+          "alpha": 1,
+          "hex": "#404040"
+        },
+        "$description": "Dark neutral (neutral.700)"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            16
+          ],
+          "alpha": 1,
+          "hex": "#292929"
+        },
+        "$description": "Codeblock dark bg (neutral.800)"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            8
+          ],
+          "alpha": 1,
+          "hex": "#141414"
+        },
+        "$description": "Near black (neutral.900)"
+      },
+      "opacity": {
+        "10": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              221,
+              7,
+              44
+            ],
+            "alpha": 0.1,
+            "hex": "#686d78"
+          },
+          "$description": "Neutral 10% opacity (tinted bg)"
+        },
+        "15": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              221,
+              7,
+              44
+            ],
+            "alpha": 0.15,
+            "hex": "#686d78"
+          },
+          "$description": "Neutral 15% opacity"
+        }
+      },
+      "150": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            221,
+            7,
+            94
+          ],
+          "alpha": 1,
+          "hex": "#eceeef"
+        },
+        "$description": "Neutral border - solid light gray"
+      },
+      "250": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            221,
+            5,
+            88
+          ],
+          "alpha": 1,
+          "hex": "#dadddf"
+        },
+        "$description": "Neutral border dark - solid muted gray"
+      }
+    },
+    "charcoal": {
+      "surface": {
+        "50": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              0,
+              8
+            ],
+            "alpha": 1,
+            "hex": "#141414"
+          },
+          "$description": "Base surface (darkest)"
+        },
+        "100": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              3,
+              11
+            ],
+            "alpha": 1,
+            "hex": "#1b1b1d"
+          },
+          "$description": "Darkest surface tone"
+        },
+        "150": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              3,
+              12
+            ],
+            "alpha": 1,
+            "hex": "#1e1e20"
+          },
+          "$description": "Field background"
+        },
+        "200": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              3,
+              14
+            ],
+            "alpha": 1,
+            "hex": "#232325"
+          },
+          "$description": "Subtle/hover surface"
+        },
+        "250": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              2,
+              17
+            ],
+            "alpha": 1,
+            "hex": "#2a2a2c"
+          },
+          "$description": "Muted/active surface"
+        },
+        "300": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              2,
+              19
+            ],
+            "alpha": 1,
+            "hex": "#2f2f31"
+          },
+          "$description": "Disabled surface"
+        },
+        "350": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              2,
+              20
+            ],
+            "alpha": 1,
+            "hex": "#323234"
+          },
+          "$description": "Disabled border"
+        },
+        "400": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              2,
+              23
+            ],
+            "alpha": 1,
+            "hex": "#39393c"
+          },
+          "$description": "Default border"
+        },
+        "450": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              240,
+              1,
+              29
+            ],
+            "alpha": 1,
+            "hex": "#49494b"
+          },
+          "$description": "Strong border"
+        }
+      },
+      "text": {
+        "50": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              260,
+              7,
+              91
+            ],
+            "alpha": 1,
+            "hex": "#e8e6ea"
+          },
+          "$description": "Primary text (lightest)"
+        },
+        "100": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              252,
+              8,
+              88
+            ],
+            "alpha": 1,
+            "hex": "#dfdee3"
+          },
+          "$description": "Interactive primary"
+        },
+        "150": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              252,
+              5,
+              79
+            ],
+            "alpha": 1,
+            "hex": "#c8c7cc"
+          },
+          "$description": "Interactive hover"
+        },
+        "200": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              252,
+              3,
+              70
+            ],
+            "alpha": 1,
+            "hex": "#b1b0b5"
+          },
+          "$description": "Interactive active"
+        },
+        "250": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              222,
+              7,
+              63
+            ],
+            "alpha": 1,
+            "hex": "#9a9ea7"
+          },
+          "$description": "Subtle text"
+        },
+        "300": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              218,
+              3,
+              52
+            ],
+            "alpha": 1,
+            "hex": "#818488"
+          },
+          "$description": "Muted text"
+        },
+        "350": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              222,
+              4,
+              45
+            ],
+            "alpha": 1,
+            "hex": "#6e7177"
+          },
+          "$description": "Placeholder"
+        },
+        "400": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              0,
+              38
+            ],
+            "alpha": 1,
+            "hex": "#616161"
+          },
+          "$description": "Disabled text (darkest)"
+        }
+      }
+    },
+    "off-white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          225,
+          100,
+          99
+        ],
+        "alpha": 1,
+        "hex": "#fafbff"
+      },
+      "$description": "Input field off-white background"
+    },
+    "format": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          219,
+          19,
+          71
+        ],
+        "alpha": 1,
+        "hex": "#a7b1c3"
+      },
+      "$description": "Field / menu format indicator (lch(71.998…) normalised)"
+    },
+    "blue": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            84,
+            60
+          ],
+          "alpha": 0.1,
+          "hex": "#437fef"
+        },
+        "$description": "Info / interactive tinted bg"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            84,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#d0dffb"
+        },
+        "$description": "Info hover background"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            220,
+            84,
+            80
+          ],
+          "alpha": 1,
+          "hex": "#a1bef7"
+        },
+        "$description": "Info active background"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            84,
+            60
+          ],
+          "alpha": 1,
+          "hex": "#437fef"
+        },
+        "$description": "Accent / link / info text"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            220,
+            85,
+            42
+          ],
+          "alpha": 1,
+          "hex": "#104dc6"
+        },
+        "$description": "Accent hover / link hover"
+      },
+      "select": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            218,
+            85,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#e7effd"
+        },
+        "$description": "Data grid / table selection tint (solid)"
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            218,
+            86,
+            70
+          ],
+          "alpha": 1,
+          "hex": "#71a1f4"
+        },
+        "$description": "Blue light - for dark mode visibility"
+      },
+      "lighter": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            84,
+            60
+          ],
+          "alpha": 1,
+          "hex": "#437fef"
+        },
+        "$description": "Blue lighter - for dark mode visibility"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              219,
+              84,
+              60
+            ],
+            "alpha": 0.15,
+            "hex": "#437fef"
+          },
+          "$description": "Blue 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              219,
+              84,
+              60
+            ],
+            "alpha": 0.2,
+            "hex": "#437fef"
+          },
+          "$description": "Blue 20% opacity"
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            219,
+            85,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#e7effd"
+        },
+        "$description": "Info/selection background subtle - computed from alpha .10 on white"
+      },
+      "450": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            220,
+            82,
+            33
+          ],
+          "alpha": 1,
+          "hex": "#0d3e9b"
+        },
+        "$description": "Info/selection background dark - computed from alpha .15 on dark"
+      }
+    },
+    "red": {
+      "30": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            100,
+            38
+          ],
+          "alpha": 0.05,
+          "hex": "#c20000"
+        },
+        "$description": "Danger very subtle stroke"
+      },
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            100,
+            38
+          ],
+          "alpha": 0.1,
+          "hex": "#c20000"
+        },
+        "$description": "Danger tinted bg"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            100,
+            38
+          ],
+          "alpha": 1,
+          "hex": "#c20000"
+        },
+        "$description": "Danger text, icon, solid bg"
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            76,
+            62
+          ],
+          "alpha": 1,
+          "hex": "#e85454"
+        },
+        "$description": "Red light - for dark mode error text"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              100,
+              38
+            ],
+            "alpha": 0.15,
+            "hex": "#c20000"
+          },
+          "$description": "Red 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              100,
+              38
+            ],
+            "alpha": 0.2,
+            "hex": "#c20000"
+          },
+          "$description": "Red 20% opacity"
+        },
+        "25": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              100,
+              38
+            ],
+            "alpha": 0.25,
+            "hex": "#c20000"
+          },
+          "$description": "Red 25% opacity"
+        },
+        "35": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              100,
+              38
+            ],
+            "alpha": 0.35,
+            "hex": "#c20000"
+          },
+          "$description": "Red 35% opacity"
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            70,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#fce5e5"
+        },
+        "$description": "Danger border - solid light red"
+      },
+      "150": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            55,
+            29
+          ],
+          "alpha": 1,
+          "hex": "#702523"
+        },
+        "$description": "Danger border / stroke - dark red"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            70,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#f9cccc"
+        },
+        "$description": "Danger border dark - solid muted red"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            100,
+            93
+          ],
+          "alpha": 1,
+          "hex": "#ffdddd"
+        },
+        "$description": "Danger background subtle - computed from alpha .10 on white"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            100,
+            19
+          ],
+          "alpha": 1,
+          "hex": "#610000"
+        },
+        "$description": "Danger background dark - computed from alpha .15 on dark"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            40,
+            85
+          ],
+          "alpha": 1,
+          "hex": "#e69999"
+        },
+        "$description": "Danger active bg - solid (replaces alpha .200)"
+      }
+    },
+    "green": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            100,
+            27
+          ],
+          "alpha": 0.1,
+          "hex": "#008a0b"
+        },
+        "$description": "Success tinted bg"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            100,
+            27
+          ],
+          "alpha": 1,
+          "hex": "#008a0b"
+        },
+        "$description": "Success text"
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            100,
+            35
+          ],
+          "alpha": 1,
+          "hex": "#00b30f"
+        },
+        "$description": "Green light - for dark mode success text"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              125,
+              100,
+              27
+            ],
+            "alpha": 0.15,
+            "hex": "#008a0b"
+          },
+          "$description": "Green 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              125,
+              100,
+              27
+            ],
+            "alpha": 0.2,
+            "hex": "#008a0b"
+          },
+          "$description": "Green 20% opacity"
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            42,
+            26
+          ],
+          "alpha": 1,
+          "hex": "#255E27"
+        },
+        "$description": "Success border - solid green"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            42,
+            26
+          ],
+          "alpha": 1,
+          "hex": "#255E27"
+        },
+        "$description": "Success border dark - solid green"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            100,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#e5ffe8"
+        },
+        "$description": "Success background subtle - computed from alpha .10 on white"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            125,
+            100,
+            13
+          ],
+          "alpha": 1,
+          "hex": "#004206"
+        },
+        "$description": "Success background dark - computed from alpha .15 on dark"
+      }
+    },
+    "orange": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            42
+          ],
+          "alpha": 0.1,
+          "hex": "#d64f00"
+        },
+        "$description": "Warning tinted bg"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            42
+          ],
+          "alpha": 1,
+          "hex": "#d64f00"
+        },
+        "$description": "Warning solid badge bg"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            32
+          ],
+          "alpha": 1,
+          "hex": "#a33c00"
+        },
+        "$description": "Warning text"
+      },
+      "light": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            21,
+            100,
+            55
+          ],
+          "alpha": 1,
+          "hex": "#ff6a1a"
+        },
+        "$description": "Orange light - for dark mode warning"
+      },
+      "opacity": {
+        "15": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              22,
+              100,
+              42
+            ],
+            "alpha": 0.15,
+            "hex": "#d64f00"
+          },
+          "$description": "Orange 15% opacity"
+        },
+        "20": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              22,
+              100,
+              42
+            ],
+            "alpha": 0.2,
+            "hex": "#d64f00"
+          },
+          "$description": "Orange 20% opacity"
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#fdeee5"
+        },
+        "$description": "Warning border - solid light orange"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            60,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#f9d1c1"
+        },
+        "$description": "Warning border dark - solid muted orange"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            91
+          ],
+          "alpha": 1,
+          "hex": "#ffe2d1"
+        },
+        "$description": "Warning background subtle - computed from alpha .10 on white"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            22,
+            100,
+            24
+          ],
+          "alpha": 1,
+          "hex": "#7a2d00"
+        },
+        "$description": "Warning background dark - computed from alpha .15 on dark"
+      }
+    },
+    "shadow": {
+      "default": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.15,
+          "hex": "#000000"
+        },
+        "$description": "Box shadow colour"
+      },
+      "opacity": {
+        "30": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.3,
+            "hex": "#000000"
+          },
+          "$description": "Shadow 30% opacity"
+        },
+        "80": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.8,
+            "hex": "#000000"
+          },
+          "$description": "Shadow 80% opacity"
+        },
+        "90": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              0,
+              0,
+              0
+            ],
+            "alpha": 0.9,
+            "hex": "#000000"
+          },
+          "$description": "Shadow 90% opacity"
+        }
+      }
+    },
+    "scrim": {
+      "heavy": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.75,
+          "hex": "#000000"
+        },
+        "$description": "Dialog overlay scrim"
+      },
+      "tooltip": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.85,
+          "hex": "#000000"
+        },
+        "$description": "Tooltip dark scrim bg"
+      }
+    },
+    "format-light": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          214,
+          11,
+          49
+        ],
+        "alpha": 1,
+        "hex": "#6f7b8b"
+      },
+      "$description": "Format color for dark backgrounds"
+    },
+    "brand": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            60,
+            100,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#ffffe5"
+        },
+        "$description": "Brand lightest, yellow-50"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            61,
+            100,
+            88
+          ],
+          "alpha": 1,
+          "hex": "#feffc2"
+        },
+        "$description": "Brand light, yellow-100"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            61,
+            100,
+            82
+          ],
+          "alpha": 1,
+          "hex": "#fdffa3"
+        },
+        "$description": "Brand light-medium, yellow-200"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            62,
+            100,
+            71
+          ],
+          "alpha": 1,
+          "hex": "#faff6b"
+        },
+        "$description": "Brand medium-light, yellow-300"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            61,
+            100,
+            48
+          ],
+          "alpha": 1,
+          "hex": "#f1f500"
+        },
+        "$description": "Brand vibrant, yellow-400"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            61,
+            100,
+            40
+          ],
+          "alpha": 1,
+          "hex": "#c9cc00"
+        },
+        "$description": "Brand medium, yellow-500"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            62,
+            100,
+            30
+          ],
+          "alpha": 1,
+          "hex": "#949900"
+        },
+        "$description": "Brand medium-dark, yellow-600"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            62,
+            100,
+            21
+          ],
+          "alpha": 1,
+          "hex": "#686b00"
+        },
+        "$description": "Brand dark, yellow-700"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            69,
+            97,
+            14
+          ],
+          "alpha": 1,
+          "hex": "#3c4601"
+        },
+        "$description": "Brand darker, yellow-800"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            60,
+            100,
+            10
+          ],
+          "alpha": 1,
+          "hex": "#333300"
+        },
+        "$description": "Brand darkest, yellow-900"
+      },
+      "base": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            61,
+            100,
+            64
+          ],
+          "alpha": 1,
+          "hex": "#fcff47"
+        },
+        "$description": "ClickHouse signature brand yellow"
+      }
+    },
+    "indigo": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            256,
+            65,
+            97
+          ],
+          "alpha": 1,
+          "hex": "#f5f2fc"
+        },
+        "$description": "Indigo lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            257,
+            14,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#e4e2e9"
+        },
+        "$description": "Indigo light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            253,
+            14,
+            80
+          ],
+          "alpha": 1,
+          "hex": "#c8c5d3"
+        },
+        "$description": "Indigo light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            254,
+            14,
+            70
+          ],
+          "alpha": 1,
+          "hex": "#ada8bd"
+        },
+        "$description": "Indigo medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            253,
+            14,
+            60
+          ],
+          "alpha": 1,
+          "hex": "#918ba7"
+        },
+        "$description": "Indigo medium"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            254,
+            14,
+            50
+          ],
+          "alpha": 1,
+          "hex": "#766e91"
+        },
+        "$description": "Indigo medium-dark"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            253,
+            14,
+            40
+          ],
+          "alpha": 1,
+          "hex": "#5e5874"
+        },
+        "$description": "Indigo dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            254,
+            14,
+            30
+          ],
+          "alpha": 1,
+          "hex": "#474257"
+        },
+        "$description": "Indigo darker"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            251,
+            14,
+            15
+          ],
+          "alpha": 1,
+          "hex": "#23212c"
+        },
+        "$description": "Indigo deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            257,
+            14,
+            10
+          ],
+          "alpha": 1,
+          "hex": "#18161d"
+        },
+        "$description": "Indigo darkest"
+      },
+      "base": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            253,
+            14,
+            20
+          ],
+          "alpha": 1,
+          "hex": "#2f2c3a"
+        },
+        "$description": "Indigo base"
+      }
+    },
+    "teal": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            92,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#e7fefa"
+        },
+        "$description": "Teal lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            169,
+            88,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#cffcf4"
+        },
+        "$description": "Teal light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            90,
+            81
+          ],
+          "alpha": 1,
+          "hex": "#a3faec"
+        },
+        "$description": "Teal light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            91,
+            70
+          ],
+          "alpha": 1,
+          "hex": "#6df8e1"
+        },
+        "$description": "Teal medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            90,
+            49
+          ],
+          "alpha": 1,
+          "hex": "#0cedc8"
+        },
+        "$description": "Teal vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            90,
+            43
+          ],
+          "alpha": 1,
+          "hex": "#0bd0af"
+        },
+        "$description": "Teal medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            90,
+            32
+          ],
+          "alpha": 1,
+          "hex": "#089b83"
+        },
+        "$description": "Teal medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            90,
+            24
+          ],
+          "alpha": 1,
+          "hex": "#067462"
+        },
+        "$description": "Teal dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            91,
+            17
+          ],
+          "alpha": 1,
+          "hex": "#045346"
+        },
+        "$description": "Teal darker"
+      },
+      "850": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            100,
+            13
+          ],
+          "alpha": 1,
+          "hex": "#004237"
+        },
+        "$description": "Teal deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            170,
+            89,
+            11
+          ],
+          "alpha": 1,
+          "hex": "#03352d"
+        },
+        "$description": "Teal darkest"
+      }
+    },
+    "violet": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            279,
+            100,
+            95
+          ],
+          "alpha": 1,
+          "hex": "#f6e5ff"
+        },
+        "$description": "Violet lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#eeccff"
+        },
+        "$description": "Violet light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            80
+          ],
+          "alpha": 1,
+          "hex": "#dd99ff"
+        },
+        "$description": "Violet light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            70
+          ],
+          "alpha": 1,
+          "hex": "#cc66ff"
+        },
+        "$description": "Violet medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            60
+          ],
+          "alpha": 1,
+          "hex": "#bb33ff"
+        },
+        "$description": "Violet vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            50
+          ],
+          "alpha": 1,
+          "hex": "#aa00ff"
+        },
+        "$description": "Violet medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            40
+          ],
+          "alpha": 1,
+          "hex": "#8800cc"
+        },
+        "$description": "Violet medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            30
+          ],
+          "alpha": 1,
+          "hex": "#660099"
+        },
+        "$description": "Violet dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            20
+          ],
+          "alpha": 1,
+          "hex": "#440066"
+        },
+        "$description": "Violet darker"
+      },
+      "850": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            15
+          ],
+          "alpha": 1,
+          "hex": "#33004d"
+        },
+        "$description": "Violet deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            280,
+            100,
+            10
+          ],
+          "alpha": 1,
+          "hex": "#220033"
+        },
+        "$description": "Violet darkest"
+      }
+    },
+    "fuchsia": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            60,
+            96
+          ],
+          "alpha": 1,
+          "hex": "#fbeff8"
+        },
+        "$description": "Fuchsia lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            314,
+            86,
+            89
+          ],
+          "alpha": 1,
+          "hex": "#fbcbf0"
+        },
+        "$description": "Fuchsia light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            93,
+            79
+          ],
+          "alpha": 1,
+          "hex": "#fb98e2"
+        },
+        "$description": "Fuchsia light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            95,
+            69
+          ],
+          "alpha": 1,
+          "hex": "#fb65d5"
+        },
+        "$description": "Fuchsia medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            96,
+            59
+          ],
+          "alpha": 1,
+          "hex": "#fb32c9"
+        },
+        "$description": "Fuchsia vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            100,
+            49
+          ],
+          "alpha": 1,
+          "hex": "#fa00bb"
+        },
+        "$description": "Fuchsia medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            100,
+            40
+          ],
+          "alpha": 1,
+          "hex": "#cc0099"
+        },
+        "$description": "Fuchsia medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            100,
+            30
+          ],
+          "alpha": 1,
+          "hex": "#990073"
+        },
+        "$description": "Fuchsia dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            100,
+            20
+          ],
+          "alpha": 1,
+          "hex": "#66004d"
+        },
+        "$description": "Fuchsia darker"
+      },
+      "850": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            316,
+            100,
+            15
+          ],
+          "alpha": 1,
+          "hex": "#4d0038"
+        },
+        "$description": "Fuchsia deep"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            315,
+            100,
+            10
+          ],
+          "alpha": 1,
+          "hex": "#330026"
+        },
+        "$description": "Fuchsia darkest"
+      }
+    },
+    "sunrise": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            90
+          ],
+          "alpha": 1,
+          "hex": "#fff3cc"
+        },
+        "$description": "Sunrise lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            80
+          ],
+          "alpha": 1,
+          "hex": "#ffe799"
+        },
+        "$description": "Sunrise light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            70
+          ],
+          "alpha": 1,
+          "hex": "#ffdb66"
+        },
+        "$description": "Sunrise light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            60
+          ],
+          "alpha": 1,
+          "hex": "#ffcf33"
+        },
+        "$description": "Sunrise medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            50
+          ],
+          "alpha": 1,
+          "hex": "#ffc400"
+        },
+        "$description": "Sunrise vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            44
+          ],
+          "alpha": 1,
+          "hex": "#e0ac00"
+        },
+        "$description": "Sunrise medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            35
+          ],
+          "alpha": 1,
+          "hex": "#b38900"
+        },
+        "$description": "Sunrise medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            27
+          ],
+          "alpha": 1,
+          "hex": "#8a6a00"
+        },
+        "$description": "Sunrise dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            17
+          ],
+          "alpha": 1,
+          "hex": "#574200"
+        },
+        "$description": "Sunrise darker"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            46,
+            100,
+            10
+          ],
+          "alpha": 1,
+          "hex": "#332700"
+        },
+        "$description": "Sunrise darkest"
+      }
+    },
+    "babyblue": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            93
+          ],
+          "alpha": 1,
+          "hex": "#dbfaff"
+        },
+        "$description": "Babyblue lightest"
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            87
+          ],
+          "alpha": 1,
+          "hex": "#bdf6ff"
+        },
+        "$description": "Babyblue light"
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            77
+          ],
+          "alpha": 1,
+          "hex": "#8aefff"
+        },
+        "$description": "Babyblue light-medium"
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            60
+          ],
+          "alpha": 1,
+          "hex": "#33e4ff"
+        },
+        "$description": "Babyblue medium-light"
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            46
+          ],
+          "alpha": 1,
+          "hex": "#00cbeb"
+        },
+        "$description": "Babyblue vibrant"
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            41
+          ],
+          "alpha": 1,
+          "hex": "#00b5d1"
+        },
+        "$description": "Babyblue medium"
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            30
+          ],
+          "alpha": 1,
+          "hex": "#008599"
+        },
+        "$description": "Babyblue medium-dark"
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            22
+          ],
+          "alpha": 1,
+          "hex": "#006170"
+        },
+        "$description": "Babyblue dark"
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            189,
+            100,
+            15
+          ],
+          "alpha": 1,
+          "hex": "#00414d"
+        },
+        "$description": "Babyblue darker"
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [
+            188,
+            100,
+            10
+          ],
+          "alpha": 1,
+          "hex": "#002c33"
+        },
+        "$description": "Babyblue darkest"
+      }
+    }
+  },
+  "chart": {
+    "orange": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          22,
+          100,
+          58
+        ],
+        "alpha": 1,
+        "hex": "#ff7729"
+      },
+      "$description": "Chart series — orange"
+    },
+    "green": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          125,
+          100,
+          45
+        ],
+        "alpha": 1,
+        "hex": "#00e613"
+      },
+      "$description": "Chart series — green"
+    },
+    "fuchsia": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          315,
+          96,
+          59
+        ],
+        "alpha": 1,
+        "hex": "#fb32c9"
+      },
+      "$description": "Chart series — fuchsia"
+    },
+    "yellow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          61,
+          100,
+          48
+        ],
+        "alpha": 1,
+        "hex": "#f1f500"
+      },
+      "$description": "Chart series — yellow"
+    },
+    "violet": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          280,
+          100,
+          60
+        ],
+        "alpha": 1,
+        "hex": "#bb33ff"
+      },
+      "$description": "Chart series — violet"
+    },
+    "babyblue": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          188,
+          100,
+          46
+        ],
+        "alpha": 1,
+        "hex": "#00cbeb"
+      },
+      "$description": "Chart series — babyblue"
+    },
+    "red": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          0,
+          100,
+          57
+        ],
+        "alpha": 1,
+        "hex": "#ff2424"
+      },
+      "$description": "Chart series — red"
+    },
+    "teal": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          170,
+          90,
+          32
+        ],
+        "alpha": 1,
+        "hex": "#089b83"
+      },
+      "$description": "Chart series — teal"
+    },
+    "sunrise": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "hsl",
+        "components": [
+          46,
+          100,
+          50
+        ],
+        "alpha": 1,
+        "hex": "#ffc400"
+      },
+      "$description": "Chart series — sunrise"
+    }
+  },
+  "checkbox": {
+    "variation": {
+      "green": {
+        "stroke": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              137,
+              65,
+              63
+            ],
+            "alpha": 1,
+            "hex": "#63de86"
+          },
+          "$description": "Checkbox var1 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              125,
+              100,
+              45
+            ],
+            "alpha": 1,
+            "hex": "#00e613"
+          },
+          "$description": "Checkbox var1 active bg"
+        }
+      },
+      "blue": {
+        "stroke": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              219,
+              85,
+              69
+            ],
+            "alpha": 1,
+            "hex": "#6d9cf3"
+          },
+          "$description": "Checkbox var2 stroke"
+        }
+      },
+      "pink": {
+        "stroke": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              315,
+              95,
+              69
+            ],
+            "alpha": 1,
+            "hex": "#fb65d5"
+          },
+          "$description": "Checkbox var3 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              315,
+              96,
+              59
+            ],
+            "alpha": 1,
+            "hex": "#fb32c9"
+          },
+          "$description": "Checkbox var3 active bg"
+        }
+      },
+      "orange": {
+        "stroke": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              22,
+              100,
+              67
+            ],
+            "alpha": 1,
+            "hex": "#ff9457"
+          },
+          "$description": "Checkbox var4 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              22,
+              100,
+              58
+            ],
+            "alpha": 1,
+            "hex": "#ff7729"
+          },
+          "$description": "Checkbox var4 active bg"
+        }
+      },
+      "teal": {
+        "stroke": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              170,
+              90,
+              32
+            ],
+            "alpha": 1,
+            "hex": "#089b83"
+          },
+          "$description": "Checkbox var5 stroke + active"
+        }
+      },
+      "purple": {
+        "stroke": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              280,
+              100,
+              70
+            ],
+            "alpha": 1,
+            "hex": "#cc66ff"
+          },
+          "$description": "Checkbox var6 stroke"
+        },
+        "active": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "hsl",
+            "components": [
+              280,
+              100,
+              60
+            ],
+            "alpha": 1,
+            "hex": "#bb33ff"
+          },
+          "$description": "Checkbox var6 active bg"
+        }
+      }
+    }
+  }
+}

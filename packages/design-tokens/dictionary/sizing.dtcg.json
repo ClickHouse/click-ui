@@ -1,0 +1,106 @@
+{
+  "sizing": {
+    "icon": {
+      "150": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$description": "12px, 1.5× base, icon-xs, extra-small, 0.75rem, tiny-icon, micro"
+      },
+      "200": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "16px, 2× base, icon-sm, small, 1rem, compact-icon, dense"
+      },
+      "250": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$description": "20px, 2.5× base, icon-md, medium, 1.25rem, standard-icon, default"
+      },
+      "300": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "24px, 3× base, icon-lg, large, 1.5rem, prominent-icon, spacious"
+      },
+      "400": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "32px, 4× base, icon-xl, extra-large, 2rem, feature-icon, large"
+      }
+    },
+    "component": {
+      "300": {
+        "$type": "dimension",
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        },
+        "$description": "24px, 3× base, comp-xs, component-xs, extra-small, 1.5rem, tiny-component, micro"
+      },
+      "400": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "32px, 4× base, comp-sm, component-sm, small, 2rem, compact-component, tight"
+      },
+      "500": {
+        "$type": "dimension",
+        "$value": {
+          "value": 40,
+          "unit": "px"
+        },
+        "$description": "40px, 5× base, comp-md, component-md, medium, 2.5rem, standard-component, default"
+      },
+      "600": {
+        "$type": "dimension",
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "$description": "48px, 6× base, comp-lg, component-lg, large, 3rem, roomy-component, relaxed"
+      },
+      "800": {
+        "$type": "dimension",
+        "$value": {
+          "value": 64,
+          "unit": "px"
+        },
+        "$description": "64px, 8× base, comp-xl, component-xl, extra-large, 4rem, spacious-component, generous"
+      }
+    },
+    "stroke": {
+      "13": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "$description": "1px, 0.125× base, stroke-default, default, thin, border, hairline"
+      },
+      "25": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "$description": "2px, 0.25× base, stroke-emphasis, emphasis, strong, selected, thick"
+      }
+    }
+  }
+}

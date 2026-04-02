@@ -1,0 +1,106 @@
+{
+  "font": {
+    "size": {
+      "xs": {
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "$description": "10px, 0.625rem, extra small, tiny"
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 12,
+          "unit": "px"
+        },
+        "$description": "12px, 0.75rem, small"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "$description": "14px, 0.875rem, medium, body-sm"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "16px, 1rem, large, base, body"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "$description": "18px, 1.125rem, extra large"
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": {
+          "value": 20,
+          "unit": "px"
+        },
+        "$description": "20px, 1.25rem, 2x large, title-sm"
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "32px, 2rem, 3x large, heading"
+      }
+    },
+    "lineHeight": {
+      "100": {
+        "$type": "number",
+        "$value": 1.3,
+        "$description": "130%, tight, headings"
+      },
+      "200": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "150%, relaxed, body-text"
+      },
+      "300": {
+        "$type": "number",
+        "$value": 1.6,
+        "$description": "160%, comfortable"
+      },
+      "400": {
+        "$type": "number",
+        "$value": 1.7,
+        "$description": "170%, spacious"
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "number",
+        "$value": 400,
+        "$description": "400, normal, body text"
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 500,
+        "$description": "500, emphasis"
+      },
+      "semibold": {
+        "$type": "number",
+        "$value": 600,
+        "$description": "600, titles"
+      },
+      "bold": {
+        "$type": "number",
+        "$value": 700,
+        "$description": "700, headings"
+      }
+    }
+  }
+}
