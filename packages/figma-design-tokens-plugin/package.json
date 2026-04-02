@@ -1,0 +1,27 @@
+{
+  "name": "@clickhouse/figma-design-tokens-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "rm -rf ./dist && vite build",
+    "lint": "tsc --noEmit",
+    "lint:fix": "echo 'No auto-fix available for type errors'",
+    "format": "prettier --check 'src/**/*.{ts,tsx,js,jsx}'",
+    "format:fix": "prettier --write 'src/**/*.{ts,tsx,js,jsx}'",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.106.0",
+    "@types/node": "^25.5.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vite-plugin-singlefile": "^2.0.3",
+    "vitest": "^2.1.9"
+  }
+}
