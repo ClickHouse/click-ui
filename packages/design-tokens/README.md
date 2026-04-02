@@ -18,6 +18,12 @@ Build tokens for consumer apps:
 yarn tokens:build
 ```
 
+Optionaly, use "watch" mode for automatic builds on file changes:
+
+```sh
+yarn tokens:build:watch
+```
+
 ## CSS Variable Prefix
 
 All generated CSS variables use the `--cui-` prefix (Click UI). This prefix is defined in `config.js` to ensure consistent namespace variable names across all consumer client applications.
