@@ -16,9 +16,14 @@
     "format": "yarn workspaces foreach -A --topological run format",
     "format:fix": "yarn workspaces foreach -A --topological run format:fix",
     "typecheck": "yarn workspaces foreach -A --topological run typecheck",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changeset:add": ".scripts/bash/changeset-add",
+    "changeset:status": "yarn changeset status",
+    "changeset:verify": ".scripts/bash/changeset-verification",
+    "changeset:version": "yarn changeset version"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
     "husky": "^9.1.7"
   },
   "resolutions": {

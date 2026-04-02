@@ -360,11 +360,7 @@
     "build:health_check": ".scripts/bash/build_output_health_check",
     "build-storybook": "storybook build",
     "build:watch": "watch 'yarn build' ./src",
-    "changeset:add": ".scripts/bash/changeset-add",
-    "changeset:status": "yarn changeset status",
-    "changeset:verify": ".scripts/bash/changeset-verification",
     "circular-dependency:check": ".scripts/bash/circular-dependency-check",
-    "changeset:version": "yarn changeset version",
     "convert:logo": ".scripts/js/convert-svg-to-react-component --type=logos",
     "convert:icon": ".scripts/js/convert-svg-to-react-component --type=icons",
     "convert:flag": ".scripts/js/convert-svg-to-react-component --type=flags",
@@ -419,7 +415,6 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
     "@playwright/test": "^1.57.0",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
