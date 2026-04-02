@@ -10,6 +10,8 @@ import type {
   TraverseTokenParams,
 } from "./types";
 
+type VariableWithScopes = Variable & { scopes: string[] };
+
 export function inferScopes(
   name: string,
   type: VariableResolvedDataType | DTCGTokenType,
@@ -381,13 +383,13 @@ export function createToken(
 
 
       if (scopes) {
-        const currentScopes = (token as any).scopes || [];
+        const currentScopes = (token as VariableWithScopes).scopes || [];
         const scopesChanged =
           JSON.stringify(currentScopes.sort()) !==
           JSON.stringify(scopes.sort());
         if (scopesChanged) {
           try {
-            (token as any).scopes = scopes;
+            (token as VariableWithScopes).scopes = scopes;
             console.log(
               `DEBUG createToken - Updated scopes for "${name}" to:`,
               scopes,
@@ -465,13 +467,13 @@ export function createToken(
 
 
       if (scopes) {
-        const currentScopes = (token as any).scopes || [];
+        const currentScopes = (token as VariableWithScopes).scopes || [];
         const scopesChanged =
           JSON.stringify(currentScopes.sort()) !==
           JSON.stringify(scopes.sort());
         if (scopesChanged) {
           try {
-            (token as any).scopes = scopes;
+            (token as VariableWithScopes).scopes = scopes;
             console.log(
               `DEBUG createToken - Updated scopes for "${dotName}" to:`,
               scopes,
@@ -497,17 +499,17 @@ export function createToken(
   token = figma.variables.createVariable(name, collection, type);
   console.log(
     `DEBUG createToken - Token created, initial scopes:`,
-    (token as any).scopes,
+    (token as VariableWithScopes).scopes,
   );
 
 
   if (!scopes || scopes.length === 0) {
     console.log(`DEBUG createToken - Setting scopes to [] for primitive`);
     try {
-      (token as any).scopes = [];
+      (token as VariableWithScopes).scopes = [];
       console.log(
         `DEBUG createToken - Successfully set scopes to [], now:`,
-        (token as any).scopes,
+        (token as VariableWithScopes).scopes,
       );
     } catch (e) {
       console.error(`DEBUG createToken - Failed to set scopes:`, e);
@@ -516,10 +518,10 @@ export function createToken(
 
     console.log(`DEBUG createToken - Setting scopes to:`, scopes);
     try {
-      (token as any).scopes = scopes;
+      (token as VariableWithScopes).scopes = scopes;
       console.log(
         `DEBUG createToken - Successfully set scopes, now:`,
-        (token as any).scopes,
+        (token as VariableWithScopes).scopes,
       );
     } catch (e) {
       console.error(`DEBUG createToken - Failed to set scopes:`, e);
@@ -528,7 +530,7 @@ export function createToken(
 
   console.log(
     `DEBUG createToken - Final token scopes:`,
-    (token as any).scopes,
+    (token as VariableWithScopes).scopes,
     `resolvedType:`,
     token.resolvedType,
   );
