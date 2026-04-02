@@ -57,7 +57,7 @@ This package follows the [DTCG (Design Tokens Community Group)](https://www.desi
 | **Spacing**    | Percentage-based with 8px base unit                                                                  | `space/100` (8px), `space/200` (16px)                           |
 | **Radius**     | Percentage-based scale                                                                               | `radius/50` (4px), `radius/100` (8px)                           |
 | **Sizing**     | T-shirt sizes by type                                                                                | `sizing/icon/md` (20px), `sizing/component/lg` (48px)           |
-| **Typography** | `font/{property}/{scale}`                                                                            | `font/size/200` (16px), `font/weight/semibold` (600)            |
+| **Typography** | `font/{property}/{scale}`                                                                            | `font/size/lg` (16px), `font/weight/semibold` (600)            |
 
 ### Usage Examples
 

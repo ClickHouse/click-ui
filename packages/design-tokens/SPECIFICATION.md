@@ -329,21 +329,23 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 
 **Naming:** `font/{property}/{scale-or-semantic}`
 
-Typography uses the `font/*` namespace with Atlassian percentage-based naming for sizes:
+Typography uses the `font/*` namespace with T-shirt size naming for sizes:
 
 **Font Size Scale:**
 
 ```
-font/size/{percentage}
+font/size/{size}
 ```
 
-- `font/size/50` = 10px (xs, tiny)
-- `font/size/75` = 12px (sm, small)
-- `font/size/100` = 14px (md, body-sm)
-- `font/size/200` = 16px (base, body)
-- `font/size/300` = 18px (lg)
-- `font/size/400` = 20px (xl, title-sm)
-- `font/size/500` = 32px (2xl, heading)
+| Token | Value | Notes |
+|-------|-------|-------|
+| `font/size/xs` | 10px | Extra small, tiny |
+| `font/size/sm` | 12px | Small |
+| `font/size/md` | 14px | Medium, body-sm |
+| `font/size/lg` | 16px | Large, base, body |
+| `font/size/xl` | 18px | Extra large |
+| `font/size/2xl` | 20px | 2x large, title-sm |
+| `font/size/3xl` | 32px | 3x large, heading |
 
 **Line Height Scale:**
 
