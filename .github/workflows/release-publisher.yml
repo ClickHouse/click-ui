@@ -117,7 +117,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.verify-merge.outputs.is_release == 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build package
         if: steps.verify-merge.outputs.is_release == 'true'
