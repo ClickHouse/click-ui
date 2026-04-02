@@ -30,9 +30,9 @@ jobs:
         run: yarn build
 
       - name: Build
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn build
 
       - name: Build output health check
-        working-directory: packages/click-ui
+        working-directory: libs/click-ui
         run: yarn build:health_check
