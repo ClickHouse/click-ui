@@ -7,6 +7,7 @@ export type { PaymentName, PaymentProps } from './Payments/system/types';
 
 // Standalone icon components (for direct usage without registry)
 export { default as Popover_Arrow } from './Icons/Popover-Arrow';
+export { User } from './Icons/User';
 
 // Icon registries
 export { IconsLight } from './Icons/system/IconsLight';

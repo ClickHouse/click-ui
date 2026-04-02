@@ -49,6 +49,11 @@ export {
   createAssetResolver,
   ASSET_NAME_MAPPINGS,
 } from '@clickhouse/icons';
+
+/**
+ * @deprecated Use `User` from '@clickhouse/icons' instead. This alias will be removed in a future version.
+ */
+export { User as ProfileIcon } from '@clickhouse/icons';
 export type {
   ThemeName,
   AssetSize,
