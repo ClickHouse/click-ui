@@ -573,9 +573,14 @@ export function createVariableAlias(
   modeValues?: ModeValues,
   existingVariables?: Record<string, Variable>,
 ): Variable {
-  const token = allTokens[valueKey]!;
+  const token = allTokens[valueKey];
 
-
+  if (!token) {
+    throw new Error(
+      `Cannot create alias for "${key}": referenced token "${valueKey}" not found. ` +
+        `Ensure "${valueKey}" is defined before "${key}" in your token file.`,
+    );
+  }
 
   return createToken(
     collection,
