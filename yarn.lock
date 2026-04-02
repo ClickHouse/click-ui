@@ -670,6 +670,7 @@ __metadata:
   dependencies:
     "@figma/plugin-typings": "npm:^1.106.0"
     "@types/node": "npm:^25.5.0"
+    prettier: "npm:^3.0.0"
     typescript: "npm:^5.7.0"
     vite: "npm:^6.0.0"
     vite-plugin-singlefile: "npm:^2.0.3"
