@@ -228,14 +228,23 @@ figma.ui.onmessage = async (e: PluginMessage) => {
   console.log("code received message", e);
 
   if (e.type === "IMPORT") {
-    const result = await importJSONFile({ fileName: e.fileName, body: e.body });
+    try {
+      const result = await importJSONFile({ fileName: e.fileName, body: e.body });
 
-    figma.ui.postMessage({
-      type: "IMPORT_COMPLETE",
-      wasUpdate: result.wasUpdate,
-      collectionName: result.collectionName,
-      tokenCount: result.tokenCount,
-    });
+      figma.ui.postMessage({
+        type: "IMPORT_COMPLETE",
+        wasUpdate: result.wasUpdate,
+        collectionName: result.collectionName,
+        tokenCount: result.tokenCount,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error("Import failed:", error);
+      figma.ui.postMessage({
+        type: "IMPORT_ERROR",
+        error: errorMessage,
+      });
+    }
   } else if (e.type === "EXPORT") {
     await exportToJSON();
   } else if (e.type === "GET_COLLECTIONS") {

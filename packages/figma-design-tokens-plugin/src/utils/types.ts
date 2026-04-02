@@ -81,11 +81,26 @@ export interface CollectionsListMessage {
   collections: Array<{ name: string; variableCount: number }>;
 }
 
+export interface ImportCompleteMessage {
+  type: "IMPORT_COMPLETE";
+  wasUpdate: boolean;
+  collectionName: string;
+  tokenCount: number;
+}
+
+export interface ImportErrorMessage {
+  type: "IMPORT_ERROR";
+  error: string;
+}
+
 export type PluginMessage =
   | ImportMessage
   | ExportMessage
   | ExportResultMessage
-  | GetCollectionsMessage;
+  | GetCollectionsMessage
+  | CollectionsListMessage
+  | ImportCompleteMessage
+  | ImportErrorMessage;
 
 export interface AliasEntry {
   key: string;
