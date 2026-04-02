@@ -1,27 +1,25 @@
-import type { DTCGColorValue, RGBAColor, RGBColor } from "./types";
+import type { DTCGColorValue, RGBAColor, RGBColor } from './types';
 
 export function rgbToHex({ r, g, b, a }: RGBAColor): string {
   if (a !== undefined && a !== 1) {
-    return `rgba(${[r, g, b]
-      .map((n) => Math.round(n * 255))
-      .join(", ")}, ${a.toFixed(4)})`;
+    return `rgba(${[r, g, b].map(n => Math.round(n * 255)).join(', ')}, ${a.toFixed(4)})`;
   }
 
   const toHex = (value: number): string => {
     const hex = Math.round(value * 255).toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
+    return hex.length === 1 ? '0' + hex : hex;
   };
 
-  const hex = [toHex(r), toHex(g), toHex(b)].join("");
+  const hex = [toHex(r), toHex(g), toHex(b)].join('');
   return `#${hex}`;
 }
 
 function isDTCGColorValue(value: unknown): value is DTCGColorValue {
   return (
-    typeof value === "object" &&
+    typeof value === 'object' &&
     value !== null &&
-    "colorSpace" in value &&
-    "components" in value &&
+    'colorSpace' in value &&
+    'components' in value &&
     Array.isArray((value as DTCGColorValue).components)
   );
 }
@@ -29,16 +27,14 @@ function isDTCGColorValue(value: unknown): value is DTCGColorValue {
 function parseDTCGColor(colorValue: DTCGColorValue): RGBAColor {
   const { colorSpace, components, alpha, hex } = colorValue;
 
-
-
   if (hex) {
     const hexValue = hex.substring(1);
     const expandedHex =
       hexValue.length === 3
         ? hexValue
-            .split("")
-            .map((char) => char + char)
-            .join("")
+            .split('')
+            .map(char => char + char)
+            .join('')
         : hexValue;
     const result: RGBAColor = {
       r: parseInt(expandedHex.slice(0, 2), 16) / 255,
@@ -51,8 +47,7 @@ function parseDTCGColor(colorValue: DTCGColorValue): RGBAColor {
     return result;
   }
 
-
-  if (colorSpace === "hsl") {
+  if (colorSpace === 'hsl') {
     const [h, s, l] = components;
     const result = hslToRgbFloat(h, s / 100, l / 100);
     if (alpha !== undefined && alpha !== 1) {
@@ -61,8 +56,7 @@ function parseDTCGColor(colorValue: DTCGColorValue): RGBAColor {
     return result;
   }
 
-
-  if (colorSpace === "srgb" || colorSpace.includes("rgb")) {
+  if (colorSpace === 'srgb' || colorSpace.includes('rgb')) {
     const [r, g, b] = components;
     const result: RGBAColor = { r, g, b };
     if (alpha !== undefined && alpha !== 1) {
@@ -75,13 +69,11 @@ function parseDTCGColor(colorValue: DTCGColorValue): RGBAColor {
 }
 
 export function parseColor(color: string | DTCGColorValue): RGBAColor {
-
   if (isDTCGColorValue(color)) {
     return parseDTCGColor(color);
   }
 
-
-  if (typeof color !== "string") {
+  if (typeof color !== 'string') {
     throw new Error(`Invalid color format: ${JSON.stringify(color)}`);
   }
 
@@ -123,7 +115,7 @@ export function parseColor(color: string | DTCGColorValue): RGBAColor {
     return hslToRgbFloat(
       parseInt(hStr!, 10),
       parseInt(sStr!, 10) / 100,
-      parseInt(lStr!, 10) / 100,
+      parseInt(lStr!, 10) / 100
     );
   }
 
@@ -133,7 +125,7 @@ export function parseColor(color: string | DTCGColorValue): RGBAColor {
       ...hslToRgbFloat(
         parseInt(hStr!, 10),
         parseInt(sStr!, 10) / 100,
-        parseInt(lStr!, 10) / 100,
+        parseInt(lStr!, 10) / 100
       ),
       a: parseFloat(aStr!),
     };
@@ -144,9 +136,9 @@ export function parseColor(color: string | DTCGColorValue): RGBAColor {
     const expandedHex =
       hexValue.length === 3
         ? hexValue
-            .split("")
-            .map((char) => char + char)
-            .join("")
+            .split('')
+            .map(char => char + char)
+            .join('')
         : hexValue;
     return {
       r: parseInt(expandedHex.slice(0, 2), 16) / 255,

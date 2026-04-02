@@ -1,17 +1,17 @@
-import { rgbToHex } from "./utils/colors";
+import { rgbToHex } from './utils/colors';
 import {
   createCollection,
   getExistingVariables,
   processAliases,
   traverseToken,
-} from "./utils/tokens";
+} from './utils/tokens';
 import type {
   AliasEntry,
   DTCGToken,
   DTCGTokenType,
   ExportedFile,
   PluginMessage,
-} from "./utils/types";
+} from './utils/types';
 
 async function importJSONFile({
   fileName,
@@ -20,103 +20,94 @@ async function importJSONFile({
   fileName: string;
   body: string;
 }): Promise<{ wasUpdate: boolean; collectionName: string; tokenCount: number }> {
-  console.log("Importing file:", fileName);
-
+  console.log('Importing file:', fileName);
 
   let wasUpdate = false;
 
-
   const existingCollections = await figma.variables.getLocalVariableCollectionsAsync();
-  const existingCollection = existingCollections.find((c) => c.name === fileName);
+  const existingCollection = existingCollections.find(c => c.name === fileName);
   wasUpdate = !!existingCollection;
 
+  const isPrimitivesFile = fileName.toLowerCase().includes('primitives');
 
-  const isPrimitivesFile = fileName.toLowerCase().includes("primitives");
+  const isSemanticFile = fileName.toLowerCase().includes('semantic');
 
-  const isSemanticFile = fileName.toLowerCase().includes("semantic");
-
-  console.log("DEBUG - File name:", fileName);
-  console.log("DEBUG - isPrimitivesFile detected:", isPrimitivesFile);
-  console.log("DEBUG - isSemanticFile detected:", isSemanticFile);
+  console.log('DEBUG - File name:', fileName);
+  console.log('DEBUG - isPrimitivesFile detected:', isPrimitivesFile);
+  console.log('DEBUG - isSemanticFile detected:', isSemanticFile);
 
   if (isPrimitivesFile) {
-    console.log(
-      "Detected primitives file - tokens will have NO scope (hidden from UI)",
-    );
+    console.log('Detected primitives file - tokens will have NO scope (hidden from UI)');
   }
   if (isSemanticFile) {
-    console.log(
-      "Detected semantic file - will create Light/Dark modes",
-    );
+    console.log('Detected semantic file - will create Light/Dark modes');
   }
 
   const json = JSON.parse(body) as DTCGToken;
-  console.log("JSON structure keys:", Object.keys(json));
-  console.log("DEBUG - JSON top-level non-$ keys:", Object.keys(json).filter(k => !k.startsWith('$')));
-
+  console.log('JSON structure keys:', Object.keys(json));
+  console.log(
+    'DEBUG - JSON top-level non-$ keys:',
+    Object.keys(json).filter(k => !k.startsWith('$'))
+  );
 
   const { collection, modeId, modeIds } = await createCollection(
     fileName,
-    isSemanticFile,
+    isSemanticFile
   );
-  console.log("DEBUG - Collection created, modeId:", modeId, "modeIds:", modeIds);
+  console.log('DEBUG - Collection created, modeId:', modeId, 'modeIds:', modeIds);
   const aliases: Record<string, AliasEntry> = {};
   const tokens: Record<string, Variable> = {};
 
   const existingVariables = await getExistingVariables();
   console.log(
-    "Existing variables from other collections:",
-    Object.keys(existingVariables).length,
+    'Existing variables from other collections:',
+    Object.keys(existingVariables).length
   );
   console.log(
-    "DEBUG - Sample existing variables:",
-    Object.keys(existingVariables).slice(0, 10),
+    'DEBUG - Sample existing variables:',
+    Object.keys(existingVariables).slice(0, 10)
   );
   console.log(
     "DEBUG - Looking for 'color/white' in existing:",
-    existingVariables["color/white"] ? "FOUND" : "NOT FOUND",
+    existingVariables['color/white'] ? 'FOUND' : 'NOT FOUND'
   );
   console.log(
     "DEBUG - Looking for 'white' in existing:",
-    existingVariables["white"] ? "FOUND" : "NOT FOUND",
+    existingVariables['white'] ? 'FOUND' : 'NOT FOUND'
   );
-
 
   const allKeys = Object.keys(existingVariables);
   const conflicts: string[] = [];
 
-
-  const colorConflicts = allKeys.filter((k) => k.startsWith("color/"));
+  const colorConflicts = allKeys.filter(k => k.startsWith('color/'));
   if (colorConflicts.length > 0) {
     console.log(
-      "DEBUG - Found existing color/* tokens:",
+      'DEBUG - Found existing color/* tokens:',
       colorConflicts.slice(0, 15),
-      "... and",
+      '... and',
       colorConflicts.length - 15,
-      "more",
+      'more'
     );
     conflicts.push(...colorConflicts);
   }
 
-
-  const chartConflicts = allKeys.filter((k) => k.startsWith("chart/"));
+  const chartConflicts = allKeys.filter(k => k.startsWith('chart/'));
   if (chartConflicts.length > 0) {
-    console.log("DEBUG - Found existing chart/* tokens:", chartConflicts);
+    console.log('DEBUG - Found existing chart/* tokens:', chartConflicts);
     conflicts.push(...chartConflicts);
   }
 
-
-  const checkboxConflicts = allKeys.filter((k) => k.startsWith("checkbox/"));
+  const checkboxConflicts = allKeys.filter(k => k.startsWith('checkbox/'));
   if (checkboxConflicts.length > 0) {
-    console.log("DEBUG - Found existing checkbox/* tokens:", checkboxConflicts);
+    console.log('DEBUG - Found existing checkbox/* tokens:', checkboxConflicts);
     conflicts.push(...checkboxConflicts);
   }
 
   if (conflicts.length > 0) {
     console.log(
-      "DEBUG - TOTAL CONFLICTS FOUND:",
+      'DEBUG - TOTAL CONFLICTS FOUND:',
       conflicts.length,
-      "tokens will fail to create",
+      'tokens will fail to create'
     );
   }
 
@@ -125,7 +116,7 @@ async function importJSONFile({
     modeId,
     modeIds,
     type: json.$type as DTCGTokenType | undefined,
-    key: "",
+    key: '',
     object: json,
     tokens,
     aliases,
@@ -133,8 +124,8 @@ async function importJSONFile({
     isPrimitivesFile,
   });
 
-  console.log("Created tokens:", Object.keys(tokens).length);
-  console.log("Pending aliases:", Object.keys(aliases).length);
+  console.log('Created tokens:', Object.keys(tokens).length);
+  console.log('Pending aliases:', Object.keys(aliases).length);
 
   await processAliases({
     collection,
@@ -146,8 +137,7 @@ async function importJSONFile({
     isPrimitivesFile,
   });
 
-  console.log("Import complete!");
-
+  console.log('Import complete!');
 
   return {
     wasUpdate,
@@ -165,7 +155,7 @@ async function exportToJSON(): Promise<void> {
     files.push(...collectionFiles);
   }
 
-  figma.ui.postMessage({ type: "EXPORT_RESULT", files });
+  figma.ui.postMessage({ type: 'EXPORT_RESULT', files });
 }
 
 async function processCollection({
@@ -189,28 +179,26 @@ async function processCollection({
       const { name: varName, resolvedType, valuesByMode } = variable;
       const value = valuesByMode[mode.modeId];
 
-      if (value !== undefined && ["COLOR", "FLOAT"].includes(resolvedType)) {
+      if (value !== undefined && ['COLOR', 'FLOAT'].includes(resolvedType)) {
         let obj: Record<string, unknown> = file.body;
 
-        varName.split("/").forEach((groupName) => {
+        varName.split('/').forEach(groupName => {
           obj[groupName] = obj[groupName] || {};
           obj = obj[groupName] as Record<string, unknown>;
         });
 
-        obj.$type = resolvedType === "COLOR" ? "color" : "number";
+        obj.$type = resolvedType === 'COLOR' ? 'color' : 'number';
 
         if (
-          typeof value === "object" &&
-          "type" in value &&
-          value.type === "VARIABLE_ALIAS"
+          typeof value === 'object' &&
+          'type' in value &&
+          value.type === 'VARIABLE_ALIAS'
         ) {
-          const aliasedVar = await figma.variables.getVariableByIdAsync(
-            value.id,
-          );
+          const aliasedVar = await figma.variables.getVariableByIdAsync(value.id);
           if (aliasedVar) {
-            obj.$value = `{${aliasedVar.name.replace(/\//g, ".")}}`;
+            obj.$value = `{${aliasedVar.name.replace(/\//g, '.')}}`;
           }
-        } else if (resolvedType === "COLOR" && typeof value === "object") {
+        } else if (resolvedType === 'COLOR' && typeof value === 'object') {
           obj.$value = rgbToHex(value as RGBA);
         } else {
           obj.$value = value;
@@ -225,51 +213,49 @@ async function processCollection({
 }
 
 figma.ui.onmessage = async (e: PluginMessage) => {
-  console.log("code received message", e);
+  console.log('code received message', e);
 
-  if (e.type === "IMPORT") {
+  if (e.type === 'IMPORT') {
     try {
       const result = await importJSONFile({ fileName: e.fileName, body: e.body });
 
       figma.ui.postMessage({
-        type: "IMPORT_COMPLETE",
+        type: 'IMPORT_COMPLETE',
         wasUpdate: result.wasUpdate,
         collectionName: result.collectionName,
         tokenCount: result.tokenCount,
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
-      console.error("Import failed:", error);
+      console.error('Import failed:', error);
       figma.ui.postMessage({
-        type: "IMPORT_ERROR",
+        type: 'IMPORT_ERROR',
         error: errorMessage,
       });
     }
-  } else if (e.type === "EXPORT") {
+  } else if (e.type === 'EXPORT') {
     await exportToJSON();
-  } else if (e.type === "GET_COLLECTIONS") {
-
-    const collections =
-      await figma.variables.getLocalVariableCollectionsAsync();
-    const collectionsInfo = collections.map((c) => ({
+  } else if (e.type === 'GET_COLLECTIONS') {
+    const collections = await figma.variables.getLocalVariableCollectionsAsync();
+    const collectionsInfo = collections.map(c => ({
       name: c.name,
       variableCount: c.variableIds.length,
     }));
     figma.ui.postMessage({
-      type: "COLLECTIONS_LIST",
+      type: 'COLLECTIONS_LIST',
       collections: collectionsInfo,
     });
   }
 };
 
-if (figma.command === "import") {
-  figma.showUI(__uiFiles__["import"] as string, {
+if (figma.command === 'import') {
+  figma.showUI(__uiFiles__['import'] as string, {
     width: 500,
     height: 500,
     themeColors: true,
   });
-} else if (figma.command === "export") {
-  figma.showUI(__uiFiles__["export"] as string, {
+} else if (figma.command === 'export') {
+  figma.showUI(__uiFiles__['export'] as string, {
     width: 500,
     height: 500,
     themeColors: true,

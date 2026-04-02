@@ -1,12 +1,12 @@
-export type DTCGTokenType = "color" | "number" | "dimension";
+export type DTCGTokenType = 'color' | 'number' | 'dimension';
 
 export interface DTCGDimensionValue {
   value: number;
-  unit: "px" | "rem" | string;
+  unit: 'px' | 'rem' | string;
 }
 
 export interface DTCGColorValue {
-  colorSpace: "hsl" | "srgb" | "p3" | "display-p3" | "rec2020" | string;
+  colorSpace: 'hsl' | 'srgb' | 'p3' | 'display-p3' | 'rec2020' | string;
   components: [number, number, number];
   alpha?: number;
   hex?: string;
@@ -53,17 +53,17 @@ export interface RGBAColor extends RGBColor {
 }
 
 export interface ImportMessage {
-  type: "IMPORT";
+  type: 'IMPORT';
   fileName: string;
   body: string;
 }
 
 export interface ExportMessage {
-  type: "EXPORT";
+  type: 'EXPORT';
 }
 
 export interface ExportResultMessage {
-  type: "EXPORT_RESULT";
+  type: 'EXPORT_RESULT';
   files: ExportedFile[];
 }
 
@@ -73,23 +73,23 @@ export interface ExportedFile {
 }
 
 export interface GetCollectionsMessage {
-  type: "GET_COLLECTIONS";
+  type: 'GET_COLLECTIONS';
 }
 
 export interface CollectionsListMessage {
-  type: "COLLECTIONS_LIST";
+  type: 'COLLECTIONS_LIST';
   collections: Array<{ name: string; variableCount: number }>;
 }
 
 export interface ImportCompleteMessage {
-  type: "IMPORT_COMPLETE";
+  type: 'IMPORT_COMPLETE';
   wasUpdate: boolean;
   collectionName: string;
   tokenCount: number;
 }
 
 export interface ImportErrorMessage {
-  type: "IMPORT_ERROR";
+  type: 'IMPORT_ERROR';
   error: string;
 }
 
