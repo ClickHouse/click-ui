@@ -38,3 +38,5 @@ The plugin expects DTCG JSON files. Token source files live in the sibling packa
 1. Import **primitives** first (e.g., `primitives.dtcg.json`)
 2. Then import **semantic** tokens (e.g., `semantic.dtcg.json`) — these reference primitives
 3. Then import **spacing**, **radius**, **sizing** tokens
+
+**Naming convention:** Files must include `primitives` or `semantic` in their filename for automatic scope assignment and Light/Dark mode creation to work correctly.
