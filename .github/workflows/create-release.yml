@@ -114,8 +114,8 @@ jobs:
           CURRENT_TAG="N/A"
           IS_PRERELEASE="false"
 
-          if [[ -f .changeset/pre.json ]]; then
-            CURRENT_TAG=$(node -p "require('./.changeset/pre.json').tag")
+          if [[ -f packages/click-ui/.changeset/pre.json ]]; then
+            CURRENT_TAG=$(node -p "require('./packages/click-ui/.changeset/pre.json').tag")
             IS_PRERELEASE="true"
             echo "prerelease=true" >> $GITHUB_OUTPUT
             echo "current_tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
@@ -131,7 +131,7 @@ jobs:
       - name: Prevent promotion without changes
         if: steps.check-prerelease.outputs.prerelease == 'true' && steps.check-prerelease.outputs.current_tag != inputs.release_type
         run: |
-          CHANGESET_COUNT=$(find .changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
+          CHANGESET_COUNT=$(find packages/click-ui/.changeset -name "*.md" ! -name "README.md" | wc -l | tr -d ' ')
           echo "🔍 Debug: changeset_count=$CHANGESET_COUNT"
 
           if [[ "$CHANGESET_COUNT" -eq 0 ]]; then
@@ -145,7 +145,7 @@ jobs:
         run: |
           echo "Must exit pre-release mode..."
 
-          if ! yarn changeset pre exit; then
+          if ! yarn workspace @clickhouse/click-ui changeset pre exit; then
             echo "👹 Oops! Failed to exit pre-release mode for some reason..."
             exit 1
           else
@@ -156,7 +156,7 @@ jobs:
         if: steps.check-prerelease.outputs.prerelease == 'true' && steps.check-prerelease.outputs.current_tag != inputs.release_type && inputs.release_type != 'latest' && inputs.release_type != 'stable'
         run: |
           echo "🔄 Switching from ${{ steps.check-prerelease.outputs.current_tag }} to ${{ inputs.release_type }} prerelease mode"
-          if ! yarn changeset pre exit; then
+          if ! yarn workspace @clickhouse/click-ui changeset pre exit; then
             echo "👹 Oops! Failed to exit current prerelease mode for some reason..."
             exit 1
           else
@@ -167,7 +167,7 @@ jobs:
         if: inputs.release_type != 'latest' && inputs.release_type != 'stable' && (steps.check-prerelease.outputs.prerelease != 'true' || steps.check-prerelease.outputs.current_tag != inputs.release_type)
         run: |
           echo "🤖 Entering ${{ inputs.release_type }} prerelease mode"
-          yarn changeset pre enter ${{ inputs.release_type }}
+          yarn workspace @clickhouse/click-ui changeset pre enter ${{ inputs.release_type }}
 
       - name: Validate latest release eligibility
         if: (inputs.release_type == 'latest' || inputs.release_type == 'stable') && steps.check-prerelease.outputs.prerelease != 'true'
@@ -187,7 +187,7 @@ jobs:
         id: version-package
         run: |
           echo "📦 Versioning packages..."
-          if ! yarn changeset:version; then
+          if ! yarn workspace @clickhouse/click-ui changeset:version; then
             echo "👹 Oops! Failed to do changeset versioning for some reason..."
             exit 1
           else
@@ -249,7 +249,7 @@ jobs:
         run: |
           # WARNING: This is coupled with a verify release commit
           # if you need to modify, apply the changes accordingly
-          COMMIT_TITLE=$(.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
+          COMMIT_TITLE=$(packages/click-ui/.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
 
           echo "title=$COMMIT_TITLE" >> $GITHUB_OUTPUT
           echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT

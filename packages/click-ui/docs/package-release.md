@@ -16,6 +16,7 @@
   - [Create a new release](#create-a-new-release)
   - [Updating a pending release version](#updating-a-pending-release-version)
   - [Promoting to stable release](#promoting-to-stable-release)
+  - [Monorepo Package Release](#monorepo-package-release)
 
 **TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
 
@@ -45,6 +46,8 @@ For more detailed information about `actions/create-github-app-token`, see the d
 #### NPM Trusted publisher
 
 Add GitHub actions as a trusted publisher on [NPM package settings](https://www.npmjs.com/package/@clickhouse/click-ui). Make sure you select the provider "GitHub Actions", enter the repository "Clickhouse/click-ui" and finally the workflow name as "release-publisher.yml".
+
+For monorepo packages published via the [monorepo package release](#monorepo-package-release) workflow (e.g. `@clickhouse/design-tokens`), you must also register `monorepo-package-release.yml` as a trusted publisher on that package's [NPM settings](https://www.npmjs.com/package/@clickhouse/design-tokens) with the same provider and repository. Otherwise OIDC-authenticated publishes will fail, e.g. error 403.
 
 ### Create a new release Pull Request
 
@@ -143,6 +146,7 @@ Here's what changes in package.json:
 Always include a changeset to ensure each promotion reflects real, trackable changes.
 
 ## Use-Cases
+
 
 ### Create a new release
 
@@ -258,3 +262,28 @@ git push origin chore/sync-v1.0.0-changes-back-to-main
 
 > [!IMPORTANT]
 > This step is critical. The `main` branch must reflect the stable release state to ensure future pre-releases start from the correct version baseline.
+
+### Monorepo Package Release
+
+The [monorepo package publisher](https://github.com/ClickHouse/click-ui/actions/workflows/monorepo-package-release.yml) is a simplified workflow for releasing packages under `./packages/*` that support click-ui (e.g. `design-tokens`) and can be published independently.
+
+> [!IMPORTANT]
+> This workflow does **not** automate the changeset cycle. You are responsible for preparing the version and changelog before triggering a release. Specifically:
+>
+> 1. Enter/leave pre-release mode as needed (`yarn workspace @clickhouse/design-tokens changeset pre enter <tag>` / `changeset pre exit`)
+> 2. Run `yarn workspace @clickhouse/design-tokens changeset version` to bump the version and generate the changelog
+> 3. Ensure the version bump and changelog are committed in the branch/commit you intend to release
+>
+> The automated [create release](#create-a-new-release-pull-request) workflow handles all of this for `@clickhouse/click-ui`. For other monorepo packages, use this manual workflow instead.
+
+To release a monorepo package:
+
+1. Go to [Actions > Monorepo Package Publisher](https://github.com/ClickHouse/click-ui/actions/workflows/monorepo-package-release.yml)
+2. Click **Run workflow**
+3. Select the package to release
+4. Choose the release type (`test`, `rc`, `stable`, `latest`)
+5. Toggle **dry run** to `true` to validate without publishing (recommended first)
+6. Type the package name to confirm
+7. For `stable`, type the branch name to confirm
+8. Click **Run workflow**
+9. Once validated, re-run with **dry run** set to `false`
