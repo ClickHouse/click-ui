@@ -14,7 +14,7 @@
         "value": 2,
         "unit": "px"
       },
-      "$description": "2px, tiny, subtle, 0.125rem, radius.25, xs, micro-corner, slight"
+      "$description": "2px, tiny, subtle, radius.25, xs, micro-corner, slight"
     },
     "50": {
       "$type": "dimension",
@@ -22,7 +22,7 @@
         "value": 4,
         "unit": "px"
       },
-      "$description": "4px, extra-small, small, 0.25rem, radius.50, xs, sm, input, field, subtle-round"
+      "$description": "4px, extra-small, small, radius.50, xs, sm, input, field, subtle-round"
     },
     "75": {
       "$type": "dimension",
@@ -30,7 +30,7 @@
         "value": 6,
         "unit": "px"
       },
-      "$description": "6px, small, 0.375rem, radius.75, sm, button-small, chip, tag, soft-round"
+      "$description": "6px, small, radius.75, sm, button-small, chip, tag, soft-round"
     },
     "100": {
       "$type": "dimension",
@@ -38,7 +38,7 @@
         "value": 8,
         "unit": "px"
       },
-      "$description": "8px, base, standard, 0.5rem, radius.100, md, button, card, default-round, moderate"
+      "$description": "8px, base, standard, radius.100, md, button, card, default-round, moderate"
     },
     "150": {
       "$type": "dimension",
@@ -46,7 +46,7 @@
         "value": 12,
         "unit": "px"
       },
-      "$description": "12px, medium, 0.75rem, radius.150, md-lg, panel, section, rounded, relaxed"
+      "$description": "12px, medium, radius.150, md-lg, panel, section, rounded, relaxed"
     },
     "200": {
       "$type": "dimension",
@@ -54,7 +54,7 @@
         "value": 16,
         "unit": "px"
       },
-      "$description": "16px, large, 1rem, radius.200, lg, container, modal, dialog, well-rounded"
+      "$description": "16px, large, radius.200, lg, container, modal, dialog, well-rounded"
     },
     "300": {
       "$type": "dimension",
@@ -62,7 +62,7 @@
         "value": 24,
         "unit": "px"
       },
-      "$description": "24px, extra-large, 1.5rem, radius.300, xl, large-card, feature, very-rounded"
+      "$description": "24px, extra-large, radius.300, xl, large-card, feature, very-rounded"
     },
     "400": {
       "$type": "dimension",
@@ -70,7 +70,7 @@
         "value": 32,
         "unit": "px"
       },
-      "$description": "32px, 2xl, 2rem, radius.400, pill-like, bubble, heavily-rounded"
+      "$description": "32px, 2xl, radius.400, pill-like, bubble, heavily-rounded"
     },
     "999": {
       "$type": "dimension",

@@ -6,6 +6,99 @@ This specification defines the structure, naming conventions, and metadata strat
 
 ---
 
+## Units and Accessibility
+
+### Hybrid Unit Strategy
+
+This design system uses a **strategic hybrid approach** to units, prioritizing both accessibility and layout stability:
+
+| Token Category | Unit | Rationale |
+|----------------|------|-----------|
+| **Font sizes** | `rem` | Must scale with user browser preferences for accessibility |
+| **Spacing** | `px` | Maintains consistent layout structure regardless of font size |
+| **Sizing** | `px` | Preserves component proportions and prevents excessive expansion |
+| **Radius** | `px` | Visual styling should not scale with font size |
+
+### Why This Hybrid Approach?
+
+**Font sizes in rem:**
+- Respects user's browser default font size settings (accessibility requirement)
+- Follows Material UI, Atlassian, and modern design system best practices
+- Users with vision needs can increase text size via browser settings
+
+**Spacing/sizing/radius in px:**
+- Prevents layout breakage when users increase font size
+- Avoids the "sidebar takes over the screen" problem
+- Maintains consistent touch target sizes
+- Follows the Radix UI and strategic CSS best practices approach
+
+**Base assumption:** `1rem = 16px` (browser default)
+
+### Root Font-Size Token
+
+The `font.root` token defines the base font-size reference for rem calculations:
+
+```json
+{
+  "font": {
+    "root": {
+      "$type": "dimension",
+      "$value": { "value": 16, "unit": "px" },
+      "$description": "16px (1rem), root font-size base"
+    }
+  }
+}
+```
+
+**Consumer Application Setup:**
+
+Consumer applications should set the root font-size to ensure rem font sizes calculate correctly:
+
+```css
+html {
+  font-size: var(--cui-font-root, 16px);
+}
+```
+
+This ensures:
+1. Font size rem values resolve to expected pixel sizes
+2. Users can override with browser font size preferences
+3. Spacing/sizing/radius remain stable for consistent layouts
+
+### Token Value Format
+
+**Font size tokens (rem):**
+- **Value**: rem number (e.g., `0.875`)
+- **Unit**: `rem`
+- **Description**: Rem value first, then px equivalent in parentheses (e.g., `"0.875rem (14px), medium, body-sm"`)
+
+**Spacing/sizing/radius tokens (px):**
+- **Value**: pixel number (e.g., `14`)
+- **Unit**: `px`
+- **Description**: Px value only (e.g., `"14px, medium, body-sm"`)
+
+**Examples:**
+```json
+{
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "$value": { "value": 0.875, "unit": "rem" },
+      "$description": "0.875rem (14px), medium, body-sm"
+    }
+  },
+  "space": {
+    "100": {
+      "$type": "dimension",
+      "$value": { "value": 8, "unit": "px" },
+      "$description": "8px, base, space.100, base-unit"
+    }
+  }
+}
+```
+
+---
+
 ## Token Categories
 
 ### 1. Color Tokens
@@ -125,6 +218,8 @@ Examples:
 }
 ```
 
+Spacing uses **pixel units** to maintain consistent layout structure regardless of font size changes. This prevents layout issues when users increase their browser font size (e.g., sidebars taking over the screen, excessive white space).
+
 **Primitives Naming:**
 
 ```
@@ -166,7 +261,7 @@ space/{size}
     "sm": {
       "$type": "dimension",
       "$value": "{space.100}",
-      "$description": "Small spacing — 8px, base unit, standard gaps"
+      "$description": "8px, base unit, standard gaps"
     }
   }
 }
@@ -176,7 +271,8 @@ space/{size}
 - **Primitives** (numeric): Hidden from Figma UI, continuous mathematical scale (8px base)
 - **Semantic** (T-shirt): Public-facing tokens designers use, consolidated to 9 essential sizes
 - Continuous primitives allow fine-grained theming; semantic aliases provide designer-friendly names
-- 8px base unit makes mental math easy: `space.200` = 2× `space.100` = 16px
+- Base unit makes mental math easy: `space.200` = 2× `space.100` = 16px
+- **Pixel units** maintain stable layouts when users change browser font size
 
 ---
 
@@ -228,7 +324,7 @@ Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
     "sm": {
       "$type": "dimension",
       "$value": "{radius.50}",
-      "$description": "Small radius — input fields, chips, tags"
+      "$description": "4px, input fields, chips, tags"
     }
   }
 }
@@ -237,6 +333,7 @@ Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
 **Rationale:** Following Atlassian's approach with a two-tier system:
 - **Primitives** (numeric): Hidden from Figma UI, used as base values for theming
 - **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
+- **Pixel units** ensure consistent corner rounding regardless of font size changes
 - Allows overriding radius primitives for custom themes while maintaining semantic consistency
 
 Designers use semantic names like "small radius for inputs" while developers can theme via primitives.
@@ -250,7 +347,9 @@ Designers use semantic names like "small radius for inputs" while developers can
 
 **Files:** `sizing.dtcg.json` (primitives), `semantic.dtcg.json` (semantic aliases)
 
-**Type:** `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
+**Type:** `$type: "dimension"` with DTCG object format: `{ "value": 16, "unit": "px" }`
+
+Sizing tokens use **pixel units** to maintain consistent component sizes regardless of font size changes. This prevents buttons, inputs, and icons from becoming disproportionately large when users increase browser font size.
 
 **Primitives Naming:**
 
@@ -259,10 +358,10 @@ sizing/{category}/{index}
 ```
 
 Where `index` is percentage of 8px base unit:
-- `sizing/icon/150` = 12px (8 × 1.5)
-- `sizing/icon/200` = 16px (8 × 2)
-- `sizing/stroke/13` = 1px (8 × 0.125)
-- `sizing/stroke/25` = 2px (8 × 0.25)
+- `sizing/icon/150` = 12px (8px × 1.5)
+- `sizing/icon/200` = 16px (8px × 2)
+- `sizing/stroke/13` = 1px (8px × 0.125)
+- `sizing/stroke/25` = 2px (8px × 0.25)
 
 **Semantic Naming:**
 
@@ -298,7 +397,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
       "sm": {
         "$type": "dimension",
         "$value": "{sizing/icon/200}",
-        "$description": "Small icon — 16px, compact icons, dense UI"
+        "$description": "16px, compact icons, dense UI"
       }
     }
   }
@@ -310,6 +409,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 - **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
 - Icon and component sizes are specific UI sizes that don't follow simple doubling
 - Stroke widths are small values (1px, 2px) represented as fractions of the base unit
+- **Pixel units** ensure consistent touch targets and component proportions regardless of font size
 - Allows theming via primitives while designers work with intuitive T-shirt sizes
 
 ---
@@ -323,7 +423,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 
 **Types:**
 
-- Font sizes: `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
+- Font sizes: `$type: "dimension"` with DTCG object format for rem values: `{ "value": 1, "unit": "rem" }`
 - Line heights: `$type: "number"` with unitless values (e.g., `1.5`, `1.3`)
 - Font weights: `$type: "number"` with integer values (e.g., `400`, `700`)
 
@@ -337,13 +437,13 @@ Typography uses the `font/*` namespace with Atlassian percentage-based naming fo
 font/size/{percentage}
 ```
 
-- `font/size/50` = 10px (xs, tiny)
-- `font/size/75` = 12px (sm, small)
-- `font/size/100` = 14px (md, body-sm)
-- `font/size/200` = 16px (base, body)
-- `font/size/300` = 18px (lg)
-- `font/size/400` = 20px (xl, title-sm)
-- `font/size/500` = 32px (2xl, heading)
+- `font/size/xs` = 0.625rem (10px, xs, tiny)
+- `font/size/sm` = 0.75rem (12px, sm, small)
+- `font/size/md` = 0.875rem (14px, md, body-sm)
+- `font/size/lg` = 1rem (16px, base, body)
+- `font/size/xl` = 1.125rem (18px, lg)
+- `font/size/2xl` = 1.25rem (20px, xl, title-sm)
+- `font/size/3xl` = 2rem (32px, 2xl, heading)
 
 **Line Height Scale:**
 
@@ -377,16 +477,27 @@ font/weight/{name}
 
 The import script generates descriptions combining:
 
+**For font size tokens (rem):**
+- **Value with unit:** "0.875rem"
+- **Px equivalent:** "14px"
+- **Index reference:** "font.size.md"
+- **Semantic aliases:** "medium", "body-sm"
+- **Category keywords:** "typography"
+
+**Example Output (font):**
+```
+"0.875rem (14px), medium, body-sm, font-size"
+```
+
+**For spacing/sizing/radius tokens (px):**
 - **Value with unit:** "8px"
 - **Index reference:** "space.100"
 - **Semantic aliases:** "base", "standard", "gap"
-- **Rem conversion:** "0.5rem"
 - **Category keywords:** "spacing", "compact", "relaxed"
 
-**Example Output:**
-
+**Example Output (spacing):**
 ```
-"8px, base, space.100, 0.5rem, spacing, standard, default-gap, comfortable"
+"8px, base, space.100, spacing, standard, default-gap, comfortable"
 ```
 
 **Manual Override:** Include `$description` in DTCG to override auto-generation.
@@ -612,7 +723,19 @@ token.setValueForMode(targetModeId, value);
         "value": 8,
         "unit": "px"
       },
-      "$description": "8px, base, space.100, 0.5rem, spacing, standard"
+      "$description": "8px, base, space.100, spacing, standard"
+    }
+  },
+  "font": {
+    "size": {
+      "md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "$description": "0.875rem (14px), medium, body-sm"
+      }
     }
   }
 }
@@ -625,7 +748,8 @@ token.setValueForMode(targetModeId, value);
 **From Token Studio → Figma Variables:**
 
 - Remove intermediate `sizes` references (spaces.1 → {sizes.2})
-- Use direct pixel values in DTCG
+- Font sizes use rem values with px equivalents in descriptions
+- Spacing, sizing, and radius use pixel values for layout stability
 - Old `spaces.X` becomes `space.XXX`
 - Component tokens reference new Atlassian names
 
