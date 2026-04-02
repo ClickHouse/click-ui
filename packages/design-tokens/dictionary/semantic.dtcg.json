@@ -674,7 +674,7 @@
       "$value": "{radius.300}",
       "$description": "Extra-large radius — feature cards, prominent sections"
     },
-    "all": {
+    "full": {
       "$type": "dimension",
       "$value": "{radius.999}",
       "$description": "Fully rounded — pills, capsules, circular elements"
