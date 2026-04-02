@@ -25,9 +25,42 @@ export type { AlertProps } from './components/Alert';
 // Assets (Flags, Logos, Icons)
 export { Flag as Flags } from './components/Assets/Flags/system/Flag';
 export { Logo } from './components/Assets/Logos/system/Logo';
-export { User as ProfileIcon } from './components/Assets/Icons/User';
-export type { FlagName, FlagProps } from './components/Assets/Flags/system/types';
-export type { LogoName, LogoProps } from './components/Assets/Logos/system/types';
+export type {
+  FlagName,
+  FlagProps,
+  LogoName,
+  LogoProps,
+  IconName,
+  PaymentName,
+  PaymentProps,
+} from '@clickhouse/icons';
+
+// Re-export from @clickhouse/icons
+export {
+  IconsLight,
+  IconsDark,
+  LogosLight,
+  LogosDark,
+  FlagsLight,
+  FlagsDark,
+  PaymentsLight,
+  PaymentsDark,
+  resolveAssetName,
+  createAssetResolver,
+  ASSET_NAME_MAPPINGS,
+} from '@clickhouse/icons';
+
+/**
+ * @deprecated Use `User` from '@clickhouse/icons' instead. This alias will be removed in a future version.
+ */
+export { User as ProfileIcon } from '@clickhouse/icons';
+export type {
+  ThemeName,
+  AssetSize,
+  SVGAssetProps,
+  AssetAlias,
+  AssetDeprecatedName,
+} from '@clickhouse/icons';
 
 // AutoComplete
 export { AutoComplete } from './components/AutoComplete';
@@ -164,7 +197,7 @@ export { HoverCard } from './components/HoverCard';
 export { Icon } from './components/Icon';
 export { IconButton } from './components/IconButton';
 export type { IconButtonProps } from './components/IconButton';
-export type { IconName, ImageName } from './components/Icon/Icon.types';
+export type { ImageName } from './components/Icon/Icon.types';
 
 // Label & Link
 export { Label } from './components/Label';
@@ -299,7 +332,7 @@ export { ClickUIProvider, ThemeProvider } from './providers';
 // ================================================
 
 export { THEMES, themes } from './theme/theme.core';
-export type { ThemeName, Theme } from './theme/theme.types';
+export type { Theme } from './theme/theme.types';
 export {
   isValidThemeName,
   getFallbackThemeName,
@@ -313,7 +346,7 @@ export type { InitCUIThemeScriptProps } from './theme/InitCUIThemeScript/InitCUI
 // Global Types
 // ================================================
 
-export type { HorizontalDirection, Orientation, States, AssetSize } from './types';
+export type { HorizontalDirection, Orientation, States } from './types';
 
 // ================================================
 // Deprecated Radix UI Types

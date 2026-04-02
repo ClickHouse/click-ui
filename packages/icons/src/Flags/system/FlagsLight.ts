@@ -30,7 +30,7 @@ import { FlagName } from './types';
 import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
-const FlagsDark: Record<FlagName, ComponentType<SVGAssetProps>> = {
+const FlagsLight: Record<FlagName, ComponentType<SVGAssetProps>> = {
   australia: Australia,
   brazil: Brazil,
   canada: Canada,
@@ -54,4 +54,4 @@ const FlagsDark: Record<FlagName, ComponentType<SVGAssetProps>> = {
   'united-states': United_States,
 };
 
-export default FlagsDark;
+export { FlagsLight };

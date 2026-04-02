@@ -50,8 +50,7 @@ export const generateTypesContent = (sortedComponents, config) => {
   const propsName = config.propsTypeName || config.typeName.replace('Name', 'Props');
 
   return `import type { SVGAttributes } from 'react';
-import type { AssetSize } from '@/types';
-import type { ThemeName } from '@/theme/theme.types';
+import type { AssetSize, ThemeName } from '../../types';
 
 export type ${config.typeName} =
 ${names.join('\n')};
@@ -87,7 +86,7 @@ export const generateRegistryContent = (sortedComponents, config, assetFiles, is
 
 ${imports}
 import { ${config.typeName} } from './types';
-import type { SVGAssetProps } from '@/types';
+import type { SVGAssetProps } from '../../types';
 import type { ComponentType } from 'react';
 
 const ${config.registryName}: Record<

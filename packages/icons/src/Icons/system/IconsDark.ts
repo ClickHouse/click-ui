@@ -348,4 +348,4 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   waves: Waves,
 };
 
-export default IconsDark;
+export { IconsDark };

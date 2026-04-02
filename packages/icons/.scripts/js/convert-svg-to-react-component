@@ -27,28 +27,28 @@ const toPascalCase = (str) => {
 
 const ASSET_TYPES = {
   logos: {
-    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Logos'),
+    dir: path.join(__dirname, '../..', 'src', 'Logos'),
     typeName: 'LogoName',
     propsTypeName: 'LogoProps',
     registryName: 'LogosLight',
     defaultSize: 64,
   },
   icons: {
-    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Icons'),
+    dir: path.join(__dirname, '../..', 'src', 'Icons'),
     typeName: 'IconName',
     propsTypeName: 'IconProps',
     registryName: 'IconsLight',
     defaultSize: 24,
   },
   flags: {
-    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Flags'),
+    dir: path.join(__dirname, '../..', 'src', 'Flags'),
     typeName: 'FlagName',
     propsTypeName: 'FlagProps',
     registryName: 'FlagsLight',
     defaultSize: 30,
   },
   payments: {
-    dir: path.join(__dirname, '../..', 'src', 'components', 'Assets', 'Payments'),
+    dir: path.join(__dirname, '../..', 'src', 'Payments'),
     typeName: 'PaymentName',
     propsTypeName: 'PaymentProps',
     registryName: 'PaymentsLight',
@@ -58,7 +58,10 @@ const ASSET_TYPES = {
 
 const getAssetType = (args) => {
   const typeFlag = args.find(arg => arg && arg.startsWith('--type='));
-
+  if (!typeFlag) {
+    console.error('👹 Oops! --type=<logos|icons|flags|payments> is required');
+    process.exit(1);
+  }
   const type = typeFlag.replace('--type=', '');
 
   if (typeof ASSET_TYPES[type] === 'undefined') {

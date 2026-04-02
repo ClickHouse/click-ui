@@ -79,7 +79,7 @@ import { LogoName } from './types';
 import type { SVGAssetProps } from '@/types';
 import type { ComponentType } from 'react';
 
-const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
+const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
   airbyte: Airbyte,
   alloydb: Alloydb,
   'apache-iceberg': ApacheIceberg,
@@ -152,4 +152,4 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   warpstream: Warpstream,
 };
 
-export default LogosDark;
+export { LogosLight };

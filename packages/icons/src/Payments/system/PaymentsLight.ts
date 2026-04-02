@@ -20,4 +20,4 @@ const PaymentsLight: Record<PaymentName, ComponentType<SVGAssetProps>> = {
   visa: Visa,
 };
 
-export default PaymentsLight;
+export { PaymentsLight };

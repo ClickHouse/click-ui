@@ -5,7 +5,7 @@ import type { HorizontalDirection } from '@/types';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
-import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { Popover_Arrow } from '@clickhouse/icons';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';

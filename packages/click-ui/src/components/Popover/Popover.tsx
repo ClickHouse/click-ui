@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { ReactNode } from 'react';
 import { Icon } from '@/components/Icon';
 import { EmptyButton } from '@/components/EmptyButton';
-import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { Popover_Arrow } from '@clickhouse/icons';
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;

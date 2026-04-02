@@ -119,6 +119,11 @@ jobs:
         if: steps.verify-merge.outputs.is_release == 'true'
         run: yarn install --immutable
 
+      - name: Build icons package
+        if: steps.verify-merge.outputs.is_release == 'true'
+        working-directory: packages/icons
+        run: yarn build
+
       - name: Build package
         if: steps.verify-merge.outputs.is_release == 'true'
         working-directory: packages/click-ui

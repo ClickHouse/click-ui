@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Logo } from './Logo';
-import LogosLight from './LogosLight';
+import { LogosLight } from '@clickhouse/icons';
 
 const meta: Meta<typeof Logo> = {
   component: Logo,

@@ -1,8 +1,8 @@
 import type { SVGAttributes } from 'react';
-import type { AssetSize } from '@/types';
-import type { ThemeName } from '@/theme/theme.types';
+
+export type ThemeName = 'dark' | 'light';
+export type AssetSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export type SVGAssetProps = SVGAttributes<SVGElement> & {
   theme?: ThemeName;
-  size?: AssetSize;
 };

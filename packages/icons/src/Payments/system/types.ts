@@ -1,6 +1,5 @@
 import type { SVGAttributes } from 'react';
-import type { AssetSize } from '@/types';
-import type { ThemeName } from '@/theme/theme.types';
+import type { AssetSize, ThemeName } from '@/types';
 
 export type PaymentName = 'amex' | 'mastercard' | 'paypal' | 'visa';
 

@@ -348,4 +348,4 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   waves: Waves,
 };
 
-export default IconsLight;
+export { IconsLight };
