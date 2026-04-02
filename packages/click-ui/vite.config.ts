@@ -2,11 +2,13 @@ import { BuildOptions, defineConfig, mergeConfig } from 'vite';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import dts from 'vite-plugin-dts';
 import { externalizeDeps } from 'vite-plugin-externalize-deps';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
 const createEntryFileNames = (ext: 'js' | 'cjs') => {
@@ -109,7 +111,7 @@ const viteConfig = defineConfig({
       nodeBuiltins: true,
       optionalDeps: true,
       peerDeps: true,
-      useFile: path.join(process.cwd(), 'package.json'),
+      useFile: path.join(__dirname, 'package.json'),
     }),
     tsconfigPaths(),
     // WARNING: Keep the visualizer last
