@@ -234,5 +234,17 @@ window.addEventListener("message", (event) => {
 
 
     parent.postMessage({ pluginMessage: { type: "GET_COLLECTIONS" } }, "*");
+  } else if (msg.type === "IMPORT_ERROR") {
+    const button = document.querySelector(
+      "button[type=submit]",
+    ) as HTMLButtonElement;
+    const collectionInput = document.getElementById(
+      "collectionInput",
+    ) as HTMLInputElement;
+
+    button.disabled = false;
+    updateCollectionStatus(collectionInput.value);
+
+    alert(`Import failed: ${msg.error}`);
   }
 });
