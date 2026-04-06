@@ -1,10 +1,13 @@
-import { ChangeEvent, InputHTMLAttributes, forwardRef, useId } from 'react';
+import { ChangeEvent, InputHTMLAttributes, ReactNode, forwardRef, useId, useRef } from 'react';
 import { Icon } from '@/components/Icon';
 import {
+  InputEndContent,
+  InputStartContent,
   InputWrapper,
   NumberInputElement,
   WrapperProps,
 } from '@/components/InputWrapper';
+import { mergeRefs } from '@/utils/mergeRefs';
 export interface NumberFieldProps
   extends
     Omit<WrapperProps, 'id' | 'children'>,
@@ -21,6 +24,10 @@ export interface NumberFieldProps
   dir?: 'start' | 'end';
   /** Whether to hide the increment/decrement controls */
   hideControls?: boolean;
+  /** Additional content to the left of the control */
+  startContent?: ReactNode;
+  /** Additional content to the right of the control */
+  endContent?: ReactNode;
 }
 
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
@@ -35,14 +42,24 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       orientation,
       dir,
       hideControls,
+      startContent,
+      endContent,
       ...props
     },
     ref
   ) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const defaultId = useId();
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChangeProp(e.target.value, e);
     };
+
+    const handleStartContentClick: React.MouseEventHandler<HTMLDivElement> = () => {
+      inputRef.current?.focus();
+    };
+
+    const hasStartContent = Boolean(startContent);
+    const hasEndContent = Boolean(loading || endContent);
 
     return (
       <InputWrapper
@@ -53,20 +70,32 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
         orientation={orientation}
         dir={dir}
       >
+        {startContent && (
+          <InputStartContent onClick={handleStartContentClick}>
+            {startContent}
+          </InputStartContent>
+        )}
         <NumberInputElement
-          ref={ref}
+          ref={mergeRefs([inputRef, ref])}
           type="number"
           id={id ?? defaultId}
           disabled={disabled}
           onChange={onChange}
           $hideControls={hideControls}
+          $hasStartContent={hasStartContent}
+          $hasEndContent={hasEndContent}
           {...props}
         />
-        {loading && (
-          <Icon
-            name="loading-animated"
-            size="sm"
-          />
+        {hasEndContent && (
+          <InputEndContent>
+            {endContent ? endContent : null}
+            {loading && (
+              <Icon
+                name="loading-animated"
+                size="sm"
+              />
+            )}
+          </InputEndContent>
         )}
       </InputWrapper>
     );
