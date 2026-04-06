@@ -11,7 +11,10 @@ describe('NumberField', () => {
 
   it('renders a number input', () => {
     const { getByRole } = renderCUI(
-      <NumberField label="Amount" onChange={onChange} />
+      <NumberField
+        label="Amount"
+        onChange={onChange}
+      />
     );
 
     expect(getByRole('spinbutton')).toBeInTheDocument();
@@ -57,7 +60,11 @@ describe('NumberField', () => {
 
   it('renders loading spinner', () => {
     const { getByRole } = renderCUI(
-      <NumberField label="Amount" onChange={onChange} loading />
+      <NumberField
+        label="Amount"
+        onChange={onChange}
+        loading
+      />
     );
 
     expect(getByRole('img', { name: 'loading-animated' })).toBeInTheDocument();

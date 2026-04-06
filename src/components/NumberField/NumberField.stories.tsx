@@ -52,7 +52,10 @@ export const WithEndContent: Story = {
     placeholder: '0',
     hideControls: true,
     endContent: (
-      <Text color="muted" size="sm">
+      <Text
+        color="muted"
+        size="sm"
+      >
         dollars / credits
       </Text>
     ),
@@ -65,7 +68,10 @@ export const WithStartContent: Story = {
     placeholder: '0.00',
     hideControls: true,
     startContent: (
-      <Text color="muted" size="sm">
+      <Text
+        color="muted"
+        size="sm"
+      >
         $
       </Text>
     ),
