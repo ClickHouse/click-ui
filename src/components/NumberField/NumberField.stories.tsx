@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
 import { NumberField, NumberFieldProps } from './NumberField';
 import { Container } from '@/components/Container';
-import { Text } from '@/components/Text/Text';
+import { Text } from '@/components/Text';
 
 const meta: Meta<typeof NumberField> = {
   component: NumberField,
