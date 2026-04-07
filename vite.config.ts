@@ -71,8 +71,6 @@ const buildOptions: BuildOptions = {
         exports: 'named',
       },
     ],
-    // CSS is bundled into a single file per output format by Vite
-    // The file will be named click-ui.css (derived from lib name)
   },
   sourcemap: true,
 };
