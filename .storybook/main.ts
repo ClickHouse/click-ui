@@ -1,24 +1,25 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from '@storybook/react-vite';
 const config: StorybookConfig = {
   core: {
-    disableTelemetry: true
+    disableTelemetry: true,
   },
-  stories: [
-    "./Introduction.stories.tsx",
-    "../src/**/*.stories.@(ts|tsx)",
+  stories: ['./Introduction.stories.tsx', '../src/**/*.stories.@(ts|tsx)'],
+
+  addons: [
+    '@storybook/addon-links', //"@storybook/addon-interactions",
+    'storybook-addon-pseudo-states',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
   ],
 
-  addons: ["@storybook/addon-links", //"@storybook/addon-interactions",
-  "storybook-addon-pseudo-states", "@storybook/addon-a11y", "@storybook/addon-docs"],
-
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
 
-  staticDirs: ["../public"],
+  staticDirs: ['../public'],
   typescript: {
-    reactDocgen: "react-docgen-typescript",
+    reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
       compilerOptions: {
         allowSyntheticDefaultImports: false,
@@ -35,13 +36,14 @@ const config: StorybookConfig = {
     config.plugins = config.plugins || [];
 
     // NOTE: Vite 8 workaround: Remove vite-plugin-externalize-deps from Storybook builds due to plugin use of function externals which Rolldown doesn't support
-    config.plugins = config.plugins.filter(
-      (plugin): plugin is NonNullable<typeof plugin> =>
-        plugin != null &&
-        typeof plugin === 'object' &&
-        'name' in plugin &&
-        plugin.name !== 'vite-plugin-externalize-deps'
-    );
+    config.plugins = config.plugins.filter(plugin => {
+      if (plugin == null || plugin === false) return true;
+      if (Array.isArray(plugin)) return true;
+      if (typeof plugin === 'object' && 'name' in plugin) {
+        return plugin.name !== 'vite-plugin-externalize-deps';
+      }
+      return true;
+    });
 
     return config;
   },
