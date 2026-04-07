@@ -36,22 +36,38 @@ export const copyCssFiles = async (rootDir: string, distDir: string): Promise<vo
   const tempDir = getTempDir(rootDir);
   const srcDir = path.join(rootDir, 'src');
 
-  // Copy processed CSS from temp
+  // Track processed CSS files to detect naming collisions with regular CSS
+  const copiedFromTemp = new Set<string>();
+
+  // Copy processed CSS from temp (generated from .module.css files)
+  // These are processed through postcss-modules with hashed class names
   const tempFiles = await findFiles(tempDir, '**/*.css');
   await Promise.all(
     tempFiles.map(async file => {
       const dest = path.join(distDir, path.relative(tempDir, file));
       await fs.ensureDir(path.dirname(dest));
       await fs.copy(file, dest, { overwrite: true });
+      copiedFromTemp.add(dest);
     })
   );
 
-  // Copy regular CSS from src
+  // Copy regular CSS from src (non-module CSS files)
+  // Throws if there's a naming collision with processed CSS files
   const srcFiles = await findFiles(srcDir, '**/*.css');
   await Promise.all(
     srcFiles.map(async file => {
       if (file.endsWith('.module.css')) return;
       const dest = path.join(distDir, path.relative(srcDir, file));
+
+      // Check for naming collision with processed CSS
+      if (copiedFromTemp.has(dest)) {
+        const relativePath = path.relative(distDir, dest);
+        throw new Error(
+          `CSS naming collision detected: "${relativePath}" exists as both a processed .module.css file and a regular .css file. ` +
+            `Please rename one of them to avoid ambiguity.`
+        );
+      }
+
       await fs.ensureDir(path.dirname(dest));
       await fs.copy(file, dest, { overwrite: true });
     })
