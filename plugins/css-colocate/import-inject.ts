@@ -94,6 +94,10 @@ const insertAtTop = (content: string, codeToInsert: string): string => {
 
 /**
  * Inject CSS imports into component files (e.g., Button/index.js gets import "./Button.css")
+ *
+ * NOTE: This function assumes the CSS filename matches the parent directory name.
+ * For example, components/Button/index.js expects components/Button/Button.css to exist.
+ * Components that don't follow this naming convention will be silently skipped.
  */
 export const injectComponentCss = async (
   distDir: string,
