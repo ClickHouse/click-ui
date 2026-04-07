@@ -2,8 +2,7 @@ import type { Plugin, ResolvedConfig } from 'vite';
 import { preprocessCssModules } from './css-preprocess';
 import { resolveCssModule, loadCssModule } from './virtual-modules';
 import { injectComponentCss, injectRegularCssImports } from './import-inject';
-import { copyCssFiles, getTempDir } from './utils';
-import fs from 'fs-extra';
+import { copyCssFiles } from './utils';
 import path from 'path';
 
 interface TrackedCssImport {
@@ -29,8 +28,6 @@ export const cssColocatePlugin = (): Plugin => {
     apply: 'build',
 
     async buildStart() {
-      // Clean old temp files and pre-process CSS modules
-      await fs.remove(getTempDir(config.root));
       await preprocessCssModules(config.root);
     },
 
