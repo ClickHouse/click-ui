@@ -23,6 +23,13 @@ You're expected to [create a new version](#create-a-new-version-and-changelogs),
 
 Once the artifacts and version bump is completed, the package can be published to npm. Doing all of this manually can be tedious and prone to mistakes, as such, we have a GitHub action that creates a Pull request containing all of this for team review; And once approved, another GitHub action that publishes the package to npm and creates a GitHub release.
 
+> [!NOTE]
+> **Version Format Handling:** The `v` prefix is cosmetic only and appears only in display contexts.
+> - Commit messages include it for readability (e.g., `chore: 🤖 release v1.2.3 (latest)`)
+> - Version extraction removes it (output is `1.2.3` or `1.2.3-rc.1`)
+> - CHANGELOG.md headers never include it (e.g., `## 1.2.3`)
+> - The prefix is used cosmetically in git tags (`v1.2.3`), branch names (`chore/v1.2.0`), and GitHub releases
+
 ### Required admin permissions
 
 The repository administrator has to set correct permissions for changeset workflow to work, namely: GitHub repository workflow permissons and add GitHub actions as a trusted publisher in NPM package settings.

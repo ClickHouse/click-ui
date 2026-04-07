@@ -18,6 +18,7 @@ export type LogoName =
   | 'azure'
   | 'azure-blob-storage'
   | 'azure-event-hub'
+  | 'biglake-metastore'
   | 'bigquery'
   | 'clickhouse'
   | 'cloudflare'

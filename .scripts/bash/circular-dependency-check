@@ -11,11 +11,14 @@ TEMP_OUTPUT=$(mktemp)
 trap 'rm -f "$TEMP_OUTPUT"' EXIT
 
 if command -v yarn &> /dev/null; then
+  # NOTE: Redirect stdin to try prevent command hanging
+  # as a user has reported hanging in macOS (unable replicate
+  # but if issue persists for user remove redirection)
   yarn exec skott "$ENTRY_POINT" \
     --displayMode=file-tree \
     --showCircularDependencies \
     --ignorePattern="$IGNORE_PATTERNS" \
-    --exitCodeOnCircularDependencies=1 > "$TEMP_OUTPUT" 2>&1 || true
+    --exitCodeOnCircularDependencies=1 < /dev/null > "$TEMP_OUTPUT" 2>&1 || true
 else
   echo "👹 Oops! The package skott is missing, have you installed the project dependencies?"
 

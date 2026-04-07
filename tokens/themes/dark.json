@@ -38,6 +38,10 @@
           "danger": {
             "value": "{click.button.basic.color.danger.text.default}",
             "type": "color"
+          },
+          "warning": {
+            "value": "{click.feedback.color.warning.foreground}",
+            "type": "color"
           }
         },
         "stroke": {
@@ -2766,6 +2770,10 @@
               "default": {
                 "value": "{click.global.color.stroke.default}",
                 "type": "color"
+              },
+              "focus": {
+                "value": "{click.global.color.outline.default}",
+                "type": "color"
               }
             }
           },
@@ -2867,6 +2875,10 @@
             "stroke": {
               "default": {
                 "value": "transparent",
+                "type": "color"
+              },
+              "focus": {
+                "value": "{click.global.color.outline.default}",
                 "type": "color"
               }
             }
