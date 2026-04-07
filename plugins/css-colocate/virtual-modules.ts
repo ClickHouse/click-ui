@@ -45,6 +45,5 @@ export async function loadCssModule(
     return `export default {\n  ${exports}\n};`;
   } catch (e: any) {
     ctx.error(`Failed to load CSS module from ${jsonPath}: ${e.message}`);
-    return null;
   }
 }
