@@ -218,11 +218,13 @@
 .button--primary.button--loading::before {
   background: var(--click-button-basic-color-primary-background-loading);
   background-size: 200% 100%;
+  background-repeat: no-repeat;
 }
 
 .button--secondary.button--loading::before {
   background: var(--click-button-basic-color-secondary-background-loading);
   background-size: 200% 100%;
+  background-repeat: no-repeat;
 }
 
 .button--empty.button--loading::before {
@@ -234,6 +236,7 @@
 .button--danger.button--loading::before {
   background: var(--click-button-basic-color-danger-background-loading);
   background-size: 200% 100%;
+  background-repeat: no-repeat;
 }
 
 .button__icon {
