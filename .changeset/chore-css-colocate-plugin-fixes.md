@@ -15,4 +15,16 @@ Components now import their own Web Standard CSS files (.css) directly. When you
 
 **Migration:**
 
-None required! Install the update and your bundler will handle the rest.
+None required for most bundlers! Install the update and your bundler will handle the rest.
+
+**Framework-specific notes:**
+
+- **Next.js**: Next.js restricts global CSS imports from `node_modules` by default. If you encounter the error "Global CSS cannot be imported from within node_modules", add `@clickhouse/click-ui` to your `transpilePackages` configuration in `next.config.js` (available in Next.js 13+):
+
+  ```js
+  module.exports = {
+    transpilePackages: ['@clickhouse/click-ui'],
+  };
+  ```
+
+  See the [Next.js example documentation](docs/examples/nextjs-app-router-with-ssr.md) for complete setup instructions.
