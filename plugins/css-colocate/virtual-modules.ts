@@ -40,7 +40,12 @@ export async function loadCssModule(
   try {
     const json = await fs.readJson(jsonPath);
     const exports = Object.entries(json)
-      .map(([k, v]) => `"${k}": "${v}"`)
+      .map(([k, v]) => {
+        if (typeof v !== 'string') {
+          ctx.warn(`Unexpected non-string value for CSS class "${k}" in ${jsonPath}`);
+        }
+        return `"${k}": "${String(v)}"`;
+      })
       .join(',\n  ');
     return `export default {\n  ${exports}\n};`;
   } catch (e: any) {
