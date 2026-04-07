@@ -151,8 +151,19 @@ This library uses [CSS Modules](https://github.com/css-modules/css-modules) for 
 
 Most modern React frameworks support CSS Modules out of the box, including Next.js, Vite, Create React App, and TanStack Start, with no configuration required.
 
+> [!IMPORTANT]
+> **Next.js apps** must add `@clickhouse/click-ui` to `transpilePackages` configuration (available in Next.js 13+):
+> ```js
+> // next.config.ts
+> module.exports = {
+>   transpilePackages: ['@clickhouse/click-ui'],
+> };
+> ```
+> This is required because Next.js restricts global CSS imports from `node_modules` by default. Transpiling the package allows Next.js to process the CSS through its build pipeline. See the [Next.js example](docs/examples/nextjs-app-router-with-ssr.md) for full setup instructions.
+
 > [!NOTE]
 > We're currently migrating from Styled-Components to CSS Modules. Some components may still use Styled-Components during this transition period.
+
 #### Benefits
 
 CSS Modules align naturally with component-level imports. When you import a component like `Button`, its `Button.module.css` is automatically included. If you don't use the component, neither the JavaScript, or CSS will be bundled in your application's output. Only the necessary stylesheets will be included in the output bundle.
