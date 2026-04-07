@@ -2,6 +2,19 @@
 
 This example demonstrates how to integrate `@clickhouse/click-ui` with Next.js 16 App Router and Server-Side Rendering (SSR).
 
+## Configuration
+
+Before installing Click UI, configure `transpilePackages` (available in Next.js 13+) in your Next.js config `next.config.ts`:
+
+```js
+module.exports = {
+  transpilePackages: ['@clickhouse/click-ui'],
+};
+```
+
+> [!IMPORTANT]
+> The `transpilePackages` option is **required** because Click UI distributes CSS colocated with components. Next.js restricts global CSS imports from `node_modules` by default. Transpiling the package allows Next.js to process the CSS through its build pipeline, preventing the "Global CSS cannot be imported from within node_modules" error.
+
 ## Quick Start
 
 Install the package:
