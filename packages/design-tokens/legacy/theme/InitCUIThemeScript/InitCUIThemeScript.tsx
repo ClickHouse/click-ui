@@ -30,6 +30,7 @@ export const InitCUIThemeScript = ({
     <script
       suppressHydrationWarning
       nonce={nonce}
+      // Safe: storageKey/defaultTheme go through JSON.stringify(), THEMES values are constants
       dangerouslySetInnerHTML={{
         __html: `(function() {
 try {
