@@ -61,7 +61,7 @@ export const useInitialTheme = ({
     }
 
     setMounted(true);
-  }, [storageKey, attribute, theme]);
+  }, [storageKey, theme]);
 
   return {
     theme,
