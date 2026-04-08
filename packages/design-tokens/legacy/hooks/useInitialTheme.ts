@@ -18,7 +18,7 @@ export interface UseThemeParams {
 }
 
 export const useInitialTheme = ({
-  defaultTheme = "light",
+  defaultTheme = THEMES.Light,
   storageKey = CUI_THEME_STORAGE_KEY,
   attribute = THEME_ATTRIBUTE,
 }: UseThemeParams = {}) => {
