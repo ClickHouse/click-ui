@@ -1,4 +1,5 @@
 import { THEME_ATTRIBUTE, getRootElement } from '@clickhouse/design-tokens/legacy/utils';
+import type { ThemeName } from '@clickhouse/design-tokens/legacy/theme';
 
 export { THEME_ATTRIBUTE, getRootElement };
 
@@ -13,7 +14,7 @@ const getDOMElement = (selector: string) => {
   return el;
 };
 
-export const setRootThemeAttribute = (theme: string) => {
+export const setRootThemeAttribute = (theme: ThemeName) => {
   const el = getRootElement();
 
   if (!el) {
