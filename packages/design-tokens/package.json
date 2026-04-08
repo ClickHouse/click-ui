@@ -48,6 +48,12 @@
     "styled-components": "^5.0.0 || ^6.0.0"
   },
   "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
     "styled-components": {
       "optional": true
     }
