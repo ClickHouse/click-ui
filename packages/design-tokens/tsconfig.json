@@ -11,8 +11,9 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "jsx": "react-jsx",
     "noEmit": true
   },
-  "include": ["*.ts", "legacy/**/*.ts"],
+  "include": ["*.ts", "legacy/**/*"],
   "exclude": ["node_modules", "dist"]
 }
