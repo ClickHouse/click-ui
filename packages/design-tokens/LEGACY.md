@@ -93,7 +93,7 @@ import {
   CUI_THEME_STORAGE_KEY,
   THEME_ATTRIBUTE,
   getRootElement,
-} from '@clickhouse/design-tokens/legacy/utils';
+} from "@clickhouse/design-tokens/legacy/utils";
 ```
 
 ## Migration Example
