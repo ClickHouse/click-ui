@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["legacy/**/index.ts"],
+  entry: ["legacy/**/*.ts", "legacy/**/*.tsx"],
   outDir: "dist/legacy",
   format: ["esm", "cjs"],
   dts: true,
@@ -12,8 +12,7 @@ export default defineConfig({
   target: "es2020",
   platform: "neutral",
   esbuildOptions(options) {
-    // NOTE: InitCUIThemeScript.tsx contains JSX syntax
-    options.jsx = "transform";
+    options.jsx = "automatic";
   },
   outExtension({ format }) {
     return {
