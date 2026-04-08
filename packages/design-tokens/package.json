@@ -26,24 +26,44 @@
       "default": "./dist/tokens.css"
     },
     "./legacy": {
-      "types": "./dist/legacy/index.d.ts",
-      "import": "./dist/legacy/index.js",
-      "require": "./dist/legacy/index.cjs"
+      "import": {
+        "types": "./dist/legacy/index.d.ts",
+        "default": "./dist/legacy/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/index.d.cts",
+        "default": "./dist/legacy/index.cjs"
+      }
     },
     "./legacy/hooks": {
-      "types": "./dist/legacy/hooks/index.d.ts",
-      "import": "./dist/legacy/hooks/index.js",
-      "require": "./dist/legacy/hooks/index.cjs"
+      "import": {
+        "types": "./dist/legacy/hooks/index.d.ts",
+        "default": "./dist/legacy/hooks/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/hooks/index.d.cts",
+        "default": "./dist/legacy/hooks/index.cjs"
+      }
     },
     "./legacy/theme": {
-      "types": "./dist/legacy/theme/index.d.ts",
-      "import": "./dist/legacy/theme/index.js",
-      "require": "./dist/legacy/theme/index.cjs"
+      "import": {
+        "types": "./dist/legacy/theme/index.d.ts",
+        "default": "./dist/legacy/theme/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/theme/index.d.cts",
+        "default": "./dist/legacy/theme/index.cjs"
+      }
     },
     "./legacy/utils": {
-      "types": "./dist/legacy/utils/index.d.ts",
-      "import": "./dist/legacy/utils/index.js",
-      "require": "./dist/legacy/utils/index.cjs"
+      "import": {
+        "types": "./dist/legacy/utils/index.d.ts",
+        "default": "./dist/legacy/utils/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/utils/index.d.cts",
+        "default": "./dist/legacy/utils/index.cjs"
+      }
     }
   },
   "peerDependencies": {
