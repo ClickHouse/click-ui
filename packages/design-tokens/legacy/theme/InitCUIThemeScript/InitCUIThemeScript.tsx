@@ -30,7 +30,7 @@ export const InitCUIThemeScript = ({
       dangerouslySetInnerHTML={{
         __html: `(function() {
 try {
-  const theme = localStorage.getItem(${JSON.stringify(storageKey)}) || '${defaultTheme}';
+  const theme = localStorage.getItem(${JSON.stringify(storageKey)}) || ${JSON.stringify(defaultTheme)};
   const dark = '${THEMES.Dark}';
   const light = '${THEMES.Light}';
   let colorScheme = '';
