@@ -4,6 +4,9 @@
 > These exports are **deprecated** and will be removed in a future major version.
 > They are provided only for backward compatibility while migrating consumer apps to CSS variables.
 
+> [!NOTE]
+> The legacy token system was moved from `@clickhouse/click-ui` in commit `37d56f7b`. See [historical files](https://github.com/ClickHouse/click-ui/tree/37d56f7b/packages/click-ui/src/theme) for the original implementation.
+
 ## Quick Start
 
 The host app must have the peer dependency [Styled Components](https://www.npmjs.com/package/styled-components):

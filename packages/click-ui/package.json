@@ -374,7 +374,6 @@
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
     "generate:exports": ".scripts/js/generate-exports",
-    "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",
     "prettify": "yarn format:fix",
