@@ -265,7 +265,15 @@ export type { ToastProps } from './components/Toast';
 // ================================================
 
 export { useToast } from './hooks';
+
+/**
+ * @deprecated These hooks are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
 export { useInitialTheme, useCUITheme } from '@clickhouse/design-tokens/legacy';
+
+/**
+ * @deprecated These types are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
 export type { CUIThemeType, UseThemeParams } from '@clickhouse/design-tokens/legacy';
 
 // Tooltip
@@ -296,9 +304,12 @@ export type {
 export { ClickUIProvider, ThemeProvider } from './providers';
 
 // ================================================
-// Theme
+// Theme (Deprecated)
 // ================================================
 
+/**
+ * @deprecated These theme utilities are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
 export {
   THEMES,
   themes,
@@ -308,6 +319,10 @@ export {
   getDefaultThemeName,
   getAvailableThemeNames,
 } from '@clickhouse/design-tokens/legacy';
+
+/**
+ * @deprecated These types are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
 export type {
   ThemeName,
   Theme,
