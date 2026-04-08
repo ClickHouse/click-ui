@@ -8,10 +8,14 @@ import { CUI_THEME_STORAGE_KEY } from "./localStorage";
 export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
 
 const getDOMElement = (selector: string) => {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
   const el = document.querySelector(selector) as HTMLElement | null;
 
   if (!el) {
-    console.warn(`Missing DOM element <${selector}>!`);
+    console.warn(`Missing DOM element ${selector}!`);
     return null;
   }
 
