@@ -131,6 +131,12 @@ For CSS-in-JS (e.g., styled-components):
 
 For complete details on naming conventions, metadata strategies, and implementation guidelines, see [SPECIFICATION.md](./SPECIFICATION.md).
 
+## Legacy Support
+
+> [!WARNING]
+> Legacy Styled-Component/Object/JavaScript/TypeScript theme exports are **deprecated** and will be removed in a future major version. Migrate to CSS variables when possible!
+> See [LEGACY.md](./LEGACY.md) for backward compatibility details.
+
 # References
 
 - [DTCG](https://www.designtokens.org)
