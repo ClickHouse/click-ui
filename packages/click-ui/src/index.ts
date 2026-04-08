@@ -264,8 +264,9 @@ export type { ToastProps } from './components/Toast';
 // Hooks
 // ================================================
 
-export { useInitialTheme, useToast, useCUITheme } from './hooks';
-export type { CUIThemeType, UseThemeParams } from './hooks';
+export { useToast } from './hooks';
+export { useInitialTheme, useCUITheme } from '@clickhouse/design-tokens/legacy';
+export type { CUIThemeType, UseThemeParams } from '@clickhouse/design-tokens/legacy';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
@@ -298,16 +299,20 @@ export { ClickUIProvider, ThemeProvider } from './providers';
 // Theme
 // ================================================
 
-export { THEMES, themes } from './theme/theme.core';
-export type { ThemeName, Theme } from './theme/theme.types';
 export {
+  THEMES,
+  themes,
+  InitCUIThemeScript,
   isValidThemeName,
   getFallbackThemeName,
   getDefaultThemeName,
   getAvailableThemeNames,
-} from './theme/theme.utils';
-export { InitCUIThemeScript } from './theme/InitCUIThemeScript/InitCUIThemeScript';
-export type { InitCUIThemeScriptProps } from './theme/InitCUIThemeScript/InitCUIThemeScript';
+} from '@clickhouse/design-tokens/legacy';
+export type {
+  ThemeName,
+  Theme,
+  InitCUIThemeScriptProps,
+} from '@clickhouse/design-tokens/legacy';
 
 // ================================================
 // Global Types

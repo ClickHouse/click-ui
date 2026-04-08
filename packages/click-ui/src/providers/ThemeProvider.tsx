@@ -2,10 +2,12 @@ import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
 } from 'styled-components';
-import { THEMES } from '@/theme/theme.core';
-import type { ThemeName } from '@/theme/theme.types';
-import { themes } from '@/theme/theme.core';
-import { isValidThemeName } from '@/theme/theme.utils';
+import {
+  THEMES,
+  themes,
+  isValidThemeName,
+} from '@clickhouse/design-tokens/legacy/theme';
+import type { ThemeName } from '@clickhouse/design-tokens/legacy/theme';
 
 const GlobalStyle = createGlobalStyle`
   body{

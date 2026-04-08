@@ -568,6 +568,7 @@ __metadata:
   resolution: "@clickhouse/click-ui@workspace:packages/click-ui"
   dependencies:
     "@changesets/cli": "npm:^2.29.8"
+    "@clickhouse/design-tokens": "workspace:^"
     "@h6s/calendar": "npm:2.0.1"
     "@playwright/test": "npm:^1.57.0"
     "@radix-ui/react-accordion": "npm:1.2.12"
@@ -652,7 +653,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@clickhouse/design-tokens@workspace:packages/design-tokens":
+"@clickhouse/design-tokens@workspace:^, @clickhouse/design-tokens@workspace:packages/design-tokens":
   version: 0.0.0-use.local
   resolution: "@clickhouse/design-tokens@workspace:packages/design-tokens"
   dependencies:

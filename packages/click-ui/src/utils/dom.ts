@@ -1,4 +1,4 @@
-import { ThemeName } from '@/theme/theme.types';
+import { ThemeName } from '@clickhouse/design-tokens/legacy/theme';
 import { CUI_THEME_STORAGE_KEY } from './localStorage';
 
 export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
