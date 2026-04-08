@@ -21,3 +21,7 @@ Alternatively, consumer apps can import directly from legacy exports path:
 ```typescript
 import { useCUITheme } from '@clickhouse/design-tokens/legacy/hooks';
 ```
+
+**Removed legacy token generator:**
+
+The old Style Dictionary-based token generator (`yarn generate:tokens`) has been removed along with its dependencies (`@tokens-studio/sd-transforms`, `style-dictionary`) and the `tokens/` source directory. The legacy TypeScript theme objects remain available in `@clickhouse/design-tokens/legacy` as frozen snapshots, but the modern CSS-based token system in `packages/design-tokens` is now the only maintained system.
