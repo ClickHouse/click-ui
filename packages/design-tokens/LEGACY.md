@@ -4,6 +4,9 @@
 > These exports are **deprecated** and will be removed in a future major version.
 > They are provided only for backward compatibility while migrating consumer apps to CSS variables.
 
+> [!NOTE]
+> Legacy subpaths are **ESM-only**. Ensure your project is configured for ESM or use a bundler that supports ESM imports.
+
 ## Quick Start
 
 The host app must have the peer dependency [Styled Components](https://www.npmjs.com/package/styled-components):
