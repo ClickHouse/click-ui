@@ -5,7 +5,7 @@
  * Import from '@clickhouse/design-tokens/legacy/hooks' only for backward compatibility.
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { THEMES } from "../theme/theme.core";
 import type { ThemeName } from "../theme/theme.types";
 import { CUI_THEME_STORAGE_KEY } from "../utils/localStorage";
@@ -45,6 +45,10 @@ export const useInitialTheme = ({
   // TODO: Remove mounted once migrated from styled-components
   const [mounted, setMounted] = useState(false);
 
+  // NOTE: Use ref to avoid effect re-firing when theme changes externally
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
+
   useEffect(() => {
     try {
       const stored = localStorage.getItem(storageKey);
@@ -52,7 +56,7 @@ export const useInitialTheme = ({
       if (
         stored &&
         (stored === THEMES.Light || stored === THEMES.Dark) &&
-        stored !== theme
+        stored !== themeRef.current
       ) {
         setTheme(stored);
       }
@@ -61,7 +65,7 @@ export const useInitialTheme = ({
     }
 
     setMounted(true);
-  }, [storageKey, theme]);
+  }, [storageKey]);
 
   return {
     theme,
