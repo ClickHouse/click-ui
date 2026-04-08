@@ -10,7 +10,7 @@ export default defineConfig({
   splitting: false,
   bundle: false,
   target: "es2020",
-  platform: "browser",
+  platform: "neutral",
   esbuildOptions(options) {
     // NOTE: InitCUIThemeScript.tsx contains JSX syntax
     options.jsx = "transform";
