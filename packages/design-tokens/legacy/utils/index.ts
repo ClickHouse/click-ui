@@ -4,9 +4,4 @@
  */
 
 export { CUI_THEME_STORAGE_KEY } from "./localStorage";
-export {
-  THEME_ATTRIBUTE,
-  getRootElement,
-  setRootThemeAttribute,
-  removeRootThemeAttribute,
-} from "./dom";
+export { THEME_ATTRIBUTE, getRootElement } from "./dom";

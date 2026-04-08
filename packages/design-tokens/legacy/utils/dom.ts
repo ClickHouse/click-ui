@@ -3,7 +3,6 @@
  * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
  */
 
-import { ThemeName } from "../theme/theme.types";
 import { CUI_THEME_STORAGE_KEY } from "./localStorage";
 
 export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
@@ -27,24 +26,4 @@ export const getRootElement = () => {
   }
 
   return el;
-};
-
-export const setRootThemeAttribute = (theme: ThemeName) => {
-  const el = getRootElement();
-
-  if (!el) {
-    return;
-  }
-
-  el.setAttribute(THEME_ATTRIBUTE, theme);
-};
-
-export const removeRootThemeAttribute = () => {
-  const el = getDOMElement("html");
-
-  if (!el) {
-    return;
-  }
-
-  el.removeAttribute(THEME_ATTRIBUTE);
 };

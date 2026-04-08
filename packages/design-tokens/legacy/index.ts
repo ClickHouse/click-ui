@@ -21,9 +21,4 @@ export type { CUIThemeType, UseThemeParams } from "./hooks";
 
 // Utils exports
 export { CUI_THEME_STORAGE_KEY } from "./utils/localStorage";
-export {
-  THEME_ATTRIBUTE,
-  getRootElement,
-  setRootThemeAttribute,
-  removeRootThemeAttribute,
-} from "./utils/dom";
+export { THEME_ATTRIBUTE, getRootElement } from "./utils/dom";

@@ -1,7 +1,6 @@
-import { ThemeName } from '@clickhouse/design-tokens/legacy/theme';
-import { CUI_THEME_STORAGE_KEY } from './localStorage';
+import { THEME_ATTRIBUTE, getRootElement } from '@clickhouse/design-tokens/legacy/utils';
 
-export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
+export { THEME_ATTRIBUTE, getRootElement };
 
 const getDOMElement = (selector: string) => {
   const el = document.querySelector(selector) as HTMLElement | null;
@@ -14,17 +13,7 @@ const getDOMElement = (selector: string) => {
   return el;
 };
 
-export const getRootElement = () => {
-  const el = getDOMElement('html');
-
-  if (!el) {
-    return;
-  }
-
-  return el;
-};
-
-export const setRootThemeAttribute = (theme: ThemeName) => {
+export const setRootThemeAttribute = (theme: string) => {
   const el = getRootElement();
 
   if (!el) {
