@@ -3,17 +3,6 @@ import type { ThemeName } from '@clickhouse/design-tokens/legacy/theme';
 
 export { THEME_ATTRIBUTE, getRootElement };
 
-const getDOMElement = (selector: string) => {
-  const el = document.querySelector(selector) as HTMLElement | null;
-
-  if (!el) {
-    console.warn(`Missing DOM element <${selector}>!`);
-    return null;
-  }
-
-  return el;
-};
-
 export const setRootThemeAttribute = (theme: ThemeName) => {
   const el = getRootElement();
 
@@ -25,7 +14,7 @@ export const setRootThemeAttribute = (theme: ThemeName) => {
 };
 
 export const removeRootThemeAttribute = () => {
-  const el = getDOMElement('html');
+  const el = getRootElement();
 
   if (!el) {
     return;
