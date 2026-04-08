@@ -1,6 +1,9 @@
 /**
  * @deprecated This module is deprecated. Use the new CSS variable-based tokens instead.
  * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
+ *
+ * NOTE: Intentionally NOT marked with "use client" — this component is designed to be
+ * server-renderable so the theme script runs immediately on page load before hydration.
  */
 
 import { THEME_ATTRIBUTE } from "../../utils/dom";
