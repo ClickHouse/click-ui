@@ -15,6 +15,9 @@ The host app must have the peer dependency [Styled Components](https://www.npmjs
 yarn add styled-components
 ```
 
+> [!IMPORTANT]
+> The `useCUITheme` hook **requires** `styled-components` and must be called within a `ThemeProvider`. If used outside a `ThemeProvider`, it will throw a runtime error with a helpful message. Ensure your application is wrapped in a `ThemeProvider` from `styled-components` before using this hook.
+
 ## Usage
 
 Replace imports from `@clickhouse/click-ui` with explicit legacy paths.

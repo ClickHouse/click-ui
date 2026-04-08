@@ -13,6 +13,11 @@ export type CUIThemeType = Pick<Theme, "breakpoint" | "global" | "name" | "sizes
 
 export const useCUITheme = (): CUIThemeType => {
   const theme = useTheme();
+  if (!theme || Object.keys(theme).length === 0) {
+    throw new Error(
+      "useCUITheme must be called within a styled-components ThemeProvider. Ensure styled-components is installed and your component is wrapped in a ThemeProvider. See @clickhouse/design-topkens LEGACY.md for more details."
+    );
+  }
   return {
     breakpoint: theme.breakpoint,
     global: theme.global,
