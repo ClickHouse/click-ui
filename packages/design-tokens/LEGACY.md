@@ -85,7 +85,7 @@ import type {
 
 ### Utils (`/legacy/utils`)
 
-```sx
+```tsx
 import {
   CUI_THEME_STORAGE_KEY,
   THEME_ATTRIBUTE,
