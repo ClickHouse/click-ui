@@ -3,8 +3,8 @@
  * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
  */
 
-import { THEMES } from './theme.core';
-import type { ThemeName } from './theme.types';
+import { THEMES } from "./theme.core";
+import type { ThemeName } from "./theme.types";
 
 export const isValidThemeName = (theme: string | undefined): theme is ThemeName =>
   theme !== undefined && ([THEMES.Dark, THEMES.Light] as Array<string>).includes(theme);

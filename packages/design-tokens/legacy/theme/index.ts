@@ -3,13 +3,13 @@
  * Import from '@clickhouse/design-tokens/legacy/theme' only for backward compatibility.
  */
 
-export { THEMES, themes } from './theme.core';
-export type { ThemeName, Theme } from './theme.types';
+export { THEMES, themes } from "./theme.core";
+export type { ThemeName, Theme } from "./theme.types";
 export {
   isValidThemeName,
   getFallbackThemeName,
   getDefaultThemeName,
   getAvailableThemeNames,
-} from './theme.utils';
-export { InitCUIThemeScript } from './InitCUIThemeScript';
-export type { InitCUIThemeScriptProps } from './InitCUIThemeScript';
+} from "./theme.utils";
+export { InitCUIThemeScript } from "./InitCUIThemeScript";
+export type { InitCUIThemeScriptProps } from "./InitCUIThemeScript";

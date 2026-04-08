@@ -3,5 +3,5 @@
  * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
  */
 
-export { InitCUIThemeScript } from './InitCUIThemeScript';
-export type { InitCUIThemeScriptProps } from './InitCUIThemeScript';
+export { InitCUIThemeScript } from "./InitCUIThemeScript";
+export type { InitCUIThemeScriptProps } from "./InitCUIThemeScript";

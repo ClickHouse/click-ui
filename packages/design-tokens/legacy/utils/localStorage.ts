@@ -3,4 +3,4 @@
  * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
  */
 
-export const CUI_THEME_STORAGE_KEY = 'cui-theme';
+export const CUI_THEME_STORAGE_KEY = "cui-theme";

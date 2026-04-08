@@ -2,11 +2,7 @@ import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
 } from 'styled-components';
-import {
-  THEMES,
-  themes,
-  isValidThemeName,
-} from '@clickhouse/design-tokens/legacy/theme';
+import { THEMES, themes, isValidThemeName } from '@clickhouse/design-tokens/legacy/theme';
 import type { ThemeName } from '@clickhouse/design-tokens/legacy/theme';
 
 const GlobalStyle = createGlobalStyle`

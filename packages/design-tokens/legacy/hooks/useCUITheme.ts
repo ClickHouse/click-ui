@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * @deprecated This hook is deprecated and will be removed in a future version.
@@ -6,10 +6,10 @@
  * Import from '@clickhouse/design-tokens/legacy/hooks' only for backward compatibility.
  */
 
-import { useTheme } from 'styled-components';
-import type { Theme } from '../theme/theme.types';
+import { useTheme } from "styled-components";
+import type { Theme } from "../theme/theme.types";
 
-export type CUIThemeType = Pick<Theme, 'breakpoint' | 'global' | 'name' | 'sizes'>;
+export type CUIThemeType = Pick<Theme, "breakpoint" | "global" | "name" | "sizes">;
 
 export const useCUITheme = (): CUIThemeType => {
   const theme = useTheme();

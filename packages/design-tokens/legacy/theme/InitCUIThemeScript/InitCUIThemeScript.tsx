@@ -3,10 +3,10 @@
  * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
  */
 
-import { THEME_ATTRIBUTE } from '../../utils/dom';
-import { CUI_THEME_STORAGE_KEY } from '../../utils/localStorage';
-import { THEMES } from '../theme.core';
-import type { ThemeName } from '../theme.types';
+import { THEME_ATTRIBUTE } from "../../utils/dom";
+import { CUI_THEME_STORAGE_KEY } from "../../utils/localStorage";
+import { THEMES } from "../theme.core";
+import type { ThemeName } from "../theme.types";
 
 export interface InitCUIThemeScriptProps {
   defaultTheme?: ThemeName;
