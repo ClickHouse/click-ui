@@ -672,7 +672,7 @@ __metadata:
     styled-components: ^5.0.0 || ^6.0.0
   peerDependenciesMeta:
     styled-components:
-      optional: false
+      optional: true
   languageName: unknown
   linkType: soft
 
