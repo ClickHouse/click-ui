@@ -1,11 +1,12 @@
 {
   "mode": "pre",
-  "tag": "test",
+  "tag": "rc",
   "initialVersions": {
-    "@clickhouse/click-ui": "0.1.0"
+    "@clickhouse/click-ui": "0.2.0-test.0"
   },
   "changesets": [
     "add-biglake-metastore-logo",
+    "bil-4944-contribute-spendthresholdinput-changes-up-into-click-ui",
     "fix-missing-focus-token-found-in-ts-but-not-dictionary",
     "fix-textcolor-warning"
   ]
