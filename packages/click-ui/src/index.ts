@@ -264,8 +264,17 @@ export type { ToastProps } from './components/Toast';
 // Hooks
 // ================================================
 
-export { useInitialTheme, useToast, useCUITheme } from './hooks';
-export type { CUIThemeType, UseThemeParams } from './hooks';
+export { useToast } from './hooks';
+
+/**
+ * @deprecated These hooks are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
+export { useInitialTheme, useCUITheme } from '@clickhouse/design-tokens/legacy';
+
+/**
+ * @deprecated These types are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
+export type { CUIThemeType, UseThemeParams } from '@clickhouse/design-tokens/legacy';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
@@ -295,19 +304,30 @@ export type {
 export { ClickUIProvider, ThemeProvider } from './providers';
 
 // ================================================
-// Theme
+// Theme (Deprecated)
 // ================================================
 
-export { THEMES, themes } from './theme/theme.core';
-export type { ThemeName, Theme } from './theme/theme.types';
+/**
+ * @deprecated These theme utilities are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
 export {
+  THEMES,
+  themes,
+  InitCUIThemeScript,
   isValidThemeName,
   getFallbackThemeName,
   getDefaultThemeName,
   getAvailableThemeNames,
-} from './theme/theme.utils';
-export { InitCUIThemeScript } from './theme/InitCUIThemeScript/InitCUIThemeScript';
-export type { InitCUIThemeScriptProps } from './theme/InitCUIThemeScript/InitCUIThemeScript';
+} from '@clickhouse/design-tokens/legacy';
+
+/**
+ * @deprecated These types are deprecated. Import from '@clickhouse/design-tokens/legacy' directly for backward compatibility, or migrate to CSS variables.
+ */
+export type {
+  ThemeName,
+  Theme,
+  InitCUIThemeScriptProps,
+} from '@clickhouse/design-tokens/legacy';
 
 // ================================================
 // Global Types

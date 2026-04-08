@@ -374,7 +374,6 @@
     "format": ".scripts/bash/format",
     "format:fix": ".scripts/bash/format --write",
     "generate:exports": ".scripts/js/generate-exports",
-    "generate:tokens": "node ./.scripts/js/generate-tokens.js && yarn format:fix src/theme/tokens/**/*.ts",
     "lint": "eslint src --report-unused-disable-directives",
     "lint:fix": "eslint src --report-unused-disable-directives --fix",
     "prettify": "yarn format:fix",
@@ -392,6 +391,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@clickhouse/design-tokens": "workspace:^",
     "@h6s/calendar": "2.0.1",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-avatar": "1.1.1",
@@ -430,7 +430,6 @@
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
-    "@tokens-studio/sd-transforms": "^1.2.0",
     "@types/eslint-plugin-react-refresh": "^0.4.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^24.10.1",
@@ -460,7 +459,6 @@
     "skott": "^0.35.4",
     "storybook": "^10.1.10",
     "storybook-addon-pseudo-states": "^10.1.10",
-    "style-dictionary": "^5.0.0",
     "stylis": "^4.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.5.3",

@@ -39,13 +39,15 @@ else
   exit 1
 fi
 
-if yarn workspace @clickhouse/click-ui changeset:verify; then
-  echo "✅ Changeset file's included!"
-else
-  echo "⚠️ WARNING: You must include a changeset!"
-  echo "💡 Use the command yarn workspace @clickhouse/click-ui changeset:add"
-  exit 1
-fi
+# TODO: Once chore(monorepo): 🤖 setup changeset handling from root https://github.com/ClickHouse/click-ui/pull/951 is merged
+# uncomment the changeset:verify check!
+# if yarn workspace @clickhouse/click-ui changeset:verify; then
+#   echo "✅ Changeset file's included!"
+# else
+#   echo "⚠️ WARNING: You must include a changeset!"
+#   echo "💡 Use the command yarn workspace @clickhouse/click-ui changeset:add"
+#   exit 1
+# fi
 
 echo "👍 Health check completed."
 echo

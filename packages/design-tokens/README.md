@@ -63,7 +63,7 @@ This package follows the [DTCG (Design Tokens Community Group)](https://www.desi
 | **Spacing**    | Percentage-based with 8px base unit                                                                  | `space/100` (8px), `space/200` (16px)                           |
 | **Radius**     | Percentage-based scale                                                                               | `radius/50` (4px), `radius/100` (8px)                           |
 | **Sizing**     | T-shirt sizes by type                                                                                | `sizing/icon/md` (20px), `sizing/component/lg` (48px)           |
-| **Typography** | `font/{property}/{scale}`                                                                            | `font/size/lg` (16px), `font/weight/semibold` (600)            |
+| **Typography** | `font/{property}/{scale}`                                                                            | `font/size/lg` (16px), `font/weight/semibold` (600)             |
 
 ### Usage Examples
 
@@ -130,6 +130,12 @@ For CSS-in-JS (e.g., styled-components):
 > Components should use semantic tokens (`--cui-color-background-*`). Primitives (`--cui-color-gray-*`) are exposed for theming and debugging but should not appear in component styles.
 
 For complete details on naming conventions, metadata strategies, and implementation guidelines, see [SPECIFICATION.md](./SPECIFICATION.md).
+
+## Legacy Support
+
+> [!WARNING]
+> Legacy Styled-Component/Object/JavaScript/TypeScript theme exports are **deprecated** and will be removed in a future major version. Migrate to CSS variables when possible!
+> See [LEGACY.md](./LEGACY.md) for backward compatibility details.
 
 # References
 

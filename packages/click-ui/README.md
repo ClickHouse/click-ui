@@ -103,23 +103,12 @@ yarn circular-dependency:check
 
 If circular dependencies are found it'll exit with a report showing the affeced files which require your attention.
 
-### Generating design tokens
+### Design Tokens
 
-Tokens are provided by a style directionary sourced from [tokens-studio](https://tokens.studio/).
+Design tokens are provided by the `@clickhouse/design-tokens` package. See the [design-tokens documentation](../design-tokens/) for details on the token system and CSS variable usage.
 
-It's expected to have theme tokens provided externally, e.g. Figma tokens-studio output is stored in the repository and a PR's opened. The assets are stored in the directory [./tokens/themes].
-
-Once [./tokens/themes] files are updated or provided from exernal source, e.g. Figma, we must regenerate the tokens for consumption in the project.
-
-Run the command to generate tokens in the path `./src/theme/tokens/`:
-
-```sh
-yarn generate:tokens
-```
-
-Once done, you must commit the changes.
-
-Learn more about tokens-studio [here](https://documentation.tokens.studio/).
+> [!NOTE]
+> The legacy styled-components theme system has been moved to `@clickhouse/design-tokens/legacy` and is deprecated. Migrate to CSS variables for new projects.
 
 ### Local development
 

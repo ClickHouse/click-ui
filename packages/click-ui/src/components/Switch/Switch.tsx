@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { FormRoot } from '@/components/FormContainer';
 import { GenericLabel } from '@/components/GenericLabel';
 import { SwitchProps } from './Switch.types';
-import type { Theme } from '@/theme/theme.types';
+import type { Theme } from '@clickhouse/design-tokens/legacy/theme';
 
 interface ThumbProps {
   $checked: boolean;

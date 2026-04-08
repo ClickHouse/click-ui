@@ -1,0 +1,57 @@
+/**
+ * @deprecated This module is deprecated. Use the new CSS variable-based tokens instead.
+ * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
+ *
+ * NOTE: Intentionally NOT marked with "use client" — this component is designed to be
+ * server-renderable so the theme script runs immediately on page load before hydration.
+ */
+
+import { THEME_ATTRIBUTE } from "../../utils/dom";
+import { CUI_THEME_STORAGE_KEY } from "../../utils/localStorage";
+import { THEMES } from "../theme.core";
+import type { ThemeName } from "../theme.types";
+
+export interface InitCUIThemeScriptProps {
+  defaultTheme?: ThemeName;
+  storageKey?: string;
+  attribute?: string;
+  nonce?: string;
+}
+
+// TODO: Provide support for system prefers-color-scheme
+
+export const InitCUIThemeScript = ({
+  defaultTheme = THEMES.Light,
+  storageKey = CUI_THEME_STORAGE_KEY,
+  attribute = THEME_ATTRIBUTE,
+  nonce,
+}: InitCUIThemeScriptProps) => {
+  return (
+    <script
+      suppressHydrationWarning
+      nonce={nonce}
+      // Safe: storageKey/defaultTheme go through JSON.stringify(), THEMES values are constants
+      dangerouslySetInnerHTML={{
+        __html: `(function() {
+try {
+  const theme = localStorage.getItem(${JSON.stringify(storageKey)}) || ${JSON.stringify(defaultTheme)};
+  const dark = '${THEMES.Dark}';
+  const light = '${THEMES.Light}';
+  let colorScheme = '';
+
+  if (theme === '${THEMES.Light}') {
+    colorScheme = light;
+  }
+  if (theme === '${THEMES.Dark}') {
+    colorScheme = dark;
+  }
+  if (colorScheme) {
+    document.documentElement.setAttribute(${JSON.stringify(attribute)}, colorScheme);
+  }
+} catch(e){}})();`,
+      }}
+    />
+  );
+};
+
+export default InitCUIThemeScript;

@@ -24,12 +24,69 @@
   "exports": {
     ".": {
       "default": "./dist/tokens.css"
+    },
+    "./legacy": {
+      "import": {
+        "types": "./dist/legacy/index.d.ts",
+        "default": "./dist/legacy/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/index.d.cts",
+        "default": "./dist/legacy/index.cjs"
+      }
+    },
+    "./legacy/hooks": {
+      "import": {
+        "types": "./dist/legacy/hooks/index.d.ts",
+        "default": "./dist/legacy/hooks/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/hooks/index.d.cts",
+        "default": "./dist/legacy/hooks/index.cjs"
+      }
+    },
+    "./legacy/theme": {
+      "import": {
+        "types": "./dist/legacy/theme/index.d.ts",
+        "default": "./dist/legacy/theme/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/theme/index.d.cts",
+        "default": "./dist/legacy/theme/index.cjs"
+      }
+    },
+    "./legacy/utils": {
+      "import": {
+        "types": "./dist/legacy/utils/index.d.ts",
+        "default": "./dist/legacy/utils/index.js"
+      },
+      "require": {
+        "types": "./dist/legacy/utils/index.d.cts",
+        "default": "./dist/legacy/utils/index.cjs"
+      }
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": "^5.0.0 || ^6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "styled-components": {
+      "optional": true
     }
   },
   "scripts": {
-    "build": "yarn tokens:build",
+    "build": "yarn tokens:build && yarn legacy:build",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
+    "legacy:build": "tsup",
     "tokens:build": ".scripts/bash/tokens-build",
     "tokens:build:watch": ".scripts/bash/tokens-build watch",
     "lint": "tz lint",
@@ -39,8 +96,12 @@
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
     "@terrazzo/plugin-css": "^2.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "chokidar-cli": "^3.0.0",
     "prettier": "^3.0.0",
+    "styled-components": "^6.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0"
   }
 }

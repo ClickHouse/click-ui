@@ -132,6 +132,7 @@ space/{percentage}
 ```
 
 Where `index` is percentage of 8px base unit:
+
 - `space.100` = 8px (8 × 1)
 - `space.200` = 16px (8 × 2)
 - `space.400` = 32px (8 × 4)
@@ -144,17 +145,17 @@ space/{size}
 
 **Scale:**
 
-| Primitive | Value | Semantic | Use Case |
-|-----------|-------|----------|----------|
-| `space.0` | 0px | `space.none` | No spacing, reset, compact |
-| `space.50` | 4px | `space.xs` | Extra-small gaps, icon spacing |
-| `space.100` | 8px | `space.sm` | Small gaps, base unit, inline |
-| `space.150` | 12px | `space.md` | Medium gaps, component padding |
-| `space.200` | 16px | `space.lg` | Large gaps, card padding |
-| `space.300` | 24px | `space.xl` | Extra-large, container gaps |
-| `space.400` | 32px | `space.2xl` | 2x large, layout sections |
-| `space.600` | 48px | `space.3xl` | 3x large, major layout gaps |
-| `space.1000` | 80px | `space.4xl` | 4x large, page sections |
+| Primitive    | Value | Semantic     | Use Case                       |
+| ------------ | ----- | ------------ | ------------------------------ |
+| `space.0`    | 0px   | `space.none` | No spacing, reset, compact     |
+| `space.50`   | 4px   | `space.xs`   | Extra-small gaps, icon spacing |
+| `space.100`  | 8px   | `space.sm`   | Small gaps, base unit, inline  |
+| `space.150`  | 12px  | `space.md`   | Medium gaps, component padding |
+| `space.200`  | 16px  | `space.lg`   | Large gaps, card padding       |
+| `space.300`  | 24px  | `space.xl`   | Extra-large, container gaps    |
+| `space.400`  | 32px  | `space.2xl`  | 2x large, layout sections      |
+| `space.600`  | 48px  | `space.3xl`  | 3x large, major layout gaps    |
+| `space.1000` | 80px  | `space.4xl`  | 4x large, page sections        |
 
 **Skipped Values:** 25 (2px), 75 (6px), 250 (20px), 500 (40px), 800 (64px) — consolidated into adjacent semantic sizes.
 
@@ -173,6 +174,7 @@ space/{size}
 ```
 
 **Rationale:** Following Atlassian's two-tier approach:
+
 - **Primitives** (numeric): Hidden from Figma UI, continuous mathematical scale (8px base)
 - **Semantic** (T-shirt): Public-facing tokens designers use, consolidated to 9 essential sizes
 - Continuous primitives allow fine-grained theming; semantic aliases provide designer-friendly names
@@ -207,18 +209,18 @@ Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
 
 **Scale:**
 
-| Primitive | Value | Semantic Token | Use Case |
-|-----------|-------|----------------|----------|
-| `radius.0` | 0px | `radius.none` | Square corners, sharp, angular elements |
-| `radius.25` | 2px | `radius.minimal` | Subtle rounding — data tables, micro UI |
-| `radius.50` | 4px | `radius.sm` | Input fields, chips, tags, compact elements |
-| `radius.75` | 6px | — | (Unused intermediate) |
-| `radius.100` | 8px | `radius.md` | Standard buttons, cards, default components |
-| `radius.150` | 12px | — | (Unused intermediate) |
-| `radius.200` | 16px | `radius.lg` | Containers, modals, dialogs, panels |
-| `radius.300` | 24px | `radius.xl` | Large cards, feature sections, prominent |
-| `radius.400` | 32px | — | (Unused intermediate) |
-| `radius.999` | 999px | `radius.all` | Fully rounded — pills, capsules, circular |
+| Primitive    | Value | Semantic Token   | Use Case                                    |
+| ------------ | ----- | ---------------- | ------------------------------------------- |
+| `radius.0`   | 0px   | `radius.none`    | Square corners, sharp, angular elements     |
+| `radius.25`  | 2px   | `radius.minimal` | Subtle rounding — data tables, micro UI     |
+| `radius.50`  | 4px   | `radius.sm`      | Input fields, chips, tags, compact elements |
+| `radius.75`  | 6px   | —                | (Unused intermediate)                       |
+| `radius.100` | 8px   | `radius.md`      | Standard buttons, cards, default components |
+| `radius.150` | 12px  | —                | (Unused intermediate)                       |
+| `radius.200` | 16px  | `radius.lg`      | Containers, modals, dialogs, panels         |
+| `radius.300` | 24px  | `radius.xl`      | Large cards, feature sections, prominent    |
+| `radius.400` | 32px  | —                | (Unused intermediate)                       |
+| `radius.999` | 999px | `radius.all`     | Fully rounded — pills, capsules, circular   |
 
 **Semantic Aliases:**
 
@@ -235,6 +237,7 @@ Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
 ```
 
 **Rationale:** Following Atlassian's approach with a two-tier system:
+
 - **Primitives** (numeric): Hidden from Figma UI, used as base values for theming
 - **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
 - Allows overriding radius primitives for custom themes while maintaining semantic consistency
@@ -259,6 +262,7 @@ sizing/{category}/{index}
 ```
 
 Where `index` is percentage of 8px base unit:
+
 - `sizing/icon/150` = 12px (8 × 1.5)
 - `sizing/icon/200` = 16px (8 × 2)
 - `sizing/stroke/13` = 1px (8 × 0.125)
@@ -274,20 +278,20 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 
 **Scale:**
 
-| Category | Primitive | Value | Semantic | Use Case |
-|----------|-----------|-------|----------|----------|
-| **Icon** | `icon/150` | 12px | `icon/xs` | Extra-small icons, micro UI |
-| | `icon/200` | 16px | `icon/sm` | Small icons, compact UI |
-| | `icon/250` | 20px | `icon/md` | Medium icons, default |
-| | `icon/300` | 24px | `icon/lg` | Large icons, prominent |
-| | `icon/400` | 32px | `icon/xl` | Extra-large icons, feature |
-| **Component** | `component/300` | 24px | `component/xs` | Tiny buttons, micro inputs |
-| | `component/400` | 32px | `component/sm` | Compact buttons, tight inputs |
-| | `component/500` | 40px | `component/md` | Standard buttons, default inputs |
-| | `component/600` | 48px | `component/lg` | Roomy buttons, relaxed inputs |
-| | `component/800` | 64px | `component/xl` | Spacious buttons, generous inputs |
-| **Stroke** | `stroke/13` | 1px | `stroke/default` | Default borders, thin outlines |
-| | `stroke/25` | 2px | `stroke/emphasis` | Strong borders, selected states |
+| Category      | Primitive       | Value | Semantic          | Use Case                          |
+| ------------- | --------------- | ----- | ----------------- | --------------------------------- |
+| **Icon**      | `icon/150`      | 12px  | `icon/xs`         | Extra-small icons, micro UI       |
+|               | `icon/200`      | 16px  | `icon/sm`         | Small icons, compact UI           |
+|               | `icon/250`      | 20px  | `icon/md`         | Medium icons, default             |
+|               | `icon/300`      | 24px  | `icon/lg`         | Large icons, prominent            |
+|               | `icon/400`      | 32px  | `icon/xl`         | Extra-large icons, feature        |
+| **Component** | `component/300` | 24px  | `component/xs`    | Tiny buttons, micro inputs        |
+|               | `component/400` | 32px  | `component/sm`    | Compact buttons, tight inputs     |
+|               | `component/500` | 40px  | `component/md`    | Standard buttons, default inputs  |
+|               | `component/600` | 48px  | `component/lg`    | Roomy buttons, relaxed inputs     |
+|               | `component/800` | 64px  | `component/xl`    | Spacious buttons, generous inputs |
+| **Stroke**    | `stroke/13`     | 1px   | `stroke/default`  | Default borders, thin outlines    |
+|               | `stroke/25`     | 2px   | `stroke/emphasis` | Strong borders, selected states   |
 
 **Semantic Aliases:**
 
@@ -306,6 +310,7 @@ Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
 ```
 
 **Rationale:** Following Atlassian's two-tier approach:
+
 - **Primitives** (percentage-based): Hidden from Figma UI, aligned to 8px base unit for mathematical consistency
 - **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
 - Icon and component sizes are specific UI sizes that don't follow simple doubling
@@ -337,15 +342,15 @@ Typography uses the `font/*` namespace with T-shirt size naming for sizes:
 font/size/{size}
 ```
 
-| Token | Value | Notes |
-|-------|-------|-------|
-| `font/size/xs` | 10px | Extra small, tiny |
-| `font/size/sm` | 12px | Small |
-| `font/size/md` | 14px | Medium, body-sm |
-| `font/size/lg` | 16px | Large, base, body |
-| `font/size/xl` | 18px | Extra large |
-| `font/size/2xl` | 20px | 2x large, title-sm |
-| `font/size/3xl` | 32px | 3x large, heading |
+| Token           | Value | Notes              |
+| --------------- | ----- | ------------------ |
+| `font/size/xs`  | 10px  | Extra small, tiny  |
+| `font/size/sm`  | 12px  | Small              |
+| `font/size/md`  | 14px  | Medium, body-sm    |
+| `font/size/lg`  | 16px  | Large, base, body  |
+| `font/size/xl`  | 18px  | Extra large        |
+| `font/size/2xl` | 20px  | 2x large, title-sm |
+| `font/size/3xl` | 32px  | 3x large, heading  |
 
 **Line Height Scale:**
 
@@ -654,7 +659,7 @@ token.setValueForMode(targetModeId, value);
 
 1. `primitives.dtcg.json` (color base values) - Creates color primitives with NO scope
 2. `radius.dtcg.json` (radius base values) - Creates radius primitives with NO scope
-3. `sizing.dtcg.json` (sizing base values) - Creates sizing primitives with NO scope  
+3. `sizing.dtcg.json` (sizing base values) - Creates sizing primitives with NO scope
 4. `spacing.dtcg.json` (spacing base values) - Creates spacing primitives with NO scope
 5. `semantic.dtcg.json` (color + radius + sizing + spacing semantic aliases) - References primitives, gets appropriate scopes
 6. `typography.dtcg.json` (dimension and number tokens for font properties) - Standalone, no semantic layer

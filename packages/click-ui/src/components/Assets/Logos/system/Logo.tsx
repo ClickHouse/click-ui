@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react';
 import { useTheme } from 'styled-components';
-import { getFallbackThemeName } from '@/theme/theme.utils';
+import { getFallbackThemeName } from '@clickhouse/design-tokens/legacy/theme';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { LogoName, LogoProps } from './types';
 import {

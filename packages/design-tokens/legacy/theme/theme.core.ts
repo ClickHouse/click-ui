@@ -1,10 +1,15 @@
-import darkTheme from './tokens/variables.dark';
-import lightTheme from './tokens/variables.light';
-import type { Theme, ThemeName } from './theme.types';
+/**
+ * @deprecated This module is deprecated. Use the new CSS variable-based tokens instead.
+ * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
+ */
+
+import darkTheme from "./tokens/variables.dark";
+import lightTheme from "./tokens/variables.light";
+import type { Theme, ThemeName } from "./theme.types";
 
 export const THEMES: Record<Capitalize<ThemeName>, ThemeName> = {
-  Dark: 'dark',
-  Light: 'light',
+  Dark: "dark",
+  Light: "light",
 };
 
 // Note: darkTheme and lightTheme have different

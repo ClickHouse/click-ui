@@ -1,15 +1,20 @@
+/**
+ * @deprecated This module is deprecated. Use the new CSS variable-based tokens instead.
+ * Import from '@clickhouse/design-tokens/legacy' only for backward compatibility.
+ */
+
 const theme = {
   click: {
     accordion: {
       sm: {
         icon: {
           size: {
-            height: '1rem',
-            width: '1rem',
+            height: "1rem",
+            width: "1rem",
           },
         },
         space: {
-          gap: '0.25rem',
+          gap: "0.25rem",
         },
         typography: {
           label: {
@@ -25,12 +30,12 @@ const theme = {
       md: {
         icon: {
           size: {
-            height: '1.25rem',
-            width: '1.25rem',
+            height: "1.25rem",
+            width: "1.25rem",
           },
         },
         space: {
-          gap: '0.25rem',
+          gap: "0.25rem",
         },
         typography: {
           label: {
@@ -46,12 +51,12 @@ const theme = {
       lg: {
         icon: {
           size: {
-            height: '1.5rem',
-            width: '1.5rem',
+            height: "1.5rem",
+            width: "1.5rem",
           },
         },
         space: {
-          gap: '0.25rem',
+          gap: "0.25rem",
         },
         typography: {
           label: {
@@ -67,26 +72,26 @@ const theme = {
       color: {
         default: {
           label: {
-            default: '#161517',
-            hover: 'lch(13.917 1.3308 305.43)',
-            active: '#161517',
+            default: "#ffffff",
+            hover: "rgb(100% 100% 100%)",
+            active: "#ffffff",
           },
           icon: {
-            default: '#161517',
-            hover: 'lch(13.917 1.3308 305.43)',
-            active: '#161517',
+            default: "#ffffff",
+            hover: "rgb(100% 100% 100%)",
+            active: "#ffffff",
           },
         },
         link: {
           label: {
-            default: '#437eef',
-            hover: '#104ec6',
-            active: '#437eef',
+            default: "#faff69",
+            hover: "#feffc2",
+            active: "#faff69",
           },
           icon: {
-            default: '#437eef',
-            hover: 'lch(40.786 66.387 286.32)',
-            active: '#437eef',
+            default: "#faff69",
+            hover: "rgb(99.637% 100% 77.873%)",
+            active: "#faff69",
           },
         },
       },
@@ -94,10 +99,10 @@ const theme = {
     alert: {
       medium: {
         space: {
-          y: '0.75rem',
-          x: '0.75rem',
-          gap: '0',
-          banner: '0.5rem',
+          y: "0.75rem",
+          x: "0.75rem",
+          gap: "0",
+          banner: "0.5rem",
         },
         typography: {
           title: {
@@ -110,20 +115,20 @@ const theme = {
           },
         },
         icon: {
-          height: '1.25rem',
-          width: '1.25rem',
+          height: "1.25rem",
+          width: "1.25rem",
         },
       },
       small: {
         space: {
-          y: '0.5rem',
-          x: '0.75rem',
-          gap: '0',
-          banner: '0.25rem',
+          y: "0.5rem",
+          x: "0.75rem",
+          gap: "0",
+          banner: "0.25rem",
         },
         icon: {
-          height: '1rem',
-          width: '1rem',
+          height: "1rem",
+          width: "1rem",
         },
         typography: {
           title: {
@@ -137,41 +142,41 @@ const theme = {
         },
       },
       radii: {
-        center: '0',
-        end: '0.25rem',
+        center: "0",
+        end: "0.25rem",
       },
       color: {
         background: {
-          default: '#ffffff',
-          success: 'rgb(20% 100% 26.667% / 0.1)',
-          neutral: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-          danger: 'rgb(100% 13.725% 13.725% / 0.1)',
-          warning: 'rgb(100% 46.667% 16.078% / 0.1)',
-          info: 'rgb(26.275% 49.412% 93.725% / 0.1)',
+          default: "#1f1f1c",
+          success: "rgb(20% 100% 26.667% / 0.2)",
+          neutral: "rgb(62.745% 62.745% 62.745% / 0.2)",
+          danger: "rgb(100% 13.725% 13.725% / 0.2)",
+          warning: "rgb(100% 46.667% 16.078% / 0.2)",
+          info: "rgb(26.275% 49.412% 93.725% / 0.2)",
         },
         text: {
-          default: '#696e79',
-          success: '#008a0b',
-          neutral: '#53575f',
-          danger: '#c10000',
-          warning: '#a33c00',
-          info: '#437eef',
+          default: "#b3b6bd",
+          success: "#ccffd0",
+          neutral: "#c0c0c0",
+          danger: "#ffbaba",
+          warning: "#ffb88f",
+          info: "#d0dffb",
         },
         iconBackground: {
-          default: '#ffffff',
-          success: 'rgb(20% 100% 26.667% / 0)',
-          neutral: 'rgb(41.176% 43.137% 47.451% / 0)',
-          danger: 'rgb(100% 13.725% 13.725% / 0)',
-          warning: 'rgb(100% 46.667% 16.078% / 0)',
-          info: 'rgb(26.275% 49.412% 93.725% / 0)',
+          default: "#1f1f1c",
+          success: "rgb(20% 100% 26.667% / 0)",
+          neutral: "rgb(62.745% 62.745% 62.745% / 0)",
+          danger: "rgb(100% 13.725% 13.725% / 0)",
+          warning: "rgb(100% 46.667% 16.078% / 0)",
+          info: "rgb(26.275% 49.412% 93.725% / 0)",
         },
         iconForeground: {
-          default: '#696e79',
-          success: 'lch(49.786 70.246 135.31 / 0.75)',
-          neutral: 'lch(36.838 5.2307 266.96 / 0.75)',
-          danger: 'lch(41.001 86.638 40.858 / 0.75)',
-          warning: 'lch(40.227 66.602 51.059 / 0.75)',
-          info: 'lch(53.426 64.605 278.98 / 0.75)',
+          default: "#b3b6bd",
+          success: "lch(95.558 28.893 143.93 / 0.75)",
+          neutral: "lch(77.704 0 none / 0.75)",
+          danger: "lch(82.069 27.695 22.026 / 0.75)",
+          warning: "lch(80.892 39.042 53.918 / 0.75)",
+          info: "lch(88.343 15.514 266.4 / 0.75)",
         },
       },
     },
@@ -198,38 +203,38 @@ const theme = {
       },
       size: {
         label: {
-          width: '1.5rem',
+          width: "1.5rem",
         },
-        width: '1.5rem',
-        height: '1.5rem',
+        width: "1.5rem",
+        height: "1.5rem",
       },
       radii: {
-        all: '9999px',
+        all: "9999px",
       },
       color: {
         background: {
-          default: '#696e79',
-          hover: '#9a9ea7',
-          active: '#9a9ea7',
+          default: "#808691",
+          hover: "#b3b6bd",
+          active: "#b3b6bd",
         },
         text: {
-          default: '#ffffff',
-          hover: '#ffffff',
-          active: '#ffffff',
+          default: "#1f1f1c",
+          hover: "#1f1f1c",
+          active: "#1f1f1c",
         },
       },
     },
     badge: {
       space: {
         md: {
-          x: '0.75rem',
-          y: '0.125rem',
-          gap: '0.25rem',
+          x: "0.75rem",
+          y: "0.125rem",
+          gap: "0.25rem",
         },
         sm: {
-          x: '0.5rem',
-          y: '0.1563rem',
-          gap: '0.125rem',
+          x: "0.5rem",
+          y: "0.1563rem",
+          gap: "0.125rem",
         },
       },
       typography: {
@@ -245,100 +250,100 @@ const theme = {
         },
       },
       radii: {
-        all: '9999px',
+        all: "9999px",
       },
-      stroke: '1px',
+      stroke: "1px",
       icon: {
         md: {
           size: {
-            height: '0.75rem',
-            width: '0.75rem',
+            height: "0.75rem",
+            width: "0.75rem",
           },
         },
         sm: {
           size: {
-            height: '0.625rem',
-            width: '0.625rem',
+            height: "0.625rem",
+            width: "0.625rem",
           },
         },
       },
       opaque: {
         color: {
           background: {
-            default: '#f6f7fa',
-            success: 'rgb(20% 100% 26.667% / 0.1)',
-            neutral: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-            danger: 'rgb(100% 13.725% 13.725% / 0.1)',
-            disabled: '#dfdfdf',
-            info: 'rgb(26.275% 49.412% 93.725% / 0.1)',
-            warning: 'rgb(100% 46.667% 16.078% / 0.1)',
+            default: "#1f1f1c",
+            success: "rgb(20% 100% 26.667% / 0.2)",
+            neutral: "rgb(62.745% 62.745% 62.745% / 0.2)",
+            danger: "rgb(100% 13.725% 13.725% / 0.2)",
+            disabled: "#414141",
+            info: "rgb(26.275% 49.412% 93.725% / 0.2)",
+            warning: "rgb(100% 46.667% 16.078% / 0.2)",
           },
           text: {
-            default: '#696e79',
-            success: '#008a0b',
-            neutral: '#53575f',
-            danger: '#c10000',
-            disabled: '#a0a0a0',
-            info: '#437eef',
-            warning: '#a33c00',
+            default: "#b3b6bd",
+            success: "#ccffd0",
+            neutral: "#c0c0c0",
+            danger: "#ffbaba",
+            disabled: "#808080",
+            info: "#d0dffb",
+            warning: "#ffb88f",
           },
           stroke: {
-            default: '#e6e7e9',
-            success: 'rgb(20% 100% 26.667% / 0.05)',
-            neutral: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-            danger: 'rgb(100% 13.725% 13.725% / 0.05)',
-            disabled: 'rgb(83.078% 83.078% 83.078%)',
-            info: 'rgb(26.275% 49.412% 93.725% / 0.05)',
-            warning: 'rgb(100% 46.667% 16.078% / 0.05)',
+            default: "#323232",
+            success: "rgb(20% 100% 26.667% / 0.1)",
+            neutral: "rgb(62.745% 62.745% 62.745% / 0.1)",
+            danger: "rgb(100% 22.353% 22.353% / 0.2)",
+            disabled: "rgb(24.216% 24.216% 24.216%)",
+            info: "rgb(26.275% 49.412% 93.725% / 0.1)",
+            warning: "rgb(100% 46.667% 16.078% / 0.1)",
           },
         },
       },
       solid: {
         color: {
           background: {
-            default: '#a0a0a0',
-            success: '#008a0b',
-            neutral: '#606060',
-            danger: '#c10000',
-            disabled: '#dfdfdf',
-            info: '#104ec6',
-            warning: '#d64f00',
+            default: "#c0c0c0",
+            success: "#99ffa1",
+            neutral: "#c0c0c0",
+            danger: "#ff9898",
+            disabled: "#414141",
+            info: "#a1bef7",
+            warning: "#ff9457",
           },
           text: {
-            default: '#ffffff',
-            success: '#ffffff',
-            neutral: '#ffffff',
-            danger: '#ffffff',
-            disabled: '#a0a0a0',
-            info: '#ffffff',
-            warning: '#ffffff',
+            default: "#1f1f1c",
+            success: "#1f1f1c",
+            neutral: "#1f1f1c",
+            danger: "#1f1f1c",
+            disabled: "#808080",
+            info: "#1f1f1c",
+            warning: "#1f1f1c",
           },
           stroke: {
-            default: '#e6e7e9',
-            success: 'rgb(20% 100% 26.667% / 0.05)',
-            neutral: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-            danger: 'rgb(100% 13.725% 13.725% / 0.05)',
-            disabled: 'rgb(83.078% 83.078% 83.078%)',
-            info: 'rgb(26.275% 49.412% 93.725% / 0.05)',
-            warning: 'rgb(100% 46.667% 16.078% / 0.05)',
+            default: "rgb(19.608% 19.608% 19.608% / 0.1)",
+            success: "rgb(20% 100% 26.667% / 0.1)",
+            neutral: "rgb(62.745% 62.745% 62.745% / 0.1)",
+            danger: "rgb(100% 22.353% 22.353% / 0.2)",
+            disabled: "rgb(24.216% 24.216% 24.216%)",
+            info: "rgb(26.275% 49.412% 93.725% / 0.1)",
+            warning: "rgb(100% 46.667% 16.078% / 0.1)",
           },
         },
       },
     },
     bigStat: {
       space: {
-        all: '1rem',
+        all: "1rem",
         sm: {
-          gap: '0',
+          gap: "0",
         },
         lg: {
-          gap: '0.5rem',
+          gap: "0.5rem",
         },
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
-      stroke: '1px',
+      stroke: "1px",
       typography: {
         lg: {
           label: {
@@ -371,35 +376,35 @@ const theme = {
       },
       color: {
         stroke: {
-          default: '#e6e7e9',
-          muted: '#e6e7e9',
-          danger: '#c10000',
+          default: "#323232",
+          muted: "#323232",
+          danger: "#ffbaba",
         },
         background: {
-          default: '#ffffff',
-          muted: '#f6f7fa',
+          default: "#1f1f1c",
+          muted: "#282828",
         },
         label: {
-          default: '#696e79',
-          muted: '#696e79',
-          danger: '#c10000',
+          default: "#b3b6bd",
+          muted: "#b3b6bd",
+          danger: "#ffbaba",
         },
         title: {
-          default: 'lch(11.126 1.374 305.43)',
-          muted: 'lch(11.126 1.374 305.43)',
+          default: "rgb(97.5% 97.5% 97.5%)",
+          muted: "rgb(97.5% 97.5% 97.5%)",
         },
       },
     },
     button: {
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       basic: {
         space: {
-          x: '1rem',
-          y: '0.2813rem',
-          gap: '0.5rem',
-          group: '0.5rem',
+          x: "1rem",
+          y: "0.2813rem",
+          gap: "0.5rem",
+          group: "0.5rem",
         },
         typography: {
           label: {
@@ -425,98 +430,98 @@ const theme = {
         },
         size: {
           icon: {
-            height: '0.9688rem',
-            all: '0.9688rem',
-            width: '0.9688rem',
+            height: "0.9688rem",
+            all: "0.9688rem",
+            width: "0.9688rem",
           },
         },
         color: {
           primary: {
             background: {
-              default: '#302e32',
-              hover: 'lch(29.47 4.1845 266.96)',
-              active: '#161517',
-              disabled: '#dfdfdf',
+              default: "#faff69",
+              hover: "rgb(98.627% 100% 58.824%)",
+              active: "rgb(90.686% 92.5% 38.088%)",
+              disabled: "#414141",
               loading:
-                'linear-gradient(90deg, rgb(76, 76, 76, 0.1) 0%, rgb(76, 76, 76) 100%)',
-            },
-            stroke: {
-              default: '#302e32',
-              hover: 'lch(29.47 4.1845 266.96)',
-              active: '#161517',
-              disabled: '#dfdfdf',
+                "linear-gradient(90deg, rgb(206, 211, 84, 0.1) 0%, rgb(206, 211, 84) 100%)",
             },
             text: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#1f1f1c",
+              hover: "#1f1f1c",
+              active: "#1f1f1c",
+              disabled: "#808080",
+            },
+            stroke: {
+              default: "#faff69",
+              hover: "#faff69",
+              active: "rgb(82.978% 84.638% 34.851%)",
+              disabled: "#414141",
             },
           },
           secondary: {
             background: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: '#f6f7fa',
-              active: 'lch(95.274 1.5364 271.98)',
-              disabled: '#dfdfdf',
+              default: "#1f1f1c",
+              hover: "#282828",
+              active: "rgb(19.902% 19.902% 19.902%)",
+              disabled: "#414141",
               loading:
-                'linear-gradient(90deg, rgb(232, 233, 235, 0.1) 0%, rgb(232, 233, 235) 100%)',
+                "linear-gradient(90deg, rgb(48, 48, 43, 0.1) 0%, rgb(48, 48, 43) 100%)",
             },
             stroke: {
-              default: '#e6e7e9',
-              hover: '#e6e7e9',
-              active: '#cccfd3',
-              disabled: '#dfdfdf',
+              default: "#414141",
+              hover: "#53575f",
+              active: "rgb(22.882% 22.137% 23.627%)",
+              disabled: "#414141",
             },
             text: {
-              default: '#161517',
-              hover: '#161517',
-              active: '#161517',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#808080",
             },
           },
           danger: {
-            text: {
-              default: '#c10000',
-              hover: '#c10000',
-              active: '#c10000',
-              disabled: '#a0a0a0',
-            },
             background: {
-              default: 'rgb(100% 13.725% 13.725% / 0.1)',
-              hover: 'rgb(100% 13.725% 13.725% / 0.2)',
-              active: 'rgb(100% 13.725% 13.725% / 0.3)',
-              disabled: '#dfdfdf',
+              default: "rgb(100% 13.725% 13.725% / 0.2)",
+              hover: "rgb(100% 13.725% 13.725% / 0.3)",
+              active: "rgb(100% 13.725% 13.725% / 0.45)",
+              disabled: "#414141",
               loading:
-                'linear-gradient(90deg, rgba(255, 211, 211, 0.1) 0%, rgb(255, 211, 211) 100%)',
+                "linear-gradient(90deg, rgb(93, 45, 42, 0.1) 0%, rgb(93, 45, 42) 100%)",
+            },
+            text: {
+              default: "#ffbaba",
+              hover: "#ffbaba",
+              active: "#ffbaba",
+              disabled: "#808080",
             },
             stroke: {
-              default: 'rgb(100% 13.725% 13.725% / 0.1)',
-              hover: 'rgb(100% 13.725% 13.725% / 0.05)',
-              active: 'rgb(100% 13.725% 13.725% / 0.05)',
-              disabled: '#dfdfdf',
+              default: "rgb(100% 22.353% 22.353% / 0.2)",
+              hover: "rgb(100% 13.725% 13.725% / 0.05)",
+              active: "rgb(100% 13.725% 13.725% / 0.05)",
+              disabled: "#414141",
             },
           },
           empty: {
             text: {
-              default: '#437eef',
-              hover: '#104ec6',
-              active: '#437eef',
-              disabled: '#a0a0a0',
+              default: "#faff69",
+              hover: "#feffc2",
+              active: "#faff69",
+              disabled: "#a0a0a0",
             },
             background: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: '#f6f7fa',
-              active: 'rgba(0, 0, 0, 0)',
-              disabled: 'rgba(0, 0, 0, 0)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "#282828",
+              active: "rgba(0, 0, 0, 0)",
+              disabled: "rgba(0, 0, 0, 0)",
               loading:
-                'linear-gradient(90deg, rgba(240, 242, 248, 0.1) 0%, rgb(240, 242, 248) 100%)',
+                "linear-gradient(90deg, rgb(50, 51, 27, 0.1) 0%, rgb(50, 51, 27, 0.5) 100%)",
             },
             stroke: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: 'rgba(0, 0, 0, 0)',
-              active: 'rgba(0, 0, 0, 0)',
-              disabled: 'rgba(0, 0, 0, 0)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "rgba(0, 0, 0, 0)",
+              active: "rgba(0, 0, 0, 0)",
+              disabled: "rgba(0, 0, 0, 0)",
             },
           },
         },
@@ -524,138 +529,138 @@ const theme = {
       iconButton: {
         default: {
           space: {
-            x: '0.4375rem',
-            y: '0.4375rem',
+            x: "0.4375rem",
+            y: "0.4375rem",
           },
         },
         size: {
-          small: '0.75rem',
-          medium: '1rem',
-          large: '1.25rem',
+          small: "0.75rem",
+          medium: "1rem",
+          large: "1.25rem",
         },
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         sm: {
           space: {
-            x: '0.25rem',
-            y: '0.25rem',
+            x: "0.25rem",
+            y: "0.25rem",
           },
         },
         xs: {
           space: {
-            x: '0',
-            y: '0',
+            x: "0",
+            y: "0",
           },
         },
         color: {
           primary: {
             background: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: '#f6f7fa',
-              active: 'rgb(86.824% 87.176% 88.235%)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "#282828",
+              active: "rgb(14.118% 14.118% 14.118%)",
             },
             stroke: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: '#f6f7fa',
-              active: 'rgb(86.824% 87.176% 88.235%)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "#282828",
+              active: "rgb(14.118% 14.118% 14.118%)",
             },
             text: {
-              default: '#161517',
-              hover: '#161517',
-              active: '#161517',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
             },
           },
           secondary: {
             background: {
-              default: '#302e32',
-              hover: 'lch(29.47 4.1845 266.96)',
-              active: 'lch(6.5908 1.3668 305.43)',
+              default: "#faff69",
+              hover: "rgb(98.627% 100% 58.824%)",
+              active: "rgb(86.152% 87.875% 36.184%)",
             },
             stroke: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: 'lch(29.47 4.1845 266.96)',
-              active: 'lch(6.5908 1.3668 305.43)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "rgb(98.627% 100% 58.824%)",
+              active: "rgb(86.152% 87.875% 36.184%)",
             },
             text: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
+              default: "#1f1f1c",
+              hover: "#1f1f1c",
+              active: "#1f1f1c",
             },
           },
           disabled: {
             background: {
-              default: '#dfdfdf',
+              default: "#414141",
             },
             text: {
-              default: '#a0a0a0',
+              default: "#808080",
             },
           },
           danger: {
             background: {
-              default: 'rgb(100% 13.725% 13.725% / 0.1)',
-              hover: 'rgb(100% 13.725% 13.725% / 0.2)',
-              active: 'rgb(100% 13.725% 13.725% / 0.3)',
+              default: "rgb(100% 13.725% 13.725% / 0.2)",
+              hover: "#ff9898",
+              active: "#c10000",
             },
             text: {
-              default: '#c10000',
-              hover: '#c10000',
-              active: '#c10000',
+              default: "#ffbaba",
+              hover: "#ffbaba",
+              active: "#ffbaba",
             },
             stroke: {
-              default: 'rgb(100% 13.725% 13.725% / 0.1)',
-              hover: 'rgb(100% 13.725% 13.725% / 0.2)',
-              active: 'rgb(100% 13.725% 13.725% / 0.3)',
+              default: "rgb(100% 13.725% 13.725% / 0.2)",
+              hover: "rgb(100% 13.725% 13.725% / 0.3)",
+              active: "rgb(100% 13.725% 13.725% / 0.45)",
             },
           },
           ghost: {
             background: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: 'rgba(0, 0, 0, 0)',
-              active: 'rgb(0% 0% 0% / 0)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "rgba(0, 0, 0, 0)",
+              active: "rgb(0% 0% 0% / 0)",
             },
             stroke: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: 'rgba(0, 0, 0, 0)',
-              active: 'rgba(0, 0, 0, 0)',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "rgba(0, 0, 0, 0)",
+              active: "rgba(0, 0, 0, 0)",
             },
             text: {
-              default: '#696e79',
-              hover: '#161517',
-              active: '#161517',
+              default: "#b3b6bd",
+              hover: "#ffffff",
+              active: "#ffffff",
             },
           },
           info: {
             background: {
-              default: 'rgb(26.275% 49.412% 93.725% / 0.1)',
-              hover: '#d0dffb',
-              active: '#a1bef7',
+              default: "rgb(26.275% 49.412% 93.725% / 0.2)",
+              hover: "#1d64ec",
+              active: "#437eef",
             },
             text: {
-              default: '#437eef',
-              hover: '#437eef',
-              active: '#437eef',
+              default: "#d0dffb",
+              hover: "#d0dffb",
+              active: "#d0dffb",
             },
             stroke: {
-              default: 'rgb(26.275% 49.412% 93.725% / 0.1)',
-              hover: '#d0dffb',
-              active: '#a1bef7',
+              default: "rgb(26.275% 49.412% 93.725% / 0.2)",
+              hover: "#1d64ec",
+              active: "#437eef",
             },
           },
         },
       },
-      stroke: '1px',
+      stroke: "1px",
       split: {
         icon: {
           space: {
-            y: '0.4375rem',
-            x: '0.3438rem',
+            y: "0.4375rem",
+            x: "0.3438rem",
           },
         },
         space: {
-          x: '1rem',
-          y: '0.2813rem',
-          gap: '0.5rem',
+          x: "1rem",
+          y: "0.2813rem",
+          gap: "0.5rem",
         },
         typography: {
           label: {
@@ -680,86 +685,86 @@ const theme = {
           },
         },
         primary: {
-          divide: {
-            default: 'lch(23.301 2.6341 306.08)',
-            active: 'lch(16.375 2.3568 306.08)',
-            hover: 'lch(33.055 3.2737 266.96)',
-            disabled: 'lch(75.5 0 none)',
-          },
           background: {
             main: {
-              default: '#302e32',
-              hover: 'lch(26.965 3.8288 266.96)',
-              active: 'lch(6.348 1.3164 305.43)',
-              disabled: '#dfdfdf',
+              default: "#faff69",
+              hover: "rgb(98.627% 100% 58.824%)",
+              active: "rgb(82.978% 84.638% 34.851%)",
+              disabled: "rgb(23.324% 23.324% 23.324%)",
             },
             action: {
-              default: '#161517',
-              hover: 'lch(25.617 3.6374 266.96)',
-              active: 'lch(3.4689 0.71935 305.43)',
-              disabled: 'lch(84.382 0 none)',
+              default: "rgb(88.235% 90% 37.059%)",
+              hover: "rgb(90.737% 92% 54.118%)",
+              active: "rgb(73.021% 74.481% 30.669%)",
+              disabled: "rgb(20.525% 20.525% 20.525%)",
             },
           },
           text: {
-            default: '#ffffff',
-            hover: '#ffffff',
-            active: '#ffffff',
-            disabled: '#a0a0a0',
+            default: "#1f1f1c",
+            hover: "#1f1f1c",
+            active: "#1f1f1c",
+            disabled: "#808080",
           },
           stroke: {
-            default: 'rgba(0, 0, 0, 0)',
-            hover: 'rgba(0, 0, 0, 0)',
-            active: 'rgba(0, 0, 0, 0)',
-            disabled: 'rgba(0, 0, 0, 0)',
+            default: "rgba(0, 0, 0, 0)",
+            hover: "rgba(0, 0, 0, 0)",
+            active: "rgba(0, 0, 0, 0)",
+            disabled: "rgba(0, 0, 0, 0)",
+          },
+          divide: {
+            default: "rgb(85.784% 87.5% 36.029%)",
+            hover: "rgb(86.299% 87.5% 51.471%)",
+            active: "rgb(72.606% 74.058% 30.495%)",
+            disabled: "rgb(21.341% 21.341% 21.341%)",
           },
         },
         secondary: {
           divide: {
-            default: 'lch(92.029 1.0472 265.86)',
-            hover: 'lch(92.449 0.99207 265.86)',
-            active: '#cccfd3',
-            disabled: 'lch(75.5 0 none)',
+            default: "#414141",
+            hover: "#414141",
+            active: "rgb(23.653% 22.916% 24.391%)",
+            disabled: "#414141",
           },
           background: {
             main: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: '#f6f7fa',
-              active: 'lch(95.274 1.5364 271.98)',
-              disabled: '#dfdfdf',
+              default: "#1f1f1c",
+              hover: "#282828",
+              active: "rgb(19.902% 19.902% 19.902%)",
+              disabled: "#414141",
             },
             action: {
-              default: '#f6f7fa',
-              hover: 'lch(94.788 1.5286 271.98)',
-              active: 'lch(92.892 1.498 271.98)',
-              disabled: 'lch(84.382 0 none)',
+              default: "#282828",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "rgb(20.703% 20.703% 20.703%)",
+              disabled: "rgb(22.158% 22.158% 22.158%)",
             },
           },
           text: {
-            default: '#161517',
-            hover: '#161517',
-            active: '#161517',
-            disabled: '#a0a0a0',
+            default: "#ffffff",
+            hover: "#ffffff",
+            active: "#ffffff",
+            disabled: "#808080",
           },
           stroke: {
-            default: '#e6e7e9',
-            hover: '#e6e7e9',
-            active: '#cccfd3',
-            disabled: 'rgba(0, 0, 0, 0)',
+            default: "#414141",
+            hover: "#414141",
+            active: "rgb(23.653% 22.916% 24.391%)",
+            disabled: "rgba(0, 0, 0, 0)",
           },
         },
       },
       mobile: {
         button: {
           space: {
-            x: '0.75rem',
-            y: '0.5rem',
-            gap: '0.5rem',
+            x: "0.75rem",
+            y: "0.5rem",
+            gap: "0.5rem",
           },
         },
         basic: {
           size: {
             icon: {
-              all: '1.25rem',
+              all: "1.25rem",
             },
           },
         },
@@ -768,14 +773,14 @@ const theme = {
         radii: {
           button: {
             default: {
-              all: '2px',
+              all: "2px",
             },
             borderless: {
-              all: '0.25rem',
+              all: "0.25rem",
             },
           },
           panel: {
-            all: '0.25rem',
+            all: "0.25rem",
           },
         },
         typography: {
@@ -803,55 +808,55 @@ const theme = {
         space: {
           panel: {
             default: {
-              x: '3px',
-              y: '3px',
-              gap: '3px',
+              x: "3px",
+              y: "3px",
+              gap: "3px",
             },
             borderless: {
-              x: '0',
-              y: '0',
-              gap: '0.25rem',
+              x: "0",
+              y: "0",
+              gap: "0.25rem",
             },
           },
           button: {
             default: {
-              y: '1.5px',
-              x: '0.75rem',
+              y: "1.5px",
+              x: "0.75rem",
             },
             borderless: {
-              y: '5.5px',
-              x: '1rem',
+              y: "5.5px",
+              x: "1rem",
             },
           },
         },
         color: {
           background: {
-            default: 'rgba(0, 0, 0, 0)',
-            hover: '#f6f7fa',
-            active: 'lch(95.274 1.5364 271.98)',
-            disabled: 'rgba(0, 0, 0, 0)',
-            'disabled-active': 'lch(76.219 1.2291 271.98)',
-            panel: 'rgba(0, 0, 0, 0)',
+            default: "rgba(0, 0, 0, 0)",
+            hover: "#282828",
+            active: "#414141",
+            disabled: "rgba(0, 0, 0, 0)",
+            "disabled-active": "lch(0 0 none / 0)",
+            panel: "rgba(0, 0, 0, 0)",
           },
           text: {
-            default: '#505050',
-            hover: '#505050',
-            active: '#161517',
-            disabled: '#a0a0a0',
-            'disabled-active': '#a0a0a0',
+            default: "#c0c0c0",
+            hover: "#c0c0c0",
+            active: "#ffffff",
+            disabled: "#414141",
+            "disabled-active": "#808080",
           },
           stroke: {
-            default: 'rgba(0, 0, 0, 0)',
-            hover: 'rgba(0, 0, 0, 0)',
-            active: 'rgba(0, 0, 0, 0)',
-            disabled: 'rgba(0, 0, 0, 0)',
-            'disabled-active': 'rgba(0, 0, 0, 0)',
-            panel: '#e6e7e9',
+            default: "rgba(0, 0, 0, 0)",
+            hover: "rgba(0, 0, 0, 0)",
+            active: "rgba(0, 0, 0, 0)",
+            disabled: "rgba(0, 0, 0, 0)",
+            "disabled-active": "rgba(0, 0, 0, 0)",
+            panel: "#323232",
           },
           panel: {
             stroke: {
-              default: '#e6e7e9',
-              borderless: 'rgba(0, 0, 0, 0)',
+              default: "#323232",
+              borderless: "rgba(0, 0, 0, 0)",
             },
           },
         },
@@ -859,13 +864,13 @@ const theme = {
       alignLeft: {
         size: {
           icon: {
-            all: '0.9688rem',
+            all: "0.9688rem",
           },
         },
         space: {
-          x: '1rem',
-          y: '0.3438rem',
-          gap: '0.5rem',
+          x: "1rem",
+          y: "0.3438rem",
+          gap: "0.5rem",
         },
         typography: {
           label: {
@@ -893,19 +898,19 @@ const theme = {
       alignedLeft: {
         color: {
           background: {
-            default: 'rgba(0, 0, 0, 0)',
-            hover: '#f6f7fa',
-            active: 'lch(95.274 1.5364 271.98)',
+            default: "rgba(0, 0, 0, 0)",
+            hover: "#282828",
+            active: "rgb(15.373% 15.373% 15.373%)",
           },
           stroke: {
-            default: '#e6e7e9',
-            hover: '#e6e7e9',
-            active: '#cccfd3',
+            default: "#323232",
+            hover: "#53575f",
+            active: "rgb(22.882% 22.137% 23.627%)",
           },
           text: {
-            default: '#161517',
-            hover: '#161517',
-            active: '#161517',
+            default: "#ffffff",
+            hover: "#ffffff",
+            active: "#ffffff",
           },
         },
       },
@@ -913,51 +918,51 @@ const theme = {
     card: {
       secondary: {
         space: {
-          all: '1rem',
-          gap: '1rem',
+          all: "1rem",
+          gap: "1rem",
           link: {
-            gap: '0.5rem',
+            gap: "0.5rem",
           },
         },
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         icon: {
           size: {
-            all: '2rem',
+            all: "2rem",
           },
         },
-        stroke: '1px',
+        stroke: "1px",
         color: {
           background: {
-            default: '#ffffff',
-            hover: '#f6f7fa',
-            active: 'lch(92.358 1.4894 271.98)',
-            disabled: '#dfdfdf',
+            default: "#1f1f1c",
+            hover: "#282828",
+            active: "rgb(14.902% 14.902% 14.902%)",
+            disabled: "#414141",
           },
           title: {
-            default: 'lch(11.126 1.374 305.43)',
-            hover: 'lch(11.126 1.374 305.43)',
-            active: 'lch(11.126 1.374 305.43)',
-            disabled: '#a0a0a0',
+            default: "rgb(97.5% 97.5% 97.5%)",
+            hover: "rgb(97.5% 97.5% 97.5%)",
+            active: "rgb(97.5% 97.5% 97.5%)",
+            disabled: "#808080",
           },
           description: {
-            default: '#696e79',
-            hover: '#696e79',
-            active: '#696e79',
-            disabled: '#a0a0a0',
+            default: "#b3b6bd",
+            hover: "#b3b6bd",
+            active: "#b3b6bd",
+            disabled: "#808080",
           },
           link: {
-            default: '#161517',
-            hover: '#437eef',
-            active: '#161517',
-            disabled: '#a0a0a0',
+            default: "#ffffff",
+            hover: "#faff69",
+            active: "#ffffff",
+            disabled: "#808080",
           },
           stroke: {
-            default: '#e6e7e9',
-            hover: '#e6e7e9',
-            active: 'lch(87.029 1.0472 265.86)',
-            disabled: '#dfdfdf',
+            default: "#323232",
+            hover: "#323232",
+            active: "rgb(18.627% 18.627% 18.627%)",
+            disabled: "#414141",
           },
         },
       },
@@ -997,61 +1002,61 @@ const theme = {
         size: {
           icon: {
             sm: {
-              all: '2rem',
+              all: "2rem",
             },
             md: {
-              all: '4rem',
+              all: "4rem",
             },
           },
         },
         space: {
           md: {
-            y: '1.5rem',
-            x: '1.5rem',
-            gap: '0.75rem',
+            y: "1.5rem",
+            x: "1.5rem",
+            gap: "0.75rem",
           },
           sm: {
-            y: '1.5rem',
-            x: '1.5rem',
-            gap: '0.25rem',
+            y: "1.5rem",
+            x: "1.5rem",
+            gap: "0.25rem",
           },
         },
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
-        stroke: '1px',
+        stroke: "1px",
         color: {
           background: {
-            default: '#ffffff',
-            hover: '#f6f7fa',
-            active: '#ffffff',
-            disabled: '#dfdfdf',
+            default: "#1f1f1c",
+            hover: "#282828",
+            active: "rgb(14.902% 14.902% 14.902%)",
+            disabled: "#414141",
           },
           title: {
-            default: 'lch(11.126 1.374 305.43)',
-            hover: 'lch(11.126 1.374 305.43)',
-            active: 'lch(11.126 1.374 305.43)',
-            disabled: '#a0a0a0',
+            default: "rgb(97.5% 97.5% 97.5%)",
+            hover: "rgb(97.5% 97.5% 97.5%)",
+            active: "rgb(97.5% 97.5% 97.5%)",
+            disabled: "#808080",
           },
           description: {
-            default: '#696e79',
-            hover: '#696e79',
-            active: '#696e79',
-            disabled: '#a0a0a0',
+            default: "#b3b6bd",
+            hover: "#b3b6bd",
+            active: "#b3b6bd",
+            disabled: "#808080",
           },
           stroke: {
-            default: '#e6e7e9',
-            hover: '#e6e7e9',
-            active: '#151515',
-            disabled: '#dfdfdf',
+            default: "#323232",
+            hover: "#323232",
+            active: "#faff69",
+            disabled: "#414141",
           },
         },
       },
       shadow:
-        '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+        "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
       horizontal: {
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         typography: {
           title: {
@@ -1077,81 +1082,81 @@ const theme = {
         },
         icon: {
           size: {
-            all: '1.5rem',
+            all: "1.5rem",
           },
         },
         space: {
           md: {
-            y: '0.75rem',
-            x: '1rem',
-            gap: '1rem',
+            y: "0.75rem",
+            x: "1rem",
+            gap: "1rem",
           },
           sm: {
-            y: '0.5rem',
-            x: '0.75rem',
-            gap: '0.75rem',
+            y: "0.5rem",
+            x: "0.75rem",
+            gap: "0.75rem",
           },
         },
         default: {
           color: {
             background: {
-              default: '#ffffff',
-              hover: '#f6f7fa',
-              active: '#ffffff',
-              disabled: '#dfdfdf',
+              default: "#1f1f1c",
+              hover: "#282828",
+              active: "#282828",
+              disabled: "#414141",
             },
             title: {
-              default: 'lch(11.126 1.374 305.43)',
-              hover: 'lch(11.126 1.374 305.43)',
-              active: 'lch(11.126 1.374 305.43)',
-              disabled: '#a0a0a0',
+              default: "rgb(97.5% 97.5% 97.5%)",
+              hover: "rgb(97.5% 97.5% 97.5%)",
+              active: "rgb(97.5% 97.5% 97.5%)",
+              disabled: "#808080",
             },
             description: {
-              default: '#696e79',
-              hover: '#696e79',
-              active: '#696e79',
-              disabled: '#a0a0a0',
+              default: "#b3b6bd",
+              hover: "#b3b6bd",
+              active: "#b3b6bd",
+              disabled: "#808080",
             },
             stroke: {
-              default: '#e6e7e9',
-              hover: '#e6e7e9',
-              active: '#151515',
-              disabled: '#dfdfdf',
+              default: "#323232",
+              hover: "#323232",
+              active: "#faff69",
+              disabled: "#414141",
             },
           },
         },
         muted: {
           color: {
             background: {
-              default: '#f6f7fa',
-              hover: '#ffffff',
-              active: '#f6f7fa',
-              disabled: '#dfdfdf',
+              default: "#282828",
+              hover: "#1f1f1c",
+              active: "#282828",
+              disabled: "#414141",
             },
             title: {
-              default: 'lch(11.126 1.374 305.43)',
-              hover: 'lch(11.126 1.374 305.43)',
-              active: 'lch(11.126 1.374 305.43)',
-              disabled: '#a0a0a0',
+              default: "rgb(97.5% 97.5% 97.5%)",
+              hover: "rgb(97.5% 97.5% 97.5%)",
+              active: "rgb(97.5% 97.5% 97.5%)",
+              disabled: "#808080",
             },
             description: {
-              default: '#696e79',
-              hover: '#696e79',
-              active: '#696e79',
-              disabled: '#a0a0a0',
+              default: "#b3b6bd",
+              hover: "#b3b6bd",
+              active: "#b3b6bd",
+              disabled: "#808080",
             },
             stroke: {
-              default: '#e6e7e9',
-              hover: '#e6e7e9',
-              active: '#151515',
-              disabled: '#dfdfdf',
+              default: "#323232",
+              hover: "#323232",
+              active: "#faff69",
+              disabled: "#414141",
             },
           },
         },
       },
       promotion: {
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         typography: {
           text: {
@@ -1160,50 +1165,50 @@ const theme = {
           },
         },
         space: {
-          y: '5.5px',
-          x: '0.75rem',
-          gap: '0.75rem',
+          y: "5.5px",
+          x: "0.75rem",
+          gap: "0.75rem",
         },
         icon: {
           size: {
-            all: '1rem',
+            all: "1rem",
           },
         },
         color: {
-          background: {
-            default: '#f6f7fa',
-            hover: '#e6e7e9',
-            active: 'lch(89.777 1.0803 265.86)',
+          text: {
+            default: "#ffffff",
+            hover: "#ffffff",
+            active: "#ffffff",
           },
           icon: {
-            default: '#161517',
-            hover: '#161517',
-            active: '#161517',
+            default: "#faff69",
+            hover: "#faff69",
+            active: "#faff69",
+          },
+          background: {
+            default: "rgb(15.686% 15.686% 15.686% / 0.9)",
+            hover: "rgb(17.794% 17.794% 17.794% / 0.9)",
+            active: "rgb(19.849% 19.849% 19.849% / 0.9)",
           },
           stroke: {
-            default: 'linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)',
-            hover: 'linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)',
-            active: 'linear-gradient(174deg, #ABABAB 7.59%, #D4D4D4 30.01%)',
-            focus: '#151515',
-          },
-          text: {
-            default: '#161517',
-            hover: '#161517',
-            active: '#161517',
+            default: "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            hover: "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            active: "linear-gradient(174deg, #FAFF69 8.31%, #2C2E31 22.92%)",
+            focus: "#faff69",
           },
         },
       },
     },
     checkbox: {
       radii: {
-        all: '0.125rem',
+        all: "0.125rem",
       },
       space: {
-        all: '1px',
-        gap: '0.5rem',
+        all: "1px",
+        gap: "0.5rem",
       },
       size: {
-        all: '1rem',
+        all: "1rem",
       },
       typography: {
         label: {
@@ -1221,175 +1226,187 @@ const theme = {
         variations: {
           default: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#161517',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#faff69",
+              disabled: "#414141",
             },
             stroke: {
-              default: '#b3b6bd',
-              hover: '#b3b6bd',
-              active: '#161517',
-              disabled: '#c0c0c0',
+              default: "#414141",
+              hover: "#414141",
+              active: "#faff69",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#151515",
+              disabled: "#808080",
+            },
+            label: {
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#606060",
             },
           },
           var1: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#00e513',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#33ff44",
+              disabled: "rgb(17.794% 17.794% 17.794%)",
             },
             stroke: {
-              default: '#62de85',
-              hover: '#62de85',
-              active: '#62de85',
-              disabled: '#c0c0c0',
+              default: "#00bd10",
+              hover: "#66ff73",
+              active: "#66ff73",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#a0a0a0",
             },
           },
           var2: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#437eef',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#437eef",
+              disabled: "rgb(17.794% 17.794% 17.794%)",
             },
             stroke: {
-              default: '#6d9bf3',
-              hover: '#6d9bf3',
-              active: '#6d9bf3',
-              disabled: '#c0c0c0',
+              default: "#6d9bf3",
+              hover: "#a1bef7",
+              active: "#a1bef7",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#a0a0a0",
             },
           },
           var3: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#fb32c9',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#fb64d6",
+              disabled: "rgb(17.794% 17.794% 17.794%)",
             },
             stroke: {
-              default: '#fb64d6',
-              hover: '#fb64d6',
-              active: '#fb64d6',
-              disabled: '#c0c0c0',
+              default: "#fb64d6",
+              hover: "#fb64d6",
+              active: "#fb64d6",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#a0a0a0",
             },
           },
           var4: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#ff7729',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#ff7729",
+              disabled: "rgb(17.794% 17.794% 17.794%)",
             },
             stroke: {
-              default: '#ff9457',
-              hover: '#ff9457',
-              active: '#ff9457',
-              disabled: '#c0c0c0',
+              default: "#faff69",
+              hover: "#fdffa3",
+              active: "#fdffa3",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#a0a0a0",
             },
           },
           var5: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#089b83',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#6df8e1",
+              disabled: "rgb(17.794% 17.794% 17.794%)",
             },
             stroke: {
-              default: '#089b83',
-              hover: '#089b83',
-              active: '#089b83',
-              disabled: '#c0c0c0',
+              default: "#6df8e1",
+              hover: "#a3faec",
+              active: "#a3faec",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#a0a0a0",
             },
           },
           var6: {
             background: {
-              default: '#f6f7fa',
-              hover: '#f6f7fa',
-              active: '#bb33ff',
-              disabled: '#dfdfdf',
+              default: "rgb(17.794% 17.794% 17.794%)",
+              hover: "rgb(17.794% 17.794% 17.794%)",
+              active: "#bb33ff",
+              disabled: "rgb(17.794% 17.794% 17.794%)",
             },
             stroke: {
-              default: '#cc66ff',
-              hover: '#bb33ff',
-              active: '#bb33ff',
-              disabled: '#c0c0c0',
+              default: "#cc66ff",
+              hover: "#cc66ff",
+              active: "#cc66ff",
+              disabled: "#606060",
             },
             check: {
-              default: '#ffffff',
-              hover: '#ffffff',
-              active: '#ffffff',
-              disabled: '#a0a0a0',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#a0a0a0",
             },
           },
         },
-        check: {
-          default: '#ffffff',
-          hover: '#ffffff',
-          active: '#ffffff',
-          disabled: '#a0a0a0',
-        },
         background: {
-          default: '#f6f7fa',
-          hover: '#f6f7fa',
-          active: '#161517',
-          disabled: '#dfdfdf',
+          default: "rgb(17.794% 17.794% 17.794%)",
+          hover: "rgb(17.794% 17.794% 17.794%)",
+          active: "#faff69",
+          disabled: "#414141",
         },
         stroke: {
-          default: '#b3b6bd',
-          hover: '#b3b6bd',
-          active: '#161517',
-          disabled: '#c0c0c0',
+          default: "#414141",
+          hover: "#414141",
+          active: "#faff69",
+          disabled: "#606060",
+        },
+        check: {
+          default: "#ffffff",
+          hover: "#ffffff",
+          active: "#151515",
+          disabled: "#808080",
+        },
+        label: {
+          default: "#ffffff",
+          hover: "#ffffff",
+          active: "#ffffff",
+          disabled: "#606060",
         },
       },
     },
     codeblock: {
       space: {
-        x: '1rem',
-        y: '1rem',
-        gap: '1.5rem',
+        x: "1rem",
+        y: "1rem",
+        gap: "1.5rem",
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
-      stroke: '1px',
+      stroke: "1px",
       typography: {
         text: {
           default:
@@ -1398,71 +1415,71 @@ const theme = {
       },
       numbers: {
         size: {
-          width: '1.5rem',
+          width: "1.5rem",
         },
       },
       darkMode: {
         color: {
           background: {
-            default: '#282828',
+            default: "#282828",
           },
           text: {
-            default: '#ffffff',
+            default: "#ffffff",
           },
           numbers: {
-            default: '#c0c0c0',
+            default: "#c0c0c0",
           },
           button: {
             background: {
-              default: '#282828',
-              hover: '#53575f',
+              default: "#282828",
+              hover: "#53575f",
             },
             foreground: {
-              default: '#ffffff',
+              default: "#ffffff",
             },
           },
           stroke: {
-            default: '#282828',
+            default: "#282828",
           },
         },
       },
       lightMode: {
         color: {
           background: {
-            default: '#f6f7fa',
+            default: "#f6f7fa",
           },
           text: {
-            default: '#282828',
+            default: "#282828",
           },
           numbers: {
-            default: '#808080',
+            default: "#808080",
           },
           button: {
             background: {
-              default: '#f6f7fa',
-              hover: '#53575f',
+              default: "#f6f7fa",
+              hover: "#53575f",
             },
             foreground: {
-              default: '#a0a0a0',
+              default: "#a0a0a0",
             },
           },
           stroke: {
-            default: '#282828',
+            default: "#282828",
           },
         },
       },
       monacoTheme: {
         parameter: {
-          foreground: '#53575f',
-          background: 'rgb(41.176% 43.137% 47.451% / 0.1)',
+          foreground: "#c0c0c0",
+          background: "rgb(62.745% 62.745% 62.745% / 0.2)",
         },
       },
     },
     codeInline: {
       space: {
-        x: '0.25rem',
+        x: "0.25rem",
       },
-      stroke: '1px',
+      stroke: "1px",
       typography: {
         text: {
           default:
@@ -1470,55 +1487,55 @@ const theme = {
         },
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       color: {
         background: {
-          default: '#f6f7fa',
+          default: "#282828",
         },
         text: {
-          default: '#161517',
+          default: "#ffffff",
         },
         stroke: {
-          default: '#e6e7e9',
+          default: "#323232",
         },
       },
     },
     container: {
       space: {
-        none: '0',
-        xxs: '0.25rem',
-        xs: '0.5rem',
-        sm: '0.75rem',
-        md: '1rem',
-        lg: '1.5rem',
-        xl: '2rem',
-        xxl: '4rem',
+        none: "0",
+        xxs: "0.25rem",
+        xs: "0.5rem",
+        sm: "0.75rem",
+        md: "1rem",
+        lg: "1.5rem",
+        xl: "2rem",
+        xxl: "4rem",
       },
       gap: {
-        none: '0',
-        xxs: '0.25rem',
-        xs: '0.5rem',
-        sm: '0.75rem',
-        md: '1rem',
-        lg: '1.5rem',
-        xl: '2rem',
-        xxl: '4rem',
+        none: "0",
+        xxs: "0.25rem",
+        xs: "0.5rem",
+        sm: "0.75rem",
+        md: "1rem",
+        lg: "1.5rem",
+        xl: "2rem",
+        xxl: "4rem",
       },
     },
     datePicker: {
       dateOption: {
         space: {
-          gap: '2px',
+          gap: "2px",
         },
         radii: {
-          default: '0.25rem',
-          range: '0',
+          default: "0.25rem",
+          range: "0",
         },
-        stroke: '1px',
+        stroke: "1px",
         size: {
-          height: '2rem',
-          width: '2rem',
+          height: "2rem",
+          width: "2rem",
         },
         typography: {
           label: {
@@ -1536,30 +1553,30 @@ const theme = {
         },
         color: {
           label: {
-            default: '#161517',
-            hover: '#161517',
-            active: '#ffffff',
-            disabled: '#a0a0a0',
-            range: '#161517',
+            default: "#ffffff",
+            hover: "#ffffff",
+            active: "#1f1f1c",
+            disabled: "#a0a0a0",
+            range: "#ffffff",
           },
           background: {
-            default: '#ffffff',
-            hover: '#ffffff',
-            active: '#151515',
-            disabled: '#ffffff',
-            range: '#e6e7e9',
+            default: "#1f1f1c",
+            hover: "#1f1f1c",
+            active: "#faff69",
+            disabled: "#1f1f1c",
+            range: "#323232",
           },
           stroke: {
-            default: '#ffffff',
-            hover: '#151515',
-            active: '#151515',
-            disabled: '#ffffff',
-            range: '#e6e7e9',
+            default: "#1f1f1c",
+            hover: "#faff69",
+            active: "#faff69",
+            disabled: "#1f1f1c",
+            range: "#323232",
           },
         },
       },
       space: {
-        gap: '0.25rem',
+        gap: "0.25rem",
       },
       typography: {
         daytitle: {
@@ -1573,33 +1590,33 @@ const theme = {
       },
       color: {
         title: {
-          default: 'lch(11.126 1.374 305.43)',
+          default: "rgb(97.5% 97.5% 97.5%)",
         },
         daytitle: {
-          default: '#696e79',
+          default: "#b3b6bd",
         },
       },
     },
     dialog: {
       space: {
-        y: '1.5rem',
-        x: '2rem',
-        gap: '1rem',
+        y: "1.5rem",
+        x: "2rem",
+        gap: "1rem",
       },
       title: {
         space: {
-          gap: '0.25rem',
+          gap: "0.25rem",
         },
       },
       radii: {
-        all: '0.5rem',
+        all: "0.5rem",
       },
       shadow: {
         default:
-          '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+          "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
       },
       stroke: {
-        default: '1px solid #e6e7e9',
+        default: "1px solid #323232",
       },
       typography: {
         title: {
@@ -1613,16 +1630,16 @@ const theme = {
       },
       color: {
         background: {
-          default: '#ffffff',
+          default: "#1f1f1c",
         },
         title: {
-          default: 'lch(11.126 1.374 305.43)',
+          default: "rgb(97.5% 97.5% 97.5%)",
         },
         description: {
-          default: '#696e79',
+          default: "#b3b6bd",
         },
         opaqueBackground: {
-          default: 'lch(6.7738 0 none / 0.75)',
+          default: "lch(40.731 0 none / 0.75)",
         },
       },
     },
@@ -1718,73 +1735,73 @@ const theme = {
         mobile: {
           label:
             '500 0.875rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
-          'field-value':
+          "field-value":
             '400 1rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
         },
       },
       space: {
-        x: '0.75rem',
-        y: '0.2813rem',
-        gap: '0.5rem',
+        x: "0.75rem",
+        y: "0.2813rem",
+        gap: "0.5rem",
       },
       size: {
-        icon: '1rem',
+        icon: "1rem",
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       mobile: {
         space: {
-          x: '0.75rem',
-          y: '0.5rem',
-          gap: '0.5rem',
+          x: "0.75rem",
+          y: "0.5rem",
+          gap: "0.5rem",
         },
       },
       color: {
-        genericLabel: {
-          default: '#161517',
-          hover: '#161517',
-          active: '#161517',
-          disabled: '#a0a0a0',
-        },
         background: {
-          default: '#fbfcff',
-          hover: '#f6f7fa',
-          active: '#ffffff',
-          disabled: '#dfdfdf',
-          error: '#ffffff',
+          default: "rgb(17.794% 17.794% 17.794%)",
+          hover: "rgb(19.849% 19.849% 19.849%)",
+          active: "rgb(19.849% 19.849% 19.849%)",
+          disabled: "#414141",
+          error: "rgb(19.849% 19.849% 19.849%)",
         },
         text: {
-          default: '#302e32',
-          hover: '#302e32',
-          active: '#161517',
-          disabled: '#a0a0a0',
-          error: '#c10000',
+          default: "#e6e7e9",
+          hover: "#e6e7e9",
+          active: "#ffffff",
+          disabled: "#808080",
+          error: "#ffbaba",
         },
         stroke: {
-          default: '#e6e7e9',
-          hover: '#cccfd3',
-          active: '#161517',
-          disabled: '#dfdfdf',
-          error: '#c10000',
+          default: "rgb(23.627% 23.627% 23.627%)",
+          hover: "rgb(27.446% 27.446% 27.446%)",
+          active: "#faff69",
+          disabled: "#414141",
+          error: "#ffbaba",
         },
         label: {
-          default: '#696e79',
-          hover: '#696e79',
-          active: '#161517',
-          disabled: '#a0a0a0',
-          error: '#c10000',
-        },
-        placeholder: {
-          default: '#9a9ea7',
-          disabled: '#b3b6bd',
+          default: "#b3b6bd",
+          hover: "#b3b6bd",
+          active: "#ffffff",
+          disabled: "#606060",
+          error: "#ffbaba",
         },
         format: {
-          default: 'lch(71.998 4.1843 268.48)',
-          hover: 'lch(71.998 4.1843 268.48)',
-          active: 'lch(71.998 4.1843 268.48)',
-          disabled: '#a0a0a0',
-          error: 'lch(71.998 4.1843 268.48)',
+          default: "rgb(60.157% 60.157% 60.157%)",
+          hover: "rgb(60.157% 60.157% 60.157%)",
+          active: "rgb(60.157% 60.157% 60.157%)",
+          disabled: "#808080",
+          error: "rgb(60.157% 60.157% 60.157%)",
+        },
+        genericLabel: {
+          default: "#ffffff",
+          hover: "#ffffff",
+          active: "#ffffff",
+          disabled: "#a0a0a0",
+        },
+        placeholder: {
+          default: "#808080",
+          disabled: "#606060",
         },
       },
     },
@@ -1792,42 +1809,42 @@ const theme = {
       sm: {
         icon: {
           size: {
-            height: '1.5rem',
-            width: '1.5rem',
+            height: "1.5rem",
+            width: "1.5rem",
           },
         },
         space: {
-          gap: '0.75rem',
-          x: '1rem',
-          y: '0.5rem',
+          gap: "0.75rem",
+          x: "1rem",
+          y: "0.5rem",
         },
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         color: {
           icon: {
-            default: '#696e79',
+            default: "#b3b6bd",
           },
         },
       },
       md: {
         icon: {
           size: {
-            height: '2rem',
-            width: '2rem',
+            height: "2rem",
+            width: "2rem",
           },
         },
         space: {
-          gap: '0.5rem',
-          x: '1rem',
-          y: '0.75rem',
+          gap: "0.5rem",
+          x: "1rem",
+          y: "0.75rem",
         },
         radii: {
-          all: '0.5rem',
+          all: "0.5rem",
         },
         color: {
           icon: {
-            default: '#161517',
+            default: "#ffffff",
           },
         },
       },
@@ -1843,91 +1860,91 @@ const theme = {
       },
       hasFile: {
         space: {
-          gap: '0.75rem',
+          gap: "0.75rem",
         },
         header: {
           space: {
-            gap: '0.5rem',
+            gap: "0.5rem",
           },
         },
       },
       transitions: {
-        all: 'all 100ms ease-in 0ms',
+        all: "all 100ms ease-in 0ms",
       },
       color: {
         background: {
-          default: '#ffffff',
-          hover: '#ffffff',
-          active: '#f6f7fa',
-          error: 'rgb(100% 13.725% 13.725% / 0.1)',
+          default: "#1f1f1c",
+          hover: "#1f1f1c",
+          active: "rgb(19.849% 19.849% 19.849%)",
+          error: "rgb(100% 13.725% 13.725% / 0.2)",
         },
         stroke: {
-          default: '#e6e7e9',
-          hover: '#e6e7e9',
-          active: '#b3b6bd',
-          error: 'rgba(0, 0, 0, 0)',
+          default: "rgb(23.627% 23.627% 23.627%)",
+          hover: "rgb(23.627% 23.627% 23.627%)",
+          active: "#414141",
+          error: "rgba(0, 0, 0, 0)",
         },
         title: {
-          default: '#161517',
-          hover: '#161517',
-          active: '#161517',
-          error: '#c10000',
+          default: "#ffffff",
+          hover: "#ffffff",
+          active: "#ffffff",
+          error: "#ffbaba",
         },
         description: {
-          default: '#696e79',
-          hover: '#696e79',
-          active: '#696e79',
-          error: '#c10000',
+          default: "#b3b6bd",
+          hover: "#b3b6bd",
+          active: "#b3b6bd",
+          error: "#ffbaba",
         },
       },
     },
     flyout: {
       space: {
         default: {
-          x: '0',
-          y: '1.5rem',
-          gap: '1rem',
-          top: '0',
+          x: "0",
+          y: "1.5rem",
+          gap: "1rem",
+          top: "0",
           content: {
-            x: '1.5rem',
-            y: '1.5rem',
-            'row-gap': '0.25rem',
-            'column-gap': '1rem',
+            x: "1.5rem",
+            y: "1.5rem",
+            "row-gap": "0.25rem",
+            "column-gap": "1rem",
           },
         },
         inline: {
-          x: '0',
-          y: '0.75rem',
-          gap: '0.75rem',
-          top: '3.5rem',
+          x: "0",
+          y: "0.75rem",
+          gap: "0.75rem",
+          top: "3.5rem",
           content: {
-            x: '0.75rem',
-            y: '0.75rem',
-            'row-gap': '0.25rem',
-            'column-gap': '0.75rem',
+            x: "0.75rem",
+            y: "0.75rem",
+            "row-gap": "0.25rem",
+            "column-gap": "0.75rem",
           },
         },
       },
       shadow: {
-        default: '-5px 0 20px 0 rgba(0, 0, 0, 0.08), -6px 0 10px 0 rgba(0, 0, 0, 0.08)',
-        reverse: '5px 0 20px 0 rgba(0, 0, 0, 0.08), 6px 0 10px 0 rgba(0, 0, 0, 0.08)',
+        default: "-5px 0 20px 0 rgba(0, 0, 0, 0.08), -6px 0 10px 0 rgba(0, 0, 0, 0.08)",
+        reverse: "5px 0 20px 0 rgba(0, 0, 0, 0.08), 6px 0 10px 0 rgba(0, 0, 0, 0.08)",
       },
       size: {
         default: {
-          width: '27.5rem',
-          height: '100%',
+          width: "27.5rem",
+          height: "100%",
         },
         wide: {
-          width: '37.5rem',
-          height: '100vh',
+          width: "37.5rem",
+          height: "100vh",
         },
         narrow: {
-          width: '21rem',
-          height: '100%',
+          width: "21rem",
+          height: "100%",
         },
         widest: {
-          width: '55rem',
-          height: '100vh',
+          width: "55rem",
+          height: "100vh",
         },
       },
       typography: {
@@ -1954,30 +1971,33 @@ const theme = {
       },
       color: {
         background: {
-          default: '#ffffff',
+          default: "#282828",
         },
         title: {
-          default: 'lch(11.126 1.374 305.43)',
+          default: "rgb(97.5% 97.5% 97.5%)",
         },
         description: {
-          default: '#696e79',
+          default: "#b3b6bd",
+        },
+        opaqueBackground: {
+          default: "lch(6.7738 0 none / 0.45)",
         },
         stroke: {
-          default: '#e6e7e9',
+          default: "#323232",
         },
       },
     },
     genericMenu: {
       item: {
         space: {
-          x: '1rem',
-          y: '0.3438rem',
-          gap: '0.5rem',
+          x: "1rem",
+          y: "0.3438rem",
+          gap: "0.5rem",
         },
         icon: {
           size: {
-            height: '0.9688rem',
-            width: '0.9688rem',
+            height: "0.9688rem",
+            width: "0.9688rem",
           },
         },
         typography: {
@@ -2006,64 +2026,65 @@ const theme = {
               '400 0.75rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
           },
         },
-        'two-lines': {
+        "two-lines": {
           space: {
-            x: '1rem',
-            y: '0.3438rem',
-            gap: '0.75rem',
+            x: "1rem",
+            y: "0.3438rem",
+            gap: "0.75rem",
           },
         },
         size: {
-          minWidth: '180px',
+          minWidth: "180px",
         },
         color: {
           default: {
             text: {
-              default: '#161517',
-              hover: '#161517',
-              active: '#161517',
-              disabled: '#a0a0a0',
-              muted: '#696e79',
+              default: "#ffffff",
+              hover: "#ffffff",
+              active: "#ffffff",
+              disabled: "#808080",
+              muted: "#b3b6bd",
             },
             background: {
-              default: '#ffffff',
-              hover: '#f6f7fa',
-              active: '#ffffff',
-              disabled: '#ffffff',
+              default: "#282828",
+              hover: "rgb(23.064% 23.064% 23.064%)",
+              active: "#282828",
+              disabled: "#414141",
             },
             stroke: {
-              default: '#e6e7e9',
-              focus: '#437eef',
+              default: "#323232",
+              focus: "#faff69",
             },
           },
           format: {
-            default: 'lch(71.998 4.1843 268.48)',
-            hover: 'lch(71.998 4.1843 268.48)',
-            active: 'lch(71.998 4.1843 268.48)',
-            disabled: '#a0a0a0',
+            default: "lch(62.868 0 none)",
+            hover: "rgb(60.157% 60.157% 60.157%)",
+            active: "rgb(60.157% 60.157% 60.157%)",
+            disabled: "#808080",
+            error: "rgb(60.157% 60.157% 60.157%)",
           },
           subtext: {
-            default: '#696e79',
-            hover: '#696e79',
-            active: '#696e79',
-            disabled: '#c0c0c0',
+            default: "#b3b6bd",
+            hover: "#b3b6bd",
+            active: "#b3b6bd",
+            disabled: "#c0c0c0",
           },
           danger: {
             text: {
-              default: '#c10000',
-              hover: '#c10000',
-              active: '#c10000',
-              disabled: '#a0a0a0',
+              default: "#ffbaba",
+              hover: "#ffbaba",
+              active: "#ffbaba",
+              disabled: "#808080",
             },
             background: {
-              default: '#ffffff',
-              hover: 'rgb(100% 13.725% 13.725% / 0.2)',
-              active: 'rgb(100% 13.725% 13.725% / 0.3)',
-              disabled: '#ffffff',
+              default: "#282828",
+              hover: "rgb(100% 21.274% 21.274% / 0.3)",
+              active: "rgb(100% 13.725% 13.725% / 0.45)",
+              disabled: "#414141",
             },
             stroke: {
-              default: 'rgba(0, 0, 0, 0)',
-              focus: '#437eef',
+              default: "rgba(0, 0, 0, 0)",
+              focus: "#faff69",
             },
           },
         },
@@ -2078,8 +2099,8 @@ const theme = {
       },
       button: {
         space: {
-          gap: '0.25rem',
-          y: '0.5rem',
+          gap: "0.25rem",
+          y: "0.5rem",
         },
         typography: {
           label: {
@@ -2093,33 +2114,33 @@ const theme = {
         },
         color: {
           background: {
-            default: '#f6f7fa',
+            default: "#282828",
           },
           label: {
-            default: '#696e79',
+            default: "#b3b6bd",
           },
           stroke: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
         },
       },
       panel: {
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         shadow: {
           default:
-            '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+            "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
         },
         size: {
-          height: '2rem',
+          height: "2rem",
         },
         color: {
           background: {
-            default: '#ffffff',
+            default: "#282828",
           },
           stroke: {
-            default: '#e6e7e9',
+            default: "#414141",
           },
         },
       },
@@ -2144,33 +2165,33 @@ const theme = {
         },
         search: {
           stroke: {
-            default: '2px solid #e6e7e9',
+            default: "2px solid #323232",
           },
         },
         color: {
           placeholder: {
-            default: '#9a9ea7',
+            default: "#808080",
           },
           searchTerm: {
-            default: '#161517',
+            default: "#ffffff",
           },
           background: {
-            default: '#ffffff',
+            default: "#282828",
           },
           stroke: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
         },
       },
       sectionHeader: {
         space: {
-          bottom: '0.3438rem',
-          top: '0.5rem',
+          bottom: "0.3438rem",
+          top: "0.5rem",
         },
       },
       placeholder: {
         space: {
-          gap: '0.5rem',
+          gap: "0.5rem",
         },
       },
     },
@@ -2178,27 +2199,27 @@ const theme = {
       header: {
         cell: {
           space: {
-            y: '0.4375rem',
-            x: '0.5rem',
+            y: "0.4375rem",
+            x: "0.5rem",
           },
           size: {
-            height: '2rem',
+            height: "2rem",
           },
           color: {
             background: {
-              default: '#f6f7fa',
-              selectIndirect: 'lch(95.61 5.8361 264.18)',
-              selectDirect: '#e7effd',
+              default: "#282828",
+              selectIndirect: "lch(19.47 0 none)",
+              selectDirect: "lch(27.259 0 none)",
             },
             title: {
-              default: '#696e79',
-              selectIndirect: '#161517',
-              selectDirect: '#161517',
+              default: "#b3b6bd",
+              selectIndirect: "#ffffff",
+              selectDirect: "#ffffff",
             },
             stroke: {
-              default: 'lch(89.319 1.0747 265.86)',
-              selectIndirect: '#e7effd',
-              selectDirect: 'lch(86.135 15.126 266.4)',
+              default: "lch(20.268 0 none)",
+              selectIndirect: "lch(26.846 0 none)",
+              selectDirect: "lch(29.406 0 none)",
             },
           },
         },
@@ -2210,27 +2231,27 @@ const theme = {
       body: {
         cell: {
           space: {
-            y: '5.5px',
-            x: '0.5rem',
+            y: "5.5px",
+            x: "0.5rem",
           },
           size: {
-            height: '2rem',
+            height: "2rem",
           },
           color: {
             background: {
-              default: '#ffffff',
-              selectIndirect: 'lch(94.146 7.7815 264.18 / 0.2)',
-              selectDirect: 'lch(94.146 7.7815 264.18 / 0.2)',
+              default: "#1f1f1c",
+              selectIndirect: "lch(15.792 0 none)",
+              selectDirect: "lch(15.792 0 none)",
             },
             stroke: {
-              default: '#e6e7e9',
-              selectIndirect: '#d0dffb',
-              selectDirect: '#437eef',
+              default: "#323232",
+              selectIndirect: "lch(22.028 0 none)",
+              selectDirect: "#faff69",
             },
             text: {
-              default: 'lch(7.1704 1.4351 305.43)',
-              selectIndirect: '#161517',
-              selectDirect: '#161517',
+              default: "lch(100 0 none)",
+              selectIndirect: "#ffffff",
+              selectDirect: "#ffffff",
             },
           },
         },
@@ -2242,237 +2263,237 @@ const theme = {
         },
       },
       radii: {
-        none: '0',
-        sm: '0.25rem',
-        md: '0.5rem',
-        lg: '0.75rem',
+        none: "0",
+        sm: "0.25rem",
+        md: "0.5rem",
+        lg: "0.75rem",
       },
       global: {
         color: {
           stroke: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
           background: {
-            default: '#ffffff',
+            default: "#1f1f1c",
           },
         },
       },
     },
     gridContainer: {
       gap: {
-        none: '0',
-        xxs: '0.25rem',
-        xs: '0.5rem',
-        sm: '0.75rem',
-        md: '1rem',
-        lg: '1.5rem',
-        xl: '2rem',
-        xxl: '4rem',
+        none: "0",
+        xxs: "0.25rem",
+        xs: "0.5rem",
+        sm: "0.75rem",
+        md: "1rem",
+        lg: "1.5rem",
+        xl: "2rem",
+        xxl: "4rem",
         unset: "''",
       },
     },
     icon: {
       space: {
         xs: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         sm: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         md: {
-          all: '0.365rem',
+          all: "0.365rem",
         },
         lg: {
-          all: '0.5rem',
+          all: "0.5rem",
         },
         xl: {
-          all: '0.75rem',
+          all: "0.75rem",
         },
         xxl: {
-          all: '1rem',
+          all: "1rem",
         },
       },
       color: {
         background: {
-          default: 'rgba(0, 0, 0, 0)',
-          success: 'rgb(20% 100% 26.667% / 0.1)',
-          neutral: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-          danger: 'rgb(100% 13.725% 13.725% / 0.1)',
-          info: 'rgb(26.275% 49.412% 93.725% / 0.1)',
-          warning: 'rgb(100% 46.667% 16.078% / 0.1)',
+          default: "rgba(0, 0, 0, 0)",
+          success: "rgb(20% 100% 26.667% / 0.2)",
+          neutral: "rgb(62.745% 62.745% 62.745% / 0.2)",
+          danger: "rgb(100% 13.725% 13.725% / 0.2)",
+          info: "rgb(26.275% 49.412% 93.725% / 0.2)",
+          warning: "rgb(100% 46.667% 16.078% / 0.2)",
         },
         text: {
-          default: 'rgba(0, 0, 0, 0)',
-          success: '#008a0b',
-          neutral: '#53575f',
-          danger: '#c10000',
-          info: '#437eef',
-          warning: '#a33c00',
+          default: "rgba(0, 0, 0, 0)",
+          success: "#ccffd0",
+          neutral: "#c0c0c0",
+          danger: "#ffbaba",
+          info: "#d0dffb",
+          warning: "#ffb88f",
         },
         stroke: {
-          default: 'rgba(0, 0, 0, 0)',
-          success: 'rgb(20% 100% 26.667% / 0.05)',
-          neutral: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-          danger: 'rgb(100% 13.725% 13.725% / 0.05)',
-          info: 'rgb(26.275% 49.412% 93.725% / 0.05)',
-          warning: 'rgb(100% 46.667% 16.078% / 0.05)',
+          default: "rgba(0, 0, 0, 0)",
+          success: "rgb(20% 100% 26.667% / 0.05)",
+          neutral: "rgb(62.745% 62.745% 62.745% / 0.2)",
+          danger: "rgb(100% 13.725% 13.725% / 0.05)",
+          info: "rgb(26.275% 49.412% 93.725% / 0.05)",
+          warning: "rgb(100% 46.667% 16.078% / 0.05)",
         },
       },
     },
     image: {
       sm: {
         size: {
-          height: '1rem',
-          width: '1rem',
+          height: "1rem",
+          width: "1rem",
         },
       },
       xs: {
         size: {
-          height: '0.75rem',
-          width: '0.75rem',
+          height: "0.75rem",
+          width: "0.75rem",
         },
       },
       md: {
         size: {
-          height: '1.25rem',
-          width: '1.25rem',
+          height: "1.25rem",
+          width: "1.25rem",
         },
       },
       lg: {
         size: {
-          height: '1.5rem',
-          width: '1.5rem',
+          height: "1.5rem",
+          width: "1.5rem",
         },
       },
       xl: {
         size: {
-          height: '2rem',
-          width: '2rem',
+          height: "2rem",
+          width: "2rem",
         },
       },
       xxl: {
         size: {
-          height: '4rem',
-          width: '4rem',
+          height: "4rem",
+          width: "4rem",
         },
       },
       borderWidth: {
-        default: '1.5px',
-        thin: '1px',
+        default: "1.5px",
+        thin: "1px",
       },
       color: {
-        stroke: '#161517',
+        stroke: "#ffffff",
       },
     },
     link: {
       space: {
         md: {
-          gap: '0.25rem',
+          gap: "0.25rem",
         },
         sm: {
-          gap: '2px',
+          gap: "2px",
         },
       },
       icon: {
         size: {
           sm: {
-            height: '0.75rem',
-            width: '0.75rem',
+            height: "0.75rem",
+            width: "0.75rem",
           },
           md: {
-            height: '1rem',
-            width: '1rem',
+            height: "1rem",
+            width: "1rem",
           },
         },
       },
     },
     panel: {
       strokeWidth: {
-        default: '1px',
+        default: "1px",
       },
       radii: {
-        none: '0',
-        sm: '0.25rem',
-        md: '0.5rem',
-        lg: '0.75rem',
+        none: "0",
+        sm: "0.25rem",
+        md: "0.5rem",
+        lg: "0.75rem",
       },
       stroke: {
-        default: '1px solid #e6e7e9',
+        default: "1px solid #323232",
       },
       shadow: {
         default:
-          '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+          "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
       },
       space: {
         y: {
-          none: '0',
-          xs: '0.5rem',
-          sm: '0.75rem',
-          md: '1rem',
-          lg: '1.5rem',
-          xl: '2rem',
+          none: "0",
+          xs: "0.5rem",
+          sm: "0.75rem",
+          md: "1rem",
+          lg: "1.5rem",
+          xl: "2rem",
         },
         x: {
-          none: '0',
-          xs: '0.5rem',
-          sm: '0.75rem',
-          md: '1rem',
-          lg: '1.5rem',
-          xl: '2rem',
+          none: "0",
+          xs: "0.5rem",
+          sm: "0.75rem",
+          md: "1rem",
+          lg: "1.5rem",
+          xl: "2rem",
         },
         gap: {
-          none: '0',
-          xs: '0.5rem',
-          sm: '0.75rem',
-          md: '1rem',
-          lg: '1.5rem',
-          xl: '2rem',
+          none: "0",
+          xs: "0.5rem",
+          sm: "0.75rem",
+          md: "1rem",
+          lg: "1.5rem",
+          xl: "2rem",
         },
       },
       color: {
         background: {
-          default: '#ffffff',
-          muted: '#f6f7fa',
-          transparent: 'rgba(0, 0, 0, 0)',
+          default: "#1f1f1c",
+          muted: "#282828",
+          transparent: "rgba(0, 0, 0, 0)",
         },
         stroke: {
-          default: '#e6e7e9',
+          default: "#323232",
         },
       },
     },
     popover: {
       space: {
-        y: '1rem',
-        x: '1.5rem',
-        gap: '0.75rem',
+        y: "1rem",
+        x: "1.5rem",
+        gap: "0.75rem",
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       shadow: {
         default:
-          '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+          "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
       },
       icon: {
         size: {
-          height: '1.25rem',
-          width: '1.25rem',
+          height: "1.25rem",
+          width: "1.25rem",
         },
       },
       color: {
         panel: {
           background: {
-            default: '#ffffff',
+            default: "#282828",
           },
           stroke: {
-            default: '#e6e7e9',
+            default: "#414141",
           },
         },
       },
     },
     radio: {
       radii: {
-        all: '9999px',
+        all: "9999px",
       },
       typography: {
         label: {
@@ -2488,22 +2509,22 @@ const theme = {
       },
       color: {
         background: {
-          default: '#f6f7fa',
-          hover: '#f6f7fa',
-          active: '#161517',
-          disabled: '#dfdfdf',
+          default: "rgb(17.794% 17.794% 17.794%)",
+          hover: "rgb(17.794% 17.794% 17.794%)",
+          active: "#faff69",
+          disabled: "#414141",
         },
         stroke: {
-          default: '#b3b6bd',
-          hover: '#b3b6bd',
-          active: '#151515',
-          disabled: '#c0c0c0',
+          default: "#414141",
+          hover: "#414141",
+          active: "#151515",
+          disabled: "#414141",
         },
         indicator: {
-          default: '#ffffff',
-          hover: '#f6f7fa',
-          active: '#ffffff',
-          disabled: '#a0a0a0',
+          default: "#1f1f1c",
+          hover: "rgb(17.794% 17.794% 17.794%)",
+          active: "#151515",
+          disabled: "#808080",
         },
       },
     },
@@ -2511,37 +2532,37 @@ const theme = {
       horizontal: {
         space: {
           y: {
-            xs: '0',
-            sm: '0.25rem',
-            md: '0.5rem',
-            ml: '0.75rem',
-            lg: '1rem',
-            xl: '1.5rem',
-            xxl: '2rem',
+            xs: "0",
+            sm: "0.25rem",
+            md: "0.5rem",
+            ml: "0.75rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            xxl: "2rem",
           },
           x: {
-            all: '0',
+            all: "0",
           },
         },
       },
       vertical: {
         space: {
           x: {
-            xs: '0',
-            sm: '0.25rem',
-            md: '0.5rem',
-            lg: '1rem',
-            xl: '1.5rem',
-            xxl: '2rem',
+            xs: "0",
+            sm: "0.25rem",
+            md: "0.5rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            xxl: "2rem",
           },
           y: {
-            all: '0',
+            all: "0",
           },
         },
       },
       color: {
         stroke: {
-          default: '#e6e7e9',
+          default: "#323232",
         },
       },
     },
@@ -2549,14 +2570,14 @@ const theme = {
       navigation: {
         item: {
           radii: {
-            all: '0.25rem',
+            all: "0.25rem",
           },
           default: {
             space: {
-              right: '0.75rem',
-              y: '0.2813rem',
-              gap: '0.75rem',
-              left: '0',
+              right: "0.75rem",
+              y: "0.2813rem",
+              gap: "0.75rem",
+              left: "0",
             },
           },
           typography: {
@@ -2579,28 +2600,28 @@ const theme = {
                 '400 1rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
             },
             space: {
-              left: '0',
-              right: '0.75rem',
-              y: '0.75rem',
-              gap: '0.75rem',
+              left: "0",
+              right: "0.75rem",
+              y: "0.75rem",
+              gap: "0.75rem",
             },
           },
           collapsible: {
             space: {
-              left: '0',
-              right: '0.75rem',
-              y: '0.2813rem',
-              gap: '0.75rem',
+              left: "0",
+              right: "0.75rem",
+              y: "0.2813rem",
+              gap: "0.75rem",
             },
           },
           icon: {
             size: {
-              height: '1rem',
-              width: '1rem',
+              height: "1rem",
+              width: "1rem",
             },
           },
           global: {
-            gap: '2px',
+            gap: "2px",
           },
         },
         title: {
@@ -2618,17 +2639,17 @@ const theme = {
         subItem: {
           default: {
             space: {
-              left: '2.75rem',
-              right: '0.75rem',
-              y: '0.2813rem',
+              left: "2.75rem",
+              right: "0.75rem",
+              y: "0.2813rem",
             },
           },
           mobile: {
             space: {
-              left: '2.75rem',
-              right: '0.75rem',
-              y: '0.75rem',
-              gap: '0.75rem',
+              left: "2.75rem",
+              right: "0.75rem",
+              y: "0.75rem",
+              gap: "0.75rem",
             },
             typography: {
               default:
@@ -2640,7 +2661,7 @@ const theme = {
             },
           },
           radii: {
-            all: '0.25rem',
+            all: "0.25rem",
           },
           typography: {
             default:
@@ -2656,7 +2677,7 @@ const theme = {
         dragControl: {
           separator: {
             size: {
-              height: '0.125rem',
+              height: "0.125rem",
             },
           },
         },
@@ -2664,130 +2685,131 @@ const theme = {
       main: {
         color: {
           background: {
-            default: '#ffffff',
+            default: "#1f1f1c",
           },
           text: {
-            default: '#161517',
-            muted: '#696e79',
+            default: "#ffffff",
+            muted: "#b3b6bd",
           },
           stroke: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
         },
         navigation: {
           item: {
             color: {
               background: {
-                default: 'rgba(0, 0, 0, 0)',
-                hover: 'lch(91.609 1.1023 265.86 / 0.6)',
-                active: '#e6e7e9',
+                active: "lch(27.535 0 none / 0.6)",
+                hover: "lch(19.05 0 none)",
+                default: "rgba(0, 0, 0, 0)",
               },
               text: {
-                default: '#161517',
-                hover: '#161517',
-                active: '#161517',
-                muted: '#696e79',
-                disabled: '#a0a0a0',
+                default: "#ffffff",
+                hover: "#ffffff",
+                active: "#ffffff",
+                muted: "#b3b6bd",
+                disabled: "#808080",
               },
               icon: {
-                default: '#696e79',
-                disabled: '#a0a0a0',
+                default: "#b3b6bd",
+                disabled: "#808080",
               },
             },
           },
           title: {
             color: {
-              default: '#696e79',
-              hover: '#696e79',
-              active: '#696e79',
+              default: "#b3b6bd",
+              hover: "#b3b6bd",
+              active: "#b3b6bd",
             },
           },
           subItem: {
             color: {
               text: {
-                default: '#696e79',
-                hover: '#161517',
-                active: '#161517',
-                disabled: '#a0a0a0',
+                default: "#b3b6bd",
+                disabled: "#808080",
+                hover: "#ffffff",
+                active: "#ffffff",
               },
               background: {
-                default: 'rgba(0, 0, 0, 0)',
-                hover: 'lch(91.609 1.1023 265.86 / 0.6)',
-                active: 'rgba(0, 0, 0, 0)',
-                disabled: 'rgba(0, 0, 0, 0)',
+                default: "rgba(0, 0, 0, 0)",
+                disabled: "rgba(0, 0, 0, 0)",
+                hover: "lch(19.05 0 none)",
+                active: "rgba(0, 0, 0, 0)",
               },
               icon: {
-                default: '#696e79',
-                disabled: '#a0a0a0',
+                default: "#b3b6bd",
+                disabled: "#808080",
               },
             },
           },
           dragControl: {
             separator: {
               color: {
-                default: '#161517',
+                default: "#faff69",
               },
             },
           },
         },
       },
       sqlSidebar: {
+        color: {
+          background: {
+            default: "#282828",
+          },
+          stroke: {
+            default: "#323232",
+          },
+        },
         navigation: {
           item: {
             color: {
-              text: {
-                disabled: '#a0a0a0',
-                default: '#161517',
-                hover: '#161517',
-                active: '#161517',
-                muted: '#696e79',
-              },
               background: {
-                default: 'rgba(0, 0, 0, 0)',
-                hover: 'lch(91.609 1.1023 265.86 / 0.6)',
-                active: '#e6e7e9',
+                active: "lch(27.535 0 none / 0.6)",
+                hover: "lch(19.05 0 none)",
+                default: "rgba(0, 0, 0, 0)",
+              },
+              text: {
+                default: "#ffffff",
+                hover: "#ffffff",
+                active: "#ffffff",
+                muted: "#b3b6bd",
+                disabled: "#808080",
               },
               icon: {
-                default: '#696e79',
+                default: "#b3b6bd",
+                disabled: "#808080",
               },
-            },
-          },
-          title: {
-            color: {
-              default: '#696e79',
-              hover: '#696e79',
-              active: '#696e79',
             },
           },
           subItem: {
             color: {
               text: {
-                default: '#696e79',
-                hover: '#161517',
-                active: '#161517',
-                disabled: '#a0a0a0',
+                disabled: "#808080",
+                default: "#b3b6bd",
+                hover: "#ffffff",
+                active: "#ffffff",
               },
               background: {
-                default: 'rgba(0, 0, 0, 0)',
-                hover: 'lch(91.609 1.1023 265.86 / 0.6)',
-                active: 'rgba(0, 0, 0, 0)',
+                default: "rgba(0, 0, 0, 0)",
+                hover: "lch(19.05 0 none)",
+                active: "rgba(0, 0, 0, 0)",
               },
+            },
+          },
+          title: {
+            color: {
+              default: "#b3b6bd",
+              hover: "#b3b6bd",
+              active: "#b3b6bd",
             },
           },
           dragControl: {
             separator: {
               color: {
-                default: '#161517',
+                default: "#faff69",
               },
             },
-          },
-        },
-        color: {
-          background: {
-            default: '#f6f7fa',
-          },
-          stroke: {
-            default: '#e6e7e9',
           },
         },
       },
@@ -2796,16 +2818,16 @@ const theme = {
       horizontal: {
         space: {
           y: {
-            xs: '0',
-            sm: '0.25rem',
-            md: '0.5rem',
-            ml: '0.75rem',
-            lg: '1rem',
-            xl: '1.5rem',
-            xxl: '2rem',
+            xs: "0",
+            sm: "0.25rem",
+            md: "0.5rem",
+            ml: "0.75rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            xxl: "2rem",
           },
           x: {
-            all: '0',
+            all: "0",
           },
         },
       },
@@ -2815,16 +2837,16 @@ const theme = {
         numbered: {
           connector: {
             size: {
-              width: '0.1875rem',
+              width: "0.1875rem",
             },
             stroke: {
-              default: '2px',
+              default: "2px",
             },
             color: {
               stroke: {
-                incomplete: '#c0c0c0',
-                complete: '#1f1f1c',
-                active: '#c0c0c0',
+                incomplete: "#606060",
+                complete: "#ffffff",
+                active: "#606060",
               },
             },
           },
@@ -2842,104 +2864,104 @@ const theme = {
               },
             },
             size: {
-              height: '1.5rem',
-              width: '1.5rem',
+              height: "1.5rem",
+              width: "1.5rem",
               icon: {
-                height: '0.75rem',
-                width: '0.75rem',
+                height: "0.75rem",
+                width: "0.75rem",
               },
             },
             stroke: {
-              default: '2px',
+              default: "2px",
             },
             radii: {
-              default: '9999px',
+              default: "9999px",
             },
             color: {
               stroke: {
-                incomplete: '#c0c0c0',
-                complete: '#1f1f1c',
-                active: '#1f1f1c',
+                incomplete: "#606060",
+                complete: "#ffffff",
+                active: "#ffffff",
               },
               background: {
-                incomplete: '#ffffff',
-                complete: '#ffffff',
-                active: '#1f1f1c',
+                incomplete: "#1f1f1c",
+                complete: "#1f1f1c",
+                active: "#ffffff",
               },
               icon: {
-                incomplete: '#1f1f1c',
-                complete: '#1f1f1c',
-                active: '#ffffff',
+                incomplete: "#ffffff",
+                complete: "#ffffff",
+                active: "#1f1f1c",
               },
             },
           },
           content: {
             space: {
               gap: {
-                x: '1rem',
-                y: '0.5rem',
+                x: "1rem",
+                y: "0.5rem",
               },
-              left: '2.75rem',
+              left: "2.75rem",
               bottom: {
-                default: '2.5rem',
-                active: '1.5rem',
+                default: "2.5rem",
+                active: "1.5rem",
               },
             },
           },
           color: {
             title: {
-              incomplete: '#c0c0c0',
-              complete: '#696e79',
-              active: '#161517',
+              incomplete: "#606060",
+              complete: "#b3b6bd",
+              active: "#ffffff",
             },
           },
         },
         bulleted: {
           connector: {
             size: {
-              width: '0.1875rem',
+              width: "0.1875rem",
             },
             stroke: {
-              default: '2px',
+              default: "2px",
             },
             color: {
               stroke: {
-                incomplete: '#c0c0c0',
-                complete: '#1f1f1c',
-                active: '#c0c0c0',
+                incomplete: "#606060",
+                complete: "#ffffff",
+                active: "#606060",
               },
             },
           },
           step: {
             size: {
-              height: '1rem',
-              width: '1rem',
+              height: "1rem",
+              width: "1rem",
               icon: {
-                height: '0.75rem',
-                width: '0.75rem',
+                height: "0.75rem",
+                width: "0.75rem",
               },
             },
             radii: {
-              default: '9999px',
+              default: "9999px",
             },
             stroke: {
-              default: '2px',
+              default: "2px",
             },
             color: {
               stroke: {
-                incomplete: '#c0c0c0',
-                complete: '#1f1f1c',
-                active: '#1f1f1c',
+                incomplete: "#606060",
+                complete: "#ffffff",
+                active: "#ffffff",
               },
               background: {
-                incomplete: '#ffffff',
-                complete: '#ffffff',
-                active: '#ffffff',
+                incomplete: "#1f1f1c",
+                complete: "#1f1f1c",
+                active: "#ffffff",
               },
               icon: {
-                incomplete: '#ffffff',
-                complete: '#1f1f1c',
-                active: '#ffffff',
+                incomplete: "#1f1f1c",
+                complete: "#ffffff",
+                active: "#ffffff",
               },
             },
           },
@@ -2952,21 +2974,21 @@ const theme = {
           content: {
             space: {
               gap: {
-                x: '1rem',
-                y: '0.5rem',
+                x: "1rem",
+                y: "0.5rem",
               },
-              left: '2.25rem',
+              left: "2.25rem",
               bottom: {
-                default: '2.5rem',
-                active: '1.5rem',
+                default: "2.5rem",
+                active: "1.5rem",
               },
             },
           },
           color: {
             title: {
-              incomplete: '#c0c0c0',
-              complete: '#696e79',
-              active: '#161517',
+              incomplete: "#606060",
+              complete: "#b3b6bd",
+              active: "#ffffff",
             },
           },
         },
@@ -2974,14 +2996,14 @@ const theme = {
     },
     switch: {
       space: {
-        gap: '0.5rem',
+        gap: "0.5rem",
       },
       radii: {
-        all: '9999px',
+        all: "9999px",
       },
       size: {
-        width: '2rem',
-        height: '1rem',
+        width: "2rem",
+        height: "1rem",
       },
       typography: {
         label: {
@@ -2997,19 +3019,19 @@ const theme = {
       },
       color: {
         background: {
-          default: '#cccfd3',
-          active: '#151515',
-          disabled: '#dfdfdf',
+          default: "#606060",
+          active: "#faff69",
+          disabled: "#414141",
         },
         stroke: {
-          default: '#cccfd3',
-          active: '#161517',
-          disabled: '#dfdfdf',
+          default: "#606060",
+          active: "#faff69",
+          disabled: "#414141",
         },
         indicator: {
-          default: '#ffffff',
-          active: '#ffffff',
-          disabled: '#a0a0a0',
+          default: "#151515",
+          active: "#161517",
+          disabled: "#606060",
         },
       },
     },
@@ -3022,33 +3044,33 @@ const theme = {
         cell: {
           space: {
             md: {
-              y: '0.75rem',
-              x: '1rem',
+              y: "0.75rem",
+              x: "1rem",
             },
             sm: {
-              y: '0.5rem',
-              x: '1rem',
+              y: "0.5rem",
+              x: "1rem",
             },
           },
         },
         color: {
           background: {
-            default: '#f6f7fa',
-            hover: '#f6f7fa',
-            active: '#e7effd',
+            default: "#282828",
+            hover: "#282828",
+            active: "rgb(17.794% 17.794% 17.794%)",
           },
           title: {
-            default: '#161517',
+            default: "rgb(97.5% 97.5% 97.5%)",
           },
           icon: {
-            default: '#161517',
+            default: "#ffffff",
           },
           checkbox: {
             background: {
-              default: '#cccfd3',
+              default: "#cccfd3",
             },
             border: {
-              default: '#808691',
+              default: "#808691",
             },
           },
         },
@@ -3062,21 +3084,21 @@ const theme = {
           default:
             '500 0.75rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
         },
-        stroke: '1px',
+        stroke: "1px",
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       body: {
         cell: {
           space: {
             md: {
-              y: '1rem',
-              x: '1rem',
+              y: "1rem",
+              x: "1rem",
             },
             sm: {
-              y: '0.5rem',
-              x: '1rem',
+              y: "0.5rem",
+              x: "1rem",
             },
           },
         },
@@ -3084,56 +3106,56 @@ const theme = {
       mobile: {
         cell: {
           space: {
-            y: '1rem',
-            x: '1rem',
-            gap: '0.5rem',
+            y: "1rem",
+            x: "1rem",
+            gap: "0.5rem",
           },
         },
       },
       row: {
         color: {
           background: {
-            default: '#ffffff',
-            hover: 'lch(94.146 7.7815 264.18 / 0.2)',
-            active: 'lch(94.146 7.7815 264.18 / 0.2)',
+            default: "#1f1f1c",
+            hover: "lch(15.792 0 none)",
+            active: "rgb(17.535% 17.535% 17.535%)",
           },
           stroke: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
           text: {
-            default: '#161517',
-            disabled: '#a0a0a0',
+            default: "#ffffff",
+            disabled: "#808080",
           },
           link: {
-            default: '#437eef',
+            default: "#faff69",
           },
           label: {
-            default: '#696e79',
+            default: "#b3b6bd",
           },
           barChart: {
-            default: '#dfdfdf',
-            hover: '#c0c0c0',
+            default: "#414141",
+            hover: "#606060",
           },
         },
       },
       global: {
         color: {
           stroke: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
           background: {
-            default: '#ffffff',
+            default: "#1f1f1c",
           },
         },
       },
     },
     tabs: {
       space: {
-        y: '0.5rem',
-        x: '0.75rem',
+        y: "0.5rem",
+        x: "0.75rem",
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       typography: {
         label: {
@@ -3147,43 +3169,43 @@ const theme = {
       },
       basic: {
         strokeWidth: {
-          default: '1px',
-          hover: '1px',
-          active: '2px',
-          global: '1px',
+          default: "1px",
+          hover: "1px",
+          active: "2px",
+          global: "1px",
         },
         color: {
           background: {
-            default: 'rgba(0, 0, 0, 0)',
-            hover: '#f6f7fa',
-            active: 'rgba(0, 0, 0, 0)',
+            default: "rgba(0, 0, 0, 0)",
+            hover: "#282828",
+            active: "rgba(0, 0, 0, 0)",
           },
           text: {
-            default: '#696e79',
-            hover: '#161517',
-            active: '#161517',
+            default: "#b3b6bd",
+            hover: "#ffffff",
+            active: "#ffffff",
           },
           stroke: {
-            default: 'rgba(0, 0, 0, 0)',
-            hover: 'rgba(0, 0, 0, 0)',
-            active: '#151515',
+            default: "rgba(0, 0, 0, 0)",
+            hover: "rgba(0, 0, 0, 0)",
+            active: "#faff69",
           },
           global: {
-            default: '#e6e7e9',
+            default: "#323232",
           },
         },
       },
       fileTabs: {
         icon: {
           size: {
-            height: '1rem',
-            width: '1rem',
+            height: "1rem",
+            width: "1rem",
           },
         },
         space: {
-          y: '1.0625rem',
-          x: '1rem',
-          gap: '0.75rem',
+          y: "1.0625rem",
+          x: "1rem",
+          gap: "0.75rem",
         },
         typography: {
           label: {
@@ -3196,28 +3218,28 @@ const theme = {
           },
         },
         radii: {
-          all: '0',
+          all: "0",
         },
         color: {
           background: {
-            default: '#f6f7fa',
-            hover: '#ffffff',
-            active: '#ffffff',
+            default: "#1f1f1c",
+            hover: "#282828",
+            active: "#282828",
           },
           text: {
-            default: '#696e79',
-            hover: '#161517',
-            active: '#161517',
+            default: "#b3b6bd",
+            hover: "#ffffff",
+            active: "#ffffff",
           },
           stroke: {
-            default: '#e6e7e9',
-            hover: '#e6e7e9',
-            active: '#e6e7e9',
+            default: "#323232",
+            hover: "#323232",
+            active: "#323232",
           },
           closeButton: {
             background: {
-              default: 'rgba(0, 0, 0, 0)',
-              hover: '#e6e7e9',
+              default: "rgba(0, 0, 0, 0)",
+              hover: "#414141",
             },
           },
         },
@@ -3226,23 +3248,23 @@ const theme = {
     toast: {
       icon: {
         size: {
-          height: '1rem',
-          width: '1rem',
+          height: "1rem",
+          width: "1rem",
         },
       },
       space: {
         title: {
-          gap: '0.5rem',
+          gap: "0.5rem",
         },
-        y: '0.75rem',
-        x: '0.75rem',
-        gap: '0.5rem',
+        y: "0.75rem",
+        x: "0.75rem",
+        gap: "0.5rem",
       },
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       shadow:
-        '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+        "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
       typography: {
         title: {
           default:
@@ -3254,33 +3276,33 @@ const theme = {
         },
       },
       size: {
-        width: '20.75rem',
+        width: "20.75rem",
       },
       color: {
         title: {
-          default: 'lch(11.126 1.374 305.43)',
+          default: "rgb(97.5% 97.5% 97.5%)",
         },
         description: {
-          default: '#696e79',
+          default: "#b3b6bd",
         },
         stroke: {
-          default: '#e6e7e9',
+          default: "#414141",
         },
         icon: {
-          default: 'lch(11.126 1.374 305.43)',
-          success: '#008a0b',
-          warning: '#a33c00',
-          danger: '#c10000',
+          default: "rgb(97.5% 97.5% 97.5%)",
+          success: "#ccffd0",
+          warning: "#ffb88f",
+          danger: "#ffbaba",
         },
       },
     },
     tooltip: {
       radii: {
-        all: '0.25rem',
+        all: "0.25rem",
       },
       space: {
-        x: '0.75rem',
-        y: '0.5rem',
+        x: "0.75rem",
+        y: "0.5rem",
       },
       typography: {
         label: {
@@ -3290,39 +3312,39 @@ const theme = {
       },
       color: {
         background: {
-          default: 'lch(10.767 0 none / 0.85)',
+          default: "lch(16.114 0 none / 0.95)",
         },
         label: {
-          default: '#ffffff',
+          default: "#ffffff",
         },
       },
     },
     dashboards: {
       chartWidget: {
         space: {
-          gap: '1rem',
+          gap: "1rem",
           element: {
-            gap: '0.5rem',
+            gap: "0.5rem",
           },
         },
         borderWidth: {
-          default: '1px',
+          default: "1px",
         },
         stroke: {
-          default: '1px solid #e6e7e9',
+          default: "1px solid #323232",
           element: {
-            default: '1px solid #e6e7e9',
+            default: "1px solid #323232",
           },
-          hover: '1px solid #b3b6bd',
-          selected: '1px solid #151515',
+          hover: "1px solid #414141",
+          selected: "1px solid #faff69",
         },
         element: {
           radii: {
-            all: '0.25rem',
+            all: "0.25rem",
           },
         },
         radii: {
-          all: '0.25rem',
+          all: "0.25rem",
         },
         typography: {
           title: {
@@ -3343,50 +3365,50 @@ const theme = {
           },
         },
         shadow: {
-          default: '0',
+          default: "0",
           hover:
-            '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
+            "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
         },
         size: {
           icon: {
             all: {
-              drag: '1.25rem',
-              menu: '1.5rem',
-              resize: '0.75rem',
+              drag: "1.25rem",
+              menu: "1.5rem",
+              resize: "0.75rem",
             },
           },
         },
         color: {
-          background: {
-            default: '#ffffff',
-            hover: '#ffffff',
-            selected: '#ffffff',
-          },
           stroke: {
-            default: '#e6e7e9',
-            hover: '#b3b6bd',
-            selected: '#151515',
+            default: "#323232",
+            hover: "#414141",
+            selected: "#faff69",
           },
           title: {
-            default: 'lch(11.126 1.374 305.43)',
+            default: "rgb(97.5% 97.5% 97.5%)",
           },
           description: {
-            default: '#696e79',
+            default: "#b3b6bd",
           },
           legend: {
-            default: '#696e79',
-            hover: '#696e79',
-            selected: '#161517',
+            default: "#b3b6bd",
+            hover: "#b3b6bd",
+            selected: "#ffffff",
           },
           element: {
             stroke: {
-              default: '#e6e7e9',
+              default: "#323232",
             },
           },
+          background: {
+            default: "#282828",
+            hover: "#282828",
+            selected: "#282828",
+          },
           icon: {
-            default: '#161517',
-            hover: '#161517',
-            selected: '#151515',
+            default: "#ffffff",
+            hover: "#ffffff",
+            selected: "#faff69",
           },
           opacity: {
             bar: {
@@ -3395,375 +3417,375 @@ const theme = {
             },
           },
           label: {
-            default: '#696e79',
-            hover: '#696e79',
-            selected: '#696e79',
+            default: "#b3b6bd",
+            hover: "#b3b6bd",
+            selected: "#b3b6bd",
           },
         },
       },
     },
     global: {
       color: {
-        stroke: {
-          default: '#e6e7e9',
-          muted: 'lch(91.609 1.1023 265.86)',
-          intense: '#b3b6bd',
-        },
-        accent: {
-          default: '#151515',
-        },
         background: {
-          default: '#ffffff',
-          muted: '#f6f7fa',
+          default: "#1f1f1c",
+          muted: "#282828",
         },
         text: {
-          default: '#161517',
-          muted: '#696e79',
-          disabled: '#a0a0a0',
+          default: "#ffffff",
+          muted: "#b3b6bd",
+          disabled: "#808080",
           link: {
-            default: '#437eef',
-            hover: '#104ec6',
+            default: "#faff69",
+            hover: "#feffc2",
           },
-          danger: '#c10000',
-          warning: '#a33c00',
+          danger: "#ffbaba",
+          warning: "#ffb88f",
         },
-        title: {
-          default: 'lch(11.126 1.374 305.43)',
-          muted: '#696e79',
+        stroke: {
+          default: "#323232",
+          muted: "#323232",
+          intense: "#414141",
+        },
+        accent: {
+          default: "#faff69",
         },
         outline: {
-          default: '#437eef',
+          default: "#faff69",
         },
         shadow: {
-          default: 'lch(6.7738 0 none / 0.15)',
+          default: "rgb(8.2353% 8.2353% 8.2353% / 0.6)",
+        },
+        title: {
+          default: "rgb(97.5% 97.5% 97.5%)",
+          muted: "#b3b6bd",
         },
       },
     },
     feedback: {
       color: {
         info: {
-          background: 'rgb(26.275% 49.412% 93.725% / 0.1)',
-          foreground: '#437eef',
+          background: "rgb(26.275% 49.412% 93.725% / 0.2)",
+          foreground: "#d0dffb",
         },
         success: {
-          background: 'rgb(20% 100% 26.667% / 0.1)',
-          foreground: '#008a0b',
+          background: "rgb(20% 100% 26.667% / 0.2)",
+          foreground: "#ccffd0",
         },
         warning: {
-          background: 'rgb(100% 46.667% 16.078% / 0.1)',
-          foreground: '#a33c00',
+          background: "rgb(100% 46.667% 16.078% / 0.2)",
+          foreground: "#ffb88f",
         },
         danger: {
-          background: 'rgb(100% 13.725% 13.725% / 0.1)',
-          foreground: '#c10000',
+          background: "rgb(100% 13.725% 13.725% / 0.2)",
+          foreground: "#ffbaba",
         },
         neutral: {
-          background: 'rgb(41.176% 43.137% 47.451% / 0.1)',
-          foreground: '#53575f',
-          stroke: '#e6e7e9',
+          background: "rgb(62.745% 62.745% 62.745% / 0.2)",
+          foreground: "#c0c0c0",
+          stroke: "#323232",
         },
       },
     },
     storybook: {
       global: {
-        background: '#ffffff',
+        background: "#1b1c1d",
       },
     },
     chart: {
-      color: {
-        default: {
-          blue: '#437eef',
-          orange: '#ff7729',
-          green: '#00e513',
-          fuchsia: '#fb32c9',
-          yellow: '#eef400',
-          violet: '#bb33ff',
-          babyblue: '#00cbeb',
-          red: '#ff2323',
-          teal: '#089b83',
-          sunrise: '#ffc300',
-          slate: '#9a9ea7',
-        },
-        label: {
-          default: '#161517',
-          deselected: 'lch(6.9377 1.4387 305.43 / 0.3)',
-        },
-      },
       bars: {
         color: {
-          blue: '#437eef',
-          orange: '#ff7729',
-          green: '#00e513',
-          fuchsia: '#fb32c9',
-          yellow: '#eef400',
-          violet: '#bb33ff',
-          babyblue: '#00cbeb',
-          red: '#ff2323',
-          teal: '#089b83',
-          sunrise: '#ffc300',
-          slate: '#9a9ea7',
+          blue: "#437eef",
+          orange: "#ff7729",
+          green: "#33ff44",
+          fuchsia: "#fb64d6",
+          yellow: "#eef400",
+          violet: "#bb33ff",
+          babyblue: "#00cbeb",
+          red: "#ff2323",
+          teal: "#6df8e1",
+          sunrise: "#ffc300",
+          slate: "#9a9ea7",
+        },
+      },
+      color: {
+        default: {
+          blue: "#437eef",
+          orange: "#ff7729",
+          green: "#33ff44",
+          fuchsia: "#fb64d6",
+          yellow: "#eef400",
+          violet: "#bb33ff",
+          babyblue: "#00cbeb",
+          red: "#ff2323",
+          teal: "#6df8e1",
+          sunrise: "#ffc300",
+          slate: "#9a9ea7",
+        },
+        label: {
+          default: "#ffffff",
+          deselected: "lch(100 0 none / 0.3)",
         },
       },
     },
     serviceCard: {
       color: {
         background: {
-          default: '#fbfcff',
-          hover: '#fbfcff',
+          default: "rgb(17.794% 17.794% 17.794%)",
+          hover: "lch(19.053 0 none)",
         },
         stroke: {
-          default: '#e6e7e9',
-          hover: '#cccfd3',
+          default: "rgb(23.627% 23.627% 23.627%)",
+          hover: "rgb(27.446% 27.446% 27.446%)",
         },
       },
     },
     gareth: {
       test: {
         main: {
-          text: '#161517',
-          danger: '#c10000',
+          text: "#ffffff",
+          danger: "#ffbaba",
         },
       },
     },
   },
   transition: {
-    default: 'all 100ms ease-in 0ms',
+    default: "all 100ms ease-in 0ms",
     duration: {
-      slow: '300ms',
-      smooth: '150ms',
-      medium: '100ms',
-      fast: '50ms',
+      slow: "300ms",
+      smooth: "150ms",
+      medium: "100ms",
+      fast: "50ms",
     },
     delay: {
-      slow: '100ms',
-      fast: '0ms',
+      slow: "100ms",
+      fast: "0ms",
     },
     function: {
-      ease: 'ease',
-      'ease-in': 'ease-in',
-      'ease-in-out': 'ease-in-out',
-      linear: 'linear',
+      ease: "ease",
+      "ease-in": "ease-in",
+      "ease-in-out": "ease-in-out",
+      linear: "linear",
     },
   },
   grid: {
     header: {
       cell: {
         borderWidth: {
-          default: '1px',
-          selectIndirect: '1px',
-          selectDirect: '1px',
+          default: "1px",
+          selectIndirect: "1px",
+          selectDirect: "1px",
         },
       },
     },
     body: {
       cell: {
         borderWidth: {
-          default: '1px',
-          selectIndirect: '1px',
-          selectDirect: '2px',
+          default: "1px",
+          selectIndirect: "1px",
+          selectDirect: "2px",
         },
       },
     },
   },
   palette: {
     brand: {
-      '50': '#ffffe8',
-      '100': '#feffc2',
-      '200': '#fdffa3',
-      '300': '#faff69',
-      '400': '#eef400',
-      '500': '#c7cc00',
-      '600': '#959900',
-      '700': '#686b00',
-      '800': '#3c4601',
-      '900': '#333300',
-      base: '#fbff46',
+      "50": "#ffffe8",
+      "100": "#feffc2",
+      "200": "#fdffa3",
+      "300": "#faff69",
+      "400": "#eef400",
+      "500": "#c7cc00",
+      "600": "#959900",
+      "700": "#686b00",
+      "800": "#3c4601",
+      "900": "#333300",
+      base: "#fbff46",
     },
     neutral: {
-      '0': '#ffffff',
-      '100': '#f9f9f9',
-      '200': '#dfdfdf',
-      '300': '#c0c0c0',
-      '400': '#a0a0a0',
-      '500': '#808080',
-      '600': '#606060',
-      '650': '#505050',
-      '700': '#414141',
-      '712': '#323232',
-      '725': '#282828',
-      '750': '#1f1f1c',
-      '800': '#1d1d1d',
-      '900': '#151515',
-      base: '#212121',
+      "0": "#ffffff",
+      "100": "#f9f9f9",
+      "200": "#dfdfdf",
+      "300": "#c0c0c0",
+      "400": "#a0a0a0",
+      "500": "#808080",
+      "600": "#606060",
+      "650": "#505050",
+      "700": "#414141",
+      "712": "#323232",
+      "725": "#282828",
+      "750": "#1f1f1c",
+      "800": "#1d1d1d",
+      "900": "#151515",
+      base: "#212121",
     },
     slate: {
-      '25': '#fbfcff',
-      '50': '#f6f7fa',
-      '100': '#e6e7e9',
-      '200': '#cccfd3',
-      '300': '#b3b6bd',
-      '400': '#9a9ea7',
-      '500': '#808691',
-      '600': '#696e79',
-      '700': '#53575f',
-      '800': '#302e32',
-      '900': '#161517',
-      base: '#373439',
-      '50a': 'lch(49.809 30.506 276.77 / 0.06)',
+      "25": "#fbfcff",
+      "50": "#f6f7fa",
+      "100": "#e6e7e9",
+      "200": "#cccfd3",
+      "300": "#b3b6bd",
+      "400": "#9a9ea7",
+      "500": "#808691",
+      "600": "#696e79",
+      "700": "#53575f",
+      "800": "#302e32",
+      "900": "#161517",
+      base: "#373439",
+      "50a": "lch(49.809 30.506 276.77 / 0.06)",
     },
     indigo: {
-      '50': '#f4f1fc',
-      '100': '#e4e2e9',
-      '200': '#c8c5d3',
-      '300': '#ada8bd',
-      '400': '#918ba7',
-      '500': '#766e91',
-      '600': '#5e5874',
-      '700': '#474257',
-      '800': '#23212c',
-      '900': '#18161d',
-      base: '#2f2c3a',
+      "50": "#f4f1fc",
+      "100": "#e4e2e9",
+      "200": "#c8c5d3",
+      "300": "#ada8bd",
+      "400": "#918ba7",
+      "500": "#766e91",
+      "600": "#5e5874",
+      "700": "#474257",
+      "800": "#23212c",
+      "900": "#18161d",
+      base: "#2f2c3a",
     },
     info: {
-      '50': '#e7effd',
-      '100': '#d0dffb',
-      '200': '#a1bef7',
-      '300': '#6d9bf3',
-      '400': '#437eef',
-      '500': '#1d64ec',
-      '600': '#104ec6',
-      '650': '#0d3e9b',
-      '700': '#0d3e9b',
-      '800': '#092b6c',
-      '900': '#061c47',
-      base: '#4781f0',
+      "50": "#e7effd",
+      "100": "#d0dffb",
+      "200": "#a1bef7",
+      "300": "#6d9bf3",
+      "400": "#437eef",
+      "500": "#1d64ec",
+      "600": "#104ec6",
+      "650": "#0d3e9b",
+      "700": "#0d3e9b",
+      "800": "#092b6c",
+      "900": "#061c47",
+      base: "#4781f0",
     },
     success: {
-      '50': '#e5ffe8',
-      '100': '#ccffd0',
-      '200': '#99ffa1',
-      '300': '#66ff73',
-      '400': '#33ff44',
-      '500': '#00e513',
-      '600': '#00bd10',
-      '700': '#008a0b',
-      '800': '#006108',
-      '850': '#004206',
-      '900': '#004206',
-      base: '#62de85',
+      "50": "#e5ffe8",
+      "100": "#ccffd0",
+      "200": "#99ffa1",
+      "300": "#66ff73",
+      "400": "#33ff44",
+      "500": "#00e513",
+      "600": "#00bd10",
+      "700": "#008a0b",
+      "800": "#006108",
+      "850": "#004206",
+      "900": "#004206",
+      base: "#62de85",
     },
     warning: {
-      '50': '#ffe2d1',
-      '100': '#ffcbad',
-      '200': '#ffb88f',
-      '300': '#ff9457',
-      '400': '#ff7729',
-      '500': '#f55a00',
-      '600': '#d64f00',
-      '700': '#a33c00',
-      '800': '#7a2d00',
-      '900': '#471a00',
-      base: '#ffa63d',
+      "50": "#ffe2d1",
+      "100": "#ffcbad",
+      "200": "#ffb88f",
+      "300": "#ff9457",
+      "400": "#ff7729",
+      "500": "#f55a00",
+      "600": "#d64f00",
+      "700": "#a33c00",
+      "800": "#7a2d00",
+      "900": "#471a00",
+      base: "#ffa63d",
     },
     danger: {
-      '50': '#ffdddd',
-      '100': '#ffbaba',
-      '200': '#ff9898',
-      '300': '#ff7575',
-      '400': '#ff2323',
-      '500': '#f10000',
-      '600': '#c10000',
-      '700': '#910000',
-      '800': '#610000',
-      '900': '#300000',
-      base: '#ff5353',
+      "50": "#ffdddd",
+      "100": "#ffbaba",
+      "200": "#ff9898",
+      "300": "#ff7575",
+      "400": "#ff2323",
+      "500": "#f10000",
+      "600": "#c10000",
+      "700": "#910000",
+      "800": "#610000",
+      "900": "#300000",
+      base: "#ff5353",
     },
     gradients: {
-      base: 'linear-gradient(229.65deg, #292924 15.78%, #0F0F0F 88.39%)',
-      yellowToblack: 'linear-gradient(132deg, #FAFF69 8%, #292929 30%);',
-      whiteToblack: 'linear-gradient(132deg, #FFFFFF 8%, #292929 30%);',
-      transparent: 'rgba(0, 0, 0, 0)',
+      base: "linear-gradient(229.65deg, #292924 15.78%, #0F0F0F 88.39%)",
+      yellowToblack: "linear-gradient(132deg, #FAFF69 8%, #292929 30%);",
+      whiteToblack: "linear-gradient(132deg, #FFFFFF 8%, #292929 30%);",
+      transparent: "rgba(0, 0, 0, 0)",
     },
     utility: {
-      transparent: 'rgba(0, 0, 0, 0)',
+      transparent: "rgba(0, 0, 0, 0)",
     },
     teal: {
-      '50': '#e6fefa',
-      '100': '#cffcf4',
-      '200': '#a3faec',
-      '300': '#6df8e1',
-      '400': '#0cedc8',
-      '500': '#0bd0af',
-      '600': '#089b83',
-      '700': '#067462',
-      '800': '#045245',
-      '850': '#004237',
-      '900': '#03352d',
+      "50": "#e6fefa",
+      "100": "#cffcf4",
+      "200": "#a3faec",
+      "300": "#6df8e1",
+      "400": "#0cedc8",
+      "500": "#0bd0af",
+      "600": "#089b83",
+      "700": "#067462",
+      "800": "#045245",
+      "850": "#004237",
+      "900": "#03352d",
     },
     violet: {
-      '50': '#f6e5ff',
-      '100': '#eeccff',
-      '200': '#dd99ff',
-      '300': '#cc66ff',
-      '400': '#bb33ff',
-      '500': '#aa00ff',
-      '600': '#8800cc',
-      '700': '#660099',
-      '800': '#440066',
-      '850': '#33004d',
-      '900': '#220033',
+      "50": "#f6e5ff",
+      "100": "#eeccff",
+      "200": "#dd99ff",
+      "300": "#cc66ff",
+      "400": "#bb33ff",
+      "500": "#aa00ff",
+      "600": "#8800cc",
+      "700": "#660099",
+      "800": "#440066",
+      "850": "#33004d",
+      "900": "#220033",
     },
     fuchsia: {
-      '50': '#fbeff8',
-      '100': '#fbc9ef',
-      '200': '#fb97e2',
-      '300': '#fb64d6',
-      '400': '#fb32c9',
-      '500': '#fb00bc',
-      '600': '#cc0099',
-      '700': '#990073',
-      '800': '#66004d',
-      '850': '#4d0039',
-      '900': '#330026',
+      "50": "#fbeff8",
+      "100": "#fbc9ef",
+      "200": "#fb97e2",
+      "300": "#fb64d6",
+      "400": "#fb32c9",
+      "500": "#fb00bc",
+      "600": "#cc0099",
+      "700": "#990073",
+      "800": "#66004d",
+      "850": "#4d0039",
+      "900": "#330026",
     },
     sunrise: {
-      '50': '#fff3cc',
-      '100': '#ffe799',
-      '200': '#ffdb66',
-      '300': '#ffcf33',
-      '400': '#ffc300',
-      '500': '#e0ac00',
-      '600': '#b28800',
-      '700': '#8a6900',
-      '800': '#574200',
-      '900': '#332700',
+      "50": "#fff3cc",
+      "100": "#ffe799",
+      "200": "#ffdb66",
+      "300": "#ffcf33",
+      "400": "#ffc300",
+      "500": "#e0ac00",
+      "600": "#b28800",
+      "700": "#8a6900",
+      "800": "#574200",
+      "900": "#332700",
     },
     babyblue: {
-      '50': '#dbfaff',
-      '100': '#bdf6ff',
-      '200': '#8aefff',
-      '300': '#33e4ff',
-      '400': '#00cbeb',
-      '500': '#00b5d1',
-      '600': '#008599',
-      '700': '#006170',
-      '800': '#00424d',
-      '900': '#002c33',
+      "50": "#dbfaff",
+      "100": "#bdf6ff",
+      "200": "#8aefff",
+      "300": "#33e4ff",
+      "400": "#00cbeb",
+      "500": "#00b5d1",
+      "600": "#008599",
+      "700": "#006170",
+      "800": "#00424d",
+      "900": "#002c33",
     },
   },
   sizes: {
-    '0': '0',
-    '1': '1px',
-    '2': '0.25rem',
-    '3': '0.5rem',
-    '4': '0.75rem',
-    '5': '1rem',
-    '6': '1.25rem',
-    '7': '1.5rem',
-    '8': '1.75rem',
-    '9': '2rem',
-    '10': '2.5rem',
-    '11': '4rem',
+    "0": "0",
+    "1": "1px",
+    "2": "0.25rem",
+    "3": "0.5rem",
+    "4": "0.75rem",
+    "5": "1rem",
+    "6": "1.25rem",
+    "7": "1.5rem",
+    "8": "1.75rem",
+    "9": "2rem",
+    "10": "2.5rem",
+    "11": "4rem",
   },
   typography: {
     font: {
@@ -3775,26 +3797,26 @@ const theme = {
           '\'Basier Square\', "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
       },
       weights: {
-        '1': '400',
-        '2': '500',
-        '3': '600',
-        '4': '700',
+        "1": "400",
+        "2": "500",
+        "3": "600",
+        "4": "700",
       },
       sizes: {
-        '0': '0.625rem',
-        '1': '0.75rem',
-        '2': '0.875rem',
-        '3': '1rem',
-        '4': '1.125rem',
-        '5': '1.25rem',
-        '6': '2rem',
-        base: '16px',
+        "0": "0.625rem",
+        "1": "0.75rem",
+        "2": "0.875rem",
+        "3": "1rem",
+        "4": "1.125rem",
+        "5": "1.25rem",
+        "6": "2rem",
+        base: "16px",
       },
-      'line-height': {
-        '1': 1.5,
-        '2': 1.6,
-        '3': 1.7,
-        '4': 1.3,
+      "line-height": {
+        "1": 1.5,
+        "2": 1.6,
+        "3": 1.7,
+        "4": 1.3,
       },
     },
     styles: {
@@ -3805,7 +3827,7 @@ const theme = {
           md: '600 1rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
           lg: '700 1.125rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
           xl: '700 1.25rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
-          '2xl':
+          "2xl":
             '600 2rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
         },
         text: {
@@ -3848,7 +3870,7 @@ const theme = {
           md: '600 36px/1.3 \'Basier Square\', "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
           lg: '600 56px/1.3 \'Basier Square\', "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
           xl: '700 64px/1.3 \'Basier Square\', "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
-          '2xl':
+          "2xl":
             '700 80px/1.3 \'Basier Square\', "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
         },
       },
@@ -3859,149 +3881,149 @@ const theme = {
   },
   border: {
     radii: {
-      '0': '0',
-      '1': '0.25rem',
-      '2': '0.5rem',
-      '3': '0.75rem',
-      full: '9999px',
+      "0": "0",
+      "1": "0.25rem",
+      "2": "0.5rem",
+      "3": "0.75rem",
+      full: "9999px",
     },
     width: {
-      '1': '1px',
-      '2': '2px',
+      "1": "1px",
+      "2": "2px",
     },
   },
   spaces: {
-    '0': '0',
-    '1': '0.25rem',
-    '2': '0.5rem',
-    '3': '0.75rem',
-    '4': '1rem',
-    '5': '1.5rem',
-    '6': '2rem',
-    '7': '2.5rem',
-    '8': '4rem',
+    "0": "0",
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "5": "1.5rem",
+    "6": "2rem",
+    "7": "2.5rem",
+    "8": "4rem",
   },
   shadow: {
-    '1': '0 4px 6px -1px lch(6.7738 0 none / 0.15), 0 2px 4px -1px lch(6.7738 0 none / 0.15)',
-    '2': '0 4px 4px 0 rgba(88, 92, 98, 0.06), inset 5px 0 10px 0 rgba(104, 105, 111, 0.1)',
-    '3': '-5px 0 20px 0 rgba(0, 0, 0, 0.08), -6px 0 10px 0 rgba(0, 0, 0, 0.08)',
-    '4': '5px 0 20px 0 rgba(0, 0, 0, 0.08), 6px 0 10px 0 rgba(0, 0, 0, 0.08)',
-    '5': '0 2px 2px 0 rgba(0, 0, 0, 0.03)',
+    "1": "0 4px 6px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6), 0 2px 4px -1px rgb(8.2353% 8.2353% 8.2353% / 0.6)",
+    "2": "0 4px 4px 0 rgba(88, 92, 98, 0.06), inset 5px 0 10px 0 rgba(104, 105, 111, 0.1)",
+    "3": "-5px 0 20px 0 rgba(0, 0, 0, 0.08), -6px 0 10px 0 rgba(0, 0, 0, 0.08)",
+    "4": "5px 0 20px 0 rgba(0, 0, 0, 0.08), 6px 0 10px 0 rgba(0, 0, 0, 0.08)",
+    "5": "0 2px 2px 0 rgba(0, 0, 0, 0.03)",
   },
   breakpoint: {
     sizes: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
     },
   },
   global: {
     color: {
       gradients: {
-        yellowToBlack: 'linear-gradient(132deg, #faff69 8%, #292929 30%)',
-        whiteToBlack: 'linear-gradient(132deg, #ffffff 8%, #292929 30%)',
+        yellowToBlack: "linear-gradient(132deg, #faff69 8%, #292929 30%)",
+        whiteToBlack: "linear-gradient(132deg, #ffffff 8%, #292929 30%)",
       },
       background: {
-        default: '#ffffff',
-        muted: '#f6f7fa',
-        sidebar: '#ffffff',
-        split: '#f6f7fa',
-        muted_a: 'lch(49.809 30.506 276.77 / 0.06)',
-      },
-      stroke: {
-        default: '#e6e7e9',
-        muted: '#e6e7e9',
-        intense: '#b3b6bd',
-        split: '#e6e7e9',
-      },
-      accent: {
-        default: '#151515',
+        default: "#1f1f1c",
+        muted: "#282828",
+        sidebar: "#1f1f1c",
+        split: "#282828",
+        muted_a: "lch(49.809 30.506 276.77 / 0.06)",
       },
       text: {
-        default: '#161517',
-        muted: '#696e79',
-        disabled: '#a0a0a0',
+        default: "#ffffff",
+        muted: "#b3b6bd",
+        disabled: "#808080",
         link: {
-          default: '#437eef',
-          hover: '#104ec6',
+          default: "#faff69",
+          hover: "#feffc2",
         },
       },
+      stroke: {
+        default: "#323232",
+        muted: "#323232",
+        intense: "#414141",
+        split: "#414141",
+      },
+      accent: {
+        default: "#faff69",
+      },
       outline: {
-        default: '#437eef',
+        default: "#faff69",
       },
       shadow: {
-        default: 'lch(6.7738 0 none / 0.15)',
+        default: "lch(6.7738 0 none / 0.6)",
       },
       feedback: {
         info: {
-          background: '#e7effd',
-          foreground: '#437eef',
+          background: "#0d3e9b",
+          foreground: "#d0dffb",
         },
         success: {
-          background: '#e5ffe8',
-          foreground: '#008a0b',
+          background: "#004206",
+          foreground: "#ccffd0",
         },
         warning: {
-          background: '#ffe2d1',
-          foreground: '#a33c00',
+          background: "#7a2d00",
+          foreground: "#ffb88f",
         },
         danger: {
-          background: '#ffdddd',
-          foreground: '#c10000',
+          background: "#610000",
+          foreground: "#ffbaba",
         },
         neutral: {
-          background: '#f6f7fa',
-          foreground: '#53575f',
-          stroke: '#e6e7e9',
+          background: "#414141",
+          foreground: "#f9f9f9",
+          stroke: "#323232",
         },
       },
       chart: {
-        default: {
-          blue: '#437eef',
-          orange: '#ff7729',
-          green: '#00e513',
-          fuchsia: '#fb32c9',
-          yellow: '#eef400',
-          violet: '#bb33ff',
-          babyblue: '#00cbeb',
-          red: '#ff2323',
-          danger: '#ff2323',
-          teal: '#089b83',
-          sunrise: '#ffc300',
-          slate: '#9a9ea7',
-        },
         bars: {
-          blue: '#437eef',
-          orange: '#ff7729',
-          green: '#00e513',
-          fuchsia: '#fb32c9',
-          yellow: '#eef400',
-          violet: '#bb33ff',
-          babyblue: '#00cbeb',
-          red: '#ff2323',
-          teal: '#089b83',
-          sunrise: '#ffc300',
-          slate: '#9a9ea7',
+          blue: "#437eef",
+          orange: "#ff7729",
+          green: "#33ff44",
+          fuchsia: "#fb64d6",
+          yellow: "#eef400",
+          violet: "#bb33ff",
+          babyblue: "#00cbeb",
+          red: "#ff2323",
+          teal: "#6df8e1",
+          sunrise: "#ffc300",
+          slate: "#9a9ea7",
+        },
+        default: {
+          blue: "#437eef",
+          orange: "#ff7729",
+          green: "#33ff44",
+          fuchsia: "#fb64d6",
+          yellow: "#eef400",
+          violet: "#bb33ff",
+          babyblue: "#00cbeb",
+          red: "#ff2323",
+          danger: "#ff2323",
+          teal: "#6df8e1",
+          sunrise: "#ffc300",
+          slate: "#9a9ea7",
         },
         label: {
-          default: '#161517',
-          deselected: 'lch(6.9377 1.4387 305.43 / 0.3)',
+          default: "#ffffff",
+          deselected: "lch(100 0 none / 0.3)",
         },
       },
       iconButton: {
         badge: {
-          foreground: '#437eef',
-          background: '#e7effd',
+          foreground: "#1d1d1d",
+          background: "#faff69",
         },
       },
       icon: {
-        background: 'linear-gradient(132deg, #FFFFFF 8%, #292929 30%);',
+        background: "linear-gradient(132deg, #FAFF69 8%, #292929 30%);",
       },
     },
   },
-  name: 'light',
+  name: "dark",
 };
 
 export default theme;

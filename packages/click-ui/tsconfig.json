@@ -21,8 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@clickhouse/design-tokens/*": ["../design-tokens/*"]
     },
-    "types": ["@testing-library/jest-dom", "vitest/globals"]
+    "types": ["@testing-library/jest-dom", "vitest/globals", "styled-components"]
   },
   "include": ["src"],
   "exclude": [
