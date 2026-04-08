@@ -49,7 +49,7 @@
   },
   "peerDependenciesMeta": {
     "styled-components": {
-      "optional": false
+      "optional": true
     }
   },
   "scripts": {
