@@ -68,7 +68,6 @@
     "@terrazzo/plugin-css": "^2.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@types/styled-components": "^5.0.0",
     "chokidar-cli": "^3.0.0",
     "prettier": "^3.0.0",
     "styled-components": "^6.0.0",
