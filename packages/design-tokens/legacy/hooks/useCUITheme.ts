@@ -15,7 +15,7 @@ export const useCUITheme = (): CUIThemeType => {
   const theme = useTheme();
   if (!theme || Object.keys(theme).length === 0) {
     throw new Error(
-      "useCUITheme must be called within a styled-components ThemeProvider. Ensure styled-components is installed and your component is wrapped in a ThemeProvider. See @clickhouse/design-topkens LEGACY.md for more details."
+      "useCUITheme must be called within a styled-components ThemeProvider. Ensure styled-components is installed and your component is wrapped in a ThemeProvider. See @clickhouse/design-tokens LEGACY.md for more details."
     );
   }
   return {
