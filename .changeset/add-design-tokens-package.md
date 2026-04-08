@@ -1,6 +1,5 @@
 ---
 "@clickhouse/click-ui": patch
-"@clickhouse/design-tokens": patch
 ---
 
 Redirect theme and hook exports to @clickhouse/design-tokens/legacy
