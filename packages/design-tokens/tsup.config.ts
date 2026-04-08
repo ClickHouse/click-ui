@@ -1,10 +1,7 @@
 import { defineConfig } from "tsup";
-import { globSync } from "glob";
-
-const entries = globSync("legacy/**/index.ts");
 
 export default defineConfig({
-  entry: entries,
+  entry: ["legacy/**/index.ts"],
   outDir: "dist/legacy",
   format: ["esm", "cjs"],
   dts: true,
