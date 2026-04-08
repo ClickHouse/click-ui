@@ -279,6 +279,8 @@ export const InputStartContent = styled.div`
 `;
 
 export const InputEndContent = styled.div`
+  white-space: nowrap;
+  flex-shrink: 0;
   ${({ theme }) => `
     padding-right: ${theme.click.field.space.x};
     gap: ${theme.click.field.space.gap};
