@@ -27,19 +27,23 @@
     },
     "./legacy": {
       "types": "./dist/legacy/index.d.ts",
-      "import": "./dist/legacy/index.js"
+      "import": "./dist/legacy/index.js",
+      "require": "./dist/legacy/index.cjs"
     },
     "./legacy/hooks": {
       "types": "./dist/legacy/hooks/index.d.ts",
-      "import": "./dist/legacy/hooks/index.js"
+      "import": "./dist/legacy/hooks/index.js",
+      "require": "./dist/legacy/hooks/index.cjs"
     },
     "./legacy/theme": {
       "types": "./dist/legacy/theme/index.d.ts",
-      "import": "./dist/legacy/theme/index.js"
+      "import": "./dist/legacy/theme/index.js",
+      "require": "./dist/legacy/theme/index.cjs"
     },
     "./legacy/utils": {
       "types": "./dist/legacy/utils/index.d.ts",
-      "import": "./dist/legacy/utils/index.js"
+      "import": "./dist/legacy/utils/index.js",
+      "require": "./dist/legacy/utils/index.cjs"
     }
   },
   "peerDependencies": {
@@ -62,7 +66,7 @@
     "build": "yarn tokens:build && yarn legacy:build",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "legacy:build": "tsc -p tsconfig.legacy.json",
+    "legacy:build": "tsup",
     "tokens:build": ".scripts/bash/tokens-build",
     "tokens:build:watch": ".scripts/bash/tokens-build watch",
     "lint": "tz lint",
@@ -77,6 +81,7 @@
     "chokidar-cli": "^3.0.0",
     "prettier": "^3.0.0",
     "styled-components": "^6.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.0.0"
   }
 }

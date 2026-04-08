@@ -19,6 +19,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "glob": "^13.0.6",
     "husky": "^9.1.7"
   },
   "resolutions": {
