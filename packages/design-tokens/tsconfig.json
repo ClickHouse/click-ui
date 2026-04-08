@@ -13,6 +13,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["*.ts"],
+  "include": ["*.ts", "legacy/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

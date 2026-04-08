@@ -16,7 +16,8 @@
   "type": "module",
   "license": "Apache-2.0",
   "files": [
-    "dist"
+    "dist",
+    "legacy"
   ],
   "publishConfig": {
     "access": "public"
@@ -24,12 +25,39 @@
   "exports": {
     ".": {
       "default": "./dist/tokens.css"
+    },
+    "./legacy": {
+      "types": "./dist/legacy/index.d.ts",
+      "import": "./dist/legacy/index.js"
+    },
+    "./legacy/hooks": {
+      "types": "./dist/legacy/hooks/index.d.ts",
+      "import": "./dist/legacy/hooks/index.js"
+    },
+    "./legacy/theme": {
+      "types": "./dist/legacy/theme/index.d.ts",
+      "import": "./dist/legacy/theme/index.js"
+    },
+    "./legacy/utils": {
+      "types": "./dist/legacy/utils/index.d.ts",
+      "import": "./dist/legacy/utils/index.js"
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "styled-components": "^5.0.0 || ^6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "styled-components": {
+      "optional": false
     }
   },
   "scripts": {
-    "build": "yarn tokens:build",
+    "build": "yarn tokens:build && yarn legacy:build",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
+    "legacy:build": "tsc -p tsconfig.legacy.json",
     "tokens:build": ".scripts/bash/tokens-build",
     "tokens:build:watch": ".scripts/bash/tokens-build watch",
     "lint": "tz lint",
@@ -39,8 +67,12 @@
   "devDependencies": {
     "@terrazzo/cli": "^2.0.0",
     "@terrazzo/plugin-css": "^2.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/styled-components": "^5.0.0",
     "chokidar-cli": "^3.0.0",
     "prettier": "^3.0.0",
+    "styled-components": "^6.0.0",
     "typescript": "^5.0.0"
   }
 }
