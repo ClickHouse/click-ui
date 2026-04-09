@@ -132,6 +132,7 @@ space/{percentage}
 ```
 
 Where `index` is percentage of 8px base unit:
+
 - `space.100` = 8px (8 × 1)
 - `space.200` = 16px (8 × 2)
 - `space.400` = 32px (8 × 4)
@@ -144,17 +145,17 @@ space/{size}
 
 **Scale:**
 
-| Primitive | Value | Semantic | Use Case |
-|-----------|-------|----------|----------|
-| `space.0` | 0px | `space.none` | No spacing, reset, compact |
-| `space.50` | 4px | `space.xs` | Extra-small gaps, icon spacing |
-| `space.100` | 8px | `space.sm` | Small gaps, base unit, inline |
-| `space.150` | 12px | `space.md` | Medium gaps, component padding |
-| `space.200` | 16px | `space.lg` | Large gaps, card padding |
-| `space.300` | 24px | `space.xl` | Extra-large, container gaps |
-| `space.400` | 32px | `space.2xl` | 2x large, layout sections |
-| `space.600` | 48px | `space.3xl` | 3x large, major layout gaps |
-| `space.1000` | 80px | `space.4xl` | 4x large, page sections |
+| Primitive    | Value | Semantic     | Use Case                       |
+| ------------ | ----- | ------------ | ------------------------------ |
+| `space.0`    | 0px   | `space.none` | No spacing, reset, compact     |
+| `space.50`   | 4px   | `space.xs`   | Extra-small gaps, icon spacing |
+| `space.100`  | 8px   | `space.sm`   | Small gaps, base unit, inline  |
+| `space.150`  | 12px  | `space.md`   | Medium gaps, component padding |
+| `space.200`  | 16px  | `space.lg`   | Large gaps, card padding       |
+| `space.300`  | 24px  | `space.xl`   | Extra-large, container gaps    |
+| `space.400`  | 32px  | `space.2xl`  | 2x large, layout sections      |
+| `space.600`  | 48px  | `space.3xl`  | 3x large, major layout gaps    |
+| `space.1000` | 80px  | `space.4xl`  | 4x large, page sections        |
 
 **Skipped Values:** 25 (2px), 75 (6px), 250 (20px), 500 (40px), 800 (64px) — consolidated into adjacent semantic sizes.
 
@@ -173,6 +174,7 @@ space/{size}
 ```
 
 **Rationale:** Following Atlassian's two-tier approach:
+
 - **Primitives** (numeric): Hidden from Figma UI, continuous mathematical scale (8px base)
 - **Semantic** (T-shirt): Public-facing tokens designers use, consolidated to 9 essential sizes
 - Continuous primitives allow fine-grained theming; semantic aliases provide designer-friendly names
@@ -207,18 +209,18 @@ Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
 
 **Scale:**
 
-| Primitive | Value | Semantic Token | Use Case |
-|-----------|-------|----------------|----------|
-| `radius.0` | 0px | `radius.none` | Square corners, sharp, angular elements |
-| `radius.25` | 2px | `radius.minimal` | Subtle rounding — data tables, micro UI |
-| `radius.50` | 4px | `radius.sm` | Input fields, chips, tags, compact elements |
-| `radius.75` | 6px | — | (Unused intermediate) |
-| `radius.100` | 8px | `radius.md` | Standard buttons, cards, default components |
-| `radius.150` | 12px | — | (Unused intermediate) |
-| `radius.200` | 16px | `radius.lg` | Containers, modals, dialogs, panels |
-| `radius.300` | 24px | `radius.xl` | Large cards, feature sections, prominent |
-| `radius.400` | 32px | — | (Unused intermediate) |
-| `radius.999` | 999px | `radius.all` | Fully rounded — pills, capsules, circular |
+| Primitive    | Value | Semantic Token   | Use Case                                    |
+| ------------ | ----- | ---------------- | ------------------------------------------- |
+| `radius.0`   | 0px   | `radius.none`    | Square corners, sharp, angular elements     |
+| `radius.25`  | 2px   | `radius.minimal` | Subtle rounding — data tables, micro UI     |
+| `radius.50`  | 4px   | `radius.sm`      | Input fields, chips, tags, compact elements |
+| `radius.75`  | 6px   | —                | (Unused intermediate)                       |
+| `radius.100` | 8px   | `radius.md`      | Standard buttons, cards, default components |
+| `radius.150` | 12px  | —                | (Unused intermediate)                       |
+| `radius.200` | 16px  | `radius.lg`      | Containers, modals, dialogs, panels         |
+| `radius.300` | 24px  | `radius.xl`      | Large cards, feature sections, prominent    |
+| `radius.400` | 32px  | —                | (Unused intermediate)                       |
+| `radius.999` | 999px | `radius.all`     | Fully rounded — pills, capsules, circular   |
 
 **Semantic Aliases:**
 
@@ -235,6 +237,7 @@ Examples: `radius.none`, `radius.sm`, `radius.md`, `radius.all`
 ```
 
 **Rationale:** Following Atlassian's approach with a two-tier system:
+
 - **Primitives** (numeric): Hidden from Figma UI, used as base values for theming
 - **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
 - Allows overriding radius primitives for custom themes while maintaining semantic consistency
@@ -260,29 +263,29 @@ sizing/{category}/{size}
 
 **Categories:**
 
-| Category | Primitive | Semantic | Values |
-|----------|-----------|----------|--------|
-| **Icon** | `symbol` | `icon` | 12px, 16px, 20px, 24px, 32px |
-| **Stroke** | `border` | `stroke` | 1px, 2px |
+| Category   | Primitive | Semantic | Values                       |
+| ---------- | --------- | -------- | ---------------------------- |
+| **Icon**   | `symbol`  | `icon`   | 12px, 16px, 20px, 24px, 32px |
+| **Stroke** | `border`  | `stroke` | 1px, 2px                     |
 
 **Scale:**
 
-| Layer | Category | Token | Value | Use Case |
-|-------|----------|-------|-------|----------|
-| **Semantic** | **Icon** | `icon/xs` | 12px | Extra-small icons, micro UI |
-| **Semantic** | | `icon/sm` | 16px | Small icons, compact UI |
-| **Semantic** | | `icon/md` | 20px | Medium icons, default |
-| **Semantic** | | `icon/lg` | 24px | Large icons, prominent |
-| **Semantic** | | `icon/xl` | 32px | Extra-large icons, feature |
-| **Semantic** | **Stroke** | `stroke/default` | 1px | Default borders, standard outlines |
-| **Semantic** | | `stroke/emphasis` | 2px | Strong borders, selected states, focus rings |
-| **Primitive** | **Icon** | `symbol/xs` | 12px | Primitive — referenced by `icon/xs` |
-| **Primitive** | | `symbol/sm` | 16px | Primitive — referenced by `icon/sm` |
-| **Primitive** | | `symbol/md` | 20px | Primitive — referenced by `icon/md` |
-| **Primitive** | | `symbol/lg` | 24px | Primitive — referenced by `icon/lg` |
-| **Primitive** | | `symbol/xl` | 32px | Primitive — referenced by `icon/xl` |
-| **Primitive** | **Stroke** | `border/thin` | 1px | Primitive — referenced by `stroke/default` |
-| **Primitive** | | `border/regular` | 2px | Primitive — referenced by `stroke/emphasis` |
+| Layer         | Category   | Token             | Value | Use Case                                     |
+| ------------- | ---------- | ----------------- | ----- | -------------------------------------------- |
+| **Semantic**  | **Icon**   | `icon/xs`         | 12px  | Extra-small icons, micro UI                  |
+| **Semantic**  |            | `icon/sm`         | 16px  | Small icons, compact UI                      |
+| **Semantic**  |            | `icon/md`         | 20px  | Medium icons, default                        |
+| **Semantic**  |            | `icon/lg`         | 24px  | Large icons, prominent                       |
+| **Semantic**  |            | `icon/xl`         | 32px  | Extra-large icons, feature                   |
+| **Semantic**  | **Stroke** | `stroke/default`  | 1px   | Default borders, standard outlines           |
+| **Semantic**  |            | `stroke/emphasis` | 2px   | Strong borders, selected states, focus rings |
+| **Primitive** | **Icon**   | `symbol/xs`       | 12px  | Primitive — referenced by `icon/xs`          |
+| **Primitive** |            | `symbol/sm`       | 16px  | Primitive — referenced by `icon/sm`          |
+| **Primitive** |            | `symbol/md`       | 20px  | Primitive — referenced by `icon/md`          |
+| **Primitive** |            | `symbol/lg`       | 24px  | Primitive — referenced by `icon/lg`          |
+| **Primitive** |            | `symbol/xl`       | 32px  | Primitive — referenced by `icon/xl`          |
+| **Primitive** | **Stroke** | `border/thin`     | 1px   | Primitive — referenced by `stroke/default`   |
+| **Primitive** |            | `border/regular`  | 2px   | Primitive — referenced by `stroke/emphasis`  |
 
 **Semantic Aliases:**
 
@@ -315,13 +318,15 @@ For example, Icon and Stroke use a two-tier system where semantic tokens referen
 ```
 
 **Why Different Names?**
+
 - Prevents circular references (can't have `icon/xs` referencing `icon/xs`)
 - `symbol` (primitive) vs `icon` (semantic) creates clean separation
 - `border` (primitive) vs `stroke` (semantic) creates clean separation
 - Designers see familiar names: `icon.xs`, `stroke.default`
 - Allows remapping: change `icon.md` to reference `symbol.lg` for larger icons globally
 
-**Rationale:** 
+**Rationale:**
+
 - **Icon**: Uses two-tier system (`symbol` primitives + `icon` semantic) — both use T-shirt sizes but different category names prevent collisions
 - **Stroke**: Uses two-tier system (`border` primitives + `stroke` semantic) — allows designers to swap meanings (e.g., make "default" use 2px instead of 1px for accessibility)
 - All sizing tokens are hidden from Figma UI via NO scope, but semantic layer is visible to designers
@@ -339,14 +344,15 @@ This specification uses two distinct naming strategies depending on the nature o
 
 **Pattern:** Numeric indices based on a base unit (preferred 8px)
 
-| Token | Formula | Value |
-|-------|---------|-------|
-| `space.100` | 8px × 1.0 | 8px |
-| `space.200` | 8px × 2.0 | 16px |
-| `space.150` | 8px × 1.5 | 12px |
-| `radius.50` | 8px × 0.5 | 4px |
+| Token       | Formula   | Value |
+| ----------- | --------- | ----- |
+| `space.100` | 8px × 1.0 | 8px   |
+| `space.200` | 8px × 2.0 | 16px  |
+| `space.150` | 8px × 1.5 | 12px  |
+| `radius.50` | 8px × 0.5 | 4px   |
 
 **Why mathematical?**
+
 - **Predictable relationships**: Double the index = double the value
 - **Scales consistently**: Works across all viewport sizes and densities
 - **Theming-friendly**: Change base unit → entire scale shifts proportionally
@@ -358,12 +364,13 @@ This specification uses two distinct naming strategies depending on the nature o
 
 **Pattern:** Semantic names describing relative magnitude
 
-| Category | Sizes | Values | Pattern |
-|----------|-------|--------|---------|
-| **Icon** | xs, sm, md, lg, xl | 12, 16, 20, 24, 32px | Non-linear jumps |
-| **Typography** | xs, sm, md, lg, xl, 2xl, 3xl | 10, 12, 14, 16, 18, 20, 32px | Irregular |
+| Category       | Sizes                        | Values                       | Pattern          |
+| -------------- | ---------------------------- | ---------------------------- | ---------------- |
+| **Icon**       | xs, sm, md, lg, xl           | 12, 16, 20, 24, 32px         | Non-linear jumps |
+| **Typography** | xs, sm, md, lg, xl, 2xl, 3xl | 10, 12, 14, 16, 18, 20, 32px | Irregular        |
 
 **Why categorical?**
+
 - **Arbitrary values don't follow math**: 12px → 16px → 20px → 24px → 32px isn't a predictable formula
 - **UI-specific constraints**: Icon sizes must align to visual grid, not mathematical purity
 - **Designer mental model**: "Small icon" is more intuitive than "icon at 1.5× base unit"
@@ -373,10 +380,10 @@ This specification uses two distinct naming strategies depending on the nature o
 
 Sizing is unique because it combines both strategies:
 
-| Sub-category | Naming Strategy | Reasoning |
-|--------------|-----------------|-----------|
-| **Icon** | Categorical (T-shirt) + Semantic aliases (Optional) | Arbitrary UI dimensions that don't scale mathematically |
-| **Stroke** | Categorical primitives + Semantic aliases | Allows designers to swap meanings (e.g., accessibility: make "default" use 2px) |
+| Sub-category | Naming Strategy                                     | Reasoning                                                                       |
+| ------------ | --------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Icon**     | Categorical (T-shirt) + Semantic aliases (Optional) | Arbitrary UI dimensions that don't scale mathematically                         |
+| **Stroke**   | Categorical primitives + Semantic aliases           | Allows designers to swap meanings (e.g., accessibility: make "default" use 2px) |
 
 **Key Distinction:**
 
@@ -390,12 +397,12 @@ Sizing:     icon.xs (12px) → icon.sm (16px) → icon.md (20px)
 
 **When to use each:**
 
-| Use Mathematical When | Use Categorical When |
-|----------------------|----------------------|
-| Values scale proportionally | Values are arbitrary UI choices |
-| Theming requires shifting entire scale | Theming requires swapping specific values |
-| Double/half relationships matter | Relationships are contextual, not mathematical |
-| Base unit approach works | Base unit would create awkward values |
+| Use Mathematical When                  | Use Categorical When                           |
+| -------------------------------------- | ---------------------------------------------- |
+| Values scale proportionally            | Values are arbitrary UI choices                |
+| Theming requires shifting entire scale | Theming requires swapping specific values      |
+| Double/half relationships matter       | Relationships are contextual, not mathematical |
+| Base unit approach works               | Base unit would create awkward values          |
 
 ---
 
@@ -422,15 +429,15 @@ Typography uses the `font/*` namespace with T-shirt size naming for sizes:
 font/size/{size}
 ```
 
-| Token | Value | Notes |
-|-------|-------|-------|
-| `font/size/xs` | 10px | Extra small, tiny |
-| `font/size/sm` | 12px | Small |
-| `font/size/md` | 14px | Medium, body-sm |
-| `font/size/lg` | 16px | Large, base, body |
-| `font/size/xl` | 18px | Extra large |
-| `font/size/2xl` | 20px | 2x large, title-sm |
-| `font/size/3xl` | 32px | 3x large, heading |
+| Token           | Value | Notes              |
+| --------------- | ----- | ------------------ |
+| `font/size/xs`  | 10px  | Extra small, tiny  |
+| `font/size/sm`  | 12px  | Small              |
+| `font/size/md`  | 14px  | Medium, body-sm    |
+| `font/size/lg`  | 16px  | Large, base, body  |
+| `font/size/xl`  | 18px  | Extra large        |
+| `font/size/2xl` | 20px  | 2x large, title-sm |
+| `font/size/3xl` | 32px  | 3x large, heading  |
 
 **Line Height Scale:**
 
@@ -742,7 +749,7 @@ token.setValueForMode(targetModeId, value);
 
 1. `primitives.dtcg.json` (color base values) - Creates color primitives with NO scope
 2. `radius.dtcg.json` (radius base values) - Creates radius primitives with NO scope
-3. `sizing.dtcg.json` (sizing base values) - Creates sizing primitives with NO scope  
+3. `sizing.dtcg.json` (sizing base values) - Creates sizing primitives with NO scope
 4. `spacing.dtcg.json` (spacing base values) - Creates spacing primitives with NO scope
 5. `semantic.dtcg.json` (color + radius + sizing + spacing semantic aliases) - References primitives, gets appropriate scopes
 6. `typography.dtcg.json` (dimension and number tokens for font properties) - Standalone, no semantic layer
