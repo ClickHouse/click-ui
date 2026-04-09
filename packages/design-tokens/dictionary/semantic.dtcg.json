@@ -309,6 +309,28 @@
         },
         "$description": "Disabled text across all components"
       },
+      "strong": {
+        "$type": "color",
+        "$value": "{color.gray.850}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.850}",
+            "dark": "{color.gray.100}"
+          }
+        },
+        "$description": "Strong text, titles - BigStat, card headings"
+      },
+      "format": {
+        "$type": "color",
+        "$value": "{color.gray.350}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.350}",
+            "dark": "{color.gray.400}"
+          }
+        },
+        "$description": "Format hints, helper text in fields and menus"
+      },
       "interactive": {
         "on-primary": {
           "$type": "color",
@@ -402,17 +424,6 @@
           },
           "$description": "Neutral variant text - alert, badge"
         }
-      },
-      "format": {
-        "$type": "color",
-        "$value": "{color.gray.400}",
-        "$extensions": {
-          "mode": {
-            "light": "{color.gray.400}",
-            "dark": "{color.gray.400}"
-          }
-        },
-        "$description": "Field / menu chevron / format indicator"
       }
     },
     "border": {

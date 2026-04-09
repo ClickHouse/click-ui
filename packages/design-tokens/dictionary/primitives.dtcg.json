@@ -71,6 +71,16 @@
         },
         "$description": "Muted border variant (gray.300)"
       },
+      "350": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [218, 7, 70],
+          "alpha": 1,
+          "hex": "#ADB1B8"
+        },
+        "$description": "Format text, field hints (gray.350)"
+      },
       "400": {
         "$type": "color",
         "$value": {
@@ -120,6 +130,16 @@
           "hex": "#302e32"
         },
         "$description": "Primary action background (gray.800)"
+      },
+      "850": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [270, 3, 12],
+          "alpha": 1,
+          "hex": "#1E1D1F"
+        },
+        "$description": "Strong text, titles (gray.850)"
       },
       "900": {
         "$type": "color",
