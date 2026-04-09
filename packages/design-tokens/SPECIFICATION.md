@@ -246,71 +246,156 @@ Designers use semantic names like "small radius for inputs" while developers can
 ### 4. Sizing Tokens
 
 > [!INFO]
-> The Sizing tokens follow [Atlassian Conventions](https://atlassian.design/foundations/tokens/design-tokens) with a two-tier system: primitives (percentage-based indices following 8px base unit) and semantic (categorical T-shirt sizes).
+> The Sizing tokens use categorical T-shirt sizing throughout (no numeric primitive layer). Unlike spacing which follows Atlassian's two-tier system, sizing values are arbitrary UI dimensions that don't follow a mathematical scale.
 
-**Files:** `sizing.dtcg.json` (primitives), `semantic.dtcg.json` (semantic aliases)
+**Files:** `sizing.dtcg.json` (primitives - NO scope/hidden), `semantic.dtcg.json` (semantic aliases)
 
 **Type:** `$type: "dimension"` with DTCG object format `{ "value": 16, "unit": "px" }`
 
-**Primitives Naming:**
-
-```
-sizing/{category}/{index}
-```
-
-Where `index` is percentage of 8px base unit:
-- `sizing/icon/150` = 12px (8 × 1.5)
-- `sizing/icon/200` = 16px (8 × 2)
-- `sizing/stroke/13` = 1px (8 × 0.125)
-- `sizing/stroke/25` = 2px (8 × 0.25)
-
-**Semantic Naming:**
+**Naming:**
 
 ```
 sizing/{category}/{size}
 ```
 
-Examples: `sizing/icon/sm`, `sizing/component/md`, `sizing/stroke/default`
+**Categories:**
+
+| Category | Primitive | Semantic | Values |
+|----------|-----------|----------|--------|
+| **Icon** | `symbol` | `icon` | 12px, 16px, 20px, 24px, 32px |
+| **Stroke** | `border` | `stroke` | 1px, 2px |
 
 **Scale:**
 
-| Category | Primitive | Value | Semantic | Use Case |
-|----------|-----------|-------|----------|----------|
-| **Icon** | `icon/150` | 12px | `icon/xs` | Extra-small icons, micro UI |
-| | `icon/200` | 16px | `icon/sm` | Small icons, compact UI |
-| | `icon/250` | 20px | `icon/md` | Medium icons, default |
-| | `icon/300` | 24px | `icon/lg` | Large icons, prominent |
-| | `icon/400` | 32px | `icon/xl` | Extra-large icons, feature |
-| **Component** | `component/300` | 24px | `component/xs` | Tiny buttons, micro inputs |
-| | `component/400` | 32px | `component/sm` | Compact buttons, tight inputs |
-| | `component/500` | 40px | `component/md` | Standard buttons, default inputs |
-| | `component/600` | 48px | `component/lg` | Roomy buttons, relaxed inputs |
-| | `component/800` | 64px | `component/xl` | Spacious buttons, generous inputs |
-| **Stroke** | `stroke/13` | 1px | `stroke/default` | Default borders, thin outlines |
-| | `stroke/25` | 2px | `stroke/emphasis` | Strong borders, selected states |
+| Layer | Category | Token | Value | Use Case |
+|-------|----------|-------|-------|----------|
+| **Semantic** | **Icon** | `icon/xs` | 12px | Extra-small icons, micro UI |
+| **Semantic** | | `icon/sm` | 16px | Small icons, compact UI |
+| **Semantic** | | `icon/md` | 20px | Medium icons, default |
+| **Semantic** | | `icon/lg` | 24px | Large icons, prominent |
+| **Semantic** | | `icon/xl` | 32px | Extra-large icons, feature |
+| **Semantic** | **Stroke** | `stroke/default` | 1px | Default borders, standard outlines |
+| **Semantic** | | `stroke/emphasis` | 2px | Strong borders, selected states, focus rings |
+| **Primitive** | **Icon** | `symbol/xs` | 12px | Primitive — referenced by `icon/xs` |
+| **Primitive** | | `symbol/sm` | 16px | Primitive — referenced by `icon/sm` |
+| **Primitive** | | `symbol/md` | 20px | Primitive — referenced by `icon/md` |
+| **Primitive** | | `symbol/lg` | 24px | Primitive — referenced by `icon/lg` |
+| **Primitive** | | `symbol/xl` | 32px | Primitive — referenced by `icon/xl` |
+| **Primitive** | **Stroke** | `border/thin` | 1px | Primitive — referenced by `stroke/default` |
+| **Primitive** | | `border/regular` | 2px | Primitive — referenced by `stroke/emphasis` |
 
 **Semantic Aliases:**
 
+For example, Icon and Stroke use a two-tier system where semantic tokens reference primitive values with different names to avoid circular references:
+
 ```json
+// sizing.dtcg.json (Primitives - NO scope)
 {
   "sizing": {
-    "icon": {
-      "sm": {
-        "$type": "dimension",
-        "$value": "{sizing/icon/200}",
-        "$description": "Small icon — 16px, compact icons, dense UI"
-      }
+    "symbol": {  // Primitives for icons
+      "xs": { "$value": { "value": 12, "unit": "px" } }
+    },
+    "border": {  // Primitives for stroke
+      "thin": { "$value": { "value": 1, "unit": "px" } }
+    }
+  }
+}
+
+// semantic.dtcg.json (Semantic - visible)
+{
+  "sizing": {
+    "icon": {  // Semantic uses "icon"
+      "xs": { "$value": "{sizing.symbol.xs}" }  // References primitive "symbol"
+    },
+    "stroke": {  // Semantic uses "stroke"
+      "default": { "$value": "{sizing.border.thin}" }  // References primitive "border"
     }
   }
 }
 ```
 
-**Rationale:** Following Atlassian's two-tier approach:
-- **Primitives** (percentage-based): Hidden from Figma UI, aligned to 8px base unit for mathematical consistency
-- **Semantic** (categorical): Public-facing tokens designers use, aliased to primitives
-- Icon and component sizes are specific UI sizes that don't follow simple doubling
-- Stroke widths are small values (1px, 2px) represented as fractions of the base unit
-- Allows theming via primitives while designers work with intuitive T-shirt sizes
+**Why Different Names?**
+- Prevents circular references (can't have `icon/xs` referencing `icon/xs`)
+- `symbol` (primitive) vs `icon` (semantic) creates clean separation
+- `border` (primitive) vs `stroke` (semantic) creates clean separation
+- Designers see familiar names: `icon.xs`, `stroke.default`
+- Allows remapping: change `icon.md` to reference `symbol.lg` for larger icons globally
+
+**Rationale:** 
+- **Icon**: Uses two-tier system (`symbol` primitives + `icon` semantic) — both use T-shirt sizes but different category names prevent collisions
+- **Stroke**: Uses two-tier system (`border` primitives + `stroke` semantic) — allows designers to swap meanings (e.g., make "default" use 2px instead of 1px for accessibility)
+- All sizing tokens are hidden from Figma UI via NO scope, but semantic layer is visible to designers
+- Unlike spacing which needs mathematical consistency (8px base), sizing values are arbitrary and categorical
+
+---
+
+### Mathematical vs. Categorical Naming
+
+This specification uses two distinct naming strategies depending on the nature of the values:
+
+#### Mathematical (Continuous) Progressions
+
+**Used for:** Spacing, Radius (partially)
+
+**Pattern:** Numeric indices based on a base unit (preferred 8px)
+
+| Token | Formula | Value |
+|-------|---------|-------|
+| `space.100` | 8px × 1.0 | 8px |
+| `space.200` | 8px × 2.0 | 16px |
+| `space.150` | 8px × 1.5 | 12px |
+| `radius.50` | 8px × 0.5 | 4px |
+
+**Why mathematical?**
+- **Predictable relationships**: Double the index = double the value
+- **Scales consistently**: Works across all viewport sizes and densities
+- **Theming-friendly**: Change base unit → entire scale shifts proportionally
+- **Systematic**: Easy to generate programmatically
+
+#### Categorical (T-Shirt) Naming
+
+**Used for:** Icon sizes, Stroke widths, Typography
+
+**Pattern:** Semantic names describing relative magnitude
+
+| Category | Sizes | Values | Pattern |
+|----------|-------|--------|---------|
+| **Icon** | xs, sm, md, lg, xl | 12, 16, 20, 24, 32px | Non-linear jumps |
+| **Typography** | xs, sm, md, lg, xl, 2xl, 3xl | 10, 12, 14, 16, 18, 20, 32px | Irregular |
+
+**Why categorical?**
+- **Arbitrary values don't follow math**: 12px → 16px → 20px → 24px → 32px isn't a predictable formula
+- **UI-specific constraints**: Icon sizes must align to visual grid, not mathematical purity
+- **Designer mental model**: "Small icon" is more intuitive than "icon at 1.5× base unit"
+- **No theming benefit**: Making all icons 1.5× larger would break the design, unlike spacing
+
+#### The Hybrid Approach: Sizing Tokens
+
+Sizing is unique because it combines both strategies:
+
+| Sub-category | Naming Strategy | Reasoning |
+|--------------|-----------------|-----------|
+| **Icon** | Categorical (T-shirt) + Semantic aliases (Optional) | Arbitrary UI dimensions that don't scale mathematically |
+| **Stroke** | Categorical primitives + Semantic aliases | Allows designers to swap meanings (e.g., accessibility: make "default" use 2px) |
+
+**Key Distinction:**
+
+```
+Spacing:    space.100 (8px) → space.200 (16px) → space.400 (32px)
+            [Mathematical: doubles consistently]
+
+Sizing:     icon.xs (12px) → icon.sm (16px) → icon.md (20px)
+            [Categorical: specific UI needs, not formula-driven]
+```
+
+**When to use each:**
+
+| Use Mathematical When | Use Categorical When |
+|----------------------|----------------------|
+| Values scale proportionally | Values are arbitrary UI choices |
+| Theming requires shifting entire scale | Theming requires swapping specific values |
+| Double/half relationships matter | Relationships are contextual, not mathematical |
+| Base unit approach works | Base unit would create awkward values |
 
 ---
 
@@ -426,10 +511,13 @@ Primitives (NO scope - hidden)          Semantic (Public - visible)
 ├── radius/0                  ←──────── radius/none
 ├── radius/50                 ←──────── radius/sm
 ├── radius/999                ←──────── radius/all
-├── sizing/icon/150           ←──────── sizing/icon/xs
-├── sizing/icon/200           ←──────── sizing/icon/sm
-├── sizing/component/500      ←──────── sizing/component/md
-└── sizing/stroke/13          ←──────── sizing/stroke/default
+├── sizing/symbol/xs          ←──────── sizing/icon/xs
+├── sizing/symbol/sm          ←──────── sizing/icon/sm
+├── sizing/symbol/md          ←──────── sizing/icon/md
+├── sizing/symbol/lg          ←──────── sizing/icon/lg
+├── sizing/symbol/xl          ←──────── sizing/icon/xl
+├── sizing/border/thin        ←──────── sizing/stroke/default
+└── sizing/border/regular     ←──────── sizing/stroke/emphasis
 ```
 
 **Import Order:**
@@ -643,8 +731,8 @@ token.setValueForMode(targetModeId, value);
 - 9 spacing semantic aliases (none, xs, sm, md, lg, xl, 2xl, 3xl, 4xl) referencing primitives — consolidated from 14 to 9 values
 - 10 radius primitive values (0, 25, 50, 75, 100, 150, 200, 300, 400, 999)
 - 7 radius semantic aliases (none, minimal, sm, md, lg, xl, all) referencing primitives
-- 12 sizing primitive values (icon/150-400, component/300-800, stroke/13-25)
-- 12 sizing semantic aliases (icon/xs-xl, component/xs-xl, stroke/default-emphasis) referencing primitives
+- 7 sizing primitives using T-shirt naming (symbol/xs-xl, border/thin/regular) — all NO scope
+- 7 sizing semantic aliases (icon/xs-xl, stroke/default-emphasis) referencing primitives — allows remapping meanings globally
 
 ---
 
