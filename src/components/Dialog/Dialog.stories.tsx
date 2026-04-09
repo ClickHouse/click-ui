@@ -102,6 +102,35 @@ export const ModalDialog: Story = {
   },
 };
 
+export const WithDescription: Story = {
+  render: () => (
+    <GridCenter>
+      <Dialog open>
+        <Dialog.Content
+          title="Confirm Action"
+          description="Are you sure you want to proceed? This action cannot be undone."
+          showClose
+        >
+          <Spacer />
+          <Separator size="lg" />
+          <ActionArea>
+            <Dialog.Close label="Cancel" />
+            <Button type="primary">Confirm</Button>
+          </ActionArea>
+        </Dialog.Content>
+      </Dialog>
+    </GridCenter>
+  ),
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 500,
+      },
+    },
+  },
+};
+
 const TopNav = styled.div`
   position: absolute;
   top: 0;
