@@ -102,8 +102,15 @@ const TitleArea = styled.div<{ $onlyClose?: boolean }>`
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
 
-const Title = styled.h2`
+const Title = styled(RadixDialog.Title)`
   font: ${({ theme }) => theme.click.dialog.typography.title.default};
+  padding: 0;
+  margin: 0;
+`;
+
+const Description = styled(RadixDialog.Description)`
+  font: ${({ theme }) => theme.click.dialog.typography.description.default};
+  color: ${({ theme }) => theme.click.dialog.color.description.default};
   padding: 0;
   margin: 0;
 `;
@@ -121,6 +128,7 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
 
 const DialogContent = ({
   title,
+  description,
   children,
   showClose,
   onClose,
@@ -155,7 +163,7 @@ const DialogContent = ({
             <Spacer size="sm" />
           </>
         )}
-
+        {description && <Description>{description}</Description>}
         {children}
       </ContentArea>
     </RadixDialog.Portal>
