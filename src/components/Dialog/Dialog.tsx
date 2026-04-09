@@ -102,7 +102,7 @@ const TitleArea = styled.div<{ $onlyClose?: boolean }>`
   min-height: ${({ theme }) => theme.sizes[9]}; // 32px
 `;
 
-const Title = styled.h2`
+const Title = styled(RadixDialog.Title)`
   font: ${({ theme }) => theme.click.dialog.typography.title.default};
   padding: 0;
   margin: 0;
@@ -155,7 +155,6 @@ const DialogContent = ({
             <Spacer size="sm" />
           </>
         )}
-
         {children}
       </ContentArea>
     </RadixDialog.Portal>
