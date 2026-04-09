@@ -16,6 +16,7 @@ export interface DialogTriggerProps extends React.ComponentPropsWithoutRef<'butt
 
 export interface DialogContentProps extends RadixDialog.DialogContentProps {
   children: ReactNode;
+  description?: string;
   showClose?: boolean;
   forceMount?: true;
   container?: HTMLElement | null;

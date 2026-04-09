@@ -121,6 +121,7 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
 
 const DialogContent = ({
   title,
+  description,
   children,
   showClose,
   onClose,
@@ -154,6 +155,9 @@ const DialogContent = ({
             </TitleArea>
             <Spacer size="sm" />
           </>
+        )}
+        {description && (
+          <RadixDialog.Description>{description}</RadixDialog.Description>
         )}
         {children}
       </ContentArea>
