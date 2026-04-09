@@ -1,5 +1,47 @@
 # @clickhouse/click-ui
 
+## 0.2.0-rc.2
+
+### Patch Changes
+
+- 9c9e92b: Use Radix Dialog primitives for accessibility compliance.
+  - Changed Dialog title from `styled.h2` to `styled(RadixDialog.Title)` so Radix recognizes it as a proper DialogTitle
+  - Added optional `description` prop to Dialog.Content that renders as `RadixDialog.Description`
+
+  ### Before
+
+  ```tsx
+  <Dialog.Content
+    title="Confirm Action"
+    showClose
+  >
+    <Text color="muted">Dialog body content goes here</Text>
+    <Spacer />
+    <Separator size="lg" />
+    <ActionArea>
+      <Dialog.Close label="Close" />
+      <Button iconRight="arrow-right">Continue</Button>
+    </ActionArea>
+  </Dialog.Content>
+  ```
+
+  ### After
+
+  ```tsx
+  <Dialog.Content
+    title="Confirm Action"
+    description="Dialog body content goes here"
+    showClose
+  >
+    <Spacer />
+    <Separator size="lg" />
+    <ActionArea>
+      <Dialog.Close label="Cancel" />
+      <Button type="primary">Confirm</Button>
+    </ActionArea>
+  </Dialog.Content>
+  ```
+
 ## 0.2.0-rc.1
 
 ### Minor Changes
