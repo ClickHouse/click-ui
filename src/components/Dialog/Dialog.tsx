@@ -163,7 +163,11 @@ const DialogContent = ({
             <Spacer size="sm" />
           </>
         )}
-        {description && <Description>{description}</Description>}
+        {description ? (
+          <Description>{description}</Description>
+        ) : (
+          <RadixDialog.Description hidden />
+        )}
         {children}
       </ContentArea>
     </RadixDialog.Portal>
