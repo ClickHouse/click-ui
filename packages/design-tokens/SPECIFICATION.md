@@ -20,25 +20,25 @@ color/{palette}-{mode}/{step}           # For mode-specific palettes
 color/{palette}-{mode}/{category}/{step} # For categorized mode palettes
 ```
 
-Examples: `color/white`, `color/gray/50`, `color/blue/400`, `color/charcoal/surface/200`
+Examples: `color/white`, `color/gray/50`, `color/gray/25`, `color/blue/400`, `color/neutral/750`
 
 **Gray Color Palettes:**
 
 | Pattern                         | Purpose                                      | Example                               |
 | ------------------------------- | -------------------------------------------- | ------------------------------------- |
-| `color/gray/{step}`             | Cool gray scale with blue undertone (50-950) | `color/gray/50` = #f6f7fa             |
-| `color/neutral/{step}`          | Pure neutral gray scale (100-900)            | `color/neutral/200` = #dfdfdf         |
-| `color/charcoal/surface/{step}` | Deep surface tones (50-450)                  | `color/charcoal/surface/50` = #151515 |
-| `color/charcoal/text/{step}`    | Light text for dark backgrounds (50-400)     | `color/charcoal/text/50` = #e8e7ea    |
+| `color/gray/{step}`             | Cool gray scale with blue undertone (25-900) | `color/gray/50` = #f6f7fa             |
+| `color/neutral/{step}`          | Pure neutral gray scale (0-900, 650/712/725/750) | `color/neutral/200` = #dfdfdf         |
+
+**Note:** Dark mode uses `neutral` palette with extended steps: `neutral.750` (main bg), `neutral.725` (muted bg), `neutral.712` (borders).
 
 **Gray Scale (slate-based, monotonic):**
 
-The `gray` palette follows the original slate palette with cool blue undertones. Steps progress monotonically from light (50) to dark (950):
+The `gray` palette follows the original slate palette with cool blue undertones. Steps progress monotonically from light (25) to dark (900):
 
 | Step | Value   | Description               |
 | ---- | ------- | ------------------------- |
+| 25   | #FBFCFF | Field background off-white |
 | 50   | #f6f7fa | Subtle surface            |
-| 75   | #eaebee | Muted border light        |
 | 100  | #e6e7e9 | Default border            |
 | 200  | #cccfd3 | Active / strong border    |
 | 300  | #b3b6bd | Muted border variant      |
@@ -47,42 +47,66 @@ The `gray` palette follows the original slate palette with cool blue undertones.
 | 600  | #696e79 | Subtle text, muted icons  |
 | 700  | #53575f | Neutral / muted text      |
 | 800  | #302e32 | Primary action background |
-| 850  | #232125 | Hover state dark          |
-| 900  | #1c1a1e | Deep dark                 |
-| 950  | #161517 | Primary text, near-black  |
+| 900  | #161517 | Primary text, near-black  |
+| base | #373439 | Gray base                 |
 
 **Neutral Scale (pure grays, monotonic):**
 
-The `neutral` palette provides pure grays without color tint, used for disabled states and specific UI elements:
+The `neutral` palette provides pure grays without color tint, used for disabled states, dark mode surfaces, and specific UI elements:
 
-| Step | Value   | Description            |
-| ---- | ------- | ---------------------- |
-| 100  | #f9f9f9 | Pure neutral light     |
-| 200  | #dfdfdf | Disabled background    |
-| 300  | #c0c0c0 | Disabled border        |
-| 400  | #a0a0a0 | Disabled text          |
-| 500  | #808080 | Mid gray               |
-| 600  | #606060 | Neutral badge solid bg |
-| 650  | #505050 | Button group text      |
-| 700  | #414141 | Dark neutral           |
-| 800  | #282828 | Codeblock dark bg      |
-| 900  | #151515 | Near black             |
+| Step | Value   | Description                      |
+| ---- | ------- | -------------------------------- |
+| 0    | #ffffff | Pure white                       |
+| 100  | #f9f9f9 | Pure neutral light               |
+| 200  | #dfdfdf | Disabled background              |
+| 300  | #c0c0c0 | Disabled border                  |
+| 400  | #a0a0a0 | Disabled text                    |
+| 500  | #808080 | Mid gray                           |
+| 600  | #606060 | Neutral badge solid bg             |
+| 650  | #505050 | Button group text                  |
+| 700  | #414141 | Dark neutral                       |
+| 712  | #323232 | Dark mode border                   |
+| 725  | #282828 | Dark mode muted background         |
+| 750  | #1F1F1C | Dark mode main background          |
+| 800  | #1d1d1d | Codeblock dark bg                  |
+| 900  | #151515 | Near black                         |
+| base | #212121 | Neutral base                       |
 
-**Rationale:** The `gray` + `neutral` + `charcoal` naming:
+**Rationale:** The `gray` + `neutral` naming:
 
 - `gray` = cool gray scale (slate-based) for typical UI needs, monotonically progressing light to dark
-- `neutral` = pure grays without color tint, for disabled states and colorless elements
-- `charcoal` = deep tones grouped by purpose (surface vs text) for dark mode
+- `neutral` = pure grays without color tint, for disabled states, dark mode surfaces, and colorless elements
+- Dark mode uses extended `neutral` steps (712, 725, 750) instead of a separate charcoal palette
 - Avoids "light/dark" terminology which implies theme modes
-- Makes intent clear: `charcoal.surface` for dark backgrounds, `charcoal.text` for light text on dark
+- Makes intent clear: `neutral.750` for dark backgrounds, `neutral.0` for light text on dark
 
 **When to use each palette:**
 
 - **gray**: Default choice for borders, text hierarchy, and interactive states (has subtle cool tint)
-- **neutral**: Disabled states, colorless badges, code blocks (pure gray, no tint)
-- **charcoal**: Dark mode surfaces and text on dark backgrounds
+- **neutral**: Disabled states, dark mode surfaces, colorless badges, code blocks (pure gray, no tint)
 
-**Semantic Naming:**
+**Semantic Color Palettes (Primitives - Appearance-based):**
+
+Primitive color tokens use **appearance-based naming** (the visual color):
+
+| Palette   | Steps         | Origin (main branch) | Usage                                    |
+| --------- | ------------- | -------------------- | ---------------------------------------- |
+| `blue`    | 50-900 + base | `info` palette       | Info states, links, accents              |
+| `red`     | 50-900 + base | `danger` palette     | Error states, danger actions             |
+| `green`   | 50-900 + base | `success` palette    | Success states, positive feedback       |
+| `orange`  | 50-900 + base | `warning` palette    | Warning states, caution indicators      |
+| `brand`   | 50-900 + base | `brand` palette      | ClickHouse yellow brand colors          |
+| `teal`    | 50-900        | `teal` palette       | Accent color                            |
+| `violet`  | 50-900        | `violet` palette     | Accent color                            |
+| `fuchsia` | 50-900        | `fuchsia` palette    | Accent color                            |
+| `sunrise` | 50-900        | `sunrise` palette    | Accent color                            |
+| `babyblue`| 50-900        | `babyblue` palette   | Accent color                            |
+
+**Key Principle:** Primitives describe **what the color looks like** (blue, red, green, orange), not what it means semantically.
+
+**Semantic Naming (Intent-based):**
+
+Semantic color tokens use **intent-based naming** (the purpose/role):
 
 ```
 color/{category}/{subcategory}/{hierarchy}/{state}
@@ -91,8 +115,24 @@ color/{category}/{subcategory}/{hierarchy}/{state}
 Examples:
 
 - `color/background/interactive/primary/default`
-- `color/foreground/feedback/error`
+- `color/foreground/feedback/error` → references `color.red.600`
+- `color/foreground/feedback/success` → references `color.green.700`
+- `color/foreground/feedback/warning` → references `color.orange.700`
+- `color/foreground/feedback/info` → references `color.blue.400`
 - `color/border/input/default`
+
+**Separation of Concerns:**
+
+| Layer      | Naming Style    | Example                    | Purpose                              |
+| ---------- | --------------- | -------------------------- | ------------------------------------ |
+| Primitives | Appearance      | `color.red.600`            | "This is a red color"                |
+| Semantic   | Intent/Role     | `color.foreground.error`   | "This is for error text"             |
+|            |                 |                            | (references `color.red.600`)         |
+
+This separation allows:
+- **Theming**: Swap all reds for different hue without changing semantic names
+- **Clarity**: Designers see intent ("error color"), developers see implementation
+- **Consistency**: Single source of truth for color values
 
 **Structure:**
 
@@ -509,8 +549,14 @@ Files named `primitives.dtcg.json`, `radius.dtcg.json`, `sizing.dtcg.json`, or `
 Primitives (NO scope - hidden)          Semantic (Public - visible)
 ├── color/white               ←──────── color/background/base (light)
 ├── color/gray/50             ←──────── color/background/subtle (light)
-├── color/charcoal/surface/50 ←──────── color/background/base (dark)
-├── color/charcoal/text/50    ←──────── color/foreground/default (dark)
+├── color/gray/25             ←──────── color/background/field (light)
+├── color/neutral/750         ←──────── color/background/base (dark)
+├── color/neutral/725         ←──────── color/background/subtle (dark)
+├── color/neutral/712         ←──────── color/border/default (dark)
+├── color/blue/400            ←──────── color/foreground/feedback/info
+├── color/red/600             ←──────── color/foreground/feedback/error
+├── color/green/700           ←──────── color/foreground/feedback/success
+├── color/orange/700          ←──────── color/foreground/feedback/warning
 ├── space/0                   ←──────── space/none
 ├── space/50                  ←──────── space/xs
 ├── space/100                 ←──────── space/sm
@@ -803,17 +849,21 @@ Semantic tokens reference primitives via CSS variables like `var(--cui-color-gra
 **CSS Variable Examples:**
 
 ```css
-/* Standard grays */
+/* Standard grays (light mode) */
+--cui-color-gray-25: rgb(98.431% 98.824% 100%);
 --cui-color-gray-50: rgb(96.471% 96.863% 98.039%);
---cui-color-gray-950: rgb(8.6275% 8.2353% 9.0196%);
+--cui-color-gray-900: rgb(8.6275% 8.2353% 9.0196%);
 
-/* Charcoal surfaces (deep tones for dark backgrounds) */
---cui-color-charcoal-surface-50: rgb(8.2353% 8.2353% 8.2353%);
---cui-color-charcoal-surface-200: rgb(13.725% 13.725% 14.51%);
+/* Neutral dark mode surfaces */
+--cui-color-neutral-750: rgb(12.157% 12.157% 11.373%);
+--cui-color-neutral-725: rgb(15.686% 15.686% 15.686%);
+--cui-color-neutral-712: rgb(19.608% 19.608% 19.608%);
 
-/* Charcoal text (light text for dark backgrounds) */
---cui-color-charcoal-text-50: rgb(90.98% 90.588% 91.765%);
---cui-color-charcoal-text-300: rgb(50.196% 51.373% 53.333%);
+/* Semantic color primitives */
+--cui-color-blue-400: rgb(26.275% 49.412% 93.725%);
+--cui-color-red-600: rgb(75.686% 0% 0%);
+--cui-color-green-700: rgb(0% 54.118% 4.3137%);
+--cui-color-orange-700: rgb(63.922% 23.529% 0%);
 ```
 
 ### Designer vs Developer Governance
