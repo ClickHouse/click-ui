@@ -108,6 +108,13 @@ const Title = styled(RadixDialog.Title)`
   margin: 0;
 `;
 
+const Description = styled(RadixDialog.Description)`
+  font: ${({ theme }) => theme.click.dialog.typography.description.default};
+  color: ${({ theme }) => theme.click.dialog.color.description.default};
+  padding: 0;
+  margin: 0;
+`;
+
 const CloseButton = ({ onClose }: { onClose?: () => void }) => (
   <RadixDialog.Close asChild>
     <CrossButton onClick={onClose}>
@@ -156,7 +163,7 @@ const DialogContent = ({
             <Spacer size="sm" />
           </>
         )}
-        {description && <RadixDialog.Description>{description}</RadixDialog.Description>}
+        {description && <Description>{description}</Description>}
         {children}
       </ContentArea>
     </RadixDialog.Portal>
