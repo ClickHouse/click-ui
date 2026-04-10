@@ -170,7 +170,7 @@ const normalizeSvg = (svgPath, tempPath) => {
 const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize, skipSvgo = false) => {
   let svgrConfig;
   let tempConfigPath = null;
-  
+
   if (skipSvgo) {
     tempConfigPath = path.join(__dirname, '.temp', `svgr-config-${Date.now()}.mjs`);
     const configContent = `export default {
@@ -195,7 +195,7 @@ export default \${variables.componentName};
   } else {
     svgrConfig = path.join(__dirname, '../..', '.svgrrc.mjs');
   }
-  
+
   const cmd = `npx @svgr/cli --config-file "${svgrConfig}" --typescript "${svgPath}"`;
 
   let output;
@@ -233,7 +233,7 @@ export default \${variables.componentName};
   });
 
   fs.writeFileSync(outputPath, output);
-  
+
   if (tempConfigPath && fs.existsSync(tempConfigPath)) {
     try {
       fs.unlinkSync(tempConfigPath);
@@ -392,7 +392,7 @@ if (tempNormalizedPath && fs.existsSync(tempNormalizedPath)) {
   try {
     fs.unlinkSync(tempNormalizedPath);
   } catch (error) {
-    console.error(`⏭️  Skipping! Cleanup failure is ok`);
+    console.warn('⚠️ Failed to clean up temp SVGR config:', error.message);
   }
 }
 
