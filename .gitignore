@@ -9,6 +9,7 @@ storybook-static
 vite.config.ts.timestamp*
 .storybook/out
 tmp/*
+.scripts/js/.temp/
 
 .yarn/*
 !.yarn/releases
