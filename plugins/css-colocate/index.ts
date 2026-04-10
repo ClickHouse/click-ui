@@ -28,6 +28,11 @@ export const cssColocatePlugin = (): Plugin => {
     apply: 'build',
 
     async buildStart() {
+      // WARN: Reset between rebuilds
+      // to prevent future build:watch transform to keep
+      // appending, causing duplicate CSS imports
+      // on each rebuild
+      trackedImports.length = 0;
       await preprocessCssModules(config.root);
     },
 
