@@ -2,7 +2,7 @@ import type { Plugin, ResolvedConfig } from 'vite';
 import { preprocessCssModules } from './css-preprocess';
 import { resolveCssModule, loadCssModule } from './virtual-modules';
 import { injectComponentCss, injectRegularCssImports } from './import-inject';
-import { copyCssFiles } from './utils';
+import { copyCssFiles, preventCssNameOverwrites } from './utils';
 import path from 'path';
 
 interface TrackedCssImport {
@@ -75,16 +75,16 @@ export const cssColocatePlugin = (): Plugin => {
         { format: 'cjs' as const, ext: 'cjs' as const },
       ];
 
+      // WARN: Prevents CSS file name collisions between processed .module.css files and regular .css files. E.g. throws an error if a .module.css file would produce the same output name as a .css file. This check is format-independent because it validates source files, not output.
+      await preventCssNameOverwrites(config.root);
+
       for (const { format, ext } of formats) {
         const distDir = path.join(config.root, 'dist', format);
 
-        // Copy all CSS files (from temp and src)
         await copyCssFiles(config.root, distDir);
 
-        // Inject CSS imports into component files
         await injectComponentCss(distDir, format, ext);
 
-        // Inject CSS imports into files with tracked imports
         await injectRegularCssImports(trackedImports, config.root, distDir, format);
       }
     },
