@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { optimize } from 'svgo';
 import {
   filenameToKebabCase,
   filenameToComponentName,
@@ -136,6 +137,56 @@ const regenerateAssetRegistry = (config) => {
   );
 };
 
+const normalizeSvg = (svgPath, tempPath) => {
+  console.log('🔧 Normalizing SVG...');
+
+  try {
+    const svgContent = fs.readFileSync(svgPath, 'utf-8');
+
+    const result = optimize(svgContent, {
+      multipass: true,
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+              convertPathData: {
+                floatPrecision: 2,
+                transformPrecision: 2,
+                makeArcs: {
+                  threshold: 2.5,
+                  tolerance: 0.5
+                }
+              },
+              removeUnknownsAndDefaults: {
+                keepRoleAttr: true
+              }
+            }
+          }
+        },
+        'cleanupIds',
+        'removeDimensions',
+        'removeXMLNS',
+        'removeXlink',
+        'removeEmptyAttrs',
+        'removeEmptyText',
+        'removeEmptyContainers',
+        'removeUnusedNS',
+        'sortAttrs',
+        'sortDefsChildren'
+      ]
+    });
+
+    fs.writeFileSync(tempPath, result.data);
+    console.log('✅ SVG normalized successfully');
+    return tempPath;
+  } catch (error) {
+    console.error('👹 Oops! SVG normalization failed:', error.message);
+    throw error;
+  }
+};
+
 const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) => {
   const svgrConfig = path.join(__dirname, '../..', '.svgrrc.mjs');
   const cmd = `npx @svgr/cli --config-file "${svgrConfig}" --typescript "${svgPath}"`;
@@ -204,13 +255,17 @@ const cleanUp = (files) => {
 let args = process.argv.slice(2);
 
 const isRegenerate = args.includes('--regenerate');
+const skipNormalize = args.includes('--skip-normalize');
 
-// WARN: Do not change as this extracts and removes the --type flag from args if present, to allow args in package.json scripts
 const typeFlagIndex = args.findIndex(arg => arg.startsWith('--type='));
 let typeFlag = null;
 if (typeFlagIndex !== -1) {
   typeFlag = args[typeFlagIndex];
   args = args.filter((_, i) => i !== typeFlagIndex);
+}
+
+if (skipNormalize) {
+  args = args.filter(arg => arg !== '--skip-normalize');
 }
 
 if (isRegenerate) {
@@ -257,8 +312,9 @@ if (isRegenerate) {
 
 if (args.length < 1) {
   console.error('👹 Oops! The SVG file path is required');
-  console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags]');
+  console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags] [--skip-normalize]');
   console.error('💡 Or use: convert-svg-to-react-component --regenerate [--type=logos|icons|flags|payments]');
+  console.error('💡 Note: SVGs are automatically normalized before conversion. Use --skip-normalize to disable.');
   process.exit(1);
 }
 
@@ -296,7 +352,36 @@ const darkFile = path.join(systemDir, `${config.registryName.replace('Light', 'D
 
 console.log(`🍩 Baking ${componentName} for ${type}...`);
 
-convertSvgToComponent(svgPath, componentName, outputPath, config.defaultSize);
+let svgToConvert = svgPath;
+let tempNormalizedPath = null;
+
+if (!skipNormalize) {
+  const tempDir = path.join(__dirname, '.temp');
+  if (!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir, { recursive: true });
+  }
+  tempNormalizedPath = path.join(tempDir, `normalized-${Date.now()}.svg`);
+
+  try {
+    svgToConvert = normalizeSvg(svgPath, tempNormalizedPath);
+  } catch (error) {
+    console.error('💡 Try running with --skip-normalize if normalization causes issues');
+    process.exit(1);
+  }
+} else {
+  console.log('⏭️  Skipping SVG normalization (--skip-normalize flag set)');
+}
+
+convertSvgToComponent(svgToConvert, componentName, outputPath, config.defaultSize);
+
+if (tempNormalizedPath && fs.existsSync(tempNormalizedPath)) {
+  try {
+    fs.unlinkSync(tempNormalizedPath);
+  } catch (error) {
+    console.error(`⏭️  Skipping! Cleanup failure is ok`);
+  }
+}
+
 generateAssetTypes(config);
 regenerateAssetRegistry(config);
 
