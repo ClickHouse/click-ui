@@ -151,30 +151,10 @@ const normalizeSvg = (svgPath, tempPath) => {
           params: {
             overrides: {
               removeViewBox: false,
-              convertPathData: {
-                floatPrecision: 2,
-                transformPrecision: 2,
-                makeArcs: {
-                  threshold: 2.5,
-                  tolerance: 0.5
-                }
-              },
-              removeUnknownsAndDefaults: {
-                keepRoleAttr: true
-              }
+              convertPathData: false
             }
           }
-        },
-        'cleanupIds',
-        'removeDimensions',
-        'removeXMLNS',
-        'removeXlink',
-        'removeEmptyAttrs',
-        'removeEmptyText',
-        'removeEmptyContainers',
-        'removeUnusedNS',
-        'sortAttrs',
-        'sortDefsChildren'
+        }
       ]
     });
 
@@ -187,8 +167,35 @@ const normalizeSvg = (svgPath, tempPath) => {
   }
 };
 
-const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) => {
-  const svgrConfig = path.join(__dirname, '../..', '.svgrrc.mjs');
+const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize, skipSvgo = false) => {
+  let svgrConfig;
+  let tempConfigPath = null;
+  
+  if (skipSvgo) {
+    tempConfigPath = path.join(__dirname, '.temp', `svgr-config-${Date.now()}.mjs`);
+    const configContent = `export default {
+  typescript: true,
+  ref: false,
+  memo: false,
+  svgo: false,
+  template: (variables, { tpl }) => {
+    return tpl\`
+import { SVGAssetProps } from '../types';
+
+const \${variables.componentName} = (props: SVGAssetProps) => (
+  \${variables.jsx}
+);
+
+export default \${variables.componentName};
+\`;
+  },
+};`;
+    fs.writeFileSync(tempConfigPath, configContent);
+    svgrConfig = tempConfigPath;
+  } else {
+    svgrConfig = path.join(__dirname, '../..', '.svgrrc.mjs');
+  }
+  
   const cmd = `npx @svgr/cli --config-file "${svgrConfig}" --typescript "${svgPath}"`;
 
   let output;
@@ -226,6 +233,13 @@ const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize) 
   });
 
   fs.writeFileSync(outputPath, output);
+  
+  if (tempConfigPath && fs.existsSync(tempConfigPath)) {
+    try {
+      fs.unlinkSync(tempConfigPath);
+    } catch (error) {
+    }
+  }
 };
 
 const cleanUp = (files) => {
@@ -372,7 +386,7 @@ if (!skipNormalize) {
   console.log('⏭️  Skipping SVG normalization (--skip-normalize flag set)');
 }
 
-convertSvgToComponent(svgToConvert, componentName, outputPath, config.defaultSize);
+convertSvgToComponent(svgToConvert, componentName, outputPath, config.defaultSize, !skipNormalize);
 
 if (tempNormalizedPath && fs.existsSync(tempNormalizedPath)) {
   try {
