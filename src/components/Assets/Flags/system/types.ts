@@ -15,6 +15,7 @@ export type FlagName =
   | 'ireland'
   | 'israel'
   | 'japan'
+  | 'mexico'
   | 'netherlands'
   | 'singapore'
   | 'south-africa'
