@@ -51,7 +51,7 @@ export const preventCssNameOverwrites = async (rootDir: string): Promise<void> =
 
   const srcFiles = await findFiles(srcDir, '**/*.css');
   for (const file of srcFiles) {
-    if (file.endsWith('.module.css')) continue;
+    if (file.endsWith('.module.css')) {continue;}
 
     const destPath = path.relative(srcDir, file);
 
@@ -82,7 +82,7 @@ export const copyCssFiles = async (rootDir: string, distDir: string): Promise<vo
   const srcFiles = await findFiles(srcDir, '**/*.css');
   await Promise.all(
     srcFiles.map(async file => {
-      if (file.endsWith('.module.css')) return;
+      if (file.endsWith('.module.css')) {return;}
       const dest = path.join(distDir, path.relative(srcDir, file));
       await fs.ensureDir(path.dirname(dest));
       await fs.copy(file, dest, { overwrite: true });

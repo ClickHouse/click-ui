@@ -52,7 +52,7 @@ const copyAndResolveCss = async (
   jsOutputFile: string
 ): Promise<string | null> => {
   const cssSourcePath = resolveCssPath(cssImportPath, sourceFile, srcDir);
-  if (!cssSourcePath || !(await fileExists(cssSourcePath))) return null;
+  if (!cssSourcePath || !(await fileExists(cssSourcePath))) {return null;}
 
   const cssRelativeToSrc = path.relative(srcDir, cssSourcePath);
   const cssOutputPath = path.join(distDir, cssRelativeToSrc);
@@ -111,10 +111,10 @@ export const injectComponentCss = async (
     const component = path.basename(dir);
     const cssFile = path.join(dir, `${component}.css`);
 
-    if (!(await fileExists(cssFile))) continue;
+    if (!(await fileExists(cssFile))) {continue;}
 
     const content = await fs.readFile(jsFile, 'utf-8');
-    if (content.includes(`${component}.css`)) continue;
+    if (content.includes(`${component}.css`)) {continue;}
 
     const importStmt = createImportStatement(`./${component}.css`, format) + '\n';
     const updated = insertAtTop(content, importStmt);
@@ -133,7 +133,7 @@ export const injectRegularCssImports = async (
   distDir: string,
   format: 'esm' | 'cjs'
 ): Promise<void> => {
-  if (trackedImports.length === 0) return;
+  if (trackedImports.length === 0) {return;}
 
   const srcDir = path.join(rootDir, 'src');
 
@@ -144,7 +144,7 @@ export const injectRegularCssImports = async (
       relativeToSrc.replace(/\.tsx?$/, `.${format === 'esm' ? 'js' : 'cjs'}`)
     );
 
-    if (!(await fileExists(jsOutputFile))) continue;
+    if (!(await fileExists(jsOutputFile))) {continue;}
 
     let content = await fs.readFile(jsOutputFile, 'utf-8');
 
