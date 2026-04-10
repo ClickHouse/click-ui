@@ -1,5 +1,11 @@
 # @clickhouse/click-ui
 
+## 0.2.0-rc.4
+
+### Patch Changes
+
+- 58918d4: Suppress Radix `Missing Description` console warning when no `description` prop is provided to `Dialog.Content`. A hidden `RadixDialog.Description` is now rendered by default so Radix's accessibility check passes silently.
+
 ## 0.2.0-rc.3
 
 ### Patch Changes
