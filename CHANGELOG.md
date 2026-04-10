@@ -1,5 +1,11 @@
 # @clickhouse/click-ui
 
+## 0.2.0-rc.3
+
+### Patch Changes
+
+- b675f2e: Add Mexico flag
+
 ## 0.2.0-rc.2
 
 ### Patch Changes
