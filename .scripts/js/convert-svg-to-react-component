@@ -167,11 +167,11 @@ const normalizeSvg = (svgPath, tempPath) => {
   }
 };
 
-const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize, skipSvgo = false) => {
+const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize, preNormalized = false) => {
   let svgrConfig;
   let tempConfigPath = null;
 
-  if (skipSvgo) {
+  if (preNormalized) {
     tempConfigPath = path.join(__dirname, '.temp', `svgr-config-${Date.now()}.mjs`);
     const configContent = `export default {
   typescript: true,
@@ -387,7 +387,8 @@ if (!skipNormalize) {
   console.log('⏭️  Skipping SVG normalization (--skip-normalize flag set)');
 }
 
-convertSvgToComponent(svgToConvert, componentName, outputPath, config.defaultSize, !skipNormalize);
+const didNormalize = !skipNormalize;
+convertSvgToComponent(svgToConvert, componentName, outputPath, config.defaultSize, didNormalize);
 
 if (tempNormalizedPath && fs.existsSync(tempNormalizedPath)) {
   try {
