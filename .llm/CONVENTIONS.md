@@ -53,7 +53,9 @@ When using CSS Modules (migration in progress from styled-components):
 
 ⚠️ **CRITICAL**: Never have both `{name}.module.css` and `{name}.css` in the same directory.
 
-**Why**: The build converts `.module.css` to `.css` during output. Both files would write to the same destination path in `dist/`, causing ambiguity.
+**Context**: Click UI uses CSS colocation, each component ships with its CSS alongside it. CSS Modules (`.module.css`) are preprocessed during build into standard CSS files and both are copied to `dist/` maintaining the same directory structure. This enables bundlers to discover and include CSS automatically when importing components.
+
+**Why**: During build, `.module.css` files are processed and written as `.css` to the output. If a regular `.css` file exists with the same name, both would attempt to write to the same destination path in `dist/`, causing ambiguity.
 
 **Wrong:**
 ```
