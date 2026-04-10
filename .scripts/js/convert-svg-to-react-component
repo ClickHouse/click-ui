@@ -271,6 +271,7 @@ let args = process.argv.slice(2);
 const isRegenerate = args.includes('--regenerate');
 const skipNormalize = args.includes('--skip-normalize');
 
+// WARN: Do not change as this extracts and removes the --type flag from args if present, to allow args in package.json scripts
 const typeFlagIndex = args.findIndex(arg => arg.startsWith('--type='));
 let typeFlag = null;
 if (typeFlagIndex !== -1) {
