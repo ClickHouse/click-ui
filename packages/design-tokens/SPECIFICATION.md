@@ -24,10 +24,10 @@ Examples: `color/white`, `color/gray/50`, `color/gray/25`, `color/blue/400`, `co
 
 **Gray Color Palettes:**
 
-| Pattern                         | Purpose                                      | Example                               |
-| ------------------------------- | -------------------------------------------- | ------------------------------------- |
-| `color/gray/{step}`             | Cool gray scale with blue undertone (25-900) | `color/gray/50` = #f6f7fa             |
-| `color/neutral/{step}`          | Pure neutral gray scale (0-900, 650/712/725/750) | `color/neutral/200` = #dfdfdf         |
+| Pattern                | Purpose                                          | Example                       |
+| ---------------------- | ------------------------------------------------ | ----------------------------- |
+| `color/gray/{step}`    | Cool gray scale with blue undertone (25-900)     | `color/gray/50` = #f6f7fa     |
+| `color/neutral/{step}` | Pure neutral gray scale (0-900, 650/712/725/750) | `color/neutral/200` = #dfdfdf |
 
 **Note:** Dark mode uses `neutral` palette with extended steps: `neutral.750` (main bg), `neutral.725` (muted bg), `neutral.712` (borders).
 
@@ -35,42 +35,42 @@ Examples: `color/white`, `color/gray/50`, `color/gray/25`, `color/blue/400`, `co
 
 The `gray` palette follows the original slate palette with cool blue undertones. Steps progress monotonically from light (25) to dark (900):
 
-| Step | Value   | Description               |
-| ---- | ------- | ------------------------- |
+| Step | Value   | Description                |
+| ---- | ------- | -------------------------- |
 | 25   | #FBFCFF | Field background off-white |
-| 50   | #f6f7fa | Subtle surface            |
-| 100  | #e6e7e9 | Default border            |
-| 200  | #cccfd3 | Active / strong border    |
-| 300  | #b3b6bd | Muted border variant      |
-| 400  | #9a9ea7 | Placeholder text          |
-| 500  | #808691 | Table checkbox border     |
-| 600  | #696e79 | Subtle text, muted icons  |
-| 700  | #53575f | Neutral / muted text      |
-| 800  | #302e32 | Primary action background |
-| 900  | #161517 | Primary text, near-black  |
-| base | #373439 | Gray base                 |
+| 50   | #f6f7fa | Subtle surface             |
+| 100  | #e6e7e9 | Default border             |
+| 200  | #cccfd3 | Active / strong border     |
+| 300  | #b3b6bd | Muted border variant       |
+| 400  | #9a9ea7 | Placeholder text           |
+| 500  | #808691 | Table checkbox border      |
+| 600  | #696e79 | Subtle text, muted icons   |
+| 700  | #53575f | Neutral / muted text       |
+| 800  | #302e32 | Primary action background  |
+| 900  | #161517 | Primary text, near-black   |
+| base | #373439 | Gray base                  |
 
 **Neutral Scale (pure grays, monotonic):**
 
 The `neutral` palette provides pure grays without color tint, used for disabled states, dark mode surfaces, and specific UI elements:
 
-| Step | Value   | Description                      |
-| ---- | ------- | -------------------------------- |
-| 0    | #ffffff | Pure white                       |
-| 100  | #f9f9f9 | Pure neutral light               |
-| 200  | #dfdfdf | Disabled background              |
-| 300  | #c0c0c0 | Disabled border                  |
-| 400  | #a0a0a0 | Disabled text                    |
-| 500  | #808080 | Mid gray                           |
-| 600  | #606060 | Neutral badge solid bg             |
-| 650  | #505050 | Button group text                  |
-| 700  | #414141 | Dark neutral                       |
-| 712  | #323232 | Dark mode border                   |
-| 725  | #282828 | Dark mode muted background         |
-| 750  | #1F1F1C | Dark mode main background          |
-| 800  | #1d1d1d | Codeblock dark bg                  |
-| 900  | #151515 | Near black                         |
-| base | #212121 | Neutral base                       |
+| Step | Value   | Description                |
+| ---- | ------- | -------------------------- |
+| 0    | #ffffff | Pure white                 |
+| 100  | #f9f9f9 | Pure neutral light         |
+| 200  | #dfdfdf | Disabled background        |
+| 300  | #c0c0c0 | Disabled border            |
+| 400  | #a0a0a0 | Disabled text              |
+| 500  | #808080 | Mid gray                   |
+| 600  | #606060 | Neutral badge solid bg     |
+| 650  | #505050 | Button group text          |
+| 700  | #414141 | Dark neutral               |
+| 712  | #323232 | Dark mode border           |
+| 725  | #282828 | Dark mode muted background |
+| 750  | #1F1F1C | Dark mode main background  |
+| 800  | #1d1d1d | Codeblock dark bg          |
+| 900  | #151515 | Near black                 |
+| base | #212121 | Neutral base               |
 
 **Rationale:** The `gray` + `neutral` naming:
 
@@ -89,18 +89,18 @@ The `neutral` palette provides pure grays without color tint, used for disabled 
 
 Primitive color tokens use **appearance-based naming** (the visual color):
 
-| Palette   | Steps         | Origin (main branch) | Usage                                    |
-| --------- | ------------- | -------------------- | ---------------------------------------- |
-| `blue`    | 50-900 + base | `info` palette       | Info states, links, accents              |
-| `red`     | 50-900 + base | `danger` palette     | Error states, danger actions             |
-| `green`   | 50-900 + base | `success` palette    | Success states, positive feedback       |
-| `orange`  | 50-900 + base | `warning` palette    | Warning states, caution indicators      |
-| `brand`   | 50-900 + base | `brand` palette      | ClickHouse yellow brand colors          |
-| `teal`    | 50-900        | `teal` palette       | Accent color                            |
-| `violet`  | 50-900        | `violet` palette     | Accent color                            |
-| `fuchsia` | 50-900        | `fuchsia` palette    | Accent color                            |
-| `sunrise` | 50-900        | `sunrise` palette    | Accent color                            |
-| `babyblue`| 50-900        | `babyblue` palette   | Accent color                            |
+| Palette    | Steps         | Origin (main branch) | Usage                              |
+| ---------- | ------------- | -------------------- | ---------------------------------- |
+| `blue`     | 50-900 + base | `info` palette       | Info states, links, accents        |
+| `red`      | 50-900 + base | `danger` palette     | Error states, danger actions       |
+| `green`    | 50-900 + base | `success` palette    | Success states, positive feedback  |
+| `orange`   | 50-900 + base | `warning` palette    | Warning states, caution indicators |
+| `brand`    | 50-900 + base | `brand` palette      | ClickHouse yellow brand colors     |
+| `teal`     | 50-900        | `teal` palette       | Accent color                       |
+| `violet`   | 50-900        | `violet` palette     | Accent color                       |
+| `fuchsia`  | 50-900        | `fuchsia` palette    | Accent color                       |
+| `sunrise`  | 50-900        | `sunrise` palette    | Accent color                       |
+| `babyblue` | 50-900        | `babyblue` palette   | Accent color                       |
 
 **Key Principle:** Primitives describe **what the color looks like** (blue, red, green, orange), not what it means semantically.
 
@@ -123,13 +123,14 @@ Examples:
 
 **Separation of Concerns:**
 
-| Layer      | Naming Style    | Example                    | Purpose                              |
-| ---------- | --------------- | -------------------------- | ------------------------------------ |
-| Primitives | Appearance      | `color.red.600`            | "This is a red color"                |
-| Semantic   | Intent/Role     | `color.foreground.error`   | "This is for error text"             |
-|            |                 |                            | (references `color.red.600`)         |
+| Layer      | Naming Style | Example                  | Purpose                      |
+| ---------- | ------------ | ------------------------ | ---------------------------- |
+| Primitives | Appearance   | `color.red.600`          | "This is a red color"        |
+| Semantic   | Intent/Role  | `color.foreground.error` | "This is for error text"     |
+|            |              |                          | (references `color.red.600`) |
 
 This separation allows:
+
 - **Theming**: Swap all reds for different hue without changing semantic names
 - **Clarity**: Designers see intent ("error color"), developers see implementation
 - **Consistency**: Single source of truth for color values
