@@ -64,7 +64,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.gray.800}",
-                "dark": "{color.neutral.700}"
+                "dark": "{color.brand.300}"
               }
             },
             "$description": "Primary filled button / icon button secondary"
@@ -158,7 +158,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.red.50}",
-                "dark": "{color.red.800}"
+                "dark": "{color.red.750}"
               }
             },
             "$description": "Danger tinted bg - button, badge, alert, icon"
@@ -193,7 +193,7 @@
             "$extensions": {
               "mode": {
                 "light": "{color.green.50}",
-                "dark": "{color.green.800}"
+                "dark": "{color.green.850}"
               }
             },
             "$description": "Success tinted bg - alert, badge"
@@ -332,13 +332,24 @@
         "$description": "Format hints, helper text in fields and menus"
       },
       "interactive": {
+        "on-danger": {
+          "$type": "color",
+          "$value": "{color.red.600}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.red.600}",
+              "dark": "{color.red.100}"
+            }
+          },
+          "$description": "Text / icon on danger surface"
+        },
         "on-primary": {
           "$type": "color",
           "$value": "{color.white}",
           "$extensions": {
             "mode": {
               "light": "{color.white}",
-              "dark": "{color.gray.900}"
+              "dark": "{color.charcoal.surface.50}"
             }
           },
           "$description": "Text / icon on dark primary surface"

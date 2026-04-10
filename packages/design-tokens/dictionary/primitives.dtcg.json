@@ -643,11 +643,11 @@
         "$type": "color",
         "$value": {
           "colorSpace": "hsl",
-          "components": [125, 100, 13],
+          "components": [121, 37, 22],
           "alpha": 1,
-          "hex": "#004206"
+          "hex": "#234C24"
         },
-        "$description": "Green deep"
+        "$description": "Green winter (green.850)"
       },
       "900": {
         "$type": "color",
@@ -862,6 +862,16 @@
           "hex": "#910000"
         },
         "$description": "Red dark"
+      },
+      "750": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "hsl",
+          "components": [4, 45, 21],
+          "alpha": 1,
+          "hex": "#4C201D"
+        },
+        "$description": "Red dark winter (red.750)"
       },
       "800": {
         "$type": "color",
