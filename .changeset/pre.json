@@ -8,6 +8,7 @@
     "add-biglake-metastore-logo",
     "bil-4944-contribute-spendthresholdinput-changes-up-into-click-ui",
     "chore-add-mexican-flag",
+    "fix-dialog-description-warning",
     "fix-dialog-radix-primitives",
     "fix-missing-focus-token-found-in-ts-but-not-dictionary",
     "fix-textcolor-warning"
