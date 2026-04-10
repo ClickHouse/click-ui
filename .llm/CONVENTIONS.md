@@ -49,6 +49,28 @@ When using CSS Modules (migration in progress from styled-components):
 - Use CSS custom properties from theme tokens: `var(--click-button-basic-color-primary-background-default)`
 - Always include `:focus-visible` styles for keyboard accessibility, never use `outline: none` without replacement
 
+### CSS File Naming (Prevent Overwrites)
+
+⚠️ **CRITICAL**: Never have both `{name}.module.css` and `{name}.css` in the same directory.
+
+**Why**: The build converts `.module.css` to `.css` during output. Both files would write to the same destination path in `dist/`, causing ambiguity.
+
+**Wrong:**
+```
+src/components/Button/
+├── Button.module.css  ← Processed to dist/components/Button.css
+└── Button.css         ← Also writes to dist/components/Button.css
+```
+
+**Correct:**
+```
+src/components/Button/
+├── Button.module.css   ← CSS Modules (scoped)
+└── Button.theme.css    ← Different name, distinct output
+```
+
+The build will throw an error if this collision is detected, but it's better to prevent it at the source.
+
 ### Accessibility (Mandatory)
 
 - Interactive elements need `role`, `aria-label`, `aria-describedby`
@@ -122,3 +144,4 @@ src/components/
 - `React.FC` or explicit `children` in props (use `React.ReactNode`)
 - Circular imports via barrel files
 - Untyped event handlers
+- Having both `{name}.module.css` and `{name}.css` in same directory (causes dist overwrite collision)
