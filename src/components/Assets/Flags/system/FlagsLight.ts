@@ -17,6 +17,7 @@ import Indonesia from '../Indonesia';
 import Ireland from '../Ireland';
 import Israel from '../Israel';
 import Japan from '../Japan';
+import Mexico from '../Mexico';
 import Netherlands from '../Netherlands';
 import Singapore from '../Singapore';
 import South_Africa from '../South-Africa';
@@ -43,6 +44,7 @@ const FlagsLight: Record<FlagName, ComponentType<SVGAssetProps>> = {
   ireland: Ireland,
   israel: Israel,
   japan: Japan,
+  mexico: Mexico,
   netherlands: Netherlands,
   singapore: Singapore,
   'south-africa': South_Africa,
