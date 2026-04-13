@@ -65,8 +65,7 @@ const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   width: fill-available;
   width: stretch;
   position: relative;
-  &:hover ${ButtonContainer},
-  &:focus-within ${ButtonContainer} {
+  &:hover ${ButtonContainer}, &:focus-within ${ButtonContainer} {
     opacity: 1;
   }
   ${({ theme, $theme }) => {
@@ -106,7 +105,6 @@ const CodeContent = styled.code`
   font-family: inherit;
   color: inherit;
 `;
-
 
 export const CodeBlock = ({
   children,
