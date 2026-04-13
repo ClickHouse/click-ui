@@ -87,8 +87,11 @@ const CodeContent = styled.code`
 const ButtonContainer = styled.div`
   position: absolute;
   display: flex;
+  z-index: 1;
+  padding-left: 1rem;
+  background: inherit;
   ${({ theme }) => `
-    gap:  0.625rem;
+    gap: 0.625rem;
     top: ${theme.click.codeblock.space.y};
     right: ${theme.click.codeblock.space.x};
   `}
