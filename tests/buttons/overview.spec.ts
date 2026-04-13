@@ -56,7 +56,7 @@ describe('Buttons', () => {
     });
 
     it(`should render ${id}, on first element click`, async ({ page }) => {
-      const button = page.locator('[role="button"]:nth-child(1)');
+      const button = page.getByRole('button').first();
 
       await expect(button).toBeVisible({ timeout: 10_000 });
 
@@ -69,7 +69,7 @@ describe('Buttons', () => {
     });
 
     it(`should ${id}, on second element click have aria-pressed`, async ({ page }) => {
-      const button = page.locator('[role="button"]:nth-child(2)');
+      const button = page.getByRole('button').nth(1);
 
       await expect(button).toBeVisible({ timeout: 10_000 });
 
