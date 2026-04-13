@@ -24,6 +24,126 @@ export const Playground: StoryObj<typeof ButtonGroup> = {
   },
 };
 
+// Type Variants
+export const Default: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+      { label: 'Option 3', value: 'option3' },
+    ],
+    type: 'default',
+  },
+};
+
+export const Borderless: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+      { label: 'Option 3', value: 'option3' },
+    ],
+    type: 'borderless',
+  },
+};
+
+// Selection States
+export const DefaultSelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+      { label: 'Option 3', value: 'option3' },
+    ],
+    type: 'default',
+    selected: 'option1',
+  },
+};
+
+export const BorderlessSelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+      { label: 'Option 3', value: 'option3' },
+    ],
+    type: 'borderless',
+    selected: 'option1',
+  },
+};
+
+// Disabled States
+export const WithDisabledButton: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Enabled', value: 'enabled' },
+      { label: 'Disabled', value: 'disabled', disabled: true },
+    ],
+    type: 'default',
+  },
+};
+
+export const WithDisabledSelectedButton: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Enabled', value: 'enabled' },
+      { label: 'Disabled Active', value: 'disabled', disabled: true },
+    ],
+    type: 'default',
+    selected: 'disabled',
+  },
+};
+
+// Layout Variants
+export const FillWidthDefault: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+    ],
+    type: 'default',
+    fillWidth: true,
+  },
+};
+
+export const FillWidthBorderless: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+    ],
+    type: 'borderless',
+    fillWidth: true,
+  },
+};
+
+// Multi-select
+export const MultiSelectSelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+      { label: 'Option 3', value: 'option3' },
+    ],
+    type: 'default',
+    multiple: true,
+    selected: new Set(['option1', 'option3']),
+  },
+};
+
+export const MultiSelectBorderless: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+      { label: 'Option 3', value: 'option3' },
+    ],
+    type: 'borderless',
+    multiple: true,
+    selected: new Set(['option1', 'option3']),
+  },
+};
+
 export const MultiSelect: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [
