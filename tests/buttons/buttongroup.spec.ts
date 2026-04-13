@@ -173,7 +173,7 @@ describe('ButtonGroup Visual Regression', () => {
 
     describe('Type Variants', () => {
       it('default type matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--default'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--default', 'dark'), {
           waitUntil: 'networkidle',
         });
         const group = page.getByRole('group');
@@ -184,7 +184,7 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('borderless type matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--borderless'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--borderless', 'dark'), {
           waitUntil: 'networkidle',
         });
         const group = page.getByRole('group');
@@ -197,7 +197,7 @@ describe('ButtonGroup Visual Regression', () => {
 
     describe('Selection States', () => {
       it('default type with selection matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--default-selected'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--default-selected', 'dark'), {
           waitUntil: 'networkidle',
         });
         const group = page.getByRole('group');
@@ -210,7 +210,7 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('borderless type with selection matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--borderless-selected'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--borderless-selected', 'dark'), {
           waitUntil: 'networkidle',
         });
         const group = page.getByRole('group');
@@ -225,9 +225,12 @@ describe('ButtonGroup Visual Regression', () => {
 
     describe('Disabled States', () => {
       it('with disabled button matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--with-disabled-button'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--with-disabled-button', 'dark'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
         const disabledButton = page.getByRole('button', { name: 'Disabled' });
@@ -239,7 +242,7 @@ describe('ButtonGroup Visual Regression', () => {
 
       it('with disabled and selected button matches snapshot', async ({ page }) => {
         await page.goto(
-          getStoryUrl('buttons-buttongroup--with-disabled-selected-button'),
+          getStoryUrl('buttons-buttongroup--with-disabled-selected-button', 'dark'),
           {
             waitUntil: 'networkidle',
           }
@@ -259,7 +262,7 @@ describe('ButtonGroup Visual Regression', () => {
 
     describe('Layout Variants', () => {
       it('fill width default matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--fill-width-default'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--fill-width-default', 'dark'), {
           waitUntil: 'networkidle',
         });
         const group = page.getByRole('group');
@@ -270,9 +273,12 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('fill width borderless matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--fill-width-borderless'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--fill-width-borderless', 'dark'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
         await expect(group).toHaveScreenshot(
@@ -286,9 +292,12 @@ describe('ButtonGroup Visual Regression', () => {
 
     describe('Multi-select', () => {
       it('multi-select default matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--multi-select-selected'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--multi-select-selected', 'dark'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
         const pressedButtons = page.getByRole('button', { pressed: true });
@@ -299,9 +308,12 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('multi-select borderless matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--multi-select-borderless'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--multi-select-borderless', 'dark'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
         const pressedButtons = page.getByRole('button', { pressed: true });
@@ -349,7 +361,7 @@ describe('ButtonGroup Visual Regression', () => {
       use({ colorScheme: 'dark' });
 
       it('hover state on button', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--default'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--default', 'dark'), {
           waitUntil: 'networkidle',
         });
         const button = page.getByRole('button').first();
@@ -362,7 +374,7 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('focus state on button', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--default'), {
+        await page.goto(getStoryUrl('buttons-buttongroup--default', 'dark'), {
           waitUntil: 'networkidle',
         });
         const button = page.getByRole('button').first();
