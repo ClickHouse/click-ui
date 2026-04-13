@@ -5,7 +5,7 @@ export type SelectionValue = string | Set<string>;
 
 export interface ButtonGroupElementProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
-  'children'
+  'children' | 'onClick'
 > {
   value: string;
   label?: ReactNode;
