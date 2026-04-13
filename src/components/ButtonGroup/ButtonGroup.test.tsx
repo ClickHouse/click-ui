@@ -13,7 +13,7 @@ describe('ButtonGroup', () => {
   ];
 
   it('renders buttons with labels correctly', () => {
-    const { getByText } = renderButtonGroup({ options });
+    const { getByText } = renderButtonGroup({ options, 'aria-label': 'Button group' });
 
     options.forEach(option => {
       expect(getByText(option.label).textContent).toBe(option.label);
@@ -27,6 +27,7 @@ describe('ButtonGroup', () => {
     const { getByText } = renderButtonGroup({
       options,
       onClick: handleClick,
+      'aria-label': 'Button group',
     });
 
     fireEvent.click(getByText('Option 2'));
@@ -45,6 +46,7 @@ describe('ButtonGroup', () => {
     const { getByText } = renderButtonGroup({
       options,
       onClick: handleClick,
+      'aria-label': 'Button group',
     });
 
     fireEvent.click(getByText('Option 2'));
@@ -66,6 +68,7 @@ describe('ButtonGroup', () => {
       onClick: handleClick,
       multiple: true,
       selected: new Set(['option1']),
+      'aria-label': 'Button group',
     });
 
     fireEvent.click(getByText('Option 2'));
@@ -85,6 +88,7 @@ describe('ButtonGroup', () => {
       onClick: handleClick,
       multiple: true,
       selected: new Set(['option1', 'option2']),
+      'aria-label': 'Button group',
     });
 
     fireEvent.click(getByText('Option 2'));
@@ -97,6 +101,7 @@ describe('ButtonGroup', () => {
       options,
       multiple: true,
       selected: new Set(['option1', 'option3']),
+      'aria-label': 'Button group',
     });
 
     const option1 = getByText('Option 1');
@@ -112,6 +117,7 @@ describe('ButtonGroup', () => {
     const { getByText } = renderButtonGroup({
       options,
       selected: 'option2',
+      'aria-label': 'Button group',
     });
 
     const activeButton = getByText('Option 2');
@@ -125,6 +131,7 @@ describe('ButtonGroup', () => {
       const { getByText } = renderButtonGroup({
         options,
         defaultSelected: 'option2',
+        'aria-label': 'Button group',
       });
 
       expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'true');
@@ -136,6 +143,7 @@ describe('ButtonGroup', () => {
         options,
         multiple: true,
         defaultSelected: new Set(['option1', 'option3']),
+        'aria-label': 'Button group',
       });
 
       expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'true');
@@ -147,6 +155,7 @@ describe('ButtonGroup', () => {
       const { getByText } = renderButtonGroup({
         options,
         defaultSelected: 'option1',
+        'aria-label': 'Button group',
       });
 
       fireEvent.click(getByText('Option 2'));
@@ -160,6 +169,7 @@ describe('ButtonGroup', () => {
         options,
         multiple: true,
         defaultSelected: new Set(['option1']),
+        'aria-label': 'Button group',
       });
 
       fireEvent.click(getByText('Option 2'));
@@ -173,6 +183,7 @@ describe('ButtonGroup', () => {
         options,
         multiple: true,
         defaultSelected: new Set(['option1', 'option2']),
+        'aria-label': 'Button group',
       });
 
       fireEvent.click(getByText('Option 2'));
@@ -193,6 +204,7 @@ describe('ButtonGroup', () => {
         options,
         defaultSelected: 'option1',
         onClick: handleClick,
+        'aria-label': 'Button group',
       });
 
       fireEvent.click(getByText('Option 2'));
@@ -209,6 +221,7 @@ describe('ButtonGroup', () => {
         options,
         selected: 'option3',
         defaultSelected: 'option1',
+        'aria-label': 'Button group',
       });
 
       expect(getByText('Option 3')).toHaveAttribute('aria-pressed', 'true');
@@ -219,6 +232,7 @@ describe('ButtonGroup', () => {
       const { getByText } = renderButtonGroup({
         options,
         selected: 'option1',
+        'aria-label': 'Button group',
       });
 
       fireEvent.click(getByText('Option 2'));

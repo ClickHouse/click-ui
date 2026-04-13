@@ -22,4 +22,10 @@ export interface ButtonGroupProps extends Omit<
   fillWidth?: boolean;
   type?: ButtonGroupType;
   multiple?: boolean;
+  /**
+   * Accessible label for the button group.
+   * Required for WCAG 4.1.2 compliance - role="group" must have an accessible name.
+   * @see https://www.w3.org/WAI/WCAG21/Understanding/name-role-value
+   */
+  'aria-label': string;
 }

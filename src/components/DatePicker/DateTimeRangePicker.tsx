@@ -559,6 +559,7 @@ const TimeInput = ({ date, setDate, shouldShowSeconds }: TimeInputProps) => {
             ]}
             selected={meridiem}
             type="default"
+            aria-label="AM/PM selection"
           />
         </Container>
       </Container>
