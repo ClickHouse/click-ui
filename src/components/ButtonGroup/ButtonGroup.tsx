@@ -1,6 +1,33 @@
 import { useCallback, useState } from 'react';
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
+import styles from './ButtonGroup.module.css';
+
+const wrapperVariants = cva(styles.buttonGroup, {
+  variants: {
+    type: {
+      default: styles['buttonGroup_type-default'],
+      borderless: styles['buttonGroup_type-borderless'],
+    },
+    fillWidth: {
+      true: styles['buttonGroup_fillWidth'],
+    },
+  },
+  defaultVariants: { type: 'default' },
+});
+
+const buttonVariants = cva(styles.button, {
+  variants: {
+    type: {
+      default: styles['button_type-default'],
+      borderless: styles['button_type-borderless'],
+    },
+    fillWidth: {
+      true: styles['button_fillWidth'],
+    },
+  },
+  defaultVariants: { type: 'default' },
+});
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
   if (value === undefined) {
@@ -25,6 +52,7 @@ export const ButtonGroup = ({
   type = 'default',
   multiple = false,
   'aria-label': ariaLabel,
+  className,
   ...props
 }: ButtonGroupProps) => {
   const [internalSelection, setInternalSelection] = useState<Set<string>>(() =>
@@ -65,115 +93,34 @@ export const ButtonGroup = ({
     [currentSelection, multiple, isControlled, onClick]
   );
 
-  const buttons = options.map(({ value, label, ...buttonProps }) => {
+  const buttons = options.map(({ value, label, disabled, ...buttonProps }) => {
     const isActive = isValueSelected(value, currentSelection);
 
     return (
-      <Button
+      <button
         key={value}
-        $active={isActive}
+        className={cn(
+          buttonVariants({ type, fillWidth }),
+          isActive && styles['button_active']
+        )}
         aria-pressed={isActive}
-        $fillWidth={fillWidth}
-        $type={type}
+        disabled={disabled}
         onClick={() => onButtonGroupClickCommonHandler(value)}
         {...buttonProps}
       >
         {label}
-      </Button>
+      </button>
     );
   });
 
   return (
-    <ButtonGroupWrapper
+    <div
       {...props}
-      $fillWidth={fillWidth}
-      $type={type}
+      className={cn(wrapperVariants({ type, fillWidth }), className)}
       role="group"
       aria-label={ariaLabel}
     >
       {buttons}
-    </ButtonGroupWrapper>
+    </div>
   );
 };
-
-import { ButtonGroupType } from './ButtonGroup.types';
-
-const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
-  display: inline-flex;
-  box-sizing: border-box;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: ${({ theme, $type }) =>
-    `${theme.click.button.group.space.panel[$type].x} ${theme.click.button.group.space.panel[$type].y}`};
-  gap: ${({ theme, $type }) => theme.click.button.group.space.panel[$type].gap};
-  border: ${({ theme, $type }) =>
-    $type === 'default'
-      ? `1px solid ${theme.click.button.group.color.panel.stroke[$type]}`
-      : 'none'};
-  background: ${({ theme }) => theme.click.button.group.color.background.panel};
-  border-radius: ${({ theme }) => theme.click.button.group.radii.panel.all};
-  width: ${({ $fillWidth }) => ($fillWidth ? '100%' : 'auto')};
-`;
-
-const Button = styled.button.attrs<{
-  disabled?: boolean;
-}>(props => ({
-  'aria-disabled': props.disabled ? 'true' : undefined,
-}))<{
-  $active: boolean;
-  $fillWidth: boolean;
-  $type: ButtonGroupType;
-  disabled?: boolean;
-}>`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background: ${({ $active, theme }) =>
-    $active
-      ? theme.click.button.group.color.background.active
-      : theme.click.button.group.color.background.default};
-  color: ${({ theme }) => theme.click.button.group.color.text.default};
-  font: ${({ theme }) => theme.click.button.group.typography.label.default};
-  padding: ${({ theme, $type }) =>
-    `${theme.click.button.group.space.button[$type].y} ${theme.click.button.group.space.button[$type].x}`};
-  ${({ $fillWidth }) => ($fillWidth ? 'flex: 1;' : '')};
-  border-radius: ${({ theme, $type }) =>
-    theme.click.button.group.radii.button[$type].all};
-  cursor: pointer;
-  border: none;
-
-  &:hover {
-    background: ${({ theme }) => theme.click.button.group.color.background.hover};
-    font: ${({ theme }) => theme.click.button.group.typography.label.hover};
-    color: ${({ theme }) => theme.click.button.group.color.text.hover};
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    font: ${({ theme }) => theme.click.button.group.typography.label.disabled};
-    color: ${({ theme }) => theme.click.button.group.color.text.disabled};
-    background: ${({ theme, $active }) =>
-      theme.click.button.group.color.background[
-        $active ? 'disabled-active' : 'disabled'
-      ]};
-
-    &:active,
-    &:focus,
-    &[aria-pressed='true'] {
-      color: ${({ theme }) => theme.click.button.group.color.text.disabled};
-    }
-  }
-
-  &[aria-pressed='true'] {
-    background: ${({ theme }) => theme.click.button.group.color.background.active};
-    font: ${({ theme }) => theme.click.button.group.typography.label.active};
-    color: ${({ theme }) => theme.click.button.group.color.text.active};
-    &:disabled {
-      background: ${({ theme }) =>
-        theme.click.button.group.color.background['disabled-active']};
-    }
-  }
-`;
