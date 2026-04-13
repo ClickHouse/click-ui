@@ -21,6 +21,7 @@ export const Playground: StoryObj<typeof ButtonGroup> = {
     fillWidth: false,
     type: 'default',
     defaultSelected: 'option3',
+    'aria-label': 'Button group playground',
   },
 };
 

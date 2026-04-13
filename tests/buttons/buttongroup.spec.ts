@@ -411,5 +411,18 @@ describe('ButtonGroup Visual Regression', () => {
       const activeButton = page.getByRole('button', { name: 'Option 1' });
       await expect(activeButton).toHaveAttribute('aria-pressed', 'true');
     });
+
+    it('group has accessible name when aria-label is provided', async ({ page }) => {
+      await page.goto(
+        '/iframe.html?path=/story/buttons-buttongroup--playground&globals=theme:light',
+        {
+          waitUntil: 'networkidle',
+        }
+      );
+      const group = page.getByRole('group');
+      await expect(group).toBeVisible({ timeout: 10000 });
+
+      await expect(group).toHaveAttribute('aria-label');
+    });
   });
 });
