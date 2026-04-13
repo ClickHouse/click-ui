@@ -13,7 +13,7 @@ fi
 
 COMMIT_MSG="$1"
 
-RELEASE_PATTERN='^chore: 🤖 release v([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?) \((latest|rc|test|stable)\)( \(#[0-9]+\)| #[0-9]+)?$'
+RELEASE_PATTERN='^chore: 🤖 release v([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?) \((latest|rc|test|stable)\)( \[skip-prerelease\])?( \(#[0-9]+\)| #[0-9]+)?$'
 
 if [[ -z "$COMMIT_MSG" ]]; then
   echo "👹 Oops! Commit message is empty"
@@ -50,14 +50,21 @@ if [[ ! "$COMMIT_MSG" =~ $RELEASE_PATTERN ]]; then
   exit 1
 fi
 
-if [[ "$COMMIT_MSG" =~ ^chore:\ 🤖\ release\ v([0-9.a-zA-Z-]+)\ \((latest|rc|test|stable)\) ]]; then
+if [[ "$COMMIT_MSG" =~ ^chore:\ 🤖\ release\ v([0-9.a-zA-Z-]+)\ \((latest|rc|test|stable)\)(.*)$ ]]; then
   VERSION="${BASH_REMATCH[1]}"
   RELEASE_TYPE="${BASH_REMATCH[2]}"
+  SUFFIX="${BASH_REMATCH[3]}"
+
+  if [[ "$SUFFIX" =~ \[skip-prerelease\] ]]; then
+    SKIP_PRERELEASE="true"
+  else
+    SKIP_PRERELEASE="false"
+  fi
 else
   echo "🦖 Skip! Failed to extract version and release type"
   exit 1
 fi
 
-echo "${VERSION} ${RELEASE_TYPE}"
+echo "${VERSION} ${RELEASE_TYPE} ${SKIP_PRERELEASE}"
 
 exit 0
