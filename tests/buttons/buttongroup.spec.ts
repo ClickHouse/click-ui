@@ -52,6 +52,8 @@ describe('ButtonGroup Visual Regression', () => {
         );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
         await expect(group).toHaveScreenshot(
           'buttongroup-borderless-selected-light.png',
           {
@@ -154,6 +156,8 @@ describe('ButtonGroup Visual Regression', () => {
         );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
+        const pressedButtons = page.getByRole('button', { pressed: true });
+        await expect(pressedButtons).toHaveCount(2);
         await expect(group).toHaveScreenshot(
           'buttongroup-multi-select-borderless-light.png',
           {
@@ -296,6 +300,8 @@ describe('ButtonGroup Visual Regression', () => {
         });
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
+        const pressedButtons = page.getByRole('button', { pressed: true });
+        await expect(pressedButtons).toHaveCount(2);
         await expect(group).toHaveScreenshot(
           'buttongroup-multi-select-borderless-dark.png',
           {
@@ -307,29 +313,61 @@ describe('ButtonGroup Visual Regression', () => {
   });
 
   describe('Interactive States', () => {
-    it('hover state on button', async ({ page }) => {
-      await page.goto(getStoryUrl('buttons-buttongroup--default', 'light'), {
-        waitUntil: 'networkidle',
+    describe('Light Theme', () => {
+      it('hover state on button', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--default', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button').first();
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await button.hover();
+        await page.waitForTimeout(100);
+        await expect(button).toHaveScreenshot('buttongroup-button-hover-light.png', {
+          maxDiffPixels: 100,
+        });
       });
-      const button = page.getByRole('button').first();
-      await expect(button).toBeVisible({ timeout: 10000 });
-      await button.hover();
-      await page.waitForTimeout(100);
-      await expect(button).toHaveScreenshot('buttongroup-button-hover-light.png', {
-        maxDiffPixels: 100,
+
+      it('focus state on button', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--default', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button').first();
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await button.focus();
+        await page.waitForTimeout(100);
+        await expect(button).toHaveScreenshot('buttongroup-button-focus-light.png', {
+          maxDiffPixels: 100,
+        });
       });
     });
 
-    it('focus state on button', async ({ page }) => {
-      await page.goto(getStoryUrl('buttons-buttongroup--default', 'light'), {
-        waitUntil: 'networkidle',
+    describe('Dark Theme', () => {
+      use({ colorScheme: 'dark' });
+
+      it('hover state on button', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--default'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button').first();
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await button.hover();
+        await page.waitForTimeout(100);
+        await expect(button).toHaveScreenshot('buttongroup-button-hover-dark.png', {
+          maxDiffPixels: 100,
+        });
       });
-      const button = page.getByRole('button').first();
-      await expect(button).toBeVisible({ timeout: 10000 });
-      await button.focus();
-      await page.waitForTimeout(100);
-      await expect(button).toHaveScreenshot('buttongroup-button-focus-light.png', {
-        maxDiffPixels: 100,
+
+      it('focus state on button', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--default'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button').first();
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await button.focus();
+        await page.waitForTimeout(100);
+        await expect(button).toHaveScreenshot('buttongroup-button-focus-dark.png', {
+          maxDiffPixels: 100,
+        });
       });
     });
   });
