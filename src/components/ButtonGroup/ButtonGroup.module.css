@@ -1,83 +1,83 @@
-.buttonGroup {
+.buttongroup {
   display: inline-flex;
   box-sizing: border-box;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: var(--click-button-group-color-background-panel);
   border-radius: var(--click-button-group-radii-panel-all);
+  background: var(--click-button-group-color-background-panel);
 }
 
-.buttonGroup_type-default {
+.buttongroup_type_default {
   padding: var(--click-button-group-space-panel-default-x)
     var(--click-button-group-space-panel-default-y);
   gap: var(--click-button-group-space-panel-default-gap);
   border: 1px solid var(--click-button-group-color-panel-stroke-default);
 }
 
-.buttonGroup_type-borderless {
+.buttongroup_type_borderless {
   padding: var(--click-button-group-space-panel-borderless-x)
     var(--click-button-group-space-panel-borderless-y);
   gap: var(--click-button-group-space-panel-borderless-gap);
   border: none;
 }
 
-.buttonGroup_fillWidth {
+.buttongroup_fillwidth {
   width: 100%;
 }
 
 .button {
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   border: none;
-  cursor: pointer;
   background: var(--click-button-group-color-background-default);
   color: var(--click-button-group-color-text-default);
   font: var(--click-button-group-typography-label-default);
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.button_type-default {
+.button_type_default {
   padding: var(--click-button-group-space-button-default-y)
     var(--click-button-group-space-button-default-x);
   border-radius: var(--click-button-group-radii-button-default-all);
 }
 
-.button_type-borderless {
+.button_type_borderless {
   padding: var(--click-button-group-space-button-borderless-y)
     var(--click-button-group-space-button-borderless-x);
   border-radius: var(--click-button-group-radii-button-borderless-all);
 }
 
-.button_fillWidth {
+.button_fillwidth {
   flex: 1;
-}
-
-.button:hover:not(:disabled) {
-  background: var(--click-button-group-color-background-hover);
-  font: var(--click-button-group-typography-label-hover);
-  color: var(--click-button-group-color-text-hover);
 }
 
 .button_active,
 .button[aria-pressed='true'] {
   background: var(--click-button-group-color-background-active);
-  font: var(--click-button-group-typography-label-active);
   color: var(--click-button-group-color-text-active);
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  font: var(--click-button-group-typography-label-disabled);
-  color: var(--click-button-group-color-text-disabled);
-  background: var(--click-button-group-color-background-disabled);
+  font: var(--click-button-group-typography-label-active);
 }
 
 .button_active:disabled,
 .button[aria-pressed='true']:disabled {
   background: var(--click-button-group-color-background-disabled-active);
   color: var(--click-button-group-color-text-disabled-active);
+}
+
+.button:disabled {
+  background: var(--click-button-group-color-background-disabled);
+  color: var(--click-button-group-color-text-disabled);
+  font: var(--click-button-group-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--click-button-group-color-background-hover);
+  color: var(--click-button-group-color-text-hover);
+  font: var(--click-button-group-typography-label-hover);
 }

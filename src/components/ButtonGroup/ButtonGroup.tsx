@@ -3,14 +3,14 @@ import { cn, cva } from '@/lib/cva';
 import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
 import styles from './ButtonGroup.module.css';
 
-const wrapperVariants = cva(styles.buttonGroup, {
+const wrapperVariants = cva(styles.buttongroup, {
   variants: {
     type: {
-      default: styles['buttonGroup_type-default'],
-      borderless: styles['buttonGroup_type-borderless'],
+      default: styles['buttongroup_type_default'],
+      borderless: styles['buttongroup_type_borderless'],
     },
     fillWidth: {
-      true: styles['buttonGroup_fillWidth'],
+      true: styles['buttongroup_fillwidth'],
     },
   },
   defaultVariants: { type: 'default' },
@@ -19,11 +19,11 @@ const wrapperVariants = cva(styles.buttonGroup, {
 const buttonVariants = cva(styles.button, {
   variants: {
     type: {
-      default: styles['button_type-default'],
-      borderless: styles['button_type-borderless'],
+      default: styles['button_type_default'],
+      borderless: styles['button_type_borderless'],
     },
     fillWidth: {
-      true: styles['button_fillWidth'],
+      true: styles['button_fillwidth'],
     },
   },
   defaultVariants: { type: 'default' },
