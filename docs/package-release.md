@@ -285,5 +285,5 @@ Follow these steps:
 
 The commit message will include a `[skip-prerelease]` marker for audit purposes. After release, verify the fix in production immediately and prepare/update a proper maintenance release if needed.
 
-> [!WARN]
+> [!WARNING]
 > In the scenario where you skip the release-cycle and a maintenance branch's already exist, you may be interested in updating it by cherry-picking any critical changes, e.g. made a stable/latest release for `v1.6.0` from `main` which might contain changes not reflected in maintenance branch `chore/v1.6.0`.
