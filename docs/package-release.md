@@ -220,7 +220,7 @@ git push origin chore/v1.0.0
 
 Stable releases (`stable` or `latest`) can be created from `chore/v*` branches. Once released, the pre-release mode is switched off and `main` must be updated to reflect the version bump and exit from pre-release mode.
 
-> [!WARN]
+> [!WARNING]
 > Use `latest` only when you want the release to become the default version on npm.
 
 Follow these steps:
