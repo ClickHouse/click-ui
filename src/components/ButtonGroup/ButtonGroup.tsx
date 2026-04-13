@@ -24,6 +24,7 @@ export const ButtonGroup = ({
   onClick,
   type = 'default',
   multiple = false,
+  'aria-label': ariaLabel,
   ...props
 }: ButtonGroupProps) => {
   const [internalSelection, setInternalSelection] = useState<Set<string>>(() =>
@@ -88,6 +89,7 @@ export const ButtonGroup = ({
       $fillWidth={fillWidth}
       $type={type}
       role="group"
+      aria-label={ariaLabel}
     >
       {buttons}
     </ButtonGroupWrapper>
@@ -114,10 +116,15 @@ const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupT
   width: ${({ $fillWidth }) => ($fillWidth ? '100%' : 'auto')};
 `;
 
-const Button = styled.button<{
+const Button = styled.button.attrs<{
+  disabled?: boolean;
+}>(props => ({
+  'aria-disabled': props.disabled ? 'true' : undefined,
+}))<{
   $active: boolean;
   $fillWidth: boolean;
   $type: ButtonGroupType;
+  disabled?: boolean;
 }>`
   box-sizing: border-box;
   display: flex;
