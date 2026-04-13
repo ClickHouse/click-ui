@@ -3,7 +3,7 @@
 # Verify that a commit message matches the expected release format
 # Usage: verify-release-commit <commit_message>
 # Returns: 0 if valid, 1 if invalid
-# On success: outputs "VERSION RELEASE_TYPE" (e.g., "1.2.3 latest")
+# On success: outputs "VERSION RELEASE_TYPE [skip_prerelease]" (e.g., "1.2.3 latest" or "1.2.3 latest skip_prerelease")
 # On failure: outputs error messages to stderr only
 
 if [[ $# -lt 1 ]]; then
@@ -57,14 +57,16 @@ if [[ "$COMMIT_MSG" =~ ^chore:\ 🤖\ release\ v([0-9.a-zA-Z-]+)\ \((latest|rc|t
 
   if [[ "$SUFFIX" =~ \[skip-prerelease\] ]]; then
     SKIP_PRERELEASE="true"
-  else
-    SKIP_PRERELEASE="false"
   fi
 else
   echo "🦖 Skip! Failed to extract version and release type"
   exit 1
 fi
 
-echo "${VERSION} ${RELEASE_TYPE} ${SKIP_PRERELEASE}"
+if [[ "$SKIP_PRERELEASE" == "true" ]]; then
+  echo "${VERSION} ${RELEASE_TYPE} skip_prerelease"
+else
+  echo "${VERSION} ${RELEASE_TYPE}"
+fi
 
 exit 0

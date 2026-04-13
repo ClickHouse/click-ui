@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Generate standardized release commit message
-# Usage: generate-release-commit-message <version> <release_type>
-# Example: generate-release-commit-message 1.2.3 latest
-# Output: chore: 🤖 release v1.2.3 (latest)
+# Usage: generate-release-commit-message <version> <release_type> [skip_prerelease]
+# Example: generate-release-commit-message 1.2.3 latest true
+# Output: chore: 🤖 release v1.2.3 (latest) [skip-prerelease]
+# Note: skip_prerelease only applies to stable/latest releases
 
 if [[ $# -lt 2 ]]; then
   echo "👹 Oops! Missing arguments" >&2
@@ -30,7 +31,12 @@ if [[ ! "$RELEASE_TYPE" =~ ^(latest|rc|test|stable)$ ]]; then
 fi
 
 if [[ "$SKIP_PRERELEASE" == "true" ]]; then
-  echo "chore: 🤖 release v${VERSION} (${RELEASE_TYPE}) [skip-prerelease]"
+  if [[ "$RELEASE_TYPE" == "stable" || "$RELEASE_TYPE" == "latest" ]]; then
+    echo "chore: 🤖 release v${VERSION} (${RELEASE_TYPE}) [skip-prerelease]"
+  else
+    echo "⚠️  Warning: skip_prerelease has no effect on ${RELEASE_TYPE} releases" >&2
+    echo "chore: 🤖 release v${VERSION} (${RELEASE_TYPE})"
+  fi
 else
   echo "chore: 🤖 release v${VERSION} (${RELEASE_TYPE})"
 fi
