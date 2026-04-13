@@ -30,14 +30,6 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: Validate branch for latest release
-        if: inputs.release_type == 'latest' && github.ref_name != 'main'
-        run: |
-          echo "👹 Oops! Cannot release 'latest' from branch '${{ github.ref_name }}'!"
-          echo "💡 The 'latest' release type can only be created from the 'main' branch."
-          echo "💡 Maintenance branches should use 'stable' instead."
-          exit 1
-
       - name: Checkout Repo
         uses: actions/checkout@v6
         with:
