@@ -40,6 +40,25 @@ interface CustomRendererProps {
   useInlineStyles: boolean;
 }
 
+const ButtonContainer = styled.div<{ $theme?: CodeThemeType }>`
+  position: absolute;
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  ${({ theme, $theme }) => {
+    const themeName = ($theme ?? theme.name) as CodeThemeType;
+    const bg = theme.click.codeblock[`${themeName}Mode`].color.background.default;
+    return `
+      gap: 0.625rem;
+      top: calc(${theme.click.codeblock.space.y} - 0.25rem);
+      right: calc(${theme.click.codeblock.space.x} - 0.25rem);
+      background: ${bg}e6;
+    `;
+  }}
+`;
+
 const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   width: 100%;
   width: -webkit-fill-available;
@@ -88,24 +107,6 @@ const CodeContent = styled.code`
   color: inherit;
 `;
 
-const ButtonContainer = styled.div<{ $theme?: CodeThemeType }>`
-  position: absolute;
-  display: flex;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-  border-radius: 0.25rem;
-  padding: 0.25rem;
-  ${({ theme, $theme }) => {
-    const themeName = ($theme ?? theme.name) as CodeThemeType;
-    const bg = theme.click.codeblock[`${themeName}Mode`].color.background.default;
-    return `
-      gap: 0.625rem;
-      top: calc(${theme.click.codeblock.space.y} - 0.25rem);
-      right: calc(${theme.click.codeblock.space.x} - 0.25rem);
-      background: ${bg}e6;
-    `;
-  }}
-`;
 
 export const CodeBlock = ({
   children,
