@@ -105,6 +105,7 @@ export const ButtonGroup = ({
         )}
         aria-pressed={isActive}
         disabled={disabled}
+        aria-disabled={disabled ? true : undefined}
         onClick={() => onButtonGroupClickCommonHandler(value)}
         {...buttonProps}
       >
