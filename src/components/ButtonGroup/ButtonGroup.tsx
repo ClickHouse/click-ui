@@ -75,7 +75,6 @@ export const ButtonGroup = ({
         $fillWidth={fillWidth}
         $type={type}
         onClick={() => onButtonGroupClickCommonHandler(value)}
-        role="button"
         {...buttonProps}
       >
         {label}
