@@ -1,6 +1,6 @@
 import { useCallback, useState, forwardRef } from 'react';
 import { styled } from 'styled-components';
-import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
+import { ButtonGroupProps, ButtonGroupType, SelectionValue } from './ButtonGroup.types';
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
   if (value === undefined) {
@@ -102,8 +102,6 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
 );
 
 ButtonGroup.displayName = 'ButtonGroup';
-
-import { ButtonGroupType } from './ButtonGroup.types';
 
 const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
   display: inline-flex;
