@@ -45,16 +45,19 @@ const ButtonContainer = styled.div<{ $theme?: CodeThemeType }>`
   display: flex;
   opacity: 0;
   transition: opacity 0.15s ease;
-  border-radius: 0.25rem;
-  padding: 0.25rem;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
   ${({ theme, $theme }) => {
     const themeName = ($theme ?? theme.name) as CodeThemeType;
     const bg = theme.click.codeblock[`${themeName}Mode`].color.background.default;
     return `
       gap: 0.625rem;
-      top: calc(${theme.click.codeblock.space.y} - 0.25rem);
-      right: calc(${theme.click.codeblock.space.x} - 0.25rem);
-      background: ${bg}e6;
+      border-radius: ${theme.click.codeblock.radii.all};
+      padding: ${theme.sizes[1]};
+      top: calc(${theme.click.codeblock.space.y} - ${theme.sizes[1]});
+      right: calc(${theme.click.codeblock.space.x} - ${theme.sizes[1]});
+      background: color-mix(in srgb, ${bg} 90%, transparent);
     `;
   }}
 `;

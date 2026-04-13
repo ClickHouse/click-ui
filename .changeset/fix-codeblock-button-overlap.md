@@ -2,4 +2,4 @@
 "@clickhouse/click-ui": patch
 ---
 
-Prevent CodeBlock copy/wrap buttons from overlapping code content. Adds right padding to the highlighted code area proportional to the number of action buttons displayed.
+CodeBlock action buttons (copy, wrap) are now hidden by default and revealed on hover or focus-within with a fade transition. Buttons display a semi-opaque background pill matching the code block theme to prevent overlap with code content.
