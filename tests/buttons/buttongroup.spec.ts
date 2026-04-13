@@ -202,6 +202,8 @@ describe('ButtonGroup Visual Regression', () => {
         });
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
         await expect(group).toHaveScreenshot('buttongroup-default-selected-dark.png', {
           maxDiffPixels: 100,
         });
@@ -213,6 +215,8 @@ describe('ButtonGroup Visual Regression', () => {
         });
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
         await expect(group).toHaveScreenshot('buttongroup-borderless-selected-dark.png', {
           maxDiffPixels: 100,
         });
