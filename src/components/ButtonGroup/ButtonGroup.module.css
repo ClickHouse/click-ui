@@ -56,14 +56,12 @@
   flex: 1;
 }
 
-.button_active,
 .button[aria-pressed='true'] {
   background: var(--click-button-group-color-background-active);
   color: var(--click-button-group-color-text-active);
   font: var(--click-button-group-typography-label-active);
 }
 
-.button_active:disabled,
 .button[aria-pressed='true']:disabled {
   background: var(--click-button-group-color-background-disabled-active);
   color: var(--click-button-group-color-text-disabled-active);

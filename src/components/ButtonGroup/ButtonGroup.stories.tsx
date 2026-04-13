@@ -33,6 +33,7 @@ export const Default: StoryObj<typeof ButtonGroup> = {
       { label: 'Option 3', value: 'option3' },
     ],
     type: 'default',
+    'aria-label': 'Button group',
   },
 };
 
@@ -44,6 +45,7 @@ export const Borderless: StoryObj<typeof ButtonGroup> = {
       { label: 'Option 3', value: 'option3' },
     ],
     type: 'borderless',
+    'aria-label': 'Button group',
   },
 };
 
@@ -56,6 +58,7 @@ export const DefaultSelected: StoryObj<typeof ButtonGroup> = {
     ],
     type: 'default',
     selected: 'option1',
+    'aria-label': 'Button group',
   },
 };
 
@@ -68,6 +71,7 @@ export const BorderlessSelected: StoryObj<typeof ButtonGroup> = {
     ],
     type: 'borderless',
     selected: 'option1',
+    'aria-label': 'Button group',
   },
 };
 
@@ -78,6 +82,7 @@ export const WithDisabledButton: StoryObj<typeof ButtonGroup> = {
       { label: 'Disabled', value: 'disabled', disabled: true },
     ],
     type: 'default',
+    'aria-label': 'Button group',
   },
 };
 
@@ -89,6 +94,7 @@ export const WithDisabledSelectedButton: StoryObj<typeof ButtonGroup> = {
     ],
     type: 'default',
     selected: 'disabled',
+    'aria-label': 'Button group',
   },
 };
 
@@ -100,6 +106,7 @@ export const FillWidthDefault: StoryObj<typeof ButtonGroup> = {
     ],
     type: 'default',
     fillWidth: true,
+    'aria-label': 'Button group',
   },
 };
 
@@ -111,6 +118,7 @@ export const FillWidthBorderless: StoryObj<typeof ButtonGroup> = {
     ],
     type: 'borderless',
     fillWidth: true,
+    'aria-label': 'Button group',
   },
 };
 
@@ -124,6 +132,7 @@ export const MultiSelectSelected: StoryObj<typeof ButtonGroup> = {
     type: 'default',
     multiple: true,
     selected: new Set(['option1', 'option3']),
+    'aria-label': 'Button group',
   },
 };
 
@@ -137,6 +146,7 @@ export const MultiSelectBorderless: StoryObj<typeof ButtonGroup> = {
     type: 'borderless',
     multiple: true,
     selected: new Set(['option1', 'option3']),
+    'aria-label': 'Button group',
   },
 };
 
@@ -151,6 +161,7 @@ export const MultiSelect: StoryObj<typeof ButtonGroup> = {
     type: 'default',
     multiple: true,
     defaultSelected: new Set(['option1', 'option3']),
+    'aria-label': 'Button group',
     onClick: (_value, selected) => {
       console.log('🔎 Selected:', [...selected]);
     },
@@ -167,6 +178,7 @@ export const ConsumerControlledStateSingle: StoryObj<typeof ButtonGroup> = {
     fillWidth: false,
     type: 'default',
     selected: 'option2',
+    'aria-label': 'Button group',
   },
   render: args => {
     const [selected, setSelected] = useState(args.selected);
@@ -194,6 +206,7 @@ export const ConsumerControlledStateMulti: StoryObj<typeof ButtonGroup> = {
     type: 'default',
     multiple: true,
     selected: new Set(['option2']),
+    'aria-label': 'Button group',
   },
   render: args => {
     const [selected, setSelected] = useState(args.selected);
