@@ -55,8 +55,8 @@ const ButtonContainer = styled.div<{ $theme?: CodeThemeType }>`
       gap: 0.625rem;
       border-radius: ${theme.click.codeblock.radii.all};
       padding: ${theme.sizes[1]};
-      top: calc(${theme.click.codeblock.space.y} - ${theme.sizes[1]});
-      right: calc(${theme.click.codeblock.space.x} - ${theme.sizes[1]});
+      top: ${theme.click.codeblock.space.y};
+      right: ${theme.click.codeblock.space.x};
       background: color-mix(in srgb, ${bg} 90%, transparent);
     `;
   }}
