@@ -24,7 +24,6 @@ export const Playground: StoryObj<typeof ButtonGroup> = {
   },
 };
 
-// Type Variants
 export const Default: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [
@@ -47,7 +46,6 @@ export const Borderless: StoryObj<typeof ButtonGroup> = {
   },
 };
 
-// Selection States
 export const DefaultSelected: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [
@@ -72,7 +70,6 @@ export const BorderlessSelected: StoryObj<typeof ButtonGroup> = {
   },
 };
 
-// Disabled States
 export const WithDisabledButton: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [
@@ -94,7 +91,6 @@ export const WithDisabledSelectedButton: StoryObj<typeof ButtonGroup> = {
   },
 };
 
-// Layout Variants
 export const FillWidthDefault: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [
@@ -117,7 +113,6 @@ export const FillWidthBorderless: StoryObj<typeof ButtonGroup> = {
   },
 };
 
-// Multi-select
 export const MultiSelectSelected: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [

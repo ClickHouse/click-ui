@@ -342,11 +342,9 @@ describe('ButtonGroup Visual Regression', () => {
       const buttons = page.getByRole('button');
       await expect(buttons.first()).toBeVisible({ timeout: 10000 });
 
-      // Tab to first button
       await page.keyboard.press('Tab');
       await expect(buttons.first()).toBeFocused();
 
-      // Tab to next button
       await page.keyboard.press('Tab');
       await expect(buttons.nth(1)).toBeFocused();
     });
