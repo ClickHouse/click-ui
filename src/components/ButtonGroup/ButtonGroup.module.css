@@ -81,3 +81,8 @@
   color: var(--click-button-group-color-text-hover);
   font: var(--click-button-group-typography-label-hover);
 }
+
+.button:focus-visible:not(:disabled) {
+  outline: 2px solid var(--click-button-group-color-background-active);
+  outline-offset: 2px;
+}
