@@ -169,8 +169,6 @@ describe('ButtonGroup Visual Regression', () => {
   });
 
   describe('Dark Theme', () => {
-    use({ colorScheme: 'dark' });
-
     describe('Type Variants', () => {
       it('default type matches snapshot', async ({ page }) => {
         await page.goto(getStoryUrl('buttons-buttongroup--default', 'dark'), {
@@ -358,8 +356,6 @@ describe('ButtonGroup Visual Regression', () => {
     });
 
     describe('Dark Theme', () => {
-      use({ colorScheme: 'dark' });
-
       it('hover state on button', async ({ page }) => {
         await page.goto(getStoryUrl('buttons-buttongroup--default', 'dark'), {
           waitUntil: 'networkidle',
@@ -448,12 +444,9 @@ describe('ButtonGroup Visual Regression', () => {
     });
 
     it('group has accessible name when aria-label is provided', async ({ page }) => {
-      await page.goto(
-        '/iframe.html?path=/story/buttons-buttongroup--playground&globals=theme:light',
-        {
-          waitUntil: 'networkidle',
-        }
-      );
+      await page.goto(getStoryUrl('buttons-buttongroup--playground', 'light'), {
+        waitUntil: 'networkidle',
+      });
       const group = page.getByRole('group');
       await expect(group).toBeVisible({ timeout: 10000 });
 
