@@ -100,7 +100,7 @@ export const ButtonGroup = ({
       <button
         key={value}
         type="button"
-        className={cn(buttonVariants({ type, fillWidth }))}
+        className={buttonVariants({ type, fillWidth })}
         aria-pressed={isActive}
         disabled={disabled}
         aria-disabled={disabled ? true : undefined}
