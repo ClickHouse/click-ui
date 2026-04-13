@@ -145,12 +145,6 @@ const Button = styled.button.attrs<{
   cursor: pointer;
   border: none;
 
-  &[aria-pressed='true'] {
-    background: ${({ theme }) => theme.click.button.group.color.background.active};
-    font: ${({ theme }) => theme.click.button.group.typography.label.active};
-    color: ${({ theme }) => theme.click.button.group.color.text.active};
-  }
-
   &:hover {
     background: ${({ theme }) => theme.click.button.group.color.background.hover};
     font: ${({ theme }) => theme.click.button.group.typography.label.hover};
