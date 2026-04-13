@@ -404,6 +404,41 @@ describe('ButtonGroup Visual Regression', () => {
       await expect(buttons.nth(1)).toBeFocused();
     });
 
+    it('button can be activated with Space key', async ({ page }) => {
+      await page.goto(getStoryUrl('buttons-buttongroup--default', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const firstButton = page.getByRole('button').first();
+      await expect(firstButton).toBeVisible({ timeout: 10000 });
+
+      // Focus the button and activate with Space
+      await page.locator('body').click();
+      await page.keyboard.press('Tab');
+      await expect(firstButton).toBeFocused();
+      await page.keyboard.press('Space');
+
+      // Verify the button is now selected (aria-pressed="true")
+      await expect(firstButton).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('button can be activated with Enter key', async ({ page }) => {
+      await page.goto(getStoryUrl('buttons-buttongroup--default', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const secondButton = page.getByRole('button').nth(1);
+      await expect(secondButton).toBeVisible({ timeout: 10000 });
+
+      // Focus the second button and activate with Enter
+      await page.locator('body').click();
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Tab');
+      await expect(secondButton).toBeFocused();
+      await page.keyboard.press('Enter');
+
+      // Verify the button is now selected (aria-pressed="true")
+      await expect(secondButton).toHaveAttribute('aria-pressed', 'true');
+    });
+
     it('aria-pressed reflects selection', async ({ page }) => {
       await page.goto(getStoryUrl('buttons-buttongroup--default-selected', 'light'), {
         waitUntil: 'networkidle',
