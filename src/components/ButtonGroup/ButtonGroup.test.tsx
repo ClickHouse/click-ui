@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { fireEvent } from '@testing-library/react';
 import { ButtonGroup } from '@/components/ButtonGroup';
 import type { ButtonGroupProps, SelectionValue } from '@/components/ButtonGroup';
@@ -18,6 +19,17 @@ describe('ButtonGroup', () => {
     options.forEach(option => {
       expect(getByText(option.label).textContent).toBe(option.label);
     });
+  });
+
+  it('forwards ref to the wrapper div', () => {
+    const ref = createRef<HTMLDivElement>();
+    renderCUI(
+      <ButtonGroup
+        options={options}
+        ref={ref}
+      />
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
   it('calls onClick handler when a button is clicked', () => {
