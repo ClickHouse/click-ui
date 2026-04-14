@@ -4,8 +4,7 @@
   border: 1px solid transparent;
   border-radius: var(--click-button-radii-all);
   user-select: none;
-  /* Use clip-path instead of overflow:hidden to avoid clipping focus outlines */
-  clip-path: inset(0 round var(--click-button-radii-all));
+  overflow: hidden;
 }
 
 .split-button_fill-width {
