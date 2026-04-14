@@ -45,6 +45,7 @@
   cursor: not-allowed;
 }
 
+/* Override BaseButton's styled-component border-radius until BaseButton is migrated to CSS modules */
 .split-button .split-button__primary-button {
   display: flex;
   padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
