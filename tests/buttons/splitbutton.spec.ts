@@ -10,9 +10,9 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary', 'light'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toHaveScreenshot('splitbutton-primary-light.png', {
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot('splitbutton-primary-light.png', {
           maxDiffPixels: 100,
         });
       });
@@ -21,9 +21,9 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--secondary', 'light'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toHaveScreenshot('splitbutton-secondary-light.png', {
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot('splitbutton-secondary-light.png', {
           maxDiffPixels: 100,
         });
       });
@@ -34,22 +34,23 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary-disabled', 'light'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toBeDisabled();
-        await expect(button).toHaveScreenshot('splitbutton-primary-disabled-light.png', {
-          maxDiffPixels: 100,
-        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-primary-disabled-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('secondary disabled matches snapshot', async ({ page }) => {
         await page.goto(getStoryUrl('buttons-splitbutton--secondary-disabled', 'light'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toBeDisabled();
-        await expect(button).toHaveScreenshot(
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot(
           'splitbutton-secondary-disabled-light.png',
           {
             maxDiffPixels: 100,
@@ -63,26 +64,34 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary', 'light'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await button.hover();
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await splitButton.hover();
         await page.waitForTimeout(100);
-        await expect(button).toHaveScreenshot('splitbutton-primary-hover-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-primary-hover-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('focus state - primary', async ({ page }) => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary', 'light'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await button.focus();
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        // Focus the primary button inside the split button
+        const primaryButton = page.getByRole('button').first();
+        await primaryButton.focus();
         await page.waitForTimeout(100);
-        await expect(button).toHaveScreenshot('splitbutton-primary-focus-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-primary-focus-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
   });
@@ -95,9 +104,9 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toHaveScreenshot('splitbutton-primary-dark.png', {
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot('splitbutton-primary-dark.png', {
           maxDiffPixels: 100,
         });
       });
@@ -106,9 +115,9 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--secondary'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toHaveScreenshot('splitbutton-secondary-dark.png', {
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot('splitbutton-secondary-dark.png', {
           maxDiffPixels: 100,
         });
       });
@@ -119,24 +128,28 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary-disabled'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toBeDisabled();
-        await expect(button).toHaveScreenshot('splitbutton-primary-disabled-dark.png', {
-          maxDiffPixels: 100,
-        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-primary-disabled-dark.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('secondary disabled matches snapshot', async ({ page }) => {
         await page.goto(getStoryUrl('buttons-splitbutton--secondary-disabled'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await expect(button).toBeDisabled();
-        await expect(button).toHaveScreenshot('splitbutton-secondary-disabled-dark.png', {
-          maxDiffPixels: 100,
-        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-secondary-disabled-dark.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
 
@@ -145,11 +158,11 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await button.hover();
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await splitButton.hover();
         await page.waitForTimeout(100);
-        await expect(button).toHaveScreenshot('splitbutton-primary-hover-dark.png', {
+        await expect(splitButton).toHaveScreenshot('splitbutton-primary-hover-dark.png', {
           maxDiffPixels: 100,
         });
       });
@@ -158,11 +171,13 @@ describe('SplitButton Visual Regression', () => {
         await page.goto(getStoryUrl('buttons-splitbutton--primary'), {
           waitUntil: 'networkidle',
         });
-        const button = page.getByRole('button').first();
-        await expect(button).toBeVisible({ timeout: 10000 });
-        await button.focus();
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        // Focus the primary button inside the split button
+        const primaryButton = page.getByRole('button').first();
+        await primaryButton.focus();
         await page.waitForTimeout(100);
-        await expect(button).toHaveScreenshot('splitbutton-primary-focus-dark.png', {
+        await expect(splitButton).toHaveScreenshot('splitbutton-primary-focus-dark.png', {
           maxDiffPixels: 100,
         });
       });
@@ -177,11 +192,11 @@ describe('SplitButton Visual Regression', () => {
       await page.goto(getStoryUrl('buttons-splitbutton--interactive', 'light'), {
         waitUntil: 'networkidle',
       });
-      const button = page.getByRole('button').first();
-      await expect(button).toBeVisible({ timeout: 10000 });
-      await expect(button).toBeEnabled();
+      const primaryButton = page.getByRole('button').first();
+      await expect(primaryButton).toBeVisible({ timeout: 10000 });
+      await expect(primaryButton).toBeEnabled();
 
-      await button.click();
+      await primaryButton.click();
 
       // Verify console log was triggered
       expect(consoleMessages.some(msg => msg.includes('clicked'))).toBe(true);
@@ -191,8 +206,8 @@ describe('SplitButton Visual Regression', () => {
       await page.goto(getStoryUrl('buttons-splitbutton--primary-disabled', 'light'), {
         waitUntil: 'networkidle',
       });
-      const button = page.getByRole('button').first();
-      await expect(button).toBeDisabled();
+      const primaryButton = page.getByRole('button').first();
+      await expect(primaryButton).toBeDisabled();
     });
 
     it('keyboard navigation works', async ({ page }) => {
@@ -202,11 +217,11 @@ describe('SplitButton Visual Regression', () => {
       await page.goto(getStoryUrl('buttons-splitbutton--interactive', 'light'), {
         waitUntil: 'networkidle',
       });
-      const button = page.getByRole('button').first();
-      await expect(button).toBeVisible({ timeout: 10000 });
+      const primaryButton = page.getByRole('button').first();
+      await expect(primaryButton).toBeVisible({ timeout: 10000 });
 
       await page.keyboard.press('Tab');
-      await expect(button).toBeFocused();
+      await expect(primaryButton).toBeFocused();
       await page.keyboard.press('Enter');
 
       // Verify console log was triggered

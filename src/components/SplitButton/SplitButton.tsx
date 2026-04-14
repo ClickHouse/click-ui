@@ -53,6 +53,7 @@ export const SplitButton = ({
       modal={modal}
     >
       <SplitButtonTrigger
+        data-testid="split-button"
         $disabled={disabled}
         $fillWidth={fillWidth}
         ref={ref}
