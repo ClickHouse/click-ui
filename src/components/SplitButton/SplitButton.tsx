@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, forwardRef } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Button/BaseButton';
@@ -49,116 +49,124 @@ const secondaryButtonVariants = cva(styles['split-button__secondary-button'], {
   },
 });
 
-export const SplitButton = ({
-  type = 'primary',
-  disabled,
-  menu,
-  dir,
-  open,
-  defaultOpen,
-  onOpenChange,
-  modal,
-  side,
-  fillWidth,
-  children,
-  icon,
-  iconDir = 'start',
-  className,
-  ...props
-}: SplitButtonProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+export const SplitButton = forwardRef<HTMLButtonElement, SplitButtonProps>(
+  (
+    {
+      type = 'primary',
+      disabled,
+      menu,
+      dir,
+      open,
+      defaultOpen,
+      onOpenChange,
+      modal,
+      side,
+      fillWidth,
+      children,
+      icon,
+      iconDir = 'start',
+      className,
+      ...props
+    },
+    forwardedRef
+  ) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(0);
 
-  useEffect(() => {
-    const targetDiv = ref.current;
-    if (!targetDiv) {
-      return;
-    }
-
-    const resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        setWidth(entry.target.clientWidth);
+    useEffect(() => {
+      const targetDiv = wrapperRef.current;
+      if (!targetDiv) {
+        return;
       }
-    });
 
-    resizeObserver.observe(targetDiv);
+      const resizeObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          setWidth(entry.target.clientWidth);
+        }
+      });
 
-    return () => {
-      resizeObserver.unobserve(targetDiv);
-    };
-  }, []);
+      resizeObserver.observe(targetDiv);
 
-  return (
-    <Dropdown
-      dir={dir}
-      open={open}
-      defaultOpen={defaultOpen}
-      onOpenChange={onOpenChange}
-      modal={modal}
-    >
-      <div
-        ref={ref}
-        role="group"
-        aria-label={typeof children === 'string' ? children : 'Split button'}
-        data-testid="split-button"
-        className={cn(splitButtonVariants({ type, fillWidth }), className)}
-        data-disabled={disabled ? '' : undefined}
+      return () => {
+        resizeObserver.unobserve(targetDiv);
+      };
+    }, []);
+
+    return (
+      <Dropdown
+        dir={dir}
+        open={open}
+        defaultOpen={defaultOpen}
+        onOpenChange={onOpenChange}
+        modal={modal}
       >
-        <BaseButton
-          type="button"
-          disabled={disabled}
-          aria-disabled={disabled || undefined}
+        <div
+          ref={wrapperRef}
+          role="group"
+          aria-label={typeof children === 'string' ? children : 'Split button'}
+          data-testid="split-button"
+          className={cn(splitButtonVariants({ type, fillWidth }), className)}
           data-disabled={disabled ? '' : undefined}
-          className={cn(primaryButtonVariants({ type, fillWidth }))}
-          {...props}
         >
-          <IconWrapper
-            icon={icon}
-            iconDir={iconDir}
-          >
-            {children}
-          </IconWrapper>
-        </BaseButton>
-        <Dropdown.Trigger
-          asChild
-          disabled={disabled}
-        >
-          <button
+          <BaseButton
+            ref={forwardedRef}
             type="button"
             disabled={disabled}
-            className={secondaryButtonVariants({ type })}
-            data-testid="split-button-dropdown"
-            data-disabled={disabled ? '' : undefined}
             aria-disabled={disabled || undefined}
-            aria-label="Open menu"
+            data-disabled={disabled ? '' : undefined}
+            className={cn(primaryButtonVariants({ type, fillWidth }))}
+            {...props}
           >
-            <span>
-              <Icon
-                name="chevron-down"
-                size="sm"
-                aria-hidden
-              />
-            </span>
-          </button>
-        </Dropdown.Trigger>
-      </div>
-      <Dropdown.Content
-        side={side}
-        style={{ minWidth: width }}
-        sideOffset={4}
-        align="end"
-      >
-        {menu.map((item: Menu, index: number) => (
-          <MenuContentItem
-            key={`split-menu-option-${index}`}
-            parentKey={`split-menu-option-${index}`}
-            {...item}
-          />
-        ))}
-      </Dropdown.Content>
-    </Dropdown>
-  );
-};
+            <IconWrapper
+              icon={icon}
+              iconDir={iconDir}
+            >
+              {children}
+            </IconWrapper>
+          </BaseButton>
+          <Dropdown.Trigger
+            asChild
+            disabled={disabled}
+          >
+            <button
+              type="button"
+              disabled={disabled}
+              className={secondaryButtonVariants({ type })}
+              data-testid="split-button-dropdown"
+              data-disabled={disabled ? '' : undefined}
+              aria-disabled={disabled || undefined}
+              aria-label="Open menu"
+            >
+              <span>
+                <Icon
+                  name="chevron-down"
+                  size="sm"
+                  aria-hidden
+                />
+              </span>
+            </button>
+          </Dropdown.Trigger>
+        </div>
+        <Dropdown.Content
+          side={side}
+          style={{ minWidth: width }}
+          sideOffset={4}
+          align="end"
+        >
+          {menu.map((item: Menu, index: number) => (
+            <MenuContentItem
+              key={`split-menu-option-${index}`}
+              parentKey={`split-menu-option-${index}`}
+              {...item}
+            />
+          ))}
+        </Dropdown.Content>
+      </Dropdown>
+    );
+  }
+);
+
+SplitButton.displayName = 'SplitButton';
 
 const MenuContentItem = ({
   items = [],
