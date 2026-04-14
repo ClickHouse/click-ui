@@ -45,7 +45,7 @@
   border-color: var(--click-button-split-secondary-stroke-disabled);
 }
 
-.primary-button {
+.split-button .primary-button {
   border: none;
   align-self: stretch;
   border-radius: 0;
@@ -111,7 +111,7 @@
   cursor: not-allowed;
 }
 
-.secondary-button {
+.split-button .secondary-button {
   border: none;
   align-self: stretch;
   border-radius: 0;
