@@ -45,7 +45,7 @@
   cursor: not-allowed;
 }
 
-.split-button .primary-button {
+.split-button__primary-button {
   display: flex;
   padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
   justify-content: center;
@@ -111,7 +111,7 @@
   font: var(--click-button-split-typography-label-active);
 }
 
-.split-button .secondary-button {
+.split-button__secondary-button {
   display: flex;
   padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
   align-self: stretch;
