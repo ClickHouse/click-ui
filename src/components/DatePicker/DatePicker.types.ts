@@ -1,4 +1,5 @@
 export interface DatePickerProps {
+  allowOnlyDatesList?: Date[];
   date?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
