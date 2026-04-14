@@ -1,10 +1,53 @@
 import { useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Button/BaseButton';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
-import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
+import { SplitButtonProps, Menu } from './SplitButton.types';
+import styles from './SplitButton.module.css';
+
+const splitButtonVariants = cva(styles['split-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button_primary'],
+      secondary: styles['split-button_secondary'],
+    },
+    fillWidth: {
+      true: styles['split-button_fill-width'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
+
+const primaryButtonVariants = cva(styles['split-button__primary-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button__primary-button_primary'],
+      secondary: styles['split-button__primary-button_secondary'],
+    },
+    fillWidth: {
+      true: styles['split-button__primary-button_fill-width'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
+
+const secondaryButtonVariants = cva(styles['split-button__secondary-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button__secondary-button_primary'],
+      secondary: styles['split-button__secondary-button_secondary'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
 
 export const SplitButton = ({
   type = 'primary',
@@ -52,48 +95,51 @@ export const SplitButton = ({
       onOpenChange={onOpenChange}
       modal={modal}
     >
-      <SplitButtonTrigger
-        data-testid="split-button"
-        $disabled={disabled}
-        $fillWidth={fillWidth}
+      <div
         ref={ref}
-        $type={type}
+        className={cn(splitButtonVariants({ type, fillWidth }))}
+        data-disabled={disabled ? '' : undefined}
       >
-        <PrimaryButton
+        <BaseButton
+          type="button"
           disabled={disabled}
-          aria-disabled={disabled || undefined}
-          $type={type}
-          $fillWidth={fillWidth}
+          className={cn(primaryButtonVariants({ type, fillWidth }))}
           {...props}
         >
-          <ButtonData
-            as={IconWrapper}
-            icon={icon}
-            iconDir={iconDir}
-          >
-            {children}
-          </ButtonData>
-        </PrimaryButton>
-        <SecondaryButton
-          as={Dropdown.Trigger}
-          disabled={disabled}
-          aria-disabled={disabled || undefined}
-          $type={type}
+          <div className={styles['button-data']}>
+            <IconWrapper
+              icon={icon}
+              iconDir={iconDir}
+            >
+              {children}
+            </IconWrapper>
+          </div>
+        </BaseButton>
+        <Dropdown.Trigger
           asChild
+          disabled={disabled}
           data-testid="split-button-dropdown"
         >
-          <span>
-            <Icon
-              name="chevron-down"
-              size="sm"
-            />
-          </span>
-        </SecondaryButton>
-      </SplitButtonTrigger>
-      <DropdownContent
-        as={Dropdown.Content}
+          <button
+            type="button"
+            className={cn(secondaryButtonVariants({ type }))}
+            data-disabled={disabled ? '' : undefined}
+            aria-disabled={disabled || undefined}
+            aria-label="Open menu"
+          >
+            <span>
+              <Icon
+                name="chevron-down"
+                size="sm"
+                aria-hidden
+              />
+            </span>
+          </button>
+        </Dropdown.Trigger>
+      </div>
+      <Dropdown.Content
         side={side}
-        $width={width}
+        style={{ minWidth: width }}
         sideOffset={4}
         align="end"
       >
@@ -104,14 +150,10 @@ export const SplitButton = ({
             {...item}
           />
         ))}
-      </DropdownContent>
+      </Dropdown.Content>
     </Dropdown>
   );
 };
-
-const DropdownContent = styled.div<{ $width: number }>`
-  min-width: ${({ $width }) => $width}px;
-`;
 
 const MenuContentItem = ({
   items = [],
@@ -174,95 +216,3 @@ const MenuContentItem = ({
     );
   }
 };
-
-const SplitButtonTrigger = styled.div<{
-  $disabled?: boolean;
-  $type: ButtonType;
-  $fillWidth?: boolean;
-}>`
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  user-select: none;
-  ${({ theme, $disabled = false, $type, $fillWidth }) => `
-    width: ${$fillWidth ? '100%' : 'revert'};
-    border-radius: ${theme.click.button.radii.all};
-    border: 1px solid ${theme.click.button.split[$type].stroke.default};
-    ${
-      $disabled
-        ? `
-          cursor: not-allowed;
-          border-color: ${theme.click.button.split[$type].stroke.disabled};
-        `
-        : `
-          &:hover {
-            border-color: ${theme.click.button.split[$type].stroke.hover};
-          }
-          &:focus-within {
-            border-color: ${theme.click.button.split[$type].stroke.active};
-          }
-        `
-    }
-  `}
-`;
-
-const PrimaryButton = styled(BaseButton)<{
-  $type: ButtonType;
-  $fillWidth?: boolean;
-}>`
-  border: none;
-  align-self: stretch;
-  border-radius: 0;
-  align-items: center;
-  padding: ${({ theme }) =>
-    `${theme.click.button.split.space.y} ${theme.click.button.split.space.x}`};
-  ${({ theme, $type, $fillWidth }) => `
-    width: ${$fillWidth ? '100%' : 'revert'};
-    justify-content: center;
-    background: ${theme.click.button.split[$type].background.main.default};
-    color: ${theme.click.button.split[$type].text.default};
-    font: ${theme.click.button.split.typography.label.default};
-    &:hover {
-      background: ${theme.click.button.split[$type].background.main.hover};
-      color: ${theme.click.button.split[$type].text.hover};
-      font: ${theme.click.button.split.typography.label.hover};
-    }
-    &:focus {
-      background: ${theme.click.button.split[$type].background.main.active};
-      color: ${theme.click.button.split[$type].text.active};
-      font: ${theme.click.button.split.typography.label.active};
-    }
-    &:disabled {
-      background: ${theme.click.button.split[$type].background.main.disabled};
-      color: ${theme.click.button.split[$type].text.disabled};
-      font: ${theme.click.button.split.typography.label.disabled};
-    }
-  `}
-`;
-
-const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
-  border: none;
-  align-self: stretch;
-  border-radius: 0;
-  ${({ theme, $type }) => `
-    padding: ${theme.click.button.split.icon.space.y} ${theme.click.button.split.icon.space.x};
-    background: ${theme.click.button.split[$type].background.action.default};
-    color: ${theme.click.button.split[$type].text.default};
-    &:hover {
-      background: ${theme.click.button.split[$type].background.action.hover};
-      color: ${theme.click.button.split[$type].text.hover};
-    }
-    &:focus {
-      background: ${theme.click.button.split[$type].background.action.active};
-      color: ${theme.click.button.split[$type].text.active};
-    }
-    &[data-disabled] {
-      background: ${theme.click.button.split[$type].background.action.disabled};
-      color: ${theme.click.button.split[$type].text.disabled};
-    }
-  `}
-`;
-
-const ButtonData = styled.div`
-  width: auto;
-`;
