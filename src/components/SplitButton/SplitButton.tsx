@@ -125,7 +125,7 @@ export const SplitButton = ({
         >
           <button
             type="button"
-            className={cn(secondaryButtonVariants({ type }))}
+            className={secondaryButtonVariants({ type })}
             data-testid="split-button-dropdown"
             data-disabled={disabled ? '' : undefined}
             aria-disabled={disabled || undefined}
