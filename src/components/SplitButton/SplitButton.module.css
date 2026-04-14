@@ -81,7 +81,7 @@
   font: var(--click-button-split-typography-label-hover);
 }
 
-.split-button .primary-button_primary:focus:not(:disabled) {
+.split-button .primary-button_primary:focus-visible:not(:disabled) {
   background: var(--click-button-split-primary-background-main-active);
   color: var(--click-button-split-primary-text-active);
   font: var(--click-button-split-typography-label-active);
@@ -105,7 +105,7 @@
   font: var(--click-button-split-typography-label-hover);
 }
 
-.split-button .primary-button_secondary:focus:not(:disabled) {
+.split-button .primary-button_secondary:focus-visible:not(:disabled) {
   background: var(--click-button-split-secondary-background-main-active);
   color: var(--click-button-split-secondary-text-active);
   font: var(--click-button-split-typography-label-active);
@@ -132,7 +132,7 @@
   color: var(--click-button-split-primary-text-hover);
 }
 
-.split-button .secondary-button_primary:focus:not([data-disabled]) {
+.split-button .secondary-button_primary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-primary-background-action-active);
   color: var(--click-button-split-primary-text-active);
 }
@@ -153,7 +153,7 @@
   color: var(--click-button-split-secondary-text-hover);
 }
 
-.split-button .secondary-button_secondary:focus:not([data-disabled]) {
+.split-button .secondary-button_secondary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-secondary-background-action-active);
   color: var(--click-button-split-secondary-text-active);
 }
