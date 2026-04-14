@@ -125,6 +125,7 @@ export const SplitButton = ({
         >
           <button
             type="button"
+            disabled={disabled}
             className={secondaryButtonVariants({ type })}
             data-testid="split-button-dropdown"
             data-disabled={disabled ? '' : undefined}
