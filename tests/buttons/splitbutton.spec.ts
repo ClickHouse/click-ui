@@ -97,6 +97,40 @@ describe('SplitButton Visual Regression', () => {
           }
         );
       });
+
+      it('hover state - secondary', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-splitbutton--secondary', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await splitButton.hover();
+        await page.waitForTimeout(100);
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-secondary-hover-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
+      });
+
+      it('focus state - secondary', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-splitbutton--secondary', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        // Focus the primary button inside the split button
+        const primaryButton = page.getByRole('button').first();
+        await primaryButton.focus();
+        await page.waitForTimeout(100);
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-secondary-focus-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
+      });
     });
   });
 
@@ -188,6 +222,40 @@ describe('SplitButton Visual Regression', () => {
         await expect(splitButton).toHaveScreenshot('splitbutton-primary-focus-dark.png', {
           maxDiffPixels: 100,
         });
+      });
+
+      it('hover state - secondary', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-splitbutton--secondary'), {
+          waitUntil: 'networkidle',
+        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await splitButton.hover();
+        await page.waitForTimeout(100);
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-secondary-hover-dark.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
+      });
+
+      it('focus state - secondary', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-splitbutton--secondary'), {
+          waitUntil: 'networkidle',
+        });
+        const splitButton = page.locator('[data-testid="split-button"]');
+        await expect(splitButton).toBeVisible({ timeout: 10000 });
+        // Focus the primary button inside the split button
+        const primaryButton = page.getByRole('button').first();
+        await primaryButton.focus();
+        await page.waitForTimeout(100);
+        await expect(splitButton).toHaveScreenshot(
+          'splitbutton-secondary-focus-dark.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
   });
