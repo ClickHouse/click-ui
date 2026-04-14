@@ -1,24 +1,21 @@
 .icon-button {
   display: inline-flex;
   position: relative;
+  padding: var(--click-button-icon-button-default-space-y) var(--click-button-icon-button-default-space-x);
   overflow: hidden;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
-  border: var(--click-button-stroke) solid transparent;
+  border: none;
   border-radius: var(--click-button-icon-button-radii-all);
   background: transparent;
   color: inherit;
   cursor: pointer;
+  transition: var(--click-transition-default);
 }
 
 .icon-button:disabled {
   cursor: not-allowed;
-}
-
-/* Default Size (base styles) */
-.icon-button {
-  padding: var(--click-button-icon-button-default-space-y) var(--click-button-icon-button-default-space-x);
 }
 
 /* Small Size Modifier */
@@ -33,26 +30,21 @@
 
 /* Primary Type */
 .icon-button_primary {
-  border-color: var(--click-button-icon-button-color-primary-stroke-default);
   background-color: var(--click-button-icon-button-color-primary-background-default);
   color: var(--click-button-icon-button-color-primary-text-default);
 }
 
 .icon-button_primary:disabled {
-  border-color: var(--click-button-icon-button-color-disabled-stroke-default);
   background-color: var(--click-button-icon-button-color-disabled-background-default);
   color: var(--click-button-icon-button-color-disabled-text-default);
 }
 
 .icon-button_primary:hover:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-primary-stroke-hover);
   background-color: var(--click-button-icon-button-color-primary-background-hover);
   color: var(--click-button-icon-button-color-primary-text-hover);
-  transition: var(--click-transition-default);
 }
 
 .icon-button_primary:focus-visible:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-primary-stroke-active);
   background-color: var(--click-button-icon-button-color-primary-background-active);
   color: var(--click-button-icon-button-color-primary-text-active);
   outline: 2px solid var(--click-button-icon-button-color-primary-stroke-active);
@@ -61,34 +53,29 @@
 
 .icon-button_primary:active:not(:disabled),
 .icon-button_primary:focus:not(:focus-visible, :disabled) {
-  border-color: var(--click-button-icon-button-color-primary-stroke-active);
   background-color: var(--click-button-icon-button-color-primary-background-active);
   color: var(--click-button-icon-button-color-primary-text-active);
+  /* suppress mouse-click focus ring; keyboard focus handled by :focus-visible */
   outline: none;
 }
 
 /* Secondary Type */
 .icon-button_secondary {
-  border-color: var(--click-button-icon-button-color-secondary-stroke-default);
   background-color: var(--click-button-icon-button-color-secondary-background-default);
   color: var(--click-button-icon-button-color-secondary-text-default);
 }
 
 .icon-button_secondary:disabled {
-  border-color: var(--click-button-icon-button-color-disabled-stroke-default);
   background-color: var(--click-button-icon-button-color-disabled-background-default);
   color: var(--click-button-icon-button-color-disabled-text-default);
 }
 
 .icon-button_secondary:hover:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-secondary-stroke-hover);
   background-color: var(--click-button-icon-button-color-secondary-background-hover);
   color: var(--click-button-icon-button-color-secondary-text-hover);
-  transition: var(--click-transition-default);
 }
 
 .icon-button_secondary:focus-visible:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-secondary-stroke-active);
   background-color: var(--click-button-icon-button-color-secondary-background-active);
   color: var(--click-button-icon-button-color-secondary-text-active);
   outline: 2px solid var(--click-button-icon-button-color-secondary-stroke-active);
@@ -97,34 +84,29 @@
 
 .icon-button_secondary:active:not(:disabled),
 .icon-button_secondary:focus:not(:focus-visible, :disabled) {
-  border-color: var(--click-button-icon-button-color-secondary-stroke-active);
   background-color: var(--click-button-icon-button-color-secondary-background-active);
   color: var(--click-button-icon-button-color-secondary-text-active);
+  /* suppress mouse-click focus ring; keyboard focus handled by :focus-visible */
   outline: none;
 }
 
 /* Ghost Type */
 .icon-button_ghost {
-  border-color: var(--click-button-icon-button-color-ghost-stroke-default);
   background-color: var(--click-button-icon-button-color-ghost-background-default);
   color: var(--click-button-icon-button-color-ghost-text-default);
 }
 
 .icon-button_ghost:disabled {
-  border-color: var(--click-button-icon-button-color-disabled-stroke-default);
   background-color: var(--click-button-icon-button-color-disabled-background-default);
   color: var(--click-button-icon-button-color-disabled-text-default);
 }
 
 .icon-button_ghost:hover:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-ghost-stroke-hover);
   background-color: var(--click-button-icon-button-color-ghost-background-hover);
   color: var(--click-button-icon-button-color-ghost-text-hover);
-  transition: var(--click-transition-default);
 }
 
 .icon-button_ghost:focus-visible:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-ghost-stroke-active);
   background-color: var(--click-button-icon-button-color-ghost-background-active);
   color: var(--click-button-icon-button-color-ghost-text-active);
   outline: 2px solid var(--click-button-icon-button-color-ghost-stroke-active);
@@ -133,34 +115,29 @@
 
 .icon-button_ghost:active:not(:disabled),
 .icon-button_ghost:focus:not(:focus-visible, :disabled) {
-  border-color: var(--click-button-icon-button-color-ghost-stroke-active);
   background-color: var(--click-button-icon-button-color-ghost-background-active);
   color: var(--click-button-icon-button-color-ghost-text-active);
+  /* suppress mouse-click focus ring; keyboard focus handled by :focus-visible */
   outline: none;
 }
 
 /* Danger Type */
 .icon-button_danger {
-  border-color: var(--click-button-icon-button-color-danger-stroke-default);
   background-color: var(--click-button-icon-button-color-danger-background-default);
   color: var(--click-button-icon-button-color-danger-text-default);
 }
 
 .icon-button_danger:disabled {
-  border-color: var(--click-button-icon-button-color-disabled-stroke-default);
   background-color: var(--click-button-icon-button-color-disabled-background-default);
   color: var(--click-button-icon-button-color-disabled-text-default);
 }
 
 .icon-button_danger:hover:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-danger-stroke-hover);
   background-color: var(--click-button-icon-button-color-danger-background-hover);
   color: var(--click-button-icon-button-color-danger-text-hover);
-  transition: var(--click-transition-default);
 }
 
 .icon-button_danger:focus-visible:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-danger-stroke-active);
   background-color: var(--click-button-icon-button-color-danger-background-active);
   color: var(--click-button-icon-button-color-danger-text-active);
   outline: 2px solid var(--click-button-icon-button-color-danger-stroke-active);
@@ -169,34 +146,29 @@
 
 .icon-button_danger:active:not(:disabled),
 .icon-button_danger:focus:not(:focus-visible, :disabled) {
-  border-color: var(--click-button-icon-button-color-danger-stroke-active);
   background-color: var(--click-button-icon-button-color-danger-background-active);
   color: var(--click-button-icon-button-color-danger-text-active);
+  /* suppress mouse-click focus ring; keyboard focus handled by :focus-visible */
   outline: none;
 }
 
 /* Info Type */
 .icon-button_info {
-  border-color: var(--click-button-icon-button-color-info-stroke-default);
   background-color: var(--click-button-icon-button-color-info-background-default);
   color: var(--click-button-icon-button-color-info-text-default);
 }
 
 .icon-button_info:disabled {
-  border-color: var(--click-button-icon-button-color-disabled-stroke-default);
   background-color: var(--click-button-icon-button-color-disabled-background-default);
   color: var(--click-button-icon-button-color-disabled-text-default);
 }
 
 .icon-button_info:hover:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-info-stroke-hover);
   background-color: var(--click-button-icon-button-color-info-background-hover);
   color: var(--click-button-icon-button-color-info-text-hover);
-  transition: var(--click-transition-default);
 }
 
 .icon-button_info:focus-visible:not(:disabled) {
-  border-color: var(--click-button-icon-button-color-info-stroke-active);
   background-color: var(--click-button-icon-button-color-info-background-active);
   color: var(--click-button-icon-button-color-info-text-active);
   outline: 2px solid var(--click-button-icon-button-color-info-stroke-active);
@@ -205,9 +177,9 @@
 
 .icon-button_info:active:not(:disabled),
 .icon-button_info:focus:not(:focus-visible, :disabled) {
-  border-color: var(--click-button-icon-button-color-info-stroke-active);
   background-color: var(--click-button-icon-button-color-info-background-active);
   color: var(--click-button-icon-button-color-info-text-active);
+  /* suppress mouse-click focus ring; keyboard focus handled by :focus-visible */
   outline: none;
 }
 

@@ -31,11 +31,12 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
     return (
       <button
+        type="button"
         {...props}
         className={cn(iconButtonVariants({ type, size }), className)}
         disabled={disabled}
+        aria-disabled={disabled}
         ref={ref}
-        role="button"
         aria-label={iconName}
       >
         <Icon
