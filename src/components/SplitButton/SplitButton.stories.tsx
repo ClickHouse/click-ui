@@ -107,3 +107,16 @@ export const Interactive: Story = {
     onClick: () => console.log('clicked'),
   },
 };
+
+// Layout Variants
+export const FillWidth: Story = {
+  args: {
+    type: 'primary',
+    children: 'Full Width Split Button',
+    menu: menuItems,
+    fillWidth: true,
+  },
+  parameters: {
+    layout: 'padded',
+  },
+};
