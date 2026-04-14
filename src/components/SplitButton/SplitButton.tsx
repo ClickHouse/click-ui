@@ -120,11 +120,11 @@ export const SplitButton = ({
         <Dropdown.Trigger
           asChild
           disabled={disabled}
-          data-testid="split-button-dropdown"
         >
           <button
             type="button"
             className={cn(secondaryButtonVariants({ type }))}
+            data-testid="split-button-dropdown"
             data-disabled={disabled ? '' : undefined}
             aria-disabled={disabled || undefined}
             aria-label="Open menu"
