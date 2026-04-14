@@ -35,7 +35,9 @@ describe('SplitButton Visual Regression', () => {
           waitUntil: 'networkidle',
         });
         const splitButton = page.locator('[data-testid="split-button"]');
+        const primaryButton = page.getByRole('button').first();
         await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-primary-disabled-light.png',
           {
@@ -49,7 +51,9 @@ describe('SplitButton Visual Regression', () => {
           waitUntil: 'networkidle',
         });
         const splitButton = page.locator('[data-testid="split-button"]');
+        const primaryButton = page.getByRole('button').first();
         await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-secondary-disabled-light.png',
           {
@@ -129,7 +133,9 @@ describe('SplitButton Visual Regression', () => {
           waitUntil: 'networkidle',
         });
         const splitButton = page.locator('[data-testid="split-button"]');
+        const primaryButton = page.getByRole('button').first();
         await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-primary-disabled-dark.png',
           {
@@ -143,7 +149,9 @@ describe('SplitButton Visual Regression', () => {
           waitUntil: 'networkidle',
         });
         const splitButton = page.locator('[data-testid="split-button"]');
+        const primaryButton = page.getByRole('button').first();
         await expect(splitButton).toBeVisible({ timeout: 10000 });
+        await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-secondary-disabled-dark.png',
           {
