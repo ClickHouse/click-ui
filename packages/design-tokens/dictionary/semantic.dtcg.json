@@ -749,6 +749,11 @@
       "$value": "{space.0}",
       "$description": "No spacing - 0px, reset, compact, zero-gap"
     },
+    "xxs": {
+      "$type": "dimension",
+      "$value": "{space.25}",
+      "$description": "2x extra-small spacing - 2px, micro gaps, tight inline elements"
+    },
     "xs": {
       "$type": "dimension",
       "$value": "{space.50}",
