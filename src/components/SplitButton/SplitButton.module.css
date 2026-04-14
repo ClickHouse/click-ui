@@ -68,20 +68,20 @@
   color: var(--click-button-split-primary-text-default);
 }
 
-.split-button__primary-button_primary:disabled {
+.split-button__primary-button_primary[data-disabled] {
   background: var(--click-button-split-primary-background-main-disabled);
   color: var(--click-button-split-primary-text-disabled);
   font: var(--click-button-split-typography-label-disabled);
   cursor: not-allowed;
 }
 
-.split-button__primary-button_primary:hover:not(:disabled) {
+.split-button__primary-button_primary:hover:not([data-disabled]) {
   background: var(--click-button-split-primary-background-main-hover);
   color: var(--click-button-split-primary-text-hover);
   font: var(--click-button-split-typography-label-hover);
 }
 
-.split-button__primary-button_primary:focus-visible:not(:disabled) {
+.split-button__primary-button_primary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-primary-background-main-active);
   color: var(--click-button-split-primary-text-active);
   font: var(--click-button-split-typography-label-active);
@@ -92,20 +92,20 @@
   color: var(--click-button-split-secondary-text-default);
 }
 
-.split-button__primary-button_secondary:disabled {
+.split-button__primary-button_secondary[data-disabled] {
   background: var(--click-button-split-secondary-background-main-disabled);
   color: var(--click-button-split-secondary-text-disabled);
   font: var(--click-button-split-typography-label-disabled);
   cursor: not-allowed;
 }
 
-.split-button__primary-button_secondary:hover:not(:disabled) {
+.split-button__primary-button_secondary:hover:not([data-disabled]) {
   background: var(--click-button-split-secondary-background-main-hover);
   color: var(--click-button-split-secondary-text-hover);
   font: var(--click-button-split-typography-label-hover);
 }
 
-.split-button__primary-button_secondary:focus-visible:not(:disabled) {
+.split-button__primary-button_secondary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-secondary-background-main-active);
   color: var(--click-button-split-secondary-text-active);
   font: var(--click-button-split-typography-label-active);

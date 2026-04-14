@@ -106,6 +106,7 @@ export const SplitButton = ({
           type="button"
           disabled={disabled}
           aria-disabled={disabled || undefined}
+          data-disabled={disabled ? '' : undefined}
           className={cn(primaryButtonVariants({ type, fillWidth }))}
           {...props}
         >
