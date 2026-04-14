@@ -112,5 +112,12 @@
       },
       "$description": "80px, 5xl, 5rem, space.1000, layout-block, major-section, expansive"
     }
+  },
+  "space-optical": {
+    "input-padding-y": {
+      "$type": "dimension",
+      "$value": { "value": 4.5, "unit": "px" },
+      "$description": "4.5px, optical vertical padding for inputs, 0.28125rem"
+    }
   }
 }

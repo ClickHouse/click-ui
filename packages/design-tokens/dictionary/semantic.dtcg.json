@@ -788,6 +788,13 @@
       "$type": "dimension",
       "$value": "{space.1000}",
       "$description": "4x large spacing - 80px, page sections, major layout divisions"
+    },
+    "field": {
+      "vertical": {
+        "$type": "dimension",
+        "$value": "{space-optical.input-padding-y}",
+        "$description": "Vertical padding for inputs, buttons, fields - 4.5px optical adjustment"
+      }
     }
   }
 }
