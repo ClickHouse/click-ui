@@ -63,6 +63,7 @@ export const SplitButton = ({
   children,
   icon,
   iconDir = 'start',
+  className,
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -98,7 +99,7 @@ export const SplitButton = ({
       <div
         ref={ref}
         data-testid="split-button"
-        className={cn(splitButtonVariants({ type, fillWidth }))}
+        className={cn(splitButtonVariants({ type, fillWidth }), className)}
         data-disabled={disabled ? '' : undefined}
       >
         <BaseButton
