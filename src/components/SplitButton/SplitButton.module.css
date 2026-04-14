@@ -1,10 +1,10 @@
 .split-button {
   display: inline-flex;
+  overflow: hidden;
   align-items: center;
   border: 1px solid transparent;
   border-radius: var(--click-button-radii-all);
   user-select: none;
-  overflow: hidden;
 }
 
 .split-button_fill-width {
