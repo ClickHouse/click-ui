@@ -36,8 +36,10 @@ describe('SplitButton Visual Regression', () => {
         });
         const splitButton = page.locator('[data-testid="split-button"]');
         const primaryButton = page.getByRole('button').first();
+        const dropdownTrigger = page.locator('[data-testid="split-button-dropdown"]');
         await expect(splitButton).toBeVisible({ timeout: 10000 });
         await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
+        await expect(dropdownTrigger).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-primary-disabled-light.png',
           {
@@ -52,8 +54,10 @@ describe('SplitButton Visual Regression', () => {
         });
         const splitButton = page.locator('[data-testid="split-button"]');
         const primaryButton = page.getByRole('button').first();
+        const dropdownTrigger = page.locator('[data-testid="split-button-dropdown"]');
         await expect(splitButton).toBeVisible({ timeout: 10000 });
         await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
+        await expect(dropdownTrigger).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-secondary-disabled-light.png',
           {
@@ -168,8 +172,10 @@ describe('SplitButton Visual Regression', () => {
         });
         const splitButton = page.locator('[data-testid="split-button"]');
         const primaryButton = page.getByRole('button').first();
+        const dropdownTrigger = page.locator('[data-testid="split-button-dropdown"]');
         await expect(splitButton).toBeVisible({ timeout: 10000 });
         await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
+        await expect(dropdownTrigger).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-primary-disabled-dark.png',
           {
@@ -184,8 +190,10 @@ describe('SplitButton Visual Regression', () => {
         });
         const splitButton = page.locator('[data-testid="split-button"]');
         const primaryButton = page.getByRole('button').first();
+        const dropdownTrigger = page.locator('[data-testid="split-button-dropdown"]');
         await expect(splitButton).toBeVisible({ timeout: 10000 });
         await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
+        await expect(dropdownTrigger).toHaveAttribute('aria-disabled', 'true');
         await expect(splitButton).toHaveScreenshot(
           'splitbutton-secondary-disabled-dark.png',
           {
