@@ -215,8 +215,10 @@ describe('SplitButton Visual Regression', () => {
         waitUntil: 'networkidle',
       });
       const primaryButton = page.getByRole('button').first();
+      const dropdownTrigger = page.locator('[data-testid="split-button-dropdown"]');
       await expect(primaryButton).toBeDisabled();
       await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
+      await expect(dropdownTrigger).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('keyboard navigation works', async ({ page }) => {
