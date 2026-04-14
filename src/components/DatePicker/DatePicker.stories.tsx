@@ -3,6 +3,7 @@ import { DatePicker } from '@/components/DatePicker';
 
 const defaultStory = {
   args: {
+    allowOnlyDatesList: [],
     onSelectDate: (date: Date) => {
       console.log('Date selected: ', date);
     },
@@ -26,6 +27,7 @@ const defaultStory = {
     const date = args.date ? new Date(args.date) : undefined;
     return (
       <DatePicker
+        allowOnlyDatesList={args.allowOnlyDatesList}
         date={date}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
