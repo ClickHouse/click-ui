@@ -97,6 +97,7 @@ export const SplitButton = ({
     >
       <div
         ref={ref}
+        data-testid="split-button"
         className={cn(splitButtonVariants({ type, fillWidth }))}
         data-disabled={disabled ? '' : undefined}
       >
