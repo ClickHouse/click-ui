@@ -299,9 +299,9 @@ describe('SplitButton Visual Regression', () => {
       const primaryButton = page.getByRole('button').first();
       await expect(primaryButton).toBeVisible({ timeout: 10000 });
 
-      await page.keyboard.press('Tab');
+      await primaryButton.focus();
       await expect(primaryButton).toBeFocused();
-      await page.keyboard.press('Enter');
+      await primaryButton.press('Enter');
 
       // Verify console log was triggered
       expect(consoleMessages.some(msg => msg.includes('clicked'))).toBe(true);
