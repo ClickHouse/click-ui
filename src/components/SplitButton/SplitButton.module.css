@@ -85,6 +85,8 @@
   background: var(--click-button-split-primary-background-main-active);
   color: var(--click-button-split-primary-text-active);
   font: var(--click-button-split-typography-label-active);
+  outline: 2px solid var(--click-button-split-primary-stroke-active);
+  outline-offset: 2px;
 }
 
 .split-button .split-button__primary-button_secondary {
@@ -109,6 +111,8 @@
   background: var(--click-button-split-secondary-background-main-active);
   color: var(--click-button-split-secondary-text-active);
   font: var(--click-button-split-typography-label-active);
+  outline: 2px solid var(--click-button-split-secondary-stroke-active);
+  outline-offset: 2px;
 }
 
 .split-button .split-button__secondary-button {
@@ -135,6 +139,8 @@
 .split-button .split-button__secondary-button_primary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-primary-background-action-active);
   color: var(--click-button-split-primary-text-active);
+  outline: 2px solid var(--click-button-split-primary-stroke-active);
+  outline-offset: 2px;
 }
 
 .split-button .split-button__secondary-button_primary[data-disabled] {
@@ -156,6 +162,8 @@
 .split-button .split-button__secondary-button_secondary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-secondary-background-action-active);
   color: var(--click-button-split-secondary-text-active);
+  outline: 2px solid var(--click-button-split-secondary-stroke-active);
+  outline-offset: 2px;
 }
 
 .split-button .split-button__secondary-button_secondary[data-disabled] {
