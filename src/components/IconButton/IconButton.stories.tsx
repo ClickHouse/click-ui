@@ -123,5 +123,6 @@ export const Interactive: Story = {
   args: {
     type: 'primary',
     icon: 'user',
+    onClick: () => console.log('clicked'),
   },
 };

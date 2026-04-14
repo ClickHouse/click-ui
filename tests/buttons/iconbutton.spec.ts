@@ -414,13 +414,20 @@ describe('IconButton Visual Regression', () => {
 
   describe('Events and Accessibility', () => {
     it('click event fires correctly', async ({ page }) => {
+      const consoleMessages: string[] = [];
+      page.on('console', msg => consoleMessages.push(msg.text()));
+
       await page.goto(getStoryUrl('buttons-iconbutton--interactive', 'light'), {
         waitUntil: 'networkidle',
       });
       const button = page.getByRole('button');
       await expect(button).toBeVisible({ timeout: 10000 });
       await expect(button).toBeEnabled();
+
       await button.click();
+
+      // Verify console log was triggered
+      expect(consoleMessages.some(msg => msg.includes('clicked'))).toBe(true);
     });
 
     it('disabled button prevents click', async ({ page }) => {
@@ -432,14 +439,21 @@ describe('IconButton Visual Regression', () => {
     });
 
     it('keyboard navigation works', async ({ page }) => {
+      const consoleMessages: string[] = [];
+      page.on('console', msg => consoleMessages.push(msg.text()));
+
       await page.goto(getStoryUrl('buttons-iconbutton--interactive', 'light'), {
         waitUntil: 'networkidle',
       });
       const button = page.getByRole('button');
       await expect(button).toBeVisible({ timeout: 10000 });
+
       await page.keyboard.press('Tab');
       await expect(button).toBeFocused();
       await page.keyboard.press('Enter');
+
+      // Verify console log was triggered
+      expect(consoleMessages.some(msg => msg.includes('clicked'))).toBe(true);
     });
   });
 });
