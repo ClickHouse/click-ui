@@ -77,6 +77,7 @@ export const SplitButton = ({
         <SecondaryButton
           as={Dropdown.Trigger}
           disabled={disabled}
+          aria-disabled={disabled || undefined}
           $type={type}
           asChild
           data-testid="split-button-dropdown"
