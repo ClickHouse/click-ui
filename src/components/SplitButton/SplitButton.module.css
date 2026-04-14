@@ -59,53 +59,53 @@
   cursor: pointer;
 }
 
-.split-button .primary-button_fill-width {
+.split-button__primary-button_fill-width {
   width: 100%;
 }
 
-.split-button .primary-button_primary {
+.split-button__primary-button_primary {
   background: var(--click-button-split-primary-background-main-default);
   color: var(--click-button-split-primary-text-default);
 }
 
-.split-button .primary-button_primary:disabled {
+.split-button__primary-button_primary:disabled {
   background: var(--click-button-split-primary-background-main-disabled);
   color: var(--click-button-split-primary-text-disabled);
   font: var(--click-button-split-typography-label-disabled);
   cursor: not-allowed;
 }
 
-.split-button .primary-button_primary:hover:not(:disabled) {
+.split-button__primary-button_primary:hover:not(:disabled) {
   background: var(--click-button-split-primary-background-main-hover);
   color: var(--click-button-split-primary-text-hover);
   font: var(--click-button-split-typography-label-hover);
 }
 
-.split-button .primary-button_primary:focus-visible:not(:disabled) {
+.split-button__primary-button_primary:focus-visible:not(:disabled) {
   background: var(--click-button-split-primary-background-main-active);
   color: var(--click-button-split-primary-text-active);
   font: var(--click-button-split-typography-label-active);
 }
 
-.split-button .primary-button_secondary {
+.split-button__primary-button_secondary {
   background: var(--click-button-split-secondary-background-main-default);
   color: var(--click-button-split-secondary-text-default);
 }
 
-.split-button .primary-button_secondary:disabled {
+.split-button__primary-button_secondary:disabled {
   background: var(--click-button-split-secondary-background-main-disabled);
   color: var(--click-button-split-secondary-text-disabled);
   font: var(--click-button-split-typography-label-disabled);
   cursor: not-allowed;
 }
 
-.split-button .primary-button_secondary:hover:not(:disabled) {
+.split-button__primary-button_secondary:hover:not(:disabled) {
   background: var(--click-button-split-secondary-background-main-hover);
   color: var(--click-button-split-secondary-text-hover);
   font: var(--click-button-split-typography-label-hover);
 }
 
-.split-button .primary-button_secondary:focus-visible:not(:disabled) {
+.split-button__primary-button_secondary:focus-visible:not(:disabled) {
   background: var(--click-button-split-secondary-background-main-active);
   color: var(--click-button-split-secondary-text-active);
   font: var(--click-button-split-typography-label-active);
@@ -122,48 +122,44 @@
   cursor: pointer;
 }
 
-.split-button .secondary-button_primary {
+.split-button__secondary-button_primary {
   background: var(--click-button-split-primary-background-action-default);
   color: var(--click-button-split-primary-text-default);
 }
 
-.split-button .secondary-button_primary:hover:not([data-disabled]) {
+.split-button__secondary-button_primary:hover:not([data-disabled]) {
   background: var(--click-button-split-primary-background-action-hover);
   color: var(--click-button-split-primary-text-hover);
 }
 
-.split-button .secondary-button_primary:focus-visible:not([data-disabled]) {
+.split-button__secondary-button_primary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-primary-background-action-active);
   color: var(--click-button-split-primary-text-active);
 }
 
-.split-button .secondary-button_primary[data-disabled] {
+.split-button__secondary-button_primary[data-disabled] {
   background: var(--click-button-split-primary-background-action-disabled);
   color: var(--click-button-split-primary-text-disabled);
   cursor: not-allowed;
 }
 
-.split-button .secondary-button_secondary {
+.split-button__secondary-button_secondary {
   background: var(--click-button-split-secondary-background-action-default);
   color: var(--click-button-split-secondary-text-default);
 }
 
-.split-button .secondary-button_secondary:hover:not([data-disabled]) {
+.split-button__secondary-button_secondary:hover:not([data-disabled]) {
   background: var(--click-button-split-secondary-background-action-hover);
   color: var(--click-button-split-secondary-text-hover);
 }
 
-.split-button .secondary-button_secondary:focus-visible:not([data-disabled]) {
+.split-button__secondary-button_secondary:focus-visible:not([data-disabled]) {
   background: var(--click-button-split-secondary-background-action-active);
   color: var(--click-button-split-secondary-text-active);
 }
 
-.split-button .secondary-button_secondary[data-disabled] {
+.split-button__secondary-button_secondary[data-disabled] {
   background: var(--click-button-split-secondary-background-action-disabled);
   color: var(--click-button-split-secondary-text-disabled);
   cursor: not-allowed;
-}
-
-.button-data {
-  width: auto;
 }
