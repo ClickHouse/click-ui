@@ -99,7 +99,7 @@ export const SplitButton = ({
       <div
         ref={ref}
         role="group"
-        aria-label="Split button"
+        aria-label={typeof children === 'string' ? children : 'Split button'}
         data-testid="split-button"
         className={cn(splitButtonVariants({ type, fillWidth }), className)}
         data-disabled={disabled ? '' : undefined}
