@@ -61,6 +61,7 @@ export const SplitButton = ({
       >
         <PrimaryButton
           disabled={disabled}
+          aria-disabled={disabled || undefined}
           $type={type}
           $fillWidth={fillWidth}
           {...props}

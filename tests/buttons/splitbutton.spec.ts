@@ -216,6 +216,7 @@ describe('SplitButton Visual Regression', () => {
       });
       const primaryButton = page.getByRole('button').first();
       await expect(primaryButton).toBeDisabled();
+      await expect(primaryButton).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('keyboard navigation works', async ({ page }) => {
