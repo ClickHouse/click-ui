@@ -1513,95 +1513,126 @@
       }
     },
     "chart": {
-      "orange": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [22, 100, 58],
-          "alpha": 1,
-          "hex": "#FF7729"
-        },
-        "$description": "Chart series - orange (orange.400)"
-      },
       "green": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [125, 100, 45],
-          "alpha": 1,
-          "hex": "#00E513"
+        "$value": "{color.green.500}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.green.500}",
+            "dark": "{color.green.400}"
+          }
         },
-        "$description": "Chart series - green (green.500)"
+        "$description": "Chart series - green"
+      },
+      "blue": {
+        "$type": "color",
+        "$value": "{color.blue.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.blue.400}",
+            "dark": "{color.blue.400}"
+          }
+        },
+        "$description": "Chart series - blue"
       },
       "fuchsia": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [315, 96, 59],
-          "alpha": 1,
-          "hex": "#FB32C9"
+        "$value": "{color.fuchsia.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.fuchsia.400}",
+            "dark": "{color.fuchsia.300}"
+          }
         },
-        "$description": "Chart series - fuchsia (fuchsia.400)"
+        "$description": "Chart series - fuchsia"
       },
-      "yellow": {
+      "orange": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [62, 100, 71],
-          "alpha": 1,
-          "hex": "#FAFF69"
+        "$value": "{color.orange.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.orange.400}",
+            "dark": "{color.orange.400}"
+          }
         },
-        "$description": "Chart series - yellow (brand.300)"
+        "$description": "Chart series - orange"
       },
       "violet": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [280, 100, 70],
-          "alpha": 1,
-          "hex": "#CC66FF"
+        "$value": "{color.violet.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.violet.400}",
+            "dark": "{color.violet.400}"
+          }
         },
-        "$description": "Chart series - violet (violet.300)"
-      },
-      "babyblue": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [188, 100, 46],
-          "alpha": 1,
-          "hex": "#00CBEB"
-        },
-        "$description": "Chart series - babyblue (babyblue.400)"
-      },
-      "red": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [0, 100, 57],
-          "alpha": 1,
-          "hex": "#ff2323"
-        },
-        "$description": "Chart series - red (red.400)"
+        "$description": "Chart series - violet"
       },
       "teal": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [170, 90, 32],
-          "alpha": 1,
-          "hex": "#089B83"
+        "$value": "{color.teal.600}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.teal.600}",
+            "dark": "{color.teal.300}"
+          }
         },
-        "$description": "Chart series - teal (teal.600)"
+        "$description": "Chart series - teal"
+      },
+      "yellow": {
+        "$type": "color",
+        "$value": "{color.brand.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.brand.400}",
+            "dark": "{color.brand.400}"
+          }
+        },
+        "$description": "Chart series - yellow"
+      },
+      "babyblue": {
+        "$type": "color",
+        "$value": "{color.babyblue.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.babyblue.400}",
+            "dark": "{color.babyblue.400}"
+          }
+        },
+        "$description": "Chart series - babyblue"
+      },
+      "red": {
+        "$type": "color",
+        "$value": "{color.red.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.red.400}",
+            "dark": "{color.red.400}"
+          }
+        },
+        "$description": "Chart series - red"
       },
       "sunrise": {
         "$type": "color",
-        "$value": {
-          "colorSpace": "hsl",
-          "components": [46, 100, 50],
-          "alpha": 1,
-          "hex": "#FFC300"
+        "$value": "{color.sunrise.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.sunrise.400}",
+            "dark": "{color.sunrise.400}"
+          }
         },
-        "$description": "Chart series - sunrise (sunrise.400)"
+        "$description": "Chart series - sunrise"
+      },
+      "slate": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$extensions": {
+          "mode": {
+            "light": "{color.gray.400}",
+            "dark": "{color.gray.400}"
+          }
+        },
+        "$description": "Chart series - slate"
       }
     }
   }
