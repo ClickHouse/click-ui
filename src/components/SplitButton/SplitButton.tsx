@@ -107,14 +107,12 @@ export const SplitButton = ({
           className={cn(primaryButtonVariants({ type, fillWidth }))}
           {...props}
         >
-          <div className={styles['button-data']}>
-            <IconWrapper
-              icon={icon}
-              iconDir={iconDir}
-            >
-              {children}
-            </IconWrapper>
-          </div>
+          <IconWrapper
+            icon={icon}
+            iconDir={iconDir}
+          >
+            {children}
+          </IconWrapper>
         </BaseButton>
         <Dropdown.Trigger
           asChild
