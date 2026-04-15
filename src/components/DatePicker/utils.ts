@@ -148,6 +148,14 @@ export const getPredefinedTimePeriodsForDateTimePicker = (): DateRangeListItem[]
   return dateRangeList;
 };
 
+export const getNextNDatesForDatePickerAllowOnlyList = (numberOfDays: number): Date[] => {
+  const now = dayjs();
+
+  return Array.from({ length: numberOfDays }, (_, i) =>
+    now.add(i, 'day').startOf('day').toDate()
+  );
+};
+
 export const datesAreWithinMaxRange = (
   startDate: Date,
   endDate: Date,

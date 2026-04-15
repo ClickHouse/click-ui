@@ -1,5 +1,6 @@
 import { Args } from '@storybook/react-vite';
 import { DatePicker } from '@/components/DatePicker';
+import { getNextNDatesForDatePickerAllowOnlyList } from './utils';
 
 const defaultStory = {
   args: {
@@ -42,6 +43,14 @@ const defaultStory = {
 
 export default defaultStory;
 
-export const Playground = {
+export const Default = {
   ...defaultStory,
+};
+
+export const DatePickerAllowOnlyNext30Days = {
+  ...defaultStory,
+  args: {
+    ...defaultStory.args,
+    allowOnlyDatesList: getNextNDatesForDatePickerAllowOnlyList(30),
+  },
 };
