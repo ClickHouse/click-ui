@@ -209,7 +209,7 @@ export const CardHorizontal = ({
     }
   };
 
-  const onClickButtonHandler = (e: React.MouseEvent<HTMLElement>) => {
+  const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     handleClick(e);
   };
@@ -285,7 +285,7 @@ export const CardHorizontal = ({
           >
             <Button
               label={infoText}
-              onClick={onClickButtonHandler}
+              onClick={handleButtonClick}
               disabled={disabled}
               fillWidth
             />
