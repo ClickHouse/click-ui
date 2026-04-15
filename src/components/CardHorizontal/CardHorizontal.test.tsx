@@ -210,6 +210,16 @@ describe('CardHorizontal Component', () => {
     expect(wrapper).toHaveAttribute('aria-pressed', 'false');
   });
 
+  it('should have aria-pressed="false" when selectable but isSelected is not provided', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('aria-pressed', 'false');
+  });
+
   it('should not have aria-pressed when not selectable', () => {
     const { container } = renderCard({
       title: 'Test Card',
